@@ -72,7 +72,12 @@
 #endif
 
 #ifdef _WIN32
-#define QuadPart(x) (((long long)x.HighPart << 32) + x.LowPart)
+/*#define QuadPart(x) (((long long)x.HighPart << 32) + x.LowPart)*/
+#ifndef _ANONYMOUS_STRUCT
+#define QuadPart(x) x.u.QuadPart
+#else
+#define QuadPart(x) x.QuadPart
+#endif
 #endif
 
 #ifndef SIGALRM
