@@ -1236,8 +1236,6 @@ available in this registry.
 * ui::	UI
 * misc::	Misc
 * helpmenu::	Help
-* file::	File
-* helpmenu::	Help
 * xtextpos::	Horizontal text position
 * ytextpos::	Vertical text position
 * mformula::	Formulae

@@ -1185,8 +1185,6 @@ available in this registry.
 <p><submenu><a ui>UI</a>
 <p><submenu><a misc>Misc</a>
 <p><submenu><a helpmenu>Help</a>
-<p><submenu><a file>File</a>
-<p><submenu><a helpmenu>Help</a>
 <p><submenu><a xtextpos>Horizontal text position</a>
 <p><submenu><a ytextpos>Vertical text position</a>
 <p><submenu><a mformula>Formulae</a>
