@@ -652,46 +652,15 @@ AC_TYPE_SIGNAL
 AC_CHECK_FUNCS([ftime getcwd gettimeofday memchr memmove memset pow select setlocale sqrt strdup strerror strstr sleep setitimer ftime finite fabsl _fabsl __fabsl])
 
 dnl Internationalization (i18n) checks.
-dnl setlocale() was buggy about 10 September 2002 in SuSE Linux 7.3 upgrade.
-dnl This code checks if the problem persists.
 AC_ARG_WITH(i18n,
         [  --with-i18n=no          disables internationalization (i18n)],[
 	if test x$withval = xno; then
 	  i18n=no
+	  AC_DEFINE(WITHOUT_GETTEXT)
+    CFLAGS="$CFLAGS -DWITHOUT_GETTEXT"
+	  CFLAGS1="$CFLAGS1 -DWITHOUT_GETTEXT"
 	fi
 ])
-AC_DEFUN(AC_SETLOCALE,
-[AC_CACHE_CHECK(whether setlocale works correctly, ac_setlocale,
-[echo '
-#include <locale.h>
-int main()
-{
- if (setlocale(LC_ALL,"")==NULL)
-  return 1;
- return 0;
-}
-' > conftest.c
-${CC-cc} -o conftest conftest.c
-ac_setlocale=yes
-./conftest || ac_setlocale=no
-rm -f conftest*
-])])
-AC_SETLOCALE
-if test  "$ac_setlocale" = no; then
-  AC_DEFINE(WITHOUT_GETTEXT)
-	CFLAGS="$CFLAGS -DWITHOUT_GETTEXT"
-	CFLAGS1="$CFLAGS1 -DWITHOUT_GETTEXT"
-	echo "setlocale() problems: i18n will not be used"
- else
-  if test  "$i18n" = no; then
-	 AC_DEFINE(WITHOUT_GETTEXT)
-   CFLAGS="$CFLAGS -DWITHOUT_GETTEXT"
-	 CFLAGS1="$CFLAGS1 -DWITHOUT_GETTEXT"
-	 echo "i18n will not be used"
-	else
-   echo "i18n will be used"
-	 fi
- fi
 
 if test  "$x_driver_test" = yes; then
 dnl X checks

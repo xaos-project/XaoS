@@ -3,6 +3,7 @@ Internationalization (i18n) in XaoS
 
 Zoltan Kovacs <kovzol@math.u-szeged.hu>
 
+12 September 2002
 1 September 2002
 26 August 2002
 
@@ -15,10 +16,13 @@ and some internal strings can be translated, the old method in
 ../../catalogs haven't changed yet.
 
 Note that i18n cannot be used if you don't have gettext installed
-on your system. I used gettext-0.10.37 which works greatly.
+on your system. I used gettext-0.10.37 which works greatly for Linux
+and gettext-0.10.40 for DOS version.
 
 
 2. HOW TO INSTALL A NEW LANGUAGE
+
+This will work only on Unix systems.
 
 * Edit Makefile.in, add your 2 letter long language code in the first row
   (e.g. "cs" for Czech, "de" for German).
@@ -53,7 +57,8 @@ if you're interested:
 
 * To set up different languages and try out each one you probably have
   to set the LC_ALL variable. E.g., I had to change it to de_DE or hu_HU
-  to test different languages.
+  to test different languages. (On DOS I had to set the variable
+	LANG to de or hu, etc.)
 	
 * Read the gettext howto ("info gettext"). It's quite long, though.
 
@@ -68,7 +73,3 @@ if you're interested:
 
 XaoS i18n is not yet finished. I'm working on it in my spare time.
 Your help is also welcome.
-
-Here is a short to-do list:
-
-* Check if sources will compile on DOS or not. Gettext supports DJGPP.

@@ -1,5 +1,5 @@
-/* 
- *     XaoS, a fast portable realtime fractal zoomer 
+/*
+ *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996 by
  *
  *      Jan Hubicka          (hubicka@paru.cas.cz)
@@ -63,18 +63,14 @@
 #include <xerror.h>
 #include <xmenu.h>
 #include <grlib.h>
-
 #include <archaccel.h>
 #include "uiint.h"
-
 #ifndef WITHOUT_GETTEXT
 #include <libintl.h>
 #include <locale.h>
 #else
 #define gettext(STRING) STRING
 #endif
-
-
 
 #ifdef DESTICKY
 int euid, egid;
@@ -85,10 +81,8 @@ int euid, egid;
 #define MEMCHECK
 #endif
 #endif
-
 #define textheight1 (driver->textheight)
 #define textwidth1 (driver->textwidth)
-
 #define ui_flush() (driver->flush?driver->flush(),1:0)
 #ifdef MEMCHECK
 #define STATUSLINES 12
@@ -96,19 +90,14 @@ int euid, egid;
 #define STATUSLINES 10
 #endif
 static void ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange);
-
 #ifndef exit_xaos
 #define exit_xaos(i) exit(i)
 #endif
-
 xio_pathdata configfile;
-
 static void ui_unregistermenus (void);
-
 
 int prog_argc;
 char **prog_argv;
-
 /*UI state */
 uih_context *uih;
 CONST struct ui_driver *driver;
@@ -120,20 +109,16 @@ static struct uih_window *statuswindow = NULL;
 static int ministatusstart;
 static struct uih_window *ministatuswindow = NULL;
 static int mouse;
-
 /* Used by ui_mouse */
 static int dirty = 0;
 static int lastiter;
 static int maxiter;
 static int lastbuttons, lastx, lasty;
-
 static int callresize = 0;
-
 static tl_timer *maintimer;
 static tl_timer *arrowtimer;
 static tl_timer *loopt;
 static int todriver = 0;
-
 
 /* Command line variables */
 static char *defpipe;
@@ -179,7 +164,6 @@ CONST static menuitem resizeitems[] =
   MENUNOP ("uia", "=", "Resize", "animresize", UI | MENUFLAG_INTERRUPT, ui_call_resize),
 };
 static int resizeregistered = 0;
-
 static void
 ui_updatemenus (uih_context * c, CONST char *name)
 {
@@ -305,14 +289,12 @@ get_windowheight (int height)
     return (21.0 / driver->maxheight * height);
   return (21.5);
 }
-
 extern int dynsize;
 static void
 ui_outofmem (void)
 {
   x_error (gettext("XaoS is out of memory."));
 }
-
 #define CHECKPROCESSEVENTS(b,k) assert(!((k)&~15)&&!((b)&~(BUTTON1|BUTTON2|BUTTON3)))
 static int
 ui_passfunc (struct uih_context *c, int display, CONST char *text, float percent)
@@ -346,25 +328,22 @@ ui_passfunc (struct uih_context *c, int display, CONST char *text, float percent
     }
   return (0);
 }
-
 static void
 ui_updatestatus (void)
 {
   double times = (uih->fcontext->currentformula->v.rr) / (uih->fcontext->s.rr);
   double speed;
-
   uih_drawwindows (uih);
   driver->display ();
   uih_cycling_continue (uih);
   speed = uih_displayed (uih);
-
-  sprintf (statustext, gettext("%s %.2f times %2.2f frames/sec %c %i %i %i %i            "), times < 1 ? gettext("unzoomed") : gettext("zoomed"), times < 1 ? 1.0 / times : times, speed, uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1, uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1, uih->fcontext->maxiter);
+  sprintf (statustext, gettext("%s %.2f times %2.2f frames/sec %c %i %i %i %i            "), times < 1 ? gettext("unzoomed") : gettext("zoomed"), times < 1 ? 1.0 / times : times, speed, uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1, 
+  uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1, uih->fcontext->maxiter);
   if (!(driver->flags & NOFLUSHDISPLAY))
     ui_flush ();
   STAT (printf (gettext("framerate:%f\n"), speed));
   driver->print (0, 0, "");
 }
-
 void
 ui_updatestarts (void)
 {
@@ -403,7 +382,6 @@ ui_menuactivate (CONST menuitem * item, dialogparam * d)
 	    uih_interrupt (uih);
 	  return;
 	}
-
       if (item->flags & MENUFLAG_CHECKBOX)
 	{
 	  char s[256];
@@ -423,14 +401,11 @@ ui_menuactivate (CONST menuitem * item, dialogparam * d)
 	menu_destroydialog (item, d, uih);
     }
 }
-
 xio_path
 ui_getfile (CONST char *basename, CONST char *extension)
 {
   return (xio_getfilename (basename, extension));
 }
-
-
 
 static void
 ui_statuspos (uih_context * uih, int *x, int *y, int *w, int *h, void *data)
@@ -545,7 +520,6 @@ ui_ministatusenabled (uih_context * uih)
 {
   return (ministatuswindow != NULL);
 }
-
 static void
 ui_message (struct uih_context *u)
 {
@@ -556,7 +530,6 @@ ui_message (struct uih_context *u)
   sprintf (s, gettext("Please wait while calculating %s"), uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
   driver->print (0, 0, s);
 }
-
 #define ROTATESPEEDUP 30
 static int
 procescounter (int *counter, CONST char *text, int speed, int keys, int lastkeys, int down, int up, int tenskip, int min, int max)
@@ -619,7 +592,6 @@ ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange)
   int flags;
   char str[80];
   static int spid;
-
   flags = 0;
   if (mousex != lastx || mousey != lasty)
     flags |= MOUSE_MOVE;
@@ -632,7 +604,6 @@ ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange)
   lastx = mousex;
   lasty = mousey;
   lastbuttons = mousebuttons;
-
   tl_update_time ();
   CHECKPROCESSEVENTS (mousebuttons, iterchange);
   if (ui_helpmouse (mousex, mousey, mousebuttons, flags))
@@ -811,7 +782,8 @@ ui_mkimages (int w, int h)
   info.truec.rmask = driver->rmask;
   info.truec.gmask = driver->gmask;
   info.truec.bmask = driver->bmask;
-  palette = createpalette (driver->palettestart, driver->paletteend, driver->imagetype, (driver->flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0, driver->maxentries, driver->set_color != NULL ? ui_alloccolor : NULL, driver->set_range != NULL ? ui_setpalette : NULL, NULL, NULL, &info);
+  palette = createpalette (driver->palettestart, driver->paletteend, driver->imagetype, (driver->flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0, driver->maxentries, driver->set_color != NULL ? ui_alloccolor : NULL, 
+  driver->set_range != NULL ? ui_setpalette : NULL, NULL, NULL, &info);
   if (!palette)
     {
       driver->uninit ();
@@ -828,7 +800,6 @@ ui_mkimages (int w, int h)
       exit_xaos (-1);
     }
 }
-
 void
 ui_resize (void)
 {
@@ -988,7 +959,6 @@ ui_quitwr (uih_context * c, int quit)
   if (quit)
     ui_quit ();
 }
-
 int
 ui_key (int key)
 {
@@ -1086,7 +1056,7 @@ main_loop (void)
 	      if (time > delaytime)
 		{
 		  tl_sleep (time - delaytime);
-	          tl_update_time();
+		  tl_update_time();
 		}
 	    }
 	  inmovement = 1;
@@ -1125,18 +1095,16 @@ ui_getpos (void)
 {
   return (uih_savepostostr (uih));
 }
-void 
+void
 ui_loadstr (CONST char *n)
 {
   uih_loadstr (uih, n);
 }
-
 static menuitem menuitems[] =
 {
 /* This structure is now empty. All static definitions have been moved
    to ui_registermenus_i18n() which fills up its own static array. */
 };
-
 /* Registering internationalized menus. See also include/xmenu.h
    for details. Note that MAX_MENUITEMS_I18N may be increased
 	 if more items will be added in future. */
@@ -1144,7 +1112,6 @@ static menuitem menuitems[] =
 /* These variables must be global: */
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
 int ui_no_menuitems_i18n;
-
 static void
 ui_registermenus_i18n (void)
 {
@@ -1155,20 +1122,19 @@ ui_registermenus_i18n (void)
   MENUNOP_I ("helpmenu", "h", gettext("Help"), "help", MENUFLAG_INCALC, ui_helpwr)
   MENUNOPCB_I ("ui", NULL, gettext("Disable XaoS's builtin GUI"), "nogui", MENUFLAG_INCALC | MENUFLAG_ATSTARTUP | MENUFLAG_NOMENU, ui_noguisw, ui_noguienabled)
   MENUSEPARATOR_I ("ui")
-  MENUNOPCB_I ("ui", "/", gettext("Status"), "status", MENUFLAG_INCALC, ui_status, ui_statusenabled)	/*FIXME: add also ? as key */
+  MENUNOPCB_I ("ui", "/", gettext("Status"), "status", MENUFLAG_INCALC, ui_status, ui_statusenabled)    /*FIXME: add also ? as key */
   MENUNOPCB_I ("ui", "l", gettext("Ministatus"), "ministatus", MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled)
   MENUSEPARATOR_I ("ui")
   MENUSEPARATOR_I ("uia")
-  MENUNOPCB_I ("uia", "/", gettext("Status"), "animstatus", UI | MENUFLAG_INCALC, ui_status, ui_statusenabled)	/*FIXME: add also ? as key */
+  MENUNOPCB_I ("uia", "/", gettext("Status"), "animstatus", UI | MENUFLAG_INCALC, ui_status, ui_statusenabled)  /*FIXME: add also ? as key */
   MENUNOPCB_I ("uia", "l", gettext("Ministatus"), "animministatus", UI | MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled)
   MENUSEPARATOR_I ("uia")
   SUBMENU_I ("ui", NULL, gettext("Driver"), "drivers")
   SUBMENU_I ("uia", NULL, gettext("Driver"), "drivers")
-
   menu_add (menuitems_i18n, no_menuitems_i18n);
-  ui_no_menuitems_i18n = 	no_menuitems_i18n;
-}	
-	
+  ui_no_menuitems_i18n =        no_menuitems_i18n;
+}
+
 /* Registering driver items: */
 static menuitem *driveritems;
 static void
@@ -1200,7 +1166,6 @@ ui_unregistermenus (void)
 	menu_delete (menuitems_i18n, ui_no_menuitems_i18n);
   free (driveritems);
 }
-
 int number_six=6;
 #define MAX_WELCOME 50
 #ifndef MAIN_FUNCTION
@@ -1224,14 +1189,27 @@ MAIN_FUNCTION (int argc, char **argv)
   egid = getegid ();
 #endif
 #ifdef DESTICKY
-  seteuid (getuid ());		/* Don't need supervisor rights anymore. */
+  seteuid (getuid ());          /* Don't need supervisor rights anymore. */
   setegid (getgid ());
 #endif
 #ifndef WITHOUT_GETTEXT
   /* Setting all locales for XaoS: */
-  setlocale(LC_ALL,"");
-	locale = setlocale(LC_MESSAGES, "");
-	strcpy(language, "english");
+  locale = setlocale(LC_ALL,"");
+  if (locale==NULL)
+    {
+	printf("An error occured in your setlocale/gettext installation.\n");
+	printf("I18n menus will not be available.\n");
+    }
+  
+  if ((locale==NULL) || (strcmp(locale,"C")==0))
+	 locale = getenv("LANG");
+	else
+	 locale = setlocale(LC_MESSAGES,"");
+
+  strcpy(language, "english");
+ 
+  printf("Trying to use locale settings for %s.\n", locale);
+
 	if (locale != NULL)
 		{
 			if (strlen(locale) > 2)
@@ -1247,14 +1225,20 @@ MAIN_FUNCTION (int argc, char **argv)
 			if (strcmp(locale, "fr")==0)
 				strcpy(language, "francais");
 			}
+	printf("Using catalog file for %s language.\n", language);
 	/* Without this some locales (e.g. the Hungarian) replaces "." to ","
 	   in numerical format and this will cause an automatic truncation
 		 at each parameter at certain places, e.g. drawing a new fractal. */
-	setlocale(LC_NUMERIC,"C"); 
+	setlocale(LC_NUMERIC,"C");
+  printf("Text domain will be bound to directory %s.\n", bindtextdomain("xaos",
+#ifdef DOG_DRIVER
+  "..\\locale"));
+#else
+  "/usr/share/locale"));
+#endif
   textdomain("xaos");
   /* Done setting locales. */
 #endif
-
   xio_init (argv[0]);
   params_register (global_params);
   params_register (ui_fractal_params);
@@ -1298,7 +1282,6 @@ MAIN_FUNCTION (int argc, char **argv)
 		 "Type size: %i\n"
 		 "integer size: %i\n"
 		 "configfile: %s\n"
-
 #ifndef _plan9_
 #ifdef HAVE_ALLOCA
 		 "using alloca\n"
@@ -1356,7 +1339,6 @@ MAIN_FUNCTION (int argc, char **argv)
       exit_xaos (0);
     }
 
-
 #ifndef _plan9_
   xth_init (defthreads);
 #endif
@@ -1410,14 +1392,13 @@ MAIN_FUNCTION (int argc, char **argv)
 #endif
   driver->getsize (&width, &height);
 #ifdef _plan9_
-  xth_init (defthreads);	/*plan0 requires to initialize tasks after graphics */
+  xth_init (defthreads);        /*plan0 requires to initialize tasks after graphics */
 #endif
   mousetype (WAITMOUSE);
   driver->print (0, 0, "Initializing. Please wait");
   driver->print (0, textheight1, "Creating framebuffer");
   ui_flush ();
   ui_mkimages (width, height);
-
 
   driver->print (0, textheight1 * 2, "Initializing fractal engine");
   ui_flush ();
@@ -1429,7 +1410,7 @@ MAIN_FUNCTION (int argc, char **argv)
   if (getenv ("HOME") != NULL)
     {
       char home[256], *env = getenv ("HOME");
-      int maxsize = 255 - (int) strlen (CONFIGFILE) - 1;	/*Avoid buffer owerflow */
+      int maxsize = 255 - (int) strlen (CONFIGFILE) - 1;        /*Avoid buffer owerflow */
       int i;
       for (i = 0; i < maxsize && env[i]; i++)
 	home[i] = env[i];
@@ -1447,9 +1428,7 @@ MAIN_FUNCTION (int argc, char **argv)
   loopt = tl_create_timer ();
   driver->print (0, textheight1 * 3, "Loading message catalog");
   ui_flush ();
-
   uih_loadcatalog (uih, language);
-
   driver->print (0, textheight1 * 4, "Initializing timming system");
   ui_flush ();
   uih_newimage (uih);
@@ -1473,7 +1452,7 @@ MAIN_FUNCTION (int argc, char **argv)
   /*uih_constantframetime(uih,1000000/20); */
   driver->print (0, textheight1 * 6, "Reading configuration file");
   {
-    xio_file f = xio_ropen (configfile);	/*load the configuration file */
+    xio_file f = xio_ropen (configfile);        /*load the configuration file */
     if (f != XIO_FAILED)
       {
 	uih_load (uih, f, configfile);
@@ -1498,7 +1477,7 @@ MAIN_FUNCTION (int argc, char **argv)
       }
   }
 #ifndef _plan9_
-	snprintf(welcome, MAX_WELCOME, 
+	sprintf(welcome,
 	 gettext("Welcome to XaoS version %s"), XaoS_VERSION);
   uih_message (uih, welcome);
 #endif
@@ -1526,12 +1505,11 @@ MAIN_FUNCTION (int argc, char **argv)
 	driver->display (), ui_flush(), driver->processevents (0, &x, &y, &b, &k), tl_update_time (), c++;
       x_message ("Driver speed: %g FPS (%.4f MBPS)", c / 5.0, c*(double)size/5.0/1024/1024);
 
-
       driver->print (0, textheight1 * 10, "Measuring memcpy speed");
       ui_flush();
       for (c = 0; c < 5; c++)
       {
-        for(x=0;x<uih->image->height;x++)
+	for(x=0;x<uih->image->height;x++)
 	  memcpy (uih->image->currlines[y], uih->image->oldlines[y], linesize);
       }
       tl_update_time ();
@@ -1539,24 +1517,22 @@ MAIN_FUNCTION (int argc, char **argv)
       c = 0;
       while (tl_lookup_timer (maintimer) < 5000000)
       {
-        for(x=0;x<uih->image->height;x++)
+	for(x=0;x<uih->image->height;x++)
 	  memcpy (uih->image->currlines[y], uih->image->oldlines[y], linesize);
 	tl_update_time (), c++;
        }
       x_message ("Memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c*(double)size/5.0/1024/1024);
-
 
       driver->print (0, textheight1 * 10, "Measuring missaligned memcpy speed");
       tl_update_time ();
       tl_reset_timer (maintimer);
       c = 0;
       while (tl_lookup_timer (maintimer) < 5000000) {
-        for(x=0;x<uih->image->height;x++)
+	for(x=0;x<uih->image->height;x++)
 	  memcpy (uih->image->currlines[y]+1, uih->image->oldlines[y]+2, linesize-2);
 	tl_update_time (), c++;
       }
       x_message ("Missaligned memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c*(double)size/5.0/1024/1024);
-
 
       driver->print (0, textheight1 * 10, "Measuring size6 memcpy speed");
       tl_update_time ();
@@ -1564,15 +1540,14 @@ MAIN_FUNCTION (int argc, char **argv)
       c = 0;
       while (tl_lookup_timer (maintimer) < 5000000)
       {
-        int x, y;
-        for (y=0;y<uih->image->height;y++)
-          for (x=0;x<linesize-6;x+=6) {
+	int x, y;
+	for (y=0;y<uih->image->height;y++)
+	  for (x=0;x<linesize-6;x+=6) {
 	    memcpy (uih->image->currlines[y]+x, uih->image->oldlines[y]+x, number_six);
-           }
-        tl_update_time (), c++;
+	   }
+	tl_update_time (), c++;
       }
       x_message ("Size 6 memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c*(double)size/5.0/1024/1024);
-
 
       driver->display ();
       driver->print (0, textheight1 * 11, "Measuring calculation speed");

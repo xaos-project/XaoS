@@ -17,14 +17,15 @@ DIRS= \
        ui-hlp \
        util \
        ui/ui-drv/dos \
-       ui/ui-drv/aa
+       ui/ui-drv/aa \
+       i18n
 
 PROG= ../bin/xaos
 OBJS = $(SRCS:.c=.o)
 
 include dos.mak
 
-all default:	$(PROG)
+all default:    $(PROG)
 
 ../bin:
 	mkdir $@
@@ -39,6 +40,8 @@ libs:
 	$(MAKE) -f Makefile.dos -C util all
 	$(MAKE) -f Makefile.dos -C ui/ui-drv/dos all
 	$(MAKE) -f Makefile.dos -C ui/ui-drv/aa all
+	$(MAKE) -f Makefile.dos -C i18n install
+
 
 $(PROG): lib ../bin include/config.h include/aconfig.h libs
 	$(CC) $(CFLAGS) $(LFLAGS) -o $@ $(TLIBS) $(LIBS)
@@ -56,6 +59,7 @@ clean:
 	$(MAKE) -f Makefile.dos -C util clean
 	$(MAKE) -f Makefile.dos -C ui/ui-drv/dos clean
 	$(MAKE) -f Makefile.dos -C ui/ui-drv/aa clean
+	$(MAKE) -f Makefile.dos -C i18n clean
 	rm -f include/config.h
 	rm -f include/aconfig.h
 	rm -f $(PROG)
@@ -63,11 +67,11 @@ clean:
 distclean:clean
 
 #dep:
-#	rm -f .depend
-#	make .depend
+#       rm -f .depend
+#       make .depend
 #
 #.depend:
-#	echo '# Program dependencies' >.depend
-#	gcc -I svgalib $(DEFINES) -MM $(patsubst %.o,%.c,$(OBJS)) >>.depend
+#       echo '# Program dependencies' >.depend
+#       gcc -I svgalib $(DEFINES) -MM $(patsubst %.o,%.c,$(OBJS)) >>.depend
 #
 #include .depend
