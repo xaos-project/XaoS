@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
-"POT-Creation-Date: 2003-02-28 12:02+0100\n"
+"POT-Creation-Date: 2003-03-11 12:36+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: French\n"
@@ -15,11 +15,6 @@ msgstr ""
 
 #: ../ui/ui.c:312
 msgid "XaoS is out of memory."
-msgstr ""
-
-#: ../ui/ui.c:362
-#, c-format
-msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
 msgstr ""
 
 #: ../ui/ui.c:363
@@ -210,7 +205,7 @@ msgstr ""
 msgid "Driver"
 msgstr ""
 
-#: ../ui/ui.c:1620
+#: ../ui/ui.c:1644
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr ""

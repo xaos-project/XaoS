@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
-"POT-Creation-Date: 2003-02-28 12:02+0100\n"
+"POT-Creation-Date: 2003-03-11 12:36+0100\n"
 "PO-Revision-Date: 2003-02-11 02:02+GMT\n"
 "Last-Translator: \n"
 "Language-Team:  <de@li.org>\n"
@@ -17,11 +17,6 @@ msgstr ""
 #: ../ui/ui.c:312
 msgid "XaoS is out of memory."
 msgstr "XaoS hat zu wenig Speicher"
-
-#: ../ui/ui.c:362
-#, c-format
-msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
-msgstr "%s %.2f mal (%.1fE) %2.2f Bilder/sek. %c %i %i %i %i            "
 
 #: ../ui/ui.c:363
 msgid "unzoomed"
@@ -211,7 +206,7 @@ msgstr "Ministatus"
 msgid "Driver"
 msgstr "Treiber"
 
-#: ../ui/ui.c:1620
+#: ../ui/ui.c:1644
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Willkommen zu XaoS Version %s"
@@ -1354,3 +1349,6 @@ msgstr "Berechnung unterbrochen"
 #: ../ui-hlp/render.c:613 ../ui-hlp/render.c:615 ../ui-hlp/render.c:712
 msgid "Calculation finished"
 msgstr "Berechnung beendet"
+
+#~ msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
+#~ msgstr "%s %.2f mal (%.1fE) %2.2f Bilder/sek. %c %i %i %i %i            "
