@@ -82,5 +82,5 @@
 (load "anim.xhf")
 
 (message "newend")
-(textwait)
+(textsleep)
 (display)
