@@ -4,5 +4,6 @@
 # We assume that CVS_RSH is already set (export CVS_RSH=ssh)
 # and we are in a CVS downloaded directory of XaoS.
 
-rcs2log | sed s/"\/cvsroot\/xaos\/XaoS\/"/""/g > ../ChangeLog
-cvs commit -m "Automatic update by mkChangeLog" ../ChangeLog
+cd ..
+rcs2log | sed s/"\/cvsroot\/xaos\/XaoS\/"/""/g > ChangeLog
+cvs commit -m "Automatic update by mkChangeLog" ChangeLog
