@@ -9805,19 +9805,25 @@ echo "$as_me: WARNING: The GNU C compiler is recommended to get the best perform
 fi
 if test "x$ac_cv_c_long_double" = xyes; then
   if test "x$long_double" = xyes; then
-  { echo "$as_me:9808: WARNING: Long double enabled. This works well for x86 architectures. On other systems this may slow down much. Especially on SUN workstations. If XaoS works incredibly slowly" >&5
-echo "$as_me: WARNING: Long double enabled. This works well for x86 architectures. On other systems this may slow down much. Especially on SUN workstations. If XaoS works incredibly slowly" >&2;}
+  { echo "$as_me:9808: WARNING: Long double enabled. This works well for x86 architectures. On other systems this may slow down much. Especially on SUN workstations. If XaoS works incredibly slowly, try to rebuild it using:
+   configure --with-long-double=no
+   make clean
+   make" >&5
+echo "$as_me: WARNING: Long double enabled. This works well for x86 architectures. On other systems this may slow down much. Especially on SUN workstations. If XaoS works incredibly slowly, try to rebuild it using:
+   configure --with-long-double=no
+   make clean
+   make" >&2;}
   fi
 fi
 if test "x$drivers" = xno; then
-  { echo "$as_me:9813: WARNING: There is no driver avaible. XaoS will not start." >&5
+  { echo "$as_me:9819: WARNING: There is no driver avaible. XaoS will not start." >&5
 echo "$as_me: WARNING: There is no driver avaible. XaoS will not start." >&2;}
   config_problem=yes
 fi
 if test "x$config_problem" = xyes; then
-  { echo "$as_me:9818: WARNING: There was a problem with automatic configuration." >&5
+  { echo "$as_me:9824: WARNING: There was a problem with automatic configuration." >&5
 echo "$as_me: WARNING: There was a problem with automatic configuration." >&2;}
-  { echo "$as_me:9820: WARNING: Read INSTALL file for troubleshooting tips." >&5
+  { echo "$as_me:9826: WARNING: Read INSTALL file for troubleshooting tips." >&5
 echo "$as_me: WARNING: Read INSTALL file for troubleshooting tips." >&2;}
 fi
 if test x"$ac_cv_lib_z_inflate" = xno; then
