@@ -11,7 +11,9 @@
 #include "math.h"
 #else
 #if defined(__GNUC__) && defined(__i386__) && defined(__OPTIMIZE__)
+#if 0
 #include "i386/__math.h"
+#endif
 #endif
 #endif
 
