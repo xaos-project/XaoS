@@ -65,7 +65,7 @@
 #include <grlib.h>
 #include <archaccel.h>
 #include "uiint.h"
-#ifndef WITHOUT_GETTEXT
+#ifdef HAVE_GETTEXT
 #include <libintl.h>
 #include <locale.h>
 #else
@@ -1309,7 +1309,7 @@ MAIN_FUNCTION (int argc, char **argv)
   seteuid (getuid ());		/* Don't need supervisor rights anymore. */
   setegid (getgid ());
 #endif
-#ifndef WITHOUT_GETTEXT
+#ifdef HAVE_GETTEXT
   /* Setting all locales for XaoS: */
   locale = setlocale (LC_ALL, "");
   if (locale == NULL)

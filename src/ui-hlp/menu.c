@@ -15,7 +15,7 @@
 #include <plane.h>
 #include <xmenu.h>
 #include "play.h"
-#ifndef WITHOUT_GETTEXT
+#ifdef HAVE_GETTEXT
 #include <libintl.h>
 #else
 #define gettext(STRING) STRING
