@@ -3274,9 +3274,7 @@ To avoid this, you could use palette emulation filter. @xref{palettef}.
 (alphabetically)
 @table @strong
 @item Eric Courteau (ecourteau@@cplus.fr)
-francais.cat (translation of tutorials)
-@item Jean-Pierre Demailly (Jean-Pierre.Demailly@@ujf-grenoble.fr)
-update of francais.cat for version 3.1.1
+Francais.cat (translation of tutorials)
 @item Radek Doulik (rodo@@atrey.karlin.mff.cuni.cz)
 GTK interface, windowid patches
 @item Martin Dozsa (madsoft@@centrum.cz)
@@ -3295,6 +3293,8 @@ OS/2 ports (320x200 graphics and AA-lib)
 Internationalization, finalizing version 3.1
 @item Andreas Madritsch (amadritsch@@datacomm.ch)
 New fractal types, bailout, many fixes
+@item Giorgio Marazzi (gmarazzi@@vtr.net)
+Improvements and fixes for espanhol.cat
 @item Thomas Marsh
 First zoomer, formulae, planes, X11 driver, inversions, many ideas
 @item Dominic Mazzoni (dmazzoni@@cs.cmu.edu)

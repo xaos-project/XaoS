@@ -1,4 +1,4 @@
-This is xaos.info, produced by makeinfo version 4.0 from xaos.texinfo.
+This is xaos.info, produced by makeinfo version 4.5 from xaos.texinfo.
 
 INFO-DIR-SECTION Graphics
 START-INFO-DIR-ENTRY
@@ -1190,6 +1190,7 @@ shared colormaps and MitSHM extension.
      and 32bpp truecolor, 1bpp and 8bpp staticolor visuals.
 
 *Palette rotating does not work for 8bpp pseudocolor w/o private palette*
+
    X11 driver was written by Jan Hubicka and Thomas Marsh, 1997.
 
 
@@ -2087,8 +2088,8 @@ imaginary; but they can also be displayed differently:
 
 *1/(mu-1.40115)*
      A very interesting mode for the Mandelbrot set, this makes small
-     things large, for easier browsing of the set's details.  The
-tutorial about planes has some examples.
+     things large, for easier browsing of the set's details.
+   The tutorial about planes has some examples.
 
    In the scripting language, the planes are numbered as follows:
 
@@ -3313,9 +3314,10 @@ the following:
      Black to color to white gradient
 
 *3*
-     Cubistic-like algorithm.  The seed specifies a random seed for the
-palette; different seeds generate different palettes. The last value is
-the amount by which the palette is shifted.
+     Cubistic-like algorithm.
+   The seed specifies a random seed for the palette; different seeds
+generate different palettes. The last value is the amount by which the
+palette is shifted.
 
    Note that changing the palette in the truecolor modes forces
 recalculation of the whole screen. To avoid this, you can enable the
@@ -3382,10 +3384,7 @@ Credits
 
    (alphabetically)
 *Eric Courteau (ecourteau@cplus.fr)*
-     francais.cat (translation of tutorials)
-
-*Jean-Pierre Demailly (Jean-Pierre.Demailly@ujf-grenoble.fr)*
-     update of francais.cat for version 3.1.1
+     Francais.cat (translation of tutorials)
 
 *Radek Doulik (rodo@atrey.karlin.mff.cuni.cz)*
      GTK interface, windowid patches
@@ -3414,6 +3413,9 @@ Credits
 
 *Andreas Madritsch (amadritsch@datacomm.ch)*
      New fractal types, bailout, many fixes
+
+*Giorgio Marazzi (gmarazzi@vtr.net)*
+     Improvements and fixes for espanhol.cat
 
 *Thomas Marsh*
      First zoomer, formulae, planes, X11 driver, inversions, many ideas
@@ -3479,6 +3481,7 @@ continue using these mailing lists. Namely,
 *xaos-devel@lists.sourceforge.net,*
 
 *xaos-discuss@lists.sourceforge.net.*
+
    Please feel free to join any or all of these mailing lists and share
 your ideas with the developers.
 
@@ -3586,106 +3589,106 @@ Node: plan939718
 Node: SVGAlib40814
 Node: win3242190
 Node: X1144088
-Node: menus45077
-Node: root45924
-Node: animroot45985
-Node: stopreplay46263
-Node: plc46403
-Node: load46755
-Node: linemenu47075
-Node: animf49839
-Node: animateview50545
-Node: smoothmorph51067
-Node: morphview51641
-Node: morphjulia52694
-Node: moveview53312
-Node: morphangle53533
-Node: zoom54192
-Node: time55017
-Node: usleep55486
-Node: textsleep55874
-Node: wait56418
-Node: file56990
-Node: loadpos57253
-Node: savepos57506
-Node: record57939
-Node: play58429
-Node: saveimg58632
-Node: loadexample59255
-Node: savecfg59598
-Node: quit59972
-Node: edit60136
-Node: undo60321
-Node: redo60585
-Node: copy60751
-Node: paste61034
-Node: fractal61309
-Node: formula61867
-Node: uimandelbrot62586
-Node: uiperturbation64097
-Node: bailout65276
-Node: uiview66363
-Node: initstate68361
-Node: plane68840
-Node: incoloring69992
-Node: outcoloring71505
-Node: tcolor73217
-Node: calc74839
-Node: range75298
-Node: periodicity75912
-Node: maxiter78075
-Node: fastjulia79305
-Node: dynamic80051
-Node: rotate80879
-Node: mfilter82287
-Node: filter82936
-Node: edge83570
-Node: edge284098
-Node: starfield84631
-Node: stereogram84979
-Node: interlace89353
-Node: blur89758
-Node: emboss90162
-Node: palettef90486
-Node: anti91043
-Node: truecolor91737
-Node: ui92335
-Node: speed92789
-Node: letterspersec93835
-Node: autopilot94215
-Node: recalculate95037
-Node: interrupt95397
-Node: nogui95617
-Node: status96076
-Node: ministatus96464
-Node: misc96754
-Node: command97148
-Node: renderanim97523
-Node: clearscreen97765
-Node: display98095
-Node: text98386
-Node: color99111
-Node: textposition99380
-Node: message99835
-Node: helpmenu100227
-Node: xtextpos100359
-Node: ytextpos100624
-Node: mformula100897
-Node: mandel101241
-Node: mandel3101509
-Node: octal101929
-Node: newton102256
-Node: barnsley102789
-Node: phoenix103058
-Node: magnet103283
-Node: palettemenu103614
-Node: defpalette103943
-Node: randompalette104424
-Node: palette104914
-Node: cycling105761
-Node: shiftpalette106724
-Node: authors107421
-Node: lists109486
-Node: index110232
+Node: menus45078
+Node: root45925
+Node: animroot45986
+Node: stopreplay46264
+Node: plc46404
+Node: load46756
+Node: linemenu47076
+Node: animf49840
+Node: animateview50546
+Node: smoothmorph51068
+Node: morphview51642
+Node: morphjulia52695
+Node: moveview53313
+Node: morphangle53534
+Node: zoom54193
+Node: time55018
+Node: usleep55487
+Node: textsleep55875
+Node: wait56419
+Node: file56991
+Node: loadpos57254
+Node: savepos57507
+Node: record57940
+Node: play58430
+Node: saveimg58633
+Node: loadexample59256
+Node: savecfg59599
+Node: quit59973
+Node: edit60137
+Node: undo60322
+Node: redo60586
+Node: copy60752
+Node: paste61035
+Node: fractal61310
+Node: formula61868
+Node: uimandelbrot62587
+Node: uiperturbation64098
+Node: bailout65277
+Node: uiview66364
+Node: initstate68362
+Node: plane68841
+Node: incoloring69995
+Node: outcoloring71508
+Node: tcolor73220
+Node: calc74842
+Node: range75301
+Node: periodicity75915
+Node: maxiter78078
+Node: fastjulia79308
+Node: dynamic80054
+Node: rotate80882
+Node: mfilter82290
+Node: filter82939
+Node: edge83573
+Node: edge284101
+Node: starfield84634
+Node: stereogram84982
+Node: interlace89356
+Node: blur89761
+Node: emboss90165
+Node: palettef90489
+Node: anti91046
+Node: truecolor91740
+Node: ui92338
+Node: speed92792
+Node: letterspersec93838
+Node: autopilot94218
+Node: recalculate95040
+Node: interrupt95400
+Node: nogui95620
+Node: status96079
+Node: ministatus96467
+Node: misc96757
+Node: command97151
+Node: renderanim97526
+Node: clearscreen97768
+Node: display98098
+Node: text98389
+Node: color99114
+Node: textposition99383
+Node: message99838
+Node: helpmenu100230
+Node: xtextpos100362
+Node: ytextpos100627
+Node: mformula100900
+Node: mandel101244
+Node: mandel3101512
+Node: octal101932
+Node: newton102259
+Node: barnsley102792
+Node: phoenix103061
+Node: magnet103286
+Node: palettemenu103617
+Node: defpalette103946
+Node: randompalette104427
+Node: palette104917
+Node: cycling105766
+Node: shiftpalette106729
+Node: authors107426
+Node: lists109465
+Node: index110212
 
 End Tag Table

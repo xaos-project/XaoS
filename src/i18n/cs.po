@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
-"POT-Creation-Date: 2003-03-19 14:03+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-04 20:35+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: MadSoft <madsoft@centrum.cz>\n"
 "Language-Team: Czech\n"
@@ -177,7 +178,7 @@ msgstr "Dìkujeme za pou¾ití programu XaoS\n"
 msgid "Skipping, please wait..."
 msgstr "Pøeskakování, prosím èekejte..."
 
-#: ../ui/ui.c:1017 ../ui/ui.c:1019 ../ui/ui-drv/win32/ui_win32.c:1522
+#: ../ui/ui.c:1017 ../ui/ui.c:1019 ../ui/ui-drv/win32/ui_win32.c:1534
 msgid "Resize"
 msgstr ""
 
@@ -1638,17 +1639,17 @@ msgstr "Pøeru¹ení"
 msgid "Calculation finished"
 msgstr "Poèítání"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1361
+#: ../ui/ui-drv/win32/ui_win32.c:1370
 msgid "Copy"
 msgstr ""
 
 # ../ui-hlp/menu.c:989
-#: ../ui/ui-drv/win32/ui_win32.c:1362
+#: ../ui/ui-drv/win32/ui_win32.c:1371
 #, fuzzy
 msgid "Paste"
 msgstr "Paleta barev"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1364
+#: ../ui/ui-drv/win32/ui_win32.c:1373
 msgid "About"
 msgstr ""
 

@@ -11,10 +11,7 @@ This list is ordered alphabetically.
 
    
 Eric Courteau (ecourteau@cplus.fr)
-     francais.cat (translation of tutorials)
-
-Jean-Pierre Demailly (Jean-Pierre.Demailly@ujf-grenoble.fr)
-     update of francais.cat for version 3.1.1
+     Francais.cat (translation of tutorials)
 
 Radek Doulik (rodo@atrey.karlin.mff.cuni.cz)
      GTK interface, windowid patches
@@ -43,6 +40,9 @@ Zoltan Kovacs (kovzol@math.u-szeged.hu)
 
 Andreas Madritsch (amadritsch@datacomm.ch)
      New fractal types, bailout, many fixes
+
+Giorgio Marazzi (gmarazzi@vtr.net)
+     Improvements and fixes for espanhol.cat
 
 Thomas Marsh
      First zoomer, formulae, planes, X11 driver, inversions, many ideas

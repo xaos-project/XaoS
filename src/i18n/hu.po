@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
-"POT-Creation-Date: 2003-03-19 14:03+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-04 20:35+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: Hungarian\n"
@@ -148,7 +149,7 @@ msgstr "Köszönjük, hogy a XaoS programot használta!\n"
 msgid "Skipping, please wait..."
 msgstr "Továbblépés, kérem várjon..."
 
-#: ../ui/ui.c:1017 ../ui/ui.c:1019 ../ui/ui-drv/win32/ui_win32.c:1522
+#: ../ui/ui.c:1017 ../ui/ui.c:1019 ../ui/ui-drv/win32/ui_win32.c:1534
 msgid "Resize"
 msgstr "Átméretez"
 
@@ -1349,14 +1350,14 @@ msgstr "A számítás félbeszakadt"
 msgid "Calculation finished"
 msgstr "A számítás véget ért"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1361
+#: ../ui/ui-drv/win32/ui_win32.c:1370
 msgid "Copy"
 msgstr "Másol"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1362
+#: ../ui/ui-drv/win32/ui_win32.c:1371
 msgid "Paste"
 msgstr "Beilleszt"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1364
+#: ../ui/ui-drv/win32/ui_win32.c:1373
 msgid "About"
 msgstr "Névjegy"
