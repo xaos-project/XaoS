@@ -293,7 +293,7 @@ static menudialog uih_perturbationdialog[] = {
 #endif	
 }
 
-#undef Register(variable)
+#undef Register
 
 /*
  * End of registering internationalized dialogs.
