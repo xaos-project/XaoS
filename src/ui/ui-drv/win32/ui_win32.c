@@ -31,11 +31,17 @@
 #define MOUSEHEIGHT 16
 
 #ifdef HAVE_GETTEXT
+
 #include <libintl.h>
+
 #include <locale.h>
+
 #else
+
 #define gettext(STRING) STRING
+
 #endif
+
 
 
 HINSTANCE hInstance;
@@ -1351,22 +1357,25 @@ win32_paste (void)
 
 #define MAX_MENUITEMS_I18N 10
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
-int ui_no_menuitems_i18n = 0, ui_no_cutpasteitems_i18n;
+
+int uiw_no_menuitems_i18n = 0, ui_no_cutpasteitems_i18n;
+
 static menuitem *cutpasteitems;
 static void add_cutpasteitems()
 {
   // General method (not needed currently):
-  int no_menuitems_i18n = ui_no_menuitems_i18n; /* This variable must be local. */
+  int no_menuitems_i18n = uiw_no_menuitems_i18n; /* This variable must be local. */
   MENUSEPARATOR_I ("edit");
   MENUNOP_I ("edit", NULL, gettext("Copy"), "copy", 0, win32_copy);
   MENUNOP_I ("edit", NULL, gettext("Paste"), "paste", 0, win32_paste);
   MENUSEPARATOR_I ("helpmenu");
   MENUNOP_I ("helpmenu", NULL, gettext("About"), "about", 0, AboutBox);
-  no_menuitems_i18n -= ui_no_menuitems_i18n;
-  cutpasteitems = &(menuitems_i18n [ui_no_menuitems_i18n]);
-  ui_no_cutpasteitems_i18n = no_menuitems_i18n;
+  no_menuitems_i18n -= uiw_no_menuitems_i18n;
+  cutpasteitems = &(menuitems_i18n [uiw_no_menuitems_i18n]);
+  uiw_no_cutpasteitems_i18n = no_menuitems_i18n;
   menu_add (cutpasteitems, ui_no_cutpasteitems_i18n);
-  ui_no_menuitems_i18n += no_menuitems_i18n;
+  uiw_no_menuitems_i18n += no_menuitems_i18n;
+
 }
 
 
@@ -1513,20 +1522,22 @@ dx_resize (struct uih_context *c, dialogparam * p)
 }
 
 int ui_no_resizeitems_i18n;
+
 static menuitem *resizeitems;
 
 static void add_resizeitems()
 {
   // General method, it's needed:
-  int no_menuitems_i18n = ui_no_menuitems_i18n; /* This variable must be local. */
-  MENUCDIALOG ("ui", "=", gettext("Resize"), "resize", 0, dx_resize, dx_resizedialog),
-  MENUNOP ("misc", NULL, "Generate .dlg files", "genresources", 0,
-	   win32_genresources),
-  no_menuitems_i18n -= ui_no_menuitems_i18n;
-  resizeitems = &(menuitems_i18n [ui_no_menuitems_i18n]);
-  ui_no_resizeitems_i18n = no_menuitems_i18n;
-  menu_add (resizeitems, ui_no_resizeeitems_i18n);
-  ui_no_menuitems_i18n += no_menuitems_i18n;
+  int no_menuitems_i18n = uiw_no_menuitems_i18n; /* This variable must be local. */
+  MENUCDIALOG_I ("ui", "=", gettext("Resize"), "resize", 0, dx_resize, dx_resizedialog);
+  MENUNOP_I ("misc", NULL, "Generate .dlg files", "genresources", 0,
+	   win32_genresources);
+  no_menuitems_i18n -= uiw_no_menuitems_i18n;
+  resizeitems = &(menuitems_i18n [uiw_no_menuitems_i18n]);
+  uiw_no_resizeitems_i18n = no_menuitems_i18n;
+  menu_add (resizeitems, uiw_no_resizeitems_i18n);
+  uiw_no_menuitems_i18n += no_menuitems_i18n;
+
 }
 
 
