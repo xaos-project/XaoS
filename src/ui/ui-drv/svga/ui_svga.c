@@ -101,12 +101,14 @@ draw_mouse (int x, int y, int clear)
 	  else
 	    gl_copyboxtocontext (oldx - 3, oldy - 3, 8, 8, &screen, oldx - 3, oldy - 3);
 	}
+#if 0
       vga_setcolor (whitecolor);
       vga_drawline (x - 3, y - 3, x + 3, y + 3);
       vga_drawline (x - 3, y + 3, x + 3, y - 3);
       vga_setcolor (blackcolor);
       vga_drawline (x + 1 - 3, y - 3, x + 1 + 3, y + 3);
       vga_drawline (x + 1 - 3, y + 3, x + 1 + 3, y - 3);
+#endif
       oldx = x;
       oldy = y;
     }
@@ -454,6 +456,7 @@ svga_uninitialise (void)
 static int
 svga_init (void)
 {
+  int i;
   int fd;
   struct stat chkbuf;
   seteuid (euid);		/* We need supervisor rights to open mouse. */
@@ -484,6 +487,18 @@ svga_init (void)
       vga_setmousesupport (1);
       vga_init ();
       initialised = 1;
+    }
+  for (i = 1; i <= GLASTMODE; i++)
+    if (vga_hasmode (i))
+      {
+	info = vga_getmodeinfo (i);
+	if (info->colors != 256 && info->colors != 32768 && info->colors != 65536 && info->colors != 16777216)
+	  continue;
+      }
+  if (i == GLASTMODE + 1)
+    {
+      svga_uninitialise ();
+      return 0;
     }
   seteuid (getuid ());		/* Don't need supervisor rights anymore. */
   setegid (getgid ());
