@@ -129,7 +129,7 @@ static int printconfig;
 static int printspeed;
 static int delaytime = 0;
 static int defthreads = 0;
-static int maxframerate = 0;
+static int maxframerate = 80;
 static float defscreenwidth = 0.0, defscreenheight = 0.0, defpixelwidth = 0.0,
   defpixelheight = 0.0;
 CONST struct params global_params[] = {

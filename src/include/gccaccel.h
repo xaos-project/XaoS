@@ -9,6 +9,9 @@
 #define RESTRICT __restrict__
 #endif
 #define CONSTF __attribute__ ((__const__))
+#if __GNUC__ >= 3
+#define PUREF __attribute__ ((__pure__))
+#endif
 #define NORETURN __attribute__ ((__noreturn__))
 #ifdef __i386__
 #ifndef NOREGISTERS
@@ -22,6 +25,7 @@
 #endif
 #ifndef CONSTF
 #define CONSTF
+#define PUREF
 #endif
 #ifndef NORETURN
 #define NORETURN

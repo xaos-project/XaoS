@@ -549,6 +549,8 @@ AC_DEFUN(AC_CURSES, [
 ])
 
 if test "$aa_driver_test" = yes; then
+    OLDLIBS="$LIBS"
+    OLDCFLAGS="$CFLAGS"
     AC_CHECKING("location of curses")
     AC_CHECK_LIB(gpm, Gpm_Repeat)
     dnl Replace `main' with a function in -lm:
@@ -600,6 +602,8 @@ if test "$aa_driver_test" = yes; then
     if $search_aalib
     then
       aa_driver=false
+      LIBS="$OLDLIBS"
+      CFLAGS="$OLDCFLAGS"
     else
       aa_driver=true
     fi
@@ -700,6 +704,7 @@ if test "x$no_x" = x; then
 fi
 fi
 if test  "$dga_driver_test" = yes; then
+  dga_driver=true
   AC_CHECK_LIB(Xxf86dga,XF86DGAQueryVersion,LIBS="$LIBS -lXxf86dga", dga_driver=false, $LIBS )
   AC_CHECK_LIB(Xxf86vm,XF86VidModeGetModeLine,LIBS="$LIBS -lXxf86vm", dga_driver=false, $LIBS )
 fi

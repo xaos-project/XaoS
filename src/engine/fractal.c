@@ -428,12 +428,8 @@ free_fractalc (fractal_context * c)
 
 #ifdef NOASSEMBLY
 #define rdtsc() 0
-#define cli() 0
-#define sti() 0
 #else
 #define rdtsc() ({unsigned long time; asm __volatile__ ("rdtsc":"=a"(time)); time; })
-#define cli() ({asm __volatile__ ("cli");})
-#define sti() ({asm __volatile__ ("cli");})
 #endif
 
 void
@@ -462,21 +458,19 @@ speed_test (fractal_context * c, struct image *img)
 
   tl_update_time ();
   tl_reset_timer (t);
-  cli ();
-  sum = rdtsc ();
+  /*sum = rdtsc ();*/
 #ifdef SLOWFUNCPTR
   i = calculateswitch (0.0, 0.0, 0.0, 0.0, 0);
 #else
   i = cfractalc.currentformula->calculate (0.0, 0.0, 0.0, 0.0);
 #endif
-  sum -= rdtsc ();
-  sti ();
-  printf ("%f\n", (double) (-sum) / cfractalc.maxiter);
+  /*sum -= rdtsc ();
+  printf ("%f\n", (double) (-sum) / cfractalc.maxiter);*/
   tl_update_time ();
   time = tl_lookup_timer (t);
   x_message ("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f",
 	     (int) i,
-	     cfractalc.currentformula->name[0], time, 20 * 1000000.0 / time);
+	     cfractalc.currentformula->name[0], time, cfractalc.maxiter / (double) time);
 
 #ifndef SLOWFUNCPTR
 
@@ -491,7 +485,7 @@ speed_test (fractal_context * c, struct image *img)
       x_message ("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f",
 		 (int) i,
 		 cfractalc.currentformula->name[0],
-		 time, 20 * 1000000.0 / time);
+		 time, cfractalc.maxiter / (double)time);
     }
 
 #endif
