@@ -11,7 +11,10 @@ This list is ordered alphabetically.
 
    
 Eric Courteau (ecourteau@cplus.fr)
-     Francais.cat (translation of tutorials)
+     francais.cat (translation of tutorials)
+
+Jean-Pierre Demailly (Jean-Pierre.Demailly@ujf-grenoble.fr)
+     Updates for French translation
 
 Radek Doulik (rodo@atrey.karlin.mff.cuni.cz)
      GTK interface, windowid patches
@@ -27,7 +30,7 @@ Ben Hines
 
 Jan Hubicka (jh@ucw.cz)
      Zooming routines, ugly interface, palettes, drivers, autopilot,
-     filters, documentation, tutorials, maitainer etc...
+     filters, documentation, tutorials etc.
 
 Jens Kilian (jjk@acm.org)
      BeOS driver, deutsch.cat
@@ -36,7 +39,8 @@ Thomas A. K. Kjaer (takjaer@imv.aau.dk)
      OS/2 ports (320x200 graphics and AA-lib)
 
 Zoltan Kovacs (kovzol@math.u-szeged.hu)
-     Internationalization, finalizing version 3.1
+     Internationalization, Hungarian translations, finalizing version
+     3.1, bug fixes, web design, current maintainer
 
 Andreas Madritsch (amadritsch@datacomm.ch)
      New fractal types, bailout, many fixes
@@ -80,6 +84,9 @@ Charles Vidal
 
 Tapio K. Vocaldo (taps@rmx.com)
      Macintosh port
+
+Philippe Wautelet (p.wautelet@fractalzone.be)
+     Bug fixes for version 3.1.1
 
    To contact authors you can also use the mailing list. 
 Or following snail-mail:

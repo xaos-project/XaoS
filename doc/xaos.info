@@ -3384,7 +3384,10 @@ Credits
 
    (alphabetically)
 *Eric Courteau (ecourteau@cplus.fr)*
-     Francais.cat (translation of tutorials)
+     francais.cat (translation of tutorials)
+
+*Jean-Pierre Demailly (Jean-Pierre.Demailly@ujf-grenoble.fr)*
+     Updates for French translation
 
 *Radek Doulik (rodo@atrey.karlin.mff.cuni.cz)*
      GTK interface, windowid patches
@@ -3400,7 +3403,7 @@ Credits
 
 *Jan Hubicka (jh@ucw.cz)*
      Zooming routines, ugly interface, palettes, drivers, autopilot,
-     filters, documentation, tutorials, maitainer etc...
+     filters, documentation, tutorials etc.
 
 *Jens Kilian (jjk@acm.org)*
      BeOS driver, deutsch.cat
@@ -3409,7 +3412,8 @@ Credits
      OS/2 ports (320x200 graphics and AA-lib)
 
 *Zoltan Kovacs (kovzol@math.u-szeged.hu)*
-     Internationalization, finalizing version 3.1
+     Internationalization, Hungarian translations, finalizing version
+     3.1, bug fixes, web design, current maintainer
 
 *Andreas Madritsch (amadritsch@datacomm.ch)*
      New fractal types, bailout, many fixes
@@ -3453,6 +3457,9 @@ Credits
 
 *Tapio K. Vocaldo (taps@rmx.com)*
      Macintosh port
+
+*Philippe Wautelet (p.wautelet@fractalzone.be)*
+     Bug fixes for version 3.1.1
 
    To contact authors you can also use the mailing list. *Note lists::.
 Or following snail-mail:
@@ -3688,7 +3695,7 @@ Node: palette104917
 Node: cycling105766
 Node: shiftpalette106729
 Node: authors107426
-Node: lists109465
-Node: index110212
+Node: lists109705
+Node: index110452
 
 End Tag Table
