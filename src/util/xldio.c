@@ -147,7 +147,7 @@ main()
 
 
 #define MAXEXPLD        4952 /* this includes subnormal numbers */
-static int nan = 0;
+static int is_nan = 0;
 static char decimal = '.';
 static long double pten[] =
 {
@@ -260,13 +260,13 @@ isspeciall(long double d, char *bufp)
     unsigned sign:1;
   } *ip = (struct IEEExp *)&d;
 
-  nan = 0;  /* don't assume the static is 0 (emacs) */
+  is_nan = 0;  /* don't assume the static is 0 (emacs) */
   if (ip->exp != 0x7fff)
     return(0);
   if ((ip->manh & 0x7fffffff) || ip->manl)
   {
     strcpy(bufp, "NaN");
-    nan = ip->sign ? -1 : 1; /* kludge: we don't need the sign,  it's not nice
+    is_nan = ip->sign ? -1 : 1; /* kludge: we don't need the sign,  it's not nice
 				but it should work */
   }
   else

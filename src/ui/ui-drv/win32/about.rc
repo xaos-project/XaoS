@@ -4,7 +4,7 @@ CAPTION "About"
 FONT 8, "System"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,162,2,32,14,WS_GROUP
-    ICON            "BIG",IDC_STATIC,3,2//,18,20
+    ICON            "BIG",IDC_STATIC,3,2,18,20
     LTEXT           "Free Sofware Foundation",IDC_COMPANY,30,2,130,8
     LTEXT           "XaoS - an realtime fractal zoomer",IDC_FILEDESC,30,10,121,8
     RTEXT           "3.1",IDC_PRODVER,136,10,17,8
@@ -17,4 +17,3 @@ BEGIN
 END
 
 
-

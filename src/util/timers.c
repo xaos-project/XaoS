@@ -75,6 +75,10 @@
 #define QuadPart(x) (((long long)x.HighPart << 32) + x.LowPart)
 #endif
 
+#ifndef SIGALRM
+#undef HAVE_SETITIMER
+#endif
+
 #define EMULDIV 1024
 struct timeemulator
 {
