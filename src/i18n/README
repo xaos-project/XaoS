@@ -3,21 +3,28 @@ Internationalization (i18n) in XaoS
 
 Zoltan Kovacs <kovzol@math.u-szeged.hu>
 
-12 September 2002
-1 September 2002
-26 August 2002
+Last modification information:
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/src/i18n/README,v 1.4 2003-01-17 09:42:33 kovzol Exp $
+
 
 
 1. INTRODUCTION
 
-As of version 3.1, i18n support will be added to XaoS. This is done
+As of version 3.1, i18n support is added to XaoS. This is done
 with the GNU gettext utility. In this first release only the menus
-and some internal strings can be translated, the old method in
+and most internal strings can be translated, the old method in
 ../../catalogs haven't changed yet.
 
 Note that i18n cannot be used if you don't have gettext installed
 on your system. I used gettext-0.10.37 which works greatly for Linux
-and gettext-0.10.40 for DOS version.
+and gettext-0.10.40 for DOS version. You do not have to worry
+if you are running Linux: gettext is a standard package of most
+Linux installation.
+
+Bad news for Windows users: i18n does not work for Windows yet,
+only in DOS mode. In addition, some Windows support i18n
+in DOS mode, some of them not. Good news for Windows users:
+in version 3.2 I'd like to add i18n for Windows as well. :-)
 
 
 2. HOW TO INSTALL A NEW LANGUAGE
@@ -58,7 +65,7 @@ if you're interested:
 * To set up different languages and try out each one you probably have
   to set the LC_ALL variable. E.g., I had to change it to de_DE or hu_HU
   to test different languages. (On DOS I had to set the variable
-	LANG to de or hu, etc.)
+  LANG to de or hu, etc.)
 	
 * Read the gettext howto ("info gettext"). It's quite long, though.
 

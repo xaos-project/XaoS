@@ -669,7 +669,7 @@ XaoS gallery
 
    I plan to make XaoS gallery of animations and position files at XaoS
 home-page so please send me all your nice animations and images you
-created using XaoS to `hubicka@paru.cas.cz'
+created using XaoS to `jh@ucw.cz'
 
 
 File: xaos.info,  Node: writehelp,  Next: xshl,  Prev: format,  Up: Top
@@ -3086,18 +3086,27 @@ Credits
 *Radek Doulik (rodo@atrey.karlin.mff.cuni.cz)*
      GTK interface, windowid patches
 
+*Martin Dozsa (madsoft@centrum.cz)*
+     Czech translation of menus
+
 *Tim Goodwin (tgoodwin@cygnus.co.uk)*
      english.cat corrections
 
-*Jan Hubicka (hubicka@paru.cas.cz)*
+*Jan Hubicka (jh@ucw.cz)*
      Zooming routines, ugly interface, palettes,drivers, autopilot,
      filters, documentation, tutorials, maitainer etc...
 
 *Jens Kilian (jjk@acm.org)*
      BeOS driver, deutsch.cat
 
-*Thomas A. K. Kjaer(takjaer@imv.aau.dk)*
+*Thomas A. K. Kjaer (takjaer@imv.aau.dk)*
      OS/2 ports (320x200 graphics and AA-lib)
+
+*Zoltan Kovacs (kovzol@math.u-szeged.hu)*
+     Internationalization
+
+*Andreas Madritsch (amadritsh@datacomm.ch)*
+     New fractal types, bailout
 
 *Thomas Marsh*
      First zoomer, formulas, planes, X11 driver, inversions, many ideas
@@ -3105,8 +3114,17 @@ Credits
 *David Meleedy*
      Grammatical and spelling fixed version of `xaos.6'
 
+*Paul Nasca (paulnasca@email.ro)*
+     Ministatus improvement
+
+*Nix (nix@esperi.demon.co.uk)*
+     Grammatical and spelling fixed version xaos.hlp and other files
+
 *Terje Pedersen (terjepe@login.eunet.no)*
      Amiga port
+
+*Cesar Perez (oroz@users.sourceforge.net)*
+     Spanish translations
 
 *Fabrice Premel (premelfa@etu.utc.fr)*
      Periodicity checking
@@ -3137,21 +3155,7 @@ File: xaos.info,  Node: lists,  Next: index,  Prev: authors,  Up: Top
 Mailing-lists:
 **************
 
-   XaoS now have following mailing lists at majordomo@horac.ta.jcu.cz
-*xaos*
-     this list is for general xaos discusion (ideas, questions,
-     bugreports..)
-
-*xaos-announce*
-     keeps you informed about new versions
-
-*xaos-devel*
-     you want to become XaoS developer? Subscribe here and let us know
-     about you! You will be welcomed.
-
-   To subscribe send following message to `majordomo@horac.ta.jcu.cz':
-
-   `subscribe [list_name]'
+   Currently not available. :-(
 
 
 File: xaos.info,  Node: index,  Prev: lists,  Up: Top

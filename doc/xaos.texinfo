@@ -43,7 +43,7 @@ Dukelsk\'ych bojovn\'\i ku 1944
 390 03 T@'abor @*
 Czech Republic
 
-Email: @code{hubicka@@paru.cas.cz}
+Email: @code{jh@@ucw.cz}
 
 @value{DATE}
 
@@ -712,7 +712,7 @@ And following is the ``rotozooming'' animation:
 
 I plan to make XaoS gallery of animations and position files at XaoS home-page
 so please send me all your nice animations and images you created using XaoS
-to @code{hubicka@@paru.cas.cz}
+to @code{jh@@ucw.cz}
 @c ## chapter format ##
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
@@ -3013,18 +3013,28 @@ avoid this, you might use palette emulation filter. @xref{palettef}.
 Francais.cat (translation of tutorials)
 @item Radek Doulik (rodo@@atrey.karlin.mff.cuni.cz)
 GTK interface, windowid patches
+@item Martin Dozsa (madsoft@@centrum.cz)
+Czech translation of menus
 @item Tim Goodwin (tgoodwin@@cygnus.co.uk)
 english.cat corrections
-@item Jan Hubicka (hubicka@@paru.cas.cz)
+@item Jan Hubicka (jh@@ucw.cz)
 Zooming routines, ugly interface, palettes,drivers, autopilot, filters, documentation, tutorials, maitainer etc...
 @item Jens Kilian (jjk@@acm.org)
 BeOS driver, deutsch.cat
-@item Thomas A. K. Kjaer(takjaer@@imv.aau.dk)
+@item Thomas A. K. Kjaer (takjaer@@imv.aau.dk)
 OS/2 ports (320x200 graphics and AA-lib)
+@item Zoltan Kovacs (kovzol@@math.u-szeged.hu)
+Internationalization
+@item Andreas Madritsch (amadritsch@@datacomm.ch)
+New fractal types, bailout
 @item Thomas Marsh
 First zoomer, formulas, planes, X11 driver, inversions, many ideas
-@item  David Meleedy
+@item David Meleedy
 Grammatical and spelling fixed version of @code{xaos.6}
+@item Paul Nasca (paulnasca@@email.ro)
+Ministatus improvement 
+@item Nix (nix@@esperi.demon.co.uk)
+Grammatical and spelling fixed version of @code{xaos.hlp} and other files
 @item Terje Pedersen (terjepe@@login.eunet.no)
 Amiga port
 @item Fabrice Premel (premelfa@@etu.utc.fr)
@@ -3058,25 +3068,7 @@ Czech Republic
 @node lists, index ,authors ,Top
 
 @appendix Mailing-lists:
-XaoS now have following mailing lists at
-majordomo@@horac.ta.jcu.cz
-@table @strong
-@item xaos
-this list is for general xaos discusion
-(ideas, questions, bugreports..)
-@item xaos-announce
-keeps you informed about new versions
-@item xaos-devel
-you want to become XaoS developer? Subscribe here and
-let us know about you! You will be welcomed.
-@end table
-
-To subscribe send following message to
-@code{majordomo@@horac.ta.jcu.cz}:
-
-@code{subscribe [list_name]}
-
-
+Currently not available. :-(
 
 @c ## appendix lists ##
 

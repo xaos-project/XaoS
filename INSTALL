@@ -23,9 +23,9 @@ For Unix/X11:
 
         CFLAGS=(your best size optimizing switches)
         CFLAGS1=(your best speed optimizing switches)
-				export CFLAGS
+	export CFLAGS
 
-				   #note that this two steps are not required on pc/Linux
+	   #note that this two steps are not required on pc/Linux
            #and on all gcc compilers XaoS uses quite good switches.
            #but this is REQUIRED for other compilers, because XaoS
            #is coded to be good target for optimizer and NEEDS to
@@ -130,7 +130,7 @@ For DOS:
 
    build.bat
 	
-	 If you get in trouble, please read INSTALL.dos.
+   If you get in trouble, please read README2.dos.
 
 For Mac:
     Read README.mac for more informations

@@ -3,6 +3,8 @@ NOTES FOR INTERNATIONALIZATION (I18N) SUPPORT
 
 2 September 2002
 
+Last modification information:
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/catalogs/README.i18n,v 1.2 2003-01-17 09:42:33 kovzol Exp $
 
 All of the available languages must be registered in ../ui/ui.c.
 The other entries in ../ui-hlp/menu.c are no longer used.

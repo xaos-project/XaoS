@@ -98,6 +98,26 @@ if test -z "`${CC-cc} -mno-ieee-fp -c conftest.c 2>&1`"; then
 	rm -f conftest*
 ])])
 
+AC_DEFUN(AC_PROG_AALIB_VER_OK,
+[AC_CACHE_CHECK(whether aalib version >= 1.4, ac_aalib_ver_ok,
+[echo '
+#include <aalib.h>
+void f(){ 
+#if AA_LIB_VERSIONCODE < 104000
+#error aa_lib is probably buggy 
+/* I'm using SuSE 7.3 and 8.0. Both contains version 1.3,
+ * however they report 102000 version code.
+ */ 
+#endif 
+}' > conftest.c
+if test -z "`${CC-cc} -c conftest.c 2>&1`"; then
+    ac_aalib_ver_ok=yes
+    else
+        ac_aalib_ver_ok=no
+    fi
+	rm -f conftest*
+])])
+
 AC_DEFUN(PROG_CC_SWITCH1,
 [AC_CACHE_CHECK(whether ${CC-cc} accepts -$1, ac_$2,
 [echo 'void f(){}' > conftest.c
@@ -424,11 +444,17 @@ AC_DEFUN(AC_AALIB, [
             AC_CHECK_LIB(aa, aa_init)
             if test "x$ac_cv_lib_aa_aa_init" = xyes; then
               AC_MSG_RESULT(Found aalib on $1/aalib.h)
-              #LIBS="$LIBS $2"
-	      x11_linked=yes
-              CFLAGS="$CFLAGS $3"
-              search_aalib=false
-              aa_driver=true
+              AC_PROG_AALIB_VER_OK
+ 	      if test $ac_aalib_ver_ok = yes; then
+               #LIBS="$LIBS $2"
+	       x11_linked=yes
+               CFLAGS="$CFLAGS $3"
+               search_aalib=false
+               aa_driver=true
+              else
+               unset ac_cv_lib_aa_aa_init
+               LIBS="$LIBS1"
+              fi
             else
              unset ac_cv_lib_aa_aa_init
              LIBS="$LIBS1"

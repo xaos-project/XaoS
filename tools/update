@@ -1,7 +1,17 @@
+#!/bin/sh
 # shell script for updating XaoS example files to latest file format.
 # Not for normal use
 # Requires XaoS compiled with aa driver
 
+echo "$0"
+cat $0 | head -4 | tail -3 | sed s/"^# "/""/
+echo -n "Do you really want to do this? [n] "
+read A
+if [ "$A" != "y" ]; then
+ exit 1
+ fi
+
+cd ..
 mkdir new
 mkdir new/examples
 rm fract0.xpf

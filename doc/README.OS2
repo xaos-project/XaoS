@@ -1,6 +1,9 @@
                     > This file is only for OS/2 Users <
                            takjaer@daimi.aau.dk
 
+Last modification information:
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.OS2,v 1.2 2003-01-17 09:42:33 kovzol Exp $
+
 This is the OS/2 port of the Unix program xaos. It was done using emx/gcc
 and is licensed by GPL. The original development was done by Jan Hubicka and
 Thomas Marsh on GNU/Linux.
@@ -14,10 +17,10 @@ contains the required DLL's. If you want the whole package or just want to
 upgrade to the newest emx distribution, you can get emxrt.zip via 
 anonymous ftp on
 
-  ftp.uni-stuttgart.de [129.69.18.15]: /pub/systems/os2/emx-0.9c
-  ftp-os2.cdrom.com:  [192.153.46.2]:  /pub/os2/unix/emx09c
-  src.doc.ic.ac.uk     [146.169.2.1]:  /packages/os2/unix/emx09c
-  ftp.leo.org        [131.159.0.198]:  /pub/comp/os/os2/devtools/emx+gcc
+  ftp.uni-stuttgart.de [129.69.18.15]:  /pub/systems/os2/emx-0.9c
+  ftp-os2.cdrom.com:   [192.153.46.2]:  /pub/os2/unix/emx09c
+  src.doc.ic.ac.uk      [146.169.2.1]:  /packages/os2/unix/emx09c
+  ftp.leo.org         [131.159.0.198]:  /pub/comp/os/os2/devtools/emx+gcc
 
 XAOS OS/2 was compiled with emx09c+fix02, which you also can get from the
 above ftp sites.

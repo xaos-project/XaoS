@@ -1,7 +1,10 @@
                                     >X a o S<
 
+Last modification information:
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README,v 1.4 2003-01-17 09:42:33 kovzol Exp $
+
 CREDITS:
-        Original authors of XaoS are Jan Hubicka (hubicka@freesoft.cz)
+        Original authors of XaoS are Jan Hubicka (jh@ucw.cz)
 	and Thomas Marsh (tmarsh@tivoli.com)
 
 	Many other people contributed to the project as well.
@@ -73,9 +76,9 @@ REQUIREMENTS:
 
 FEATURES:
 	o Fast smooth interactive realtime zooming. Even on 486!
-	o 11 fractal formulas:
+	o 14 fractal formulas:
 		Mandelbrot power 2 - Mandelbrot power 6
-		octo, Barnsley, Newton, Phoenix, Magnet
+		octo, Barnsley (2), Newton (2), Phoenix, Magnet (2)
 	o Autopilot
 	o [NEW] nice user interface, native UI for BeOS and Windows
 	o [NEW] context sensitive help
@@ -136,7 +139,7 @@ FEATURES:
 	   o Palette emulation filter
 	   o [NEW] Antialiasing
 	o Dithering on devices w/o user defined palette
-	
+        o Internationalization	
 
 FTP:
 	XaoS comes in various files:
@@ -152,42 +155,12 @@ FTP:
 	xaos31.lzh		Amiga binarry. Note that this
 				file is uploaded only to aminet.
 
-	All can be found at following site:
-	ftp.ta.jcu.cz	/pub/linux/hubicka/xaos
-
-	UNIX version:
-	sunsite.unc.edu /pub/Linux/Incoming (will be moved somewhere)
-	tsx-11.mit.edu	now in /incoming..will be placed into 
-	                /pub/linux/binaries/usr.bin or
-		        /pub/linux/sources/usr.bin
-	ftp.x.org	/contrib/graphics
-
-	MS-DOS version:
-	ftp.simtel.net  /pub/simtelnet/msdos/graphics
+	All can be found at the SourceForge site:
+        http://xaos.sf.net
 
 HOME-PAGE:
-        There are currently two different pages about XaoS. The orriginal
-	one at:          http://www.paru.cas.cz/~hubicka/XaoS/
-        and the new one: http://www.gnu.org/XaoS
+        Current homepage is http://xaos.sf.net
 
-	U.S mirrors of homepage are not maitained anymore.
-
-MAILING-LIST:
-	XaoS now have following mailing lists at 
-	majordomo@horac.ta.jcu.cz
-
-	xaos
-	  this list is for general xaos discusion 
-	  (ideas, questions, bugreports..)
-	xaos-announce
-	  keeps you informed about new versions
-	xaos-devel
-	  you want to become XaoS developer? Subscribe here and
-	  let us know about you! You will be welcomed.
-	To subscribe send following message to 
-	majordomo@horac.ta.jcu.cz:
-
-	subscribe [list_name]
 INSTALL:
 	Installation methods are described in the file "INSTALL".
 

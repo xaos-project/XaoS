@@ -1,3 +1,13 @@
+This file is generated with "more TODO* > TODO.txt; mv TODO.txt TODO"
+on 16 January 2003 by Zoltan Kovacs.
+
+Please put your ideas and all todo items in this file.
+
+----------------------------------------------------------------------------
+
+::::::::::::::
+TODO
+::::::::::::::
 	o	Ispell menus
 	o	Disable assertions
 	o	Update catalogs for tutorials
@@ -34,3 +44,29 @@
 		exactly same optimalisations and movements as they 
 		were created. 
 Please contact me if you want to do something from this long todo :)
+::::::::::::::
+TODO.Be
+::::::::::::::
+  *  Avoid mouse pooling in DirectScreen driver
+  *  Figure out how to get image directory in translator
+  *  Fix configure dialog in XaoS translator
+  *  Does translator need to support all bitmap types?
+  *  figure out how to get the red, green and blue masks in DirectScreen
+  *  Support for scripting - XaoS's internal scripting langugage should be
+     probably well mapped to Be's scripting system. But I am not sure how much is
+     usefull and I would like to see any good examples for usage of scripting first.
+  *  Change XaoS to the Media Node producing video stream from XaoS save
+     files.... How much this can be usefull? For recording XaoS's videos?
+     filtering it using Be's Nodes?
+     Can we use it for interactive mode too? Can be this usefull for
+     something? Anyway I seems to like Be's node system (very similar to
+     filter system internaly used by XaoS) and I would like to try it's
+     programming.
+     Maybe the GUI should be external program starting XaoS Node use the
+     scripting (or send the XaoS's commands) to control XaoS. Then we should
+     probably add any Be's filtering node to XaoS's filtering system...
+::::::::::::::
+TODO.win
+::::::::::::::
+  o  Fix problems in windowsed directX mode and palette
+  o  AAlib driver?

@@ -19,7 +19,7 @@ To see more about XaoS' features, try the tutorial
 Both the tutorials are divided into chapters and available from help menu.
 So you don't need to watch them all at once (they are about half an hour long)
 <head>Where to get up-to date information</head>
-The XaoS homepage is <tt>http://www.paru.cas.cz/~hubicka/XaoS</tt>
+The XaoS homepage is <tt>http://xaos.sf.net</tt>
 and we also have three <a lists>mailing lists</a>.
 <head>Other things to read</head>
 <center>
@@ -289,24 +289,36 @@ The following tags are supported:
 <head>Credits</head>
 (alphabetically)
 <dl>
-<dt>Eric Courteau   (ecourteau@cplus.fr)
+<dt>Eric Courteau (ecourteau@cplus.fr)
 <dd>Francais.cat (translation of tutorials)
-<dt>Radek Doulik    (rodo@atrey.karlin.mff.cuni.cz)
+<dt>Radek Doulik (rodo@atrey.karlin.mff.cuni.cz)
 <dd>GTK interface, windowid patches
+<dt>Martin Dozsa (madsoft@centrum.cz)
+<dd>cs.po (Czech translation of menus)
 <dt>Tim Goodwin	(tgoodwin@cygnus.co.uk)
 <dd>english.cat corrections
-<dt>Jan Hubicka	(hubicka@paru.cas.cz) 
+<dt>Jan Hubicka	(jh@ucw.cz) 
 <dd>Zooming routines, ugly interface, palettes,drivers, autopilot, filters, documentation, tutorials, maitainer etc...
 <dt>Jens Kilian	(jjk@acm.org)
 <dd>BeOS driver, deutsch.cat
-<dt>Thomas A. K. Kjaer(takjaer@imv.aau.dk)
+<dt>Thomas A. K. Kjaer (takjaer@imv.aau.dk)
 <dd>OS/2 ports (320x200 graphics and AA-lib)
+<dt>Zoltan Kovacs (kovzol@math.u-szeged.hu)
+<dd>Internationalization
+<dt>Andreas Madritsch (amadritsch@datacomm.ch)
+<dd>New fractal types, bailout
 <dt>Thomas Marsh
 <dd>First zoomer, formulae, planes, X11 driver, inversions, many ideas
-<dt> David Meleedy
+<dt>David Meleedy
 <dd>Grammatical and spelling fixed version of <tt>xaos.6</tt>
-<dt>Terje Pedersen  (terjepe@login.eunet.no)
+<dt>Paul Nasca (paulnasca@email.ro)
+<dd>Ministatus improvement
+<dt>Nix
+<dd>Grammatical and spelling fixed version of <tt>xaos.hlp</tt> and other files
+<dt>Terje Pedersen (terjepe@login.eunet.no)
 <dd>Amiga port
+<dt>Cesar Perez (oroz@users.sourceforge.net)
+<dd>Spanish translations
 <dt>Fabrice Premel (premelfa@etu.utc.fr)
 <dd>Periodicity checking
 <dt>Jan Olderdissen (jan@olderdissen.com)
@@ -315,7 +327,7 @@ The following tags are supported:
 <dd>Win32 support
 <dt>Charles Vidal
 <dd>Tcl/Tk interface
-<dt>Tapio K. Vocaldo(taps@rmx.com)
+<dt>Tapio K. Vocaldo (taps@rmx.com)
 <dd>Macintosh port
 </dl>
 <p>
@@ -337,10 +349,10 @@ source code, which is available from the XaoS homepage.
 If you want to do some development, you are encouraged to send your work back
 to the <a authors>authors</a>; if it is well done, it will be added to the
 next release. All changes should be sent to my address:
-<tt>hubicka@paru.cas.cz</tt>
+<tt>jh@ucw.cz</tt>
 <p>
-XaoS has open development model. Development versions are available at ftp
-site <emph>ftp.ta.jcu.cz</emph> in directory <emph>/pub/linux/hubicka/XaoS/experimental</emph>
+XaoS has open development model. Development versions are available at
+SourceForge website <tt>(http://xaos.sf.net)</tt>,
 so if you are interested in the development, you might try them. We also have a
 <a lists>developers mailing list</a>, where you might subscribe, if you want
 to be informed about latest development, discuss various things and so on.
@@ -358,23 +370,7 @@ them into a foreign language etc...
 %lists
 
 <head>Mailing-lists:</head>
-      XaoS now has the following mailing lists at 
-      majordomo@horac.ta.jcu.cz
-<dl>
-      <dt>xaos
-	<dd>this list is for general xaos discussion
-	(ideas, questions, bugreports..)
-      <dt>xaos-announce
-	<dd>keeps you informed about new versions
-      <dt>xaos-devel
-	<dd>you want to become XaoS developer? Subscribe here and
-	let us know about you! You will be welcomed.
-</dl>
-<p>
-      To subscribe send following message to
-      <tt>majordomo@horac.ta.jcu.cz</tt>:
-<p>
-      <tt>subscribe [list_name]</tt>
+      Currently not available. :-(
 
 
 
@@ -518,7 +514,7 @@ And following is the ``rotozooming'' animation:
 
 I plan to make a gallery of animations and position files on the XaoS home-page,
 so please send any nice animations and images you created using XaoS
-to <tt>hubicka@paru.cas.cz</tt>
+to <tt>jh@ucw.cz</tt>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %drivers
 

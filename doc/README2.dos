@@ -19,75 +19,75 @@ share your experiences with me. Thank you in advance.
    compilation. Search the web for all packages. I used:
 	 
    * MS-DOS 6.0. However other DOS versions should also work,
-	   I tested XaoS only on this platform.
+     I tested XaoS only on this platform.
 
-	 * DJGPP 2.7.2.1 (download it from http://www.delorie.com and
-	   read the file README.1ST carefully). You need only the
-		 basic packages.
+   * DJGPP 2.7.2.1 (download it from http://www.delorie.com and
+     read the file README.1ST carefully). You need only the
+     basic packages.
 
-	 * Allegro 2.2 (newer versions also exist but I haven't tried
-	   any of them yet). Its new web page is http://allegro.cc.
+   * Allegro 2.2 (newer versions also exist but I haven't tried
+     any of them yet). Its new web page is http://allegro.cc.
 
-	 * Doslibs (download it from the web site of CrystalSpace).
-	   Two packages are needed: libpng 1.0.2 and zlib 1.1.3.
+   * Doslibs (download it from the web site of CrystalSpace).
+     Two packages are needed: libpng 1.0.2 and zlib 1.1.3.
 
-	 * Libvga and libtext (without version numbers, download them
-	   from the web site of Aalib).
+   * Libvga and libtext (without version numbers, download them
+     from the web site of Aalib).
 
-	 * Aalib 1.2. It may be probably found only in .tar.gz format.
-	   If you don't have a GNU unzip under DOS, you should first
-		 unzip it e.g. under Linux, then zip it with 
+   * Aalib 1.2. It may be probably found only in .tar.gz format.
+     If you don't have a GNU unzip under DOS, you should first
+     unzip it e.g. under Linux, then zip it with 
 		 
-		 $ zip -r aalib12.zip *
+     $ zip -r aalib12.zip *
 		 
-		 Now unzip it. I used DOS Navigator to do this part of
-		 preparation.
+     Now unzip it. I used DOS Navigator to do this part of
+     preparation.
 
-	 * For internationalization (i18n) you need gettext and libiconv.
-	   Both may be downloaded from Simtel mirrors. Many FTP and
-		 HTTP servers mirror the Simtel repository. Search for
-		 the gnu/djgpp/v2gnu directory and get gtxt040b.zip and
-		 licv17b.zip.
+   * For internationalization (i18n) you need gettext and libiconv.
+     Both may be downloaded from Simtel mirrors. Many FTP and
+     HTTP servers mirror the Simtel repository. Search for
+     the gnu/djgpp/v2gnu directory and get gtxt040b.zip and
+     licv17b.zip.
 		 
-		 You can compile XaoS without i18n support as well. Read
-		 below for further information about this.
+   You can compile XaoS without i18n support as well. Read
+   below for further information about this.
 		 
    Note that other versions should also work, however you may
-	 fine tune some things to do the all the job.
+   fine tune some things to do the all the job.
 		 
 2. Compile the packages. Doslibs, libvga and libtext should be
    automatically made. Aalib probably have to be changed a bit:
-	 the file CONFIG.DOS should be copied (or moved) onto CONFIG.H.
+   the file CONFIG.DOS should be copied (or moved) onto CONFIG.H.
 
-	 For compiling gettext, first you have to install libiconv
-	 (licv17b.zip). This should be also done automatically.
+   For compiling gettext, first you have to install libiconv
+   (licv17b.zip). This should be also done automatically.
 	 
 3. Install the packages. A general rule that all *.H files must
    be copied (or moved) into DJGPP/INCLUDE and all *.A files into
-	 DJGPP/LIB.
+   DJGPP/LIB.
 	 
-	 For installing gettext you have to relink the GNU C Library
-	 (libc). Please read the README file in the gettext binary
-	 package to learn about the way of doing this.
+   For installing gettext you have to relink the GNU C Library
+   (libc). Please read the README file in the gettext binary
+   package to learn about the way of doing this.
 	   
 4. Make sure that you copy all the files onto your DOS partition
    properly from your XaoS source (if it is in .zip format, it
-	 is quite simple, if not, convert it first into .zip).
+   is quite simple, if not, convert it first into .zip).
    Long file names must be truncated without any special characters
-	 and directory structure must be also done correctly
-	 (do this also with DOS Navigator).
+   and directory structure must be also done correctly
+   (do this also with DOS Navigator).
 	 
 5. The XaoS source needs some modifications. Here I attach 4 modified
    files. Snip them and copy all of them to their appropriate place.
-	 Use such a text editor which does not break the lines (else
-	 you will get lots of errors during the compilation process).
-	 You can turn off internationalization support if you don't have
-	 gettext on your computer installed (choose the appropriate
-	 files below).
+   Use such a text editor which does not break the lines (else
+   you will get lots of errors during the compilation process).
+   You can turn off internationalization support if you don't have
+   gettext on your computer installed (choose the appropriate
+   files below).
 	 
-	 After modifications, run BUILD.BAT and go to the BIN/ directory
-	 to run XAOS.EXE. Good luck.
-	 
+   After modifications, run BUILD.BAT and go to the BIN/ directory
+   to run XAOS.EXE. Good luck.
+ 
 SRC/DOS.MAK (with i18n)
 -------------------------------------------------------------------------------
 CFLAGS1= -D__OPTIMIZE__ -Wall -fstrength-reduce -ffast-math -fomit-frame-pointer -L.  -D DOG_DRIVER  -Wall -D AA_DRIVER -malign-double

@@ -1,3 +1,6 @@
+Last modification information:
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.ggi,v 1.2 2003-01-17 09:42:33 kovzol Exp $
+
 The GGI driver is now very experimental. There is not much
 documentation about GGI api, so I am not sure, if it is correct.
 There is few known problems with keyboard handling - I don't know
@@ -6,4 +9,4 @@ how to detect ascii value of key - so shift don't work.
 
 Let me know about all problems
 
-Honza (hubicka@freesoft.cz)
+Honza (jh@ucw.cz)

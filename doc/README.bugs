@@ -3,7 +3,7 @@ How to report bugs
 
 Please try to reproduce the bug and send a description and output of:
 xaos -config
-to: hubicka@paru.cas.cz
+to: jh@ucw.cz
 also debugger info (backtraces and so forth) are welcome.
 
 Thanks

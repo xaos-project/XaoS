@@ -1,5 +1,8 @@
                        > This is only for MS-DOG users <
 
+Last modification information:
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.dos,v 1.2 2003-01-17 09:42:33 kovzol Exp $
+
 This is port of my Unix program xaos for MS_DOG called Chappy. It was done
 in DJGPP and is licensed by GPL. Original was done on GNU/Linux.
 Please read following article if you don't know, what this mean.
@@ -198,22 +201,38 @@ Here is speed comparsion of internal XaoS loop at various compilers:
 For more informations read http://www.delorie.com!
 If you want use this compiler carefully read its license.
 
+---------------------------------------------------------------------------
+Addendum by Zoltan Kovacs, 2003-01-16:
+
+However Micro$oft is the world leading software developer company
+(hmm...), XaoS compiled under Microsoft Visual Studio runs 5 times
+slower than the Linux version on the same hardware. My father uses his
+own HP OmniBook xe4500 with Windows XP and I installed Daylon XaoS for
+him under his XP. (Daylon XaoS is a new generation of XaoS compiled
+under Windows and is not part of the main stream currently. It is
+developed from the CVS source frozen about August 2002.) Well, under
+XP in full screen mode (1024x768) I got 5 frames/sec and under Linux
+in the same resolution I got 25... No comment. :-)
+
+End of addendum.
+---------------------------------------------------------------------------
+
 GNU LICENSE:
 
-This program and whole djgpp compiler os under GNU public license. If this
-is something new for you read copying file. Shortly GNU is organization making
-free software as djgpp compiler. Its name is recursive and means GNU not Unix!
-Program under this license can be freely distributed and modified but still
-under this license. Also source codes MUST be available. There is some ways
-how to avoid this so making of commercial software under GNU tools is also
-possible. So look at xaos homepage(http://www.paru.cas.cz/~hubicka/XaoS) and
-get wole sources archive. (license is included in file COPYING in standard 
-distribution)
+This program and whole djgpp compiler os under GNU public license. If
+this is something new for you read copying file. Shortly GNU is
+organization making free software as djgpp compiler. Its name is
+recursive and means GNU not Unix! Program under this license can be
+freely distributed and modified but still under this license. Also
+source codes MUST be available. There is some ways how to avoid this so
+making of commercial software under GNU tools is also possible. So look
+at xaos homepage (http://xaos.sf.net) and get wole sources archive.
+(license is included in file COPYING in standard  distribution)
 
 LINUX:
 
 This program was originally developed under GNU/Linux operating system. It is also
-completely free(you may get it from ftp(ftp://sunsite.unc.edu/pub/Linux for 
+completely free (you may get it from ftp (ftp://sunsite.unc.edu/pub/Linux for 
 example) or on some very cheap CD-ROM(distributed by for example Info magic or 
 RedHat). Linux is modern 32bit Unix clone originally developed for Intel but 
 ports for other architectures(as Atari and Amiga) are also available. It comes 
@@ -228,12 +247,12 @@ This program is completely 32bit so if you have buggy dpmi(as novell dos or
 qemm 7.5 have) it may cause problems. In qemm case get patches to 7.53 from
 its ftp site in novell case get Linux! Also memory requirements are bit 
 higher than in normal dos programs. If program is too slow get faster version
-from its homepage at http://www.paru.cas.cz/~hubicka/XaoS. And use lover
+from its homepage at http://xaos.sf.net. And use lover
 resolution. 
 
 AUTHOR: (of the DOS port and most of XaoS routines)
 
-I am Jan Hubicka. You may browse my homepage at http://www.paru.cas.cz/~hubicka
+I am Jan Hubicka. You may browse my homepage at http://www.ucw.cz/~hubicka
 for more informations and software. One of main purposes for making this 
 program was to get some money to buy new computer(my 486 is too slow for XaoS)
 but then I decided to release this program freely. But PLEASE if you want to
@@ -245,4 +264,4 @@ Tabor
 390 03
 Czech Republic
 
-You may also contact me at email hubicka@paru.cas.cz
+You may also contact me at email jh@ucw.cz.

@@ -41,7 +41,7 @@ Dukelsk\'ych bojovn\'\i ku 1944
 390 03 T@'abor @*
 Czech Republic
 
-Email: @code{hubicka@@paru.cas.cz}
+Email: @code{jh@@ucw.cz}
 
 @value{DATE}
 
