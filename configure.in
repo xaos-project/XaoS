@@ -14,7 +14,7 @@ dnl GNU gettext related things
 dnl
 
 PACKAGE=XaoS
-VERSION=3.1.1
+VERSION=3.1.2
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_SUBST(PACKAGE)
@@ -946,8 +946,7 @@ if test x"$ac_cv_lib_z_inflate" = xno; then
  if test x"$ac_cv_lib_gz_inflate" = xno; then
   echo "You need zlib to compile XaoS with image saving code."
   echo "Please download it from:"
-  echo "  XaoS homepage at http://xaos.sf.net"
-  echo "  or ftp://sunsite.unc.edu/pub/Linux/libs"
+  echo "  ftp://sunsite.unc.edu/pub/Linux/libs"
   echo "  or ftp://ftp.uu.net/graphics/png/src/zlib-0.95.tar.gz"
   echo
  fi
@@ -955,8 +954,7 @@ fi
 if test x"$ac_cv_lib_png_png_create_info_struct" = xno; then
   echo "You need pnglib to compile XaoS with image saving code."
   echo "Please download it from:"
-  echo "  XaoS homepage at http://xaos.sf.net"
-  echo "  or ftp://sunsite.unc.edu/pub/Linux/libs"
+  echo "  ftp://sunsite.unc.edu/pub/Linux/libs"
   echo "  or ftp://ftp.uu.net/graphics/png/src/libpng-0.81.tar.gz"
   echo
 fi
