@@ -1355,7 +1355,7 @@ win32_paste (void)
     }
 }
 
-#define MAX_MENUITEMS_I18N 10
+#define MAX_MENUITEMS_I18N 20
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
 
 int uiw_no_menuitems_i18n = 0, uiw_no_cutpasteitems_i18n;
