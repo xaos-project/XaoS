@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
-"POT-Creation-Date: 2003-03-11 12:36+0100\n"
+"POT-Creation-Date: 2003-03-18 19:57+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: MadSoft <madsoft@centrum.cz>\n"
 "Language-Team: Czech\n"
@@ -14,245 +14,249 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 # ../ui/ui.c:307
-#: ../ui/ui.c:312
+#: ../ui/ui.c:305
 msgid "XaoS is out of memory."
 msgstr "Memórie je zaplnìná."
 
 # ../ui/ui.c:355
-#: ../ui/ui.c:363
+#: ../ui/ui.c:356
 msgid "unzoomed"
 msgstr "zmen¹ení"
 
 # ../ui/ui.c:355
-#: ../ui/ui.c:363
+#: ../ui/ui.c:356
 msgid "zoomed"
 msgstr "zvìt¹ení"
 
 # ../ui/ui.c:358
-#: ../ui/ui.c:371
+#: ../ui/ui.c:364
 #, c-format
 msgid "framerate:%f\n"
 msgstr "obnovení obrazu:%f\n"
 
 # ../ui/ui.c:406
-#: ../ui/ui.c:419
+#: ../ui/ui.c:412
 #, c-format
 msgid "Enabling: %s. "
 msgstr "%s zapnout."
 
 # ../ui/ui.c:408
-#: ../ui/ui.c:421
+#: ../ui/ui.c:414
 #, c-format
 msgid "Disabling: %s. "
 msgstr "%s vypnout."
 
 # ../ui/ui.c:442
-#: ../ui/ui.c:453
+#: ../ui/ui.c:446
 #, c-format
 msgid "Fractal name:%s"
 msgstr "Jméno fraktálu:%s"
 
 # ../ui/ui.c:444
-#: ../ui/ui.c:457
+#: ../ui/ui.c:450
 #, c-format
 msgid "Fractal type:%s"
 msgstr "Tip fraktálu:%s"
 
 # ../ui/ui.c:444
-#: ../ui/ui.c:459
+#: ../ui/ui.c:452
 msgid "Mandelbrot"
 msgstr ""
 
 # ../ui/ui.c:444
-#: ../ui/ui.c:459
+#: ../ui/ui.c:452
 msgid "Julia"
 msgstr ""
 
 # ../ui/ui.c:446
-#: ../ui/ui.c:462
+#: ../ui/ui.c:455
 #, c-format
 msgid "View:[%1.12f,%1.12f]"
 msgstr "Zobrazení:[%1.12f,%1.12f]"
 
 # ../ui/ui.c:448
-#: ../ui/ui.c:466
+#: ../ui/ui.c:459
 #, c-format
 msgid "size:[%1.12f,%1.12f]"
 msgstr "Velikost:[%1.12fx%1.12f]"
 
 # ../ui/ui.c:450
-#: ../ui/ui.c:470
+#: ../ui/ui.c:463
 #, c-format
 msgid "Rotation:%4.2f   Screen size:%i:%i"
 msgstr "Otáèení:%4.2f  Velikost obrazovky:%i:%i"
 
 # ../ui/ui.c:452
-#: ../ui/ui.c:475
+#: ../ui/ui.c:468
 #, c-format
 msgid "Iterations:%-4i Palette size:%i"
 msgstr "Poèet iterací:%-4i  Velikost palety barev:%i"
 
 # ../ui/ui.c:454
-#: ../ui/ui.c:482
+#: ../ui/ui.c:475
 #, c-format
 msgid "Autopilot:%-4s  Plane:%s"
 msgstr "Autopilot:%-4s  Plocha:%s"
 
 # ../ui/ui.c:454
-#: ../ui/ui.c:483
+#: ../ui/ui.c:476
 msgid "On"
 msgstr "Zapnout"
 
 # ../ui/ui.c:454
-#: ../ui/ui.c:483
+#: ../ui/ui.c:476
 msgid "Off"
 msgstr "Vypnout"
 
 # ../ui/ui.c:456
-#: ../ui/ui.c:487
+#: ../ui/ui.c:480
 #, c-format
 msgid "incoloring:%s    outcoloring:%s"
 msgstr "vnitøní vybarvení:%s   vnìj¹í vybarvení:%s"
 
 # ../ui/ui.c:458
-#: ../ui/ui.c:492
+#: ../ui/ui.c:485
 #, c-format
 msgid "zoomspeed:%f"
 msgstr "rychlost zvìt¹ení:%f"
 
 # ../ui/ui.c:461
-#: ../ui/ui.c:496
+#: ../ui/ui.c:489
 msgid "Parameter:none"
 msgstr "Parametr:není"
 
 # ../ui/ui.c:463
-#: ../ui/ui.c:498
+#: ../ui/ui.c:491
 #, c-format
 msgid "Parameter:[%f,%f]"
 msgstr "Parametr:[%f,%f]"
 
 # ../ui/ui.c:550
-#: ../ui/ui.c:594
+#: ../ui/ui.c:587
 #, c-format
 msgid "Please wait while calculating %s"
 msgstr "Prosím èekejte, %s fraktál se pøipravuje..."
 
 # ../ui/ui.c:657
-#: ../ui/ui.c:701
+#: ../ui/ui.c:694
 #, c-format
 msgid "Letters per second %i  "
 msgstr "%i písmen za sekundu"
 
 # ../ui/ui.c:669 ../ui/ui.c:677
-#: ../ui/ui.c:716 ../ui/ui.c:727
+#: ../ui/ui.c:709 ../ui/ui.c:720
 #, c-format
 msgid "Rotation speed:%2.2f degrees per second "
 msgstr "Rychlost rotace:%2.2f stupòù za sekundu "
 
 # ../ui/ui.c:687
-#: ../ui/ui.c:739
+#: ../ui/ui.c:732
 #, c-format
 msgid "Iterations: %i   "
 msgstr "Poèet iterací: %i   "
 
 # ../ui/ui.c:704
-#: ../ui/ui.c:758
+#: ../ui/ui.c:751
 #, c-format
 msgid "Cycling speed: %i   "
 msgstr "Rychlost obracení barev: %i   "
 
 # ../ui/ui.c:717 ../ui/ui.c:730
-#: ../ui/ui.c:773 ../ui/ui.c:788
+#: ../ui/ui.c:766 ../ui/ui.c:781
 #, c-format
 msgid "speed:%2.2f "
 msgstr "rychlost:%2.2f "
 
-# ../ui/ui.c:801
-#: ../ui/ui.c:861
-msgid "Can not allocate buffers"
-msgstr "Není dostatek pufferu"
-
-# ../ui/ui.c:812
-#: ../ui/ui.c:879
-msgid "Can not create palette"
-msgstr "Paleta barev nelze vytvoøit"
-
-# ../ui/ui.c:820
-#: ../ui/ui.c:892
-msgid "Can not create image"
-msgstr "Obraz nelze vytvoøit"
-
-# ../ui/ui.c:853 ../ui/ui.c:917
-#: ../ui/ui.c:926 ../ui/ui.c:990
-msgid "Can not allocate tables"
-msgstr "Není místo pro tabulky"
-
-# ../ui/ui.c:901
-#: ../ui/ui.c:974
-msgid "Can not initialize driver"
-msgstr "Grafický ovladaè nelze inicializovat"
-
-# ../ui/ui.c:904
-#: ../ui/ui.c:977
-msgid "Can not return back to previous driver"
-msgstr "Pøedchzí grafický ovladaè nelze zobrazit"
-
 # ../ui/ui.c:968
-#: ../ui/ui.c:1043
+#: ../ui/ui.c:876
 msgid "Thank you for using XaoS\n"
 msgstr "Dìkujeme za pou¾ití programu XaoS\n"
 
 # ../ui/ui.c:1008
-#: ../ui/ui.c:1084
+#: ../ui/ui.c:917
 msgid "Skipping, please wait..."
 msgstr "Pøeskakování, prosím èekejte..."
 
+#: ../ui/ui.c:1004 ../ui/ui.c:1006
+msgid "Resize"
+msgstr ""
+
 # ../ui/ui.c:1146
-#: ../ui/ui.c:1226
+#: ../ui/ui.c:1016
 msgid "Quit"
 msgstr "Zavøít"
 
 # ../ui/ui.c:1147
-#: ../ui/ui.c:1227
+#: ../ui/ui.c:1017
 msgid "Exit now"
 msgstr "Zavøít ihned"
 
 # ../ui/ui.c:1148
-#: ../ui/ui.c:1229
+#: ../ui/ui.c:1019
 msgid "Not yet"
 msgstr "Je¹tì rad¹i ne"
 
 # ../ui-hlp/menu.c:935 ../ui-hlp/menu.c:940 ../ui/ui.c:1149
-#: ../ui/ui.c:1231 ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045
+#: ../ui/ui.c:1021 ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045
 #: ../ui/dialog.c:430 ../ui/dialog.c:1446
 msgid "Help"
 msgstr "Nápovìda"
 
 # ../ui/ui.c:1150
-#: ../ui/ui.c:1233
+#: ../ui/ui.c:1023
 msgid "Disable XaoS's builtin GUI"
 msgstr "Vypnutí zabudované GUI"
 
 # ../ui/ui.c:1152 ../ui/ui.c:1156
-#: ../ui/ui.c:1237 ../ui/ui.c:1243
+#: ../ui/ui.c:1027 ../ui/ui.c:1033
 msgid "Status"
 msgstr "Vlastnosti"
 
 # ../ui/ui.c:1153 ../ui/ui.c:1157
-#: ../ui/ui.c:1239 ../ui/ui.c:1245
+#: ../ui/ui.c:1029 ../ui/ui.c:1035
 msgid "Ministatus"
 msgstr "Hlavnìj¹í vlastnosti"
 
 # ../ui/ui.c:1159 ../ui/ui.c:1160
-#: ../ui/ui.c:1248 ../ui/ui.c:1249
+#: ../ui/ui.c:1038 ../ui/ui.c:1039
 msgid "Driver"
 msgstr "Grafický ovladaè"
 
 # ../ui/ui.c:1494
-#: ../ui/ui.c:1644
+#: ../ui/ui.c:1434
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Zdravíme vás ve %s Xaos verzi!"
+
+# ../ui/ui.c:801
+#: ../ui/ui.c:1582
+msgid "Can not allocate buffers"
+msgstr "Není dostatek pufferu"
+
+# ../ui/ui.c:812
+#: ../ui/ui.c:1600
+msgid "Can not create palette"
+msgstr "Paleta barev nelze vytvoøit"
+
+# ../ui/ui.c:820
+#: ../ui/ui.c:1613
+msgid "Can not create image"
+msgstr "Obraz nelze vytvoøit"
+
+# ../ui/ui.c:853 ../ui/ui.c:917
+#: ../ui/ui.c:1648 ../ui/ui.c:1702
+msgid "Can not allocate tables"
+msgstr "Není místo pro tabulky"
+
+# ../ui/ui.c:901
+#: ../ui/ui.c:1686
+msgid "Can not initialize driver"
+msgstr "Grafický ovladaè nelze inicializovat"
+
+# ../ui/ui.c:904
+#: ../ui/ui.c:1689
+msgid "Can not return back to previous driver"
+msgstr "Pøedchzí grafický ovladaè nelze zobrazit"
 
 # ../ui-hlp/menu.c:992 ../ui-hlp/menu.c:993 ../ui-hlp/menu.c:1099
 #: ../ui-hlp/menu.c:123
@@ -1633,6 +1637,20 @@ msgstr "Pøeru¹ení"
 #, fuzzy
 msgid "Calculation finished"
 msgstr "Poèítání"
+
+#: ../ui/ui-drv/win32/ui_win32.c:1358
+msgid "Copy"
+msgstr ""
+
+# ../ui-hlp/menu.c:989
+#: ../ui/ui-drv/win32/ui_win32.c:1359
+#, fuzzy
+msgid "Paste"
+msgstr "Paleta barev"
+
+#: ../ui/ui-drv/win32/ui_win32.c:1361
+msgid "About"
+msgstr ""
 
 # ../ui/ui.c:355
 #, fuzzy

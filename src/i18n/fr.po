@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
-"POT-Creation-Date: 2003-03-11 12:36+0100\n"
+"POT-Creation-Date: 2003-03-18 19:57+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: French\n"
@@ -13,201 +13,205 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../ui/ui.c:312
+#: ../ui/ui.c:305
 msgid "XaoS is out of memory."
 msgstr ""
 
-#: ../ui/ui.c:363
+#: ../ui/ui.c:356
 msgid "unzoomed"
 msgstr ""
 
-#: ../ui/ui.c:363
+#: ../ui/ui.c:356
 msgid "zoomed"
 msgstr ""
 
-#: ../ui/ui.c:371
+#: ../ui/ui.c:364
 #, c-format
 msgid "framerate:%f\n"
 msgstr ""
 
-#: ../ui/ui.c:419
+#: ../ui/ui.c:412
 #, c-format
 msgid "Enabling: %s. "
 msgstr ""
 
-#: ../ui/ui.c:421
+#: ../ui/ui.c:414
 #, c-format
 msgid "Disabling: %s. "
 msgstr ""
 
-#: ../ui/ui.c:453
+#: ../ui/ui.c:446
 #, c-format
 msgid "Fractal name:%s"
 msgstr ""
 
-#: ../ui/ui.c:457
+#: ../ui/ui.c:450
 #, c-format
 msgid "Fractal type:%s"
 msgstr ""
 
-#: ../ui/ui.c:459
+#: ../ui/ui.c:452
 msgid "Mandelbrot"
 msgstr ""
 
-#: ../ui/ui.c:459
+#: ../ui/ui.c:452
 msgid "Julia"
 msgstr ""
 
-#: ../ui/ui.c:462
+#: ../ui/ui.c:455
 #, c-format
 msgid "View:[%1.12f,%1.12f]"
 msgstr ""
 
-#: ../ui/ui.c:466
+#: ../ui/ui.c:459
 #, c-format
 msgid "size:[%1.12f,%1.12f]"
 msgstr ""
 
-#: ../ui/ui.c:470
+#: ../ui/ui.c:463
 #, c-format
 msgid "Rotation:%4.2f   Screen size:%i:%i"
 msgstr ""
 
-#: ../ui/ui.c:475
+#: ../ui/ui.c:468
 #, c-format
 msgid "Iterations:%-4i Palette size:%i"
 msgstr ""
 
-#: ../ui/ui.c:482
+#: ../ui/ui.c:475
 #, c-format
 msgid "Autopilot:%-4s  Plane:%s"
 msgstr ""
 
-#: ../ui/ui.c:483
+#: ../ui/ui.c:476
 msgid "On"
 msgstr ""
 
-#: ../ui/ui.c:483
+#: ../ui/ui.c:476
 msgid "Off"
 msgstr ""
 
-#: ../ui/ui.c:487
+#: ../ui/ui.c:480
 #, c-format
 msgid "incoloring:%s    outcoloring:%s"
 msgstr ""
 
-#: ../ui/ui.c:492
+#: ../ui/ui.c:485
 #, c-format
 msgid "zoomspeed:%f"
 msgstr ""
 
-#: ../ui/ui.c:496
+#: ../ui/ui.c:489
 msgid "Parameter:none"
 msgstr ""
 
-#: ../ui/ui.c:498
+#: ../ui/ui.c:491
 #, c-format
 msgid "Parameter:[%f,%f]"
 msgstr ""
 
-#: ../ui/ui.c:594
+#: ../ui/ui.c:587
 #, c-format
 msgid "Please wait while calculating %s"
 msgstr ""
 
-#: ../ui/ui.c:701
+#: ../ui/ui.c:694
 #, c-format
 msgid "Letters per second %i  "
 msgstr ""
 
-#: ../ui/ui.c:716 ../ui/ui.c:727
+#: ../ui/ui.c:709 ../ui/ui.c:720
 #, c-format
 msgid "Rotation speed:%2.2f degrees per second "
 msgstr ""
 
-#: ../ui/ui.c:739
+#: ../ui/ui.c:732
 #, c-format
 msgid "Iterations: %i   "
 msgstr ""
 
-#: ../ui/ui.c:758
+#: ../ui/ui.c:751
 #, c-format
 msgid "Cycling speed: %i   "
 msgstr ""
 
-#: ../ui/ui.c:773 ../ui/ui.c:788
+#: ../ui/ui.c:766 ../ui/ui.c:781
 #, c-format
 msgid "speed:%2.2f "
 msgstr ""
 
-#: ../ui/ui.c:861
-msgid "Can not allocate buffers"
-msgstr ""
-
-#: ../ui/ui.c:879
-msgid "Can not create palette"
-msgstr ""
-
-#: ../ui/ui.c:892
-msgid "Can not create image"
-msgstr ""
-
-#: ../ui/ui.c:926 ../ui/ui.c:990
-msgid "Can not allocate tables"
-msgstr ""
-
-#: ../ui/ui.c:974
-msgid "Can not initialize driver"
-msgstr ""
-
-#: ../ui/ui.c:977
-msgid "Can not return back to previous driver"
-msgstr ""
-
-#: ../ui/ui.c:1043
+#: ../ui/ui.c:876
 msgid "Thank you for using XaoS\n"
 msgstr ""
 
-#: ../ui/ui.c:1084
+#: ../ui/ui.c:917
 msgid "Skipping, please wait..."
 msgstr ""
 
-#: ../ui/ui.c:1226
+#: ../ui/ui.c:1004 ../ui/ui.c:1006
+msgid "Resize"
+msgstr ""
+
+#: ../ui/ui.c:1016
 msgid "Quit"
 msgstr ""
 
-#: ../ui/ui.c:1227
+#: ../ui/ui.c:1017
 msgid "Exit now"
 msgstr ""
 
-#: ../ui/ui.c:1229
+#: ../ui/ui.c:1019
 msgid "Not yet"
 msgstr ""
 
-#: ../ui/ui.c:1231 ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045
+#: ../ui/ui.c:1021 ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045
 #: ../ui/dialog.c:430 ../ui/dialog.c:1446
 msgid "Help"
 msgstr ""
 
-#: ../ui/ui.c:1233
+#: ../ui/ui.c:1023
 msgid "Disable XaoS's builtin GUI"
 msgstr ""
 
-#: ../ui/ui.c:1237 ../ui/ui.c:1243
+#: ../ui/ui.c:1027 ../ui/ui.c:1033
 msgid "Status"
 msgstr ""
 
-#: ../ui/ui.c:1239 ../ui/ui.c:1245
+#: ../ui/ui.c:1029 ../ui/ui.c:1035
 msgid "Ministatus"
 msgstr ""
 
-#: ../ui/ui.c:1248 ../ui/ui.c:1249
+#: ../ui/ui.c:1038 ../ui/ui.c:1039
 msgid "Driver"
 msgstr ""
 
-#: ../ui/ui.c:1644
+#: ../ui/ui.c:1434
 #, c-format
 msgid "Welcome to XaoS version %s"
+msgstr ""
+
+#: ../ui/ui.c:1582
+msgid "Can not allocate buffers"
+msgstr ""
+
+#: ../ui/ui.c:1600
+msgid "Can not create palette"
+msgstr ""
+
+#: ../ui/ui.c:1613
+msgid "Can not create image"
+msgstr ""
+
+#: ../ui/ui.c:1648 ../ui/ui.c:1702
+msgid "Can not allocate tables"
+msgstr ""
+
+#: ../ui/ui.c:1686
+msgid "Can not initialize driver"
+msgstr ""
+
+#: ../ui/ui.c:1689
+msgid "Can not return back to previous driver"
 msgstr ""
 
 #: ../ui-hlp/menu.c:123
@@ -1342,4 +1346,16 @@ msgstr ""
 
 #: ../ui-hlp/render.c:613 ../ui-hlp/render.c:615 ../ui-hlp/render.c:712
 msgid "Calculation finished"
+msgstr ""
+
+#: ../ui/ui-drv/win32/ui_win32.c:1358
+msgid "Copy"
+msgstr ""
+
+#: ../ui/ui-drv/win32/ui_win32.c:1359
+msgid "Paste"
+msgstr ""
+
+#: ../ui/ui-drv/win32/ui_win32.c:1361
+msgid "About"
 msgstr ""

@@ -169,13 +169,6 @@ CONST struct params global_params[] = {
   {NULL, 0, NULL, NULL}
 };
 
-#define UI (MENUFLAG_NOPLAY|MENUFLAG_NOOPTION)
-CONST static menuitem resizeitems[] = {
-  MENUNOP ("ui", "=", "Resize", "resize", UI | MENUFLAG_INTERRUPT,
-	   ui_call_resize),
-  MENUNOP ("uia", "=", "Resize", "animresize", UI | MENUFLAG_INTERRUPT,
-	   ui_call_resize),
-};
 static int resizeregistered = 0;
 static void
 ui_updatemenus (uih_context * c, CONST char *name)
@@ -832,112 +825,6 @@ ui_flip (struct image *image)
   flipgeneric (image);
   driver->flip_buffers ();
 }
-static void
-ui_mkimages (int w, int h)
-{
-  struct palette *palette;
-  int scanline;
-  int width, height;
-  union paletteinfo info;
-  char *b1, *b2;
-  width = w;
-  height = h;
-  if (resizeregistered && !(driver->flags & RESIZE_COMMAND))
-    {
-      menu_delete (resizeitems, NITEMS (resizeitems));
-      resizeregistered = 0;
-    }
-  else
-    {
-      if (!resizeregistered && (driver->flags & RESIZE_COMMAND))
-	{
-	  menu_add (resizeitems, NITEMS (resizeitems));
-	  resizeregistered = 1;
-	}
-    }
-  if (!(scanline = driver->alloc_buffers (&b1, &b2)))
-    {
-      driver->uninit ();
-      x_error (gettext ("Can not allocate buffers"));
-      ui_outofmem ();
-      exit_xaos (-1);
-    }
-  info.truec.rmask = driver->rmask;
-  info.truec.gmask = driver->gmask;
-  info.truec.bmask = driver->bmask;
-  palette =
-    createpalette (driver->palettestart, driver->paletteend,
-		   driver->imagetype,
-		   (driver->flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0,
-		   driver->maxentries,
-		   driver->set_color != NULL ? ui_alloccolor : NULL,
-		   driver->set_range != NULL ? ui_setpalette : NULL, NULL,
-		   NULL, &info);
-  if (!palette)
-    {
-      driver->uninit ();
-      x_error (gettext ("Can not create palette"));
-      ui_outofmem ();
-      exit_xaos (-1);
-    }
-  image =
-    create_image_cont (width, height, scanline, 2, (unsigned char *) b1,
-		       (unsigned char *) b2, palette, ui_flip,
-		       (driver->flags & AALIB) ? AAIMAGE : 0,
-		       get_windowwidth (width) / width,
-		       get_windowheight (height) / height);
-  if (!image)
-    {
-      driver->uninit ();
-      x_error (gettext ("Can not create image"));
-      ui_outofmem ();
-      exit_xaos (-1);
-    }
-}
-void
-ui_resize (void)
-{
-  int w, h;
-  if (uih->incalculation)
-    {
-      uih_interrupt (uih);
-      return;
-    }
-  ui_closemenus ();
-  ui_closedialog (0);
-  ui_close_help ();
-  uih_clearwindows (uih);
-  uih_stoptimers (uih);
-  uih_cycling_stop (uih);
-  uih_savepalette (uih);
-  driver->getsize (&w, &h);
-  assert (w > 0 && w < 65000 && h > 0 && h < 65000);
-  if (w != uih->image->width || h != uih->image->height
-      || (driver->flags & UPDATE_AFTER_RESIZE)
-      || uih->palette->type != driver->imagetype)
-    {
-      driver->free_buffers (NULL, NULL);
-      destroy_image (uih->image);
-      destroypalette (uih->palette);
-      ui_mkimages (w, h);
-      if (!uih_updateimage (uih, image))
-	{
-	  driver->uninit ();
-	  x_error (gettext ("Can not allocate tables"));
-	  ui_outofmem ();
-	  exit_xaos (-1);
-	}
-      tl_process_group (syncgroup, NULL);
-      tl_reset_timer (maintimer);
-      tl_reset_timer (arrowtimer);
-      uih_newimage (uih);
-    }
-  uih_newimage (uih);
-  uih_restorepalette (uih);
-  /*uih_mkdefaultpalette(uih); */
-  uih->display = 1;;
-  uih_cycling_continue (uih);
-}
 static int
 ui_driverselected (uih_context * c, int d)
 {
@@ -947,60 +834,6 @@ static void
 ui_setdriver (uih_context * c, int d)
 {
   todriver = d + 1;
-}
-static void
-ui_driver (int d)
-{
-  CONST struct ui_driver *driver1;
-  int width, height;
-  ui_closemenus ();
-  ui_closedialog (0);
-  ui_close_help ();
-  if (d < 0)
-    d = 0;
-  if (d >= ndrivers)
-    d = ndrivers - 1;
-  uih_stoptimers (uih);
-  driver1 = driver;
-  uih_clearwindows (uih);
-  uih_cycling_off (uih);
-  uih_savepalette (uih);
-  driver->free_buffers (NULL, NULL);
-  driver->uninit ();
-  driver = drivers[d];
-  if (!driver->init ())
-    {
-      driver = driver1;
-      uih_error (uih, gettext ("Can not initialize driver"));
-      if (!driver1->init ())
-	{
-	  x_fatalerror (gettext ("Can not return back to previous driver"));
-	}
-      else
-	driver = driver1;
-    }
-  driver->getsize (&width, &height);
-  destroy_image (uih->image);
-  destroypalette (uih->palette);
-  uih->flags = driver->flags;
-  ui_mkimages (width, height);
-  if (!uih_updateimage (uih, image))
-    {
-      driver->uninit ();
-      x_error (gettext ("Can not allocate tables"));
-      ui_outofmem ();
-      exit_xaos (-1);
-    }
-  if (driver->gui_driver && driver->gui_driver->setrootmenu)
-    driver->gui_driver->setrootmenu (uih, uih->menuroot);
-  tl_process_group (syncgroup, NULL);
-  tl_reset_timer (maintimer);
-  tl_reset_timer (arrowtimer);
-  uih->display = 1;
-  uih_newimage (uih);
-  uih_restorepalette (uih);
-  ui_updatestatus ();
-  uih_updatemenus (uih, driver->name);
 }
 static void
 processbuffer (void)
@@ -1135,63 +968,6 @@ int EF_PROTECT_BELOW = 0;
 int EF_PROTECT_FREE = 1;
 #endif
 static void
-main_loop (void)
-  NORETURN;
-     static void main_loop (void)
-{
-  int inmovement = 1;
-  int x, y, b, k;
-  int time;
-  driver->processevents ((!inmovement && !uih->inanimation), &x, &y, &b, &k);
-  while (1)
-    {
-      mousetype (uih->play ? REPLAYMOUSE : NORMALMOUSE);
-      if (uih->display)
-	{
-	  uih_prepare_image (uih);
-	  ui_updatestatus ();
-	}
-      if ((time = tl_process_group (syncgroup, NULL)) != -1)
-	{
-	  if (!inmovement && !uih->inanimation)
-	    {
-	      if (time > 1000000 / 50)
-		time = 1000000 / 50;
-	      if (time > delaytime)
-		{
-		  tl_sleep (time - delaytime);
-		  tl_update_time ();
-		}
-	    }
-	  inmovement = 1;
-	}
-      if (delaytime || maxframerate)
-	{
-	  tl_update_time ();
-	  time = tl_lookup_timer (loopt);
-	  tl_reset_timer (loopt);
-	  time = 1000000 / maxframerate - time;
-	  if (time < delaytime)
-	    time = delaytime;
-	  if (time)
-	    {
-	      tl_sleep (time);
-	      tl_update_time ();
-	    }
-	}
-      processbuffer ();
-      driver->processevents ((!inmovement && !uih->inanimation), &x, &y, &b,
-			     &k);
-
-      inmovement = 0;
-      ui_mouse (x, y, b, k);
-      if (todriver)
-	ui_driver (todriver - 1), todriver = 0;
-      if (callresize)
-	ui_resize (), callresize = 0;
-    }
-}
-static void
 ui_helpwr (struct uih_context *c)
 {
   ui_help ("main");
@@ -1219,6 +995,20 @@ static menuitem *menuitems;
 /* These variables must be global: */
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
 int ui_no_menuitems_i18n;
+
+#define UI (MENUFLAG_NOPLAY|MENUFLAG_NOOPTION)
+static void
+add_resizeitems()
+{
+  int no_menuitems_i18n = 0;	/* This variable must be local. */
+  MENUNOP_I ("ui", "=", gettext("Resize"), "resize", UI | MENUFLAG_INTERRUPT,
+	   ui_call_resize);
+  MENUNOP_I ("uia", "=", gettext("Resize"), "animresize", UI | MENUFLAG_INTERRUPT,
+	   ui_call_resize);
+  menu_add (menuitems_i18n, no_menuitems_i18n);
+  ui_no_menuitems_i18n = no_menuitems_i18n;
+}
+
 static void
 ui_registermenus_i18n (void)
 {
@@ -1761,4 +1551,224 @@ MAIN_FUNCTION (int argc, char **argv)
   main_loop ();
   ui_quit ();
   return (0);
+}
+
+static void
+ui_mkimages (int w, int h)
+{
+  struct palette *palette;
+  int scanline;
+  int width, height;
+  union paletteinfo info;
+  char *b1, *b2;
+  width = w;
+  height = h;
+  if (resizeregistered && !(driver->flags & RESIZE_COMMAND))
+    {
+      // menu_delete (resizeitems, NITEMS (resizeitems));
+      resizeregistered = 0;
+    }
+  else
+    {
+      if (!resizeregistered && (driver->flags & RESIZE_COMMAND))
+	{
+	  add_resizeitems();
+	  // resizeregistered = 1;
+	}
+    }
+  if (!(scanline = driver->alloc_buffers (&b1, &b2)))
+    {
+      driver->uninit ();
+      x_error (gettext ("Can not allocate buffers"));
+      ui_outofmem ();
+      exit_xaos (-1);
+    }
+  info.truec.rmask = driver->rmask;
+  info.truec.gmask = driver->gmask;
+  info.truec.bmask = driver->bmask;
+  palette =
+    createpalette (driver->palettestart, driver->paletteend,
+		   driver->imagetype,
+		   (driver->flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0,
+		   driver->maxentries,
+		   driver->set_color != NULL ? ui_alloccolor : NULL,
+		   driver->set_range != NULL ? ui_setpalette : NULL, NULL,
+		   NULL, &info);
+  if (!palette)
+    {
+      driver->uninit ();
+      x_error (gettext ("Can not create palette"));
+      ui_outofmem ();
+      exit_xaos (-1);
+    }
+  image =
+    create_image_cont (width, height, scanline, 2, (unsigned char *) b1,
+		       (unsigned char *) b2, palette, ui_flip,
+		       (driver->flags & AALIB) ? AAIMAGE : 0,
+		       get_windowwidth (width) / width,
+		       get_windowheight (height) / height);
+  if (!image)
+    {
+      driver->uninit ();
+      x_error (gettext ("Can not create image"));
+      ui_outofmem ();
+      exit_xaos (-1);
+    }
+}
+
+void
+ui_resize (void)
+{
+  int w, h;
+  if (uih->incalculation)
+    {
+      uih_interrupt (uih);
+      return;
+    }
+  ui_closemenus ();
+  ui_closedialog (0);
+  ui_close_help ();
+  uih_clearwindows (uih);
+  uih_stoptimers (uih);
+  uih_cycling_stop (uih);
+  uih_savepalette (uih);
+  driver->getsize (&w, &h);
+  assert (w > 0 && w < 65000 && h > 0 && h < 65000);
+  if (w != uih->image->width || h != uih->image->height
+      || (driver->flags & UPDATE_AFTER_RESIZE)
+      || uih->palette->type != driver->imagetype)
+    {
+      driver->free_buffers (NULL, NULL);
+      destroy_image (uih->image);
+      destroypalette (uih->palette);
+      ui_mkimages (w, h);
+      if (!uih_updateimage (uih, image))
+	{
+	  driver->uninit ();
+	  x_error (gettext ("Can not allocate tables"));
+	  ui_outofmem ();
+	  exit_xaos (-1);
+	}
+      tl_process_group (syncgroup, NULL);
+      tl_reset_timer (maintimer);
+      tl_reset_timer (arrowtimer);
+      uih_newimage (uih);
+    }
+  uih_newimage (uih);
+  uih_restorepalette (uih);
+  /*uih_mkdefaultpalette(uih); */
+  uih->display = 1;;
+  uih_cycling_continue (uih);
+}
+static void
+ui_driver (int d)
+{
+  CONST struct ui_driver *driver1;
+  int width, height;
+  ui_closemenus ();
+  ui_closedialog (0);
+  ui_close_help ();
+  if (d < 0)
+    d = 0;
+  if (d >= ndrivers)
+    d = ndrivers - 1;
+  uih_stoptimers (uih);
+  driver1 = driver;
+  uih_clearwindows (uih);
+  uih_cycling_off (uih);
+  uih_savepalette (uih);
+  driver->free_buffers (NULL, NULL);
+  driver->uninit ();
+  driver = drivers[d];
+  if (!driver->init ())
+    {
+      driver = driver1;
+      uih_error (uih, gettext ("Can not initialize driver"));
+      if (!driver1->init ())
+	{
+	  x_fatalerror (gettext ("Can not return back to previous driver"));
+	}
+      else
+	driver = driver1;
+    }
+  driver->getsize (&width, &height);
+  destroy_image (uih->image);
+  destroypalette (uih->palette);
+  uih->flags = driver->flags;
+  ui_mkimages (width, height);
+  if (!uih_updateimage (uih, image))
+    {
+      driver->uninit ();
+      x_error (gettext ("Can not allocate tables"));
+      ui_outofmem ();
+      exit_xaos (-1);
+    }
+  if (driver->gui_driver && driver->gui_driver->setrootmenu)
+    driver->gui_driver->setrootmenu (uih, uih->menuroot);
+  tl_process_group (syncgroup, NULL);
+  tl_reset_timer (maintimer);
+  tl_reset_timer (arrowtimer);
+  uih->display = 1;
+  uih_newimage (uih);
+  uih_restorepalette (uih);
+  ui_updatestatus ();
+  uih_updatemenus (uih, driver->name);
+}
+
+static void
+main_loop (void)
+  NORETURN;
+     static void main_loop (void)
+{
+  int inmovement = 1;
+  int x, y, b, k;
+  int time;
+  driver->processevents ((!inmovement && !uih->inanimation), &x, &y, &b, &k);
+  while (1)
+    {
+      mousetype (uih->play ? REPLAYMOUSE : NORMALMOUSE);
+      if (uih->display)
+	{
+	  uih_prepare_image (uih);
+	  ui_updatestatus ();
+	}
+      if ((time = tl_process_group (syncgroup, NULL)) != -1)
+	{
+	  if (!inmovement && !uih->inanimation)
+	    {
+	      if (time > 1000000 / 50)
+		time = 1000000 / 50;
+	      if (time > delaytime)
+		{
+		  tl_sleep (time - delaytime);
+		  tl_update_time ();
+		}
+	    }
+	  inmovement = 1;
+	}
+      if (delaytime || maxframerate)
+	{
+	  tl_update_time ();
+	  time = tl_lookup_timer (loopt);
+	  tl_reset_timer (loopt);
+	  time = 1000000 / maxframerate - time;
+	  if (time < delaytime)
+	    time = delaytime;
+	  if (time)
+	    {
+	      tl_sleep (time);
+	      tl_update_time ();
+	    }
+	}
+      processbuffer ();
+      driver->processevents ((!inmovement && !uih->inanimation), &x, &y, &b,
+			     &k);
+
+      inmovement = 0;
+      ui_mouse (x, y, b, k);
+      if (todriver)
+	ui_driver (todriver - 1), todriver = 0;
+      if (callresize)
+	ui_resize (), callresize = 0;
+    }
 }

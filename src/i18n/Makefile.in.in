@@ -8,7 +8,8 @@ LOCALEDIR=@LOCALEDIR@
 CSOURCES=../ui/ui.c ../ui-hlp/menu.c \
 ../ui-hlp/play.c ../ui-hlp/ui_helper.c \
 ../engine/zoom.c ../engine/btrace.c \
-../ui/dialog.c ../ui/filesel.c ../ui-hlp/render.c
+../ui/dialog.c ../ui/filesel.c ../ui-hlp/render.c \
+../ui/ui-drv/win32/ui_win32.c
 
 
 MO-FILES = $(LANGUAGES:=.mo)

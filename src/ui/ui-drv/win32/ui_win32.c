@@ -30,6 +30,14 @@
 #define MOUSEWIDTH 16
 #define MOUSEHEIGHT 16
 
+#ifdef HAVE_GETTEXT
+#include <libintl.h>
+#include <locale.h>
+#else
+#define gettext(STRING) STRING
+#endif
+
+
 HINSTANCE hInstance;
 HWND hWnd;
 CONST char *helptopic = "main";
@@ -1340,13 +1348,20 @@ win32_paste (void)
       CloseClipboard ();
     }
 }
-static CONST menuitem cutpaste[] = {
-  MENUSEPARATOR ("edit"),
-  MENUNOP ("edit", NULL, "Copy", "copy", 0, win32_copy),
-  MENUNOP ("edit", NULL, "Paste", "paste", 0, win32_paste),
-  MENUSEPARATOR ("helpmenu"),
-  MENUNOP ("helpmenu", NULL, "About", "about", 0, AboutBox),
-};
+
+static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
+int ui_no_menuitems_i18n;
+static void add_cutpaste()
+{
+  int no_menuitems_i18n = 0; /* This variable must be local. */
+  MENUSEPARATOR_I ("edit");
+  MENUNOP_I ("edit", NULL, gettext("Copy"), "copy", 0, win32_copy);
+  MENUNOP_I ("edit", NULL, gettext("Paste"), "paste", 0, win32_paste);
+  MENUSEPARATOR_I ("helpmenu");
+  MENUNOP_I ("helpmenu", NULL, gettext("About"), "about", 0, AboutBox);
+  menu_add (menuitems_i18n, no_menuitems_i18n);
+  ui_no_menuitems_i18n = no_menuitems_i18n;
+}
 
 
 static int
@@ -1364,7 +1379,7 @@ win32_init (void)
   win32_driver.textheight = fontHeight;
   getres (&win32_driver.width, &win32_driver.height);
   win32_createrootmenu ();
-  menu_add (cutpaste, NITEMS (cutpaste));
+  add_cutpaste();
   return r;
 }
 
@@ -1372,7 +1387,7 @@ static void
 win32_uninitialize (void)
 {
   DeInitWindow ();
-  menu_delete (cutpaste, NITEMS (cutpaste));
+  // menu_delete (cutpaste, NITEMS (cutpaste));
 }
 static void
 win32_getsize (int *width, int *height)
@@ -1621,7 +1636,7 @@ dxw_init (void)
     return 0;
   win32_createrootmenu ();
   getres (&dxw_driver.width, &dxw_driver.height);
-  menu_add (cutpaste, NITEMS (cutpaste));
+  add_cutpaste();
   return r;
 }
 static int
@@ -1637,7 +1652,7 @@ dxf_init (void)
   if (!dx_imgparams ())
     return 0;
   menu_add (menuitems, NITEMS (menuitems));
-  menu_add (cutpaste, NITEMS (cutpaste));
+  add_cutpaste();
   return r;
 }
 
@@ -1648,7 +1663,7 @@ dx_uninitialize (void)
 {
   if (directX == DXFULLSCREEN)
     menu_delete (menuitems, NITEMS (menuitems));
-  menu_delete (cutpaste, NITEMS (cutpaste));
+  // menu_delete (cutpaste, NITEMS (cutpaste));
   DeInitDD ();
 }
 
