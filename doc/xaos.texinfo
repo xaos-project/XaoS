@@ -18,7 +18,7 @@
 
 
 @ifinfo
-@copyright{} 1997-2005 Jan Hubicka and the XaoS Development Team
+@copyright{} 1997-2003 Jan Hubicka and the XaoS Development Team
 
 Permission is granted to make and distribute verbatim
 copies of this manual provided the copyright notice and
@@ -28,8 +28,8 @@ this permission notice are preserved on all copies.
 
 @c %**end of header
 
-@set VERSION    3.1.1
-@set DATE       Feb 5, 2005
+@set VERSION    3.1
+@set DATE       Feb 15, 2003
 
 @titlepage
 
@@ -1031,7 +1031,7 @@ DOS driver was written by Jan Hubicka, 1997.
 @node dX-fullscreen, dX-window , dos ,drivers
 
 @section DirectX fullscreen driver
-This is a driver for Windows 9x and NT. It is new since version 3.1 and
+This is da river for Windows 9x and NT. It is new since version 3.1 and
 because of some oddities of Windows API and kludges in DirectX
 it may be rather unstable. Please report all bugs. In case
 of problems you could use the DOS version of XaoS instead.
@@ -3295,8 +3295,6 @@ OS/2 ports (320x200 graphics and AA-lib)
 Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
 @item Zsigmond Kovacs
 Fractal examples
-@item Patrick Kursawe (kursawe@@users.sf.net)
-Patch for gcc-3.4
 @item Andreas Madritsch (amadritsch@@datacomm.ch)
 New fractal types, bailout, many fixes
 @item Giorgio Marazzi (gmarazzi@@vtr.net)
@@ -3320,7 +3318,7 @@ Periodicity checking
 @item Jan Olderdissen (jan@@olderdissen.com)
 Win32 port
 @item Daniel Skarda
-Fractal examples (0rfel*.xpf)
+Fractal examples
 @item Pavel Tzekov (paveltz@@csoft.bg)
 Win32 support
 @item Charles Vidal

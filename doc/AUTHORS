@@ -42,8 +42,8 @@ Zoltan Kovacs (kovzol@math.u-szeged.hu)
      Internationalization, Hungarian translations, finalizing version
      3.1, bug fixes, web design, current maintainer
 
-Patrick Kursawe (kursawe@users.sf.net)
-     Patch for gcc-3.4
+Zsigmond Kovacs
+     Fractal examples
 
 Andreas Madritsch (amadritsch@datacomm.ch)
      New fractal types, bailout, many fixes
@@ -78,6 +78,9 @@ Fabrice Premel (premelfa@etu.utc.fr)
 
 Jan Olderdissen (jan@olderdissen.com)
      Win32 port
+
+Daniel Skarda
+     Fractal examples
 
 Pavel Tzekov (paveltz@csoft.bg)
      Win32 support

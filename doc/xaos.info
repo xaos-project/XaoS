@@ -170,10 +170,10 @@ quite famous fractal.
    On key `0' is a fractal called _Magnet_. This fractal has quite a
 complex formula so it is a bit slow.
 
-   Version 3.1 has 3 more fractal types. On most platform you can
-display these fractals with keys `SHIFT-A', `SHIFT-B' and `SHIFT-C',
-which will show you the _fourth ordered Newton_, the _Barnsley2_ and
-the _Magnet2_ fractals, respectively.
+   Since version 3.1 there are 3 more fractal types. On most platform
+you can display these fractals with keys `SHIFT-A', `SHIFT-B' and
+`SHIFT-C', which will show you the _fourth ordered Newton_, the
+_Barnsley2_ and the _Magnet2_ fractals, respectively.
 
 Out-coloring modes
 ==================
@@ -1016,9 +1016,9 @@ File: xaos.info,  Node: dX-fullscreen,  Next: dX-window,  Prev: dos,  Up: driver
 DirectX fullscreen driver
 =========================
 
-   This is da river for Windows 9x and NT. It is new in version 3.1 and
-because of some oddities of Windows API and kludges in DirectX it may
-be rather unstable. Please report all bugs. In case of problems you
+   This is da river for Windows 9x and NT. It is new since version 3.1
+and because of some oddities of Windows API and kludges in DirectX it
+may be rather unstable. Please report all bugs. In case of problems you
 could use the DOS version of XaoS instead.
 
    This driver allows the Windows port of XaoS to run in full screen
@@ -1127,8 +1127,8 @@ File: xaos.info,  Node: win32,  Next: X11,  Prev: SVGAlib,  Up: drivers
 Win32 driver
 ============
 
-   This is a driver for Windows 9x and NT. It is new in version 3.1 and
-because of some oddities of Windows API it may be rather unstable.
+   This is a driver for Windows 9x and NT. It is new since version 3.1
+and because of some oddities of Windows API it may be rather unstable.
 Please report all bugs. In case of problems you could use the DOS
 version of XaoS instead.
 
@@ -3415,8 +3415,8 @@ Credits
      Internationalization, Hungarian translations, finalizing version
      3.1, bug fixes, web design, current maintainer
 
-*Patrick Kursawe (kursawe@users.sf.net)*
-     Patch for gcc-3.4
+*Zsigmond Kovacs*
+     Fractal examples
 
 *Andreas Madritsch (amadritsch@datacomm.ch)*
      New fractal types, bailout, many fixes
@@ -3451,6 +3451,9 @@ Credits
 
 *Jan Olderdissen (jan@olderdissen.com)*
      Win32 port
+
+*Daniel Skarda*
+     Fractal examples
 
 *Pavel Tzekov (paveltz@csoft.bg)*
      Win32 support
@@ -3582,123 +3585,123 @@ Node: Overview1486
 Node: Why?1679
 Node: What?3836
 Node: tutorial4404
-Node: controls13060
-Node: mpeg14952
-Node: format21847
-Node: writehelp27278
-Node: xshl27764
-Node: drivers28904
-Node: aa29598
-Node: BeOS32110
-Node: DGA34934
-Node: dos35549
-Node: dX-fullscreen37968
-Node: dX-window39087
-Node: ggi39172
-Node: plan939718
-Node: SVGAlib40814
-Node: win3242190
-Node: X1144088
-Node: menus45078
-Node: root45925
-Node: animroot45986
-Node: stopreplay46264
-Node: plc46404
-Node: load46756
-Node: linemenu47076
-Node: animf49840
-Node: animateview50546
-Node: smoothmorph51068
-Node: morphview51642
-Node: morphjulia52695
-Node: moveview53313
-Node: morphangle53534
-Node: zoom54193
-Node: time55018
-Node: usleep55487
-Node: textsleep55875
-Node: wait56419
-Node: file56991
-Node: loadpos57254
-Node: savepos57507
-Node: record57940
-Node: play58430
-Node: saveimg58633
-Node: loadexample59256
-Node: savecfg59599
-Node: quit59973
-Node: edit60137
-Node: undo60322
-Node: redo60586
-Node: copy60752
-Node: paste61035
-Node: fractal61310
-Node: formula61868
-Node: uimandelbrot62587
-Node: uiperturbation64098
-Node: bailout65277
-Node: uiview66364
-Node: initstate68362
-Node: plane68841
-Node: incoloring69995
-Node: outcoloring71508
-Node: tcolor73220
-Node: calc74842
-Node: range75301
-Node: periodicity75915
-Node: maxiter78078
-Node: fastjulia79308
-Node: dynamic80054
-Node: rotate80882
-Node: mfilter82290
-Node: filter82939
-Node: edge83573
-Node: edge284101
-Node: starfield84634
-Node: stereogram84982
-Node: interlace89356
-Node: blur89761
-Node: emboss90165
-Node: palettef90489
-Node: anti91046
-Node: truecolor91740
-Node: ui92338
-Node: speed92792
-Node: letterspersec93838
-Node: autopilot94218
-Node: recalculate95040
-Node: interrupt95400
-Node: nogui95620
-Node: status96079
-Node: ministatus96467
-Node: misc96757
-Node: command97151
-Node: renderanim97526
-Node: clearscreen97768
-Node: display98098
-Node: text98389
-Node: color99114
-Node: textposition99383
-Node: message99838
-Node: helpmenu100230
-Node: xtextpos100362
-Node: ytextpos100627
-Node: mformula100900
-Node: mandel101244
-Node: mandel3101512
-Node: octal101932
-Node: newton102259
-Node: barnsley102792
-Node: phoenix103061
-Node: magnet103286
-Node: palettemenu103617
-Node: defpalette103946
-Node: randompalette104427
-Node: palette104917
-Node: cycling105766
-Node: shiftpalette106729
-Node: authors107426
-Node: lists109770
-Node: index110517
+Node: controls13072
+Node: mpeg14964
+Node: format21859
+Node: writehelp27290
+Node: xshl27776
+Node: drivers28916
+Node: aa29610
+Node: BeOS32122
+Node: DGA34946
+Node: dos35561
+Node: dX-fullscreen37980
+Node: dX-window39102
+Node: ggi39187
+Node: plan939733
+Node: SVGAlib40829
+Node: win3242205
+Node: X1144106
+Node: menus45096
+Node: root45943
+Node: animroot46004
+Node: stopreplay46282
+Node: plc46422
+Node: load46774
+Node: linemenu47094
+Node: animf49858
+Node: animateview50564
+Node: smoothmorph51086
+Node: morphview51660
+Node: morphjulia52713
+Node: moveview53331
+Node: morphangle53552
+Node: zoom54211
+Node: time55036
+Node: usleep55505
+Node: textsleep55893
+Node: wait56437
+Node: file57009
+Node: loadpos57272
+Node: savepos57525
+Node: record57958
+Node: play58448
+Node: saveimg58651
+Node: loadexample59274
+Node: savecfg59617
+Node: quit59991
+Node: edit60155
+Node: undo60340
+Node: redo60604
+Node: copy60770
+Node: paste61053
+Node: fractal61328
+Node: formula61886
+Node: uimandelbrot62605
+Node: uiperturbation64116
+Node: bailout65295
+Node: uiview66382
+Node: initstate68380
+Node: plane68859
+Node: incoloring70013
+Node: outcoloring71526
+Node: tcolor73238
+Node: calc74860
+Node: range75319
+Node: periodicity75933
+Node: maxiter78096
+Node: fastjulia79326
+Node: dynamic80072
+Node: rotate80900
+Node: mfilter82308
+Node: filter82957
+Node: edge83591
+Node: edge284119
+Node: starfield84652
+Node: stereogram85000
+Node: interlace89374
+Node: blur89779
+Node: emboss90183
+Node: palettef90507
+Node: anti91064
+Node: truecolor91758
+Node: ui92356
+Node: speed92810
+Node: letterspersec93856
+Node: autopilot94236
+Node: recalculate95058
+Node: interrupt95418
+Node: nogui95638
+Node: status96097
+Node: ministatus96485
+Node: misc96775
+Node: command97169
+Node: renderanim97544
+Node: clearscreen97786
+Node: display98116
+Node: text98407
+Node: color99132
+Node: textposition99401
+Node: message99856
+Node: helpmenu100248
+Node: xtextpos100380
+Node: ytextpos100645
+Node: mformula100918
+Node: mandel101262
+Node: mandel3101530
+Node: octal101950
+Node: newton102277
+Node: barnsley102810
+Node: phoenix103079
+Node: magnet103304
+Node: palettemenu103635
+Node: defpalette103964
+Node: randompalette104445
+Node: palette104935
+Node: cycling105784
+Node: shiftpalette106747
+Node: authors107444
+Node: lists109803
+Node: index110550
 
 End Tag Table

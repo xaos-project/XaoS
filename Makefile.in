@@ -31,6 +31,10 @@ install:
 	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS
 	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/tutorial
 	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/examples
+	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/examples/Hubicka
+	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/examples/0rfelyus
+	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/examples/ZKovacs
+	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/examples/ZsKovacs
 	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/catalogs
 	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/doc
 	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/help
@@ -38,7 +42,13 @@ install:
 	@INSTALL@ -d $(DESTDIR)$(mandir)/man6
 	@INSTALL@ -s bin/xaos $(DESTDIR)$(bindir)
 	@INSTALL@ -m 444 tutorial/*.x[ah]f $(DESTDIR)$(datadir)/XaoS/tutorial
-	@INSTALL@ -m 444 examples/*.x[ap]f examples/README $(DESTDIR)$(datadir)/XaoS/examples
+
+	@INSTALL@ -m 444 examples/README $(DESTDIR)$(datadir)/XaoS/examples
+	@INSTALL@ -m 444 examples/Hubicka/*.x[ap]f $(DESTDIR)$(datadir)/XaoS/examples/Hubicka
+	@INSTALL@ -m 444 examples/0rfelyus/*.x[ap]f $(DESTDIR)$(datadir)/XaoS/examples/0rfelyus
+	@INSTALL@ -m 444 examples/ZKovacs/*.x[ap]f $(DESTDIR)$(datadir)/XaoS/examples/ZKovacs
+	@INSTALL@ -m 444 examples/ZsKovacs/*.x[ap]f $(DESTDIR)$(datadir)/XaoS/examples/ZsKovacs
+
 	@INSTALL@ -m 444 catalogs/*.cat catalogs/README $(DESTDIR)$(datadir)/XaoS/catalogs
 	@INSTALL@ -m 444 help/xaos.hlp $(DESTDIR)$(datadir)/XaoS/help
 	@INSTALL@ -m 444 doc/README doc/README.bugs doc/compilers.txt doc/AUTHORS doc/PROBLEMS $(DESTDIR)$(datadir)/XaoS/doc
