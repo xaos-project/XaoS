@@ -741,7 +741,11 @@ if test  "$ggi_driver_test" = yes; then
 fi
 if test  "$i18n" = yes; then
   AC_CHECK_FUNC(gettext)
-  AC_DEFINE(HAVE_GETTEXT)
+  if test "x$ac_cv_func_gettext" = xyes; then
+    AC_DEFINE(HAVE_GETTEXT)
+  else
+    i18n=no
+  fi
 fi
 echo "------------------------------------------------------------"
 echo "Available drivers:"
@@ -858,17 +862,14 @@ AC_SUBST(STICKY)
 AC_SUBST(CFLAGS1)
 AC_SUBST(CXXFLAGS)
 AC_SUBST(ASMOBJS)
+AC_SUBST(i18n)
 
-
-
-AC_OUTPUT(Makefile src/Makefile src/i18n/Makefile src/engine/Makefile src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile
-          src/ui/ui-drv/aa/Makefile
-          src/ui/ui-drv/ggi/Makefile
-          src/ui/ui-drv/svga/Makefile
-          src/ui/ui-drv/x11/Makefile
-          src/ui/ui-drv/dga/Makefile
-          src/ui/ui-drv/win32/Makefile
-          src/ui/ui-drv/BeOS/Makefile
+AC_OUTPUT(Makefile src/Makefile src/i18n/Makefile src/engine/Makefile 
+    src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile
+    src/ui/ui-drv/aa/Makefile src/ui/ui-drv/ggi/Makefile
+    src/ui/ui-drv/svga/Makefile src/ui/ui-drv/x11/Makefile
+    src/ui/ui-drv/dga/Makefile src/ui/ui-drv/win32/Makefile
+    src/ui/ui-drv/BeOS/Makefile
 	  )
 echo "------------------------------------------------------------"
 echo "Compiler options:"
@@ -878,23 +879,23 @@ echo " CFLAGS1     : $CFLAGS1"
 echo " CXXFLAGS    : $CXXFLAGS"
 echo " LDLAGS      : $LDLAGS"
 echo " LIBS        : $LIBS"
-echo " X_LIBS        : $X_LIBS"
+echo " X_LIBS      : $X_LIBS"
 echo "------------------------------------------------------------"
 echo " "
 echo "READ CUREFULLY FOLLOWING WARNINGS"
 echo " "
 if test "x$ac_cv_header_stdc" = xno; then
-  AC_MSG_WARN(There is no ansi c headers avaiable. XaoS will have troubles with compiling.)
+  AC_MSG_WARN(There are no ANSI C headers avaiable. XaoS will have troubles with compiling.)
   config_problem=yes
 fi
 if test "x$ac_cv_prog_gcc" = xyes; then
   echo 
 else
-  AC_MSG_WARN(The gnu c compiler is recomended to get best performance. XaoS crashes many compiler so your compiler can cause troubles.)
+  AC_MSG_WARN(The GNU C compiler is recommended to get the best performance. XaoS crashes many compilers so your compiler can cause troubles.)
 fi
 if test "x$ac_cv_c_long_double" = xyes; then
   if test "x$long_double" = xyes; then
-  AC_MSG_WARN(Long double enabled. This works well for x86 architectures. On other systems this should slow down much. Especially on sun workstations. If XaoS works incredibly slowly try to rebuild it using:
+  AC_MSG_WARN(Long double enabled. This works well for x86 architectures. On other systems this may slow down much. Especially on SUN workstations. If XaoS works incredibly slowly, try to rebuild it using:
    configure --with-long-double=no
    make clean
    make)
@@ -906,13 +907,13 @@ if test "x$drivers" = xno; then
 fi
 if test "x$config_problem" = xyes; then
   AC_MSG_WARN(There was a problem with automatic configuration.)
-  AC_MSG_WARN(Read INSTALL file for trouble-shooting tips.)
+  AC_MSG_WARN(Read INSTALL file for troubleshooting tips.)
 fi
 if test x"$ac_cv_lib_z_inflate" = xno; then
  if test x"$ac_cv_lib_gz_inflate" = xno; then
   echo "You need zlib to compile XaoS with image saving code."
   echo "Please download it from:"
-  echo "  XaoS homepage at http://www.paru.cas.cz/~hubicka/XaoS"
+  echo "  XaoS homepage at http://xaos.sf.net"
   echo "  or ftp://sunsite.unc.edu/pub/Linux/libs"
   echo "  or ftp://ftp.uu.net/graphics/png/src/zlib-0.95.tar.gz"
   echo
@@ -921,14 +922,21 @@ fi
 if test x"$ac_cv_lib_png_png_create_info_struct" = xno; then
   echo "You need pnglib to compile XaoS with image saving code."
   echo "Please download it from:"
-  echo "  XaoS homepage at http://www.paru.cas.cz/~hubicka/XaoS"
+  echo "  XaoS homepage at http://xaos.sf.net"
   echo "  or ftp://sunsite.unc.edu/pub/Linux/libs"
   echo "  or ftp://ftp.uu.net/graphics/png/src/libpng-0.81.tar.gz"
+  echo
+fi
+if test x"$ac_cv_func_gettext" = xno; then
+  echo "You need GNU gettext to compile XaoS with internationalization support."
+  echo "Please download it from:"
+  echo "  XaoS homepage at http://xaos.sf.net"
+  echo "  or ftp://www.gnu.org/software/gettext/"
   echo
 fi
 echo " "
 echo "END OF WARNINGS"
 echo " "
 echo "In case you have troubles with compiling or running"
-echo "XaoS please read compilers.txt."
+echo "XaoS please read doc/compilers.txt."
 echo "------------------------------------------------------------"

@@ -6,9 +6,9 @@ AR     = @AR@
 RANLIB = @RANLIB@
 @SET_MAKE@
 
-TLIBS= @DRIVERLIBS@ 
+TLIBS = @DRIVERLIBS@ 
 
-DIRS= \
+DIRS = \
        filter \
        engine \
        ui-hlp \
@@ -16,13 +16,13 @@ DIRS= \
        util \
        @DRIVERDIRS@ 
 
-PROG= @BINPATH@/xaos
+PROG = @BINPATH@/xaos
 OBJS = $(SRCS:.c=.o)
 
 TLIB = 
 
 
-all default:	$(PROG) internationalization
+all default: $(PROG) internationalization
 
 @BINPATH@:
 	mkdir $@
@@ -41,14 +41,14 @@ include/config.h:
 	cp include/config/config.autoconf include/config.h
 
 internationalization:
-	$(MAKE) -C i18n/ all
+	if [ "@i18n@" = "yes" ]; then $(MAKE) -C i18n/ all; fi
 
 clean:
 	@for name in $(DIRS) i18n ; do sh -c "cd $$name ; $(MAKE) $@"; done
 	rm -f include/config.h
 	rm -f $(PROG)
 
-distclean:clean
+distclean: clean
 	rm  -f Makefile
 
 #dep:

@@ -46,4 +46,4 @@ install:
 	@STICKY@
 	@INSTALL@ -m 444 doc/xaos.info $(infodir)
 	#install-info doc/xaos.info 
-	$(MAKE) -C src/i18n/ install
+	if [ "@i18n@" = "yes" ]; then $(MAKE) -C src/i18n/ install; fi

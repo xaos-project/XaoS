@@ -2,7 +2,7 @@ HOW TO COMPILE AND INSTALL XAOS
 -------------------------------
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/INSTALL,v 1.4 2003-01-23 17:15:11 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/INSTALL,v 1.5 2003-01-24 08:25:25 kovzol Exp $
 
 
 For Unix/X11:
@@ -142,6 +142,7 @@ For Unix/X11:
    when SVGA driver is compiled, but it is sticky bit safe since it
    switches to normal privilegies after drivers are initialized.
 
+-----------------------------------------------------------------------------
 
 For Win32:
 
