@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
-"POT-Creation-Date: 2003-01-24 13:57+0100\n"
+"POT-Creation-Date: 2003-02-05 20:24+0100\n"
 "PO-Revision-Date: 2002-09-01 19:24+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: German\n"
@@ -210,7 +210,7 @@ msgstr ""
 msgid "Driver"
 msgstr ""
 
-#: ../ui/ui.c:1619
+#: ../ui/ui.c:1620
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr ""
@@ -851,7 +851,7 @@ msgstr ""
 msgid "Shift one backward"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1218 ../engine/zoom.c:1492
+#: ../ui-hlp/menu.c:1218 ../engine/zoom.c:1494
 msgid "Solid guessing"
 msgstr ""
 
@@ -1079,171 +1079,171 @@ msgstr ""
 msgid "What's new in 3.0?"
 msgstr ""
 
-#: ../ui-hlp/play.c:73
+#: ../ui-hlp/play.c:78
 msgid "line available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:100
+#: ../ui-hlp/play.c:105
 msgid "Morphing non existing line!"
 msgstr ""
 
-#: ../ui-hlp/play.c:125
+#: ../ui-hlp/play.c:130
 msgid "linekey not available in this context!"
 msgstr ""
 
-#: ../ui-hlp/play.c:315
+#: ../ui-hlp/play.c:320
 msgid "clear_line available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:326
+#: ../ui-hlp/play.c:331
 msgid "clear_lines available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:385
+#: ../ui-hlp/play.c:390
 msgid "Catalog file not found"
 msgstr ""
 
-#: ../ui-hlp/play.c:433
+#: ../ui-hlp/play.c:438
 msgid "Replay is already active"
 msgstr ""
 
-#: ../ui-hlp/play.c:438
+#: ../ui-hlp/play.c:443
 msgid "File open failed"
 msgstr ""
 
-#: ../ui-hlp/play.c:444
+#: ../ui-hlp/play.c:449
 msgid "Out of memory"
 msgstr ""
 
-#: ../ui-hlp/play.c:570 ../ui-hlp/play.c:591 ../ui-hlp/play.c:621
-#: ../ui-hlp/play.c:655
+#: ../ui-hlp/play.c:575 ../ui-hlp/play.c:596 ../ui-hlp/play.c:626
+#: ../ui-hlp/play.c:660
 msgid "Missing parameter"
 msgstr ""
 
-#: ../ui-hlp/play.c:573 ../ui-hlp/play.c:594 ../ui-hlp/play.c:624
-#: ../ui-hlp/play.c:658
+#: ../ui-hlp/play.c:578 ../ui-hlp/play.c:599 ../ui-hlp/play.c:629
+#: ../ui-hlp/play.c:663
 msgid "Unexpected end of file"
 msgstr ""
 
-#: ../ui-hlp/play.c:606 ../ui-hlp/play.c:631
+#: ../ui-hlp/play.c:611 ../ui-hlp/play.c:636
 msgid "Token is too long"
 msgstr ""
 
-#: ../ui-hlp/play.c:694
+#: ../ui-hlp/play.c:699
 msgid "Unknown formula type"
 msgstr ""
 
-#: ../ui-hlp/play.c:702
+#: ../ui-hlp/play.c:707
 msgid "morph available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:707
+#: ../ui-hlp/play.c:712
 msgid "morphview: Invalid viewpoint"
 msgstr ""
 
-#: ../ui-hlp/play.c:723
+#: ../ui-hlp/play.c:728
 msgid "move available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:739
+#: ../ui-hlp/play.c:744
 msgid "morphjulia available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:754
+#: ../ui-hlp/play.c:759
 msgid "morphangle available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:792
+#: ../ui-hlp/play.c:797
 msgid "Unknown filter"
 msgstr ""
 
-#: ../ui-hlp/play.c:839
+#: ../ui-hlp/play.c:844
 msgid "sleep available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:858
+#: ../ui-hlp/play.c:863
 #, c-format
 msgid "Internal program error #12 %i\n"
 msgstr ""
 
-#: ../ui-hlp/play.c:882
+#: ../ui-hlp/play.c:887
 msgid "wait available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:937
+#: ../ui-hlp/play.c:942
 msgid "No catalog file loaded"
 msgstr ""
 
-#: ../ui-hlp/play.c:943
+#: ../ui-hlp/play.c:948
 msgid "Message not found in catalog file"
 msgstr ""
 
-#: ../ui-hlp/play.c:956
+#: ../ui-hlp/play.c:961
 msgid "load available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:961
+#: ../ui-hlp/play.c:966
 msgid "Include level overflow"
 msgstr ""
 
-#: ../ui-hlp/play.c:971
+#: ../ui-hlp/play.c:976
 msgid "File not found"
 msgstr ""
 
-#: ../ui-hlp/play.c:990
+#: ../ui-hlp/play.c:995
 msgid "Too many parameters"
 msgstr ""
 
-#: ../ui-hlp/play.c:1033
+#: ../ui-hlp/play.c:1038
 #, c-format
 msgid "Replay disabled at line %i"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:694
+#: ../ui-hlp/ui_helper.c:697
 msgid "Tutorial files not found. Reinstall XaoS"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:700
+#: ../ui-hlp/ui_helper.c:703
 msgid "Preparing first image"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:711
+#: ../ui-hlp/ui_helper.c:714
 msgid "Could not open examples"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:718
+#: ../ui-hlp/ui_helper.c:721
 #, c-format
 msgid "File %s loaded."
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:728
+#: ../ui-hlp/ui_helper.c:731
 msgid "Saving image..."
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:738
+#: ../ui-hlp/ui_helper.c:741
 msgid "Save interrupted"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:748 ../ui-hlp/ui_helper.c:767
-#: ../ui-hlp/ui_helper.c:840
+#: ../ui-hlp/ui_helper.c:751 ../ui-hlp/ui_helper.c:770
+#: ../ui-hlp/ui_helper.c:843
 #, c-format
 msgid "File %s saved."
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:760
+#: ../ui-hlp/ui_helper.c:763
 msgid "Can not open file"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:865
+#: ../ui-hlp/ui_helper.c:868
 #, c-format
 msgid "Recording to file %s enabled."
 msgstr ""
 
-#: ../engine/zoom.c:1233
+#: ../engine/zoom.c:1235
 msgid "Solid guessing 1"
 msgstr ""
 
-#: ../engine/btrace.c:290 ../engine/btrace.c:378
+#: ../engine/btrace.c:293 ../engine/btrace.c:381
 msgid "Boundary trace"
 msgstr ""
 

@@ -2,7 +2,7 @@ TODO ITEMS
 ----------
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/TODO,v 1.4 2003-01-23 17:15:13 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/TODO,v 1.5 2003-02-05 20:52:08 kovzol Exp $
 
 
 General todos (for all platforms)
@@ -75,11 +75,7 @@ Windows related todos
 DOS related todos
 -----------------
 
-  o  Calculating Mandelbrot is incredibly slow if cfractalc.bailout
-     is used for bailout value (instead of 4). Should be fixed.
   o  Latin2 fonts for some basic messages use incorrect code page.
-  o  Aalib currently does not work (?). Neither 1.2, nor 1.4.
-
 
 Please contact the developers if you want to do something
 from this long todo. :)
