@@ -715,6 +715,7 @@ if test  "$ggi_driver_test" = yes; then
 fi
 if test  "$i18n" = yes; then
   AC_CHECK_FUNC(gettext)
+  AC_DEFINE(HAVE_GETTEXT)
 fi
 echo "------------------------------------------------------------"
 echo "Available drivers:"
