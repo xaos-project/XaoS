@@ -3,7 +3,10 @@
 #include <config.h>
 #ifdef WIN32_DRIVER
 #include <windows.h>
+#ifdef DDRAW_DRIVER
 #include <ddraw.h>
+#endif
+#include <malloc.h>
 #include <string.h>
 #include <stdio.h>
 #include <xmenu.h>
@@ -55,7 +58,7 @@ static int currentbuff = 0;
 static BITMAPINFO *bmp = NULL;
 
 /* Mouse */
-static int mouseX, mouseY, oldmouseX, oldmouseY, mouseButtons = 0;
+static int mouseX, mouseY, mouseButtons = 0;
 static int captured = 0, tmpcaptured = 0;
 
 /* Keyboard state */
@@ -73,6 +76,7 @@ static HICON hIconSm;
 static HFONT hFont = NULL;
 
 /* DirectX stuff */
+#ifdef DDRAW_DRIVER
 int directX = 0;
 static LPDIRECTDRAWPALETTE dxPalette = NULL;
 static LPDIRECTDRAW lpDD = NULL;
@@ -81,25 +85,32 @@ static LPDIRECTDRAWSURFACE lpSurfaces[2], BackSurface[2];
 static DDSURFACEDESC surface[2];
 static CONST char *mousepointer = mouse_pointer_data;
 static char *storeddata = NULL;
+static HMODULE hModule = NULL;
+static int oldmouseX, oldmouseY;
+#else
+#define directX 0
+#endif
+static PUCHAR backpalette[256][4];
+static HMODULE hModule2;
 static RECT rcWindow;
 static RECT rcViewport;
 static RECT rcScreen;
-static HMODULE hModule = NULL, hModule2;
-static PUCHAR backpalette[256][4];
 static int MyHelpMsg;
 /*clipboard*/
 static WORD clipboard_format;
 
 /* forward declarations */
-static void CalculateBITMAPINFO (void);
+#ifdef DDRAW_DRIVER
 static void DeInitDD (void);
-static void Paint (HDC hDC);
 static void PaintDD (void);
 static void UpdateMouseDD (void);
+#endif
+static void Paint (HDC hDC);
+static void CalculateBITMAPINFO (void);
 static void win32_display (void);
 static void DeInitWindow (void);
 
-
+#ifdef DDRAW_DRIVER
   /* FIXME: In windowed mode we don't support 8bpp yet! */
 #define DXSUPPORTEDDEPTH(fullscreen,depth) \
   (!(depth < 8 || (!fullscreen && depth != 16 && depth !=24 && depth != 32)))
@@ -158,6 +169,7 @@ drawmouse (char *data, CONST char *mouse, int depth, int lpitch, int width,
 	    data[z + d * (x + xpos) + (y + ypos) * lpitch] = c;
 	}
 }
+#endif
 static void
 getdimens (float *width, float *height)
 {
@@ -248,6 +260,7 @@ WindowProc (HWND hWnd,		// handle to window
 	}
       mouseX = (short) LOWORD (lParam);
       mouseY = (short) HIWORD (lParam);
+#ifdef DDRAW_DRIVER
       if (directX == DXFULLSCREEN)
 	{
 	  POINT p;
@@ -256,6 +269,7 @@ WindowProc (HWND hWnd,		// handle to window
 	  mouseY = p.y;
 	  UpdateMouseDD ();
 	}
+#endif
       break;
     case WM_PAINT:
       // redraw screen
@@ -267,9 +281,11 @@ WindowProc (HWND hWnd,		// handle to window
 	  HDC hDC = BeginPaint (hWnd, &paintStruct);
 	  if (hDC)
 	    {
+#ifdef DDRAW_DRIVER
 	      if (directX)
 		PaintDD ();
 	      else
+#endif
 		Paint (hDC);
 	      EndPaint (hWnd, &paintStruct);
 	    }
@@ -280,6 +296,7 @@ WindowProc (HWND hWnd,		// handle to window
       if (directX == DXFULLSCREEN)
 	return 0;
       hDC = GetDC (hWnd);
+#ifdef DDRAW_DRIVER
       if (directX == DXWINDOWED)
 	{
 	  if (dxPalette)
@@ -290,6 +307,7 @@ WindowProc (HWND hWnd,		// handle to window
 	    }
 	}
       else
+#endif
 	{
 	  SelectPalette (hDC, hPalette, FALSE);
 	  RealizePalette (hDC);
@@ -313,6 +331,7 @@ WindowProc (HWND hWnd,		// handle to window
 	  return TRUE;
 	}
       break;
+#ifdef DDRAW_DRIVER
     case WM_ACTIVATEAPP:
       {
 	int oldactive = active;
@@ -330,6 +349,7 @@ WindowProc (HWND hWnd,		// handle to window
 	    return 0L;
 	  }
       }
+#endif
       break;
     }
   return DefWindowProc (hWnd, uMsg, wParam, lParam);
@@ -667,6 +687,7 @@ Processevents (int wait, int *mx, int *my, int *mb, int *k, int *c)
 	    case VK_NEXT:
 	      *c = UIKEY_PGDOWN;
 	      break;
+#ifdef DDRAW_DRIVER
 	    case VK_RETURN:
 	      /*x_message("Enter %i",altPressed); */
 	      if (altPressed)
@@ -692,6 +713,7 @@ Processevents (int wait, int *mx, int *my, int *mb, int *k, int *c)
 		  ui_menuactivate (item, NULL);
 		}
 	      break;
+#endif
 	    }
 	}
       // forward messages to window
@@ -706,6 +728,31 @@ Processevents (int wait, int *mx, int *my, int *mb, int *k, int *c)
     *c = -2;			// force quit if so requested
 
 }
+
+// calculate BITMAPINFO structure. It is used to copy bitmaps
+static void
+CalculateBITMAPINFO ()
+{
+  int i;
+  if (!bmp)
+    bmp = (BITMAPINFO *) malloc (sizeof (BITMAPINFOHEADER) + 4 * 256);
+
+  memset (bmp, 0, sizeof (BITMAPINFOHEADER));
+  bmp->bmiHeader.biSize = sizeof (BITMAPINFOHEADER);
+  bmp->bmiHeader.biWidth = displayX;
+  bmp->bmiHeader.biHeight = -displayY;
+  bmp->bmiHeader.biPlanes = 1;
+  bmp->bmiHeader.biBitCount = bitDepth;
+
+  // create default palette
+  for (i = 0; i < 256; i++)
+    {
+      bmp->bmiColors[i].rgbRed = i;
+      bmp->bmiColors[i].rgbGreen = i;
+      bmp->bmiColors[i].rgbBlue = i;
+    }
+}
+#ifdef DDRAW_DRIVER
 
 /**************************************************************************************
                              DirectDraw driver helper routines
@@ -976,8 +1023,10 @@ InitDD (int fullscreen)
       return 0;
     }
   /* enumerate modes */
+#ifdef DDRAW_DRIVER
   if (!nresolutions && directX == DXFULLSCREEN)
     IDirectDraw2_EnumDisplayModes (lpDD2, 0, NULL, NULL, EnumModesCallback);
+#endif
 
 
   if (!ResizeDD (fullscreen))
@@ -1030,30 +1079,6 @@ static LRESULT CALLBACK WindowProc (HWND hwnd,	// handle to window
 				    WPARAM wParam,	// first message parameter
 				    LPARAM lParam	// second message parameter
   );
-
-// calculate BITMAPINFO structure. It is used to copy bitmaps
-static void
-CalculateBITMAPINFO ()
-{
-  int i;
-  if (!bmp)
-    bmp = (BITMAPINFO *) malloc (sizeof (BITMAPINFOHEADER) + 4 * 256);
-
-  memset (bmp, 0, sizeof (BITMAPINFOHEADER));
-  bmp->bmiHeader.biSize = sizeof (BITMAPINFOHEADER);
-  bmp->bmiHeader.biWidth = displayX;
-  bmp->bmiHeader.biHeight = -displayY;
-  bmp->bmiHeader.biPlanes = 1;
-  bmp->bmiHeader.biBitCount = bitDepth;
-
-  // create default palette
-  for (i = 0; i < 256; i++)
-    {
-      bmp->bmiColors[i].rgbRed = i;
-      bmp->bmiColors[i].rgbGreen = i;
-      bmp->bmiColors[i].rgbBlue = i;
-    }
-}
 static void
 UpdateMouseDD ()
 {
@@ -1146,6 +1171,7 @@ PaintDD ()
   needredraw = 0;
 
 }
+#endif
 
 /**************************************************************************************
                              Drivers implementation
@@ -1187,6 +1213,7 @@ print (int x, int y, CONST char *text)
   HDC hDC;
   static char current[256];
   char s[256];
+#ifdef DDRAW_DRIVER
   if (directX == DXFULLSCREEN)
     {
       HGLOBAL oldFont;
@@ -1200,6 +1227,7 @@ print (int x, int y, CONST char *text)
       IDirectDrawSurface_ReleaseDC (lpSurfaces[0], hDC);
       return;
     }
+#endif
   if (!text[0])
     strcpy (s, "XaoS");
   else
@@ -1243,12 +1271,14 @@ set_palette (ui_palette pal1, int start, int end)
       bmp->bmiColors[i].rgbReserved = 0;
     }
   // update window/screen
+#ifdef DDRAW_DRIVER
   if (directX)
     {
       IDirectDrawPalette_SetEntries (dxPalette, 0, start, end - start + 1,
 				     (PALETTEENTRY *) pal);
     }
   else
+#endif
     {
       SetPaletteEntries (hPalette, start, end - start + 1,
 			 (PALETTEENTRY *) pal);
@@ -1323,7 +1353,9 @@ win32_init (void)
 {
   int r;
 
+#ifdef DDRAW_DRIVER
   directX = 0;
+#endif
   r = Init ();
   if (!r)
     return r;
@@ -1415,6 +1447,7 @@ static CONST char *CONST dx_depth[] = { "8bpp (256 colors)",
   "32bpp (16777216 colors)",
   NULL
 };
+#ifdef DDRAW_DRIVER
 static menudialog dx_resdialog[] = {
   DIALOGCHOICE ("Resolution", resstr, 0),
   DIALOGCHOICE ("Depth", dx_depth, 0),
@@ -1660,6 +1693,7 @@ dx_mousetype (int type)
     }
   UpdateMouseDD ();
 }
+#endif
 
 void
 win32_help (struct uih_context *c, CONST char *name)
@@ -1782,6 +1816,7 @@ struct ui_driver win32_driver = {
   0, 0, 0,
   &win32_gui_driver
 };
+#ifdef DDRAW_DRIVER
 struct ui_driver dxw_driver = {
   "dX-window",
   dxw_init,
@@ -1836,6 +1871,7 @@ struct ui_driver dxf_driver = {
   0, 0, 0,
   &win32_fullscreen_gui_driver
 };
+#endif
 
 void
 x_message (const char *text, ...)

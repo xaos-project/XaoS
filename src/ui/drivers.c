@@ -28,8 +28,10 @@ extern CONST struct ui_driver svga_driver, x11_driver, dog_driver,
   win32_driver, dxw_driver, dxf_driver, DGA_driver;
 CONST struct ui_driver *CONST drivers[] = {
 #ifdef WIN32_DRIVER
-  &dxw_driver,
   &win32_driver,
+#endif
+#ifdef DDRAW_DRIVER
+  &dxw_driver,
   &dxf_driver,
 #endif
 #ifdef SVGA_DRIVER

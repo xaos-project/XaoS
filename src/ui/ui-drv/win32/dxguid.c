@@ -1,3 +1,5 @@
+#include <aconfig.h>
+#ifdef DDRAW_DRIVER
 #include <ddraw.h>
 #include <dinput.h>
 
@@ -1094,3 +1096,4 @@ DEFINE_GUID (CLSID_DirectSound, 0x47d4d946, 0x62e8, 0x11cf, 0x93, 0xbc, 0x44,
 // DirectSound Capture Component GUID {B0210780-89CD-11d0-AF08-00A0C925CD16}
 DEFINE_GUID (CLSID_DirectSoundCapture, 0xb0210780, 0x89cd, 0x11d0, 0xaf, 0x8,
 	     0x0, 0xa0, 0xc9, 0x25, 0xcd, 0x16);
+#endif

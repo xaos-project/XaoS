@@ -260,8 +260,10 @@ About (HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 void
 AboutBox (void)
 {
+#ifdef DDRAW_DRIVER
   if (directX == 1)
     return;
+#endif
   DialogBox (hInstance, "AboutBox", hWnd, (DLGPROC) About);
 }
 
