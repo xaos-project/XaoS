@@ -12,12 +12,22 @@
 #include <xmenu.h>
 #include "ui_win32.h"
 
+#ifdef HAVE_GETTEXT
+#include <libintl.h>
+#else
+#define gettext(STRING) STRING
+#endif
+
+TCHAR text[100];
+
+#define QUESTIONSTART 100
 #define ITEMSTART 10
 #define PERITEM 5
 
 #define OK 1
 #define CANCEL 2
 #define HELP 3
+
 static struct dialogrecord
 {
   CONST menuitem *item;
@@ -192,8 +202,15 @@ DialogHandler (HWND hDLG, UINT message, UINT wParam, LONG lParam)
       /*x_message("Creating dialog"); */
       ShowWindow (hDLG, SW_HIDE);
       /*CenterWindow (hDLG, GetWindow (hDLG, GW_OWNER)); */
+      if (GetWindowText (hDLG, text, GetWindowTextLength (hDLG) + 1) > 0);
+        SetWindowText (hDLG, gettext(text));
+      SetDlgItemText (hDLG, OK, gettext ("OK"));
+      SetDlgItemText (hDLG, CANCEL, gettext ("Cancel"));
+      SetDlgItemText (hDLG, HELP, gettext ("Help"));
       for (i = 0; rec->dialog[i].question; i++)
 	{
+ 	  if (GetDlgItemText (hDLG, i * PERITEM + QUESTIONSTART, text, 100) > 0)
+	    SetDlgItemText (hDLG, i * PERITEM + QUESTIONSTART, gettext(text));
 	  switch (rec->dialog[i].type)
 	    {
 	      char s[256];
@@ -226,7 +243,7 @@ DialogHandler (HWND hDLG, UINT message, UINT wParam, LONG lParam)
 		      LOWORD (SendDlgItemMessage
 			      (hDLG, i * PERITEM + ITEMSTART, CB_ADDSTRING,
 			       (WPARAM) 0, (LPARAM) (LPSTR) strings[y]));
-		    /*x_message("%s %i",strings[y],pos); */
+		    /*x_message("%s %i",strings[y],pos);*/ 
 		    SendMessage (GetDlgItem (hDLG, i * PERITEM + ITEMSTART),
 				 CB_SETITEMDATA, (WPARAM) pos, y);
 		    if (y == rec->dialog[i].defint)
@@ -452,9 +469,9 @@ win32_dialog (struct uih_context *uih, CONST char *name)
       r->c = uih;
       sprintf (s, "%sBox", item->shortname);
       if (DialogBox (hInstance, s, hWnd, DialogHandler) == -1)
-	{
-	  /*r->windialog=CreateDialog (hInstance, "AboutBox", hWnd, DialogHandler);
-	     if(r->windialog==NULL) { */
+   	{
+      /*r->windialog=CreateDialog (hInstance, s, hWnd, DialogHandler);
+      if(r->windialog==NULL) {*/
 	  x_message ("Failed to create dialog %s", item->shortname);
 	  win32_freedialog (r);
 	}
