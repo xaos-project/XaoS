@@ -1,6 +1,5 @@
 #include <ddraw.h>
 #include <dinput.h>
-#include <dsound.h>
 
 /* This is a replacement for microsofts dxguid.lib and parts of dinput.lib. */
 
