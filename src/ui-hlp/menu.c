@@ -909,12 +909,9 @@ uih_bshift (uih_context * c)
   uih_shiftpalette (c, -1);
 }
 
-static CONST menuitem menuitems[] =	/*XaoS menu specifications */
-{
+static CONST menuitem *menuitems;	/*XaoS menu specifications */
 /* This structure is now empty. All static definitions have been moved
    to uih_registermenus_i18n() which fills up its own static array. */
-};
-
 
 
 /* Registering internationalized menus. See also include/xmenu.h

@@ -1,7 +1,13 @@
-                     Documentation for Windows users
+                       Documentation for Windows users
+
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.4 2003-01-23 17:15:45 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.5 2003-01-23 18:05:44 kovzol Exp $
+
+Last updated by:
+Zoltan Kovacs (2003-01-23)
+Andreas Madritsch (2002-10-03)
+
 
 *WARNING*
 
@@ -92,12 +98,14 @@ lib/mingw/ of your cygwin installation.
 
 Now change to the directory XaoS/ and type
 
-./configure --with-x11-driver=no --with-dga-driver=no
+./configure --with-x11-driver=no --with-dga-driver=no --with-i18n=no
 
 in the bash shell. The switches --with-x11-driver=no and
 --with-dga-driver=no are needed if you have installed Cygwin with
 XFree86 to prevent the configure script to try to build XaoS for X11.
-Type make to build XaoS.
+The switch --with-i18n=no is needed because internationalization is not
+yet implemented for the Windows native interface. Type make to build
+XaoS.
 
 If you wish thread support you have to download libpthread from
 ftp://sources.redhat.com/pub/pthreads-win32. Copy the header files

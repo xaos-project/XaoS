@@ -1208,10 +1208,9 @@ ui_loadstr (CONST char *n)
 {
   uih_loadstr (uih, n);
 }
-static menuitem menuitems[] = {
+static menuitem *menuitems;
 /* This structure is now empty. All static definitions have been moved
    to ui_registermenus_i18n() which fills up its own static array. */
-};
 
 /* Registering internationalized menus. See also include/xmenu.h
    for details. Note that MAX_MENUITEMS_I18N may be increased

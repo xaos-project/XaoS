@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
-"POT-Creation-Date: 2003-01-18 10:51+0100\n"
+"POT-Creation-Date: 2003-01-23 19:03+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: Hungarian\n"
@@ -21,8 +21,8 @@ msgstr "Elfogyott a memória."
 #, c-format
 msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
 msgstr ""
-"%2$.2f-szeres %1$s (%3$.1fE) %4$2.2f kép/mp %5$c %6$i %7$i %8$i %9"
-"$i               "
+"%2$.2f-szeres %1$s (%3$.1fE) %4$2.2f kép/mp %5$c %6$i %7$i %8$i %9$i         "
+"      "
 
 #: ../ui/ui.c:363
 msgid "unzoomed"
@@ -179,40 +179,40 @@ msgstr "Köszönjük, hogy a XaoS programot használta!\n"
 msgid "Skipping, please wait..."
 msgstr "Továbblépés, kérem várjon..."
 
-#: ../ui/ui.c:1227
+#: ../ui/ui.c:1226
 msgid "Quit"
 msgstr "Kilépés"
 
-#: ../ui/ui.c:1228
+#: ../ui/ui.c:1227
 msgid "Exit now"
 msgstr "Azonnali kilépés"
 
-#: ../ui/ui.c:1230
+#: ../ui/ui.c:1229
 msgid "Not yet"
 msgstr "Inkább még ne"
 
-#: ../ui/ui.c:1232 ../ui-hlp/menu.c:1040 ../ui-hlp/menu.c:1047
-#: ../ui/dialog.c:430 ../ui/dialog.c:1446
+#: ../ui-hlp/menu.c:1037 ../ui-hlp/menu.c:1044 ../ui/dialog.c:430
+#: ../ui/dialog.c:1446 ../ui/ui.c:1231
 msgid "Help"
 msgstr "Segítség"
 
-#: ../ui/ui.c:1234
+#: ../ui/ui.c:1233
 msgid "Disable XaoS's builtin GUI"
 msgstr "A bépített felület kikapcsolása"
 
-#: ../ui/ui.c:1238 ../ui/ui.c:1244
+#: ../ui/ui.c:1237 ../ui/ui.c:1243
 msgid "Status"
 msgstr "Jellemzõk"
 
-#: ../ui/ui.c:1240 ../ui/ui.c:1246
+#: ../ui/ui.c:1239 ../ui/ui.c:1245
 msgid "Ministatus"
 msgstr "Fõbb jellemzõk"
 
-#: ../ui/ui.c:1249 ../ui/ui.c:1250
+#: ../ui/ui.c:1248 ../ui/ui.c:1249
 msgid "Driver"
 msgstr "Grafikus meghajtó"
 
-#: ../ui/ui.c:1607
+#: ../ui/ui.c:1606
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Köszöntjük a XaoS %s verziójában!"
@@ -485,599 +485,599 @@ msgstr "Próbáld bekapcsolni a paletta emulációs szûrõt"
 msgid "Algorithm:%i seed:%i size:%i"
 msgstr "Algoritmus:%i mag:%i méret:%i"
 
-#: ../ui-hlp/menu.c:932
+#: ../ui-hlp/menu.c:929
 msgid "Root menu"
 msgstr ""
 
-#: ../ui-hlp/menu.c:933
+#: ../ui-hlp/menu.c:930
 msgid "Animation root menu"
 msgstr "Animáció fõmenü"
 
-#: ../ui-hlp/menu.c:934
+#: ../ui-hlp/menu.c:931
 msgid "Replay only commands"
 msgstr ""
 
-#: ../ui-hlp/menu.c:935
+#: ../ui-hlp/menu.c:932
 msgid "Command line options only"
 msgstr ""
 
-#: ../ui-hlp/menu.c:938
+#: ../ui-hlp/menu.c:935
 msgid "print menus specifications of all menus"
 msgstr ""
 
-#: ../ui-hlp/menu.c:943
+#: ../ui-hlp/menu.c:940
 msgid "print menu specification"
 msgstr ""
 
-#: ../ui-hlp/menu.c:946
+#: ../ui-hlp/menu.c:943
 msgid "print menu specification in xshl format"
 msgstr ""
 
-#: ../ui-hlp/menu.c:950
+#: ../ui-hlp/menu.c:947
 msgid "print all menu specifications in xshl format"
 msgstr ""
 
-#: ../ui-hlp/menu.c:952
+#: ../ui-hlp/menu.c:949
 msgid "print dialog specification"
 msgstr ""
 
-#: ../ui-hlp/menu.c:957
+#: ../ui-hlp/menu.c:954
 msgid "Line drawing functions"
 msgstr "Vonalrajzoló függvények"
 
-#: ../ui-hlp/menu.c:958
+#: ../ui-hlp/menu.c:955
 msgid "Line"
 msgstr "Vonal"
 
-#: ../ui-hlp/menu.c:961
+#: ../ui-hlp/menu.c:958
 msgid "Morph line"
 msgstr "Átalakuló vonal"
 
-#: ../ui-hlp/menu.c:963
+#: ../ui-hlp/menu.c:960
 msgid "Morph last line"
 msgstr "Az utolsó vonal átalakítása"
 
-#: ../ui-hlp/menu.c:966
+#: ../ui-hlp/menu.c:963
 msgid "Set line key"
 msgstr "Vonalkulcs beállítása"
 
-#: ../ui-hlp/menu.c:968
+#: ../ui-hlp/menu.c:965
 msgid "Clear line"
 msgstr "Vonal törlése"
 
-#: ../ui-hlp/menu.c:971
+#: ../ui-hlp/menu.c:968
 msgid "Clear all lines"
 msgstr "Minden vonal törlése"
 
-#: ../ui-hlp/menu.c:972
+#: ../ui-hlp/menu.c:969
 msgid "Animation functions"
 msgstr "Animáció"
 
-#: ../ui-hlp/menu.c:973 ../ui-hlp/menu.c:1150 ../ui-hlp/menu.c:1159
+#: ../ui-hlp/menu.c:970 ../ui-hlp/menu.c:1147 ../ui-hlp/menu.c:1156
 msgid "View"
 msgstr "Nézet"
 
-#: ../ui-hlp/menu.c:977
+#: ../ui-hlp/menu.c:974
 msgid "Morph view"
 msgstr ""
 
-#: ../ui-hlp/menu.c:979
+#: ../ui-hlp/menu.c:976
 msgid "Morph julia"
 msgstr ""
 
-#: ../ui-hlp/menu.c:984
+#: ../ui-hlp/menu.c:981
 msgid "Move view"
 msgstr ""
 
-#: ../ui-hlp/menu.c:985
+#: ../ui-hlp/menu.c:982
 msgid "Morph angle"
 msgstr ""
 
-#: ../ui-hlp/menu.c:990
+#: ../ui-hlp/menu.c:987
 msgid "Zoom center"
 msgstr "Nagyítási centrum"
 
-#: ../ui-hlp/menu.c:992
+#: ../ui-hlp/menu.c:989
 msgid "Zoom"
 msgstr "Nagyítás"
 
-#: ../ui-hlp/menu.c:993
+#: ../ui-hlp/menu.c:990
 msgid "Un-zoom"
 msgstr "Kicsinyítés"
 
-#: ../ui-hlp/menu.c:996
+#: ../ui-hlp/menu.c:993
 msgid "Stop zooming"
 msgstr "Belenagyítás leállítása"
 
-#: ../ui-hlp/menu.c:997
+#: ../ui-hlp/menu.c:994
 msgid "Smooth morphing parameters"
 msgstr "Simítási paraméterek"
 
-#: ../ui-hlp/menu.c:999
+#: ../ui-hlp/menu.c:996
 msgid "Timing functions"
 msgstr "Idõzítés"
 
-#: ../ui-hlp/menu.c:1000
+#: ../ui-hlp/menu.c:997
 msgid "Usleep"
 msgstr "Várakozás"
 
-#: ../ui-hlp/menu.c:1003
+#: ../ui-hlp/menu.c:1000
 msgid "Wait for text"
 msgstr "Szövegre várakozás"
 
-#: ../ui-hlp/menu.c:1004
+#: ../ui-hlp/menu.c:1001
 msgid "Wait for complete image"
 msgstr "A kép kirajzolása folyamatban"
 
-#: ../ui-hlp/menu.c:1007
+#: ../ui-hlp/menu.c:1004
 msgid "Include file"
 msgstr "Fájl befûzése"
 
-#: ../ui-hlp/menu.c:1009 ../ui-hlp/menu.c:1193
+#: ../ui-hlp/menu.c:1006 ../ui-hlp/menu.c:1190
 msgid "Default palette"
 msgstr "Alapértelmezett színek"
 
-#: ../ui-hlp/menu.c:1012
+#: ../ui-hlp/menu.c:1009
 msgid "Formula"
 msgstr "Képlet"
 
-#: ../ui-hlp/menu.c:1014
+#: ../ui-hlp/menu.c:1011
 msgid "Maximal zooming step"
 msgstr "Maximális nagyítási lépték"
 
-#: ../ui-hlp/menu.c:1018
+#: ../ui-hlp/menu.c:1015
 msgid "Zooming speedup"
 msgstr "Belenagyítás gyorsasága"
 
-#: ../ui-hlp/menu.c:1020
+#: ../ui-hlp/menu.c:1017
 msgid "Filter"
 msgstr "Szûrõ"
 
-#: ../ui-hlp/menu.c:1024 ../ui-hlp/menu.c:1029
+#: ../ui-hlp/menu.c:1021 ../ui-hlp/menu.c:1026
 msgid "Letters per second"
 msgstr "Másodpercenkénti betûszám"
 
-#: ../ui-hlp/menu.c:1031 ../ui-hlp/menu.c:1279
+#: ../ui-hlp/menu.c:1028 ../ui-hlp/menu.c:1276
 msgid "Interrupt"
 msgstr "Megszakítás"
 
-#: ../ui-hlp/menu.c:1033 ../ui-hlp/menu.c:1042
+#: ../ui-hlp/menu.c:1030 ../ui-hlp/menu.c:1039
 msgid "File"
 msgstr "Fájl"
 
-#: ../ui-hlp/menu.c:1034
+#: ../ui-hlp/menu.c:1031
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: ../ui-hlp/menu.c:1035
+#: ../ui-hlp/menu.c:1032
 msgid "Fractal"
 msgstr "Fraktál"
 
-#: ../ui-hlp/menu.c:1036
+#: ../ui-hlp/menu.c:1033
 msgid "Calculation"
 msgstr "Számítás"
 
-#: ../ui-hlp/menu.c:1037 ../ui-hlp/menu.c:1350
+#: ../ui-hlp/menu.c:1034 ../ui-hlp/menu.c:1347
 msgid "Filters"
 msgstr "Szûrõk"
 
-#: ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1049
+#: ../ui-hlp/menu.c:1035 ../ui-hlp/menu.c:1046
 msgid "UI"
 msgstr "Kezelõfelület"
 
-#: ../ui-hlp/menu.c:1039
+#: ../ui-hlp/menu.c:1036
 msgid "Misc"
 msgstr "Egyéb"
 
-#: ../ui-hlp/menu.c:1041
+#: ../ui-hlp/menu.c:1038
 msgid "Tutorials"
 msgstr "Útmutatók"
 
-#: ../ui-hlp/menu.c:1044
+#: ../ui-hlp/menu.c:1041
 msgid "Stop replay"
 msgstr "Visszajátszás leállítása"
 
-#: ../ui-hlp/menu.c:1050
+#: ../ui-hlp/menu.c:1047
 msgid "Command"
 msgstr "Parancs"
 
-#: ../ui-hlp/menu.c:1052
+#: ../ui-hlp/menu.c:1049
 msgid "Play string"
 msgstr "Karakterlánc lejátszása"
 
-#: ../ui-hlp/menu.c:1054
+#: ../ui-hlp/menu.c:1051
 msgid "Render animation"
 msgstr "Film készítése"
 
-#: ../ui-hlp/menu.c:1057
+#: ../ui-hlp/menu.c:1054
 msgid "Clear screen"
 msgstr "Képernyõtörlés"
 
-#: ../ui-hlp/menu.c:1059
+#: ../ui-hlp/menu.c:1056
 msgid "Display fractal"
 msgstr "Fraktál megjelenítése"
 
-#: ../ui-hlp/menu.c:1062
+#: ../ui-hlp/menu.c:1059
 msgid "Display text"
 msgstr "Szöveg megjelenítése"
 
-#: ../ui-hlp/menu.c:1064
+#: ../ui-hlp/menu.c:1061
 msgid "Color"
 msgstr "Szín"
 
-#: ../ui-hlp/menu.c:1066
+#: ../ui-hlp/menu.c:1063
 msgid "Horizontal text position"
 msgstr "Szöveg vízszintes pozíciója"
 
-#: ../ui-hlp/menu.c:1067
+#: ../ui-hlp/menu.c:1064
 msgid "Vertical text position"
 msgstr "Szöveg függõleges pozíciója"
 
-#: ../ui-hlp/menu.c:1069
+#: ../ui-hlp/menu.c:1066
 msgid "Text position"
 msgstr "Szöveg pozíciója"
 
-#: ../ui-hlp/menu.c:1073
+#: ../ui-hlp/menu.c:1070
 msgid "Message"
 msgstr "Felirat"
 
-#: ../ui-hlp/menu.c:1095
+#: ../ui-hlp/menu.c:1092
 msgid "Load"
 msgstr "Megnyitás"
 
-#: ../ui-hlp/menu.c:1098
+#: ../ui-hlp/menu.c:1095
 msgid "Save"
 msgstr "Mentés"
 
-#: ../ui-hlp/menu.c:1100
+#: ../ui-hlp/menu.c:1097
 msgid "Record"
 msgstr "Felvétel"
 
-#: ../ui-hlp/menu.c:1104
+#: ../ui-hlp/menu.c:1101
 msgid "Replay"
 msgstr "Visszajátszás"
 
-#: ../ui-hlp/menu.c:1111
+#: ../ui-hlp/menu.c:1108
 msgid "Save image"
 msgstr "Kép mentése"
 
-#: ../ui-hlp/menu.c:1112
+#: ../ui-hlp/menu.c:1109
 msgid "Load random example"
 msgstr "Egy mintapélda betöltése"
 
-#: ../ui-hlp/menu.c:1115
+#: ../ui-hlp/menu.c:1112
 msgid "Save configuration"
 msgstr "Beállítások mentése"
 
-#: ../ui-hlp/menu.c:1117
+#: ../ui-hlp/menu.c:1114
 msgid "Undo"
 msgstr "Mégse"
 
-#: ../ui-hlp/menu.c:1121
+#: ../ui-hlp/menu.c:1118
 msgid "Redo"
 msgstr "Mégis"
 
-#: ../ui-hlp/menu.c:1125
+#: ../ui-hlp/menu.c:1122
 msgid "formulae"
 msgstr "Képlet"
 
-#: ../ui-hlp/menu.c:1127
+#: ../ui-hlp/menu.c:1124
 msgid "Incoloring mode"
 msgstr "Belsõ színezési mód"
 
-#: ../ui-hlp/menu.c:1128
+#: ../ui-hlp/menu.c:1125
 msgid "Outcoloring mode"
 msgstr "Külsõ színezési mód"
 
-#: ../ui-hlp/menu.c:1129
+#: ../ui-hlp/menu.c:1126
 msgid "Plane"
 msgstr "Sík"
 
-#: ../ui-hlp/menu.c:1130
+#: ../ui-hlp/menu.c:1127
 msgid "Palette"
 msgstr "Színpaletta"
 
-#: ../ui-hlp/menu.c:1133
+#: ../ui-hlp/menu.c:1130
 msgid "Mandelbrot mode"
 msgstr "Mandelbrot-mód"
 
-#: ../ui-hlp/menu.c:1139 ../ui-hlp/menu.c:1143 ../ui-hlp/menu.c:1353
+#: ../ui-hlp/menu.c:1136 ../ui-hlp/menu.c:1140 ../ui-hlp/menu.c:1350
 msgid "Perturbation"
 msgstr "Perturbáció"
 
-#: ../ui-hlp/menu.c:1154
+#: ../ui-hlp/menu.c:1151
 msgid "Reset to defaults"
 msgstr "Alapértékek visszaállítása"
 
-#: ../ui-hlp/menu.c:1155
+#: ../ui-hlp/menu.c:1152
 msgid "Julia mode"
 msgstr "Julia-mód"
 
-#: ../ui-hlp/menu.c:1162
+#: ../ui-hlp/menu.c:1159
 msgid "Set angle"
 msgstr "Szög beállítása"
 
-#: ../ui-hlp/menu.c:1166
+#: ../ui-hlp/menu.c:1163
 msgid "Set plane"
 msgstr "Sík beállítása"
 
-#: ../ui-hlp/menu.c:1170
+#: ../ui-hlp/menu.c:1167
 msgid "Inside coloring mode"
 msgstr "Belsõ színezési módok"
 
-#: ../ui-hlp/menu.c:1175
+#: ../ui-hlp/menu.c:1172
 msgid "Outside coloring mode"
 msgstr "Külsõ színezési módok"
 
-#: ../ui-hlp/menu.c:1179
+#: ../ui-hlp/menu.c:1176
 msgid "Inside truecolor coloring mode"
 msgstr "Belsõ truecolor színezési mód"
 
-#: ../ui-hlp/menu.c:1185
+#: ../ui-hlp/menu.c:1182
 msgid "Outside truecolor coloring mode"
 msgstr "Külsõ truecolor színezési mód"
 
-#: ../ui-hlp/menu.c:1189
+#: ../ui-hlp/menu.c:1186
 msgid "Julia seed"
 msgstr "Julia-sebesség"
 
-#: ../ui-hlp/menu.c:1195
+#: ../ui-hlp/menu.c:1192
 msgid "Random palette"
 msgstr "Véletlen színek"
 
-#: ../ui-hlp/menu.c:1198
+#: ../ui-hlp/menu.c:1195
 msgid "Custom palette"
 msgstr "Felhasználói színek"
 
-#: ../ui-hlp/menu.c:1202
+#: ../ui-hlp/menu.c:1199
 msgid "Color cycling"
 msgstr "Színforgatás"
 
-#: ../ui-hlp/menu.c:1204
+#: ../ui-hlp/menu.c:1201
 msgid "Reversed color cycling"
 msgstr "Színforgatás visszafelé"
 
-#: ../ui-hlp/menu.c:1209
+#: ../ui-hlp/menu.c:1206
 msgid "Color cycling speed"
 msgstr "Színforgatási sebesség"
 
-#: ../ui-hlp/menu.c:1213
+#: ../ui-hlp/menu.c:1210
 msgid "Shift palette"
 msgstr "Színpaletta eltolása"
 
-#: ../ui-hlp/menu.c:1215
+#: ../ui-hlp/menu.c:1212
 msgid "Shift one forward"
 msgstr "Eggyel elõreléptetés"
 
-#: ../ui-hlp/menu.c:1218
+#: ../ui-hlp/menu.c:1215
 msgid "Shift one backward"
 msgstr "Eggyel visszaléptetés"
 
-#: ../ui-hlp/menu.c:1220 ../engine/zoom.c:1492
+#: ../engine/zoom.c:1492 ../ui-hlp/menu.c:1217
 msgid "Solid guessing"
 msgstr "Egyszerû találgatás"
 
-#: ../ui-hlp/menu.c:1221
+#: ../ui-hlp/menu.c:1218
 msgid "Dynamic resolution"
 msgstr "Dinamikus felbontás"
 
-#: ../ui-hlp/menu.c:1223
+#: ../ui-hlp/menu.c:1220
 msgid "Periodicity checking"
 msgstr "Periodicitás vizsgálata"
 
-#: ../ui-hlp/menu.c:1225
+#: ../ui-hlp/menu.c:1222
 msgid "Iterations"
 msgstr "Iterációk"
 
-#: ../ui-hlp/menu.c:1227
+#: ../ui-hlp/menu.c:1224
 msgid "Bailout"
 msgstr "Kilépés"
 
-#: ../ui-hlp/menu.c:1230
+#: ../ui-hlp/menu.c:1227
 msgid "Fast julia mode"
 msgstr "Gyors Julia-mód"
 
-#: ../ui-hlp/menu.c:1232
+#: ../ui-hlp/menu.c:1229
 msgid "Rotation"
 msgstr "Forgatás"
 
-#: ../ui-hlp/menu.c:1233
+#: ../ui-hlp/menu.c:1230
 msgid "Solid guessing range"
 msgstr "Találgatási intervallum"
 
-#: ../ui-hlp/menu.c:1236
+#: ../ui-hlp/menu.c:1233
 msgid "Disable rotation"
 msgstr "Forgatás kikapcsolva"
 
-#: ../ui-hlp/menu.c:1240
+#: ../ui-hlp/menu.c:1237
 msgid "Continuous rotation"
 msgstr "Folyamatos forgatás"
 
-#: ../ui-hlp/menu.c:1243
+#: ../ui-hlp/menu.c:1240
 msgid "Rotate by mouse"
 msgstr "Forgatás egérrel"
 
-#: ../ui-hlp/menu.c:1247
+#: ../ui-hlp/menu.c:1244
 msgid "Rotation speed"
 msgstr "Forgatás gyorsasága"
 
-#: ../ui-hlp/menu.c:1250
+#: ../ui-hlp/menu.c:1247
 msgid "Automatic rotation"
 msgstr "Automatikus forgatás"
 
-#: ../ui-hlp/menu.c:1255
+#: ../ui-hlp/menu.c:1252
 msgid "Fast rotation mode"
 msgstr "Gyors forgatási mód"
 
-#: ../ui-hlp/menu.c:1259
+#: ../ui-hlp/menu.c:1256
 msgid "Disable dynamic resolution"
 msgstr "Dinamikus felbontás kikapcsolva"
 
-#: ../ui-hlp/menu.c:1262
+#: ../ui-hlp/menu.c:1259
 msgid "Use only during animation"
 msgstr "Csak az animáció alatt"
 
-#: ../ui-hlp/menu.c:1266
+#: ../ui-hlp/menu.c:1263
 msgid "Use also for new images"
 msgstr "Új képeknél is így legyen"
 
-#: ../ui-hlp/menu.c:1268
+#: ../ui-hlp/menu.c:1265
 msgid "Dynamic resolution mode"
 msgstr "Dinamikus felbontási mód"
 
-#: ../ui-hlp/menu.c:1272
+#: ../ui-hlp/menu.c:1269
 msgid "Autopilot"
 msgstr "Robotpilóta"
 
-#: ../ui-hlp/menu.c:1275
+#: ../ui-hlp/menu.c:1272
 msgid "Recalculate"
 msgstr "Számítás"
 
-#: ../ui-hlp/menu.c:1284
+#: ../ui-hlp/menu.c:1281
 msgid "Zooming speed"
 msgstr "Belenagyítás gyorsasága"
 
-#: ../ui-hlp/menu.c:1286
+#: ../ui-hlp/menu.c:1283
 msgid "Fixed step"
 msgstr "Rögzített lépték"
 
-#: ../ui-hlp/menu.c:1290
+#: ../ui-hlp/menu.c:1287
 msgid "Disable solid guessing"
 msgstr "Egyszerû találgatás kikapcsolva"
 
-#: ../ui-hlp/menu.c:1294
+#: ../ui-hlp/menu.c:1291
 msgid "Guess 2x2 rectangles"
 msgstr "2x2 téglalap"
 
-#: ../ui-hlp/menu.c:1296
+#: ../ui-hlp/menu.c:1293
 msgid "Guess 3x3 rectangles"
 msgstr "3x3 téglalap"
 
-#: ../ui-hlp/menu.c:1300
+#: ../ui-hlp/menu.c:1297
 msgid "Guess 4x4 rectangles"
 msgstr "4x4 téglalap"
 
-#: ../ui-hlp/menu.c:1302
+#: ../ui-hlp/menu.c:1299
 msgid "Guess 5x5 rectangles"
 msgstr "5x5 téglalap"
 
-#: ../ui-hlp/menu.c:1306
+#: ../ui-hlp/menu.c:1303
 msgid "Guess 6x6 rectangles"
 msgstr "6x6 téglalap"
 
-#: ../ui-hlp/menu.c:1308
+#: ../ui-hlp/menu.c:1305
 msgid "Guess 7x7 rectangles"
 msgstr "7x7 téglalap"
 
-#: ../ui-hlp/menu.c:1312
+#: ../ui-hlp/menu.c:1309
 msgid "Guess 8x8 rectangles"
 msgstr "8x8 téglalap"
 
-#: ../ui-hlp/menu.c:1314
+#: ../ui-hlp/menu.c:1311
 msgid "Guess unlimited rectangles"
 msgstr "Korlátlan téglalapszám"
 
-#: ../ui-hlp/menu.c:1318
+#: ../ui-hlp/menu.c:1315
 msgid "Language"
 msgstr "Nyelv"
 
-#: ../ui-hlp/menu.c:1321
+#: ../ui-hlp/menu.c:1318
 msgid "An introduction to fractals"
 msgstr "Bevezetés a fraktálok világába"
 
-#: ../ui-hlp/menu.c:1322
+#: ../ui-hlp/menu.c:1319
 msgid "XaoS features overview"
 msgstr "Tippek és trükkök"
 
-#: ../ui-hlp/menu.c:1323
+#: ../ui-hlp/menu.c:1320
 msgid "Math behind fractals"
 msgstr "A fraktálok matematikája"
 
-#: ../ui-hlp/menu.c:1324
+#: ../ui-hlp/menu.c:1321
 msgid "What's new?"
 msgstr "Újdonságok"
 
-#: ../ui-hlp/menu.c:1334 ../ui-hlp/menu.c:1356
+#: ../ui-hlp/menu.c:1331 ../ui-hlp/menu.c:1353
 msgid "Whole story"
 msgstr "Minden fejezet"
 
-#: ../ui-hlp/menu.c:1336
+#: ../ui-hlp/menu.c:1333
 msgid "Introduction"
 msgstr "Bevezetés"
 
-#: ../ui-hlp/menu.c:1337
+#: ../ui-hlp/menu.c:1334
 msgid "Mandelbrot set"
 msgstr "Mandelbrot-halmaz"
 
-#: ../ui-hlp/menu.c:1338
+#: ../ui-hlp/menu.c:1335
 msgid "Julia set"
 msgstr "Julia-halmaz"
 
-#: ../ui-hlp/menu.c:1339
+#: ../ui-hlp/menu.c:1336
 msgid "Higher power Mandelbrots"
 msgstr "Magasabb rendû Mandelbrotok"
 
-#: ../ui-hlp/menu.c:1340
+#: ../ui-hlp/menu.c:1337
 msgid "Newton's method"
 msgstr "Newton eljárása"
 
-#: ../ui-hlp/menu.c:1341
+#: ../ui-hlp/menu.c:1338
 msgid "Barnsley's formula"
 msgstr "A Barnsley-formula"
 
-#: ../ui-hlp/menu.c:1342
+#: ../ui-hlp/menu.c:1339
 msgid "Phoenix"
 msgstr "Fõnix"
 
-#: ../ui-hlp/menu.c:1343
+#: ../ui-hlp/menu.c:1340
 msgid "Octo"
 msgstr "Octo"
 
-#: ../ui-hlp/menu.c:1344
+#: ../ui-hlp/menu.c:1341
 msgid "Magnet"
 msgstr "Mágnes"
 
-#: ../ui-hlp/menu.c:1345
+#: ../ui-hlp/menu.c:1342
 msgid "All features"
 msgstr "Az összes jellemzõ"
 
-#: ../ui-hlp/menu.c:1347
+#: ../ui-hlp/menu.c:1344
 msgid "Outcoloring modes"
 msgstr "Külsõ színezési módok"
 
-#: ../ui-hlp/menu.c:1348
+#: ../ui-hlp/menu.c:1345
 msgid "Incoloring modes"
 msgstr "Belsõ színezési módok"
 
-#: ../ui-hlp/menu.c:1349
+#: ../ui-hlp/menu.c:1346
 msgid "True-color coloring modes"
 msgstr "True-color színezési módok"
 
-#: ../ui-hlp/menu.c:1351
+#: ../ui-hlp/menu.c:1348
 msgid "Planes"
 msgstr "Síkok"
 
-#: ../ui-hlp/menu.c:1352
+#: ../ui-hlp/menu.c:1349
 msgid "Animations and position files"
 msgstr "Animációk és pozíciófájlok"
 
-#: ../ui-hlp/menu.c:1354
+#: ../ui-hlp/menu.c:1351
 msgid "Random palettes"
 msgstr "Véletlen színpaletták"
 
-#: ../ui-hlp/menu.c:1355
+#: ../ui-hlp/menu.c:1352
 msgid "Other noteworthy features"
 msgstr "További apróságok"
 
-#: ../ui-hlp/menu.c:1358
+#: ../ui-hlp/menu.c:1355
 msgid "The definition and fractal dimension"
 msgstr "Definíció és fraktáldimenzió"
 
-#: ../ui-hlp/menu.c:1360
+#: ../ui-hlp/menu.c:1357
 msgid "Escape time fractals"
 msgstr "Szökési idõn alapuló fraktálok"
 
-#: ../ui-hlp/menu.c:1361
+#: ../ui-hlp/menu.c:1358
 msgid "What's new in 3.0?"
 msgstr "Újdonságok a 3.0-s verzióban"
 
