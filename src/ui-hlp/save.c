@@ -294,7 +294,7 @@ ndecimals (struct uih_context *uih)
 static void
 savepos (struct uih_context *uih)
 REGISTERS (3);
-     static void savepos (struct uih_context *uih)
+REGISTERS(3) static void savepos (struct uih_context *uih)
 {
   int n = ndecimals (uih);
   start_save (uih, "view");
@@ -308,7 +308,7 @@ REGISTERS (3);
 static void
 savepos2 (struct uih_context *uih)
 REGISTERS (3);
-     static void savepos2 (struct uih_context *uih)
+REGISTERS(3) static void savepos2 (struct uih_context *uih)
 {
   int n = ndecimals (uih);
   start_save (uih, "animateview");
@@ -322,7 +322,7 @@ REGISTERS (3);
 static void
 savepos3 (struct uih_context *uih)
 REGISTERS (3);
-     static void savepos3 (struct uih_context *uih)
+REGISTERS(3) static void savepos3 (struct uih_context *uih)
 {
   int n = ndecimals (uih);
   start_save (uih, "morphview");

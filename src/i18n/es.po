@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-30 23:33+0200\n"
+"POT-Creation-Date: 2004-11-23 18:44+0100\n"
 "PO-Revision-Date: 2002-10-04 15:22+0200\n"
 "Last-Translator: César Pérez <oroz@users.sourceforge.net>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -14,204 +14,204 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../ui/ui.c:305
+#: ../ui/ui.c:309
 msgid "XaoS is out of memory."
 msgstr "XaoS se quedó sin memoria"
 
-#: ../ui/ui.c:356
+#: ../ui/ui.c:360
 msgid "unzoomed"
 msgstr "alejado"
 
-#: ../ui/ui.c:356
+#: ../ui/ui.c:360
 msgid "zoomed"
 msgstr "acercado"
 
-#: ../ui/ui.c:364
+#: ../ui/ui.c:368
 #, c-format
 msgid "framerate:%f\n"
 msgstr "velocidad:%f\n"
 
-#: ../ui/ui.c:412
+#: ../ui/ui.c:416
 #, c-format
 msgid "Enabling: %s. "
 msgstr "Habilitando: %s. "
 
-#: ../ui/ui.c:414
+#: ../ui/ui.c:418
 #, c-format
 msgid "Disabling: %s. "
 msgstr "Deshabilitando: %s"
 
-#: ../ui/ui.c:446
+#: ../ui/ui.c:450
 #, c-format
 msgid "Fractal name:%s"
 msgstr "Nombre del fractal: %s"
 
-#: ../ui/ui.c:450
+#: ../ui/ui.c:454
 #, c-format
 msgid "Fractal type:%s"
 msgstr "Tipo de fractal: %s"
 
-#: ../ui/ui.c:452
+#: ../ui/ui.c:456
 msgid "Mandelbrot"
 msgstr "Mandelbrot"
 
-#: ../ui/ui.c:452
+#: ../ui/ui.c:456
 msgid "Julia"
 msgstr "Julia"
 
-#: ../ui/ui.c:455
+#: ../ui/ui.c:459
 #, c-format
 msgid "View:[%1.12f,%1.12f]"
 msgstr "Vista:[%1.12f,%1.12f]"
 
-#: ../ui/ui.c:459
+#: ../ui/ui.c:463
 #, c-format
 msgid "size:[%1.12f,%1.12f]"
 msgstr "Tamaño:[%1.12f,%1.12f]"
 
-#: ../ui/ui.c:463
+#: ../ui/ui.c:467
 #, c-format
 msgid "Rotation:%4.2f   Screen size:%i:%i"
 msgstr "Rotación:%4.2f   Tamaño de la pantalla:%i:%i"
 
-#: ../ui/ui.c:468
+#: ../ui/ui.c:472
 #, c-format
 msgid "Iterations:%-4i Palette size:%i"
 msgstr "Iteraciones:%-4i Tamaño de la paleta:%i"
 
-#: ../ui/ui.c:475
+#: ../ui/ui.c:479
 #, c-format
 msgid "Autopilot:%-4s  Plane:%s"
 msgstr "Piloto automático:%-4s  Plano:%s"
 
-#: ../ui/ui.c:476
+#: ../ui/ui.c:480
 msgid "On"
 msgstr "On"
 
-#: ../ui/ui.c:476
+#: ../ui/ui.c:480
 msgid "Off"
 msgstr "Off"
 
-#: ../ui/ui.c:480
+#: ../ui/ui.c:484
 #, c-format
 msgid "incoloring:%s    outcoloring:%s"
 msgstr "Color interior:%s    Color exterior:%s"
 
-#: ../ui/ui.c:485
+#: ../ui/ui.c:489
 #, c-format
 msgid "zoomspeed:%f"
 msgstr "Velocidad zoom:%f"
 
-#: ../ui/ui.c:489
+#: ../ui/ui.c:493
 msgid "Parameter:none"
 msgstr "Parámetro:ninguno"
 
-#: ../ui/ui.c:491
+#: ../ui/ui.c:495
 #, c-format
 msgid "Parameter:[%f,%f]"
 msgstr "Parámetro:[%f,%f]"
 
-#: ../ui/ui.c:587
+#: ../ui/ui.c:591
 #, c-format
 msgid "Please wait while calculating %s"
 msgstr "Por favor espere mientras se calcula %s"
 
-#: ../ui/ui.c:694
+#: ../ui/ui.c:698
 #, c-format
 msgid "Letters per second %i  "
 msgstr "Letras por segundo %i  "
 
-#: ../ui/ui.c:709 ../ui/ui.c:720
+#: ../ui/ui.c:713 ../ui/ui.c:724
 #, c-format
 msgid "Rotation speed:%2.2f degrees per second "
 msgstr "Velocidad de rotación:%2.2f grados por segundo "
 
-#: ../ui/ui.c:732
+#: ../ui/ui.c:736
 #, c-format
 msgid "Iterations: %i   "
 msgstr "Iteraciones: %i   "
 
-#: ../ui/ui.c:751
+#: ../ui/ui.c:755
 #, c-format
 msgid "Cycling speed: %i   "
 msgstr "Velocidad de cambio de color: %i   "
 
-#: ../ui/ui.c:766 ../ui/ui.c:781
+#: ../ui/ui.c:770 ../ui/ui.c:785
 #, c-format
 msgid "speed:%2.2f "
 msgstr "velocidad: %2.2f "
 
-#: ../ui/ui.c:876
+#: ../ui/ui.c:880
 msgid "Thank you for using XaoS\n"
 msgstr "Gracias por usar XaoS\n"
 
-#: ../ui/ui.c:917
+#: ../ui/ui.c:921
 msgid "Skipping, please wait..."
 msgstr "Saltando, por favor espere..."
 
-#: ../ui/ui.c:1017 ../ui/ui.c:1019 ../ui/ui-drv/win32/ui_win32.c:1534
+#: ../ui/ui.c:1021 ../ui/ui.c:1023 ../ui/ui-drv/win32/ui_win32.c:1534
 msgid "Resize"
 msgstr ""
 
-#: ../ui/ui.c:1032
+#: ../ui/ui.c:1036
 msgid "Quit"
 msgstr "Salir"
 
-#: ../ui/ui.c:1033
+#: ../ui/ui.c:1037
 msgid "Exit now"
 msgstr "Salir ahora"
 
-#: ../ui/ui.c:1035
+#: ../ui/ui.c:1039
 msgid "Not yet"
 msgstr "Todavía no"
 
-#: ../ui/ui.c:1037 ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045
+#: ../ui/ui.c:1041 ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045
 #: ../ui/dialog.c:430 ../ui/dialog.c:1446
 msgid "Help"
 msgstr "Ayuda"
 
-#: ../ui/ui.c:1039
+#: ../ui/ui.c:1043
 msgid "Disable XaoS's builtin GUI"
 msgstr "Deshabilitar GUI incorporado en XaoS"
 
-#: ../ui/ui.c:1043 ../ui/ui.c:1049
+#: ../ui/ui.c:1047 ../ui/ui.c:1053
 msgid "Status"
 msgstr "Estado"
 
-#: ../ui/ui.c:1045 ../ui/ui.c:1051
+#: ../ui/ui.c:1049 ../ui/ui.c:1055
 msgid "Ministatus"
 msgstr "Miniestado"
 
-#: ../ui/ui.c:1054 ../ui/ui.c:1055
+#: ../ui/ui.c:1058 ../ui/ui.c:1059
 msgid "Driver"
 msgstr "Driver"
 
-#: ../ui/ui.c:1451
+#: ../ui/ui.c:1455
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Bienvenido a XaoS versión %s"
 
-#: ../ui/ui.c:1599
+#: ../ui/ui.c:1603
 msgid "Can not allocate buffers"
 msgstr "No se puede asignar búfer"
 
-#: ../ui/ui.c:1617
+#: ../ui/ui.c:1621
 msgid "Can not create palette"
 msgstr "No se puede crear la paleta"
 
-#: ../ui/ui.c:1630
+#: ../ui/ui.c:1634
 msgid "Can not create image"
 msgstr "No se puede crear la imagen"
 
-#: ../ui/ui.c:1665 ../ui/ui.c:1719
+#: ../ui/ui.c:1669 ../ui/ui.c:1723
 msgid "Can not allocate tables"
 msgstr "No se asignar tablas"
 
-#: ../ui/ui.c:1703
+#: ../ui/ui.c:1707
 msgid "Can not initialize driver"
 msgstr "No se puede inicializar el driver"
 
-#: ../ui/ui.c:1706
+#: ../ui/ui.c:1710
 msgid "Can not return back to previous driver"
 msgstr "No se puede volver al driver anterior"
 

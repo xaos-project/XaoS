@@ -3415,6 +3415,9 @@ Credits
      Internationalization, Hungarian translations, finalizing version
      3.1, bug fixes, web design, current maintainer
 
+*Patrick Kursawe (kursawe@users.sf.net)*
+     Patch for gcc-3.4
+
 *Andreas Madritsch (amadritsch@datacomm.ch)*
      New fractal types, bailout, many fixes
 
@@ -3695,7 +3698,7 @@ Node: palette104917
 Node: cycling105766
 Node: shiftpalette106729
 Node: authors107426
-Node: lists109705
-Node: index110452
+Node: lists109770
+Node: index110517
 
 End Tag Table

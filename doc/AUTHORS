@@ -42,6 +42,9 @@ Zoltan Kovacs (kovzol@math.u-szeged.hu)
      Internationalization, Hungarian translations, finalizing version
      3.1, bug fixes, web design, current maintainer
 
+Patrick Kursawe (kursawe@users.sf.net)
+     Patch for gcc-3.4
+
 Andreas Madritsch (amadritsch@datacomm.ch)
      New fractal types, bailout, many fixes
 

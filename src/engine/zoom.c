@@ -1327,7 +1327,7 @@ calculatenew (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
 static void
 addprices (realloc_t * r, realloc_t * r2)
 REGISTERS (3);
-     static void addprices (realloc_t * r, realloc_t * r2)
+REGISTERS(3) static void addprices (realloc_t * r, realloc_t * r2)
 {
   realloc_t *r3;
   while (r < r2)

@@ -3293,6 +3293,8 @@ BeOS driver, deutsch.cat
 OS/2 ports (320x200 graphics and AA-lib)
 @item Zoltan Kovacs (kovzol@@math.u-szeged.hu)
 Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
+@item Patrick Kursawe (kursawe@@users.sf.net)
+Patch for gcc-3.4
 @item Andreas Madritsch (amadritsch@@datacomm.ch)
 New fractal types, bailout, many fixes
 @item Giorgio Marazzi (gmarazzi@@vtr.net)

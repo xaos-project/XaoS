@@ -251,7 +251,7 @@ static unsigned int
 truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
 		  int mode, int inset)
      CONSTF REGISTERS (3);
-     static unsigned int
+REGISTERS(3)     static unsigned int
        truecolor_output (number_t zre, number_t zim, number_t pre,
 			 number_t pim, int mode, int inset)
 {
@@ -445,7 +445,7 @@ static unsigned int
 color_output (number_t zre, number_t zim, unsigned int iter)
      CONSTF REGISTERS (3);
      static unsigned int
-       color_output (number_t zre, number_t zim, unsigned int iter)
+REGISTERS(3)  color_output (number_t zre, number_t zim, unsigned int iter)
 {
   int i;
   iter <<= SHIFT;
@@ -529,7 +529,7 @@ static unsigned int
 incolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
 		unsigned int iter)
      CONSTF REGISTERS (3);
-     static unsigned int
+REGISTERS(3)     static unsigned int
        incolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
 		       unsigned int iter)
 {

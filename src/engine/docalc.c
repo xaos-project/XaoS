@@ -119,7 +119,7 @@ static unsigned int FUNCTYPE
 SCALC (register number_t zre, register number_t zim, register number_t pre,
        register number_t pim)
      CONSTF REGISTERS (3);
-     static unsigned int FUNCTYPE
+REGISTERS(3)  static unsigned int FUNCTYPE
        SCALC (register number_t zre, register number_t zim,
 	      register number_t pre, register number_t pim)
 #else
@@ -127,7 +127,7 @@ static unsigned int FUNCTYPE
 CALC (register number_t zre, register number_t zim, register number_t pre,
       register number_t pim)
      CONSTF REGISTERS (3);
-     static unsigned
+REGISTERS(3)   static unsigned
        CALC (register number_t zre, register number_t zim,
 	     register number_t pre, register number_t pim)
 #endif
@@ -256,7 +256,7 @@ static unsigned int FUNCTYPE
 SCALC (register number_t zre, register number_t zim, register number_t pre,
        register number_t pim)
      CONSTF REGISTERS (3);
-     static unsigned int FUNCTYPE
+REGISTERS(3)     static unsigned int FUNCTYPE
        SCALC (register number_t zre, register number_t zim,
 	      register number_t pre, register number_t pim)
 #else
@@ -264,7 +264,7 @@ static unsigned int FUNCTYPE
 CALC (register number_t zre, register number_t zim, register number_t pre,
       register number_t pim)
      CONSTF REGISTERS (3);
-     static unsigned int FUNCTYPE
+REGISTERS(3)     static unsigned int FUNCTYPE
        CALC (register number_t zre, register number_t zim,
 	     register number_t pre, register number_t pim)
 #endif
@@ -348,7 +348,7 @@ static unsigned int FUNCTYPE
 SPERI (register number_t zre, register number_t zim, register number_t pre,
        register number_t pim)
      CONSTF REGISTERS (3);
-     static unsigned int FUNCTYPE
+REGISTERS(3)     static unsigned int FUNCTYPE
        SPERI (register number_t zre, register number_t zim,
 	      register number_t pre, register number_t pim)
 #else
@@ -356,7 +356,7 @@ static unsigned int FUNCTYPE
 PERI (register number_t zre, register number_t zim, register number_t pre,
       register number_t pim)
      CONSTF REGISTERS (3);
-     static unsigned int FUNCTYPE
+REGISTERS(3)     static unsigned int FUNCTYPE
        PERI (register number_t zre, register number_t zim,
 	     register number_t pre, register number_t pim)
 #endif
@@ -471,7 +471,7 @@ static unsigned int FUNCTYPE
 SPERI (register number_t zre, register number_t zim, register number_t pre,
        register number_t pim)
      CONSTF REGISTERS (3);
-     static unsigned int FUNCTYPE
+REGISTERS(3)     static unsigned int FUNCTYPE
        SPERI (register number_t zre, register number_t zim,
 	      register number_t pre, register number_t pim)
 #else
@@ -479,7 +479,7 @@ static unsigned int FUNCTYPE
 PERI (register number_t zre, register number_t zim, register number_t pre,
       register number_t pim)
      CONSTF REGISTERS (3);
-     static unsigned int FUNCTYPE
+REGISTERS(3)  static unsigned int FUNCTYPE
        PERI (register number_t zre, register number_t zim,
 	     register number_t pre, register number_t pim)
 #endif
