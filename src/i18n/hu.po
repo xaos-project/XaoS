@@ -20,7 +20,7 @@ msgstr "Elfogyott a memória."
 #: ../ui/ui.c:360
 msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
 msgstr ""
-"%2$.2f-szeres %1$s (%3$.1fE) %4$2.2f kép/mp %5$c %6$i %7$i %8$i %9H$i               "
+"%2$.2f-szeres %1$s (%3$.1fE) %4$2.2f kép/mp %5$c %6$i %7$i %8$i %9$i               "
 
 #: ../ui/ui.c:361
 msgid "unzoomed"
