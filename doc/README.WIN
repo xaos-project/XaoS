@@ -2,7 +2,7 @@
 
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.5 2003-01-23 18:05:44 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.6 2003-02-28 08:58:15 kovzol Exp $
 
 Last updated by:
 Zoltan Kovacs (2003-01-23)
@@ -98,14 +98,14 @@ lib/mingw/ of your cygwin installation.
 
 Now change to the directory XaoS/ and type
 
-./configure --with-x11-driver=no --with-dga-driver=no --with-i18n=no
+./configure --with-x11-driver=no --with-dga-driver=no --disable-nls
 
 in the bash shell. The switches --with-x11-driver=no and
 --with-dga-driver=no are needed if you have installed Cygwin with
 XFree86 to prevent the configure script to try to build XaoS for X11.
-The switch --with-i18n=no is needed because internationalization is not
-yet implemented for the Windows native interface. Type make to build
-XaoS.
+The switch --disable-nls is needed because internationalization is not
+yet implemented for the Windows native interface (see more information
+on this later). Type make to build XaoS.
 
 If you wish thread support you have to download libpthread from
 ftp://sources.redhat.com/pub/pthreads-win32. Copy the header files
@@ -116,3 +116,20 @@ libpthread.a. To compile XaoS with thread support you use the switch
 --with-pthread=yes with the configure script.
 
 XaoS was tested only on Intel platform, but it should work on alpha too.
+
+Enabling internationalized menus
+================================
+
+Version 3.1 has an experimental feature on Windows with supporting
+internationalized menus. To get it work first you have to
+ensure that bash.exe is running instead of sh.exe. sh.exe may
+crash on running msgfmt utility (which is a part of GNU gettext).
+Edit "configure" and modify the first line as follows:
+
+#! /bin/bash
+
+Now enter "./configure --with-included-gettext" which will cause
+that "-D HAVE_GETTEXT" and "-liconv -lintl" will be added to
+CFLAGS and LIBS variables in your Makefiles, respectively.
+
+...

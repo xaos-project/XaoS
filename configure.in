@@ -1,4 +1,5 @@
-AC_INIT(src/engine/zoom.c)
+AC_INIT(XaoS, 3.1, xaos-devel@lists.sourceforge.net)
+AC_PREREQ(2.52)
 POSTCOMPILE=""
 AC_CONFIG_HEADER(src/include/aconfig.h)
 AC_CANONICAL_SYSTEM
@@ -37,6 +38,7 @@ BeOS_driver_test=yes
 long_double=test
 pthread=no
 png=yes
+xshm=yes
 
 dnl
 dnl Long double is a way to archieve deeper zooms. It is very fast
@@ -45,12 +47,21 @@ dnl all other platforms. This switch tries to determine whether long_double
 dnl is optimal
 dnl
 AC_ARG_WITH(long-double,
-        [  --with-long-double=yes/no    enables/disables usage of long double],[
+        [  --with-long-double=yes/no   enables/disables usage of long double],[
 	if test x$withval = xyes; then
 	  long_double=yes
 	fi
 	if test x$withval = xno; then
 	  long_double=no
+	fi
+])
+AC_ARG_WITH(mitshm,
+        [  --with-mitshm=yes/no    enables/disables MIT shared memory support],[
+	if test x$withval = xyes; then
+	  xshm=yes
+	fi
+	if test x$withval = xno; then
+	  xshm=no
 	fi
 ])
 AC_ARG_WITH(i386asm,
@@ -72,7 +83,7 @@ AC_ARG_WITH(pthread,
 	fi
 ])
 AC_ARG_WITH(png,
-        [  --with-png=yes/no      enables/disables PNG saving support],[
+        [  --with-png=yes/no       enables/disables PNG saving support],[
 	if test x$withval = xyes; then
 	  png=test
 	fi
@@ -720,13 +731,15 @@ if test "x$no_x" = x; then
   AC_CHECK_HEADER(sys/ipc.h, AC_DEFINE(HAVE_IPC_H), no_sys_ipc=yes)
   AC_CHECK_HEADER(sys/shm.h, AC_DEFINE(HAVE_IPC_H), no_sys_shm=yes)
 
+  if test "x$xshm" = xyes; then
   AC_MSG_CHECKING(X11/extensions/XShm.h)
   if eval "test -f $x_includes/X11/extensions/XShm.h"; then
     AC_MSG_RESULT(yes)
     AC_DEFINE(HAVE_MITSHM_H)
   else
     AC_MSG_RESULT(no)
-    no_xshm=yes
+    xshm=no
+  fi
   fi
 
   dnl AC_CHECK_LIB(Xext,XShmEventBase,LIBS="$LIBS -lXext", no_ext_lib=yes, $X_LIBS)
@@ -783,7 +796,7 @@ if test "x$no_x" = x; then
   AC_DEFINE(X11_DRIVER)
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/x11"
   DRIVERLIBS="$DRIVERLIBS lib/libuix11.a"
-  if test "x$no_sys_ipc$no_sys_shm y$ac_cv_lib_Xext_XShmAttach" = "x yyes"; then
+  if test "x$no_sys_ipc$no_sys_shm y$ac_cv_lib_Xext_XShmAttach z$xshm" = "x yyes zyes"; then
     echo "   X11       with MIT shared memory support"
     AC_DEFINE(MITSHM)
   else
