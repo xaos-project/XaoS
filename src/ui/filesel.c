@@ -198,8 +198,7 @@ drawfile (uih_context * c, void *data)
       if (i + namestart == selectedname)
 	{
 	  xrectangle (uih->image, filex + 2 * BORDERWIDTH, ypos, LISTWIDTH, h,
-		      (uih->palette->
-		       type & BITMAPS) ? BGCOLOR (uih) :
+		      (uih->palette->type & BITMAPS) ? BGCOLOR (uih) :
 		      LIGHTGRAYCOLOR (uih));
 	}
       if (uih->palette->type & BITMAPS)
@@ -223,8 +222,8 @@ drawfile (uih_context * c, void *data)
       if (xend > (LISTEND - LISTSTART - 2 * BORDERHEIGHT))
 	xend = LISTEND - LISTSTART - 2 * BORDERHEIGHT;
       uih_drawborder (uih, filex + LISTWIDTH + 3 * BORDERWIDTH,
-		      LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH,
-		      xend - xstart, /*1|BORDER_LIGHT */ 0);
+		      LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH, xend - xstart,	/*1|BORDER_LIGHT */
+		       0);
     }
 
   ypos = LISTSTART + BORDERHEIGHT;
@@ -234,8 +233,7 @@ drawfile (uih_context * c, void *data)
 	{
 	  xrectangle (uih->image, filex + filewidth / 2 + 2 * BORDERWIDTH,
 		      ypos, LISTWIDTH, h,
-		      (uih->palette->
-		       type & BITMAPS) ? BGCOLOR (uih) :
+		      (uih->palette->type & BITMAPS) ? BGCOLOR (uih) :
 		      LIGHTGRAYCOLOR (uih));
 	}
       if (uih->palette->type & BITMAPS)
@@ -262,8 +260,8 @@ drawfile (uih_context * c, void *data)
 	xend = LISTEND - LISTSTART - 2 * BORDERHEIGHT;
       uih_drawborder (uih,
 		      filex + filewidth / 2 + LISTWIDTH + 3 * BORDERWIDTH,
-		      LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH,
-		      xend - xstart, /*1|BORDER_LIGHT */ 0);
+		      LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH, xend - xstart,	/*1|BORDER_LIGHT */
+		       0);
     }
   ui_drawtext (filename, active == AFILE);
   ui_drawtext (dir, active == ADIR);

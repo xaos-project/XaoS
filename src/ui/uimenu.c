@@ -1,4 +1,4 @@
-/* 
+/*
  *     XaoS, a fast portable realtime fractal zoomer 
  *                  Copyright (C) 1996 by
  *

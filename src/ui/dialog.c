@@ -1,4 +1,4 @@
-/* 
+/*
  *     XaoS, a fast portable realtime fractal zoomer 
  *                  Copyright (C) 1996 by
  *
@@ -507,17 +507,16 @@ ui_drawtext (struct ui_textdata *d, int active)
   strncpy (c, d->text + d->start, d->ndisplayed);
   c[d->ndisplayed] = 0;
   xprint (uih->image, uih->font, d->x, d->y, c,
-	  (uih->palette->
-	   type & BITMAPS) ? BGCOLOR (uih) : ((active
-					       && d->
-					       clear) ? SELCOLOR (uih) :
-					      FGCOLOR (uih)), BGCOLOR (uih),
-	  (uih->palette->type & BITMAPS) ? TEXT_PRESSED : 0);
+	  (uih->palette->type & BITMAPS) ? BGCOLOR (uih) : ((active
+							     && d->clear) ?
+							    SELCOLOR (uih) :
+							    FGCOLOR (uih)),
+	  BGCOLOR (uih), (uih->palette->type & BITMAPS) ? TEXT_PRESSED : 0);
   if (active)
     {
       xdrawcursor (uih->image, d->x + d->cursorpos, d->y,
-		   (uih->palette->
-		    type & BITMAPS) ? BGCOLOR (uih) : SELCOLOR (uih),
+		   (uih->
+		    palette->type & BITMAPS) ? BGCOLOR (uih) : SELCOLOR (uih),
 		   xtextheight (uih->font));
     }
   free (c);
@@ -745,8 +744,7 @@ ui_getextension (CONST char *ch)
   return ch + i;
 }
 
-number_t
-ui_getfloat (CONST char *c)
+number_t ui_getfloat (CONST char *c)
 {
 #ifdef HAVE_LONG_DOUBLE
   long double param;
@@ -1566,8 +1564,8 @@ ui_dialogkeys (int key)
       ui_closedialog (0);
       return 1;
     }
-  if (!dialog.items[dialog.current].type->
-      key (dialog.items + dialog.current, key))
+  if (!dialog.items[dialog.current].
+      type->key (dialog.items + dialog.current, key))
     {
       switch (key)
 	{

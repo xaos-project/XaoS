@@ -834,8 +834,9 @@ uih_playusleep (struct uih_context *uih, int time)
     }
   uih->playc->frametime = time;
   if (time <
-      tl_lookup_timer (uih->playc->
-		       timer) /*&&((!uih->step)||(!uih->zoomactive)) */ )
+      tl_lookup_timer (uih->
+		       playc->timer) /*&&((!uih->step)||(!uih->zoomactive)) */
+      )
     {
       tl_slowdown_timer (uih->playc->timer, time);
       uih->playc->playframe++;

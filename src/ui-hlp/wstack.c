@@ -60,41 +60,31 @@ uih_darkrectangle (struct image *image, int x, int y, int width, int height)
       mask =
 	~((1 <<
 	   (image->palette->info.truec.rshift + 7 -
-	    image->palette->info.truec.rprec)) | (1 << (image->palette->info.
-							truec.gshift + 7 -
-							image->palette->info.
-							truec.
-							gprec)) | (1 <<
-								   (image->
-								    palette->
-								    info.
-								    truec.
-								    bshift +
-								    7 -
-								    image->
-								    palette->
-								    info.
-								    truec.
-								    bprec)));
+	    image->palette->info.truec.rprec)) | (1 << (image->palette->
+							info.truec.gshift +
+							7 -
+							image->palette->
+							info.truec.gprec)) |
+	  (1 <<
+	   (image->palette->info.truec.bshift + 7 -
+	    image->palette->info.truec.bprec)));
       break;
     case TRUECOLOR16:
       mask =
 	((1 <<
 	  (image->palette->info.truec.rshift + 7 -
-	   image->palette->info.truec.rprec)) | (1 << (image->palette->info.
-						       truec.gshift + 7 -
-						       image->palette->info.
-						       truec.
-						       gprec)) | (1 <<
-								  (image->
-								   palette->
-								   info.truec.
-								   bshift +
-								   7 -
-								   image->
-								   palette->
-								   info.truec.
-								   bprec)));
+	   image->palette->info.truec.rprec)) | (1 << (image->palette->
+						       info.truec.gshift + 7 -
+						       image->palette->
+						       info.truec.gprec)) | (1
+									     <<
+									     (image->palette->info.
+									      truec.bshift
+									      +
+									      7
+									      -
+									      image->palette->info.
+									      truec.bprec)));
       mask = ~(mask | (mask << 16));
       break;
     }

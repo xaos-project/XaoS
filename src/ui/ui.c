@@ -94,6 +94,7 @@ static void ui_mouse (int mousex, int mousey, int mousebuttons,
 #ifndef exit_xaos
 #define exit_xaos(i) exit(i)
 #endif
+
 xio_pathdata configfile;
 static void ui_unregistermenus (void);
 
@@ -430,7 +431,8 @@ ui_menuactivate (CONST menuitem * item, dialogparam * d)
     }
 }
 
-xio_path ui_getfile (CONST char *basename, CONST char *extension)
+xio_path
+ui_getfile (CONST char *basename, CONST char *extension)
 {
   return (xio_getfilename (basename, extension));
 }
@@ -453,8 +455,8 @@ ui_drawstatus (uih_context * uih, void *data)
   xprint (uih->image, uih->font, 0, statusstart, str, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("Fractal type:%s"),
-	   uih->
-	   fcontext->mandelbrot ? gettext ("Mandelbrot") : gettext ("Julia"));
+	   uih->fcontext->
+	   mandelbrot ? gettext ("Mandelbrot") : gettext ("Julia"));
   xprint (uih->image, uih->font, 0, statusstart + h, str, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("View:[%1.12f,%1.12f]"),
@@ -1180,6 +1182,7 @@ main_loop (void)
       processbuffer ();
       driver->processevents ((!inmovement && !uih->inanimation), &x, &y, &b,
 			     &k);
+
       inmovement = 0;
       ui_mouse (x, y, b, k);
       if (todriver)
@@ -1362,11 +1365,13 @@ MAIN_FUNCTION (int argc, char **argv)
   xio_init (argv[0]);
   params_register (global_params);
   params_register (ui_fractal_params);
+  uih_registermenudialogs_i18n ();	/* Internationalized dialogs. */
+  /* Dialogs must be generated before menus because menu items
+     link to dialog pointers. */
   uih_registermenus_i18n ();	/* Internationalized menus. */
   uih_registermenus ();
   ui_registermenus ();
   ui_registermenus_i18n ();	/* Internationalized menus. */
-	uih_registermenudialogs_i18n (); /* Internationalized dialogs. */
   for (i = 0; i < ndrivers; i++)
     params_register (drivers[i]->params);
 #ifdef __alpha__

@@ -32,12 +32,177 @@ CONST static char *CONST morphstypes[] = {
   "angle",
   "line"
 };
-CONST static menudialog uih_smoothmorphdialog[] = {
-  DIALOGCHOICE ("Morphing type", morphstypes, 0),
-  DIALOGINT ("Startuptime", 0),
-  DIALOGINT ("Stoptime", 0),
-  {NULL}
+
+static CONST char *CONST imgtypes[] = {
+  "Truecolor",
+  "256 colors",
+  NULL
 };
+static CONST char *CONST yesno[] = {
+  "No",
+  "Yes",
+  NULL
+};
+CONST static char *CONST lineposs[] = {
+  "screen",
+  "scaled",
+  "fractal",
+  NULL
+};
+CONST char *CONST uih_colornames[] = {
+  "white",
+  "black",
+  "red",
+  NULL
+};
+
+/* Registering internationalized dialogs.
+ *
+ * The method we are internationalizing dialogs is similar to
+ * menu i18n. The original version of XaoS (without i18n)
+ * contained lots of static variables. Each row of a variable
+ * (which is a structure) contains a widget of a dialog.
+ * The last row contains NULL and 0 values to show
+ * that the dialog does not contain any other widgets.
+ *
+ * Here we are using a huge static variable which contains
+ * all widget from all dialogs. We copy each dialog after
+ * each other into this huge array. The original static
+ * variables will now be pointers pointing to the first
+ * row of the widget data from the appropriate line
+ * of the huge array.
+ *
+ * Note that in the first version there are only 2
+ * internationalized text, the rest will be "converted"
+ * continously (as I have enough time :-).
+ *
+ * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
+ */
+
+#define MAX_MENUDIALOGS_I18N 300
+#define Register(variable) variable = & menudialogs_i18n[no_menudialogs_i18n]
+static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
+static int no_menudialogs_i18n;
+
+static menudialog *uih_perturbationdialog, *uih_juliadialog,
+  *uih_smoothmorphdialog, *uih_renderdialog, *uih_viewdialog,
+  *uih_linedialog, *uih_colordialog, *uih_rotationdialog,
+  *uih_lettersdialog, *uih_iterdialog, *dtextparam, *dcommand,
+  *loaddialog, *playdialog, *saveimgdialog, *saveposdialog;
+
+
+
+void
+uih_registermenudialogs_i18n (void)
+{
+  int no_menudialogs_i18n = 0;
+
+/*
+ * The original code was:
+
+static menudialog uih_perturbationdialog[] = {
+  DIALOGCOORD ("Perturbation:", 0, 0),
+  {NULL}
+
+};
+
+ * Now first the static variable have to be registered (1),
+ * the widget must be inserted into the huge array (2),
+ * and the last row shows that no more widget comes (3).
+ */
+
+  Register (uih_perturbationdialog);	// (1)
+  DIALOGCOORD_I (gettext ("Perturbation:"), 0, 0);	// (2)
+  NULL_I ();			// (3)
+
+  Register (uih_juliadialog);
+  DIALOGCOORD_I (gettext ("Julia-seed:"), 0, 0);
+  NULL_I ();
+
+  Register (uih_smoothmorphdialog);
+  DIALOGCHOICE_I (gettext ("Morphing type:"), morphstypes, 0);
+  DIALOGINT_I (gettext ("Startuptime:"), 0);
+  DIALOGINT_I (gettext ("Stoptime:"), 0);
+  NULL_I ();
+
+  Register (uih_renderdialog);
+  DIALOGIFILE_I (gettext ("File to render:"), "fract*.xaf");
+  DIALOGSTR_I (gettext ("Basename:"), "anim");
+  DIALOGINT_I (gettext ("Width:"), 640);
+  DIALOGINT_I (gettext ("Height:"), 480);
+  DIALOGFLOAT_I (gettext ("Real width (cm):"), 29.0);
+  DIALOGFLOAT_I (gettext ("Real height (cm):"), 21.0);
+  DIALOGFLOAT_I (gettext ("Framerate:"), 30);
+  DIALOGCHOICE_I (gettext ("Image type:"), imgtypes, 0);
+  DIALOGCHOICE_I (gettext ("Antialiasing:"), yesno, 0);
+  DIALOGCHOICE_I (gettext ("Always recalculate:"), yesno, 0);
+  DIALOGCHOICE_I (gettext ("Calculate MPEG motion vectors:"), yesno, 0);
+  DIALOGINT_I (gettext ("Recommended I frame distance:"), 27);
+  NULL_I ();
+
+  Register (uih_viewdialog);
+  DIALOGCOORD_I (gettext ("Center:"), 0, 0);
+  DIALOGFLOAT_I (gettext ("Radius:"), 1);
+  DIALOGFLOAT_I (gettext ("Angle:"), 0);
+  NULL_I ();
+
+  Register (uih_linedialog);
+  DIALOGCHOICE_I (gettext ("Mode:"), lineposs, 0);
+  DIALOGCOORD_I (gettext ("Start:"), 0, 0);
+  DIALOGCOORD_I (gettext ("End:"), 0, 0);
+  NULL_I ();
+
+  Register (uih_colordialog);
+  DIALOGCHOICE_I (gettext ("Color:"), uih_colornames, 0);
+  NULL_I ();
+
+  Register (uih_rotationdialog);
+  DIALOGFLOAT_I (gettext ("Rotations per second:"), 0);
+  NULL_I ();
+
+  Register (uih_lettersdialog);
+  DIALOGINT_I (gettext ("Letters per second:"), 0);
+  NULL_I ();
+
+  Register (uih_iterdialog);
+  DIALOGINT_I (gettext ("Iterations:"), 0);
+  NULL_I ();
+
+  Register (dtextparam);
+  DIALOGSTR_I (gettext ("Text:"), "");
+  NULL_I ();
+
+  Register (dcommand);
+  DIALOGSTR_I (gettext ("Your command:"), "");
+  NULL_I ();
+
+  Register (loaddialog);
+  DIALOGIFILE_I (gettext ("Filename:"), "fract*.xpf");
+  NULL_I ();
+
+  Register (playdialog);
+  DIALOGIFILE_I (gettext ("Filename:"), "anim*.xaf");
+  NULL_I ();
+
+  Register (saveimgdialog);
+  DIALOGOFILE_I (gettext ("Filename:"), "fract*.png");
+  NULL_I ();
+
+  Register (saveposdialog);
+  DIALOGOFILE_I (gettext ("Filename:"), "fract*.xpf");
+  NULL_I ();
+
+  printf ("Filled %d widgets out of %d.\n",
+	  no_menudialogs_i18n, MAX_MENUDIALOGS_I18N);
+}
+
+#undef Register(variable)
+
+/*
+ * End of registering internationalized dialogs.
+ */
+
+
 static void
 uih_smoothmorph (struct uih_context *c, dialogparam * p)
 {
@@ -63,32 +228,7 @@ uih_smoothmorph (struct uih_context *c, dialogparam * p)
       break;
     }
 }
-static CONST char *CONST imgtypes[] = {
-  "Truecolor",
-  "256 colors",
-  NULL
-};
-static CONST char *CONST yesno[] = {
-  "No",
-  "Yes",
-  NULL
-};
 
-CONST static menudialog uih_renderdialog[] = {
-  DIALOGIFILE ("File to render", "fract*.xaf"),
-  DIALOGSTR ("basename", "anim"),
-  DIALOGINT ("Width", 640),
-  DIALOGINT ("Height", 480),
-  DIALOGFLOAT ("Real width (cm)", 29.0),
-  DIALOGFLOAT ("Real height (cm)", 21.0),
-  DIALOGFLOAT ("Framerate", 30),
-  DIALOGCHOICE ("Image type", imgtypes, 0),
-  DIALOGCHOICE ("Antialiasing", yesno, 0),
-  DIALOGCHOICE ("Always recalculate", yesno, 0),
-  DIALOGCHOICE ("Calculate MPEG motion vectors", yesno, 0),
-  DIALOGINT ("Recommended I frame distance", 27),
-  {NULL}
-};
 static void
 uih_render (struct uih_context *c, dialogparam * d)
 {
@@ -137,29 +277,6 @@ uih_render (struct uih_context *c, dialogparam * d)
 		       d[10].dint, d[11].dint);
 }
 
-CONST static char *CONST lineposs[] = {
-  "screen",
-  "scaled",
-  "fractal",
-  NULL
-};
-CONST static menudialog uih_linedialog[] = {
-  DIALOGCHOICE ("Mode", lineposs, 0),
-  DIALOGCOORD ("Start:", 0, 0),
-  DIALOGCOORD ("End:", 0, 0),
-  {NULL}
-};
-CONST char *CONST uih_colornames[] = {
-  "white",
-  "black",
-  "red",
-  NULL
-};
-
-static menudialog uih_colordialog[] = {
-  DIALOGCHOICE ("Color", uih_colornames, 0),
-  {NULL}
-};
 static menudialog *
 uih_getcolordialog (struct uih_context *c)
 {
@@ -207,77 +324,6 @@ static CONST menudialog uih_filterdialog[] = {
   {NULL}
 };
 
-
-/* Registering internationalized dialogs. 
- *
- * The method we are internationalizing dialogs is similar to
- * menu i18n. The original version of XaoS (without i18n)
- * contained lots of static variables. Each row of a variable
- * (which is a structure) contains a widget of a dialog.
- * The last row contains NULL and 0 values to show
- * that the dialog does not contain any other widgets.
- *
- * Here we are using a huge static variable which contains
- * all widget from all dialogs. We copy each dialog after
- * each other into this huge array. The original static
- * variables will now be pointers pointing to the first
- * row of the widget data from the appropriate line
- * of the huge array.
- *
- * Note that in the first version there are only 2
- * internationalized text, the rest will be "converted"
- * continously (as I have enough time :-).
- *
- * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
- */
-
-#define MAX_MENUDIALOGS_I18N 300
-#define Register(variable) variable = & menudialogs_i18n[no_menudialogs_i18n]
-static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
-int uih_no_menudialogs_i18n;
-
-static menudialog * uih_perturbationdialog, *uih_juliadialog;
-
-void
-uih_registermenudialogs_i18n (void)
-{
-  int no_menudialogs_i18n = 0;
-
-/* 
- * The original code was:
-
-static menudialog uih_perturbationdialog[] = {
-  DIALOGCOORD ("Perturbation:", 0, 0),
-  {NULL}
-	
-};
-
- * Now first the static variable have to be registered (1),
- * the widget must be inserted into the huge array (2),
- * and the last row shows that no more widget comes (3).
- */
-
-  Register (uih_perturbationdialog);	// (1)
-  DIALOGCOORD_I (gettext ("Perturbation:"), 0, 0);	// (2)
-  NULL_I ();			// (3)
-
-/*
-static menudialog uih_juliadialog[] = {
-  DIALOGCOORD ("Julia seed:", 0, 0),
-  {NULL}
-};
-*/
-
-  Register (uih_juliadialog);
-  DIALOGCOORD_I (gettext ("Julia-seed:"), 0, 0);
-  NULL_I ();
-}
-
-#undef Register(variable)
-
-/*
- * End of registrating internationalized dialogs.
- */
 
 
 static menudialog *
@@ -328,12 +374,6 @@ uih_plview2 (struct uih_context *c, dialogparam * d)
   c->fcontext->s.ri = d[3].number;
   uih_animate_image (c);
 }
-static menudialog uih_viewdialog[] = {
-  DIALOGCOORD ("center:", 0, 0),
-  DIALOGFLOAT ("Radius:", 1),
-  DIALOGFLOAT ("Angle:", 0),
-  {NULL}
-};
 static void
 uih_dview (struct uih_context *c, dialogparam * d)
 {
@@ -499,14 +539,6 @@ uih_printallmenus (struct uih_context *c)
   uih_printmenu (c, "animroot", 1);
   printf ("endmenu\n");
 }
-static menudialog uih_rotationdialog[] = {
-  DIALOGFLOAT ("Rotations per second:", 0),
-  {NULL}
-};
-static menudialog uih_lettersdialog[] = {
-  DIALOGINT ("Letters per second:", 0),
-  {NULL}
-};
 static menudialog *
 uih_getlettersdialog (struct uih_context *c)
 {
@@ -514,10 +546,6 @@ uih_getlettersdialog (struct uih_context *c)
     uih_lettersdialog[0].defint = c->letterspersec;
   return (uih_lettersdialog);
 }
-static menudialog uih_iterdialog[] = {
-  DIALOGINT ("iterations:", 0),
-  {NULL}
-};
 static menudialog *
 uih_getiterdialog (struct uih_context *c)
 {
@@ -536,30 +564,6 @@ uih_getbailoutdialog (struct uih_context *c)
     uih_bailoutdialog[0].deffloat = c->fcontext->bailout;
   return (uih_bailoutdialog);
 }
-static CONST menudialog dtextparam[] = {
-  DIALOGSTR ("Text:", ""),
-  {NULL}
-};
-static CONST menudialog dcommand[] = {
-  DIALOGSTR ("Your command:", ""),
-  {NULL}
-};
-static CONST menudialog loaddialog[] = {
-  DIALOGIFILE ("Filename:", "fract*.xpf"),
-  {NULL}
-};
-static CONST menudialog playdialog[] = {
-  DIALOGIFILE ("Filename:", "anim*.xaf"),
-  {NULL}
-};
-static CONST menudialog saveimgdialog[] = {
-  DIALOGOFILE ("Filename:", "fract*.png"),
-  {NULL}
-};
-static CONST menudialog saveposdialog[] = {
-  DIALOGOFILE ("Filename:", "fract*.xpf"),
-  {NULL}
-};
 static int
 uih_saveanimenabled (struct uih_context *c)
 {
@@ -902,7 +906,7 @@ static CONST menuitem menuitems[] =	/*XaoS menu specifications */
 #define MAX_MENUITEMS_I18N 300
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
 int uih_no_menuitems_i18n;
-
+//extern void DIALOGIFILE_I(char *_question,char *_filename);
 
 void
 uih_registermenus_i18n (void)
@@ -1338,6 +1342,8 @@ uih_registermenus_i18n (void)
 	   "dimension.xaf");
   TUTOR_I ("fmath", gettext ("Escape time fractals"), "escape.xaf");
   TUTOR_I ("new", gettext ("What's new in 3.0?"), "new30.xaf");
+  printf ("Filled %d menu items out of %d.\n", no_menuitems_i18n,
+	  MAX_MENUITEMS_I18N);
   menu_add (menuitems_i18n, no_menuitems_i18n);
   uih_no_menuitems_i18n = no_menuitems_i18n;
 }

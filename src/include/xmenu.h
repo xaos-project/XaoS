@@ -50,6 +50,55 @@ extern "C"
 #define DIALOGCHOICE(question,table,default)  {question, DIALOG_CHOICE, default,(CONST char *)table}
 #define DIALOGCOORD(question,default1,default2)  {question, DIALOG_COORD,0, NULL, default1,default2}
 
+#define DIALOGIFILE_I(_question,_filename) \
+ menudialogs_i18n[no_menudialogs_i18n].question=_question; \
+ menudialogs_i18n[no_menudialogs_i18n].type=DIALOG_IFILE; \
+ menudialogs_i18n[no_menudialogs_i18n].defint=0; \
+ menudialogs_i18n[no_menudialogs_i18n].defstr=_filename; \
+ menudialogs_i18n[no_menudialogs_i18n].deffloat=0; \
+ menudialogs_i18n[no_menudialogs_i18n].deffloat2=0; \
+ ++no_menudialogs_i18n;
+#define DIALOGOFILE_I(_question,_filename) \
+ menudialogs_i18n[no_menudialogs_i18n].question=_question; \
+ menudialogs_i18n[no_menudialogs_i18n].type=DIALOG_OFILE; \
+ menudialogs_i18n[no_menudialogs_i18n].defint=0; \
+ menudialogs_i18n[no_menudialogs_i18n].defstr=_filename; \
+ ++no_menudialogs_i18n;
+#define DIALOGKEYSTR_I(_question,_default) \
+ menudialogs_i18n[no_menudialogs_i18n].question=_question; \
+ menudialogs_i18n[no_menudialogs_i18n].type=DIALOG_KEYSTRING; \
+ menudialogs_i18n[no_menudialogs_i18n].defint=0; \
+ menudialogs_i18n[no_menudialogs_i18n].defstr=_default; \
+ ++no_menudialogs_i18n;
+#define DIALOGSTR_I(_question,_default) \
+ menudialogs_i18n[no_menudialogs_i18n].question=_question; \
+ menudialogs_i18n[no_menudialogs_i18n].type=DIALOG_STRING; \
+ menudialogs_i18n[no_menudialogs_i18n].defint=0; \
+ menudialogs_i18n[no_menudialogs_i18n].defstr=_default; \
+ ++no_menudialogs_i18n;
+#define DIALOGINT_I(_question,_default) \
+ menudialogs_i18n[no_menudialogs_i18n].question=_question; \
+ menudialogs_i18n[no_menudialogs_i18n].type=DIALOG_INT; \
+ menudialogs_i18n[no_menudialogs_i18n].defint=_default; \
+ ++no_menudialogs_i18n;
+#define DIALOGONOFF_I(_question,_default) \
+ menudialogs_i18n[no_menudialogs_i18n].question=_question; \
+ menudialogs_i18n[no_menudialogs_i18n].type=DIALOG_ONOFF; \
+ menudialogs_i18n[no_menudialogs_i18n].defint=_default; \
+ ++no_menudialogs_i18n;
+#define DIALOGFLOAT_I(_question,_default) \
+ menudialogs_i18n[no_menudialogs_i18n].question=_question; \
+ menudialogs_i18n[no_menudialogs_i18n].type=DIALOG_FLOAT; \
+ menudialogs_i18n[no_menudialogs_i18n].defint=0; \
+ menudialogs_i18n[no_menudialogs_i18n].defstr=NULL; \
+ menudialogs_i18n[no_menudialogs_i18n].deffloat=_default; \
+ ++no_menudialogs_i18n;
+#define DIALOGCHOICE_I(_question,_table,_default) \
+ menudialogs_i18n[no_menudialogs_i18n].question=_question; \
+ menudialogs_i18n[no_menudialogs_i18n].type=DIALOG_CHOICE; \
+ menudialogs_i18n[no_menudialogs_i18n].defint=_default; \
+ menudialogs_i18n[no_menudialogs_i18n].defstr=(CONST char *)_table; \
+ ++no_menudialogs_i18n;
 #define DIALOGCOORD_I(_question,_default1,_default2) \
  menudialogs_i18n[no_menudialogs_i18n].question=_question; \
  menudialogs_i18n[no_menudialogs_i18n].type=DIALOG_COORD; \
@@ -285,7 +334,8 @@ extern "C"
 #define MENUFLAG_DIALOGATDISABLE 256
 
 #define NITEMS(n) (sizeof(n)/sizeof(menuitem))
-#define menu_getdialog(context, m) ((m)->type==MENU_DIALOG?(CONST menudialog *)(m)->pparam:(m)->dialog(context))
+#define menu_getdialog(context, m) \
+ ((m)->type==MENU_DIALOG?(CONST menudialog *)(m)->pparam:(m)->dialog(context))
 
   void menu_add (CONST menuitem * item, int n);
   void menu_insert (CONST menuitem * item, CONST char *before, int n);
