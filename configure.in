@@ -666,7 +666,7 @@ if test  "$ggi_driver_test" = yes; then
   AC_CHECK_LIB(ggi,ggiInit,LIBS="$LIBS -lggi", ggi_driver=false, $LIBS )
 fi
 echo "------------------------------------------------------------"
-echo "Avaiable drivers:"
+echo "Available drivers:"
 drivers=no
 if test "$aa_driver_test" = yes; then
 if test "x$aa_driver" = xtrue; then
