@@ -309,6 +309,13 @@ x11_processevents (int wait, int *mx, int *my, int *mb, int *k)
 		    ui_key (UIKEY_ESC);
 		  case XK_BackSpace:
 		    ui_key (UIKEY_BACKSPACE);
+		    break;	/* This statement was missing.
+				   I'm not sure if this is needed
+				   because new X drivers handle
+				   UIKEY_BACKSPACE better or
+				   double backspaces were problems
+				   in earlier versions of XaoS, too.
+				   -- Zoltan, 2004-10-30 */
 		  default:
 		    {
 		      CONST char *name;
