@@ -3,7 +3,7 @@ Welcome to XaoS...
 This file gives general information about XaoS.
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/README,v 1.1 2003-01-17 09:42:32 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/README,v 1.2 2003-03-18 10:08:09 kovzol Exp $
 
 After 6 years of pause, we have put together XaoS 3.1. In fact, it was
 almost complete already in 1997. In addition, there may be other
@@ -21,7 +21,7 @@ indented using GNU style. The were also some minor improvements
 since 1997, e.g. internationalization or adding new fractal types.
 
 The result of the developer crew is this software you can install now.
-Please go on and read file INSTALL to continue and/or read the files in
+Please go on and read file doc/INSTALL to continue and/or read the files in
 directory doc/.
 
 Please visit XaoS web site for additional information (xaos.sf.net).
