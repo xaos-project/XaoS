@@ -1995,7 +1995,7 @@ to any value greater than 2 for similar results.
 Other fractal types may use other bailout values. The default
 is 4 for each types.
 
-@emph{Available as}: menu item
+@emph{Available as}: menu item, command line option, command
 @defun bailout float 
 @end defun
 
