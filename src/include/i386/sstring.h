@@ -1,4 +1,4 @@
-#if 1
+#if 0
 #ifndef _I386_STRING_I486_H_
 #define _I386_STRING_I486_H_
 #if defined(__OPTIMIZE__) && defined(__GNUC__) && defined(__i386__)
