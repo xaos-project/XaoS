@@ -27,7 +27,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#ifndef NO_MALLOC_H
 #include <malloc.h>
+#endif
 #include "xlib.h"
 #ifdef AMIGA
 #define XFlush(x) while(0)

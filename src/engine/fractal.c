@@ -27,7 +27,9 @@
 #else
 #include <stdio.h>
 #ifndef _MAC
+#ifndef NO_MALLOC_H
 #include <malloc.h>
+#endif
 #endif
 #include <aconfig.h>
 #include <string.h>

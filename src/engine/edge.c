@@ -3,7 +3,9 @@
  * does an simple edge detection algo on it.
  */
 #ifndef _plan9_
+#ifndef NO_MALLOC_H
 #include <malloc.h>
+#endif
 #include <stdio.h>		/*for NULL */
 #else
 #include <u.h>

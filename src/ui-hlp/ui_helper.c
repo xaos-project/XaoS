@@ -1,5 +1,7 @@
 #ifndef _plan9_
+#ifndef NO_MALLOC_H
 #include <malloc.h>
+#endif
 #include <ctype.h>
 #include <stdlib.h>
 #include <limits.h>

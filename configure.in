@@ -869,7 +869,7 @@ AC_OUTPUT(Makefile src/Makefile src/i18n/Makefile src/engine/Makefile
     src/ui/ui-drv/aa/Makefile src/ui/ui-drv/ggi/Makefile
     src/ui/ui-drv/svga/Makefile src/ui/ui-drv/x11/Makefile
     src/ui/ui-drv/dga/Makefile src/ui/ui-drv/win32/Makefile
-    src/ui/ui-drv/BeOS/Makefile
+    src/ui/ui-drv/BeOS/Makefile doc/Makefile help/Makefile
 	  )
 echo "------------------------------------------------------------"
 echo "Compiler options:"

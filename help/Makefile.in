@@ -1,0 +1,10 @@
+all: rtf html
+
+rtf: xaos.hlp
+	./rtfconv
+
+html: xaos.hlp
+	./htmlconvert
+
+clean:
+	rm -f *.html xaoswin.rtf

@@ -1,7 +1,8 @@
 \input texinfo   @c -*-texinfo-*-
 
-@c The original files are xaos.geninfo and xaos.hlp. Xaos.texinfo is
-@c automatically generates. So make all changes in the orignal files please.
+@c The original files are xaos.geninfo and xaos.hlp. xaos.texinfo is
+@c automatically generated. So make all changes in the orignal files please.
+@c To regenerate xaos.texinfo, please run "mktexinfo".
 
 @c Use A4 paper - If you don't like that, remove the following 3 lines.
 @iftex
@@ -12,12 +13,12 @@
 @settitle An fast realtime interactive fractal zoomer --- user's manual
 @dircategory Graphics
 @direntry 
- * XaoS: (xaos).               The fast realtime interactive fractal zoomer
+ * XaoS: (xaos).               A fast real-time interactive fractal zoomer
 @end direntry
 
 
 @ifinfo
-@copyright{} 1997 Jan Hubicka
+@copyright{} 1997-2003 Jan Hubicka and the XaoS Development Team
 
 Permission is granted to make and distribute verbatim
 copies of this manual provided the copyright notice and
@@ -28,12 +29,12 @@ this permission notice are preserved on all copies.
 @c %**end of header
 
 @set VERSION    3.1
-@set DATE       May 14, 1998
+@set DATE       Feb 15, 2003
 
 @titlepage
 
 @title{XaoS @value{VERSION}}
-@subtitle{A fast realtime interactive fractal zoomer --- User's manual}
+@subtitle{A fast real-time interactive fractal zoomer --- User's manual}
 
 @author{Jan Hubi@v cka}
 @tex
@@ -51,7 +52,7 @@ Email: @code{jh@@ucw.cz}
 @vskip 0pt plus 1filll
 @vskip 0pt plus 1filll
 
-@copyright{} 1997 @tex Jan Hubi\v cka 
+@copyright{} 1996-2003 @tex Jan Hubi\v cka and the XaoS Development Team
 @end tex
 
 Permission is granted to make and distribute verbatim
@@ -66,15 +67,15 @@ this permission notice are preserved on all copies.
 @ifinfo
 @top XaoS @value{VERSION}
 @flushright 1.0
-An realtime interactive fractal zoomer
+A real-time interactive fractal zoomer
 User's manual
 @value{DATE}
 @end flushright
 
-This manual contains user documentation about XaoS --- a fast realtime fractal
-zoomer. XaoS uses an development model, so sources are freely available. The
+This manual contains user documentation about XaoS --- a fast real-time fractal
+zoomer. XaoS uses a development model, so sources are freely available. The
 file @code{xaosdev.texinfo} in the source documentation contains a hacker's
-manual. (design overview, algorithm description etc.)
+manual (design overview, algorithm description etc.).
 @end ifinfo
 
 @menu
@@ -115,16 +116,17 @@ make nice animations, but they take a long time to calculate and lots
 of space on disk. Most such animations are quite ugly because their
 authors can't see them without many hours of calculations.
 
-A natural question is: it is possible to generate such animations in
-realtime? The ansver was negative for many years, since the Mandelbrot set is
+A natural question is: is it possible to generate such animations in
+real-time? The answer was negative for many years, since the Mandelbrot set is
 very computationally expensive. Things are changing. Today's computers
-are fast enough to calculate approx. 1000 pixels per frame, which is enough
-for a very low resolution animation (30x30). Several programs doing that
-are available. But 30x30 animation still looks quite ugly. To make
-animation nice you need at least 320x200 pixels. And thats 65 times more!
+are fast enough to calculate approx. 10.000 of pixels per frame,
+which is enough 
+for a very low resolution animation (100x100). Several programs doing that
+are available. But 100x100 animation still looks quite ugly. To make
+animation nice you need at least 320x200 pixels. And that is 6 times more!
 One possibility is to wait until computers will be fast enough, but
 it will take many years, and then 320x200 animations will be obsolete
-and everyone will want 1024x768 resolution instead.
+and everyone will want 1024x768 resolution instead or more.
 
 We found a special algorithm that saves up to 99.98% of calculations during
 zooming by reusing pixels already calculated in previous frames. There were
@@ -132,7 +134,7 @@ some programs doing similiar tricks before but we don't know about any able
 to do zooming interactively with a speed similar to XaoS. Many other tricks
 were later implemented XaoS to achieve yet higher framerates. Now XaoS does
 up to 120 frames per second on a 120Mhz pentium in a fullscreen 320x200
-animation, and calculates on avearge 160 (0.24%) pixels per frame. This makes
+animation, and calculates an average of 160 (0.24%) pixels per frame. This makes
 XaoS fast enough to achieve its primary goal, realtime animation, but there
 are still many areas that could improve, since more complex fractals,
 higher resolutions, or slower computers still bring many problems.
@@ -145,7 +147,7 @@ higher resolutions, or slower computers still bring many problems.
 XaoS is a realtime interactive fractal zoomer. This means that it lets you
 zoom smoothly into any place in the fractal you choose without the many hours
 of calculation required by most other fractal generators. It now has many
-other features too, like 9 different fractal types, autopilot, special coloring
+other features too, like 13 different fractal types, autopilot, special coloring
 modes, support for various bit depths (8bpp, truecolor, hicolor and realcolor),
 random palette generation, color cycling etc...
 
@@ -210,7 +212,7 @@ random palette generation, color cycling etc...
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node DGA, dos , aa ,drivers
+@node DGA, dos , BeOS ,drivers
 @c ## section DGA ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

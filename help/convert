@@ -1,11 +1,18 @@
+#!/bin/sh
 #cut at given keyword
 keyword()
 {
-	sed "1,/^%$1/ d;/^%/,0 d"
+	# I changed "0" to "\$" because my sed
+	# doesn't want to understand "0".
+	# -- Zoltan
+	sed "1,/^%$1/ d;/^%/,\$ d"
 }
 menus()
 {
-	sed "1,/^%menus/ d;/^%endmenus/,0 d"
+	# I changed "0" to "\$" because my sed
+	# doesn't want to understand "0".
+	# -- Zoltan
+	sed "1,/^%menus/ d;/^%endmenus/,\$ d"
 }
 
 #convert xshl tags into texinfo

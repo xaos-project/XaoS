@@ -46,11 +46,15 @@
 #endif
    /*HAVE_TIME_H */
 #include <aconfig.h>
+#ifndef NO_MALLOC_H
 #include <malloc.h>
+#endif
 #include <stdio.h>
 #include <unistd.h>
 #ifndef _MAC
+#ifndef NO_MALLOC_H
 #include <malloc.h>
+#endif
 #endif
 #ifdef __BEOS__
 #include <OS.h>

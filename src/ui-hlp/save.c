@@ -2,7 +2,9 @@
 #include <limits.h>
 #include <string.h>
 #include <errno.h>
+#ifndef NO_MALLOC_H
 #include <malloc.h>
+#endif
 #else
 #include <u.h>
 #include <libc.h>

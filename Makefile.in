@@ -19,7 +19,7 @@ all:
 distclean:
 	#@$(MAKE) -C src $@
 	@$(MAKE) -C src distclean
-	rm -f config.cache config.status config.log src/include/config.h src/include/aconfig.h
+	rm -f libtool config.cache config.status config.log src/include/config.h src/include/aconfig.h
 	rm -f src/Makefile.common src/arch/linux/Makefile.main
 	rm -f `find . -name Makefile`
 	rm -f `find . -name '*~'`
@@ -28,22 +28,22 @@ distclean:
 	rm -vf `find . -size 0`
 
 install: 
-	@INSTALL@ -d $(datadir)/XaoS
-	@INSTALL@ -d $(datadir)/XaoS/tutorial
-	@INSTALL@ -d $(datadir)/XaoS/examples
-	@INSTALL@ -d $(datadir)/XaoS/catalogs
-	@INSTALL@ -d $(datadir)/XaoS/doc
-	@INSTALL@ -d $(datadir)/XaoS/help
-	@INSTALL@ -d $(bindir)
-	@INSTALL@ -d $(mandir)/man6
-	@INSTALL@ -s bin/xaos $(bindir)
-	@INSTALL@ -m 444 tutorial/*.x[ah]f $(datadir)/XaoS/tutorial
-	@INSTALL@ -m 444 examples/*.x[ap]f examples/README $(datadir)/XaoS/examples
-	@INSTALL@ -m 444 catalogs/*.cat catalogs/README $(datadir)/XaoS/catalogs
-	@INSTALL@ -m 444 help/xaos.hlp $(datadir)/XaoS/help
-	@INSTALL@ -m 444 doc/README doc/README.bugs doc/compilers.txt doc/AUTHORS doc/PROBLEMS $(datadir)/XaoS/doc
-	@INSTALL@ -m 444 doc/xaos.6 $(mandir)/man6
+	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS
+	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/tutorial
+	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/examples
+	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/catalogs
+	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/doc
+	@INSTALL@ -d $(DESTDIR)$(datadir)/XaoS/help
+	@INSTALL@ -d $(DESTDIR)$(bindir)
+	@INSTALL@ -d $(DESTDIR)$(mandir)/man6
+	@INSTALL@ -s bin/xaos $(DESTDIR)$(bindir)
+	@INSTALL@ -m 444 tutorial/*.x[ah]f $(DESTDIR)$(datadir)/XaoS/tutorial
+	@INSTALL@ -m 444 examples/*.x[ap]f examples/README $(DESTDIR)$(datadir)/XaoS/examples
+	@INSTALL@ -m 444 catalogs/*.cat catalogs/README $(DESTDIR)$(datadir)/XaoS/catalogs
+	@INSTALL@ -m 444 help/xaos.hlp $(DESTDIR)$(datadir)/XaoS/help
+	@INSTALL@ -m 444 doc/README doc/README.bugs doc/compilers.txt doc/AUTHORS doc/PROBLEMS $(DESTDIR)$(datadir)/XaoS/doc
+	@INSTALL@ -m 444 doc/xaos.6 $(DESTDIR)$(mandir)/man6
 	@STICKY@
-	@INSTALL@ -m 444 doc/xaos.info $(infodir)
+	@INSTALL@ -m 444 doc/xaos.info $(DESTDIR)$(infodir)
 	#install-info doc/xaos.info 
 	if [ "@i18n@" = "yes" ]; then $(MAKE) -C src/i18n/ install; fi

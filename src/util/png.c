@@ -5,7 +5,9 @@
 #endif
 #include <stdlib.h>
 #include <stdio.h>
+#ifndef NO_MALLOC_H
 #include <malloc.h>
+#endif
 #include <errno.h>
 #else
 #include <u.h>

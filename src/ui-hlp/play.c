@@ -1,6 +1,10 @@
 #ifndef _plan9_
 #include <limits.h>
+#ifdef NO_MALLOC_H
+#include <stdlib.h>
+#else
 #include <malloc.h>
+#endif
 #include <string.h>
 #else
 #include <u.h>

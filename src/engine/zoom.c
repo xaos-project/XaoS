@@ -28,7 +28,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #ifndef _MAC
+#ifndef NO_MALLOC_H
 #include <malloc.h>
+#endif
 #endif
 #ifdef __EMX__
 #include <float.h>

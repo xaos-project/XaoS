@@ -297,23 +297,25 @@ The following tags are supported:
 <dd>cs.po (Czech translation of menus)
 <dt>Tim Goodwin	(tgoodwin@cygnus.co.uk)
 <dd>english.cat corrections
+<dt>Ben Hines
+<dd>autoconf suggestions, Mac OS X port
 <dt>Jan Hubicka	(jh@ucw.cz) 
-<dd>Zooming routines, ugly interface, palettes,drivers, autopilot, filters, documentation, tutorials, maitainer etc...
+<dd>Zooming routines, ugly interface, palettes, drivers, autopilot, filters, documentation, tutorials, maitainer etc...
 <dt>Jens Kilian	(jjk@acm.org)
 <dd>BeOS driver, deutsch.cat
 <dt>Thomas A. K. Kjaer (takjaer@imv.aau.dk)
 <dd>OS/2 ports (320x200 graphics and AA-lib)
 <dt>Zoltan Kovacs (kovzol@math.u-szeged.hu)
-<dd>Internationalization
+<dd>Internationalization, finalizing version 3.1
 <dt>Andreas Madritsch (amadritsch@datacomm.ch)
-<dd>New fractal types, bailout
+<dd>New fractal types, bailout, many fixes
 <dt>Thomas Marsh
 <dd>First zoomer, formulae, planes, X11 driver, inversions, many ideas
 <dt>David Meleedy
 <dd>Grammatical and spelling fixed version of <tt>xaos.6</tt>
 <dt>Paul Nasca (paulnasca@email.ro)
 <dd>Ministatus improvement
-<dt>Nix
+<dt>Nix (nix@esperi.demon.co.uk)
 <dd>Grammatical and spelling fixed version of <tt>xaos.hlp</tt> and other files
 <dt>Terje Pedersen (terjepe@login.eunet.no)
 <dd>Amiga port
@@ -370,9 +372,23 @@ them into a foreign language etc...
 %lists
 
 <head>Mailing-lists:</head>
-      Currently not available. :-(
-
-
+Until 1999 (or so) there was a high traffic mailing list
+on a mail server located in Czech Republic. Unfortunately,
+the server with its mailing lists no longer works.
+<p>
+In 2001 XaoS moved to the SourceForge developer site
+and now there are 3 new mailing lists. Unfortunately,
+at the time of writing this documentation its traffic
+is about 0. Hopefully the development will continue
+using these mailing lists. Namely,
+<dl>
+<dt>xaos-announce@lists.sourceforge.net,
+<dt>xaos-devel@lists.sourceforge.net,
+<dt>xaos-discuss@lists.sourceforge.net.
+</dl>
+<p>
+Please feel free to join any or all of these
+mailing lists and share your ideas with the developers.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %format
@@ -514,7 +530,7 @@ And following is the ``rotozooming'' animation:
 
 I plan to make a gallery of animations and position files on the XaoS home-page,
 so please send any nice animations and images you created using XaoS
-to <tt>jh@ucw.cz</tt>
+to <tt>jh@ucw.cz</tt>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %drivers
 
@@ -558,7 +574,7 @@ different platforms. Here is documentation about each specific port.
 
 The AA driver is currently the most advanced and portable driver for XaoS.
 It is based on AAlib--a high quality ASCII-art library developed by the AA-project.
-(see <tt>http://www.ta.jcu.cz/aa</tt>)
+(see <tt>http://aa-project.sf.net</tt>)
 <p>
 It is a fully featured XaoS driver for text mode displays. It supports 256 colors
 and the mouse where possible.
@@ -595,7 +611,7 @@ the <emph>palette menu</emph>.
   ASCII-art. To save ASCII art use this function instead. It supports many  
   text file formats like HTML, ANSI, more, etc... It will also ask you for
 font and attributes(see above). It is available from the <emph>file
-menu</emph>
+menu</emph>.
 </dl>
 <p>
 The AA-lib driver also provides the full set of standard AA-lib's command line
@@ -989,6 +1005,13 @@ This is a brief introduction to the basic XaoS features.
 <p>
  On key <tt>0</tt> is a fractal called <emph>Magnet</emph>. This fractal has quite a complex formula so it is
  a bit slow. 
+<p>
+ Version 3.1 has 3 more fractal types. On most platform you
+ can display these fractals with keys <tt>SHIFT-A</tt>, <tt>SHIFT-B</tt>
+ and <tt>SHIFT-C</tt>, which will show you the <emph>fourth ordered
+ Newton</emph>, the <emph>Barnsley2</emph> and the <emph>Magnet2</emph>
+ fractals, respectively.
+<p>
  
 <head>Out-coloring modes</head>
 
@@ -1153,6 +1176,7 @@ available in this registry.
 <p><submenu><a animf>Animation functions</a>
 <p><submenu><a time>Timing functions</a>
 <p><submenu><a file>File</a>
+<p><submenu><a edit>Edit</a>
 <p><submenu><a fractal>Fractal</a>
 <p><submenu><a calc>Calculation</a>
 <p><submenu><a mfilter>Filters</a>
@@ -1404,7 +1428,7 @@ Will do a 5 second long unzooming animation.
 <p><a morphangle>Morph angle</a>
 <p><a zoom>Zooming functions</a>
 </center></menuitems>
-<node animateview, , morphview, animf>
+<node animateview, , smoothmorph, animf>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %animateview
 <head>Animate view</head>
@@ -1615,7 +1639,7 @@ do that.
 <p>
 <emph>Available as</emph>: command
 
-<node file, time, fractal, menus>
+<node file, time, edit, menus>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %file
 
@@ -1755,7 +1779,7 @@ I hope it will do what you want.
 Redo last undone operation. See <a undo>undo</a>.
 <p>
 <emph>Available as</emph>: menu item
-<node copy, redo, pase, edit>
+<node copy, redo, paste, edit>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %copy
 <head>Copy</head>
@@ -2514,7 +2538,7 @@ to get a Grand Design spiral galaxy :)
    write a small starting script (or alias, or shortcut; whatever your environment
    uses) that passes the correct parameters to XaoS.
 <p>
-   If the window is <emph>smaller than 8cm in any direction<emph>, you will probably be
+   If the window is <emph>smaller than 8cm in any direction</emph>, you will probably be
    unable to see anything; make the window bigger.
 
    The correct way to see XaoS stereograms is:

@@ -1,13 +1,17 @@
+#!/bin/sh
 processline()
 {
 	echo "- $1 -"
 	name="$1"
-	cat xaos.hlp | sed '1,/%'"$1"'/d;/^%/,0d' | sed \
-'1,2s_<head>\([^<]*\)</head>_<!-- X-URL: http://www.paru.cas.cz/~hubicka/XaoS/help/'"$1"' -->\
+	# I changed "0" to "$" because my sed
+	# doesn't want to understand "0".
+	# -- Zoltan
+	cat xaos.hlp | sed '1,/%'"$1"'/d;/^%/,$ d' | sed \
+'1,2s_<head>\([^<]*\)</head>_<!-- X-URL: http://xaos.sf.net/help/'"$1"' -->\
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">\
 <HTML>\
 <HEAD>\
-  <LINK rev=made href="mailto:hubicka@freesoft.cz">\
+  <LINK rev=made href="mailto:jh@ucw.cz">\
   <META name="description" content="XaoS online help '"$1"'>\
   <META name="keywords" content="XaoS, realtime, fractal, zoomer">\
   <TITLE>XaoS online help - \1</TITLE>\
@@ -52,3 +56,5 @@ process()
 	done
 }
 grep "^%" xaos.hlp | sed '/%%/d;s/%//g' | process
+rm -f index.html
+ln -s main.html index.html

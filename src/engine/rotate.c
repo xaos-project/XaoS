@@ -11,7 +11,11 @@
 #ifndef __cplusplus
 #include <math.h>
 #endif
+#ifdef NO_MALLOC_H
+#include <stdlib.h>
+#else
 #include <malloc.h>
+#endif
 #else
 #include <u.h>
 #include <libc.h>

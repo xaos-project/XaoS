@@ -1,0 +1,29 @@
+README file for help/ directory
+-------------------------------
+
+Zoltan Kovacs <kovzol@math.u-szeged.hu>
+
+Last modification information:
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/help/README,v 1.1 2003-02-03 10:16:51 kovzol Exp $
+
+
+This directory contains several files for documentation of XaoS.
+
+The main file is xaos.hlp. From this will all scripts generate
+documentation files.
+
+To create HTML documentation (many .html files), please run
+"make html".
+
+To create TeX documentation (.dvi files) or .info files, go to ../doc
+and type "make".
+
+To create .rtf documentation, type "make rtf" or run "rtfconv.bat" (on
+Windows/CygWin development system). You will need xaoswin.rtf in order
+to generate xaoswin.hlp for your running Windows executable.
+
+To create xaoswin.hlp, you need the HCW package. Note that you also need
+xaoswin.Hpj and xaoswin.rtf (xaoswin.rtf must be generated with
+"make rtf" or using the "rtfconv.bat" utility).
+
+Finally, "make" will generate both .html and .rtf documentation.

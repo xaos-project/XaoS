@@ -1,6 +1,6 @@
 #ifndef _plan9_
 #include <string.h>
-#ifdef __EMX__
+#if defined(__EMX__) || defined(__APPLE__)
 #include <sys/types.h>
 #endif
 #include <dirent.h>
