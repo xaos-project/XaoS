@@ -1,33 +1,35 @@
 This file contains known XaoS problems
 
 Warning:
-This file should become out of date after relleasing 3.1 version.
-In this case up to date version will be placed to XaoS homepage
+This file should become out of date after the release of 3.1 version.
+In this case an up to date version will be placed to XaoS homepage
 
 
- o XaoS has problems with certain compilters(including some versions of GCC)
-   please read README.compilers for more informations
+ o XaoS has problems with certain compilers (including some versions of GCC)
+   please read README.compilers for more information.
  o Crashes under X11 with higher resolutions
-   This should be caused by limits for shared memory area. Please try -nomitshm options.
-   This happends often on freeBSD systems.
- o Dos version crashes even with clean dos
-   This should be caused (and very often is) by hardware problem of your computer.
-   Many computers are configured to run faster than they are build for. So this
-   problem is very common on computers running penium 100 at 120 or even 133 Mhz.
-   Gcc (compiler used for XaoS) generates VERY optimal code that VERY often overheats
-   procesor(for example my 486 after 20 minutes of compiling gets from aprox. 28^C
-   to aprox 80^C....It is not easy to notice such problem with other aplications since
-   it usually does not have effect for 16bit aplication and falling of windows is
+   This may be caused by limits on the size of the shared memory area. 
+   Please try -nomitshm options. This happends often on FreeBSD systems.
+ o Dos version crashes even with clean DOS
+   This may be caused (and very often is) by a hardware problem.
+   Many computers are overclocked (configured to run faster than the CPU
+   and motherboard is supposed to support). This problem is very common on
+   computers running Pentium 100 at 120 or even 133 Mhz.
+   GCC (the compiler used for XaoS) generates good that often overheats
+   processor (for example my 486 after 20 minutes of compiling gets from approx. 28^C
+   to approx 80^C...). It is not easy to notice such problem with other applications since
+   it usually does not have effect for most DOS application, and failing in Windows
    normal.
 
-   In XaoS this problem causes random crash while xaos is running or crash immediately
+   In XaoS this problem causes random crashes while XaoS is running, or crashes immediately
    after startup
 
-   Also cyrix 686 are known to have problems with startup menu. In case you are interested
-   I may send you version w/o this menu..
+   Also Cyrix 686 are known to have problems with the startup menu. If you are
+   interested I can send you a version w/o this menu.
 
    Please browse you setup and put higher waitstates, turn off caches, turn off turbo
-   simply everything that should slow down your computer. In case this helps you computer
-   is buggy and needs to be configured to lower speed
+   and simply do everything that should slow down your computer. If this helps,
+   your hardware simply can't cope with the higher speed reliably.
+
  o other problems?
    see driver specific documentation
