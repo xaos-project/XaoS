@@ -1,0 +1,4 @@
+ o Some cleanups and type checking...
+ o First patches for Win32 support
+ o Small changes in plane handling
+ o Many extensions to documentation

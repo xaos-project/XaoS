@@ -1,0 +1,80 @@
+#ifndef CONFIG_H
+
+#define CONFIG_H
+
+
+#define FPOINT_TYPE  long double
+
+				       /*floating point math type on computers
+
+				          with medium speed floating point math should   
+
+				          use float instead */
+
+#define USE_LONG		/*for autoconf..undefine if
+
+				   fpoint_type is set to other than
+
+				   long_double */
+
+
+
+
+/* You don't need to change these lines unless you now what you are doing */
+
+	/*this is old style of configuring XaoS */
+
+
+
+#define USE_STDIO
+
+#ifndef HAVE_GETTIMEOFDAY
+
+//#define HAVE_GETTIMEOFDAY
+
+#endif
+
+#ifndef TIME_WITH_SYS_TIME
+
+#define TIME_WITH_SYS_TIME
+
+#endif
+
+#ifndef HAVE_LIMITS_H
+
+#define HAVE_LIMITS_H
+
+#endif
+
+#define HAVE_UNISTH_H
+
+#ifndef HAVE_SYS_TIME_H
+
+//#define HAVE_SYS_TIME_H
+
+#endif
+
+#ifdef _plan9_
+
+#define exit(i) exits("Unix exit called")
+
+#define INT_MAX 2127423647
+
+		/*some better way? */
+
+#endif
+
+#ifdef _MAC
+
+#ifndef INT_MAX
+
+#define INT_MAX 0xEfffffff
+
+#endif
+
+#endif
+
+
+
+#endif				/*CONFIG_H */
+

@@ -1,0 +1,28 @@
+/* aconfig.h.  Generated automatically by configure.  */
+#ifndef ACONFIG_H
+#define ACONFIG_H
+#define DATAPATH "./"
+#define HAVE_ALLOCA 1
+#define USE_PNG 1
+#define HAVE_ALLOCA_H 1
+#define HAVE_FTIME 1
+#define HAVE_LONG_DOUBLE 1
+#define STDC_HEADERS 1
+#define SIZEOF_INT 4
+#define HAVE_FINITE
+#define SIZEOF_SHORT 2
+#define SIZEOF_LONG 4
+#define TIME_WITH_SYS_TIME 1
+#define HAVE_GETTIMEOFDAY 1
+#define USE_CLOCK 1
+#define HAVE_LIMITS_H 1
+#define HAVE_SYS_TIME_H 1
+#define HAVE_UNISTD_H 1
+#define HAVE_MOUSEMASK 1
+#define OS2VIO_DRIVER 1
+#define AA_DRIVER 1
+
+/* included from float.h */
+#define finite(x) isfinite(x)
+#define isinf(x) (!finite(x)&&!isnan(x))
+#endif

@@ -1,0 +1,185 @@
+README for XaoS Fractal Viewer
+Apple Macintosh (tm) version
+
+Last updated: November 25, 1996
+
+Support: Tapio Vocadlo (taps@rmx.com)
+         Ottawa, Canada
+
+XaoS Fractal Viewer version: 2.1g
+Macintosh driver version: 1.31
+
+
+INTRODUCTION
+------------------------------------------------------
+This file describes how to compile and use the
+XaoS Fractal Viewer on the Apple Macintosh, and
+any differences between the Mac viewer and the
+other platform versions.
+
+
+SYSTEM REQUIREMENTS
+------------------------------------------------------
+There are three binaries normally distributed in the
+HQX archive: one for Power Macintoshes, one for older
+680x0 Macs, and one for 680x0 Macs with an FPU. The
+68040 Mac always has an FPU because it has the FPU
+built-in. If you have the sources and the appropriate
+compiler (e.g., Metrowerks) you can compile for any
+of these Macintosh CPUs.
+
+The 68000 (used in the Mac Plus, Mac Classic, etc.)
+is not supported.
+
+A faster Mac is always better. Even though the
+XaoS viewing algorithms optimize the number of new
+pixels to be displayed right to the bare minimum,
+they are based on a fractal equation and therefore
+take time to figure out. Although the pictures are
+dazzling, zooming in and out of them in realtime
+is an experience not to be missed.
+
+An 8-bit (256 color or grayscale) monitor is required,
+and it preferably should be the main monitor. If one of your
+monitors is 8-bit capable, the program will try to use it.
+
+Mac OS System 7.1 or higher is required. The latest
+Mac OS is available at http://www.apple.com.
+
+About 4,000K of memory is needed to run the viewer.
+This supports window sizes up to 1024 x 768.
+
+A C language development system, if you want to compile
+the sources.
+
+
+
+
+COMPILING THE SOURCES
+------------------------------------------------------
+I strongly recommend using Metrowerks Codewarrior 10.
+Not only will this compile everything without hassle,
+it is a very nice development system for the Mac.
+
+Don't worry about all the text below. All the sources
+and local headers are provided. If you've compiled
+and linked other programs on your Mac, this should be
+a breeze. Any problems that crop up are probably 
+going to be because your development system setup is
+different from mine.
+
+Some of Apple's universal headers for the Mac have
+undergone recent changes to make code more Copland
+compatible. If you are getting 'unknown symbol'
+errors from your compiler, see if you have the
+latest system headers. To my knowledge, the
+fractal viewer project doesn't require the latest
+headers, but I'm not 100% sure.
+
+The universal headers (QuickDraw.h, etc.) are
+assumed to be already globally #include'd by
+the development system. If not, set up a
+header file that includes all the universal
+headers and then include this file into prefix.h.
+
+The XaoS Fractals.¹ file is the main project file.
+It requires CodeWarrior 10 to open it. If you
+are using a different compiler, make a new project
+and throw all the provided .c, .h, and .rsrc files
+into it. The .rsrc files are in binary form, so
+if you are using MPW you will want to link to them,
+not compile them. The entry point (main) is in ui.c.
+The file prefix.h should be global to the project,
+since it declares the _MAC #define that all the
+sources need.
+
+If you get 'Cannot find such-and-such file' errors,
+change the search paths in your project.
+
+In addition to the standard Mac runtime libraries,
+you'll need libs that provide ANSI C capabilities
+like stdlib, stdio, math, etc.
+
+If you compile for 68K Macs, make sure that you
+have the 32-bit integer option enabled. The fractal
+engine does not work with 16-bit integers.
+
+If anyone wants MPW build instructions, let me know,
+and I'll figure them out, since I have MPW also.
+
+99% of the Mac-specific code is in the ui_mac.c
+file. The other files are virtually identical to
+the ones in the UNIX distribution. zoom.c, for
+example, has a single #ifdef _MAC just because
+malloc() is defined in stdlib.h, not malloc.h
+on the Mac. The other Mac-only files are:
+
+main.rsrc             MENU, PICT resources, etc.
+CommonDialogs.c       Common dialog code
+CommonDialogs.rsrc    Common dialog resources
+stdioMac.c            C-style file I/O for Mac
+prefix.h              Global prefix header
+
+If you compile alright, but then crash when
+running, try disabling the NDEBUG line in
+prefix.h to turn debugging on. If you do not
+have ANSI-style debugging support, then declare
+your own assert(condition) macro.
+
+
+
+MACINTOSH-SPECIFIC FEATURES
+------------------------------------------------------
+The Macintosh driver tries to create a standard Mac
+application environment complete with menu bar,
+Edit menu, DA menu, etc.
+
+Most other systems have multi-button mice but the
+Mac does not. Use Shift-click and Control-click to
+emulate buttons 2 and 3, respectively.
+
+The Mac's cursor will change into a hand when 
+panning the fractal. This makes it easier to distinguish
+panning from zooming.
+
+The window's resize control can be hidden by choosing
+'Visible Resize Control' from the Options menu.
+Choosing this command again will show the control.
+Hiding this control is handy if you want to take a
+screenshot of the fractal without having the resize
+control in the way.
+
+The color of help and status text can be changed
+using the Option menu. Note that the color change
+does not take affect until the next time text is drawn.
+If the window is resized, the text is forced to
+black to make the recalculation message visible.
+
+Pressing 'S' to save the fractal as a GIF image will
+produce a standard Mac file-saving dialog. Since
+files are internally identified with string pathspecs
+like 'Boot:Pictures:fractal.gif' it is possible for
+volumes with duplicate names to cause problems.
+I plan to fix this later on.
+
+
+ROLLING YOUR OWN CODE
+------------------------------------------------------
+If you modify the sources and you're cranking out
+nifty features faster than I am, by all means tell
+Jan (hubicka@atrey.karlin.mff.cuni.cz) about them.
+Better still, let me know too so I can figure out
+if I should stop supporting the viewer and let
+someone more gung-ho have a shot. The last thing
+everyone needs is a zillion versions of the same
+Macintosh program. If long-term maintenance isn't
+your thing, but there's one or two small things
+you'd like to see, let me know and I'll probably
+fit them in.
+
+Note that the non Mac-specific files (zoom.c, ui.c,
+etc.) are maintained by Jan, and get updated every
+now and then. It's important to be in regular touch
+with him to make sure your code works with his.
+If you find a bug in them, don't fix it! Tell Jan,
+let him fix it, and then incorporate his fixes.

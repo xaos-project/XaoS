@@ -1,0 +1,36 @@
+Begin3
+Title:          XaoS - fast protable real-time interactive fractal zoomer.
+Version:        3.0
+Entered-date:   Jul 25 1996
+
+Description:    XaoS is a fast portable real-time interactive fractal zoomer.
+		and SVGAlib. It displays the Mandelbrot set (among other escape
+		time fractals) and allows you zoom smoothly into the fractal.
+		Various coloring modes are provided for both the points inside 
+		and outside the selected set. In addition, switching between 
+		Julia and Mandelbrot fractal types is provided. The first 
+		version was a poorly written Mandelbrot view by Thomas later 
+		modified by Jan to support high frame-rate zooming. Other 
+		additions were later made including autopilot (for those of 
+		you without drivers licenses), palette changing, PNG saving, 
+		and fractal inversion.
+Keywords:       X11 svgalib fractal realtime zoom mandelbrot newton
+		julia phoenix octo nice good sex unix cool NHL cooking 
+		ironing sport network autopilot gif game demo mac plan9
+		os/2 text
+Author:         hubicka@limax.paru.cas.cz (Jan Hubicka)
+		amadeus@bga.com (Thomas Marsh)
+Maintained-by:  hubicka@limax.paru.cas.cz (Jan Hubicka)
+
+Primary-site:   sunsite.unc.edu /pub/Linux/X11/xapps/graphics
+		210KB XaoS-3.0.tar.gz
+Alternate-site: tsx-11.mit.edu /pub/linux/sources/usr.bin.X11
+		210KB XaoS-3.0.tar.gz
+
+Platform:       GNU/Linux woth svgalib 1.2.0 or greater,any UNIX with X11  and
+		ansi-c compiler, Any OS with standard text output, Any OS
+		supported by AA-project, Dos, OS/2, plan9, Mac
+	
+Copying-policy: GNU GENERAL PUBLIC LICENSE
+		All rights reserved by the author
+End

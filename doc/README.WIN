@@ -1,0 +1,32 @@
+                   Documentation for Windows users
+
+*WARNING*
+
+This port of XaoS is quite new and experimental so you might notice some
+problems. Please report them to authors and use DOS version instead!
+
+Features/requirements:
+======================
+
+XaoS have fully featured support for Win32 and directX API. The Win32 driver
+should work on Windows 9x, windows NT and Windows 3.1 with win32s in all bit
+depths supported by Windows. It was tested only on Windows95 in 4, 8, 16, 24
+and 32 bpp modes. It works well all tested modes except the 16 color mode where
+it use windows conversion routines and because they are slow and ugly, XaoS
+is slow and ugly.
+
+DirectX support is optional so you don't need directX DLL libraries installed
+on your sistem. The driver supports 8, 16, 24 and 32 bit depths in fullscreen
+mode and 16, 24, 32 bit depths in windowed mode. 256 colors are not supported
+in windowed mode because of palette mapping problems, so use win32 driver
+instead. In fullscreen mode press '=' to change default resolution.
+
+Compiling XaoS
+==============
+
+XaoS can be compiled using CygWin GCC port for windows. See
+http://sourceware.cygnus.com to download it. You will also need the directX
+headers hacked to work with GCC, libPNG and zlib to get fully featured XaoS.
+The compilation procedure is same to UNIX one (run sh configure ; make)
+
+XaoS was tested only on Intel platform, but it should work on alpha too.

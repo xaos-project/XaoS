@@ -1,0 +1,36 @@
+	o	Ispell menus
+	o	Disable assertions
+	o	Update catalogs for tutorials
+	o	Fix -threads 200 problem
+	o	Fix multithreaded boundary trace algorithm
+	o	Fix window handling in 24bpp mode.
+	o	Remove playstring, because it is obsolette now
+	o	Document smoothmorph
+	o	Documentation/Windowed directX driver/win32 driver/back ->
+	crash
+
+	o	Make this list shorter :)
+	o	Solve syncing in X driver...
+	o	X windows screen saver version idea:
+			calculate big mandelbrot.
+			then using autopilot select good point
+			display smaller rectangle(320x200) and make
+			zoom to this point inside.
+			Do this repeativly for more points.then you
+			will get main mandelbrot with more zoom
+			windows. Select most interesting one.
+			Make it big again.
+			and repeat :)
+			Easy! isn't it?
+	o	more ports of course..
+	o	video seqencess saving. Make support for creating 
+		movie file with saved movements and possibly calculated
+		points. This should make very small movie files with
+		aporox 1113 points for one frame. 500kb=500 frames=25
+		seconds of animation with compression about 50%(runlength
+		or lzo library) 
+	o	automatic recalculation of videos for other resolution 
+		or configuration. Because movie filles will require 
+		exactly same optimalisations and movements as they 
+		were created. 
+Please contact me if you want to do something from this long todo :)

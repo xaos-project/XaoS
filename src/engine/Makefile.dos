@@ -1,0 +1,45 @@
+SRCS = formulas.c \
+       zoom.c \
+       palettef.c \
+       anti.c \
+       3d.c \
+       emboss.c \
+       edge.c \
+       dither.c \
+       star.c \
+       edge2.c \
+       btrace.c \
+       rotate.c \
+       stereogram.c \
+       interlace.c \
+       blur.c \
+       fractal.c \
+       itersmall.c \
+       subwindow.c \
+       plane.c \
+       julia.c \
+       i386.c
+
+OBJS = $(SRCS:.c=.o) i386asm.o
+
+TLIB = ../lib/libengine.a
+
+include ../dos1.mak
+CFLAGS=$(CFLAGS1) -I ../include
+
+all:	$(TLIB)
+
+i386asm.o: i386asm.S
+	gcc -c i386asm.S -DYES_UNDERSCORES
+$(TLIB):$(OBJS)
+	rm -f $@
+	$(AR) rc $@ $^
+
+clean:
+	rm -f $(TLIB)
+	rm -f *.[oas]
+	rm -f *~
+	rm -f core 
+
+distclean:clean
+

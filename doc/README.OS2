@@ -1,0 +1,47 @@
+                    > This file is only for OS/2 Users <
+                           takjaer@daimi.aau.dk
+
+This is the OS/2 port of the Unix program xaos. It was done using emx/gcc
+and is licensed by GPL. The original development was done by Jan Hubicka and
+Thomas Marsh on GNU/Linux.
+
+The OS/2 version uses the old 16-bit APIs Mou, Vio & Kbd, which means it 
+should run on OS/2 v2.x, 3.x, 4.x, but not on 1.x since everything else
+is 32-bit.
+
+XAOS OS/2 requires the emx runtime package emxrt.zip, but this distribution
+contains the required DLL's. If you want the whole package or just want to 
+upgrade to the newest emx distribution, you can get emxrt.zip via 
+anonymous ftp on
+
+  ftp.uni-stuttgart.de [129.69.18.15]: /pub/systems/os2/emx-0.9c
+  ftp-os2.cdrom.com:  [192.153.46.2]:  /pub/os2/unix/emx09c
+  src.doc.ic.ac.uk     [146.169.2.1]:  /packages/os2/unix/emx09c
+  ftp.leo.org        [131.159.0.198]:  /pub/comp/os/os2/devtools/emx+gcc
+
+XAOS OS/2 was compiled with emx09c+fix02, which you also can get from the
+above ftp sites.
+
+XAOS OS/2 supports two screen modes:
+
+  1) VIO full screen mode 13, which is 320x200x256
+  2) Pure TEXT mode, using AA-lib, which can run full screen or on the desktop
+
+Starting the VIO version must be done either from a full screen OS/2 commando
+prompt, from a desktop object in which 'OS/2 full Screen' is set in the session
+section of the properties or it can be started from an OS/2 commando prompt 
+with 'start /fs xaos'.
+
+For other options, type 'xaos -help'
+
+NOTE: On OS/2 Warp 4.x turn off the 'Mouse Actions' when running the text
+version in a window. Press mouse button 2, and select 'Mouse Actions'.
+
+I'm also working on getting XAOS OS/2 working in higher resolutions, like
+640x480x256 or even 800x600x256! but that might take a while for me to do.
+
+I haven't experienced any problem switching to the desktop, while running
+XAOS OS/2, but it might cause a lockup on OS/2.
+
+(c) 1996/97 Thomas A. K. Kjaer
+             takjaer@imv.aau.dk

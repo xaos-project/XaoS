@@ -1,0 +1,2862 @@
+This is Info file xaosdev.info, produced by Makeinfo version 1.68 from
+the input file xaosdev.texinfo.
+
+INFO-DIR-SECTION Graphics
+START-INFO-DIR-ENTRY
+* XaoS: (xaosdev).               The fast real-time interactive fractal zoomer
+                                  (developers documentation
+END-INFO-DIR-ENTRY
+
+   (C) 1997 Jan Hubicka
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+
+File: xaosdev.info,  Node: Top,  Prev: (dir),  Up: (dir)
+
+XaoS 3.1
+********
+
+                                An real-time interactive fractal zoomer
+                                                         Hacker's guide
+                                                           May 14, 1998
+
+   This manual contains documentation for those who are interested in
+studying and improving XaoS sources or using them in other programs.
+It includes description of algorithm and documentation of those parts
+of XaoS I think they should be useful for someone.
+
+* Menu:
+
+* design::		Overview of the XaoS design
+* driver::		Driver API description
+* gui-driver::		Writing user interface driver
+* eui::			Writing an external user interface
+* ui-helper::		UI helper library
+* xthreads::		XaoS thread library
+* filters::		Filters
+* algorithm::		Algorithm description
+* timerlib::		The timer library
+* registry::		XaoS function registry
+* index::		Function command and variable index
+
+
+File: xaosdev.info,  Node: design,  Next: driver,  Prev: Top,  Up: Top
+
+Overview of the XaoS design
+***************************
+
+   Whole sources of XaoS are designed into several "libraries" (some of
+them are not really libraries, but added into other's, but should be
+separated easily).
+
+   Understanding to the main philosophy should help you to navigate in
+the sources.  I also expect that many of the lower level stuff should
+be useful in the other projects, since it is designed to be fairly
+generic.
+
+   So here is an overview from the lowest level stuff to the highest.
+
+Palette and image library
+=========================
+
+   Sources are in directory `src/filter'. The aim of palette library is
+to provide relatively abstract interface to the various visuals and
+hide differences in the hardware and driver implementation. Fixedcolor,
+pseudocolor, grayscale and truecolor visuals should be handled in the
+almost same way.
+
+   It provides the structure `palette', which contains actual palette.
+You might allocate new colors here (you give RGB value and
+corresponding pixel is returned), interpolate colors where possible,
+cycle colors and so on.  Every palette also consist from the two
+parts--the preallocated color cells and the actual palette. This lets
+for example to GUI possibility to allocate statically colors for its
+texts and dialogs, while rest of palette is under control of different
+parts of XaoS.
+
+   This library also contain set of functions to allocate different
+palettes used by other parts. I expected that different parts of XaoS
+should use same palette. Nothing similar happened yet, but functions
+are kept here.
+
+   The image library is built at the top of palette library. It extends
+functionality for handling actual image data. Each image is represented
+by one or two frame-buffers (it is useful for double-buffering). One
+frame-buffer is called current and other old. They should be flipped by
+special function.  Program can draw into both of them.
+
+   Frame-buffers are hold as the set of pointers to the scan-lines.
+This brings better flexibility, because tricks like sub-windows, or
+flipped bitmaps are possible. Also speeds up, since you should avoid
+one multiplication.
+
+   The last significant information image structure hold is of course
+bpp depth.  It is counted in bytes, and should be 0-4. Where 0 is used
+for 1bit bitmaps.
+
+Filter library
+==============
+
+   Source are available in `src/filter'. This library controls the
+process of creation of the image. It handles an queue of the filters,
+where each filter should modify the image. There are two special filter
+at the beginning and end of queue. The first filter is usually the
+actual fractal engine which creates image, while the terminal filter is
+usually user interface helper library.
+
+Xthread library
+===============
+
+   This library provides interface to various multi-threading libraries
+(currently the BeOS, plan9 and POSIX implementations are available). It
+allows to run various function paraelly and some synchronization
+primitives (semaphores). It is simple, but has all the functionality
+required for the XaoS engine.
+
+Fractal library
+===============
+
+   Source are available in `src/engine/', headers in `fractal.h'.  This
+library contains the actual fractal calculation routines. It operates
+with fractal context, which contains informations like current formula,
+seed for julia, palette etc.
+
+   Functions for calculating the various fractal types and various
+coloring modes are available here.
+
+Zooming engine and other filters.
+=================================
+
+   Source are available in `src/engine/'.  This is the actual zooming
+engine filter. It is done in fairly independent way at fractal library,
+so it should be possibly used for zooming other stuff.  (it was already
+used for zooming large scale images containing maps of Hungary).
+
+   All other filter has their special file, where is implementation and
+structure containing all functions exported from the filter to user
+interface. They are registered in the file `ui_helper'.  One other
+terminal filter is implemented--Julia morpher. Other filters adds
+special effects (such as motion blur), or does conversions (such as
+rotation, dithering etc.)
+
+Timer library
+=============
+
+   This library provides many of very useful timing primitives. Such as
+timers, etc. Currently it is used by some other programs too.
+
+xio library
+===========
+
+   This library aims to provide united interface to file-system. Some
+strange systems (such as MacOS) has file-system API done in much
+different way than in UNIX. They don't have names in string, and uses
+special structures etc.
+
+xshl library
+============
+
+   Xshl stands for XaoS simple hypertext library. It contains fairly
+universal engine parsing an xshl language. It is similar to HTML with
+some additions and many restrictions. It should render this texts for
+the proportional/non-proportional fonts and various sizes.
+
+help library
+============
+
+   it is built at the top of xshl and xio libraries. It should read
+help files, wick contains an chapters. Parse chapter with given keyword
+etc.
+
+xmenu library
+=============
+
+   This is the XaoS function registry. All functions from UI-Helper
+library are registered in the registry. From this registry the menus,
+dialogs, command line options and scripting language are built.
+
+Catalog library
+===============
+
+   This is library for handling an message catalogs. It should read
+catalog and convert the keyword into actual message.
+
+PNG library
+===========
+
+   This library provides the function for saving an image from Image
+library to the file (in PNG format). Other formats should be added as
+well if required.
+
+UI-helper library
+=================
+
+   This library controls all the low-level stuff and provides an high
+level interface to it. It has functions for playing animations,
+zooming/UN-zooming and such. It heavily uses all the described
+libraries. It don't implement functions for handling menus and such,
+but makes great help for such implementations, because of the function
+registry database.
+
+Ugly interface
+==============
+
+   This is currently the only real user interface for XaoS (there is
+also an second, wich is used for rendering animations, but it is not
+user interface, how users expect it). It is built at the top of
+UI-helper library and provides functions for drawing menus, dialogs and
+such.  It has drivers for many platforms, and it should be easily
+ported to the others.
+
+   In the future, it should be quite easily to extended to let drivers
+specify their own menu/dialog handling code, so it should be possible
+to give it an "native" look of given platform.
+
+   It has also an function, where an GUI drawing routines are disabled.
+Function registry database is transfered trough pipe to external
+program, wick should build the menus and act as external user
+interface. It then back sends an commands in the scripting language
+representing things, that user done.  So it is an another way, how to
+give native look to ugly interface.
+
+   Ugly interface has also one serious limitation--for the historical
+reasons it is coded to handle just one window (rest of XaoS probably
+can do multiple windows--untested). So in windowed environments it is
+impossible to open multiple menus with fractals. At the other hand,
+this limitation is not so important, once external GUI enter the role.
+They should just start multiple XaoS engines. This will bring extra
+robustness, multitasking and some other advantages, so it is the
+proffered way. Thats why I don't plan to remove this limitation yet.
+
+
+File: xaosdev.info,  Node: driver,  Next: gui-driver,  Prev: design,  Up: Top
+
+Driver API description
+**********************
+
+   To port successfully XaoS to some platform you need:
+
+   * ANSI C compatible optimizing compiler. Note that optimizing
+     compiler is really required, since XaoS is coded to be good target
+     for optimizations and don't have any routines coded in assembly,
+     so if you will use some bad compiler, you should receive more than
+     ten times slower result. Also note that some compilers has serious
+     problems with compiling XaoS--like most of DOS compilers (Watcom
+     C, Borland C, Microsoft C etc...), has serious problems.  They
+     generate incorrect code or crash during compilation. I highly
+     recommend to use GNU C compiler. Even some versions of GNU C has
+     problems. Please read `compilers.txt' for more information.
+
+   * Fast way to avoid division by zero/overflow and other floating
+     point exception. XaoS is carefully coded to not to crash in this
+     case, but don't have any tests to avoid such situation and expect
+     random result in such case.  Many platforms provide way to switch
+     coprocessor into mode, where 1/0 is evaluated into Inf etc. If
+     there is no such way, try to use some kind of signal handler that
+     will ignore such exceptions.
+
+     The "normal" solution--add ifs to avoid division by zero is almost
+     impossible. The division is quite easy to check. But other
+     cases--overflows are much worse. So I don't think it is possible
+     to avoid all crashes just by adding ifs.
+
+     XaoS don't depend at IEEE arithmetic. Result in such cases should
+     me mostly undefined. XaoS usually works well with compiler's
+     switches for inexact math enabled (such as `-ffast-math' in GNU).
+     But no guarantees. For example at Alphas this is not true--since
+     they usually generates exceptions then.  Also `-mno-ieee-fp' at
+     Intel don't work. This is due to gcc bug. Gcc in some cases reverse
+     the condition when this switch is enabled. I've made patch to fix this
+     problem and hope that it will get to egcs or gcc soon.
+
+   * Text or graphics output device. If you have only text output
+     device, you may use AA driver, which renders fractals into high
+     quality ASCII art. In this case you might skip this chapter,
+     download AA-lib (http://www.ta.jcu.cz/aa) and read porting chapter
+     of AAlib manual. Graphics device must one of:
+
+        * 8bits per pixel with user definable palette `C256', static
+          palette `FIXEDCOLOR', or static grayscale `GRAYSCALE'
+
+        * 16bits per pixel with arbitrary bits per each color
+          `TRUECOLOR'
+
+        * 24bits per pixel with 8 bits per each color, arbitrary order
+          `TRUECOLOR24'
+
+        * 32bits per pixel with arbitrary order of colors, where each
+          colors fit to exactly one byte `TRUECOLOR'
+
+        * 1bits per pixel bitmap with both orders (Least or Most
+          significant bit first)
+
+     Please contact me if you have different kind of device. Some modes
+     (like miss-ordered truecolor modes) should be added really easily
+     if required.  Note that mono/4/16 colors devices will be probably
+     never supported internally by XaoS, since I expect they will be
+     slower than 8bpp, so XaoS will internally work in 8bpp and then
+     image should be converted. Contact me if you want to write such
+     converter. (For bitmap there already exists--see `dither.c'.
+
+   * Some way to save images. By default XaoS uses `pnglib', which is
+     ported to many platforms, but there is still many others. If your
+     system has some standard image format, which is easier to handle
+     than `.png', contact me and I will show you, how to add such
+     support to XaoS (see `png.c').
+
+   * Stdio compatible library (this is problem at Mac or BeOS). XaoS
+     has the abstract layer at the top of stdio, so it should use other
+     input/output libraries too. You might write just another
+     implementation if it's library called `xio'. See `xio.h'.
+
+   Ugly interface is designed to make writing of new drivers as easy as
+possible.  You need to write just few functions to fill following table:
+(use file `ui_template' for starting of writing new driver from scrath)
+     struct ui_driver {
+       char *name;
+       int (*init)(void);            /*initializing function. returns 0 if fail*/
+       void (*getsize)(int *,int *);	/*get current size..in full-screen versions
+                                       i.e svga and dos asks user for it*/
+       void (*processevents)(int,int *,int *,int *,int *);
+                                     /*processevents..calls ui_resize,ui_key
+                                       also returns positions of mouse..
+                                       waits for event if first parameter is
+                                       1*/
+       void (*getmouse)(int *,int *,int *);
+                                     /*returns current mouse positions*/
+       void (*uninit)();             /*called before exit*/
+       int (*set_color)(int,int,int,int);
+                                     /*alloc palette color and returns number*/
+       int (*set_range)(ui_palette *palette,int start,int end)
+                                     /*Set palette range*/
+       void (*print)(int,int,char *);/*prints text*/
+       void (*display)();            /*displays bitmap*/
+       int (*alloc_buffers)(char **buffer1,char **buffer2);/*makes buffers*/
+       void (*free_buffers)(char *buffer1,char *buffer2);/*frees buffers*/
+       void (*flip_buffers)(void);   /*prints text*/
+       void (*mousetype) (int type); /*Change mouse cursor*/
+       void (*flush) (void);         /*Flush current state to screen*/
+       int textwidth;                /*width of text*/
+       int textheight;		/*height of text*/
+       struct params *params;        /*command line parameters*/
+       int flags;
+       float width,height;
+       int maxwidth,maxheight;
+       int imagetype;
+       int palettestart,paletteend,maxentries;
+       int rmask, gmask, bmask;
+       struct gui_driver gui_driver;
+     };
+
+Functions
+=========
+
+   Ui uses following functions to communicate with driver:
+
+ - Function: init
+     function that initializes driver and returns 1 if success and 0 if
+     fail
+
+ - Function: getsize (INT *WIDTH, INT *HEIGHT)
+     returns size of screen(window) x and y
+
+ - Function: processevents (INT WAIT, INT *X,INT *Y, INT *BUTTONMASK,
+          INT &KEYS)
+     gets new keyboard/mouse events. parameters:
+    WAIT
+          if 1 function can wait for next event otherwise just lookup if
+                    something came. This is useful on multi-tasked os
+          where xaos 	   does not eats unnecesaru CPU.
+
+    *X,*Y
+          here returns current positions of mouse
+
+    *B
+          returns mask of `BUTTON1',`BUTTON2',`BUTTON3' for mouse
+          buttons
+
+    *K
+          returns mask for cursor keys
+         `1'
+               left
+
+         `2'
+               right
+
+         `4'
+               up
+
+         `8'
+               down             function also calls `ui_key' (ASCII
+     character) and ui_resize if required.      For special keys use
+     `UIKEY_UP', `UIKEY_DOWN', etc. See     `ui.h' for complete lists
+     of this constants.
+
+     note in case of problems freeing/allocating inside processevents
+     you may     call `ui_call_resize' that calls resize later outside
+     this function
+
+ - Function: uninit
+     Unitialises driver--called before exit.
+
+ - Function: set_range (UI_PALETTE *PALETTE, INT START, INT END)
+     This is an preffered way to set palette (second way is `set_color')
+     when `imagetype' is `UI_C256' (256 color with palette) one of this
+     two functions is required. In truecolor modes they are unused. In
+     case direct access to palette is possible at your platform, define
+     this one. Function is expected to set all color cells between
+     START to END to colors defined in PALETTE. `Ui_palette' is array
+     of UI_RGB. `Palette[0]' is color for entry number START. `Ui_rgb'
+     is an array of `char'.  `Palette[0][0]' is red field of entry
+     number START, `Palette[0][1]' is green and `Palette[0][2]' is
+     blue. `0' means black and `255' means full intensity. Use `NULL'
+     if your driver don't support this call.
+
+ - Function: set_color (INT R, INT G, INT B, INT INIT)
+     This is an secondary way, that should be used at platforms w/o
+     direct   palette access (like X11 or static color schemes). It
+     receives RGB value   of color, and returns index of color cell
+     with this color or -1 if no more   color cells available. An INIT
+     parameter is set to 1, when first entry   of palette is allocated,
+     `set_color' is expected to free all color   entries previously
+     allocated. Use `NULL' if your driver don't support   this call
+
+ - Function: print (INT `x',INT `y', CHAR *`text')
+     prints text to screen at position x/y. This function is a bit
+     archaistic   (XaoS now uses in the most cases its own functions
+     drawing directly to the   buffer), but in some
+     cases--initialization messages or calculation,   functions are
+     unusable, so we still need this primitive. In the `C256'   mode
+     you might rely, that first allocated color is always black and
+     second   is white.
+
+ - Function: display (VOID)
+     displays current buffer to screen
+
+ - Function: alloc_buffers (CHAR **BUFFER1,CHAR **BUFFER2)
+     allocs two buffers that can hold screen size bitmap.    Also sets
+     current buffer to BUFFER1. Since version 2.1 returns scan-line
+     size in bytes(usually width) and 0 if fail. This is useful on
+     systems, that   allocated bitmap bigger than
+     window/screen(dividable by 4 or so)
+
+ - Function: free_buffers (CHAR *BUFFER1, CHAR *BUFFER2)
+     frees allocated buffers
+
+ - Function: flip_buffer (VOID)
+     flips buffers--set current buffer to other one
+
+ - Function: flush (VOID)
+     This function should be used by drivers with buffered output to
+     flush   output buffers. Other driver should set it to NULL.
+
+ - Function: mousetype (INT TYPE)
+     This function is used to change mouse cursor. It receives
+     following values:
+    `NORMALMOUSE'
+          This mouse is usually displayed at screen, when UI waits for
+          user      commands
+
+    `WAITMOUSE'
+          This mouse is displayed when UI is busy(should be famous wait
+          clocks)      or you may use mouse defined in
+          ui_dos--mandelbrot set
+
+    `REPLAYMOUSE'
+          This mouse is displayed during replay. Should be none at
+          fullscreen      drivers, since blinking mouse cursor during
+          replay looks ugly. At      windowed system disabling mouse
+          looks ugly, so it should be some funny      cursor.
+     You should use NULL if your driver don't support this.
+
+Other information
+=================
+
+   Also some additional variables are used to inform ui about driver.
+All this values can be changed by init functions in case they are
+unknown before.
+
+TEXTHEIGHT, TEXTWIDTH
+     width and height of your font
+
+PALETTESTART, PALETTEEND
+     First and last palette entry, that should be changed. This you
+     should use   to avoid changing of entries reserved for window
+     system, text, mouse etc.
+
+RMASK, GMASK, BMASK
+     This fields are used in truecolor modes to specify, where each
+     color is   defined
+
+MAXENTRIES;
+     Number of allocatable entries. Normally should be
+     PALETTESTART-PALETTEEND
+
+IMAGETYPE
+     defines type of image. Should be one of following values:
+    `UI_C256'
+          classical 256 color with palette scheme used by most older
+          graphics     adapters. You should use it also for
+          static-color schemes but they are     not supported well in
+          current version.
+
+    `UI_TRUECOLOR'
+          32bpp truecolor mode
+
+    `UI_TRUECOLOR24'
+          24bpp truecolor mode.
+
+    `UI_TRUECOLOR16'
+          16bpp truecolor mode
+
+   FOLLOWING PART IS NOT REQUIRED TO MAKE FIRST VERSION OF DRIVER
+WORKING.  so you may skip to REGISTERING DRIVER for first read and
+return here later.
+
+PARAMS
+     Using this you may define command line options for you driver.
+
+     They are defined using params structure like:
+            static struct params params[]={
+              {"-mode",P_NUMBER,&defmode,
+                "Select graphics mode(same number as in interactive menu)"},
+              {NULL,0,NULL,NULL}  /*this is MUST be last option field*/
+            };
+
+     every line is one parameters. List ends with `{NULL,0,NULL,NULL}'.
+      First filed is option name.    Second field is type of parameter:
+    `P_SWITCH'
+          no parameter--variable is just set to 1 if option
+
+    `P_NUMBER'
+          integer number
+
+    `P_STRING'
+          string
+
+    `P_FLOAT'
+          floating point number (variable is float)     Third is
+     pointer to variable that is changed if option is set.    It is for
+     example `int*' for `P_NUMBER' or `P_SWITCH' and so on..    Last
+     one is help text. Displayed by `ui -h'
+
+WIDTH,HEIGHT
+     see FLAGS. May be set to `0.0, 0.0' for the beginning
+
+MAXWIDTH,MAXHEIGHT
+     see FLAGS. May be set to 0,0 for the beginning
+
+FLAGS
+     This variable says more about your driver. You may start with
+     value 0.    But for final version it is recommended to read
+     following chapter carefully.
+
+     Flags are uppercase constants and should be set by following way:
+
+     `ASYNC_PALETTE | RANDOM_PALETTE_SIZE'
+
+     following switches are supported:
+
+    `RANDOM_PALETTE_SIZE'
+          random size of palette. This is used in X where palette is
+          shared between     programs. By default xaos allocates all
+          available colors up to 256. This     is not very nice to
+          other applications in X. So randomsize causes that     just
+          some random number of colors(between 8-256) are allocated.
+
+          Also when this variable is off XaoS expects that allays same
+          number of     colors is available.
+
+    `UPDATE_AFTER_RESIZE'
+          recalculate and redraw screen even if its size is not changed.
+             In case that resize procedure destroys data in buffers
+
+    `RESIZE_COMMAND'
+          Some drivers (mainly the fullscreen ones) may in the function
+          `get_size'     ask user for the size and color depth. It
+          should be nice to let user change this parameter     at
+          runtime. I.E force XaoS to reinitialize his images. This is
+          done by     `ui_resize' call. This call in windowed drivers
+          is called by the     external event. But in fullscreen
+          drivers you need key/menu item for this.      You might add
+          this function directly into XaoS's function registry (see
+          for example the GGI driver)--it is usefull mainly when you
+          want to make     some size selection dialog in the standard
+          way, or let XaoS add his default     one. And this is done by
+          this flag. See for example SVGAlib or DOG driver.
+     Screen/window size informations:
+
+     Xaos needs to know exact size of displayed images. This is required
+        for random dot stereo-grams and also for keeping fractals in
+     their shape     (do not make them wide on 640x200 resolution etc.)
+        So minimally one of the following values should be defined.
+      (they are sorted in order I prefer them)
+    `SCREENSIZE'
+          values width/height specifies exact size of screen/window in
+          centimeters
+
+    `PIXELSIZE'
+          values width/height specifies exact size of one pixel in
+          centimeters      This is better for windowed environments
+          where window size is often changed
+
+    `FULLSCREEN'
+          driver runs fullscreen. XaoS automatically uses default
+          screen size      (29.0cm x 21.5cm)
+
+    `RESOLUTION'
+          driver does not know exact screen size. But knows resolution
+          used.       (it is in variables width/height) XaoS
+          automatically calculates      pixel width
+          using:29.0cm/maxwidth      and height: 21.5/maxheight
+     Of course default width and height can be changed by command line
+     options.     You may also use combinations like:
+
+    `SCREENSIZE | FULLSCREEN'
+          the best for fullscreen drivers
+
+    `PIXELSIZE | RESOLUTION'
+          the best for windowed drivers
+
+    `FULLSCREEN'
+          for fullscreen drivers than have no idea about screen size...
+                do not forget to set WIDTH, HEIGHT, MAXWIDTH,
+     MAXHEIGHT fields if required.
+
+GUI_DRIVER
+     See next section for description.
+
+Registering driver
+==================
+
+   Than just register driver to `driver.c' and you may compile :) You
+may use `ui_template.c' as driver template..
+
+   You may also look at xthreads library description if you are porting
+XaoS to some SMP platform.
+
+   Please let me know if you want to start code some driver.
+
+
+File: xaosdev.info,  Node: gui-driver,  Next: eui,  Prev: driver,  Up: Top
+
+Writting GUI driver
+*******************
+
+   XaoS have builtin GUI. Many operating systems have native gui
+toolkits and XaoS default GUI might look strange there. To avoid this
+problem, you might write external gui program (see eui section) or
+write mappings of XaoS GUI functions. The advantage of external gui
+process in multitasking.  XaoS is not thread safe and GUI must be
+synchronous with calculation.  Also ugly interface code currently don't
+support multiple windows (this should be solved in future).  This
+solution is suitable mainly for those systems, where cooperation of two
+programs sharing one window should be problem (like on Windows).
+
+   To write gui driver you need to fill following structure:
+     struct gui_driver
+     {
+        void (*setrootmenu)(struct uih_context *c, char *name);
+        void (*enabledisable)(struct uih_context *c, char *name);
+        void (*menu)(struct uih_context *c, char *name);
+        void (*dialog)(struct uih_context *c, char *name);
+        void (*help)(struct uih_context *c, char *name);
+     };
+
+   All function have `uih_context' parameter. You don't need to worry
+about it's contents. Just pass it to the called functions that require
+it. This parameter is for multiple window support, that is not
+implemented yet.
+
+   The `setrootmenu' function expected to draw root menu according to
+the menu called `name'. To get menu fields you might use following
+piece of code:
+     #include <ui.h>
+     #include <xmenu.h>
+     
+     ....
+     
+     int i;
+     menuitem *item;
+     for (i = 0; (item = menu_item (name, i)) != NULL; i++)
+        {
+           if (item->type == MENU_SUBMENU) {
+     	      /* This field is submenu. You might call here
+     	         function to construct submenu. item->shortname contains
+     		 name for submenu */
+           }
+           /* add menu field here.
+     
+              You might check flags here:
+              item->flags&MENUFLAG_CHECKBOX
+     	   field have beckbox
+              item->flags&MENUFLAG_RADIO
+     	   field is part of radio button group. In current implementation
+     	   there is one radio button group per menu.
+     
+     	 in both cases you might call: menu_enabled(uih, item) to see
+     	 if item is checked or not.
+     
+              item->name contains field's text
+     
+     	 item->key contains hotkey (one letter string in current
+     	 implementation)
+        }
+   Once field is selected, call function `ui_menuactivate(item, NULL)'
+where `item' is pointer to `menuitem' record of selected field.
+
+   Function `enabledisable' is called when checkbox or radiobutton
+state is changed. The `name' parameter match to `item->shortname' of
+changed field.  So you need to browse all created menus, compare
+`item->shortname' and in case it match, call `menu_enabled' to obtain
+new state. For radiobuttons only enable events are noticed. Your code
+is expected to automatically disable all other radiobuttons in the same
+submenu.
+
+   function `menu' works in similar way to `setrootmenu' but displays
+popup menu.
+
+   Function `dialog' is called for dialogs. The function should look
+like:
+     menuitem *item = menu_findcommand(name);
+     menudialog *dialog = menu_getdialog(uih, item);
+     int i;
+     for(i=0; dialog[i].question; i++)
+     {
+        /* Construct dialog, where left side contains labels with
+         dialog[i].question. Right side contains input entities based on the
+         dialog[i].type. Dialog[i].type is one of the following:
+     
+         DIALOG_INT: integer value input. The default value is: dialog[i].defint
+         DIALOG_FLOAT: floating point input value (long double, where availble
+         exact). Default value is dialog: dialog[i].deffloat
+         DIALOG_COORD: complex value floating point input (two floats), default
+         values are dialog[i].deffloat and dialog[i].deffloat2
+         DIALOG_STRING: string input. default value is dialog[i].defstr
+         DIALOG_IFILE: input file
+         DIALOG_OFILE: output file
+              default mask is dialog[i].defstr
+         DIALOG_CHOICE: choice between various strings.
+              retype dialog[i].defstr to char ** to get pointer to NULL terminated
+     	 array of the choices.
+     }
+   Once dialog is filled by user, gui_driver is expected to allocate
+array of union `dialogparam' `dialogparam':
+     dialogparam *p = calloc (sizeof (*p), nitems);
+   fill selected values. `p[i].dint' is used to pass integer value, or
+number of DIALOG_CHOICE selection, `p[i].number' is used for floating
+point number, `p[i].dstring' for strings and filenames,
+`p[i].dcoord[0]' and `p[i].dcoord[1]' for complex values.
+
+   The string values are expected to be in separate malloced chunks.
+Once array is filled, call `ui_menuactivate(item, p)'.
+
+   The function `help' is used to display help about given topic.  To
+implement it you might eighter convert XaoS help file to some native
+format, or use xshl library to render help page for you. To render xshl
+page use:
+     #include <xshl.h>
+     xshl_line *lines;
+     int getwidth (void *data, int flags, char *text)
+     {
+     	return width of text with given flags
+     	flags is mask of the following:
+              XSHL_BIG - large text
+              XSHL_EMPH - emphatized text
+              XSHL_MONOSPACE - monospaced text (typewriter)
+              XSHL_LINK - line (should be underlined or so)
+              XSHL_WHITE
+              XSHL_RED
+              XSHL_BLACK - color of text (not very meaningfull here)
+              XSHL_RIGHTALIGN
+              XSHL_CENTERALIGN - alignment of the text
+     
+     }
+     lines = help_make (name, getwidth, textheight, largetextheight);
+     if (lines == NULL)
+       lines = help_make ("main", getwidth, textheight, largetextheight);
+   Now you might use `lines' to draw the help. It is pointer to the
+arraw of structures:
+     struct xshl_line {
+       int y;
+       struct xshl_item *first;
+     };
+   `y' is possition of the line from beggining of text and first is
+pointer to the blocks of texts on the line. Last line contains NULL
+pointer in the first section.
+
+   `first' is linked list of the structures:
+     struct xshl_item {
+       struct xshl_context c;
+       char *text;
+       int x;
+       int width;
+       struct xshl_item *next;
+     };
+
+   you might draw text `text' on the possition `x' (and `y' from the
+line record) using style described by `xshl_context':
+     struct xshl_context {
+     	  int flags;
+     	  char *linktext;
+     };
+   `flags' have same meaning as in `getwidth' section. `linktext' is
+name of the next help page in case field have XSHL_LINK atribute.
+
+   As an example of `gui_driver' see win32 driver code.
+
+
+File: xaosdev.info,  Node: eui,  Next: ui-helper,  Prev: gui-driver,  Up: Top
+
+Writting an external user interface
+***********************************
+
+   This part describes, how to make an external user interface--it is
+the separate program, which makes an window with all menus and dialogs.
+It uses XaoS engine for calculating the fractal as separate process.
+This design brings many advantages--the external GUI implementation
+should have an "native look" for given platform and should contain many
+extensions, such as multiple windows etc. Also all calculation are done
+in the multitasking and user interface is usable even when engine is
+busy.
+
+   The X window provides a way, when program draws into other's
+window--"master" program creates window and sub-window, where he wants
+to have fractal, then calls engine with `-windowid' NUMBER_OF_WINDOW
+parameters. It instead of creating new window uses specified window.
+Most famous example of such cooperation is probably
+ghostscript/ghostview.
+
+   Other windowed environments probably provides similar way for
+cooperation. At others it should be implemented using shared memory, so
+it should work at most platforms, I expect.
+
+   Of course, you might also design UI as separate button box in
+another window, like most of animation players, or Imagemagick have. In
+fact external GUI should be very similar to Imagemagick style.
+
+basic concept
+=============
+
+   The UI implementation has function to disable it's GUI functions.
+Because of the function registry, all it's menus and dialogs are
+described in the fairly simple database. This database is mapped also
+to the scripting language similar to scheme. So the external UI
+implementation just translate the actions into this scripting language
+and sends it trough pipe.
+
+   This commands should be created automatically from the database, as
+well as menus and dialogs, so UI don't need to have special code for
+various XaoS features. At the beginning it should use XaoS' command
+`(print_menus)' to force him to send information about database, then
+build menus using this information.
+
+   For this you need just some equivalent to UNIX pipes, so again I
+expect it is doable at most platforms.
+
+starting XaoS as slave process
+==============================
+
+   One of the first thinks, engine needs to do is to initialize XaoS in
+right mode to work as slave process. For this you need to do several
+thinks:
+
+   * Open the pipe
+
+   * Disable builtin GUI
+
+   * Read menu hierarchy (this is optional--GUI can also have all menus
+     coded into it. But it is not recommended, since it will make
+     problems with future adding new features)
+
+   Opening pipe is done via `-pipe' option. It takes one parameter,
+which is name of FIFO you want use. If you specify "`-'", XaoS will
+read input from stdin.
+
+   To disable XaoS GUI use option `-nogui'. This will disable all menus,
+dialogs and help text.
+
+   To read menu hiearchy just add `-print_menus' parameter and then
+parse XaoS's output. This will print the whole hierarchy. In case you
+are building menus at the time, they are selected, you might prefer
+usage of the command `print_menu'. It prints just one menu without it's
+sub-menus, so it's output should be directly used for building it. It
+takes one string parameter, which is name of menu you want to print. To
+print root menu use `"root"'.  Option should look like this:
+`-print_menu root'.
+
+   Under X Window you need also specify the `-windowid'. Also the
+`-shared' is quite recommended. Otherwise in pseudocolor visuals XaoS
+will create it's own colormap, wich will most probably collide with
+UI's colormap and XaoS or UI will have false colors. If you have any
+idea, how to avoid this, let me know.
+
+   You might also let user to specify some extra parameters from the
+command line. You should simple add the to the end of command line. The
+`-nogui' and `-print_menus' commands must be first for the simple
+reason: XaoS parses it's command line in the early initialization
+stages. Some commands (like `-print_menus') should be processed at this
+time, while others (like `-loadpos' needs to have working engine. This
+commands are queued and processed later, once engine is  initialized.
+In case some such command is before `-print_menus' XaoS will decide to
+keep same order of commands, so it will queue `-print_menus' too. This
+will case, that menus will be printed much later and startup will be
+slower.
+
+   So the proper calling sequence for the user interface under X should
+look like:
+
+     xaos -nogui -print_menus -windowid <id> -share -pipe - [OTHER OPTIONS]
+
+Parsing the menu structure
+==========================
+
+   The structure is printed menu by menu. Each menu contains an header,
+some entries and `endmenu'. Whole listing from `print_menus' is
+terminated by `endmenus'.
+
+   The header starts with `menu' and then contains an identifier of menu
+and full name. Such as:
+
+     menu "fractal" "Fractal"
+
+   Then each entry has its own line. It starts by type, which should be
+`submenu' or `menuentry'.
+
+   `submenu' has similar format to header--fullname of menu and
+identifier.
+
+   `menuentry' adds next few fields. It has an type of entry, which
+should be `normal', `radio' or `checkbox'. `radio' and `checkbox' are
+followed by `on' or `off' specifying whether it is enabled or disabled.
+The radio-buttons don't have explicit information about groups they
+belongs to. For now I just expect, that each menu contains just one
+such group, so it is clear.
+
+   Then set of flags should follow. Currently two flags are defined.
+`dialog', wich specifies, that function has dialog, and
+`dialogatdisable'. By default, dialog for check-boxed functions are
+displayed just in case they are enabled. The second flag reverses this
+behaviour. It is now used for `mandlebrot' function, which behaves in
+this style. When you disable it, user is prompted for the Julia seed.
+
+   So specification should look like this:
+
+     menu fractal "Fractal"
+     submenu "formulae" "mformula"
+     submenu "Incoloring mode" "mincoloring"
+     submenu "Outcoloring mode" "moutcoloring"
+     submenu "Plane" "mplane"
+     submenu "Palette" "palette"
+     menuentry "Mandelbrot mode" "uimandelbrot" checkbox off dialogatdisable dialog
+     menuentry "Perturbation" "uiperturbation" checkbox off dialog
+     menuentry "View" "uiview" normal dialog
+     menuentry "Reset to defaults" "initstate" normal
+     endmenu
+
+Activating functions and dialogs
+================================
+
+   Once the menu structure is built and user selects some item, it
+should be activated. It is done by simple command: `(NAME)'. Once "`)'"
+is sent, command is executed by XaoS.
+
+   Check-boxed functions has one extra parameter--`#t' to enable them
+and `#f' to disable. So if you want enable item `autopilot' send:
+`autopilot #t'
+
+   Radio-buttons don't have any such special parameter--because
+disabling radio-button is nonsense.
+
+   In case, item has flag dialog enabled, engine expects that UI will
+make dialog first, ask user of values and then call function with
+parameters.  UI needs first to know, what parameters function expect.
+It is done by sending command `(print_dialog "NAME")'.  XaoS replies
+with dialog specification very similar to menu specification.
+
+   It has header `dialog' followed by the name of function. Then one
+dialog entry per line is sent. it is started by `dialogentry' followed
+by question UI should display. The is type, which should be one of the
+following:
+`integer'
+     Integer number such as `123'
+
+`float'
+     Floating point number such as `123.123'
+
+`string'
+     String such as `"ahoj"'
+
+`keyword'
+     String such as `'ahoj'. The keywords are mostly similar to string,
+     except they can not contain space. They are used for example for
+     specifying formula type. Strings are used for printing texts etc.
+
+`inputfile'
+
+`outputfile'
+     Here UI should display file selection dialogs. With `outputfile'
+     it is also good idea to check, whether file exist and in this case
+     make some overwriting dialog too.
+
+`onoff'
+     Boolean value (`#f', or `#t')
+
+`complex'
+     Complex value--two floating point numbers such as `123.123 123.123'
+
+`choice'
+     Choice between some keywords. Those keywords are send after
+     `choice' in enclosed the `{' `}'.  Last information at the line is
+the default value in the same format as examples above. For files, the
+default value is in format `"[PREFIX]*[EXTENSION]"'.
+
+   Some examples:
+
+     customdialog "uiview"
+     dialogentry "center:" complex 0.000000 0.000000
+     dialogentry "Radius:" float 0.000000
+     dialogentry "Angle:" float 0.000000
+     enddialog
+     
+     dialog "load"
+     dialogentry "Filename:" inputfile "fract*.xpf"
+     enddialog
+     
+     customdialog "color"
+     dialogentry "Color" choice {white black red }white
+     enddialog
+
+   To activate function, send command which contain function name,
+possible `#t'/`#f' in check-boxes and parameters in the same order as
+in dialog, same format as in examples, separated by the space. Such as:
+
+     (uiview 0 0 0.5 0)
+     (load "text.xpf")
+     (color 'white)
+
+Synchronization
+===============
+
+   In some cases, XaoS can change radio-box and check-box values. (like
+when user pressed a key, or loaded some file). So all changes are sent
+to GUI, wich should inform about this. They are sent to standard output
+in following format:
+
+     checkbox "name" on/off
+     radio "name" on/off
+
+   So your GUI should parse this and change it's menus when necessary.
+
+   Also XaoS's menus can contain more distinct trees. In some cases
+(like when animation replay is active) root of menu structure should
+change. The XaoS sends command:
+
+     root "name"
+
+   Also user can press keys, which normally displayed menus, dialogs or
+help. Then XaoS sends commands:
+
+     menu "name"
+     dialog "name"
+     help "topic"
+
+   All this commands should be taken into account by GUI, or should be
+ignored.
+
+help
+====
+
+   XaoS's help is in the simple hypertext language. In order to
+simplify it's parsing I've made an xshl and help libraries. So making
+of help window should be quite easy. Just call help function:
+
+ - Function: struct xshl_line *help_make (char *COMMAND, int GETWIDTH
+          (void *, int FLAGS, char *TEXT), int WIDTH, int SMALLHEIGHT,
+          int BIGHEIGHT);
+   and you will receive of listings of text with positions, where to
+print into window.
+
+   `command' parameter is topic of help. `getwidth' function is
+function, wich returns width of given text. `width' is width of window,
+`smallheight' is height of small font and `bigheight' is height of big
+font.
+
+   Please ask me for more details if necessary.
+
+   And thats all. Good luck with coding.
+
+
+File: xaosdev.info,  Node: ui-helper,  Next: xthreads,  Prev: eui,  Up: Top
+
+UI-helper library
+*****************
+
+   UI helper library takes care to all XaoS' engine functions and
+features and gives the higher level API, which is quite easy to
+understand. If you want to write completely new user interface
+(replacement for the ugly interface--not just new bindings for native
+menus or external user interfaces) or you want to use XaoS engine in
+your program as an library, you will probably want to use this library.
+
+   It's API has many calls and features. This section gives just brief
+overview of it's calls. Please ask me about details.
+
+initialization
+==============
+
+   To initialize ui helper library, you need to prepare an palette and
+image.  Palette is created using palette library calls `createpalette'.
+Creating truecolor palette should look like this:
+
+       struct palette *pal = createpalette (0, 0, TRUECOLOR, 0, 0, NULL,
+                                            NULL, NULL, NULL);
+
+   For details about creating palettes see `ui.c' or ask me.
+
+   To create image call:
+
+       struct *image img = create_image_mem (width, height, 2, pal,
+                                             pixelwidth, pixelheight);
+
+   This creates image in the memory. If you want to create it in your
+own buffers, you might use `create_image_cont' or `create_image' calls.
+Again see `ui.c'.
+
+   Then it is time to fire up main library:
+
+       struct uih_context *uih = uih_mkcontext (0, img, passfunc,
+                                                NULL, NULL);
+
+   The `passfunc' is called when engine is calculating. It might process
+events and display process information. It should look like this:
+
+     static int
+     ui_passfunc (struct uih_context *c, int display, char *text, float percent)
+     {
+       /*process events */
+       if (uih->display)
+         {
+           uih_drawwindows (uih);
+           /*display */
+         }
+       if (display)
+         {
+           if (percent)
+     	sprintf (str, "%s %3.2f%%        ", text, (double) percent);
+           else
+     	sprintf (str, "%s          ", text);
+           /*display it */
+         }
+     }
+   It might set `uih->interrupt', if it wants to interrupt current
+calculation.
+
+   You also might load the catalog file in order to make tutorials
+working:
+
+       uih_loadcatalog (uih, "english");
+
+   Since this ui_helper library is fully functional and you might enter
+the main loop.
+
+main loop
+=========
+
+   UI helper library does an timing primitives. So it expect an
+standard form of the main loop. It asks the program to display changed
+image when necessary.  Library also use timerlib for it's timing. So
+read section about this library, since you might use it for your
+purposes too.
+
+   Main loop should look like this:
+
+     while (1)
+       {
+         if (uih->display)
+           {
+     	uih_prepare_image (uih);
+     	uih_drawwindows(uih);
+     	/*display current image buffer*/
+           }
+         uih_update (uih, mousex, mousey, buttons);
+         if ((time = tl_process_group (syncgroup, NULL)) != -1 &&
+     	    !uih->inanimation) {
+     	    /*relax given time in usec - wait of events etc..*/
+         }
+         /*and repeat*/
+       }
+
+calling functions
+=================
+
+   UI helper library has many functions declared in `ui_helper.h' for
+various actions. There is too much of them to describe, but their names
+are quite informative, so I hope you will not have problems.
+
+   You might also use XaoS function registry, which does all this stuff
+for you.  You will just draw menus and dialogs based at this registry
+and automatically all features will be available. So if you are writing
+an ordinary user interface, this is the preffered way.
+
+   Note that `ui_helper' library is not reentrant, so you can't call
+most of this function from the `passfunc'. If you are using registry,
+activating function handles this automatically and queues functions
+when necessary.  To process them you need to flush queue in the main
+loop as follows:
+
+     static void
+     processbuffer (void)
+     {
+       menuitem *item;
+       dialogparam *d;
+       if (uih->incalculation)
+         return;
+       while ((item = menu_delqueue (&d)) != NULL)
+         {
+           menu_menuactivate (item, d);
+         }
+     }
+
+closing library
+===============
+
+   This is done using:
+
+       uih_freecontext (uih);
+
+   One implementation of user interface at the top is ugly interface.
+See dirrectory `src/ui'. Another, much simpler is `render.c', which does
+animation rendering.
+
+
+File: xaosdev.info,  Node: xthreads,  Next: filters,  Prev: ui-helper,  Up: Top
+
+XaoS thread library
+*******************
+
+   This description should be useful for those, who want to port XaoS
+into multiprocessor platforms and those, who want to implement some
+filter or other relatively computational expensive code. Note that
+thread library should be mapped into nothread calls, in case host does
+not allows multi-threading or it is not SMP architecture (since this
+library is used only to distribute calculation into other CPUs)
+
+   XaoS thread library is simple map of few functions required by XaoS
+to system library for threads.
+
+   It has following variables:
+
+ - Variable: ethreads
+     This is set to 1 in case that threads are enabled
+
+ - Variable: nthreads
+     Number of threads
+
+   It and following calls:
+
+ - Function: void xth_init (int THREADS)
+     This function initializes threading library (starts threads, sets
+     ETHREAD to 1 and NTHREADS to n. THREADS parameter should be set to
+     0--auto-detection or number of threads users wants. In case threads
+     is set to 1, threading library is disabled and following functions
+     are mapped into those nothread_ equivalents defined in `xthread.h'.
+
+     Note that threads are not identical--there is main thread (one
+     that called xth_init) that communicates with drivers, controls
+     calculation etc. and other tasks that are waiting to orders from
+     main task. They also can't use functions from xthread library.
+
+ - Function: void xth_uninit (void)
+     This function UN-initialize thread library--kills child threads,
+     sets ETHREAD to 0 and NTHREADS to 1.
+
+ - Function: void xth_function (xfunction *FUNCTION, void *data, int
+          RANGE)
+     This function is used in case, engine wants to perform some
+     operation at image in parael. It is expected to wait until all
+     threads are ready and start FUNCTION at all threads including
+     control one with following parameters: DATA--this parameter is
+     same as DATA passed to xth_function, TASKINFO--pointer to structure
+     taskinfo, that is platform depended (defined in `xthread.h') but
+     must have at least field `n', that holds number of thread (control
+     thread has 0 and other numbers in range 1 - NTHREADS). Next two
+     parameters is range of image, function is expected to do action.
+     Xth_function is expected to divided RANGE into NTHREADS equal
+     pieces and pass always start of piece and start of next piece
+     (RANGE in case of last one). Function does not wait for other
+     threads at the end and returns immediately to main thread after
+     FUNCTION returns.
+
+     This function is called approx. 5-10 times per frame
+
+ - Function: void xth_sync (void)
+     This functions waits until all threads are ready for next order
+     from main task.
+
+     This function is called approx 5-10 times per frame
+
+ - Function: void xth_bgjob (xfunction *FUNCTION, void *DATA)
+     This function is expected to behave as follows: look if there is
+     any thread waiting for orders, if so, ask him to call FUNCTION
+     with similar conventions as in xth_function except that range
+     parameters are set to 0.  Otherwise it starts function in normally
+     (at foreground).
+
+     This function is called once per frame.
+
+ - Function: void xth_nthread (struct taskinfo *S)
+     This function should be used to determine number of current
+     thread. Do not use `taskinfo->n' instead since in case threads are
+     disabled, it should be defined to 0 and that allows optimizer to
+     perform better optimizations.  This function should be called by
+     all threads.
+
+ - Function: void xth_lock (int N)
+
+ - Function: void xth_unlock (int N)
+     Lock/unlock lock number N. At least `MAXSEMAPHORS' locks must be
+     available.
+
+     Note that locks are used always for very short fragments of code
+     so they needs to be fast. So spin-locks are maybe better than
+     Dijskra semaphores.  Untested. They are called once per calculated
+     line/row during zoom and once per approx 10 pixels during
+     calculation of new image.
+
+ - Function: void xth_sleep (int N, int L)
+     It is expected to atomically unlock lock L and sleep in queue N.
+     At least `MAXCONDS' queues must be available.  After it is waked
+     up, lock L again. This mechanism is used by calculation of new
+     image algorithm, but it is designed to minimize its calls, so I
+     expect they should be called once or twice.
+
+ - Function: void xth_wakeup (int N)
+     Wake up some thread from queue N. Lock used by sleep calls is
+     locked in this cases. Function should also wake up all threads if
+     such operation is not supported by host API. With luck, this
+     function should not be called at all. It should be called by new
+     image calculation routines in case queue is empty. This happens in
+     case of 50 threads but happens rarely at two or eight threads
+     according to my tests.
+
+ - Function: void xth_wakeall (int N)
+     Similar to wakeup but wake up all threads.
+
+
+File: xaosdev.info,  Node: filters,  Next: algorithm,  Prev: xthreads,  Up: Top
+
+Filters
+*******
+
+   This is a brief description of filter system used internally by XaoS.
+Filters in XaoS provides an object oriented interface to every part of
+XaoS engine. Main filters are: User interface implemented in ui_helper.c
+and zooming engine implemented in zoom.c. Filters are connected into an
+queue--at the beginning there is just two filters here(zoom and ui) but
+later additional filters should be inserted into the middle of queue
+like an stereo-gram generation etc. The queue supports operations like
+remove filter, add filter and initialize.
+
+   In the calculation every filter should use data calculated by filter
+lower in the queue. Data are stored into image. So for example
+stereo-gram filter should use fractal generated by zooming engine and
+create an stereo-gram.
+
+   This makes XaoS's code more flexible and makes easy future
+enhancements like different zooming engine, image rotation, other
+special effects, plug-ins and some other funny stuff since interface of
+each such part is well defined and each filter has quite good control
+over his child.  So stereo-gram filter should change palette, force
+zooming engine to change depth, width and height of calculated image to
+fit his needs and so on.
+
+   This document describes mainly creating of filter like stereo-gram
+generator i.e. filter placed into middle of queue since I don't expect
+there will be many people creating "terminal" filters (zooming
+engines/user interface layer) note that different user interface is
+possible since user interface layer is not the real user interface just
+set of high level functions that should be called by main application
+like set_view. So in case you want to use XaoS as an calculation engine
+in your program this document is probably not for you.
+
+   Each filter is defined by filter_action structures as follows:
+     struct filteraction {
+       char *name;
+       char *shortname;
+       int flags;
+       struct filter *(*getinstance)(struct filteraction *a);
+       void (*destroyinstance)(struct filter *f);
+       int (*doit)(struct filter *f,int flags,int time);
+       int (*requirement)(struct filter *f,struct requirements *r);
+       int (*initialize)(struct filter *f,struct initdata *i);
+       void (*convertup)(struct filter *f,int *x,int *y);
+       void (*convertdown)(struct filter *f,int *x,int *y);
+       void (*removefilter)(struct filter *f);
+     };
+   This structure describes static filter's parameters (like its name)
+and basic set of methods required for communication with resto of XaoS.
+The name field describes filter's name like "An random dot stereo-gram
+generator". Name is displayed by ugly interface in filter's menu. So it
+is expected to be descriptive and shorter than 30 characters. The short
+name is one word long name for filter like "stereogram". This name is
+used by save files, possibly by command line parameters. Simply
+everywhere where user should need to write it and writing long
+descriptive name should be just wasting of time and disk space.
+
+   Flags field is kept for future enhancements and is expected to be 0
+for now.
+
+Creating / destroying of instance
+=================================
+
+   Functions getinstance and destroyinstance are equivalents to
+constructor and destructor in OOP. Getinstance is expected to create
+and fill following structure:
+
+     struct filter {
+       struct filter *next,*previous;
+       struct queue *queue;
+       struct filteraction *action;
+       struct image *image,*childimage;
+       struct requirements req;
+       struct fractal_context *fractalc;
+       void *data;
+       char *name;
+       int flags;
+       void (*wait_function) (struct filter *f);
+       /*stuff for wait_function*/
+       int pos,max,incalculation,readyforinterrupt,interrupt;
+       char *pass;
+     };
+   Altrought this structure seems to be long and complex, most of
+fields are unused at this time and rest of them are filled
+automatically by function:
+
+ - Function: struct filter * createfilter (struct filteraction *FA);
+     That should be used to create instance. Only possibly interesting
+     field is data. It's pointer reserved for filter's internal use. So
+     it should be pointer to filter's internal variables if required.
+     Following is example implementation of get-instance with
+     allocating of such additional structure. In case nothing similar
+     is required you should use directly createfilter at getinstance's
+     place.
+
+     static struct filter *getinstance(struct filteraction *a)
+     {
+           struct filter *f = createfilter(a);    /*create filter structure*/
+           struct stereogramdata *i=calloc(sizeof(*i),1);
+                                                  /*allocate internal variables*/
+           /*initialize your variables here*/
+           f->data=i;                             /*add pointer to internal data*/
+           return (f);
+     }
+
+   The destroyinstance is expected to free memory used by filter
+structure and all internal data of filter. To free filter structure use
+normal free(filter); So implementation of such function should look
+like:
+     static void destroyinstance(struct filter *f)
+     {
+          destroyinheredimage(f);
+          free(f->data);
+          free(f);
+     }
+   The meaning of destroyinheredimage will be described later.
+
+Initialization
+==============
+
+   During initialization phaste each filter says to his parent what kind
+of images it supports (this should depend on images supported by his
+child), parent chooses best supported image format for his purposes and
+gives it to the child. Initialization is done in two pases.
+
+   First pass start by lowest filter in the queue and each filter
+passes to his parents requirement structure.
+
+   Second pass starts by the highest filter and each filter passes to
+child an image and some other stuff. Then calculation should begin.
+
+   Queue needs to be reinitialized after creating, resizing,
+adding/removing of filter and similar operations.
+
+   First pass is implemented using require function. This function is
+expected to take care at child's requirements it received as parameter,
+fill requirements structure and call require function of his parent
+filter.
+     struct requirements {
+       int nimages;
+       int supportedmask;
+       int flags;
+     };
+   The nimages field should be set to 1 or 2. In case it is 2, parent
+filter must pass image with two buffers. Note that in case it is 1,
+parent should pass image with two buffers too.
+
+   Supported mask is mask of supported image types by filter. Image
+types are following:
+`C256'
+     An normal 8bpp image with palette
+
+`TRUECOLOR24'
+     An 24bpp truecolor image with 8bits for each color.
+
+`TRUECOLOR16'
+     An 16bpp truecolor image
+
+`TRUECOLOR'
+     An 32bpp truecolor image with 8bits for each color.
+
+`LARGEITER'
+     An 16bpp image but w/o colors. It is expected to hold number of
+     iterations   it should be also tought as 16bpp grayscale image
+
+`SMALLITER'
+     Similar to `LARGEITER' but 8bpp
+
+   In case you don't worry about palettes, allocations of colors and
+you do just some operation with bitmap, so you worry just about depth
+of image you should use mask of following: `MASK1BPP' for 8 bit images,
+`MASK2BPP' for 16bit and so on.
+
+   The latest field of requirements structure is flags. It mask from
+following constants:
+
+`IMAGEDATA'
+     in case your filter requires data from previous frame untouched.
+     In case   this is not set, filters should reuse your image and
+     change it. But some   filters like and motion blur or zooming
+     engine requires data from previous   frame to construct new, so
+     this flag should be set there is no more flags supported at the
+moment. Function require should also save child's require structure
+into filter->req for later use by initialize pass. So you should look
+like:
+     static int requirement(struct filter *f,struct requirements *r)
+     {
+       f->req=*r;    /*Save an child's requirements*/
+       r->nimages=1; /*Just one image is required*/
+       r->flags&=~IMAGEDATA;/*unset the imagedata field*/
+       r->supportedmask=C256|TRUECOLOR|HICOLOR|REALCOLOR;
+                     /*mask of all supported image types*/
+       return (f->next->action->requirement(f->next, r));
+                     /*call parent*/
+     }
+   Next pass is main initialization. It goes in opposite order(from
+parent to child) and child's infers some stuff from parent like images
+etc...  The initialize structure receives an initdata structure:
+     struct initdata {
+       void (*wait_function) (struct filter *f);
+       struct image *image;
+       struct fractal_context *fractalc;
+       int flags;
+     };
+   an wait_function is function called by filter during calculation that
+lets the parent filters(usually user interface layer) to inform user
+how calculation continues. Image is an image expected to be filled by
+image in calculation phaste. Fractalc is pointer to structure that will
+contain information about fractal during calculation(like formula type
+etc...) Flags is mask of following constants:
+`DATALOST'
+     this is set in case, that data in image was lost(image was cleared
+     or  resized or freshly allocated). Filters that uses data from
+     previous frames  should take care to this flag. Zooming engine for
+     example recalculates  whole image since pixels from previous frame
+     was lost.   Note that data should be lost also in case, filter
+     receives different  image that in previous initialization since
+     some filter behind was  removed.  An inhering process is done
+using function:
+
+ - Function: void inhermisc (struct filter *F,struct initdata *I);
+     This function sets fields in filter structure like as fractalc or
+     wait_func.  Inhering of image is quite complex, since new image
+     needs to be prepared for child. In order to save memory it is
+     highly recommended to use same image or at least same memory for
+     data when passing to child. But this is not allays possible.
+     Following function implements heuristic to do this:
+
+ - Function: int inherimage (struct filter *F,struct initdata *DATA,
+          int FLAGS, int WIDTH, int HEIGHT, struct palette *PALETTE,
+          float PIXELWIDTH, float PIXELHEIGHT)
+     You should call this function in your initialize pass. It fills
+     image and childimage in filter structure, prepares initdata for
+     child and creates image for child. Note that it should fail in
+     some cases and return 0. In this case filter is expected to
+     interrupt initialization and return 0 too.
+
+     An FLAGS parameter is mask of following constants:
+    `IMAGEDATA'
+          in case your filter requires data from previous frame
+
+    `TOUCHDATA'
+          In case your filter touches data in output image. This is
+          very usual but   there is some filters (like interlace or
+          subwindow that don't)
+
+    `NEWIMAGE'
+          Set in case your filter can not deal with shared images
+          (images that have   input data in same memory are as output)
+     WIDTH and HEIGHT should be set to 0 in case you want same
+     width/height as in parent image or width and height of image you
+     want to pass to child.  PALETTE is palette of image you want to
+     pass. Set to `NULL' if palette should be inhered from parent's
+     image (usual).  PIXELWIDTH and PIXELHEIGHT specifies physical size
+     of pixel in centimeters.  If set to 0 they are inhered from
+     parent's image.
+
+   In case you use inherimage mechanism you also must call
+destroyinheredimage in destroyinstance function and updateinheredimage
+at the beginning of calculate function.
+
+   Example implementation:
+     static int initialize(struct filter *f,struct initdata *i)
+     {struct stereogramdata *s=f->data;
+       inhermisc(f,i);
+       if(!inherimage(f,i,TOUCHIMAGE,0,0,NULL,0,0) return 0;
+       /*initialize here*/
+       return(f->previous->action->initialize(f->previous,i));
+     }
+   Also note that fractal context hold pointer to fractal palette. In
+case You don't change image palette everything is OK. But in case
+child's image differs from parents image, there should be two
+behaviors--fractal's palette is child one (this should be common for
+example in conversion filters ( 8bpp to truecolor etc)) or fractal's
+palette is parent's one (like in edge detection filter). By default
+fractal's palette is kept to parent's one.  This should be changed by
+setfractalpalette call. It has two parameters--filter structure and
+palette. When you pass as palette child's palette, fractal's palette
+will be changed to child. In case you pass NULL. Changing of palette
+will be disabled (like in motion blur filter in 8bpp mode).  Note that
+this is changed just in case you still have access to fractal palette.
+Some parent should redirect palette before. Than this function does
+nothing.
+
+Caluclation
+===========
+
+   Main calculation is done using doit function. It is expected to call
+child's calculation function when required and apply filter at output.
+It receives flags. Only flag in `INTERRUPTIBLE' for now. It is mainly
+for zooming engine so I do not describe it here. But filter is expected
+to pass this flag to child. Next parameter is time in milliseconds that
+expired since last doit call. It should be used to calculate speed of
+animation.
+
+   Calculation loops returns flags. Flags is mask from following
+constants:
+`ANIMATION'
+     in case filter performs some animation and expect that calculation
+     will be  called again soon
+
+`CHANGED'
+     in case something changed in output image (usual)
+
+`INEXACT'
+     This is enabled by zooming engine in `INTERRUPTIBLE' mode in case
+     that time  exceeded.
+
+   An doit function changes image. Image structure contains following
+fields significant for you:
+`bytesperpixel'
+     number of bytes per pixel (image depth)
+
+`palette'
+     palette of image.
+
+`currlines'
+     array of pointers to beginnings of every scanline of image
+
+`oldlines'
+     array of pointers like currlines but for previous image in case
+     doublebuffering is enabled
+
+`nimages'
+     set to 2 in case doublebuffering is active
+
+`flipimage'
+     pointer to function that flips oldlines and currlines.
+
+   palette structure contains following significant fields:
+
+`type'
+     type of palette/image (`C256', `TRUECOLOR' etc...)
+
+`size'
+     number of allocated entries
+
+`pixels'
+     array of allocated entries. Conversion table from number of
+     iteration  to pixel value.
+
+`rgb'
+     Rgb values for pixels (`NULL' for `TRUECOLOR', `HICOLOR' and
+     similiar types)
+
+   To make easier writing calculation loops for different depths
+`pixel8_t', `pixel16_t' and `pixel32_t' are predefined. You also can
+use include system as in edge detection filter, that lets you write
+calculation loops just once and use cpixel_t and it will be compiled
+for every bitmap depth.  See edge detection filter (engine/edge.c and
+engine/edged.c) for implementation details.
+
+Conversion
+==========
+
+   Convertup and convertdown functions are used for converting screen
+coordinates to position in fractal and back. Convertup is function that
+receives coordinates in child's image and is expected to convert them
+into coordinates in parents image and call parent's convertup function.
+
+   Convertdown is reversed(from parent to child).
+
+   In case coordinates respond 1:1 you should use convertupgeneric and
+convertdowngeneric. In other case implementation should look like:
+
+     static void convertup(struct filter *f,int *x,int *y)
+     {
+         *y*=2;
+         *x*=2;
+         if(f->next!=NULL) f->next->action->convertup(f->next,x,y);
+     }
+     static void convertdown(struct filter *f,int *x,int *y)
+     {
+         *y/=2;
+         *x/=2;
+         if(f->previous!=NULL) f->previous->action->convertdown(f->previous,x,y);
+     }
+
+Removing of filter
+==================
+
+   Before filter is removed from queue, removefilter function is called.
+It is expected to clean up thinks filter changed. Should be NULL in
+most cases.
+
+Registering of filter
+=====================
+
+   Once filteraction structure is filled, filter is done and you should
+try to enable it. To enable it in user interface you need to edit
+ui/ui_helper.c, add filter into uih_filters structure and increase
+uih_nfilters.  Note that order of filters in uih_filter is significant,
+since same order is kept in filter queue, so you should specify if you
+want to be called before/after filter xy.
+
+   Then it is high time to start experimenting.
+
+   Good luck!
+
+
+File: xaosdev.info,  Node: algorithm,  Next: timerlib,  Prev: filters,  Up: Top
+
+Algorithm description
+*********************
+
+   The main idea behind XaoS is that it is not required to calculate the
+whole image every frame. Most pixels are already calculated in the
+previous frames. You usually don't have exactly the pixels you want,
+but all within a range lower than a step between pixels are acceptable.
+That is why the image flicker a bit and why points do not blink
+randomly as in recalculated animations.
+
+   This document describes some of the most important algorithms in XaoS
+   * Saving Previous Pixels
+
+   * Approximation Algorithm
+
+   * Moving Pixels to New Positions
+
+   * Calculating New Pixels
+
+   * Symmetry
+
+   * Calculation of Mandelbrot Set
+
+   * Dynamic Resolution
+
+   * Autopilot
+
+Saving Previous Pixels
+======================
+
+   Ideally, all recalculated points should be saved and used for
+building successive frames. I could not figure out a practical way to
+implement this. To save all frames for half an hour would require 24 Mb
+of memory, and searching the saved frames would be more computationally
+expensive than recalculating an entirely new frame.
+
+   One way was later used by program Frang. It remembers all pixels as
+x,y and value fields and when it builds new image, it draws all pixels
+to it and then browses image and fills it by new pixels. Possibly some
+rle cache should be used for calculated pixels. Frang actually uses
+algorithm, that takes away pixels out of screen, so it behaves exactly
+in same way as algorihm described here. At the other hand, this method
+seems to require much more memory than XaoS algorithm and drawing
+pixels/browsing image cost quite a lot, so algorithm described here
+seems to be faster. Since it never requires examining of whole image
+and new image is constructed using block move operations.
+
+   For this reason only the last generated frame is used as reference.
+This way the memory requirements are proportional to xsize * ysize. It
+can be shown that this method is only about 2-5% slower during zooming.
+Of course unzooming back to once browsed areas is much slower.
+
+   Because only the previous frame is used, another optimization can be
+performed: Imaginary and real parts of the calculated image are not
+precise since they are the result of successive iterations of same
+algorithm. In order to prevent errors from being distributed to the
+following frames their exact coordinates need to be known.
+Fortunately, it isn't necessary to save their values since it is known
+that all real components in a row and all imaginary components in a
+column are equal. Thus, the only things that must be saved are the real
+components for every row and the imaginary components for every column.
+
+   This allows for a substantial speed-up in approximation because the
+calculation requires less data. Of course, some rows and columns fall
+out of the threshold and new ones need to be calculate to fill in the
+gaps in the frame.
+
+   Obviously, much less work is done. There are only xsize + ysize
+calculations instead of xsize * ysize. So the main loop in XaoS looks
+like this:
+   * Make approximations for rows
+
+   * Make approximations for columns
+
+   * Move old pixels to their new positions
+
+   * Calculate pixels for which there is no good approximation for
+      their row
+
+   * Calculate pixels for which there is not good approximation for
+       their column but there is one for their row
+
+Approximation Algorithm
+=======================
+
+Introduction to problem
+-----------------------
+
+   You can see that the approximation algorithm is central to the
+implementation of XaoS. If the guess is incorrect the image will look
+strange, boundaries will not be smooth and the zoom will flicker. On
+the other hand, if it adds more new rows or columns than required,
+zooming will become much slower. Also, in the instance of doubling
+(i.e., using an old row or column more than once) the resolution will
+lower. It is important to keep the increasing imaginary and real
+components in the correct order. If a row and column of complex
+coordinates follows one with higher coordinate values an improved
+approximation can be attained by swapping their values.
+
+   The algorithm needs to be relatively fast. It is only used for xsize
++ ysize values but if its speed is proportional to O(n^2), it can be
+slower than a whole recalculation of the image. Speeds of O(n) or O(n *
+log(n)) are acceptable.
+
+Some simple algorithms to solve it
+----------------------------------
+
+   Initially, a very simple algorithm was used:
+
+   Find the old row/column nearest the row/column that needs to be
+regenerated. If the difference between them is less than one step
+(step = (end - beginning) / resolution) then use it. Otherwise,
+recalculate a new one.
+
+   Finding the nearest row/column pair is very simple since it is always
+greater or equal to the pair needing to be generated.
+
+   Surprisingly, this simple algorithm has almost all the problems
+described above. Doubling was fixed by lowering the limit to step / 2.
+This cause a considerable slowdown so the limit was returned to step.
+Instead, the algorithm was changed to search for only row/column pairs
+that are greater than the previous frame's row/column pairs. This is
+the algorithm that was used in version 1.0
+
+   This algorithm still added to many new rows and columns and did not
+generate smooth boundaries. For version 1.1 a heuristic was added that
+preferred approximating rows/columns with lower values. This way it did
+not occupy possible rows/columns for the next approximation. The result
+was a speedup by a magnitude of four. In versions 1.1 to 2.0 many
+improvements were made to the heuristic to give it added performance.
+The following example tries to explain how complicated the problem is
+(O is the old coordinates and X is the values to be approximated):
+             X1        X2        X3        X4        X5        X6        X7
+     O1 O2                    O3 O4 O5                   O6 O7 O8
+
+   The normal algorithm will aproximate X1 by O2, X3 by O4 but nothing
+more. For the algorithm with threshold step instead of step / 2:
+
+       O2 to X1
+       O3 to X2
+       O4 to X3
+       O5 to X4
+       O6 to X5
+       O8 to X6
+
+   But this will fail with X7. The second algorithm which relies on
+lower values will do the following:
+
+       O1 to X1
+       O3 to X2
+       O4 to X3
+       O5 to X4
+       O6 to X5
+       O7 to X6
+       O8 to X7
+
+   O1 to X1 is wrong. And there is many and many other situations that
+may occur. But you may see that the normal algorithm will calculate 4
+new rows/columns but the heuristic saves all of these calculations.
+
+Current algorithms used
+-----------------------
+
+   In version 2.1 work on this heuristic was disabled after I discovered
+a surprisingly simple algorithm that solves all these problems. First I
+decided to define exactly what is best approximation. This should be
+done by defining a price for every approximation and choose the
+approximation with the lowest price. Prices are defined as such:
+
+   Approximating row/column x by y costs dist(x, y) ^ 2.
+
+   This prefers two smaller approximation errors before a single larger
+error and describes my goal quite well.
+
+   The cost for adding a new row/column specifies when it is better to
+do a bad approximation and when to add a new row/column. I use (4 *
+step) * (4 * step). This means that the approximation is acceptable when
+dist(x, y) < 4 * step. Otherwise, adding a new row/column costs less.
+Now the best approximation is known. All that is required is a fast
+algorithm to do this. Surprisingly, this is possible in linear time
+using a relatively simple dynamic algorithm. It uses approximations of
+length < n to make a guess at the length of n. It can start by
+approximating one row/column and then again for two, three up to
+xsize/ysize rows/columns.
+
+   The algorithm starts by calculating prices for all possible new
+positions for old row/column 1. Because of the pricing there are
+maximally 8 new positions. (Other ones must cost more than adding new
+row/column). Of course it is possible that there are no new positions.
+
+   For calculating the price of approximations for row/column 2 I may
+use previous one: Try new position n. Calculate the price and add the
+best approximation for the previous (row/column 1) one that uses a new
+position lower than n(prohibits doubling or swapping). This should be
+one of 8 positions or eventually adding of new one and not using
+row/column 1 at all.
+
+   The same method can be used for the rest of the rows/columns. At the
+end the best price may be found for the last row/column and return by
+the way it was calculated. (For this I need the saved "calculated
+using" values.) At this step the best approximation has been determined.
+
+   To fill the table, 9 * n steps are required and n steps to backtrack
+best approximation. The only problem is that this algorithm is still a
+little slow (chiefly because of slow memory access on Intel
+architectures). -But with some optimizing it works well.
+
+   This algorithm is almost perfect except that it occasionally adds new
+rows/columns to the wrong locations. It does not prefer to add new
+rows/columns into holes. But it does not seem that this is the real
+problem. The last optimization made was based upon the face that added
+rows/columns do not have the exact real and imaginary components
+calculated by (beginning + x * step) but lies at the average of left
+and right neighbors. This makes the boundaries smooth and distributes
+coordinates better. It also has the added benefit of making the input
+better for future approximations.
+
+   Another danger during implementation if this algorithm is that
+adding new rows/columns into their ideal positions should cause
+miss-ordered results, since some rows/columns should be off more that
+is distance between them.  To avoid this, I use algorithm that always
+examine start and end of block of new rows/columns and linearly
+interpolates value between them. Special care needs to be at the blocks
+that start at the beginning or overs at the end.
+
+   Implementation should be much faster using custom fixedpoint
+routines--first recalculate values that 0 means start of image and
+65536 means end.  Than calculation is much cleaner. Values <0 and
+>65536 are of screen, calculation is independent at scale and many
+thinks should be recalculated--like tables for calculating price from
+distance.  Also dividing main loops into many specialized parts and
+avoiding filing unnecessary parts of table helps. So current algorithm
+in XaoS is about 5 or 6 times faster than first naive implementation.
+
+Moving Pixels to New Positions
+==============================
+
+   Since XaoS is using the approximation algorithm the following table
+is filled for every row/column:
+   * calculate
+
+   * oldpoint
+
+   * position     calculate is 1 if the current row/column is new and
+needs to be calculated or 0 if no old pixels need to be moved. oldpoint
+is a pointer to the old row/column that corresponds to the new one. This
+pixel needs to be copied to the new location. position is the real and
+imaginary components of the coordinates used for future approximations.
+Because almost all points will be moved, the solution seems to be
+simple: for every new point look at the row and column table; copy it
+if required.
+
+   There is the problem that this minimally needs three memory reads for
+every pixel (read calculate, oldpoint and index of old point). This is
+too slow, so a small optimization is performed. Instead rewriting the
+piece of code in assembly, normal memcpy is used to move blocks of
+pixels to their new locations. This minimizes the internal loop and
+access can be done more quickly since memcpy is usually optimized for
+each architecture.
+
+   Using the row table, a list of blocks to move for every row is
+created. With this new table all the pixels can be moved quickly. This
+increased the speed of XaoS about four times and made this function so
+fast that it is no longer a problem. (In fact, it takes much less
+processing than all other parts of XaoS.)
+
+Calculating New Pixels
+======================
+
+   The above optimizations make XaoS very fast, but another 30% increase
+in speed is acquired by using a clever method for calculating the new
+pixels. Many methods are known for saving calculations during the
+generation of fractal images. The most powerful is boundary detection.
+It relies on the fact that the Mandelbrot Set is connected with lakes.
+You need only one pixel at the boundary, then traverse the whole set
+and then fill the solid area inside. This method saves many
+calculations but is too complex for adding just one line. Many claim
+that it does not introduce any errors, but this is not true. It is
+possible for a connected part of the lake to be so small that it is not
+visible in smaller resolutions. In this case, boundary detection misses
+the whole area. This algorithm is actually used just for calculating of
+new images (i.e. at the startup).
+
+   XaoS uses modification of method known as solid guessing. The pixels
+at the boundaries of a rectangle are calculated. If they are all the
+same you may assume that this rectangle does not does not contain
+anything and fill it.
+
+   This algorithm is further modified to operate on added lines. For
+this it is at least as good as boundary detection and produces more
+tangible errors. When adding a single line, the upper and lower line
+may be examined for the nearest three pixels. If they are all the same
+then it is assumed that 9x9 pixels are the same. This disables all
+calculations inside solid areas and calculates as many points as
+boundary detection. The only possibility of creating a larger error
+with this method as opposed to boundary detection is in the instance
+that the shape of the set is so sharp that it does not set any of the
+tested points but comes from the right (i.e., uncalculated) location.
+This situation is not very common.
+
+   Later, rules were added for new rows and columns that crossed each
+other. In this instance you can test only four pixels. This situation
+is very rare. It is hoped that it does not introduce many errors.
+
+   If multiple blocks of new lines need to be calculated there are not
+reference pixels to use for solid guessing. Interlacing does the trick.
+By calculating the odd lines without any guessing, the guessing
+algorithm is now possible for the remaining uncalculated lines. This
+simple trick saves about 30% of the calculation of the main Mandelbrot
+image.
+
+   A similar approximation can also be done for the X coordinate. This
+makes it possible to improve solid guessing at even pixels because all
+surrounding pixels are available, further reducing errors.
+
+Symmetry
+========
+
+   Many fractals are horizontally or vertically symmetrical. This is
+implemented in the approximation code. When there is no good
+approximation available, try to mirror the opposite side if the line is
+available.
+
+   This method primarily speeds up the initial image.
+
+Calculation of the Mandelbrot Set
+=================================
+
+   Internal Mandelbrot calculation loop is unrolled--it calculates
+first 8 iterations using normal method and then it expects that number
+of iterations will be probably large so it switches into mode, where it
+calculates iterations in block of 8 with one bailout test at the end.
+When bailout is received, saved values from previous iterations is
+restored and last 8 iterations are recalculated slowly to get exact
+values. This helps a lot especially at Pentium, where conditionals in
+floating point code is slow.
+
+   Another stuff is periodicity checking. XaoS has both version of
+loops--with an without periodicity checks. In most cases it uses
+nonperiodicity checking version. Periodicity check version is used just
+in case, some inside set pixel has been found during solid guessing
+paste around. This is done mainly because periodicity checking version
+of loop is significantly slower.
+
+Dynamic Resolution
+==================
+
+   The above optimizations often do not help enough and image
+calculation is still too slow. One option was to reduce the framerate,
+but a framerate lower than 5 frames per second is unbearable. Another
+option is simply to calculate only the details that can be determined
+within a time interval.
+
+   Rows/columns not calculated are simple approximated by referencing
+the nearest other row/column. The result is an image with larger pixels.
+One problem is the fact that the order of calculating the rows/columns
+is significant. Previous versions of XaoS simply calculated all rows
+from top to bottom and then columns from left to right. Using the
+dynamic resolution code with this algorithm would result in distorted
+images. This was solved by adding priority to every row/column and
+calculating the high priority row/column first. The algorithm for
+adding these priorities is as follows:
+   * Find middle row/column of uncalculated block. Priority is the size
+        of the block (in floating point coordinates)
+
+   * Start function for left block and right block
+
+   This function produces quite good results. It tends to make same size
+rectangles on the whole image and does not depend on resolution.
+
+   Another interesting optimization is that during the zoom it is more
+advantageous to calculate rows/columns in the center of the zoom
+instead of the borders since these will be in the viewport longer and
+the user is usually focusing on center of the zoom anyhow.
+
+   This is done by simply adding to the calculated priority
+normal_priority / (abs(newposition - oldposition) / step + 1). This
+prefers rows/columns that do not move a great deal. Of course,
+unzooming uses the formula reversed.
+
+   The last variable to consider is the time interval for one frame.
+Setting it too low makes the calculation slow. Setting it too high
+makes the framerate too low. So the amount of time spent in other parts
+of the program is calculated and multiplied by 5 to determine the
+interval. If time is then lower than 15FPS, 15FPS is used instead,
+since slower animations are unacceptable. At the other hand if it is
+higher than 35FPS, it is set to 35FPS, since higher framerate is just
+wasting of computer resources. When image is not animating, this values
+is changed, so framerate is choose between 5FPS and 15FPS. This caused
+that images are calculated quickly after zooms stops.
+
+Autopilot
+=========
+
+   Another interesting algorithm controls the autopilot. It is actually
+quite simple. Interesting parts are found at the boundaries of the set.
+It randomly looks around and zooms to the first area containing both
+outside and inside set points. Some fractals (such as the Newton) do
+not have points inside the set at all. In this case it selects a point
+where many (more than 2) different colors are around. (i.e., It zooms
+into noisy areas.)
+
+   In the instance that there are no such areas, the autopilot will
+unzoom. Also detects oscillating.
+
+   Current implementation also does detection of out of range numbers
+and randomly choosed points are choosed near the old one, to avoid too
+often changes of direction.
+
+SMP support
+===========
+
+   Since version 3.0 XaoS supports SMP. This is done using threads.
+Most of XaoS routines should be threaded easily--for example
+moveoldpoints just divides image into n equal part and each part is
+proceeded by one processor.  Only unthreaded part is realloc table
+calculation routines. I don't see any way to paraelize it except it
+calculates both--x and y approximation at one time (using two
+processors).  Another interesting algorithm to paraelize is boundary
+trace. See comments `btrace.c' for discussion about current
+implementation.  Only problem of current implementation I see is
+possibility, that calculation is divided into too many parts (realloc
+tables, move points, calculate, symmetries, dynamic resolution) and
+tasks needs to synchronize between each part. So this should be too
+slow at real SMP box.
+
+
+File: xaosdev.info,  Node: timerlib,  Next: registry,  Prev: algorithm,  Up: Top
+
+The timer library
+*****************
+
+   Timer library is library I did for timing in XaoS. But I found it
+useful in many other programs (like demonstrations, games, animation
+players and all other stuff that needs to be timed). So you should read
+this description and possibly use it in your application and save some
+coding time.
+
+   There is many ways how to design of such timed application (game)
+
+  1. read user input, move badies, display and again this way has one
+     disadvantage. Speed of game depends on speed of computer.  This
+     was acceptable in old times where only processor was Z80 :) but now
+     with wide variety of various hardwares such internal loop is
+     unacceptable
+
+  2. read user input, measure time since last loop and calculate step
+     for badies, move badies for set step, display and again.  This way
+     fixes problem with speed. But moving badies just for calculated
+     step, that should differ a much is quite complex, usually
+     introduces complex calculation, floating/fixedpoint math and other
+     unnecesarry stuff that makes program long and introduces many bugs.
+
+  3. Set the fixed framerate that is high enough to make game smooth
+     but low enough to do whole internal loop in time. So internal loop
+     should look like: read user input, move badies, display, measure
+     time spent in loop an sleep rest of time until next frame.  This
+     is quite popular scheme but has another disadvantage--game can not
+     be designed to use whole CPU power since on slower computers
+     internal loop should take longer time that is reserved for one
+     frame. Game will run slowly again.
+
+  4. To take away disadvantage of previous method, many games times just
+     moving of badies and user input. Other stuff like displaying
+     should be done in rest of time. In DOS games moving and user input
+     is often at asynchronous interrupt and drawing runs as main loop.
+     This solves problem in case that drawing of game takes
+     significantly longer time than moving of badies. This is quite
+     usual so this scheme works well.
+
+  5. previous scheme still has one problem--since timer interrupt works
+     asynchronously, there should happend many race condition, in case
+     moving takes longer time than time reserved from frame, computer
+     can crash. So this scheme should be enhanced into synchronous one
+     with exactly same result but avoiding problem with race condition:
+
+     read user input, measure time spent by loop and calculate how many
+     simulated frame interrupts activated since last activation, if
+     zero sleep until simulated interrupt, move badies as many times as
+     required, display
+
+     this is an combination of 4 and 3 and seems to be most comfortable
+     way for writing games but since main loop is now quite complex
+     many games don't do that.
+
+  6. there is still one small problem. Method 5 expect that moving takes
+     significantly lower time that displaying. This may not be truth.
+     Simple work around is to write moving routine, that should move
+     for x moves by faster way that calling move x times. This is often
+     possible and makes easy extension to scheme 5. This scheme allows
+     you to use very large maximal framerate (say 100FPS) and to have
+     same results as method 2 (that is maximally exact method)
+
+   As you can see, designing of main loop isn't so easy. This is just
+very simple example. More advanced application for example should want
+to move one set of badies at one framerate and other at different
+framerate. This requires two such timings. Another complication is that
+there is many different ways to measure time exactly at different
+platforms. Under Linux you can measure using gettimeofday but under DOS
+this is exact just to 1/18 of second and thats too low for smooth
+animation and so on.
+
+   Thats why I decided to design portable easy to use timer library,
+that makes easy to implement all described method, combining of them
+and much more.  During design I taken care at the following thinks:
+quality of timing, how easy to use it is, speed, portability and to
+minimalize inexpected situations (like race conditions in asynchronous
+interrupts and so on)
+
+The name of game
+================
+
+   Timer library operates with "timers". They should be created, you
+should measure time since last reset, pause them or set "handler" and
+"interval".  But handler is not activated at given interval yet. Since
+timer library is not asynchronous, you must activate them.
+
+   For activating is used "groups". You should process group at some
+place in your program. Then all timers in group are checked and their
+handlers activated if required. When time spent since last activation
+is higher than interval, handler is activated more times. Also interval
+to next invocation is calculated to keep frequency.  Simple scheduling
+is performed at handler--handler is activated just once and then all
+other timers are checked before it is activated again. You should also
+define an multihandler--handler that is activated just once and
+receives argument how many intervals has left.
+
+   There is two special groups--`asyncgroup'. Timers in this group are
+activated asynchronously like from interrupt. It is not recommended to
+use it, since it brings many problems and usually isn't required. Also
+it does not work at many platforms. `Syncgroup' is the default group.
+Program is expected to process is quite often. In case you don't need
+to use more groups, you should use this one.
+
+   Time in timerlib is bit strange, since it does not flow continuously
+but jumps. It is updated every time you call `tl_updatetime'. I used
+this way in order to minimize context switches but later I found this
+scheme very useful, since you should lookup timer, do something and
+then reset it and don't wory about time spend between lookup and reset
+since it is 0 in case you did not called tl_updatetime. This helps to
+keep frequency of timers exact w/o any errors caused by such
+situations. At the other hand you need to call tl_updatetime at least
+once in your main loop.
+
+   Maybe you don't know why to create more groups, but I found it quite
+useful.  For example an autopilot in XaoS has such special group--I
+need to call it approx. every 1/20 of second but just at one place in
+program. Invoking of autopilot when calculation is active should
+produce incorrect results, so I have special group for autopilot and
+process just at one place where I am sure it is safe.
+
+   Timers should be also emulated. You should stop them and then
+control flow of time for given timer. This should be quite useful for
+example when you want precalculate animation at given framerate.
+
+   To control group of timers, you might create "emulators". It is just
+another time controlled by you. It is useful in cases you want to
+emulate fixed framerate (for animation rendering) or such.
+
+Time functions
+==============
+
+ - Function: void tl_update_time (void)
+     Update time used by timerlib. This must be called at least once in
+     main loop otherwise time will not flow. See above.
+
+ - Function: void tl_sleep (int TIME)
+     Sleep given time. Similar to usleep at POSIX.
+
+Group functions
+===============
+
+ - Function: tl_group* tl_create_group (void)
+     Allocate and initialize group header. Returns NULL when malloc
+     fails.
+
+ - Function: void tl_free_group (tl_group *GROUP)
+     Free memory storage used by group structure
+
+ - Function: int tl_process_group (tl_group *GROUP, int *ACTIVATED)
+     Process timers in group and activates their handlers. Returns time
+     until next invocation. Main loop should sleep returned time then.
+     An ACTIVATED parameter sould be `NULL'. If it is non `NULL',
+     variable is set to number of activated handlers.
+
+Timer functions
+===============
+
+ - Function: tl_timer* tl_create_timer (void)
+     Create timer structure.
+
+ - Function: void tl_free_timer (tl_timer *TIMER)
+     Free memory storage used by timer structure
+
+ - Function: void tl_reset_timer (tl_timer *TIMER);
+     Reset timer to current time. (time of last actication of
+     `tl_update_time')
+
+ - Function: int tl_lookup_timer (tl_timer *TIMER);
+     Return time since last call of tl_reset_timer or last activation
+     of handler.
+
+ - Function: void tl_set_interval (tl_timer *TIMER, int INTERVAL);
+
+ - Function: void tl_set_handler (tl_timer *TIMER, void (*HANDLER)
+          (void *),void *userdata);
+
+ - Function: void tl_set_multihandler (tl_timer *TIMER, void (*HANDLER)
+          (void *,int),void *userdata);
+     Handler, multihandler and interval control functions
+
+ - Function: void tl_add_timer (tl_group *GROUP, tl_timer *TIMER)
+     Add timer to given group. Timer should be added into just one
+     group.
+
+ - Function: void tl_stop_timer (tl_timer *TIMER)
+
+ - Function: void tl_resume_timer (tl_timer *TIMER)
+     Stop and resume timer.
+
+ - Function: void tl_slowdown_timer (tl_timer *TIMER,int TIME)
+     Time in timer is moved back for given time.
+
+Emulator functions
+==================
+
+ - Function: struct timeemulator *tl_create_emulator (void);
+     This function creates new emulator--you need to create one first
+     before emulating.
+
+ - Function: void tl_free_emulator (struct timeemulator *T);
+     Destroy emulator's data
+
+ - Function: void tl_elpased (struct timeemulator *T, int ELPASED);
+     Move emulated time.
+
+ - Function: void tl_emulate_timer (struct timer *T, struct
+          timeemulator *E);
+     Set timer to the emulated mode. Since now all time is controled by
+     emulator E. All other behavior of timer keeps unchanged.
+
+ - Function: void tl_unemulate_timer (struct timer *T);
+     Disable emulated mode for the timer.
+
+Example main loop
+=================
+
+     while(1)
+     {
+       time=tl_process_group(syncgroup,activated); /*Call game control functions*/
+       update_keys();
+       if(activated) /*something changed*/
+         display();
+       else tl_sleep(time);
+     }
+
+
+File: xaosdev.info,  Node: registry,  Next: index,  Prev: timerlib,  Up: Top
+
+XaoS function registry
+**********************
+
+   XaoS has an ui helper library, which provides functionality provided
+by user interface. All it's useful functions are registered into
+central registry.  This registry is used to generate menus and dialogs
+as well as command line options or scripting language. So it is very
+significant think in XaoS design.
+
+   Not only those who want hack XaoS ui-helper layer needs to know
+this, but also authors of drivers should use this to add new driver
+depended functions into XaoS's menu. Also external user interface is
+based at this.  Main idea behind external user interfaces (currently
+one for TCL/Tk and Gtk is under development) is following: XaoS
+transfers it's registry to interface (using simple description
+language). User interface starts XaoS in it's window and builds menus
+and dialogs based at this registry. Then once user select some
+function, it creates an command for scripting language and sends it back
+to XaoS' engine.
+
+   So knowledge of this part is essential for many developers. Please
+take care for this part.
+
+   The implementation of registry is in file `xmenu.c', header is
+`xmenu.h'. Mainly for historical reasons it speaks about menus and
+dialogs. (It was designed for the GUI at the beginning) I am keeping
+this terminology, since it is quite clean and easy to understand
+instead of talking in some cryptic abstract term.
+
+Function description
+====================
+
+   To add function into database, you need write it's description into
+menuitem structure. It has following prototype:
+
+     typedef struct menuitem
+       {
+         char *menuname;
+         char *key;
+         char *name;
+         char *shortname;
+         int type;
+         int flags;
+         void (*function) ();
+         int iparam;
+         void *pparam;
+         int (*control) (struct uih_context *);
+         menudialog *(*dialog) (struct uih_context *);
+       }
+     menuitem;
+
+ - Variable: menuname
+     Name of menu (or category) function belongs in. The root of all
+     categories is called `"root"'. XaoS alternativly uses an
+     `"animroot"' when animation replay is active. If you are adding an
+     function, it is better to add it into some subcategory like as
+     `"ui"' (it will be placed into UI menu then) or create an new
+     category for your functions if needed. It will appear as submenu
+     in main menu in the UI.
+
+ - Variable: key
+     Ascii code of hotkey to activate this function. Use `NULL' if none.
+
+ - Variable: name
+     Longer name of functions used in the menu entry, or `xaos --help'
+     listing
+
+ - Variable: shortname
+     One-word name of function used in command language and references
+     to function.
+
+ - Variable: type
+     type of function--this is not return type. Type should be one of
+     following constants:
+    `MENU_SUBMENU'
+          An submenu. This is not real function, but name for submenu.
+          You might fill    the KEY, NAME, SHORTNAME functions. An name
+          of this new    submenu is placed in the field PPARAM.
+
+    `MENU_NOPARAM'
+          An normal function without any parameters. When actived,
+          function    FUNCTION with just an pointer to `uih_context'
+          will be called.
+
+    `MENU_INT'
+          This should be used to simplify entering of more similar
+          functions (handled    by just one universal function in the c
+          code). This function is handled in    same way as
+          `MENU_NOPARAM', but also in one integer parameters taken
+          from `iparam' is passed.
+
+    `MENU_STRING'
+          Similar to `MENU_INT' but uses string instead of integer.
+
+    `MENU_DIALOG'
+          If you function needs some paramters, use dialog structure to
+          describe    them. In scripting language your function will
+          have parameters then, in    user interface dialog will be
+          displayed. PPARAM must then point to    array of dialog
+          entries. Witting them will be described later.     If your
+          function has just one parameter described in dialog
+          structure, it    will be called in normal c way--if you want
+          string parameter, one    pointer pointing to string (in
+          addition to `uih_context') will be    passed to the functions.
+
+          In case of multiple parameters are requested, it is
+          impossible to call    function in c way without special
+          wrapper for each such case. So it will    receive pointer to
+          array of `dialogparam' unions, wich contains    one entry for
+          each parameter. `dialogparam' is declared as follows:
+               typedef union
+                 {
+                   char *dstring;
+                   int dint;
+                   number_t number;
+                   number_t dcoord[2];
+                   xio_path dpath;
+                   void *dummy;
+                 }
+               dialogparam;
+
+    `MENU_CDIALOG'
+          In some cases, it is useful to add some context specific
+          default values    to the dialog structure. In this case you
+          might use this type instead. In    this case function DIALOG
+          is called first, and it is expected to    return pointer to
+          correct dialog structure. Dialog structure must lie in
+          static storage (since it is not freed) and always must have
+          the same    fields, just differ in the default values.
+          Also this function must work correctly even in the case
+          pointer to    `uih_context' is `NULL', since it is often
+          called in the    initialization stages (parameter parsing
+          etc.)
+
+ - Variable: flags
+     Flags are used to set additional information about function:
+    `MENUFLAG_CHECKBOX'
+          Some features act like check-box--i.e. by one calling of
+          function they are enabled, second call disables this. In menu
+          it is useful to add an check-box for this function indicating
+          whether feature is on or off.
+
+          And thats exactly what this flag does :). You need also
+          define the function CONTROL wich return's `1' when enabled
+          and `0' when disabled.  In order to let external GUI's work
+          correctly you need also call `uih_updatemenus("name")' every
+          time state of this function changes.
+
+          In the scripting language this adds an first parameter, wich
+          if `#t' or `#f'.  Engine then calls function just when it is
+          necessary. For `#t' dialog is requested, with `#f' function
+          is called just as `NOPARAM'. I.e.  dialog is displayed just
+          when enabling feature.
+
+    `MENUFLAG_DIALOGATDISABLE'
+          In checkbox display dialog when this feature is disabled
+          instead when enabled.
+
+    `MENUFLAG_RADIO'
+          Other features act like radio-button. Control function in
+          this case receives same parameter as defined for `MENU_INT'
+          or `MENU_STRING' types and is expected to return `1' when
+          enabled. You also need to call `uih_updatemenus' when
+          changed. No special parameter is added in the scripting
+          language.
+
+    `MENUFLAG_INTERRUPT'
+          Interrupt current calculation when this function called (it
+          is used by functions with causes recalculation of screen)
+
+    `MENUFLAG_INCALC'
+          By default XaoS queues functions and calls later when they
+          are activated in caluclation. This flag disables this feature.
+
+    `MENUFLAG_ATSTARTUP'
+          By default XaoS queues functions and calls later when they
+          are activated as command line parameters (in time engine is
+          not fully initialized yet).  This flag disables this feature.
+
+    `MENUFLAG_NOMENU'
+          Function will not be visible in the menu
+
+    `MENUFLAG_NOPLAY'
+          Function will not be available as command in scripts
+
+    `MENUFLAG_NOOPTION'
+          Function will not be available as command line option
+
+Initializing menuitem structure as static variable
+==================================================
+
+   In most case menuitems should be wrote as static variables. Because
+contents of this structure should change in future, please use one of
+macros defined in `xmenu.h'. They provides cleaner and easier to extend
+way to define this entries.
+
+   For example to define `MENU_NOPARAM' function use following macro:
+
+ - Function: MENUNOP (MENUNAME, KEY, NAME, SHORTNAME, FLAGS, FUNCTION)
+   Similar macros exist for the other types too. They ends for `CB' or
+`RB' for check-boxed or radio-boxes functions. See `menu.c' for large
+example of definitions. They should look like this:
+
+     static menuitem menuitems[] =   /*XaoS menu specifications */
+     {
+       SUBMENU ("", NULL, "Root menu", "root"),
+       SUBMENU ("", NULL, "Replay only commands", "plc"),
+       MENUNOP ("comm", NULL, "print menus specifications of all menus",
+                "print_menus", MENUFLAG_NOMENU|MENUFLAG_NOPLAY|MENUFLAG_ATSTARTUP,
+                uih_printallmenus),
+                ...
+
+Dialog description
+==================
+
+   Dialog description is similar to menuitem. It is array of following
+structures:
+     typedef struct dialog
+       {
+         char *question;
+         int type;
+         int defint;
+         char *defstr;
+         number_t deffloat;
+         number_t deffloat2;
+       }
+     menudialog;
+   It is terminated by QUESTION pointer set to `NULL'.
+
+   The QUESTION contains string ui should display when is asking for
+this field.
+
+   TYPE should be one of following values: `DIALOG_INT',
+`DIALOG_FLOAT', `DIALOG_STRING', `DIALOG_KEYSTRING' (the difference
+between string and keystring is, that in scripting language string is
+passed as `"hello"', but keystring is passed as scheme keyword as
+`'hello'), `DIALOG_IFILE' (input file), `DIALOG_OFILE', `DIALOG_CHOICE'
+(choice between different keystrings), `DIALOG_ONOFF' (boolean
+parameter), `DIALOG_COORD' (two floats--complex number)
+
+   Set to corresponding DEF* field for default value. In case of files
+use string in the format `"[PREFIX]*[EXTENSION]"'. For type
+`DIALOG_CHOICE' set DEFSTR to pointer to array of strings terminated by
+`NULL' entry.
+
+   To write dialog structures again use macros defined in `xmenu.h'
+like:
+     DIALOGSTR(question,default)
+   The definition should look like:
+
+     static menudialog uih_viewdialog[] =
+     {
+       DIALOGCOORD ("center:", 0, 0),
+       DIALOGFLOAT ("Radius:", 1),
+       DIALOGFLOAT ("Angle:", 0),
+       {NULL}
+     };
+
+Modifying registry
+==================
+
+ - Function: void menu_add (menuitem *ITEM, int N);
+     Add array of N items to the database.
+
+ - Function: void menu_delete (menuitem *ITEMS, int N);
+     Remove array of N items from database.
+
+Querying registry
+=================
+
+ - Function: menuitem* menu_findkey (char *KEY, char *ROOT);
+     Find item for given key. ROOT is menu where to start (submenus are
+     searched recursively)
+
+ - Function: menuitem* menu_findcommand (char *NAME);
+     Find item for given short name
+
+ - Function: char* menu_fullname (char *MENU);
+     Long name for the short name of menu
+
+ - Function: menuitem* menu_item (char *MENU, int N);
+     Nth entry of the MENU. Return `NULL' if no more entries available.
+
+ - Function: int menu_enabled (menuitem *ITEM, struct uih_context *C);
+     Check whether given item is activated (for check-boxed and
+     radio-boxed functions)
+
+ - Function: int menu_havedialog (menuitem *ITEM, struct uih_context
+          *C);
+     Does this function have dialog?
+
+ - Function: menu_getdialog (CONTEXT, M)
+     Macro returns pointer to dialog structure. (function must have it,
+     otherwise garbage is returned).
+
+ - Function: int menu_available (menuitem *ITEM, char *ROOT);
+     Check whether item is available as one of entries of ROOT (or it's
+     submenus)
+
+
+File: xaosdev.info,  Node: index,  Prev: registry,  Up: Top
+
+Index of functions, variables, types and constants
+**************************************************
+
+* Menu:
+
+* alloc_buffers:                         driver.
+* ANIMATION:                             filters.
+* C256 <1>:                              filters.
+* C256:                                  driver.
+* CHANGED:                               filters.
+* createfilter:                          filters.
+* display:                               driver.
+* ethreads:                              xthreads.
+* filter:                                filters.
+* filteraction:                          filters.
+* FIXEDCOLOR <1>:                        filters.
+* FIXEDCOLOR:                            driver.
+* flip_buffer:                           driver.
+* flush:                                 driver.
+* free_buffers:                          driver.
+* FULLSCREEN:                            driver.
+* getinstance:                           filters.
+* getsize:                               driver.
+* GRAYSCALE <1>:                         filters.
+* GRAYSCALE:                             driver.
+* image <1>:                             filters.
+* image:                                 design.
+* INEXACT:                               filters.
+* inherimage:                            filters.
+* inhermisc:                             filters.
+* init:                                  driver.
+* initdata:                              filters.
+* MASK1BPP:                              filters.
+* MAXCONDS:                              xthreads.
+* MAXSEMAPHORS:                          xthreads.
+* menu_add:                              registry.
+* menu_available:                        registry.
+* MENU_CDIALOG:                          registry.
+* menu_delete:                           registry.
+* MENU_DIALOG:                           registry.
+* menu_enabled:                          registry.
+* menu_findcommand:                      registry.
+* menu_findkey:                          registry.
+* menu_fullname:                         registry.
+* menu_getdialog:                        registry.
+* menu_havedialog:                       registry.
+* MENU_INT:                              registry.
+* menu_item:                             registry.
+* MENU_NOPARAM:                          registry.
+* MENU_STRING:                           registry.
+* MENU_SUBMENU:                          registry.
+* menudialog:                            registry.
+* MENUFLAG_ATSTARTUP:                    registry.
+* MENUFLAG_CHECKBOX:                     registry.
+* MENUFLAG_DIALOGATDISABLE:              registry.
+* MENUFLAG_INCALC:                       registry.
+* MENUFLAG_INTERRUPT:                    registry.
+* MENUFLAG_NOMENU:                       registry.
+* MENUFLAG_NOOPTION:                     registry.
+* MENUFLAG_NOPLAY:                       registry.
+* MENUFLAG_RADIO:                        registry.
+* menuitem:                              registry.
+* MENUNOP:                               registry.
+* mousetype:                             driver.
+* nthreads:                              xthreads.
+* P_FLOAT:                               driver.
+* P_NUMBER:                              driver.
+* P_STRING:                              driver.
+* P_SWITCH:                              driver.
+* palette:                               design.
+* params:                                driver.
+* PIXELSIZE:                             driver.
+* print:                                 driver.
+* processevents:                         driver.
+* RANDOM_PALETTE_SIZE:                   driver.
+* requirements:                          filters.
+* RESIZE_COMMAND:                        driver.
+* RESOLUTION:                            driver.
+* SCREENSIZE:                            driver.
+* set_color:                             driver.
+* set_range:                             driver.
+* timeemulator:                          timerlib.
+* tl_add_timer:                          timerlib.
+* tl_create_group:                       timerlib.
+* tl_create_timer:                       timerlib.
+* tl_elpased:                            timerlib.
+* tl_emulate_timer:                      timerlib.
+* tl_free_emulator:                      timerlib.
+* tl_free_group:                         timerlib.
+* tl_free_timer:                         timerlib.
+* tl_lookup_timer:                       timerlib.
+* tl_process_group:                      timerlib.
+* tl_reset_timer:                        timerlib.
+* tl_resume_timer:                       timerlib.
+* tl_set_handler:                        timerlib.
+* tl_set_interval:                       timerlib.
+* tl_set_multihandler:                   timerlib.
+* tl_sleep:                              timerlib.
+* tl_slowdown_timer:                     timerlib.
+* tl_stop_timer:                         timerlib.
+* tl_unemulate_timer:                    timerlib.
+* tl_update_time:                        timerlib.
+* TRUECOLOR <1>:                         filters.
+* TRUECOLOR:                             driver.
+* TRUECOLOR24 <1>:                       filters.
+* TRUECOLOR24:                           driver.
+* TRUECOLOR32 <1>:                       filters.
+* TRUECOLOR32:                           driver.
+* UI_C256:                               driver.
+* ui_driver:                             driver.
+* UI_FIXEDCOLOR:                         driver.
+* UI_GRAYSCALE:                          driver.
+* UI_TRUECOLOR:                          driver.
+* UI_TRUECOLOR24:                        driver.
+* UI_TRUECOLOR32:                        driver.
+* uninit:                                driver.
+* UPDATE_AFTER_RESIZE:                   driver.
+* xshl_line:                             eui.
+* xth_bgjob:                             xthreads.
+* xth_function:                          xthreads.
+* xth_init:                              xthreads.
+* xth_lock:                              xthreads.
+* xth_nthread:                           xthreads.
+* xth_sleep:                             xthreads.
+* xth_sync:                              xthreads.
+* xth_uninit:                            xthreads.
+* xth_unlock:                            xthreads.
+* xth_wakeall:                           xthreads.
+* xth_wakeup:                            xthreads.
+
+
+
+Tag Table:
+Node: Top501
+Node: design1475
+Node: driver9067
+Node: gui-driver25868
+Node: eui32613
+Node: ui-helper43320
+Node: xthreads47876
+Node: filters52923
+Node: algorithm69506
+Node: timerlib89511
+Node: registry99566
+Node: index111446
+
+End Tag Table

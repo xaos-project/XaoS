@@ -1,0 +1,42 @@
+ÉÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ»
+³                 XaoS                ³
+³Coding by: Jan Hubicka & Thomas Marsh³
+³             100%  C code!           ³
+³                                     ³
+³ Fast real-time fractal zoomer.      ³
+³ Allows you to zoom smoothly into    ³
+³ mandelbrot set and other fractals   ³
+³ (10-50 frames per second on 486     ³
+³  in 320x200 and 256 colors)         ³
+³ Fully under GPL licence-souces      ³
+³ freely available. Make it faster if ³
+³ you can :)                          ³
+³ Compiles under GCC/DJGPP-the best C ³
+³ C compiler!                         ³
+³ Supports: VGA, X modes, VESA, S3,   ³
+³           VESA2.0, Cirrus, ET4000   ³
+³           256x200 - 1600x1200       ³
+³           truecolor, realcolor,     ³
+³           hicolor and 8bpp modes    ³
+³ Fractals: Mandelbrot up to power 6  ³
+³           Newton, Octo, Barnsley,   ³
+³           Phoenix, Magnet           ³
+³ Features: Works in protected mode   ³
+³           PNG saving                ³
+³           Animated tutorial, example³
+³            files                    ³
+³           Special fast algorithm    ³
+³            for zooming              ³
+³           Random palette generation ³
+³           Special coloring modes    ³
+³            (ie binary decomposition)³
+³           Truecolor coloring modes  ³
+³           Random dot stereograms    ³
+³           Inversion, lambda and     ³
+³            other planes             ³
+³           Autopilot                 ³
+³           Mandelbrot/julia switching³
+³           Fast julia preview mode   ³
+³           Highly optimised code     ³
+ÈÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¼
+

@@ -1,0 +1,12 @@
+# shell script for updating XaoS example files to latest file format.
+# Not for normal use
+# Requires XaoS compiled with aa driver
+
+mkdir new
+mkdir new/examples
+rm fract0.xpf
+for name in examples/*.xpf
+do
+  echo "zs2qq" | bin/xaos -driver aa -aadriver stdout -kbddriver stdin -load $name -nomouse
+  mv fract0.xpf new/$name
+done

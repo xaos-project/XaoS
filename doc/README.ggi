@@ -1,0 +1,9 @@
+The GGI driver is now very experimental. There is not much
+documentation about GGI api, so I am not sure, if it is correct.
+There is few known problems with keyboard handling - I don't know
+constants for keys like escape or backspace. Also don't know
+how to detect ascii value of key - so shift don't work.
+
+Let me know about all problems
+
+Honza (hubicka@freesoft.cz)

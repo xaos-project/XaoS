@@ -1,0 +1,86 @@
+; Whats new in versuib 3.0 by Jan Hubicka
+; Version 1.0 done for XaoS 3.0 in July 1997
+; Use xaos -play to see it :)
+(load "head.xhf")
+
+(clearscreen)
+(textposition 'center 'middle)
+(message "new")
+(textsleep)
+(clearscreen)
+(message "speed")
+(usleep 5000000)
+(clearscreen)
+(message "speed1")
+(textsleep)
+(clearscreen)
+(message "speed2")
+(textsleep)
+(clearscreen)
+(message "speed3")
+(textsleep)
+(clearscreen)
+(message "speed4")
+(textsleep)
+(clearscreen)
+(message "speed5")
+(wait)
+(display)
+(maxiter 1000000)
+(message "speed6")
+(textsleep)
+(clearscreen)
+(message "speed7")
+(textsleep)
+(clearscreen)
+(message "speed8")
+(textsleep)
+(clearscreen)
+(maxiter 170)
+(message "speed9")
+(textsleep)
+(clearscreen)
+
+(load "pause.xhf")
+
+(clearscreen)
+(message "new2")
+(usleep 5000000)
+
+(load "filter.xhf")
+
+(load "pause.xhf")
+
+(clearscreen)
+(message "new3")
+(usleep 5000000)
+
+(load "outnew.xhf")
+
+(load "pause.xhf")
+
+(clearscreen)
+(message "new4")
+(usleep 5000000)
+
+(load "innew.xhf")
+
+(load "pause.xhf")
+
+(clearscreen)
+(message "new5")
+(usleep 5000000)
+
+(load "truecol.xhf")
+
+(load "pause.xhf")
+
+(clearscreen)
+(message "new6")
+(usleep 5000000)
+
+(load "anim.xhf")
+
+(message "newend")
+(textwait)
+(display)

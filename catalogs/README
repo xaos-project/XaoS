@@ -1,0 +1,8 @@
+Changes since 3.0:
+julia is now separate chapter, so you need to renumber all chapters and add
+this one
+
+Catalogs that needs update:
+deutsch.cat
+deutsch.cat.utf-8
+francais.cat

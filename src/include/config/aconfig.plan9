@@ -1,0 +1,10 @@
+/* aconfig.h.  Generated automatically by configure.  */
+#ifndef ACONFIG_H
+#define ACONFIG_H
+#define DATAPATH "/lib/XaoS/" /*hope this follows plan9 conventions*/
+typedef  int size_t;
+#undef HAVE_ALLOCA 1
+#undef HAVE_ALLOCA_H 1
+#undef HAVE_LONG_DOUBLE 1
+#define PLAN9_DRIVER 1
+#endif

@@ -1,0 +1,16 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+#include <windows.h>
+#include "resource.h"
+#include "about.h"
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+BIG                   ICON    DISCARDABLE     "xaos.ico"
+SMALL                  ICON    DISCARDABLE     "small.ico"
+
+#include "xaos.dlg"
+#include "version.rc"
+#include "about.rc"
+

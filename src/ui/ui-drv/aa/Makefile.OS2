@@ -1,0 +1,41 @@
+# Generated automatically from Makefile.in by configure.
+CC     = gcc
+CFLAGS = -O2 -Wall -m486 -fstrength-reduce -ffast-math -fomit-frame-pointer -fforce-mem -fforce-addr -funroll-loops -I../../../include
+LIBS   = -lm -laa
+LFLAGS = 
+#AR     = @AR@
+RANLIB = ranlib
+
+SRCS = ui_aa.c 
+
+OBJS = $(SRCS:.c=.o)
+
+TLIB = ../../../lib/libuiaa.a
+
+
+all:	$(TLIB)
+
+$(TLIB):	$(OBJS)
+	rm -f $@
+	$(AR) rc $@ $^
+
+clean:
+	rm -f $(TLIB)
+	rm -f *.o
+	rm -f *.a
+	rm -f *.s
+	rm -f *~
+	rm -f core 
+
+distclean:	clean
+	rm  Makefile
+
+#dep:
+#	rm -f .depend
+#	make .depend
+#
+#.depend:
+#	echo '# Program dependencies' >.depend
+#	gcc -I svgalib $(DEFINES) -MM $(patsubst %.o,%.c,$(OBJS)) >>.depend
+#
+#include .depend

@@ -1,0 +1,10 @@
+; An introduction to fractals by Jan Hubicka
+; Version 1.0 done for XaoS 3.0 in July 1997
+; Use xaos -play to see it :)
+(load "head.xhf")
+
+(clearscreen)
+(textposition 'center 'middle)
+(message "truecolor")
+(textsleep)
+(load "truecol.xhf")

@@ -1,0 +1,196 @@
+# parameter file template with lots of comments to assist you
+#
+#XXX with three X are marked comments I've added especially for XaoS
+#
+# you can use this as a template, copying it to a separate file then modifying
+# the copy
+#
+#
+# any line beginning with '#' is a comment
+#
+# no line should be longer than 255 characters
+#
+#
+# general format of each line is:
+#	<option> <spaces and/or tabs> <value>
+#
+# lines can generally be in any order
+#
+# an exception is the option 'INPUT' which must be followed by input
+# files in the order in which they must appear, followed by 'END_INPUT'
+#
+# Also, if you use the `command` method of generating input file names,
+# the command will only be executed in the INPUT_DIR if INPUT_DIR preceeds
+# the INPUT parameter.
+#
+# <option> MUST be in UPPER CASE
+#
+
+PATTERN IBBPBBPBBPBBPBB
+
+#XXX the default pattern, you should use the <basename>.pat file in case
+#XXX you've applied my patch (otherwise pattern size is limited to 256
+#XXX characters wich is usually not enought
+
+OUTPUT		intro.mpg
+
+# mpeg_encode really only accepts 3 different file formats, but using a
+# conversion statement it can effectively handle ANY file format
+#
+# You must specify the type of the input files.  The choices are:
+#    YUV, PPM, JMOVIE, Y, JPEG, PNM
+#	(must be upper case)
+#
+#XXX For XaoS PNG files use this:
+BASE_FILE_FORMAT	PNM
+
+#
+# if YUV format (or using parallel version), must provide width and height
+# YUV_SIZE	widthxheight
+# this option is ignored if BASE_FILE_FORMAT is not YUV and you're running
+# on just one machine
+#
+YUV_SIZE	352x240
+
+# If you are using YUV, there are different supported file formats.
+# EYUV or UCB are the same as previous versions of this encoder.
+# (All the Y's, then U's then V's, in 4:2:0 subsampling.)
+# Other formats, such as Abekas, Phillips, or a general format are
+# permissible, the general format is a string of Y's, U's, and V's
+# to specify the file order.
+
+INPUT_FORMAT UCB
+
+# the conversion statement
+#
+# Each occurrence of '*' will be replaced by the input file
+#
+# e.g., if you have a bunch of GIF files, then this might be:
+#	INPUT_CONVERT	giftoppm *
+#
+# e.g., if you have a bunch of files like a.Y a.U a.V, etc., then:
+#	INPUT_CONVERT	cat *.Y *.U *.V
+#
+# e.g., if you are grabbing from laser disc you might have something like
+#	INPUT_CONVERT	goto frame *; grabppm
+# 'INPUT_CONVERT *' means the files are already in the base file format
+#
+#INPUT_CONVERT	*
+INPUT_CONVERT	pngtopnm *
+#XXX This is the conversion from the PNG files using tool from netPBM package
+
+# number of frames in a GOP.
+#
+# since each GOP must have at least one I-frame, the encoder will find the
+# the first I-frame after GOP_SIZE frames to start the next GOP
+#
+# later, will add more flexible GOP signalling
+#
+GOP_SIZE	24
+
+# number of slices in a frame
+#
+# 1 is a good number.  another possibility is the number of macroblock rows
+# (which is the height divided by 16)
+#
+SLICES_PER_FRAME	1
+
+# directory to get all input files from (makes this file easier to read)
+INPUT_DIR	.
+
+# There are a bunch of ways to specify the input files.
+# from a simple one-per-line listing, to the following 
+# way of numbering them.  See the manual for more information.
+INPUT
+# '*' is replaced by the numbers 01, 02, 03, 04
+# if I instead do [01-11], it would be 01, 02, ..., 09, 10, 11
+# if I instead do [1-11], it would be 1, 2, 3, ..., 9, 10, 11
+# if I instead do [1-11+3], it would be 1, 4, 7, 10
+# the program assumes none of your input files has a name ending in ']'
+# if you do, too bad!!!
+#
+#
+# can have more files here if you want...there is no limit on the number
+# of files
+
+#XXX Copy the file <basename>.par here.
+#XXX if you've applied my patch, you should aso add an RANGE and PSEARCH_ALG
+#XXX commands here. They works in exactly same way as documented in mpeg_encode
+#XXX but works just for next images, so you might control this parameters
+#XXX for various patrs. If there is long seqences of same frames, you should
+#XXX set RANGE to 0 and then return RANGE back to value you want in order
+#XXX to speed up encoding process.
+#XXX
+#XXX to set correct range for zooming animation, browse two consetuctive
+#XXX frames and counts how much does the pixel move, multiply by 6 and use
+#XXX resulting value. If it is higher than 15, you probably will need to use
+#XXX PSEARCH_ALG LOGARITHMIC in order to save some time. For smaller values
+#XXX I use alg called SUBSAMPLE, wich works quite well.
+#XXX if calucalted range is lower then 8, set it to 8
+#XXX
+END_INPUT
+
+
+
+# Many of the remaining options have to do with the motion search and qscale
+
+# FULL or HALF -- must be upper case
+PIXEL		HALF
+#PIXEL		FULL
+
+# means +/- this many pixels for both P and B frame searches
+# specify two numbers if you wish to serc different ranges in the two.
+
+#XXX this value must be greater than all RANGES used in INPUT section,
+#XXX otherwise will encoder crash
+#XXX if you want to use XaoS motion vectors, set it into some 
+#XXX high value (200) and then set correct value in INPUT section to avoid
+#XXX crash
+RANGE		10
+
+# this must be one of {EXHAUSTIVE, SUBSAMPLE, LOGARITHMIC}
+#PSEARCH_ALG	LOGARITHMIC
+PSEARCH_ALG	SUBSAMPLE
+#PSEARCH_ALG	EXHAUSTIVE
+
+# this must be one of {SIMPLE, CROSS2, EXHAUSTIVE}
+#
+# note that EXHAUSTIVE is really, really, really slow
+#
+BSEARCH_ALG	CROSS2
+#BSEARCH_ALG	SIMPLE
+
+#
+# these specify the q-scale for I, P, and B frames
+# (values must be between 1 and 31)
+# These are the Qscale values for the entire frame in variable bit-rate
+# mode, and starting points (but not important) for constant bit rate
+#
+IQSCALE		8
+PQSCALE		10
+BQSCALE		25
+#XXX you might decrease this in order to increase quality
+
+# this must be ORIGINAL or DECODED
+#REFERENCE_FRAME	ORIGINAL
+REFERENCE_FRAME	DECODED
+#XXX ORIGINAL seems to add significant artefacts into XaoS animations..
+
+# for parallel parameters see parallel.param in the exmaples subdirectory
+
+# if you want constant bit-rate mode, specify it as follows (number is bits/sec):
+#BIT_RATE  1000000
+
+# To specify the buffer size (327680 is default, measused in bits, for 16bit words)
+#BUFFER_SIZE 327680
+BUFFER_SIZE 16760832
+
+# The frame rate is the number of frames/second (legal values:
+# 23.976, 24, 25, 29.97, 30, 50 ,59.94, 60
+#FRAME_RATE 30
+FRAME_RATE 24
+
+#GAMMA 
+#, IQTABLE, etc.
+# There are many more options, see the users manual for examples....
+# ASPECT_RATIO, USER_DATA, GAMMA, IQTABLE, etc.

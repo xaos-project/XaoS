@@ -1,0 +1,28 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+#define CONFIGFILE "xaos.cfg"
+#define FPOINT_TYPE  long double
+				       /*floating point math type on computers
+				          with medium speed floating point math should   
+				          use float instead */
+#define USE_LONG		/*for autoconf..undefine if
+				   fpoint_type is set to other than
+				   long_double */
+/*#define MITSHM */
+				       /*undefine this if you system does not
+				          support shared memory */
+/* You don't need to change these lines unless you now what you are doing */
+
+#include <aconfig.h>
+#define USE_STDIO
+#include <gccaccel.h>
+#define HAVE_GETTIMEOFDAY
+#define TIME_WITH_SYS_TIME
+#define HAVE_LIMITS_H
+#define HAVE_UNISTH_H
+#define HAVE_SYS_TIME_H
+#define 
+#define STRUECOLOR24
+#define STRUECOLOR
+#define STRUECOLOR16
+#endif				/*CONFIG_H */

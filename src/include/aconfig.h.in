@@ -1,0 +1,55 @@
+#ifndef ACONFIG_H
+#define ACONFIG_H
+#undef HAVE_PTHREAD_SIGHANDLER
+#undef DATAPATH
+#undef C_ALLOCA
+#undef const
+#undef USE_PTHREAD
+/*Avoid stack frame explosion on Windoze*/
+#ifndef _WIN32
+/*BeOS crashes badly when large amounts of stack are consumed */
+#ifndef __BEOS__
+#undef HAVE_ALLOCA
+#undef HAVE_ALLOCA_H
+#endif
+#endif
+#undef HAVE_FABSL
+#undef HAVE__FABSL
+#undef HAVE___FABSL
+#undef HAVE_FTIME
+#undef USE_PNG
+#undef HAVE_FINITE
+#undef HAVE_SELECT
+#undef HAVE_LONG_DOUBLE
+#undef HAVE_REDRAWWIN
+#undef HAVE_WREDRAWLN
+#undef USE_NCURSES
+#undef inline
+#undef _POSIX_SOURCE
+#undef STDC_HEADERS
+/* Define if you can safely include both <sys/time.h> and <time.h>.  */
+#undef TIME_WITH_SYS_TIME
+#undef HAVE_GETTIMEOFDAY
+#undef HAVE_USLEEP
+#undef HAVE_TERMATTRS
+#undef HAVE_MOUSEMASK
+#undef HAVE_SETITIMER
+/* Define if you have the <limits.h> header file.  */
+#undef HAVE_LIMITS_H
+/* Define if you have the <sys/time.h> header file.  */
+#undef HAVE_SYS_TIME_H
+/* Define if you have the <unistd.h> header file.  */
+#undef HAVE_UNISTD_H
+#undef MITSHM
+#undef CURSES_DRIVER
+#undef BEOS_DRIVER
+#undef AA_DRIVER
+#undef GGI_DRIVER
+#undef X11_DRIVER
+#undef DGA_DRIVER
+#undef SVGA_DRIVER
+#undef WIN32_DRIVER
+#undef SIZEOF_SHORT
+#undef SIZEOF_INT
+#undef SIZEOF_LONG
+#endif

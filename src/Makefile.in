@@ -1,0 +1,59 @@
+CC     = @CC@
+CFLAGS = @CFLAGS@
+LIBS   = @LIBS@ 
+LFLAGS = @LDFLAGS@
+AR     = @AR@
+RANLIB = @RANLIB@
+@SET_MAKE@
+
+TLIBS= @DRIVERLIBS@ 
+
+DIRS= \
+       filter \
+       engine \
+       ui-hlp \
+       ui \
+       util \
+       @DRIVERDIRS@ 
+
+PROG= @BINPATH@/xaos
+OBJS = $(SRCS:.c=.o)
+
+TLIB = 
+
+
+all default:	$(PROG)
+
+@BINPATH@:
+	mkdir $@
+
+@LIBPATH@:
+	mkdir $@
+
+libs:
+	@for name in $(DIRS) ; do sh -c "cd $$name ; $(MAKE) all"; done
+
+$(PROG): @BINPATH@ @LIBPATH@ include/config.h libs
+	$(CC) $(CFLAGS) $(LFLAGS) -o $@ $(TLIBS) $(LIBS)
+	@POSTCOMPILE@
+
+include/config.h:
+	cp include/config/config.autoconf include/config.h
+
+clean:
+	@for name in $(DIRS) ; do sh -c "cd $$name ; $(MAKE) $@"; done
+	rm -f include/config.h
+	rm -f $(PROG)
+
+distclean:clean
+	rm  -f Makefile
+
+#dep:
+#	rm -f .depend
+#	make .depend
+#
+#.depend:
+#	echo '# Program dependencies' >.depend
+#	gcc -I svgalib $(DEFINES) -MM $(patsubst %.o,%.c,$(OBJS)) >>.depend
+#
+#include .depend

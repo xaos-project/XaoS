@@ -1,0 +1,37 @@
+CREDITS (alphabetically):
+        I believe this list is almost complette. If I missed someone
+	here, please let me know.
+
+	Eric Courteau   (ecourteau@cplus.fr)
+			- Francais.cat (translation of tutorials)
+	Radek Doulik    (rodo@atrey.karlin.mff.cuni.cz)
+	                - GTK interface, windowid patches
+	Tim Goodwin	(tgoodwin@cygnus.co.uk)
+			- english.cat corrections
+	Jan Hubicka	(hubicka@paru.cas.cz) 
+	                - Zooming routines, ugly interface,
+			  palettes,drivers, autopilot, filters,
+			  documentation, tutorials, maitainer etc...
+	Jens Kilian	(jjk@acm.org)
+			- BeOS driver, deutsch.cat
+	Thomas A. K. Kjaer (takjaer@imv.aau.dk)
+			- OS/2 ports (320x200 graphics and AA-lib)
+	Thomas Marsh
+	                - First zoomer, formulas, planes,
+		          X11 driver, inversions, many ideas
+        David Meleedy   - Grammatical and spelling fixed
+	                  version of xaos.6
+	Jan Olderdissen   (jan@olderdissen.com)
+			- Win32 port
+	Terje Pedersen    (terjepe@login.eunet.no)
+			- Amiga port
+	Cesar Perez	(441906@cepsz.unizar.es)
+			- Spanish catalogs
+	Fabrice Premel    (premelfa@etu.utc.fr)
+			- Periodicity checking
+	Pavel Tzekov      (paveltz@csoft.bg)
+			- Win32 support
+        Charles Vidal
+			- Tcl/Tk interface
+	Tapio K. Vocaldo(taps@rmx.com)
+	                - Macintosh port

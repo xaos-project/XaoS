@@ -1,0 +1,232 @@
+                                    >X a o S<
+
+CREDITS:
+        Original authors of XaoS are Jan Hubicka (hubicka@freesoft.cz)
+	and Thomas Marsh (tmarsh@tivoli.com)
+
+	Many other people contributed to the project as well.
+	Their list is too long to be included here. See doc/AUTHORS
+	in the XaoS distribution.
+
+INTRODUCTION:
+	XaoS is a fast portable real-time interactive fractal zoomer.
+	It displays the Mandelbrot set (among other escape time 
+	fractals) and allows you zoom smoothly into the fractal.  
+	Various coloring modes are provided for both the points inside 
+	and outside the selected set. In addition, switching between 
+	Julia and Mandelbrot fractal types and displaying planes is 
+	provided. The first version was a poorly written Mandelbrot 
+	view by Thomas later modified by Jan to support high frame-rate 
+	zooming. Other additions were later made including autopilot 
+	(for those of you without drivers licenses), palette changing, 
+	PNG saving, and fractal inversion.
+
+SUPPORTED PLATFORMS(for now)
+
+        UNIX LIKE:
+	  X11 (8bpp pseudocolor 8,15,16,24,32 truecolor, StaticGray and 
+	       StaticColor only, supports MItshm and DGA extension of xfree86 servers)
+          SVGAlib       (svgalib 1.2.10 or newer recomended)
+	  AA-lib        (high quality ascii art)
+	  GGI		(General graphics interface)
+
+	OTHER OS:   (with native support):
+
+	  BeOS (R4, both Intel and PowerPC, supports windowed and fullscreen
+	        mode, native user interface, drag&drop, works as translator)
+	  Macintosh (only version 2.1, displays with 8bit support only)
+	  MS-DOS (djgpp/allegro - VESA 3.0/2.0/1.0, VBE/AF
+				8,15,16 and 32 bit depths,
+	                        VGA - 320x200 and X modes, 
+				resolutions 256x256-1200x1600)
+		  AAlib - approx. 50 different text modes for VGA/MDA
+		     including dual monitor support)
+	  OS/2      (320x200, VESA, XFree86 and many text modes)
+	  plan9     (8 1/2 terminals)
+	  Windows   Win32 and directX support, 8, 16, 24 and 32 bpp
+	  	    displays, native user interface
+
+	KNOWN TO WORK ALSO AT:
+
+	  Hurd
+	  Amiga    (256 workbench displays only, using Xlib emulation)
+
+	All platforms with at least ansi-c compatible compiler and text output
+
+REQUIREMENTS:
+	XaoS uses floating point math for its calculations. This may 
+	be slow on some computers. The program was developed on 
+	a Pentium running at 120 MHz, but it can work quite well (20fps)
+	on 486Dx/2. I also received nice letters from users using 
+	XaoS at 386/40 or so. Coprocessor is _REALLY_ required.
+	Faster computer is better so alpha/600MHZ recomended.  
+
+	To compile XaoS you need ANSI compliant compiler with _GOOD_ 
+	optimizations.  Unix version uses configure script. Other 
+	platforms uses different ways.  GNU CC is highly recommended. 
+	Graphics drivers usually have some additional requirements. 
+	(for example xlib for X11, djgpp and allegro for dos port)
+	Also fast malloc/free routines are recomended because they
+	are called quite often (10 times per frame). For full
+	featured XaoS (with image saving code) you also need zlib
+	and libpng.
+
+FEATURES:
+	o Fast smooth interactive realtime zooming. Even on 486!
+	o 11 fractal formulas:
+		Mandelbrot power 2 - Mandelbrot power 6
+		octo, Barnsley, Newton, Phoenix, Magnet
+	o Autopilot
+	o [NEW] nice user interface, native UI for BeOS and Windows
+	o [NEW] context sensitive help
+	o bitmap, 8bpp with palette, fixedcolor, grayscale and
+	  arbitary truecolor (16, 24 or 32bpp) support
+	o Three algorithms for random palettes
+	o Saving to PNG files
+	o Saving/restoring current possition
+	o Animation save/replay
+	o [NEW] rendering of animation sequences, with support for MPEG motion
+	  vector guessing and frame type choice.
+	o Animated tutorials:
+	        Introduction to fractals
+		Features overview
+		[NEW] Math behind fractals
+		Whats new
+	  Supported languages for tutorials:
+	        English
+		Espanhol
+		Deutsch
+		Francais
+		Cesky
+	o 10 outcoloring modes + 10 incoloring modes
+	o 10 true-color coloring modes
+	o Boundary trace and solid guessing algorithms for fast image
+	  claculation
+	o Periodicity checking
+	o Unrolled calculation loops
+	o Realtime image rotation
+	o More than 50 examples
+	o An AA driver that provides high quality ascii art
+	  rendering at many platforms
+	  (see AA-project homepage at http://www.ta.jcu.cz/aa)
+	o both Mandelbrot and Julia forms of fractals
+	o fast julia preview (now for all formulas)
+	o special image stretching algorithm for fast zooming
+	  now reeaches 150 FPS on pentium 130 in fullscreen
+	  320x200 mode
+	o many supported platforms including text mode drivers
+	o zoom up to 64051194700380384 times
+	o unzooms more than 1267966761981568116729735090176 times
+	o Color cycling
+	o Dynamic resolution (Now really improved)
+	o Fast julia browsing mode
+	o Supports non-standard monitor sizes
+	o SMP support
+	   o POSIX threads API
+	   o plan9
+	   o BeOS
+	o post caluclation filters:
+	   o Motion blur
+	   o Random dot stereograms in animation
+	   o Interlace filter
+	   o Two edge detection filters
+	   o Starfield generator
+	   o Emboss
+	   o Palette emulation filter
+	   o [NEW] Antialiasing
+	o Dithering on devices w/o user defined palette
+	
+
+FTP:
+	XaoS comes in various files:
+	XaoS-3.1.tar.gz		sources
+	XaoS*.rpm		Red-hat packages
+	XaoS*.deb		Debian packages
+	xaos31s.zip		Sources in zip format for DOS users
+	xaos31b.zip		.exe file for DOS
+	xaos31-BeOS-R4I.zip	BeOS R4 package for intel
+	xaos31-BeOS-R4PPC.zip	BeOS R4 package for intel
+	XaoS31-OS2.zip		.exe file for OS/2
+	Macxaos_2.2.sea.hqx     Macintosh distribution
+	xaos31.lzh		Amiga binarry. Note that this
+				file is uploaded only to aminet.
+
+	All can be found at following site:
+	ftp.ta.jcu.cz	/pub/linux/hubicka/xaos
+
+	UNIX version:
+	sunsite.unc.edu /pub/Linux/Incoming (will be moved somewhere)
+	tsx-11.mit.edu	now in /incoming..will be placed into 
+	                /pub/linux/binaries/usr.bin or
+		        /pub/linux/sources/usr.bin
+	ftp.x.org	/contrib/graphics
+
+	MS-DOS version:
+	ftp.simtel.net  /pub/simtelnet/msdos/graphics
+
+HOME-PAGE:
+        There are currently two different pages about XaoS. The orriginal
+	one at:          http://www.paru.cas.cz/~hubicka/XaoS/
+        and the new one: http://www.gnu.org/XaoS
+
+	U.S mirrors of homepage are not maitained anymore.
+
+MAILING-LIST:
+	XaoS now have following mailing lists at 
+	majordomo@horac.ta.jcu.cz
+
+	xaos
+	  this list is for general xaos discusion 
+	  (ideas, questions, bugreports..)
+	xaos-announce
+	  keeps you informed about new versions
+	xaos-devel
+	  you want to become XaoS developer? Subscribe here and
+	  let us know about you! You will be welcomed.
+	To subscribe send following message to 
+	majordomo@horac.ta.jcu.cz:
+
+	subscribe [list_name]
+INSTALL:
+	Installation methods are described in the file "INSTALL".
+
+USAGE:
+	Since version 2.0 XaoS have lots of command line options. 
+	They depend on its configuration, available drivers etc.
+	See xaos -h for full help. Usually more than one driver is
+	available. XaoS after startup tries to auto-detect best one.
+	For example in GNU/Linux case tests driver in following order:
+	  SVGAlib
+	  X11
+	  AA
+	  GGI
+	  curses
+	If you want to force text display instead of graphics you may
+	use -driver curses. Use xaos -list for list of all available
+	drivers.
+
+	Once XaoS started, you may see animated tutorial by pressing 'H'
+	twice or read help (by pressing 'H' once).
+
+THANKS TO:
+	Unknown Samorai from Brazil
+		- for $20 (Your email don't work)
+	Stanislav "XaoS" Mikes
+		- for the name of our program
+	Borislav Deianov
+		- for sharing ideas
+	Isaac Newton
+		- for discovering his method
+	Benoit B. Mandelbrot
+		- for ordering the Julia sets
+	Richard M. Stallman
+		- for GNU
+	Linus Torvalds
+		- for the best kernel
+	Tim Wegner & Bert Tyler
+		- for Fractint
+	Darryl House
+		- for making Fractint's code readable
+
+NO THANKS TO:
+	Bill Gates

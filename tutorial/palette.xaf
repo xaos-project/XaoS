@@ -1,0 +1,5 @@
+(load "head.xhf")
+(clearscreen)
+(message "pal")
+(usleep 4000000)
+(load "palette.xhf")

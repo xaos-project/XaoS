@@ -1,0 +1,856 @@
+AC_INIT(src/engine/zoom.c)
+POSTCOMPILE=""
+AC_CONFIG_HEADER(src/include/aconfig.h)
+AC_CANONICAL_SYSTEM
+CCOPTS="$CFLAGS"
+CCOPTS1="$CFLAGS1"
+CXXFLAGS1="$CXXFLAGS"
+AC_PROG_CC
+AC_PROG_GCC_TRADITIONAL
+
+dnl
+dnl drivers to test (if available)
+dnl
+
+use_asm=no
+x11_linked=no
+x_driver_test=yes
+dga_driver_test=yes
+ggi_driver_test=yes
+aa_driver_test=yes
+vga_driver_test=yes
+win32_driver_test=yes
+BeOS_driver_test=yes
+long_double=test
+pthread=no
+
+dnl
+dnl Long double is a way to archieve deeper zooms. It is very fast
+dnl at intel processors familly but seems to be very slow at almost
+dnl all other platforms. This switch tries to determine whether long_double
+dnl is optimal
+dnl
+AC_ARG_WITH(long-double,
+        [  --with-long-double=yes/no    Used to enable/disable usage of long double],[
+	if test x$withval = xyes; then
+	  long_double=yes
+	fi
+	if test x$withval = xno; then
+	  long_double=no
+	fi
+])
+AC_ARG_WITH(i386asm,
+        [  --with-i386asm=yes/no    Used to enable/disable usage of optimized asm routines],[
+	if test x$withval = xyes; then
+	  use_asm=yes
+	fi
+	if test x$withval = xno; then
+	  use_asm=no
+	fi
+])
+AC_ARG_WITH(pthread,
+        [  --with-pthread=yes          Used to enable SMP support (experimental)],[
+	if test x$withval = xyes; then
+	  pthread=test
+	fi
+	if test x$withval = xno; then
+	  pthread=no
+	fi
+])
+
+AC_DEFUN(AC_PROG_CC_M,
+[AC_CACHE_CHECK(whether ${CC-cc} accepts -m$1, ac_cv_prog_cc_m$1,
+[echo 'void f(){}' > conftest.c
+if test -z "`${CC-cc} -m$1 -c conftest.c 2>&1`"; then
+    ac_cv_prog_cc_m$1=yes
+    else
+        ac_cv_prog_cc_m$1=no
+    fi
+	rm -f conftest*
+])])
+AC_DEFUN(PROG_GCC_NO_IEEE_FP,
+[AC_CACHE_CHECK(whether ${CC-cc} have bugfree -mno-ieee-fp, ac_mno_ieee_fp,
+[echo 'void f(){ 
+#if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 93) 
+#error you compiler is buggy heh! 
+/* Only latest 2.93.x versions of egcs was bugfree, but I can''t check it 
+here. This version were development, so hope they are dead now. */ 
+#endif 
+}' > conftest.c
+if test -z "`${CC-cc} -mno-ieee-fp -c conftest.c 2>&1`"; then
+    ac_mno_ieee_fp=yes
+    CCOPTS1="$CCOPTS1 -mno-ieee-fp"
+    CCOPTS="$CCOPTS -mno-ieee-fp"
+    else
+        ac_mno_ieee_fp=no
+    fi
+	rm -f conftest*
+])])
+
+AC_DEFUN(PROG_CC_SWITCH1,
+[AC_CACHE_CHECK(whether ${CC-cc} accepts -$1, ac_$2,
+[echo 'void f(){}' > conftest.c
+if test -z "`${CC-cc} -$1 -c conftest.c 2>&1`"; then
+    eval "ac_$2=yes"
+    CCOPTS1="$CCOPTS1 -$1"
+    else
+        eval "ac_$2=no"
+    fi
+	rm -f conftest*
+])])
+AC_DEFUN(PROG_CC_SWITCH2,
+[AC_CACHE_CHECK(whether ${CC-cc} accepts -$1, ac_$2,
+[echo 'void f(){}' > conftest.c
+if test -z "`${CC-cc} -$1 -c conftest.c 2>&1`"; then
+    eval "ac_$2=yes"
+    CCOPTS1="$CCOPTS1 -$1"
+    CCOPTS="$CCOPTS -$1"
+    else
+        eval "ac_$2=no"
+    fi
+	rm -f conftest*
+])])
+AC_DEFUN(PROG_CC_SWITCH,
+[AC_CACHE_CHECK(whether ${CC-cc} accepts -$1, ac_$2,
+[echo 'void f(){}' > conftest.c
+if test -z "`${CC-cc} -$1 -c conftest.c 2>&1`"; then
+    eval "ac_$2=yes"
+    CCOPTS="$CCOPTS -$1"
+    else
+        eval "ac_$2=no"
+    fi
+	rm -f conftest*
+])])
+AC_DEFUN(PROG_GCC_Os,
+[AC_CACHE_CHECK(whether ${CC-cc} accepts -Os, ac_Os,
+[echo 'void f(){}' > conftest.c
+if test -z "`${CC-cc} -Os -c conftest.c 2>&1`"; then
+    ac_Os=yes
+    CCOPTS="$CCOPTS -$1"
+    else
+        ac_Os=no
+    fi
+	rm -f conftest*
+])])
+
+
+
+if test x$long_double = xtest; then
+case $target_cpu in
+i?86*) long_double=yes
+           mflag=486
+	   case $target_cpu in
+	   i386*)
+	    mmflag="-m386"
+	    ;;
+	   i486*)
+	    mmflag="-m486"
+	    ;;
+	   i586*)
+	    AC_PROG_CC_M(pentium)
+	    if test $ac_cv_prog_cc_mpentium = yes; then
+	      mmflag="-mpentium"
+	    else
+	    AC_PROG_CC_M(586)
+	    if test $ac_cv_prog_cc_m586 = yes; then
+	      mmflag="-m586"
+	    else
+	    mmflag="-m486"
+	    fi
+	    fi
+	    ;;
+	   i?86*)
+	    AC_PROG_CC_M(pentiumpro)
+	    if test $ac_cv_prog_cc_mpentiumpro = yes; then
+	      mmflag="-mpentiumpro"
+	    else
+	    AC_PROG_CC_M(686)
+	    if test $ac_cv_prog_cc_m686 = yes; then
+	      mmflag="-m686"
+	    else
+	    mmflag="-m486"
+	    fi
+	    fi
+	   ;;
+	   esac
+	   ;;
+unknown)
+           long_double=yes
+	   ;;
+esac
+fi
+
+AC_PROG_MAKE_SET
+AC_PROG_RANLIB
+
+dnl CFLAGS="-O"
+dnl Checks for programs.
+
+STICKY=''
+
+use_cc_g_flag=no
+DRIVERDIRS=""
+DRIVERLIBS="lib/libui.a lib/libui-hlp.a lib/libengine.a lib/libutil.a lib/libfilter.a"
+CFLAGS="$CCOPTS"
+AC_PROG_INSTALL
+dnl AC_HEADER_STDC
+
+AC_ARG_WITH(x11-driver,
+        [  --with-x11-driver=no    Used to disable x11 driver],[
+	if test x$withval = xno; then
+	  x_driver_test=no
+	fi
+])
+AC_ARG_WITH(dga-driver,
+        [  --with-dga-driver=no    Used to disable DGA driver],[
+	if test x$withval = xno; then
+	  dga_driver_test=no
+	fi
+])
+AC_ARG_WITH(ggi-driver,
+        [  --with-ggi-driver=no    Used to disable GGI driver],[
+	if test x$withval = xno; then
+	  ggi_driver_test=no
+	fi
+])
+AC_ARG_WITH(svga-driver,
+        [  --with-svga-driver=no   Used to disable svga driver],[
+	if test x$withval = xno; then
+	  vga_driver_test=no
+	fi
+])
+AC_ARG_WITH(win32-driver,
+        [  --with-win32-driver=no   Used to disable Win32 driver],[
+	if test x$withval = xno; then
+	  win32_driver_test=no
+	fi
+])
+AC_ARG_WITH(BeOS-driver,
+        [  --with-BeOS-driver=no   Used to disable BeOS driver],[
+	if test x$withval = xno; then
+	  BeOS_driver_test=no
+	fi
+])
+AC_ARG_WITH(aa-driver,
+        [  --with-aa-driver=no     Used to disable aa-lib driver],[
+	if test x$withval = xno; then
+	  aa_driver_test=no
+	fi
+])
+
+if test  "$dga_driver_test" = yes -o "$x_driver_test" = yes -o "$aa_driver_test" = yes; then
+AC_PATH_XTRA
+fi
+
+dnl
+dnl This part supplies reasonable defaults for CFLAGS, if they weren't
+dnl specified by ''CFLAGS=flags ./configure''
+dnl
+cc_uses_g=yes
+if test x$GCC = xyes; then
+    if test x$ac_cv_prog_gcc_g = xyes; then
+	:
+    else
+	cc_uses_g=no
+    fi
+fi
+
+if test "x$CCOPTS" = x; then
+    if test x$GCC = xyes; then
+        PROG_GCC_Os
+        if test x$mflag = x486; then
+            CCOPTS="-D__OPTIMIZE__ -Wall -Wtraditional -Wundef -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align  -Wwrite-strings -Wsign-compare -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs $mmflag -fstrength-reduce -ffast-math -fomit-frame-pointer -pipe"
+            PROG_CC_SWITCH(fno-exceptions,exceptions)
+	    CCOPTS1="$CCOPTS -O6 -funroll-loops"
+	    if test x$use_cc_g_flag = xyes; then
+		if test $cc_uses_g = yes; then
+		    CCOPTS='-m486 -g -O'
+		fi
+	    fi
+	else
+            CCOPTS='-Wall -fstrength-reduce -ffast-math -pipe'
+            PROG_CC_SWITCH(fno-exceptions,exceptions)
+            CCOPTS1='-O6 -Wall -fstrength-reduce -ffast-math -funroll-loops -pipe'
+	    if test x$use_cc_g_flag = xyes; then
+		if test $cc_uses_g = yes; then
+		    CCOPTS='-g -O'
+		fi
+	    fi
+	fi
+        if test x$ac_Os = xyes; then
+	    CCOPTS="$CCOPTS -Os"
+	else
+	    CCOPTS="$CCOPTS -O2"
+        fi
+        #PROG_CC_SWITCH1(fmove-all-movables,movables)
+        PROG_CC_SWITCH1(frerun-loop-opt,loopopt)
+        PROG_CC_SWITCH2(fstrict-aliasing,aliasopt)
+        PROG_CC_SWITCH2(malign-double,alignopt)
+	PROG_GCC_NO_IEEE_FP
+    else
+	if test x$use_cc_g_flag = xyes; then
+	    CCOPTS="$CFLAGS"
+	else
+	    CCOPTS=
+            case $target in
+            m68k-hp-hpux8.00)
+             CCOPTS="-Aa -D_INCLUDE_POSIX_SOURCE -D_INCLUDE_HPUX_SOURCE -D_INCLUDE_XOPEN_SOURCE +O3"
+             ;;
+            *) 
+	     PROG_CC_SWITCH(O,optimizations)
+	     ;;
+            esac
+	fi
+    fi
+fi
+
+CFLAGS="$CCOPTS"
+if test "$CCOPTS1" = "" ; then
+  CCOPTS1="$CCOPTS"
+fi
+CFLAGS1="$CCOPTS1"
+
+
+
+search_ncurses=true
+
+ASMOBJS=""
+CFLAGS=${CFLAGS--O}
+CFLAGS1=${CFLAGS1--O}
+LDFLAGS=${LDFLAGS--O}
+if test x$use_asm = xyes; then
+if test x$GCC = xyes; then
+case $target_cpu in
+i?86) CFLAGS="$CFLAGS -DUSE_i386ASM"
+     CFLAGS1="$CFLAGS1 -DUSE_i386ASM"
+     ASMOBJS="i386asm.o"
+     ;;
+esac
+fi
+fi
+if test  "$win32_driver_test" = yes; then
+           win32_driver=no
+	   case $target_os in
+	    *cygwin*) win32_driver=yes
+	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion"
+	                CFLAGS="$CFLAGS -mno-cygwin -mwindows"
+	                CFLAGS1="$CFLAGS1 -mno-cygwin -mwindows"
+			;;
+	   esac
+fi
+if test  "$BeOS_driver_test" = yes; then
+           AC_CHECK_LIB(be,be_app)
+           if test "x$ac_cv_lib_be_be_app" = xyes; then
+	      AC_PROG_CXX
+	      LIBS="$LIBS -lgame -lmedia -ltracker -ltranslation -Xlinker -soname=_APP_"
+              #PROG_CC_SWITCH2(Wno-multichar,nowarnopt1)
+              #PROG_CC_SWITCH2(Wno-ctor-dtor-privacy,nowarnopt2)
+	      if test "$CXXFLAGS1" == "" ; then
+                if test x$GCC = xyes; then
+		  CXXFLAGS="$CFLAGS"
+		  CXXFLAGS="$CXXFLAGS -Wno-multichar -Wno-ctor-dtor-privacy"
+		fi
+	      fi
+	      POSTCOMPILE="strip ../bin/xaos ; xres -o ../bin/xaos ui/ui-drv/BeOS/XaoS.rsrc ; mimeset -f ../bin/xaos"
+              BeOS_driver=yes
+	   else
+              BeOS_driver=no
+	   fi
+fi
+
+if test x$pthread = xtest; then
+  AC_CHECK_FUNCS(pthread_create)
+  if test "x$ac_cv_func_pthread_create" = xyes; then
+    AC_DEFINE(USE_PTHREAD)
+    CFLAGS="$CFLAGS -D_REENTRANT"
+    CFLAGS1="$CFLAGS1 -D_REENTRANT"
+    AC_CHECK_FUNCS(pthread_sighandler)
+  else
+  AC_CHECK_LIB(pthread,pthread_create)
+  if test "x$ac_cv_lib_pthread_pthread_create" = xyes; then
+    AC_DEFINE(USE_PTHREAD)
+    CFLAGS="$CFLAGS -D_REENTRANT"
+    CFLAGS1="$CFLAGS1 -D_REENTRANT"
+    AC_CHECK_FUNCS(pthread_sighandler)
+  else
+    echo "No pthread library available! Can not compile threaded version"
+    exit
+  fi
+  fi
+fi
+
+AC_DEFUN(AC_USE_SUNOS_CURSES, [
+	search_ncurses=false
+	screen_manager="SunOS 4.x /usr/5include curses"
+	AC_MSG_RESULT(Using SunOS 4.x /usr/5include curses)
+	AC_DEFINE(SUNOS_CURSES)
+	AC_DEFINE(NO_COLOR_SUPPORT)
+	AC_DEFINE(USE_SYSV_CURSES)
+	CFLAGS="$CFLAGS -I/usr/5include"
+	AC_MSG_RESULT(Please note that some screen refreshs may fail)
+	AC_WARN(Reconsider using Slang)
+])
+
+AC_DEFUN(AC_AALIB, [
+    if $search_aalib
+    then
+        if test -f $1/aalib.h
+        then
+            LIBS1="$LIBS"
+            if test "x$no_x" = x; then 
+	      LIBS="$LIBS $X_EXTRA_LIBS $X_LIBS -lX11"
+	    fi
+            LIBS="$LIBS $2"
+            unset ac_cv_lib_aa_aa_init
+            AC_CHECK_LIB(aa, aa_init)
+            if test "x$ac_cv_lib_aa_aa_init" = xyes; then
+              AC_MSG_RESULT(Found aalib on $1/aalib.h)
+              #LIBS="$LIBS $2"
+	      x11_linked=yes
+              CFLAGS="$CFLAGS $3"
+              search_aalib=false
+              aa_driver=true
+            else
+             unset ac_cv_lib_aa_aa_init
+             LIBS="$LIBS1"
+            fi
+        fi
+    fi
+])
+
+AC_DEFUN(AC_USE_OSF1_CURSES, [
+       AC_CHECK_LIB(curses, initscr)
+       if test "x$ac_cv_lib_curses_initscr" = xyes; then 
+       AC_MSG_RESULT(Using OSF1 curses)
+       search_ncurses=false
+       screen_manager="OSF1 curses"
+       AC_DEFINE(NO_COLOR_SUPPORT)
+       AC_DEFINE(USE_SYSV_CURSES)
+       fi
+])
+
+AC_DEFUN(AC_USE_SYSV_CURSES, [
+        AC_CHECK_LIB(curses, initscr)
+        if test "x$ac_cv_lib_curses_initscr" = xyes; then 
+	AC_MSG_RESULT(Using SysV curses)
+	AC_DEFINE(USE_SYSV_CURSES)
+	search_ncurses=false
+	screen_manager="SysV/curses"
+	fi
+])
+
+AC_ARG_WITH(sunos-curses,
+	[  --with-sunos-curses     Used to force SunOS 4.x curses],[
+	if test x$withval = xyes; then
+		AC_USE_SUNOS_CURSES
+	fi
+])
+
+AC_ARG_WITH(osf1-curses,
+	[  --with-osf1-curses	  Used to force OSF/1 curses],[
+	if test x$withval = xyes; then
+		AC_USE_OSF1_CURSES
+	fi
+])
+
+AC_ARG_WITH(vcurses,
+	[  --with-vcurses[=incdir] Used to force SysV curses],
+	if test x$withval = xyes; then
+		CFLAGS="$CFLAGS"
+        else
+		CFLAGS="$CFLAGS -I$withval"
+	fi
+	AC_USE_SYSV_CURSES
+)
+        	
+AC_ARG_WITH(ncurses,
+	[  --with-ncurses[=base-dir] Compile with ncurses/locate base dir],
+	if test x$withval = xyes
+	then
+		search_ncurses=true
+	else
+		LIBS="$LIBS -L$withval/lib -lncurses"
+		CFLAGS="$CFLAGS -I$withval/include"
+		search_ncurses=false
+		screen_manager="ncurses"
+		AC_DEFINE(USE_NCURSES)
+	fi
+)
+
+
+dnl
+dnl Parameters: directory filename LIBS_append CFLAGS_append nicename
+dnl
+AC_DEFUN(AC_NCURSES, [
+    if $search_ncurses
+    then
+        if test -f $1/$2
+	then
+	    LIBS1="$LIBS"
+ 	    LIBS="$LIBS $3"
+            AC_CHECK_LIB(ncurses, initscr)
+            if test "x$ac_cv_lib_ncurses_initscr" = xyes; then 
+	      AC_MSG_RESULT(Found ncurses on $1/$2)
+ 	      LIBS="$LIBS $3"
+	      CFLAGS="$CFLAGS $4"
+	      search_ncurses=false
+	      screen_manager=$5
+	      AC_DEFINE(USE_NCURSES)
+	    else
+             unset ac_cv_lib_ncurses_initscr
+	     LIBS="$LIBS1"
+	    fi
+	fi
+    fi
+])
+
+dnl
+dnl Parameters: directory filename LIBS_append CFLAGS_append nicename
+dnl
+AC_DEFUN(AC_CURSES, [
+    if $search_ncurses
+    then
+        if test -f $1/$2
+	then
+	    LIBS1="$LIBS"
+ 	    LIBS="$LIBS $3"
+            AC_CHECK_LIB(curses, initscr)
+            if test "x$ac_cv_lib_curses_initscr" = xyes; then 
+	      AC_MSG_RESULT(Found generic curses on $1/$2)
+	      CFLAGS="$CFLAGS $4"
+	      search_ncurses=false
+	      screen_manager=$5
+	      AC_DEFINE(USE_CURSES)
+	    else
+             unset ac_cv_lib_curses_initscr
+	     LIBS="$LIBS1"
+	    fi
+	fi
+    fi
+])
+
+if test "$aa_driver_test" = yes; then
+    AC_CHECKING("location of curses")
+    AC_CHECK_LIB(gpm, Gpm_Repeat)
+    dnl Replace `main' with a function in -lm:
+    AC_CHECK_LIB(slang, SLsmg_init_smg)
+
+    AC_NCURSES(/usr/include, ncurses.h, , -I/usr/include/ncurses , "ncurses on /usr/include")
+    AC_NCURSES(/usr/include/ncurses, ncurses.h, , -I/usr/include/ncurses, "ncurses on /usr/include/ncurses")
+    AC_NCURSES(/usr/local/include, ncurses.h, ,-L/usr/local/lib, -I/usr/local/include, "ncurses on /usr/local")
+    AC_NCURSES(/usr/local/include/ncurses, ncurses.h, -L/usr/local/lib -L/usr/local/lib/ncurses, -I/usr/local/include/ncurses, "ncurses on /usr/local/include/ncurses")
+
+    AC_NCURSES(/usr/local/include/ncurses, curses.h, -L/usr/local/lib, -I/usr/local/include/ncurses -DRENAMED_NCURSES, "renamed ncurses on /usr/local/.../ncurses")
+
+    AC_NCURSES(/usr/include/ncurses, curses.h, , -I/usr/include/ncurses -DRENAMED_NCURSES, "renamed ncurses on /usr/include/ncurses")
+    AC_CURSES(/usr/include, curses.h, , , "curses on /usr/include")
+
+    dnl
+    dnl We couldn't find ncurses, try SysV curses
+    dnl
+    if $search_ncurses 
+    then
+        AC_EGREP_HEADER(init_color, /usr/include/curses.h,
+	    AC_USE_SYSV_CURSES)
+    fi
+
+    dnl
+    dnl Try SunOS 4.x /usr/5{lib,include} ncurses
+    dnl The flags SUNOS_CURSES, USE_BSD_CURSES and BUGGY_CURSES
+    dnl should be replaced by a more fine grained selection routine
+    dnl
+    if $search_ncurses
+    then
+	if test -f /usr/5include/curses.h
+	then
+	    AC_USE_SUNOS_CURSES
+        fi
+    fi
+
+    search_aalib=true;
+    if test "x$no_x" = x; then
+       LIBS="$LIBS $X_EXTRA_LIBS $X_LIBS"
+       CFLAGS="$CFLAGS $X_CFLAGS"
+    fi
+    AC_AALIB(/usr/include, , )
+    AC_AALIB(/usr/local/include, -L/usr/local/lib, -I/usr/local/include)
+    for name in ../aalib-*.*
+    do
+      AC_AALIB($name,"-L$name","-I$name")
+    done
+    if $search_aalib
+    then
+      aa_driver=false
+    else
+      aa_driver=true
+    fi
+fi
+
+
+if test  "$vga_driver_test" = yes; then
+AC_CHECK_LIB(vga, vga_hasmode)
+AC_CHECK_LIB(vgagl, gl_write)
+fi
+
+
+dnl Checks for header files.
+
+AC_CHECK_HEADERS(limits.h sys/time.h unistd.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+if test "x$long_double" = xyes; then
+AC_C_LONG_DOUBLE
+else
+echo Long double disabled, since it should be too slow at this CPU
+fi
+AC_HEADER_TIME
+AC_TYPE_SIGNAL
+test "x$prefix" = xNONE && prefix=$ac_default_prefix
+eval datadir2=$datadir
+AC_DEFINE_UNQUOTED(DATAPATH,"${datadir2}/XaoS")
+
+AC_CHECK_SIZEOF(short)
+AC_CHECK_SIZEOF(int)
+AC_CHECK_SIZEOF(long)
+
+dnl Checks for library functions.
+save_code=yes
+AC_CHECK_LIB(m, pow)
+AC_CHECK_LIB(z, inflate)
+if test x"$ac_cv_lib_z_inflate" = xno; then
+ AC_CHECK_LIB(gz, inflate)
+ if test x"$ac_cv_lib_gz_inflate" = xno; then
+  save_code=no
+ fi
+fi
+AC_CHECK_LIB(png, png_create_info_struct)
+if test x"$ac_cv_lib_png_png_create_info_struct" = xno; then
+  save_code=no
+fi
+if test "$save_code" = yes; then
+  AC_DEFINE(USE_PNG)
+fi
+AC_FUNC_ALLOCA
+AC_TYPE_SIGNAL
+AC_CHECK_FUNCS(gettimeofday usleep select setitimer ftime finite fabsl _fabsl __fabsl)
+
+if test  "$x_driver_test" = yes; then
+dnl X checks
+if test "x$no_x" = x; then 
+  AC_CHECK_HEADER(sys/ipc.h, AC_DEFINE(HAVE_IPC_H), no_sys_ipc=yes)
+  AC_CHECK_HEADER(sys/shm.h, AC_DEFINE(HAVE_IPC_H), no_sys_shm=yes)
+
+  AC_MSG_CHECKING(X11/extensions/XShm.h)
+  if eval "test -f $x_includes/X11/extensions/XShm.h"; then
+    AC_MSG_RESULT(yes)
+    AC_DEFINE(HAVE_MITSHM_H)
+  else
+    AC_MSG_RESULT(no)
+    no_xshm=yes
+  fi
+
+  dnl AC_CHECK_LIB(Xext,XShmEventBase,LIBS="$LIBS -lXext", no_ext_lib=yes, $X_LIBS)
+  AC_CHECK_LIB(Xext,XShmAttach,LIBS="$LIBS -lXext", no_ext_lib=yes, $X_LIBS )
+
+fi
+fi
+if test  "$dga_driver_test" = yes; then
+  AC_CHECK_LIB(Xxf86dga,XF86DGAQueryVersion,LIBS="$LIBS -lXxf86dga", dga_driver=false, $LIBS )
+  AC_CHECK_LIB(Xxf86vm,XF86VidModeGetModeLine,LIBS="$LIBS -lXxf86vm", dga_driver=false, $LIBS )
+fi
+
+if test  "$ggi_driver_test" = yes; then
+  ggi_driver=true
+  AC_CHECK_LIB(ggi,ggiInit,LIBS="$LIBS -lggi", ggi_driver=false, $LIBS )
+fi
+echo "------------------------------------------------------------"
+echo "Avaiable drivers:"
+drivers=no
+if test "$aa_driver_test" = yes; then
+if test "x$aa_driver" = xtrue; then
+  drivers=yes
+  AC_DEFINE(AA_DRIVER)
+  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/aa"
+  DRIVERLIBS="$DRIVERLIBS lib/libuiaa.a"
+  echo "   aa-lib"
+fi
+fi
+
+if test "$ggi_driver_test" = yes; then
+if test "x$ggi_driver" = xtrue; then
+  drivers=yes
+  AC_DEFINE(GGI_DRIVER)
+  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/ggi"
+  DRIVERLIBS="$DRIVERLIBS lib/libuiggi.a"
+  echo "   ggi-lib"
+fi
+fi
+
+if test  "$x_driver_test" = yes; then
+if test "x$no_x" = x; then 
+  drivers=yes
+  AC_DEFINE(X11_DRIVER)
+  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/x11"
+  DRIVERLIBS="$DRIVERLIBS lib/libuix11.a"
+  if test "x$no_sys_ipc$no_sys_shm y$ac_cv_lib_Xext_XShmAttach" = "x yyes"; then
+    echo "   X11       with MIT shared memory support"
+    AC_DEFINE(MITSHM)
+  else
+    echo "   X11"
+  fi
+  if test "$x11_linked" = no; then 
+    LIBS="$LIBS $X_EXTRA_LIBS $X_LIBS -lX11"
+    x11_linked=yes
+  fi
+  CFLAGS="$CFLAGS $X_CFLAGS"
+  CFLAGS1="$CFLAGS1 $X_CFLAGS"
+fi
+fi
+if test  "$x_driver_test" = yes; then
+if test "x$no_x" = x; then 
+  drivers=yes
+  AC_DEFINE(DGA_DRIVER)
+  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/dga"
+  DRIVERLIBS="$DRIVERLIBS lib/libuidga.a"
+  echo "   DGA"
+  if test "$x11_linked" = no; then 
+    LIBS="$LIBS $X_EXTRA_LIBS $X_LIBS -lX11"
+  fi
+  CFLAGS="$CFLAGS $X_CFLAGS"
+  CFLAGS1="$CFLAGS1 $X_CFLAGS"
+fi
+fi
+if test  "$vga_driver_test" = yes; then
+if test "x$ac_cv_lib_vga_vga_hasmode$ac_cv_lib_vgagl_gl_write" = xyesyes; then
+  drivers=yes
+  AC_DEFINE(SVGA_DRIVER)
+  STICKY='chmod +s $(bindir)/xaos; chown root $(bindir)/xaos; chgrp root $(bindir)/xaos'
+  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/svga"
+  DRIVERLIBS="$DRIVERLIBS lib/libuisvga.a"
+  if test "x$ac_cv_func_pthread_sighandler" = xyes; then 
+  echo "   SVGAlib   with linuxthread hack"
+  else
+  echo "   SVGAlib"
+  fi
+fi
+fi
+if test  "$win32_driver" = yes; then
+  drivers=yes
+  AC_DEFINE(WIN32_DRIVER)
+  #STICKY='chmod +s $(bindir)/xaos; chown root $(bindir)/xaos; chgrp root $(bindir)/xaos'
+  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/win32"
+  DRIVERLIBS="ui/ui-drv/win32/ui_win32.o lib/libuiwin32.a ui/ui-drv/win32/xaos.res $DRIVERLIBS"
+  echo "   Win32"
+fi
+if test  "$BeOS_driver" = yes; then
+  drivers=yes
+  AC_DEFINE(BEOS_DRIVER)
+  #STICKY='chmod +s $(bindir)/xaos; chown root $(bindir)/xaos; chgrp root $(bindir)/xaos'
+  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/BeOS"
+  #DRIVERLIBS="ui/ui-drv/win32/ui_win32.o lib/libuiwin32.a ui/ui-drv/win32/xaos.res $DRIVERLIBS"
+  DRIVERLIBS="ui/ui-drv/BeOS/be_main.o ui/ui-drv/BeOS/ui_be.o lib/libuibe.a $DRIVERLIBS"
+  #ui/ui-drv/win32/xaos.res $DRIVERLIBS"
+  echo "   BeOS"
+fi
+REALTOPDIR=`nolinks=1; pwd`
+AC_SUBST(REALTOPDIR)
+BINPATH="$REALTOPDIR/bin"
+AC_SUBST(BINPATH)
+AR="ar"
+AC_SUBST(AR)
+SRCPATH="$REALTOPDIR/src"
+AC_SUBST(SRCPATH)
+LIBPATH="$SRCPATH/lib"
+AC_SUBST(LIBPATH)
+# does this work if you do make -C <some dir>
+TOPDIR=`nolinks=1;pwd`
+AC_SUBST(TOPDIR)
+
+INCDIR="-I${SRCPATH}/include"
+CFLAGS="$CFLAGS $INCDIR"
+CFLAGS1="$CFLAGS1 $INCDIR"
+CXXFLAGS="$CXXFLAGS $INCDIR"
+AC_SUBST(INCDIR)
+AC_SUBST(DRIVERLIBS)
+AC_SUBST(POSTCOMPILE)
+AC_SUBST(DRIVERDIRS)
+AC_SUBST(STICKY)
+AC_SUBST(CFLAGS1)
+AC_SUBST(CXXFLAGS)
+AC_SUBST(ASMOBJS)
+
+
+
+AC_OUTPUT(Makefile src/Makefile src/engine/Makefile src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile
+          src/ui/ui-drv/aa/Makefile
+          src/ui/ui-drv/ggi/Makefile
+          src/ui/ui-drv/svga/Makefile
+          src/ui/ui-drv/x11/Makefile
+          src/ui/ui-drv/dga/Makefile
+          src/ui/ui-drv/win32/Makefile
+          src/ui/ui-drv/BeOS/Makefile
+	  )
+echo "------------------------------------------------------------"
+echo "Compiler options:"
+echo " CC          : $CC"
+echo " CFLAGS      : $CFLAGS"
+echo " CFLAGS1     : $CFLAGS1"
+echo " CXXFLAGS    : $CXXFLAGS"
+echo " LDLAGS      : $LDLAGS"
+echo " LIBS        : $LIBS"
+echo " X_LIBS        : $X_LIBS"
+echo "------------------------------------------------------------"
+echo " "
+echo "READ CUREFULLY FOLLOWING WARNINGS"
+echo " "
+if test "x$ac_cv_header_stdc" = xno; then
+  AC_MSG_WARN(There is no ansi c headers avaiable. XaoS will have troubles with compiling.)
+  config_problem=yes
+fi
+if test "x$ac_cv_prog_gcc" = xyes; then
+  echo 
+else
+  AC_MSG_WARN(The gnu c compiler is recomended to get best performance. XaoS crashes many compiler so your compiler can cause troubles.)
+fi
+if test "x$ac_cv_c_long_double" = xyes; then
+  if test "x$long_double" = xyes; then
+  AC_MSG_WARN(Long double enabled. This works well for x86 architectures. On other systems this should slow down much. Especially on sun workstations. If XaoS works incredibly slowly try to rebuild it using:
+   configure --with-long-double=no
+   make clean
+   make)
+  fi
+fi
+if test "x$drivers" = xno; then
+  AC_MSG_WARN(There is no driver avaible. XaoS will not start.)
+  config_problem=yes
+fi
+if test "x$config_problem" = xyes; then
+  AC_MSG_WARN(There was a problem with automatic configuration.)
+  AC_MSG_WARN(Read INSTALL file for trouble-shooting tips.)
+fi
+if test x"$ac_cv_lib_z_inflate" = xno; then
+ if test x"$ac_cv_lib_gz_inflate" = xno; then
+  echo "You need zlib to compile XaoS with image saving code."
+  echo "Please download it from:"
+  echo "  XaoS homepage at http://www.paru.cas.cz/~hubicka/XaoS"
+  echo "  or ftp://sunsite.unc.edu/pub/Linux/libs"
+  echo "  or ftp://ftp.uu.net/graphics/png/src/zlib-0.95.tar.gz"
+  echo
+ fi
+fi
+if test x"$ac_cv_lib_png_png_create_info_struct" = xno; then
+  echo "You need pnglib to compile XaoS with image saving code."
+  echo "Please download it from:"
+  echo "  XaoS homepage at http://www.paru.cas.cz/~hubicka/XaoS"
+  echo "  or ftp://sunsite.unc.edu/pub/Linux/libs"
+  echo "  or ftp://ftp.uu.net/graphics/png/src/libpng-0.81.tar.gz"
+  echo
+fi
+echo " "
+echo "END OF WARNINGS"
+echo " "
+echo "In case you have troubles with compiling or running"
+echo "XaoS please read compilers.txt."
+echo "------------------------------------------------------------"

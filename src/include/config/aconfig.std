@@ -1,0 +1,28 @@
+/* aconfig.h.  Generated automatically by configure.  */
+#ifndef ACONFIG_H
+#define DATAPATH "./"
+#define ACONFIG_H
+#define HAVE_LONG_DOUBLE 1
+#define USE_PNG
+#define SIZEOF_INT 4
+#define HAVE_FINITE
+#define USE_STDIO
+#define SIZEOF_SHORT 2
+#define SIZEOF_LONG 4
+/* #undef inline */
+/* #undef _POSIX_SOURCE */
+#define STDC_HEADERS 1
+/* Define if you can safely include both <sys/time.h> and <time.h>.  */
+#define TIME_WITH_SYS_TIME 1
+#define HAVE_GETTIMEOFDAY 1
+#define HAVE_MOUSEMASK 1
+#define HAVE_USLEEP 1
+#define USE_ALLEGRO 1
+#define HAVE_UCLOCK 1
+#define HAVE_TERMATTRS 1
+#define HAVE_SETITIMER 1
+#define HAVE_LIMITS_H 1
+#define HAVE_SYS_TIME_H 1
+#define HAVE_UNISTD_H 1
+#define AA_DRIVER 1
+#endif

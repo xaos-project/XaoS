@@ -1,0 +1,69 @@
+# Generated automatically from Makefile.in by configure.
+CC     = gcc
+CFLAGS = -Wall -O6 -m486 -ffast-math -fomit-frame-pointer -funroll-loops -fforce-mem -fforce-addr -I../include
+CFLAGS2 = -Wall -O6 -m486 -fno-omit-frame-pointer -fstrength-reduce -ffast-math -fforce-mem -fforce-addr -funroll-loops -I../include
+CFLAGSZ = -Wall -m486 -fno-omit-frame-pointer -fstrength-reduce -ffast-math -fforce-mem -fforce-addr -funroll-loops -I../include
+LIBS   = -lm -laa
+LFLAGS = 
+#AR     = @AR@
+RANLIB = ranlib
+
+SRCS = formulas.c \
+       fractal.c  \
+       btrace.c \
+       emboss.c \
+       palettef.c \
+       star.c \
+       dither.c \
+       edge.c \
+       edge2.c \
+       anti.c \
+       rotate.c \
+       zoom.c \
+       blur.c \
+       interlace.c \
+       itersmall.c \
+       stereogram.c \
+       subwindow.c \
+       plane.c \
+       julia.c
+# \
+#       i386.c
+
+OBJS = $(SRCS:.c=.o)
+
+TLIB = ../lib/libengine.a
+
+
+all:	$(TLIB)
+
+$(TLIB):	$(OBJS)
+	rm -f $@
+	$(AR) rc $@ $^
+
+zoom.o: zoom.c
+	$(CC) $< $(CFLAGSZ) -c
+
+btrace.o: btrace.c
+	$(CC) $< $(CFLAGS2) -c
+
+clean:
+	rm -f $(TLIB)
+	rm -f *.o
+	rm -f *.a
+	rm -f *.s
+	rm -f *~
+	rm -f core 
+
+distclean:	clean
+	rm  Makefile
+
+#dep:
+#	rm -f .depend
+#	make .depend
+#
+#.depend:
+#	echo '# Program dependencies' >.depend
+#	gcc -I svgalib $(DEFINES) -MM $(patsubst %.o,%.c,$(OBJS)) >>.depend
+#
+#include .depend

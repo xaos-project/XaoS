@@ -1,0 +1,24 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+#include <aconfig.h>
+#define HOMEDIR
+#define CONFIGFILE ".XaoSrc"
+#define FPOINT_TYPE double
+#define USE_STDIO
+#define M_PI PI
+#define CONST const
+#define INLINE inline
+#define myfabs(x) ((x)>0?(x):-(x))
+#define CONSTF
+#define NORETURN
+#define REGISTERS(n)
+#define  inline
+
+#define exit(i) exits("Unix exit called")
+#define INT_MAX 2127423647
+		/*some better way?*/
+#define assert(x) 0
+#define SFIXEDCOLOR
+#define SMBITMAPS
+#define isnan(x) 0
+#endif				/*CONFIG_H */

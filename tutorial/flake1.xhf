@@ -1,0 +1,8 @@
+(line 'scaled 0.050 0.500 0.350 0.500)
+(morphlastline 'scaled 0.050 0.500 0.350 0.500)
+(line 'scaled 0.350 0.500 0.500 0.500)
+(morphlastline 'scaled 0.350 0.500 0.500 0.240)
+(line 'scaled 0.500 0.500 0.650 0.500)
+(morphlastline 'scaled 0.500 0.240 0.650 0.500)
+(line 'scaled 0.650 0.500 0.950 0.500)
+(morphlastline 'scaled 0.650 0.500 0.950 0.500)

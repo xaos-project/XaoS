@@ -1,0 +1,5 @@
+(load "head.xhf")
+(clearscreen)
+(message "pert0")
+(usleep 4000000)
+(load "pert.xhf")

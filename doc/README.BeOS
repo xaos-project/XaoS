@@ -1,0 +1,27 @@
+BeOS driver version 2.0 for XaoS 3.0
+Copyright (c) 1997  Jens Kilian <jjk@acm.org>
+Copyright (c) 1999  Jan Hubicka <hubicka@paru.cas.cz>
+
+This driver version will work with BeOS R4 (and later, hopefully).
+Some features which are still missing:
+
+- All missing features are implemented now :)
+
+XaoS 3.1 is multithreaded.  By default, the BeOS version uses this feature.
+To run single-threaded, use "xaos -threads 1 ...".
+
+HOW TO COMPILE:
+
+Follow UNIX compiling instruction. In short run:
+sh configure
+make
+
+HOW TO INSTALL:
+Binary XaoS distributions will come with installation script. If you want
+to do installation manually do following steps:
+1) Always keep XaoS executable together with catalogs, tutorials, help and
+   examples directory
+2) enter examples directory and run sh buildhtml on the command line
+   to build HTML version of help
+3) do link of XaoS executable to /system/add-ons/Translators/XaoSTranslator and
+   /system/add-ons/Media/XaoS.media_addon

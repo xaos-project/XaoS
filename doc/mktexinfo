@@ -1,0 +1,13 @@
+set -e
+echo "Converting..."
+awk '/##.*##/ {system("sh ../help/convert "$3" "$4" <../help/xaos.hlp ");};
+     /.*/ {print $0}'  <xaos.geninfo >xaos.texinfo
+makeinfo --no-split xaos.texinfo
+makeinfo --no-split xaosdev.texinfo
+tex xaos.texinfo
+tex xaosdev.texinfo
+texindex xaos.??
+texindex xaosdev.??
+tex xaos.texinfo
+tex xaosdev.texinfo
+rm xaos.aux xaos.cp xaos.fn xaos.ky xaos.log xaos.pg xaos.toc xaos.tp xaos.vr xaosdev.aux xaosdev.cp xaosdev.cps xaosdev.fn xaosdev.fns xaosdev.ilg xaosdev.ind xaosdev.ky xaosdev.kys xaosdev.log xaosdev.pg xaosdev.pgs xaosdev.toc xaosdev.tp xaosdev.tps xaosdev.vr xaosdev.vrs xaos.cps xaos.fns xaos.kys xaos.pgs xaos.tps xaos.vrs 2>/dev/null

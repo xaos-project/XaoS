@@ -1,0 +1,138 @@
+For Unix/X11:
+
+   To compile XaoS you need optimizing ansi compatible C compiler
+   and at least one of the following libraries:
+    o Xlib
+    o SVGAlib
+    o AA-lib 
+    o GGI
+   To compile XaoS with image saving code you also need zlib and
+   pnglib installed. They are available at:
+
+   ftp://ftp.uu.net/graphics/png/src/zlib-0.95.tar.gz
+   ftp://ftp.uu.net/graphics/png/src/libpng-0.81.tar.gz
+
+   AA-lib is a library alowing high quiality ascii-art output
+   from XaoS available at AA-project homepage http://www.ta.jcu.cz/aa)
+
+   XaoS now have configure script so following should work correctly:
+
+        CFLAGS=(your best size optimizing switches)
+        CFLAGS1=(your best speed optimizing switches)
+	export CFLAGS
+
+	   #note that this two steps are not required on pc/Linux
+           #and on all gcc compilers XaoS uses quite good switches.
+           #but this is REQUIRED for other compilers, because XaoS
+           #is coded to be good target for optimizer and NEEDS to
+           #be optimized to work in reasonable speed
+
+	./configure [options...usually not required]
+	make
+	make install
+
+   You may also read compilers.txt, that contain info about various
+   compiler, best optimizing switches and common problems, since XaoS
+   often forces compilers (including gcc) to crash/generate wrong code
+   
+   For better results:
+   Edit config.autoconf to reflect your system. 
+
+   IMPORTANT NOTE:
+   XaoS sould optionally use long double for zooming. It allows
+   deeper zooms with no performance lost at intel platforms. Some
+   other platforms supports long double too, but it is usually
+   emulated so it is incredibly slow. Configure script by default
+   enables long double just at i?86 and unknown processors.
+
+   If you have processor reported as unknown that is non intel and
+   XaoS is incredibly slow, please try:
+   ./configure -with-long-double=no
+   make clean;
+   make
+   to recompile XaoS. Please let me know about this problem, so
+   autodetection should be included into future versions of configure
+   script.
+
+   If you have time to experiment and some non intel-compatible
+   platform, please try:
+   ./configure -with-long-double=yes
+   make clean
+   make
+   And try whether XaoS still works at same speed(framerate is displayed
+   using l key) and let me know in case that XaoS still works at same
+   higher/bit slower(not 100times or so) speed, so I should your platform
+   autodetect in future version of script. I did unsucesfull test at
+   following archiotectures/processors:
+   HP425e - Motorola MC68040
+   HP700 - Parisc
+   SGI
+   SUN
+   But it should change at various processor types, so I don't say
+   that all SGI's or SUNs does not work with long double.
+
+   options available:
+     By default XaoS will try to configure and compile following drivers
+      X11
+      SVGAlib
+      Curses
+     This may cause some problems. To reduce binary file size and/or
+     solve such problems you may disable driver using:
+      --with-x11-driver=no     to disable X11 driver
+      --with-svga-driver=no    to disable SVGAlib driver
+      --with-curses-driver=no  to disable (N)Curses driver
+     There may be problems with configuring bit non standard curses
+     library. You may use following options:
+      --with-sunos-curses     Used to force SunOS 4.x curses
+      --with-osf1-curses	Used to force OSF/1 curses
+      --with-vcurses[=incdir] Used to force SysV curses
+      --with-ncurses[=base-dir] Compile with ncurses/locate base dir
+      --with-x                use the X Window System
+     Also finding X includes should be problem.
+      --x-includes=DIR        X include files are in DIR
+      --x-libraries=DIR       X library files are in DIR
+     For Linux gpm library use:
+      --with-gpm-mouse=base-dir  Specifies the base gpm directory
+     To enable experimental SMP support use:
+      --with-pthread=yes
+     note that it is really untested in version 3.0 since I don't have
+     SMP machine :) (someone who should lend me some?)
+
+     Threaded version works well with aadriver, partially (w/o console
+     switching) with SVGAlib driver and X11 driver needs patched Xlib
+     for threads. I believe it will be normal soon (when glibc will
+     become more popular)
+
+   Note that XaoS is automatically installed with sticky bit enabled when
+   svgadriver is compiled, but it is sticky bit safe since it switches to
+   normal privilegies after drivers are initialized.
+
+
+For Win32:
+   To build XaoS you need CygWin32 compiler b20 or later (a quite good GCC
+   clone for UNIX. See http://sourceware.cygnus.com), directX headers
+   hacked for gcc, pnglib and zlib. The build procedure is similar to UNIX.
+   Do:
+
+   sh configure
+   make
+
+   Everything should be autodetected. If you have installed X11 or GGI
+   libraries, XaoS should build their drivers as well.
+
+For DOS:
+   You need djgpp gnu compiler, allegro graphics, zlib and pnglib
+   Use:
+
+	build.bat
+
+For Mac:
+    Read README.mac for more informations
+For plan9:
+    XaoS comes with mk script because I am unable to write functional
+    mkfile on my reduced system.
+    start mk and wait..
+
+
+You may also get binary distribution.
+For more information browse XaoS homepage

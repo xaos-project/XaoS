@@ -1,0 +1,751 @@
+# Archivo de mensajes requeridos para reproducir los tutoriales
+# de XaoS en Castellano.
+#
+# Copyright (C) 1997 by Jan Hubicka
+#
+# Hay algunas pocas cosas que deberías saber si quieres cambiar
+# o traducir este fichero.
+#
+# El formato de este catálogo es identificador[espacios en blando]
+# "valor"[espacios en blanco]
+#
+# Identifiador es una clave usada por el programa. No la traduzcas. 
+# Traduce sólo el campo valor. Si quires entrecomillar un caracter
+# '"'en el texto, usa '\". Para '\' pon '\\'. No uses '\n'para enter;
+# usa el literal nueva_linea.
+#
+# Si quieres traducir este archivo a otro idioma, por favor, hazmelo
+# saber. Debes traducirlo libremente: no es necesario usar exactamente
+# las mismas frases que aquí, si tienes alguna idea para hacerlo
+# más divertido, interesante o añadir alguna información, hazlo.
+#
+# Puedes usar frases más cortas o más largas, ya que, XaoS calculará
+# automáticamente el tiempo para cada subtitulo.
+#
+# Hazme saber, tambie'n, cualquier sugerencia para mejorar el texto y los
+# tutoriales.
+#
+# El texto del Tutorial ha de caber en una pantalla 320x200. Luego las líneas
+# deben estar por debajo de 40 caracteres. Esto son 40 caracteres:
+#234567890123456789012345678901234567890
+# Y, ¿No es mucho! ¿Ten cuidado!
+# Por favor, comprueba que el nuevo tutorial funciona en 320x200
+
+#########################################################
+#Para el fichero anim.xaf
+anim "Características de XaoS
+
+Ficheros de posición y animaciones"
+
+#########################################################
+#Para el fichero anim.xhf
+
+anim2 "Como probablemente has notado, XaoS
+es capaz de repetir animaciones y
+tutoriales."
+
+anim3 "Deben ser grabados directamente
+desde Xaos,"
+
+languag1 "ya que, los ficheros de posición
+y animación son guardados en un simple
+lenguaje de comandos"
+
+languag2 "(los ficheros de posición 
+son animaciones de un solo frame)."
+
+languag3 "Las animaciones pueden
+ser editadas a mano posteriormente
+para conseguir unos resultados más
+profesionales."
+
+languag4 "Casi todas las animaciones
+de estos tutoriales han sido escritas
+completamente a mano a partir de un
+archivo de posición."
+
+modif1 "Una simple modificación"
+
+modif2 "genera una película que retrocede,"
+modif3 "y este modificación una que se acerca."
+
+newanim "También puedes escribir nuevas 
+animaciones y efectos"
+
+examples "XaoS también tiene muchos
+ficheros de ejemplo, que pueden ser
+cargados aleatoriamente desde el menú
+salvar / guardar."
+
+examples2 "También puedes usar los
+ficheros de posición para cambiar
+coordenadas con otros programas."
+
+examples3 "Los únicos límites son
+tu imaginación y el lenguage
+de comandos descrito en xaos.info."
+
+#########################################################
+#Para el fichero barnsley.xaf
+
+intro4 "Una introducción a los fractales
+
+Capítulo 4-Fórmula de Barnsley"
+
+barnsley1 "Otro fórmula de
+Michael Barnsley"
+
+barnsley2 "genera un estraño fractal."
+
+barnsley3 "No es muy interesante para
+explorar,"
+
+barnsley4 "pero tiene maravillosos julias"
+
+barnsley5 "Es interesante por su estructura
+cristalina,"
+
+barnsley6 "Mejor que la estructura orgánica
+encontrada en otros muchos fractales."
+
+#########################################################
+#Para el fichero filter.xaf
+
+filter "Características de XaoS 
+
+filtros"
+
+#########################################################
+#Para el fichero filter.xhf
+
+filter1 "Filtro es un ejecto que
+se aplica a cada frame tras el
+cálculo del fractal."
+
+filter2 "XaoS implementa los
+siguientes filtros:"
+
+motblur "motion blur,"
+
+edge "2 filtros detectores de bordes"
+
+edge2 "(el primero hace líneas gruesas
+y es útil a resoluciones altas,"
+
+edge3 "el segundo hace líneas
+más delgadas);"
+
+star "filtro star-field,"
+
+interlace "filtro de entrelazado (aumenta la
+velocidad y brinda un efecto similar al
+motion blur en resoluciones altas);"
+
+stereo "filtro RDS (genera estereogramas)"
+
+stereo2 "(si no puedes ver nada en las
+siguientes imagenes y sueles ser capaz
+de ver estereogramas, probablemente 
+tengas un tamaño de pantalla mal 
+configurado--pon 'xaos -help'para más
+información),
+-help' for more information),"
+
+emboss1 "filtro emboss (de repujado)"  #NEW
+
+palettef1 "filtro que emula la paleta
+(permite rotación del color en
+dispositivos truecolor)" #NEW
+
+truecolorf "filtro true color (permite
+generar imagenes true color en
+dispositivos de 8bpp)."
+
+#########################################################
+#Para el fichero fractal.xaf
+
+end "Fin"
+
+fcopyright "La introducción a los fractales
+fue hecha por Jan Hubicka en Julio 1997
+# Add your copyright here if you are translating/correcting this file
+Y traducido al castellano por:
+ Céar Pérez cpt2@geocities.com
+suggestions
+Por favor envía tus ideas,
+sugerencias, agradecimientos, reproches
+e informes de errores a
+
+hubicka@paru.cas.cz
+
+Gracias."
+
+#########################################################
+#Para el fichero incolor.xaf
+
+incolor1 "Normalmente, los puntos dentro
+del conjunto se ponen usando un único
+color solido."
+
+incolor2 "Esto hace los límites del
+conjunto muy visibles, pero las áreas
+dentro del conjunto son muy aburridas."
+
+incolor3 "Para hacerlas un poco más
+interesantes, puedes usar el valor de
+la última orbita para asignar el
+color de los puntos dentro del
+conjunto."
+
+incolor4 "XaoS tiene diez formas
+diferentes de hacerlo. Se denominan
+\"in coloring modes\"."
+
+zmag "zmag
+
+El color se calcula a traves de la
+magnitud de la última órbita."
+
+#########################################################
+#Para el fichero innew.xaf
+
+innew1 "Parecido a decomposition
+
+Este modo funciona como
+la descomposición del color
+en los modos outside coloring"
+
+innew2 "Real / Imag
+
+El color es calculado a partir
+de la parte real de la última
+órbita dividido por la parte 
+imaginaria."
+
+innew3 "Los 6 siguientes modos son
+fórmulas elegidas aleatoriamente,
+o copiadas de otros programas."
+
+#########################################################
+#Para el fichero intro.xaf
+
+fractal "...Fractales..."
+fractal1 "¿Qué es un fractal?"
+
+fractal2 "Definición de Benoit Mandelbrot:
+un fractal es un conjunto en el que
+su dimensión Hausdorff Besicovich
+excede extrictamente la dimensión
+topológica."
+
+fractal3 "¿Todavía en tinieblas?"
+
+fractal4 "No preocuparse.
+Este definición sólo es importante
+si eres un matemático."
+
+fractal5 "Un fracta es, simplemente,
+una figura"
+
+fractal6 "que es construida a partir de 
+piezas"
+
+fractal7 "cada una de las cuales es
+aproximadamente una copia reducida
+del fractal completo."
+
+fractal8 "Este proceso se repite"
+
+fractal9 "para completar el fractal."
+
+facts "Hay muchos hechos sorprendentes
+sobre los fractales:"
+
+fact1 "son independientes de la escala,"
+fact2 "son autosimilares,"
+fact3 "y recuerdan objetos encontrados
+en la naturaleza"
+fact4 "como nubes, montañas,
+o costas."
+fact5 "Hay muchas estructuras 
+matemáticas que son
+fractales,"
+fact6 "como el que ves en la pantalla."
+fact7 "Sin lugar a dudas el fractal
+más famoso es..."
+
+mset "El conjunto Mandelbrot"
+mset1 "Es generado por una fórmula
+muy simple,"
+mset2 "pero es uno de los fractales
+más hermosos."
+mset3 "Puesto que el conjunto Mandelbrot
+es un fractal,"
+mset4 "sus límites contienen"
+mset5 "pequeñas copias del conjunto
+completo."
+mset6 "Esta es la más grande, aprox.
+50 veces más pequeña que el
+conjunto original."
+mset7 "El conjunto Mandelbrot no es
+completamente autosimilar,"
+mset8 "luego cada pequeña copia es
+diferente."
+mset9 "Este es 76000 veces más pequeño
+que el completo."
+mset10 "Copias en las diferentes partes del
+conjunto difieren más."
+
+nat "Los límites no solo contienen
+copias del conjunto,"
+nat1 "sino una verdadera variedad de
+figuras diferentes."
+nat2 "Algunas de ellas son sorprendentemente
+similares a aquellas encontradas en la
+naturaleza:"
+nat3 "puedes ver árboles,"
+nat4 "rios con lagos,"
+nat5 "galaxias,"
+nat6 "y cascadas."
+nat7 "El conjunto Mandelbrot también
+contiene figuras completamente 
+nuevas."
+
+julia "El conjunto Mandelbrot no es el
+único fractal generado por la
+fórmula z=z^2+c."
+julia1 "El otro es..."
+julia2 "el conjunto Julia"
+julia3 "No hay un único conjunto 
+Julia,"
+julia4 "sino una variedad infinita
+de ellos."
+julia5 "Cada uno es construido a partir
+de una \"semilla\","
+julia6 "que es un punto elegido del
+conjunto Mandelbrot."
+julia7 "El conjunto Mandelbrot puede
+considerarse como un mapa de varios
+conjuntos Julia."
+julia8 "Puntos dentro del conjunto
+Mandelbrot corresponden con grandes
+áreas negras conexas,"
+julia9 "mientras que los puntos fuera
+del conjunto Mandelbrot corresponden
+a Julias inconexos."
+julia10 "Los Julias más interesantes
+tienen su semilla en los límites del
+conjunto Mandelbrot."
+
+theme "El tema de un conjunto Julia
+también depende fuertemente de
+la semilla que escojas."
+theme1 "Cuando te aproximas al
+conjunto Mandelbrot, obtendras
+un fractal temáticamente muy similar."
+theme2 "cuando cambias a su correspondiente
+Julia."
+theme3 "y te aproximas de nuevo, descubres"
+theme4 "que estas en un fractal completamete
+diferente."
+theme5 "Los conjuntos Julia pueden parecer
+aburridos puesto que no cambian de tema"
+theme6 "y permanecen fieles a la
+semilla elegida del conjunto Mandelbrot."
+theme7 "Pero si eliges cuidadosamente
+la semilla puedes generar"
+theme8 "preciosas imagenes."
+
+#########################################################
+#Para el fichero keys.xhf
+
+keys "Teclas:
+
+q          - para repeticiñn              
+Espacio    - saltar frame               
+             (puede durar un rato)       
+Izq/Der    - ajuste de la velocidad
+	     de los subtitulos."
+
+#########################################################
+#Para el fichero magnet.xaf
+
+intro7 "Una introducción a los fractaleSAn introduction to fractals
+
+Capítulo 7-Magnet"
+
+magnet "Este no es el conjunto Mandelbrot."
+magnet1 "Este fractal se llama \"magnet\"
+ya que su fórmula viene de la
+física teórica."
+magnet2 "Es derivado del estudio
+de rejillas teóricas en el contexto
+de transformaciones magnéticas."
+
+similiar "Su similitud con el conjunto
+Mandelbrot es interesante debido a que
+es una fórmula del mundo real."
+
+magjulia "Sus conjuntos Julia son
+bastantes inusuales."
+
+#########################################################
+#Para el fichero new.xaf
+
+new "¿Qué hay de nuevo en la
+versión 3.0?"
+speed "1. Mayor velocidad"
+speed1 "Los bucles de los cálculos 
+principales estan \"desenrrollados\"
+y realizan chequeos periódicos."
+speed2 "Las nuevas imagenes son 
+calculadas usando detención
+de límites."
+speed3 "luego el cálculo de nuevas
+imagenes es mucho mñas rápido."
+speed4 "Por ejemplo, cálculo del
+conjunto Mandelbrot en
+1 000 000 iteraciones..."
+speed5 "calculando..."
+speed6 "Terminado."
+speed7 "XaoS tiene una heurística
+que inhabilita automáticamente las
+chequeos periódicos cuando no
+espera que el punto este dentro del
+conjunto (cuando todos alrededor no
+lo están)."
+speed8 "También las principales
+rutinas de zoom han sido optimizadas,
+luego el acercamiento es el doble de
+rápido."
+speed9 "XaoS alcanza 130FPS
+en mi Pentium 130Mhz."
+
+new2 "2. Filtros."
+new3 "3. Nueve modos out-coloring."
+new4 "4. Nuevos modos in-coloring."
+new5 "5. Modos de coloreamiento True-color."
+new6 "6. Guardar y repetir animaciones."
+newend "Y muchas otras mejoras, tal como
+rotación de la imagen, mejor generaciñin
+de la paleta... mira ChangeLog para encontrar
+una completa lista de cambios." #NEW
+
+#########################################################
+#Para le fichero newton.xaf
+
+intro3 "Una introducción a los fractales
+Capítulo 3- El método Newton"
+
+newton "Este fractal es generado por
+una fórmula completamente 
+diferente:"
+newton1 "El método numérico de Newton
+para encontrar las raices de un polinomio
+x^3=1."
+newton2 "Cuenta el número de iteraciones
+requeridas para conseguir la raíz 
+aproximada."
+newton3 "Se pueden ver las tres raices
+como círculos azules."
+newton4 "Las partes más interesantes
+estan donde el punto de inicio es
+equidistante de dos o tres raices."
+newton5 "Este fractal es muy autosimilar
+y no muy interesante para explorar."
+newton6 "Pero XaoS puede generar conjuntos
+similares a los Julias,"
+newton7 "donde el error en la aproximación
+es la se4milla."
+newton8 "Esto hace al fractal Newton más
+interesante."
+
+#########################################################
+#Para el fichero octo.xaf
+intro6 "Una introducción a los fractales
+
+Capítulo 6-Ocoto"
+octo "Octo es un fractal menos conocido."
+octo1 "Lo hemos escogido para XaoS por
+su figura inusual."
+octo2 "XaoS Tambien puede generar
+conjuntos similares a los Julias, de
+una manera similar al Newton."
+
+#########################################################
+#Para el fichero outcolor.xaf
+
+outcolor "Modos out coloring"
+outcolor1 "El conjunto Mandelbrot es
+un aburrido lago negro en mitad
+de la pantalla."
+outcolor2 "Las líneas de color a su
+alrededor son los límites del conjunto."
+outcolor3 "Normalmente el color estsá
+basado en el número de iteraciones
+requeridas para alcanzar el valor de
+liberación \"bail-out\"."
+outcolor4 "Pero hay otras formas de
+hacerlo."
+outcolor5 "XaoS las llama
+modos out-coloring."
+
+iterreal "iter+real
+
+Este modo pinta los límites añadiendo
+la parte real de la última órbitda al
+número de iteraciones."
+iterreal1 "Puedes usarlo para hacer imagenes
+bastante aburridas más interesantes."
+
+iterimag "iter+imag es similar a iter+real."
+iterimag2 "La única diferencia es que
+usa la parte imaginaria de la última 
+órbita."
+
+iprdi "iter+real/imag
+
+Este modo pinta los límites añadiendo
+el número de iteraciones a la parte
+real de la última órbita y
+dividiendolo por la parte imaginaria."
+
+sum "iter+real+imag+real/imag
+
+es la suma de todos los modos previos."
+
+decomp "descomposición binaria
+
+Cuando la parte imaginaria es mayor
+que cero, este modo utiliza el número
+de iteraciones; en otro caso usa el
+máximo número de iteraciones menos
+la descomposición binaria del número
+de iteraciones."
+
+bio "biomorphs
+
+Este modo se llama así ya que
+hace parecer a los fractales
+animales celulares."
+
+#########################################################
+#Para el fichero outnew.xhf
+
+potential "potencial
+
+Este modo da buenos
+resultados en true-color
+para imagenes sin ampliar."
+
+cdecom "descomposición del color"
+cdecom2 "En este modo, el color es calculado
+a partir del ángulo de la última
+órbita."
+cdecom3 "Es similar a la
+descomposición binaria pero
+interpola los colores más
+suavemente."
+cdecom4 "Para el tipo Newton, puede
+ser usado para pintar el conjunto
+basandose en que raíz es encontrada,
+en vez de en el número de iteraciones."
+
+smooth "smooth
+
+El modo Smooth pretende quitar las 
+líneas causadas por iteraciones y
+hacer grados más suaves."
+smooth1 "No funciona en el Newton y
+Magnet ya que tienen atractores finitos."
+smooth2 "Y sólo funciona para true-color y
+displays de muchos colores. Luego, si tienes
+8bpp, necesitarás habilitar el filtro
+true color."
+
+#########################################################
+#Para el fichero outnew.xhf
+
+intro5 "Una introducción a los fractales
+
+Capítulo 5-Phoenix"
+
+phoenix "Este es el conjunto Mandelbrot para
+una fórmula conocida como Phoenix."
+
+phoenix1 "Parece muy diferente a otros fractales
+en XaoS, pero se puede encontrar alguna 
+similitud con el conjunto Mandelbrot."
+
+phoenix2 "el conjunto Phoenix también tiene
+una \"cola\" con pequeñas copias del conjunto,"
+
+phoenix3 "hay todavía una correspondencia de
+\"tema\" entre la versión Mandelbrot y los
+Julias,"
+
+phoenix4 "pero los Julias son muy diferentes."
+
+#########################################################
+#Para el fichero plane.xaf
+
+plane1 "Normalmente, la parte real de
+un punto en el plano complejo es mapeada
+a la coordenada x de la pantalla; y la
+parte imaginaria es mapeada a la
+coordenada y:"
+
+plane2 "XaoS proporciona 6 modos de
+mapeo alternativos"
+plane3 "1/mu
+
+Este es una inversión - áreas desde
+el infinito pasan a 0 y de 0 al infinito.
+Esto te permite ver que le pasa al fractal
+cuando nos alejamos de él infinitamente."
+plane4 "Este el el Mandelbrot normal..."
+plane5 "y este el invertido."
+plane6 "Como puedes ver, el conjunto estaba
+en el medio y ahora esta alrededor.
+La infinita área azul alrededor del
+conjunto es mapeada en un pequeño 
+círclulo alrededor de 0."
+plane7 "Las próximas imágenes serán
+presentadas en modo normal e inverso
+para demostrarte que pasa."
+
+plane8 "1/mu+0.25
+
+Este es otro método invertido,
+pero con un centro de inversión
+diferente."
+plane9 "Ya que el centro de inversión 
+está en el límite del conjunto
+Mandelbrot, puedes ver infinitos límites
+parabólicos."
+plane10 "Tiene un interesante efecto en otros
+fractales, ya que suele romper su simetría."
+
+lambda "El plano lambda procura una vista
+completamente diferente."
+
+ilambda "1/lambda
+
+Esta es una combinación de
+Inversión y el plano lambda."
+
+imlambda "1/(lambda-1)
+
+Esta es una combinación de lambda,
+movimiento e inversión."
+
+imlambda2 "Proporciona una muy interesante
+deformación del conjunto Mandelbrot."
+
+mick "1/(mu-1.40115)
+
+Este es, otra vez, una inversión con el
+centro desplazado. El centro se encuentra 
+ubicado en puntos Feigenbaum - puntos donde
+el comjunto Mandelbrot es autosimilar. Esto
+amplia altamente los detalles alrededor del
+punto."
+
+#########################################################
+#Para el fichero power.xaf
+
+intro2 "Una introducción a los fractales
+
+Capítulo 2-Conjuntos Mandelbrot de potencias
+superiores"
+
+power "z^2+c no es la única
+fórmula que genera fractales."
+power2 "Sólo una pequeña modificación: x^3+c
+genera un fractal similar."
+power3 "Y hay copias completas del conjunto
+principal."
+
+power4 "Fractales similares pueden ser generados
+cambiando ligeramente las fórmulas"
+
+pjulia "y cada uno tiene sus correspondientes
+conjuntos Julia."
+
+#########################################################
+#Para el fichero truecolor.xaf
+
+truecolor "Modos de coloreamiento True-color"
+truecolor1 "Normalmente los fractales son
+coloreados usando una paleta. En el modo true-color,
+la paleta es emulada."
+truecolor2 "La única diferencia es que la paleta
+es mayor y los colores son interpolados suavemente
+en los modos de coloreamiento."
+
+truecolor3 "El modo True-color utiliza
+una técnica completamente diferente.
+Usa varios parámetros para el cálculo"
+truecolor4 "para generar el color exacto - 
+no solo un índice en la paleta."
+
+truecolor5 "Esto posibilita tener 4 valores
+para cada pixel."
+truecolor6 "El modo True color requiere, 
+evidentemente, true color. Luego en dispositivos
+8bpp, necesitarás habilitar el filtro
+true-color."
+
+#########################################################
+#Para el fichero pert.xaf  #NEW (up to end of file)
+
+pert0 "Perturbacion"
+pert1 "Como las fórmulas de los Julia
+utilizan diferentes semillas para generaaar
+varios Julias a partir de una fórmula,"
+pert2 "puedes cambiar el valor de perturbación
+para los conjuntos Mandelbrot."
+pert3 "Esto cambia la posición de inicio
+de la orbitda del valor por defecto 0."
+pert4 "Su valor no afecta al resultado
+del fractal tanto como la semilla lo hace
+en los Juias, pero es útil cuando quires
+hacer el fractal más aleatorio."
+
+##########################################################
+#Para el fichero palette.xaf
+
+pal "Paletas aleatorias"
+pal0 "XaoS no tiene una gran biblioteca
+de paletas predefinidas como otros
+programas, pero genera paletas aleatorias."
+pal1 "Luego puedes mantener pulsada
+'P'hasta que XaoS genere una paleta que te
+guste para tu fractal."
+pal2 "Se utiliza tres algoritmos diferentes:"
+pal3 "el primero hace líneas que van de
+algún color a negro,"
+pal4 "el segundo hace líneas que van de
+algún color a blanco,"
+pal5 "el tercero esta inspirado en pinturas
+cubistas."
+
+###########################################################
+#Para el fichero other.xaf
+
+auto1 "Piloto automático"
+auto2 "Si eres un vago, puedes utilizar
+el piloto automático para permitir
+que XaoS explore un fractal automáticamente."
+fastjulia1 "Modo de visionamiento de Julias
+más veloz"
+fastjulia2 "Este modo te permite varias la
+semilla del Julia."
+fastjulia3 "También es útil como una
+visión previa antes de ampliarlo - debido a 
+la correspondencia temática entre el Julia
+y el punto que elijas,  puedes ver el tema
+aproximado alrededor del punto antes de
+ampliarlo."
+rotation "Rotación de la imagen"
+cycling "Color cíclico"

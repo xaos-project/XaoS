@@ -1,0 +1,73 @@
+include dos.mak
+CFLAGS=$(CFLAGS1)
+
+TLIBS= \
+       lib/libui.a \
+       lib/libui-hlp.a \
+       lib/libengine.a \
+       lib/libutil.a \
+       lib/libfilter.a \
+       lib/libuidos.a \
+       lib/libuiaa.a
+
+DIRS= \
+       engine \
+       filter \
+       ui \
+       ui-hlp \
+       util \
+       ui/ui-drv/dos \
+       ui/ui-drv/aa
+
+PROG= ../bin/xaos
+OBJS = $(SRCS:.c=.o)
+
+include dos.mak
+
+all default:	$(PROG)
+
+../bin:
+	mkdir $@
+
+lib:
+	mkdir $@
+libs:
+	$(MAKE) -f Makefile.dos -C ui all
+	$(MAKE) -f Makefile.dos -C ui-hlp all
+	$(MAKE) -f Makefile.dos -C engine all
+	$(MAKE) -f Makefile.dos -C filter all
+	$(MAKE) -f Makefile.dos -C util all
+	$(MAKE) -f Makefile.dos -C ui/ui-drv/dos all
+	$(MAKE) -f Makefile.dos -C ui/ui-drv/aa all
+
+$(PROG): lib ../bin include/config.h include/aconfig.h libs
+	$(CC) $(CFLAGS) $(LFLAGS) -o $@ $(TLIBS) $(LIBS)
+
+include/config.h:
+	copy include\config\config.dos include\config.h
+
+include/aconfig.h:
+	copy include\config\aconfig.std include\aconfig.h
+
+clean:
+	$(MAKE) -f Makefile.dos -C ui clean
+	$(MAKE) -f Makefile.dos -C ui-hlp clean
+	$(MAKE) -f Makefile.dos -C engine clean
+	$(MAKE) -f Makefile.dos -C util clean
+	$(MAKE) -f Makefile.dos -C ui/ui-drv/dos clean
+	$(MAKE) -f Makefile.dos -C ui/ui-drv/aa clean
+	rm -f include/config.h
+	rm -f include/aconfig.h
+	rm -f $(PROG)
+
+distclean:clean
+
+#dep:
+#	rm -f .depend
+#	make .depend
+#
+#.depend:
+#	echo '# Program dependencies' >.depend
+#	gcc -I svgalib $(DEFINES) -MM $(patsubst %.o,%.c,$(OBJS)) >>.depend
+#
+#include .depend

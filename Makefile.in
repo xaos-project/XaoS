@@ -1,0 +1,49 @@
+# Makefile for XaoS
+#
+# Always use src as the top-level
+prefix= @prefix@
+exec_prefix= @exec_prefix@
+datadir= @datadir@
+bindir= @bindir@
+mandir= @mandir@
+infodir= @infodir@
+
+@SET_MAKE@
+
+default clean realclean echo help depend xaos:
+	@cd src ; $(MAKE) $@
+
+all:
+	@cd src ; $(MAKE) all
+
+distclean:
+	#@$(MAKE) -C src $@
+	@$(MAKE) -C src distclean
+	rm -f config.cache config.status config.log src/include/config.h src/include/aconfig.h
+	rm -f src/Makefile.common src/arch/linux/Makefile.main
+	rm -f `find . -name Makefile`
+	rm -f `find . -name '*~'`
+	rm -f `find . -name '*.d'`
+	rm -f `find . -name '*[\.]orig'`
+	rm -vf `find . -size 0`
+
+install: 
+	@INSTALL@ -d $(datadir)/XaoS
+	@INSTALL@ -d $(datadir)/XaoS/tutorial
+	@INSTALL@ -d $(datadir)/XaoS/examples
+	@INSTALL@ -d $(datadir)/XaoS/catalogs
+	@INSTALL@ -d $(datadir)/XaoS/doc
+	@INSTALL@ -d $(datadir)/XaoS/help
+	@INSTALL@ -d $(bindir)
+	@INSTALL@ -d $(mandir)/man6
+	@INSTALL@ -s bin/xaos $(bindir)
+	@INSTALL@ -m 444 tutorial/*.x[ah]f $(datadir)/XaoS/tutorial
+	@INSTALL@ -m 444 examples/* $(datadir)/XaoS/examples
+	@INSTALL@ -m 444 catalogs/* $(datadir)/XaoS/catalogs
+	@INSTALL@ -m 444 help/xaos.hlp $(datadir)/XaoS/help
+	@INSTALL@ -m 444 doc/README doc/README.bugs doc/compilers.txt doc/ANNOUNCE doc/PROBLEMS $(datadir)/XaoS/doc
+	@INSTALL@ -m 444 doc/xaos.6 $(mandir)/man6
+	@STICKY@
+	@INSTALL@ -m 444 doc/xaos.info $(infodir)
+	#install-info doc/xaos.info 
+

@@ -1,0 +1,148 @@
+COMPILERS
+=========
+
+This document tries to describe common problems with various compilers
+
+XaoS is coded to be good target for optimizers and to make compiler bussy.
+Problem is that it often forces compiler to crash or generate wrong code. This
+is purpose why I am writting this document. Please try to find your compiler
+to avoid some problems.
+
+I highly recommend to use the gnu C compiler. I expect it will produce best
+results at many platforms. I recommend an egcs project (http://www.cygnus.com/egcs)-a
+development version of gcc. It produces much better results than gcc2.7.2.x
+and 2.8.1. Older version of GCC may have serious problems when compiling XaoS.
+Please let me know how they works. Also Slackware distributes gcc compiled
+from the source tree patched for fortran frontend. This version seems to
+generate incorrect results. This bug seems to be fixed in the latest
+slackware.
+
+In case some updates to this document will be required latest version will be placed
+to XaoS homepage.
+
+GNU C COMPILERS
+===============
+
+This code seems to be real gcc killer. Almost every gcc version does have troubles
+with compiling XaoS. So this small document explains some tricks how to avoid problems.
+It also contains optimal switches.
+
+BTW:other optimizing compilers and borland usually crash immediately..so XaoS seems
+    to be nice test for compilers
+
+2.95.0
+	this version is currently the latest gcc version and one that is XaoS
+	developed on. It produces very good results (best from available
+	compilers). Some simple patches to gcc makes output even better. I
+	will try to push them into development version of gcc for next version
+	and to pgcc based on this gcc.
+2.7.2.[123](386-linux)
+	this gcc compiles w/o problems with default switches
+	(-m486 -O6 -ffast-math -fomit-frame-pointer -funroll-loops -fforce-mem -fforce-addr)
+        If you are the Slackware user, see following paragraph:
+
+2.7.2.[123](386-linux) patched for f77 frontend
+        this gcc usually generates wrong code. It is one distributed by
+	slakware. Later versions seems to work, so it is most likely bug
+	caused by f77 frontend. You might update your gcc in case you have
+	problems with this. In slakware you might update to compiler from
+	the latest version, wich works
+
+2.7.2p/pgcc(386-linux)
+	Note that this patches does not helps a much acording to my tests
+	and various versions of snapshots has various prolems. Use egcs(see
+	bellow) instad. This compiler mostly slowdown even in comparation with
+	pure 2.7.2.1
+	-mpentium -O6 -ffast-math -fomit-frame-pointer -funroll-loops -fforce-mem -fforce-addr)
+
+2.7.2.1	(djgpp)
+	(-m486 -O6 -ffast-math -fomit-frame-pointer -funroll-loops -fforce-mem -fforce-addr)
+egcs 
+	Egcs is an development version of GCC based on pre2.8.1 source tree.
+	It produces excelent results at XaoS code(30% speedup on pentium in
+	new image recalculation over 2.7.2)
+	So I highly recommend to use it. It is much better (at least in
+	XaoS case) than "concurent" PGCC project witch currently brings
+	slowdowns
+
+	Configure script should automatically detect your procesor
+	and choose optimal switches at intel platforms like this:
+
+	-O2 -Wall -mpentim -fstrength-reduce -ffast-math -fomit-frame-pointer
+	-fforce-mem -fforce-addr -funroll-loops -fmove-all-movables
+
+	Of course change -mpentium to -m486 -m386 -mpentiumpro or some other
+	procesor you have :)
+
+	I highly recommend to enable -m68040 at mc68040 processors since
+	software emulation of mc68881 is incredibly slow (at least at my
+	HP-UX). This introduces about five times speedup. Approx same speed
+	can be reached using -m68020-40. In fact some my tests had better
+	results with this option (why?)
+
+gcc2.8.0
+gcc2.8.1
+	XaoS compiled using gcc2.8.0/1 seems to work fine, but is slower than
+	egcs. (in some cases even slover than 2.7.2)
+
+
+Other versions
+	I have no access to other gcc versions. So in case you have problems
+	try following procedure:
+	o disable optimizations at all. In case this does not help let me know
+	o try normal optimizations but with -fno-strength-reduce and -fno-unroll-loops. 
+	  In case this help try if just one of this switches should be disabled and let me 
+	  know I will add this to document.
+	o try -fno-inline -fno-strength-reduce and -fno-unrool-loops. In case this helps
+	  please try to discover witch inline makes crash(you may use -Q option)
+	  and let me know
+	o try -Q to discover where compiler crashes and let me know.
+
+HP-UX compilers
+===============
+version 7.5/8.0 at series 300 (motorola):
+	Compiler seems to have serious problems with long double. When enabled
+	it generates code with invalid opcodes. When you turn off
+	optimization, resulting executable forces system panic in fp emulation
+	code. Since long double is software emulated, I don't recomment to use
+	it at all. 
+
+	Options I use:-Aa -D_INCLUDE_POSIX_SOURCE -D_INCLUDE_HPUX_SOURCE
+	-D_INCLUDE_XOPEN_SOURCE +O3  -v
+
+	Please do not use +F since it seems to introduce kernel panic
+	(at least for me).
+
+	Also note that file save.c requires long time to compile when
+	optimized (approx half an hour?) but then it works. Just be patient.
+
+	XaoS is also very slow when compiled. This is most probably because CC
+	don't support the MC68040 and generates FP instructions for
+	coprocessor. GCC don't do that, so it's code is MUCH faster. At the
+	other hand, in rare cases it seems to cause kernel panic (because I
+	have very old kernel, wich probably don't have good emulation) so
+	be curefull.
+version 10.x at series 700 (PA-RISC)
+	Jens Killian reported that XaoS compiles fine there with long double
+	disabled. He uses following options:
+
+        export CC=cc
+        export CFLAGS="-Aa -D_HPUX_SOURCE +Oall -I/usr/include/X11R6"
+        export LDFLAGS="-L/usr/lib/X11R6"
+        ./configure
+Retargetable C compiler (lcc)
+	This compiler has troubles with compiling zoom.c. I am unable to make
+	it working
+SGI C compilers
+	This compiler does (according my tests) slightly worse job that gcc(few %).
+	For 32 bit architectures I use: -32 -O2 (since -O3 should require
+	modifications to Makefiles)
+
+	For 64 bit/32n use -64/-32 and: -O3 -GCM:aggressive_speculation=ON 
+          -GCM:static_load_speculation=ON -OPT:alias=restric -OPT:roundoff=3 
+          -OPT:IEEE_arithmetic=3
+	This causes slight speedup...
+        mips-sgi-irix6.2
+Ultrasparc
+	At this architecture sun CC just with -O seems to beat gcc, mainly
+	because of ugly pipeline support for it.

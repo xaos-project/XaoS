@@ -1,0 +1,15 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+#define CONFIGFILE "xaos.cfg"
+#define FPOINT_TYPE  long double
+#define USE_STDIO
+#define USE_ATOLD
+#include <aconfig.h>
+#include "gccaccel.h"
+#define CONST const
+#define INLINE inline
+#define STRUECOLOR24
+#define STRUECOLOR16
+#define USE_i386ASM
+
+#endif				/*CONFIG_H */
