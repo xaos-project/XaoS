@@ -199,7 +199,7 @@ ui_updatemenus (uih_context * c, CONST char *name)
 	    printf ("radio \"%s\"\n", name);
 	}
     }
-  if (driver->gui_driver)
+  if (driver!=NULL && driver->gui_driver)
     {
       if (name == NULL)
 	{

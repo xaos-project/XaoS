@@ -1072,8 +1072,8 @@ mkfilltable (void)
       if (rx->dirty)
 	{
 	  r1 = rx - 1;
-	  for (r2 = rx + 1; r2->dirty && r2 < rend2; r2++);
-	  while (rx->dirty && rx < rend2)
+	  for (r2 = rx + 1; r2 < rend2 && r2->dirty ; r2++);
+	  while (rx < rend2 && rx->dirty)
 	    {
 	      n = (int) (r2 - rx);
 	      assert (n > 0);
@@ -1136,14 +1136,14 @@ filly (void /*@unused@ *//*@null@ */ *data,
 	{
 	  incuncomplette ();
 	  r1 = ry - 1;
-	  for (r2 = ry + 1; r2->dirty > 0 && r2 < rend2; r2++);
+	  for (r2 = ry + 1; r2 < rend2 && r2->dirty > 0 ; r2++);
 #ifdef _UNDEFINED_
 	  if (r2 >= rend && (rr2 != cimage.height || ry == 0))
 #else
 	  if (r2 >= rend2 && (rr2 != cimage.height || ry == 0))
 #endif
 	    return;
-	  while (ry->dirty > 0 && ry < rend2)
+	  while (ry < rend2 && ry->dirty > 0)
 	    {
 	      if (r1 < czoomc.reallocy)
 		{
@@ -1501,7 +1501,7 @@ calculatenewinterruptible (void)
     {
       if (r->recalculate)
 	{
-	  for (r2 = r; r2->recalculate && r2 < end; r2++)
+	  for (r2 = r; r2 < end && r2->recalculate; r2++)
 	    *(tptr++) = r2;
 	  if (r2 == end)
 	    /*(r2 - 1)->price = 0, */ r2--;
@@ -1520,7 +1520,7 @@ calculatenewinterruptible (void)
     {
       if (r->recalculate)
 	{
-	  for (r2 = r; r2->recalculate && r2 < end1; r2++)
+	  for (r2 = r; r2 < end1 && r2->recalculate ; r2++)
 	    *(tptr++) = r2;
 	  if (r2 == end1)
 	    /*(r2 - 1)->price = 0, */ r2--;

@@ -585,10 +585,10 @@ ui_mousefilesel (int x, int y, int buttons, int flags)
 	  pos =
 	    (y - LISTSTART) * ndirs / (LISTEND - LISTSTART -
 				       2 * BORDERHEIGHT);
-	  if (pos < 0)
-	    pos = 0;
 	  if (pos >= ndirs - NVISIBLE)
 	    pos = ndirs - NVISIBLE;
+	  if (pos < 0)
+	    pos = 0;
 	  if (pos != dirstart)
 	    {
 	      dirstart = pos;
