@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
-"POT-Creation-Date: 2003-02-07 11:44+0100\n"
+"POT-Creation-Date: 2003-02-28 12:02+0100\n"
 "PO-Revision-Date: 2002-10-04 15:22+0200\n"
 "Last-Translator: César Pérez <oroz@users.sourceforge.net>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -64,12 +64,12 @@ msgid "Julia"
 msgstr "Julia"
 
 #: ../ui/ui.c:462
-#, c-format, ycp-format
+#, c-format
 msgid "View:[%1.12f,%1.12f]"
 msgstr "Vista:[%1.12f,%1.12f]"
 
 #: ../ui/ui.c:466
-#, c-format, ycp-format
+#, c-format
 msgid "size:[%1.12f,%1.12f]"
 msgstr "Tamaño:[%1.12f,%1.12f]"
 
@@ -126,7 +126,7 @@ msgid "Letters per second %i  "
 msgstr "Letras por segundo %i  "
 
 #: ../ui/ui.c:716 ../ui/ui.c:727
-#, c-format, ycp-format
+#, c-format
 msgid "Rotation speed:%2.2f degrees per second "
 msgstr "Velocidad de rotación:%2.2f grados por segundo "
 
@@ -141,7 +141,7 @@ msgid "Cycling speed: %i   "
 msgstr "Velocidad de cambio de color: %i   "
 
 #: ../ui/ui.c:773 ../ui/ui.c:788
-#, c-format, ycp-format
+#, c-format
 msgid "speed:%2.2f "
 msgstr "velocidad: %2.2f "
 
@@ -189,8 +189,8 @@ msgstr "Salir ahora"
 msgid "Not yet"
 msgstr "Todavía no"
 
-#: ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045 ../ui/dialog.c:430
-#: ../ui/dialog.c:1446 ../ui/ui.c:1231
+#: ../ui/ui.c:1231 ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045
+#: ../ui/dialog.c:430 ../ui/dialog.c:1446
 msgid "Help"
 msgstr "Ayuda"
 
@@ -877,7 +877,7 @@ msgstr "Uno hacia deltante"
 msgid "Shift one backward"
 msgstr "Uno hacia atrás"
 
-#: ../engine/zoom.c:1494 ../ui-hlp/menu.c:1218
+#: ../ui-hlp/menu.c:1218 ../engine/zoom.c:1494
 msgid "Solid guessing"
 msgstr ""
 
@@ -1372,7 +1372,7 @@ msgid "Frames %i - %i skipped."
 msgstr ""
 
 #: ../ui-hlp/render.c:497
-#, c-format, ycp-format
+#, c-format
 msgid "Frame %4i: "
 msgstr ""
 

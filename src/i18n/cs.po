@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
-"POT-Creation-Date: 2003-02-07 11:44+0100\n"
+"POT-Creation-Date: 2003-02-28 12:02+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: MadSoft <madsoft@centrum.cz>\n"
 "Language-Team: Czech\n"
@@ -77,13 +77,13 @@ msgstr ""
 
 # ../ui/ui.c:446
 #: ../ui/ui.c:462
-#, c-format, ycp-format
+#, c-format
 msgid "View:[%1.12f,%1.12f]"
 msgstr "Zobrazení:[%1.12f,%1.12f]"
 
 # ../ui/ui.c:448
 #: ../ui/ui.c:466
-#, c-format, ycp-format
+#, c-format
 msgid "size:[%1.12f,%1.12f]"
 msgstr "Velikost:[%1.12fx%1.12f]"
 
@@ -152,7 +152,7 @@ msgstr "%i písmen za sekundu"
 
 # ../ui/ui.c:669 ../ui/ui.c:677
 #: ../ui/ui.c:716 ../ui/ui.c:727
-#, c-format, ycp-format
+#, c-format
 msgid "Rotation speed:%2.2f degrees per second "
 msgstr "Rychlost rotace:%2.2f stupòù za sekundu "
 
@@ -170,7 +170,7 @@ msgstr "Rychlost obracení barev: %i   "
 
 # ../ui/ui.c:717 ../ui/ui.c:730
 #: ../ui/ui.c:773 ../ui/ui.c:788
-#, c-format, ycp-format
+#, c-format
 msgid "speed:%2.2f "
 msgstr "rychlost:%2.2f "
 
@@ -230,8 +230,8 @@ msgid "Not yet"
 msgstr "Je¹tì rad¹i ne"
 
 # ../ui-hlp/menu.c:935 ../ui-hlp/menu.c:940 ../ui/ui.c:1149
-#: ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045 ../ui/dialog.c:430
-#: ../ui/dialog.c:1446 ../ui/ui.c:1231
+#: ../ui/ui.c:1231 ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045
+#: ../ui/dialog.c:430 ../ui/dialog.c:1446
 msgid "Help"
 msgstr "Nápovìda"
 
@@ -1045,7 +1045,7 @@ msgid "Shift one backward"
 msgstr "Posun dozadu o jeden krok"
 
 # ../ui-hlp/menu.c:1020
-#: ../engine/zoom.c:1494 ../ui-hlp/menu.c:1218
+#: ../ui-hlp/menu.c:1218 ../engine/zoom.c:1494
 msgid "Solid guessing"
 msgstr "Solidní hádání"
 
@@ -1617,7 +1617,7 @@ msgid "Frames %i - %i skipped."
 msgstr ""
 
 #: ../ui-hlp/render.c:497
-#, c-format, ycp-format
+#, c-format
 msgid "Frame %4i: "
 msgstr ""
 
