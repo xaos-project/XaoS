@@ -642,21 +642,9 @@ AC_CHECK_LIB(vga, vga_hasmode)
 AC_CHECK_LIB(vgagl, gl_write)
 fi
 
-if test "$ac_cv_build_alias" = "powerpc-apple-darwin5.5"; then
+if test "$ac_cv_header_malloc_h" = "no"; then
  AC_DEFINE(NO_MALLOC_H)
  AC_DEFINE(RESTRICT)
- echo "Mac OS X detected... generating src/include/config.h"
- echo "
-#ifndef NO_MALLOC_H
-#define NO_MALLOC_H
-#endif
-#ifndef RESTRICT
-#define RESTRICT
-#endif
-" > src/include/config.h
- cat src/include/config/config.autoconf >> src/include/config.h
- # I don't know why config.h was not generated automatically.
- # So I forced it... sorry... -- Zoltan
  fi
 
 dnl Checks for header files.
