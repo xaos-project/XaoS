@@ -56,6 +56,7 @@ static int grayscale;
 void *font = NULL;
 
 static int whitecolor;
+static int blackcolor;
 
 static void
 svga_mousetype (int m)
@@ -101,6 +102,18 @@ draw_mouse (int x, int y, int clear)
 	    gl_copyboxtocontext (oldx - 3, oldy - 3, 8, 8, &screen, oldx - 3,
 				 oldy - 3);
 	}
+
+      /* This part is responsible for drawing an X arrow. 
+         Honza has cut it but it is too difficult to use
+	 XaoS in SVGA mode if no arrow appears. */
+      vga_setcolor (whitecolor);
+      vga_drawline (x - 3, y - 3, x + 3, y + 3);
+      vga_drawline (x - 3, y + 3, x + 3, y - 3);
+      vga_setcolor (blackcolor);
+      vga_drawline (x + 1 - 3, y - 3, x + 1 + 3, y + 3);
+      vga_drawline (x + 1 - 3, y + 3, x + 1 + 3, y - 3);
+      /* End of drawing an X arrow. */
+      
       oldx = x;
       oldy = y;
     }
