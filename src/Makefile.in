@@ -41,7 +41,7 @@ include/config.h:
 	cp include/config/config.autoconf include/config.h
 
 internationalization:
-	if [ "@i18n@" = "yes" ]; then $(MAKE) -C i18n/ all; fi
+	if [ "@USE_NLS@" = "yes" ]; then $(MAKE) -C i18n/ all; fi
 
 clean:
 	@for name in $(DIRS) i18n ; do sh -c "cd $$name ; $(MAKE) $@"; done

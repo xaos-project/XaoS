@@ -46,4 +46,4 @@ install:
 	@STICKY@
 	@INSTALL@ -m 444 doc/xaos.info $(DESTDIR)$(infodir)
 	#install-info doc/xaos.info 
-	if [ "@i18n@" = "yes" ]; then $(MAKE) -C src/i18n/ install; fi
+	if [ "@USE_NLS@" = "yes" ]; then $(MAKE) -C src/i18n/ install; fi

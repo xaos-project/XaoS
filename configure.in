@@ -9,6 +9,19 @@ AC_PROG_CC
 AC_PROG_GCC_TRADITIONAL
 
 dnl
+dnl GNU gettext related things
+dnl
+
+PACKAGE=XaoS
+VERSION=3.1
+AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
+AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
+AC_SUBST(PACKAGE)
+AC_SUBST(VERSION)
+ALL_LINGUAS="cs es hu fr de"
+AM_GNU_GETTEXT
+
+dnl
 dnl drivers to test (if available)
 dnl
 
@@ -23,7 +36,6 @@ win32_driver_test=yes
 BeOS_driver_test=yes
 long_double=test
 pthread=no
-i18n=yes
 png=yes
 
 dnl
@@ -702,14 +714,6 @@ AC_FUNC_ALLOCA
 AC_TYPE_SIGNAL
 AC_CHECK_FUNCS([ftime getcwd gettimeofday memchr memmove memset pow select setlocale sqrt strdup strerror strstr sleep setitimer ftime finite fabsl _fabsl __fabsl])
 
-dnl Internationalization (i18n) checks.
-AC_ARG_WITH(i18n,
-        [  --with-i18n=no          disables internationalization (i18n)],[
-	if test x$withval = xno; then
-	  i18n=no
-	fi
-])
-
 if test  "$x_driver_test" = yes; then
 dnl X checks
 if test "x$no_x" = x; then 
@@ -739,14 +743,6 @@ fi
 if test  "$ggi_driver_test" = yes; then
   ggi_driver=true
   AC_CHECK_LIB(ggi,ggiInit,LIBS="$LIBS -lggi", ggi_driver=false, $LIBS )
-fi
-if test  "$i18n" = yes; then
-  AC_CHECK_FUNC(gettext)
-  if test "x$ac_cv_func_gettext" = xyes; then
-    AC_DEFINE(HAVE_GETTEXT)
-  else
-    i18n=no
-  fi
 fi
 
 if test "$ac_cv_header_malloc_h" = "no"; then
@@ -869,9 +865,9 @@ AC_SUBST(STICKY)
 AC_SUBST(CFLAGS1)
 AC_SUBST(CXXFLAGS)
 AC_SUBST(ASMOBJS)
-AC_SUBST(i18n)
 
-AC_OUTPUT(Makefile src/Makefile src/i18n/Makefile src/engine/Makefile 
+AC_OUTPUT(src/i18n/Makefile.in
+    Makefile src/Makefile src/i18n/Makefile src/engine/Makefile 
     src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile
     src/ui/ui-drv/aa/Makefile src/ui/ui-drv/ggi/Makefile
     src/ui/ui-drv/svga/Makefile src/ui/ui-drv/x11/Makefile
@@ -932,13 +928,6 @@ if test x"$ac_cv_lib_png_png_create_info_struct" = xno; then
   echo "  XaoS homepage at http://xaos.sf.net"
   echo "  or ftp://sunsite.unc.edu/pub/Linux/libs"
   echo "  or ftp://ftp.uu.net/graphics/png/src/libpng-0.81.tar.gz"
-  echo
-fi
-if test x"$ac_cv_func_gettext" = xno; then
-  echo "You need GNU gettext to compile XaoS with internationalization support."
-  echo "Please download it from:"
-  echo "  XaoS homepage at http://xaos.sf.net"
-  echo "  or ftp://www.gnu.org/software/gettext/"
   echo
 fi
 echo " "
