@@ -220,7 +220,7 @@ esac
 fi
 
 AC_PROG_MAKE_SET
-AC_PROG_RANLIB
+AC_PROG_LIBTOOL
 
 dnl CFLAGS="-O"
 dnl Checks for programs.
