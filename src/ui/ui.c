@@ -142,11 +142,11 @@ static float defscreenwidth = 0.0, defscreenheight = 0.0, defpixelwidth = 0.0,
   defpixelheight = 0.0;
 CONST struct params global_params[] =
 {
-  {"-delay", P_NUMBER, &delaytime, "Delay screen updates (milliseconds)."},
+  {"-delay", P_NUMBER, &delaytime, "Delay screen updates (milliseconds)"},
   {"-driver", P_STRING, &defdriver, "Select driver"},
-  {"-list", P_SWITCH, &deflist, "List available drivers. Than exit"},
-  {"-config", P_SWITCH, &printconfig, "Print configuration. Than exit"},
-  {"-speedtest", P_SWITCH, &printspeed, "Test speed of caluclation loop. Than exit"},
+  {"-list", P_SWITCH, &deflist, "List available drivers. Then exit"},
+  {"-config", P_SWITCH, &printconfig, "Print configuration. Then exit"},
+  {"-speedtest", P_SWITCH, &printspeed, "Test speed of calculation loop. Then exit"},
 #ifndef nthreads
   {"-threads", P_NUMBER, &defthreads, "Set number of threads (CPUs) to use"},
 #else
@@ -158,7 +158,7 @@ CONST struct params global_params[] =
   {"-pipe", P_STRING, &defpipe, "Pipe input unavailable (recompile XaoS)"},
 #endif
   {"-maxframerate", P_NUMBER, &maxframerate, "Maximal framerate (0 for unlimited - default)"},
-  {"", P_HELP, NULL, "Screen size options: \n\n  Knowedge of exact screen size makes random dot stereogram look better. \n  Also is used for choosing correct view area."},
+  {"", P_HELP, NULL, "Screen size options: \n\n  Knowledge of exact screen size makes random dot stereogram look better. \n  Also is used for choosing correct view area"},
   {"-screenwidth", P_FLOAT, &defscreenwidth, "exact size of screen in centimeters"},
   {"-screenheight", P_FLOAT, &defscreenheight, "exact size of screen in centimeters"},
   {"", P_HELP, NULL, "  Use this option in case you use some kind of virtual screen\n  or something similiar that confuses previous options"},
@@ -1196,6 +1196,7 @@ ui_unregistermenus (void)
 }
 
 int number_six=6;
+#define MAX_WELCOME 50
 #ifndef MAIN_FUNCTION
 #define MAIN_FUNCTION main
 #endif
@@ -1210,6 +1211,8 @@ MAIN_FUNCTION (int argc, char **argv)
 {
   int i;
   int width, height;
+  char welcome[MAX_WELCOME], language[10];
+	char *locale;
 #ifdef DESTICKY
   euid = geteuid ();
   egid = getegid ();
@@ -1220,6 +1223,23 @@ MAIN_FUNCTION (int argc, char **argv)
 #endif
   /* Setting all locales for XaoS: */
   setlocale(LC_ALL,"");
+	locale = setlocale(LC_MESSAGES, "");
+	strcpy(language, "english");
+	if (locale != NULL)
+		{
+			if (strlen(locale) > 2)
+				locale[2] = '\0';
+			if (strcmp(locale, "hu")==0)
+				strcpy(language, "magyar");
+			if (strcmp(locale, "cs")==0)
+				strcpy(language, "cesky");
+			if (strcmp(locale, "de")==0)
+				strcpy(language, "deutsch");
+			if (strcmp(locale, "es")==0)
+				strcpy(language, "espanhol");
+			if (strcmp(locale, "fr")==0)
+				strcpy(language, "francais");
+			}
 	/* Without this some locales (e.g. the Hungarian) replaces "." to ","
 	   in numerical format and this will cause an automatic truncation
 		 at each parameter at certain places, e.g. drawing a new fractal. */
@@ -1419,7 +1439,9 @@ MAIN_FUNCTION (int argc, char **argv)
   loopt = tl_create_timer ();
   driver->print (0, textheight1 * 3, "Loading message catalog");
   ui_flush ();
-  uih_loadcatalog (uih, "english");
+
+  uih_loadcatalog (uih, language);
+
   driver->print (0, textheight1 * 4, "Initializing timming system");
   ui_flush ();
   uih_newimage (uih);
@@ -1468,7 +1490,9 @@ MAIN_FUNCTION (int argc, char **argv)
       }
   }
 #ifndef _plan9_
-  uih_message (uih, "Welcome to XaoS version " XaoS_VERSION);
+	snprintf(welcome, MAX_WELCOME, 
+	 gettext("Welcome to XaoS version %s"), XaoS_VERSION);
+  uih_message (uih, welcome);
 #endif
   uih_updatemenus (uih, driver->name);
   if (printspeed)

@@ -1,0 +1,12 @@
+NOTES FOR INTERNATIONALIZATION (I18N) SUPPORT
+---------------------------------------------
+
+2 September 2002
+
+
+All of the available languages must be registered in ../ui/ui.c.
+The other entries in ../ui-hlp/menu.c are no longer used.
+Please edit ../i18n/*.po and read the README file to add
+and/or improve i18n support for your language.
+
+Zoltan Kovacs <kovzol@math.u-szeged.hu>

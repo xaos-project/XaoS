@@ -3,6 +3,7 @@ Internationalization (i18n) in XaoS
 
 Zoltan Kovacs <kovzol@math.u-szeged.hu>
 
+1 September 2002
 26 August 2002
 
 
@@ -20,17 +21,18 @@ on your system. I used gettext-0.10.37 which works greatly.
 2. HOW TO INSTALL A NEW LANGUAGE
 
 * Edit Makefile.in, add your 2 letter long language code in the first row
-  (e.g. "cz" for Czech, "de" for German).
+  (e.g. "cs" for Czech, "de" for German).
 	
 * Type "./configure" in the directory ../.., then come back.
 
 * Type "make new-languages". This will generate a so-called .po-file
-  for you (e.g. "cz.po" or "de.po"). 
+  for you (e.g. "cs.po" or "de.po"). 
 
 * Edit the generated file manually. The first 15 lines should be fill in
   properly, otherwise nothing will work in your language. The other lines
   should be also fill in respectively. Note that you only should change
   the "msgstr" rows. See the Hungarian language file, "hu.po" for example.
+  Important, that the first "#, fuzzy" line must be removed.
 
 * Type a "make" to generate the so-called .mo-files. These files will be
   installed later to the directory /usr/share/locale/. You should have
@@ -50,7 +52,7 @@ I'm not an expert, I just only want to share my little knowledge with you
 if you're interested:
 
 * To set up different languages and try out each one you probably have
-  to set the LANG variable. E.g., I had to change it to de_DE or hu_HU
+  to set the LC_ALL variable. E.g., I had to change it to de_DE or hu_HU
   to test different languages.
 	
 * Read the gettext howto ("info gettext"). It's quite long, though.
@@ -64,6 +66,9 @@ if you're interested:
 	
 4. FUTURE PLANS
 
-XaoS is a valuable software, this is my opinion. This is the reason why
-I plan to continue its internationalizaton. Though, I'm not sure
-I will be finished with it at all. Your help is welcome!
+XaoS i18n is not yet finished. I'm working on it in my spare time.
+Your help is also welcome.
+
+Here is a short to-do list:
+
+* Check if sources will compile on DOS or not. Gettext supports DJGPP.
