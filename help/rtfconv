@@ -1,2 +1,2 @@
 #!/bin/sh
-cat xaos.hlp | sh hlptortf | sh fixmult > xaoswin.rtf
+cat xaos.hlp | sh hlp2rtf | sh multfix > xaoswin.rtf

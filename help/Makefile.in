@@ -4,7 +4,7 @@ rtf: xaos.hlp
 	./rtfconv
 
 html: xaos.hlp
-	./htmlconvert
+	./htmlconv
 
 clean:
 	rm -f *.html xaoswin.rtf

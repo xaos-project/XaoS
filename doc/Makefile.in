@@ -3,7 +3,7 @@ all: doc
 doc: dvi AUTHORS xaos.info
 
 xaos.texinfo: xaos.geninfo ../help/xaos.hlp
-	./mktexinfo
+	./mktexi
 
 xaos.info: xaos.texinfo
 	makeinfo --no-split xaos.texinfo

@@ -1,2 +1,2 @@
-bash -c "cat xaos.hlp | sh hlptortf | sh fixmult >xaoswin.rtf"
+bash -c "cat xaos.hlp | sh hlp2rtf | sh multfix >xaoswin.rtf"
 
