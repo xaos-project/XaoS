@@ -478,11 +478,11 @@ svga_init (void)
     if (vga_hasmode (i))
       {
 	info = vga_getmodeinfo (i);
-	if (info->colors != 256 && info->colors != 32768
-	    && info->colors != 65536 && info->colors != 16777216)
-	  continue;
+	if (info->colors == 256 || info->colors == 32768
+	    || info->colors == 65536 || info->colors == 16777216)
+	  break;
       }
-  if (i == GLASTMODE + 1)
+  if (i == GLASTMODE + 1) // No valid mode was found.
     {
       svga_uninitialise ();
       return 0;
