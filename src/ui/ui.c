@@ -1327,7 +1327,9 @@ MAIN_FUNCTION (int argc, char **argv)
 
   strcpy (language, "english");
 
+#ifdef DEBUG
   printf ("Trying to use locale settings for %s.\n", locale);
+#endif
 
   if (locale != NULL)
     {
@@ -1344,17 +1346,27 @@ MAIN_FUNCTION (int argc, char **argv)
       if (strcmp (locale, "fr") == 0)
 	strcpy (language, "francais");
     }
+#ifdef DEBUG
   printf ("Using catalog file for %s language.\n", language);
+#endif
   /* Without this some locales (e.g. the Hungarian) replaces "." to ","
      in numerical format and this will cause an automatic truncation
      at each parameter at certain places, e.g. drawing a new fractal. */
   setlocale (LC_NUMERIC, "C");
+#ifdef DEBUG
   printf ("Text domain will be bound to directory %s.\n",
+#endif
 	  bindtextdomain ("xaos",
 #ifdef DOG_DRIVER
-			  "..\\locale"));
+			  "..\\locale")
+#ifdef DEBUG		
+			  );
+#endif
 #else
-			  "/usr/share/locale"));
+			  "/usr/share/locale")
+#ifdef DEBUG			 
+			  );
+#endif			 
 #endif
   textdomain ("xaos");
   /* Done setting locales. */
@@ -1390,7 +1402,7 @@ MAIN_FUNCTION (int argc, char **argv)
   D_NORMAL;
 #endif
 #ifdef DEBUG
-  printf ("Initialising driver\n");
+  printf ("Initializing driver\n");
 #endif
 #ifndef __BEOS__
 #ifndef _plan9_

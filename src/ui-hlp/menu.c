@@ -287,9 +287,10 @@ static menudialog uih_perturbationdialog[] = {
   DIALOGINT_I (gettext ("Frames per second:"), 0);
   NULL_I ();
 
-
+#ifdef DEBUG
   printf ("Filled %d widgets out of %d.\n",
 	  no_menudialogs_i18n, MAX_MENUDIALOGS_I18N);
+#endif	
 }
 
 #undef Register(variable)
@@ -1356,8 +1357,10 @@ uih_registermenus_i18n (void)
 	   "dimension.xaf");
   TUTOR_I ("fmath", gettext ("Escape time fractals"), "escape.xaf");
   TUTOR_I ("new", gettext ("What's new in 3.0?"), "new30.xaf");
+#ifdef DEBUG
   printf ("Filled %d menu items out of %d.\n", no_menuitems_i18n,
 	  MAX_MENUITEMS_I18N);
+#endif	 
   menu_add (menuitems_i18n, no_menuitems_i18n);
   uih_no_menuitems_i18n = no_menuitems_i18n;
 }

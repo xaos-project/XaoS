@@ -2,7 +2,7 @@ HOW TO COMPILE AND INSTALL XAOS
 -------------------------------
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/INSTALL,v 1.5 2003-01-24 08:25:25 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/INSTALL,v 1.6 2003-01-24 09:48:58 kovzol Exp $
 
 
 For Unix/X11:
@@ -52,7 +52,7 @@ For Unix/X11:
    often forces compilers (including gcc) to crash/generate wrong code.
    
    For better results:
-   Edit configure.in and run autoconf to reflect your system. 
+   Edit src/include/config/config.autoconf to reflect your system. 
 
    IMPORTANT NOTE:
    XaoS can optionally use long double for zooming. It allows
