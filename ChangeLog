@@ -1,764 +1,550 @@
-Version 3.1
-	o New homepage at http://www.gnu.org
-      Speedups:
-        o The internal loop now uses integer comparisons on x86 (about 10%
-	  speedup)
-	o Better timming
-	o Cleverer and faster solid guessing algorithm
-	o Faster resolution reduction loops (more cache and SMP friendly)
-	o Faster copying loops (lower register pressure because of new table
-	  layout)
-	o New string inlines for x86 that does aligning of memory acceses
-	o I've made some patches to gcc-2.95 to improve XaoS code
-	o Assembly loops for moving data
-	(overall XaoS is more than twice the speed of version 3.0)
-      New features
-        o New antialiasing filter
-	o New drivers:
-	    GGI
-	    DGA
-	    Win32
-	    dX-window
-	    dX-fullscreen
-	    BeOS
-	    DirectWindow
-	    DirectScreen
-	o Improved tutorials:
-           o New tutorial "math behind fractals"
-           o First chapter of tutorial "an introduction to fractals" has been
-	     split into the introduction part and part about the Mandelbrot set
-	   o Improved first chapter
-	   o Added line graphics into many tutorials
-	   o Spanish message catalog contributed by Cesar Perez
-	o Added (color) command to specify color of text
-	o Rendering sequences of images from animation files
-	o New wrapper around I/O routines alowing XaoS to read arbitary streams
-	  like string etc.
-        o New library for handling menus added. I think it is big step towards
-	  a nice user interface, since all keybindings and menus will be
-	  independent at UI, so the ugly interface now will be just simple code
-	  calling this library. 
-	o Added simple dialog description structure...
-	o Added library with simple graphics primitives (line, rectangle,
-	  text)
-	o Palette extended to allow few preallocated color cells for UI and
-	  such.
-	o Timer library now handles current group changes nicely,
-	  also supports time emulation used by emulating constant framerate
-	  good for saving animations
-	o Palette creator now accepts zero for maximal palette size
-	o Lots of play functions made generic and integrated into user
-	  interface (user now should specify palette seed or reset state
-	  of XaoS into "factory defaults")
-	o Menus, dialog, command line options, hotkeys and animation replay
-	  code now use same function registry. So there are lots of new command
-	  line parameters, file format commands etc...
+2003-01-17  kovzol  <kovzol@linux>
 
-	  Some command line parameters also changed their name (like -load ->
-	  -loadpos) so please modify your scripts...
-	o Added xshl (XaoS simple hypertext langage) library
-	o Motion blur now handles changes of filter configuration in better
-	  way
-        o Added some other fractal examples into first chapter
-	o Behave better when btrace or interruptible calculation interrupted
-        o Documentation split into Hacker's and User's guide, so we don't need
-	  to distribute hacker documentation in the source distributions and
-	  users don't need to print this part.
-	o Timer library now supports Win32 high precision timer
-	o Support for backslash path convention under DOS and Windows
-	o Accept both \n lines and \n\r lines
-        o Internationalization (i18n) support added for menus
-        o New fractal types: newton^4, barsnley2 and magnet2
-      UI changes:
-	o Menus are now displayed nicely
-	o New nice dialogs. XaoS is now mostly user friendly :)
-        o Native UI wrappers for BeOS and Windows
-	o Undo and redo, cut and past available at many systems
-	o Main menu is now available at 'enter' key.
-	o Better arrow keys handling
-	o Formula changing now resets perturbation too
-	o New context sensitive help. 
-	  Now uses xshl (XaoS simple hypertext language), so you
-	  might do hyperlinks, links to tutorials and basic formating of text
-        o Bailout may be set
-        o Logarithmic zoom ratio also displayed in ministatus
-      Driver API changes
-	o Drivers now sends special keys as KEY_UP etc...
-	o Parameter parsing library cleaned. It now don't prints driver's
-	  name automatically in help text. Use HELP line. (see ui_template.c)
-	o Removed TRUECOLORMI, HICOLOR and REALCOLOR image types.
-	  There is now just TRUECOLOR16, TRUECOLOR24 and TRUECOLOR.
-	  to set where red, green and blue channels lie use new redmask,
-	  greenmask and bluemask fields in driver's structure
-	o Similar changes in the S* configure defines
-	o Removed unused functions: driveropt (now should be done by menus)
-	  clrscr (now XaoS does in the buffer)
-	o Added new flag RESIZE_COMMAND
-	  (if ui should add an '=' resize function to menu - should be enabled
-	   in the most fullscreen drivers, which don't do resizing dialog
-	   using menus, but using getsize call - like SVGAlib etc.)
-	  windowed drivers should disable this
-	o Removed help entry (add this text into xaos.hlp file with same
-	  keyword as your driver's short name)
-      UI-helper changes:
-        o It is now based on a menuing system... controls are almost the same,
-	  but internally implementation is different. Only visible changes I
-	  know about are that double 'q' for quit doesn't work anymore, and 's'
-	  menu is now like the file menu in many programs, so it contains quit and
-	  other functions.
-	o window handling
-	o New message and error handling code 
-	o Displays texts directly to output buffer instead of asking
-	  ui interface
-	o Improved passfunc
-	o Support for constant framerate emulation
-      Fixes:
-        o Support for libpng 1.0.x and 1.1.x
-        o Fixed email addresses in ANNOUNCE
-	o Fixed nasty bug in timer library - it caused great memory
-	  corruption..
-	o Fixed crash in palette filter
-	o Fixed some memory leaks
-	o Color cycling don't overwrite filter's palette anymore
-	o Fixed memory leak in blur.c
-	o Enabled forgotten optimizations for bpp==1
-	o Removed IMO unusable command (calculate)
-	o Fixed memory leak in error handling in play.c
-	o Check for inconzestient configuration in ui_helper.c
-	o play now accepts empty files
-	o cycling speed is saved correctly
-	o Filters are now saved in right order, filters that depends
-	  at master are initialized first.
-        o No crash when user tries to set letterspersec to 0,
-	  it's not allowed now
-        o Fractal type magnet has been modified
-      Cleanups:
-	o Removed lots of ui code and moved to menu.c
-	o Removed old and obsolete functions ui_message, ui_tbreak, ui_menu
-	  ui_message2 renamed to ui_message
-	o Removed ui_tbreak calls from x11 driver
-	o Removed curses driver - it is obsoleted by aa driver now
-	o Structure timer moved to timerlib...
-	o Removed ui_getcontext, since it is old and ugly hack to give
-	  better control to driver not recommended at all...
-	o Removed special driver menu code and integrated into XaoS menuing
-	  system
-	o Removed some code duplication in uinew
-	o Removed old keyboard buffer code in uinew.c
-	o Assertions are now disabled in zoom.c
-	o ui and ui-helper split into separate directories
-	o uinew renamed back to ui. It is not so new anymore :)
-	o many rewrites in ui code. 
-	o Engine now handles generic truecolor modes at depths 16,24 and 32
-	  (not just few selected ones)
-	o The full code has been autoformatted with GNU indent utility
-      X11 driver:
-        o better support for bitmaps
-	o Added windowid option to support external GUIs
-	o Extended visualid detection heuristics
-	o Avoided crash when selected visual != default visual
-	o Now supports almost all truecolor modes...
-	o Take care for incompatible endianity of images
-      Svgalib driver:
-        o Use linewidth parameter instead of bytesperpixel*width
-	o Send correct key masks
-	o -grayscale for grayscale emulation
-      AA-lib driver
-        o Uses new menuing system
--------------------------------------------------------------------------------
-Version 3.0
-      MOST SIGNIFICANT CHANGE:
-	o Richard M. Stallman agreed with adding XaoS into GNU project
-      Fixes:
-	o XaoS is now sticky bit save when svgadriver enabled
-	o Fixed crash in resizing in stereogram mode
-	o Fixed crash in stereogram mode+different scanline/width
-	o Fixed crash with dealing NaN sizes
-	o Fixed small bug in mkrealloctable
-	o Fixed ctrl87.c to do not make compilation problems anymore
-	  (was renamed to i386.c :) but also some register conflicts fixed.
-	o Fixed memory owerflowing in julia code
-	o Removed GIF code due to patent problems
-	o Timer library and ui code now handles better low resolution timers
-          Also measuring of time for status line changed. So gives bit
-          different results now :) (lower but more exact)
-	o Fixed few minnor bugs in solid guessing. Now it should be
-	  more effective. But who knows...
-	o -incoloring now works
-      Major code reorganization. 
-	o New palette functions supports
-	  x truecolor, truecolor24, hicolor and maxcolor handling
-	  x allocation/set palette scheme
-        o New nice image structure that suppotrs:
-	  x truecolor, truecolor24, hicolor, maxcolor, and 256 colors
-	  x nonstandard order of lines (like one in windoze etc..)
-	  x double buffering
-	  x palette functions
-	o New partially object oriented filter sistem 
-	  x allows elegant way to add effects like stereogram generation
-	  x makes possible to reduce resolution after stereogram etc..
-	  x combination of various calculation algorithms is now 
-	    possible in elegant way
-	  x makes source code much cleaner and extensible
-	o New user interface helper library 
-	  x makes easy to add new user interfaces or use as
-	    a part of some other program
-	  x implemented in cleaner way than old ugly-interface
-	  x hides XaoS's internals and provides easy to understand
-	    set of functions for users of XaoS engine.
-	o XaoS now uses center/range possitioning instead of
-	  left top/right bottom becase:
-	  x it is better human readable (you can see zoom easily)
-	  x it is more exact (small difference do not fall to zero
-	    as soon as in normal system)
-	  x it is easier to handle in rotation (you can do still
-	    same operations - zooms, movements like in unrotated.
-	  x better fits operation permited in(zooming view/moving)
-	  x I expect will look better in save files
-	  x simplified many operations performed on it.
-        o As the side effect:
-	  x old ugly interface code is a bit obsolette. Requires 
-	    small changes into drivers
-	  x no more large zoom_context. Context is now divided into 
-	    many parts. So many structures should be used by other
-	    parts of XaoS separately.
-	  x zoom.[ch] splitted into fractal routines and zooming 
-	    engine. This makes easier add ingnew zooming/calculation
-	    methods (like on in fractos, boundary detection...)
-	  x most of siggnificant data structures are copied into fixed 
-	    memory locations before start of calculation. I expect it 
-	    will speed up accesing its field because complex 
-	    traveling throught pointers will be avoided and reduces
-	    number of parameters passed to calculation functions.
-	    At the other hand it should bring many problems in 
-	    multithreading. In calculating one image at many procesors 
-	    should be OK. Since these structures are same. Calculating 
-	    of multiple images at time should be real problem. But why
-	    not use multitasking? or some hack with redefinig this
-	    structures back into pointers should be possible in this
-	    cases.
-	  x less multiplyings but more memory accesses in 
-	    calcline/column should speedup on pentiums with fast 
-	    cache.
-	  x autopilot now should work at many contexts at time
-	  x better implementation of fill
-	  x many new bugs but few old fixed
-	  x ugly interface code was greatly simplified since everything
-	    interesting went into ui_helper
-	  x resizing and such stuff is now much simplier
-	  x palette rotation implemented in cleaner way. Now does
-	    not require changes into drivers. Uses new setpalette
-	    driver function. I can not imagine hardware, where
-	    setpalette is imposible but rotation possible.
-	  x timer library now passes userdata to handlers - required
-	    for implementation of rotatepalette
-	  x palette rotatin in truecolor modes is not possible anymore
-	    (since xaos is not internally 8bit)
-      Cleanups:
-	o New macro system for formulas that allows easy manipulation 
-	  with calculation loops. But looks ugly. Is that cleanup?
-	o Julia code is now automatically generated for formulas..
-	o Directory structure,
-	  XaoS divided into several libs (engine,ui,util,drivers)
-	o Simplier configuration headers
-	o timerlib:wait mechanizm has obsoletted by much better slowdown
-	   mechanizm
-      Speedups:
-        o Boundary detection for new images
-        o I've browsed mkrealloctable and removed few unnecesary
-	  ifs. Maybe it speeded up..
-	o MAGICAL VALUE OF 100 FPS IS GONE!!!! Now you can see 120 FPS
-	  on pentium :)
-	  New completly fixedpoint mkrealloctable performs very well!
-	  (isn't that cool idea? just simple precalclate everything into
-	   fixedpoint that depends on the zoom and do rest in 
-	   integers ? :))) I am so silly coder! now XaoS usually does
-	   not fall under 7fps on my 486 so it works in acceprable
-	   performance. maybe we should add logo "Ready for 486!(tm)"
-	   :) (and whats about fixed point calculation loops? :)
-	   Fixedpoint brought many advantages - precalculated pow 
-	   tables, no owerflowing/NaN/precisity problems, many 
-	   variables changed to constants(since distance between 
-	   lines is statically 512) and much more :)
-	   Now we should start thinking about deepzoom feature
-	   since most of XaoS is already resolution independent.
-	   New mkrealloctable is approx twice as fast on pentium
-	   (tests on 486 should be interesting)
-	o Dynamical resolution lowering now performs much better
-	  (Should help especially on 486)
-	o Better dynamical resolution timeout choice - keeps
-	  higher framerate during zooming but lowers after
-	  zooming stops.
-        o At 386 uses uptimized versions of memset and memcpy
-	o A bit faster julia calculation loop
-	o Autopilot code is now simplier, faster, has better out of
-	  range and lowqualitty detection and seems to have better 
-	  results
-	o Macro system in calculation loop caused instant speedup. Why?
-	o New new possition caluclation algorithm. Seems to be a bit faster
-	  and produces better results
-	o Random dot generator now reduces resolution to 1/4, 
-	  because brain is unable to decode image inormations at 
-	  normal resolution. :)
-	o New uncompressed loops - one iteration for mandelbrot is 
-	  just about 14 instructions (was 23)
-	o Periodicity checking
-	   Fabrice Premel <premelfa@etu.utc.fr>
-	o Another 1/8 speedup caused by forcing register allocation 
-	  (i386 only)
-	o Malloc/free is now called less often (once per frame)
-      New features:
-	o BeOs driver. 
-	   Jens Kilian <jjk@acm.org>
-	o Truecolor(24/32-little and big edian), Hicolor, Realcolor, Fixedcolor
-	  and monochrome support
-	o Interlace filter that instantly makes your computer
-	  twice as fast!
-	o Motion blur filter
-	o Dithering filter
-	o Julia preview for all formula types
-	o Image rotation
-	o New AA-lib driver that does high qualitty text mode rendering
-	  see AA project homepage at http://www.ta.jcu.cz/aa
-	o Two edge detection filters
-	o Palette emulation filter
-	o Emboss filter
-	o SMP support using threads
-	o Two new palette generation algorithms
-	o Changed default window size to 480x360 because I hope that XaoS
-	  is now fast enought to work in resonable speed at this resolution
-	o Animated tutorials:
-	  Introduction to fractal
-	  features overview
-	  whats new
-	o New outcoloring modes:
-	  o Potential
-	  o Another colorfull decomposition
-	  o Smooth (for truecolor/truecolor24/hicolor/realcolor displays)
-	o New incoloring modes
-	  o decomposition-like
-	  o real/imag
-        o Save images into PNG format. Problem is that now XaoS 
-	  requires zlib and pnglib that should bring problems to 
-	  users compiling XaoS at UNIX workstations. I personally
-	  dislike writing of image saving code. Please if you have 
-	  some, or you want to write code, that don't require these 
-	  libraries, let me know.
-	o Saving of possition.
-	o Documentation is now in texinfo format. Describes some XaoS
-	  internals
-	o Timer library: 
-	  x handler should remove its timer when activated
-	  x New slowdown, stop and resume functions
-	  x Runtime switching between allegro compatible mode and
-	    uclock mode
-	o Configure script now does simple autodetection for long
-	  double - enables it just at intel compatible platforms, since
-	  it is sure, that it works well there. Let me know about other
-	  platforms with fast working long double
-	o New file README.compilers, that discuss optimizing
-	  switches/problems with various compilers/platforms.
-      UI Changes
-	o added -delay option as suggested by Johan Hagman
-	o added -maxframerate option that is similiar to -delay
-	o added -letterspersec option to changes subtitles speed
-	o added -threads command line option
-	o added menu for saving
-	o added .XaoSrc file
-	o new -play, -load, -letterspersec options
-	o major rewrite
-	o 'E' now handle filters (not just stereogram)
-	o 'O' now handler image rOtation
-	o 'B' for perbutation
-	o Help should be paged using up and down arrow
-	o 'S' now have menu for various saving options
-	  also during animation recording 'S' menu contains some special
-	  commands like clearing of sceeen or text ourput primitives
-        o 'V' now handles "various stuff menu" - menu with not so often used
-	  thinks. So 'K' 'G' 'T' and 'D' are free again :)
-	o Palette rotation renamed to color cycling to reduce confusin
-	  with image rotation. So it is activated by 'Y' now.
-	o Julia mode is not disabled after keypress.
-	o Configuration file
-	o Drivers now provides information about textwidth and function
-	  to clear screen
-	o New timming code allowing better replay at different
-	  resolution/computer
-	o dynamic time for dynamic resolution (nice feature :) now works 
-	  better on architectures with unexact timming(like dos with 
-	  old timming routines)
-      PLAN9 Changes
-        o Updated driver to work better with new user interface code,
-	  some cleanups
-	o -nopalette switch is now handled better - XaoS enables dithering
-	  so output is almost identical to user palette mode. Just it is a bit
-	  slower and requires more memory.
-	o Removed mkfile, since it became obsolette because of source
-	  code reorganization. I am still unable to write mkfiles since
-	  some required files seems to be missing in "demo" installation
-	  so back to mk script :(
-	o Suport for 1bpp displays
-      SVGA Changes
-	o Supports truecolor, missordered truecolor, truecolor24, hicolor 
-	  and realcolor modes
-	o Some hacks in order to make thread stuff working
-      X11 Changes
-	o support for fullscreen mode so XaoS can act as screensaver.
-	   Johan Hagman <Johan.Hagman@mailbox.swipnet.se>
-	o works on alphas and other 64bit architectures in 
-	   hicolor/truecolor mode Alexander V. Lukyanov 
-	   <lav@video.yars.free.net>
-	   (this change is now obsolette since hicolor/truecolor is in
-	   the main engine now)
-	o removed some XFlush calls so XaoS is now MUCH faster, but should
-	  make problems at old servers. Use -sync
-	o Fixed resize and keysym crash
-	o Supports truecolor, missordered truecolor, hicolor, realcolor and fixedcolor
-	o Uses private colormap as default since shared colormap looks
-	  too ugly. (note that shared colormap scheme is still supported,
-	  but features are bit limited)
-	o added -display switch
-	o Now have normal, wait and replay mouse
-	o Handles keyboard better.
-	o Reduced memory usage in X11 modes
-	o Support for black and white modes
-      DOS Changes
-	o supports new allegro(2.2)-better dialog, portability, higher 
-	  resolutions
-	o fixed timming - now it works in much higher framerate(not 
-	  limited to 18.2 and even to 3.64 in dynamic resolution)
-	o new -i_love_bill for windows friendly mode
-	o Now compiles with lfn enabled
-	o does not work under linux dosemulator anymore
-	  (dosemulator guys fixed the problem, so it works again :)
-	o Updated for work-in-progress allegro(www.talula.demon.co.uk)
-	  now supports truecolor, hicolor and realcolor, also driver is
-          much simplier since custom dialog code is not required anymore.
-	o Have new lovely wait cursor
--------------------------------------------------------------------------------
-Version 2.2
-      Fixes:
-	o bug in palette changing code
-	o more detections for various curses versions
-	o small well hidden bug in reallocation algorithm discovered.
-	o removed passing in registers to avoid compiler bug
-	o now allows unzoom greater than MAX_INT again
-	o symetry handling works for deeper unzooms too.
-	o more test for owerflowing/underflowing of resolution.
-	  so now produces garbage but does not crash(feature?)
-	o more exact zooming/unzooming
-	o better framerate handling
-	o fixes for pgcc - do not generate faults..
-      Cleanups:
-	o char * -> unsigned char *
-	o mkrealloctable
-	o some optimizations for pipelining
-	o cleaned code to compile with -pedantic -traditional -Wall
-	o ugly interface-better menu code, drawing fractal etc..
-	o all timing code changed to use timer library
-	o approximation algorithm
-	o functions called maximally once per frame are not inlined
-	  anymore
-	o created few directories for documentation etc..
-	o Minor changes in color indexing
-	o palette changing code
-	o rewrote solid guessing
-	o some variables in drivers structure changed to flags
-      Speedups:
-        o symetry handling code in mkrealloc table optimized a bit.
-	  now is faster,shorter and does better job. :)
-	o non x/y symetries disabled because they slowes down for now..
-	o approximation algorithm optimized-lots of memory accesses 
-	  avoided-great speedup..
-	  now performs much better(16fps -> 18 on 486)
-	  also small hidden bug discovered, pricing redesigned a bit
-	  and loops simplified-divided into more loops
-	  function is now longer.
-	  Also taken special care to minimize number of PRICE calls
-	  mkrealloc tables is not main problem anymore. Handles
-	  correctly all situations I tryed and is quite fast.
-	o approximation algorithm is now fixed point
-	  sprprisingly very small speedup..(but much smaller code)
-	o better newton and barnsley calculation routines
-      New features:
-	o added fast preview mode for julias (julia.c)
-	o configure coprocesor on 386/gnuc
-	o created timer library that allows nice timing. 
-	  asynchronous operations and lots of other funny stuff..
-	  Bad thing is that XaoS does not work anymore w/o function for
-	  getting time in milisec/usec. Gettimeofday, ftime and plan9
-	  /dev/msec are supported. Others can be added to timmers.c and
-	  timmers.h. Please send me modified version
-	o improved configure script
-	o Added additional statistics functions good for testing of 
-	  algorithm
-	o lots of tests for speed done..(see doc/speed)
-        o completly new calculatenewinterruptible. This function
-	  acts like calculatenew but may be interrupted(using interrupt
-	  varibale) and then makes image with lower resolution
-	  This makes possible to reduce resolution on the fly if
-	  required
-	o approximation algorithm now works well with new 
-	  calculatenewinterruptible
-	o improved palette changing
-	o Improved solid guessing for variable range instead of range 2
-	  also another special loop w/o sg when sg impossible
-	o do_fractal now supports both-interruptible/uninterruptible
-	  modes
-	o Added magnet fractal
-	o Added julia form of newton(bit tricky but looks well)
-	o Added julia form of octo
-	o Added support for random dot stereograms
-	o pass is now string-more readable informations
-	o mailing lists (xaos,xaos-announce,xaos-devel) see doc/README
-    Documentation changes:
-        o new tutorial
-	o new algorithm descriptions
-	o new PROBLEMS file
-	o new README.gcc file
-	o new xaosman.txt file
-	o updates for new versions
-    UI Changes:
-    	o improved speed detection in ministatus
-	o added 'j' for julia modes
-	o added 'd' for default palette
-	o added 't' for fast calculation modes control
-	o added 'g' for solid guessing options
-	o added 'o' for rotating
-	o added '0' for magnet
-	o added 'e' for random dot stereogram
-	o changed to use timer library
-	o does not crash with deep unzooms
-	o added support for palette rotating
-	o extended timing stuff for suport sync timing group..
-	  this group is called "quite" often..
-	o added support for new resolution lowering feature
-	o now operates with exact screen sizes-no more fractal 
-	  deformations..
-	o automatical detection of optimal framerate for new resolution
-	  lowering algorithm
-    X11 changes:
-        o more sanity checking for mitshm initialization
-	o Added support for rotating palette for private colormap
-	  and truecolor modes. 8bpp pseudocolor w/o privatecolormap
-	  is impossible..
-	o Uses X' function for autodetection screen size in milimeters..
-	  (is this reilable?)
-    SVGA changes:
-        o Waits for retrace before displaying..looks better
-    curses changes:
-    	o Use capital letter for G and E to avid collisions with ugly
-	  interface
-	o Compatible with ncurses w/o redrawwin
-    MS-DOG,X11 and SVGA driver:
-        o Added support for palette rotating
--------------------------------------------------------------------------------
-Version 2.1
-        o >>>>FINALLY<<<< discovered and implemented PROVED TO BE 
-	  OPTIMAL dynamical aproximation algorithm in linear time!!!
-	  It is still bit slow..but it is here!
-	  It should slow down at the begining but certainly speeds up
-	  during zoom
-	  Also allows deeper zoom
-	o added out of memory checks to make xaos safer on non unix platforms
-        o autopilot is now timed by same way as all other parts are.
-	  Now will act same on all computers(I hope)
-	o Memorry corruption bug fixed - it caused problems with ysizes not dividable
-	  by 2 with some other strange situations.
-	o New README.interface
-	   This helps others to extend XaoS or use its routines
-	   in their software
-	o Added many sanity checking to make easy debugging of new ports
-        o small cleanups (unused variables etc..)
-	o minnor speedups
-	o added OS/2 port(graphics 320x200 and text) By Thomas A. K. Kjaer
-	o added macintosh support by Tapio K. Vocadlo (thanks)
-	o added support for different scanline size than width. for Mac and X11 port
-	  >>WARNING<< changes to driver API:alloc_buffers now returns line size(usually
-	  width)
-	o Thomas' email updated
-	o Bit less agresive to gcc optimizer..no more compiler crashes..
-	  I hope
-    UI Changes:
-        o <- and -> stops calculation
-	o driver changing disabled when just one driver available
-	o status line
-	o minnor cleanups
-    Plan 9 changes:
-        o mkfile by Scott Schwartz
-	o correct timming. Thanks to Niger Roles and others on 9fans list
-    MS-DOS Changes:
-	o hiddes mouse at resizes - do not cause crashes anymore
-    X11 Changes:
-        o private colormap support
-	o Fixed freed memory accessing bug..
-	o added switches:
-	   -private
-	   -usedefault
-	   -nomitshm
-	o improved autodetection of best available visual-if defaultvisual!=pseudocolor
-	  try truecolor first..do not use truecolor visuals on pseudocolor displays(look
-	  ugly)
-	  also supports 8bpptruecolor, staticcolor and grayscale(untested)
-	o Fixed bug in changing number of entries that caused problems on SGI
--------------------------------------------------------------------------------
-Version 2.0
-        o Configure script.
-	o Added biomorph outcoloring mode
-	o Compiles now with -O2 - no -O3 required..
-	  but kept -O6 for invoking pgcc optimizations
-	o Many changes to make binary file smaller...consts, static, no
-	  inlines and so on..
-	  about 10KB from full XaoS saved..
-	o Long doubles automatically disabled on SunOs
-	o added new curses based interface. Have you ever seen realtime 
-	  256 color fractal zoomer with text based output? :)
-	o Now just one compact binary for all available drivers
-	o Faster startup..(three times)
-	o Compiles w/o many warnings(except these in libraries and
-	  implicit definitions) with -ansi -pedantic -traditional -Wall
-	o Autopilot not detects "oscillating" and too deep zoom so it can work
-	  to infinity...can run as demo w/o any user input..
-	  also auto detects major changes done by user and reinitializes variables...
-	  so it restarts after changing of fractal type and so on..
-	o many many new bugs!
-	  But remember! Its not bug! Its feature!
-   Ugly interface changes:
-        o Completely redesigned-hardware depended parts are now
-	  coded as drivers with common interface-easier adding
-	  of new architectures
-	  but looks as ugly as in previous releases :)
-	o Added changing of display driver on the fly
-	o Displays calculation status
-	o Possibility of interrupting calculation
-	o Reduced size of output program
-	  (for example SVGAlib version from 48 to 37)
-	o speed changing is now with displaying of status..
-	o all ports modified for new interface
-	o better status informations
-	o new keys:
-	  '?'/'/' status information
-	  'r'     recalculate
-	  'z'     interrupt
-	  'v'     driver change
-	  ' '     Redraw screen(or display current calculation status)
-	o new hyperugly text browser that displays long and interesting
-	  help text
-	o Command line options support. Now you may configure XaoS
-	  quite well..(turn on autopilot, set iterations etc..)
-	o Changes to make drivers non reentrant
-   SVGAlib prot changes:
-	o Ui_svga is now event handled. It does not stay in wait
-	  loop anymore.
-	o Keys are now buffered-no more problems with disabling
-	  autopilot
-	o Added command line option:
-	   -mode to select graphics mode
-	o Now handles text in xmodes w/o seg. faults
-	o Fixed possible crash after resizing
-	o for compatibility with old SVGAlib keeps old non event handled
-	  keyboard interface....but not recommended at all!
-   PLAN9 port changes:
-        o During porting to new ui interface I found nasty bug in displaying.
-	  Now plan9 port is IMWHO surprisingly fast. 8c produces quite good code.
-	  still crashes in higher resolution and has color problems
-	o added keys [,] for changing iterations and ;,' for speed
-	o Better palette handling
-   MS-DOS port changes:
-   	o Keys are now buffered-no more problems with disabling
-	  autopilot
-	o Compiled using DJGPP 2.01. So many DJGPP's bugs fixed :)
-   X11 port changes:
-        o Fixed some bugs that caused troubles when memory is not zeroed..
-	o Added support for 16bpp, 24bpp and 32bpp truecolor visuals
-	o Fixed bug that caused possible crashes before freeing images
-	  (resizing etc..)
-	o Removed unnecessary INLINEs in xlib.c/xlib.h ..
-	  makes binary size bit smaller.
-   Algorithm revisions:
-        o Many areas inside set are not calculated
-	o realloc_t - most often used array is now 32byte aligned..
-	o Better newton calculating code-math now optimized by hand.
-	o Small fixes in symmetry handling code
-	  also minor speedups
-	o Mandelbrot calculation rewrote into 386 assembly..
-	  less than 5% speedup :((( (gcc guys:good work! :)
-	  note that this is only for Intel platforms-xaos is still
-	  compatible with non Intel computers :)
+	* catalogs/README, catalogs/README.i18n, catalogs/cesky.cat, catalogs/deutsch.cat, catalogs/english.cat, catalogs/espanhol.cat, catalogs/francais.cat, catalogs/magyar.cat, doc/ANNOUNCE, doc/AUTHORS, doc/PROBLEMS, doc/README, doc/README.BeOS, doc/README.OS2, doc/README.WIN, doc/README.bugs, doc/README.dos, doc/README.ggi, doc/README.mac, doc/README.plan9, doc/README2.dos, doc/XaoS.lsm, doc/compilers.txt, doc/xaos.6, doc/xaos.geninfo, doc/xaos.info, doc/xaos.texinfo, doc/xaosdev.texinfo, examples/README, help/xaos.hlp, src/i18n/Makefile.dos, src/i18n/README, tools/do-indent, tools/indent1, tools/mkChangeLog, tools/update, tools/wintounix.c, tutorial/3dtutor.xaf, tutorial/render.xaf, 3dtutor.xaf, ChangeLog.c, ChangeLog.e, ChangeLog.f, ChangeLog.g, ChangeLog.h, ChangeLog.i, ChangeLog.j, ChangeLog.k, ChangeLog.l, ChangeLog.m, ChangeLog.n, ChangeLog.old, ChangeLog.q, ChangeLog.r, ChangeLog.t, ChangeLog.u, ChangeLog.v, ChangeLog.w, ChangeLog.x, ChangeLog.y, INSTALL, INSTALL.dos, README, TODO, TODO.Be, TODO.win, anim.par, anim.pat, configure.in, do-indent, fract0.xpf, indent1, p.c, p.s, update, wintounix.c:
+	Major cleanup. Some files have been removed, others moved to new places.
+	ChangeLog is generated automatically from now on. Added missing credits
+	to all necessary files. Added README. ./configure now checks aalib
+	version >= 1.4 (version 1.3 reports bad image height, this caused memory
+	overflow).
 
-	  because of out coloring bugs disabled for now..
-	o Completely new reallocing algorithms. Now proved to be 
-	  optimal
-	  but because of ugly looking results returned back to original one
-	  current algoritmus is just about 20% slower than hypothetical
-	  optimal one..still trying :)
-	o Assembler fast inlined memcpy...also just for 386+
-	o Changed solid guessing method so it is up to 20% more effective
-	  in hope that no more mistakes introduced
-	  startup speed on 486 was reduced from 6 seconds to 4
-	  in fact it seems to make less errors than previous one :)
-	o Small changes in Barnsley code
-	o Minor fixes in symmetry code
--------------------------------------------------------------------------------
-Version 1.2
-   New features:
-	o New recalculating with non rectangular pixels. (for full screen modes)
-	  great for modes X :)
-	o New palette with white background
-	o Added coprocessor configuration into MS-DOS port - some coloring
-	  modes are MUCH faster because of no more SIGFPE ignoring..
-	o Added support for 1280x1024 and 1600x1200 into MS-DOS port
-	o Default type changed back to double because long double is
-	  non standard
-	o 9x15 font changed to more compatible and better looking fixed.
-	o First release of plan9 port (very interesting OS see
-	    http://plan9.att.com..trial version if free)-not 
-	    complete yet..colors looks ugly and keys like 
-	    arrows does not work.. 
+2003-01-10  kovzol  <kovzol@linux>
 
-	    someone who can help me?
+	* ChangeLog.h, ChangeLog.c, do-indent:
+	ChangeLog.[ch] was indented, they should not!
+	Fixing do-indent.
 
-	o Added key defines for old SVGAlib compatibility.
+	* src/ui-hlp/play.c, src/ui-hlp/render.c, src/ui-hlp/save.c, src/ui-hlp/ui_helper.c, src/ui-hlp/wstack.c, src/util/9thread.c, src/util/png.c, src/util/timers.c, src/util/xldio.c, src/util/xmenu.c, src/util/xshl.c, src/util/xstdio.c, src/ui-hlp/menu.c, src/ui/filesel.c, src/ui/ui-drv/plan9/ui_plan9.c, src/ui/ui-drv/svga/keytables.h, src/ui/ui-drv/win32/about.c, src/ui/ui-drv/win32/about.h, src/ui/ui-drv/win32/ui_win32.c, src/ui/ui-drv/win32/ui_win32.h, src/ui/ui-drv/win32/windialo.c, src/ui/ui-drv/win32/winmenu.c, src/ui/ui.c, src/i18n/cs.po, src/i18n/de.po, src/i18n/es.po, src/i18n/fr.po, src/i18n/hu.po, src/include/i386/__math.h, src/include/plane.h, src/include/version.h, src/include/xthread.h, src/ui/dialog.c, src/engine/zoom.c, src/filter/image.c, src/filter/palette.c, src/i18n/Makefile.in, src/engine/emboss.c, src/engine/formulas.c, src/engine/fractal.c, src/engine/anti.c, src/engine/btrace.c, examples/mand9.xpf, ChangeLog.c, ChangeLog.h, do-indent, p.c:
+	I18n basics are finished. .po file for Hungarian language is also
+	considered as finished, however some irrelevant messages are not
+	translated yet.
 
-   Fixes:
-	o Fixed bug that caused problems on dos configuration with
-	  lot of free memory :)
-	o Fixed symmetry handling in binary decomposition+lambda planes
-	o fixed some bugs that caused core dumps on non Intel
-	    architectures
-	o Floating point exception is now ignored-no more
-	    problems with random overflowing...(but great slowdown
-	    in cases that caused sigfpe)
-	o lots of cleanups for plan9 cc.
-	o Width of font is autodetected. fixed problems with
-	    non-standard X servers
-	o Avoided pgcc bug that caused wrong calculating of octo fractal
-	o Fixed color inside set(not fixed 0)
-	o Fixed color handling in X11
--------------------------------------------------------------------------------
-Version 1.1
-	o Removed unusable fixedpoint routines(386 users - go back to 1.0!)
-	o New planes (toggled by pressing "i")
-		- mu		(normal complex plane)
-		- 1/mu		(inversed)
-		- 1/(mu+0.25)
-		- lambda
-		- 1/lambda
-		- 1/(lambda-1)
-		- 1/(mu-1.40115)
-	o Symmetry code completely redesigned
-	o Added "m" into help
-	o Better approximation algorithm in "mkrealloctable";
-	  now it is about twice faster with a small zooming step
-	o Approximation in approximation for yet better..also twice faster
-	o Lots of cleanups
-	o port for MS-DOG called chappi
-	o Default palette is now same at all architectures
-	o Some memory overflowing fixes(oops)
-	o Fixed some divisions by zero
-	o Number_t clean-allows deeper zoom for long doubles
--------------------------------------------------------------------------------
-Version 1.0
-	o First Release
--------------------------------------------------------------------------------
+	"do-indent" is more intelligent. A run of this script was done
+	to beautify code.
+
+2003-01-08  kovzol  <kovzol@linux>
+
+	* src/i18n/cs.po, src/i18n/de.po, src/i18n/es.po, src/i18n/fr.po, src/i18n/hu.po, src/ui-hlp/menu.c, src/ui-hlp/play.c, src/ui-hlp/render.c, src/ui-hlp/save.c, src/ui-hlp/ui_helper.c, src/ui-hlp/wstack.c, src/ui/uimenu.c, src/ui/dialog.c, src/ui/filesel.c, src/ui/ui.c, src/include/xmenu.h:
+	Enhanced i18n.
+
+	* Makefile.in:
+	i18n should not be taken to the rules.
+
+2003-01-04  kovzol  <kovzol@linux>
+
+	* src/include/xmenu.h, src/ui-hlp/menu.c, src/ui/ui.c, src/Makefile.in, src/i18n/cs.po, src/i18n/de.po, src/i18n/es.po, src/i18n/fr.po, src/i18n/hu.po, src/include/ui_helper.h, Makefile.in:
+	Beautifying Makefiles (i18n now can be made without installing).
+
+	A demonstration version of internationalizing dialogs
+	(Perturbation and Julia-seed works now, tested).
+
+	* doc/README.bugs:
+	Fixing a bug I put into this file however Nix fixed it earlier.
+
+2002-12-30  kovzol  <kovzol@linux>
+
+	* configure.in, configure:
+	Added HAVE_GETTEXT constant for fixing broken i18n support.
+
+	* help/xaos.hlp, tutorial/mset.xaf, tutorial/render.xaf, doc/README, doc/README.bugs, doc/XaoS.lsm, doc/compilers.txt, doc/xaos.6, doc/xaos.geninfo, doc/xaosdev.texinfo:
+	Automated patching from Nix' fixes. Mostly grammar fixes
+	in English language, however some documentation related
+	changes are also commited.
+
+2002-12-09  kovzol  <kovzol@linux>
+
+	* doc/ANNOUNCE, doc/PROBLEMS:
+	Nix-fixes, second part. To be continued...
+
+	* catalogs/README, catalogs/english.cat, doc/ANNOUNCE, ChangeLog:
+	Some corrections done by Nix <nix@esperi.demon.co.uk>. There are
+	other fixes he did, but I was only able to start commiting his
+	fixes...
+
+2002-10-19  kovzol  <kovzol@linux>
+
+	* src/i18n/cs.po:
+	Czech translation by Martin Dózsa <madsoft@centrum.cz>. Tested
+	but not checked by an expert.
+
+2002-10-08  kovzol  <kovzol@linux>
+
+	* src/i18n/fr.po, src/i18n/hu.po, src/i18n/de.po, src/i18n/es.po, src/i18n/cs.po:
+	Spanish translation by César Pérez Turrado <cesar@uninet.edu>.
+	Auto-modifications for changed sources.
+
+2002-10-02  hubicka  <hubicka@linux>
+
+	* src/engine/formulas.c, src/engine/zoom.c, src/filter/random.c, src/include/config/config.plan9, src/include/ui_helper.h, src/include/xio.h, src/include/xthread.h, src/ui-hlp/menu.c, src/ui-hlp/render.c, src/ui/ui-drv/plan9/ui_plan9.c, src/util/9thread.c, src/util/help.c, src/util/timers.c, src/util/xstdio.c, mkv2, mkv3, mkv4:
+	Partial plan9 v2-v4 support.
+
+	* src/i18n/de.po, src/i18n/es.po, src/i18n/fr.po, src/i18n/hu.po, src/include/gccaccel.h, src/include/plane.h, src/ui/ui.c, src/engine/fractal.c, src/i18n/cs.po, configure, configure.in:
+	Tiny bugfixes.
+
+2002-10-01  hubicka  <hubicka@linux>
+
+	* src/util/xerror.c, src/include/ui_helper.h, src/ui/pipecmd.c, src/ui/ui-drv/svga/ui_svga.c, src/ui/ui.c:
+	Fix warnings.
+
+	* configure, configure.in:
+	Updates for new gcc versions.
+
+	* src/include/gccbuild.h:
+	Disable math inlines and see how commonly they are needed now.
+
+	* src/util/xldio.c:
+	Avoid some conflict with mingw name space.
+
+	* src/ui-hlp/menu.c, src/ui/ui.c:
+	FIx GETTEXT autodetection.
+
+	* src/ui/drivers.c, src/ui/ui-drv/win32/about.c, src/ui/ui-drv/win32/dxguid.c, src/ui/ui-drv/win32/ui_win32.c:
+	Allow optional compiling of DDRAW support.
+
+	* src/include/archaccel.h:
+	Remove rednuntant include.
+
+	* src/include/aconfig.h.in: Add gettext define.
+
+	* configure: Regenerate.
+
+	* configure.in:
+	Suport for disabling png by switch, better autodetection for windows, autodetect gettext.
+
+2002-09-30  kovzol  <kovzol@linux>
+
+	* src/i18n/hu.po: Typo fix.
+
+2002-09-28  kovzol  <kovzol@linux>
+
+	* ChangeLog, doc/AUTHORS:
+	Summarizing changes since Summer 2002.
+
+2002-09-27  kovzol  <kovzol@linux>
+
+	* src/include/fconfig.h, src/include/fractal.h, src/include/ui_helper.h, src/ui-hlp/menu.c, src/ui-hlp/save.c, src/ui-hlp/ui_helper.c, src/ui/ui-drv/win32/xaos.dlg, src/ui/ui.c, src/engine/formulas.c, src/engine/fractal.c:
+	There are 3 new fractal types and an option to change
+	the bailout value. The improvements have been made by
+	Andreas Madritsch.
+
+	All modified files were autoindented on Red Hat 6.1,
+	however all other files were autoindented on SuSE 7.3.
+	To be consistent, these files have to be reindented
+	on SuSE 7.3.
+
+	Here I also attach the original mail written by
+	Andreas.
+
+	Zoltan
+
+
+
+	From amadritsch@datacomm.ch Fri Sep 27 15:27:45 2002
+	Date: Fri, 27 Sep 2002 01:40:09 +0200
+	From: Andreas Madritsch <amadritsch@datacomm.ch>
+	To: kovzol@math.u-szeged.hu
+	Cc: jh@suse.cz
+	Subject: new features to XaoS
+
+	Hello
+
+	Here are my new features.
+
+	First, I added three new fractal types named newton^4, barnsley2 and
+	magnet2 to XaoS. For this, I made changes to the file engine/formulas.c.
+	I have added the original file formulas.c.orig and the changed version
+	formulas.c.1 to the tar archive attached, so that you can compare them
+	with a compare program and point out my changes. To avoid conflicts with
+	existing shortkeys, I changed the file ui-hlp/menu.c that the shortkeys
+	for additional fractal types become A, B, C in capital letters and so
+	on. As far as I know, capital letters are not used by XaoS yet. Because
+	you would use option-A, option-B and option-C on a Mac, which is not case
+	sensitive and conflicts with autopilot, perturbation and the outcoloring
+	menu, I switched them of for Mac, so Mac users have to use the menu.
+	There are also the files menu.c.orig and menu.c.1 in the tar archive, to
+	examine the changes I made.
+
+	Second, I made slight changes to the magnet fractal types, that other
+	colours are used for points whose orbital converge to the finite
+	attractor at zero. To see these changes compare the file formulas.c.orig
+	with the file formulas.c.2 also found in the tar archive. The file
+	formulas.c.12 in the archive is used to build XaoS with both the first
+	and the second feature.
+
+	Third, I added the menuitem bailout just below the menuitem iterations
+	in the calculation menu. Its main purpose is to alter the escape radius
+	for infinite attractors. For an example compare the mandelbrot pictures
+	created with a bailout of 4 and 100 when the outcoloring mode smooth is
+	in use. Also the barnsley fractals show interesting variants with
+	various bailout values in effect. Bailout defaults to 4 and is limited
+	to values greater than or equal to zero. For magnet fractal types the
+	escape radius of the finite attractor at zero decreases with increasing
+	bailout values, to give the possibility to improve the precision around
+	the origin. To achieve this, I had to change the files
+	include/fconfig.h, include/fractal.h, include/ui_helper.h,
+	ui-hlp/menu.c, ui-hlp/save.c, ui-hlp/ui_helper.c, ui/ui.c,
+	ui/ui-drv/win32/xaos.dlg, engine/formulas.c and engine/fractal.c. All
+	their original and modified versions are included in the tar archive
+	with the extensions .orig and .3 respectively. The files formulas.c.13
+	and menu.c.13 in the archive are used to build XaoS with the first and
+	third feature and the file formulas.c.23 is used to build XaoS with the
+	second and the third feature. To build XaoS with all the features you
+	will use formulas.c.123.
+
+	Because some *.orig files are older than the current files in cvs, you
+	have to check if my changes conflict with changes that have been made
+	after I started to add my features.
+
+	With kind regards
+
+	Andreas
+
+2002-09-25  kovzol  <kovzol@linux>
+
+	* src/i18n/hu.po, src/ui/ui.c:
+	Here I attach the whole information text about this patch.
+	This improvement was written by Paul Nasca <paulnasca@email.ro>.
+	Note that an internationalized string should be also changed.
+
+	Zoltan
+
+
+
+	Xaos version: Xaos-3.0
+
+	*** NOTE (Zoltan) ***
+	This is not the newest version.
+	**** END OF NOTE ****
+
+	the file:  src/ui/uinew.c
+
+	*** NOTE (Zoltan) ***
+	This file no longer exists, there is ui.c instead of it.
+	**** END OF NOTE ****
+
+	This patch does 2 improvements:
+	     1) the number of iterations are no longer incremented/decremendet by one. This is very annoing if I want to change from 10 to 100,000.
+	        Instead it is inc./dec. by about 5 percent of the current values.
+		So, I can change in a better way the number of iterations.
+		The problem is that the you cannot change it very preciselly at high numbers (anyway who cares if the number of iterations are 100,000 or 100,001 ?)
+
+	*** NOTE (Zoltan) ***
+	In version 3.1 this is an obsolete improvement since it already contains such a thing.
+	**** END OF NOTE ****
+
+	     2) the status line show the logarithm of the zoom value like:
+	        (zoomed 1281.25 times (3.1E) ....)
+		It is very usefull at high zoomings:
+		Eg. Instead counting the digit of the number 3447484602761.55 better you read (12.5E) and you know that is zoomed about 10**12 times.
+
+	I'd like if you'll add this in the xaos distribution. Hope you'll enjoy it.
+
+	Paul Nasca from Romania.
+
+	P.S. Thank you for this powerful program. When I saw first time on a 486 I could'nt belive that is possible to do a real-time zooming of fractals (even on very poverfull computers).
+
+	* src/ui/ui-drv/win32/about.c, src/ui/ui-drv/win32/about.h, src/ui/ui-drv/win32/ui_win32.c, src/ui/ui-drv/win32/ui_win32.h, src/ui/ui-drv/win32/version.rc, src/ui/ui-drv/win32/windialo.c, src/ui/ui-drv/win32/winmenu.c, src/ui/ui-drv/win32/xaos.rc, src/util/timers.c, doc/README.WIN, src/include/config/config.autoconf, src/ui/ui-drv/mac/macicon.rsrc.sit, src/ui/ui-drv/mac/macproject.mcp.sit, src/ui/ui-drv/mac/macresources.rsrc.sit, src/ui/ui-drv/mac/ui_mac.c, src/ui/ui-drv/win32/Makefile.in:
+	I attach here the whole mail from Andreas Madritsch.
+	He made all of this patches. I successfully compiled
+	the code with his patches under Debian 3.0.  Zoltan
+
+
+	From amadritsch@datacomm.ch Wed Sep 25 20:48:42 2002
+	Date: Wed, 18 Sep 2002 00:46:43 +0200
+	From: Andreas Madritsch <amadritsch@datacomm.ch>
+	To: kovzol <kovzol@math.u-szeged.hu>
+	Subject: Re: Project manager
+
+	OK Here are the fixes
+
+	LINUX
+
+	For SuSe Linux I do not really have a fix, but to get the SVGA driver to
+	work, I had to use version 1.1.1.1 of the file
+	src/ui/ui-drv/svga/ui_svga.c instead of the newest version 1.2.
+
+	*** NOTE (Zoltan) ***
+	I didn't load the previous version back because in my opinion
+	the newest version works well. However, I'm not sure. I should try it first.
+	**** END OF NOTE ****
+
+
+	WIN32
+
+	For Win32, we have to make some corrections to the source code. Find
+	the lines 74-81 in the file src/util/timers.c, which spell as follows:
+
+	#ifdef _WIN32
+	/*#define QuadPart(x) (((long long)x.HighPart << 32) + x.LowPart)*/
+	#ifndef _ANONYMOUS_STRUCT
+	#define QuadPart(x) x.u.QuadPart
+	#else
+	#define QuadPart(x) x.QuadPart
+	#endif
+	#endif
+
+	These lines should be changed to look like this:
+
+	#ifdef _WIN32
+	#define QuadPart(x) x.QuadPart
+	#endif
+
+	That should not be a problem to other targets, because the code is
+	located in an #ifdef _WIN32 section. As a precaution, I have added the
+	original file timers.c.orig and the corrected version timers.c.fixed to
+	the tar archive attached to this mail.
+
+	Because ddraw.h is designed for compilers which support nameless unions,
+	we have to put a #define NONAMELESSUNION before including ddraw.h as
+	described in ddraw.h itself. I put the following six lines shown below
+	after line 20 in the file src/include/config/config.autoconf. I hope
+	this is the right place for such things.
+
+	/*For compilers that don't support nameless unions, do a
+	#define NONAMELESSUNION
+	before #include <ddraw.h>*/
+	#ifdef _WIN32
+	#define NONAMELESSUNION
+	#endif
+
+	To avoid problems with other targets, I located the code inside an
+	#ifdef _WIN32 section. Also here I added the original file
+	config.autoconf.orig and the corrected version config.autoconf.fixed to
+	the tar archive attached to be on the safe side.
+
+	Finally we have to fix the files about.c, about.h, Makefile.in,
+	ui_win32.c, ui_win32.h, version.rc, windialo.c, winmenu.c and xaos.rc in
+	the directory src/ui/ui-drv/win32/, because they ends with mysterious
+	characters (032) which make the make utility and the compiler to fail.
+	Also here I added the original files *.orig and the corrected versions
+	*.fixed to the tar archive attached.
+
+	I added a guide on compiling XaoS for Win32 to the file README.WIN.
+	I added the original file README.WIN.orig and the new version, which
+	contains my guide, README.WIN.new to the tar archive attached.
+
+
+	MAC
+
+	For Mac, we also have to make some corrections to the source code. Find
+	the lines 78 and 597 in the file src/ui/ui-drv/mac/ui_mac.c and change
+	full_driver to mac_full_driver. I also consider to change double_driver,
+	which is not used yet, in the same file on line 79, 600 and 993 to
+	mac_double_driver. Also here I added the original file ui_mac.c.orig and
+	the corrected version ui_mac.c.fixed to the tar archive attached.
+
+	Because the Mac resource forks get lost on cvs, the files macicon.rsrc,
+	macproject.mcp and macresources.rsrc in the directory src/ui/ui-drv/mac
+	should be provided as .sit files. I have added them to the tar archive
+	attached.
+
+	* src/ui-hlp/autod.c, src/ui-hlp/autopilot.c, src/ui-hlp/autopilot.h, src/ui-hlp/menu.c, src/ui-hlp/messg.c, src/ui-hlp/play.c, src/ui-hlp/play.h, src/ui-hlp/playtext.c, src/ui-hlp/render.c, src/ui-hlp/save.c, src/ui-hlp/ui_helper.c, src/ui-hlp/wstack.c, src/ui/ui-drv/win32/ui_win32.h, src/ui/ui-drv/win32/windialo.c, src/ui/ui-drv/win32/winmenu.c, src/ui/ui-drv/x11/ui_x11.c, src/ui/ui-drv/x11/xlib.c, src/ui/ui-drv/x11/xlib.h, src/util/9thread.c, src/util/be_thread.c, src/util/catalog.c, src/util/help.c, src/util/png.c, src/util/thread.c, src/util/timers.c, src/util/xerror.c, src/util/xldio.c, src/util/xmenu.c, src/util/xshl.c, src/util/xstdio.c, src/util/xstdio_mac.c, src/util/xstring.c, src/engine/zoomd.c, src/filter/filter.c, src/filter/font.c, src/filter/grlib.c, src/filter/grlibd.c, src/filter/image.c, src/filter/palette.c, src/filter/random.c, src/include/btrace.h, src/include/catalog.h, src/include/cursor.h, src/include/filter.h, src/include/formulas.h, src/include/fractal.h, src/include/gccaccel.h, src/include/gccbuild.h, src/include/grlib.h, src/include/i386/__math.h, src/include/i386/ctrl87.h, src/include/i386/sstring.h, src/include/mac/CommonDialogs.h, src/include/mac/malloc.h, src/include/mac/stdioMac.h, src/include/misc-f.h, src/include/param.h, src/include/pixel_t.h, src/include/plane.h, src/include/timers.h, src/include/true24.h, src/include/ui.h, src/include/ui_helper.h, src/include/xerror.h, src/include/xio.h, src/include/xldio.h, src/include/xmenu.h, src/include/xshl.h, src/include/xthread.h, src/include/zoom.h, src/ui/dialog.c, src/ui/drivers.c, src/ui/filesel.c, src/ui/fparams.c, src/ui/param.c, src/ui/pipecmd.c, src/ui/ui-drv/BeOS/MenuMessage.h, src/ui/ui-drv/BeOS/XaoSAbstractWindow.h, src/ui/ui-drv/BeOS/XaoSApplication.h, src/ui/ui-drv/BeOS/XaoSDialog.h, src/ui/ui-drv/BeOS/XaoSDirectScreen.h, src/ui/ui-drv/BeOS/XaoSDirectView.h, src/ui/ui-drv/BeOS/XaoSDirectWindow.h, src/ui/ui-drv/BeOS/XaoSEvent.h, src/ui/ui-drv/BeOS/XaoSMenu.h, src/ui/ui-drv/BeOS/XaoSProducer.h, src/ui/ui-drv/BeOS/XaoSScreenView.h, src/ui/ui-drv/BeOS/XaoSSplashView.h, src/ui/ui-drv/BeOS/XaoSSplashWindow.h, src/ui/ui-drv/BeOS/XaoSView.h, src/ui/ui-drv/BeOS/XaoSWindow.h, src/ui/ui-drv/BeOS/be_checkfile.h, src/ui/ui-drv/BeOS/be_possitionio.h, src/ui/ui-drv/aa/ui_aa.c, src/ui/ui-drv/dga/ui_dga.c, src/ui/ui-drv/dos/ui_dos.c, src/ui/ui-drv/ggi/ui_ggi.c, src/ui/ui-drv/mac/CommonDialogs.c, src/ui/ui-drv/mac/directoryfunctions/Director.h, src/ui/ui-drv/mac/directoryfunctions/FSpCompa.h, src/ui/ui-drv/mac/directoryfunctions/FileCopy.h, src/ui/ui-drv/mac/directoryfunctions/FullPath.h, src/ui/ui-drv/mac/directoryfunctions/IterateD.h, src/ui/ui-drv/mac/directoryfunctions/MoreDesk.h, src/ui/ui-drv/mac/directoryfunctions/MoreExtr.h, src/ui/ui-drv/mac/directoryfunctions/MoreFile.h, src/ui/ui-drv/mac/directoryfunctions/Optim.h, src/ui/ui-drv/mac/directoryfunctions/OptimEnd.h, src/ui/ui-drv/mac/directoryfunctions/Search.h, src/ui/ui-drv/mac/directoryfunctions/mfsearch.h, src/ui/ui-drv/mac/macmenus.c, src/ui/ui-drv/mac/stdioMac.c, src/ui/ui-drv/mac/ui_mac.c, src/ui/ui-drv/os2/ui_os2vio.c, src/ui/ui-drv/plan9/ui_plan9.c, src/ui/ui-drv/svga/keytables.h, src/ui/ui-drv/svga/ui_svga.c, src/ui/ui-drv/template/ui_template.c, src/ui/ui-drv/win32/about.c, src/ui/ui-drv/win32/about.h, src/ui/ui-drv/win32/dxguid.c, src/ui/ui-drv/win32/ui_win32.c, src/ui/ui.c, src/ui/uihelp.c, src/ui/uiint.h, src/ui/uimenu.c, do-indent, indent1, src/engine/3d.c, src/engine/3dd.c, src/engine/anti.c, src/engine/blur.c, src/engine/btrace.c, src/engine/btraced.c, src/engine/calculate.h, src/engine/dither.c, src/engine/docalc.c, src/engine/edge.c, src/engine/edge2.c, src/engine/edge2d.c, src/engine/edged.c, src/engine/emboss.c, src/engine/formulas.c, src/engine/fractal.c, src/engine/i386.c, src/engine/interlace.c, src/engine/itersmall.c, src/engine/julia.c, src/engine/julia.h, src/engine/paletted.c, src/engine/palettef.c, src/engine/plane.c, src/engine/rotate.c, src/engine/rotated.c, src/engine/star.c, src/engine/stard.c, src/engine/stereod.c, src/engine/stereogram.c, src/engine/subwindow.c, src/engine/zoom.c, wintounix.c:
+	Almost all source files have been autoindented using the GNU indent
+	program. Most files had to be converted from Microsoft's 0x0d0a
+	format to Unix' 0x0a format. See wintounix.c, indent1 and do-indent
+	for details. To autoindent all *.c and *.h files you should rerun
+	do-indent. Hopefully all the things are working now, too... :-)
+
+2002-09-13  kovzol  <kovzol@linux>
+
+	* src/Makefile.dos, src/i18n/Makefile.dos, src/i18n/README, src/i18n/xaos-cs.bat, src/i18n/xaos-de.bat, src/i18n/xaos-es.bat, src/i18n/xaos-fr.bat, src/i18n/xaos-hu.bat, src/ui/ui.c, INSTALL.dos, build.bat, configure, configure.in:
+	I18n support on DOS. More intelligent code detecting locale settings.
+	Should also work with buggy glibc (on SuSE 7.3 upgrade) as well.
+
+2002-09-11  kovzol  <kovzol@linux>
+
+	* src/ui-hlp/menu.c, src/ui/ui.c, ChangeLog, INSTALL, INSTALL.dos, build.bat, configure, configure.in:
+	I18n can be turned off with configure. Tested also under MS-DOS
+	(without i18n).
+
+2002-09-02  kovzol  <kovzol@linux>
+
+	* src/i18n/Makefile.in, src/i18n/README, src/i18n/cs.po, src/i18n/de.po, src/i18n/es.po, src/i18n/fr.po, src/i18n/hu.po, src/ui-hlp/menu.c, src/ui/ui.c, catalogs/README.i18n:
+	Improved i18n support, added entries for those languages which
+	have already existed among the catalog files. Help/Language menu is
+	no longer available, because all menu entries are automatically
+	generated by locale settings. See src/ui/ui.c for details.
+
+2002-08-26  kovzol  <kovzol@linux>
+
+	* doc/AUTHORS, src/i18n/Makefile.in, src/i18n/README, src/i18n/hu.po, src/include/ui_helper.h, src/include/xmenu.h, src/ui-hlp/menu.c, src/ui/ui.c, Makefile.in, configure, configure.in:
+	Internationalization (i18n) support. Currently works only with Hungarian
+	language but any language can be easily added. See src/i18n/README
+	for details.
+
+	The "configure" script has been also updated. With autoconf 2.52 I also
+	regenerated this file. I also used autoscan to generate an up-to-date
+	configure.in and I merged the old one together with the new one.
+	Hopefully it still works now without any problems.
+
+	Bugs: if gettext is not installed, the package does not work anymore.
+	There should be checked if it is missing or not, mainly under DOS and
+	Windows (and maybe other platforms as well) and if it is not available,
+	then easily add a
+
+	STRING gettext(STRING translatable)
+	{
+	 return translatable;
+	}
+
+	or something like this to the code with #ifdef.
+
+2002-08-08  kovzol  <kovzol@linux>
+
+	* src/filter/Makefile.OS2, src/filter/Makefile.dos, src/filter/Makefile.in, src/engine/Makefile.dos, src/engine/Makefile.in, src/engine/Makefile.os2:
+	Some *d.c files are heavily used during generating .o files however
+	Makefiles contained mostly nothing about this. This has been now
+	hopefully fixed.
+
+2002-06-03  kovzol  <kovzol@linux>
+
+	* catalogs/magyar.cat, doc/README, src/ui-hlp/menu.c:
+	Added tutorial for Hungarian (magyar) language.
+
+2002-05-17  kovzol  <kovzol@linux>
+
+	* src/ui/ui.c:
+	Denying letterspersec==0 for arrow keys during play
+
+2001-05-31  hubicka  <hubicka@linux>
+
+	* src/ui/ui-drv/svga/ui_svga.c: Fix.
+
+2001-05-27  dmazzoni  <dmazzoni@linux>
+
+	* src/ui/ui-drv/mac/directoryfunctions/Search.h, src/ui/ui-drv/mac/directoryfunctions/Search.cpp, src/ui/ui-drv/mac/directoryfunctions/OptimEnd.h, src/ui/ui-drv/mac/directoryfunctions/Optim.h, src/ui/ui-drv/mac/directoryfunctions/MoreFile.h, src/ui/ui-drv/mac/directoryfunctions/MoreFile.cpp, src/ui/ui-drv/mac/directoryfunctions/MoreExtr.h, src/ui/ui-drv/mac/directoryfunctions/MoreExtr.cpp, src/ui/ui-drv/mac/directoryfunctions/MoreDesk.h, src/ui/ui-drv/mac/directoryfunctions/MoreDesk.cpp, src/ui/ui-drv/mac/directoryfunctions/mfsearch.h, src/ui/ui-drv/mac/directoryfunctions/mfsearch.cpp, src/ui/ui-drv/mac/directoryfunctions/IterateD.h, src/ui/ui-drv/mac/directoryfunctions/IterateD.cpp, src/ui/ui-drv/mac/directoryfunctions/FullPath.h, src/ui/ui-drv/mac/directoryfunctions/FullPath.cpp, src/ui/ui-drv/mac/directoryfunctions/FSpCompa.h, src/ui/ui-drv/mac/directoryfunctions/FSpCompa.cpp, src/ui/ui-drv/mac/directoryfunctions/FileCopy.h, src/ui/ui-drv/mac/directoryfunctions/FileCopy.cpp, src/ui/ui-drv/mac/directoryfunctions/Director.h, src/ui/ui-drv/mac/directoryfunctions/Director.cpp:
+	The "MoreFiles" sources provided by Apple Computer to iterate directories, etc.
+
+	* src/include/config/config.mac: Mac port
+
+	* src/util/xstdio_mac.c: *** empty log message ***
+
+	* src/ui/ui-drv/mac/ui_mac.c, src/ui/ui.c, src/util/timers.c, src/ui/pipecmd.c, src/engine/fractal.c, src/ui/drivers.c, src/ui/dialog.c:
+	Mac port
+
+2001-04-21  dmazzoni  <dmazzoni@linux>
+
+	* src/ui/ui-drv/mac/ui_mac.c, src/ui/ui-drv/mac/stdioMac.c, src/ui/ui-drv/mac/CommonDialogs.c:
+	Mac port by Dominic Mazzoni
+
+	* src/ui/ui-drv/mac/macmenus.c:
+	*** empty log message ***
+
+	* src/ui/ui-drv/mac/macresources.rsrc, src/ui/ui-drv/mac/macproject.mcp, src/ui/ui-drv/mac/macicon.rsrc:
+	Mac project and resource files by Dominic Mazzoni
+
+	* src/include/config/config.mac, src/include/config/aconfig.mac:
+	Mac port by Dominic Mazzoni
+
+	* src/include/mac/malloc.h:
+	There's no equivalent file on the mac, so we stick this dummy file here
+
+2001-04-12  hubicka  <hubicka@linux>
+
+	* src/util/timers.c: Win32 fix
+
+	* src/ui/ui-drv/win32/dxguid.c:
+	Kill include of dxsound.h
+
+2001-04-10  hubicka  <hubicka@linux>
+
+	* tutorial/octo.xaf: fix
+
+	* catalogs/english.cat, tutorial/new30.xaf:
+	Fix minor tutorial bugs.
+
+	* configure, configure.in:
+	fix typo
+
+2001-04-05  hubicka  <hubicka@linux>
+
+	* src/include/i386/sstring.h:
+	Fix glibc compilation problem.
+
+	* src/util/timers.c, src/util/xldio.c, src/ui/ui-drv/win32/about.rc:
+	Fix cygwin compilation problems
+
+2001-02-06  hubicka  <hubicka@linux>
+
+	* tutorial/flake5.xhf, tutorial/flaketh.xhf, tutorial/fmath.xaf, tutorial/fractal.xaf, tutorial/head.xhf, tutorial/incolor.xaf, tutorial/innew.xhf, tutorial/intro.xaf, tutorial/julia.xaf, tutorial/keys.xhf, tutorial/line1.xhf, tutorial/magnet.xaf, tutorial/mset.xaf, tutorial/msetren.xaf, tutorial/new30.xaf, tutorial/newton.xaf, tutorial/octo.xaf, tutorial/other.xaf, tutorial/outcolor.xaf, tutorial/outnew.xhf, tutorial/palette.xaf, tutorial/palette.xhf, tutorial/pause.xhf, tutorial/pert.xaf, tutorial/pert.xhf, tutorial/phoenix.xaf, tutorial/plane.xaf, tutorial/power.xaf, tutorial/render.xaf, tutorial/square.xhf, tutorial/tree.xhf, tutorial/truecol.xaf, tutorial/truecol.xhf:
+	Imported sources
+
+	* tutorial/flake5.xhf, tutorial/flaketh.xhf, tutorial/fmath.xaf, tutorial/fractal.xaf, tutorial/head.xhf, tutorial/incolor.xaf, tutorial/innew.xhf, tutorial/intro.xaf, tutorial/julia.xaf, tutorial/keys.xhf, tutorial/line1.xhf, tutorial/magnet.xaf, tutorial/mset.xaf, tutorial/msetren.xaf, tutorial/new30.xaf, tutorial/newton.xaf, tutorial/octo.xaf, tutorial/other.xaf, tutorial/outcolor.xaf, tutorial/outnew.xhf, tutorial/palette.xaf, tutorial/palette.xhf, tutorial/pause.xhf, tutorial/pert.xaf, tutorial/pert.xhf, tutorial/phoenix.xaf, tutorial/plane.xaf, tutorial/power.xaf, tutorial/render.xaf, tutorial/square.xhf, tutorial/tree.xhf, tutorial/truecol.xaf, tutorial/truecol.xhf:
+	New file.
+
+	* src/ui-hlp/save.c, src/ui-hlp/ui_helper.c, src/ui-hlp/wstack.c, src/util/9thread.c, src/util/Makefile.dos, src/util/Makefile.in, src/util/Makefile.os2, src/util/be_thread.c, src/util/catalog.c, src/util/help.c, src/util/png.c, src/util/thread.c, src/util/timers.c, src/util/xerror.c, src/util/xldio.c, src/util/xmenu.c, src/util/xshl.c, src/util/xstdio.c, src/util/xstring.c, tutorial/anim.xaf, tutorial/anim.xhf, tutorial/barnsley.xaf, tutorial/coast.xhf, tutorial/dimension.xaf, tutorial/escape.xaf, tutorial/features.xaf, tutorial/filter.xaf, tutorial/filter.xhf, tutorial/flake1.xhf, tutorial/flake2.xhf, tutorial/flake3.xhf, tutorial/flake4.xhf:
+	Imported sources
+
+	* src/ui-hlp/save.c, src/ui-hlp/ui_helper.c, src/ui-hlp/wstack.c, src/util/9thread.c, src/util/Makefile.dos, src/util/Makefile.in, src/util/Makefile.os2, src/util/be_thread.c, src/util/catalog.c, src/util/help.c, src/util/png.c, src/util/thread.c, src/util/timers.c, src/util/xerror.c, src/util/xldio.c, src/util/xmenu.c, src/util/xshl.c, src/util/xstdio.c, src/util/xstring.c, tutorial/anim.xaf, tutorial/anim.xhf, tutorial/barnsley.xaf, tutorial/coast.xhf, tutorial/dimension.xaf, tutorial/escape.xaf, tutorial/features.xaf, tutorial/filter.xaf, tutorial/filter.xhf, tutorial/flake1.xhf, tutorial/flake2.xhf, tutorial/flake3.xhf, tutorial/flake4.xhf:
+	New file.
+
+	* src/ui-hlp/Makefile.OS2, src/ui-hlp/Makefile.dos, src/ui-hlp/Makefile.in, src/ui-hlp/autod.c, src/ui-hlp/autopilot.c, src/ui-hlp/autopilot.h, src/ui-hlp/menu.c, src/ui-hlp/messg.c, src/ui-hlp/play.c, src/ui-hlp/play.h, src/ui-hlp/playtext.c, src/ui-hlp/qq, src/ui-hlp/render.c, src/ui/ui-drv/win32/windialo.c, src/ui/ui-drv/win32/winmenu.c, src/ui/ui-drv/win32/xaos.dlg, src/ui/ui-drv/win32/xaos.ico, src/ui/ui-drv/win32/xaos.rc, src/ui/ui-drv/win32/xaos.res, src/ui/ui-drv/x11/Makefile.in, src/ui/ui-drv/x11/ui_x11.c, src/ui/ui-drv/x11/xlib.c, src/ui/ui-drv/x11/xlib.h:
+	Imported sources
+
+	* src/ui-hlp/Makefile.OS2, src/ui-hlp/Makefile.dos, src/ui-hlp/Makefile.in, src/ui-hlp/autod.c, src/ui-hlp/autopilot.c, src/ui-hlp/autopilot.h, src/ui-hlp/menu.c, src/ui-hlp/messg.c, src/ui-hlp/play.c, src/ui-hlp/play.h, src/ui-hlp/playtext.c, src/ui-hlp/qq, src/ui-hlp/render.c, src/ui/ui-drv/win32/windialo.c, src/ui/ui-drv/win32/winmenu.c, src/ui/ui-drv/win32/xaos.dlg, src/ui/ui-drv/win32/xaos.ico, src/ui/ui-drv/win32/xaos.rc, src/ui/ui-drv/win32/xaos.res, src/ui/ui-drv/x11/Makefile.in, src/ui/ui-drv/x11/ui_x11.c, src/ui/ui-drv/x11/xlib.c, src/ui/ui-drv/x11/xlib.h:
+	New file.
+
+	* src/ui/ui-drv/mac/ui_mac.c, src/ui/ui-drv/os2/Makefile.OS2, src/ui/ui-drv/os2/ui_os2vio.c, src/ui/ui-drv/plan9/ui_plan9.c, src/ui/ui-drv/svga/Makefile.in, src/ui/ui-drv/svga/keytables.h, src/ui/ui-drv/svga/ui_svga.c, src/ui/ui-drv/template/Makefile.in, src/ui/ui-drv/template/ui_template.c, src/ui/ui-drv/win32/Makefile.in, src/ui/ui-drv/win32/about.c, src/ui/ui-drv/win32/about.h, src/ui/ui-drv/win32/about.rc, src/ui/ui-drv/win32/dxguid.c, src/ui/ui-drv/win32/resource.h, src/ui/ui-drv/win32/small.ico, src/ui/ui-drv/win32/ui_win32.c, src/ui/ui-drv/win32/ui_win32.h, src/ui/ui-drv/win32/version.rc:
+	Imported sources
+
+	* src/ui/ui-drv/mac/ui_mac.c, src/ui/ui-drv/os2/Makefile.OS2, src/ui/ui-drv/os2/ui_os2vio.c, src/ui/ui-drv/plan9/ui_plan9.c, src/ui/ui-drv/svga/Makefile.in, src/ui/ui-drv/svga/keytables.h, src/ui/ui-drv/svga/ui_svga.c, src/ui/ui-drv/template/Makefile.in, src/ui/ui-drv/template/ui_template.c, src/ui/ui-drv/win32/Makefile.in, src/ui/ui-drv/win32/about.c, src/ui/ui-drv/win32/about.h, src/ui/ui-drv/win32/about.rc, src/ui/ui-drv/win32/dxguid.c, src/ui/ui-drv/win32/resource.h, src/ui/ui-drv/win32/small.ico, src/ui/ui-drv/win32/ui_win32.c, src/ui/ui-drv/win32/ui_win32.h, src/ui/ui-drv/win32/version.rc:
+	New file.
+
+	* src/ui/ui-drv/BeOS/SplashScreen, src/ui/ui-drv/BeOS/XaoS.r, src/ui/ui-drv/BeOS/XaoSAbstractWindow.h, src/ui/ui-drv/BeOS/XaoSApplication.cpp, src/ui/ui-drv/BeOS/XaoSApplication.h, src/ui/ui-drv/BeOS/XaoSDialog.cpp, src/ui/ui-drv/BeOS/XaoSDialog.h, src/ui/ui-drv/BeOS/XaoSDirectScreen.cpp, src/ui/ui-drv/BeOS/XaoSDirectScreen.h, src/ui/ui-drv/BeOS/XaoSDirectView.cpp, src/ui/ui-drv/BeOS/XaoSDirectView.h, src/ui/ui-drv/BeOS/XaoSDirectWindow.cpp, src/ui/ui-drv/BeOS/XaoSDirectWindow.h, src/ui/ui-drv/BeOS/XaoSEvent.h, src/ui/ui-drv/BeOS/XaoSMediaAddOn.cpp, src/ui/ui-drv/BeOS/XaoSMenu.cpp, src/ui/ui-drv/BeOS/XaoSMenu.h, src/ui/ui-drv/BeOS/XaoSProducer.cpp, src/ui/ui-drv/BeOS/XaoSProducer.h, src/ui/ui-drv/BeOS/XaoSResources, src/ui/ui-drv/BeOS/XaoSScreenView.cpp, src/ui/ui-drv/BeOS/XaoSScreenView.h, src/ui/ui-drv/BeOS/XaoSSplashView.cpp, src/ui/ui-drv/BeOS/XaoSSplashView.h, src/ui/ui-drv/BeOS/XaoSSplashWindow.cpp, src/ui/ui-drv/BeOS/XaoSSplashWindow.h, src/ui/ui-drv/BeOS/XaoSTranslator.cpp, src/ui/ui-drv/BeOS/XaoSView.cpp, src/ui/ui-drv/BeOS/XaoSView.h, src/ui/ui-drv/BeOS/XaoSWindow.cpp, src/ui/ui-drv/BeOS/XaoSWindow.h, src/ui/ui-drv/BeOS/be_checkfile.cpp, src/ui/ui-drv/BeOS/be_checkfile.h, src/ui/ui-drv/BeOS/be_error.cpp, src/ui/ui-drv/BeOS/be_main.cpp, src/ui/ui-drv/BeOS/be_possitionio.cpp, src/ui/ui-drv/BeOS/be_possitionio.h, src/ui/ui-drv/BeOS/ui_be.cpp, src/ui/ui-drv/BeOS/ui_be.cpp.swp, src/ui/ui-drv/aa/Makefile.OS2, src/ui/ui-drv/aa/Makefile.dos, src/ui/ui-drv/aa/Makefile.in, src/ui/ui-drv/aa/ui_aa.c, src/ui/ui-drv/dga/Makefile.in, src/ui/ui-drv/dga/ui_dga.c, src/ui/ui-drv/dos/Makefile.dos, src/ui/ui-drv/dos/ui_dos.c, src/ui/ui-drv/ggi/Makefile.in, src/ui/ui-drv/ggi/ui_ggi.c, src/ui/ui-drv/mac/CommonDialogs.c, src/ui/ui-drv/mac/stdioMac.c:
+	Imported sources
+
+	* src/ui/ui-drv/BeOS/SplashScreen, src/ui/ui-drv/BeOS/XaoS.r, src/ui/ui-drv/BeOS/XaoSAbstractWindow.h, src/ui/ui-drv/BeOS/XaoSApplication.cpp, src/ui/ui-drv/BeOS/XaoSApplication.h, src/ui/ui-drv/BeOS/XaoSDialog.cpp, src/ui/ui-drv/BeOS/XaoSDialog.h, src/ui/ui-drv/BeOS/XaoSDirectScreen.cpp, src/ui/ui-drv/BeOS/XaoSDirectScreen.h, src/ui/ui-drv/BeOS/XaoSDirectView.cpp, src/ui/ui-drv/BeOS/XaoSDirectView.h, src/ui/ui-drv/BeOS/XaoSDirectWindow.cpp, src/ui/ui-drv/BeOS/XaoSDirectWindow.h, src/ui/ui-drv/BeOS/XaoSEvent.h, src/ui/ui-drv/BeOS/XaoSMediaAddOn.cpp, src/ui/ui-drv/BeOS/XaoSMenu.cpp, src/ui/ui-drv/BeOS/XaoSMenu.h, src/ui/ui-drv/BeOS/XaoSProducer.cpp, src/ui/ui-drv/BeOS/XaoSProducer.h, src/ui/ui-drv/BeOS/XaoSResources, src/ui/ui-drv/BeOS/XaoSScreenView.cpp, src/ui/ui-drv/BeOS/XaoSScreenView.h, src/ui/ui-drv/BeOS/XaoSSplashView.cpp, src/ui/ui-drv/BeOS/XaoSSplashView.h, src/ui/ui-drv/BeOS/XaoSSplashWindow.cpp, src/ui/ui-drv/BeOS/XaoSSplashWindow.h, src/ui/ui-drv/BeOS/XaoSTranslator.cpp, src/ui/ui-drv/BeOS/XaoSView.cpp, src/ui/ui-drv/BeOS/XaoSView.h, src/ui/ui-drv/BeOS/XaoSWindow.cpp, src/ui/ui-drv/BeOS/XaoSWindow.h, src/ui/ui-drv/BeOS/be_checkfile.cpp, src/ui/ui-drv/BeOS/be_checkfile.h, src/ui/ui-drv/BeOS/be_error.cpp, src/ui/ui-drv/BeOS/be_main.cpp, src/ui/ui-drv/BeOS/be_possitionio.cpp, src/ui/ui-drv/BeOS/be_possitionio.h, src/ui/ui-drv/BeOS/ui_be.cpp, src/ui/ui-drv/BeOS/ui_be.cpp.swp, src/ui/ui-drv/aa/Makefile.OS2, src/ui/ui-drv/aa/Makefile.dos, src/ui/ui-drv/aa/Makefile.in, src/ui/ui-drv/aa/ui_aa.c, src/ui/ui-drv/dga/Makefile.in, src/ui/ui-drv/dga/ui_dga.c, src/ui/ui-drv/dos/Makefile.dos, src/ui/ui-drv/dos/ui_dos.c, src/ui/ui-drv/ggi/Makefile.in, src/ui/ui-drv/ggi/ui_ggi.c, src/ui/ui-drv/mac/CommonDialogs.c, src/ui/ui-drv/mac/stdioMac.c:
+	New file.
+
+	* src/lib/st6xBkKv, src/ui/Makefile.OS2, src/ui/Makefile.dos, src/ui/Makefile.in, src/ui/dialog.c, src/ui/drivers.c, src/ui/filesel.c, src/ui/fparams.c, src/ui/param.c, src/ui/pipecmd.c, src/ui/ui-drv/BeOS/Makefile.in, src/ui/ui-drv/BeOS/MenuMessage.h, src/ui/ui.c, src/ui/uihelp.c, src/ui/uiint.h, src/ui/uimenu.c:
+	Imported sources
+
+	* src/lib/st6xBkKv, src/ui/Makefile.OS2, src/ui/Makefile.dos, src/ui/Makefile.in, src/ui/dialog.c, src/ui/drivers.c, src/ui/filesel.c, src/ui/fparams.c, src/ui/param.c, src/ui/pipecmd.c, src/ui/ui-drv/BeOS/Makefile.in, src/ui/ui-drv/BeOS/MenuMessage.h, src/ui/ui.c, src/ui/uihelp.c, src/ui/uiint.h, src/ui/uimenu.c:
+	New file.
+
+	* src/filter/font.c, src/filter/grlib.c, src/filter/grlibd.c, src/filter/image.c, src/filter/palette.c, src/filter/random.c, src/include/aconfig.h.in, src/include/archaccel.h, src/include/btrace.h, src/include/c256.h, src/include/catalog.h, src/include/complex.h, src/include/config/aconfig.be, src/include/config/aconfig.mac, src/include/config/aconfig.os2, src/include/config/aconfig.plan9, src/include/config/aconfig.std, src/include/config/config.autoconf, src/include/config/config.dos, src/include/config/config.mac, src/include/config/config.os2, src/include/config/config.plan9, src/include/config/config.std, src/include/cursor.h, src/include/fconfig.h, src/include/filter.h, src/include/formulas.h, src/include/fractal.h, src/include/gccaccel.h, src/include/gccbuild.h, src/include/generic.h, src/include/grlib.h, src/include/hicolor.h, src/include/i386/__math.h, src/include/i386/ctrl87.h, src/include/i386/sstring.h, src/include/mac/CommonDialogs.h, src/include/mac/stdioMac.h, src/include/misc-f.h, src/include/param.h, src/include/pixel_t.h, src/include/plane.h, src/include/port.h, src/include/prefix.h, src/include/timers.h, src/include/true24.h, src/include/truecolor.h, src/include/ui.h, src/include/ui_helper.h, src/include/version.h, src/include/xerror.h, src/include/xio.h, src/include/xldio.h, src/include/xmenu.h, src/include/xshl.h, src/include/xthread.h, src/include/zoom.h:
+	Imported sources
+
+	* src/filter/font.c, src/filter/grlib.c, src/filter/grlibd.c, src/filter/image.c, src/filter/palette.c, src/filter/random.c, src/include/aconfig.h.in, src/include/archaccel.h, src/include/btrace.h, src/include/c256.h, src/include/catalog.h, src/include/complex.h, src/include/config/aconfig.be, src/include/config/aconfig.mac, src/include/config/aconfig.os2, src/include/config/aconfig.plan9, src/include/config/aconfig.std, src/include/config/config.autoconf, src/include/config/config.dos, src/include/config/config.mac, src/include/config/config.os2, src/include/config/config.plan9, src/include/config/config.std, src/include/cursor.h, src/include/fconfig.h, src/include/filter.h, src/include/formulas.h, src/include/fractal.h, src/include/gccaccel.h, src/include/gccbuild.h, src/include/generic.h, src/include/grlib.h, src/include/hicolor.h, src/include/i386/__math.h, src/include/i386/ctrl87.h, src/include/i386/sstring.h, src/include/mac/CommonDialogs.h, src/include/mac/stdioMac.h, src/include/misc-f.h, src/include/param.h, src/include/pixel_t.h, src/include/plane.h, src/include/port.h, src/include/prefix.h, src/include/timers.h, src/include/true24.h, src/include/truecolor.h, src/include/ui.h, src/include/ui_helper.h, src/include/version.h, src/include/xerror.h, src/include/xio.h, src/include/xldio.h, src/include/xmenu.h, src/include/xshl.h, src/include/xthread.h, src/include/zoom.h:
+	New file.
+
+	* src/engine/docalc.c, src/engine/edge.c, src/engine/edge2.c, src/engine/edge2d.c, src/engine/edged.c, src/engine/emboss.c, src/engine/formulas.c, src/engine/fractal.c, src/engine/i386.c, src/engine/i386asm.S, src/engine/interlace.c, src/engine/itersmall.c, src/engine/julia.c, src/engine/julia.h, src/engine/paletted.c, src/engine/palettef.c, src/engine/plane.c, src/engine/rotate.c, src/engine/rotated.c, src/engine/star.c, src/engine/stard.c, src/engine/stereod.c, src/engine/stereogram.c, src/engine/subwindow.c, src/engine/zoom.c, src/engine/zoomd.c, src/filter/Makefile.OS2, src/filter/Makefile.dos, src/filter/Makefile.in, src/filter/filter.c:
+	Imported sources
+
+	* src/engine/docalc.c, src/engine/edge.c, src/engine/edge2.c, src/engine/edge2d.c, src/engine/edged.c, src/engine/emboss.c, src/engine/formulas.c, src/engine/fractal.c, src/engine/i386.c, src/engine/i386asm.S, src/engine/interlace.c, src/engine/itersmall.c, src/engine/julia.c, src/engine/julia.h, src/engine/paletted.c, src/engine/palettef.c, src/engine/plane.c, src/engine/rotate.c, src/engine/rotated.c, src/engine/star.c, src/engine/stard.c, src/engine/stereod.c, src/engine/stereogram.c, src/engine/subwindow.c, src/engine/zoom.c, src/engine/zoomd.c, src/filter/Makefile.OS2, src/filter/Makefile.dos, src/filter/Makefile.in, src/filter/filter.c:
+	New file.
+
+	* help/xaos.hlp, help/xaoswin.Hpj, src/Makefile.dos, src/Makefile.in, src/dos.mak, src/dos1.mak, src/engine/3d.c, src/engine/3dd.c, src/engine/Makefile.dos, src/engine/Makefile.in, src/engine/Makefile.os2, src/engine/anti.c, src/engine/blur.c, src/engine/btrace.c, src/engine/btraced.c, src/engine/calculate.h, src/engine/dither.c:
+	Imported sources
+
+	* help/xaos.hlp, help/xaoswin.Hpj, src/Makefile.dos, src/Makefile.in, src/dos.mak, src/dos1.mak, src/engine/3d.c, src/engine/3dd.c, src/engine/Makefile.dos, src/engine/Makefile.in, src/engine/Makefile.os2, src/engine/anti.c, src/engine/blur.c, src/engine/btrace.c, src/engine/btraced.c, src/engine/calculate.h, src/engine/dither.c:
+	New file.
+
+	* help/help.jpg, help/hlptortf, help/htmlconvert, help/rtfconv.bat:
+	Imported sources
+
+	* help/help.jpg, help/hlptortf, help/htmlconvert, help/rtfconv.bat:
+	New file.
+
+	* doc/xaosdev.texinfo, examples/0rfel1.xpf, examples/0rfel2.xpf, examples/2spirals.xpf, examples/3d1.xpf, examples/3d2.xpf, examples/3d3.xpf, examples/3d4.xpf, examples/3d5.xpf, examples/3d6.xpf, examples/3d7.xpf, examples/3d8.xpf, examples/3d9.xpf, examples/README, examples/axe.xpf, examples/barnsl1.xpf, examples/barnsl2.xpf, examples/barnsl3.xpf, examples/barnsl4.xpf, examples/barnsl5.xpf, examples/barnsl6.xpf, examples/barnsl7.xpf, examples/barnsl8.xpf, examples/barnsl9.xpf, examples/beatle.xpf, examples/beatle2.xpf, examples/brown.xpf, examples/checker.xpf, examples/crone.xpf, examples/dblspira.xpf, examples/dragons.xpf, examples/dragons2.xpf, examples/edge.xpf, examples/edge2.xpf, examples/edge3.xpf, examples/eifell.xpf, examples/galaxy.xpf, examples/goldrive.xpf, examples/head.xpf, examples/head2.xpf, examples/head3.xpf, examples/incolor1.xpf, examples/incolor2.xpf, examples/incolor3.xpf, examples/incolor4.xpf, examples/incolor5.xpf, examples/julia.xpf, examples/julia2.xpf, examples/julia3.xpf, examples/julia4.xpf, examples/julia5.xpf, examples/juliaanim.xaf, examples/lemon.xpf, examples/light.xpf, examples/magnet.xpf, examples/magnet1.xpf, examples/magnet2.xpf, examples/magnet3.xpf, examples/magnet4.xpf, examples/mand1.xpf, examples/mand2.xpf, examples/mand3.xpf, examples/mand4.xpf, examples/mand5.xpf, examples/mand7.xpf, examples/mand8.xpf, examples/mandanim.xaf, examples/minibrot.xpf, examples/newton.xaf, examples/newton.xpf, examples/newton2.xpf, examples/newton3.xpf, examples/octo.xpf, examples/palace.xpf, examples/perb1.xpf, examples/perb2.xpf, examples/perb3.xpf, examples/perb4.xpf, examples/perb5.xpf, examples/phoenix1.xpf, examples/phoenix2.xpf, examples/redjulia.xpf, examples/redmand.xpf, examples/redmand2.xpf, examples/rocks.xpf, examples/shell.xpf, examples/something.xpf, examples/spiral.xpf, examples/spiral2.xpf, examples/spiral3.xpf, examples/spiral4.xpf, examples/sprial.xpf, examples/sun.xpf, examples/thebug.xpf, examples/tower.xpf, examples/tree.xpf, examples/triangle.xpf, examples/truecol1.xpf, examples/truecol2.xpf, examples/truecol3.xpf, examples/truecol4.xpf, examples/truecol5.xpf, examples/truecol6.xpf, examples/truecol7.xpf, examples/ufo.xpf, help/convert, help/fixmult:
+	Imported sources
+
+	* doc/xaosdev.texinfo, examples/0rfel1.xpf, examples/0rfel2.xpf, examples/2spirals.xpf, examples/3d1.xpf, examples/3d2.xpf, examples/3d3.xpf, examples/3d4.xpf, examples/3d5.xpf, examples/3d6.xpf, examples/3d7.xpf, examples/3d8.xpf, examples/3d9.xpf, examples/README, examples/axe.xpf, examples/barnsl1.xpf, examples/barnsl2.xpf, examples/barnsl3.xpf, examples/barnsl4.xpf, examples/barnsl5.xpf, examples/barnsl6.xpf, examples/barnsl7.xpf, examples/barnsl8.xpf, examples/barnsl9.xpf, examples/beatle.xpf, examples/beatle2.xpf, examples/brown.xpf, examples/checker.xpf, examples/crone.xpf, examples/dblspira.xpf, examples/dragons.xpf, examples/dragons2.xpf, examples/edge.xpf, examples/edge2.xpf, examples/edge3.xpf, examples/eifell.xpf, examples/galaxy.xpf, examples/goldrive.xpf, examples/head.xpf, examples/head2.xpf, examples/head3.xpf, examples/incolor1.xpf, examples/incolor2.xpf, examples/incolor3.xpf, examples/incolor4.xpf, examples/incolor5.xpf, examples/julia.xpf, examples/julia2.xpf, examples/julia3.xpf, examples/julia4.xpf, examples/julia5.xpf, examples/juliaanim.xaf, examples/lemon.xpf, examples/light.xpf, examples/magnet.xpf, examples/magnet1.xpf, examples/magnet2.xpf, examples/magnet3.xpf, examples/magnet4.xpf, examples/mand1.xpf, examples/mand2.xpf, examples/mand3.xpf, examples/mand4.xpf, examples/mand5.xpf, examples/mand7.xpf, examples/mand8.xpf, examples/mandanim.xaf, examples/minibrot.xpf, examples/newton.xaf, examples/newton.xpf, examples/newton2.xpf, examples/newton3.xpf, examples/octo.xpf, examples/palace.xpf, examples/perb1.xpf, examples/perb2.xpf, examples/perb3.xpf, examples/perb4.xpf, examples/perb5.xpf, examples/phoenix1.xpf, examples/phoenix2.xpf, examples/redjulia.xpf, examples/redmand.xpf, examples/redmand2.xpf, examples/rocks.xpf, examples/shell.xpf, examples/something.xpf, examples/spiral.xpf, examples/spiral2.xpf, examples/spiral3.xpf, examples/spiral4.xpf, examples/sprial.xpf, examples/sun.xpf, examples/thebug.xpf, examples/tower.xpf, examples/tree.xpf, examples/triangle.xpf, examples/truecol1.xpf, examples/truecol2.xpf, examples/truecol3.xpf, examples/truecol4.xpf, examples/truecol5.xpf, examples/truecol6.xpf, examples/truecol7.xpf, examples/ufo.xpf, help/convert, help/fixmult:
+	New file.
+
+	* doc/mpeg_encode.patch, doc/template.param, doc/xaos.6, doc/xaos.geninfo, doc/xaos.info, doc/xaos.texinfo, doc/xaosdev.info:
+	Imported sources
+
+	* doc/mpeg_encode.patch, doc/template.param, doc/xaos.6, doc/xaos.geninfo, doc/xaos.info, doc/xaos.texinfo, doc/xaosdev.info:
+	New file.
+
+	* ChangeLog, ChangeLog.c, ChangeLog.e, ChangeLog.f, ChangeLog.g, ChangeLog.h, ChangeLog.i, ChangeLog.j, ChangeLog.k, ChangeLog.l, ChangeLog.m, ChangeLog.n, ChangeLog.q, ChangeLog.r, ChangeLog.t, ChangeLog.u, ChangeLog.v, ChangeLog.w, ChangeLog.x, ChangeLog.y, INSTALL, Makefile.OS2, Makefile.be, Makefile.in, TODO, TODO.Be, TODO.win, anim.par, anim.pat, bin/xaosmenu.tcl, build.bat, catalogs/README, catalogs/cesky.cat, catalogs/deutsch.cat, catalogs/english.cat, catalogs/espanhol.cat, catalogs/francais.cat, config.guess, config.sub, configure, configure.in, doc/ANNOUNCE, doc/AUTHORS, doc/PROBLEMS, doc/README, doc/README.BeOS, doc/README.OS2, doc/README.WIN, doc/README.bugs, doc/README.dos, doc/README.ggi, doc/README.mac, doc/README.plan9, doc/SPONSORS, doc/XaoS.lsm, doc/compilers.txt, doc/file_id.diz, doc/mktexinfo, fract0.xpf, install-sh, mk, p.c, p.s, update:
+	Imported sources
+
+	* ChangeLog, ChangeLog.c, ChangeLog.e, ChangeLog.f, ChangeLog.g, ChangeLog.h, ChangeLog.i, ChangeLog.j, ChangeLog.k, ChangeLog.l, ChangeLog.m, ChangeLog.n, ChangeLog.q, ChangeLog.r, ChangeLog.t, ChangeLog.u, ChangeLog.v, ChangeLog.w, ChangeLog.x, ChangeLog.y, INSTALL, Makefile.OS2, Makefile.be, Makefile.in, TODO, TODO.Be, TODO.win, anim.par, anim.pat, bin/xaosmenu.tcl, build.bat, catalogs/README, catalogs/cesky.cat, catalogs/deutsch.cat, catalogs/english.cat, catalogs/espanhol.cat, catalogs/francais.cat, config.guess, config.sub, configure, configure.in, doc/ANNOUNCE, doc/AUTHORS, doc/PROBLEMS, doc/README, doc/README.BeOS, doc/README.OS2, doc/README.WIN, doc/README.bugs, doc/README.dos, doc/README.ggi, doc/README.mac, doc/README.plan9, doc/SPONSORS, doc/XaoS.lsm, doc/compilers.txt, doc/file_id.diz, doc/mktexinfo, fract0.xpf, install-sh, mk, p.c, p.s, update:
+	New file.
+
+	* 3dtutor.xaf, COPYING:
+	Imported sources
+
+	* 3dtutor.xaf, COPYING: New file.
 
