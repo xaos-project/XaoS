@@ -3389,6 +3389,9 @@ Credits
 *Thomas Marsh*
      First zoomer, formulae, planes, X11 driver, inversions, many ideas
 
+*Dominic Mazzoni (dmazzoni@cs.cmu.edu)*
+     Macintosh port (version 2.0)
+
 *David Meleedy*
      Grammatical and spelling fixed version of `xaos.6'
 
@@ -3651,7 +3654,7 @@ Node: palette103841
 Node: cycling104688
 Node: shiftpalette105651
 Node: authors106348
-Node: lists108229
-Node: index108975
+Node: lists108304
+Node: index109050
 
 End Tag Table

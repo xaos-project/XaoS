@@ -44,6 +44,9 @@ Andreas Madritsch (amadritsch@datacomm.ch)
 Thomas Marsh
      First zoomer, formulae, planes, X11 driver, inversions, many ideas
 
+Dominic Mazzoni (dmazzoni@cs.cmu.edu)
+     Macintosh port (version 2.0)
+
 David Meleedy
      Grammatical and spelling fixed version of `xaos.6'
 
