@@ -309,6 +309,8 @@ The following tags are supported:
 <dd>OS/2 ports (320x200 graphics and AA-lib)
 <dt>Zoltan Kovacs (kovzol@math.u-szeged.hu)
 <dd>Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
+<dt>Zsigmond Kovacs
+<dd>Fractal examples
 <dt>Andreas Madritsch (amadritsch@datacomm.ch)
 <dd>New fractal types, bailout, many fixes
 <dt>Giorgio Marazzi (gmarazzi@vtr.net)
@@ -331,6 +333,8 @@ The following tags are supported:
 <dd>Periodicity checking
 <dt>Jan Olderdissen (jan@olderdissen.com)
 <dd>Win32 port
+<dt>Daniel Skarda
+Fractal examples
 <dt>Pavel Tzekov (paveltz@csoft.bg)
 <dd>Win32 support
 <dt>Charles Vidal
@@ -752,7 +756,7 @@ SVGAlib driver was written by Jan Hubicka, 1997.
 
 <head>Win32 driver</head>
 
-This is a driver for Windows 9x and NT. It is new in version 3.1 and
+This is a driver for Windows 9x and NT. It is new since version 3.1 and
 because of some oddities of Windows API it may be rather unstable.
 Please report all bugs. In case of problems you could use the DOS version
 of XaoS instead.
@@ -793,7 +797,7 @@ Win32 driver was written by Jan Hubicka, Jan Olderdissen and Pavel Tzekov, 1999.
 
 <head>DirectX windowed driver</head>
 
-This is a driver for Windows 9x and NT. It is new in version 3.1 and
+This is a driver for Windows 9x and NT. It is new since version 3.1 and
 because of some oddities of Windows API and kludges in DirectX
 it may be rather unstable.  Please report all bugs. In case
 of problems you could use the DOS version of XaoS instead.
@@ -819,7 +823,7 @@ and Pavel Tzekov, 1999.
 %dX-fullscreen
 
 <head>DirectX fullscreen driver</head>
-This is da river for Windows 9x and NT. It is new in version 3.1 and
+This is da river for Windows 9x and NT. It is new since version 3.1 and
 because of some oddities of Windows API and kludges in DirectX
 it may be rather unstable.  Please report all bugs. In case
 of problems you could use the DOS version of XaoS instead.
@@ -1014,7 +1018,7 @@ This is a brief introduction to the basic XaoS features.
  On key <tt>0</tt> is a fractal called <emph>Magnet</emph>. This fractal has quite a complex formula so it is
  a bit slow. 
 <p>
- Version 3.1 has 3 more fractal types. On most platform you
+ Since version 3.1 there are 3 more fractal types. On most platform you
  can display these fractals with keys <tt>SHIFT-A</tt>, <tt>SHIFT-B</tt>
  and <tt>SHIFT-C</tt>, which will show you the <emph>fourth ordered
  Newton</emph>, the <emph>Barnsley2</emph> and the <emph>Magnet2</emph>

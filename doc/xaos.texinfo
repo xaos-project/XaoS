@@ -18,7 +18,7 @@
 
 
 @ifinfo
-@copyright{} 1997-2003 Jan Hubicka and the XaoS Development Team
+@copyright{} 1997-2005 Jan Hubicka and the XaoS Development Team
 
 Permission is granted to make and distribute verbatim
 copies of this manual provided the copyright notice and
@@ -28,8 +28,8 @@ this permission notice are preserved on all copies.
 
 @c %**end of header
 
-@set VERSION    3.1
-@set DATE       Feb 15, 2003
+@set VERSION    3.1.1
+@set DATE       Feb 5, 2005
 
 @titlepage
 
@@ -208,7 +208,7 @@ On key @code{9} is a fractal called @emph{Phoenix}. It is a very nice and quite 
 On key @code{0} is a fractal called @emph{Magnet}. This fractal has quite a complex formula so it is
 a bit slow.
 
-Version 3.1 has 3 more fractal types. On most platform you
+Since version 3.1 there are 3 more fractal types. On most platform you
 can display these fractals with keys @code{SHIFT-A}, @code{SHIFT-B}
 and @code{SHIFT-C}, which will show you the @emph{fourth ordered
 Newton}, the @emph{Barnsley2} and the @emph{Magnet2}
@@ -1031,7 +1031,7 @@ DOS driver was written by Jan Hubicka, 1997.
 @node dX-fullscreen, dX-window , dos ,drivers
 
 @section DirectX fullscreen driver
-This is da river for Windows 9x and NT. It is new in version 3.1 and
+This is a driver for Windows 9x and NT. It is new since version 3.1 and
 because of some oddities of Windows API and kludges in DirectX
 it may be rather unstable. Please report all bugs. In case
 of problems you could use the DOS version of XaoS instead.
@@ -1146,7 +1146,7 @@ SVGAlib driver was written by Jan Hubicka, 1997.
 
 @section Win32 driver
 
-This is a driver for Windows 9x and NT. It is new in version 3.1 and
+This is a driver for Windows 9x and NT. It is new since version 3.1 and
 because of some oddities of Windows API it may be rather unstable.
 Please report all bugs. In case of problems you could use the DOS version
 of XaoS instead.
@@ -3293,6 +3293,8 @@ BeOS driver, deutsch.cat
 OS/2 ports (320x200 graphics and AA-lib)
 @item Zoltan Kovacs (kovzol@@math.u-szeged.hu)
 Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
+@item Zsigmond Kovacs
+Fractal examples
 @item Patrick Kursawe (kursawe@@users.sf.net)
 Patch for gcc-3.4
 @item Andreas Madritsch (amadritsch@@datacomm.ch)
@@ -3317,6 +3319,8 @@ Spanish translations
 Periodicity checking
 @item Jan Olderdissen (jan@@olderdissen.com)
 Win32 port
+@item Daniel Skarda
+Fractal examples (0rfel*.xpf)
 @item Pavel Tzekov (paveltz@@csoft.bg)
 Win32 support
 @item Charles Vidal

@@ -2,7 +2,7 @@ TODO ITEMS
 ----------
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/TODO,v 1.6 2003-03-18 10:45:36 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/TODO,v 1.7 2005-02-05 12:23:26 kovzol Exp $
 
 
 General todos (for all platforms)
@@ -68,7 +68,7 @@ BeOS related todos
 Windows related todos
 ---------------------
 
-  o  Fix problems in windowsed directX mode and palette.
+  o  Fix problems in windowsed directX mode and palette.
   o  AAlib driver?
   
 DOS related todos

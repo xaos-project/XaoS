@@ -25,8 +25,8 @@ this permission notice are preserved on all copies.
 
 @c %**end of header
 
-@set VERSION    3.1
-@set DATE       May 14, 1998
+@set VERSION    3.1.1
+@set DATE       Feb 5, 2005
 
 @titlepage
 
