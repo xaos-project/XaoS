@@ -17,7 +17,7 @@
 #define exit(i) exits("Unix exit called")
 #define INT_MAX 2127423647
 		/*some better way?*/
-#define assert(x) 0
+/* #define assert(x) 0 plan9 has assert now */
 #define SFIXEDCOLOR
 #define SMBITMAPS
 #define isnan(x) 0

@@ -2,7 +2,9 @@
 #ifdef _plan9_
 #include <u.h>
 #include <libc.h>
-#include <stdarg.h>
+#ifdef _plan9v2_
+#include <stdarg.h> /* not needed in plan9v3 */
+#endif 
 #else
 #include <string.h>
 #include <math.h>

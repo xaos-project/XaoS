@@ -627,7 +627,7 @@ incolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
             ip=zim*zim; \
             rp=zre*zre;
 
-#if 0
+#ifdef _NEVER_
 #ifdef __GNUC__
 #ifdef __i386__
 #ifndef NOASSEMBLY

@@ -91,7 +91,7 @@ help_make (CONST char *command, int getwidth (void *, int flags,
     }				/*while 1 */
 }
 
-#if 0
+#if _NEVER_
 void
 help_print (char *name, int skip, int width)
 {

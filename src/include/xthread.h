@@ -99,7 +99,9 @@ extern "C"
     int nwaiting;
     int tags[MAXTHREADS];
   };
-#include <lock.h>
+#ifdef _plan9v2_
+#include <lock.h>  /* in plan9v3 part of libc */
+#endif
 /* A plan9 thread API maps */
   void p9wait (struct Stack *s, Lock * l);
   void p9wakeup (struct Stack *s);

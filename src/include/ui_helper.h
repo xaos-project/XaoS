@@ -110,7 +110,7 @@ extern "C"
   	:(time)<(starttime) && (starttime)?(SQR((time)/(double)(starttime))/2*(starttime)/((len)-(starttime)/2-(endtime)/2))\
 	:((len)-(time)<(endtime)) && (endtime)?1-(SQR(((len)-(time))/(double)(endtime))/2*(endtime)/((len)-(starttime)/2-(endtime)/2)) \
 	:((time)-(starttime)/2)/((double)(len)-(starttime)/2-(endtime)/2)
-#if 0
+#ifdef _NEVER_
 #define MORPHVALUE(time,len,starttime,endtime) \
 	(((time))/((double)(len)))
 #endif

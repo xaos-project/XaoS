@@ -190,6 +190,7 @@ tl_group *syncgroup = &group1,
  *asyncgroup = &group1;
 #endif
 #ifdef _plan9_
+#ifdef _plan9v2_
 static int
 plan9_msec (void)
 {				/*this function was sent by Nigel Roles */
@@ -202,6 +203,13 @@ plan9_msec (void)
   read (fd, buf, sizeof (buf));
   return atoi (buf);
 }
+#else
+static int
+plan9_msec (void)
+{
+	return (int) (nsec()/1000000);
+}
+#endif
 #endif
 
 #ifndef __BEOS__

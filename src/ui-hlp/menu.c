@@ -633,25 +633,6 @@ uih_rotateselected (struct uih_context *c, int n)
   return (c->rotatemode == n);
 }
 
-#if 0
-static void
-uih_rotate (struct uih_context *c, int n)
-{
-  char *names[] = {
-    "norotate",
-    "controtate",
-    "mouserotate"
-  };
-  if (!n)
-    uih_fastrotate (c, 0);
-  else
-    {
-      uih_fastrotate (c, 1);
-      uih_rotatemode (c, n);
-    }
-  uih_updatemenus (c, names[n]);
-}
-#endif
 static int
 uih_guessingselected (struct uih_context *c, int n)
 {

@@ -1,4 +1,3 @@
-
 #ifndef _plan9_
 #include <string.h>
 #ifdef __EMX__
@@ -135,7 +134,12 @@ xio_getfilename (CONST char *basename, CONST char *extension)
   static char name[40];
   int nimage = 0;
 #ifdef _plan9_
-  char edir[DIRLEN];
+#ifdef _plan9v4_
+#define DIRLEN 116
+  uchar edir[DIRLEN];
+#else
+ char edir[DIRLEN];
+#endif
 #else
   struct stat sb;
 #endif
@@ -143,12 +147,15 @@ xio_getfilename (CONST char *basename, CONST char *extension)
   do
     {
       sprintf (name, "%s%i%s", base, nimage++, extension);
+    }
 #ifndef _plan9_
-    }
-  while (stat (name, &sb) != -1);
+   while (stat (name, &sb) != -1);
 #else
-    }
+#ifdef _plan9v4_
+ while (stat (name, edir,DIRLEN) != -1);
+#else
   while (stat (name, edir) != -1);
+#endif
 #endif
   free (base);
   return (name);

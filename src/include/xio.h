@@ -39,6 +39,10 @@ extern "C"
 */
 
 #ifdef USE_STDIO
+/* Ugly hack because of unknown problems w/ va_list in v*print* in plan9 */
+#ifdef _plan9_
+#define va_list char *
+#endif
 #include <stdio.h>
 
   typedef char *xio_path;

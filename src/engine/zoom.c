@@ -119,7 +119,7 @@ static int nadded = 0, nsymetry = 0, nskipped = 0;
 int nperi = 0;
 #endif
 
-#if 0
+#ifdef _NEVER_
 #define rdtsc() ({unsigned long long time; asm __volatile__ ("rdtsc":"=A"(time)); time; })
 #define startagi() ({asm __volatile__ ("rdmsr ; andw 0xfe00,%%ax ; orw 0x1f, %%ax ; wrmsr; "::"c"(22):"ax","dx"); })
 #define countagi() ({unsigned long long count; asm __volatile__ ("rdmsr":"=A"(count):"c"(12)); count;})
@@ -1769,7 +1769,7 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
   callwait ();
   preparemoveoldpoints ();
   xth_sync ();
-#if 0
+#ifdef _NEVER_
   {
     static long long sum2, sum;
     cli ();
