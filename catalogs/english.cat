@@ -5,6 +5,7 @@
 #
 # Corrected by Tim Goowin
 # Further corrections by David Meleedy
+# And some more by Nix
 #
 # There are a few things you should know if you want to change or
 # translate this file.
@@ -63,14 +64,15 @@ topo4 "A surface has 2, etc..."
 hb1 "The definition of the
 Hausdorff Besicovich dimension
 comes from the simple fact that:"
-hb2 "The size of a twice zoomed line
-grows also twice as much"
+hb2 "A line that is zoomed so that it doubles
+in length is twice as long as it was."
 hb3 "On the other hand, the size
-of square grows four times as much"
+of a square that is similarly zoomed
+grows by four times."
 hb4 "Similar rules work in higher
 dimensions too."
 hb5 "To calculate dimensions from
-this fact you might use the
+this fact, you can use the
 following equation:"
 hb6 "dimension = log s / log z
 where z is the zoom change and
@@ -87,8 +89,8 @@ hb10 "Things will become more interesting
 with fractals..."
 
 hb11 "Consider a snowflake curve"
-hb12 "Which is created by repeatively
-changing a line with four lines."
+hb12 "which is created by repeatedly
+splitting a line into four lines."
 hb13 "The new lines are 1/3 the size of
 the original line"
 hb14 "After zooming 3 times, these lines will
@@ -129,12 +131,13 @@ escape "The math behind fractals
 
 chapter 2 - Escape time fractals"
 escape1 "Some fractals (like snowflake)
-are created in a simple way."
+are created by simple subdivision
+and repetition."
 escape2 "XaoS can generate a different
 category of fractals - called
 escape time fractals."
 escape3 "The method to generate them
-is bit different, but is also
+is somewhat different, but is also
 based on using iteration."
 escape4 "They treat the whole screen as
 a complex plane"
@@ -165,8 +168,7 @@ go quickly to infinity."
 orbit8 "(for example, the value 10+0i
 The first iteration is 110, 
 the second 12110 etc..)"
-orbit9 "So such points are outside
-of the set."
+orbit9 "So such points are outside the set."
 
 bail1 "We are still speaking about
 infinite numbers and iterations
@@ -174,12 +176,12 @@ of infinite numbers..."
 bail2 "But computers are
 finite, so they can't
 calculate fractals exactly."
-bail3 "It can be proved, that in the
+bail3 "It can be proved that in the
 case where the orbit's distance from
-zero is more than 2, it always
-goes to inifinity."
+zero is more than 2, the orbit
+always goes to inifinity."
 bail4 "So we can interrupt calculations
-after the orbit fails in this test.
+after the orbit fails this test.
 (This is called the bailout test)"
 bail5 "In cases where we calculate points
 outside the set, we now need just a
@@ -191,8 +193,8 @@ number of iterations of orbits needed
 to fall in the bailout set."
 iter1 "Inside the set we still
 need infinite numbers of calculations"
-iter2 "The only way to do it, is to interrupt
-calculations after a given number of
+iter2 "The only way to do it is to interrupt
+the calculations after a given number of
 iterations and use the approximate
 results"
 iter3 "The maximal number of iterations
@@ -216,7 +218,7 @@ limit5 "But after increasing the number
 of iterations, you will get lots of new
 and exciting details."
 ofracts1 "Other fractals in XaoS are
-calculated using different formulas
+calculated using different formulae
 and bailout tests, but the method
 is basically the same."
 ofracts2 "So many calculations are required
@@ -224,7 +226,7 @@ that XaoS performs lots of
 optimizations.
 
 You might want to read about
-these in the file:
+these in the file
 doc/xaos.info"
 
 #########################################################
@@ -322,7 +324,7 @@ following filters:"
 
 motblur "motion blur,"
 
-edge "2 edge detection filters,"
+edge "two edge detection filters,"
 
 edge2 "(the first makes wide lines and is
 useful at high resolutions,"
@@ -368,7 +370,9 @@ for new versions of XaoS
 Corrections by:
 Tim Goodwin <tgoodwin@cygnus.co.uk>
 and
-David Meleedy <dmm@skepsis.com>"
+David Meleedy <dmm@skepsis.com>
+and
+Nix <nix@esperi.demon.co.uk>"
 # Add your copyright here if you are translating/correcting this file
 
 suggestions "
@@ -461,7 +465,7 @@ facts about fractals:"
 
 fact1 "Fractals are independent of scale,"
 fact2 "they are self similar,"
-fact3 "and they resemble objects
+fact3 "and they often resemble objects
 found in the nature"
 #fact4 "such as clouds, mountains,
 #or coastlines."
@@ -483,7 +487,7 @@ fmath10 "after 2 iterations..."
 fmath11 "after 3 iterations..."
 fmath12 "after 4 iterations.."
 fmath13 "and after an infinite number of
-iterations we get an fractal."
+iterations we get a fractal."
 fmath14 "Its shape looks like one third of
 a snowflake."
 tree1 "Lots of other shapes could
@@ -499,7 +503,7 @@ nstr4 "you can get fractals looking like
 a coastline."
 nstr5 "A similar process could
 create clouds, mountains, and lots of
-other shapes from the nature"
+other shapes from nature"
 
 #######################################################
 ## mset.xaf
@@ -519,7 +523,7 @@ mset6 "This is the largest one, about 50
 times smaller than the entire set."
 mset7 "The Mandelbrot set is
 not completely self similar,"
-mset8 "so each such miniature
+mset8 "so each miniature
 copy is different."
 mset9 "This one is about 76,000 times
 smaller than the whole."
@@ -779,7 +783,7 @@ Smooth coloring mode tries to remove
 stripes caused by iterations and
 make smooth gradations."
 smooth1 "It does not work for the Newton set
-and magnet formulas since they have
+and magnet formulae since they have
 finite attractors."
 smooth2 "And it only works for true color and
 high color display modes. So if you
@@ -893,7 +897,7 @@ power3 "And it is, of course, also
 full of copies of the main set."
 
 power4 "Similar fractals can be generated
-by slightly modified formulas"
+by slightly modified formulae"
 
 pjulia "and each has a corresponding series
 of Julia sets too."

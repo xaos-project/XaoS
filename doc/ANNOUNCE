@@ -28,7 +28,7 @@ CREDITS (alphabetically):
 INTRODUCTION:
 	XaoS is a fast portable real-time interactive fractal zoomer.
 	It displays the Mandelbrot set (among other escape time 
-	fractals) and allows you zoom smoothly into the fractal.  
+	fractals) and allows you to zoom smoothly into the fractal.  
 	Various coloring modes are provided for both the points inside 
 	and outside the selected set. In addition, switching between 
 	Julia and Mandelbrot fractal types and displaying planes is 
@@ -99,13 +99,13 @@ FEATURES:
 		Features overview
 		 Outcoloring modes
 		 Incoloring modes
-		 True-color  coloring modes
+		 True-color coloring modes
 		 Filters
 		 Planes
-		 Animations and possition files
+		 Animations and position files
 		 Perturbation
 		 Random palettes
-		 Other noteworthly features
+		 Other noteworthy features
 		Whats new
 	  Supported languages for tutorials:
 	        English
@@ -119,7 +119,7 @@ FEATURES:
 	o [NEW] Realtime image rotation
 	o [NEW] More than 50 examples
 	o [NEW] An AA driver that provides high quality ascii art
-	  rendering at many platforms
+	  rendering on many platforms
 	  (see AA-project homepage at http://www.ta.jcu.cz/aa)
 	o both Mandelbrot and Julia forms of fractals
 	o [NEW] fast julia preview (now for all formulas)
@@ -151,7 +151,7 @@ FEATURES:
 CHANGES SINCE 2.2:
 	o Many new features and support for BeOS
 	o It is approx twice faster
-	o XaoS is GNU program now
+	o XaoS is a GNU program now
 	o Souces are complettly redesigned and cleaned
 	o Lots of new documentation, revised old one
 	o Changed some keybindings
@@ -195,21 +195,22 @@ REQUIREMENTS:
 	be slow on some computers. The program was developed on 
 	a Pentium running at 120 MHz, but it can work quite well (20fps)
 	on 486Dx/2. I also received nice letters from users using 
-	XaoS at 386/40 or so. Coprocessor is _REALLY_ required.
-	Faster computer is better so alpha/600MHZ recomended.  
+	XaoS at 386/40 or suchlike. A coprocessor, or fast hardware math
+	support is _REALLY_ required. The faster computer the better
+	so something like an alpha/600MHZ recommended.  
 
-	To compile XaoS you need ANSI compliant compiler with _GOOD_ 
-	optimizations.  Unix version uses configure script. Other 
-	platforms uses different ways.  GNU CC is highly recommended. 
-	Graphics drivers usually have some additional requirements. 
-	(for example xlib for X11, djgpp and allegro for dos port)
+	To compile XaoS you need an ISO C compliant compiler with _GOOD_ 
+	optimizations.  Unix version uses a configure script. Other 
+	platforms have different build systems.  GNU C is highly recommended. 
+	Graphics drivers usually have some additional requirements;
+	ffor example xlib for X11, djgpp and allegro for dos port.
 	Also fast malloc/free routines are recomended because they
 	are called quite often (10 times per frame). For full
 	featured XaoS (with image saving code) you also need zlib
 	and libpng.
 
 MAILING-LIST:
-	XaoS now have following mailing lists at 
+	XaoS now has following mailing lists at 
 	majordomo@horac.ta.jcu.cz
 
 	xaos
@@ -218,7 +219,7 @@ MAILING-LIST:
 	xaos-announce
 	  keeps you informed about new versions
 	xaos-devel
-	  you want to become XaoS developer? Subscribe here and
+	  you want to become a XaoS developer? Subscribe here and
 	  let us know about you! You will be welcomed.
 	To subscribe send following message to 
 	majordomo@horac.ta.jcu.cz:

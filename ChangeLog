@@ -4,14 +4,14 @@ Version 3.1
         o The internal loop now uses integer comparisons on x86 (about 10%
 	  speedup)
 	o Better timming
-	o More clever and faster solid guessing algorithm
+	o Cleverer and faster solid guessing algorithm
 	o Faster resolution reduction loops (more cache and SMP friendly)
 	o Faster copying loops (lower register pressure because of new table
 	  layout)
 	o New string inlines for x86 that does aligning of memory acceses
 	o I've made some patches to gcc-2.95 to improve XaoS code
 	o Assembly loops for moving data
-	(overall XaoS is more than twice as fast as version 3.0)
+	(overall XaoS is more than twice the speed of version 3.0)
       New features
         o New antialiasing filter
 	o New drivers:
@@ -25,7 +25,7 @@ Version 3.1
 	    DirectScreen
 	o Improved tutorials:
            o New tutorial "math behind fractals"
-           o first chapter of tutorial "an introduction to fractals" has been
+           o First chapter of tutorial "an introduction to fractals" has been
 	     split into the introduction part and part about the Mandelbrot set
 	   o Improved first chapter
 	   o Added line graphics into many tutorials
@@ -35,13 +35,13 @@ Version 3.1
 	o New wrapper around I/O routines alowing XaoS to read arbitary streams
 	  like string etc.
         o New library for handling menus added. I think it is big step towards
-	  to nice user interface, since all keybindings and menus will be
-	  independent at UI, so ugly interface now will be just simple code
+	  a nice user interface, since all keybindings and menus will be
+	  independent at UI, so the ugly interface now will be just simple code
 	  calling this library. 
 	o Added simple dialog description structure...
 	o Added library with simple graphics primitives (line, rectangle,
 	  text)
-	o palette extended to allow few preallocated color cells for UI and
+	o Palette extended to allow few preallocated color cells for UI and
 	  such.
 	o Timer library now handles current group changes nicely,
 	  also supports time emulation used by emulating constant framerate
@@ -51,7 +51,7 @@ Version 3.1
 	  interface (user now should specify palette seed or reset state
 	  of XaoS into "factory defaults")
 	o Menus, dialog, command line options, hotkeys and animation replay
-	  code now uses same function registry. So there is lots of new command
+	  code now use same function registry. So there are lots of new command
 	  line parameters, file format commands etc...
 
 	  Some command line parameters also changed their name (like -load ->
@@ -101,10 +101,10 @@ Version 3.1
 	o Removed help entry (add this text into xaos.hlp file with same
 	  keyword as your driver's short name)
       UI-helper changes:
-        o It is now based at the menuing system... controls are almost equal,
+        o It is now based on a menuing system... controls are almost the same,
 	  but internally implementation is different. Only visible changes I
-	  know about is that double 'q' for quit don't work anymore and 's'
-	  menu is now like file menu in many programs, so it contain quit and
+	  know about are that double 'q' for quit doesn't work anymore, and 's'
+	  menu is now like the file menu in many programs, so it contains quit and
 	  other functions.
 	o window handling
 	o New message and error handling code 
