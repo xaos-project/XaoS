@@ -1,8 +1,10 @@
-extern inline blb()
+extern inline
+blb ()
 {
-	return 1;
+  return 1;
 }
-test()
+
+test ()
 {
-	return blb;
+  return blb;
 }

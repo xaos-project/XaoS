@@ -286,7 +286,7 @@ isspeciall (long double d, char *bufp)
 }
 static char *
 my_roundl (long double fract, int *expv, char *start, char *end, char ch,
-	char *signp)
+	   char *signp)
 {
   long double tmp;
 
@@ -449,7 +449,7 @@ cvtl (long double number, int prec, int flags, char *signp,
 	    while (--prec && fract);
 	  if (fract)
 	    startp = my_roundl (fract, (int *) NULL, startp,
-			     t - 1, (char) 0, signp);
+				t - 1, (char) 0, signp);
 	}
       for (; prec--; *t++ = '0');
       break;
@@ -473,7 +473,7 @@ cvtl (long double number, int prec, int flags, char *signp,
 	    {
 	      fract = 0;
 	      startp = my_roundl ((long double) 0.0L, &expcnt,
-			       startp, t - 1, *p, signp);
+				  startp, t - 1, *p, signp);
 	    }
 	  /* adjust expcnt for digit in front of decimal */
 	  --expcnt;
@@ -536,7 +536,8 @@ cvtl (long double number, int prec, int flags, char *signp,
 	      }
 	    while (--prec && fract);
 	  if (fract)
-	    startp = my_roundl (fract, &expcnt, startp, t - 1, (char) 0, signp);
+	    startp =
+	      my_roundl (fract, &expcnt, startp, t - 1, (char) 0, signp);
 	}
       /* if requires more precision */
       for (; prec--; *t++ = '0');
@@ -620,7 +621,8 @@ cvtl (long double number, int prec, int flags, char *signp,
 	    }
 	}
       if (fract)
-	startp = my_roundl (fract, (int *) NULL, startp, t - 1, (char) 0, signp);
+	startp =
+	  my_roundl (fract, (int *) NULL, startp, t - 1, (char) 0, signp);
       /* alternate format, adds 0's for precision, else trim 0's */
       if (flags & ALT)
 	for (; prec--; *t++ = '0');

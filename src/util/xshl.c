@@ -455,8 +455,8 @@ xshl_interpret (void *data, int (*get) (void *), int width,
 	      if (item != NULL)
 		{
 		  xpos =
-		    item->c.flags & item->c.
-		    flags & XSHL_SMALL ? SMALLSKIP : 0;
+		    item->c.flags & item->
+		    c.flags & XSHL_SMALL ? SMALLSKIP : 0;
 		  while (item != NULL)
 		    {
 		      item->xpos = xpos;

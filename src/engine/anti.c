@@ -208,8 +208,8 @@ anti16 (void *data, struct taskinfo *task, int r1, int r2)
   unsigned int xstep = 1U << (s->shift - 1);
   int i;
   unsigned int mask1 =
-    (srci->palette->info.truec.
-     mask2 | (srci->palette->info.truec.mask1 << 16)) >> 4;
+    (srci->palette->info.
+     truec.mask2 | (srci->palette->info.truec.mask1 << 16)) >> 4;
   unsigned int mask2 =
     srci->palette->info.truec.mask1 | (srci->palette->info.truec.mask2 << 16);
   for (i = r1; i < r2; i++)
@@ -246,8 +246,9 @@ anti16 (void *data, struct taskinfo *task, int r1, int r2)
 	      sum1 = (sum2 + (sum1 >> 12)) >> 2;
 	    }
 	  *dest =
-	    (sum & srci->palette->info.truec.mask2) | (sum1 & srci->palette->
-						       info.truec.mask1);
+	    (sum & srci->palette->info.truec.mask2) | (sum1 & srci->
+						       palette->info.truec.
+						       mask1);
 	  xstart += xstep;
 	}
     }

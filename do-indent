@@ -4,5 +4,11 @@
 # indent all .c and .h files to a standard format.
 # Author: Zoltan Kovacs <kovzol@math.u-szeged.hu>
 
-gcc -o wintounix wintounix.c
-find . -name '*.[ch]' -exec ./indent1 '{}' ';'
+which indent || exit 1
+echo "You are to indent all .c and .h in this directory, recursively."
+echo -n "Do you really want to do this? [n] "
+read A
+if [ "$A" = "yes" ]; then
+ gcc -o wintounix wintounix.c
+ find . -name '*.[ch]' -exec ./indent1 '{}' ';'
+ fi

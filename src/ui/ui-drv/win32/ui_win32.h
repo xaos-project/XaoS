@@ -18,4 +18,3 @@ void win32_help (struct uih_context *uih, CONST char *name);
 void CenterWindow (HWND hwndChild, HWND hwndParent);
 void AboutBox (void);
 #endif
-

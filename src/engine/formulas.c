@@ -437,6 +437,7 @@ truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
 
   return cpalette.pixels[inset];
 }
+
 #ifdef __alpha__
 #define __TEST__
 #endif
@@ -537,14 +538,12 @@ incolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
     {
     case 1:			/* zmag */
       i =
-	(int) (
-	       ((zre * zre + zim * zim) *
+	(int) (((zre * zre + zim * zim) *
 		(number_t) (cfractalc.maxiter >> 1) * SMUL + SMUL));
       break;
     case 2:			/* real */
       i =
-	(int) (
-	       ((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75) *
+	(int) (((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75) *
 		20000));
       break;
     default:
@@ -580,13 +579,11 @@ incolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
     case 9:
       if ((abs ((int) (zre * 40)) % 2) ^ (abs ((int) (zim * 40)) % 2))
 	i =
-	  (int) (
-		 ((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75)
+	  (int) (((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75)
 		  * 20000));
       else
 	i =
-	  (int) (
-		 ((atan2 ((double) zim, (double) zre) / (M_PI + M_PI) + 0.75)
+	  (int) (((atan2 ((double) zim, (double) zre) / (M_PI + M_PI) + 0.75)
 		  * 20000));
       break;
     };

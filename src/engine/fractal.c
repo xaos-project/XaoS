@@ -111,6 +111,7 @@ set_view (fractal_context * c, CONST vinfo * s)
   c->s = *s;
   recalc_view (c);
 }
+
 /*FIXME most of this code is obsolette */
 static void			/*INLINE */
 combine_methods (void)
@@ -213,6 +214,7 @@ combine_methods (void)
   if (cursymetry.ysym == -(number_t) INT_MAX)
     cursymetry.ysym = (number_t) INT_MAX;
 }
+
 void
 update_view (fractal_context * context)
 {
@@ -287,9 +289,8 @@ set_fractalc (fractal_context * context, struct image *img)
 
 #ifndef SLOWFUNCPTR
   if (cfractalc.coloringmode == 9 && cformula.smooth_calculate != NULL
-      && (cpalette.
-	  type & (TRUECOLOR | TRUECOLOR16 | TRUECOLOR24 | GRAYSCALE |
-		  LARGEITER)))
+      && (cpalette.type & (TRUECOLOR | TRUECOLOR16 | TRUECOLOR24 | GRAYSCALE |
+			   LARGEITER)))
     {
       cfractalc.calculate[0] = cformula.smooth_calculate;
       if (cformula.smooth_calculate_periodicity && cfractalc.periodicity)
@@ -420,6 +421,7 @@ make_fractalc (CONST int formula, float wi, float he)
   set_formula (new_ctxt, formula);
   return (new_ctxt);
 }
+
 void
 free_fractalc (fractal_context * c)
 {
@@ -458,19 +460,20 @@ speed_test (fractal_context * c, struct image *img)
 
   tl_update_time ();
   tl_reset_timer (t);
-  /*sum = rdtsc ();*/
+  /*sum = rdtsc (); */
 #ifdef SLOWFUNCPTR
   i = calculateswitch (0.0, 0.0, 0.0, 0.0, 0);
 #else
   i = cfractalc.currentformula->calculate (0.0, 0.0, 0.0, 0.0);
 #endif
   /*sum -= rdtsc ();
-  printf ("%f\n", (double) (-sum) / cfractalc.maxiter);*/
+     printf ("%f\n", (double) (-sum) / cfractalc.maxiter); */
   tl_update_time ();
   time = tl_lookup_timer (t);
   x_message ("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f",
 	     (int) i,
-	     cfractalc.currentformula->name[0], time, cfractalc.maxiter / (double) time);
+	     cfractalc.currentformula->name[0], time,
+	     cfractalc.maxiter / (double) time);
 
 #ifndef SLOWFUNCPTR
 
@@ -485,7 +488,7 @@ speed_test (fractal_context * c, struct image *img)
       x_message ("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f",
 		 (int) i,
 		 cfractalc.currentformula->name[0],
-		 time, cfractalc.maxiter / (double)time);
+		 time, cfractalc.maxiter / (double) time);
     }
 
 #endif

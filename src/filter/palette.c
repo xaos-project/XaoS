@@ -541,14 +541,17 @@ restorepalette (struct palette *dest, struct palette *src)
 	case TRUECOLOR16:
 	case TRUECOLOR24:
 	  r =
-	    (((src->pixels[i] & src->info.truec.rmask) >> src->info.truec.
-	      rshift)) << src->info.truec.rprec;
+	    (((src->
+	       pixels[i] & src->info.truec.rmask) >> src->info.
+	      truec.rshift)) << src->info.truec.rprec;
 	  g =
-	    (((src->pixels[i] & src->info.truec.gmask) >> src->info.truec.
-	      gshift)) << src->info.truec.gprec;
+	    (((src->
+	       pixels[i] & src->info.truec.gmask) >> src->info.
+	      truec.gshift)) << src->info.truec.gprec;
 	  b =
-	    (((src->pixels[i] & src->info.truec.bmask) >> src->info.truec.
-	      bshift)) << src->info.truec.bprec;
+	    (((src->
+	       pixels[i] & src->info.truec.bmask) >> src->info.
+	      truec.bshift)) << src->info.truec.bprec;
 	  break;
 	}
       if (dest->size >= dest->maxentries - PREALLOCATED (dest))
@@ -621,10 +624,9 @@ REGISTERS (3)
   n = context->pixels[(init ? 0 : context->size) /*+ context->start */ ];
   if (!init && context->size == maxentries)
     return 0;
-  if ((context->
-       alloccolor (context, init
-		   && !context->npreallocated, (int) r, (int) g,
-		   (int) b)) == -1)
+  if ((context->alloccolor (context, init
+			    && !context->npreallocated, (int) r, (int) g,
+			    (int) b)) == -1)
     {
       return 0;
     }

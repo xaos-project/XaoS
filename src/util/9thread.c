@@ -23,9 +23,9 @@ void
 p9wait (struct Stack *stack, Lock * l)
 {
 #ifdef _plan9v2_
-  static volatile int ctag = 0; /* may work in v2 unkown */
+  static volatile int ctag = 0;	/* may work in v2 unkown */
 #else
-  static int ctag = 0; /*it seems plan9 does not like static volatile*/
+  static int ctag = 0;		/*it seems plan9 does not like static volatile */
 #endif
   int tag;
   ctag++;
@@ -133,8 +133,8 @@ p9init (int nthreads1)
     nthreads1 = MAXTHREADS;
   nthreads = nthreads1;
 #ifdef _plan9v2_
-  lockinit (); /* I'm not sure what the v3 replacment of this is */
-#endif 
+  lockinit ();			/* I'm not sure what the v3 replacment of this is */
+#endif
 
 
   infos[0].n = 0;

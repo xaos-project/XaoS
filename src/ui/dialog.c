@@ -50,6 +50,12 @@
 #include <xldio.h>
 #include <misc-f.h>
 
+#ifdef HAVE_GETTEXT
+#include <libintl.h>
+#else
+#define gettext(STRING) STRING
+#endif
+
 struct dialogitem;
 struct dialogtype
 {
@@ -103,9 +109,11 @@ static struct yesnodialog
 }
 yesnodialog;
 
+// These 3 definitions are no longer used:
 static CONST char *CONST oktext = "OK";
 static CONST char *CONST canceltext = "Cancel";
 static CONST char *CONST helptext = "Help";
+
 static int okwidth;
 static int cancelwidth;
 #define SELECTED(item) ((item-dialog.items)==dialog.current)
@@ -321,8 +329,8 @@ ui_buildok (struct dialogitem *item, CONST menudialog * entry)
 {
   struct okdata *ok;
   item->height = BUTTONHEIGHT;
-  okwidth = xtextwidth (uih->font, oktext);
-  cancelwidth = xtextwidth (uih->font, canceltext);
+  okwidth = xtextwidth (uih->font, gettext ("OK"));
+  cancelwidth = xtextwidth (uih->font, gettext ("Cancel"));
   item->width = okwidth + 2 * BORDERWIDTH + 2;
   item->width1 = cancelwidth + 2 * BORDERWIDTH + 2;
   if (item->width < item->width1)
@@ -413,13 +421,13 @@ static void
 ui_drawok (struct dialogitem *item)
 {
   struct okdata *ok = (struct okdata *) item->data;
-  ui_drawbutton (oktext, ok->pressed == 0, SELECTED (item)
+  ui_drawbutton (gettext ("OK"), ok->pressed == 0, SELECTED (item)
 		 && ok->selected == 0, dialog.x + BORDERWIDTH + 1,
 		 dialog.x + (dialog.width) / 3 - 1, item->y);
-  ui_drawbutton (canceltext, ok->pressed == 1, SELECTED (item)
+  ui_drawbutton (gettext ("Cancel"), ok->pressed == 1, SELECTED (item)
 		 && ok->selected == 1, dialog.x + (dialog.width) / 3 + 1,
 		 dialog.x + 2 * dialog.width / 3 - BORDERWIDTH, item->y);
-  ui_drawbutton (helptext, ok->pressed == 2, SELECTED (item)
+  ui_drawbutton (gettext ("Help"), ok->pressed == 2, SELECTED (item)
 		 && ok->selected == 2, dialog.x + 2 * (dialog.width) / 3,
 		 dialog.x + dialog.width - BORDERWIDTH - 1, item->y);
 }
@@ -744,7 +752,8 @@ ui_getextension (CONST char *ch)
   return ch + i;
 }
 
-number_t ui_getfloat (CONST char *c)
+number_t
+ui_getfloat (CONST char *c)
 {
 #ifdef HAVE_LONG_DOUBLE
   long double param;
@@ -1432,9 +1441,9 @@ ui_builddialog (CONST menuitem * item)
     }
   dialog.height += YSKIP * (n - 1);
   n =
-    xtextwidth (uih->font, oktext) + xtextwidth (uih->font,
-						 canceltext) +
-    xtextwidth (uih->font, helptext) + 10;
+    xtextwidth (uih->font, gettext ("OK")) + xtextwidth (uih->font,
+							 gettext ("Cancel")) +
+    xtextwidth (uih->font, gettext ("Help")) + 10;
   if (dialog.width < n)
     dialog.width = n;
   dialog.half = dialog.width + 2 * BORDERWIDTH;

@@ -61,6 +61,12 @@
 #include <xerror.h>
 #include "calculate.h"		/*an inlined calulate function */
 
+#ifdef HAVE_GETTEXT
+#include <libintl.h>
+#else
+#define gettext(STRING) STRING
+#endif
+
 #define ASIZE 16
 #define ALIGN(x) (((x)+ASIZE-1)&(~(ASIZE-1)))
 static int nsymetrized;
@@ -1224,7 +1230,7 @@ calculatenew (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
     {
       STAT (tocalculate = 0);
       STAT (avoided = 0);
-      cfilter.pass = "Solid guessing 1";
+      cfilter.pass = gettext ("Solid guessing 1");
       cfilter.max = 0;
       cfilter.pos = 0;
     }
@@ -1483,7 +1489,7 @@ calculatenewinterruptible (void)
   STAT (tocalculate = 0);
   STAT (avoided = 0);
 
-  cfilter.pass = "Solid guessing";
+  cfilter.pass = gettext ("Solid guessing");
 
   for (r = czoomc.reallocx; r < end; r++)
     if (r->dirty)

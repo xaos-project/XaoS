@@ -78,13 +78,19 @@ uih_darkrectangle (struct image *image, int x, int y, int width, int height)
 						       image->palette->
 						       info.truec.gprec)) | (1
 									     <<
-									     (image->palette->info.
-									      truec.bshift
+									     (image->
+									      palette->
+									      info.
+									      truec.
+									      bshift
 									      +
 									      7
 									      -
-									      image->palette->info.
-									      truec.bprec)));
+									      image->
+									      palette->
+									      info.
+									      truec.
+									      bprec)));
       mask = ~(mask | (mask << 16));
       break;
     }

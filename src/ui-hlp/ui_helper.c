@@ -32,6 +32,12 @@
 #include "play.h"
 #include <archaccel.h>
 
+#ifdef HAVE_GETTEXT
+#include <libintl.h>
+#else
+#define gettext(STRING) STRING
+#endif
+
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
@@ -429,9 +435,7 @@ int
 uih_enablejulia (uih_context * c)
 {
   int wascycling = 0;
-  if (!c->juliamode
-      && c->
-      fcontext->mandelbrot
+  if (!c->juliamode && c->fcontext->mandelbrot
       /*&&c->fcontext->currentformula->calculate_julia != NULL */ )
     {
       struct filter *addf = c->zengine;
@@ -687,13 +691,13 @@ uih_playtutorial (struct uih_context *c, CONST char *name)
   f = xio_gettutorial (name, tmp);
   if (f == NULL)
     {
-      uih_error (c, "Tutorial files not found. Reinstall XaoS");
+      uih_error (c, gettext ("Tutorial files not found. Reinstall XaoS"));
       return;
     }
   uih_replayenable (c, f, tmp, 1);
   if (c->passfunc != NULL)
     {
-      c->passfunc (c, 1, "Preparing first image", 0);
+      c->passfunc (c, 1, gettext ("Preparing first image"), 0);
     }
 }
 void
@@ -704,14 +708,14 @@ uih_loadexample (struct uih_context *c)
   c->errstring = NULL;
   if (f == NULL)
     {
-      uih_error (c, "Could not open examples");
+      uih_error (c, gettext ("Could not open examples"));
       return;
     }
   uih_load (c, f, name);
   if (c->errstring == NULL)
     {
       char s[256];
-      sprintf (s, "File %s loaded.", name);
+      sprintf (s, gettext ("File %s loaded."), name);
       uih_message (c, s);
     }
 }
@@ -721,7 +725,7 @@ uih_savepngfile (struct uih_context *c, xio_constpath d)
   CONST char *s;
   if (c->passfunc != NULL)
     {
-      c->passfunc (c, 1, "Saving image...", 0);
+      c->passfunc (c, 1, gettext ("Saving image..."), 0);
     }
   if (c->recalculatemode)
     {
@@ -731,7 +735,7 @@ uih_savepngfile (struct uih_context *c, xio_constpath d)
     }
   if (c->interrupt)
     {
-      uih_message (c, "Save interrupted");
+      uih_message (c, gettext ("Save interrupted"));
       return;
     }
   c->errstring = NULL;
@@ -741,7 +745,7 @@ uih_savepngfile (struct uih_context *c, xio_constpath d)
   if (c->errstring == NULL)
     {
       char s[256];
-      sprintf (s, "File %s saved.", d);
+      sprintf (s, gettext ("File %s saved."), d);
       uih_message (c, s);
     }
 }
@@ -753,14 +757,14 @@ uih_saveposfile (struct uih_context *c, xio_constpath d)
   f = xio_wopen (d);
   if (f == XIO_FAILED)
     {
-      uih_error (c, "Can not open file");
+      uih_error (c, gettext ("Can not open file"));
       return;
     }
   uih_save_possition (c, f, UIH_SAVEPOS);
   if (c->errstring == NULL)
     {
       char s[256];
-      sprintf (s, "File %s saved.", d);
+      sprintf (s, gettext ("File %s saved."), d);
       uih_message (c, s);
     }
 }
@@ -833,7 +837,7 @@ uih_savecfg (struct uih_context *c)
   if (c->errstring == NULL)
     {
       char s[256];
-      sprintf (s, "File %s saved.", configfile);
+      sprintf (s, gettext ("File %s saved."), configfile);
       uih_message (c, s);
     }
 }
@@ -858,7 +862,7 @@ uih_saveanimfile (struct uih_context *c, xio_constpath d)
   if (c->errstring == NULL)
     {
       char s[256];
-      sprintf (s, "Recording to file %s enabled.", d);
+      sprintf (s, gettext ("Recording to file %s enabled."), d);
       uih_message (c, s);
     }
   uih_updatemenus (c, "record");
@@ -997,8 +1001,7 @@ uih_do_fractal (uih_context * c)
     {
       uih_disablejulia (c);
     }
-  if (
-      (c->juliamode == 1
+  if ((c->juliamode == 1
        && (c->fcontext->currentformula->calculate_julia == NULL
 	   || c->fcontext->slowmode)) || (c->juliamode == 2
 					  && c->fcontext->

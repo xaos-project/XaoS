@@ -752,6 +752,7 @@ CalculateBITMAPINFO ()
       bmp->bmiColors[i].rgbBlue = i;
     }
 }
+
 #ifdef DDRAW_DRIVER
 
 /**************************************************************************************
@@ -1915,4 +1916,3 @@ x_fatalerror (const char *text, ...)
 
 
 #endif /* WIN32_DRIVER */
-

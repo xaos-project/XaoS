@@ -266,5 +266,3 @@ AboutBox (void)
 #endif
   DialogBox (hInstance, "AboutBox", hWnd, (DLGPROC) About);
 }
-
-

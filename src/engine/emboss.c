@@ -69,16 +69,25 @@ initialize (struct filter *f, struct initdata *i)
 	      if (dist > 255)
 		dist = 255;
 	      s->table[x] =
-		((dist >> i->image->palette->info.truec.rprec) << i->image->
-		 palette->info.truec.rshift) | ((dist >> i->image->palette->
-						 info.truec.gprec) << i->
-						image->palette->info.truec.
-						gshift) | ((dist >> i->image->
-							    palette->info.
-							    truec.
-							    bprec) << i->
-							   image->palette->
-							   info.truec.bshift);
+		((dist >> i->image->palette->info.truec.rprec) << i->
+		 image->palette->info.truec.rshift) | ((dist >> i->image->
+							palette->info.truec.
+							gprec) << i->image->
+						       palette->info.
+						       truec.gshift) | ((dist
+									 >>
+									 i->
+									 image->
+									 palette->
+									 info.
+									 truec.
+									 bprec)
+									<< i->
+									image->
+									palette->
+									info.
+									truec.
+									bshift);
 
 	    }
 	  for (x = 256; x < 512; x++)
@@ -88,16 +97,25 @@ initialize (struct filter *f, struct initdata *i)
 	      if (dist < 0)
 		dist = 0;
 	      s->table[x] =
-		((dist >> i->image->palette->info.truec.rprec) << i->image->
-		 palette->info.truec.rshift) | ((dist >> i->image->palette->
-						 info.truec.gprec) << i->
-						image->palette->info.truec.
-						gshift) | ((dist >> i->image->
-							    palette->info.
-							    truec.
-							    bprec) << i->
-							   image->palette->
-							   info.truec.bshift);
+		((dist >> i->image->palette->info.truec.rprec) << i->
+		 image->palette->info.truec.rshift) | ((dist >> i->image->
+							palette->info.truec.
+							gprec) << i->image->
+						       palette->info.
+						       truec.gshift) | ((dist
+									 >>
+									 i->
+									 image->
+									 palette->
+									 info.
+									 truec.
+									 bprec)
+									<< i->
+									image->
+									palette->
+									info.
+									truec.
+									bshift);
 	    }
 	}
     }

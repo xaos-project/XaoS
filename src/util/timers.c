@@ -207,7 +207,7 @@ plan9_msec (void)
 static int
 plan9_msec (void)
 {
-	return (int) (nsec()/1000000);
+  return (int) (nsec () / 1000000);
 }
 #endif
 #endif

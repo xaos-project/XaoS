@@ -273,6 +273,13 @@ REGISTERS (3)
 #define queue queue32
 #define bfill bfill32
 #include "btraced.c"
+
+#ifdef HAVE_GETTEXT
+#include <libintl.h>
+#else
+#define gettext(STRING) STRING
+#endif
+
 #ifndef SLOWCACHESYNC
 #ifndef nthreads
 static int
@@ -280,7 +287,7 @@ tracerectangle2 (int x1, int y1, int x2, int y2)
 {
   int x, y;
   cfilter.max = y2 - y1;
-  cfilter.pass = "Boundary trace";
+  cfilter.pass = gettext ("Boundary trace");
   cfilter.pos = 0;
   maxsize = MAXPAGES / nthreads;
   for (y = 0; y < nthreads; y++)
@@ -368,7 +375,7 @@ tracerectangle (int x1, int y1, int x2, int y2)
   int x, y;
   unsigned char *calc;
   cfilter.max = y2 - y1;
-  cfilter.pass = "Boundary trace";
+  cfilter.pass = gettext ("Boundary trace");
   cfilter.pos = 0;
   for (y = y1; y <= y2; y++)
     {

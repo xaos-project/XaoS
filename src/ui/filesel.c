@@ -15,6 +15,12 @@
 #include <misc-f.h>
 #include "uiint.h"
 
+#ifdef HAVE_GETTEXT
+#include <libintl.h>
+#else
+#define gettext(STRING) STRING
+#endif
+
 static char **dirs;
 static char **sdirs;
 static int ndirs;
@@ -182,7 +188,7 @@ drawfile (uih_context * c, void *data)
   ui_drawbutton ("OK", (pressedbutton == 0), active == AOK
 		 && activebutton == 0, filex + BORDERWIDTH,
 		 filex + filewidth / 2 - BORDERWIDTH, OKSTART);
-  ui_drawbutton ("Cancel", (pressedbutton == 1), active == AOK
+  ui_drawbutton (gettext ("Cancel"), (pressedbutton == 1), active == AOK
 		 && activebutton == 1, filex + filewidth / 2 + BORDERWIDTH,
 		 filex + filewidth - BORDERWIDTH, OKSTART);
 
@@ -221,9 +227,8 @@ drawfile (uih_context * c, void *data)
 	xstart = LISTEND - LISTSTART - 2 * BORDERHEIGHT;
       if (xend > (LISTEND - LISTSTART - 2 * BORDERHEIGHT))
 	xend = LISTEND - LISTSTART - 2 * BORDERHEIGHT;
-      uih_drawborder (uih, filex + LISTWIDTH + 3 * BORDERWIDTH,
-		      LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH, xend - xstart,	/*1|BORDER_LIGHT */
-		       0);
+      uih_drawborder (uih, filex + LISTWIDTH + 3 * BORDERWIDTH, LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH, xend - xstart,	/*1|BORDER_LIGHT */
+		      0);
     }
 
   ypos = LISTSTART + BORDERHEIGHT;
@@ -258,10 +263,8 @@ drawfile (uih_context * c, void *data)
 	xstart = LISTEND - LISTSTART - 2 * BORDERHEIGHT;
       if (xend > (LISTEND - LISTSTART - 2 * BORDERHEIGHT))
 	xend = LISTEND - LISTSTART - 2 * BORDERHEIGHT;
-      uih_drawborder (uih,
-		      filex + filewidth / 2 + LISTWIDTH + 3 * BORDERWIDTH,
-		      LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH, xend - xstart,	/*1|BORDER_LIGHT */
-		       0);
+      uih_drawborder (uih, filex + filewidth / 2 + LISTWIDTH + 3 * BORDERWIDTH, LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH, xend - xstart,	/*1|BORDER_LIGHT */
+		      0);
     }
   ui_drawtext (filename, active == AFILE);
   ui_drawtext (dir, active == ADIR);

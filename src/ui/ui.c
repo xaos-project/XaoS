@@ -1235,15 +1235,13 @@ ui_registermenus_i18n (void)
 	       MENUFLAG_INCALC | MENUFLAG_ATSTARTUP | MENUFLAG_NOMENU,
 	       ui_noguisw, ui_noguienabled);
   MENUSEPARATOR_I ("ui");
-  MENUNOPCB_I ("ui", "/", gettext ("Status"), "status", MENUFLAG_INCALC,
-	       ui_status, ui_statusenabled);	/*FIXME: add also ? as key */
+  MENUNOPCB_I ("ui", "/", gettext ("Status"), "status", MENUFLAG_INCALC, ui_status, ui_statusenabled);	/*FIXME: add also ? as key */
 
   MENUNOPCB_I ("ui", "l", gettext ("Ministatus"), "ministatus",
 	       MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
   MENUSEPARATOR_I ("ui");
   MENUSEPARATOR_I ("uia");
-  MENUNOPCB_I ("uia", "/", gettext ("Status"), "animstatus",
-	       UI | MENUFLAG_INCALC, ui_status, ui_statusenabled);	/*FIXME: add also ? as key */
+  MENUNOPCB_I ("uia", "/", gettext ("Status"), "animstatus", UI | MENUFLAG_INCALC, ui_status, ui_statusenabled);	/*FIXME: add also ? as key */
 
   MENUNOPCB_I ("uia", "l", gettext ("Ministatus"), "animministatus",
 	       UI | MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
@@ -1713,7 +1711,7 @@ MAIN_FUNCTION (int argc, char **argv)
       c = 0;
       tl_update_time ();
       tl_reset_timer (maintimer);
-      driver->print (0, textheight1 * 13, "Measuring zooming alogirhm loop");
+      driver->print (0, textheight1 * 13, "Measuring zooming algorithm loop");
       ui_flush ();
       while (tl_lookup_timer (maintimer) < 5000000)
 	uih_animate_image (uih), uih_prepare_image (uih), tl_update_time (),

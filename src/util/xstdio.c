@@ -138,7 +138,7 @@ xio_getfilename (CONST char *basename, CONST char *extension)
 #define DIRLEN 116
   uchar edir[DIRLEN];
 #else
- char edir[DIRLEN];
+  char edir[DIRLEN];
 #endif
 #else
   struct stat sb;
@@ -149,10 +149,10 @@ xio_getfilename (CONST char *basename, CONST char *extension)
       sprintf (name, "%s%i%s", base, nimage++, extension);
     }
 #ifndef _plan9_
-   while (stat (name, &sb) != -1);
+  while (stat (name, &sb) != -1);
 #else
 #ifdef _plan9v4_
- while (stat (name, edir,DIRLEN) != -1);
+  while (stat (name, edir, DIRLEN) != -1);
 #else
   while (stat (name, edir) != -1);
 #endif

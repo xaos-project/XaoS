@@ -255,5 +255,3 @@ win32_uninitializewindows ()
       win32_freestructures (r);
     }
 }
-
-

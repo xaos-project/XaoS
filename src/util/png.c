@@ -34,7 +34,7 @@ writepng (FILE * file, CONST struct image *image)
   volatile unsigned char *b = (volatile unsigned char *) &a;
 #ifdef _undefined_
   static char text[] =
-    "XaoS" XaoS_VERSION " - an realtime interactive fractal zoomer";
+    "XaoS" XaoS_VERSION " - a realtime interactive fractal zoomer";
   static png_text comments[] = {
     {
      -1,
@@ -153,14 +153,15 @@ writepng (FILE * file, CONST struct image *image)
 	  {
 	    for (y = 0; y < image->width; y++)
 	      r[y * 3 + 2] =
-		(((pixel32_t **) (image->currlines))[i][y] & image->palette->
-		 info.truec.rmask) >> image->palette->info.truec.rshift,
-		r[y * 3 + 1] =
-		(((pixel32_t **) (image->currlines))[i][y] & image->palette->
-		 info.truec.gmask) >> image->palette->info.truec.gshift,
-		r[y * 3] =
-		(((pixel32_t **) (image->currlines))[i][y] & image->palette->
-		 info.truec.bmask) >> image->palette->info.truec.bshift;
+		(((pixel32_t **) (image->currlines))[i][y] & image->
+		 palette->info.truec.rmask) >> image->palette->info.truec.
+		rshift, r[y * 3 + 1] =
+		(((pixel32_t **) (image->currlines))[i][y] & image->
+		 palette->info.truec.gmask) >> image->palette->info.truec.
+		gshift, r[y * 3] =
+		(((pixel32_t **) (image->currlines))[i][y] & image->
+		 palette->info.truec.bmask) >> image->palette->info.truec.
+		bshift;
 	    png_write_rows (png_ptr, (png_bytepp) & r, 1);
 	  }
       }
@@ -174,14 +175,15 @@ writepng (FILE * file, CONST struct image *image)
 	  {
 	    for (y = 0; y < image->width; y++)
 	      r[y * 3 + 2] =
-		(((pixel16_t **) (image->currlines))[i][y] & image->palette->
-		 info.truec.rmask) >> image->palette->info.truec.rshift,
-		r[y * 3 + 1] =
-		(((pixel16_t **) (image->currlines))[i][y] & image->palette->
-		 info.truec.gmask) >> image->palette->info.truec.gshift,
-		r[y * 3] =
-		(((pixel16_t **) (image->currlines))[i][y] & image->palette->
-		 info.truec.bmask) >> image->palette->info.truec.bshift;
+		(((pixel16_t **) (image->currlines))[i][y] & image->
+		 palette->info.truec.rmask) >> image->palette->info.truec.
+		rshift, r[y * 3 + 1] =
+		(((pixel16_t **) (image->currlines))[i][y] & image->
+		 palette->info.truec.gmask) >> image->palette->info.truec.
+		gshift, r[y * 3] =
+		(((pixel16_t **) (image->currlines))[i][y] & image->
+		 palette->info.truec.bmask) >> image->palette->info.truec.
+		bshift;
 	    png_write_rows (png_ptr, (png_bytepp) & r, 1);
 	  }
       }

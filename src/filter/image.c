@@ -153,12 +153,12 @@ create_image_mem (int width, int height, int nimages, struct palette *palette,
 		  float pixelwidth, float pixelheight)
 {
   unsigned char *data = (unsigned char *) calloc (((width + 3) & ~3) * height,
-						  bytesperpixel (palette->
-								 type));
+						  bytesperpixel
+						  (palette->type));
   unsigned char *data1 =
     (unsigned char *) (nimages == 2 ? calloc (((width + 3) & ~3) * height,
-					      bytesperpixel (palette->
-							     type)) : NULL);
+					      bytesperpixel (palette->type)) :
+		       NULL);
   struct image *img;
   if (data == NULL)
     {

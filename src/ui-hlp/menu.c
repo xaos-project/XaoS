@@ -79,7 +79,7 @@ CONST char *CONST uih_colornames[] = {
  * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
  */
 
-#define MAX_MENUDIALOGS_I18N 300
+#define MAX_MENUDIALOGS_I18N 100
 #define Register(variable) variable = & menudialogs_i18n[no_menudialogs_i18n]
 static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
 static int no_menudialogs_i18n;
@@ -88,8 +88,16 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
   *uih_smoothmorphdialog, *uih_renderdialog, *uih_viewdialog,
   *uih_linedialog, *uih_colordialog, *uih_rotationdialog,
   *uih_lettersdialog, *uih_iterdialog, *dtextparam, *dcommand,
-  *loaddialog, *playdialog, *saveimgdialog, *saveposdialog;
+  *loaddialog, *playdialog, *saveimgdialog, *saveposdialog,
+  *uih_formuladialog, *uih_plviewdialog, *uih_coorddialog,
+  *uih_angledialog, *uih_autorotatedialog, *uih_fastrotatedialog,
+  *uih_filterdialog, *uih_shiftdialog, *uih_speeddialog, *printdialog,
+  *uih_bailoutdialog, *saveanimdialog, *uih_juliamodedialog,
+  *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog,
+  *uih_numdialog, *uih_fpdialog, *palettedialog, *uih_cyclingdialog;
 
+extern char *xtextposnames[];
+extern char *ytextposnames[];
 
 
 void
@@ -192,6 +200,94 @@ static menudialog uih_perturbationdialog[] = {
   DIALOGOFILE_I (gettext ("Filename:"), "fract*.xpf");
   NULL_I ();
 
+  Register (uih_formuladialog);
+  DIALOGKEYSTR_I (gettext ("Formula:"), "mandel");
+  NULL_I ();
+
+  Register (uih_plviewdialog);
+  DIALOGFLOAT_I (gettext ("X center:"), 0);
+  DIALOGFLOAT_I (gettext ("Y center:"), 0);
+  DIALOGFLOAT_I (gettext ("X Radius:"), 1);
+  DIALOGFLOAT_I (gettext ("Y Radius:"), 1);
+  NULL_I ();
+
+  Register (uih_coorddialog);
+  DIALOGCOORD_I (gettext ("Coordinates:"), 0, 0);
+  NULL_I ();
+
+  Register (uih_angledialog);
+  DIALOGFLOAT_I (gettext ("Angle:"), 1);
+  NULL_I ();
+
+  Register (uih_autorotatedialog);
+  DIALOGONOFF_I (gettext ("continuous rotation"), 0);
+  NULL_I ();
+
+  Register (uih_fastrotatedialog);
+  DIALOGONOFF_I (gettext ("Fast rotation"), 0);
+  NULL_I ();
+
+  Register (uih_filterdialog);
+  DIALOGKEYSTR_I (gettext ("filter"), "");
+  DIALOGONOFF_I (gettext ("enable"), 0);
+  NULL_I ();
+
+  Register (uih_shiftdialog);
+  DIALOGINT_I (gettext ("Amount:"), 0);
+  NULL_I ();
+
+  Register (uih_speeddialog);
+  DIALOGFLOAT_I (gettext ("Zooming speed:"), 0);
+  NULL_I ();
+
+  Register (printdialog);
+  DIALOGSTR_I (gettext ("Name:"), "");
+  NULL_I ();
+
+  Register (uih_bailoutdialog);
+  DIALOGFLOAT_I (gettext ("Bailout:"), 0);
+  NULL_I ();
+
+  Register (saveanimdialog);
+  DIALOGOFILE_I (gettext ("Filename:"), "anim*.xaf");
+  NULL_I ();
+
+  Register (uih_juliamodedialog);
+  DIALOGONOFF_I (gettext ("Julia mode:"), 0);
+  NULL_I ();
+
+  Register (uih_textposdialog);
+  DIALOGCHOICE_I (gettext ("Horizontal position:"), xtextposnames, 0);
+  DIALOGCHOICE_I (gettext ("Vertical position:"), ytextposnames, 0);
+  NULL_I ();
+
+  Register (uih_fastmodedialog);
+  DIALOGCHOICE_I (gettext ("Dynamic resolution:"), save_fastmode, 0);
+  NULL_I ();
+
+  Register (uih_timedialog);
+  DIALOGINT_I (gettext ("Time:"), 0);
+  NULL_I ();
+
+  Register (uih_numdialog);
+  DIALOGINT_I (gettext ("Number:"), 0);
+  NULL_I ();
+
+  Register (uih_fpdialog);
+  DIALOGFLOAT_I (gettext ("Number:"), 0);
+  NULL_I ();
+
+  Register (palettedialog);
+  DIALOGINT_I (gettext ("Algorithm number:"), 0);
+  DIALOGINT_I (gettext ("Seed:"), 0);
+  DIALOGINT_I (gettext ("Shift:"), 0);
+  NULL_I ();
+
+  Register (uih_cyclingdialog);
+  DIALOGINT_I (gettext ("Frames per second:"), 0);
+  NULL_I ();
+
+
   printf ("Filled %d widgets out of %d.\n",
 	  no_menudialogs_i18n, MAX_MENUDIALOGS_I18N);
 }
@@ -235,34 +331,39 @@ uih_render (struct uih_context *c, dialogparam * d)
   if (d[2].dint <= 0 || d[2].dint > 4096)
     {
       uih_error (c,
-		 "renderanim:Width parameter must be positive integer in the range 0..4096");
+		 gettext
+		 ("renderanim: Width parameter must be positive integer in the range 0..4096"));
       return;
     }
   if (d[3].dint <= 0 || d[3].dint > 4096)
     {
       uih_error (c,
-		 "renderanim:Height parameter must be positive integer in the range 0..4096");
+		 gettext
+		 ("renderanim: Height parameter must be positive integer in the range 0..4096"));
       return;
     }
   if (d[4].number <= 0 || d[5].number <= 0)
     {
-      uih_error (c, "renderanim:Invalid real width and height dimensions");
+      uih_error (c,
+		 gettext
+		 ("renderanim: Invalid real width and height dimensions"));
       return;
     }
   if (d[6].number <= 0 || d[6].number >= 1000000)
     {
-      uih_error (c, "renderanim:invalid framerate");
+      uih_error (c, gettext ("renderanim: invalid framerate"));
       return;
     }
   if (d[7].dint && d[8].dint)
     {
       uih_error (c,
-		 "renderanim:antialiasing not supported in 256 color mode");
+		 gettext
+		 ("renderanim: antialiasing not supported in 256 color mode"));
       return;
     }
   if (d[11].dint <= 0 || d[11].dint >= 1000000)
     {
-      uih_error (c, "renderanim:incorect I frame distance");
+      uih_error (c, gettext ("renderanim: incorrect I frame distance"));
       return;
     }
   uih_renderanimation (c, d[1].dstring, (xio_path) d[0].dstring, d[2].dint,
@@ -291,39 +392,6 @@ uih_setcolor (struct uih_context *c, int color)
 {
   c->color = color;
 }
-static CONST menudialog uih_formuladialog[] = {
-  DIALOGKEYSTR ("Formula:", "mandel"),
-  {NULL}
-};
-static CONST menudialog uih_plviewdialog[] = {
-  DIALOGFLOAT ("X center:", 0),
-  DIALOGFLOAT ("Y center:", 0),
-  DIALOGFLOAT ("X Radius:", 1),
-  DIALOGFLOAT ("Y Radius:", 1),
-  {NULL}
-};
-static CONST menudialog uih_coorddialog[] = {
-  DIALOGCOORD ("Coordinates:", 0, 0),
-  {NULL}
-};
-static CONST menudialog uih_angledialog[] = {
-  DIALOGFLOAT ("Angle:", 1),
-  {NULL}
-};
-static CONST menudialog uih_autorotatedialog[] = {
-  DIALOGONOFF ("continuous rotation", 0),
-  {NULL}
-};
-static CONST menudialog uih_fastrotatedialog[] = {
-  DIALOGONOFF ("Fast rotation", 0),
-  {NULL}
-};
-static CONST menudialog uih_filterdialog[] = {
-  DIALOGKEYSTR ("filter", ""),
-  DIALOGONOFF ("enable", 0),
-  {NULL}
-};
-
 
 
 static menudialog *
@@ -351,7 +419,7 @@ uih_plview (struct uih_context *c, dialogparam * d)
 {
   if (d[2].number <= 0 || d[3].number <= 0)
     {
-      uih_error (c, "animateview:Invalid viewpoint");
+      uih_error (c, gettext ("animateview: Invalid viewpoint"));
       return;
     }
   c->fcontext->s.cr = d[0].number;
@@ -365,7 +433,7 @@ uih_plview2 (struct uih_context *c, dialogparam * d)
 {
   if (d[2].number <= 0 || d[3].number <= 0)
     {
-      uih_error (c, "animateview:Invalid viewpoint");
+      uih_error (c, gettext ("animateview: Invalid viewpoint"));
       return;
     }
   c->fcontext->s.cr = d[0].number;
@@ -379,7 +447,7 @@ uih_dview (struct uih_context *c, dialogparam * d)
 {
   if (d[1].number <= 0)
     {
-      uih_error (c, "Invalid viewpoint");
+      uih_error (c, gettext ("Invalid viewpoint"));
       return;
     }
   c->fcontext->s.cr = d[0].dcoord[0];
@@ -476,10 +544,7 @@ uih_printdialog (struct uih_context *c, CONST char *name)
     }
   printf ("enddialog\n");
 }
-static menudialog printdialog[] = {
-  DIALOGSTR ("Name:", ""),
-  {NULL}
-};
+
 static void
 uih_printmenu (struct uih_context *c, CONST char *name, int recursive)
 {
@@ -553,10 +618,7 @@ uih_getiterdialog (struct uih_context *c)
     uih_iterdialog[0].defint = c->fcontext->maxiter;
   return (uih_iterdialog);
 }
-static menudialog uih_bailoutdialog[] = {
-  DIALOGFLOAT ("bailout:", 0),
-  {NULL}
-};
+
 static menudialog *
 uih_getbailoutdialog (struct uih_context *c)
 {
@@ -571,45 +633,9 @@ uih_saveanimenabled (struct uih_context *c)
     return 0;
   return (c->save);
 }
-static CONST menudialog saveanimdialog[] = {
-  DIALOGOFILE ("Filename:", "anim*.xaf"),
-  {NULL}
-};
-static CONST menudialog uih_juliamodedialog[] = {
-  DIALOGONOFF ("Julia mode:", 0),
-  {NULL}
-};
 
-extern char *xtextposnames[];
-extern char *ytextposnames[];
-static CONST menudialog uih_textposdialog[] = {
-  DIALOGCHOICE ("horizontal position:", xtextposnames, 0),
-  DIALOGCHOICE ("vertical position:", ytextposnames, 0),
-  {NULL}
-};
-static CONST menudialog uih_fastmodedialog[] = {
-  DIALOGCHOICE ("Dynamic resolution:", save_fastmode, 0),
-  {NULL}
-};
-static CONST menudialog uih_timedialog[] = {
-  DIALOGINT ("time:", 0),
-  {NULL}
-};
-static CONST menudialog uih_numdialog[] = {
-  DIALOGINT ("number:", 0),
-  {NULL}
-};
-static CONST menudialog uih_fpdialog[] = {
-  DIALOGFLOAT ("number:", 0),
-  {NULL}
-};
 
-static menudialog palettedialog[] = {
-  DIALOGINT ("Algorithm number", 0),
-  DIALOGINT ("seed", 0),
-  DIALOGINT ("shift", 0),
-  {NULL}
-};
+
 static menudialog *
 uih_getrotationdialog (struct uih_context *c)
 {
@@ -628,10 +654,7 @@ uih_getpalettedialog (struct uih_context *uih)
     }
   return (palettedialog);
 }
-static menudialog uih_cyclingdialog[] = {
-  DIALOGINT ("Frames per second:", 0),
-  {NULL}
-};
+
 static menudialog *
 uih_getcyclingdialog (struct uih_context *uih)
 {
@@ -639,10 +662,7 @@ uih_getcyclingdialog (struct uih_context *uih)
     uih_cyclingdialog[0].defint = uih->cyclingspeed * uih->direction;
   return (uih_cyclingdialog);
 }
-static menudialog uih_speeddialog[] = {
-  DIALOGFLOAT ("Zooming speed:", 0),
-  {NULL}
-};
+
 static menudialog *
 uih_getspeeddialog (struct uih_context *uih)
 {
@@ -674,7 +694,7 @@ uih_palette (struct uih_context *uih, dialogparam * p)
     }
   if (n1 < 1 || n1 > PALGORITHMS)
     {
-      uih_error (uih, "Unknown palette type");
+      uih_error (uih, gettext ("Unknown palette type"));
     }
   if (uih->zengine->fractalc->palette == NULL)
     return;
@@ -743,8 +763,8 @@ uih_cyclingsw (struct uih_context *c)
   if (c->cycling)
     uih_cycling_off (c);
   else if (!uih_cycling_on (c))
-    uih_error (c, "Inicialization of color cycling failed."),
-      uih_message (c, "Try to enable palette emulation filter");
+    uih_error (c, gettext ("Initialization of color cycling failed.")),
+      uih_message (c, gettext ("Try to enable palette emulation filter"));
 }
 static void
 uih_rcyclingsw (struct uih_context *c)
@@ -753,8 +773,8 @@ uih_rcyclingsw (struct uih_context *c)
   if (c->cycling)
     uih_cycling_off (c);
   else if (!uih_cycling_on (c))
-    uih_error (c, "Inicialization of color cycling failed."),
-      uih_message (c, "Try to enable palette emulation filter");
+    uih_error (c, gettext ("Initialization of color cycling failed.")),
+      uih_message (c, gettext ("Try to enable palette emulation filter"));
 }
 static void
 uih_juliasw (struct uih_context *c)
@@ -865,8 +885,8 @@ uih_menumkpalette (uih_context * c)
 {
   char s[256];
   uih_mkpalette (c);
-  sprintf (s, "Algorithm:%i seed:%i size:%i", c->palettetype, c->paletteseed,
-	   c->zengine->fractalc->palette->size);
+  sprintf (s, gettext ("Algorithm:%i seed:%i size:%i"), c->palettetype,
+	   c->paletteseed, c->zengine->fractalc->palette->size);
   uih_message (c, s);
 }
 static void
@@ -888,10 +908,7 @@ uih_bshift (uih_context * c)
 {
   uih_shiftpalette (c, -1);
 }
-static menudialog uih_shiftdialog[] = {
-  DIALOGINT ("Amount:", 0),
-  {NULL}
-};
+
 static CONST menuitem menuitems[] =	/*XaoS menu specifications */
 {
 /* This structure is now empty. All static definitions have been moved
@@ -903,7 +920,7 @@ static CONST menuitem menuitems[] =	/*XaoS menu specifications */
 /* Registering internationalized menus. See also include/xmenu.h
    for details. Note that MAX_MENUITEMS_I18N may be increased
 	 if more items will be added in future. */
-#define MAX_MENUITEMS_I18N 300
+#define MAX_MENUITEMS_I18N 200
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
 int uih_no_menuitems_i18n;
 //extern void DIALOGIFILE_I(char *_question,char *_filename);

@@ -90,17 +90,18 @@ plan9_setrange (ui_palette palette, int start, int end)
 {
   int i;
   readcolmap (display, cmap);
-  for (i = start; i < end; i++) {
-	/* old 8 bit only palette
-	  palette[i - start][0] = cmap[i].red / 256UL / 256UL / 256UL;
-	  palette[i - start][1] = cmap[i].green / 256UL / 256UL / 256UL;
-	  palette[i - start][2] = cmap[i].blue / 256UL / 256UL / 256UL;
-	*/
-	  palette[i - start][0] = ((cmap2rgb(i) >> 16) & 0xff);
- 	  palette[i - start][1] = ((cmap2rgb(i) >> 8) & 0xff);
- 	  palette[i - start][2] = ((cmap2rgb(i) >> 8) & 0xff) ;
+  for (i = start; i < end; i++)
+    {
+      /* old 8 bit only palette
+         palette[i - start][0] = cmap[i].red / 256UL / 256UL / 256UL;
+         palette[i - start][1] = cmap[i].green / 256UL / 256UL / 256UL;
+         palette[i - start][2] = cmap[i].blue / 256UL / 256UL / 256UL;
+       */
+      palette[i - start][0] = ((cmap2rgb (i) >> 16) & 0xff);
+      palette[i - start][1] = ((cmap2rgb (i) >> 8) & 0xff);
+      palette[i - start][2] = ((cmap2rgb (i) >> 8) & 0xff);
 
-  }
+    }
 }
 #endif
 
@@ -111,16 +112,16 @@ plan9_print (int x, int y, CONST char *text)
 #ifdef _plan9v2_
   string (&screen, p, font, text, S);
 #else
-  string (screen, p, display->black,ZP, display->defaultfont, text);
+  string (screen, p, display->black, ZP, display->defaultfont, text);
 #endif
 }
 static void
- plan9_flush (void)
+plan9_flush (void)
 {
 #ifdef _plan9v2_
-   bflush ();
+  bflush ();
 #else
-  flushimage(display,1);
+  flushimage (display, 1);
 #endif
 }
 static void
@@ -138,8 +139,9 @@ plan9_display (void)
   wrbitmap (mybitmap, 0, height, (unsigned char *) buffers[current]);
   bitblt (&screen, rect.min, mybitmap, rect1, S);
 #else
-  loadimage(mybitmap, rect1,  (unsigned char *) buffers[current],width * (height + 1));
-  draw(screen, screen->r, mybitmap, nil, ZP);
+  loadimage (mybitmap, rect1, (unsigned char *) buffers[current],
+	     width * (height + 1));
+  draw (screen, screen->r, mybitmap, nil, ZP);
 #endif
 }
 
@@ -148,15 +150,17 @@ plan9_flip_buffers (void)
 {
   current ^= 1;
 }
+
 #ifndef _plan9v2_
 void
-eresized(int new)
-{	
-	if(new && getwindow(display, Refnone) < 0) {
-		fprint(2, "XaoS: can't reattach to window: %r\n");
-		exits("resized");
-	}
-	ui_resize();
+eresized (int new)
+{
+  if (new && getwindow (display, Refnone) < 0)
+    {
+      fprint (2, "XaoS: can't reattach to window: %r\n");
+      exits ("resized");
+    }
+  ui_resize ();
 }
 #endif
 
@@ -215,7 +219,7 @@ plan9_getsize (int *w, int *h)
 #ifdef _plan9v2_
   bscreenrect (&rect);
 #else
-	rect = screen->r;
+  rect = screen->r;
 #endif
   width = rect.max.x - rect.min.x;
   height = rect.max.y - rect.min.y;
@@ -232,10 +236,10 @@ plan9_allocbuffers (char **b1, char **b2)
   int w = width;
 #ifdef _plan9v2_
   if (screen.ldepth == 0)
-      w = (w + 7) / 8;
+    w = (w + 7) / 8;
   mybitmap = balloc (rect1, ldepth);
 #else
-    mybitmap = allocimage(display,rect1,CMAP8,1,DCyan); 
+  mybitmap = allocimage (display, rect1, CMAP8, 1, DCyan);
 #endif
   if (screen.ldepth == 0)
     w = (w + 7) / 8;
@@ -308,7 +312,7 @@ plan9_init (void)
 }
 #else
 static int
-  plan9_init (void)
+plan9_init (void)
 {
   initdraw (nil, nil, "XaoS");
   einit (Ekeyboard | Emouse);

@@ -462,5 +462,3 @@ win32_dialog (struct uih_context *uih, CONST char *name)
       /*x_message("Dialog (%s %i %s) not implemented", name, nitems, dialog[0].question); */
     }
 }
-
-
