@@ -54,5 +54,4 @@
 #undef SIZEOF_LONG
 #undef HAVE_GETTEXT
 #undef NO_MALLOC_H
-#undef RESTRICT
 #endif
