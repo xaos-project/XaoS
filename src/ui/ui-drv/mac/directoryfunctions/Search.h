@@ -28,13 +28,13 @@
 #include "Optim.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*****************************************************************************/
 
-pascal	OSErr	IndexedSearch(CSParamPtr pb,
-							  long dirID);
+  pascal OSErr IndexedSearch (CSParamPtr pb, long dirID);
 /*	¦ Search in and below a directory.
 	The IndexedSearch function performs an indexed search in and below the
 	specified directory using the same parameters (in pb) as is passed to
@@ -78,7 +78,7 @@ pascal	OSErr	IndexedSearch(CSParamPtr pb,
 
 /*****************************************************************************/
 
-pascal	OSErr	PBCatSearchSyncCompat(CSParamPtr paramBlock);
+  pascal OSErr PBCatSearchSyncCompat (CSParamPtr paramBlock);
 /*	¦ Search a volume using PBCatSearch or IndexedSearch.
 	The PBCatSearchSyncCompat function uses PBCatSearch (if available) or
 	IndexedSearch (if PBCatSearch is not available) to search a volume
@@ -122,14 +122,13 @@ pascal	OSErr	PBCatSearchSyncCompat(CSParamPtr paramBlock);
 
 /*****************************************************************************/
 
-pascal	OSErr	NameFileSearch(ConstStr255Param volName,
-							   short vRefNum,
-							   ConstStr255Param fileName,
-							   FSSpecPtr matches,
-							   long reqMatchCount,
-							   long *actMatchCount,
-							   Boolean newSearch,
-							   Boolean partial);
+  pascal OSErr NameFileSearch (ConstStr255Param volName,
+			       short vRefNum,
+			       ConstStr255Param fileName,
+			       FSSpecPtr matches,
+			       long reqMatchCount,
+			       long *actMatchCount,
+			       Boolean newSearch, Boolean partial);
 /*	¦ Search for files by file name with PBCatSearch.
 	The NameFileSearch function searches for files with a specific file
 	name on a volume that supports PBCatSearch.
@@ -179,14 +178,13 @@ pascal	OSErr	NameFileSearch(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	CreatorTypeFileSearch(ConstStr255Param volName,
-									  short vRefNum,
-									  OSType creator,
-									  OSType fileType,
-									  FSSpecPtr matches,
-									  long reqMatchCount,
-									  long *actMatchCount,
-									  Boolean newSearch);
+  pascal OSErr CreatorTypeFileSearch (ConstStr255Param volName,
+				      short vRefNum,
+				      OSType creator,
+				      OSType fileType,
+				      FSSpecPtr matches,
+				      long reqMatchCount,
+				      long *actMatchCount, Boolean newSearch);
 /*	¦ Search for files by creator/fileType with PBCatSearch.
 	The CreatorTypeFileSearch function searches for files with a specific
 	creator or fileType on a volume that supports PBCatSearch.
@@ -243,4 +241,4 @@ pascal	OSErr	CreatorTypeFileSearch(ConstStr255Param volName,
 
 #include "OptimEnd.h"
 
-#endif	/* __SEARCH__ */
+#endif				/* __SEARCH__ */

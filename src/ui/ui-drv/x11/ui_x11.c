@@ -36,8 +36,7 @@
 #endif
 #include <fconfig.h>
 #include <ui.h>
-xlibparam xparams =
-{0, 0, 0, 0, NULL, -1};
+xlibparam xparams = { 0, 0, 0, 0, NULL, -1 };
 static int allocated;
 Cursor normal, xwait, replay;
 
@@ -179,7 +178,8 @@ x11_processevents (int wait, int *mx, int *my, int *mb, int *k)
 	  switch (ev.type)
 	    {
 	    case ClientMessage:
-	      if ((int)ev.xclient.format == 32 && ev.xclient.data.l[0] == wmDeleteWindow)
+	      if ((int) ev.xclient.format == 32
+		  && ev.xclient.data.l[0] == wmDeleteWindow)
 		ui_quit ();
 	      break;
 	    case ButtonRelease:
@@ -201,7 +201,9 @@ x11_processevents (int wait, int *mx, int *my, int *mb, int *k)
 	    case ButtonPress:
 	      mousex = ev.xbutton.x;
 	      mousey = ev.xbutton.y;
-	      if (!(mousex < 0 || mousey < 0 || mousex > (int) d->width || mousey > (int) d->height))
+	      if (!
+		  (mousex < 0 || mousey < 0 || mousex > (int) d->width
+		   || mousey > (int) d->height))
 		{
 		  switch (ev.xbutton.button)
 		    {
@@ -229,9 +231,11 @@ x11_processevents (int wait, int *mx, int *my, int *mb, int *k)
 	      break;
 	    case ResizeRequest:
 	      XResizeWindow (d->display, d->window,
-			 ev.xresizerequest.width, ev.xresizerequest.height);
+			     ev.xresizerequest.width,
+			     ev.xresizerequest.height);
 	      XResizeWindow (d->display, d->parent_window,
-			 ev.xresizerequest.width, ev.xresizerequest.height);
+			     ev.xresizerequest.width,
+			     ev.xresizerequest.height);
 	      XSync (d->display, 0);
 	      resized = 2;
 	      ui_resize ();
@@ -314,7 +318,8 @@ x11_processevents (int wait, int *mx, int *my, int *mb, int *k)
 		      else
 			{
 			  name = buff;
-			  buff[XLookupString (&ev.xkey, buff, 256, &ksym, NULL)] = 0;
+			  buff[XLookupString
+			       (&ev.xkey, buff, 256, &ksym, NULL)] = 0;
 			}
 		      if (strlen (name) == 1)
 			{
@@ -339,13 +344,15 @@ x11_processevents (int wait, int *mx, int *my, int *mb, int *k)
 	      break;
 	    }
 	}
-      while (busy >= 2 || /*XEventsQueued (d->display, QueuedAlready) */ XPending (d->display));
+      while (busy >= 2 ||	/*XEventsQueued (d->display, QueuedAlready) */
+	     XPending (d->display));
     }
   *mx = mousex;
   *my = mousey;
   *mb = mousebuttons;
   *k = iflag;
 }
+
 /*static int defined; */
 static void
 x11_cursor (int mode)
@@ -369,16 +376,18 @@ x11_cursor (int mode)
     }
   XFlush (d->display);
 }
+
 #if 0
 static Atom atom;
 void
-x11_copy()
+x11_copy ()
 {
-  if (slection) free(selection), selection=NULL;
-  selection=ui_getpos();
-  atom = XInternAtom(d->display, "image/x-xaos.position", False);
-  printf("%i\n",atom);
-  XSetSelectionOwner(d->display, atom, d->window, CurrentTime);
+  if (slection)
+    free (selection), selection = NULL;
+  selection = ui_getpos ();
+  atom = XInternAtom (d->display, "image/x-xaos.position", False);
+  printf ("%i\n", atom);
+  XSetSelectionOwner (d->display, atom, d->window, CurrentTime);
 }
 #endif
 static int
@@ -486,7 +495,8 @@ x11_init (void)
 	  int end = 256;
 	  if (end > d->visual->map_entries)
 	    end = d->visual->map_entries;
-	  x11_driver.set_color = x11_set_color, x11_driver.flags |= RANDOM_PALETTE_SIZE;
+	  x11_driver.set_color = x11_set_color, x11_driver.flags |=
+	    RANDOM_PALETTE_SIZE;
 	  x11_driver.palettestart = 0;
 	  x11_driver.paletteend = end;
 	  x11_driver.maxentries = end;
@@ -530,10 +540,15 @@ x11_init (void)
     }
   x11_driver.maxwidth = XDisplayWidth (d->display, d->screen);
   x11_driver.maxheight = XDisplayHeight (d->display, d->screen);
-  x11_driver.width = ( (double)((unsigned int)XDisplayWidthMM (d->display, d->screen))) / x11_driver.maxwidth / 10.0;
-  x11_driver.height = ((double)((unsigned int)XDisplayHeightMM (d->display, d->screen))) / x11_driver.maxheight / 10.0;
+  x11_driver.width =
+    ((double) ((unsigned int) XDisplayWidthMM (d->display, d->screen))) /
+    x11_driver.maxwidth / 10.0;
+  x11_driver.height =
+    ((double) ((unsigned int) XDisplayHeightMM (d->display, d->screen))) /
+    x11_driver.maxheight / 10.0;
   x11_driver.textheight = xsetfont (d, "fixed");
-  x11_driver.textwidth = d->font_struct->max_bounds.rbearing - d->font_struct->min_bounds.lbearing;
+  x11_driver.textwidth =
+    d->font_struct->max_bounds.rbearing - d->font_struct->min_bounds.lbearing;
 #ifdef MITSHM
   Completion = XShmGetEventBase (d->display) + ShmCompletion;
 #endif
@@ -547,7 +562,8 @@ static void
 x11_uninitialise (void)
 {
 #if 0
-  if(selection) free(selection), selection=NULL;
+  if (selection)
+    free (selection), selection = NULL;
 #endif
   xfree_colors (d);
   xfree_display (d);
@@ -559,17 +575,18 @@ x11_getmouse (int *x, int *y, int *b)
   Window rootreturn, childreturn;
   XQueryPointer (d->display, d->window,
 		 &rootreturn, &childreturn,
-		 &rootx, &rooty, x,
-		 y, (unsigned int *) b);
+		 &rootx, &rooty, x, y, (unsigned int *) b);
 }
-static CONST struct params params[] =
-{
+static CONST struct params params[] = {
   {"", P_HELP, NULL, "X11 driver options:"},
   {"-display", P_STRING, &xparams.display, "Select display"},
   {"-size", P_STRING, &size, "Select size of window (WIDTHxHEIGHT)."},
-  {"-sync", P_SWITCH, &Xsync, "Generate sync signals before looking for events. This\n\t\t\thelps on old and buggy HP-UX X servers."},
-  {"-shared", P_SWITCH, &sharedcolormap, "Use shared colormap on pseudocolor display."},
-  {"-usedefault", P_SWITCH, &xparams.usedefault, "Use default visual if autodetection causes troubles."},
+  {"-sync", P_SWITCH, &Xsync,
+   "Generate sync signals before looking for events. This\n\t\t\thelps on old and buggy HP-UX X servers."},
+  {"-shared", P_SWITCH, &sharedcolormap,
+   "Use shared colormap on pseudocolor display."},
+  {"-usedefault", P_SWITCH, &xparams.usedefault,
+   "Use default visual if autodetection causes troubles."},
   {"-nomitshm", P_SWITCH, &xparams.nomitshm, "Disable MITSHM extension."},
   {"-fullscreen", P_SWITCH, &xparams.fullscreen, "Enable fullscreen mode."},
   {"-windowid", P_NUMBER, &xparams.windowid, "Use selected window."},
@@ -577,8 +594,7 @@ static CONST struct params params[] =
   {NULL, 0, NULL, NULL}
 };
 
-struct ui_driver x11_driver =
-{
+struct ui_driver x11_driver = {
   "X11",
   x11_init,
   x11_getsize,

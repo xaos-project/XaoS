@@ -23,7 +23,7 @@ static int textmode = 0;
 static int backslash = 0;
 static int nest = -1;
 #define add(cmd) (pipecommand[commandpos++]=cmd)
-static void 
+static void
 ui_pipe_handler (void *data, int q)
 {
 #ifdef O_NONBLOCK
@@ -81,7 +81,7 @@ ui_pipe_handler (void *data, int q)
     }
 #endif
 }
-void 
+void
 ui_pipe_init (CONST char *name)
 {
 #ifdef O_NONBLOCK
@@ -105,13 +105,14 @@ ui_pipe_init (CONST char *name)
   tl_set_interval (pipetimer, 100000);
   tl_add_timer (syncgroup, pipetimer);
 #else
-  printf ("Fatal error - constant O_NONBLOCK used for non-blocking IO in the pipe handling"
-	  "is unknown at the moment of compilation. The non-blocking IO will not work. "
-	  "Please ask authors...\n");
+  printf
+    ("Fatal error - constant O_NONBLOCK used for non-blocking IO in the pipe handling"
+     "is unknown at the moment of compilation. The non-blocking IO will not work. "
+     "Please ask authors...\n");
   exit (0);
 #endif
 }
-static void 
+static void
 ui_pipe_close (void)
 {
 #ifdef O_NONBLOCK

@@ -23,43 +23,42 @@
 #include "XaoSEvent.h"
 #include "XaoSAbstractWindow.h"
 
-class XaoSDirectWindow : public BDirectWindow, XaoSAbstractWindow
+class XaoSDirectWindow:public BDirectWindow, XaoSAbstractWindow
 {
 public:
-	typedef BDirectWindow inherited;
-	
-	// Constructor, destructor.
-	XaoSDirectWindow(BRect frame, port_id port, status_t *error);
-	virtual ~XaoSDirectWindow(void);
+  typedef BDirectWindow inherited;
 
-	// Hook functions.
-	virtual void FrameResized(float width, float height);
-	virtual  bool QuitRequested(void);
+  // Constructor, destructor.
+    XaoSDirectWindow (BRect frame, port_id port, status_t * error);
+    virtual ~ XaoSDirectWindow (void);
 
-	// Allow quit requests to succeed.
-	virtual  void AllowQuit(void);
+  // Hook functions.
+  virtual void FrameResized (float width, float height);
+  virtual bool QuitRequested (void);
+
+  // Allow quit requests to succeed.
+  virtual void AllowQuit (void);
 
 
-        virtual void   DirectConnected(direct_buffer_info *info); 
-	virtual void MessageReceived(BMessage *pMessage);
+  virtual void DirectConnected (direct_buffer_info * info);
+  virtual void MessageReceived (BMessage * pMessage);
 
-        uint8         *fBits; 
-        int32         fRowBytes; 
-	int32	      fBytesPerPixel;
-        color_space      fFormat; 
-        clipping_rect   fBounds; 
-        
-        uint32         fNumClipRects; 
-        clipping_rect   *fClipList; 
-         
-        bool         fDirty;      // needs refresh? 
-        bool         fConnected; 
-        bool         fConnectionDisabled; 
-        BLocker         *locker; 
+  uint8 *fBits;
+  int32 fRowBytes;
+  int32 fBytesPerPixel;
+  color_space fFormat;
+  clipping_rect fBounds;
+
+  uint32 fNumClipRects;
+  clipping_rect *fClipList;
+
+  bool fDirty;			// needs refresh? 
+  bool fConnected;
+  bool fConnectionDisabled;
+  BLocker *locker;
 private:
-        XaoSDirectWindow(const XaoSDirectWindow &orig);
-	XaoSDirectWindow &operator =(const XaoSDirectWindow &orig);
+    XaoSDirectWindow (const XaoSDirectWindow & orig);
+    XaoSDirectWindow & operator = (const XaoSDirectWindow & orig);
 };
 
 #endif // XAOSWINDOW_H
-

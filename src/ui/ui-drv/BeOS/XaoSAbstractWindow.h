@@ -23,70 +23,75 @@
 #include <View.h>
 #include "XaoSEvent.h"
 
-class XaoSAbstractWindow 
+class XaoSAbstractWindow
 {
 public:
-	// Constructor, destructor.
-	XaoSAbstractWindow(port_id port);
-	~XaoSAbstractWindow(void);
+  // Constructor, destructor.
+  XaoSAbstractWindow (port_id port);
+  ~XaoSAbstractWindow (void);
 
-	// Hook functions.
-	bool DoQuitRequested(void);
-        // void DrawBuffer(char *buffer);
-	
-	// Allow quit requests to succeed.
-	void DoAllowQuit(void);
-	void PassMenuMessage(const BMessage *m);
-	
-	void SendEvent(long eventCode, const XaoSEvent &event) const;
+  // Hook functions.
+  bool DoQuitRequested (void);
+  // void DrawBuffer(char *buffer);
+
+  // Allow quit requests to succeed.
+  void DoAllowQuit (void);
+  void PassMenuMessage (const BMessage * m);
+
+  void SendEvent (long eventCode, const XaoSEvent & event) const;
 private:
-	port_id mEventPort;
-	
-	bool mQuitAllowed;
+    port_id mEventPort;
+
+  bool mQuitAllowed;
 };
-inline 
-XaoSAbstractWindow::XaoSAbstractWindow(port_id port)
+inline
+XaoSAbstractWindow::XaoSAbstractWindow (port_id port)
 {
-        mEventPort = port;
-	mQuitAllowed = FALSE;
+  mEventPort = port;
+  mQuitAllowed = FALSE;
 }
-inline 
-XaoSAbstractWindow::~XaoSAbstractWindow()
+
+inline
+XaoSAbstractWindow::~
+XaoSAbstractWindow ()
 {
 }
 
 inline void
-XaoSAbstractWindow::SendEvent(long eventCode, const XaoSEvent &event) const
+XaoSAbstractWindow::SendEvent (long eventCode, const XaoSEvent & event) const
 {
-	(void)write_port(mEventPort, eventCode, &event, sizeof(XaoSEvent));
+  (void) write_port (mEventPort, eventCode, &event, sizeof (XaoSEvent));
 }
-inline
-void XaoSAbstractWindow::PassMenuMessage(const BMessage *m)
+inline void
+XaoSAbstractWindow::PassMenuMessage (const BMessage * m)
 {
-	void *ptr;
-        m->FindPointer("Cmd",&ptr);
-        SendEvent(XaoSEvent::Menu, ptr);
-}
-inline
-bool XaoSAbstractWindow::DoQuitRequested(void)
-{
-	// Are we allowed to quit?
-	if (!mQuitAllowed) {
-                SendEvent(XaoSEvent::Quit, XaoSEvent());
-	} else {
-		// Yep!
-		be_app->PostMessage(B_QUIT_REQUESTED);
-	}
-	
-	return mQuitAllowed;
+  void *ptr;
+  m->FindPointer ("Cmd", &ptr);
+  SendEvent (XaoSEvent::Menu, ptr);
 }
 
-inline
-void XaoSAbstractWindow::DoAllowQuit()
+inline bool
+XaoSAbstractWindow::DoQuitRequested (void)
 {
-	// Allow quitting; called from the main thread just before
-	// it posts B_QUIT_REQUESTED.
-	mQuitAllowed = TRUE;
+  // Are we allowed to quit?
+  if (!mQuitAllowed)
+    {
+      SendEvent (XaoSEvent::Quit, XaoSEvent ());
+    }
+  else
+    {
+      // Yep!
+      be_app->PostMessage (B_QUIT_REQUESTED);
+    }
+
+  return mQuitAllowed;
+}
+
+inline void
+XaoSAbstractWindow::DoAllowQuit ()
+{
+  // Allow quitting; called from the main thread just before
+  // it posts B_QUIT_REQUESTED.
+  mQuitAllowed = TRUE;
 }
 #endif // XAOSWINDOW_H
-

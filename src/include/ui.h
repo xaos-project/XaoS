@@ -29,7 +29,8 @@
 #include "param.h"
 #include "xmenu.h"
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 
@@ -68,18 +69,18 @@ extern "C" {
 #define UIKEY_PGUP 264
 #define UIKEY_PGDOWN 265
 
-typedef unsigned char ui_rgb[4];
-typedef ui_rgb *ui_palette;
-struct uih_context;
-struct gui_driver
-{
-  void (*setrootmenu)(struct uih_context *c, CONST char *name);
-  void (*enabledisable)(struct uih_context *c, CONST char *name);
-  void (*menu)(struct uih_context *c, CONST char *name);
-  void (*dialog)(struct uih_context *c, CONST char *name);
-  void (*help)(struct uih_context *c, CONST char *name);
-};
-struct ui_driver
+  typedef unsigned char ui_rgb[4];
+  typedef ui_rgb *ui_palette;
+  struct uih_context;
+  struct gui_driver
+  {
+    void (*setrootmenu) (struct uih_context * c, CONST char *name);
+    void (*enabledisable) (struct uih_context * c, CONST char *name);
+    void (*menu) (struct uih_context * c, CONST char *name);
+    void (*dialog) (struct uih_context * c, CONST char *name);
+    void (*help) (struct uih_context * c, CONST char *name);
+  };
+  struct ui_driver
   {
     CONST char *name;
     int (*init) (void);		/*initializing function. recturns 0 if fail */
@@ -106,7 +107,7 @@ struct ui_driver
     void (*flush) (void);
     int textwidth;
     int textheight;		/*width of text */
-    /*int helpsize;*/
+    /*int helpsize; */
     CONST struct params *params;
     int flags;
     float width, height;
@@ -118,17 +119,17 @@ struct ui_driver
   };
 
 
-number_t ui_getfloat(CONST char *text);
-void ui_resize (void);
-void ui_call_resize (void);
-void ui_quit (void) NORETURN;
-void ui_menu (CONST char *text);
-void ui_menuactivate (CONST menuitem * item, dialogparam * d);
-int ui_key (int);
-void ui_loadstr(CONST char *data);
-xio_path ui_getfile (CONST char *basename, CONST char *extension);
-void ui_help (CONST char *name);
-char *ui_getpos(void);
+  number_t ui_getfloat (CONST char *text);
+  void ui_resize (void);
+  void ui_call_resize (void);
+  void ui_quit (void) NORETURN;
+  void ui_menu (CONST char *text);
+  void ui_menuactivate (CONST menuitem * item, dialogparam * d);
+  int ui_key (int);
+  void ui_loadstr (CONST char *data);
+  xio_path ui_getfile (CONST char *basename, CONST char *extension);
+  void ui_help (CONST char *name);
+  char *ui_getpos (void);
 
 
 
@@ -152,4 +153,4 @@ char *ui_getpos(void);
 #ifdef __cplusplus
 }
 #endif
-#endif /* UI_H */
+#endif				/* UI_H */

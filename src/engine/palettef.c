@@ -10,11 +10,11 @@
 #include <fractal.h>
 #include <xthread.h>
 struct palettedata
-  {
-    struct palette *palette;
-    int active;
-    unsigned int table[256];
-  };
+{
+  struct palette *palette;
+  int active;
+  unsigned int table[256];
+};
 #include <c256.h>
 #define cpalette palette8
 #include "paletted.c"
@@ -50,11 +50,13 @@ requirement (struct filter *f, struct requirements *r)
 static int
 initialize (struct filter *f, struct initdata *i)
 {
-  struct palettedata *s = (struct palettedata *)f->data;
+  struct palettedata *s = (struct palettedata *) f->data;
   inhermisc (f, i);
-  if (i->image->palette->type != C256 || i->image->palette->setpalette == NULL)
+  if (i->image->palette->type != C256
+      || i->image->palette->setpalette == NULL)
     {
-      if (datalost (f, i) || i->image->version != f->imageversion || !s->active)
+      if (datalost (f, i) || i->image->version != f->imageversion
+	  || !s->active)
 	{
 	  if (!s->active)
 	    {
@@ -70,7 +72,7 @@ initialize (struct filter *f, struct initdata *i)
 	    s->palette->maxentries = 256;
 	  s->active = 1;
 	}
-      if (!inherimage (f, i, TOUCHIMAGE|IMAGEDATA, 0, 0, s->palette, 0, 0))
+      if (!inherimage (f, i, TOUCHIMAGE | IMAGEDATA, 0, 0, s->palette, 0, 0))
 	return 0;
       setfractalpalette (f, s->palette);
       f->queue->saveimage = f->childimage;
@@ -80,7 +82,7 @@ initialize (struct filter *f, struct initdata *i)
     {
       if (s->active)
 	{
-	  f->image=i->image;
+	  f->image = i->image;
 	  restorepalette (f->image->palette, s->palette);
 	}
       s->active = 0;
@@ -91,9 +93,10 @@ static struct filter *
 getinstance (CONST struct filteraction *a)
 {
   struct filter *f = createfilter (a);
-  struct palettedata *i = (struct palettedata *)calloc (1, sizeof (*i));
+  struct palettedata *i = (struct palettedata *) calloc (1, sizeof (*i));
   i->active = 0;
-  i->palette = createpalette (0, 256, C256, 0, 256, NULL, mysetcolor, NULL, NULL, NULL);
+  i->palette =
+    createpalette (0, 256, C256, 0, 256, NULL, mysetcolor, NULL, NULL, NULL);
   f->childimage = NULL;
   f->data = i;
   f->name = "Palette emulator";
@@ -102,7 +105,7 @@ getinstance (CONST struct filteraction *a)
 static void
 destroyinstance (struct filter *f)
 {
-  struct palettedata *i = (struct palettedata *)f->data;
+  struct palettedata *i = (struct palettedata *) f->data;
   destroypalette (i->palette);
   destroyinheredimage (f);
   free (f->data);
@@ -114,7 +117,7 @@ doit (struct filter *f, int flags, int time1)
 {
   int val;
   int time = time1;
-  struct palettedata *s = (struct palettedata *)f->data;
+  struct palettedata *s = (struct palettedata *) f->data;
   if (s->active)
     updateinheredimage (f);
   if (flags & PALETTEONLY)
@@ -130,7 +133,8 @@ doit (struct filter *f, int flags, int time1)
 	  restorepalette (f->image->palette, f->childimage->palette);
 	  for (i = 0; i < 256; i++)
 	    {
-	      s->table[i] = f->image->palette->pixels[i % f->image->palette->size];
+	      s->table[i] =
+		f->image->palette->pixels[i % f->image->palette->size];
 	    }
 	  s->palette->data = NULL;
 	}
@@ -146,15 +150,14 @@ doit (struct filter *f, int flags, int time1)
 static void
 myremovefilter (struct filter *f)
 {
-  struct palettedata *s = (struct palettedata *)f->data;
+  struct palettedata *s = (struct palettedata *) f->data;
   if (s->active)
     {
       restorepalette (f->image->palette, s->palette);
     }
 }
 
-CONST struct filteraction palette_filter =
-{
+CONST struct filteraction palette_filter = {
   "Palette emulator",
   "palette",
   0,

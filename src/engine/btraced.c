@@ -1,27 +1,28 @@
 #ifndef UNSUPPORTED
-REGISTERS (3) static void
-tracecolor (int xstart, int ystart, int xend, int yend, register int
+REGISTERS (3)
+     static void
+       tracecolor (int xstart, int ystart, int xend, int yend, register int
 		   x, register int y)
 {
   int dir = RIGHT, fill = 0;
   register unsigned char *calc;
   int peri = 0;
-  cpixeldata_t c = (cpixeldata_t)calculatepixel (x, y, 0);
-  cpixeldata_t w = (cpixeldata_t)0;
-  cpixeldata_t inset = (cpixeldata_t)cpalette.pixels[0];
+  cpixeldata_t c = (cpixeldata_t) calculatepixel (x, y, 0);
+  cpixeldata_t w = (cpixeldata_t) 0;
+  cpixeldata_t inset = (cpixeldata_t) cpalette.pixels[0];
   putpixel (x, y, c);
   calc = calculated + x + y * CALCWIDTH;
-  *calc = (unsigned char)1;
+  *calc = (unsigned char) 1;
   while (x > xstart && getpixel (x - 1, y) == c)
     x--, calc--;
-  *calc = (unsigned char)2;
+  *calc = (unsigned char) 2;
   if (c == inset)
     peri = 1;
   do
     {
       if (!fill && !*calc)
 	{
-	  *calc = (unsigned char)1;
+	  *calc = (unsigned char) 1;
 	  putpixel (x, y, c);
 	}
       switch (dir)
@@ -31,9 +32,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc - CALCWIDTH))
 		{
-		  w = (cpixeldata_t)calculatepixel (x, y - 1, peri);
+		  w = (cpixeldata_t) calculatepixel (x, y - 1, peri);
 		  putpixel (x, y - 1, w);
-		  *(calc - CALCWIDTH) = (unsigned char)1;
+		  *(calc - CALCWIDTH) = (unsigned char) 1;
 		}
 	      else
 		w = getpixel (x, y - 1);
@@ -50,9 +51,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc + 1))
 		{
-		  w = (cpixeldata_t)calculatepixel (x + 1, y, peri);
+		  w = (cpixeldata_t) calculatepixel (x + 1, y, peri);
 		  putpixel (x + 1, y, w);
-		  *(calc + 1) = (unsigned char)1;
+		  *(calc + 1) = (unsigned char) 1;
 		}
 	      else
 		w = getpixel (x + 1, y);
@@ -68,9 +69,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc + CALCWIDTH))
 		{
-		  w = (cpixeldata_t)calculatepixel (x, y + 1, peri);
+		  w = (cpixeldata_t) calculatepixel (x, y + 1, peri);
 		  putpixel (x, y + 1, w);
-		  *(calc + CALCWIDTH) = (unsigned char)1;
+		  *(calc + CALCWIDTH) = (unsigned char) 1;
 		}
 	      else
 		w = getpixel (x, y + 1);
@@ -83,9 +84,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 		}
 	    }
 
-	  if (*calc == (unsigned char)2)
+	  if (*calc == (unsigned char) 2)
 	    {
-	      *calc = (unsigned char)1;
+	      *calc = (unsigned char) 1;
 	      return;
 	    }
 
@@ -99,9 +100,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc + CALCWIDTH))
 		{
-		  w = (cpixeldata_t)calculatepixel (x, y + 1, peri);
+		  w = (cpixeldata_t) calculatepixel (x, y + 1, peri);
 		  putpixel (x, y + 1, w);
-		  *(calc + CALCWIDTH) = (unsigned char)1;
+		  *(calc + CALCWIDTH) = (unsigned char) 1;
 		}
 	      else
 		w = getpixel (x, y + 1);
@@ -118,9 +119,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc - 1))
 		{
-		  w = (cpixeldata_t)calculatepixel (x - 1, y, peri);
+		  w = (cpixeldata_t) calculatepixel (x - 1, y, peri);
 		  putpixel (x - 1, y, w);
-		  *(calc - 1) = (unsigned char)1;
+		  *(calc - 1) = (unsigned char) 1;
 		}
 	      else
 		w = getpixel (x - 1, y);
@@ -136,9 +137,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc - CALCWIDTH))
 		{
-		  w = (cpixeldata_t)calculatepixel (x, y - 1, peri);
+		  w = (cpixeldata_t) calculatepixel (x, y - 1, peri);
 		  putpixel (x, y - 1, w);
-		  *(calc - CALCWIDTH) = (unsigned char)1;
+		  *(calc - CALCWIDTH) = (unsigned char) 1;
 		}
 	      else
 		w = getpixel (x, y - 1);
@@ -167,7 +168,7 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	      while (pixel1 <= p_add ((cpixel_t *) cimage.currlines[y], xend))
 		{
 		  if (!*calc1)
-		    *calc1 = (unsigned char)1, p_set (pixel1, c);
+		    *calc1 = (unsigned char) 1, p_set (pixel1, c);
 		  else if (p_get (pixel1) != c)
 		    break;
 		  p_inc (pixel1, 1);
@@ -178,9 +179,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc - 1))
 		{
-		  w = (cpixeldata_t)calculatepixel (x - 1, y, peri);
+		  w = (cpixeldata_t) calculatepixel (x - 1, y, peri);
 		  putpixel (x - 1, y, w);
-		  *(calc - 1) = (unsigned char)1;
+		  *(calc - 1) = (unsigned char) 1;
 		}
 	      w = getpixel (x - 1, y);
 	      if (w == c)
@@ -196,9 +197,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc - CALCWIDTH))
 		{
-		  w = (cpixeldata_t)calculatepixel (x, y - 1, peri);
+		  w = (cpixeldata_t) calculatepixel (x, y - 1, peri);
 		  putpixel (x, y - 1, w);
-		  *(calc - CALCWIDTH) = (unsigned char)1;
+		  *(calc - CALCWIDTH) = (unsigned char) 1;
 		}
 	      w = getpixel (x, y - 1);
 	      if (w == c)
@@ -213,9 +214,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc + 1))
 		{
-		  w = (cpixeldata_t)calculatepixel (x + 1, y, peri);
+		  w = (cpixeldata_t) calculatepixel (x + 1, y, peri);
 		  putpixel (x + 1, y, w);
-		  *(calc + 1) = (unsigned char)1;
+		  *(calc + 1) = (unsigned char) 1;
 		}
 	      else
 		w = getpixel (x + 1, y);
@@ -237,9 +238,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc + 1))
 		{
-		  w = (cpixeldata_t)calculatepixel (x + 1, y, peri);
+		  w = (cpixeldata_t) calculatepixel (x + 1, y, peri);
 		  putpixel (x + 1, y, w);
-		  *(calc + 1) = (unsigned char)1;
+		  *(calc + 1) = (unsigned char) 1;
 		}
 	      else
 		w = getpixel (x + 1, y);
@@ -256,9 +257,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc + CALCWIDTH))
 		{
-		  w = (cpixeldata_t)calculatepixel (x, y + 1, peri);
+		  w = (cpixeldata_t) calculatepixel (x, y + 1, peri);
 		  putpixel (x, y + 1, w);
-		  *(calc + CALCWIDTH) = (unsigned char)1;
+		  *(calc + CALCWIDTH) = (unsigned char) 1;
 		}
 	      else
 		w = getpixel (x, y + 1);
@@ -275,9 +276,9 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	    {
 	      if (!*(calc - 1))
 		{
-		  w = (cpixeldata_t)calculatepixel (x - 1, y, peri);
+		  w = (cpixeldata_t) calculatepixel (x - 1, y, peri);
 		  putpixel (x - 1, y, w);
-		  *(calc - 1) = (unsigned char)1;
+		  *(calc - 1) = (unsigned char) 1;
 		}
 	      else
 		w = getpixel (x - 1, y);
@@ -296,11 +297,11 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
 	  break;
 
 	}
-      if (*calc == (unsigned char)2)
+      if (*calc == (unsigned char) 2)
 	{
 	  if (fill)
 	    {
-	      *calc = (unsigned char)1;
+	      *calc = (unsigned char) 1;
 	      return;
 	    }
 	  fill = 1;
@@ -309,11 +310,14 @@ tracecolor (int xstart, int ystart, int xend, int yend, register int
     }
   while (1);
 }
+
 #ifndef SLOWCACHESYNC
 #ifndef nthreads
 #define ethreads 1
-REGISTERS (3) static INLINE void
-       tracepoint (int xp, int yp, int dir, unsigned int color, int xstart, int xend, int ystart, int yend)
+REGISTERS (3)
+     static INLINE void
+       tracepoint (int xp, int yp, int dir, unsigned int color, int xstart,
+		   int xend, int ystart, int yend)
 {
   unsigned char *calc;
   cpixeldata_t mycolor;
@@ -327,7 +331,7 @@ REGISTERS (3) static INLINE void
   if (!(*calc & (CALCULATED | CALCULATING)))
     {
       *calc |= CALCULATING;
-      mycolor = (cpixeldata_t)calculatepixel (xp, yp, periodicity);
+      mycolor = (cpixeldata_t) calculatepixel (xp, yp, periodicity);
       putpixel (xp, yp, mycolor);
       *calc |= CALCULATED;
       *calc &= ~CALCULATING;
@@ -434,7 +438,7 @@ queue (void *data, struct taskinfo *task, int r1, int r2)
 	      xth_unlock (0);
 	      return;
 	    }
-	  if (nwaiting == nthreads - 1)		/*We are last working CPU */
+	  if (nwaiting == nthreads - 1)	/*We are last working CPU */
 	    {
 	      exitnow = 1;	/*So we should exit now */
 	      xth_wakeup (0);	/*Wake up all waiting tasks */
@@ -450,8 +454,12 @@ queue (void *data, struct taskinfo *task, int r1, int r2)
 	      return;
 	    }
 	}
-      nstack=xth_nthread(task);
-      while(!sizes[nstack]) if(nstack!=nthreads-1) nstack++; else nstack=0;
+      nstack = xth_nthread (task);
+      while (!sizes[nstack])
+	if (nstack != nthreads - 1)
+	  nstack++;
+	else
+	  nstack = 0;
       sizes[nstack]--;
       size--;
       pos++;
@@ -467,7 +475,9 @@ queue (void *data, struct taskinfo *task, int r1, int r2)
        * empty. At the other hand, makes queue bigger and needs following
        * copy:
        */
-      starts[nstack][pos >> PAGESHIFT][pos & (PAGESIZE - 1)] = starts[nstack][sizes[nstack] >> PAGESHIFT][sizes[nstack] & (PAGESIZE - 1)];
+      starts[nstack][pos >> PAGESHIFT][pos & (PAGESIZE - 1)] =
+	starts[nstack][sizes[nstack] >> PAGESHIFT][sizes[nstack] &
+						   (PAGESIZE - 1)];
       xth_unlock (0);
       tracepoint (x, y, d, c, xstart, xend, ystart, yend);
     }
@@ -492,6 +502,7 @@ bfill (void *dat, struct taskinfo *task, int r1, int r2)
 	}
     }
 }
+
 #undef ethreads
 #endif
 #endif

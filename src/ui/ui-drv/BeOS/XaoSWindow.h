@@ -23,27 +23,26 @@
 #include "XaoSEvent.h"
 #include "XaoSAbstractWindow.h"
 
-class XaoSWindow : public BWindow, XaoSAbstractWindow
+class XaoSWindow:public BWindow, XaoSAbstractWindow
 {
 public:
-	typedef BWindow inherited;
-	
-	// Constructor, destructor.
-	XaoSWindow(BRect frame, port_id port);
-	virtual ~XaoSWindow(void);
+  typedef BWindow inherited;
 
-	// Hook functions.
-	virtual void FrameResized(float width, float height);
-	virtual  bool QuitRequested(void);
-	virtual void MessageReceived(BMessage *pMessage);
-	
-	// Allow quit requests to succeed.
-	virtual  void AllowQuit(void);
-	
+  // Constructor, destructor.
+    XaoSWindow (BRect frame, port_id port);
+    virtual ~ XaoSWindow (void);
+
+  // Hook functions.
+  virtual void FrameResized (float width, float height);
+  virtual bool QuitRequested (void);
+  virtual void MessageReceived (BMessage * pMessage);
+
+  // Allow quit requests to succeed.
+  virtual void AllowQuit (void);
+
 private:
-	XaoSWindow(const XaoSWindow &orig);
-	XaoSWindow &operator =(const XaoSWindow &orig);
+    XaoSWindow (const XaoSWindow & orig);
+    XaoSWindow & operator = (const XaoSWindow & orig);
 };
 
 #endif // XAOSWINDOW_H
-

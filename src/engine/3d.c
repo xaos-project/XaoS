@@ -12,17 +12,17 @@
 #include <filter.h>
 
 struct threeddata
-  {
-    struct palette *pal;
-    struct palette *savedpalette;
-    unsigned int *pixels;
-    unsigned int maxiter;
-    unsigned int height;
-    unsigned int colheight;
-    unsigned int midcolor;
-    unsigned int darkcolor;
-    unsigned int stereogrammode;
-  };
+{
+  struct palette *pal;
+  struct palette *savedpalette;
+  unsigned int *pixels;
+  unsigned int maxiter;
+  unsigned int height;
+  unsigned int colheight;
+  unsigned int midcolor;
+  unsigned int darkcolor;
+  unsigned int stereogrammode;
+};
 
 #define spixel_t pixel16_t
 #include <c256.h>
@@ -76,7 +76,9 @@ initialize (struct filter *f, struct initdata *i)
   d->height = i->image->height / 3;
   if (d->pal != NULL)
     destroypalette (d->pal);
-  d->pal = createpalette (0, 65536, LARGEITER, 0, 65536, NULL, NULL, NULL, NULL, NULL);
+  d->pal =
+    createpalette (0, 65536, LARGEITER, 0, 65536, NULL, NULL, NULL, NULL,
+		   NULL);
   /*in/out coloring modes looks better in iter modes. This also saves some
      memory in truecolor. */
   if (i->image->palette->type == LARGEITER
@@ -95,10 +97,16 @@ initialize (struct filter *f, struct initdata *i)
       free (d->pixels);
       d->pixels = NULL;
     }
-  if (!inherimage (f, i, TOUCHIMAGE | NEWIMAGE, i->image->width + 6 + (i->image->height + d->height + 6) / 2, i->image->height + d->height + 6, d->pal, i->image->pixelwidth, i->image->pixelheight * 2))
+  if (!inherimage
+      (f, i, TOUCHIMAGE | NEWIMAGE,
+       i->image->width + 6 + (i->image->height + d->height + 6) / 2,
+       i->image->height + d->height + 6, d->pal, i->image->pixelwidth,
+       i->image->pixelheight * 2))
     return 0;
   setfractalpalette (f, d->savedpalette);
-  fractalc_resize_to (f->fractalc, f->childimage->pixelwidth * f->childimage->width, f->childimage->pixelheight * f->childimage->height);
+  fractalc_resize_to (f->fractalc,
+		      f->childimage->pixelwidth * f->childimage->width,
+		      f->childimage->pixelheight * f->childimage->height);
   f->fractalc->version++;
   return (f->previous->action->initialize (f->previous, i));
 }
@@ -148,10 +156,12 @@ doit (struct filter *f, int flags, int time)
       d->midcolor = d->height * 60 / 100;
       d->darkcolor = d->height * 30 / 100;
       d->pal->size = palsize;
-      for (i = 0; i < (unsigned int)palsize; i++)
+      for (i = 0; i < (unsigned int) palsize; i++)
 	{
 	  unsigned int y;
-	  y = (log10 (1 + 10.0 * (i ? i : palsize) / palsize)) * d->colheight / 9.0 * 16.0 / 2.0;
+	  y =
+	    (log10 (1 + 10.0 * (i ? i : palsize) / palsize)) * d->colheight /
+	    9.0 * 16.0 / 2.0;
 	  /*y = (i ? i : palsize) * d->colheight / 9.0 / 2.0 * 16.0 / palsize; */
 	  if (y != d->pal->pixels[i])
 	    f->fractalc->version++;
@@ -164,9 +174,10 @@ doit (struct filter *f, int flags, int time)
       if (d->stereogrammode)
 	{
 	  d->pixels = malloc ((f->childimage->height) * sizeof (*d->pixels));
-	  for (i = 0; i < (unsigned int)f->childimage->height; i++)
+	  for (i = 0; i < (unsigned int) f->childimage->height; i++)
 	    {
-	      d->pixels[i] = (f->childimage->height - i) * 255 / f->childimage->height;
+	      d->pixels[i] =
+		(f->childimage->height - i) * 255 / f->childimage->height;
 	    }
 	}
       else
@@ -196,7 +207,8 @@ static void
 myremove (struct filter *f)
 {
   struct threeddata *d = (struct threeddata *) f->data;
-  fractalc_resize_to (f->fractalc, f->image->width * f->image->pixelwidth, f->image->height * f->image->pixelheight);
+  fractalc_resize_to (f->fractalc, f->image->width * f->image->pixelwidth,
+		      f->image->height * f->image->pixelheight);
   if (d->savedpalette != NULL)
     {
       restorepalette (f->image->palette, d->savedpalette);
@@ -212,8 +224,7 @@ convertup (struct filter *f, int *x, int *y)
   drivercall (*f->image,
 	      convertup_3d8 (f, x, y),
 	      convertup_3d16 (f, x, y),
-	      convertup_3d24 (f, x, y),
-	      convertup_3d32 (f, x, y));
+	      convertup_3d24 (f, x, y), convertup_3d32 (f, x, y));
   f->next->action->convertup (f->next, x, y);
 }
 static void
@@ -222,14 +233,12 @@ convertdown (struct filter *f, int *x, int *y)
   drivercall (*f->image,
 	      convert_3d8 (f, x, y),
 	      convert_3d16 (f, x, y),
-	      convert_3d24 (f, x, y),
-	      convert_3d32 (f, x, y));
+	      convert_3d24 (f, x, y), convert_3d32 (f, x, y));
   if (f->previous != NULL)
     f->previous->action->convertdown (f->previous, x, y);
 }
 
-CONST struct filteraction threed_filter =
-{
+CONST struct filteraction threed_filter = {
   "Pseudo 3d",
   "threed",
   0,

@@ -1,5 +1,5 @@
 /* GNU C accelerators */
-#if defined (__GNUC__) 
+#if defined (__GNUC__)
 #define myfabs(x) fabs(x)
 #if __GNUC__ >= 2 && (__GNUC__ > 2 || __GNUC_MINOR__ >= 95)
 #define __GNUC__EGCS
@@ -17,8 +17,6 @@
 #endif /*__i386__ */
 #endif /*version */
 #endif /*__GNUC__*/
-
-
 #ifndef RESTRICT
 #define RESTRICT
 #endif

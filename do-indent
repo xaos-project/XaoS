@@ -1,0 +1,8 @@
+#!/bin/sh
+# Autoindenter.
+# This ugly trio of programs `do-indent', `indent1' and `wintounix' will
+# indent all .c and .h files to a standard format.
+# Author: Zoltan Kovacs <kovzol@math.u-szeged.hu>
+
+gcc -o wintounix wintounix.c
+find . -name '*.[ch]' -exec ./indent1 '{}' ';'

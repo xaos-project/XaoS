@@ -29,7 +29,8 @@ static int interrupt = 0;
 static void
 error (CONST char *str)
 {
-  if(noiselevel<ERRORS) return;
+  if (noiselevel < ERRORS)
+    return;
   if (!gc)
     x_error ("Error:%s", str);
   uih_error (gc, str);
@@ -37,7 +38,8 @@ error (CONST char *str)
 static void
 uiherror (struct uih_context *c)
 {
-  if(noiselevel<ERRORS) return;
+  if (noiselevel < ERRORS)
+    return;
   if (!gc)
     {
       uih_printmessages (c);
@@ -46,10 +48,11 @@ uiherror (struct uih_context *c)
     uih_error (gc, uih->errstring);
 }
 static void
-printmsg (const char *text,...)
+printmsg (const char *text, ...)
 {
   va_list ap;
-  if(noiselevel<MESSAGES) return;
+  if (noiselevel < MESSAGES)
+    return;
   va_start (ap, text);
   if (!gc)
     {
@@ -68,11 +71,13 @@ printmsg (const char *text,...)
 static int
 passfunc (struct uih_context *c, int display, CONST char *text, float percent)
 {
-  if(noiselevel<ALL) return 0;
+  if (noiselevel < ALL)
+    return 0;
   if (gc)
     {
       if (gc->passfunc != NULL)
-	interrupt |= gc->interrupt |= gc->passfunc (gc, display, text, percent);
+	interrupt |= gc->interrupt |=
+	  gc->passfunc (gc, display, text, percent);
       uih_clearwindows (gc);
       return interrupt;
     }
@@ -80,7 +85,7 @@ passfunc (struct uih_context *c, int display, CONST char *text, float percent)
     {
       {
 	if (newline)
-	  printf ("\n"), newline=0;
+	  printf ("\n"), newline = 0;
 	printf ("\r %s %3.2f%% ", text, (double) percent);
 	fflush (stdout);
       }
@@ -97,7 +102,8 @@ struct frame_info
   int newimage;
 };
 static void
-save_frame_dist (uih_context * c, int backward, struct frame_info *f1, struct frame_info *f2)
+save_frame_dist (uih_context * c, int backward, struct frame_info *f1,
+		 struct frame_info *f2)
 {
   xio_file f;
   int x1, y1;
@@ -119,25 +125,39 @@ save_frame_dist (uih_context * c, int backward, struct frame_info *f1, struct fr
 	  number_t x, y;
 	  number_t x2, y2;
 	  number_t tmp;
-	  x = f1->rect.nc + (x1 * 8 + 4) * (f1->rect.mc - f1->rect.nc) / c->image->width;
-	  y = f1->rect.ni + (y1 * 8 + 4) * (f1->rect.mi - f1->rect.ni) / c->image->height;
+	  x =
+	    f1->rect.nc + (x1 * 8 + 4) * (f1->rect.mc -
+					  f1->rect.nc) / c->image->width;
+	  y =
+	    f1->rect.ni + (y1 * 8 + 4) * (f1->rect.mi -
+					  f1->rect.ni) / c->image->height;
 
 	  if (f2->angle != f1->angle)
 	    {
-	      tmp = x * cos (f2->angle - f1->angle) - y * sin (f2->angle - f1->angle);
-	      y = x * sin (f2->angle - f1->angle) + y * cos (f2->angle - f1->angle);
+	      tmp =
+		x * cos (f2->angle - f1->angle) - y * sin (f2->angle -
+							   f1->angle);
+	      y =
+		x * sin (f2->angle - f1->angle) + y * cos (f2->angle -
+							   f1->angle);
 	      x = tmp;
 	    }
-	  x2 = (x - f2->rect.nc) * c->image->width / (f2->rect.mc - f2->rect.nc);
-	  y2 = (y - f2->rect.ni) * c->image->height / (f2->rect.mi - f2->rect.ni);
-	  sprintf (str, "%3.2g %3.2g  ", ((int) ((x2 - (x1 * 8 + 4)) * 10)) / 10.0, ((int) ((y2 - (y1 * 8 + 4)) * 10)) / 10.0);
-	  xio_puts(str,f);
+	  x2 =
+	    (x - f2->rect.nc) * c->image->width / (f2->rect.mc - f2->rect.nc);
+	  y2 =
+	    (y - f2->rect.ni) * c->image->height / (f2->rect.mi -
+						    f2->rect.ni);
+	  sprintf (str, "%3.2g %3.2g  ",
+		   ((int) ((x2 - (x1 * 8 + 4)) * 10)) / 10.0,
+		   ((int) ((y2 - (y1 * 8 + 4)) * 10)) / 10.0);
+	  xio_puts (str, f);
 	}
-      xio_putc('\n',f);
+      xio_putc ('\n', f);
     }
   xio_close (f);
   /*printf ("Frameend\n"); */
 }
+
 #define MAXBFRAMES 5
 #define IFRAMEDIST (27)
 static int iframedist;
@@ -229,9 +249,14 @@ uih_encodeframe (int startpos, int endpos, struct frame_info *curframe)
 
 extern struct filteraction antialias_filter;
 int
-uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_constpath animation, int width, int height, float pixelwidth, float pixelheight, int frametime, int type, int antialias, int slowmode, int letterspersec, CONST char *catalog, int motionvectors, int iframedist2)
+uih_renderanimation (struct uih_context *gc1, CONST char *basename,
+		     CONST xio_constpath animation, int width, int height,
+		     float pixelwidth, float pixelheight, int frametime,
+		     int type, int antialias, int slowmode, int letterspersec,
+		     CONST char *catalog, int motionvectors, int iframedist2)
 {
-  struct palette *pal = createpalette (0, 0, type, 0, 0, NULL, NULL, NULL, NULL, NULL);
+  struct palette *pal =
+    createpalette (0, 0, type, 0, 0, NULL, NULL, NULL, NULL, NULL);
   struct image *img;
   xio_file of;
   FILE *f;
@@ -247,7 +272,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
   int framenum = 0;
 
 
-  noiselevel=ALL;
+  noiselevel = ALL;
   gc = gc1;
   if (gc)
     gc->incalculation = 1;
@@ -283,17 +308,17 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
       error ("Can not create image\n");
       if (gc)
 	gc->incalculation = 0;
-      destroypalette(pal);
+      destroypalette (pal);
       return 0;
     }
-  saveddata = (char *)malloc (img->width * img->height * img->bytesperpixel);
+  saveddata = (char *) malloc (img->width * img->height * img->bytesperpixel);
   if (saveddata == NULL)
     {
       error ("Can not created checking buffer!");
       if (gc)
 	gc->incalculation = 0;
-      destroy_image(img);
-      destroypalette(pal);
+      destroy_image (img);
+      destroypalette (pal);
       return 0;
     }
   uih = uih_mkcontext (0, img, passfunc, NULL, NULL);
@@ -302,9 +327,9 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
       error ("Can not create context\n");
       if (gc)
 	gc->incalculation = 0;
-      destroy_image(img);
-      destroypalette(pal);
-      free(saveddata);
+      destroy_image (img);
+      destroypalette (pal);
+      free (saveddata);
       return 0;
     }
   uih->fcontext->slowmode = 1;
@@ -315,31 +340,32 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
       error ("Can not open animation file\n");
       if (gc)
 	gc->incalculation = 0;
-      uih_freecontext(uih);
-      destroy_image(img);
-      destroypalette(pal);
-      free(saveddata);
+      uih_freecontext (uih);
+      destroy_image (img);
+      destroypalette (pal);
+      free (saveddata);
       return 0;
     }
 
   if (!gc)
     {
       printmsg ("Loading catalogs");
-      if (!gc) {
-      uih_loadcatalog (uih, "english");
-      if (uih->errstring)
+      if (!gc)
 	{
-	  uiherror (uih);
-	  if (gc)
-	    gc->incalculation = 0;
-          uih_freecontext(uih);
-          destroy_image(img);
-          destroypalette(pal);
-          free(saveddata);
-	  xio_close(af);
-	  return 0;
+	  uih_loadcatalog (uih, "english");
+	  if (uih->errstring)
+	    {
+	      uiherror (uih);
+	      if (gc)
+		gc->incalculation = 0;
+	      uih_freecontext (uih);
+	      destroy_image (img);
+	      destroypalette (pal);
+	      free (saveddata);
+	      xio_close (af);
+	      return 0;
+	    }
 	}
-      }
       if (catalog != NULL)
 	uih_loadcatalog (uih, catalog);
       if (uih->errstring)
@@ -347,12 +373,13 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
 	  uiherror (uih);
 	  if (gc)
 	    gc->incalculation = 0;
-          uih_freecontext(uih);
-          destroy_image(img);
-          destroypalette(pal);
-          free(saveddata);
-	  if(!gc) uih_freecatalog(uih);
-	  xio_close(af);
+	  uih_freecontext (uih);
+	  destroy_image (img);
+	  destroypalette (pal);
+	  free (saveddata);
+	  if (!gc)
+	    uih_freecatalog (uih);
+	  xio_close (af);
 	  return 0;
 	}
       printmsg ("Processing command line options");
@@ -369,12 +396,13 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
 	  uiherror (uih);
 	  if (gc)
 	    gc->incalculation = 0;
-          uih_freecontext(uih);
-          destroy_image(img);
-          destroypalette(pal);
-          free(saveddata);
-	  if(!gc) uih_freecatalog(uih);
-	  xio_close(af);
+	  uih_freecontext (uih);
+	  destroy_image (img);
+	  destroypalette (pal);
+	  free (saveddata);
+	  if (!gc)
+	    uih_freecatalog (uih);
+	  xio_close (af);
 	  return 0;
 	}
     }
@@ -390,11 +418,12 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
       error ("Can not open image file");
       if (gc)
 	gc->incalculation = 0;
-      uih_freecontext(uih);
-      destroy_image(img);
-      destroypalette(pal);
-      free(saveddata);
-      if(!gc) uih_freecatalog(uih);
+      uih_freecontext (uih);
+      destroy_image (img);
+      destroypalette (pal);
+      free (saveddata);
+      if (!gc)
+	uih_freecatalog (uih);
       return 0;
     }
   sprintf (s, "%s.pat", basename);
@@ -404,12 +433,13 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
       error ("Can not open pattern file");
       if (gc)
 	gc->incalculation = 0;
-      uih_freecontext(uih);
-      destroy_image(img);
-      destroypalette(pal);
-      free(saveddata);
-      if(!gc) uih_freecatalog(uih);
-      xio_close(of);
+      uih_freecontext (uih);
+      destroy_image (img);
+      destroypalette (pal);
+      free (saveddata);
+      if (!gc)
+	uih_freecatalog (uih);
+      xio_close (of);
       return 0;
     }
   uih_letterspersec (uih, letterspersec);
@@ -428,13 +458,14 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
 	  uiherror (uih);
 	  if (gc)
 	    gc->incalculation = 0;
-          uih_freecontext(uih);
-          destroy_image(img);
-          destroypalette(pal);
-          free(saveddata);
-          if(!gc) uih_freecatalog(uih);
-          xio_close(of);
-          xio_close(patf);
+	  uih_freecontext (uih);
+	  destroy_image (img);
+	  destroypalette (pal);
+	  free (saveddata);
+	  if (!gc)
+	    uih_freecatalog (uih);
+	  xio_close (of);
+	  xio_close (patf);
 	  return 0;
 	}
       fflush (stdout);
@@ -450,7 +481,8 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
 	      if (lastframenum == framenum - 1)
 		printmsg ("Frame %i skipped.", framenum - 1);
 	      else
-		printmsg ("Frames %i - %i skipped.", lastframenum, framenum - 1);
+		printmsg ("Frames %i - %i skipped.", lastframenum,
+			  framenum - 1);
 	    }
 
 	  printmsg ("Frame %4i: ", framenum);
@@ -482,7 +514,10 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
 	  if (lastframenum >= 0)
 	    {
 	      for (; y < img->height; y++)
-		if (memcmp (saveddata + img->width * img->bytesperpixel * y, uih->image->currlines[y], img->width * img->bytesperpixel))
+		if (memcmp
+		    (saveddata + img->width * img->bytesperpixel * y,
+		     uih->image->currlines[y],
+		     img->width * img->bytesperpixel))
 		  break;
 	    }
 
@@ -490,7 +525,9 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
 	  if (y != img->height)
 	    {
 	      for (; y < img->height; y++)
-		memcpy (saveddata + img->width * img->bytesperpixel * y, uih->image->currlines[y], img->width * img->bytesperpixel);
+		memcpy (saveddata + img->width * img->bytesperpixel * y,
+			uih->image->currlines[y],
+			img->width * img->bytesperpixel);
 	      if (framenum)
 		uih_encodeframe (lastframenum, framenum - 1, &curframe);
 	      if (!gc)
@@ -503,19 +540,20 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
 	      curframe.newimage = newimage;
 
 
-	      f = fopen (s,"wb");
+	      f = fopen (s, "wb");
 	      if (f == NULL)
 		{
 		  error ("Can not open image file");
 		  if (gc)
 		    gc->incalculation = 0;
-                  uih_freecontext(uih);
-                  destroy_image(img);
-                  destroypalette(pal);
-                  free(saveddata);
-                  if(!gc) uih_freecatalog(uih);
-                  xio_close(of);
-                  xio_close(patf);
+		  uih_freecontext (uih);
+		  destroy_image (img);
+		  destroypalette (pal);
+		  free (saveddata);
+		  if (!gc)
+		    uih_freecatalog (uih);
+		  xio_close (of);
+		  xio_close (patf);
 		  return 0;
 		}
 	      writepng (f, uih->image);
@@ -542,21 +580,22 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
       uiherror (uih);
       if (gc)
 	gc->incalculation = 0;
-      uih_freecontext(uih);
-      destroy_image(img);
-      destroypalette(pal);
-      free(saveddata);
-      if(!gc) uih_freecatalog(uih);
-      xio_close(of);
-      xio_close(patf);
+      uih_freecontext (uih);
+      destroy_image (img);
+      destroypalette (pal);
+      free (saveddata);
+      if (!gc)
+	uih_freecatalog (uih);
+      xio_close (of);
+      xio_close (patf);
       return 0;
     }
   xio_close (of);
-  free(saveddata);
+  free (saveddata);
   xio_close (patf);
   uih_freecontext (uih);
-  destroy_image(img);
-  destroypalette(pal);
+  destroy_image (img);
+  destroypalette (pal);
   if (interrupt)
     error ("Calculation interrupted");
   else
@@ -568,15 +607,19 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename, CONST xio_co
     }
   if (gc)
     gc->incalculation = 0;
-  if (!gc) uih_freecatalog(uih);
+  if (!gc)
+    uih_freecatalog (uih);
   return 1;
 }
+
 int
-uih_renderimage (struct uih_context *gc1, xio_file af, CONST xio_constpath path, struct image *img, int antialias, CONST char *catalog, int noise)
+uih_renderimage (struct uih_context *gc1, xio_file af,
+		 CONST xio_constpath path, struct image *img, int antialias,
+		 CONST char *catalog, int noise)
 {
   int aliasnum = 0;
-  int ok=1;
-  noiselevel=noise;
+  int ok = 1;
+  noiselevel = noise;
   gc = gc1;
   if (gc)
     gc->incalculation = 1;
@@ -593,7 +636,7 @@ uih_renderimage (struct uih_context *gc1, xio_file af, CONST xio_constpath path,
       return 0;
     }
   uih->fcontext->slowmode = 1;
-  uih_constantframetime (uih, 1000000/10);
+  uih_constantframetime (uih, 1000000 / 10);
 
   if (!gc)
     {
@@ -601,22 +644,22 @@ uih_renderimage (struct uih_context *gc1, xio_file af, CONST xio_constpath path,
       uih_loadcatalog (uih, "english");
       if (uih->errstring)
 	{
-	  fprintf(stderr, uih->errstring);
-	  uih_clearmessages(uih);
-	  uih->errstring=NULL;
+	  fprintf (stderr, uih->errstring);
+	  uih_clearmessages (uih);
+	  uih->errstring = NULL;
 	}
       if (catalog != NULL)
 	uih_loadcatalog (uih, catalog);
       if (uih->errstring)
 	{
-	  fprintf(stderr, uih->errstring);
-	  uih_clearmessages(uih);
-	  uih->errstring=NULL;
+	  fprintf (stderr, uih->errstring);
+	  uih_clearmessages (uih);
+	  uih->errstring = NULL;
 	}
       if (uih->errstring)
 	{
-	  uih_freecatalog(uih);
-          uih_freecontext (uih);
+	  uih_freecatalog (uih);
+	  uih_freecontext (uih);
 	  uiherror (uih);
 	  if (gc)
 	    gc->incalculation = 0;
@@ -628,7 +671,7 @@ uih_renderimage (struct uih_context *gc1, xio_file af, CONST xio_constpath path,
   if (uih->errstring)
     {
       uiherror (uih);
-      uih_freecatalog(uih);
+      uih_freecatalog (uih);
       uih_freecontext (uih);
       if (gc)
 	gc->incalculation = 0;
@@ -646,16 +689,18 @@ uih_renderimage (struct uih_context *gc1, xio_file af, CONST xio_constpath path,
       uih_enablefilter (uih, aliasnum);
     }
   uih_prepare_image (uih);
-  if (uih->errstring) ok=0;
+  if (uih->errstring)
+    ok = 0;
   uih_drawwindows (uih);
-  if (uih->errstring) ok=0;
+  if (uih->errstring)
+    ok = 0;
   uih_freecontext (uih);
-  uih_freecatalog(uih);
+  uih_freecatalog (uih);
   if (interrupt)
     error ("Calculation interrupted");
   else
     {
-       printmsg ("Caluclation finished");
+      printmsg ("Caluclation finished");
     }
   if (gc)
     gc->incalculation = 0;

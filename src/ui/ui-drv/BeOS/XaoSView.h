@@ -28,73 +28,72 @@
 
 #include "XaoSEvent.h"
 
-class XaoSView : public BView
+class XaoSView:public BView
 {
 public:
-	typedef BView inherited;
-	
-	// Constructor, destructor.
-	XaoSView(BRect r, port_id p);
-	virtual ~XaoSView(void);
+  typedef BView inherited;
 
-	// Hook functions.
-	virtual void AttachedToWindow(void);
-	virtual void Draw(BRect updateRect);
-	virtual void FrameResized(float width, float height);
-	virtual void ScreenChanged(BRect rect, color_space space);
-	virtual void KeyDown(const char *pBytes, int32 numBytes);
-	virtual void KeyUp(const char *pBytes, int32 numBytes);
-	virtual void MessageReceived(BMessage *pMessage);
-	virtual void MouseDown(BPoint point);
-	virtual void MouseUp(BPoint point);
-	virtual void MouseMoved(
-		BPoint point, uint32 transit, const BMessage *pMessage);
-	virtual void WindowActivated(bool active);
-	
-	// Return the event port.
-	port_id EventPort(void) const;
-	
-	// Set the screen buffer.
-	void SetBuffer(BBitmap *pBuffer, int async);
-	
-	// Auxiliary functions.
-	void GetTextSize(float &width, float &height);
-	void DrawText(
-		BPoint leftTop, const char *const pText, int32 length);
-	
+  // Constructor, destructor.
+    XaoSView (BRect r, port_id p);
+    virtual ~ XaoSView (void);
+
+  // Hook functions.
+  virtual void AttachedToWindow (void);
+  virtual void Draw (BRect updateRect);
+  virtual void FrameResized (float width, float height);
+  virtual void ScreenChanged (BRect rect, color_space space);
+  virtual void KeyDown (const char *pBytes, int32 numBytes);
+  virtual void KeyUp (const char *pBytes, int32 numBytes);
+  virtual void MessageReceived (BMessage * pMessage);
+  virtual void MouseDown (BPoint point);
+  virtual void MouseUp (BPoint point);
+  virtual void MouseMoved (BPoint point, uint32 transit,
+			   const BMessage * pMessage);
+  virtual void WindowActivated (bool active);
+
+  // Return the event port.
+  port_id EventPort (void) const;
+
+  // Set the screen buffer.
+  void SetBuffer (BBitmap * pBuffer, int async);
+
+  // Auxiliary functions.
+  void GetTextSize (float &width, float &height);
+  void DrawText (BPoint leftTop, const char *const pText, int32 length);
+
 protected:
-	BBitmap *mpBuffer;
-	XaoSView(const XaoSView &orig);
-	XaoSView &operator =(const XaoSView &orig);
+    BBitmap * mpBuffer;
+    XaoSView (const XaoSView & orig);
+    XaoSView & operator = (const XaoSView & orig);
 private:
 
-	void SendEvent(long eventCode, const XaoSEvent &event) const;
-	float TextHeight(void) const;
-	
-	// Data members.
-	port_id mEventPort;
-	font_height mFontHeight;
-	int async;
+  void SendEvent (long eventCode, const XaoSEvent & event) const;
+  float TextHeight (void) const;
+
+  // Data members.
+  port_id mEventPort;
+  font_height mFontHeight;
+  int async;
 };
 
 // Inline functions.
 
 inline port_id
-XaoSView::EventPort(void) const
+XaoSView::EventPort (void) const
 {
-	return mEventPort;
+  return mEventPort;
 }
 
 inline void
-XaoSView::SendEvent(long eventCode, const XaoSEvent &event) const
+XaoSView::SendEvent (long eventCode, const XaoSEvent & event) const
 {
-	(void)write_port(mEventPort, eventCode, &event, sizeof(XaoSEvent));
+  (void) write_port (mEventPort, eventCode, &event, sizeof (XaoSEvent));
 }
 
 inline float
-XaoSView::TextHeight(void) const
+XaoSView::TextHeight (void) const
 {
-	return mFontHeight.ascent + mFontHeight.descent + mFontHeight.leading;
+  return mFontHeight.ascent + mFontHeight.descent + mFontHeight.leading;
 }
 
 #endif // XAOSVIEW_H

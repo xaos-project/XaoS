@@ -95,11 +95,11 @@ draw_mouse (int x, int y, int clear)
 	  gl_setcontext (&buffers[svga_currentbuff]);
 	  gl_enableclipping ();
 	  if (mode == G320x240x256
-	      || mode == G320x400x256
-	      || mode == G360x480x256)
+	      || mode == G320x400x256 || mode == G360x480x256)
 	    gl_copyscreen (&screen);
 	  else
-	    gl_copyboxtocontext (oldx - 3, oldy - 3, 8, 8, &screen, oldx - 3, oldy - 3);
+	    gl_copyboxtocontext (oldx - 3, oldy - 3, 8, 8, &screen, oldx - 3,
+				 oldy - 3);
 	}
 #if 0
       vga_setcolor (whitecolor);
@@ -132,9 +132,7 @@ svga_setpalette (ui_palette pal, int start, int end)
   for (i = 0; i < end - start; i++)
     {
       vga_setpalette (i + start,
-		      pal[i][0] >> 2,
-		      pal[i][1] >> 2,
-		      pal[i][2] >> 2);
+		      pal[i][0] >> 2, pal[i][1] >> 2, pal[i][2] >> 2);
     }
 }
 static void
@@ -144,10 +142,7 @@ svga_setgrayscale (void)
   vga_waitretrace ();
   for (i = 0; i < 256; i++)
     {
-      vga_setpalette (i,
-		      i >> 2,
-		      i >> 2,
-		      i >> 2);
+      vga_setpalette (i, i >> 2, i >> 2, i >> 2);
     }
 }
 
@@ -204,6 +199,7 @@ handler (int scancode, int press)
 	}
     }
 }
+
 #ifdef HAVE_PTHREAD_SIGHANDLER
 extern void pthread_sighandler (int sig);
 static void
@@ -230,17 +226,16 @@ init_mode (void)
 	    char *cols = NULL;
 	    *expl = '\0';
 	    info = vga_getmodeinfo (i);
-	    if (info->colors != 256 && info->colors != 32768 && info->colors != 65536 && info->colors != 16777216)
+	    if (info->colors != 256 && info->colors != 32768
+		&& info->colors != 65536 && info->colors != 16777216)
 	      continue;
 	    if (i == G320x200x256)
 	      strcpy (expl, "packed-pixel");
 	    else if (i == G320x240x256
-		     || i == G320x400x256
-		     || i == G360x480x256)
+		     || i == G320x400x256 || i == G360x480x256)
 	      strcpy (expl, "Mode X");
 	    else
-	      strcpy (expl,
-		      "packed-pixel, banked");
+	      strcpy (expl, "packed-pixel, banked");
 	    if (info->flags & IS_INTERLACED)
 	      {
 		if (*expl != '\0')
@@ -256,8 +251,7 @@ init_mode (void)
 	    high = i;
 	    if (defmode == -1)
 	      {
-		printf ("%5d: %dx%d, ",
-			i, info->width, info->height);
+		printf ("%5d: %dx%d, ", i, info->width, info->height);
 		if (cols == NULL)
 		  printf ("%d", info->colors);
 		else
@@ -291,9 +285,11 @@ init_mode (void)
 	  continue;
 	}
       info = vga_getmodeinfo (mode);
-      if (info->colors != 256 && info->colors != 32768 && info->colors != 65536 && info->colors != 16777216)
+      if (info->colors != 256 && info->colors != 32768
+	  && info->colors != 65536 && info->colors != 16777216)
 	{
-	  printf ("Error: Only 256,32768,65536 and 16777216 color modes supported\n");
+	  printf
+	    ("Error: Only 256,32768,65536 and 16777216 color modes supported\n");
 	  mode = -1;
 	  continue;
 	}
@@ -319,7 +315,7 @@ init_mode (void)
 	      "Result is blocked keyboard. You need to kill XaoS from the net then\n\n"
 	      "Attempts for console switch (from other programs etc) may also cause\n"
 	      "confusion in thread synchronization! or even kill some of XaoS processes\n"
-      "and cause lockup in main control loop. So do NOT try to start X or\n"
+	      "and cause lockup in main control loop. So do NOT try to start X or\n"
 	      "some other bad thinks. Be curefull.\n\n"
 	      "For your own safety switching of consoles will be blocked\n"
 	      "Please press enter to continue/ctrl+c to abort\n");
@@ -329,7 +325,7 @@ init_mode (void)
   if (nthreads != 1)
     {
       printf ("WARNING WARNING WARNING WARNING\n"
-      "You are trying to start SVGAlib XaoS with multiple threads. In case\n"
+	      "You are trying to start SVGAlib XaoS with multiple threads. In case\n"
 	      "you use linux-thread based thread library (like one in glibc) your system\n"
 	      "is going to CRASH! So if you are not sure stop XaoS now. Otherwise press 'y'\n"
 	      "to continue\n");
@@ -340,9 +336,7 @@ init_mode (void)
   vga_setmode (mode);
   seteuid (getuid ());		/* Don't need supervisor rights anymore. */
   setegid (getgid ());
-  if (mode == G320x240x256
-      || mode == G320x400x256
-      || mode == G360x480x256)
+  if (mode == G320x240x256 || mode == G320x400x256 || mode == G360x480x256)
     svga_driver.textheight = 8 * 4;
   else
     svga_driver.textheight = 8;
@@ -383,9 +377,9 @@ init_mode (void)
     {
       if (grayscale)
 	svga_setgrayscale (), svga_driver.imagetype = UI_GRAYSCALE,
-        whitecolor=255;
+	  whitecolor = 255;
       else
-	svga_driver.imagetype = UI_C256, whitecolor=1;
+	svga_driver.imagetype = UI_C256, whitecolor = 1;
     }
   if (colors == 65536)
     {
@@ -393,7 +387,7 @@ init_mode (void)
       svga_driver.rmask = 31 * 64 * 32;
       svga_driver.gmask = 63 * 32;
       svga_driver.bmask = 31;
-      whitecolor=colors-1;
+      whitecolor = colors - 1;
     }
   if (colors == 32768)
     {
@@ -401,7 +395,7 @@ init_mode (void)
       svga_driver.rmask = 31 * 32 * 32;
       svga_driver.gmask = 31 * 32;
       svga_driver.bmask = 31;
-      whitecolor=colors-1;
+      whitecolor = colors - 1;
     }
   if (colors == 16777216)
     {
@@ -417,7 +411,7 @@ init_mode (void)
 	      svga_driver.gmask = 0x0000ff00;
 	      svga_driver.bmask = 0x00ff0000;
 	    }
-      whitecolor=0xffffffffU;
+	  whitecolor = 0xffffffffU;
 	}
       else
 	{
@@ -431,7 +425,7 @@ init_mode (void)
 	      svga_driver.gmask = 0x00ff00;
 	      svga_driver.bmask = 0xff0000;
 	    }
-      whitecolor=0xffffffU;
+	  whitecolor = 0xffffffU;
 	}
     }
   if (font != NULL)
@@ -492,7 +486,8 @@ svga_init (void)
     if (vga_hasmode (i))
       {
 	info = vga_getmodeinfo (i);
-	if (info->colors != 256 && info->colors != 32768 && info->colors != 65536 && info->colors != 16777216)
+	if (info->colors != 256 && info->colors != 32768
+	    && info->colors != 65536 && info->colors != 16777216)
 	  continue;
       }
   if (i == GLASTMODE + 1)
@@ -550,7 +545,8 @@ svga_processevents (int wait, int *x, int *y, int *buttons, int *k)
       timeout.tv_usec = 999999;
       mouse_update ();
       keyboard_update ();
-      vga_waitevent (VGA_KEYEVENT | VGA_MOUSEEVENT, &inputs, &outputs, &except, &timeout);
+      vga_waitevent (VGA_KEYEVENT | VGA_MOUSEEVENT, &inputs, &outputs,
+		     &except, &timeout);
 #else
 #warning Your SVGALIB is old. Please update to latest one to get better XaoS
       mouse_update ();
@@ -600,7 +596,8 @@ svga_alloc_buffers (char **buffer1, char **buffer2)
   gl_getcontext (&buffers[1]);
   *buffer1 = buffers[0].vbuf;
   *buffer2 = buffers[1].vbuf;
-  return (info->linewidth >= width ? info->linewidth : width * bbytesperpixel);
+  return (info->linewidth >=
+	  width ? info->linewidth : width * bbytesperpixel);
 }
 static void
 svga_free_buffers (char *buffer1, char *buffer2)
@@ -608,17 +605,17 @@ svga_free_buffers (char *buffer1, char *buffer2)
   gl_freecontext (&buffers[0]);
   gl_freecontext (&buffers[1]);
 }
-static CONST struct params params[] =
-{
+static CONST struct params params[] = {
   {"", P_HELP, NULL, "SVGA driver options:"},
-  {"-mode", P_NUMBER, &defmode, "Select graphics mode(same number as in interactive menu)"},
+  {"-mode", P_NUMBER, &defmode,
+   "Select graphics mode(same number as in interactive menu)"},
   {"-retrace", P_SWITCH, &retrace, "Wait for retrace before displaying"},
-  {"-grayscale", P_SWITCH, &grayscale, "Use grayscale mode instead of palette"},
+  {"-grayscale", P_SWITCH, &grayscale,
+   "Use grayscale mode instead of palette"},
   {NULL, 0, NULL, NULL}
 };
 
-struct ui_driver svga_driver =
-{
+struct ui_driver svga_driver = {
   "SVGAlib",
   svga_init,
   svga_get_size,
@@ -637,7 +634,8 @@ struct ui_driver svga_driver =
   8,
   8,
   params,
-  FULLSCREEN | UPDATE_AFTER_RESIZE | PALETTE_ROTATION | ROTATE_INSIDE_CALCULATION | RESIZE_COMMAND,
+  FULLSCREEN | UPDATE_AFTER_RESIZE | PALETTE_ROTATION |
+    ROTATE_INSIDE_CALCULATION | RESIZE_COMMAND,
   0.0, 0.0,
   0, 0,
   UI_C256,

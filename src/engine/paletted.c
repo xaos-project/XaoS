@@ -4,8 +4,8 @@ cpalette (void *data, struct taskinfo *task, int r1, int r2)
 {
   pixel8_t *src, *srcend;
   cppixel_t dest;
-  struct filter *f = (struct filter *)data;
-  struct palettedata *s = (struct palettedata *)f->data;
+  struct filter *f = (struct filter *) data;
+  struct palettedata *s = (struct palettedata *) f->data;
   int i;
   unsigned int *table = s->table;
   for (i = r1; i < r2; i++)

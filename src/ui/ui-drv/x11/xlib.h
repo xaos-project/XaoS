@@ -36,72 +36,72 @@
 #endif /* MITSHM */
 
 typedef struct
-  {
-    int n;
-    XColor c[256];
-  }
+{
+  int n;
+  XColor c[256];
+}
 xcol_t;
 
 typedef struct
-  {
-    int privatecolormap;
-    int usedefault;
-    int nomitshm;
-    int fullscreen;
-    char *display;
-    int windowid;
-    int rootwindow;
-  }
+{
+  int privatecolormap;
+  int usedefault;
+  int nomitshm;
+  int fullscreen;
+  char *display;
+  int windowid;
+  int rootwindow;
+}
 xlibparam;
 
 typedef struct
-  {
-    Colormap colormap;
-    Colormap defaultcolormap;
-    int fixedcolormap;
-    int privatecolormap;
-    xlibparam *params;
-    Display *display;
-    Window parent_window;
-    Window window;
-    unsigned int width, height;
-    unsigned int bwidth, bheight;
-    unsigned int border_width;
-    unsigned long background;
-    int depth;
-    unsigned int class;
-    Visual *visual;
-    unsigned long valuemask;
-    XSetWindowAttributes *attributes;
-    unsigned long attr_mask;
-    XSizeHints sizehints;
-    int screen;
-    char *window_name;
-    int status;
-    GC gc;
-    XGCValues xgcvalues;
-    xcol_t xcolor;
-    Pixmap pixmap;
-    XFontStruct *font_struct;
-    int screen_changed;
-    int lastx, lasty;
-    int mouse_x, mouse_y;
-    unsigned int mouse_buttons;
-    int current;
-    XImage *image[2];
+{
+  Colormap colormap;
+  Colormap defaultcolormap;
+  int fixedcolormap;
+  int privatecolormap;
+  xlibparam *params;
+  Display *display;
+  Window parent_window;
+  Window window;
+  unsigned int width, height;
+  unsigned int bwidth, bheight;
+  unsigned int border_width;
+  unsigned long background;
+  int depth;
+  unsigned int class;
+  Visual *visual;
+  unsigned long valuemask;
+  XSetWindowAttributes *attributes;
+  unsigned long attr_mask;
+  XSizeHints sizehints;
+  int screen;
+  char *window_name;
+  int status;
+  GC gc;
+  XGCValues xgcvalues;
+  xcol_t xcolor;
+  Pixmap pixmap;
+  XFontStruct *font_struct;
+  int screen_changed;
+  int lastx, lasty;
+  int mouse_x, mouse_y;
+  unsigned int mouse_buttons;
+  int current;
+  XImage *image[2];
 #ifdef MITSHM
-    XShmSegmentInfo xshminfo[2];
-    int SharedMemOption;
-    int SharedMemFlag;
+  XShmSegmentInfo xshminfo[2];
+  int SharedMemOption;
+  int SharedMemFlag;
 #endif				/* MITSHM */
-    unsigned long pixels[256];
-    char *vbuffs[2];
-    char *data[2];
-    char *vbuff;
-    char *back;
-    int truecolor;
-    int linewidth;
-  }
+  unsigned long pixels[256];
+  char *vbuffs[2];
+  char *data[2];
+  char *vbuff;
+  char *back;
+  int truecolor;
+  int linewidth;
+}
 xdisplay;
 
 void xsetpaletterange (xdisplay * d, ui_palette c, int start, int end);
@@ -129,7 +129,8 @@ extern void xfillarc (xdisplay * d, int x, int y, unsigned int w,
 extern void xpoint (xdisplay * d, int x, int y);
 extern void xflush (xdisplay * d);
 extern void xclear_screen (xdisplay * d);
-extern void xrotate_palette (xdisplay * d, int direction, unsigned char c[3][256], int ncolors);
+extern void xrotate_palette (xdisplay * d, int direction,
+			     unsigned char c[3][256], int ncolors);
 extern void draw_screen (xdisplay * d);
 extern void xouttext (xdisplay * d, CONST char *string);
 extern void xresize (xdisplay * d, XEvent * ev);

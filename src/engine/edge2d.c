@@ -2,7 +2,7 @@
 static void
 do_edge (void *data, struct taskinfo *task, int r1, int r2)
 {
-  struct filter *f = (struct filter *)data;
+  struct filter *f = (struct filter *) data;
   int y;
   unsigned int *pixels = f->image->palette->pixels;
   register unsigned int black = f->image->palette->pixels[0];
@@ -24,7 +24,8 @@ do_edge (void *data, struct taskinfo *task, int r1, int r2)
       else
 	down = ((spixel_t *) f->childimage->currlines[y]) + 1;
 
-      end = p_add (((cpixel_t *) f->image->currlines[y]), f->image->width - 1);
+      end =
+	p_add (((cpixel_t *) f->image->currlines[y]), f->image->width - 1);
       p_setp (output, -1, 0);
       p_setp (output, f->image->width - 2, 0);
 

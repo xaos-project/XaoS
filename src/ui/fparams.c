@@ -42,29 +42,34 @@
 #include "uiint.h"
 
 
-static char *defrender=NULL;
-static CONST char *rbasename="anim";
-static int alias=0;
-static int slowmode=0;
+static char *defrender = NULL;
+static CONST char *rbasename = "anim";
+static int alias = 0;
+static int slowmode = 0;
 static char *imgtype;
 static char *defsize;
 static float framerate;
-static int letterspersec=20;
+static int letterspersec = 20;
 static int defvectors;
 static int iframedist;
-CONST struct params ui_fractal_params[] =
-{
+CONST struct params ui_fractal_params[] = {
 
   {"", P_HELP, NULL, "Animation rendering:"},
-  {"-render", P_STRING, &defrender, "Render animation into seqence of .png files"},
-  {"-basename", P_STRING, &rbasename, "Name for .png files (XaoS will add 4 digit number and extension"},
+  {"-render", P_STRING, &defrender,
+   "Render animation into seqence of .png files"},
+  {"-basename", P_STRING, &rbasename,
+   "Name for .png files (XaoS will add 4 digit number and extension"},
   {"-size", P_STRING, &defsize, "widthxheight"},
   {"-renderimage", P_STRING, &imgtype, "256 or truecolor"},
   {"-renderframerate", P_FLOAT, &framerate, "framerate"},
-  {"-antialiasing", P_SWITCH, &alias, "Perform antialiasing (slow, requires quite lot of memory)"},
-  {"-alwaysrecalc", P_SWITCH, &slowmode, "Always recalculate whole image (slowes down rendering, increases quality)"},
-  {"-rendervectors", P_SWITCH, &defvectors, "Render motion vectors (should be used for MPEG encoding)"},
-  {"-iframedist", P_NUMBER, &iframedist, "Recommended distance between I frames in pat file (should be used for MPEG encoding)"},
+  {"-antialiasing", P_SWITCH, &alias,
+   "Perform antialiasing (slow, requires quite lot of memory)"},
+  {"-alwaysrecalc", P_SWITCH, &slowmode,
+   "Always recalculate whole image (slowes down rendering, increases quality)"},
+  {"-rendervectors", P_SWITCH, &defvectors,
+   "Render motion vectors (should be used for MPEG encoding)"},
+  {"-iframedist", P_NUMBER, &iframedist,
+   "Recommended distance between I frames in pat file (should be used for MPEG encoding)"},
   {NULL, 0, NULL, NULL}
 };
 int
@@ -75,11 +80,12 @@ ui_dorender_params (void)
       int imagetype = TRUECOLOR24;
       int width = 640, height = 480;
 #ifdef DESTICKY
-        seteuid (getuid ());          /* Don't need supervisor rights anymore. */
-        setegid (getgid ());
+      seteuid (getuid ());	/* Don't need supervisor rights anymore. */
+      setegid (getgid ());
 #endif
 #ifndef STRUECOLOR24
-      if(imagetype==TRUECOLOR24) imagetype=TRUECOLOR;
+      if (imagetype == TRUECOLOR24)
+	imagetype = TRUECOLOR;
 #endif
       if (imgtype != NULL)
 	{
@@ -87,18 +93,23 @@ ui_dorender_params (void)
 	    imagetype = C256;
 	  else if (!strcmp ("truecolor", imgtype))
 	    {
-	      x_fatalerror("Unknown image type:%s", imgtype);
+	      x_fatalerror ("Unknown image type:%s", imgtype);
 	    }
 	}
       if (defsize != NULL &&
 	  !sscanf (defsize, "%ix%i", &width, &height) &&
 	  (width <= 0 || height <= 0))
 	{
-	  x_fatalerror("Invalid size (use for example 320x200");
+	  x_fatalerror ("Invalid size (use for example 320x200");
 	}
       if (framerate <= 0)
 	framerate = 30;
-      uih_renderanimation (NULL,rbasename, defrender, width, height, ui_get_windowwidth (width) / width, ui_get_windowheight (height) / height, (int)(1000000 / framerate), imagetype, alias, slowmode,letterspersec, NULL, defvectors, iframedist);
+      uih_renderanimation (NULL, rbasename, defrender, width, height,
+			   ui_get_windowwidth (width) / width,
+			   ui_get_windowheight (height) / height,
+			   (int) (1000000 / framerate), imagetype, alias,
+			   slowmode, letterspersec, NULL, defvectors,
+			   iframedist);
       return 1;
     }
   return 0;

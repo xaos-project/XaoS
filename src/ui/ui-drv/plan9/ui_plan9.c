@@ -64,9 +64,12 @@ plan9_setrange (ui_palette palette, int start, int end)
       cmap[0].blue = 0xffffffffUL;
       for (i = start; i < end; i++)
 	{
-	  cmap[i].red = (unsigned long) palette[i - start][0] * 256UL * 256UL * 256UL;
-	  cmap[i].green = (unsigned long) palette[i - start][1] * 256UL * 256UL * 256UL;
-	  cmap[i].blue = (unsigned long) palette[i - start][2] * 256UL * 256UL * 256UL;
+	  cmap[i].red =
+	    (unsigned long) palette[i - start][0] * 256UL * 256UL * 256UL;
+	  cmap[i].green =
+	    (unsigned long) palette[i - start][1] * 256UL * 256UL * 256UL;
+	  cmap[i].blue =
+	    (unsigned long) palette[i - start][2] * 256UL * 256UL * 256UL;
 	}
       wrcolmap (&screen, cmap);
     }
@@ -74,17 +77,16 @@ plan9_setrange (ui_palette palette, int start, int end)
 static void
 plan9_print (int x, int y, CONST char *text)
 {
-  Point p =
-  {rect.min.x + x, rect.min.y + y};
+  Point p = { rect.min.x + x, rect.min.y + y };
   string (&screen, p, font, text, S);
 }
 static void
-  plan9_flush (void)
+plan9_flush (void)
 {
   bflush ();
 }
 static void
-  plan9_getmouse (int *x, int *y, int *buttons)
+plan9_getmouse (int *x, int *y, int *buttons)
 {
   *x = mousex;
   *y = mousey;
@@ -92,25 +94,25 @@ static void
 }
 
 static void
-  plan9_display (void)
+plan9_display (void)
 {
   wrbitmap (mybitmap, 0, height, (unsigned char *) buffers[current]);
   bitblt (&screen, rect.min, mybitmap, rect1, S);
 }
 
 static void
-  plan9_flip_buffers (void)
+plan9_flip_buffers (void)
 {
   current ^= 1;
 }
 
 void
-  ereshaped (Rectangle rect1)
+ereshaped (Rectangle rect1)
 {
   ui_resize ();
 }
 static void
-  plan9_processevent (int wait, int *mx, int *my, int *b, int *k)
+plan9_processevent (int wait, int *mx, int *my, int *b, int *k)
 {
   static int keys;
   Event E;
@@ -130,7 +132,7 @@ static void
 	  if (E.mouse.buttons & 4)
 	    mousebuttons |= BUTTON3;
 	  break;
-	  case Ekeyboard:
+	case Ekeyboard:
 	  {
 	    if (E.kbdc == '[')
 	      keys ^= 1;
@@ -153,7 +155,7 @@ static void
   *k = keys;
 }
 static void
-  plan9_getsize (int *w, int *h)
+plan9_getsize (int *w, int *h)
 {
   bscreenrect (&rect);
   width = rect.max.x - rect.min.x;
@@ -166,19 +168,19 @@ static void
   *h = height;
 }
 static int
-  plan9_allocbuffers (char **b1, char **b2)
+plan9_allocbuffers (char **b1, char **b2)
 {
   int w = width;
   if (screen.ldepth == 0)
-      w = (w + 7) / 8;
-    mybitmap = balloc (rect1, ldepth);
-    current = 0;
-  * b1 = buffers[0] = (char *) malloc (w * (height + 1));
-  * b2 = buffers[1] = (char *) malloc (w * (height + 1));
-    return (w);
+    w = (w + 7) / 8;
+  mybitmap = balloc (rect1, ldepth);
+  current = 0;
+  *b1 = buffers[0] = (char *) malloc (w * (height + 1));
+  *b2 = buffers[1] = (char *) malloc (w * (height + 1));
+  return (w);
 }
 static void
-  plan9_freebuffers (char *b1, char *b2)
+plan9_freebuffers (char *b1, char *b2)
 {
   free (buffers[0]);
   free (buffers[1]);
@@ -187,7 +189,7 @@ static void
 struct ui_driver plan9_driver;
 
 static int
-  plan9_init (void)
+plan9_init (void)
 {
   binit (NULL, NULL, "XaoS");
   einit (Ekeyboard | Emouse);
@@ -197,7 +199,7 @@ static int
     case 0:
       plan9_driver.imagetype = UI_MIBITMAP;
       break;
-      case 1:
+    case 1:
       plan9_driver.flags |= UPDATE_AFTER_PALETTE;
       plan9_driver.imagetype = UI_FIXEDCOLOR;
       plan9_driver.palettestart = 0;
@@ -205,7 +207,7 @@ static int
       plan9_driver.maxentries = 4;
       ldepth = 3;
       break;
-      case 2:
+    case 2:
       plan9_driver.flags |= UPDATE_AFTER_PALETTE;
       plan9_driver.imagetype = UI_FIXEDCOLOR;
       plan9_driver.palettestart = 0;
@@ -213,7 +215,7 @@ static int
       plan9_driver.maxentries = 16;
       ldepth = 3;
       break;
-      case 3:
+    case 3:
       if (nopalette)
 	{
 	  plan9_driver.flags |= UPDATE_AFTER_PALETTE;
@@ -228,49 +230,49 @@ static int
 	}
       break;
     default:
-      printf ("Unsupported bitmap depth %i. Please contact author!\n", screen.ldepth);
+      printf ("Unsupported bitmap depth %i. Please contact author!\n",
+	      screen.ldepth);
       return 0;
     }
   return 1;
 }
 static void
-  plan9_uninit ()
+plan9_uninit ()
 {
   bexit ();
 }
 
-static CONST struct params params[] =
-  {
-    {"", P_HELP, NULL,"plan9 driver options:"},
-    {"-nopalette", P_SWITCH, &nopalette, "Disable palette allocating. Use ugly looking rgbpixel instead"},
-    {NULL, 0, NULL, NULL}
-  };
+static CONST struct params params[] = {
+  {"", P_HELP, NULL, "plan9 driver options:"},
+  {"-nopalette", P_SWITCH, &nopalette,
+   "Disable palette allocating. Use ugly looking rgbpixel instead"},
+  {NULL, 0, NULL, NULL}
+};
 
-struct ui_driver plan9_driver =
-  {
-    "plan9",
-      plan9_init,
-      plan9_getsize,
-      plan9_processevent,
-      plan9_getmouse,
-      plan9_uninit,
-      NULL,
-      plan9_setrange,
-      plan9_print,
-      plan9_display,
-      plan9_allocbuffers,
-      plan9_freebuffers,
-      plan9_flip_buffers,
-      NULL,
-      plan9_flush,
-      8,
-      14,
-      params,
-      RESOLUTION,
-      0.0, 0.0,
-      800, 600,
-      UI_C256,
-      1, 255, 256 - 2
-  };
+struct ui_driver plan9_driver = {
+  "plan9",
+  plan9_init,
+  plan9_getsize,
+  plan9_processevent,
+  plan9_getmouse,
+  plan9_uninit,
+  NULL,
+  plan9_setrange,
+  plan9_print,
+  plan9_display,
+  plan9_allocbuffers,
+  plan9_freebuffers,
+  plan9_flip_buffers,
+  NULL,
+  plan9_flush,
+  8,
+  14,
+  params,
+  RESOLUTION,
+  0.0, 0.0,
+  800, 600,
+  UI_C256,
+  1, 255, 256 - 2
+};
 
 #endif

@@ -27,14 +27,14 @@
 
 
 #if	__USEPRAGMAINTERNAL
-	#if defined(__MWERKS__)
-		#pragma internal reset
-	#endif
+#if defined(__MWERKS__)
+#pragma internal reset
+#endif
 #endif
 
 
 #if	__WANTPASCALELIMINATION
-	#ifndef __COMPILINGMOREFILES
-		#undef pascal
-	#endif
+#ifndef __COMPILINGMOREFILES
+#undef pascal
+#endif
 #endif

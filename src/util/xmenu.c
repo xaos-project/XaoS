@@ -22,26 +22,26 @@
 #define HASH(c,len) (((len)*32+(c)[0]+(c)[(len)-1])&HASHMASK)
 
 static struct queuelist
-  {
-    struct queuelist *next;
-    struct queuelist *previous;
-    CONST menuitem *item;
-    dialogparam *d;
-  }
+{
+  struct queuelist *next;
+  struct queuelist *previous;
+  CONST menuitem *item;
+  dialogparam *d;
+}
  *firstqueue = NULL, *lastqueue = NULL;
 static struct entry
-  {
-    struct entry *next;
-    struct entry *previous;
-    struct entry *nextname;
-    CONST menuitem *item;
-  }
+{
+  struct entry *next;
+  struct entry *previous;
+  struct entry *nextname;
+  CONST menuitem *item;
+}
  *firstitem = NULL, *lastitem = NULL;
 
 struct entry *namehash[HASHSIZE];
 
 static void
-x_menu_insert (CONST menuitem *item, struct entry *iitem, int n)
+x_menu_insert (CONST menuitem * item, struct entry *iitem, int n)
 {
   int i;
   int len;
@@ -49,67 +49,84 @@ x_menu_insert (CONST menuitem *item, struct entry *iitem, int n)
   struct entry *list;
   for (i = 0; i < n; i++)
     {
-      list = (struct entry *)calloc (1,sizeof (struct queuelist));
+      list = (struct entry *) calloc (1, sizeof (struct queuelist));
       if (list == NULL)
 	{
 	  x_error ("Warning:out of memory!");
 	  return;
 	}
-      if (item->type != MENU_SEPARATOR) {
-      len = strlen (item->shortname);
-      hashpos = HASH (item->shortname, len);
-      list->nextname = namehash[hashpos];
+      if (item->type != MENU_SEPARATOR)
+	{
+	  len = strlen (item->shortname);
+	  hashpos = HASH (item->shortname, len);
+	  list->nextname = namehash[hashpos];
 #ifdef DEBUG
-      {
-	struct entry *e = list->nextname;
-	while (e != NULL)
 	  {
-	    if (e->item->type != MENU_SUBMENU && e->item->type != MENU_SEPARATOR && item->type != MENU_SEPARATOR);
-	    if (!strcmp (e->item->shortname, item->shortname) /*&& e->item->type != MENU_SUBMENU && item->type != MENU_SUBMENU*/)
+	    struct entry *e = list->nextname;
+	    while (e != NULL)
 	      {
-		x_error ("Menu error:Name collision %s:'%s'(%s) and '%s'(%s)", item->shortname, item->name, item->menuname, e->item->name, e->item->menuname);
+		if (e->item->type != MENU_SUBMENU
+		    && e->item->type != MENU_SEPARATOR
+		    && item->type != MENU_SEPARATOR);
+		if (!strcmp (e->item->shortname, item->shortname)
+		    /*&& e->item->type != MENU_SUBMENU && item->type != MENU_SUBMENU */
+		  )
+		  {
+		    x_error
+		      ("Menu error:Name collision %s:'%s'(%s) and '%s'(%s)",
+		       item->shortname, item->name, item->menuname,
+		       e->item->name, e->item->menuname);
+		  }
+		e = e->nextname;
 	      }
-	    e = e->nextname;
 	  }
-      }
 #endif
-      namehash[hashpos] = list;
-      }
+	  namehash[hashpos] = list;
+	}
       list->item = item;
-      if(iitem==NULL) {
-	/*printf("ahoj\n");*/
-        list->previous = lastitem;
-        list->next = NULL;
-        if (lastitem != NULL)
-	  lastitem->next = list;
-        else
-	  firstitem = list;
-        lastitem = list;
-      } else {
-	list->next=iitem;
-	list->previous=iitem->previous;
-	if (iitem->previous) iitem->previous->next=list; else firstitem=list;
-	iitem->previous=list;
-      }
+      if (iitem == NULL)
+	{
+	  /*printf("ahoj\n"); */
+	  list->previous = lastitem;
+	  list->next = NULL;
+	  if (lastitem != NULL)
+	    lastitem->next = list;
+	  else
+	    firstitem = list;
+	  lastitem = list;
+	}
+      else
+	{
+	  list->next = iitem;
+	  list->previous = iitem->previous;
+	  if (iitem->previous)
+	    iitem->previous->next = list;
+	  else
+	    firstitem = list;
+	  iitem->previous = list;
+	}
       item++;
     }
 }
 void
-menu_add (CONST menuitem *item, int n)
+menu_add (CONST menuitem * item, int n)
 {
-   x_menu_insert(item,NULL,n);
+  x_menu_insert (item, NULL, n);
 }
+
 void
-menu_insert (CONST menuitem *item, CONST char *before, int n)
+menu_insert (CONST menuitem * item, CONST char *before, int n)
 {
-   struct entry *e=firstitem;
-   while (e!=NULL)
-	{
-		if(!strcmp(e->item->shortname,before)) break;
-		e=e->next;
-	}
-   x_menu_insert(item,e,n);
+  struct entry *e = firstitem;
+  while (e != NULL)
+    {
+      if (!strcmp (e->item->shortname, before))
+	break;
+      e = e->next;
+    }
+  x_menu_insert (item, e, n);
 }
+
 void
 menu_delete (CONST menuitem * items, int n)
 {
@@ -119,50 +136,53 @@ menu_delete (CONST menuitem * items, int n)
   int hashpos;
   for (i = 0; i < n; i++)
     {
-      if(items[i].type==MENU_SEPARATOR) 
-      {
-        struct entry *item = firstitem;
-        while(item&&item->item!=items+i) item=item->next;
-	if(!item) abort();
-	      if (item->previous != NULL)
-		item->previous->next = item->next;
-	      else
-		firstitem = item->next;
-	      if (item->next != NULL)
-		item->next->previous = item->previous;
-	      else
-		lastitem = item->previous;
-	free(item);
-      }
-      else {
-      int len = strlen (items[i].shortname);
-      hashpos = HASH (items[i].shortname, len);
-      pe = NULL;
-      item = namehash[hashpos];
-      while (item != NULL)
+      if (items[i].type == MENU_SEPARATOR)
 	{
-	  if (items + i == item->item)
+	  struct entry *item = firstitem;
+	  while (item && item->item != items + i)
+	    item = item->next;
+	  if (!item)
+	    abort ();
+	  if (item->previous != NULL)
+	    item->previous->next = item->next;
+	  else
+	    firstitem = item->next;
+	  if (item->next != NULL)
+	    item->next->previous = item->previous;
+	  else
+	    lastitem = item->previous;
+	  free (item);
+	}
+      else
+	{
+	  int len = strlen (items[i].shortname);
+	  hashpos = HASH (items[i].shortname, len);
+	  pe = NULL;
+	  item = namehash[hashpos];
+	  while (item != NULL)
 	    {
-	      d++;
-	      if (pe == NULL)
-		namehash[hashpos] = item->nextname;
-	      else
-		pe->nextname = item->nextname;
-	      if (item->previous != NULL)
-		item->previous->next = item->next;
-	      else
-		firstitem = item->next;
-	      if (item->next != NULL)
-		item->next->previous = item->previous;
-	      else
-		lastitem = item->previous;
-	      free (item);
-	      break;
-	    }			/*if */
-	  pe = item;
-	  item = item->nextname;
-	}			/*while */
-      }
+	      if (items + i == item->item)
+		{
+		  d++;
+		  if (pe == NULL)
+		    namehash[hashpos] = item->nextname;
+		  else
+		    pe->nextname = item->nextname;
+		  if (item->previous != NULL)
+		    item->previous->next = item->next;
+		  else
+		    firstitem = item->next;
+		  if (item->next != NULL)
+		    item->next->previous = item->previous;
+		  else
+		    lastitem = item->previous;
+		  free (item);
+		  break;
+		}		/*if */
+	      pe = item;
+	      item = item->nextname;
+	    }			/*while */
+	}
 #ifdef DEBUG
       if (item == NULL)
 	x_error ("Item %s not found!", items[i].shortname);
@@ -173,7 +193,7 @@ void
 menu_addqueue (CONST menuitem * item, dialogparam * d)
 {
   struct queuelist *list;
-  list = (struct queuelist *)calloc (1,sizeof (struct queuelist));
+  list = (struct queuelist *) calloc (1, sizeof (struct queuelist));
   if (list == NULL)
     {
       x_error ("Warning:out of memory!");
@@ -217,7 +237,8 @@ menu_rfind (CONST void *(*function) (struct entry * item), CONST char *root)
 	{
 	  if ((r = function (item)) != NULL)
 	    return r;
-	  if (item->item->type == MENU_SUBMENU && (r = menu_rfind (function, item->item->shortname)) != NULL)
+	  if (item->item->type == MENU_SUBMENU
+	      && (r = menu_rfind (function, item->item->shortname)) != NULL)
 	    return r;
 	}
       item = item->next;
@@ -238,7 +259,7 @@ CONST menuitem *
 menu_findkey (CONST char *key, CONST char *root)
 {
   findkey = key;
-  return ((CONST menuitem *)menu_rfind (cmpfunction, root));
+  return ((CONST menuitem *) menu_rfind (cmpfunction, root));
 }
 static CONST menuitem *finditem;
 CONST static void *
@@ -248,6 +269,7 @@ cmpfunction2 (struct entry *item)
     return item;
   return NULL;
 }
+
 int
 menu_available (CONST menuitem * item, CONST char *root)
 {
@@ -260,7 +282,8 @@ menu_fullname (CONST char *menu)
   struct entry *item = firstitem;
   while (item != NULL)
     {
-      if (item->item->type == MENU_SUBMENU && !strcmp (menu, item->item->shortname))
+      if (item->item->type == MENU_SUBMENU
+	  && !strcmp (menu, item->item->shortname))
 	{
 	  return (item->item->name);
 	}
@@ -301,6 +324,7 @@ menu_item2 (CONST char *menu, int n)
     }
   return NULL;
 }
+
 int
 menu_havedialog (CONST menuitem * item, struct uih_context *c)
 {
@@ -325,7 +349,8 @@ menu_freeparam (dialogparam * d, CONST struct dialog *di)
     }
 }
 void
-menu_destroydialog (CONST menuitem * item, dialogparam * d, struct uih_context *uih)
+menu_destroydialog (CONST menuitem * item, dialogparam * d,
+		    struct uih_context *uih)
 {
   int i;
   CONST struct dialog *di = menu_getdialog (uih, item);
@@ -336,10 +361,12 @@ menu_destroydialog (CONST menuitem * item, dialogparam * d, struct uih_context *
   free (d);
 
 }
+
 void
 menu_activate (CONST menuitem * item, struct uih_context *c, dialogparam * d)
 {
-  if (c == NULL && (!(item->flags & MENUFLAG_ATSTARTUP) || firstqueue!=NULL))
+  if (c == NULL
+      && (!(item->flags & MENUFLAG_ATSTARTUP) || firstqueue != NULL))
     {
       menu_addqueue (item, d);
       return;
@@ -366,23 +393,31 @@ menu_activate (CONST menuitem * item, struct uih_context *c, dialogparam * d)
       ((void (*)(struct uih_context *)) item->function) (c);
       break;
     case MENU_INT:
-      ((void (*)(struct uih_context *, int)) item->function) (c, item->iparam);
+      ((void (*)(struct uih_context *, int)) item->function) (c,
+							      item->iparam);
       break;
     case MENU_STRING:
-      ((void (*)(struct uih_context *, CONST char *)) item->function) (c, (CONST char *)item->pparam);
+      ((void (*)(struct uih_context *, CONST char *)) item->function) (c,
+								       (CONST
+									char
+									*)
+								       item->
+								       pparam);
       break;
     case MENU_DIALOG:
     case MENU_CUSTOMDIALOG:
       if (!menu_havedialog (item, c))
 	{
-	  ((void (*)(struct uih_context * c, dialogparam *)) item->function) (c, (dialogparam *)NULL);
+	  ((void (*)(struct uih_context * c, dialogparam *)) item->
+	   function) (c, (dialogparam *) NULL);
 	}
       else
 	{
 	  CONST menudialog *di = menu_getdialog (c, item);
 	  if (di[0].question == NULL)
 	    {
-	      ((void (*)(struct uih_context * c, dialogparam *)) item->function) (c, (dialogparam *)NULL);
+	      ((void (*)(struct uih_context * c, dialogparam *)) item->
+	       function) (c, (dialogparam *) NULL);
 	      break;
 	    }
 	  else if (di[1].question == NULL)
@@ -394,21 +429,28 @@ menu_activate (CONST menuitem * item, struct uih_context *c, dialogparam * d)
 		case DIALOG_INT:
 		case DIALOG_CHOICE:
 		case DIALOG_ONOFF:
-		  ((void (*)(struct uih_context * c, int)) item->function) (c, d[0].dint);
+		  ((void (*)(struct uih_context * c, int)) item->function) (c,
+									    d
+									    [0].
+									    dint);
 		  break;
 		case DIALOG_FLOAT:
-		  ((void (*)(struct uih_context * c, number_t)) item->function) (c, d[0].number);
+		  ((void (*)(struct uih_context * c, number_t)) item->
+		   function) (c, d[0].number);
 		  break;
 		case DIALOG_COORD:
-		  ((void (*)(struct uih_context * c, number_t, number_t)) item->function) (c, d[0].dcoord[0], d[0].dcoord[1]);
+		  ((void (*)(struct uih_context * c, number_t, number_t))
+		   item->function) (c, d[0].dcoord[0], d[0].dcoord[1]);
 		  break;
 		case DIALOG_STRING:
 		case DIALOG_KEYSTRING:
-		  ((void (*)(struct uih_context * c, char *)) item->function) (c, d[0].dstring);
+		  ((void (*)(struct uih_context * c, char *)) item->
+		   function) (c, d[0].dstring);
 		  break;
 		case DIALOG_IFILE:
 		case DIALOG_OFILE:
-		  ((void (*)(struct uih_context * c, xio_path)) item->function) (c, d[0].dpath);
+		  ((void (*)(struct uih_context * c, xio_path)) item->
+		   function) (c, d[0].dpath);
 		  break;
 		default:
 		  x_error ("dialog:unknown type!");
@@ -417,7 +459,8 @@ menu_activate (CONST menuitem * item, struct uih_context *c, dialogparam * d)
 
 	    }
 	  else
-	    ((void (*)(struct uih_context * c, dialogparam *)) item->function) (c, d);
+	    ((void (*)(struct uih_context * c, dialogparam *)) item->
+	     function) (c, d);
 	}
       break;
     default:
@@ -431,44 +474,55 @@ menu_enabled (CONST menuitem * item, struct uih_context *c)
   if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX))
     switch (item->type)
       {
-      case MENU_SEPARATOR: return 0;
+      case MENU_SEPARATOR:
+	return 0;
       case MENU_SUBMENU:
       case MENU_DIALOG:
       case MENU_NOPARAM:
       case MENU_CUSTOMDIALOG:
 	return (((int (*)(struct uih_context *)) item->control) (c));
       case MENU_INT:
-	return (((int (*)(struct uih_context *, int)) item->control) (c, item->iparam));
+	return (((int (*)(struct uih_context *, int)) item->control) (c,
+								      item->
+								      iparam));
       case MENU_STRING:
-	return (((int (*)(struct uih_context *, CONST char *)) item->control) (c, (CONST char *)item->pparam));
+	return (((int (*)(struct uih_context *, CONST char *)) item->
+		 control) (c, (CONST char *) item->pparam));
       default:
 	x_error ("Menu_enabled: unknown type!");
 	break;
       }
   return 0;
 }
+
 void
 menu_delnumbered (int n, CONST char *name)
 {
   menuitem *items;
   int i;
   char s[256];
-  sprintf(s,"%s%i",name,0);
-  items=(menuitem *)menu_findcommand(s);
-  menu_delete(items,n);
-  for(i=0;i<n;i++) 
-  {
-    if(items[i].key) free((char *)items[i].key);
-    free((char *)items[i].shortname);
-  }
-  free(items);
+  sprintf (s, "%s%i", name, 0);
+  items = (menuitem *) menu_findcommand (s);
+  menu_delete (items, n);
+  for (i = 0; i < n; i++)
+    {
+      if (items[i].key)
+	free ((char *) items[i].key);
+      free ((char *) items[i].shortname);
+    }
+  free (items);
 }
 CONST menuitem *
-menu_genernumbered (int n, CONST char *menuname, CONST char *CONST *CONST names, CONST char *keys, int type, int flags, void (*function) (struct uih_context * context, int), int (*control) (struct uih_context * context, int), CONST char *prefix)
+menu_genernumbered (int n, CONST char *menuname,
+		    CONST char *CONST * CONST names, CONST char *keys,
+		    int type, int flags,
+		    void (*function) (struct uih_context * context, int),
+		    int (*control) (struct uih_context * context, int),
+		    CONST char *prefix)
 {
-  int l = keys != NULL ? (int)strlen (keys) : -1;
+  int l = keys != NULL ? (int) strlen (keys) : -1;
   int i;
-  menuitem *item = (menuitem *)malloc (sizeof (menuitem) * n);
+  menuitem *item = (menuitem *) malloc (sizeof (menuitem) * n);
   if (item == NULL)
     return NULL;
   for (i = 0; i < n; i++)
@@ -476,7 +530,7 @@ menu_genernumbered (int n, CONST char *menuname, CONST char *CONST *CONST names,
       item[i].menuname = menuname;
       if (i < l)
 	{
-	  char *key = malloc(2);
+	  char *key = malloc (2);
 	  item[i].key = key;
 	  key[0] = keys[i];
 	  key[1] = 0;
@@ -488,17 +542,19 @@ menu_genernumbered (int n, CONST char *menuname, CONST char *CONST *CONST names,
       item[i].iparam = i;
       item[i].name = names[i];
       item[i].shortname = names[i];
-      if(prefix!=NULL) {
-	char *shortname = (char *)malloc(strlen(prefix)+4);
-	item[i].shortname=shortname;
-	sprintf(shortname,"%s%i",prefix,i);
-      }
-      item[i].function = (void (*)(void))function;
-      item[i].control = (int (*)(void))control;
+      if (prefix != NULL)
+	{
+	  char *shortname = (char *) malloc (strlen (prefix) + 4);
+	  item[i].shortname = shortname;
+	  sprintf (shortname, "%s%i", prefix, i);
+	}
+      item[i].function = (void (*)(void)) function;
+      item[i].control = (int (*)(void)) control;
     }
   menu_add (item, n);
   return (item);
 }
+
 number_t
 menu_getfloat (CONST char *s, CONST char **error)
 {
@@ -529,9 +585,11 @@ menu_getfloat (CONST char *s, CONST char **error)
     }
   return (param);
 }
+
 int menuparse_scheme = 0;
 CONST char *
-menu_fillparam (struct uih_context *uih, tokenfunc f, CONST menudialog * d, dialogparam * p)
+menu_fillparam (struct uih_context *uih, tokenfunc f, CONST menudialog * d,
+		dialogparam * p)
 {
   char *c = f (uih);
   CONST char *error = NULL;
@@ -650,13 +708,15 @@ menu_fillparam (struct uih_context *uih, tokenfunc f, CONST menudialog * d, dial
   return NULL;
 }
 static char errorstr[256];
-CONST menuitem *menu_findcommand(CONST char *name)
+CONST menuitem *
+menu_findcommand (CONST char *name)
 {
   struct entry *entry;
   CONST menuitem *item;
   int len;
   len = strlen (name);
-  if (len > 100) return NULL;
+  if (len > 100)
+    return NULL;
   entry = namehash[HASH (name, len)];
   while (entry != NULL)
     {
@@ -669,10 +729,11 @@ CONST menuitem *menu_findcommand(CONST char *name)
       return NULL;
     }
   item = entry->item;
-  return(item);
+  return (item);
 }
 CONST char *
-menu_processcommand (struct uih_context *uih, tokenfunc f, int scheme, int mask, CONST char *root)
+menu_processcommand (struct uih_context *uih, tokenfunc f, int scheme,
+		     int mask, CONST char *root)
 {
   char *c = f (uih);
   CONST menuitem *item;
@@ -683,7 +744,7 @@ menu_processcommand (struct uih_context *uih, tokenfunc f, int scheme, int mask,
 	return "Command name expected";
       return NULL;
     }
-  item=menu_findcommand(c);
+  item = menu_findcommand (c);
   if (item == NULL)
     {
       sprintf (errorstr, "%s:unknown function", c);
@@ -691,7 +752,9 @@ menu_processcommand (struct uih_context *uih, tokenfunc f, int scheme, int mask,
     }
   if (item->flags & mask)
     {
-      sprintf (errorstr, "function '%s' not available in this context (%i, %i)", c, mask,item->flags);
+      sprintf (errorstr,
+	       "function '%s' not available in this context (%i, %i)", c,
+	       mask, item->flags);
       return errorstr;
     }
   if ((item->flags & MENUFLAG_NOPLAY) && uih != NULL)
@@ -703,36 +766,42 @@ menu_processcommand (struct uih_context *uih, tokenfunc f, int scheme, int mask,
 	}
     }
 
-      if ((item->flags & MENUFLAG_CHECKBOX) && scheme)
+  if ((item->flags & MENUFLAG_CHECKBOX) && scheme)
+    {
+      int w;
+      c = f (uih);
+      if (c == NULL)
 	{
-	  int w;
-	  c = f (uih);
-	  if (c == NULL)
-	    {
-	      return ("Boolean parameter expected");
-	    }
+	  return ("Boolean parameter expected");
+	}
 
-	  if (!strcmp ("#t", c))
+      if (!strcmp ("#t", c))
+	{
+	  w = 1;
+	}
+      else if (!strcmp ("#f", c))
+	{
+	  w = 0;
+	}
+      else
+	return "Boolean parameter expected";
+      if (w == menu_enabled (item, uih))
+	{
+	  if (((w != 0) ^ ((item->flags & MENUFLAG_DIALOGATDISABLE) != 0))
+	      || (item->type != MENU_DIALOG
+		  && item->type != MENU_CUSTOMDIALOG))
 	    {
-	      w = 1;
-	    }
-	  else if (!strcmp ("#f", c))
-	    {
-	      w = 0;
+	      return NULL;
 	    }
 	  else
-	    return "Boolean parameter expected";
-	  if (w == menu_enabled (item, uih))
-	  {
-            if(((w!=0)^((item->flags&MENUFLAG_DIALOGATDISABLE)!=0))||(item->type!=MENU_DIALOG&&item->type!=MENU_CUSTOMDIALOG)) {
-	      return NULL;
-	    } else menu_activate (item, uih, NULL); /*disable it...*/
-	  }
+	    menu_activate (item, uih, NULL);	/*disable it... */
 	}
-   if(item->type!=MENU_DIALOG&&item->type!=MENU_CUSTOMDIALOG) {
+    }
+  if (item->type != MENU_DIALOG && item->type != MENU_CUSTOMDIALOG)
+    {
       menu_activate (item, uih, NULL);
       return NULL;
-   }
+    }
   /*So we have some parameters */
 
   {
@@ -740,14 +809,15 @@ menu_processcommand (struct uih_context *uih, tokenfunc f, int scheme, int mask,
     CONST menudialog *d = menu_getdialog (uih, item);
     int i, n;
     for (n = 0; d[n].question != NULL; n++);
-    param = (dialogparam *)malloc (n * sizeof (dialogparam));
+    param = (dialogparam *) malloc (n * sizeof (dialogparam));
     for (i = 0; i < n; i++)
       {
 	CONST char *error;
 	error = menu_fillparam (uih, f, d + i, param + i);
 	if (error != NULL)
 	  {
-	    sprintf (errorstr, "Function '%s' parameter %i:%s", item->shortname, i, error);
+	    sprintf (errorstr, "Function '%s' parameter %i:%s",
+		     item->shortname, i, error);
 	    for (n = 0; n < i; n++)
 	      {
 		menu_freeparam (param + i, d + i);
@@ -780,7 +850,8 @@ gettoken (struct uih_context *c)
   else
     return (margv[argpos++]);
 }
-int 
+
+int
 menu_processargs (int n, int argc, char **argv)
 {
   CONST char *error;
@@ -797,21 +868,30 @@ menu_processargs (int n, int argc, char **argv)
   return (argpos - 2);
 
 }
+
 void
 menu_printhelp (void)
 {
   struct entry *e = firstitem;
   while (e)
     {
-      if (e->item->type == MENU_SEPARATOR) {e=e->next;continue;}
-      if (e->item->type == MENU_SUBMENU && !(e->item->flags & MENUFLAG_NOOPTION))
+      if (e->item->type == MENU_SEPARATOR)
+	{
+	  e = e->next;
+	  continue;
+	}
+      if (e->item->type == MENU_SUBMENU
+	  && !(e->item->flags & MENUFLAG_NOOPTION))
 	{
 	  struct entry *e1 = firstitem;
 	  int n = 1;
 	  while (e1)
 	    {
-              /*if (e->item->type == MENU_SEPARATOR) {printf ("\n"); e1=e1->next;continue;}*/
-	      if (e1->item->type != MENU_SUBMENU && e1->item->type != MENU_SEPARATOR && !(e1->item->flags & MENUFLAG_NOOPTION) && !strcmp (e1->item->menuname, e->item->shortname))
+	      /*if (e->item->type == MENU_SEPARATOR) {printf ("\n"); e1=e1->next;continue;} */
+	      if (e1->item->type != MENU_SUBMENU
+		  && e1->item->type != MENU_SEPARATOR
+		  && !(e1->item->flags & MENUFLAG_NOOPTION)
+		  && !strcmp (e1->item->menuname, e->item->shortname))
 		{
 		  if (n)
 		    {
@@ -899,11 +979,16 @@ uih_xshlprintmenu (struct uih_context *c, CONST char *name)
   lastitem = NULL;
   for (i = 0; (item = menu_item2 (name, i)) != NULL; i++)
     {
-      if (item->type == MENU_SEPARATOR) continue;
+      if (item->type == MENU_SEPARATOR)
+	continue;
       if (item->type != MENU_SUBMENU)
 	{
-	  for (nexti = i + 1; (nextitem = menu_item2 (name, nexti)) != NULL && nextitem->type == MENU_SUBMENU; nexti++);
-	  printf ("<node %s, %s, %s, %s>\n", item->shortname, (lastitem != NULL ? lastitem->shortname : ""), nextitem != NULL ? nextitem->shortname : "", name);
+	  for (nexti = i + 1;
+	       (nextitem = menu_item2 (name, nexti)) != NULL
+	       && nextitem->type == MENU_SUBMENU; nexti++);
+	  printf ("<node %s, %s, %s, %s>\n", item->shortname,
+		  (lastitem != NULL ? lastitem->shortname : ""),
+		  nextitem != NULL ? nextitem->shortname : "", name);
 	  printf ("%%%s\n", item->shortname);
 	  printf ("<head>%s</head>\n", item->name);
 	  if (!(item->flags & MENUFLAG_NOPLAY))
@@ -911,12 +996,14 @@ uih_xshlprintmenu (struct uih_context *c, CONST char *name)
 	      printf ("<p><emph>Syntax</emph>:(%s", item->shortname);
 	      if (item->flags & MENUFLAG_CHECKBOX)
 		printf (" bool");
-	      if (item->type == MENU_DIALOG || item->type == MENU_CUSTOMDIALOG)
+	      if (item->type == MENU_DIALOG
+		  || item->type == MENU_CUSTOMDIALOG)
 		{
 		  int y;
 		  CONST menudialog *di;
 		  di = menu_getdialog (c, item);
-	          if (item->flags & MENUFLAG_CHECKBOX) printf(" [");
+		  if (item->flags & MENUFLAG_CHECKBOX)
+		    printf (" [");
 		  for (y = 0; di[y].question != NULL; y++)
 		    {
 		      switch (di[y].type)
@@ -949,7 +1036,8 @@ uih_xshlprintmenu (struct uih_context *c, CONST char *name)
 			  break;
 			}
 		    }
-	          if (item->flags & MENUFLAG_CHECKBOX) printf(" ]");
+		  if (item->flags & MENUFLAG_CHECKBOX)
+		    printf (" ]");
 		}
 	      printf (")\n");
 	    }
@@ -961,7 +1049,7 @@ uih_xshlprintmenu (struct uih_context *c, CONST char *name)
 	    printf ("%scommand line option", comma ? ", " : ""), comma = 1;
 	  if (!(item->flags & MENUFLAG_NOPLAY))
 	    printf ("%scommand", comma ? ", " : ""), comma = 1;
-	  printf("\n");
+	  printf ("\n");
 	  printf ("\n");
 	  lastitem = item;
 	}
@@ -979,33 +1067,39 @@ uih_xshlprintmenus (struct uih_context *c)
   while (e != NULL)
     {
       if (e->item->type == MENU_SUBMENU)
-	printf ("<p><submenu><a %s>%s</a>\n", e->item->shortname, e->item->name);
+	printf ("<p><submenu><a %s>%s</a>\n", e->item->shortname,
+		e->item->name);
       e = e->next;
     }
   printf ("</center></menuitems>\n");
   e = firstitem;
-  laste=NULL;
+  laste = NULL;
   while (e != NULL)
     {
       if (e->item->type == MENU_SUBMENU)
-      {
-	nexte=e->next;
-	while(nexte!=NULL&&nexte->item->type!=MENU_SUBMENU) nexte=nexte->next;
-	printf ("<node %s, %s, %s, %s>\n", e->item->shortname, (laste != NULL ? laste->item->shortname : ""), nexte != NULL ? nexte->item->shortname : "", "menus");
-	uih_xshlprintmenu (c, e->item->shortname);
-	laste=e;
-      }
+	{
+	  nexte = e->next;
+	  while (nexte != NULL && nexte->item->type != MENU_SUBMENU)
+	    nexte = nexte->next;
+	  printf ("<node %s, %s, %s, %s>\n", e->item->shortname,
+		  (laste != NULL ? laste->item->shortname : ""),
+		  nexte != NULL ? nexte->item->shortname : "", "menus");
+	  uih_xshlprintmenu (c, e->item->shortname);
+	  laste = e;
+	}
       e = e->next;
     }
   printf ("%%endmenus");
 }
+
 void
-menu_forall (struct uih_context *c, void (*callback)(struct uih_context *c, CONST menuitem *item))
+menu_forall (struct uih_context *c,
+	     void (*callback) (struct uih_context * c, CONST menuitem * item))
 {
   struct entry *e = firstitem;
   while (e != NULL)
     {
-       callback(c,e->item);
+      callback (c, e->item);
       e = e->next;
     }
 }

@@ -29,34 +29,34 @@
 
 #include "XaoSEvent.h"
 
-class XaoSDirectView : public XaoSView
+class XaoSDirectView:public XaoSView
 {
 public:
-	typedef XaoSView inherited;
-	
-	// Constructor, destructor.
-	XaoSDirectView(BRect r, port_id p);
-        void SetBuffer(char *buffer, int w, int h);
-	virtual ~XaoSDirectView(void);
+  typedef XaoSView inherited;
 
-	// Create thread and call next function
-	virtual void Draw(BRect updateRect);
-	// Draw that can be called only from non-main thread to avoid deadlocks
-	void DoDraw(void);
+  // Constructor, destructor.
+    XaoSDirectView (BRect r, port_id p);
+  void SetBuffer (char *buffer, int w, int h);
+    virtual ~ XaoSDirectView (void);
+
+  // Create thread and call next function
+  virtual void Draw (BRect updateRect);
+  // Draw that can be called only from non-main thread to avoid deadlocks
+  void DoDraw (void);
 private:
-        char *buffer;
-	int bufferwidth, bufferheight;
-        thread_id      fDrawThreadID; 
-	BRect  Rect;
+  char *buffer;
+  int bufferwidth, bufferheight;
+  thread_id fDrawThreadID;
+  BRect Rect;
 };
 
 // Inline functions.
 inline void
-XaoSDirectView::SetBuffer(char *b, int w, int h)
+XaoSDirectView::SetBuffer (char *b, int w, int h)
 {
-   buffer=b;
-   bufferwidth=w;
-   bufferheight=h;
+  buffer = b;
+  bufferwidth = w;
+  bufferheight = h;
 }
 
 

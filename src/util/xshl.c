@@ -26,45 +26,79 @@
 
 #define ALL (~0)
 CONST static struct tag
-  {
-    CONST char *name;
-    int andflagenable;
-    int orflagenable;
-    int andflagdisable;
-    int orflagdisable;
-  }
+{
+  CONST char *name;
+  int andflagenable;
+  int orflagenable;
+  int andflagdisable;
+  int orflagdisable;
+}
 tags[] =
 {
-  { "p", ALL, XSHL_SKIPBLANK | XSHL_ENDPARAGRAPH, ALL, XSHL_SKIPBLANK | XSHL_ENDPARAGRAPH } ,
-  { "head", ALL, XSHL_SKIPBLANK | XSHL_BIG | XSHL_CENTERALIGN | XSHL_ENDPARAGRAPH, ~(XSHL_BIG | XSHL_CENTERALIGN), XSHL_SKIPBLANK | XSHL_ENDPARAGRAPH | XSHL_ENDLINE } ,
-  { "emph", ALL, XSHL_EMPH, ~XSHL_EMPH, 0 } ,
-  { "br", ALL, XSHL_SKIPBLANK | XSHL_ENDLINE, ALL, 0 } ,
-  { "white", ~XSHL_COLORMASK, XSHL_WHITE, ~XSHL_WHITE, 0 } ,
-  { "red", ~XSHL_COLORMASK, XSHL_RED, ~XSHL_RED, 0 } ,
-  { "black", ~XSHL_COLORMASK, XSHL_BLACK, ~XSHL_BLACK, 0 } ,
-  { "right", ALL, XSHL_SKIPBLANK | XSHL_RIGHTALIGN | XSHL_ENDLINE, ~XSHL_RIGHTALIGN, XSHL_SKIPBLANK | XSHL_ENDLINE } ,
-  { "center", ALL, XSHL_SKIPBLANK | XSHL_CENTERALIGN | XSHL_ENDLINE, ~XSHL_CENTERALIGN, XSHL_SKIPBLANK | XSHL_ENDLINE } ,
-  { "tt", ALL, XSHL_MONOSPACE, ~XSHL_MONOSPACE, 0 } ,
-  { "dl", ALL, XSHL_SKIPBLANK | XSHL_ENDLINE, ~(XSHL_SMALL | XSHL_EMPH), XSHL_SKIPBLANK | XSHL_ENDLINE } ,
-  { "dt", ~XSHL_SMALL, XSHL_SKIPBLANK | XSHL_ENDLINE | XSHL_EMPH, ALL, 0 } ,
-  { "dd", ~XSHL_EMPH, XSHL_SKIPBLANK | XSHL_NEWSTART | XSHL_SMALL, ALL, 0 } ,
-  { NULL } 
-  };
+  {
+  "p", ALL, XSHL_SKIPBLANK | XSHL_ENDPARAGRAPH, ALL,
+      XSHL_SKIPBLANK | XSHL_ENDPARAGRAPH}
+  ,
+  {
+  "head", ALL,
+      XSHL_SKIPBLANK | XSHL_BIG | XSHL_CENTERALIGN | XSHL_ENDPARAGRAPH,
+      ~(XSHL_BIG | XSHL_CENTERALIGN),
+      XSHL_SKIPBLANK | XSHL_ENDPARAGRAPH | XSHL_ENDLINE}
+  ,
+  {
+  "emph", ALL, XSHL_EMPH, ~XSHL_EMPH, 0}
+  ,
+  {
+  "br", ALL, XSHL_SKIPBLANK | XSHL_ENDLINE, ALL, 0}
+  ,
+  {
+  "white", ~XSHL_COLORMASK, XSHL_WHITE, ~XSHL_WHITE, 0}
+  ,
+  {
+  "red", ~XSHL_COLORMASK, XSHL_RED, ~XSHL_RED, 0}
+  ,
+  {
+  "black", ~XSHL_COLORMASK, XSHL_BLACK, ~XSHL_BLACK, 0}
+  ,
+  {
+  "right", ALL, XSHL_SKIPBLANK | XSHL_RIGHTALIGN | XSHL_ENDLINE,
+      ~XSHL_RIGHTALIGN, XSHL_SKIPBLANK | XSHL_ENDLINE}
+  ,
+  {
+  "center", ALL, XSHL_SKIPBLANK | XSHL_CENTERALIGN | XSHL_ENDLINE,
+      ~XSHL_CENTERALIGN, XSHL_SKIPBLANK | XSHL_ENDLINE}
+  ,
+  {
+  "tt", ALL, XSHL_MONOSPACE, ~XSHL_MONOSPACE, 0}
+  ,
+  {
+  "dl", ALL, XSHL_SKIPBLANK | XSHL_ENDLINE, ~(XSHL_SMALL | XSHL_EMPH),
+      XSHL_SKIPBLANK | XSHL_ENDLINE}
+  ,
+  {
+  "dt", ~XSHL_SMALL, XSHL_SKIPBLANK | XSHL_ENDLINE | XSHL_EMPH, ALL, 0}
+  ,
+  {
+  "dd", ~XSHL_EMPH, XSHL_SKIPBLANK | XSHL_NEWSTART | XSHL_SMALL, ALL, 0}
+  ,
+  {
+  NULL}
+};
 
 #define MAXINPUT 256
 
 #define SMALLSKIP (4*spacewidth)
 
 struct boxitem
-  {
-    char *text;
-    struct xshl_context c;
-    int xpos;
-    int width;
-    int height;
-    struct boxitem *next;
-  };
-static void 
+{
+  char *text;
+  struct xshl_context c;
+  int xpos;
+  int width;
+  int height;
+  struct boxitem *next;
+};
+static void
 freebox (struct boxitem *box)
 {
   if (box->c.linktext != NULL)
@@ -73,7 +107,8 @@ freebox (struct boxitem *box)
   free (box);
 }
 static struct xshl_item *
-pack (struct boxitem *first, struct boxitem *last, int *collectedflags, int width)
+pack (struct boxitem *first, struct boxitem *last, int *collectedflags,
+      int width)
 {
   struct xshl_item *f = NULL;
   struct xshl_item *l = NULL;
@@ -84,14 +119,15 @@ pack (struct boxitem *first, struct boxitem *last, int *collectedflags, int widt
   int collected = 0;
   while (curr != last)
     {
-      if(curr->text[0]==0) {
-        ncurr = curr->next;
-        freebox (curr);
-        curr = ncurr;
-	continue;
-      }
+      if (curr->text[0] == 0)
+	{
+	  ncurr = curr->next;
+	  freebox (curr);
+	  curr = ncurr;
+	  continue;
+	}
       strcpy (text, curr->text);
-      item = (struct xshl_item *)malloc (sizeof (struct xshl_item));
+      item = (struct xshl_item *) malloc (sizeof (struct xshl_item));
       if (item == NULL)
 	return NULL;
       item->x = curr->xpos;
@@ -103,14 +139,13 @@ pack (struct boxitem *first, struct boxitem *last, int *collectedflags, int widt
       ncurr = curr->next;
       freebox (curr);
       curr = ncurr;
-      while (
-	      curr != last &&
-	      curr->xpos == item->x + item->width &&
-	      (curr->c.flags & 0xffff) == (item->c.flags & 0xffff)
-	      &&
-	      ((curr->c.linktext == NULL && item->c.linktext == NULL) ||
-	       (curr->c.linktext != NULL && item->c.linktext != NULL &&
-		!strcmp (curr->c.linktext, item->c.linktext))))
+      while (curr != last &&
+	     curr->xpos == item->x + item->width &&
+	     (curr->c.flags & 0xffff) == (item->c.flags & 0xffff)
+	     &&
+	     ((curr->c.linktext == NULL && item->c.linktext == NULL) ||
+	      (curr->c.linktext != NULL && item->c.linktext != NULL &&
+	       !strcmp (curr->c.linktext, item->c.linktext))))
 
 	{
 	  strcat (text, curr->text);
@@ -145,6 +180,7 @@ pack (struct boxitem *first, struct boxitem *last, int *collectedflags, int widt
     }
   return (f);
 }
+
 #ifndef isspace
 #define isspace(c)  ((c)==' '||(c)=='\t'||(c)=='\n')
 #endif
@@ -160,7 +196,7 @@ xshl_readbox (void *data, int (*get) (void *))
   char parameter[32];
   if (flags & XSHL_BLANK)
     {
-      struct boxitem *box = (struct boxitem *)malloc (sizeof (*box));
+      struct boxitem *box = (struct boxitem *) malloc (sizeof (*box));
       box->width = 0;
       box->next = NULL;
       box->height = flags & XSHL_BIG ? 0 : 1;
@@ -220,7 +256,9 @@ xshl_readbox (void *data, int (*get) (void *))
 	int disabled = 0;
 	if (command[0] == '/')
 	  disabled = 1;
-	for (i = 0; tags[i].name != NULL && strcmp (tags[i].name, command + disabled); i++);
+	for (i = 0;
+	     tags[i].name != NULL
+	     && strcmp (tags[i].name, command + disabled); i++);
 	if (tags[i].name != NULL)
 	  {
 	    if (disabled)
@@ -236,14 +274,17 @@ xshl_readbox (void *data, int (*get) (void *))
 	  }
 	else
 	  {
-	    if (!strcmp (command + disabled, "a") || !strcmp (command + disabled, "tutor"))
+	    if (!strcmp (command + disabled, "a")
+		|| !strcmp (command + disabled, "tutor"))
 	      {
 		if (disabled)
 		  xshllink[0] = 0;
 		else
 		  strcpy (xshllink, parameter);
 	      }
-	    else while(c!='>') c=get(data);
+	    else
+	      while (c != '>')
+		c = get (data);
 	  }
       }
       if (c == '>')
@@ -251,17 +292,19 @@ xshl_readbox (void *data, int (*get) (void *))
     }
   else
     c = get (data);
-  if (!c) {
-    return NULL;
-  }
+  if (!c)
+    {
+      return NULL;
+    }
   if (flags & XSHL_SKIPBLANK)
     {
       while (isspace (c))
 	{
 	  c = get (data);
-	  if (!c) {
-	    return NULL;
-	  }
+	  if (!c)
+	    {
+	      return NULL;
+	    }
 	}
       flags &= ~XSHL_SKIPBLANK;
     }
@@ -275,9 +318,10 @@ xshl_readbox (void *data, int (*get) (void *))
 	i = 255;
     }
   inputbuf[i - 1] = 0;
-  if (i == 1 && !c) {
-    return NULL;
-  }
+  if (i == 1 && !c)
+    {
+      return NULL;
+    }
   if (i == 1 && isspace (c))
     {
       flags |= XSHL_BLANK;
@@ -289,7 +333,7 @@ xshl_readbox (void *data, int (*get) (void *))
       return xshl_readbox (data, get);
     }
   {
-    struct boxitem *box = (struct boxitem *)malloc (sizeof (*box));
+    struct boxitem *box = (struct boxitem *) malloc (sizeof (*box));
     box->width = 0;
     box->next = NULL;
     box->height = flags & XSHL_BIG ? 0 : 1;
@@ -320,11 +364,12 @@ xshl_interpret (void *data, int (*get) (void *), int width,
   struct boxitem *item;
   struct boxitem *lastword = NULL;
   int maxlines = 200;
-  struct xshl_line *lines = (struct xshl_line *)malloc (maxlines * sizeof (*lines));
+  struct xshl_line *lines =
+    (struct xshl_line *) malloc (maxlines * sizeof (*lines));
   int nlines = 0;
   int ypos = 0;
-  flags=startflags|XSHL_SKIPBLANK;
-  xshllink[0]=0;
+  flags = startflags | XSHL_SKIPBLANK;
+  xshllink[0] = 0;
   while ((item = xshl_readbox (data, get)) != NULL)
     {
       if (last == NULL)
@@ -335,7 +380,8 @@ xshl_interpret (void *data, int (*get) (void *), int width,
 	      continue;
 	    }
 	  lastword = NULL;
-	  first = item, item->xpos = item->c.flags & XSHL_SMALL ? SMALLSKIP : 0;
+	  first = item, item->xpos =
+	    item->c.flags & XSHL_SMALL ? SMALLSKIP : 0;
 	}
       else
 	{
@@ -347,23 +393,29 @@ xshl_interpret (void *data, int (*get) (void *), int width,
 	}
       last = item;
       item->width = getwidth (data, item->c.flags, item->text);
-      if (item->c.flags & (XSHL_ENDLINE | XSHL_ENDPARAGRAPH) || ((item->c.flags & XSHL_NEWSTART) && item->xpos + spacewidth > SMALLSKIP))
+      if (item->c.flags & (XSHL_ENDLINE | XSHL_ENDPARAGRAPH)
+	  || ((item->c.flags & XSHL_NEWSTART)
+	      && item->xpos + spacewidth > SMALLSKIP))
 	{
 	  if (nlines > maxlines - 1)
-	    maxlines *= 2, lines = (struct xshl_line *)realloc (lines, (maxlines) * sizeof (*lines));
-	  if(first!=NULL) {
-	  lines[nlines].first = pack (first, last, &cflags, width);
-	  lines[nlines].y = ypos;
-	  nlines++;
-	  if (ypos & XSHL_BIG)
-	    ypos += bigheight;
-	  else
-	    ypos += smallheight;
-	  }
+	    maxlines *= 2, lines =
+	      (struct xshl_line *) realloc (lines,
+					    (maxlines) * sizeof (*lines));
+	  if (first != NULL)
+	    {
+	      lines[nlines].first = pack (first, last, &cflags, width);
+	      lines[nlines].y = ypos;
+	      nlines++;
+	      if (ypos & XSHL_BIG)
+		ypos += bigheight;
+	      else
+		ypos += smallheight;
+	    }
 	  if (item->c.flags & (XSHL_ENDPARAGRAPH))
 	    ypos += smallheight;
 	  first = last;
-	  item->xpos = item->c.flags & item->c.flags & XSHL_SMALL ? SMALLSKIP : 0;
+	  item->xpos =
+	    item->c.flags & item->c.flags & XSHL_SMALL ? SMALLSKIP : 0;
 	  lastword = NULL;
 	}
       else if (item->c.flags & XSHL_NEWSTART)
@@ -385,7 +437,9 @@ xshl_interpret (void *data, int (*get) (void *), int width,
 	    {
 	      int xpos;
 	      if (nlines > maxlines - 1)
-		maxlines *= 2, lines = (struct xshl_line *)realloc (lines, (maxlines) * sizeof (*lines));
+		maxlines *= 2, lines =
+		  (struct xshl_line *) realloc (lines,
+						(maxlines) * sizeof (*lines));
 	      lines[nlines].first = pack (first, lastword, &cflags, width);
 	      lines[nlines].y = ypos;
 	      nlines++;
@@ -393,17 +447,23 @@ xshl_interpret (void *data, int (*get) (void *), int width,
 		ypos += bigheight;
 	      else
 		ypos += smallheight;
-	      if(lastword!=NULL) first = lastword->next; else first=NULL;
-	      item=first;
-	      if(item!=NULL) {
-	      xpos = item->c.flags & item->c.flags & XSHL_SMALL ? SMALLSKIP : 0;
-	      while (item != NULL)
+	      if (lastword != NULL)
+		first = lastword->next;
+	      else
+		first = NULL;
+	      item = first;
+	      if (item != NULL)
 		{
-		  item->xpos = xpos;
-		  xpos += item->width;
-		  item = item->next;
+		  xpos =
+		    item->c.flags & item->c.
+		    flags & XSHL_SMALL ? SMALLSKIP : 0;
+		  while (item != NULL)
+		    {
+		      item->xpos = xpos;
+		      xpos += item->width;
+		      item = item->next;
+		    }
 		}
-	      }
 	      freebox (lastword);
 	      lastword = NULL;
 	      if (first == NULL)
@@ -418,17 +478,19 @@ xshl_interpret (void *data, int (*get) (void *), int width,
     }
   nlines++;
   lines[nlines].y = -1;
-  lines = (struct xshl_line *)realloc (lines, (nlines + 2) * sizeof (*lines));
+  lines =
+    (struct xshl_line *) realloc (lines, (nlines + 2) * sizeof (*lines));
   return (lines);
 }
 
 
-int 
+int
 xshl_textlen (void *data, int flags, CONST char *text)
 {
-  return ((int)strlen (text));
+  return ((int) strlen (text));
 }
-void 
+
+void
 xshl_print (int startskip, struct xshl_line *lines)
 {
   int i = 0;
@@ -454,7 +516,7 @@ xshl_print (int startskip, struct xshl_line *lines)
       i++;
     }
 }
-void 
+void
 xshl_free (struct xshl_line *lines)
 {
   int i = 0;
@@ -475,4 +537,3 @@ xshl_free (struct xshl_line *lines)
     }
   free (lines);
 }
-

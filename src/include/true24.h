@@ -29,4 +29,3 @@
 #define p_getp(ptr,pos) p_get((ptr)+(pos)*3)
 #define p_add(ptr,pos) ((ptr)+(pos)*3)
 #define p_inc(ptr,pos) ((ptr)+=(pos)*3)
-

@@ -17,9 +17,9 @@
 #define IMAGETYPE SMALLITER
 #define spixel_t pixel8_t
 struct siterdata
-  {
-    struct palette *palette;
-  };
+{
+  struct palette *palette;
+};
 static int
 requirement (struct filter *f, struct requirements *r)
 {
@@ -32,7 +32,7 @@ requirement (struct filter *f, struct requirements *r)
 static int
 initialize (struct filter *f, struct initdata *i)
 {
-  struct siterdata *s = (struct siterdata *)f->data;
+  struct siterdata *s = (struct siterdata *) f->data;
   inhermisc (f, i);
   if (!inherimage (f, i, TOUCHIMAGE, 0, 0, s->palette, 0, 0))
     return 0;
@@ -42,8 +42,10 @@ static struct filter *
 getinstance (CONST struct filteraction *a)
 {
   struct filter *f = createfilter (a);
-  struct siterdata *i = (struct siterdata *)calloc (1, sizeof (*i));
-  i->palette = createpalette (0, 65536, IMAGETYPE, 0, 65536, NULL, NULL, NULL, NULL, NULL);
+  struct siterdata *i = (struct siterdata *) calloc (1, sizeof (*i));
+  i->palette =
+    createpalette (0, 65536, IMAGETYPE, 0, 65536, NULL, NULL, NULL, NULL,
+		   NULL);
   f->data = i;
   f->name = "Smalliter image convertor";
   return (f);
@@ -51,7 +53,7 @@ getinstance (CONST struct filteraction *a)
 static void
 convert8 (void *data, struct taskinfo *task, int r1, int r2)
 {
-  struct filter *f = (struct filter *)data;
+  struct filter *f = (struct filter *) data;
   struct image *img1 = f->childimage, *img2 = f->image;
   unsigned char *src, *srcend;
   unsigned int *pixels = img2->palette->pixels;
@@ -69,7 +71,7 @@ convert8 (void *data, struct taskinfo *task, int r1, int r2)
 static void
 convert16 (void *data, struct taskinfo *task, int r1, int r2)
 {
-  struct filter *f = (struct filter *)data;
+  struct filter *f = (struct filter *) data;
   struct image *img1 = f->childimage, *img2 = f->image;
   unsigned char *src, *srcend;
   unsigned int *pixels = img2->palette->pixels;
@@ -81,17 +83,18 @@ convert16 (void *data, struct taskinfo *task, int r1, int r2)
       dest = (pixel16_t *) img2->currlines[i];
       srcend = src + img1->width;
       for (; src < srcend; src++, dest++)
-      {
-	*dest = pixels[*src];
-      }
+	{
+	  *dest = pixels[*src];
+	}
     }
 }
+
 #ifdef STRUECOLOR24
 #include <true24.h>
 static void
 convert24 (void *data, struct taskinfo *task, int r1, int r2)
 {
-  struct filter *f = (struct filter *)data;
+  struct filter *f = (struct filter *) data;
   struct image *img1 = f->childimage, *img2 = f->image;
   unsigned char *src, *srcend;
   unsigned int *pixels = img2->palette->pixels;
@@ -110,7 +113,7 @@ convert24 (void *data, struct taskinfo *task, int r1, int r2)
 static void
 convert32 (void *data, struct taskinfo *task, int r1, int r2)
 {
-  struct filter *f = (struct filter *)data;
+  struct filter *f = (struct filter *) data;
   struct image *img1 = f->childimage, *img2 = f->image;
   unsigned char *src, *srcend;
   unsigned int *pixels = img2->palette->pixels;
@@ -128,7 +131,7 @@ convert32 (void *data, struct taskinfo *task, int r1, int r2)
 static void
 destroyinstance (struct filter *f)
 {
-  struct siterdata *i = (struct siterdata *)f->data;
+  struct siterdata *i = (struct siterdata *) f->data;
   destroypalette (i->palette);
   free (f->data);
   destroyinheredimage (f);
@@ -145,23 +148,21 @@ doit (struct filter *f, int flags, int time)
   else
     size = 256;
   if (size != f->childimage->palette->size)
-    f->childimage->palette->size = size,
-      f->childimage->palette->version++;
+    f->childimage->palette->size = size, f->childimage->palette->version++;
   val = f->previous->action->doit (f->previous, flags, time);
-  if (f->image->palette->type != SMALLITER || f->image->currlines[0] != f->childimage->currlines[0])
+  if (f->image->palette->type != SMALLITER
+      || f->image->currlines[0] != f->childimage->currlines[0])
     {
-      drivercall (*f->image,
+    drivercall (*f->image,
 		  xth_function (convert8, f, f->image->height),
 		  xth_function (convert16, f, f->image->height),
 		  xth_function (convert24, f, f->image->height),
-		  xth_function (convert32, f, f->image->height))
-    }
+		  xth_function (convert32, f, f->image->height))}
   xth_sync ();
   return val;
 }
 
-CONST struct filteraction smalliter_filter =
-{
+CONST struct filteraction smalliter_filter = {
   "Smalliter image convertor",
   "smalliter",
   0,

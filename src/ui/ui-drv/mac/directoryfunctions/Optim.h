@@ -54,67 +54,67 @@
 
 #if TARGET_CARBON
 
-	#define __MACOSSEVENFIVEONEORLATER 1
-	
-	#define __MACOSSEVENORLATER 1	
-	
-	#ifndef	__WANTPASCALELIMINATION
-		#define	__WANTPASCALELIMINATION	0
-	#endif
-	
-	#if	__WANTPASCALELIMINATION
-		#define pascal	
-	#endif
-	
-	
-	#ifndef __USEPRAGMAINTERNAL
-		#define	__USEPRAGMAINTERNAL	0
-	#endif
-	
-	#if	__USEPRAGMAINTERNAL
-		#if defined(__MWERKS__)
-			#pragma internal on
-		#endif
-	#endif
+#define __MACOSSEVENFIVEONEORLATER 1
+
+#define __MACOSSEVENORLATER 1
+
+#ifndef	__WANTPASCALELIMINATION
+#define	__WANTPASCALELIMINATION	0
+#endif
+
+#if	__WANTPASCALELIMINATION
+#define pascal
+#endif
+
+
+#ifndef __USEPRAGMAINTERNAL
+#define	__USEPRAGMAINTERNAL	0
+#endif
+
+#if	__USEPRAGMAINTERNAL
+#if defined(__MWERKS__)
+#pragma internal on
+#endif
+#endif
 #else
 
 	// we have a basic requirements of 7.5.3 Rev 2 or 7.6
-	
-	#define __MACOSSEVENFIVEONEORLATER 1
 
-	#ifndef __MACOSSEVENFIVEONEORLATER
-		#define __MACOSSEVENFIVEONEORLATER 0
-	#endif
-	
-	#ifndef __MACOSSEVENFIVEORLATER
-		#define __MACOSSEVENFIVEORLATER __MACOSSEVENFIVEONEORLATER
-	#endif
-	
-	#ifndef __MACOSSEVENORLATER
-		#if GENERATINGCFM
-			#define __MACOSSEVENORLATER 1
-		#else
-			#define __MACOSSEVENORLATER __MACOSSEVENFIVEORLATER
-		#endif
-	#endif
-	
-	
-	#ifndef	__WANTPASCALELIMINATION
-		#define	__WANTPASCALELIMINATION	0
-	#endif
-	
-	#if	__WANTPASCALELIMINATION
-		#define pascal	
-	#endif
-	
-	
-	#ifndef __USEPRAGMAINTERNAL
-		#define	__USEPRAGMAINTERNAL	0
-	#endif
-	
-	#if	__USEPRAGMAINTERNAL
-		#if defined(__MWERKS__)
-			#pragma internal on
-		#endif
-	#endif
+#define __MACOSSEVENFIVEONEORLATER 1
+
+#ifndef __MACOSSEVENFIVEONEORLATER
+#define __MACOSSEVENFIVEONEORLATER 0
+#endif
+
+#ifndef __MACOSSEVENFIVEORLATER
+#define __MACOSSEVENFIVEORLATER __MACOSSEVENFIVEONEORLATER
+#endif
+
+#ifndef __MACOSSEVENORLATER
+#if GENERATINGCFM
+#define __MACOSSEVENORLATER 1
+#else
+#define __MACOSSEVENORLATER __MACOSSEVENFIVEORLATER
+#endif
+#endif
+
+
+#ifndef	__WANTPASCALELIMINATION
+#define	__WANTPASCALELIMINATION	0
+#endif
+
+#if	__WANTPASCALELIMINATION
+#define pascal
+#endif
+
+
+#ifndef __USEPRAGMAINTERNAL
+#define	__USEPRAGMAINTERNAL	0
+#endif
+
+#if	__USEPRAGMAINTERNAL
+#if defined(__MWERKS__)
+#pragma internal on
+#endif
+#endif
 #endif

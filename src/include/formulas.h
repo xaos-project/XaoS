@@ -26,7 +26,8 @@
 #include <fractal.h>
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 #define MAX_LAMBDA 2
@@ -34,13 +35,13 @@ extern "C" {
 
 #define FORMULAMAGIC 1121
 
-extern CONST char * CONST incolorname[];
-extern CONST struct formula formulas[];
-extern CONST char * CONST outcolorname[];
-extern CONST char * CONST tcolorname[];
-extern CONST int nformulas;
+  extern CONST char *CONST incolorname[];
+  extern CONST struct formula formulas[];
+  extern CONST char *CONST outcolorname[];
+  extern CONST char *CONST tcolorname[];
+  extern CONST int nformulas;
 
 #ifdef __cplusplus
 }
 #endif
-#endif /* FORMULAS_H */
+#endif				/* FORMULAS_H */

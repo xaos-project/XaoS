@@ -2,14 +2,14 @@
 static void
 do_rotate (void *data, struct taskinfo *task, int r1, int r2)
 {
-  struct filter *f = (struct filter *)data;
-  struct rotatedata *s = (struct rotatedata *)f->data;
+  struct filter *f = (struct filter *) data;
+  struct rotatedata *s = (struct rotatedata *) f->data;
   double xstep = (s->x2 - s->x1) * 65536 / f->image->height;
   double ystep = (s->y2 - s->y1) * 65536 / f->image->height;
   double x = (s->x1) * 65536, y = (s->y1) * 65536;
 
-  int ixstep = (int)((s->xx1 - s->x1) * 65536);
-  int iystep = (int)((s->yy1 - s->y1) * 65536);
+  int ixstep = (int) ((s->xx1 - s->x1) * 65536);
+  int iystep = (int) ((s->yy1 - s->y1) * 65536);
   int i;
 
   if (x < 0)
@@ -30,11 +30,12 @@ do_rotate (void *data, struct taskinfo *task, int r1, int r2)
     {
 
       {
-	register int ix = (int)x;
-	register int iy = (int)y;
+	register int ix = (int) x;
+	register int iy = (int) y;
 	register cpixel_t **vbuff = (cpixel_t **) f->childimage->currlines;
-	register cpixel_t *end = p_add ((cpixel_t *) f->image->currlines[i], f->image->width),
-	 *dest = (cpixel_t *) f->image->currlines[i];
+	register cpixel_t *end =
+	  p_add ((cpixel_t *) f->image->currlines[i], f->image->width),
+	  *dest = (cpixel_t *) f->image->currlines[i];
 	register int iixstep = ixstep, iiystep = iystep;
 
 	while (dest < end)

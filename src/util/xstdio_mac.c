@@ -38,94 +38,102 @@ char *xio_homedir;
 char *
 xio_fixpath (CONST char *c)
 {
-  char *c2 = (char *)malloc(strlen(c) + strlen(xio_homedir) + strlen(xio_appdir) + 5);
-  
+  char *c2 =
+    (char *) malloc (strlen (c) + strlen (xio_homedir) + strlen (xio_appdir) +
+		     5);
+
   // replace ~ with home directory
   if (c[0] == '~')
-  {
-    if (c[1] == ':' && xio_appdir[strlen(xio_homedir)-1]==':')
-      c++;
-    sprintf (c2, "%s%s", xio_homedir, c + 1);
-  }
+    {
+      if (c[1] == ':' && xio_appdir[strlen (xio_homedir) - 1] == ':')
+	c++;
+      sprintf (c2, "%s%s", xio_homedir, c + 1);
+    }
   // replace \01 with app directory
   else if (c[0] == '\01')
-  {
-    if (c[1] == ':' && xio_appdir[strlen(xio_appdir)-1]==':')
-      c++;
-    sprintf (c2, "%s%s", xio_appdir, c + 1);
-    return c2;
-  }
+    {
+      if (c[1] == ':' && xio_appdir[strlen (xio_appdir) - 1] == ':')
+	c++;
+      sprintf (c2, "%s%s", xio_appdir, c + 1);
+      return c2;
+    }
   else
-    strcpy(c2, c);
+    strcpy (c2, c);
 
   // make :: function as "back a directory"
-  while(strstr(c2,"::")) {
-    char *d = strstr(c2,"::");
-    char *e = d+2;
+  while (strstr (c2, "::"))
+    {
+      char *d = strstr (c2, "::");
+      char *e = d + 2;
 
-    while (d > c && d[-1]!=':')
-      d--;
-    
-    while(e[-1])
-      *d++ = *e++;
-  }
+      while (d > c && d[-1] != ':')
+	d--;
+
+      while (e[-1])
+	*d++ = *e++;
+    }
 
   return c2;
 }
 
-typedef struct dirlist {
+typedef struct dirlist
+{
   char **names;
   char **dirs;
   int nnames;
   int ndirs;
-} dirlist;
+}
+dirlist;
 
 const int xstdio_mac_maxnames = 200;
 const int xstdio_mac_maxdirs = 200;
 
-pascal void myIterateFn (const CInfoPBRec * const cpbPtr,
-											   Boolean *quitFlag,
-											   void *myDataPtr)
+pascal void
+myIterateFn (const CInfoPBRec * const cpbPtr,
+	     Boolean * quitFlag, void *myDataPtr)
 {
-  dirlist *list = (dirlist *)myDataPtr;
+  dirlist *list = (dirlist *) myDataPtr;
   int x;
   int len;
   unsigned char *name;
-  
-  if (cpbPtr->dirInfo.ioFlAttrib & 16) {
-    // it's a directory
-    
-    if (list->ndirs == xstdio_mac_maxdirs)
-      return;
-    
-    name = (unsigned char *)(cpbPtr->dirInfo.ioNamePtr);
-    len = name[0];
 
-    list->dirs[list->ndirs] = (char *)malloc(len+1);
-    for(x=0; x<len; x++)
-      list->dirs[list->ndirs][x] = name[x+1];
-    list->dirs[list->ndirs][len] = 0;
-    list->ndirs++;
-  }
-  else {
-    // it's a file
+  if (cpbPtr->dirInfo.ioFlAttrib & 16)
+    {
+      // it's a directory
 
-    if (list->nnames == xstdio_mac_maxnames)
-      return;
-    
-    name = (unsigned char *)(cpbPtr->hFileInfo.ioNamePtr);
-    len = name[0];
+      if (list->ndirs == xstdio_mac_maxdirs)
+	return;
 
-    list->names[list->nnames] = (char *)malloc(len+1);
-    for(x=0; x<len; x++)
-      list->names[list->nnames][x] = name[x+1];
-    list->names[list->nnames][len] = 0;
-    list->nnames++;
-  }
+      name = (unsigned char *) (cpbPtr->dirInfo.ioNamePtr);
+      len = name[0];
+
+      list->dirs[list->ndirs] = (char *) malloc (len + 1);
+      for (x = 0; x < len; x++)
+	list->dirs[list->ndirs][x] = name[x + 1];
+      list->dirs[list->ndirs][len] = 0;
+      list->ndirs++;
+    }
+  else
+    {
+      // it's a file
+
+      if (list->nnames == xstdio_mac_maxnames)
+	return;
+
+      name = (unsigned char *) (cpbPtr->hFileInfo.ioNamePtr);
+      len = name[0];
+
+      list->names[list->nnames] = (char *) malloc (len + 1);
+      for (x = 0; x < len; x++)
+	list->names[list->nnames][x] = name[x + 1];
+      list->names[list->nnames][len] = 0;
+      list->nnames++;
+    }
 }
 
 int
-xio_getfiles (xio_constpath path1, char ***names, char ***dirs, int *nnames2, int *ndirs2)
+xio_getfiles (xio_constpath path1, char ***names, char ***dirs, int *nnames2,
+	      int *ndirs2)
 {
   char *p2 = xio_fixpath (path1);
   char *path;
@@ -133,7 +141,7 @@ xio_getfiles (xio_constpath path1, char ***names, char ***dirs, int *nnames2, in
   dirlist list;
   OSErr err;
   short vRefNum;
-  long  parID;
+  long parID;
   Str255 name;
 
   *names = 0;
@@ -142,64 +150,68 @@ xio_getfiles (xio_constpath path1, char ***names, char ***dirs, int *nnames2, in
   *ndirs2 = 0;
 
   // Make sure path ends in a colon
-  if (strlen(p2) && p2[strlen(p2)-1]!=':')
-  {
-    path = malloc(strlen(p2)+2);
-    strcpy(path,p2);
-    strcat(path,":");
-  }
+  if (strlen (p2) && p2[strlen (p2) - 1] != ':')
+    {
+      path = malloc (strlen (p2) + 2);
+      strcpy (path, p2);
+      strcat (path, ":");
+    }
   else
     path = p2;
-  
+
   list.nnames = 0;
   list.ndirs = 0;
   list.names = (char **) malloc (xstdio_mac_maxnames * sizeof (char *));
   list.dirs = (char **) malloc (xstdio_mac_maxdirs * sizeof (char *));
 
-  pathlen = strlen(path);
-  err = LocationFromFullPath(pathlen, path, &vRefNum, &parID, name);
-  if (err) goto bad;
-  
-  err = IterateDirectory(vRefNum, parID, name, 1,
-                         myIterateFn,
-                         (void *)&list);
-  if (err) goto bad;
+  pathlen = strlen (path);
+  err = LocationFromFullPath (pathlen, path, &vRefNum, &parID, name);
+  if (err)
+    goto bad;
+
+  err = IterateDirectory (vRefNum, parID, name, 1,
+			  myIterateFn, (void *) &list);
+  if (err)
+    goto bad;
 
   // Add the empty directory
-  list.dirs[list.ndirs] = malloc(2);
-  strcpy(list.dirs[list.ndirs],":");
+  list.dirs[list.ndirs] = malloc (2);
+  strcpy (list.dirs[list.ndirs], ":");
   list.ndirs++;
 
   if (list.nnames)
-    list.names = (char **) realloc (list.names, list.nnames * sizeof (char *));
-  else {
-    free (list.names);
-    list.names = NULL;
-  }
-  
+    list.names =
+      (char **) realloc (list.names, list.nnames * sizeof (char *));
+  else
+    {
+      free (list.names);
+      list.names = NULL;
+    }
+
   if (list.ndirs)
     list.dirs = (char **) realloc (list.dirs, list.ndirs * sizeof (char *));
-  else {
-    free (list.dirs);
-    list.dirs = NULL;
-  }
+  else
+    {
+      free (list.dirs);
+      list.dirs = NULL;
+    }
 
   *nnames2 = list.nnames;
   *ndirs2 = list.ndirs;
   *names = list.names;
   *dirs = list.dirs;
 
-  free(p2);
+  free (p2);
   if (p2 != path)
-    free(path);
+    free (path);
 
   return 1;
-  
+
 bad:
 
-  free(p2);
+  free (p2);
   if (p2 != path)
-    free(path);
+    free (path);
 
   return 0;
 }
@@ -210,16 +222,17 @@ xio_getdirectory (xio_constpath filename)
   int i;
   xio_pathdata directory;
   for (i = (int) strlen (filename); i && filename[i] != '/' &&
-       filename[i] != '\\' && filename[i] != XIO_PATHSEP; i--) {}
-       
+       filename[i] != '\\' && filename[i] != XIO_PATHSEP; i--)
+    {
+    }
+
 //  if (filename[i] == '/' || filename[i] == '\\' || filename[i] == XIO_PATHSEP)
 //    i++;
 
   directory[i] = 0;
   i--;
   for (; i >= 0; i--)
-    directory[i] =
-      filename[i];
+    directory[i] = filename[i];
   return (mystrdup (directory));
 }
 
@@ -247,20 +260,20 @@ xio_getfilename (CONST char *basename, CONST char *extension)
   free (base);
   return (name);
 }
+
 xio_file
 xio_getrandomexample (xio_path name)
 {
 #if 0
-  static CONST char * CONST paths[] =
-  {				/*Where examples should be located? */
+  static CONST char *CONST paths[] = {	/*Where examples should be located? */
     EXAMPLESPATH,		/*Data path when XaoS is propertly installed */
     "\01" XIO_PATHSEPSTR "examples",
-  /*XaoS was started from root of source tree */
+    /*XaoS was started from root of source tree */
     "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "examples",
     "." XIO_PATHSEPSTR "examples",
-  /*XaoS was started from root of source tree */
+    /*XaoS was started from root of source tree */
     ".." XIO_PATHSEPSTR "examples",
-  /*XaoS was started from bin directory in source tree */
+    /*XaoS was started from bin directory in source tree */
     XIO_EMPTYPATH,		/*Oops...it's not. Try curent directory */
   };
   int i = -1, p;
@@ -347,11 +360,11 @@ xio_getrandomexample (xio_path name)
   return (f);
 #endif
 }
+
 xio_file
 xio_getcatalog (CONST char *name)
 {
-  static CONST xio_constpath paths[] =
-  {				/*Where catalogs should be located? */
+  static CONST xio_constpath paths[] = {	/*Where catalogs should be located? */
     CATALOGSPATH,		/*Data path when XaoS is propertly installed */
     "\01" XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
     "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
@@ -364,38 +377,40 @@ xio_getcatalog (CONST char *name)
   int i;
   xio_file f = XIO_FAILED;
   xio_pathdata tmp;
-  for (i = 0; i < (int) (sizeof (paths) / sizeof (char *)) && f == XIO_FAILED; i++)
+  for (i = 0; i < (int) (sizeof (paths) / sizeof (char *)) && f == XIO_FAILED;
+       i++)
     {
       char *p = xio_fixpath (paths[i]);
       xio_addfname (tmp, p, name);
       free (p);
       f = xio_ropen (tmp);
       if (f == XIO_FAILED)
-			{
-			  xio_addextension (tmp, ".cat");
-			  f = xio_ropen (tmp);
-			}
+	{
+	  xio_addextension (tmp, ".cat");
+	  f = xio_ropen (tmp);
+	}
     }
   return (f);
 }
+
 xio_file
 xio_gethelp (void)
 {
-  static CONST xio_constpath paths[] =
-  {	/*Where help should be located? */
+  static CONST xio_constpath paths[] = {	/*Where help should be located? */
     HELPPATH,			/*Data path when XaoS is propertly installed */
-  "\01" XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
-  "\01" XIO_PATHSEPSTR ".."   XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
+    "\01" XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
+    "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
     "." XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
-  /*XaoS was started from root of source tree */
+    /*XaoS was started from root of source tree */
     ".." XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
-  /*XaoS was started from bin directory in source tree */
+    /*XaoS was started from bin directory in source tree */
     "." XIO_PATHSEPSTR "xaos.hlp",
-  /*Oops...it's not. Try curent directory */
+    /*Oops...it's not. Try curent directory */
   };
   int i;
   xio_file f = XIO_FAILED;
-  for (i = 0; i < (int) (sizeof (paths) / sizeof (char *)) && f == XIO_FAILED; i++)
+  for (i = 0; i < (int) (sizeof (paths) / sizeof (char *)) && f == XIO_FAILED;
+       i++)
     {
       char *p = xio_fixpath (paths[i]);
       f = xio_ropen (p);
@@ -403,13 +418,13 @@ xio_gethelp (void)
     }
   return (f);
 }
+
 xio_file
 xio_gettutorial (CONST char *name, xio_path tmp)
 {
   int i;
   xio_file f = XIO_FAILED;
-  static CONST xio_constpath paths[] =
-  {				/*Where tutorials should be located? */
+  static CONST xio_constpath paths[] = {	/*Where tutorials should be located? */
     TUTORIALPATH,		/*Data path when XaoS is propertly installed */
 #ifndef _plan9_
     "\01" XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,
@@ -423,7 +438,8 @@ xio_gettutorial (CONST char *name, xio_path tmp)
     XIO_EMPTYPATH,		/*Oops...it's not. Try curent directory */
   };
 
-  for (i = 0; i < (int) (sizeof (paths) / sizeof (char *)) && f == XIO_FAILED; i++)
+  for (i = 0; i < (int) (sizeof (paths) / sizeof (char *)) && f == XIO_FAILED;
+       i++)
     {
       char *p = xio_fixpath (paths[i]);
       xio_addfname (tmp, p, name);
@@ -432,6 +448,7 @@ xio_gettutorial (CONST char *name, xio_path tmp)
     }
   return (f);
 }
+
 int
 xio_exist (xio_constpath name)
 {
@@ -442,50 +459,51 @@ xio_exist (xio_constpath name)
   return (!stat (name, &buf));
 #endif
 }
-static int 
+static int
 sputc (int c, xio_file f)
 {
   return putc (c, (FILE *) f->data);
 }
-static int 
+static int
 sputs (CONST char *c, xio_file f)
 {
   return fputs (c, (FILE *) f->data);
 }
-static int 
+static int
 sungetc (int c, xio_file f)
 {
   return ungetc (c, (FILE *) f->data);
 }
-static int 
+static int
 sgetc (xio_file f)
 {
   return getc ((FILE *) f->data);
 }
-static int 
+static int
 sfeof (xio_file f)
 {
   return feof ((FILE *) f->data);
 }
-static int 
+static int
 sflush (xio_file f)
 {
   return fflush ((FILE *) f->data);
 }
-static int 
+static int
 ssclose (xio_file f)
 {
   int r = fclose ((FILE *) f->data);
   free (f);
   return r;
 }
-xio_file 
+
+xio_file
 xio_ropen (CONST char *name)
 {
   xio_file f = (xio_file) calloc (1, sizeof (*f));
   name = xio_fixpath (name);
   f->data = (void *) fopen (name, "rb");
-  /*free (name);*/
+  /*free (name); */
   if (!f->data)
     {
       free (f);
@@ -497,13 +515,14 @@ xio_ropen (CONST char *name)
   f->fungetc = sungetc;
   return f;
 }
-xio_file 
+
+xio_file
 xio_wopen (CONST char *name)
 {
   xio_file f = (xio_file) calloc (1, sizeof (*f));
   name = xio_fixpath (name);
   f->data = (void *) fopen (name, "wt");
-  /*free (name);*/
+  /*free (name); */
   if (!f->data)
     {
       free (f);
@@ -515,13 +534,14 @@ xio_wopen (CONST char *name)
   f->flush = sflush;
   return f;
 }
+
 #ifdef DJGPP
 #define DRIVES
 #endif
 #ifdef _WIN32
 #define DRIVES
 #endif
-void 
+void
 xio_init (CONST char *name)
 {
   if (getenv ("HOME"))
@@ -530,20 +550,23 @@ xio_init (CONST char *name)
     xio_homedir = mystrdup ("./");
   if (
 #ifdef DRIVES
-       (((name[0] >= 'a' && name[0] <= 'z') || (name[0] >= 'A' && name[0] <= 'Z')) && name[1] == ':' && (name[2] == '\\' || name[2] == '/')) ||
+       (((name[0] >= 'a' && name[0] <= 'z')
+	 || (name[0] >= 'A' && name[0] <= 'Z')) && name[1] == ':'
+	&& (name[2] == '\\' || name[2] == '/')) ||
 #endif
-       name[0] == '/' || name[0] == '\\' || name[0] == XIO_PATHSEP || name[0] == '~')
-	    {
-	      char *c = mystrdup (name);
-	      int i;
-	      int pos = 0;
-	      for (i = 0; i < (int) strlen (c); i++)
-					if (name[i] == '/' || name[i] == '\\' || name[i] == XIO_PATHSEP)
-					  pos = i;
-				      c[pos] = 0;
-				      xio_appdir = xio_fixpath (c);
-				      free (c);
-	    }
+       name[0] == '/' || name[0] == '\\' || name[0] == XIO_PATHSEP
+       || name[0] == '~')
+    {
+      char *c = mystrdup (name);
+      int i;
+      int pos = 0;
+      for (i = 0; i < (int) strlen (c); i++)
+	if (name[i] == '/' || name[i] == '\\' || name[i] == XIO_PATHSEP)
+	  pos = i;
+      c[pos] = 0;
+      xio_appdir = xio_fixpath (c);
+      free (c);
+    }
   else
     {
       char buf[4096];
@@ -553,25 +576,25 @@ xio_init (CONST char *name)
       getcwd (buf, sizeof (buf));
 #endif
       xio_appdir = mystrdup (buf);
-      
-      if (xio_appdir[strlen(xio_appdir)-1] != XIO_PATHSEP)
-      {
-				char *c = mystrdup (name), *c1;
-				int i;
-				int pos = 0;
-				for (i = 0; i < (int) strlen (c); i++)
-				  if (name[i] == '/' || name[i] == '\\' || name[i] == XIO_PATHSEP)
-		    pos = i;
-				c[pos] = 0;
-				c1 = (char *) malloc (strlen (c) + strlen (xio_appdir) + 2);
-				sprintf (c1, "%s%s%s", xio_appdir, XIO_PATHSEPSTR, c);
-				free (c);
-				free (xio_appdir);
-				xio_appdir = c1;
-	    }
+
+      if (xio_appdir[strlen (xio_appdir) - 1] != XIO_PATHSEP)
+	{
+	  char *c = mystrdup (name), *c1;
+	  int i;
+	  int pos = 0;
+	  for (i = 0; i < (int) strlen (c); i++)
+	    if (name[i] == '/' || name[i] == '\\' || name[i] == XIO_PATHSEP)
+	      pos = i;
+	  c[pos] = 0;
+	  c1 = (char *) malloc (strlen (c) + strlen (xio_appdir) + 2);
+	  sprintf (c1, "%s%s%s", xio_appdir, XIO_PATHSEPSTR, c);
+	  free (c);
+	  free (xio_appdir);
+	  xio_appdir = c1;
+	}
     }
 }
-void 
+void
 xio_uninit ()
 {
   free (xio_appdir);

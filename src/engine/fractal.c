@@ -111,6 +111,7 @@ set_view (fractal_context * c, CONST vinfo * s)
   c->s = *s;
   recalc_view (c);
 }
+
 /*FIXME most of this code is obsolette */
 static void			/*INLINE */
 combine_methods (void)
@@ -119,8 +120,9 @@ combine_methods (void)
   int i, j;
 #endif
   int angle = (int) cfractalc.angle;
-  CONST struct symetryinfo *s1 = cfractalc.currentformula->out + cfractalc.coloringmode,
-   *s2 = cfractalc.currentformula->in + cfractalc.incoloringmode;
+  CONST struct symetryinfo *s1 =
+    cfractalc.currentformula->out + cfractalc.coloringmode, *s2 =
+    cfractalc.currentformula->in + cfractalc.incoloringmode;
   if (angle < 0)
     {
       angle = 360 - ((-angle) % 360);
@@ -173,7 +175,7 @@ combine_methods (void)
     }
   cursymetry.symetry = sym_lines;
   cursymetry.nsymetries = 0;
-  if ((number_t)angle == cfractalc.angle)
+  if ((number_t) angle == cfractalc.angle)
     {
       switch (angle)
 	{
@@ -212,6 +214,7 @@ combine_methods (void)
   if (cursymetry.ysym == -(number_t) INT_MAX)
     cursymetry.ysym = (number_t) INT_MAX;
 }
+
 void
 update_view (fractal_context * context)
 {
@@ -233,15 +236,19 @@ set_fractalc (fractal_context * context, struct image *img)
 
   if (cfractalc.periodicity)
     {
-      if (!cformula.hasperiodicity || cfractalc.incoloringmode || !cfractalc.mandelbrot)
+      if (!cformula.hasperiodicity || cfractalc.incoloringmode
+	  || !cfractalc.mandelbrot)
 	cfractalc.periodicity = 0;
       else if (!cfractalc.plane)
-	cfractalc.periodicity_limit = (context->rs.mc - context->rs.nc) / (double) img->width;
+	cfractalc.periodicity_limit =
+	  (context->rs.mc - context->rs.nc) / (double) img->width;
       else
 	{
 	  int x, y;
-	  number_t xstep = ((context->rs.mc - context->rs.nc) / (double) img->width);
-	  number_t ystep = ((context->rs.mc - context->rs.nc) / (double) img->height);
+	  number_t xstep =
+	    ((context->rs.mc - context->rs.nc) / (double) img->width);
+	  number_t ystep =
+	    ((context->rs.mc - context->rs.nc) / (double) img->height);
 	  number_t xstep2 = ((context->rs.mc - context->rs.nc) / 5);
 	  number_t ystep2 = ((context->rs.mc - context->rs.nc) / 5);
 
@@ -278,7 +285,10 @@ set_fractalc (fractal_context * context, struct image *img)
     cursymetry.ysym = cfractalc.rs.mi + INT_MAX;
 
 #ifndef SLOWFUNCPTR
-  if (cfractalc.coloringmode == 9 && cformula.smooth_calculate != NULL && (cpalette.type & (TRUECOLOR | TRUECOLOR16 | TRUECOLOR24 | GRAYSCALE | LARGEITER)))
+  if (cfractalc.coloringmode == 9 && cformula.smooth_calculate != NULL
+      && (cpalette.
+	  type & (TRUECOLOR | TRUECOLOR16 | TRUECOLOR24 | GRAYSCALE |
+		  LARGEITER)))
     {
       cfractalc.calculate[0] = cformula.smooth_calculate;
       if (cformula.smooth_calculate_periodicity && cfractalc.periodicity)
@@ -343,11 +353,12 @@ set_formula (fractal_context * c, int num)
       c->s = c->currentformula->v;
       c->version++;
     }
-  if (c->bre&&c->bim)
-  {
-	  c->bre=c->bim=0;
-	  if(c->mandelbrot) c->version++;
-  }
+  if (c->bre && c->bim)
+    {
+      c->bre = c->bim = 0;
+      if (c->mandelbrot)
+	c->version++;
+    }
 }
 
 
@@ -378,16 +389,16 @@ make_fractalc (CONST int formula, float wi, float he)
 #endif
 #ifdef __alpha__
 #ifdef __linux__
-  extern void ieee_set_fp_control(unsigned long);
+  extern void ieee_set_fp_control (unsigned long);
   /* ieee_set_fp_control(IEEE_TRAP_ENABLE_INV); */
-  ieee_set_fp_control(0UL); /* ignore everything possible */
+  ieee_set_fp_control (0UL);	/* ignore everything possible */
 #endif
 #endif
 #ifdef _plan9_
   {
     unsigned long fcr = 0;	/*getfcr(); */
     fcr |= FPRNR | FPPEXT;
-    /*fcr &= ~(FPINEX | FPOVFL | FPUNFL | FPZDIV);*/
+    /*fcr &= ~(FPINEX | FPOVFL | FPUNFL | FPZDIV); */
     setfcr (fcr);
   }
 #endif
@@ -407,6 +418,7 @@ make_fractalc (CONST int formula, float wi, float he)
   set_formula (new_ctxt, formula);
   return (new_ctxt);
 }
+
 void
 free_fractalc (fractal_context * c)
 {
@@ -434,7 +446,7 @@ speed_test (fractal_context * c, struct image *img)
   t = tl_create_timer ();
   cfractalc.maxiter = 100;
 #ifdef SLOWFUNCPTR
-  i=calculateswitch(0.0,0.0,0.0,0.0,0);
+  i = calculateswitch (0.0, 0.0, 0.0, 0.0, 0);
 #else
   cfractalc.currentformula->calculate (0.0, 0.0, 0.0, 0.0);
   if (cfractalc.currentformula->calculate_periodicity != NULL)
@@ -442,28 +454,28 @@ speed_test (fractal_context * c, struct image *img)
   if (cfractalc.currentformula->smooth_calculate != NULL)
     cfractalc.currentformula->smooth_calculate (0.0, 0.0, 0.0, 0.0);
   if (cfractalc.currentformula->smooth_calculate_periodicity != NULL)
-    cfractalc.currentformula->smooth_calculate_periodicity (0.0, 0.0, 0.0, 0.0);
+    cfractalc.currentformula->smooth_calculate_periodicity (0.0, 0.0, 0.0,
+							    0.0);
 #endif
   cfractalc.maxiter = 20000000;
 
   tl_update_time ();
   tl_reset_timer (t);
-  cli();
-  sum=rdtsc();
+  cli ();
+  sum = rdtsc ();
 #ifdef SLOWFUNCPTR
-  i=calculateswitch(0.0,0.0,0.0,0.0,0);
+  i = calculateswitch (0.0, 0.0, 0.0, 0.0, 0);
 #else
-  i=cfractalc.currentformula->calculate (0.0, 0.0, 0.0, 0.0);
+  i = cfractalc.currentformula->calculate (0.0, 0.0, 0.0, 0.0);
 #endif
-  sum-=rdtsc();
-  sti();
-  printf("%f\n",(double)(-sum)/cfractalc.maxiter);
+  sum -= rdtsc ();
+  sti ();
+  printf ("%f\n", (double) (-sum) / cfractalc.maxiter);
   tl_update_time ();
   time = tl_lookup_timer (t);
   x_message ("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f",
-      (int)i,
-      cfractalc.currentformula->name[0],
-      time, 20 * 1000000.0 / time);
+	     (int) i,
+	     cfractalc.currentformula->name[0], time, 20 * 1000000.0 / time);
 
 #ifndef SLOWFUNCPTR
 
@@ -472,13 +484,13 @@ speed_test (fractal_context * c, struct image *img)
     {
       tl_update_time ();
       tl_reset_timer (t);
-      i=cfractalc.currentformula->smooth_calculate (0.0, 0.0, 0.0, 0.0);
+      i = cfractalc.currentformula->smooth_calculate (0.0, 0.0, 0.0, 0.0);
       tl_update_time ();
       time = tl_lookup_timer (t);
-  x_message ("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f",
-      (int)i,
-      cfractalc.currentformula->name[0],
-      time, 20 * 1000000.0 / time);
+      x_message ("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f",
+		 (int) i,
+		 cfractalc.currentformula->name[0],
+		 time, 20 * 1000000.0 / time);
     }
 
 #endif

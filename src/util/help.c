@@ -9,14 +9,14 @@
 #include <xio.h>
 #include <xshl.h>
 struct helpstatus
-  {
-    int eol;
-    xio_file file;
-  };
+{
+  int eol;
+  xio_file file;
+};
 static int
 gethelp (void *userdata)
 {
-  struct helpstatus *s = (struct helpstatus *)userdata;
+  struct helpstatus *s = (struct helpstatus *) userdata;
   int c = xio_getc (s->file);
   if (c == '\r')
     return (gethelp (userdata));
@@ -29,9 +29,10 @@ gethelp (void *userdata)
 }
 struct xshl_line *
 help_make (CONST char *command, int getwidth (void *, int flags,
-		     CONST char *text), int width, int smallheight, int bigheight)
+					      CONST char *text), int width,
+	   int smallheight, int bigheight)
 {
-  struct helpstatus *s = (struct helpstatus *)malloc (sizeof (*s));
+  struct helpstatus *s = (struct helpstatus *) malloc (sizeof (*s));
   struct xshl_line *line;
   s->file = xio_gethelp ();
   if (s->file == XIO_FAILED)
@@ -60,9 +61,11 @@ help_make (CONST char *command, int getwidth (void *, int flags,
 		{
 		  if (isspace (c))
 		    {
-		      while (c != '\n' && !xio_feof(s->file))
+		      while (c != '\n' && !xio_feof (s->file))
 			c = xio_getc (s->file);
-		      line = xshl_interpret (s, gethelp, width, getwidth, 0, smallheight, bigheight);
+		      line =
+			xshl_interpret (s, gethelp, width, getwidth, 0,
+					smallheight, bigheight);
 		      xio_close (s->file);
 		      free (s);
 		      return (line);
@@ -87,6 +90,7 @@ help_make (CONST char *command, int getwidth (void *, int flags,
 	}
     }				/*while 1 */
 }
+
 #if 0
 void
 help_print (char *name, int skip, int width)

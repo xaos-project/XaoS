@@ -23,63 +23,62 @@
 #include "XaoSEvent.h"
 #include "XaoSAbstractWindow.h"
 
-typedef long (*blit_hook)(long,long,long,long,long,long);
-typedef long (*sync_hook)();
-class XaoSDirectScreen : public BWindowScreen, XaoSAbstractWindow
+typedef long (*blit_hook) (long, long, long, long, long, long);
+typedef long (*sync_hook) ();
+class XaoSDirectScreen:public BWindowScreen, XaoSAbstractWindow
 {
 public:
-	typedef BDirectWindow inherited;
-	
-	// Constructor, destructor.
-	XaoSDirectScreen(port_id port, BView *v, status_t *error);
-	virtual ~XaoSDirectScreen(void);
+  typedef BDirectWindow inherited;
 
-	// Hook functions.
-	virtual  bool QuitRequested(void);
+  // Constructor, destructor.
+    XaoSDirectScreen (port_id port, BView * v, status_t * error);
+    virtual ~ XaoSDirectScreen (void);
 
-	// Allow quit requests to succeed.
-	virtual  void AllowQuit(void);
+  // Hook functions.
+  virtual bool QuitRequested (void);
 
-	virtual void KeyDown(const char *pBytes, int32 numBytes);
-	virtual void KeyUp(const char *pBytes, int32 numBytes);
-	virtual void MessageReceived(BMessage *pMessage);
-        virtual void   ScreenConnected(bool connected); 
-	void Blit(char *t, int width, int height, int bpp);
-	void DoBlit(void);
-        void DoMouse(void);
-	void SetColor(rgb_color *c, int start=0, int last=255);
+  // Allow quit requests to succeed.
+  virtual void AllowQuit (void);
 
-        char         *fBits; 
-        int32         fRowBytes; 
-	int32	      fBytesPerPixel;
-	int32	      fxstart,fystart;
-	int32	      fWidth, fHeight;
-	char	      rgba_order[4];
-        color_space      fFormat; 
-        bool         fDirty;      // needs refresh? 
-        bool         fConnected; 
-        bool         fConnectionDisabled; 
-        BLocker         *locker; 
-        void   UpdateParams(void); 
-	void SetMode(int x, int y, int depth);
-	void SetPointer (const char *pointer);
-	void SetMouse (int x, int y);
+  virtual void KeyDown (const char *pBytes, int32 numBytes);
+  virtual void KeyUp (const char *pBytes, int32 numBytes);
+  virtual void MessageReceived (BMessage * pMessage);
+  virtual void ScreenConnected (bool connected);
+  void Blit (char *t, int width, int height, int bpp);
+  void DoBlit (void);
+  void DoMouse (void);
+  void SetColor (rgb_color * c, int start = 0, int last = 255);
+
+  char *fBits;
+  int32 fRowBytes;
+  int32 fBytesPerPixel;
+  int32 fxstart, fystart;
+  int32 fWidth, fHeight;
+  char rgba_order[4];
+  color_space fFormat;
+  bool fDirty;			// needs refresh? 
+  bool fConnected;
+  bool fConnectionDisabled;
+  BLocker *locker;
+  void UpdateParams (void);
+  void SetMode (int x, int y, int depth);
+  void SetPointer (const char *pointer);
+  void SetMouse (int x, int y);
 private:
-        XaoSDirectScreen (const XaoSDirectScreen &orig);
-	XaoSDirectScreen &operator =(const XaoSDirectScreen &orig);
-	const char *mousepointer;
-	char *storeddata;
-	int mouseX, mouseY;
-	int oldMouseX, oldMouseY;
-	BView *child;
-	blit_hook blit;
-	sync_hook sync;
-	int mode;
-	rgb_color colormap[256];
+    XaoSDirectScreen (const XaoSDirectScreen & orig);
+    XaoSDirectScreen & operator = (const XaoSDirectScreen & orig);
+  const char *mousepointer;
+  char *storeddata;
+  int mouseX, mouseY;
+  int oldMouseX, oldMouseY;
+  BView *child;
+  blit_hook blit;
+  sync_hook sync;
+  int mode;
+  rgb_color colormap[256];
 
-        int width, height, bpp;
-        char *data;
+  int width, height, bpp;
+  char *data;
 };
 
 #endif // XAOSWINDOW_H
-

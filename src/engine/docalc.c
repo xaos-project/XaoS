@@ -58,7 +58,7 @@
 	      FORMULA; \
 	      iter--; \
 	    } \
-	  while (BTEST && iter) 
+	  while (BTEST && iter)
 #endif
 #ifndef SFORMULALOOP
 #define SFORMULALOOP(iter) \
@@ -68,7 +68,7 @@
 	      FORMULA; \
 	      iter--; \
 	    } \
-	  while (BTEST && iter) 
+	  while (BTEST && iter)
 #endif
 #ifndef FORMULALOOP
 #ifdef SMOOTHMODE
@@ -116,14 +116,20 @@
 /*uncompressed version of loop */
 #ifdef SMOOTHMODE
 static unsigned int FUNCTYPE
-SCALC (register number_t zre, register number_t zim, register number_t pre, register number_t pim) CONSTF REGISTERS (3);
-static unsigned int FUNCTYPE
-SCALC (register number_t zre, register number_t zim, register number_t pre, register number_t pim)
+SCALC (register number_t zre, register number_t zim, register number_t pre,
+       register number_t pim)
+     CONSTF REGISTERS (3);
+     static unsigned int FUNCTYPE
+       SCALC (register number_t zre, register number_t zim,
+	      register number_t pre, register number_t pim)
 #else
 static unsigned int FUNCTYPE
-CALC (register number_t zre, register number_t zim, register number_t pre, register number_t pim) CONSTF REGISTERS (3);
-static unsigned
-CALC (register number_t zre, register number_t zim, register number_t pre, register number_t pim)
+CALC (register number_t zre, register number_t zim, register number_t pre,
+      register number_t pim)
+     CONSTF REGISTERS (3);
+     static unsigned
+       CALC (register number_t zre, register number_t zim,
+	     register number_t pre, register number_t pim)
 #endif
 {
   register unsigned int iter = cfractalc.maxiter;
@@ -134,8 +140,7 @@ CALC (register number_t zre, register number_t zim, register number_t pre, regis
 #ifdef SMOOTHMODE
   number_t szmag = 0;
 #endif
-  SAVEVARIABLES
-    VARIABLES;
+  SAVEVARIABLES VARIABLES;
   INIT;
   if (PRETEST)
     iter = 0;
@@ -151,14 +156,17 @@ CALC (register number_t zre, register number_t zim, register number_t pre, regis
 	  I386HACK;
 
 	  /*try first 8 iterations */
-	  if (BTEST && iter) { FORMULALOOP (iter); }
+	  if (BTEST && iter)
+	    {
+	      FORMULALOOP (iter);
+	    }
 	  /*
-	  while (BTEST && iter)
-	    {	
-	      SAVEZMAG;
-	      FORMULA;
-	      iter--;
-	    }*/
+	     while (BTEST && iter)
+	     {  
+	     SAVEZMAG;
+	     FORMULA;
+	     iter--;
+	     } */
 	}
       else
 	{
@@ -167,20 +175,23 @@ CALC (register number_t zre, register number_t zim, register number_t pre, regis
 	  I386HACK;
 
 	  /*try first 8 iterations */
-	  if (BTEST && iter) { FORMULALOOP (iter); }
+	  if (BTEST && iter)
+	    {
+	      FORMULALOOP (iter);
+	    }
 	  /*
-	  while (BTEST && iter)
-	    {	
-	      SAVEZMAG;
-	      FORMULA;
-	      iter--;
-	    }*/
+	     while (BTEST && iter)
+	     {  
+	     SAVEZMAG;
+	     FORMULA;
+	     iter--;
+	     } */
 	  if (BTEST)
 	    {
 	      iter = (cfractalc.maxiter - 8) & (~7);
 	      iter >>= 3;
 	      I386HACK1;
-	      I386HACK;	/*do next 8 iteration w/o out of bounds checking */
+	      I386HACK;		/*do next 8 iteration w/o out of bounds checking */
 	      do
 		{
 		  /*hmm..we are probably in some deep area. */
@@ -214,13 +225,13 @@ CALC (register number_t zre, register number_t zim, register number_t pre, regis
 		  I386HACK;
 		  FORMULALOOP (iter);
 		  /*
-		  do
-		    {
-		      SAVEZMAG
-			FORMULA;
-		      iter--;
-		    }
-		  while (BTEST && iter);*/
+		     do
+		     {
+		     SAVEZMAG
+		     FORMULA;
+		     iter--;
+		     }
+		     while (BTEST && iter); */
 		}
 	    }
 	  else
@@ -242,14 +253,20 @@ CALC (register number_t zre, register number_t zim, register number_t pre, regis
 #else
 #ifdef SMOOTHMODE
 static unsigned int FUNCTYPE
-SCALC (register number_t zre, register number_t zim, register number_t pre, register number_t pim) CONSTF REGISTERS (3);
-static unsigned int FUNCTYPE
-SCALC (register number_t zre, register number_t zim, register number_t pre, register number_t pim)
+SCALC (register number_t zre, register number_t zim, register number_t pre,
+       register number_t pim)
+     CONSTF REGISTERS (3);
+     static unsigned int FUNCTYPE
+       SCALC (register number_t zre, register number_t zim,
+	      register number_t pre, register number_t pim)
 #else
 static unsigned int FUNCTYPE
-CALC (register number_t zre, register number_t zim, register number_t pre, register number_t pim) CONSTF REGISTERS (3);
-static unsigned int FUNCTYPE
-CALC (register number_t zre, register number_t zim, register number_t pre, register number_t pim)
+CALC (register number_t zre, register number_t zim, register number_t pre,
+      register number_t pim)
+     CONSTF REGISTERS (3);
+     static unsigned int FUNCTYPE
+       CALC (register number_t zre, register number_t zim,
+	     register number_t pre, register number_t pim)
 #endif
 {
   register unsigned int iter = cfractalc.maxiter /*& (~(int) 3) */ ;
@@ -269,16 +286,19 @@ CALC (register number_t zre, register number_t zim, register number_t pre, regis
       rp = zre * zre;
       ip = zim * zim;
 #endif
-      if (BTEST && iter) { FORMULALOOP (iter); }
-      /*
-      while (BTEST && iter)
+      if (BTEST && iter)
 	{
-	  I386HACK;
-	  SAVEZMAG
-	    FORMULA;
-	  iter--;
+	  FORMULALOOP (iter);
+	}
+      /*
+         while (BTEST && iter)
+         {
+         I386HACK;
+         SAVEZMAG
+         FORMULA;
+         iter--;
 
-	}*/
+         } */
     }
 #ifdef SMOOTHMODE
   if (iter)
@@ -325,18 +345,24 @@ CALC (register number_t zre, register number_t zim, register number_t pre, regis
 
 #ifdef SMOOTHMODE
 static unsigned int FUNCTYPE
-SPERI (register number_t zre, register number_t zim, register number_t pre, register number_t pim) CONSTF REGISTERS (3);
-static unsigned int FUNCTYPE
-SPERI (register number_t zre, register number_t zim, register number_t pre, register number_t pim)
+SPERI (register number_t zre, register number_t zim, register number_t pre,
+       register number_t pim)
+     CONSTF REGISTERS (3);
+     static unsigned int FUNCTYPE
+       SPERI (register number_t zre, register number_t zim,
+	      register number_t pre, register number_t pim)
 #else
 static unsigned int FUNCTYPE
-PERI (register number_t zre, register number_t zim, register number_t pre, register number_t pim)
-CONSTF REGISTERS (3);
-static unsigned int FUNCTYPE
-PERI (register number_t zre, register number_t zim, register number_t pre, register number_t pim)
+PERI (register number_t zre, register number_t zim, register number_t pre,
+      register number_t pim)
+     CONSTF REGISTERS (3);
+     static unsigned int FUNCTYPE
+       PERI (register number_t zre, register number_t zim,
+	     register number_t pre, register number_t pim)
 #endif
 {
-  register unsigned int iter = cfractalc.maxiter /*& (~(int) 3) */ , iter1 = 8;
+  register unsigned int iter = cfractalc.maxiter /*& (~(int) 3) */ , iter1 =
+    8;
   register number_t r1, s1;
   int whensavenew, whenincsave;
 #ifdef RPIP
@@ -360,14 +386,17 @@ PERI (register number_t zre, register number_t zim, register number_t pre, regis
 	iter1 = iter, iter = 8;
 
       /*H. : do first few iterations w/o checking */
-      if (BTEST && iter1) { FORMULALOOP (iter1); }
+      if (BTEST && iter1)
+	{
+	  FORMULALOOP (iter1);
+	}
       /*
-      while (BTEST && iter1)
-	{	
-	  SAVEZMAG;
-	  FORMULA;
-	  iter1--;
-	}*/
+         while (BTEST && iter1)
+         {      
+         SAVEZMAG;
+         FORMULA;
+         iter1--;
+         } */
       if (iter1)
 	{
 	  if (iter >= 8)
@@ -439,14 +468,20 @@ end:
 
 #ifdef SMOOTHMODE
 static unsigned int FUNCTYPE
-SPERI (register number_t zre, register number_t zim, register number_t pre, register number_t pim) CONSTF REGISTERS (3);
-static unsigned int FUNCTYPE
-SPERI (register number_t zre, register number_t zim, register number_t pre, register number_t pim)
+SPERI (register number_t zre, register number_t zim, register number_t pre,
+       register number_t pim)
+     CONSTF REGISTERS (3);
+     static unsigned int FUNCTYPE
+       SPERI (register number_t zre, register number_t zim,
+	      register number_t pre, register number_t pim)
 #else
 static unsigned int FUNCTYPE
-PERI (register number_t zre, register number_t zim, register number_t pre, register number_t pim) CONSTF REGISTERS (3);
-static unsigned int FUNCTYPE
-PERI (register number_t zre, register number_t zim, register number_t pre, register number_t pim)
+PERI (register number_t zre, register number_t zim, register number_t pre,
+      register number_t pim)
+     CONSTF REGISTERS (3);
+     static unsigned int FUNCTYPE
+       PERI (register number_t zre, register number_t zim,
+	     register number_t pre, register number_t pim)
 #endif
 {
   register unsigned int iter = cfractalc.maxiter /*& (~(int) 3) */ ;
@@ -459,8 +494,7 @@ PERI (register number_t zre, register number_t zim, register number_t pre, regis
 #ifdef SMOOTHMODE
   number_t szmag = 0;
 #endif
-  SAVEVARIABLES
-    VARIABLES;
+  SAVEVARIABLES VARIABLES;
   INIT;
   if (PRETEST)
     iter = 0;
@@ -475,14 +509,17 @@ PERI (register number_t zre, register number_t zim, register number_t pre, regis
 	  ip = zim * zim;
 #endif
 	  /*F. : Added iter&7 to be sure we'll be on a 8 multiple */
-	  if (BTEST && iter) { FORMULALOOP (iter); }
-	  /*
-	  while (BTEST && iter)
+	  if (BTEST && iter)
 	    {
-	      SAVEZMAG
-		FORMULA;
-	      iter--;
-	    }*/
+	      FORMULALOOP (iter);
+	    }
+	  /*
+	     while (BTEST && iter)
+	     {
+	     SAVEZMAG
+	     FORMULA;
+	     iter--;
+	     } */
 	}
       else
 	{
@@ -502,8 +539,7 @@ PERI (register number_t zre, register number_t zim, register number_t pre, regis
 	  iter = 8 + (cfractalc.maxiter & 7);
 	  while (BTEST && iter)
 	    {			/*F. : Added iter&7 to be sure we'll be on a 8 multiple */
-	      SAVEZMAG
-		FORMULA;
+	      SAVEZMAG FORMULA;
 	      iter--;
 	    }
 	  if (BTEST)
@@ -515,7 +551,7 @@ PERI (register number_t zre, register number_t zim, register number_t pre, regis
 		  szre = zre, szim = zim;
 		  SAVE;
 		  SAVEZMAG
-		  /*I386HACK; */
+		    /*I386HACK; */
 		    I386HACK1;
 		  FORMULA;	/*F. : Calculate one time */
 		  if (PCHECK)
@@ -567,15 +603,15 @@ PERI (register number_t zre, register number_t zim, register number_t pre, regis
 #endif
 		  I386HACK1;
 		  /*I386HACK; */
-		  FORMULALOOP(iter);
-		    /*
-		  do
-		    {
-		      SAVEZMAG
-			FORMULA;
-		      iter--;
-		    }
-		  while (BTEST && iter);*/
+		  FORMULALOOP (iter);
+		  /*
+		     do
+		     {
+		     SAVEZMAG
+		     FORMULA;
+		     iter--;
+		     }
+		     while (BTEST && iter); */
 		}
 	    }
 	  else
@@ -596,6 +632,7 @@ PERI (register number_t zre, register number_t zim, register number_t pre, regis
 periodicity:
   PERIINOUTPUT ();
 }
+
 /*else uncompress */
 #endif
 
@@ -649,8 +686,9 @@ JULIA (struct image *image, register number_t pre, register number_t pim)
 	    if (y > 0 && y < image->height - 1 && *(addr + 1) &&
 		x > 0 && x < image->width - 1)
 	      {
-		if ((iter = *(addr + 1)) != NOT_CALCULATED && iter == *(addr - 1) && iter ==
-		    addr1[y - 1][x] && iter == addr1[y + 1][x])
+		if ((iter = *(addr + 1)) != NOT_CALCULATED
+		    && iter == *(addr - 1) && iter == addr1[y - 1][x]
+		    && iter == addr1[y + 1][x])
 		  {
 		    *addr = *(addr + 1);
 		    continue;
@@ -658,7 +696,7 @@ JULIA (struct image *image, register number_t pre, register number_t pim)
 	      }
 	    zim = im;
 	    zre = RMIN + (j + 0.5) * xstep;
-	    iter = (unsigned char)0;
+	    iter = (unsigned char) 0;
 	    qptr = queue;
 	    ip = (zim * zim);
 	    rp = (zre * zre);
@@ -667,11 +705,21 @@ JULIA (struct image *image, register number_t pre, register number_t pim)
 	      {
 		if (*addr != NOT_CALCULATED
 #ifdef SAG
-		    && (*addr == INPROCESS || (*addr != (unsigned char)1 &&
-				  (itmp2 = *(addr + 1)) != NOT_CALCULATED &&
-		((itmp2 != (itmp = *(addr - 1)) && itmp != NOT_CALCULATED) ||
-		 (itmp2 != (itmp = *((addr1[y + 1]) + x)) && itmp != NOT_CALCULATED) ||
-		 (itmp2 != (itmp = *((addr1[y - 1]) + x)) && itmp != NOT_CALCULATED))))
+		    && (*addr == INPROCESS || (*addr != (unsigned char) 1 &&
+					       (itmp2 =
+						*(addr + 1)) != NOT_CALCULATED
+					       &&
+					       ((itmp2 != (itmp = *(addr - 1))
+						 && itmp != NOT_CALCULATED)
+						|| (itmp2 !=
+						    (itmp =
+						     *((addr1[y + 1]) + x))
+						    && itmp != NOT_CALCULATED)
+						|| (itmp2 !=
+						    (itmp =
+						     *((addr1[y - 1]) + x))
+						    && itmp !=
+						    NOT_CALCULATED))))
 #endif
 		  )
 		  {
@@ -704,11 +752,12 @@ JULIA (struct image *image, register number_t pre, register number_t pim)
 		rp = (zre * zre);
 		if (greater_than (rp + ip, RANGE) || !(BTEST))
 		  goto outset;
-		x = (int)((zre - RMIN) * xdelta);
-		y = (int)((zim - IMIN) * ydelta);
+		x = (int) ((zre - RMIN) * xdelta);
+		y = (int) ((zim - IMIN) * ydelta);
 		addr = addr1[y] + x;
-		if ((itmp = *(addr + 1)) != NOT_CALCULATED && itmp == *(addr - 1) && itmp ==
-		    addr1[y - 1][x] && itmp == addr1[y + 1][x])
+		if ((itmp = *(addr + 1)) != NOT_CALCULATED
+		    && itmp == *(addr - 1) && itmp == addr1[y - 1][x]
+		    && itmp == addr1[y + 1][x])
 		  {
 		    *addr = *(addr + 1);
 		  }
@@ -726,14 +775,15 @@ JULIA (struct image *image, register number_t pre, register number_t pim)
 	      {
 		qptr--;
 		iter++;
-		if ((int)iter >= y)
-		  iter = (unsigned char)1;
+		if ((int) iter >= y)
+		  iter = (unsigned char) 1;
 		**qptr = iter;
 	      }
 	  }
       }
 #ifdef STATISTICS
-  printf ("guessed %i, unguessed %i, iterations %i\n", guessed, unguessed, iters);
+  printf ("guessed %i, unguessed %i, iterations %i\n", guessed, unguessed,
+	  iters);
   guessed2 += guessed;
   unguessed2 += unguessed;
   iters2 += iters;

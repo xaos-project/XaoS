@@ -14,22 +14,22 @@
 #define POPUP 1
 #define WSUBMENU 2
 struct menurecord
-  {
-    int type;
-    int id;
-    struct uih_context *c;
-    CONST menuitem *item;
-    struct menurecord *nextrecord;
-    struct menurecord *prevrecord;
-    HMENU menu;
-    struct menurecord *submenu;
-    struct menurecord *nextsubmenu;
-  }
+{
+  int type;
+  int id;
+  struct uih_context *c;
+  CONST menuitem *item;
+  struct menurecord *nextrecord;
+  struct menurecord *prevrecord;
+  HMENU menu;
+  struct menurecord *submenu;
+  struct menurecord *nextsubmenu;
+}
  *firstrecord;
 struct menurecord rootmenu;
 
 static void win32_appendmenu (struct uih_context *c, struct menurecord *menu);
-HMENU 
+HMENU
 win32_createrootmenu ()
 {
   /*printf("Createrootmenu\n"); */
@@ -66,7 +66,7 @@ win32_createmenu (struct uih_context *c, CONST char *name, int type)
   /*printf("Createmenu OK\n"); */
   return m;
 };
-static void 
+static void
 win32_appendmenu (struct uih_context *c, struct menurecord *menu)
 {
   int i, y, hotkeyed;
@@ -79,7 +79,8 @@ win32_appendmenu (struct uih_context *c, struct menurecord *menu)
     {
       struct menurecord *submenu = NULL;
       int flags = MF_ENABLED | MF_STRING;
-      if (item->type == MENU_SEPARATOR) flags |= MF_SEPARATOR;
+      if (item->type == MENU_SEPARATOR)
+	flags |= MF_SEPARATOR;
       if (item->type == MENU_SUBMENU)
 	{
 	  submenu = win32_createmenu (c, item->shortname, WSUBMENU);
@@ -98,7 +99,8 @@ win32_appendmenu (struct uih_context *c, struct menurecord *menu)
 	  if (!hotkeyed)
 	    {
 	      unsigned char c = tolower (item->name[y]);
-	      if (((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z')) && !used[c])
+	      if (((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z'))
+		  && !used[c])
 		used[c] = 1, hotkeyed = 1, out[y] = '&';
 	    }
 	  out[y + hotkeyed] = item->name[y];
@@ -109,13 +111,15 @@ win32_appendmenu (struct uih_context *c, struct menurecord *menu)
 	  strcat (out, "\t");
 	  strcat (out, item->key);
 	}
-      AppendMenu (menu->menu, flags, (submenu != NULL ? (UINT) submenu->menu : (UINT) (menu->id * IDMUL + i)),
-		  out);
+      AppendMenu (menu->menu, flags,
+		  (submenu !=
+		   NULL ? (UINT) submenu->menu : (UINT) (menu->id * IDMUL +
+							 i)), out);
 
     }
   /*printf("Appendmenu OK\n"); */
 }
-static void 
+static void
 win32_freestructures (struct menurecord *menu)
 {
   struct menurecord *sub, *nextsub;
@@ -135,7 +139,8 @@ win32_freestructures (struct menurecord *menu)
     firstrecord = menu->nextrecord;
   free (menu);
 }
-void 
+
+void
 win32_pressed (int id)
 {
   struct menurecord *menu = firstrecord;
@@ -144,15 +149,17 @@ win32_pressed (int id)
     {
       if (id / IDMUL == menu->id)
 	{
-	  ui_menuactivate (menu_item (menu->item->shortname, id % IDMUL), NULL);
+	  ui_menuactivate (menu_item (menu->item->shortname, id % IDMUL),
+			   NULL);
 	  return;
 	}
       menu = menu->nextrecord;
     }
   x_error ("Unknown menu");
 }
+
 /* first destroy the old contents */
-void 
+void
 win32_dorootmenu (struct uih_context *uih, CONST char *name)
 {
   struct menurecord *sub, *nextsub;
@@ -173,12 +180,13 @@ win32_dorootmenu (struct uih_context *uih, CONST char *name)
   SetMenu (hWnd, rootmenu.menu);
   /*printf("OK\n"); */
 }
+
 /* Check all created menus to see if there is the changed item and do changes
    as neccesary.
 
    This implementation is rather ugly and slow. Try if it is fast enought
    and change it otherwise */
-void 
+void
 win32_enabledisable (struct uih_context *uih, CONST char *name)
 {
   CONST struct menuitem *chgitem = menu_findcommand (name);
@@ -189,26 +197,30 @@ win32_enabledisable (struct uih_context *uih, CONST char *name)
   while (menu)
     {
       if (menu->item != NULL)
-	for (i = 0; (item = menu_item (menu->item->shortname, i)) != NULL; i++)
+	for (i = 0; (item = menu_item (menu->item->shortname, i)) != NULL;
+	     i++)
 	  {
 	    if (item == chgitem)
 	      {
 		if (chgitem->flags & MENUFLAG_RADIO && checked)
 		  {
 		    int y;
-		    for (y = 0; (item = menu_item (menu->item->shortname, y)) != NULL; y++)
+		    for (y = 0;
+			 (item =
+			  menu_item (menu->item->shortname, y)) != NULL; y++)
 		      if (item->flags & MENUFLAG_RADIO)
 			CheckMenuItem (menu->menu, menu->id * IDMUL + y,
 				       MF_BYCOMMAND | MF_UNCHECKED);
 		  }
 		CheckMenuItem (menu->menu, menu->id * IDMUL + i,
-		      MF_BYCOMMAND | (checked ? MF_CHECKED : MF_UNCHECKED));
+			       MF_BYCOMMAND | (checked ? MF_CHECKED :
+					       MF_UNCHECKED));
 	      }
 	  }
       menu = menu->nextrecord;
     }
 }
-void 
+void
 win32_menu (struct uih_context *c, CONST char *name)
 {
 
@@ -220,8 +232,7 @@ win32_menu (struct uih_context *c, CONST char *name)
     {
       if (m->type == POPUP)
 	{
-	  DestroyMenu (m->menu),
-	    win32_freestructures (m);
+	  DestroyMenu (m->menu), win32_freestructures (m);
 	  break;
 	}
       m = m->nextrecord;
@@ -231,7 +242,8 @@ win32_menu (struct uih_context *c, CONST char *name)
   /*printf("menu %s %i %i\n",name,p.x,p.y); */
   TrackPopupMenu (m->menu, 0, p.x, p.y, 0, hWnd, 0);
 }
-void 
+
+void
 win32_uninitializewindows ()
 {
   while (firstrecord)
@@ -243,4 +255,5 @@ win32_uninitializewindows ()
       win32_freestructures (r);
     }
 }
+
 

@@ -42,9 +42,13 @@ draw (uih_context * c, void *data)
       w = xtextwidth (c->font, c->messg.message[n]);
       x = (c->image->width - w) / 2;
       if (c->messg.messagetype[n])
-	xprint (c->image, c->font, x, y, c->messg.message[n], (c->image->flags&AAIMAGE)?BGCOLOR(c):SELCOLOR (c), BGCOLOR (c), 0);
+	xprint (c->image, c->font, x, y, c->messg.message[n],
+		(c->image->flags & AAIMAGE) ? BGCOLOR (c) : SELCOLOR (c),
+		BGCOLOR (c), 0);
       else
-	xprint (c->image, c->font, x, y, c->messg.message[n], (c->image->flags&AAIMAGE)?BGCOLOR(c):FGCOLOR (c), BGCOLOR (c), 0);
+	xprint (c->image, c->font, x, y, c->messg.message[n],
+		(c->image->flags & AAIMAGE) ? BGCOLOR (c) : FGCOLOR (c),
+		BGCOLOR (c), 0);
     }
 }
 void
@@ -70,17 +74,20 @@ uih_rmmessage (uih_context * c, int pid)
   c->messg.message[NMESSAGES - 1] = NULL;
   c->display = 1;
 }
+
 void
 uih_scrollup (uih_context * c)
 {
   uih_rmmessage (c, c->messg.pid[0]);
 }
+
 void
 uih_clearmessages (uih_context * c)
 {
   while (c->messg.message[0] != NULL)
     uih_scrollup (c);
 }
+
 void
 uih_initmessages (uih_context * c)
 {
@@ -92,6 +99,7 @@ uih_initmessages (uih_context * c)
     }
   c->messg.messagestart = 0;
 }
+
 void
 uih_destroymessages (uih_context * c)
 {
@@ -114,18 +122,21 @@ uih_message1 (uih_context * c, CONST char *message, int type)
   tl_reset_timer (c->messg.messagetimer[i]);
   tl_set_interval (c->messg.messagetimer[i], 1);;
   tl_slowdown_timer (c->messg.messagetimer[i], EXPIRETIME);;
-  tl_set_handler (c->messg.messagetimer[i], (void (*)(void *)) uih_scrollup, c);
+  tl_set_handler (c->messg.messagetimer[i], (void (*)(void *)) uih_scrollup,
+		  c);
   tl_add_timer (syncgroup, c->messg.messagetimer[i]);
   /*tl_remove_timer (c->messg.messagetimer[i]); */
   c->messg.pid[i] = ++pid;
   c->display = 1;
   return (pid);
 }
+
 int
 uih_message (uih_context * c, CONST char *message)
 {
   return (uih_message1 (c, message, 0));
 }
+
 int
 uih_error (uih_context * c, CONST char *error)
 {
@@ -134,7 +145,8 @@ uih_error (uih_context * c, CONST char *error)
   c->errstring = error;
   return (uih_message1 (c, str, 1));
 }
-void 
+
+void
 uih_printmessages (uih_context * c)
 {
   int i;

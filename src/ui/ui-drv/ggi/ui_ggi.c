@@ -26,9 +26,9 @@ static ggi_mode mode;
 static char *buffers[2];
 static int current;
 static int bpp;
-static int vischanged=0;
-static char *visname=NULL;
-static char *oldvisname=NULL;
+static int vischanged = 0;
+static char *visname = NULL;
+static char *oldvisname = NULL;
 static int mousetype;
 static int mousevisible;
 #define MOUSESIZE 10
@@ -37,26 +37,34 @@ static void
 ggi_hidemouse ()
 {
   if (mousevisible)
-    ggiPutBox (vis, smousex - MOUSESIZE / 2, smousey - MOUSESIZE / 2, MOUSESIZE, MOUSESIZE, buffer), mousevisible = 0;
+    ggiPutBox (vis, smousex - MOUSESIZE / 2, smousey - MOUSESIZE / 2,
+	       MOUSESIZE, MOUSESIZE, buffer), mousevisible = 0;
 }
 static void
 ggi_drawmouse ()
 {
   if (!mousevisible && !mousetype)
     {
-      int mx=mousex;
-      int my=mousey;
-      if(mx<=MOUSESIZE/2) mx=MOUSESIZE/2;
-      if(my<=MOUSESIZE/2) my=MOUSESIZE/2;
-      if(mx>=xsize-MOUSESIZE/2) mx=xsize-MOUSESIZE/2;
-      if(my>=ysize-MOUSESIZE/2) my=ysize-MOUSESIZE/2;
-      ggiGetBox (vis, mx - MOUSESIZE / 2, my - MOUSESIZE / 2, MOUSESIZE, MOUSESIZE, buffer);
+      int mx = mousex;
+      int my = mousey;
+      if (mx <= MOUSESIZE / 2)
+	mx = MOUSESIZE / 2;
+      if (my <= MOUSESIZE / 2)
+	my = MOUSESIZE / 2;
+      if (mx >= xsize - MOUSESIZE / 2)
+	mx = xsize - MOUSESIZE / 2;
+      if (my >= ysize - MOUSESIZE / 2)
+	my = ysize - MOUSESIZE / 2;
+      ggiGetBox (vis, mx - MOUSESIZE / 2, my - MOUSESIZE / 2, MOUSESIZE,
+		 MOUSESIZE, buffer);
       smousex = mx;
       smousey = my;
-      ggiDrawLine (vis, mousex - MOUSESIZE / 2 + 1, mousey - MOUSESIZE / 2 + 1,
-		   mousex + MOUSESIZE / 2 - 1, mousey + MOUSESIZE / 2 - 1);
-      ggiDrawLine (vis, mousex + MOUSESIZE / 2 - 1, mousey - MOUSESIZE / 2 + 1,
-		   mousex - MOUSESIZE / 2 + 1, mousey + MOUSESIZE / 2 - 1);
+      ggiDrawLine (vis, mousex - MOUSESIZE / 2 + 1,
+		   mousey - MOUSESIZE / 2 + 1, mousex + MOUSESIZE / 2 - 1,
+		   mousey + MOUSESIZE / 2 - 1);
+      ggiDrawLine (vis, mousex + MOUSESIZE / 2 - 1,
+		   mousey - MOUSESIZE / 2 + 1, mousex - MOUSESIZE / 2 + 1,
+		   mousey + MOUSESIZE / 2 - 1);
       mousevisible = 1;
     }
 }
@@ -128,72 +136,84 @@ struct ui_driver ggi_driver;
 static void
 ggi_getsize (int *w, int *h)
 {
-  ggi_color red =
-  {65535, 0, 0};
-  ggi_color green =
-  {0, 65535, 0};
-  ggi_color blue =
-  {0, 0, 65535};
-  ggi_color white =
-  {65535, 65535, 65535};
+  ggi_color red = { 65535, 0, 0 };
+  ggi_color green = { 0, 65535, 0 };
+  ggi_color blue = { 0, 0, 65535 };
+  ggi_color white = { 65535, 65535, 65535 };
 
   keys = 0;
   buttons = 0;
   mousevisible = 0;
 
-  if (vischanged) {
-    ggiClose (vis);
-    if ((vis = ggiOpen (visname, NULL)) == NULL)
-      if ((vis = ggiOpen (oldvisname, NULL)) == NULL)
-         x_fatalerror("Can not re-initialize GGI");
-    vischanged=0;
-  }
+  if (vischanged)
+    {
+      ggiClose (vis);
+      if ((vis = ggiOpen (visname, NULL)) == NULL)
+	if ((vis = ggiOpen (oldvisname, NULL)) == NULL)
+	  x_fatalerror ("Can not re-initialize GGI");
+      vischanged = 0;
+    }
   if (defmode != NULL)
     ggiParseMode (defmode, &mode);
-  else {
-    ggiParseMode ("479x379", &mode);
-    if (ggiCheckMode (vis, &mode)) {
-       ggiParseMode ("320x200", &mode);
-       if (ggiCheckMode (vis, &mode)) {
-          ggiParseMode ("320x240", &mode);
-          if (ggiCheckMode (vis, &mode)) {
-             ggiParseMode ("640x480", &mode);
-	  }
-       }
-    }
-#if 0
-    if (ggiCheckMode (vis, &mode)) {
-      ggiParseMode ("479x379#479x379[32]", &mode);
-      if (ggiCheckMode (vis, &mode)) {
-        ggiParseMode ("479x379#479x379[16]", &mode);
-         if (ggiCheckMode (vis, &mode)) {
-            ggiParseMode ("479x379#479x379[24]", &mode);
-            if (ggiCheckMode (vis, &mode)) {
-               ggiParseMode ("479x379#479x379[8]", &mode);
+  else
+    {
+      ggiParseMode ("479x379", &mode);
+      if (ggiCheckMode (vis, &mode))
+	{
+	  ggiParseMode ("320x200", &mode);
+	  if (ggiCheckMode (vis, &mode))
+	    {
+	      ggiParseMode ("320x240", &mode);
+	      if (ggiCheckMode (vis, &mode))
+		{
+		  ggiParseMode ("640x480", &mode);
+		}
 	    }
-	 }
-      }
-    }
+	}
+#if 0
+      if (ggiCheckMode (vis, &mode))
+	{
+	  ggiParseMode ("479x379#479x379[32]", &mode);
+	  if (ggiCheckMode (vis, &mode))
+	    {
+	      ggiParseMode ("479x379#479x379[16]", &mode);
+	      if (ggiCheckMode (vis, &mode))
+		{
+		  ggiParseMode ("479x379#479x379[24]", &mode);
+		  if (ggiCheckMode (vis, &mode))
+		    {
+		      ggiParseMode ("479x379#479x379[8]", &mode);
+		    }
+		}
+	    }
+	}
 #endif
-  }
+    }
 
   if (ggiSetMode (vis, &mode))
     {
-      if(defmode) ggiParseMode (defmode, &mode); else ggiParseMode ("479x379", &mode);
-      if (ggiCheckMode (vis, &mode)) {
-         ggiParseMode ("320x200", &mode);
-         if (ggiCheckMode (vis, &mode)) {
-            ggiParseMode ("320x240", &mode);
-            if (ggiCheckMode (vis, &mode)) {
-               ggiParseMode ("640x480", &mode);
+      if (defmode)
+	ggiParseMode (defmode, &mode);
+      else
+	ggiParseMode ("479x379", &mode);
+      if (ggiCheckMode (vis, &mode))
+	{
+	  ggiParseMode ("320x200", &mode);
+	  if (ggiCheckMode (vis, &mode))
+	    {
+	      ggiParseMode ("320x240", &mode);
+	      if (ggiCheckMode (vis, &mode))
+		{
+		  ggiParseMode ("640x480", &mode);
+		}
 	    }
-         }
-      }
-      if (ggiSetMode (vis, &mode)) {
-        ggiClose (vis);
-        ggiExit ();
-        x_fatalerror("Can not initialize graphics mode!");
-      }
+	}
+      if (ggiSetMode (vis, &mode))
+	{
+	  ggiClose (vis);
+	  ggiExit ();
+	  x_fatalerror ("Can not initialize graphics mode!");
+	}
     }
 
   ggi_driver.width = mode.size.x / 10.0;
@@ -208,7 +228,8 @@ ggi_getsize (int *w, int *h)
     case GT_4BIT:
       ggiClose (vis);
       ggiExit ();
-      x_fatalerror ("4bit modes are marked as obsolette thus unsupported by XaoS engine. Sorry :)\n");
+      x_fatalerror
+	("4bit modes are marked as obsolette thus unsupported by XaoS engine. Sorry :)\n");
     case GT_8BIT:
       bpp = 1;
       ggi_driver.imagetype = UI_C256;
@@ -250,8 +271,7 @@ static void
 ggi_processevents (int wait, int *mx, int *my, int *mb, int *k)
 {
   ggi_event ev;
-  struct timeval ti =
-  {0, 0};
+  struct timeval ti = { 0, 0 };
 
   while (wait || ggiEventPoll (vis, GGIMASK, &ti))
     {
@@ -304,7 +324,7 @@ ggi_processevents (int wait, int *mx, int *my, int *mb, int *k)
 	    case GIIK_PageDown:
 	      ui_key (UIKEY_PGDOWN);
 	      break;
-	    /*case U (KEY_ESC):*/
+	      /*case U (KEY_ESC): */
 	    case GIIK_Break:
 	    case GIIUC_Escape:
 	      ui_key (UIKEY_ESC);
@@ -351,10 +371,14 @@ ggi_processevents (int wait, int *mx, int *my, int *mb, int *k)
 	  ggi_hidemouse ();
 	  mousex += ev.pmove.x;
 	  mousey += ev.pmove.y;
-	  if(mousex<0) mousex=0;
-	  if(mousey<0) mousey=0;
-	  if(mousex>xsize) mousex=xsize;
-	  if(mousey>ysize) mousey=ysize;
+	  if (mousex < 0)
+	    mousex = 0;
+	  if (mousey < 0)
+	    mousey = 0;
+	  if (mousex > xsize)
+	    mousex = xsize;
+	  if (mousey > ysize)
+	    mousey = ysize;
 	  ggi_drawmouse ();
 	  break;
 	}
@@ -365,16 +389,15 @@ ggi_processevents (int wait, int *mx, int *my, int *mb, int *k)
   *k = keys;
 }
 
-static CONST char * CONST names[] =
-{"1",
- "8",
- "15",
- "16",
- "24",
- "32",
- NULL};
-static CONST menudialog uih_resizedialog[] =
-{
+static CONST char *CONST names[] = { "1",
+  "8",
+  "15",
+  "16",
+  "24",
+  "32",
+  NULL
+};
+static CONST menudialog uih_resizedialog[] = {
   DIALOGINT ("X:", 0),
   DIALOGINT ("Y:", 0),
   DIALOGCHOICE ("Depth", names, 0),
@@ -417,23 +440,25 @@ static void
 ggi_resize (struct uih_context *c, dialogparam * p)
 {
   static char s[100];
-  sprintf (s, "%ix%i#%ix%i[%s]", p[0].dint, p[1].dint, p[0].dint, p[1].dint, names[p[2].dint]);
+  sprintf (s, "%ix%i#%ix%i[%s]", p[0].dint, p[1].dint, p[0].dint, p[1].dint,
+	   names[p[2].dint]);
   defmode = s;
-  /*printf ("%s\n", s);*/
+  /*printf ("%s\n", s); */
   if (strcmp (visname, p[3].dstring))
     {
-      if(oldvisname) free (oldvisname);
-      oldvisname=visname;
-      visname=p[3].dstring;
-      vischanged=1;
+      if (oldvisname)
+	free (oldvisname);
+      oldvisname = visname;
+      visname = p[3].dstring;
+      vischanged = 1;
       visname = strdup (p[3].dstring);
     }
   ui_call_resize ();
 }
 
-static menuitem menuitems[] =
-{
-MENUCDIALOG ("ui", "=", "Resize", "resize", 0, ggi_resize, ggi_resizedialog),
+static menuitem menuitems[] = {
+  MENUCDIALOG ("ui", "=", "Resize", "resize", 0, ggi_resize,
+	       ggi_resizedialog),
 };
 
 
@@ -446,7 +471,10 @@ ggi_init ()
 
   if ((vis = ggiOpen (visname, NULL)) == NULL)
     return 0;
-  if(visname!=NULL) visname=strdup(visname); else visname=strdup("");
+  if (visname != NULL)
+    visname = strdup (visname);
+  else
+    visname = strdup ("");
   menu_add (menuitems, NITEMS (menuitems));
 
   return (1);
@@ -475,16 +503,14 @@ ggi_mousetype (int type)
   mousetype = type;
 }
 
-static CONST struct params params[] =
-{
+static CONST struct params params[] = {
   {"", P_HELP, NULL, "GGI driver options:"},
   {"-defmode", P_STRING, &defmode, "Graphics defmode"},
   {"-ggidisplay", P_STRING, &visname, "Display"},
   {NULL, 0, NULL, NULL}
 };
 
-struct ui_driver ggi_driver =
-{
+struct ui_driver ggi_driver = {
   "GGI",
   ggi_init,
   ggi_getsize,
@@ -508,7 +534,7 @@ struct ui_driver ggi_driver =
   0, 0,				/*resolution of screen for windowed systems */
   UI_C256,			/*Image type */
   0, 255, 255			/*start, end of palette and maximum allocatable */
-				/*entries */
+    /*entries */
 };
 
 #endif

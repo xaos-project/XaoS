@@ -2,8 +2,7 @@
 #include <libc.h>
 #include <stdio.h>
 #include <xthread.h>
-struct taskinfo definfo =
-{
+struct taskinfo definfo = {
   0,
 };
 #ifndef nthreads
@@ -32,6 +31,7 @@ p9wait (struct Stack *stack, Lock * l)
   rendezvous (ctag, 0);
   lock (l);
 }
+
 void
 p9wakeup (struct Stack *stack)
 {
@@ -115,6 +115,7 @@ control_routine (void *i)
     }
   return 0;
 }
+
 void
 p9init (int nthreads1)
 {
@@ -145,6 +146,7 @@ p9init (int nthreads1)
   if (nthreads != 1)
     ethreads = 1;
 }
+
 void
 p9synchronize (void)
 {
@@ -188,6 +190,7 @@ p9bgjob (xfunction f, void *d)
   p9wakeup (&startcond);
   unlock (&startcondmutex);
 }
+
 void
 p9function (xfunction f, void *d, int r)
 {
@@ -205,6 +208,7 @@ p9function (xfunction f, void *d, int r)
 
   function (data, infos, getrange1 (range, 0), getrange2 (range, 0));
 }
+
 void
 p9uninit (void)
 {

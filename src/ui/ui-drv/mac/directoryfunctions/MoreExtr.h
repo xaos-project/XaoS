@@ -26,14 +26,15 @@
 #include <Files.h>
 
 #ifndef true
-#define true 1 
+#define true 1
 #define false 0
 #endif
 
 #include "optim.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*****************************************************************************/
@@ -42,66 +43,73 @@ extern "C" {
 
 #if	UNIVERSAL_INTERFACES_VERSION < 0x0301
 
-enum {
-	volMountNoLoginMsgFlagBit	= 0,							/* Input to VolumeMount: If set, the file system */
-	volMountNoLoginMsgFlagMask	= 0x0001,						/*  should suppresss any log-in message/greeting dialog */
-	volMountExtendedFlagsBit	= 7,							/* Input to VolumeMount: If set, the mount info is a */
-	volMountExtendedFlagsMask	= 0x0080						/*  AFPXVolMountInfo record for 3.7 AppleShare Client */
-};
+  enum
+  {
+    volMountNoLoginMsgFlagBit = 0,	/* Input to VolumeMount: If set, the file system */
+    volMountNoLoginMsgFlagMask = 0x0001,	/*  should suppresss any log-in message/greeting dialog */
+    volMountExtendedFlagsBit = 7,	/* Input to VolumeMount: If set, the mount info is a */
+    volMountExtendedFlagsMask = 0x0080	/*  AFPXVolMountInfo record for 3.7 AppleShare Client */
+  };
 
 /* AFPXVolMountInfo is the new AFP volume mount info record, requires the 3.7 AppleShare Client */
 
-struct AFPXVolMountInfo {
-	short 							length;						/* length of location data (including self) */
-	VolumeType 						media;						/* type of media */
-	short 							flags;						/* bits for no messages, no reconnect */
-	SInt8 							nbpInterval;				/* NBP Interval parameter (IM2, p.322) */
-	SInt8 							nbpCount;					/* NBP Interval parameter (IM2, p.322) */
-	short 							uamType;					/* User Authentication Method type */
-	short 							zoneNameOffset;				/* short positive offset from start of struct to Zone Name */
-	short 							serverNameOffset;			/* offset to pascal Server Name string */
-	short 							volNameOffset;				/* offset to pascal Volume Name string */
-	short 							userNameOffset;				/* offset to pascal User Name string */
-	short 							userPasswordOffset;			/* offset to pascal User Password string */
-	short 							volPasswordOffset;			/* offset to pascal Volume Password string */
-	short 							extendedFlags;				/* extended flags word */
-	short 							uamNameOffset;				/* offset to a pascal UAM name string */
-	short 							alternateAddressOffset;		/* offset to Alternate Addresses in tagged format */
-	char 							AFPData[176];				/* variable length data may follow */
-};
-typedef struct AFPXVolMountInfo			AFPXVolMountInfo;
-typedef AFPXVolMountInfo *				AFPXVolMountInfoPtr;
+  struct AFPXVolMountInfo
+  {
+    short length;		/* length of location data (including self) */
+    VolumeType media;		/* type of media */
+    short flags;		/* bits for no messages, no reconnect */
+    SInt8 nbpInterval;		/* NBP Interval parameter (IM2, p.322) */
+    SInt8 nbpCount;		/* NBP Interval parameter (IM2, p.322) */
+    short uamType;		/* User Authentication Method type */
+    short zoneNameOffset;	/* short positive offset from start of struct to Zone Name */
+    short serverNameOffset;	/* offset to pascal Server Name string */
+    short volNameOffset;	/* offset to pascal Volume Name string */
+    short userNameOffset;	/* offset to pascal User Name string */
+    short userPasswordOffset;	/* offset to pascal User Password string */
+    short volPasswordOffset;	/* offset to pascal Volume Password string */
+    short extendedFlags;	/* extended flags word */
+    short uamNameOffset;	/* offset to a pascal UAM name string */
+    short alternateAddressOffset;	/* offset to Alternate Addresses in tagged format */
+    char AFPData[176];		/* variable length data may follow */
+  };
+  typedef struct AFPXVolMountInfo AFPXVolMountInfo;
+  typedef AFPXVolMountInfo *AFPXVolMountInfoPtr;
 
-enum {
-	kAFPExtendedFlagsAlternateAddressMask = 1					/*  bit in AFPXVolMountInfo.extendedFlags that means alternateAddressOffset is used*/
-};
+  enum
+  {
+    kAFPExtendedFlagsAlternateAddressMask = 1	/*  bit in AFPXVolMountInfo.extendedFlags that means alternateAddressOffset is used */
+  };
 
-enum {
-																/* constants for use in AFPTagData.fType field*/
-	kAFPTagTypeIP				= 0x01,
-	kAFPTagTypeIPPort			= 0x02,
-	kAFPTagTypeDDP				= 0x03							/* Currently unused*/
-};
+  enum
+  {
+    /* constants for use in AFPTagData.fType field */
+    kAFPTagTypeIP = 0x01,
+    kAFPTagTypeIPPort = 0x02,
+    kAFPTagTypeDDP = 0x03	/* Currently unused */
+  };
 
-enum {
-																/* constants for use in AFPTagData.fLength field*/
-	kAFPTagLengthIP				= 0x06,
-	kAFPTagLengthIPPort			= 0x08,
-	kAFPTagLengthDDP			= 0x06
-};
+  enum
+  {
+    /* constants for use in AFPTagData.fLength field */
+    kAFPTagLengthIP = 0x06,
+    kAFPTagLengthIPPort = 0x08,
+    kAFPTagLengthDDP = 0x06
+  };
 
-struct AFPTagData {
-	UInt8 							fLength;					/* length of this data tag including the fLength field */
-	UInt8 							fType;
-	UInt8 							fData[1];					/* variable length data */
-};
-typedef struct AFPTagData				AFPTagData;
+  struct AFPTagData
+  {
+    UInt8 fLength;		/* length of this data tag including the fLength field */
+    UInt8 fType;
+    UInt8 fData[1];		/* variable length data */
+  };
+  typedef struct AFPTagData AFPTagData;
 
-struct AFPAlternateAddress {
-	UInt8 							fAddressCount;
-	UInt8 							fAddressList[1];			/* actually variable length packed set of AFPTagData */
-};
-typedef struct AFPAlternateAddress		AFPAlternateAddress;
+  struct AFPAlternateAddress
+  {
+    UInt8 fAddressCount;
+    UInt8 fAddressList[1];	/* actually variable length packed set of AFPTagData */
+  };
+  typedef struct AFPAlternateAddress AFPAlternateAddress;
 
 #endif
 
@@ -156,23 +164,23 @@ typedef struct AFPAlternateAddress		AFPAlternateAddress;
 **			ioACAccess by PBHGetDirAccess.
 */
 
-enum
-{
-	/* bits defined in ioACUser */
-	acUserNoSeeFoldersMask	= 0x01,
-	acUserNoSeeFilesMask	= 0x02,
-	acUserNoMakeChangesMask	= 0x04,
-	acUserNotOwnerMask		= 0x80,
-	
-	/* mask for just the access restriction bits */
-	acUserAccessMask		= 0x07,
-	
-	/* common access privilege settings */
-	acUserFull				= 0x00,						/* no access restiction bits on */
-	acUserNone				= acUserAccessMask,			/* all access restiction bits on */
-	acUserDropBox			= acUserNoSeeFoldersMask + acUserNoSeeFilesMask, /* make changes, but not see files or folders */
-	acUserBulletinBoard		= acUserNoMakeChangesMask	/* see files and folders, but not make changes */
-};
+  enum
+  {
+    /* bits defined in ioACUser */
+    acUserNoSeeFoldersMask = 0x01,
+    acUserNoSeeFilesMask = 0x02,
+    acUserNoMakeChangesMask = 0x04,
+    acUserNotOwnerMask = 0x80,
+
+    /* mask for just the access restriction bits */
+    acUserAccessMask = 0x07,
+
+    /* common access privilege settings */
+    acUserFull = 0x00,		/* no access restiction bits on */
+    acUserNone = acUserAccessMask,	/* all access restiction bits on */
+    acUserDropBox = acUserNoSeeFoldersMask + acUserNoSeeFilesMask,	/* make changes, but not see files or folders */
+    acUserBulletinBoard = acUserNoMakeChangesMask	/* see files and folders, but not make changes */
+  };
 
 /* Macros for testing ioACUser bits */
 #define	userIsOwner(ioACUser)	\
@@ -193,34 +201,34 @@ enum
 **	FSpOpenAware, and FSpOpenRFAware functions.
 */
 
-enum
-{
-	dmNone			= 0x0000,
-	dmNoneDenyRd	= 0x0010,
-	dmNoneDenyWr	= 0x0020,
-	dmNoneDenyRdWr	= 0x0030,
-	dmRd			= 0x0001,	/* Single writer, multiple readers; the readers */
-	dmRdDenyRd		= 0x0011,
-	dmRdDenyWr		= 0x0021,	/* Browsing - equivalent to fsRdPerm */
-	dmRdDenyRdWr	= 0x0031,
-	dmWr			= 0x0002,
-	dmWrDenyRd		= 0x0012,
-	dmWrDenyWr		= 0x0022,
-	dmWrDenyRdWr	= 0x0032,
-	dmRdWr			= 0x0003,	/* Shared access - equivalent to fsRdWrShPerm */
-	dmRdWrDenyRd	= 0x0013,
-	dmRdWrDenyWr	= 0x0023,	/* Single writer, multiple readers; the writer */
-	dmRdWrDenyRdWr	= 0x0033	/* Exclusive access - equivalent to fsRdWrPerm */
-};
-	
+  enum
+  {
+    dmNone = 0x0000,
+    dmNoneDenyRd = 0x0010,
+    dmNoneDenyWr = 0x0020,
+    dmNoneDenyRdWr = 0x0030,
+    dmRd = 0x0001,		/* Single writer, multiple readers; the readers */
+    dmRdDenyRd = 0x0011,
+    dmRdDenyWr = 0x0021,	/* Browsing - equivalent to fsRdPerm */
+    dmRdDenyRdWr = 0x0031,
+    dmWr = 0x0002,
+    dmWrDenyRd = 0x0012,
+    dmWrDenyWr = 0x0022,
+    dmWrDenyRdWr = 0x0032,
+    dmRdWr = 0x0003,		/* Shared access - equivalent to fsRdWrShPerm */
+    dmRdWrDenyRd = 0x0013,
+    dmRdWrDenyWr = 0x0023,	/* Single writer, multiple readers; the writer */
+    dmRdWrDenyRdWr = 0x0033	/* Exclusive access - equivalent to fsRdWrPerm */
+  };
+
 /*****************************************************************************/
 
 #if PRAGMA_STRUCT_ALIGN
-    #pragma options align=mac68k
+#pragma options align=mac68k
 #elif PRAGMA_STRUCT_PACKPUSH
-    #pragma pack(push, 2)
+#pragma pack(push, 2)
 #elif PRAGMA_STRUCT_PACK
-    #pragma pack(2)
+#pragma pack(2)
 #endif
 
 /*
@@ -228,117 +236,117 @@ enum
 **	block but don't feel like wasting stack space, here's a parameter block you can reuse.
 */
 
-union UniversalFMPB
-{
-	ParamBlockRec	PB;
-	CInfoPBRec		ciPB;
-	DTPBRec			dtPB;
-	HParamBlockRec	hPB;
-	CMovePBRec		cmPB;
-	WDPBRec			wdPB;
-	FCBPBRec		fcbPB;
-	XVolumeParam	xPB;
-};
-typedef union UniversalFMPB UniversalFMPB;
-typedef UniversalFMPB *UniversalFMPBPtr, **UniversalFMPBHandle;
+  union UniversalFMPB
+  {
+    ParamBlockRec PB;
+    CInfoPBRec ciPB;
+    DTPBRec dtPB;
+    HParamBlockRec hPB;
+    CMovePBRec cmPB;
+    WDPBRec wdPB;
+    FCBPBRec fcbPB;
+    XVolumeParam xPB;
+  };
+  typedef union UniversalFMPB UniversalFMPB;
+  typedef UniversalFMPB *UniversalFMPBPtr, **UniversalFMPBHandle;
 
 
 /*
 **	Used by GetUGEntries to return user or group lists
 */
 
-struct UGEntry
-{
-	short	objType;	/* object type: -1 = group; 0 = user */
-	long	objID;		/* the user or group ID */
-	Str31	name;		/* the user or group name */
-};
-typedef struct UGEntry UGEntry;
-typedef UGEntry *UGEntryPtr, **UGEntryHandle;
+  struct UGEntry
+  {
+    short objType;		/* object type: -1 = group; 0 = user */
+    long objID;			/* the user or group ID */
+    Str31 name;			/* the user or group name */
+  };
+  typedef struct UGEntry UGEntry;
+  typedef UGEntry *UGEntryPtr, **UGEntryHandle;
 
 
-typedef unsigned char Str8[9];
+  typedef unsigned char Str8[9];
 
 
 /*
 **	I use the following records instead of the AFPVolMountInfo and AFPXVolMountInfo structures in Files.h
 */
 
-struct MyAFPVolMountInfo
-{
-	short length;				/* length of this record */
-	VolumeType media;			/* type of media, always AppleShareMediaType */
-	short flags;				/* 0 = normal mount; set bit 0 to inhibit greeting messages */
-	char nbpInterval;			/* NBP interval parameter; 7 is a good choice */
-	char nbpCount;				/* NBP count parameter; 5 is a good choice */
-	short uamType;				/* User Authentication Method */
-	short zoneNameOffset;		/* offset from start of record to zoneName */
-	short serverNameOffset;		/* offset from start of record to serverName */
-	short volNameOffset;		/* offset from start of record to volName */
-	short userNameOffset;		/* offset from start of record to userName */
-	short userPasswordOffset;	/* offset from start of record to userPassword */
-	short volPasswordOffset;	/* offset from start of record to volPassword */
-	Str32 zoneName;				/* server's AppleTalk zone name */					
-	char filler1;				/* to word align volPassword */
-	Str32 serverName;			/* server name */					
-	char filler2;				/* to word align volPassword */
-	Str27 volName;				/* volume name */					
-	Str31 userName;				/* user name (zero length Pascal string for guest) */
-	Str8 userPassword;			/* user password (zero length Pascal string if no user password) */					
-	char filler3;				/* to word align volPassword */
-	Str8 volPassword;			/* volume password (zero length Pascal string if no volume password) */					
-	char filler4;				/* to end record on word boundry */
-};
-typedef struct MyAFPVolMountInfo MyAFPVolMountInfo;
-typedef MyAFPVolMountInfo *MyAFPVolMountInfoPtr, **MyAFPVolMountInfoHandle;
+  struct MyAFPVolMountInfo
+  {
+    short length;		/* length of this record */
+    VolumeType media;		/* type of media, always AppleShareMediaType */
+    short flags;		/* 0 = normal mount; set bit 0 to inhibit greeting messages */
+    char nbpInterval;		/* NBP interval parameter; 7 is a good choice */
+    char nbpCount;		/* NBP count parameter; 5 is a good choice */
+    short uamType;		/* User Authentication Method */
+    short zoneNameOffset;	/* offset from start of record to zoneName */
+    short serverNameOffset;	/* offset from start of record to serverName */
+    short volNameOffset;	/* offset from start of record to volName */
+    short userNameOffset;	/* offset from start of record to userName */
+    short userPasswordOffset;	/* offset from start of record to userPassword */
+    short volPasswordOffset;	/* offset from start of record to volPassword */
+    Str32 zoneName;		/* server's AppleTalk zone name */
+    char filler1;		/* to word align volPassword */
+    Str32 serverName;		/* server name */
+    char filler2;		/* to word align volPassword */
+    Str27 volName;		/* volume name */
+    Str31 userName;		/* user name (zero length Pascal string for guest) */
+    Str8 userPassword;		/* user password (zero length Pascal string if no user password) */
+    char filler3;		/* to word align volPassword */
+    Str8 volPassword;		/* volume password (zero length Pascal string if no volume password) */
+    char filler4;		/* to end record on word boundry */
+  };
+  typedef struct MyAFPVolMountInfo MyAFPVolMountInfo;
+  typedef MyAFPVolMountInfo *MyAFPVolMountInfoPtr, **MyAFPVolMountInfoHandle;
 
-struct MyAFPXVolMountInfo
-{
-	short length;				/* length of this record */
-	VolumeType media;			/* type of media, always AppleShareMediaType */
-	short flags;				/* bits for no messages, no reconnect, etc */
-	char nbpInterval;			/* NBP interval parameter; 7 is a good choice */
-	char nbpCount;				/* NBP count parameter; 5 is a good choice */
-	short uamType;				/* User Authentication Method */
-	short zoneNameOffset;		/* offset from start of record to zoneName */
-	short serverNameOffset;		/* offset from start of record to serverName */
-	short volNameOffset;		/* offset from start of record to volName */
-	short userNameOffset;		/* offset from start of record to userName */
-	short userPasswordOffset;	/* offset from start of record to userPassword */
-	short volPasswordOffset;	/* offset from start of record to volPassword */
-	short extendedFlags;		/* extended flags word */
-	short uamNameOffset;		/* offset to a pascal UAM name string */
-	short alternateAddressOffset; /* offset to Alternate Addresses in tagged format */
-	Str32 zoneName;				/* server's AppleTalk zone name */					
-	char filler1;				/* to word align volPassword */
-	Str32 serverName;			/* server name */					
-	char filler2;				/* to word align volPassword */
-	Str27 volName;				/* volume name */					
-	Str31 userName;				/* user name (zero length Pascal string for guest) */
-	Str8 userPassword;			/* user password (zero length Pascal string if no user password) */					
-	char filler3;				/* to word align volPassword */
-	Str8 volPassword;			/* volume password (zero length Pascal string if no volume password) */					
-	char filler4;				/* to word align uamNameOffset */
-	Str32 uamName;				/* UAM name */
-	char filler5;				/* to word align alternateAddress */
-	char alternateAddress[kVariableLengthArray];	/* AFPAlternateAddress */
-};
-typedef struct MyAFPXVolMountInfo MyAFPXVolMountInfo;
-typedef MyAFPXVolMountInfo *MyAFPXVolMountInfoPtr, **MyAFPXVolMountInfoHandle;
+  struct MyAFPXVolMountInfo
+  {
+    short length;		/* length of this record */
+    VolumeType media;		/* type of media, always AppleShareMediaType */
+    short flags;		/* bits for no messages, no reconnect, etc */
+    char nbpInterval;		/* NBP interval parameter; 7 is a good choice */
+    char nbpCount;		/* NBP count parameter; 5 is a good choice */
+    short uamType;		/* User Authentication Method */
+    short zoneNameOffset;	/* offset from start of record to zoneName */
+    short serverNameOffset;	/* offset from start of record to serverName */
+    short volNameOffset;	/* offset from start of record to volName */
+    short userNameOffset;	/* offset from start of record to userName */
+    short userPasswordOffset;	/* offset from start of record to userPassword */
+    short volPasswordOffset;	/* offset from start of record to volPassword */
+    short extendedFlags;	/* extended flags word */
+    short uamNameOffset;	/* offset to a pascal UAM name string */
+    short alternateAddressOffset;	/* offset to Alternate Addresses in tagged format */
+    Str32 zoneName;		/* server's AppleTalk zone name */
+    char filler1;		/* to word align volPassword */
+    Str32 serverName;		/* server name */
+    char filler2;		/* to word align volPassword */
+    Str27 volName;		/* volume name */
+    Str31 userName;		/* user name (zero length Pascal string for guest) */
+    Str8 userPassword;		/* user password (zero length Pascal string if no user password) */
+    char filler3;		/* to word align volPassword */
+    Str8 volPassword;		/* volume password (zero length Pascal string if no volume password) */
+    char filler4;		/* to word align uamNameOffset */
+    Str32 uamName;		/* UAM name */
+    char filler5;		/* to word align alternateAddress */
+    char alternateAddress[kVariableLengthArray];	/* AFPAlternateAddress */
+  };
+  typedef struct MyAFPXVolMountInfo MyAFPXVolMountInfo;
+  typedef MyAFPXVolMountInfo *MyAFPXVolMountInfoPtr,
+    **MyAFPXVolMountInfoHandle;
 
 #if PRAGMA_STRUCT_ALIGN
-    #pragma options align=reset
+#pragma options align=reset
 #elif PRAGMA_STRUCT_PACKPUSH
-    #pragma pack(pop)
+#pragma pack(pop)
 #elif PRAGMA_STRUCT_PACK
-    #pragma pack()
+#pragma pack()
 #endif
 
 /*****************************************************************************/
 
-pascal	void	TruncPString(StringPtr destination,
-							 ConstStr255Param source,
-							 short maxLength);
+  pascal void TruncPString (StringPtr destination,
+			    ConstStr255Param source, short maxLength);
 /*	¦ International friendly string truncate routine.
 	The TruncPString function copies up to maxLength characters from
 	the source Pascal string to the destination Pascal string. TruncPString
@@ -353,8 +361,7 @@ pascal	void	TruncPString(StringPtr destination,
 
 /*****************************************************************************/
 
-pascal	Ptr	GetTempBuffer(long buffReqSize,
-						  long *buffActSize);
+  pascal Ptr GetTempBuffer (long buffReqSize, long *buffActSize);
 /*	¦ Allocate a temporary copy or search buffer.
 	The GetTempBuffer function allocates a temporary buffer for file system
 	operations which is at least 1024 bytes (1K) and a multiple of
@@ -369,9 +376,8 @@ pascal	Ptr	GetTempBuffer(long buffReqSize,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetVolumeInfoNoName(ConstStr255Param pathname,
-									short vRefNum,
-									HParmBlkPtr pb);
+  pascal OSErr GetVolumeInfoNoName (ConstStr255Param pathname,
+				    short vRefNum, HParmBlkPtr pb);
 /*	¦ Call PBHGetVInfoSync ignoring returned name.
 	GetVolumeInfoNoName uses pathname and vRefNum to call PBHGetVInfoSync
 	in cases where the returned volume name is not needed by the caller.
@@ -400,9 +406,8 @@ pascal	OSErr	GetVolumeInfoNoName(ConstStr255Param pathname,
 
 /*****************************************************************************/
 
-pascal	OSErr	XGetVolumeInfoNoName(ConstStr255Param pathname,
-									short vRefNum,
-									XVolumeParamPtr pb);
+  pascal OSErr XGetVolumeInfoNoName (ConstStr255Param pathname,
+				     short vRefNum, XVolumeParamPtr pb);
 /*	¦ Call PBXGetVolInfoSync ignoring returned name.
 	XGetVolumeInfoNoName uses pathname and vRefNum to call PBXGetVolInfoSync
 	in cases where the returned volume name is not needed by the caller.
@@ -428,10 +433,9 @@ pascal	OSErr	XGetVolumeInfoNoName(ConstStr255Param pathname,
 
 /*****************************************************************************/
 
-pascal	OSErr GetCatInfoNoName(short vRefNum,
-							   long dirID,
-							   ConstStr255Param name,
-							   CInfoPBPtr pb);
+  pascal OSErr GetCatInfoNoName (short vRefNum,
+				 long dirID,
+				 ConstStr255Param name, CInfoPBPtr pb);
 /*	¦ Call PBGetCatInfoSync ignoring returned name.
 	GetCatInfoNoName uses vRefNum, dirID and name to call PBGetCatInfoSync
 	in cases where the returned object is not needed by the caller.
@@ -467,9 +471,8 @@ pascal	OSErr GetCatInfoNoName(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	DetermineVRefNum(ConstStr255Param pathname,
-								 short vRefNum,
-								 short *realVRefNum);
+  pascal OSErr DetermineVRefNum (ConstStr255Param pathname,
+				 short vRefNum, short *realVRefNum);
 /*	¦ Determine the real volume reference number.
 	The DetermineVRefNum function determines the volume reference number of
 	a volume from a pathname, a volume specification, or a combination
@@ -497,11 +500,11 @@ pascal	OSErr	DetermineVRefNum(ConstStr255Param pathname,
 
 /*****************************************************************************/
 
-pascal	OSErr	HGetVInfo(short volReference,
-						  StringPtr volName,
-						  short *vRefNum,
-						  unsigned long *freeBytes,
-						  unsigned long *totalBytes);
+  pascal OSErr HGetVInfo (short volReference,
+			  StringPtr volName,
+			  short *vRefNum,
+			  unsigned long *freeBytes,
+			  unsigned long *totalBytes);
 /*	¦ Get information about a mounted volume.
 	The HGetVInfo function returns the name, volume reference number,
 	available space (in bytes), and total space (in bytes) for the
@@ -533,11 +536,11 @@ pascal	OSErr	HGetVInfo(short volReference,
 
 /*****************************************************************************/
 
-pascal	OSErr	XGetVInfo(short volReference,
-						  StringPtr volName,
-						  short *vRefNum,
-						  UnsignedWide *freeBytes,
-						  UnsignedWide *totalBytes);
+  pascal OSErr XGetVInfo (short volReference,
+			  StringPtr volName,
+			  short *vRefNum,
+			  UnsignedWide * freeBytes,
+			  UnsignedWide * totalBytes);
 /*	¦ Get extended information about a mounted volume.
 	The XGetVInfo function returns the name, volume reference number,
 	available space (in bytes), and total space (in bytes) for the
@@ -569,8 +572,7 @@ pascal	OSErr	XGetVInfo(short volReference,
 
 /*****************************************************************************/
 
-pascal	OSErr	CheckVolLock(ConstStr255Param pathname,
-							 short vRefNum);
+  pascal OSErr CheckVolLock (ConstStr255Param pathname, short vRefNum);
 /*	¦ Determine if a volume is locked.
 	The CheckVolLock function determines if a volume is locked - either by
 	hardware or by software. If CheckVolLock returns noErr, then the volume
@@ -592,8 +594,7 @@ pascal	OSErr	CheckVolLock(ConstStr255Param pathname,
 
 /*****************************************************************************/
 
-pascal	OSErr GetDriverName(short driverRefNum,
-							Str255 driverName);
+  pascal OSErr GetDriverName (short driverRefNum, Str255 driverName);
 /*	¦ Get a device driver's name.
 	The GetDriverName function returns a device driver's name.
 
@@ -607,9 +608,8 @@ pascal	OSErr GetDriverName(short driverRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FindDrive(ConstStr255Param pathname,
-						  short vRefNum,
-						  DrvQElPtr *driveQElementPtr);
+  pascal OSErr FindDrive (ConstStr255Param pathname,
+			  short vRefNum, DrvQElPtr * driveQElementPtr);
 /*	¦ Find a volume's drive queue element in the drive queue.
 	The FindDrive function returns a pointer to a mounted volume's
 	drive queue element.
@@ -634,9 +634,8 @@ pascal	OSErr	FindDrive(ConstStr255Param pathname,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetDiskBlocks(ConstStr255Param pathname,
-							  short vRefNum,
-							  unsigned long *numBlocks);
+  pascal OSErr GetDiskBlocks (ConstStr255Param pathname,
+			      short vRefNum, unsigned long *numBlocks);
 /*	¦ Return the number of physical disk blocks on a disk drive.
 	The GetDiskBlocks function returns the number of physical disk
 	blocks on a disk drive. NOTE: This is not the same as volume
@@ -672,9 +671,8 @@ pascal	OSErr	GetDiskBlocks(ConstStr255Param pathname,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetVolFileSystemID(ConstStr255Param pathname,
-								   short vRefNum,
-								   short *fileSystemID);
+  pascal OSErr GetVolFileSystemID (ConstStr255Param pathname,
+				   short vRefNum, short *fileSystemID);
 /*	¦ Get a volume's file system ID.
 	The GetVolFileSystemID function returned the file system ID of
 	a mounted volume. The file system ID identifies the file system
@@ -713,12 +711,12 @@ pascal	OSErr	GetVolFileSystemID(ConstStr255Param pathname,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetVolState(ConstStr255Param pathname,
-							short vRefNum,
-							Boolean *volumeOnline,
-							Boolean *volumeEjected,
-							Boolean *driveEjectable,
-							Boolean *driverWantsEject);
+  pascal OSErr GetVolState (ConstStr255Param pathname,
+			    short vRefNum,
+			    Boolean * volumeOnline,
+			    Boolean * volumeEjected,
+			    Boolean * driveEjectable,
+			    Boolean * driverWantsEject);
 /*	¦ Returns a volume's online and eject information.
 	The GetVolState function determines if a volume is online or offline,
 	if an offline volume is ejected, and if the volume's driver is
@@ -747,8 +745,7 @@ pascal	OSErr	GetVolState(ConstStr255Param pathname,
 
 /*****************************************************************************/
 
-pascal	OSErr	UnmountAndEject(ConstStr255Param pathname,
-								short vRefNum);
+  pascal OSErr UnmountAndEject (ConstStr255Param pathname, short vRefNum);
 /*	¦ Unmount and eject a volume.
 	The UnmountAndEject function unmounts and ejects a volume. The volume
 	is ejected only if it is ejectable and not already ejected.
@@ -773,10 +770,9 @@ pascal	OSErr	UnmountAndEject(ConstStr255Param pathname,
 
 /*****************************************************************************/
 
-pascal	OSErr	OnLine(FSSpecPtr volumes,
-					   short reqVolCount,
-					   short *actVolCount,
-					   short *volIndex);
+  pascal OSErr OnLine (FSSpecPtr volumes,
+		       short reqVolCount,
+		       short *actVolCount, short *volIndex);
 /*	¦ Return the list of volumes currently mounted.
 	The OnLine function returns the list of volumes currently mounted in
 	an array of FSSpec records.
@@ -806,10 +802,8 @@ pascal	OSErr	OnLine(FSSpecPtr volumes,
 
 /*****************************************************************************/
 
-pascal	OSErr SetDefault(short newVRefNum,
-						 long newDirID,
-						 short *oldVRefNum,
-						 long *oldDirID);
+  pascal OSErr SetDefault (short newVRefNum,
+			   long newDirID, short *oldVRefNum, long *oldDirID);
 /*	¦ Set the default volume before making Standard I/O requests.
 	The SetDefault function sets the default volume and directory to the
 	volume specified by newVRefNum and the directory specified by newDirID.
@@ -863,8 +857,7 @@ pascal	OSErr SetDefault(short newVRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr RestoreDefault(short oldVRefNum,
-							 long oldDirID);
+  pascal OSErr RestoreDefault (short oldVRefNum, long oldDirID);
 /*	¦ Restore the default volume after making Standard C I/O requests.
 	The RestoreDefault function restores the default volume and directory
 	to the volume specified by oldVRefNum and the directory specified by 
@@ -911,10 +904,8 @@ pascal	OSErr RestoreDefault(short oldVRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr GetDInfo(short vRefNum,
-					   long dirID,
-					   ConstStr255Param name,
-					   DInfo *fndrInfo);
+  pascal OSErr GetDInfo (short vRefNum,
+			 long dirID, ConstStr255Param name, DInfo * fndrInfo);
 /*	¦ Get the finder information for a directory.
 	The GetDInfo function gets the finder information for a directory.
 
@@ -942,8 +933,7 @@ pascal	OSErr GetDInfo(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr FSpGetDInfo(const FSSpec *spec,
-						  DInfo *fndrInfo);
+  pascal OSErr FSpGetDInfo (const FSSpec * spec, DInfo * fndrInfo);
 /*	¦ Get the finder information for a directory.
 	The FSpGetDInfo function gets the finder information for a directory.
 
@@ -968,10 +958,9 @@ pascal	OSErr FSpGetDInfo(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr SetDInfo(short vRefNum,
-					   long dirID,
-					   ConstStr255Param name,
-					   const DInfo *fndrInfo);
+  pascal OSErr SetDInfo (short vRefNum,
+			 long dirID,
+			 ConstStr255Param name, const DInfo * fndrInfo);
 /*	¦ Set the finder information for a directory.
 	The SetDInfo function sets the finder information for a directory.
 
@@ -1001,8 +990,7 @@ pascal	OSErr SetDInfo(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr FSpSetDInfo(const FSSpec *spec,
-						  const DInfo *fndrInfo);
+  pascal OSErr FSpSetDInfo (const FSSpec * spec, const DInfo * fndrInfo);
 /*	¦ Set the finder information for a directory.
 	The FSpSetDInfo function sets the finder information for a directory.
 
@@ -1034,11 +1022,10 @@ pascal	OSErr FSpSetDInfo(const FSSpec *spec,
 		GetDirectoryID(vRefNum, dirID, name, theDirID, isDirectory)
 #endif
 
-pascal	OSErr	GetDirectoryID(short vRefNum,
-							   long dirID,
-							   ConstStr255Param name,
-							   long *theDirID,
-							   Boolean *isDirectory);
+  pascal OSErr GetDirectoryID (short vRefNum,
+			       long dirID,
+			       ConstStr255Param name,
+			       long *theDirID, Boolean * isDirectory);
 /*	¦ Get the directory ID number of the directory specified.
 	The GetDirectoryID function gets the directory ID number of the
 	directory specified.  If a file is specified, then the parent
@@ -1081,9 +1068,8 @@ pascal	OSErr	GetDirectoryID(short vRefNum,
 		FSpGetDirectoryID(spec, theDirID, isDirectory)
 #endif
 
-pascal	OSErr	FSpGetDirectoryID(const FSSpec *spec,
-								  long *theDirID,
-								  Boolean *isDirectory);
+  pascal OSErr FSpGetDirectoryID (const FSSpec * spec,
+				  long *theDirID, Boolean * isDirectory);
 /*	¦ Get the directory ID number of a directory.
 	The FSpGetDirectoryID function gets the directory ID number of the
 	directory specified by spec. If spec is to a file, then the parent
@@ -1110,9 +1096,7 @@ pascal	OSErr	FSpGetDirectoryID(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetDirName(short vRefNum,
-						   long dirID,
-						   Str31 name);
+  pascal OSErr GetDirName (short vRefNum, long dirID, Str31 name);
 /*	¦ Get the name of a directory from its directory ID.
 	The GetDirName function gets the name of a directory from its
 	directory ID.
@@ -1137,10 +1121,9 @@ pascal	OSErr	GetDirName(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetIOACUser(short vRefNum,
-							long dirID,
-							ConstStr255Param name,
-							SInt8 *ioACUser);
+  pascal OSErr GetIOACUser (short vRefNum,
+			    long dirID,
+			    ConstStr255Param name, SInt8 * ioACUser);
 /*	¦ Get a directory's access restrictions byte.
 	GetIOACUser returns a directory's access restrictions byte.
 	Use the masks and macro defined in MoreFilesExtras to check for
@@ -1166,8 +1149,7 @@ pascal	OSErr	GetIOACUser(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpGetIOACUser(const FSSpec *spec,
-							   SInt8 *ioACUser);
+  pascal OSErr FSpGetIOACUser (const FSSpec * spec, SInt8 * ioACUser);
 /*	¦ Get a directory's access restrictions byte.
 	FSpGetIOACUser returns a directory's access restrictions byte.
 	Use the masks and macro defined in MoreFilesExtras to check for
@@ -1190,10 +1172,8 @@ pascal	OSErr	FSpGetIOACUser(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetParentID(short vRefNum,
-							long dirID,
-							ConstStr255Param name,
-							long *parID);
+  pascal OSErr GetParentID (short vRefNum,
+			    long dirID, ConstStr255Param name, long *parID);
 /*	¦ Get the parent directory ID number of the specified object.
 	The GetParentID function gets the parent directory ID number of the
 	specified object.
@@ -1218,8 +1198,8 @@ pascal	OSErr	GetParentID(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetFilenameFromPathname(ConstStr255Param pathname,
-										Str255 filename);
+  pascal OSErr GetFilenameFromPathname (ConstStr255Param pathname,
+					Str255 filename);
 /*	¦ Get the object name from the end of a full or partial pathname.
 	The GetFilenameFromPathname function gets the file (or directory) name
 	from the end of a full or partial pathname. Returns notAFileErr if the
@@ -1243,13 +1223,12 @@ pascal	OSErr	GetFilenameFromPathname(ConstStr255Param pathname,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetObjectLocation(short vRefNum,
-								  long dirID,
-								  ConstStr255Param pathname,
-								  short *realVRefNum,
-								  long *realParID,
-								  Str255 realName,
-								  Boolean *isDirectory);
+  pascal OSErr GetObjectLocation (short vRefNum,
+				  long dirID,
+				  ConstStr255Param pathname,
+				  short *realVRefNum,
+				  long *realParID,
+				  Str255 realName, Boolean * isDirectory);
 /*	¦ Get a file system object's location.
 	The GetObjectLocation function gets a file system object's location -
 	that is, its real volume reference number, real parent directory ID,
@@ -1293,15 +1272,14 @@ pascal	OSErr	GetObjectLocation(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetDirItems(short vRefNum,
-							long dirID,
-							ConstStr255Param name,
-							Boolean getFiles,
-							Boolean getDirectories,
-							FSSpecPtr items,
-							short reqItemCount,
-							short *actItemCount,
-							short *itemIndex);
+  pascal OSErr GetDirItems (short vRefNum,
+			    long dirID,
+			    ConstStr255Param name,
+			    Boolean getFiles,
+			    Boolean getDirectories,
+			    FSSpecPtr items,
+			    short reqItemCount,
+			    short *actItemCount, short *itemIndex);
 /*	¦ Return a list of items in a directory.
 	The GetDirItems function returns a list of items in the specified
 	directory in an array of FSSpec records. File, subdirectories, or
@@ -1347,9 +1325,8 @@ pascal	OSErr	GetDirItems(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	DeleteDirectoryContents(short vRefNum,
-								 		long dirID,
-										ConstStr255Param name);
+  pascal OSErr DeleteDirectoryContents (short vRefNum,
+					long dirID, ConstStr255Param name);
 /*	¦ Delete the contents of a directory.
 	The DeleteDirectoryContents function deletes the contents of a directory.
 	All files and subdirectories in the specified directory are deleted.
@@ -1384,9 +1361,8 @@ pascal	OSErr	DeleteDirectoryContents(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	DeleteDirectory(short vRefNum,
-								long dirID,
-								ConstStr255Param name);
+  pascal OSErr DeleteDirectory (short vRefNum,
+				long dirID, ConstStr255Param name);
 /*	¦ Delete a directory and its contents.
 	The DeleteDirectory function deletes a directory and its contents.
 	All files and subdirectories in the specified directory are deleted.
@@ -1422,9 +1398,8 @@ pascal	OSErr	DeleteDirectory(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	CheckObjectLock(short vRefNum,
-								long dirID,
-								ConstStr255Param name);
+  pascal OSErr CheckObjectLock (short vRefNum,
+				long dirID, ConstStr255Param name);
 /*	¦ Determine if a file or directory is locked.
 	The CheckObjectLock function determines if a file or directory is locked.
 	If CheckObjectLock returns noErr, then the file or directory
@@ -1454,7 +1429,7 @@ pascal	OSErr	CheckObjectLock(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpCheckObjectLock(const FSSpec *spec);
+  pascal OSErr FSpCheckObjectLock (const FSSpec * spec);
 /*	¦ Determine if a file or directory is locked.
 	The FSpCheckObjectLock function determines if a file or directory is locked.
 	If FSpCheckObjectLock returns noErr, then the file or directory
@@ -1481,11 +1456,10 @@ pascal	OSErr	FSpCheckObjectLock(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	GetFileSize(short vRefNum,
-							long dirID,
-							ConstStr255Param fileName,
-							long *dataSize,
-							long *rsrcSize);
+  pascal OSErr GetFileSize (short vRefNum,
+			    long dirID,
+			    ConstStr255Param fileName,
+			    long *dataSize, long *rsrcSize);
 /*	¦ Get the logical sizes of a file's forks.
 	The GetFileSize function returns the logical size of a file's
 	data and resource fork.
@@ -1514,9 +1488,8 @@ pascal	OSErr	GetFileSize(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpGetFileSize(const FSSpec *spec,
-							   long *dataSize,
-							   long *rsrcSize);
+  pascal OSErr FSpGetFileSize (const FSSpec * spec,
+			       long *dataSize, long *rsrcSize);
 /*	¦ Get the logical sizes of a file's forks.
 	The FSpGetFileSize function returns the logical size of a file's
 	data and resource fork.
@@ -1543,9 +1516,7 @@ pascal	OSErr	FSpGetFileSize(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	BumpDate(short vRefNum,
-						 long dirID,
-						 ConstStr255Param name);
+  pascal OSErr BumpDate (short vRefNum, long dirID, ConstStr255Param name);
 /*	¦ Update the modification date of a file or directory.
 	The BumpDate function changes the modification date of a file or
 	directory to the current date/time.  If the modification date is already
@@ -1577,7 +1548,7 @@ pascal	OSErr	BumpDate(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpBumpDate(const FSSpec *spec);
+  pascal OSErr FSpBumpDate (const FSSpec * spec);
 /*	¦ Update the modification date of a file or directory.
 	The FSpBumpDate function changes the modification date of a file or
 	directory to the current date/time.  If the modification date is already
@@ -1606,11 +1577,10 @@ pascal	OSErr	FSpBumpDate(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	ChangeCreatorType(short vRefNum,
-								  long dirID,
-								  ConstStr255Param name,
-								  OSType creator,
-								  OSType fileType);
+  pascal OSErr ChangeCreatorType (short vRefNum,
+				  long dirID,
+				  ConstStr255Param name,
+				  OSType creator, OSType fileType);
 /*	¦ Change the creator or file type of a file.
 	The ChangeCreatorType function changes the creator or file type of a file.
 
@@ -1643,9 +1613,8 @@ pascal	OSErr	ChangeCreatorType(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpChangeCreatorType(const FSSpec *spec,
-									 OSType creator,
-									 OSType fileType);
+  pascal OSErr FSpChangeCreatorType (const FSSpec * spec,
+				     OSType creator, OSType fileType);
 /*	¦ Change the creator or file type of a file.
 	The FSpChangeCreatorType function changes the creator or file type of a file.
 
@@ -1676,11 +1645,10 @@ pascal	OSErr	FSpChangeCreatorType(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	ChangeFDFlags(short vRefNum,
-							  long dirID,
-							  ConstStr255Param name,
-							  Boolean	setBits,
-							  unsigned short flagBits);
+  pascal OSErr ChangeFDFlags (short vRefNum,
+			      long dirID,
+			      ConstStr255Param name,
+			      Boolean setBits, unsigned short flagBits);
 /*	¦ Set or clear Finder Flag bits.
 	The ChangeFDFlags function sets or clears Finder Flag bits in the
 	fdFlags field of a file or directory's FInfo record.
@@ -1717,9 +1685,8 @@ pascal	OSErr	ChangeFDFlags(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpChangeFDFlags(const FSSpec *spec,
-								 Boolean setBits,
-								 unsigned short flagBits);
+  pascal OSErr FSpChangeFDFlags (const FSSpec * spec,
+				 Boolean setBits, unsigned short flagBits);
 /*	¦ Set or clear Finder Flag bits.
 	The FSpChangeFDFlags function sets or clears Finder Flag bits in the
 	fdFlags field of a file or directory's FInfo record.
@@ -1753,9 +1720,8 @@ pascal	OSErr	FSpChangeFDFlags(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	SetIsInvisible(short vRefNum,
-							   long dirID,
-							   ConstStr255Param name);
+  pascal OSErr SetIsInvisible (short vRefNum,
+			       long dirID, ConstStr255Param name);
 /*	¦ Set the invisible Finder Flag bit.
 	The SetIsInvisible function sets the invisible bit in the fdFlags
 	word of the specified file or directory's finder information.
@@ -1785,7 +1751,7 @@ pascal	OSErr	SetIsInvisible(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpSetIsInvisible(const FSSpec *spec);
+  pascal OSErr FSpSetIsInvisible (const FSSpec * spec);
 /*	¦ Set the invisible Finder Flag bit.
 	The FSpSetIsInvisible function sets the invisible bit in the fdFlags
 	word of the specified file or directory's finder information.
@@ -1812,9 +1778,8 @@ pascal	OSErr	FSpSetIsInvisible(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	ClearIsInvisible(short vRefNum,
-								 long dirID,
-								 ConstStr255Param name);
+  pascal OSErr ClearIsInvisible (short vRefNum,
+				 long dirID, ConstStr255Param name);
 /*	¦ Clear the invisible Finder Flag bit.
 	The ClearIsInvisible function clears the invisible bit in the fdFlags
 	word of the specified file or directory's finder information.
@@ -1844,7 +1809,7 @@ pascal	OSErr	ClearIsInvisible(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpClearIsInvisible(const FSSpec *spec);
+  pascal OSErr FSpClearIsInvisible (const FSSpec * spec);
 /*	¦ Clear the invisible Finder Flag bit.
 	The FSpClearIsInvisible function clears the invisible bit in the fdFlags
 	word of the specified file or directory's finder information.
@@ -1871,9 +1836,8 @@ pascal	OSErr	FSpClearIsInvisible(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	SetNameLocked(short vRefNum,
-							  long dirID,
-							  ConstStr255Param name);
+  pascal OSErr SetNameLocked (short vRefNum,
+			      long dirID, ConstStr255Param name);
 /*	¦ Set the nameLocked Finder Flag bit.
 	The SetNameLocked function sets the nameLocked bit in the fdFlags word
 	of the specified file or directory's finder information.
@@ -1903,7 +1867,7 @@ pascal	OSErr	SetNameLocked(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpSetNameLocked(const FSSpec *spec);
+  pascal OSErr FSpSetNameLocked (const FSSpec * spec);
 /*	¦ Set the nameLocked Finder Flag bit.
 	The FSpSetNameLocked function sets the nameLocked bit in the fdFlags word
 	of the specified file or directory's finder information.
@@ -1930,9 +1894,8 @@ pascal	OSErr	FSpSetNameLocked(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	ClearNameLocked(short vRefNum,
-								long dirID,
-								ConstStr255Param name);
+  pascal OSErr ClearNameLocked (short vRefNum,
+				long dirID, ConstStr255Param name);
 /*	¦ Clear the nameLocked Finder Flag bit.
 	The ClearNameLocked function clears the nameLocked bit in the fdFlags
 	word of the specified file or directory's finder information.
@@ -1962,7 +1925,7 @@ pascal	OSErr	ClearNameLocked(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpClearNameLocked(const FSSpec *spec);
+  pascal OSErr FSpClearNameLocked (const FSSpec * spec);
 /*	¦ Clear the nameLocked Finder Flag bit.
 	The FSpClearNameLocked function clears the nameLocked bit in the fdFlags
 	word of the specified file or directory's finder information.
@@ -1989,9 +1952,8 @@ pascal	OSErr	FSpClearNameLocked(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	SetIsStationery(short vRefNum,
-								long dirID,
-								ConstStr255Param name);
+  pascal OSErr SetIsStationery (short vRefNum,
+				long dirID, ConstStr255Param name);
 /*	¦ Set the isStationery Finder Flag bit.
 	The SetIsStationery function sets the isStationery bit in the
 	fdFlags word of the specified file or directory's finder information.
@@ -2021,7 +1983,7 @@ pascal	OSErr	SetIsStationery(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpSetIsStationery(const FSSpec *spec);
+  pascal OSErr FSpSetIsStationery (const FSSpec * spec);
 /*	¦ Set the isStationery Finder Flag bit.
 	The FSpSetIsStationery function sets the isStationery bit in the
 	fdFlags word of the specified file or directory's finder information.
@@ -2048,9 +2010,8 @@ pascal	OSErr	FSpSetIsStationery(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	ClearIsStationery(short vRefNum,
-								  long dirID,
-								  ConstStr255Param name);
+  pascal OSErr ClearIsStationery (short vRefNum,
+				  long dirID, ConstStr255Param name);
 /*	¦ Clear the isStationery Finder Flag bit.
 	The ClearIsStationery function clears the isStationery bit in the
 	fdFlags word of the specified file or directory's finder information.
@@ -2080,7 +2041,7 @@ pascal	OSErr	ClearIsStationery(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpClearIsStationery(const FSSpec *spec);
+  pascal OSErr FSpClearIsStationery (const FSSpec * spec);
 /*	¦ Clear the isStationery Finder Flag bit.
 	The FSpClearIsStationery function clears the isStationery bit in the
 	fdFlags word of the specified file or directory's finder information.
@@ -2107,9 +2068,8 @@ pascal	OSErr	FSpClearIsStationery(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	SetHasCustomIcon(short vRefNum,
-								 long dirID,
-								 ConstStr255Param name);
+  pascal OSErr SetHasCustomIcon (short vRefNum,
+				 long dirID, ConstStr255Param name);
 /*	¦ Set the hasCustomIcon Finder Flag bit.
 	The SetHasCustomIcon function sets the hasCustomIcon bit in the
 	fdFlags word of the specified file or directory's finder information.
@@ -2139,7 +2099,7 @@ pascal	OSErr	SetHasCustomIcon(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpSetHasCustomIcon(const FSSpec *spec);
+  pascal OSErr FSpSetHasCustomIcon (const FSSpec * spec);
 /*	¦ Set the hasCustomIcon Finder Flag bit.
 	The FSpSetHasCustomIcon function sets the hasCustomIcon bit in the
 	fdFlags word of the specified file or directory's finder information.
@@ -2166,9 +2126,8 @@ pascal	OSErr	FSpSetHasCustomIcon(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	ClearHasCustomIcon(short vRefNum,
-								   long dirID,
-								   ConstStr255Param name);
+  pascal OSErr ClearHasCustomIcon (short vRefNum,
+				   long dirID, ConstStr255Param name);
 /*	¦ Clear the hasCustomIcon Finder Flag bit.
 	The ClearHasCustomIcon function clears the hasCustomIcon bit in the
 	fdFlags word of the specified file or directory's finder information.
@@ -2198,7 +2157,7 @@ pascal	OSErr	ClearHasCustomIcon(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpClearHasCustomIcon(const FSSpec *spec);
+  pascal OSErr FSpClearHasCustomIcon (const FSSpec * spec);
 /*	¦ Clear the hasCustomIcon Finder Flag bit.
 	The FSpClearHasCustomIcon function clears the hasCustomIcon bit in the
 	fdFlags word of the specified file or directory's finder information.
@@ -2225,9 +2184,8 @@ pascal	OSErr	FSpClearHasCustomIcon(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	ClearHasBeenInited(short vRefNum,
-								   long dirID,
-								   ConstStr255Param name);
+  pascal OSErr ClearHasBeenInited (short vRefNum,
+				   long dirID, ConstStr255Param name);
 /*	¦ Clear the hasBeenInited Finder Flag bit.
 	The ClearHasBeenInited function clears the hasBeenInited bit in the
 	fdFlags word of the specified file or directory's finder information.
@@ -2257,7 +2215,7 @@ pascal	OSErr	ClearHasBeenInited(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpClearHasBeenInited(const FSSpec *spec);
+  pascal OSErr FSpClearHasBeenInited (const FSSpec * spec);
 /*	¦ Clear the hasBeenInited Finder Flag bit.
 	The FSpClearHasBeenInited function clears the hasBeenInited bit in the
 	fdFlags word of the specified file or directory's finder information.
@@ -2284,13 +2242,13 @@ pascal	OSErr	FSpClearHasBeenInited(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	CopyFileMgrAttributes(short srcVRefNum,
-									  long srcDirID,
-									  ConstStr255Param srcName,
-									  short dstVRefNum,
-									  long dstDirID,
-									  ConstStr255Param dstName,
-									  Boolean copyLockBit);
+  pascal OSErr CopyFileMgrAttributes (short srcVRefNum,
+				      long srcDirID,
+				      ConstStr255Param srcName,
+				      short dstVRefNum,
+				      long dstDirID,
+				      ConstStr255Param dstName,
+				      Boolean copyLockBit);
 /*	¦ Copy all File Manager attributes from the source to the destination.
 	The CopyFileMgrAttributes function copies all File Manager attributes
 	from the source file or directory to the destination file or directory.
@@ -2328,9 +2286,9 @@ pascal	OSErr	CopyFileMgrAttributes(short srcVRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpCopyFileMgrAttributes(const FSSpec *srcSpec,
-										 const FSSpec *dstSpec,
-										 Boolean copyLockBit);
+  pascal OSErr FSpCopyFileMgrAttributes (const FSSpec * srcSpec,
+					 const FSSpec * dstSpec,
+					 Boolean copyLockBit);
 /*	¦ Copy all File Manager attributes from the source to the destination.
 	The FSpCopyFileMgrAttributes function copies all File Manager attributes
 	from the source file or directory to the destination file or directory.
@@ -2362,11 +2320,10 @@ pascal	OSErr	FSpCopyFileMgrAttributes(const FSSpec *srcSpec,
 
 /*****************************************************************************/
 
-pascal	OSErr	HOpenAware(short vRefNum,
-						   long dirID,
-						   ConstStr255Param fileName,
-						   short denyModes,
-						   short *refNum);
+  pascal OSErr HOpenAware (short vRefNum,
+			   long dirID,
+			   ConstStr255Param fileName,
+			   short denyModes, short *refNum);
 /*	¦ Open the data fork of a file using deny mode permissions.
 	The HOpenAware function opens the data fork of a file using deny mode
 	permissions instead the normal File Manager permissions.  If OpenDeny
@@ -2404,9 +2361,8 @@ pascal	OSErr	HOpenAware(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpOpenAware(const FSSpec *spec,
-							 short denyModes,
-							 short *refNum);
+  pascal OSErr FSpOpenAware (const FSSpec * spec,
+			     short denyModes, short *refNum);
 /*	¦ Open the data fork of a file using deny mode permissions.
 	The FSpOpenAware function opens the data fork of a file using deny mode
 	permissions instead the normal File Manager permissions.  If OpenDeny
@@ -2442,11 +2398,10 @@ pascal	OSErr	FSpOpenAware(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	HOpenRFAware(short vRefNum,
-							 long dirID,
-							 ConstStr255Param fileName,
-							 short denyModes,
-							 short *refNum);
+  pascal OSErr HOpenRFAware (short vRefNum,
+			     long dirID,
+			     ConstStr255Param fileName,
+			     short denyModes, short *refNum);
 /*	¦ Open the resource fork of a file using deny mode permissions.
 	The HOpenRFAware function opens the resource fork of a file using deny
 	mode permissions instead the normal File Manager permissions.  If
@@ -2483,9 +2438,8 @@ pascal	OSErr	HOpenRFAware(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpOpenRFAware(const FSSpec *spec,
-							   short denyModes,
-							   short *refNum);
+  pascal OSErr FSpOpenRFAware (const FSSpec * spec,
+			       short denyModes, short *refNum);
 /*	¦ Open the resource fork of a file using deny mode permissions.
 	The FSpOpenRFAware function opens the resource fork of a file using deny
 	mode permissions instead the normal File Manager permissions.  If
@@ -2520,9 +2474,7 @@ pascal	OSErr	FSpOpenRFAware(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSReadNoCache(short refNum,
-							  long *count,
-							  void *buffPtr);
+  pascal OSErr FSReadNoCache (short refNum, long *count, void *buffPtr);
 /*	¦ Read any number of bytes from an open file requesting no caching.
 	The FSReadNoCache function reads any number of bytes from an open file
 	while asking the file system to bypass its cache mechanism.
@@ -2555,9 +2507,8 @@ pascal	OSErr	FSReadNoCache(short refNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSWriteNoCache(short refNum,
-							   long *count,
-							   const void *buffPtr);
+  pascal OSErr FSWriteNoCache (short refNum,
+			       long *count, const void *buffPtr);
 /*	¦ Write any number of bytes to an open file requesting no caching.
 	The FSReadNoCache function writes any number of bytes to an open file
 	while asking the file system to bypass its cache mechanism.
@@ -2596,9 +2547,7 @@ pascal	OSErr	FSWriteNoCache(short refNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSWriteVerify(short refNum,
-							  long *count,
-							  const void *buffPtr);
+  pascal OSErr FSWriteVerify (short refNum, long *count, const void *buffPtr);
 /*	¦ Write any number of bytes to an open file and then verify the data was written.
 	The FSWriteVerify function writes any number of bytes to an open file
 	and then verifies that the data was actually written to the device.
@@ -2640,10 +2589,9 @@ pascal	OSErr	FSWriteVerify(short refNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	CopyFork(short srcRefNum,
-						 short dstRefNum,
-						 void *copyBufferPtr,
-						 long copyBufferSize);
+  pascal OSErr CopyFork (short srcRefNum,
+			 short dstRefNum,
+			 void *copyBufferPtr, long copyBufferSize);
 /*	¦ Copy all data from the source fork to the destination fork of open file forks.
 	The CopyFork function copies all data from the source fork to the
 	destination fork of open file forks and makes sure the destination EOF
@@ -2681,10 +2629,9 @@ pascal	OSErr	CopyFork(short srcRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetFileLocation(short refNum,
-								short *vRefNum,
-								long *dirID,
-								StringPtr fileName);
+  pascal OSErr GetFileLocation (short refNum,
+				short *vRefNum,
+				long *dirID, StringPtr fileName);
 /*	¦ Get the location of an open file.
 	The GetFileLocation function gets the location (volume reference number,
 	directory ID, and fileName) of an open file.
@@ -2710,8 +2657,7 @@ pascal	OSErr	GetFileLocation(short refNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpGetFileLocation(short refNum,
-								   FSSpec *spec);
+  pascal OSErr FSpGetFileLocation (short refNum, FSSpec * spec);
 /*	¦ Get the location of an open file in an FSSpec record.
 	The FSpGetFileLocation function gets the location of an open file in
 	an FSSpec record.
@@ -2733,12 +2679,11 @@ pascal	OSErr	FSpGetFileLocation(short refNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	CopyDirectoryAccess(short srcVRefNum,
-									long srcDirID,
-									ConstStr255Param srcName,
-									short dstVRefNum,
-									long dstDirID,
-									ConstStr255Param dstName);
+  pascal OSErr CopyDirectoryAccess (short srcVRefNum,
+				    long srcDirID,
+				    ConstStr255Param srcName,
+				    short dstVRefNum,
+				    long dstDirID, ConstStr255Param dstName);
 /*	¦ Copy the AFP directory access privileges.
 	The CopyDirectoryAccess function copies the AFP directory access
 	privileges from one directory to another. Both directories must be on
@@ -2770,8 +2715,8 @@ pascal	OSErr	CopyDirectoryAccess(short srcVRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpCopyDirectoryAccess(const FSSpec *srcSpec,
-									   const FSSpec *dstSpec);
+  pascal OSErr FSpCopyDirectoryAccess (const FSSpec * srcSpec,
+				       const FSSpec * dstSpec);
 /*	¦ Copy the AFP directory access privileges.
 	The FSpCopyDirectoryAccess function copies the AFP directory access
 	privileges from one directory to another. Both directories must be on
@@ -2797,12 +2742,12 @@ pascal	OSErr	FSpCopyDirectoryAccess(const FSSpec *srcSpec,
 
 /*****************************************************************************/
 
-pascal	OSErr	HMoveRenameCompat(short vRefNum,
-								  long srcDirID,
-								  ConstStr255Param srcName,
-								  long dstDirID,
-								  ConstStr255Param dstpathName,
-								  ConstStr255Param copyName);
+  pascal OSErr HMoveRenameCompat (short vRefNum,
+				  long srcDirID,
+				  ConstStr255Param srcName,
+				  long dstDirID,
+				  ConstStr255Param dstpathName,
+				  ConstStr255Param copyName);
 /*	¦ Move a file or directory and optionally rename it.
 	The HMoveRenameCompat function moves a file or directory and optionally
 	renames it.  The source and destination locations must be on the same
@@ -2856,9 +2801,9 @@ pascal	OSErr	HMoveRenameCompat(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpMoveRenameCompat(const FSSpec *srcSpec,
-									const FSSpec *dstSpec,
-									ConstStr255Param copyName);
+  pascal OSErr FSpMoveRenameCompat (const FSSpec * srcSpec,
+				    const FSSpec * dstSpec,
+				    ConstStr255Param copyName);
 /*	¦ Move a file or directory and optionally rename it.
 	The FSpMoveRenameCompat function moves a file or directory and optionally
 	renames it.  The source and destination locations must be on the same
@@ -2909,17 +2854,17 @@ pascal	OSErr	FSpMoveRenameCompat(const FSSpec *srcSpec,
 
 /*****************************************************************************/
 
-pascal	OSErr	BuildAFPVolMountInfo(short flags,
-									 char nbpInterval,
-									 char nbpCount,
-									 short uamType,
-									 Str32 zoneName,
-									 Str31 serverName,
-									 Str27 volName,
-									 Str31 userName,
-									 Str8 userPassword,
-									 Str8 volPassword,
-									 AFPVolMountInfoPtr *afpInfoPtr);
+  pascal OSErr BuildAFPVolMountInfo (short flags,
+				     char nbpInterval,
+				     char nbpCount,
+				     short uamType,
+				     Str32 zoneName,
+				     Str31 serverName,
+				     Str27 volName,
+				     Str31 userName,
+				     Str8 userPassword,
+				     Str8 volPassword,
+				     AFPVolMountInfoPtr * afpInfoPtr);
 /*	¦ Allocate and initializes the fields of an AFPVolMountInfo record.
 	The BuildAFPVolMountInfo function allocates and initializes the fields
 	of an AFPVolMountInfo record before using that record to call
@@ -2962,13 +2907,13 @@ pascal	OSErr	BuildAFPVolMountInfo(short flags,
 
 /*****************************************************************************/
 
-pascal	OSErr	RetrieveAFPVolMountInfo(AFPVolMountInfoPtr afpInfoPtr,
-										short *flags,
-										short *uamType,
-										StringPtr zoneName,
-										StringPtr serverName,
-										StringPtr volName,
-										StringPtr userName);
+  pascal OSErr RetrieveAFPVolMountInfo (AFPVolMountInfoPtr afpInfoPtr,
+					short *flags,
+					short *uamType,
+					StringPtr zoneName,
+					StringPtr serverName,
+					StringPtr volName,
+					StringPtr userName);
 /*	¦ Retrieve the AFP mounting information from an AFPVolMountInfo record.
 	The RetrieveAFPVolMountInfo function retrieves the AFP mounting
 	information returned in an AFPVolMountInfo record by the
@@ -2998,20 +2943,20 @@ pascal	OSErr	RetrieveAFPVolMountInfo(AFPVolMountInfoPtr afpInfoPtr,
 
 /*****************************************************************************/
 
-pascal	OSErr	BuildAFPXVolMountInfo(short flags,
-									  char nbpInterval,
-									  char nbpCount,
-									  short uamType,
-									  Str32 zoneName,
-									  Str31 serverName,
-									  Str27 volName,
-									  Str31 userName,
-									  Str8 userPassword,
-									  Str8 volPassword,
-									  Str32 uamName,
-									  unsigned long alternateAddressLength,
-									  void *alternateAddress,
-									  AFPXVolMountInfoPtr *afpXInfoPtr);
+  pascal OSErr BuildAFPXVolMountInfo (short flags,
+				      char nbpInterval,
+				      char nbpCount,
+				      short uamType,
+				      Str32 zoneName,
+				      Str31 serverName,
+				      Str27 volName,
+				      Str31 userName,
+				      Str8 userPassword,
+				      Str8 volPassword,
+				      Str32 uamName,
+				      unsigned long alternateAddressLength,
+				      void *alternateAddress,
+				      AFPXVolMountInfoPtr * afpXInfoPtr);
 /*	¦ Allocate and initializes the fields of an AFPXVolMountInfo record.
 	The BuildAFPXVolMountInfo function allocates and initializes the fields
 	of an AFPXVolMountInfo record before using that record to call
@@ -3057,16 +3002,18 @@ pascal	OSErr	BuildAFPXVolMountInfo(short flags,
 
 /*****************************************************************************/
 
-pascal	OSErr	RetrieveAFPXVolMountInfo(AFPXVolMountInfoPtr afpXInfoPtr,
-										 short *flags,
-										 short *uamType,
-										 StringPtr zoneName,
-										 StringPtr serverName,
-										 StringPtr volName,
-										 StringPtr userName,
-										 StringPtr uamName,
-										 unsigned long *alternateAddressLength,
-										 AFPAlternateAddress **alternateAddress);
+  pascal OSErr RetrieveAFPXVolMountInfo (AFPXVolMountInfoPtr afpXInfoPtr,
+					 short *flags,
+					 short *uamType,
+					 StringPtr zoneName,
+					 StringPtr serverName,
+					 StringPtr volName,
+					 StringPtr userName,
+					 StringPtr uamName,
+					 unsigned long
+					 *alternateAddressLength,
+					 AFPAlternateAddress **
+					 alternateAddress);
 /*	¦ Retrieve the AFP mounting information from an AFPXVolMountInfo record.
 	The RetrieveAFPXVolMountInfo function retrieves the AFP mounting
 	information returned in an AFPXVolMountInfo record by the
@@ -3107,11 +3054,10 @@ pascal	OSErr	RetrieveAFPXVolMountInfo(AFPXVolMountInfoPtr afpXInfoPtr,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetUGEntries(short objType,
-							 UGEntryPtr entries,
-							 long reqEntryCount,
-							 long *actEntryCount,
-							 long *objID);
+  pascal OSErr GetUGEntries (short objType,
+			     UGEntryPtr entries,
+			     long reqEntryCount,
+			     long *actEntryCount, long *objID);
 /*	¦ Retrieve a list of user or group entries from the local file server.
 	The GetUGEntries functions retrieves a list of user or group entries
 	from the local file server.
@@ -3146,4 +3092,4 @@ pascal	OSErr	GetUGEntries(short objType,
 
 #include "optimend.h"
 
-#endif	/* __MOREFILESEXTRAS__ */
+#endif				/* __MOREFILESEXTRAS__ */

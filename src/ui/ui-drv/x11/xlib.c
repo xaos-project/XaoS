@@ -46,7 +46,8 @@ xupdate_size (xdisplay * d)
   Window wtmp;
   unsigned int width = d->width, height = d->height;
   XSync (d->display, False);
-  XGetGeometry (d->display, d->window, &wtmp, &tmp, &tmp, &d->width, &d->height, (unsigned int *) &tmp, (unsigned int *) &tmp);
+  XGetGeometry (d->display, d->window, &wtmp, &tmp, &tmp, &d->width,
+		&d->height, (unsigned int *) &tmp, (unsigned int *) &tmp);
   if (d->width != width || d->height != height)
     return 1;
   return 0;
@@ -67,14 +68,15 @@ draw_screen (xdisplay * d)
 #ifdef MITSHM
   if (d->SharedMemFlag)
     {
-      XShmPutImage (d->display, d->window, d->gc, d->image[d->current], 0, 0, 0,
-		    0, d->bwidth, d->bheight, True);
+      XShmPutImage (d->display, d->window, d->gc, d->image[d->current], 0, 0,
+		    0, 0, d->bwidth, d->bheight, True);
     }
   else
 #endif
-    XPutImage (d->display, d->window, d->gc, d->image[d->current], 0, 0, 0, 0, d->bwidth, d->bheight);
-  /*XFlush(d->display); *//*gives small rest to X but degrades perofrmance
-     too much */
+    XPutImage (d->display, d->window, d->gc, d->image[d->current], 0, 0, 0, 0,
+	       d->bwidth, d->bheight);
+/*XFlush(d->display); *//*gives small rest to X but degrades perofrmance
+   too much */
   d->screen_changed = 0;
 }
 
@@ -88,7 +90,8 @@ alloc_shm_image (xdisplay * new)
   if (!ptr || (*ptr == ':') || !strncmp (ptr, "localhost:", 10) ||
       !strncmp (ptr, "unix:", 5) || !strncmp (ptr, "local:", 6))
     {
-      new->SharedMemOption = XQueryExtension (new->display, "MIT-SHM", &temp, &temp, &temp);
+      new->SharedMemOption =
+	XQueryExtension (new->display, "MIT-SHM", &temp, &temp, &temp);
     }
   else
     {
@@ -111,26 +114,33 @@ alloc_shm_image (xdisplay * new)
       if (new->SharedMemOption)
 	{
 	  new->SharedMemFlag = False;
-	  new->image[i] = XShmCreateImage (new->display, new->visual, new->depth, new->depth == 1 ? XYBitmap : ZPixmap,
-			  NULL, &new->xshminfo[i], new->width, new->height);
+	  new->image[i] =
+	    XShmCreateImage (new->display, new->visual, new->depth,
+			     new->depth == 1 ? XYBitmap : ZPixmap, NULL,
+			     &new->xshminfo[i], new->width, new->height);
 	  if (new->image[i])
 	    {
-	      temp = new->image[i]->bytes_per_line * (new->image[i]->height + 150);
+	      temp =
+		new->image[i]->bytes_per_line * (new->image[i]->height + 150);
 	      new->linewidth = new->image[i]->bytes_per_line;
 	      if (temp > size)
 		size = temp;
-	      new->xshminfo[i].shmid = shmget (IPC_PRIVATE, size, IPC_CREAT | 0777);
+	      new->xshminfo[i].shmid =
+		shmget (IPC_PRIVATE, size, IPC_CREAT | 0777);
 	      if (new->xshminfo[i].shmid != -1)
 		{
 		  errno = 0;
-		  new->xshminfo[i].shmaddr = (char *) shmat (new->xshminfo[i].shmid, 0, 0);
+		  new->xshminfo[i].shmaddr =
+		    (char *) shmat (new->xshminfo[i].shmid, 0, 0);
 		  if (!errno)
 		    {
 		      new->image[i]->data = new->xshminfo[i].shmaddr;
-		      new->data[i] = new->vbuffs[i] = (char *) new->image[i]->data;
+		      new->data[i] = new->vbuffs[i] =
+			(char *) new->image[i]->data;
 		      new->xshminfo[i].readOnly = True;
 
-		      new->SharedMemFlag = XShmAttach (new->display, &new->xshminfo[i]);
+		      new->SharedMemFlag =
+			XShmAttach (new->display, &new->xshminfo[i]);
 		      XSync (new->display, False);
 		      if (!new->SharedMemFlag)
 			{
@@ -199,8 +209,10 @@ alloc_image (xdisplay * d)
   for (i = 0; i < 2; i++)
     {
 
-      d->image[i] = XCreateImage (d->display, d->visual, d->depth, d->depth == 1 ? XYBitmap : ZPixmap, 0,
-				  NULL, d->width, d->height, 32, 0);
+      d->image[i] =
+	XCreateImage (d->display, d->visual, d->depth,
+		      d->depth == 1 ? XYBitmap : ZPixmap, 0, NULL, d->width,
+		      d->height, 32, 0);
       if (d->image[i] == NULL)
 	{
 	  printf ("Out of memory for image..exiting\n");
@@ -216,13 +228,18 @@ alloc_image (xdisplay * d)
 	unsigned char c[4];
 	int byteexact = 0;
 	*(unsigned short *) c = 0xff;
-	if (
-	     (!(d->image[i]->red_mask & ~0xffU) || !(d->image[i]->red_mask & ~0xff00U) ||
-	      !(d->image[i]->red_mask & ~0xff0000U) || !(d->image[i]->red_mask & ~0xff000000U)) &&
-	     (!(d->image[i]->green_mask & ~0xffU) || !(d->image[i]->green_mask & ~0xff00U) ||
-	      !(d->image[i]->green_mask & ~0xff0000U) || !(d->image[i]->green_mask & ~0xff000000U)) &&
-	     (!(d->image[i]->blue_mask & ~0xffU) || !(d->image[i]->blue_mask & ~0xff00U) ||
-	      !(d->image[i]->blue_mask & ~0xff0000U) || !(d->image[i]->blue_mask & ~0xff000000U)))
+	if ((!(d->image[i]->red_mask & ~0xffU)
+	     || !(d->image[i]->red_mask & ~0xff00U)
+	     || !(d->image[i]->red_mask & ~0xff0000U)
+	     || !(d->image[i]->red_mask & ~0xff000000U))
+	    && (!(d->image[i]->green_mask & ~0xffU)
+		|| !(d->image[i]->green_mask & ~0xff00U)
+		|| !(d->image[i]->green_mask & ~0xff0000U)
+		|| !(d->image[i]->green_mask & ~0xff000000U))
+	    && (!(d->image[i]->blue_mask & ~0xffU)
+		|| !(d->image[i]->blue_mask & ~0xff00U)
+		|| !(d->image[i]->blue_mask & ~0xff0000U)
+		|| !(d->image[i]->blue_mask & ~0xff000000U)))
 	  byteexact = 1;
 	if (!byteexact)
 	  {
@@ -265,6 +282,7 @@ free_image (xdisplay * d)
   XDestroyImage (d->image[0]);
   XDestroyImage (d->image[1]);
 }
+
 #define MAX(x,y) ((x)>(y)?(x):(y))
 
 
@@ -291,10 +309,10 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
     }
   new->screen = DefaultScreen (new->display);
 
-  new->attributes = (XSetWindowAttributes *) malloc (sizeof (XSetWindowAttributes));
+  new->attributes =
+    (XSetWindowAttributes *) malloc (sizeof (XSetWindowAttributes));
   chkalloc (new->attributes);
-  new->attributes->background_pixel = BlackPixel (new->display,
-						  new->screen);
+  new->attributes->background_pixel = BlackPixel (new->display, new->screen);
   new->attributes->border_pixel = BlackPixel (new->display, new->screen);
   new->attributes->event_mask = ButtonPressMask | StructureNotifyMask |
     ButtonReleaseMask | PointerMotionMask | KeyPressMask |
@@ -325,12 +343,14 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
   if (defaultvisual->class != StaticGray && defaultvisual->class != GrayScale)
     {
       for (i = 8; i && !found; i--)
-	if (XMatchVisualInfo (new->display, new->screen, i, PseudoColor, &vis))
+	if (XMatchVisualInfo
+	    (new->display, new->screen, i, PseudoColor, &vis))
 	  {
 	    found = 1;
 	  }
       for (i = 8; i && !found; i--)
-	if (XMatchVisualInfo (new->display, new->screen, i, StaticColor, &vis))
+	if (XMatchVisualInfo
+	    (new->display, new->screen, i, StaticColor, &vis))
 	  {
 	    found = 1;
 	  }
@@ -340,7 +360,8 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
 	    found = 1;
 	  }
     }
-  if (!found && XMatchVisualInfo (new->display, new->screen, 8, StaticGray, &vis))
+  if (!found
+      && XMatchVisualInfo (new->display, new->screen, 8, StaticGray, &vis))
     {
       found = 1;
     }
@@ -349,7 +370,8 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
       {
 	found = 1;
       }
-  if (!found && XMatchVisualInfo (new->display, new->screen, 1, StaticGray, &vis))
+  if (!found
+      && XMatchVisualInfo (new->display, new->screen, 1, StaticGray, &vis))
     {
       found = 8;
     }
@@ -396,11 +418,13 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
       break;
     default:
     visuals:
-      printf ("Unusuported visual. Please contact authors. Maybe it will be supported in next release:)\n");
+      printf
+	("Unusuported visual. Please contact authors. Maybe it will be supported in next release:)\n");
       return (NULL);
     }
   new->privatecolormap = params->privatecolormap;
-  new->attributes->colormap = new->defaultcolormap = DefaultColormap (new->display, new->screen);
+  new->attributes->colormap = new->defaultcolormap =
+    DefaultColormap (new->display, new->screen);
   if (new->visual->visualid != defaultvisual->visualid)
     {
       new->privatecolormap = 1;
@@ -409,22 +433,28 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
     {
       unsigned long pixels[256];
       int i;
-      new->attributes->colormap = XCreateColormap (new->display, RootWindow (new->display, new->screen), new->visual, AllocNone);
-      if (new->visual->visualid == defaultvisual->visualid && new->visual->class == PseudoColor)
+      new->attributes->colormap =
+	XCreateColormap (new->display, RootWindow (new->display, new->screen),
+			 new->visual, AllocNone);
+      if (new->visual->visualid == defaultvisual->visualid
+	  && new->visual->class == PseudoColor)
 	{
-	  XAllocColorCells (new->display, new->attributes->colormap, 1, 0, 0, pixels, MAX (new->visual->map_entries, 256));
+	  XAllocColorCells (new->display, new->attributes->colormap, 1, 0, 0,
+			    pixels, MAX (new->visual->map_entries, 256));
 	  for (i = 0; i < 16; i++)
 	    {
 	      new->xcolor.c[i].pixel = pixels[i];
 	    }
-	  XQueryColors (new->display, new->defaultcolormap, new->xcolor.c, 16);
-	  XStoreColors (new->display, new->attributes->colormap, new->xcolor.c, 16);
+	  XQueryColors (new->display, new->defaultcolormap, new->xcolor.c,
+			16);
+	  XStoreColors (new->display, new->attributes->colormap,
+			new->xcolor.c, 16);
 	}
     }
   new->colormap = new->attributes->colormap;
   new->attr_mask |= CWColormap;
 
-  new->window_name = (char *)s;
+  new->window_name = (char *) s;
   new->height = y;
   new->width = x;
   new->border_width = 2;
@@ -437,9 +467,7 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
       Window wtmp;
       int tmp;
       /* Get size of the root window */
-      XGetGeometry (new->display, RootWindow (new->display, new->screen),
-		    &wtmp, &tmp, &tmp, &new->width, &new->height,
-		    (unsigned int *) &tmp,	/* border width */
+      XGetGeometry (new->display, RootWindow (new->display, new->screen), &wtmp, &tmp, &tmp, &new->width, &new->height, (unsigned int *) &tmp,	/* border width */
 		    (unsigned int *) &tmp);	/* depth */
       new->border_width = 0;
     }
@@ -450,22 +478,20 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
       int tmp;
 
       new->parent_window = params->windowid;
-      XGetGeometry (new->display, new->parent_window,
-		    &wtmp, &tmp, &tmp, &new->width, &new->height,
-		    (unsigned int *) &tmp,	/* border width */
+      XGetGeometry (new->display, new->parent_window, &wtmp, &tmp, &tmp, &new->width, &new->height, (unsigned int *) &tmp,	/* border width */
 		    (unsigned int *) &tmp);	/* depth */
       XSelectInput (new->display, new->parent_window, ResizeRedirectMask);
     }
   if (params->rootwindow)
-        new->window = RootWindow (new->display, new->screen);
-      else
-  new->window = XCreateWindow (new->display, new->parent_window, 0, 0,
-			       new->width, new->height, new->border_width,
-			       new->depth, new->class, new->visual,
-			       new->attr_mask, new->attributes);
+    new->window = RootWindow (new->display, new->screen);
+  else
+    new->window = XCreateWindow (new->display, new->parent_window, 0, 0,
+				 new->width, new->height, new->border_width,
+				 new->depth, new->class, new->visual,
+				 new->attr_mask, new->attributes);
 
-  classHint.res_name = (char *)"xaos";
-  classHint.res_class = (char *)"XaoS";
+  classHint.res_name = (char *) "xaos";
+  classHint.res_class = (char *) "XaoS";
   hints = XAllocWMHints ();
   hints->initial_state = NormalState;
   hints->window_group = new->window;
@@ -488,8 +514,8 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
 	faked_argv = (char **) malloc ((prog_argc + 2) * sizeof (char *));
 	for (i = 0; i < prog_argc; i++)
 	  faked_argv[i] = prog_argv[i];
-	faked_argv[prog_argc] = (char *)"-driver";
-	faked_argv[prog_argc + 1] = (char *)"x11";
+	faked_argv[prog_argc] = (char *) "-driver";
+	faked_argv[prog_argc + 1] = (char *) "x11";
 
 	XSetWMProperties (new->display, new->window, NULL, NULL, faked_argv,
 			  prog_argc + 2, NULL, hints, &classHint);
@@ -524,12 +550,10 @@ xsetcolor (xdisplay * d, int col)
   switch (col)
     {
     case 0:
-      XSetForeground (d->display, d->gc,
-		      BlackPixel (d->display, d->screen));
+      XSetForeground (d->display, d->gc, BlackPixel (d->display, d->screen));
       break;
     case 1:
-      XSetForeground (d->display, d->gc,
-		      WhitePixel (d->display, d->screen));
+      XSetForeground (d->display, d->gc, WhitePixel (d->display, d->screen));
       break;
     default:
       if ((col - 2) > d->xcolor.n)
@@ -537,8 +561,7 @@ xsetcolor (xdisplay * d, int col)
 	  fprintf (stderr, "color error\n");
 	  exit (-1);
 	}
-      XSetForeground (d->display, d->gc,
-		      d->xcolor.c[col - 2].pixel);
+      XSetForeground (d->display, d->gc, d->xcolor.c[col - 2].pixel);
       break;
     }
 }
@@ -550,7 +573,8 @@ xsetpaletterange (xdisplay * d, ui_palette c, int start, int end)
     {
       for (i = start; i < end; i++)
 	d->xcolor.c[i].pixel = i;
-      XQueryColors (d->display, d->colormap, d->xcolor.c + start, end - start);
+      XQueryColors (d->display, d->colormap, d->xcolor.c + start,
+		    end - start);
       for (i = start; i < end; i++)
 	{
 	  c[i - start][0] = d->xcolor.c[i].red / 256;
@@ -569,7 +593,8 @@ xsetpaletterange (xdisplay * d, ui_palette c, int start, int end)
 	  d->xcolor.c[i].green = c[i - start][1] * 256;
 	  d->xcolor.c[i].blue = c[i - start][2] * 256;
 	}
-      XStoreColors (d->display, d->colormap, d->xcolor.c + start, end - start);
+      XStoreColors (d->display, d->colormap, d->xcolor.c + start,
+		    end - start);
     }
 }
 int
@@ -587,7 +612,8 @@ xalloc_color (xdisplay * d, int r, int g, int b, int readwrite)
       if (d->privatecolormap)
 	{
 	  cell = d->xcolor.c[d->xcolor.n - 1].pixel += 16;
-	  if ((int) d->xcolor.c[d->xcolor.n - 1].pixel >= d->visual->map_entries)
+	  if ((int) d->xcolor.c[d->xcolor.n - 1].pixel >=
+	      d->visual->map_entries)
 	    {
 	      d->xcolor.n--;
 	      return (-1);
@@ -599,7 +625,8 @@ xalloc_color (xdisplay * d, int r, int g, int b, int readwrite)
 	    {
 	      d->xcolor.n--;
 	      if (d->xcolor.n <= 32)
-		printf ("Colormap is too full! close some colorfull applications or use -private\n");
+		printf
+		  ("Colormap is too full! close some colorfull applications or use -private\n");
 	      return (-1);
 	    }
 	  d->xcolor.c[d->xcolor.n - 1].pixel = cell;
@@ -611,11 +638,13 @@ xalloc_color (xdisplay * d, int r, int g, int b, int readwrite)
     {
       d->xcolor.n--;
       if (d->xcolor.n <= 32)
-	printf ("Colormap is too full! close some colorfull aplications or use -private\n");
+	printf
+	  ("Colormap is too full! close some colorfull aplications or use -private\n");
       return (-1);
     }
   d->pixels[d->xcolor.n - 1] = d->xcolor.c[d->xcolor.n - 1].pixel;
-  return (d->depth != 8 ? d->xcolor.n - 1 : (int) d->xcolor.c[d->xcolor.n - 1].pixel);
+  return (d->depth !=
+	  8 ? d->xcolor.n - 1 : (int) d->xcolor.c[d->xcolor.n - 1].pixel);
 }
 
 void
@@ -651,11 +680,13 @@ xclear_screen (xdisplay * d)
   XClearWindow (d->display, d->window);
   d->screen_changed = 1;
 }
+
 void
 xmoveto (xdisplay * d, int x, int y)
 {
   d->lastx = x, d->lasty = y;
 }
+
 int
 xsetfont (xdisplay * d, CONST char *font_name)
 {
@@ -671,7 +702,8 @@ xsetfont (xdisplay * d, CONST char *font_name)
       fprintf (stderr, "could not load font: %s\n", font_name);
       exit (-1);
     }
-  return (d->font_struct->max_bounds.ascent + d->font_struct->max_bounds.descent);
+  return (d->font_struct->max_bounds.ascent +
+	  d->font_struct->max_bounds.descent);
 }
 
 void

@@ -22,10 +22,10 @@
 #include <filter.h>
 
 struct rotatedata
-  {
-    number_t angle;
-    number_t x1, y1, x2, y2, xx1, yy1, xx2, yy2;
-  };
+{
+  number_t angle;
+  number_t x1, y1, x2, y2, xx1, yy1, xx2, yy2;
+};
 
 #include <c256.h>
 #define do_rotate do_rotate8
@@ -57,7 +57,7 @@ static int
 initialize (struct filter *f, struct initdata *i)
 {
   float size, pixelsize;
-  struct rotatedata *s = (struct rotatedata *)f->data;
+  struct rotatedata *s = (struct rotatedata *) f->data;
   inhermisc (f, i);
   s->angle = INT_MAX;
   /*in/out coloring modes looks better in iter modes. This also saves some
@@ -66,9 +66,14 @@ initialize (struct filter *f, struct initdata *i)
     pixelsize = i->image->pixelwidth;
   else
     pixelsize = i->image->pixelheight;
-  size = sqrt (i->image->width * i->image->width * i->image->pixelwidth * i->image->pixelwidth +
-	       i->image->height * i->image->height * i->image->pixelheight * i->image->pixelheight);
-  if (!inherimage (f, i, TOUCHIMAGE | NEWIMAGE, (int)(size / pixelsize + 1), (int)(size / pixelsize + 1), NULL, pixelsize, pixelsize))
+  size =
+    sqrt (i->image->width * i->image->width * i->image->pixelwidth *
+	  i->image->pixelwidth +
+	  i->image->height * i->image->height * i->image->pixelheight *
+	  i->image->pixelheight);
+  if (!inherimage
+      (f, i, TOUCHIMAGE | NEWIMAGE, (int) (size / pixelsize + 1),
+       (int) (size / pixelsize + 1), NULL, pixelsize, pixelsize))
     return 0;
   return (f->previous->action->initialize (f->previous, i));
 }
@@ -76,7 +81,7 @@ static struct filter *
 getinstance (CONST struct filteraction *a)
 {
   struct filter *f = createfilter (a);
-  struct rotatedata *i = (struct rotatedata *)calloc (1,sizeof (*i));
+  struct rotatedata *i = (struct rotatedata *) calloc (1, sizeof (*i));
   f->name = "Rotation filter";
   f->data = i;
   return (f);
@@ -92,11 +97,12 @@ static int
 doit (struct filter *f, int flags, int time)
 {
   int val;
-  struct rotatedata *s = (struct rotatedata *)f->data;
+  struct rotatedata *s = (struct rotatedata *) f->data;
   number_t angle = f->fractalc->angle;
   number_t wx = f->fractalc->windowwidth, wy = f->fractalc->windowheight;
   number_t rr = f->fractalc->s.rr, ir = f->fractalc->s.ri;
-  f->fractalc->windowwidth = f->fractalc->windowheight = f->childimage->width * f->childimage->pixelwidth;
+  f->fractalc->windowwidth = f->fractalc->windowheight =
+    f->childimage->width * f->childimage->pixelwidth;
   f->fractalc->s.rr *= f->fractalc->windowwidth / wx;
   f->fractalc->s.ri *= f->fractalc->windowheight / wy;
   f->fractalc->windowwidth = f->fractalc->windowheight = 1;
@@ -157,8 +163,8 @@ convertup (struct filter *f, int *x, int *y)
 {
   number_t xd = (*x - f->childimage->width / 2) * f->childimage->pixelwidth;
   number_t yd = (*y - f->childimage->height / 2) * f->childimage->pixelheight;
-  *x = (int)(f->image->width / 2 + xd / f->image->pixelwidth);
-  *y = (int)(f->image->height / 2 + yd / f->image->pixelheight);
+  *x = (int) (f->image->width / 2 + xd / f->image->pixelwidth);
+  *y = (int) (f->image->height / 2 + yd / f->image->pixelheight);
   if (f->next != NULL)
     f->next->action->convertup (f->next, x, y);
 }
@@ -167,16 +173,15 @@ convertdown (struct filter *f, int *x, int *y)
 {
   number_t xd = (*x - f->image->width / 2) * f->image->pixelwidth;
   number_t yd = (*y - f->image->height / 2) * f->image->pixelheight;
-  *x = (int)(f->childimage->width / 2 + xd / f->childimage->pixelwidth);
-  *y = (int)(f->childimage->height / 2 + yd / f->childimage->pixelheight);
+  *x = (int) (f->childimage->width / 2 + xd / f->childimage->pixelwidth);
+  *y = (int) (f->childimage->height / 2 + yd / f->childimage->pixelheight);
   if (f->previous != NULL)
     f->previous->action->convertdown (f->previous, x, y);
 }
 
 
 
-CONST struct filteraction rotate_filter =
-{
+CONST struct filteraction rotate_filter = {
   "Image rotation",
   "rotate",
   0,

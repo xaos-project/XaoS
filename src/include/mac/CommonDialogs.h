@@ -11,6 +11,5 @@
 #define rOKcancelAlert	130
 
 
-void doErrorAlert(Str255 errmsg);
-Boolean doOKcancel(Str255 msg);
-
+void doErrorAlert (Str255 errmsg);
+Boolean doOKcancel (Str255 msg);

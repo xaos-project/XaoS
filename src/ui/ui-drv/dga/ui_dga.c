@@ -30,10 +30,10 @@ static int mouseX, mouseY, oldmouseX, oldmouseY;
 static CONST char *mousepointer = mouse_pointer_data;
 static char *storeddata = NULL;
 static unsigned int mousebuttons = 0;
-static CONST char *defmode="320x200";
-static char *defdisplay=NULL;
+static CONST char *defmode = "320x200";
+static char *defdisplay = NULL;
 
-static int first_time=1;
+static int first_time = 1;
 struct ui_driver DGA_driver;
 static XF86VidModeModeInfo *mode;
 static int current;
@@ -43,40 +43,39 @@ static char *buffers[2];
 static int linewidth;
 static void DGA_uninitialise (void);
 static struct
-  {
-    int screen;
-    Visual *visual;
-    int depth;
-    unsigned char *addr;
-    int grabbed_keybd;
-    int grabbed_mouse;
-    char *base_addr;
-    int linewidth;
-    int width;
-    int height;
-    int bank_size;
-    int ram_size;
-    Colormap cmap;
-    unsigned int *pixels;
-    XF86VidModeModeInfo orig_mode;
-    XF86VidModeModeInfo *mode;
-    int orig_viewport_x;
-    int orig_viewport_y;
-    int vidmode_changed;
-    int modecount;
-    XF86VidModeModeInfo **modes;
-  }
+{
+  int screen;
+  Visual *visual;
+  int depth;
+  unsigned char *addr;
+  int grabbed_keybd;
+  int grabbed_mouse;
+  char *base_addr;
+  int linewidth;
+  int width;
+  int height;
+  int bank_size;
+  int ram_size;
+  Colormap cmap;
+  unsigned int *pixels;
+  XF86VidModeModeInfo orig_mode;
+  XF86VidModeModeInfo *mode;
+  int orig_viewport_x;
+  int orig_viewport_y;
+  int vidmode_changed;
+  int modecount;
+  XF86VidModeModeInfo **modes;
+}
 xf86ctx =
 {
-  -1, NULL, -1, NULL, 0, 0, NULL,
-    -1, -1, -1, -1, -1, 0, NULL, 
+  -1, NULL, -1, NULL, 0, 0, NULL, -1, -1, -1, -1, -1, 0, NULL,
   {
   }
-  ,0, 0, 0
-};
+, 0, 0, 0};
 
 static char *
-store (char *data, int depth, int lpitch, int width, int height, int xpos, int ypos)
+store (char *data, int depth, int lpitch, int width, int height, int xpos,
+       int ypos)
 {
   int d = depth / 8;
   char *store = malloc (d * MOUSEWIDTH * MOUSEHEIGHT);
@@ -90,11 +89,13 @@ store (char *data, int depth, int lpitch, int width, int height, int xpos, int y
   if (ypos < 0)
     ypos = 0;
   for (y = 0; y < MOUSEHEIGHT; y++)
-    memcpy (store + d * MOUSEWIDTH * y, data + xpos * d + (ypos + y) * lpitch, MOUSEWIDTH * d);
+    memcpy (store + d * MOUSEWIDTH * y, data + xpos * d + (ypos + y) * lpitch,
+	    MOUSEWIDTH * d);
   return store;
 }
-static void 
-restore (char *data, char *store, int depth, int lpitch, int width, int height, int xpos, int ypos)
+static void
+restore (char *data, char *store, int depth, int lpitch, int width,
+	 int height, int xpos, int ypos)
 {
   int y;
   int d = depth / 8;
@@ -107,17 +108,20 @@ restore (char *data, char *store, int depth, int lpitch, int width, int height, 
   if (ypos < 0)
     ypos = 0;
   for (y = 0; y < MOUSEHEIGHT; y++)
-    memcpy (data + xpos * d + (ypos + y) * lpitch, store + d * MOUSEWIDTH * y, MOUSEWIDTH * d);
+    memcpy (data + xpos * d + (ypos + y) * lpitch, store + d * MOUSEWIDTH * y,
+	    MOUSEWIDTH * d);
 }
 
-static void 
-drawmouse (char *data, CONST char *mouse, int depth, int lpitch, int width, int height, int xpos, int ypos)
+static void
+drawmouse (char *data, CONST char *mouse, int depth, int lpitch, int width,
+	   int height, int xpos, int ypos)
 {
   int x, y, z, c;
   int d = depth / 8;
   for (y = 0; y < MOUSEWIDTH; y++)
     for (x = 0; x < MOUSEWIDTH; x++)
-      if (mouse[x + MOUSEWIDTH * y] && x + xpos > 0 && (x + xpos) < width && y + ypos > 0 && y + ypos < height)
+      if (mouse[x + MOUSEWIDTH * y] && x + xpos > 0 && (x + xpos) < width
+	  && y + ypos > 0 && y + ypos < height)
 	{
 	  c = mouse[x + MOUSEWIDTH * y] == 2 ? (d == 1 ? 1 : 255) : 0;
 	  for (z = 0; z < d; z++)
@@ -125,10 +129,9 @@ drawmouse (char *data, CONST char *mouse, int depth, int lpitch, int width, int 
 	}
 }
 static char **names;
-static menudialog uih_resizedialog[] =
-{
-    DIALOGCHOICE ("Mode", NULL, 0),
-    {NULL}
+static menudialog uih_resizedialog[] = {
+  DIALOGCHOICE ("Mode", NULL, 0),
+  {NULL}
 };
 
 static menudialog *
@@ -141,9 +144,10 @@ DGA_resizedialog (struct uih_context *c)
 	  xf86ctx.modes[i]->vdisplay == xf86ctx.height)
 	break;
     }
-  if (i==xf86ctx.modecount) i=0;
+  if (i == xf86ctx.modecount)
+    i = 0;
   uih_resizedialog[0].defint = i;
-  uih_resizedialog[0].defstr = (char *)names;
+  uih_resizedialog[0].defstr = (char *) names;
   return uih_resizedialog;
 }
 
@@ -151,14 +155,15 @@ static void
 DGA_resize (struct uih_context *c, int p)
 {
   static char s[256];
-  sprintf (s, "%ix%i", xf86ctx.modes[p]->hdisplay, xf86ctx.modes[p]->vdisplay);
-  defmode=s;
-  ui_call_resize();
+  sprintf (s, "%ix%i", xf86ctx.modes[p]->hdisplay,
+	   xf86ctx.modes[p]->vdisplay);
+  defmode = s;
+  ui_call_resize ();
 }
 
-static CONST menuitem menuitems[] =
-{
-  MENUCDIALOG ("ui", "=", "Resize", "resize", 0, DGA_resize, DGA_resizedialog),
+static CONST menuitem menuitems[] = {
+  MENUCDIALOG ("ui", "=", "Resize", "resize", 0, DGA_resize,
+	       DGA_resizedialog),
 };
 
 
@@ -169,7 +174,8 @@ DGA_getmodeinfo (XF86VidModeModeInfo * modeinfo)
   int dotclock;
   Bool err;
 
-  err = XF86VidModeGetModeLine (display, xf86ctx.screen, &dotclock, &modeline);
+  err =
+    XF86VidModeGetModeLine (display, xf86ctx.screen, &dotclock, &modeline);
 
   modeinfo->dotclock = dotclock;
   modeinfo->hdisplay = modeline.hdisplay;
@@ -193,17 +199,17 @@ static void
 DGA_setpalette (ui_palette pal, int start, int end)
 {
   int i;
-  for(i=start;i<end;i++)
-  {
-    XColor color;
-    color.pixel=i;
-    color.flags = DoRed | DoBlue | DoGreen;
-    color.red = pal[i-start][0]*256;
-    color.green = pal[i-start][1]*256;
-    color.blue = pal[i-start][2]*256;
-    XStoreColor (display, xf86ctx.cmap, &color);
-  }
-  XF86DGAInstallColormap(display,xf86ctx.screen,xf86ctx.cmap);
+  for (i = start; i < end; i++)
+    {
+      XColor color;
+      color.pixel = i;
+      color.flags = DoRed | DoBlue | DoGreen;
+      color.red = pal[i - start][0] * 256;
+      color.green = pal[i - start][1] * 256;
+      color.blue = pal[i - start][2] * 256;
+      XStoreColor (display, xf86ctx.cmap, &color);
+    }
+  XF86DGAInstallColormap (display, xf86ctx.screen, xf86ctx.cmap);
 }
 
 static void
@@ -217,15 +223,20 @@ DGA_display (void)
   int i;
   if (storeddata)
     free (storeddata), storeddata = NULL;
-  storeddata = store (buffers[current], xf86ctx.depth, linewidth, xf86ctx.width, xf86ctx.height, mouseX, mouseY);
-  drawmouse (buffers[current], mousepointer, xf86ctx.depth, linewidth, xf86ctx.width, xf86ctx.height, mouseX, mouseY);
+  storeddata =
+    store (buffers[current], xf86ctx.depth, linewidth, xf86ctx.width,
+	   xf86ctx.height, mouseX, mouseY);
+  drawmouse (buffers[current], mousepointer, xf86ctx.depth, linewidth,
+	     xf86ctx.width, xf86ctx.height, mouseX, mouseY);
 
   for (i = 0; i < xf86ctx.height; i++)
     {
-      memcpy (xf86ctx.base_addr + xf86ctx.linewidth * i * xf86ctx.depth / 8, buffers[current] + linewidth * i, linewidth);
+      memcpy (xf86ctx.base_addr + xf86ctx.linewidth * i * xf86ctx.depth / 8,
+	      buffers[current] + linewidth * i, linewidth);
     }
 
-  restore (buffers[current], storeddata, xf86ctx.depth, linewidth, xf86ctx.width, xf86ctx.height, mouseX, mouseY);
+  restore (buffers[current], storeddata, xf86ctx.depth, linewidth,
+	   xf86ctx.width, xf86ctx.height, mouseX, mouseY);
   oldmouseX = mouseX;
   oldmouseY = mouseY;
 #if 0
@@ -237,21 +248,21 @@ DGA_display (void)
 static void
 DGA_flip_buffers (void)
 {
-  current^=1;
+  current ^= 1;
 }
 
 static void
 DGA_free_buffers (char *b1, char *b2)
 {
-  free(buffers[0]);
-  free(buffers[1]);
+  free (buffers[0]);
+  free (buffers[1]);
 }
 
 static int
 DGA_alloc_buffers (char **b1, char **b2)
 {
   buffers[0] = malloc (linewidth * xf86ctx.height * xf86ctx.depth / 8);
-  current=0;
+  current = 0;
   if (buffers[0] == NULL)
     {
       x_error ("Couldn't alloc enough memory\n");
@@ -260,21 +271,22 @@ DGA_alloc_buffers (char **b1, char **b2)
   buffers[1] = malloc (linewidth * xf86ctx.height * xf86ctx.depth / 8);
   if (buffers[1] == NULL)
     {
-      free(buffers[0]);
-      x_error("Couldn't alloc enough memory\n");
+      free (buffers[0]);
+      x_error ("Couldn't alloc enough memory\n");
       return 0;
     }
-  *b1=buffers[0];
-  *b2=buffers[1];
-  XSync(display,0);
-  return linewidth;			/* bytes per scanline */
+  *b1 = buffers[0];
+  *b2 = buffers[1];
+  XSync (display, 0);
+  return linewidth;		/* bytes per scanline */
 }
 
-static void 
+static void
 DGA_vidmode_restoremode (Display * disp)
 {
   XF86VidModeSwitchToMode (disp, xf86ctx.screen, &xf86ctx.orig_mode);
-  XF86VidModeSetViewPort (disp, xf86ctx.screen, xf86ctx.orig_viewport_x, xf86ctx.orig_viewport_y);
+  XF86VidModeSetViewPort (disp, xf86ctx.screen, xf86ctx.orig_viewport_x,
+			  xf86ctx.orig_viewport_y);
   /* 'Mach64-hack': restores screen when screwed up */
   XF86VidModeSwitchMode (disp, xf86ctx.screen, -1);
   XF86VidModeSwitchMode (disp, xf86ctx.screen, 1);
@@ -297,7 +309,8 @@ DGA_vidmode_setup_mode_restore (void)
 
 
   if (!XF86VidModeGetViewPort (display, xf86ctx.screen,
-			&xf86ctx.orig_viewport_x, &xf86ctx.orig_viewport_y))
+			       &xf86ctx.orig_viewport_x,
+			       &xf86ctx.orig_viewport_y))
     {
       x_error ("XF86VidModeGetViewPort failed\n");
       return 1;
@@ -333,8 +346,11 @@ DGA_findmode (void)
   for (i = 0; i < xf86ctx.modecount; i++)
     {
       int dist;
-      dist = (width - xf86ctx.modes[i]->hdisplay) * (width - xf86ctx.modes[i]->hdisplay) +
-	(height - xf86ctx.modes[i]->vdisplay) * (height - xf86ctx.modes[i]->vdisplay);
+      dist =
+	(width - xf86ctx.modes[i]->hdisplay) * (width -
+						xf86ctx.modes[i]->hdisplay) +
+	(height - xf86ctx.modes[i]->vdisplay) * (height -
+						 xf86ctx.modes[i]->vdisplay);
       if (dist < mindist)
 	mindist = dist, best = xf86ctx.modes[i];
     }
@@ -358,11 +374,13 @@ DGA_getsize (int *w, int *h)
   switch (xf86ctx.depth)
     {
     case 8:
-      xf86ctx.cmap = XCreateColormap (display, window, xf86ctx.visual, AllocAll);
+      xf86ctx.cmap =
+	XCreateColormap (display, window, xf86ctx.visual, AllocAll);
       if (xf86ctx.visual->class != PseudoColor)
 	{
 	  DGA_uninitialise ();
-	  x_fatalerror ("Only pseudocolor visual supported on 256 color cards\n");
+	  x_fatalerror
+	    ("Only pseudocolor visual supported on 256 color cards\n");
 	}
       DGA_driver.imagetype = UI_C256;
       break;
@@ -423,7 +441,8 @@ DGA_getsize (int *w, int *h)
     }
   if (!xf86ctx.grabbed_keybd)
     {
-      if (XGrabKeyboard (display, window, True, GrabModeAsync, GrabModeAsync, CurrentTime))
+      if (XGrabKeyboard
+	  (display, window, True, GrabModeAsync, GrabModeAsync, CurrentTime))
 	{
 	  DGA_uninitialise ();
 	  x_fatalerror ("XGrabKeyboard failed\n");
@@ -434,8 +453,9 @@ DGA_getsize (int *w, int *h)
   if (!xf86ctx.grabbed_mouse)
     {
       if (XGrabPointer (display, window, True,
-		    PointerMotionMask | ButtonPressMask | ButtonReleaseMask,
-		     GrabModeAsync, GrabModeAsync, None, None, CurrentTime))
+			PointerMotionMask | ButtonPressMask |
+			ButtonReleaseMask, GrabModeAsync, GrabModeAsync, None,
+			None, CurrentTime))
 	{
 	  DGA_uninitialise ();
 	  x_fatalerror ("XGrabPointer failed\n");
@@ -455,7 +475,8 @@ DGA_getsize (int *w, int *h)
     }
 
   if (!XF86DGADirectVideo (display, xf86ctx.screen,
-	    XF86DGADirectGraphics | XF86DGADirectMouse | XF86DGADirectKeyb))
+			   XF86DGADirectGraphics | XF86DGADirectMouse |
+			   XF86DGADirectKeyb))
     {
       DGA_uninitialise ();
       x_fatalerror ("XF86DGADirectVideo failed\n");
@@ -566,7 +587,8 @@ DGA_init (void)
   free (pixmaps);
   if (i == count)
     {
-      x_error ("Couldn't find a zpixmap with the defaultcolordepth\nThis should not happen!\n");
+      x_error
+	("Couldn't find a zpixmap with the defaultcolordepth\nThis should not happen!\n");
       XCloseDisplay (display);
       return 0;
     }
@@ -579,18 +601,19 @@ DGA_init (void)
       XCloseDisplay (display);
       return 0;
     }
-  names=calloc(sizeof (*names), xf86ctx.modecount+1);
-  for(i=0;i<xf86ctx.modecount;i++)
-  {
-    char c[256];
-    sprintf(c,"%ix%i", xf86ctx.modes[i]->hdisplay, xf86ctx.modes[i]->vdisplay);
-    names[i]=mystrdup(c);
-  }
+  names = calloc (sizeof (*names), xf86ctx.modecount + 1);
+  for (i = 0; i < xf86ctx.modecount; i++)
+    {
+      char c[256];
+      sprintf (c, "%ix%i", xf86ctx.modes[i]->hdisplay,
+	       xf86ctx.modes[i]->vdisplay);
+      names[i] = mystrdup (c);
+    }
 
   menu_add (menuitems, NITEMS (menuitems));
 
-  DGA_driver.width = ( XDisplayWidthMM (display, xf86ctx.screen)) / 10.0;
-  DGA_driver.height = ( XDisplayHeightMM (display, xf86ctx.screen)) / 10.0;
+  DGA_driver.width = (XDisplayWidthMM (display, xf86ctx.screen)) / 10.0;
+  DGA_driver.height = (XDisplayHeightMM (display, xf86ctx.screen)) / 10.0;
 
 
   return ( /*1 for sucess 0 for fail */ 1);
@@ -637,15 +660,22 @@ DGA_uninitialise ()
 static void
 DGA_updatemouse (int x, int y)
 {
-  mouseX=x;
-  mouseY=y;
+  mouseX = x;
+  mouseY = y;
   if (storeddata)
     {
-      restore (xf86ctx.base_addr, storeddata, xf86ctx.depth, xf86ctx.depth/8*xf86ctx.linewidth, xf86ctx.width, xf86ctx.height, oldmouseX, oldmouseY);
+      restore (xf86ctx.base_addr, storeddata, xf86ctx.depth,
+	       xf86ctx.depth / 8 * xf86ctx.linewidth, xf86ctx.width,
+	       xf86ctx.height, oldmouseX, oldmouseY);
       free (storeddata);
     }
-  storeddata = store (xf86ctx.base_addr, xf86ctx.depth, xf86ctx.depth/8*xf86ctx.linewidth, xf86ctx.width, xf86ctx.height, mouseX, mouseY);
-  drawmouse (xf86ctx.base_addr, mousepointer, xf86ctx.depth, xf86ctx.depth/8*xf86ctx.linewidth, xf86ctx.width, xf86ctx.height, mouseX, mouseY);
+  storeddata =
+    store (xf86ctx.base_addr, xf86ctx.depth,
+	   xf86ctx.depth / 8 * xf86ctx.linewidth, xf86ctx.width,
+	   xf86ctx.height, mouseX, mouseY);
+  drawmouse (xf86ctx.base_addr, mousepointer, xf86ctx.depth,
+	     xf86ctx.depth / 8 * xf86ctx.linewidth, xf86ctx.width,
+	     xf86ctx.height, mouseX, mouseY);
   oldmouseX = mouseX;
   oldmouseY = mouseY;
 }
@@ -660,7 +690,7 @@ DGA_processevents (int wait, int *mx, int *my, int *mb, int *k)
     {
       do
 	{
-          int mousex = 0, mousey = 0;
+	  int mousex = 0, mousey = 0;
 	  XNextEvent (display, &ev);
 	  switch (ev.type)
 	    {
@@ -679,18 +709,18 @@ DGA_processevents (int wait, int *mx, int *my, int *mb, int *k)
 		}
 	      break;
 	    case ButtonPress:
-		  switch (ev.xbutton.button)
-		    {
-		    case 1:
-		      mousebuttons |= BUTTON1;
-		      break;
-		    case 2:
-		      mousebuttons |= BUTTON2;
-		      break;
-		    case 3:
-		      mousebuttons |= BUTTON3;
-		      break;
-		    }
+	      switch (ev.xbutton.button)
+		{
+		case 1:
+		  mousebuttons |= BUTTON1;
+		  break;
+		case 2:
+		  mousebuttons |= BUTTON2;
+		  break;
+		case 3:
+		  mousebuttons |= BUTTON3;
+		  break;
+		}
 	      break;
 	    case MotionNotify:
 	      mousex = ev.xmotion.x_root;
@@ -759,7 +789,8 @@ DGA_processevents (int wait, int *mx, int *my, int *mb, int *k)
 		      else
 			{
 			  name = buff;
-			  buff[XLookupString (&ev.xkey, buff, 256, &ksym, NULL)] = 0;
+			  buff[XLookupString
+			       (&ev.xkey, buff, 256, &ksym, NULL)] = 0;
 			}
 		      if (strlen (name) == 1)
 			{
@@ -798,9 +829,9 @@ DGA_processevents (int wait, int *mx, int *my, int *mb, int *k)
 static void
 DGA_getmouse (int *x, int *y, int *b)
 {
-  *x=mouseX;
-  *y=mouseY;
-  *b=mousebuttons;
+  *x = mouseX;
+  *y = mouseY;
+  *b = mousebuttons;
 }
 
 static void
@@ -822,16 +853,14 @@ DGA_mousetype (int type)
   DGA_updatemouse (mouseX, mouseY);
 }
 
-static CONST struct params params[] =
-{
-  {"", P_HELP, NULL,"DGA driver options:"},
+static CONST struct params params[] = {
+  {"", P_HELP, NULL, "DGA driver options:"},
   {"-display", P_STRING, &defdisplay, "Select display"},
   {"-defmode", P_STRING, &mode, "Select videomode nearest to specified mode"},
   {NULL, 0, NULL, NULL}
 };
 
-struct ui_driver DGA_driver =
-{
+struct ui_driver DGA_driver = {
   "DGA",
   DGA_init,
   DGA_getsize,
@@ -855,11 +884,9 @@ struct ui_driver DGA_driver =
   0, 0,				/*resolution of screen for windowed systems */
   UI_C256,			/*Image type */
   0, 255, 255			/*start, end of palette and maximum allocatable */
-				/*entries */
+    /*entries */
 };
 
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/
 
 #endif
-
-

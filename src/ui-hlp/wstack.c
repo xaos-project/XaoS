@@ -24,7 +24,8 @@ uih_darkrectangle (struct image *image, int x, int y, int width, int height)
 
   int mask = 0;
   unsigned int *current, *end;
-  if (x + width < 0 || y + height < 0 || y >= image->height || x >= image->width)
+  if (x + width < 0 || y + height < 0 || y >= image->height
+      || x >= image->width)
     return;
   if (x + width >= image->width)
     width = image->width - x;
@@ -38,7 +39,8 @@ uih_darkrectangle (struct image *image, int x, int y, int width, int height)
     height += y, y = 0;
   if (height <= 0)
     return;
-  assert (x >= 0 && y >= 00 && width > 0 && height > 0 && x + width <= image->width && y + height <= image->height);
+  assert (x >= 0 && y >= 00 && width > 0 && height > 0
+	  && x + width <= image->width && y + height <= image->height);
   if (image->bytesperpixel == 2)
     {
       int x1 = x / 2;
@@ -55,14 +57,44 @@ uih_darkrectangle (struct image *image, int x, int y, int width, int height)
     {
     case TRUECOLOR:
     case TRUECOLOR24:
-      mask = ~((1 << (image->palette->info.truec.rshift + 7 - image->palette->info.truec.rprec)) |
-	       (1 << (image->palette->info.truec.gshift + 7 - image->palette->info.truec.gprec)) |
-	       (1 << (image->palette->info.truec.bshift + 7 - image->palette->info.truec.bprec)));
+      mask =
+	~((1 <<
+	   (image->palette->info.truec.rshift + 7 -
+	    image->palette->info.truec.rprec)) | (1 << (image->palette->info.
+							truec.gshift + 7 -
+							image->palette->info.
+							truec.
+							gprec)) | (1 <<
+								   (image->
+								    palette->
+								    info.
+								    truec.
+								    bshift +
+								    7 -
+								    image->
+								    palette->
+								    info.
+								    truec.
+								    bprec)));
       break;
     case TRUECOLOR16:
-      mask = ((1 << (image->palette->info.truec.rshift + 7 - image->palette->info.truec.rprec)) |
-	      (1 << (image->palette->info.truec.gshift + 7 - image->palette->info.truec.gprec)) |
-	      (1 << (image->palette->info.truec.bshift + 7 - image->palette->info.truec.bprec)));
+      mask =
+	((1 <<
+	  (image->palette->info.truec.rshift + 7 -
+	   image->palette->info.truec.rprec)) | (1 << (image->palette->info.
+						       truec.gshift + 7 -
+						       image->palette->info.
+						       truec.
+						       gprec)) | (1 <<
+								  (image->
+								   palette->
+								   info.truec.
+								   bshift +
+								   7 -
+								   image->
+								   palette->
+								   info.truec.
+								   bprec)));
       mask = ~(mask | (mask << 16));
       break;
     }
@@ -78,7 +110,8 @@ uih_darkrectangle (struct image *image, int x, int y, int width, int height)
 
 }
 void
-uih_drawborder (struct uih_context *uih, int x, int y, int width, int height, int flags)
+uih_drawborder (struct uih_context *uih, int x, int y, int width, int height,
+		int flags)
 {
   int leftcolor;
   int rightcolor;
@@ -122,7 +155,8 @@ uih_drawborder (struct uih_context *uih, int x, int y, int width, int height, in
 	bgcolor = BGCOLOR (uih);
     }
   if (uih->image->bytesperpixel > 1 && (flags & BORDER_TRANSPARENT))
-    uih_darkrectangle (uih->image, x + 1, y + 1, width - 2, height - 2) /*, leftcolor = GRAYCOLOR (uih) */ ;
+    uih_darkrectangle (uih->image, x + 1, y + 1, width - 2,
+		       height - 2) /*, leftcolor = GRAYCOLOR (uih) */ ;
   else
     {
       xrectangle (uih->image, x + 1, y + 1, width - 2, height - 2, bgcolor);
@@ -137,7 +171,8 @@ struct uih_window *
 uih_registerw (struct uih_context *uih, uih_getposfunc
 	       getpos, uih_drawfunc draw, void *data, int flags)
 {
-  struct uih_window *w = (struct uih_window *)calloc (1, sizeof (struct uih_window));
+  struct uih_window *w =
+    (struct uih_window *) calloc (1, sizeof (struct uih_window));
   struct uih_window *w1;
   assert (uih != NULL && getpos != NULL && draw != NULL && flags >= 0);
   if (w == NULL)
@@ -166,10 +201,13 @@ uih_registerw (struct uih_context *uih, uih_getposfunc
   w->x = -65536;
   return w;
 }
+
 void
-uih_setline (struct uih_context *uih, struct uih_window *w, int color, int x1, int y1, int x2, int y2)
+uih_setline (struct uih_context *uih, struct uih_window *w, int color, int x1,
+	     int y1, int x2, int y2)
 {
-  if (w->savedline != color || w->x != x1 || w->y != y1 || w->width != x2 - x1 || w->height != y2 - y1)
+  if (w->savedline != color || w->x != x1 || w->y != y1 || w->width != x2 - x1
+      || w->height != y2 - y1)
     {
       uih_clearwindows (uih);
       uih->display = 1;
@@ -181,9 +219,11 @@ uih_setline (struct uih_context *uih, struct uih_window *w, int color, int x1, i
     }
 }
 struct uih_window *
-uih_registerline (struct uih_context *uih, int color, int x1, int y1, int x2, int y2)
+uih_registerline (struct uih_context *uih, int color, int x1, int y1, int x2,
+		  int y2)
 {
-  struct uih_window *w = (struct uih_window *)calloc (1, sizeof (struct uih_window));
+  struct uih_window *w =
+    (struct uih_window *) calloc (1, sizeof (struct uih_window));
   struct uih_window *w1;
   if (w == NULL)
     return NULL;
@@ -212,6 +252,7 @@ uih_registerline (struct uih_context *uih, int color, int x1, int y1, int x2, in
   w->previous = w1;
   return w;
 }
+
 void
 uih_removew (struct uih_context *uih, struct uih_window *w)
 {
@@ -235,6 +276,7 @@ uih_removew (struct uih_context *uih, struct uih_window *w)
     }
   free (w);
 }
+
 /*Remove all drawed windows from screen */
 void
 uih_clearwindows (struct uih_context *uih)
@@ -258,7 +300,8 @@ uih_clearwindows (struct uih_context *uih)
 	{
 	  if (w->saveddata != NULL)
 	    {
-	      xrestoreline (uih->image, w->saveddata, w->x, w->y, w->width + w->x, w->height + w->y);
+	      xrestoreline (uih->image, w->saveddata, w->x, w->y,
+			    w->width + w->x, w->height + w->y);
 	      free (w->saveddata);
 	      w->saveddata = NULL;
 	    }
@@ -294,14 +337,19 @@ uih_clearwindows (struct uih_context *uih)
 		      if (width + savedpos > destwidth)
 			{
 			  int width1;
-			  memcpy (data, uih->image->oldlines[savedline] + savedpos, destwidth - savedpos);
+			  memcpy (data,
+				  uih->image->oldlines[savedline] + savedpos,
+				  destwidth - savedpos);
 			  savedline++;
 			  width1 = width - destwidth + savedpos;
-			  memcpy (data + (destwidth - savedpos), uih->image->oldlines[savedline], width1);
+			  memcpy (data + (destwidth - savedpos),
+				  uih->image->oldlines[savedline], width1);
 			  savedpos = width1;
 			}
 		      else
-			memcpy (data, uih->image->oldlines[savedline] + savedpos, width), savedpos += width;
+			memcpy (data,
+				uih->image->oldlines[savedline] + savedpos,
+				width), savedpos += width;
 		    }
 		  w->savedline = -1;
 		}
@@ -367,13 +415,20 @@ uih_drawwindows (struct uih_context *uih)
 		{
 		  if (w != w1 && (w1->flags & DRAWBORDER) &&
 		      ((((w1->x > w->x + 5 && w1->x + 5 < w->x + w->width) ||
-		       (w->x > w1->x + 5 && w->x + 5 < w1->x + w1->width)) &&
-		      ((w1->y > w->y + 5 && w1->y + 5 < w->y + w->height) ||
-		       (w->y > w1->y + 5 && w->y + 5 < w1->y + w1->height))) ||
-		      (((w1->x + w1->width > w->x + 5 && w1->x + w1->width + 5 < w->x + w->width) ||
-		       (w->x + w->width > w1->x + 5 && w->x + w->width + 5 < w1->x + w1->width)) &&
-		      ((w1->y + w1->height > w->y + 5 && w1->y + w1->height + 5 < w->y + w->height) ||
-		       (w->y + w->height > w1->y + 5 && w->y + w->height + 5 < w1->y + w1->height)))))
+			 (w->x > w1->x + 5 && w->x + 5 < w1->x + w1->width))
+			&& ((w1->y > w->y + 5 && w1->y + 5 < w->y + w->height)
+			    || (w->y > w1->y + 5
+				&& w->y + 5 < w1->y + w1->height)))
+		       ||
+		       (((w1->x + w1->width > w->x + 5
+			  && w1->x + w1->width + 5 < w->x + w->width)
+			 || (w->x + w->width > w1->x + 5
+			     && w->x + w->width + 5 < w1->x + w1->width))
+			&&
+			((w1->y + w1->height > w->y + 5
+			  && w1->y + w1->height + 5 < w->y + w->height)
+			 || (w->y + w->height > w1->y + 5
+			     && w->y + w->height + 5 < w1->y + w1->height)))))
 		    {
 		      w->flags &= ~BORDER_TRANSPARENT;
 		      break;
@@ -382,7 +437,8 @@ uih_drawwindows (struct uih_context *uih)
 		}
 	    }
 	  size += w->width * w->height;
-	  if (w->x == 0 && w->y == 0 && w->width == img->width && w->height == img->height)
+	  if (w->x == 0 && w->y == 0 && w->width == img->width
+	      && w->height == img->height)
 	    nocopy = 1;
 	  assert (w->width >= 0);
 	  assert (w->height >= 0);
@@ -419,15 +475,25 @@ uih_drawwindows (struct uih_context *uih)
 	  assert (w->saveddata == NULL);
 	  if (w->getpos == NULL)
 	    {
-	      if ((w->x < savedminx || w->y < savedminy || w->x + w->width > savedmaxx || w->x + w->height > savedmaxy || w->x + w->width < savedminx || w->y + w->height < savedminy || w->x > savedmaxx || w->y > savedmaxy))
+	      if ((w->x < savedminx || w->y < savedminy
+		   || w->x + w->width > savedmaxx
+		   || w->x + w->height > savedmaxy
+		   || w->x + w->width < savedminx
+		   || w->y + w->height < savedminy || w->x > savedmaxx
+		   || w->y > savedmaxy))
 		{
-		  w->saveddata = xsaveline (uih->image, w->x, w->y, w->width + w->x, w->height + w->y);
+		  w->saveddata =
+		    xsaveline (uih->image, w->x, w->y, w->width + w->x,
+			       w->height + w->y);
 		}
 	    }
 	  else
 	    {
 	      assert (w->savedline == -1);
-	      if (w->width && w->height && (w->x < savedminx || w->y < savedminy || w->x + w->width > savedmaxx || w->y + w->height > savedmaxy))
+	      if (w->width && w->height
+		  && (w->x < savedminx || w->y < savedminy
+		      || w->x + w->width > savedmaxx
+		      || w->y + w->height > savedmaxy))
 		{
 		  int xskip = w->x * uih->image->bytesperpixel;
 		  int width = w->width * uih->image->bytesperpixel;
@@ -442,12 +508,13 @@ uih_drawwindows (struct uih_context *uih)
 		    }
 		  if (uih->image->flags & PROTECTBUFFERS || 1)
 		    {
-		      w->saveddata = (char *)malloc (width * w->height+1);
+		      w->saveddata = (char *) malloc (width * w->height + 1);
 		      if (w->saveddata != NULL)
 			for (i = w->y; i < w->y + w->height; i++)
 			  {
 			    unsigned char *data = img->currlines[i] + xskip;
-			    memcpy (w->saveddata + (i - w->y) * width, data, width);
+			    memcpy (w->saveddata + (i - w->y) * width, data,
+				    width);
 			  }
 
 		    }
@@ -461,14 +528,17 @@ uih_drawwindows (struct uih_context *uih)
 			  if (width + savedpos > destwidth)
 			    {
 			      int width1;
-			      memcpy (uih->image->oldlines[savedline] + savedpos, data, destwidth - savedpos);
+			      memcpy (uih->image->oldlines[savedline] +
+				      savedpos, data, destwidth - savedpos);
 			      savedline++;
 			      width1 = width - destwidth + savedpos;
-			      memcpy (uih->image->oldlines[savedline], data + (destwidth - savedpos), width1);
+			      memcpy (uih->image->oldlines[savedline],
+				      data + (destwidth - savedpos), width1);
 			      savedpos = width1;
 			    }
 			  else
-			    memcpy (uih->image->oldlines[savedline] + savedpos, data, width), savedpos += width;
+			    memcpy (uih->image->oldlines[savedline] +
+				    savedpos, data, width), savedpos += width;
 			}
 		    }
 		}
@@ -480,11 +550,13 @@ uih_drawwindows (struct uih_context *uih)
   while (w)
     {
       if (w->getpos == NULL)
-	xline (uih->image, w->x, w->y, w->width + w->x, w->height + w->y, w->savedline);
+	xline (uih->image, w->x, w->y, w->width + w->x, w->height + w->y,
+	       w->savedline);
       else if (w->width && w->height)
 	{
 	  if (w->flags & DRAWBORDER)
-	    uih_drawborder (uih, w->x, w->y, w->width, w->height, (BORDER_TRANSPARENT) & w->flags);
+	    uih_drawborder (uih, w->x, w->y, w->width, w->height,
+			    (BORDER_TRANSPARENT) & w->flags);
 	  w->draw (uih, w->data);
 	}
       w = w->next;

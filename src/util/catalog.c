@@ -22,7 +22,9 @@ find_variable (catalog_t * context, CONST char *name, CONST char *newvalue)
   int r = 0;
   int hash = (int) strlen (name);
   struct varnames *current, *last, *newp;
-  hash = ((unsigned char) (name[0]) + (unsigned char) (name[hash - 1]) + hash) % (unsigned int) CHASHMAX;
+  hash =
+    ((unsigned char) (name[0]) + (unsigned char) (name[hash - 1]) +
+     hash) % (unsigned int) CHASHMAX;
   current = last = context->root[hash];
   while (current != NULL)
     {
@@ -64,6 +66,7 @@ find_variable (catalog_t * context, CONST char *name, CONST char *newvalue)
     }
   return (newp->value);
 }
+
 /*
  * free memory used by node and its sons
  */
@@ -81,6 +84,7 @@ free_node (struct varnames *node)
       node = nextnode;
     }
 }
+
 /*
  * free catalog
  */
@@ -107,6 +111,7 @@ alloc_catalog (void)
     c->root[i] = NULL;
   return c;
 }
+
 /*
  * Parse an catalog file and save values into memory
  */

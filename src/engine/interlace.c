@@ -9,11 +9,11 @@
 #endif
 #include <filter.h>
 struct intdata
-  {
-    unsigned char *lastent;
-    int changed;
-    int first;
-  };
+{
+  unsigned char *lastent;
+  int changed;
+  int first;
+};
 static int
 requirement (struct filter *f, struct requirements *r)
 {
@@ -25,9 +25,10 @@ static int
 initialize (struct filter *f, struct initdata *i)
 {
   int x;
-  struct intdata *d = (struct intdata *)f->data;
-  pixel_t **lines1 = (pixel_t **)malloc (sizeof (*lines1) * i->image->height / 2),
-  **lines2 = (pixel_t **)malloc (sizeof (*lines2) * i->image->height / 2);
+  struct intdata *d = (struct intdata *) f->data;
+  pixel_t **lines1 =
+    (pixel_t **) malloc (sizeof (*lines1) * i->image->height / 2), **lines2 =
+    (pixel_t **) malloc (sizeof (*lines2) * i->image->height / 2);
   if (lines1 == NULL)
     return 0;
   inhermisc (f, i);
@@ -47,7 +48,11 @@ initialize (struct filter *f, struct initdata *i)
       lines1[x] = i->image->currlines[x * 2];
       lines2[x] = i->image->currlines[x * 2 + 1];
     }
-  f->childimage = i->image = create_image_lines (i->image->width, (i->image->height) / 2, 2, lines1, lines2, i->image->palette, NULL, FREELINES | PROTECTBUFFERS, f->image->pixelwidth, f->image->pixelheight * 2);
+  f->childimage = i->image =
+    create_image_lines (i->image->width, (i->image->height) / 2, 2, lines1,
+			lines2, i->image->palette, NULL,
+			FREELINES | PROTECTBUFFERS, f->image->pixelwidth,
+			f->image->pixelheight * 2);
   if (i->image == NULL)
     {
       free (lines1);
@@ -60,7 +65,7 @@ static struct filter *
 getinstance (CONST struct filteraction *a)
 {
   struct filter *f = createfilter (a);
-  struct intdata *i = (struct intdata *)calloc (1, sizeof (*i));
+  struct intdata *i = (struct intdata *) calloc (1, sizeof (*i));
   f->data = i;
   f->name = "Interlace filter";
   return (f);
@@ -76,9 +81,10 @@ destroyinstance (struct filter *f)
 static int
 doit (struct filter *f, int flags, int time)
 {
-  struct intdata *i = (struct intdata *)f->data;
+  struct intdata *i = (struct intdata *) f->data;
   int val;
-  if (!(f->req.flags & IMAGEDATA) && f->childimage->currlines[0] == i->lastent)
+  if (!(f->req.flags & IMAGEDATA)
+      && f->childimage->currlines[0] == i->lastent)
     f->childimage->flip (f->childimage);
   i->lastent = f->childimage->currlines[0];
   val = f->previous->action->doit (f->previous, flags, time);
@@ -113,8 +119,7 @@ convertdown (struct filter *f, int *x, int *y)
   f->previous->action->convertdown (f->previous, x, y);
 }
 
-CONST struct filteraction interlace_filter =
-{
+CONST struct filteraction interlace_filter = {
   "Interlace filter",
   "interlace",
   0,

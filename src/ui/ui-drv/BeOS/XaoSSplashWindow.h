@@ -23,29 +23,29 @@
 #include <View.h>
 #include <Window.h>
 
-class XaoSSplashWindow : public BWindow
+class XaoSSplashWindow:public BWindow
 {
 public:
-	typedef BWindow inherited;
-	
-	// Constructor, destructor.
-	XaoSSplashWindow(BView *const pView);
-	virtual ~XaoSSplashWindow(void);
+  typedef BWindow inherited;
 
-	// Hook functions.
-	virtual void MessageReceived(BMessage *pMessage);
-	virtual bool QuitRequested(void);
-	
-	// Wait for button press.
-	bool Go(void);
-	
+  // Constructor, destructor.
+    XaoSSplashWindow (BView * const pView);
+    virtual ~ XaoSSplashWindow (void);
+
+  // Hook functions.
+  virtual void MessageReceived (BMessage * pMessage);
+  virtual bool QuitRequested (void);
+
+  // Wait for button press.
+  bool Go (void);
+
 private:
-	XaoSSplashWindow(const XaoSSplashWindow &orig);
-	XaoSSplashWindow &operator =(const XaoSSplashWindow &orig);
-	
-	// Data members.
-	sem_id mButtonSem;
-	bool mStartButtonPressed;
+    XaoSSplashWindow (const XaoSSplashWindow & orig);
+    XaoSSplashWindow & operator = (const XaoSSplashWindow & orig);
+
+  // Data members.
+  sem_id mButtonSem;
+  bool mStartButtonPressed;
 };
 
 #endif // XAOSSPLASHWINDOW_H

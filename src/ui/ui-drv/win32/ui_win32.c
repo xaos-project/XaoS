@@ -36,7 +36,7 @@ struct ui_driver dxw_driver, dxf_driver;
 
 static int initialized = 0, needredraw = 0;
 
-static char *helpname=NULL;
+static char *helpname = NULL;
 
 /* This variables are used by drivers in initializetion */
 static int windowpos;
@@ -105,7 +105,8 @@ static void DeInitWindow (void);
   (!(depth < 8 || (!fullscreen && depth != 16 && depth !=24 && depth != 32)))
 
 static char *
-store (char *data, int depth, int lpitch, int width, int height, int xpos, int ypos)
+store (char *data, int depth, int lpitch, int width, int height, int xpos,
+       int ypos)
 {
   int d = depth / 8;
   char *store = malloc (d * MOUSEWIDTH * MOUSEHEIGHT);
@@ -119,11 +120,13 @@ store (char *data, int depth, int lpitch, int width, int height, int xpos, int y
   if (ypos < 0)
     ypos = 0;
   for (y = 0; y < MOUSEHEIGHT; y++)
-    memcpy (store + d * MOUSEWIDTH * y, data + xpos * d + (ypos + y) * lpitch, MOUSEWIDTH * d);
+    memcpy (store + d * MOUSEWIDTH * y, data + xpos * d + (ypos + y) * lpitch,
+	    MOUSEWIDTH * d);
   return store;
 }
-static void 
-restore (char *data, CONST char *store, int depth, int lpitch, int width, int height, int xpos, int ypos)
+static void
+restore (char *data, CONST char *store, int depth, int lpitch, int width,
+	 int height, int xpos, int ypos)
 {
   int y;
   int d = depth / 8;
@@ -136,52 +139,60 @@ restore (char *data, CONST char *store, int depth, int lpitch, int width, int he
   if (ypos < 0)
     ypos = 0;
   for (y = 0; y < MOUSEHEIGHT; y++)
-    memcpy (data + xpos * d + (ypos + y) * lpitch, store + d * MOUSEWIDTH * y, MOUSEWIDTH * d);
+    memcpy (data + xpos * d + (ypos + y) * lpitch, store + d * MOUSEWIDTH * y,
+	    MOUSEWIDTH * d);
 }
-static void 
-drawmouse (char *data, CONST char *mouse, int depth, int lpitch, int width, int height, int xpos, int ypos)
+static void
+drawmouse (char *data, CONST char *mouse, int depth, int lpitch, int width,
+	   int height, int xpos, int ypos)
 {
   int x, y, z, c;
   int d = depth / 8;
   for (y = 0; y < MOUSEWIDTH; y++)
     for (x = 0; x < MOUSEWIDTH; x++)
-      if (mouse[x + MOUSEWIDTH * y] && x + xpos > 0 && (x + xpos) < width && y + ypos > 0 && y + ypos < height)
+      if (mouse[x + MOUSEWIDTH * y] && x + xpos > 0 && (x + xpos) < width
+	  && y + ypos > 0 && y + ypos < height)
 	{
 	  c = mouse[x + MOUSEWIDTH * y] == 2 ? (d == 1 ? 1 : 255) : 0;
 	  for (z = 0; z < d; z++)
 	    data[z + d * (x + xpos) + (y + ypos) * lpitch] = c;
 	}
 }
-static void getdimens(float *width, float *height)
+static void
+getdimens (float *width, float *height)
 {
-	  HDC hDC = GetDC (hWnd);
-	  *width = GetDeviceCaps (hDC, HORZSIZE)/10.0;
-	  *height = GetDeviceCaps (hDC, VERTSIZE)/10.0;
-	  if (*width>100 || *width<1) *width=29.0;
-	  if (*height>100 || *height<1) *height=21.0;
-	  ReleaseDC (hWnd, hDC);
+  HDC hDC = GetDC (hWnd);
+  *width = GetDeviceCaps (hDC, HORZSIZE) / 10.0;
+  *height = GetDeviceCaps (hDC, VERTSIZE) / 10.0;
+  if (*width > 100 || *width < 1)
+    *width = 29.0;
+  if (*height > 100 || *height < 1)
+    *height = 21.0;
+  ReleaseDC (hWnd, hDC);
 }
-static void getres(float *width, float *height)
+static void
+getres (float *width, float *height)
 {
-	  HDC hDC = GetDC (hWnd);
-	  *width = 2.54/GetDeviceCaps (hDC, LOGPIXELSX);
-	  *height = 2.54/GetDeviceCaps (hDC, LOGPIXELSY);
-	  ReleaseDC (hWnd, hDC);
+  HDC hDC = GetDC (hWnd);
+  *width = 2.54 / GetDeviceCaps (hDC, LOGPIXELSX);
+  *height = 2.54 / GetDeviceCaps (hDC, LOGPIXELSY);
+  ReleaseDC (hWnd, hDC);
 }
+
 /******************************************************************************
                              Win32 driver helper routines
  */
 
 static LRESULT CALLBACK
 WindowProc (HWND hWnd,		// handle to window
-	     UINT uMsg,		// message identifier
-	     WPARAM wParam,	// first message parameter
-	     LPARAM lParam	// second message parameter
-)
+	    UINT uMsg,		// message identifier
+	    WPARAM wParam,	// first message parameter
+	    LPARAM lParam	// second message parameter
+  )
 {
   PAINTSTRUCT paintStruct;
   HDC hDC;
-  if (uMsg == (unsigned int)MyHelpMsg)
+  if (uMsg == (unsigned int) MyHelpMsg)
     {
       win32_help (NULL, helptopic);
       return 0;
@@ -209,7 +220,7 @@ WindowProc (HWND hWnd,		// handle to window
     case WM_DISPLAYCHANGE:
       if (directX == DXFULLSCREEN)
 	return 0;
-      mouseButtons=0;
+      mouseButtons = 0;
       resized = 1;
       hDC = GetDC (hWnd);
       bitDepth = GetDeviceCaps (hDC, BITSPIXEL);
@@ -274,7 +285,8 @@ WindowProc (HWND hWnd,		// handle to window
 	  if (dxPalette)
 	    {
 	      IDirectDrawSurface_SetPalette (lpSurfaces[0], dxPalette);
-	      IDirectDrawPalette_SetEntries (dxPalette, 0, 0, 255, (PALETTEENTRY *) backpalette);
+	      IDirectDrawPalette_SetEntries (dxPalette, 0, 0, 255,
+					     (PALETTEENTRY *) backpalette);
 	    }
 	}
       else
@@ -304,15 +316,15 @@ WindowProc (HWND hWnd,		// handle to window
     case WM_ACTIVATEAPP:
       {
 	int oldactive = active;
-        mouseButtons=0;
+	mouseButtons = 0;
 	if (directX == DXFULLSCREEN)
 	  {
 	    needredraw = 1;
-	    active = (wParam == WA_ACTIVE) || (wParam == WA_CLICKACTIVE) /*(BOOL) wParam */ ;
+	    active = (wParam == WA_ACTIVE)
+	      || (wParam == WA_CLICKACTIVE) /*(BOOL) wParam */ ;
 	    PaintDD ();
 	    if (!oldactive && active && captured)
-	      SetCursor (NULL),
-		SetCapture (hWnd);
+	      SetCursor (NULL), SetCapture (hWnd);
 	    if (oldactive && !active && captured)
 	      ReleaseCapture ();
 	    return 0L;
@@ -341,46 +353,48 @@ InitWindow (void)
   closeFlag = FALSE;
 
   altPressed = arrowsPressed = 0;
-  if (hIcon == NULL) hIcon = LoadIcon (hInstance, "BIG");
+  if (hIcon == NULL)
+    hIcon = LoadIcon (hInstance, "BIG");
   mouseButtons = 0;
   mouseX = 0;
   mouseY = 0;
   {
-  static FARPROC proc;
-  if (hModule2 == NULL)
-    {
-      hModule2 = LoadLibrary ("user32");
-      proc = GetProcAddress (hModule2, "RegisterClassExA");
-    }
-  if (proc != NULL)
-    {
-      WNDCLASSEX ExWndClass;
-      memset (&ExWndClass, 0, sizeof (WNDCLASSEX));
-      if (hIconSm == NULL) hIconSm = LoadIcon (hInstance, "SMALL");
-      ExWndClass.hIconSm = hIconSm;
-      memset (&ExWndClass, 0, sizeof (WNDCLASSEX));
-      ExWndClass.style = CS_OWNDC;
-      ExWndClass.cbSize = sizeof (WNDCLASSEX);
-      ExWndClass.lpfnWndProc = WindowProc;
-      ExWndClass.hInstance = hInstance;
-      ExWndClass.hIcon = hIcon;
-      ExWndClass.hCursor = LoadCursor (NULL, IDC_ARROW);
-      ExWndClass.lpszClassName = "XaosWindow";
-      ExWndClass.hbrBackground = (HBRUSH) GetStockObject (BLACK_BRUSH);
-      a = (ATOM) proc (&ExWndClass);
-    }
-  else
-    {
-      memset (&wndClass, 0, sizeof (WNDCLASS));
-      wndClass.style = CS_OWNDC;
-      wndClass.lpfnWndProc = WindowProc;
-      wndClass.hInstance = hInstance;
-      wndClass.hIcon = hIcon;
-      wndClass.hCursor = LoadCursor (NULL, IDC_ARROW);
-      wndClass.lpszClassName = "XaosWindow";
-      wndClass.hbrBackground = (HBRUSH) GetStockObject (BLACK_BRUSH);
-      a = RegisterClass (&wndClass);
-    }
+    static FARPROC proc;
+    if (hModule2 == NULL)
+      {
+	hModule2 = LoadLibrary ("user32");
+	proc = GetProcAddress (hModule2, "RegisterClassExA");
+      }
+    if (proc != NULL)
+      {
+	WNDCLASSEX ExWndClass;
+	memset (&ExWndClass, 0, sizeof (WNDCLASSEX));
+	if (hIconSm == NULL)
+	  hIconSm = LoadIcon (hInstance, "SMALL");
+	ExWndClass.hIconSm = hIconSm;
+	memset (&ExWndClass, 0, sizeof (WNDCLASSEX));
+	ExWndClass.style = CS_OWNDC;
+	ExWndClass.cbSize = sizeof (WNDCLASSEX);
+	ExWndClass.lpfnWndProc = WindowProc;
+	ExWndClass.hInstance = hInstance;
+	ExWndClass.hIcon = hIcon;
+	ExWndClass.hCursor = LoadCursor (NULL, IDC_ARROW);
+	ExWndClass.lpszClassName = "XaosWindow";
+	ExWndClass.hbrBackground = (HBRUSH) GetStockObject (BLACK_BRUSH);
+	a = (ATOM) proc (&ExWndClass);
+      }
+    else
+      {
+	memset (&wndClass, 0, sizeof (WNDCLASS));
+	wndClass.style = CS_OWNDC;
+	wndClass.lpfnWndProc = WindowProc;
+	wndClass.hInstance = hInstance;
+	wndClass.hIcon = hIcon;
+	wndClass.hCursor = LoadCursor (NULL, IDC_ARROW);
+	wndClass.lpszClassName = "XaosWindow";
+	wndClass.hbrBackground = (HBRUSH) GetStockObject (BLACK_BRUSH);
+	a = RegisterClass (&wndClass);
+      }
   }
   if (!a)
     {
@@ -404,14 +418,15 @@ InitWindow (void)
 
   /* create main window */
   if (directX == DXFULLSCREEN)
-     hWnd = CreateWindowEx (WS_EX_TOPMOST, "XaoSWindow", "XaoS", WS_POPUP,
-		     0, 0, GetSystemMetrics(SM_CXSCREEN),
-                     GetSystemMetrics(SM_CYSCREEN), NULL, NULL, hInstance, NULL);
+    hWnd = CreateWindowEx (WS_EX_TOPMOST, "XaoSWindow", "XaoS", WS_POPUP,
+			   0, 0, GetSystemMetrics (SM_CXSCREEN),
+			   GetSystemMetrics (SM_CYSCREEN), NULL, NULL,
+			   hInstance, NULL);
   else
 
-     hWnd = CreateWindowEx (WS_EX_CLIENTEDGE, "XaoSWindow", "XaoS", 
-		            WS_OVERLAPPEDWINDOW | WS_EX_LEFTSCROLLBAR, xpos, ypos, width, height,
-		            NULL, NULL, hInstance, NULL);
+    hWnd = CreateWindowEx (WS_EX_CLIENTEDGE, "XaoSWindow", "XaoS",
+			   WS_OVERLAPPEDWINDOW | WS_EX_LEFTSCROLLBAR, xpos,
+			   ypos, width, height, NULL, NULL, hInstance, NULL);
 
   if (!hWnd)
     {
@@ -419,7 +434,7 @@ InitWindow (void)
       return 0;
     }
 
-  clipboard_format=RegisterClipboardFormat("image/x-xaos.position");
+  clipboard_format = RegisterClipboardFormat ("image/x-xaos.position");
 
 
   /* create font */
@@ -477,7 +492,8 @@ DeInitWindow ()
     windowpos = 1, GetWindowRect (hWnd, &rcWindow);
   /* normalize priority */
   SetThreadPriority (GetCurrentThread (), THREAD_PRIORITY_NORMAL);
-  if (helpname) WinHelp (hWnd, helpname, HELP_QUIT, 0), free(helpname), helpname=NULL;
+  if (helpname)
+    WinHelp (hWnd, helpname, HELP_QUIT, 0), free (helpname), helpname = NULL;
 
   /* destroy windows and other objects */
   DeleteObject (hFont);
@@ -493,6 +509,7 @@ DeInitWindow ()
   hModule2 = NULL;
   win32_uninitializewindows ();
 }
+
 /* Display buffer to screen */
 static void
 Paint (HDC hDC)
@@ -502,8 +519,7 @@ Paint (HDC hDC)
   StretchDIBits (hDC, 0, 0, displayX, displayY,
 		 0, 0, displayX, displayY,
 		 (currentbuff == 0) ? buffer1 : buffer2,
-		 bmp,
-		 DIB_RGB_COLORS, SRCCOPY);
+		 bmp, DIB_RGB_COLORS, SRCCOPY);
   needredraw = 0;
 }
 
@@ -678,9 +694,9 @@ Processevents (int wait, int *mx, int *my, int *mb, int *k, int *c)
 	      break;
 	    }
 	}
-	  // forward messages to window
-	  TranslateMessage (&msg);
-	  DispatchMessage (&msg);
+      // forward messages to window
+      TranslateMessage (&msg);
+      DispatchMessage (&msg);
     }
   getmouse (mx, my, mb);	// get mouse position
 
@@ -690,20 +706,20 @@ Processevents (int wait, int *mx, int *my, int *mb, int *k, int *c)
     *c = -2;			// force quit if so requested
 
 }
+
 /**************************************************************************************
                              DirectDraw driver helper routines
  */
 static char *resstr[MAXRESOLUTIONS];
 static struct resolutions
-  {
-    int width, height;
-  }
+{
+  int width, height;
+}
 ressize[MAXRESOLUTIONS];
 static int nresolutions;
 /* callback for DirectX resolutions */
 static HRESULT WINAPI
-EnumModesCallback (LPDDSURFACEDESC lpDDSurfaceDesc,
-		   LPVOID lpContext)
+EnumModesCallback (LPDDSURFACEDESC lpDDSurfaceDesc, LPVOID lpContext)
 {
   if (nresolutions < MAXRESOLUTIONS)
     if (lpDDSurfaceDesc->ddpfPixelFormat.u1.dwRGBBitCount == 8 ||
@@ -714,17 +730,21 @@ EnumModesCallback (LPDDSURFACEDESC lpDDSurfaceDesc,
 	int i;
 	char s[20];
 	for (i = 0; i < nresolutions; i++)
-	  if ((int)ressize[i].width == (int)lpDDSurfaceDesc->dwWidth && (int)ressize[i].height == (int)lpDDSurfaceDesc->dwHeight)
+	  if ((int) ressize[i].width == (int) lpDDSurfaceDesc->dwWidth
+	      && (int) ressize[i].height == (int) lpDDSurfaceDesc->dwHeight)
 	    return DDENUMRET_OK;
 	ressize[nresolutions].width = lpDDSurfaceDesc->dwWidth;
 	ressize[nresolutions].height = lpDDSurfaceDesc->dwHeight;
-	sprintf (s, "%ix%i", lpDDSurfaceDesc->dwWidth, lpDDSurfaceDesc->dwHeight);
+	sprintf (s, "%ix%i", lpDDSurfaceDesc->dwWidth,
+		 lpDDSurfaceDesc->dwHeight);
 	resstr[nresolutions] = strdup (s);
 	nresolutions++;
       }
   return DDENUMRET_OK;
 }
-typedef HRESULT WINAPI (*ddrawcreateptr) (GUID FAR * lpGUID, LPDIRECTDRAW FAR * lplpDD, IUnknown FAR * pUnkOuter);
+typedef HRESULT WINAPI (*ddrawcreateptr) (GUID FAR * lpGUID,
+					  LPDIRECTDRAW FAR * lplpDD,
+					  IUnknown FAR * pUnkOuter);
 static ddrawcreateptr DirectDrawCreatePtr;
 
 static int
@@ -747,8 +767,10 @@ ResizeDD (int fullscreen)
   dxPalette = NULL;
   /* Set cooperative level */
   ddrval = IDirectDraw2_SetCooperativeLevel (lpDD2, hWnd,
-			  fullscreen ? (DDSCL_FULLSCREEN | DDSCL_EXCLUSIVE |
-					DDSCL_ALLOWREBOOT) : DDSCL_NORMAL);
+					     fullscreen ? (DDSCL_FULLSCREEN |
+							   DDSCL_EXCLUSIVE |
+							   DDSCL_ALLOWREBOOT)
+					     : DDSCL_NORMAL);
   if (ddrval != DD_OK)
     {
       DeInitDD ();
@@ -777,7 +799,9 @@ ResizeDD (int fullscreen)
 	bitDepth = 32;
 
       /* set resolution and bit depth */
-      ddrval = IDirectDraw2_SetDisplayMode (lpDD2, displayX, displayY, bitDepth, 0, 0);
+      ddrval =
+	IDirectDraw2_SetDisplayMode (lpDD2, displayX, displayY, bitDepth, 0,
+				     0);
       if (ddrval != DD_OK)
 	{
 	  /* The display mode cannot be changed. 
@@ -788,7 +812,9 @@ ResizeDD (int fullscreen)
 	  displayX = 320;
 	  displayY = 200;
 	  bitDepth = 8;
-	  ddrval = IDirectDraw2_SetDisplayMode (lpDD2, displayX, displayY, bitDepth, 0, 0);
+	  ddrval =
+	    IDirectDraw2_SetDisplayMode (lpDD2, displayX, displayY, bitDepth,
+					 0, 0);
 	  if (ddrval != DD_OK)
 	    {
 	      displayY = 240;
@@ -796,7 +822,9 @@ ResizeDD (int fullscreen)
 		{
 		  displayX = 640;
 		  displayY = 480;
-		  ddrval = IDirectDraw2_SetDisplayMode (lpDD2, displayX, displayY, bitDepth, 0, 0);
+		  ddrval =
+		    IDirectDraw2_SetDisplayMode (lpDD2, displayX, displayY,
+						 bitDepth, 0, 0);
 		  if (ddrval != DD_OK)
 		    {
 		      /* Bad luck... give up. */
@@ -861,8 +889,10 @@ ResizeDD (int fullscreen)
   if (bitDepth == 8)
     {
       /* create palette */
-      ddrval = IDirectDraw_CreatePalette (lpDD, DDPCAPS_8BIT, (LPPALETTEENTRY) bmp->bmiColors,
-					  &dxPalette, NULL);
+      ddrval =
+	IDirectDraw_CreatePalette (lpDD, DDPCAPS_8BIT,
+				   (LPPALETTEENTRY) bmp->bmiColors,
+				   &dxPalette, NULL);
       if (ddrval != DD_OK)
 	{
 	  DeInitDD ();
@@ -879,6 +909,7 @@ ResizeDD (int fullscreen)
   return 1;
 
 }
+
 /* init DirectX */
 static int
 InitDD (int fullscreen)
@@ -887,7 +918,8 @@ InitDD (int fullscreen)
   HDC hDC;
   directX = fullscreen ? DXFULLSCREEN : DXWINDOWED;
 
-  if (!hModule) hModule = LoadLibrary ("ddraw");
+  if (!hModule)
+    hModule = LoadLibrary ("ddraw");
   if (!hModule)
     {
       /*x_error ("Unable to load DirectX (ddraw.dll)"); */
@@ -903,10 +935,12 @@ InitDD (int fullscreen)
     return 0;
 
 
-  DirectDrawCreatePtr = (ddrawcreateptr) GetProcAddress (hModule, "DirectDrawCreate");
+  DirectDrawCreatePtr =
+    (ddrawcreateptr) GetProcAddress (hModule, "DirectDrawCreate");
   if (!DirectDrawCreatePtr)
     {
-      x_error ("Unable to get hook DirectDrawCreate in ddraw.dll. Check your DirectX installation");
+      x_error
+	("Unable to get hook DirectDrawCreate in ddraw.dll. Check your DirectX installation");
       return 0;
     }
 
@@ -919,8 +953,8 @@ InitDD (int fullscreen)
   bitDepth = 8;
 
   InitWindow ();
-  UpdateWindow(hWnd);
-  SetFocus(hWnd);
+  UpdateWindow (hWnd);
+  SetFocus (hWnd);
 
 
   /* contact DirectX */
@@ -933,7 +967,8 @@ InitDD (int fullscreen)
     }
 
   /* get IDirectDraw2 interface */
-  ddrval = IDirectDraw_QueryInterface (lpDD, &IID_IDirectDraw2, (LPVOID *) & lpDD2);
+  ddrval =
+    IDirectDraw_QueryInterface (lpDD, &IID_IDirectDraw2, (LPVOID *) & lpDD2);
   if (ddrval != DD_OK)
     {
       DeInitDD ();
@@ -985,17 +1020,16 @@ DeInitDD (void)
   lpDD = NULL;
   DeInitWindow ();
   if (hModule != NULL)
-    FreeLibrary (hModule), hModule=NULL;
+    FreeLibrary (hModule), hModule = NULL;
   hWnd = NULL;
   directX = 0;
 }
 
-static LRESULT CALLBACK WindowProc (
-				     HWND hwnd,		// handle to window
-				      UINT uMsg,	// message identifier
-				      WPARAM wParam,	// first message parameter
-				      LPARAM lParam	// second message parameter
-);
+static LRESULT CALLBACK WindowProc (HWND hwnd,	// handle to window
+				    UINT uMsg,	// message identifier
+				    WPARAM wParam,	// first message parameter
+				    LPARAM lParam	// second message parameter
+  );
 
 // calculate BITMAPINFO structure. It is used to copy bitmaps
 static void
@@ -1038,15 +1072,20 @@ UpdateMouseDD ()
   dst = (PUCHAR) m_surface.lpSurface;
   if (storeddata)
     {
-      restore (dst, storeddata, bitDepth, m_surface.u1.lPitch, displayX, displayY, oldmouseX, oldmouseY);
+      restore (dst, storeddata, bitDepth, m_surface.u1.lPitch, displayX,
+	       displayY, oldmouseX, oldmouseY);
       free (storeddata);
     }
-  storeddata = store (dst, bitDepth, m_surface.u1.lPitch, displayX, displayY, mouseX, mouseY);
-  drawmouse (dst, mousepointer, bitDepth, m_surface.u1.lPitch, displayX, displayY, mouseX, mouseY);
+  storeddata =
+    store (dst, bitDepth, m_surface.u1.lPitch, displayX, displayY, mouseX,
+	   mouseY);
+  drawmouse (dst, mousepointer, bitDepth, m_surface.u1.lPitch, displayX,
+	     displayY, mouseX, mouseY);
   oldmouseX = mouseX;
   oldmouseY = mouseY;
   IDirectDrawSurface_Unlock (lpSurfaces[0], m_surface.lpSurface);
 }
+
 /* Display buffer */
 static void
 PaintDD ()
@@ -1059,11 +1098,18 @@ PaintDD ()
   if (directX == DXFULLSCREEN)
     {
       if (storeddata)
-	free(storeddata), storeddata = NULL;
-      storeddata = store (currentbuff ? buffer2 : buffer1, bitDepth, lineSize, displayX, displayY, mouseX, mouseY);
-      drawmouse (currentbuff ? buffer2 : buffer1, mousepointer, bitDepth, lineSize, displayX, displayY, mouseX, mouseY);
-      ddrval = IDirectDrawSurface_BltFast (lpSurfaces[0], 0, 0, BackSurface[currentbuff], &rcScreen, FALSE);
-      restore (currentbuff ? buffer2 : buffer1, storeddata, bitDepth, lineSize, displayX, displayY, mouseX, mouseY);
+	free (storeddata), storeddata = NULL;
+      storeddata =
+	store (currentbuff ? buffer2 : buffer1, bitDepth, lineSize, displayX,
+	       displayY, mouseX, mouseY);
+      drawmouse (currentbuff ? buffer2 : buffer1, mousepointer, bitDepth,
+		 lineSize, displayX, displayY, mouseX, mouseY);
+      ddrval =
+	IDirectDrawSurface_BltFast (lpSurfaces[0], 0, 0,
+				    BackSurface[currentbuff], &rcScreen,
+				    FALSE);
+      restore (currentbuff ? buffer2 : buffer1, storeddata, bitDepth,
+	       lineSize, displayX, displayY, mouseX, mouseY);
       oldmouseX = mouseX;
       oldmouseY = mouseY;
     }
@@ -1075,14 +1121,14 @@ PaintDD ()
     }
   if (ddrval != DD_OK)
     {
-      if ((int)ddrval == (int)DDERR_SURFACELOST)
+      if ((int) ddrval == (int) DDERR_SURFACELOST)
 	{
 	  IDirectDrawSurface_Restore (lpSurfaces[0]);
 	  IDirectDrawSurface_Restore (BackSurface[0]);
 	  IDirectDrawSurface_Restore (BackSurface[1]);
 	  ddrval = IDirectDrawSurface_Blt (lpSurfaces[0], &rcScreen,
-				      BackSurface[currentbuff], &rcViewport,
-					   DDBLT_WAIT, NULL);
+					   BackSurface[currentbuff],
+					   &rcViewport, DDBLT_WAIT, NULL);
 	  //if (ddrval == DDERR_SURFACELOST) resized=1; /*We've lost our fractal*/
 	}
     }
@@ -1094,7 +1140,8 @@ PaintDD ()
       buffer2 != (char *) surface[1].lpSurface)
     {
       DeInitDD ();
-      x_fatalerror ("Unexpected event - buffers moved! Please contact authors!");
+      x_fatalerror
+	("Unexpected event - buffers moved! Please contact authors!");
     }
   needredraw = 0;
 
@@ -1153,9 +1200,12 @@ print (int x, int y, CONST char *text)
       IDirectDrawSurface_ReleaseDC (lpSurfaces[0], hDC);
       return;
     }
-   if (!text[0]) strcpy(s, "XaoS"); else 
-	sprintf(s,"XaoS - %s",text);
-   if (strcmp(current,s)) strcpy(current,s),SetWindowText(hWnd, s);
+  if (!text[0])
+    strcpy (s, "XaoS");
+  else
+    sprintf (s, "XaoS - %s", text);
+  if (strcmp (current, s))
+    strcpy (current, s), SetWindowText (hWnd, s);
 }
 
 static void
@@ -1187,72 +1237,83 @@ set_palette (ui_palette pal1, int start, int end)
   memcpy (backpalette + 4 * start, pal, (end - start) * 4);
   for (i = start; i <= end; i++)
     {
-      bmp->bmiColors[i].rgbRed = *(pal + 4 * (i-start) + 0);
-      bmp->bmiColors[i].rgbGreen = *(pal + 4 * (i-start) + 1);
-      bmp->bmiColors[i].rgbBlue = *(pal + 4 * (i-start) + 2);
+      bmp->bmiColors[i].rgbRed = *(pal + 4 * (i - start) + 0);
+      bmp->bmiColors[i].rgbGreen = *(pal + 4 * (i - start) + 1);
+      bmp->bmiColors[i].rgbBlue = *(pal + 4 * (i - start) + 2);
       bmp->bmiColors[i].rgbReserved = 0;
     }
   // update window/screen
   if (directX)
     {
-      IDirectDrawPalette_SetEntries (dxPalette, 0, start, end - start + 1, (PALETTEENTRY *) pal);
+      IDirectDrawPalette_SetEntries (dxPalette, 0, start, end - start + 1,
+				     (PALETTEENTRY *) pal);
     }
   else
     {
-      SetPaletteEntries (hPalette, start, end - start + 1, (PALETTEENTRY *) pal);
+      SetPaletteEntries (hPalette, start, end - start + 1,
+			 (PALETTEENTRY *) pal);
       hDC = GetDC (hWnd);
       UnrealizeObject (hPalette);
       RealizePalette (hDC);
       ReleaseDC (hWnd, hDC);
-      win32_display();
+      win32_display ();
     }
 }
 
 static void
-win32_copy(struct uih_context *uih)
+win32_copy (struct uih_context *uih)
 {
-   char *c=ui_getpos();
-   HANDLE hData = GlobalAlloc(GMEM_DDESHARE, strlen(c)+1);
-   char *data;
-   if (!hData) {x_error("Out of memory"); free(c); return;}
-   if (!(data = GlobalLock(hData))) {
-      x_error("Out of memory");
-      free(c);
+  char *c = ui_getpos ();
+  HANDLE hData = GlobalAlloc (GMEM_DDESHARE, strlen (c) + 1);
+  char *data;
+  if (!hData)
+    {
+      x_error ("Out of memory");
+      free (c);
       return;
-   }
-   memcpy(hData, c, strlen(c)+1);
-   GlobalUnlock(hData);
-   if (OpenClipboard(hWnd)) {
-     EmptyClipboard();
-     SetClipboardData(clipboard_format, hData);
-   }
-   free(c);
+    }
+  if (!(data = GlobalLock (hData)))
+    {
+      x_error ("Out of memory");
+      free (c);
+      return;
+    }
+  memcpy (hData, c, strlen (c) + 1);
+  GlobalUnlock (hData);
+  if (OpenClipboard (hWnd))
+    {
+      EmptyClipboard ();
+      SetClipboardData (clipboard_format, hData);
+    }
+  free (c);
 }
 static void
-win32_paste(void)
+win32_paste (void)
 {
-    if (OpenClipboard(hWnd)) {
-	HANDLE hClipData;
-	char *text;
-	if (!(hClipData = GetClipboardData(clipboard_format))) {
-	     CloseClipboard();
-	     return;
-        }
-	if (!(text = GlobalLock(hClipData))) {
-      	   x_error("Out of memory");
-	   CloseClipboard();
+  if (OpenClipboard (hWnd))
+    {
+      HANDLE hClipData;
+      char *text;
+      if (!(hClipData = GetClipboardData (clipboard_format)))
+	{
+	  CloseClipboard ();
+	  return;
 	}
-	ui_loadstr(strdup(text));
-	GlobalUnlock(hClipData);
-	CloseClipboard();
+      if (!(text = GlobalLock (hClipData)))
+	{
+	  x_error ("Out of memory");
+	  CloseClipboard ();
+	}
+      ui_loadstr (strdup (text));
+      GlobalUnlock (hClipData);
+      CloseClipboard ();
     }
 }
-static CONST menuitem cutpaste[] =
-{
-  MENUSEPARATOR("edit"),
+static CONST menuitem cutpaste[] = {
+  MENUSEPARATOR ("edit"),
   MENUNOP ("edit", NULL, "Copy", "copy", 0, win32_copy),
   MENUNOP ("edit", NULL, "Paste", "paste", 0, win32_paste),
-  MENUSEPARATOR("helpmenu"),
+  MENUSEPARATOR ("helpmenu"),
   MENUNOP ("helpmenu", NULL, "About", "about", 0, AboutBox),
 };
 
@@ -1268,7 +1329,7 @@ win32_init (void)
     return r;
   win32_driver.textwidth = fontWidth;
   win32_driver.textheight = fontHeight;
-  getres(&win32_driver.width, &win32_driver.height);
+  getres (&win32_driver.width, &win32_driver.height);
   win32_createrootmenu ();
   menu_add (cutpaste, NITEMS (cutpaste));
   return r;
@@ -1348,14 +1409,13 @@ win32_free_buffers (char *b1, char *b2)
   free (buffer2);
   buffer1 = buffer2 = NULL;
 }
-static CONST char * CONST dx_depth[] =
-{"8bpp (256 colors)",
- "16bpp (65536 colors)",
- "24bpp (16777216 colors)",
- "32bpp (16777216 colors)",
- NULL};
-static menudialog dx_resdialog[] =
-{
+static CONST char *CONST dx_depth[] = { "8bpp (256 colors)",
+  "16bpp (65536 colors)",
+  "24bpp (16777216 colors)",
+  "32bpp (16777216 colors)",
+  NULL
+};
+static menudialog dx_resdialog[] = {
   DIALOGCHOICE ("Resolution", resstr, 0),
   DIALOGCHOICE ("Depth", dx_depth, 0),
   {NULL}
@@ -1390,18 +1450,16 @@ static void
 dx_resize (struct uih_context *c, dialogparam * p)
 {
   static char s[10];
-  CONST static char * CONST st[] =
-  {"8", "16", "24", "32"};
-  sprintf (s, "%sx%s", resstr[p[0].dint],
-	   st[p[1].dint]);
+  CONST static char *CONST st[] = { "8", "16", "24", "32" };
+  sprintf (s, "%sx%s", resstr[p[0].dint], st[p[1].dint]);
   dxsize = s;
   resized = 1;
   ui_call_resize ();
 }
-static CONST menuitem menuitems[] =
-{
+static CONST menuitem menuitems[] = {
   MENUCDIALOG ("ui", "=", "Resize", "resize", 0, dx_resize, dx_resizedialog),
-  MENUNOP ("misc", NULL, "Grenerate .dlg files", "genresources", 0, win32_genresources),
+  MENUNOP ("misc", NULL, "Grenerate .dlg files", "genresources", 0,
+	   win32_genresources),
 };
 static int
 dx_alloc_buffers (char **b1, char **b2)
@@ -1467,7 +1525,7 @@ dx_free_buffers (char *b1, char *b2)
   buffer1 = buffer2 = NULL;
 }
 
-static int 
+static int
 dx_imgparams (void)
 {
   DDSURFACEDESC s;
@@ -1499,7 +1557,8 @@ dx_imgparams (void)
       dxf_driver.imagetype = UI_TRUECOLOR;
       break;
     default:
-      x_fatalerror ("Unsupported bit depth! Only 8bpp, 16bpp, 24bpp and 32bpp modes supported\n");
+      x_fatalerror
+	("Unsupported bit depth! Only 8bpp, 16bpp, 24bpp and 32bpp modes supported\n");
       return 0;
     }
   dxw_driver.rmask = s.ddpfPixelFormat.u2.dwRBitMask;
@@ -1527,7 +1586,7 @@ dxw_init (void)
   if (!dx_imgparams ())
     return 0;
   win32_createrootmenu ();
-  getres(&dxw_driver.width, &dxw_driver.height);
+  getres (&dxw_driver.width, &dxw_driver.height);
   menu_add (cutpaste, NITEMS (cutpaste));
   return r;
 }
@@ -1536,7 +1595,7 @@ dxf_init (void)
 {
   int r;
 
-  getdimens(&dxf_driver.width, &dxf_driver.height);
+  getdimens (&dxf_driver.width, &dxf_driver.height);
   r = InitDD (1);
   if (!r)
     return r;
@@ -1602,27 +1661,35 @@ dx_mousetype (int type)
   UpdateMouseDD ();
 }
 
-void 
+void
 win32_help (struct uih_context *c, CONST char *name)
 {
   FILE *f;
   char *n;
-  if (helpname == NULL) {
-  	if (!strcmp (name, "main"))
-    	name = "Contents";
-  	if (directX==DXFULLSCREEN) ShowWindow (hWnd, SW_MINIMIZE);
-  	n=xio_fixpath("\01\\help\\xaoswin.hlp");
-  	if ((f=fopen(n,"r"))) {
-    	fclose(f);
-  	} else {
-    	free(n);
-    	n=xio_fixpath("\01\\..\\help\\xaoswin.hlp");
-    	if ((f=fopen(n,"r"))) {
-      	fclose(f);
-    	} else n=strdup("..\\help\\xaoswin.hlp");
-  	}
-	helpname=n;
-  }
+  if (helpname == NULL)
+    {
+      if (!strcmp (name, "main"))
+	name = "Contents";
+      if (directX == DXFULLSCREEN)
+	ShowWindow (hWnd, SW_MINIMIZE);
+      n = xio_fixpath ("\01\\help\\xaoswin.hlp");
+      if ((f = fopen (n, "r")))
+	{
+	  fclose (f);
+	}
+      else
+	{
+	  free (n);
+	  n = xio_fixpath ("\01\\..\\help\\xaoswin.hlp");
+	  if ((f = fopen (n, "r")))
+	    {
+	      fclose (f);
+	    }
+	  else
+	    n = strdup ("..\\help\\xaoswin.hlp");
+	}
+      helpname = n;
+    }
   if (!WinHelp (hWnd, helpname, HELP_PARTIALKEY, (ULONG) (CONST char *) name))
     {
       x_error ("Failed to start WinHelp on topic %s", name);
@@ -1630,20 +1697,18 @@ win32_help (struct uih_context *c, CONST char *name)
 }
 
 
-static struct params params[] =
-{
+static struct params params[] = {
   {"", P_HELP, NULL, "Win32 driver options:"},
   {"-size", P_STRING, &size, "Window size in format WIDTHxHEIGHT (320x200)"},
   {NULL, 0, NULL, NULL}
 };
-static struct params dxfparams[] =
-{
+static struct params dxfparams[] = {
   {"", P_HELP, NULL, "DirectX fullscreen driver options:"},
-  {"-mode", P_STRING, &dxsize, "Select preffered graphics mode in format WIDTHxHEIGHTxDEPTH  (320x200x8)"},
+  {"-mode", P_STRING, &dxsize,
+   "Select preffered graphics mode in format WIDTHxHEIGHTxDEPTH  (320x200x8)"},
   {NULL, 0, NULL, NULL}
 };
-static struct params dxwparams[] =
-{
+static struct params dxwparams[] = {
   {"", P_HELP, NULL, "DirectX windowed driver options:"},
   {"-size", P_STRING, &size, "Window size in format WIDTHxHEIGHT (320x200)"},
   {NULL, 0, NULL, NULL}
@@ -1652,16 +1717,14 @@ static struct params dxwparams[] =
 extern int XaoS_main (int argc, char **argv);
 int STDCALL
 WinMain (HINSTANCE hInstance1,
-	 HINSTANCE hPrevInstance,
-	 LPSTR lpCmdLine,
-	 int nCmdShow)
+	 HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
   static char name0[256];
   static char *argv[256];
   int argc = 1;
   int i;
 
-  GetModuleFileName(hInstance1, name0, 256);
+  GetModuleFileName (hInstance1, name0, 256);
   /* Allocate everything virtually - be on the safe side */
   argv[0] = strdup (name0);
   lpCmdLine = strdup (lpCmdLine);
@@ -1678,24 +1741,21 @@ WinMain (HINSTANCE hInstance1,
   return XaoS_main (argc, argv);
 }
 
-static CONST struct gui_driver win32_gui_driver =
-{
+static CONST struct gui_driver win32_gui_driver = {
   win32_dorootmenu,
   win32_enabledisable,
   win32_menu,
   win32_dialog,
   win32_help
 };
-static CONST struct gui_driver win32_fullscreen_gui_driver =
-{
+static CONST struct gui_driver win32_fullscreen_gui_driver = {
   NULL,
   NULL,
   NULL,
   NULL,
   win32_help
 };
-struct ui_driver win32_driver =
-{
+struct ui_driver win32_driver = {
   "win32",
   win32_init,
   win32_getsize,
@@ -1722,8 +1782,7 @@ struct ui_driver win32_driver =
   0, 0, 0,
   &win32_gui_driver
 };
-struct ui_driver dxw_driver =
-{
+struct ui_driver dxw_driver = {
   "dX-window",
   dxw_init,
   dx_getsize,
@@ -1750,8 +1809,7 @@ struct ui_driver dxw_driver =
   0, 0, 0,
   &win32_gui_driver
 };
-struct ui_driver dxf_driver =
-{
+struct ui_driver dxf_driver = {
   "dX-fullscreen",
   dxf_init,
   dx_getsize,
@@ -1780,38 +1838,43 @@ struct ui_driver dxf_driver =
 };
 
 void
-x_message(const char *text,...)
+x_message (const char *text, ...)
 {
   va_list ap;
   char buf[4096];
   va_start (ap, text);
-  vsprintf(buf,text,ap);
-  if (directX==DXFULLSCREEN) ShowWindow (hWnd, SW_MINIMIZE);
-  MessageBox(NULL, buf, "XaoS", MB_OK | MB_ICONINFORMATION);
+  vsprintf (buf, text, ap);
+  if (directX == DXFULLSCREEN)
+    ShowWindow (hWnd, SW_MINIMIZE);
+  MessageBox (NULL, buf, "XaoS", MB_OK | MB_ICONINFORMATION);
   va_end (ap);
 }
+
 void
-x_error(const char *text,...)
+x_error (const char *text, ...)
 {
   va_list ap;
   char buf[4096];
   va_start (ap, text);
-  vsprintf(buf,text,ap);
-  if (directX==DXFULLSCREEN) ShowWindow (hWnd, SW_MINIMIZE);
-  MessageBox(NULL, buf, "XaoS have problem", MB_OK | MB_ICONEXCLAMATION);
+  vsprintf (buf, text, ap);
+  if (directX == DXFULLSCREEN)
+    ShowWindow (hWnd, SW_MINIMIZE);
+  MessageBox (NULL, buf, "XaoS have problem", MB_OK | MB_ICONEXCLAMATION);
   va_end (ap);
 }
+
 void
-x_fatalerror(const char *text,...)
+x_fatalerror (const char *text, ...)
 {
   va_list ap;
   char buf[4096];
   va_start (ap, text);
-  vsprintf(buf,text,ap);
-  if (directX==DXFULLSCREEN) ShowWindow (hWnd, SW_MINIMIZE);
-  MessageBox(NULL, buf, "Unrecovable XaoS error", MB_OK | MB_ICONSTOP);
+  vsprintf (buf, text, ap);
+  if (directX == DXFULLSCREEN)
+    ShowWindow (hWnd, SW_MINIMIZE);
+  MessageBox (NULL, buf, "Unrecovable XaoS error", MB_OK | MB_ICONSTOP);
   va_end (ap);
-  exit(1);
+  exit (1);
 }
 
 

@@ -15,7 +15,7 @@ void win32_uninitializewindows (void);
 void win32_dialog (struct uih_context *uih, CONST char *name);
 void win32_genresources (struct uih_context *uih);
 void win32_help (struct uih_context *uih, CONST char *name);
-void CenterWindow(HWND hwndChild, HWND hwndParent);
-void AboutBox(void);
+void CenterWindow (HWND hwndChild, HWND hwndParent);
+void AboutBox (void);
 #endif
 

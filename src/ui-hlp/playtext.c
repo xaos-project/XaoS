@@ -122,7 +122,7 @@ draw (uih_context * c, void *data)
       bgcolor = BGCOLOR (c);
       break;
     default:
-      x_fatalerror("playtext:unknown color\n");
+      x_fatalerror ("playtext:unknown color\n");
     }
   if (c->image->flags & AAIMAGE)
     fgcolor = BGCOLOR (c);
@@ -154,7 +154,8 @@ draw (uih_context * c, void *data)
 	  x = c->image->width - xmax;
 	  break;
 	}
-      string += xprint (c->image, c->font, x, y, string, fgcolor, bgcolor, flags) + 1;
+      string +=
+	xprint (c->image, c->font, x, y, string, fgcolor, bgcolor, flags) + 1;
       y += xtextheight (c->font);
     }
 }
@@ -167,6 +168,7 @@ uih_inittext (uih_context * c)
   c->textwindow[1] = uih_registerw (c, getpos, draw, (void *) 1, 0);
   c->textwindow[2] = uih_registerw (c, getpos, draw, (void *) 2, 0);
 }
+
 void
 uih_destroytext (uih_context * c)
 {

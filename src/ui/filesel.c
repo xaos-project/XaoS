@@ -78,8 +78,10 @@ ui_freenames (void)
       free (dirs);
       ndirs = 0;
     }
-  if (snames) free(snames),snames=NULL;
-  if (sdirs) free(sdirs),sdirs=NULL;
+  if (snames)
+    free (snames), snames = NULL;
+  if (sdirs)
+    free (sdirs), sdirs = NULL;
 }
 static int
 compar (CONST void *a, CONST void *b)
@@ -95,7 +97,7 @@ ui_mksnames (int nnames, char **names, int width)
     {
       qsort (names, nnames, sizeof (*names),	/*(int (*)(CONST void *, CONST
 						   void *))strcmp */ compar);
-      snames = (char **)malloc (sizeof (*snames) * nnames);
+      snames = (char **) malloc (sizeof (*snames) * nnames);
       for (i = 0; i < nnames; i++)
 	{
 	  if (xtextwidth (uih->font, names[i]) <= width)
@@ -104,8 +106,8 @@ ui_mksnames (int nnames, char **names, int width)
 	    {
 	      int y;
 	      int swidth = 0;
-	      int len = (int)strlen (names[i]);
-	      snames[i] = (char *)malloc (strlen (names[i]) + 2);
+	      int len = (int) strlen (names[i]);
+	      snames[i] = (char *) malloc (strlen (names[i]) + 2);
 	      for (y = len - 4; y < len; y++)
 		swidth += xtextcharw (uih->font, names[i][y]);
 	      swidth += xtextcharw (uih->font, '|');
@@ -129,19 +131,24 @@ ui_buildnames (int width)
 {
   ui_freenames ();
   xio_getfiles (currdir, &names, &dirs, &nnames, &ndirs);
-  if (snames) free(snames),snames=NULL;
-  if (sdirs) free(sdirs),sdirs=NULL;
+  if (snames)
+    free (snames), snames = NULL;
+  if (sdirs)
+    free (sdirs), sdirs = NULL;
   snames = ui_mksnames (nnames, names, width);
   sdirs = ui_mksnames (ndirs, dirs, width);
 }
+
 void
 ui_closefilesel (int success)
 {
-  char *text = (char *)malloc ((int)strlen (filename->text) + (int)strlen (currdir) + 3);
+  char *text =
+    (char *) malloc ((int) strlen (filename->text) + (int) strlen (currdir) +
+		     3);
   filevisible = 0;
   uih_removew (uih, filew);
   ui_freenames ();
-  sprintf (text, "%s"XIO_PATHSEPSTR"%s", currdir, filename->text);
+  sprintf (text, "%s" XIO_PATHSEPSTR "%s", currdir, filename->text);
   ui_closetext (dir);
   ui_closetext (filename);
   strcpy (lastdir, currdir);
@@ -165,24 +172,46 @@ drawfile (uih_context * c, void *data)
   int i;
   int ypos;
   int h = xtextheight (uih->font);
-  uih_drawborder (uih, filex + BORDERWIDTH, DIRSTART, filewidth - 2 * BORDERWIDTH, BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
-  uih_drawborder (uih, filex + BORDERWIDTH, FILESTART, filewidth - 2 * BORDERWIDTH, BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
+  uih_drawborder (uih, filex + BORDERWIDTH, DIRSTART,
+		  filewidth - 2 * BORDERWIDTH, BUTTONHEIGHT,
+		  BORDER_PRESSED | BORDER_LIGHT);
+  uih_drawborder (uih, filex + BORDERWIDTH, FILESTART,
+		  filewidth - 2 * BORDERWIDTH, BUTTONHEIGHT,
+		  BORDER_PRESSED | BORDER_LIGHT);
 
-  ui_drawbutton ("OK", (pressedbutton == 0), active == AOK && activebutton == 0, filex + BORDERWIDTH, filex + filewidth / 2 - BORDERWIDTH, OKSTART);
-  ui_drawbutton ("Cancel", (pressedbutton == 1), active == AOK && activebutton == 1, filex + filewidth / 2 + BORDERWIDTH, filex + filewidth - BORDERWIDTH, OKSTART);
+  ui_drawbutton ("OK", (pressedbutton == 0), active == AOK
+		 && activebutton == 0, filex + BORDERWIDTH,
+		 filex + filewidth / 2 - BORDERWIDTH, OKSTART);
+  ui_drawbutton ("Cancel", (pressedbutton == 1), active == AOK
+		 && activebutton == 1, filex + filewidth / 2 + BORDERWIDTH,
+		 filex + filewidth - BORDERWIDTH, OKSTART);
 
-  uih_drawborder (uih, filex + BORDERWIDTH, LISTSTART, LISTWIDTH + 3 * BORDERWIDTH + SCROLLWIDTH, LISTEND - LISTSTART, BORDER_PRESSED);
-  uih_drawborder (uih, filex + filewidth / 2 + BORDERWIDTH, LISTSTART, LISTWIDTH + 3 * BORDERWIDTH + SCROLLWIDTH, LISTEND - LISTSTART, BORDER_PRESSED);
+  uih_drawborder (uih, filex + BORDERWIDTH, LISTSTART,
+		  LISTWIDTH + 3 * BORDERWIDTH + SCROLLWIDTH,
+		  LISTEND - LISTSTART, BORDER_PRESSED);
+  uih_drawborder (uih, filex + filewidth / 2 + BORDERWIDTH, LISTSTART,
+		  LISTWIDTH + 3 * BORDERWIDTH + SCROLLWIDTH,
+		  LISTEND - LISTSTART, BORDER_PRESSED);
   ypos = LISTSTART + BORDERHEIGHT;
   for (i = 0; ypos + h < LISTEND && i + namestart < nnames; i++)
     {
       if (i + namestart == selectedname)
 	{
-	  xrectangle (uih->image, filex + 2 * BORDERWIDTH, ypos, LISTWIDTH, h, (uih->palette->type&BITMAPS)?BGCOLOR(uih):LIGHTGRAYCOLOR (uih));
+	  xrectangle (uih->image, filex + 2 * BORDERWIDTH, ypos, LISTWIDTH, h,
+		      (uih->palette->
+		       type & BITMAPS) ? BGCOLOR (uih) :
+		      LIGHTGRAYCOLOR (uih));
 	}
-      if(uih->palette->type&BITMAPS)
-      xprint (uih->image, uih->font, filex + 2 * BORDERWIDTH, ypos, snames[i + namestart], i + namestart == selectedname?FGCOLOR(uih):BGCOLOR(uih), BGCOLOR (uih), TEXT_PRESSED); else
-      xprint (uih->image, uih->font, filex + 2 * BORDERWIDTH, ypos, snames[i + namestart], (i + namestart) == selectedname && active == AFILELIST ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), 0);
+      if (uih->palette->type & BITMAPS)
+	xprint (uih->image, uih->font, filex + 2 * BORDERWIDTH, ypos,
+		snames[i + namestart],
+		i + namestart == selectedname ? FGCOLOR (uih) : BGCOLOR (uih),
+		BGCOLOR (uih), TEXT_PRESSED);
+      else
+	xprint (uih->image, uih->font, filex + 2 * BORDERWIDTH, ypos,
+		snames[i + namestart], (i + namestart) == selectedname
+		&& active == AFILELIST ? SELCOLOR (uih) : FGCOLOR (uih),
+		BGCOLOR (uih), 0);
       ypos += h;
     }
   if (nnames)
@@ -193,7 +222,9 @@ drawfile (uih_context * c, void *data)
 	xstart = LISTEND - LISTSTART - 2 * BORDERHEIGHT;
       if (xend > (LISTEND - LISTSTART - 2 * BORDERHEIGHT))
 	xend = LISTEND - LISTSTART - 2 * BORDERHEIGHT;
-      uih_drawborder (uih, filex + LISTWIDTH + 3 * BORDERWIDTH, LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH, xend - xstart, /*1|BORDER_LIGHT */ 0);
+      uih_drawborder (uih, filex + LISTWIDTH + 3 * BORDERWIDTH,
+		      LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH,
+		      xend - xstart, /*1|BORDER_LIGHT */ 0);
     }
 
   ypos = LISTSTART + BORDERHEIGHT;
@@ -201,11 +232,24 @@ drawfile (uih_context * c, void *data)
     {
       if (i + dirstart == selecteddir)
 	{
-	  xrectangle (uih->image, filex + filewidth / 2 + 2 * BORDERWIDTH, ypos, LISTWIDTH, h, (uih->palette->type&BITMAPS)?BGCOLOR(uih):LIGHTGRAYCOLOR (uih));
+	  xrectangle (uih->image, filex + filewidth / 2 + 2 * BORDERWIDTH,
+		      ypos, LISTWIDTH, h,
+		      (uih->palette->
+		       type & BITMAPS) ? BGCOLOR (uih) :
+		      LIGHTGRAYCOLOR (uih));
 	}
-      if(uih->palette->type&BITMAPS)
-      xprint (uih->image, uih->font, filex + filewidth / 2 + 2 * BORDERWIDTH, ypos, sdirs[i + dirstart], i + dirstart == selecteddir?FGCOLOR(uih):BGCOLOR (uih), BGCOLOR (uih), TEXT_PRESSED); else
-      xprint (uih->image, uih->font, filex + filewidth / 2 + 2 * BORDERWIDTH, ypos, sdirs[i + dirstart], (i + dirstart) == selecteddir && active == ADIRLIST ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), 0);
+      if (uih->palette->type & BITMAPS)
+	xprint (uih->image, uih->font,
+		filex + filewidth / 2 + 2 * BORDERWIDTH, ypos,
+		sdirs[i + dirstart],
+		i + dirstart == selecteddir ? FGCOLOR (uih) : BGCOLOR (uih),
+		BGCOLOR (uih), TEXT_PRESSED);
+      else
+	xprint (uih->image, uih->font,
+		filex + filewidth / 2 + 2 * BORDERWIDTH, ypos,
+		sdirs[i + dirstart], (i + dirstart) == selecteddir
+		&& active == ADIRLIST ? SELCOLOR (uih) : FGCOLOR (uih),
+		BGCOLOR (uih), 0);
       ypos += h;
     }
   if (ndirs)
@@ -216,7 +260,10 @@ drawfile (uih_context * c, void *data)
 	xstart = LISTEND - LISTSTART - 2 * BORDERHEIGHT;
       if (xend > (LISTEND - LISTSTART - 2 * BORDERHEIGHT))
 	xend = LISTEND - LISTSTART - 2 * BORDERHEIGHT;
-      uih_drawborder (uih, filex + filewidth / 2 + LISTWIDTH + 3 * BORDERWIDTH, LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH, xend - xstart, /*1|BORDER_LIGHT */ 0);
+      uih_drawborder (uih,
+		      filex + filewidth / 2 + LISTWIDTH + 3 * BORDERWIDTH,
+		      LISTSTART + xstart + BORDERHEIGHT, SCROLLWIDTH,
+		      xend - xstart, /*1|BORDER_LIGHT */ 0);
     }
   ui_drawtext (filename, active == AFILE);
   ui_drawtext (dir, active == ADIR);
@@ -226,8 +273,11 @@ static void
 setname (int name)
 {
   ui_closetext (filename);
-  filename = ui_opentext (filex + 2 * BORDERWIDTH, FILESTART + BORDERHEIGHT, filewidth - 4 * BORDERWIDTH, names[name]);
+  filename =
+    ui_opentext (filex + 2 * BORDERWIDTH, FILESTART + BORDERHEIGHT,
+		 filewidth - 4 * BORDERWIDTH, names[name]);
 }
+
 #ifdef _WIN32
 #define DRIVES
 #endif
@@ -244,12 +294,16 @@ setdir (int name)
       /*do nothing */
       s = mystrdup (currdir);
     }
-  else if (dirstring[0] && dirstring[1] && dirstring[0] == '.' && dirstring[1] == '.' && !dirstring[2])
+  else if (dirstring[0] && dirstring[1] && dirstring[0] == '.'
+	   && dirstring[1] == '.' && !dirstring[2])
     {
-      int i = (int)strlen (currdir);
-      s = (char *)malloc ((int)strlen (dirstring) + (int)strlen (currdir) + 2);
+      int i = (int) strlen (currdir);
+      s =
+	(char *) malloc ((int) strlen (dirstring) + (int) strlen (currdir) +
+			 2);
       strcpy (s, currdir);
-      for (; i >= 0 && s[i] != '/' && s[i] != '\\' && s[i] != XIO_PATHSEP; i--);
+      for (; i >= 0 && s[i] != '/' && s[i] != '\\' && s[i] != XIO_PATHSEP;
+	   i--);
       if (i < 0)
 	free (s), s = NULL;
       else
@@ -257,21 +311,30 @@ setdir (int name)
     }
   if (s == NULL)
     {
-      int i = (int)strlen (currdir);
-      s = (char *)malloc ((int)strlen (dirstring) + (int)strlen (currdir) + 2);
+      int i = (int) strlen (currdir);
+      s =
+	(char *) malloc ((int) strlen (dirstring) + (int) strlen (currdir) +
+			 2);
       strcpy (s, currdir);
-      if (currdir[i - 1] != '/' && currdir[i - 1] != '\\' && currdir[i - 1] != XIO_PATHSEP)
+      if (currdir[i - 1] != '/' && currdir[i - 1] != '\\'
+	  && currdir[i - 1] != XIO_PATHSEP)
 	strcat (s, XIO_PATHSEPSTR);
       strcat (s, dirstring);
-      if(!s[0]) s[0]=XIO_PATHSEP,s[1]=0;
+      if (!s[0])
+	s[0] = XIO_PATHSEP, s[1] = 0;
     }
   free (currdir);
 #ifdef DRIVES
-  if(strlen(s)==2 && ((s[0]>='a'&&s[0]<='z') ||(s[0]>='A'&&s[0]<='Z')) && s[1]==':') s[2]=XIO_PATHSEP,s[3]=0;
+  if (strlen (s) == 2
+      && ((s[0] >= 'a' && s[0] <= 'z') || (s[0] >= 'A' && s[0] <= 'Z'))
+      && s[1] == ':')
+    s[2] = XIO_PATHSEP, s[3] = 0;
 #endif
   currdir = s;
   ui_closetext (dir);
-  dir = ui_opentext (filex + 2 * BORDERWIDTH, DIRSTART + BORDERHEIGHT, filewidth - 4 * BORDERWIDTH, currdir);
+  dir =
+    ui_opentext (filex + 2 * BORDERWIDTH, DIRSTART + BORDERHEIGHT,
+		 filewidth - 4 * BORDERWIDTH, currdir);
   ui_freenames ();
   ui_buildnames (LISTWIDTH);
   dirstart = 0;
@@ -286,7 +349,9 @@ setexactdir (CONST char *dirstring)
   free (currdir);
   currdir = mystrdup (dirstring);
   ui_closetext (dir);
-  dir = ui_opentext (filex + 2 * BORDERWIDTH, DIRSTART + BORDERHEIGHT, filewidth - 4 * BORDERWIDTH, currdir);
+  dir =
+    ui_opentext (filex + 2 * BORDERWIDTH, DIRSTART + BORDERHEIGHT,
+		 filewidth - 4 * BORDERWIDTH, currdir);
   ui_freenames ();
   ui_buildnames (LISTWIDTH);
   dirstart = 0;
@@ -295,6 +360,7 @@ setexactdir (CONST char *dirstring)
   selectedname = 0;
   uih->display = 1;
 }
+
 int
 ui_keyfilesel (int k)
 {
@@ -483,6 +549,7 @@ ui_keyfilesel (int k)
       }
   return 1;
 }
+
 int
 ui_mousefilesel (int x, int y, int buttons, int flags)
 {
@@ -494,7 +561,9 @@ ui_mousefilesel (int x, int y, int buttons, int flags)
       if (!grabbed)
 	{
 	  int pos;
-	  pos = (y - LISTSTART) * nnames / (LISTEND - LISTSTART - 2 * BORDERHEIGHT);
+	  pos =
+	    (y - LISTSTART) * nnames / (LISTEND - LISTSTART -
+					2 * BORDERHEIGHT);
 	  if (pos >= nnames - NVISIBLE)
 	    pos = nnames - NVISIBLE;
 	  if (pos < 0)
@@ -512,7 +581,9 @@ ui_mousefilesel (int x, int y, int buttons, int flags)
       else
 	{
 	  int pos;
-	  pos = (y - LISTSTART) * ndirs / (LISTEND - LISTSTART - 2 * BORDERHEIGHT);
+	  pos =
+	    (y - LISTSTART) * ndirs / (LISTEND - LISTSTART -
+				       2 * BORDERHEIGHT);
 	  if (pos < 0)
 	    pos = 0;
 	  if (pos >= ndirs - NVISIBLE)
@@ -530,7 +601,8 @@ ui_mousefilesel (int x, int y, int buttons, int flags)
     }
   else
     grabbed = -1;
-  if (x < filex || y < filey || x > filex + filewidth || y > filex + fileheight)
+  if (x < filex || y < filey || x > filex + filewidth
+      || y > filex + fileheight)
     {
       if (flags & MOUSE_PRESS)
 	ui_closefilesel (0);
@@ -553,19 +625,21 @@ ui_mousefilesel (int x, int y, int buttons, int flags)
       if (x > filex + filewidth / 2)
 	mouseat = 1, x -= filewidth / 2;
       x -= filex;
-      if(flags&MOUSE_MOVE) {
-      if (!mouseat && active != AFILELIST)
-	active = AFILELIST, uih->display = 1;
-      if (mouseat && active != ADIRLIST)
-	active = ADIRLIST, uih->display = 1;
-      }
+      if (flags & MOUSE_MOVE)
+	{
+	  if (!mouseat && active != AFILELIST)
+	    active = AFILELIST, uih->display = 1;
+	  if (mouseat && active != ADIRLIST)
+	    active = ADIRLIST, uih->display = 1;
+	}
       if (x > LISTWIDTH && (flags & MOUSE_PRESS))
 	grabbed = mouseat;
       else
 	{
 	  if (flags & MOUSE_PRESS)
 	    {
-	      int atitem = (y - LISTSTART - BORDERHEIGHT) / xtextheight (uih->font);
+	      int atitem =
+		(y - LISTSTART - BORDERHEIGHT) / xtextheight (uih->font);
 	      if (atitem < 0)
 		atitem = 0;
 	      if (!mouseat)
@@ -573,7 +647,8 @@ ui_mousefilesel (int x, int y, int buttons, int flags)
 		  atitem += namestart;
 		  if (atitem < nnames)
 		    {
-		      if (atitem == selectedname && !strcmp (names[selectedname], filename->text))
+		      if (atitem == selectedname
+			  && !strcmp (names[selectedname], filename->text))
 			{
 			  ui_closefilesel (1);
 			}
@@ -621,7 +696,8 @@ ui_mousefilesel (int x, int y, int buttons, int flags)
 	    activebutton = pressedbutton = mouseat, uih->display = 1;
 	}
       if ((flags & MOUSE_MOVE) && pressedbutton != mouseat)
-	uih->display = 1, pressedbutton = -1, active = AOK, activebutton = mouseat;
+	uih->display = 1, pressedbutton = -1, active = AOK, activebutton =
+	  mouseat;
       if ((flags & MOUSE_RELEASE) && pressedbutton == mouseat)
 	ui_closefilesel (!mouseat);
     }
@@ -648,8 +724,12 @@ ui_buildfilesel (CONST char *f, CONST char *m, void (*c) (CONST char *, int))
   fileheight = uih->image->height;
   namestart = dirstart = 0;
   mask = m;
-  dir = ui_opentext (filex + 2 * BORDERWIDTH, DIRSTART + BORDERHEIGHT, filewidth - 4 * BORDERWIDTH, lastdir);
-  filename = ui_opentext (filex + 2 * BORDERWIDTH, FILESTART + BORDERHEIGHT, filewidth - 4 * BORDERWIDTH, f);
+  dir =
+    ui_opentext (filex + 2 * BORDERWIDTH, DIRSTART + BORDERHEIGHT,
+		 filewidth - 4 * BORDERWIDTH, lastdir);
+  filename =
+    ui_opentext (filex + 2 * BORDERWIDTH, FILESTART + BORDERHEIGHT,
+		 filewidth - 4 * BORDERWIDTH, f);
   filevisible = 1;
   ui_buildnames (LISTWIDTH);
   filew = uih_registerw (uih, filepos, drawfile, 0, DRAWBORDER);

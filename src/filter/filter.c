@@ -10,13 +10,14 @@
 struct queue *
 create_queue (struct filter *f)
 {
-  struct queue *q = (struct queue *)calloc (1, sizeof (struct queue));
+  struct queue *q = (struct queue *) calloc (1, sizeof (struct queue));
   q->first = q->last = f;
   f->queue = q;
   f->next = f->previous = NULL;
   return (q);
 }
-void 
+
+void
 insertfilter (struct filter *f1, struct filter *f2)
 {
   f1->next = f2;
@@ -29,7 +30,8 @@ insertfilter (struct filter *f1, struct filter *f2)
     f2->queue->first = f1;
   f2->previous = f1;
 }
-void 
+
+void
 addfilter (struct filter *f1, struct filter *f2)
 {
   f1->previous = f2;
@@ -42,7 +44,8 @@ addfilter (struct filter *f1, struct filter *f2)
     f2->queue->last = f1;
   f2->next = f1;
 }
-void 
+
+void
 removefilter (struct filter *f)
 {
   if (f->action->removefilter != NULL)
@@ -57,13 +60,12 @@ removefilter (struct filter *f)
     f->queue->last = f->previous;
   f->queue->isinitialized = 0;
 }
-int 
+
+int
 initqueue (struct queue *q)
 {
-  struct requirements noreq =
-  {0, ALLMASK, 0};
-  struct initdata init =
-  {NULL, 0};
+  struct requirements noreq = { 0, ALLMASK, 0 };
+  struct initdata init = { NULL, 0 };
 #ifdef DEBUG
   printf ("\n\nInitializing queue\n");
 #endif
@@ -78,8 +80,10 @@ initqueue (struct queue *q)
 #endif
   return 1;
 }
-int 
-reqimage (struct filter *f, struct requirements *req, int supportedmask, int flags)
+
+int
+reqimage (struct filter *f, struct requirements *req, int supportedmask,
+	  int flags)
 {
   f->req = *req;
   req->supportedmask &= supportedmask;
@@ -93,6 +97,7 @@ reqimage (struct filter *f, struct requirements *req, int supportedmask, int fla
     req->flags &= flags;
   return 1;
 }
+
 /* An function helping to filter create new image.
  * It should be called by filter in inicialization. Filter passes
  * width,height,pixelwidth, pixelheight
@@ -112,8 +117,10 @@ reqimage (struct filter *f, struct requirements *req, int supportedmask, int fla
  * out of memory or it is unable to fit child's requirements)
  * and prepares data for child call.
  */
-int 
-inherimage (struct filter *f, struct initdata *data, int flags, int width, int height, struct palette *palette, float pixelwidth, float pixelheight)
+int
+inherimage (struct filter *f, struct initdata *data, int flags, int width,
+	    int height, struct palette *palette, float pixelwidth,
+	    float pixelheight)
 {
   int newimage = 0;
   int subimage = 1;
@@ -126,7 +133,8 @@ inherimage (struct filter *f, struct initdata *data, int flags, int width, int h
   if (height == 0)
     height = data->image->height;
 #ifdef DEBUG
-  printf ("Inherimage:%s %i %i imagedata:%i %i\n", f->name, width, height, flags & IMAGEDATA, flags & PROTECTBUFFERS);
+  printf ("Inherimage:%s %i %i imagedata:%i %i\n", f->name, width, height,
+	  flags & IMAGEDATA, flags & PROTECTBUFFERS);
 #endif
   if (pixelwidth == 0)
     pixelwidth = data->image->pixelwidth;
@@ -137,7 +145,9 @@ inherimage (struct filter *f, struct initdata *data, int flags, int width, int h
   if (!(palette->type & f->req.supportedmask))
     {
 #ifdef DEBUG
-      printf ("Initalization of filter %s failed due to unsupported type by child %s-%i,%i\n", f->name, f->previous->name, f->req.supportedmask, palette->type);
+      printf
+	("Initalization of filter %s failed due to unsupported type by child %s-%i,%i\n",
+	 f->name, f->previous->name, f->req.supportedmask, palette->type);
 #endif
       f->image = data->image;
       return 0;
@@ -145,10 +155,12 @@ inherimage (struct filter *f, struct initdata *data, int flags, int width, int h
 
   if (flags & NEWIMAGE)
     newimage = 1, sharedimage = 0, subimage = 0;
-  if ((flags & IMAGEDATA) /*|| (data->image->flags & PROTECTBUFFERS)*/)
+  if ((flags & IMAGEDATA) /*|| (data->image->flags & PROTECTBUFFERS) */ )
     subimage = 0, sharedimage = 0, newimage = 1;
   /*if filter touches data but child requires them, create separated image */
-  if ((flags & TOUCHIMAGE) && ((f->req.flags & IMAGEDATA) || (data->image->flags & PROTECTBUFFERS)))
+  if ((flags & TOUCHIMAGE)
+      && ((f->req.flags & IMAGEDATA)
+	  || (data->image->flags & PROTECTBUFFERS)))
     subimage = 0, newimage = 1, sharedimage = 0;
   /*if required image differs in size or so */
   if (width != data->image->width || height != data->image->height ||
@@ -168,14 +180,19 @@ inherimage (struct filter *f, struct initdata *data, int flags, int width, int h
       if (!subimage && (f->flags & SHAREDDATA))
 	destroyinheredimage (f), ddatalost = 1;
       /*When image changed, child image must be recreated too */
-      if (f->flags & SHAREDDATA && ((data->flags & DATALOST) || f->imageversion != data->image->version))
+      if (f->flags & SHAREDDATA
+	  && ((data->flags & DATALOST)
+	      || f->imageversion != data->image->version))
 	destroyinheredimage (f), ddatalost = 1;
       /*We should share image with filter? Why keep created new one? */
       if (sharedimage)
 	destroyinheredimage (f), ddatalost = 1;
       /*When child image don't fit out needs */
-      if (f->childimage != NULL && (f->childimage->width != width || f->childimage->height != height || f->childimage->palette != palette ||
-				    f->childimage->bytesperpixel != bytesperpixel (palette->type) || f->childimage->nimages < f->req.nimages))
+      if (f->childimage != NULL
+	  && (f->childimage->width != width || f->childimage->height != height
+	      || f->childimage->palette != palette
+	      || f->childimage->bytesperpixel != bytesperpixel (palette->type)
+	      || f->childimage->nimages < f->req.nimages))
 	destroyinheredimage (f), ddatalost = 1;
       /*Well now child image seems to be heavily probed */
     }
@@ -186,20 +203,25 @@ inherimage (struct filter *f, struct initdata *data, int flags, int width, int h
 	{
 	  if (subimage)
 	    {
-	      i = create_subimage (data->image, width, height, f->req.nimages, palette, pixelwidth, pixelheight);
+	      i =
+		create_subimage (data->image, width, height, f->req.nimages,
+				 palette, pixelwidth, pixelheight);
 	      f->flags |= ALLOCEDIMAGE | SHAREDDATA;
 	      ddatalost = 1;
 	    }
 	  else
 	    {
-	      i = create_image_mem (width, height, f->req.nimages, palette, pixelwidth, pixelheight);
+	      i =
+		create_image_mem (width, height, f->req.nimages, palette,
+				  pixelwidth, pixelheight);
 	      f->flags |= ALLOCEDIMAGE;
 	      ddatalost = 1;
 	    }
 	}
     }
 #ifdef DEBUG
-  printf ("Filter:%s newimage:%i subimage:%i sharedimage:%i\n", f->name, newimage, subimage, sharedimage);
+  printf ("Filter:%s newimage:%i subimage:%i sharedimage:%i\n", f->name,
+	  newimage, subimage, sharedimage);
 #endif
   if (i == NULL)
     {
@@ -207,10 +229,12 @@ inherimage (struct filter *f, struct initdata *data, int flags, int width, int h
       return 0;
     }
   if (sharedimage)
-    i = data->image, ddatalost = (data->flags & DATALOST) || (f->childimage != data->image);
+    i = data->image, ddatalost = (data->flags & DATALOST)
+      || (f->childimage != data->image);
   if (sharedimage && datalost (f, data))
     ddatalost = 1;
-  else if ((f->flags | SHAREDDATA) && datalost (f, data) && !(i->flags & FREEDATA))
+  else if ((f->flags | SHAREDDATA) && datalost (f, data)
+	   && !(i->flags & FREEDATA))
     ddatalost = 1;
   if (ddatalost)
     data->flags |= DATALOST;
@@ -228,22 +252,26 @@ inherimage (struct filter *f, struct initdata *data, int flags, int width, int h
 #endif
   return 1;
 }
-void 
+
+void
 destroyinheredimage (struct filter *f)
 {
   if (f->flags & ALLOCEDIMAGE)
-    destroy_image (f->childimage), f->flags &= ~(ALLOCEDIMAGE | SHAREDDATA), f->childimage = NULL;
+    destroy_image (f->childimage), f->flags &=
+      ~(ALLOCEDIMAGE | SHAREDDATA), f->childimage = NULL;
 }
-void 
+
+void
 updateinheredimage (struct filter *f)
 {
   if ((f->flags & SHAREDDATA) && f->childimage)
     {
-      if (f->childimage->nimages == 2 && f->image->currimage != f->childimage->currimage)
+      if (f->childimage->nimages == 2
+	  && f->image->currimage != f->childimage->currimage)
 	f->childimage->flip (f->childimage);	/*Hack for interlace filter */
     }
 }
-void 
+void
 inhermisc (struct filter *f, CONST struct initdata *data)
 {
   f->wait_function = data->wait_function;
@@ -252,7 +280,7 @@ inhermisc (struct filter *f, CONST struct initdata *data)
 struct filter *
 createfilter (CONST struct filteraction *fa)
 {
-  struct filter *f = (struct filter *)calloc (1, sizeof (struct filter));
+  struct filter *f = (struct filter *) calloc (1, sizeof (struct filter));
   if (f == NULL)
     return NULL;
   f->queue = NULL;
@@ -266,13 +294,15 @@ createfilter (CONST struct filteraction *fa)
   f->data = NULL;
   return (f);
 }
-void 
+
+void
 convertupgeneric (struct filter *f, int *x, int *y)
 {
   if (f->next != NULL)
     f->next->action->convertup (f->next, x, y);
 }
-void 
+
+void
 convertdowngeneric (struct filter *f, int *x, int *y)
 {
   if (f->previous != NULL)

@@ -19,14 +19,14 @@
 #define CANCEL 2
 #define HELP 3
 static struct dialogrecord
-  {
-    CONST menuitem *item;
-    CONST menudialog *dialog;
-    int nitems;
-    HWND windialog;
-    struct uih_context *c;
-    struct dialogrecord *next, *prev;
-  }
+{
+  CONST menuitem *item;
+  CONST menudialog *dialog;
+  int nitems;
+  HWND windialog;
+  struct uih_context *c;
+  struct dialogrecord *next, *prev;
+}
  *firstdialog = NULL;
 static CONST char *
 win32_getextension (CONST char *ch)
@@ -41,7 +41,8 @@ win32_getextension (CONST char *ch)
   return ch + i;
 }
 static char *
-win32_dofiledialog (struct uih_context *uih, CONST menuitem * item, CONST menudialog * dialog)
+win32_dofiledialog (struct uih_context *uih, CONST menuitem * item,
+		    CONST menudialog * dialog)
 {
   OPENFILENAME ofn;
   char szDirName[256];
@@ -58,7 +59,8 @@ win32_dofiledialog (struct uih_context *uih, CONST menuitem * item, CONST menudi
       strcpy (szFile, dialog[0].defstr);
       for (i = 0; dialog[0].defstr[i] && dialog[0].defstr[i] != '*'; i++);
       szFile[i] = 0;
-      strcpy (szFile, ui_getfile (szFile, win32_getextension (dialog[0].defstr)));
+      strcpy (szFile,
+	      ui_getfile (szFile, win32_getextension (dialog[0].defstr)));
     }
 
   for (i = 0; dialog[0].defstr[i] && dialog[0].defstr[i] != '*'; i++)
@@ -84,7 +86,10 @@ win32_dofiledialog (struct uih_context *uih, CONST menuitem * item, CONST menudi
   ofn.lpstrFileTitle = szFileTitle;
   ofn.nMaxFileTitle = sizeof (szFileTitle);
   ofn.lpstrInitialDir = szDirName;
-  ofn.Flags = OFN_SHOWHELP | OFN_PATHMUSTEXIST | (dialog[0].type == DIALOG_IFILE ? OFN_FILEMUSTEXIST : OFN_OVERWRITEPROMPT);
+  ofn.Flags =
+    OFN_SHOWHELP | OFN_PATHMUSTEXIST | (dialog[0].type ==
+					DIALOG_IFILE ? OFN_FILEMUSTEXIST :
+					OFN_OVERWRITEPROMPT);
   if (dialog[0].type == DIALOG_IFILE)
     i = GetOpenFileName (&ofn);
   else
@@ -98,8 +103,9 @@ win32_dofiledialog (struct uih_context *uih, CONST menuitem * item, CONST menudi
 }
 
 
-static void 
-win32_filedialog (struct uih_context *uih, CONST menuitem * item, CONST menudialog * dialog)
+static void
+win32_filedialog (struct uih_context *uih, CONST menuitem * item,
+		  CONST menudialog * dialog)
 {
   char *name = win32_dofiledialog (uih, item, dialog);
   if (name)
@@ -109,7 +115,7 @@ win32_filedialog (struct uih_context *uih, CONST menuitem * item, CONST menudial
       ui_menuactivate (item, param);
     }
 }
-static void 
+static void
 win32_freedialog (struct dialogrecord *r)
 {
   if (r->next)
@@ -120,7 +126,7 @@ win32_freedialog (struct dialogrecord *r)
     firstdialog = r->next;
   free (r);
 }
-static int 
+static int
 win32_dodialog (struct dialogrecord *r, HWND hDLG)
 {
   dialogparam *p = calloc (sizeof (*p), r->nitems);
@@ -159,20 +165,21 @@ win32_dodialog (struct dialogrecord *r, HWND hDLG)
 	  /*x_message("Choice is not implemented yet"); */
 	  {
 	    int y;
-	    y = LOWORD (SendDlgItemMessage (hDLG, i * PERITEM + ITEMSTART, CB_GETCURSEL, 0, 0L));
-	    p[i].dint = LOWORD (SendDlgItemMessage (hDLG, i * PERITEM + ITEMSTART, CB_GETITEMDATA, (WPARAM) y, 0L));
+	    y =
+	      LOWORD (SendDlgItemMessage
+		      (hDLG, i * PERITEM + ITEMSTART, CB_GETCURSEL, 0, 0L));
+	    p[i].dint =
+	      LOWORD (SendDlgItemMessage
+		      (hDLG, i * PERITEM + ITEMSTART, CB_GETITEMDATA,
+		       (WPARAM) y, 0L));
 	  }
 	}
     }
   ui_menuactivate (r->item, p);
   return 1;
 }
-static BOOL APIENTRY 
-DialogHandler (
-		HWND hDLG,
-		UINT message,
-		UINT wParam,
-		LONG lParam)
+static BOOL APIENTRY
+DialogHandler (HWND hDLG, UINT message, UINT wParam, LONG lParam)
 {
   struct dialogrecord *rec = firstdialog;
   int i;
@@ -193,7 +200,8 @@ DialogHandler (
 	    case DIALOG_STRING:
 	    case DIALOG_IFILE:
 	    case DIALOG_OFILE:
-	      SetDlgItemText (hDLG, i * PERITEM + ITEMSTART, rec->dialog[i].defstr);
+	      SetDlgItemText (hDLG, i * PERITEM + ITEMSTART,
+			      rec->dialog[i].defstr);
 	      break;
 	    case DIALOG_INT:
 	      sprintf (s, "%i", rec->dialog[i].defint);
@@ -214,20 +222,26 @@ DialogHandler (
 		int pos;
 		for (y = 0; strings[y]; y++)
 		  {
-		    pos = LOWORD (SendDlgItemMessage (hDLG, i * PERITEM + ITEMSTART,
-		    CB_ADDSTRING, (WPARAM) 0, (LPARAM) (LPSTR) strings[y]));
+		    pos =
+		      LOWORD (SendDlgItemMessage
+			      (hDLG, i * PERITEM + ITEMSTART, CB_ADDSTRING,
+			       (WPARAM) 0, (LPARAM) (LPSTR) strings[y]));
 		    /*x_message("%s %i",strings[y],pos); */
 		    SendMessage (GetDlgItem (hDLG, i * PERITEM + ITEMSTART),
 				 CB_SETITEMDATA, (WPARAM) pos, y);
 		    if (y == rec->dialog[i].defint)
 		      {
-			pos = SendMessage (GetDlgItem (hDLG, i * PERITEM + ITEMSTART),
-					   CB_SETCURSEL, (WPARAM) pos, 0L);
+			pos =
+			  SendMessage (GetDlgItem
+				       (hDLG, i * PERITEM + ITEMSTART),
+				       CB_SETCURSEL, (WPARAM) pos, 0L);
 			/*x_message("Default %i",pos); */
 		      }
 		  }
-		pos = LOWORD (SendDlgItemMessage (hDLG, i * PERITEM + ITEMSTART,
-					       CB_GETCOUNT, (WPARAM) 0, 0));
+		pos =
+		  LOWORD (SendDlgItemMessage
+			  (hDLG, i * PERITEM + ITEMSTART, CB_GETCOUNT,
+			   (WPARAM) 0, 0));
 		/*x_message("Count %i",pos); */
 	      }
 	      break;
@@ -267,10 +281,13 @@ DialogHandler (
 	int pos = (wParam - ITEMSTART) % PERITEM;
 	if (i >= 0 && i < rec->nitems)
 	  {
-	    if (pos == 1 && (rec->dialog[i].type == DIALOG_IFILE || rec->dialog[i].type == DIALOG_OFILE))
+	    if (pos == 1
+		&& (rec->dialog[i].type == DIALOG_IFILE
+		    || rec->dialog[i].type == DIALOG_OFILE))
 	      {
 		/*x_message("File dialog\n"); */
-		char *file = win32_dofiledialog (rec->c, rec->item, rec->dialog + i);
+		char *file =
+		  win32_dofiledialog (rec->c, rec->item, rec->dialog + i);
 		if (file)
 		  {
 		    SetDlgItemText (hDLG, wParam - 1, file);
@@ -283,6 +300,7 @@ DialogHandler (
     }
   return FALSE;
 }
+
 #define INPUTSIZE 20
 #define XBORDER 0
 #define YBORDER 5
@@ -294,9 +312,8 @@ DialogHandler (
 #define TEXTHEIGHT 11
 
 static FILE *file;
-static void 
-win32_outputdialog (struct uih_context *uih,
-		    CONST struct menuitem *item)
+static void
+win32_outputdialog (struct uih_context *uih, CONST struct menuitem *item)
 {
   CONST menudialog *dialog;
   int leftsize = 0;
@@ -311,10 +328,11 @@ win32_outputdialog (struct uih_context *uih,
   dialog = menu_getdialog (uih, item);
   for (i = 0; dialog[i].question; i++)
     {
-      if (leftsize < (int)strlen (dialog[i].question))
+      if (leftsize < (int) strlen (dialog[i].question))
 	leftsize = strlen (dialog[i].question);
     }
-  if (i == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE))
+  if (i == 1
+      && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE))
     return;
   leftsize = XBORDER + leftsize * CHARWIDTH + XSEP;
   rightsize = XBORDER + rightsize * CHARWIDTH;
@@ -322,49 +340,81 @@ win32_outputdialog (struct uih_context *uih,
   if (width < MINWIDTH)
     width = MINWIDTH;
   height = 2 * YBORDER + (i + 1) * LINEHEIGHT;
-  fprintf (file, "%sBox  DIALOG %i, %i, %i, %i\n", item->shortname, 52, 57, width, height);
+  fprintf (file, "%sBox  DIALOG %i, %i, %i, %i\n", item->shortname, 52, 57,
+	   width, height);
   fprintf (file, "STYLE DS_MODALFRAME | WS_CAPTION | WS_SYSMENU\n");
   fprintf (file, "CAPTION \"%s\"\n", item->name);
   fprintf (file, "BEGIN\n");
   for (i = 0; dialog[i].question; i++)
     {
-      fprintf (file, "  RTEXT \"%s\", -1, %i, %i, %i, %i, WS_GROUP\n", dialog[i].question, 0, YBORDER + i * LINEHEIGHT, leftsize - XSEP, TEXTHEIGHT);
+      fprintf (file, "  RTEXT \"%s\", -1, %i, %i, %i, %i, WS_GROUP\n",
+	       dialog[i].question, 0, YBORDER + i * LINEHEIGHT,
+	       leftsize - XSEP, TEXTHEIGHT);
       switch (dialog[i].type)
 	{
 	case DIALOG_INT:
 	case DIALOG_FLOAT:
 	case DIALOG_STRING:
 	case DIALOG_KEYSTRING:
-	  fprintf (file, "  EDITTEXT %i, %i, %i, %i, %i, ES_AUTOHSCROLL | WS_TABSTOP\n", i * PERITEM + ITEMSTART,
-	  leftsize, i * LINEHEIGHT + YBORDER, rightsize - XSEP, TEXTHEIGHT);
+	  fprintf (file,
+		   "  EDITTEXT %i, %i, %i, %i, %i, ES_AUTOHSCROLL | WS_TABSTOP\n",
+		   i * PERITEM + ITEMSTART, leftsize,
+		   i * LINEHEIGHT + YBORDER, rightsize - XSEP, TEXTHEIGHT);
 	  break;
 	case DIALOG_COORD:
-	  fprintf (file, "  EDITTEXT %i, %i, %i, %i, %i, ES_AUTOHSCROLL | WS_TABSTOP\n", i * PERITEM + ITEMSTART,
-		   leftsize, i * LINEHEIGHT + YBORDER, (rightsize - XSEP - 4 * CHARWIDTH) / 2, TEXTHEIGHT);
-	  fprintf (file, "  EDITTEXT %i, %i, %i, %i, %i, ES_AUTOHSCROLL | WS_TABSTOP\n", i * PERITEM + ITEMSTART + 1,
-		   leftsize + (rightsize - XSEP + CHARWIDTH) / 2, i * LINEHEIGHT + YBORDER, (rightsize - XSEP - 4 * CHARWIDTH) / 2, TEXTHEIGHT);
-	  fprintf (file, "  RTEXT \"+\", -1, %i, %i, %i, %i\n", leftsize + (rightsize - XSEP - 2 * CHARWIDTH) / 2, YBORDER + i * LINEHEIGHT, CHARWIDTH, TEXTHEIGHT);
-	  fprintf (file, "  RTEXT \"i\", -1, %i, %i, %i, %i\n", leftsize + rightsize - XSEP - CHARWIDTH, YBORDER + i * LINEHEIGHT, CHARWIDTH, TEXTHEIGHT);
+	  fprintf (file,
+		   "  EDITTEXT %i, %i, %i, %i, %i, ES_AUTOHSCROLL | WS_TABSTOP\n",
+		   i * PERITEM + ITEMSTART, leftsize,
+		   i * LINEHEIGHT + YBORDER,
+		   (rightsize - XSEP - 4 * CHARWIDTH) / 2, TEXTHEIGHT);
+	  fprintf (file,
+		   "  EDITTEXT %i, %i, %i, %i, %i, ES_AUTOHSCROLL | WS_TABSTOP\n",
+		   i * PERITEM + ITEMSTART + 1,
+		   leftsize + (rightsize - XSEP + CHARWIDTH) / 2,
+		   i * LINEHEIGHT + YBORDER,
+		   (rightsize - XSEP - 4 * CHARWIDTH) / 2, TEXTHEIGHT);
+	  fprintf (file, "  RTEXT \"+\", -1, %i, %i, %i, %i\n",
+		   leftsize + (rightsize - XSEP - 2 * CHARWIDTH) / 2,
+		   YBORDER + i * LINEHEIGHT, CHARWIDTH, TEXTHEIGHT);
+	  fprintf (file, "  RTEXT \"i\", -1, %i, %i, %i, %i\n",
+		   leftsize + rightsize - XSEP - CHARWIDTH,
+		   YBORDER + i * LINEHEIGHT, CHARWIDTH, TEXTHEIGHT);
 	  break;
 	case DIALOG_CHOICE:
-	  fprintf (file, "  COMBOBOX %i, %i, %i, %i, %i, CBS_DROPDOWNLIST | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP\n", i * PERITEM + ITEMSTART,
-	  leftsize, i * LINEHEIGHT + YBORDER, rightsize - XSEP, TEXTHEIGHT*10);
+	  fprintf (file,
+		   "  COMBOBOX %i, %i, %i, %i, %i, CBS_DROPDOWNLIST | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP\n",
+		   i * PERITEM + ITEMSTART, leftsize,
+		   i * LINEHEIGHT + YBORDER, rightsize - XSEP,
+		   TEXTHEIGHT * 10);
 	  break;
 	case DIALOG_IFILE:
 	case DIALOG_OFILE:
 #define BROWSEWIDTH ((strlen("Browse")+1)*CHARWIDTH)
-	  fprintf (file, "  EDITTEXT %i, %i, %i, %i, %i, ES_AUTOHSCROLL | WS_TABSTOP\n", i * PERITEM + ITEMSTART,
-		   leftsize, i * LINEHEIGHT + YBORDER, rightsize - 2 * XSEP - BROWSEWIDTH, TEXTHEIGHT);
-	  fprintf (file, "  PUSHBUTTON \"Browse\", %i, %i, %i, %i, %i, WS_GROUP\n", i * PERITEM + ITEMSTART + 1, leftsize + rightsize - XSEP - BROWSEWIDTH, i * LINEHEIGHT + YBORDER, BROWSEWIDTH, TEXTHEIGHT);
+	  fprintf (file,
+		   "  EDITTEXT %i, %i, %i, %i, %i, ES_AUTOHSCROLL | WS_TABSTOP\n",
+		   i * PERITEM + ITEMSTART, leftsize,
+		   i * LINEHEIGHT + YBORDER,
+		   rightsize - 2 * XSEP - BROWSEWIDTH, TEXTHEIGHT);
+	  fprintf (file,
+		   "  PUSHBUTTON \"Browse\", %i, %i, %i, %i, %i, WS_GROUP\n",
+		   i * PERITEM + ITEMSTART + 1,
+		   leftsize + rightsize - XSEP - BROWSEWIDTH,
+		   i * LINEHEIGHT + YBORDER, BROWSEWIDTH, TEXTHEIGHT);
 	  break;
 	}
     }
-  fprintf (file, "  DEFPUSHBUTTON \"&OK\", %i, %i, %i, %i, %i, WS_GROUP\n", OK, XSEP / 2, i * LINEHEIGHT + YBORDER, width / 3 - XSEP, 14);
-  fprintf (file, "  PUSHBUTTON \"&Cancel\", %i, %i, %i, %i, %i\n", CANCEL, width / 3 + XSEP / 2, i * LINEHEIGHT + YBORDER, width / 3 - XSEP, 14);
-  fprintf (file, "  PUSHBUTTON \"&Help\", %i, %i, %i, %i, %i\n", HELP, 2 * width / 3 + XSEP / 2, i * LINEHEIGHT + YBORDER, width / 3 - XSEP, 14);
+  fprintf (file, "  DEFPUSHBUTTON \"&OK\", %i, %i, %i, %i, %i, WS_GROUP\n",
+	   OK, XSEP / 2, i * LINEHEIGHT + YBORDER, width / 3 - XSEP, 14);
+  fprintf (file, "  PUSHBUTTON \"&Cancel\", %i, %i, %i, %i, %i\n", CANCEL,
+	   width / 3 + XSEP / 2, i * LINEHEIGHT + YBORDER, width / 3 - XSEP,
+	   14);
+  fprintf (file, "  PUSHBUTTON \"&Help\", %i, %i, %i, %i, %i\n", HELP,
+	   2 * width / 3 + XSEP / 2, i * LINEHEIGHT + YBORDER,
+	   width / 3 - XSEP, 14);
   fprintf (file, "END\n");
 }
-void 
+
+void
 win32_genresources (struct uih_context *uih)
 {
   file = fopen ("xaos.dlg", "w");
@@ -372,7 +422,8 @@ win32_genresources (struct uih_context *uih)
   fclose (file);
 
 }
-void 
+
+void
 win32_dialog (struct uih_context *uih, CONST char *name)
 {
   CONST menuitem *item = menu_findcommand (name);
@@ -386,7 +437,8 @@ win32_dialog (struct uih_context *uih, CONST char *name)
   if (!dialog)
     return;
   for (nitems = 0; dialog[nitems].question; nitems++);
-  if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE))
+  if (nitems == 1
+      && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE))
     win32_filedialog (uih, item, dialog);
   else
     {
@@ -410,4 +462,5 @@ win32_dialog (struct uih_context *uih, CONST char *name)
       /*x_message("Dialog (%s %i %s) not implemented", name, nitems, dialog[0].question); */
     }
 }
+
 

@@ -22,15 +22,15 @@
 #define SIZE2 8
 #define AMOUNT 0.005
 #define DIV 1000.0
-#define MAXFRAMES 800*1000		/*after 800 frames should be OK */
+#define MAXFRAMES 800*1000	/*after 800 frames should be OK */
 struct blurdata
-  {
-    int bckuptime;
-    int counter;
-    struct palette *savedpalette, *palette;
-    unsigned char (*table)[256];	/*Used by blur routines */
-    int n;
-  };
+{
+  int bckuptime;
+  int counter;
+  struct palette *savedpalette, *palette;
+  unsigned char (*table)[256];	/*Used by blur routines */
+  int n;
+};
 static int
 requirement (struct filter *f, struct requirements *r)
 {
@@ -44,8 +44,8 @@ static void
 blur8 (struct filter *f)
 {
   struct image *desti = f->image;
-  struct blurdata *s = (struct blurdata *)f->data;
-  unsigned char (*table)[256]=s->table;
+  struct blurdata *s = (struct blurdata *) f->data;
+  unsigned char (*table)[256] = s->table;
   unsigned int i, i1, im, im1, ipl, ii;
   if (f->image->palette->type == C256)
     for (i = im = 0; i < SIZE; i++, im += 256 - s->n)
@@ -62,13 +62,15 @@ blur8 (struct filter *f)
 		  ipl--;
 	      }
 	    ii = desti->palette->pixels[i];
-	    table[i1][ii] = (unsigned char)desti->palette->pixels[ipl];
+	    table[i1][ii] = (unsigned char) desti->palette->pixels[ipl];
 	  }
       }
   else
-    for (i = im = desti->palette->start, im *= 256 - s->n; i < (unsigned int)desti->palette->end; i++, im += 256 - s->n)
+    for (i = im = desti->palette->start, im *= 256 - s->n;
+	 i < (unsigned int) desti->palette->end; i++, im += 256 - s->n)
       {
-	for (i1 = im1 = desti->palette->start, im1 *= s->n; i1 < (unsigned int)desti->palette->end; i1++, im1 += s->n)
+	for (i1 = im1 = desti->palette->start, im1 *= s->n;
+	     i1 < (unsigned int) desti->palette->end; i1++, im1 += s->n)
 	  {
 	    ipl = (im + im1 + 128) >> 8;
 	    if (ipl == i && i != i1)
@@ -78,39 +80,39 @@ blur8 (struct filter *f)
 		else
 		  ipl--;
 	      }
-	    table[i1][i] = (unsigned char)ipl;
+	    table[i1][i] = (unsigned char) ipl;
 	  }
       }
 }
 static void
 blurtruecolor (struct filter *f)
 {
-  struct blurdata *s = (struct blurdata *)f->data;
+  struct blurdata *s = (struct blurdata *) f->data;
   unsigned int i, i1, im, im1;
-  unsigned char (*table)[256]=s->table;
+  unsigned char (*table)[256] = s->table;
   for (i = im = 0; i < 256; i++, im += 256 - s->n)
     {
       for (i1 = im1 = 0; i1 < 256; i1++, im1 += s->n)
-	table[i1][i] = (unsigned char)((im + im1) >> 8);
+	table[i1][i] = (unsigned char) ((im + im1) >> 8);
     }
 }
 static void
 clear_image2 (struct image *img)
 {
-	int i;
-	int color=img->palette->pixels[0];
-	int width = img->width * img->bytesperpixel;
-	if (!width)
-		width = (img->width + 7) / 8;
-	for (i = 0; i < img->height; i++)
-		memset_long (img->currlines[i], color, (size_t)width);
+  int i;
+  int color = img->palette->pixels[0];
+  int width = img->width * img->bytesperpixel;
+  if (!width)
+    width = (img->width + 7) / 8;
+  for (i = 0; i < img->height; i++)
+    memset_long (img->currlines[i], color, (size_t) width);
 }
 
 
 static int
 initialize (struct filter *f, struct initdata *i)
 {
-  struct blurdata *s = (struct blurdata *)f->data;
+  struct blurdata *s = (struct blurdata *) f->data;
   unsigned int x;
   inhermisc (f, i);
   s->counter = 0;
@@ -119,8 +121,8 @@ initialize (struct filter *f, struct initdata *i)
     s->palette->pixels[x] = x;
   if (datalost (f, i) || i->image->version != f->imageversion)
     {
-      s->bckuptime=MAXFRAMES;
-      s->counter=MAXFRAMES;
+      s->bckuptime = MAXFRAMES;
+      s->counter = MAXFRAMES;
       if (i->image->palette->type == C256)
 	{
 	  if (s->savedpalette == NULL)
@@ -138,7 +140,9 @@ initialize (struct filter *f, struct initdata *i)
 	}
       clear_image2 (i->image);
     }
-  if (!inherimage (f, i, TOUCHIMAGE | IMAGEDATA, 0, 0, i->image->palette->type == C256 ? s->palette : NULL, 0, 0))
+  if (!inherimage
+      (f, i, TOUCHIMAGE | IMAGEDATA, 0, 0,
+       i->image->palette->type == C256 ? s->palette : NULL, 0, 0))
     return 0;
   if (f->image->palette->type == C256)
     {
@@ -154,12 +158,13 @@ static struct filter *
 getinstance (CONST struct filteraction *a)
 {
   struct filter *f = createfilter (a);
-  struct blurdata *i = (struct blurdata *)calloc (1, sizeof (*i));
+  struct blurdata *i = (struct blurdata *) calloc (1, sizeof (*i));
   i->savedpalette = NULL;
-  i->palette = createpalette (0, 256, SMALLITER, 0, 256, NULL, NULL, NULL, NULL, NULL);
+  i->palette =
+    createpalette (0, 256, SMALLITER, 0, 256, NULL, NULL, NULL, NULL, NULL);
   i->palette->size = SIZE2;
   i->palette->end = SIZE2;
-  i->table=NULL;
+  i->table = NULL;
   f->childimage = NULL;
   f->data = i;
   f->name = "Motionblur";
@@ -168,8 +173,9 @@ getinstance (CONST struct filteraction *a)
 static void
 destroyinstance (struct filter *f)
 {
-  struct blurdata *i = (struct blurdata *)f->data;
-  if (i->table!=NULL) free(i->table);
+  struct blurdata *i = (struct blurdata *) f->data;
+  if (i->table != NULL)
+    free (i->table);
   if (i->savedpalette != NULL)
     destroypalette (i->savedpalette);
   destroypalette (i->palette);
@@ -182,9 +188,9 @@ destroyinstance (struct filter *f)
 static void
 blur82 (void *data, struct taskinfo *task, int r1, int r2)
 {
-  struct filter *f = (struct filter *)data;
+  struct filter *f = (struct filter *) data;
   struct image *srci = f->childimage, *desti = f->image;
-  struct blurdata *s = (struct blurdata *)f->data;
+  struct blurdata *s = (struct blurdata *) f->data;
   unsigned char (*table)[256];
   int i, im;
   unsigned char *src, *dest, *srcend;
@@ -207,14 +213,14 @@ blur82 (void *data, struct taskinfo *task, int r1, int r2)
 static void
 blur16 (void *data, struct taskinfo *task, int r1, int r2)
 {
-  struct filter *f = (struct filter *)data;
+  struct filter *f = (struct filter *) data;
   struct image *srci = f->childimage, *desti = f->image;
-  struct blurdata *s = (struct blurdata *)f->data;
-  struct truec *info=&srci->palette->info.truec;
-  unsigned int rmask=info->rmask;
-  unsigned int gmask=info->gmask;
-  unsigned int bmask=info->bmask;
-  unsigned int n = (unsigned int)s->n;
+  struct blurdata *s = (struct blurdata *) f->data;
+  struct truec *info = &srci->palette->info.truec;
+  unsigned int rmask = info->rmask;
+  unsigned int gmask = info->gmask;
+  unsigned int bmask = info->bmask;
+  unsigned int n = (unsigned int) s->n;
   int i;
   pixel16_t *src, *dest, *srcend;
   for (i = r1; i < r2; i++)
@@ -224,7 +230,7 @@ blur16 (void *data, struct taskinfo *task, int r1, int r2)
       dest = (pixel16_t *) desti->currlines[i];
       for (; src < srcend; src++, dest++)
 	{
-	  *dest = interpol(*src,*dest,n,rmask,gmask,bmask);
+	  *dest = interpol (*src, *dest, n, rmask, gmask, bmask);
 	}
     }
 }
@@ -233,16 +239,18 @@ blur16 (void *data, struct taskinfo *task, int r1, int r2)
 static void
 blur24 (void *data, struct taskinfo *task, int r1, int r2)
 {
-  struct filter *f = (struct filter *)data;
+  struct filter *f = (struct filter *) data;
   struct image *srci = f->childimage, *desti = f->image;
-  struct blurdata *s = (struct blurdata *)f->data;
+  struct blurdata *s = (struct blurdata *) f->data;
   unsigned char (*table)[256] = s->table;
   unsigned char *src, *dest, *srcend;
   int i, im;
   im = srci->width * 3;
-  if(!srci->palette->info.truec.byteexact) {
-    x_fatalerror("Blur filter:unsupported color configuration! Please contact authors.");
-  }
+  if (!srci->palette->info.truec.byteexact)
+    {
+      x_fatalerror
+	("Blur filter:unsupported color configuration! Please contact authors.");
+    }
   for (i = r1; i < r2; i++)
     {
       src = srci->currlines[i];
@@ -260,63 +268,66 @@ blur24 (void *data, struct taskinfo *task, int r1, int r2)
 static void
 blur32 (void *data, struct taskinfo *task, int r1, int r2)
 {
-  struct filter *f = (struct filter *)data;
+  struct filter *f = (struct filter *) data;
   struct image *srci = f->childimage, *desti = f->image;
-  struct blurdata *s = (struct blurdata *)f->data;
+  struct blurdata *s = (struct blurdata *) f->data;
   unsigned char (*table)[256] = s->table;
   unsigned char *src, *dest, *srcend;
   int i, im;
   im = srci->width * 4;
-  if(!srci->palette->info.truec.byteexact) {
-    x_fatalerror("Blur filter:unsupported color configuration! Please contact authors.");
-  }
+  if (!srci->palette->info.truec.byteexact)
+    {
+      x_fatalerror
+	("Blur filter:unsupported color configuration! Please contact authors.");
+    }
   for (i = r1; i < r2; i++)
     {
       src = srci->currlines[i];
       srcend = src + im;
       dest = desti->currlines[i];
-      switch(f->image->palette->info.truec.missingbyte) {
-      case 3:
-      for (; src < srcend; src += 4, dest += 4)
+      switch (f->image->palette->info.truec.missingbyte)
 	{
-	  dest[0] = table[src[0]][dest[0]];
-	  dest[1] = table[src[1]][dest[1]];
-	  dest[2] = table[src[2]][dest[2]];
+	case 3:
+	  for (; src < srcend; src += 4, dest += 4)
+	    {
+	      dest[0] = table[src[0]][dest[0]];
+	      dest[1] = table[src[1]][dest[1]];
+	      dest[2] = table[src[2]][dest[2]];
+	    }
+	  break;
+	case 2:
+	  for (; src < srcend; src += 4, dest += 4)
+	    {
+	      dest[0] = table[src[0]][dest[0]];
+	      dest[1] = table[src[1]][dest[1]];
+	      dest[3] = table[src[2]][dest[2]];
+	    }
+	  break;
+	case 1:
+	  for (; src < srcend; src += 4, dest += 4)
+	    {
+	      dest[0] = table[src[0]][dest[0]];
+	      dest[2] = table[src[1]][dest[1]];
+	      dest[3] = table[src[2]][dest[2]];
+	    }
+	  break;
+	case 0:
+	  for (; src < srcend; src += 4, dest += 4)
+	    {
+	      dest[1] = table[src[1]][dest[1]];
+	      dest[2] = table[src[2]][dest[2]];
+	      dest[3] = table[src[3]][dest[3]];
+	    }
+	  break;
+	default:
+	  for (; src < srcend; src += 4, dest += 4)
+	    {
+	      dest[1] = table[src[1]][dest[1]];
+	      dest[2] = table[src[2]][dest[2]];
+	      dest[3] = table[src[3]][dest[3]];
+	      dest[4] = table[src[4]][dest[4]];
+	    }
 	}
-      break;
-      case 2:
-      for (; src < srcend; src += 4, dest += 4)
-	{
-	  dest[0] = table[src[0]][dest[0]];
-	  dest[1] = table[src[1]][dest[1]];
-	  dest[3] = table[src[2]][dest[2]];
-	}
-      break;
-      case 1:
-      for (; src < srcend; src += 4, dest += 4)
-	{
-	  dest[0] = table[src[0]][dest[0]];
-	  dest[2] = table[src[1]][dest[1]];
-	  dest[3] = table[src[2]][dest[2]];
-	}
-      break;
-      case 0:
-      for (; src < srcend; src += 4, dest += 4)
-	{
-	  dest[1] = table[src[1]][dest[1]];
-	  dest[2] = table[src[2]][dest[2]];
-	  dest[3] = table[src[3]][dest[3]];
-	}
-      break;
-      default:
-      for (; src < srcend; src += 4, dest += 4)
-	{
-	  dest[1] = table[src[1]][dest[1]];
-	  dest[2] = table[src[2]][dest[2]];
-	  dest[3] = table[src[3]][dest[3]];
-	  dest[4] = table[src[4]][dest[4]];
-	}
-      }
     }
 }
 static int
@@ -324,13 +335,13 @@ doit (struct filter *f, int flags, int time1)
 {
   int val, n;
   int time = time1;
-  struct blurdata *s = (struct blurdata *)f->data;
+  struct blurdata *s = (struct blurdata *) f->data;
   updateinheredimage (f);
   val = f->previous->action->doit (f->previous, flags, time);
   s->counter += time;
   if (val & CHANGED)
     s->counter = 0;
-  n = (int)((1 - pow (1.0 - AMOUNT, (time + s->bckuptime) / DIV)) * 256);
+  n = (int) ((1 - pow (1.0 - AMOUNT, (time + s->bckuptime) / DIV)) * 256);
   if (s->counter >= 2 * MAXFRAMES)
     {
       return val;
@@ -343,23 +354,27 @@ doit (struct filter *f, int flags, int time1)
   s->bckuptime = 0;
   if (s->counter >= MAXFRAMES)
     n = 256, s->counter = 2 * MAXFRAMES;
-  if(s->n!=n) {
-  s->n = n;
-  switch(f->image->bytesperpixel)
-  {
-    case 1:
-      if(s->table==NULL) s->table=(unsigned char (*)[256])malloc(256*256);
-      blur8(f);
-      break;
-    case 3:
-    case 4:
-      if(s->table==NULL) s->table=(unsigned char (*)[256])malloc(256*256);
-      blurtruecolor(f);
-      break;
-    default:
-      if(s->table!=NULL) free(s->table),s->table=NULL;
-  }
-  }
+  if (s->n != n)
+    {
+      s->n = n;
+      switch (f->image->bytesperpixel)
+	{
+	case 1:
+	  if (s->table == NULL)
+	    s->table = (unsigned char (*)[256]) malloc (256 * 256);
+	  blur8 (f);
+	  break;
+	case 3:
+	case 4:
+	  if (s->table == NULL)
+	    s->table = (unsigned char (*)[256]) malloc (256 * 256);
+	  blurtruecolor (f);
+	  break;
+	default:
+	  if (s->table != NULL)
+	    free (s->table), s->table = NULL;
+	}
+    }
   switch (f->image->palette->type)
     {
     case C256:
@@ -390,7 +405,7 @@ doit (struct filter *f, int flags, int time1)
 static void
 myremovefilter (struct filter *f)
 {
-  struct blurdata *s = (struct blurdata *)f->data;
+  struct blurdata *s = (struct blurdata *) f->data;
   if (s->savedpalette != NULL)
     {
       restorepalette (f->image->palette, s->savedpalette);
@@ -399,8 +414,7 @@ myremovefilter (struct filter *f)
     }
 }
 
-CONST struct filteraction blur_filter =
-{
+CONST struct filteraction blur_filter = {
   "Motionblur",
   "blur",
   0,

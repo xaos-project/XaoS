@@ -23,10 +23,11 @@
 #define PARAMS_H
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
- 
-struct params
+
+  struct params
   {
     CONST char *name;
     int type;
@@ -40,8 +41,8 @@ struct params
 #define P_FLOAT 3
 #define P_HELP 4
 
-int params_parser (int, char **);
-void params_register (CONST struct params *par);
+  int params_parser (int, char **);
+  void params_register (CONST struct params *par);
 
 #ifdef __cplusplus
 }

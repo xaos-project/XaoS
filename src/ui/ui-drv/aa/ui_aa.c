@@ -20,7 +20,7 @@ static void aa_build_menus (void);
 static void aa_remove_menus (void);
 extern unsigned char *aa_chardata;
 extern unsigned char *aa_colordata;
-extern int aa_cursorx,aa_cursory;
+extern int aa_cursorx, aa_cursory;
 
 
 
@@ -32,18 +32,24 @@ aa_print (int x, int y, CONST char *text)
 
 static void
 aa_display (void)
-{ int i;
-  aa_renderpalette (c, useaapalette ? aapalette : palette, &aa_defrenderparams, 0, 0, aa_scrwidth (c), aa_scrheight (c));
-  for(i=0;i<aa_scrwidth(c)*aa_scrheight(c);i++) {
-	  if(aa_colordata[i]!=255) aa_text(c)[i]=aa_chardata[i],aa_attrs(c)[i]=aa_colordata[i];
-  }
+{
+  int i;
+  aa_renderpalette (c, useaapalette ? aapalette : palette,
+		    &aa_defrenderparams, 0, 0, aa_scrwidth (c),
+		    aa_scrheight (c));
+  for (i = 0; i < aa_scrwidth (c) * aa_scrheight (c); i++)
+    {
+      if (aa_colordata[i] != 255)
+	aa_text (c)[i] = aa_chardata[i], aa_attrs (c)[i] = aa_colordata[i];
+    }
 }
 static void
 aa_set_palette (ui_palette pal, int start, int end)
 {
   int i;
   for (i = start; i <= end; i++)
-    aa_setpalette (palette, i, pal[i - start][0], pal[i - start][1], pal[i - start][2]);
+    aa_setpalette (palette, i, pal[i - start][0], pal[i - start][1],
+		   pal[i - start][2]);
   aa_display ();
   aa_flush (c);
 }
@@ -60,8 +66,8 @@ aa_flip_buffers (void)
 static void
 aa_free_buffers (char *b1, char *b2)
 {
-  free(aa_chardata);
-  free(aa_colordata);
+  free (aa_chardata);
+  free (aa_colordata);
   free (secondary);
 }
 
@@ -71,8 +77,8 @@ aa_alloc_buffers (char **b1, char **b2)
   secondary = malloc (aa_imgwidth (c) * aa_imgheight (c));
   *(unsigned char **) b2 = secondary;
   *(unsigned char **) b1 = c->imagebuffer;
-  aa_chardata=malloc(aa_scrwidth(c) * aa_scrheight (c));
-  aa_colordata=malloc(aa_scrwidth(c) * aa_scrheight (c));
+  aa_chardata = malloc (aa_scrwidth (c) * aa_scrheight (c));
+  aa_colordata = malloc (aa_scrwidth (c) * aa_scrheight (c));
   return aa_imgwidth (c);	/* bytes per scanline */
 }
 
@@ -92,7 +98,8 @@ aa_processevents (int wait, int *mx, int *my, int *mb, int *k)
   static int keys;
   do
     {
-      if ((ch = aa_getevent (c, wait)) != AA_NONE && ch != AA_MOUSE && ch != AA_RESIZE && ch < 256)
+      if ((ch = aa_getevent (c, wait)) != AA_NONE && ch != AA_MOUSE
+	  && ch != AA_RESIZE && ch < 256)
 	ui_key (ch);
       switch (ch)
 	{
@@ -170,9 +177,11 @@ static float aa_gamma, dimmul, boldmul;
 static int dithering[3];
 static int randomval = 0;
 static int masks[] =
-{AA_NORMAL_MASK, AA_DIM_MASK, AA_BOLD_MASK, AA_BOLDFONT_MASK, AA_REVERSE_MASK, AA_ALL, AA_EIGHT};
+  { AA_NORMAL_MASK, AA_DIM_MASK, AA_BOLD_MASK, AA_BOLDFONT_MASK,
+  AA_REVERSE_MASK, AA_ALL, AA_EIGHT
+};
 #ifdef DESTICKY
-extern int euid,egid;
+extern int euid, egid;
 #endif
 static int
 aa_initialize (void)
@@ -184,7 +193,8 @@ aa_initialize (void)
     {
       for (y = 0; aa_fonts[y] != NULL; y++)
 	{
-	  if (!strcmp (deffont, aa_fonts[y]->name) || !strcmp (deffont, aa_fonts[y]->shortname))
+	  if (!strcmp (deffont, aa_fonts[y]->name)
+	      || !strcmp (deffont, aa_fonts[y]->shortname))
 	    {
 	      aa_defparams.font = aa_fonts[y];
 	      break;
@@ -246,12 +256,12 @@ aa_initialize (void)
     aa_defrenderparams.inversion = 1;
 
 #ifdef DESTICKY
-  seteuid (euid);               /* We need supervisor rights to open mouse. */
+  seteuid (euid);		/* We need supervisor rights to open mouse. */
   setegid (egid);
 #endif
   c = aa_autoinit (&aa_defparams);
 #ifdef DESTICKY
-  seteuid (getuid ());          /* Don't need supervisor rights anymore. */
+  seteuid (getuid ());		/* Don't need supervisor rights anymore. */
   setegid (getgid ());
 #endif
 
@@ -364,18 +374,21 @@ aa_save5 (void)
       sleep (3);
       return;
     }
-  memcpy (sc->imagebuffer, c->imagebuffer, (aa_imgwidth (c) - 1) * aa_imgheight (c));
-  aa_renderpalette (sc, useaapalette ? aapalette : palette, &aa_defrenderparams, 0, 0, aa_scrwidth (c), aa_scrheight (c));
+  memcpy (sc->imagebuffer, c->imagebuffer,
+	  (aa_imgwidth (c) - 1) * aa_imgheight (c));
+  aa_renderpalette (sc, useaapalette ? aapalette : palette,
+		    &aa_defrenderparams, 0, 0, aa_scrwidth (c),
+		    aa_scrheight (c));
   aa_flush (sc);
   aa_close (sc);
 }
 
-static void 
+static void
 aa_swinversion (struct uih_context *c)
 {
   aa_defrenderparams.inversion ^= 1;
 }
-static int 
+static int
 aa_inversion (struct uih_context *c)
 {
   return (aa_defrenderparams.inversion);
@@ -392,7 +405,7 @@ aa_setXpalette (struct uih_context *c, int m)
       return;
     }
   useaapalette = 1;
-  aacurpalette=m;
+  aacurpalette = m;
   s = 1 << m;
   s--;
   for (i = 0; i < 255; i++)
@@ -400,22 +413,22 @@ aa_setXpalette (struct uih_context *c, int m)
       aapalette[i] = (i & (s)) * 255 / s;
     }
 }
-static int 
+static int
 aa_getpalette (struct uih_context *c, int m)
 {
   if (!useaapalette)
     return (!m);
   return (m == aacurpalette);
 }
-static void 
+static void
 aa_dither (struct uih_context *c, int m)
 {
   aa_defrenderparams.dither = m;
 }
-static int 
+static int
 aa_getdither (struct uih_context *c, int mode)
 {
-  return ((int)aa_defrenderparams.dither == (int)mode);
+  return ((int) aa_defrenderparams.dither == (int) mode);
 }
 
 
@@ -424,8 +437,7 @@ aa_sfont (struct uih_context *co, int i)
 {
   aa_setfont (c, aa_fonts[i]);
 }
-CONST static char * CONST name[] =
-{
+CONST static char *CONST name[] = {
   "normal characters     ",
   "half bright(dim)      ",
   "double bright(bold)   ",
@@ -435,8 +447,7 @@ CONST static char * CONST name[] =
   "non ascii characters  ",
   "leave menu",
 };
-CONST static char * CONST ttext[] =
-{
+CONST static char *CONST ttext[] = {
   "Use XaoS palette",
   "Black and white stripes",
   "4 gray palette",
@@ -446,8 +457,7 @@ CONST static char * CONST ttext[] =
   "128 gray palette",
   "256 gray palette"
 };
-static CONST int attribs[] =
-{
+static CONST int attribs[] = {
   AA_NORMAL_MASK,
   AA_DIM_MASK,
   AA_BOLD_MASK,
@@ -462,7 +472,7 @@ static void
 aa_swattr (struct uih_context *co, int m)
 {
   int mask;
-  if (m < (int)MYNATTRS - 1)
+  if (m < (int) MYNATTRS - 1)
     {
       mask = c->params.supported;
       mask ^= attribs[m];
@@ -470,12 +480,12 @@ aa_swattr (struct uih_context *co, int m)
       ui_menu ("aa_attr");
     }
 }
-static int 
+static int
 aa_getattr (struct uih_context *co, int m)
 {
   return (c->params.supported & attribs[m]);
 }
-static int 
+static int
 aa_getsave3 (struct uih_context *c, int m)
 {
   return (mask & attribs[m]);
@@ -483,7 +493,7 @@ aa_getsave3 (struct uih_context *c, int m)
 static void
 aa_save3 (struct uih_context *co, int m)
 {
-  if (m < (int)MYNATTRS - 1)
+  if (m < (int) MYNATTRS - 1)
     {
       mask ^= attribs[m];
       mask &= aa_formats[driver]->supported;
@@ -513,31 +523,38 @@ aa_save (struct uih_context *c, int m)
 }
 
 #define UI (MENUFLAG_NOOPTION|MENUFLAG_NOPLAY)
-static CONST menuitem menuitems[] =
-{
-  SUBMENU("file", NULL, "Save as text file", "aa_format"),
-  SUBMENU("ui", NULL, "Attributes", "aa_attr"),
-  SUBMENU("ui", NULL, "Font", "aa_font"),
-  MENUNOPCB("ui", NULL, "Inversion","aainversion",UI, aa_swinversion, aa_inversion),
-  SUBMENU("ui", NULL, "Dithering mode", "aa_dithering"),
-  SUBMENU("", NULL, "Font for saved file", "aa_save2"),
-  SUBMENU("", NULL, "Save attributes", "aa_save3"),
-  SUBMENU("palettemenu", NULL, "Text palette", "aa_palette"),
+static CONST menuitem menuitems[] = {
+  SUBMENU ("file", NULL, "Save as text file", "aa_format"),
+  SUBMENU ("ui", NULL, "Attributes", "aa_attr"),
+  SUBMENU ("ui", NULL, "Font", "aa_font"),
+  MENUNOPCB ("ui", NULL, "Inversion", "aainversion", UI, aa_swinversion,
+	     aa_inversion),
+  SUBMENU ("ui", NULL, "Dithering mode", "aa_dithering"),
+  SUBMENU ("", NULL, "Font for saved file", "aa_save2"),
+  SUBMENU ("", NULL, "Save attributes", "aa_save3"),
+  SUBMENU ("palettemenu", NULL, "Text palette", "aa_palette"),
 };
 
 static menuitem *fontmenus;
 static menuitem *fontmenus2;
 static menuitem *formatmenus;
 static int nfonts, nformats;
-static void 
+static void
 aa_build_menus ()
 {
   int i;
   menu_add (menuitems, NITEMS (menuitems));
-  menu_genernumbered (sizeof (ttext) / sizeof (char *), "aa_palette", ttext, NULL, MENU_INT, MENUFLAG_RADIO, aa_setXpalette, aa_getpalette,"palettemenu");
-  menu_genernumbered (AA_DITHERTYPES, "aa_dithering", (CONST char *CONST *CONST )aa_dithernames, NULL, MENU_INT, MENUFLAG_RADIO, aa_dither, aa_getdither,"dither");
-  menu_genernumbered (MYNATTRS, "aa_attr", name, NULL, MENU_INT, MENUFLAG_RADIO, aa_swattr, aa_getattr,"attribute");
-  menu_genernumbered (MYNATTRS, "aa_save3", name, NULL, MENU_INT, MENUFLAG_RADIO, aa_save3, aa_getsave3,"save");
+  menu_genernumbered (sizeof (ttext) / sizeof (char *), "aa_palette", ttext,
+		      NULL, MENU_INT, MENUFLAG_RADIO, aa_setXpalette,
+		      aa_getpalette, "palettemenu");
+  menu_genernumbered (AA_DITHERTYPES, "aa_dithering",
+		      (CONST char *CONST * CONST) aa_dithernames, NULL,
+		      MENU_INT, MENUFLAG_RADIO, aa_dither, aa_getdither,
+		      "dither");
+  menu_genernumbered (MYNATTRS, "aa_attr", name, NULL, MENU_INT,
+		      MENUFLAG_RADIO, aa_swattr, aa_getattr, "attribute");
+  menu_genernumbered (MYNATTRS, "aa_save3", name, NULL, MENU_INT,
+		      MENUFLAG_RADIO, aa_save3, aa_getsave3, "save");
   for (i = 0; aa_fonts[i] != NULL; i++);
   nfonts = i;
   fontmenus = malloc (sizeof (menuitem) * i);
@@ -545,15 +562,15 @@ aa_build_menus ()
   for (i = 0; aa_fonts[i] != NULL; i++)
     {
       char s[256];
-      sprintf(s,"font%i%s",i,aa_fonts[i]->shortname);
+      sprintf (s, "font%i%s", i, aa_fonts[i]->shortname);
       fontmenus[i].name = aa_fonts[i]->name;
-      fontmenus[i].shortname = strdup(s);
+      fontmenus[i].shortname = strdup (s);
       fontmenus[i].menuname = "aa_font";
       fontmenus[i].key = NULL;
       fontmenus[i].type = MENU_INT;
       fontmenus[i].flags = UI;
       fontmenus[i].iparam = i;
-      fontmenus[i].function = (void (*)(void))aa_sfont;
+      fontmenus[i].function = (void (*)(void)) aa_sfont;
       fontmenus2[i].name = aa_fonts[i]->name;
       fontmenus2[i].shortname = fontmenus[i].shortname;
       fontmenus2[i].menuname = "aa_save2";
@@ -561,7 +578,7 @@ aa_build_menus ()
       fontmenus2[i].type = MENU_INT;
       fontmenus2[i].flags = UI;
       fontmenus2[i].iparam = i;
-      fontmenus2[i].function = (void (*)(void))aa_save2;
+      fontmenus2[i].function = (void (*)(void)) aa_save2;
     }
   menu_add (fontmenus, nfonts);
   menu_add (fontmenus2, nfonts);
@@ -577,11 +594,11 @@ aa_build_menus ()
       formatmenus[i].type = MENU_INT;
       formatmenus[i].flags = UI;
       formatmenus[i].iparam = i;
-      formatmenus[i].function = (void (*)(void))aa_save;
+      formatmenus[i].function = (void (*)(void)) aa_save;
     }
   menu_add (formatmenus, nformats);
 }
-static void 
+static void
 aa_remove_menus ()
 {
   int i;
@@ -592,38 +609,44 @@ aa_remove_menus ()
   menu_delete (menuitems, NITEMS (menuitems));
   menu_delete (fontmenus, nfonts);
   menu_delete (fontmenus2, nfonts);
-  free(fontmenus2);
+  free (fontmenus2);
   menu_delete (formatmenus, nformats);
-  free(formatmenus);
+  free (formatmenus);
   for (i = 0; aa_fonts[i] != NULL; i++)
     {
-      free((char *)fontmenus[i].shortname);
+      free ((char *) fontmenus[i].shortname);
     }
-  free(fontmenus);
+  free (fontmenus);
 }
-static int cursorvisible=1;
+static int cursorvisible = 1;
 static void
 aa_fflush (void)
 {
-  if(aa_cursorx<0) {
-	  if(cursorvisible) {
-	  aa_gotoxy(c,0,0);
-	  aa_hidecursor(c);
-	  cursorvisible=0;
-	  }
-  } else {
-	  aa_gotoxy(c,aa_cursorx,aa_cursory);
-	  if(!cursorvisible) aa_showcursor(c),cursorvisible=1;
-  }
+  if (aa_cursorx < 0)
+    {
+      if (cursorvisible)
+	{
+	  aa_gotoxy (c, 0, 0);
+	  aa_hidecursor (c);
+	  cursorvisible = 0;
+	}
+    }
+  else
+    {
+      aa_gotoxy (c, aa_cursorx, aa_cursory);
+      if (!cursorvisible)
+	aa_showcursor (c), cursorvisible = 1;
+    }
   aa_flush (c);
 }
 
-static CONST struct params params[] =
-{
-  {"", P_HELP, NULL,"AA driver options:"},
+static CONST struct params params[] = {
+  {"", P_HELP, NULL, "AA driver options:"},
   {"-aadriver", P_STRING, &aadriver, "Select display driver used by aa-lib"},
-  {"-kbddriver", P_STRING, &kbddriver, "Select keyboard driver used by aa-lib"},
-  {"-mousedriver", P_STRING, &mousedriver, "Select keyboard driver used by aa-lib"},
+  {"-kbddriver", P_STRING, &kbddriver,
+   "Select keyboard driver used by aa-lib"},
+  {"-mousedriver", P_STRING, &mousedriver,
+   "Select keyboard driver used by aa-lib"},
   {"-font", P_STRING, &deffont, "Select font"},
   {"-width", P_NUMBER, &width, "Set width"},
   {"-height", P_NUMBER, &height, "Set height"},
@@ -635,24 +658,33 @@ static CONST struct params params[] =
   {"-recheight", P_NUMBER, &recheight, "Set recommended height"},
   {"-normal", P_SWITCH, enable, "enable usage of narmal characters"},
   {"-nonormal", P_SWITCH, disable, "disable usage of narmal characters"},
-  {"-dim", P_SWITCH, enable + 1, "enable usage of dim(half bright) characters"},
-  {"-nodim", P_SWITCH, disable + 1, "disable usage of dim(half bright) characters"},
-  {"-bold", P_SWITCH, enable + 2, "enable usage of bold(double bright) characters"},
-  {"-nobold", P_SWITCH, disable + 2, "disable usage of bold(double bright) characters"},
+  {"-dim", P_SWITCH, enable + 1,
+   "enable usage of dim(half bright) characters"},
+  {"-nodim", P_SWITCH, disable + 1,
+   "disable usage of dim(half bright) characters"},
+  {"-bold", P_SWITCH, enable + 2,
+   "enable usage of bold(double bright) characters"},
+  {"-nobold", P_SWITCH, disable + 2,
+   "disable usage of bold(double bright) characters"},
   {"-boldfont", P_SWITCH, enable + 3, "enable usage of boldfont characters"},
-  {"-noboldfont", P_SWITCH, disable + 3, "disable usage of boldfont characters"},
+  {"-noboldfont", P_SWITCH, disable + 3,
+   "disable usage of boldfont characters"},
   {"-reverse", P_SWITCH, enable + 4, "enable usage of reversed characters"},
-  {"-noreverse", P_SWITCH, disable + 4, "disable usage of reversed characters"},
+  {"-noreverse", P_SWITCH, disable + 4,
+   "disable usage of reversed characters"},
   {"-all", P_SWITCH, enable + 5, "enable usage of reserved characters"},
   {"-eight", P_SWITCH, enable + 6, "enable usage of non ansii characters"},
-{"-extended", P_SWITCH, &extended, "enable usage of extended character set"},
+  {"-extended", P_SWITCH, &extended,
+   "enable usage of extended character set"},
   {"-inverse", P_SWITCH, &inverse, "enable inverse"},
   {"-bright", P_NUMBER, &bright, "set bright (0-255)"},
   {"-contrast", P_NUMBER, &contrast, "set contrast (0-255)"},
   {"-gamma", P_FLOAT, &aa_gamma, "set famma (0-1)"},
   {"-nodither", P_SWITCH, dithering, "Disable dithering"},
-  {"-floyd_steinberg", P_SWITCH, dithering + 2, "Enable floyd steinberg dithering"},
-  {"-error_distribution", P_SWITCH, dithering + 1, "Enable error distribution dithering"},
+  {"-floyd_steinberg", P_SWITCH, dithering + 2,
+   "Enable floyd steinberg dithering"},
+  {"-error_distribution", P_SWITCH, dithering + 1,
+   "Enable error distribution dithering"},
   {"-random", P_NUMBER, &randomval, "Set random dithering value"},
   {"-dimmul", P_FLOAT, &dimmul, "Multiply factor for dim color (5.3)"},
   {"-boldmul", P_FLOAT, &boldmul, "Multiply factor for bold color (5.3)"},
@@ -660,8 +692,7 @@ static CONST struct params params[] =
   {NULL, 0, NULL, NULL}
 };
 
-struct ui_driver aalib_driver =
-{
+struct ui_driver aalib_driver = {
   "aa",
   aa_initialize,
   aa_getsize,
@@ -685,7 +716,7 @@ struct ui_driver aalib_driver =
   0, 0,				/*resolution of screen for windowed systems */
   UI_C256,			/*Image type */
   0, 255, 255			/*start, end of palette and maximum allocatable */
-				/*entries */
+    /*entries */
 };
 
 #endif

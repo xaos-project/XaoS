@@ -28,33 +28,27 @@ unsigned char *aa_chardata;
 unsigned char *aa_colordata;
 int aa_cursorx, aa_cursory;
 static CONST struct xfont *currentfont;
-CONST struct xfont xaafont =
-{
+CONST struct xfont xaafont = {
   NULL,
   2, 1, 2
 };
-CONST struct xfont xsmallfont =
-{
+CONST struct xfont xsmallfont = {
   xfont14,
   8, 14, 8
 };
-CONST struct xfont xbigfont =
-{
+CONST struct xfont xbigfont = {
   xfont16,
   9, 16, 8
 };
-CONST struct xfont xsmallfontil1 =
-{
+CONST struct xfont xsmallfontil1 = {
   xfont8il1,
   8, 8, 8
 };
-CONST struct xfont xmedfontil1 =
-{
+CONST struct xfont xmedfontil1 = {
   xfont14il1,
   8, 14, 8
 };
-CONST struct xfont xbigfontil1 =
-{
+CONST struct xfont xbigfontil1 = {
   xfont16il1,
   9, 16, 8
 };
@@ -156,7 +150,7 @@ drawchar1 (struct image *img, int x, int y, int fgcolor, unsigned char letter)
 	}
     }
 }
-static void 
+static void
 hline1 (struct image *img, int x, int y, int l, int color)
 {
   int x2 = x + l;
@@ -228,7 +222,8 @@ vline1 (struct image *img, int x, int y, int l, int color)
     }
 }
 static inline void
-rectangle1 (struct image *img, int x, int y, int width, int height, int fgcolor)
+rectangle1 (struct image *img, int x, int y, int width, int height,
+	    int fgcolor)
 {
   height += y;
   while (y < height)
@@ -383,8 +378,10 @@ skip (CONST char *text)
     i++, text++;
   return (i);
 }
+
 int
-xprint (struct image *image, CONST struct xfont *current, int x, int y, CONST char *text, int fgcolor, int bgcolor, int mode)
+xprint (struct image *image, CONST struct xfont *current, int x, int y,
+	CONST char *text, int fgcolor, int bgcolor, int mode)
 {
   int i = 0;
   int aacolor = 0;
@@ -490,6 +487,7 @@ xprint (struct image *image, CONST struct xfont *current, int x, int y, CONST ch
     }
   return i + skip (text);
 }
+
 int
 xtextwidth (CONST struct xfont *font, CONST char *text)
 {
@@ -499,6 +497,7 @@ xtextwidth (CONST struct xfont *font, CONST char *text)
     return (i * font->width);
   return (i * font->width + 1);
 }
+
 void
 xhline (struct image *image, int x, int y, int width, int fgcolor)
 {
@@ -574,10 +573,12 @@ xvline (struct image *image, int x, int y, int height, int fgcolor)
     }
 }
 void
-xrectangle (struct image *image, int x, int y, int width, int height, int fgcolor)
+xrectangle (struct image *image, int x, int y, int width, int height,
+	    int fgcolor)
 {
   /*Do some clipping */
-  if (x + width < 0 || y + height < 0 || y >= image->height || x >= image->width)
+  if (x + width < 0 || y + height < 0 || y >= image->height
+      || x >= image->width)
     return;
   if (x + width >= image->width)
     width = image->width - x;
@@ -648,6 +649,7 @@ restorehline (struct image *i, char *c, int x1, int y, int x2)
     start = x1 * i->bytesperpixel, end = (x2 + 1) * i->bytesperpixel;
   memcpy (i->currlines[y] + start, c, end - start);
 }
+
 #define  __clipx1 0
 #define  __clipy1 0
 #define  __clipx2 (img->width-2)
@@ -675,6 +677,7 @@ regioncode (struct image *img, const int x, const int y)
     result++;
   return result;
 }
+
 #define swap(x, y) { int temp = x; x = y; y = temp; }
 #define doclip(ret)  \
   for (;;)   \
@@ -869,6 +872,7 @@ xsaveline (struct image *img, int x1, int y1, int x2, int y2)
     }
   return NULL;
 }
+
 void
 xprepareimage (struct image *img)
 {
@@ -879,6 +883,7 @@ xprepareimage (struct image *img)
   aa_cursorx = -1;
   aa_cursory = -1;
 }
+
 void
 xdrawcursor (struct image *img, int x, int y, int color, int height)
 {

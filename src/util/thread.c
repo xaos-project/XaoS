@@ -4,8 +4,7 @@
 #endif
 #include <xthread.h>
 #ifndef __BEOS__
-struct taskinfo definfo =
-{
+struct taskinfo definfo = {
   0,
 };
 #ifndef nthreads
@@ -105,6 +104,7 @@ control_routine (void *i)
     }
   return NULL;
 }
+
 void
 pth_init (int nthreads1)
 {
@@ -146,7 +146,8 @@ pth_init (int nthreads1)
   nfinished = 0;
   for (i = 0; i < nthreads - 1; i++)
     {
-      if (pthread_create (&infos[i + 1].id, &attr, control_routine, infos + i + 1))
+      if (pthread_create
+	  (&infos[i + 1].id, &attr, control_routine, infos + i + 1))
 	{
 	  nthreads = i + 1;
 	  break;
@@ -156,6 +157,7 @@ pth_init (int nthreads1)
   if (nthreads != 1)
     ethreads = 1;
 }
+
 void
 pth_synchronize ()
 {
@@ -200,6 +202,7 @@ pth_bgjob (xfunction f, void *d)
   pthread_cond_signal (&startcond);
   pthread_mutex_unlock (&startcondmutex);
 }
+
 void
 pth_function (xfunction f, void *d, int r)
 {
@@ -220,6 +223,7 @@ pth_function (xfunction f, void *d, int r)
 
   function (data, infos, getrange1 (range, 0), getrange2 (range, 0));
 }
+
 void
 pth_uninit ()
 {

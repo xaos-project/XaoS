@@ -43,8 +43,7 @@ static BITMAP *mouse_pointer;
 static int mouse;
 static int bill;
 
-static unsigned char mouse_pointer_data[256] =
-{
+static unsigned char mouse_pointer_data[256] = {
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 1, 0, 0,
@@ -63,7 +62,7 @@ static unsigned char mouse_pointer_data[256] =
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0,
 };
 
-void 
+void
 mkwaitsprite (void)
 {
   int i, col;
@@ -110,11 +109,12 @@ mkwaitsprite (void)
 /*make startup faster and executable size smaller */
 int _stklen = 81920;
 /*int _crt0_startup_flags = _CRT0_FLAG_LOCK_MEMORY; */
-void 
+void
 __crt0_load_environment_file (char *_app_name)
 {
   return;
 }
+
 /*
    void __crt0_setup_arguments(void)
    {
@@ -132,18 +132,18 @@ __crt0_glob_function (char *_arg)
 
 
 
-static void 
+static void
 dog_print (int x, int y, CONST char *text)
 {
   if (mouse)
     show_mouse (NULL);
-  text_mode(0);
+  text_mode (0);
   textout (screen, font, text, x, y, white);
   if (mouse)
     show_mouse (mouseb);
 }
 
-static void 
+static void
 dog_display ()
 {
   if (mouse)
@@ -154,15 +154,12 @@ dog_display ()
 }
 
 
-void 
+void
 set_gui_colors ()
 {
-  static RGB black =
-  {0, 0, 0};
-  static RGB grey =
-  {48, 48, 48};
-  static RGB white =
-  {63, 63, 63};
+  static RGB black = { 0, 0, 0 };
+  static RGB grey = { 48, 48, 48 };
+  static RGB white = { 63, 63, 63 };
 
   set_color (0, &black);
   set_color (16, &black);
@@ -174,7 +171,7 @@ set_gui_colors ()
 
 
 
-static void 
+static void
 dog_set_color (ui_palette c, int start, int end)
 {
   int i;
@@ -187,7 +184,7 @@ dog_set_color (ui_palette c, int start, int end)
   set_palette (palette);
 }
 
-static void 
+static void
 fix_palette ()
 {
   int i;
@@ -206,7 +203,7 @@ fix_palette ()
 
 }
 
-static void 
+static void
 dog_flip_buffers ()
 {
   currentbuff ^= 1;
@@ -214,7 +211,7 @@ dog_flip_buffers ()
 
 
 
-static void 
+static void
 dog_get_size (int *wi, int *he)
 {
   static int w = 320, c = GFX_AUTODETECT, h = 200;
@@ -246,7 +243,7 @@ again:
     {
     case 8:
       dog_driver.imagetype = UI_C256, white = 255;
-      white=1;
+      white = 1;
       break;
     case 15:
       dog_driver.imagetype = UI_TRUECOLOR16, white = 0xffff;
@@ -287,7 +284,7 @@ again:
 
 
 
-static void 
+static void
 dog_uninitialise ()
 {
 
@@ -299,19 +296,22 @@ dog_uninitialise ()
 }
 
 
-void 
+void
 dog_free (char *b1, char *b2)
 {
   destroy_bitmap (buffers[0]);
   destroy_bitmap (buffers[1]);
 }
-int 
+
+int
 dog_alloc (char **b1, char **b2)
 {
   buffers[0] = create_bitmap (SCREEN_W, SCREEN_H);
-  if(buffers[0]==NULL) return 0;
+  if (buffers[0] == NULL)
+    return 0;
   buffers[1] = create_bitmap (SCREEN_W, SCREEN_H);
-  if(buffers[1]==NULL) return 0;
+  if (buffers[1] == NULL)
+    return 0;
   currentbuff = 0;
   *b1 = buffers[0]->line[0];
   *b2 = buffers[1]->line[0];
@@ -320,7 +320,7 @@ dog_alloc (char **b1, char **b2)
 
 
 
-static void 
+static void
 dog_processevents (int wait, int *x, int *y, int *b, int *k)
 {
   *x = mouse_x;
@@ -328,21 +328,42 @@ dog_processevents (int wait, int *x, int *y, int *b, int *k)
   *b = 0;
   while (keypressed ())
     {
-      unsigned int c=readkey();
-      switch(c>>8) {
-      case KEY_UP:c=ui_key(UIKEY_UP);break;
-      case KEY_DOWN:c=ui_key(UIKEY_DOWN);break;
-      case KEY_LEFT:c=ui_key(UIKEY_LEFT);break;
-      case KEY_RIGHT:c=ui_key(UIKEY_RIGHT);break;
-      case KEY_ESC:c=ui_key(UIKEY_ESC);break;
-      case KEY_BACKSPACE:c=ui_key(UIKEY_BACKSPACE);break;
-      case KEY_HOME:c=ui_key(UIKEY_HOME);break;
-      case KEY_END:c=ui_key(UIKEY_END);break;
-      case KEY_PGUP:c=ui_key(UIKEY_PGUP);break;
-      case KEY_PGDN:c=ui_key(UIKEY_PGDOWN);break;
-      default:
-      c=ui_key((unsigned char)c);
-      }
+      unsigned int c = readkey ();
+      switch (c >> 8)
+	{
+	case KEY_UP:
+	  c = ui_key (UIKEY_UP);
+	  break;
+	case KEY_DOWN:
+	  c = ui_key (UIKEY_DOWN);
+	  break;
+	case KEY_LEFT:
+	  c = ui_key (UIKEY_LEFT);
+	  break;
+	case KEY_RIGHT:
+	  c = ui_key (UIKEY_RIGHT);
+	  break;
+	case KEY_ESC:
+	  c = ui_key (UIKEY_ESC);
+	  break;
+	case KEY_BACKSPACE:
+	  c = ui_key (UIKEY_BACKSPACE);
+	  break;
+	case KEY_HOME:
+	  c = ui_key (UIKEY_HOME);
+	  break;
+	case KEY_END:
+	  c = ui_key (UIKEY_END);
+	  break;
+	case KEY_PGUP:
+	  c = ui_key (UIKEY_PGUP);
+	  break;
+	case KEY_PGDN:
+	  c = ui_key (UIKEY_PGDOWN);
+	  break;
+	default:
+	  c = ui_key ((unsigned char) c);
+	}
       if (c == 2)
 	return;
     }
@@ -352,11 +373,14 @@ dog_processevents (int wait, int *x, int *y, int *b, int *k)
     *b |= BUTTON3;
   if (mouse_b & 4)
     *b |= BUTTON2;
-  *k = (key[KEY_LEFT] != 0) + 2 * (key[KEY_RIGHT] != 0) + 4 * (key[KEY_UP] != 0) + 8 * (key[KEY_DOWN] != 0);
+  *k =
+    (key[KEY_LEFT] != 0) + 2 * (key[KEY_RIGHT] != 0) + 4 * (key[KEY_UP] !=
+							    0) +
+    8 * (key[KEY_DOWN] != 0);
 
 }
 
-static void 
+static void
 dog_getmouse (int *x, int *y, int *b)
 {
   *x = mouse_x;
@@ -372,7 +396,7 @@ dog_getmouse (int *x, int *y, int *b)
 
 
 
-int 
+int
 dog_init ()
 {
   if (bill)
@@ -394,13 +418,12 @@ dog_init ()
 }
 
 
-static CONST struct params params[] =
-{
-  {"", P_HELP, NULL,"DOS driver options:"},
+static CONST struct params params[] = {
+  {"", P_HELP, NULL, "DOS driver options:"},
   {"-i_love_bill", P_SWITCH, &bill, "Enable windows friendly mode"},
   {NULL, 0, NULL, NULL}
 };
-void 
+void
 dog_setmouse (int mode)
 {
   if (mouse)
@@ -418,8 +441,7 @@ dog_setmouse (int mode)
     }
 }
 
-struct ui_driver dog_driver =
-{
+struct ui_driver dog_driver = {
   "MS-DOG",
   dog_init,
   dog_get_size,
@@ -438,7 +460,8 @@ struct ui_driver dog_driver =
   8,
   8,
   params,
-  FULLSCREEN | UPDATE_AFTER_RESIZE | PALETTE_ROTATION | ROTATE_INSIDE_CALCULATION | RESIZE_COMMAND,
+  FULLSCREEN | UPDATE_AFTER_RESIZE | PALETTE_ROTATION |
+    ROTATE_INSIDE_CALCULATION | RESIZE_COMMAND,
   0.0, 0.0,
   0, 0,
   UI_C256,

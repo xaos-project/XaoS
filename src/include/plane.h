@@ -26,7 +26,8 @@
 #include <zoom.h>
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 
@@ -38,13 +39,12 @@ extern "C" {
 #define P_INVLAMBDA 4
 #define P_TRANLAMBDA 5
 #define P_MEREBERG 6
-extern void 
-recalculate (int plane, number_t *, number_t *) 
-REGISTERS (3) CONSTF;
+  extern void
+    recalculate (int plane, number_t *, number_t *) REGISTERS (3) CONSTF;
 
-extern CONST char * CONST planename[];
+  extern CONST char *CONST planename[];
 
 #ifdef __cplusplus
 }
 #endif
-#endif /* PLANE_H */
+#endif				/* PLANE_H */

@@ -28,15 +28,15 @@
 #include "optim.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*****************************************************************************/
 
-pascal	OSErr	FSMakeFSSpecCompat(short vRefNum,
-								   long dirID,
-								   ConstStr255Param fileName,
-								   FSSpec *spec);
+  pascal OSErr FSMakeFSSpecCompat (short vRefNum,
+				   long dirID,
+				   ConstStr255Param fileName, FSSpec * spec);
 /*	¦ Initialize a FSSpec record.
 	The FSMakeFSSpecCompat function fills in the fields of an FSSpec record.
 	If the file system can't create the FSSpec, then the compatibility code
@@ -62,9 +62,8 @@ pascal	OSErr	FSMakeFSSpecCompat(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpOpenDFCompat(const FSSpec *spec,
-								char permission,
-								short *refNum);
+  pascal OSErr FSpOpenDFCompat (const FSSpec * spec,
+				char permission, short *refNum);
 /*	¦ Open a file's data fork.
 	The FSpOpenDFCompat function opens the data fork of the file specified
 	by spec.
@@ -100,9 +99,8 @@ pascal	OSErr	FSpOpenDFCompat(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpOpenRFCompat(const FSSpec *spec,
-								char permission,
-								short *refNum);
+  pascal OSErr FSpOpenRFCompat (const FSSpec * spec,
+				char permission, short *refNum);
 /*	¦ Open a file's resource fork.
 	The FSpOpenRFCompat function opens the resource fork of the file
 	specified by spec.
@@ -135,10 +133,9 @@ pascal	OSErr	FSpOpenRFCompat(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpCreateCompat(const FSSpec *spec,
-								OSType creator,
-								OSType fileType,
-								ScriptCode scriptTag);
+  pascal OSErr FSpCreateCompat (const FSSpec * spec,
+				OSType creator,
+				OSType fileType, ScriptCode scriptTag);
 /*	¦ Create a new file.
 	The FSpCreateCompat function creates a new file with the specified
 	type, creator, and script code.
@@ -170,9 +167,8 @@ pascal	OSErr	FSpCreateCompat(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpDirCreateCompat(const FSSpec *spec,
-								   ScriptCode scriptTag,
-								   long *createdDirID);
+  pascal OSErr FSpDirCreateCompat (const FSSpec * spec,
+				   ScriptCode scriptTag, long *createdDirID);
 /*	¦ Create a new directory.
 	The FSpDirCreateCompat function creates a new directory and returns the
 	directory ID of the newDirectory.
@@ -202,7 +198,7 @@ pascal	OSErr	FSpDirCreateCompat(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpDeleteCompat(const FSSpec *spec);
+  pascal OSErr FSpDeleteCompat (const FSSpec * spec);
 /*	¦ Delete a file or directory.
 	The FSpDeleteCompat function deletes a file or directory.
 	
@@ -226,8 +222,7 @@ pascal	OSErr	FSpDeleteCompat(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpGetFInfoCompat(const FSSpec *spec,
-								  FInfo *fndrInfo);
+  pascal OSErr FSpGetFInfoCompat (const FSSpec * spec, FInfo * fndrInfo);
 /*	¦ Get the finder information for a file.
 	The FSpGetFInfoCompat function gets the finder information for a file.
 
@@ -252,8 +247,8 @@ pascal	OSErr	FSpGetFInfoCompat(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpSetFInfoCompat(const FSSpec *spec,
-								  const FInfo *fndrInfo);
+  pascal OSErr FSpSetFInfoCompat (const FSSpec * spec,
+				  const FInfo * fndrInfo);
 /*	¦ Set the finder information for a file.
 	The FSpSetFInfoCompat function sets the finder information for a file.
 
@@ -280,7 +275,7 @@ pascal	OSErr	FSpSetFInfoCompat(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpSetFLockCompat(const FSSpec *spec);
+  pascal OSErr FSpSetFLockCompat (const FSSpec * spec);
 /*	¦ Lock a file.
 	The FSpSetFLockCompat function locks a file.
 
@@ -301,7 +296,7 @@ pascal	OSErr	FSpSetFLockCompat(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpRstFLockCompat(const FSSpec *spec);
+  pascal OSErr FSpRstFLockCompat (const FSSpec * spec);
 /*	¦ Unlock a file.
 	The FSpRstFLockCompat function unlocks a file.
 
@@ -322,8 +317,8 @@ pascal	OSErr	FSpRstFLockCompat(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpRenameCompat(const FSSpec *spec,
-								ConstStr255Param newName);
+  pascal OSErr FSpRenameCompat (const FSSpec * spec,
+				ConstStr255Param newName);
 /*	¦ Rename a file or directory.
 	The FSpRenameCompat function renames a file or directory.
 
@@ -351,8 +346,7 @@ pascal	OSErr	FSpRenameCompat(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpCatMoveCompat(const FSSpec *source,
-								 const FSSpec *dest);
+  pascal OSErr FSpCatMoveCompat (const FSSpec * source, const FSSpec * dest);
 /*	¦ Move a file or directory to a different location on on the same volume.
 	The FSpCatMoveCompat function moves a file or directory to a different
 	location on on the same volume.
@@ -382,8 +376,8 @@ pascal	OSErr	FSpCatMoveCompat(const FSSpec *source,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpExchangeFilesCompat(const FSSpec *source,
-									   const FSSpec *dest);
+  pascal OSErr FSpExchangeFilesCompat (const FSSpec * source,
+				       const FSSpec * dest);
 /*	¦ Exchange the data stored in two files on the same volume.
 	The FSpExchangeFilesCompat function swaps the data in two files by
 	changing the information in the volume's catalog and, if the files
@@ -414,8 +408,8 @@ pascal	OSErr	FSpExchangeFilesCompat(const FSSpec *source,
 
 /*****************************************************************************/
 
-pascal	short	FSpOpenResFileCompat(const FSSpec *spec,
-									 SignedByte permission);
+  pascal short FSpOpenResFileCompat (const FSSpec * spec,
+				     SignedByte permission);
 /*	¦ Open a file's resource file.
 	The FSpOpenResFileCompat function opens the resource file specified
 	by spec.
@@ -446,10 +440,9 @@ pascal	short	FSpOpenResFileCompat(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	void	FSpCreateResFileCompat(const FSSpec *spec,
-									   OSType creator,
-									   OSType fileType,
-									   ScriptCode scriptTag);
+  pascal void FSpCreateResFileCompat (const FSSpec * spec,
+				      OSType creator,
+				      OSType fileType, ScriptCode scriptTag);
 /*	¦ Create a resource file.
 	The FSpCreateResFileCompat function creates a new resource file with
 	the specified type, creator, and script code.
@@ -484,5 +477,4 @@ pascal	void	FSpCreateResFileCompat(const FSSpec *spec,
 
 #include "optimend.h"
 
-#endif	/* __FSPCOMPAT__ */
-
+#endif				/* __FSPCOMPAT__ */

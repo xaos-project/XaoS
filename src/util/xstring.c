@@ -9,12 +9,12 @@
 #include <xio.h>
 #include <misc-f.h>
 struct fr
-  {
-    char *string;
-    int pos;
-    int allocedsize;
-    int stringsize;
-  };
+{
+  char *string;
+  int pos;
+  int allocedsize;
+  int stringsize;
+};
 
 char *
 mystrdup (const char *c)
@@ -27,7 +27,7 @@ mystrdup (const char *c)
   return d;
 }
 
-static int 
+static int
 sputc (int c, xio_file s)
 {
   struct fr *f = (struct fr *) s->data;
@@ -44,7 +44,7 @@ sputc (int c, xio_file s)
     f->string[f->pos] = 0, f->stringsize = f->pos;
   return 0;
 }
-static int 
+static int
 sputs (CONST char *c, xio_file s)
 {
   int l = strlen (c);
@@ -63,7 +63,7 @@ sputs (CONST char *c, xio_file s)
     f->string[f->pos] = 0, f->stringsize = f->pos;
   return 0;
 }
-static int 
+static int
 sungetc (int c, xio_file s)
 {
   struct fr *f = (struct fr *) s->data;
@@ -71,7 +71,7 @@ sungetc (int c, xio_file s)
   /*f->string[f->pos]=c; */
   return 0;
 }
-static int 
+static int
 sgetc (xio_file s)
 {
   struct fr *f = (struct fr *) s->data;
@@ -79,13 +79,13 @@ sgetc (xio_file s)
     return XIO_EOF;
   return f->string[f->pos++];
 }
-static int 
+static int
 sfeof (xio_file s)
 {
   struct fr *f = (struct fr *) s->data;
   return (f->pos == f->stringsize);
 }
-static int 
+static int
 srclose (xio_file s)
 {
   struct fr *f = (struct fr *) s->data;
@@ -94,7 +94,7 @@ srclose (xio_file s)
   free (s);
   return 0;
 }
-static int 
+static int
 swclose (xio_file s)
 {
   struct fr *f = (struct fr *) s->data;
@@ -103,6 +103,7 @@ swclose (xio_file s)
      free(f); */
   return 0;
 }
+
 char *
 xio_getstring (xio_file s)
 {
@@ -112,14 +113,15 @@ xio_getstring (xio_file s)
   free (s);
   return c;
 }
-xio_file 
+
+xio_file
 xio_strropen (CONST char *string)
 {
   xio_file s = (xio_file) calloc (1, sizeof (*s));
   struct fr *f = (struct fr *) calloc (1, sizeof (*f));
   s->data = f;
   f->pos = 0;
-  f->string = (char *)string;
+  f->string = (char *) string;
   f->stringsize = strlen (string);
   s->fclose = srclose;
   s->xeof = sfeof;
@@ -127,8 +129,9 @@ xio_strropen (CONST char *string)
   s->fungetc = sungetc;
   return s;
 }
+
 #define PAGE 4096
-xio_file 
+xio_file
 xio_strwopen (void)
 {
   xio_file s = (xio_file) calloc (1, sizeof (*s));

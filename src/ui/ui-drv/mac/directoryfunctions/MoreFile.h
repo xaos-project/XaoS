@@ -26,22 +26,23 @@
 #include <Files.h>
 
 #ifndef true
-#define true 1 
+#define true 1
 #define false 0
 #endif
 
 #include "optim.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*****************************************************************************/
 
-pascal	OSErr	HGetVolParms(ConstStr255Param volName,
-							 short vRefNum,
-							 GetVolParmsInfoBuffer *volParmsInfo,
-							 long *infoSize);
+  pascal OSErr HGetVolParms (ConstStr255Param volName,
+			     short vRefNum,
+			     GetVolParmsInfoBuffer * volParmsInfo,
+			     long *infoSize);
 /*	¦ Determine the characteristics of a volume.
 	The HGetVolParms function returns information about the characteristics
 	of a volume. A result of paramErr usually just means the volume doesn't
@@ -69,9 +70,8 @@ pascal	OSErr	HGetVolParms(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	HCreateMinimum(short vRefNum,
-							   long dirID,
-							   ConstStr255Param fileName);
+  pascal OSErr HCreateMinimum (short vRefNum,
+			       long dirID, ConstStr255Param fileName);
 /*	¦ Create a new file with no creator or file type.
 	The HCreateMinimum function creates a new file without attempting to set
 	the creator and file type of the new file.  This function is needed to
@@ -104,7 +104,7 @@ pascal	OSErr	HCreateMinimum(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpCreateMinimum(const FSSpec *spec);
+  pascal OSErr FSpCreateMinimum (const FSSpec * spec);
 /*	¦ Create a new file with no creator or file type.
 	The FSpCreateMinimum function creates a new file without attempting to set 
 	the the creator and file type of the new file.  This function is needed to
@@ -135,11 +135,10 @@ pascal	OSErr	FSpCreateMinimum(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	ExchangeFiles(short vRefNum,
-							  long srcDirID,
-							  ConstStr255Param srcName,
-							  long dstDirID,
-							  ConstStr255Param dstName);
+  pascal OSErr ExchangeFiles (short vRefNum,
+			      long srcDirID,
+			      ConstStr255Param srcName,
+			      long dstDirID, ConstStr255Param dstName);
 /*	¦ Exchange the data stored in two files on the same volume.
 	The ExchangeFiles function swaps the data in two files on the same
 	volume by changing some of the information in the volume catalog and,
@@ -173,11 +172,10 @@ pascal	OSErr	ExchangeFiles(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	ResolveFileIDRef(ConstStr255Param volName,
-								 short vRefNum,
-								 long fileID,
-								 long *parID,
-								 StringPtr fileName);
+  pascal OSErr ResolveFileIDRef (ConstStr255Param volName,
+				 short vRefNum,
+				 long fileID,
+				 long *parID, StringPtr fileName);
 /*	¦ Retrieve the location of the file with the specified file ID reference.
 	The ResolveFileIDRef function returns the filename and parent directory ID
 	of the file with the specified file ID reference.
@@ -216,10 +214,9 @@ pascal	OSErr	ResolveFileIDRef(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpResolveFileIDRef(ConstStr255Param volName,
-									short vRefNum,
-									long fileID,
-									FSSpecPtr spec);
+  pascal OSErr FSpResolveFileIDRef (ConstStr255Param volName,
+				    short vRefNum,
+				    long fileID, FSSpecPtr spec);
 /*	¦ Retrieve the location of the file with the specified file ID reference.
 	The FSpResolveFileIDRef function fills in an FSSpec with the location
 	of the file with the specified file ID reference.
@@ -258,10 +255,9 @@ pascal	OSErr	FSpResolveFileIDRef(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	CreateFileIDRef(short vRefNum,
-								long parID,
-								ConstStr255Param fileName,
-								long *fileID);
+  pascal OSErr CreateFileIDRef (short vRefNum,
+				long parID,
+				ConstStr255Param fileName, long *fileID);
 /*	¦ Establish a file ID reference for a file.
 	The CreateFileIDRef function creates a file ID reference for the
 	specified file, or if a file ID reference already exists, supplies
@@ -298,8 +294,7 @@ pascal	OSErr	CreateFileIDRef(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpCreateFileIDRef(const FSSpec *spec,
-								   long *fileID);
+  pascal OSErr FSpCreateFileIDRef (const FSSpec * spec, long *fileID);
 /*	¦ Establish a file ID reference for a file.
 	The FSpCreateFileIDRef function creates a file ID reference for the
 	specified file, or if a file ID reference already exists, supplies
@@ -334,9 +329,8 @@ pascal	OSErr	FSpCreateFileIDRef(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	DeleteFileIDRef(ConstStr255Param volName,
-								short vRefNum,
-								long fileID);
+  pascal OSErr DeleteFileIDRef (ConstStr255Param volName,
+				short vRefNum, long fileID);
 /*	¦ Delete a file ID reference.
 	The DeleteFileIDRef function deletes a file ID reference.
 
@@ -370,7 +364,7 @@ pascal	OSErr	DeleteFileIDRef(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	FlushFile(short refNum);
+  pascal OSErr FlushFile (short refNum);
 /*	¦ Write the contents of a file's access path buffer (the fork data).
 	The FlushFile function writes the contents of a file's access path
 	buffer (the fork data) to the volume. Note: some of the file's catalog
@@ -392,9 +386,7 @@ pascal	OSErr	FlushFile(short refNum);
 
 /*****************************************************************************/
 
-pascal	OSErr	LockRange(short refNum,
-						  long rangeLength,
-						  long rangeStart);
+  pascal OSErr LockRange (short refNum, long rangeLength, long rangeStart);
 /*	¦ Lock a portion of a file.
 	The LockRange function locks (denies access to) a portion of a file
 	that was opened with shared read/write permission.
@@ -424,9 +416,7 @@ pascal	OSErr	LockRange(short refNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	UnlockRange(short refNum,
-							long rangeLength,
-							long rangeStart);
+  pascal OSErr UnlockRange (short refNum, long rangeLength, long rangeStart);
 /*	¦ Unlock a previously locked range.
 	The UnlockRange function unlocks (allows access to) a previously locked
 	portion of a file that was opened with shared read/write permission.
@@ -454,15 +444,15 @@ pascal	OSErr	UnlockRange(short refNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetForeignPrivs(short vRefNum,
-								long dirID,
-								ConstStr255Param name,
-								void *foreignPrivBuffer,
-								long *foreignPrivSize,
-								long *foreignPrivInfo1,
-								long *foreignPrivInfo2,
-								long *foreignPrivInfo3,
-								long *foreignPrivInfo4);
+  pascal OSErr GetForeignPrivs (short vRefNum,
+				long dirID,
+				ConstStr255Param name,
+				void *foreignPrivBuffer,
+				long *foreignPrivSize,
+				long *foreignPrivInfo1,
+				long *foreignPrivInfo2,
+				long *foreignPrivInfo3,
+				long *foreignPrivInfo4);
 /*	¦ Retrieve the native access-control information.
 	The GetForeignPrivs function retrieves the native access-control
 	information for a file or directory stored on a volume managed by
@@ -497,13 +487,13 @@ pascal	OSErr	GetForeignPrivs(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpGetForeignPrivs(const FSSpec *spec,
-								   void *foreignPrivBuffer,
-								   long *foreignPrivSize,
-								   long *foreignPrivInfo1,
-								   long *foreignPrivInfo2,
-								   long *foreignPrivInfo3,
-								   long *foreignPrivInfo4);
+  pascal OSErr FSpGetForeignPrivs (const FSSpec * spec,
+				   void *foreignPrivBuffer,
+				   long *foreignPrivSize,
+				   long *foreignPrivInfo1,
+				   long *foreignPrivInfo2,
+				   long *foreignPrivInfo3,
+				   long *foreignPrivInfo4);
 /*	¦ Retrieve the native access-control information.
 	The FSpGetForeignPrivs function retrieves the native access-control
 	information for a file or directory stored on a volume managed by
@@ -535,15 +525,14 @@ pascal	OSErr	FSpGetForeignPrivs(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	SetForeignPrivs(short vRefNum,
-								long dirID,
-								ConstStr255Param name,
-								const void *foreignPrivBuffer,
-								long *foreignPrivSize,
-								long foreignPrivInfo1,
-								long foreignPrivInfo2,
-								long foreignPrivInfo3,
-								long foreignPrivInfo4);
+  pascal OSErr SetForeignPrivs (short vRefNum,
+				long dirID,
+				ConstStr255Param name,
+				const void *foreignPrivBuffer,
+				long *foreignPrivSize,
+				long foreignPrivInfo1,
+				long foreignPrivInfo2,
+				long foreignPrivInfo3, long foreignPrivInfo4);
 /*	¦ Change the native access-control information.
 	The SetForeignPrivs function changes the native access-control
 	information for a file or directory stored on a volume managed by
@@ -576,13 +565,13 @@ pascal	OSErr	SetForeignPrivs(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpSetForeignPrivs(const FSSpec *spec,
-								   const void *foreignPrivBuffer,
-								   long *foreignPrivSize,
-								   long foreignPrivInfo1,
-								   long foreignPrivInfo2,
-								   long foreignPrivInfo3,
-								   long foreignPrivInfo4);
+  pascal OSErr FSpSetForeignPrivs (const FSSpec * spec,
+				   const void *foreignPrivBuffer,
+				   long *foreignPrivSize,
+				   long foreignPrivInfo1,
+				   long foreignPrivInfo2,
+				   long foreignPrivInfo3,
+				   long foreignPrivInfo4);
 /*	¦ Change the native access-control information.
 	The FSpSetForeignPrivs function changes the native access-control
 	information for a file or directory stored on a volume managed by
@@ -612,10 +601,9 @@ pascal	OSErr	FSpSetForeignPrivs(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	HGetLogInInfo(ConstStr255Param volName,
-							  short vRefNum,
-							  short *loginMethod,
-							  StringPtr userName);
+  pascal OSErr HGetLogInInfo (ConstStr255Param volName,
+			      short vRefNum,
+			      short *loginMethod, StringPtr userName);
 /*	¦ Get the login method and user name used to log on to a shared volume.
 	The HGetLogInInfo function retrieves the login method and user name
 	used to log on to a particular shared volume.
@@ -643,12 +631,11 @@ pascal	OSErr	HGetLogInInfo(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	HGetDirAccess(short vRefNum,
-							  long dirID,
-							  ConstStr255Param name,
-							  long *ownerID,
-							  long *groupID,
-							  long *accessRights);
+  pascal OSErr HGetDirAccess (short vRefNum,
+			      long dirID,
+			      ConstStr255Param name,
+			      long *ownerID,
+			      long *groupID, long *accessRights);
 /*	¦ Get a directory's access control information on a shared volume.
 	The HGetDirAccess function retrieves the directory access control
 	information for a directory on a shared volume.
@@ -677,10 +664,9 @@ pascal	OSErr	HGetDirAccess(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpGetDirAccess(const FSSpec *spec,
-								long *ownerID,
-								long *groupID,
-								long *accessRights);
+  pascal OSErr FSpGetDirAccess (const FSSpec * spec,
+				long *ownerID,
+				long *groupID, long *accessRights);
 /*	¦ Get a directory's access control information on a shared volume.
 	The FSpGetDirAccess function retrieves the directory access control
 	information for a directory on a shared volume.
@@ -706,12 +692,10 @@ pascal	OSErr	FSpGetDirAccess(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	HSetDirAccess(short vRefNum,
-							  long dirID,
-							  ConstStr255Param name,
-							  long ownerID,
-							  long groupID,
-							  long accessRights);
+  pascal OSErr HSetDirAccess (short vRefNum,
+			      long dirID,
+			      ConstStr255Param name,
+			      long ownerID, long groupID, long accessRights);
 /*	¦ Set a directory's access control information on a shared volume.
 	The HSetDirAccess function changes the directory access control
 	information for a directory on a shared volume. You must own a directory
@@ -743,10 +727,9 @@ pascal	OSErr	HSetDirAccess(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpSetDirAccess(const FSSpec *spec,
-								long ownerID,
-								long groupID,
-								long accessRights);
+  pascal OSErr FSpSetDirAccess (const FSSpec * spec,
+				long ownerID,
+				long groupID, long accessRights);
 /*	¦ Set a directory's access control information on a shared volume.
 	The FSpSetDirAccess function changes the directory access control
 	information for a directory on a shared volume. You must own a directory
@@ -775,11 +758,9 @@ pascal	OSErr	FSpSetDirAccess(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	HMapID(ConstStr255Param volName,
-					   short vRefNum,
-					   long ugID,
-					   short objType,
-					   StringPtr name);
+  pascal OSErr HMapID (ConstStr255Param volName,
+		       short vRefNum,
+		       long ugID, short objType, StringPtr name);
 /*	¦ Map a user or group ID to a user or group name.
 	The HMapID function determines the name of a user or group if you know
 	the user or group ID.
@@ -807,11 +788,9 @@ pascal	OSErr	HMapID(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	HMapName(ConstStr255Param volName,
-						 short vRefNum,
-						 ConstStr255Param name,
-						 short objType,
-						 long *ugID);
+  pascal OSErr HMapName (ConstStr255Param volName,
+			 short vRefNum,
+			 ConstStr255Param name, short objType, long *ugID);
 /*	¦ Map a user or group name to a user or group ID.
 	The HMapName function determines the user or group ID if you know the
 	user or group name.
@@ -838,13 +817,13 @@ pascal	OSErr	HMapName(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	HCopyFile(short srcVRefNum,
-						  long srcDirID,
-						  ConstStr255Param srcName,
-						  short dstVRefNum,
-						  long dstDirID,
-						  ConstStr255Param dstPathname,
-						  ConstStr255Param copyName);
+  pascal OSErr HCopyFile (short srcVRefNum,
+			  long srcDirID,
+			  ConstStr255Param srcName,
+			  short dstVRefNum,
+			  long dstDirID,
+			  ConstStr255Param dstPathname,
+			  ConstStr255Param copyName);
 /*	¦ Duplicate a file on a file server and optionally to rename it.
 	The HCopyFile function duplicates a file and optionally to renames it.
 	The source and destination volumes must be on the same file server.
@@ -887,9 +866,9 @@ pascal	OSErr	HCopyFile(short srcVRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpCopyFile(const FSSpec *srcSpec,
-							const FSSpec *dstSpec,
-							ConstStr255Param copyName);
+  pascal OSErr FSpCopyFile (const FSSpec * srcSpec,
+			    const FSSpec * dstSpec,
+			    ConstStr255Param copyName);
 /*	¦ Duplicate a file on a file server and optionally to rename it.
 	The FSpCopyFile function duplicates a file and optionally to renames it.
 	The source and destination volumes must be on the same file server.
@@ -928,12 +907,12 @@ pascal	OSErr	FSpCopyFile(const FSSpec *srcSpec,
 
 /*****************************************************************************/
 
-pascal	OSErr	HMoveRename(short vRefNum,
-							long srcDirID,
-							ConstStr255Param srcName,
-							long dstDirID,
-							ConstStr255Param dstpathName,
-							ConstStr255Param copyName);
+  pascal OSErr HMoveRename (short vRefNum,
+			    long srcDirID,
+			    ConstStr255Param srcName,
+			    long dstDirID,
+			    ConstStr255Param dstpathName,
+			    ConstStr255Param copyName);
 /*	¦ Move a file or directory on a file server and optionally to rename it.
 	The HMoveRename function moves a file or directory and optionally
 	renames it. The source and destination locations must be on the same
@@ -967,9 +946,9 @@ pascal	OSErr	HMoveRename(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpMoveRename(const FSSpec *srcSpec,
-							  const FSSpec *dstSpec,
-							  ConstStr255Param copyName);
+  pascal OSErr FSpMoveRename (const FSSpec * srcSpec,
+			      const FSSpec * dstSpec,
+			      ConstStr255Param copyName);
 /*	¦ Move a file or directory on a file server and optionally to rename it.
 	The FSpMoveRename function moves a file or directory and optionally
 	renames it. The source and destination locations must be on the same
@@ -1000,9 +979,8 @@ pascal	OSErr	FSpMoveRename(const FSSpec *srcSpec,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetVolMountInfoSize(ConstStr255Param volName,
-									short vRefNum,
-									short *size);
+  pascal OSErr GetVolMountInfoSize (ConstStr255Param volName,
+				    short vRefNum, short *size);
 /*	¦ Get the size of a volume mounting information record.
 	The GetVolMountInfoSize function determines the how much space the
 	program needs to allocate for a volume mounting information record.
@@ -1028,9 +1006,8 @@ pascal	OSErr	GetVolMountInfoSize(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	GetVolMountInfo(ConstStr255Param volName,
-								short vRefNum,
-								void *volMountInfo);
+  pascal OSErr GetVolMountInfo (ConstStr255Param volName,
+				short vRefNum, void *volMountInfo);
 /*	¦ Retrieve a volume mounting information record.
 	The GetVolMountInfo function retrieves a volume mounting information
 	record containing all the information needed to mount the volume,
@@ -1058,8 +1035,7 @@ pascal	OSErr	GetVolMountInfo(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	VolumeMount(const void *volMountInfo,
-							short *vRefNum);
+  pascal OSErr VolumeMount (const void *volMountInfo, short *vRefNum);
 /*	¦ Mount a volume using a volume mounting information record.
 	The VolumeMount function mounts a volume using a volume mounting
 	information record.
@@ -1101,9 +1077,7 @@ pascal	OSErr	VolumeMount(const void *volMountInfo,
 
 /*****************************************************************************/
 
-pascal	OSErr	Share(short vRefNum,
-					  long dirID,
-					  ConstStr255Param name);
+  pascal OSErr Share (short vRefNum, long dirID, ConstStr255Param name);
 /*	¦ Establish a local volume or directory as a share point.
 	The Share function establishes a local volume or directory as a
 	share point.
@@ -1132,7 +1106,7 @@ pascal	OSErr	Share(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpShare(const FSSpec *spec);
+  pascal OSErr FSpShare (const FSSpec * spec);
 /*	¦ Establish a local volume or directory as a share point.
 	The FSpShare function establishes a local volume or directory as a
 	share point.
@@ -1158,9 +1132,7 @@ pascal	OSErr	FSpShare(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	Unshare(short vRefNum,
-						long dirID,
-						ConstStr255Param name);
+  pascal OSErr Unshare (short vRefNum, long dirID, ConstStr255Param name);
 /*	¦ Remove a share point.
 	The Unshare function removes a share point.
 
@@ -1184,7 +1156,7 @@ pascal	OSErr	Unshare(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpUnshare(const FSSpec *spec);
+  pascal OSErr FSpUnshare (const FSSpec * spec);
 /*	¦ Remove a share point.
 	The FSpUnshare function removes a share point.
 
@@ -1205,9 +1177,7 @@ pascal	OSErr	FSpUnshare(const FSSpec *spec);
 
 /*****************************************************************************/
 
-pascal	OSErr	GetUGEntry(short objType,
-						   StringPtr objName,
-						   long *objID);
+  pascal OSErr GetUGEntry (short objType, StringPtr objName, long *objID);
 /*	¦ Retrieve a user or group entry from the local file server.
 	The GetUGEntry function retrieves user or group entries from the
 	local file server.
@@ -1241,4 +1211,4 @@ pascal	OSErr	GetUGEntry(short objType,
 
 #include "optimend.h"
 
-#endif	/* __MOREFILES__ */
+#endif				/* __MOREFILES__ */

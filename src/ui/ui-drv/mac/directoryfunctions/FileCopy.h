@@ -28,21 +28,21 @@
 #include "optim.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*****************************************************************************/
 
-pascal	OSErr	FileCopy(short srcVRefNum,
-						 long srcDirID,
-						 ConstStr255Param srcName,
-						 short dstVRefNum,
-						 long dstDirID,
-						 ConstStr255Param dstPathname,
-						 ConstStr255Param copyName,
-						 void *copyBufferPtr,
-						 long copyBufferSize,
-						 Boolean preflight);
+  pascal OSErr FileCopy (short srcVRefNum,
+			 long srcDirID,
+			 ConstStr255Param srcName,
+			 short dstVRefNum,
+			 long dstDirID,
+			 ConstStr255Param dstPathname,
+			 ConstStr255Param copyName,
+			 void *copyBufferPtr,
+			 long copyBufferSize, Boolean preflight);
 /*	¦ Duplicate a file and optionally rename it.
 	The FileCopy function duplicates a file and optionally renames it.
 	Since the PBHCopyFile routine is only available on some
@@ -126,12 +126,11 @@ pascal	OSErr	FileCopy(short srcVRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpFileCopy(const FSSpec *srcSpec,
-							const FSSpec *dstSpec,
-							ConstStr255Param copyName,
-							void *copyBufferPtr,
-							long copyBufferSize,
-							Boolean preflight);
+  pascal OSErr FSpFileCopy (const FSSpec * srcSpec,
+			    const FSSpec * dstSpec,
+			    ConstStr255Param copyName,
+			    void *copyBufferPtr,
+			    long copyBufferSize, Boolean preflight);
 /*	¦ Duplicate a file and optionally rename it.
 	The FSpFileCopy function duplicates a file and optionally renames it.
 	Since the PBHCopyFile routine is only available on some
@@ -217,4 +216,4 @@ pascal	OSErr	FSpFileCopy(const FSSpec *srcSpec,
 
 #include "optimend.h"
 
-#endif	/* __FILECOPY__ */
+#endif				/* __FILECOPY__ */

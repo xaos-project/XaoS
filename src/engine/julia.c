@@ -25,7 +25,8 @@
 int iters2, guessed2, unguessed2, total2;
 #endif
 void
-init_julia (struct image *img, number_t rangep, number_t range, number_t xdelta, number_t ystep)
+init_julia (struct image *img, number_t rangep, number_t range,
+	    number_t xdelta, number_t ystep)
 {
   int i, j, x, y;
   register number_t im;
@@ -33,7 +34,7 @@ init_julia (struct image *img, number_t rangep, number_t range, number_t xdelta,
   for (i = 0; i < img->height; i++)
     {
       im = IMIN + (i + 0.5) * ystep;
-      x = (int)(sqrt (rangep - im * im) * xdelta + 0.5);
+      x = (int) (sqrt (rangep - im * im) * xdelta + 0.5);
       if (!i || i == img->height - 1)
 	x = 0;
       addr = addr1[i];
@@ -94,18 +95,20 @@ doit (struct filter *f, int flags, int time)
   /*if(f->image->nimages==2) f->image->flip(f->image); */
   if (f->fractalc->currentformula->calculate_julia != NULL)
     {
-      f->fractalc->currentformula->calculate_julia (f->image, f->fractalc->pre, f->fractalc->pim);
+      f->fractalc->currentformula->calculate_julia (f->image,
+						    f->fractalc->pre,
+						    f->fractalc->pim);
       return (CHANGED);
     }
 #ifdef STATISTICS
-  printf ("Total guessed %i, unguessed %i, iterations %i\n", guessed2, unguessed2, iters2);
+  printf ("Total guessed %i, unguessed %i, iterations %i\n", guessed2,
+	  unguessed2, iters2);
 #endif
 
   return 0;
 }
 
-CONST struct filteraction julia_filter =
-{
+CONST struct filteraction julia_filter = {
   "Julia generator",
   "julia",
   0,

@@ -13,8 +13,11 @@ look1 (uih_context * context, int x, int y, int range, int max)
       max--;
       c = 0;
       if (range > context->zengine->image->width / 2)
-	context->x1 = rand () % (context->zengine->image->width - 2 * LOOKSIZE - 1) + LOOKSIZE,
-	  context->y1 = rand () % (context->zengine->image->height - 2 * LOOKSIZE - 1) + LOOKSIZE;
+	context->x1 =
+	  rand () % (context->zengine->image->width - 2 * LOOKSIZE - 1) +
+	  LOOKSIZE, context->y1 =
+	  rand () % (context->zengine->image->height - 2 * LOOKSIZE - 1) +
+	  LOOKSIZE;
       else
 	{
 	  context->x1 = rand () % range - (range >> 1) + x;
@@ -59,8 +62,11 @@ look2 (uih_context * context, int x, int y, int range, int max)
       c = 0;
 
       if (range > context->zengine->image->width / 2)
-	context->x1 = rand () % (context->zengine->image->width - 2 * LOOKSIZE - 1) + LOOKSIZE,
-	  context->y1 = rand () % (context->zengine->image->height - 2 * LOOKSIZE - 1) + LOOKSIZE;
+	context->x1 =
+	  rand () % (context->zengine->image->width - 2 * LOOKSIZE - 1) +
+	  LOOKSIZE, context->y1 =
+	  rand () % (context->zengine->image->height - 2 * LOOKSIZE - 1) +
+	  LOOKSIZE;
       else
 	{
 	  context->x1 = rand () % range - (range >> 1) + x;

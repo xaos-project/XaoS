@@ -53,34 +53,35 @@
 struct dialogitem;
 struct dialogtype
 {
-	void (*build) (struct dialogitem * item, CONST menudialog * entry);
-	int (*key) (struct dialogitem * item, int key);
-	void (*mouse) (struct dialogitem * item, int x, int y, int buttons, int flags);
-	void (*destroy) (struct dialogitem * item, dialogparam * param);
-	void (*draw) (struct dialogitem * item);
-	void (*unselect) (struct dialogitem * item);
+  void (*build) (struct dialogitem * item, CONST menudialog * entry);
+  int (*key) (struct dialogitem * item, int key);
+  void (*mouse) (struct dialogitem * item, int x, int y, int buttons,
+		 int flags);
+  void (*destroy) (struct dialogitem * item, dialogparam * param);
+  void (*draw) (struct dialogitem * item);
+  void (*unselect) (struct dialogitem * item);
 };
 struct dialogitem
-  {
-    int y;
-    int width, width1, height;
-    CONST menudialog *dialog;
-    void *data;
-    CONST struct dialogtype *type;
-  };
+{
+  int y;
+  int width, width1, height;
+  CONST menudialog *dialog;
+  void *data;
+  CONST struct dialogtype *type;
+};
 static struct opendialog
-  {
-    int x, y, width, height;
-    int half;
-    int nitems;
-    CONST menudialog *dialog;
-    int mousereleased;
-    int mousegrab;
-    CONST menuitem *item;
-    int current;
-    struct dialogitem *items;
-    struct uih_window *window;
-  }
+{
+  int x, y, width, height;
+  int half;
+  int nitems;
+  CONST menudialog *dialog;
+  int mousereleased;
+  int mousegrab;
+  CONST menuitem *item;
+  int current;
+  struct dialogitem *items;
+  struct uih_window *window;
+}
 dialog;
 
 static dialogparam *qparam;
@@ -90,21 +91,21 @@ int dialogvisible;
 
 int yesnodialogvisible;
 static struct yesnodialog
-  {
-    int width;
-    int questionwidth;
-    int mousereleased;
-    char *question;
-    void (*handler) (int yes);
-    int selected;
-    int pressed;
-    struct uih_window *window;
-  }
+{
+  int width;
+  int questionwidth;
+  int mousereleased;
+  char *question;
+  void (*handler) (int yes);
+  int selected;
+  int pressed;
+  struct uih_window *window;
+}
 yesnodialog;
 
-static CONST char * CONST oktext = "OK";
-static CONST char * CONST canceltext = "Cancel";
-static CONST char * CONST helptext = "Help";
+static CONST char *CONST oktext = "OK";
+static CONST char *CONST canceltext = "Cancel";
+static CONST char *CONST helptext = "Help";
 static int okwidth;
 static int cancelwidth;
 #define SELECTED(item) ((item-dialog.items)==dialog.current)
@@ -129,26 +130,40 @@ struct okdata
   int selected;
 };
 
-CONST char * CONST yestext = "Yes";
-CONST char * CONST notext = "No";
+CONST char *CONST yestext = "Yes";
+CONST char *CONST notext = "No";
 #define YESNOX ((uih->image->width-yesnodialog.width)/2)
 #define YESNOHEIGHT (2*BUTTONHEIGHT+2*BORDERHEIGHT)
 #define YESNOY ((uih->image->height-YESNOHEIGHT)/2)
 void
-ui_drawbutton (CONST char *text, int pressed, int selected, int x1, int x2, int y)
+ui_drawbutton (CONST char *text, int pressed, int selected, int x1, int x2,
+	       int y)
 {
   int width = xtextwidth (uih->font, text);
-  /*printf("%s %i %i\n",text,pressed,selected);*/
-  if(uih->palette->type&BITMAPS) {
-  uih_drawborder (uih, x1, y, x2 - x1, BUTTONHEIGHT, (pressed != 0||selected!=0) * BORDER_PRESSED | BORDER_LIGHT);
-  xprint (uih->image, uih->font, (x1 + x2 - width) / 2 + pressed, y + BORDERHEIGHT + pressed, text, selected||pressed ? BGCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih),TEXT_PRESSED);
-  } else {
-  uih_drawborder (uih, x1, y, x2 - x1, BUTTONHEIGHT, (pressed != 0) * BORDER_PRESSED | BORDER_LIGHT);
-  xprint (uih->image, uih->font, (x1 + x2 - width) / 2 + pressed, y + BORDERHEIGHT + pressed, text, selected ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), /*TEXT_PRESSED */ 0);
-  }
+  /*printf("%s %i %i\n",text,pressed,selected); */
+  if (uih->palette->type & BITMAPS)
+    {
+      uih_drawborder (uih, x1, y, x2 - x1, BUTTONHEIGHT,
+		      (pressed != 0
+		       || selected != 0) * BORDER_PRESSED | BORDER_LIGHT);
+      xprint (uih->image, uih->font, (x1 + x2 - width) / 2 + pressed,
+	      y + BORDERHEIGHT + pressed, text, selected
+	      || pressed ? BGCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih),
+	      TEXT_PRESSED);
+    }
+  else
+    {
+      uih_drawborder (uih, x1, y, x2 - x1, BUTTONHEIGHT,
+		      (pressed != 0) * BORDER_PRESSED | BORDER_LIGHT);
+      xprint (uih->image, uih->font, (x1 + x2 - width) / 2 + pressed,
+	      y + BORDERHEIGHT + pressed, text,
+	      selected ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih),
+	      /*TEXT_PRESSED */ 0);
+    }
 }
 static void
-ui_yesnopos (struct uih_context *c, int *x, int *y, int *w, int *h, void *data)
+ui_yesnopos (struct uih_context *c, int *x, int *y, int *w, int *h,
+	     void *data)
 {
 #ifdef _plan9_
 #define filevisible 0
@@ -166,11 +181,18 @@ ui_yesnopos (struct uih_context *c, int *x, int *y, int *w, int *h, void *data)
 static void
 ui_drawyesno (struct uih_context *c, void *data)
 {
-  xprint (uih->image, uih->font, YESNOX + (yesnodialog.width - yesnodialog.questionwidth) / 2, YESNOY + BORDERHEIGHT, yesnodialog.question, FGCOLOR (uih), BGCOLOR (uih), 0);
+  xprint (uih->image, uih->font,
+	  YESNOX + (yesnodialog.width - yesnodialog.questionwidth) / 2,
+	  YESNOY + BORDERHEIGHT, yesnodialog.question, FGCOLOR (uih),
+	  BGCOLOR (uih), 0);
   ui_drawbutton (yestext, yesnodialog.pressed == 0, yesnodialog.selected == 0,
-		 YESNOX + BORDERWIDTH + 1, YESNOX + (yesnodialog.width) / 2 - 1, YESNOY + BUTTONHEIGHT + BORDERHEIGHT);
+		 YESNOX + BORDERWIDTH + 1,
+		 YESNOX + (yesnodialog.width) / 2 - 1,
+		 YESNOY + BUTTONHEIGHT + BORDERHEIGHT);
   ui_drawbutton (notext, yesnodialog.pressed == 1, yesnodialog.selected == 1,
-		 YESNOX + (yesnodialog.width) / 2 + 1, YESNOX + yesnodialog.width - BORDERWIDTH - 1, YESNOY + BUTTONHEIGHT + BORDERHEIGHT);
+		 YESNOX + (yesnodialog.width) / 2 + 1,
+		 YESNOX + yesnodialog.width - BORDERWIDTH - 1,
+		 YESNOY + BUTTONHEIGHT + BORDERHEIGHT);
 }
 static void
 ui_closeyesno (int success)
@@ -183,6 +205,7 @@ ui_closeyesno (int success)
   uih_removew (uih, yesnodialog.window);
   uih->display = 1;
 }
+
 void
 ui_buildyesno (CONST char *question, void (*handler) (int yes))
 {
@@ -192,14 +215,18 @@ ui_buildyesno (CONST char *question, void (*handler) (int yes))
   yesnodialog.questionwidth = xtextwidth (uih->font, question);
   yesnodialog.question = mystrdup (question);
   yesnodialog.mousereleased = 0;
-  yesnodialog.width = xtextwidth (uih->font, yestext) + xtextwidth (uih->font, notext) + 8 * BORDERWIDTH + 2;
+  yesnodialog.width =
+    xtextwidth (uih->font, yestext) + xtextwidth (uih->font,
+						  notext) + 8 * BORDERWIDTH +
+    2;
   if (yesnodialog.width < yesnodialog.questionwidth)
     yesnodialog.width = yesnodialog.questionwidth;
   yesnodialog.width += 2 * BORDERWIDTH;
   yesnodialog.handler = handler;
   yesnodialog.selected = 0;
   yesnodialog.pressed = -1;
-  yesnodialog.window = uih_registerw (uih, ui_yesnopos, ui_drawyesno, NULL, DRAWBORDER);
+  yesnodialog.window =
+    uih_registerw (uih, ui_yesnopos, ui_drawyesno, NULL, DRAWBORDER);
   uih->display = 1;
 }
 static int
@@ -248,7 +275,8 @@ ui_mouseyesno (int x, int y, int buttons, int flags)
       return 1;
     }
   yesnodialog.mousereleased = 1;
-  if (x < YESNOX || y < YESNOY || x > YESNOX + yesnodialog.width || y > YESNOY + YESNOHEIGHT)
+  if (x < YESNOX || y < YESNOY || x > YESNOX + yesnodialog.width
+      || y > YESNOY + YESNOHEIGHT)
     {
       if (flags & MOUSE_PRESS)
 	{
@@ -301,7 +329,7 @@ ui_buildok (struct dialogitem *item, CONST menudialog * entry)
     item->width = item->width1;
   if (item->width > item->width1)
     item->width1 = item->width;
-  item->data =ok = (struct okdata *) malloc (sizeof (struct okdata));
+  item->data = ok = (struct okdata *) malloc (sizeof (struct okdata));
   ok->pressed = -1;
   ok->selected = 0;
 }
@@ -313,7 +341,7 @@ ui_destroyok (struct dialogitem *item, dialogparam * param)
 static int
 ui_keyok (struct dialogitem *item, int key)
 {
-  struct okdata *ok =  (struct okdata *)item->data;
+  struct okdata *ok = (struct okdata *) item->data;
   switch (key)
     {
     case UIKEY_LEFT:
@@ -339,8 +367,10 @@ ui_keyok (struct dialogitem *item, int key)
       return 1;
     case 13:
     case '\n':
-      if(ok->selected<=1)
-      ui_closedialog (!ok->selected); else ui_help(dialog.item->shortname);
+      if (ok->selected <= 1)
+	ui_closedialog (!ok->selected);
+      else
+	ui_help (dialog.item->shortname);
       return 1;
     }
   return 0;
@@ -348,11 +378,11 @@ ui_keyok (struct dialogitem *item, int key)
 static void
 ui_mouseok (struct dialogitem *item, int x, int y, int buttons, int flags)
 {
-  struct okdata *ok = (struct okdata *)item->data;
+  struct okdata *ok = (struct okdata *) item->data;
   int mouseat = 0;
   if (x > dialog.x + dialog.width / 3)
     mouseat = 1;
-  if (x > dialog.x + 2*dialog.width / 3)
+  if (x > dialog.x + 2 * dialog.width / 3)
     mouseat = 2;
   if (flags & MOUSE_DRAG)
     {
@@ -373,31 +403,35 @@ ui_mouseok (struct dialogitem *item, int x, int y, int buttons, int flags)
     }
   if (flags & MOUSE_RELEASE)
     {
-      if(mouseat<2)
-      ui_closedialog (!mouseat); else ui_help(dialog.item->shortname);
+      if (mouseat < 2)
+	ui_closedialog (!mouseat);
+      else
+	ui_help (dialog.item->shortname);
     }
 }
 static void
 ui_drawok (struct dialogitem *item)
 {
-  struct okdata *ok = (struct okdata *)item->data;
-  ui_drawbutton (oktext, ok->pressed == 0, SELECTED (item) && ok->selected == 0,
-    dialog.x + BORDERWIDTH + 1, dialog.x + (dialog.width) / 3 - 1, item->y);
-  ui_drawbutton (canceltext, ok->pressed == 1, SELECTED (item) && ok->selected == 1,
-		 dialog.x + (dialog.width) / 3 + 1, dialog.x + 2*dialog.width/3 - BORDERWIDTH, item->y);
-  ui_drawbutton (helptext, ok->pressed == 2, SELECTED (item) && ok->selected == 2,
-		 dialog.x + 2*(dialog.width) / 3, dialog.x + dialog.width - BORDERWIDTH - 1, item->y);
+  struct okdata *ok = (struct okdata *) item->data;
+  ui_drawbutton (oktext, ok->pressed == 0, SELECTED (item)
+		 && ok->selected == 0, dialog.x + BORDERWIDTH + 1,
+		 dialog.x + (dialog.width) / 3 - 1, item->y);
+  ui_drawbutton (canceltext, ok->pressed == 1, SELECTED (item)
+		 && ok->selected == 1, dialog.x + (dialog.width) / 3 + 1,
+		 dialog.x + 2 * dialog.width / 3 - BORDERWIDTH, item->y);
+  ui_drawbutton (helptext, ok->pressed == 2, SELECTED (item)
+		 && ok->selected == 2, dialog.x + 2 * (dialog.width) / 3,
+		 dialog.x + dialog.width - BORDERWIDTH - 1, item->y);
 }
 static void
 ui_unselectok (struct dialogitem *item)
 {
-  struct okdata *ok = (struct okdata *)item->data;
+  struct okdata *ok = (struct okdata *) item->data;
   ok->pressed = -1;
   ok->selected = 0;
   uih->display = 1;
 }
-CONST static struct dialogtype okdialog =
-{
+CONST static struct dialogtype okdialog = {
   ui_buildok,
   ui_keyok,
   ui_mouseok,
@@ -411,7 +445,7 @@ ui_updatetext (struct ui_textdata *d)
   int again = 1;
   int i;
   int wi;
-  int len = (int)strlen (d->text);
+  int len = (int) strlen (d->text);
   if (d->start >= len)
     d->start = 0;
   if (d->cursor > len)
@@ -445,15 +479,15 @@ ui_updatetext (struct ui_textdata *d)
 struct ui_textdata *
 ui_opentext (int x, int y, int width, CONST char *def)
 {
-  struct ui_textdata *d = (struct ui_textdata *)malloc (sizeof (*d));
+  struct ui_textdata *d = (struct ui_textdata *) malloc (sizeof (*d));
   char *text;
   int size = 100;
-  if ((int)strlen (def) > size)
-    size = (int)strlen (def) * 2;
+  if ((int) strlen (def) > size)
+    size = (int) strlen (def) * 2;
   d->x = x;
   d->y = y;
   d->width = width;
-  text = (char *)malloc (size);
+  text = (char *) malloc (size);
   strcpy (text, def);
   d->text = text;
   d->cursor = 0;
@@ -465,21 +499,30 @@ ui_opentext (int x, int y, int width, CONST char *def)
   ui_updatetext (d);
   return (d);
 }
+
 void
 ui_drawtext (struct ui_textdata *d, int active)
 {
-  char *c = (char *)malloc (d->ndisplayed + 2);
+  char *c = (char *) malloc (d->ndisplayed + 2);
   strncpy (c, d->text + d->start, d->ndisplayed);
   c[d->ndisplayed] = 0;
-  xprint (uih->image, uih->font, d->x, d->y, c, 
-         (uih->palette->type&BITMAPS)?BGCOLOR(uih):((active && d->clear) ? SELCOLOR (uih) : FGCOLOR (uih)), 
-	 BGCOLOR (uih), (uih->palette->type&BITMAPS)?TEXT_PRESSED:0);
+  xprint (uih->image, uih->font, d->x, d->y, c,
+	  (uih->palette->
+	   type & BITMAPS) ? BGCOLOR (uih) : ((active
+					       && d->
+					       clear) ? SELCOLOR (uih) :
+					      FGCOLOR (uih)), BGCOLOR (uih),
+	  (uih->palette->type & BITMAPS) ? TEXT_PRESSED : 0);
   if (active)
     {
-      xdrawcursor (uih->image, d->x + d->cursorpos, d->y, (uih->palette->type&BITMAPS)?BGCOLOR(uih):SELCOLOR (uih), xtextheight (uih->font));
+      xdrawcursor (uih->image, d->x + d->cursorpos, d->y,
+		   (uih->palette->
+		    type & BITMAPS) ? BGCOLOR (uih) : SELCOLOR (uih),
+		   xtextheight (uih->font));
     }
   free (c);
 }
+
 void
 ui_textmouse (struct ui_textdata *d, int x, int y)
 {
@@ -507,6 +550,7 @@ ui_closetext (struct ui_textdata *d)
   free (d->text);
   free (d);
 }
+
 int
 ui_textkey (struct ui_textdata *d, int key)
 {
@@ -525,7 +569,7 @@ ui_textkey (struct ui_textdata *d, int key)
     case UIKEY_RIGHT:
       if (d->clear)
 	d->clear = 0;
-      if (d->cursor < (int)strlen (d->text))
+      if (d->cursor < (int) strlen (d->text))
 	d->cursor++;
       else
 	return 0;
@@ -542,7 +586,7 @@ ui_textkey (struct ui_textdata *d, int key)
     case UIKEY_END:
       if (d->clear)
 	d->clear = 0;
-      d->cursor = (int)strlen (d->text);
+      d->cursor = (int) strlen (d->text);
       ui_updatetext (d);
       uih->display = 1;
       return 1;
@@ -552,7 +596,7 @@ ui_textkey (struct ui_textdata *d, int key)
       else if (d->cursor)
 	{
 	  int len, i;
-	  len = (int)strlen (d->text);
+	  len = (int) strlen (d->text);
 	  for (i = d->cursor; i <= len; i++)
 	    {
 	      d->text[i - 1] = d->text[i];
@@ -569,9 +613,9 @@ ui_textkey (struct ui_textdata *d, int key)
       int len;
       if (d->clear)
 	d->text[0] = 0, d->clear = 0;
-      if ((len = (int)strlen (d->text)) > d->size - 2)
+      if ((len = (int) strlen (d->text)) > d->size - 2)
 	{
-	  d->text = (char *)realloc (d->text, d->size * 2);
+	  d->text = (char *) realloc (d->text, d->size * 2);
 	}
       for (i = len; i >= d->cursor; i--)
 	{
@@ -596,41 +640,56 @@ ui_buildstring (struct dialogitem *item, CONST menudialog * entry)
 static void
 ui_destroystring (struct dialogitem *item, dialogparam * param)
 {
-  struct ui_textdata *text = (struct ui_textdata *)item->data;
+  struct ui_textdata *text = (struct ui_textdata *) item->data;
   param->dstring = mystrdup (text->text);
   ui_closetext (text);
 }
 static void
-ui_drawquestion(struct dialogitem *item)
+ui_drawquestion (struct dialogitem *item)
 {
-  if(uih->palette->type&BITMAPS) {
-  if(SELECTED (item))
-    xrectangle(uih->image,dialog.x+BORDERWIDTH,item->y,dialog.half-dialog.x-2*BORDERWIDTH,BUTTONHEIGHT,FGCOLOR(uih));
-  xprint (uih->image, uih->font, dialog.half - item->width, item->y + BORDERHEIGHT, item->dialog->question, SELECTED (item) ? BGCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), TEXT_PRESSED);
-  } else {
-  xprint (uih->image, uih->font, dialog.half - item->width, item->y + BORDERHEIGHT, item->dialog->question, SELECTED (item) ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), 0);
-  }
+  if (uih->palette->type & BITMAPS)
+    {
+      if (SELECTED (item))
+	xrectangle (uih->image, dialog.x + BORDERWIDTH, item->y,
+		    dialog.half - dialog.x - 2 * BORDERWIDTH, BUTTONHEIGHT,
+		    FGCOLOR (uih));
+      xprint (uih->image, uih->font, dialog.half - item->width,
+	      item->y + BORDERHEIGHT, item->dialog->question,
+	      SELECTED (item) ? BGCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih),
+	      TEXT_PRESSED);
+    }
+  else
+    {
+      xprint (uih->image, uih->font, dialog.half - item->width,
+	      item->y + BORDERHEIGHT, item->dialog->question,
+	      SELECTED (item) ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih),
+	      0);
+    }
 }
 static void
 ui_drawstring (struct dialogitem *item)
 {
-  struct ui_textdata *text = (struct ui_textdata *)item->data;
+  struct ui_textdata *text = (struct ui_textdata *) item->data;
   if (text->width == 2043)
-    text->x = dialog.half + BORDERWIDTH, text->width = dialog.width + dialog.x - dialog.half - 2 * BORDERWIDTH, text->y = item->y + BORDERHEIGHT, ui_updatetext (text);
-  uih_drawborder (uih, dialog.half, item->y, dialog.width - dialog.half + dialog.x - BORDERWIDTH, BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
+    text->x = dialog.half + BORDERWIDTH, text->width =
+      dialog.width + dialog.x - dialog.half - 2 * BORDERWIDTH, text->y =
+      item->y + BORDERHEIGHT, ui_updatetext (text);
+  uih_drawborder (uih, dialog.half, item->y,
+		  dialog.width - dialog.half + dialog.x - BORDERWIDTH,
+		  BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
   ui_drawtext (text, SELECTED (item));
-  ui_drawquestion(item);
+  ui_drawquestion (item);
 }
 static int
 ui_keystring (struct dialogitem *item, int key)
 {
-  struct ui_textdata *text = (struct ui_textdata *)item->data;
+  struct ui_textdata *text = (struct ui_textdata *) item->data;
   return (ui_textkey (text, key));
 }
 static void
 ui_mousestring (struct dialogitem *item, int x, int y, int buttons, int flags)
 {
-  struct ui_textdata *text = (struct ui_textdata *)item->data;
+  struct ui_textdata *text = (struct ui_textdata *) item->data;
   if (flags & MOUSE_DRAG)
     {
       ui_textmouse (text, x, y);
@@ -640,8 +699,7 @@ static void
 ui_unselectstring (struct dialogitem *item)
 {
 }
-CONST static struct dialogtype stringdialog =
-{
+CONST static struct dialogtype stringdialog = {
   ui_buildstring,
   ui_keystring,
   ui_mousestring,
@@ -662,12 +720,11 @@ ui_buildint (struct dialogitem *item, CONST menudialog * entry)
 static void
 ui_destroyint (struct dialogitem *item, dialogparam * param)
 {
-  struct ui_textdata *text = (struct ui_textdata *)item->data;
-  param->dint = (int)atol (text->text);
+  struct ui_textdata *text = (struct ui_textdata *) item->data;
+  param->dint = (int) atol (text->text);
   ui_closetext (text);
 }
-CONST static struct dialogtype intdialog =
-{
+CONST static struct dialogtype intdialog = {
   ui_buildint,
   ui_keystring,
   ui_mousestring,
@@ -687,6 +744,7 @@ ui_getextension (CONST char *ch)
     }
   return ch + i;
 }
+
 number_t
 ui_getfloat (CONST char *c)
 {
@@ -698,7 +756,7 @@ ui_getfloat (CONST char *c)
 #ifdef HAVE_LONG_DOUBLE
 #ifndef USE_ATOLD
 #ifdef USE_XLDIO
-  param = x_strtold(c, NULL);
+  param = x_strtold (c, NULL);
   if (0)
 #else
   if (sscanf (c, "%LG", &param) == 0)
@@ -729,7 +787,7 @@ static struct dialogitem *curritem;
 static void
 filecallback (CONST char *name, int succ)
 {
-  struct ui_filedata *text = (struct ui_filedata *)curritem->data;
+  struct ui_filedata *text = (struct ui_filedata *) curritem->data;
   if (succ)
     {
       ui_closetext (text->text);
@@ -744,7 +802,7 @@ static void
 ui_buildfile (struct dialogitem *item, CONST menudialog * entry)
 {
   char str[256];
-  struct ui_filedata *data = (struct ui_filedata *)malloc (sizeof (*data));
+  struct ui_filedata *data = (struct ui_filedata *) malloc (sizeof (*data));
   int i = 0;
   item->height = BUTTONHEIGHT;
   item->width = xtextwidth (uih->font, item->dialog->question);
@@ -754,7 +812,9 @@ ui_buildfile (struct dialogitem *item, CONST menudialog * entry)
   str[i] = 0;
   item->data = data;
   if (entry->type == DIALOG_OFILE)
-    data->text = ui_opentext (0, 0, 2043, ui_getfile (str, ui_getextension (item->dialog->defstr)));
+    data->text =
+      ui_opentext (0, 0, 2043,
+		   ui_getfile (str, ui_getextension (item->dialog->defstr)));
   else
     data->text = ui_opentext (0, 0, 2043, item->dialog->defstr);
   data->active = 0;
@@ -770,19 +830,19 @@ ui_buildfile (struct dialogitem *item, CONST menudialog * entry)
 static void
 ui_destroyfile (struct dialogitem *item, dialogparam * param)
 {
-  struct ui_filedata *text = (struct ui_filedata *)item->data;
+  struct ui_filedata *text = (struct ui_filedata *) item->data;
 #ifndef _plan9_
   if (filevisible)
     ui_closefilesel (0);
 #endif
   param->dpath = mystrdup (text->text->text);
   ui_closetext (text->text);
-  free(text);
+  free (text);
 }
 static void
 ui_drawfile (struct dialogitem *item)
 {
-  struct ui_filedata *data = (struct ui_filedata *)item->data;
+  struct ui_filedata *data = (struct ui_filedata *) item->data;
   int wholesize = dialog.width + dialog.x - dialog.half - 2 * BORDERWIDTH;
   if (data->text->width == 2043)
     {
@@ -791,17 +851,22 @@ ui_drawfile (struct dialogitem *item)
 	data->text->y = item->y + BORDERHEIGHT;
       ui_updatetext (data->text);
     }
-  uih_drawborder (uih, dialog.half, item->y, wholesize - BROWSEWIDTH, BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
+  uih_drawborder (uih, dialog.half, item->y, wholesize - BROWSEWIDTH,
+		  BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
   ui_drawtext (data->text, SELECTED (item) && !data->active);
-  xprint (uih->image, uih->font, dialog.half - item->width, item->y + BORDERHEIGHT, item->dialog->question, SELECTED (item) ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), 0);
-  ui_drawquestion(item);
-  ui_drawbutton ("B", data->pressed && SELECTED (item), SELECTED (item) && data->active,
-		 dialog.x + dialog.width - BROWSEWIDTH - BORDERWIDTH, dialog.x + dialog.width - BORDERWIDTH, item->y);
+  xprint (uih->image, uih->font, dialog.half - item->width,
+	  item->y + BORDERHEIGHT, item->dialog->question,
+	  SELECTED (item) ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), 0);
+  ui_drawquestion (item);
+  ui_drawbutton ("B", data->pressed && SELECTED (item), SELECTED (item)
+		 && data->active,
+		 dialog.x + dialog.width - BROWSEWIDTH - BORDERWIDTH,
+		 dialog.x + dialog.width - BORDERWIDTH, item->y);
 }
 static int
 ui_keyfile (struct dialogitem *item, int key)
 {
-  struct ui_filedata *text = (struct ui_filedata *)item->data;
+  struct ui_filedata *text = (struct ui_filedata *) item->data;
   int i = 0;
   if (!text->active)
     i = ui_textkey (text->text, key);
@@ -842,7 +907,7 @@ ui_keyfile (struct dialogitem *item, int key)
 static void
 ui_mousefile (struct dialogitem *item, int x, int y, int buttons, int flags)
 {
-  struct ui_filedata *text = (struct ui_filedata *)item->data;
+  struct ui_filedata *text = (struct ui_filedata *) item->data;
   int i;
   if (flags & MOUSE_MOVE)
     {
@@ -881,14 +946,13 @@ ui_mousefile (struct dialogitem *item, int x, int y, int buttons, int flags)
 static void
 ui_unselectfile (struct dialogitem *item)
 {
-  struct ui_filedata *text = (struct ui_filedata *)item->data;
+  struct ui_filedata *text = (struct ui_filedata *) item->data;
   if (text->active)
     text->active = 0, uih->display = 1;
   if (text->pressed)
     text->pressed = 0, uih->display = 1;
 }
-CONST static struct dialogtype filedialog =
-{
+CONST static struct dialogtype filedialog = {
   ui_buildfile,
   ui_keyfile,
   ui_mousefile,
@@ -909,12 +973,11 @@ ui_buildfloat (struct dialogitem *item, CONST menudialog * entry)
 static void
 ui_destroyfloat (struct dialogitem *item, dialogparam * param)
 {
-  struct ui_textdata *text = (struct ui_textdata *)item->data;
+  struct ui_textdata *text = (struct ui_textdata *) item->data;
   param->number = ui_getfloat (text->text);
   ui_closetext (text);
 }
-CONST static struct dialogtype floatdialog =
-{
+CONST static struct dialogtype floatdialog = {
   ui_buildfloat,
   ui_keystring,
   ui_mousestring,
@@ -923,15 +986,15 @@ CONST static struct dialogtype floatdialog =
   ui_unselectstring
 };
 struct ui_coorddata
-  {
-    struct ui_textdata *text[2];
-    int active;
-  };
+{
+  struct ui_textdata *text[2];
+  int active;
+};
 static void
 ui_buildcoord (struct dialogitem *item, CONST menudialog * entry)
 {
   char s[50];
-  struct ui_coorddata *data = (struct ui_coorddata *)malloc (sizeof (*data));
+  struct ui_coorddata *data = (struct ui_coorddata *) malloc (sizeof (*data));
   item->height = BUTTONHEIGHT;
   item->width = xtextwidth (uih->font, item->dialog->question);
   item->width1 = xtextcharw (uih->font, 'w') * 20;
@@ -945,20 +1008,22 @@ ui_buildcoord (struct dialogitem *item, CONST menudialog * entry)
 static void
 ui_destroycoord (struct dialogitem *item, dialogparam * param)
 {
-  struct ui_coorddata *data = (struct ui_coorddata *)item->data;
+  struct ui_coorddata *data = (struct ui_coorddata *) item->data;
   param->dcoord[0] = ui_getfloat (data->text[0]->text);
   param->dcoord[1] = ui_getfloat (data->text[1]->text);
   ui_closetext (data->text[0]);
   ui_closetext (data->text[1]);
   free (data);
 }
+
 #define SPACESIZE xtextwidth(uih->font,"+")
 #define ENDSIZE xtextwidth(uih->font,"i")
 static void
 ui_drawcoord (struct dialogitem *item)
 {
-  struct ui_coorddata *data = (struct ui_coorddata *)item->data;
-  int wholesize = dialog.width + dialog.x - dialog.half - 2 * BORDERWIDTH - ENDSIZE;
+  struct ui_coorddata *data = (struct ui_coorddata *) item->data;
+  int wholesize =
+    dialog.width + dialog.x - dialog.half - 2 * BORDERWIDTH - ENDSIZE;
   int half = (wholesize - SPACESIZE) / 2;
   if (data->text[0]->width == 2043)
     {
@@ -971,18 +1036,23 @@ ui_drawcoord (struct dialogitem *item)
       ui_updatetext (data->text[0]);
       ui_updatetext (data->text[1]);
     }
-  uih_drawborder (uih, dialog.half, item->y, half, BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
-  uih_drawborder (uih, dialog.half + half + SPACESIZE, item->y, half, BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
+  uih_drawborder (uih, dialog.half, item->y, half, BUTTONHEIGHT,
+		  BORDER_PRESSED | BORDER_LIGHT);
+  uih_drawborder (uih, dialog.half + half + SPACESIZE, item->y, half,
+		  BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
   ui_drawtext (data->text[0], SELECTED (item) && !data->active);
   ui_drawtext (data->text[1], SELECTED (item) && data->active);
-  xprint (uih->image, uih->font, dialog.half + half, item->y + BORDERHEIGHT, "+", FGCOLOR (uih), BGCOLOR (uih), 0);
-  xprint (uih->image, uih->font, dialog.x + dialog.width - BORDERWIDTH - ENDSIZE, item->y + BORDERHEIGHT, "i", FGCOLOR (uih), BGCOLOR (uih), 0);
-  ui_drawquestion(item);
+  xprint (uih->image, uih->font, dialog.half + half, item->y + BORDERHEIGHT,
+	  "+", FGCOLOR (uih), BGCOLOR (uih), 0);
+  xprint (uih->image, uih->font,
+	  dialog.x + dialog.width - BORDERWIDTH - ENDSIZE,
+	  item->y + BORDERHEIGHT, "i", FGCOLOR (uih), BGCOLOR (uih), 0);
+  ui_drawquestion (item);
 }
 static int
 ui_keycoord (struct dialogitem *item, int key)
 {
-  struct ui_coorddata *text = (struct ui_coorddata *)item->data;
+  struct ui_coorddata *text = (struct ui_coorddata *) item->data;
   int i = ui_textkey (text->text[text->active], key);
   if (!i)
     {
@@ -1011,7 +1081,7 @@ ui_keycoord (struct dialogitem *item, int key)
 	      text->active = 1;
 	      return 0;
 	    }
-	  text->text[0]->cursor = (int)strlen (text->text[0]->text);
+	  text->text[0]->cursor = (int) strlen (text->text[0]->text);
 	  ui_updatetext (text->text[0]);
 	  uih->display = 1;
 	  return 1;
@@ -1022,7 +1092,7 @@ ui_keycoord (struct dialogitem *item, int key)
 static void
 ui_mousecoord (struct dialogitem *item, int x, int y, int buttons, int flags)
 {
-  struct ui_coorddata *text = (struct ui_coorddata *)item->data;
+  struct ui_coorddata *text = (struct ui_coorddata *) item->data;
   int i;
   if (flags & MOUSE_MOVE)
     {
@@ -1044,11 +1114,10 @@ ui_mousecoord (struct dialogitem *item, int x, int y, int buttons, int flags)
 static void
 ui_unselectcoord (struct dialogitem *item)
 {
-  struct ui_coorddata *text = (struct ui_coorddata *)item->data;
+  struct ui_coorddata *text = (struct ui_coorddata *) item->data;
   text->active = 0;
 }
-CONST static struct dialogtype coorddialog =
-{
+CONST static struct dialogtype coorddialog = {
   ui_buildcoord,
   ui_keycoord,
   ui_mousecoord,
@@ -1057,19 +1126,20 @@ CONST static struct dialogtype coorddialog =
   ui_unselectcoord
 };
 struct ui_choicedata
-  {
-    CONST char **texts;
-    int selected;
-    int n;
-
-    struct uih_window *menu;
-    int x, y, width, height;
-    int active;
-  };
-static void
-ui_choicemenupos (struct uih_context *uih, int *x, int *y, int *width, int *height, void *data)
 {
-  struct ui_choicedata *choice = (struct ui_choicedata *)data;
+  CONST char **texts;
+  int selected;
+  int n;
+
+  struct uih_window *menu;
+  int x, y, width, height;
+  int active;
+};
+static void
+ui_choicemenupos (struct uih_context *uih, int *x, int *y, int *width,
+		  int *height, void *data)
+{
+  struct ui_choicedata *choice = (struct ui_choicedata *) data;
   if (filevisible || helpvisible)
     {
       *x = *y = *width = *height = 0;
@@ -1083,15 +1153,20 @@ ui_choicemenupos (struct uih_context *uih, int *x, int *y, int *width, int *heig
 static void
 ui_drawchoicemenu (uih_context * uih, void *data)
 {
-  struct ui_choicedata *choice = (struct ui_choicedata *)data;
+  struct ui_choicedata *choice = (struct ui_choicedata *) data;
   int i;
   for (i = 0; i < choice->n; i++)
     {
-      xprint (uih->image, uih->font, choice->x + BORDERWIDTH, choice->y + BORDERHEIGHT + i * xtextheight (uih->font), choice->texts[i], i == choice->active ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), 0);
+      xprint (uih->image, uih->font, choice->x + BORDERWIDTH,
+	      choice->y + BORDERHEIGHT + i * xtextheight (uih->font),
+	      choice->texts[i],
+	      i == choice->active ? SELCOLOR (uih) : FGCOLOR (uih),
+	      BGCOLOR (uih), 0);
     }
 }
 static void
-ui_buildchoicemenu (struct uih_context *uih, struct ui_choicedata *choice, int x, int y, int width)
+ui_buildchoicemenu (struct uih_context *uih, struct ui_choicedata *choice,
+		    int x, int y, int width)
 {
   if (choice->menu != NULL)
     return;
@@ -1109,7 +1184,9 @@ ui_buildchoicemenu (struct uih_context *uih, struct ui_choicedata *choice, int x
     choice->x = 0;
   if (choice->y < 0)
     choice->y = 0;
-  choice->menu = uih_registerw (uih, ui_choicemenupos, ui_drawchoicemenu, choice, DRAWBORDER);
+  choice->menu =
+    uih_registerw (uih, ui_choicemenupos, ui_drawchoicemenu, choice,
+		   DRAWBORDER);
   uih->display = 1;
 }
 static void
@@ -1127,7 +1204,8 @@ static void
 ui_buildchoice (struct dialogitem *item, CONST menudialog * entry)
 {
   int i;
-  struct ui_choicedata *data = (struct ui_choicedata *)malloc (sizeof (*data));
+  struct ui_choicedata *data =
+    (struct ui_choicedata *) malloc (sizeof (*data));
   item->height = BUTTONHEIGHT;
   item->width = xtextwidth (uih->font, item->dialog->question);
   item->width1 = 0;
@@ -1148,7 +1226,7 @@ ui_buildchoice (struct dialogitem *item, CONST menudialog * entry)
 static void
 ui_destroychoice (struct dialogitem *item, dialogparam * param)
 {
-  struct ui_choicedata *data = (struct ui_choicedata *)item->data;
+  struct ui_choicedata *data = (struct ui_choicedata *) item->data;
   param->dint = data->selected;
   ui_closechoicemenu (uih, data);
   free (data);
@@ -1156,15 +1234,18 @@ ui_destroychoice (struct dialogitem *item, dialogparam * param)
 static void
 ui_drawchoice (struct dialogitem *item)
 {
-  struct ui_choicedata *data = (struct ui_choicedata *)item->data;
-  uih_drawborder (uih, dialog.half, item->y, item->width1, BUTTONHEIGHT | BORDER_LIGHT, 0);
-  xprint (uih->image, uih->font, dialog.half + BORDERWIDTH, item->y + BORDERHEIGHT, data->texts[data->selected], SELECTED (item) ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), 0);
-  ui_drawquestion(item);
+  struct ui_choicedata *data = (struct ui_choicedata *) item->data;
+  uih_drawborder (uih, dialog.half, item->y, item->width1,
+		  BUTTONHEIGHT | BORDER_LIGHT, 0);
+  xprint (uih->image, uih->font, dialog.half + BORDERWIDTH,
+	  item->y + BORDERHEIGHT, data->texts[data->selected],
+	  SELECTED (item) ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), 0);
+  ui_drawquestion (item);
 }
 static int
 ui_keychoice (struct dialogitem *item, int key)
 {
-  struct ui_choicedata *data = (struct ui_choicedata *)item->data;
+  struct ui_choicedata *data = (struct ui_choicedata *) item->data;
   if (!data->menu)
     {
       switch (key)
@@ -1210,12 +1291,13 @@ ui_keychoice (struct dialogitem *item, int key)
 static void
 ui_mousechoice (struct dialogitem *item, int x, int y, int buttons, int flags)
 {
-  struct ui_choicedata *data = (struct ui_choicedata *)item->data;
+  struct ui_choicedata *data = (struct ui_choicedata *) item->data;
   int in;
   if (data->menu != NULL)
     {
       in = 0;
-      if (x > data->x && y > data->y && x < data->x + data->width && y < data->y + data->height)
+      if (x > data->x && y > data->y && x < data->x + data->width
+	  && y < data->y + data->height)
 	in = 1;
       if ((flags & MOUSE_PRESS) && !in)
 	{
@@ -1248,11 +1330,10 @@ ui_mousechoice (struct dialogitem *item, int x, int y, int buttons, int flags)
 static void
 ui_unselectchoice (struct dialogitem *item)
 {
-  struct ui_choicedata *data = (struct ui_choicedata *)item->data;
+  struct ui_choicedata *data = (struct ui_choicedata *) item->data;
   ui_closechoicemenu (uih, data);
 }
-CONST static struct dialogtype choicedialog =
-{
+CONST static struct dialogtype choicedialog = {
   ui_buildchoice,
   ui_keychoice,
   ui_mousechoice,
@@ -1262,7 +1343,8 @@ CONST static struct dialogtype choicedialog =
 };
 
 static void
-ui_dialogpos (struct uih_context *c, int *x, int *y, int *width, int *height, void *data)
+ui_dialogpos (struct uih_context *c, int *x, int *y, int *width, int *height,
+	      void *data)
 {
   *x = dialog.x;
   *y = dialog.y;
@@ -1281,6 +1363,7 @@ ui_dialogdraw (struct uih_context *c, void *data)
   for (n = 0; n < dialog.nitems; n++)
     dialog.items[n].type->draw (dialog.items + n);
 }
+
 #define YSKIP 2
 void
 ui_builddialog (CONST menuitem * item)
@@ -1288,15 +1371,16 @@ ui_builddialog (CONST menuitem * item)
   int n = 2;
   int ypos;
   int width1 = 0;
-  if(ui_nogui) {
-    printf("dialog \"%s\"\n",item->shortname);
-    return;
-  }
-  if(driver->gui_driver && driver->gui_driver->dialog)
-  {
-    driver->gui_driver->dialog(uih, item->shortname);
-    return;
-  }
+  if (ui_nogui)
+    {
+      printf ("dialog \"%s\"\n", item->shortname);
+      return;
+    }
+  if (driver->gui_driver && driver->gui_driver->dialog)
+    {
+      driver->gui_driver->dialog (uih, item->shortname);
+      return;
+    }
   dialogvisible = 1;
   dialog.width = 0;
   dialog.height = 0;
@@ -1305,7 +1389,8 @@ ui_builddialog (CONST menuitem * item)
   for (n = 0; dialog.dialog[n].question != NULL; n++);
   n++;
   dialog.nitems = n;
-  dialog.items = (struct dialogitem *)malloc (sizeof (struct dialogitem) * dialog.nitems);
+  dialog.items =
+    (struct dialogitem *) malloc (sizeof (struct dialogitem) * dialog.nitems);
   dialog.mousereleased = 0;
   dialog.items[dialog.nitems - 1].type = &okdialog;
   for (n = 0; n < dialog.nitems; n++)
@@ -1348,8 +1433,12 @@ ui_builddialog (CONST menuitem * item)
 	dialog.width = dialog.items[n].width;
     }
   dialog.height += YSKIP * (n - 1);
-  n = xtextwidth(uih->font, oktext) + xtextwidth(uih->font, canceltext) + xtextwidth(uih->font, helptext) + 10;
-  if (dialog.width < n) dialog.width=n;
+  n =
+    xtextwidth (uih->font, oktext) + xtextwidth (uih->font,
+						 canceltext) +
+    xtextwidth (uih->font, helptext) + 10;
+  if (dialog.width < n)
+    dialog.width = n;
   dialog.half = dialog.width + 2 * BORDERWIDTH;
   dialog.width += 2 * BORDERWIDTH + width1;
   dialog.height += 2 * BORDERHEIGHT;
@@ -1363,7 +1452,8 @@ ui_builddialog (CONST menuitem * item)
       dialog.items[n].y = ypos;
       ypos += dialog.items[n].height + YSKIP;
     }
-  dialog.window = uih_registerw (uih, ui_dialogpos, ui_dialogdraw, NULL, DRAWBORDER);
+  dialog.window =
+    uih_registerw (uih, ui_dialogpos, ui_dialogdraw, NULL, DRAWBORDER);
   uih->display = 1;
 }
 static void
@@ -1374,13 +1464,15 @@ ui_dialogquestion (int succesfull)
   else
     menu_destroydialog (qitem, qparam, uih);
 }
+
 void
 ui_closedialog (int succesfull)
 {
   int n = 2;
   if (dialogvisible)
     {
-      dialogparam *param = (dialogparam *)malloc (sizeof (dialogparam) * (dialog.nitems));
+      dialogparam *param =
+	(dialogparam *) malloc (sizeof (dialogparam) * (dialog.nitems));
       dialogvisible = 0;
       uih_removew (uih, dialog.window);
       uih->display = 1;
@@ -1392,7 +1484,8 @@ ui_closedialog (int succesfull)
       if (succesfull)
 	{
 	  for (n = 0; n < dialog.nitems - 1; n++)
-	    if (dialog.dialog[n].type == DIALOG_OFILE && xio_exist (param[n].dpath))
+	    if (dialog.dialog[n].type == DIALOG_OFILE
+		&& xio_exist (param[n].dpath))
 	      {
 		qparam = param;
 		qitem = dialog.item;
@@ -1425,17 +1518,20 @@ ui_dialogmouse (int x, int y, int mousebuttons, int flags)
   dialog.mousereleased = 1;
   if (dialog.mousegrab)
     {
-      dialog.items[dialog.current].type->mouse (dialog.items + dialog.current, x, y, mousebuttons, flags);
+      dialog.items[dialog.current].type->mouse (dialog.items + dialog.current,
+						x, y, mousebuttons, flags);
       return 1;
     }
-  if (dialog.x > x || dialog.y > y || dialog.x + dialog.width < x || dialog.y + dialog.height < y)
+  if (dialog.x > x || dialog.y > y || dialog.x + dialog.width < x
+      || dialog.y + dialog.height < y)
     {
       if (flags & MOUSE_PRESS)
 	{
 	  ui_closedialog (0);
 	  return 1;
 	}
-      dialog.items[dialog.current].type->mouse (dialog.items + dialog.current, x, y, 0, 0);
+      dialog.items[dialog.current].type->mouse (dialog.items + dialog.current,
+						x, y, 0, 0);
       return 1;
     }
   for (i = dialog.nitems - 1; i >= 0; i--)
@@ -1443,18 +1539,21 @@ ui_dialogmouse (int x, int y, int mousebuttons, int flags)
       break;
   if (i == -1)
     {
-      dialog.items[dialog.current].type->mouse (dialog.items + dialog.current, x, y, 0, 0);
+      dialog.items[dialog.current].type->mouse (dialog.items + dialog.current,
+						x, y, 0, 0);
       return 1;
     }
   if (((flags & MOUSE_PRESS) || (flags & MOUSE_MOVE)) && dialog.current != i)
     {
-      dialog.items[dialog.current].type->unselect (dialog.items + dialog.current);
+      dialog.items[dialog.current].type->unselect (dialog.items +
+						   dialog.current);
       dialog.current = i;
       uih->display = 1;
     }
   dialog.items[i].type->mouse (dialog.items + i, x, y, mousebuttons, flags);
   return 1;
 }
+
 int
 ui_dialogkeys (int key)
 {
@@ -1467,13 +1566,14 @@ ui_dialogkeys (int key)
       ui_closedialog (0);
       return 1;
     }
-  if (!dialog.items[dialog.current].type->key (dialog.items + dialog.current, key))
+  if (!dialog.items[dialog.current].type->
+      key (dialog.items + dialog.current, key))
     {
       switch (key)
 	{
 	case 'h':
-		ui_help(dialog.item->shortname);
-		return 1;
+	  ui_help (dialog.item->shortname);
+	  return 1;
 	case UIKEY_TAB:
 	case UIKEY_DOWN:
 	case UIKEY_RIGHT:

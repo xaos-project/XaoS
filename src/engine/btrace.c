@@ -167,18 +167,17 @@ static int exitnow;
 #define MAXPAGES 200		/*Well limit is about 6MB of stack..Hope it will never owerflow */
 #define MAXSIZE (MAXPAGES*PAGESIZE-1)
 struct stack
-  {
-    int color;
-    short x, y;
-    char direction;
-  };
+{
+  int color;
+  short x, y;
+  char direction;
+};
 static int npages[MAXTHREADS];
 static struct stack *pages[MAXPAGES];
 static struct stack **starts[MAXTHREADS];
 static int sizes[MAXTHREADS];
 static int maxsize, maxsize2;
-static CONST char dirrections[][2] =
-{
+static CONST char dirrections[][2] = {
   {0, -1},
   {1, 0},
   {0, 1},
@@ -236,8 +235,8 @@ static unsigned char *calculated;
 
 static number_t *xcoord, *ycoord;
 #ifndef inline
-REGISTERS (3) CONSTF static pixel32_t
-calculatepixel (int x, int y, int peri)
+REGISTERS (3)
+     CONSTF static pixel32_t calculatepixel (int x, int y, int peri)
 {
   return (calculate (xcoord[x], ycoord[y], peri));
 }
@@ -349,7 +348,7 @@ tracerectangle2 (int x1, int y1, int x2, int y2)
 }
 #endif
 #endif
-static void 
+static void
 skip (int x1, int y1, int x2, int y2)
 {
   int src = y1;
@@ -358,7 +357,8 @@ skip (int x1, int y1, int x2, int y2)
   y1++;
   for (; y1 <= y2; y1++)
     {
-      memcpy (cimage.currlines[y1] + xstart, cimage.currlines[src] + xstart, xsize);
+      memcpy (cimage.currlines[y1] + xstart, cimage.currlines[src] + xstart,
+	      xsize);
       ycoord[y1] = ycoord[src];
     }
 }
@@ -372,7 +372,8 @@ tracerectangle (int x1, int y1, int x2, int y2)
   cfilter.pos = 0;
   for (y = y1; y <= y2; y++)
     {
-      memset_long (calculated + x1 + y * CALCWIDTH, 0, (size_t)(x2 - x1 + 1));
+      memset_long (calculated + x1 + y * CALCWIDTH, 0,
+		   (size_t) (x2 - x1 + 1));
     }
   switch (cimage.bytesperpixel)
     {
@@ -454,8 +455,10 @@ tracerectangle (int x1, int y1, int x2, int y2)
     }
   return 1;
 }
+
 int
-boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos, number_t * ypos)
+boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos,
+	       number_t * ypos)
 {
   int i;
   int i1;
@@ -464,9 +467,9 @@ boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos, number_t * ypos)
   int cx1, cx2;
   int ydiv;
 #ifdef HAVE_ALLOCA
-  calculated = (unsigned char *)alloca (cimage.width * (y2 + 1));
+  calculated = (unsigned char *) alloca (cimage.width * (y2 + 1));
 #else
-  calculated = (unsigned char *)malloc (cimage.width * (y2 + 1));
+  calculated = (unsigned char *) malloc (cimage.width * (y2 + 1));
 #endif
   if (calculated == NULL)
     {
@@ -479,12 +482,23 @@ boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos, number_t * ypos)
   if (cursymetry.xsym < cfractalc.rs.nc || cursymetry.xsym > cfractalc.rs.mc)
     xsym = -10;
   else
-    xsym = (int)(0.5 + ((cursymetry.xsym - cfractalc.rs.nc) * cimage.width / (cfractalc.rs.mc - cfractalc.rs.nc)));
+    xsym =
+      (int) (0.5 +
+	     ((cursymetry.xsym -
+	       cfractalc.rs.nc) * cimage.width / (cfractalc.rs.mc -
+						  cfractalc.rs.nc)));
   if (cursymetry.ysym < cfractalc.rs.ni || cursymetry.ysym > cfractalc.rs.mi)
     ysym = -10;
   else
-    ysym = (int)(0.5 + ((cursymetry.ysym - cfractalc.rs.ni) * cimage.height / (cfractalc.rs.mi - cfractalc.rs.ni)));
-  ydiv = (int)(0.5 + ((-cfractalc.rs.ni) * cimage.height / (cfractalc.rs.mi - cfractalc.rs.ni)));
+    ysym =
+      (int) (0.5 +
+	     ((cursymetry.ysym -
+	       cfractalc.rs.ni) * cimage.height / (cfractalc.rs.mi -
+						   cfractalc.rs.ni)));
+  ydiv =
+    (int) (0.5 +
+	   ((-cfractalc.rs.ni) * cimage.height /
+	    (cfractalc.rs.mi - cfractalc.rs.ni)));
   if (xsym > x1 && xsym < x2)
     {
       if (xsym - x1 > x2 - xsym)
@@ -505,11 +519,15 @@ boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos, number_t * ypos)
     ysym = -1, cy1 = y1, cy2 = y2;
   for (i = cx1; i <= cx2; i++)
     {
-      xcoord[i] = cfractalc.rs.nc + i * (cfractalc.rs.mc - cfractalc.rs.nc) / cimage.width;
+      xcoord[i] =
+	cfractalc.rs.nc + i * (cfractalc.rs.mc -
+			       cfractalc.rs.nc) / cimage.width;
     }
   for (i = cy1; i <= cy2; i++)
     {
-      ycoord[i] = cfractalc.rs.ni + i * (cfractalc.rs.mi - cfractalc.rs.ni) / cimage.height;
+      ycoord[i] =
+	cfractalc.rs.ni + i * (cfractalc.rs.mi -
+			       cfractalc.rs.ni) / cimage.height;
     }
   i = 1;
 #ifndef SLOWCACHESYNC
@@ -578,7 +596,8 @@ boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos, number_t * ypos)
       yy2 = 2 * ysym - y1;
       while (yy1 < yy2)
 	{
-	  memcpy (cimage.currlines[yy1] + xstart, cimage.currlines[yy2] + xstart, (size_t)xsize);
+	  memcpy (cimage.currlines[yy1] + xstart,
+		  cimage.currlines[yy2] + xstart, (size_t) xsize);
 	  yy1++;
 	  yy2--;
 	}
@@ -592,15 +611,18 @@ boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos, number_t * ypos)
       yy2 = 2 * ysym - y2;
       while (yy1 > yy2)
 	{
-	  memcpy (cimage.currlines[yy1] + xstart, cimage.currlines[yy2] + xstart, (size_t)xsize);
+	  memcpy (cimage.currlines[yy1] + xstart,
+		  cimage.currlines[yy2] + xstart, (size_t) xsize);
 	  yy1--;
 	  yy2++;
 	}
     }
   return 1;
 }
+
 int
 boundarytraceall (number_t * xpos, number_t * ypos)
 {
-  return (boundarytrace (0, 0, cimage.width - 1, cimage.height - 1, xpos, ypos));
+  return (boundarytrace
+	  (0, 0, cimage.width - 1, cimage.height - 1, xpos, ypos));
 }

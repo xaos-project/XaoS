@@ -46,25 +46,24 @@ static struct filter *uih_getinstance (CONST struct filteraction *a);
 static void uih_destroyinstance (struct filter *f);
 static int uih_require (struct filter *f, struct requirements *r);
 static int uih_initialize (struct filter *f, struct initdata *i);
-static CONST rgb_t uicolors[] =
-{
+static CONST rgb_t uicolors[] = {
   {0, 0, 0},
   {255, 255, 255},
   {255, 65, 0},
   {64, 64, 64},
   {128, 128, 128},
-  {128 + 64, 128 + 64, 128 + 64}};
-static CONST rgb_t uibwcolors[] =
-{
+  {128 + 64, 128 + 64, 128 + 64}
+};
+static CONST rgb_t uibwcolors[] = {
   {0, 0, 0},
   {255, 255, 255},
   {255, 255, 255},
   {255, 255, 255},
   {255, 255, 255},
-  {255, 255, 255}};
+  {255, 255, 255}
+};
 
-static CONST struct filteraction uih_filter =
-{
+static CONST struct filteraction uih_filter = {
   "XaoS's user interface layer",
   "ui",
   0,
@@ -81,13 +80,13 @@ static CONST struct filteraction uih_filter =
 static uih_context *uih;
 static int waitcount, waitcount1, waitcount2;
 
-extern CONST struct filteraction interlace_filter, stereogram_filter, subwindow_filter,
-  smalliter_filter, julia_filter, blur_filter, edge_filter, edge2_filter,
-  rotate_filter, starfield_filter, truecolor_filter, fixedcolor_filter,
-  bitmap_filter, emboss_filter, palette_filter, antialias_filter, threed_filter;
+extern CONST struct filteraction interlace_filter, stereogram_filter,
+  subwindow_filter, smalliter_filter, julia_filter, blur_filter, edge_filter,
+  edge2_filter, rotate_filter, starfield_filter, truecolor_filter,
+  fixedcolor_filter, bitmap_filter, emboss_filter, palette_filter,
+  antialias_filter, threed_filter;
 
-CONST struct filteraction * CONST uih_filters[MAXFILTERS] =
-{
+CONST struct filteraction *CONST uih_filters[MAXFILTERS] = {
   &edge_filter,
   &edge2_filter,
   &threed_filter,
@@ -125,10 +124,19 @@ static void
 uih_getcoord (uih_context * uih, int x, int y, number_t * xr, number_t * yr)
 {
   uih->uifilter->action->convertdown (uih->uifilter, &x, &y);
-  *xr = (((number_t) (uih->fcontext->rs.nc + (x) * ((uih->fcontext->rs.mc - uih->fcontext->rs.nc) / (number_t) uih->zengine->image->width))));
-  *yr = (((number_t) (uih->fcontext->rs.ni + (y) * ((uih->fcontext->rs.mi - uih->fcontext->rs.ni) / (number_t) uih->zengine->image->height))));
+  *xr =
+    (((number_t)
+      (uih->fcontext->rs.nc +
+       (x) * ((uih->fcontext->rs.mc - uih->fcontext->rs.nc) /
+	      (number_t) uih->zengine->image->width))));
+  *yr =
+    (((number_t)
+      (uih->fcontext->rs.ni +
+       (y) * ((uih->fcontext->rs.mi - uih->fcontext->rs.ni) /
+	      (number_t) uih->zengine->image->height))));
   rotateback (*(uih->fcontext), *xr, *yr);
 }
+
 int
 uih_enablefilter (uih_context * c, int n)
 {
@@ -156,26 +164,38 @@ uih_enablefilter (uih_context * c, int n)
 	  f->action->destroyinstance (f);
 	  if (!initqueue (c->queue))
 	    {
-	      x_fatalerror ("Fatal error. Can not continue - initialization of queue can not be performed eigher with or without filter");
+	      x_fatalerror
+		("Fatal error. Can not continue - initialization of queue can not be performed eigher with or without filter");
 	    }
 	  if (wascycling)
 	    uih_cycling_on (c);
-	  if (!strcmp("palette",uih_filters[n]->shortname))
-	    {uih_updatemenus (c, "palettef");}
-	    else {uih_updatemenus (c, uih_filters[n]->shortname);}
+	  if (!strcmp ("palette", uih_filters[n]->shortname))
+	    {
+	      uih_updatemenus (c, "palettef");
+	    }
+	  else
+	    {
+	      uih_updatemenus (c, uih_filters[n]->shortname);
+	    }
 	  return 0;
 	}
       else
 	c->filter[n] = f;
       if (wascycling)
 	uih_cycling_on (c);
-	  if (!strcmp("palette",uih_filters[n]->shortname))
-	    {uih_updatemenus (c, "palettef");}
-	    else {uih_updatemenus (c, uih_filters[n]->shortname);}
+      if (!strcmp ("palette", uih_filters[n]->shortname))
+	{
+	  uih_updatemenus (c, "palettef");
+	}
+      else
+	{
+	  uih_updatemenus (c, uih_filters[n]->shortname);
+	}
       return 1;
     }
   return 0;
 }
+
 void
 uih_disablefilter (uih_context * c, int n)
 {
@@ -209,20 +229,25 @@ uih_disablefilter (uih_context * c, int n)
 	    }
 	}
       else
-	f->action->destroyinstance (f),
-	  c->filter[n] = NULL;
+	f->action->destroyinstance (f), c->filter[n] = NULL;
       if (wascycling)
 	uih_cycling_on (c);
-      if (!strcmp("palette",uih_filters[n]->shortname))
-	    {uih_updatemenus (c, "palettef");}
-	    else {uih_updatemenus (c, uih_filters[n]->shortname);}
+      if (!strcmp ("palette", uih_filters[n]->shortname))
+	{
+	  uih_updatemenus (c, "palettef");
+	}
+      else
+	{
+	  uih_updatemenus (c, uih_filters[n]->shortname);
+	}
     }
 }
 int
 uih_fastrotateenable (uih_context * c)
 {
   int wascycling = 0;
-  if (c->juliamode) uih_disablejulia(c);
+  if (c->juliamode)
+    uih_disablejulia (c);
   if (!c->fastrotate && !c->juliamode)
     {
       if (c->cycling)
@@ -249,13 +274,14 @@ end:
     uih_cycling_on (c);
   return 0;
 }
+
 void
 uih_fastrotatedisable (uih_context * c)
 {
   if (c->fastrotate)
     {
       int wascycling = 0;
-      uih_rotatemode(c, ROTATE_NONE);
+      uih_rotatemode (c, ROTATE_NONE);
       if (c->cycling)
 	uih_cycling_off (c), wascycling = 1;
       c->fastrotate = 0;
@@ -302,29 +328,29 @@ static int
 uih_fixedcolorenable (uih_context * c)
 {
 #ifdef SCONVERTORS
-      CONST struct filteraction *fa = NULL;
+  CONST struct filteraction *fa = NULL;
   int wascycling = 0;
   preallocpalette (c->palette);
-      switch (c->image->palette->type)
-	{
+  switch (c->image->palette->type)
+    {
 #ifdef SFIXEDCOLOR
-	case FIXEDCOLOR:
-	  fa = &fixedcolor_filter;
-	  break;
+    case FIXEDCOLOR:
+      fa = &fixedcolor_filter;
+      break;
 #endif
 #ifdef SBITMAPS
-	case LBITMAP:
-	case MBITMAP:
-	case LIBITMAP:
-	case MIBITMAP:
-	  fa = &bitmap_filter;
-	  break;
+    case LBITMAP:
+    case MBITMAP:
+    case LIBITMAP:
+    case MIBITMAP:
+      fa = &bitmap_filter;
+      break;
 #endif
-	default:
-	  x_fatalerror ("Unsupported image type. Recompile XaoS");
-	}
+    default:
+      x_fatalerror ("Unsupported image type. Recompile XaoS");
+    }
   if (c->fixedcolor != NULL && c->fixedcolor->action != fa)
-      uih_fixedcolordisable (c);
+    uih_fixedcolordisable (c);
   if (c->fixedcolor == NULL)
     {
       if (c->cycling)
@@ -355,6 +381,7 @@ end:
   return 0;
 #endif
 }
+
 int
 uih_fastrotate (uih_context * c, int mode)
 {
@@ -363,6 +390,7 @@ uih_fastrotate (uih_context * c, int mode)
   uih_fastrotatedisable (c);
   return 1;
 }
+
 void
 uih_angle (uih_context * c, number_t angle)
 {
@@ -380,8 +408,7 @@ uih_angle (uih_context * c, number_t angle)
 void
 uih_rotatemode (uih_context * c, int mode)
 {
-  CONST char *names[] =
-  {
+  CONST char *names[] = {
     "norotate",
     "mouserotate",
     "controtate"
@@ -393,7 +420,7 @@ uih_rotatemode (uih_context * c, int mode)
 	  c->rotatemode = mode;
 	  if (mode == ROTATE_CONTINUOUS)
 	    tl_reset_timer (c->doittimer);
-          uih_updatemenus (c, names[mode]);
+	  uih_updatemenus (c, names[mode]);
 	}
     }
 }
@@ -402,15 +429,18 @@ int
 uih_enablejulia (uih_context * c)
 {
   int wascycling = 0;
-  if (!c->juliamode && c->fcontext->mandelbrot /*&&c->fcontext->currentformula->calculate_julia != NULL */ )
+  if (!c->juliamode
+      && c->fcontext->
+      mandelbrot /*&&c->fcontext->currentformula->calculate_julia != NULL */ )
     {
       struct filter *addf = c->zengine;
       uih_newimage (c);
       if (c->fastrotate)
-        uih_fastrotatedisable (c);
+	uih_fastrotatedisable (c);
       if (c->cycling)
 	uih_cycling_off (c), wascycling = 1;
-      if (c->fcontext->currentformula->calculate_julia == NULL || c->fcontext->slowmode)
+      if (c->fcontext->currentformula->calculate_julia == NULL
+	  || c->fcontext->slowmode)
 	c->julia = zoom_filter.getinstance (&zoom_filter);
       else
 	c->julia = julia_filter.getinstance (&julia_filter);
@@ -420,7 +450,8 @@ uih_enablejulia (uih_context * c)
       c->subwindow = subwindow_filter.getinstance (&subwindow_filter);
       if (c->subwindow == NULL)
 	goto end2;
-      if (c->fcontext->currentformula->calculate_julia != NULL && !c->fcontext->slowmode)
+      if (c->fcontext->currentformula->calculate_julia != NULL
+	  && !c->fcontext->slowmode)
 	{
 	  c->smalliter = smalliter_filter.getinstance (&smalliter_filter);
 	  if (c->smalliter == NULL)
@@ -429,7 +460,8 @@ uih_enablejulia (uih_context * c)
       else
 	c->smalliter = NULL;
       addfilter (c->subwindow, addf);
-      if (c->fcontext->currentformula->calculate_julia != NULL && !c->fcontext->slowmode)
+      if (c->fcontext->currentformula->calculate_julia != NULL
+	  && !c->fcontext->slowmode)
 	{
 	  addfilter (c->smalliter, addf);
 	}
@@ -437,7 +469,8 @@ uih_enablejulia (uih_context * c)
       subwindow_setsecond (c->subwindow, addf);
       if (!initqueue (c->queue))
 	goto end4;
-      if (c->fcontext->currentformula->calculate_julia == NULL || c->fcontext->slowmode)
+      if (c->fcontext->currentformula->calculate_julia == NULL
+	  || c->fcontext->slowmode)
 	c->juliamode = 2;
       else
 	c->juliamode = 1;
@@ -463,6 +496,7 @@ end:;
   uih_updatemenus (c, "fastjulia");
   return 0;
 }
+
 void
 uih_disablejulia (uih_context * c)
 {
@@ -496,6 +530,7 @@ uih_setjuliamode (uih_context * c, int mode)
   uih_disablejulia (c);
   return 1;
 }
+
 void
 uih_rotationspeed (uih_context * c, number_t speed)
 {
@@ -504,7 +539,7 @@ uih_rotationspeed (uih_context * c, number_t speed)
 static void
 uih_cyclinghandler (void *userdata, int n)
 {
-  struct uih_context *uih = (struct uih_context *)userdata;
+  struct uih_context *uih = (struct uih_context *) userdata;
   int direct;
   if (uih->zengine->fractalc->palette != NULL &&
       uih->zengine->fractalc->palette->cyclecolors == NULL)
@@ -519,9 +554,12 @@ uih_cyclinghandler (void *userdata, int n)
       uih->paletteshift += direct;
       while (uih->paletteshift < 0)
 	uih->paletteshift += uih->zengine->fractalc->palette->size - 1;
-      uih->paletteshift = uih->paletteshift % (uih->zengine->fractalc->palette->size - 1);
-      uih->zengine->fractalc->palette->cyclecolors (uih->zengine->fractalc->palette, direct);
-      if (uih->flags & UPDATE_AFTER_PALETTE && (!uih->play || !uih->nonfractalscreen))
+      uih->paletteshift =
+	uih->paletteshift % (uih->zengine->fractalc->palette->size - 1);
+      uih->zengine->fractalc->palette->cyclecolors (uih->zengine->fractalc->
+						    palette, direct);
+      if (uih->flags & UPDATE_AFTER_PALETTE
+	  && (!uih->play || !uih->nonfractalscreen))
 	uih->display = 1;
       uih_palettechg (uih);
     }
@@ -556,6 +594,7 @@ uih_display (struct uih_context *c)
   if (c->play)
     uih_clear_lines (c);
 }
+
 void
 uih_cycling_stop (struct uih_context *c)
 {
@@ -591,28 +630,32 @@ uih_loadfile (struct uih_context *c, xio_constpath d)
   uih_load (c, f, d);
   return;
 }
+
 void
-uih_loadstr(struct uih_context *c, CONST char *data)
+uih_loadstr (struct uih_context *c, CONST char *data)
 {
   xio_file f;
   f = xio_strropen (data);
   uih_load (c, f, "");
   return;
 }
+
 void
-uih_playstr(struct uih_context *c, CONST char *data)
+uih_playstr (struct uih_context *c, CONST char *data)
 {
   xio_file f;
-  f = xio_strropen (mystrdup(data));
-  uih_replayenable (c, f, "",1);
+  f = xio_strropen (mystrdup (data));
+  uih_replayenable (c, f, "", 1);
   return;
 }
+
 void
 uih_recalculate (struct uih_context *c)
 {
   c->fcontext->version++;
   uih_newimage (c);
 }
+
 void
 uih_playfile (struct uih_context *c, xio_constpath d)
 {
@@ -632,6 +675,7 @@ uih_playfile (struct uih_context *c, xio_constpath d)
   uih_replayenable (c, f, d, 1);
   return;
 }
+
 void
 uih_playtutorial (struct uih_context *c, CONST char *name)
 {
@@ -725,44 +769,51 @@ uih_savepostostr (struct uih_context *c)
   c->errstring = NULL;
   f = xio_strwopen ();
   uih_save_possition (c, f, UIH_SAVEPOS);
-  return(xio_getstring(f));
+  return (xio_getstring (f));
 }
+
 void
 uih_saveundo (struct uih_context *c)
 {
   xio_file f;
-  if (c->play) return;
+  if (c->play)
+    return;
   c->errstring = NULL;
-  if (c->undo.undos[c->undo.last]) free(c->undo.undos[c->undo.last]);
+  if (c->undo.undos[c->undo.last])
+    free (c->undo.undos[c->undo.last]);
   f = xio_strwopen ();
   uih_save_possition (c, f, UIH_SAVEPOS);
-  c->undo.undos[c->undo.last]=xio_getstring(f);
-  c->undo.last = (c->undo.last+1)%UNDOLEVEL;
+  c->undo.undos[c->undo.last] = xio_getstring (f);
+  c->undo.last = (c->undo.last + 1) % UNDOLEVEL;
 }
+
 void
-uih_undo(struct uih_context *c)
+uih_undo (struct uih_context *c)
 {
   xio_file f;
-  int pos=c->undo.last-2;
-  if(pos<0) pos=UNDOLEVEL+pos;
-  if(c->undo.undos[pos]) {
-    f = xio_strropen (c->undo.undos[pos]);
-    c->undo.undos[pos]=NULL;
-    c->undo.last=pos;
-    uih_load (c, f, "");
-  }
+  int pos = c->undo.last - 2;
+  if (pos < 0)
+    pos = UNDOLEVEL + pos;
+  if (c->undo.undos[pos])
+    {
+      f = xio_strropen (c->undo.undos[pos]);
+      c->undo.undos[pos] = NULL;
+      c->undo.last = pos;
+      uih_load (c, f, "");
+    }
 }
 void
-uih_redo(struct uih_context *c)
+uih_redo (struct uih_context *c)
 {
   xio_file f;
-  int pos=c->undo.last;
-  if(c->undo.undos[pos]) {
-    f = xio_strropen (c->undo.undos[pos]);
-    c->undo.undos[pos]=NULL;
-    c->undo.last=pos;
-    uih_load (c, f, "");
-  }
+  int pos = c->undo.last;
+  if (c->undo.undos[pos])
+    {
+      f = xio_strropen (c->undo.undos[pos]);
+      c->undo.undos[pos] = NULL;
+      c->undo.last = pos;
+      uih_load (c, f, "");
+    }
 }
 extern xio_pathdata configfile;
 void
@@ -792,7 +843,7 @@ uih_saveanimfile (struct uih_context *c, xio_constpath d)
   if (c->save)
     {
       uih_save_disable (c);
-      uih_updatemenus(c, "record");
+      uih_updatemenus (c, "record");
       return;
     }
   f = xio_wopen (d);
@@ -825,12 +876,13 @@ uih_save (struct uih_context *c, xio_constpath filename)
   uih_cycling_stop (c);
   uih_stoptimers (c);
   uih_clearwindows (c);
-  f = fopen (filename,"wb");
+  f = fopen (filename, "wb");
   r = writepng (f, c->queue->saveimage);
   uih_cycling_continue (c);
   uih_resumetimers (c);
   return (r);
 }
+
 void
 uih_setcycling (struct uih_context *c, int speed)
 {
@@ -842,7 +894,8 @@ uih_setcycling (struct uih_context *c, int speed)
   if (c->cycling)
     {
       if (c->cyclingspeed)
-	tl_set_interval (c->cyclingtimer, 1000000 / c->cyclingspeed * c->direction);
+	tl_set_interval (c->cyclingtimer,
+			 1000000 / c->cyclingspeed * c->direction);
       else
 	tl_set_interval (c->cyclingtimer, 1000000 * 100);
     }
@@ -871,6 +924,7 @@ uih_cycling_on (struct uih_context *c)
   uih_updatemenus (c, "rcycling");
   return 1;
 }
+
 int
 uih_cycling (struct uih_context *uih, int mode)
 {
@@ -896,7 +950,8 @@ uih_waitfunc (struct filter *f)
 	uih->starttime = l;
       else if (uih->starttime && !f->incalculation && !uih->endtime)
 	uih->endtime = l;
-      if ((uih->maxtime && l > uih->maxtime && f->readyforinterrupt) || uih->interrupt)
+      if ((uih->maxtime && l > uih->maxtime && f->readyforinterrupt)
+	  || uih->interrupt)
 	f->interrupt = 1, uih->endtime = l;
     }
   if ((l) > (waitcount + 1) * WAITTIME)
@@ -907,7 +962,8 @@ uih_waitfunc (struct filter *f)
 	  display = 1;
 	  waitcount1 = l / WAITTIME1;
 	}
-      if (f->image == uih->image && !uih->interruptiblemode && l > (waitcount2 + 1) * WAITTIME2)
+      if (f->image == uih->image && !uih->interruptiblemode
+	  && l > (waitcount2 + 1) * WAITTIME2)
 	{
 	  if (!uih->play)
 	    uih->display = 1, uih_finishpalette (uih), display = 1;
@@ -915,12 +971,15 @@ uih_waitfunc (struct filter *f)
 	}
       if (uih->passfunc != NULL)
 	{
-	  f->interrupt |= uih->passfunc (uih, display, f->pass, (float) (f->max ? f->pos * 100.0 / f->max : 100.0));
+	  f->interrupt |=
+	    uih->passfunc (uih, display, f->pass,
+			   (float) (f->max ? f->pos * 100.0 /
+				    f->max : 100.0));
 	  uih->display = 0;
 	}
       waitcount = l / WAITTIME;
     }
-   uih_clearwindows (uih);
+  uih_clearwindows (uih);
 }
 
 void
@@ -936,8 +995,12 @@ uih_do_fractal (uih_context * c)
     {
       uih_disablejulia (c);
     }
-  if ((c->juliamode == 1 && (c->fcontext->currentformula->calculate_julia == NULL || c->fcontext->slowmode)) ||
-      (c->juliamode == 2 && c->fcontext->currentformula->calculate_julia != NULL && !c->fcontext->slowmode))
+  if ((c->juliamode == 1
+       && (c->fcontext->currentformula->calculate_julia == NULL
+	   || c->fcontext->slowmode)) || (c->juliamode == 2
+					  && c->fcontext->currentformula->
+					  calculate_julia != NULL
+					  && !c->fcontext->slowmode))
     {
       uih_disablejulia (c);
       uih_enablejulia (c);
@@ -945,7 +1008,8 @@ uih_do_fractal (uih_context * c)
     }
 
   tl_update_time ();
-  if (c->recalculatemode < c->fastmode && c->emulator == NULL && !c->fixedstep)
+  if (c->recalculatemode < c->fastmode && c->emulator == NULL
+      && !c->fixedstep)
     c->interruptiblemode = 1;
   else
     c->interruptiblemode = 0;
@@ -960,7 +1024,7 @@ uih_do_fractal (uih_context * c)
   tl_reset_timer (c->calculatetimer);
   c->starttime = 0;
   c->endtime = 0;
-  waitcount =  tl_lookup_timer (c->calculatetimer) / WAITTIME + 2;
+  waitcount = tl_lookup_timer (c->calculatetimer) / WAITTIME + 2;
   waitcount1 = tl_lookup_timer (c->calculatetimer) / WAITTIME1 + 1;
   waitcount2 = tl_lookup_timer (c->calculatetimer) / WAITTIME2 + 1;
 #ifdef _UNDEFINED_
@@ -984,12 +1048,18 @@ uih_do_fractal (uih_context * c)
   if (c->recalculatemode < UIH_PALETTEDRAW)
     {
       if (c->queue->palettechg != NULL)
-	flags = c->queue->palettechg->action->doit (c->queue->palettechg, PALETTEONLY, 0);
+	flags =
+	  c->queue->palettechg->action->doit (c->queue->palettechg,
+					      PALETTEONLY, 0);
       else
 	flags = CHANGED;
     }
   else
-    flags = c->uifilter->previous->action->doit (c->uifilter->previous, c->interruptiblemode ? INTERRUPTIBLE : 0, time);
+    flags =
+      c->uifilter->previous->action->doit (c->uifilter->previous,
+					   c->
+					   interruptiblemode ? INTERRUPTIBLE :
+					   0, time);
   c->indofractal = 0;
 
   if (!(c->flags & ROTATE_INSIDE_CALCULATION))
@@ -1007,7 +1077,8 @@ uih_do_fractal (uih_context * c)
     c->fastanimation = 0;
   if (c->emulator)
     c->inanimation = 1;
-  if (flags & (ANIMATION | UNCOMPLETTE) || (c->rotatemode == ROTATE_CONTINUOUS))
+  if (flags & (ANIMATION | UNCOMPLETTE)
+      || (c->rotatemode == ROTATE_CONTINUOUS))
     {
       tl_resume_timer (c->doittimer);
       c->uncomplette = 1;
@@ -1035,6 +1106,7 @@ uih_do_fractal (uih_context * c)
   if (c->autopilot)
     c->inanimation = 1;
 }
+
 void
 uih_prepare_image (uih_context * c)
 {
@@ -1051,7 +1123,8 @@ uih_prepare_image (uih_context * c)
 void
 uih_callcomplette (uih_context * c)
 {
-  if (!c->uncomplette && !c->display && !c->recalculatemode && !c->inanimation && c->complettehandler != NULL)
+  if (!c->uncomplette && !c->display && !c->recalculatemode && !c->inanimation
+      && c->complettehandler != NULL)
     {
       c->complettehandler (c->handlerdata);
     }
@@ -1070,6 +1143,7 @@ uih_letterspersec (uih_context * c, int n)
     n = 1;
   c->letterspersec = n;
 }
+
 double
 uih_displayed (uih_context * c)
 {
@@ -1091,7 +1165,10 @@ uih_displayed (uih_context * c)
       drawingtime = tl_lookup_timer (c->calculatetimer);
       if (c->emulator)
 	drawingtime = 0;
-      if (c->lasttime == -1 || (drawingtime && c->lasttime && (drawingtime / c->lasttime < 0.2 || drawingtime / c->lasttime > 4)))
+      if (c->lasttime == -1
+	  || (drawingtime && c->lasttime
+	      && (drawingtime / c->lasttime < 0.2
+		  || drawingtime / c->lasttime > 4)))
 	c->lasttime = drawingtime;
       c->lasttime = (c->lasttime * 30 + drawingtime) / 31;
       c->lastspeed = c->lasttime ? 1000000.0 / c->lasttime : 100.0;
@@ -1114,7 +1191,11 @@ uih_displayed (uih_context * c)
 	  c->times[0][c->timespos] = time;
 	  c->times[1][c->timespos] = time1;
 	  c->maxtime = (c->count[0] * 5) / AVRGSIZE;
-	  if (c->step || c->pressed || (c->play && (c->playc->morph || c->playc->morphangle || c->playc->morphjulia || c->playc->lines.morphing)) || (c->rotatemode == ROTATE_CONTINUOUS) || c->fastanimation)
+	  if (c->step || c->pressed
+	      || (c->play
+		  && (c->playc->morph || c->playc->morphangle
+		      || c->playc->morphjulia || c->playc->lines.morphing))
+	      || (c->rotatemode == ROTATE_CONTINUOUS) || c->fastanimation)
 	    {
 	      if (c->maxtime > 1000000 / 25)
 		c->maxtime = c->count[0] * 3 / AVRGSIZE;
@@ -1160,6 +1241,7 @@ uih_text (uih_context * c, CONST char *text)
     }
   c->step = 0;
 }
+
 void
 uih_clearscreen (uih_context * c)
 {
@@ -1179,17 +1261,16 @@ uih_clearscreen (uih_context * c)
   if (c->play)
     uih_clear_lines (c);
 }
+
 void
 uih_settextpos (uih_context * c, int x, int y)
 {
-  CONST char *names1[] =
-  {
+  CONST char *names1[] = {
     "ytextposup",
     "ytextposmiddle",
     "ytextposbottom",
   };
-  CONST char *names2[] =
-  {
+  CONST char *names2[] = {
     "xtextposleft",
     "xtextposcenter",
     "xtextposright",
@@ -1259,6 +1340,7 @@ uih_constantframetime (uih_context * c, int time)
   c->emulatedframetime = time;
   uih_emulatetimers (c);
 }
+
 void
 uih_noconstantframetime (uih_context * c)
 {
@@ -1268,6 +1350,7 @@ uih_noconstantframetime (uih_context * c)
   tl_free_emulator (c->emulator);
   c->emulator = NULL;
 }
+
 void
 uih_stoptimers (uih_context * c)
 {
@@ -1348,8 +1431,9 @@ uih_changed (void)
 static void
 uih_autopilothandler (void *uih1, int n)
 {
-  uih = (uih_context *)uih1;
-  do_autopilot (uih, &uih->autopilotx, &uih->autopiloty, &uih->autopilotbuttons, uih_changed, n);
+  uih = (uih_context *) uih1;
+  do_autopilot (uih, &uih->autopilotx, &uih->autopiloty,
+		&uih->autopilotbuttons, uih_changed, n);
 }
 static INLINE void
 uih_zoom (uih_context * uih)
@@ -1448,7 +1532,8 @@ uih_update (uih_context * c, int mousex, int mousey, int mousebuttons)
     c->inanimation--;
   tl_reset_timer (c->maintimer);
   c->mul = (double) time / FRAMETIME;
-  if (c->fixedstep) c->mul=0.3;
+  if (c->fixedstep)
+    c->mul = 0.3;
   if (c->tbreak)
     c->mul = 1, c->tbreak--;
   if (c->mul == 0)
@@ -1478,49 +1563,72 @@ uih_update (uih_context * c, int mousex, int mousey, int mousebuttons)
 	}
       if (c->playc->morph)
 	{
-	  int timer=tl_lookup_timer(c->playc->timer) - c->playc->starttime;
-	  number_t mmul = /*(tl_lookup_timer (c->playc->timer) - c->playc->starttime) / (number_t) (c->playc->frametime - c->playc->starttime);*/
-	    		  MORPHVALUE(timer, c->playc->frametime-c->playc->starttime, c->playc->morphtimes[0], c->playc->morphtimes[1]);
+	  int timer = tl_lookup_timer (c->playc->timer) - c->playc->starttime;
+	  number_t mmul =	/*(tl_lookup_timer (c->playc->timer) - c->playc->starttime) / (number_t) (c->playc->frametime - c->playc->starttime); */
+	    MORPHVALUE (timer, c->playc->frametime - c->playc->starttime,
+			c->playc->morphtimes[0], c->playc->morphtimes[1]);
 	  number_t srr, drr;
 	  number_t mmul1;
-	  if (c->playc->source.rr * c->fcontext->windowwidth > c->playc->source.ri * c->fcontext->windowheight)
+	  if (c->playc->source.rr * c->fcontext->windowwidth >
+	      c->playc->source.ri * c->fcontext->windowheight)
 	    srr = c->playc->source.rr;
 	  else
 	    srr = c->playc->source.ri;
-	  if (c->playc->destination.rr * c->fcontext->windowwidth > c->playc->destination.ri * c->fcontext->windowheight)
+	  if (c->playc->destination.rr * c->fcontext->windowwidth >
+	      c->playc->destination.ri * c->fcontext->windowheight)
 	    drr = c->playc->destination.rr;
 	  else
 	    drr = c->playc->destination.ri;
 	  if (srr == drr)
 	    mmul1 = mmul;
 	  else
-	    mmul1 = (exp (log (srr) + ((log (drr) - log (srr)) * mmul)) - srr) / (drr - srr);
+	    mmul1 =
+	      (exp (log (srr) + ((log (drr) - log (srr)) * mmul)) -
+	       srr) / (drr - srr);
 	  if (mmul1 > 1)
 	    mmul1 = 1;
 	  if (mmul1 < 0)
 	    mmul1 = 0;
 	  inmovement = 1;
-	  c->fcontext->s.rr = c->playc->source.rr + (c->playc->destination.rr - c->playc->source.rr) * mmul1;
-	  c->fcontext->s.ri = c->playc->source.ri + (c->playc->destination.ri - c->playc->source.ri) * mmul1;
-	  c->fcontext->s.cr = c->playc->source.cr + (c->playc->destination.cr - c->playc->source.cr) * mmul1;
-	  c->fcontext->s.ci = c->playc->source.ci + (c->playc->destination.ci - c->playc->source.ci) * mmul1;
+	  c->fcontext->s.rr =
+	    c->playc->source.rr + (c->playc->destination.rr -
+				   c->playc->source.rr) * mmul1;
+	  c->fcontext->s.ri =
+	    c->playc->source.ri + (c->playc->destination.ri -
+				   c->playc->source.ri) * mmul1;
+	  c->fcontext->s.cr =
+	    c->playc->source.cr + (c->playc->destination.cr -
+				   c->playc->source.cr) * mmul1;
+	  c->fcontext->s.ci =
+	    c->playc->source.ci + (c->playc->destination.ci -
+				   c->playc->source.ci) * mmul1;
 	  uih_animate_image (c);
 	}
       if (c->playc->morphjulia)
 	{
-	  int timer=tl_lookup_timer(c->playc->timer) - c->playc->starttime;
-	  number_t mmul = /*(tl_lookup_timer (c->playc->timer) - c->playc->starttime) / (number_t) (c->playc->frametime - c->playc->starttime);*/
-	    		  MORPHVALUE(timer, c->playc->frametime-c->playc->starttime, c->playc->morphjuliatimes[0], c->playc->morphjuliatimes[1]);
-	  uih_setjuliaseed (uih, c->playc->sr + (c->playc->dr - c->playc->sr) * mmul,
-			    c->fcontext->pim = c->playc->si + (c->playc->di - c->playc->si) * mmul);
+	  int timer = tl_lookup_timer (c->playc->timer) - c->playc->starttime;
+	  number_t mmul =	/*(tl_lookup_timer (c->playc->timer) - c->playc->starttime) / (number_t) (c->playc->frametime - c->playc->starttime); */
+	    MORPHVALUE (timer, c->playc->frametime - c->playc->starttime,
+			c->playc->morphjuliatimes[0],
+			c->playc->morphjuliatimes[1]);
+	  uih_setjuliaseed (uih,
+			    c->playc->sr + (c->playc->dr -
+					    c->playc->sr) * mmul,
+			    c->fcontext->pim =
+			    c->playc->si + (c->playc->di -
+					    c->playc->si) * mmul);
 	  inmovement = 1;
 	}
       if (c->playc->morphangle)
 	{
-	  int timer=tl_lookup_timer(c->playc->timer) - c->playc->starttime;
-	  number_t mmul = /*(tl_lookup_timer (c->playc->timer) - c->playc->starttime) / (number_t) (c->playc->frametime - c->playc->starttime);*/
-	    		  MORPHVALUE(timer, c->playc->frametime-c->playc->starttime, c->playc->morphangletimes[0], c->playc->morphangletimes[1]);
-	  uih_angle (uih, c->playc->srcangle + (c->playc->destangle - c->playc->srcangle) * mmul);
+	  int timer = tl_lookup_timer (c->playc->timer) - c->playc->starttime;
+	  number_t mmul =	/*(tl_lookup_timer (c->playc->timer) - c->playc->starttime) / (number_t) (c->playc->frametime - c->playc->starttime); */
+	    MORPHVALUE (timer, c->playc->frametime - c->playc->starttime,
+			c->playc->morphangletimes[0],
+			c->playc->morphangletimes[1]);
+	  uih_angle (uih,
+		     c->playc->srcangle + (c->playc->destangle -
+					   c->playc->srcangle) * mmul);
 	  inmovement = 1;
 	}
     }
@@ -1605,7 +1713,8 @@ uih_update (uih_context * c, int mousex, int mousey, int mousebuttons)
 		  angle = -atan2 (x, y) * 180 / M_PI;
 		  if (c->rotatepressed)
 		    {
-		      uih_angle (uih, c->fcontext->angle + angle - c->oldangle);
+		      uih_angle (uih,
+				 c->fcontext->angle + angle - c->oldangle);
 		    }
 		  c->rotatepressed = 1;
 		  c->oldangle = angle;
@@ -1630,7 +1739,8 @@ uih_update (uih_context * c, int mousex, int mousey, int mousebuttons)
 	      c->fcontext->pim = y;
 	      uih_saveframe (c);
 	      c->pressed = 1;
-	      recalculate (c->fcontext->plane, &c->fcontext->pre, &c->fcontext->pim);
+	      recalculate (c->fcontext->plane, &c->fcontext->pre,
+			   &c->fcontext->pim);
 	      if (c->fcontext->pre != x1 || c->fcontext->pim != y1)
 		{
 		  uih_animate_image (c);
@@ -1706,6 +1816,7 @@ uih_mkdefaultpalette (uih_context * c)
   uih_finishpalette (c);
   uih_cycling_continue (c);
 }
+
 void
 uih_mkpalette (uih_context * c)
 {
@@ -1727,6 +1838,7 @@ uih_mkpalette (uih_context * c)
   c->palettetype = alg + 1;
   uih_cycling_continue (c);
 }
+
 /*Basic inicialization routines */
 
 static void
@@ -1735,15 +1847,15 @@ uih_alloctables (uih_context * c)
   c->zengine = zoom_filter.getinstance (&zoom_filter);
   if (c->zengine == NULL)
     return;
-  c->fcontext = make_fractalc (0, c->image->pixelwidth * c->image->width, c->image->pixelheight * c->image->height);
-  uih_updatemenus (c, "periodicity")
-    uih_updatemenus (c, "in0")
-    uih_updatemenus (c, "int0")
-    uih_updatemenus (c, "out0")
-    uih_updatemenus (c, "outt0")
-    uih_updatemenus (c, "plane0")
-    uih_updatemenus (c, "guess3")
-    uih = c;
+  c->fcontext =
+    make_fractalc (0, c->image->pixelwidth * c->image->width,
+		   c->image->pixelheight * c->image->height);
+  uih_updatemenus (c, "periodicity") uih_updatemenus (c,
+						      "in0")
+    uih_updatemenus (c, "int0") uih_updatemenus (c,
+						 "out0") uih_updatemenus (c,
+									  "outt0")
+    uih_updatemenus (c, "plane0") uih_updatemenus (c, "guess3") uih = c;
   c->uifilter = uih_filter.getinstance (&uih_filter);
   c->queue = create_queue (c->uifilter);
   insertfilter (c->zengine, c->uifilter);
@@ -1753,6 +1865,7 @@ uih_initqueue (uih_context * c)
 {
   return (initqueue (c->queue));
 }
+
 void
 uih_setmaxstep (uih_context * c, number_t p)
 {
@@ -1783,7 +1896,7 @@ void
 uih_setincoloringmode (uih_context * c, int mode)
 {
   if (mode < 0)
-    mode = rand ()%INCOLORING;
+    mode = rand () % INCOLORING;
   if (mode > INCOLORING)
     mode = INCOLORING;
   if (c->fcontext->incoloringmode != mode)
@@ -1800,7 +1913,7 @@ void
 uih_setintcolor (uih_context * c, int mode)
 {
   if (mode < 0)
-    mode = rand()%TCOLOR;
+    mode = rand () % TCOLOR;
   if (mode > TCOLOR)
     mode = TCOLOR;
   if (c->fcontext->intcolor != mode)
@@ -1820,7 +1933,7 @@ void
 uih_setouttcolor (uih_context * c, int mode)
 {
   if (mode < 0)
-    mode = rand()%TCOLOR;
+    mode = rand () % TCOLOR;
   if (mode > TCOLOR)
     mode = TCOLOR;
   if (c->fcontext->outtcolor != mode)
@@ -1858,6 +1971,7 @@ uih_perbutation (uih_context * c, int mousex, int mousey)
   uih_getcoord (c, mousex, mousey, &r, &i);
   uih_setperbutation (c, r, i);
 }
+
 void
 uih_setjuliaseed (uih_context * c, number_t zre, number_t zim)
 {
@@ -1871,34 +1985,38 @@ uih_setjuliaseed (uih_context * c, number_t zre, number_t zim)
 	}
       else
 	{
-	  if (!c->fcontext->mandelbrot) {
-	    c->fcontext->version++;
-	    if (c->playc && c->playc->morphjulia) uih_animate_image(c); 
-	      else uih_newimage (c);
-	  }
+	  if (!c->fcontext->mandelbrot)
+	    {
+	      c->fcontext->version++;
+	      if (c->playc && c->playc->morphjulia)
+		uih_animate_image (c);
+	      else
+		uih_newimage (c);
+	    }
 	}
     }
 }
 void
 uih_setfastmode (uih_context * c, int mode)
 {
-  CONST char *names[] =
-  {
+  CONST char *names[] = {
     "nodynamic",
     "nodynamic",
     "dynamicanimation",
     "dynamicnew",
-    "dynamicnew"};
+    "dynamicnew"
+  };
   if (mode < 0)
     mode = 0;
   c->fastmode = mode;
   uih_updatemenus (c, names[mode]);
 }
+
 void
 uih_setoutcoloringmode (uih_context * c, int mode)
 {
   if (mode < 0)
-    mode = rand()%OUTCOLORING;
+    mode = rand () % OUTCOLORING;
   if (mode > OUTCOLORING)
     mode = OUTCOLORING - 1;
   if (c->fcontext->coloringmode != mode)
@@ -1922,7 +2040,7 @@ uih_setplane (uih_context * c, int mode)
   if (mode >= i)
     mode = i - 1;
   if (mode < 0)
-    mode = rand()%i;
+    mode = rand () % i;
   uih_invalidatepos (c);
   if (c->fcontext->plane != mode)
     {
@@ -1934,12 +2052,14 @@ uih_setplane (uih_context * c, int mode)
       uih_updatemenus (c, str);
     }
 }
-void 
-uih_screentofractalcoord (uih_context * c, int mousex, int mousey, number_t * re, number_t * im)
+void
+uih_screentofractalcoord (uih_context * c, int mousex, int mousey,
+			  number_t * re, number_t * im)
 {
   uih_getcoord (c, mousex, mousey, re, im);
   recalculate (c->fcontext->plane, re, im);
 }
+
 void
 uih_setmandelbrot (uih_context * c, int mode, int mousex, int mousey)
 {
@@ -1952,8 +2072,10 @@ uih_setmandelbrot (uih_context * c, int mode, int mousex, int mousey)
       c->fcontext->mandelbrot = mode;
       if (c->fcontext->mandelbrot == 0 && !c->juliamode)
 	{
-	  uih_getcoord (c, mousex, mousey, &c->fcontext->pre, &c->fcontext->pim);
-	  recalculate (c->fcontext->plane, &c->fcontext->pre, &c->fcontext->pim);
+	  uih_getcoord (c, mousex, mousey, &c->fcontext->pre,
+			&c->fcontext->pim);
+	  recalculate (c->fcontext->plane, &c->fcontext->pre,
+		       &c->fcontext->pim);
 	}
       else
 	uih_disablejulia (c);
@@ -1994,20 +2116,23 @@ uih_interrupt (uih_context * c)
   if (c->incalculation)
     c->interrupt = 1;
 }
+
 void
 uih_stopzooming (uih_context * c)
 {
   c->speed = 0;
 }
+
 int
 uih_updateimage (uih_context * c, struct image *image)
 {
-  /*exit();*/
+  /*exit(); */
   c->image = image;
   c->palette = image->palette;
   c->queue->isinitialized = 0;
   c->ddatalost = 1;
-  fractalc_resize_to (c->fcontext, c->image->pixelwidth * c->image->width, c->image->pixelheight * c->image->height);
+  fractalc_resize_to (c->fcontext, c->image->pixelwidth * c->image->width,
+		      c->image->pixelheight * c->image->height);
   c->display = 1;
   c->palette->ncells = sizeof (uicolors) / sizeof (rgb_t);
   c->palette->prergb = uicolors;
@@ -2021,8 +2146,9 @@ uih_updateimage (uih_context * c, struct image *image)
     uih_fixedcolordisable (c);
   return (uih_initqueue (c));
 }
-static void 
-uih_getcscreensizes (struct uih_context *uih, int *x, int *y, int *w, int *h, void *data)
+static void
+uih_getcscreensizes (struct uih_context *uih, int *x, int *y, int *w, int *h,
+		     void *data)
 {
   *x = 0;
   *y = 0;
@@ -2031,14 +2157,18 @@ uih_getcscreensizes (struct uih_context *uih, int *x, int *y, int *w, int *h, vo
   else
     *w = *h = 0;
 }
-static void 
+static void
 uih_drawcscreen (struct uih_context *uih, void *data)
 {
   if (uih->clearscreen)
     clear_image (uih->image);
 }
 struct uih_context *
-uih_mkcontext (int flags, struct image *image, int (*passfunc) (struct uih_context *, int, CONST char *, float), void (*longwait) (struct uih_context *), void (*upd) (struct uih_context *, CONST char *))
+uih_mkcontext (int flags, struct image *image,
+	       int (*passfunc) (struct uih_context *, int, CONST char *,
+				float),
+	       void (*longwait) (struct uih_context *),
+	       void (*upd) (struct uih_context *, CONST char *))
 {
   uih_context *uih;
   uih = (uih_context *) calloc (sizeof (*uih), 1);	/*setup parameters */
@@ -2100,14 +2230,17 @@ uih_mkcontext (int flags, struct image *image, int (*passfunc) (struct uih_conte
   uih_stoptimers (uih);
   clean_autopilot (uih);
   uih_newimage (uih);
-  uih->cscreenwindow = uih_registerw (uih, uih_getcscreensizes, uih_drawcscreen, 0, NONTRANSPARENTW);
+  uih->cscreenwindow =
+    uih_registerw (uih, uih_getcscreensizes, uih_drawcscreen, 0,
+		   NONTRANSPARENTW);
   uih_initmessages (uih);
   uih_inittext (uih);
   uih_emulatetimers (uih);
   uih_setformula (uih, 0);
-  uih_saveundo(uih);
+  uih_saveundo (uih);
   return (uih);
 }
+
 void
 uih_savepalette (uih_context * c)
 {
@@ -2116,6 +2249,7 @@ uih_savepalette (uih_context * c)
   if (c->zengine->fractalc->palette != NULL)
     c->palette2 = clonepalette (c->zengine->fractalc->palette);
 }
+
 void
 uih_restorepalette (uih_context * uih)
 {
@@ -2128,6 +2262,7 @@ uih_restorepalette (uih_context * uih)
   uih->palette2 = NULL;
   uih_finishpalette (uih);
 }
+
 void
 uih_setformula (uih_context * c, int num)
 {
@@ -2137,6 +2272,7 @@ uih_setformula (uih_context * c, int num)
   uih_updatemenus (c, "uiperturbation");
   uih_updatemenus (c, c->fcontext->currentformula->shortname);
 }
+
 void
 uih_initstate (struct uih_context *uih)
 {
@@ -2169,17 +2305,19 @@ uih_initstate (struct uih_context *uih)
   uih_rotationspeed (uih, 10);
   uih->xtextpos = 1;
   uih->ytextpos = 1;
-  if(uih->playc) {
-    uih->playc->morphtimes[0]=0;
-    uih->playc->morphtimes[1]=0;
-    uih->playc->morphjuliatimes[0]=0;
-    uih->playc->morphjuliatimes[1]=0;
-    uih->playc->morphangletimes[0]=0;
-    uih->playc->morphangletimes[1]=0;
-    uih->playc->morphlinetimes[0]=0;
-    uih->playc->morphlinetimes[1]=0;
-  }
-  if (mkdefaultpalette (uih->zengine->fractalc->palette) != 0 || uih->recalculatemode || uih->fcontext->version != ver)
+  if (uih->playc)
+    {
+      uih->playc->morphtimes[0] = 0;
+      uih->playc->morphtimes[1] = 0;
+      uih->playc->morphjuliatimes[0] = 0;
+      uih->playc->morphjuliatimes[1] = 0;
+      uih->playc->morphangletimes[0] = 0;
+      uih->playc->morphangletimes[1] = 0;
+      uih->playc->morphlinetimes[0] = 0;
+      uih->playc->morphlinetimes[1] = 0;
+    }
+  if (mkdefaultpalette (uih->zengine->fractalc->palette) != 0
+      || uih->recalculatemode || uih->fcontext->version != ver)
     {
       uih_newimage (uih);
     }
@@ -2191,9 +2329,11 @@ uih_freecontext (uih_context * c)
 {
   struct filter *f;
   int i;
-  if (c->emulator!=NULL) uih_noconstantframetime (c);
-  for(i=0;i<UNDOLEVEL;i++)
-    if(c->undo.undos[i]) free(c->undo.undos[i]),c->undo.undos[i]=0;
+  if (c->emulator != NULL)
+    uih_noconstantframetime (c);
+  for (i = 0; i < UNDOLEVEL; i++)
+    if (c->undo.undos[i])
+      free (c->undo.undos[i]), c->undo.undos[i] = 0;
   while (c->queue->first)
     {
       f = c->queue->first;
@@ -2218,7 +2358,7 @@ uih_getinstance (CONST struct filteraction *a)
 static void
 uih_destroyinstance (struct filter *f)
 {
-  struct uih_context *c = (struct uih_context *)f->data;
+  struct uih_context *c = (struct uih_context *) f->data;
   if (c->autopilot)
     uih_autopilot_off (c);
   if (c->cycling)
@@ -2237,7 +2377,7 @@ static int
 uih_require (struct filter *f, struct requirements *r)
 {
   struct uih_context *uih;
-  uih = (struct uih_context *)f->data;
+  uih = (struct uih_context *) f->data;
   f->req = *r;
   uih_clearwindows (uih);
   if (uih->cycling)
@@ -2277,4 +2417,3 @@ uih_initialize (struct filter *f, struct initdata *i)
     uih_cycling_on (uih), wascycling = 0;
   return returnval;
 }
-

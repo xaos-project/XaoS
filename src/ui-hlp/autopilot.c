@@ -82,14 +82,20 @@ again (uih_context * context)
   context->fcontext->version++;
   clean_autopilot (context);
 }
+
 void
-do_autopilot (uih_context * context, int *x, int *y, int *controls, void (*changed) (void), int times)
+do_autopilot (uih_context * context, int *x, int *y, int *controls,
+	      void (*changed) (void), int times)
 {
   int c = 0;
-  volatile number_t step = (context->fcontext->rs.mc - context->fcontext->rs.nc) / context->zengine->image->width / 10;
+  volatile number_t step =
+    (context->fcontext->rs.mc -
+     context->fcontext->rs.nc) / context->zengine->image->width / 10;
   volatile number_t pos = context->fcontext->rs.mc;
   volatile number_t pos1 = context->fcontext->rs.mc;
-  volatile number_t ystep = (context->fcontext->rs.mi - context->fcontext->rs.ni) / context->zengine->image->height / 10;
+  volatile number_t ystep =
+    (context->fcontext->rs.mi -
+     context->fcontext->rs.ni) / context->zengine->image->height / 10;
   volatile number_t ypos = context->fcontext->rs.mi;
   volatile number_t ypos1 = context->fcontext->rs.mi;
   pos += step;			/*out of precisity check */

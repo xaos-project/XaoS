@@ -72,15 +72,13 @@ template_mousetype (int type)
 {
 }
 
-static struct params params[] =
-{
-  {"", P_HELP, NULL,"Template driver options:"},
+static struct params params[] = {
+  {"", P_HELP, NULL, "Template driver options:"},
   {"-flag", P_SWITCH, &variable, "Example flag..."},
   {NULL, 0, NULL, NULL}
 };
 
-struct ui_driver template_driver =
-{
+struct ui_driver template_driver = {
   "Template",
   template_init,
   template_getsize,
@@ -105,7 +103,7 @@ struct ui_driver template_driver =
   0, 0,				/*resolution of screen for windowed systems */
   UI_C256,			/*Image type */
   0, 255, 255			/*start, end of palette and maximum allocatable */
-				/*entries */
+    /*entries */
 };
 
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/

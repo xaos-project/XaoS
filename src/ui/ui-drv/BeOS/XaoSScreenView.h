@@ -28,46 +28,46 @@
 
 #include "XaoSEvent.h"
 
-class XaoSScreenView : public BView
+class XaoSScreenView:public BView
 {
 public:
-	typedef BView inherited;
-	
-	// Constructor, destructor.
-	XaoSScreenView(BRect r, port_id p);
-	virtual ~XaoSScreenView(void);
+  typedef BView inherited;
 
-	// Hook functions.
-	//virtual void AttachedToWindow(void);
-	//virtual void Draw(BRect updateRect);
-	//virtual void FrameResized(float width, float height);
-	//virtual void ScreenChanged(BRect rect, color_space space);
-	//virtual void KeyDown(const char *pBytes, int32 numBytes);
-	//virtual void KeyUp(const char *pBytes, int32 numBytes);
-	//virtual void MessageReceived(BMessage *pMessage);
-	virtual void MouseDown(BPoint point);
-	virtual void MouseUp(BPoint point);
-	virtual void MouseMoved(
-		BPoint point, uint32 transit, const BMessage *pMessage);
-	//virtual void WindowActivated(bool active);
-	
-	
+  // Constructor, destructor.
+    XaoSScreenView (BRect r, port_id p);
+    virtual ~ XaoSScreenView (void);
+
+  // Hook functions.
+  //virtual void AttachedToWindow(void);
+  //virtual void Draw(BRect updateRect);
+  //virtual void FrameResized(float width, float height);
+  //virtual void ScreenChanged(BRect rect, color_space space);
+  //virtual void KeyDown(const char *pBytes, int32 numBytes);
+  //virtual void KeyUp(const char *pBytes, int32 numBytes);
+  //virtual void MessageReceived(BMessage *pMessage);
+  virtual void MouseDown (BPoint point);
+  virtual void MouseUp (BPoint point);
+  virtual void MouseMoved (BPoint point, uint32 transit,
+			   const BMessage * pMessage);
+  //virtual void WindowActivated(bool active);
+
+
 protected:
-	BBitmap *mpBuffer;
-	XaoSScreenView(const XaoSScreenView &orig);
-	XaoSScreenView &operator =(const XaoSScreenView &orig);
+    BBitmap * mpBuffer;
+    XaoSScreenView (const XaoSScreenView & orig);
+    XaoSScreenView & operator = (const XaoSScreenView & orig);
 private:
 
-	// Data members.
-	port_id mEventPort;
-        void SendEvent(long eventCode, const XaoSEvent &event) const;
+  // Data members.
+    port_id mEventPort;
+  void SendEvent (long eventCode, const XaoSEvent & event) const;
 };
 
 // Inline functions.
 
 inline void
-XaoSScreenView::SendEvent(long eventCode, const XaoSEvent &event) const
+XaoSScreenView::SendEvent (long eventCode, const XaoSEvent & event) const
 {
-	(void)write_port(mEventPort, eventCode, &event, sizeof(XaoSEvent));
+  (void) write_port (mEventPort, eventCode, &event, sizeof (XaoSEvent));
 }
 #endif // XAOSVIEW_H

@@ -27,7 +27,7 @@ static int first;
 static int last;
 static int parsenext;
 
-static CONST char * CONST animroot="animroot";
+static CONST char *CONST animroot = "animroot";
 
 static inline struct uih_line *
 uih_findkey (uih_context * c, int key)
@@ -55,6 +55,7 @@ uih_removeline (uih_context * c, struct uih_line *l)
     l->next->prev = l->prev;
   free (l);
 }
+
 void
 uih_line (uih_context * c, dialogparam * d)
 {
@@ -67,7 +68,7 @@ uih_line (uih_context * c, dialogparam * d)
     }
   w = uih_registerline (c, 0, -1, -1, -1, -1);
   uih_removeline (c, uih_findkey (c, c->playc->lines.currkey));
-  l = (struct uih_line *)calloc (1, sizeof (*l));
+  l = (struct uih_line *) calloc (1, sizeof (*l));
   l->posmode = d[0].dint;
   l->w = w;
   l->x1 = d[1].dcoord[0];
@@ -81,6 +82,7 @@ uih_line (uih_context * c, dialogparam * d)
   l->next = c->playc->lines.first;
   c->playc->lines.first = l;
 }
+
 void
 uih_morphline (uih_context * c, dialogparam * d)
 {
@@ -100,12 +102,14 @@ uih_morphline (uih_context * c, dialogparam * d)
   l->morph = 1;
   c->playc->lines.morphing = 1;
 }
+
 void
 uih_morphlastline (uih_context * c, dialogparam * d)
 {
   c->playc->lines.currkey--;
   uih_morphline (c, d);
 }
+
 void
 uih_setkey (uih_context * c, int line)
 {
@@ -143,9 +147,10 @@ uih_update_lines (uih_context * c)
   struct uih_line *l = c->playc->lines.first;
   int x1, y1, x2, y2;
   number_t x, y;
-  int timer= tl_lookup_timer (c->playc->timer) - c->playc->starttime;
-  number_t mmul = /*(tl_lookup_timer (c->playc->timer) - c->playc->starttime) / (number_t) (c->playc->frametime - c->playc->starttime);*/
-          MORPHVALUE (timer, c->playc->frametime-c->playc->starttime, c->playc->morphlinetimes[0], c->playc->morphlinetimes[1]);
+  int timer = tl_lookup_timer (c->playc->timer) - c->playc->starttime;
+  number_t mmul =		/*(tl_lookup_timer (c->playc->timer) - c->playc->starttime) / (number_t) (c->playc->frametime - c->playc->starttime); */
+    MORPHVALUE (timer, c->playc->frametime - c->playc->starttime,
+		c->playc->morphlinetimes[0], c->playc->morphlinetimes[1]);
 
 
   while (l)
@@ -153,37 +158,57 @@ uih_update_lines (uih_context * c)
       switch (l->posmode)
 	{
 	case 0:
-	  x1 = (int)(c->image->width * l->x1);
-	  y1 = (int)(c->image->height * l->y1);
-	  x2 = (int)(c->image->width * l->x2);
-	  y2 = (int)(c->image->height * l->y2);
+	  x1 = (int) (c->image->width * l->x1);
+	  y1 = (int) (c->image->height * l->y1);
+	  x2 = (int) (c->image->width * l->x2);
+	  y2 = (int) (c->image->height * l->y2);
 	  break;
 	case 1:
 	  x = c->image->width * c->image->pixelwidth;
 	  y = c->image->height * c->image->pixelheight;
 	  if (x > y)
 	    x = y;
-	  x1 = (int)(c->image->width / 2 + (l->x1 - 0.5) * x / c->image->pixelwidth);
-	  y1 = (int)(c->image->height / 2 + (l->y1 - 0.5) * x / c->image->pixelheight);
-	  x2 = (int)(c->image->width / 2 + (l->x2 - 0.5) * x / c->image->pixelwidth);
-	  y2 = (int)(c->image->height / 2 + (l->y2 - 0.5) * x / c->image->pixelheight);
+	  x1 =
+	    (int) (c->image->width / 2 +
+		   (l->x1 - 0.5) * x / c->image->pixelwidth);
+	  y1 =
+	    (int) (c->image->height / 2 +
+		   (l->y1 - 0.5) * x / c->image->pixelheight);
+	  x2 =
+	    (int) (c->image->width / 2 +
+		   (l->x2 - 0.5) * x / c->image->pixelwidth);
+	  y2 =
+	    (int) (c->image->height / 2 +
+		   (l->y2 - 0.5) * x / c->image->pixelheight);
 	  break;
 	case 2:
 	  x = l->x1;
 	  y = l->y1;
 	  rotate (*(c->fcontext), x, y);
-	  x = (x - c->fcontext->rs.nc) / (c->fcontext->rs.mc - c->fcontext->rs.nc) * c->zengine->image->width;
-	  y = (y - c->fcontext->rs.ni) / (c->fcontext->rs.mi - c->fcontext->rs.ni) * c->zengine->image->height;
-	  x1 = (int)x;
-	  y1 = (int)y;
+	  x =
+	    (x - c->fcontext->rs.nc) / (c->fcontext->rs.mc -
+					c->fcontext->rs.nc) *
+	    c->zengine->image->width;
+	  y =
+	    (y - c->fcontext->rs.ni) / (c->fcontext->rs.mi -
+					c->fcontext->rs.ni) *
+	    c->zengine->image->height;
+	  x1 = (int) x;
+	  y1 = (int) y;
 	  c->zengine->action->convertup (c->zengine, &x1, &y1);
 	  x = l->x2;
 	  y = l->y2;
 	  rotate (*(c->fcontext), x, y);
-	  x = (x - c->fcontext->rs.nc) / (c->fcontext->rs.mc - c->fcontext->rs.nc) * c->zengine->image->width;
-	  y = (y - c->fcontext->rs.ni) / (c->fcontext->rs.mi - c->fcontext->rs.ni) * c->zengine->image->height;
-	  x2 = (int)x;
-	  y2 = (int)y;
+	  x =
+	    (x - c->fcontext->rs.nc) / (c->fcontext->rs.mc -
+					c->fcontext->rs.nc) *
+	    c->zengine->image->width;
+	  y =
+	    (y - c->fcontext->rs.ni) / (c->fcontext->rs.mi -
+					c->fcontext->rs.ni) *
+	    c->zengine->image->height;
+	  x2 = (int) x;
+	  y2 = (int) y;
 	  c->zengine->action->convertup (c->zengine, &x2, &y2);
 	  break;
 	}
@@ -194,44 +219,64 @@ uih_update_lines (uih_context * c)
 	  switch (l->mposmode)
 	    {
 	    case 0:
-	      mx1 = (int)(c->image->width * l->mx1);
-	      my1 = (int)(c->image->height * l->my1);
-	      mx2 = (int)(c->image->width * l->mx2);
-	      my2 = (int)(c->image->height * l->my2);
+	      mx1 = (int) (c->image->width * l->mx1);
+	      my1 = (int) (c->image->height * l->my1);
+	      mx2 = (int) (c->image->width * l->mx2);
+	      my2 = (int) (c->image->height * l->my2);
 	      break;
 	    case 1:
 	      x = c->image->width * c->image->pixelwidth;
 	      y = c->image->height * c->image->pixelheight;
 	      if (x > y)
 		x = y;
-	      mx1 = (int)(c->image->width / 2 + (l->mx1 - 0.5) * x / c->image->pixelwidth);
-	      my1 = (int)(c->image->height / 2 + (l->my1 - 0.5) * x / c->image->pixelheight);
-	      mx2 = (int)(c->image->width / 2 + (l->mx2 - 0.5) * x / c->image->pixelwidth);
-	      my2 = (int)(c->image->height / 2 + (l->my2 - 0.5) * x / c->image->pixelheight);
+	      mx1 =
+		(int) (c->image->width / 2 +
+		       (l->mx1 - 0.5) * x / c->image->pixelwidth);
+	      my1 =
+		(int) (c->image->height / 2 +
+		       (l->my1 - 0.5) * x / c->image->pixelheight);
+	      mx2 =
+		(int) (c->image->width / 2 +
+		       (l->mx2 - 0.5) * x / c->image->pixelwidth);
+	      my2 =
+		(int) (c->image->height / 2 +
+		       (l->my2 - 0.5) * x / c->image->pixelheight);
 	      break;
 	    default:
 	      x = l->mx1;
 	      y = l->my1;
 	      rotate (*(c->fcontext), x, y);
-	      x = (x - c->fcontext->rs.nc) / (c->fcontext->rs.mc - c->fcontext->rs.nc) * c->zengine->image->width;
-	      y = (y - c->fcontext->rs.ni) / (c->fcontext->rs.mi - c->fcontext->rs.ni) * c->zengine->image->height;
-	      mx1 = (int)x;
-	      my1 = (int)y;
+	      x =
+		(x - c->fcontext->rs.nc) / (c->fcontext->rs.mc -
+					    c->fcontext->rs.nc) *
+		c->zengine->image->width;
+	      y =
+		(y - c->fcontext->rs.ni) / (c->fcontext->rs.mi -
+					    c->fcontext->rs.ni) *
+		c->zengine->image->height;
+	      mx1 = (int) x;
+	      my1 = (int) y;
 	      c->zengine->action->convertup (c->zengine, &mx1, &my1);
 	      x = l->mx2;
 	      y = l->my2;
 	      rotate (*(c->fcontext), x, y);
-	      x = (x - c->fcontext->rs.nc) / (c->fcontext->rs.mc - c->fcontext->rs.nc) * c->zengine->image->width;
-	      y = (y - c->fcontext->rs.ni) / (c->fcontext->rs.mi - c->fcontext->rs.ni) * c->zengine->image->height;
-	      mx2 = (int)x;
-	      my2 = (int)y;
+	      x =
+		(x - c->fcontext->rs.nc) / (c->fcontext->rs.mc -
+					    c->fcontext->rs.nc) *
+		c->zengine->image->width;
+	      y =
+		(y - c->fcontext->rs.ni) / (c->fcontext->rs.mi -
+					    c->fcontext->rs.ni) *
+		c->zengine->image->height;
+	      mx2 = (int) x;
+	      my2 = (int) y;
 	      c->zengine->action->convertup (c->zengine, &mx2, &my2);
 	      break;
 	    }
-	  x1 = (int)(x1 + (mx1 - x1) * mmul);
-	  y1 = (int)(y1 + (my1 - y1) * mmul);
-	  x2 = (int)(x2 + (mx2 - x2) * mmul);
-	  y2 = (int)(y2 + (my2 - y2) * mmul);
+	  x1 = (int) (x1 + (mx1 - x1) * mmul);
+	  y1 = (int) (y1 + (my1 - y1) * mmul);
+	  x2 = (int) (x2 + (mx2 - x2) * mmul);
+	  y2 = (int) (y2 + (my2 - y2) * mmul);
 	}
       switch (l->color)
 	{
@@ -254,6 +299,7 @@ uih_update_lines (uih_context * c)
     c->display = 1;
 
 }
+
 void
 uih_clear_line (uih_context * c)
 {
@@ -264,6 +310,7 @@ uih_clear_line (uih_context * c)
     }
   uih_removeline (c, uih_findkey (c, c->playc->lines.currkey++));
 }
+
 void
 uih_clear_lines (uih_context * c)
 {
@@ -276,18 +323,19 @@ uih_clear_lines (uih_context * c)
     uih_removeline (c, c->playc->lines.first);
   c->playc->lines.currkey = 0;
 }
+
 void
 uih_freecatalog (uih_context * c)
 {
   if (catalog != NULL)
-    free_catalog (catalog),
-      catalog = NULL;
+    free_catalog (catalog), catalog = NULL;
 }
 
 void
 uih_setfont (struct uih_context *uih)
 {
-  if (catalog != NULL && find_text (catalog, "encoding") && find_text (catalog, "encoding")[0] == '2')
+  if (catalog != NULL && find_text (catalog, "encoding")
+      && find_text (catalog, "encoding")[0] == '2')
     uih->encoding = 2;
   else
     uih->encoding = 1;
@@ -336,13 +384,13 @@ uih_loadcatalog (uih_context * c, CONST char *name)
   catalog = load_catalog (f, &str);
   if (str != NULL)
     uih_error (c, str);
-  uih_setfont(c);
+  uih_setfont (c);
   return (catalog != NULL);
 }
 static void
 handler (void *userdata)
 {
-  struct uih_context *uih = (struct uih_context *)userdata;
+  struct uih_context *uih = (struct uih_context *) userdata;
   uih->playc->playframe++;
   uih->inanimation = 2;
   if (uih->playc->timerin)
@@ -352,21 +400,24 @@ handler (void *userdata)
 static void
 handler1 (void *userdata)
 {
-  struct uih_context *uih = (struct uih_context *)userdata;
+  struct uih_context *uih = (struct uih_context *) userdata;
   uih->playc->playframe++;
   uih->inanimation = 2;
   tl_update_time ();
   tl_reset_timer (uih->playc->timer);
   uih_setcomplettehandler (uih, NULL, NULL);
 }
+
 void
 uih_skipframe (struct uih_context *uih)
 {
   if (uih->play && uih->playc->timerin)
     handler (uih), tl_reset_timer (uih->playc->timer);
 }
+
 int
-uih_replayenable (struct uih_context *uih, xio_file f, xio_constpath filename, int animr)
+uih_replayenable (struct uih_context *uih, xio_file f, xio_constpath filename,
+		  int animr)
 {
   struct uih_playcontext *p;
   CONST char *s;
@@ -380,16 +431,17 @@ uih_replayenable (struct uih_context *uih, xio_file f, xio_constpath filename, i
       uih_error (uih, "File open failed");
       return 0;
     }
-  p = (struct uih_playcontext *)calloc (1, sizeof (*p));
+  p = (struct uih_playcontext *) calloc (1, sizeof (*p));
   if (p == NULL)
     {
       uih_error (uih, "Out of memory");
       return 0;
     }
-  if (animr) {
-    uih->menuroot = animroot;
-    uih_updatemenus (uih, NULL);
-  }
+  if (animr)
+    {
+      uih->menuroot = animroot;
+      uih_updatemenus (uih, NULL);
+    }
   p->file = f;
   p->playframe = 1;
   p->timer = tl_create_timer ();
@@ -424,6 +476,7 @@ uih_replayenable (struct uih_context *uih, xio_file f, xio_constpath filename, i
   uih->playstring = s;
   return 1;
 }
+
 void
 uih_replaydisable (struct uih_context *uih)
 {
@@ -432,10 +485,11 @@ uih_replaydisable (struct uih_context *uih)
       int i;
       uih->play = 0;
       tl_free_timer (uih->playc->timer);
-      if (uih->menuroot==animroot) {
-       uih->menuroot = "root";
-       uih_updatemenus (uih, NULL);
-      }
+      if (uih->menuroot == animroot)
+	{
+	  uih->menuroot = "root";
+	  uih_updatemenus (uih, NULL);
+	}
       xio_close (uih->playc->file);
       for (i = 0; i < uih->playc->level; i++)
 	xio_close (uih->playc->prevfiles[i]);
@@ -475,14 +529,15 @@ skipblank (struct uih_context *uih)
 	  }
       while (xio_feof (FD) && uih->playc->level)
 	{
-	  c=XIO_EOF+1;
+	  c = XIO_EOF + 1;
 	  xio_close (FD);
 	  uih->playc->file = uih->playc->prevfiles[--uih->playc->level];
 	  uih->playc->line = 1;
 	}
     }
-  while (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c==XIO_EOF+1);
-  if (c!=XIO_EOF) xio_ungetc (c, FD);
+  while (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == XIO_EOF + 1);
+  if (c != XIO_EOF)
+    xio_ungetc (c, FD);
 }
 static int
 gettoken (struct uih_context *uih)
@@ -513,13 +568,15 @@ gettoken (struct uih_context *uih)
     }
   if ((c = nextchar ()) == '"')
     {
-      while (c == '\r') c = nextchar ();
+      while (c == '\r')
+	c = nextchar ();
       token[i] = '"';
       i++;
       do
 	{
 	  c = nextchar ();
-	  while (c == '\r') c = nextchar ();
+	  while (c == '\r')
+	    c = nextchar ();
 	  if (c == XIO_EOF || c == 0)
 	    {
 	      if (uih->playstring)
@@ -581,7 +638,8 @@ gettoken (struct uih_context *uih)
   if (uih->playstring == NULL)
     {
       while (xio_feof (FD) && uih->playc->level)
-	uih->playc->file = uih->playc->prevfiles[--uih->playc->level], uih->playc->line = 1;
+	uih->playc->file =
+	  uih->playc->prevfiles[--uih->playc->level], uih->playc->line = 1;
     }
   if (c == XIO_EOF || c == 0)
     {
@@ -612,6 +670,7 @@ gettokenwr (struct uih_context *c)
     return NULL;
   return (token);
 }
+
 void
 uih_play_formula (struct uih_context *uih, char *fname)
 {
@@ -627,6 +686,7 @@ uih_play_formula (struct uih_context *uih, char *fname)
     }
   seterr ("Unknown formula type");
 }
+
 void
 uih_playmorph (struct uih_context *uih, dialogparam * d)
 {
@@ -647,6 +707,7 @@ uih_playmorph (struct uih_context *uih, dialogparam * d)
   uih->playc->destination.ri = d[3].number;
   uih->playc->morph = 1;
 }
+
 void
 uih_playmove (struct uih_context *uih, number_t x, number_t y)
 {
@@ -662,6 +723,7 @@ uih_playmove (struct uih_context *uih, number_t x, number_t y)
   uih->playc->destination.ri = uih->fcontext->s.ri;
   uih->playc->morph = 1;
 }
+
 void
 uih_playmorphjulia (struct uih_context *uih, number_t x, number_t y)
 {
@@ -676,6 +738,7 @@ uih_playmorphjulia (struct uih_context *uih, number_t x, number_t y)
   uih->playc->di = y;
   uih->playc->morphjulia = 1;
 }
+
 void
 uih_playmorphangle (struct uih_context *uih, number_t angle)
 {
@@ -688,17 +751,19 @@ uih_playmorphangle (struct uih_context *uih, number_t angle)
   uih->playc->srcangle = uih->fcontext->angle;
   uih->playc->destangle = angle;
 }
+
 void
 uih_playautorotate (struct uih_context *uih, int mode)
 {
   if (mode)
-  {
-    uih_fastrotateenable(uih);
-    uih_rotatemode (uih, ROTATE_CONTINUOUS);
-  }
+    {
+      uih_fastrotateenable (uih);
+      uih_rotatemode (uih, ROTATE_CONTINUOUS);
+    }
   else
     uih_rotatemode (uih, ROTATE_NONE);
 }
+
 void
 uih_playfilter (struct uih_context *uih, dialogparam * p)
 {
@@ -719,6 +784,7 @@ uih_playfilter (struct uih_context *uih, dialogparam * p)
     }
   seterr ("Unknown filter");
 }
+
 void
 uih_playdefpalette (struct uih_context *uih, int shift)
 {
@@ -734,9 +800,10 @@ uih_playdefpalette (struct uih_context *uih, int shift)
     {
       uih_newimage (uih);
     }
-  uih->manualpaletteshift=0;
+  uih->manualpaletteshift = 0;
   uih->paletteshift = shift;
 }
+
 void
 uih_zoomcenter (struct uih_context *uih, number_t x, number_t y)
 {
@@ -755,6 +822,7 @@ uih_playtextpos (struct uih_context *uih, dialogparam * p)
   y = p[1].dint;
   uih_settextpos (uih, x, y);
 }
+
 void
 uih_playusleep (struct uih_context *uih, int time)
 {
@@ -765,7 +833,9 @@ uih_playusleep (struct uih_context *uih, int time)
       return;
     }
   uih->playc->frametime = time;
-  if (time < tl_lookup_timer (uih->playc->timer) /*&&((!uih->step)||(!uih->zoomactive)) */ )
+  if (time <
+      tl_lookup_timer (uih->playc->
+		       timer) /*&&((!uih->step)||(!uih->zoomactive)) */ )
     {
       tl_slowdown_timer (uih->playc->timer, time);
       uih->playc->playframe++;
@@ -783,10 +853,14 @@ uih_playusleep (struct uih_context *uih, int time)
     }
   uih->playc->starttime = tl_lookup_timer (uih->playc->timer);
 }
+
 void
 uih_playtextsleep (struct uih_context *uih)
 {
-  uih_playusleep (uih, 500000 + 1000000 * (uih->nletters + uih->todisplayletters) / uih->letterspersec);
+  uih_playusleep (uih,
+		  500000 + 1000000 * (uih->nletters +
+				      uih->todisplayletters) /
+		  uih->letterspersec);
   uih->nletters = 0;
   uih->todisplayletters = 0;
 }
@@ -801,7 +875,8 @@ uih_playwait (struct uih_context *uih)
       seterr ("wait available only in animation replay");
       return;
     }
-  if (!uih->uncomplette && !uih->display && !uih->recalculatemode && !uih->displaytext && !uih->clearscreen)
+  if (!uih->uncomplette && !uih->display && !uih->recalculatemode
+      && !uih->displaytext && !uih->clearscreen)
     {
       uih->playc->playframe++;
     }
@@ -827,21 +902,25 @@ uih_playcalculate (struct uih_context *uih)
 {
   uih_newimage (uih);
 }
+
 void
 uih_playzoom (struct uih_context *uih)
 {
   uih->zoomactive = 1;
 }
+
 void
 uih_playunzoom (struct uih_context *uih)
 {
   uih->zoomactive = -1;
 }
+
 void
 uih_playstop (struct uih_context *uih)
 {
   uih->zoomactive = 0;
 }
+
 void
 uih_playmessage (struct uih_context *uih, char *name)
 {
@@ -859,6 +938,7 @@ uih_playmessage (struct uih_context *uih, char *name)
     }
   uih_text (uih, message);
 }
+
 void
 uih_playload (struct uih_context *uih, xio_path file)
 {
@@ -930,7 +1010,7 @@ uih_playupdate (struct uih_context *uih)
 	}
       if (uih->playc->morphjulia)
 	{
-	  uih_setjuliaseed(uih,uih->playc->dr, uih->playc->di);
+	  uih_setjuliaseed (uih, uih->playc->dr, uih->playc->di);
 	  uih->playc->morphjulia = 0;
 	}
       while (!xio_feof (FD) && parsenext && errstring == NULL)
@@ -943,7 +1023,8 @@ uih_playupdate (struct uih_context *uih)
 	  uih_error (uih, errstring);
 	  if (uih->play)
 	    {
-	      sprintf (errtext, "Replay disabled at line %i", uih->playc->line);
+	      sprintf (errtext, "Replay disabled at line %i",
+		       uih->playc->line);
 	      uih_message (uih, errtext);
 	    }
 	  /*errstring[255]=0; */
@@ -962,6 +1043,7 @@ uih_load (struct uih_context *uih, xio_file f, xio_constpath filename)
   uih_replaydisable (uih);
   nonblockmode = 0;
 }
+
 void
 uih_command (struct uih_context *uih, CONST char *command)
 {
@@ -975,4 +1057,3 @@ uih_command (struct uih_context *uih, CONST char *command)
       uih_error (uih, errstring);
     }
 }
-

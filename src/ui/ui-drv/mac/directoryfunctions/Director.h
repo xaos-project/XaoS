@@ -28,31 +28,32 @@
 #include "optim.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*****************************************************************************/
 
-enum
-{
-	getNextItemOp			= 1,	/* couldn't access items in this directory - no access privileges */
-	copyDirCommentOp		= 2,	/* couldn't copy directory's Finder comment */
-	copyDirAccessPrivsOp	= 3,	/* couldn't copy directory's AFP access privileges */
-	copyDirFMAttributesOp	= 4,	/* couldn't copy directory's File Manager attributes */
-	dirCreateOp				= 5,	/* couldn't create destination directory */
-	fileCopyOp				= 6		/* couldn't copy file */
-};
+  enum
+  {
+    getNextItemOp = 1,		/* couldn't access items in this directory - no access privileges */
+    copyDirCommentOp = 2,	/* couldn't copy directory's Finder comment */
+    copyDirAccessPrivsOp = 3,	/* couldn't copy directory's AFP access privileges */
+    copyDirFMAttributesOp = 4,	/* couldn't copy directory's File Manager attributes */
+    dirCreateOp = 5,		/* couldn't create destination directory */
+    fileCopyOp = 6		/* couldn't copy file */
+  };
 
 /*****************************************************************************/
 
-typedef	pascal	Boolean	(*CopyErrProcPtr) (OSErr error,
-										   short failedOperation,
-										   short srcVRefNum,
-										   long srcDirID,
-										   ConstStr255Param srcName,
-										   short dstVRefNum,
-										   long dstDirID,
-										   ConstStr255Param dstName);
+  typedef pascal Boolean (*CopyErrProcPtr) (OSErr error,
+					    short failedOperation,
+					    short srcVRefNum,
+					    long srcDirID,
+					    ConstStr255Param srcName,
+					    short dstVRefNum,
+					    long dstDirID,
+					    ConstStr255Param dstName);
 /*	¦ Prototype for the CopyErrProc function DirectoryCopy calls.
 	This is the prototype for the CopyErrProc function DirectoryCopy
 	calls if an error condition is detected sometime during the copy.  If
@@ -83,7 +84,8 @@ typedef	pascal	Boolean	(*CopyErrProcPtr) (OSErr error,
 
 /*****************************************************************************/
 
-typedef	pascal	Boolean	(*CopyFilterProcPtr) (const CInfoPBRec * const cpbPtr);
+  typedef pascal Boolean (*CopyFilterProcPtr) (const CInfoPBRec *
+					       const cpbPtr);
 
 /*	¦ Prototype for the CopyFilterProc function.
 	This is the prototype for the CopyFilterProc function called by
@@ -101,17 +103,17 @@ typedef	pascal	Boolean	(*CopyFilterProcPtr) (const CInfoPBRec * const cpbPtr);
 
 /*****************************************************************************/
 
-pascal	OSErr	FilteredDirectoryCopy(short srcVRefNum,
-									  long srcDirID,
-									  ConstStr255Param srcName,
-									  short dstVRefNum,
-									  long dstDirID,
-									  ConstStr255Param dstName,
-									  void *copyBufferPtr,
-									  long copyBufferSize,
-									  Boolean preflight,
-									  CopyErrProcPtr copyErrHandler,
-									  CopyFilterProcPtr copyFilterProc);
+  pascal OSErr FilteredDirectoryCopy (short srcVRefNum,
+				      long srcDirID,
+				      ConstStr255Param srcName,
+				      short dstVRefNum,
+				      long dstDirID,
+				      ConstStr255Param dstName,
+				      void *copyBufferPtr,
+				      long copyBufferSize,
+				      Boolean preflight,
+				      CopyErrProcPtr copyErrHandler,
+				      CopyFilterProcPtr copyFilterProc);
 /*	¦ Make a copy of a directory structure in a new location with item filtering.
 	The FilteredDirectoryCopy function makes a copy of a directory
 	structure in a new location. If copyBufferPtr <> NIL, it points to
@@ -211,13 +213,13 @@ pascal	OSErr	FilteredDirectoryCopy(short srcVRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpFilteredDirectoryCopy(const FSSpec *srcSpec,
-										 const FSSpec *dstSpec,
-										 void *copyBufferPtr,
-										 long copyBufferSize,
-										 Boolean preflight,
-										 CopyErrProcPtr copyErrHandler,
-										 CopyFilterProcPtr copyFilterProc);
+  pascal OSErr FSpFilteredDirectoryCopy (const FSSpec * srcSpec,
+					 const FSSpec * dstSpec,
+					 void *copyBufferPtr,
+					 long copyBufferSize,
+					 Boolean preflight,
+					 CopyErrProcPtr copyErrHandler,
+					 CopyFilterProcPtr copyFilterProc);
 /*	¦ Make a copy of a directory structure in a new location with item filtering.
 	The FSpFilteredDirectoryCopy function makes a copy of a directory
 	structure in a new location. If copyBufferPtr <> NIL, it points to
@@ -300,16 +302,16 @@ pascal	OSErr	FSpFilteredDirectoryCopy(const FSSpec *srcSpec,
 
 /*****************************************************************************/
 
-pascal	OSErr	DirectoryCopy(short srcVRefNum,
-							  long srcDirID,
-							  ConstStr255Param srcName,
-							  short dstVRefNum,
-							  long dstDirID,
-							  ConstStr255Param dstName,
-							  void *copyBufferPtr,
-							  long copyBufferSize,
-							  Boolean preflight,
-							  CopyErrProcPtr copyErrHandler);
+  pascal OSErr DirectoryCopy (short srcVRefNum,
+			      long srcDirID,
+			      ConstStr255Param srcName,
+			      short dstVRefNum,
+			      long dstDirID,
+			      ConstStr255Param dstName,
+			      void *copyBufferPtr,
+			      long copyBufferSize,
+			      Boolean preflight,
+			      CopyErrProcPtr copyErrHandler);
 /*	¦ Make a copy of a directory structure in a new location.
 	The DirectoryCopy function makes a copy of a directory structure in a
 	new location. If copyBufferPtr <> NIL, it points to a buffer of
@@ -402,12 +404,12 @@ pascal	OSErr	DirectoryCopy(short srcVRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpDirectoryCopy(const FSSpec *srcSpec,
-								 const FSSpec *dstSpec,
-								 void *copyBufferPtr,
-								 long copyBufferSize,
-								 Boolean preflight,
-								 CopyErrProcPtr copyErrHandler);
+  pascal OSErr FSpDirectoryCopy (const FSSpec * srcSpec,
+				 const FSSpec * dstSpec,
+				 void *copyBufferPtr,
+				 long copyBufferSize,
+				 Boolean preflight,
+				 CopyErrProcPtr copyErrHandler);
 /*	¦ Make a copy of a directory structure in a new location.
 	The FSpDirectoryCopy function makes a copy of a directory structure in a
 	new location. If copyBufferPtr <> NIL, it points to a buffer of
@@ -490,4 +492,4 @@ pascal	OSErr	FSpDirectoryCopy(const FSSpec *srcSpec,
 
 #include "optimend.h"
 
-#endif	/* __DIRECTORYCOPY__ */
+#endif				/* __DIRECTORYCOPY__ */

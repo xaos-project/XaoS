@@ -72,13 +72,15 @@ params_parser (int argc, char **argv)
 			int n;
 			if (i == argc - 1)
 			  {
-			    x_error ("parameter %s requires numeric value.", argv[i]);
+			    x_error ("parameter %s requires numeric value.",
+				     argv[i]);
 			    error = 1;
 			    break;
 			  }
 			if (sscanf (argv[i + 1], "%i", &n) != 1)
 			  {
-			    x_error ( "parameter for %s is not number.", argv[i]);
+			    x_error ("parameter for %s is not number.",
+				     argv[i]);
 			    error = 1;
 			    break;
 			  }
@@ -91,13 +93,17 @@ params_parser (int argc, char **argv)
 			float n;
 			if (i == argc - 1)
 			  {
-			    x_error ("parameter %s requires floating point numeric value.", argv[i]);
+			    x_error
+			      ("parameter %s requires floating point numeric value.",
+			       argv[i]);
 			    error = 1;
 			    break;
 			  }
 			if (sscanf (argv[i + 1], "%f", &n) != 1)
 			  {
-			    x_error ( "parameter for %s is not floating point number.", argv[i]);
+			    x_error
+			      ("parameter for %s is not floating point number.",
+			       argv[i]);
 			    error = 1;
 			    break;
 			  }
@@ -109,7 +115,8 @@ params_parser (int argc, char **argv)
 		      {
 			if (i == argc - 1)
 			  {
-			    x_error ("parameter %s requires string value.", argv[i]);
+			    x_error ("parameter %s requires string value.",
+				     argv[i]);
 			    error = 1;
 			    break;
 			  }
@@ -138,8 +145,7 @@ params_parser (int argc, char **argv)
     }
   if (error)
     {
-      const char *name[] =
-      {
+      const char *name[] = {
 	"",
 	"number",
 	"string",
@@ -147,7 +153,8 @@ params_parser (int argc, char **argv)
       };
 #ifndef _plan9_
       printf ("                 XaoS" XaoS_VERSION " help text\n");
-      printf (" (This help is genereated automagically. I am sorry for all inconvencies)\n\n");
+      printf
+	(" (This help is genereated automagically. I am sorry for all inconvencies)\n\n");
 #endif
       printf ("option string   param   description\n\n");
       for (d = 0; d < nparams; d++)
@@ -160,7 +167,8 @@ params_parser (int argc, char **argv)
 	      else if (!par[p].type)
 		printf (" %-14s   %s\n", par[p].name, par[p].help);
 	      else
-		printf (" %-14s  %s\n%14s    %s\n", par[p].name, name[par[p].type], "", par[p].help);
+		printf (" %-14s  %s\n%14s    %s\n", par[p].name,
+			name[par[p].type], "", par[p].help);
 	    }
 	  if (p == 0)
 	    printf (" No options avaiable for now\n");
@@ -170,7 +178,8 @@ params_parser (int argc, char **argv)
     }
   return (1);
 }
-void 
+
+void
 params_register (CONST struct params *par)
 {
   params[nparams++] = par;

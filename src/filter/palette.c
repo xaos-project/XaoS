@@ -25,8 +25,9 @@ unsigned col_diff[3][512];
 static struct palette *context;
 static int maxentries;
 static int needupdate;
-static void 
-genertruecolorinfo (struct truec *t, unsigned int r, unsigned int g, unsigned int b)
+static void
+genertruecolorinfo (struct truec *t, unsigned int r, unsigned int g,
+		    unsigned int b)
 {
   int n;
 
@@ -51,7 +52,8 @@ genertruecolorinfo (struct truec *t, unsigned int r, unsigned int g, unsigned in
   t->allmask = r | g | b;
   if ((r & b) || (r & g) || (b & g))
     {
-      x_fatalerror("Internal error:Invalid color masks 1 %x %x %x!\n",r,g,b);
+      x_fatalerror ("Internal error:Invalid color masks 1 %x %x %x!\n", r, g,
+		    b);
     }
   if ((r < g && g < b) || (b < g && g < r))
     {
@@ -72,10 +74,7 @@ genertruecolorinfo (struct truec *t, unsigned int r, unsigned int g, unsigned in
   t->missingbyte = -1;
   if (!(t->rshift % 8) &&
       !(t->gshift % 8) &&
-      !(t->bshift % 8) &&
-      !t->rprec &&
-      !t->gprec &&
-      !t->bprec)
+      !(t->bshift % 8) && !t->rprec && !t->gprec && !t->bprec)
     {
       t->byteexact = 1;
       {
@@ -100,7 +99,8 @@ genertruecolorinfo (struct truec *t, unsigned int r, unsigned int g, unsigned in
   printf ("byteexact:%x missingbyte:%i\n", t->byteexact, t->missingbyte);
 #endif
 }
-void 
+
+void
 bestfit_init (void)
 {
   int i;
@@ -123,8 +123,10 @@ allocgenerictruecolor (struct palette *palette, int init, int r, int g, int b)
     case LARGEITER:
     case SMALLITER:
 #ifdef _UNDEFINED_
-      if(init) n=0; else
-         n=palette->size; 
+      if (init)
+	n = 0;
+      else
+	n = palette->size;
 #endif
       return 1;
     case TRUECOLOR:
@@ -132,8 +134,8 @@ allocgenerictruecolor (struct palette *palette, int init, int r, int g, int b)
     case TRUECOLOR24:
     default:
       n = ((r >> palette->info.truec.rprec) << palette->info.truec.rshift) |
-          ((g >> palette->info.truec.gprec) << palette->info.truec.gshift) |
-          ((b >> palette->info.truec.bprec) << palette->info.truec.bshift);
+	((g >> palette->info.truec.gprec) << palette->info.truec.gshift) |
+	((b >> palette->info.truec.bprec) << palette->info.truec.bshift);
       break;
     }
   if (init)
@@ -147,7 +149,7 @@ allocgenerictruecolor (struct palette *palette, int init, int r, int g, int b)
 static int
 allocgeneric (struct palette *palette, int init, int r, int g, int b)
 {
-  int start=palette->npreallocated+palette->start;
+  int start = palette->npreallocated + palette->start;
   if (init)
     palette->size = 0;
   else if (palette->size >= palette->end - start)
@@ -159,6 +161,7 @@ allocgeneric (struct palette *palette, int init, int r, int g, int b)
   palette->size++;
   return (palette->size - 1);
 }
+
 int
 fixedalloccolor (struct palette *palette, int init, int r, int g, int b)
 {
@@ -169,7 +172,7 @@ fixedalloccolor (struct palette *palette, int init, int r, int g, int b)
     return -1;
   lowest = INT_MAX;
   bestfit = 1;
-  if (palette->type == FIXEDCOLOR|| (palette->type&BITMAPS))
+  if (palette->type == FIXEDCOLOR || (palette->type & BITMAPS))
     {
       for (i = palette->start; i < palette->end; i++)
 	{
@@ -193,7 +196,10 @@ fixedalloccolor (struct palette *palette, int init, int r, int g, int b)
     }
   else
     {
-      bestfit = (r * 30 + g * 59 + b * 11) * (palette->end - palette->start) / 256 / 100 + palette->start;
+      bestfit =
+	(r * 30 + g * 59 + b * 11) * (palette->end -
+				      palette->start) / 256 / 100 +
+	palette->start;
     }
   palette->pixels[palette->size] = bestfit;
   palette->size++;
@@ -206,7 +212,9 @@ setcolorgeneric (struct palette *palette, int start, int end, rgb_t * rgb)
 static void
 allocfinishedgeneric (struct palette *palette)
 {
-  palette->setpalette (palette, palette->start, palette->size + palette->start + palette->npreallocated, palette->rgb + palette->start);
+  palette->setpalette (palette, palette->start,
+		       palette->size + palette->start +
+		       palette->npreallocated, palette->rgb + palette->start);
 }
 static void
 cycle_entries (struct palette *c, int direction)
@@ -220,7 +228,7 @@ cycle_entries (struct palette *c, int direction)
     direction = -((-direction) % (c->size - 1));
   if (!direction)
     return;
-  co = (rgb_t *)malloc (c->end * sizeof (rgb_t));
+  co = (rgb_t *) malloc (c->end * sizeof (rgb_t));
   memcpy (co, c->rgb, sizeof (*co) * c->end);
   i3 = (c->size - 1 + direction) % (c->size - 1) + 1;
   for (i = 1; i < c->size; i++)
@@ -240,19 +248,24 @@ static void
 cyclecolorsgeneric (struct palette *pal, int direction)
 {
   cycle_entries (pal, direction);
-  pal->setpalette (pal, pal->pixels[0], pal->size + pal->pixels[0], pal->rgb + pal->pixels[0]);
+  pal->setpalette (pal, pal->pixels[0], pal->size + pal->pixels[0],
+		   pal->rgb + pal->pixels[0]);
 }
+
 #define TRUECOLORPALETTE 65536
 struct palette *
 createpalette (int start, int end, int type, int flags, int maxentries,
-               int (*alloccolor) (struct palette * pal, int init, int r, int g, int b),
-               void (*setcolor) (struct palette * pal, int start, int end, rgb_t * rgb),
+	       int (*alloccolor) (struct palette * pal, int init, int r,
+				  int g, int b),
+	       void (*setcolor) (struct palette * pal, int start, int end,
+				 rgb_t * rgb),
 	       void (*allocfinished) (struct palette * pal),
 	       void (*cyclecolors) (struct palette * pal, int direction),
 	       union paletteinfo *info)
 {
   static int versioncount;
-  struct palette *palette = (struct palette *)calloc (1, sizeof (struct palette));
+  struct palette *palette =
+    (struct palette *) calloc (1, sizeof (struct palette));
 
   if (col_diff[0][1] == 0)
     bestfit_init ();
@@ -272,27 +285,30 @@ createpalette (int start, int end, int type, int flags, int maxentries,
       end = 2;
       start = 0;
       maxentries = 256;
-      palette->rgb = (rgb_t *)calloc (end, sizeof (*palette->rgb));
+      palette->rgb = (rgb_t *) calloc (end, sizeof (*palette->rgb));
       if (palette->rgb == NULL)
 	{
 	  free (palette);
 	  return NULL;
 	}
-      if(type&(LIBITMAP|MIBITMAP)) {
-      palette->rgb[0][0] = 255;
-      palette->rgb[0][1] = 255;
-      palette->rgb[0][2] = 255;
-      palette->rgb[1][0] = 0;
-      palette->rgb[1][1] = 0;
-      palette->rgb[1][2] = 0;
-      } else {
-      palette->rgb[0][0] = 0;
-      palette->rgb[0][1] = 0;
-      palette->rgb[0][2] = 0;
-      palette->rgb[1][0] = 255;
-      palette->rgb[1][1] = 255;
-      palette->rgb[1][2] = 255;
-      }
+      if (type & (LIBITMAP | MIBITMAP))
+	{
+	  palette->rgb[0][0] = 255;
+	  palette->rgb[0][1] = 255;
+	  palette->rgb[0][2] = 255;
+	  palette->rgb[1][0] = 0;
+	  palette->rgb[1][1] = 0;
+	  palette->rgb[1][2] = 0;
+	}
+      else
+	{
+	  palette->rgb[0][0] = 0;
+	  palette->rgb[0][1] = 0;
+	  palette->rgb[0][2] = 0;
+	  palette->rgb[1][0] = 255;
+	  palette->rgb[1][1] = 255;
+	  palette->rgb[1][2] = 255;
+	}
       palette->maxentries = maxentries;
       palette->alloccolor = fixedalloccolor;
       palette->setpalette = NULL;
@@ -300,8 +316,10 @@ createpalette (int start, int end, int type, int flags, int maxentries,
       palette->cyclecolors = NULL;
       break;
     case FIXEDCOLOR:
-      if(!end) end=256;
-      if(!maxentries) maxentries=256;
+      if (!end)
+	end = 256;
+      if (!maxentries)
+	maxentries = 256;
       palette->rgb = (rgb_t *) calloc (end, sizeof (*palette->rgb));
       if (palette->rgb == NULL)
 	{
@@ -315,8 +333,10 @@ createpalette (int start, int end, int type, int flags, int maxentries,
       palette->cyclecolors = NULL;
       break;
     case GRAYSCALE:
-      if(!end) end=256;
-      if(!maxentries) maxentries=end-start;
+      if (!end)
+	end = 256;
+      if (!maxentries)
+	maxentries = end - start;
       palette->maxentries = 65536;
       palette->alloccolor = fixedalloccolor;
       palette->setpalette = NULL;
@@ -326,19 +346,20 @@ createpalette (int start, int end, int type, int flags, int maxentries,
       break;
     case C256:
 
-      if(!end) end=256;
-      if(!maxentries) maxentries=end-start;
+      if (!end)
+	end = 256;
+      if (!maxentries)
+	maxentries = end - start;
       if (cyclecolors == NULL && setcolor != NULL)
 	cyclecolors = cyclecolorsgeneric;
 
       if (alloccolor == NULL)
 	{
 	  alloccolor = allocgeneric, allocfinished = allocfinishedgeneric;
-	  if (setcolor == NULL && type == C256)		/*non hardware palette */
-	    setcolor = setcolorgeneric,
-	      cyclecolors = cyclecolorsgeneric;
+	  if (setcolor == NULL && type == C256)	/*non hardware palette */
+	    setcolor = setcolorgeneric, cyclecolors = cyclecolorsgeneric;
 	}
-      palette->rgb = (rgb_t *)calloc (end, sizeof (*palette->rgb));
+      palette->rgb = (rgb_t *) calloc (end, sizeof (*palette->rgb));
 
       if (palette->rgb == NULL)
 	{
@@ -366,12 +387,14 @@ createpalette (int start, int end, int type, int flags, int maxentries,
       palette->allocfinished = NULL;
     }
   {
-  int ee=palette->maxentries;
-  /*if(end>palette->maxentries) ee=end;*/
-  if (ee < 256)
-    palette->pixels = (unsigned int *)calloc (256, sizeof (*palette->pixels));
-  else
-    palette->pixels = (unsigned int *)calloc (ee, sizeof (*palette->pixels));
+    int ee = palette->maxentries;
+    /*if(end>palette->maxentries) ee=end; */
+    if (ee < 256)
+      palette->pixels =
+	(unsigned int *) calloc (256, sizeof (*palette->pixels));
+    else
+      palette->pixels =
+	(unsigned int *) calloc (ee, sizeof (*palette->pixels));
   }
   if (palette->pixels == NULL)
     {
@@ -405,38 +428,57 @@ createpalette (int start, int end, int type, int flags, int maxentries,
       for (i = palette->start; i < end - start; i++)
 	palette->pixels[i] = i + start;
     }
-  if(info!=NULL&&(type==TRUECOLOR||type==TRUECOLOR24||type==TRUECOLOR16)) {
-  genertruecolorinfo (&palette->info.truec, info->truec.rmask, info->truec.gmask, info->truec.bmask);
-  } else {
-  if(type==TRUECOLOR) genertruecolorinfo (&palette->info.truec, 255<<16, 255<<8, 255);
-  if(type==TRUECOLOR24) genertruecolorinfo (&palette->info.truec, 255<<16, 255<<8, 255);
-  if(type==TRUECOLOR16) genertruecolorinfo (&palette->info.truec, (255>>3)<<11, (255>>2)<<5, (255>>3));
-  }
+  if (info != NULL
+      && (type == TRUECOLOR || type == TRUECOLOR24 || type == TRUECOLOR16))
+    {
+      genertruecolorinfo (&palette->info.truec, info->truec.rmask,
+			  info->truec.gmask, info->truec.bmask);
+    }
+  else
+    {
+      if (type == TRUECOLOR)
+	genertruecolorinfo (&palette->info.truec, 255 << 16, 255 << 8, 255);
+      if (type == TRUECOLOR24)
+	genertruecolorinfo (&palette->info.truec, 255 << 16, 255 << 8, 255);
+      if (type == TRUECOLOR16)
+	genertruecolorinfo (&palette->info.truec, (255 >> 3) << 11,
+			    (255 >> 2) << 5, (255 >> 3));
+    }
   return (palette);
 }
+
 void
 destroypalette (struct palette *palette)
 {
   free (palette->pixels);
   if (palette->rgb != NULL)
     free (palette->rgb);
-  if (palette->index != NULL) free(palette->index);
+  if (palette->index != NULL)
+    free (palette->index);
   free (palette);
 }
+
 #define MYMIN(x,y) ((x)<(y)?(x):(y))
 struct palette *
 clonepalette (struct palette *palette)
 {
-  struct palette *pal = createpalette (palette->start, palette->end, palette->type, palette->flags, palette->maxentries, /*palette->alloccolor, palette->setpalette, palette->allocfinished, palette->cyclecolors*/NULL,NULL,NULL,NULL, &palette->info);
-  memcpy (pal->pixels, palette->pixels, sizeof (*pal->pixels) * MYMIN(palette->end, pal->end));
+  struct palette *pal =
+    createpalette (palette->start, palette->end, palette->type,
+		   palette->flags, palette->maxentries,
+		   /*palette->alloccolor, palette->setpalette, palette->allocfinished, palette->cyclecolors */
+		   NULL, NULL, NULL, NULL, &palette->info);
+  memcpy (pal->pixels, palette->pixels,
+	  sizeof (*pal->pixels) * MYMIN (palette->end, pal->end));
   if (pal->rgb != NULL)
     {
-      memcpy (pal->rgb, palette->rgb, sizeof (*pal->rgb) * MYMIN(palette->end, pal->end));
+      memcpy (pal->rgb, palette->rgb,
+	      sizeof (*pal->rgb) * MYMIN (palette->end, pal->end));
     }
-  pal->size=palette->size;
+  pal->size = palette->size;
   return (pal);
 }
-void 
+
+void
 preallocpalette (struct palette *pal)
 {
   int i;
@@ -446,28 +488,31 @@ preallocpalette (struct palette *pal)
   pal->npreallocated = 0;
   if (!pal->ncells)
     return;
-  pal->index = (unsigned int *)malloc (sizeof (int) * (pal->ncells+1));
+  pal->index = (unsigned int *) malloc (sizeof (int) * (pal->ncells + 1));
   for (i = 0; i < pal->ncells; i++)
     {
       if (!i)
 	p = pal->pixels[0];
       else
 	p = pal->pixels[pal->size];
-      pal->alloccolor (pal, i == 0, pal->prergb[i][0], pal->prergb[i][1], pal->prergb[i][2]);
-      if (pal->size) {
-	pal->index[i] = pal->pixels[pal->size - 1];
-        pal->pixels[pal->size - 1] = p;
-      }
+      pal->alloccolor (pal, i == 0, pal->prergb[i][0], pal->prergb[i][1],
+		       pal->prergb[i][2]);
+      if (pal->size)
+	{
+	  pal->index[i] = pal->pixels[pal->size - 1];
+	  pal->pixels[pal->size - 1] = p;
+	}
     }
   pal->npreallocated = pal->size;
   pal->size = 0;
   needupdate = 0;
 }
+
 void
 restorepalette (struct palette *dest, struct palette *src)
 {
   int i;
-  preallocpalette(dest);
+  preallocpalette (dest);
   for (i = 0; i < src->size; i++)
     {
       int r = 0, g = 0, b = 0;
@@ -495,13 +540,21 @@ restorepalette (struct palette *dest, struct palette *src)
 	case TRUECOLOR:
 	case TRUECOLOR16:
 	case TRUECOLOR24:
-	  r = (((src->pixels[i]&src->info.truec.rmask) >> src->info.truec.rshift)) << src->info.truec.rprec;
-	  g = (((src->pixels[i]&src->info.truec.gmask) >> src->info.truec.gshift)) << src->info.truec.gprec;
-	  b = (((src->pixels[i]&src->info.truec.bmask) >> src->info.truec.bshift)) << src->info.truec.bprec;
+	  r =
+	    (((src->pixels[i] & src->info.truec.rmask) >> src->info.truec.
+	      rshift)) << src->info.truec.rprec;
+	  g =
+	    (((src->pixels[i] & src->info.truec.gmask) >> src->info.truec.
+	      gshift)) << src->info.truec.gprec;
+	  b =
+	    (((src->pixels[i] & src->info.truec.bmask) >> src->info.truec.
+	      bshift)) << src->info.truec.bprec;
 	  break;
 	}
-      if(dest->size>=dest->maxentries-PREALLOCATED(dest)) break;
-      if (dest->alloccolor (dest, (i+dest->npreallocated) == 0, r, g, b) == -1)
+      if (dest->size >= dest->maxentries - PREALLOCATED (dest))
+	break;
+      if (dest->alloccolor (dest, (i + dest->npreallocated) == 0, r, g, b) ==
+	  -1)
 	break;
     }
   if (!(dest->flags & FINISHLATER))
@@ -524,9 +577,8 @@ static int segmentsize;
 
 
 static unsigned char colors[MAXNSEGMENTS][3];
-static CONST unsigned char colors1[DEFNSEGMENTS][3] =
-{
-    /*{8, 14, 32}, */
+static CONST unsigned char colors1[DEFNSEGMENTS][3] = {
+  /*{8, 14, 32}, */
   {0, 0, 0},
   {120, 119, 238},
   {24, 7, 25},
@@ -560,15 +612,19 @@ static CONST unsigned char colors1[DEFNSEGMENTS][3] =
   {31, 32, 16}
 };
 
-REGISTERS (3) static int 
-allocate (int r, int g, int b, int init)
+REGISTERS (3)
+     static int allocate (int r, int g, int b, int init)
 {
   unsigned int n;
-  if(init) preallocpalette(context);
-  n=context->pixels[(init ? 0 : context->size) /*+ context->start */ ];
+  if (init)
+    preallocpalette (context);
+  n = context->pixels[(init ? 0 : context->size) /*+ context->start */ ];
   if (!init && context->size == maxentries)
     return 0;
-  if ((context->alloccolor (context, init&&!context->npreallocated, (int) r, (int) g, (int) b)) == -1)
+  if ((context->
+       alloccolor (context, init
+		   && !context->npreallocated, (int) r, (int) g,
+		   (int) b)) == -1)
     {
       return 0;
     }
@@ -595,9 +651,15 @@ mksmooth (int nsegments, int setsegments)
       r = colors[i % nsegments][0];
       g = colors[i % nsegments][1];
       b = colors[i % nsegments][2];
-      rs = ((int)colors[(i + 1) % setsegments % nsegments][0] - r) / (unsigned int)segmentsize1;
-      gs = ((int)colors[(i + 1) % setsegments % nsegments][1] - g) / (unsigned int)segmentsize1;
-      bs = ((int)colors[(i + 1) % setsegments % nsegments][2] - b) / (unsigned int)segmentsize1;
+      rs =
+	((int) colors[(i + 1) % setsegments % nsegments][0] -
+	 r) / (unsigned int) segmentsize1;
+      gs =
+	((int) colors[(i + 1) % setsegments % nsegments][1] -
+	 g) / (unsigned int) segmentsize1;
+      bs =
+	((int) colors[(i + 1) % setsegments % nsegments][2] -
+	 b) / (unsigned int) segmentsize1;
       for (y = 0; y < segmentsize1; y++)
 	{
 	  if (!allocate ((int) r, (int) g, (int) b, i == 0 && y == 0))
@@ -691,25 +753,20 @@ randomize_segments3 (int whitemode, int nsegments)
       if (!(i % 3))
 	{
 	  if (i % 6)
-	    colors[i][0] = 255,
-	      colors[i][1] = 255,
-	      colors[i][2] = 255;
+	    colors[i][0] = 255, colors[i][1] = 255, colors[i][2] = 255;
 	  else
-	    colors[i][0] = 0,
-	      colors[i][1] = 0,
-	      colors[i][2] = 0;
+	    colors[i][0] = 0, colors[i][1] = 0, colors[i][2] = 0;
 	}
       else
 	{
-	  s = (int)XaoS_random () % 256;
-	  h = (int)XaoS_random () % (128 - 32);
-	  v = (int)XaoS_random () % 128;
+	  s = (int) XaoS_random () % 256;
+	  h = (int) XaoS_random () % (128 - 32);
+	  v = (int) XaoS_random () % 128;
 	  if (((i) % 6 > 3) ^ ((i) % 3 == 1))
 	    /*if(((i)%3==1)) */
 	    h += 42 + 16;
 	  else
-	    h += 42 + 128 + 16,
-	      v += 128 + 64;
+	    h += 42 + 128 + 16, v += 128 + 64;
 	  hsv_to_rgb (h, s, v, colors[i], colors[i] + 1, colors[i] + 2);
 	}
     }
@@ -727,16 +784,15 @@ randomize_segments2 (int whitemode, int nsegments)
     {
       if (i % 3 == 2)
 	colors[i][0] = whitemode * 255,
-	  colors[i][1] = whitemode * 255,
-	  colors[i][2] = whitemode * 255;
+	  colors[i][1] = whitemode * 255, colors[i][2] = whitemode * 255;
       else if (i % 3 == 0)
 	colors[i][0] = (!whitemode) * 255,
 	  colors[i][1] = (!whitemode) * 255,
 	  colors[i][2] = (!whitemode) * 255;
       else
-	colors[i][0] = (int)XaoS_random () % 256,
-	  colors[i][1] = (int)XaoS_random () % 256,
-	  colors[i][2] = (int)XaoS_random () % 256;
+	colors[i][0] = (int) XaoS_random () % 256,
+	  colors[i][1] = (int) XaoS_random () % 256,
+	  colors[i][2] = (int) XaoS_random () % 256;
     }
   colors[i - 1][0] = colors[0][0];
   colors[i - 1][1] = colors[0][1];
@@ -749,40 +805,39 @@ randomize_segments (int whitemode, int nsegments)
   int i = 0;
   if (whitemode)
     {
-      colors[0][0] = 255,
-	colors[0][1] = 255,
-	colors[0][2] = 255;
+      colors[0][0] = 255, colors[0][1] = 255, colors[0][2] = 255;
       for (i = 0; i < nsegments; i += 2)
 	{
 	  if (i != 0)
 	    {
-	      colors[i][0] = (int)XaoS_random () % 256,
-		colors[i][1] = (int)XaoS_random () % 256,
-		colors[i][2] = (int)XaoS_random () % 256;
+	      colors[i][0] = (int) XaoS_random () % 256,
+		colors[i][1] = (int) XaoS_random () % 256,
+		colors[i][2] = (int) XaoS_random () % 256;
 	    }
 	  if (i + 1 < nsegments)
-	    colors[i + 1][0] = (int)XaoS_random () % 35,
-	      colors[i + 1][1] = (int)XaoS_random () % 35,
-	      colors[i + 1][2] = (int)XaoS_random () % 35;
+	    colors[i + 1][0] = (int) XaoS_random () % 35,
+	      colors[i + 1][1] = (int) XaoS_random () % 35,
+	      colors[i + 1][2] = (int) XaoS_random () % 35;
 	}
     }
   else
     {
       for (i = 0; i < nsegments; i += 2)
 	{
-	  colors[i][0] = (int)XaoS_random () % 35,
-	    colors[i][1] = (int)XaoS_random () % 35,
-	    colors[i][2] = (int)XaoS_random () % 35;
+	  colors[i][0] = (int) XaoS_random () % 35,
+	    colors[i][1] = (int) XaoS_random () % 35,
+	    colors[i][2] = (int) XaoS_random () % 35;
 	  if (i + 1 < nsegments)
-	    colors[i + 1][0] = (int)XaoS_random () % 256,
-	      colors[i + 1][1] = (int)XaoS_random () % 256,
-	      colors[i + 1][2] = (int)XaoS_random () % 256;
+	    colors[i + 1][0] = (int) XaoS_random () % 256,
+	      colors[i + 1][1] = (int) XaoS_random () % 256,
+	      colors[i + 1][2] = (int) XaoS_random () % 256;
 	}
     }
   colors[i - 1][0] = colors[0][0];
   colors[i - 1][1] = colors[0][1];
   colors[i - 1][2] = colors[0][2];
 }
+
 #define MYLONG_MAX 0xffffff
 #define rrandom(i) ((int)(((int)XaoS_random()/(double)MYLONG_MAX)*(i)))
 /*Do not use modulo type random since it should bring very different results
@@ -802,8 +857,8 @@ mkpalette (struct palette *c, int seed, int algorithm)
   if (c->flags & DONOTCHANGE)
     return 0;
   XaoS_srandom (seed);
-  seed = (int)XaoS_random ();
-  whitemode = (int)XaoS_random () % 2;
+  seed = (int) XaoS_random ();
+  whitemode = (int) XaoS_random () % 2;
 
   if ((c->flags & UNKNOWNENTRIES) || !c->size)
     {
@@ -932,7 +987,7 @@ mkblurpalette (struct palette *c)
   needupdate = 0;
   for (i = 0; i < 63; i++)
     allocate (i * 2, i * 2, i * 4, i == 0);
-  allocate (i * 2, i * 2, i * 4-1, 0);
+  allocate (i * 2, i * 2, i * 4 - 1, 0);
   if (!(c->flags & FINISHLATER))
     {
       if (c->allocfinished != NULL)
@@ -947,6 +1002,7 @@ mkblurpalette (struct palette *c)
     }
   return 0;
 }
+
 int
 mkgraypalette (struct palette *c)
 {
@@ -956,9 +1012,9 @@ mkgraypalette (struct palette *c)
   for (i = 0; i < 64; i++)
     allocate (i * 4, i * 4, i * 4, i == 0);
   for (i = 0; i < 16; i++)
-    allocate (255, 255 - i * 16, 255 - i * 16,0);
+    allocate (255, 255 - i * 16, 255 - i * 16, 0);
   for (i = 0; i < 16; i++)
-    allocate (255 - i * 16, 0,0,0);
+    allocate (255 - i * 16, 0, 0, 0);
   if (!(c->flags & FINISHLATER))
     {
       if (c->allocfinished != NULL)
@@ -1046,7 +1102,7 @@ shiftpalette (struct palette *c, int shift)
 	shift = -((-shift) % (c->size - 1));
       if (!shift)
 	return 0;
-      co = (int *)malloc (c->size * sizeof (*co));
+      co = (int *) malloc (c->size * sizeof (*co));
       memcpy (co, c->pixels, sizeof (*co) * c->size);
       i3 = (c->size - 1 + shift) % (c->size - 1) + 1;
       for (i = 1; i < c->size; i++)
@@ -1072,7 +1128,9 @@ allocrgb (struct palette *c, int r1, int g1, int b1)
       {
 	for (r = 0; r < r1; r++)
 	  {
-	    if (!allocate (r * 255 / (r1 - 1), g * 255 / (g1 - 1), b * 255 / (b1 - 1), f))
+	    if (!allocate
+		(r * 255 / (r1 - 1), g * 255 / (g1 - 1), b * 255 / (b1 - 1),
+		 f))
 	      return 0;
 	    f = 0;
 	  }
@@ -1112,10 +1170,11 @@ mkrgb (struct palette *c)
     }
   else
     {
-      number_t n = pow ((c->maxentries - nprecells) / (0.5 * 0.2 * 0.3), 1.0 / 3);
-      green = (int)(n * 0.5);
-      blue = (int)(n * 0.2);
-      red = (int)(n * 0.3);
+      number_t n =
+	pow ((c->maxentries - nprecells) / (0.5 * 0.2 * 0.3), 1.0 / 3);
+      green = (int) (n * 0.5);
+      blue = (int) (n * 0.2);
+      red = (int) (n * 0.3);
       while ((blue + 1) * red * green < (c->maxentries - nprecells))
 	blue++;
       while ((red + 1) * blue * green < (c->maxentries - nprecells))

@@ -33,148 +33,160 @@
 
 #include "stdioMac.h"
 
-unsigned char *PathNameFromWD(long vRefNum, unsigned char *s);
-unsigned char *PathNameFromDirID(long DirID, short vRefNum, unsigned char *s);
-unsigned char *pStrcat(unsigned char *dest, unsigned char *src);
-unsigned char *pStrcpy(unsigned char *dest, unsigned char *src);
+unsigned char *PathNameFromWD (long vRefNum, unsigned char *s);
+unsigned char *PathNameFromDirID (long DirID, short vRefNum,
+				  unsigned char *s);
+unsigned char *pStrcat (unsigned char *dest, unsigned char *src);
+unsigned char *pStrcpy (unsigned char *dest, unsigned char *src);
 
 
 
-FILE* fopenMac(const char *fname, const char *, OSType creator, OSType fileType)
+FILE *
+fopenMac (const char *fname, const char *, OSType creator, OSType fileType)
 {
-	short	f;
-	OSErr	err;
-	char	fnamep[255];
-	
-	strcpy(fnamep, fname);
-	c2pstr(fnamep);
-	
-	err = FSOpen((StringPtr)fnamep, 0, &f);
-	if(err == fnfErr)
+  short f;
+  OSErr err;
+  char fnamep[255];
+
+  strcpy (fnamep, fname);
+  c2pstr (fnamep);
+
+  err = FSOpen ((StringPtr) fnamep, 0, &f);
+  if (err == fnfErr)
+    {
+      err = Create ((StringPtr) fnamep, 0, creator, fileType);
+      if (err == noErr)
 	{
-		err = Create((StringPtr)fnamep, 0, creator, fileType);
-		if(err == noErr)
-		{
-			err = FSOpen((StringPtr)fnamep, 0, &f);
-			if(err != noErr)
-				(void) FSDelete((StringPtr)fnamep, 0);
-		}
-		
+	  err = FSOpen ((StringPtr) fnamep, 0, &f);
+	  if (err != noErr)
+	    (void) FSDelete ((StringPtr) fnamep, 0);
 	}
-	if(err != noErr)
-		f = nil;
-			
-	return (FILE*) f;
+
+    }
+  if (err != noErr)
+    f = nil;
+
+  return (FILE *) f;
 }
 
 
-size_t fwriteMac(const void *buffer, size_t size, size_t count, FILE *fp)
+size_t
+fwriteMac (const void *buffer, size_t size, size_t count, FILE * fp)
 {
-	short f = (short) fp;
-	
-	OSErr err;
-	long datacount = count * size;
-	
-	err = FSWrite(f, &datacount, buffer);
-	if(err != noErr)
-		datacount = 0;
-		
-	return((size_t) datacount);
+  short f = (short) fp;
+
+  OSErr err;
+  long datacount = count * size;
+
+  err = FSWrite (f, &datacount, buffer);
+  if (err != noErr)
+    datacount = 0;
+
+  return ((size_t) datacount);
 }
 
 
-int fputcMac(int c, FILE* fp)
+int
+fputcMac (int c, FILE * fp)
 {
-	OSErr err;
-	unsigned char buff;
-	long			cd;
-	
-	short f = (short) fp;
+  OSErr err;
+  unsigned char buff;
+  long cd;
 
-	buff = (unsigned char) c;
-	cd = 1;
-	err = FSWrite(f, &cd, &buff);
-	return (err == noErr ? c : EOF);
+  short f = (short) fp;
+
+  buff = (unsigned char) c;
+  cd = 1;
+  err = FSWrite (f, &cd, &buff);
+  return (err == noErr ? c : EOF);
 }
 
-int fcloseMac(FILE *fp)
+int
+fcloseMac (FILE * fp)
 {
-	return FSClose((short)fp) == noErr ? 0 : EOF;
-}
-
-
-
-
-unsigned char *FilespecFromSFReply(SFReply *sf, unsigned char *result)
-{
-	// Get the spelt-out version of a file (path and all) from an SFReply block.
-	
-	PathNameFromWD(sf->vRefNum, result);
-	pStrcat(result, "\p:");
-	pStrcat(result, sf->fName);
-	return(result);
+  return FSClose ((short) fp) == noErr ? 0 : EOF;
 }
 
 
-unsigned char *PathNameFromWD(long vRefNum, unsigned char *s)
+
+
+unsigned char *
+FilespecFromSFReply (SFReply * sf, unsigned char *result)
 {
+  // Get the spelt-out version of a file (path and all) from an SFReply block.
 
-    WDPBRec myBlock;
-
-    myBlock.ioNamePtr = nil;
-    myBlock.ioVRefNum = vRefNum;
-    myBlock.ioWDIndex = 0;
-    myBlock.ioWDProcID = 0;
-
-    /* Change the Working Directory number in vRefnum into a real vRefnum */
-    /* and DirID. The real vRefnum is returned in ioVRefnum, and the real */
-    /* DirID is returned in ioWDDirID. */
-
-    PBGetWDInfo(&myBlock,false);
-
-    return(PathNameFromDirID(myBlock.ioWDDirID,myBlock.ioWDVRefNum,s));
+  PathNameFromWD (sf->vRefNum, result);
+  pStrcat (result, "\p:");
+  pStrcat (result, sf->fName);
+  return (result);
 }
 
 
-unsigned char *PathNameFromDirID(long DirID, short vRefNum, unsigned char *s)
+unsigned char *
+PathNameFromWD (long vRefNum, unsigned char *s)
 {
-    CInfoPBRec  block;
-    Str255      directoryName;
-	OSErr		err;
 
-    *s = 0;
-    block.dirInfo.ioNamePtr = directoryName;
-    block.dirInfo.ioDrParID = DirID;
+  WDPBRec myBlock;
 
-    do {
-        block.dirInfo.ioVRefNum = vRefNum;
-        block.dirInfo.ioFDirIndex = -1;
-        block.dirInfo.ioDrDirID = block.dirInfo.ioDrParID;
+  myBlock.ioNamePtr = nil;
+  myBlock.ioVRefNum = vRefNum;
+  myBlock.ioWDIndex = 0;
+  myBlock.ioWDProcID = 0;
 
-        err = PBGetCatInfo(&block,false);
-        pStrcat(directoryName,"\p:");
-        pStrcat(directoryName,s);
-        pStrcpy(s,directoryName);
-    } while (block.dirInfo.ioDrDirID != fsRtDirID);
+  /* Change the Working Directory number in vRefnum into a real vRefnum */
+  /* and DirID. The real vRefnum is returned in ioVRefnum, and the real */
+  /* DirID is returned in ioWDDirID. */
 
-		(*s) -= 1;	/* delete last character of string, which is a colon */
-    return(s);
+  PBGetWDInfo (&myBlock, false);
+
+  return (PathNameFromDirID (myBlock.ioWDDirID, myBlock.ioWDVRefNum, s));
 }
 
-unsigned char *pStrcat(unsigned char *dest, unsigned char *src)
+
+unsigned char *
+PathNameFromDirID (long DirID, short vRefNum, unsigned char *s)
 {
-	long sLen;
-	if(*src < 255 - *dest)
-		sLen = *src;
-	else
-		sLen = 255 - *dest;
-    BlockMoveData(src + 1, dest + *dest + 1, sLen);
-    *dest += sLen;
-    return (dest);
+  CInfoPBRec block;
+  Str255 directoryName;
+  OSErr err;
+
+  *s = 0;
+  block.dirInfo.ioNamePtr = directoryName;
+  block.dirInfo.ioDrParID = DirID;
+
+  do
+    {
+      block.dirInfo.ioVRefNum = vRefNum;
+      block.dirInfo.ioFDirIndex = -1;
+      block.dirInfo.ioDrDirID = block.dirInfo.ioDrParID;
+
+      err = PBGetCatInfo (&block, false);
+      pStrcat (directoryName, "\p:");
+      pStrcat (directoryName, s);
+      pStrcpy (s, directoryName);
+    }
+  while (block.dirInfo.ioDrDirID != fsRtDirID);
+
+  (*s) -= 1;			/* delete last character of string, which is a colon */
+  return (s);
 }
 
-unsigned char *pStrcpy(unsigned char *dest, unsigned char *src)
+unsigned char *
+pStrcat (unsigned char *dest, unsigned char *src)
 {
-    BlockMoveData(src, dest, (long) *src + 1); 
-    return (dest);
+  long sLen;
+  if (*src < 255 - *dest)
+    sLen = *src;
+  else
+    sLen = 255 - *dest;
+  BlockMoveData (src + 1, dest + *dest + 1, sLen);
+  *dest += sLen;
+  return (dest);
+}
+
+unsigned char *
+pStrcpy (unsigned char *dest, unsigned char *src)
+{
+  BlockMoveData (src, dest, (long) *src + 1);
+  return (dest);
 }

@@ -25,14 +25,16 @@
 #include "optim.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*****************************************************************************/
 
-typedef	pascal	void (*IterateFilterProcPtr) (const CInfoPBRec * const cpbPtr,
-											  Boolean *quitFlag,
-											  void *yourDataPtr);
+  typedef pascal void (*IterateFilterProcPtr) (const CInfoPBRec *
+					       const cpbPtr,
+					       Boolean * quitFlag,
+					       void *yourDataPtr);
 /*	¦ Prototype for the IterateFilterProc function IterateDirectory calls.
 	This is the prototype for the IterateFilterProc function which is
 	called once for each file and directory found by IterateDirectory. The
@@ -66,12 +68,12 @@ typedef	pascal	void (*IterateFilterProcPtr) (const CInfoPBRec * const cpbPtr,
 
 /*****************************************************************************/
 
-pascal	OSErr	IterateDirectory(short vRefNum,
-								 long dirID,
-								 ConstStr255Param name,
-								 unsigned short maxLevels,
-								 IterateFilterProcPtr iterateFilter,
-								 void *yourDataPtr);
+  pascal OSErr IterateDirectory (short vRefNum,
+				 long dirID,
+				 ConstStr255Param name,
+				 unsigned short maxLevels,
+				 IterateFilterProcPtr iterateFilter,
+				 void *yourDataPtr);
 /*	¦ Iterate (scan) through a directory's content.
 	The IterateDirectory function performs a recursive iteration (scan) of
 	the specified directory and calls your IterateFilterProc function once
@@ -117,10 +119,10 @@ pascal	OSErr	IterateDirectory(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpIterateDirectory(const FSSpec *spec,
-									unsigned short maxLevels,
-									IterateFilterProcPtr iterateFilter,
-									void *yourDataPtr);
+  pascal OSErr FSpIterateDirectory (const FSSpec * spec,
+				    unsigned short maxLevels,
+				    IterateFilterProcPtr iterateFilter,
+				    void *yourDataPtr);
 /*	¦ Iterate (scan) through a directory's content.
 	The FSpIterateDirectory function performs a recursive iteration (scan)
 	of the specified directory and calls your IterateFilterProc function once
@@ -168,4 +170,4 @@ pascal	OSErr	FSpIterateDirectory(const FSSpec *spec,
 
 #include "optimend.h"
 
-#endif	/* __ITERATEDIRECTORY__ */
+#endif				/* __ITERATEDIRECTORY__ */

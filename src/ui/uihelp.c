@@ -44,7 +44,7 @@ static int pressedbutton = -1;
 static int selectedbutton = -1;
 
 #define NBUTTONS 3
-CONST char * CONST names[] = {"OK", "Back","Main"};
+CONST char *CONST names[] = { "OK", "Back", "Main" };
 #define BUTTONSTART(i) (helpx+BORDERWIDTH+(helpwidth-2*BORDERWIDTH)/NBUTTONS*(i))
 static void ui_build_help (char *name);
 static void
@@ -106,7 +106,9 @@ drawhelp (struct uih_context *c, void *data)
   int y;
   int percentx, percenty;
   struct xshl_item *curritem;
-  uih_drawborder (uih, helpx + BORDERWIDTH, helpy + BORDERHEIGHT, helpwidth - WBORDERS + SCROOLSIZE, helpheight - HBORDERS, BORDER_PRESSED);
+  uih_drawborder (uih, helpx + BORDERWIDTH, helpy + BORDERHEIGHT,
+		  helpwidth - WBORDERS + SCROOLSIZE, helpheight - HBORDERS,
+		  BORDER_PRESSED);
 
   if (ui_helppos[historypos] > textheight - helpheight / 2 + HBORDERS)
     ui_helppos[historypos] = textheight - helpheight / 2 + HBORDERS;
@@ -115,7 +117,9 @@ drawhelp (struct uih_context *c, void *data)
 
   /*draw scroolbar */
   percentx = (helpheight - HBORDERS) * ui_helppos[historypos] / textheight;
-  percenty = (helpheight - HBORDERS) * (ui_helppos[historypos] + helpheight - HBORDERS) / textheight;
+  percenty =
+    (helpheight - HBORDERS) * (ui_helppos[historypos] + helpheight -
+			       HBORDERS) / textheight;
   if (percentx < BORDERHEIGHT)
     percentx = BORDERHEIGHT;
   if (percenty < BORDERHEIGHT)
@@ -124,10 +128,14 @@ drawhelp (struct uih_context *c, void *data)
     percentx = helpheight - HBORDERS - BORDERHEIGHT;
   if (percenty > helpheight - HBORDERS - BORDERHEIGHT)
     percenty = helpheight - HBORDERS - BORDERHEIGHT;
-  uih_drawborder (uih, SCROOLSTART, helpy + BORDERHEIGHT + percentx, SCROOLSIZE - 1, percenty - percentx, 0);
+  uih_drawborder (uih, SCROOLSTART, helpy + BORDERHEIGHT + percentx,
+		  SCROOLSIZE - 1, percenty - percentx, 0);
   for (i = 0; i < NBUTTONS; i++)
     {
-      ui_drawbutton (names[i], pressedbutton == i, selectedbutton == i, BUTTONSTART (i) + BORDERWIDTH, BUTTONSTART (i + 1) - BORDERWIDTH, helpy + helpheight - BUTTONHEIGHT - BORDERHEIGHT);
+      ui_drawbutton (names[i], pressedbutton == i, selectedbutton == i,
+		     BUTTONSTART (i) + BORDERWIDTH,
+		     BUTTONSTART (i + 1) - BORDERWIDTH,
+		     helpy + helpheight - BUTTONHEIGHT - BORDERHEIGHT);
     }
 
 
@@ -138,7 +146,9 @@ drawhelp (struct uih_context *c, void *data)
       if (lines[i].y < 0)
 	return;
     }
-  while ((y = YPOS (lines[i].y)) < helpheight - HBORDERS - xtextheight (uih->font) && lines[i].y >= 0)
+  while ((y =
+	  YPOS (lines[i].y)) < helpheight - HBORDERS - xtextheight (uih->font)
+	 && lines[i].y >= 0)
     {
       curritem = lines[i].first;
       while (curritem != NULL)
@@ -151,7 +161,8 @@ drawhelp (struct uih_context *c, void *data)
 	  if (curritem->c.flags & (XSHL_BIG | XSHL_RED))
 	    fgcolor = SELCOLOR (uih);
 	  else if (curritem->c.flags & (XSHL_EMPH | XSHL_MONOSPACE))
-	    fgcolor = uih->image->flags & AAIMAGE ? SELCOLOR (uih) : FGCOLOR (uih);
+	    fgcolor =
+	      uih->image->flags & AAIMAGE ? SELCOLOR (uih) : FGCOLOR (uih);
 	  else if (curritem->c.flags & (XSHL_BLACK))
 	    bgcolor = fgcolor = BGCOLOR (uih), flags = TEXT_PRESSED;
 	  else
@@ -166,23 +177,44 @@ drawhelp (struct uih_context *c, void *data)
 	      if (uih->palette->type & BITMAPS)
 		{
 		  if (curritem == presseditem || curritem == selecteditem)
-		    fgcolor = FGCOLOR (uih), xrectangle (uih->image, x + helpx, y + helpy, curritem->width, xtextheight (uih->font), BGCOLOR (uih));
+		    fgcolor =
+		      FGCOLOR (uih), xrectangle (uih->image, x + helpx,
+						 y + helpy, curritem->width,
+						 xtextheight (uih->font),
+						 BGCOLOR (uih));
 		  else
-		    xhline (uih->image, x + helpx, y + helpy + xtextheight (uih->font) - 1, curritem->width, BGCOLOR (uih));
+		    xhline (uih->image, x + helpx,
+			    y + helpy + xtextheight (uih->font) - 1,
+			    curritem->width, BGCOLOR (uih));
 		}
 	      else
 		{
 		  if (uih->image->flags & AAIMAGE)
-		    fgcolor = curritem == presseditem || curritem == selecteditem ? SELCOLOR (uih) : BGCOLOR (uih);
+		    fgcolor = curritem == presseditem
+		      || curritem ==
+		      selecteditem ? SELCOLOR (uih) : BGCOLOR (uih);
 		  else
 		    {
 		      int i;
 		      i = strlen (curritem->c.linktext);
-		      if (i > 3 && !strcmp (".xaf", curritem->c.linktext + i - 4))
-			xhline (uih->image, x + helpx, y + helpy + xtextheight (uih->font) - 1, curritem->width, curritem == presseditem || curritem == selecteditem ? SELCOLOR (uih) : SELCOLOR (uih));
+		      if (i > 3
+			  && !strcmp (".xaf", curritem->c.linktext + i - 4))
+			xhline (uih->image, x + helpx,
+				y + helpy + xtextheight (uih->font) - 1,
+				curritem->width, curritem == presseditem
+				|| curritem ==
+				selecteditem ? SELCOLOR (uih) :
+				SELCOLOR (uih));
 		      else
-			xhline (uih->image, x + helpx, y + helpy + xtextheight (uih->font) - 1, curritem->width, curritem == presseditem || curritem == selecteditem ? SELCOLOR (uih) : LIGHTGRAYCOLOR2 (uih));
-		      xhline (uih->image, x + helpx + 1, y + helpy + xtextheight (uih->font) - 0, curritem->width, BGCOLOR (uih));
+			xhline (uih->image, x + helpx,
+				y + helpy + xtextheight (uih->font) - 1,
+				curritem->width, curritem == presseditem
+				|| curritem ==
+				selecteditem ? SELCOLOR (uih) :
+				LIGHTGRAYCOLOR2 (uih));
+		      xhline (uih->image, x + helpx + 1,
+			      y + helpy + xtextheight (uih->font) - 0,
+			      curritem->width, BGCOLOR (uih));
 		    }
 		  flags = 0;
 		  bgcolor = BGCOLOR (uih);
@@ -192,7 +224,8 @@ drawhelp (struct uih_context *c, void *data)
 		    fgcolor = SELCOLOR (uih);
 		}
 	    }
-	  xprint (uih->image, uih->font, x + helpx, y + helpy, curritem->text, fgcolor, bgcolor, flags);
+	  xprint (uih->image, uih->font, x + helpx, y + helpy, curritem->text,
+		  fgcolor, bgcolor, flags);
 	  curritem = curritem->next;
 	}
       i++;
@@ -209,10 +242,10 @@ ui_helpkeys (int key)
     {
     case 'h':
       ui_close_help ();
-      ui_menu("tutor");
+      ui_menu ("tutor");
       return 1;
     case 'm':
-      ui_help("main");
+      ui_help ("main");
       return 1;
     case UIKEY_DOWN:
     case 'j':
@@ -268,7 +301,8 @@ ui_helpkeys (int key)
 	    }
 	  else
 	    i = selectedline, selecteditem = selecteditem->next;
-	  for (; lines[i].y >= 0 && YPOS (lines[i].y) < helpheight - HBORDERS; i++)
+	  for (; lines[i].y >= 0 && YPOS (lines[i].y) < helpheight - HBORDERS;
+	       i++)
 	    {
 	      selectedline = i;
 	      while (selecteditem != NULL)
@@ -300,6 +334,7 @@ ui_helpkeys (int key)
     }
   return 1;
 }
+
 int
 ui_helpmouse (int x, int y, int buttons, int flags)
 {
@@ -307,7 +342,8 @@ ui_helpmouse (int x, int y, int buttons, int flags)
   int atpressed = 0;
   if (helpw == NULL)
     return 0;
-  if (x < helpx || y < helpy || x > helpx + helpwidth || y > helpy + helpheight)
+  if (x < helpx || y < helpy || x > helpx + helpwidth
+      || y > helpy + helpheight)
     {
       if (flags & MOUSE_PRESS)
 	ui_close_help ();
@@ -342,7 +378,9 @@ ui_helpmouse (int x, int y, int buttons, int flags)
 	}
       if (pressedbutton != -1)
 	pressedbutton = -1, uih->display = 1;
-      if (buttons && ((x > SCROOLSTART && y < helpy + helpheight - HBORDERS) || grabbed))
+      if (buttons
+	  && ((x > SCROOLSTART && y < helpy + helpheight - HBORDERS)
+	      || grabbed))
 	{
 	  /*we are in scroolbar */
 	  int pos = (y - helpy) * textheight / (helpheight - HBORDERS);
@@ -358,19 +396,26 @@ ui_helpmouse (int x, int y, int buttons, int flags)
       pressedbutton = -1;
       if (presseditem != NULL)
 	{
-	  if (YPOS (lines[pressedline].y) + 1 >= y && YPOS (lines[pressedline].y) <= y + xtextheight (uih->font) && presseditem->x <= x && presseditem->x + presseditem->width >= x)
+	  if (YPOS (lines[pressedline].y) + 1 >= y
+	      && YPOS (lines[pressedline].y) <= y + xtextheight (uih->font)
+	      && presseditem->x <= x
+	      && presseditem->x + presseditem->width >= x)
 	    atpressed = 1;
 	}
       if (flags & MOUSE_PRESS || ((flags & MOUSE_DRAG) && !atpressed))
 	{
 	  int i = 0;
-	  for (i = 0; lines[i].y >= 0 && (YPOS (lines[i].y) + 1 <= y || YPOS (lines[i].y) >= y + xtextheight (uih->font)); i++);
+	  for (i = 0;
+	       lines[i].y >= 0 && (YPOS (lines[i].y) + 1 <= y
+				   || YPOS (lines[i].y) >=
+				   y + xtextheight (uih->font)); i++);
 	  if (lines[i].y >= 0)
 	    {
 	      struct xshl_item *item = lines[i].first;
 	      while (item != NULL)
 		{
-		  if (item->c.linktext != NULL && item->x <= x && item->x + item->width >= x)
+		  if (item->c.linktext != NULL && item->x <= x
+		      && item->x + item->width >= x)
 		    break;
 		  item = item->next;
 		}
@@ -406,15 +451,16 @@ ui_build_help (char *name)
 {
   int i;
   int width;
-  if (ui_nogui) {
-    printf("help \"%s\"\n",name);
-    return;
-  }
+  if (ui_nogui)
+    {
+      printf ("help \"%s\"\n", name);
+      return;
+    }
   if (driver->gui_driver && driver->gui_driver->help)
-  {
-    driver->gui_driver->help(uih, name);
-    return;
-  }
+    {
+      driver->gui_driver->help (uih, name);
+      return;
+    }
   if (helpw != NULL)
     ui_close_help ();
   pressedbutton = -1;
@@ -422,19 +468,24 @@ ui_build_help (char *name)
   width = 80 * xtextwidth (uih->font, "w");
   if (width > WIDTH)
     width = WIDTH;
-  lines = help_make (name?name:"main", getwidth, width - 2, xtextheight (uih->font), xtextheight (uih->font));
+  lines =
+    help_make (name ? name : "main", getwidth, width - 2,
+	       xtextheight (uih->font), xtextheight (uih->font));
   if (lines == NULL)
     {
-      lines = help_make ("main", getwidth, width - 2, xtextheight (uih->font), xtextheight (uih->font));
-      if (lines == NULL) {
-      helpvisible = 0;
-      uih_message (uih, "Help file not found");
-      return;
-      }
+      lines =
+	help_make ("main", getwidth, width - 2, xtextheight (uih->font),
+		   xtextheight (uih->font));
+      if (lines == NULL)
+	{
+	  helpvisible = 0;
+	  uih_message (uih, "Help file not found");
+	  return;
+	}
     }
   width += WBORDERS;
   uih->display = 1;
-  presseditem=selecteditem=NULL;
+  presseditem = selecteditem = NULL;
   helpwidth = width;
   helpx = (uih->image->width - width) / 2;
   for (i = 0; lines[i].y >= 0; i++);
@@ -447,6 +498,7 @@ ui_build_help (char *name)
   helpy = (uih->image->height - helpheight) / 2;
   helpw = uih_registerw (uih, helpsize, drawhelp, 0, DRAWBORDER);
 }
+
 void
 ui_help (CONST char *name)
 {
@@ -460,7 +512,7 @@ ui_help (CONST char *name)
     }
   historypos++;
   historypos %= HISTORYSIZE;
-  ui_helppage[historypos] = mystrdup (name); /* NOTE we are not freeing this memory. I believe it is not problem. */
+  ui_helppage[historypos] = mystrdup (name);	/* NOTE we are not freeing this memory. I believe it is not problem. */
   ui_helppos[historypos] = 0;
   ui_build_help (ui_helppage[historypos]);
 }

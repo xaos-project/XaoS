@@ -32,15 +32,15 @@
 #include "optim.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*****************************************************************************/
 
-pascal	OSErr	DTOpen(ConstStr255Param volName,
-					   short vRefNum,
-					   short *dtRefNum,
-					   Boolean *newDTDatabase);
+  pascal OSErr DTOpen (ConstStr255Param volName,
+		       short vRefNum,
+		       short *dtRefNum, Boolean * newDTDatabase);
 /*	¦ Open a volume's desktop database and return the desktop database refNum.
 	The DTOpen function opens a volume's desktop database. It returns
 	the reference number of the desktop database and indicates if the
@@ -73,13 +73,12 @@ pascal	OSErr	DTOpen(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	DTXGetAPPL(ConstStr255Param volName,
-						   short vRefNum,
-						   OSType creator,
-						   Boolean searchCatalog,
-						   short *applVRefNum,
-						   long *applParID,
-						   Str255 applName);
+  pascal OSErr DTXGetAPPL (ConstStr255Param volName,
+			   short vRefNum,
+			   OSType creator,
+			   Boolean searchCatalog,
+			   short *applVRefNum,
+			   long *applParID, Str255 applName);
 /*	¦ Find an application on a volume that can open a file with a given creator.
 	The DTXGetAPPL function finds an application (file type 'APPL') with
 	the specified creator on the specified volume. It first tries to get
@@ -120,11 +119,10 @@ pascal	OSErr	DTXGetAPPL(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpDTXGetAPPL(ConstStr255Param volName,
-							  short vRefNum,
-							  OSType creator,
-							  Boolean searchCatalog,
-							  FSSpec *spec);
+  pascal OSErr FSpDTXGetAPPL (ConstStr255Param volName,
+			      short vRefNum,
+			      OSType creator,
+			      Boolean searchCatalog, FSSpec * spec);
 /*	¦ Find an application on a volume that can open a file with a given creator.
 	The FSpDTXGetAPPL function finds an application (file type 'APPL') with
 	the specified creator on the specified volume. It first tries to get
@@ -163,12 +161,11 @@ pascal	OSErr	FSpDTXGetAPPL(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	DTGetAPPL(ConstStr255Param volName,
-						  short vRefNum,
-						  OSType creator,
-						  short *applVRefNum,
-						  long *applParID,
-						  Str255 applName);
+  pascal OSErr DTGetAPPL (ConstStr255Param volName,
+			  short vRefNum,
+			  OSType creator,
+			  short *applVRefNum,
+			  long *applParID, Str255 applName);
 /*	¦ Find an application on a volume that can open a file with a given creator.
 	The DTGetAPPL function finds an application (file type 'APPL') with
 	the specified creator on the specified volume. It first tries to get
@@ -207,10 +204,8 @@ pascal	OSErr	DTGetAPPL(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpDTGetAPPL(ConstStr255Param volName,
-							 short vRefNum,
-							 OSType creator,
-							 FSSpec *spec);
+  pascal OSErr FSpDTGetAPPL (ConstStr255Param volName,
+			     short vRefNum, OSType creator, FSSpec * spec);
 /*	¦ Find an application on a volume that can open a file with a given creator.
 	The FSpDTGetAPPL function finds an application (file type 'APPL') with
 	the specified creator on the specified volume. It first tries to get
@@ -247,12 +242,11 @@ pascal	OSErr	FSpDTGetAPPL(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	DTGetIcon(ConstStr255Param volName,
-						  short vRefNum,
-						  short iconType,
-						  OSType fileCreator,
-						  OSType fileType,
-						  Handle *iconHandle);
+  pascal OSErr DTGetIcon (ConstStr255Param volName,
+			  short vRefNum,
+			  short iconType,
+			  OSType fileCreator,
+			  OSType fileType, Handle * iconHandle);
 /*	¦ Get an icon from the desktop database or Desktop file.
 	The DTGetIcon function retrieves the specified icon and returns it in
 	a newly created handle. The icon is retrieves from the Desktop Manager
@@ -292,10 +286,9 @@ pascal	OSErr	DTGetIcon(ConstStr255Param volName,
 
 /*****************************************************************************/
 
-pascal	OSErr	DTSetComment(short vRefNum,
-							 long dirID,
-							 ConstStr255Param name,
-							 ConstStr255Param comment);
+  pascal OSErr DTSetComment (short vRefNum,
+			     long dirID,
+			     ConstStr255Param name, ConstStr255Param comment);
 /*	¦ Set a file or directory's Finder comment field.
 	The DTSetComment function sets a file or directory's Finder comment
 	field. The volume must support the Desktop Manager because you only
@@ -332,8 +325,8 @@ pascal	OSErr	DTSetComment(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpDTSetComment(const FSSpec *spec,
-								ConstStr255Param comment);
+  pascal OSErr FSpDTSetComment (const FSSpec * spec,
+				ConstStr255Param comment);
 /*	¦ Set a file or directory's Finder comment field.
 	The FSpDTSetComment function sets a file or directory's Finder comment
 	field. The volume must support the Desktop Manager because you only
@@ -367,10 +360,9 @@ pascal	OSErr	FSpDTSetComment(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	DTGetComment(short vRefNum,
-							 long dirID,
-							 ConstStr255Param name,
-							 Str255 comment);
+  pascal OSErr DTGetComment (short vRefNum,
+			     long dirID,
+			     ConstStr255Param name, Str255 comment);
 /*	¦ Get a file or directory's Finder comment field (if any).
 	The DTGetComment function gets a file or directory's Finder comment
 	field (if any) from the Desktop Manager or if the Desktop Manager is
@@ -411,8 +403,7 @@ pascal	OSErr	DTGetComment(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpDTGetComment(const FSSpec *spec,
-								Str255 comment);
+  pascal OSErr FSpDTGetComment (const FSSpec * spec, Str255 comment);
 /*	¦ Get a file or directory's Finder comment field (if any).
 	The FSpDTGetComment function gets a file or directory's Finder comment
 	field (if any) from the Desktop Manager or if the Desktop Manager is
@@ -450,12 +441,11 @@ pascal	OSErr	FSpDTGetComment(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal	OSErr	DTCopyComment(short srcVRefNum,
-							  long srcDirID,
-							  ConstStr255Param srcName,
-							  short dstVRefNum,
-							  long dstDirID,
-							  ConstStr255Param dstName);
+  pascal OSErr DTCopyComment (short srcVRefNum,
+			      long srcDirID,
+			      ConstStr255Param srcName,
+			      short dstVRefNum,
+			      long dstDirID, ConstStr255Param dstName);
 /*	¦ Copy the file or folder comment from the source to the destination object.
 	The DTCopyComment function copies the file or folder comment from the
 	source to the destination object.  The destination volume must support
@@ -496,8 +486,8 @@ pascal	OSErr	DTCopyComment(short srcVRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpDTCopyComment(const FSSpec *srcSpec,
-								 const FSSpec *dstSpec);
+  pascal OSErr FSpDTCopyComment (const FSSpec * srcSpec,
+				 const FSSpec * dstSpec);
 /*	¦ Copy the desktop database comment from the source to the destination object.
 	The FSpDTCopyComment function copies the desktop database comment from
 	the source to the destination object.  Both the source and the
@@ -538,4 +528,4 @@ pascal	OSErr	FSpDTCopyComment(const FSSpec *srcSpec,
 
 #include "optimend.h"
 
-#endif	/* __MOREDESKTOPMGR__ */
+#endif				/* __MOREDESKTOPMGR__ */

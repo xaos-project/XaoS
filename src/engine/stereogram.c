@@ -27,11 +27,11 @@
 #define spixel_t pixel8_t
 static int *table;
 struct stereogramdata
-  {
-    int minc;
-    struct palette *palette;
-    struct palette *savedpalette;
-  };
+{
+  int minc;
+  struct palette *palette;
+  struct palette *savedpalette;
+};
 
 #include <c256.h>
 #define do_stereogram do_stereogram8
@@ -61,12 +61,14 @@ requirement (struct filter *f, struct requirements *r)
 static int
 initialize (struct filter *f, struct initdata *i)
 {
-  struct stereogramdata *s = (struct stereogramdata *)f->data;
+  struct stereogramdata *s = (struct stereogramdata *) f->data;
   inhermisc (f, i);
   if (s->savedpalette == NULL)
     s->savedpalette = clonepalette (i->image->palette);
   mkstereogrampalette (i->image->palette);
-  if (!inherimage (f, i, TOUCHIMAGE, i->image->width / 2, (i->image->height) / 2, s->palette, i->image->pixelwidth * 2, i->image->pixelheight * 2))
+  if (!inherimage
+      (f, i, TOUCHIMAGE, i->image->width / 2, (i->image->height) / 2,
+       s->palette, i->image->pixelwidth * 2, i->image->pixelheight * 2))
     return 0;
   setfractalpalette (f, s->savedpalette);
   return (f->previous->action->initialize (f->previous, i));
@@ -75,10 +77,13 @@ static struct filter *
 getinstance (CONST struct filteraction *a)
 {
   struct filter *f = createfilter (a);
-  struct stereogramdata *i = (struct stereogramdata *)calloc (1, sizeof (*i));
+  struct stereogramdata *i =
+    (struct stereogramdata *) calloc (1, sizeof (*i));
   i->minc = 0;
   i->savedpalette = NULL;
-  i->palette = createpalette (0, 65536, IMAGETYPE, 0, 65536, NULL, NULL, NULL, NULL, NULL);
+  i->palette =
+    createpalette (0, 65536, IMAGETYPE, 0, 65536, NULL, NULL, NULL, NULL,
+		   NULL);
   f->data = i;
   f->name = "Random dot stereogram";
   return (f);
@@ -86,7 +91,7 @@ getinstance (CONST struct filteraction *a)
 static void
 destroyinstance (struct filter *f)
 {
-  struct stereogramdata *i = (struct stereogramdata *)f->data;
+  struct stereogramdata *i = (struct stereogramdata *) f->data;
   if (i->savedpalette != NULL)
     destroypalette (i->savedpalette);
   destroypalette (i->palette);
@@ -98,7 +103,7 @@ static int
 doit (struct filter *f, int flags, int time)
 {
   int val;
-  struct stereogramdata *s = (struct stereogramdata *)f->data;
+  struct stereogramdata *s = (struct stereogramdata *) f->data;
   int i, y;
   double start, maxdist, dist;
   updateinheredimage (f);
@@ -108,9 +113,9 @@ doit (struct filter *f, int flags, int time)
     s->palette->size = NCOLORS;
   val = f->previous->action->doit (f->previous, flags, time);
 #ifdef HAVE_ALLOCA
-  table = (int *)alloca (sizeof (int) * NCOLORS);
+  table = (int *) alloca (sizeof (int) * NCOLORS);
 #else
-  table = (int *)malloc (sizeof (int) * NCOLORS);
+  table = (int *) malloc (sizeof (int) * NCOLORS);
 #endif
   dist = (f->fractalc->s.rr) / 2;
   maxdist = INDEX_DIST * FNC (f->fractalc->maxiter) + START1;
@@ -134,7 +139,7 @@ doit (struct filter *f, int flags, int time)
       else
 	dist = y - 1;
       dist = INDEX_DIST * (FNC (dist)) + start;
-      table[i] = (int)(EYE_DIST * dist / (dist + USER_DIST) / PIXELWIDTH);
+      table[i] = (int) (EYE_DIST * dist / (dist + USER_DIST) / PIXELWIDTH);
     }
   drivercall (*f->image,
 	      xth_function (do_stereogram8, f, f->childimage->height),
@@ -165,7 +170,7 @@ convertdown (struct filter *f, int *x, int *y)
 static void
 myremovefilter (struct filter *f)
 {
-  struct stereogramdata *s = (struct stereogramdata *)f->data;
+  struct stereogramdata *s = (struct stereogramdata *) f->data;
   if (s->savedpalette != NULL)
     {
       restorepalette (f->image->palette, s->savedpalette);
@@ -174,8 +179,7 @@ myremovefilter (struct filter *f)
     }
 }
 
-CONST struct filteraction stereogram_filter =
-{
+CONST struct filteraction stereogram_filter = {
   "Random dot stereogram",
   "stereogram",
   0,

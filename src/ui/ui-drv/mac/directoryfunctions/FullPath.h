@@ -28,7 +28,8 @@
 #include "optim.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /*
@@ -78,11 +79,10 @@ extern "C" {
 
 /*****************************************************************************/
 
-pascal	OSErr	GetFullPath(short vRefNum,
-							long dirID,
-							ConstStr255Param name,
-							short *fullPathLength,
-							Handle *fullPath);
+  pascal OSErr GetFullPath (short vRefNum,
+			    long dirID,
+			    ConstStr255Param name,
+			    short *fullPathLength, Handle * fullPath);
 /*	¦ Get a full pathname to a volume, directory or file.
 	The GetFullPath function builds a full pathname to the specified
 	object. The full pathname is returned in the newly created handle
@@ -125,9 +125,8 @@ pascal	OSErr	GetFullPath(short vRefNum,
 
 /*****************************************************************************/
 
-pascal	OSErr	FSpGetFullPath(const FSSpec *spec,
-							   short *fullPathLength,
-							   Handle *fullPath);
+  pascal OSErr FSpGetFullPath (const FSSpec * spec,
+			       short *fullPathLength, Handle * fullPath);
 /*	¦ Get a full pathname to a volume, directory or file.
 	The GetFullPath function builds a full pathname to the specified
 	object. The full pathname is returned in the newly created handle
@@ -167,9 +166,8 @@ pascal	OSErr	FSpGetFullPath(const FSSpec *spec,
 
 /*****************************************************************************/
 
-pascal OSErr FSpLocationFromFullPath(short fullPathLength,
-									 const void *fullPath,
-									 FSSpec *spec);
+  pascal OSErr FSpLocationFromFullPath (short fullPathLength,
+					const void *fullPath, FSSpec * spec);
 /*	¦ Get a FSSpec from a full pathname.
 	The FSpLocationFromFullPath function returns a FSSpec to the object
 	specified by full pathname. This function requires the Alias Manager.
@@ -198,11 +196,9 @@ pascal OSErr FSpLocationFromFullPath(short fullPathLength,
 
 /*****************************************************************************/
 
-pascal OSErr LocationFromFullPath(short fullPathLength,
-								  const void *fullPath,
-								  short *vRefNum,
-								  long *parID,
-								  Str31 name);
+  pascal OSErr LocationFromFullPath (short fullPathLength,
+				     const void *fullPath,
+				     short *vRefNum, long *parID, Str31 name);
 /*	¦ Get an object's location from a full pathname.
 	The LocationFromFullPath function returns the volume reference number,
 	parent directory ID and name of the object specified by full pathname.
@@ -240,4 +236,4 @@ pascal OSErr LocationFromFullPath(short fullPathLength,
 
 #include "optimend.h"
 
-#endif	/* __FULLPATH__ */
+#endif				/* __FULLPATH__ */

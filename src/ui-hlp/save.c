@@ -20,15 +20,13 @@
 static int first;
 static int changed;
 static int last;
-CONST char * CONST save_fastmode[] =
-{"zero", "never", "animation", "new", "allways", NULL};
-CONST char * CONST xtextposnames[] =
-{"left", "center", "right", NULL};
-CONST char * CONST ytextposnames[] =
-{"top", "middle", "bottom", NULL};
+CONST char *CONST save_fastmode[] =
+  { "zero", "never", "animation", "new", "allways", NULL };
+CONST char *CONST xtextposnames[] = { "left", "center", "right", NULL };
+CONST char *CONST ytextposnames[] = { "top", "middle", "bottom", NULL };
 
-REGISTERS (3) static void
-outputerror (struct uih_context *uih)
+REGISTERS (3)
+     static void outputerror (struct uih_context *uih)
 {
   static char error[245];
   if (uih->savec->writefailed)
@@ -37,14 +35,15 @@ outputerror (struct uih_context *uih)
   uih_error (uih, error);
   uih->savec->writefailed = 1;
 }
-REGISTERS (3) static void
-start_save (struct uih_context *uih, CONST char *name)
+
+REGISTERS (3)
+     static void start_save (struct uih_context *uih, CONST char *name)
 {
   if (!changed && !uih->savec->firsttime)
     {
       char s[256];
-      sprintf (s,"\n(usleep %i)\n", tl_lookup_timer (uih->savec->timer));
-      myputs(s);
+      sprintf (s, "\n(usleep %i)\n", tl_lookup_timer (uih->savec->timer));
+      myputs (s);
       tl_reset_timer (uih->savec->timer);
     }
   changed = 1;
@@ -52,15 +51,17 @@ start_save (struct uih_context *uih, CONST char *name)
   myputs (name);
   first = 0;
 }
-REGISTERS (3) static void
-stop_save (struct uih_context *uih)
+
+REGISTERS (3)
+     static void stop_save (struct uih_context *uih)
 {
   myputc (')');
   myputc ('\n');
 }
+
 #ifdef SAVEKEYWORDUSED
-REGISTERS (3) static void
-save_keyword (struct uih_context *uih, CONST char *name)
+REGISTERS (3)
+     static void save_keyword (struct uih_context *uih, CONST char *name)
 {
   if (!first)
     myputc (' ');
@@ -69,8 +70,8 @@ save_keyword (struct uih_context *uih, CONST char *name)
   myputs (name);
 }
 #endif
-REGISTERS (3) static void
-save_keystring (struct uih_context *uih, CONST char *name)
+REGISTERS (3)
+     static void save_keystring (struct uih_context *uih, CONST char *name)
 {
   if (!first)
     myputc (' ');
@@ -79,8 +80,9 @@ save_keystring (struct uih_context *uih, CONST char *name)
   myputc ('\'');
   myputs (name);
 }
-REGISTERS (3) static void
-save_float (struct uih_context *uih, number_t number)
+
+REGISTERS (3)
+     static void save_float (struct uih_context *uih, number_t number)
 {
   if (!first)
     myputc (' ');
@@ -89,24 +91,26 @@ save_float (struct uih_context *uih, number_t number)
 #ifdef HAVE_LONG_DOUBLE
   /*20 should be enought to specify 64digit number :) */
 #ifdef USE_XLDIO
-  x_ldout((long double)number, 20, uih->savec->file);
+  x_ldout ((long double) number, 20, uih->savec->file);
 #else
   {
     char s[256];
-    sprintf (s,"%.20LG", (long double) number);
-    myputs(s);
+    sprintf (s, "%.20LG", (long double) number);
+    myputs (s);
   }
 #endif
 #else
   {
     char s[256];
-    sprintf (s,"%.20G", (double) number);
-    myputs(s);
+    sprintf (s, "%.20G", (double) number);
+    myputs (s);
   }
 #endif
 }
-REGISTERS (3) static void
-save_float2 (struct uih_context *uih, number_t number, int places)
+
+REGISTERS (3)
+     static void
+       save_float2 (struct uih_context *uih, number_t number, int places)
 {
   char fs[10];
   if (!first)
@@ -119,14 +123,14 @@ save_float2 (struct uih_context *uih, number_t number, int places)
     places = 20;
 #ifdef HAVE_LONG_DOUBLE
 #ifdef USE_XLDIO
-  fs[0]=0;   /* Avoid warning*/
-  x_ldout((long double)number, places, uih->savec->file);
+  fs[0] = 0;			/* Avoid warning */
+  x_ldout ((long double) number, places, uih->savec->file);
 #else
   {
     char s[256];
     sprintf (fs, "%%.%iLG", places);
     sprintf (s, fs, (long double) number);
-    myputs(s);
+    myputs (s);
   }
 #endif
 #else
@@ -134,12 +138,13 @@ save_float2 (struct uih_context *uih, number_t number, int places)
     char s[256];
     sprintf (fs, "%%.%iG", places);
     sprintf (s, fs, (double) number);
-    myputs(s);
+    myputs (s);
   }
 #endif
 }
-REGISTERS (3) static void
-save_int (struct uih_context *uih, int number)
+
+REGISTERS (3)
+     static void save_int (struct uih_context *uih, int number)
 {
   char s[256];
   if (!first)
@@ -147,10 +152,11 @@ save_int (struct uih_context *uih, int number)
   else
     first = 0;
   sprintf (s, "%i", number);
-  myputs(s);
+  myputs (s);
 }
-REGISTERS (3) static void
-save_onoff (struct uih_context *uih, int number)
+
+REGISTERS (3)
+     static void save_onoff (struct uih_context *uih, int number)
 {
   if (!first)
     myputc (' ');
@@ -158,8 +164,9 @@ save_onoff (struct uih_context *uih, int number)
     first = 0;
   myputs (number ? "#t" : "#f");
 }
-REGISTERS (3) static void
-save_string (struct uih_context *uih, CONST char *text)
+
+REGISTERS (3)
+     static void save_string (struct uih_context *uih, CONST char *text)
 {
   int i = 0;
   if (!first)
@@ -176,69 +183,95 @@ save_string (struct uih_context *uih, CONST char *text)
     }
   myputc ('"');
 }
-REGISTERS (3) static void
-save_intc (struct uih_context *uih, CONST char *name, int number)
+
+REGISTERS (3)
+     static void
+       save_intc (struct uih_context *uih, CONST char *name, int number)
 {
   start_save (uih, name);
   save_int (uih, number);
   stop_save (uih);
 }
-REGISTERS (3) static void
-save_onoffc (struct uih_context *uih, CONST char *name, int number)
+
+REGISTERS (3)
+     static void
+       save_onoffc (struct uih_context *uih, CONST char *name, int number)
 {
   start_save (uih, name);
   save_onoff (uih, number);
   stop_save (uih);
 }
-REGISTERS (3) static void
-save_floatc (struct uih_context *uih, CONST char *name, number_t number)
+
+REGISTERS (3)
+     static void
+       save_floatc (struct uih_context *uih, CONST char *name,
+		    number_t number)
 {
   start_save (uih, name);
   save_float (uih, number);
   stop_save (uih);
 }
-REGISTERS (3) static void
-save_float2c (struct uih_context *uih, CONST char *name, number_t number, int places)
+
+REGISTERS (3)
+     static void
+       save_float2c (struct uih_context *uih, CONST char *name,
+		     number_t number, int places)
 {
   start_save (uih, name);
   save_float2 (uih, number, places);
   stop_save (uih);
 }
-REGISTERS (3) static void
-save_coordc (struct uih_context *uih, CONST char *name, number_t number, number_t number2)
+
+REGISTERS (3)
+     static void
+       save_coordc (struct uih_context *uih, CONST char *name,
+		    number_t number, number_t number2)
 {
   start_save (uih, name);
   save_float (uih, number);
   save_float (uih, number2);
   stop_save (uih);
 }
-REGISTERS (3) static void
-save_keystringc (struct uih_context *uih, CONST char *name, CONST char *param)
+
+REGISTERS (3)
+     static void
+       save_keystringc (struct uih_context *uih, CONST char *name,
+			CONST char *param)
 {
   start_save (uih, name);
   save_keystring (uih, param);
   stop_save (uih);
 }
-REGISTERS (3) static void
-save_stringc (struct uih_context *uih, CONST char *name, CONST char *param)
+
+REGISTERS (3)
+     static void
+       save_stringc (struct uih_context *uih, CONST char *name,
+		     CONST char *param)
 {
   start_save (uih, name);
   save_string (uih, param);
   stop_save (uih);
 }
-REGISTERS (3) static void
-save_noparam (struct uih_context *uih, CONST char *name)
+
+REGISTERS (3)
+     static void save_noparam (struct uih_context *uih, CONST char *name)
 {
   start_save (uih, name);
   stop_save (uih);
 }
-REGISTERS (3) static void
-save_nstring (struct uih_context *uih, int number, CONST char * CONST *CONST texts)
+
+REGISTERS (3)
+     static void
+       save_nstring (struct uih_context *uih, int number,
+		     CONST char *CONST * CONST texts)
 {
   save_keystring (uih, texts[number]);
 }
-REGISTERS (3) static void
-save_nstringc (struct uih_context *uih, CONST char *name, int number, CONST char * CONST * CONST texts)
+
+REGISTERS (3)
+     static void
+       save_nstringc (struct uih_context *uih, CONST char *name, int number,
+		      CONST char *CONST * CONST texts)
 {
   save_keystringc (uih, name, texts[number]);
 }
@@ -257,7 +290,7 @@ ndecimals (struct uih_context *uih)
 }
 static void
 savepos (struct uih_context *uih)
-  REGISTERS (3);
+REGISTERS (3);
      static void savepos (struct uih_context *uih)
 {
   int n = ndecimals (uih);
@@ -271,7 +304,7 @@ savepos (struct uih_context *uih)
 }
 static void
 savepos2 (struct uih_context *uih)
-  REGISTERS (3);
+REGISTERS (3);
      static void savepos2 (struct uih_context *uih)
 {
   int n = ndecimals (uih);
@@ -285,7 +318,7 @@ savepos2 (struct uih_context *uih)
 }
 static void
 savepos3 (struct uih_context *uih)
-  REGISTERS (3);
+REGISTERS (3);
      static void savepos3 (struct uih_context *uih)
 {
   int n = ndecimals (uih);
@@ -297,6 +330,7 @@ savepos3 (struct uih_context *uih)
   stop_save (uih);
   uih->savec->fcontext->s = uih->fcontext->s;
 }
+
 void
 uih_saveframe (struct uih_context *uih)
 {
@@ -348,46 +382,74 @@ uih_saveframe (struct uih_context *uih)
 	      break;
 	    }
 	  uih->palettechanged = 0;
-	  s->manualpaletteshift=0;
+	  s->manualpaletteshift = 0;
 	}
-      if (s->manualpaletteshift!=uih->manualpaletteshift) 
-	save_intc (uih, "shiftpalette", uih->manualpaletteshift-s->manualpaletteshift), s->manualpaletteshift = uih->manualpaletteshift;
+      if (s->manualpaletteshift != uih->manualpaletteshift)
+	save_intc (uih, "shiftpalette",
+		   uih->manualpaletteshift - s->manualpaletteshift),
+	  s->manualpaletteshift = uih->manualpaletteshift;
       if (s->fcontext->currentformula != uih->fcontext->currentformula)
 	{
-	  save_keystringc (uih, "formula", uih->fcontext->currentformula->shortname), s->fcontext->currentformula = uih->fcontext->currentformula;
-	  set_formula (s->fcontext, (int) (uih->fcontext->currentformula - formulas));
+	  save_keystringc (uih, "formula",
+			   uih->fcontext->currentformula->shortname),
+	    s->fcontext->currentformula = uih->fcontext->currentformula;
+	  set_formula (s->fcontext,
+		       (int) (uih->fcontext->currentformula - formulas));
 	}
       if (s->mode >= UIH_SAVEALL)
 	save_intc (uih, "letterspersec", uih->letterspersec);
       if (s->mode > UIH_SAVEPOS)
 	{
 	  if (s->speedup != uih->speedup)
-	    save_floatc (uih, "speedup", uih->speedup), s->speedup = uih->speedup;
+	    save_floatc (uih, "speedup", uih->speedup), s->speedup =
+	      uih->speedup;
 	  if (s->maxstep != uih->maxstep)
-	    save_floatc (uih, "maxstep", uih->maxstep), s->maxstep = uih->maxstep;
+	    save_floatc (uih, "maxstep", uih->maxstep), s->maxstep =
+	      uih->maxstep;
 	  if (s->fastmode != uih->fastmode)
-	    save_nstringc (uih, "fastmode", uih->fastmode, save_fastmode), s->fastmode = uih->fastmode;
+	    save_nstringc (uih, "fastmode", uih->fastmode, save_fastmode),
+	      s->fastmode = uih->fastmode;
 	}
       if (s->juliamode != uih->juliamode)
-	save_onoffc (uih, "fastjulia", uih->juliamode), s->juliamode = uih->juliamode;
+	save_onoffc (uih, "fastjulia", uih->juliamode), s->juliamode =
+	  uih->juliamode;
       if (s->cycling != uih->cycling)
 	save_onoffc (uih, "cycling", uih->cycling), s->cycling = uih->cycling;
-      if (s->mode >= UIH_SAVEPOS && s->fcontext->periodicity != uih->fcontext->periodicity)
-	save_onoffc (uih, "periodicity", uih->fcontext->periodicity), s->fcontext->periodicity = uih->fcontext->periodicity;
-      if ((uih->cycling || s->mode >= UIH_SAVEALL) && (s->cyclingspeed != uih->cyclingspeed || s->direction != uih->direction*uih->cyclingdirection))
-	save_intc (uih, "cyclingspeed", uih->cyclingspeed * uih->direction*uih->cyclingdirection), s->cyclingspeed = uih->cyclingspeed, s->direction = uih->direction*uih->cyclingdirection;
-      if ((s->mode > UIH_SAVEPOS && (uih->step || uih->zoomactive)) && (s->xcenter != uih->xcenter || s->ycenter != uih->ycenter))
-	save_coordc (uih, "zoomcenter", uih->xcenter, uih->ycenter), s->xcenter = uih->xcenter, s->ycenter = uih->ycenter;
-      if ((!uih->fcontext->mandelbrot || uih->juliamode) && (s->fcontext->pre != uih->fcontext->pre || s->fcontext->pim != uih->fcontext->pim))
+      if (s->mode >= UIH_SAVEPOS
+	  && s->fcontext->periodicity != uih->fcontext->periodicity)
+	save_onoffc (uih, "periodicity", uih->fcontext->periodicity),
+	  s->fcontext->periodicity = uih->fcontext->periodicity;
+      if ((uih->cycling || s->mode >= UIH_SAVEALL)
+	  && (s->cyclingspeed != uih->cyclingspeed
+	      || s->direction != uih->direction * uih->cyclingdirection))
+	save_intc (uih, "cyclingspeed",
+		   uih->cyclingspeed * uih->direction *
+		   uih->cyclingdirection), s->cyclingspeed =
+	  uih->cyclingspeed, s->direction =
+	  uih->direction * uih->cyclingdirection;
+      if ((s->mode > UIH_SAVEPOS && (uih->step || uih->zoomactive))
+	  && (s->xcenter != uih->xcenter || s->ycenter != uih->ycenter))
+	save_coordc (uih, "zoomcenter", uih->xcenter, uih->ycenter),
+	  s->xcenter = uih->xcenter, s->ycenter = uih->ycenter;
+      if ((!uih->fcontext->mandelbrot || uih->juliamode)
+	  && (s->fcontext->pre != uih->fcontext->pre
+	      || s->fcontext->pim != uih->fcontext->pim))
 	{
 	  if (uih->juliamode && uih->pressed)
-	    save_coordc (uih, "morphjulia", uih->fcontext->pre, uih->fcontext->pim), s->fcontext->pre = uih->fcontext->pre, s->fcontext->pim = uih->fcontext->pim;
+	    save_coordc (uih, "morphjulia", uih->fcontext->pre,
+			 uih->fcontext->pim), s->fcontext->pre =
+	      uih->fcontext->pre, s->fcontext->pim = uih->fcontext->pim;
 	  else
-	    save_coordc (uih, "juliaseed", uih->fcontext->pre, uih->fcontext->pim), s->fcontext->pre = uih->fcontext->pre, s->fcontext->pim = uih->fcontext->pim;
+	    save_coordc (uih, "juliaseed", uih->fcontext->pre,
+			 uih->fcontext->pim), s->fcontext->pre =
+	      uih->fcontext->pre, s->fcontext->pim = uih->fcontext->pim;
 	}
-      if (uih->fcontext->bre != s->fcontext->bre || uih->fcontext->bim != s->fcontext->bim)
+      if (uih->fcontext->bre != s->fcontext->bre
+	  || uih->fcontext->bim != s->fcontext->bim)
 	{
-	  save_coordc (uih, "perturbation", uih->fcontext->bre, uih->fcontext->bim), s->fcontext->bre = uih->fcontext->bre, s->fcontext->bim = uih->fcontext->bim;
+	  save_coordc (uih, "perturbation", uih->fcontext->bre,
+		       uih->fcontext->bim), s->fcontext->bre =
+	    uih->fcontext->bre, s->fcontext->bim = uih->fcontext->bim;
 	}
       if (uih->fastrotate != s->fastrotate && s->mode > UIH_SAVEPOS)
 	{
@@ -403,7 +465,9 @@ uih_saveframe (struct uih_context *uih)
 	  s->rotatepressed = uih->rotatepressed;
 	  s->fcontext->angle = uih->fcontext->angle;
 	}
-      if (uih->rotationspeed != s->rotationspeed && ((s->mode > UIH_SAVEPOS && uih->rotatemode == ROTATE_CONTINUOUS) || s->mode >= UIH_SAVEALL))
+      if (uih->rotationspeed != s->rotationspeed
+	  && ((s->mode > UIH_SAVEPOS && uih->rotatemode == ROTATE_CONTINUOUS)
+	      || s->mode >= UIH_SAVEALL))
 	{
 	  save_float2c (uih, "rotationspeed", uih->rotationspeed, 6);
 	  s->rotationspeed = uih->rotationspeed;
@@ -414,24 +478,35 @@ uih_saveframe (struct uih_context *uih)
 	  save_onoffc (uih, "autorotate", s->autorotate);
 	}
       if (s->fcontext->maxiter != uih->fcontext->maxiter)
-	save_intc (uih, "maxiter", uih->fcontext->maxiter), s->fcontext->maxiter = uih->fcontext->maxiter;
+	save_intc (uih, "maxiter", uih->fcontext->maxiter),
+	  s->fcontext->maxiter = uih->fcontext->maxiter;
       if (s->fcontext->coloringmode != uih->fcontext->coloringmode)
-	save_intc (uih, "outcoloring", uih->fcontext->coloringmode), s->fcontext->coloringmode = uih->fcontext->coloringmode;
+	save_intc (uih, "outcoloring", uih->fcontext->coloringmode),
+	  s->fcontext->coloringmode = uih->fcontext->coloringmode;
       if (s->fcontext->incoloringmode != uih->fcontext->incoloringmode)
-	save_intc (uih, "incoloring", uih->fcontext->incoloringmode), s->fcontext->incoloringmode = uih->fcontext->incoloringmode;
+	save_intc (uih, "incoloring", uih->fcontext->incoloringmode),
+	  s->fcontext->incoloringmode = uih->fcontext->incoloringmode;
       if (s->fcontext->incoloringmode != uih->fcontext->incoloringmode)
-	save_intc (uih, "incoloring", uih->fcontext->incoloringmode), s->fcontext->incoloringmode = uih->fcontext->incoloringmode;
-      if ((s->fcontext->incoloringmode == 10 || s->mode >= UIH_SAVEALL) && s->fcontext->intcolor != uih->fcontext->intcolor)
-	save_intc (uih, "intcoloring", uih->fcontext->intcolor), s->fcontext->intcolor = uih->fcontext->intcolor;
-      if ((s->fcontext->coloringmode == 10 || s->mode >= UIH_SAVEALL) && s->fcontext->outtcolor != uih->fcontext->outtcolor)
-	save_intc (uih, "outtcoloring", uih->fcontext->outtcolor), s->fcontext->outtcolor = uih->fcontext->outtcolor;
+	save_intc (uih, "incoloring", uih->fcontext->incoloringmode),
+	  s->fcontext->incoloringmode = uih->fcontext->incoloringmode;
+      if ((s->fcontext->incoloringmode == 10 || s->mode >= UIH_SAVEALL)
+	  && s->fcontext->intcolor != uih->fcontext->intcolor)
+	save_intc (uih, "intcoloring", uih->fcontext->intcolor),
+	  s->fcontext->intcolor = uih->fcontext->intcolor;
+      if ((s->fcontext->coloringmode == 10 || s->mode >= UIH_SAVEALL)
+	  && s->fcontext->outtcolor != uih->fcontext->outtcolor)
+	save_intc (uih, "outtcoloring", uih->fcontext->outtcolor),
+	  s->fcontext->outtcolor = uih->fcontext->outtcolor;
 
       if (s->fcontext->mandelbrot != uih->fcontext->mandelbrot)
-	save_onoffc (uih, "julia", !uih->fcontext->mandelbrot), s->fcontext->mandelbrot = uih->fcontext->mandelbrot;
+	save_onoffc (uih, "julia", !uih->fcontext->mandelbrot),
+	  s->fcontext->mandelbrot = uih->fcontext->mandelbrot;
       if (s->mode > UIH_SAVEPOS && s->fcontext->range != uih->fcontext->range)
-	save_intc (uih, "range", uih->fcontext->range), s->fcontext->range = uih->fcontext->range;
+	save_intc (uih, "range", uih->fcontext->range), s->fcontext->range =
+	  uih->fcontext->range;
       if (s->fcontext->plane != uih->fcontext->plane)
-	save_intc (uih, "plane", uih->fcontext->plane), s->fcontext->plane = uih->fcontext->plane;
+	save_intc (uih, "plane", uih->fcontext->plane), s->fcontext->plane =
+	  uih->fcontext->plane;
       if (s->zoomactive != uih->zoomactive && s->mode > UIH_SAVEPOS)
 	{
 	  switch (uih->zoomactive)
@@ -448,7 +523,8 @@ uih_saveframe (struct uih_context *uih)
 	    }
 	  s->zoomactive = uih->zoomactive;
 	}
-      if ((s->mode >= UIH_SAVEPOS || uih->displaytext) && s->color != uih->color)
+      if ((s->mode >= UIH_SAVEPOS || uih->displaytext)
+	  && s->color != uih->color)
 	{
 	  start_save (uih, "color");
 	  save_nstring (uih, uih->color, uih_colornames);
@@ -483,7 +559,8 @@ uih_saveframe (struct uih_context *uih)
 	  save_noparam (uih, "textsleep");
 	  uih->displaytext = 0;
 	}
-      if (s->autorotate && changed && tl_lookup_timer (uih->savec->synctimer) > 500000)
+      if (s->autorotate && changed
+	  && tl_lookup_timer (uih->savec->synctimer) > 500000)
 	save_float2c (uih, "angle", uih->fcontext->angle, 5), resetsync = 1;
       if (s->mode == UIH_SAVEPOS)
 	savepos (uih);
@@ -493,7 +570,8 @@ uih_saveframe (struct uih_context *uih)
 	    savepos (uih), uih->viewchanged = 0;
 	  else if (uih->moved)
 	    savepos3 (uih), uih->moved = 0;
-	  else if (((changed && uih->step) || last) && tl_lookup_timer (uih->savec->synctimer) > 500000)
+	  else if (((changed && uih->step) || last)
+		   && tl_lookup_timer (uih->savec->synctimer) > 500000)
 	    resetsync = 1, savepos2 (uih);
 	}
       if (uih->savec->firsttime)
@@ -522,7 +600,9 @@ uih_save_enable (struct uih_context *uih, xio_file f, int mode)
       return 0;
     }
   uih->savec = s;
-  s->fcontext = make_fractalc (1, uih->image->pixelwidth * uih->image->width, uih->image->pixelheight * uih->image->height);
+  s->fcontext =
+    make_fractalc (1, uih->image->pixelwidth * uih->image->width,
+		   uih->image->pixelheight * uih->image->height);
   if (s->fcontext == NULL)
     {
       uih_error (uih, "File could not be opended or out of memory");
@@ -574,12 +654,12 @@ uih_save_enable (struct uih_context *uih, xio_file f, int mode)
   uih->moved = 0;
 #ifndef _plan9_
   if (mode == UIH_SAVEANIMATION)
-    myputs (";Animation file automatically generated by XaoS " XaoS_VERSION "\n"
-	    ";  - an realtime interactive fractal zoomer\n"
+    myputs (";Animation file automatically generated by XaoS " XaoS_VERSION
+	    "\n" ";  - an realtime interactive fractal zoomer\n"
 	    ";Use xaos -play <filename> to replay it\n");
   else if (mode == UIH_SAVEPOS)
-    myputs (";Position file automatically generated by XaoS " XaoS_VERSION "\n"
-	    ";  - an realtime interactive fractal zoomer\n"
+    myputs (";Position file automatically generated by XaoS " XaoS_VERSION
+	    "\n" ";  - an realtime interactive fractal zoomer\n"
 	    ";Use xaos -load <filename> to display it\n");
 #endif
   uih_saveframe (uih);
@@ -587,6 +667,7 @@ uih_save_enable (struct uih_context *uih, xio_file f, int mode)
   xio_putc ('\n', f);
   return 1;
 }
+
 void
 uih_save_disable (struct uih_context *uih)
 {
@@ -608,19 +689,19 @@ uih_save_disable (struct uih_context *uih)
 void
 uih_save_possition (struct uih_context *uih, xio_file f, int mode)
 {
-  struct uih_savedcontext *c=uih->savec;
-  int save=uih->save;
+  struct uih_savedcontext *c = uih->savec;
+  int save = uih->save;
   int vc = uih->viewchanged;
   int pc = uih->palettechanged;
   int mov = uih->moved = 0;
   uih->moved = 0;
-  uih->save=0;
-  uih->savec=NULL;
+  uih->save = 0;
+  uih->savec = NULL;
   uih_save_enable (uih, f, mode);
   uih_save_disable (uih);
-  uih->savec=c;
-  uih->save=save;
-  uih->viewchanged=vc;
-  uih->palettechanged=pc;
-  mov=uih->moved;
+  uih->savec = c;
+  uih->save = save;
+  uih->viewchanged = vc;
+  uih->palettechanged = pc;
+  mov = uih->moved;
 }

@@ -20,56 +20,61 @@
 
 #include <SupportDefs.h>
 
-struct XaoSKeyEvent {
-	char bytes[6];
-	int32 numBytes;
+struct XaoSKeyEvent
+{
+  char bytes[6];
+  int32 numBytes;
 };
 
-struct XaoSMouseEvent {
-	int x, y;
-	ulong buttons;
-	ulong modifiers;
+struct XaoSMouseEvent
+{
+  int x, y;
+  ulong buttons;
+  ulong modifiers;
 };
 
-union XaoSEvent {
-	enum {
-		KeyDown	= 'XaKd',
-		KeyUp		= 'XaKu',
-		Mouse		= 'XaMs',
-		Resize	= 'XaRs',
-		Redraw	= 'XaRe',
-		Quit	= 'XaQi'
-	};
-	
-	XaoSEvent(void);
-	XaoSEvent(const char *pBytes, int32 numBytes);
-	XaoSEvent(int x, int y, ulong buttons, ulong modifiers);
-	
-	XaoSKeyEvent keyEvent;
-	XaoSMouseEvent mouseEvent;
+union XaoSEvent
+{
+  enum
+  {
+    KeyDown = 'XaKd',
+    KeyUp = 'XaKu',
+    Mouse = 'XaMs',
+    Resize = 'XaRs',
+    Redraw = 'XaRe',
+    Quit = 'XaQi'
+  };
+
+    XaoSEvent (void);
+    XaoSEvent (const char *pBytes, int32 numBytes);
+    XaoSEvent (int x, int y, ulong buttons, ulong modifiers);
+
+  XaoSKeyEvent keyEvent;
+  XaoSMouseEvent mouseEvent;
 };
 
 // Inline functions.
 
-inline XaoSEvent::XaoSEvent(void)
+inline XaoSEvent::XaoSEvent (void)
 {
-	// empty
+  // empty
 }
 
-inline XaoSEvent::XaoSEvent(const char *pBytes, int32 numBytes)
+inline XaoSEvent::XaoSEvent (const char *pBytes, int32 numBytes)
 {
-	keyEvent.numBytes = numBytes;
-	for (int32 i = 0; i < numBytes; ++i) {
-		keyEvent.bytes[i] = pBytes[i];
-	}
+  keyEvent.numBytes = numBytes;
+  for (int32 i = 0; i < numBytes; ++i)
+    {
+      keyEvent.bytes[i] = pBytes[i];
+    }
 }
 
-inline XaoSEvent::XaoSEvent(int x, int y, ulong buttons, ulong modifiers)
+inline XaoSEvent::XaoSEvent (int x, int y, ulong buttons, ulong modifiers)
 {
-	mouseEvent.x = x;
-	mouseEvent.y = y;
-	mouseEvent.buttons = buttons;
-	mouseEvent.modifiers = modifiers;
+  mouseEvent.x = x;
+  mouseEvent.y = y;
+  mouseEvent.buttons = buttons;
+  mouseEvent.modifiers = modifiers;
 }
 
 #endif // XAOSEVENT_H

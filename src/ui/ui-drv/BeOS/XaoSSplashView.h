@@ -21,25 +21,25 @@
 #include <Bitmap.h>
 #include <View.h>
 
-class XaoSSplashView : public BView {
+class XaoSSplashView:public BView
+{
 public:
-	typedef BView inherited;
-	
-	// Constructor, destructor.
-	XaoSSplashView(BBitmap *pSplashBitmap);
-	virtual ~XaoSSplashView(void);
+  typedef BView inherited;
 
-	// Hook functions.
-	virtual void AttachedToWindow(void);
-	virtual void Draw(BRect updateRect);
+  // Constructor, destructor.
+    XaoSSplashView (BBitmap * pSplashBitmap);
+    virtual ~ XaoSSplashView (void);
+
+  // Hook functions.
+  virtual void AttachedToWindow (void);
+  virtual void Draw (BRect updateRect);
 
 private:
-	XaoSSplashView(const XaoSSplashView &orig);
-	XaoSSplashView &operator =(const XaoSSplashView &orig);
-	
-	// Data members.
-	BBitmap *mpSplashBitmap;
-};
-	
-#endif // XAOSSPLASHVIEW_H
+    XaoSSplashView (const XaoSSplashView & orig);
+    XaoSSplashView & operator = (const XaoSSplashView & orig);
 
+  // Data members.
+  BBitmap *mpSplashBitmap;
+};
+
+#endif // XAOSSPLASHVIEW_H

@@ -49,9 +49,13 @@ initialize (struct filter *f, struct initdata *i)
   /*in/out coloring modes looks better in iter modes. This also saves some
      memory in truecolor. */
   if (f->data != NULL)
-    destroypalette ((struct palette *)f->data);
-  f->data = createpalette (0, 65536, i->image->bytesperpixel <= 1 ? SMALLITER : LARGEITER, 0, 65536, NULL, NULL, NULL, NULL, NULL);
-  if (!inherimage (f, i, TOUCHIMAGE | NEWIMAGE, 0, 0, (struct palette *)f->data, 0, 0))
+    destroypalette ((struct palette *) f->data);
+  f->data =
+    createpalette (0, 65536,
+		   i->image->bytesperpixel <= 1 ? SMALLITER : LARGEITER, 0,
+		   65536, NULL, NULL, NULL, NULL, NULL);
+  if (!inherimage
+      (f, i, TOUCHIMAGE | NEWIMAGE, 0, 0, (struct palette *) f->data, 0, 0))
     return 0;
   return (f->previous->action->initialize (f->previous, i));
 }
@@ -66,7 +70,7 @@ static void
 destroyinstance (struct filter *f)
 {
   if (f->data != NULL)
-    destroypalette ((struct palette *)f->data);
+    destroypalette ((struct palette *) f->data);
   destroyinheredimage (f);
   free (f);
 }
@@ -78,7 +82,8 @@ doit (struct filter *f, int flags, int time)
   if (f->image->palette->size < size)
     size = f->image->palette->size;
   if (((struct palette *) f->data)->size != size)
-    ((struct palette *) f->data)->size = size, ((struct palette *) f->data)->version++;
+    ((struct palette *) f->data)->size =
+      size, ((struct palette *) f->data)->version++;
   updateinheredimage (f);
   val = f->previous->action->doit (f->previous, flags, time);
   drivercall (*f->image,
@@ -90,8 +95,7 @@ doit (struct filter *f, int flags, int time)
   return val;
 }
 
-CONST struct filteraction edge_filter =
-{
+CONST struct filteraction edge_filter = {
   "Edge detection",
   "edge",
   0,

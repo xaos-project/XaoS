@@ -15,10 +15,10 @@
 #include <xthread.h>
 
 struct starfielddata
-  {
-    struct palette *palette;
-    struct palette *savedpalette;
-  };
+{
+  struct palette *palette;
+  struct palette *savedpalette;
+};
 
 static unsigned int state;
 static INLINE void
@@ -26,6 +26,7 @@ mysrandom (unsigned int x)
 {
   state = x;
 }
+
 #define MYLONG_MAX 0xffffff	/*this is enought for me. */
 static INLINE unsigned int
 myrandom (void)
@@ -59,14 +60,15 @@ requirement (struct filter *f, struct requirements *r)
 static int
 initialize (struct filter *f, struct initdata *i)
 {
-  struct starfielddata *s = (struct starfielddata *)f->data;
+  struct starfielddata *s = (struct starfielddata *) f->data;
   inhermisc (f, i);
   if (s->savedpalette == NULL)
     s->savedpalette = clonepalette (i->image->palette);
   mkstarfieldpalette (i->image->palette);
-  if (!inherimage (f, i, TOUCHIMAGE, 0, 0, s->palette, 0, 0)) {
-    return 0;
-  }
+  if (!inherimage (f, i, TOUCHIMAGE, 0, 0, s->palette, 0, 0))
+    {
+      return 0;
+    }
   setfractalpalette (f, s->savedpalette);
   return (f->previous->action->initialize (f->previous, i));
 }
@@ -74,9 +76,11 @@ static struct filter *
 getinstance (CONST struct filteraction *a)
 {
   struct filter *f = createfilter (a);
-  struct starfielddata *i = (struct starfielddata *)calloc (1, sizeof (*i));
+  struct starfielddata *i = (struct starfielddata *) calloc (1, sizeof (*i));
   i->savedpalette = NULL;
-  i->palette = createpalette (0, 65536, IMAGETYPE, 0, 65536, NULL, NULL, NULL, NULL, NULL);
+  i->palette =
+    createpalette (0, 65536, IMAGETYPE, 0, 65536, NULL, NULL, NULL, NULL,
+		   NULL);
   f->data = i;
   f->name = "Starfield";
   return (f);
@@ -84,7 +88,7 @@ getinstance (CONST struct filteraction *a)
 static void
 destroyinstance (struct filter *f)
 {
-  struct starfielddata *i = (struct starfielddata *)f->data;
+  struct starfielddata *i = (struct starfielddata *) f->data;
   if (i->savedpalette != NULL)
     destroypalette (i->savedpalette);
   destroypalette (i->palette);
@@ -103,13 +107,13 @@ doit (struct filter *f, int flags, int time)
 	      xth_function (do_starfield24, f, f->image->height),
 	      xth_function (do_starfield32, f, f->image->height));
   xth_sync ();
-  return val|CHANGED;
+  return val | CHANGED;
 }
 
 static void
 myremovefilter (struct filter *f)
 {
-  struct starfielddata *s = (struct starfielddata *)f->data;
+  struct starfielddata *s = (struct starfielddata *) f->data;
   if (s->savedpalette != NULL)
     {
       restorepalette (f->image->palette, s->savedpalette);
@@ -118,8 +122,7 @@ myremovefilter (struct filter *f)
     }
 }
 
-CONST struct filteraction starfield_filter =
-{
+CONST struct filteraction starfield_filter = {
   "Starfield",
   "starfield",
   0,

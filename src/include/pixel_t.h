@@ -12,7 +12,7 @@ typedef unsigned short pixel16_t;
 typedef unsigned int pixel16_t;
 #else
 /*#error define size for pixel16 please */
-00
+  00
 #endif
 typedef unsigned char pixel8_t;
 typedef unsigned char ppixel24_t[3];

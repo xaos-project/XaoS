@@ -3,5 +3,5 @@
 #include <Locker.h>
 #include <TranslationKit.h>
 extern BLocker g_calculation_lock;
-extern int XaoSCheckFile(BPositionIO * inSource);
+extern int XaoSCheckFile (BPositionIO * inSource);
 #endif
