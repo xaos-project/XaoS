@@ -3305,7 +3305,7 @@ First zoomer, formulae, planes, X11 driver, inversions, many ideas
 Macintosh port (version 2.0)
 @item David Meleedy
 Grammatical and spelling fixed version of @code{xaos.6}
-@item Paul Nasca (paulnasca@@email.ro)
+@item Paul Nasca (zynaddsubfx@@yahoo.com)
 Ministatus improvement
 @item Nix (nix@@esperi.demon.co.uk)
 Grammatical and spelling fixed version of @code{xaos.hlp} and other files
