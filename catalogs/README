@@ -1,5 +1,5 @@
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/catalogs/README,v 1.4 2003-01-23 17:15:35 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/catalogs/README,v 1.5 2003-03-18 10:45:46 kovzol Exp $
 
 Changes since 3.0:
 
@@ -8,6 +8,4 @@ and add this one.
 
 Catalogs that need an update:
 
-deutsch.cat
-deutsch.cat.utf-8
 francais.cat
