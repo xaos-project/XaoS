@@ -33,7 +33,7 @@ messages.pot: $(CSOURCES)
 
 $(PO-FILES): messages.pot
 	test -e $@
-	msgmerge $@ messages.pot > $@.new
+	@MSGMERGE@ $@ messages.pot > $@.new
 	mv $@.new $@
 
 $(MO-FILES): $(PO-FILES)

@@ -835,7 +835,7 @@ uih_persw (struct uih_context *c, number_t x, number_t y)
     uih_setperbutation (c, 0.0, 0.0);
   else
     uih_setperbutation (c, x, y);
-
+  printf(""); // fixme: some newer versions of gcc crashes without this
 }
 static int
 uih_perselected (struct uih_context *c)

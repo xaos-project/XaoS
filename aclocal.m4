@@ -3735,10 +3735,13 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 	     AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
 	       [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1], :)
 	     AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
+	     AC_PATH_PROG(MSGMERGE, msgmerge, $MSGMERGE)
 
 	     dnl Search for GNU xgettext in the PATH.
 	     AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
 	       [$ac_dir/$ac_word --omit-header /dev/null >/dev/null 2>&1], :)
+
+
 
 	     CATOBJEXT=.gmo
 	   fi
@@ -3757,9 +3760,11 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
         AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
 	  [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1], :)
         AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
+        AC_PATH_PROG(MSGMERGE, msgmerge, $MSGMERGE)
         AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
 	  [$ac_dir/$ac_word --omit-header /dev/null >/dev/null 2>&1], :)
         AC_SUBST(MSGFMT)
+	AC_SUBST(MSGMERGE)
 	BUILD_INCLUDED_LIBINTL=yes
 	USE_INCLUDED_LIBINTL=yes
         CATOBJEXT=.gmo
