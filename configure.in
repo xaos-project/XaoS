@@ -767,6 +767,12 @@ if test "$ac_cv_header_ddraw_h" = "yes"; then
  AC_DEFINE(DDRAW_DRIVER)
  fi
 
+if test "$nls_cv_use_gnu_gettext" = yes; then
+ echo "Forcing -D HAVE_GETTEXT -lintl -liconv"
+ AC_DEFINE(HAVE_GETTEXT)
+ LIBS="$LIBS -lintl -liconv"
+ fi
+
 
 echo "------------------------------------------------------------"
 echo "Available drivers:"
