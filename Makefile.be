@@ -30,7 +30,7 @@ install:
 	$(INSTALL) -m 444 tutorial/*.x[ah]f $(xaosdir)/tutorial
 	$(INSTALL) -m 444 examples/* $(xaosdir)/examples
 	$(INSTALL) -m 444 catalogs/* $(xaosdir)/catalogs
-	$(INSTALL) -m 444 doc/README doc/README.bugs doc/compilers.txt doc/ANNOUNCE doc/PROBLEMS doc/tutorial.txt $(xaosdir)/doc
+	$(INSTALL) -m 444 doc/README doc/README.bugs doc/compilers.txt doc/AUTHORS doc/PROBLEMS doc/tutorial.txt $(xaosdir)/doc
 	$(INSTALL) -m 444 doc/xaos.6 $(mandir)/man6
 	$(INSTALL) -m 444 doc/xaos.info $(infodir)
 	# Update MIME types - $(INSTALL) loses them.

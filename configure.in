@@ -100,12 +100,12 @@ if test -z "`${CC-cc} -mno-ieee-fp -c conftest.c 2>&1`"; then
 
 AC_DEFUN(AC_PROG_AALIB_VER_OK,
 [AC_CACHE_CHECK(whether aalib version >= 1.4, ac_aalib_ver_ok,
-[echo '
+[echo '#include <aalib.h>
 #include <aalib.h>
 void f(){ 
 #if AA_LIB_VERSIONCODE < 104000
 #error aa_lib is probably buggy 
-/* I'm using SuSE 7.3 and 8.0. Both contains version 1.3,
+/* I am using SuSE 7.3 and 8.0. Both contains version 1.3,
  * however they report 102000 version code.
  */ 
 #endif 
