@@ -1,5 +1,14 @@
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.8 2005-02-05 12:23:26 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.9 2005-02-11 09:47:04 kovzol Exp $
+
+
+RELEASE NOTES FOR XAOS VERSION 3.1.2
+------------------------------------
+
+This release a fast bugfix for some gcc version (or more precisely,
+there is a workaround for the B-B bug, see the ChangeLog for details).
+The example files were not able to load in version 3.1.1 and
+msgmerge was not recognized (this is fixed, however not tested yet).
 
 
 RELEASE NOTES FOR XAOS VERSION 3.1.1
