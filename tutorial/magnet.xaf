@@ -214,3 +214,20 @@
 (plane 0)
 (view -0.011859 0.016696 0.8126 1.1918)
 (usleep 3000000)
+
+
+(display)
+(palette 3 1083366997 0)
+(textposition 'center 'bottom)
+(formula 'magnet2)
+(angle 0)
+(outcoloring 0)
+(plane 0)
+(view 1 0 3 3.2)
+(message "magnet3")
+(textsleep)
+(display)
+(morphview 1.94584 -0.90656 0.0534806 0.057046)
+(usleep 6000000)
+(wait)
+

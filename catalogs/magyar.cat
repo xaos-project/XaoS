@@ -4,7 +4,7 @@
 # Copyright (C) 1997 by Jan Hubicka
 #                             ,       ,
 # Hungarian translation by Kovacs Zoltan (kovzol@math.u-szeged.hu)
-# $Revision: 1.2 $
+# $Revision: 1.3 $
 #
 # This is a Latin2 encoded file
 #       ,           ,   , ,                                               ,,
@@ -334,6 +334,11 @@ kristályvonal-struktúra,"
 
 barnsley6 "ami eltér a szokásos
 \"organikus\" struktúrától."
+
+barnsley7 "Michael Barnsley nevéhez
+további fraktálok is fûzõdnek."
+
+barnsley8 "A most látható is ezek egyike."
 
 #########################################################
 #filter.xaf
@@ -699,6 +704,8 @@ a valóságban is elõfordul."
 magjulia "A hozzá tartozó Julia-halmazok
 nagyon szokatlanok."
 
+magnet3 "Van egy másik mágnes-fraktál is."
+
 #########################################################
 #new.xaf
 
@@ -772,6 +779,12 @@ newton7 "melyben a mag-pont
 a közelítés hibája lesz."
 newton8 "Ezáltal a Newton-féle fraktál
 talán kicsit érdekesebb."
+newton9 "A XaoS program egy másik
+Newton-fraktált is ismer."
+newton10 "Ez a kép a Newton-féle 4.
+gyök-vonó algoritmust mutatja be."
+newton11 "A négy gyököt kék
+körök szemléltetik."
 
 #########################################################
 #octo.xaf
@@ -1090,4 +1103,13 @@ közelítõleg máris látható, hogy a kép
 milyen témájú lesz belenagyítás után."
 rotation "Képforgatás"
 cycling "Színforgatás"
-
+bailout "Kilépési teszt"
+bailout1 "A képen a Mandelbrot-halmaz látható
+'smooth' külsõ színezéssel."
+bailout2 "Ha a kilépési értéket 64-re állítjuk,
+a színátmenetek finomabbak."
+bailout3 "A legtöbb fraktál csak kevéssé
+ölt más formát, ha a kilépési értéket
+megváltoztatjuk."
+bailout4 "A Barnsley-fraktálokra ez
+azonban nem igaz."

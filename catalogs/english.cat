@@ -305,6 +305,11 @@ barnsley6 "rather than the \"organic\"
 structure found in many other
 fractals."
 
+barnsley7 "Michael Barnsley has also introduced
+other formulas."
+
+barnsley8 "One of them generates this fractal."
+
 #########################################################
 #For file filter.xaf
 
@@ -623,6 +628,8 @@ world formula."
 
 magjulia "Its julia sets are quite unusual."
 
+magnet3 "There is also a second magnet fractal."
+
 #########################################################
 #For file new.xaf
 
@@ -686,6 +693,12 @@ newton7 "where it uses the error in the
 approximation as the seed."
 newton8 "This makes the Newton fractal
 more interesting."
+newton9 "XaoS can also generate an other
+Newton fractal."
+newton10 "Newton's numerical method for finding
+the roots of a polynomial x^4=1."
+newton11 "You can see the four roots
+as blue circles."
 
 #########################################################
 #For file octo.xaf
@@ -935,7 +948,7 @@ pert1 "Just as the Julia formula uses
 different seeds to generate
 various Julias from one formula,"
 pert2 "you can change the perturbation
-value for the Mandlebrot sets."
+value for the Mandelbrot sets."
 pert3 "It changes the starting position of
 the orbit from the default value of 0."
 pert4 "Its value doesn't affect the
@@ -984,4 +997,14 @@ you can see the approximate theme
 around a point before you zoom in."
 rotation "Image rotation"
 cycling "Color cycling"
+bailout "Bailout"
+bailout1 "That's the Mandelbrot set with an
+outcoloring mode 'smooth.'"
+bailout2 "By increasing bailout to 64, you get
+more balanced color transitions."
+bailout3 "For most fractal types different bailout
+values result in similar fractals."
+bailout4 "That's not true for Barnsley fractals."
+
+
 

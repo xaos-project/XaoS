@@ -179,3 +179,26 @@
 (view 1.0166 -0.015562 0.55972 0.55972)
 (usleep 2000000)
 
+
+(palette 1 1686618586 0)
+(formula 'barnsley2)
+(cycling #f)
+(periodicity #t)
+(juliaseed 1.0010901162790698318 -0.62500000000000004022)
+(angle 0)
+(autorotate #f)
+(maxiter 170)
+(outcoloring 0)
+(incoloring 0)
+(julia #f)
+(plane 0)
+(view 0 0 2.5 2.5)
+(display)
+(textposition 'center 'bottom)
+
+(message "barnsley7")
+(textsleep)
+
+(display)
+(message "barnsley8")
+(textsleep)

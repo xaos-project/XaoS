@@ -3,7 +3,7 @@
 # Copyright (C) 1997 by Jan Hubicka
 # Übersetzung von Jens Kilian <jjk@acm.org>
 #
-# Falls Sie diese Datei modifizieren wollen, sollten Sie folgendes beachten:
+# Falls Sie Xaos diese Datei modifizieren wollen, sollten Sie folgendes beachten:
 #
 # Das Format des Kataloges ist
 # identifikator[leerzeichen]"wert"[leerzeichen]
@@ -325,6 +325,12 @@ barnsley5 "Es hat interessanterweise eine
 barnsley6 "im Gegensatz zu den \"organischen\"
 Strukturen vieler anderer Fraktale."
 
+barnsley7 "Michael Barnsley hat auch andere
+Formeln eingeführt."
+
+barnsley8
+ "Eine davon erzeugt dieses Fraktal."
+
 #########################################################
 # Datei: filter.xaf
 
@@ -617,6 +623,9 @@ aus der realen Welt ist."
 
 magjulia "Seine Juliamenge sind recht ungewöhnlich."
 
+magnet3 "Es gibt auch noch ein zweites
+Magnet Fraktal."
+
 #########################################################
 # Datei: new.xaf
 
@@ -679,6 +688,12 @@ dafür erzeugen."
 newton7 "Es benutzt dazu den Startwert als
 Fehler bei der Approximation."
 newton8 "Das macht das Fraktal interessanter."
+newton9 "XaoS kann auch noch ein anderes
+Newton Fraktal erzeugen."
+newton10 "Newtonsche Approximation zum Auffinden
+der Wurzeln des Polynoms x^4=1."
+newton11 "Auch hier können Sie die vier Wurzeln
+sehen (als blaue Kreise)."
 
 #########################################################
 # Datei: octo.xaf
@@ -976,18 +991,16 @@ des gewählten Punktes können Sie das
 ungefähre Aussehen im Voraus bestimmen."
 rotation "Bildrotation"
 cycling "Palettenrotation"
-
-
-
-
-
-
-
-
-
-
-
-
+bailout "Fluchtradius"
+bailout1 "Das ist die Mandelbrotmenge unter
+Verwendung der äusseren Färbung smooth."
+bailout2 "Vergrössert man den Fluchtradius auf 64,
+erhält man ausgeglichenere
+Farbübergänge."
+bailout3 "Bei den meisten Fraktaltypen ergeben
+sich bei verschiedenen Werten für den
+Fluchtradius ähliche Fraktale."
+bailout4 "Dies gilt nicht für Barnsley Fraktale."
 
 
 
