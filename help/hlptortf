@@ -1,0 +1,74 @@
+#!/bin/sh
+echo '{\rtf1
+{\fonttbl
+\f0\fswiss Arial;
+\f1\froman Times New Roman
+\f2\fmodern Courier New;
+\f3\fswiss MS Sans Serif;
+\f4\froman MS Serif;
+}
+\deff0
+\ds18
+'
+	sed '
+        s_\\__g
+        s_'"''"'_"_g
+        s_``_"_g
+	s_</tt>_}_g
+        s/<br>/\\par/g
+        s/<main//g
+        s_</main>__g
+        s/<red>//g
+        s/<math>//g
+	s_</math>__g
+        s/<white>//g
+        s/<black>//g
+	s/<dl>/{\\trgraph360\\cellx2880\\cellx10760 \\intbl\\cell/g
+	s_<dt>_\\cell\\row \\intbl _g
+	s_<dd>_\\cell _g
+	s_</dl>_\\cell\\row\\pard}_g
+	s_</tt>_}_g
+	s/<tt>/{\\f2 /g
+	s/<submenu>/{\\b >}/g
+	s/<menuhead>//g
+	s_</menuhead>__g
+	s/<menuitems>//g
+	s_</notex>__g
+	s/<notex>//g
+	s_</menuitems>__g
+	s/<center>/\\par{\\qc /g
+	s_</center>_\\par}_g
+	s/<tutor [^>]*>/{\\b /g
+	s_</tutor>_}_g
+	s/<emph>/{\\i /g
+	s_</emph>_}_g
+        s/^%%\(.*$\)//g
+        s/^%\(main\)/\\keepn\
+#{\\footnote \1}\
+#{\\footnote CONTENTS}\
+${\\footnote Contents}\
+K{\\footnote Contents}\
+/g
+        s/^%\(.[^ ]*\)\(.*$\)/\\page\
+\\keepn\
+#{\\footnote \1\2}\
+${\\footnote \1}\
+K{\\footnote \1\2}\
+/g
+        s/<p>$/\\par/g
+	s/<p>/\\par /g
+        s/<node.*>//g
+        s/<head>/{\
+\\par\
+\\b\
+\\fs32\
+\\tab\
+/g
+        s_</head>_}\\par\\pard\\sb150 _g
+        s_<a \(.*\)>\(.*\)</a>_{\\uldb \2{\\v \1}}_g
+        s/\(.*\)$/\1 /g
+	s/	/ /g
+	s/^ *//g
+	s/  */ /g
+	'
+echo '}'

@@ -1,0 +1,37 @@
+#!/bin/sh
+sed 's/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g
+s/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g
+s/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g
+s/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g
+s/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g
+s/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g
+s/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g
+s/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g
+s/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g
+s/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g
+s/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g
+s/\(.\){\\footnote \([^ }]*\) \(.*\)}/\1{\\footnote \2}\
+\1{\\footnote \3}\
+/g'
