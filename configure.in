@@ -72,7 +72,7 @@ AC_ARG_WITH(png,
 AC_DEFUN(AC_PROG_CC_M,
 [AC_CACHE_CHECK(whether ${CC-cc} accepts -m$1, ac_cv_prog_cc_m$1,
 [echo 'void f(){}' > conftest.c
-if test -z "`${CC-cc} -m$1 -c conftest.c 2>&1`"; then
+if test -z "`${CC-cc} -mcpu=$1 -c conftest.c 2>&1`"; then
     ac_cv_prog_cc_m$1=yes
     else
         ac_cv_prog_cc_m$1=no
@@ -152,34 +152,42 @@ i?86*) long_double=yes
            mflag=486
 	   case $target_cpu in
 	   i386*)
-	    mmflag="-m386"
+	    mmflag="-mcpu=386"
 	    ;;
 	   i486*)
-	    mmflag="-m486"
+	    mmflag="-mcpu=486"
+	    ;;
+	   athlon_xp*)
+	    AC_PROG_CC_M(athlon)
+	    if test $ac_cv_prog_cc_mathlon = yes; then
+	      mmflag="-mcpu=athlon"
+	    else
+	    mmflag="-mcpu=486"
+	    fi
 	    ;;
 	   i586*)
 	    AC_PROG_CC_M(pentium)
 	    if test $ac_cv_prog_cc_mpentium = yes; then
-	      mmflag="-mpentium"
+	      mmflag="-mcpu=pentium"
 	    else
 	    AC_PROG_CC_M(586)
 	    if test $ac_cv_prog_cc_m586 = yes; then
-	      mmflag="-m586"
+	      mmflag="-mcpu=586"
 	    else
-	    mmflag="-m486"
+	    mmflag="-mcpu=486"
 	    fi
 	    fi
 	    ;;
 	   i?86*)
 	    AC_PROG_CC_M(pentiumpro)
 	    if test $ac_cv_prog_cc_mpentiumpro = yes; then
-	      mmflag="-mpentiumpro"
+	      mmflag="-mcpu=pentiumpro"
 	    else
 	    AC_PROG_CC_M(686)
 	    if test $ac_cv_prog_cc_m686 = yes; then
-	      mmflag="-m686"
+	      mmflag="-mcpu=686"
 	    else
-	    mmflag="-m486"
+	    mmflag="-mcpu=486"
 	    fi
 	    fi
 	   ;;
@@ -270,12 +278,12 @@ if test "x$CCOPTS" = x; then
     if test x$GCC = xyes; then
         PROG_GCC_Os
         if test x$mflag = x486; then
-            CCOPTS="-D__OPTIMIZE__ -Wall -Wtraditional -Wundef -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align  -Wwrite-strings -Wsign-compare -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs $mmflag -fstrength-reduce -ffast-math -fomit-frame-pointer -pipe"
+            CCOPTS="-D__OPTIMIZE__ -Wall  -Wundef -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align  -Wwrite-strings -Wsign-compare -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs $mmflag -fstrength-reduce -ffast-math -fomit-frame-pointer -pipe"
             PROG_CC_SWITCH(fno-exceptions,exceptions)
 	    CCOPTS1="$CCOPTS -O6 -funroll-loops"
 	    if test x$use_cc_g_flag = xyes; then
 		if test $cc_uses_g = yes; then
-		    CCOPTS='-m486 -g -O'
+		    CCOPTS='-mcpu=486 -g -O'
 		fi
 	    fi
 	else
@@ -622,7 +630,7 @@ AC_HEADER_SYS_WAIT
 AC_TYPE_SIGNAL
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
-AC_CHECK_MEMBERS([struct stat.st_rdev])
+dnl AC_CHECK_MEMBERS([struct stat.st_rdev])
 AC_STRUCT_TM
 
 test "x$prefix" = xNONE && prefix=$ac_default_prefix
@@ -634,12 +642,12 @@ AC_CHECK_SIZEOF(int)
 AC_CHECK_SIZEOF(long)
 
 dnl Checks for library functions.
-AC_FUNC_ERROR_AT_LINE
-AC_FUNC_FORK
-AC_FUNC_MALLOC
-AC_FUNC_MEMCMP
-AC_FUNC_STAT
-AC_FUNC_VPRINTF
+dnl AC_FUNC_ERROR_AT_LINE
+dnl AC_FUNC_FORK
+dnl AC_FUNC_MALLOC
+dnl AC_FUNC_MEMCMP
+dnl AC_FUNC_STAT
+dnl AC_FUNC_VPRINTF
 
 AC_CHECK_LIB(m, pow)
 
