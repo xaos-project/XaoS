@@ -412,9 +412,16 @@ free_fractalc (fractal_context * c)
 {
   free (c);
 }
+
+#ifdef NOASSEMBLY
+#define rdtsc() 0
+#define cli() 0
+#define sti() 0
+#else
 #define rdtsc() ({unsigned long time; asm __volatile__ ("rdtsc":"=a"(time)); time; })
 #define cli() ({asm __volatile__ ("cli");})
 #define sti() ({asm __volatile__ ("cli");})
+#endif
 
 void
 speed_test (fractal_context * c, struct image *img)

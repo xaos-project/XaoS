@@ -1,9 +1,11 @@
+#include <config.h>
 #ifndef _plan9
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#ifndef _MAC
 #include <sys/types.h>
-
+#endif
 #include <fconfig.h>
 #include <filter.h>
 #include <fractal.h>

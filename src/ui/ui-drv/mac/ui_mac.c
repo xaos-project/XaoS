@@ -900,16 +900,15 @@ void mac_menu (struct uih_context *c, CONST char *name);
 void mac_dialog (struct uih_context *c, CONST char *name);
 void mac_help (struct uih_context *c, CONST char *name);
 
-
 static char *helptext[] =
 {
-    "MACINTOSH DRIVER VERSION 2.0           ",
+    "MACINTOSH DRIVER VERSION 2.1           ",
     "====================================   ",
     "Written by Dominic Mazzoni             ",
     "(dmazzoni@cs.cmu.edu)                  ",
     "based on the 1.31 driver               ",
-    "by Tapio K. Vocadlo                    ",
-    "(taps@rmx.com)                         ",
+    "by Ray Gardener                        ",
+    "rayg@daylongraphics.com)               ",
     "                                       ",
     "Shift-drag    = pan                    ",
     "Control-click = zoom out               ",
@@ -962,7 +961,7 @@ struct ui_driver mac_driver =
     &mac_gui_driver //NULL /* GUI_Driver */
 };
 
-struct ui_driver full_driver =
+struct ui_driver mac_full_driver =
 {
     "Mac Fullscreen Driver",
     mac_fullscreen_init,

@@ -45,10 +45,10 @@
 
 #endif
 
-#ifdef INT_MAX
+/*#ifdef INT_MAX
 #undef INT_MAX
 #endif
-#define INT_MAX 2127423647
+#define INT_MAX 2127423647*/
 
 #ifndef CONST
 #define CONST const

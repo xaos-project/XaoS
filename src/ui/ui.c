@@ -19,6 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
+#include <config.h>
 #undef _EFENCE_
 #ifdef _plan9_
 #include <u.h>
@@ -38,14 +39,15 @@
 #ifdef __EMX__
 #include <sys/types.h>
 #endif
+#ifndef _MAC
 #include <sys/stat.h>
+#endif
 #include <time.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 #include <signal.h>
 #endif
-#include <config.h>
 #include <fconfig.h>
 #ifndef _plan9_
 #include <assert.h>
@@ -959,7 +961,9 @@ ui_doquit (int i)
 void
 ui_quit (void)
 {
+#ifndef _MAC
   printf ("Thank you for using XaoS\n");
+#endif
   ui_doquit (0);
 }
 static void
