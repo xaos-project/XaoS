@@ -1366,6 +1366,7 @@ MAIN_FUNCTION (int argc, char **argv)
   uih_registermenus ();
   ui_registermenus ();
   ui_registermenus_i18n ();	/* Internationalized menus. */
+	uih_registermenudialogs_i18n (); /* Internationalized dialogs. */
   for (i = 0; i < ndrivers; i++)
     params_register (drivers[i]->params);
 #ifdef __alpha__

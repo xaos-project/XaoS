@@ -206,10 +206,80 @@ static CONST menudialog uih_filterdialog[] = {
   DIALOGONOFF ("enable", 0),
   {NULL}
 };
+
+
+/* Registering internationalized dialogs. 
+ *
+ * The method we are internationalizing dialogs is similar to
+ * menu i18n. The original version of XaoS (without i18n)
+ * contained lots of static variables. Each row of a variable
+ * (which is a structure) contains a widget of a dialog.
+ * The last row contains NULL and 0 values to show
+ * that the dialog does not contain any other widgets.
+ *
+ * Here we are using a huge static variable which contains
+ * all widget from all dialogs. We copy each dialog after
+ * each other into this huge array. The original static
+ * variables will now be pointers pointing to the first
+ * row of the widget data from the appropriate line
+ * of the huge array.
+ *
+ * Note that in the first version there are only 2
+ * internationalized text, the rest will be "converted"
+ * continously (as I have enough time :-).
+ *
+ * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
+ */
+
+#define MAX_MENUDIALOGS_I18N 300
+#define Register(variable) variable = & menudialogs_i18n[no_menudialogs_i18n]
+static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
+int uih_no_menudialogs_i18n;
+
+static menudialog * uih_perturbationdialog, *uih_juliadialog;
+
+void
+uih_registermenudialogs_i18n (void)
+{
+  int no_menudialogs_i18n = 0;
+
+/* 
+ * The original code was:
+
 static menudialog uih_perturbationdialog[] = {
   DIALOGCOORD ("Perturbation:", 0, 0),
   {NULL}
+	
 };
+
+ * Now first the static variable have to be registered (1),
+ * the widget must be inserted into the huge array (2),
+ * and the last row shows that no more widget comes (3).
+ */
+
+  Register (uih_perturbationdialog);	// (1)
+  DIALOGCOORD_I (gettext ("Perturbation:"), 0, 0);	// (2)
+  NULL_I ();			// (3)
+
+/*
+static menudialog uih_juliadialog[] = {
+  DIALOGCOORD ("Julia seed:", 0, 0),
+  {NULL}
+};
+*/
+
+  Register (uih_juliadialog);
+  DIALOGCOORD_I (gettext ("Julia-seed:"), 0, 0);
+  NULL_I ();
+}
+
+#undef Register(variable)
+
+/*
+ * End of registrating internationalized dialogs.
+ */
+
+
 static menudialog *
 uih_getperturbationdialog (struct uih_context *c)
 {
@@ -220,10 +290,6 @@ uih_getperturbationdialog (struct uih_context *c)
     }
   return (uih_perturbationdialog);
 }
-static menudialog uih_juliadialog[] = {
-  DIALOGCOORD ("Julia seed:", 0, 0),
-  {NULL}
-};
 static menudialog *
 uih_getjuliadialog (struct uih_context *c)
 {

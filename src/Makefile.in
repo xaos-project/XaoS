@@ -22,7 +22,7 @@ OBJS = $(SRCS:.c=.o)
 TLIB = 
 
 
-all default:	$(PROG)
+all default:	$(PROG) internationalization
 
 @BINPATH@:
 	mkdir $@
@@ -40,8 +40,11 @@ $(PROG): @BINPATH@ @LIBPATH@ include/config.h libs
 include/config.h:
 	cp include/config/config.autoconf include/config.h
 
+internationalization:
+	$(MAKE) -C i18n/ all
+
 clean:
-	@for name in $(DIRS) ; do sh -c "cd $$name ; $(MAKE) $@"; done
+	@for name in $(DIRS) i18n ; do sh -c "cd $$name ; $(MAKE) $@"; done
 	rm -f include/config.h
 	rm -f $(PROG)
 

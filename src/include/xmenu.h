@@ -50,6 +50,24 @@ extern "C"
 #define DIALOGCHOICE(question,table,default)  {question, DIALOG_CHOICE, default,(CONST char *)table}
 #define DIALOGCOORD(question,default1,default2)  {question, DIALOG_COORD,0, NULL, default1,default2}
 
+#define DIALOGCOORD_I(_question,_default1,_default2) \
+ menudialogs_i18n[no_menudialogs_i18n].question=_question; \
+ menudialogs_i18n[no_menudialogs_i18n].type=DIALOG_COORD; \
+ menudialogs_i18n[no_menudialogs_i18n].defint=0; \
+ menudialogs_i18n[no_menudialogs_i18n].defstr=NULL; \
+ menudialogs_i18n[no_menudialogs_i18n].deffloat=_default1; \
+ menudialogs_i18n[no_menudialogs_i18n].deffloat2=_default2; \
+ ++no_menudialogs_i18n;
+
+#define NULL_I() \
+ menudialogs_i18n[no_menudialogs_i18n].question=NULL; \
+ menudialogs_i18n[no_menudialogs_i18n].type=0; \
+ menudialogs_i18n[no_menudialogs_i18n].defint=0; \
+ menudialogs_i18n[no_menudialogs_i18n].defstr=NULL; \
+ menudialogs_i18n[no_menudialogs_i18n].deffloat=0; \
+ menudialogs_i18n[no_menudialogs_i18n].deffloat2=0; \
+ ++no_menudialogs_i18n;
+
   typedef struct menuitem
   {
     CONST char *menuname;
