@@ -1321,7 +1321,23 @@ MAIN_FUNCTION (int argc, char **argv)
       printf ("An error occured in your setlocale/gettext installation.\n");
       printf ("I18n menus will not be available.\n");
     }
-
+#ifdef _WIN32
+  // x_message("%s",locale);
+  if (locale != NULL)
+    {
+      if (strncmp (locale, "Hungarian", 9) == 0)
+	strcpy (language, "magyar");
+      if (strncmp (locale, "Czech", 5) == 0)
+	strcpy (language, "cesky");
+      if (strncmp (locale, "German", 6) == 0)
+	strcpy (language, "deutsch");
+      if (strncmp (locale, "Spanish", 8) == 0)
+	strcpy (language, "espanhol");
+      if (strncmp (locale, "French", 6) == 0)
+	strcpy (language, "francais");
+    }
+  // x_message("%s",language);
+#else
   if ((locale == NULL) || (strcmp (locale, "C") == 0))
     locale = getenv ("LANG");
   else
@@ -1347,6 +1363,7 @@ MAIN_FUNCTION (int argc, char **argv)
       if (strcmp (locale, "fr") == 0)
 	strcpy (language, "francais");
     }
+#endif
 #ifdef DEBUG
   printf ("Using catalog file for %s language.\n", language);
 #endif

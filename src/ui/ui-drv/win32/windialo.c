@@ -364,9 +364,11 @@ win32_outputdialog (struct uih_context *uih, CONST struct menuitem *item)
   fprintf (file, "BEGIN\n");
   for (i = 0; dialog[i].question; i++)
     {
-      fprintf (file, "  RTEXT \"%s\", -1, %i, %i, %i, %i, WS_GROUP\n",
-	       dialog[i].question, 0, YBORDER + i * LINEHEIGHT,
-	       leftsize - XSEP, TEXTHEIGHT);
+      fprintf (file, "  RTEXT \"%s\", %i, %i, %i, %i, %i, WS_GROUP\n",
+               dialog[i].question,
+               i * PERITEM + QUESTIONSTART,
+               0, YBORDER + i * LINEHEIGHT,
+               leftsize - XSEP, TEXTHEIGHT);
       switch (dialog[i].type)
 	{
 	case DIALOG_INT:
