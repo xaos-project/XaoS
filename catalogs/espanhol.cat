@@ -6,7 +6,7 @@
 # Hay algunas pocas cosas que deberías saber si quieres cambiar
 # o traducir este fichero.
 #
-# El formato de este catálogo es identificador[espacios en blando]
+# El formato de este catálogo es identificador[espacios en blanco]
 # "valor"[espacios en blanco]
 #
 # Identifiador es una clave usada por el programa. No la traduzcas. 
@@ -32,6 +32,205 @@
 # Por favor, comprueba que el nuevo tutorial funciona en 320x200
 
 #########################################################
+#For file dimension.xaf
+
+fmath "La matemática detrás de los fractales"
+fmath1 "Los Fractales son un campo muy nuevo
+de las matemáticas, así que aún existen
+muchas preguntas sin resolver."
+fmath2 "Incluso las definiciones no están 
+claras."
+fmath3 "Usualmente llamamos a algo fractal,
+si muestra alguna auto-similitud"
+
+def1 "Una de las posibles definiciones es..."
+#Definition from the intro.xaf is displayed here.
+#If it is a problem in your language catalog, let me
+#know and I will create a special key
+def2 "Qué significa esto?"
+def3 "Para explicarlo, primero necesitamos
+entender qué son las dimensiones 
+topológicas y de Hausdorff Besicovich."
+
+topo1 "La dimensión topológica 
+es la dimensión \"normal\"."
+topo2 "Un punto tiene 0 dimensiones"
+topo3 "Una línea tiene una dimensión"
+topo4 "Una superfície tiene dos, etc..."
+
+hb1 "La definición de la dimensión 
+Hausdorff Besicovich proviene de este
+simple hecho:"
+hb2 "El lado de una línea ampliada dos 
+veces (zoom) crece también a lo más dos
+veces."
+hb3 "Por otro lado, el tamaño de un 
+cuadrado crece cuatro veces como mucho"
+hb4 "Reglas similares funcionan para 
+mayores dimensiones también."
+hb5 "Para calcular las dimensiones para
+este hecho, debes usar la siguiente 
+ecuación:"
+hb6 "dimensión = log s / log z
+donde 'z' es el cambio de zoom y 's'
+es el cambio del tamaño"
+hb7 "para una línea con zoom 2,
+el tamaño del cambio también es 2.
+log 2 / log 2 = 1"
+hb8 "para un cuadrado con zoom 2,
+el tamaño del cambio es 4.
+log 4 / log 2 = 2"
+hb9 "Así, esta definición da los mismos
+resultados para formas normales"
+hb10 "Las cosas se tornan más interesantes
+con los fractales..."
+
+hb11 "Considera una curva de un copo de nieve"
+hb12 "Que se crea cambiando repetidamente
+una línea por cuatro líneas."
+hb13 "Las nuevas líneas son 1/3 del tamaño
+de la línea original"
+hb14 "Después de acercar (zoom) 3 veces,
+estas líneas serán exactamente del 
+mismo tamaño que las líneas originales."
+hb15 "Esto ocurre por la auto-similitud
+creada por la repetición infinita de 
+esta metamorfosis,"
+hb15b "cada una de estas partes se convierte
+en una copia exacta del fractal 
+original."
+hb16 "El tamaño del fractal crece 4 veces
+porque hay cuatro copias del mismo."
+hb17 "Después de colocar estos valores en
+las ecuaciones: log 4 / log 3 = 1.261" 
+hb18 "Obtenemos un valor mayor que uno!
+(La dimensión topológica de la curva)"
+hb19 "La dimensión Hausdorff Besicovich 
+(1.261) es mayor que la dimensión 
+topológica."
+hb20 "De acuerdo con esta definición,
+se concluye que nuestro copo de nieve 
+es un fractal."
+
+defe1 "Esta definición, sin embargo, no es
+perfecta ya que excluye muchas figuras
+que son fractales."
+defe2 "Pero demuestra una de las propiedades
+interesantes de los fractales,"
+defe3 "y que es muy popular."
+defe4 "La dimensión Hausdorff Besicovich 
+también se conoce como la 
+\"dimensión fractal\"."
+
+#########################################################
+#For file escape.xaf
+escape "La matemática detrás de los fractales
+
+Capítulo 2 - Escape time fractals"
+escape1 "Algunos fractales (como el copo de
+nieve) son creados de una 
+manera simple."
+escape2 "XaoS puede generar una categoría
+distinta de fractales, llamada 
+\"Fractales fuera de tiempo\" (Escape
+ Time Fractals)."
+escape3 "El método para generarlos es un
+poco diferente, pero también está
+basado en el uso de la iteración."
+escape4 "Se toma la pantalla completa como
+el plano complejo"
+escape5 "El eje real es colocado horizontalmente"
+escape6 "y el eje imaginario es colocado 
+verticalmente."
+escape7 "Cada punto tiene su propia órbita."
+escape8 "La trayectoria sobre la que se calcula
+utilizando la función iterativa, f(z,c)
+donde z es la posición previa y c es 
+la nueva posición en la pantalla."
+escape9 "Por ejemplo, en el conjunto Mandelbrot,
+la función iterativa es z=z^2+c"
+orbit1 "En caso de que queramos examinar
+el punto 0 - 0.6i,"
+orbit2 "asignamos este parámetro a c"
+orbit3 "la iteración de la órbita comienza
+en z= 0 + 0i"
+orbit3b "Luego, repetidamente calculamos la 
+función iterativa, y repetidamente 
+obtenemos un nuevo valor para z para la
+siguiente iteración."
+orbit4 "Revisamos si el punto que pertenece al
+conjunto, es decir, si la órbita 
+permanece finita."
+orbit5 "En este caso, sí lo está..."
+orbit6 "Así que el punto está dentro del 
+conjunto."
+orbit7 "En otros casos, irá rápidamente hacia 
+el infinito."
+orbit8 "(por ejemplo, el valor 10+0i cuya
+primera iteración es 110, la segunda es
+12110, etc...)"
+orbit9 "Así que estos puntos están fuera
+del conjunto."
+bail1 "Aún estamos hablando de números
+infinitos y de iteraciones de números
+infinitos..."
+bail2 "... pero los computadores son finitos,
+así que no pueden calcular fractales de
+forma exacta."
+bail3 "Se puede probar que, en caso de que
+la distancia de la órbita desde cero es
+mayor que 2, siempre se irá al infinito."
+bail4 "Entonces podemos interrumpir los
+cálculos para órbitas que fallan este 
+test. (Esto se conoce como el test de 
+borde)"
+bail5 "En los casos de estar calculando puntos 
+que están fuera del conjunto, 
+necesitamos sólo un cantidad finita de 
+iteraciones."
+bail6 "Esto es lo que crea las líneas
+coloridas alrededor del conjunto."
+bail7 "Son coloreadas de acuerdo con el 
+número de iteraciones que necesita la
+órbita para fallar el test de borde."
+iter1 "Dentro del conjunto aún necesitamos
+una cantidad infinita de cálculos"
+iter2 "La única forma de hacerlo, es 
+interrumpiendo los cálculos después de 
+una cantidad determinada de iteraciones
+y utilizar los resultados aproximados."
+iter3 "El máximo de iteraciones, por lo tanto
+determina qué tan exacto la 
+aproximación será."
+iter4 "Sin iteraciones, crearías sólo un 
+círculo con radio 2 (por la condición 
+de borde)"
+iter5 "Mayor cantidad de iteraciones logran
+aproximaciones más exactas, pero toma 
+más tiempo calcularlas."
+limit1 "XaoS, por defecto, calcula 170 
+iteraciones."
+limit2 "En algunas áreas puedes hacer zoom
+durante bastante tiempo sin encontrar 
+este límite."
+limit3 "En otras áreas obtienes resultados
+inexactos muy rápidamente."
+limit4 "Las imágenes se vuelven muy aburridas
+cuando esto sucede."
+limit5 "Pero después de aumentar el número
+de iteraciones, obtienes muchos 
+detallles nuevos e interesantes."
+ofracts1 "Otros fractales en XaoS son 
+calculados usando diferentes formulas
+y pruebas de borde, pero el método es 
+básicamente el mismo."
+ofracts2 "Se requiere mucho cálculo para
+que XaoS realice muchas optimizaciones.
+
+Puedes leer más sobre esto, en el 
+fichero (archivo) doc/xaos.info"
+
+#########################################################
 #Para el fichero anim.xaf
 anim "Características de XaoS
 
@@ -52,7 +251,7 @@ y animación son guardados en un simple
 lenguaje de comandos"
 
 languag2 "(los ficheros de posición 
-son animaciones de un solo frame)."
+son animaciones de un sólo frame)."
 
 languag3 "Las animaciones pueden
 ser editadas a mano posteriormente
@@ -90,9 +289,9 @@ de comandos descrito en xaos.info."
 
 intro4 "Una introducción a los fractales
 
-Capítulo 4-Fórmula de Barnsley"
+Capítulo 5 - Fórmula de Barnsley"
 
-barnsley1 "Otro fórmula de
+barnsley1 "Otra fórmula de
 Michael Barnsley"
 
 barnsley2 "genera un estraño fractal."
@@ -118,7 +317,7 @@ filtros"
 #########################################################
 #Para el fichero filter.xhf
 
-filter1 "Filtro es un ejecto que
+filter1 "Filtro es un efecto que
 se aplica a cada frame tras el
 cálculo del fractal."
 
@@ -130,9 +329,9 @@ motblur "motion blur,"
 edge "2 filtros detectores de bordes"
 
 edge2 "(el primero hace líneas gruesas
-y es útil a resoluciones altas,"
+y es útil a resoluciones altas, ..."
 
-edge3 "el segundo hace líneas
+edge3 " ... el segundo hace líneas
 más delgadas);"
 
 star "filtro star-field,"
@@ -170,13 +369,13 @@ fcopyright "La introducción a los fractales
 fue hecha por Jan Hubicka en Julio 1997
 # Add your copyright here if you are translating/correcting this file
 Y traducido al castellano por:
- Céar Pérez cpt2@geocities.com
+ César Pérez cpt2@geocities.com
 suggestions
 Por favor envía tus ideas,
 sugerencias, agradecimientos, reproches
 e informes de errores a
 
-jh@ucw.cz
+hubicka@paru.cas.cz
 
 Gracias."
 
@@ -240,11 +439,11 @@ topológica."
 
 fractal3 "¿Todavía en tinieblas?"
 
-fractal4 "No preocuparse.
-Este definición sólo es importante
+fractal4 "No te preocupes.
+Esta definición sólo es importante
 si eres un matemático."
 
-fractal5 "Un fracta es, simplemente,
+fractal5 "Un fractal es, simplemente,
 una figura"
 
 fractal6 "que es construida a partir de 
@@ -253,11 +452,8 @@ piezas"
 fractal7 "cada una de las cuales es
 aproximadamente una copia reducida
 del fractal completo."
-
 fractal8 "Este proceso se repite"
-
-fractal9 "para completar el fractal."
-
+fractal9 "hasta completar el fractal."
 facts "Hay muchos hechos sorprendentes
 sobre los fractales:"
 
@@ -271,6 +467,41 @@ fact5 "Hay muchas estructuras
 matemáticas que son
 fractales,"
 fact6 "como el que ves en la pantalla."
+
+fmath4 "Muchos fractales son creados por 
+un proceso iterativo"
+fmath5 "por ejemplo: el fractal conocido
+como la \"curva de von Koch\"."
+fmath6 "es creada dividiendo una línea"
+fmath7 "hasta obtener 4 líneas."
+fmath8 "Esta es la primera iteración
+del proceso."
+fmath9 "Luego repetimos este cambio"
+fmath10 "luego de 2 iteraciones..."
+fmath11 "... de 3 iteraciones..."
+fmath12 "luego de 4 iteraciones..."
+fmath13 "y luego de una cantidad infinita 
+de iteraciones, obtenemos un fractal."
+fmath14 "Su forma se parece a la tercera
+parte de un copo de nieve."
+tree1 "Muchas otras figuras pueden ser
+construídas por métodos similares."
+tree2 "Por ejemplo, cambiando una línea
+de manera distinta"
+tree3 "Obtenemos un árbol."
+nstr "Las iteraciones pueden ser introducir
+posiblemente algo de ruido aletario en 
+un fractal"
+nstr2 "dividiendo una línea en dos líneas"
+nstr3 "y agregando un poco de error"
+nstr4 "puedes obtener fractales que se 
+parezcan a una costa de playa."
+nstr5 "Un proceso similar podría crear
+nubes, montañas, y muchas otras formas
+de la naturaleza."
+
+#######################################################
+## mset.xaf
 fact7 "Sin lugar a dudas el fractal
 más famoso es..."
 
@@ -289,14 +520,14 @@ mset6 "Esta es la más grande, aprox.
 conjunto original."
 mset7 "El conjunto Mandelbrot no es
 completamente autosimilar,"
-mset8 "luego cada pequeña copia es
+mset8 "luego cada copia pequeña es
 diferente."
 mset9 "Este es 76000 veces más pequeño
 que el completo."
-mset10 "Copias en las diferentes partes del
-conjunto difieren más."
+mset10 "Otras copias en las distintas 
+partes del conjunto difieren más."
 
-nat "Los límites no solo contienen
+nat "Los límites no sólo contienen
 copias del conjunto,"
 nat1 "sino una verdadera variedad de
 figuras diferentes."
@@ -310,6 +541,11 @@ nat6 "y cascadas."
 nat7 "El conjunto Mandelbrot también
 contiene figuras completamente 
 nuevas."
+###############################################################################
+############
+juliach "Una introducción a los fractales
+
+Capítulo 2 - Conjuntos Julia"
 
 julia "El conjunto Mandelbrot no es el
 único fractal generado por la
@@ -328,7 +564,7 @@ julia7 "El conjunto Mandelbrot puede
 considerarse como un mapa de varios
 conjuntos Julia."
 julia8 "Puntos dentro del conjunto
-Mandelbrot corresponden con grandes
+Mandelbrot corresponden a Julias con grandes
 áreas negras conexas,"
 julia9 "mientras que los puntos fuera
 del conjunto Mandelbrot corresponden
@@ -342,10 +578,10 @@ también depende fuertemente de
 la semilla que escojas."
 theme1 "Cuando te aproximas al
 conjunto Mandelbrot, obtendras
-un fractal temáticamente muy similar."
+un fractal temáticamente muy similar"
 theme2 "cuando cambias a su correspondiente
 Julia."
-theme3 "y te aproximas de nuevo, descubres"
+theme3 "aléjate denuevo, y descubres"
 theme4 "que estas en un fractal completamete
 diferente."
 theme5 "Los conjuntos Julia pueden parecer
@@ -361,18 +597,18 @@ theme8 "preciosas imagenes."
 
 keys "Teclas:
 
-q          - para repeticiñn              
-Espacio    - saltar frame               
-             (puede durar un rato)       
-Izq/Der    - ajuste de la velocidad
-	     de los subtitulos."
+q          - detiene la animación      
+Espacio    - saltar frame              
+             (puede demorar un poco)   
+Izq/Der    - ajuste de la velocidad    
+             de los subtítulos."
 
 #########################################################
 #Para el fichero magnet.xaf
 
-intro7 "Una introducción a los fractaleSAn introduction to fractals
+intro7 "Una introducción a los fractales
 
-Capítulo 7-Magnet"
+Capítulo 8 - Magnet"
 
 magnet "Este no es el conjunto Mandelbrot."
 magnet1 "Este fractal se llama \"magnet\"
@@ -398,11 +634,11 @@ speed "1. Mayor velocidad"
 speed1 "Los bucles de los cálculos 
 principales estan \"desenrrollados\"
 y realizan chequeos periódicos."
-speed2 "Las nuevas imagenes son 
-calculadas usando detención
+speed2 "Las nuevas imágenes son 
+calculadas usando detección
 de límites."
 speed3 "luego el cálculo de nuevas
-imagenes es mucho mñas rápido."
+imágenes es mucho más rápido."
 speed4 "Por ejemplo, cálculo del
 conjunto Mandelbrot en
 1 000 000 iteraciones..."
@@ -411,7 +647,7 @@ speed6 "Terminado."
 speed7 "XaoS tiene una heurística
 que inhabilita automáticamente las
 chequeos periódicos cuando no
-espera que el punto este dentro del
+espera que el punto esté dentro del
 conjunto (cuando todos alrededor no
 lo están)."
 speed8 "También las principales
@@ -427,7 +663,7 @@ new4 "4. Nuevos modos in-coloring."
 new5 "5. Modos de coloreamiento True-color."
 new6 "6. Guardar y repetir animaciones."
 newend "Y muchas otras mejoras, tal como
-rotación de la imagen, mejor generaciñin
+rotación de la imagen, mejor generación
 de la paleta... mira ChangeLog para encontrar
 una completa lista de cambios." #NEW
 
@@ -435,7 +671,7 @@ una completa lista de cambios." #NEW
 #Para le fichero newton.xaf
 
 intro3 "Una introducción a los fractales
-Capítulo 3- El método Newton"
+Capítulo 4 - El método Newton"
 
 newton "Este fractal es generado por
 una fórmula completamente 
@@ -456,7 +692,7 @@ y no muy interesante para explorar."
 newton6 "Pero XaoS puede generar conjuntos
 similares a los Julias,"
 newton7 "donde el error en la aproximación
-es la se4milla."
+es la semilla."
 newton8 "Esto hace al fractal Newton más
 interesante."
 
@@ -464,7 +700,7 @@ interesante."
 #Para el fichero octo.xaf
 intro6 "Una introducción a los fractales
 
-Capítulo 6-Ocoto"
+Capítulo 7 - Octo"
 octo "Octo es un fractal menos conocido."
 octo1 "Lo hemos escogido para XaoS por
 su figura inusual."
@@ -493,9 +729,9 @@ modos out-coloring."
 iterreal "iter+real
 
 Este modo pinta los límites añadiendo
-la parte real de la última órbitda al
+la parte real de la última órbita al
 número de iteraciones."
-iterreal1 "Puedes usarlo para hacer imagenes
+iterreal1 "Puedes usarlo para hacer imágenes
 bastante aburridas más interesantes."
 
 iterimag "iter+imag es similar a iter+real."
@@ -568,7 +804,7 @@ true color."
 
 intro5 "Una introducción a los fractales
 
-Capítulo 5-Phoenix"
+Capítulo 6 - Phoenix"
 
 phoenix "Este es el conjunto Mandelbrot para
 una fórmula conocida como Phoenix."
@@ -599,7 +835,7 @@ plane2 "XaoS proporciona 6 modos de
 mapeo alternativos"
 plane3 "1/mu
 
-Este es una inversión - áreas desde
+Esta es una inversión - áreas desde
 el infinito pasan a 0 y de 0 al infinito.
 Esto te permite ver que le pasa al fractal
 cuando nos alejamos de él infinitamente."
@@ -609,10 +845,10 @@ plane6 "Como puedes ver, el conjunto estaba
 en el medio y ahora esta alrededor.
 La infinita área azul alrededor del
 conjunto es mapeada en un pequeño 
-círclulo alrededor de 0."
+círculo alrededor de 0."
 plane7 "Las próximas imágenes serán
 presentadas en modo normal e inverso
-para demostrarte que pasa."
+para demostrarte qué pasa."
 
 plane8 "1/mu+0.25
 
@@ -656,8 +892,8 @@ punto."
 
 intro2 "Una introducción a los fractales
 
-Capítulo 2-Conjuntos Mandelbrot de potencias
-superiores"
+Capítulo 3 - Conjuntos Mandelbrot      
+de potencias superiores"
 
 power "z^2+c no es la única
 fórmula que genera fractales."
@@ -699,17 +935,17 @@ true-color."
 #########################################################
 #Para el fichero pert.xaf  #NEW (up to end of file)
 
-pert0 "Perturbacion"
+pert0 "Perturbación"
 pert1 "Como las fórmulas de los Julia
-utilizan diferentes semillas para generaaar
+utilizan diferentes semillas para generar
 varios Julias a partir de una fórmula,"
 pert2 "puedes cambiar el valor de perturbación
 para los conjuntos Mandelbrot."
 pert3 "Esto cambia la posición de inicio
-de la orbitda del valor por defecto 0."
+de la órbita desde el valor por defecto, 0."
 pert4 "Su valor no afecta al resultado
 del fractal tanto como la semilla lo hace
-en los Juias, pero es útil cuando quires
+en los Julias, pero es útil cuando quieres
 hacer el fractal más aleatorio."
 
 ##########################################################
