@@ -52,4 +52,5 @@
 #undef SIZEOF_SHORT
 #undef SIZEOF_INT
 #undef SIZEOF_LONG
+#undef HAVE_GETTEXT
 #endif
