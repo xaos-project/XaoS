@@ -1364,10 +1364,17 @@ MAIN_FUNCTION (int argc, char **argv)
 			  )
 #endif
 #else
+#ifdef _WIN32
+			  "..\\locale")
+#ifdef DEBUG		
+			  )
+#endif
+#else
 			  "/usr/share/locale")
 #ifdef DEBUG			 
 			  )
 #endif			 
+#endif
 #endif
 			   ;
   textdomain ("xaos");
