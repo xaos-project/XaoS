@@ -22,9 +22,237 @@
 # 320x200 noch darstellen lassen.
 #
 # Wenn Sie Fehler in dieser Datei finden, lassen Sie es mich bitte wissen.
+#########################################################
+#Datei: dimension.xaf
+
+fmath "Die Mathematik hinter Fraktalen"
+fmath1 "Fraktale Geometrie ist ein sehr junges
+Gebiet der Mathematik, weshalb hier
+noch viele Fragen ungelöst sind."
+fmath2 "Sogar die Definitionen sind unklar."
+fmath3 "Normalerweise nennen wir etwas fraktal,
+wenn eine gewisse Selbstähnlichkeit
+gefunden werden kann.  "
+
+def1 "Eine der möglichen Definitionen ist:"
+#Definition from the intro.xaf is displayed here.
+#If it is a problem in your langage catalog, let me
+#know and I will create a special key
+def2 "Was heisst das?"
+def3 "Um dies zu erklären, müssen wir zuerst
+verstehen, was die topologische- und
+die Hausdorff-Besicovich-Dimension
+sind."
+
+topo1 "Die topologische Dimension
+ist die \"normale\" Dimension."
+topo2 "Ein Punkt hat 0 Dimensionen"
+topo3 "Eine Linie hat 1 Dimension"
+topo4 "Eine Fläche hat 2, usw."
+
+hb1 "Die Definition der
+Hausdorff-Besicovich-Dimension
+kommt von der einfachen Tatsache, dass"
+hb2 "eine Linie die so gezoomt wird,
+dass sich ihre Länge verdoppelt,
+danach zwei mal so lang ist,
+wie sie vorher war."
+hb3 "Andererseits wächst die Ausdehnung
+eines Quadrates, das in gleicher Weise
+gezoomt wird, um den Faktor vier."
+hb4 "Ähnliche Regeln funktionieren auch
+für Objekte, die sich in mehrere
+Dimensionen ausdehnen."
+hb5 "Um Dimensionen mit Hilfe dieser
+Tatsache zu berechnen, kann folgende
+Gleichung benutzt werden:"
+hb6 "Dimension = log s / log z,
+wobei z dem Zoomfaktor
+und s der Ausdehnung entspricht"
+hb7 "Wird eine Linie um den Faktor 2
+gezoomt, ändert auch die Ausdehnung
+um den Faktor 2.
+log 2 / log 2 = 1"
+hb8 "Wird ein Quadrat um den Faktor 2
+gezoomt, ändert die Ausdehnung um den
+Faktor 4.
+log 4 / log 2 = 2"
+hb9 "Diese Definition führt zu den
+erwarteten Resultaten für normale
+Formen."
+hb10 "Interessanter wird es bei Fraktalen."
+hb11 "Sehen Sie sich die sogenannte kochsche
+Schneeflockenkurve an,"
+hb12 "welche entsteht, wenn man eine Linie in
+drei gleiche Abschnitte teilt und den
+Mittleren durch zwei ebenso lange
+Abschnitte ersetzt und diesen Vorgang
+beliebig oft wiederholt."
+hb13 "Die neuen Linien haben 1/3 der Grösse
+der ursprünglichen Linie."
+hb14 "Nach dem Zoomen um den Faktor 3,
+sind diese Linien exakt gleich lang
+wie die ursprüngliche Linie."
+hb15 "Wegen der Selbstähnlichkeit, die durch
+unendlich wiederholtes Teilen entsteht,"
+hb15b "wird jedes dieser Teile eine exakte
+Kopie des ursprünglichen Fraktals."
+hb16 "Weil beim Teilen vier solche Kopien
+entstehen, wächst die Ausdehnung des
+Fraktals um den Faktor 4."
+hb17 "Nun setzen wir diesen Wert in unsere
+Gleichung ein:
+log 4 / log 3 = 1.261"
+hb18 "Wir erhalten einen Wert der grösser als
+1 (die topologische Dimension der
+Kurve) ist."
+hb19 "Die Hausdorff-Besicovich-Dimension
+(1.261) ist grösser als die
+topologische Dimension."
+hb20 "Gemäss dieser Definition 
+ist die Schneeflockenkurve ein Fraktal."
+
+defe1 "Diese Definition ist jedoch nicht
+perfekt, da sie eine Menge Formen
+ausschliesst, die auch Fraktale sind."
+defe2 "Aber sie zeigt eine der interessanten
+Eigenschaften von Fraktalen"
+defe3 "und sie ist sehr populär."
+defe4 "Die-Hausdorff-Besicovich Dimension
+wird auch \"fraktale Dimension\"
+genannt."
+
+#########################################################
+#Datei: escape.xaf
+
+escape "Die Mathematik hinter Fraktalen
+
+Kapitel 2 - Fliehzeit-Fraktale"
+escape1 "Gewisse Fraktale
+(wie die Schneeflockenkurve)
+werden durch sich wiederholende 
+Aufteilung erzeugt."
+escape2 "XaoS kann Fraktale erzeugen,
+die einer andere Kategorie angehören
+und Fliehzeit-Fraktale genannt werden."
+escape3 "Die Methode diese zu erzeugen,
+unterscheidet sich von der im
+vorhergehenden Kapitel erläuterten,
+basiert aber auch auf der Iteration
+(Wiederholung)."
+escape4 "Betrachten wir den ganzen
+Bildschirm als eine komplexe Ebene."
+escape5 "Die reelle Achse ist
+horizontal orientiert."
+escape6 "Die imaginäre Achse ist
+vertikal orientiert."
+escape7 "Jeder Punkt hat sein eigenes Orbital,"
+escape8 "dessen Laufbahn durch die iterative
+Formel f(z,c) beschrieben wird, wobei
+z der Position im Orbital entspricht,
+die der zu berechnenden voran geht,
+und c der Punkt ist, dem das Orbital
+angehört."
+escape9 "Die iterative Funktion
+für die Mandelbrotmenge lautet
+z=z^c+c."
+
+orbit1 "Um das Orbital, das dem Punkt
+0 - 0.6i angehört, zu untersuchen,"
+orbit2 "müssen wir diese komplexe Zahl c
+zuweisen."
+orbit3 "Das Orbital beginnt bei
+z = 0 + 0i"
+orbit3b "Wir werten die iterative Funktion
+wiederholt aus, und erhalten bei jeder
+Auswertung einen neuen Punkt im
+Orbital, den wir sogleich für die
+nächste Auswertung verwenden."
+orbit4 "Der Punkt gehört der Mandelbrotmenge an,
+falls das Orbital in der
+Endlichkeit bleibt."
+orbit5 "In unserem Beispiel ist dies der Fall..."
+orbit6 "Somit gehört dieser Punkt der
+Mandelbrotmenge an."
+orbit7 "In anderen Fällen verschwinden werden
+die Orbitale in der Unendlichkeit."
+orbit8 "Untersuchen wir zum Beispiel den Punkt
+10 + 0i, erhalten wir nach der ersten
+Iteration 10, nach der zweiten 110,
+nach der dritten 12110, usw."
+orbit9 "Solche Punkte gehören nicht der
+Mandelbrotmenge an."
+
+bail1 "Bis jetzt sprechen wir immer noch von
+unendlich grosse Zahlen."
+bail2 "Da computer nur endliche Zahlen
+darstellen können, sind sie nicht in
+der Lage Fraktale exakt zu berechnen."
+bail3 "Es kann jedoch bewiesen werden,
+dass Orbitale, die einen Abstand von
+2 vom Nullpunkt überschreiten, stets
+in der Unendlichkeit verschwinden."
+bail4 "Somit können die Berechnungen
+abgebrochen werden, sobald das Orbital
+einen Abstand von 2 vom Nullpunkt
+überschritten hat und damit den
+sogenannten Bailout-Test nicht
+bestanden hat."
+bail5 "Für Punkte die nicht der
+Mandelbrotmenge angehören, benötigen
+wir jetzt nur noch eine endliche Anzahl
+Iterationen."
+bail6 "Auf diese Weise entstehen die farbigen
+Streifen um die Mandelbrotmenge."
+bail7 "Sie werden je nach Anzahl Iterationen
+eingefärbt, die notwendig sind, um
+einen Abstand von 2 vom Nullpunkt zu
+überschreitet."
+
+iter1 "Auch für Punkte die der Mandelbrotmenge
+angehören, sind unendlich viele
+Iterationen möglich."
+iter2 "Um die Berechnungen zu einem Ende
+zu bringen, wird nach einer
+vorgegebener Anzahl Iterationen
+abgebrochen und angenommen, dass der
+Punkt der Mandelbrotmenge angehört."
+iter3 "Die maximale Anzahl der Iterationen
+bestimmt die Genauigkeit der
+Annäherung."
+iter4 "Ohne Iterationen würde lediglich
+ein Kreis mit Radius 2 entstehen."
+iter5 "Je höher die maximale Anzahl
+Iterationen, um so exakter die
+Annäherung und um so mehr Zeit wird für
+die Berechnung benötigt."
+limit1 "XaoS verwendet standardmässig
+170 Iterationen."
+limit2 "In gewisse Bereiche können Sie
+weit hinein zoomen, ohne unexakte
+Resultate zu erhalten."
+limit3 "In anderen Bereichen erhalten Sie
+relativ schnell unexakte Resultate."
+limit4 "Die Bilder werden ziemlich langweilig,
+wenn dies geschieht."
+limit5 "Nach erhöhen der maximalen Anzahl
+Iterationen erhalten Sie neue,
+interessanter Details."
+
+ofracts1 "Andere Fraktale in XaoS werden mit
+anderen Formeln und Bailout-Tests
+berechnet, die Methode bleibt aber
+grundsätzlich die selbe."
+ofracts2 "Es sind so viele Berechnungen notwendig,
+dass XaoS viele Optimierungen
+vornehmen muss.
+
+Mehr Informationen darüber finden Sie
+in der Datei doc/xaos.info"
 
 #########################################################
 # Datei: anim.xaf
+
 anim "Überblick: Features von XaoS
 
 Animations- und Positions-Dateien"
@@ -79,7 +307,7 @@ im File \"xaos.info\" beschrieben wird."
 
 intro4 "Fraktale - Eine Einführung
 
-Kapitel 4 - Die Barnsley-Formel"
+Kapitel 5 - Die Barnsley-Formel"
 
 barnsley1 "Eine weitere Formel, die von
 Michael Barnsley eingeführt wurde."
@@ -250,6 +478,39 @@ Strukturen, die Fraktale sind."
 fact6 "Wie jene, die Sie auf dem Schirm sehen."
 fact7 "Die vielleicht bekannteste ist..."
 
+fmath4 "Die meisten Fraktale entstehen durch
+einen iterativen Prozess."
+fmath5 "So wird zum Beispiel das Fraktal, das
+unter dem Name kochsche Kurve
+bekannt ist,"
+fmath6 "durch iteratives Ändern einer Linie"
+fmath7 "in vier Linien erzeugt."
+fmath8 "Dies ist die erste Iteration des
+Prozesses."
+fmath9 "Nun wiederholen wir den Vorgang."
+fmath10 "Nach 2 Iterationen..."
+fmath11 "Nach 3 Iterationen..."
+fmath12 "Nach 4 Iterationen..."
+fmath13 "Und nach unendlicher Anzahl Iterationen
+erhalten wir ein Fraktal."
+fmath14 "Seine Form sieht aus wie ein Teil einer
+Schneeflocke."
+tree1 "Mit ähnlichen Methoden kann eine
+Vielzahl anderer Formen erzeugt werden."
+tree2 "Indem man eine Linie in anderer Weise
+ändert,"
+tree3 "erhält man zum Beispiel ein Baum."
+nstr "Iterationen können auch zufällige
+Störungen in das Fraktal einbringen."
+nstr2 "Indem man eine Linie in zwei Linien
+ändert"
+nstr3 "und einen kleinen Fehler hinzufügt,"
+nstr4 "kann man Fraktale erzeugen, die wie
+Küstenlinien aussehen."
+nstr5 "Ein ähnlicher Prozess könnte Wolken,
+Berge und viele andere natürliche
+Formen erzeugen."
+
 mset "Die Mandelbrotmenge."
 mset1 "Sie wird durch eine sehr
 einfache Formel erzeugt,"
@@ -281,6 +542,9 @@ nat6 "und Wasserfälle finden."
 nat7 "Die Menge enthält auch Formen
 ohne jede Entsprechung."
 
+juliach "Fraktale - Eine Einführung
+
+Kapitel 2 - Julia"
 julia "Die Mandelbrotmenge ist nicht das
 einzige Fraktal, das durch die Formel
 z=z^2+c erzeugt wird."
@@ -326,7 +590,7 @@ theme8 "schöne Bilder."
 keys "Tasten:
 
 q          - Wiedergabe abbrechen    
-Space      - Bild überspringen        
+Space      - Bild überspringen       
              (kann etwas dauern)     
 Left/Right - Geschwindigkeit anpassen"
 
@@ -335,7 +599,7 @@ Left/Right - Geschwindigkeit anpassen"
 
 intro7 "Fraktale - Eine Einführung
 
-Kapitel 7 - Magnet"
+Kapitel 8 - Magnet"
 
 magnet "Dies ist NICHT die Mandelbotmenge."
 magnet1 "Dieses Fraktal heißt \"Magnet\",
@@ -396,7 +660,7 @@ Die volle Liste steht im \"ChangeLog\"."
 
 intro3 "Fraktale - Eine Einführung
 
-Kapitel 3 - Die Newton-Methode"
+Kapitel 4 - Die Newton-Methode"
 newton "Dieses Fraktal wird auf eine
 völlig andere Weise berechnet -"
 newton1 "Newtonsche Approximation zum Auffinden
@@ -420,7 +684,7 @@ newton8 "Das macht das Fraktal interessanter."
 # Datei: octo.xaf
 intro6 "Fraktale - Eine Einführung
 
-Kapitel 6 - Octo"
+Kapitel 7 - Octo"
 octo "Octo ist ein Fraktal, das durch
 eine weniger oft benutzte Formel
 erzeugt wird."
@@ -520,7 +784,7 @@ Truecolor-Filter eingeschaltet werden."
 
 intro5 "Fraktale - Eine Einführung
 
-Kapitel 5 - Phoenix"
+Kapitel 6 - Phoenix"
 
 phoenix "Dies ist die Mandelbrotmenge
 der Formel namens \"Phoenix\"."
@@ -533,7 +797,7 @@ darin finden."
 phoenix2 "Sie enthält ebenfalls eine \"Antenne\"
 mit Miniaturkopien der Gesamtmenge."
 
-phoenix3 "Es gibt auch thematische Zusammenhãnge
+phoenix3 "Es gibt auch thematische Zusammenhänge
 zwischen den Juliamengen und der
 Mandelbrot-Version."
 
@@ -612,14 +876,14 @@ vergrößert."
 
 intro2 "Fraktale - Eine Einführung
 
-Kapitel 2
+Kapitel 3
 Mandelbrotmengen höherer Ordnung"
 
 power "z^2+c ist nicht die einzige Formel,
 die ein Fraktal erzeugt."
 power2 "Eine leicht veränderte Version - z^3+c -
 ergibt ein ähnliches Fraktal."
-power3 "Es enthãlt natürlich auch
+power3 "Es enthält natürlich auch
 Kopien der Gesamtmenge."
 
 power4 "Ähnliche Fraktale können mit
@@ -712,3 +976,18 @@ des gewählten Punktes können Sie das
 ungefähre Aussehen im Voraus bestimmen."
 rotation "Bildrotation"
 cycling "Palettenrotation"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
