@@ -1300,7 +1300,9 @@ MAIN_FUNCTION (int argc, char **argv)
   int i;
   int width, height;
   char welcome[MAX_WELCOME], language[10];
+#ifdef HAVE_GETTEXT
   char *locale;
+#endif
 #ifdef DESTICKY
   euid = geteuid ();
   egid = getegid ();

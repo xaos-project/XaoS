@@ -9,6 +9,7 @@
 #include <fconfig.h>
 #include <filter.h>
 #include <fractal.h>
+#include <string.h>
 #include <ui_helper.h>
 #include <ui.h>
 #include <timers.h>

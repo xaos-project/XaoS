@@ -468,6 +468,7 @@ extern "C"
   void uih_freecatalog (uih_context * c);
 
   void uih_registermenus (void);
+  void uih_registermenus_i18n (void);
   void uih_unregistermenus (void);
 
 /*Windows :)*/

@@ -35,6 +35,7 @@
 #include "keytables.h"
 #include <ui.h>
 #include <xthread.h>
+#include <stdlib.h>
 
 extern int euid, egid;
 struct ui_driver svga_driver;
@@ -55,7 +56,6 @@ static int grayscale;
 void *font = NULL;
 
 static int whitecolor;
-static int blackcolor;
 
 static void
 svga_mousetype (int m)
@@ -101,14 +101,6 @@ draw_mouse (int x, int y, int clear)
 	    gl_copyboxtocontext (oldx - 3, oldy - 3, 8, 8, &screen, oldx - 3,
 				 oldy - 3);
 	}
-#if 0
-      vga_setcolor (whitecolor);
-      vga_drawline (x - 3, y - 3, x + 3, y + 3);
-      vga_drawline (x - 3, y + 3, x + 3, y - 3);
-      vga_setcolor (blackcolor);
-      vga_drawline (x + 1 - 3, y - 3, x + 1 + 3, y + 3);
-      vga_drawline (x + 1 - 3, y + 3, x + 1 + 3, y - 3);
-#endif
       oldx = x;
       oldy = y;
     }
