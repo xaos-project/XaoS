@@ -1,7 +1,6 @@
 /*
 	stdioMac.c
 	
-	
 	C-style file I/O for Apple Macintosh
 	Allows Mac file refs to be used instead of FILE*,
 	also lets file be stamped with type/creator code
@@ -27,6 +26,7 @@
 	
 */
 
+#include "config.h"
 
 #include <stdio.h>
 #include <string.h>

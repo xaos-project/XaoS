@@ -4,7 +4,9 @@
 	Error, OK/Cancel, etc.
 */
 
-#include "Common Dialogs.h"
+#include "config.h"
+
+#include "CommonDialogs.h"
 
 #include <Dialogs.h>
 #include <QDOffScreen.h>
@@ -29,14 +31,14 @@ void doErrorAlert(Str255 errmsg)
 	{
 		SetPort(myDialog);
 		PenSize(3,3);
-		GetDItem(myDialog,ok,&itemType,&itemHandle,&displayRect);
+		GetDialogItem(myDialog,ok,&itemType,&itemHandle,&displayRect);
 		InsetRect(&displayRect,-4,-4);
 		FrameRoundRect(&displayRect,16,16);
 		do
 		{
 			ModalDialog(nil, &itemHit);
 		} while(itemHit != ok);
-		DisposDialog(myDialog);
+		DisposeDialog(myDialog);
 	}
 	SetGWorld(savePort, saveDev);
 }
@@ -60,7 +62,7 @@ Boolean doOKcancel(Str255 msg)
 		GetGWorld(&savePort, &saveDev);		/* remember and restore current grafPort */
 		SetPort(myDialog);
 		PenSize(3,3);
-		GetDItem(myDialog,ok,&itemType,&itemHandle,&displayRect);
+		GetDialogItem(myDialog,ok,&itemType,&itemHandle,&displayRect);
 		InsetRect(&displayRect,-4,-4);
 		FrameRoundRect(&displayRect,16,16);
 		do
@@ -69,7 +71,7 @@ Boolean doOKcancel(Str255 msg)
 			if(itemHit == ok)
 				result = true;
 		} while(itemHit != ok && itemHit != cancel);
-		DisposDialog(myDialog);
+		DisposeDialog(myDialog);
 		SetGWorld(savePort, saveDev);
 	}
 	return result;

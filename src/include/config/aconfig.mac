@@ -4,8 +4,6 @@
 
 #define ACONFIG_H
 
-#define USE_PNG
-
 #define HAVE_LONG_DOUBLE 1
 
 /* #undef inline */
@@ -16,20 +14,26 @@
 
 /* Define if you can safely include both <sys/time.h> and <time.h>.  */
 
-#define TIME_WITH_SYS_TIME 1
+#ifndef TIME_WITH_SYS_TIME
+#define TIME_WITH_SYS_TIME 0
+#endif
 
 //#define HAVE_GETTIMEOFDAY 1
 
 #define HAVE_MOUSEMASK 1
 
+#ifndef HAVE_LIMITS_H
 #define HAVE_LIMITS_H 1
+#endif
 
-//#define HAVE_SYS_TIME_H 1
+#ifndef HAVE_SYS_TIME_H
+#define HAVE_SYS_TIME_H 0
+#endif
 
-#define HAVE_UNISTD_H 1
+#define HAVE_UNISTD_H 0
 
-#define HAVE_USLEEP 1
-#define HAVE_SETITIMER 1
+//#define HAVE_USLEEP 0
+#define HAVE_SETITIMER 0
 
 
 #endif

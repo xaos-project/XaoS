@@ -1,53 +1,41 @@
 /*
-	Note: view this file with a tabstop of 4.
-	
+
 	ui_mac.c
 	
-	Apple Macintosh user interface support for Xaos Fractal Viewer
-	Written by Tapio K. Vocadlo of Ottawa, Canada (taps@rmx.com).
-	Some stuff borrowed from 'Tricks of the Mac Game Programming Gurus'.
+	Xaos Fractal Viewer
+	Macintosh Driver 2.0
 	
-	XaoS version: 	2.1g
-	Driver version: 1.31
+	Written by Dominic Mazzoni (dmazzoni@cs.cmu.edu)
+	based on the Macintosh Driver (version 1.31) by
+	Tapio K. Vocadlo of Ottawa, Canada (taps@rmx.com).
 	
-	Revision History:
+	XaoS version: 	3.1 beta
+	Driver version: 2.0
 	
-	When		Who		What
-	------------------------------------------------------------------
-	Nov 5/96	taps	Created
-	Nov 7/96	taps	More features supported, nicer panning cursors
-	Nov 8/96	taps	Check to optimize buffer-to-GWorld data transfer
+	This file contains routines for two mac drivers,
+	the main Mac driver and the fullscreen mac driver.
 
-	Nov 11/96	taps	Took out 'save not supported' help text, set 
-						auto-update for palette change to true.
-
-	Nov 12/96	taps	mac_alloc_buffers returns bytes-per-scanline for XaoS 2.1
-						Let fractal engine draw directly onto Mac GWorlds.
-
-	Nov 18/96	taps	Support window resizing
-	
-	Nov 21/96	taps	Made resize icon visible on window.
-						Added introductory splash screen.
-						
-	Nov 22/96	taps	Default window size fits on smallest Mac monitor.
-						Added menu bar and 'Visible Resize Control' option.
-
-	Nov 25/96	taps	Support disk-insertion event, XaoS_VERSION constant,
-						overlapping help/status text onto fractal, and
-						menu commands for black vs. white help text.
+  Features / Notes:
+  
+  * Uses the main monitor (the one with the menu bar).
+  
+  * Supports 8-bit, 16-bit, or 32-bit color.  If the monitor is set to
+    any other depth, XaoS is told to render 8-bit and Quickdraw does the
+    translation to the screen
+  
+  * Fullscreen mode hides and shows the menu bar using new (Mac OS 8.5)
+    routines that may not work on older systems.
+  
+  * Menus are native in windowed mode, and XaoS-rendered in fullscreen mode.
+  
+  * Supports resolution-switching on the fly
 
 */
 
+#include "config.h"
+#include "filter.h"
 
 #ifdef _MAC
-
-// Format floppy constants
-const short kDITop = 0x0050;
-const short kDILeft	= 0x0070;
-
-// Default window size.
-static int MAC_WINWIDTH	= 508;
-static int MAC_WINHEIGHT = 381;
 
 // Cursor rez IDs
 const short CURS_PAN		= 202;
@@ -59,19 +47,8 @@ const short CURS_ZOOMOUT	= 205;	// not used
 const short kSplashPICT = 128;
 
 // Menu IDs
-const short rMenuBar =	128;
-const short	mApple = 	128;
-const short mFile = 	129;
-const short mEdit = 	130;
-const short mOptions = 	131;
-
-// Menu command IDs
-const short iToggleGrowIcon = 1;
-const short iBlackText = 3;
-const short iWhiteText = 4;
-const short iAbout = 1;
-const short iQuit = 1;
-const short iCopy = 1;
+const short apple_menu_id = 8000;
+const short about_item = 1;
 
 #include "version.h"
 #include "aconfig.h"
@@ -80,142 +57,86 @@ const short iCopy = 1;
 #include <string.h>
 #include <unistd.h>
 #include "zoom.h"
-#include "gif.h"
+//#include "gif.h"
 #include "ui.h"
-#include "palette.h"
+#include "ui_helper.h"
+#include "uiint.h"
+//#include "palette.h"
 
 #include <stdlib.h>
 
 #include <QDOffScreen.h>
 #include <Palettes.h>
+#include <Menus.h>
 
 #include "CommonDialogs.h"
 
-struct ui_driver mac_driver;
-static int initialised;
-static int mode = -1;
-static width = 640, height = 480;
-static int mac_currentbuff = 0;
-static int ncolors = 0;
-static WindowPtr screen;
-static GWorldPtr	offscreen[2];
-static char* buffers[2];
-void *font = NULL;
-static GDHandle ourScreen = nil;	// which monitor we're on
-static GDHandle gScreengdev = nil;
+static void
+ui_setdriver (uih_context * c, int d);
 
-static int gOrgSceenMode;
-static GDHandle gGameScreen = nil;
-static Boolean gbPaletteChanged = true;
-static Boolean gbShowGrowIcon = true;
-static Boolean gbPanning = false;
-static GWorldPtr gGrowIconPixels = nil;
-static RGBColor gTextColor = { 0xFFFF, 0xFFFF ,0xFFFF };	// white
+struct ui_driver    mac_driver;
+struct ui_driver    full_driver;
+struct ui_driver    double_driver;
 
-void SetWindPaletteFromClut(WindowPtr theWindow, CTabHandle theClut);
-GDHandle GetGameScreen(void);
-void RestoreGameScreen(void);
-void DrawNiceGrowIcon(WindowPtr w);
-void AdjustMenus(void);
-void DoMenuCommand(long menuResult);
+static int          mac_window_width  = 0;
+static int          mac_window_height = 0;
 
+static int          mac_depth;
+
+static int          full_screen_mode;
+static int          mac_currentbuff = 0;
+static int          mac_num_colors = 0;
+static WindowPtr    mac_screen;
+static GWorldPtr    mac_offscreen[2];
+static GDHandle     mac_gdev = nil;
+static int          mac_original_gdev_mode;
+static Boolean      mac_palette_changed = true;
+static Boolean      mac_show_grow_icon = true;
+static Boolean      mac_panning = false;
+static GWorldPtr    mac_grow_icon_gworld = nil;
+static RGBColor     mac_text_color = { 0xFFFF, 0xFFFF ,0xFFFF };	// white
+
+void       SetWindPaletteFromClut(WindowPtr theWindow, CTabHandle theClut);
+GDHandle   GetGameScreen(void);
+void       RestoreGameScreen(void);
+void       DrawNiceGrowIcon(WindowPtr w);
+void       DoMenuCommand(long menuResult);
+
+static void mac_free_buffers(char *buffer1, char *buffer2);
+
+MenuHandle mac_createrootmenu ();
+void mac_menu_selected (int menu_id, int item);
 
 // SUPPORT ROUTINES ----------------------
-
 
 #define kIndexedGDeviceType			0
 #define kFixedGDeviceType			1
 #define kDirectGDeviceType			2
 
-// Make sure menus are up-to-date with application environment
-void AdjustMenus(void)
-{
-	MenuHandle	optMenu = GetMHandle(mOptions);
-
-	SetItemMark(optMenu, iToggleGrowIcon, gbShowGrowIcon ? checkMark : noMark );
-	SetItemMark(optMenu, iBlackText, gTextColor.red == 0x0000 ? diamondMark : noMark );
-	SetItemMark(optMenu, iWhiteText, gTextColor.red == 0xFFFF ? diamondMark : noMark );
-	
-}
-
-
 // Handle menu command choice
 void DoMenuCommand(long menuResult)
 {
 	int		menuID, menuItem;
-	int		daRefNum;
 	Str255		daName;
 	MenuHandle	mh;
 
-	
 	menuID = HiWord(menuResult);	/* use macros for efficiency to... */
 	menuItem = LoWord(menuResult);	/* get menu item number and menu number */
 	mh = GetMenuHandle(menuID);
-	
-	if(mh != nil) {
-	
-	
-		switch ( menuID ) {
-			case mApple:
-				switch ( menuItem ) {
-					case iAbout:		/* bring up alert for About */
-						ui_key('h');
-						break;
-					default:			/* all non-About items in this menu are DAs et al */
-						/* type Str255 is an array in MPW 3 */
-						GetItem(mh, menuItem, daName);
-						daRefNum = OpenDeskAcc(daName);
-						break;
-				}
-				break;
-				
-				
-			case mFile:
-				switch ( menuItem )
-				{
-					case iQuit:
-						ui_key('q');
-						break;
-				}
-				break;
-				
-				
-			case mEdit:					/* call SystemEdit for DA editing & MultiFinder */
 
-				switch( menuItem)
-				{
-					case iCopy:	// want to support this later on.
-						break;
-
-				}
-						
-				break;
-				
-			case mOptions:
-				switch(menuItem)
-				{
-					case iToggleGrowIcon:
-						gbShowGrowIcon = !gbShowGrowIcon;
-						InvalRect(&screen->portRect);
-						break;
-						
-					case iBlackText:
-						gTextColor.red = gTextColor.green = gTextColor.blue = 0x0000;
-						break;
-					
-					case iWhiteText:
-						gTextColor.red = gTextColor.green = gTextColor.blue = 0xFFFF;
-						break;
-						
-				}
-				
-				break;
-			
-		} // switch menu
-
-	}	// if menuhandle good
+  if (menuID == apple_menu_id) {
+    if (menuItem == about_item)
+      ui_key('h');
+    else {
+      GetMenuItemText(mh, menuItem, daName);
+			OpenDeskAcc(daName);
+    }
+  }
+  else if (menuItem > 0) {
+    mac_menu_selected(menuID, menuItem);
+  }
 	HiliteMenu(0);					/* unhighlight what MenuSelect (or MenuKey) hilited */
-	AdjustMenus();
+  FlushEvents(everyEvent, 0);
 }
 
 
@@ -274,76 +195,20 @@ void SetWindPaletteFromClut(WindowPtr theWindow, CTabHandle theClut)
 }
 
 
-// Return a GDHandle to a screen that can be drawn on.
-// If no such screen, return nil.
+// Return a GDHandle to a mac_screen that can be drawn on.
+// If no such mac_screen, return nil.
 GDHandle GetGameScreen()
 {
-	GDHandle	gdhAux = nil, gdh = GetDeviceList();	// Get first GDevice.
+	mac_gdev = GetMainDevice(); // Get device with menu bar, which we will use
 	
-	while(gdh != nil)
-	{
-		// If this device is an 8-bit CLUT device, use it.
-		if(	TestDeviceAttribute(gdh, screenDevice) &&
-				TestDeviceAttribute(gdh, screenActive) )
-		{
-		
-			if((**gdh).gdType == clutType && (**gdh).gdMode == 128)
-			{
-				// Found an okay device already set.
-				gOrgSceenMode = (**gdh).gdMode;
-				gGameScreen = gdh;
-				return gdh;
-			}
-			// As long as we're going through all the devices,
-			// flag down one which could be used (if we haven't already).
-			if(gdhAux == nil && HasDepth(gdh, 8, gdDevType, 1 ))
-			{
-				gdhAux = gdh;
-			}
+  mac_depth = (**(**mac_gdev).gdPMap).pixelSize;
 			
-		}
-		gdh = GetNextDevice(gdh);
-	}
-	// Hmm... no screen was already at the preferred setting. See if
-	// we have an auxiliary device.
-	if(gdhAux == nil)
-	{
-		doErrorAlert("\pSorry, but a monitor that supports 256 colors is required.");
-		return nil;
-	}
-	// Ask the user if okay to switch the auxiliary monitor to 8-bit color mode.
-	if(doOKcancel("\pOkay to switch monitor to 256 colors?"))
-	{
-		gOrgSceenMode = (**gdhAux).gdMode;
-		if(SetDepth(gdhAux, 8, gdDevType, 1) == noErr)
-		{
-			gGameScreen = gdhAux;
-			return gdhAux;
-		}
-	}
-	
-	gGameScreen = nil;
-	return nil;
+	return mac_gdev;
 }
 
 // Restore original monitor device pixel depth.
 void RestoreGameScreen()
 {
-	if(gGameScreen == nil)
-		return;
-		
-	switch(gOrgSceenMode)
-	{
-		case 128:
-			SetDepth(gGameScreen, 8, gdDevType, 1);
-			break;
-		case 129:
-			SetDepth(gGameScreen, 16, gdDevType, 1);
-			break;
-		default:
-			SetDepth(gGameScreen, 32, gdDevType, 1);	// uh... try Millions mode.
-			break;
-	}
 }
 
 
@@ -355,37 +220,37 @@ static void display_refresh()
 	GDHandle	oldDev;
 	Rect		r;
 	
-	if(offscreen[mac_currentbuff] == nil)
+	if(mac_offscreen[mac_currentbuff] == nil)
 		return;
 	
-	if(gbShowGrowIcon)
+	if(mac_show_grow_icon)
 	{	
 		// Draw the grow icon onto the bitmap so it appears all the time.
 		GetGWorld(&oldPort, &oldDev);
 		
 
-		r = offscreen[mac_currentbuff]->portRect;
+		r = mac_offscreen[mac_currentbuff]->portRect;
 		r.left = r.right - 15;
 		r.top = r.bottom - 15;
 
 		// Save current pixels.
-		SetGWorld(gGrowIconPixels, nil);
+		SetGWorld(mac_grow_icon_gworld, nil);
 		ForeColor(blackColor);
 		BackColor(whiteColor);
 
-		pmap = GetGWorldPixMap(offscreen[mac_currentbuff]);
-		pmapicon = GetGWorldPixMap(gGrowIconPixels);
+		pmap = GetGWorldPixMap(mac_offscreen[mac_currentbuff]);
+		pmapicon = GetGWorldPixMap(mac_grow_icon_gworld);
 		
 		// Force color tables to be the same so speed is at maximum.
 		(*(( *pmap)->pmTable ))->ctSeed = (*(( *pmapicon)->pmTable ))->ctSeed;
 
-		CopyBits(&((GrafPtr)offscreen[mac_currentbuff])->portBits, &((GrafPtr)gGrowIconPixels)->portBits, &r, &gGrowIconPixels->portRect, srcCopy, nil);
+		CopyBits(&((GrafPtr)mac_offscreen[mac_currentbuff])->portBits, &((GrafPtr)mac_grow_icon_gworld)->portBits, &r, &mac_grow_icon_gworld->portRect, srcCopy, nil);
 
 		// Draw grow icon.		
-		SetGWorld(offscreen[mac_currentbuff], nil);
+		SetGWorld(mac_offscreen[mac_currentbuff], nil);
 		
 		
-		//DrawNiceGrowIcon((WindowPtr) offscreen[mac_currentbuff]);	// won't work.
+		//DrawNiceGrowIcon((WindowPtr) mac_offscreen[mac_currentbuff]);	// won't work.
 		OffsetRect(&r, 1, 1);
 		PenSize(1,1);
 		EraseRect(&r);
@@ -403,30 +268,30 @@ static void display_refresh()
 		
 		SetGWorld(oldPort, oldDev);
 	}
-	// An update event occurred, so just copy from our buffer to the screen.
-	pmap = GetGWorldPixMap(offscreen[mac_currentbuff]);
+	// An update event occurred, so just copy from our buffer to the mac_screen.
+	pmap = GetGWorldPixMap(mac_offscreen[mac_currentbuff]);
 	
 	// Force color tables to be the same so speed is at maximum.
 	(*(( *pmap)->pmTable ))->ctSeed = 
-		(*((*((*(gScreengdev)) -> gdPMap ))->pmTable))->ctSeed;
+		(*((*((*(mac_gdev)) -> gdPMap ))->pmTable))->ctSeed;
 
-	CopyBits(&((GrafPtr)offscreen[mac_currentbuff])->portBits, &((GrafPtr)screen)->portBits, &offscreen[mac_currentbuff]->portRect, &offscreen[mac_currentbuff]->portRect, srcCopy, nil);
+	CopyBits(&((GrafPtr)mac_offscreen[mac_currentbuff])->portBits, &((GrafPtr)mac_screen)->portBits, &mac_offscreen[mac_currentbuff]->portRect, &mac_screen->portRect, srcCopy, nil);
 
 	// Restore pixels.
-	if(gbShowGrowIcon)
+	if(mac_show_grow_icon)
 	{
-		r = offscreen[mac_currentbuff]->portRect;
+		r = mac_offscreen[mac_currentbuff]->portRect;
 		r.left = r.right - 15;
 		r.top = r.bottom - 15;
 
-		SetGWorld(offscreen[mac_currentbuff], nil);
-		pmap = GetGWorldPixMap(offscreen[mac_currentbuff]);
-		pmapicon = GetGWorldPixMap(gGrowIconPixels);
+		SetGWorld(mac_offscreen[mac_currentbuff], nil);
+		pmap = GetGWorldPixMap(mac_offscreen[mac_currentbuff]);
+		pmapicon = GetGWorldPixMap(mac_grow_icon_gworld);
 		
 		// Force color tables to be the same so speed is at maximum.
 		(*(( *pmap)->pmTable ))->ctSeed = (*(( *pmapicon)->pmTable ))->ctSeed;
 
-		CopyBits(&((GrafPtr)gGrowIconPixels)->portBits, &((GrafPtr)offscreen[mac_currentbuff])->portBits, &gGrowIconPixels->portRect, &r, srcCopy, nil);
+		CopyBits(&((GrafPtr)mac_grow_icon_gworld)->portBits, &((GrafPtr)mac_offscreen[mac_currentbuff])->portBits, &mac_grow_icon_gworld->portRect, &r, srcCopy, nil);
 	
 		SetGWorld(oldPort, oldDev);
 	
@@ -444,17 +309,16 @@ static void mac_print(int x, int y, CONST char *text)
 {
 	static short lastY = 32000;
 	
-	// Clear screen if cursor has moved up or on same line.
+	// Clear mac_screen if cursor has moved up or on same line.
 	if(y <= lastY)
 		display_refresh();
-	//	EraseRect(&screen->portRect);
+	//	EraseRect(&mac_screen->portRect);
 		
 	lastY = y;
 		
 	MoveTo(x+3, y+12);
-	RGBForeColor(&gTextColor);
+	RGBForeColor(&mac_text_color);
 	DrawText(text, 0, strlen(text));
-	
 	
 	ForeColor(blackColor);	// so copybits will work
 }
@@ -463,14 +327,12 @@ static void mac_print(int x, int y, CONST char *text)
 // Display pixel buffer from fractal engine to window.
 static void mac_display()
 {
-	// If this is our first time, activate the palette.
-	//static Boolean bBeenHere = false;
 	PixMapHandle pmap;
 
-	if(gbPaletteChanged)
+	if(mac_palette_changed)
 	{
-		gbPaletteChanged = false;
-		ActivatePalette(screen);
+		mac_palette_changed = false;
+		ActivatePalette(mac_screen);
 	}
 
 	display_refresh();
@@ -488,21 +350,20 @@ static int mac_set_color(int r, int g, int b, int init)
 	
     if (init)
     {
-		ncolors = 1;
-		gbPaletteChanged = true;	// signal mac_display to activate new palette
+		mac_num_colors = 1;
+		mac_palette_changed = true;	// signal mac_display to activate new palette
 	}
-    if (ncolors == 255)
+    if (mac_num_colors == 255)
 		return (-1);
 	
 	srcRGB.red = r * 256;
 	srcRGB.green = g * 256;
 	srcRGB.blue = b * 256;
 	
-	hPalette = GetPalette(screen);
-	SetEntryColor(hPalette, ncolors-1, &srcRGB);
-    return (ncolors++);
+	hPalette = GetPalette(mac_screen);
+	SetEntryColor(hPalette, mac_num_colors-1, &srcRGB);
+    return (mac_num_colors++);
 }
-
 
 // Switch current pixel buffer to copy from on next display update.
 static void mac_flip_buffers()
@@ -510,24 +371,22 @@ static void mac_flip_buffers()
     mac_currentbuff ^= 1;
 }
 
-
 // Deallocate any stuff we allocated at startup.
-static void mac_uninitialise()
+static void mac_uninitialize()
 {
 	int i;
 	for(i=0; i<2; i++)
 	{
-		if(offscreen[i] != nil)
-			DisposeGWorld(offscreen[i]);
+		if(mac_offscreen[i] != nil)
+			DisposeGWorld(mac_offscreen[i]);
 	}
-	DisposeWindow(screen);
+	DisposeWindow(mac_screen);
 	RestoreGameScreen();
+	
+	ShowMenuBar();
 }
 
-
-
-// Begin Mac UI support. Init Toolbox, create window, etc.
-static int mac_init()
+static int mac_init(int fullScreen)
 {
 	Rect	r;
 	OSErr err, error;
@@ -539,23 +398,25 @@ static int mac_init()
 	int			i;
 	PicHandle	ph;
 	Rect rSplash;
-	Rect	r2 = {0,0,15,15};
-	Handle		menuBar;
+	Rect	r2;
+  MenuHandle appleMenu;
 	char	winTitle[255];
 
 	// Init the Mac Toolbox.
-		//	Test the computer to be sure we can do color.  
+	//	Test the computer to be sure we can do color.  
 	//	If not we would crash, which would be bad.  
 	//	If we canÕt run, just beep and exit.
 	//
 
 	static Boolean	bBeenHere = false;
 	
+	full_screen_mode = fullScreen;
+	
 	if(!bBeenHere)
 	{
 		error = SysEnvirons(1, &theWorld);
 		if (theWorld.hasColorQD == false) {
-			SysBeep(50);
+			SysBeep(1);
 			ExitToShell();					/* If no color QD, we must leave. */
 		}
 		
@@ -580,93 +441,193 @@ static int mac_init()
 		
 		// Nicely acquire drawing device.
 		// Do this before the messier init/terminate stuff occurs.
-		ourScreen = GetGameScreen();
-		
-		if(ourScreen == nil)
+		if (!GetGameScreen())
 			ExitToShell();
-
 
 		// -- Mac Toolbox initialized.
 		bBeenHere = true;
 		
-		// Install menu bar.
-		menuBar = GetNewMBar(rMenuBar);			/* read menus into menu bar */
-		if ( menuBar == nil ) {
-			doErrorAlert("\pCouldnÕt allocate memory for menus");
-			ExitToShell();
-		}
+		// Install apple menu
+		appleMenu = NewMenu(apple_menu_id, "\p\024");
 		
-		SetMenuBar(menuBar);					/* install menus */
-		DisposHandle(menuBar);
-
-		AddResMenu(GetMHandle(mApple), 'DRVR');	/* add DA names to Apple menu */
+		MacAppendMenu(appleMenu, "\pXaoS HelpÉ");
+		MacAppendMenu(appleMenu, "\p(-");
+    
+    MacInsertMenu(appleMenu, 0);
+		
+		// This voodoo tells the Mac OS to add its junk to the Apple menu
+		AppendResMenu(appleMenu, 'DRVR');
+		
+		mac_createrootmenu();
 
 		DrawMenuBar();
-
 	}	
 	
-	//CTabHandle hColors = GetCTable(8 + 64);	// default 8-bit color table
-	SetRect(&r, 0, 0, MAC_WINWIDTH, MAC_WINHEIGHT);
-	
 	// Set up grow icon buffer.
-	NewGWorld(&gGrowIconPixels, 8, &r2, 0,0,0);
-	if(gGrowIconPixels == nil)
+	SetRect(&r2, 0, 0, 15, 15);	
+	NewGWorld(&mac_grow_icon_gworld, 8, &r2, 0,0,0);
+	if(mac_grow_icon_gworld == nil)
 		return 0;
+	LockPixels(	GetGWorldPixMap(mac_grow_icon_gworld));
 
-	LockPixels(	GetGWorldPixMap(gGrowIconPixels));
-	OffsetRect(&r, 100, 100);
 	sprintf(winTitle, "XaoS Fractal Viewer %s", XaoS_VERSION);
 	c2pstr(winTitle);
-	screen = NewCWindow(nil, &r, (StringPtr)winTitle, true,  documentProc, (WindowPtr) -1, true, nil);
-	
-	
-	if(screen == nil)
-		return 0;
-		
-		
+
+  if (full_screen_mode) {
+    if (mac_gdev == GetMainDevice())
+      HideMenuBar();
+  
+    r = (**mac_gdev).gdRect;
+
+    mac_window_width = r.right - r.left;
+    mac_window_height = r.bottom - r.top;
+    
+    if (full_screen_mode == 2) {
+      mac_window_width /= 2;
+      mac_window_height /= 2;
+    }
+
+    // Create a window the size of the entire screen
+
+	  mac_screen = NewCWindow(nil, &r, (StringPtr)winTitle, true,  plainDBox,
+	                          (WindowPtr) -1, true, nil);
+
+  	if(mac_screen == nil)
+	  	return 0;
+	  
+	  // Make its visRgn the size of the screen so it can overdraw the
+	  // menu bar and other stuff.
+	  
+	  RectRgn(((CGrafPort *)mac_screen) -> visRgn, &r);
+	  
+	  mac_show_grow_icon = false;
+	  
+  }
+  else {
+  
+	  r = (**mac_gdev).gdRect;
+	  
+	  InsetRect(&r, 40, 40);
+	  
+	  if (mac_gdev == GetMainDevice())
+	    r.top += GetMBarHeight();
+	  
+	  r.top += 20; // for title bar height
+
+    mac_window_width = r.right - r.left;
+    mac_window_height = r.bottom - r.top;
+	  
+	  mac_screen = NewCWindow(nil, &r, (StringPtr)winTitle, true,  documentProc,
+	                          (WindowPtr) -1, true, nil);
+
+  	if(mac_screen == nil)
+	  	return 0;
+	  
+	  mac_show_grow_icon = true;
+	}
 	
 	// Set the window's characteristics.
 	clut = GetCTable(128);
 	if(clut)
-		SetWindPaletteFromClut(screen, clut);
+		SetWindPaletteFromClut(mac_screen, clut);
 	
-	SetPort(screen);
-	GetGWorld(&oldWorld, &gScreengdev);
-	ValidRect(&screen->portRect);	// kill upcoming update event since offscreen buffers n/a.
-	//DrawNiceGrowIcon(screen);
+	SetPort(mac_screen);
+	GetGWorld(&oldWorld, &mac_gdev);
+	ValidRect(&mac_screen->portRect);	// kill upcoming update event since mac_offscreen buffers n/a.
+	//DrawNiceGrowIcon(mac_screen);
 	ForeColor(blackColor);
 	BackColor(whiteColor);
 	
 	TextMode(srcOr);
 	
-	// Display splash screen
-	EraseRect(&screen->portRect);
-	ph = GetPicture(kSplashPICT);
-	
-	SetRect(&rSplash, 0, 0, 348, 170);
-	OffsetRect(&rSplash, (MAC_WINWIDTH - rSplash.right)/2, (MAC_WINHEIGHT - rSplash.bottom)/2);	// center
-	DrawPicture(ph, &rSplash);
-	ReleaseResource((Handle)ph);
+	#if 0
+		// Display splash mac_screen
+		EraseRect(&mac_screen->portRect);
+		ph = GetPicture(kSplashPICT);
+		
+		SetRect(&rSplash, 0, 0, 348, 170);
+		OffsetRect(&rSplash, (mac_window_width - rSplash.right)/2, (mac_window_height - rSplash.bottom)/2);	// center
+		DrawPicture(ph, &rSplash);
+		ReleaseResource((Handle)ph);
 
 
-	// Wait for user to click mouse (a mousedown and then a mouseup).
-	while(!Button()) { }
-	while(Button()) { }
-
+		// Wait for user to click mouse (a mousedown and then a mouseup).
+		while(!Button()) { }
+		while(Button()) { }
+  #endif
 	
 	// Set font to display ugly help as least ugly as possible.
-	TextFont(monaco);
+	TextFont(1);
 	TextSize(9);
 
 	return 1;	
-	
 }
 
-// Return display buffer size.
+static int mac_window_init()
+{
+  return mac_init(0);
+}
+
+static int mac_fullscreen_init()
+{
+  return mac_init(1);
+}
+
+static int mac_doublescreen_init()
+{
+  return mac_init(2);
+}
+
+// Return display buffer size, and also set drivers based on monitor
+// bit depth appropriately.
 static void mac_get_size(int *x, int *y)
 {
-	*x = MAC_WINWIDTH;
-	*y = MAC_WINHEIGHT;
+	struct ui_driver *driver;
+	int i;
+	*x = mac_window_width;
+	*y = mac_window_height;	
+	
+	for(i=0; i<3; i++) {
+	
+    switch(i) {
+    case 0:
+	    driver = &mac_driver;
+	    break;
+	  case 1:
+	    driver = &full_driver;
+	    break;
+	  case 2:
+	    driver = &double_driver;
+	    break;
+	  }
+	  	
+		switch(mac_depth)
+	  {
+	    case 16:
+	      driver->imagetype = UI_TRUECOLOR16;
+	      driver->bmask = 0x001f;    //             11111b
+			  driver->gmask = 0x03e0;    //        1111100000b
+			  driver->rmask = 0x7c00;    //   111110000000000b
+	      break;
+	    case 24:
+	      driver->imagetype = UI_TRUECOLOR24;
+	      driver->bmask = 0x000000ff;
+			  driver->gmask = 0x0000ff00;
+			  driver->rmask = 0x00ff0000;
+	      break;
+	    case 32:
+	      driver->imagetype = UI_TRUECOLOR;
+	      driver->bmask = 0x000000ff;
+			  driver->gmask = 0x0000ff00;
+			  driver->rmask = 0x00ff0000;
+	      break;
+	    case 8:
+	    default:
+	      driver->imagetype = UI_C256;
+	      mac_depth = 8; // use 8-bit offscreen and let QuickDraw fix it.
+	      break;
+	  }
+  }
 }
 
 
@@ -682,7 +643,7 @@ static void mac_getmouse(int *x, int *y, int *buttons)
 	*y = p.v;
 	
     *buttons = 0;
-    
+
 	GetKeys(charmap);
 	
 	// Switch the cursor to a hand if the shift key is down.
@@ -690,17 +651,17 @@ static void mac_getmouse(int *x, int *y, int *buttons)
 
 	if(charmap[1] & 0x0001)	// shift - pan
 	{
-/*		if(!gbPanning)
+/*		if(!mac_panning)
 		{*/
-			gbPanning = true;
+			mac_panning = true;
 			SetCursor(*GetCursor(Button() ? CURS_PANACTIVE : CURS_PAN));
 		//}
 	}
 	else
 	{
-		if(gbPanning)
+		if(mac_panning)
 		{
-			gbPanning = false;
+			mac_panning = false;
 			SetCursor(&qd.arrow);
 		}
 	}
@@ -743,10 +704,11 @@ static void mac_processevents(int wait, int *x, int *y, int *buttons, int *k)
 	Rect	rSizeCtl;
 	static	Rect rSizeRect;
 	long	newWinSize;
+	int   old_depth;
 	
 	*k = 0;
 
-	//DrawNiceGrowIcon(screen);
+	//DrawNiceGrowIcon(mac_screen);
 
 	if(GetNextEvent(everyEvent, &event))
 	{
@@ -758,33 +720,39 @@ static void mac_processevents(int wait, int *x, int *y, int *buttons, int *k)
 			case diskEvt:
 				if ( HiWord(event.message) != noErr )
 				{
-					SetPt(&ptLocal, kDILeft, kDITop);
+					SetPt(&ptLocal, 0x0070, 0x0050);
 					(void) DIBadMount(ptLocal, event.message);
 				}
 				break;
 
 			case updateEvt:
-				if((WindowPtr) event.message == screen)
+			  // If the monitor has switched depths, we need to reinitialize
+			  old_depth = mac_depth;
+			  GetGameScreen();
+			  if (old_depth != mac_depth) {
+          ui_resize();
+        }
+			  else if((WindowPtr) event.message == mac_screen)
 				{
-					BeginUpdate(screen);
+					BeginUpdate(mac_screen);
 					display_refresh();
-					//DrawNiceGrowIcon(screen);
-					EndUpdate(screen);
+					//DrawNiceGrowIcon(mac_screen);
+					EndUpdate(mac_screen);
 				}
 				break;
 				
 			case mouseUp:
-				//DrawNiceGrowIcon(screen);
+				//DrawNiceGrowIcon(mac_screen);
 				break;
 				
 			case mouseDown:
+			  SetPort(mac_screen);
 				part = FindWindow(event.where, &hitWindow);
-				if(hitWindow != screen)
+				if(hitWindow != mac_screen)
 				{
 					switch(part)
 					{
 						case inMenuBar:             /* process a mouse menu command (if any) */
-							AdjustMenus();	/* bring Õem up-to-date */
 							DoMenuCommand(MenuSelect(event.where));
 							break;
 					}
@@ -797,27 +765,27 @@ static void mac_processevents(int wait, int *x, int *y, int *buttons, int *k)
 						case inDrag:
 							hRgnDesk = GetGrayRgn();
 							rDesk = (*hRgnDesk)->rgnBBox;
-							DragWindow(screen, event.where, &rDesk);
+							DragWindow(mac_screen, event.where, &rDesk);
 							break;
 							
 						case inGoAway:
-							if(TrackGoAway(screen, event.where))
+							if(TrackGoAway(mac_screen, event.where))
 							{
-								mac_uninitialise();
+								mac_uninitialize();
 								ExitToShell();
 							}
 							break;
 							
 						case inGrow:
 							SetRect(&rSizeRect, 200, 150, 30000, 30000); 
-							newWinSize = GrowWindow(screen, event.where, &rSizeRect);
+							newWinSize = GrowWindow(mac_screen, event.where, &rSizeRect);
 							if(newWinSize != 0)
 							{
-								MAC_WINWIDTH = LoWord(newWinSize);
-								MAC_WINHEIGHT = HiWord(newWinSize);
-								SizeWindow(screen, MAC_WINWIDTH, MAC_WINHEIGHT, false);
+								mac_window_width = LoWord(newWinSize);
+								mac_window_height = HiWord(newWinSize);
+								SizeWindow(mac_screen, mac_window_width, mac_window_height, false);
 								// Switch to black help text since resized window wipes itself white.
-								gTextColor.red = gTextColor.green = gTextColor.blue = 0x0000;
+								mac_text_color.red = mac_text_color.green = mac_text_color.blue = 0x0000;
 								ui_call_resize();
 								mac_getmouse(x, y, buttons);
 								*buttons = 0;	// mouse is up by now, but make sure
@@ -836,16 +804,20 @@ static void mac_processevents(int wait, int *x, int *y, int *buttons, int *k)
 				
 				if(key == '.' && vkey == cmdKey)
 				{
-					mac_uninitialise();
+					mac_uninitialize();
 					ExitToShell();
 				}
 				
 				switch(key)
 				{
-					case 0x1C: *k += 1; break;	// left
-					case 0x1D: *k += 2; break;	// right
-					case 0x1E: *k += 4; break;	// up
-					case 0x1F: *k += 8; break;	// down
+					case 0x1C:
+						*k += 1; break;	// left
+					case 0x1D:
+						*k += 2; break;	// right
+					case 0x1E:
+						*k += 4; break;	// up
+					case 0x1F:
+						*k += 8; break;	// down
 				}
 				
 				ui_key(key);
@@ -868,35 +840,42 @@ static int mac_alloc_buffers(char **buffer1, char **buffer2)
 	OSErr			err1, err2;
 	Rect			r = { 0,0,0,0 };
 	
+  static char*        buffers[2];
+	
 	int				width, height;
+	int x,y;
 	
 	mac_get_size(&width, &height);
 	r.right = width;
 	r.bottom = height;
 	
 
-	err1 = NewGWorld(&offscreen[0], 8, &r, nil, nil, 0);
-	err2 = NewGWorld(&offscreen[1], 8, &r, nil, nil, 0);
+	err1 = NewGWorld(&mac_offscreen[0], mac_depth, &r, nil, nil, 0);
+	err2 = NewGWorld(&mac_offscreen[1], mac_depth, &r, nil, nil, 0);
 	
 	if(err1 != noErr || err2 != noErr)
 	{
-		if(offscreen[0] != nil) { DisposeGWorld(offscreen[0]); offscreen[0] = nil; }
-		if(offscreen[1] != nil) { DisposeGWorld(offscreen[1]); offscreen[1] = nil; }
+		if(mac_offscreen[0] != nil) { DisposeGWorld(mac_offscreen[0]); mac_offscreen[0] = nil; }
+		if(mac_offscreen[1] != nil) { DisposeGWorld(mac_offscreen[1]); mac_offscreen[1] = nil; }
 		return 0;
 	}
 
-
-	pmap = GetGWorldPixMap(offscreen[0]);
+	pmap = GetGWorldPixMap(mac_offscreen[0]);
 	LockPixels(pmap);
 	rowBytes = (*pmap)->rowBytes & 0x3fff; // mask off top two bits
 	buffers[0] = GetPixBaseAddr(pmap);
 
-	pmap = GetGWorldPixMap(offscreen[1]);
+	pmap = GetGWorldPixMap(mac_offscreen[1]);
 	LockPixels(pmap);
 	buffers[1] = GetPixBaseAddr(pmap);
 	
 	*buffer1 = buffers[0];
 	*buffer2 = buffers[1];
+	/*
+	for(y=0; y<height; y++)
+	  for(x=0; x<rowBytes; x++) {
+	    ((char *)buffers[0])[y*rowBytes+x] = 0;
+	  }*/
 
 	mac_currentbuff = 0;
 	
@@ -910,69 +889,135 @@ static void mac_free_buffers(char *buffer1, char *buffer2)
 	int i;
 	for(i=0; i<2; i++)
 	{
-		if(offscreen[i] != nil) { DisposeGWorld(offscreen[i]); offscreen[i] = nil; }
+		if(mac_offscreen[i] != nil) { DisposeGWorld(mac_offscreen[i]); mac_offscreen[i] = nil; }
 	}
 }
 
 
+void mac_dorootmenu (struct uih_context *uih, CONST char *name);
+void mac_enabledisable (struct uih_context *uih, CONST char *name);
+void mac_menu (struct uih_context *c, CONST char *name);
+void mac_dialog (struct uih_context *c, CONST char *name);
+void mac_help (struct uih_context *c, CONST char *name);
+
+
 static char *helptext[] =
 {
-    "MACINTOSH DRIVER VERSION 1.31          ",
+    "MACINTOSH DRIVER VERSION 2.0           ",
     "====================================   ",
-    "Written by Tapio K. Vocadlo            ",
-    "Ottawa, Canada                         ",
+    "Written by Dominic Mazzoni             ",
+    "(dmazzoni@cs.cmu.edu)                  ",
+    "based on the 1.31 driver               ",
+    "by Tapio K. Vocadlo                    ",
     "(taps@rmx.com)                         ",
     "                                       ",
     "Shift-drag    = pan                    ",
     "Control-click = zoom out               ",
     "Cmd-period    = force quit at any time ",
     "                                       ",
-    "See menubar for more commands.         ",
-    "                                       ",
-    "Will force 8-bit mode on monitor       ",
-    "if necessary (and restore previous     ",
-    "mode on exit). May not run if main     ",
-    "monitor not 8-bit capable.             ",
-    "                                       ",
-    "If the message 'Could not allocate     ",
-    "buffers' "appears after resizing the   ",
-    "window larger, use the Finder's 'Get   ",
-    "Info...' command to increase this      ",
-    "application's Preferred Size memory    ",
-    "requirement.                           "
-     
+    "See menubar for more commands.         "
 };
 
 #define UGLYTEXTSIZE (sizeof(helptext)/sizeof(char *))
-static struct params params[] =
+static struct params mac_params[] =
 {
-    {NULL, 0, NULL, NULL}
+    {NULL, NULL, NULL, NULL}
+};
+
+struct gui_driver mac_gui_driver =
+{
+   mac_dorootmenu,      //dorootmenu
+   mac_enabledisable,   //enabledisable
+   NULL,                //pop-up menu
+   NULL,                //mac_dialog
+   NULL                 //mac_help
 };
 
 struct ui_driver mac_driver =
 {
-    "",
-    mac_init,
+    "Mac Windowed Driver",
+    mac_window_init,
     mac_get_size,
     mac_processevents,
     mac_getmouse,
-    mac_uninitialise,
+    mac_uninitialize,
     mac_set_color,
+    NULL, /* set_range */
     mac_print,
     mac_display,
     mac_alloc_buffers,
     mac_free_buffers,
     mac_flip_buffers,
-    NULL,
-    NULL,
-    NULL,
-    256,
-    11,
-    helptext,
-    UGLYTEXTSIZE,
-    params,
-    UPDATE_AFTER_PALETTE | UPDATE_AFTER_RESIZE,
-    0.0,0.0,
-    0,0
+    NULL, /* mouse_type*/
+    NULL, /* flush */
+    12, /* textwidth */
+    12, /* textheight */
+    mac_params,
+		PIXELSIZE|RESOLUTION /*| UPDATE_AFTER_PALETTE*/, /* flags */
+		0.01, 0.01, /* width, height */
+		0, 0, /* maxwidth, maxheight */
+		UI_C256, /* imagetype */
+		0, 256, 256, /* palette start, end, maxentries */
+		0, 0, 0, /* rmask, gmask, bmask */
+    &mac_gui_driver //NULL /* GUI_Driver */
 };
+
+struct ui_driver full_driver =
+{
+    "Mac Fullscreen Driver",
+    mac_fullscreen_init,
+    mac_get_size,
+    mac_processevents,
+    mac_getmouse,
+    mac_uninitialize,
+    mac_set_color,
+    NULL, /* set_range */
+    mac_print,
+    mac_display,
+    mac_alloc_buffers,
+    mac_free_buffers,
+    mac_flip_buffers,
+    NULL, /* mouse_type*/
+    NULL, /* flush */
+    12, /* textwidth */
+    12, /* textheight */
+    mac_params,
+		FULLSCREEN | PIXELSIZE |RESOLUTION  /*| UPDATE_AFTER_PALETTE*/, /* flags */
+		0.01, 0.01, /* width, height */
+		0, 0, /* maxwidth, maxheight */
+		0, //UI_C256, /* imagetype */
+		0, 256, 256, /* palette start, end, maxentries */
+	  0, 0, 0, /* rmask, gmask, bmask */
+    NULL /* GUI_Driver */
+};
+
+struct ui_driver double_driver =
+{
+    "Mac Doubled Fullscreen Driver",
+    mac_doublescreen_init,
+    mac_get_size,
+    mac_processevents,
+    mac_getmouse,
+    mac_uninitialize,
+    mac_set_color,
+    NULL, /* set_range */
+    mac_print,
+    mac_display,
+    mac_alloc_buffers,
+    mac_free_buffers,
+    mac_flip_buffers,
+    NULL, /* mouse_type*/
+    NULL, /* flush */
+    12, /* textwidth */
+    12, /* textheight */
+    mac_params,
+		FULLSCREEN | PIXELSIZE |RESOLUTION  /*| UPDATE_AFTER_PALETTE*/, /* flags */
+		0.01, 0.01, /* width, height */
+		0, 0, /* maxwidth, maxheight */
+		0, //UI_C256, /* imagetype */
+		0, 256, 256, /* palette start, end, maxentries */
+	  0, 0, 0, /* rmask, gmask, bmask */
+    NULL /* GUI_Driver */
+};
+
 #endif	// _MAC
