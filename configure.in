@@ -895,10 +895,10 @@ else
 fi
 if test "x$ac_cv_c_long_double" = xyes; then
   if test "x$long_double" = xyes; then
-  AC_MSG_WARN(Long double enabled. This works well for x86 architectures. On other systems this may slow down much. Especially on SUN workstations. If XaoS works incredibly slowly, try to rebuild it using:
+  AC_MSG_WARN([Long double enabled. This works well for x86 architectures. On other systems this may slow down much. Especially on SUN workstations. If XaoS works incredibly slowly, try to rebuild it using:
    configure --with-long-double=no
    make clean
-   make)
+   make])
   fi
 fi
 if test "x$drivers" = xno; then
