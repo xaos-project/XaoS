@@ -1048,6 +1048,7 @@ static CONST menuitem menuitems[] =	/*XaoS menu specifications */
   LANG ("English", "english"),
   LANG ("Espanhol", "espanhol"),
   LANG ("Francais", "francais"),
+  LANG ("Magyar", "magyar"),
 
   TUTOR ("intro", "Whole story", "fractal.xaf"),
   MENUSEPARATOR ("intro"),
