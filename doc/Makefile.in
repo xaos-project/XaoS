@@ -1,6 +1,6 @@
 all: doc
 
-doc: dvi AUTHORS xaos.info
+doc: xaos.info dvi AUTHORS
 
 xaos.texinfo: xaos.geninfo ../help/xaos.hlp
 	./mktexi

@@ -1845,7 +1845,6 @@ seeds and much else.
 * palettemenu::	Palette
 * uimandelbrot::	Mandelbrot mode
 * uiperturbation::	Perturbation
-* uibailout::	Bailout
 * uiview::	View
 * initstate::	Reset to defaults
 * tcolor::	True-color coloring modes
@@ -1936,7 +1935,7 @@ files.
    _Available as_: command line option, command
 
 
-File: xaos.info,  Node: uiperturbation,  Next: uibailout,  Prev: uimandelbrot,  Up: fractal
+File: xaos.info,  Node: uiperturbation,  Next: uiview,  Prev: uimandelbrot,  Up: fractal
 
 Perturbation
 ------------
@@ -1969,19 +1968,21 @@ use. Use 0 0 to disable perturbation.
    _Available as_: command line option, command
 
 
-File: xaos.info,  Node: uibailout,  Next: uiview,  Prev: uiperturbation,  Up: fractal
+File: xaos.info,  Node: bailout,  Next: fastjulia,  Prev: maxiter,  Up: calc
 
 Bailout
 -------
 
    Bailout is the value which is checked for each point of the orbit if
 the point is far enough from the complex zero point in the current
-iteration.
+iteration.  If the point is far enough, then the iteration immediately
+stops and the starting point on the screen will be painted with a given
+colour, depending on the fractal type and many other settings.
 
    For the Mandelbrot set this value is 4. Other fractal types usually
 have the same bailout value. For most fractals many bailout values give
 more or less similar output. E.g., for the second order Mandelbrot set
-one can prove that the sequence |z:=z^2+z| tends to infinity if and
+one can prove that the sequence |z| (z:=z^2+z) tends to infinity if and
 only if |z|>2 for some element z of this sequence.  In XaoS program,
 Bailout value is the square of this 2, i.e. you can change this to any
 value greater than 2 for similar results.
@@ -1991,10 +1992,10 @@ for each types.
 
    _Available as_: menu item
 
- - Function: bailout complex
+ - Function: bailout float
 
 
-File: xaos.info,  Node: uiview,  Next: initstate,  Prev: uibailout,  Up: fractal
+File: xaos.info,  Node: uiview,  Next: initstate,  Prev: uiperturbation,  Up: fractal
 
 View
 ----
@@ -2322,6 +2323,7 @@ such as the maximum iteration count and periodicity checking.
 * dynamic::	Dynamic resolution
 * periodicity::	Periodicity checking
 * maxiter::	Iterations
+* bailout::	Bailout
 * fastjulia::	Fast Julia mode
 * dynamic::	Dynamic resolution
 * rotate::	Rotation
@@ -2389,7 +2391,7 @@ hacker's manual (`xaosdev.texinfo') devoted to the subject.
    _Available as_: menu item, command line option, command
 
 
-File: xaos.info,  Node: maxiter,  Next: fastjulia,  Prev: periodicity,  Up: calc
+File: xaos.info,  Node: maxiter,  Next: bailout,  Prev: periodicity,  Up: calc
 
 Iterations
 ----------
@@ -2418,7 +2420,7 @@ hacker's manual (`xaosdev.texinfo') devoted to the subject.
    _Available as_: menu item, command line option, command
 
 
-File: xaos.info,  Node: fastjulia,  Next: dynamic,  Prev: maxiter,  Up: calc
+File: xaos.info,  Node: fastjulia,  Next: dynamic,  Prev: bailout,  Up: calc
 
 Fast Julia mode
 ---------------
@@ -3489,7 +3491,7 @@ Index of functions
 * animateview:                           animateview.
 * autopilot:                             autopilot.
 * autorotate:                            rotate.
-* bailout:                               uibailout.
+* bailout:                               bailout.
 * clearline:                             linemenu.
 * clearlines:                            linemenu.
 * clearscreen:                           clearscreen.
@@ -3615,72 +3617,72 @@ Node: redo60585
 Node: copy60751
 Node: paste61034
 Node: fractal61309
-Node: formula61889
-Node: uimandelbrot62608
-Node: uiperturbation64119
-Node: uibailout65301
-Node: uiview66170
-Node: initstate68163
-Node: plane68642
-Node: incoloring69794
-Node: outcoloring71307
-Node: tcolor73019
-Node: calc74641
-Node: range75080
-Node: periodicity75694
-Node: maxiter77857
-Node: fastjulia79089
-Node: dynamic79835
-Node: rotate80663
-Node: mfilter82071
-Node: filter82720
-Node: edge83354
-Node: edge283882
-Node: starfield84415
-Node: stereogram84763
-Node: interlace89137
-Node: blur89542
-Node: emboss89946
-Node: palettef90270
-Node: anti90827
-Node: truecolor91521
-Node: ui92119
-Node: speed92573
-Node: letterspersec93619
-Node: autopilot93999
-Node: recalculate94821
-Node: interrupt95181
-Node: nogui95401
-Node: status95860
-Node: ministatus96248
-Node: misc96538
-Node: command96932
-Node: renderanim97307
-Node: clearscreen97549
-Node: display97879
-Node: text98170
-Node: color98895
-Node: textposition99164
-Node: message99619
-Node: helpmenu100011
-Node: xtextpos100143
-Node: ytextpos100408
-Node: mformula100681
-Node: mandel101025
-Node: mandel3101293
-Node: octal101713
-Node: newton102040
-Node: barnsley102573
-Node: phoenix102842
-Node: magnet103067
-Node: palettemenu103398
-Node: defpalette103727
-Node: randompalette104208
-Node: palette104698
-Node: cycling105545
-Node: shiftpalette106508
-Node: authors107205
-Node: lists109161
-Node: index109907
+Node: formula61867
+Node: uimandelbrot62586
+Node: uiperturbation64097
+Node: bailout65276
+Node: uiview66333
+Node: initstate68331
+Node: plane68810
+Node: incoloring69962
+Node: outcoloring71475
+Node: tcolor73187
+Node: calc74809
+Node: range75268
+Node: periodicity75882
+Node: maxiter78045
+Node: fastjulia79275
+Node: dynamic80021
+Node: rotate80849
+Node: mfilter82257
+Node: filter82906
+Node: edge83540
+Node: edge284068
+Node: starfield84601
+Node: stereogram84949
+Node: interlace89323
+Node: blur89728
+Node: emboss90132
+Node: palettef90456
+Node: anti91013
+Node: truecolor91707
+Node: ui92305
+Node: speed92759
+Node: letterspersec93805
+Node: autopilot94185
+Node: recalculate95007
+Node: interrupt95367
+Node: nogui95587
+Node: status96046
+Node: ministatus96434
+Node: misc96724
+Node: command97118
+Node: renderanim97493
+Node: clearscreen97735
+Node: display98065
+Node: text98356
+Node: color99081
+Node: textposition99350
+Node: message99805
+Node: helpmenu100197
+Node: xtextpos100329
+Node: ytextpos100594
+Node: mformula100867
+Node: mandel101211
+Node: mandel3101479
+Node: octal101899
+Node: newton102226
+Node: barnsley102759
+Node: phoenix103028
+Node: magnet103253
+Node: palettemenu103584
+Node: defpalette103913
+Node: randompalette104394
+Node: palette104884
+Node: cycling105731
+Node: shiftpalette106694
+Node: authors107391
+Node: lists109347
+Node: index110093
 
 End Tag Table

@@ -1861,7 +1861,6 @@ else.
 * palettemenu::	Palette
 * uimandelbrot::	Mandelbrot mode
 * uiperturbation::	Perturbation
-* uibailout::	Bailout
 * uiview::	View
 * initstate::	Reset to defaults
 * tcolor::	True-color coloring modes
@@ -1940,7 +1939,7 @@ Select the current julia seed.
 
 @emph{Available as}: command line option, command
 
-@node uiperturbation,  uibailout,  uimandelbrot,  fractal
+@node uiperturbation,  uiview,  uimandelbrot,  fractal
 
 
 @appendixsubsec Perturbation
@@ -1971,7 +1970,7 @@ perturbation.
 
 @emph{Available as}: command line option, command
 
-@node uibailout,  uiview,  uiperturbation,  fractal
+@node bailout,  fastjulia,  maxiter,  calc
 
 
 @appendixsubsec Bailout
@@ -1979,12 +1978,16 @@ perturbation.
 Bailout is the value which is checked for each point of
 the orbit if the point is far enough
 from the complex zero point in the current iteration.
+If the point is far enough, then the iteration immediately
+stops and the starting point on the screen will be
+painted with a given colour, depending on the fractal
+type and many other settings.
 
 For the Mandelbrot set
 this value is 4. Other fractal types usually
 have the same bailout value. For most fractals many bailout values
 give more or less similar output. E.g., for the second order
-Mandelbrot set one can prove that the sequence |z:=z^2+z| tends to
+Mandelbrot set one can prove that the sequence |z| (z:=z^2+z) tends to
 infinity if and only if |z|>2 for some element z of this sequence.
 In XaoS program, Bailout value is the square of this 2, i.e. you can change this
 to any value greater than 2 for similar results.
@@ -1993,11 +1996,11 @@ Other fractal types may use other bailout values. The default
 is 4 for each types.
 
 @emph{Available as}: menu item
-@defun bailout complex 
+@defun bailout float 
 @end defun
 
 
-@node uiview,  initstate,  uibailout,  fractal
+@node uiview,  initstate,  uiperturbation,  fractal
 
 
 @appendixsubsec View
@@ -2291,6 +2294,7 @@ the maximum iteration count and periodicity checking.
 * dynamic::	Dynamic resolution
 * periodicity::	Periodicity checking
 * maxiter::	Iterations
+* bailout::	Bailout
 * fastjulia::	Fast Julia mode
 * dynamic::	Dynamic resolution
 * rotate::	Rotation
@@ -2353,7 +2357,7 @@ subject.
 
 @emph{Available as}: menu item, command line option, command
 
-@node maxiter,  fastjulia,  periodicity,  calc
+@node maxiter,  bailout,  periodicity,  calc
 
 
 @appendixsubsec Iterations
@@ -2380,7 +2384,7 @@ subject.
 
 @emph{Available as}: menu item, command line option, command
 
-@node fastjulia,  dynamic,  maxiter,  calc
+@node fastjulia,  dynamic,  bailout,  calc
 
 
 @appendixsubsec Fast Julia mode

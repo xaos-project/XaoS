@@ -1815,7 +1815,6 @@ else.
 <p><submenu><a palettemenu>Palette</a>
 <p><a uimandelbrot>Mandelbrot mode</a>
 <p><a uiperturbation>Perturbation</a>
-<p><a uibailout>Bailout</a>
 <p><a uiview>View</a>
 <p><a initstate>Reset to defaults</a>
 <p><a tcolor>True-color coloring modes</a>
@@ -1891,7 +1890,7 @@ Select the current julia seed.
 <p>
 <emph>Available as</emph>: command line option, command
 
-<node uiperturbation, uimandelbrot, uibailout, fractal>
+<node uiperturbation, uimandelbrot, uiview, fractal>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %uiperturbation perturbation
 <head>Perturbation</head>
@@ -1921,20 +1920,24 @@ perturbation.
 <p>
 <emph>Available as</emph>: command line option, command
 
-<node uibailout, uiperturbation, uiview, fractal>
+<node bailout, maxiter, fastjulia, calc>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%uibailout bailout
+%bailout bailout
 <head>Bailout</head>
 <p>
 Bailout is the value which is checked for each point of
 the orbit if the point is far enough
 from the complex zero point in the current iteration.
+If the point is far enough, then the iteration immediately
+stops and the starting point on the screen will be
+painted with a given colour, depending on the fractal
+type and many other settings.
 <p>
 For the <a mandel>Mandelbrot set</a>
 this value is 4. Other fractal types usually
 have the same bailout value. For most fractals many bailout values
 give more or less similar output. E.g., for the second order
-Mandelbrot set one can prove that the sequence |z:=z^2+z| tends to
+Mandelbrot set one can prove that the sequence |z| (z:=z^2+z) tends to
 infinity if and only if |z|>2 for some element z of this sequence.
 In XaoS program, Bailout value is the square of this 2, i.e. you can change this
 to any value greater than 2 for similar results.
@@ -1943,10 +1946,10 @@ Other fractal types may use other bailout values. The default
 is 4 for each types.
 <p>
 <emph>Available as</emph>: menu item
-<p><emph>Syntax</emph>:(bailout complex)
+<p><emph>Syntax</emph>:(bailout float)
 <p>
 
-<node uiview, uibailout, initstate, fractal>
+<node uiview, uiperturbation, initstate, fractal>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %uiview view angle
 <head>View</head>
@@ -2232,6 +2235,7 @@ the maximum iteration count and periodicity checking.
 <p><submenu><a dynamic>Dynamic resolution</a>
 <p><a periodicity>Periodicity checking</a>
 <p><a maxiter>Iterations</a>
+<p><a bailout>Bailout</a>
 <p><a fastjulia>Fast Julia mode</a>
 <p><a dynamic>Dynamic resolution</a>
 <p><a rotate>Rotation</a>
@@ -2292,7 +2296,7 @@ subject.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
-<node maxiter, periodicity, fastjulia, calc>
+<node maxiter, periodicity, bailout, calc>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %maxiter
 <head>Iterations</head>
@@ -2318,7 +2322,7 @@ subject.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
-<node fastjulia, maxiter, dynamic, calc>
+<node fastjulia, bailout, dynamic, calc>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %fastjulia
 <head>Fast Julia mode</head>
