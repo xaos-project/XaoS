@@ -18,7 +18,7 @@ all: $(MO-FILES)
 
 install: $(MO-FILES)
 	@for i in $(LANGUAGES); do \
-	 cp $$i.mo $(LOCALEDIR)/$$i/LC_MESSAGES/xaos.mo; \
+	 @INSTALL@ $$i.mo $(LOCALEDIR)/$$i/LC_MESSAGES/xaos.mo; \
 	 done
 
 clean:
