@@ -11,7 +11,10 @@ This list is ordered alphabetically.
 
    
 Eric Courteau (ecourteau@cplus.fr)
-     Francais.cat (translation of tutorials)
+     francais.cat (translation of tutorials)
+
+Jean-Pierre Demailly (Jean-Pierre.Demailly@ujf-grenoble.fr)
+     update of francais.cat for version 3.1.1
 
 Radek Doulik (rodo@atrey.karlin.mff.cuni.cz)
      GTK interface, windowid patches

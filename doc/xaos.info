@@ -3382,7 +3382,10 @@ Credits
 
    (alphabetically)
 *Eric Courteau (ecourteau@cplus.fr)*
-     Francais.cat (translation of tutorials)
+     francais.cat (translation of tutorials)
+
+*Jean-Pierre Demailly (Jean-Pierre.Demailly@ujf-grenoble.fr)*
+     update of francais.cat for version 3.1.1
 
 *Radek Doulik (rodo@atrey.karlin.mff.cuni.cz)*
      GTK interface, windowid patches
@@ -3682,7 +3685,7 @@ Node: palette104914
 Node: cycling105761
 Node: shiftpalette106724
 Node: authors107421
-Node: lists109377
-Node: index110123
+Node: lists109486
+Node: index110232
 
 End Tag Table

@@ -1,107 +1,332 @@
-# Catalogue des fichiers textes requis pour relire la pr‚sentation
-# de Xaos en version fran‡aise traduite de l'anglais. v 0.4 11/9/97
+# Catalogue des fichiers textes requis pour relire la présentation
+# de Xaos en version française traduite de l'anglais. v 0.4 11/9/97
 #
 # Copyright (C) 1997 by Jan Hubicka
 #
-# Quelques remarques … savoir si vous d‚sirez changer ou 
+# Quelques remarques à savoir si vous désirez changer ou 
 # traduire ce fichier.
 #
 # Le format de ce catalogue est :
 # identificateur[espace]"valeur"[espace]
 #
-# L'identificateur est un petit texte utilis‚ dans la pr‚sentation
+# L'identificateur est un petit texte utilisé dans la présentation
 # ne le traduisez pas, traduisez juste la valeur.
 # Pour saisir le signe " utilisez \" et pour \ utilisez \\
-# les signes \n ne doivent pas ˆtre utilis‚ pour remplacer entr‚e
+# les signes \n ne doivent pas être utilisé pour remplacer entrée
 #
-# Si vous d‚sirez traduire ce fichier dans un autre langage, faites-le
-# moi savoir. Vous pouvez (et c'est mˆme recommand‚) traduire ce texte
-# librement ainsi vous n'aurez pas … respecter exactement les phrases.
-# N'hesitez pas … rendre le texte plus dr“le ou inter‚ssant et … rajouter
+# Si vous désirez traduire ce fichier dans un autre langage, faites-le
+# moi savoir. Vous pouvez (et c'est même recommandé) traduire ce texte
+# librement ainsi vous n'aurez pas à respecter exactement les phrases.
+# N'hesitez pas à rendre le texte plus drôle ou intéressant et à rajouter
 # de nouvelles informations.
 #
-# Vous pouvez utiliser des phrases de longueur diff‚rente, car XaoS 
+# Vous pouvez utiliser des phrases de longueur différente, car XaoS 
 # calculera automatiquement le temps d'affichage.
 #
-# Faite-moi parvenir vos suggestions pour am‚liorer ce texte
-# et la pr‚sentation. Si quelq'un veut participer … la correction
-# de l'ortographe il est le bienvenu !
+# Faite-moi parvenir vos suggestions pour améliorer ce texte
+# et la présentation. Si quelqu'un veut participer à la correction
+# de l'orthographe il est le bienvenu !
 #
-# En changeant ce fichier prenez garde … ne pas d‚passer
-# 40 caractŠres par ligne de texte pour tenir dans un ‚cran
-# de r‚solution 320x200 
+# En changeant ce fichier prenez garde à ne pas dépasser
+# 40 caractères par ligne de texte pour tenir dans un écran
+# de résolution 320x200 
 #
 #########################################################
+#For file dimension.xaf
+
+fmath "Les Math à la base des fractales"
+fmath1 "Les fractales sont un domaine 
+assez nouveau des math, ce qui fait
+qu'il y a encore des tas de questions
+non résolues."
+fmath2 "Même les définitions ne sont pas claires"
+fmath3 "On appelle souvent un objet fractale
+s'il possède un certain degré 
+d'auto-similarité."
+
+def1 "Une des définitions est la suivante..."
+#Definition from the intro.xaf is displayed here.
+#If it is a problem in your langage catalog, let me
+#know and I will create a special key
+def2 "Qu'est-ce que ça veut bien dire?"
+def3 "Pour expliquer ça, il faut d'abord
+comprendre ce que sont la dimension 
+topologique et la dimension
+de Hausdorff Besicovich."
+
+topo1 "La dimension topologique
+est la dimension \"normale\"."
+topo2 "Un point a 0 dimensions"
+topo3 "Une ligne en a 1"
+topo4 "Une surface en a 2, etc..."
+
+hb1 "La définition de la dimension
+de Hausdorff Besicovich repose
+sur les observations suivantes:"
+hb2 "La taille (longueur) d'un segment
+zoomé dans le rapport 2 croît aussi
+dans le rapport 2."
+hb3 "Par ailleurs, la taille (surface)
+d'un carré zoomé dans le rapport 2
+croît d'un facteur 4."
+hb4 "Une règle identique s'applique
+en toute dimension."
+hb5 "Pour calculer le nombre de 
+dimensions à partir de ce fait, on
+peut utiliser l'équation suivante:"
+hb6 "dimension = log s / log z
+où z est le rapport d'homothétie du
+zoom et s le rapport des tailles."
+hb7 "Pour un segment zoomé dans le,
+rapport 2, le changement de taille 
+est aussi dans le rapport 2.
+log 2 / log 2 = 1"
+hb8 "Pour un carré zoomé dans le rapport
+2, le rapport des tailles est 4.
+log 4 / log 2 = 2"
+hb9 "Ainsi, cette définition donne
+les mêmes résultats que la dimension
+topologique pour des formes \"normales\"."
+hb10 "Les choses deviennent beaucoup plus
+intéressantes avec les fractales..."
+
+hb11 "Considérons le \"flocon de neige\"
+appelée aussi courbe de von Koch,"
+hb12 "créée en remplaçant de façon infiniment
+répétée un segment par quatre segments
+de droite formant une ligne brisée."
+hb13 "Chaque nouveau segment a 1/3 de la
+taille du segment initial."
+hb14 "En zoomant 3 fois, chacun de ces
+segments aura exactement la même
+taille que le segment initial."
+hb15 "A cause de l'auto-similarité
+engendrée par le processus de 
+répétition infinie de la construction,"
+hb15b "chacune des 4 parties deviendra
+une réplique exacte de la fractale
+prise dans sa totalité."
+hb16 "Comme il y a quatre telles parties,
+la taille de la fractale croît 4 fois"
+hb17 "En remplaçant ces valeurs dans la
+formule de la dimension, on trouve:
+log 4 / log 3 = 1.261"
+hb18 "On obtient une valeur plus grande
+que 1, qui est la dimension topologique
+de la courbe."
+hb19 "La dimension de Hausdorff Besicovich
+(1.261) est donc ici plus grande que la
+dimension topologique."
+hb20 "D'après la définition que nous avons
+donnée, le flocon de neige est une 
+fractale."
+
+defe1 "Cette définition, cependant, est
+imparfaite car elle exclut quantité de
+formes qui peuvent cependant être
+considérés comme des fractales."
+defe2 "Mais elle montre en tout cas une 
+des propriétés intéressantes 
+des fractales,"
+defe3 "et elle est assez courante."
+defe4 "La dimension de Hausdorff Besicovich
+est aussi souvent appelée 
+\"dimension fractale\"."
+
+#########################################################
+#For file escape.xaf
+escape "Les Math à la base des fractales
+
+Chapitre 2 - Fractales à temps de fuite"
+
+escape1 "Certaines fractales (comme le 
+flocon de neige) sont créées de 
+manière simple."
+escape2 "XaoS peut générer une catégorie
+différente de fractales - appelées ici
+fractales à temps de fuite."
+escape3 "La méthode utilisée pour les
+engendrer est quelque peu différente,
+mais elle repose aussi sur un
+mécanisme d'itérations."
+escape4 "On considère l'écran tout entier
+comme un plan complexe."
+escape5 "L'axe réel est placé horizontalement"
+escape6 "et l'axe imaginaire verticalement."
+escape7 "Chaque point a sa propre orbite"
+escape8 "La trajectoire d'un point est calculée
+en itérant une certaine fonction f(z,c)
+où z représente la position précédente,
+z'=f(z,c) la nouvelle position, et où
+c est un paramètre (valeur donnée)."
+escape9 "Par exemple, dans l'ensemble de 
+Mandelbrot, la fonction itérative est 
+f(z,c)=z^2+c."
+orbit1 "Supposons par exemple qu'on
+examine le point complexe 0 - 0.6i"
+orbit2 "On assigne alors cette valeur au
+paramètre c"
+orbit3 "Le calcul itératif de l'orbite
+démarre par convention à z=0+0i"
+orbit3b "On calcule ensuite de façon
+répétitive la fonction f(z,c), en 
+remplaçant z par z=f(z,c) à chaque
+nouvelle itération."
+orbit4 "Par définition, un point c
+est dans l'esnemble de Mandelbrot si
+l'orbite du point z reste à distance
+finie."
+orbit5 "Ici, c'est bien ce qui se passe..."
+orbit6 "Ce point est donc dans l'ensemble."
+orbit7 "Dans d'autre cas, le point z peut
+\"fuir\" rapidement vers l'infini."
+orbit8 "(par exemple, pour la valeur c=10+0i,
+la première itération donne 110, 
+la deuxième 12110 etc..)"
+orbit9 "De tels points sont donc en dehors
+de l'ensemble de Mandelbrot."
+
+bail1 "Nous en sommes à parler de
+quantités infinies, et de nombre 
+infini d'itérations..."
+bail2 "Mais les ordinateurs sont des machines
+finies, et ne peuvent donc calculer
+exactement les fractales."
+bail3 "On peut cependant montrer, que dans
+le cas où la distance de l'orbite à 
+zéro est grande que 2, l'orbite 
+s'échappe toujours vers l'infini."
+bail4 "Ainsi, on peut interrompre les calculs
+dès que l'orbite sort du cercle de
+rayon 2.
+(Ce test est appelé test de sortie)."
+bail5 "Dans les cas où des points calculés
+sont situés en dehors du cercle de 
+rayon 2, on n'a plus besoin que d'un
+nombre fini d'itérations."
+bail6 "Ceci permet aussi de créer les zones
+colorées entourant l'ensemble."
+bail7 "Celles-ci sont colorées en fonction
+du nombre d'itérations de l'orbite 
+nécessaires needed pour tomber dans la
+\"zone d'abandon\" (extérieur du cercle 
+de rayon 2)."
+
+iter1 "A l'intérieur du cercle, on peut
+événtuellement avoir besoin de faire
+un nombre infini d'itérations."
+iter2 "La seule façon de s'en sortir est
+d'interrompre les calculs après un 
+certain nombre d'itérations et de se
+contenter du résultat approximatif."
+iter3 "Le nombre maximal d'itérations
+va donc déterminer la précision de 
+l'approximation."
+iter4 "Si on n'effectuait pas d'itérations, on 
+observerait juste un cercle de rayon 2
+(d'après la condition de sortie)."
+iter5 "Un plus grand nombre d'itérations rend
+le calcul plus précis, mais réclame 
+aussi un temps de calcul plus long."
+limit1 "XaoS, par défaut, calcule
+170 itérations."
+limit2 "Dans certaines zones, on peut zoomer
+très longtemps sans jamais atteindre 
+cette limite."
+limit3 "Dans d'autres zones, on peut au
+contraire aboutir assez vite à des
+résultats imprécis ou inexacts."
+limit4 "Dans ce cas, les images perdent de
+leur netteté et deviennent ennuyeuses."
+limit5 "Mais si on augmente de nouveau le
+nombre d'itérations, on retrouve de 
+nouveau des tas de détails excitants."
+ofracts1 "Les autres fractales de XaoS sont
+calculées à partir de formules et de 
+tests de sortie différents, mais la 
+méthode est toujours à peu près 
+la même."
+ofracts2 "Il y a une telle quantité de calculs
+à accomplir que XaoS doit effectuer
+des tas d'optimisations pour gagner
+du temps...
+
+Si vous le souhaitez, vous pouvez lire
+plus de détails dans le fichier:
+doc/xaos.info"
+
+#########################################################
 #pour anim.xaf
-anim "Pr‚sentation des fonctions de XaoS
+anim "Présentation des fonctions de XaoS
+
 Fichier d'animations et de positions"
 
 #########################################################
 #For file anim.xhf
 
-anim2 "Comme vous l'avez remarqu‚, XaoS
+anim2 "Comme vous l'avez remarqué, XaoS
 est capable de rejouer des animations
 et des formations"
 
-anim3 "Elles peuvent ˆtre enregistr‚e
+anim3 "Elles peuvent être enregistrées
 directement depuis XaoS"
 
 languag1 "Comme les fichiers d'animations
-et de positions sont stock‚ avec
+et de positions sont stockés avec
 un langage de commande simple"
 
-languag2 "(Les position sont
+languag2 "(Les positions sont
 des animations d'une seule image)"
 
-languag3 "Les animations peuvent ˆtre
-‚dit‚e manuellement pour obtenir
-un r‚sultat plus professionnel"
+languag3 "Les animations peuvent être
+éditées manuellement pour obtenir
+un résultat plus professionnel"
 
 languag4 "La plupart des animations de
-cette pr‚sentation ont ‚t‚ ‚crite
-complŠtement … la main en utilisant
+cette présentation ont été écrites
+complètement à la main en utilisant
 des fichiers de position"
 
 modif1 "Une petite modification
 dans ce fichier de position simple"
 
-modif2 "Doit g‚n‚rer un zoom arriŠre"
+modif2 "Doit générer un zoom arrière"
 modif3 "Et celle-ci un zoom avant"
 
-newanim "Vous pouvez aussi ‚crire des animations
-ou effets completement nouveaux"
+newanim "Vous pouvez aussi écrire des animations
+ou effets complètement nouveaux"
 
 examples "XaoS est fourni avec
 de nombreux fichiers exemples,
-… charger avec le menu save/load"
+à charger avec le menu save/load"
 
 examples2 "Utilisez les fichiers de position
-pour echanger des coordonn‚es avec
+pour échanger des coordonnées avec
 d'autres programmes"
 
 examples3 "La seule limitation est votre 
 imagination et le language de commande
-d‚crit dans le fichier xaos.info"
+décrit dans le fichier xaos.info"
 
 #########################################################
 #For file barnsley.xaf
 
 intro4 "Une introduction aux fractales
 
-Chapitre 4 - la formule de Barnsley"
+Chapitre 5 - la formule de Barnsley"
 
-barnsley1 "Une autre formule, d‚couverte
+barnsley1 "Une autre formule, découverte
 par Michael Barnsley"
 
-barnsley2 "Cr‚e de trŠs ‚tranges fractales"
+barnsley2 "Crée de très étranges fractales"
 
-barnsley3 "Peu int‚ressantes … explorer"
+barnsley3 "Peu intéressantes à explorer"
 
 barnsley4 "Mais qui pointe sur de
-superbes \"julias\"!"
+superbes \"Julias\"!"
 
-barnsley5 "C'est int‚ressant car les structures
-sont \"crystalines\" "
+barnsley5 "C'est intéressant car les structures
+sont \"cristallines\" "
 
 barnsley6 "au lieu des formes \"organiques\" 
 des autres fractales"
@@ -109,49 +334,54 @@ des autres fractales"
 #########################################################
 #For file filter.xaf
 
-filter "Pr‚sentation des fonctions de XaoS
+filter "Présentation des fonctions de XaoS
 
 Les filtres"
 
 #########################################################
 #For file filter.xhf
 
-filter1 "Les filtres sont des effets appliqu‚s
-… chaque image d'une animation aprŠs
-le calcul de la fractale"
+filter1 "Les filtres sont des effets appliqués
+à chaque image fractale, après calcul"
 
-filter2 "Les filtre suivants sont pr‚sent
+filter2 "Les filtres suivants sont présents
 dans XaoS"
 
-motblur "Flou de d‚placement"
+motblur "Flou de déplacement"
 
-edge "d‚tection de bord"
+edge "détection de bord"
 
 edge2 "Le premier fait des 
 lignes larges et est utilisable de
-pr‚f‚rence en haute r‚solutions"
+préférence en haute résolution"
 
-edge3 "Le second ‚crase les lignes"
+edge3 "Le second écrase les lignes"
 
-star "filtre \"champ d'‚toiles\" "
+star "filtre \"champ d'étoiles\" "
 
-interlace "L'entrelacement acc‚llŠre
+interlace "L'entrelacement accélère
 les calculs et donne un effet de
-flou de vitesse en haute r‚solution"
+flou de vitesse en haute résolution"
 
-stereo "Et le filtre st‚r‚ogramme"
+stereo "Et le filtre stéréogramme"
 
 stereo2 "Si vous voyez d'habitude
-les st‚r‚ogrammes et si les images
+les stéréogrammes et si les images
 suivantes n'apparaissent pas en 3D,
-les paramŠtres de taille ‚cran
-doivent ˆtre reconfigur‚.
+les paramètres de taille écran
+doivent être reconfigurés.
 La commande xaos -help
-indique de plus amples information"
+indique de plus amples informations"
 
-truecolorf "Un filtre 24 bit g‚nŠre
-des images en millions de couleurs
-avec un affichage en 256 couleurs"
+emboss1 "Filtre de relief"  #NEW
+
+palettef1 "Filtre de rotation de palette
+(active la rotation des couleurs
+en couleurs réelles, 16 bits et plus)"	#NEW
+
+truecolorf "Un filtre 24 bit (génère
+des images en couleurs réelles
+avec un affichage en 256 couleurs)"
 
 #########################################################
 #For file fractal.xaf
@@ -159,63 +389,65 @@ avec un affichage en 256 couleurs"
 end "-=- Fin -=-"
 
 fcopyright "Cette introduction aux fractales
-a ‚t‚ ‚crite par Jan Hubicka
+a été écrite par Jan Hubicka
 in Juillet 1997 et traduite
-en Fran‡ais par
-Eric Courteau [ecourteau@cplus.fr]"
+en Français par
+Eric Courteau [ecourteau@cplus.fr]
+et
+JP Demailly [demailly@ujf-grenoble.fr]"
 # Add your copyright here if you are translating/correcting this file
 
 suggestions "
-Envoyez vos id‚es,
+Envoyez vos idées,
 suggestions, remerciements,
-reproches et rapport
-d'erreurs .
+reproches et rapports
+d'erreurs à :
 
-jh@ucw.cz
+hubicka@paru.cas.cz
 
 Merci"
 
 #########################################################
 #For file incolor.xaf
 
-incolor1 "Normalement les points …
-l'int‚rieur de l'ensemble sont
+incolor1 "Normalement les points à
+l'intérieur de l'ensemble sont
 d'une seule couleur."
 
-incolor2 "Cela rends les frontiŠres
-bien visible mais peut cacher
-certain d‚tails"
+incolor2 "Cela rend les frontières
+bien visibles mais peut cacher
+certains détails"
 
 incolor3 "Il est possible de coloriser
-les point … l'int‚rieur de l'ensemble
-pour rendre int‚ressante … regarder
+les points à l'intérieur de l'ensemble
+pour rendre intéressantes à regarder
 certaines zones"
 
-incolor4 "Xaos utilise dix m‚thodes
-diff‚rente por le faire. Elles sont
-appell‚e les coloration internes."
+incolor4 "Xaos utilise dix méthodes
+différentes pour le faire. Elles sont
+appelées les colorations internes."
 
 zmag "zmag
 
-La couleur est calcul‚e
-d'aprŠs la valeur du dernier orbite"
+La couleur est calculée d'après 
+la valeur de la dernière orbite"
 
 #########################################################
 #For file innew.xaf
 
-innew1 "Decomposition
+innew1 "Décomposition
 
-Mˆme m‚thode que pour
+Même méthode que pour
 l'ensemble externe."
 
 innew2 "real/imag
 
-La couleur d‚pend de la partie r‚elle
-du dernier orbite divis‚e par
+La couleur dépend de la partie réelle
+de la dernière orbite divisée par
 la partie imaginaire"
 
-innew3 "les 6 m‚thode de coloration
-suivante sont choisi au hasard ou
+innew3 "les 6 méthodes de coloration
+suivantes sont choisis au hasard ou
 repris du logiciel Flarium."
 
 #########################################################
@@ -224,112 +456,156 @@ repris du logiciel Flarium."
 fractal "...Fractales..."
 fractal1 "Qu'est ce que c'est ?"
 
-fractal2 "La d‚finition de Benoit
-Mandelbrot: les fractales sont des
-ensembles dont la dimension d'
-Hausdorff Besicovitch est sup‚rieure
-… sa dimension topologique."
+fractal2 "Définition de Benoît Mandelbrot: 
+les fractales sont des ensembles dont
+la dimension de Hausdorff Besicovitch 
+est supérieure à la dimension 
+topologique."
 
-fractal3 "vous ne comprenez toujours pas?"
+fractal3 "Vous ne comprenez toujours pas?"
 
-fractal4 "Ne vous inqui‚tez pas :
-Cette definition est discutable."
+fractal4 "Ne vous inquiétez pas :
+Cette définition est discutable."
 
 fractal5 "Plus simplement :
 Une fractale est une forme"
 
-fractal6 "compos‚e d'‚l‚ments"
+fractal6 "composée d'éléments"
 
 fractal7 "qui sont chacun une copie en
-r‚duction de la forme g‚n‚rale"
+réduction de la forme générale"
 
-fractal8 "ce processus r‚p‚t‚ … l'infini"
+fractal8 "ce processus répété à l'infini"
 
 fractal9 "construit la fractale en entier."
 
-facts "Les fractales possŠdent des
-propri‚t‚s surprenantes."
+facts "Les fractales possèdent des
+propriétés surprenantes."
 
-fact1 "Elles sont ind‚pendantes de
-l'‚chelle choisie pour les visualiser."
-fact2 "l' Auto-similarit‚."
-fact3 "Elles ressemblent … des
+fact1 "Elles sont indépendantes de
+l'échelle choisie pour les visualiser."
+fact2 "l' Auto-similarité."
+fact3 "Elles ressemblent à des
 objets naturels."
 fact4 "Comme les nuages, les montagnes
-ou les c“tes."
-fact5 "De nombreux objets math‚matiques
+ou les côtes."
+fact5 "De nombreux objets mathématiques
 sont des fractales"
 fact6 "Comme celle-ci"
-fact7 "la plus fameuse est..."
+
+fmath4 "La plupart des fractales sont
+crées à l'aide d'un procédé itératif"
+fmath5 "par exemple la fractale connue
+sous le nom de courbe de von Koch"
+fmath6 "est crée en transformant un 
+segment de droite"
+fmath7 "en quatre segments"
+fmath8 "Voici la première
+itération du processus"
+fmath9 "On répète ensuite cette transformation"
+fmath10 "après 2 itérations..."
+fmath11 "après 3 itérations..."
+fmath12 "après 4 itérations.."
+fmath13 "et après une infinité d'itérations
+on obtient la fractale achevée."
+fmath14 "Sa forme est celle d'un flocon de
+neige qui serait coupé en trois."
+tree1 "Quantités d'autres formes peuvent
+être construites par des méthodes 
+voisines."
+tree2 "Par exemple, en transformant un 
+segment de manière différente"
+tree3 "on aboutit à un arbre."
+nstr "Les itérations peuvent éventuellement
+introduire des décalages aléatoires."
+nstr2 "En remplaçant 1 segment par 2 segments"
+nstr3 "et en introduisant une petite erreur,"
+nstr4 "on peut obtenir une fractale 
+ressemblant à une côte découpée."
+nstr5 "Des procédés semblables peuvent
+servir à créer des nuages, des 
+montagnes, et quantités d'autres 
+formes présentes dans la nature."
+
+#######################################################
+## mset.xaf
+
+fact7 "Sans aucun doute, la plus fameuse est..."
 
 mset "l'ensemble de Mandelbrot"
-mset1 "cr‚‚e par une formule
-trŠs simple."
+mset1 "créée par une formule
+très simple."
 mset2 "Mais l'une des plus
 belle des fractales"
 mset3 "Comme l'ensemble de Mandelbrot
 est une fractale"
-mset4 "ses frontiŠres recŠlent des"
-mset5 "copie en miniature de
+mset4 "ses frontières recèlent des"
+mset5 "copies en miniature de
 l'ensemble complet"
 mset6 "celui-ci est le plus grand,
-… peu prŠs 50 fois plus petit."
+à peu près 50 fois plus petit."
 mset7 "Comme l'ensemble de Mandelbrot
 n'est pas strictement auto-similaire"
 mset8 "chaque copie est subtilement
-diff‚rente de l'original"
+différente de l'original"
 mset9 "Celle-ci est 76000 fois plus petite."
-mset10 "Des copies situ‚e ailleur peuvent
-diff‚rer encore plus"
+mset10 "Des copies situées ailleurs peuvent
+différer encore plus"
 
-nat "Les frontiŠres ne contiennent pas que
-des copie de l'ensemble, mais aussi"
-nat1 "des variations infinie de 
+nat "Les frontières ne contiennent pas que
+des copies de l'ensemble, mais aussi"
+nat1 "des variations infinies de 
 diverses structures"
-nat2 "Certaines sont ‚tonnament
+nat2 "Certaines sont étonnamment
 proches de formes naturelles"
-nat3 "cela ressemble … des arbres"
-nat4 "des riviŠres et des lacs"
+nat3 "cela ressemble à des arbres"
+nat4 "des rivières et des lacs"
 nat5 "des galaxies"
 nat6 "et des chutes d'eau"
 nat7 "l'ensemble contient de nombreuses
-formes complŠtement originales"
+formes complètement originales"
+
+###############################################################################
+############
+
+juliach "An introduction to fractals"
+
 julia "l'ensemble de Mandelbrot n'est pas
-la seule fractale g‚n‚r‚e par la
+la seule fractale générée par la
 formule z=z^2+c"
-julia1 "une autre souvent utilis‚e"
+julia1 "une autre souvent utilisée"
 julia2 "est l'ensemble de Julia"
 julia3 "il existe non pas un
-seule ensemble de julia,"
-julia4 "mais une infinit‚ de variations"
-julia5 "et chacune diff‚re juste du
-nombre imaginaire qui leur sert
-d'origine:"
+seul ensemble de Julia,"
+julia4 "mais une infinité de variations"
+julia5 "et chacune diffère juste du
+nombre complexe qui leur sert
+de valeur initiale:"
 julia6 "un point choisi dans l'ensemble
 de Mandelbrot."
-julia7 "la fractale de mandelbrot peut etre vue
-comme une carte des juliass"
-julia8 "les points … l'int‚rieur forment des
-julias avec de grandes zones sombres"
-julia9 "… l'ext‚rieur, cela fait
+julia7 "la fractale de Mandelbrot peut être vue
+comme une carte des Julias"
+julia8 "les points à l'intérieur forment des
+Julias avec de grandes zones sombres"
+julia9 "à l'extérieur, cela fait
 un nuage de points"
-julia10 "Les plus int‚ressantes sont
-situ‚e juste … la frontiŠre"
+julia10 "Les plus intéressantes sont
+situées juste à la frontière"
 
-theme "la forme g‚n‚rale de l'ensemble de julia
-d‚pends beaucoup du point choisi"
+theme "la forme générale de l'ensemble de Julia
+dépend beaucoup du point choisi"
 theme1 "en zoomant, vous verrez
-que le thŠme de l'ensemble d'origine
+que le thème de l'ensemble d'origine
 est reproduit"
-theme2 "en affichant la julia correspondante "
+theme2 "en affichant le Julia correspondant "
 theme3 "Mais en voyant l'image dans
-sa totalit‚"
-theme4 "l'image est trŠs diff‚rente"
-theme5 "Les julias peuvent sembler moins
+sa totalité"
+theme4 "l'image est très différente"
+theme5 "Les Julias peuvent sembler moins
 riches"
 theme6 "car elle imitent une seule forme"
 theme7 "mais en choisissant avec soin
-votre point de d‚part "
+votre point de départ "
 theme8 "dans l'ensemble de Mandelbrot,
 de belles surprises peuvent arriver."
 
@@ -339,10 +615,10 @@ de belles surprises peuvent arriver."
 keys "Touches:
 
 S             - Stopper l'animation    
-Espace        - passer … l'image       
+Espace        - passer à l'image       
                 suivante               
                 (peut prendre du temps)
-gauche/droite - r‚gle la vitesse       
+gauche/droite - règle la vitesse       
                 du texte               "
 
 #########################################################
@@ -350,104 +626,110 @@ gauche/droite - r‚gle la vitesse
 
 intro7 "Une introduction aux fractales
 
-Chapitre 7 - Magnet"
+Chapitre 8 - Magnet"
 
 magnet "Ceci n'est PAS l'ensemble de Mandelbrot"
-magnet1 "Cette fractale est appell‚e magnet
+magnet1 "Cette fractale est appellée Magnet
 car elle provient d'une formule
-de physique th‚orique"
-magnet2 "d‚riv‚ de l'‚tude des
-champs magn‚tiques"
+de physique théorique"
+magnet2 "dérivé de l'étude des
+champs magnétiques"
 
-similiar "Sa similarit‚ 
+similiar "Sa similarité 
 avec l'ensemble de Mandelbrot
-est int‚ressante car elle
-vient du monde r‚el."
+est intéressante car elle
+vient du monde réel."
 
-magjulia "Les julias qui en d‚pendent sont
-‚tonnantes "
+magjulia "Les Julias qui en dépendent sont
+étonnants "
 
 #########################################################
 #For file new.xaf
 
-new "Les nouveaut‚ de la version 3.0"
-speed "1. acc‚l‚ration"
+new "Les nouveauté de la version 3.0"
+speed "1. accélération"
 speed1 "La boucle de calcul est
-am‚lior‚e et fait des test
-de p‚riodicit‚"
-speed2 "les nouvelles images sont calcul‚e
-avec la m‚thode de detection des
-frontiŠres"
-speed3 "ce qui acc‚l‚re grandement
+améliorée et fait des test
+de périodicité"
+speed2 "les nouvelles images sont calculées
+avec la méthode de detection des
+frontières"
+speed3 "ce qui accélère grandement
 l'affichage de nouvelles images"
-speed4 "par exempl, le calcul
+speed4 "par exemple, le calcul
 de l'ensemble de Mandelbrot avec une 
-pr‚cision de 1 000 000 boucles"
+précision de 1 000 000 boucles"
 speed5 "calcul en cours"
-speed6 "Calcul‚ !"
+speed6 "Calculé !"
 speed7 "XaoS utilise l'heuristique et
-d‚sactive automatiquement le test de
-periodicit‚ si le point n'est pas …
-l'int‚rieur de l'ensemble."
+désactive automatiquement le test de
+périodicité si le point n'est pas à
+l'intérieur de l'ensemble."
 speed8 "La routine de zoom principale
-est optimis‚e pour ˆtre deux
+est optimisée pour être deux
 fois plus rapide qu'avant."
 speed9 "Ainsi, XaoS atteint les
 130 images/secondes sur mon
 Pentium 130Mhz"
 
 new2 "2. les filtres"
-new3 "3. neuf m‚thodes de coloration
-de l'ext‚rieur"
-new4 "4. De nouvelles m‚thode pour
-coloriser l'int‚rieur"
-new5 "5. Le mode 24bits
-pour la vid‚o"
+new3 "3. neuf méthodes de coloration
+de l'extérieur"
+new4 "4. De nouvelles méthodes pour
+coloriser l'intérieur"
+new5 "5. Le mode 24 bits
+pour la vidéo"
 new6 "6. sauvegarde et chargement
 d'animations"
+newend "et beaucoup d'autres améliorations,
+comme le défilement d'image, une 
+meilleure gestion des palettes de 
+couleurs...  
+Voir le fichier ChangeLog pour une 
+liste complète des changements." #NEW
 
 #########################################################
 #For file newton.xaf
 
 intro3 "Une introduction aux fractales
 
-Chapitre 3-la m‚thode de Newton"
+Chapitre 4 - La méthode de Newton"
 newton "La formule de celle-ci est
-trŠs diff‚rente."
-newton1 "l'approximation de Newton
+très différente."
+newton1 "L'approximation de Newton
 pour trouver les racines de
 polynomes cubique du type x^3=1"
-newton2 "Elle compte le nombre de cycle requis
+newton2 "Elle compte le nombre de cycles requis
 pour atteindre une racine assez juste"
 newton3 "Les trois racines sont
-repr‚sent‚e par des cercles bleu"
-newton4 "Les parties int‚ressantes
-sont aux endroit ou il est difficile
-de determiner quel est la racine
+représentées par des cercles bleus"
+newton4 "Les parties intéressantes
+sont aux endroits où il est difficile
+de déterminer quelle est la racine
 la plus proche"
 newton5 "Cette fractale est trop
-r‚p‚titive pour ˆtre int‚ressante
-… explorer"
+répétitive pour être intéressante
+à explorer"
 newton6 "Mais XaoS est capable de
-g‚n‚rer des \"julia\" d‚riv‚es."
-newton7 "l'origine utilis‚e
+générer des \"Julias\" dérivés."
+newton7 "l'origine utilisée
 est l'erreur de l'approximation"
-newton8 "Cela rends cette fractale
-plus int‚ressante"
+newton8 "Cela rend cette fractale
+plus intéressante"
 
 #########################################################
 #For file octo.xaf
 intro6 "Une introduction aux fractales
 
-Chapitre 6 - Octo"
+Chapitre 7 - Octo"
 octo "Octo est une fractale
-gener‚e par une formule
-moins couramment utilis‚e"
-octo1 "Elle a ‚t‚ choisie … cause
+générée par une formule
+moins couramment utilisée"
+octo1 "Elle a été choisie à cause
 de sa forme inhabituelle"
 octo2 "Xaos est capable
-de cr‚er des julias
-… partir de ce type de fractale."
+de créer des Julias
+à partir de ce type de fractale."
 
 #########################################################
 #For file outcolor.xaf
@@ -455,52 +737,54 @@ de cr‚er des julias
 outcolor "Modes de coloration externe"
 outcolor1 "L'ensemble de Mandelbrot
 est juste la partie noire et ennuyeuse
-situ‚e au centre de la courbe"
-outcolor2 "Les bandes de couleurs autour
-forment la frontiŠre"
-outcolor3 "La m‚thode classique
+située au centre de la courbe"
+outcolor2 "Les bandes de couleurs qui
+l'entourent forment la frontière"
+outcolor3 "La méthode classique
 pour afficher leur couleur est
-le nombre de boucles n‚cessaire pour
-determiner qu'elles sont … l'ext‚rieur"
-outcolor4 "mais d'utres m‚thodes existent."
+le nombre de boucles nécessaires pour
+determiner qu'elles sont à l'extérieur"
+outcolor4 "mais d'autres méthodes existent."
 outcolor5 "Xaos les appelle les modes
 de colorisation externes"
 
-iterreal "iter+re‚l
+iterreal "iter+real
 
-On rajoute la partie r‚elle du dernier
-orbite au nombre d'iterations"
-iterreal1 "Cela rends plus belles des images
-trop ennuyeuses au d‚part"
+On rajoute la partie réelle du dernier
+orbite au nombre d'itérations"
+iterreal1 "Cela rend plus belles des images
+a priori un peu ennuyeuses"
 
-iterimag "La seconde m‚thode de colorisation
-iter+imag donne des r‚sultats trŠs
-proche"
+iterimag "La seconde méthode de colorisation
+iter+imag donne des résultats très
+proches"
 iterimag2 "c'est juste la partie imaginaire qui est
-utilis‚e au lieu de la partie r‚elle"
+utilisée au lieu de la partie réelle"
 
 iprdi "iter+real/imag
 
-la partie r‚elle du dernier orbite est
-divis‚e par la partie imaginaire."
+la partie réelle du dernier orbite est
+divisée par la partie imaginaire."
 
 sum "iter+real+imag+real/imag
 
 on ajoute tout ensemble."
 
-decomp "D‚composition binaire
+decomp "Décomposition binaire
 
 Si la partie imaginaire est
-plus grande que zero, c'est
-le nombre d'iterations sinon
+plus grande que zéro, c'est
+le nombre d'itérations sinon
 on soustrait le nombre
-d'iterations binaire."
+d'itérations de la
+décomposition binaire."
 
 bio "Biomorphs
 
-cette m‚thode fait apparaitre des
-structures proche des animaux
-unicellulaires"
+Cette méthode porte son nom en
+raison du fait qu'elle produit
+des structures ressemblant aux
+animaux unicellulaires."
 
 #########################################################
 #For file outnew.xhf
@@ -508,93 +792,93 @@ unicellulaires"
 potential "Potentiel
 
 Cette technique de colorisation
-fonctionne particuliŠrement
+fonctionne particulièrement
 bien sur les images
-non zoom‚e."
+non zoomée."
 
 cdecom "Decomposition des couleurs"
-cdecom2 "la couleur est calcul‚e …
+cdecom2 "la couleur est calculée à
 partir de l'angle du dernier orbite"
 cdecom3 "C'est proche de la 
 decomposition binaire mais
 les couleurs sont plus adoucies"
 cdecom4 "A utiliser plus
-particuliŠrement avec la
-fractale de newton"
+particulièrement avec la
+fractale de Newton"
 
 smooth "Adoucir
 
-Ce mode enlŠve les bandes de couleur
+Ce mode enlève les bandes de couleur
 et les remplace par des transitions
 en douceur."
-smooth1 "Cela ne fonctionne pas avec newton
-et magnet … cause de leur attracteurs
+smooth1 "Cela ne fonctionne pas avec Newton
+et Magnet à cause de leurs attracteurs
 finis"
 smooth2 "vous devrez l'utiliser avec les modes
-‚cran sup‚rieur … 256 couleurs
+écran supérieurs à 256 couleurs
 ou activer le filtre de simulation
-24bit"
+24 bit"
 
 #########################################################
 #For file outnew.xhf
 
 intro5 "Une introduction aux fractales
 
-Chapitre 5 - Phoenix"
+Chapitre 6 - Phoenix"
 
 phoenix "Ceci est l'ensemble de Mandelbrot
-pour la formule nommm‚e Phoenix"
+pour la formule nommée Phoenix"
 
-phoenix1 "Elles est trŠs diff‚rente
-des autres formules disponible 
+phoenix1 "Elles est très différente
+des autres formules disponibles
 dans XaoS, mais elle ressemble
-par certains cot‚s … l'ensemble
+par certains côtés à l'ensemble
 de Mandelbrot"
 
 phoenix2 "Elle aussi contient des copies
-r‚duite de la totalit‚"
+réduite de la totalité"
 
 phoenix3 "Il y a toujours des correspondances de
-th‚me entre les julia et leur point
-de d‚part."
+thème entre les Julias et leur point
+de départ."
 
-phoenix4 "Mais les julias sont trŠs diff‚rentes"
+phoenix4 "Mais les Julias sont très différents"
 
 #########################################################
 #For file plane.xaf
 
-plane1 "Normalement, la partie r‚elle d'un
-point est plac‚e sur l'axe des x
+plane1 "Normalement, la partie réelle d'un
+point est placée sur l'axe des x
 et la partie imaginaire sur l'axe Y"
 
-plane2 "XaoS fournit 6 autres fa‡ons
+plane2 "XaoS fournit 6 autres façons
 de placer les points dans le plan"
 plane3 "1/mu
 
 C'est une inversion - la zone
-… l'infini se retrouve au 0
+à l'infini se retrouve au 0
 et inversement."
 plane4 "Mandelbrot classique"
-plane5 "Mandelbrot invers‚"
-plane6 "L'ensemble est maintenant … la
-p‚riph‚rie alors qu'il Štait
-au centre de l'‚cran avant."
-plane7 "les images suivantes vont ˆtre
-affich‚e successivement en mode
-normal puis invers‚"
+plane5 "Mandelbrot inversé"
+plane6 "L'ensemble est maintenant à la
+périphérie alors qu'il ètait
+au centre de l'écran avant."
+plane7 "les images suivantes vont être
+affichée successivement en mode
+normal puis inversé"
 plane8 "1/mu+0.25
 
 
-Le centre d'inversion est d‚plac‚"
-plane9 "Comme le centre est situ‚ a la
-frontiŠre de l'ensemble, vous voyez une
-infinit‚ de frontiŠres paraboliques."
-plane10 "L'effet est int‚ressant sur les
-autres fractales, mais en g‚n‚ral elles
-perdent leur sym‚trie."
+Le centre d'inversion est déplacé"
+plane9 "Comme le centre est situé a la
+frontière de l'ensemble, vous voyez une
+infinité de frontières paraboliques."
+plane10 "L'effet est intéressant sur les
+autres fractales, mais en général elles
+perdent leur symétrie."
 
 lambda "les plans lambda forment une vue
-ComplŠtement differente"
+Complètement differente"
 
 ilambda "1/lambda
 
@@ -604,124 +888,126 @@ et de l'inversion"
 imlambda "1/(lambda-1)
 
 la combinaison de lambda,
-d‚placement et inversion"
+déplacement et inversion"
 
 imlambda2 "l'effet sur Mandelbrot
-est trŠs int‚ressant"
+est très intéressant"
 
 mick "1/(mu-1.40115)
 
-Une inversion avec le centre d‚plac‚
+Une inversion avec le centre déplacé
 sur un point de Feigenbaum - point
-ou Mandelbrot est auto-similaire.
-Cela augmente ‚norm‚ment
-les d‚tails autour de ce point"
+où Mandelbrot est auto-similaire.
+Cela augmente énormément
+les détails autour de ce point"
 
 #########################################################
 #For file power.xaf
 
 intro2 "Une introduction aux fractales
 
-Chapitre 2 - puissance de l'ensemble
-de mandelbrot"
+Chapitre 3 - Ensemble de Mandelbrot
+des fonctions puissances plus élevées"
 
 power "z^2+c n'est pas la seule formule
-qui g‚n‚re des fractales"
-power2 "En la modifiant trŠs peu - x^3+c
-une autre fractales est constitu‚e"
-power3 "Elle contient encore des copies
-de l'ensemble en son entier"
+qui génère des fractales"
+power2 "En la modifiant très peu - x^3+c
+par exemple, une autre fractale 
+apparaît."
+power3 "Elle contient encore beaucoup de
+copies en miniature de l'ensemble dans
+son entier"
 
-power4 "mandelbrot quaternaire"
+power4 "Des fractales similaires peuvent être
+engendrées par des formules voisines"
 
-pjulia "Chacune dispose des ensembles
-de julia correspondants"
+pjulia "et à chacune correspond une famille
+d'ensemble de Julia correspondants."
 
 #########################################################
 #For file truecolor.xaf
 
-truecolor "couleurs r‚elle (24bit)"
+truecolor "couleurs réelles (24 bit)"
 truecolor1 "habituellement les fractales
-sont color‚e avec une palette.
-En mode 24 bit la palette est ‚mul‚e."
-truecolor2 "la seule diff‚rence
+sont colorées à l'aide d'une palette.
+En mode 24 bit la palette est émulée."
+truecolor2 "la seule différence
 est que la palette est plus grande
 et que les couleurs successives sont
 plus nombreuses"
 truecolor3 "Le mode 24 bit peut utiliser
-la couleurs pour afficher divers
-r‚sultats de calculs"
+la couleur pour afficher divers
+résultats de calculs"
 truecolor4 "pour calculer une couleur exacte
 et non plus un index sur une palette"
 truecolor5 "Cela permet d'afficher
-jusqu… quatre valeur par pixel"
-truecolor6 "Le mode 24bit necessite un ‚cran
-‚quivalent ou alors il faut
+jusqu'à quatre valeurs par pixel"
+truecolor6 "Le mode 24 bit nécessite un écran
+équivalent ou alors il faut
 valider le filtre 24 bit pour afficher
 les images produites en 256 couleurs."
 
-emboss1 "emboss filter"  #NEW
-palettef1 "palette emulator filter 
-(enables color cycling at
-truecolor displays)"	#NEW
-newend "And many other enhancements, such
-as image rotation, better palette
-generation...  See ChangeLog for
-complete list of changes." #NEW
 #########################################################
 #for file pert.xaf  #NEW (up to end of file)
 
 pert0 "Perturbation"
-pert1 "Just as the Julia formula uses
-different seeds to generate
-various Julias from one formula,"
-pert2 "you can change the perturbation
-value for Mandlebrot sets."
-pert3 "It changes the starting possition
-of the orbit from the default of 0."
-pert4 "Its value doesn't affect the
-resulting fractal as much as seed
-does for Julias, but it is useful
-when you want to make fractal more
-random."
+pert1 "Comme pour la formule générant
+l'ensemble de Julia, qui utilise 
+différentes valeurs initiales pour 
+produire différents ensembles à 
+partir d'une même formule,"
+pert2 "vous pouvez changer la valeur de
+perturbation pour les ensembles de
+Mandelbrot."
+pert3 "Cela change la position initiale 
+de l'orbite, en une valeur autre que 
+0 par défaut."
+pert4 "Sa valeur n'affecte pas la
+fractale qui en résulte autant 
+que le choix de la valeur initiale
+pour les Julias, mais elle est 
+utile pour obtenir des fractales 
+plus aléatoires."
 
 ##########################################################
 #for file palette.xaf
 
-pal "Random palettes"
-pal0 "XaoS doesn't come with large
-library of predefined palettes
-like many other programs, but
-generates random palettes."
-pal1 "So you can simply keep pressing 'P'
-until XaoS generates a palette that
-you like for your fractal."
-pal2 "Three different algorithms
-are used:"
-pal3 "the first makes stripes going from
-some color to black,"
-pal4 "the second makes strips from black
-to some color to white,"
-pal5 "the third is inspired by cubist
-paintings."
+pal "Palettes aléatoires"
+pal0 "XaoS ne possède pas une vaste
+librairie de palettes prédéfinies
+comme beaucoup d'autres programs,
+mais génère des palettes aléatoires."
+pal1 "Ainsi vous pouvez simplement 
+presser 'P' jusqu'à ce que XaoS 
+génère une palette agréable à 
+l'oeil pour votre fractale."
+pal2 "Trois différents algorithmes
+sont utilisés:"
+pal3 "le premier produit des bandes depuis 
+une certaine couleur jusqu'au noir,"
+pal4 "le second produit des bandes depuis
+le noir jusqu'à une certaine couleur 
+puis jusqu'au blanc,"
+pal5 "le troisième est inspiré de 
+certains tableaux cubistes."
 
 ###########################################################
 #for file other.xaf
 
-auto1 "Autopilot"
-auto2 "If you are lazy, you
-can enable autopilot to
-let XaoS explore a fractal
-automatically."
-fastjulia1 "Fast julia browsing mode"
-fastjulia2 "This mode lets you morph
-to Julia seed."
-fastjulia3 "It is also useful as a preview of an
-area before you zoom in - because of
-the thematic correspondence between
-the Julia and the point you chose,
-you can see the approximate theme
-around a point before you zoom in."
-rotation "Image rotation"
-cycling "Color cycling"
-
+auto1 "Autopilote"
+auto2 "Si vous êtes paresseux, vous
+pouvez activer l'autopilote pour
+que XaoS explore les fractales
+automatiquement."
+fastjulia1 "Mode d'exploration rapide Julia"
+fastjulia2 "Ce mode permet de faire varier
+la valeur initiale du Julia."
+fastjulia3 "Il est aussi utile pour prévisualiser
+une zone avant de zoomer - parce que
+dans la correspondance thématique 
+entre le Julia et le point que 
+vous choisissez, vous pouvez voir 
+le thème approximatif près d'un 
+point avant de zoomer."
+rotation "Défilement d'images"
+cycling "Défilement de couleurs"

@@ -3274,7 +3274,9 @@ To avoid this, you could use palette emulation filter. @xref{palettef}.
 (alphabetically)
 @table @strong
 @item Eric Courteau (ecourteau@@cplus.fr)
-Francais.cat (translation of tutorials)
+francais.cat (translation of tutorials)
+@item Jean-Pierre Demailly (Jean-Pierre.Demailly@@ujf-grenoble.fr)
+update of francais.cat for version 3.1.1
 @item Radek Doulik (rodo@@atrey.karlin.mff.cuni.cz)
 GTK interface, windowid patches
 @item Martin Dozsa (madsoft@@centrum.cz)
