@@ -13,11 +13,15 @@ echo o PNG library
 echo o Zlib
 echo o An aalib graphics library
 echo o Libraries text and vga required by aalib
+echo o GNU gettext utility for internationalization (i18n)
 echo.
-echo binarry version also available at XaoS homepage 
+echo (Gettext is not neccessary. Use "-DWITHOUT_GETTEXT" if it is missing:
+echo put this switch into SRC\DOS*.MAK.) 
+echo.
+echo Binary version also available at XaoS homepage
 echo     (http://www.paru.cas.cz/XaoS)
 echo.
-echo press ctrl+c to interrupt or enter to continue
+echo Press CTRL+C to interrupt or enter to continue
 echo.
 pause >nul
 cd src

@@ -15,7 +15,11 @@
 #include <plane.h>
 #include <xmenu.h>
 #include "play.h"
+#ifndef WITHOUT_GETTEXT
 #include <libintl.h>
+#else
+#define gettext(STRING) STRING
+#endif
 
 #define LANG(name,name2) MENUSTRING("lang", NULL, name,name2,0, (void (*) (struct uih_context *c, char *))uih_loadcatalog, name2)
 #define TUTOR(name1,name2,name3) MENUSTRING(name1, NULL, name2,name3,MENUFLAG_INTERRUPT|UI,uih_playtutorial,name3)
@@ -1058,23 +1062,26 @@ uih_registermenus_i18n (void)
   MENUINTRB_I ("mguess", NULL, gettext("Guess 8x8 rectangles"), "guess8", UI, uih_setguessing, 8, uih_guessingselected)
   MENUINTRB_I ("mguess", NULL, gettext("Guess unlimited rectangles"), "guessall", UI, uih_setguessing, 2048, uih_guessingselected)
 
-	/* Language selection is not sensible anymore due to i18n:
+	/* Language selection is not sensible anymore if i18n is used: */
+#ifdef WITHOUT_GETTEXT
   SUBMENU_I ("tutor", NULL, gettext("Language"), "lang")
   MENUSEPARATOR_I ("tutor")
-	*/
+#endif
+
   SUBMENU_I ("tutor", NULL, gettext("An introduction to fractals"), "intro")
   SUBMENU_I ("tutor", NULL, gettext("XaoS features overview"), "features")
   SUBMENU_I ("tutor", NULL, gettext("Math behind fractals"), "fmath")
   SUBMENU_I ("tutor", NULL, gettext("What's new?"), "new")
 
-	/* Language selection is not sensible anymore due to i18n:
+	/* Language selection is not sensible anymore if i18n is used: */
+#ifdef WITHOUT_GETTEXT
   LANG_I ("Cesky", "cesky")
   LANG_I ("Deutsch", "deutsch")
   LANG_I ("English", "english")
   LANG_I ("Espanhol", "espanhol")
   LANG_I ("Francais", "francais")
   LANG_I ("Magyar", "magyar")
-	*/
+#endif
 
   TUTOR_I ("intro", gettext("Whole story"), "fractal.xaf")
   MENUSEPARATOR_I ("intro")

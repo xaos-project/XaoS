@@ -31,7 +31,7 @@ dnl all other platforms. This switch tries to determine whether long_double
 dnl is optimal
 dnl
 AC_ARG_WITH(long-double,
-        [  --with-long-double=yes/no    Used to enable/disable usage of long double],[
+        [  --with-long-double=yes/no    enables/disables usage of long double],[
 	if test x$withval = xyes; then
 	  long_double=yes
 	fi
@@ -40,7 +40,7 @@ AC_ARG_WITH(long-double,
 	fi
 ])
 AC_ARG_WITH(i386asm,
-        [  --with-i386asm=yes/no    Used to enable/disable usage of optimized asm routines],[
+        [  --with-i386asm=yes/no   enables/disables usage of optimized asm routines],[
 	if test x$withval = xyes; then
 	  use_asm=yes
 	fi
@@ -49,7 +49,7 @@ AC_ARG_WITH(i386asm,
 	fi
 ])
 AC_ARG_WITH(pthread,
-        [  --with-pthread=yes          Used to enable SMP support (experimental)],[
+        [  --with-pthread=yes      enables SMP support (experimental)],[
 	if test x$withval = xyes; then
 	  pthread=test
 	fi
@@ -196,43 +196,43 @@ AC_PROG_INSTALL
 dnl AC_HEADER_STDC
 
 AC_ARG_WITH(x11-driver,
-        [  --with-x11-driver=no    Used to disable x11 driver],[
+        [  --with-x11-driver=no    disables x11 driver],[
 	if test x$withval = xno; then
 	  x_driver_test=no
 	fi
 ])
 AC_ARG_WITH(dga-driver,
-        [  --with-dga-driver=no    Used to disable DGA driver],[
+        [  --with-dga-driver=no    disables DGA driver],[
 	if test x$withval = xno; then
 	  dga_driver_test=no
 	fi
 ])
 AC_ARG_WITH(ggi-driver,
-        [  --with-ggi-driver=no    Used to disable GGI driver],[
+        [  --with-ggi-driver=no    disables GGI driver],[
 	if test x$withval = xno; then
 	  ggi_driver_test=no
 	fi
 ])
 AC_ARG_WITH(svga-driver,
-        [  --with-svga-driver=no   Used to disable svga driver],[
+        [  --with-svga-driver=no   disables svga driver],[
 	if test x$withval = xno; then
 	  vga_driver_test=no
 	fi
 ])
 AC_ARG_WITH(win32-driver,
-        [  --with-win32-driver=no   Used to disable Win32 driver],[
+        [  --with-win32-driver=no  disables Win32 driver],[
 	if test x$withval = xno; then
 	  win32_driver_test=no
 	fi
 ])
 AC_ARG_WITH(BeOS-driver,
-        [  --with-BeOS-driver=no   Used to disable BeOS driver],[
+        [  --with-BeOS-driver=no   disables BeOS driver],[
 	if test x$withval = xno; then
 	  BeOS_driver_test=no
 	fi
 ])
 AC_ARG_WITH(aa-driver,
-        [  --with-aa-driver=no     Used to disable aa-lib driver],[
+        [  --with-aa-driver=no     disables aa-lib driver],[
 	if test x$withval = xno; then
 	  aa_driver_test=no
 	fi
@@ -440,21 +440,21 @@ AC_DEFUN(AC_USE_SYSV_CURSES, [
 ])
 
 AC_ARG_WITH(sunos-curses,
-	[  --with-sunos-curses     Used to force SunOS 4.x curses],[
+	[  --with-sunos-curses     forces SunOS 4.x curses],[
 	if test x$withval = xyes; then
 		AC_USE_SUNOS_CURSES
 	fi
 ])
 
 AC_ARG_WITH(osf1-curses,
-	[  --with-osf1-curses	  Used to force OSF/1 curses],[
+	[  --with-osf1-curses	  forces OSF/1 curses],[
 	if test x$withval = xyes; then
 		AC_USE_OSF1_CURSES
 	fi
 ])
 
 AC_ARG_WITH(vcurses,
-	[  --with-vcurses[=incdir] Used to force SysV curses],
+	[  --with-vcurses[=incdir]   forces SysV curses],
 	if test x$withval = xyes; then
 		CFLAGS="$CFLAGS"
         else
@@ -464,7 +464,7 @@ AC_ARG_WITH(vcurses,
 )
         	
 AC_ARG_WITH(ncurses,
-	[  --with-ncurses[=base-dir] Compile with ncurses/locate base dir],
+	[  --with-ncurses[=base-dir] compile with ncurses/locate base dir],
 	if test x$withval = xyes
 	then
 		search_ncurses=true
@@ -650,6 +650,48 @@ fi
 AC_FUNC_ALLOCA
 AC_TYPE_SIGNAL
 AC_CHECK_FUNCS([ftime getcwd gettimeofday memchr memmove memset pow select setlocale sqrt strdup strerror strstr sleep setitimer ftime finite fabsl _fabsl __fabsl])
+
+dnl Internationalization (i18n) checks.
+dnl setlocale() was buggy about 10 September 2002 in SuSE Linux 7.3 upgrade.
+dnl This code checks if the problem persists.
+AC_ARG_WITH(i18n,
+        [  --with-i18n=no          disables internationalization (i18n)],[
+	if test x$withval = xno; then
+	  i18n=no
+	fi
+])
+AC_DEFUN(AC_SETLOCALE,
+[AC_CACHE_CHECK(whether setlocale works correctly, ac_setlocale,
+[echo '
+#include <locale.h>
+int main()
+{
+ if (setlocale(LC_ALL,"")==NULL)
+  return 1;
+ return 0;
+}
+' > conftest.c
+${CC-cc} -o conftest conftest.c
+ac_setlocale=yes
+./conftest || ac_setlocale=no
+rm -f conftest*
+])])
+AC_SETLOCALE
+if test  "$ac_setlocale" = no; then
+  AC_DEFINE(WITHOUT_GETTEXT)
+	CFLAGS="$CFLAGS -DWITHOUT_GETTEXT"
+	CFLAGS1="$CFLAGS1 -DWITHOUT_GETTEXT"
+	echo "setlocale() problems: i18n will not be used"
+ else
+  if test  "$i18n" = no; then
+	 AC_DEFINE(WITHOUT_GETTEXT)
+   CFLAGS="$CFLAGS -DWITHOUT_GETTEXT"
+	 CFLAGS1="$CFLAGS1 -DWITHOUT_GETTEXT"
+	 echo "i18n will not be used"
+	else
+   echo "i18n will be used"
+	 fi
+ fi
 
 if test  "$x_driver_test" = yes; then
 dnl X checks

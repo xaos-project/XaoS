@@ -12,16 +12,20 @@ For Unix/X11:
    ftp://ftp.uu.net/graphics/png/src/zlib-0.95.tar.gz
    ftp://ftp.uu.net/graphics/png/src/libpng-0.81.tar.gz
 
-   AA-lib is a library alowing high quiality ascii-art output
+   AA-lib is a library alowing high quality ascii-art output
    from XaoS available at AA-project homepage http://www.ta.jcu.cz/aa)
+
+   To use internationalization (i18n) you also need GNU gettext
+   (which is automatically available on most Unix systems and also
+   exists on DOS).
 
    XaoS now have configure script so following should work correctly:
 
         CFLAGS=(your best size optimizing switches)
         CFLAGS1=(your best speed optimizing switches)
-	export CFLAGS
+				export CFLAGS
 
-	   #note that this two steps are not required on pc/Linux
+				   #note that this two steps are not required on pc/Linux
            #and on all gcc compilers XaoS uses quite good switches.
            #but this is REQUIRED for other compilers, because XaoS
            #is coded to be good target for optimizer and NEEDS to
@@ -83,16 +87,16 @@ For Unix/X11:
       --with-curses-driver=no  to disable (N)Curses driver
      There may be problems with configuring bit non standard curses
      library. You may use following options:
-      --with-sunos-curses     Used to force SunOS 4.x curses
-      --with-osf1-curses	Used to force OSF/1 curses
-      --with-vcurses[=incdir] Used to force SysV curses
-      --with-ncurses[=base-dir] Compile with ncurses/locate base dir
-      --with-x                use the X Window System
-     Also finding X includes should be problem.
+      --with-sunos-curses      to force SunOS 4.x curses
+      --with-osf1-curses	     to force OSF/1 curses
+      --with-vcurses[=incdir]  to force SysV curses
+      --with-ncurses[=base-dir]    to compile with ncurses/locate base dir
+      --with-x                 use the X Window System
+     Also finding X includes should be a problem.
       --x-includes=DIR        X include files are in DIR
       --x-libraries=DIR       X library files are in DIR
      For Linux gpm library use:
-      --with-gpm-mouse=base-dir  Specifies the base gpm directory
+      --with-gpm-mouse=base-dir    specifies the base gpm directory
      To enable experimental SMP support use:
       --with-pthread=yes
      note that it is really untested in version 3.0 since I don't have
@@ -124,7 +128,9 @@ For DOS:
    You need djgpp gnu compiler, allegro graphics, zlib and pnglib
    Use:
 
-	build.bat
+   build.bat
+	
+	 If you get in trouble, please read INSTALL.dos.
 
 For Mac:
     Read README.mac for more informations
@@ -133,6 +139,5 @@ For plan9:
     mkfile on my reduced system.
     start mk and wait..
 
-
 You may also get binary distribution.
-For more information browse XaoS homepage
+For more information browse XaoS homepage (http://sf.net/projects/xaos).

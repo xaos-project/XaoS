@@ -67,8 +67,14 @@
 #include <archaccel.h>
 #include "uiint.h"
 
+#ifndef WITHOUT_GETTEXT
 #include <libintl.h>
 #include <locale.h>
+#else
+#define gettext(STRING) STRING
+#endif
+
+
 
 #ifdef DESTICKY
 int euid, egid;
@@ -1221,6 +1227,7 @@ MAIN_FUNCTION (int argc, char **argv)
   seteuid (getuid ());		/* Don't need supervisor rights anymore. */
   setegid (getgid ());
 #endif
+#ifndef WITHOUT_GETTEXT
   /* Setting all locales for XaoS: */
   setlocale(LC_ALL,"");
 	locale = setlocale(LC_MESSAGES, "");
@@ -1246,6 +1253,7 @@ MAIN_FUNCTION (int argc, char **argv)
 	setlocale(LC_NUMERIC,"C"); 
   textdomain("xaos");
   /* Done setting locales. */
+#endif
 
   xio_init (argv[0]);
   params_register (global_params);
