@@ -1349,18 +1349,24 @@ win32_paste (void)
     }
 }
 
+#define MAX_MENUITEMS_I18N 10
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
-int ui_no_menuitems_i18n;
-static void add_cutpaste()
+int ui_no_menuitems_i18n = 0, ui_no_cutpasteitems_i18n;
+static menuitem *cutpasteitems;
+static void add_cutpasteitems()
 {
-  int no_menuitems_i18n = 0; /* This variable must be local. */
+  // General method (not needed currently):
+  int no_menuitems_i18n = ui_no_menuitems_i18n; /* This variable must be local. */
   MENUSEPARATOR_I ("edit");
   MENUNOP_I ("edit", NULL, gettext("Copy"), "copy", 0, win32_copy);
   MENUNOP_I ("edit", NULL, gettext("Paste"), "paste", 0, win32_paste);
   MENUSEPARATOR_I ("helpmenu");
   MENUNOP_I ("helpmenu", NULL, gettext("About"), "about", 0, AboutBox);
-  menu_add (menuitems_i18n, no_menuitems_i18n);
-  ui_no_menuitems_i18n = no_menuitems_i18n;
+  no_menuitems_i18n -= ui_no_menuitems_i18n;
+  cutpasteitems = &(menuitems_i18n [ui_no_menuitems_i18n]);
+  ui_no_cutpasteitems_i18n = no_menuitems_i18n;
+  menu_add (cutpasteitems, ui_no_cutpasteitems_i18n);
+  ui_no_menuitems_i18n += no_menuitems_i18n;
 }
 
 
@@ -1379,7 +1385,7 @@ win32_init (void)
   win32_driver.textheight = fontHeight;
   getres (&win32_driver.width, &win32_driver.height);
   win32_createrootmenu ();
-  add_cutpaste();
+  add_cutpasteitems();
   return r;
 }
 
@@ -1387,7 +1393,7 @@ static void
 win32_uninitialize (void)
 {
   DeInitWindow ();
-  // menu_delete (cutpaste, NITEMS (cutpaste));
+  menu_delete (cutpasteitems, ui_no_cutpasteitems_i18n);
 }
 static void
 win32_getsize (int *width, int *height)
@@ -1505,11 +1511,25 @@ dx_resize (struct uih_context *c, dialogparam * p)
   resized = 1;
   ui_call_resize ();
 }
-static CONST menuitem menuitems[] = {
-  MENUCDIALOG ("ui", "=", "Resize", "resize", 0, dx_resize, dx_resizedialog),
-  MENUNOP ("misc", NULL, "Grenerate .dlg files", "genresources", 0,
+
+int ui_no_resizeitems_i18n;
+static menuitem *resizeitems;
+
+static void add_resizeitems()
+{
+  // General method, it's needed:
+  int no_menuitems_i18n = ui_no_menuitems_i18n; /* This variable must be local. */
+  MENUCDIALOG ("ui", "=", gettext("Resize"), "resize", 0, dx_resize, dx_resizedialog),
+  MENUNOP ("misc", NULL, "Generate .dlg files", "genresources", 0,
 	   win32_genresources),
-};
+  no_menuitems_i18n -= ui_no_menuitems_i18n;
+  resizeitems = &(menuitems_i18n [ui_no_menuitems_i18n]);
+  ui_no_resizeitems_i18n = no_menuitems_i18n;
+  menu_add (resizeitems, ui_no_resizeeitems_i18n);
+  ui_no_menuitems_i18n += no_menuitems_i18n;
+}
+
+
 static int
 dx_alloc_buffers (char **b1, char **b2)
 {
@@ -1636,7 +1656,7 @@ dxw_init (void)
     return 0;
   win32_createrootmenu ();
   getres (&dxw_driver.width, &dxw_driver.height);
-  add_cutpaste();
+  add_cutpasteitems();
   return r;
 }
 static int
@@ -1651,8 +1671,8 @@ dxf_init (void)
 
   if (!dx_imgparams ())
     return 0;
-  menu_add (menuitems, NITEMS (menuitems));
-  add_cutpaste();
+  add_resize();    
+  add_cutpasteitems();
   return r;
 }
 
@@ -1662,8 +1682,8 @@ static void
 dx_uninitialize (void)
 {
   if (directX == DXFULLSCREEN)
-    menu_delete (menuitems, NITEMS (menuitems));
-  // menu_delete (cutpaste, NITEMS (cutpaste));
+    menu_delete (resizeitems, ui_no_resizeitems_i18n);
+  menu_delete (cutpasteitems, ui_no_cutpasteitems_i18n);
   DeInitDD ();
 }
 

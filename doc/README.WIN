@@ -2,11 +2,11 @@
 
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.7 2003-03-04 09:03:49 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.8 2003-03-19 12:09:25 kovzol Exp $
 
 Last updated by:
 Zoltan Kovacs (2003-01-23)
-Andreas Madritsch (2002-10-03, 2003-03-04)
+Andreas Madritsch (2002-10-03, 2003-03-04, 2003-03-18)
 
 
 *WARNING*
@@ -34,31 +34,31 @@ mapping problems, so use win32 driver instead. In fullscreen mode press
 Compiling XaoS
 ==============
 
-To compile XaoS you need Cygwin, MingW, the DirectX header files, zlib and
+To compile XaoS you need Cygwin, MinGW, the DirectX header files, zlib and
 libpng.
 
 Cygwin can be downloaded from http://www.cygwin.com/. It is recommended
 to install at least all base and devel packages except the
-mingw-runtime package, because MingW support of Cygwin is incomplete,
+mingw-runtime package, because MinGW support of Cygwin is incomplete,
 which causes dependencies on cygwin1.dll.
 
-MingW can be downloaded from http://www.mingw.org/. Create a new
+MinGW can be downloaded from http://www.mingw.org/. Create a new
 directory, copy the downloaded tar archive into that directory and
 gunzip and untar the archive. Copy all the header files and
 subdirectories contained in the extracted include/ directory to the
 directory usr/include/mingw/ of your Cygwin installation. Copy all the
 libraries and subdirectories in the extracted lib/ directory to the
-directory lib/mingw/ of your cygwin installation. If one of the MingW
+directory lib/mingw/ of your cygwin installation. If one of the MinGW
 directories does not exist, you have to create it. If there are already
-files in one of the MingW directories, that have the same name as files
+files in one of the MinGW directories, that have the same name as files
 you have to copy there, then overwrite these files.
 
 The Directx header files can be downloaded from
-http://www.microsoft.com/downloads/release.asp?ReleaseID=12471. Extract
-the downloaded file and copy all the header files located in the
-extracted include/ directory to the directory usr/include/mingw/ of
-your Cygwin installation. If there are already files, that have the
-same name as files you have to copy there, then overwrite them.
+http://www.microsoft.com/downloads/. Extract the downloaded file and copy
+all the header files located in the extracted include/ directory to the
+directory usr/include/mingw/ of your Cygwin installation. If there are
+already files, that have the same name as files you have to copy there,
+then overwrite them.
 
 Zlib and libpng can be downloaded from http://sourceforge.net/. Simply
 search for libpng. Zlib can be downloaded from the same web page as
@@ -70,12 +70,12 @@ To compile and install zlib, change to the directory zlib/ and type
 
 ./configure --prefix=/usr/local --includedir=/usr/include/mingw --libdir=/lib/mingw
 
-from a bash shell. There is a bash shell shipped with Cygwin. Edit the
-just generated makefile and add the compiler switch -mno-cygwin to the
-CFLAGS and LDFLAGS. I also had to remove the minigzip testprogram from
-TEST_OBJS and the target all, because some libraries were not found in
-my Cygwin installation. After saving the changes to the makefile, type
-make in the bash shell. Install zlib by typing make install.
+from the bash shell shipped with Cygwin. Edit the just generated makefile
+and add the compiler switch -mno-cygwin to the CFLAGS and LDFLAGS. I also
+had to remove the minigzip testprogram from TEST_OBJS and the target all,
+because some libraries were not found in my Cygwin installation. After
+saving the changes to the makefile, type make in the bash shell. Install
+zlib by typing make install.
 
 To compile and install libpng, copy the file makefile.cygwin from the
 subdirectory scripts/ of the directory libpng/ to the directory libpng/
@@ -98,6 +98,8 @@ lib/mingw/ of your cygwin installation.
 
 Now change to the directory XaoS/ and type
 
+export CPPFLAGS=-I/usr/include/mingw
+export LDFLAGS=-L/lib/mingw
 ./configure --with-x11-driver=no --with-dga-driver=no --disable-nls
 
 in the bash shell. The switches --with-x11-driver=no and
@@ -116,7 +118,8 @@ charset.alias, libgettextlib.dll.a, libgettextlib.la,
 libgettextsrc.dll.a, libgettextsrc.la, libintl.a, libintl.dll.a,
 libintl.la, libcharset.a, libcharset.dll.a, libcharset.la,
 libiconv.dll.a and libiconv.la to the directory lib/mingw/ of your
-Cygwin installation.
+Cygwin installation. To compile XaoS with i18n support you omit the
+switch --disable-nls when executing the configure script.
 
 If you wish thread support you have to download libpthread from
 ftp://sources.redhat.com/pub/pthreads-win32. Copy the header files
@@ -127,4 +130,5 @@ libpthread.a. To compile XaoS with thread support you use the switch
 --with-pthread=yes with the configure script.
 
 XaoS was tested only on Intel platform, but it should work on alpha too.
+
 

@@ -917,15 +917,15 @@ static CONST menuitem *menuitems;	/*XaoS menu specifications */
 
 /* Registering internationalized menus. See also include/xmenu.h
    for details. Note that MAX_MENUITEMS_I18N may be increased
-	 if more items will be added in future. */
+   if more items will be added in future. */
 #define MAX_MENUITEMS_I18N 200
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
 int uih_no_menuitems_i18n;
-//extern void DIALOGIFILE_I(char *_question,char *_filename);
 
 void
 uih_registermenus_i18n (void)
 {
+  // Special version (currently it's OK):
   int no_menuitems_i18n = 0;
   SUBMENU_I ("", NULL, gettext ("Root menu"), "root");
   SUBMENU_I ("", NULL, gettext ("Animation root menu"), "animroot");
@@ -1041,9 +1041,9 @@ uih_registermenus_i18n (void)
 				      "file");
   MENUNOP_I ("animroot", "s", gettext ("Stop replay"), "stopreplay",
 	     UI | MENUFLAG_INTERRUPT,
-	     uih_replaydisable) SUBMENUNOOPT_I ("animroot", NULL,
+	     uih_replaydisable); SUBMENUNOOPT_I ("animroot", NULL,
 						gettext ("Help"),
-						"helpmenu")
+						"helpmenu");
     SUBMENUNOOPT_I ("animroot", NULL, gettext ("UI"), "uia");
   MENUDIALOG_I ("misc", "!", gettext ("Command"), "command", UI, uih_command,
 		dcommand);
@@ -1069,11 +1069,11 @@ uih_registermenus_i18n (void)
 		MENUFLAG_NOMENU | MENUFLAG_INCALC,
 		uih_playtextpos, uih_textposdialog);
   MENUDIALOG_I ("misc", NULL, gettext ("Message"), "message",
-		MENUFLAG_NOMENU, uih_playmessage, dtextparam)
+		MENUFLAG_NOMENU, uih_playmessage, dtextparam);
     /* The following 6 menu options should not be translated. The example
        files heavily use these constants and lots of examples will not work
        anymore... :-(  Anyway, this should be fixed somehow. */
-    ;
+    
   MENUINTRB_I ("ytextpos", NULL, "Up", "ytextup", UI, uih_setytextpos,
 	       UIH_TEXTTOP, uih_ytextselected);
   MENUINTRB_I ("ytextpos",

@@ -990,29 +990,45 @@ static menuitem *menuitems;
 
 /* Registering internationalized menus. See also include/xmenu.h
    for details. Note that MAX_MENUITEMS_I18N may be increased
-	 if more items will be added in future. */
+   if more items will be added in future. */
+   
+/* Details of implementation:
+ *
+ * There are static menuitems_i18n[] arrays for several *.c files.
+ * In these files this array is common for all functions.
+ * Here, e.g. add_resizeitems() and ui_registermenus_i18n()
+ * use the same array and ui_no_menuitems_i18n is the counter
+ * that counts the number of items. The local variables
+ * count the local items.
+ */
+
 #define MAX_MENUITEMS_I18N 20
 /* These variables must be global: */
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
-int ui_no_menuitems_i18n;
+int ui_no_menuitems_i18n = 0, ui_no_resizeitems;
+static menuitem *resizeitems;
 
 #define UI (MENUFLAG_NOPLAY|MENUFLAG_NOOPTION)
 static void
 add_resizeitems()
 {
-  int no_menuitems_i18n = 0;	/* This variable must be local. */
+  // General version, it's needed now:
+  int no_menuitems_i18n = ui_no_menuitems_i18n;	/* This variable must be local. */
   MENUNOP_I ("ui", "=", gettext("Resize"), "resize", UI | MENUFLAG_INTERRUPT,
 	   ui_call_resize);
   MENUNOP_I ("uia", "=", gettext("Resize"), "animresize", UI | MENUFLAG_INTERRUPT,
 	   ui_call_resize);
-  menu_add (menuitems_i18n, no_menuitems_i18n);
-  ui_no_menuitems_i18n = no_menuitems_i18n;
+  no_menuitems_i18n -= ui_no_menuitems_i18n;
+  resizeitems = &menuitems_i18n[ui_no_menuitems_i18n];
+  menu_add (resizeitems, no_menuitems_i18n);
+  ui_no_resizeitems = no_menuitems_i18n;
+  ui_no_menuitems_i18n += no_menuitems_i18n;
 }
 
 static void
 ui_registermenus_i18n (void)
 {
-  int no_menuitems_i18n = 0;	/* This variable must be local. */
+  int no_menuitems_i18n = ui_no_menuitems_i18n;	/* This variable must be local. */
   SUBMENU_I ("file", "q", gettext ("Quit"), "quitmenu");
   MENUINT_I ("quitmenu", NULL, gettext ("Exit now"), "quit",
 	     MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quitwr, 1);
@@ -1037,8 +1053,9 @@ ui_registermenus_i18n (void)
   MENUSEPARATOR_I ("uia");
   SUBMENU_I ("ui", NULL, gettext ("Driver"), "drivers");
   SUBMENU_I ("uia", NULL, gettext ("Driver"), "drivers");
-  menu_add (menuitems_i18n, no_menuitems_i18n);
-  ui_no_menuitems_i18n = no_menuitems_i18n;
+  no_menuitems_i18n -= ui_no_menuitems_i18n;
+  menu_add (& (menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
+  ui_no_menuitems_i18n += no_menuitems_i18n;
 }
 
 /* Registering driver items: */
@@ -1565,7 +1582,7 @@ ui_mkimages (int w, int h)
   height = h;
   if (resizeregistered && !(driver->flags & RESIZE_COMMAND))
     {
-      // menu_delete (resizeitems, NITEMS (resizeitems));
+      menu_delete (resizeitems, ui_no_resizeitems);
       resizeregistered = 0;
     }
   else
@@ -1573,7 +1590,7 @@ ui_mkimages (int w, int h)
       if (!resizeregistered && (driver->flags & RESIZE_COMMAND))
 	{
 	  add_resizeitems();
-	  // resizeregistered = 1;
+	  resizeregistered = 1;
 	}
     }
   if (!(scanline = driver->alloc_buffers (&b1, &b2)))

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
-"POT-Creation-Date: 2003-03-18 19:57+0100\n"
+"POT-Creation-Date: 2003-03-19 14:03+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: Hungarian\n"
@@ -148,69 +148,69 @@ msgstr "Köszönjük, hogy a XaoS programot használta!\n"
 msgid "Skipping, please wait..."
 msgstr "Továbblépés, kérem várjon..."
 
-#: ../ui/ui.c:1004 ../ui/ui.c:1006
+#: ../ui/ui.c:1017 ../ui/ui.c:1019 ../ui/ui-drv/win32/ui_win32.c:1522
 msgid "Resize"
 msgstr "Átméretez"
 
-#: ../ui/ui.c:1016
+#: ../ui/ui.c:1032
 msgid "Quit"
 msgstr "Kilépés"
 
-#: ../ui/ui.c:1017
+#: ../ui/ui.c:1033
 msgid "Exit now"
 msgstr "Azonnali kilépés"
 
-#: ../ui/ui.c:1019
+#: ../ui/ui.c:1035
 msgid "Not yet"
 msgstr "Inkább még ne"
 
-#: ../ui/ui.c:1021 ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045
+#: ../ui/ui.c:1037 ../ui-hlp/menu.c:1038 ../ui-hlp/menu.c:1045
 #: ../ui/dialog.c:430 ../ui/dialog.c:1446
 msgid "Help"
 msgstr "Segítség"
 
-#: ../ui/ui.c:1023
+#: ../ui/ui.c:1039
 msgid "Disable XaoS's builtin GUI"
 msgstr "A bépített felület kikapcsolása"
 
-#: ../ui/ui.c:1027 ../ui/ui.c:1033
+#: ../ui/ui.c:1043 ../ui/ui.c:1049
 msgid "Status"
 msgstr "Jellemzõk"
 
-#: ../ui/ui.c:1029 ../ui/ui.c:1035
+#: ../ui/ui.c:1045 ../ui/ui.c:1051
 msgid "Ministatus"
 msgstr "Fõbb jellemzõk"
 
-#: ../ui/ui.c:1038 ../ui/ui.c:1039
+#: ../ui/ui.c:1054 ../ui/ui.c:1055
 msgid "Driver"
 msgstr "Grafikus meghajtó"
 
-#: ../ui/ui.c:1434
+#: ../ui/ui.c:1451
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Köszöntjük a XaoS %s verziójában!"
 
-#: ../ui/ui.c:1582
+#: ../ui/ui.c:1599
 msgid "Can not allocate buffers"
 msgstr "Nincs elegendõ puffer"
 
-#: ../ui/ui.c:1600
+#: ../ui/ui.c:1617
 msgid "Can not create palette"
 msgstr "A színpaletta nem hozható létre"
 
-#: ../ui/ui.c:1613
+#: ../ui/ui.c:1630
 msgid "Can not create image"
 msgstr "A kép nem hozható létre"
 
-#: ../ui/ui.c:1648 ../ui/ui.c:1702
+#: ../ui/ui.c:1665 ../ui/ui.c:1719
 msgid "Can not allocate tables"
 msgstr "Nincs hely a tábláknak"
 
-#: ../ui/ui.c:1686
+#: ../ui/ui.c:1703
 msgid "Can not initialize driver"
 msgstr "A grafikus meghajtó nem inicializálható"
 
-#: ../ui/ui.c:1689
+#: ../ui/ui.c:1706
 msgid "Can not return back to previous driver"
 msgstr "Az elõzõ grafikus meghajtó nem tölthetõ be"
 
@@ -1349,14 +1349,14 @@ msgstr "A számítás félbeszakadt"
 msgid "Calculation finished"
 msgstr "A számítás véget ért"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1358
+#: ../ui/ui-drv/win32/ui_win32.c:1361
 msgid "Copy"
 msgstr "Másol"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1359
+#: ../ui/ui-drv/win32/ui_win32.c:1362
 msgid "Paste"
 msgstr "Beilleszt"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1361
+#: ../ui/ui-drv/win32/ui_win32.c:1364
 msgid "About"
 msgstr "Névjegy"
