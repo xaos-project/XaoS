@@ -1861,6 +1861,7 @@ else.
 * palettemenu::	Palette
 * uimandelbrot::	Mandelbrot mode
 * uiperturbation::	Perturbation
+* uibailout::	Bailout
 * uiview::	View
 * initstate::	Reset to defaults
 * tcolor::	True-color coloring modes
@@ -1939,7 +1940,7 @@ Select the current julia seed.
 
 @emph{Available as}: command line option, command
 
-@node uiperturbation,  uiview,  uimandelbrot,  fractal
+@node uiperturbation,  uibailout,  uimandelbrot,  fractal
 
 
 @appendixsubsec Perturbation
@@ -1970,7 +1971,33 @@ perturbation.
 
 @emph{Available as}: command line option, command
 
-@node uiview,  initstate,  uiperturbation,  fractal
+@node uibailout,  uiview,  uiperturbation,  fractal
+
+
+@appendixsubsec Bailout
+
+Bailout is the value which is checked for each point of
+the orbit if the point is far enough
+from the complex zero point in the current iteration.
+
+For the Mandelbrot set
+this value is 4. Other fractal types usually
+have the same bailout value. For most fractals many bailout values
+give more or less similar output. E.g., for the second order
+Mandelbrot set one can prove that the sequence |z:=z^2+z| tends to
+infinity if and only if |z|>2 for some element z of this sequence.
+In XaoS program, Bailout value is the square of this 2, i.e. you can change this
+to any value greater than 2 for similar results.
+
+Other fractal types may use other bailout values. The default
+is 4 for each types.
+
+@emph{Available as}: menu item
+@defun bailout complex 
+@end defun
+
+
+@node uiview,  initstate,  uibailout,  fractal
 
 
 @appendixsubsec View
