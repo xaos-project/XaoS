@@ -12926,10 +12926,6 @@ if test "$ac_cv_header_malloc_h" = "no"; then
 #define NO_MALLOC_H 1
 EOF
 
- cat >>confdefs.h <<\EOF
-#define RESTRICT 1
-EOF
-
  fi
 
 echo "------------------------------------------------------------"
@@ -13143,7 +13139,7 @@ DEFS=-DHAVE_CONFIG_H
 : ${CONFIG_STATUS=./config.status}
 ac_clean_files_save=$ac_clean_files
 ac_clean_files="$ac_clean_files $CONFIG_STATUS"
-{ echo "$as_me:13146: creating $CONFIG_STATUS" >&5
+{ echo "$as_me:13142: creating $CONFIG_STATUS" >&5
 echo "$as_me: creating $CONFIG_STATUS" >&6;}
 cat >$CONFIG_STATUS <<_ACEOF
 #! $SHELL
@@ -13316,7 +13312,7 @@ cat >>$CONFIG_STATUS <<\EOF
     echo "$ac_cs_version"; exit 0 ;;
   --he | --h)
     # Conflict between --help and --header
-    { { echo "$as_me:13319: error: ambiguous option: $1
+    { { echo "$as_me:13315: error: ambiguous option: $1
 Try \`$0 --help' for more information." >&5
 echo "$as_me: error: ambiguous option: $1
 Try \`$0 --help' for more information." >&2;}
@@ -13335,7 +13331,7 @@ Try \`$0 --help' for more information." >&2;}
     ac_need_defaults=false;;
 
   # This is an error.
-  -*) { { echo "$as_me:13338: error: unrecognized option: $1
+  -*) { { echo "$as_me:13334: error: unrecognized option: $1
 Try \`$0 --help' for more information." >&5
 echo "$as_me: error: unrecognized option: $1
 Try \`$0 --help' for more information." >&2;}
@@ -13388,7 +13384,7 @@ do
   "doc/Makefile" ) CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
   "help/Makefile" ) CONFIG_FILES="$CONFIG_FILES help/Makefile" ;;
   "src/include/aconfig.h" ) CONFIG_HEADERS="$CONFIG_HEADERS src/include/aconfig.h" ;;
-  *) { { echo "$as_me:13391: error: invalid argument: $ac_config_target" >&5
+  *) { { echo "$as_me:13387: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;
   esac
@@ -13636,7 +13632,7 @@ done; }
   esac
 
   if test x"$ac_file" != x-; then
-    { echo "$as_me:13639: creating $ac_file" >&5
+    { echo "$as_me:13635: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
     rm -f "$ac_file"
   fi
@@ -13654,7 +13650,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo $tmp/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:13657: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:13653: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -13667,7 +13663,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo $srcdir/$f
          else
            # /dev/null tree
-           { { echo "$as_me:13670: error: cannot find input file: $f" >&5
+           { { echo "$as_me:13666: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -13728,7 +13724,7 @@ for ac_file in : $CONFIG_HEADERS; do test "x$ac_file" = x: && continue
   * )   ac_file_in=$ac_file.in ;;
   esac
 
-  test x"$ac_file" != x- && { echo "$as_me:13731: creating $ac_file" >&5
+  test x"$ac_file" != x- && { echo "$as_me:13727: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
 
   # First look for the input files in the build tree, otherwise in the
@@ -13739,7 +13735,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo $tmp/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:13742: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:13738: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -13752,7 +13748,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo $srcdir/$f
          else
            # /dev/null tree
-           { { echo "$as_me:13755: error: cannot find input file: $f" >&5
+           { { echo "$as_me:13751: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -13869,7 +13865,7 @@ cat >>$CONFIG_STATUS <<\EOF
   rm -f $tmp/in
   if test x"$ac_file" != x-; then
     if cmp -s $ac_file $tmp/config.h 2>/dev/null; then
-      { echo "$as_me:13872: $ac_file is unchanged" >&5
+      { echo "$as_me:13868: $ac_file is unchanged" >&5
 echo "$as_me: $ac_file is unchanged" >&6;}
     else
       ac_dir=`$as_expr X"$ac_file" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
@@ -13950,19 +13946,19 @@ echo " "
 echo "READ CUREFULLY FOLLOWING WARNINGS"
 echo " "
 if test "x$ac_cv_header_stdc" = xno; then
-  { echo "$as_me:13953: WARNING: There are no ANSI C headers avaiable. XaoS will have troubles with compiling." >&5
+  { echo "$as_me:13949: WARNING: There are no ANSI C headers avaiable. XaoS will have troubles with compiling." >&5
 echo "$as_me: WARNING: There are no ANSI C headers avaiable. XaoS will have troubles with compiling." >&2;}
   config_problem=yes
 fi
 if test "x$ac_cv_c_compiler_gnu" = xyes; then
   echo
 else
-  { echo "$as_me:13960: WARNING: The GNU C compiler is recommended to get the best performance. XaoS crashes many compilers so your compiler can cause troubles." >&5
+  { echo "$as_me:13956: WARNING: The GNU C compiler is recommended to get the best performance. XaoS crashes many compilers so your compiler can cause troubles." >&5
 echo "$as_me: WARNING: The GNU C compiler is recommended to get the best performance. XaoS crashes many compilers so your compiler can cause troubles." >&2;}
 fi
 if test "x$ac_cv_c_long_double" = xyes; then
   if test "x$long_double" = xyes; then
-  { echo "$as_me:13965: WARNING: Long double enabled. This works well for x86 architectures. On other systems this may slow down much. Especially on SUN workstations. If XaoS works incredibly slowly, try to rebuild it using:
+  { echo "$as_me:13961: WARNING: Long double enabled. This works well for x86 architectures. On other systems this may slow down much. Especially on SUN workstations. If XaoS works incredibly slowly, try to rebuild it using:
    configure --with-long-double=no
    make clean
    make" >&5
@@ -13973,14 +13969,14 @@ echo "$as_me: WARNING: Long double enabled. This works well for x86 architecture
   fi
 fi
 if test "x$drivers" = xno; then
-  { echo "$as_me:13976: WARNING: There is no driver avaible. XaoS will not start." >&5
+  { echo "$as_me:13972: WARNING: There is no driver avaible. XaoS will not start." >&5
 echo "$as_me: WARNING: There is no driver avaible. XaoS will not start." >&2;}
   config_problem=yes
 fi
 if test "x$config_problem" = xyes; then
-  { echo "$as_me:13981: WARNING: There was a problem with automatic configuration." >&5
+  { echo "$as_me:13977: WARNING: There was a problem with automatic configuration." >&5
 echo "$as_me: WARNING: There was a problem with automatic configuration." >&2;}
-  { echo "$as_me:13983: WARNING: Read INSTALL file for troubleshooting tips." >&5
+  { echo "$as_me:13979: WARNING: Read INSTALL file for troubleshooting tips." >&5
 echo "$as_me: WARNING: Read INSTALL file for troubleshooting tips." >&2;}
 fi
 if test x"$ac_cv_lib_z_inflate" = xno; then
