@@ -1945,7 +1945,7 @@ to any value greater than 2 for similar results.
 Other fractal types may use other bailout values. The default
 is 4 for each types.
 <p>
-<emph>Available as</emph>: menu item
+<emph>Available as</emph>: menu item, command line option, command
 <p><emph>Syntax</emph>:(bailout float)
 <p>
 
