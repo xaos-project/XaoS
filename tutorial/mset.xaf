@@ -114,7 +114,7 @@
 (view -0.69697092226 -0.44313598753 2.1102342597E-07 2.1102342597E-07)
 (usleep 3000000)
 
-;An yellow mandelbrot
+;A yellow mandelbrot
 (palette 1 1322755214 0)
 (angle 276)
 (view -0.1797721 -0.8418266 0.001259123 0.001259123)
@@ -137,7 +137,7 @@
 
 ;(usleep 3000000)
 
-;An strange purple mandelrbto
+;A strange purple mandelbrot
 
 (outcoloring 0)
 (palette 1 2003101440 0)

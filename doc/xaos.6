@@ -8,43 +8,43 @@ xaos [options]
 
 .SH DESCRIPTION
 
-XaoS is a protable real-time interactive fractal zoomer/morpher.
+XaoS is a portable real-time interactive fractal zoomer/morpher.
 The UNIX version works under X11, SVGA and text terminals.
-If you don't know what fractal is or you want to know more about
-XaoS features you should see the animated tutorial. 
+If you don't know what a fractal is, or you want to know more about
+XaoS features, you should see the animated tutorial. 
 .B \ Run XaoS and press 'H' twice.
 It is much more fun than reading the boring manual page :) and it supports foreign
-languages. You might also read the
+languages. You might also want to read the
 .B \ xaos.info 
 file for some advanced stuff
 (like how to write animations and tutorials manually, port or extend XaoS,
 algorithms used etc.)
 
 .SH "OPTIONS"
-XaoS' options should be divided into the following parts:
+XaoS' options are divided into the following groups:
 .TP
 .B \ Ugly interface options
-These options are common for all installations of XaoS because the only
+These options are common across all installations of XaoS because the only
 interface available for now is the ugly interface.
 .TP
 .B \ Driver selection options
-This options lets you choose the graphics driver.
+These options let you choose the graphics driver.
 .TP
 .B \ Driver dependent options
 These options depend on available drivers.
 .SH "SCREEN SIZE OPTIONS"
 XaoS needs exact knowledge of the screen size to make random dot stereograms
-and for choosing good view areas for fractals. This should be done in two ways:
-Choosing screen size or choosing pixel size. Screen size is best for fullscreen
-drivers where resolution/pixel-size should be changed. On the other hand,
+and for choosing good viewing areas for fractals. This can be done in two ways,
+by choosing screen size or choosing the pixel size. Screen size is best for fullscreen
+drivers where resolution/pixel-size may be changed. On the other hand,
 pixel size is best for windowed environments where some kind of virtual screen,
-etc. should confuse calculation of pixel size from the screen size.
+etc. could confuse calculation of pixel size from the screen size.
 .TP
 .B \-screenwidth
-exact size of the screen in centimeters
+exact width of the screen in centimeters
 .TP
 .B \-screenheight
-exact size of the screen in centimeters
+exact height of the screen in centimeters
 .TP
 .B \-pixelwidth
 exact size of a pixel's width in centimeters
@@ -52,10 +52,10 @@ exact size of a pixel's width in centimeters
 .B \-pixelheight
 exact size of a pixel's height in centimeters
 .SH "DRIVER SELECTION OPTIONS"
-Every xaos installation has some graphics drivers. This depends on
+Every XaoS installation has some graphics drivers. Which are available depends on
 which operating system you have, available libraries and configurations. XaoS
 by default tries to enable the best available driver. So for example,
-in the GNU/Linux case, it tests the drivers in the following order:
+in the cas of GNU/Linux, it tests the drivers in the following order:
 .br
 SVGAlib
 .br
@@ -66,21 +66,21 @@ curses
 The following options are used to control this operation:
 .TP
 .B \-driver    
-This options lets you specify the driver to use and avoid autodetection.
+This option lets you specify the driver to use and avoid autodetection.
 .TP
 .B \-list
 List available drivers and then exit.
 
 .SH "OTHER UI OPTIONS"
-Other options are quite easy to understand and depends on XaoS configuration
+The remaining options are quite easy to understand and depend on XaoS configuration
 and version, so I do not describe how to use them here.
 .B \ xaos -help
 for a complete list of options with descriptions.
 .SH "BUGS"
-There is no known bugs in this release. See the xaos home-page 
+There are no known bugs in this release. See the XaoS home-page 
 at: 
 .B \ http://www.paru.cas.cz/~hubicka/XaoS
-for a list with solutions. Please report bugs to 
+for a list of bugs with solutions. Please report bugs to 
 .B \ xaos@horac.ta.jcu.cz
 .SH "AUTHORS"
 .B Maitainer:

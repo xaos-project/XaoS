@@ -1,7 +1,9 @@
 COMPILERS
 =========
 
-This document tries to describe common problems with various compilers
+This document tries to describe common problems with various compilers.
+
+It is currently *out of date*.
 
 XaoS is coded to be good target for optimizers and to make compiler bussy.
 Problem is that it often forces compiler to crash or generate wrong code. This

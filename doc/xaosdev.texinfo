@@ -6,11 +6,11 @@
 @end iftex
 
 @setfilename xaosdev.info
-@settitle An fast real-time interactive fractal zoomer---hacker's guide
+@settitle A fast real-time interactive fractal zoomer --- hacker's guide
 @dircategory Graphics
 @direntry 
  * XaoS: (xaosdev).               The fast real-time interactive fractal zoomer
-                                  (developers documentation
+                                  (developers documentation)
 @end direntry
 
 
@@ -31,7 +31,7 @@ this permission notice are preserved on all copies.
 @titlepage
 
 @title{XaoS @value{VERSION}}
-@subtitle{An fast real-time fractal zoomer---hacker's guide}
+@subtitle{A fast real-time fractal zoomer --- hacker's guide}
 
 @author{Jan Hubi@v cka}
 @tex
@@ -59,20 +59,20 @@ this permission notice are preserved on all copies.
 @end titlepage
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-@node   Top,    ,       (dir),  (dir)
+@node   Top, , (dir), (dir)
 
 @ifinfo
 @top XaoS @value{VERSION}
 @flushright 1.0
-An real-time interactive fractal zoomer
+A real-time interactive fractal zoomer
 Hacker's guide
 @value{DATE}
 @end flushright
 
 This manual contains documentation for those who are interested in
-studying and improving XaoS sources or using them in other programs. 
-It includes description of algorithm and documentation of those parts
-of XaoS I think they should be useful for someone.
+studying and improving the XaoS sources or using them in other programs. 
+It includes a description of the algorithm and documentation of those parts
+of XaoS that I think might be useful for others.
 @end ifinfo
 
 @menu
@@ -92,106 +92,110 @@ of XaoS I think they should be useful for someone.
 @node design, driver ,Top ,Top
 @chapter Overview of the XaoS design
 
-Whole sources of XaoS are designed into several ``libraries'' (some of them
-are not really libraries, but added into other's, but should be separated
-easily). 
+XaoS is divided into several ``libraries'' (some of them have been merged
+together; nonetheless the conceptual divisions are there and they can be
+separated easily).
 
-Understanding to the main philosophy should help you to navigate in the sources. 
-I also expect that many of the lower level stuff should be useful in the
-other projects, since it is designed to be fairly generic.
+Understanding the design philosophy should help you to navigate in the sources.
+I also expect that much of the lower level stuff may be useful in other
+projects, since it is designed to be fairly generic.
 
-So here is an overview from the lowest level stuff to the highest.
+So here is an overview, from the lowest level stuff to the highest.
 
 @section Palette and image library
 
 @findex image
 @findex palette
-Sources are in directory @code{src/filter}. The aim of palette
-library is to provide relatively abstract interface to the various visuals and
-hide differences in the hardware and driver implementation. Fixedcolor, pseudocolor,
-grayscale and truecolor visuals should be handled in the almost same way.
+The sources for this are in the directory @code{src/filter}.
+The aim of the palette library is to provide a relatively abstract interface to
+the various visuals, and hide differences in the hardware and driver
+implementations. Fixed color, pseudocolor, grayscale and truecolor visuals
+should be handled in almost the same way.
 
-It provides the structure @code{palette}, which contains actual palette.
-You might allocate new colors here (you give RGB value and corresponding pixel
+It provides the @code{palette} structure, containing a palette. You might
+allocate new colors here (you give an RGB value and the corresponding pixel
 is returned), interpolate colors where possible, cycle colors and so on.
-Every palette also consist from the two parts---the preallocated color cells
-and the actual palette. This lets for example to GUI possibility to allocate
-statically colors for its texts and dialogs, while rest of palette is under
-control of different parts of XaoS.
 
-This library also contain set of functions to allocate different palettes
-used by other parts. I expected that different parts of XaoS should use same
-palette. Nothing similar happened yet, but functions are kept here.
+Every palette contains two parts --- the preallocated color cells and the actual
+palette. For instance, this could be used to allow the GUI the possibility to
+allocate static, unchanging colors for its texts and dialogs, while the rest of
+the palette is under the control of different parts of XaoS.
 
-The image library is built at the top of palette library. It extends
+This library also contains a set of functions to allocate different palettes
+used by other parts of XaOS. I expected that different parts of XaoS could share
+the same palette. This hasn't happened yet, but the functions are kept here just
+in case.
+
+The image library is built on top of the palette library, providing
 functionality for handling actual image data. Each image is represented by one
-or two frame-buffers (it is useful for double-buffering). One frame-buffer is
-called current and other old. They should be flipped by special function.
-Program can draw into both of them.
+or two frame-buffers (useful for double-buffering). One frame-buffer is
+called `current' and the other `old'. They are flipped by a special function.
+The program can draw into either of them.
 
-Frame-buffers are hold as the set of pointers to the scan-lines. This brings better
-flexibility, because tricks like sub-windows, or flipped bitmaps are possible. Also speeds
-up, since you should avoid one multiplication.
+Frame-buffers are held as a set of pointers to scan-lines. This provides more
+flexibility than more obvious representations, because tricks like sub-windows
+and flipped bitmaps are possible. It's also fast, since you should avoid one
+multiplication.
 
-The last significant information image structure hold is of course bpp depth.
-It is counted in bytes, and should be 0--4. Where 0 is used for 1bit
-bitmaps.
+The last significant information the image structure holds is of course the bpp
+depth.  It is counted in bytes, and ranges from 0--4 (where 0 is used for 1bit
+bitmaps).
 
 @section Filter library
-Source are available in @code{src/filter}. This library controls the process
-of creation of the image. It handles an queue of the filters, where each
-filter should modify the image. There are two special filter at the beginning
-and end of queue. The first filter is usually the actual fractal engine which
-creates image, while the terminal filter is usually user interface helper
-library.
+Sources are available in @code{src/filter}.
+This library controls the process of image creation. It handles a queue of
+filters, where each filter modifies the image in some way. The filters at the
+beginning and end of the queue are special; the first filter is usually the
+actual fractal engine which creates the image, and the last filter is usually
+the user interface helper library.
 
 @section Xthread library
-This library provides interface to various multi-threading libraries (currently
-the BeOS, plan9 and POSIX implementations are available). It allows to run
-various function paraelly and some synchronization primitives (semaphores). It
-is simple, but has all the functionality required for the XaoS engine.
+This library provides an interface to various multi-threading libraries;
+currently the BeOS, plan9 and POSIX implementations are available. It allows the
+running of various functions in parallel, and provides some synchronization
+primitives (semaphores). It is simple, but has all the functionality required
+for the XaoS engine.
 
 @section Fractal library
-Source are available in @code{src/engine/}, headers in @code{fractal.h}. 
-This library contains the actual fractal calculation routines. It operates
-with fractal context, which contains informations like current formula, seed
-for julia, palette etc.
+Sources are available in @code{src/engine/}, headers in @code{fractal.h}.
+This library contains the actual fractal calculation routines. It is governed by
+a fractal context, which contains information like the current formula, the seed
+(for julia sets), the palette, and so on.
 
 Functions for calculating the various fractal types and various coloring modes
-are available here.
+are also available here.
 
 @section Zooming engine and other filters.
-Source are available in @code{src/engine/}.
-This is the actual zooming engine filter. It is done in fairly independent
-way at fractal library, so it should be possibly used for zooming other stuff.
-(it was already used for zooming large scale images containing maps of
-Hungary).
+Sources are available in @code{src/engine/}.
+This is the actual zooming engine filter. It is fairly independent of the
+fractal library, so it could possibly be used for zooming other stuff. (It has
+already been used for zooming large scale images containing maps of Hungary).
 
-All other filter has their special file, where is implementation and structure
-containing all functions exported from the filter to user interface. They are
-registered in the file @code{ui_helper}.
-One other terminal filter is implemented---Julia morpher. Other filters adds
-special effects (such as motion blur), or does conversions (such as rotation,
-dithering etc.)
+The file @code{ui_helper} contains the implementation of all filters not already
+mentioned, and a structure containing all functions exported from the filter to
+the user interface. One other terminal filter is implemented --- the Julia
+morpher. Other filters add special effects (such as motion blur), or do
+conversions (such as rotation or dithering).
 
 @section Timer library
-This library provides many of very useful timing primitives. Such as
-timers, etc. Currently it is used by some other programs too.
+This library provides many useful timing primitives (such as timers).
+It is used by some other programs too.
 
 @section xio library
-This library aims to provide united interface to file-system. Some strange
-systems (such as MacOS) has file-system API done in much different way than
-in UNIX. They don't have names in string, and uses special structures etc.
+This library aims to provide a unified, portable interface to the file
+system. Some strange systems (such as MacOS) have a very different filesystem
+API to UNIX; perhaps they don't represent filenames as a string, use special
+structures, or something; this library abstracts away from all that.
 
 @section xshl library
-Xshl stands for XaoS simple hypertext library. It contains fairly universal
-engine parsing an xshl language. It is similar to HTML with some additions and
-many restrictions. It should render this texts for the
-proportional/non-proportional fonts and various sizes.
+Xshl stands for XaoS simple hypertext library. It contains a fairly universal
+engine parsing an `xshl' language, similar to HTML, with some additions and many
+restrictions. It can render text for both proportional and monospaced fonts, in
+various sizes.
 
 @section help library
-it is built at the top of xshl and xio libraries. It should read help files,
-wick contains an chapters. Parse chapter with given keyword etc.
+This is built on top of the xshl and xio libraries. It can read help files
+containing help chapters, can parse keywords in chapters, and so on.
 
 @section xmenu library
 This is the XaoS function registry. All functions from UI-Helper library are
@@ -199,88 +203,87 @@ registered in the registry. From this registry the menus, dialogs, command
 line options and scripting language are built.
 
 @section Catalog library
-This is library for handling an message catalogs. It should read catalog and
-convert the keyword into actual message.
+This is a library for handling message catalogs. It should read catalogs and
+convert keywords into an actual message.
 
 @section PNG library
-This library provides the function for saving an image from Image library to
-the file (in PNG format). Other formats should be added as well if required.
+This library provides a function for saving an image from the Image library to a
+file, in PNG format. Other formats could be added as well if required.
 
 @section UI-helper library
-This library controls all the low-level stuff and provides an high level
-interface to it. It has functions for playing animations, zooming/UN-zooming
-and such. It heavily uses all the described libraries. It don't implement
-functions for handling menus and such, but makes great help for such
+This library controls all the low-level stuff and provides a high-level
+interface to it. It has functions for playing animations, zooming/un-zooming
+and suchlike. It all the other libraries heavily. It doesn't implement
+functions for handling menus and such, but could be helpful for such
 implementations, because of the function registry database.
 
 @section Ugly interface
-This is currently the only real user interface for XaoS (there is also an second,
-wich is used for rendering animations, but it is not user interface, how users
-expect it). It is built at the top of UI-helper
-library and provides functions for drawing menus, dialogs and such.
-It has drivers for many platforms, and it should be easily ported to the
-others.
+This is currently the only real user interface for XaoS (there is another, wich
+is used for rendering animations, but it is not a user interface as users
+understand the term). It is built above the UI-helper library and provides
+functions for drawing menus, dialogs and so on.  It has drivers for many
+platforms, and can be easily ported to others.
 
-In the future, it should be quite easily to extended to let
-drivers specify their own menu/dialog handling code, so it should be possible
-to give it an ``native'' look of given platform.
+In the future, it should be quite easily extended to let drivers specify their
+own menu/dialog handling code; so it should be possible to give it a ``native''
+look on each platform.
 
-It has also an function, where an GUI drawing routines are disabled. Function
-registry database is transfered trough pipe to external program, wick should
-build the menus and act as external user interface. It then back sends an
-commands in the scripting language representing things, that user done.
-So it is an another way, how to give native look to ugly interface.
+It can also operate in a mode where the GUI drawing routines are disabled; the
+function registry database is transferred through a pipe to an external program,
+which should build the menus and act as an external user interface, sending back
+commands in the scripting language (presumably representing things that the user
+has done). This provides another way to give a native look to the ugly interface,
+and could also be used to interface other scripting languages to XaoS.
 
-Ugly interface has also one serious limitation---for the historical reasons it
-is coded to handle just one window (rest of XaoS probably can do
-multiple windows---untested). So in windowed environments it is impossible to
-open multiple menus with fractals. At the other hand, this limitation is not
-so important, once external GUI enter the role. They should just start
-multiple XaoS engines. This will bring extra robustness, multitasking and some
-other advantages, so it is the proffered way. Thats why I don't plan to remove
-this limitation yet.
+The ugly interface has one serious limitation --- for historical reasons, it is
+coded to handle just one window (the rest of XaoS can probably do multiple
+windows, but this is untested), so in windowed environments it is impossible to
+open multiple menus with fractals. On the other hand, this limitation is not so
+important once external GUIs enter the picture, as they could just start
+multiple XaoS engines. This is also preferred because it brings extra
+robustness, multitasking and some other advantages. That's why I don't plan to
+remove this limitation yet.
 
 @node driver, gui-driver ,design ,Top
 @chapter Driver API description
 
-To port successfully XaoS to some platform you need:
+To port XaoS successfully to some platform you need:
 
 @itemize @bullet
 @item
-ANSI C compatible optimizing compiler. Note that optimizing compiler is really
-required, since XaoS is coded to be good target for optimizations and don't
-have any routines coded in assembly, so if you will use some bad compiler, you
-should receive more than ten times slower result. Also note that some
-compilers has serious problems with compiling XaoS---like most of DOS compilers
-(Watcom C, Borland C, Microsoft C etc...), has serious problems.
-They generate incorrect code or crash during compilation. I highly recommend
-to use GNU C compiler. Even some versions of GNU C has problems. Please read
-@code{compilers.txt} for more information.
+An ISO C compatible optimizing compiler. Note that an optimizing compiler is
+really required, since XaoS is coded to be a good target for optimizations and
+doesn't have many routines coded in assembly; so if you will use a bad compiler,
+you will notice drastic slowdowns (a slowdown of 10x or more). Some compilers
+have serious problems compiling XaoS; this applies to most DOS compilers (Watcom
+C, Borland C, Microsoft C) for instance.  They generate incorrect code or crash
+during compilation. I highly recommend using the GNU C compiler, but even some
+versions of GNU C have difficulty. Please read @code{compilers.txt} for more
+information.
 @item
-Fast way to avoid division by zero/overflow and other floating point
-exception. XaoS is carefully coded to not to crash in this case, but don't
-have any tests to avoid such situation and expect random result in such case.
-Many platforms provide way to switch coprocessor into mode, where 1/0 is
-evaluated into Inf etc. If there is no such way, try to use some kind of signal
-handler that will ignore such exceptions.
+A fast way to avoid division by zero/overflow and other floating point
+exceptions. XaoS is carefully coded to not crash in this case, but doesn't have
+any tests to avoid such situations; expect random results in such cases.  Many
+platforms provide a means to switch coprocessor into a mode where 1/0 produces
+Inf and so on. If there is no such means, try to use some kind of signal handler
+that will ignore such exceptions.
 
-The ``normal'' solution---add ifs to avoid division by zero is almost
-impossible. The division is quite easy to check. But other cases---overflows
-are much worse. So I don't think it is possible to avoid all crashes just by
-adding ifs.
+The ``normal'' solution --- add @code{if}s to avoid division by zero --- is
+almost impossible. Division is quite easy to check for, but other cases (such as
+overflows) are much harder. I don't think it is possible to avoid all crashes
+just by adding @code{if}s.
 
-XaoS don't depend at IEEE arithmetic. Result in such cases should me mostly
-undefined. XaoS usually works well with compiler's switches for inexact math
-enabled (such as @code{-ffast-math} in GNU). But no guarantees. For example at
-Alphas this is not true---since they usually generates exceptions then.
-Also @code{-mno-ieee-fp} at Intel don't work. This is due to GCC bug. In some
-cases it reverses the condition when this switch is enabled. I've made patch
-to fix this bug and hope that it will get to egcs or gcc soon.
+XaoS doesn't depend on IEEE arithmetic. The result in the sort of edge cases
+where IEEE makes a difference is mostly undefined. XaoS usually works well with
+compiler switches for inexact math enabled (such as @code{-ffast-math} in GCC),
+but, of course, there are no guarantees. For example on Alphas this is not true,
+since they usually generate exceptions in that case.
 @item
-Text or graphics output device. If you have only text output device, you may
-use AA driver, which renders fractals into high quality ASCII art. In this case
-you might skip this chapter, download AA-lib (http://www.ta.jcu.cz/aa) and
-read porting chapter of AAlib manual. Graphics device must one of:
+A text or graphics output device. If you only have a text output device you may
+use the AA driver, which renders fractals into high quality ASCII art. In this
+case you might want to skip this chapter, download AA-lib
+(http://www.ta.jcu.cz/aa) and read the porting chapter of AAlib manual. A
+graphics device must be one of:
 
 @findex C256
 @findex FIXEDCOLOR
@@ -289,35 +292,36 @@ read porting chapter of AAlib manual. Graphics device must one of:
 @findex TRUECOLOR24
 @findex TRUECOLOR32
 @itemize @bullet
-@item 8bits per pixel with user definable palette @code{C256}, static palette @code{FIXEDCOLOR}, or static grayscale @code{GRAYSCALE}
-@item 16bits per pixel with arbitrary bits per each color @code{TRUECOLOR}
-@item 24bits per pixel with 8 bits per each color, arbitrary order @code{TRUECOLOR24}
-@item 32bits per pixel with arbitrary order of colors, where each colors fit to exactly one byte @code{TRUECOLOR}
-@item 1bits per pixel bitmap with both orders (Least or Most significant bit first)
+@item 8 bits per pixel with user definable palette @code{C256}, static palette @code{FIXEDCOLOR}, or static grayscale @code{GRAYSCALE}
+@item 16 bits per pixel with arbitrary bits per color @code{TRUECOLOR}
+@item 24 bits per pixel with 8 bits per color, arbitrary order @code{TRUECOLOR24}
+@item 32 bits per pixel with arbitrary order of colors, where each color fits in exactly one byte @code{TRUECOLOR}
+@item 1 bit per pixel bitmap, either least or most significant bit first
 @end itemize
 
-Please contact me if you have different kind of device. Some modes (like
-miss-ordered truecolor modes) should be added really easily if required.
-Note that mono/4/16 colors devices will be probably never supported 
-internally by XaoS, since I expect they will be slower than 8bpp, so XaoS
-will internally work in 8bpp and then image should be converted. Contact me
-if you want to write such converter. (For bitmap there already exists---see
-@code{dither.c}.
+Please contact me if you have a different kind of device. Some modes (like
+mis-ordered truecolor modes) could be added really easily if required.  Note
+that mono/4/16 colors devices will probably never be supported internally by
+XaoS, since I expect they will be slower than 8bpp, so XaoS will internally work
+in 8bpp and then convert to 1/2/4bpp. Contact me if you want to write such a
+converter. (For bitmap one already exists --- see @code{dither.c}.)
 @item
-Some way to save images. By default XaoS uses @code{pnglib}, which is ported to many
-platforms, but there is still many others. If your system has some standard
-image format, which is easier to handle than @code{.png}, contact me and I will show
-you, how to add such support to XaoS (see @code{png.c}).
+Some way to save images. By default XaoS uses @code{libpng}, which is ported to
+many platforms, but there are many platforms where it isn't ported yet. If your
+system has some standard image format which is easier to handle than
+@code{.png}, contact me and I will show you how to add such support to XaoS (see
+@code{png.c}).
 @item
-Stdio compatible library (this is problem at Mac or BeOS). XaoS has the
-abstract layer at the top of stdio, so it should use other input/output
-libraries too. You might write just another implementation if it's library
-called @code{xio}. See @code{xio.h}.
+Stdio compatible library (this is a problem on the Mac and BeOS). XaoS has an
+abstract layer above stdio, so it can use other input/output libraries too. You
+could write another implementation of this layer, called @code{xio}. See
+@code{xio.h}, @code{xstdio.c}, and @code{xstdio_mac.h} for an example.
 @end itemize
 
-Ugly interface is designed to make writing of new drivers as easy as possible.
-You need to write just few functions to fill following table:
-(use file @code{ui_template} for starting of writing new driver from scrath)
+The ugly interface is designed to make writing new drivers as easy as possible.
+Use the file @code{ui_template} when starting to write a new driver from
+scratch. You need to write only a few functions, filling out the following
+table:
 @findex ui_driver
 @example
 struct ui_driver @{
@@ -359,143 +363,150 @@ struct ui_driver @{
 
 @section Functions
 
-Ui uses following functions to communicate with driver:
+@code{ui} uses the following functions to communicate with a driver:
 
 @defun init
-  function that initializes driver and returns 1 if success and 0 if fail
+  Initializes the driver and returns 1 on success and 0 on failure.
 @end defun
 @defun getsize (int *@var{width}, int *@var{height})
-  returns size of screen(window) x and y
+  Returns the size of screen (or window) in x and y dimensions.
 @end defun
 @defun processevents (int @var{wait}, int *@var{x},int *@var{y}, int *@var{buttonmask}, int &@var{keys})
-  gets new keyboard/mouse events. parameters:
+  Gets new keyboard/mouse events. Parameters are:
   @table @var
-  @item wait 
-     if 1 function can wait for next event otherwise just lookup if 
-           something came. This is useful on multi-tasked os where xaos
-	   does not eats unnecesaru CPU.
-  @item *x,*y  
-    here returns current positions of mouse
+  @item wait
+     If 1, the function can block, waiting indefinitely for the next event,
+     otherwise it just determines if something's already arrived. This is
+     useful on multi-tasked OSes, where eating unnecessary CPU time on
+     busy-waiting is discouraged.
+  @item *x,*y
+    Returns the current mouse coordinates.
   @item *b 
-     returns mask of @code{BUTTON1},@code{BUTTON2},@code{BUTTON3} for mouse buttons
+    Returns a mouse button bitmask of @code{BUTTON1}, @code{BUTTON2}, and @code{BUTTON3}.
   @item *k 
-    returns mask for cursor keys 
+    Returns a cursor key bitmask:
     @table @code
     @item 1 
-    left
+    @key{left}
     @item 2 
-    right
+    @key{right}
     @item 4 
-    up
+    @key{up}
     @item 8 
-    down
+    @key{down}
     @end table
     @end table
-    function also calls @code{ui_key} (ASCII character) and ui_resize if required.
-    For special keys use @code{UIKEY_UP}, @code{UIKEY_DOWN}, etc. See
-    @code{ui.h} for complete lists of this constants.
+    The function calls @code{ui_key} (ASCII character) and @code{ui_resize}
+    if required. For special keys use @code{UIKEY_UP}, @code{UIKEY_DOWN}, etc.
+    See @code{ui.h} for a complete list of these constants.
 
-    note in case of problems freeing/allocating inside processevents you may 
-    call @code{ui_call_resize} that calls resize later outside this function
+    In case of problems freeing/allocating inside @code{processevents} you may 
+    call @code{ui_call_resize}, which calls resize later outside this function.
 @end defun
 
 @defun uninit
- Unitialises driver---called before exit.
+ Uninitialises driver---called before exit.
 @end defun
 
 @defun set_range (ui_palette *@var{palette}, int @var{start}, int @var{end})
-This is an preffered way to set palette (second way is @code{set_color})
-when @code{imagetype} is @code{UI_C256} (256 color with palette) one of this
-two functions is required. In truecolor modes they are unused. In case direct
-access to palette is possible at your platform, define this one. Function is
-expected to set all color cells between @var{start} to @var{end} to colors
-defined in @var{palette}. @code{Ui_palette} is array of @var{ui_rgb}. @code{Palette[0]}
-is color for entry number @var{start}. @code{Ui_rgb} is an array of @code{char}.
-@code{Palette[0][0]} is red field of entry number @var{start}, @code{Palette[0][1]} is
-green and @code{Palette[0][2]} is blue. @code{0} means black and @code{255}
-means full intensity. Use @code{NULL} if your driver don't support this call.
+This is the preferred way to set the palette (the other way is with
+@code{set_color}). When @var{imagetype} is @code{UI_C256} (256 color with
+palette) one of these two functions @emph{must} be used. In truecolor modes they
+are unused. If direct palette access is possible on your platform, define this
+function. The function is expected to set all color cells between @var{start}
+and @var{end} to colors defined in @var{palette}. @var{ui_palette} is array of
+@var{ui_rgb} elements. @var{palette[0]} is the color of entry number
+@var{start}. @var{ui_rgb} is an array of @code{char}.  @var{palette[0][0]} is
+the red field of entry number @var{start}, @var{palette[0][1]} is the green and
+@var{palette[0][2]} is the blue. @code{0} means black and @code{255} means full
+intensity. Use @code{NULL} if your driver doesn't support this call.
 @end defun
 
 @defun set_color (int @var{r}, int @var{g}, int @var{b}, int @var{init})
-  This is an secondary way, that should be used at platforms w/o direct
-  palette access (like X11 or static color schemes). It receives RGB value
-  of color, and returns index of color cell with this color or -1 if no more
-  color cells available. An @var{init} parameter is set to 1, when first entry
-  of palette is allocated, @code{set_color} is expected to free all color
-  entries previously allocated. Use @code{NULL} if your driver don't support
-  this call
+  This is a secondary way to set the palette, that should be used at platforms
+  w/o direct palette access (like X11 or static color schemes). It receives the
+  RGB value of the color, and returns the index of the color cell with this
+  color, or -1 if no more color cells are available. The @var{init} parameter is
+  set to 1 when this function is called for the first time on a given
+  palette; @code{set_color} is then expected to free all color entries
+  previously allocated. Use @code{NULL} if your driver doesn't support
+  this call.
 @end defun
 
-@defun print (int @code{x},int @code{y}, char *@code{text})
-  prints text to screen at position x/y. This function is a bit archaistic
-  (XaoS now uses in the most cases its own functions drawing directly to the
-  buffer), but in some cases---initialization messages or calculation,
-  functions are unusable, so we still need this primitive. In the @code{C256}
-  mode you might rely, that first allocated color is always black and second
-  is white.
+@defun print (int @var{x},int @var{y}, char *@var{text})
+  Prints text to screen at position x/y. This function is a bit archaic
+  (XaoS now uses its own functions drawing directly to the buffer in most
+  cases), but in some cases --- initialization messages or calculation ---
+  the functions are unusable, so we still need this primitive. In the
+  @code{C256} mode you can rely on the first allocated color always being
+  black and the second being white.
 @end defun
 
 @defun display (void)
-  displays current buffer to screen
+  Displays current buffer on screen
 @end defun
 
 @defun alloc_buffers (char **@var{buffer1},char **@var{buffer2})
-  allocs two buffers that can hold screen size bitmap. 
-  Also sets current buffer to @var{buffer1}. Since version 2.1 returns scan-line 
-  size in bytes(usually width) and 0 if fail. This is useful on systems, that
-  allocated bitmap bigger than window/screen(dividable by 4 or so)
+  Allocates two buffers that can hold a bitmap the size of the screen.
+  Also sets the current buffer to @var{buffer1}. Since version 2.1, this
+  returns the scan-line size in bytes (usually the screen width) or 0
+  on failure. This is useful on systems that allocate a bitmap bigger
+  than the window/screen (divisible by 4 or thereabouts).
 @end defun
 
 @defun free_buffers (char *@var{buffer1}, char *@var{buffer2})
-  frees allocated buffers
+  Frees allocated buffers.
 @end defun
 
 @defun flip_buffer (void)
-  flips buffers---set current buffer to other one
+  Flips buffers --- sets the current buffer to the other one.
 @end defun
 
 @defun flush (void)
   This function should be used by drivers with buffered output to flush
-  output buffers. Other driver should set it to NULL.
+  those buffers. Other drivers should set it to @code{NULL}.
 @end defun
 
 @defun mousetype (int type)
-   This function is used to change mouse cursor. It receives following values:
+   This function is used to change the mouse cursor. @var{type} has the
+   following values:
    @table @code
    @item NORMALMOUSE
-     This mouse is usually displayed at screen, when UI waits for user
-     commands
+     This pointer is that usually displayed, while the UI waits for user
+     input.
    @item WAITMOUSE
-     This mouse is displayed when UI is busy(should be famous wait clocks)
-     or you may use mouse defined in ui_dos---mandelbrot set
+     This pointer is displayed when the UI is busy (perhaps the famous
+     hourglass) or you may use that defined in ui_dos --- a Mandelbrot
+     set.
    @item REPLAYMOUSE
-     This mouse is displayed during replay. Should be none at fullscreen
-     drivers, since blinking mouse cursor during replay looks ugly. At
-     windowed system disabling mouse looks ugly, so it should be some funny
-     cursor.
+     This pointer is displayed during replay. There should be none in
+     fullscreen drivers, since a blinking mouse cursor during replay
+     looks ugly. On windowed systems, disabling the mouse looks ugly,
+     so it should be some funny cursor.
    @end table
-   You should use NULL if your driver don't support this.
+   You should use @code{NULL} if your driver doesn't support this.
 @end defun
 
 @section Other information
-Also some additional variables are used to inform ui about driver.
-All this values can be changed by init functions in case they are unknown
-before.
+Some additional variables are also used to inform the ui library about the
+driver. All these values can be changed by init functions in case they were
+unknown beforehand.
 
 @table @var
 @item textheight, textwidth
-  width and height of your font
+  Width and height of your font
 @item palettestart, paletteend
-  First and last palette entry, that should be changed. This you should use
-  to avoid changing of entries reserved for window system, text, mouse etc.
+  First and last palette entry that can be changed. You should use this
+  to avoid changing entries reserved for the window system, UI objects,
+  mouse, etc.
 @item rmask, gmask, bmask
-  This fields are used in truecolor modes to specify, where each color is
-  defined
+  These fields are used in truecolor modes to specify where each color is
+  defined.
 @item maxentries;
   Number of allocatable entries. Normally should be
   @var{palettestart}-@var{paletteend}
 @item imagetype
-  defines type of image. Should be one of following values:
+  Defines the type of image. Should be one of the following values:
 @findex UI_C256
 @findex UI_FIXEDCOLOR
 @findex UI_GRAYSCALE
@@ -504,173 +515,180 @@ before.
 @findex UI_TRUECOLOR32
   @table @code
   @item UI_C256
-    classical 256 color with palette scheme used by most older graphics
-    adapters. You should use it also for static-color schemes but they are
-    not supported well in current version.
+    The classical 256 color with palette scheme used by most older graphics
+    adapters. You should also use it for static-color schemes, but they are
+    not well supported in current versions of XaoS.
   @item UI_TRUECOLOR
     32bpp truecolor mode
   @item UI_TRUECOLOR24
-    24bpp truecolor mode. 
+    24bpp truecolor mode
   @item UI_TRUECOLOR16
-    16bpp truecolor mode 
+    16bpp truecolor mode
   @end table
 @end table
 
-
-
-FOLLOWING PART IS NOT REQUIRED TO MAKE FIRST VERSION OF DRIVER WORKING.
-so you may skip to REGISTERING DRIVER for first read and return here later.
-
+What follows is @emph{not required} to get the driver working at first,
+so you may skip to @emph{registering driver} on the first read and return
+here later.
 
 @table @var
 
 @item params
-  Using this you may define command line options for you driver.
+  You may define command line options for your driver.
 
-  They are defined using params structure like:
+  They are defined using a @var{params} structure like:
 @findex params
   @example
   static struct params params[]=@{
     @{"-mode",P_NUMBER,&defmode,
       "Select graphics mode(same number as in interactive menu)"@},
-    @{NULL,0,NULL,NULL@}  /*this is MUST be last option field*/
+    @{NULL,0,NULL,NULL@}  /*this MUST be last option field*/
   @};
   @end example
 
-  every line is one parameters. List ends with @code{@{NULL,0,NULL,NULL@}}.
-  First filed is option name.
-  Second field is type of parameter:
+  where every line is one parameter. The list ends with @code{@{NULL,0,NULL,NULL@}}.
+  The first field is the option name.
+  The second field is the parameter type:
 @findex P_SWITCH
 @findex P_NUMBER
 @findex P_STRING
 @findex P_FLOAT
   @table @code
     @item P_SWITCH 
-    no parameter---variable is just set to 1 if option
+    No parameter --- variable is just set to 1 if the option is supplied.
     @item P_NUMBER 
-    integer number
+    Integer number
     @item P_STRING 
-    string
+    String
     @item P_FLOAT 
-    floating point number (variable is float)
+    Floating point number (variable is float)
   @end table
-  Third is pointer to variable that is changed if option is set. 
-  It is for example @code{int*} for @code{P_NUMBER} or @code{P_SWITCH} and so on..
-  Last one is help text. Displayed by @code{ui -h}
+  The third element is a pointer to a variable that is changed if the option is
+  supplied. (For instance, it is @code{int*} for @code{P_NUMBER} or
+  @code{P_SWITCH}.)
+  The last element is help text displayed by @code{ui -h}.
 
 
 @item width,height
-  see @var{flags}. May be set to @code{0.0, 0.0} for the beginning
+  See @var{flags}. May be set to @code{0.0, 0.0} at the start.
 
 @item maxwidth,maxheight
-  see @var{flags}. May be set to 0,0 for the beginning
+  See @var{flags}. May be set to 0,0 at the start.
 
 @item @var{flags}
-  This variable says more about your driver. You may start with value 0.
-  But for final version it is recommended to read following chapter carefully.
+  This variable says more about your driver. A good starting value is 0.
+  But for the final version it is recommended to read the following carefully.
 
-  Flags are uppercase constants and should be set by following way:
+  Flags are uppercase constants and should be set as follows:
 
   @code{ASYNC_PALETTE | RANDOM_PALETTE_SIZE}
 
-  following switches are supported:
+  The following flag constants are supported:
 
   @table @code
 @findex RANDOM_PALETTE_SIZE
 @findex UPDATE_AFTER_RESIZE
 @findex RESIZE_COMMAND
   @item RANDOM_PALETTE_SIZE
-    random size of palette. This is used in X where palette is shared between
-    programs. By default xaos allocates all available colors up to 256. This
-    is not very nice to other applications in X. So randomsize causes that
-    just some random number of colors(between 8-256) are allocated. 
+    States that the palette is randomly sized. This is used in X where the
+    palette is shared between many programs. By default XaoS allocates all
+    available colors up to 256. This is not very nice to other applications in
+    X, so this flag states that that a random number of colors (in the range
+    8--256) are allocated.
   
-    Also when this variable is off XaoS expects that allays same number of
-    colors is available.
+    When this variable is off XaoS expects that the same number of colors is
+    always available.
   @item UPDATE_AFTER_RESIZE
-    recalculate and redraw screen even if its size is not changed.
-    In case that resize procedure destroys data in buffers
+    Causes the screen to be recalculated and redrawn upon a resize, even if
+    its size has not changed, in case the resize procedure destroys data in
+    XaoS' buffers.
   @item RESIZE_COMMAND
-    Some drivers (mainly the fullscreen ones) may in the function @code{get_size}
-    ask user for the size and color depth. It should be nice to let user change this parameter
-    at runtime. I.E force XaoS to reinitialize his images. This is done by
-    @code{ui_resize} call. This call in windowed drivers is called by the
-    external event. But in fullscreen drivers you need key/menu item for this.
-    You might add this function directly into XaoS's function registry (see
-    for example the GGI driver)---it is usefull mainly when you want to make
-    some size selection dialog in the standard way, or let XaoS add his default
-    one. And this is done by this flag. See for example SVGAlib or DOG driver.
+    Some drivers (mainly the fullscreen ones) may ask the user for the size
+    and color depth to use, in the function @code{get_size}. It would be nice
+    to let the user change this parameter at runtime and force XaoS to
+    reinitialize all its images. This is done with the @code{ui_resize}
+    call
+
+    In windowed drivers, this is called by external window-system events, but in
+    fullscreen drivers you'll need a key or menu item for this. You could add
+    this function directly into XaoS's function registry (see for example the
+    GGI driver) --- it is useful mainly when you want to use a size selection
+    dialog that is standard for your environment, or let XaoS use its default
+    one. For example, see the SVGAlib or DOS driver.
   @end table
 
-  Screen/window size informations:
+  Screen/window size information:
 
-    Xaos needs to know exact size of displayed images. This is required
-    for random dot stereo-grams and also for keeping fractals in their shape
-    (do not make them wide on 640x200 resolution etc.)
-    So minimally one of the following values should be defined.
-    (they are sorted in order I prefer them)
+    Xaos needs to know the exact physical size of displayed images. This is
+    required for random dot stereograms and also for keeping the aspect ratio
+    of fractals correct (do not make them wide in 640x200 resolution etc.)
+    At least one of the following values should be defined (given in the order I
+    prefer)
 @findex SCREENSIZE
 @findex PIXELSIZE
 @findex FULLSCREEN
 @findex RESOLUTION
   @table @code
     @item SCREENSIZE
-     values width/height specifies exact size of screen/window in centimeters
+     The @var{width}/@var{height} values specify the exact size of the
+     screen/window in centimeters
     @item PIXELSIZE
-     values width/height specifies exact size of one pixel in centimeters
-     This is better for windowed environments where window size is often changed
+     The @var{width}/@var{height} values specify the exact size of one pixel in
+     centimeters. This is better for windowed environments, where the window
+     size is often changed.
     @item FULLSCREEN
-     driver runs fullscreen. XaoS automatically uses default screen size
+     The driver runs fullscreen. XaoS automatically uses the default screen size
      (29.0cm x 21.5cm)
     @item RESOLUTION
-     driver does not know exact screen size. But knows resolution used.
-     (it is in variables width/height) XaoS automatically calculates
-     pixel width using:29.0cm/maxwidth
-     and height: 21.5/maxheight
+     The driver does not know the exact screen size, but knows the resolution
+     used (in the @var{width}/@var{height} variables); XaoS automatically
+     calculates pixel width using width = 29.0cm/maxwidth and height =
+     21.5/maxheight.
    @end table
-   Of course default width and height can be changed by command line options.
-   You may also use combinations like:
+   Of course the default width and height can be changed by command line
+   options. You may also use combinations like:
    
    @table @code
    @item SCREENSIZE | FULLSCREEN 
-   the best for fullscreen drivers
+   The best for fullscreen drivers
    @item PIXELSIZE | RESOLUTION 
-   the best for windowed drivers
+   The best for windowed drivers
    @item FULLSCREEN 
-   for fullscreen drivers than have no idea about screen size...  
+   For fullscreen drivers that have no idea about screen size...  
    @end table
 
-   do not forget to set @var{width}, @var{height}, @var{maxwidth}, @var{maxheight} fields if required.
+   Do not forget to set the @var{width}, @var{height}, @var{maxwidth},
+   @var{maxheight} fields if required.
 
 @item gui_driver
-   See next section for description.
+   See the next section for description.
 @end table
 
 
-@section Registering driver
+@section Registering the driver
 
-Than just register driver to @code{driver.c} and you may compile :)
-You may use @code{ui_template.c} as driver template..
+Once you've done the above, you just register the driver in @code{drivers.c} and
+you may compile :) You can use @code{ui_template.c} as a driver template.
 
-You may also look at xthreads library description if you are
-porting XaoS to some SMP platform.
+You may also look at the xthreads library description if you are porting XaoS to
+some SMP platform.
 
-Please let me know if you want to start code some driver.
+Please let me know if you want to start to code a driver.
 
 @node gui-driver, eui ,driver ,Top
-@chapter Writting GUI driver
+@chapter Writing a GUI driver
 
-XaoS have builtin GUI. Many operating systems have native gui toolkits and
-XaoS default GUI might look strange there. To avoid this problem, you might
-write external gui program (see eui section) or write mappings of XaoS
-GUI functions. The advantage of external gui process in multitasking.
-XaoS is not thread safe and GUI must be synchronous with calculation.
-Also ugly interface code currently don't support multiple windows (this should
-be solved in future).
-This solution is suitable mainly for those systems, where cooperation of two
-programs sharing one window should be problem (like on Windows).
+XaoS has a builtin GUI. Many operating systems have native GUI toolkits and XaoS
+default GUI might look strange there. To avoid this problem, you might write an
+external GUI program (see eui section) or write mappings from the XaoS GUI
+functions to the native ones. The advantage of an external GUI process is
+multitasking; XaoS is not thread safe and the GUI must be synchronous with
+calculation.  Also, the ugly interface code currently doesn't support multiple
+windows (although this should be solved in the future).  This solution is
+suitable mainly for those systems where two cooperating programs sharing one
+window is a problem (like Windows).
 
-To write gui driver you need to fill following structure:
+To write a GUI driver you need to fill out the following structure:
 @example
 struct gui_driver
 @{
@@ -682,13 +700,12 @@ struct gui_driver
 @};
 @end example
 
-All function have @code{uih_context} parameter. You don't need to worry about
-it's contents. Just pass it to the called functions that require it. This
-parameter is for multiple window support, that is not implemented yet.
+All functions have a @code{uih_context} parameter. You don't need to worry about
+its contents; just pass it to the functions that require it. This parameter is
+for multiple window support, which is not implemented yet.
 
-The @code{setrootmenu} function expected to draw root menu according to the
-menu called @code{name}. To get menu fields you might use following piece of
-code:
+The @code{setrootmenu} function draws the root menu according to the menu called
+@code{name}. To get the menu fields you might use the following piece of code:
 @example
 #include <ui.h>
 #include <xmenu.h>
@@ -700,84 +717,85 @@ menuitem *item;
 for (i = 0; (item = menu_item (name, i)) != NULL; i++)
    @{
       if (item->type == MENU_SUBMENU) @{
-	      /* This field is submenu. You might call here
-	         function to construct submenu. item->shortname contains
-		 name for submenu */
+	      /* This field is a submenu. You might call a function to
+	         construct the submenu here. item->shortname contains
+		 the name for the submenu.  */
       @}
-      /* add menu field here.
+      /* Add menu field here.
 
          You might check flags here:
          item->flags&MENUFLAG_CHECKBOX
-	   field have beckbox
+	   field has a checkbox
          item->flags&MENUFLAG_RADIO
-	   field is part of radio button group. In current implementation
-	   there is one radio button group per menu.
+	   field is part of a radio button group. In the current
+           implementation, there is one radio button group per menu.
 
-	 in both cases you might call: menu_enabled(uih, item) to see
-	 if item is checked or not.
+	 in both cases you can call menu_enabled(uih, item) to see
+	 if the item is checked or not.
 
-         item->name contains field's text
+         item->name contains the field's text
 
-	 item->key contains hotkey (one letter string in current
-	 implementation)
+	 item->key contains a hotkey (a one letter string in the
+         current implementation)
    @}
 @end example
-Once field is selected, call function @code{ui_menuactivate(item, NULL)} where
-@code{item} is pointer to @code{menuitem} record of selected field.
+Once the field is selected, call the function @code{ui_menuactivate(item, NULL)}
+where @code{item} is a pointer to the @code{menuitem} record of the selected
+field.
 
-Function @code{enabledisable} is called when checkbox or radiobutton state is
-changed. The @code{name} parameter match to @code{item->shortname} of changed field.
-So you need to browse all created menus, compare @code{item->shortname} and in
-case it match, call @code{menu_enabled} to obtain new state. For radiobuttons
-only enable events are noticed. Your code is expected to automatically disable
-all other radiobuttons in the same submenu.
+The @code{enabledisable} function is called when the checkbox or radiobutton
+state is changed. The @code{name} parameter is the same as the
+@code{item->shortname} of the changed field, so you need to search all the
+menus, compare @code{name} to @code{item->shortname}, and if it matches, call
+@code{menu_enabled} to get the new state. For radiobuttons, only enable events
+are noticed. Your code is expected to automatically disable all other
+radiobuttons in the same submenu.
 
-function @code{menu} works in similar way to @code{setrootmenu} but displays
+The @code{menu} function works similarly to @code{setrootmenu}, but displays a
 popup menu.
 
-Function @code{dialog} is called for dialogs. The function should look like:
+The @code{dialog} function is called for dialogs. The function should look like:
 @example
 menuitem *item = menu_findcommand(name);
 menudialog *dialog = menu_getdialog(uih, item);
 int i;
 for(i=0; dialog[i].question; i++)
 @{
-   /* Construct dialog, where left side contains labels with
-    dialog[i].question. Right side contains input entities based on the
+   /* Construct dialog, where the left side contains labels with
+    dialog[i].question, and the right side contains input entities based on the
     dialog[i].type. Dialog[i].type is one of the following:
 
     DIALOG_INT: integer value input. The default value is: dialog[i].defint
-    DIALOG_FLOAT: floating point input value (long double, where availble
-    exact). Default value is dialog: dialog[i].deffloat
+    DIALOG_FLOAT: floating point input value (long double, where available).
+    Default value is dialog: dialog[i].deffloat
     DIALOG_COORD: complex value floating point input (two floats), default
     values are dialog[i].deffloat and dialog[i].deffloat2
-    DIALOG_STRING: string input. default value is dialog[i].defstr
+    DIALOG_STRING: string input. Default value is dialog[i].defstr
     DIALOG_IFILE: input file
     DIALOG_OFILE: output file
          default mask is dialog[i].defstr
     DIALOG_CHOICE: choice between various strings.
-         retype dialog[i].defstr to char ** to get pointer to NULL terminated
-	 array of the choices.
+         cast dialog[i].defstr to char ** to get a pointer to a NULL
+         terminated array of choices.
 @}
 @end example
-Once dialog is filled by user, gui_driver is expected to allocate array
-of union @code{dialogparam}
-@code{dialogparam}:
+Once the dialog is filled by the user, @code{gui_driver} is expected to allocate
+an array of union @code{dialogparam}:
 @example
 dialogparam *p = calloc (sizeof (*p), nitems);
 @end example
-fill selected values. @code{p[i].dint} is used to pass integer value, or
-number of DIALOG_CHOICE selection, @code{p[i].number} is used for floating
-point number, @code{p[i].dstring} for strings and filenames,
+and fill in the selected values. @code{p[i].dint} is used to pass an integer
+value, or the number of a DIALOG_CHOICE selection, @code{p[i].number} is used
+for floating point numbers, @code{p[i].dstring} for strings and filenames,
 @code{p[i].dcoord[0]} and @code{p[i].dcoord[1]} for complex values.
 
-The string values are expected to be in separate malloced chunks. Once array
-is filled, call @code{ui_menuactivate(item, p)}.
+The string values are expected to be in separately @code{malloc}ed chunks. Once
+the array is filled, call @code{ui_menuactivate(item, p)}.
 
-The function @code{help} is used to display help about given topic.
-To implement it you might eighter convert XaoS help file to some native
-format, or use xshl library to render help page for you. To render
-xshl page use:
+The function @code{help} is used to display help about a given topic. To
+implement it you could either convert XaoS help file to some native format, or
+use the xshl library to render the help page for you. To render an xshl page
+use:
 @example
 #include <xshl.h>
 xshl_line *lines;
@@ -786,14 +804,14 @@ int getwidth (void *data, int flags, char *text)
 	return width of text with given flags
 	flags is mask of the following:
          XSHL_BIG - large text
-         XSHL_EMPH - emphatized text
+         XSHL_EMPH - emphasized text
          XSHL_MONOSPACE - monospaced text (typewriter)
-         XSHL_LINK - line (should be underlined or so)
+         XSHL_LINK - line (should be underlined or suchlike)
          XSHL_WHITE 
          XSHL_RED 
-         XSHL_BLACK - color of text (not very meaningfull here)
+         XSHL_BLACK - color of text (not very meaningful here)
          XSHL_RIGHTALIGN 
-         XSHL_CENTERALIGN - alignment of the text
+         XSHL_CENTERALIGN - alignment of text
 
 @}
 lines = help_make (name, getwidth, textheight, largetextheight);
@@ -801,19 +819,19 @@ if (lines == NULL)
   lines = help_make ("main", getwidth, textheight, largetextheight);
 
 @end example
-Now you might use @code{lines} to draw the help. It is pointer to the
-arraw of structures:
+Now you might use @code{lines} to draw the help. It is a pointer to the array of
+structures:
 @example
 struct xshl_line @{
   int y;
   struct xshl_item *first;
 @};
 @end example
-@code{y} is possition of the line from beggining of text and first
-is pointer to the blocks of texts on the line. Last line contains NULL pointer
-in the first section.
+@var{y} is the position of the line from the beginning of the text, and
+@var{first} is a pointer to the blocks of text on the line. The last line
+contains a @code{NULL} pointer in the first section.
 
-@code{first} is linked list of the structures:
+@code{first} is a linked list of @code{xshl_item} structures:
 @example
 struct xshl_item @{
   struct xshl_context c;
@@ -824,109 +842,110 @@ struct xshl_item @{
 @};
 @end example
 
-you might draw text @code{text} on the possition @code{x} (and @code{y} from
-the line record) using style described by @code{xshl_context}:
+You can draw @code{text} at position @code{x} (and @code{y} from the line
+record) using the text style described by @code{xshl_context}:
 @example
 struct xshl_context @{
 	  int flags;
 	  char *linktext;
 @};
 @end example
-@code{flags} have same meaning as in @code{getwidth} section. @code{linktext}
-is name of the next help page in case field have XSHL_LINK atribute.
+@code{flags} has the same meaning as in the @code{getwidth}
+section. @code{linktext} is the name of the next help page when the field has
+the @code{XSHL_LINK} atribute.
 
-As an example of @code{gui_driver} see win32 driver code.
+For an example of @code{gui_driver}, see the win32 driver code.
 
 
 
 
 @node eui, ui-helper ,gui-driver ,Top
-@chapter Writting an external user interface
+@chapter Writing an external user interface
 
-This part describes, how to make an external user interface---it is the
-separate program, which makes an window with all menus and dialogs. It uses
-XaoS engine for calculating the fractal as separate process. This design brings
-many advantages---the external GUI implementation should have an ``native look''
-for given platform and should contain many extensions, such as multiple
-windows etc. Also all calculation are done in the multitasking and user
-interface is usable even when engine is busy.
+This part describes how to make an external user interface --- that is, a
+separate program which constructs a window with all menus and dialogs. It uses
+the XaoS engine to calculate the fractal as a separate process. This design
+brings many advantages --- the external GUI implementation could have a ``native
+look'' for given platform and could contain many extensions (perhaps multiple
+windows). Also all calculation is done while multitasking, so the user interface
+is usable even when the engine is busy.
 
-The X window provides a way, when program draws into other's
-window---``master'' program creates window and sub-window, where he wants to
-have fractal, then calls engine with @code{-windowid} @var{number_of_window}
-parameters. It instead of creating new window uses specified window. Most
-famous example of such cooperation is probably ghostscript/ghostview.
+The X Window System provides a way for programs to draw into others' windows ---
+the ``master'' program creates window the sub-window where it wants to put the
+fractal, then calls the engine with @code{-windowid} @var{number_of_window}
+parameters. Instead of creating a new window, the engine uses uses the specified
+window. The most famous example of such cooperation is probably
+ghostscript/ghostview.
 
-Other windowed environments probably provides similar way for cooperation. At
-others it should be implemented using shared memory, so it should work at most
-platforms, I expect.
+Other windowed environments probably provide similar means for for
+cooperation. In most others it will probably be implemented using shared memory,
+so it should work on most platforms, I expect.
 
-Of course, you might also design UI as separate button box in another window,
-like most of animation players, or Imagemagick have. In fact external GUI
-should be very similar to Imagemagick style.
+Of course, you might also design the UI as a separate button box in another
+window, like most animation players, or ImageMagick do. In fact, the external
+GUI could be very similar in style to ImageMagick...
 
-@section basic concept
+@section Basic concept
 
-The UI implementation has function to disable it's GUI functions.
-Because of the function registry, all it's menus and dialogs are described in
-the fairly simple database. This database is mapped also to the scripting
-language similar to scheme. So the external UI implementation just translate
-the actions into this scripting language and sends it trough pipe.
+The UI implementation has a function to disable its GUI functions.  Because of
+the function registry, all its menus and dialogs are described in a fairly
+simple database, which is also mapped to the Scheme-like scripting language.
+The external UI implementation can just translate the user's actions into this
+scripting language and send that through the pipe.
 
-This commands should be created automatically from the database, as well as
-menus and dialogs, so UI don't need to have special code for various XaoS
-features. At the beginning it should use XaoS' command @code{(print_menus)} to
-force him to send information about database, then build menus using this
-information.
+The commands, menus, and dialogs should be created automatically from the
+database, so the UI doesn't need to have special code for each XaoS feature. At
+the beginning it should use XaoS' @code{(print_menus)} command to force it to
+send information about the database, then build menus using this information.
 
-For this you need just some equivalent to UNIX pipes, so again I expect it is
-doable at most platforms.
+For this you only need some equivalent to UNIX pipes, so again I expect it is
+doable on most platforms.
 
-@section starting XaoS as slave process
+@section Starting XaoS as a slave process
 
-One of the first thinks, engine needs to do is to initialize XaoS in right
-mode to work as slave process. For this you need to do several thinks:
+One of the first things the engine needs to do is to initialize XaoS in the
+right mode to work as a slave process. For this you need to do several things:
 
 
 @itemize @bullet
 @item Open the pipe
-@item Disable builtin GUI
-@item Read menu hierarchy (this is optional---GUI can also have all menus coded
-into it. But it is not recommended, since it will make problems with future
-adding new features)
+@item Disable the builtin GUI
+@item Read the menu hierarchy (this is optional --- GUI can also have all menus
+coded into it. But it is not recommended, since it will cause problems with
+adding new features in future)
 @end itemize
 
-Opening pipe is done via @code{-pipe} option. It takes one parameter, which is
-name of FIFO you want use. If you specify ``@code{-}'', XaoS will read input
-from stdin.
+Opening pipe is done via the @code{-pipe} option. It takes one parameter, the
+name of the FIFO you want to use. If you specify ``@code{-}'', XaoS will read
+input from stdin.
 
-To disable XaoS GUI use option @code{-nogui}. This will disable all menus,
-dialogs and help text.
+To disable the XaoS GUI use @code{-nogui}. This will disable all menus, dialogs
+and help text.
 
-To read menu hiearchy just add @code{-print_menus} parameter and then parse
-XaoS's output. This will print the whole hierarchy. In case you are building
-menus at the time, they are selected, you might prefer usage of the command
-@code{print_menu}. It prints just one menu without it's sub-menus, so it's
-output should be directly used for building it. It takes one string parameter,
-which is name of menu you want to print. To print root menu use @code{"root"}.
-Option should look like this: @code{-print_menu root}.
+To read the menu hierarchy, just add @code{-print_menus} parameter and then
+parse XaoS's output. This will print the whole menu hierarchy. If you are
+building menus at the time they are selected, you might prefer to use the
+@code{print_menu} command, which prints just one menu without its submenus; its
+output could be immediately used for building a menu. The command takes one
+string parameter, the name the menu you want to print; i.e., to print the root
+menu use @code{-print_menu root}.
 
-Under X Window you need also specify the @code{-windowid}. Also the
-@code{-shared} is quite recommended. Otherwise in pseudocolor visuals XaoS will
-create it's own colormap, wich will most probably collide with UI's colormap
-and XaoS or UI will have false colors. If you have any idea, how to avoid
-this, let me know.
+Under the X Window System you also need to specify the @code{-windowid}; also
+the @code{-shared} option is quite recommended. Otherwise in pseudocolor visuals
+XaoS will create its own colormap, wich will likely collide with the UI's
+colormap, and either XaoS or the UI will have wrong colors. If you have any
+idea how to avoid this, let me know.
 
-You might also let user to specify some extra parameters from the command
-line. You should simple add the to the end of command line. The @code{-nogui} and
-@code{-print_menus} commands must be first for the simple reason: XaoS parses
-it's command line in the early initialization stages. Some commands (like
+You might also let the user specify some extra parameters from the command line,
+by simply adding those options to the end of the command line. The @code{-nogui}
+and @code{-print_menus} commands must be first for a simple reason: XaoS parses
+its command line early in initialization. Some commands (like
 @code{-print_menus}) should be processed at this time, while others (like
-@code{-loadpos} needs to have working engine. This commands are queued and
-processed later, once engine is  initialized. In case some such
-command is before @code{-print_menus} XaoS will decide to keep same order of
-commands, so it will queue @code{-print_menus} too. This will case, that menus
-will be printed much later and startup will be slower.
+@code{-loadpos} need a working engine. Such commands are queued and processed
+later, once the engine is initialized. XaoS never reorders commands; if an
+option that requires queuing is located before @code{-print_menus} on the
+command line, it will queue @code{-print_menus} too. This will cause the menus
+to be printed much later, slowing startup.
 
 So the proper calling sequence for the user interface under X should look like:
 
@@ -937,37 +956,39 @@ xaos -nogui -print_menus -windowid <id> -share -pipe - @var{[other options]}
 
 @section Parsing the menu structure
 
-The structure is printed menu by menu. Each menu contains an header, some
-entries and @code{endmenu}. Whole listing from @code{print_menus} is
-terminated by @code{endmenus}.
+The structure is printed menu by menu. Each menu contains a header, some
+entries, then @code{endmenu}. The listing from @code{print_menus} is terminated
+by @code{endmenus}.
 
-The header starts with @code{menu} and then contains an identifier of menu
-and full name. Such as:
+The header starts with @code{menu} and then contains a menu identifier, and the
+menu's full name, e.g.
 
 @example
 menu "fractal" "Fractal"
 @end example
 
-Then each entry has its own line. It starts by type, which should be
-@code{submenu} or @code{menuentry}.
+Each entry which follows has its own line. It starts with a menu type, which
+should be @code{submenu} or @code{menuentry}.
 
-@code{submenu} has similar format to header---fullname of menu and identifier.
+@code{submenu} has a similar format to the header --- the full menu name, and an
+identifier.
 
-@code{menuentry} adds next few fields. It has an type of entry, which should be
-@code{normal}, @code{radio} or @code{checkbox}. @code{radio} and
-@code{checkbox} are followed by @code{on} or @code{off} specifying whether it
-is enabled or disabled. The radio-buttons don't have explicit information about
-groups they belongs to. For now I just expect, that each menu contains just
-one such group, so it is clear.
+The next few fields are @code{menuentry}-related. It has an entry type, which
+could be @code{normal}, @code{radio} or @code{checkbox}. @code{radio} and
+@code{checkbox} are followed by @code{on} or @code{off} specifying whether it is
+enabled or disabled by default. (The radio-buttons don't have explicit
+information about which group they belong to. For now I expect that each menu
+contains just one such group, so it is clear in any case.)
 
-Then set of flags should follow. Currently two flags are defined.
-@code{dialog}, wich specifies, that function has dialog, and
-@code{dialogatdisable}. By default, dialog for check-boxed functions are
-displayed just in case they are enabled. The second flag reverses this
-behaviour. It is now used for @code{mandlebrot} function, which behaves in this
-style. When you disable it, user is prompted for the Julia seed.
+A set of flags should follow. Currently two flags are defined: @code{dialog},
+wich specifies that the function has a dialog box, and
+@code{dialogatdisable}. By default, dialogs for check-boxed functions are
+displayed only when the checkboxes are enabled. The second flag reverses this
+behaviour. It is currently used for the @code{mandelbrot} function, which
+behaves in this way; when you disable it, the user is prompted for the Julia
+seed.
 
-So specification should look like this:
+So a specification should look something like this:
 
 @example
 menu fractal "Fractal"
@@ -985,26 +1006,28 @@ endmenu
 
 @section Activating functions and dialogs
 
-Once the menu structure is built and user selects some item, it should be
-activated. It is done by simple command: @code{(@var{name})}. Once
-``@code{)}'' is sent, command is executed by XaoS.
+Once the menu structure is built and the user selects some item, it should be
+activated. This is done by a simple command: @code{(@var{name})}. Once
+``@code{)}'' is sent, the command is executed by XaoS.
 
-Check-boxed functions has one extra parameter---@code{#t} to enable them and
-@code{#f} to disable. So if you want enable item @code{autopilot} send:
+Check-boxed functions has one extra parameter --- @code{#t} to enable them and
+@code{#f} to disable. So if you want to enable the @code{autopilot} item, send:
 @code{autopilot #t}
 
-Radio-buttons don't have any such special parameter---because disabling
-radio-button is nonsense.
+Radio-buttons don't have any such parameter, because disabling radio-buttons
+makes no sense.
 
-In case, item has flag dialog enabled, engine expects that UI will
-make dialog first, ask user of values and then call function with parameters.
-UI needs first to know, what parameters function expect. It is done by sending
-command @code{(print_dialog "@var{name}")}.
-XaoS replies with dialog specification very similar to menu specification.
+If the item has a dialog enabled, the engine expects that the UI will make the
+dialog first, ask the user for values and then pass back a function with
+parameters. But first, the UI needs to know what parameters the function
+expects.  This is done by sending the command @code{(print_dialog
+"@var{name}")}.  XaoS replies with a dialog specification very similar to the
+menu specification.
 
-It has header @code{dialog} followed by the name of function. Then one dialog
-entry per line is sent. it is started by @code{dialogentry} followed by
-question UI should display. The is type, which should be one of the following:
+This has the header @code{dialog} followed by the name of the function being
+described. Then one dialog entry per line is sent, started by
+@code{dialogentry}, followed by the question the UI should display. Next is a
+type, which should be one of the following:
 @table @code
 @item integer
 Integer number such as @code{123}
@@ -1013,24 +1036,25 @@ Floating point number such as @code{123.123}
 @item string
 String such as @code{"ahoj"}
 @item keyword
-String such as @code{'ahoj}. The keywords are mostly similar to string, except
-they can not contain space. They are used for example for specifying formula
-type. Strings are used for printing texts etc.
+String such as @code{'ahoj}. Keywords are mostly similar to strings, except that
+they can not contain spaces. They are used, for example, for specifying types of
+formulae. Strings are used for printing text and so on.
 @item inputfile
 @item outputfile
-Here UI should display file selection dialogs. With @code{outputfile} it is
-also good idea to check, whether file exist and in this case make some
-overwriting dialog too.
+Here the UI should display a file selection dialogs. With @code{outputfile} it
+is also a good idea to check whether the file exists and ask the user if he
+wants to overwrite it.
 @item onoff
 Boolean value (@code{#f}, or @code{#t})
 @item complex
-Complex value---two floating point numbers such as @code{123.123 123.123}
+Complex value --- two floating point numbers such as @code{123.123 123.123}
 @item choice
-Choice between some keywords. Those keywords are send after @code{choice} in
-enclosed the @code{@{} @code{@}}. 
+Choice between some keywords. The keywords are sent after @code{choice},
+enclosed in @code{@{} @code{@}}.
 @end table
-Last information at the line is the default value in the same format as
-examples above. For files, the default value is in format @code{"@var{[prefix]}*@var{[extension]}"}.
+The last information on the line is the default value, in the same format as the
+examples above. For files, the default value is in the format
+@code{"@var{[prefix]}*@var{[extension]}"}.
 
 Some examples:
 
@@ -1051,9 +1075,10 @@ enddialog
 
 @end example
 
-To activate function, send command which contain function name, possible @code{#t}/@code{#f}
-in check-boxes and parameters in the same order as in dialog, same format as in
-examples, separated by the space. Such as:
+To activate a function, send a command consisting of the function name followed
+by a sequence of parameters, mapped one-to-one to dialog box fields, in the same
+order as those fields. The parameters have the same format as in the above
+examples; checkbox fields return @code{#t} and @code{#f}. For instance:
 
 @example
 (uiview 0 0 0.5 0)
@@ -1063,28 +1088,29 @@ examples, separated by the space. Such as:
 
 @section Synchronization
 
-In some cases, XaoS can change radio-box and check-box values. (like when user
-pressed a key, or loaded some file). So all changes are sent to GUI, wich
-should inform about this. They are sent to standard output in following
-format:
+In some cases, XaoS can change radio-box and check-box values itself (when user
+presses a key, or loads some file, for instance). All such changes are sent to
+the GUI so that it can update what the user sees correspondingly. They are sent
+to standard output in the following format:
 
 @example
 checkbox "name" on/off
 radio "name" on/off
 @end example
 
-So your GUI should parse this and change it's menus when necessary.
+Your GUI code should parse this and change its menus when necessary.
 
-Also XaoS's menus can contain more distinct trees. In some cases (like when
-animation replay is active) root of menu structure should change. The XaoS
-sends command:
+XaoS's menus can contain multiple distinct trees. In some cases (like when
+animation replay is active) the root of the menu structure should change. To
+indicate this to the GUI, XaoS sends a command:
 
 @example
 root "name"
 @end example
 
-Also user can press keys, which normally displayed menus, dialogs or help. Then
-XaoS sends commands:
+Also, the user can press keys which normally display menus, dialogs or
+help. If XaoS has the keyboard focus, it will receive these instead of the
+GUI. XaoS sends commands to indicate this:
 
 @example
 menu "name"
@@ -1092,22 +1118,23 @@ dialog "name"
 help "topic"
 @end example
 
-All this commands should be taken into account by GUI, or should be ignored.
+All these commands should be taken into account by the GUI, or could be ignored
+(not recommended!)
 
 @section help
 
-XaoS's help is in the simple hypertext language. In order to simplify it's
-parsing I've made an xshl and help libraries. So making of help window should
-be quite easy. Just call help function:
+XaoS's help is in a simple hypertext language. In order to simplify its parsing,
+I've made xshl and help libraries. Making a help window with these libraries
+should be quite easy; just call the help function:
 @deftypefn Function struct xshl_line *help_make (char *@var{command}, int @var{getwidth} (void *, int @var{flags}, char *@var{text}), int @var{width}, int @var{smallheight}, int @var{bigheight});
 @end deftypefn
-and you will receive of listings of text with positions, where to print into
-window.
+and you will receive a stream of text with coordinates describing where to
+display the text into the shared window.
 
-@code{command} parameter is topic of help. @code{getwidth} function is
-function, wich returns width of given text. @code{width} is width of window,
-@code{smallheight} is height of small font and @code{bigheight} is height of
-big font.
+The @code{command} parameter is the help topic. The @code{getwidth} function
+returns the width of a given piece of text. @code{width} is the width of the
+window, @code{smallheight} is the height of the small font, and @code{bigheight}
+is the height of the big font.
 
 Please ask me for more details if necessary.
 
@@ -1116,21 +1143,21 @@ And thats all. Good luck with coding.
 @node ui-helper, xthreads ,eui ,Top
 @chapter UI-helper library
 
-UI helper library takes care to all XaoS' engine functions and features and
-gives the higher level API, which is quite easy to understand. If you want to
-write completely new user interface (replacement for the ugly interface---not
-just new bindings for native menus or external user interfaces) or you want to
-use XaoS engine in your program as an library, you will probably want to use
-this library.
+UI helper library takes care of all of XaoS' engine functions and features and
+provides a higher level API which is quite easy to understand. If you want to
+write a completely new user interface (a replacement for the ugly interface ---
+not just new bindings for native menus or external user interfaces) or you want
+to use the XaoS engine in your program, you will probably want to use this
+library.
 
-It's API has many calls and features. This section gives just brief overview
-of it's calls. Please ask me about details.
+Its API has many calls and features. This section gives a brief overview of its
+calls. Please ask me for details.
 
 @section initialization
 
-To initialize ui helper library, you need to prepare an palette and image.
-Palette is created using palette library calls @code{createpalette}. Creating
-truecolor palette should look like this:
+To initialize the UI helper library, you need to prepare a palette and image.
+The palette is created using the palette library call
+@code{createpalette}. Creating a truecolor palette should look like this:
 
 @example
   struct palette *pal = createpalette (0, 0, TRUECOLOR, 0, 0, NULL,
@@ -1139,26 +1166,26 @@ truecolor palette should look like this:
 
 For details about creating palettes see @code{ui.c} or ask me.
 
-To create image call:
+To create an image, call:
 
 @example
   struct *image img = create_image_mem (width, height, 2, pal,
                                         pixelwidth, pixelheight);
 @end example
 
-This creates image in the memory. If you want to create it in your own
-buffers, you might use @code{create_image_cont} or @code{create_image} calls.
-Again see @code{ui.c}.
+This creates an image in memory. If you want to create it in your own buffers,
+you might use @code{create_image_cont} or @code{create_image} calls.  Again see
+@code{ui.c}.
 
-Then it is time to fire up main library:
+Then it is time to fire up the main library:
 
 @example
   struct uih_context *uih = uih_mkcontext (0, img, passfunc,
                                            NULL, NULL);
 @end example
 
-The @code{passfunc} is called when engine is calculating. It might process
-events and display process information. It should look like this:
+The @code{passfunc} is called when the engine is calculating. It might process
+external events and display progress information. It should look like this:
 
 @example
 static int
@@ -1180,25 +1207,25 @@ ui_passfunc (struct uih_context *c, int display, char *text, float percent)
     @}
 @}
 @end example
-It might set @code{uih->interrupt}, if it wants to interrupt current
-calculation.
+It can set @code{uih->interrupt} if it wants to interrupt the current
+calculation (whereupon the main calculation loop will return to its caller).
 
-You also might load the catalog file in order to make tutorials working:
+You can also load the catalog file in order to make tutorials work:
 
 @example
   uih_loadcatalog (uih, "english");
 @end example
 
-Since this ui_helper library is fully functional and you might enter the main
-loop.
+Once this is done, the ui_helper library is fully functional and you can enter
+the main loop.
 
 @section main loop
-UI helper library does an timing primitives. So it expect an standard form of
-the main loop. It asks the program to display changed image when necessary.
-Library also use timerlib for it's timing. So read section about this
-library, since you might use it for your purposes too.
+The UI helper library does not have any timing primitives; so it expects a
+standard form of main loop. It asks it caller to redisplay a changed image when
+necessary.  The library also uses the generic timerlib library for its timing,
+for which see elsewhere in this document.
 
-Main loop should look like this:
+The main loop should look like this:
 
 @example
 while (1)
@@ -1212,27 +1239,28 @@ while (1)
     uih_update (uih, mousex, mousey, buttons);
     if ((time = tl_process_group (syncgroup, NULL)) != -1 &&
 	    !uih->inanimation) @{
-	    /*relax given time in usec - wait of events etc..*/
+	    /*relax for the given time in usec - wait for events etc..*/
     @}
     /*and repeat*/
   @}
 @end example
 
-@section calling functions
+@section Calling functions
 
-UI helper library has many functions declared in @code{ui_helper.h} for
-various actions. There is too much of them to describe, but their names are
-quite informative, so I hope you will not have problems.
+The UI helper library has many functions declared in @code{ui_helper.h} for
+various actions. There are too many of them to describe here, but their names
+are quite informative, so I hope you will not have problems.
 
-You might also use XaoS function registry, which does all this stuff for you.
-You will just draw menus and dialogs based at this registry and automatically
-all features will be available. So if you are writing an ordinary user
-interface, this is the preffered way.
+(You could also use the XaoS function registry, which does all this stuff for
+you; you will just draw menus and dialogs based on this registry and all
+features will be automatically made available. If you are writing an ordinary
+user interface, this is the preferred way.)
 
-Note that @code{ui_helper} library is not reentrant, so you can't call most of this
-function from the @code{passfunc}. If you are using registry, activating
-function handles this automatically and queues functions when necessary. 
-To process them you need to flush queue in the main loop as follows:
+Note that the @code{ui_helper} library is not reentrant, so you can't call most
+of these functions from the @code{passfunc}. If you are using the registry, the
+activating function handles this automatically and queues functions when
+necessary.  To process them you need to flush the queue in the main loop as
+follows:
 
 @example
 static void
@@ -1257,92 +1285,95 @@ This is done using:
   uih_freecontext (uih);
 @end example
 
-One implementation of user interface at the top is ugly interface. See
-dirrectory @code{src/ui}. Another, much simpler is @code{render.c}, which does
-animation rendering.
+One user of this library is the ugly interface code in XaoS; see the
+@code{src/ui} directory. Another, much simpler user is
+@code{src/ui-hlp/render.c}, which does animation rendering.
 
 @node xthreads, filters ,ui-helper ,Top
 @chapter XaoS thread library
 
-This description should be useful for those, who want to port XaoS
-into multiprocessor platforms and those, who want to implement some
-filter or other relatively computational expensive code. Note that thread
-library should be mapped into nothread calls, in case host does not allows
-multi-threading or it is not SMP architecture (since this library is
-used only to distribute calculation into other CPUs)
+This description should be useful for those who want to port XaoS to
+multiprocessor platforms, and those who want to implement a filter or other
+relatively computationally expensive code. Note that the thread library uses
+nothread calls as a degenerate case when only one thread is used, when the host
+does not allow multi-threading or it is not an SMP architecture (since this
+library is used only to distribute calculation into other CPUs).
 
-XaoS thread library is simple map of few functions required by XaoS
-to system library for threads.
+XaoS thread library is a simple map of a few functions required by XaoS to the
+system's library for threads.
 
-It has following variables:
+It has the following variables:
 
 @deffn Variable ethreads
-This is set to 1 in case that threads are enabled
+This is set to 1 in the case that threads are enabled
 @end deffn
 
 @deffn Variable nthreads
 Number of threads
 @end deffn
 
-It and following calls:
+It provides the following functions:
 
 @deftypefn Function {void} xth_init (int @var{threads})
-This function initializes threading library (starts threads, sets
-@var{ethread} to 1 and @var{nthreads} to n. @var{Threads} parameter should be
-set to 0---auto-detection or number of threads users wants. In case threads
-is set to 1, threading library is disabled and following functions are
-mapped into those nothread_ equivalents defined in @code{xthread.h}.
+This function initializes the threading library (starts threads, sets
+@var{ethread} to @code{1} and @var{nthreads} to @var{n}. @var{threads} parameter
+should be set to 0 for auto-detection, or to the number of threads the user
+wants. If threads is set to 1, the threading library is disabled and the
+following functions are mapped to the @code{nothread_} equivalents defined in
+@code{xthread.h}.
 
-Note that threads are not identical---there is main thread (one that called
-xth_init) that communicates with drivers, controls calculation etc. and other
-tasks that are waiting to orders from main task. They also can't use functions
-from xthread library.
+Note that all threads are not interchangeable --- there is a main thread (the
+one that called @code{xth_init}) that communicates with drivers, controls
+calculation, and so on, and there are child threads that are waiting for orders
+from the main thread. The latter threads can't use any functions from the
+xthread library.
 @end deftypefn
 
 @deftypefn Function {void} xth_uninit (void)
-This function UN-initialize thread library---kills child threads, sets
-@var{ethread} to 0 and @var{nthreads} to 1. 
+This function un-initializes the thread library --- kills child threads and sets
+@var{ethread} to 0 and @var{nthreads} to 1.
 @end deftypefn
 
 @deftypefn Function {void} xth_function (xfunction *@var{function}, void *data, int @var{range})
-This function is used in case, engine wants to perform some operation at image
-in parael. It is expected to wait until all threads are ready and start @var{function} 
-at all threads including control one with following parameters: @var{data}---this
-parameter is same as
-@var{data} passed to xth_function, @var{taskinfo}---pointer to structure
-taskinfo, that is platform depended (defined in @code{xthread.h}) but must
-have at least field @code{n}, that holds number of thread (control thread has
-0 and other numbers in range 1 -- @var{nthreads}). Next two parameters is
-range of image, function is expected to do action. Xth_function is expected to
-divided @var{range} into @var{nthreads} equal pieces and pass always start of
-piece and start of next piece (@var{range} in case of last one). Function does
-not wait for other threads at the end and returns immediately to main thread
-after @var{function} returns.
+This function is used when the engine wants to perform some operation on the
+image in parallel. It is expected to wait until all threads are ready, then
+start @var{function} on all threads, including the control one, with the
+following parameters: @var{data} --- the same as @var{data} passed to
+@code{xth_function}, @var{taskinfo} --- pointer to a platform-dependent
+@code{taskinfo} structure (defined in @code{xthread.h}), but must have at least
+a field @code{n}, that holds the thread number (where the control thread is
+numbered 0 and other threads are numbered in the range 1 -- @var{nthreads}).
+The next two parameters are the range of images across which the function is
+expected to work. @code{xth_function} is expected to divide @var{range} into
+@var{nthreads} equal pieces and pass to each thread the start of a piece and the
+start of the next piece (@var{range} for the last one). The function does not
+wait for other threads to finish at the end, but returns immediately to main
+thread after @var{function} returns.
 
-This function is called approx. 5--10 times per frame
+This function is called approx. 5--10 times per frame.
 @end deftypefn
 
 @deftypefn Function {void} xth_sync (void)
-This functions waits until all threads are ready for next order from main
-task. 
+This function waits until all threads are ready for the next order from the main
+task.
 
-This function is called approx 5--10 times per frame
+This function is called approx 5--10 times per frame.
 @end deftypefn
 
 @deftypefn Function {void} xth_bgjob (xfunction *@var{function}, void *@var{data})
-This function is expected to behave as follows: look if there is any thread
-waiting for orders, if so, ask him to call @var{function} with similar
-conventions as in xth_function except that range parameters are set to 0.
-Otherwise it starts function in normally (at foreground).
+This function is expected to behave as follows: if there are any threads waiting
+for orders, ask one of them to call @var{function} with similar conventions as
+in @code{xth_function} except that the @var{range} parameters are set to 0.
+Otherwise it starts function in the foreground, as usual.
 
 This function is called once per frame.
 @end deftypefn
 
 @deftypefn Function {void} xth_nthread (struct taskinfo *@var{s})
-This function should be used to determine number of current thread. Do not use
-@code{taskinfo->n} instead since in case threads are disabled, it should be
-defined to 0 and that allows optimizer to perform better optimizations.
-This function should be called by all threads.
+This function should be used to determine the current thread number. Do not use
+@code{taskinfo->n} instead, since if threads are disabled this will be defined
+to 0 to allow the optimizer to perform better optimizations.  This function can
+be called by all threads.
 @end deftypefn
 
 @deftypefn Function {void} xth_lock (int @var{n})
@@ -1352,28 +1383,30 @@ Lock/unlock lock number @var{n}. At least @code{MAXSEMAPHORS} locks must be
 available.
 @findex MAXSEMAPHORS
 
-Note that locks are used always for very short fragments of code so they
-needs to be fast. So spin-locks are maybe better than Dijskra semaphores.
-Untested. They are called once per calculated line/row during zoom and
-once per approx 10 pixels during calculation of new image.
+Note that locks are used for very short fragments of code, so they need to be
+fast; so spinlocks may be better than classical Dijkstra semaphores (although
+this is untested). They are called once per calculated line/row during zoom and
+once per approx 10 pixels during calculation of a new image.
 @end deftypefn
 
 @findex MAXCONDS
 @deftypefn Function {void} xth_sleep (int @var{n}, int @var{l})
-It is expected to atomically unlock lock @var{l} and sleep in queue @var{n}.
-At least @code{MAXCONDS} queues must be available.
-After it is waked up, lock @var{l} again. This mechanism is used by
-calculation of new image algorithm, but it is designed to minimize its calls,
-so I expect they should be called once or twice.
+Expected to atomically unlock lock @var{l} and sleep in queue @var{n}.  At least
+@code{MAXCONDS} queues must be available.  After the function is woken up, lock
+@var{l} again. This mechanism is used by the new image calculation algorithm,
+but it is designed to minimize its calls, so I expect it should be called once
+or twice.
 @end deftypefn
 
 @deftypefn Function {void} xth_wakeup (int @var{n})
-Wake up some thread from queue @var{n}. Lock used by
-sleep calls is locked in this cases. Function should also wake up all threads
-if such operation is not supported by host API. With luck, this function
-should not be called at all. It should be called by new image calculation
-routines in case queue is empty. This happens in case of 50 threads but
-happens rarely at two or eight threads according to my tests.
+Wake up some thread from queue @var{n}. The lock used by sleep calls is locked
+in this case. The function should wake up all threads if a single-thread awaken
+is not supported by the host API.
+
+With luck, this function will not be called at all; it will be called by the new
+image calculation routines when the queue is empty. This happens when there are
+50 threads or thereabouts, but happens rarely at two or eight threads in my
+tests.
 @end deftypefn
 
 @deftypefn Function {void} xth_wakeall (int @var{n})
@@ -1384,36 +1417,38 @@ Similar to wakeup but wake up all threads.
 @node filters, algorithm ,xthreads ,Top
 @chapter Filters
 
-This is a brief description of filter system used internally by XaoS.
-Filters in XaoS provides an object oriented interface to every part
-of XaoS engine. Main filters are: User interface implemented in ui_helper.c
-and zooming engine implemented in zoom.c. Filters are connected into
-an queue---at the beginning there is just two filters here(zoom and ui)
-but later additional filters should be inserted into the middle of queue
-like an stereo-gram generation etc. The queue supports operations like
-remove filter, add filter and initialize.
+This is a brief description of the filter system used internally by XaoS.
+Filters in XaoS provide an object oriented interface to every part of the XaoS
+engine. The main filters are the user interface implemented in ui_helper.c and
+the zooming engine implemented in zoom.c. Active filters are kept in a queue ---
+in the beginnning there are just two filters here (zoom and ui), but at any
+later time additional filters (stereogram generation, and so on) can be inserted
+into the middle of the queue.
 
-In the calculation every filter should use data calculated by filter lower
-in the queue. Data are stored into image. So for example stereo-gram filter
-should use fractal generated by zooming engine and create an stereo-gram.
+When calculating, every filter should use data calculated by the filter
+immediately before it in the queue, which that filter placed into the image it
+passes to its child.  For example, the stereogram filter should take the fractal
+generated by the zooming engine and create a stereogram from it (assuming that
+the zooming engine is immediately after the zooming engine in the filter queue).
 
-This makes XaoS's code more flexible and makes easy future enhancements
-like different zooming engine, image rotation, other special effects,
-plug-ins and some other funny stuff since interface of each such part
-is well defined and each filter has quite good control over his child.
-So stereo-gram filter should change palette, force zooming engine to change
-depth, width and height of calculated image to fit his needs and so on.
+This makes XaoS's code more flexible and makes future enhancements easy (perhaps
+a different zooming engine, or image rotation, other special effects, plug-ins
+or some other funny stuff) since the enhancements are forced to be decoupled by
+the filter library, and since each filter has a degree of control over filters
+that follow it in the queue.  For instance, the stereogram filter should change
+the palette, force the zooming engine to change the depth, width and height of
+the calculated image to fit its needs, and so on.
 
-This document describes mainly creating of filter like stereo-gram generator
-i.e. filter placed into middle of queue since I don't expect there will be
-many people creating ``terminal'' filters (zooming engines/user interface
-layer) note that different user interface is possible since user interface
-layer is not the real user interface just set of high level functions that
-should be called by main application like set_view. So in case you want
-to use XaoS as an calculation engine in your program this document is probably
-not for you.
+This document mainly describes the creation of a filter like the stereogram
+generator --- i.e. a filter placed into the middle of the queue --- since I
+don't expect there will be many people creating ``terminal'' filters (zooming
+engines/user interface layers). Note that different user interfaces are
+possible, since the user interface layer is not the real user interface, just a
+set of high level functions that should be called by the main application, like
+@code{set_view}. So if you want to use XaoS as a calculation engine in your
+program this document is probably not for you.
 
-Each filter is defined by filter_action structures as follows:
+Each filter is defined by a @var{filteraction} structure, as follows::
 @findex filteraction
 @example
 struct filteraction @{
@@ -1430,22 +1465,24 @@ struct filteraction @{
   void (*removefilter)(struct filter *f);
 @};
 @end example
-This structure describes static filter's parameters (like its name) and
-basic set of methods required for communication with resto of XaoS.
-The name field describes filter's name like ``An random dot stereo-gram
-generator''. Name is displayed by ugly interface in filter's menu. So
-it is expected to be descriptive and shorter than 30 characters. The short
-name is one word long name for filter like ``stereogram''. This name is
-used by save files, possibly by command line parameters. Simply everywhere
-where user should need to write it and writing long descriptive name should
-be just wasting of time and disk space.
+This structure describes unchanging parameters to the filter (like its name) and
+a basic set of methods required for communication with the rest of XaoS.  The
+@var{name} field is a comparatively long description of the filter's name, such
+as ``A random dot stereogram generator''. @var{name} is displayed by the ugly
+interface in the Filters menu, so it is expected to be descriptive (but shorter
+than 30 characters). The short name is a one word long name for the filter, like
+``stereogram''. This name is used in save files and command line parameters;
+everywhere that the user might need to write it, so writing a long descriptive
+name would just be wasteful of time and disk space.
 
-Flags field is kept for future enhancements and is expected to be 0 for now.
+The flags field is reserved for future enhancements and is expected to be 0 for
+now.
 
-@section Creating / destroying of instance
+@section Instance creation / destruction
 
-Functions getinstance and destroyinstance are equivalents to constructor and destructor
-in OOP. Getinstance is expected to create and fill following structure:
+Functions @code{getinstance} and @code{destroyinstance} are equivalent to the
+constructor and destructor in object-oriented languages. @code{getinstance} is
+expected to create and fill out the following structure:
 
 @findex filter
 @example
@@ -1465,18 +1502,18 @@ struct filter @{
   char *pass;
 @};
 @end example
-Altrought this structure seems to be long and complex, most of fields are
-unused at this time and rest of them are filled automatically by function:
+Although this structure seems to be long and complex, most of the fields are
+currently unused, and the rest of them are filled out automatically by a helper
+function:
 
 @deftypefn Function {struct filter *} createfilter (struct filteraction *@var{fa});
 
-That should be used to create instance. Only possibly interesting field
-is data. It's pointer reserved for filter's internal use. So it should
-be pointer to filter's internal variables if required. Following is
-example implementation of get-instance with allocating of such additional
-structure. In case nothing similar is required you should use directly
-createfilter at getinstance's place.
-@end deftypefn
+This function should be used to do the dirty work of instance creation and fill
+out the @var{filter} structure. The only possibly interesting field is
+@var{data}, a pointer reserved for the filter's internal use; it can be a
+pointer to the filter's internal variables if required. This is what a
+@code{getinstance} implementation that allocates such an additional structure
+might look like:
 
 @findex getinstance
 @example
@@ -1491,9 +1528,16 @@ static struct filter *getinstance(struct filteraction *a)
 @}
 @end example
 
-The destroyinstance is expected to free memory used by filter structure and
-all internal data of filter. To free filter structure use normal free(filter);
-So implementation of such function should look like:
+If nothing similar is required you can simply put @code{creatfilter} into the
+@var{getinstance} field.
+
+@end deftypefn
+
+@code{destroyinstance} is expected to free the memory used by the filter
+structure and all the filter's internal data. To free the filter structure use
+the normal @code{free} call. An implementation of such function should look
+something like
+:
 @example
 static void destroyinstance(struct filter *f)
 @{
@@ -1502,28 +1546,31 @@ static void destroyinstance(struct filter *f)
      free(f);
 @}
 @end example
-The meaning of destroyinheredimage will be described later.
+The meaning of @code{destroyinheredimage} will be described later.
 
 
 @section Initialization
 
-During initialization phaste each filter says to his parent what kind
-of images it supports (this should depend on images supported by his child),
-parent chooses best supported image format for his purposes and gives 
-it to the child. Initialization is done in two pases.
+During the initialization phase, each filter says to its parent what kind of
+images it supports (which should depend on the images that it's child has said
+it supported), the parent chooses the best supported image format for its
+purpose and gives that to the child (while passing that information on up the
+queue of filters). Initialization is done in two passes:
 
-First pass start by lowest filter in the queue and each filter passes to
-his parents requirement structure.
+The first pass starts at the lowest filter in the queue (zoom, by default); each
+filter passes a @var{requirements} structure to its parent.
 
-Second pass starts by the highest filter and each filter passes to child
-an image and some other stuff. Then calculation should begin.
+The second pass starts at the highest filter (the ui filter), and each filter
+passes to its child an image and some other stuff. Then calculation should
+begin.
 
-Queue needs to be reinitialized after creating, resizing, adding/removing
-of filter and similar operations.
+The queue needs to be reinitialized after creating, resizing, adding or removing
+a filter, and similar operations.
 
-First pass is implemented using require function. This function is expected
-to take care at child's requirements it received as parameter, fill
-requirements structure and call require function of his parent filter.
+The first pass is implemented using the @code{require} function. This function
+is expected to look at the child's requirements it received as a parameter, fill
+out its own @var{requirements} structure, and call the @code{require} function
+of its parent filter.
 @findex requirements
 @example
 struct requirements @{
@@ -1532,12 +1579,13 @@ struct requirements @{
   int flags;
 @};
 @end example
-The nimages field should be set to 1 or 2. In case it is 2, parent filter
-must pass image with two buffers. Note that in case it is 1, parent should
-pass image with two buffers too.
+The @var{nimages} field should be set to 1 or 2. When it is 2, the parent filter
+@emph{must} pass the image in two buffers (double-buffered). Note that if it is
+1, the parent @emph{should} pass the image in two buffers, but is not required
+to.
 
-Supported mask is mask of supported image types by filter. Image types
-are following:
+@var{supportedmask} is a mask giving the image types supported by the
+filter. Valid image types are:
 @findex C256
 @findex FIXEDCOLOR
 @findex GRAYSCALE
@@ -1546,38 +1594,42 @@ are following:
 @findex TRUECOLOR32
 @table @code
 @item C256
-  An normal 8bpp image with palette
+  A normal 8bpp image with palette
 @item TRUECOLOR24
-  An 24bpp truecolor image with 8bits for each color.
+  A 24bpp truecolor image with 8 bits for each color.
 @item TRUECOLOR16
-  An 16bpp truecolor image
+  A 16bpp truecolor image
 @item TRUECOLOR
-  An 32bpp truecolor image with 8bits for each color.
+  A 32bpp truecolor image with 8 bits for each color.
 @item LARGEITER
-  An 16bpp image but w/o colors. It is expected to hold number of iterations
-  it should be also tought as 16bpp grayscale image
+  A 16bpp image, but without colors. The pixels are expected to hold an
+  iteration count; it could also be thought of as a 16bpp grayscale image.
 @item SMALLITER
-  Similar to @code{LARGEITER} but 8bpp
+  Similar to @code{LARGEITER}, but 8bpp.
 @end table
 
 @findex MASK1BPP
-In case you don't worry about palettes, allocations of colors and you do just
-some operation with bitmap, so you worry just about depth of image you should
-use mask of following: @code{MASK1BPP} for 8 bit images, @code{MASK2BPP} for 16bit and so on.
+If you don't want to worry about palettes, color allocations and so on, but just
+want to do some non-display operation with a bitmap, you probably only care
+about the image depth and not the precise meaning of the pixels; in that case,
+you can use one of the bitmasks @code{MASK1BPP} for 8 bit images,
+@code{MASK2BPP} for 16 bit and so on.
 
-The latest field of requirements structure is flags. It mask from following
-constants:
+The final field in the @var{requirements} structure is @var{flags}. It's a mask
+composed from the following constants:
 
 @table @code
 @item IMAGEDATA
-  in case your filter requires data from previous frame untouched. In case
-  this is not set, filters should reuse your image and change it. But some
-  filters like and motion blur or zooming engine requires data from previous
-  frame to construct new, so this flag should be set
+  Set this if your filter requires the data from previous frame untouched. When
+  this is not set, filters can reuse your image and change it. But some
+  filters, like motion blur or the zooming engine, require data from the
+  previous frame to construct the new one; for such filters, this flag should be
+  set.
 @end table
-there is no more flags supported at the moment. Function require should also
-save child's require structure into filter->req for later use by initialize
-pass. So you should look like:
+There are no more flags supported at the moment. The @code{require} function
+should also save the child's @code{requirements} structure into
+@var{filter->req} for later use by the initialize pass. The code for a
+@code{requirement} function might look like
 @example
 static int requirement(struct filter *f,struct requirements *r)
 @{
@@ -1590,9 +1642,11 @@ static int requirement(struct filter *f,struct requirements *r)
                 /*call parent*/
 @}
 @end example
-Next pass is main initialization. It goes in opposite order(from parent
-to child) and child's infers some stuff from parent like images etc...
-The initialize structure receives an initdata structure:
+The next pass is the main initialization pass. It goes in the opposite order
+(from parent to child, from the top of the queue to the bottom, in the same
+direction as image flow), and the child receives some stuff from the parent
+(such as images). The @code{initialize} function receives an @var{initdata}
+structure:
 @findex initdata
 @example
 struct initdata @{
@@ -1602,60 +1656,64 @@ struct initdata @{
   int flags;
 @};
 @end example
-an wait_function is function called by filter during calculation that
-lets the parent filters(usually user interface layer) to inform user
-how calculation continues. Image is an image expected to be filled
-by image in calculation phaste. Fractalc is pointer to structure that
-will contain information about fractal during calculation(like formula
-type etc...) Flags is mask of following constants:
+@var{wait_function} points to a function called by the filter during calculation
+that lets the parent filter (usually the user interface layer) inform the user
+of calculation progress. @var{image} is an image expected to be filled with an
+image in the calculation phase. @var{fractalc} is a pointer to a structure that
+will contain information about the fractal itself during calculation (formula
+type and so on). @var{flags} is a mask of the following constants:
 @table @code
 @item DATALOST
- this is set in case, that data in image was lost(image was cleared or
- resized or freshly allocated). Filters that uses data from previous frames
- should take care to this flag. Zooming engine for example recalculates
- whole image since pixels from previous frame was lost.
- Note that data should be lost also in case, filter receives different
- image that in previous initialization since some filter behind was
- removed.
+ This is set if the data in the previous image was lost (if the image was
+ cleared or resized or freshly allocated). Filters that use data from previous
+ frames should pay attention to this flag. The zooming engine, for example,
+ recalculates the whole image if this flag is set, since all pixels from
+ the previous frame were lost.
+ Note that data will also be lost if the filter receives a different
+ @var{image} than in the previous initialization (since some filter before it in
+ the queue was removed).
 @end table
-An inhering process is done using function:
+Inheritance is carried out using these functions:
 
 @deftypefn Function void inhermisc (struct filter *@var{f},struct initdata *@var{i});
 
-This function sets fields in filter structure like as fractalc or wait_func.
-Inhering of image is quite complex, since new image needs to be prepared
-for child. In order to save memory it is highly recommended to use same
-image or at least same memory for data when passing to child. But this
-is not allays possible. Following function implements heuristic to do this:
+This function sets fields in the filter structure like @var{fractalc} or
+@var{wait_func}.  Inheritance of images is quite complex, since the new image
+needs to be prepared for the child filter. In order to save memory it is highly
+recommended to use the same image --- or at least the same memory --- for data
+when passing to the child, but this is not allays possible. The following
+function implements a heuristic to reuse the image where possible:
 @end deftypefn
 @deftypefn Function int inherimage (struct filter *@var{f},struct initdata *@var{data}, int @var{flags}, int @var{width}, int @var{height}, struct palette *@var{palette}, float @var{pixelwidth}, float @var{pixelheight}) 
-You should call this function in your initialize pass. It fills image and
-childimage in filter structure, prepares initdata for child and creates
-image for child. Note that it should fail in some cases and return 0. In
-this case filter is expected to interrupt initialization and return 0 too.
+You should call this function in your @code{initialize} pass. It fills out
+@var{image} and @var{childimage} in the @var{filter} structure, and prepares
+@var{initdata} and @var{image} for the child. Note that in some cases it may
+fail and return 0. In this case the filter is expected to interrupt
+initialization and return 0 too.
 
-An @var{flags} parameter is mask of following constants:
+The @var{flags} parameter is a mask of the following constants:
 @table @code
 @item IMAGEDATA
-  in case your filter requires data from previous frame
+  Set if your filter requires data from the previous frame.
 @item TOUCHDATA
-  In case your filter touches data in output image. This is very usual but
-  there is some filters (like interlace or subwindow that don't)
+  Set if your filter touches data in the output image. This is the usual case,
+  but some filters, like interlace or subwindow, don't touch the image data at
+  all.
 @item NEWIMAGE
-  Set in case your filter can not deal with shared images (images that have
-  input data in same memory are as output)
+  Set if your filter cannot use the same image for output as it uses for input
+  (that is, if the two images must be distinct blocks of memory).
 @end table
-@var{Width} and @var{height} should be set to 0 in case you want same width/height as
-in parent image or width and height of image you want to pass to child.
-@var{Palette} is palette of image you want to pass. Set to @code{NULL} if palette should
-be inhered from parent's image (usual).
-@var{Pixelwidth} and @var{pixelheight} specifies physical size of pixel in centimeters.
-If set to 0 they are inhered from parent's image.
+@var{width} and @var{height} are the width and height of the image you want to
+pass to the child; it should be set to 0 if you want the same width/height as in
+the parent image. @var{palette} is the palette of the image you want to pass;
+set to @code{NULL} if the palette should be inherited from the parent's image
+(as is usual).  @var{pixelwidth} and @var{pixelheight} give the physical size of
+a pixel in centimeters; if set to 0 they are inherit from the parent's image.
 @end deftypefn
 
-In case you use inherimage mechanism you also must call destroyinheredimage
-in destroyinstance function and updateinheredimage at the beginning of calculate
-function.
+If you use the @code{inherimage} mechanism, you must also call
+@code{destroyinheredimage} in the @code{destroyinstance} function and
+@code{updateinheredimage} at the beginning of the @code{calculate} function.
 
 Example implementation:
 @example
@@ -1667,96 +1725,115 @@ static int initialize(struct filter *f,struct initdata *i)
   return(f->previous->action->initialize(f->previous,i));
 @}
 @end example
-Also note that fractal context hold pointer to fractal palette. In case
-You don't change image palette everything is OK. But in case child's image
-differs from parents image, there should be two behaviors---fractal's palette
-is child one (this should be common for example in conversion filters (
-8bpp to truecolor etc)) or fractal's palette is parent's one (like in
-edge detection filter). By default fractal's palette is kept to parent's one.
-This should be changed by setfractalpalette call. It has two parameters---filter structure and palette. When you pass as palette child's palette,
-fractal's palette will be changed to child. In case you pass NULL. Changing
-of palette will be disabled (like in motion blur filter in 8bpp mode).
-Note that this is changed just in case you still have access to fractal palette.
-Some parent should redirect palette before. Than this function does nothing.
+Also note that the fractal context holds a pointer to the fractal's palette. If
+you don't change the image's palette everything is OK; but if the child's image
+differs from the parent's, there should be two behaviors --- the fractal's
+palette is the child's one (this is common in color conversion filters, going
+from 8bpp to TrueColor and suchlike), or the fractal's palette is the parent's
+one (like in the edge detection filter). By default the fractal's palette is set
+to the parent's one, because this is most likely to be generally useful;
+anything else requires explicit work from the parent to set up the child's new
+palette.
+
+This can be changed by the @code{setfractalpalette} call, which has two
+parameters --- the @var{filter} structure, and the new palette. When you pass
+the child's palette as @var{palette}, the fractal's palette will be changed to
+the child's. If you pass @code{NULL}, changing the palette will be disabled (as
+in the motion blur filter in 8bpp mode).  This is only changeable if you still
+have access to the fractal's palette; some parent might have already redirected
+the palette beforehand, in which case this function does nothing.
 
 
-@section Caluclation
+@section Calculation
 
-Main calculation is done using doit function. It is expected to call
-child's calculation function when required and apply filter at output.
-It receives flags. Only flag in @code{INTERRUPTIBLE} for now. It is mainly
-for zooming engine so I do not describe it here. But filter is expected to
-pass this flag to child. Next parameter is time in milliseconds that
-expired since last doit call. It should be used to calculate speed
-of animation.
+The calculation is done using the @code{doit} function:
 
-Calculation loops returns flags. Flags is mask from following constants:
+@deftypefn Function int (*doit)(struct filter *f,int flags,int time)
+
+This function is expected to call the child's calculation function when
+required, and apply its filter to the child's output.
+
+The @var{flags} are mostly undefined; only @code{INTERRUPTIBLE} is defined for
+now, and @emph{that} is mainly for the zooming engine so I do not describe it
+here. Nonetheless, the filter is expected to pass the @var{flags} to its
+child. Finally, @var{time} is the time in milliseconds that expired since the
+last @code{doit} call. It can be used to calculate the animation speed, perhaps
+in an attempt to keep the speed constant.
+
+@end deftypefn
+
+Calculation loops return a bitmask composed of the following flags:
 @findex ANIMATION
 @findex CHANGED
 @findex INEXACT
 @table @code
 @item ANIMATION
- in case filter performs some animation and expect that calculation will be
- called again soon
+ Set if the filter performs some animation, and expects that its calculation
+ function will be called again soon.
 @item CHANGED
- in case something changed in output image (usual)
+ Set if something changed in the output image (the usual case).
 @item INEXACT
- This is enabled by zooming engine in @code{INTERRUPTIBLE} mode in case that time
- exceeded.
+ This is enabled by the zooming engine in @code{INTERRUPTIBLE} mode in case the
+ @var{time} was exceeded.
 @end table
 
-An doit function changes image. Image structure contains following fields
-significant for you:
+Most @code{doit} functions change the image. The @var{image} structure contains
+following fields that might be significant to filters:
 @findex image
 @table @code
 @item bytesperpixel
-  number of bytes per pixel (image depth)
+  Number of bytes per pixel (image depth).
 @item palette
-  palette of image.
+  Palette of image.
 @item currlines
-  array of pointers to beginnings of every scanline of image
+  Array of pointers to the beginning of each scanline in the image.
 @item oldlines
-  array of pointers like currlines but for previous image in case
-  doublebuffering is enabled
+  Like @var{currlines}, but for the previous image, when double-buffering is
+  enabled.
 @item nimages
-  set to 2 in case doublebuffering is active
+  Set to 2 when double-buffering is active.
 @item flipimage
-  pointer to function that flips oldlines and currlines.
+  Pointer to a function that flips @var{oldlines} and @var{currlines}.
 @end table
 
-palette structure contains following significant fields:
+The @var{palette} structure contains the following significant fields:
 
 @table @code
 @item type
- type of palette/image (@code{C256}, @code{TRUECOLOR} etc...)
+ Type of palette/image (@code{C256}, @code{TRUECOLOR} etc...)
 @item size
- number of allocated entries
+ The number of allocated entries in the palette.
 @item pixels
- array of allocated entries. Conversion table from number of iteration
- to pixel value.
+ The array of allocated entries; a conversion table mapping from the iteration
+ number to a pixel value.
 @item rgb
- Rgb values for pixels (@code{NULL} for @code{TRUECOLOR}, @code{HICOLOR} and similiar types)
+ @sc{RGB} values for pixels (@code{NULL} for @code{TRUECOLOR}, @code{HICOLOR}
+ and similar paletteless types)
 @end table
 
-To make easier writing calculation loops for different depths @code{pixel8_t},
-@code{pixel16_t} and @code{pixel32_t} are predefined. You also can use include system
-as in edge detection filter, that lets you write calculation loops just
-once and use cpixel_t and it will be compiled for every bitmap depth.
-See edge detection filter (engine/edge.c and engine/edged.c) for
-implementation details.
+To make writing calculation loops for different bit-depths easier,
+@code{pixel8_t}, @code{pixel16_t} and @code{pixel32_t} are predefined. You also
+can use preprocessor magic as the edge detection filter does; this lets you
+write calculation loops just once, using @code{cpixel_t}, and the code will be
+compiled for every bitmap depth.  See the edge detection filter
+(@code{src/engine/edge.c} and @code{src/engine/edged.c}) for implementation
+details.
 
 
-@section Conversion
+@section Coordinate conversion
 
-Convertup and convertdown functions are used for converting screen coordinates
-to position in fractal and back. Convertup is function that receives
-coordinates in child's image and is expected to convert them into coordinates
-in parents image and call parent's convertup function.
+The @code{convertup} and @code{convertdown} functions are used for converting
+screen coordinates to a position in the fractal and back. @code{convertup}
+receives coordinates in the child's image, and is expected to convert them into
+coordinates in the parent's image and call the parent's @code{convertup}
+function.
 
-Convertdown is reversed(from parent to child).
+@code{convertdown} is the reverse of @code{convertup} (going from parent to
+child).
 
-In case coordinates respond 1:1 you should use convertupgeneric and
-convertdowngeneric. In other case implementation should look like:
+If coordinates correspond 1:1 you should use @code{convertupgeneric} and
+@code{convertdowngeneric}; otherwise, the implementation should look something
+like this:
 
 @example
 static void convertup(struct filter *f,int *x,int *y)
@@ -1773,34 +1850,34 @@ static void convertdown(struct filter *f,int *x,int *y)
 @}
 @end example
 
-@section Removing of filter
+@section Filter removal
 
-Before filter is removed from queue, removefilter function is called.
-It is expected to clean up thinks filter changed. Should be NULL
-in most cases.
+Before the filter is removed from the queue, the @code{removefilter} function is
+called.  It is expected to clean up anything that the filter changed.
 
-@section Registering of filter
+In most cases, it should be left at @code{NULL}.
 
-Once filteraction structure is filled, filter is done and you should try
-to enable it. To enable it in user interface you need to edit ui/ui_helper.c,
-add filter into uih_filters structure and increase uih_nfilters.
-Note that order of filters in uih_filter is significant, since same order
-is kept in filter queue, so you should specify if you want to be called
-before/after filter xy.
+@section Filter registration
+
+Once the @var{filteraction} structure is filled, the filter is ready, and you
+should try to enable it. To enable it in the user interface you need to edit
+@code{src/ui-hlp/ui_helper.c}, add the filter to the @var{uih_filters}
+structure, and increase @var{uih_nfilters}. Note that the order of filters in
+@var{uih_filter} defines the order of the filters in the filter queue.
 
 Then it is high time to start experimenting.
 
 Good luck!
 @node algorithm, timerlib, filters ,Top
 @chapter Algorithm description
-The main idea behind XaoS is that it is not required to calculate the
-whole image every frame. Most pixels are already calculated in the
-previous frames. You usually don't have exactly the pixels you want,
-but all within a range lower than a step between pixels are
-acceptable. That is why the image flicker a bit and why points do not
-blink randomly as in recalculated animations.
-   
-   This document describes some of the most important algorithms in XaoS
+The main idea behind XaoS is that it is not necessary to calculate the whole
+image in every frame; most pixels were already calculated by the previous
+frames. You usually don't have exactly the pixels you want, but all within a
+range lower than a step between pixels are acceptable. That is why the image
+flickers a bit and why points do not blink randomly as in recalculated
+animations.
+
+   This document describes some of the most important algorithms in XaoS:
    @itemize @bullet
      @item Saving Previous Pixels
      @item Approximation Algorithm
@@ -1811,7 +1888,7 @@ blink randomly as in recalculated animations.
      @item Dynamic Resolution
      @item Autopilot
     @end itemize   
-   
+
 @section Saving Previous Pixels
 
 Ideally, all recalculated points should be saved and used for
@@ -1820,93 +1897,92 @@ implement this. To save all frames for half an hour would require 24
 Mb of memory, and searching the saved frames would be more
 computationally expensive than recalculating an entirely new frame.
 
-One way was later used by program Frang. It remembers all pixels as
-x,y and value fields and when it builds new image, it draws all pixels
-to it and then browses image and fills it by new pixels. Possibly some
-rle cache should be used for calculated pixels. Frang actually uses algorithm,
-that takes away pixels out of screen, so it behaves exactly in same way
-as algorihm described here. At the other hand, this method seems to require
-much more memory than XaoS algorithm and drawing pixels/browsing image cost
-quite a lot, so algorithm described here seems to be faster. Since it never
-requires examining of whole image and new image is constructed using
-block move operations.
+One way was later used by the program Frang. It remembers all pixels as
+triplets of (x,y,value), and when it builds a new image, it draws all
+the pixels that it remembers to that image and then browses the image
+and fills it with new pixels. (Possibly an @sc{rle} encoding should be
+used for calculated pixels to conserve memory.) Frang actually uses an
+algorithm that takes away pixels from the screen, so it behaves in
+exactly the same way as the algorithm described here. On the other hand,
+this method seems to require much more memory than XaoS' algorithm, and
+drawing pixels/browsing the image costs quite a lot, so the algorithm
+described here seems to be faster, since it never requires examining the
+whole image, and the new image is constructed using block move
+operations.
 
-For this reason only the last generated frame is used as reference.
-This way the memory requirements are proportional to xsize * ysize. It
-can be shown that this method is only about 2-5% slower during
-zooming. Of course unzooming back to once browsed areas is much slower.
-   
+For this reason, only the last generated frame is used as a reference.
+This way the memory requirements are proportional to @math{xsize *
+ysize}. It can be shown that this method is only about 2--5% slower
+during zooming. (Of course unzooming back to once browsed areas is much
+slower.)
+
 Because only the previous frame is used, another optimization can be
-performed: Imaginary and real parts of the calculated image are not
-precise since they are the result of successive iterations of same
-algorithm. In order to prevent errors from being distributed to the
-following frames their exact coordinates need to be known.
-Fortunately, it isn't necessary to save their values since it is
-known that all real components in a row and all imaginary components
-in a column are equal. Thus, the only things that must be saved are
-the real components for every row and the imaginary components for
-every column.
-   
+performed: The imaginary and real parts of the calculated image are not
+precise, since they are the result of successive iterations of the
+algorithm. In order to prevent errors from being propagated to the
+following frames, their exact coordinates need to be known.
+Fortunately, it isn't necessary to save their values since it is known
+that all real components in a row and all imaginary components in a
+column are equal. Thus, the only things that must be saved are the real
+components for every row and the imaginary components for every column.
+
 This allows for a substantial speed-up in approximation because the
 calculation requires less data. Of course, some rows and columns fall
-out of the threshold and new ones need to be calculate to fill in the
+out of the threshold and new ones need to be calculated to fill in the
 gaps in the frame.
-   
-Obviously, much less work is done. There are only @math{xsize + ysize}
-calculations instead of @math{xsize * ysize}. So the main loop in XaoS looks
-like this:
+
+Obviously, much less work is done than in a brute-force calculation:
+there are only @math{xsize + ysize} calculations instead of
+@math{xsize * ysize}. So the main loop in XaoS looks like this:
    @itemize @bullet
      @item Make approximations for rows
      @item Make approximations for columns
      @item Move old pixels to their new positions
      @item Calculate pixels for which there is no good approximation for
        their row
-     @item Calculate pixels for which there is not good approximation for
-       their column but there is one for their row
+     @item Calculate pixels for which there is no good approximation for
+       their column, but there is one for their row
     @end itemize
-       
-   
+
 @section Approximation Algorithm
 
   @unnumberedsubsec Introduction to problem
-   
+
 You can see that the approximation algorithm is central to the
-implementation of XaoS. If the guess is incorrect the image will look
-strange, boundaries will not be smooth and the zoom will flicker. On
-the other hand, if it adds more new rows or columns than required,
-zooming will become much slower. Also, in the instance of doubling
-(i.e., using an old row or column more than once) the resolution will
-lower. It is important to keep the increasing imaginary and real
-components in the correct order. If a row and column of complex
-coordinates follows one with higher coordinate values an improved
+implementation of XaoS. If a guess is incorrect the image will look
+strange, boundaries will not be smooth and the zoom will flicker. On the
+other hand, if it adds more new rows or columns than required, zooming
+will become much slower. Also, if doubling should happen (i.e., using an
+old row or column more than once) the resolution will lower and the
+image will look jagged. It is important to keep the increasing imaginary
+and real components in the correct order. If a row and column of complex
+coordinates follows one with higher coordinate values, an improved
 approximation can be attained by swapping their values.
-   
+
 The algorithm needs to be relatively fast. It is only used for @math{xsize + ysize}
-values but if its speed is proportional to @math{O(n^2)}, it can be
+values, but if its speed is proportional to @math{O(n^2)}, it can be
 slower than a whole recalculation of the image. Speeds of @math{O(n)} or @math{O(n * log(n))} are acceptable.
-   
+
   @unnumberedsubsec Some simple algorithms to solve it
-  
-   
-   
+
 Initially, a very simple algorithm was used:
-   
+
   Find the old row/column nearest the row/column that needs to be
   regenerated. If the difference between them is less than one step
   (@math{step = (end - beginning) / resolution}) then use it. Otherwise,
   recalculate a new one.
-     
+
 Finding the nearest row/column pair is very simple since it is always
-greater or equal to the pair needing to be generated.
-   
+greater than or equal to the pair needing to be generated.
+
 Surprisingly, this simple algorithm has almost all the problems
 described above. Doubling was fixed by lowering the limit to @math{step / 2.}
-This cause a considerable slowdown so the limit was returned to step.
+This caused a considerable slowdown so the limit was returned to @math{step}.
 Instead, the algorithm was changed to search for only row/column pairs
 that are greater than the previous frame's row/column pairs. This is
-the algorithm that was used in version 1.0
-   
-This algorithm still added to many new rows and columns and did not
+the algorithm that was used in version 1.0.
+
+This algorithm still added too many new rows and columns, and did not
 generate smooth boundaries. For version 1.1 a heuristic was added that
 preferred approximating rows/columns with lower values. This way it
 did not occupy possible rows/columns for the next approximation. The
@@ -1948,22 +2024,20 @@ values will do the following:
 O1 to X1 is wrong. And there is many and many other situations that
 may occur. But you may see that the normal algorithm will calculate 4
 new rows/columns but the heuristic saves all of these calculations.
-   
+
   @unnumberedsubsec Current algorithms used
-  
-   
-   
-In version 2.1 work on this heuristic was disabled after I discovered
-a surprisingly simple algorithm that solves all these problems. First I
-decided to define exactly what is best approximation. This should be
+
+In version 2.1 work on this heuristic was disabled after I discovered a
+surprisingly simple algorithm that solves all these problems. First I
+decided to exactly define the ``best approximation''. This should be
 done by defining a price for every approximation and choose the
 approximation with the lowest price. Prices are defined as such:
-   
+
   Approximating row/column x by y costs @math{dist(x, y) ^ 2}.
-     
+
 This prefers two smaller approximation errors before a single larger
 error and describes my goal quite well.
-   
+
 The cost for adding a new row/column specifies when it is better to do
 a bad approximation and when to add a new row/column. I use @math{(4 * step)
 * (4 * step)}. This means that the approximation is acceptable when
@@ -1974,7 +2048,7 @@ using a relatively simple dynamic algorithm. It uses approximations of
 @math{length < n} to make a guess at the length of @math{n}. It can start by
 approximating one row/column and then again for two, three up to
 xsize/ysize rows/columns.
-   
+
 The algorithm starts by calculating prices for all possible new
 positions for old row/column 1. Because of the pricing there are
 maximally 8 new positions. (Other ones must cost more than adding new
@@ -1982,11 +2056,11 @@ row/column). Of course it is possible that there are no new positions.
 
 
 For calculating the price of approximations for row/column 2 I may use
-previous one: Try new position n. Calculate the price and add the best
-approximation for the previous (row/column 1) one that uses a new
-position lower than n(prohibits doubling or swapping). This should be
-one of 8 positions or eventually adding of new one and not using
-row/column 1 at all.
+the previous column: Try new position n. Calculate the price and add the
+best approximation for the previous (row/column 1) that uses a new
+position lower than n (thus prohibiting doubling or swapping). This
+should be one of 8 positions or (eventually) adding a new one and not
+using row/column 1 at all.
 
 The same method can be used for the rest of the rows/columns. At the
 end the best price may be found for the last row/column and return by
@@ -1994,41 +2068,40 @@ the way it was calculated. (For this I need the saved ``calculated
 using'' values.) At this step the best approximation has been
 determined.
 
-To fill the table, @math{9 * n} steps are required and n steps to backtrack
-best approximation. The only problem is that this algorithm is still a
-little slow (chiefly because of slow memory access on Intel
-architectures). -But with some optimizing it works well.
+To fill the table, @math{9 * n} steps are required and n steps to
+backtrack to the best approximation. The only problem is that this
+algorithm is still a little slow (chiefly because of slow memory access
+on the Intel architectures). But, with some optimizing, it works well.
 
 This algorithm is almost perfect except that it occasionally adds new
-rows/columns to the wrong locations. It does not prefer to add new
-rows/columns into holes. But it does not seem that this is the real
-problem. The last optimization made was based upon the face that added
+rows/columns to the wrong locations --- it does not prefer to add new
+rows/columns into holes --- but it does not seem that this is a real
+problem. The last optimization made was based upon the fact that added
 rows/columns do not have the exact real and imaginary components
-calculated by (@math{beginning + x * step}) but lies at the average of left
-and right neighbors. This makes the boundaries smooth and distributes
-coordinates better. It also has the added benefit of making the input
-better for future approximations.
+calculated by (@math{beginning + x * step}) but lie at the average of
+their left and right neighbors. This makes the boundaries smooth and
+distributes coordinates better. It also has the added benefit of making
+the input better for future approximations.
 
-Another danger during implementation if this algorithm is that adding new
-rows/columns into their ideal positions should cause miss-ordered results,
-since some rows/columns should be off more that is distance between them.
-To avoid this, I use algorithm that always examine start and end of block
-of new rows/columns and linearly interpolates value between them. Special
-care needs to be at the blocks that start at the beginning or overs at
-the end.
+Another danger during implementation of this algorithm is that adding new
+rows/columns into their ideal positions could cause misordered results,
+since some rows/columns could be off more than the distance between
+them. To avoid this, I use an algorithm that always examines the start
+and end of a block of new rows/columns and linearly interpolates the
+value between them. Special care needs to be taken with the blocks that
+start at the beginning or finish at the end.
 
-Implementation should be much faster using custom fixedpoint routines---first recalculate values that 0 means start of image and 65536 means end.
-Than calculation is much cleaner. Values <0 and >65536 are of screen, 
-calculation is independent at scale and many thinks should be
-recalculated---like tables for calculating price from distance.
-Also dividing main loops into many specialized parts and avoiding
-filing unnecessary parts of table helps. So current algorithm in XaoS is about 
-5 or 6 times faster than first naive implementation.
-   
+Implementation should be much faster using custom fixed-point
+routines --- first recalculate values such that 0 means start of image
+and 65536 means end. Than calculation is much cleaner. Values <0 and
+>65536 are off screen, calculation is independent of scale, and many
+things should be recalculated --- like tables for calculating price from
+distance.  Also dividing the main loops into many specialized parts and
+avoiding filling unnecessary parts of tables helps. So current algorithm
+in XaoS is about 5 or 6 times faster than first naive implementation.
+
 @section Moving Pixels to New Positions
 
-   
-   
 Since XaoS is using the approximation algorithm the following table is
 filled for every row/column:
    @itemize @bullet
@@ -2036,7 +2109,7 @@ filled for every row/column:
      @item oldpoint
      @item position
    @end itemize
-       
+
 calculate is 1 if the current row/column is new and needs to be
 calculated or 0 if no old pixels need to be moved. oldpoint is a
 pointer to the old row/column that corresponds to the new one. This
@@ -2048,33 +2121,33 @@ table; copy it if required.
 
 There is the problem that this minimally needs three memory reads for
 every pixel (read calculate, oldpoint and index of old point). This is
-too slow, so a small optimization is performed. Instead rewriting the
-piece of code in assembly, normal memcpy is used to move blocks of
-pixels to their new locations. This minimizes the internal loop and
-access can be done more quickly since memcpy is usually optimized for
-each architecture.
+too slow, so a small optimization is performed. Instead of rewriting the
+piece of code in assembly, normal memcpy is used to move blocks of pixels
+to their new locations. This minimizes the internal loop and access can
+be done more quickly since memcpy is usually optimized for each
+architecture.
 
 Using the row table, a list of blocks to move for every row is
 created. With this new table all the pixels can be moved quickly. This
-increased the speed of XaoS about four times and made this function so
-fast that it is no longer a problem. (In fact, it takes much less
-processing than all other parts of XaoS.)
+increased the speed of XaoS by about four times and made this function
+so fast that it is no longer a problem. (In fact, it takes much less
+time than all other parts of XaoS.)
 
 @section Calculating New Pixels
-   
-The above optimizations make XaoS very fast, but another 30% increase
-in speed is acquired by using a clever method for calculating the new
+
+The above optimizations make XaoS very fast, but another 30% increase in
+speed is acquired by using a clever method for calculating the new
 pixels. Many methods are known for saving calculations during the
 generation of fractal images. The most powerful is boundary detection.
 It relies on the fact that the Mandelbrot Set is connected with lakes.
-You need only one pixel at the boundary, then traverse the whole set
-and then fill the solid area inside. This method saves many
-calculations but is too complex for adding just one line. Many claim
-that it does not introduce any errors, but this is not true. It is
-possible for a connected part of the lake to be so small that it is
-not visible in smaller resolutions. In this case, boundary detection
-misses the whole area. This algorithm is actually used just for
-calculating of new images (i.e. at the startup). 
+You need only one pixel at the boundary, then can traverse the whole set
+and fill the solid area inside. This method saves many calculations but
+is too complex for adding just one line. Many claim that it does not
+introduce any errors, but this is not true. It is possible for a
+connected part of the lake to be so small that it is not visible in
+smaller resolutions. In this case, boundary detection misses the whole
+area. This algorithm is actually used just for calculating of new images
+(i.e. at the startup).
 
 XaoS uses modification of method known as solid guessing. The pixels
 at the boundaries of a rectangle are calculated. If they are all the
@@ -2097,7 +2170,7 @@ Later, rules were added for new rows and columns that crossed each
 other. In this instance you can test only four pixels. This situation
 is very rare. It is hoped that it does not introduce many errors.
 
-If multiple blocks of new lines need to be calculated there are not
+If multiple blocks of new lines need to be calculated there are no
 reference pixels to use for solid guessing. Interlacing does the
 trick. By calculating the odd lines without any guessing, the guessing
 algorithm is now possible for the remaining uncalculated lines. This
@@ -2110,78 +2183,78 @@ surrounding pixels are available, further reducing errors.
 
 @section Symmetry
 
-   
-   
 Many fractals are horizontally or vertically symmetrical. This is
 implemented in the approximation code. When there is no good
 approximation available, try to mirror the opposite side if the line
 is available.
 
 This method primarily speeds up the initial image.
-   
+
 @section Calculation of the Mandelbrot Set
 
-Internal Mandelbrot calculation loop is unrolled---it calculates
-first 8 iterations using normal method and then it expects that number
-of iterations will be probably large so it switches into mode, where it
-calculates iterations in block of 8 with one bailout test at the end.
-When bailout is received, saved values from previous iterations is
-restored and last 8 iterations are recalculated slowly to get exact
-values. This helps a lot especially at Pentium, where conditionals in
-floating point code is slow.
+The internal Mandelbrot calculation loop is unrolled --- it calculates
+the first 8 iterations using the normal method, and then it expects that
+number of iterations will probably be large, so it switches into a mode
+where it calculates iterations in blocks of 8 with one bailout test at
+the end. When the bailout is attained, saved values from previous
+iterations are restored and the last 8 iterations are recalculated slowly
+to get exact values. This especially helps on the Pentium, where
+conditionals in floating point code are slow.
 
-Another stuff is periodicity checking. XaoS has both version of loops---with an without periodicity checks. In most cases it uses nonperiodicity
-checking version. Periodicity check version is used just in case, some inside
-set pixel has been found during solid guessing paste around. This is done
-mainly because periodicity checking version of loop is significantly slower.
+Another stuff is periodicity checking. XaoS has loops with and without
+periodicity checks. In most cases it uses the no-periodicity-checking
+version. The periodicity check version is used just in the case where
+some inside-set pixel has been found during the solid guessing
+phase. This is done mainly because the periodicity checking version of
+the loop is significantly slower.
    
 @section Dynamic Resolution
-   
+
 The above optimizations often do not help enough and image calculation
 is still too slow. One option was to reduce the framerate, but a
 framerate lower than 5 frames per second is unbearable. Another option
 is simply to calculate only the details that can be determined within
 a time interval.
 
-Rows/columns not calculated are simple approximated by referencing the
-nearest other row/column. The result is an image with larger pixels.
-One problem is the fact that the order of calculating the rows/columns
-is significant. Previous versions of XaoS simply calculated all rows
-from top to bottom and then columns from left to right. Using the
-dynamic resolution code with this algorithm would result in distorted
-images. This was solved by adding priority to every row/column and
-calculating the high priority row/column first. The algorithm for
-adding these priorities is as follows:
+Rows/columns not calculated are simply approximated by referencing the
+nearest row/column. The result is an image with larger pixels.  One
+problem is the fact that the order of calculating the rows/columns is
+significant. Previous versions of XaoS simply calculated all rows from
+top to bottom and then columns from left to right. Using the dynamic
+resolution code with this algorithm would result in distorted
+images. This was solved by adding a priority to every row/column and
+calculating the high priority row/column first. The algorithm for adding
+these priorities is as follows:
 @itemize @bullet
   @item Find middle row/column of uncalculated block. Priority is the size
     of the block (in floating point coordinates)
   @item Start function for left block and right block
 @end itemize
-    
-This function produces quite good results. It tends to make same size
+
+This function produces quite good results. It tends to make same-sized
 rectangles on the whole image and does not depend on resolution.
 
 Another interesting optimization is that during the zoom it is more
 advantageous to calculate rows/columns in the center of the zoom
 instead of the borders since these will be in the viewport longer and
-the user is usually focusing on center of the zoom anyhow.
+the user is usually focusing on the center of the zoom anyhow.
 
 This is done by simply adding to the calculated priority
 @math{normal_priority / (abs(newposition - oldposition) / step + 1)}. This
-prefers rows/columns that do not move a great deal. Of course,
-unzooming uses the formula reversed.
+prefers rows/columns that do not move a great deal. (Of course,
+unzooming uses the reverse of this formula.)
 
 The last variable to consider is the time interval for one frame.
-Setting it too low makes the calculation slow. Setting it too high
-makes the framerate too low. So the amount of time spent in other
-parts of the program is calculated and multiplied by 5 to determine
-the interval. If time is then lower than 15FPS, 15FPS is used instead,
-since slower animations are unacceptable. At the other hand if it is higher
-than 35FPS, it is set to 35FPS, since higher framerate is just wasting
-of computer resources. When image is not animating, this values is changed,
-so framerate is choose between 5FPS and 15FPS. This caused that images
-are calculated quickly after zooms stops.
-   
+Setting it too low makes the calculation slow. Setting it too high makes
+the framerate too low. So the amount of time spent in other parts of the
+program is calculated and multiplied by 5 to determine the interval. If
+this indicates a framerate lower than 15FPS, 15FPS is used instead, since
+slower animations are unacceptable. On the other hand, if it is higher
+than 35FPS, it is set to 35FPS, since a higher framerate than that is
+just wasting computer resources. When the image is not animating, this
+value is changed, so a framerate between 5FPS and 15FPS is selected. This
+ensures that images are calculated quickly after zooming stops.
+
 @section Autopilot
 
 Another interesting algorithm controls the autopilot. It is actually
@@ -2193,176 +2266,188 @@ point where many (more than 2) different colors are around. (i.e., It
 zooms into noisy areas.)
 
 In the instance that there are no such areas, the autopilot will
-unzoom. Also detects oscillating. 
+unzoom. It also detects oscillations / vacillations and breaks them.
 
-Current implementation also does detection of out of range numbers and
-randomly choosed points are choosed near the old one, to avoid too often
+The current implementation also does detection of out of range numbers;
+randomly chosen points are chosen near the old one, to avoid frequent
 changes of direction.
 
 @section SMP support
 Since version 3.0 XaoS supports SMP. This is done using threads. Most of
-XaoS routines should be threaded easily---for example moveoldpoints just
-divides image into n equal part and each part is proceeded by one processor.
-Only unthreaded part is realloc table calculation routines. I don't see any
-way to paraelize it except it calculates both---x and y approximation at one
-time (using two processors).
-Another interesting algorithm to paraelize is boundary trace. See comments
-@code{btrace.c} for discussion about current implementation.
-Only problem of current implementation I see is possibility, that calculation
-is divided into too many parts (realloc tables, move points, calculate,
-symmetries, dynamic resolution) and tasks needs to synchronize between each
-part. So this should be too slow at real SMP box.
+XaoS routines should be threaded easily --- for example
+@code{moveoldpoints} just divides image into @math{n} equal parts and
+each part is computed by one processor. The only unthreaded part is the
+realloc table calculation routines. I don't see any way to paralellize it
+except for calculating both @math{x} and @math{y} approximations
+simultaneously (using two processors). Another interesting algorithm to
+parallelize is boundary trace; see the comments in
+@code{src/engine/btrace.c} for discussion of the current implementation.
+The only problem I see in the current implementation is the possibility
+that calculation is divided into too many parts (realloc tables, move
+points, calculate, symmetries, dynamic resolution) causing too much
+synchronization between each part. So this may be too slow on a real SMP
+box.
 
 @node timerlib, registry,algorithm ,Top
 @chapter The timer library
 
-Timer library is library I did for timing in XaoS. But I found it useful
-in many other programs (like demonstrations, games, animation players and
-all other stuff that needs to be timed). So you should read this description
-and possibly use it in your application and save some coding time.
+Timer library is a library originally written for timing in XaoS; but I
+found it useful in many other programs (like demonstrations, games,
+animation players and other stuff that needs to be timed). So you should
+read this description and possibly use it in your application and save
+some coding time.
 
-There is many ways how to design of such timed application (game)
+There are many ways to design a timed application (such as a game)
 
 @enumerate
 @item
-read user input, move badies, display and again
-this way has one disadvantage. Speed of game depends on speed of computer.
-This was acceptable in old times where only processor was Z80 :) but now
-with wide variety of various hardwares such internal loop is unacceptable
+Read user input, move baddies, display and loop again.
+
+This way has one disadvantage; the speed of game depends on the speed of
+the computer.  This was acceptable in olden times where the only
+processor was the Z80 :) but now with a wide variety of hardware with
+widely differing speeds such a loop is unacceptable.
 
 @item
-read user input, measure time since last loop and calculate step for
-badies, move badies for set step, display and again.
-This way fixes problem with speed. But moving badies just for calculated
-step, that should differ a much is quite complex, usually introduces complex
-calculation, floating/fixedpoint math and other unnecesarry stuff that makes
-program long and introduces many bugs.
+Read user input, measure time since last loop and calculate step for
+baddies, move baddies for set step, display and loop again.
+
+This way fixes the problem with speed. But moving baddies just for
+calculated step, that should differ a much is quite complex, usually
+introduces complex calculation, floating/fixedpoint math and other
+unnecessary stuff that makes program long and introduces many bugs.
 
 @item
-Set the fixed framerate that is high enough to make game smooth but low
-enough to do whole internal loop in time. So internal loop should look like:
-read user input, move badies, display, measure time spent in loop an
-sleep rest of time until next frame.
-This is quite popular scheme but has another disadvantage---game can not be
-designed to use whole CPU power since on slower computers internal loop should
-take longer time that is reserved for one frame. Game will run slowly again.
+Set a fixed framerate that is high enough to make the game smooth but low
+enough to do the whole internal loop in time. The internal loop then
+looks like this: read user input, move baddies, display, measure time
+spent in loop, sleep until next frame.
+
+This is quite a popular scheme but has another disadvantage --- game can
+not be designed to use the whole CPU power, since on slower computers
+internal loop would longer than is available for one frame, so the game
+will run slowly again.
 
 @item
-To take away disadvantage of previous method, many games times just
-moving of badies and user input. Other stuff like displaying should be
-done in rest of time. In DOS games moving and user input is often at
-asynchronous interrupt and drawing runs as main loop. This solves problem
-in case that drawing of game takes significantly longer time than moving
-of badies. This is quite usual so this scheme works well.
+To take away disadvantage of previous method, many games time just the
+moving of baddies and user input. Other stuff like displaying should be
+done in the `untimed' rest of the time. In DOS games moving and user
+input is often done in an asynchronous interrupt and drawing runs as the
+main loop. This solves the case where the drawing of the game takes a
+significantly longer time than the moving of baddies. This is quite
+common so this scheme works well.
 
 @item
-previous scheme still has one problem---since timer interrupt works
-asynchronously, there should happend many race condition, in case moving
-takes longer time than time reserved from frame, computer can crash. So
-this scheme should be enhanced into synchronous one with exactly same result
-but avoiding problem with race condition:
+The previous scheme still has one problem --- since the timer interrupt
+works asynchronously, there could be many race conditions: if moving
+takes a longer time than the time reserved for it, the computer can
+crash. So this scheme should be enhanced into a synchronous one with
+exactly the same result but avoiding the problem with race conditions:
 
-read user input, measure time spent by loop and calculate how many simulated
-frame interrupts activated since last activation, if zero sleep until
-simulated interrupt, move badies as many times as required, display
+Read user input, measure the time spent by the loop and calculate how
+many simulated frame interrupts were activated since last activation: if
+zero, sleep until simulated interrupt, move baddies as many times as
+required, display, and loop again.
 
-this is an combination of 4 and 3 and seems to be most comfortable way
-for writing games but since main loop is now quite complex many games don't
-do that.
+This is a combination of 4 and 3 and seems to be the most comfortable way
+for writing games, but since the main loop is now quite complex many
+games don't do that.
 
 @item
-there is still one small problem. Method 5 expect that moving takes
-significantly lower time that displaying. This may not be truth. Simple
-work around is to write moving routine, that should move for x moves
-by faster way that calling move x times. This is often possible and makes
-easy extension to scheme 5. This scheme allows you to use very large
-maximal framerate (say 100FPS) and to have same results as method 2
-(that is maximally exact method)
+there is still one small problem. Method 5 expects that moving takes a
+significantly smaller time than displaying. This may not be the truth. A
+simple work around is to write a moving routine that should move for
+@math{x} moves in a faster way than calling move @math{x} times. This is
+often possible, and makes extension to scheme 5 easy. This scheme allows
+you to use a very large maximal framerate (say 100FPS) and to have the
+same results as method 2 (which is the maximally exact method)
 @end enumerate
 
-As you can see, designing of main loop isn't so easy. This is just very
-simple example. More advanced application for example should want to move
-one set of badies at one framerate and other at different framerate. This
-requires two such timings. Another complication is that there is many
-different ways to measure time exactly at different platforms. Under Linux
-you can measure using gettimeofday but under DOS this is exact just to 1/18
-of second and thats too low for smooth animation and so on.
+As you can see, designing the main loop isn't so easy. This is just a
+very simple example: a more advanced application might want to move one
+set of baddies at one framerate and another at a different
+framerate. This requires two such timings. Another complication is that
+there are many different ways to measure time exactly on different
+platforms. Under Linux you can measure using @code{gettimeofday}, but
+under DOS this is exact to just 1/18 of second and thats too low for
+smooth animation, and so on.
 
-Thats why I decided to design portable easy to use timer library, that
-makes easy to implement all described method, combining of them and much more.
-During design I taken care at the following thinks: quality of timing,
-how easy to use it is, speed, portability and to minimalize inexpected
-situations (like race conditions in asynchronous interrupts and so on)
+That's why I decided to design a portable easy to use timer library, that
+makes it easy to implement all methods described above, combinations of
+them, and much more.  During the design I took care of the following
+things: quality of timing, how easy to use it is, speed, portability and
+to minimise unexpected situations (like race conditions in asynchronous
+interrupts and so on)
 
-@section The name of game
+@section The name of the game
 
-Timer library operates with @dfn{timers}. They should be created, you should
-measure time since last reset, pause them or set @dfn{handler} and @dfn{interval}.
-But handler is not activated at given interval yet. Since timer library is
-not asynchronous, you must activate them.
+The timer library operates with @dfn{timers}. They should be created, you can
+measure time since last reset, pause them or set @dfn{handler} and
+@dfn{interval}. But handler is not yet activated at the given interval. Since
+timer library is not asynchronous, you must activate them yourself.
 
-For activating is used @dfn{groups}. You should process group at some place in 
-your program. Then all timers in group are checked and their handlers
-activated if required. When time spent since last activation is higher than
-interval, handler is activated more times. Also interval to next invocation is
-calculated to keep frequency.  Simple scheduling is performed at handler---handler
-is activated just once and then all other timers are checked before it is activated
-again. You should also define an multihandler---handler that is activated just once
-and receives argument how many intervals has left.
+For activating @dfn{groups} are used. You should process a group at some place
+in your program, whereupon all timers in the group are checked and their
+handlers activated if required. When the time spent since last activation is
+higher than the interval, the handler is activated more than once. Also, the
+interval to next invocation is calculated to keep frequency.  Simple scheduling
+is performed for handler --- handler is activated just once and then all other
+timers are checked before it is activated again. You can also define a
+multihandler --- a handler that is activated just once and receives as an
+argument a count of intervals.
 
-There is two special groups---@code{asyncgroup}. Timers in this group are activated
-asynchronously like from interrupt. It is not recommended to use it, since it
-brings many problems and usually isn't required. Also it does not work at many
-platforms. @code{Syncgroup} is the default group. Program is expected to process is
-quite often. In case you don't need to use more groups, you should use this
-one.
+There are two special groups --- @code{asyncgroup}. Timers in this group are
+activated asynchronously (as though they were called from interrupts). Thisis
+not recommended, since the asynchronicity brings many problems and usually isn't
+required. Also it does not work on many platforms. @code{syncgroup} is the
+default group. The program is expected to process it quite often. If you don't
+need to use more than one group, you should use this one.
 
 Time in timerlib is bit strange, since it does not flow continuously but
-jumps. It is updated every time you call @code{tl_updatetime}. I used this way in
-order to minimize context switches but later I found this scheme very useful,
-since you should lookup timer, do something and then reset it and don't wory
-about time spend between lookup and reset since it is 0 in case you did not
-called tl_updatetime. This helps to keep frequency of timers exact w/o any
-errors caused by such situations. At the other hand you need to call
-tl_updatetime at least once in your main loop.
+jumps. It is updated every time you call @code{tl_updatetime}. I did this in
+order to minimize context switches, but later I found this scheme very useful,
+since you normally look up the timer, do something and then reset it and don't
+want to worry about any time spent between lookup and reset. This helps to keep
+frequency of timers exact w/o any errors caused by such situations. At the other
+hand you need to call @code{tl_updatetime} at least once in your main loop.
 
-Maybe you don't know why to create more groups, but I found it quite useful.
-For example an autopilot in XaoS has such special group---I need to call it
-approx. every 1/20 of second but just at one place in program. Invoking of
-autopilot when calculation is active should produce incorrect results, so I
-have special group for autopilot and process just at one place where I am sure
-it is safe. 
+Maybe you don't know why you'd want to create more groups, but I found it quite
+useful.  For example, an autopilot in XaoS has such a special group --- I need
+to call it approx. every 1/20 of second, but just at one place in the
+program. Invocation of the autopilot when calculation is active would produce
+incorrect results, so I have a special group for autopilot and process it in
+just one place where I am sure it is safe.
 
-Timers should be also emulated. You should stop them and then control flow of
-time for given timer. This should be quite useful for example when you want
-precalculate animation at given framerate.
+Timers can also be emulated. You can stop them and then control the flow of time
+for given timer. This should be quite useful; for example, when you want to
+precalculate animation at a given framerate.
 
-To control group of timers, you might create @dfn{emulators}. It is just
-another time controlled by you. It is useful in cases you want to emulate
-fixed framerate (for animation rendering) or such.
+To control a group of timers, you can create @dfn{emulators}, which are just
+other timers controlled by you. They are useful in cases where you want to
+emulate fixed framerates (for animation rendering) or suchlike.
 
 @section Time functions
 
 @deftypefn Function void tl_update_time (void)
-Update time used by timerlib. This must be called at least once in main loop
+Update time used by timerlib. This must be called at least once in the main loop
 otherwise time will not flow. See above.
 @end deftypefn
 @deftypefn Function void tl_sleep (int @var{time})
-Sleep given time. Similar to usleep at POSIX.
+Sleep for the given @var{time}. Similar to @code{usleep} in @sc{POSIX}.
 @end deftypefn
 @section Group functions
 
 @deftypefn Function tl_group* tl_create_group (void)
-Allocate and initialize group header. Returns NULL when malloc fails.
+Allocate and initialize the group header. Returns @code{NULL} when @code{malloc} fails.
 @end deftypefn
 @deftypefn Function void tl_free_group (tl_group *@var{group})
-Free memory storage used by group structure
+Free memory storage used by group structure.
 @end deftypefn
 @deftypefn Function int tl_process_group (tl_group *@var{group}, int *@var{activated})
-Process timers in group and activates their handlers. Returns time
-until next invocation. Main loop should sleep returned time
-then. An @var{activated} parameter sould be @code{NULL}. If it is non @code{NULL}, variable
-is set to number of activated handlers.
+Process timers in @code{group} and activate their handlers. Returns time until
+next invocation; the main loop should sleep for that long. The @var{activated}
+parameter is either @code{NULL}, or a pointer to a variable that is set to
+the number of activated handlers.
 @end deftypefn
 @section Timer functions
 
@@ -2370,10 +2455,10 @@ is set to number of activated handlers.
 Create timer structure.
 @end deftypefn
 @deftypefn Function void tl_free_timer (tl_timer *@var{timer})
-Free memory storage used by timer structure
+Free memory storage used by timer structure.
 @end deftypefn
 @deftypefn Function void tl_reset_timer (tl_timer *@var{timer});
-Reset timer to current time. (time of last actication of @code{tl_update_time})
+Reset timer to current time (the time of last actication of @code{tl_update_time}).
 @end deftypefn
 @deftypefn Function int tl_lookup_timer (tl_timer *@var{timer});
 Return time since last call of tl_reset_timer or last activation of handler.
@@ -2389,7 +2474,7 @@ Handler, multihandler and interval control functions
 
 
 @deftypefn Function void tl_add_timer (tl_group *@var{group}, tl_timer *@var{timer})
-Add timer to given group. Timer should be added into just one group.
+Add timer to given group. A timer should be in only one group.
 @end deftypefn
 @deftypefn Function void tl_stop_timer (tl_timer *@var{timer})
 @end deftypefn
@@ -2398,23 +2483,23 @@ Stop and resume timer.
 @end deftypefn
 
 @deftypefn Function void tl_slowdown_timer (tl_timer *@var{timer},int @var{time})
-Time in timer is moved back for given time.
+The time in the timer is moved back to the given time.
 @end deftypefn
 
 @section Emulator functions
 @deftypefn Function struct timeemulator *tl_create_emulator (void);
-This function creates new emulator---you need to create one first before
+This function creates new a emulator --- you need to create one first before
 emulating.
 @end deftypefn
 @deftypefn Function void tl_free_emulator (struct timeemulator *@var{t});
-Destroy emulator's data
+Destroy emulator's data.
 @end deftypefn
 @deftypefn Function void tl_elpased (struct timeemulator *@var{t}, int @var{elpased});
 Move emulated time.
 @end deftypefn
 @deftypefn Function void tl_emulate_timer (struct timer *@var{t}, struct timeemulator *@var{e});
-Set timer to the emulated mode. Since now all time is controled by emulator
-@var{e}. All other behavior of timer keeps unchanged.
+Set timer to the emulated mode; the passage of time is now controlled by the
+emulator @var{e}. All other behavior of timer keeps unchanged.
 @end deftypefn
 @deftypefn Function void tl_unemulate_timer (struct timer *@var{t});
 Disable emulated mode for the timer.
@@ -2435,34 +2520,34 @@ while(1)
 @node registry, index,timerlib ,Top
 @chapter XaoS function registry
 
-XaoS has an ui helper library, which provides functionality provided by user
-interface. All it's useful functions are registered into central registry.
+XaoS has an ui helper library, which provides functionality used by the user
+interface. All its useful functions are registered into a central registry.
 This registry is used to generate menus and dialogs as well as command line
-options or scripting language. So it is very significant think in XaoS design.
+options or scripting language; so it is a very significant thing in XaoS design.
 
-Not only those who want hack XaoS ui-helper layer needs to know this, but also
-authors of drivers should use this to add new driver depended functions into
-XaoS's menu. Also external user interface is based at this.
-Main idea behind external user interfaces (currently one for TCL/Tk and Gtk is under
-development) is following: XaoS transfers it's registry to interface (using
-simple description language). User interface starts XaoS in it's window
-and builds menus and dialogs based at this registry. Then once user select
-some function, it creates an command for scripting language and sends it back
-to XaoS' engine.
+This is not just useful for those who want to hack XaoS ui-helper layer, but
+also for authors of drivers, who can use this to add new driver dependent
+functions into XaoS's menu. The external user interface is also based on the
+registry.  The main idea behind external user interfaces@footnote{currently one
+for Tcl/Tk and Gtk is under development} is this: XaoS transfers its registry to
+the interface (using asimple description language). The user interface starts
+XaoS in its window and builds menus and dialogs based on the registry. Then,
+once user selects some function, the user interface creates a command in XaoS'
+scripting language and sends it back to XaoS' engine.
 
-So knowledge of this part is essential for many developers. Please take care
-for this part.
+Knowledge of this part is thus essential for many developers. Please pay
+attention. :)
 
-The implementation of registry is in file @code{xmenu.c}, header is
-@code{xmenu.h}. Mainly for historical reasons it speaks about menus and
-dialogs. (It was designed for the GUI at the beginning) I am keeping this
-terminology, since it is quite clean and easy to understand instead of talking
-in some cryptic abstract term.
+The implementation of the registry is in @code{xmenu.c}, and the header is
+@code{xmenu.h}. For historical reasons, it talks about menus and dialogs (it was
+originally designed for the GUI). I am keeping this terminology, since it is
+quite clean and easy to understand instead of talking in some cryptic abstract
+terms.
 
 @section Function description
 
-To add function into database, you need write it's description into menuitem
-structure. It has following prototype:
+To add a function into the database, you need to put a description into the
+@var{menuitem} structure. It has the following definition:
 
 @findex menuitem
 @example
@@ -2484,62 +2569,66 @@ menuitem;
 @end example
 
 @defvar menuname
-Name of menu (or category) function belongs in. The root of all categories is
-called @code{"root"}. XaoS alternativly uses an @code{"animroot"} when
-animation replay is active. If you are adding an function, it is better to add
-it into some subcategory like as @code{"ui"} (it will be placed into UI menu
-then) or create an new category for
-your functions if needed. It will appear as submenu in main menu in the UI.
+Name of menu (or category) the function belongs in. The root of all categories
+is called @code{"root"}. XaoS also uses an @code{"animroot"} when animation
+replay is active. If you are adding a function, it is better to add it into some
+subcategory like @code{"ui"} (which will place it into the UI menu) or to create
+a new category for your functions, which will appear as a submenu of the main
+menu in the UI.
 @end defvar
 
 @defvar key
-Ascii code of hotkey to activate this function. Use @code{NULL} if none.
+@sc{ASCII} code of the hotkey that activates this function. Use @code{NULL} if
+none.
 @end defvar
 
 @defvar name
-Longer name of functions used in the menu entry, or @code{xaos --help} listing
+Longer name of the function, used in the menu entry, or @code{xaos --help}
+listing.
 @end defvar
 
 @defvar shortname
-One-word name of function used in command language and references to function.
+One-word name of function used in command language and other references to
+the function.
 @end defvar
 
 @defvar type
-type of function---this is not return type. Type should be one of following
-constants:
+Type of function --- this is @emph{not} the return type. @var{type} should be
+one of the following constants:
 @table @code
 @findex MENU_SUBMENU
 @item MENU_SUBMENU
-   An submenu. This is not real function, but name for submenu. You might fill
-   the @var{key}, @var{name}, @var{shortname} functions. An name of this new
+   A submenu. This is not a function, but a name for the submenu. You can fill
+   in the @var{key}, @var{name}, and @var{shortname}. The name of this new
    submenu is placed in the field @var{pparam}.
 @findex MENU_NOPARAM
 @item MENU_NOPARAM
-   An normal function without any parameters. When actived, function
-   @var{function} with just an pointer to @code{uih_context} will be called.
+   A normal function without any parameters. When activated,
+   @var{function} will be called with a pointer to @code{uih_context} as its
+   parameter.
 @findex MENU_INT
 @item MENU_INT
-   This should be used to simplify entering of more similar functions (handled
-   by just one universal function in the c code). This function is handled in
-   same way as @code{MENU_NOPARAM}, but also in one integer parameters taken
-   from @code{iparam} is passed.
+   This should be used to simplify entering of many similar functions (handled
+   by just one universal function in the C code). The @var{function} is handled
+   in the same way as @code{MENU_NOPARAM}, but also one integer parameter taken
+   from @code{iparam} is passed in.
 @findex MENU_STRING
 @item MENU_STRING
-   Similar to @code{MENU_INT} but uses string instead of integer.
+   Similar to @code{MENU_INT} but uses a string instead of an integer.
 @findex MENU_DIALOG
 @item MENU_DIALOG
-   If you function needs some paramters, use dialog structure to describe
-   them. In scripting language your function will have parameters then, in
-   user interface dialog will be displayed. @var{pparam} must then point to
-   array of dialog entries. Witting them will be described later.
-   If your function has just one parameter described in dialog structure, it
-   will be called in normal c way---if you want string parameter, one
-   pointer pointing to string (in addition to @code{uih_context}) will be
+   If your function needs some paramters, use the dialog structure to describe
+   them. In the scripting language your function then have parameters; in
+   the user interface, a dialog will be displayed. @var{pparam} must point
+   to array of dialog entries (writing them will be described later).
+   If your function has just one parameter described in the dialog structure, it
+   will be called in the normal C way --- if you want a string parameter, one
+   pointer pointing to a string (in addition to @code{uih_context}) will be
    passed to the functions.
 
-   In case of multiple parameters are requested, it is impossible to call
-   function in c way without special wrapper for each such case. So it will
-   receive pointer to array of @code{dialogparam} unions, wich contains
+   If multiple parameters are requested, it is impossible to call
+   function in a C way without a special wrapper for each case. So it will
+   receive a pointer to an array of @code{dialogparam} unions, wich contain
    one entry for each parameter. @code{dialogparam} is declared as follows:
 @example
 typedef union
@@ -2557,84 +2646,89 @@ dialogparam;
 @item MENU_CDIALOG
    In some cases, it is useful to add some context specific default values
    to the dialog structure. In this case you might use this type instead. In
-   this case function @var{dialog} is called first, and it is expected to
-   return pointer to correct dialog structure. Dialog structure must lie in
-   static storage (since it is not freed) and always must have the same
-   fields, just differ in the default values.
-   Also this function must work correctly even in the case pointer to
+   this case the function @var{dialog} is called first, and it is expected to
+   return a pointer to the correct dialog structure. The dialog structure must
+   lie in static storage (since it is not freed), and must always have the same
+   fields, and differ only in the default values.
+   This function must also work correctly even when the pointer to
    @code{uih_context} is @code{NULL}, since it is often called in the
    initialization stages (parameter parsing etc.)
 @end table
 @end defvar
 @defvar flags
-Flags are used to set additional information about function:
+The @var{flags} are used to set additional information about the function:
 @table @code
 @findex MENUFLAG_CHECKBOX
 @item MENUFLAG_CHECKBOX
-Some features act like check-box---i.e. by one calling of function they are
-enabled, second call disables this. In menu it is useful to add an check-box
-for this function indicating whether feature is on or off.
+Some features act like check-boxes --- i.e. repeated calls to the function
+toggle the features. In menus it is useful to add a check-box for this function
+indicating whether the feature is on or off. This flag adds such a check-box.
 
-And thats exactly what this flag does :). You need also define the function
-@var{control} wich return's @code{1} when enabled and @code{0} when disabled.
-In order to let external GUI's work correctly you need also call
-@code{uih_updatemenus("name")} every time state of this function changes.
+So that the UI can determine the current state of the checkbox, you need to
+define the function @var{control}, which returns @code{1} when enabled and
+@code{0} when disabled.  In order to let external GUIs work correctly you also
+need to call @code{uih_updatemenus("name")} every time the state of this
+function changes.
 
-In the scripting language this adds an first parameter, wich if @code{#t} or @code{#f}.
-Engine then calls function just when it is necessary. For @code{#t} dialog is
-requested, with @code{#f} function is called just as @code{NOPARAM}. I.e.
-dialog is displayed just when enabling feature.
+In the scripting language, this adds a single parameter, either @code{#t} or
+@code{#f}. The engine then calls the function only when necessary. When
+@code{#t}, a dialog is requested; when @code{#f}, the function is called just as
+@code{NOPARAM}. I.e. the dialog is displayed only when enabling the feature.
 
 @findex MENUFLAG_DIALOGATDISABLE
-@item MENUFLAG_DIALOGATDISABLE 
-In checkbox display dialog when this feature is disabled instead when enabled.
+@item MENUFLAG_DIALOGATDISABLE
+Display dialog on disabling of this checkbox feature, instead of on enabling.
 @findex MENUFLAG_RADIO
 @item MENUFLAG_RADIO
-Other features act like radio-button. Control function in this case receives
-same parameter as defined for @code{MENU_INT} or @code{MENU_STRING} types and
-is expected to return @code{1} when enabled. You also need to call
-@code{uih_updatemenus} when changed. No special parameter is added in the
-scripting language.
+Other features act like radio-buttons. Control functions in this case receive
+the same parameter as is defined for @code{MENU_INT} or @code{MENU_STRING}
+types, and is expected to return @code{1} when enabled and @code{0}
+otherwise. You also need to call @code{uih_updatemenus} when the value is
+changed. No special parameter is added in the scripting language.
 
 @findex MENUFLAG_INTERRUPT
 @item MENUFLAG_INTERRUPT
-Interrupt current calculation when this function called (it is used by
-functions with causes recalculation of screen)
+Interrupt current calculation when this function is called (used by functions
+with cause recalculation of the screen)
 
 @findex MENUFLAG_INCALC
 @item MENUFLAG_INCALC
-By default XaoS queues functions and calls later when they are activated
-in caluclation. This flag disables this feature.
+By default XaoS queues functions and calls them later when they are activated in
+the calculation. This flag disables this feature.
+
 @findex MENUFLAG_ATSTARTUP
 @item MENUFLAG_ATSTARTUP
-By default XaoS queues functions and calls later when they are activated
-as command line parameters (in time engine is not fully initialized yet).
-This flag disables this feature.
+By default XaoS queues functions and them calls later when they are activated as
+command line parameters (in case the engine is not fully initialized yet).  This
+flag disables this feature.
+
 @findex MENUFLAG_NOMENU
 @item MENUFLAG_NOMENU
-Function will not be visible in the menu
+If set, the function will not be visible in the menu.
+
 @findex MENUFLAG_NOPLAY
 @item MENUFLAG_NOPLAY
-Function will not be available as command in scripts
+If set, the function will not be available as a command in scripts (and therefore
+won't be usable by external GUIs).
+
 @findex MENUFLAG_NOOPTION
 @item MENUFLAG_NOOPTION
-Function will not be available as command line option
+If set, the function will not be available as a command line option.
 @end table
 @end defvar
 
+@section Initializing the menuitem structure as a static variable
+In most cases, menuitems should be written as static variables. Because the
+contents of this structure could change in future, please use one of the macros
+defined in @code{xmenu.h}. They provide a cleaner and easier to extend way to
+define these entries than does doing it by hand.
 
-@section Initializing menuitem structure as static variable
-In most case menuitems should be wrote as static variables. Because contents
-of this structure should change in future, please use one of macros defined
-in @code{xmenu.h}. They provides cleaner and easier to extend way to define 
-this entries.
-
-For example to define @code{MENU_NOPARAM} function use following macro:
+For example to define a @code{MENU_NOPARAM} function, use the following macro:
 @defun MENUNOP (menuname, key, name, shortname, flags, function)
 @end defun
-Similar macros exist for the other types too. They ends for @code{CB} or
-@code{RB} for check-boxed or radio-boxes functions. See @code{menu.c} for large
-example of definitions. They should look like this:
+Similar macros exist for other types too. They end in @code{CB} or @code{RB} for
+check-boxed or radio-box functions. See @code{src/ui-hlp/menu.c} for a large
+number of example definitions. They should look like this:
 
 @findex menuitem
 @example
@@ -2649,7 +2743,7 @@ static menuitem menuitems[] =   /*XaoS menu specifications */
 @end example
 
 @section Dialog description
-Dialog description is similar to menuitem. It is array of following
+A dialog description is similar to a menuitem. It is an array of the following
 structures:
 @example
 typedef struct dialog
@@ -2663,26 +2757,28 @@ typedef struct dialog
   @}
 menudialog;
 @end example
-It is terminated by @var{question} pointer set to @code{NULL}.
+It is terminated by an element with the @var{question} pointer set to
+@code{NULL}.
 
-The @var{question} contains string ui should display when is asking for this
-field.
+The @var{question} contains the string the UI should display when it asks for
+this field.
 
-@var{type} should be one of following values:
+@var{type} should be one of the following values:
 @code{DIALOG_INT}, @code{DIALOG_FLOAT}, @code{DIALOG_STRING},
-@code{DIALOG_KEYSTRING} (the difference between string and keystring is, that
-in scripting language string is passed as @code{"hello"}, but keystring is passed as
-scheme keyword as @code{'hello}), @code{DIALOG_IFILE} (input file),
+@code{DIALOG_KEYSTRING} (the difference between string and keystring is that
+in the scripting language string is passed as @code{"hello"}, but keystring is
+passed as a Scheme keyword: @code{'hello}), @code{DIALOG_IFILE} (input file),
 @code{DIALOG_OFILE}, @code{DIALOG_CHOICE} (choice between different
 keystrings), @code{DIALOG_ONOFF} (boolean parameter), @code{DIALOG_COORD} (two
-floats---complex number)
+floats --- a complex number)
 
-Set to corresponding @var{def*} field for default value. In case of files use
-string in the format @code{"@var{[prefix]}*@var{[extension]}"}. For type
-@code{DIALOG_CHOICE} set @var{defstr} to pointer to array of strings
-terminated by @code{NULL} entry.
+Set the corresponding @var{def*} field to set the default value. In the case of
+files, use a string in the format @code{"@var{[prefix]}*@var{[extension]}"}. For
+type @code{DIALOG_CHOICE} set @var{defstr} to a pointer to an array of strings,
+terminated by a @code{NULL} entry.
 
-To write dialog structures again use macros defined in @code{xmenu.h} like:
+To write dialog structures, as with menus, use macros defined in @code{xmenu.h}
+like:
 @example
 DIALOGSTR(question,default)
 @end example
@@ -2698,40 +2794,41 @@ static menudialog uih_viewdialog[] =
   @{NULL@}
 @};
 @end example
-@section Modifying registry
+@section Modifying the registry
 @deftypefn Function void menu_add (menuitem *@var{item}, int @var{n});
-Add array of @var{n} items to the database.
+Add an array of @var{n} items to the database.
 @end deftypefn
 @deftypefn Function void menu_delete (menuitem *@var{items}, int @var{n});
-Remove array of @var{n} items from database.
+Remove an array of @var{n} items from the database.
 @end deftypefn
 @section Querying registry
 @deftypefn Function menuitem* menu_findkey (char *@var{key}, char *@var{root});
-Find item for given key. @var{root} is menu where to start (submenus are
-searched recursively)
+Find item for given key. @var{root} is menu to start (submenus are searched
+recursively).
 @end deftypefn
 @deftypefn Function menuitem* menu_findcommand (char *@var{name});
-Find item for given short name
+Find item for given short name.
 @end deftypefn
 @deftypefn Function char* menu_fullname (char *@var{menu}); 
-Long name for the short name of menu
+Return a long name for a menu, given a short name.
 @end deftypefn
 @deftypefn Function menuitem* menu_item (char *@var{menu}, int @var{n}); 
-@var{N}th entry of the @var{menu}. Return @code{NULL} if no more entries
-available.
+Return the @var{n}th entry in the @var{menu}. Return @code{NULL} if that entry
+does not exist.
 @end deftypefn
 @deftypefn Function int menu_enabled (menuitem *@var{item}, struct uih_context *@var{c}); 
-Check whether given item is activated (for check-boxed and radio-boxed functions)
+Check whether the given item is activated (for check-boxed and radio-boxed
+functions).
 @end deftypefn
 @deftypefn Function int menu_havedialog (menuitem *@var{item}, struct uih_context *@var{c});
-Does this function have dialog?
+Return whether this function has an associated dialog.
 @end deftypefn
 @defun menu_getdialog (@var{context}, @var{m})
-Macro returns pointer to dialog structure. (function must have it, otherwise
-garbage is returned).
+This macro returns a pointer to the dialog structure for a given menu item. (If
+the item doesn't have a dialog, garbage is returned).
 @end defun
 @deftypefn Function int menu_available (menuitem *@var{item}, char *@var{root});
-Check whether item is available as one of entries of @var{root} (or it's
+Check whether an item is available as one of the entries of @var{root} (or it's
 submenus)
 @end deftypefn
 

@@ -2,26 +2,26 @@
 %main
 <head>XaoS</head>
 <center>
-Welcome to XaoS - an real-time fractal zoomer. 
+Welcome to XaoS - a real-time fractal zoomer. 
 </center>
 <p>
 XaoS is free software. You are welcome to redistribute it under certain
-<a gpl>conditions</a>. It also means, that you may get <emph>sources</emph>
-and help to its <a authors>authors</a> with the 
+<a gpl>conditions</a>. It also means that you may get <emph>sources</emph>
+and help its <a authors>authors</a> with the 
 <a devel>development</a>.
 <p>
-If you don't know, what fractal is, please try tutorial ``<tutor fractal.xaf>An introduction to fractals</tutor>''. 
-If you are new to XaoS, you should try it too, since it is quite good example of XaoS's features. 
+If you don't know what a fractal is, please try the tutorial ``<tutor fractal.xaf>An introduction to fractals</tutor>''. 
+If you are new to XaoS you should try it too, since it is quite a good example of XaoS's features. 
 <p>
-To see more about XaoS features, try tutorial 
+To see more about XaoS' features, try the tutorial 
 ``<tutor features.xaf>XaoS features overview</tutor>''. 
 <p>
-Both this tutorials are divided into chapters and available from help menu.
+Both the tutorials are divided into chapters and available from help menu.
 So you don't need to watch them all at once (they are about half an hour long)
 <head>Where to get up-to date information</head>
-XaoS home-page is available at <tt>http://www.paru.cas.cz/~hubicka/XaoS</tt>
+The XaoS homepage is <tt>http://www.paru.cas.cz/~hubicka/XaoS</tt>
 and we also have three <a lists>mailing lists</a>.
-<head>Other thinks to read</head>
+<head>Other things to read</head>
 <center>
 <a tutorial>Tutorial</a><p>
 <a controls>Basic controls</a><p>
@@ -39,117 +39,119 @@ and we also have three <a lists>mailing lists</a>.
 
 <head>How to encode MPEG files from XaoS</head>
 <p>
-To save sequence, make <tt>xaf</tt> file first. (the easiest way to do this is
-to use <emph>record</emph> function in file menu) Then you need to render sequence.
-XaoS can output sequences of ordinary <tt>PNG</tt> images, that should be later
-used by MPEG encoder.
+To save a sequence, make a <tt>xaf</tt> file first (the easiest way to do this is
+to use the <emph>record</emph> function in the file menu). Then you need to render
+the sequence. XaoS can output sequences of ordinary <tt>PNG</tt> images, that
+can later be used by an MPEG encoder.
 <p>
-<head>Generating sequence for MPEG</head>
+<head>Generating sequences for MPEG</head>
 <p>
-To encode sequence use command as follows:
+To encode a sequence, use the following command:
 <p><tt>
 xaos -render [filename] -size 352x240 -antialiasing 
        -renderframerate 24 -basename [basename]
 </tt><p>
-<tt>[filename]</tt> is name of <tt>xaf</tt> file, <tt>[basename]</tt> is name used as base for images.
-XaoS add four digit number and extension automatically.
+<tt>[filename]</tt> is the name of the <tt>xaf</tt> file,
+<tt>[basename]</tt> is the name used as the base for rendered images.
+XaoS adds a four digit number and extension automatically.
 <p>
 You might also want to change the resolution. 352x240 is the default size
-for MPEG files, but other sizes works as well. Each dimension must be multiple
+for MPEG files, but other sizes work as well. Each dimension must be a multiple
 of 16.
 <p>
-Framerate should be also altered. MPEG supports just few selected framerates
-(namely 23.976, 24, 25, 29.97, 30) so you might pick any of them.
+The framerate can also be altered. MPEG supports only a few selected framerates
+(namely 23.976, 24, 25, 29.97, 30) and you can pick any of them.
 <p>
-<tt>-antialiasing</tt> is used to produce anti-aliased images. It takes much longer
+<tt>-antialiasing</tt> is used to produce anti-aliased images. It takes a much longer
 time and much more memory to calculate them, but resulting images are better
 for MPEG DCT compression and they are <emph>compressed about 3 times more</emph>.
-(same is true about <emph>JPEG images</emph>)
+(the same is true of <emph>JPEG images</emph>)
 <p>
 At the other hand, the other XaoS rendering option <tt>-alwaysrecalc</tt> (which disables
-XaoS's zooming optimizations) is <emph>not recommended</emph>. Sequence of animation contains
-then quite a lot of extra information, which increases size of MPEG file, but because
-of MPEG's lossy compression it is hard to see difference. So it don't worth
-it.
+XaoS's zooming optimizations) is <emph>not recommended</emph>. If that's used, the
+sequence of animation then contains quite a lot of extra information, which
+increases size of MPEG file, but because of MPEG's lossy compression it is hard
+to see any difference. So it don't worth it.
 <head>Rendered files</head>
-Once you start it, XaoS will generate thousands of frames. They takes quite
-long time to calculate and save, and consumes plenty of disc space.
-(to render part 1 of tutorial you need about 60MB and half a hour of time).
+Once you start it, XaoS will generate thousands of frames. They take quite
+a long time to calculate and save, and consume plenty of disk space.
+(e.g. to render part 1 of the tutorial you need about 60MB and half an hour of time).
 <p>
 All images are named <tt>[basename]framenum.png</tt>. For example <tt>intro0001.png</tt> is
-first frame of animation intro. In case consetuctive frames are same, XaoS
-don't save them. So some frames are missing. If your encoder can't handle
-this, you will need to write simple script, which will do symbolic links.
+the first frame of the animation intro. If consecutive frames are the same, XaoS
+doesn't save them, so some frames may be missing. If your encoder can't handle
+that, you will need to write a simple script which will fill in the gaps by means
+of <tt>mv</tt> or symbolic linking.
 <p>
-List of all filenames is saved into file <tt>[basename].par</tt>, where each line is
-name for the frame. The names repeats here if necessary, so you should use this
+A list of all filenames is saved into the file <tt>[basename].par</tt>, where each line is
+the name of one frame. The names repeat here if necessary, so you can use this
 file to supply filenames to the encoder.
 
 <head>Pattern file</head>
 
-Some other files are generated as well. There is generated an <emph>pattern file</emph>,
-which contains <emph>recommended order of P, B and I frames</emph>.
+Some other files are generated as well. A <emph>pattern file</emph> is generated,
+which contains a <emph>recommended order of P, B and I frames</emph>.
 <p>
-MPEG sequence consist of this three frames. The <emph>I frames</emph> are just images
-saved in format similar to JPEG files. 
+MPEG sequence consist of these three frames. The <emph>I frames</emph> are just images
+saved in a format similar to JPEG files. 
 <p>
-The <emph>P frames</emph> are images, which are
-constructed from previous one (latest I or P frame). In case consetuctive
-frames are similar (and in the animation they often are), the P frame takes
-much less disc space than I frame.
+The <emph>P frames</emph> are images which are constructed as a delta from the
+previous one (the latest I or P frame). In case consecutive frames are similar
+(and in animations they often are), a P frame takes much less disk space
+than an I frame.
 <p>
-The <emph>B frames</emph> are constructed from nearest previous P or I frame and next P or
-I frame. They takes even less disc space, but they are quite hard to encode.
-Also they are <emph>not used as previous frames</emph>, so their information is lost
-once they are displayed. So they are usually rendered at lower quality then
-P or I frame and used just to interpolate nearest frame and make animation
-smoother. It is generally not good idea to make whole sequence just form B
-frames.
+The <emph>B frames</emph> are constructed from the nearest previous P or I frame
+and the next P or I frame. They take even less disk space, but they are quite
+hard to encode. Also they are <emph>not used as previous frames</emph>,
+so their information is lost once they are displayed. They are usually
+rendered at lower quality than a P or I frame and used just to interpolate
+nearest frame and make animation smoother. It is generally not a good idea
+to make a whole sequence just from B frames.
 <p>
-Also using just P frames is generally not good idea. It makes file shorter,
+Using just P frames is generally not a good idea. It makes the file shorter,
 but to jump into Nth frame of animation you need to <emph>recalculate all P and B frames
-since latest I frame</emph>. Decoders often wants to jump into some frame (when
-user wants, or in case they can't decode sequence in time), so you need
-to have some I frames in the animation to make this possible. Mainly
-because of the second purpose you need to place them quite often. Usually
-they are used for every 15th frame or so. Because they costs quite a lot,
+since latest I frame</emph>. Decoders often want to jump to some frame (when
+the user asks, or when they can't decode a sequence in time and must skip
+some), so you need to have some I frames in the animation to make this possible.
+The latter reason means that you need to place them quite often. Usually
+they are used for every 15th frame or thereabouts. Because they cost quite a lot,
 in my animations I usually use every 27th frame. To set this distance
-use <tt>-iframedist</tt> option. It should be multiple of 3
+use <tt>-iframedist</tt> option. It should be a multiple of 3.
 <p>
-XaoS generates recommended order of this frame based on the knowledge of
-fractal motion. Situations where screen don't move at all are rendered
-just from P frames (since jumping is usually not required here), situations
-where screen changes completely (at least in XaoS's opinion) I frames are used
-and in other standard sequence <tt>IBBPBBPBBPBBP...</tt> is used.
+XaoS generates a recommended order of frames based on its knowledge of
+fractal motion. Situations where the screen doesn't move at all are rendered
+just from P frames (since jumping is usually not required here); in situations
+where the screen changes completely (at least in XaoS's opinion) I frames are used
+and in other cases, a standard sequence <tt>IBBPBBPBBPBBP...</tt> is used.
 <p>
 If your encoder supports this, you should supply this pattern for encoding to
-squeeze out some bytes..
+squeeze out some bytes.
 
 <head>Motion vector files</head>
 
-XaoS also generates motion vector recommendation for the encoder. They are
+XaoS also generates a motion vector recommendation for the encoder. This is
 useful for encoding of B and P frames.
 <p>
-In case some objects just moves at screen, motion vectors shows at their old
-position, so no image needs to be saved.
+If some objects on the screen are moving at a constant speed, motion vectors
+can store that speed, so no image needs to be saved to represent that change.
 <p>
-Calculating of this motion vector is very significant task. In case you guess
+Calculating this motion vector is a very significant task. If you guess
 them well, you increase quality and reduce file size, which is always great.
 Calculation also takes lots of CPU and it is hard to get optimal vectors (it
-just takes too long time).
+just takes too long).
 <p>
-XaoS know how does the fractals move, so he can calculate this vectors quite
+XaoS knows how the fractals move, so it can calculate this vectors quite
 easily. XaoS saves this information into <tt>*.p</tt> and <tt>*.b</tt> files. (<tt>*.p</tt> are for P
 frames, <tt>*.b</tt> are for B frames). If your encoder supports this, you should
-supply this vectors to increase quality. They are <tt>not exact</tt> (XaoS can do many
-mistakes), but encoder should try to find his own vectors, try XaoS's ones and
-pick the better one.
+provide this vector to increase quality. They are <tt>not exact</tt> (XaoS can make
+mistakes); the encoder should try to find its own vectors, then try XaoS's ones,
+and pick whichever is better.
 <p>
-This technique saves quite a lot of bytes in fast zooming/UN-zooming
-animations.. (where images moves more than 3 or 5 pixels per frame--since
-most programs looks 10-20 pixels around for motion vectors)
+This technique saves quite a lot of bytes in fast zooming/un-zooming
+animations (where images move more than 3 or 5 pixels per frame--since
+most programs look 10-20 pixels around each point for motion vectors).
 <p>
-To enable saving of motion vector files, add option
+To enable saving of motion vector files, add the option
 <tt>-rendervectors</tt>.
 
 <head>Berkeley parallel MPEG encoder</head>
@@ -159,13 +161,13 @@ encoder I've tested. It can generate quite small files, but it is rather slow.
 It is available at Berkeley's FTP site <tt>mm-ftp.CS.Berkeley.EDU</tt> and called
 <tt>mpeg_encode1.5b</tt>
 <p>
-It has lots of options to tune, so you should spend quite a lot of time with
+It has lots of options to tune, so you should spend quite a lot of time
 playing with this. The configuration I use is in file <tt>doc/mpeg.param</tt>.
 <p>
-I've also done some patches that makes possible to use the pattern and motion
+I've also made some patches that makes possible to use the pattern and motion
 files generated from XaoS. The patch is in <tt>doc/mpeg_encode.patch</tt>. So if
-you want to use this features (they are <emph>EXPERIMENTAL</emph>) you might apply this
-patch and recompile encoder.
+you want to use these features (they are <emph>EXPERIMENTAL</emph>) you might apply this
+patch and recompile the encoder.
 <p>
 Once you filled the <tt>mpeg.param</tt> file (see comments inside), you should render
 sequence using <tt>mpeg_encode [filename]</tt> and with luck you are done.
@@ -177,58 +179,59 @@ sequence using <tt>mpeg_encode [filename]</tt> and with luck you are done.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %controls
 <head>Basic controls</head>
-By default mouse buttons works in following way:
+By default the mouse buttons work in the following way:
 <p>
 <dl>
 <dt>left<dd>zoom in
 <dt>right<dd>zoom out  
-<dt>middle<dd>move fractal using drag&drop style way
+<dt>middle<dd>move fractal in a drag-and-drop fashion
 </dl>
 <p>
-This behavior should change. If you enable rotation, first button is used for rotating
-fractals. Also in fast Julia mode first button is used to change seed.
+This behavior can change. If you enable rotation, the first button is used for rotating
+fractals. Also, in fast Julia mode, the first button is used to change the seed.
 <p>
-If you don't have middle button, press both buttons to enable
+If you don't have a middle button, press both buttons to enable
 emulation.
 <p>
-After few minutes of zooming you will probably reach end of precisity and
-fractals will get boring. If you are getting strange big rectangles at screen,
-you probably reached limit of numbers and there is no way to avoid this except
-UN-zoom back and choose different area. It don't hurt so much, since you have
-zoomed approximately.. 64 051 194 700 380 384, so there is quite a lot of areas to
-explore. Algorithms with unlimited precisity exists, but they are still too
+After few minutes of zooming you will probably exceed the precision and the
+fractals will get boring. If you are getting strange big rectangles on the screen,
+you probably reached the numeric limit: there is no way to avoid this except
+un-zoom back and choose a different area. It doesn't hurt so much, since you have
+zoomed approximately 64 051 194 700 380 384 times, so there are quite a lot of areas to
+explore. Algorithms with unlimited precision exist, but they are still too
 slow for real-time zooming.
 <p>
-In the other case you have reached an limit of iterations. The fractal is
-calculated just approximately and in this case you need to increase number of
-iterations (and decrease speed). This is done from menu or using arrow keys
-<emph>Left</emph> and <emph>Right</emph>.
+The other possibility is that you have reached the iteration limit. The fractal is
+calculated approximately, and in this case you need to increase number of
+iterations used for approximation (and decrease the speed in the process).
+This is done from the menu or using the arrow keys <emph>Left</emph> and <emph>Right</emph>.
 <p>
 An <emph>Up</emph> and <emph>Down</emph> keys should be used to change zooming
 speed. Note that higher speed costs more and image will be blocky.
 <p>
-Also this behavior changes. With palette cycling enabled, <emph>Left</emph>
-and <emph>Right</emph> keys changes cycling speed, in continuous
-rotation they changes speed of rotation.
+This behavior can also change. With palette cycling enabled, <emph>Left</emph>
+and <emph>Right</emph> keys change cycling speed; in continuous
+rotation they change rotation speed.
 <p>
-All other functions are available from the menus, which (in the default
-configuration) are displayed when you move mouse to the top of screen/window.
-It is useful to learn an keys, which are displayed in gray color.
+All other functions are available from the menu, which (in the default
+configuration) are displayed when you move the mouse to the top of the
+screen/window. It is useful to learn the shortcut keys, which are
+shown in gray next to the menu items they trigger.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %writehelp
 <head>How to write XaoS help files</head>
-XaoS help lies in the file <tt>help/xaos.hlp</tt>. It is divided into parts,
-where each is started by the <emph>keyword</emph> - word using it you activate
-it. In the help file keywords are wrote using <tt>%keyword</tt>
+XaoS help is stored in the file <tt>help/xaos.hlp</tt>. It is divided into parts,
+each part being started by a <emph>keyword</emph>. In the help file keywords are
+written as <tt>%keyword</tt>
 <p>
-If you are writing documentation about some command in XaoS function registry,
-use same keyword, as the name of function in order to get context sensitive
-help work.
+If you are writing documentation about some command in the XaoS function
+registry, use the same keyword as the name of the command in order to make
+context sensitive help work.
 <p>
 <notex>
-Help file uses special format called <a xshl>xshl</a>.
+The help file is written in a special format called <a xshl>xshl</a>.
 </notex>
 
 
@@ -240,16 +243,16 @@ Help file uses special format called <a xshl>xshl</a>.
 <head>xshl</head>
 <emph>Xshl</emph> stands for <emph>XaoS simple hypertext language</emph>. It
 uses similar tags to HTML. It is simpler and more restrictive in order to
-make it easy to parse using various scripts. In C code you might use quite
-universal library present in <tt>src/util/xshl.c</tt> to parse it.
+make it easy to parse using various scripts. In C code you can use the
+library present in <tt>src/util/xshl.c</tt> to parse it.
 <p>
-Following tags are supported:
+The following tags are supported:
 <p>
 <dl>
 <dt>head
-<dd>make headings (should be at least at the begging of the page)
+<dd>make headings (should be at the beginning of the page, at least)
 <dt>emph
-<dd>emphatize
+<dd>emphasize
 <dt>tt
 <dd>Use non proportional font
 <dt>br
@@ -259,9 +262,9 @@ Following tags are supported:
 <dt>dl
 <dd>Definition list
 <dt>dt
-<dd>Definition tag (should be used only inside definition list)
+<dd>Definition tag (should be used only inside a definition list)
 <dt>dd
-<dd>Definition description (should be used only inside definition list)
+<dd>Definition description (should be used only inside a definition list)
 <dt>center
 <dd>align to center
 <dt>right
@@ -299,7 +302,7 @@ Following tags are supported:
 <dt>Thomas A. K. Kjaer(takjaer@imv.aau.dk)
 <dd>OS/2 ports (320x200 graphics and AA-lib)
 <dt>Thomas Marsh
-<dd>First zoomer, formulas, planes, X11 driver, inversions, many ideas
+<dd>First zoomer, formulae, planes, X11 driver, inversions, many ideas
 <dt> David Meleedy
 <dd>Grammatical and spelling fixed version of <tt>xaos.6</tt>
 <dt>Terje Pedersen  (terjepe@login.eunet.no)
@@ -316,7 +319,7 @@ Following tags are supported:
 <dd>Macintosh port
 </dl>
 <p>
-To contact authors you might also use the <a lists>mailing list</a>.
+To contact authors you can also use the <a lists>mailing list</a>.
 Or following snail-mail:
 <p><tt>
   Jan Hubicka<br>
@@ -327,39 +330,39 @@ Or following snail-mail:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %devel
 <head>Development</head>
-XaoS is free software. One of the most significant rights, its <a gpl>license</a>
-grants to you is possibility to <emph>freely get, study and
-improve</emph> its sources. They are available from the XaoS home-page.
+XaoS is free software. One of the most significant rights its <a gpl>license</a>
+grants to you is the right to <emph>freely get, study and improve</emph> its
+source code, which is available from the XaoS homepage.
 <p>
 If you want to do some development, you are encouraged to send your work back
-to <a authors>authors</a> and in case it is well done, it will be added into
+to the <a authors>authors</a>; if it is well done, it will be added to the
 next release. All changes should be sent to my address:
 <tt>hubicka@paru.cas.cz</tt>
 <p>
 XaoS has open development model. Development versions are available at ftp
 site <emph>ftp.ta.jcu.cz</emph> in directory <emph>/pub/linux/hubicka/XaoS/experimental</emph>
-so if you are interested in the development, you might try them. We also have an
+so if you are interested in the development, you might try them. We also have a
 <a lists>developers mailing list</a>, where you might subscribe, if you want
-to be informed about latest development, discuss various thinks etc.
+to be informed about latest development, discuss various things and so on.
 <p>
-We need many developers. XaoS is quite easily extensible. You might read a bit
-about its internals in the file <emph>doc/xaos.info</emph>. XaoS is also
-portable, so if it don't work at your favorite platform (or there is just old
-version available), you should quite easily port it.
+We need many developers. XaoS is quite easily extensible. You might want to
+read a bit about its internals in the file <emph>doc/xaos.info</emph>.
+XaoS is also portable, so if it doesn't work on your favorite platform (or
+there is just an old version available), you could quite easily port it.
 <p>
-We also need authors for tutorials, people who should translate
-them into foreign language etc...
+We also need authors for tutorials, people who can translate
+them into a foreign language etc...
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %lists
 
 <head>Mailing-lists:</head>
-      XaoS now have following mailing lists at 
+      XaoS now has the following mailing lists at 
       majordomo@horac.ta.jcu.cz
 <dl>
       <dt>xaos
-	<dd>this list is for general xaos discusion 
+	<dd>this list is for general xaos discussion
 	(ideas, questions, bugreports..)
       <dt>xaos-announce
 	<dd>keeps you informed about new versions
@@ -368,7 +371,7 @@ them into foreign language etc...
 	let us know about you! You will be welcomed.
 </dl>
 <p>
-      To subscribe send following message to 
+      To subscribe send following message to
       <tt>majordomo@horac.ta.jcu.cz</tt>:
 <p>
       <tt>subscribe [list_name]</tt>
@@ -378,24 +381,24 @@ them into foreign language etc...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %format
 <head>XaoS' file format</head>
-This section describes format used by XaoS for animations, configuration
-files and saved positions. All these files have common format, designed
-to be easily readable, to allow manual editing of files and converting them
-into another program.
+This section describes the format used by XaoS for animations, configuration
+files and saved positions. All these files have a common format, designed
+to be easily readable, to allow manual editing of files and easy conversion by
+other programs.
 <p>
-I also taken a care to make it easily extensible for future versions of XaoS
-so I hope there will not be many incompatibilities between various XaoS's
+I also taken care to make it easily extensible for future versions of XaoS
+so I hope there will not be many incompatibilities between various XaoS
 versions.
 <p>
-File is simple set of commands executed sequentially. XaoS does not provide
-any variables/cycles as usual scripting languages but possible future
-extension to scheme should be easy since format uses scheme-like syntax.
-Syntax of every command is:
+The format is a simple set of commands executed sequentially. XaoS does not provide
+any variables/cycles as usual scripting languages do, but future extension to
+full-blown Scheme should be easy since the format uses Scheme-like syntax.
+The syntax of every command is:
 <p>
 <tt>(command_name </tt><emph>[param1] [param2]</emph><tt>)</tt>
 <p>
-Where parameters are optional and separated by whitespace (arbitrary number
-of spaces, tabs and enters). Parameters should have following types:
+where parameters are optional and separated by whitespace (an arbitrary number
+of spaces, tabs and newlines). The parameters can have the following types:
 <p>
 <dl>
 <dt>integer
@@ -403,49 +406,51 @@ of spaces, tabs and enters). Parameters should have following types:
 <dt>float
 <dd>floating point number in decimal notation with optional exponent (<tt>1.23E2</tt>)
 <dt>keyword
-<dd>text started by apostroph <tt>'</tt>. It is used to pass various string constants 
-like formula name (<tt>'mandel</tt>) Apostrophe is required for scheme compatibility
+<dd>text started by quote <tt>'</tt>. It is used to pass various string constants 
+like formula name (<tt>'mandel</tt>) Quote is required for scheme compatibility
 <dt>string
 <dd>Text inside double quotes. The only parameter that should contain whitespace
 <dt>boolean
 <dd><tt>#t</tt> for true or <tt>#f</tt> for false
 </dl>
 <p>
-Complete description of all XaoS functions (with some examples) contains index of functions in the <a menus>XaoS registry</a>. 
-You might take special care to <a animf>animation functions</a>. Also the following functions are significant:
+There is a complete description of all XaoS functions (with some examples) and an
+index of functions in the <a menus>XaoS registry</a>. You may particularly want
+to read about the <a animf>animation functions</a>. Also, the following functions
+are significant:
 
 <dl>
 <dt>load
 <dd>
-This function loads and interprets file. It works in similiar way as include
+This function loads and interprets a file. It works similarly to <tt>#include</tt>
 in C.
 <dt>initstate
 <dd>
-This function reset XaoS state to default values from version 3.0. This
-command should be at the beginning of each animation file, since otherwise
-some stuff previously enabled by user should make unexpected effects.
-State is not reseted by default before playing animation since it should
-make impossible to write macros. Current version IMO don't need them, but
-in future versions, where scheme programming language will be available this
-should be much more interesting subject.
+Available in version 3.0 and above, this function resets XaoS' state to default
+values. This command should be at the beginning of each animation file,
+since otherwise some stuff previously enabled by user could cause unexpected
+effects. State is not reset by default before playing animations since it would
+make it impossible to write macros. Current versions don't really need macros, but
+in future versions, when the Scheme programming language will be available, this
+should be a much more interesting subject.
 <dt>usleep
 <dd>
-This function waits selected amount of time(in usec) until next commands
-are processed. Screen is recalculated and displayed at the beginning of
-usleep when necessary. Remaining
-time is spent by waiting or performing animation you entered by animation
-commands.
+This function waits for a selected amount of time(in usec) before processing the
+next command. The screen is recalculated and displayed at the beginning of
+the sleep if necessary. The remaining time is spent by waiting, calculating if
+necessary, or performing any animation you entered via animation commands.
 <dt>wait
 <dd>
-Waits until screen is animated (fractal is in calculation or some filters--like motion-blur does some animation. Do not call this function when zoom,
-or continuous rotation is active otherwise deadlock happens. It is
-recommended to call it, before text subtitles are displayed, since it looks
-ugly when they are displayed over blocky unfinished fractal. It may look
-well for you but ugly for others. Also you should call it after animation is
-performed and before switch to another fractal happens, since switch to
-fractal involves calculation, screen is stopped for a while and unfinished
-fractal there looks ugly. You should also call it, when you want to do
-something as soon as possible.
+Waits until the animation or image rendering is complete. Do not call this
+function when zoom, or continuous rotation is active otherwise deadlock happens. It is
+a good idea to call it immediately before text subtitles are displayed, since it looks
+ugly when they are displayed over a blocky unfinished fractal. Because the
+degree of blockiness at a given instant is a function of your machine speed,
+it may look nice for you but ugly for others with slower machines. Also
+you should call this after an animation is performed, before the switch to another
+fractal happens; since the switch involves calculation, the screen is stopped
+for a while and an unfinished fractal there looks ugly.
+You should also call it, when you want to do something as soon as possible.
 </dl>
 <p>
 Example:
@@ -455,20 +460,20 @@ Example:
 (palette 1 1163254293 0)	;custom palette<br>
 (cycling #t)			;enable cycling<br>
 (cyclingspeed 7)<br>
-(maxiter 276)			;higher number o fiterations<br>
+(maxiter 276)			;higher number of iterations<br>
 (range 3)			;default range for solid guessing<br>
-(usleep 1000000)		;second frame start here<br>
+(usleep 1000000)		;second frame starts here<br>
 (moveview -1.8101154154614007889 -8.2687205907162041209E-05)<br>
 				;just move the image<br>
-(usleep 1000000)		;thirt frame<br>
+(usleep 1000000)		;third frame<br>
 (morphview -1.8101154154614007889 -8.2687205907162041209E-05<br>
             6.277210971069452361E-10 6.2772109785334669875E-10)<br>
 				;10 seconds of zooming into selected<br>
 				rectangle<br>
 (usleep 100000000)<br>
 </tt><p>
-Best way to learn XaoS command language is probably to read position files
-and modify them. For example to create zooming animation from the original
+The best way to learn XaoS command language is probably to read position files
+and modify them. For example, to create zooming animation from the original
 file:
 <p><tt>
 (initstate)<br>
@@ -477,7 +482,7 @@ file:
 (view -1.64128273713 -5.50393226816E-05 9.69332308848E-08<br>
 9.69332308834E-08)<br>
 </tt><p>
-Just change <tt>view</tt> command to <tt>morphview</tt> command and add <tt>usleep</tt>:
+Just change the <tt>view</tt> command to <tt>morphview</tt>, and add <tt>usleep</tt>:
 
 <p><tt>
 (initstate)<br>
@@ -487,7 +492,7 @@ Just change <tt>view</tt> command to <tt>morphview</tt> command and add <tt>usle
 9.69332308834E-08)<br>
 (usleep 10000000)<br>
 </tt><p>
-Following code produces Julia morphing in the real axis:
+The following code produces Julia morphing in the real axis:
 <p><tt>
 (initstate)<br>
 (fastjulia #t)<br>
@@ -511,16 +516,16 @@ And following is the ``rotozooming'' animation:
 
 <head>XaoS gallery</head>
 
-I plan to make XaoS gallery of animations and position files at XaoS home-page
-so please send me all your nice animations and images you created using XaoS
+I plan to make a gallery of animations and position files on the XaoS home-page,
+so please send any nice animations and images you created using XaoS
 to <tt>hubicka@paru.cas.cz</tt>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %drivers
 
-<head>driver specific documentation</head>
-XaoS is portable and works at different platforms. Since not all platforms are
-exactly the same, there is some differences. Here is documentation about each
-this specific port.
+<head>Driver specific documentation</head>
+XaoS is portable and works on many different platforms. Since not all platforms are
+exactly the same, there are some differences between the behaviour of XaoS on
+different platforms. Here is documentation about each specific port.
 <notex>
 <center>
 <p>
@@ -540,9 +545,9 @@ this specific port.
 <p>
 <a win32>Win32 driver</a>
 <p>
-<a dX-window>directX windowed driver</a>
+<a dX-window>DirectX windowed driver</a>
 <p>
-<a dX-fullscreen>directX fullscreen driver</a>
+<a dX-fullscreen>DirectX fullscreen driver</a>
 <p>
 <a BeOS>BeOS drivers (BeOS, DirectWindow, WindowScreen) </a>
 </center>
@@ -555,100 +560,102 @@ this specific port.
 
 <head>AA-lib driver</head>
 
-AA driver is currently the most advanced and portable driver for XaoS.
-It is based at AAlib--an high quality ASCII-art library developed by AA-project.
+The AA driver is currently the most advanced and portable driver for XaoS.
+It is based on AAlib--a high quality ASCII-art library developed by the AA-project.
 (see <tt>http://www.ta.jcu.cz/aa</tt>)
 <p>
-It is fully featured XaoS driver for text mode displays. It supports 256 colors
-and mouse where possible.
+It is a fully featured XaoS driver for text mode displays. It supports 256 colors
+and the mouse where possible.
 <p>
 It also has some extended features available from the UI menu:
 <p>
 <dl>
 <dt>Attributes
-<dd>AA-lib may use character attributes to reach fine qualitty of image.
-  By default it uses normal, dim and bold characters where possible.
-  But you should also enable different ones like reversed or bold font 
+<dd>AA-lib may use character attributes to improve image quality.
+  By default it uses normal, dim and bold characters where possible,
+  but you can also enable different attributes like reversed or bold font 
   characters. You may also enable usage of non ansii/reversed characters if
   your device supports it.
 <dt>Font
-<dd>AA-lib uses bitmap image of font to prepare approximation table used for ASCII art rendering.
-This bitmap is expected to be same as one used by your device. AAlib performs 
-detection where possible however some devices (like UNIX text terminals or 
-MDA) does not support this. AAlib has few font images compiled in, so in
-this cases you should try to use one of them to achieve best results.
+<dd>AA-lib uses a bitmap image of the font to prepare the approximation table
+used for ASCII art rendering. This bitmap is expected to be same as the one used
+by your device. AAlib performs detection where possible however some devices
+(like UNIX text terminals or MDA) do not support this. AAlib has few font
+images compiled in, so in this case you should try to use one of them to
+achieve best results.
 <dt>Inversion
-<dd>Some devices uses inversed video use this to get correct results at such devices.
+<dd>Some devices use inverse video: use this to get correct results on such devices.
 <dt>Dithering mode
-<dd>Dithering is an way to get more exact color in approximation by combining 
-  more characters. But this method should bring ugly looking noise at certain images.
-  Use this menu to  disable or tune it.
+<dd>Dithering is an way to get more exact color in approximations, by combining 
+  more characters; but this method can produce ugly looking noise on certain images.
+  Use this menu to disable or tune it.
 <dt>Palette options
-<dd>By default AA driver uses XaoS palette to render images, but it quite often looks ugly
-at text displays. Here you can choose special text palette instead. Note that with 
-filters enabled results should be rather ugly. This function is available from
+<dd>By default AA driver uses the XaoS palette to render images, but it quite often
+looks ugly on text displays. Here you can choose a special text palette instead. Note that with 
+filters enabled, the results may be rather ugly. This function is available from
 the <emph>palette menu</emph>.
 <dt>Save text screen
-<dd>Normal save function will generate normal PNG image instead of nice
+<dd>The normal save function will generate a PNG image instead of nice
   ASCII-art. To save ASCII art use this function instead. It supports many  
   text file formats like HTML, ANSI, more, etc... It will also ask you for
 font and attributes(see above). It is available from the <emph>file
 menu</emph>
 </dl>
 <p>
-AA-lib driver also provides the full set of standard AA-lib's command line options. You may use them to tune parameters like gamma correction etc. See <tt>xaos -help</tt> or AA-lib documentation for
-details.
+The AA-lib driver also provides the full set of standard AA-lib's command line
+options. You may use them to tune parameters like gamma correction, and so on.
+See <tt>xaos -help</tt> or the AA-lib documentation for details.
 <p>
-An AA driver was done by Jan Hubicka, 1997.
+The AA driver was written by Jan Hubicka, 1997.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %dos
 
 <head>DOS driver</head>
-This is fully featured driver for DJGPP and allegro. 
+This is a fully featured driver for DJGPP and allegro. 
 It supports many VGA modes, VESA 1.0--3.0, VBE/AF, S3 and some other cards.
 <p>
-Following problems may occour:
+The following problems may occur:
 <p>
 <dl>
 <dt>Some DPMI servers may cause problems
-<dd>Some DPMI servers like one from Novell/Dr/Open DOS are buggy. Use clean DOS
+<dd>Some DPMI servers like the one from Novell/Dr/Open DOS are buggy. Use clean DOS
   instead and XaoS will automatically start <tt>cwsdpmi</tt>.
-  Under Open Dr DOS use <tt>dpmi off</tt> at  command line to disable it.
+  Under Open Dr DOS use <tt>dpmi off</tt> at command line to disable it.
 <dt>Higher resolutions don't work
- <dd>If your videocard has enough memory for selected resolution,
+ <dd>If your videocard has enough memory for the selected resolution,
  you most probably have an unsupported videocard.
- Please use some VESA BIOS extension on this videocards. Please see note
- about VESA at the end of this section.
-<dt>XaoS needs coprocessor
- <dd>I don't distribute coprocessor library linked into XaoS because it is too slow for
- real-time zoomer. Coprocessor emulation will not help, because xaos works in protected mode.
+ Please use a VESA BIOS extension on this videocard. (See the note about VESA
+ at the end of this section.)
+<dt>XaoS needs a coprocessor
+ <dd>I don't distribute a coprocessor library linked into XaoS because it is too slow for
+ a real-time zoomer. Coprocessor emulation will not help, because xaos works in protected mode.
 <dt>XaoS needs mouse driver to be usable
 <dt>XaoS works slowly in higher resolution
- <dd>This should be also caused by slow Allegro's driver or VESA BIOS of your
- videocard. You might try some other VESA BIOS extension.
- Look for at the <tt>http://www.talula.demon.co.uk</tt> for FreeBE
+ <dd>This could also be caused by Allegro's slow driver or your videocard's VESA BIOS.
+ You could try some other VESA BIOS extension instead.
+ Look at the <tt>http://www.talula.demon.co.uk</tt> for the FreeBE
  project or Scitech Display Doctor package.
- Please see note about VESA at the end of this section.
+ (See the note about VESA at the end of this section.)
 </dl>
 <head>VESA</head>
-VESA is an standard for using higher resolutions in DOS. Many videocards has VESA in
-the BIOS so you don't need any additional software, while other needs special
-program providing this. Also some VESA BIOS implementations are buggy or
-suboptimal, there is 3 different versions, while the version 1.0 is many times
-slower than 2.0, which has support for protected mode and linear framebuffer.
+VESA is a standard for using higher resolutions in DOS. Many videocards have
+VESA support in the BIOS so you don't need any additional software, while others
+need support from a special program. Also some VESA BIOS implementations are
+buggy or suboptimal; there are 3 different versions, version 1.0 is many times
+slower than 2.0, which has support for protected mode and linear framebuffers.
 So if you have problems with higher resolutions, or some graphics modes are
 not available (like 320x200 truecolor), you might try some software package
-emulating VESA.
+which emulates VESA.
 <p>
-Most famous VESA emulating program is Scitech display doctor. It has support
-for many videocards and is quite reliable. It's disadvantage is, that it is
-shareware and works just 30 days. You might also try an
-<tt>ftp.simtel.net</tt> that contains many VESA emulation packages such as
+The most famous VESA emulating program is Scitech Display Doctor. It has support
+for many videocards and is quite reliable. It's disadvantage is that it is
+shareware and works for only 30 days. You might also look on
+<tt>ftp.simtel.net</tt>, where there are many VESA emulation packages such as
 <tt>s3vbe</tt> or the new FreeBe project at
 <tt>http://www.talula.demon.co.uk</tt>
 <p>
-DOS driver was done by Jan Hubicka, 1997.
+DOS driver was written by Jan Hubicka, 1997.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %ggi
@@ -656,186 +663,190 @@ DOS driver was done by Jan Hubicka, 1997.
 <head>GGI driver</head>
 
 GGI stands for General Graphics Interface. Part of this project is to develop
-libggi--an portable graphics library and XaoS's GGI driver use it.
-It is experimental, since API of libggi is not stabilized yet.
-There are some problems with keyboard handling--shift key don't work
+libggi, a portable graphics library, and XaoS's GGI driver uses that.
+It is experimental, since the API of libggi is not stabilized yet.
+There are some problems with keyboard handling--the shift key doesn't work
 yet.
 <p>
-All other stuff might work well, but no guarantees. It is alpha quality
+Everything else might work well, but there are no guarantees. It is alpha quality
 software.
 <p>
-GGI driver was done by Jan Hubicka, 1998.
+GGI driver was written by Jan Hubicka, 1998.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %plan9
 
 <head>Plan9 driver</head>
 
-Plan9 is very nice small operating system by Bell labs (authors of UNIX). It
-is very incompatible with other operating systems. Even the C compiler and
-header files are different, but XaoS should work there well (even at the
+Plan9 is a very nice small operating system by the authors of Unix at Bell Labs.
+It is very incompatible with other operating systems; even the C compiler and
+header files are different, but XaoS should work well there (even on the
 limited free demo installation without any POSIX compatibility stuff)
 <p>
-There is few limitations: File selector and image saving don't work. You might
-save an position files and then later render them at the other OS, or save
-screenshots. 
+There are a few limitations: the file selector and image saving don't work.
+You can save position files and then later render them on the other OS, or save
+screenshots.
 <p>
-Plan9 terminals also don't provide any way to catch an arrow keys, so you
-can't use them. Use mouse to navigate in the menus. Also getting of screen
+Plan9 terminals also don't provide any way to catch the arrow keys, so you
+can't use them. Use the mouse to navigate in the menus. Also, getting the screen
 resolution is impossible, so use <tt>-pixelwidth</tt> and <tt>-pixelheight</tt>
 instead of <tt>-screenwidth</tt> and <tt>-screenheight</tt>.
 <p>
-By default XaoS changes colormap. This will collide with other colorful
-programs like Mortha. You might disable this behavior using
-<tt>-nopalette</tt> switch. Disadvantage of this solution is, that it is
-slower.
+By default XaoS changes the colormap. This will collide with other colorful
+programs like Mortha. You can disable this behavior using
+<tt>-nopalette</tt> switch, but this will slow down XaoS.
 <p>
-Plan9 driver was done by Jan Hubicka, 1997.
+Plan9 driver was written by Jan Hubicka, 1997.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %SVGAlib
 
 <head>SVGAlib driver</head>
 
-This is driver for Linux SVGAlib. I really like this driver, because
-I much prefer full screen zooming instead of small 320x320 window in X11.
-It was one of first drivers for XaoS and is fully featured. 
+This is a driver for Linux SVGAlib. I really like this driver, because
+I much prefer full screen zooming instead of a small 320x320 window in X11.
+It was one of the first drivers for XaoS and is fully featured. 
 The following problems can occur:
 <p>
 <dl>
-<dt>XaoS don't initialize graphics mode
-<dd>when started under other user than root SVGAlib requires root privileges 
-  to directly access hardware. When you really want to start XaoS as  
-  normal user enable sticky bit (<tt>chmod +s</tt>) at XaoS executable 
-  note that I take care to disable all security holes caused by this 
+<dt>XaoS doesn't initialize graphics mode
+<dd>when started under users other than root SVGAlib requires root privileges
+  to directly access the hardware. When you really want to start XaoS as a
+  normal user, enable the suid bit (<tt>chmod +s</tt>) at XaoS executable.
+  note that I take care to disable all security holes caused by this
   bit so I believe it is safe.
 <dt>Mouse doesn't work
-<dt>Screen is blank in higher resolution
-<dd>Both this problems are probably  caused by wrong configuration of 
+<dt>Screen is blank at higher resolutions
+<dd>Both this problems are probably caused by misconfiguration of 
 SVGAlib. Please configure it in <tt>etc/vga/libvga.cong</tt> or 
 <tt>/usr/local/lib/libvga.conf</tt>
-Also GPM can cause problems. Try to kill it before starting XaoS
+GPM can also cause problems. Try to kill it before starting XaoS.
 <dt>When I switch console I can't switch back
-<dd>This is another typical SVGAlib bug Try to hold <tt>F</tt> key longer than <tt>alt</tt>.
-  It helps on my computer. On older SVGAlib there was famous ``enter bug'' that caused
-  crash after pressing enter. Try to update to newer release.
+<dd>This is another typical SVGAlib bug. Try to hold <tt>F</tt> key longer than <tt>alt</tt>.
+  It helps on my computer. On older SVGAlib there was a famous ``enter bug'' that caused
+  a crash after pressing enter. Try to update to a newer release.
 </dl>
 <p>
-SVGAlib driver was done by Jan Hubicka, 1997.
+SVGAlib driver was written by Jan Hubicka, 1997.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %win32
 
 <head>Win32 driver</head>
 
-This is driver for Windows 9x and NT. It is new in version 3.1 and
-because of some oddities of Windows API it should be rather unstable.
-Please report all bugs. In case of problems you might use DOS version
+This is a driver for Windows 9x and NT. It is new in version 3.1 and
+because of some oddities of Windows API it may be rather unstable.
+Please report all bugs. In case of problems you could use the DOS version
 of XaoS instead.
 <p>
-Driver should work in all bit depths, but 16 color mode is not natively
-supported by XaoS engine. XaoS internally works in 32k colors and
-result is converted to 16 colors by Windows. Because Windows
-conversion routines are slow and ugly, result is slow and ugly.
+The driver should work in all bit depths, but 16 color mode is not natively
+supported by the XaoS engine. XaoS internally works in 32k colors and
+the result is converted to 16 colors by Windows. Because Windows
+conversion routines are slow and ugly, the result is slow and ugly.
 Please configure your display to another bit depth to ``solve''
 this problem.
 <p>
-Use <tt>-size WIDTHxHEIGHT</tt> command line option to change default
+Use <tt>-size WIDTHxHEIGHT</tt> command line option to change the default
 window size.
 <p>
-This driver also have maps to native Windows look and fell. There is small
-problem with combo boxes in dialogs. They are expected to give you choice
-between few strings. The keyboard controls (changing choice by arrow keys)
-works, but mouse selection is broken. If you know how to solve this bug,
+This driver also maps to native Windows look and feel. There is a small
+problem with combo boxes in dialogs. They are expected to give you a choice
+between a few strings. The keyboard controls (changing choice by arrow keys)
+work, but mouse selection is broken. If you know how to solve this bug,
 please let me know.
 <p>
-XaoS is UNIX application and have many command line options. 
+XaoS is a UNIX application and has many command line options. 
 Some features are not available from the GUI.
 Because Windows applications can't have normal output,
-most of critical messages are displayed in message boxes, but
-some longer messages are ommited. Most significant is help about command
-line options that you can find in the <tt>doc/cmdopts.txt</tt>.
-Quite confusing should be fact, that animation rendering mode don't
-display anything, only renders the images. Just start the rendering
-and message box will inform you that XaoS is entering calculation
-loop. Relax and wait for message box signaling end of the loop.
+most of the critical messages are displayed in message boxes, but
+some longer messages are omitted. The most significant omission is the help
+about command line options that you can find in <tt>doc/cmdopts.txt</tt>.
 <p>
-Note that XaoS also supports <a dX-window>directX</a> API.
+One thing that might be confusing is that animation rendering mode doesn't
+display anything, but only renders images. Start the rendering,
+and a message box will inform you that XaoS is entering the calculation
+loop. Relax and wait for the message box signaling the end of the loop.
 <p>
-Win32 driver was done by Jan Hubicka, Jan Olderdissen and Pavel Tzekov, 1999.
+Note that XaoS also supports the <a dX-window>DirectX</a> API.
+<p>
+Win32 driver was written by Jan Hubicka, Jan Olderdissen and Pavel Tzekov, 1999.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %dX-window
 
-<head>directX windowed driver</head>
+<head>DirectX windowed driver</head>
 
-This is driver for Windows 9x and NT. It is new in version 3.1 and
+This is a driver for Windows 9x and NT. It is new in version 3.1 and
 because of some oddities of Windows API and kludges in DirectX
-it should be rather unstable.  Please report all bugs and in case
-of problems you might use DOS version of XaoS instead.
+it may be rather unstable.  Please report all bugs. In case
+of problems you could use the DOS version of XaoS instead.
 <p>
-The directX driver is alternative windowed driver to <a win32>win32 driver</a>.
-In case you have directX installed, this driver is used by default. It have
-almost same behaviour as the <a win32>win32 driver</a> so please read it's
-documentation for more details. Only difference should be the speed of
-displaying.
+The DirectX driver is an alternative to the windowed <a win32>win32 driver</a>.
+If you have DirectX installed, this driver is used by default. It has
+almost the same behaviour as the <a win32>win32 driver</a> so please read its
+documentation for more details. The only difference should be the display
+speed.
 <p>
-Driver supports only hicolor and truecolor modes. There is no support
-for 256 and 16 color modes because of palette colision problems. The win32
-driver will be used in this cases by default, so you will not get any
+The driver supports only hicolor and truecolor modes. There is no support
+for 256 and 16 color modes because of palette collision problems. The win32
+driver will be used in these cases by default, so this should cause no
 problems.
 <p>
 If you are experiencing problems with this driver, you might want to
-use <a win32>win32 driver</a> by default. Use <tt>-driver win32</tt> command
-line option.
+use the <a win32>win32 driver</a> by default; to do this, use the <tt>-driver win32</tt>
+command line option.
 <p>
-DirectX driver was done by Jan Hubicka, Jan Olderdissen
+DirectX driver was written by Jan Hubicka, Jan Olderdissen
 and Pavel Tzekov, 1999.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %dX-fullscreen
 
-<head>directX fullscreen driver</head>
-This is driver for Windows 9x and NT. It is new in version 3.1 and
+<head>DirectX fullscreen driver</head>
+This is da river for Windows 9x and NT. It is new in version 3.1 and
 because of some oddities of Windows API and kludges in DirectX
-it should be rather unstable.  Please report all bugs and in case
-of problems you might use DOS version of XaoS instead.
+it may be rather unstable.  Please report all bugs. In case
+of problems you could use the DOS version of XaoS instead.
 <p>
-This driver allows the Windows port of XaoS run in the full screen mode.
-Driver support 256, 65536 and 16777216 color modes (24bpp and 32bpp)
-in all resolutions supported by directX.
-You might change graphics mode by pressing <tt>=</tt> key
-(or using UI/Resize menu). In case selected mode is not supported,
-driver will restore previous settings.
+This driver allows the Windows port of XaoS to run in full screen mode.
+The driver supports 256, 65536 and 16777216 color modes (24bpp and 32bpp)
+in all resolutions supported by DirectX.
+You can change graphics mode by pressing the <tt>=</tt> key
+(or by using the UI/Resize menu). If the selected mode is not supported,
+the driver will restore the previous setting.
 <p>
-Use <tt>-mode WIDTHxHEIGHTxDEPTH</tt> (like <tt>-mode 640x480x16</tt>)
+Use the <tt>-mode WIDTHxHEIGHTxDEPTH</tt> (like <tt>-mode 640x480x16</tt>)
 command line option to change graphics mode.
 <p>
-If you want to start XaoS in directX, use <tt>-driver dX-fullscreen</tt> option.
+If you want to start XaoS in DirectX, use the <tt>-driver dX-fullscreen</tt>
+option.
 <p>
-See <a win32>Win32 driver</a> documentation for some more Windows
+See the <a win32>Win32 driver</a> documentation for some more Windows
 releated information.
 <p>
-DirectX driver was done by Jan Hubicka, Jan Olderdissen
+DirectX driver was written by Jan Hubicka, Jan Olderdissen
 and Pavel Tzekov, 1999.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %BeOS DirectWindow WindowScreen
 
 <head>BeOS support</head>
 
-XaoS have pretty advanced support for BeOS R4. It works on both power PC and
-Intel platforms, supports multithreading, clipboard, file dragging,
-have native look and fell and can work as an image translator from XaoS files
+XaoS has pretty advanced support for BeOS R4. It works on both PowerPC and
+Intel platforms, supports multithreading, the clipboard, file dragging,
+has native look and feel and can work as an image translator from XaoS files
 to images.
 <p>
-The first version of BeOS driver was done by Jens Kilian and later extended
-by Jan Hubicka.
+The first version of the BeOS driver was written by Jens Kilian and later
+extended by Jan Hubicka.
 <p>
 <head>Installation</head>
 <p>
-You might start the installation script to do all this work. In case you want
+You can start the installation script to do everything for you. If you want
 something special, read this section.
 <p>
-In order to make XaoS working you need to keep the executable together with
-data files (<tt>help</tt>, <tt>examples</tt>, <tt>catalogs</tt> and <tt>tutorials</tt> directory)
+In order for XaoS to work you need to keep the executable together with
+its data files (<tt>help</tt>, <tt>examples</tt>, <tt>catalogs</tt> and the <tt>tutorials</tt> directory)
 <p>
-After first start XaoS registers two new mime types called <tt>image/x-xaos-position</tt> for XaoS Position Files and <tt>video/x-xaos-animation</tt> for XaoS Animation Files, registers the icon and set's itself as default application.
+When first started, XaoS registers two new mime types called
+<tt>image/x-xaos-position</tt> for XaoS Position Files and
+<tt>video/x-xaos-animation</tt> for XaoS Animation Files,
+registers icons for them and sets itself as default application.
 <p>
 <head>Available display drivers</head>
 <p>
@@ -850,36 +861,36 @@ XaoS supports following drivers:
 <dd>Fullscreen driver.
 </dl>
 <p>
-By default XaoS start in windowed mode and use Application server for output.
-You might change driver to DirectWindow to use direct access to videoram. Note
-that this mode is slower in most cases and not supported by some videocards.
+By default, XaoS starts in windowed mode and uses the application server for output.
+You could change the driver to DirectWindow to use direct access to video RAM.
+Note that this mode is slower in most cases, and not supported by some videocards.
 <p>
-The BeOS driver by default choose most similar bitmap supported by XaoS
-to archieve best and fastest results.
-In UI menu you might change this default choice to other one if you wish.
-Also you might ask the BeOS and DirectWindow to resize to fullscreen mode.
+The BeOS driver by default chooses the most similar bitmap supported by XaoS
+to achieve best and fastest results.
+In the UI menu you can change this default choice to another one if you wish.
+Also you can ask the BeOS and DirectWindow to resize to fullscreen mode.
 <p>
-XaoS also supports real fullscreen mode using BWindowScreen API. To switch
-XaoS to this driver use UI menu. If you want to use this mode by default,
-use <tt>-driver WindowScreen</tt> command line option.
+XaoS also supports real fullscreen mode using the BWindowScreen API. To switch
+XaoS to this driver, use the UI menu. If you want to use this mode by default,
+use the <tt>-driver WindowScreen</tt> command line option.
 <p>
-This driver differs a lot from windowed ones. It use direct access to video
-card alwing you to change video mode. Also the 256 color mode
-can access palette so it is not dithered like in the windowed mode.
-Because BeOS can't do GUI in fullscreen mode, XaoS use it's own toolkit. Hope
-you will fell confortable in it.
+This driver differs a lot from windowed ones. It use direct access to the video
+card, allowing you to change video mode. Also, the 256 color mode
+can access the palette, so it is not dithered like the windowed mode.
+Because BeOS can't do GUI in fullscreen mode, XaoS uses its own toolkit.
+I hope you will feel confortable in it.
 <p>
 <head>XaoS as translator</head>
 <p>
-You might be able to open XaoS files in graphics applications
-such as ShowImage or ArtPaing. In preferences you can find DataTranslations
-program that can be used to set size, type and DPI of resulting image.
+You should be able to open XaoS files in graphics applications
+such as ShowImage or ArtPaing. In Preferences you can find the DataTranslations
+program, that can be used to set the size, type and DPI of the resulting image.
 Also antialiasing can be enabled.
 <p>
 Note that <emph>translation can take a while</emph>. So be patient and
 wait for the result.
 <p>
-If the translator don't work, ensure that you have link to XaoS executable
+If the translator doesn't work, ensure that you have a link to the XaoS executable
 in <tt>/boot/beos/system/add-ons/Translators/</tt>. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -893,36 +904,37 @@ Bugs/limitations:
 <p>
 <dl>
 <dt>XaoS makes some X servers too busy
-<dd>Sometimes XaoS generates images faster, than X can display them.
-In this case XaoS badly respond to mouse and other applications stops  
-This happens especially at old R4 servers. Use <tt>-sync</tt> to avoid this
-problem. Note that <tt>-sync</tt> do <tt>not</tt> enable an synchronous mode in communication 
-just makes one additional XSync call. So slowdown is not so high as you might expect.
-<dt>Does not work at all visuals
+<dd>Sometimes XaoS generates images faster than X can display them.
+In this case XaoS responds poorly to the mouse, and other applications slow
+down too. This happens especially often on old R4 servers. Use <tt>-sync</tt>
+to avoid this problem. Note that <tt>-sync</tt> does <tt>not</tt> make all
+communication with X asynchronous; it just adds one additional XSync call.
+So the slowdown is not as large as you might expect.
+<dt>Does not work on all visuals
 <dd>This driver supports only 8bpp pseudocolor/grayscales, 15,16,24 and 32bpp truecolor, 1bpp and 8bpp staticolor visuals.
 <dt>Palette rotating does not work for 8bpp pseudocolor w/o private palette
 </dl>
 <p>
-X11 driver was done by Jan Hubicka and Thomas Marsh, 1997.
+X11 driver was written by Jan Hubicka and Thomas Marsh, 1997.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %DGA
 
 <head>DGA driver</head>
 This is the driver for DGA (Direct Graphics Architecture) extension used by
-XFree86 X servers. It is pretty new so it can be buggy.
+XFree86 X servers. It is pretty new so it could be buggy.
 <p>
 Bugs/limitations:
 <p>
 <dl>
-<dt>In 8bpp mode XaoS have problems with palette on certain windowmanagers
-<dd>I don't know why this happends. Just ley me know whats wrong or use other
-windowmanager.
+<dt>In 8bpp mode, XaoS has problems with the palette with certain window managers
+<dd>I don't know why this happens. Just let me know what's wrong, or use another
+window manager.
 <dt>Banked modes are not supported.
-<dd>I don't have any card to test this, so it don't work in current version.
+<dd>I don't have any card to test this with, so it doesn't work in the current version.
 </dl>
 <p>
-DGA driver was done by Jan Hubicka, 1999.
+DGA driver was written by Jan Hubicka, 1999.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -930,200 +942,201 @@ DGA driver was done by Jan Hubicka, 1999.
 
 <head>XaoS tutorial</head>
 
-This is brief introduction to the basic XaoS features.
- 
+This is a brief introduction to the basic XaoS features.
+
 <head>How to zoom</head>
- Main advantage of XaoS is that after few seconds needed to calculate
- first image you may choose some point by mouse and press <emph>left</emph> button.
- Image will start to zoom smoothly into point you choose. You may move
- mouse and zoom smoothly into interesting areas. By pressing <emph>middle
- button</emph> (or <emph>left+right</emph>) you may also <emph>move image</emph> using ``drag & drop'' in
- case you missed some interesting place. <emph>UN-zooming</emph> is also possible by
- <emph>right button</emph>, but it is much slower because optimizations are not so
- effective as for zooming.
+ The main advantage of XaoS is that after a few seconds' delay to calculate
+ the first image, you may choose any point with the mouse and press the <emph>left</emph> button.
+ The image will start to zoom smoothly into the point you choose. You may move
+ the mouse and zoom smoothly into interesting areas. By pressing the <emph>middle
+ button</emph> (or <emph>left+right</emph> buttons) you may also
+ <emph>move the image</emph> using ``drag & drop'' if you missed an interesting
+ place. <emph>Unzooming</emph> is also possible by using the <emph>right button</emph>,
+ but it is much slower because optimizations are not so effective as for zooming.
 <p>
- In case you think that default <emph>speed</emph> is boring (it is quite slow to
- make XaoS smooth on slow computer) you may change it by pressing <emph>arrow
- up/down</emph>. But understand that faster zooming is more expensive so if
- speed is too high you should see just funny colorful blinking
- rectangles.
+ In case you think that the default <emph>speed</emph> is boring (it is quite slow, to
+ make XaoS smooth on a slow computer) you may change it by pressing <emph>arrow
+ up/down</emph>. But faster zooming is more expensive, so if the speed is too high
+ you will see little but funny colorful blinking rectangles.
  
 <head>Autopilot</head>
 
- To make XaoS yet more impressive we did special autopilot that
- automatically drives into interesting boundaries of set. So you should
+ To make XaoS yet more impressive we made a special autopilot that
+ automatically drives into interesting boundaries of the set. So you can
  press <tt>A</tt>, play your favorite music, drink coffee and relax. I never
- tried this but it should be really relaxing! Many pictures in XaoS
- gallery are discovered using autopilot.
+ tried this but it should be really relaxing! Many pictures in the XaoS
+ gallery were discovered using the autopilot.
 <p>
- Autopilot has also some additional features. It return back in case
- zoomed picture is not interesting anymore. Also is able to detect,
- when zoomed into really boring part or reached limit of floating point
- numbers and restart zooming.
+ The autopilot also has some additional features. It turns back when the
+ zoomed picture stops being interesting, and is able to spot when it's zoomed
+ into a really boring part (or has reached the limit of floating point
+ numbers) and restart zooming from the top.
 <p>
-<head>Various fractal formulas</head>
+<head>Various fractal formulae</head>
 
- XaoS also supports other formulas than Mandelbrot set. You may change
- <emph>formula</emph> using <emph>number keys</emph>.
- 
- 
+ XaoS also supports formulae other than the Mandelbrot set. You may change
+ <emph>formula</emph> using the <emph>number keys</emph>.
+
+
 <p>
- On keys <tt>1</tt> to <tt>5</tt> are <emph>Mandelbrot sets with various power</emph>. The ``normal''
+ On keys <tt>1</tt> to <tt>5</tt> are <emph>Mandelbrot sets of various power</emph>. The ``normal''
  Mandelbrot set is on key <tt>1</tt>. 
 <p>
- On key <tt>6</tt> is fractal called <emph>octo</emph>. It is some fractal that Thomas
+ On key <tt>6</tt> is a fractal called <emph>octo</emph>. It is a fractal that Thomas
  discovered in fractint.
 <p>
- On key <tt>7</tt> is fractal called <emph>Newton</emph>. It is famous Newton's formula for finding roots.
+ On key <tt>7</tt> is a fractal called <emph>Newton</emph>. It is Newton's famous formula for finding roots.
 <p>
- On key <tt>8</tt> is fractal called <emph>Barnsley</emph>.
+ On key <tt>8</tt> is a fractal called <emph>Barnsley</emph>.
 <p>
- On key <tt>9</tt> is fractal called <emph>Phoenix</emph>. It is very nice and quite famous fractal.
+ On key <tt>9</tt> is a fractal called <emph>Phoenix</emph>. It is a very nice and quite famous fractal.
 <p>
- On key <tt>0</tt> is fractal called <emph>Magnet</emph>. This fractal has quite complex formula so it is
- bit slow. 
+ On key <tt>0</tt> is a fractal called <emph>Magnet</emph>. This fractal has quite a complex formula so it is
+ a bit slow. 
  
 <head>Out-coloring modes</head>
 
- To make fractal yet more interesting more coloring modes for points
- outside set are provided. ``Classical coloring mode'' uses number of
- iterations that orbit required to escape boundaries. You might change this
+ To make fractals yet more interesting, more coloring modes for points
+ outside the set are provided. ``Classical coloring mode'' uses the number of
+ iterations that the orbit required to escape to (nearly) infinity. You can change this
  mode from the <emph>Fractal menu</emph> or by pressing key <tt>C</tt>
- Too see more about coloring modes try tutorial <tutor outcolor.xaf>Incoloring modes</tutor> from XaoS features overview.
+ To see more about coloring modes, try the tutorial on <tutor incolor.xaf>Incoloring modes</tutor> from the XaoS features overview.
 <p>
- Those cryptic names for coloring modes are mathematical formulas where <emph>iter</emph> means number
- of iterations, <emph>real</emph> real coordinate of last orbit, <emph>imag</emph> imaginary
+ Those cryptic names for coloring modes are mathematical formulae, where <emph>iter</emph> means number
+ of iterations, <emph>real</emph> means real coordinate of last orbit, and <emph>imag</emph> means imaginary
  coordinate of last orbit.
 <p>
 <head>In-coloring mode</head>
 
- Similar to out coloring mode is in coloring. It is only way how to
- display thinks inside set. They also can be changed from <emph>fractal
+ In-coloring mode is similar to out-coloring, except that it changes how
+ things inside the set are displayed. This can also be changed from the <emph>fractal
  menu</emph> or by pressing <tt>F</tt>. 
  <p>
- You might also want to see tutorial
- <tutor outcolor.xaf>Out-coloring modes</tutor> from XaoS features overview.
+ You might also want to see the tutorial on
+ <tutor outcolor.xaf>Out-coloring modes</tutor> from the XaoS features overview.
 
 <head>Planes</head>
 
- All fractals displayed by XaoS are function with complex parameter. It
- can be displayed in normal complex plane where x is real part of
- number and y is imaginary. But may be also displayed in some other
- planes. You might select plane from the <emph>Fractal menu</emph> or by
- pressing <tt>I</tt>.
+ All fractals displayed by XaoS are functions with a complex parameter. It
+ can be displayed in the normal complex plane, where x is the real part of
+ the number, and y is the imaginary part; but it can also be displayed in
+ a number of other planes. You can select the plane to use from the
+ <emph>Fractal menu</emph>, or by pressing <tt>I</tt>.
 <p>
- planes another cryptic names. And, you guessed, another mathematical
- formulas. Here mu means coordinates in normal complex plane. In case
- you have coordinates in <tt>1/mu</tt> plane and you need complex plane (to
- calculate Mandelbrot) you simply use coordinates as variable mu.
- Lambda is another plane that can be converted to mu using similar
- formula.
+ Like the coloring modes, planes have cryptic names. You guessed it, they're
+ mathematical formulae. Here <tt>mu</tt> means coordinates in the normal
+ complex plane. If you have coordinates in <tt>1/mu</tt> plane, and you need
+ coordinates in the a complex plane (to calculate the Mandelbrot set) you
+ simply use the coordinates as mu. Lambda is another plane that can be
+ converted to mu using a similar formula.
  <p>
 <dl>
  <dt>mu
-	<dd>normal mode..
-	
+	<dd>normal mode.
+
  <dt>1/mu
-	<dd>Inversion-infinity is in 0 and 0 is in infinity.
-	
+	<dd>Inversion: infinity goes to 0 and 0 goes to infinity.
+
  <dt>1/(mu+0.25)
-	<dd>Similar to inversion but moves center outside of Mandelbrot so
-	it looks parabolic
-	
+	<dd>Similar to inversion, but moves the center outside of the
+        Mandelbrot set so that it looks parabolic.
+
  <dt>lambda
-	<dd>lambda plane
-	
+	<dd>Lambda plane.
+
  <dt>1/lambda
-	<dd>Inversion of lambda plane
-	
+	<dd>Inversion of lambda plane.
+
  <dt>1/lambda-1
-	<dd>Inversion with moved center
-	
+	<dd>Inversion with moved center.
+
  <dt>1/(mu-1.40115)
-	<dd>Very interesting mode for Mandelbrot set. Makes small thinks
-	big. So you can browse its details.
+	<dd>A very interesting mode for the Mandelbrot set. It makes small things
+	big, so you can browse the set's details easily.
 </dl>
 <p>
  
 <head>Mandelbrot/Julia switching</head>
 
- Most of fractals displayed by XaoS (currently all of them) have two
- forms: Mandelbrot and Julia. Every point in Mandelbrot form has its
- own Julia set. To see more about this correspondence, try tutorial 
+ Most of the fractals displayed by XaoS (currently all of them) have two
+ forms: Mandelbrot and Julia. Every point in a Mandelbrot set has its
+ own Julia set. To see more about this correspondence, try the tutorial on
  <tutor julia.xaf>Julia set</tutor> from the Introduction to fractals.
 <p>
-In the Mandelbrot mode, you might get corresponding Julia by moving mouse to point you selected
- and pressing <tt>M</tt>. To return back press <tt>M</tt> again. Some fractals
- (Barnsley and phoenix) are already in their Julia versions, because
- Mandelbrot ones are boring. But by pressing <tt>M</tt> in such fractal you
- should get to Mandelbrot version and by choosing another point as base
- and pressing <tt>M</tt> again you should get completely different fractal.
- The most interesting points for Julia sets are at boundaries of
- Mandelbrot set. Most of Julia inside or outside set are boring.
+ In the Mandelbrot mode, you can get a corresponding Julia by moving the mouse
+ to an interesting point and pressing <tt>M</tt>. To get back press <tt>M</tt>
+ again. Some fractals (Barnsley and phoenix) are already in their Julia
+ versions, because the Mandelbrot ones are boring. But by pressing <tt>M</tt>
+ in such fractal you should get the Mandelbrot version, and by choosing another
+ point as the base point and pressing <tt>M</tt> again you should get a
+ completely different fractal. The most interesting points for Julia sets
+ are at the boundaries of the Mandelbrot set. Most of the Julias inside or
+ outside the set are boring.
 <p>
  
 <head>Fast Julia preview mode</head>
 
- Fast Julia mode is solution for
- question: What point use as base for Julia set. Just press <tt>J</tt> and
- small Julia set will be displayed at top left corner. Then move mouse
- around with pressed button 1 and Julia to corresponding point will be
- automatically generated. 
+ Fast Julia mode is a quick way to find a point to use as a base for the Julia
+ set.. Just press <tt>J</tt> and a small Julia set will be displayed in the top
+ left corner. Then move the mouse around with button 1 depressed, and the Julia
+ for the point the mouse is over will be automatically generated. 
  
 <head>Palette</head>
 
- In case you think that default XaoS colors are ugly or you are just
- bored by them you may try to change it by pressing <tt>P</tt>. XaoS will
- generate automatically random palette. Many of them looks ugly so
- press <tt>P</tt> again to get different one.
+ If you think that the default XaoS colors are ugly or you are just
+ bored by them you can change it by pressing <tt>P</tt>. XaoS will
+ automatically generate random palettes. Many of them look ugly, so
+ press <tt>P</tt> again to get another one until you find one you like.
 <p>
 <head>Filters</head>
 
- Many interesting effect should be done by post calculation filters.
- XaoS has filters as emboss, motion-blur etc. To enable them use <tt>filter menu</tt>
- or press <tt>E</tt>.
+ Many interesting effects are done by post-calculation <a filter>filters</a>.
+ XaoS has filters that do everything from embossing, through motion-blurring,
+ right through to turning the fractal into a stereogram. To enable them use
+ the <tt>filter menu</tt> or press <tt>E</tt>.
 <p>
 <head>Palette cycling</head>
 
- This is very old trick that makes Mandelbrot set more interesting. You
- may enable/disable it using <tt>Y</tt>. In the truecolor modes you need
- to enable palette emulator filter first. This is done via <tt>E</tt> key.
- Or from filter menu.
+ This is a very old trick that makes the Mandelbrot set a little flashier. You
+ may enable or disable it using <tt>Y</tt>. In the truecolor modes you need
+ to enable the <a palettef>palette emulator filter</a> first. This is done
+ via the <tt>E</tt> key, or from the filter menu.
 <p>
 <head>Changing number of iterations</head>
 
- To calculate fractals perfectly you need infinite number of
- iterations. XaoS does just first few of them so after longer zooming
- you may get into place that looks quite boring and boundaries of set
- are rounded w/o any interesting details. This should be changed by
- changing number of iterations:
+ To calculate fractals perfectly, you need an infinite number of
+ iterations. XaoS does just the first few of them, so after lots of zooming
+ you may get into a place that looks quite boring, and the boundaries of the
+ set are rounded, without any interesting details. This can be changed by
+ changing the number of iterations:
  <p>
- Press and hold <tt>arrow left</tt> and wait until iterations are high enough.
+ Press and hold <tt>arrow right</tt> and wait until iterations are high enough.
  This may slow down calculation much. To reduce number of iterations
- press <tt>arrow right</tt>.
+ press <tt>arrow left</tt>.
  
 <head>Changing resolution</head>
 
- XaoS usually starts in low resolution (320x200 or so) to make
- calculations faster. In case you have fast computer or you need to
- save bigger <tt>.gif</tt> images you may change resolution. This should be done
- by pressing <tt>=</tt> in full screen drivers or simply by resizing XaoS
- window.
- 
+ XaoS usually starts in a low resolution (320x200 or thereabouts) to make
+ calculations faster. If you have a fast computer or you need to
+ save bigger <tt>.gif</tt> images, you may change the resolution. This
+ can be done by pressing <tt>=</tt> in the full screen drivers, or simply
+ by resizing the XaoS window.
+
 <head>Changing driver</head>
 
- XaoS usually have more than one driver available. You may change it on
- the fly in case you want different one. For example XaoS started in X
- windows and you want to use AA driver. This can be done from the UI menu.
+ XaoS usually has more than one driver available. You may change it on
+ the fly in case you want a different one. For example, XaoS started in X11
+ can be switched at runtime to use the AA driver. This can be done from the
+ UI menu.
  <p>
- This action is bit dangerous, because XaoS can crash
- during initialization in case of some problem with initialization--XaoS
- tries to initialize an new driver, if it fails it attempts to return back
- to the original. Sometimes this in impossible.
+ This action is bit dangerous, because XaoS can crash during initialization
+ if there is some problem with initialization; XaoS tries to initialize a new
+ driver, and if it fails it attempts to return back to the original. Sometimes
+ this is impossible, and all XaoS can do is terminate..
 
 <head>Other features</head>
 XaoS has many other features, but they don't fit into this tutorial. Most of
-them are available from the menu, so you might experiment with them. You might
+them are available from the menu, so you can experiment with them. You might
 also want to see the <emph>animated tutorials</emph> from the <emph>help menu</emph>,
 to have an idea what XaoS can do.
 
@@ -1131,9 +1144,10 @@ to have an idea what XaoS can do.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %menus
 <main><head>Menus, functions and command line parameters</head></main>
-All XaoS functions are in central function registry. The scripting language,
-menus, dialogs and command line options are built from this database. This
-section contains information about all functions available in this registry.
+All XaoS functions are referenced by a central function registry. The
+scripting language, menus, dialogs and command line options are built
+from this database. This section contains information about all functions
+available in this registry.
 <menuitems><center>
 <p><submenu><a root>Root menu</a>
 <p><submenu><a animroot>Animation root menu</a>
@@ -1153,7 +1167,7 @@ section contains information about all functions available in this registry.
 <p><submenu><a helpmenu>Help</a>
 <p><submenu><a xtextpos>Horizontal text position</a>
 <p><submenu><a ytextpos>Vertical text position</a>
-<p><submenu><a mformula>formulae</a>
+<p><submenu><a mformula>Formulae</a>
 <p><submenu><a palettemenu>Palette</a>
 </center></menuitems>
 <node root, , animroot, menus>
@@ -1162,9 +1176,9 @@ section contains information about all functions available in this registry.
 
 <notex>
 <menuhead><head>Root menu</head></menuhead>
-This menu is usually displayed at the top of screen or window. It contains all
-sub-menus currently available. During animation is displayed another menu--<a animroot>Animation root
-menu</a>.
+This menu is usually displayed at the top of the screen or window. It contains all
+currently available submenus. During animation another menu is displayed--the
+<a animroot>Animation root menu</a>.
 <menuitems><center>
 <p><submenu><a file>File</a>
 <p><submenu><a fractal>Fractal</a>
@@ -1180,7 +1194,7 @@ menu</a>.
 %animroot
 
 <menuhead><head>Animation root menu</head></menuhead>
-This menu is displayed at the top of screen when animation replay is active.
+This menu is displayed at the top of the screen when animation replay is active.
 <menuitems><center>
 <p><submenu><a file>File</a>
 <p><a stopreplay>Stop replay</a>
@@ -1201,8 +1215,8 @@ Terminate animation replay.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %plc
 <menuhead><head>Replay only commands</head></menuhead>
-Some commands, such as timing primitives or animation functions are available
-just in animation files.
+Some commands, such as timing primitives or animation functions, are available
+only in animation files.
 <menuitems><center>
 <p><submenu><a linemenu>Line drawing functions</a>
 <p><submenu><a animf>Animation functions</a>
@@ -1217,9 +1231,9 @@ just in animation files.
 <head>Include file</head>
 <p><emph>Syntax</emph>:(load file)
 <p>
-This function lets you include another file into your script. It works in
-similar way as <tt>#include</tt> in C source or <tt>load</tt> in scheme.
-File is searched in the same directory as current source is.
+This function lets you include another file in your script. It works similarly
+to <tt>#include</tt> in C or <tt>load</tt> in Scheme.
+The file is searched for in the same directory as the current source file.
 <p>
 <emph>Available as</emph>: command
 
@@ -1228,23 +1242,22 @@ File is searched in the same directory as current source is.
 %linemenu
 
 <menuhead><head>Line drawing functions</head></menuhead>
-XaoS has support for drawing lines. This functions are available only in
-animations and should be used to show some parts of fractals or draw simple
-diagrams. See tutorial ``<tutor intro.xaf>Introduction to fractals</tutor>'' for
-example of this feature.
+XaoS has support for drawing lines. These functions are available only in
+animations and could be used to show some parts of fractals or draw simple
+diagrams. See the tutorial ``<tutor intro.xaf>Introduction to fractals</tutor>''
+for examples of this feature.
 <p>
-Lines should be drawn in   <emph>screen</emph> coordinates, where 0,0
-is top left corner and 1,1 is bottom right, <emph>scaled</emph> coordinates,
-which are similar just scaled to keep 0,0--1,1 rectangular or
-<emph>Fractal</emph> coordinates should be used to draw line at exact
-position of screen.
+Lines can be drawn in <emph>screen</emph> coordinates, where 0,0
+is the top left corner and 1,1 is bottom right, <emph>scaled</emph>
+coordinates, which are similar, but scaled to keep 0,0--1,1 rectangular,
+or <emph>Fractal</emph> coordinates, to draw a line at an exact position
+on the screen.
 <p>
-Color of line should be specified by command <a color><tt>color</tt></a>.
-You might draw arbitrary number of lines and later morph them. Each line has
-its own key, which is number used to identify it. You might set key using
-command <tt>linekey</tt>.
-Next lines have consetuctive numbers. Commands for changing line then operates
-at line with current key.
+The color of the line should be specified by the <a color><tt>color</tt></a> command.
+You might draw an arbitrary number of lines and, later, morph them. Each line is
+identified by a unique numeric key; the current key can be set using <tt>linekey</tt>.
+Commands for changing lines operate on the line with the current key.
+(Lines drawn in sequence have consecutive numbers.)
 <p>
 For example:
 <p><tt>
@@ -1260,7 +1273,7 @@ For example:
 (morphline 'scaled 0.7 0.3 0.7 0.7)<br>
 (usleep 1000000)<br>
 </tt><p>
-Creates line morphing to rectangle
+Creates line morphing to rectangle.
 <notex>
 <menuitems><center>
 <p><a line>Draw line</a>
@@ -1286,7 +1299,7 @@ Creates line morphing to rectangle
 Draw line between two points.
 <tt>keyword</tt> specifies type of coordinates and should be one of the
 following: <tt>`fractal</tt>, <tt>`screen</tt> or <tt>`scaled</tt>.
-Function also increase the line key.
+This function also increases the line key.
 <p>
 <emph>Available as</emph>: command
 
@@ -1305,9 +1318,9 @@ Function also increase the line key.
 Morph current line to given coordinates.
 <tt>keyword</tt> specifies type of coordinates and should be one of the
 following: <tt>`fractal</tt>, <tt>`screen</tt> or <tt>`scaled</tt>.
-Line will start moving at the next <a time>timing command</a>. and reach the
-final position before end of it.
-Function also increase the line key.
+The line will start moving at the next <a time>timing command</a>, and reach the
+final position before the end of it.
+This function also increases the line key.
 <p>
 <emph>Available as</emph>: command
 
@@ -1323,9 +1336,9 @@ Function also increase the line key.
 </notex>
 <p><emph>Syntax</emph>:(morphlastline keyword complex complex)
 <p>
-This function has same functionality as <a morphline>morphline</a>, but it don't
-increase the line key and touches line with previous key. This is useful when
-you want to move just drawn line--you don't need to set <a linekey>linekey</a> back.
+This function has the same functionality as <a morphline>morphline</a>, but it doesn't
+increase the line key, and touches the line with the previous key. This is useful when
+you want to move a just-drawn line--you don't need to set <a linekey>linekey</a> back.
 <p>
 <emph>Available as</emph>: command
 
@@ -1353,7 +1366,7 @@ Set current line key.
 </notex>
 <p><emph>Syntax</emph>:(clearline)
 <p>
-Clear current line. This function also increase the line key.
+Clear current line. This function also increases the line key.
 <p>
 <emph>Available as</emph>: command
 
@@ -1365,8 +1378,8 @@ Clear current line. This function also increase the line key.
 </notex>
 <p><emph>Syntax</emph>:(clearlines)
 <p>
-Clear all displayed line. Lines should be also cleared using
-<tt>clearscreen</tt> or <tt>display</tt> commands available from <a misc>Misc menu</a>.
+Clear all displayed lines. Lines can also be cleared using the
+<tt>clearscreen</tt> or <tt>display</tt> commands available from the <a misc>Misc menu</a>.
 <p>
 <emph>Available as</emph>: command
 
@@ -1375,16 +1388,17 @@ Clear all displayed line. Lines should be also cleared using
 %animf
 
 <menuhead><head>Animation functions</head></menuhead>
-This functions are used to animate fractal state--zoom, UN-zoom and morph
-various parameters. They should be used only in the animation files.
-Animations are usually performed for whole time selected by the next <a time>timing function</a>.
+These functions are used to animate fractal state--to zoom, unzoom and morph
+various parameters. They should be used only in animation files.
+Animations are usually performed for a time selected by an immediately following
+<a time>timing function</a>.
 For example:
 <p><tt>
 (view 0 0 1 1)<br>
 (morphview 0 0 2 2)<br>
 (usleep 5000000)
 </tt><p>
-Will do 5 seconds long UN-zooming animation.
+Will do a 5 second long unzooming animation.
 <menuitems><center>
 <p><a animateview>Animate view</a>
 <p><a smoothmorph>Smooth morphing</a>
@@ -1400,12 +1414,12 @@ Will do 5 seconds long UN-zooming animation.
 <head>Animate view</head>
 <p><emph>Syntax</emph>:(animateview float float float float)
 <p>
-This function is almost equivalent to function <a uiview><tt>view</tt></a>.
-It expect that view will be changed just slightly so recalculation is done with
-<tt>ANIMATE</tt> priority. This means that dynamic resolution is used by
-default. 
+This function is almost identical to function <a uiview><tt>view</tt></a>.
+It expects that the view will be changed only slightly, so recalculation is done
+with <tt>ANIMATE</tt> priority. This means that dynamic resolution is used by
+default.
 <p>
-View-port is selected by the center and two radiuses (real and imaginary). See
+Viewport is selected by the center and two radiuses (real and imaginary). See
 <a uiview><tt>view</tt></a> for more information.
 <p>
 <emph>Available as</emph>: command
@@ -1415,12 +1429,12 @@ View-port is selected by the center and two radiuses (real and imaginary). See
 %smoothmorph
 <head>Smooth Morphing</head>
 <p><emph>Syntax</emph>:(morphview keystring starttime endtime)
-This function lets you to make smooth start and stop of morphing. Specify
-starttime and stoptime nonzero and morphing will speedup and slowdown for
-selected number of usecs.
+This function lets you smoothly start and stop morphing. Specify
+starttime and stoptime as nonzero, and morphing will speed up and slow down for
+that number of usecs.
 <p>
-Keystring is used to select what morphing you want to control. It is one of
-the following choices:
+The keystring is used to select what morphing you want to control. It is one of
+the following:
 <dl>
 <dt>'view
 <dd>control <a morphview>morphview</a>
@@ -1436,14 +1450,14 @@ the following choices:
 %morphview
 <head>Morph view</head>
 <p><emph>Syntax</emph>:(morphview float float float float)
-For whole time selected by next <a usleep><tt>usleep</tt></a> or other timing function viewpoint is smoothly morphed from
-current one to one selected by <tt>morphview</tt>.
+For the time selected by the next <a usleep><tt>usleep</tt></a> or other timing function, the viewpoint is smoothly morphed from
+the current one to that selected by <tt>morphview</tt>.
 <p>
-View-port is selected by the center and two radiuses (real and imaginary). See
-<a uiview>for more information</a>
+Viewport is selected by the center and two radiuses (real and imaginary). See
+<a uiview><tt>view</tt></a> for more information.
 <p>
-This function should be easily used for creating the zooming/UN-zooming animations using position files.
-This is example position file generated by XaoS:
+This function can easily be used for creating zooming/unzooming animations using position files.
+This is an example position file generated by XaoS:
 <p><tt>
 (initstate)<br>
 (defaultpalette 0)<br>
@@ -1451,8 +1465,8 @@ This is example position file generated by XaoS:
 (view -1.64128273713 -5.50393226816E-05 9.69332308848E-08 
     9.69332308834E-08)<br>
 </tt><p>
-Just by exchanging <tt>view</tt> command by <tt>morphview</tt> command and
-adding <tt>usleep</tt> you might create zooming animation:
+By replacing the <tt>view</tt> command with <tt>morphview</tt> and
+adding <tt>usleep</tt> you can create a zooming animation:
 <p><tt>
 (initstate)<br>
 (defaultpalette 0)<br>
@@ -1468,14 +1482,14 @@ adding <tt>usleep</tt> you might create zooming animation:
 <node morphjulia, morphview, moveview, animf>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %morphjulia
-<head>Morph julia</head>
+<head>Morph Julia</head>
 <p><emph>Syntax</emph>:(morphjulia complex)
-For whole time selected by next <a usleep><tt>usleep</tt></a> or other timing function julia seed
-is smoothly interpolated between current one to one selected by <tt>morphjulia</tt>. By default this will
-cause recalculation of the whole screen. 
-To avoid this use <a fastjulia>fast julia mode</a>.
+For the time selected by the next <a usleep><tt>usleep</tt></a> or other timing function, the Julia seed
+is smoothly interpolated from the current one to that selected by <tt>morphjulia</tt>. By default this will
+cause recalculation of the whole screen.
+To avoid this, use <a fastjulia>fast Julia mode</a>.
 <p>
-Simple animation morphing julia seed in the X axis:
+A simple animation morphing Julia seed in the X axis:
 <p><tt>
 (initstate)<br>
 (fastjulia #t)<br>
@@ -1491,7 +1505,7 @@ Simple animation morphing julia seed in the X axis:
 %moveview
 <head>Move view</head>
 <p><emph>Syntax</emph>:(moveview complex)
-Smoothly move center to image to another position.
+Smoothly move the image center to another position.
 <p>
 <emph>Available as</emph>: command
 
@@ -1500,11 +1514,11 @@ Smoothly move center to image to another position.
 %morphangle
 <head>Morph angle</head>
 <p><emph>Syntax</emph>:(morphangle float)
-Smoothly rotate to image to another angle. By default rotation causes
+Smoothly rotate the image to another angle. By default rotation causes
 recalculation of the whole screen. To avoid this you need to enable 
 <a rotate>fast rotate mode</a>. Don't forget to disable it later, since
-it slow down other animations. 
-<p>Simple ``rotozooming'' animation:
+it slows down other animations. 
+<p>A simple ``rotozooming'' animation:
 <p><tt>
 (initstate)<br>
 (fastrotate #t)<br>
@@ -1522,30 +1536,28 @@ it slow down other animations.
 %zoom zoom unzoom stop
 <head>Zooming functions</head>
 <p>
-Functions for zooming/UN-zooming was created mainly for recording the
-animation. In manually created animation files it is easier to use
+The functions for zooming/unzooming were created mainly for recording
+animations. In manually created animation files, it is easier to use
 <a morphview><tt>morphview</tt></a>.
 <p>
 <p><emph>Syntax</emph>:(zoomcenter complex)
-This function set center to zoom in. Center is given as position in fractal
-coordinates.
+This function sets the center to zoom in on. The center is given as a position
+in fractal coordinates.
 <p>
 <emph>Available as</emph>: command
 <p><emph>Syntax</emph>:(zoom)
-Start zooming to area specified by <tt>zoomcenter</tt>. Work is the
-same way as first button. 
+Start zooming to the area specified by <tt>zoomcenter</tt>.
 <p>
-Speed of zooming should be controlled by function <a speed><tt>speed</tt></a> or in more
-exact way by <tt>maxstep</tt> and <tt>speedup</tt>.
+The speed of zooming should be controlled by the function <a speed><tt>speed</tt></a>
+or in a more exact way by <tt>maxstep</tt> and <tt>speedup</tt>.
 <p>
 <p><emph>Syntax</emph>:(unzoom)
 <p>
-Start un-zooming from area specified by <tt>zoomcenter</tt>. Work is the
-same way as third button. 
+Start unzooming from the area specified by <tt>zoomcenter</tt>.
 <p>
 <emph>Available as</emph>: command
 <p><emph>Syntax</emph>:(stop)
-Stop zooming or UN-zooming.
+Stop zooming or unzooming.
 <p>
 <emph>Available as</emph>: command
 
@@ -1554,9 +1566,10 @@ Stop zooming or UN-zooming.
 %time
 
 <menuhead><head>Timing functions</head></menuhead>
-Timing functions are used to control animation replay daemon. It might wait
-for given time or wait until calculation is complete. The animation functions
-are controlled by this. Animations are performed for whole selected time.
+Timing functions are used to control the animation replay daemon. It can wait
+for a given time, or wait until calculation is complete. The animation functions
+are controlled by such waiting; animations that are running while delays start
+keep running through the delay.
 <menuitems><center>
 <p><a usleep>Usleep</a>
 <p><a textsleep>Wait for text</a>
@@ -1568,10 +1581,10 @@ are controlled by this. Animations are performed for whole selected time.
 <head>Usleep</head>
 <p><emph>Syntax</emph>:(usleep integer)
 <p>
-This function waits selected amount of time(in usec) until next commands
-are processed. Screen is recalculated and displayed at the beginning of
-usleep when necessary. Remaining
-time is spent by waiting or performing animation.
+This function waits for a given amount of time (in usec) before processing
+the next command. The screen is recalculated and displayed at the beginning of
+usleep if necessary necessary. The remaining time is spent in waiting or
+performing animation.
 <p>
 <emph>Available as</emph>: command
 
@@ -1580,12 +1593,12 @@ time is spent by waiting or performing animation.
 %textsleep
 <head>Wait for text</head>
 <p><emph>Syntax</emph>:(textsleep)
-<p>Behavior is very similar to <a usleep><tt>usleep</tt></a>, but the time is
-calculated from number of letters currently displayed at screen. So if you
-want wait just for time user needs to read subtitle, use this function. User
-can then alter replay speed for its own needs using 
-<a letterspersec><tt>letterspersec</tt></a>. This value should be changed during
-replay by arrow keys.
+<p>This function's behavior is very similar to <a usleep><tt>usleep</tt></a>,
+but the time is calculated from the number of letters currently displayed
+onscreen. If you want to wait just long enough for the user to read the subtitle,
+use this function. The user can alter the replay speed as desired using 
+<a letterspersec><tt>letterspersec</tt></a>. This value can be changed during
+replay with the arrow keys.
 <p>
 <emph>Available as</emph>: command
 
@@ -1595,15 +1608,14 @@ replay by arrow keys.
 <head>Wait for complete image</head>
 <p><emph>Syntax</emph>:(wait)
 <p>
-Wait until image is complete. You might use this function always after
-zooming or UN-zooming when dynamic resolution should be used. This ensures that
-image calculation will be complete and user will see the result before
-animation continues. Also should be useful in combination with filters like
-<a blur>motion blur</a>, since it will wait while animation is
-performed.
+Wait until the image is complete. You should always use this function after
+zooming or unzooming when dynamic resolution is in use. This ensures that
+the image calculation will be complete so the user can see the result before
+the animation continues. It may also be useful in combination with filters like
+<a blur>motion blur</a>.
 <p>
-This function can not be used with <a animf>animation functions</a>,
-otherwise deadlock will happened.
+This function deadlocks if used with <a animf>animation functions</a>; don't
+do that.
 <p>
 <emph>Available as</emph>: command
 
@@ -1627,8 +1639,8 @@ otherwise deadlock will happened.
 %loadpos
 <head>Load XaoS position file</head>
 <p>
-Load XaoS position file (<tt>*.xpf</tt>). 
-See <a format>format description</a> for more information.
+Load a XaoS position file (<tt>*.xpf</tt>). 
+See the <a format>format description</a> for more information.
 <p>
 <emph>Available as</emph>: menu item, command line option
 
@@ -1638,10 +1650,10 @@ See <a format>format description</a> for more information.
 <head>Save XaoS position file</head>
 <p><emph>Syntax</emph>:(savepos file)
 <p>
-Save current state to XaoS position file (<tt>*.xpf</tt>). This file is in
-human readable format and should be later easily improved by hand or used as
-base for animation.
-See <a format>format description</a> for more information.
+Save current state to a XaoS position file (<tt>*.xpf</tt>). This file is
+human-readable, and can easily be improved by hand after saving, or used as
+a base for animations.
+See the <a format>format description</a> for more information.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -1650,12 +1662,13 @@ See <a format>format description</a> for more information.
 %record
 <head>Record animation</head>
 <p><emph>Syntax</emph>:(record bool [ file ])
+<p>e
+Toggle recording to a XaoS animation file (<tt>*.xaf</tt>). This file is
+human-readable, and can easily be improved by hand after recording.
+See the <a format>format description</a> for more information.
 <p>
-Start recording to XaoS animation file (<tt>*.xaf</tt>). This file is in
-human readable format and should be later easily edited.
-See <a format>format description</a> for more information.
-To stop animation recording select this function in the menu again, or use
-command <tt>(record #f)</tt>
+From the scripting language, <tt>(record #t)</tt> enables recording, and
+<tt>(record #f)</tt> disables it.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -1664,7 +1677,7 @@ command <tt>(record #f)</tt>
 %play
 <head>Replay animation</head>
 <p>
-Replay XaoS animation file (<tt>.xaf</tt>).
+Replay a XaoS animation file (<tt>.xaf</tt>).
 <p>
 <emph>Available as</emph>: menu item, command line option
 
@@ -1674,14 +1687,14 @@ Replay XaoS animation file (<tt>.xaf</tt>).
 <head>Save image</head>
 <p><emph>Syntax</emph>:(saveimg file)
 <p>
-Save current state to image file. This file is in <tt>.png</tt> (portable
-network graphics) format, which should be later read by many applications
-like graphics editors, internet browsers etc.
+Save current state to an image file. This file is in <tt>.png</tt> (portable
+network graphics) format, which can be read by many applications varying from
+graphics programs all the way to Web browsers.
 <p>
-For this function an external library called <tt>pnglib</tt> is required. In
-cases where this library wasn't available during compilation, this function
-don't work. Please see <tt>INSTALL</tt> for more information about obtaining
-png library and recompiling XaoS.
+This function needs an external library called <tt>libpng</tt>. If the library
+wasn't available during compilation, this function is unavailable too.
+Please see <tt>INSTALL</tt> for more information about obtaining libpng
+and recompiling XaoS.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -1703,9 +1716,9 @@ You might use it as the starting point for next exploration.
 <head>Save configuration</head>
 <p><emph>Syntax</emph>:(savecfg)
 <p>
-Save current configuration. Configuration is saved into special file (at UNIX
-<tt>~/.xaosrc</tt>, <tt>xaos.cfg</tt> under DOS), which is automatically loaded
-at startup. So next time you run XaoS you will get the same configuration.
+Save current configuration to <tt>~/.xaosrc</tt> (under Unix) or <tt>xaos.cfg</tt>
+(under DOS and Windows). XaoS automatically reloads the configuration from this
+file when it starts.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -1723,7 +1736,7 @@ Quit XaoS.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %edit
 <menuhead><head>Edit</head></menuhead>
-The stuff normally covered by edit menu in the application.
+A fairly ordinary Edit menu.
 <menuitems><center>
 <p><a undo>Undo</a>
 <p><a redo>Redo</a>
@@ -1734,8 +1747,8 @@ The stuff normally covered by edit menu in the application.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %undo
 <head>Undo</head>
-Undo last operation. Because "last operation" is quite hard to define in
-XaoS (where changes are continuous). So it might bring you some surprises.
+Undo last operation. `Last operation' is quite hard to define in
+XaoS (where changes are continuous), so it might be surprising.
 I hope it will do what you want.
 <p>
 <emph>Available as</emph>: menu item
@@ -1743,23 +1756,25 @@ I hope it will do what you want.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %redo
 <head>Redo</head>
-Redo last undone operation. See <a undo>undo</a> documentation.
+Redo last undone operation. See <a undo>undo</a>.
 <p>
 <emph>Available as</emph>: menu item
 <node copy, redo, pase, edit>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %copy
 <head>Copy</head>
-Copy fractal to clipboard. Implementation of this function is platform
-specific so you don't have to be available on your setup.
+Copy fractal to clipboard. This is a platform-dependent operation that may
+not have an analogue on your platform (e.g. there is no concept of a clipboard
+under aalib).
 <p>
 <emph>Available as</emph>: menu item
 <node paste, copy, , edit>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %paste
 <head>Paste</head>
-Paste fractal from clipboard.  Implementation of this function is platform
-specific so you don't have to be available on your setup.
+Paste fractal from clipboard. This is a platform-dependent operation that may
+not have an analogue on your platform (e.g. there is no concept of a clipboard
+under aalib).
 <p>
 <emph>Available as</emph>: menu item
 
@@ -1767,8 +1782,9 @@ specific so you don't have to be available on your setup.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %fractal
 <menuhead><head>Fractal</head></menuhead>
-This menu contains all function, which lets you specify fractal parameters like
-formulas, coloring modes, seeds and much more.
+This menu contains all functions related to fractal parameters and display;
+you can change things like the formula used, coloring modes, seeds and much
+else.
 
 <menuitems><center>
 <p><a formula>Formula</a>
@@ -1789,23 +1805,23 @@ formulas, coloring modes, seeds and much more.
 <head>Formula</head>
 <p><emph>Syntax</emph>:(formula keyword)
 <p>
-Set the current fractal formula. Keyword should be one of the following
-formulas:
+Set the current fractal formula. <tt>keyword</tt> should be one of the
+following:
 <dl>
 <dt>'mandel
 <dd>Standard <a mandel>Mandelbrot set</a>.
 <dt>'mandel3
-<dd><a mandel3>Mandelbrot set power 3</a>.
+<dd><a mandel3>Mandelbrot set, power 3</a>.
 <dt>'mandel4
-<dd>Mandelbrot set power 4.
+<dd>Mandelbrot set, power 4.
 <dt>'mandel5
-<dd>Mandelbrot set power 5.
+<dd>Mandelbrot set, power 5.
 <dt>'mandel6
-<dd>Mandelbrot set power 6.
+<dd>Mandelbrot set, power 6.
 <dt>'newton
-<dd><a newton>Newton approximation method</a>.
+<dd><a newton>Newton's approximation method</a>.
 <dt>'barnsley
-<dd><a barnsley>First barnsley's formula</a>.
+<dd><a barnsley>First Barnsley's formula</a>.
 <dt>'octo
 <dd><a octal>Fractint's octo</a>.
 <dt>'phoenix
@@ -1821,36 +1837,36 @@ formulas:
 %uimandelbrot julia juliaseed
 <head>Mandelbrot/Julia mode</head>
 <p>
-Fractal should be in   Mandelbrot or Julia mode. Each point in the
-Mandelbrot set has it's own Julia set. To learn more about this correspondence
-see tutorial ``<tutor julia.xaf>Julia set</tutor>''.
+Most fractals rendered by XaoS can be represented as Mandelbrot sets or Julias.
+Each point in the Mandelbrot set has its own Julia set. To learn more about
+this correspondence, see the tutorial on the <tutor julia.xaf>Julia set</tutor>.
 <p>
-This function should be used to switch between this modes. In case
-you are enabling Julia mode, you need to set seed--point selected from the
+This function switches between Mandelbrot and Julia representations. When
+switching to Julia, you need to set the seed--a point selected from the
 Mandelbrot set.
 <p>
-In case you are enabling function from menu, you are prompted for this number.
-Often it is useful to use some point at screen. You might do that by pressing
-<tt>M</tt> key. Then you are not asked for seed and current position of mouse
-is used instead.
+If you run this function from the menu, you are prompted for the Julia seed
+as a number. Often, this can be clumsy, and it would be easier to specify a
+point with the mouse pointer. If you hit the <tt>M</tt> key instead of
+using the menu, the current mouse position is used.
 <p>
-Good seedpoints lies at the boundaries of the set. Other seeds generates
-usually quite boring fractal. You might also explore various seeds using
-<a fastjulia>Fast julia mode</a>.
+Good seedpoints lie at the boundaries of the Mandelbrot set; other seeds
+usually generate quite a boring fractal. You can also explore various seeds
+at high speed using the <a fastjulia>Fast Julia mode</a>.
 <p>
-Note that not all fractals has Julias. But XaoS can generate an fake Julia
-sets, which uses some modification of the formula in the other cases, so this
-function is currently usable for all fractal types.
+Not all fractals have Julias, but XaoS can generate fake Julia sets for
+those that do not, which use some Julia-like modification of the formula;
+so this function is currently usable for all fractal types.
 <p>
 <emph>Available as</emph>: menu item
 <p><emph>Syntax</emph>:(julia bool)
 <p>
-This function is used to enable/disable julia mode in the animation files. 
+This function is used to enable/disable julia mode in animation files. 
 <p>
 <emph>Available as</emph>: command line option, command
 <p><emph>Syntax</emph>:(juliaseed complex)
 <p>
-Select current julia seed. 
+Select the current julia seed. 
 <p>
 <emph>Available as</emph>: command line option, command
 
@@ -1859,28 +1875,28 @@ Select current julia seed.
 %uiperturbation perturbation
 <head>Perturbation</head>
 <p>
-Perturbation is simple trick, where some other starting point of orbit is
-used. Traditionally zero is used, but other values should generate interesting
+Perturbation is a simple trick which changes the point at which orbits start.
+Traditionally zero is used, but other values can generate interesting
 results too.
 <p>
-When enabling this function from the menu, you will be asked for complex
-number specifying the perturbation. When you select it again, perturbation will
-be disabled and you will not be prompted.
+On enabling this function from the menu, you will be asked for a complex
+number specifying the perturbation. It is a toggle; selecting it again
+resets the perturbation to zero without prompting.
 <p>
-It is often useful to specify complex
-number representing some point at the screen. This should be achieved by
-placing mouse cursor there and pressing <tt>B</tt>. Another pressing
-<tt>B</tt> will disable perturbation (set perturbation value to zero).
+It can be used to specify a complex number representing a point on the screen.
+If you hit the <tt>B</tt> key instead of using the menu, the current mouse
+position is used. This too is a toggle, so <tt>B</tt> again will disable
+perturbation by setting it to zero.
 <p>
-Function has effect just for some formulas (like the <a mandel>Mandelbrot set</a>) in 
-the <a uimandelbrot>Mandelbrot mode</a>.
+This function only has an effect for certain formulae (like the
+<a mandel>Mandelbrot set</a>) and only then in <a uimandelbrot>Mandelbrot mode</a>.
 <p>
 <emph>Available as</emph>: menu item
 <p><emph>Syntax</emph>:(perturbation complex)
 <p>
-This is an perturbation function with better
-interface to scripting language. It don't have the enable/disable feature, but
-lets you always specify the numbers. Use 0 0 to disable perturbation.
+This is the scripting-language variation of the perturbation function. Instead
+of toggling, you always specify the perturbation to use. Use 0 0 to disable
+perturbation.
 <p>
 <emph>Available as</emph>: command line option, command
 
@@ -1889,47 +1905,47 @@ lets you always specify the numbers. Use 0 0 to disable perturbation.
 %uiview view angle
 <head>View</head>
 <p>
-Set current viewpoint in the fractal. This function is useful when you have
-found some interesting coordinates somewhere (at the WWW page or so) and you
-want to see it in XaoS.
+Set your current viewpoint in the fractal. This function is useful when you have
+found some interesting coordinates somewhere (on a web page, perhaps) and you
+want to see that position in XaoS.
 <p>
-In the dialog you will be asked for <emph>center</emph>, <emph>radius</emph>
-and <emph>angle</emph> of image.
+In the dialog you will be asked for the <emph>center</emph>, <emph>radius</emph>
+and <emph>angle</emph> of the image.
 <p>
-Center specifies point, which will be displayed in the center of screen. Radius
-is radius of circle around this center. XaoS will choose smallest possible
-area, which fits to screen and contains whole this circle. Angle is rotation of
+The center specifies the point which is displayed at the center of the screen.
+The radius is the radius of a circle around this point; XaoS will size the image
+so that this circle only just fits on the screen. The angle gives the rotation of
 the image in degrees.
 <p>
-Many different formats for specifying area are used. Some people use
-coordinates of left top and bottom down visible point instead. Then they
-specify coordinates as four numbers <math>x1</math>, <math>y1</math>, <math>x2</math>, <math>y2</math>. To set same
-viewpoint in XaoS, calculate <math>(x1+x2)/2</math> and set it as real part of
-center. Imaginary part of center is <math>(y1+y2)/2</math>. Radius is larger of
-<math>x2-x1</math> and <math>y2-y1</math>.
+People specify fractal coordinates in many ways. Some people use the coordinates
+of the upper-left and lower-right visible points, specifying the coordinates as four
+numbers <math>x1</math>, <math>y1</math>, <math>x2</math>, <math>y2</math>.
+To set the same viewpoint in XaoS, set the real portion of the center to
+<math>(x1+x2)/2</math>, the imaginary part of center to <math>(y1+y2)/2</math>, and
+the radius to the greater of <math>x2-x1</math> and <math>y2-y1</math>.
 <p>
-Other programs uses zoom factor instead of radius. Then you might set radius to <math>2/zoom</math>.
+Other programs use a zoom factor instead of a radius. For these, you can set the
+radius to <math>2/zoom</math>.
 <p>
 <emph>Available as</emph>: menu item
 <p><emph>Syntax</emph>:(view float float float float)
 <p>
-This function is used to set visible area of fractal from the animation
-files. It don't let you specify the angle, which can be controlled by separate function 
-<tt>angle</tt>, but lets you specify ellipse instead of circle. You might
-specify both real and imaginary radius, so you have better control of area
-that will be visible. XaoS will choose smallest possible area containing this
-ellipse, which is not shrinked.
+This function is used to set the visible area of fractal in animation files.
+It doesn't let let you specify the angle, (for that, see the separate function 
+<tt>angle</tt>), but lets you specify an ellipse instead of a circle. You can
+specify both a real and an imaginary radius, so you have better control over the
+area that will be visible. XaoS will size the image so that the ellipse only just
+fits on the screen.
 <p>
 <emph>Available as</emph>: command line option, command
 <p><emph>Syntax</emph>:(angle float)
 <p>
-Set rotation angle in degrees. By default this causes recalculation of screen.
-You might enable <a rotate>fast rotation mode</a>. This will let you
-rotate screen without recalculation, but will slow down other thinks, so don't
-forget to disable it later.
+Set the rotation angle in degrees. By default this causes recalculation of the
+screen. You can enable the <a rotate>fast rotation mode</a>, which lets you
+rotate the screen without recalculation; but it slows down other things, so
+don't forget to disable it later.
 <p>
 <emph>Available as</emph>: command line option, command
-
 
 <node initstate, uiview, plane, fractal>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1937,13 +1953,12 @@ forget to disable it later.
 <head>Reset to defaults</head>
 <p><emph>Syntax</emph>:(initstate)
 <p>
-This function resets most of XaoS values to the defaults. It is useful in
-cases you are lost and you want to start from the beginning. Also it should be
-used as the first command of every animation file to ensure that it will be
-played always in the same environment.
+This function resets most of XaoS' values to their defaults. It is useful when
+you get lost and want to start from the beginning. It should also be used
+as the first command of every animation file, to ensure that the file is always
+played with the same settings in effect.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
-
 
 <node plane, initstate, incoloring, fractal>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1951,35 +1966,33 @@ played always in the same environment.
 <head>Plane</head>
 <p><emph>Syntax</emph>:(plane integer)
 <p>
-All fractals displayed by XaoS are     
-function with complex parameter.       
-It can be displayed in normal complex  
-plane where x is real part of number   
-and y is imaginary. But may be also    
-displayed in some more funny modes:
+All fractals displayed by XaoS are functions with a complex parameter.
+They can be be displayed in the normal complex plane where the <tt>x</tt>
+coordinate is the real part of the number and the <tt>y</tt> is imaginary;
+but they can also be displayed differently:
 <dl>
-<dt><math>mu</math>                                
-<dd>normal complex plane                    
+<dt><math>mu</math>
+<dd>Normal complex plane (default)
 <dt><math>1/mu</math>
-        <dd>Inversion-infinity is in 0 and   
-        0 is in infinity.                
+        <dd>Inversion--infinity is at 0 and
+        0 is at infinity.
 <dt><math>1/(mu+0.25)</math>
-        <dd>Similar to inversion but moves   
-        center outside of Mandelbrot     
-        so it looks parabolic            
+        <dd>Similar to inversion, but moves
+        the center outside the Mandelbrot set,
+        so it looks parabolic.
 <dt><math>lambda plane</math>, <math>1/lambda</math>, <math>1/lambda-1</math>
-<dd>Lambda planes and its inversions with different center.
+<dd>Lambda plane and its inversion, and with a different center.
 <dt><math>1/(mu-1.40115)</math>
-        <dd>Very interesting mode for        
-        Mandelbrot set. Makes small      
-        thinks big. So you can           
-        browse its details.              
+        <dd>A very interesting mode for the
+        Mandelbrot set, this makes small
+        things large, for easier browsing
+        of the set's details.
 </dl>
-You might also try <tutor plane.xaf>tutorial about planes</tutor> to see some examples.
+The <tutor plane.xaf>tutorial about planes</tutor> has some examples.
 <p>
 
 <p>
-In the scripting language, planes are numbered as follows:
+In the scripting language, the planes are numbered as follows:
 <p>
 <dl>
 <dt>0
@@ -2006,24 +2019,28 @@ In the scripting language, planes are numbered as follows:
 <head>Inside coloring mode</head>
 <p><emph>Syntax</emph>:(incoloring integer)
 <p>
-Areas inside the set are usually filled by the black color. Alternatively you
-might use different ways in order to make fractal more interesting. Value of
-the latest orbit should be used to specify color. It is the only method to
-make visible areas inside the set. You might also try tutorial 
+Areas inside the set are usually filled in black, but this is only a convention;
+you could color them in differently to make the fractal look more interesting.
+The only method available to make areas inside the set visible is to display
+the value of the latest orbit as the value of each pixel.
 <p>
-XaoS has many different
-modes for doing this. The cryptic names of modes are mathematical formulas,
-where <emph>real</emph> means real part of the latest orbit, <emph>imag</emph>
-imaginary part. <emph>zmag</emph> takes magnitude of the latest value. The
-<emph>Decomposition-like</emph> method uses angle of the orbit. Also truecolor
-incoloring modes are available.
+The <tutor incolor.xaf>tutorial on incoloring</tutor> has more information and
+examples.
+<p>
+XaoS has many different ways to show that value. The cryptic names of the modes
+are mathematical formulae, where <emph>real</emph> means the real part of the
+latest orbit, and <emph>imag</emph> means the imaginary part. <emph>zmag</emph>
+uses the magnitude of the value. The <emph>Decomposition-like</emph> method uses
+the angle of the orbit. Also, <a tcolor>truecolor</a> incoloring modes are available, that
+display one value in each of the red, blue and green color planes (or, for some
+modes, in each of the hue, saturation and value planes).
 
-In the scripting language, incoloring mode is specified by the integer value with
-following meaning:
+In the scripting language, the incoloring mode is specified by one of the
+following integers:
 <p>
 <dl>
 <dt>0
-<dd><math>0</math>
+<dd><math>0</math> (default)
 <dt>1
 <dd><math>zmag</math>
 <dt>2
@@ -2043,7 +2060,8 @@ following meaning:
 <dt>9
 <dd>squares
 <dt>10
-<dd>Truecolor. To set exact parameters for truecolor coloring use <a tcolor><tt>tcolor</tt></a>.
+<dd>Truecolor. To set exact parameters for truecolor coloring use the
+<a tcolor><tt>tcolor</tt></a> command.
 </dl>
 <p>
 <emph>Available as</emph>: command line option, command
@@ -2054,21 +2072,30 @@ following meaning:
 <head>Outside coloring mode</head>
 <p><emph>Syntax</emph>:(outcoloring integer)
 <p>
-Concept of outcoloring modes is similar to <a incoloring>inside coloring mode</a> but for areas outside set. The value of latest orbit is used to calculate color of pixel. This should make image
-more interesting. You might try tutorial ``<tutor outcoloring.xaf>Outcoloring modes</tutor>''
-to see some examples.
+Outcoloring modes are similar to <a incoloring>incoloring modes</a>, but indicate
+how to display the areas outside the set instead. As with incoloring modes, the
+value of the latest orbit can be used to determine the color of each pixel, but the
+default is to use the number of iterations needed for the value at that point to become
+recognisably divergent as the color.
 <p>
-The cryptic names of modes are mathematical formulas,
-where <emph>real</emph> means real part of the latest orbit, <emph>imag</emph>
-imaginary part. <emph>binary decomposition</emph> uses different color in
-case imaginary part of orbit is lower than zero, <emph>smooth</emph> attempts
-to remove the stripes.   Also truecolor <a tcolor>coloring modes</a> are available.
+The <tutor outcolor.xaf>tutorial on outcoloring</tutor> has more information and
+examples.
 <p>
-In the scripting language, incoloring mode is specified by the integer value with following meaning:
+The cryptic names of the modes are mathematical formulae, where <emph>iter</emph>
+means the number of iterations required for the value to become recognisably divergent,
+<emph>real</emph> means the real part of the latest orbit, and <emph>imag</emph>
+means the imaginary part. <emph>binary decomposition</emph> uses a different color
+when the imaginary part of the orbit is lower than zero, and <emph>smooth</emph>
+attempts to remove stripes and discontinuities. Also, <a tcolor>truecolor</a> outcoloring
+modes are available, that display one value in each of the red, blue and green color planes
+(or, for some modes, in each of the hue, saturation and value planes).
+<p>
+In the scripting language, the outcoloring mode is specified by one of the following
+integers:
 <p>
 <dl>
 <dt>0
-<dd><math>iter</math>
+<dd><math>iter</math> (default)
 <dt>1
 <dd><math>iter+real</math>
 <dt>2
@@ -2101,23 +2128,26 @@ In the scripting language, incoloring mode is specified by the integer value wit
 <p><emph>Syntax</emph>:(outtcoloring integer)
 <p>
 Truecolor coloring modes are similar to <a incoloring>incolor</a> and <a
-outcoloring>outcolor</a> coloring modes. The difference is, that they don't
-use palette, but calculates directly three components--red, green and blue.
-This lets you to display more information about fractal and produces quite
-interesting results. At 8bpp displays you need to enable <a palettef>palette
-emulator filter</a> first to see anything. You might try tutorial 
-``<tutor truecol.xaf>Truecolor coloring modes</tutor>'' to see some examples.
+outcoloring>outcolor</a> coloring modes; but instead of using a palette,
+they directly calculate the red, green and blue components of the color.
+This lets you display more parameters at once, and produces interesting
+and often attractive results. On 8bpp displays you need to enable the
+<a palettef>palette emulator filter</a> first to see anything, amd the quality
+won't be so good, as far fewer colors are available per parameter.
 <p>
-The cryptic names of formulas are always three mathematical formulas (each for
-every color component),
-where <emph>real</emph> means real part of the latest orbit, <emph>imag</emph>
-imaginary part. 
+The <tutor truecol.xaf>tutorial on truecolor coloring modes</tutor> has more
+information and examples.
 <p>
-To enable inside/outside truecolor coloring mode in scripting language, set
-<tt>incoloring</tt>/<tt>outcoloring</tt> value to 10 (truecolor coloring
-mode).
+The cryptic names of the modes are always three mathematical formulae (one for
+each color component), where <emph>real</emph> means the real part of the latest
+orbit, and <emph>imag</emph> means the imaginary part. 
 <p>
-Number select formula as follows:
+To enable inside/outside truecolor coloring mode in the scripting language,
+set <tt>incoloring</tt>/<tt>outcoloring</tt> value to 10 (truecolor coloring
+mode) before (or after) calling <tt>intcoloring</tt> or <tt>outtcoloring</tt>.
+<p>
+In the scripting language, the coloring mode is specified by one of the following
+integers:
 <p>
 <dl>
 <dt>0
@@ -2144,21 +2174,19 @@ Number select formula as follows:
 <p>
 <emph>Available as</emph>: command line option, command
 
-
-
 <node calc, fractal, mfilter, menus>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %calc
 
 <menuhead><head>Calculation</head></menuhead>
-This menus contains functions to control calculation parameters such as
-maximal number of iteration or periodicity checking.
+This menu contains functions that control calculation parameters such as
+the maximum iteration count and periodicity checking.
 <menuitems><center>
 <p><a range>Solid guessing</a>
 <p><submenu><a dynamic>Dynamic resolution</a>
 <p><a periodicity>Periodicity checking</a>
 <p><a maxiter>Iterations</a>
-<p><a fastjulia>Fast julia mode</a>
+<p><a fastjulia>Fast Julia mode</a>
 <p><a dynamic>Dynamic resolution</a>
 <p><a rotate>Rotation</a>
 </center></menuitems>
@@ -2168,11 +2196,12 @@ maximal number of iteration or periodicity checking.
 <head>Solid guessing range</head>
 <p><emph>Syntax</emph>:(range integer)
 <p>
-XaoS performs an solid guessing optimization: in case that all corners of
-rectangle has same color it expect that whole rectangle is solid and don't
-calculate points inside set. This optimization saves lots of calculation, but
-sometimes introduces errors. This value alters size of maximal rectangle,
-which can be guessed. Default value is 4, use 0 to disable this feature.
+XaoS has a solid guessing optimization: if all corners of a rectangle have
+the same color, it assumes that the whole rectangle is a solid colored block,
+and doesn't calculate points inside the rectangle. This optimization saves
+lots of calculation, but sometimes introduces errors. This value alters the
+maximum size of the rectangle that can be guessed at one time. The default
+value is 3; use 0 to disable the optimization.
 <p>
 <emph>Available as</emph>: command line option, command
 
@@ -2182,31 +2211,38 @@ which can be guessed. Default value is 4, use 0 to disable this feature.
 <head>Periodicity checking</head>
 <p><emph>Syntax</emph>:(periodicity bool)
 <p>
-Periodicity checking is one of way to speed up calculation. Areas inside set
-needs <a maxiter><tt>maxiter</tt></a> iterations to calculate, that point is
-most probably inside set. One of tricks to avoid this calculation is
-periodicity checking. Often the trajectory of orbit gets into cycle, which you
-might detect and stop calculation, since it is sure, that orbit will never
-leave it.
+Periodicity checking is one way to speed up the calculation. Areas inside the
+set always need <a maxiter><tt>maxiter</tt></a> iterations to determine that
+the point is probably inside the set (while it is rare for areas outside to
+need anywhere near that much). Often the orbital trajectory falls into a
+periodic, repeating cycle; if that can be detected, the calculation can be
+stopped early, as there's no way that the orbit can ever leave the cycle
+again (hence it cannot diverge, hence the point must be inside the set).
 <p>
-Implementation of this method is quite problematic. It slows down in cases,
-where cycles are not found and also checking of cycle is quite hard work.
-Because of inexact calculations, cycle is never exact, so you need to use some
-error value. Higher error value means, that cycle will be detected sooner,
-whole lower error value means more exact calculation. Higher values introduces
-serious mistakes especially at the front of the Mandelbrot set. XaoS detects
-this value automatically and it is correct for the most cases, but sometimes
-it might be wrong. Also other optimizations in XaoS (such as boundary trace)
-don't give much chance to this method, since areas inside set are usually not
-calculated.
+Implementating this method efficiently is quite problematic. It slows down
+the cases where cycles are not found, because cycle-checking is quite hard work
+and has to take place for all points, even those that don't become cyclic.
+Because of the inexactness of floating-point calculations, the cycles are
+never exact, so you need to use an error value. Higher error values mean that
+cycles will be detected sooner, while lower error values increase the
+exactness of the calculation. Higher values can introduce serious errors,
+especially at the front of the Mandelbrot set. XaoS detects this automatically
+and corrects for it in most cases, but sometimes it might be wrong. Also,
+other optimizations in XaoS (such as boundary tracing) don't give this method
+much of a chance to run, since areas inside the set are usually not
+calculated at all.
 <p>
-Thats why advantages of this method are disputable. You might experiment with
-enabling/disabling it. Sometimes it is faster when enabled, sometimes when
-disabled. Also this method works only in the case <a incoloring>incoloring</a> methods are
-disabled and just at certain fractal types.
+That's why the advantages of this optimization are questionable. You should
+probably experiment with enabling and disabling it. Sometimes XaoS is faster
+with this enabled, sometimes when disabled. Also, this method works only
+when <a incoloring>incoloring</a> methods are disabled, and only for some
+fractal types (some fractal types, e.g. newton, don't have any concept of
+an area `inside the set' at all.)
 <p>
-You might try tutorial ``<tutor escape.xaf>Escape time fractals</tutor>'' for
-more information about calculation of fractal.
+The tutorial chapter ``<tutor escape.xaf>Escape time fractals</tutor>'' has
+more information on fractal calculation in XaoS, and there is a lengthy
+section in the hacker's manual (<tt>xaosdev.texinfo</tt>) devoted to the
+subject.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -2216,37 +2252,41 @@ more information about calculation of fractal.
 <head>Iterations</head>
 <p><emph>Syntax</emph>:(maxiter integer)
 <p>
-When fractal set is calculated, an trajectory of orbit is examined for each
-point. In case orbit leaves to infinity, point is outside set. Otherwise orbit
-is inside set. For exact calculation you need to know whole trajectory of
-orbit, which has infinite number of positions for areas inside set. So fractal
-can not be calculated exactly. By default XaoS calculates maximally 170
-positions (iterations) and then gives up and in case, point is still inside
-the bail-out, it guesses, that point is inside set.
+When the fractal set is calculated, a orbital trajectory is examined for each
+point. If the orbit diverges to infinity, the point is outside the set.
+Otherwise, the point is inside the set. For exact calculations, you need to
+know the entire orbital trajectory, which is infinitely long for areas inside
+the set, so fractals cannot be calculated exactly. By default, XaoS calculates
+at most 170 positions (iterations) and then gives up; if the point is still
+inside the bail-out value, it guesses that the point is inside the set.
 <p>
-When zoomed into detail area, this value should become low and fractal will
-be boring. You might try to increase this value (and decrease speed of
-calculation) if you want to get image interesting again.
+When zoomed into a detailed area, especially one close to the set boundary,
+this value could become too low, and the fractal will become boring.
+You might try increasing this value if you want to get the image interesting
+again; but this necessarily slows down the calculation at the same time.
 <p>
-You might try tutorial ``<tutor escape.xaf>Escape time fractals</tutor>'' for
-more information about calculation of fractal.
+The tutorial chapter ``<tutor escape.xaf>Escape time fractals</tutor>'' has
+more information on fractal calculation in XaoS, and there is a lengthy
+section in the hacker's manual (<tt>xaosdev.texinfo</tt>) devoted to the
+subject.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
 <node fastjulia, maxiter, dynamic, calc>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %fastjulia
-<head>Fast julia mode</head>
+<head>Fast Julia mode</head>
 <p><emph>Syntax</emph>:(fastjulia bool)
 <p>
-By default, changing of seed for the julia set requires recalculation of the
-image (which is quite slow). It is nice effect to change seed smoothly and make
-morphing animations. XaoS has special algorithm, which can calculate such
-morphings at real-time. It is very inexact, but it is good for first preview.
+By default, changing the seed for the Julia set requires recalculation of the
+image (which is quite slow). It's a nice effect to change the seed smoothly and
+show the Julia set morphing as the seed changes. XaoS has a special algorithm
+which can calculate such morphings in realtime. It is very inexact, but it is
+good enough for a fast preview.
 <p>
-If you want to select good seedpoint, enable fast julia mode and find some
-nice place by dragging first mouse button.
-Then change to the <a uimandelbrot>julia mode</a> to get exact image.
+If you want to select a good seedpoint, enable fast Julia mode and find a
+nice place by dragging with the first mouse button depressed; then change to
+the <a uimandelbrot>Julia mode</a> to see the exact image.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -2257,14 +2297,14 @@ Then change to the <a uimandelbrot>julia mode</a> to get exact image.
 <menuhead><head>Dynamic resolution</head></menuhead>
 <p><emph>Syntax</emph>:(fastmode keyword)
 <p>
-XaoS performs many optimizations, but quite often it is not enough. In order
-to keep high framerate, XaoS automatically lowers the resolution and increases
-it back in case he has some free time. This feature is by default enabled in
-animation, but you might also enable it for the new images (then it creates
-nice effects when image is recalculated) or disable is completely if you
-don't like it.
+XaoS performs many optimizations, but fairly often this is not enough. In order
+to keep a high framerate, XaoS automatically lowers the resolution of the image,
+increasing it when there is time for more calculation. This feature is enabled by
+default when animating, but you might also like to enable it for new images
+(which makes the image `come into focus' when it is recalculated from scratch for
+whatever reason), or disable it completely if you don't like it.
 <p>
-Keyword should be one of the following:
+In the scripting languge, the keyword should be one of the following:
 <dl>
 <dt><tt>'never</tt>
 <dd>Disable dynamic resolution
@@ -2279,31 +2319,32 @@ Keyword should be one of the following:
 
 <menuhead><head>Image rotation</head></menuhead>
 
-XaoS has also support for image rotation. The image should be rotated to
-arbitrary angle. By default changing of angle requires recalculation of the
-whole screen, but when <emph>fast rotation mode</emph> is enabled, angle
-should be changed smoothly. In this mode XaoS calculates larger non-rotated
-image and rotates it later, so it increases memory requirements and slows
-down, so it should be disabled, when rotation is not used.
+XaoS has support for rotation of the image to any angle. By default, changing
+the angle requires recalculation of the whole screen, but when
+<emph>fast rotation mode</emph> is enabled, the angle can be changed smoothly.
+In this mode XaoS calculates a larger non-rotated image and rotates it when
+needed, so it increases memory requirements and slows XaoS down; hence, it
+should be disabled when rotation is not being used.
 <p>
-User interface should be set to two rotation modes--<emph>rotate by
-mouse</emph> when you should by dragging first mouse button change angle,
-or <emph>continuous rotation mode</emph>, where image is rotated continuously.
-You might use arrow keys to change speed.
+The user interface provides two rotation modes--<emph>rotate by
+mouse</emph> which allows the angle to be changed by dragging with the first
+mouse button depressed, and <emph>continuous rotation mode</emph>, where the image
+is rotated clockwise continuously, and the arrow keys can be used to change
+the rotiation speed.
 <p><emph>Syntax</emph>:(fastrotate bool)
 <p>
-This function should be used to enable and disable fast rotation mode
+This function is used to enable and disable fast rotation mode.
 <emph>Available as</emph>: command line option, command
 <head>Automatic rotation</head>
 <p><emph>Syntax</emph>:(autorotate bool)
 <p>
 Use this function to enable continuous rotation. In the scripting language you
-might use also function <a morphangle><tt>morphangle</tt></a> to get similar
-effect.
+can also use <a morphangle><tt>morphangle</tt></a> to get an outwardly similar
+but more controllable effect.
 <p><emph>Syntax</emph>:(rotationspeed float)
 <p>
-Specify continuous rotation speed. Speed is set in the angle per seconds value.
-Negative values are allowed and means opposite direction
+Specify the speed of continuous rotation, in degrees per second.
+Negative values are allowed and rotate anticlockwise.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -2314,9 +2355,10 @@ Negative values are allowed and means opposite direction
 %mfilter
 
 <menuhead><head>Filters</head></menuhead>
-Filters are post-calculation effect applied to the resulting image. They
-should perform effects like motion-blur, emulation of different videomode and
-such. You might try also an tutorial about <tutor filter.xaf>filters</tutor>.
+Filters are a post-calculation effect applied to the resulting image. They
+can do things like motion blurring, edge detection, emulation of palettes
+or truecolor on displays that can't handle them, and such things. There is
+a <tutor filter.xaf>tutorial chapter</tutor> about them.
 <p>
 <menuitems><center>
 <p><a filter>Filter command</a>
@@ -2325,7 +2367,7 @@ such. You might try also an tutorial about <tutor filter.xaf>filters</tutor>.
 <p><a starfield>Starfield</a>
 <p><a stereogram>Random dot stereogram</a>
 <p><a interlace>Interlace filter</a>
-<p><a blur>Motionblur</a>
+<p><a blur>Motion blur</a>
 <p><a emboss>Emboss</a>
 <p><a palettef>Palette emulator</a>
 <p><a anti>Antialiasing</a>
@@ -2337,8 +2379,9 @@ such. You might try also an tutorial about <tutor filter.xaf>filters</tutor>.
 <head>Filter command</head>
 <p><emph>Syntax</emph>:(filter keyword bool)
 <p>
-This command should be used to enable/disable various <a mfilter>filters</a>.
-<emph>Keyword</emph> specifies filter and should be one of the following:
+This command is used to enable or disable <a mfilter>filters</a>.
+The <emph>keyword</emph> specifies the filter to change, and should be one of
+the following:
 <p>
 <dl>
 <dt><tt>'edge</tt>
@@ -2352,7 +2395,7 @@ This command should be used to enable/disable various <a mfilter>filters</a>.
 <dt><tt>'interlace</tt>
 <dd><a interlace>Interlace filter</a>
 <dt><tt>'blur</tt>
-<dd><a blur>Motionblur</a>
+<dd><a blur>Motion blur</a>
 <dt><tt>'emboss</tt>
 <dd><a emboss>Emboss</a>
 <dt><tt>'palette</tt>
@@ -2369,11 +2412,11 @@ This command should be used to enable/disable various <a mfilter>filters</a>.
 %edge
 <head>Edge detection</head>
 <p>
-This filter performs standard edge detection algorithm. Solid areas are
-filed in black color. This produces very interesting results at some fractals.
-This version of filter produces relatively wide lines, so it is useful
-especially in the higher resolution. The filter <a edge2>edge detection2</a>
-makes lines better for the low resolution modes.
+This filter is a standard edge detection algorithm; solid areas are filled
+in black. Some fractals look very interesting with this filter (and some
+areas of some fractals just look like noise). This version of the filter produces
+relatively wide lines, so is useful at higher resolutions. The filter
+<a edge2>edge detection2</a> makes thinner lines, for the low resolution modes.
 <notex>
 <p>
 <a filter>More information about filters</a>
@@ -2386,11 +2429,11 @@ makes lines better for the low resolution modes.
 %edge2
 <head>Edge detection2</head>
 <p>
-This filter performs standard edge detection algorithm. Solid areas are
-filed in black color. This produces very interesting results at some fractals.
-This version of filter produces relatively tight lines, so it is useful
-especially in the lower resolution. The filter <a edge2>edge detection2</a>
-makes lines better for the high resolution modes.
+This filter is a standard edge detection algorithm; solid areas are filled
+in black. Some fractals look very interesting with this filter (and some
+areas of some fractals just look like noise). This version of the filter produces
+relatively tight lines, so is useful at lower resolutions. The filter
+<a edge>edge detection</a> makes thinner lines, for the high resolution modes.
 <notex>
 <p>
 <a filter>More information about filters</a>
@@ -2403,9 +2446,9 @@ makes lines better for the high resolution modes.
 %starfield
 <head>Starfield</head>
 <p>
-Starfields filter generates random stars depends at the number of iterations
-required to calculate of points. Choose your favorite spiral fractal and
-enable this filter to get galaxy.
+The starfield filter generates random stars whose density depends on the
+iteration count. Choose your favorite spiral fractal and enable this filter
+to get a Grand Design spiral galaxy :)
 <notex>
 <p>
 <a filter>More information about filters</a>
@@ -2418,82 +2461,92 @@ enable this filter to get galaxy.
 %stereogram
 <head>Random dot stereogram</head>
 <p>
-   Fractal images are also good as base for random dot stereogram. In
-   case you don't know what this mean, please point your browser to
-   altavista or other searching engine and find some article about this
-   images, because browsing such images is not easy. They makes possible
-   to generate three dimensional images at normal monitor without any
-   additional hardware.
+   Fractal images are good as a base for random dot stereograms. In
+   case you don't know what these are, please point your browser to
+   Google or another search engine and find some articles about such
+   images, because learning to read such images takes some effort. They
+   make it possible to generate three dimensional images on a normal monitor
+   without any additional hardware, by exploiting bugs in the human brain
+   (although you need two working eyes, and some people never learn to
+   see them; they can simply ignore this feature).
 <p>
-   XaoS is also able to generate this images in animation so you may use
-   all normal XaoS functions except palette changing/rotation, because this
-   is unnecessary. To make animation yet more exciting XaoS emulates
-   ``falling'' into the set. So during zooming distance from set is getting
-   lower and lower. But never lets you fall down so when set reaches level
-   of your monitor distance is changed again and you are far away.
+   XaoS is able to generate these images in animations, so you may use
+   all normal XaoS functions (except palette changing and palette rotation,
+   which makes no sense applied to a stereogram). To make the animation yet
+   more exciting, XaoS emulates ``falling'' into the set; while you zoom in,
+   your distance from the set drops and drops--but you never hit it; when the
+   set reaches the level of your monitor, the distance is changed again so
+   you are far away.
 <p>
-   To make this in real sizes xaos needs to know <emph>exact sizes of your
-   monitor</emph>. Because most platforms does not know this values you need to
-   use <emph>command line options</emph> to tune this. Otherwise you should have
-   problems with seeing anything in images generated by XaoS (in case
-   your monitor is too big or resolution low). Or images are not as deep
-   as normaly (in case your monitor small or resolution high).
+   To make this work right, XaoS needs to know the <emph>exact size of your
+   monitor</emph>. Because most platforms have no way to determine this, you need to
+   use <emph>command line options</emph> to tune it. If it's not set or is wrong,
+   the stereograms will probably be impossible to see (if your monitor is too
+   big or resolution too low), or the images will seem to be shallow (if your
+   monitor is too small or resolution too high).
 <p>
-   By default xaos expect my 15" monitor (29.0cm x 21.5 cm). Another
-   problem is virtual screen supported by some windowed environments(like
-   X11) that makes program think that resolution is higher and you see
-   just part of this screen. This cause problem with recalculation screen
-   size to pixel size.
+   By default XaoS expects my 15" monitor (29.0cm x 21.5 cm). Another
+   cause of problems is the virtual screen supported by some windowed
+   environments (like some X servers) that makes a program think that the
+   resolution is higher than it actually is, and you see only part of
+   this extra-large screen.
 <p>
-   The worst think you should do at all is to run full-screen XaoS in some
-   graphical window(windows 95 or OS/2 ?) where XaoS don't know that real
-   size of his window is different.
+   The worst thing you could possibly do is to run full-screen XaoS in some
+   graphical windowing system (OS/2 on top of Windows or Wine on top of Linux,
+   perhaps) where XaoS can't tell the real size of its window at all. In such
+   cases, it's normally better (not to mention faster) to run XaoS natively,
+   rather than under such an emulation layer.
 <p>
-   Following command line options are provided for this.
+   The following command line options are provided to specify sizes:
 <p>
 <dl>
 <dt><tt>-screenwidth</tt>, <tt>-screenheight</tt>
-          <dd>lets you specify size of your screen in centimeters. Note that
-          you need to specify size of image at you monitor. Not size with
-          some borders or such.
-  
+          <dd>Lets you specify the size of your screen in centimeters. Note that
+          you need to specify the size of the visible image on the monitor, not
+          the size with edge borders, or the size of the tube. The simplistic
+          `my monitor is 17", just turn 17" into centimeters' doesn't work;
+          that 17" is a marketing figure and has only a vague connection to
+          reality. Get out a ruler and measure it.
+
    <dt><tt>-pixelwidth</tt>, <tt>-pixelheight</tt>
-          <dd>lets you specify exact size of one pixel in cases I described
-          bellow.
+          <dd>Lets you specify the exact size of a single pixel, if XaoS cannot
+          determine this for itself from your screen size.
 </dl>
 <p>
-   This options are used by some other parts of XaoS too. So you should
-   use them even you don't want to see stereograms. You should write
-   small starting script that passes correct parameters.
+   These options are used by some other parts of XaoS as well, so you should
+   use them even when you don't want to see stereograms. You should probably
+   write a small starting script (or alias, or shortcut; whatever your environment
+   uses) that passes the correct parameters to XaoS.
 <p>
-   Another problem should happen when <emph>window is smaller than 8cm</emph>. In
-   this case you will be unable to see anything.
-   
-   So correct way to see XaoS stereogram is:
+   If the window is <emph>smaller than 8cm in any direction<emph>, you will probably be
+   unable to see anything; make the window bigger.
+
+   The correct way to see XaoS stereograms is:
 <dl>
     <dt>1
-    <dd>start XaoS with options specifying correct size of screen or pixel
+    <dd>Start XaoS with options specifying the exact size of your screen or one pixel on it
      <dt>2
      <dd>Sit 60cm away from monitor
      <dt>3
-     <dd>In case you use windowed environment resize XaoS window to make it wider than, say, 15 cm.
+     <dd>If you use a windowed environment, resize XaoS' window to make it wider than, say, 15 cm.
      <dt>4
-     <dd>Enable filter (by pressing <tt>E</tt>)
+     <dd>Enable the filter (by pressing <tt>E</tt>)
      <dt>5
-     <dd>concentrate far away from monitor (you should try to use your
-       reflection) until random points will get into different
-       distances and you will see Mandelbrot
+     <dd>focus on a point far away from the monitor (try to use your
+       own reflection, if your monitor's not antireflective); the random blurring should
+       eventually fall into the pattern of a Mandelbrot set.
      <dt>6
-     <dd>Carefully use you mouse to zoom into interesting areas
-     (it is easy to lose concentration when you are not trained. Or use autopilot.
+     <dd>Carefully use your mouse to zoom into interesting areas
+     (it is easy to lose concentration when you are not trained; but you can use
+     the autopilot...)
      <dt>7
      <dd>Enjoy animation :)
 </dl>
 <p>
-   Last problem should be that fractal is deformed. This can be caused by
-   wrong geometry of your monitor. Eye is extremely sensible for distances
-   so should see very small changes in geometry that are normally
-   invisible.
+   If you still can't see the stereograms, it could be that the fractal, or your eye,
+   is deformed. A deformed fractal can be caused by your specifying your monitor size
+   wrongly. Visual problems that damage depth perception, as well as problems like
+   astigmatism, can make it impossible to see stereograms at all.
 <notex>
 <p>
 <a filter>More information about filters</a>
@@ -2507,9 +2560,9 @@ enable this filter to get galaxy.
 %interlace
 <head>Interlace filter</head>
 <p>
-Interlace filter reduces horizontal resolution and in each frame draws just
-even or odd lines. This speeds up calculation and in higher resolutions
-produces motion-blur like effect.
+The interlace filter halves the horizontal resolution, and in each frame alternates
+between drawing only the even and only the odd lines. This speeds up the
+calculation, and in higher resolutions produces a motion-blur-like effect.
 <notex>
 <p>
 <a filter>More information about filters</a>
@@ -2520,11 +2573,12 @@ produces motion-blur like effect.
 <node blur, interlace, emboss, mfilter>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %blur
-<head>Motionblur</head>
+<head>Motion blur</head>
 <p>
-Motion blur mixes current frame with previous ones in order to produce
-motion-blur effect. It might be quite slow in 16bpp truecolor modes. Best
-results produces probably in 8bpp modes, so you might try to enable <a palettef>palette filter first</a>
+Motion blur mixes the current frame with previous ones to produce a
+motion-blur effect. It might be rather slow in 16bpp truecolor modes. The best
+results can probably be seen in 8bpp modes, so you might want to enable the
+<a palettef>palette filter</a> first.
 <notex>
 <p>
 <a filter>More information about filters</a>
@@ -2537,8 +2591,9 @@ results produces probably in 8bpp modes, so you might try to enable <a palettef>
 %emboss
 <head>Emboss</head>
 <p>
-This is an standard emboss filter well known from programs such as GIMP or
-Photoshop. It produces nice results especially with smooth <a incoloring>incoloring mode</a>.
+This is a standard emboss filter, as seen in programs such as the GIMP or
+Photoshop. It produces especially nice results with the smooth
+<a outcoloring>outcoloring mode</a>.
 <notex>
 <p>
 <a filter>More information about filters</a>
@@ -2551,12 +2606,13 @@ Photoshop. It produces nice results especially with smooth <a incoloring>incolor
 %palettef
 <head>Palette emulator</head>
 <p>
-XaoS should work in palette or <a truecolor>truecolor</a> mode. Both modes have its advantages
-and disadvantages. Palette mode allows effect such as palette rotation and
-truecolor mode allows smoother <a incoloring>incoloring</a>
-and <a outcoloring>outcoloring</a> modes and 
-<a tcolor>truecolor coloring mode</a>. If your display is truecolor, you
-might enable this filter to get palette emulation.
+XaoS can work in either palette or <a truecolor>truecolor</a> mode. Both modes
+have advantages and disadvantages. Palette mode allows effects such as palette
+rotation, while truecolor mode allows smoother <a incoloring>incoloring</a>
+and <a outcoloring>outcoloring</a> modes and the
+<a tcolor>truecolor coloring</a> modes. If your display is truecolor, you
+can enable this filter to get palette emulation (albeit not as cheaply as in
+a real paletted mode).
 <notex>
 <p>
 <a filter>More information about filters</a>
@@ -2569,13 +2625,15 @@ might enable this filter to get palette emulation.
 %anti
 <head>Antialiasing</head>
 <p>
-Antialiasing is one of techniques how to increase image quality. XaoS then
-calculates four values for each pixel and uses average of them. This makes
-boundaries look better.
+Antialiasing is a technique to increase image quality by eliminating jagged
+edges. XaoS calculates four values for each pixel (on the subpixel boundaries)
+and uses the average of them for the pixel value.
 <p>
-This filter slows down a much and highly increases memory requirements. But it
-is useful, when you want to save better images. Antialiasing helps a much
-when you want to encode JPEG or MPEG files. They are much shorter then.
+This filter slows XaoS down a <emph>lot</emph> and greatly increases memory
+requirements. It is useful mainly when you want to save images and want to make
+them look as nice as possible. Antialiasing also helps a lot when you want to
+encode JPEG or MPEG files; they are much shorter if antialiased (MPEG and JPEG
+hate jagged edges).
 <notex>
 <p>
 <a filter>More information about filters</a>
@@ -2588,12 +2646,13 @@ when you want to encode JPEG or MPEG files. They are much shorter then.
 %truecolor
 <head>Truecolor emulator</head>
 <p>
-XaoS should work in <a palettef>palette</a> or truecolor mode. Both modes have its advantages
-and disadvantages. Palette mode allows effect such as palette rotation and
-truecolor mode allows smoother <a incoloring>incoloring</a>
-and <a outcoloring>outcoloring</a> modes and 
-<a tcolor>truecolor coloring mode</a>. If your display is 8bpp, you
-might enable this filter to get truecolor emulation.
+XaoS can work in either <a palettef>palette</a> or truecolor mode. Both modes
+have advantages and disadvantages. Palette mode allows effects such as palette
+rotation, while truecolor mode allows smoother <a incoloring>incoloring</a>
+and <a outcoloring>outcoloring</a> modes and the
+<a tcolor>truecolor coloring</a> modes. If your display is 8bpp, you can enable
+this filter to get truecolor emulation (but, obviously, not with as many colors
+as a real truecolor display).
 <p>
 <a filter>More information about filters</a>
 <p>
@@ -2605,8 +2664,8 @@ might enable this filter to get truecolor emulation.
 
 <menuhead><head>UI</head></menuhead>
 
-This menus contains functions to control user interface layer of XaoS such as
-zooming speed and such.
+This menu contains functions to control the user interface layer of XaoS:
+zooming speed, the autopilot, realtime status information, and so on.
 
 <menuitems><center>
 <p><a speed>Zooming speed</a>
@@ -2624,25 +2683,26 @@ zooming speed and such.
 <head>Zooming speed</head>
 <p><emph>Syntax</emph>:(speed float)
 <p>
-Change zooming speed. 1 means default speed, 2 means twice as fast.
+Change zooming speed, where 1 is the default, 2 means twice as fast, and so on.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 <p>
-In the scripting language you might use following functions for better control
-of speed.
+In the scripting language you can use the following functions for better
+control:
 <p><emph>Syntax</emph>:(maxstep float)
 <p>
-Selects speed of zooming/UN-zooming. Step specifies how large
-amount of range will be taken away each 1/20 of second.
-(0 means nothing, 1 means everything--this value is incorrect)
-Higher values means faster zooming.
+Selects the zooming/unzooming speed. The parameter specifies how much of the
+range will be removed each twentieth of a second; 0 means nothing, 1 means
+everything (the parameter obviously has to be less than 1).
+Higher values mean faster zooming.
 <p>
 <emph>Available as</emph>: command
 <p><emph>Syntax</emph>:(speedup float)
-When zooming/UN-zooming every 1/20 of second the <tt>speedup</tt> value is added
-to current step until <tt>maxstep</tt> is reached. So this value selects
-speedup/slowdown of animation. Both this functions are more for internal
-use of XaoS then for manually wrote scripts.
+When zooming/unzooming, every twentieth of a second the <tt>speedup</tt>
+value is added to the current step until <tt>maxstep</tt> is reached.
+So this value selects the rate at which zooming stops and starts.
+Both these functions are more for internal use of XaoS then for manually
+written scripts, but they could come in useful nonetheless.
 <p>
 <emph>Available as</emph>: command
 
@@ -2652,9 +2712,9 @@ use of XaoS then for manually wrote scripts.
 <head>Letters per second</head>
 <p><emph>Syntax</emph>:(letterspersec integer)
 <p>
-Speed of subtitles for function <a textsleep><tt>textsleep</tt></a>. User can
-set this value to fit his own needs. It should be changed also by arrow keys
-during animation replay.
+Speed of subtitles for the <a textsleep><tt>textsleep</tt></a> function.
+The user can set this value to suit; it can also be changed with the left and
+right arrow keys during animation replay.
 <p>
 <emph>Available as</emph>: command line option, command
 
@@ -2664,16 +2724,16 @@ during animation replay.
 <head>Autopilot</head>
 <p><emph>Syntax</emph>:(autopilot bool)
 <p>
- To make XaoS yet more impressive we did special autopilot that
- automatically drives into interesting boundaries of set. So you should
+ To make XaoS yet more impressive, we made a special autopilot mode that
+ automatically drives into interesting boundaries of the set; you should
  press <tt>A</tt>, play your favorite music, drink coffee and relax. I never
- tried this but it should be really relaxing! Many pictures in XaoS
- gallery are discovered using autopilot.
+ tried this but it should be really relaxing! Many pictures in the XaoS
+ gallery were discovered using the autopilot.
 <p>
- Autopilot has also some additional features. It return back in case
- zoomed picture is not interesting anymore. Also is able to detect,
- when zoomed into really boring part or reached limit of floating point
- numbers and restart zooming.
+ The autopilot also has some additional features. It backtracks if the
+ zoomed picture is not interesting anymore, and can detect when it's zoomed
+ into really a boring part of the fractal or reached the limit of floating
+ point arithmetic on the platform, and restart zooming from the top.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -2683,8 +2743,9 @@ during animation replay.
 <head>Recalculate</head>
 <p><emph>Syntax</emph>:(recalculate)
 <p>
-Recalculate current fractal. This should be used when fractal at screen is
-strange because of error propagation caused by <a range>solid guessing</a>.
+Recalculate current fractal. This should be used when the fractal on the
+screen is strange because of error propagation caused by
+<a range>solid guessing</a>.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -2706,8 +2767,9 @@ Interrupt current calculation.
 <p><emph>Syntax</emph>:(nogui bool)
 <p>
 Disable XaoS menus and dialogs. This function should be used by external GUI
-programs, that changes parameters from pipe. See hacker's manual
-(<tt>xaosdev.texinfo</tt>) for more details.
+programs; these manipulate XaoS via a pipe, so the internal GUI should be
+disabled at the same time. See the hacker's manual (<tt>xaosdev.texinfo</tt>)
+for more details.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -2717,8 +2779,9 @@ programs, that changes parameters from pipe. See hacker's manual
 <head>Status</head>
 <p><emph>Syntax</emph>:(status bool)
 <p>
-Enable/disable status information. Status displays some useful information
-about current fractal, such as viewpoint etc.
+Enable/disable status information. This displays some useful information
+about the current fractal, such as viewpoint etc. (In low-resolution modes it
+also almost completely obscures the current fractal...)
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -2728,8 +2791,8 @@ about current fractal, such as viewpoint etc.
 <head>Ministatus</head>
 <p><emph>Syntax</emph>:(ministatus bool)
 <p>
-Enable/disable status line. This status contains basic information such as how
-much you are zoomed or framerate.
+Enable/disable status line. This contains basic information such as how
+much you are zoomed and the framerate.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -2738,7 +2801,7 @@ much you are zoomed or framerate.
 %misc
 
 <menuhead><head>Misc</head></menuhead>
-Miscelanely functions.
+Miscellaneous functions.
 <menuitems><center>
 <p><a command>Command</a>
 <p><a renderanim>Render animation</a>
@@ -2756,8 +2819,10 @@ Miscelanely functions.
 %command
 <head>Command</head>
 <p>
-You might invoke all XaoS functions also using command. This
-command has same syntax as in <a format>XaoS animation files</a>
+You can invoke all XaoS functions using a simple command language reminiscent
+of Scheme. This option lets you run a single command. If you want to run more
+than one, you might want to use an <a format>XaoS animation file</a> instead;
+they are written in the same language.
 <p>
 <emph>Available as</emph>: menu item
 
@@ -2766,8 +2831,8 @@ command has same syntax as in <a format>XaoS animation files</a>
 %renderanim
 <head>Render animation</head>
 <p>
-Render animation to image files. See <a mpeg>How to encode MPEG file</a> for
-description of the options.
+Render an animation to image files. See <a mpeg>How to encode MPEG files</a>
+for more information.
 <p>
 <emph>Available as</emph>: menu item,
 <node clearscreen, renderanim, display, misc>
@@ -2776,8 +2841,8 @@ description of the options.
 <head>Clear screen</head>
 <p><emph>Syntax</emph>:(clearscreen)
 <p>
-Clear screen. To display fractal again, use <a display><tt>display</tt></a>.
-This function is useful mainly for tutorials and similar animations.
+Clear the screen. To display the fractal again, use <a display><tt>display</tt></a>.
+This function is mainly useful in tutorials and similar animations.
 <p>
 <emph>Available as</emph>: menu item, command
 
@@ -2787,8 +2852,8 @@ This function is useful mainly for tutorials and similar animations.
 <head>Display fractal</head>
 <p><emph>Syntax</emph>:(display)
 <p>
-Display fractal. This functions disables effect of <tt>clearscreen</tt>, line
-drawing and text output functions.
+Display fractal. This functions reverses the effect of the <tt>clearscreen</tt>,
+line drawing and text output functions.
 <p>
 <emph>Available as</emph>: menu item, command
 
@@ -2798,15 +2863,14 @@ drawing and text output functions.
 <head>Display text</head>
 <p><emph>Syntax</emph>:(text string)
 <p>
-Display given text at screen. This function is useful mainly for tutorials.
-Text should be cleared by   printing space, 
-<a clearscreen><tt>clearscreen</tt></a>, or 
-<a display><tt>display</tt></a>
-function. You might also use <a textposition><tt>textposition</tt></a> command
-to select text position.
+Display the given text on the screen. This function is mainly useful in tutorials.
+Text should be cleared by printing lots of spaces, or using the
+<a clearscreen><tt>clearscreen</tt></a> or <a display><tt>display</tt></a>
+functions. You might also want to use the <a textposition><tt>textposition</tt></a>
+function to select the part of the screen to display the text on.
 <p>
-To wait time user needs to read text, you might use function 
-<a textsleep><tt>textsleep</tt></a>.
+To wait for the user to read the text, you can use the <a textsleep><tt>textsleep</tt></a>
+function.
 <p>
 Example:
 <p><tt>
@@ -2824,8 +2888,8 @@ Example:
 <head>Color</head>
 <p><emph>Syntax</emph>:(color keyword)
 <p>
-Change color of texts and lines. <emph>Keyword</emph> should be one of the
-following: <tt>'white</tt>, <tt>'black</tt> and <tt>'red</tt>.
+Change text and line color. <emph>keyword</emph> should be one of <tt>'white</tt>,
+<tt>'black</tt> and <tt>'red</tt>.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -2835,10 +2899,10 @@ following: <tt>'white</tt>, <tt>'black</tt> and <tt>'red</tt>.
 <head>Text position</head>
 <p><emph>Syntax</emph>:(textposition keyword keyword)
 <p>
-Select position for <a text>text</a>. First keyword specifies horizontal
-position and second vertical. Horizontal position should be one of the
-following: <tt>'left</tt>, <tt>'center</tt>, <tt>'right</tt>. Vertical one
-of following: <tt>'top</tt>, <tt>'middle</tt>, <tt>'bottom</tt>.
+Select <a text>text</a> position. The first keyword specifies the horizontal
+position, the second the vertical position. The horizontal position should be
+one of <tt>'left</tt>, <tt>'center</tt>, and <tt>'right</tt>.
+The vertical should be one of <tt>'top</tt>, <tt>'middle</tt>, and <tt>'bottom</tt>.
 <p>
 <emph>Available as</emph>: command line option, command
 
@@ -2848,9 +2912,10 @@ of following: <tt>'top</tt>, <tt>'middle</tt>, <tt>'bottom</tt>.
 <head>Message</head>
 <p><emph>Syntax</emph>:(message string)
 <p>
-This function is almost identical to function <a text><tt>text</tt></a>. It
-uses message catalogs in the <tt>catalog</tt> directory to translate message.
-It should be used only in the multi-lingual XaoS tutorials.
+This function is almost identical to the <a text><tt>text</tt></a> function,
+except that it uses message catalogs in the <tt>catalog</tt> directory to
+translate messages into other languages. It should be used only in the multi-lingual
+XaoS tutorials.
 <p>
 <emph>Available as</emph>: command line option, command
 
@@ -2870,7 +2935,7 @@ This menu contains help and tutorials.
 <head>Help</head>
 <p><emph>Syntax</emph>:(help)
 <p>
-Display main help page.
+Display the main help page.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 </notex>
@@ -2880,8 +2945,8 @@ Display main help page.
 %xtextpos
 
 <menuhead><head>Horizontal text position</head></menuhead>
-Select horizontal position for <a text>text</a>. It should be drawn at the
-left, in center or at right.
+Select the horizontal position used to display <a text>text</a>.
+It can be placed at the left, in the center or at the right.
 <notex>
 <menuitems><center>
 <p><a xtextleft>Left</a>
@@ -2893,7 +2958,7 @@ left, in center or at right.
 %xtextleft
 <head>Left</head>
 <p>
-Draw <a text>text</a> at the left side of screen.
+Draw <a text>text</a> at the left side of the screen.
 <p>
 <emph>Available as</emph>: menu item
 
@@ -2902,7 +2967,7 @@ Draw <a text>text</a> at the left side of screen.
 %xtextcenter
 <head>Center</head>
 <p>
-Draw <a text>text</a> in the center of screen.
+Draw <a text>text</a> in the center of the screen.
 <p>
 <emph>Available as</emph>: menu item
 
@@ -2911,7 +2976,7 @@ Draw <a text>text</a> in the center of screen.
 %xtexteight
 <head>Right</head>
 <p>
-Draw <a text>text</a> at the right side of screen.
+Draw <a text>text</a> at the right side of the screen.
 <p>
 <emph>Available as</emph>: menu item
 </notex>
@@ -2921,8 +2986,8 @@ Draw <a text>text</a> at the right side of screen.
 %ytextpos
 
 <menuhead><head>Vertical text position</head></menuhead>
-Select vertical position for <a text>text</a>. It should be drawn at the
-top, middle or bottom of screen.
+Select the vertical position used to display <a text>text</a>. It can be
+placed at the top, in the middle or at the bottom of the screen.
 <notex>
 <menuitems><center>
 <p><a ytextup>Up</a>
@@ -2934,7 +2999,7 @@ top, middle or bottom of screen.
 %ytextup
 <head>Up</head>
 <p>
-Draw <a text>text</a> at the top of screen.
+Draw <a text>text</a> at the top of the screen.
 <p>
 <emph>Available as</emph>: menu item
 
@@ -2943,7 +3008,7 @@ Draw <a text>text</a> at the top of screen.
 %ytextmiddle
 <head>Middle</head>
 <p>
-Draw <a text>text</a> in the middle of screen.
+Draw <a text>text</a> in the middle of the screen.
 <p>
 <emph>Available as</emph>: menu item
 
@@ -2952,7 +3017,7 @@ Draw <a text>text</a> in the middle of screen.
 %ytextbottom
 <head>Bottom</head>
 <p>
-Draw <a text>text</a> at the bottom of screen.
+Draw <a text>text</a> at the bottom of the screen.
 <p>
 <emph>Available as</emph>: menu item
 </notex>
@@ -2963,8 +3028,8 @@ Draw <a text>text</a> at the bottom of screen.
 
 <menuhead><head>formulae</head></menuhead>
 <p>
-Each escape time fractal has it's own formula. XaoS supports following
-formulas:
+Each escape time fractal has its own formula. XaoS supports the following
+formulae:
 <p>
 <menuitems><center>
 <p><a mandel>Mandelbrot</a>
@@ -2985,8 +3050,8 @@ formulas:
 %mandel
 <head>Mandelbrot</head>
 <p>
-Mandelbrot set is the most famous escape time fractal ever. It has simple
-formula <math>z=z^2+c</math>. You might also try tutorial ``<tutor mset.xaf>the Mandelbrot set</tutor>''.
+The Mandelbrot set is the most famous escape time fractal ever. It has the
+simple formula <math>z=z^2+c</math>. See the <tutor mset.xaf>tutorial chapter</tutor>.
 <p>
 <emph>Available as</emph>: menu item, command line option
 
@@ -2995,13 +3060,12 @@ formula <math>z=z^2+c</math>. You might also try tutorial ``<tutor mset.xaf>the 
 %mandel3 mandel4 mandel5 mandel6
 <head>Mandelbrot^3--Mandelbrot^6</head>
 <p>
-This fractal uses simple modification of the standard 
-<a mandel>Mandelbrot set</a>' formula. It uses <math>z=z^3+c</math> instead of
+This fractal is a simple modification of the standard 
+<a mandel>Mandelbrot set</a> formula, using <math>z=z^3+c</math> instead of
 <math>z=z^2+c</math>. 
 <p>
-Other derivations of the Mandelbrot set (Mandelbrot^4
-etc.) uses even higher powers. You might also try tutorial 
-``<tutor power.xaf>higher power Mandelbrot sets</tutor>''.
+Other derivations of the Mandelbrot set (Mandelbrot^4 and so on) use even
+higher powers. See the <tutor power.xaf>tutorial chapter</tutor>.
 <p>
 <emph>Available as</emph>: menu item, command line option
 <node octal, mandel3, newton, mformula>
@@ -3009,9 +3073,9 @@ etc.) uses even higher powers. You might also try tutorial
 %octal
 <head>Octal</head>
 <p>
-This is less known fractal, that Thomas discovered in Fractint. It has quite
-interesting shape mainly when displayed in the alternative <a
-mplane>planes</a>. You might try tutorial ``<tutor octo.xaf>Octo</tutor>''.
+This is a less well-known fractal that Thomas discovered in Fractint.
+It has an interesting shape when displayed in the alternative <a
+mplane>planes</a>. See the <tutor octo.xaf>tutorial chapter</tutor>.
 <p>
 <emph>Available as</emph>: menu item, command line option
 
@@ -3020,12 +3084,12 @@ mplane>planes</a>. You might try tutorial ``<tutor octo.xaf>Octo</tutor>''.
 %newton
 <head>Newton</head>
 <p>
-This is an Newton's approximation method for finding roots of polynomial. It
-uses polynomial <math>x^3=1</math> and counts number of iterations needed to
-reach approximate value of the root. More information are in tutorial ``<tutor newton.xaf>Newton</tutor>''.
+This is Newton's approximation method for finding the roots of a polynomial. It
+uses the polynomial <math>x^3=1</math> and counts the number of iterations needed
+to reach the approximate value of the root. See the <tutor newton.xaf>tutorial chapter</tutor>.
 <p>
-This fractal don't have Julia sets, but XaoS is able to generate Julia-like
-sets, which are also very interesting (sometimes also called ``Nova
+This fractal doesn't have Julia sets, but XaoS is able to generate Julia-like
+sets which are also very interesting (they are sometimes called ``Nova
 formulae'').
 <p>
 <emph>Available as</emph>: menu item, command line option
@@ -3035,8 +3099,8 @@ formulae'').
 %barnsley
 <head>Barnsley1</head>
 <p>
-This is formula by Michael Barnsley. It produces very nice crystalline Julia
-sets. You might also try tutorial ``<tutor barnsley.xaf>Barnsley's formula</tutor>''.
+This is a formula by Michael Barnsley. It produces very nice crystalline Julia
+sets. See the <tutor barnsley.xaf>tutorial chapter</tutor>.
 <p>
 <emph>Available as</emph>: menu item, command line option
 
@@ -3045,8 +3109,8 @@ sets. You might also try tutorial ``<tutor barnsley.xaf>Barnsley's formula</tuto
 %phoenix
 <head>Phoenix</head>
 <p>
-This is formula produces very nice Julia sets.
-You might also try tutorial ``<tutor phoenix.xaf>Phoenix</tutor>''.
+This formula produces very nice Julia sets.
+See the <tutor phoenix.xaf>tutorial chapter</tutor>.
 <p>
 <emph>Available as</emph>: menu item, command line option
 
@@ -3055,12 +3119,10 @@ You might also try tutorial ``<tutor phoenix.xaf>Phoenix</tutor>''.
 %magnet
 <head>Magnet</head>
 <p>
-This is formula that comes from the theoretical physics.
-It is derived from the study
-of theoretical lattices in the
-context of magnetic renormalization
-transformations.
-You might also try tutorial ``<tutor phoenix.xaf>Magnet</tutor>''.
+This is a formula that comes from theoretical physics.
+It is derived from the study of theoretical lattices in the context of magnetic
+renormalization transformations.
+See the <tutor phoenix.xaf>tutorial chapter</tutor>.
 <p>
 <emph>Available as</emph>: menu item, command line option
 
@@ -3069,7 +3131,7 @@ You might also try tutorial ``<tutor phoenix.xaf>Magnet</tutor>''.
 %palettemenu
 
 <menuhead><head>Palette</head></menuhead>
-Functions to change fractal's palette. 
+This menu contains functions to change the palette the fractal is displayed with.
 <menuitems><center>
 <p><a defpalette>Default palette</a>
 <p><a randompalette>Random palette</a>
@@ -3083,12 +3145,12 @@ Functions to change fractal's palette.
 <head>Default palette</head>
 <p><emph>Syntax</emph>:(defaultpalette number)
 <p>
-Create an default palette. In the scripting language number specifies how much
-is palette shifted.
+Create a default palette. In the scripting language, <tt>number</tt> specifies
+how much the palette is shifted by.
 <p>
-Note that changing of palette in the
-truecolor modes forces recalculation of the whole screen. To avoid this, you
-might enable <a palettef>palette emulation filter</a> first.
+Note that changing the palette in truecolor modes forces recalculation of
+the whole screen. To avoid this, you can enable the
+<a palettef>palette emulation filter</a> first.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -3098,12 +3160,12 @@ might enable <a palettef>palette emulation filter</a> first.
 <head>Random palette</head>
 <p><emph>Syntax</emph>:(randompalette)
 <p>
-Create an random palette. XaoS will automatically pick one of his algorithms
-for generating palettes and create one.
+Create a random palette. XaoS will automatically pick one of its
+palette-generation algorithms and create one.
 <p>
-Note that changing of palette in the
-truecolor modes forces recalculation of the whole screen. To avoid this, you
-might enable <a palettef>palette emulation filter</a> first.
+Note that changing the palette in truecolor modes forces recalculation of
+the whole screen. To avoid this, you can enable the
+<a palettef>palette emulation filter</a> first.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -3113,24 +3175,24 @@ might enable <a palettef>palette emulation filter</a> first.
 <head>Custom palette</head>
 <p><emph>Syntax</emph>:(palette integer integer integer)
 <p>
-Custom palette lets you re-create some of the random palettes. First value
-specifies algorithm which should be currently one of the following:
+A custom palette lets you re-create some of the random palettes. The first value
+specifies the algorithm, which should currently be one of the following:
 <dl>
 <dt>0
 <dd>Default palette
 <dt>1
-<dd>Black to color grades
+<dd>Black to color gradient
 <dt>2
-<dd>Black to color to white grades
+<dd>Black to color to white gradient
 <dt>3
 <dd>Cubistic-like algorithm.
 </dl>
-Seed specifies an random seed for palette. Different seeds generates different
-palettes. Last value is amount how much palette is shifted.
+The seed specifies a random seed for the palette; different seeds generate
+different palettes. The last value is the amount by which the palette is shifted.
 <p>
-Note that changing of palette in the
-truecolor modes forces recalculation of the whole screen. To avoid this, you
-might enable <a palettef>palette emulation filter</a> first.
+Note that changing the palette in the truecolor modes forces recalculation of
+the whole screen. To avoid this, you can enable the
+<a palettef>palette emulation filter</a> first.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -3140,24 +3202,24 @@ might enable <a palettef>palette emulation filter</a> first.
 <head>Color cycling</head>
 <p><emph>Syntax</emph>:(cycling bool)
 <p>
-Color cycling is old and simple effect to animate fractals. It makes nice
-effect mainly at the standard Mandelbrot set. At truecolor displays, color
-cycling fails to initialize (since they don't have palette). You might enable
-<a palettef>palette emulation filter</a> to make it possible.
+Color cycling is an old and simple effect to animate fractals. The Mandelbrot
+set looks particularly nice when color-cycled. On truecolor displays, color
+cycling fails to initialize (since those displays don't have a palette).
+You can enable <a palettef>palette emulation filter</a> to make it possible.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 <p>
-In the user interface, colors should be also cycled in the opposite direction
-by function ``<emph>Reversed color cycling</emph>''.
+In the user interface, colors can also be cycled in the opposite direction
+with the ``<emph>Reversed color cycling</emph>'' function.
 <p>
-To control cycling speed, you might use arrow keys or following function
-``<emph>Color cycling speed</emph>''.
+To control the cycling speed, you coan use arrow keys or the 
+``<emph>Color cycling speed</emph>'' function.
 <p>
 <emph>Available as</emph>: menu item
 <p><emph>Syntax</emph>:(cyclingspeed integer)
 <p>
-Integer value specifies skips per second. It should be also negative to select
-cycling in the opposite direction.
+The parameter specifies the number of skips per second. It can be negative to
+cycle in the opposite direction.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 
@@ -3167,14 +3229,14 @@ cycling in the opposite direction.
 <head>Shift palette</head>
 <p><emph>Syntax</emph>:(shiftpalette integer)
 <p>
-Shift palette by specified color cells. This should be used to tune palette
-position at fractal. Also functions <emph>Shift one forward</emph> and
-<emph>Shift one backward</emph> should be used for finetunning.
-Note that shifted and rotated palettes should look in the different way at
-different displays (because of different maximal palette size).
+Shift palette by the specified number of cells. This can be used to tune the
+palette's position on the fractal. You can also use the
+<emph>Shift one forward</emph> and <emph>Shift one backward</emph> functions
+for fine-tuning. Note that shifted and rotated palettes could look different on
+different displays (because they may have different palette sizes).
 <p>
-Shifting of palette at truecolor displays causes recalculation of screen. To
-avoid this, you might use <a palettef>palette emulation filter</a>.
+Shifting the palette on truecolor displays causes a recalculation of the screen.
+To avoid this, you could use <a palettef>palette emulation filter</a>.
 <p>
 <emph>Available as</emph>: menu item, command line option, command
 

@@ -11,12 +11,12 @@ CREDITS:
 INTRODUCTION:
 	XaoS is a fast portable real-time interactive fractal zoomer.
 	It displays the Mandelbrot set (among other escape time 
-	fractals) and allows you zoom smoothly into the fractal.  
+	fractals) and allows you to zoom smoothly into the fractal.  
 	Various coloring modes are provided for both the points inside 
 	and outside the selected set. In addition, switching between 
 	Julia and Mandelbrot fractal types and displaying planes is 
 	provided. The first version was a poorly written Mandelbrot 
-	view by Thomas later modified by Jan to support high frame-rate 
+	viewer by Thomas later modified by Jan to support high frame-rate 
 	zooming. Other additions were later made including autopilot 
 	(for those of you without drivers licenses), palette changing, 
 	PNG saving, and fractal inversion.
