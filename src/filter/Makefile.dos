@@ -18,6 +18,8 @@ $(TLIB):$(OBJS)
 	rm -f $@
 	$(AR) rc $@ $^
 
+grlib.o: grlibd.c
+
 clean:
 	rm -f $(TLIB)
 	rm -f *.[oas]

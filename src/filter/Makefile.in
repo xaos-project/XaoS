@@ -16,6 +16,7 @@ OBJS = $(SRCS:.c=.o)
 
 TLIB = ../lib/libfilter.a
 
+grlib.o: grlibd.c
 
 all:	$(TLIB)
 

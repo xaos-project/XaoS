@@ -27,6 +27,7 @@ SRCS = formulas.c \
        julia.c \
        i386.c
 
+
 OBJS = $(SRCS:.c=.o)
 
 TLIB = ../lib/libengine.a
@@ -40,7 +41,14 @@ $(TLIB):$(OBJS)
 	$(RANLIB) $@ 
 
 formulas.o: docalc.c
-
+3d.o: 3dd.c
+btrace.o: btraced.c
+edge2.o: edge2d.c
+palette.o: paletted.c
+rotate.o: rotated.c
+stereogram.o: stereod.c
+star.o: stard.c
+zoom.o: zoomd.c
 
 clean:
 	rm -f $(TLIB)

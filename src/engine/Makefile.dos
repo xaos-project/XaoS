@@ -35,6 +35,16 @@ $(TLIB):$(OBJS)
 	rm -f $@
 	$(AR) rc $@ $^
 
+formulas.o: docalc.c
+3d.o: 3dd.c
+btrace.o: btraced.c
+edge2.o: edge2d.c
+palette.o: paletted.c
+rotate.o: rotated.c
+stereogram.o: stereod.c
+star.o: stard.c
+zoom.o: zoomd.c
+
 clean:
 	rm -f $(TLIB)
 	rm -f *.[oas]

@@ -47,6 +47,16 @@ zoom.o: zoom.c
 btrace.o: btrace.c
 	$(CC) $< $(CFLAGS2) -c
 
+formulas.o: docalc.c
+3d.o: 3dd.c
+btrace.o: btraced.c
+edge2.o: edge2d.c
+palette.o: paletted.c
+rotate.o: rotated.c
+stereogram.o: stereod.c
+star.o: stard.c
+zoom.o: zoomd.c
+
 clean:
 	rm -f $(TLIB)
 	rm -f *.o

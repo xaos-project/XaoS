@@ -24,6 +24,8 @@ $(TLIB):	$(OBJS)
 	rm -f $@
 	$(AR) rc $@ $^
 
+grlib.o: glibd.c
+
 clean:
 	rm -f $(TLIB)
 	rm -f *.o
