@@ -5,6 +5,7 @@
 #else
 #include <math.h>
 #include <string.h>
+#include <config.h>
 #ifndef NO_MALLOC_H
 #include <malloc.h>
 #endif

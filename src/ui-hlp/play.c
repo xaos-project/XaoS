@@ -1,3 +1,4 @@
+#include <config.h>
 #ifndef _plan9_
 #include <limits.h>
 #ifdef NO_MALLOC_H

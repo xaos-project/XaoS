@@ -13,11 +13,11 @@
  * Note that quite interesting alg. is for preparing dithering table at
  * fixedcolor displays.
  */
+#include <config.h>
 #ifndef _plan9_
 #ifndef NO_MALLOC_H
 #include <malloc.h>
 #endif
-#include <config.h>
 #include <stdio.h>
 #include <string.h>
 #ifdef HAVE_ALLOCA_H

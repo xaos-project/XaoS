@@ -20,6 +20,8 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 /*#define DRAW */
+#include <config.h>
+#include <fconfig.h>
 #ifdef _plan9_
 #include <u.h>
 #include <libc.h>
@@ -45,8 +47,6 @@
 #ifdef HAVE_ALLOCA_H
 #include <alloca.h>
 #endif
-#include <config.h>
-#include <fconfig.h>
 #ifndef _plan9_
 /*#undef NDEBUG */
 #include <assert.h>

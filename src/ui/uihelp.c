@@ -1,12 +1,14 @@
+#include <config.h>
 #ifdef _plan9_
 #include <u.h>
 #include <libc.h>
 #else
+#ifndef NO_MALLOC_H
 #include <malloc.h>
+#endif
 #include <string.h>
 #endif
 
-#include <config.h>
 #include <fconfig.h>
 #include <filter.h>
 #include <fractal.h>

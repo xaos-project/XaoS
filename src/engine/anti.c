@@ -1,8 +1,11 @@
+#include <config.h>
 #ifndef _plan9_
 #ifndef __cplusplus
 #include <math.h>
 #endif
+#ifndef NO_MALLOC_H
 #include <malloc.h>
+#endif
 #include <string.h>
 #include <config.h>
 #include <stdio.h>

@@ -1,3 +1,4 @@
+#include <config.h>
 #ifndef _plan9_
 #include <aconfig.h>
 #ifdef USE_PNG

@@ -27,6 +27,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <config.h>
 #ifndef NO_MALLOC_H
 #include <malloc.h>
 #endif

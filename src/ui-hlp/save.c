@@ -1,3 +1,4 @@
+#include <config.h>
 #ifndef _plan9_
 #include <limits.h>
 #include <string.h>

@@ -2,6 +2,7 @@
  * This is very simple filter - it initializes smalliter image and then
  * does an simple edge detection algo on it.
  */
+#include <config.h>
 #ifndef _plan9_
 #ifndef NO_MALLOC_H
 #include <malloc.h>

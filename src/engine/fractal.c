@@ -20,6 +20,10 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 /*#define STATISTICS */
+#include <aconfig.h>
+#include <string.h>
+#include <config.h>
+#include <fconfig.h>
 #ifdef _plan9_
 #include <u.h>
 #include <libc.h>
@@ -31,10 +35,6 @@
 #include <malloc.h>
 #endif
 #endif
-#include <aconfig.h>
-#include <string.h>
-#include <config.h>
-#include <fconfig.h>
 #ifndef _plan9_
 #include <limits.h>
 #include <assert.h>

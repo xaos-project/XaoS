@@ -4,6 +4,7 @@
  * 'E' menu.
  * It is used to implement fast rotation mode
  */
+#include <config.h>
 #ifndef _plan9_
 #include <string.h>
 #include <limits.h>
