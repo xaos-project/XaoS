@@ -3,7 +3,7 @@ RELEASE NOTES FOR XAOS VERSION 3.1
 
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.4 2003-03-18 10:45:36 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.5 2003-03-27 09:27:07 kovzol Exp $
 
 We would like to release a quality product in all manner. Unfortunately,
 such a complex software like XaoS requires many details and it does not
@@ -123,8 +123,8 @@ restrictions:
    * Fixing Windows version (crash when several times saving files
      and configurations).
    * Fixing generated xaos.dlg for certain languages (e.g. Hungarian).
-   * Add some text for translation (e.g. UI->Resize).
    * Fixing crashing configure/make for all problematic platforms.
+   * Rewriting i18n to be easier to add new menus and others.
    * All other todos announced in TODO file.
 
 That's all. However the problem list is quite long, we hope
