@@ -4,7 +4,7 @@ INSTALLATION TIPS FOR COMPILATION UNDER M$-DOG
 Zoltan Kovacs <kovzol@math.u-szeged.hu>
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README2.dos,v 1.2 2003-01-21 23:11:43 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README2.dos,v 1.3 2003-01-28 11:49:46 kovzol Exp $
 
 
 I had many problems compiling XaoS under DOS and I'd like to help you
@@ -28,11 +28,12 @@ share your experiences with me. Thank you in advance.
    * Allegro 2.2 (newer versions also exist but I haven't tried
      any of them yet). Its new web page is http://allegro.cc.
 
-   * Doslibs (download it from the web site of CrystalSpace).
-     Two packages are needed: libpng 1.0.2 and zlib 1.1.3.
+   * Doslibs (download it from the web site of CrystalSpace,
+     http://crystal.sf.net/dlsrc.html). Two packages are needed:
+     libpng 1.0.2 and zlib 1.1.3.
 
    * Libvga and libtext (without version numbers, download them
-     from the web site of Aalib).
+     from the web site of Aalib, http://aa-project.sf.net/aalib).
 
    * Aalib 1.2. It may be probably found only in .tar.gz format.
      If you don't have a GNU unzip under DOS, you should first
