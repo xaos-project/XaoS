@@ -651,7 +651,7 @@ ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange)
   uih_update (uih, mousex, mousey, mousebuttons);
   if (uih->play)
     {
-      procescounter (&uih->letterspersec, "Letters per second %i  ", 2, iterchange, lastiter, 1, 2, 0, 0, INT_MAX);
+      procescounter (&uih->letterspersec, "Letters per second %i  ", 2, iterchange, lastiter, 1, 2, 0, 1, INT_MAX);
       return;
     }
   if (!uih->cycling)
