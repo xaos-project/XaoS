@@ -15023,7 +15023,7 @@ EOF
   #STICKY='chmod +s $(bindir)/xaos; chown root $(bindir)/xaos; chgrp root $(bindir)/xaos'
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/win32"
   DRIVERLIBS="ui/ui-drv/win32/ui_win32.o lib/libuiwin32.a ui/ui-drv/win32/xaos.res $DRIVERLIBS"
-  LOCALEDIR="..\..\locale"
+  LOCALEDIR="../../locale"
   echo -n "   Win32"
   if test "$ac_cv_header_ddraw_h" = yes; then
    echo " (with DirectDraw support)"
@@ -16050,8 +16050,8 @@ echo "$as_me: WARNING: Long double enabled. This works well for x86 architecture
   fi
 fi
 if test "x$drivers" = xno; then
-  { echo "$as_me:16053: WARNING: There is no driver avaible. XaoS will not start." >&5
-echo "$as_me: WARNING: There is no driver avaible. XaoS will not start." >&2;}
+  { echo "$as_me:16053: WARNING: There is no driver available. XaoS will not start." >&5
+echo "$as_me: WARNING: There is no driver available. XaoS will not start." >&2;}
   config_problem=yes
 fi
 if test "x$config_problem" = xyes; then
