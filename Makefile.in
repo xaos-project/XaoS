@@ -10,7 +10,7 @@ infodir= @infodir@
 
 @SET_MAKE@
 
-default clean realclean echo help depend xaos i18n:
+default clean realclean echo help depend xaos:
 	@cd src ; $(MAKE) $@
 
 all:
