@@ -23,6 +23,8 @@ win32_driver_test=yes
 BeOS_driver_test=yes
 long_double=test
 pthread=no
+i18n=yes
+png=yes
 
 dnl
 dnl Long double is a way to archieve deeper zooms. It is very fast
@@ -55,6 +57,15 @@ AC_ARG_WITH(pthread,
 	fi
 	if test x$withval = xno; then
 	  pthread=no
+	fi
+])
+AC_ARG_WITH(png,
+        [  --with-png=yes/no      enables/disables PNG saving support],[
+	if test x$withval = xyes; then
+	  png=test
+	fi
+	if test x$withval = xno; then
+	  png=no
 	fi
 ])
 
@@ -332,7 +343,7 @@ if test  "$win32_driver_test" = yes; then
            win32_driver=no
 	   case $target_os in
 	    *cygwin*) win32_driver=yes
-	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion"
+	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion -lmingwex"
 	                CFLAGS="$CFLAGS -mno-cygwin -mwindows"
 	                CFLAGS1="$CFLAGS1 -mno-cygwin -mwindows"
 			;;
@@ -630,22 +641,23 @@ AC_FUNC_MEMCMP
 AC_FUNC_STAT
 AC_FUNC_VPRINTF
 
-
-save_code=yes
 AC_CHECK_LIB(m, pow)
-AC_CHECK_LIB(z, inflate)
-if test x"$ac_cv_lib_z_inflate" = xno; then
- AC_CHECK_LIB(gz, inflate)
- if test x"$ac_cv_lib_gz_inflate" = xno; then
-  save_code=no
- fi
-fi
-AC_CHECK_LIB(png, png_create_info_struct)
-if test x"$ac_cv_lib_png_png_create_info_struct" = xno; then
-  save_code=no
-fi
-if test "$save_code" = yes; then
-  AC_DEFINE(USE_PNG)
+
+if test $png = yes; then
+  AC_CHECK_LIB(z, inflate)
+  if test x"$ac_cv_lib_z_inflate" = xno; then
+   AC_CHECK_LIB(gz, inflate)
+   if test x"$ac_cv_lib_gz_inflate" = xno; then
+    png=no
+   fi
+  fi
+  AC_CHECK_LIB(png, png_create_info_struct)
+  if test x"$ac_cv_lib_png_png_create_info_struct" = xno; then
+    png=no
+  fi
+  if test "$png" = yes; then
+    AC_DEFINE(USE_PNG)
+  fi
 fi
 AC_FUNC_ALLOCA
 AC_TYPE_SIGNAL
@@ -656,9 +668,6 @@ AC_ARG_WITH(i18n,
         [  --with-i18n=no          disables internationalization (i18n)],[
 	if test x$withval = xno; then
 	  i18n=no
-	  AC_DEFINE(WITHOUT_GETTEXT)
-    CFLAGS="$CFLAGS -DWITHOUT_GETTEXT"
-	  CFLAGS1="$CFLAGS1 -DWITHOUT_GETTEXT"
 	fi
 ])
 
@@ -690,6 +699,9 @@ fi
 if test  "$ggi_driver_test" = yes; then
   ggi_driver=true
   AC_CHECK_LIB(ggi,ggiInit,LIBS="$LIBS -lggi", ggi_driver=false, $LIBS )
+fi
+if test  "$i18n" = yes; then
+  AC_CHECK_FUNC(gettext)
 fi
 echo "------------------------------------------------------------"
 echo "Available drivers:"
@@ -735,7 +747,7 @@ if test "x$no_x" = x; then
 fi
 fi
 if test  "$x_driver_test" = yes; then
-if test "x$no_x" = x; then 
+if test "x$dga_driver" = xtrue; then 
   drivers=yes
   AC_DEFINE(DGA_DRIVER)
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/dga"
