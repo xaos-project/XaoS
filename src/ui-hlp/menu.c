@@ -1312,7 +1312,7 @@ uih_registermenus_i18n (void)
   MENUINTRB_I ("mguess", NULL, gettext ("Guess unlimited rectangles"),
 	       "guessall", UI, uih_setguessing, 2048, uih_guessingselected);
   /* Language selection is not sensible anymore if i18n is used: */
-#ifdef WITHOUT_GETTEXT
+#ifndef HAVE_GETTEXT
   SUBMENU_I ("tutor", NULL, gettext ("Language"), "lang");
   MENUSEPARATOR_I ("tutor");
 #endif
@@ -1321,7 +1321,7 @@ uih_registermenus_i18n (void)
   SUBMENU_I ("tutor", NULL, gettext ("Math behind fractals"), "fmath");
   SUBMENU_I ("tutor", NULL, gettext ("What's new?"), "new");
   /* Language selection is not sensible anymore if i18n is used: */
-#ifdef WITHOUT_GETTEXT
+#ifndef HAVE_GETTEXT
   LANG_I ("Cesky", "cesky");
   LANG_I ("Deutsch", "deutsch");
   LANG_I ("English", "english");

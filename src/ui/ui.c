@@ -1311,6 +1311,8 @@ MAIN_FUNCTION (int argc, char **argv)
   seteuid (getuid ());		/* Don't need supervisor rights anymore. */
   setegid (getgid ());
 #endif
+
+  strcpy (language, "english");
 #ifdef HAVE_GETTEXT
   /* Setting all locales for XaoS: */
   locale = setlocale (LC_ALL, "");
@@ -1325,7 +1327,6 @@ MAIN_FUNCTION (int argc, char **argv)
   else
     locale = setlocale (LC_MESSAGES, "");
 
-  strcpy (language, "english");
 
 #ifdef DEBUG
   printf ("Trying to use locale settings for %s.\n", locale);

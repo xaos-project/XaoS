@@ -194,9 +194,9 @@ to fall in the bailout set."
 iter1 "Inside the set we still
 need infinite numbers of calculations"
 iter2 "The only way to do it is to interrupt
-the calculations after a given number of
-iterations and use the approximate
-results"
+the calculations after a given
+number of iterations and
+use the approximate results"
 iter3 "The maximal number of iterations
 therefore specifies how exact 
 the approximation will be."
