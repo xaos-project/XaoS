@@ -657,7 +657,7 @@ fi
 
 dnl Checks for header files.
 
-AC_CHECK_HEADERS([OS.h alloca.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h])
+AC_CHECK_HEADERS([OS.h alloca.h ddraw.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -749,6 +749,10 @@ if test "$ac_cv_header_malloc_h" = "no"; then
  AC_DEFINE(NO_MALLOC_H)
  fi
 
+if test "$ac_cv_header_ddraw_h" = "yes"; then
+ AC_DEFINE(DDRAW_DRIVER)
+ fi
+
 
 echo "------------------------------------------------------------"
 echo "Available drivers:"
@@ -827,7 +831,12 @@ if test  "$win32_driver" = yes; then
   #STICKY='chmod +s $(bindir)/xaos; chown root $(bindir)/xaos; chgrp root $(bindir)/xaos'
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/win32"
   DRIVERLIBS="ui/ui-drv/win32/ui_win32.o lib/libuiwin32.a ui/ui-drv/win32/xaos.res $DRIVERLIBS"
-  echo "   Win32"
+  echo -n "   Win32"
+  if test "$ac_cv_header_ddraw_h" = yes; then
+   echo " (with DirectDraw support)"
+  else
+   echo ""
+  fi 
 fi
 if test  "$BeOS_driver" = yes; then
   drivers=yes

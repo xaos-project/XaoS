@@ -49,6 +49,7 @@
 #undef DGA_DRIVER
 #undef SVGA_DRIVER
 #undef WIN32_DRIVER
+#undef DDRAW_DRIVER
 #undef SIZEOF_SHORT
 #undef SIZEOF_INT
 #undef SIZEOF_LONG

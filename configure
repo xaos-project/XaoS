@@ -12426,7 +12426,7 @@ fi
 
 fi
 
-for ac_header in OS.h alloca.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h
+for ac_header in OS.h alloca.h ddraw.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h
 do
 as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
 echo "$as_me:12432: checking for $ac_header" >&5
@@ -14885,6 +14885,13 @@ EOF
 
  fi
 
+if test "$ac_cv_header_ddraw_h" = "yes"; then
+ cat >>confdefs.h <<\EOF
+#define DDRAW_DRIVER 1
+EOF
+
+ fi
+
 echo "------------------------------------------------------------"
 echo "Available drivers:"
 drivers=no
@@ -14983,7 +14990,12 @@ EOF
   #STICKY='chmod +s $(bindir)/xaos; chown root $(bindir)/xaos; chgrp root $(bindir)/xaos'
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/win32"
   DRIVERLIBS="ui/ui-drv/win32/ui_win32.o lib/libuiwin32.a ui/ui-drv/win32/xaos.res $DRIVERLIBS"
-  echo "   Win32"
+  echo -n "   Win32"
+  if test "$ac_cv_header_ddraw_h" = yes; then
+   echo " (with DirectDraw support)"
+  else
+   echo ""
+  fi
 fi
 if test  "$BeOS_driver" = yes; then
   drivers=yes
@@ -15096,7 +15108,7 @@ DEFS=-DHAVE_CONFIG_H
 : ${CONFIG_STATUS=./config.status}
 ac_clean_files_save=$ac_clean_files
 ac_clean_files="$ac_clean_files $CONFIG_STATUS"
-{ echo "$as_me:15099: creating $CONFIG_STATUS" >&5
+{ echo "$as_me:15111: creating $CONFIG_STATUS" >&5
 echo "$as_me: creating $CONFIG_STATUS" >&6;}
 cat >$CONFIG_STATUS <<_ACEOF
 #! $SHELL
@@ -15272,7 +15284,7 @@ cat >>$CONFIG_STATUS <<\EOF
     echo "$ac_cs_version"; exit 0 ;;
   --he | --h)
     # Conflict between --help and --header
-    { { echo "$as_me:15275: error: ambiguous option: $1
+    { { echo "$as_me:15287: error: ambiguous option: $1
 Try \`$0 --help' for more information." >&5
 echo "$as_me: error: ambiguous option: $1
 Try \`$0 --help' for more information." >&2;}
@@ -15291,7 +15303,7 @@ Try \`$0 --help' for more information." >&2;}
     ac_need_defaults=false;;
 
   # This is an error.
-  -*) { { echo "$as_me:15294: error: unrecognized option: $1
+  -*) { { echo "$as_me:15306: error: unrecognized option: $1
 Try \`$0 --help' for more information." >&5
 echo "$as_me: error: unrecognized option: $1
 Try \`$0 --help' for more information." >&2;}
@@ -15353,7 +15365,7 @@ do
   "help/Makefile" ) CONFIG_FILES="$CONFIG_FILES help/Makefile" ;;
   "default-1" ) CONFIG_COMMANDS="$CONFIG_COMMANDS default-1" ;;
   "src/include/aconfig.h" ) CONFIG_HEADERS="$CONFIG_HEADERS src/include/aconfig.h" ;;
-  *) { { echo "$as_me:15356: error: invalid argument: $ac_config_target" >&5
+  *) { { echo "$as_me:15368: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;
   esac
@@ -15624,7 +15636,7 @@ done; }
   esac
 
   if test x"$ac_file" != x-; then
-    { echo "$as_me:15627: creating $ac_file" >&5
+    { echo "$as_me:15639: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
     rm -f "$ac_file"
   fi
@@ -15642,7 +15654,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo $tmp/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:15645: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:15657: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -15655,7 +15667,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo $srcdir/$f
          else
            # /dev/null tree
-           { { echo "$as_me:15658: error: cannot find input file: $f" >&5
+           { { echo "$as_me:15670: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -15716,7 +15728,7 @@ for ac_file in : $CONFIG_HEADERS; do test "x$ac_file" = x: && continue
   * )   ac_file_in=$ac_file.in ;;
   esac
 
-  test x"$ac_file" != x- && { echo "$as_me:15719: creating $ac_file" >&5
+  test x"$ac_file" != x- && { echo "$as_me:15731: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
 
   # First look for the input files in the build tree, otherwise in the
@@ -15727,7 +15739,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo $tmp/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:15730: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:15742: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -15740,7 +15752,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo $srcdir/$f
          else
            # /dev/null tree
-           { { echo "$as_me:15743: error: cannot find input file: $f" >&5
+           { { echo "$as_me:15755: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -15857,7 +15869,7 @@ cat >>$CONFIG_STATUS <<\EOF
   rm -f $tmp/in
   if test x"$ac_file" != x-; then
     if cmp -s $ac_file $tmp/config.h 2>/dev/null; then
-      { echo "$as_me:15860: $ac_file is unchanged" >&5
+      { echo "$as_me:15872: $ac_file is unchanged" >&5
 echo "$as_me: $ac_file is unchanged" >&6;}
     else
       ac_dir=`$as_expr X"$ac_file" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
@@ -15980,19 +15992,19 @@ echo " "
 echo "READ CUREFULLY FOLLOWING WARNINGS"
 echo " "
 if test "x$ac_cv_header_stdc" = xno; then
-  { echo "$as_me:15983: WARNING: There are no ANSI C headers avaiable. XaoS will have troubles with compiling." >&5
+  { echo "$as_me:15995: WARNING: There are no ANSI C headers avaiable. XaoS will have troubles with compiling." >&5
 echo "$as_me: WARNING: There are no ANSI C headers avaiable. XaoS will have troubles with compiling." >&2;}
   config_problem=yes
 fi
 if test "x$ac_cv_c_compiler_gnu" = xyes; then
   echo
 else
-  { echo "$as_me:15990: WARNING: The GNU C compiler is recommended to get the best performance. XaoS crashes many compilers so your compiler can cause troubles." >&5
+  { echo "$as_me:16002: WARNING: The GNU C compiler is recommended to get the best performance. XaoS crashes many compilers so your compiler can cause troubles." >&5
 echo "$as_me: WARNING: The GNU C compiler is recommended to get the best performance. XaoS crashes many compilers so your compiler can cause troubles." >&2;}
 fi
 if test "x$ac_cv_c_long_double" = xyes; then
   if test "x$long_double" = xyes; then
-  { echo "$as_me:15995: WARNING: Long double enabled. This works well for x86 architectures. On other systems this may slow down much. Especially on SUN workstations. If XaoS works incredibly slowly, try to rebuild it using:
+  { echo "$as_me:16007: WARNING: Long double enabled. This works well for x86 architectures. On other systems this may slow down much. Especially on SUN workstations. If XaoS works incredibly slowly, try to rebuild it using:
    configure --with-long-double=no
    make clean
    make" >&5
@@ -16003,14 +16015,14 @@ echo "$as_me: WARNING: Long double enabled. This works well for x86 architecture
   fi
 fi
 if test "x$drivers" = xno; then
-  { echo "$as_me:16006: WARNING: There is no driver avaible. XaoS will not start." >&5
+  { echo "$as_me:16018: WARNING: There is no driver avaible. XaoS will not start." >&5
 echo "$as_me: WARNING: There is no driver avaible. XaoS will not start." >&2;}
   config_problem=yes
 fi
 if test "x$config_problem" = xyes; then
-  { echo "$as_me:16011: WARNING: There was a problem with automatic configuration." >&5
+  { echo "$as_me:16023: WARNING: There was a problem with automatic configuration." >&5
 echo "$as_me: WARNING: There was a problem with automatic configuration." >&2;}
-  { echo "$as_me:16013: WARNING: Read INSTALL file for troubleshooting tips." >&5
+  { echo "$as_me:16025: WARNING: Read INSTALL file for troubleshooting tips." >&5
 echo "$as_me: WARNING: Read INSTALL file for troubleshooting tips." >&2;}
 fi
 if test x"$ac_cv_lib_z_inflate" = xno; then
