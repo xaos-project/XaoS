@@ -4,7 +4,7 @@ Apple Macintosh (tm) version
 Last updated: November 25, 1996
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.mac,v 1.2 2003-01-17 09:42:33 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.mac,v 1.3 2003-01-23 17:15:50 kovzol Exp $
 
 Support: Tapio Vocadlo (taps@rmx.com)
          Ottawa, Canada
@@ -170,7 +170,8 @@ ROLLING YOUR OWN CODE
 ------------------------------------------------------
 If you modify the sources and you're cranking out
 nifty features faster than I am, by all means tell
-Jan (hubicka@atrey.karlin.mff.cuni.cz) about them.
+Jan (hubicka@ucw.cz) about them.
+
 Better still, let me know too so I can figure out
 if I should stop supporting the viewer and let
 someone more gung-ho have a shot. The last thing

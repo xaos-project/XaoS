@@ -1,7 +1,9 @@
 TODO ITEMS
+----------
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/TODO,v 1.3 2003-01-21 23:11:38 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/TODO,v 1.4 2003-01-23 17:15:13 kovzol Exp $
+
 
 General todos (for all platforms)
 ---------------------------------
@@ -40,7 +42,6 @@ General todos (for all platforms)
      calculations for >10e20 zooms with Fast Fourier Transform.
   o  Finishing internationalization.
   o  Adding more fractal types (Newton^k etc.).
-  o  Checking if SVGAlib works or not. Maybe yes, maybe not. (?)
 
 BeOS related todos
 ------------------

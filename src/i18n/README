@@ -4,7 +4,7 @@ Internationalization (i18n) in XaoS
 Zoltan Kovacs <kovzol@math.u-szeged.hu>
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/src/i18n/README,v 1.4 2003-01-17 09:42:33 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/src/i18n/README,v 1.5 2003-01-23 17:15:53 kovzol Exp $
 
 
 
@@ -21,10 +21,16 @@ and gettext-0.10.40 for DOS version. You do not have to worry
 if you are running Linux: gettext is a standard package of most
 Linux installation.
 
-Bad news for Windows users: i18n does not work for Windows yet,
-only in DOS mode. In addition, some Windows support i18n
-in DOS mode, some of them not. Good news for Windows users:
-in version 3.2 I'd like to add i18n for Windows as well. :-)
+Bad news for Windows users: i18n does not work for Windows yet, only in
+DOS mode. In addition, some Windows support i18n in DOS mode, some of
+them not. (In fact in most Windows version I was not able to force i18n.
+I had to exit Windows and start native DOS mode. This should really work
+under Windows 95.) Good news for Windows users: in version 3.2 I'd like
+to add i18n for Windows as well. :-)
+
+Unfortunately, under DOS some complex messages are not supported
+(press 'l' to check if your gettext version handles all types of
+message strings properly).
 
 
 2. HOW TO INSTALL A NEW LANGUAGE

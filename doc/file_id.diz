@@ -5,7 +5,7 @@
 ³                                     ³
 ³ Fast real-time fractal zoomer.      ³
 ³ Allows you to zoom smoothly into    ³
-³ mandelbrot set and other fractals   ³
+³ Mandelbrot set and other fractals   ³
 ³ (10-50 frames per second on 486     ³
 ³  in 320x200 and 256 colors)         ³
 ³ Fully under GPL licence-souces      ³

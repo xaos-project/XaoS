@@ -1,4 +1,5 @@
 CREDITS (alphabetically):
+
         I believe this list is almost complete. If I missed someone
 	here, please let me know.
 
@@ -31,15 +32,15 @@ CREDITS (alphabetically):
 			- Ministatus improvement
         Nix             (nix@esperi.demon.co.uk)
                         - Help file updates and grammar spelling
-	Jan Olderdissen   (jan@olderdissen.com)
+	Jan Olderdissen (jan@olderdissen.com)
 			- Win32 port
-	Terje Pedersen    (terjepe@login.eunet.no)
+	Terje Pedersen  (terjepe@login.eunet.no)
 			- Amiga port
 	Cesar Perez	(441906@cepsz.unizar.es)
 			- Spanish catalogs and i18n
-	Fabrice Premel    (premelfa@etu.utc.fr)
+	Fabrice Premel  (premelfa@etu.utc.fr)
 			- Periodicity checking
-	Pavel Tzekov      (paveltz@csoft.bg)
+	Pavel Tzekov    (paveltz@csoft.bg)
 			- Win32 support
         Charles Vidal
 			- Tcl/Tk interface
@@ -47,4 +48,4 @@ CREDITS (alphabetically):
 	                - Macintosh port
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/AUTHORS,v 1.4 2003-01-17 09:42:33 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/AUTHORS,v 1.5 2003-01-23 17:15:36 kovzol Exp $

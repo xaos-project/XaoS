@@ -2,9 +2,12 @@ How to report bugs
 ==================
 
 Please try to reproduce the bug and send a description and output of:
+
 xaos -config
-to: jh@ucw.cz
-also debugger info (backtraces and so forth) are welcome.
+
+to: jh@ucw.cz.
+
+Also debugger info (backtraces and so forth) are welcome.
 
 Thanks
 Honza

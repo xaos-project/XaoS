@@ -1,7 +1,7 @@
                      Documentation for Windows users
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.3 2003-01-17 09:42:33 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.4 2003-01-23 17:15:45 kovzol Exp $
 
 *WARNING*
 
@@ -11,87 +11,100 @@ problems. Please report them to authors and use DOS version instead!
 Features/requirements:
 ======================
 
-XaoS have fully featured support for Win32 and directX API. The Win32 driver
-should work on Windows 9x, windows NT and Windows 3.1 with win32s in all bit
-depths supported by Windows. It was tested only on Windows95 in 4, 8, 16, 24
-and 32 bpp modes. It works well all tested modes except the 16 color mode where
-it use windows conversion routines and because they are slow and ugly, XaoS
-is slow and ugly.
+XaoS has fully featured support for Win32 and DirectX API. The Win32
+driver should work on Windows 9x, Windows NT and Windows 3.1 with
+win32s in all bit depths supported by Windows. It was tested only on
+Windows95 in 4, 8, 16, 24 and 32 bpp modes. It works well in all tested
+modes except the 16 color mode where it uses Windows conversion routines
+and because they are slow and ugly, XaoS is slow and ugly.
 
-DirectX support is optional so you don't need directX DLL libraries installed
-on your sistem. The driver supports 8, 16, 24 and 32 bit depths in fullscreen
-mode and 16, 24, 32 bit depths in windowed mode. 256 colors are not supported
-in windowed mode because of palette mapping problems, so use win32 driver
-instead. In fullscreen mode press '=' to change default resolution.
+DirectX support is optional so you don't need DirectX DLL libraries
+installed on your sistem. The driver supports 8, 16, 24 and 32 bit
+depths in fullscreen mode and 16, 24, 32 bit depths in windowed mode.
+256 colors are not supported in windowed mode because of palette
+mapping problems, so use win32 driver instead. In fullscreen mode press
+'=' to change default resolution.
 
 Compiling XaoS
 ==============
 
-To compile XaoS you need cygwin, mingw, the directx header files, zlib and
+To compile XaoS you need Cygwin, MingW, the DirectX header files, zlib and
 libpng.
 
-Cygwin can be downloaded from http://www.cygwin.com/. It is recommended to
-install at least all base and devel packages except the mingw-runtime package,
-because mingw support of cygwin is incomplete, which causes dependencies on
-cigwin1.dll.
+Cygwin can be downloaded from http://www.cygwin.com/. It is recommended
+to install at least all base and devel packages except the
+mingw-runtime package, because MingW support of Cygwin is incomplete,
+which causes dependencies on cygwin1.dll.
 
-Mingw can be downloaded from http://www.mingw.org/. Create a new directory,
-copy the downloaded tar archive in that directory and gunzip and untar the
-archive. Copy all the header files and subdirectories contained in the
-extracted include/ directory to the directory usr/include/mingw/ of your cygwin
-installation. Copy all the libraries and subdirectories in the extracted lib/
-directory to the directory lib/mingw/ of your cygwin installation. If one of
-the mingw directories does not exist, you have to create it. If there are
-already files in one of the mingw directories, that have the same name as files
+MingW can be downloaded from http://www.mingw.org/. Create a new
+directory, copy the downloaded tar archive into that directory and
+gunzip and untar the archive. Copy all the header files and
+subdirectories contained in the extracted include/ directory to the
+directory usr/include/mingw/ of your Cygwin installation. Copy all the
+libraries and subdirectories in the extracted lib/ directory to the
+directory lib/mingw/ of your cygwin installation. If one of the MingW
+directories does not exist, you have to create it. If there are already
+files in one of the MingW directories, that have the same name as files
 you have to copy there, then overwrite these files.
 
-The directx header files can be downloaded from
-http://www.microsoft.com/downloads/release.asp?ReleaseID=12471. Extract the
-downloaded file and copy all the header files located in the extracted include/
-directory to the directory usr/include/mingw/ of your cygwin installation. If
-there are already files, that have the same name as files you have to copy
-there, then overwrite them.
+The Directx header files can be downloaded from
+http://www.microsoft.com/downloads/release.asp?ReleaseID=12471. Extract
+the downloaded file and copy all the header files located in the
+extracted include/ directory to the directory usr/include/mingw/ of
+your Cygwin installation. If there are already files, that have the
+same name as files you have to copy there, then overwrite them.
 
-Zlib and libpng can be downloaded from http://sourceforge.net/. Simply search
-for libpng. Zlib can be downloaded from the same web page as libpng. Gunzip and
-untar zlib and libpng in the same directory. Rename the extracted directories
-from zlib and libpng to zlib and libpng respectively.
+Zlib and libpng can be downloaded from http://sourceforge.net/. Simply
+search for libpng. Zlib can be downloaded from the same web page as
+libpng. Gunzip and untar zlib and libpng in the same directory. Rename
+the extracted directories from zlib and libpng to zlib and libpng
+respectively.
 
-To compile and install zlib, change to the directory zlib/ and type ./configure
---prefix=/usr/local --includedir=/usr/include/mingw --libdir=/lib/mingw from a
-bash shell. There is a bash shell shipped with cygwin. Edit the just generated
-makefile and add the compiler switch -mno-cygwin to the CFLAGS and LDFLAGS. I
-also had to remove the minigzip testprogram from TEST_OBJS and the target all,
-because some libraries were not found in my cygwin installation. After saving
-the changes to the makefile, type make in the bash shell. Install zlib by
-typing make install.
+To compile and install zlib, change to the directory zlib/ and type
+
+./configure --prefix=/usr/local --includedir=/usr/include/mingw --libdir=/lib/mingw
+
+from a bash shell. There is a bash shell shipped with Cygwin. Edit the
+just generated makefile and add the compiler switch -mno-cygwin to the
+CFLAGS and LDFLAGS. I also had to remove the minigzip testprogram from
+TEST_OBJS and the target all, because some libraries were not found in
+my Cygwin installation. After saving the changes to the makefile, type
+make in the bash shell. Install zlib by typing make install.
 
 To compile and install libpng, copy the file makefile.cygwin from the
-subdirectory scripts/ of the directory libpng/ to the directory libpng/ and
-name it makefile. Edit the just copied and renamed makefile and put the line
-MINGW=1 above the line ifdef MINGW. Uncomment the lines #ZLIBLIB=../zlib and
-#ZLIBINC=../zlib and instead comment the lines ZLIBLIB= /usr/lib and ZLIBINC=.
-It seems to be necessary to make a symbolic link named lib in the directory
-usr/ of your cygwin installation which points to the lib/ directory of the
-cygwin installation by typing ln -s /usr/lib /lib in the bash shell. After
-saving the changes to the makefile, change to the directory libpng/ and type
-make. Copy the header files png.h and pngconf.h located in the directory
-libpng/ to the directory usr/include/mingw/ of your cygwin installation. Copy
-the library libpng.a also located in the directory libpng/ to the directory
+subdirectory scripts/ of the directory libpng/ to the directory libpng/
+and name it makefile. Edit the just copied and renamed makefile and put
+the line MINGW=1 above the line ifdef MINGW. Uncomment the lines
+#ZLIBLIB=../zlib and #ZLIBINC=../zlib and instead comment the lines
+ZLIBLIB= /usr/lib and ZLIBINC=. It seems to be necessary to make a
+symbolic link named lib in the directory usr/ of your Cygwin
+installation which points to the lib/ directory of the Cygwin
+installation by typing
+
+ln -s /usr/lib /lib
+
+in the bash shell. After saving the changes to the makefile, change to
+the directory libpng/ and type make. Copy the header files png.h and
+pngconf.h located in the directory libpng/ to the directory
+usr/include/mingw/ of your Cygwin installation. Copy the library
+libpng.a also located in the directory libpng/ to the directory
 lib/mingw/ of your cygwin installation.
 
-Now change to the directory XaoS/ and type ./configure --with-x11-driver=no
---with-dga-driver=no in the bash shell. The switches --with-x11-driver=no and
---with-dga-driver=no are needed if you have installed cygwin with XFree86 to
-prevent the configure script to try to build XaoS for x11. Type make to build
-XaoS.
+Now change to the directory XaoS/ and type
+
+./configure --with-x11-driver=no --with-dga-driver=no
+
+in the bash shell. The switches --with-x11-driver=no and
+--with-dga-driver=no are needed if you have installed Cygwin with
+XFree86 to prevent the configure script to try to build XaoS for X11.
+Type make to build XaoS.
 
 If you wish thread support you have to download libpthread from
-ftp://sources.redhat.com/pub/pthreads-win32. Copy the header files pthread.h,
-sched.h and semaphore.h to the directory usr/include/mingw/ of your cygwin
-installation. Copy the library libpthreadGC.a to the directory lib/mingw/ of
-your cygwin installation and rename it to libpthread.a. To compile XaoS with
-thread support you use the switch --with-pthread=yes with the configure
-script.
+ftp://sources.redhat.com/pub/pthreads-win32. Copy the header files
+pthread.h, sched.h and semaphore.h to the directory usr/include/mingw/
+of your Cygwin installation. Copy the library libpthreadGC.a to the
+directory lib/mingw/ of your Cygwin installation and rename it to
+libpthread.a. To compile XaoS with thread support you use the switch
+--with-pthread=yes with the configure script.
 
 XaoS was tested only on Intel platform, but it should work on alpha too.
