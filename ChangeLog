@@ -1,5 +1,4 @@
 Version 3.1
-  o Internationalization (i18n)
 	o New homepage at http://www.gnu.org
       Speedups:
         o The internal loop now uses integer comparisons on x86 (about 10%
@@ -43,7 +42,7 @@ Version 3.1
 	o Added library with simple graphics primitives (line, rectangle,
 	  text)
 	o palette extended to allow few preallocated color cells for UI and
-	such.
+	  such.
 	o Timer library now handles current group changes nicely,
 	  also supports time emulation used by emulating constant framerate
 	  good for saving animations
@@ -68,6 +67,8 @@ Version 3.1
 	o Timer library now supports Win32 high precision timer
 	o Support for backslash path convention under DOS and Windows
 	o Accept both \n lines and \n\r lines
+        o Internationalization (i18n) support added for menus
+        o New fractal types: newton^4, barsnley2 and magnet2
       UI changes:
 	o Menus are now displayed nicely
 	o New nice dialogs. XaoS is now mostly user friendly :)
@@ -79,6 +80,8 @@ Version 3.1
 	o New context sensitive help. 
 	  Now uses xshl (XaoS simple hypertext language), so you
 	  might do hyperlinks, links to tutorials and basic formating of text
+        o Bailout may be set
+        o Logarithmic zoom ratio also displayed in ministatus
       Driver API changes
 	o Drivers now sends special keys as KEY_UP etc...
 	o Parameter parsing library cleaned. It now don't prints driver's
@@ -126,6 +129,9 @@ Version 3.1
 	o cycling speed is saved correctly
 	o Filters are now saved in right order, filters that depends
 	  at master are initialized first.
+        o No crash when user tries to set letterspersec to 0,
+	  it's not allowed now
+        o Fractal type magnet has been modified
       Cleanups:
 	o Removed lots of ui code and moved to menu.c
 	o Removed old and obsolete functions ui_message, ui_tbreak, ui_menu
@@ -145,6 +151,7 @@ Version 3.1
 	o many rewrites in ui code. 
 	o Engine now handles generic truecolor modes at depths 16,24 and 32
 	  (not just few selected ones)
+	o The full code has been autoformatted with GNU indent utility
       X11 driver:
         o better support for bitmaps
 	o Added windowid option to support external GUIs

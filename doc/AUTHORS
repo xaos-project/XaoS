@@ -10,7 +10,7 @@ CREDITS (alphabetically):
 			- english.cat corrections
 	Jan Hubicka	(hubicka@paru.cas.cz) 
 	                - Zooming routines, ugly interface,
-			  palettes,drivers, autopilot, filters,
+			  palettes, drivers, autopilot, filters,
 			  documentation, tutorials, maitainer etc...
 	Jens Kilian	(jjk@acm.org)
 			- BeOS driver, deutsch.cat
@@ -18,11 +18,15 @@ CREDITS (alphabetically):
 			- Hungarian translation, small fixes, i18n
 	Thomas A. K. Kjaer (takjaer@imv.aau.dk)
 			- OS/2 ports (320x200 graphics and AA-lib)
+	Andreas Madritsch (amadritsch@datacomm.ch)
+			- New fractal types, bailout
 	Thomas Marsh
 	                - First zoomer, formulas, planes,
 		          X11 driver, inversions, many ideas
         David Meleedy   - Grammatical and spelling fixed
 	                  version of xaos.6
+	Paul Nasca	(paulnasca@email.ro)
+			- Ministatus improvement
 	Jan Olderdissen   (jan@olderdissen.com)
 			- Win32 port
 	Terje Pedersen    (terjepe@login.eunet.no)
@@ -35,5 +39,5 @@ CREDITS (alphabetically):
 			- Win32 support
         Charles Vidal
 			- Tcl/Tk interface
-	Tapio K. Vocaldo(taps@rmx.com)
+	Tapio K. Vocaldo (taps@rmx.com)
 	                - Macintosh port
