@@ -13,4 +13,3 @@ SMALL                  ICON    DISCARDABLE     "small.ico"
 #include "xaos.dlg"
 #include "version.rc"
 #include "about.rc"
-

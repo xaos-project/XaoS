@@ -74,8 +74,8 @@ const short about_item = 1;
 static void ui_setdriver (uih_context * c, int d);
 
 struct ui_driver mac_driver;
-struct ui_driver full_driver;
-struct ui_driver double_driver;
+struct ui_driver mac_full_driver;
+struct ui_driver mac_double_driver;
 
 static int mac_window_width = 0;
 static int mac_window_height = 0;
@@ -630,10 +630,10 @@ mac_get_size (int *x, int *y)
 	  driver = &mac_driver;
 	  break;
 	case 1:
-	  driver = &full_driver;
+	  driver = &mac_full_driver;
 	  break;
 	case 2:
-	  driver = &double_driver;
+	  driver = &mac_double_driver;
 	  break;
 	}
 
@@ -1045,7 +1045,7 @@ struct ui_driver mac_full_driver = {
   NULL				/* GUI_Driver */
 };
 
-struct ui_driver double_driver = {
+struct ui_driver mac_double_driver = {
   "Mac Doubled Fullscreen Driver",
   mac_doublescreen_init,
   mac_get_size,

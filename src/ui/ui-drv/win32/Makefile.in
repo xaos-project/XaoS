@@ -41,4 +41,3 @@ distclean:clean
 #	gcc -I svgalib $(DEFINES) -MM $(patsubst %.o,%.c,$(OBJS)) >>.depend
 #
 #include .depend
-

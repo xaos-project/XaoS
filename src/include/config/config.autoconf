@@ -18,6 +18,13 @@
 #define CONFIGFILE ".XaoSrc"
 #endif
 
+/*For compilers that don't support nameless unions, do a
+#define NONAMELESSUNION
+before #include <ddraw.h>*/
+#ifdef _WIN32
+#define NONAMELESSUNION
+#endif
+
 /*#define I_WAS_HERE */      /*uncoment this to disable changing of parameters by atoconf */
 
 #define FPOINT_TYPE  long double

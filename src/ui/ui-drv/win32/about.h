@@ -18,4 +18,4 @@
 #define IDS_VER_INFO_LANG   502
 #define IDS_VERSION_ERROR   503
 #define IDS_NO_HELP         504
-
+
