@@ -136,7 +136,6 @@ uih_getcoord (uih_context * uih, int x, int y, number_t * xr, number_t * yr)
 	      (number_t) uih->zengine->image->height))));
   rotateback (*(uih->fcontext), *xr, *yr);
 }
-
 int
 uih_enablefilter (uih_context * c, int n)
 {
@@ -195,7 +194,6 @@ uih_enablefilter (uih_context * c, int n)
     }
   return 0;
 }
-
 void
 uih_disablefilter (uih_context * c, int n)
 {
@@ -274,7 +272,6 @@ end:
     uih_cycling_on (c);
   return 0;
 }
-
 void
 uih_fastrotatedisable (uih_context * c)
 {
@@ -381,7 +378,6 @@ end:
   return 0;
 #endif
 }
-
 int
 uih_fastrotate (uih_context * c, int mode)
 {
@@ -390,7 +386,6 @@ uih_fastrotate (uih_context * c, int mode)
   uih_fastrotatedisable (c);
   return 1;
 }
-
 void
 uih_angle (uih_context * c, number_t angle)
 {
@@ -496,7 +491,6 @@ end:;
   uih_updatemenus (c, "fastjulia");
   return 0;
 }
-
 void
 uih_disablejulia (uih_context * c)
 {
@@ -530,7 +524,6 @@ uih_setjuliamode (uih_context * c, int mode)
   uih_disablejulia (c);
   return 1;
 }
-
 void
 uih_rotationspeed (uih_context * c, number_t speed)
 {
@@ -594,7 +587,6 @@ uih_display (struct uih_context *c)
   if (c->play)
     uih_clear_lines (c);
 }
-
 void
 uih_cycling_stop (struct uih_context *c)
 {
@@ -630,7 +622,6 @@ uih_loadfile (struct uih_context *c, xio_constpath d)
   uih_load (c, f, d);
   return;
 }
-
 void
 uih_loadstr (struct uih_context *c, CONST char *data)
 {
@@ -639,7 +630,6 @@ uih_loadstr (struct uih_context *c, CONST char *data)
   uih_load (c, f, "");
   return;
 }
-
 void
 uih_playstr (struct uih_context *c, CONST char *data)
 {
@@ -648,14 +638,12 @@ uih_playstr (struct uih_context *c, CONST char *data)
   uih_replayenable (c, f, "", 1);
   return;
 }
-
 void
 uih_recalculate (struct uih_context *c)
 {
   c->fcontext->version++;
   uih_newimage (c);
 }
-
 void
 uih_playfile (struct uih_context *c, xio_constpath d)
 {
@@ -675,7 +663,6 @@ uih_playfile (struct uih_context *c, xio_constpath d)
   uih_replayenable (c, f, d, 1);
   return;
 }
-
 void
 uih_playtutorial (struct uih_context *c, CONST char *name)
 {
@@ -771,7 +758,6 @@ uih_savepostostr (struct uih_context *c)
   uih_save_possition (c, f, UIH_SAVEPOS);
   return (xio_getstring (f));
 }
-
 void
 uih_saveundo (struct uih_context *c)
 {
@@ -786,7 +772,6 @@ uih_saveundo (struct uih_context *c)
   c->undo.undos[c->undo.last] = xio_getstring (f);
   c->undo.last = (c->undo.last + 1) % UNDOLEVEL;
 }
-
 void
 uih_undo (struct uih_context *c)
 {
@@ -882,7 +867,6 @@ uih_save (struct uih_context *c, xio_constpath filename)
   uih_resumetimers (c);
   return (r);
 }
-
 void
 uih_setcycling (struct uih_context *c, int speed)
 {
@@ -924,7 +908,6 @@ uih_cycling_on (struct uih_context *c)
   uih_updatemenus (c, "rcycling");
   return 1;
 }
-
 int
 uih_cycling (struct uih_context *uih, int mode)
 {
@@ -995,7 +978,8 @@ uih_do_fractal (uih_context * c)
     {
       uih_disablejulia (c);
     }
-  if ((c->juliamode == 1
+  if (
+      (c->juliamode == 1
        && (c->fcontext->currentformula->calculate_julia == NULL
 	   || c->fcontext->slowmode)) || (c->juliamode == 2
 					  && c->fcontext->currentformula->
@@ -1106,7 +1090,6 @@ uih_do_fractal (uih_context * c)
   if (c->autopilot)
     c->inanimation = 1;
 }
-
 void
 uih_prepare_image (uih_context * c)
 {
@@ -1143,7 +1126,6 @@ uih_letterspersec (uih_context * c, int n)
     n = 1;
   c->letterspersec = n;
 }
-
 double
 uih_displayed (uih_context * c)
 {
@@ -1241,7 +1223,6 @@ uih_text (uih_context * c, CONST char *text)
     }
   c->step = 0;
 }
-
 void
 uih_clearscreen (uih_context * c)
 {
@@ -1261,7 +1242,6 @@ uih_clearscreen (uih_context * c)
   if (c->play)
     uih_clear_lines (c);
 }
-
 void
 uih_settextpos (uih_context * c, int x, int y)
 {
@@ -1340,7 +1320,6 @@ uih_constantframetime (uih_context * c, int time)
   c->emulatedframetime = time;
   uih_emulatetimers (c);
 }
-
 void
 uih_noconstantframetime (uih_context * c)
 {
@@ -1350,7 +1329,6 @@ uih_noconstantframetime (uih_context * c)
   tl_free_emulator (c->emulator);
   c->emulator = NULL;
 }
-
 void
 uih_stoptimers (uih_context * c)
 {
@@ -1816,7 +1794,6 @@ uih_mkdefaultpalette (uih_context * c)
   uih_finishpalette (c);
   uih_cycling_continue (c);
 }
-
 void
 uih_mkpalette (uih_context * c)
 {
@@ -1838,7 +1815,6 @@ uih_mkpalette (uih_context * c)
   c->palettetype = alg + 1;
   uih_cycling_continue (c);
 }
-
 /*Basic inicialization routines */
 
 static void
@@ -1865,7 +1841,6 @@ uih_initqueue (uih_context * c)
 {
   return (initqueue (c->queue));
 }
-
 void
 uih_setmaxstep (uih_context * c, number_t p)
 {
@@ -1892,6 +1867,20 @@ uih_setmaxiter (uih_context * c, int maxiter)
       uih_newimage (c);
     }
 }
+
+void
+uih_setbailout (uih_context * c, number_t bailout)
+{
+  if (bailout < 0)
+    bailout = 0;
+  if (c->fcontext->bailout != (number_t) bailout)
+    {
+      c->fcontext->bailout = bailout;
+      c->fcontext->version++;
+      uih_newimage (c);
+    }
+}
+
 void
 uih_setincoloringmode (uih_context * c, int mode)
 {
@@ -1971,7 +1960,6 @@ uih_perbutation (uih_context * c, int mousex, int mousey)
   uih_getcoord (c, mousex, mousey, &r, &i);
   uih_setperbutation (c, r, i);
 }
-
 void
 uih_setjuliaseed (uih_context * c, number_t zre, number_t zim)
 {
@@ -2011,7 +1999,6 @@ uih_setfastmode (uih_context * c, int mode)
   c->fastmode = mode;
   uih_updatemenus (c, names[mode]);
 }
-
 void
 uih_setoutcoloringmode (uih_context * c, int mode)
 {
@@ -2059,7 +2046,6 @@ uih_screentofractalcoord (uih_context * c, int mousex, int mousey,
   uih_getcoord (c, mousex, mousey, re, im);
   recalculate (c->fcontext->plane, re, im);
 }
-
 void
 uih_setmandelbrot (uih_context * c, int mode, int mousex, int mousey)
 {
@@ -2116,13 +2102,11 @@ uih_interrupt (uih_context * c)
   if (c->incalculation)
     c->interrupt = 1;
 }
-
 void
 uih_stopzooming (uih_context * c)
 {
   c->speed = 0;
 }
-
 int
 uih_updateimage (uih_context * c, struct image *image)
 {
@@ -2240,7 +2224,6 @@ uih_mkcontext (int flags, struct image *image,
   uih_saveundo (uih);
   return (uih);
 }
-
 void
 uih_savepalette (uih_context * c)
 {
@@ -2249,7 +2232,6 @@ uih_savepalette (uih_context * c)
   if (c->zengine->fractalc->palette != NULL)
     c->palette2 = clonepalette (c->zengine->fractalc->palette);
 }
-
 void
 uih_restorepalette (uih_context * uih)
 {
@@ -2262,7 +2244,6 @@ uih_restorepalette (uih_context * uih)
   uih->palette2 = NULL;
   uih_finishpalette (uih);
 }
-
 void
 uih_setformula (uih_context * c, int num)
 {
@@ -2272,7 +2253,6 @@ uih_setformula (uih_context * c, int num)
   uih_updatemenus (c, "uiperturbation");
   uih_updatemenus (c, c->fcontext->currentformula->shortname);
 }
-
 void
 uih_initstate (struct uih_context *uih)
 {
@@ -2291,6 +2271,7 @@ uih_initstate (struct uih_context *uih)
   set_formula (uih->fcontext, 0);
   uih_setperiodicity (uih, 1);
   uih_setmaxiter (uih, 170);
+  uih_setbailout (uih, 4);
   uih_setincoloringmode (uih, 0);
   uih_setoutcoloringmode (uih, 0);
   uih_setcycling (uih, 30);

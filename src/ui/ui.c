@@ -85,9 +85,9 @@ int euid, egid;
 #define textwidth1 (driver->textwidth)
 #define ui_flush() (driver->flush?driver->flush(),1:0)
 #ifdef MEMCHECK
-#define STATUSLINES 12
+#define STATUSLINES 13
 #else
-#define STATUSLINES 10
+#define STATUSLINES 11
 #endif
 static void ui_mouse (int mousex, int mousey, int mousebuttons,
 		      int iterchange);
@@ -167,6 +167,7 @@ CONST struct params global_params[] = {
    "exact size of one pixel in centimeters"},
   {NULL, 0, NULL, NULL}
 };
+
 #define UI (MENUFLAG_NOPLAY|MENUFLAG_NOOPTION)
 CONST static menuitem resizeitems[] = {
   MENUNOP ("ui", "=", "Resize", "resize", UI | MENUFLAG_INTERRUPT,
@@ -349,7 +350,7 @@ ui_updatestatus (void)
 {
   double times =
     (uih->fcontext->currentformula->v.rr) / (uih->fcontext->s.rr);
-  double timesnop = log(times)/log(10.0);
+  double timesnop = log (times) / log (10.0);
   double speed;
   uih_drawwindows (uih);
   driver->display ();
@@ -359,10 +360,11 @@ ui_updatestatus (void)
 	   gettext
 	   ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "),
 	   times < 1 ? gettext ("unzoomed") : gettext ("zoomed"),
-	   times < 1 ? 1.0 / times : times, timesnop, speed, uih->autopilot ? 'A' : ' ',
-	   uih->fcontext->coloringmode + 1, uih->fcontext->incoloringmode + 1,
-	   uih->fcontext->plane + 1, uih->fcontext->maxiter);
-	   
+	   times < 1 ? 1.0 / times : times, timesnop, speed,
+	   uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1,
+	   uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1,
+	   uih->fcontext->maxiter);
+
   if (!(driver->flags & NOFLUSHDISPLAY))
     ui_flush ();
   STAT (printf (gettext ("framerate:%f\n"), speed));
@@ -428,8 +430,7 @@ ui_menuactivate (CONST menuitem * item, dialogparam * d)
     }
 }
 
-xio_path
-ui_getfile (CONST char *basename, CONST char *extension)
+xio_path ui_getfile (CONST char *basename, CONST char *extension)
 {
   return (xio_getfilename (basename, extension));
 }
@@ -452,8 +453,8 @@ ui_drawstatus (uih_context * uih, void *data)
   xprint (uih->image, uih->font, 0, statusstart, str, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("Fractal type:%s"),
-	   uih->fcontext->
-	   mandelbrot ? gettext ("Mandelbrot") : gettext ("Julia"));
+	   uih->
+	   fcontext->mandelbrot ? gettext ("Mandelbrot") : gettext ("Julia"));
   xprint (uih->image, uih->font, 0, statusstart + h, str, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("View:[%1.12f,%1.12f]"),
@@ -473,36 +474,39 @@ ui_drawstatus (uih_context * uih, void *data)
 	   uih->fcontext->maxiter, uih->image->palette->size);
   xprint (uih->image, uih->font, 0, statusstart + 5 * h, str, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
+  sprintf (str, "Bailout:%4.2f", (double) uih->fcontext->bailout);
+  xprint (uih->image, uih->font, 0, statusstart + 6 * h, str, FGCOLOR (uih),
+	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("Autopilot:%-4s  Plane:%s"),
 	   uih->autopilot ? gettext ("On") : gettext ("Off"),
 	   planename[uih->fcontext->plane]);
-  xprint (uih->image, uih->font, 0, statusstart + 6 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 7 * h, str, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("incoloring:%s    outcoloring:%s"),
 	   incolorname[uih->fcontext->incoloringmode],
 	   outcolorname[uih->fcontext->coloringmode]);
-  xprint (uih->image, uih->font, 0, statusstart + 7 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 8 * h, str, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("zoomspeed:%f"), (float) uih->maxstep * 1000);
-  xprint (uih->image, uih->font, 0, statusstart + 8 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 9 * h, str, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   if (uih->fcontext->mandelbrot)
     strcpy (str, gettext ("Parameter:none"));
   else
     sprintf (str, gettext ("Parameter:[%f,%f]"), (float) uih->fcontext->pre,
 	     (float) uih->fcontext->pim);
-  xprint (uih->image, uih->font, 0, statusstart + 9 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 10 * h, str, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
 #ifdef MEMCHECK
   {
     struct mallinfo i = mallinfo ();
     sprintf (str, "Allocated arena:%i Wasted:%i %i", i.arena, i.ordblks,
 	     i.fordblks);
-    xprint (uih->image, uih->font, 0, statusstart + 10 * h, str,
+    xprint (uih->image, uih->font, 0, statusstart + 11 * h, str,
 	    FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, "Mmaped blocks%i Mmaped area:%i keep:%i", i.hblks, i.hblkhd,
 	     i.keepcost);
-    xprint (uih->image, uih->font, 0, statusstart + 11 * h, str,
+    xprint (uih->image, uih->font, 0, statusstart + 12 * h, str,
 	    FGCOLOR (uih), BGCOLOR (uih), 0);
   }
 #endif
@@ -1205,6 +1209,7 @@ static menuitem menuitems[] = {
 /* This structure is now empty. All static definitions have been moved
    to ui_registermenus_i18n() which fills up its own static array. */
 };
+
 /* Registering internationalized menus. See also include/xmenu.h
    for details. Note that MAX_MENUITEMS_I18N may be increased
 	 if more items will be added in future. */
@@ -1227,13 +1232,15 @@ ui_registermenus_i18n (void)
 	       MENUFLAG_INCALC | MENUFLAG_ATSTARTUP | MENUFLAG_NOMENU,
 	       ui_noguisw, ui_noguienabled);
   MENUSEPARATOR_I ("ui");
-  MENUNOPCB_I ("ui", "/", gettext ("Status"), "status", MENUFLAG_INCALC, ui_status, ui_statusenabled);	/*FIXME: add also ? as key */
+  MENUNOPCB_I ("ui", "/", gettext ("Status"), "status", MENUFLAG_INCALC,
+	       ui_status, ui_statusenabled);	/*FIXME: add also ? as key */
 
   MENUNOPCB_I ("ui", "l", gettext ("Ministatus"), "ministatus",
 	       MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
   MENUSEPARATOR_I ("ui");
   MENUSEPARATOR_I ("uia");
-  MENUNOPCB_I ("uia", "/", gettext ("Status"), "animstatus", UI | MENUFLAG_INCALC, ui_status, ui_statusenabled);	/*FIXME: add also ? as key */
+  MENUNOPCB_I ("uia", "/", gettext ("Status"), "animstatus",
+	       UI | MENUFLAG_INCALC, ui_status, ui_statusenabled);	/*FIXME: add also ? as key */
 
   MENUNOPCB_I ("uia", "l", gettext ("Ministatus"), "animministatus",
 	       UI | MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);

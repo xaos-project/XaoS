@@ -459,6 +459,17 @@ uih_getiterdialog (struct uih_context *c)
     uih_iterdialog[0].defint = c->fcontext->maxiter;
   return (uih_iterdialog);
 }
+static menudialog uih_bailoutdialog[] = {
+  DIALOGFLOAT ("bailout:", 0),
+  {NULL}
+};
+static menudialog *
+uih_getbailoutdialog (struct uih_context *c)
+{
+  if (c != NULL)
+    uih_bailoutdialog[0].deffloat = c->fcontext->bailout;
+  return (uih_bailoutdialog);
+}
 static CONST menudialog dtextparam[] = {
   DIALOGSTR ("Text:", ""),
   {NULL}
@@ -1145,6 +1156,8 @@ uih_registermenus_i18n (void)
 	       "periodicity", 0, uih_periodicitysw, uih_periodicityselected);
   MENUCDIALOG_I ("calc", NULL, gettext ("Iterations"), "maxiter",
 		 MENUFLAG_INTERRUPT, uih_setmaxiter, uih_getiterdialog);
+  MENUCDIALOG_I ("calc", NULL, gettext ("Bailout"), "bailout",
+		 MENUFLAG_INTERRUPT, uih_setbailout, uih_getbailoutdialog);
   MENUSEPARATOR_I ("calc");
   MENUNOPCB_I ("calc", "j", gettext ("Fast julia mode"), "fastjulia", 0,
 	       uih_juliasw, uih_juliaselected);
@@ -1232,7 +1245,7 @@ uih_registermenus_i18n (void)
 	       "guess8", UI, uih_setguessing, 8, uih_guessingselected);
   MENUINTRB_I ("mguess", NULL, gettext ("Guess unlimited rectangles"),
 	       "guessall", UI, uih_setguessing, 2048, uih_guessingselected);
-    /* Language selection is not sensible anymore if i18n is used: */
+  /* Language selection is not sensible anymore if i18n is used: */
 #ifdef WITHOUT_GETTEXT
   SUBMENU_I ("tutor", NULL, gettext ("Language"), "lang");
   MENUSEPARATOR_I ("tutor");
@@ -1241,7 +1254,7 @@ uih_registermenus_i18n (void)
   SUBMENU_I ("tutor", NULL, gettext ("XaoS features overview"), "features");
   SUBMENU_I ("tutor", NULL, gettext ("Math behind fractals"), "fmath");
   SUBMENU_I ("tutor", NULL, gettext ("What's new?"), "new");
-    /* Language selection is not sensible anymore if i18n is used: */
+  /* Language selection is not sensible anymore if i18n is used: */
 #ifdef WITHOUT_GETTEXT
   LANG_I ("Cesky", "cesky");
   LANG_I ("Deutsch", "deutsch");
@@ -1375,9 +1388,14 @@ uih_registermenus (void)
     {
       item[i].menuname = "mformula";
       item[i].key = keys[i];
-      keys[i][0] = '1' + i;
-      if (i == 9)
+      if (i < 9)
+	keys[i][0] = '1' + i;
+      else if (i == 9)
 	keys[i][0] = '0';
+#ifndef _MAC
+      else
+	keys[i][0] = '7' + i;
+#endif
       keys[i][1] = 0;
       item[i].type = MENU_INT;
       item[i].flags = MENUFLAG_RADIO | MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY;

@@ -35,7 +35,6 @@ REGISTERS (3)
   uih_error (uih, error);
   uih->savec->writefailed = 1;
 }
-
 REGISTERS (3)
      static void start_save (struct uih_context *uih, CONST char *name)
 {
@@ -51,14 +50,12 @@ REGISTERS (3)
   myputs (name);
   first = 0;
 }
-
 REGISTERS (3)
      static void stop_save (struct uih_context *uih)
 {
   myputc (')');
   myputc ('\n');
 }
-
 #ifdef SAVEKEYWORDUSED
 REGISTERS (3)
      static void save_keyword (struct uih_context *uih, CONST char *name)
@@ -80,7 +77,6 @@ REGISTERS (3)
   myputc ('\'');
   myputs (name);
 }
-
 REGISTERS (3)
      static void save_float (struct uih_context *uih, number_t number)
 {
@@ -107,7 +103,6 @@ REGISTERS (3)
   }
 #endif
 }
-
 REGISTERS (3)
      static void
        save_float2 (struct uih_context *uih, number_t number, int places)
@@ -142,7 +137,6 @@ REGISTERS (3)
   }
 #endif
 }
-
 REGISTERS (3)
      static void save_int (struct uih_context *uih, int number)
 {
@@ -154,7 +148,6 @@ REGISTERS (3)
   sprintf (s, "%i", number);
   myputs (s);
 }
-
 REGISTERS (3)
      static void save_onoff (struct uih_context *uih, int number)
 {
@@ -164,7 +157,6 @@ REGISTERS (3)
     first = 0;
   myputs (number ? "#t" : "#f");
 }
-
 REGISTERS (3)
      static void save_string (struct uih_context *uih, CONST char *text)
 {
@@ -183,7 +175,6 @@ REGISTERS (3)
     }
   myputc ('"');
 }
-
 REGISTERS (3)
      static void
        save_intc (struct uih_context *uih, CONST char *name, int number)
@@ -192,7 +183,6 @@ REGISTERS (3)
   save_int (uih, number);
   stop_save (uih);
 }
-
 REGISTERS (3)
      static void
        save_onoffc (struct uih_context *uih, CONST char *name, int number)
@@ -201,7 +191,6 @@ REGISTERS (3)
   save_onoff (uih, number);
   stop_save (uih);
 }
-
 REGISTERS (3)
      static void
        save_floatc (struct uih_context *uih, CONST char *name,
@@ -211,7 +200,6 @@ REGISTERS (3)
   save_float (uih, number);
   stop_save (uih);
 }
-
 REGISTERS (3)
      static void
        save_float2c (struct uih_context *uih, CONST char *name,
@@ -221,7 +209,6 @@ REGISTERS (3)
   save_float2 (uih, number, places);
   stop_save (uih);
 }
-
 REGISTERS (3)
      static void
        save_coordc (struct uih_context *uih, CONST char *name,
@@ -232,7 +219,6 @@ REGISTERS (3)
   save_float (uih, number2);
   stop_save (uih);
 }
-
 REGISTERS (3)
      static void
        save_keystringc (struct uih_context *uih, CONST char *name,
@@ -242,7 +228,6 @@ REGISTERS (3)
   save_keystring (uih, param);
   stop_save (uih);
 }
-
 REGISTERS (3)
      static void
        save_stringc (struct uih_context *uih, CONST char *name,
@@ -252,14 +237,12 @@ REGISTERS (3)
   save_string (uih, param);
   stop_save (uih);
 }
-
 REGISTERS (3)
      static void save_noparam (struct uih_context *uih, CONST char *name)
 {
   start_save (uih, name);
   stop_save (uih);
 }
-
 REGISTERS (3)
      static void
        save_nstring (struct uih_context *uih, int number,
@@ -267,7 +250,6 @@ REGISTERS (3)
 {
   save_keystring (uih, texts[number]);
 }
-
 REGISTERS (3)
      static void
        save_nstringc (struct uih_context *uih, CONST char *name, int number,
@@ -330,7 +312,6 @@ REGISTERS (3);
   stop_save (uih);
   uih->savec->fcontext->s = uih->fcontext->s;
 }
-
 void
 uih_saveframe (struct uih_context *uih)
 {
@@ -480,6 +461,9 @@ uih_saveframe (struct uih_context *uih)
       if (s->fcontext->maxiter != uih->fcontext->maxiter)
 	save_intc (uih, "maxiter", uih->fcontext->maxiter),
 	  s->fcontext->maxiter = uih->fcontext->maxiter;
+      if (s->fcontext->bailout != uih->fcontext->bailout)
+	save_floatc (uih, "bailout", uih->fcontext->bailout),
+	  s->fcontext->bailout = uih->fcontext->bailout;
       if (s->fcontext->coloringmode != uih->fcontext->coloringmode)
 	save_intc (uih, "outcoloring", uih->fcontext->coloringmode),
 	  s->fcontext->coloringmode = uih->fcontext->coloringmode;
@@ -627,6 +611,7 @@ uih_save_enable (struct uih_context *uih, xio_file f, int mode)
   s->fcontext->currentformula = NULL;
   s->fcontext->periodicity = 1;
   s->fcontext->maxiter = 170;
+  s->fcontext->bailout = 4;
   s->fcontext->coloringmode = 0;
   s->fcontext->incoloringmode = 0;
   s->fcontext->outtcolor = 1;
@@ -667,7 +652,6 @@ uih_save_enable (struct uih_context *uih, xio_file f, int mode)
   xio_putc ('\n', f);
   return 1;
 }
-
 void
 uih_save_disable (struct uih_context *uih)
 {

@@ -394,6 +394,7 @@ extern "C"
   void uih_setperbutation (uih_context * c, number_t re, number_t im);
   void uih_perbutation (uih_context * c, int mousex, int mousey);
   void uih_setmaxiter (uih_context * c, int maxiter);
+  void uih_setbailout (uih_context * c, number_t bailout);
   void uih_setincoloringmode (uih_context * c, int mode);
   void uih_setoutcoloringmode (uih_context * c, int mode);
   void uih_setintcolor (uih_context * c, int mode);
@@ -467,7 +468,6 @@ extern "C"
   void uih_freecatalog (uih_context * c);
 
   void uih_registermenus (void);
-  void uih_registermenus_i18n (void);
   void uih_unregistermenus (void);
 
 /*Windows :)*/

@@ -88,6 +88,7 @@ extern "C"
     number_t angle;
     int periodicity;
     unsigned int maxiter;
+    number_t bailout;
     int coloringmode, incoloringmode;
     int intcolor, outtcolor;
     int mandelbrot;

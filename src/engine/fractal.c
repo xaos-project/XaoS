@@ -111,7 +111,6 @@ set_view (fractal_context * c, CONST vinfo * s)
   c->s = *s;
   recalc_view (c);
 }
-
 /*FIXME most of this code is obsolette */
 static void			/*INLINE */
 combine_methods (void)
@@ -214,7 +213,6 @@ combine_methods (void)
   if (cursymetry.ysym == -(number_t) INT_MAX)
     cursymetry.ysym = (number_t) INT_MAX;
 }
-
 void
 update_view (fractal_context * context)
 {
@@ -233,6 +231,9 @@ set_fractalc (fractal_context * context, struct image *img)
 
   if (cfractalc.maxiter < 1)
     cfractalc.maxiter = 1;
+
+  if (cfractalc.bailout < 0)
+    cfractalc.bailout = 0;
 
   if (cfractalc.periodicity)
     {
@@ -409,6 +410,7 @@ make_fractalc (CONST int formula, float wi, float he)
   new_ctxt->periodicity = 1;
   new_ctxt->windowheight = he;
   new_ctxt->maxiter = DEFAULT_MAX_ITER;
+  new_ctxt->bailout = DEFAULT_BAILOUT;
   new_ctxt->coloringmode = 0;
   new_ctxt->intcolor = 1;
   new_ctxt->outtcolor = 1;
@@ -418,7 +420,6 @@ make_fractalc (CONST int formula, float wi, float he)
   set_formula (new_ctxt, formula);
   return (new_ctxt);
 }
-
 void
 free_fractalc (fractal_context * c)
 {

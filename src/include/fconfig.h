@@ -9,6 +9,7 @@
 #define DEFAULT_MAX_ITER 170
 				      /*default number of iterations should be set
 				         lower for slow computers */
+#define DEFAULT_BAILOUT  4
 #define MAXSTEP		(0.008*3)
 				       /*zooming step. For slow computer should
 				          be set lower. Longer steps takes more time

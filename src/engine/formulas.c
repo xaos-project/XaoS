@@ -113,6 +113,7 @@ CONST char *CONST tcolorname[] = {
   "Disable truecolor colouring",
   NULL
 };
+
 #define SHIFT 8
 #define SMUL 256
 
@@ -138,7 +139,7 @@ fpint;
 #endif
 #ifndef less_than_4
 #define less_than_0(x) ((x)<0)
-#define less_than_4(x) ((x)<4)
+#define less_than_4(x) ((x)<cfractalc.bailout)
 #define greater_then_1Em6(n) ((n)>1E-6)
 #define abs_less_than(x,y) (myabs(x)<y)
 #define greater_than(x,y) ((x)>(y))
@@ -162,7 +163,7 @@ fpint;
 		}
 
 #define SMOOTHOUTPUT() {PRESMOOTH;zre+=0.000001;szmag+=0.000001; \
-                        iter=(int)(((cfractalc.maxiter-iter)*256+log((double)(4/(szmag)))/log((double)((zre)/(szmag)))*256)); \
+                        iter=(int)(((cfractalc.maxiter-iter)*256+log((double)(cfractalc.bailout/(szmag)))/log((double)((zre)/(szmag)))*256)); \
                         if (iter < 0) {\
                           iter = (((unsigned int)(cpalette.size - 1)) << 8) - ((-iter) % (((unsigned int)(cpalette.size - 1)) << 8))-1; \
                           if (iter < 0) iter=0; \
@@ -263,8 +264,8 @@ truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
       break;
     case 1:
       b =
-	(int) ((sin ((double) atan2 ((double) zre, (double) zim) * 20) +
-		1) * 127);
+	(int) ((sin ((double) atan2 ((double) zre, (double) zim) * 20) + 1) *
+	       127);
       w = (int) ((sin ((double) zim / zre)) * 127);
       r = (int) ((int) (zre * zim));
       g = (int) ((sin ((double) (zre * zre) / 2) + 1) * 127);
@@ -421,10 +422,8 @@ truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
   switch (cpalette.type)
     {
     case GRAYSCALE:
-      return ((unsigned int) (r * 76 + g * 151 + b * 29) * (cpalette.end -
-							    cpalette.
-							    start) >> 16) +
-	cpalette.start;
+      return ((unsigned int) (r * 76 + g * 151 + b * 29) *
+	      (cpalette.end - cpalette.start) >> 16) + cpalette.start;
     case TRUECOLOR:
     case TRUECOLOR24:
     case TRUECOLOR16:
@@ -438,7 +437,6 @@ truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
 
   return cpalette.pixels[inset];
 }
-
 #ifdef __alpha__
 #define __TEST__
 #endif
@@ -494,8 +492,8 @@ color_output (number_t zre, number_t zim, unsigned int iter)
     default:
     case 8:
       i =
-	(int) ((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) +
-		0.75) * 20000);
+	(int) ((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75) *
+	       20000);
       break;
     }
 
@@ -539,14 +537,15 @@ incolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
     {
     case 1:			/* zmag */
       i =
-	(int) (((zre * zre +
-		 zim * zim) * (number_t) (cfractalc.maxiter >> 1) * SMUL +
-		SMUL));
+	(int) (
+	       ((zre * zre + zim * zim) *
+		(number_t) (cfractalc.maxiter >> 1) * SMUL + SMUL));
       break;
     case 2:			/* real */
       i =
-	(int) (((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) +
-		 0.75) * 20000));
+	(int) (
+	       ((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75) *
+		20000));
       break;
     default:
       break;
@@ -569,8 +568,8 @@ incolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
       break;
     case 6:
       i =
-	(int) ((zre * zre +
-		zim * zim) * cos ((double) (zre * zre)) * 256 * 256);
+	(int) ((zre * zre + zim * zim) * cos ((double) (zre * zre)) * 256 *
+	       256);
       break;
     case 7:
       i = (int) (sin ((double) (zre * zre - zim * zim)) * 256 * 256);
@@ -581,12 +580,14 @@ incolor_output (number_t zre, number_t zim, number_t pre, number_t pim,
     case 9:
       if ((abs ((int) (zre * 40)) % 2) ^ (abs ((int) (zim * 40)) % 2))
 	i =
-	  (int) (((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) +
-		   0.75) * 20000));
+	  (int) (
+		 ((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75)
+		  * 20000));
       else
 	i =
-	  (int) (((atan2 ((double) zim, (double) zre) / (M_PI + M_PI) +
-		   0.75) * 20000));
+	  (int) (
+		 ((atan2 ((double) zim, (double) zre) / (M_PI + M_PI) + 0.75)
+		  * 20000));
       break;
     };
 
@@ -741,8 +742,13 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 	rp = zre - 1; \
 	ip = zim * zim; \
 	rp = zre * zre;
-#define BTEST (rp+ip<(number_t)100*100&&(rp-2*zre+ip)>-0.99)
-#define POSTCALC if(rp-2*zre+ip>-0.99) zre *= 0.02, zim *= 0.02;
+#define BTEST (rp+ip<(number_t)100*100&&(rp-2*zre+ip)>0.04/cfractalc.bailout-1)
+#define POSTCALC \
+	if(rp-2*zre+ip>0.04/cfractalc.bailout-1){ \
+		zre *= 0.08/cfractalc.bailout, zim *= 0.08/cfractalc.bailout; \
+		if(iter) \
+			iter = cfractalc.maxiter - iter + 1; \
+	}
 #define CALC magnet_calc
 #define PERI magnet_peri
 #define SCALC smagnet_calc
@@ -751,6 +757,51 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define PRESMOOTH szmag/=100*100/4;zre=(rp+ip)/(100*100*4);
 #define JULIA magnet_julia
 #define RANGE 4
+#define RPIP
+#include "docalc.c"
+
+#define UNCOMPRESS
+#define VARIABLES number_t inre,inim,tmp1,tmp2,dnre,nmre,dnim;
+#define INIT \
+	inre = pre*pre - pim*pim - pre - pre - pre; \
+	inim = pre*pim; \
+	inim = inim + inim - pim - pim - pim;
+#define FORMULA \
+	tmp1 = rp - ip; \
+	tmp2 = zre*pre - zim*pim - zre; \
+	dnre = tmp1 + tmp1 + tmp1 + tmp2 + tmp2 + tmp2 - zre - zre - zre + inre + 3; \
+	tmp1 = zre*ip;\
+	nmre = zre*rp - tmp1 - tmp1 - tmp1 + tmp2 + tmp2 + tmp2 + inre + 2; \
+	tmp1 = zre*zim; \
+	tmp2 = zre*pim + zim*pre - zim; \
+	dnim = tmp1 + tmp1 + tmp1 + tmp1 + tmp1 + tmp1 + tmp2 + tmp2 + tmp2 - zim - zim - zim + inim; \
+	tmp1 = zim*rp; \
+	zim = tmp1 + tmp1 + tmp1 - zim*ip + tmp2 + tmp2 + tmp2 + inim; \
+	zre = nmre; \
+	ip = dnim; \
+	tmp1 = 1 / (dnre * dnre + ip * ip); \
+	rp = (zre * dnre + zim * ip) * tmp1; \
+	ip = (zim * dnre - zre * ip) * tmp1; \
+	zre = (rp + ip) * (rp - ip); \
+	zim = rp * ip; \
+	zim += zim; \
+	ip = zim * zim; \
+	rp = zre * zre;
+#define BTEST (rp+ip<(number_t)100*100&&(rp-2*zre+ip)>0.04/cfractalc.bailout-1)
+#define POSTCALC \
+	if(rp-2*zre+ip>0.04/cfractalc.bailout-1){ \
+		zre *= 0.08/cfractalc.bailout, zim *= 0.08/cfractalc.bailout; \
+		if(iter) \
+			iter = cfractalc.maxiter - iter + 1; \
+	}
+#define CALC magnet2_calc
+#define PERI magnet2_peri
+#define SCALC smagnet2_calc
+#define SPERI smagnet2_peri
+#define SMOOTH
+#define PRESMOOTH szmag/=100*100/4;zre=(rp+ip)/(100*100*4);
+#define JULIA magnet2_julia
+#define RANGE 2
 #define RPIP
 #include "docalc.c"
 
@@ -835,6 +886,26 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #include "docalc.c"
 
 
+#define VARIABLES
+#define BTEST less_than_4(rp+ip)
+#define FORMULA \
+	if (less_than_0 (zre*pim + zim*pre)) { \
+	    rp = zre + 1; \
+	} else { \
+	    rp = zre - 1; \
+	} \
+	c_mul(rp, zim, pre, pim, zre, zim); \
+	rp = zre * zre; \
+	ip = zim * zim;
+#define SMOOTH
+#define SCALC sbarnsley2_calc
+#define CALC barnsley2_calc
+#define JULIA barnsley2_julia
+#define RANGE 2
+#define RPIP
+#include "docalc.c"
+
+
 #define VARIABLES register number_t n,sqrr,sqri,zre1,zim1;
 #define INIT sqri=zim*zim,n=zre,zre=pre,pre=n,n=zim,zim=pim,pim=n,n=(number_t)1;
 #define BTEST greater_then_1Em6(n)
@@ -852,6 +923,25 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 	zim1 -= zim; \
 	n = zre1 * zre1 + zim1 * zim1;
 #define CALC newton_calc
+#include "docalc.c"
+
+
+#define VARIABLES register number_t n,sqrr,sqri,zre1,zim1;
+#define INIT sqri=zim*zim,n=zre,zre=pre,pre=n,n=zim,zim=pim,pim=n,n=(number_t)1;
+#define BTEST greater_then_1Em6(n)
+#define FORMULA \
+    zre1 = zre; \
+    zim1 = zim; \
+    sqrr = zre * zre; \
+    sqri = zim * zim; \
+    n = sqri + sqrr; \
+    n = 1 / ((n * n * n)); \
+    zim = (0.25) * zim * (3 + (sqri - 3 * sqrr) * n) + pim; \
+    zre = (0.25) * zre * (3 + (sqrr - 3 * sqri) * n) + pre; \
+    zre1 -= zre; \
+    zim1 -= zim; \
+    n = zre1 * zre1 + zim1 * zim1;
+#define CALC newton4_calc
 #include "docalc.c"
 
 
@@ -1334,7 +1424,135 @@ CONST struct formula formulas[] = {
     },
    STARTZERO,
    },
+/* formulas added by Andreas Madritsch */
+  {
+   FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+   newton4_calc,
+   NULL,
+   NULL,
+   NULL,
+#endif
+   NULL,
+   {"Newton^4", "Newton^4 julia?"},
+   "newton4",
+   /*{1.25, -1.25, 1.25, -1.25}, */
+   {0.0, 0.0, 2.5, 2.5},
+   0, 1, 1.0199502202048319698, 0.0,
+   {
+    {INT_MAX, 0, 2, sym6},
+    {INT_MAX, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, 0, 2, sym6},
+    {INT_MAX, 0, 2, sym6},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, 0, 2, sym6},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   {
+    {INT_MAX, 0, 2, sym6},
+    {INT_MAX, 0, 2, sym6},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   STARTZERO,
+   },
+  {
+   FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+   barnsley2_calc,
+   NULL,
+   sbarnsley2_calc,
+   NULL,
+#endif
+   barnsley2_julia,
+   {"Barnsley2 Mandelbrot", "Barnsley2"},
+   "barnsley2",
+   /*{1.25, -1.25, 1.25, -1.25}, */
+   {0.0, 0.0, 2.5, 5.5},
+   0, 0, -0.6, 1.1,
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   STARTZERO | MANDEL_BTRACE,
+   },
+  {
+   FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+   magnet2_calc,
+   magnet2_peri,
+   smagnet2_calc,
+   smagnet2_peri,
+#endif
+   magnet2_julia,
+   {"Magnet2", "Magnet2"},
+   "magnet2",
+   /*{3, 0, 2.2, -2.2}, */
+   {1.0, 0.0, 3.0, 3.2},
+   1, 1, 0.0, 0.0,
+   {
+    {INT_MAX, 0, 0, NULL},
+    {INT_MAX, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, 0, 0, NULL},
+    {INT_MAX, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   {
+    {INT_MAX, 0, 0, NULL},
+    {INT_MAX, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   STARTZERO,
+   },
 };
+
 #ifdef SLOWFUNCPTR
 unsigned int
 calculateswitch (register number_t x1, register number_t y1,
@@ -1374,6 +1592,15 @@ calculateswitch (register number_t x1, register number_t y1,
 	case 9:
 	  return (smagnet_peri (x1, y1, x2, y2));
 	  break;
+	case 10:
+	  return (newton4_calc (x1, y1, x2, y2));
+	  break;
+	case 11:
+	  return (sbarnsley2_calc (x1, y1, x2, y2));
+	  break;
+	case 12:
+	  return (smagnet2_peri (x1, y1, x2, y2));
+	  break;
 	}
     else
       switch (cfractalc.currentformula - formulas)
@@ -1407,6 +1634,15 @@ calculateswitch (register number_t x1, register number_t y1,
 	  break;
 	case 9:
 	  return (magnet_peri (x1, y1, x2, y2));
+	  break;
+	case 10:
+	  return (newton4_calc (x1, y1, x2, y2));
+	  break;
+	case 11:
+	  return (sbarnsley2_calc (x1, y1, x2, y2));
+	  break;
+	case 12:
+	  return (smagnet2_peri (x1, y1, x2, y2));
 	  break;
 	}
   else if (cfractalc.coloringmode == 9)
@@ -1442,6 +1678,15 @@ calculateswitch (register number_t x1, register number_t y1,
       case 9:
 	return (smagnet_calc (x1, y1, x2, y2));
 	break;
+      case 10:
+	return (newton4_calc (x1, y1, x2, y2));
+	break;
+      case 11:
+	return (sbarnsley2_calc (x1, y1, x2, y2));
+	break;
+      case 12:
+	return (smagnet2_peri (x1, y1, x2, y2));
+	break;
       }
   else
     switch (cfractalc.currentformula - formulas)
@@ -1475,6 +1720,15 @@ calculateswitch (register number_t x1, register number_t y1,
 	break;
       case 9:
 	return (magnet_calc (x1, y1, x2, y2));
+	break;
+      case 10:
+	return (newton4_calc (x1, y1, x2, y2));
+	break;
+      case 11:
+	return (sbarnsley2_calc (x1, y1, x2, y2));
+	break;
+      case 12:
+	return (smagnet2_peri (x1, y1, x2, y2));
 	break;
       }
   return 0;
