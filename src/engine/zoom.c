@@ -841,7 +841,7 @@ mkrealloc_table (CONST number_t * RESTRICT fpos, realloc_t * RESTRICT realloc,
 		}
 	    }
 	}
-/*previous = ps; *//*store possitions for next loop */
+      /*previous = ps; *//*store possitions for next loop */
       ps = ps1;
       ps1 = pe;
       pe = p;
@@ -912,9 +912,7 @@ mkrealloc_table (CONST number_t * RESTRICT fpos, realloc_t * RESTRICT realloc,
 
   STAT (printf
 	("%i added %i skipped %i mirrored\n", nadded, nskipped, nsymetry));
-  STAT (nadded2 += nadded;
-	nskipped2 += nskipped;
-	nsymetry2 += nsymetry);
+  STAT (nadded2 += nadded; nskipped2 += nskipped; nsymetry2 += nsymetry);
 }
 
 struct movedata
@@ -1072,7 +1070,7 @@ mkfilltable (void)
       if (rx->dirty)
 	{
 	  r1 = rx - 1;
-	  for (r2 = rx + 1; r2 < rend2 && r2->dirty ; r2++);
+	  for (r2 = rx + 1; r2 < rend2 && r2->dirty; r2++);
 	  while (rx < rend2 && rx->dirty)
 	    {
 	      n = (int) (r2 - rx);
@@ -1136,7 +1134,7 @@ filly (void /*@unused@ *//*@null@ */ *data,
 	{
 	  incuncomplette ();
 	  r1 = ry - 1;
-	  for (r2 = ry + 1; r2 < rend2 && r2->dirty > 0 ; r2++);
+	  for (r2 = ry + 1; r2 < rend2 && r2->dirty > 0; r2++);
 #ifdef _UNDEFINED_
 	  if (r2 >= rend && (rr2 != cimage.height || ry == 0))
 #else
@@ -1319,15 +1317,14 @@ calculatenew (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
 	("Avoided caluclating of %i points from %i and %2.2f%% %2.2f%%\n",
 	 avoided, tocalculate, 100.0 * (avoided) / tocalculate,
 	 100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
-  STAT (avoided2 += avoided;
-	tocalculate2 += tocalculate;
-	frames2 += 1);
+  STAT (avoided2 += avoided; tocalculate2 += tocalculate; frames2 += 1);
 }
 
 static void
 addprices (realloc_t * r, realloc_t * r2)
 REGISTERS (3);
-REGISTERS(3) static void addprices (realloc_t * r, realloc_t * r2)
+REGISTERS (3)
+     static void addprices (realloc_t * r, realloc_t * r2)
 {
   realloc_t *r3;
   while (r < r2)
@@ -1520,7 +1517,7 @@ calculatenewinterruptible (void)
     {
       if (r->recalculate)
 	{
-	  for (r2 = r; r2 < end1 && r2->recalculate ; r2++)
+	  for (r2 = r; r2 < end1 && r2->recalculate; r2++)
 	    *(tptr++) = r2;
 	  if (r2 == end1)
 	    /*(r2 - 1)->price = 0, */ r2--;
@@ -1574,9 +1571,7 @@ calculatenewinterruptible (void)
 	("Avoided caluclating of %i points from %i and %2.2f%% %2.2f%%\n",
 	 avoided, tocalculate, 100.0 * (avoided) / tocalculate,
 	 100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
-  STAT (avoided2 += avoided;
-	tocalculate2 += tocalculate;
-	frames2 += 1);
+  STAT (avoided2 += avoided; tocalculate2 += tocalculate; frames2 += 1);
 }
 static void
 init_tables (struct filter *f)

@@ -36,6 +36,7 @@ static const char plain_table[128] = {
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	/* 6 */
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0	/* 7 */
 };
+
 /* shifted ASCII for scan codes */
 static char shift_table[128] = {
 /*      0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F           */

@@ -44,21 +44,18 @@ private:
 
   bool mQuitAllowed;
 };
-inline
-XaoSAbstractWindow::XaoSAbstractWindow (port_id port)
+inline XaoSAbstractWindow::XaoSAbstractWindow (port_id port)
 {
   mEventPort = port;
   mQuitAllowed = FALSE;
 }
 
-inline
-XaoSAbstractWindow::~
-XaoSAbstractWindow ()
+inline XaoSAbstractWindow::~XaoSAbstractWindow ()
 {
 }
 
 inline void
-XaoSAbstractWindow::SendEvent (long eventCode, const XaoSEvent & event) const
+XaoSAbstractWindow::SendEvent (long eventCode, const XaoSEvent & event) const const
 {
   (void) write_port (mEventPort, eventCode, &event, sizeof (XaoSEvent));
 }

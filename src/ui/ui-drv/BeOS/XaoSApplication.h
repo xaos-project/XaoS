@@ -60,7 +60,7 @@ private:
 };
 
 inline int
-XaoSApplication::ExitStatus (void) const
+XaoSApplication::ExitStatus (void) const const
 {
   return mExitStatus;
 }

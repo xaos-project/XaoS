@@ -180,6 +180,7 @@ static int masks[] =
   { AA_NORMAL_MASK, AA_DIM_MASK, AA_BOLD_MASK, AA_BOLDFONT_MASK,
   AA_REVERSE_MASK, AA_ALL, AA_EIGHT
 };
+
 #ifdef DESTICKY
 extern int euid, egid;
 #endif
@@ -467,6 +468,7 @@ static CONST int attribs[] = {
   AA_EIGHT,
   0
 };
+
 #define MYNATTRS (sizeof(name)/sizeof(char *))
 static void
 aa_swattr (struct uih_context *co, int m)

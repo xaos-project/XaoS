@@ -28,7 +28,8 @@
 static void
 calcline (realloc_t * RESTRICT ry)
 REGISTERS (3);
-REGISTERS(3) static void calcline (realloc_t * RESTRICT ry)
+REGISTERS (3)
+     static void calcline (realloc_t * RESTRICT ry)
 {
   number_t y;
   int range = cfractalc.range;
@@ -140,7 +141,8 @@ REGISTERS(3) static void calcline (realloc_t * RESTRICT ry)
 static void
 calccolumn (realloc_t * RESTRICT rx)
 REGISTERS (3);
-REGISTERS (3)     static void calccolumn (realloc_t * RESTRICT rx)
+REGISTERS (3)
+     static void calccolumn (realloc_t * RESTRICT rx)
 {
   number_t x;
   int range = cfractalc.range;

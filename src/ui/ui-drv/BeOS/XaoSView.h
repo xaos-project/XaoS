@@ -79,19 +79,19 @@ private:
 // Inline functions.
 
 inline port_id
-XaoSView::EventPort (void) const
+XaoSView::EventPort (void) const const
 {
   return mEventPort;
 }
 
 inline void
-XaoSView::SendEvent (long eventCode, const XaoSEvent & event) const
+XaoSView::SendEvent (long eventCode, const XaoSEvent & event) const const
 {
   (void) write_port (mEventPort, eventCode, &event, sizeof (XaoSEvent));
 }
 
 inline float
-XaoSView::TextHeight (void) const
+XaoSView::TextHeight (void) const const
 {
   return mFontHeight.ascent + mFontHeight.descent + mFontHeight.leading;
 }

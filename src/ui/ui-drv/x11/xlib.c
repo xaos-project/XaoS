@@ -78,8 +78,8 @@ draw_screen (xdisplay * d)
 #endif
     XPutImage (d->display, d->window, d->gc, d->image[d->current], 0, 0, 0, 0,
 	       d->bwidth, d->bheight);
-/*XFlush(d->display); *//*gives small rest to X but degrades perofrmance
-   too much */
+  /*XFlush(d->display); *//*gives small rest to X but degrades perofrmance
+     too much */
   d->screen_changed = 0;
 }
 

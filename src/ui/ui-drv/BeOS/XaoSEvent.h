@@ -67,12 +67,14 @@ union XaoSEvent
 
 // Inline functions.
 
-inline XaoSEvent::XaoSEvent (void)
+inline
+XaoSEvent::XaoSEvent (void)
 {
   // empty
 }
 
-inline XaoSEvent::XaoSEvent (const char *pBytes, int32 numBytes)
+inline
+XaoSEvent::XaoSEvent (const char *pBytes, int32 numBytes)
 {
   keyEvent.numBytes = numBytes;
   for (int32 i = 0; i < numBytes; ++i)
@@ -81,7 +83,8 @@ inline XaoSEvent::XaoSEvent (const char *pBytes, int32 numBytes)
     }
 }
 
-inline XaoSEvent::XaoSEvent (int x, int y, ulong buttons, ulong modifiers)
+inline
+XaoSEvent::XaoSEvent (int x, int y, ulong buttons, ulong modifiers)
 {
   mouseEvent.x = x;
   mouseEvent.y = y;
@@ -89,12 +92,14 @@ inline XaoSEvent::XaoSEvent (int x, int y, ulong buttons, ulong modifiers)
   mouseEvent.modifiers = modifiers;
 }
 
-inline XaoSEvent::XaoSEvent (void *t)
+inline
+XaoSEvent::XaoSEvent (void *t)
 {
   command = (menuitem *) t;
 }
 
-inline XaoSEvent::XaoSEvent (CONST menuitem * c, dialogparam * p)
+inline
+XaoSEvent::XaoSEvent (CONST menuitem * c, dialogparam * p)
 {
   dialogEvent.command = c;
   dialogEvent.param = p;

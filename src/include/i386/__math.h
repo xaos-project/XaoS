@@ -351,14 +351,23 @@ __inline_mathcode_ (long double, __expm1l, __x, __expm1_code)
   return __value
 __inline_mathcode (exp, __x, __exp_code)
 __inline_mathcode_ (long double, __expl, __x, __exp_code)
-__inline_mathcode (tan, __x, register long double __value; register long double __value2 __attribute__ ((__unused__)); __asm __volatile__ ("fptan": "=t" (__value2), "=u" (__value):"0" (__x)); return __value)
+__inline_mathcode (tan, __x, register long double __value;
+		   register long double __value2 __attribute__ ((__unused__));
+__asm __volatile__ ("fptan": "=t" (__value2), "=u" (__value):"0" (__x));
+		   return __value)
 #define __atan2_code \
   register long double __value;						      \
   __asm __volatile__							      \
     ("fpatan\n\t"							      \
      : "=t" (__value) : "0" (__x), "u" (__y) : "st(1)");		      \
   return __value
-__inline_mathcode2 (atan2, __y, __x, __atan2_code) __inline_mathcode2_ (long double, __atan2l, __y, __x, __atan2_code) __inline_mathcode2 (fmod, __x, __y, register long double __value; __asm __volatile__ ("1:	fprem\n\t" "fnstsw	%%ax\n\t" "sahf\n\t" "jp	1b": "=t" (__value): "0" (__x), "u" (__y):"ax", "cc"); return __value)
+  __inline_mathcode2 (atan2, __y, __x,
+		    __atan2_code) __inline_mathcode2_ (long double, __atan2l,
+						       __y, __x,
+						       __atan2_code)
+  __inline_mathcode2 (fmod, __x, __y, register long double __value;
+__asm __volatile__ ("1:	fprem\n\t" "fnstsw	%%ax\n\t" "sahf\n\t" "jp	1b": "=t" (__value): "0" (__x), "u" (__y):"ax", "cc");
+		      return __value)
   __inline_mathcode2 (pow, __x, __y,
 		      register long double __value;
 		      register long double __exponent;
@@ -418,12 +427,46 @@ __asm __volatile__ ("fyl2x": "=t" (__value): "0" (__x), "u" (1.0): "st(1)"); __a
 								  0.0 ? 1.0 :
 								  -1.0)
 /* The argument range of the inline version of sinhl is slightly reduced.  */
-  __inline_mathcode (sinh, __x, register long double __exm1 = __expm1l (__fabsl (__x)); return 0.5 * (__exm1 / (__exm1 + 1.0) + __exm1) * __sgn1l (__x)) __inline_mathcode (cosh, __x, register long double __ex = __expl (__x); return 0.5 * (__ex + 1.0 / __ex)) __inline_mathcode (tanh, __x, register long double __exm1 = __expm1l (-__fabsl (__x + __x)); return __exm1 / (__exm1 + 2.0) * __sgn1l (-__x)) __inline_mathcode (floor, __x, register long double __value; __volatile unsigned short int __cw; __volatile unsigned short int __cwtmp; __asm __volatile ("fnstcw %0":"=m" (__cw)); __cwtmp = (__cw & 0xf3ff) | 0x0400;
-																																																				      /* rounding down */
-__asm __volatile ("fldcw %0": : "m" (__cwtmp)); __asm __volatile ("frndint": "=t" (__value): "0" (__x)); __asm __volatile ("fldcw %0": : "m" (__cw)); return __value) __inline_mathcode (ceil, __x, register long double __value; __volatile unsigned short int __cw; __volatile unsigned short int __cwtmp; __asm __volatile ("fnstcw %0":											      "=m" (__cw)); __cwtmp = (__cw & 0xf3ff) | 0x0800;	/* rounding up */
-__asm __volatile ("fldcw %0": : "m" (__cwtmp)); __asm __volatile ("frndint": "=t" (__value): "0" (__x)); __asm __volatile ("fldcw %0": :																																									      "m" (__cw));
-																																																										      return
-																																																										      __value)
+   
+    __inline_mathcode (sinh, __x, register long double __exm1 =
+		       __expm1l (__fabsl (__x));
+		       return 0.5 * (__exm1 / (__exm1 + 1.0) +
+				     __exm1) *
+		       __sgn1l (__x)) __inline_mathcode (cosh, __x,
+							 register long double
+							 __ex = __expl (__x);
+							 return 0.5 * (__ex +
+								       1.0 /
+								       __ex))
+  __inline_mathcode (tanh, __x, register long double __exm1 =
+		     __expm1l (-__fabsl (__x + __x));
+		     return __exm1 / (__exm1 +
+				      2.0) *
+		     __sgn1l (-__x)) __inline_mathcode (floor, __x,
+							register long double
+							__value;
+							__volatile unsigned
+							short int __cw;
+							__volatile unsigned
+							short int __cwtmp;
+__asm __volatile ("fnstcw %0":				"=m" (__cw));
+							__cwtmp =
+							(__cw & 0xf3ff) |
+							0x0400;
+							/* rounding down */
+__asm __volatile ("fldcw %0": :			"m" (__cwtmp));
+__asm __volatile ("frndint": "=t" (__value):		"0" (__x));
+__asm __volatile ("fldcw %0": :			"m" (__cw));
+							return __value)
+  __inline_mathcode (ceil, __x, register long double __value;
+		     __volatile unsigned short int __cw;
+		     __volatile unsigned short int __cwtmp;
+__asm __volatile ("fnstcw %0":"=m" (__cw));
+		     __cwtmp = (__cw & 0xf3ff) | 0x0800;	/* rounding up */
+__asm __volatile ("fldcw %0": :"m" (__cwtmp));
+__asm __volatile ("frndint": "=t" (__value):"0" (__x));
+__asm __volatile ("fldcw %0": :"m" (__cw));
+		     return __value)
 #define __ldexp_code \
   register long double __value;						      \
   __asm __volatile__							      \
@@ -479,14 +522,22 @@ __asm __volatile__ ("fldln2\n\t" "fxch\n\t" "fyl2xp1": "=t" (__value):"0" (__x))
 		     return -0.5 * log1pl (-(__y + __y) / (1.0 + __y)) *
 		     __sgn1l (__x))
 /* The argument range of the inline version of hypotl is slightly reduced.  */
-__inline_mathcode2 (hypot, __x, __y, return __sqrtl (__x * __x + __y * __y)) __inline_mathcode (logb, __x, register long double __value; register long double __junk; __asm __volatile__ ("fxtract\n\t": "=t" (__junk), "=u" (__value):"0" (__x)); return __value)
+  __inline_mathcode2 (hypot, __x, __y,
+		    return __sqrtl (__x * __x +
+				  __y * __y)) __inline_mathcode (logb, __x,
+							       register long
+							       double __value;
+								 register long
+								 double
+								 __junk;
+__asm __volatile__ ("fxtract\n\t": "=t" (__junk), "=u" (__value):"0" (__x));
+								 return
+								 __value)
 #endif
 #ifdef __USE_ISOC9X
   __inline_mathop (log2, "fld1; fxch; fyl2x")
-     __MATH_INLINE float
-     ldexpf (float __x, int __y);
-     __MATH_INLINE float
-     ldexpf (float __x, int __y)
+     __MATH_INLINE float ldexpf (float __x, int __y);
+     __MATH_INLINE float ldexpf (float __x, int __y)
 {
   __ldexp_code;
 }
@@ -552,7 +603,10 @@ llrintl (long double __x)
 
 #ifdef __USE_MISC
 
-__inline_mathcode2 (drem, __x, __y, register double __value; register int __clobbered; __asm __volatile__ ("1:	fprem1\n\t" "fstsw	%%ax\n\t" "sahf\n\t" "jp	1b": "=t" (__value), "=&a" (__clobbered): "0" (__x), "u" (__y):"cc"); return __value)
+__inline_mathcode2 (drem, __x, __y, register double __value;
+		    register int __clobbered;
+__asm __volatile__ ("1:	fprem1\n\t" "fstsw	%%ax\n\t" "sahf\n\t" "jp	1b": "=t" (__value), "=&a" (__clobbered): "0" (__x), "u" (__y):"cc");
+		    return __value)
 /* This function is used in the `isfinite' macro.  */
 #if 0
      __MATH_INLINE int __finite (double __x) __attribute__ ((__const__));
@@ -560,9 +614,7 @@ __inline_mathcode2 (drem, __x, __y, register double __value; register int __clob
 {
   return (__extension__ (((((union
 			     {
-			     double __d;
-			     int __i[2];
-			     }
+			     double __d; int __i[2];}
 			    )
 			    {
 __d:			    __x}
@@ -586,8 +638,13 @@ __inline_mathcode (__acosh1p, __x,
 #endif /* __NO_MATH_INLINES  */
 /* This code is used internally in the GNU libc.  */
 #ifdef __LIBC_INTERNAL_MATH_INLINES
-__inline_mathop (__ieee754_sqrt, "fsqrt") __inline_mathcode2 (__ieee754_atan2, __y, __x, register long double __value; __asm __volatile__ ("fpatan\n\t": "=t" (__value): "0" (__x), "u" (__y):"st(1)"); return __value;
-  )
+  __inline_mathop (__ieee754_sqrt, "fsqrt") __inline_mathcode2 (__ieee754_atan2,
+							      __y, __x,
+							      register long
+							      double __value;
+__asm __volatile__ ("fpatan\n\t": "=t" (__value): "0" (__x), "u" (__y):"st(1)");
+								return
+								__value;)
 #endif
 #endif /* __GNUC__  */
 #endif

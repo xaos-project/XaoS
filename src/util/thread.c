@@ -7,6 +7,7 @@
 struct taskinfo definfo = {
   0,
 };
+
 #ifndef nthreads
 
 #define getrange1(range,ncpu) ((range)*(ncpu))/nthreads

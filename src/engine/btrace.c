@@ -186,6 +186,7 @@ static CONST char dirrections[][2] = {
   {0, 1},
   {-1, 0},
 };
+
 #define addstack(sx,sy,d,c,periodicity) { \
   int page; \
   int nstack=(((sy)-ystart)*nthreads)/(yend-ystart+1); \

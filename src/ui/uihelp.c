@@ -47,6 +47,7 @@ static int selectedbutton = -1;
 
 #define NBUTTONS 3
 CONST char *CONST names[] = { "OK", "Back", "Main" };
+
 #define BUTTONSTART(i) (helpx+BORDERWIDTH+(helpwidth-2*BORDERWIDTH)/NBUTTONS*(i))
 static void ui_build_help (char *name);
 static void

@@ -189,9 +189,9 @@ static tl_group group2;
 static tl_group group1;
 tl_group *syncgroup = &group1,
 #ifdef HAVE_SETITIMER
- *asyncgroup = &group2;
+  *asyncgroup = &group2;
 #else
- *asyncgroup = &group1;
+  *asyncgroup = &group1;
 #endif
 #ifdef _plan9_
 #ifdef _plan9v2_
@@ -331,8 +331,8 @@ __lookup_timer (tl_timer * t)
 #endif
 }
 
-REGISTERS(3) int
-tl_lookup_timer (tl_timer * t)
+REGISTERS (3)
+     int tl_lookup_timer (tl_timer * t)
 {
   if (t->stopped)
     {
@@ -409,8 +409,8 @@ tl_sleep (int time)
 #endif
 }
 
-REGISTERS(3) void
-tl_reset_timer (tl_timer * t)
+REGISTERS (3)
+     void tl_reset_timer (tl_timer * t)
 {
   if (t->stopped)
     t->stoppedtime = 0;

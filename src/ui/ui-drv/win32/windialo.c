@@ -203,14 +203,16 @@ DialogHandler (HWND hDLG, UINT message, UINT wParam, LONG lParam)
       ShowWindow (hDLG, SW_HIDE);
       /*CenterWindow (hDLG, GetWindow (hDLG, GW_OWNER)); */
       if (GetWindowText (hDLG, text, GetWindowTextLength (hDLG) + 1) > 0);
-        SetWindowText (hDLG, gettext(text));
+      SetWindowText (hDLG, gettext (text));
       SetDlgItemText (hDLG, OK, gettext ("OK"));
       SetDlgItemText (hDLG, CANCEL, gettext ("Cancel"));
       SetDlgItemText (hDLG, HELP, gettext ("Help"));
       for (i = 0; rec->dialog[i].question; i++)
 	{
- 	  if (GetDlgItemText (hDLG, i * PERITEM + QUESTIONSTART, text, 100) > 0)
-	    SetDlgItemText (hDLG, i * PERITEM + QUESTIONSTART, gettext(text));
+	  if (GetDlgItemText (hDLG, i * PERITEM + QUESTIONSTART, text, 100) >
+	      0)
+	    SetDlgItemText (hDLG, i * PERITEM + QUESTIONSTART,
+			    gettext (text));
 	  switch (rec->dialog[i].type)
 	    {
 	      char s[256];
@@ -243,7 +245,7 @@ DialogHandler (HWND hDLG, UINT message, UINT wParam, LONG lParam)
 		      LOWORD (SendDlgItemMessage
 			      (hDLG, i * PERITEM + ITEMSTART, CB_ADDSTRING,
 			       (WPARAM) 0, (LPARAM) (LPSTR) strings[y]));
-		    /*x_message("%s %i",strings[y],pos);*/ 
+		    /*x_message("%s %i",strings[y],pos); */
 		    SendMessage (GetDlgItem (hDLG, i * PERITEM + ITEMSTART),
 				 CB_SETITEMDATA, (WPARAM) pos, y);
 		    if (y == rec->dialog[i].defint)
@@ -365,10 +367,9 @@ win32_outputdialog (struct uih_context *uih, CONST struct menuitem *item)
   for (i = 0; dialog[i].question; i++)
     {
       fprintf (file, "  RTEXT \"%s\", %i, %i, %i, %i, %i, WS_GROUP\n",
-               dialog[i].question,
-               i * PERITEM + QUESTIONSTART,
-               0, YBORDER + i * LINEHEIGHT,
-               leftsize - XSEP, TEXTHEIGHT);
+	       dialog[i].question,
+	       i * PERITEM + QUESTIONSTART,
+	       0, YBORDER + i * LINEHEIGHT, leftsize - XSEP, TEXTHEIGHT);
       switch (dialog[i].type)
 	{
 	case DIALOG_INT:
@@ -471,9 +472,9 @@ win32_dialog (struct uih_context *uih, CONST char *name)
       r->c = uih;
       sprintf (s, "%sBox", item->shortname);
       if (DialogBox (hInstance, s, hWnd, DialogHandler) == -1)
-   	{
-      /*r->windialog=CreateDialog (hInstance, s, hWnd, DialogHandler);
-      if(r->windialog==NULL) {*/
+	{
+	  /*r->windialog=CreateDialog (hInstance, s, hWnd, DialogHandler);
+	     if(r->windialog==NULL) { */
 	  x_message ("Failed to create dialog %s", item->shortname);
 	  win32_freedialog (r);
 	}

@@ -53,8 +53,8 @@ CONST char *CONST planename[] = {
 };
 
 
-REGISTERS(3) void
-recalculate (int plane, number_t * x1, number_t * y1)
+REGISTERS (3)
+     void recalculate (int plane, number_t * x1, number_t * y1)
 {
   number_t x = *x1, y = *y1;
   switch (plane)

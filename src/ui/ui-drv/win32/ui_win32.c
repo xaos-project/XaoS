@@ -1479,6 +1479,7 @@ static CONST char *CONST dx_depth[] = { "8bpp (256 colors)",
   "32bpp (16777216 colors)",
   NULL
 };
+
 #ifdef DDRAW_DRIVER
 static menudialog dx_resdialog[] = {
   DIALOGCHOICE ("Resolution", resstr, 0),
@@ -1866,6 +1867,7 @@ struct ui_driver win32_driver = {
   0, 0, 0,
   &win32_gui_driver
 };
+
 #ifdef DDRAW_DRIVER
 struct ui_driver dxw_driver = {
   "dX-window",

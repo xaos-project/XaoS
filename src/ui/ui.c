@@ -97,81 +97,84 @@ static void ui_mouse (int mousex, int mousey, int mousebuttons,
 
 xio_pathdata configfile;
 static void ui_unregistermenus (void);
-static void ui_mkimages(int,int);
+static void ui_mkimages (int, int);
 static void
 main_loop (void)
   NORETURN;
 
-int prog_argc;
-char **prog_argv;
+     int prog_argc;
+     char **prog_argv;
 /*UI state */
-uih_context *uih;
-CONST struct ui_driver *driver;
-char statustext[256];
-int ui_nogui;
-static struct image *image;
-static int statusstart;
-static struct uih_window *statuswindow = NULL;
-static int ministatusstart;
-static struct uih_window *ministatuswindow = NULL;
-static int mouse;
+     uih_context *uih;
+     CONST struct ui_driver *driver;
+     char statustext[256];
+     int ui_nogui;
+     static struct image *image;
+     static int statusstart;
+     static struct uih_window *statuswindow = NULL;
+     static int ministatusstart;
+     static struct uih_window *ministatuswindow = NULL;
+     static int mouse;
 /* Used by ui_mouse */
-static int dirty = 0;
-static int lastiter;
-static int maxiter;
-static int lastbuttons, lastx, lasty;
-static int callresize = 0;
-static tl_timer *maintimer;
-static tl_timer *arrowtimer;
-static tl_timer *loopt;
-static int todriver = 0;
+     static int dirty = 0;
+     static int lastiter;
+     static int maxiter;
+     static int lastbuttons, lastx, lasty;
+     static int callresize = 0;
+     static tl_timer *maintimer;
+     static tl_timer *arrowtimer;
+     static tl_timer *loopt;
+     static int todriver = 0;
 
 /* Command line variables */
-static char *defpipe;
-static char *defdriver = NULL;
-static int deflist;
-static int printconfig;
-static int printspeed;
-static int delaytime = 0;
-static int defthreads = 0;
-static int maxframerate = 80;
-static float defscreenwidth = 0.0, defscreenheight = 0.0, defpixelwidth = 0.0,
-  defpixelheight = 0.0;
-CONST struct params global_params[] = {
-  {"-delay", P_NUMBER, &delaytime, "Delay screen updates (milliseconds)"},
-  {"-driver", P_STRING, &defdriver, "Select driver"},
-  {"-list", P_SWITCH, &deflist, "List available drivers. Then exit"},
-  {"-config", P_SWITCH, &printconfig, "Print configuration. Then exit"},
-  {"-speedtest", P_SWITCH, &printspeed,
-   "Test speed of calculation loop. Then exit"},
+     static char *defpipe;
+     static char *defdriver = NULL;
+     static int deflist;
+     static int printconfig;
+     static int printspeed;
+     static int delaytime = 0;
+     static int defthreads = 0;
+     static int maxframerate = 80;
+     static float defscreenwidth = 0.0, defscreenheight = 0.0, defpixelwidth =
+       0.0, defpixelheight = 0.0;
+     CONST struct params global_params[] = {
+       {"-delay", P_NUMBER, &delaytime,
+	"Delay screen updates (milliseconds)"},
+       {"-driver", P_STRING, &defdriver, "Select driver"},
+       {"-list", P_SWITCH, &deflist, "List available drivers. Then exit"},
+       {"-config", P_SWITCH, &printconfig, "Print configuration. Then exit"},
+       {"-speedtest", P_SWITCH, &printspeed,
+	"Test speed of calculation loop. Then exit"},
 #ifndef nthreads
-  {"-threads", P_NUMBER, &defthreads, "Set number of threads (CPUs) to use"},
+       {"-threads", P_NUMBER, &defthreads,
+	"Set number of threads (CPUs) to use"},
 #else
-  {"-threads", P_NUMBER, &defthreads,
-   "Multiple CPUs unsupported - please recompile XaoS with threads enabled"},
+       {"-threads", P_NUMBER, &defthreads,
+	"Multiple CPUs unsupported - please recompile XaoS with threads enabled"},
 #endif
 #ifdef COMPILE_PIPE
-  {"-pipe", P_STRING, &defpipe,
-   "Accept commands from pipe (use \"-\" for stdin)"},
+       {"-pipe", P_STRING, &defpipe,
+	"Accept commands from pipe (use \"-\" for stdin)"},
 #else
-  {"-pipe", P_STRING, &defpipe, "Pipe input unavailable (recompile XaoS)"},
+       {"-pipe", P_STRING, &defpipe,
+	"Pipe input unavailable (recompile XaoS)"},
 #endif
-  {"-maxframerate", P_NUMBER, &maxframerate,
-   "Maximal framerate (0 for unlimited - default)"},
-  {"", P_HELP, NULL,
-   "Screen size options: \n\n  Knowledge of exact screen size makes random dot stereogram look better. \n  Also is used for choosing correct view area"},
-  {"-screenwidth", P_FLOAT, &defscreenwidth,
-   "exact size of screen in centimeters"},
-  {"-screenheight", P_FLOAT, &defscreenheight,
-   "exact size of screen in centimeters"},
-  {"", P_HELP, NULL,
-   "  Use this option in case you use some kind of virtual screen\n  or something similiar that confuses previous options"},
-  {"-pixelwidth", P_FLOAT, &defpixelwidth,
-   "exact size of one pixel in centimeters"},
-  {"-pixelheight", P_FLOAT, &defpixelheight,
-   "exact size of one pixel in centimeters"},
-  {NULL, 0, NULL, NULL}
-};
+       {"-maxframerate", P_NUMBER, &maxframerate,
+	"Maximal framerate (0 for unlimited - default)"},
+       {"", P_HELP, NULL,
+	"Screen size options: \n\n  Knowledge of exact screen size makes random dot stereogram look better. \n  Also is used for choosing correct view area"},
+       {"-screenwidth", P_FLOAT, &defscreenwidth,
+	"exact size of screen in centimeters"},
+       {"-screenheight", P_FLOAT, &defscreenheight,
+	"exact size of screen in centimeters"},
+       {"", P_HELP, NULL,
+	"  Use this option in case you use some kind of virtual screen\n  or something similiar that confuses previous options"},
+       {"-pixelwidth", P_FLOAT, &defpixelwidth,
+	"exact size of one pixel in centimeters"},
+       {"-pixelheight", P_FLOAT, &defpixelheight,
+	"exact size of one pixel in centimeters"},
+       {NULL, 0, NULL, NULL}
+     };
 
 static int resizeregistered = 0;
 static void
@@ -203,7 +206,7 @@ ui_updatemenus (uih_context * c, CONST char *name)
 	    printf ("radio \"%s\"\n", name);
 	}
     }
-  if (driver!=NULL && driver->gui_driver)
+  if (driver != NULL && driver->gui_driver)
     {
       if (name == NULL)
 	{
@@ -995,7 +998,7 @@ static menuitem *menuitems;
 /* Registering internationalized menus. See also include/xmenu.h
    for details. Note that MAX_MENUITEMS_I18N may be increased
    if more items will be added in future. */
-   
+
 /* Details of implementation:
  *
  * There are static menuitems_i18n[] arrays for several *.c files.
@@ -1014,14 +1017,14 @@ static menuitem *resizeitems;
 
 #define UI (MENUFLAG_NOPLAY|MENUFLAG_NOOPTION)
 static void
-add_resizeitems()
+add_resizeitems ()
 {
   // General version, it's needed now:
   int no_menuitems_i18n = ui_no_menuitems_i18n;	/* This variable must be local. */
-  MENUNOP_I ("ui", "=", gettext("Resize"), "resize", UI | MENUFLAG_INTERRUPT,
-	   ui_call_resize);
-  MENUNOP_I ("uia", "=", gettext("Resize"), "animresize", UI | MENUFLAG_INTERRUPT,
-	   ui_call_resize);
+  MENUNOP_I ("ui", "=", gettext ("Resize"), "resize", UI | MENUFLAG_INTERRUPT,
+	     ui_call_resize);
+  MENUNOP_I ("uia", "=", gettext ("Resize"), "animresize",
+	     UI | MENUFLAG_INTERRUPT, ui_call_resize);
   no_menuitems_i18n -= ui_no_menuitems_i18n;
   resizeitems = &menuitems_i18n[ui_no_menuitems_i18n];
   menu_add (resizeitems, no_menuitems_i18n);
@@ -1058,7 +1061,7 @@ ui_registermenus_i18n (void)
   SUBMENU_I ("ui", NULL, gettext ("Driver"), "drivers");
   SUBMENU_I ("uia", NULL, gettext ("Driver"), "drivers");
   no_menuitems_i18n -= ui_no_menuitems_i18n;
-  menu_add (& (menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
+  menu_add (&(menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
   ui_no_menuitems_i18n += no_menuitems_i18n;
 }
 
@@ -1188,23 +1191,23 @@ MAIN_FUNCTION (int argc, char **argv)
 	  bindtextdomain ("xaos",
 #ifdef DOG_DRIVER
 			  "..\\locale")
-#ifdef DEBUG		
-			  )
+#ifdef DEBUG
+    )
 #endif
 #else
 #ifdef _WIN32
 			  "..\\locale")
-#ifdef DEBUG		
-			  )
+#ifdef DEBUG
+    )
 #endif
 #else
 			  "/usr/share/locale")
-#ifdef DEBUG			 
-			  )
-#endif			 
+#ifdef DEBUG
+    )
 #endif
 #endif
-			   ;
+#endif
+    ;
   textdomain ("xaos");
   /* Done setting locales. */
 #endif
@@ -1593,7 +1596,7 @@ ui_mkimages (int w, int h)
     {
       if (!resizeregistered && (driver->flags & RESIZE_COMMAND))
 	{
-	  add_resizeitems();
+	  add_resizeitems ();
 	  resizeregistered = 1;
 	}
     }
@@ -1736,7 +1739,8 @@ ui_driver (int d)
   uih_updatemenus (uih, driver->name);
 }
 
-NORETURN     static void main_loop (void)
+NORETURN static void
+main_loop (void)
 {
   int inmovement = 1;
   int x, y, b, k;

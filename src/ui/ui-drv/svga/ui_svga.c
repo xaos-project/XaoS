@@ -105,7 +105,7 @@ draw_mouse (int x, int y, int clear)
 
       /* This part is responsible for drawing an X arrow. 
          Honza has cut it but it is too difficult to use
-	 XaoS in SVGA mode if no arrow appears. */
+         XaoS in SVGA mode if no arrow appears. */
       vga_setcolor (whitecolor);
       vga_drawline (x - 3, y - 3, x + 3, y + 3);
       vga_drawline (x - 3, y + 3, x + 3, y - 3);
@@ -113,7 +113,7 @@ draw_mouse (int x, int y, int clear)
       vga_drawline (x + 1 - 3, y - 3, x + 1 + 3, y + 3);
       vga_drawline (x + 1 - 3, y + 3, x + 1 + 3, y - 3);
       /* End of drawing an X arrow. */
-      
+
       oldx = x;
       oldy = y;
     }
@@ -495,7 +495,7 @@ svga_init (void)
 	    || info->colors == 65536 || info->colors == 16777216)
 	  break;
       }
-  if (i == GLASTMODE + 1) // No valid mode was found.
+  if (i == GLASTMODE + 1)	// No valid mode was found.
     {
       svga_uninitialise ();
       return 0;

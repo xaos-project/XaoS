@@ -66,7 +66,7 @@ private:
 // Inline functions.
 
 inline void
-XaoSScreenView::SendEvent (long eventCode, const XaoSEvent & event) const
+XaoSScreenView::SendEvent (long eventCode, const XaoSEvent & event) const const
 {
   (void) write_port (mEventPort, eventCode, &event, sizeof (XaoSEvent));
 }

@@ -290,7 +290,7 @@ static menudialog uih_perturbationdialog[] = {
 #ifdef DEBUG
   printf ("Filled %d widgets out of %d.\n",
 	  no_menudialogs_i18n, MAX_MENUDIALOGS_I18N);
-#endif	
+#endif
 }
 
 #undef Register
@@ -1040,11 +1040,9 @@ uih_registermenus_i18n (void)
 	     "tutor") SUBMENUNOOPT_I ("animroot", "f", gettext ("File"),
 				      "file");
   MENUNOP_I ("animroot", "s", gettext ("Stop replay"), "stopreplay",
-	     UI | MENUFLAG_INTERRUPT,
-	     uih_replaydisable); SUBMENUNOOPT_I ("animroot", NULL,
-						gettext ("Help"),
-						"helpmenu");
-    SUBMENUNOOPT_I ("animroot", NULL, gettext ("UI"), "uia");
+	     UI | MENUFLAG_INTERRUPT, uih_replaydisable);
+  SUBMENUNOOPT_I ("animroot", NULL, gettext ("Help"), "helpmenu");
+  SUBMENUNOOPT_I ("animroot", NULL, gettext ("UI"), "uia");
   MENUDIALOG_I ("misc", "!", gettext ("Command"), "command", UI, uih_command,
 		dcommand);
   MENUDIALOG_I ("misc", NULL, gettext ("Play string"), "playstr",
@@ -1070,10 +1068,10 @@ uih_registermenus_i18n (void)
 		uih_playtextpos, uih_textposdialog);
   MENUDIALOG_I ("misc", NULL, gettext ("Message"), "message",
 		MENUFLAG_NOMENU, uih_playmessage, dtextparam);
-    /* The following 6 menu options should not be translated. The example
-       files heavily use these constants and lots of examples will not work
-       anymore... :-(  Anyway, this should be fixed somehow. */
-    
+  /* The following 6 menu options should not be translated. The example
+     files heavily use these constants and lots of examples will not work
+     anymore... :-(  Anyway, this should be fixed somehow. */
+
   MENUINTRB_I ("ytextpos", NULL, "Up", "ytextup", UI, uih_setytextpos,
 	       UIH_TEXTTOP, uih_ytextselected);
   MENUINTRB_I ("ytextpos",
@@ -1360,7 +1358,7 @@ uih_registermenus_i18n (void)
 #ifdef DEBUG
   printf ("Filled %d menu items out of %d.\n", no_menuitems_i18n,
 	  MAX_MENUITEMS_I18N);
-#endif	 
+#endif
   menu_add (menuitems_i18n, no_menuitems_i18n);
   uih_no_menuitems_i18n = no_menuitems_i18n;
 }
