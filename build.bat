@@ -15,7 +15,7 @@ echo o An aalib graphics library
 echo o Libraries text and vga required by aalib
 echo o Gettext and libiconv for internationalization (optional)
 echo.
-echo See file INSTALL.DOS if you get into trouble.
+echo See file README2.DOS if you get into trouble.
 echo.
 echo Binary version also available at XaoS homepage.
 echo.

@@ -3,8 +3,8 @@ INSTALLATION TIPS FOR COMPILATION UNDER M$-DOG
 
 Zoltan Kovacs <kovzol@math.u-szeged.hu>
 
-12 September 2002
-11 September 2002
+Last modification information:
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README2.dos,v 1.2 2003-01-21 23:11:43 kovzol Exp $
 
 
 I had many problems compiling XaoS under DOS and I'd like to help you
@@ -75,7 +75,9 @@ share your experiences with me. Thank you in advance.
    is quite simple, if not, convert it first into .zip).
    Long file names must be truncated without any special characters
    and directory structure must be also done correctly
-   (do this also with DOS Navigator).
+   (do this also with DOS Navigator). At the BeoS files
+   there may be questions about overwriting already existing files.
+   You can answer "yes" to all.
 	 
 5. The XaoS source needs some modifications. Here I attach 4 modified
    files. Snip them and copy all of them to their appropriate place.
@@ -85,30 +87,36 @@ share your experiences with me. Thank you in advance.
    gettext on your computer installed (choose the appropriate
    files below).
 	 
-   After modifications, run BUILD.BAT and go to the BIN/ directory
-   to run XAOS.EXE. Good luck.
+   After modifications, run BUILD.BAT and go to the BIN/ directory to
+   run XAOS.EXE or XAOS-XX.BAT for internationalized version of XaoS. (I
+   had different experiences with Windows 95, 98, NT and 2000. Most of
+   them detects localization very poor. Using native DOS may result more
+   success.)
+   
+   Good luck! :-)
+
  
 SRC/DOS.MAK (with i18n)
 -------------------------------------------------------------------------------
-CFLAGS1= -D__OPTIMIZE__ -Wall -fstrength-reduce -ffast-math -fomit-frame-pointer -L.  -D DOG_DRIVER  -Wall -D AA_DRIVER -malign-double
+CFLAGS1= -D__OPTIMIZE__ -Wall -fstrength-reduce -ffast-math -fomit-frame-pointer -L.  -D DOG_DRIVER  -Wall -D AA_DRIVER -malign-double -D HAVE_GETTEXT
 LIBS = -lalleg -L ../../vga -L ../../text -L ../../aalib-1.2 -laa -ltext -lvga -lpng -lz -lm -lintl -liconv
 LFLAGS = -s
 
 SRC/DOS.MAK (without i18n)
 -------------------------------------------------------------------------------
-CFLAGS1= -D__OPTIMIZE__ -Wall -fstrength-reduce -ffast-math -fomit-frame-pointer -L.  -D DOG_DRIVER  -Wall -D AA_DRIVER -malign-double -D WITHOUT_GETTEXT
+CFLAGS1= -D__OPTIMIZE__ -Wall -fstrength-reduce -ffast-math -fomit-frame-pointer -L.  -D DOG_DRIVER  -Wall -D AA_DRIVER -malign-double
 LIBS = -lalleg -L ../../vga -L ../../text -L ../../aalib-1.2 -laa -ltext -lvga -lpng -lz -lm
 LFLAGS = -s
 
 SRC/DOS1.MAK (with i18n)
 -------------------------------------------------------------------------------
-CFLAGS1= -D__OPTIMIZE__ -Wall -fstrength-reduce -ffast-math -O6 -funroll-loops -L. -D DOG_DRIVER  -Wall -D AA_DRIVER -malign-double
+CFLAGS1= -D__OPTIMIZE__ -Wall -fstrength-reduce -ffast-math -O6 -funroll-loops -L. -D DOG_DRIVER  -Wall -D AA_DRIVER -malign-double -D HAVE_GETTEXT
 LIBS = -lalleg -L ../../vga -L ../../text -L ../../aalib-1.2 -laa -ltext -lvga -lpng -lz -lm -lintl -liconv
 LFLAGS = -s
 
 SRC/DOS1.MAK (without i18n)
 -------------------------------------------------------------------------------
-CFLAGS1= -D__OPTIMIZE__ -Wall -fstrength-reduce -ffast-math -O6 -funroll-loops -L. -D DOG_DRIVER  -Wall -D AA_DRIVER -malign-double -D WITHOUT_GETTEXT
+CFLAGS1= -D__OPTIMIZE__ -Wall -fstrength-reduce -ffast-math -O6 -funroll-loops -L. -D DOG_DRIVER  -Wall -D AA_DRIVER -malign-double
 LIBS = -lalleg -L ../../vga -L ../../text -L ../../aalib-1.2 -laa -ltext -lvga -lpng -lz -lm
 LFLAGS = -s
 
@@ -581,3 +589,13 @@ struct ui_driver dog_driver =
   0, 256, 255
 };
 #endif
+
+SRC/ENGINE/FORMULAS.C
+-------------------------------------------------------------------------------
+Bailout is an interesting feature, but, unfortunately it slows down the
+DJGPP compiled code on my system. Maybe this can also happen for you. If
+yes, i.e. after starting XaoS Mandelbrot fractal comes up incredibly
+slow, then you should change "cfractalc.bailout" string to "4" all places
+in this file. As you can realize, binary distribution (xaos316b.zip)
+does not support bailout setting (you can set it but nothing happens) at
+the moment. :-(
