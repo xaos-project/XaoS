@@ -134,10 +134,12 @@
 (wait)
 
 (cyclingspeed 47)
+(filter 'palette #t)
 (cycling #t)
 (message "octo2")
 (textsleep)
 (cycling #f)
+(filter 'palette #f)
 (display)
 
 (palette 1 2090959176 0)
