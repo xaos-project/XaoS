@@ -252,6 +252,7 @@ STICKY=''
 
 use_cc_g_flag=no
 DRIVERDIRS=""
+LOCALEDIR="/usr/share/locale"
 DRIVERLIBS="lib/libui.a lib/libui-hlp.a lib/libengine.a lib/libutil.a lib/libfilter.a"
 CFLAGS="$CCOPTS"
 AC_PROG_INSTALL
@@ -844,6 +845,7 @@ if test  "$win32_driver" = yes; then
   #STICKY='chmod +s $(bindir)/xaos; chown root $(bindir)/xaos; chgrp root $(bindir)/xaos'
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/win32"
   DRIVERLIBS="ui/ui-drv/win32/ui_win32.o lib/libuiwin32.a ui/ui-drv/win32/xaos.res $DRIVERLIBS"
+  LOCALEDIR="../../locale"
   echo -n "   Win32"
   if test "$ac_cv_header_ddraw_h" = yes; then
    echo " (with DirectDraw support)"
@@ -874,6 +876,7 @@ AC_SUBST(LIBPATH)
 # does this work if you do make -C <some dir>
 TOPDIR=`nolinks=1;pwd`
 AC_SUBST(TOPDIR)
+AC_SUBST(LOCALEDIR)
 
 INCDIR="-I${SRCPATH}/include"
 CFLAGS="$CFLAGS $INCDIR"
