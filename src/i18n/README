@@ -1,0 +1,69 @@
+Internationalization (i18n) in XaoS
+-----------------------------------
+
+Zoltan Kovacs <kovzol@math.u-szeged.hu>
+
+26 August 2002
+
+
+1. INTRODUCTION
+
+As of version 3.1, i18n support will be added to XaoS. This is done
+with the GNU gettext utility. In this first release only the menus
+and some internal strings can be translated, the old method in
+../../catalogs haven't changed yet.
+
+Note that i18n cannot be used if you don't have gettext installed
+on your system. I used gettext-0.10.37 which works greatly.
+
+
+2. HOW TO INSTALL A NEW LANGUAGE
+
+* Edit Makefile.in, add your 2 letter long language code in the first row
+  (e.g. "cz" for Czech, "de" for German).
+	
+* Type "./configure" in the directory ../.., then come back.
+
+* Type "make new-languages". This will generate a so-called .po-file
+  for you (e.g. "cz.po" or "de.po"). 
+
+* Edit the generated file manually. The first 15 lines should be fill in
+  properly, otherwise nothing will work in your language. The other lines
+  should be also fill in respectively. Note that you only should change
+  the "msgstr" rows. See the Hungarian language file, "hu.po" for example.
+
+* Type a "make" to generate the so-called .mo-files. These files will be
+  installed later to the directory /usr/share/locale/. You should have
+  superuser rights to install them to their appropriate place with
+  the well known statement "make install".
+
+* That's all, start XaoS and enjoy it. ;-)
+
+* Please share your .po-file with the others! You may inform me that a
+  new language file was created by you. If it works, we will add it to
+  the CVS tree of XaoS as well.
+
+
+3. EXPERT'S GUIDE
+
+I'm not an expert, I just only want to share my little knowledge with you
+if you're interested:
+
+* To set up different languages and try out each one you probably have
+  to set the LANG variable. E.g., I had to change it to de_DE or hu_HU
+  to test different languages.
+	
+* Read the gettext howto ("info gettext"). It's quite long, though.
+
+* To internationalize other texts in XaoS, you should edit first the 
+  variable CSOURCES in the makefile. Second, each "not static" string
+  in these C sources may be internationalized with the gettext()
+  function. See the existing tags for example. Again, please share
+  your modified code with us.
+	
+	
+4. FUTURE PLANS
+
+XaoS is a valuable software, this is my opinion. This is the reason why
+I plan to continue its internationalizaton. Though, I'm not sure
+I will be finished with it at all. Your help is welcome!

@@ -1,9 +1,9 @@
 CREDITS (alphabetically):
-        I believe this list is almost complette. If I missed someone
+        I believe this list is almost complete. If I missed someone
 	here, please let me know.
 
 	Eric Courteau   (ecourteau@cplus.fr)
-			- Francais.cat (translation of tutorials)
+			- francais.cat (translation of tutorials)
 	Radek Doulik    (rodo@atrey.karlin.mff.cuni.cz)
 	                - GTK interface, windowid patches
 	Tim Goodwin	(tgoodwin@cygnus.co.uk)
@@ -14,6 +14,8 @@ CREDITS (alphabetically):
 			  documentation, tutorials, maitainer etc...
 	Jens Kilian	(jjk@acm.org)
 			- BeOS driver, deutsch.cat
+	Zoltan Kovacs	(kovzol@math.u-szeged.hu)
+			- Hungarian translation, small fixes, i18n
 	Thomas A. K. Kjaer (takjaer@imv.aau.dk)
 			- OS/2 ports (320x200 graphics and AA-lib)
 	Thomas Marsh

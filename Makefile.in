@@ -38,12 +38,13 @@ install:
 	@INSTALL@ -d $(mandir)/man6
 	@INSTALL@ -s bin/xaos $(bindir)
 	@INSTALL@ -m 444 tutorial/*.x[ah]f $(datadir)/XaoS/tutorial
-	@INSTALL@ -m 444 examples/* $(datadir)/XaoS/examples
-	@INSTALL@ -m 444 catalogs/* $(datadir)/XaoS/catalogs
+	@INSTALL@ -m 444 examples/*.x[ap]f examples/README $(datadir)/XaoS/examples
+	@INSTALL@ -m 444 catalogs/*.cat catalogs/README $(datadir)/XaoS/catalogs
 	@INSTALL@ -m 444 help/xaos.hlp $(datadir)/XaoS/help
 	@INSTALL@ -m 444 doc/README doc/README.bugs doc/compilers.txt doc/ANNOUNCE doc/PROBLEMS $(datadir)/XaoS/doc
 	@INSTALL@ -m 444 doc/xaos.6 $(mandir)/man6
 	@STICKY@
 	@INSTALL@ -m 444 doc/xaos.info $(infodir)
 	#install-info doc/xaos.info 
-
+	
+	make -C src/i18n/ install

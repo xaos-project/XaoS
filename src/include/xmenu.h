@@ -45,7 +45,6 @@ typedef char *(*tokenfunc)(struct uih_context *c);
 #define DIALOGCHOICE(question,table,default)  {question, DIALOG_CHOICE, default,(CONST char *)table}
 #define DIALOGCOORD(question,default1,default2)  {question, DIALOG_COORD,0, NULL, default1,default2}
 
-
 typedef struct menuitem {
   CONST char *menuname;
   CONST char *key;
@@ -68,6 +67,9 @@ typedef struct menuitem {
 #define MENU_CUSTOMDIALOG  7
 #define MENU_SEPARATOR 8
 
+/* Definitions for static menuitems. These items cannot be internationalized.
+   All of these definitions will become obsolete soon: */
+
 #define MENUNOP(menuname,key,name,shortname,flags,function) {menuname, key,name,shortname, MENU_NOPARAM, flags, (void (*)(void))function}
 #define MENUNOPCB(menuname,key,name,shortname,flags,function,checkbutton) {menuname, key, name,shortname, MENU_NOPARAM, (flags)|MENUFLAG_CHECKBOX, (void (*)(void))function,0,NULL,(int (*)(void))checkbutton}
 #define MENUCOORDCB(menuname,key,name,shortname,flags,function,checkbutton) {menuname, key, name,shortname, MENU_COORD, (flags)|MENUFLAG_CHECKBOX, (void (*)(void))function,0,NULL,(int (*)(void))checkbutton}
@@ -76,6 +78,7 @@ typedef struct menuitem {
 #define MENUINT(menuname,key,name,shortname,flags,function,param) {menuname, key, name,shortname, MENU_INT, flags, (void (*)(void))function,param}
 #define MENUINTRB(menuname,key,name,shortname,flags,function,param,checkbutton) {menuname, key, name,shortname, MENU_INT, (flags)|MENUFLAG_RADIO, (void (*)(void))function,param,NULL,(int (*)(void))checkbutton}
 #define SUBMENU(menuname,key,name,param) {menuname, key, name,param, MENU_SUBMENU, 0, NULL,0,NULL}
+
 #define MENUSEPARATOR(menuname) {menuname, 0, "", NULL, MENU_SEPARATOR, 0, NULL,0,NULL}
 #define SUBMENUNOOPT(menuname,key,name,param) {menuname, key, name,param, MENU_SUBMENU, MENUFLAG_NOOPTION, NULL,0,NULL}
 #define MENUDIALOG(menuname,key,name,shortname,flags,function,param) {menuname, key, name,shortname, MENU_DIALOG, flags, (void (*)(void))function,0,param}
@@ -83,6 +86,167 @@ typedef struct menuitem {
 #define MENUCDIALOG(menuname,key,name,shortname,flags,function,param) {menuname, key, name,shortname, MENU_CUSTOMDIALOG, flags, (void (*)(void))function,0,NULL,NULL,(CONST menudialog *(*)(struct uih_context *))param}
 #define MENUCDIALOGCB(menuname,key,name,shortname,flags,function,param,check) {menuname, key, name,shortname, MENU_CUSTOMDIALOG, flags|MENUFLAG_CHECKBOX,(void (*)(void))function,0,NULL,(int (*)(void))check,(CONST menudialog *(*)(struct uih_context *))param}
 #define MENUSTRING(menuname,key,name,shortname,flags,function,param) {menuname, key, name,shortname, MENU_STRING, flags, (void (*)(void))function,0,param}
+
+
+/* Definitions for internationalized menus. All of them must be defined
+   dynamically because gettext() cannot be used within a static
+   variable. Usage (example): 
+
+   SUBMENU_I("file", "q", "Quit", "quitmenu")
+	 
+   See ui/ui.c, ui_registermenus_i18n() for further details. */
+
+#define MENUNOP_I(_menuname,_key,_name,_shortname,_flags,_function)\
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = _shortname; \
+  menuitems_i18n[no_menuitems_i18n].key = _key; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_NOPARAM; \
+  menuitems_i18n[no_menuitems_i18n].flags = _flags; \
+  menuitems_i18n[no_menuitems_i18n].iparam = 0; \
+  menuitems_i18n[no_menuitems_i18n].name = _name; \
+  menuitems_i18n[no_menuitems_i18n].pparam = NULL; \
+  menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;  \
+  ++no_menuitems_i18n;
+
+#define MENUNOPCB_I(_menuname,_key,_name,_shortname,_flags,_function,_checkbutton) \
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = _shortname; \
+  menuitems_i18n[no_menuitems_i18n].key = _key; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_NOPARAM; \
+  menuitems_i18n[no_menuitems_i18n].flags = (_flags)|MENUFLAG_CHECKBOX; \
+  menuitems_i18n[no_menuitems_i18n].iparam = 0; \
+  menuitems_i18n[no_menuitems_i18n].name = _name; \
+  menuitems_i18n[no_menuitems_i18n].pparam = NULL; \
+  menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function; \
+  menuitems_i18n[no_menuitems_i18n].control = (int (*)(void))_checkbutton;  \
+  ++no_menuitems_i18n;
+	 
+#define MENUINT_I(_menuname,_key,_name,_shortname,_flags,_function,_param) \
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = _shortname; \
+  menuitems_i18n[no_menuitems_i18n].key = _key; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_INT; \
+  menuitems_i18n[no_menuitems_i18n].flags = _flags; \
+  menuitems_i18n[no_menuitems_i18n].iparam = _param; \
+  menuitems_i18n[no_menuitems_i18n].name = _name; \
+  menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;  \
+  ++no_menuitems_i18n;
+
+#define MENUINTRB_I(_menuname,_key,_name,_shortname,_flags,_function,_param,_checkbutton) \
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = _shortname; \
+  menuitems_i18n[no_menuitems_i18n].key = _key; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_INT; \
+  menuitems_i18n[no_menuitems_i18n].flags = (_flags)|MENUFLAG_RADIO; \
+  menuitems_i18n[no_menuitems_i18n].iparam = _param; \
+  menuitems_i18n[no_menuitems_i18n].pparam = NULL; \
+  menuitems_i18n[no_menuitems_i18n].name = _name; \
+  menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;  \
+  menuitems_i18n[no_menuitems_i18n].control = (int (*)(void))_checkbutton; \
+  ++no_menuitems_i18n;
+
+#define SUBMENU_I(_menuname,_key,_name,_param) \
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = _param; \
+  menuitems_i18n[no_menuitems_i18n].key = _key; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_SUBMENU; \
+  menuitems_i18n[no_menuitems_i18n].flags = 0; \
+  menuitems_i18n[no_menuitems_i18n].iparam = 0; \
+  menuitems_i18n[no_menuitems_i18n].name = _name; \
+  menuitems_i18n[no_menuitems_i18n].pparam = NULL; \
+  menuitems_i18n[no_menuitems_i18n].function = NULL;  \
+  ++no_menuitems_i18n;
+
+#define MENUDIALOG_I(_menuname,_key,_name,_shortname,_flags,_function,_param) \
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = _shortname; \
+  menuitems_i18n[no_menuitems_i18n].key = _key; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_DIALOG; \
+  menuitems_i18n[no_menuitems_i18n].flags = _flags; \
+  menuitems_i18n[no_menuitems_i18n].iparam = 0; \
+  menuitems_i18n[no_menuitems_i18n].name = _name; \
+  menuitems_i18n[no_menuitems_i18n].pparam = _param; \
+  menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;  \
+  ++no_menuitems_i18n;
+
+#define MENUDIALOGCB_I(_menuname,_key,_name,_shortname,_flags,_function,_param,_check) \
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = _shortname; \
+  menuitems_i18n[no_menuitems_i18n].key = _key; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_DIALOG; \
+  menuitems_i18n[no_menuitems_i18n].flags = (_flags)|MENUFLAG_CHECKBOX; \
+  menuitems_i18n[no_menuitems_i18n].iparam = 0; \
+  menuitems_i18n[no_menuitems_i18n].name = _name; \
+  menuitems_i18n[no_menuitems_i18n].pparam = _param; \
+  menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;  \
+  menuitems_i18n[no_menuitems_i18n].control = (int (*)(void))_check; \
+  ++no_menuitems_i18n;
+
+#define MENUCDIALOG_I(_menuname,_key,_name,_shortname,_flags,_function,_param) \
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = _shortname; \
+  menuitems_i18n[no_menuitems_i18n].key = _key; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_CUSTOMDIALOG; \
+  menuitems_i18n[no_menuitems_i18n].flags = _flags; \
+  menuitems_i18n[no_menuitems_i18n].iparam = 0; \
+  menuitems_i18n[no_menuitems_i18n].name = _name; \
+  menuitems_i18n[no_menuitems_i18n].pparam = NULL; \
+  menuitems_i18n[no_menuitems_i18n].control = NULL; \
+  menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function; \
+  menuitems_i18n[no_menuitems_i18n].dialog = (CONST menudialog *(*)(struct uih_context *))_param; \
+  ++no_menuitems_i18n;
+
+#define MENUCDIALOGCB_I(_menuname,_key,_name,_shortname,_flags,_function,_param,_check)\
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = _shortname; \
+  menuitems_i18n[no_menuitems_i18n].key = _key; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_CUSTOMDIALOG; \
+  menuitems_i18n[no_menuitems_i18n].flags = (_flags)|MENUFLAG_CHECKBOX; \
+  menuitems_i18n[no_menuitems_i18n].iparam = 0; \
+  menuitems_i18n[no_menuitems_i18n].name = _name; \
+  menuitems_i18n[no_menuitems_i18n].pparam = _param; \
+  menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;  \
+  menuitems_i18n[no_menuitems_i18n].control = (int (*)(void))_check; \
+  menuitems_i18n[no_menuitems_i18n].dialog = (CONST menudialog *(*)(struct uih_context *))_param; \
+  ++no_menuitems_i18n;
+
+#define MENUSEPARATOR_I(_menuname) \
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = NULL; \
+  menuitems_i18n[no_menuitems_i18n].key = 0; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_SEPARATOR; \
+  menuitems_i18n[no_menuitems_i18n].flags = 0; \
+  menuitems_i18n[no_menuitems_i18n].iparam = 0; \
+  menuitems_i18n[no_menuitems_i18n].name = ""; \
+  menuitems_i18n[no_menuitems_i18n].pparam = NULL; \
+  menuitems_i18n[no_menuitems_i18n].function = NULL; \
+  ++no_menuitems_i18n;
+	 
+#define SUBMENUNOOPT_I(_menuname,_key,_name,_param) \
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = _param; \
+  menuitems_i18n[no_menuitems_i18n].key = _key; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_SUBMENU; \
+  menuitems_i18n[no_menuitems_i18n].flags = MENUFLAG_NOOPTION; \
+  menuitems_i18n[no_menuitems_i18n].iparam = 0; \
+  menuitems_i18n[no_menuitems_i18n].name = _name; \
+  menuitems_i18n[no_menuitems_i18n].pparam = NULL; \
+  menuitems_i18n[no_menuitems_i18n].function = NULL;  \
+  ++no_menuitems_i18n;
+
+#define MENUSTRING_I(_menuname,_key,_name,_shortname,_flags,_function,_param) \
+  menuitems_i18n[no_menuitems_i18n].menuname = _menuname; \
+  menuitems_i18n[no_menuitems_i18n].shortname = _shortname; \
+  menuitems_i18n[no_menuitems_i18n].key = _key; \
+  menuitems_i18n[no_menuitems_i18n].type = MENU_STRING; \
+  menuitems_i18n[no_menuitems_i18n].flags = _flags; \
+  menuitems_i18n[no_menuitems_i18n].iparam = 0; \
+  menuitems_i18n[no_menuitems_i18n].name = _name; \
+  menuitems_i18n[no_menuitems_i18n].pparam = _param; \
+  menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;  \
+  ++no_menuitems_i18n;
+
+/* End of i18n definitions. */
 
 
 #define MENUFLAG_CHECKBOX 1

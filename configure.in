@@ -595,7 +595,7 @@ fi
 
 dnl Checks for header files.
 
-AC_CHECK_HEADERS(limits.h sys/time.h unistd.h)
+AC_CHECK_HEADERS([OS.h alloca.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -606,7 +606,14 @@ else
 echo Long double disabled, since it should be too slow at this CPU
 fi
 AC_HEADER_TIME
+AC_HEADER_DIRENT
+AC_HEADER_SYS_WAIT
 AC_TYPE_SIGNAL
+AC_TYPE_PID_T
+AC_TYPE_SIZE_T
+AC_CHECK_MEMBERS([struct stat.st_rdev])
+AC_STRUCT_TM
+
 test "x$prefix" = xNONE && prefix=$ac_default_prefix
 eval datadir2=$datadir
 AC_DEFINE_UNQUOTED(DATAPATH,"${datadir2}/XaoS")
@@ -616,6 +623,14 @@ AC_CHECK_SIZEOF(int)
 AC_CHECK_SIZEOF(long)
 
 dnl Checks for library functions.
+AC_FUNC_ERROR_AT_LINE
+AC_FUNC_FORK
+AC_FUNC_MALLOC
+AC_FUNC_MEMCMP
+AC_FUNC_STAT
+AC_FUNC_VPRINTF
+
+
 save_code=yes
 AC_CHECK_LIB(m, pow)
 AC_CHECK_LIB(z, inflate)
@@ -634,7 +649,7 @@ if test "$save_code" = yes; then
 fi
 AC_FUNC_ALLOCA
 AC_TYPE_SIGNAL
-AC_CHECK_FUNCS(gettimeofday usleep select setitimer ftime finite fabsl _fabsl __fabsl)
+AC_CHECK_FUNCS([ftime getcwd gettimeofday memchr memmove memset pow select setlocale sqrt strdup strerror strstr sleep setitimer ftime finite fabsl _fabsl __fabsl])
 
 if test  "$x_driver_test" = yes; then
 dnl X checks
@@ -783,7 +798,7 @@ AC_SUBST(ASMOBJS)
 
 
 
-AC_OUTPUT(Makefile src/Makefile src/engine/Makefile src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile
+AC_OUTPUT(Makefile src/Makefile src/i18n/Makefile src/engine/Makefile src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile
           src/ui/ui-drv/aa/Makefile
           src/ui/ui-drv/ggi/Makefile
           src/ui/ui-drv/svga/Makefile

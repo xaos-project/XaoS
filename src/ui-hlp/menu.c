@@ -15,8 +15,12 @@
 #include <plane.h>
 #include <xmenu.h>
 #include "play.h"
+#include <libintl.h>
+
 #define LANG(name,name2) MENUSTRING("lang", NULL, name,name2,0, (void (*) (struct uih_context *c, char *))uih_loadcatalog, name2)
 #define TUTOR(name1,name2,name3) MENUSTRING(name1, NULL, name2,name3,MENUFLAG_INTERRUPT|UI,uih_playtutorial,name3)
+#define LANG_I(name,name2) MENUSTRING_I("lang", NULL, name,name2,0, (void (*) (struct uih_context *c, char *))uih_loadcatalog, name2)
+#define TUTOR_I(name1,name2,name3) MENUSTRING_I(name1, NULL, name2,name3,MENUFLAG_INTERRUPT|UI,uih_playtutorial,name3)
 
 CONST static char * CONST morphstypes[] =
 {
@@ -851,236 +855,259 @@ static menudialog uih_shiftdialog[] =
 };
 static CONST menuitem menuitems[] =	/*XaoS menu specifications */
 {
+/* This structure is now empty. All static definitions have been moved
+   to uih_registermenus_i18n() which fills up its own static array. */
+};
 
-  SUBMENU ("", NULL, "Root menu", "root"),
-  SUBMENU ("", NULL, "Animation root menu", "animroot"),
-  SUBMENU ("", NULL, "Replay only commands", "plc"),
-  SUBMENU ("", NULL, "Command line options only", "comm"),
+
+
+/* Registering internationalized menus. See also include/xmenu.h
+   for details. Note that MAX_MENUITEMS_I18N may be increased
+	 if more items will be added in future. */
+#define MAX_MENUITEMS_I18N 300
+static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
+int uih_no_menuitems_i18n;
+
+
+void
+uih_registermenus_i18n (void)
+{
+  int no_menuitems_i18n=0;
+  SUBMENU_I ("", NULL, gettext("Root menu"), "root")
+  SUBMENU_I ("", NULL, gettext("Animation root menu"), "animroot")
+  SUBMENU_I ("", NULL, gettext("Replay only commands"), "plc")
+  SUBMENU_I ("", NULL, gettext("Command line options only"), "comm")
 
 #define MP (MENUFLAG_NOMENU|MENUFLAG_NOPLAY|MENUFLAG_ATSTARTUP)
-  MENUNOP ("comm", NULL, "print menus specifications of all menus", "print_menus", MP, uih_printallmenus),
-  MENUDIALOG ("comm", NULL, "print menu specification", "print_menu", MP, uih_printmenuwr, printdialog),
-  MENUDIALOG ("comm", NULL, "print menu specification in xshl format", "xshl_print_menu", MP, uih_xshlprintmenu, printdialog),
-  MENUNOP ("comm", NULL, "print all menu specifications in xshl format", "xshl_print_menus", MP, uih_xshlprintmenus),
-  MENUDIALOG ("comm", NULL, "print dialog specification", "print_dialog", MP, uih_printdialog, printdialog),
+  MENUNOP_I ("comm", NULL, gettext("print menus specifications of all menus"), "print_menus", MP, uih_printallmenus)
+  MENUDIALOG_I ("comm", NULL, gettext("print menu specification"), "print_menu", MP, uih_printmenuwr, printdialog)
+  MENUDIALOG_I ("comm", NULL, gettext("print menu specification in xshl format"), "xshl_print_menu", MP, uih_xshlprintmenu, printdialog)
+  MENUNOP_I ("comm", NULL, gettext("print all menu specifications in xshl format"), "xshl_print_menus", MP, uih_xshlprintmenus)
+  MENUDIALOG_I ("comm", NULL, gettext("print dialog specification"), "print_dialog", MP, uih_printdialog, printdialog)
 #undef MP
 #define MP (MENUFLAG_NOMENU|MENUFLAG_NOOPTION)
   /* Commands suitable only for animation replay */
-  SUBMENU ("plc", NULL, "Line drawing functions", "linemenu"),
-  MENUDIALOG ("linemenu", NULL, "Line", "line", MP, uih_line, uih_linedialog),
-  MENUDIALOG ("linemenu", NULL, "Morph line", "morphline", MP, uih_morphline, uih_linedialog),
-  MENUDIALOG ("linemenu", NULL, "Morph last line", "morphlastline", MP, uih_morphlastline, uih_linedialog),
-  MENUDIALOG ("linemenu", NULL, "Set line key", "linekey", MP, uih_setkey, uih_numdialog),
-  MENUNOP ("linemenu", NULL, "Clear line", "clearline", MP, uih_clear_line),
-  MENUNOP ("linemenu", NULL, "Clear all lines", "clearlines", MP, uih_clear_lines),
+  SUBMENU_I ("plc", NULL, gettext("Line drawing functions"), "linemenu")
+  MENUDIALOG_I ("linemenu", NULL, gettext("Line"), "line", MP, uih_line, uih_linedialog)
+  MENUDIALOG_I ("linemenu", NULL, gettext("Morph line"), "morphline", MP, uih_morphline, uih_linedialog)
+  MENUDIALOG_I ("linemenu", NULL, gettext("Morph last line"), "morphlastline", MP, uih_morphlastline, uih_linedialog)
+  MENUDIALOG_I ("linemenu", NULL, gettext("Set line key"), "linekey", MP, uih_setkey, uih_numdialog)
+  MENUNOP_I ("linemenu", NULL, gettext("Clear line"), "clearline", MP, uih_clear_line)
+  MENUNOP_I ("linemenu", NULL, gettext("Clear all lines"), "clearlines", MP, uih_clear_lines)
 
-  SUBMENU ("plc", NULL, "Animation functions", "animf"),
-  MENUDIALOG ("animf", NULL, "View", "animateview", MP, uih_plview2, uih_plviewdialog),
-  MENUDIALOG ("animf", NULL, "Morph view", "morphview", MP, uih_playmorph, uih_plviewdialog),
-  MENUDIALOG ("animf", NULL, "Morph julia", "morphjulia", MP, uih_playmorphjulia, uih_coorddialog),
-  MENUDIALOG ("animf", NULL, "Move view", "moveview", MP, uih_playmove, uih_coorddialog),
-  MENUDIALOG ("animf", NULL, "Morph angle", "morphangle", MP, uih_playmorphangle, uih_angledialog),
-  MENUDIALOG ("animf", NULL, "Zoom center", "zoomcenter", MP, uih_zoomcenter, uih_coorddialog),
-  MENUNOP ("animf", NULL, "Zoom", "zoom", MP, uih_playzoom),
-  MENUNOP ("animf", NULL, "Un-zoom", "unzoom", MP, uih_playunzoom),
-  MENUNOP ("animf", NULL, "Stop zooming", "stop", MP, uih_playstop),
-  MENUDIALOG ("animf", NULL, "Smooth morphing parameters", "smoothmorph", MP, uih_smoothmorph, uih_smoothmorphdialog),
+  SUBMENU_I ("plc", NULL, gettext("Animation functions"), "animf")
+  MENUDIALOG_I ("animf", NULL, gettext("View"), "animateview", MP, uih_plview2, uih_plviewdialog)
+  MENUDIALOG_I ("animf", NULL, gettext("Morph view"), "morphview", MP, uih_playmorph, uih_plviewdialog)
+  MENUDIALOG_I ("animf", NULL, gettext("Morph julia"), "morphjulia", MP, uih_playmorphjulia, uih_coorddialog)
+  MENUDIALOG_I ("animf", NULL, gettext("Move view"), "moveview", MP, uih_playmove, uih_coorddialog)
+  MENUDIALOG_I ("animf", NULL, gettext("Morph angle"), "morphangle", MP, uih_playmorphangle, uih_angledialog)
+  MENUDIALOG_I ("animf", NULL, gettext("Zoom center"), "zoomcenter", MP, uih_zoomcenter, uih_coorddialog)
+  MENUNOP_I ("animf", NULL, gettext("Zoom"), "zoom", MP, uih_playzoom)
+  MENUNOP_I ("animf", NULL, gettext("Un-zoom"), "unzoom", MP, uih_playunzoom)
+  MENUNOP_I ("animf", NULL, gettext("Stop zooming"), "stop", MP, uih_playstop)
+  MENUDIALOG_I ("animf", NULL, gettext("Smooth morphing parameters"), "smoothmorph", MP, uih_smoothmorph, uih_smoothmorphdialog)
 
-  SUBMENU ("plc", NULL, "Timming functions", "time"),
-  MENUDIALOG ("time", NULL, "Usleep", "usleep", MP, uih_playusleep, uih_timedialog),
-  MENUNOP ("time", NULL, "Wait for text", "textsleep", MP, uih_playtextsleep),
-  MENUNOP ("time", NULL, "Wait for complette image", "wait", MP, uih_playwait),
-  MENUDIALOG ("plc", NULL, "Include file", "load", MP, uih_playload, loaddialog),
-  MENUDIALOG ("palette", NULL, "Default palette", "defaultpalette", MP, uih_playdefpalette, uih_numdialog),
-  MENUDIALOG ("fractal", NULL, "Formula", "formula", MP, uih_play_formula, uih_formuladialog),
-  MENUDIALOG ("ui", NULL, "Maximal zooming step", "maxstep", MP, uih_setmaxstep, uih_fpdialog),
-  MENUDIALOG ("ui", NULL, "Zooming speedup", "speedup", MP, uih_setspeedup, uih_fpdialog),
-  MENUDIALOG ("mfilter", NULL, "Filter", "filter", MP, uih_playfilter, uih_filterdialog),
+  SUBMENU_I ("plc", NULL, gettext("Timing functions"), "time")
+  MENUDIALOG_I ("time", NULL, gettext("Usleep"), "usleep", MP, uih_playusleep, uih_timedialog)
+  MENUNOP_I ("time", NULL, gettext("Wait for text"), "textsleep", MP, uih_playtextsleep)
+  MENUNOP_I ("time", NULL, gettext("Wait for complete image"), "wait", MP, uih_playwait)
+  MENUDIALOG_I ("plc", NULL, gettext("Include file"), "load", MP, uih_playload, loaddialog)
+  MENUDIALOG_I ("palette", NULL, gettext("Default palette"), "defaultpalette", MP, uih_playdefpalette, uih_numdialog)
+  MENUDIALOG_I ("fractal", NULL, gettext("Formula"), "formula", MP, uih_play_formula, uih_formuladialog)
+  MENUDIALOG_I ("ui", NULL, gettext("Maximal zooming step"), "maxstep", MP, uih_setmaxstep, uih_fpdialog)
+  MENUDIALOG_I ("ui", NULL, gettext("Zooming speedup"), "speedup", MP, uih_setspeedup, uih_fpdialog)
+  MENUDIALOG_I ("mfilter", NULL, gettext("Filter"), "filter", MP, uih_playfilter, uih_filterdialog)
 #undef MP
 #define UI (MENUFLAG_NOPLAY|MENUFLAG_NOOPTION)
 
 
-  MENUCDIALOG ("ui", NULL, "Letters per second", "letterspersec", MENUFLAG_NOMENU, uih_letterspersec, uih_getlettersdialog),
-  MENUCDIALOG ("uia", NULL, "Letters per second", "letters", UI, uih_letterspersec, uih_getlettersdialog),
-  MENUNOP ("uia", "z", "Interrupt", "animinterrupt", MENUFLAG_INTERRUPT | MENUFLAG_INCALC, uih_interrupt),
+  MENUCDIALOG_I ("ui", NULL, gettext("Letters per second"), "letterspersec", MENUFLAG_NOMENU, uih_letterspersec, uih_getlettersdialog)
+  MENUCDIALOG_I ("uia", NULL, gettext("Letters per second"), "letters", UI, uih_letterspersec, uih_getlettersdialog)
+  MENUNOP_I ("uia", "z", gettext("Interrupt"), "animinterrupt", MENUFLAG_INTERRUPT | MENUFLAG_INCALC, uih_interrupt)
 
-  SUBMENU ("root", "s", "File", "file"),
-  SUBMENU ("root", NULL, "Edit", "edit"),
-  SUBMENU ("root", NULL, "Fractal", "fractal"),
-  SUBMENU ("root", NULL, "Calculation", "calc"),
-  SUBMENU ("root", "e", "Filters", "mfilter"),
-  SUBMENU ("root", NULL, "UI", "ui"),
-  SUBMENU ("root", NULL, "Misc", "misc"),
-  SUBMENU ("root", NULL, "Help", "helpmenu"),
+  SUBMENU_I ("root", "s", gettext("File"), "file")
+  SUBMENU_I ("root", NULL, gettext("Edit"), "edit")
+  SUBMENU_I ("root", NULL, gettext("Fractal"), "fractal")
+  SUBMENU_I ("root", NULL, gettext("Calculation"), "calc")
+  SUBMENU_I ("root", "e", gettext("Filters"), "mfilter")
+  SUBMENU_I ("root", NULL, gettext("UI"), "ui")
+  SUBMENU_I ("root", NULL, gettext("Misc"), "misc")
+  SUBMENU_I ("root", NULL, gettext("Help"), "helpmenu")
 
-  SUBMENU ("helpmenu", NULL, "Tutorials", "tutor"),
-
-  SUBMENUNOOPT ("animroot", "f", "File", "file"),
-  MENUNOP ("animroot", "s", "Stop replay", "stopreplay", UI|MENUFLAG_INTERRUPT, uih_replaydisable),
-  SUBMENUNOOPT ("animroot", NULL, "Help", "helpmenu"),
-  SUBMENUNOOPT ("animroot", NULL, "UI", "uia"),
-
-
-  MENUDIALOG ("misc", "!", "Command", "command", UI, uih_command, dcommand),
-  MENUDIALOG ("misc", NULL, "Play string", "playstr", MENUFLAG_NOMENU, uih_playstr, dcommand),
-  MENUDIALOG ("misc", NULL, "Render animation", "renderanim", UI, uih_render, uih_renderdialog),
-  MENUSEPARATOR ("misc"),
-  MENUNOP ("misc", NULL, "Clear screen", "clearscreen", MENUFLAG_NOOPTION, uih_clearscreen),
-  MENUNOP ("misc", NULL, "Display fractal", "display", MENUFLAG_NOOPTION, uih_display),
-  MENUSEPARATOR ("misc"),
-  MENUDIALOG ("misc", NULL, "Display text", "text", 0, uih_text, dtextparam),	/*FIXME: Should allow multiline */
-  MENUCDIALOG ("misc", NULL, "Color", "color", 0, uih_setcolor, uih_getcolordialog),
-  SUBMENU ("misc", NULL, "Horizontal text position", "xtextpos"),
-  SUBMENU ("misc", NULL, "Vertical text position", "ytextpos"),
-  MENUDIALOG ("misc", NULL, "Text position", "textposition", MENUFLAG_NOMENU | MENUFLAG_INCALC, uih_playtextpos, uih_textposdialog),
-  MENUDIALOG ("misc", NULL, "Message", "message", MENUFLAG_NOMENU, uih_playmessage, dtextparam),
-
-  MENUINTRB ("ytextpos", NULL, "Up", "ytextup", UI, uih_setytextpos, UIH_TEXTTOP, uih_ytextselected),
-  MENUINTRB ("ytextpos", NULL, "Middle", "ytextmiddle", UI, uih_setytextpos, UIH_TEXTMIDDLE, uih_ytextselected),
-  MENUINTRB ("ytextpos", NULL, "Bottom", "ytextbottom", UI, uih_setytextpos, UIH_TEXTBOTTOM, uih_ytextselected),
-  MENUINTRB ("xtextpos", NULL, "Left", "xtextleft", UI, uih_setxtextpos, UIH_TEXTLEFT, uih_xtextselected),
-  MENUINTRB ("xtextpos", NULL, "Center", "xtextcenter", UI, uih_setxtextpos, UIH_TEXTCENTER, uih_xtextselected),
-  MENUINTRB ("xtextpos", NULL, "Right", "xtexteight", UI, uih_setxtextpos, UIH_TEXTRIGHT, uih_xtextselected),
-
-  MENUDIALOG ("file", NULL, "Load", "loadpos", MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY, uih_loadfile, loaddialog),
-  MENUDIALOG ("file", NULL, "Save", "savepos", 0, uih_saveposfile, saveposdialog),
-  MENUSEPARATOR ("file"),
-  MENUDIALOGCB ("file", NULL, "Record", "record", 0, uih_saveanimfile, saveanimdialog, uih_saveanimenabled),
-  MENUDIALOG ("file", NULL, "Replay", "play", MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY, uih_playfile, playdialog),
-  MENUSEPARATOR ("file"),
-  MENUDIALOG ("file", NULL, "Save image", "saveimg", 0, uih_savepngfile, saveimgdialog),
-  MENUNOP ("file", NULL, "Load random example", "loadexample", MENUFLAG_INTERRUPT, uih_loadexample),
-  MENUNOP ("file", NULL, "Save configuration", "savecfg", 0, uih_savecfg),
-  MENUSEPARATOR ("file"),
+  SUBMENU_I ("helpmenu", NULL, gettext("Tutorials"), "tutor")
+  SUBMENUNOOPT_I ("animroot", "f", gettext("File"), "file")
+  MENUNOP_I ("animroot", "s", gettext("Stop replay"), "stopreplay", UI|MENUFLAG_INTERRUPT, uih_replaydisable)
+  SUBMENUNOOPT_I ("animroot", NULL, gettext("Help"), "helpmenu")
+  SUBMENUNOOPT_I ("animroot", NULL, gettext("UI"), "uia")
 
 
+  MENUDIALOG_I ("misc", "!", gettext("Command"), "command", UI, uih_command, dcommand)
+  MENUDIALOG_I ("misc", NULL, gettext("Play string"), "playstr", MENUFLAG_NOMENU, uih_playstr, dcommand)
+  MENUDIALOG_I ("misc", NULL, gettext("Render animation"), "renderanim", UI, uih_render, uih_renderdialog)
+  MENUSEPARATOR_I ("misc")
+  MENUNOP_I ("misc", NULL, gettext("Clear screen"), "clearscreen", MENUFLAG_NOOPTION, uih_clearscreen)
+  MENUNOP_I ("misc", NULL, gettext("Display fractal"), "display", MENUFLAG_NOOPTION, uih_display)
+  MENUSEPARATOR_I ("misc")
+  MENUDIALOG_I ("misc", NULL, gettext("Display text"), "text", 0, uih_text, dtextparam) 	/*FIXME: Should allow multiline */
+  MENUCDIALOG_I ("misc", NULL, gettext("Color"), "color", 0, uih_setcolor, uih_getcolordialog)
+  SUBMENU_I ("misc", NULL, gettext("Horizontal text position"), "xtextpos")
+  SUBMENU_I ("misc", NULL, gettext("Vertical text position"), "ytextpos")
+  MENUDIALOG_I ("misc", NULL, gettext("Text position"), "textposition", MENUFLAG_NOMENU | MENUFLAG_INCALC, uih_playtextpos, uih_textposdialog)
+  MENUDIALOG_I ("misc", NULL, gettext("Message"), "message", MENUFLAG_NOMENU, uih_playmessage, dtextparam)
 
-  MENUNOP ("edit", "u", "Undo", "undo", MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_undo),
-  MENUNOP ("edit", NULL, "Redo", "redo",MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_redo),
-  SUBMENU ("fractal", NULL, "formulae", "mformula"),
-  MENUSEPARATOR ("fractal"),
-  SUBMENU ("fractal", "f", "Incoloring mode", "mincoloring"),
-  SUBMENU ("fractal", "c", "Outcoloring mode", "moutcoloring"),
-  SUBMENU ("fractal", "i", "Plane", "mplane"),
-  SUBMENU ("fractal", NULL, "Palette", "palettemenu"),
-  MENUSEPARATOR ("fractal"),
-  MENUCDIALOGCB ("fractal", "m", "Mandelbrot mode", "uimandelbrot", MENUFLAG_DIALOGATDISABLE | MENUFLAG_INTERRUPT | UI, uih_mandelbrotsw, uih_getjuliadialog, uih_mandelbrotselected),
-  MENUCDIALOGCB ("fractal", "b", "Perturbation", "uiperturbation", MENUFLAG_INTERRUPT | UI, uih_persw, uih_getperturbationdialog, uih_perselected),
-  MENUCDIALOG ("fractal", NULL, "Perturbation", "perturbation", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setperbutation, uih_getperturbationdialog),
-  MENUSEPARATOR ("fractal"),
-  MENUCDIALOG ("fractal", NULL, "View", "uiview", MENUFLAG_INTERRUPT | UI, uih_dview, uih_getviewdialog),
-  MENUSEPARATOR ("fractal"),
-  MENUNOP ("fractal", NULL, "Reset to defaults", "initstate", 0, uih_initstate),
+  /* The following 6 menu options should not be translated. The example
+	   files heavily use these constants and lots of examples will not work
+		 anymore... :-(  Anyway, this should be fixed somehow. */
+  MENUINTRB_I ("ytextpos", NULL, "Up", "ytextup", UI, uih_setytextpos, UIH_TEXTTOP, uih_ytextselected)
+  MENUINTRB_I ("ytextpos", NULL, "Middle", "ytextmiddle", UI, uih_setytextpos, UIH_TEXTMIDDLE, uih_ytextselected)
+  MENUINTRB_I ("ytextpos", NULL, "Bottom", "ytextbottom", UI, uih_setytextpos, UIH_TEXTBOTTOM, uih_ytextselected)
+  MENUINTRB_I ("xtextpos", NULL, "Left", "xtextleft", UI, uih_setxtextpos, UIH_TEXTLEFT, uih_xtextselected)
+  MENUINTRB_I ("xtextpos", NULL, "Center", "xtextcenter", UI, uih_setxtextpos, UIH_TEXTCENTER, uih_xtextselected)
+  MENUINTRB_I ("xtextpos", NULL, "Right", "xtexteight", UI, uih_setxtextpos, UIH_TEXTRIGHT, uih_xtextselected)
 
-  MENUDIALOG ("fractal", NULL, "Julia mode", "julia", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_playjulia, uih_juliamodedialog),
-  MENUDIALOG ("fractal", NULL, "View", "view", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_plview, uih_plviewdialog),
-  MENUDIALOG ("fractal", NULL, "Set angle", "angle", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_angle, uih_angledialog),
-  MENUDIALOG ("fractal", NULL, "Set plane", "plane", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setplane, uih_numdialog),
-  MENUDIALOG ("fractal", NULL, "Inside coloring mode", "incoloring", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setincoloringmode, uih_numdialog),
-  MENUDIALOG ("fractal", NULL, "Outside coloring mode", "outcoloring", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setoutcoloringmode, uih_numdialog),
-  MENUDIALOG ("fractal", NULL, "Inside truecolor coloring mode", "intcoloring", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setintcolor, uih_numdialog),
-  MENUDIALOG ("fractal", NULL, "Outside truecolor coloring mode", "outtcoloring", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setouttcolor, uih_numdialog),
-  MENUDIALOG ("fractal", NULL, "Julia seed", "juliaseed", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setjuliaseed, uih_coorddialog),
+  MENUDIALOG_I ("file", NULL, gettext("Load"), "loadpos", MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY, uih_loadfile, loaddialog)
+  MENUDIALOG_I ("file", NULL, gettext("Save"), "savepos", 0, uih_saveposfile, saveposdialog)
+  MENUSEPARATOR_I ("file")
 
-  MENUNOP ("palettemenu", "d", "Default palette", "defpalette", 0, uih_mkdefaultpalette),
-  MENUNOP ("palettemenu", "p", "Random palette", "randompalette", 0, uih_menumkpalette),
-  MENUCDIALOG ("palettemenu", NULL, "Custom palette", "palette", 0, uih_palette, uih_getpalettedialog),
-  MENUSEPARATOR ("palettemenu"),
-  MENUNOPCB ("palettemenu", "y", "Color cycling", "cycling", 0, uih_cyclingsw, uih_cyclingselected),
-  MENUNOPCB ("palettemenu", "Y", "Reversed color cycling", "rcycling", MENUFLAG_NOOPTION | MENUFLAG_NOPLAY, uih_rcyclingsw, uih_cyclingselected),
-  MENUCDIALOG ("palettemenu", NULL, "Color cycling speed", "cyclingspeed", 0, uih_setcycling, uih_getcyclingdialog),
-  MENUSEPARATOR ("palettemenu"),
-  MENUDIALOG ("palettemenu", NULL, "Shift palette", "shiftpalette", 0, uih_shiftpalette, uih_shiftdialog),
-  MENUNOP ("palettemenu", "+", "Shift one forward", "fshift", MENUFLAG_NOOPTION | MENUFLAG_NOPLAY, uih_fshift),
-  MENUNOP ("palettemenu", "-", "Shift one backward", "bshift", MENUFLAG_NOOPTION | MENUFLAG_NOPLAY, uih_bshift),
-  SUBMENU ("calc", NULL, "Solid guessing", "mguess"),
-  SUBMENU ("calc", NULL, "Dynamic resolution", "dynamic"),
-  MENUNOPCB ("calc", "k", "Periodicity checking", "periodicity", 0, uih_periodicitysw, uih_periodicityselected),
-  MENUCDIALOG ("calc", NULL, "Iterations", "maxiter", MENUFLAG_INTERRUPT, uih_setmaxiter, uih_getiterdialog),
-  MENUSEPARATOR ("calc"),
-  MENUNOPCB ("calc", "j", "Fast julia mode", "fastjulia", 0, uih_juliasw, uih_juliaselected),
-  SUBMENU ("calc", "o", "Rotation", "rotate"),
-  MENUDIALOG ("calc", NULL, "Solid guessing range", "range", MENUFLAG_NOMENU, uih_setguessing, uih_numdialog),
-
-  MENUINTRB ("rotate", NULL, "Disable rotation", "norotate", UI, uih_rotate, 0, uih_rotateselected),
-  MENUSEPARATOR ("rotate"),
-  MENUINTRB ("rotate", NULL, "Continuous rotation", "controtate", UI, uih_rotate, ROTATE_CONTINUOUS, uih_rotateselected),
-  MENUINTRB ("rotate", NULL, "Rotate by mouse", "mouserotate", UI, uih_rotate, ROTATE_MOUSE, uih_rotateselected),
-  MENUCDIALOG ("rotate", NULL, "Rotation speed", "rotationspeed", 0, uih_rotationspeed, uih_getrotationdialog),
-  MENUDIALOG ("rotate", NULL, "Automatic rotation", "autorotate", MENUFLAG_NOMENU, uih_playautorotate, uih_autorotatedialog),
-  MENUDIALOG ("rotate", NULL, "Fast rotation mode", "fastrotate", MENUFLAG_NOMENU, (funcptr) uih_fastrotate, uih_fastrotatedialog),
-
-  MENUINTRB ("dynamic", NULL, "Disable dynamic resolution", "nodynamic", UI, uih_setfastmode, 1, uih_fastmode),
-  MENUSEPARATOR ("dynamic"),
-  MENUINTRB ("dynamic", NULL, "Use only during animation", "dynamicanimation", UI, uih_setfastmode, 2, uih_fastmode),
-  MENUINTRB ("dynamic", NULL, "Use also for new images", "dynamicnew", UI, uih_setfastmode, 3, uih_fastmode),
-  MENUDIALOG ("dynamic", NULL, "Dynamic resolution mode", "fastmode", MENUFLAG_NOMENU, uih_setfastmode, uih_fastmodedialog),
-
-  MENUNOPCB ("ui", "a", "Autopilot", "autopilot", 0, uih_autopilotsw, uih_autopilotselected),
-  MENUSEPARATOR ("ui"),
-  MENUNOP ("ui", "r", "Recalculate", "recalculate", 0, uih_recalculate),
-  MENUNOP ("ui", "z", "Interrupt", "interrupt", MENUFLAG_INTERRUPT | MENUFLAG_INCALC, uih_interrupt),
-  MENUSEPARATOR ("ui"),
-  MENUCDIALOG ("ui", NULL, "Zooming speed", "speed", 0, uih_setspeed, uih_getspeeddialog),
-  MENUNOPCB ("ui", NULL, "Fixed step", "fixedstep", 0, uih_fixedstepsw, uih_fixedstepselected),
-
-  MENUINTRB ("mguess", NULL, "Disable solid guessing", "noguess", UI, uih_setguessing, 1, uih_guessingselected),
-  MENUSEPARATOR ("mguess"),
-  MENUINTRB ("mguess", NULL, "Guess 2x2 rectangles", "guess2", UI, uih_setguessing, 2, uih_guessingselected),
-  MENUINTRB ("mguess", NULL, "Guess 3x3 rectangles", "guess3", UI, uih_setguessing, 3, uih_guessingselected),
-  MENUINTRB ("mguess", NULL, "Guess 4x4 rectangles", "guess4", UI, uih_setguessing, 4, uih_guessingselected),
-  MENUINTRB ("mguess", NULL, "Guess 5x5 rectangles", "guess5", UI, uih_setguessing, 5, uih_guessingselected),
-  MENUINTRB ("mguess", NULL, "Guess 6x6 rectangles", "guess6", UI, uih_setguessing, 6, uih_guessingselected),
-  MENUINTRB ("mguess", NULL, "Guess 7x7 rectangles", "guess7", UI, uih_setguessing, 7, uih_guessingselected),
-  MENUINTRB ("mguess", NULL, "Guess 8x8 rectangles", "guess8", UI, uih_setguessing, 8, uih_guessingselected),
-  MENUINTRB ("mguess", NULL, "Guess unlimited rectangles", "guessall", UI, uih_setguessing, 2048, uih_guessingselected),
+  MENUDIALOGCB_I ("file", NULL, gettext("Record"), "record", 0, uih_saveanimfile, saveanimdialog, uih_saveanimenabled)
+  MENUDIALOG_I ("file", NULL, gettext("Replay"), "play", MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY, uih_playfile, playdialog)
+  MENUSEPARATOR_I ("file")
+  MENUDIALOG_I ("file", NULL, gettext("Save image"), "saveimg", 0, uih_savepngfile, saveimgdialog)
+  MENUNOP_I ("file", NULL, gettext("Load random example"), "loadexample", MENUFLAG_INTERRUPT, uih_loadexample)
+  MENUNOP_I ("file", NULL, gettext("Save configuration"), "savecfg", 0, uih_savecfg)
+  MENUSEPARATOR_I ("file")
 
 
-  SUBMENU ("tutor", NULL, "Language", "lang"),
-  MENUSEPARATOR ("tutor"),
-  SUBMENU ("tutor", NULL, "An introduction to fractals", "intro"),
-  SUBMENU ("tutor", NULL, "XaoS features overview", "features"),
-  SUBMENU ("tutor", NULL, "Math behind fractals", "fmath"),
-  SUBMENU ("tutor", NULL, "What's new?", "new"),
 
-  LANG ("Cesky", "cesky"),
-  LANG ("Deutsch", "deutsch"),
-  LANG ("English", "english"),
-  LANG ("Espanhol", "espanhol"),
-  LANG ("Francais", "francais"),
-  LANG ("Magyar", "magyar"),
+  MENUNOP_I ("edit", "u", gettext("Undo"), "undo", MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_undo)
+  MENUNOP_I ("edit", NULL, gettext("Redo"), "redo",MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_redo)
+  SUBMENU_I ("fractal", NULL, gettext("formulae"), "mformula")
+  MENUSEPARATOR_I ("fractal")
+  SUBMENU_I ("fractal", "f", gettext("Incoloring mode"), "mincoloring")
+  SUBMENU_I ("fractal", "c", gettext("Outcoloring mode"), "moutcoloring")
+  SUBMENU_I ("fractal", "i", gettext("Plane"), "mplane")
+  SUBMENU_I ("fractal", NULL, gettext("Palette"), "palettemenu")
+  MENUSEPARATOR_I ("fractal")
+  MENUCDIALOGCB_I ("fractal", "m", gettext("Mandelbrot mode"), "uimandelbrot", MENUFLAG_DIALOGATDISABLE | MENUFLAG_INTERRUPT | UI, uih_mandelbrotsw, uih_getjuliadialog, uih_mandelbrotselected)
+  MENUCDIALOGCB_I ("fractal", "b", gettext("Perturbation"), "uiperturbation", MENUFLAG_INTERRUPT | UI, uih_persw, uih_getperturbationdialog, uih_perselected)
+  MENUCDIALOG_I ("fractal", NULL, gettext("Perturbation"), "perturbation", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setperbutation, uih_getperturbationdialog)
+  MENUSEPARATOR_I ("fractal")
+  MENUCDIALOG_I ("fractal", NULL, gettext("View"), "uiview", MENUFLAG_INTERRUPT | UI, uih_dview, uih_getviewdialog)
+  MENUSEPARATOR_I ("fractal")
+  MENUNOP_I ("fractal", NULL, gettext("Reset to defaults"), "initstate", 0, uih_initstate)
 
-  TUTOR ("intro", "Whole story", "fractal.xaf"),
-  MENUSEPARATOR ("intro"),
-  TUTOR ("intro", "Introduction", "intro.xaf"),
-  TUTOR ("intro", "Mandelbrot set", "mset.xaf"),
-  TUTOR ("intro", "Julia set", "julia.xaf"),
-  TUTOR ("intro", "Higher power Mandelbrots", "power.xaf"),
-  TUTOR ("intro", "Newton's method", "newton.xaf"),
-  TUTOR ("intro", "Barnsley's formula", "barnsley.xaf"),
-  TUTOR ("intro", "Phoenix", "phoenix.xaf"),
-  TUTOR ("intro", "Octo", "octo.xaf"),
-  TUTOR ("intro", "Magnet", "magnet.xaf"),
+  MENUDIALOG_I ("fractal", NULL, gettext("Julia mode"), "julia", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_playjulia, uih_juliamodedialog)
+  MENUDIALOG_I ("fractal", NULL, gettext("View"), "view", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_plview, uih_plviewdialog)
+  MENUDIALOG_I ("fractal", NULL, gettext("Set angle"), "angle", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_angle, uih_angledialog)
+  MENUDIALOG_I ("fractal", NULL, gettext("Set plane"), "plane", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setplane, uih_numdialog)
+  MENUDIALOG_I ("fractal", NULL, gettext("Inside coloring mode"), "incoloring", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setincoloringmode, uih_numdialog)
+  MENUDIALOG_I ("fractal", NULL, gettext("Outside coloring mode"), "outcoloring", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setoutcoloringmode, uih_numdialog)
+  MENUDIALOG_I ("fractal", NULL, gettext("Inside truecolor coloring mode"), "intcoloring", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setintcolor, uih_numdialog)
+  MENUDIALOG_I ("fractal", NULL, gettext("Outside truecolor coloring mode"), "outtcoloring", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setouttcolor, uih_numdialog)
+  MENUDIALOG_I ("fractal", NULL, gettext("Julia seed"), "juliaseed", MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_setjuliaseed, uih_coorddialog)
 
-  TUTOR ("features", "All features", "features.xaf"),
-  MENUSEPARATOR ("features"),
-  TUTOR ("features", "Outcoloring modes", "outcolor.xaf"),
-  TUTOR ("features", "Incoloring modes", "incolor.xaf"),
-  TUTOR ("features", "True-color coloring modes", "truecol.xaf"),
-  TUTOR ("features", "Filters", "filter.xaf"),
-  TUTOR ("features", "Planes", "plane.xaf"),
-  TUTOR ("features", "Animations and position files", "anim.xaf"),
-  TUTOR ("features", "Perturbation", "pert.xaf"),
-  TUTOR ("features", "Random palettes", "palette.xaf"),
-  TUTOR ("features", "Other noteworthy features", "other.xaf"),
+  MENUNOP_I ("palettemenu", "d", gettext("Default palette"), "defpalette", 0, uih_mkdefaultpalette)
+  MENUNOP_I ("palettemenu", "p", gettext("Random palette"), "randompalette", 0, uih_menumkpalette)
+  MENUCDIALOG_I ("palettemenu", NULL, gettext("Custom palette"), "palette", 0, uih_palette, uih_getpalettedialog)
+  MENUSEPARATOR_I ("palettemenu")
+  MENUNOPCB_I ("palettemenu", "y", gettext("Color cycling"), "cycling", 0, uih_cyclingsw, uih_cyclingselected)
+  MENUNOPCB_I ("palettemenu", "Y", gettext("Reversed color cycling"), "rcycling", MENUFLAG_NOOPTION | MENUFLAG_NOPLAY, uih_rcyclingsw, uih_cyclingselected)
+  MENUCDIALOG_I ("palettemenu", NULL, gettext("Color cycling speed"), "cyclingspeed", 0, uih_setcycling, uih_getcyclingdialog)
+  MENUSEPARATOR_I ("palettemenu")
+  MENUDIALOG_I ("palettemenu", NULL, gettext("Shift palette"), "shiftpalette", 0, uih_shiftpalette, uih_shiftdialog)
+  MENUNOP_I ("palettemenu", "+", gettext("Shift one forward"), "fshift", MENUFLAG_NOOPTION | MENUFLAG_NOPLAY, uih_fshift)
+  MENUNOP_I ("palettemenu", "-", gettext("Shift one backward"), "bshift", MENUFLAG_NOOPTION | MENUFLAG_NOPLAY, uih_bshift)
+  SUBMENU_I ("calc", NULL, gettext("Solid guessing"), "mguess")
+  SUBMENU_I ("calc", NULL, gettext("Dynamic resolution"), "dynamic")
+  MENUNOPCB_I ("calc", "k", gettext("Periodicity checking"), "periodicity", 0, uih_periodicitysw, uih_periodicityselected)
+  MENUCDIALOG_I ("calc", NULL, gettext("Iterations"), "maxiter", MENUFLAG_INTERRUPT, uih_setmaxiter, uih_getiterdialog)
+  MENUSEPARATOR_I ("calc")
+  MENUNOPCB_I ("calc", "j", gettext("Fast julia mode"), "fastjulia", 0, uih_juliasw, uih_juliaselected)
+  SUBMENU_I ("calc", "o", gettext("Rotation"), "rotate")
+  MENUDIALOG_I ("calc", NULL, gettext("Solid guessing range"), "range", MENUFLAG_NOMENU, uih_setguessing, uih_numdialog)
 
-  TUTOR ("fmath", "Whole story", "fmath.xaf"),
-  MENUSEPARATOR ("fmath"),
-  TUTOR ("fmath", "The definition and fractal dimension", "dimension.xaf"),
-  TUTOR ("fmath", "Escape time fractals", "escape.xaf"),
+  MENUINTRB_I ("rotate", NULL, gettext("Disable rotation"), "norotate", UI, uih_rotate, 0, uih_rotateselected)
+  MENUSEPARATOR_I ("rotate")
+  MENUINTRB_I ("rotate", NULL, gettext("Continuous rotation"), "controtate", UI, uih_rotate, ROTATE_CONTINUOUS, uih_rotateselected)
+  MENUINTRB_I ("rotate", NULL, gettext("Rotate by mouse"), "mouserotate", UI, uih_rotate, ROTATE_MOUSE, uih_rotateselected)
+  MENUCDIALOG_I ("rotate", NULL, gettext("Rotation speed"), "rotationspeed", 0, uih_rotationspeed, uih_getrotationdialog)
+  MENUDIALOG_I ("rotate", NULL, gettext("Automatic rotation"), "autorotate", MENUFLAG_NOMENU, uih_playautorotate, uih_autorotatedialog)
+  MENUDIALOG_I ("rotate", NULL, gettext("Fast rotation mode"), "fastrotate", MENUFLAG_NOMENU, (funcptr) uih_fastrotate, uih_fastrotatedialog)
 
-  TUTOR ("new", "What's new in 3.0?", "new30.xaf"),
-};
+  MENUINTRB_I ("dynamic", NULL, gettext("Disable dynamic resolution"), "nodynamic", UI, uih_setfastmode, 1, uih_fastmode)
+  MENUSEPARATOR_I ("dynamic")
+  MENUINTRB_I ("dynamic", NULL, gettext("Use only during animation"), "dynamicanimation", UI, uih_setfastmode, 2, uih_fastmode)
+  MENUINTRB_I ("dynamic", NULL, gettext("Use also for new images"), "dynamicnew", UI, uih_setfastmode, 3, uih_fastmode)
+  MENUDIALOG_I ("dynamic", NULL, gettext("Dynamic resolution mode"), "fastmode", MENUFLAG_NOMENU, uih_setfastmode, uih_fastmodedialog)
+
+  MENUNOPCB_I ("ui", "a", gettext("Autopilot"), "autopilot", 0, uih_autopilotsw, uih_autopilotselected)
+  MENUSEPARATOR_I ("ui")
+  MENUNOP_I ("ui", "r", gettext("Recalculate"), "recalculate", 0, uih_recalculate)
+  MENUNOP_I ("ui", "z", gettext("Interrupt"), "interrupt", MENUFLAG_INTERRUPT | MENUFLAG_INCALC, uih_interrupt)
+  MENUSEPARATOR_I ("ui")
+  MENUCDIALOG_I ("ui", NULL, gettext("Zooming speed"), "speed", 0, uih_setspeed, uih_getspeeddialog)
+  MENUNOPCB_I ("ui", NULL, gettext("Fixed step"), "fixedstep", 0, uih_fixedstepsw, uih_fixedstepselected)
+  MENUINTRB_I ("mguess", NULL, gettext("Disable solid guessing"), "noguess", UI, uih_setguessing, 1, uih_guessingselected)
+  MENUSEPARATOR_I ("mguess")
+  MENUINTRB_I ("mguess", NULL, gettext("Guess 2x2 rectangles"), "guess2", UI, uih_setguessing, 2, uih_guessingselected)
+  MENUINTRB_I ("mguess", NULL, gettext("Guess 3x3 rectangles"), "guess3", UI, uih_setguessing, 3, uih_guessingselected)
+  MENUINTRB_I ("mguess", NULL, gettext("Guess 4x4 rectangles"), "guess4", UI, uih_setguessing, 4, uih_guessingselected)
+  MENUINTRB_I ("mguess", NULL, gettext("Guess 5x5 rectangles"), "guess5", UI, uih_setguessing, 5, uih_guessingselected)
+  MENUINTRB_I ("mguess", NULL, gettext("Guess 6x6 rectangles"), "guess6", UI, uih_setguessing, 6, uih_guessingselected)
+  MENUINTRB_I ("mguess", NULL, gettext("Guess 7x7 rectangles"), "guess7", UI, uih_setguessing, 7, uih_guessingselected)
+  MENUINTRB_I ("mguess", NULL, gettext("Guess 8x8 rectangles"), "guess8", UI, uih_setguessing, 8, uih_guessingselected)
+  MENUINTRB_I ("mguess", NULL, gettext("Guess unlimited rectangles"), "guessall", UI, uih_setguessing, 2048, uih_guessingselected)
+
+
+  SUBMENU_I ("tutor", NULL, gettext("Language"), "lang")
+  MENUSEPARATOR_I ("tutor")
+  SUBMENU_I ("tutor", NULL, gettext("An introduction to fractals"), "intro")
+  SUBMENU_I ("tutor", NULL, gettext("XaoS features overview"), "features")
+  SUBMENU_I ("tutor", NULL, gettext("Math behind fractals"), "fmath")
+  SUBMENU_I ("tutor", NULL, gettext("What's new?"), "new")
+
+  LANG_I ("Cesky", "cesky")
+  LANG_I ("Deutsch", "deutsch")
+  LANG_I ("English", "english")
+  LANG_I ("Espanhol", "espanhol")
+  LANG_I ("Francais", "francais")
+  LANG_I ("Magyar", "magyar")
+
+  TUTOR_I ("intro", gettext("Whole story"), "fractal.xaf")
+  MENUSEPARATOR_I ("intro")
+  TUTOR_I ("intro", gettext("Introduction"), "intro.xaf")
+  TUTOR_I ("intro", gettext("Mandelbrot set"), "mset.xaf")
+  TUTOR_I ("intro", gettext("Julia set"), "julia.xaf")
+  TUTOR_I ("intro", gettext("Higher power Mandelbrots"), "power.xaf")
+  TUTOR_I ("intro", gettext("Newton's method"), "newton.xaf")
+  TUTOR_I ("intro", gettext("Barnsley's formula"), "barnsley.xaf")
+  TUTOR_I ("intro", gettext("Phoenix"), "phoenix.xaf")
+  TUTOR_I ("intro", gettext("Octo"), "octo.xaf")
+  TUTOR_I ("intro", gettext("Magnet"), "magnet.xaf")
+
+  TUTOR_I ("features", gettext("All features"), "features.xaf")
+  MENUSEPARATOR_I ("features")
+  TUTOR_I ("features", gettext("Outcoloring modes"), "outcolor.xaf")
+  TUTOR_I ("features", gettext("Incoloring modes"), "incolor.xaf")
+  TUTOR_I ("features", gettext("True-color coloring modes"), "truecol.xaf")
+  TUTOR_I ("features", gettext("Filters"), "filter.xaf")
+  TUTOR_I ("features", gettext("Planes"), "plane.xaf")
+  TUTOR_I ("features", gettext("Animations and position files"), "anim.xaf")
+  TUTOR_I ("features", gettext("Perturbation"), "pert.xaf")
+  TUTOR_I ("features", gettext("Random palettes"), "palette.xaf")
+  TUTOR_I ("features", gettext("Other noteworthy features"), "other.xaf")
+
+  TUTOR_I ("fmath", gettext("Whole story"), "fmath.xaf")
+  MENUSEPARATOR_I ("fmath")
+  TUTOR_I ("fmath", gettext("The definition and fractal dimension"), "dimension.xaf")
+  TUTOR_I ("fmath", gettext("Escape time fractals"), "escape.xaf")
+
+  TUTOR_I ("new", gettext("What's new in 3.0?"), "new30.xaf")
+  menu_add (menuitems_i18n, no_menuitems_i18n);
+	uih_no_menuitems_i18n = no_menuitems_i18n;
+}
+
+
 static CONST menuitem menuitems2[] =
 {
   SUBMENU ("mincoloring", NULL, "True-color incoloring mode", "tincoloring"),
@@ -1227,6 +1254,7 @@ void
 uih_unregistermenus (void)
 {
   menu_delete (menuitems, NITEMS (menuitems));
+  menu_delete (menuitems_i18n, uih_no_menuitems_i18n);
 
   free (keys);
   menu_delete (formulaitems, nformulas);
