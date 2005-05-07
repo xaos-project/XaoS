@@ -3326,7 +3326,7 @@ Tcl/Tk interface
 @item Tapio K. Vocaldo (taps@@rmx.com)
 Macintosh port
 @item Philippe Wautelet (p.wautelet@@fractalzone.be)
-Bug fixes for version 3.1.1
+Bug fixes for version 3.1.1, French translation
 @end table
 
 To contact authors you can also use the mailing list. @xref{lists}.
