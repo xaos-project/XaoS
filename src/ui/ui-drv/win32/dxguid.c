@@ -621,7 +621,7 @@ DIOBJECTDATAFORMAT rgodf_c_dfDIKeyboard[] = {
   {&GUID_Key, 255, -2147418356, 0}
 };
 
-DIDATAFORMAT c_dfDIKeyboard = { 24,
+const DIDATAFORMAT c_dfDIKeyboard = { 24,
   16,
   2,
   256,
@@ -644,7 +644,8 @@ DIOBJECTDATAFORMAT rgodf_c_dfDIMouse[] = {
   ,
   {0, 15, -2130706676, 0}
 };
-DIDATAFORMAT c_dfDIMouse = { 24,
+
+const DIDATAFORMAT c_dfDIMouse = { 24,
   16,
   2,
   16,
@@ -741,7 +742,8 @@ DIOBJECTDATAFORMAT rgodf_c_dfDIJoystick[] = {
   ,
   {0, 79, -2130706676, 0}
 };
-DIDATAFORMAT c_dfDIJoystick = { 24,
+
+const DIDATAFORMAT c_dfDIJoystick = { 24,
   16,
   1,
   80,
@@ -1078,7 +1080,8 @@ DIOBJECTDATAFORMAT rgodf_c_dfDIJoystick2[] = {
   ,
   {&GUID_Slider, 28, -2130706685, 1024}
 };
-DIDATAFORMAT c_dfDIJoystick2 = { 24,
+
+const DIDATAFORMAT c_dfDIJoystick2 = { 24,
   16,
   1,
   272,
