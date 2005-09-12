@@ -864,6 +864,43 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.c"
 
+#define VARIABLES
+#define BTEST less_than_4(rp+ip)
+#define FORMULA \
+	zim=zre*zim+zim/2+pim; \
+	zre=(rp-ip+zre)/2+pre; \
+	rp=zre*zre; \
+	ip=zim*zim;
+#define SMOOTH
+#define SCALC trice_scalc
+#define SPERI trice_speri
+#define CALC trice_calc
+#define PERI trice_peri
+#define JULIA trice_julia
+#define RANGE 2
+#define RPIP
+#include "docalc.c"
+
+#define VARIABLES number_t zor,zoi;
+#define INIT zre=((zre==0)?pre:zre);zim=((zim==0)?pim:zim);
+#define BTEST less_than_4(rp+ip)
+#define FORMULA \
+	c_div(pre,pim,zre,zim,rp,ip); \
+	c_div(zre,zim,pre,pim,zor,zoi); \
+	zre=zor+rp; \
+	zim=zoi+ip; \
+	rp=zre*zre; \
+	ip=zim*zim;
+#define SMOOTH
+#define SCALC catseye_scalc
+#define SPERI catseye_speri
+#define CALC catseye_calc
+#define PERI catseye_peri
+#define JULIA catseye_julia
+#define RANGE 2
+#define RPIP
+#include "docalc.c"
+
 /* plan9 compiler has problem with rest of formulas files. Hope that will be fixed later */
 
 #define VARIABLES
@@ -1551,6 +1588,90 @@ CONST struct formula formulas[] = {
     },
    STARTZERO,
    },
+  {
+   FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+   trice_calc,
+   trice_peri,
+   trice_scalc,
+   trice_speri,
+#endif
+   trice_julia,
+   {"Triceratops", "Triceratops Julia"},
+   "trice",
+   /*{0.5, -2.0, 1.25, -1.25}, */
+   {-0.75, 0.0, 2.5, 2.5},
+   1, 1, 0.0, 0.0,
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   MANDEL_BTRACE,
+   },
+   {
+    FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+   catseye_calc,
+   catseye_peri,
+   catseye_scalc,
+   catseye_speri,
+#endif
+   catseye_julia,
+   {"Catseye", "Catseye Julia"},
+   "catseye",
+   /*{0.5, -2.0, 1.25, -1.25}, */
+   {-0.75, 0.0, 2.5, 2.5},
+   1, 1, 0.0, 0.0,
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   MANDEL_BTRACE,
+   }
 };
 
 #ifdef SLOWFUNCPTR
@@ -1601,6 +1722,12 @@ calculateswitch (register number_t x1, register number_t y1,
 	case 12:
 	  return (smagnet2_peri (x1, y1, x2, y2));
 	  break;
+	case 13:
+	  return (trice_speri (x1, y1, x2, y2));
+	  break;
+	case 14:
+	  return (catseye_speri (x1, y1, x2, y2));
+	  break;
 	}
     else
       switch (cfractalc.currentformula - formulas)
@@ -1643,6 +1770,12 @@ calculateswitch (register number_t x1, register number_t y1,
 	  break;
 	case 12:
 	  return (smagnet2_peri (x1, y1, x2, y2));
+	  break;
+	case 13:
+	  return (trice_peri (x1, y1, x2, y2));
+	  break;
+	case 14:
+	  return (catseye_peri (x1, y1, x2, y2));
 	  break;
 	}
   else if (cfractalc.coloringmode == 9)
@@ -1687,6 +1820,12 @@ calculateswitch (register number_t x1, register number_t y1,
       case 12:
 	return (smagnet2_peri (x1, y1, x2, y2));
 	break;
+      case 13:
+        return (trice_scalc (x1, y1, x2, y2));
+	break;
+      case 14:
+        return (catseye_scalc (x1, y1, x2, y2));
+	break;
       }
   else
     switch (cfractalc.currentformula - formulas)
@@ -1729,6 +1868,12 @@ calculateswitch (register number_t x1, register number_t y1,
 	break;
       case 12:
 	return (smagnet2_peri (x1, y1, x2, y2));
+	break;
+      case 13:
+        return (trice_calc (x1, y1, x2, y2));
+	break;
+      case 14:
+        return (catseye_calc (x1, y1, x2, y2));
 	break;
       }
   return 0;
