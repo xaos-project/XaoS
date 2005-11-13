@@ -316,5 +316,5 @@ extern "C"
 }
 #endif
 
-#include "fractal.h"
+#include "formulas.h"
 #endif

@@ -344,17 +344,10 @@ Fractal examples
 <dt>Tapio K. Vocaldo (taps@rmx.com)
 <dd>Macintosh port
 <dt>Philippe Wautelet (p.wautelet@fractalzone.be)
-<dd>Bug fixes for version 3.1.1, French translation
+<dd>Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
 </dl>
 <p>
-To contact authors you can also use the <a lists>mailing list</a>.
-Or following snail-mail:
-<p><tt>
-  Jan Hubicka<br>
-  Dukelskych bojovniku 1944<br>
-  Tabor 390 03<br>
-  Czech Republic<br>
-</tt><p>
+To contact the authors you can also use the <a lists>mailing lists</a>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %devel
 <head>Development</head>

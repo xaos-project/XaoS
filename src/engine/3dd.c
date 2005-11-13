@@ -101,15 +101,15 @@ do_3d (void *dataptr, struct taskinfo *task, int r1, int r2)
    *inpdata;
 
 #ifdef HAVE_ALLOCA1
-  lengths = (int *) alloca (sizeof (int) * f->image->width);
+  lengths = (unsigned int *) alloca (sizeof (unsigned int) * f->image->width);
   inpdata =
     (struct inp *) alloca (sizeof (struct inp) * (f->image->width + 2));
-  sums = (int *) alloca (sizeof (int) * (f->image->width + 2) * 2);
+  sums = (unsigned int *) alloca (sizeof (unsigned int) * (f->image->width + 2) * 2);
 #else
-  lengths = (int *) malloc (sizeof (int) * f->image->width);
+  lengths = (unsigned int *) malloc (sizeof (unsigned int) * f->image->width);
   inpdata =
     (struct inp *) malloc (sizeof (struct inp) * (f->image->width + 2));
-  sums = (int *) malloc (sizeof (int) * (f->image->width + 2) * 2);
+  sums = (unsigned int *) malloc (sizeof (unsigned int) * (f->image->width + 2) * 2);
 #endif
   for (x = 0; x < (unsigned int) f->image->width; x++)
     lengths[x] = f->image->height - 1,

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-12 16:44+0200\n"
+"POT-Creation-Date: 2005-10-25 13:53+0200\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: MadSoft <madsoft@centrum.cz>\n"
 "Language-Team: Czech\n"
@@ -177,6 +177,7 @@ msgstr "rychlost:%2.2f "
 
 # ../ui/ui.c:968
 #: ../ui/ui.c:883
+#, c-format
 msgid "Thank you for using XaoS\n"
 msgstr "Dìkujeme za pou¾ití programu XaoS\n"
 

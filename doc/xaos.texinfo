@@ -3328,21 +3328,10 @@ Tcl/Tk interface
 @item Tapio K. Vocaldo (taps@@rmx.com)
 Macintosh port
 @item Philippe Wautelet (p.wautelet@@fractalzone.be)
-Bug fixes for version 3.1.1, French translation
+Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
 @end table
 
-To contact authors you can also use the mailing list. @xref{lists}.
-Or following snail-mail:
-
-
-@example
-Jan Hubicka
-Dukelskych bojovniku 1944
-Tabor 390 03
-Czech Republic
-@end example
-
-
+To contact the authors you can also use the mailing lists. @xref{lists}.
 @c ## appendix authors ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -302,7 +302,7 @@ dosymetry2 (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
 static INLINE void
 fillline (int line)
 {
-  register char *RESTRICT vbuff = cimage.currlines[line];
+  register unsigned char *RESTRICT vbuff = cimage.currlines[line];
   CONST struct filltable *RESTRICT table = (struct filltable *) tmpdata;
   while (table->length)
     {
