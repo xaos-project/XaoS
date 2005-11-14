@@ -1,5 +1,15 @@
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.11 2005-02-11 09:57:28 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.12 2005-11-14 11:16:11 kovzol Exp $
+
+
+RELEASE NOTES FOR XAOS VERSION 3.1.3
+------------------------------------
+
+Using this release gcc version 4.0 should also compile the code, not only
+the 3.x versions.
+
+Two new fractal types were also added. In addition, the DirectX header
+files have been fixed. The French translations are updated.
 
 
 RELEASE NOTES FOR XAOS VERSION 3.1.2
@@ -10,7 +20,7 @@ there is a workaround for the B-B bug, see the ChangeLog for details).
 The example files were not able to load in version 3.1.1 and msgmerge
 was not recognized (this is fixed, however not tested yet).
 
-There are other small but unrelevant fixes (see ChangeLog), too.
+There are other small but irrelevant fixes (see ChangeLog), too.
 
 
 RELEASE NOTES FOR XAOS VERSION 3.1.1
