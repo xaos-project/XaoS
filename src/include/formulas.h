@@ -40,6 +40,7 @@ extern "C"
   extern CONST char *CONST outcolorname[];
   extern CONST char *CONST tcolorname[];
   extern CONST int nformulas;
+  extern CONST int nmformulas;
 
 #ifdef __cplusplus
 }

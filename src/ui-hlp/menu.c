@@ -1118,7 +1118,8 @@ uih_registermenus_i18n (void)
 	     "redo",
 	     MENUFLAG_INTERRUPT
 	     | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_redo);
-  SUBMENU_I ("fractal", NULL, gettext ("formulae"), "mformula");
+  SUBMENU_I ("fractal", NULL, gettext ("Formulae"), "mformula");
+  SUBMENU_I ("fractal", NULL, gettext ("More formulae"), "oformula");
   MENUSEPARATOR_I ("fractal");
   SUBMENU_I ("fractal", "f", gettext ("Incoloring mode"), "mincoloring");
   SUBMENU_I ("fractal", "c", gettext ("Outcoloring mode"), "moutcoloring");
@@ -1454,7 +1455,11 @@ uih_registermenus (void)
   keys = malloc (sizeof (*keys) * nformulas);
   for (i = 0; i < nformulas; i++)
     {
-      item[i].menuname = "mformula";
+      if (i < nmformulas) {
+        item[i].menuname = "mformula";
+      } else {
+        item[i].menuname = "oformula";
+      }
       item[i].key = keys[i];
       if (i < 9)
 	keys[i][0] = '1' + i;

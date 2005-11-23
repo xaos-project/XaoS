@@ -1882,3 +1882,4 @@ calculateswitch (register number_t x1, register number_t y1,
 
 CONST struct formula *currentformula;
 CONST int nformulas = sizeof (formulas) / sizeof (struct formula);
+CONST int nmformulas = 13;
