@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-23 21:26+0100\n"
+"POT-Creation-Date: 2006-01-20 22:16+0100\n"
 "PO-Revision-Date: 2003-02-11 02:02+GMT\n"
 "Last-Translator: \n"
 "Language-Team:  <de@li.org>\n"
@@ -148,7 +148,6 @@ msgid "speed:%2.2f "
 msgstr "Geschwindigkeit:%2.2f "
 
 #: ../ui/ui.c:883
-#, c-format
 msgid "Thank you for using XaoS\n"
 msgstr "Danke, dass Sie XaoS benutzt haben\n"
 
@@ -768,12 +767,12 @@ msgid "Redo"
 msgstr "Wiederholen"
 
 #: ../ui-hlp/menu.c:1121
-msgid "Formulae"
+msgid "formulae"
 msgstr "Formel"
 
 #: ../ui-hlp/menu.c:1122
 #, fuzzy
-msgid "More formulae"
+msgid "more formulae"
 msgstr "Formel"
 
 #: ../ui-hlp/menu.c:1124
@@ -1378,5 +1377,5 @@ msgstr "Einfügen"
 msgid "About"
 msgstr "Info"
 
-#~ msgid "formulae"
+#~ msgid "Formulae"
 #~ msgstr "Formel"

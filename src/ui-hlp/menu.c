@@ -1118,8 +1118,8 @@ uih_registermenus_i18n (void)
 	     "redo",
 	     MENUFLAG_INTERRUPT
 	     | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_redo);
-  SUBMENU_I ("fractal", NULL, gettext ("Formulae"), "mformula");
-  SUBMENU_I ("fractal", NULL, gettext ("More formulae"), "oformula");
+  SUBMENU_I ("fractal", NULL, gettext ("formulae"), "mformula");
+  SUBMENU_I ("fractal", NULL, gettext ("more formulae"), "oformula");
   MENUSEPARATOR_I ("fractal");
   SUBMENU_I ("fractal", "f", gettext ("Incoloring mode"), "mincoloring");
   SUBMENU_I ("fractal", "c", gettext ("Outcoloring mode"), "moutcoloring");

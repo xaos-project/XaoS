@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-23 21:26+0100\n"
+"POT-Creation-Date: 2006-01-20 22:16+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: Hungarian\n"
@@ -147,7 +147,6 @@ msgid "speed:%2.2f "
 msgstr "sebesség:%2.2f "
 
 #: ../ui/ui.c:883
-#, c-format
 msgid "Thank you for using XaoS\n"
 msgstr "Köszönjük, hogy a XaoS programot használta!\n"
 
@@ -762,11 +761,12 @@ msgid "Redo"
 msgstr "Mégis"
 
 #: ../ui-hlp/menu.c:1121
-msgid "Formulae"
+msgid "formulae"
 msgstr "Képlet"
 
 #: ../ui-hlp/menu.c:1122
-msgid "More formulae"
+#, fuzzy
+msgid "more formulae"
 msgstr "További képletek"
 
 #: ../ui-hlp/menu.c:1124
@@ -1372,5 +1372,5 @@ msgstr "Beilleszt"
 msgid "About"
 msgstr "Névjegy"
 
-#~ msgid "formulae"
+#~ msgid "Formulae"
 #~ msgstr "Képlet"
