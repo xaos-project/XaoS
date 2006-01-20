@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-20 22:16+0100\n"
+"POT-Creation-Date: 2006-01-20 23:01+0100\n"
 "PO-Revision-Date: 2005-05-07 17:35+0200\n"
 "Last-Translator: Philippe Wautelet <traduc _at_ fractalzone _dot_ bebe>\n"
 "Language-Team: French\n"
@@ -147,6 +147,7 @@ msgid "speed:%2.2f "
 msgstr "vitesse : %2.2f"
 
 #: ../ui/ui.c:883
+#, c-format
 msgid "Thank you for using XaoS\n"
 msgstr "Merci d'avoir utilisé XaoS\n"
 

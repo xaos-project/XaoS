@@ -29,7 +29,6 @@ extern "C"
 
 #include "config.h"
 #include "fconfig.h"
-#include "formulas.h"
 #define INCOLORING 11
 #define OUTCOLORING 11
 #define TCOLOR 11
@@ -167,6 +166,9 @@ extern "C"
   unsigned int calculateswitch (register number_t x1, register number_t y1,
 				register number_t x2, register number_t y2,
 				int periodicity) REGISTERS (3);
+
+/* needs struct formula */
+#include <formulas.h>
 
 #ifdef __cplusplus
 }

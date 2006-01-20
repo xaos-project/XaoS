@@ -19,4 +19,4 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#define XaoS_VERSION "3.1.3"
+#define XaoS_VERSION "3.1.4"

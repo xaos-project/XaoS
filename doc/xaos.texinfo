@@ -3282,7 +3282,7 @@ GTK interface, windowid patches
 @item Martin Dozsa (madsoft@@centrum.cz)
 cs.po (Czech translation of menus)
 @item Arpad Fekete (Fekete.Arpad.2@@stud.u-szeged.hu)
-Triceratops and Catseye fractals
+Triceratops and Catseye fractals and various formulas from various fractal programs
 @item Tim Goodwin (tgoodwin@@cygnus.co.uk)
 english.cat corrections
 @item Ben Hines

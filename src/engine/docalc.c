@@ -321,7 +321,7 @@ REGISTERS (3)
 
 /*F. : Periodicity checking rountines.          (16-02-97)
    All comments preceded by F. are mine (Fabrice Premel premelfa@etu.utc.fr).
-   Tried to make coed as efficient as possible.
+   Tried to make code as efficient as possible.
    Next to do is convert lim in a variable that would be updated sometimes
    I'll try to make here a short explanation on periodicity checking :
    first, we'll define 2 variables : whentosave and whenincsave, which are, respectively,
