@@ -1,0 +1,65 @@
+BUILT-IN FORMULAS
+-----------------
+
+(Contributed by Arpad Fekete.)
+
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/built-in_formulas.txt,v 1.1 2006-01-21 10:14:32 kovzol Exp $
+
+This file is for developers.
+
+I will give you a short description on how XaoS handles
+the built-in formulas and how to make one.
+
+0.) So, in the file "formulas.c" in the library /src/engine/,
+you shall find some lines containing macros starting with 
+
+#define VARIABLES
+
+or something like it, and ending with
+
+#include "docalc.c"
+
+It's tricky, because every time when you include this file, 
+it means something different. It depends upon how you 
+defined the macros. You can understand easily what a macro does.
+
+Make your own formula here.
+
+Then, two other things are to do.
+
+1.) First, you must put the description of your formula at the end of
+the structure named "formulas". You can make it to be similar to the
+other formula descriptions.
+
+1. FORMULAMAGIC
+2. CALC function
+3. PERI function
+4. SCALC function
+5. SPERI function
+6. JULIA function
+7. {"Name of Mandelbrot", "Name of Julia"}
+8. "short name"
+9. point of view: {x_translate, y_translate, ?, scale}
+10. hassymmetry
+11. isMandelbrot (or Julia, at startup)
+12. pre -- real part of Julia seed
+13. pim -- imag part of Julia seed
+14. {{}{}... structures about the symmetries of the outcoloring modes}
+15. {{}{}... structures about the symmetries of the incoloring modes}
+
+These are made:
+{vertical_symmetry, horizontical_symmetry, 
+ size_of_other_symmetries, other_symmetries}
+
+Horizontical and vertical symmetries can be INT_MAX or 0, 
+INT_MAX means no symmetry, 0 means symmetry
+The next two is like: {... 2, sym6} {... 2, sym8} or {... 6, sym16}
+
+16. some FLAGS, (I still don't know what they mean.)
+
+2.) When this is done, you must put your new functions in the four
+switch commands at the end of the file.
+
+3.) I hope there are no complications...
+After compiling XaoS, you should find your fractal at the 
+"More Formulae" menu.
