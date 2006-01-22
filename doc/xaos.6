@@ -1,105 +1,14 @@
-.TH XaoS 6 "16 Jan 2003" "XaoS" "Demos"
+.TH XaoS 6 "22 Feb 2006" "XaoS" "Demos"
 
 .SH NAME
 xaos - Fast interactive real-time fractal zoomer/morpher
 
-.SH SYNOPSIS
-xaos [options]
-
-.SH DESCRIPTION
-
-XaoS is a portable real-time interactive fractal zoomer/morpher.
-The UNIX version works under X11, SVGA and text terminals.
-If you don't know what a fractal is, or you want to know more about
-XaoS features, you should see the animated tutorial. 
-.B \ Run XaoS and press 'H' twice.
-It is much more fun than reading the boring manual page :) and it supports foreign
-languages. You might also want to read the
-.B \ xaos.info 
-file for some advanced stuff
-(like how to write animations and tutorials manually, port or extend XaoS,
-algorithms used etc.)
-
-.SH "OPTIONS"
-XaoS' options are divided into the following groups:
-.TP
-.B \ Ugly interface options
-These options are common across all installations of XaoS because the only
-interface available for now is the ugly interface.
-.TP
-.B \ Driver selection options
-These options let you choose the graphics driver.
-.TP
-.B \ Driver dependent options
-These options depend on available drivers.
-.SH "SCREEN SIZE OPTIONS"
-XaoS needs exact knowledge of the screen size to make random dot stereograms
-and for choosing good viewing areas for fractals. This can be done in two ways,
-by choosing screen size or choosing the pixel size. Screen size is best for fullscreen
-drivers where resolution/pixel-size may be changed. On the other hand,
-pixel size is best for windowed environments where some kind of virtual screen,
-etc. could confuse calculation of pixel size from the screen size.
-.TP
-.B \-screenwidth
-exact width of the screen in centimeters
-.TP
-.B \-screenheight
-exact height of the screen in centimeters
-.TP
-.B \-pixelwidth
-exact size of a pixel's width in centimeters
-.TP
-.B \-pixelheight
-exact size of a pixel's height in centimeters
-.SH "DRIVER SELECTION OPTIONS"
-Every XaoS installation has some graphics drivers. Which are available depends on
-which operating system you have, available libraries and configurations. XaoS
-by default tries to enable the best available driver. So for example,
-in the cas of GNU/Linux, it tests the drivers in the following order:
-.br
-SVGAlib
-.br
-X11
-.br
-curses
-.br
-The following options are used to control this operation:
-.TP
-.B \-driver    
-This option lets you specify the driver to use and avoid autodetection.
-.TP
-.B \-list
-List available drivers and then exit.
-
-.SH "OTHER UI OPTIONS"
-The remaining options are quite easy to understand and depend on XaoS configuration
-and version, so I do not describe how to use them here.
-.B \ xaos -help
-for a complete list of options with descriptions.
-.SH "BUGS"
-There are no known bugs in this release. See the XaoS home-page 
-at: 
-.B \ http://xaos.sf.net
-for a list of bugs with solutions. Please report bugs to 
-the authors.
-.SH "AUTHORS"
-.B Maintainer:
-.br
-.B Jan Hubicka (jh@ucw.cz)
-.br
-.B smail:
-.br
-Jan Hubicka
-.br
-Dukelskych bojovniku 1944
-.br
-Tabor
-.br
-39003
-.br
-Czech Republic
-.br
-.br
-.B Thomas Marsh (tmarsh@austion.ibm.com)
-.br
-See AUTHORS for full credits
+.SH DETAILS
+This manual page is obsolete and no longer maintained.
+Please read the full documentation running
+XaoS. You can start it typing 'xaos'. (Press 'h' 3
+times to get into the help system.)
+.P
+In addition,
+.B xaos --help
+should give a detailed list about the command line options.

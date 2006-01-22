@@ -43,7 +43,7 @@ XaoS_srandom (unsigned int x)
   state = x;
 }
 
-#define MYLONG_MAX 0xffffff	/*this is enought for me. */
+#define MYLONG_MAX 0xffffff	/* this is enough for me */
 long int
 XaoS_random (void)
 {

@@ -18,7 +18,7 @@
 
 
 @ifinfo
-@copyright{} 1997-2003 Jan Hubicka and the XaoS Development Team
+@copyright{} 1996-2006 Jan Hubicka and the XaoS Development Team
 
 Permission is granted to make and distribute verbatim
 copies of this manual provided the copyright notice and
@@ -28,8 +28,8 @@ this permission notice are preserved on all copies.
 
 @c %**end of header
 
-@set VERSION    3.1
-@set DATE       Feb 15, 2003
+@set VERSION    3.2
+@set DATE       Jan 23, 2006
 
 @titlepage
 
@@ -52,7 +52,7 @@ Email: @code{jh@@ucw.cz}
 @vskip 0pt plus 1filll
 @vskip 0pt plus 1filll
 
-@copyright{} 1996-2003 @tex Jan Hubi\v cka and the XaoS Development Team
+@copyright{} 1996-2006 @tex Jan Hubi\v cka and the XaoS Development Team
 @end tex
 
 Permission is granted to make and distribute verbatim
@@ -189,30 +189,65 @@ numbers) and restart zooming from the top.
 @section Various fractal formulae
 
 XaoS also supports formulae other than the Mandelbrot set. You may change
-@emph{formula} using the @emph{number keys}.
+@emph{formula} using the @emph{number keys}
+or @emph{SHIFT+letters}.
 
 
 
 On keys @code{1} to @code{5} are @emph{Mandelbrot sets of various power}. The ``normal''
 Mandelbrot set is on key @code{1}.
 
-On key @code{6} is a fractal called @emph{octo}. It is a fractal that Thomas
-discovered in fractint.
+On key @code{6} is a fractal called @emph{Newton}. It is Newton's famous formula for finding roots.
 
-On key @code{7} is a fractal called @emph{Newton}. It is Newton's famous formula for finding roots.
+On key @code{7} is the @emph{fourth ordered Newton} fractal.
 
 On key @code{8} is a fractal called @emph{Barnsley}.
 
-On key @code{9} is a fractal called @emph{Phoenix}. It is a very nice and quite famous fractal.
+On key @code{9} is @emph{Barnsley's second} fractal.
 
-On key @code{0} is a fractal called @emph{Magnet}. This fractal has quite a complex formula so it is
+On key @code{0} is @emph{Barnsley's third} fractal.
+
+With keys @code{SHIFT-A} you can display a fractal called @emph{octo}. It is a fractal that Thomas
+discovered in fractint.
+
+With keys @code{SHIFT-B} you can display a fractal called @emph{Phoenix}. It is a very nice and quite famous fractal.
+
+With keys @code{SHIFT-C} you can display a fractal called @emph{Magnet}. This fractal has quite a complex formula so it is
 a bit slow.
 
-Since version 3.1 there are 3 more fractal types. On most platform you
-can display these fractals with keys @code{SHIFT-A}, @code{SHIFT-B}
-and @code{SHIFT-C}, which will show you the @emph{fourth ordered
-Newton}, the @emph{Barnsley2} and the @emph{Magnet2}
-fractals, respectively.
+With keys @code{SHIFT-D} you can display the @emph{Magnet2} fractal.
+
+The rest of the built-in fractals are accessible through an other menu, but
+you can still use the hotkeys.
+
+On @code{SHIFT-E} is a fractal called @emph{Triceratops} found by Arpad.
+
+On @code{SHIFT-F} is a fractal called @emph{Catseye} found by Arpad.
+This is more interesting if you change the bailout value.
+
+On @code{SHIFT-G} is a fractal called @emph{Mandelbar}. It was in
+Gnofract4d, and they found it at:
+http://mathworld.wolfram.com/MandelbarSet.html
+
+On @code{SHIFT-H} is the @emph{Lambda} fractal.
+
+On @code{SHIFT-I} and @code{SHIFT-J} are the @emph{Manowar}
+and @emph{Spider} fractals, they were found by users of fractint.
+(Scott Taylor or Lee Skinner)
+It was on http://spanky.triumf.ca/www/fractint/
+taylor_skinner_type.html
+
+The next 3 fractals are famous classic fractals.
+
+On @code{SHIFT-K} is the @emph{Sierpinski} Gasket.
+You can change its shape by selecting another Julia seed.
+(This is for technical reasons.)
+
+On @code{SHIFT-L} is the @emph{Sierpinski Carpet.}
+It's shape can also be changed by selecting another Julia seed.
+
+On @code{SHIFT-M} is the @emph{Koch Snowflake.}
+
 
 
 @section Out-coloring modes
@@ -3282,7 +3317,7 @@ GTK interface, windowid patches
 @item Martin Dozsa (madsoft@@centrum.cz)
 cs.po (Czech translation of menus)
 @item Arpad Fekete (Fekete.Arpad.2@@stud.u-szeged.hu)
-Triceratops and Catseye fractals and various formulas from various fractal programs
+some new fractals, and the 'More formulae' menu
 @item Tim Goodwin (tgoodwin@@cygnus.co.uk)
 english.cat corrections
 @item Ben Hines

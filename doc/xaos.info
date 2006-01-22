@@ -5,7 +5,7 @@ START-INFO-DIR-ENTRY
 * XaoS: (xaos).               A fast real-time interactive fractal zoomer
 END-INFO-DIR-ENTRY
 
-   (C) 1997-2003 Jan Hubicka and the XaoS Development Team
+   (C) 1996-2006 Jan Hubicka and the XaoS Development Team
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -14,12 +14,12 @@ preserved on all copies.
 
 File: xaos.info,  Node: Top,  Next: Overview,  Prev: (dir),  Up: (dir)
 
-XaoS 3.1
+XaoS 3.2
 ********
 
                                  A real-time interactive fractal zoomer
                                                           User's manual
-                                                           Feb 15, 2003
+                                                           Jan 23, 2006
 
    This manual contains user documentation about XaoS -- a fast
 real-time fractal zoomer. XaoS uses a development model, so sources are
@@ -151,29 +151,59 @@ floating point numbers) and restart zooming from the top.
 ============================
 
 XaoS also supports formulae other than the Mandelbrot set. You may
-change _formula_ using the _number keys_.
+change _formula_ using the _number keys_ or _SHIFT+letters_.
 
    On keys `1' to `5' are _Mandelbrot sets of various power_. The
 "normal" Mandelbrot set is on key `1'.
 
-   On key `6' is a fractal called _octo_. It is a fractal that Thomas
-discovered in fractint.
-
-   On key `7' is a fractal called _Newton_. It is Newton's famous
+   On key `6' is a fractal called _Newton_. It is Newton's famous
 formula for finding roots.
+
+   On key `7' is the _fourth ordered Newton_ fractal.
 
    On key `8' is a fractal called _Barnsley_.
 
-   On key `9' is a fractal called _Phoenix_. It is a very nice and
-quite famous fractal.
+   On key `9' is _Barnsley's second_ fractal.
 
-   On key `0' is a fractal called _Magnet_. This fractal has quite a
-complex formula so it is a bit slow.
+   On key `0' is _Barnsley's third_ fractal.
 
-   Since version 3.1 there are 3 more fractal types. On most platform
-you can display these fractals with keys `SHIFT-A', `SHIFT-B' and
-`SHIFT-C', which will show you the _fourth ordered Newton_, the
-_Barnsley2_ and the _Magnet2_ fractals, respectively.
+   With keys `SHIFT-A' you can display a fractal called _octo_. It is a
+fractal that Thomas discovered in fractint.
+
+   With keys `SHIFT-B' you can display a fractal called _Phoenix_. It
+is a very nice and quite famous fractal.
+
+   With keys `SHIFT-C' you can display a fractal called _Magnet_. This
+fractal has quite a complex formula so it is a bit slow.
+
+   With keys `SHIFT-D' you can display the _Magnet2_ fractal.
+
+   The rest of the built-in fractals are accessible through an other
+menu, but you can still use the hotkeys.
+
+   On `SHIFT-E' is a fractal called _Triceratops_ found by Arpad.
+
+   On `SHIFT-F' is a fractal called _Catseye_ found by Arpad.  This is
+more interesting if you change the bailout value.
+
+   On `SHIFT-G' is a fractal called _Mandelbar_. It was in Gnofract4d,
+and they found it at: http://mathworld.wolfram.com/MandelbarSet.html
+
+   On `SHIFT-H' is the _Lambda_ fractal.
+
+   On `SHIFT-I' and `SHIFT-J' are the _Manowar_ and _Spider_ fractals,
+they were found by users of fractint.  (Scott Taylor or Lee Skinner) It
+was on http://spanky.triumf.ca/www/fractint/ taylor_skinner_type.html
+
+   The next 3 fractals are famous classic fractals.
+
+   On `SHIFT-K' is the _Sierpinski_ Gasket.  You can change its shape
+by selecting another Julia seed.  (This is for technical reasons.)
+
+   On `SHIFT-L' is the _Sierpinski Carpet._ It's shape can also be
+changed by selecting another Julia seed.
+
+   On `SHIFT-M' is the _Koch Snowflake._
 
 2.4 Out-coloring modes
 ======================
@@ -3395,7 +3425,7 @@ Appendix B Credits
      cs.po (Czech translation of menus)
 
 *Arpad Fekete (Fekete.Arpad.2@stud.u-szeged.hu)*
-     Triceratops and Catseye fractals
+     some new fractals, and the 'More formulae' menu
 
 *Tim Goodwin (tgoodwin@cygnus.co.uk)*
      english.cat corrections
@@ -3583,123 +3613,123 @@ Node: Overview1486
 Node: Why?1683
 Node: What?3845
 Node: tutorial4418
-Node: controls13174
-Node: mpeg15067
-Node: format21988
-Node: writehelp27421
-Node: xshl27908
-Node: drivers29053
-Node: aa29748
-Node: BeOS32265
-Node: DGA35121
-Node: dos35741
-Node: dX-fullscreen38174
-Node: dX-window39301
-Node: ggi39386
-Node: plan939937
-Node: SVGAlib41038
-Node: win3242418
-Node: X1144324
-Node: menus45321
-Node: root46187
-Node: animroot46248
-Node: stopreplay46531
-Node: plc46680
-Node: load47037
-Node: linemenu47370
-Node: animf50145
-Node: animateview50855
-Node: smoothmorph51390
-Node: morphview51974
-Node: morphjulia53037
-Node: moveview53665
-Node: morphangle53896
-Node: zoom54565
-Node: time55403
-Node: usleep55877
-Node: textsleep56278
-Node: wait56835
-Node: file57420
-Node: loadpos57691
-Node: savepos57953
-Node: record58399
-Node: play58902
-Node: saveimg59114
-Node: loadexample59750
-Node: savecfg60106
-Node: quit60493
-Node: edit60670
-Node: undo60860
-Node: redo61133
-Node: copy61308
-Node: paste61600
-Node: fractal61884
-Node: formula62447
-Node: uimandelbrot63179
-Node: uiperturbation64701
-Node: bailout65890
-Node: uiview66987
-Node: initstate68996
-Node: plane69488
-Node: incoloring70655
-Node: outcoloring72181
-Node: tcolor73906
-Node: calc75544
-Node: range76008
-Node: periodicity76635
-Node: maxiter78811
-Node: fastjulia80054
-Node: dynamic80813
-Node: rotate81652
-Node: mfilter83084
-Node: filter83740
-Node: edge84389
-Node: edge284928
-Node: starfield85472
-Node: stereogram85831
-Node: interlace90216
-Node: blur90632
-Node: emboss91047
-Node: palettef91382
-Node: anti91950
-Node: truecolor92657
-Node: ui93268
-Node: speed93729
-Node: letterspersec94792
-Node: autopilot95187
-Node: recalculate96024
-Node: interrupt96399
-Node: nogui96634
-Node: status97108
-Node: ministatus97511
-Node: misc97816
-Node: command98217
-Node: renderanim98603
-Node: clearscreen98856
-Node: display99201
-Node: text99507
-Node: color100247
-Node: textposition100531
-Node: message101001
-Node: helpmenu101408
-Node: xtextpos101547
-Node: ytextpos101820
-Node: mformula102100
-Node: mandel102451
-Node: mandel3102730
-Node: octal103161
-Node: newton103499
-Node: barnsley104043
-Node: phoenix104323
-Node: magnet104559
-Node: palettemenu104901
-Node: defpalette105237
-Node: randompalette105733
-Node: palette106238
-Node: cycling107102
-Node: shiftpalette108081
-Node: authors108793
-Node: lists111190
-Node: index111956
+Node: controls14254
+Node: mpeg16147
+Node: format23068
+Node: writehelp28501
+Node: xshl28988
+Node: drivers30133
+Node: aa30828
+Node: BeOS33345
+Node: DGA36201
+Node: dos36821
+Node: dX-fullscreen39254
+Node: dX-window40381
+Node: ggi40466
+Node: plan941017
+Node: SVGAlib42118
+Node: win3243498
+Node: X1145404
+Node: menus46401
+Node: root47267
+Node: animroot47328
+Node: stopreplay47611
+Node: plc47760
+Node: load48117
+Node: linemenu48450
+Node: animf51225
+Node: animateview51935
+Node: smoothmorph52470
+Node: morphview53054
+Node: morphjulia54117
+Node: moveview54745
+Node: morphangle54976
+Node: zoom55645
+Node: time56483
+Node: usleep56957
+Node: textsleep57358
+Node: wait57915
+Node: file58500
+Node: loadpos58771
+Node: savepos59033
+Node: record59479
+Node: play59982
+Node: saveimg60194
+Node: loadexample60830
+Node: savecfg61186
+Node: quit61573
+Node: edit61750
+Node: undo61940
+Node: redo62213
+Node: copy62388
+Node: paste62680
+Node: fractal62964
+Node: formula63527
+Node: uimandelbrot64259
+Node: uiperturbation65781
+Node: bailout66970
+Node: uiview68067
+Node: initstate70076
+Node: plane70568
+Node: incoloring71735
+Node: outcoloring73261
+Node: tcolor74986
+Node: calc76624
+Node: range77088
+Node: periodicity77715
+Node: maxiter79891
+Node: fastjulia81134
+Node: dynamic81893
+Node: rotate82732
+Node: mfilter84164
+Node: filter84820
+Node: edge85469
+Node: edge286008
+Node: starfield86552
+Node: stereogram86911
+Node: interlace91296
+Node: blur91712
+Node: emboss92127
+Node: palettef92462
+Node: anti93030
+Node: truecolor93737
+Node: ui94348
+Node: speed94809
+Node: letterspersec95872
+Node: autopilot96267
+Node: recalculate97104
+Node: interrupt97479
+Node: nogui97714
+Node: status98188
+Node: ministatus98591
+Node: misc98896
+Node: command99297
+Node: renderanim99683
+Node: clearscreen99936
+Node: display100281
+Node: text100587
+Node: color101327
+Node: textposition101611
+Node: message102081
+Node: helpmenu102488
+Node: xtextpos102627
+Node: ytextpos102900
+Node: mformula103180
+Node: mandel103531
+Node: mandel3103810
+Node: octal104241
+Node: newton104579
+Node: barnsley105123
+Node: phoenix105403
+Node: magnet105639
+Node: palettemenu105981
+Node: defpalette106317
+Node: randompalette106813
+Node: palette107318
+Node: cycling108182
+Node: shiftpalette109161
+Node: authors109873
+Node: lists112285
+Node: index113051
 
 End Tag Table

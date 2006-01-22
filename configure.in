@@ -1,4 +1,4 @@
-AC_INIT(XaoS, 3.1.4, xaos-devel@lists.sourceforge.net)
+AC_INIT(XaoS, 3.2, xaos-devel@lists.sourceforge.net)
 
 # FIXME: unfortunately version still have to be changed
 # in src/include/version.h and some lines later in this file, too
@@ -18,7 +18,7 @@ dnl GNU gettext related things
 dnl
 
 PACKAGE=XaoS
-VERSION=3.1.4
+VERSION=3.2
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_SUBST(PACKAGE)

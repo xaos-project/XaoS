@@ -18,7 +18,7 @@
 
 
 @ifinfo
-@copyright{} 1997-2003 Jan Hubicka and the XaoS Development Team
+@copyright{} 1996-2006 Jan Hubicka and the XaoS Development Team
 
 Permission is granted to make and distribute verbatim
 copies of this manual provided the copyright notice and
@@ -28,8 +28,8 @@ this permission notice are preserved on all copies.
 
 @c %**end of header
 
-@set VERSION    3.1
-@set DATE       Feb 15, 2003
+@set VERSION    3.2
+@set DATE       Jan 23, 2006
 
 @titlepage
 
@@ -52,7 +52,7 @@ Email: @code{jh@@ucw.cz}
 @vskip 0pt plus 1filll
 @vskip 0pt plus 1filll
 
-@copyright{} 1996-2003 @tex Jan Hubi\v cka and the XaoS Development Team
+@copyright{} 1996-2006 @tex Jan Hubi\v cka and the XaoS Development Team
 @end tex
 
 Permission is granted to make and distribute verbatim

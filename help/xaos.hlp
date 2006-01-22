@@ -298,7 +298,7 @@ The following tags are supported:
 <dt>Martin Dozsa (madsoft@centrum.cz)
 <dd>cs.po (Czech translation of menus)
 <dt>Arpad Fekete (Fekete.Arpad.2@stud.u-szeged.hu)
-<dd>some new fractals, and the /more formulae/ menu 
+<dd>some new fractals, and the 'More formulae' menu
 <dt>Tim Goodwin	(tgoodwin@cygnus.co.uk)
 <dd>english.cat corrections
 <dt>Ben Hines
@@ -995,7 +995,7 @@ This is a brief introduction to the basic XaoS features.
 
  XaoS also supports formulae other than the Mandelbrot set. You may change
  <emph>formula</emph> using the <emph>number keys</emph> 
- or <emph>SHIFT+letters<emph>.
+ or <emph>SHIFT+letters</emph>.
 
 
 <p>
