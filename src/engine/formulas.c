@@ -876,7 +876,6 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define SPERI soffspring_peri
 #define CALC offspring_calc
 #define PERI offspring_peri
-#define JULIA offspring_julia
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
@@ -893,7 +892,6 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define SPERI strice_peri
 #define CALC trice_calc
 #define PERI trice_peri
-#define JULIA trice_julia
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
@@ -931,7 +929,6 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define SPERI smlambda_peri
 #define CALC mlambda_calc
 #define PERI mlambda_peri
-#define JULIA mlambda_julia
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
@@ -950,34 +947,37 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define SMOOTH
 #define SCALC smanowar_calc
 #define CALC manowar_calc
-#define JULIA manowar_julia
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
 
-#define VARIABLES
+#define VARIABLES register number_t zre1,zim1;
+#define INIT zre1=pre;zim1=pim;
 #define BTEST less_than_4(rp+ip)
 #define FORMULA \
-	zim=(zim*zre)*2+pim; \
-	zre=rp-ip+pre; \
-	pre=pre/2+zre; \
-	pim=pim/2+zim; \
+	zim=(zim*zre)*2+zim1; \
+	zre=rp-ip+zre1; \
+	zre1=zre1/2+zre; \
+	zim1=zim1/2+zim; \
 	ip=zim*zim; \
 	rp=zre*zre;	
 #define SMOOTH
 #define SCALC sspider_calc
 #define CALC spider_calc
-#define JULIA spider_julia
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
 
 #define VARIABLES
-#define INIT zre=pre;zim=pim;if(zre<0)zre=2;if(zim<0)zim=2;
-#define BTEST ((zre+zim)<1)
+#define INIT \
+	if((zre==pre)&&(zim==pim)){pre=0.5;pim=0.8660254;} \
+	if(pim<0)pim=(-pim); \
+	if(((pim*zre-pre*zim)<0)||(zim<0)){zre=2*pre+2;zim=2*pim;}
+#define BTEST ((pim*zre+(1-pre)*zim)<pim)
 #define FORMULA \
-	if(zre>0.5)zre=2*zre-1;else zre=2*zre; \
-	if(zim>0.5)zim=2*zim-1;else zim=2*zim; 
+	zre=2*zre;zim=2*zim; \
+	if((pim*zre-pre*zim)>pim)zre=zre-1; \
+	if(zim>pim){zim=zim-pim;zre=zre-pre;}
 #define SMOOTH
 #define CALC sier_calc
 #define RANGE 2
@@ -998,7 +998,6 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define SPERI scatseye_peri
 #define CALC catseye_calc
 #define PERI catseye_peri
-#define JULIA catseye_julia
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
@@ -1759,7 +1758,7 @@ CONST struct formula formulas[] = {
    soffspring_calc,
    soffspring_peri,
 #endif
-   offspring_julia,
+   NULL,
    {"Offspring", "Offspring Julia"},
    "offspring",
    {0.0, 0.0, 2.5, 2.5},
@@ -1800,7 +1799,7 @@ CONST struct formula formulas[] = {
    strice_calc,
    strice_peri,
 #endif
-   trice_julia,
+   NULL,
    {"Triceratops", "Triceratops Julia"},
    "trice",
    {0.0, 0.0, 2.5, 4.5},
@@ -1883,34 +1882,34 @@ CONST struct formula formulas[] = {
    smlambda_calc,
    smlambda_peri,
 #endif
-   mlambda_julia,
+   NULL,
    {"Lambda Mandelbrot", "Lambda"},
    "mlambda",
    {0.5, 0.0, 2.5, 5.5},
    0, 0, 0.5, 0.0,
    {
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     },
    {
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     },
@@ -1924,7 +1923,7 @@ CONST struct formula formulas[] = {
    smanowar_calc,
    NULL,
 #endif
-   manowar_julia,
+   NULL,
    {"Manowar", "Manowar Julia"},
    "manowar",
    {0.0, 0.0, 2.5, 2.5},
@@ -1965,7 +1964,7 @@ CONST struct formula formulas[] = {
    sspider_calc,
    NULL,
 #endif
-   spider_julia,
+   NULL,
    {"Spider", "Spider Julia"},
    "spider",
    {0.0, 0.0, 2.5, 4.5},
@@ -2009,8 +2008,8 @@ CONST struct formula formulas[] = {
    NULL,
    {"Sierpinski", "Sierpinski"},
    "sier",
-   {0.5, 0.5, 2.5, 1.5},
-   0, 1, 0.0, 0.0,
+   {0.5, 0.5, 1.5, 1.0},
+   0, 0, 0.5, 0.8660254,
    {
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
@@ -2047,7 +2046,7 @@ CONST struct formula formulas[] = {
    scatseye_calc,
    scatseye_peri,
 #endif
-   catseye_julia,
+   NULL,
    {"Catseye", "Catseye Julia"},
    "catseye",
    {0.0, 0.0, 2.5, 4.5},
