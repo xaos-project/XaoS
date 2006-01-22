@@ -864,21 +864,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.c"
 
-#define VARIABLES
-#define BTEST ((rp+ip)<1)
-#define FORMULA \
-	zim=(zim*zre)*2+pim; \
-	zre=rp-ip+pre; \
-	ip=zim*zim;\
-	rp=zre*zre;
-#define SMOOTH
-#define SCALC soffspring_calc
-#define SPERI soffspring_peri
-#define CALC offspring_calc
-#define PERI offspring_peri
-#define RANGE 2
-#define RPIP
-#include "docalc.c"
+/* formulas from here to the next comment are not tested under plan9 compiler */
 
 #define VARIABLES
 #define BTEST less_than_4(rp+ip)
@@ -892,6 +878,24 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define SPERI strice_peri
 #define CALC trice_calc
 #define PERI trice_peri
+#define RANGE 2
+#define RPIP
+#include "docalc.c"
+
+#define VARIABLES register number_t zor,zoi;
+#define BTEST less_than_4(rp+ip)
+#define FORMULA \
+	c_div(pre,pim,zre,zim,rp,ip); \
+	c_div(zre,zim,pre,pim,zor,zoi); \
+	zre=zor+rp; \
+	zim=zoi+ip; \
+	rp=zre*zre; \
+	ip=zim*zim;
+#define SMOOTH
+#define SCALC scatseye_calc
+#define SPERI scatseye_peri
+#define CALC catseye_calc
+#define PERI catseye_peri
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
@@ -978,26 +982,55 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 	zre=2*zre;zim=2*zim; \
 	if((pim*zre-pre*zim)>pim)zre=zre-1; \
 	if(zim>pim){zim=zim-pim;zre=zre-pre;}
-#define SMOOTH
 #define CALC sier_calc
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
 
-#define VARIABLES register number_t zor,zoi;
-#define BTEST ((rp+ip)<16) /* try <4 or <256 or something */
+#define VARIABLES
+#define INIT \
+	if((zre==pre)&&(zim==pim)){pre=1;pim=1;} \
+	if(pre<0)pre=(-pre);if(pim<0)pim=(-pim); \
+	if((zre<0)||(zre>pre)){zre=pre/2;zim=pim/2;} \
+	if((zim<0)||(zim>pim)){zre=pre/2;zim=pim/2;}
+#define BTEST \
+	((zre<pre/3)||(zre>2*pre/3)|| \
+	(zim<pim/3)||(zim>2*pim/3))
 #define FORMULA \
-	c_div(pre,pim,zre,zim,rp,ip); \
-	c_div(zre,zim,pre,pim,zor,zoi); \
-	zre=zor+rp; \
-	zim=zoi+ip; \
-	rp=zre*zre; \
-	ip=zim*zim;
-#define SMOOTH
-#define SCALC scatseye_calc
-#define SPERI scatseye_peri
-#define CALC catseye_calc
-#define PERI catseye_peri
+	zre=3*zre;zim=3*zim; \
+	if(zre>2*pre)zre=zre-2*pre;else if(zre>pre)zre=zre-pre; \
+	if(zim>2*pim)zim=zim-2*pim;else if(zim>pim)zim=zim-pim; 
+#define CALC carpet_calc
+#define RANGE 2
+#define RPIP
+#include "docalc.c"
+
+#define VARIABLES
+#define BTEST \
+	((((1.5*zre+0.8660254038*zim)>0.8660254038)|| \
+	((0.8660254038*zim-1.5*zre)>0.8660254038)|| \
+	(zim<(-0.5)))&& \
+	(((1.5*zre+0.8660254038*zim)<-0.8660254038)|| \
+	((0.8660254038*zim-1.5*zre)<-0.8660254038)|| \
+	(zim>0.5)))
+#define FORMULA \
+	zre=3*zre;zim=3*zim; \
+	if((0.2886751346*zim-0.5*zre)>0.0){ \
+		if((0.2886751346*zim+0.5*zre)>0.0){ \
+			zim=zim-2.0;\
+		}else{ \
+			if(zim>0){zre=zre+1.732050808;zim=zim-1.0;} \
+			else{zre=zre+1.732050808;zim=zim+1.0;} \
+		} \
+	}else{ \
+		if((0.2886751346*zim+0.5*zre)<0.0){ \
+			zim=zim+2.0;\
+		}else{ \
+			if(zim>0){zre=zre-1.732050808;zim=zim-1.0;} \
+			else{zre=zre-1.732050808;zim=zim+1.0;} \
+		} \
+	} 
+#define CALC koch_calc
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
@@ -1753,47 +1786,6 @@ CONST struct formula formulas[] = {
   { /* formula added by Arpad Fekete */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
-   offspring_calc,
-   offspring_peri,
-   soffspring_calc,
-   soffspring_peri,
-#endif
-   NULL,
-   {"Offspring", "Offspring Julia"},
-   "offspring",
-   {0.0, 0.0, 2.5, 2.5},
-   1, 1, 0.0, 0.0,
-   {
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    },
-   {
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    },
-   MANDEL_BTRACE,
-   },   
-  { /* formula added by Arpad Fekete */
-   FORMULAMAGIC,
-#ifndef SLOWFUNCPTR
    trice_calc,
    trice_peri,
    strice_calc,
@@ -1827,6 +1819,47 @@ CONST struct formula formulas[] = {
     {INT_MAX, 0, 0, NULL},
     {INT_MAX, 0, 0, NULL},
     {INT_MAX, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   MANDEL_BTRACE,
+   },
+   { /* formula added by Arpad Fekete */
+    FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+   catseye_calc,
+   catseye_peri,
+   scatseye_calc,
+   scatseye_peri,
+#endif
+   NULL,
+   {"Catseye", "Catseye Julia"},
+   "catseye",
+   {0.0, 0.0, 2.5, 4.5},
+   1, 1, 0.0, 0.0,
+   {
+    {0, 0, 0, NULL},
+    {INT_MAX, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {0, 0, 0, NULL},
+    {0, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {0, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   {
+    {0, 0, 0, NULL},
+    {0, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {0, 0, 0, NULL},
+    {0, 0, 0, NULL},
+    {0, 0, 0, NULL},
+    {0, 0, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     },
@@ -2038,47 +2071,88 @@ CONST struct formula formulas[] = {
     },
     MANDEL_BTRACE,
    },
-   { /* formula added by Arpad Fekete */
+   { /* formula added by Arpad Fekete, method from fractint */
     FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
-   catseye_calc,
-   catseye_peri,
-   scatseye_calc,
-   scatseye_peri,
+   carpet_calc,
+   NULL,
+   NULL,
+   NULL,
 #endif
    NULL,
-   {"Catseye", "Catseye Julia"},
-   "catseye",
-   {0.0, 0.0, 2.5, 4.5},
-   1, 1, 0.0, 0.0,
+   {"S.Carpet", "S.Carpet"},
+   "carpet",
+   {0.5, 0.5, 1.5, 1.5},
+   0, 0, 1, 1,
    {
-    {0, 0, 0, NULL},
-    {INT_MAX, 0, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
-    {0, 0, 0, NULL},
-    {0, 0, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
-    {0, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     },
    {
-    {0, 0, 0, NULL},
-    {0, 0, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
-    {0, 0, 0, NULL},
-    {0, 0, 0, NULL},
-    {0, 0, 0, NULL},
-    {0, 0, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     {INT_MAX, INT_MAX, 0, NULL},
     },
-   MANDEL_BTRACE,
-   }
+    MANDEL_BTRACE,
+   },
+   { /* formula added by Arpad Fekete, method from fractint */
+    FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+   koch_calc,
+   NULL,
+   NULL,
+   NULL,
+#endif
+   NULL,
+   {"Koch Snowflake", "Koch Snowflake"},
+   "koch",
+   {0.0, 0.0, 2.5, 2.5},
+   0, 1, 0, 0,
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+    MANDEL_BTRACE,
+   }   
 };
 
 #ifdef SLOWFUNCPTR
@@ -2131,13 +2205,13 @@ calculateswitch (register number_t x1, register number_t y1,
 	  break;
 	case 13:
 	  return (smagnet2_peri (x1, y1, x2, y2));
-	  break;
-	case 14:
-	  return (soffspring_peri (x1, y1, x2, y2));
 	  break;	  	  
-	case 15:
+	case 14:
 	  return (strice_peri (x1, y1, x2, y2));
 	  break;
+	case 15:
+	  return (scatseye_peri (x1, y1, x2, y2));
+	  break;	  
 	case 16:
 	  return (smbar_peri (x1, y1, x2, y2));
 	  break;
@@ -2152,10 +2226,13 @@ calculateswitch (register number_t x1, register number_t y1,
 	  break;
 	case 20:
 	  return (sier_calc (x1, y1, x2, y2));
-	  break;
+	  break; 
 	case 21:
-	  return (scatseye_peri (x1, y1, x2, y2));
-	  break;	  	  	  	
+	  return (carpet_calc (x1, y1, x2, y2));
+	  break; 
+	case 22:
+	  return (koch_calc (x1, y1, x2, y2));
+	  break; 	  	  	  	  	
 	}
     else
       switch (cfractalc.currentformula - formulas)
@@ -2201,13 +2278,13 @@ calculateswitch (register number_t x1, register number_t y1,
 	  break;
 	case 13:
 	  return (magnet2_peri (x1, y1, x2, y2)); 
-	  break;
-	case 14:
-	  return (offspring_peri (x1, y1, x2, y2));
 	  break;	  
-	case 15:
+	case 14:
 	  return (trice_peri (x1, y1, x2, y2));
 	  break;
+	case 15:
+	  return (catseye_peri (x1, y1, x2, y2));
+	  break;	  
 	case 16:
 	  return (mbar_peri (x1, y1, x2, y2));
 	  break;
@@ -2222,10 +2299,13 @@ calculateswitch (register number_t x1, register number_t y1,
 	  break;
 	case 20:
 	  return (sier_calc (x1, y1, x2, y2));
-	  break;
+	  break;	
 	case 21:
-	  return (catseye_peri (x1, y1, x2, y2));
-	  break;	  	  	  
+	  return (carpet_calc (x1, y1, x2, y2));
+	  break; 
+	case 22:
+	  return (koch_calc (x1, y1, x2, y2));
+	  break; 	  	    	  	  
 	}
   else if (cfractalc.coloringmode == 9)
     switch (cfractalc.currentformula - formulas)
@@ -2273,11 +2353,11 @@ calculateswitch (register number_t x1, register number_t y1,
 	return (smagnet2_calc (x1, y1, x2, y2)); 
 	break;
       case 14:
-        return (soffspring_calc (x1, y1, x2, y2));
+        return (strice_calc (x1, y1, x2, y2));
 	break;	
       case 15:
-        return (strice_calc (x1, y1, x2, y2));
-	break;
+        return (scatseye_calc (x1, y1, x2, y2));
+	break;	
       case 16:
         return (smbar_calc (x1, y1, x2, y2));
 	break;	
@@ -2294,8 +2374,11 @@ calculateswitch (register number_t x1, register number_t y1,
 	return (sier_calc (x1, y1, x2, y2));
 	break;
       case 21:
-        return (scatseye_calc (x1, y1, x2, y2));
-	break;		
+	return (carpet_calc (x1, y1, x2, y2));
+	break; 	
+      case 22:
+	return (koch_calc (x1, y1, x2, y2));
+	break; 	
       }
   else
     switch (cfractalc.currentformula - formulas)
@@ -2343,11 +2426,11 @@ calculateswitch (register number_t x1, register number_t y1,
 	return (magnet2_calc (x1, y1, x2, y2)); 
 	break;
       case 14:
-        return (offspring_calc (x1, y1, x2, y2));
-	break;	
-      case 15:
         return (trice_calc (x1, y1, x2, y2));
 	break;
+      case 15:
+        return (catseye_calc (x1, y1, x2, y2));
+	break;		
       case 16:
         return (mbar_calc (x1, y1, x2, y2));
 	break;	
@@ -2364,8 +2447,11 @@ calculateswitch (register number_t x1, register number_t y1,
         return (sier_calc (x1, y1, x2, y2));
 	break;	
       case 21:
-        return (catseye_calc (x1, y1, x2, y2));
-	break;	
+	return (carpet_calc (x1, y1, x2, y2));
+	break; 	
+      case 22:
+	return (koch_calc (x1, y1, x2, y2));
+	break; 		
       }
   return 0;
 }

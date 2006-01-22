@@ -298,7 +298,7 @@ The following tags are supported:
 <dt>Martin Dozsa (madsoft@centrum.cz)
 <dd>cs.po (Czech translation of menus)
 <dt>Arpad Fekete (Fekete.Arpad.2@stud.u-szeged.hu)
-<dd>Triceratops and Catseye fractals
+<dd>some new fractals, and the /more formulae/ menu 
 <dt>Tim Goodwin	(tgoodwin@cygnus.co.uk)
 <dd>english.cat corrections
 <dt>Ben Hines
@@ -994,32 +994,67 @@ This is a brief introduction to the basic XaoS features.
 <head>Various fractal formulae</head>
 
  XaoS also supports formulae other than the Mandelbrot set. You may change
- <emph>formula</emph> using the <emph>number keys</emph>.
+ <emph>formula</emph> using the <emph>number keys</emph> 
+ or <emph>SHIFT+letters<emph>.
 
 
 <p>
  On keys <tt>1</tt> to <tt>5</tt> are <emph>Mandelbrot sets of various power</emph>. The ``normal''
  Mandelbrot set is on key <tt>1</tt>. 
 <p>
- On key <tt>6</tt> is a fractal called <emph>octo</emph>. It is a fractal that Thomas
- discovered in fractint.
-<p>
- On key <tt>7</tt> is a fractal called <emph>Newton</emph>. It is Newton's famous formula for finding roots.
+ On key <tt>6</tt> is a fractal called <emph>Newton</emph>. It is Newton's famous formula for finding roots.
+<p> 
+ On key <tt>7</tt> is the <emph>fourth ordered Newton</emph> fractal.
 <p>
  On key <tt>8</tt> is a fractal called <emph>Barnsley</emph>.
 <p>
- On key <tt>9</tt> is a fractal called <emph>Phoenix</emph>. It is a very nice and quite famous fractal.
+ On key <tt>9</tt> is <emph>Barnsley's second</emph> fractal.
 <p>
- On key <tt>0</tt> is a fractal called <emph>Magnet</emph>. This fractal has quite a complex formula so it is
+ On key <tt>0</tt> is <emph>Barnsley's third</emph> fractal.
+<p>
+ With keys <tt>SHIFT-A</tt> you can display a fractal called <emph>octo</emph>. It is a fractal that Thomas
+ discovered in fractint.
+<p>
+ With keys <tt>SHIFT-B</tt> you can display a fractal called <emph>Phoenix</emph>. It is a very nice and quite famous fractal.
+<p>
+ With keys <tt>SHIFT-C</tt> you can display a fractal called <emph>Magnet</emph>. This fractal has quite a complex formula so it is
  a bit slow. 
 <p>
- Since version 3.1 there are 3 more fractal types. On most platform you
- can display these fractals with keys <tt>SHIFT-A</tt>, <tt>SHIFT-B</tt>
- and <tt>SHIFT-C</tt>, which will show you the <emph>fourth ordered
- Newton</emph>, the <emph>Barnsley2</emph> and the <emph>Magnet2</emph>
- fractals, respectively.
+ With keys <tt>SHIFT-D</tt> you can display the <emph>Magnet2</emph> fractal.
+<p>
+ The rest of the built-in fractals are accessible through an other menu, but 
+ you can still use the hotkeys.
+<p>
+ On <tt>SHIFT-E</tt> is a fractal called <emph>Triceratops</emph> found by Arpad.
+<p>
+ On <tt>SHIFT-F</tt> is a fractal called <emph>Catseye</emph> found by Arpad.
+ This is more interesting if you change the bailout value.
+<p>
+ On <tt>SHIFT-G</tt> is a fractal called <emph>Mandelbar</emph>. It was in
+ Gnofract4d, and they found it at:
+ http://mathworld.wolfram.com/MandelbarSet.html
+<p>
+ On <tt>SHIFT-H</tt> is the <emph>Lambda</emph> fractal.
+<p>
+ On <tt>SHIFT-I</tt> and <tt>SHIFT-J</tt> are the <emph>Manowar</emph> 
+ and <emph>Spider</emph> fractals, they were found by users of fractint. 
+ (Scott Taylor or Lee Skinner)
+ It was on http://spanky.triumf.ca/www/fractint/
+ taylor_skinner_type.html
+<p>
+ The next 3 fractals are famous classic fractals.
+<p>
+ On <tt>SHIFT-K</tt> is the <emph>Sierpinski</emph> Gasket.
+ You can change its shape by selecting another Julia seed. 
+ (This is for technical reasons.)
+<p>
+ On <tt>SHIFT-L</tt> is the <emph>Sierpinski Carpet.</emph>
+ It's shape can also be changed by selecting another Julia seed.
+<p>
+ On <tt>SHIFT-M</tt> is the <emph>Koch Snowflake.</emph>
 <p>
  
+
 <head>Out-coloring modes</head>
 
  To make fractals yet more interesting, more coloring modes for points
