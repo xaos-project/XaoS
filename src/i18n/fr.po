@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XaoS 3.1\n"
+"Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-22 22:53+0100\n"
 "PO-Revision-Date: 2005-05-07 17:35+0200\n"
