@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-22 22:53+0100\n"
+"POT-Creation-Date: 2006-01-23 17:55+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: MadSoft <madsoft@centrum.cz>\n"
 "Language-Team: Czech\n"
@@ -806,7 +806,7 @@ msgid "Calculation"
 msgstr "Poèítání"
 
 # ../ui-hlp/menu.c:932 ../ui-hlp/menu.c:1096
-#: ../ui-hlp/menu.c:1035 ../ui-hlp/menu.c:1347
+#: ../ui-hlp/menu.c:1035 ../ui-hlp/menu.c:1348
 msgid "Filters"
 msgstr "Filtry"
 
@@ -932,7 +932,7 @@ msgstr "Udìlat znovu"
 
 # ../ui-hlp/menu.c:984
 #: ../ui-hlp/menu.c:1121
-msgid "formulae"
+msgid "Formulae"
 msgstr "Vzorec"
 
 # ../ui-hlp/menu.c:984
@@ -967,7 +967,7 @@ msgid "Mandelbrot mode"
 msgstr "Re¾im mandelbrot"
 
 # ../ui-hlp/menu.c:992 ../ui-hlp/menu.c:993 ../ui-hlp/menu.c:1099
-#: ../ui-hlp/menu.c:1136 ../ui-hlp/menu.c:1140 ../ui-hlp/menu.c:1350
+#: ../ui-hlp/menu.c:1136 ../ui-hlp/menu.c:1140 ../ui-hlp/menu.c:1351
 msgid "Perturbation"
 msgstr "Perturbace"
 
@@ -1229,113 +1229,129 @@ msgstr "Tipy a triky"
 msgid "Math behind fractals"
 msgstr "Matematika fraktálù"
 
+#: ../ui-hlp/menu.c:1321 ../ui-hlp/menu.c:1359
+msgid "Other fractal types in Xaos"
+msgstr ""
+
 # ../ui-hlp/menu.c:1068
-#: ../ui-hlp/menu.c:1321
+#: ../ui-hlp/menu.c:1322
 msgid "What's new?"
 msgstr "Novinky"
 
 # ../ui-hlp/menu.c:1079 ../ui-hlp/menu.c:1103
-#: ../ui-hlp/menu.c:1331 ../ui-hlp/menu.c:1353
+#: ../ui-hlp/menu.c:1332 ../ui-hlp/menu.c:1354
 msgid "Whole story"
 msgstr "V¹echny kapitoly"
 
 # ../ui-hlp/menu.c:1081
-#: ../ui-hlp/menu.c:1333
+#: ../ui-hlp/menu.c:1334
 msgid "Introduction"
 msgstr "Úvod"
 
 # ../ui-hlp/menu.c:1082
-#: ../ui-hlp/menu.c:1334
+#: ../ui-hlp/menu.c:1335
 msgid "Mandelbrot set"
 msgstr "Souprava mandelbrot"
 
 # ../ui-hlp/menu.c:1083
-#: ../ui-hlp/menu.c:1335
+#: ../ui-hlp/menu.c:1336
 msgid "Julia set"
 msgstr "Souprava julia"
 
 # ../ui-hlp/menu.c:1084
-#: ../ui-hlp/menu.c:1336
+#: ../ui-hlp/menu.c:1337
 msgid "Higher power Mandelbrots"
 msgstr "Mandelbroty vy¹¹í tøídy"
 
 # ../ui-hlp/menu.c:1085
-#: ../ui-hlp/menu.c:1337
+#: ../ui-hlp/menu.c:1338
 msgid "Newton's method"
 msgstr "Newtonova metoda"
 
 # ../ui-hlp/menu.c:1086
-#: ../ui-hlp/menu.c:1338
+#: ../ui-hlp/menu.c:1339
 msgid "Barnsley's formula"
 msgstr "Barnsleyuv vzorec"
 
 # ../ui-hlp/menu.c:1087
-#: ../ui-hlp/menu.c:1339
+#: ../ui-hlp/menu.c:1340
 msgid "Phoenix"
 msgstr "Phoenix"
 
 # ../ui-hlp/menu.c:1088
-#: ../ui-hlp/menu.c:1340
+#: ../ui-hlp/menu.c:1341
 msgid "Octo"
 msgstr "Octo"
 
 # ../ui-hlp/menu.c:1089
-#: ../ui-hlp/menu.c:1341
+#: ../ui-hlp/menu.c:1342
 msgid "Magnet"
 msgstr "Magnet"
 
 # ../ui-hlp/menu.c:1091
-#: ../ui-hlp/menu.c:1342
+#: ../ui-hlp/menu.c:1343
 msgid "All features"
 msgstr "V¹echny vlastnosti"
 
 # ../ui-hlp/menu.c:1093
-#: ../ui-hlp/menu.c:1344
+#: ../ui-hlp/menu.c:1345
 msgid "Outcoloring modes"
 msgstr "Vnìj¹í vybarvení"
 
 # ../ui-hlp/menu.c:1094
-#: ../ui-hlp/menu.c:1345
+#: ../ui-hlp/menu.c:1346
 msgid "Incoloring modes"
 msgstr "Vnitøní vybarvení"
 
 # ../ui-hlp/menu.c:1095
-#: ../ui-hlp/menu.c:1346
+#: ../ui-hlp/menu.c:1347
 msgid "True-color coloring modes"
 msgstr "True-color vybarvovací re¾imy"
 
 # ../ui-hlp/menu.c:1097
-#: ../ui-hlp/menu.c:1348
+#: ../ui-hlp/menu.c:1349
 msgid "Planes"
 msgstr "Plochy"
 
 # ../ui-hlp/menu.c:1098
-#: ../ui-hlp/menu.c:1349
+#: ../ui-hlp/menu.c:1350
 msgid "Animations and position files"
 msgstr "Animace a soubory pozic"
 
 # ../ui-hlp/menu.c:1100
-#: ../ui-hlp/menu.c:1351
+#: ../ui-hlp/menu.c:1352
 msgid "Random palettes"
 msgstr "Náhodné barevné palety"
 
 # ../ui-hlp/menu.c:1101
-#: ../ui-hlp/menu.c:1352
+#: ../ui-hlp/menu.c:1353
 msgid "Other noteworthy features"
 msgstr "Dal¹í malièkosti"
 
 # ../ui-hlp/menu.c:1105
-#: ../ui-hlp/menu.c:1355
+#: ../ui-hlp/menu.c:1356
 msgid "The definition and fractal dimension"
 msgstr "Definice a fraktaldimenze"
 
 # ../ui-hlp/menu.c:1106
-#: ../ui-hlp/menu.c:1357
+#: ../ui-hlp/menu.c:1358
 msgid "Escape time fractals"
 msgstr "Fraktaly na základu útìku"
 
+#: ../ui-hlp/menu.c:1361
+msgid "Triceratops and Catseye fractals"
+msgstr ""
+
+#: ../ui-hlp/menu.c:1362
+msgid "Mandelbar, Lambda, Manowar and Spider"
+msgstr ""
+
+#: ../ui-hlp/menu.c:1363
+msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
+msgstr ""
+
 # ../ui-hlp/menu.c:1108
-#: ../ui-hlp/menu.c:1358
+#: ../ui-hlp/menu.c:1364
 msgid "What's new in 3.0?"
 msgstr "Novinky ve verzi 3.0"
 
@@ -1668,7 +1684,7 @@ msgid "About"
 msgstr ""
 
 # ../ui-hlp/menu.c:984
-#~ msgid "Formulae"
+#~ msgid "formulae"
 #~ msgstr "Vzorec"
 
 # ../ui/ui.c:812

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-22 22:53+0100\n"
+"POT-Creation-Date: 2006-01-23 17:55+0100\n"
 "PO-Revision-Date: 2005-05-07 17:35+0200\n"
 "Last-Translator: Philippe Wautelet <traduc _at_ fractalzone _dot_ bebe>\n"
 "Language-Team: French\n"
@@ -665,7 +665,7 @@ msgstr "Fractal"
 msgid "Calculation"
 msgstr "Calcul"
 
-#: ../ui-hlp/menu.c:1035 ../ui-hlp/menu.c:1347
+#: ../ui-hlp/menu.c:1035 ../ui-hlp/menu.c:1348
 msgid "Filters"
 msgstr "Filtres"
 
@@ -766,7 +766,7 @@ msgid "Redo"
 msgstr "Refaire"
 
 #: ../ui-hlp/menu.c:1121
-msgid "formulae"
+msgid "Formulae"
 msgstr "Formule"
 
 #: ../ui-hlp/menu.c:1122
@@ -794,7 +794,7 @@ msgstr "Palette"
 msgid "Mandelbrot mode"
 msgstr "Mode Mandelbrot"
 
-#: ../ui-hlp/menu.c:1136 ../ui-hlp/menu.c:1140 ../ui-hlp/menu.c:1350
+#: ../ui-hlp/menu.c:1136 ../ui-hlp/menu.c:1140 ../ui-hlp/menu.c:1351
 msgid "Perturbation"
 msgstr "Perturbation"
 
@@ -1006,91 +1006,107 @@ msgstr "Revue des caractéristiques de XaoS"
 msgid "Math behind fractals"
 msgstr "Les maths derrière les fractals"
 
-#: ../ui-hlp/menu.c:1321
+#: ../ui-hlp/menu.c:1321 ../ui-hlp/menu.c:1359
+msgid "Other fractal types in Xaos"
+msgstr ""
+
+#: ../ui-hlp/menu.c:1322
 msgid "What's new?"
 msgstr "Nouveautés"
 
-#: ../ui-hlp/menu.c:1331 ../ui-hlp/menu.c:1353
+#: ../ui-hlp/menu.c:1332 ../ui-hlp/menu.c:1354
 msgid "Whole story"
 msgstr "Tous les détails"
 
-#: ../ui-hlp/menu.c:1333
+#: ../ui-hlp/menu.c:1334
 msgid "Introduction"
 msgstr "Introduction"
 
-#: ../ui-hlp/menu.c:1334
+#: ../ui-hlp/menu.c:1335
 msgid "Mandelbrot set"
 msgstr "Ensemble de Mandelbrot"
 
-#: ../ui-hlp/menu.c:1335
+#: ../ui-hlp/menu.c:1336
 msgid "Julia set"
 msgstr "Ensemble de Julia"
 
-#: ../ui-hlp/menu.c:1336
+#: ../ui-hlp/menu.c:1337
 msgid "Higher power Mandelbrots"
 msgstr "Puissances de Mandlebrot"
 
-#: ../ui-hlp/menu.c:1337
+#: ../ui-hlp/menu.c:1338
 msgid "Newton's method"
 msgstr "Méthode de Newton"
 
-#: ../ui-hlp/menu.c:1338
+#: ../ui-hlp/menu.c:1339
 msgid "Barnsley's formula"
 msgstr "Formule de Barnsley"
 
-#: ../ui-hlp/menu.c:1339
+#: ../ui-hlp/menu.c:1340
 msgid "Phoenix"
 msgstr "Phoenix"
 
-#: ../ui-hlp/menu.c:1340
+#: ../ui-hlp/menu.c:1341
 msgid "Octo"
 msgstr "Octo"
 
-#: ../ui-hlp/menu.c:1341
+#: ../ui-hlp/menu.c:1342
 msgid "Magnet"
 msgstr "Magnet"
 
-#: ../ui-hlp/menu.c:1342
+#: ../ui-hlp/menu.c:1343
 msgid "All features"
 msgstr "Toutes les caractéristiques"
 
-#: ../ui-hlp/menu.c:1344
+#: ../ui-hlp/menu.c:1345
 msgid "Outcoloring modes"
 msgstr "Coloration extérieure"
 
-#: ../ui-hlp/menu.c:1345
+#: ../ui-hlp/menu.c:1346
 msgid "Incoloring modes"
 msgstr "Coloration intérieure"
 
-#: ../ui-hlp/menu.c:1346
+#: ../ui-hlp/menu.c:1347
 msgid "True-color coloring modes"
 msgstr "Coloration en vraies couleurs"
 
-#: ../ui-hlp/menu.c:1348
+#: ../ui-hlp/menu.c:1349
 msgid "Planes"
 msgstr "Plans"
 
-#: ../ui-hlp/menu.c:1349
+#: ../ui-hlp/menu.c:1350
 msgid "Animations and position files"
 msgstr "Fichiers d'animation et de position"
 
-#: ../ui-hlp/menu.c:1351
+#: ../ui-hlp/menu.c:1352
 msgid "Random palettes"
 msgstr "Palettes aléatoires"
 
-#: ../ui-hlp/menu.c:1352
+#: ../ui-hlp/menu.c:1353
 msgid "Other noteworthy features"
 msgstr "Autres caractéristiques utiles"
 
-#: ../ui-hlp/menu.c:1355
+#: ../ui-hlp/menu.c:1356
 msgid "The definition and fractal dimension"
 msgstr "Définition et dimension fractale"
 
-#: ../ui-hlp/menu.c:1357
+#: ../ui-hlp/menu.c:1358
 msgid "Escape time fractals"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1358
+#: ../ui-hlp/menu.c:1361
+msgid "Triceratops and Catseye fractals"
+msgstr ""
+
+#: ../ui-hlp/menu.c:1362
+msgid "Mandelbar, Lambda, Manowar and Spider"
+msgstr ""
+
+#: ../ui-hlp/menu.c:1363
+msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
+msgstr ""
+
+#: ../ui-hlp/menu.c:1364
 msgid "What's new in 3.0?"
 msgstr "Nouveautés dans la version 3.0"
 
@@ -1384,5 +1400,5 @@ msgstr "Coller"
 msgid "About"
 msgstr "A propos"
 
-#~ msgid "Formulae"
+#~ msgid "formulae"
 #~ msgstr "Formule"

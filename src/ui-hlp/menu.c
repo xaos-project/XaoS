@@ -1318,6 +1318,7 @@ uih_registermenus_i18n (void)
   SUBMENU_I ("tutor", NULL, gettext ("An introduction to fractals"), "intro");
   SUBMENU_I ("tutor", NULL, gettext ("XaoS features overview"), "features");
   SUBMENU_I ("tutor", NULL, gettext ("Math behind fractals"), "fmath");
+  SUBMENU_I ("tutor", NULL, gettext ("Other fractal types in Xaos"), "otherf");
   SUBMENU_I ("tutor", NULL, gettext ("What's new?"), "new");
   /* Language selection is not sensible anymore if i18n is used: */
 #ifndef HAVE_GETTEXT
@@ -1355,6 +1356,11 @@ uih_registermenus_i18n (void)
   TUTOR_I ("fmath", gettext ("The definition and fractal dimension"),
 	   "dimension.xaf");
   TUTOR_I ("fmath", gettext ("Escape time fractals"), "escape.xaf");
+  TUTOR_I ("otherf", gettext ("Other fractal types in Xaos"), "otherfr.xaf");
+  MENUSEPARATOR_I ("otherf");
+  TUTOR_I ("otherf", gettext ("Triceratops and Catseye fractals"), "trice.xaf");
+  TUTOR_I ("otherf", gettext ("Mandelbar, Lambda, Manowar and Spider"), "fourfr.xaf");
+  TUTOR_I ("otherf", gettext ("Sierpinski Gasket, S.Carpet, Koch Snowflake"), "classic.xaf");
   TUTOR_I ("new", gettext ("What's new in 3.0?"), "new30.xaf");
 #ifdef DEBUG
   printf ("Filled %d menu items out of %d.\n", no_menuitems_i18n,
