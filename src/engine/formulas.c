@@ -2041,7 +2041,7 @@ CONST struct formula formulas[] = {
    NULL,
    {"Sierpinski", "Sierpinski"},
    "sier",
-   {0.5, 0.5, 1.5, 1.0},
+   {0.5, 0.43, 1.5, 1.0},
    0, 0, 0.5, 0.8660254,
    {
     {INT_MAX, INT_MAX, 0, NULL},
