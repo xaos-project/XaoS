@@ -4,8 +4,8 @@
 //
 
 1 VERSIONINFO
- FILEVERSION 3,1,0,0
- PRODUCTVERSION 3,1,0,0
+ FILEVERSION 3,2,0,0
+ PRODUCTVERSION 3,2,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -25,11 +25,11 @@ BEGIN
             VALUE "FileDescription", "XaoS - an realtime fractal zoomer\0"
             VALUE "FileVersion", "0.0\0"
             VALUE "InternalName", "XaoS\0"
-            VALUE "LegalCopyright", "Copyright 1996 - 1999 Jan Hubicka. Many parts are copyrighted by their authors. See the source distribution\0"
+            VALUE "LegalCopyright", "Copyright 1996 - 2006 Jan Hubicka. Many parts are copyrighted by their authors. See the source distribution\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "\0"
             VALUE "ProductName", "XaoS\0"
-            VALUE "ProductVersion", "3.1\0"
+            VALUE "ProductVersion", "3.2\0"
         END
     END
     BLOCK "VarFileInfo"
