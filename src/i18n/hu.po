@@ -1091,7 +1091,7 @@ msgstr "Szökési idõn alapuló fraktálok"
 
 #: ../ui-hlp/menu.c:1361
 msgid "Triceratops and Catseye fractals"
-msgstr "A Trceratops és a Catseye fraktálok"
+msgstr "A Triceratops és a Catseye fraktálok"
 
 #: ../ui-hlp/menu.c:1362
 msgid "Mandelbar, Lambda, Manowar and Spider"
