@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-23 21:52+0100\n"
+"POT-Creation-Date: 2006-01-25 20:07+0100\n"
 "PO-Revision-Date: 2002-10-04 15:22+0200\n"
 "Last-Translator: César Pérez <oroz@users.sourceforge.net>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -1029,7 +1029,7 @@ msgid "Math behind fractals"
 msgstr "Matemáticas tras los fractales"
 
 #: ../ui-hlp/menu.c:1321 ../ui-hlp/menu.c:1359
-msgid "Other fractal types in Xaos"
+msgid "Other fractal types in XaoS"
 msgstr ""
 
 #: ../ui-hlp/menu.c:1322

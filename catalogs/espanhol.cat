@@ -985,3 +985,64 @@ aproximado alrededor del punto antes de
 ampliarlo."
 rotation "Rotación de la imagen"
 cycling "Color cíclico"
+
+##############################################
+#for file trice.xaf
+
+trice1 "Triceratops and Catseye fractals"
+trice2 "If you change the bailout value"
+trice3 "of an escape-time fractal"
+trice4 "to a smaller value,"
+trice5 "you will get an other fractal."
+trice6 "With this method we can get"
+trice7 "very interesting patterns"
+trice8 "with separate areas of one color."
+trice9 "The Triceratops fractal"
+trice10 "is also made with this method."
+trice11 "Many similar pictures can be"
+trice12 "made of Triceratops."
+trice13 "The Catseye fractal"
+trice14 "is like an eye of a cat."
+trice15 "But if we raise the bailout value..."
+trice16 "...we get a more interesting fractal..."
+trice17 "...with bubbles..."
+trice18 "...and beautiful Julias."
+
+##############################################
+#for file fourfr.xaf
+
+fourfr1 "Mandelbar, Lambda, Manowar and Spider"
+fourfr2 "This is the Mandelbar set."
+fourfr3 "It's formula is: z = (conj(z))^2 + c"
+fourfr4 "Some of its Julias are interesting."
+fourfr5 "But let's see other fractals now."
+fourfr6 "The Lambda fractal has a structure"
+fourfr7 "similar to Mandelbrot's."
+fourfr8 "It's like the Mandelbrot set on the lambda plane."
+fourfr9 "But Lambda is a Julia set, here is MandelLambda."
+fourfr10 "...fast Julia mode..."
+fourfr11 "This is the fractal Manowar."
+fourfr12 "It was found by a user of Fractint."
+fourfr13 "It has Julias similar to the whole set."
+fourfr14 "This fractal is called Spider."
+fourfr15 "It was found by a user of Fractint, too."
+fourfr16 "And it has Julias similar to the whole set, too."
+
+##############################################
+#for file classic.xaf
+
+classic1 "Sierpinski Gasket, S.Carpet, Koch Snowflake"
+classic2 "This is the famous Sierpinski Gasket fractal."
+classic3 "And this is the escape-time variant of it."
+classic4 "You can change its shape by selecting"
+classic5 "another 'Julia seed'"
+classic6 "This fractal is the Sierpinski Carpet."
+classic7 "And here is it's escape-time variant."
+classic8 "This is famous, too."
+classic9 "And finally, this is the escape-time variant"
+classic10 " of the Koch Snowflake."
+
+##############################################
+#for file otherfr.xaf
+
+otherfr1 "Other fractal types in XaoS"

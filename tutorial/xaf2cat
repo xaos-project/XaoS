@@ -1,0 +1,83 @@
+#!/bin/sh
+if [ $# != 1 ]; then
+    echo "xaf2cat converts .xaf to .cat file format and reconstructs .xaf"
+    echo "Usage: xaf2cat [ filename.xaf | -h ]"
+    exit 1
+    fi
+
+if [ "$1" = "-h" ]; then
+ echo "This tool helps you create language independent .xaf files."
+ echo "The texts from the .xaf file will be copied into all .cat files."
+ echo "All texts in the .xaf file will be pointered to the .cat files."
+ echo "You have to write your own descriptions for the .xaf tutorial file"
+ echo "into the .cat files for each language."
+ echo ""
+ echo "The usage of this tool is quite straightforward, but unfortunately"
+ echo "it has a serious bug: it cannot handle multiline texts correctly."
+ echo "Keep this bug in mind or write a better script which will solve"
+ echo "this problem."
+ exit 1
+ fi    
+
+test -r $1 || {
+    echo "$1 is missing"
+    exit 1
+    }
+export BASENAME=`basename $1 .xaf`
+cp $1 $1.orig
+echo "$1.orig file as backup was created."
+OUTPUTFILE=$BASENAME.cat
+
+echo "
+##############################################
+#for file $1
+" > $OUTPUTFILE
+
+cat $1 | grep "text " | sed s/"(text "/""/g | sed s/"\")"/"\""/g |\
+ sed s/" \"$"/"\""/g | awk '{x++; print ENVIRON["BASENAME"] x " " $0}' \
+ >> $OUTPUTFILE
+ 
+cat $OUTPUTFILE
+echo -n "^- This is the output. Do you want to append it to ../catalogs/*.cat? [Y/n] "
+read A
+if [ "$A" != "n" ]; then
+ for i in ../catalogs/*.cat; do
+  cat $OUTPUTFILE >> $i
+  echo -n "$i, "
+  done
+ echo "done."
+ fi
+
+echo -n "Shall I create 'message' commands instead of 'text's in $1? [Y/n] "
+read A
+if [ "$A" != "n" ]; then
+ cat $1 | sed s/"(text "/"(message "/g |\
+  sed s/" \"$"/"\""/g | awk '
+  {
+   if (index($0,"(message ")==1)
+    {
+     x++
+     l=length($0)
+     print "(message ~" ENVIRON["BASENAME"] x "~)"
+    }
+   else print $0
+  }' | sed s/"~"/"\""/g \
+  > $1.work
+ 
+ cat $1.work
+ echo -n "^- This is the new $1 file. Do you want to save it? [Y/n] "
+ read A
+ if [ "$A" != "n" ]; then
+  cp $1.work $1
+  echo "Done."
+  fi
+ fi
+
+echo -n "Cleanup? [Y/n] "
+read A
+if [ "$A" != "n" ]; then
+ rm -f $1.work $1.orig $OUTPUTFILE
+ echo "Cleanup done."
+ fi
+
+echo "Exiting."

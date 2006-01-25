@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-23 21:52+0100\n"
+"POT-Creation-Date: 2006-01-25 20:07+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: Hungarian\n"
@@ -1002,8 +1002,8 @@ msgid "Math behind fractals"
 msgstr "A fraktálok matematikája"
 
 #: ../ui-hlp/menu.c:1321 ../ui-hlp/menu.c:1359
-msgid "Other fractal types in Xaos"
-msgstr ""
+msgid "Other fractal types in XaoS"
+msgstr "A XaoS további fraktáltípusai"
 
 #: ../ui-hlp/menu.c:1322
 msgid "What's new?"
@@ -1091,15 +1091,15 @@ msgstr "Szökési idõn alapuló fraktálok"
 
 #: ../ui-hlp/menu.c:1361
 msgid "Triceratops and Catseye fractals"
-msgstr ""
+msgstr "A Trceratops és a Catseye fraktálok"
 
 #: ../ui-hlp/menu.c:1362
 msgid "Mandelbar, Lambda, Manowar and Spider"
-msgstr ""
+msgstr "Mandelbar, Lambda, Manowar és Spider"
 
 #: ../ui-hlp/menu.c:1363
 msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
-msgstr ""
+msgstr "Sierpinski-háromszög, -szõnyeg, Koch-hópehely"
 
 #: ../ui-hlp/menu.c:1364
 msgid "What's new in 3.0?"

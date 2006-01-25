@@ -4,7 +4,7 @@
 (initstate)
 (clearscreen)
 (textposition 'center 'middle)
-(text "Sierpinski Gasket, S.Carpet, Koch Snowflake")
+(message "classic1")
 (usleep 5000000)
 
 (initstate)
@@ -14,7 +14,7 @@
 (angle 60.043)
 (view 0.40571 0.25007 1.3406 0.89436)
 (textposition 'center 'bottom)
-(text "This is the famous Sierpinski Gasket fractal. ")
+(message "classic2")
 (usleep 3500000)
 
 (initstate)
@@ -23,7 +23,7 @@
 (angle 60.043)
 (view 0.40571 0.25007 1.3406 0.89436)
 (textposition 'center 'bottom)
-(text "And this is the escape-time variant of it. ")
+(message "classic3")
 (usleep 3500000)
 
 (initstate)
@@ -32,12 +32,12 @@
 (juliaseed 0 1)
 (view 0.5 0.5 1.5 1)
 (textposition 'center 'bottom)
-(text "You can change its shape by selecting ")
+(message "classic4")
 (usleep 3500000)
 
 (morphview 0.5496221675 0.316543832601 4.30048337789E-08 2.86698891854E-08)
 (textposition 'center 'bottom)
-(text "another 'Julia seed'")
+(message "classic5")
 (usleep 8000000)
 (usleep 2000000)
 
@@ -47,7 +47,7 @@
 (formula 'carpet)
 (view 0.5262 0.5583 1.16 1.16)
 (textposition 'center 'bottom)
-(text "This fractal is the Sierpinski Carpet. ")
+(message "classic6")
 (usleep 3500000)
 
 (initstate)
@@ -55,12 +55,12 @@
 (formula 'carpet)
 (view 0.5262 0.5583 1.16 1.16)
 (textposition 'center 'bottom)
-(text "And here is it's escape-time variant.")
+(message "classic7")
 (usleep 3500000)
 
 (morphview 0.7429239596791351 0.357662405256179 7.783970137290736E-12 7.728315519007004E-12)
 (textposition 'center 'bottom)
-(text "This is famous, too.")
+(message "classic8")
 (usleep 8000000)
 (usleep 2000000)
 
@@ -70,11 +70,11 @@
 (formula 'koch)
 (view -0.1026 0.04512 2.437 2.437)
 (textposition 'center 'bottom)
-(text "And finally, this is the escape-time variant ")
+(message "classic9")
 (usleep 3500000)
 
 (morphview 0.3920822 0.5506665 0.002344007 0.002344007)
 (textposition 'center 'bottom)
-(text " of the Koch Snowflake. ")
+(message "classic10")
 (usleep 7000000)
 (usleep 2000000)

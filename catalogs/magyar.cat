@@ -4,7 +4,7 @@
 # Copyright (C) 1997 by Jan Hubicka
 #                             ,       ,
 # Hungarian translation by Kovacs Zoltan (kovzol@math.u-szeged.hu)
-# $Revision: 1.3 $
+# $Revision: 1.4 $
 #
 # This is a Latin2 encoded file
 #       ,           ,   , ,                                               ,,
@@ -1113,3 +1113,71 @@ bailout3 "A legtöbb fraktál csak kevéssé
 megváltoztatjuk."
 bailout4 "A Barnsley-fraktálokra ez
 azonban nem igaz."
+
+##############################################
+#for file trice.xaf
+
+trice1 "A Triceratops és a Catseye (macskaszem)
+fraktálok"
+trice2 "A kilépési érték csökkentésekor"
+trice3 "a szökési idejû fraktálok"
+trice4 "rendszerint más formát adnak,"
+trice5 "mint az eredeti paraméternél."
+trice6 "Ezzel a módszerrel igen érdekes"
+trice7 "minták állíthatók elõ ugyanazon szín"
+trice8 "különbözõ területen való megjelenésekor."
+trice9 "A Triceratops fraktál is"
+trice10 "ezen a módon készült."
+trice11 "Sok hasonló kép készíthetõ"
+trice12 "a Triceratops fraktálon belül."
+trice13 "Mint neve is mutatja,
+a Macskaszem fraktál"
+trice14 "egy macska szeméhez hasonlít."
+trice15 "Ha növeljük a kilépési értéket..."
+trice16 "...sokkal érdekesebb képhez jutunk..."
+trice17 "...buborékokkal..."
+trice18 "...és szép Julia halmazokkal."
+
+##############################################
+#for file fourfr.xaf
+
+fourfr1 "Mandelbar, Lambda, Manowar és Spider"
+fourfr2 "Ez a Mandelbar halmaz."
+fourfr3 "Képlete: z = (conj(z))^2 + c"
+fourfr4 "Néhány Julia halmaza érdekes."
+fourfr5 "De nézzünk más fraktálokat is."
+fourfr6 "A Lambda fraktál struktúrája"
+fourfr7 "nagyon hasonlít a Mandelbrotéhoz."
+fourfr8 "Olyan, mintha a Mandelbrot halmazt
+a lambda síkra vetítenénk."
+fourfr9 "De a Lambda fraktál maga
+egy Julia halmaz íme,
+itt az igazi MandelLambda halmaz."
+fourfr10 "...gyors Julia-mód..."
+fourfr11 "Ez pedig a Manowar fraktál."
+fourfr12 "Egy Fractint felhasználó találta."
+fourfr13 "Az egész halmazhoz hasonló
+Julia halmazai vannak."
+fourfr14 "Ez pedig a Spider."
+fourfr15 "Ezt is egy Fractint felhasználó találta."
+fourfr16 "Ennek is hasonlók
+a Julia halmazai az eredeti halmazhoz."
+
+##############################################
+#for file classic.xaf
+
+classic1 "Sierpinski-háromszög, Sierpinski szõnyeg,
+Koch-féle hópehely"
+classic2 "Ez a híres Sierpinski-háromszög."
+classic3 "Ez itt a szökési idõn alapuló változata."
+classic4 "Az alakját más és más 'Julia maggal'"
+classic5 "lehet megváltoztatni."
+classic6 "Ez a fraktál a Sierpinski-szõnyeg."
+classic7 "Íme a szökési idõn alapuló változata."
+classic8 "Híres fraktál ez is."
+classic9 "Végül pedig íme a Koch-féle hópehely"
+classic10 "szökési idejû változata."
+
+##############################################
+#for file otherfr.xaf
+otherfr1 "További fraktáltípusok a XaoS programban"
