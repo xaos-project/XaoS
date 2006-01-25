@@ -1,11 +1,19 @@
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.13 2006-01-22 22:48:38 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.14 2006-01-25 19:44:18 kovzol Exp $
 
 
 RELEASE NOTES FOR XAOS VERSION 3.2
 ----------------------------------
 
-Main points are the classic Sierpinski and Koch fractals.
+Main points are the classic Sierpinski and Koch fractals, but still
+other formulas are introduced. Some 'oldie but goldie' fractals are
+included from the Fractint formula database. The keystroke order has been
+changed a little bit. Now gcc-4.0.x is also supported (-mcpu is deprecated
+now and the source had to be modified for this).
+
+The new formulas are demonstrated with 3 new tutorial movies. These are
+also available in Hungarian language. Volunteers are requested to
+translate the new movies into other languages.
 
 
 RELEASE NOTES FOR XAOS VERSION 3.1.3
