@@ -1005,6 +1005,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.c"
 
+
 #define VARIABLES
 #define BTEST \
 	((((1.5*zre+0.8660254038*zim)>0.8660254038)|| \
@@ -1020,8 +1021,8 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 			zim=zim-2.0;\
 		}else{ \
 			if(zim>0){zre=zre+1.732050808;zim=zim-1.0;} \
-			else{zre=zre+1.732050808;zim=zim+1.0;} \
-		} \
+	    		else{zre=zre+1.732050808;zim=zim+1.0;} \
+	    } \
 	}else{ \
 		if((0.2886751346*zim+0.5*zre)<0.0){ \
 			zim=zim+2.0;\
@@ -1031,6 +1032,19 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 		} \
 	} 
 #define CALC koch_calc
+#define RANGE 2
+#define RPIP
+#include "docalc.c"
+
+#define VARIABLES register number_t zre1, zim1;
+#define INIT pim=fabs(pim); zre=pre; zim=pim;
+#define BTEST \
+	(!((zre<0)&&(zim>0)&&(-1.0*zre+1.732050808*zim<1.732050808)))
+#define FORMULA \
+	zre1=1.5*zre-0.866+0.866*zim; \
+	zim1=-1.5+1.5*zim-0.866*zre; \
+	zre=zre1; zim=zim1; 
+#define CALC hornflake_calc
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
@@ -2152,6 +2166,47 @@ CONST struct formula formulas[] = {
     {INT_MAX, INT_MAX, 0, NULL},
     },
     MANDEL_BTRACE,
+   }   ,
+   { /* formula added by Z. Kovacs */
+    FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+   hornflake_calc,
+   NULL,
+   NULL,
+   NULL,
+#endif
+   NULL,
+   {"Spidron hornflake", "Spidron hornflake"},
+   "hornflake",
+   {-0.75, 0, 3.8756, 3.8756},
+   0, 1, 0, 0,
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+    MANDEL_BTRACE,
    }   
 };
 
@@ -2233,6 +2288,9 @@ calculateswitch (register number_t x1, register number_t y1,
 	case 22:
 	  return (koch_calc (x1, y1, x2, y2));
 	  break; 	  	  	  	  	
+	case 23:
+	  return (hornflake_calc (x1, y1, x2, y2));
+	  break; 	  	  	  	  	
 	}
     else
       switch (cfractalc.currentformula - formulas)
@@ -2305,6 +2363,9 @@ calculateswitch (register number_t x1, register number_t y1,
 	  break; 
 	case 22:
 	  return (koch_calc (x1, y1, x2, y2));
+	  break; 	  	    	  	  
+	case 23:
+	  return (hornflake_calc (x1, y1, x2, y2));
 	  break; 	  	    	  	  
 	}
   else if (cfractalc.coloringmode == 9)
@@ -2379,6 +2440,9 @@ calculateswitch (register number_t x1, register number_t y1,
       case 22:
 	return (koch_calc (x1, y1, x2, y2));
 	break; 	
+      case 23:
+	return (hornflake_calc (x1, y1, x2, y2));
+	break; 	
       }
   else
     switch (cfractalc.currentformula - formulas)
@@ -2451,6 +2515,9 @@ calculateswitch (register number_t x1, register number_t y1,
 	break; 	
       case 22:
 	return (koch_calc (x1, y1, x2, y2));
+	break; 		
+      case 22:
+	return (hornflake_calc (x1, y1, x2, y2));
 	break; 		
       }
   return 0;
