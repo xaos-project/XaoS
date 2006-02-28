@@ -7,6 +7,10 @@ processline()
 	# doesn't want to understand "0".
 	# -- Zoltan
 	cat xaos.hlp | sed '1,/%'"$1"'/d;/^%/,$ d' | sed \
+'s_<p><tt>_<code>_g
+s_</tt><p>_</code>_g
+s/'\'\''/"/g
+s/``/"/g' | sed \
 '1,2s_<head>\([^<]*\)</head>_====== '"$1"' ======\
 _g
 s_<emph>_**_g
@@ -34,24 +38,37 @@ s_</dd>__g
 s_<br>_\
 _g
 s_ [ ]*_ _g
+s_<math>_//_g
+s_</math>_//_g
 s_<dt>_  * _g
 s_</dt>__g
 s_<node.*>__g
 s_</emph>_**_g
-s_<tt>_<code>_g
-s_</tt>_</code>_g
+s_<tt>_'\'\''_g
+s_</tt>_'\'\''_g
 s_<tutor [^>]*>_//_g
 s_</tutor>_//_g
 s_<a \([^>]*\)>_[[\1|_g
-s_</a>_]]_g
-s/''/"/g
-s/``/"/g' > $1.txt
+s_</a>_]]_g' > $1.txt
+
+	tolower=`echo $1 | awk '{print tolower($1)}'`
+	if [ "$1" != "$tolower" ] ; then
+	 ln -sf $1.txt $tolower.txt
+	fi 
+
 	shift
 	while [ "$1" != "" ] ; do
 	  echo Link "$1" "$name"
 	  if [ "$1" != "$name" ] ; then
 	    ln -sf $name.txt $1.txt
-	  fi
+          fi
+
+	  tolower=`echo $1 | awk '{print tolower($1)}'`
+	  if [ "$1" != "$tolower" ] ; then
+	   ln -sf $1.txt $tolower.txt
+	  fi 
+
+
 	  shift
 	done
 }

@@ -37,7 +37,7 @@ s_</tt>_</code>_g
 s_<tutor [^>]*>_<i>_g
 s_</tutor>_</i>_g
 s_<a \([^>]*\)>_<A HREF="\1.html#body">_g
-s/''/"/g
+s/'\'\''/"/g
 s/``/"/g' > $1.html
 	echo "</BODY></HTML>" >> $1.html
 	shift
