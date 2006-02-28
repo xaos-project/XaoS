@@ -29,12 +29,12 @@ s_<notex>__g
 s_</notex>__g
 s_<dl>__g
 s_</dl>__g
-s_<dd>_ - _g
+s_<dd>__g
 s_</dd>__g
 s_<br>_\
 _g
 s_ [ ]*_ _g
-s_<dt>_  - _g
+s_<dt>_  * _g
 s_</dt>__g
 s_<node.*>__g
 s_</emph>_**_g
