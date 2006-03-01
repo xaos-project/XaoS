@@ -49,7 +49,14 @@ install:
 	@INSTALL@ -m 444 help/xaos.hlp $(DESTDIR)$(datadir)/XaoS/help
 	@INSTALL@ -m 444 doc/README doc/README.bugs doc/compilers.txt doc/AUTHORS doc/PROBLEMS $(DESTDIR)$(datadir)/XaoS/doc
 	@INSTALL@ -m 444 doc/xaos.6 $(DESTDIR)$(mandir)/man6
-	@STICKY@
-	@INSTALL@ -m 444 doc/xaos.info $(DESTDIR)$(infodir)
-	#install-info doc/xaos.info 
+	-@STICKY@
+	test -z "$(infodir)" || @INSTALL@ -d "$(DESTDIR)$(infodir)"
+	@INSTALL@ -m 444 doc/xaos.info $(DESTDIR)$(infodir)/xaos.info
+	@if (install-info --version) >/dev/null 2>&1; then      \
+	  echo " install-info --info-dir='$(DESTDIR)$(infodir)' \
+	         '$(DESTDIR)$(infodir)/xaos.info'";             \
+	  install-info --info-dir="$(DESTDIR)$(infodir)"        \
+	               "$(DESTDIR)$(infodir)/xaos.info";        \
+        else : ; fi
+
 	if [ "@USE_NLS@" = "yes" ]; then $(MAKE) -C src/i18n/ install; fi

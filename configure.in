@@ -843,7 +843,7 @@ if test  "$vga_driver_test" = yes; then
 if test "x$ac_cv_lib_vga_vga_hasmode$ac_cv_lib_vgagl_gl_write" = xyesyes; then
   drivers=yes
   AC_DEFINE(SVGA_DRIVER)
-  STICKY='chmod +s $(bindir)/xaos; chown root $(bindir)/xaos; chgrp root $(bindir)/xaos'
+  STICKY='chmod +s $(DESTDIR)$(bindir)/xaos; chown root $(DESTDIR)$(bindir)/xaos; chgrp root $(DESTDIR)$(bindir)/xaos'
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/svga"
   DRIVERLIBS="$DRIVERLIBS lib/libuisvga.a"
   if test "x$ac_cv_func_pthread_sighandler" = xyes; then 
@@ -856,7 +856,7 @@ fi
 if test  "$win32_driver" = yes; then
   drivers=yes
   AC_DEFINE(WIN32_DRIVER)
-  #STICKY='chmod +s $(bindir)/xaos; chown root $(bindir)/xaos; chgrp root $(bindir)/xaos'
+  #STICKY='chmod +s $(DESTDIR)$(bindir)/xaos; chown root $(DESTDIR)$(bindir)/xaos; chgrp root $(DESTDIR)$(bindir)/xaos'
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/win32"
   DRIVERLIBS="ui/ui-drv/win32/ui_win32.o lib/libuiwin32.a ui/ui-drv/win32/xaos.res $DRIVERLIBS"
   LOCALEDIR="../../locale"
@@ -870,7 +870,7 @@ fi
 if test  "$BeOS_driver" = yes; then
   drivers=yes
   AC_DEFINE(BEOS_DRIVER)
-  #STICKY='chmod +s $(bindir)/xaos; chown root $(bindir)/xaos; chgrp root $(bindir)/xaos'
+  #STICKY='chmod +s $(DESTDIR)$(bindir)/xaos; chown root $(DESTDIR)$(bindir)/xaos; chgrp root $(DESTDIR)$(bindir)/xaos'
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/BeOS"
   #DRIVERLIBS="ui/ui-drv/win32/ui_win32.o lib/libuiwin32.a ui/ui-drv/win32/xaos.res $DRIVERLIBS"
   DRIVERLIBS="ui/ui-drv/BeOS/be_main.o ui/ui-drv/BeOS/ui_be.o lib/libuibe.a $DRIVERLIBS"
