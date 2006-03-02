@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-31 10:06+0100\n"
-"PO-Revision-Date: 2005-05-07 17:35+0200\n"
-"Last-Translator: Philippe Wautelet <traduc _at_ fractalzone _dot_ bebe>\n"
+"POT-Creation-Date: 2006-01-25 20:07+0100\n"
+"PO-Revision-Date: 2006-02-05 17:35+0200\n"
+"Last-Translator: Philippe Wautelet <traduc _at_ fractalzone _dot_ be>\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -147,12 +147,13 @@ msgid "speed:%2.2f "
 msgstr "vitesse : %2.2f"
 
 #: ../ui/ui.c:883
+#, c-format
 msgid "Thank you for using XaoS\n"
 msgstr "Merci d'avoir utilisé XaoS\n"
 
 #: ../ui/ui.c:924
 msgid "Skipping, please wait..."
-msgstr "Passe image, patientez..."
+msgstr "Saute image, patientez..."
 
 #: ../ui/ui.c:1024 ../ui/ui.c:1026 ../ui/ui-drv/win32/ui_win32.c:1535
 msgid "Resize"
@@ -395,7 +396,7 @@ msgstr "Nom :"
 
 #: ../ui-hlp/menu.c:248
 msgid "Bailout:"
-msgstr ""
+msgstr "Valeur d'échappement :"
 
 #: ../ui-hlp/menu.c:256
 msgid "Julia mode:"
@@ -441,14 +442,14 @@ msgstr "Images par seconde"
 msgid ""
 "renderanim: Width parameter must be positive integer in the range 0..4096"
 msgstr ""
-"animation : le paramètre de largeur doit être un entier positifallant de 0 à "
+"animation : le paramètre de largeur doit être un entier positif allant de 0 à "
 "4096"
 
 #: ../ui-hlp/menu.c:343
 msgid ""
 "renderanim: Height parameter must be positive integer in the range 0..4096"
 msgstr ""
-"animation : le paramètre de hauteur doit être un entier positifallant de 0 à "
+"animation : le paramètre de hauteur doit être un entier positif allant de 0 à "
 "4096"
 
 #: ../ui-hlp/menu.c:350
@@ -769,9 +770,8 @@ msgid "Formulae"
 msgstr "Formule"
 
 #: ../ui-hlp/menu.c:1122
-#, fuzzy
 msgid "More formulae"
-msgstr "Formule"
+msgstr "Autres formules"
 
 #: ../ui-hlp/menu.c:1124
 msgid "Incoloring mode"
@@ -813,7 +813,7 @@ msgstr "Choisir l'angle"
 msgid "Set plane"
 msgstr "Choisir le plan"
 
-#: ../ui-hlp/menu.c:1167
+# #: ../ui-hlp/menu.c:1167
 msgid "Inside coloring mode"
 msgstr "Coloriage intérieur"
 
@@ -883,7 +883,7 @@ msgstr "Itérations"
 
 #: ../ui-hlp/menu.c:1224
 msgid "Bailout"
-msgstr ""
+msgstr "Valeur d'échappement"
 
 #: ../ui-hlp/menu.c:1227
 msgid "Fast julia mode"
@@ -907,7 +907,7 @@ msgstr "Rotation continue"
 
 #: ../ui-hlp/menu.c:1240
 msgid "Rotate by mouse"
-msgstr "Rotation à la souris"
+msgstr "Rotation à la souris"
 
 #: ../ui-hlp/menu.c:1244
 msgid "Rotation speed"
@@ -1007,7 +1007,7 @@ msgstr "Les maths derrière les fractals"
 
 #: ../ui-hlp/menu.c:1321 ../ui-hlp/menu.c:1359
 msgid "Other fractal types in XaoS"
-msgstr ""
+msgstr "Autres types de fractals dans XaoS"
 
 #: ../ui-hlp/menu.c:1322
 msgid "What's new?"
@@ -1091,19 +1091,19 @@ msgstr "Définition et dimension fractale"
 
 #: ../ui-hlp/menu.c:1358
 msgid "Escape time fractals"
-msgstr ""
+msgstr "Fractals à temps d'échappement"
 
 #: ../ui-hlp/menu.c:1361
 msgid "Triceratops and Catseye fractals"
-msgstr ""
+msgstr "Fractals Triceratops et Oeil de chat"
 
 #: ../ui-hlp/menu.c:1362
 msgid "Mandelbar, Lambda, Manowar and Spider"
-msgstr ""
+msgstr "Mandelbar, Lambda, Manowar et Araignée"
 
 #: ../ui-hlp/menu.c:1363
 msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
-msgstr ""
+msgstr "Triangle de Sierpinski , Tapis de S., Flocon de Koch"
 
 #: ../ui-hlp/menu.c:1364
 msgid "What's new in 3.0?"
@@ -1234,7 +1234,7 @@ msgstr "Trop de paramètres"
 #: ../ui-hlp/play.c:1038
 #, c-format
 msgid "Replay disabled at line %i"
-msgstr "Répétition désactivée à la ligne %i"
+msgstr "Répétition désactivée à la ligne %i"
 
 #: ../ui-hlp/ui_helper.c:697
 msgid "Tutorial files not found. Reinstall XaoS"
@@ -1359,12 +1359,12 @@ msgstr "Commençant boucle de calcul!"
 #: ../ui-hlp/render.c:491
 #, c-format
 msgid "Frame %i skipped."
-msgstr "Image %i passée."
+msgstr "Image %i sautée."
 
 #: ../ui-hlp/render.c:493
 #, c-format
 msgid "Frames %i - %i skipped."
-msgstr "Images %i - %i passées."
+msgstr "Images %i - %i sautées."
 
 #: ../ui-hlp/render.c:497
 #, c-format
@@ -1377,7 +1377,7 @@ msgstr " terminé."
 
 #: ../ui-hlp/render.c:575
 msgid " skipping..."
-msgstr " passe..."
+msgstr " saute..."
 
 #: ../ui-hlp/render.c:609 ../ui-hlp/render.c:709
 msgid "Calculation interrupted"
@@ -1401,3 +1401,4 @@ msgstr "A propos"
 
 #~ msgid "formulae"
 #~ msgstr "Formule"
+
