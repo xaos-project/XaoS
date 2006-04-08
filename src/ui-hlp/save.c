@@ -506,7 +506,6 @@ uih_saveframe (struct uih_context *uih)
 	  && s->fcontext->outtcolor != uih->fcontext->outtcolor)
 	save_intc (uih, "outtcoloring", uih->fcontext->outtcolor),
 	  s->fcontext->outtcolor = uih->fcontext->outtcolor;
-
       if (s->fcontext->mandelbrot != uih->fcontext->mandelbrot)
 	save_onoffc (uih, "julia", !uih->fcontext->mandelbrot),
 	  s->fcontext->mandelbrot = uih->fcontext->mandelbrot;
@@ -639,8 +638,8 @@ uih_save_enable (struct uih_context *uih, xio_file f, int mode)
   s->fcontext->bailout = 4;
   s->fcontext->coloringmode = 0;
   s->fcontext->incoloringmode = 0;
-  s->fcontext->outtcolor = 1;
-  s->fcontext->intcolor = 1;
+  s->fcontext->outtcolor = 0;
+  s->fcontext->intcolor = 0;
   s->fcontext->mandelbrot = 1;
   s->fcontext->plane = 0;
   s->fcontext->range = 3;
