@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-25 20:07+0100\n"
+"POT-Creation-Date: 2006-04-08 15:19+0200\n"
 "PO-Revision-Date: 2006-02-05 17:35+0200\n"
 "Last-Translator: Philippe Wautelet <traduc _at_ fractalzone _dot_ be>\n"
 "Language-Team: French\n"
@@ -442,15 +442,15 @@ msgstr "Images par seconde"
 msgid ""
 "renderanim: Width parameter must be positive integer in the range 0..4096"
 msgstr ""
-"animation : le paramètre de largeur doit être un entier positif allant de 0 à "
-"4096"
+"animation : le paramètre de largeur doit être un entier positif allant de 0 "
+"à 4096"
 
 #: ../ui-hlp/menu.c:343
 msgid ""
 "renderanim: Height parameter must be positive integer in the range 0..4096"
 msgstr ""
-"animation : le paramètre de hauteur doit être un entier positif allant de 0 à "
-"4096"
+"animation : le paramètre de hauteur doit être un entier positif allant de 0 "
+"à 4096"
 
 #: ../ui-hlp/menu.c:350
 msgid "renderanim: Invalid real width and height dimensions"
@@ -814,6 +814,7 @@ msgid "Set plane"
 msgstr "Choisir le plan"
 
 # #: ../ui-hlp/menu.c:1167
+#: ../ui-hlp/menu.c:1167
 msgid "Inside coloring mode"
 msgstr "Coloriage intérieur"
 
@@ -1401,4 +1402,3 @@ msgstr "A propos"
 
 #~ msgid "formulae"
 #~ msgstr "Formule"
-

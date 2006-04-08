@@ -10,7 +10,8 @@ processline()
 's_<p><tt>_<code>_g
 s_</tt><p>_</code>_g
 s/'\'\''/"/g
-s/``/"/g' | sed \
+s/``/"/g
+s_LICENSE<p>_LICENSE - _g' | sed \
 '1,2s_<head>\([^<]*\)</head>_====== \1 ======\
 _g
 s_<emph>_**_g

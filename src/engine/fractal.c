@@ -415,8 +415,8 @@ make_fractalc (CONST int formula, float wi, float he)
   new_ctxt->maxiter = DEFAULT_MAX_ITER;
   new_ctxt->bailout = DEFAULT_BAILOUT;
   new_ctxt->coloringmode = 0;
-  new_ctxt->intcolor = 1;
-  new_ctxt->outtcolor = 1;
+  new_ctxt->intcolor = 0;
+  new_ctxt->outtcolor = 0;
   new_ctxt->slowmode = 0;
   new_ctxt->range = 3;
   new_ctxt->angle = 0;
