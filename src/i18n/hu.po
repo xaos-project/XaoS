@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-08 15:19+0200\n"
+"POT-Creation-Date: 2006-04-25 21:57+0200\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: Hungarian\n"
@@ -1125,102 +1125,102 @@ msgstr ""
 msgid "clear_lines available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:390
+#: ../ui-hlp/play.c:401
 msgid "Catalog file not found"
 msgstr "A katalógus fájl nem található"
 
-#: ../ui-hlp/play.c:438
+#: ../ui-hlp/play.c:449
 msgid "Replay is already active"
 msgstr "A visszajátszás már aktív"
 
-#: ../ui-hlp/play.c:443
+#: ../ui-hlp/play.c:454
 msgid "File open failed"
 msgstr "Sikertelen fájl megnyitás"
 
-#: ../ui-hlp/play.c:449
+#: ../ui-hlp/play.c:460
 msgid "Out of memory"
 msgstr "Elfogyott a memória"
 
-#: ../ui-hlp/play.c:575 ../ui-hlp/play.c:596 ../ui-hlp/play.c:626
-#: ../ui-hlp/play.c:660
+#: ../ui-hlp/play.c:586 ../ui-hlp/play.c:607 ../ui-hlp/play.c:637
+#: ../ui-hlp/play.c:671
 msgid "Missing parameter"
 msgstr "Hiányzó paraméter"
 
-#: ../ui-hlp/play.c:578 ../ui-hlp/play.c:599 ../ui-hlp/play.c:629
-#: ../ui-hlp/play.c:663
+#: ../ui-hlp/play.c:589 ../ui-hlp/play.c:610 ../ui-hlp/play.c:640
+#: ../ui-hlp/play.c:674
 msgid "Unexpected end of file"
 msgstr "A fájl nincs lezárva"
 
-#: ../ui-hlp/play.c:611 ../ui-hlp/play.c:636
+#: ../ui-hlp/play.c:622 ../ui-hlp/play.c:647
 msgid "Token is too long"
 msgstr "Túl hosszú kulcsszó"
 
-#: ../ui-hlp/play.c:699
+#: ../ui-hlp/play.c:710
 msgid "Unknown formula type"
 msgstr "Ismeretlen képlettípus"
 
-#: ../ui-hlp/play.c:707
+#: ../ui-hlp/play.c:718
 msgid "morph available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:712
+#: ../ui-hlp/play.c:723
 msgid "morphview: Invalid viewpoint"
 msgstr ""
 
-#: ../ui-hlp/play.c:728
+#: ../ui-hlp/play.c:739
 msgid "move available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:744
+#: ../ui-hlp/play.c:755
 msgid "morphjulia available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:759
+#: ../ui-hlp/play.c:770
 msgid "morphangle available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:797
+#: ../ui-hlp/play.c:808
 msgid "Unknown filter"
 msgstr "Ismeretlen szûrõ"
 
-#: ../ui-hlp/play.c:844
+#: ../ui-hlp/play.c:855
 msgid "sleep available only in animation replay"
 msgstr "a \"sleep\" csak animáció visszajátszásakor használható"
 
-#: ../ui-hlp/play.c:863
+#: ../ui-hlp/play.c:874
 #, c-format
 msgid "Internal program error #12 %i\n"
 msgstr "12-es számú belsõ hiba %i\n"
 
-#: ../ui-hlp/play.c:887
+#: ../ui-hlp/play.c:898
 msgid "wait available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:942
+#: ../ui-hlp/play.c:953
 msgid "No catalog file loaded"
 msgstr "Nincs betöltött katalógus fájl"
 
-#: ../ui-hlp/play.c:948
+#: ../ui-hlp/play.c:959
 msgid "Message not found in catalog file"
 msgstr "A katalógus fájlban hiányzik a szöveg"
 
-#: ../ui-hlp/play.c:961
+#: ../ui-hlp/play.c:972
 msgid "load available only in animation replay"
 msgstr ""
 
-#: ../ui-hlp/play.c:966
+#: ../ui-hlp/play.c:977
 msgid "Include level overflow"
 msgstr ""
 
-#: ../ui-hlp/play.c:976
+#: ../ui-hlp/play.c:987
 msgid "File not found"
 msgstr "Hiányzó fájl"
 
-#: ../ui-hlp/play.c:995
+#: ../ui-hlp/play.c:1006
 msgid "Too many parameters"
 msgstr "Túl sok paraméter"
 
-#: ../ui-hlp/play.c:1038
+#: ../ui-hlp/play.c:1049
 #, c-format
 msgid "Replay disabled at line %i"
 msgstr "A lejátszás a(z) %i sorszámú sornál megszakadt"

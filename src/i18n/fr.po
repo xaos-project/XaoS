@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-08 15:19+0200\n"
+"POT-Creation-Date: 2006-04-25 21:57+0200\n"
 "PO-Revision-Date: 2006-02-05 17:35+0200\n"
 "Last-Translator: Philippe Wautelet <traduc _at_ fractalzone _dot_ be>\n"
 "Language-Team: French\n"
@@ -1130,109 +1130,109 @@ msgstr "effaçage de ligne disponible seulement lors de répétition d'animation"
 msgid "clear_lines available only in animation replay"
 msgstr "effaçage de lignes disponible seulement lors de répétition d'animation"
 
-#: ../ui-hlp/play.c:390
+#: ../ui-hlp/play.c:401
 msgid "Catalog file not found"
 msgstr "Fichier catalogue non trouvé"
 
-#: ../ui-hlp/play.c:438
+#: ../ui-hlp/play.c:449
 msgid "Replay is already active"
 msgstr "Répétition déja active"
 
-#: ../ui-hlp/play.c:443
+#: ../ui-hlp/play.c:454
 msgid "File open failed"
 msgstr "Echec d'ouverture du fichier"
 
-#: ../ui-hlp/play.c:449
+#: ../ui-hlp/play.c:460
 msgid "Out of memory"
 msgstr "Pas assez de mémoire"
 
-#: ../ui-hlp/play.c:575 ../ui-hlp/play.c:596 ../ui-hlp/play.c:626
-#: ../ui-hlp/play.c:660
+#: ../ui-hlp/play.c:586 ../ui-hlp/play.c:607 ../ui-hlp/play.c:637
+#: ../ui-hlp/play.c:671
 msgid "Missing parameter"
 msgstr "Paramètre manquant"
 
-#: ../ui-hlp/play.c:578 ../ui-hlp/play.c:599 ../ui-hlp/play.c:629
-#: ../ui-hlp/play.c:663
+#: ../ui-hlp/play.c:589 ../ui-hlp/play.c:610 ../ui-hlp/play.c:640
+#: ../ui-hlp/play.c:674
 msgid "Unexpected end of file"
 msgstr "Fin inattendue de fichier"
 
-#: ../ui-hlp/play.c:611 ../ui-hlp/play.c:636
+#: ../ui-hlp/play.c:622 ../ui-hlp/play.c:647
 #, fuzzy
 msgid "Token is too long"
 msgstr "Le \"token\" est trop long"
 
-#: ../ui-hlp/play.c:699
+#: ../ui-hlp/play.c:710
 msgid "Unknown formula type"
 msgstr "Type de formule inconnu"
 
-#: ../ui-hlp/play.c:707
+#: ../ui-hlp/play.c:718
 #, fuzzy
 msgid "morph available only in animation replay"
 msgstr "Morphing disponible seulement lors de répétition d'animation"
 
-#: ../ui-hlp/play.c:712
+#: ../ui-hlp/play.c:723
 #, fuzzy
 msgid "morphview: Invalid viewpoint"
 msgstr "Vue morphing : point de vue incorrect"
 
-#: ../ui-hlp/play.c:728
+#: ../ui-hlp/play.c:739
 msgid "move available only in animation replay"
 msgstr "déplacement disponible seulement lors de répétition d'animation"
 
-#: ../ui-hlp/play.c:744
+#: ../ui-hlp/play.c:755
 #, fuzzy
 msgid "morphjulia available only in animation replay"
 msgstr "Morphjulia disponible seulement lors de répétition d'animation"
 
-#: ../ui-hlp/play.c:759
+#: ../ui-hlp/play.c:770
 #, fuzzy
 msgid "morphangle available only in animation replay"
 msgstr "Morphangle disponible seulement lors de répétition d'animation"
 
-#: ../ui-hlp/play.c:797
+#: ../ui-hlp/play.c:808
 msgid "Unknown filter"
 msgstr "Filtre inconnu"
 
-#: ../ui-hlp/play.c:844
+#: ../ui-hlp/play.c:855
 msgid "sleep available only in animation replay"
 msgstr "pause disponible seulement lors de répétition d'animation"
 
-#: ../ui-hlp/play.c:863
+#: ../ui-hlp/play.c:874
 #, c-format
 msgid "Internal program error #12 %i\n"
 msgstr "Erreur interne #12 %i\n"
 
-#: ../ui-hlp/play.c:887
+#: ../ui-hlp/play.c:898
 #, fuzzy
 msgid "wait available only in animation replay"
 msgstr "wait disponible seulement lors de répétition d'animation"
 
-#: ../ui-hlp/play.c:942
+#: ../ui-hlp/play.c:953
 msgid "No catalog file loaded"
 msgstr "Pas de fichier catalogue chargé"
 
-#: ../ui-hlp/play.c:948
+#: ../ui-hlp/play.c:959
 msgid "Message not found in catalog file"
 msgstr "Message non trouvé dans fichier catalogue"
 
-#: ../ui-hlp/play.c:961
+#: ../ui-hlp/play.c:972
 #, fuzzy
 msgid "load available only in animation replay"
 msgstr "Load disponible seulement lors de répétition d'animation"
 
-#: ../ui-hlp/play.c:966
+#: ../ui-hlp/play.c:977
 msgid "Include level overflow"
 msgstr "Dépassement de niveau d'inclusion"
 
-#: ../ui-hlp/play.c:976
+#: ../ui-hlp/play.c:987
 msgid "File not found"
 msgstr "Fichier non trouvé"
 
-#: ../ui-hlp/play.c:995
+#: ../ui-hlp/play.c:1006
 msgid "Too many parameters"
 msgstr "Trop de paramètres"
 
-#: ../ui-hlp/play.c:1038
+#: ../ui-hlp/play.c:1049
 #, c-format
 msgid "Replay disabled at line %i"
 msgstr "Répétition désactivée à la ligne %i"

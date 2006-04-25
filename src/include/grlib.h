@@ -9,7 +9,8 @@ extern "C"
     CONST unsigned char *data;
     int width, height, realwidth;
   }
-  xsmallfont, xbigfont, xaafont, xsmallfontil1, xbigfontil1, xmedfontil1;
+  xsmallfont, xbigfont, xbigfont2, xaafont, xsmallfontil1, xbigfontil1, 
+    xmedfontil1, xbigfont3;
   int xprint (struct image *image, CONST struct xfont *font, int x, int y,
 	      CONST char *text, int fgcolor, int bgcolor, int mode);
 #define TEXT_PRESSED 1

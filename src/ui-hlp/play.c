@@ -357,10 +357,21 @@ uih_setfont (struct uih_context *uih)
     {
       if (uih->encoding == 2)
 	{
-	  if (uih->image->pixelheight < 0.06)
-	    uih->font = &xbigfont;
+	  // A better heuristics would be used later.
+	  if (uih->image->width > 1000 && uih->image->height > 720)
+	    uih->font = &xbigfont3;
 	  else
-	    uih->font = &xsmallfont;
+	    {
+	      if (uih->image->width > 800 && uih->image->height > 600)
+	        uih->font = &xbigfont2;
+	      else
+	        {
+	          if (uih->image->pixelheight < 0.07)
+	            uih->font = &xbigfont;
+	          else
+	            uih->font = &xsmallfont;
+	        }
+	    }
 	}
       else
 	{

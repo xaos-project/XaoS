@@ -13,13 +13,15 @@
 #include <ui_helper.h>
 #include <grlib.h>
 
-#define WIDTH(ch) currentfont->width
-#define RWIDTH(ch) currentfont->realwidth
-#define HEIGHT currentfont->height
+#define WIDTH(ch) (currentfont->width)
+#define RWIDTH(ch) (currentfont->realwidth)
+#define HEIGHT (currentfont->height)
 #define DATA currentfont->data
 
 extern CONST unsigned char xfont8[];
 extern CONST unsigned char xfont16[];
+extern CONST unsigned char xfont32[];
+extern CONST unsigned char xfont48[];
 extern CONST unsigned char xfont14[];
 extern CONST unsigned char xfont8il1[];
 extern CONST unsigned char xfont16il1[];
@@ -39,6 +41,14 @@ CONST struct xfont xsmallfont = {
 CONST struct xfont xbigfont = {
   xfont16,
   9, 16, 8
+};
+CONST struct xfont xbigfont2 = {
+  xfont32,
+  18, 32, 16
+};
+CONST struct xfont xbigfont3 = {
+  xfont48,
+  18, 48, 16
 };
 CONST struct xfont xsmallfontil1 = {
   xfont8il1,
@@ -481,7 +491,7 @@ xprint (struct image *image, CONST struct xfont *current, int x, int y,
 	      }
 	    break;
 	  }
-      x += WIDTH (*text);
+      x += WIDTH (*text) ;
       text++;
       i++;
     }
