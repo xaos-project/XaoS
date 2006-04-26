@@ -1,0 +1,1635 @@
+; part for Bolyai.xaf
+
+(initstate)
+(palette 1 777280519 0)
+(formula 'magnet)
+(angle 88.336)
+(outcoloring 6)
+(view -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(text "EGYETEMI TAVASZ
+a Bolyai Intézetben
+
+2006")
+
+
+(usleep 2544353)
+
+(usleep 517082)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 500036)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 500002)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 520027)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 443883)
+
+(usleep 59190)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 500054)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 519990)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 516021)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 500022)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 500021)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 500024)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 500019)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 2055495)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+
+
+(usleep 517939)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 500074)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 520002)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 419991)
+(speedup 0.0018900000000000000282)
+(maxstep 0.025200000000000001589)
+
+(usleep 60004)
+(speedup 0.0019845000000000001134)
+(maxstep 0.026460000000000002786)
+
+(usleep 20043)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 39958)
+(speedup 0.0020837250000000002071)
+(maxstep 0.0277830000000000041)
+
+(usleep 56005)
+(speedup 0.0021879112500000003099)
+(maxstep 0.029172150000000005539)
+
+(usleep 60234)
+(speedup 0.0022973068125000004225)
+(maxstep 0.030630757500000007111)
+
+(usleep 59769)
+(speedup 0.0024121721531250005455)
+(maxstep 0.032162295375000008824)
+
+(usleep 60059)
+(speedup 0.0025327807607812506797)
+(maxstep 0.033770410143750010692)
+
+(usleep 60165)
+(speedup 0.0026594197988203133261)
+(maxstep 0.035458930650937512726)
+
+(usleep 59783)
+(speedup 0.0027923907887613291104)
+(maxstep 0.037231877183484389934)
+
+(usleep 60038)
+(speedup 0.0029320103281993956899)
+(maxstep 0.039093471042658611082)
+
+(usleep 60195)
+(speedup 0.0030786108446093656045)
+(maxstep 0.041048144594791543371)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 59777)
+(speedup 0.0032325413868398340213)
+(maxstep 0.043100551824531122362)
+
+(usleep 460015)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 500021)
+(animateview -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
+
+(usleep 400021)
+(zoomcenter -0.33698684382506478835 -0.37629136558411988191)
+(unzoom)
+
+(usleep 15992)
+(zoomcenter -0.33698426945484469524 -0.37629509551542317773)
+
+(usleep 88564)
+(animateview -0.3369839969 -0.3762948245 4.007209523E-06 5.877241305E-06)
+
+(usleep 335921)
+(zoomcenter -0.33698425887659436747 -0.37629509520812027897)
+
+(usleep 45501)
+(zoomcenter -0.33698424788601331282 -0.37629509488883898885)
+
+(usleep 91091)
+(zoomcenter -0.33698423601995480356 -0.3762950945441246875)
+
+(usleep 45506)
+(animateview -0.3369838701 -0.3762946942 5.934888513E-06 8.704504145E-06)
+
+(usleep 103152)
+(zoomcenter -0.33698423640803626264 -0.37629508118524376695)
+
+(usleep 35607)
+(zoomcenter -0.33698422269093341347 -0.37629508078675580058)
+
+(usleep 386424)
+(zoomcenter -0.33698420422251692136 -0.37629506123354350115)
+(animateview -0.3369836723 -0.3762944779 9.244948113E-06 1.355925878E-05)
+
+(usleep 107614)
+(zoomcenter -0.33698418341739177232 -0.37629506062914532013)
+
+(usleep 70340)
+(zoomcenter -0.33698416131562576288 -0.3762950599870791428)
+
+(usleep 34765)
+(zoomcenter -0.33698416197612606285 -0.37629503725075756743)
+
+(usleep 34722)
+(zoomcenter -0.33698413853852333919 -0.37629503656988473671)
+
+(usleep 69503)
+(zoomcenter -0.33698411367977244092 -0.37629503584772691665)
+
+(usleep 68524)
+(zoomcenter -0.3369841144443004044 -0.37629500953047371713)
+
+(usleep 69183)
+(zoomcenter -0.33698408653051470951 -0.3762950087195657712)
+
+(usleep 69071)
+(animateview -0.33698341 -0.376294166 1.43833782E-05 2.10956238E-05)
+
+(usleep 445900)
+(zoomcenter -0.33698404339988525695 -0.3762950074666017152)
+
+(usleep 70151)
+(animateview -0.336983044 -0.376293707 2.22333918E-05 3.26089783E-05)
+
+(usleep 363075)
+(zoomcenter -0.33698398142950180867 -0.37629500566633438828)
+
+(usleep 153581)
+(animateview -0.336982509 -0.376292996 3.4385258E-05 5.04317175E-05)
+
+(usleep 38800)
+(zoomcenter -0.33698390858202986322 -0.37629500355008278106)
+
+(usleep 157332)
+(zoomcenter -0.3369838255294403345 -0.37629500113736794856)
+
+(usleep 81281)
+(zoomcenter -0.33698373662640329482 -0.37629499855469500209)
+
+(usleep 40246)
+(zoomcenter -0.33698364456176114093 -0.37629499588017601449)
+
+(usleep 205598)
+(animateview -0.336981807 -0.376291884 5.34759214E-05 7.84313603E-05)
+
+(usleep 526100)
+(animateview -0.33698078 -0.376290145 8.33654869E-05 0.000122269395)
+
+(usleep 531693)
+(animateview -0.33697916 -0.3762874 0.00013057627 0.00019151189)
+
+(usleep 538475)
+(animateview -0.33697658 -0.37628303 0.00020569703 0.00030168901)
+
+(usleep 517194)
+(animateview -0.33697271 -0.37627648 0.00031826712 0.00046679183)
+
+(usleep 246113)
+(zoomcenter -0.33698206550416861431 -0.37629414900993578768)
+
+(usleep 42082)
+(zoomcenter -0.33697874579406925173 -0.37629405257087420811)
+
+(usleep 41317)
+(zoomcenter -0.33697705088517028899 -0.37629314356798969178)
+
+(usleep 42551)
+(zoomcenter -0.336974379545480938 -0.37629306596437820458)
+
+(usleep 43004)
+(zoomcenter -0.33697345654101241554 -0.37629303915068601041)
+
+(usleep 42720)
+(zoomcenter -0.33697058518505241479 -0.37629295573651249678)
+
+(usleep 42582)
+(zoomcenter -0.33696760841752768326 -0.37629286926008593151)
+(animateview -0.33696938 -0.37626721 0.00048549948 0.00071206599)
+
+(usleep 43366)
+(zoomcenter -0.33696555129119346137 -0.37629280949964683141)
+
+(usleep 43246)
+(zoomcenter -0.33696341748180289714 -0.37629274751153068379)
+
+(usleep 44013)
+(zoomcenter -0.33696120435500214252 -0.37629268321920833243)
+
+(usleep 37195)
+(zoomcenter -0.33695890747611145839 -0.37629261649385034949)
+
+(usleep 35806)
+(zoomcenter -0.33695653735282027761 -0.37629254764070980776)
+
+(usleep 35562)
+(zoomcenter -0.33695531593378780843 -0.37629251215794120414)
+
+(usleep 35745)
+(zoomcenter -0.33695405730114275254 -0.37629247559410052844)
+
+(usleep 250383)
+(animateview -0.33697605 -0.37625306 0.00075636153 0.0011093304)
+
+(usleep 520149)
+(animateview -0.3369882 -0.3762313 0.001173211 0.00172071)
+
+(usleep 516537)
+(animateview -0.3370068 -0.3761979 0.001814259 0.002660913)
+
+(usleep 535887)
+(animateview -0.337037 -0.3761439 0.002851769 0.004182596)
+
+(usleep 527776)
+(animateview -0.3370835 -0.3760605 0.004452016 0.006529624)
+
+(usleep 500706)
+(animateview -0.3371516 -0.3759385 0.006793244 0.009963426)
+
+(usleep 521974)
+(animateview -0.337261 -0.375743 0.0105534 0.0154783)
+
+(usleep 515834)
+(animateview -0.337428 -0.375443 0.0163102 0.0239216)
+
+(usleep 518263)
+(animateview -0.337689 -0.374976 0.0252589 0.0370463)
+
+(usleep 530621)
+(animateview -0.338103 -0.374233 0.0395275 0.0579736)
+
+(usleep 535200)
+(zoomcenter -0.33669901882413111701 -0.37628506661239618725)
+(animateview -0.338768 -0.373057 0.0620958 0.0910739)
+
+(usleep 36404)
+(zoomcenter -0.33617280233708092486 -0.37626977978834232457)
+
+(usleep 38191)
+(zoomcenter -0.33576582648982068055 -0.37625795695814915801)
+
+(usleep 72679)
+(zoomcenter -0.3356212915220945754 -0.37625375815276081796)
+
+(usleep 35477)
+(zoomcenter -0.33547232665891993681 -0.3762494306569304921)
+
+(usleep 35354)
+(zoomcenter -0.33501630373007816764 -0.37608272038440807662)
+
+(usleep 35098)
+(zoomcenter -0.33485816251612321857 -0.37607812631148773694)
+
+(usleep 35211)
+(zoomcenter -0.33453709862876960187 -0.37590593534600454166)
+
+(usleep 36765)
+(zoomcenter -0.33403367195346049038 -0.37589131057616387833)
+
+(usleep 35781)
+(zoomcenter -0.33369250075948155625 -0.37570833578640938869)
+
+(usleep 35732)
+(zoomcenter -0.3335140966790276708 -0.37570315306816413236)
+
+(usleep 73042)
+(zoomcenter -0.33332437241333636889 -0.37569764149348005257)
+
+(usleep 36560)
+(zoomcenter -0.33312881557335340766 -0.37569196047990689974)
+(animateview -0.340922 -0.371482 0.0951987 0.139625)
+
+(usleep 37654)
+(zoomcenter -0.33292713080059606795 -0.37568610144714878956)
+
+(usleep 38149)
+(zoomcenter -0.33271893393538754514 -0.37568005323519547449)
+
+(usleep 38263)
+(zoomcenter -0.33250392490967960144 -0.37567380712693608757)
+
+(usleep 40451)
+(zoomcenter -0.33228830387451265018 -0.37544552096723271642)
+
+(usleep 37725)
+(zoomcenter -0.33205852652144433895 -0.37543884583246525991)
+
+(usleep 76257)
+(zoomcenter -0.33156795028899409267 -0.3754245943737310176)
+
+(usleep 37683)
+(zoomcenter -0.33132231291218571816 -0.37516452877582784703)
+
+(usleep 37020)
+(zoomcenter -0.33106115931676076468 -0.37515694214720153016)
+
+(usleep 37934)
+(zoomcenter -0.33079171767911510617 -0.37514911474724573794)
+
+(usleep 124297)
+(zoomcenter -0.33050186029349726431 -0.37484223175054218451)
+(animateview -0.34581 -0.36942 0.14584 0.2139)
+
+(usleep 38372)
+(zoomcenter -0.33019288327089315314 -0.37483325582998957578)
+
+(usleep 40569)
+(zoomcenter -0.32987373652270415641 -0.37482398447436505643)
+
+(usleep 82406)
+(zoomcenter -0.32988366285451462567 -0.37448229156050700034)
+
+(usleep 77864)
+(zoomcenter -0.32951757068133039533 -0.37447165641931190935)
+
+(usleep 38253)
+(zoomcenter -0.32913947419839015461 -0.37446067254755507396)
+
+(usleep 38844)
+(zoomcenter -0.32796796820210270002 -0.37442663977495290495)
+
+(usleep 38794)
+(zoomcenter -0.32675742092606056789 -0.37439147283573084727)
+
+(usleep 38648)
+(zoomcenter -0.32634047530902047984 -0.37437936037927124357)
+
+(usleep 116479)
+(animateview -0.3551 -0.36666 0.22433 0.32902)
+
+(usleep 157640)
+(zoomcenter -0.32581533916469443643 -0.37436410493965619696)
+
+(usleep 347788)
+(animateview -0.37061 -0.36256 0.34367 0.50405)
+
+(usleep 76424)
+(zoomcenter -0.32579352955841981511 -0.37511485436657061187)
+
+(usleep 74718)
+(zoomcenter -0.32577026244081781412 -0.37591577552881914976)
+
+(usleep 36875)
+(zoomcenter -0.32572225401600969464 -0.37756836370294407691)
+
+(usleep 324970)
+(animateview -0.39492 -0.35489 0.52987 0.77714)
+
+(usleep 530607)
+(animateview -0.434 -0.34207 0.82918 1.2161)
+
+(usleep 510910)
+(animateview -0.4924 -0.3229 1.276 1.872)
+
+(usleep 214075)
+(zoomcenter -0.32892325975095715478 -0.37766135434970212704)
+
+(usleep 38826)
+(zoomcenter -0.33223479305497841913 -0.37775755587172371092)
+
+(usleep 13525)
+(zoomcenter -0.33548458010872552433 -0.38119822855831588435)
+
+(usleep 27640)
+(zoomcenter -0.34233264061809230076 -0.3813971677757161742)
+
+(usleep 77301)
+(zoomcenter -0.34222668517896859887 -0.38504445898303838047)
+
+(usleep 139146)
+(animateview -0.5781 -0.2921 1.963 2.88)
+
+(usleep 78739)
+(zoomcenter -0.34662972690166073237 -0.38517236931229074113)
+
+(usleep 242185)
+(zoomcenter -0.34647280369758239404 -0.3905741177000402367)
+
+(usleep 184771)
+(animateview -0.7017 -0.2416 3.009 4.413)
+
+(usleep 47464)
+(zoomcenter -0.35943626297595170435 -0.39752659867678111821)
+
+(usleep 14104)
+(zoomcenter -0.46404874860278503662 -0.45363170925199076952)
+
+(usleep 10297)
+(zoomcenter -0.54383728647808903634 -0.48280034980070399414)
+
+(usleep 13198)
+(zoomcenter -0.56415506301265945467 -0.48339059028668871399)
+
+(usleep 10075)
+(zoomcenter -0.57080476907495759415 -0.49043088604884792255)
+
+(usleep 169945)
+(zoomcenter -0.55502034765028856426 -0.48997234155423591477)
+
+(usleep 12093)
+(zoomcenter -0.55478899425196826216 -0.4979361914750748682)
+
+(usleep 12020)
+(zoomcenter -0.53868119430059553432 -0.49746825268978180047)
+
+(usleep 21817)
+(zoomcenter -0.53045841416483379609 -0.49722937725303213924)
+
+(usleep 10545)
+(zoomcenter -0.52217120524673036236 -0.49698863013136971038)
+
+(usleep 11517)
+(zoomcenter -0.5054486255875339777 -0.49650283172089068918)
+
+(usleep 12011)
+(zoomcenter -0.47987474022771449861 -0.50420121363659302919)
+
+(usleep 12027)
+(zoomcenter -0.47134576520170412566 -0.50395344310147869904)
+
+(usleep 9216)
+(zoomcenter -0.4541137917614031224 -0.50345284657406964824)
+
+(usleep 130754)
+(zoomcenter -0.44451500455326176708 -0.50317399751708955272)
+
+(usleep 12031)
+(animateview -0.8088 -0.1122 4.624 6.781)
+
+(usleep 23969)
+(stop)
+
+(usleep 118092)
+(zoomcenter -0.45538149295795307865 -0.50348967386021790932)
+
+(usleep 13913)
+(morphview -0.8441 -0.06208 5.213 7.645)
+
+(usleep 32363)
+(zoomcenter -0.45545610267126003436 -0.5034918413057238955)
+
+(usleep 15651)
+(zoomcenter -0.45551541212155710221 -0.50349356427175353244)
+(morphview -0.8449 -0.0479 5.376 7.885)
+
+(usleep 8402)
+(zoomcenter -0.455956781103357884 -0.49211847581468281317)
+(morphview -0.8356 -0.04531 5.404 7.925)
+
+(usleep 15647)
+(zoomcenter -0.46713247075418473178 -0.50383104501534613353)
+(morphview -0.8272 -0.05217 5.454 8)
+
+(usleep 8516)
+(zoomcenter -0.45579128994473475025 -0.50350157864577461345)
+(morphview -0.806 -0.04929 5.481 8.039)
+
+(usleep 15679)
+(zoomcenter -0.45618498199165509552 -0.49190338307051232792)
+(morphview -0.7975 -0.04502 5.53 8.11)
+
+(usleep 8172)
+(zoomcenter -0.45595117706524058063 -0.50350622343806029918)
+(morphview -0.787 -0.05429 5.554 8.146)
+
+(usleep 11809)
+(zoomcenter -0.45600341946603923287 -0.50350774110314456362)
+(morphview -0.7773 -0.0511 5.59 8.198)
+
+(usleep 11767)
+(morphview -0.7674 -0.04798 5.624 8.248)
+
+(usleep 20003)
+(zoomcenter -0.45607865608871330944 -0.50350992676064775726)
+
+(usleep 8285)
+(morphview -0.7598 -0.04124 5.703 8.364)
+
+(usleep 11759)
+(zoomcenter -0.46823005085162582164 -0.5038629302075579142)
+
+(usleep 8202)
+(morphview -0.7382 -0.03624 5.756 8.442)
+
+(usleep 7791)
+(zoomcenter -0.45617041368637268554 -0.50351259235985557951)
+
+(usleep 12200)
+(zoomcenter -0.45656771617449085277 -0.49129059577359021537)
+(morphview -0.7285 -0.03185 5.806 8.516)
+
+(usleep 8037)
+(zoomcenter -0.45627754157100661509 -0.50351570447276720887)
+(morphview -0.7167 -0.04217 5.826 8.544)
+
+(usleep 12017)
+(zoomcenter -0.4563189621368964099 -0.5035169077587123494)
+(morphview -0.7057 -0.03954 5.854 8.586)
+
+(usleep 8418)
+(zoomcenter -0.45637963758844822732 -0.50351867040768874507)
+(morphview -0.6941 -0.03764 5.874 8.615)
+
+(usleep 11570)
+(zoomcenter -0.45642072326255507577 -0.50351986396487796716)
+(morphview -0.6827 -0.03522 5.9 8.653)
+
+(usleep 7785)
+(zoomcenter -0.45647587108300423763 -0.50352146603370117321)
+(morphview -0.6709 -0.03351 5.917 8.678)
+
+(usleep 12198)
+(zoomcenter -0.45651168250989351293 -0.50352250637165227521)
+(morphview -0.6592 -0.03109 5.943 8.716)
+
+(usleep 7979)
+(zoomcenter -0.45656648224400361836 -0.50352409832841181318)
+(morphview -0.6472 -0.02944 5.959 8.74)
+
+(usleep 11997)
+(morphview -0.6353 -0.02718 5.983 8.774)
+
+(usleep 8066)
+(zoomcenter -0.45660103366541305366 -0.50352510206264077609)
+
+(usleep 11999)
+(zoomcenter -0.45663345343788169775 -0.50352604387151562217)
+(morphview -0.6237 -0.02383 6.02 8.829)
+
+(usleep 7740)
+(zoomcenter -0.45668026318825225221 -0.50352740371567773005)
+(morphview -0.6114 -0.02238 6.034 8.849)
+
+(usleep 12250)
+(zoomcenter -0.46949160647314029294 -0.50389957896200565087)
+(morphview -0.5991 -0.02034 6.054 8.88)
+
+(usleep 7503)
+(zoomcenter -0.45675315971885435947 -0.50352952139246071712)
+(morphview -0.5737 -0.01864 6.066 8.898)
+
+(usleep 12488)
+(zoomcenter -0.46963103780444355226 -0.50390362950447568414)
+(morphview -0.5612 -0.01671 6.086 8.926)
+
+(usleep 8217)
+(zoomcenter -0.45681992126075830752 -0.50353146084508100934)
+(morphview -0.5357 -0.015 6.098 8.944)
+
+(usleep 15505)
+(zoomcenter -0.46976430944415797507 -0.50390750110515301115)
+(morphview -0.523 -0.01288 6.12 8.976)
+
+(usleep 7567)
+(zoomcenter -0.45689147004780418935 -0.50353353936931153788)
+(morphview -0.4972 -0.01135 6.129 8.99)
+
+(usleep 12466)
+(zoomcenter -0.45691207050436271849 -0.50353413782177851505)
+(morphview -0.4843 -0.00974 6.145 9.012)
+
+(usleep 8015)
+(morphview -0.4713 -0.008633 6.154 9.026)
+
+(usleep 11954)
+(zoomcenter -0.46998182552682835254 -0.50391382004453726898)
+(animateview -0.4713 -0.007602 6.167 9.044)
+
+(usleep 7540)
+(zoomcenter -0.45697168481741730039 -0.50353586964420746555)
+(morphview -0.4452 -0.006251 6.174 9.055)
+
+(usleep 12462)
+(zoomcenter -0.47006734175412709877 -0.50391630432914757119)
+(morphview -0.4321 -0.004946 6.185 9.072)
+
+(usleep 7766)
+(morphview -0.4059 -0.00367 6.192 9.081)
+
+(usleep 12292)
+(zoomcenter -0.47011597637698820021 -0.50391771718667085226)
+
+(usleep 7256)
+(zoomcenter -0.45701795916289625793 -0.50353721393461826184)
+(morphview -0.3795 -0.001762 6.206 9.102)
+
+(usleep 12720)
+(zoomcenter -0.4566466175286491196 -0.51667176999050933462)
+(morphview -0.3662 -0.0007388 6.214 9.114)
+
+(usleep 7171)
+(zoomcenter -0.47020879804771582408 -0.50392041369767671824)
+(morphview -0.3534 0.01308 6.217 9.119)
+
+(usleep 12796)
+(zoomcenter -0.45705222268670686489 -0.50353820930529335121)
+(morphview -0.3269 0.01432 6.223 9.127)
+
+(usleep 7232)
+(zoomcenter -0.45706439169891817652 -0.503538562820535009)
+(morphview -0.3137 0.01491 6.226 9.131)
+
+(usleep 12779)
+(zoomcenter -0.46987636693673450248 -0.51709761947016949512)
+(morphview -0.3004 0.01561 6.229 9.136)
+
+(usleep 7067)
+(zoomcenter -0.45707751483078526547 -0.50353894405337895108)
+(morphview -0.2744 0.02967 6.231 9.138)
+
+(usleep 12924)
+(zoomcenter -0.45708029942852000869 -0.50353902494718725885)
+(morphview -0.2612 0.03019 6.232 9.141)
+
+(usleep 7491)
+(zoomcenter -0.47028739798751139972 -0.50392269706104496693)
+(morphview -0.2479 0.03059 6.232 9.141)
+
+(usleep 12570)
+(morphview -0.2215 0.03136 6.232 9.141)
+
+(usleep 6763)
+(morphview -0.2083 0.03174 6.232 9.141)
+
+(usleep 13202)
+(morphview -0.1951 0.03213 6.232 9.141)
+
+(usleep 6620)
+(morphview -0.1819 0.03251 6.232 9.141)
+
+(usleep 13361)
+(morphview -0.1555 0.03328 6.232 9.141)
+
+(usleep 6624)
+(morphview -0.1423 0.03366 6.232 9.141)
+
+(usleep 13377)
+(morphview -0.1291 0.03404 6.232 9.141)
+
+(usleep 6584)
+(morphview -0.1159 0.03443 6.232 9.141)
+
+(usleep 13445)
+(morphview -0.1027 0.03481 6.232 9.141)
+
+(usleep 6704)
+(morphview -0.0895 0.0352 6.232 9.141)
+
+(usleep 13326)
+(morphview -0.07629 0.03558 6.232 9.141)
+
+(usleep 14655)
+(morphview -0.06309 0.03596 6.232 9.141)
+
+(usleep 159743)
+(morphview -0.04988 0.03635 6.232 9.141)
+
+(usleep 71238)
+(morphview -0.03668 0.03673 6.232 9.141)
+
+(usleep 95035)
+(animateview -0.03668 0.03673 6.232 9.141)
+
+(usleep 6614)
+(morphview -0.02386 0.0503 6.232 9.141)
+
+(usleep 19247)
+(morphview -0.01066 0.05069 6.232 9.141)
+
+(usleep 13423)
+(morphview 0.002548 0.05107 6.232 9.141)
+
+(usleep 6488)
+(morphview 0.002165 0.06426 6.232 9.141)
+
+(usleep 13576)
+(morphview 0.01537 0.06464 6.232 9.141)
+
+(usleep 14383)
+(morphview 0.02857 0.06503 6.232 9.141)
+
+(usleep 20597)
+(morphview 0.04139 0.0786 6.232 9.141)
+
+(usleep 13008)
+(morphview 0.0546 0.07899 6.232 9.141)
+
+(usleep 6716)
+(morphview 0.06742 0.09256 6.232 9.141)
+
+(usleep 13281)
+(morphview 0.08024 0.1061 6.232 9.141)
+
+(usleep 6599)
+(morphview 0.09344 0.1065 6.232 9.141)
+
+(usleep 13362)
+(morphview 0.1063 0.1201 6.232 9.141)
+
+(usleep 8195)
+(morphview 0.1323 0.134 6.232 9.141)
+
+(usleep 18594)
+(morphview 0.1583 0.148 6.232 9.141)
+
+(usleep 13212)
+(morphview 0.1579 0.1612 6.232 9.141)
+
+(usleep 6894)
+(morphview 0.184 0.1752 6.232 9.141)
+
+(usleep 13149)
+(morphview 0.1968 0.1887 6.232 9.141)
+
+(usleep 6637)
+(morphview 0.21 0.1891 6.232 9.141)
+
+(usleep 13322)
+(morphview 0.2613 0.2434 6.232 9.141)
+
+(usleep 8309)
+(morphview 0.2745 0.2438 6.232 9.141)
+
+(usleep 7805)
+(morphview 0.2873 0.2574 6.232 9.141)
+
+(usleep 19235)
+(morphview 0.3261 0.2849 6.232 9.141)
+
+(usleep 21091)
+(morphview 0.4174 0.3272 6.232 9.141)
+
+(usleep 22889)
+(morphview 0.4563 0.3547 6.232 9.141)
+
+(usleep 12674)
+(morphview 0.4687 0.3814 6.232 9.141)
+
+(usleep 8131)
+(morphview 0.4947 0.3954 6.232 9.141)
+
+(usleep 11870)
+(morphview 0.5075 0.409 6.232 9.141)
+
+(usleep 8039)
+(morphview 0.5336 0.4229 6.232 9.141)
+
+(usleep 12110)
+(morphview 0.5464 0.4365 6.232 9.141)
+
+(usleep 8209)
+(morphview 0.5592 0.4501 6.232 9.141)
+
+(usleep 11671)
+(morphview 0.572 0.4637 6.232 9.141)
+
+(usleep 8026)
+(morphview 0.5981 0.4776 6.232 9.141)
+
+(usleep 12035)
+(morphview 0.6113 0.478 6.232 9.141)
+
+(usleep 8061)
+(morphview 0.6241 0.4916 6.232 9.141)
+
+(usleep 11852)
+(morphview 0.6369 0.5051 6.232 9.141)
+
+(usleep 8003)
+(morphview 0.6497 0.5187 6.232 9.141)
+
+(usleep 11998)
+(morphview 0.701 0.573 6.232 9.141)
+
+(usleep 8035)
+(morphview 0.7142 0.5734 6.232 9.141)
+
+(usleep 12055)
+(morphview 0.727 0.587 6.232 9.141)
+
+(usleep 7922)
+(morphview 0.7398 0.6005 6.232 9.141)
+
+(usleep 19193)
+(morphview 0.8043 0.6552 6.232 9.141)
+
+(usleep 20083)
+(morphview 0.8688 0.7099 6.232 9.141)
+
+(usleep 12740)
+(animateview 0.8688 0.7099 6.232 9.141)
+
+(usleep 6557)
+(morphview 0.8945 0.7371 6.232 9.141)
+
+(usleep 20328)
+(morphview 0.9333 0.7646 6.232 9.141)
+
+(usleep 19828)
+(morphview 0.9589 0.7917 6.232 9.141)
+
+(usleep 20313)
+(morphview 0.9718 0.8053 6.232 9.141)
+
+(usleep 12950)
+(morphview 0.9978 0.8193 6.232 9.141)
+
+(usleep 6546)
+(morphview 1.011 0.8196 6.232 9.141)
+
+(usleep 13454)
+(morphview 1.037 0.8336 6.232 9.141)
+
+(usleep 6879)
+(morphview 1.05 0.8472 6.232 9.141)
+
+(usleep 13149)
+(morphview 1.076 0.8611 6.232 9.141)
+
+(usleep 6930)
+(morphview 1.089 0.8747 6.232 9.141)
+
+(usleep 13126)
+(morphview 1.102 0.8883 6.232 9.141)
+
+(usleep 7018)
+(morphview 1.114 0.9019 6.232 9.141)
+
+(usleep 12900)
+(morphview 1.127 0.9154 6.232 9.141)
+
+(usleep 6863)
+(morphview 1.14 0.929 6.232 9.141)
+
+(usleep 13139)
+(morphview 1.153 0.9426 6.232 9.141)
+
+(usleep 7106)
+(morphview 1.179 0.9565 6.232 9.141)
+
+(usleep 12894)
+(morphview 1.205 0.9705 6.232 9.141)
+
+(usleep 6900)
+(morphview 1.218 0.9841 6.232 9.141)
+
+(usleep 13101)
+(morphview 1.269 1.038 6.232 9.141)
+
+(usleep 7021)
+(morphview 1.282 1.039 6.232 9.141)
+
+(usleep 13043)
+(morphview 1.333 1.093 6.232 9.141)
+
+(usleep 7976)
+(morphview 1.347 1.093 6.232 9.141)
+
+(usleep 11961)
+(morphview 1.359 1.107 6.232 9.141)
+
+(usleep 8003)
+(morphview 1.411 1.161 6.232 9.141)
+
+(usleep 11999)
+(morphview 1.424 1.162 6.232 9.141)
+
+(usleep 6929)
+(morphview 1.437 1.175 6.232 9.141)
+
+(usleep 13102)
+(morphview 1.45 1.189 6.232 9.141)
+
+(usleep 6892)
+(morphview 1.462 1.202 6.232 9.141)
+
+(usleep 13082)
+(morphview 1.475 1.216 6.232 9.141)
+
+(usleep 6604)
+(morphview 1.502 1.217 6.232 9.141)
+
+(usleep 13461)
+(morphview 1.514 1.23 6.232 9.141)
+
+(usleep 6868)
+(morphview 1.527 1.244 6.232 9.141)
+
+(usleep 13070)
+(morphview 1.54 1.257 6.232 9.141)
+
+(usleep 6789)
+(morphview 1.566 1.271 6.232 9.141)
+
+(usleep 13211)
+(morphview 1.579 1.285 6.232 9.141)
+
+(usleep 6897)
+(morphview 1.592 1.299 6.232 9.141)
+
+(usleep 13104)
+(morphview 1.618 1.313 6.232 9.141)
+
+(usleep 7087)
+(morphview 1.669 1.367 6.232 9.141)
+
+(usleep 12913)
+(morphview 1.682 1.38 6.232 9.141)
+
+(usleep 7376)
+(morphview 1.708 1.394 6.232 9.141)
+
+(usleep 12685)
+(morphview 1.721 1.408 6.232 9.141)
+
+(usleep 6936)
+(morphview 1.734 1.421 6.232 9.141)
+
+(usleep 13004)
+(morphview 1.76 1.435 6.232 9.141)
+
+(usleep 7099)
+(morphview 1.772 1.449 6.232 9.141)
+
+(usleep 12904)
+(morphview 1.785 1.463 6.232 9.141)
+
+(usleep 6674)
+(morphview 1.811 1.477 6.232 9.141)
+
+(usleep 19990)
+(morphview 1.837 1.504 6.232 9.141)
+
+(usleep 13361)
+(animateview 1.837 1.504 6.232 9.141)
+
+(usleep 6842)
+(morphview 1.876 1.531 6.232 9.141)
+
+(usleep 19631)
+(morphview 1.915 1.559 6.232 9.141)
+
+(usleep 20131)
+(morphview 1.941 1.573 6.232 9.141)
+
+(usleep 19836)
+(morphview 1.966 1.6 6.232 9.141)
+
+(usleep 20035)
+(morphview 2.005 1.627 6.232 9.141)
+
+(usleep 20012)
+(morphview 2.044 1.655 6.232 9.141)
+
+(usleep 20135)
+(morphview 2.083 1.682 6.232 9.141)
+
+(usleep 19780)
+(morphview 2.108 1.71 6.232 9.141)
+
+(usleep 20429)
+(morphview 2.121 1.723 6.232 9.141)
+
+(usleep 13149)
+(morphview 2.134 1.737 6.232 9.141)
+
+(usleep 6884)
+(morphview 2.147 1.75 6.232 9.141)
+
+(usleep 13148)
+(morphview 2.173 1.764 6.232 9.141)
+
+(usleep 6914)
+(morphview 2.186 1.778 6.232 9.141)
+
+(usleep 13119)
+(morphview 2.199 1.791 6.232 9.141)
+
+(usleep 6816)
+(morphview 2.225 1.805 6.232 9.141)
+
+(usleep 13121)
+(morphview 2.251 1.819 6.232 9.141)
+
+(usleep 6843)
+(morphview 2.263 1.833 6.232 9.141)
+
+(usleep 13159)
+(morphview 2.315 1.887 6.232 9.141)
+
+(usleep 6942)
+(morphview 2.328 1.901 6.232 9.141)
+
+(usleep 13058)
+(morphview 2.354 1.915 6.232 9.141)
+
+(usleep 7133)
+(morphview 2.366 1.942 6.232 9.141)
+
+(usleep 12867)
+(morphview 2.379 1.955 6.232 9.141)
+
+(usleep 7112)
+(morphview 2.391 1.982 6.232 9.141)
+
+(usleep 12960)
+(morphview 2.404 1.995 6.232 9.141)
+
+(usleep 7199)
+(morphview 2.455 2.05 6.232 9.141)
+
+(usleep 12732)
+(morphview 2.468 2.063 6.232 9.141)
+
+(usleep 7270)
+(morphview 2.519 2.118 6.232 9.141)
+
+(usleep 12730)
+(morphview 2.532 2.131 6.232 9.141)
+
+(usleep 7180)
+(morphview 2.584 2.185 6.232 9.141)
+
+(usleep 12853)
+(morphview 2.597 2.186 6.232 9.141)
+
+(usleep 7211)
+(morphview 2.609 2.213 6.232 9.141)
+
+(usleep 12769)
+(morphview 2.635 2.227 6.232 9.141)
+
+(usleep 7127)
+(morphview 2.648 2.253 6.232 9.141)
+
+(usleep 12925)
+(morphview 2.647 2.267 6.232 9.141)
+
+(usleep 7130)
+(morphview 2.699 2.321 6.232 9.141)
+
+(usleep 12828)
+(morphview 2.711 2.348 6.232 9.141)
+
+(usleep 7975)
+(morphview 2.762 2.402 6.232 9.141)
+
+(usleep 12013)
+(morphview 2.775 2.429 6.232 9.141)
+
+(usleep 8043)
+(morphview 2.788 2.442 6.232 9.141)
+
+(usleep 11956)
+(morphview 2.838 2.523 6.232 9.141)
+
+(usleep 8040)
+(morphview 2.851 2.536 6.232 9.141)
+
+(usleep 11987)
+(morphview 2.901 2.617 6.232 9.141)
+
+(usleep 7973)
+(morphview 2.914 2.631 6.232 9.141)
+
+(usleep 12061)
+(morphview 2.966 2.685 6.232 9.141)
+
+(usleep 7992)
+(morphview 2.978 2.699 6.232 9.141)
+
+(usleep 11944)
+(morphview 2.991 2.712 6.232 9.141)
+
+(usleep 8003)
+(animateview 2.991 2.712 6.232 9.141)
+
+(usleep 7048)
+(morphview 3.004 2.739 6.232 9.141)
+
+(usleep 19848)
+(morphview 3.016 2.766 6.232 9.141)
+
+(usleep 20533)
+(morphview 3.08 2.834 6.232 9.141)
+
+(usleep 19696)
+(morphview 3.13 2.927 6.232 9.141)
+
+(usleep 20195)
+(morphview 3.156 2.968 6.232 9.141)
+
+(usleep 19519)
+(morphview 3.168 2.981 6.232 9.141)
+
+(usleep 13209)
+(morphview 3.181 2.995 6.232 9.141)
+
+(usleep 7005)
+(morphview 3.194 3.022 6.232 9.141)
+
+(usleep 13015)
+(morphview 3.206 3.035 6.232 9.141)
+
+(usleep 8183)
+(morphview 3.232 3.049 6.232 9.141)
+
+(usleep 7857)
+(morphview 3.245 3.076 6.232 9.141)
+
+(usleep 12157)
+(morphview 3.257 3.103 6.232 9.141)
+
+(usleep 7398)
+(morphview 3.27 3.129 6.232 9.141)
+
+(usleep 12580)
+(morphview 3.321 3.184 6.232 9.141)
+
+(usleep 7595)
+(morphview 3.333 3.211 6.232 9.141)
+
+(usleep 12440)
+(morphview 3.359 3.225 6.232 9.141)
+
+(usleep 7419)
+(morphview 3.372 3.251 6.232 9.141)
+
+(usleep 12600)
+(morphview 3.384 3.278 6.232 9.141)
+
+(usleep 7218)
+(morphview 3.397 3.292 6.232 9.141)
+
+(usleep 12727)
+(morphview 3.448 3.346 6.232 9.141)
+
+(usleep 7366)
+(morphview 3.461 3.373 6.232 9.141)
+
+(usleep 12597)
+(morphview 3.512 3.427 6.232 9.141)
+
+(usleep 7552)
+(morphview 3.525 3.454 6.232 9.141)
+
+(usleep 12508)
+(morphview 3.537 3.467 6.232 9.141)
+
+(usleep 7300)
+(morphview 3.55 3.494 6.232 9.141)
+
+(usleep 12699)
+(morphview 3.563 3.508 6.232 9.141)
+
+(usleep 7478)
+(morphview 3.575 3.534 6.232 9.141)
+
+(usleep 12550)
+(morphview 3.588 3.548 6.232 9.141)
+
+(usleep 7128)
+(morphview 3.601 3.562 6.232 9.141)
+
+(usleep 12829)
+(morphview 3.613 3.588 6.232 9.141)
+
+(usleep 7238)
+(morphview 3.626 3.602 6.232 9.141)
+
+(usleep 12821)
+(morphview 3.638 3.629 6.232 9.141)
+
+(usleep 7274)
+(morphview 3.651 3.642 6.232 9.141)
+
+(usleep 12681)
+(morphview 3.664 3.656 6.232 9.141)
+
+(usleep 7097)
+(morphview 3.677 3.669 6.232 9.141)
+
+(usleep 12906)
+(morphview 3.69 3.683 6.232 9.141)
+
+(usleep 7263)
+(morphview 3.703 3.697 6.232 9.141)
+
+(usleep 12757)
+(morphview 3.702 3.71 6.232 9.141)
+
+(usleep 7121)
+(morphview 3.715 3.723 6.232 9.141)
+
+(usleep 19725)
+(morphview 3.728 3.737 6.232 9.141)
+
+(usleep 20538)
+(morphview 3.74 3.764 6.232 9.141)
+
+(usleep 19642)
+(morphview 3.753 3.79 6.232 9.141)
+
+(usleep 12936)
+(animateview 3.753 3.79 6.232 9.141)
+
+(usleep 7338)
+(morphview 3.765 3.83 6.232 9.141)
+
+(usleep 19757)
+(morphview 3.777 3.857 6.232 9.141)
+
+(usleep 20396)
+(morphview 3.789 3.91 6.232 9.141)
+
+(usleep 19616)
+(morphview 3.801 3.937 6.232 9.141)
+
+(usleep 19559)
+(morphview 3.801 3.95 6.232 9.141)
+
+(usleep 13343)
+(morphview 3.814 3.951 6.232 9.141)
+
+(usleep 6819)
+(morphview 3.814 3.964 6.232 9.141)
+
+(usleep 13214)
+(morphview 3.813 3.977 6.232 9.141)
+
+(usleep 7429)
+(morphview 3.826 4.004 6.232 9.141)
+
+(usleep 19381)
+(morphview 3.825 4.03 6.232 9.141)
+
+(usleep 13217)
+(morphview 3.838 4.044 6.232 9.141)
+
+(usleep 6617)
+(morphview 3.837 4.057 6.232 9.141)
+
+(usleep 20042)
+(morphview 3.837 4.07 6.232 9.141)
+
+(usleep 13289)
+(morphview 3.85 4.084 6.232 9.141)
+
+(usleep 14406)
+(morphview 3.849 4.11 6.232 9.141)
+
+(usleep 13363)
+(morphview 3.849 4.123 6.232 9.141)
+
+(usleep 6970)
+(morphview 3.862 4.137 6.232 9.141)
+
+(usleep 13060)
+(morphview 3.861 4.15 6.232 9.141)
+
+(usleep 7074)
+(morphview 3.861 4.163 6.232 9.141)
+
+(usleep 12929)
+(morphview 3.873 4.19 6.232 9.141)
+
+(usleep 6800)
+(morphview 3.873 4.203 6.232 9.141)
+
+(usleep 19732)
+(morphview 3.886 4.217 6.232 9.141)
+
+(usleep 26228)
+(morphview 3.885 4.23 6.232 9.141)
+
+(usleep 30382)
+(morphview 3.885 4.243 6.232 9.141)
+
+(usleep 20166)
+(morphview 3.885 4.256 6.232 9.141)
+
+(usleep 18970)
+(morphview 3.884 4.269 6.232 9.141)
+
+(usleep 32092)
+(morphview 3.884 4.283 6.232 9.141)
+
+(usleep 20802)
+(morphview 3.883 4.296 6.232 9.141)
+
+(usleep 19158)
+(morphview 3.883 4.309 6.232 9.141)
+
+(usleep 20246)
+(morphview 3.883 4.322 6.232 9.141)
+
+(usleep 20591)
+(morphview 3.882 4.335 6.232 9.141)
+
+(usleep 12834)
+(morphview 3.895 4.336 6.232 9.141)
+
+(usleep 92861)
+(animateview 3.895 4.336 6.232 9.141)
+
+(usleep 6504)
+(morphview 3.895 4.349 6.232 9.141)
+
+(usleep 30917)
+(morphview 3.895 4.362 6.232 9.141)
+
+(usleep 531932)
+(animateview 3.895 4.362 6.232 9.141)
+
+(usleep 6772)
+(morphview 3.895 4.349 6.232 9.141)
+
+(usleep 552452)
+(animateview 3.895 4.349 6.232 9.141)
+
+(usleep 508258)
+(animateview 3.895 4.349 6.232 9.141)
+
+(usleep 508303)
+(animateview 3.895 4.349 6.232 9.141)
+
+(usleep 508339)
+(animateview 3.895 4.349 6.232 9.141)
+
+(usleep 538959)
+(animateview 3.895 4.349 6.232 9.141)
+
+(usleep 528639)
+(animateview 3.895 4.349 6.232 9.141)
+
+
+
+(textsleep)
+
+(range 50)
+(formula 'barnsley)
+(angle 0)
+(maxiter 7)
+(outcoloring 0)
+(incoloring 0)
+(plane 0)
+(view 0.63179 0.75369 0.41932 0.41932)
+
+(initstate)
+
+(clearscreen)
+(message "fractal")
+(usleep 5000000)
+(text " Fraktálok....")
+(usleep 5000000)
+(text "  Fraktálok.....")
+(usleep 5000000)
+(text "   Fraktálok......")
+(usleep 5000000)
+(text "    Fraktálok.......")
+(usleep 5000000)
+(text "     Fraktálok........")
+(usleep 5000000)
+
+(clearscreen)
+(message "fractal1")
+(textsleep)
+(clearscreen)
+(message "fractal2")
+(textsleep)
+(clearscreen)
+(message "fractal3")
+(textsleep)
+(clearscreen)
+(text "Semmi baj!
+
+Ez csupán számunkra,
+matematikusok számára fontos.")
+(textsleep)
+(text "Van azonban rövidebb,
+közérthetõbb, szemléletesebb
+definíció is.")
+(textsleep)
+(clearscreen)
+
+
+(defaultpalette 0)
+
+(range 50)
+(formula 'barnsley)
+(angle 0)
+(maxiter 7)
+(outcoloring 0)
+(incoloring 0)
+(plane 0)
+(view 0.63179 0.75369 0.41932 0.41932)
+
+
+
+(message "fractal5")
+(textsleep)
+(maxiter 9)
+(display)
+(message "fractal6")
+(textsleep)
+(maxiter 11)
+(message "fractal7")
+(textsleep)
+(maxiter 12)
+(message "fractal8")
+(textsleep)
+(display)
+(maxiter 13)
+(usleep 1000000)
+(maxiter 14)
+(usleep 500000)
+(maxiter 15)
+(usleep 200000)
+(maxiter 17)
+(usleep 200000)
+(maxiter 20)
+(usleep 200000)
+(maxiter 25)
+(textposition 'center 'bottom)
+(message "fractal9")
+(textsleep)
+(display)
+(message "facts")
+(textsleep)
+(display)
+(usleep 1000000)
+(message "fact1")
+(textsleep)
+(display)
+(morphview 0.0 0.0 2.5 2.5)
+(usleep 6000000)
+(wait)
+(display)
+(message "fact2")
+(textsleep)
+(display)
+(message "fact3")
+(textsleep)
+(display)
+;(message "fact4")
+;(textsleep)
+(display)
+(message "fact5")
+(textsleep)
+(display)
+(message "fact6")
+(textsleep)
+(display)
+(usleep 1000000)
+(clearscreen)
+(usleep 1000000)
+;(textposition 'center 'middle)
+(message "fmath4")
+(textsleep)
+;(clearscreen)
+;(usleep 1000000)
+(message "fmath5")
+(textsleep)
+(clearscreen)
+(textposition 'center 'bottom)
+(message "fmath6")
+(linekey 0)
+(line 'scaled 0.05 0.5 0.05 0.5)
+(morphlastline 'scaled 0.05 0.5 0.95 0.5)
+(usleep 1000000)
+(textsleep)
+(clearscreen)
+(load "flake1.xhf")
+(message "fmath7")
+(usleep 1000000)
+(textsleep)
+(message "fmath8")
+(textsleep)
+(message "fmath9")
+(textsleep)
+(clearscreen)
+(load "flake2.xhf")
+(message "fmath10")
+(usleep 1000000)
+(textsleep)
+(clearscreen)
+(load "flake3.xhf")
+(message "fmath11")
+(usleep 500000)
+(clearscreen)
+(load "flake4.xhf")
+(message "fmath12")
+(usleep 500000)
+(textsleep)
+(message "fmath13")
+(textsleep)
+(message "fmath14")
+(textsleep)
+
+(load "flake5.xhf")
+(usleep 2000000)
+(text "")
+(usleep 2000000)
+
+(clearscreen)
+(display)
+(formula 'koch)
+(view 0.00316 0.0009989 3.0 3.0)
+(usleep 2000000)
+(zoomcenter 0.0 0.0)
+(zoom)
+
+(filter 'palette #t)
+(palette 1 1675067824 138)
+(cycling #t)
+(cyclingspeed -30)
+
+(usleep 3500000)
+(stop)
+(cycling #f)
+(clearscreen)
+
+
+(message "tree1")
+(textsleep)
+(clearscreen)
+(textposition 'center 'bottom)
+(message "tree2")
+(line 'scaled 0.500 0.800 0.500 0.500)
+(line 'scaled 0.500 0.500 0.500 0.200)
+(line 'scaled 0.500 0.500 0.500 0.200)
+(textsleep)
+(linekey 0)
+(morphline 'scaled 0.500 0.800 0.500 0.500)
+(morphline 'scaled 0.500 0.500 0.650 0.240)
+(morphline 'scaled 0.500 0.500 0.350 0.240)
+(usleep 1000000)
+(usleep 1000000)
+(clearscreen)
+(load "tree.xhf")
+(message "tree3")
+(usleep 3000000)
+
+(text "")
+(usleep 2000000)
+(message "nstr")
+(textsleep)
+
+(clearscreen)
+(message "nstr2")
+(line 'scaled 0 0.5 0.5 0.5)
+(line 'scaled 0.5 0.5 1 0.5)
+(textsleep)
+(message "nstr3")
+(linekey 0)
+(morphline 'scaled 0.000 0.500 0.665 0.680)
+(morphline 'scaled 0.665 0.680 1.000 0.500)
+(message "nstr3")
+(usleep 1000000)
+(textsleep)
+(load "coast.xhf")
+(message "nstr4")
+(linekey 0)
+(morphline 'scaled 0 0.5 0 0.5)
+(morphline 'scaled 1 0.5 1 0.5)
+(usleep 1000000)
+(textsleep)
+(text "")
+(usleep 1000000)
+(message "nstr5")
+(textsleep)

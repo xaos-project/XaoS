@@ -1,0 +1,70 @@
+; part for Bolyai.xaf
+
+(initstate)
+(formula 'carpet)
+(plane 1)
+(view 0.32622 -0.49166 0.21305 0.21305)
+(palette 3 1511036653 0)
+;(view 3456.7177667684657059 -2522.4799751508215933 4683.1080715734200037 4683.1080715734200353)
+
+(unzoom)
+
+(usleep 10000000)
+(zoomcenter 0.18669458707165150385 -0.38868516453635421515)
+
+(text "Kedves Vendégeink!")
+(textsleep)
+(text "Önök most a
+
+Bevezetés a fraktálok világába
+
+címû fraktálbemutatóból
+láttak részleteket.")
+(textsleep)
+(usleep 1000000)
+(text "A program ingyenesen letölthetõ
+a Bolyai Intézet weboldaláról.")
+(textsleep)
+(usleep 10000000)
+
+(textsleep)
+(color 'black)
+(text "Szeretettel köszöntjük
+kedves vendégeinket az
+
+EGYETEMI TAVASZ
+a Bolyai Intézetben
+
+rendezvényünkön!")
+(usleep 50000000)
+
+(color 'black)
+(text "A háttérben jelenleg
+a Sierpinski-szõnyeg
+geometriai inverzióval
+transzformált változatát láthatjuk.")
+(textsleep)
+(usleep 5000000)
+(text "Jól megfigyelhetõ, ahogyan
+az egyenes szakaszok körívekké
+válnak az inverzív síkon.")
+(textsleep)
+(text "Az is jól látszik, hogy
+a véges területû Sierpinski-szõnyeg
+az inverzió után
+végtelen területûvé változik,
+mivel az alapkör középpontját
+a Sierpinski-szõnyeg
+belsejében vettük fel.")
+(textsleep)
+(color 'white)
+(text "Szeretettel köszöntjük
+kedves vendégeinket az
+
+EGYETEMI TAVASZ
+a Bolyai Intézetben
+
+rendezvényünkön!")
+
+
+(usleep 300000000)

@@ -1,0 +1,67 @@
+; Based on "An introduction to fractals" by Jan Hubicka
+; Modifications by Zoltan Kovacs for the "University Spring
+; in the Bolyai Institute, 2006", 2006-04-26
+
+(letterspersec 9)
+
+(load "Bintro.xaf")
+(load "mset.xaf")
+
+(clearscreen)
+(initstate)
+(formula 'carpet)
+(view 0.959 0.19 47.6 47.6)
+(zoomcenter 0.63 0.33)
+(zoom)
+(text "Kedves Vendégeink!")
+(textsleep)
+(text "Önök most a
+
+Bevezetés a fraktálok világába
+
+címû fraktálbemutatóból
+látnak részleteket.")
+(textsleep)
+; (formula 'sier)
+; (zoomcenter 0.37 0.21)
+; (zoom)
+(text "Ezt a bemutatót
+Jan Hubièka
+cseh matematikus diák készítette
+1997-ben, 19 évesen.")
+(textsleep)
+(text "A Bolyai Intézet 2002 óta
+maga is részt a program
+továbbfejlesztésében.")
+(textsleep)
+(text "A program, mely
+
+XaoS ('kháosz')
+névre hallgat,
+
+akár felhasználóként,
+akár fejlesztõként, bárki
+számára nyitva áll...")
+(textsleep)
+; (formula 'koch)
+; (zoomcenter 0.288 0.512)
+(text "...és ingyenesen letölthetõ a
+Bolyai Intézet weboldaláról.")
+(textsleep)
+(usleep 3000000)
+(stop)
+(initstate)
+(load "julia.xaf")
+(load "power.xaf")
+(load "newton.xaf")
+(load "barnsley.xaf")
+(load "phoenix.xaf")
+(load "octo.xaf")
+(load "magnet.xaf")
+
+;(clearscreen)
+(textposition 'center 'middle)
+;(message "end")
+;(usleep 4000000)
+
+(load "Bclosing.xaf")
