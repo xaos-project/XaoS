@@ -4,7 +4,7 @@
 # Copyright (C) 1997 by Jan Hubicka
 #                             ,       ,
 # Hungarian translation by Kovacs Zoltan (kovzol@math.u-szeged.hu)
-# $Revision: 1.4 $
+# $Revision: 1.5 $
 #
 # This is a Latin2 encoded file
 #       ,           ,   , ,                                               ,,
@@ -407,7 +407,7 @@ end "Vége."
 
 fcopyright "Bevezetés a fraktálok világába
 
-Írta: Jan Hubicka 1997 júliusában,
+Írta: Jan Hubièka 1997 júliusában,
 illetve késõbb további
 módosításokat eszközölt
 
@@ -419,7 +419,7 @@ Bármiféle megjegyzést, ötletet,
 javaslatot, köszönetnyilvánítást,
 és hibajelentést a
 
-jh@ucw.cz
+xaos-discuss@lists.sourceforge.net
 
 címre várunk. Köszönjük!"
 
@@ -657,7 +657,7 @@ a Julia-halmazok elég unalmasak,
 hiszen tematikájuk nemigen változik."
 theme6 "A mag-pont választásával
 már szinte minden meghatározott."
-theme7 "Azonban óvatosan megválasztott
+theme7 "Azonban ügyesen megválasztott
 mag-pont segítségével"
 theme8 "szép képek hozhatók létre."
 

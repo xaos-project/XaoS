@@ -3317,7 +3317,9 @@ GTK interface, windowid patches
 @item Martin Dozsa (madsoft@@centrum.cz)
 cs.po (Czech translation of menus)
 @item Arpad Fekete (Fekete.Arpad.2@@stud.u-szeged.hu)
-some new fractals, and the 'More formulae' menu
+Some new fractals, and the 'More formulae' menu
+@item Claudio Fontana (claudio@@gnu.org)
+Build system fix
 @item Tim Goodwin (tgoodwin@@cygnus.co.uk)
 english.cat corrections
 @item Ben Hines

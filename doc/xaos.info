@@ -3425,7 +3425,10 @@ Appendix B Credits
      cs.po (Czech translation of menus)
 
 *Arpad Fekete (Fekete.Arpad.2@stud.u-szeged.hu)*
-     some new fractals, and the 'More formulae' menu
+     Some new fractals, and the 'More formulae' menu
+
+*Claudio Fontana (claudio@gnu.org)*
+     Build system fix
 
 *Tim Goodwin (tgoodwin@cygnus.co.uk)*
      english.cat corrections
@@ -3729,7 +3732,7 @@ Node: palette107318
 Node: cycling108182
 Node: shiftpalette109161
 Node: authors109873
-Node: lists112285
-Node: index113051
+Node: lists112344
+Node: index113110
 
 End Tag Table
