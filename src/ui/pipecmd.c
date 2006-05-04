@@ -56,6 +56,7 @@ ui_pipe_handler (void *data, int q)
 	      textmode = 0;
 	      continue;
 	    }
+	    add (buf[i]);
 	}
       else
 	{

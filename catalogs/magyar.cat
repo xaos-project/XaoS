@@ -4,7 +4,7 @@
 # Copyright (C) 1997 by Jan Hubicka
 #                             ,       ,
 # Hungarian translation by Kovacs Zoltan (kovzol@math.u-szeged.hu)
-# $Revision: 1.5 $
+# $Revision: 1.6 $
 #
 # This is a Latin2 encoded file
 #       ,           ,   , ,                                               ,,
@@ -539,7 +539,7 @@ oly módon,"
 fmath7 "hogy négy másikkal
 helyettesítjük."
 fmath8 "Ez az iteráció elsõ lépése."
-fmath9 "Ezt az átakalítást azután
+fmath9 "Ezt az átalakítást azután
 megismételjük."
 fmath10 "Az alakzat két iteráció után..."
 fmath11 "3 iteráció után..."
