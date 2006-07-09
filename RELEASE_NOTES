@@ -1,5 +1,12 @@
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.16 2006-05-06 13:38:19 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.17 2006-07-09 08:56:56 kovzol Exp $
+
+
+RELEASE NOTES FOR XAOS VERSION 3.2.2
+------------------------------------
+
+This release contains a rewritten Mac OS X port by J. B. Langston III,
+and some small fixes for pipes by Marton Torok.
 
 
 RELEASE NOTES FOR XAOS VERSION 3.2.1

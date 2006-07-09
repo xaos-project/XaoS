@@ -1038,11 +1038,19 @@ uih_registermenus_i18n (void)
   SUBMENU_I ("root", NULL, gettext ("Help"), "helpmenu");
   SUBMENU_I ("helpmenu", NULL, gettext ("Tutorials"),
 	     "tutor") SUBMENUNOOPT_I ("animroot", "f", gettext ("File"),
-				      "file");
+ 				      "file");
+#ifdef OSX_DRIVER
+  // You cannot have menu items directly on the root menu in Mac OS X
+  // So we put the "Stop Replay" item in the UI menu instead
+  MENUSEPARATOR_I ("uia");
+  MENUNOP_I ("uia", "s", gettext ("Stop replay"), "stopreplay",
+	     UI | MENUFLAG_INTERRUPT, uih_replaydisable);
+#else
   MENUNOP_I ("animroot", "s", gettext ("Stop replay"), "stopreplay",
 	     UI | MENUFLAG_INTERRUPT, uih_replaydisable);
-  SUBMENUNOOPT_I ("animroot", NULL, gettext ("Help"), "helpmenu");
+#endif
   SUBMENUNOOPT_I ("animroot", NULL, gettext ("UI"), "uia");
+  SUBMENUNOOPT_I ("animroot", NULL, gettext ("Help"), "helpmenu");
   MENUDIALOG_I ("misc", "!", gettext ("Command"), "command", UI, uih_command,
 		dcommand);
   MENUDIALOG_I ("misc", NULL, gettext ("Play string"), "playstr",
@@ -1109,7 +1117,9 @@ uih_registermenus_i18n (void)
 	     MENUFLAG_INTERRUPT, uih_loadexample);
   MENUNOP_I ("file", NULL,
 	     gettext ("Save configuration"), "savecfg", 0, uih_savecfg);
+#ifndef OSX_DRIVER
   MENUSEPARATOR_I ("file");
+#endif
   MENUNOP_I ("edit", "u", gettext ("Undo"), "undo",
 	     MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY |
 	     MENUFLAG_NOOPTION, uih_undo);

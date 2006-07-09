@@ -313,6 +313,8 @@ The following tags are supported:
 <dd>Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
 <dt>Zsigmond Kovacs
 <dd>Fractal examples
+<dt>J. B. Langston III (jb.langston@gmail.com)
+<dd>Native Mac OS X port (from version 3.2.2)
 <dt>Andreas Madritsch (amadritsch@datacomm.ch)
 <dd>New fractal types, bailout, many fixes
 <dt>Giorgio Marazzi (gmarazzi@vtr.net)
@@ -337,6 +339,8 @@ The following tags are supported:
 <dd>Win32 port
 <dt>Daniel Skarda
 Fractal examples
+<dt>Marton Torok (marton.torok@gmail.com)
+<dd>Small fixes for pipes
 <dt>Pavel Tzekov (paveltz@csoft.bg)
 <dd>Win32 support
 <dt>Charles Vidal

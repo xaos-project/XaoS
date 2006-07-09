@@ -3317,9 +3317,7 @@ GTK interface, windowid patches
 @item Martin Dozsa (madsoft@@centrum.cz)
 cs.po (Czech translation of menus)
 @item Arpad Fekete (Fekete.Arpad.2@@stud.u-szeged.hu)
-Some new fractals, and the 'More formulae' menu
-@item Claudio Fontana (claudio@@gnu.org)
-Build system fix
+some new fractals, and the 'More formulae' menu
 @item Tim Goodwin (tgoodwin@@cygnus.co.uk)
 english.cat corrections
 @item Ben Hines
@@ -3334,6 +3332,8 @@ OS/2 ports (320x200 graphics and AA-lib)
 Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
 @item Zsigmond Kovacs
 Fractal examples
+@item J. B. Langston III (jb.langston@@gmail.com)
+Native Mac OS X port (from version 3.2.2)
 @item Andreas Madritsch (amadritsch@@datacomm.ch)
 New fractal types, bailout, many fixes
 @item Giorgio Marazzi (gmarazzi@@vtr.net)
@@ -3358,6 +3358,8 @@ Periodicity checking
 Win32 port
 @item Daniel Skarda
 Fractal examples
+@item Marton Torok (marton.torok@@gmail.com)
+Small fixes for pipes
 @item Pavel Tzekov (paveltz@@csoft.bg)
 Win32 support
 @item Charles Vidal

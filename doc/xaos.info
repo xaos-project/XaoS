@@ -3425,10 +3425,7 @@ Appendix B Credits
      cs.po (Czech translation of menus)
 
 *Arpad Fekete (Fekete.Arpad.2@stud.u-szeged.hu)*
-     Some new fractals, and the 'More formulae' menu
-
-*Claudio Fontana (claudio@gnu.org)*
-     Build system fix
+     some new fractals, and the 'More formulae' menu
 
 *Tim Goodwin (tgoodwin@cygnus.co.uk)*
      english.cat corrections
@@ -3452,6 +3449,9 @@ Appendix B Credits
 
 *Zsigmond Kovacs*
      Fractal examples
+
+*J. B. Langston III (jb.langston@gmail.com)*
+     Native Mac OS X port (from version 3.2.2)
 
 *Andreas Madritsch (amadritsch@datacomm.ch)*
      New fractal types, bailout, many fixes
@@ -3489,6 +3489,9 @@ Appendix B Credits
 
 *Daniel Skarda*
      Fractal examples
+
+*Marton Torok (marton.torok@gmail.com)*
+     Small fixes for pipes
 
 *Pavel Tzekov (paveltz@csoft.bg)*
      Win32 support
@@ -3732,7 +3735,7 @@ Node: palette107318
 Node: cycling108182
 Node: shiftpalette109161
 Node: authors109873
-Node: lists112344
-Node: index113110
+Node: lists112446
+Node: index113212
 
 End Tag Table
