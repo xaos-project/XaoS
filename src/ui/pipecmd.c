@@ -89,7 +89,7 @@ ui_pipe_init (CONST char *name)
 #ifdef O_NONBLOCK
   if ((int) strlen (name) == 1 && name[0] == '-')
     {
-      pipefd = 1;
+      pipefd = 0;
       fcntl (pipefd, F_SETFL, O_NONBLOCK);
     }
   else

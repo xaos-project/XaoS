@@ -48,6 +48,10 @@ params_parser (int argc, char **argv)
   for (i = 1; i < argc && !error; i++)
     {
       found = 0;
+#ifdef OSX_DRIVER
+      if (strncmp ("-psn", argv[i], 4) == 0)
+          continue;
+#endif
       if (!strcmp ("-help", argv[i]))
 	{
 	  error = 1;
