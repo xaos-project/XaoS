@@ -2,7 +2,7 @@ TODO ITEMS
 ----------
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/TODO,v 1.8 2005-11-15 21:22:16 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/TODO,v 1.9 2006-07-13 06:01:46 kovzol Exp $
 
 
 General todos (for all platforms)
@@ -82,7 +82,7 @@ from this long todo. :)
 Additional... (for 3.1.3+)
 --------------------------
 
-  o  fix Daniel Skarda's entry in help/authors
-  o  put version string to only one place
+  o  fix Daniel Skarda's entry in help/authors [DONE]
+  o  put version string to only one place [DONE]
   o  review documentation (wiki?)
   o  create mktgz and other cool tools

@@ -40,8 +40,6 @@
 #include "osxcommon.h"
 #include "ui.h"
 
-#define kDefaultWindowWidth 640
-#define kDefaultWindowHeight 480
 #define kPixelDepth 32
 #define kWindowTitle "XaoS"
 
@@ -54,6 +52,9 @@ int osx_mouse_buttons = 0;
 int osx_keys = 0;
 
 WindowRef osx_window;
+
+static char *osx_window_size = "640x480";
+static int osx_autoscreensize = 0;
 
 static int osx_currentbuff;
 static GWorldPtr osx_offscreen[2];
@@ -196,18 +197,25 @@ static int
 osx_init ()
 {
     WindowAttributes    windowAttrs;
-    CGRect              displayRect;
     Rect                contentRect; 
     CFStringRef         windowTitle; 
     CGDirectDisplayID   mainDisplay;
+	CGSize				screenSize;
 	
-    // Determine pixel depth and configure driver
     mainDisplay = CGMainDisplayID();
-    
-    displayRect = CGDisplayBounds(mainDisplay);
-    osx_window_height = kDefaultWindowHeight;
-    osx_window_width = kDefaultWindowWidth;
-    
+
+	// Read image dimensions from parameter
+	if (sscanf(osx_window_size, "%dx%d", &osx_window_width, &osx_window_height) != 2)
+		return 0;
+
+    // Determine pixel size in mm
+	if (osx_autoscreensize) {
+		screenSize = CGDisplayScreenSize(mainDisplay);
+		osx_driver.width = screenSize.width / 10.0;
+		osx_driver.height = screenSize.height / 10.0;
+		osx_driver.flags = SCREENSIZE;
+	}
+	
 	// From: file:///Developer/ADC%20Reference%20Library/documentation/Carbon/Conceptual/HandlingWindowsControls/hitb-wind_cont_tasks/chapter_3_section_4.html#//apple_ref/doc/uid/TP30001004-CH206-TPXREF149
 	
     windowAttrs = kWindowStandardDocumentAttributes 
@@ -234,6 +242,22 @@ osx_init ()
     ShowWindow (osx_window); 
     
     SetPort (GetWindowPort(osx_window));
+
+	{
+		// The following is necessary to ensure correct colors on intel-architecture machines
+		// Determine if this is a little-endian machine and if so swap color mask bytes
+		unsigned char c[4];
+		*(unsigned short *) c = 0xff;
+		if (c[0] == (unsigned char) 0xff)
+		{
+			int shift = 0;
+#define SWAPE(c)  (((c&0xffU)<<24)|((c&0xff00U)<<8)|((c&0xff0000U)>>8)|((c&0xff000000U)>>24))
+			osx_driver.rmask = SWAPE (osx_driver.rmask) >> shift;
+			osx_driver.gmask = SWAPE (osx_driver.gmask) >> shift;
+			osx_driver.bmask = SWAPE (osx_driver.bmask) >> shift;
+		}
+	}
+
 	
     ForeColor (blackColor);
     BackColor (whiteColor);    
@@ -294,6 +318,9 @@ struct gui_driver osx_gui_driver = {
 
 
 static struct params osx_params[] = {
+	{"", P_HELP, NULL, "Mac OS X driver options:"},
+	{"-windowsize", P_STRING, &osx_window_size, "Select size of window (WIDTHxHEIGHT)."},
+	{"-autoscreensize", P_SWITCH, &osx_autoscreensize, "Automatically detect screen dimensions"},
 	{NULL, 0, NULL, NULL}
 };
 
@@ -316,7 +343,7 @@ struct ui_driver osx_driver = {
     /* textwidth */     12,
     /* textheight */    12,
     /* params */        osx_params,
-    /* flags */         RESOLUTION | PIXELSIZE,
+    /* flags */         PIXELSIZE,
     /* width */         0.01, 
     /* height */        0.01,
     /* maxwidth */      0, 
@@ -334,3 +361,4 @@ struct ui_driver osx_driver = {
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/
 
 #endif
+

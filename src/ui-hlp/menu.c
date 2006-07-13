@@ -916,9 +916,21 @@ static CONST menuitem *menuitems;	/*XaoS menu specifications */
 
 
 /* Registering internationalized menus. See also include/xmenu.h
-   for details. Note that MAX_MENUITEMS_I18N may be increased
-   if more items will be added in future. */
-#define MAX_MENUITEMS_I18N 200
+   for details. Note that MAX_MENUITEMS_I18N should be increased
+   if more items will be added in future.
+   
+   On 2006-07-12 J.B. Langston wrote:
+   
+   The menu.c.diff file changes the MAX_MENUITEMS_I18N macro from
+   200 to 250.  As of 3.2.1, the number of allocated menu items had 
+   been exceeded (there are 201 menu items now). This was causing
+   the memory within the application to be clobbered, resulting 
+   in subtle bugs on the PowerPC platform (both X11 and OSX drivers).
+   For example, rendering animations generated a segmentation fault.
+   It's quite possible it could have been causing other subtle bugs
+   elsewhere in the program. */
+
+#define MAX_MENUITEMS_I18N 250
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
 int uih_no_menuitems_i18n;
 
