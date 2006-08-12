@@ -67,12 +67,8 @@
 
 - (void)drawRect:(NSRect)rect {
 	if (imageRep[currentBuffer]) {
-    // Drawing code here.
-	[imageRep[currentBuffer] drawInRect:[self bounds]];
-	
-	unsigned char* b = [imageRep[currentBuffer] bitmapData];
-	
-	printf("(%d,%d,%d)\n", b[0], b[1], b[2]);
+        // Drawing code here.
+        [imageRep[currentBuffer] drawInRect:[self bounds]];
 	}
 }
 
@@ -103,8 +99,6 @@
                                                    colorSpaceName:NSDeviceRGBColorSpace
                                                       bytesPerRow:0
                                                      bitsPerPixel:32];
-	
-	printf("BPP:%d\n", [imageRep[0] bitsPerPixel]);
 	
 	*b2 = (char *)[imageRep[1] bitmapData];
 

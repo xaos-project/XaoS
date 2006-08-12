@@ -11,8 +11,8 @@
 #ifndef _WIN32
 /*BeOS crashes badly when large amounts of stack are consumed */
 #ifndef __BEOS__
-#define HAVE_ALLOCA 1
-#define HAVE_ALLOCA_H 1
+/* #define HAVE_ALLOCA 1 */
+/* #define HAVE_ALLOCA_H */
 #endif
 #endif
 #define HAVE_FABSL 1

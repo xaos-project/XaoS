@@ -61,6 +61,7 @@ static GWorldPtr osx_offscreen[2];
 static RGBColor mac_text_color = { 0xFFFF, 0xFFFF, 0xFFFF };	// white
 
 struct ui_driver osx_driver;
+struct ui_driver osx_fullscreen_driver;
 
 static void osx_display ();
 
@@ -90,7 +91,7 @@ osx_display ()
     if (osx_offscreen[osx_currentbuff] == nil)
         return;
     
-    // An update event occurred, so just copy from our buffer to the osx_window.
+    // An update event occurred, so just copy from our buffer to osx_window
     pmap = GetGWorldPixMap (osx_offscreen[osx_currentbuff]);
     
     CopyBits (GetPortBitMapForCopyBits(osx_offscreen[osx_currentbuff]),
@@ -110,10 +111,8 @@ void
 osx_free_buffers (char *b1, char *b2)
 {
     int i;
-    for (i = 0; i < 2; i++)
-    {
-        if (osx_offscreen[i] != nil)
-        {
+    for (i = 0; i < 2; i++) {
+        if (osx_offscreen[i] != nil) {
             DisposeGWorld (osx_offscreen[i]);
             osx_offscreen[i] = nil;
         }
@@ -136,15 +135,12 @@ osx_alloc_buffers (char **b1, char **b2)
     err1 = NewGWorld (&osx_offscreen[0], kPixelDepth, &r, nil, nil, 0);
     err2 = NewGWorld (&osx_offscreen[1], kPixelDepth, &r, nil, nil, 0);
     
-    if (err1 != noErr || err2 != noErr)
-    {
-        if (osx_offscreen[0] != nil)
-        {
+    if (err1 != noErr || err2 != noErr) {
+        if (osx_offscreen[0] != nil) {
             DisposeGWorld (osx_offscreen[0]);
             osx_offscreen[0] = nil;
         }
-        if (osx_offscreen[1] != nil)
-        {
+        if (osx_offscreen[1] != nil) {
             DisposeGWorld (osx_offscreen[1]);
             osx_offscreen[1] = nil;
         }
@@ -182,8 +178,7 @@ osx_uninit ()
 	
 	UninstallEventHandlers();
 	
-	for (i = 0; i < 2; i++)
-    {
+	for (i = 0; i < 2; i++) {
 		if (osx_offscreen[i] != nil)
 			DisposeGWorld (osx_offscreen[i]);
     }
@@ -194,33 +189,60 @@ osx_uninit ()
 }
 
 static int
-osx_init ()
+osx_init (int fullscreen)
 {
     WindowAttributes    windowAttrs;
     Rect                contentRect; 
     CFStringRef         windowTitle; 
     CGDirectDisplayID   mainDisplay;
 	CGSize				screenSize;
-	
-    mainDisplay = CGMainDisplayID();
+    struct ui_driver    *driver;
+    
+    driver = fullscreen ? &osx_fullscreen_driver : &osx_driver;
 
-	// Read image dimensions from parameter
-	if (sscanf(osx_window_size, "%dx%d", &osx_window_width, &osx_window_height) != 2)
-		return 0;
-
-    // Determine pixel size in mm
-	if (osx_autoscreensize) {
-		screenSize = CGDisplayScreenSize(mainDisplay);
-		osx_driver.width = screenSize.width / 10.0;
-		osx_driver.height = screenSize.height / 10.0;
-		osx_driver.flags = SCREENSIZE;
+    // The following is necessary to ensure correct colors on Intel-based Macs
+    // Determine if machine is little-endian and if so swap color mask bytes
+	{
+		unsigned char c[4];
+		*(unsigned short *) c = 0xff;
+		if (c[0] == (unsigned char) 0xff) {
+			int shift = 0;
+#define SWAPE(c)  (((c&0xffU)<<24)|((c&0xff00U)<<8)|((c&0xff0000U)>>8)|((c&0xff000000U)>>24))
+			driver->rmask = SWAPE (driver->rmask) >> shift;
+			driver->gmask = SWAPE (driver->gmask) >> shift;
+			driver->bmask = SWAPE (driver->bmask) >> shift;
+		}
 	}
-	
+    
+    // Determine screen dimensions
+    mainDisplay = CGMainDisplayID();
+    screenSize = CGDisplayScreenSize(mainDisplay);
+    driver->maxwidth = CGDisplayPixelsWide(mainDisplay);
+    driver->maxheight = CGDisplayPixelsHigh(mainDisplay);
+    driver->width = ((double) ((unsigned int) screenSize.width)) / driver->maxwidth / 10.0;
+    driver->height = ((double) ((unsigned int) screenSize.height)) / driver->maxheight / 10.0;
+
+    if (fullscreen) {
+        HideMenuBar();
+        osx_window_width = driver->maxwidth;
+        osx_window_height = driver->maxheight;
+    } else {
+        // Read image dimensions from parameter
+        if (sscanf(osx_window_size, "%dx%d", &osx_window_width, &osx_window_height) != 2)
+            return 0;
+    }
+
+    // Set up the window
 	// From: file:///Developer/ADC%20Reference%20Library/documentation/Carbon/Conceptual/HandlingWindowsControls/hitb-wind_cont_tasks/chapter_3_section_4.html#//apple_ref/doc/uid/TP30001004-CH206-TPXREF149
-	
-    windowAttrs = kWindowStandardDocumentAttributes 
-        | kWindowStandardHandlerAttribute 
-        | kWindowInWindowMenuAttribute; 
+        
+    if (fullscreen) {
+        windowAttrs = kWindowNoTitleBarAttribute
+            | kWindowStandardHandlerAttribute;
+    } else {
+        windowAttrs = kWindowStandardDocumentAttributes 
+            | kWindowStandardHandlerAttribute 
+            | kWindowInWindowMenuAttribute; 
+    }
     
     SetRect (&contentRect, 0,  0,              
              osx_window_width, osx_window_height);
@@ -242,22 +264,6 @@ osx_init ()
     ShowWindow (osx_window); 
     
     SetPort (GetWindowPort(osx_window));
-
-	{
-		// The following is necessary to ensure correct colors on intel-architecture machines
-		// Determine if this is a little-endian machine and if so swap color mask bytes
-		unsigned char c[4];
-		*(unsigned short *) c = 0xff;
-		if (c[0] == (unsigned char) 0xff)
-		{
-			int shift = 0;
-#define SWAPE(c)  (((c&0xffU)<<24)|((c&0xff00U)<<8)|((c&0xff0000U)>>8)|((c&0xff000000U)>>24))
-			osx_driver.rmask = SWAPE (osx_driver.rmask) >> shift;
-			osx_driver.gmask = SWAPE (osx_driver.gmask) >> shift;
-			osx_driver.bmask = SWAPE (osx_driver.bmask) >> shift;
-		}
-	}
-
 	
     ForeColor (blackColor);
     BackColor (whiteColor);    
@@ -268,6 +274,19 @@ osx_init ()
 	
     return 1;
 }
+
+static int
+osx_window_init()
+{
+    return osx_init(FALSE);
+}
+
+static int
+osx_fullscreen_init()
+{
+    return osx_init(TRUE);
+}
+
 
 static void
 osx_getmouse (int *x, int *y, int *b)
@@ -285,8 +304,7 @@ osx_processevents (int wait, int *mx, int *my, int *mb, int *k)
 	
 	theTarget = GetEventDispatcherTarget();
 	
-	if (ReceiveNextEvent(0, NULL, wait ? kEventDurationForever : kEventDurationNoWait, true, &theEvent) == noErr)
-	{
+	if (ReceiveNextEvent(0, NULL, wait ? kEventDurationForever : kEventDurationNoWait, true, &theEvent) == noErr) {
 		SendEventToEventTarget(theEvent , theTarget);
 		ReleaseEvent(theEvent);
 	}
@@ -319,14 +337,13 @@ struct gui_driver osx_gui_driver = {
 
 static struct params osx_params[] = {
 	{"", P_HELP, NULL, "Mac OS X driver options:"},
-	{"-windowsize", P_STRING, &osx_window_size, "Select size of window (WIDTHxHEIGHT)."},
-	{"-autoscreensize", P_SWITCH, &osx_autoscreensize, "Automatically detect screen dimensions"},
+	{"-size", P_STRING, &osx_window_size, "Select size of window (WIDTHxHEIGHT)."},
 	{NULL, 0, NULL, NULL}
 };
 
 struct ui_driver osx_driver = {
-    /* name */          "Mac OS X Driver",
-    /* init */          osx_init,
+    /* name */          "Mac OS X Windowed Driver",
+    /* init */          osx_window_init,
     /* getsize */       osx_getsize,
     /* processevents */ osx_processevents,
     /* getmouse */      osx_getmouse,
@@ -343,19 +360,53 @@ struct ui_driver osx_driver = {
     /* textwidth */     12,
     /* textheight */    12,
     /* params */        osx_params,
-    /* flags */         PIXELSIZE,
-    /* width */         0.01, 
-    /* height */        0.01,
+    /* flags */         RESOLUTION | PIXELSIZE | NOFLUSHDISPLAY | PALETTE_ROTATION | ROTATE_INSIDE_CALCULATION,
+    /* width */         0.0, 
+    /* height */        0.0,
     /* maxwidth */      0, 
     /* maxheight */     0,
     /* imagetype */     UI_TRUECOLOR,
     /* palettestart */  0, 
-    /* paletteend */    255, 
-    /* maxentries */    256,
+    /* paletteend */    0, 
+    /* maxentries */    0,
     /* rmask */         0x00ff0000,
     /* gmask */         0x0000ff00,
     /* bmask */         0x000000ff,
     /* gui_driver */    &osx_gui_driver
+};
+
+struct ui_driver osx_fullscreen_driver = {
+    /* name */          "Mac OS X Fullscreen Driver",
+    /* init */          osx_fullscreen_init,
+    /* getsize */       osx_getsize,
+    /* processevents */ osx_processevents,
+    /* getmouse */      osx_getmouse,
+    /* uninit */        osx_uninit,
+    /* set_color */     NULL,
+    /* set_range */     NULL,
+    /* print */         osx_print,
+    /* display */       osx_display,
+    /* alloc_buffers */ osx_alloc_buffers,
+    /* free_buffers */  osx_free_buffers,
+    /* filp_buffers */  osx_flip_buffers,
+    /* mousetype */     osx_mousetype,
+    /* flush */         NULL,
+    /* textwidth */     12,
+    /* textheight */    12,
+    /* params */        osx_params,
+    /* flags */         RESOLUTION | PIXELSIZE | NOFLUSHDISPLAY | FULLSCREEN | PALETTE_ROTATION | ROTATE_INSIDE_CALCULATION,
+    /* width */         0.0, 
+    /* height */        0.0,
+    /* maxwidth */      0, 
+    /* maxheight */     0,
+    /* imagetype */     UI_TRUECOLOR,
+    /* palettestart */  0, 
+    /* paletteend */    0, 
+    /* maxentries */    0,
+    /* rmask */         0x00ff0000,
+    /* gmask */         0x0000ff00,
+    /* bmask */         0x000000ff,
+    /* gui_driver */    NULL
 };
 
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/

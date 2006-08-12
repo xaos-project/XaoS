@@ -34,8 +34,7 @@ static EventHandlerRef commandEventHandlerRef;
 static EventHandlerRef windowEventHandlerRef;
 
 
-static const EventTypeSpec kKeyEvents[] =
-{
+static const EventTypeSpec kKeyEvents[] = {
 { kEventClassKeyboard, kEventRawKeyDown },
 { kEventClassKeyboard, kEventRawKeyRepeat },
 { kEventClassKeyboard, kEventRawKeyUp },
@@ -46,8 +45,7 @@ static OSStatus KeyEventHandler( EventHandlerCallRef handlerCallRef,
                                  EventRef event,
                                  void *userData )
 {
-    switch ( GetEventKind( event ) )
-    {
+    switch ( GetEventKind( event ) ) {
         case kEventRawKeyDown:
 		case kEventRawKeyRepeat:
 		{
@@ -62,8 +60,7 @@ static OSStatus KeyEventHandler( EventHandlerCallRef handlerCallRef,
 								   &keyChar) != noErr )
 				return eventNotHandledErr;
 			
-			switch(keyChar)
-			{
+			switch(keyChar) {
 				case kLeftArrowCharCode:
 					osx_keys |= 1;
 					ui_key(UIKEY_LEFT);
@@ -121,8 +118,7 @@ static OSStatus KeyEventHandler( EventHandlerCallRef handlerCallRef,
 								   &keyChar) != noErr )
 				return eventNotHandledErr;
 			
-			switch(keyChar)
-			{
+			switch(keyChar)	{
 				case kLeftArrowCharCode:
 					osx_keys &= ~1;
 					break;
@@ -156,8 +152,7 @@ static OSStatus KeyEventHandler( EventHandlerCallRef handlerCallRef,
 			if (primaryButtonPressed)			
 				osx_mouse_buttons &= ~primaryButtonFunction;
 			
-			switch (modifiers)
-			{
+			switch (modifiers) {
 				case controlKey:
 					primaryButtonFunction = BUTTON3;
 					break;
@@ -179,8 +174,7 @@ static OSStatus KeyEventHandler( EventHandlerCallRef handlerCallRef,
     return eventNotHandledErr;
 }
 
-static const EventTypeSpec kMouseEvents[] =
-{
+static const EventTypeSpec kMouseEvents[] = {
     { kEventClassMouse, kEventMouseDown },
     { kEventClassMouse, kEventMouseUp },
     { kEventClassMouse, kEventMouseMoved },
@@ -194,8 +188,7 @@ static OSStatus MouseEventHandler( EventHandlerCallRef handlerCallRef,
 {
 	
 	UInt32 eventKind = GetEventKind (event);
-	switch (eventKind)
-	{
+	switch (eventKind) {
 		case kEventMouseDown:
 		{
 			WindowRef window;
@@ -204,12 +197,10 @@ static OSStatus MouseEventHandler( EventHandlerCallRef handlerCallRef,
 			if (!ConvertEventRefToEventRecord( event, &oldStyleMacEvent ))
 				return eventNotHandledErr;
 			
-			switch (FindWindow ( oldStyleMacEvent.where, &window ))
-			{
+			switch (FindWindow ( oldStyleMacEvent.where, &window )) {
 				case inMenuBar:
 				{
-					if (eventKind == kEventMouseDown)
-					{
+					if (eventKind == kEventMouseDown) {
 						MenuSelect( oldStyleMacEvent.where );
 						HiliteMenu(0);
 						return noErr;
@@ -229,8 +220,7 @@ static OSStatus MouseEventHandler( EventHandlerCallRef handlerCallRef,
 											&button ) != noErr )
 						return eventNotHandledErr;
 					
-					switch (button)
-					{
+					switch (button) {
 						case kEventMouseButtonPrimary:
 							primaryButtonPressed = TRUE;
 							osx_mouse_buttons |= primaryButtonFunction;
@@ -259,8 +249,7 @@ static OSStatus MouseEventHandler( EventHandlerCallRef handlerCallRef,
 										&button ) != noErr )
 					return eventNotHandledErr;
 				
-				switch (button)
-				{
+				switch (button) {
 					case kEventMouseButtonPrimary:
 						primaryButtonPressed = FALSE;
 						osx_mouse_buttons &= ~primaryButtonFunction;
@@ -304,8 +293,7 @@ static OSStatus MouseEventHandler( EventHandlerCallRef handlerCallRef,
 	return eventNotHandledErr;
 }
 
-static const EventTypeSpec kCommandEvents[] =
-{
+static const EventTypeSpec kCommandEvents[] = {
 	{ kEventClassCommand, kEventCommandProcess }
 };
 
@@ -323,8 +311,7 @@ static OSStatus CommandHandler( EventHandlerCallRef handlerCallRef,
 							&command ) != noErr )
 		return eventNotHandledErr;
 	
-	switch ( command.commandID )
-	{
+	switch ( command.commandID ) {
 		case kHICommandClose:
 		case kHICommandQuit:
 			//driver->uninit();
@@ -340,8 +327,7 @@ static OSStatus CommandHandler( EventHandlerCallRef handlerCallRef,
 	return eventNotHandledErr;
 }
 
-static const EventTypeSpec kWindowEvents[] =
-{
+static const EventTypeSpec kWindowEvents[] = {
 	{ kEventClassWindow, kEventWindowBoundsChanged },
 	{ kEventClassWindow, kEventWindowClose },
 	{ kEventClassWindow, kEventWindowDrawContent },
@@ -351,8 +337,7 @@ static OSStatus WindowEventHandler( EventHandlerCallRef handlerCallRef,
 									EventRef event,
 									void *userData )
 {
-	switch (GetEventKind(event))
-	{
+	switch (GetEventKind(event)) {
 		case kEventWindowBoundsChanged:
 		{
 			WindowRef window;
@@ -362,9 +347,7 @@ static OSStatus WindowEventHandler( EventHandlerCallRef handlerCallRef,
 			Rect rect;
 			GetWindowPortBounds(window, &rect);
 			
-			if ( osx_window_width != rect.right ||
-				 osx_window_height != rect.bottom)
-			{
+			if ( osx_window_width != rect.right || osx_window_height != rect.bottom) {
 				osx_window_width  = rect.right;
 				osx_window_height = rect.bottom;
 				ui_call_resize();

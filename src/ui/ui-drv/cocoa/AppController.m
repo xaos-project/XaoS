@@ -1,4 +1,5 @@
 #import "AppController.h"
+#import "CustomDialog.h"
 
 AppController *controller;
 
@@ -60,7 +61,7 @@ AppController *controller;
 	item = menu_findcommand([name cString]);
 	
 	ui_menuactivate(item, NULL);
-
+	
 }
 
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name
@@ -80,7 +81,7 @@ AppController *controller;
 {
 	int i;
 	CONST menuitem *item;
-
+	
     NSMenu *newMenu;
     NSMenuItem *newItem;
 	NSString *menuTitle, *menuShortName;
@@ -93,6 +94,8 @@ AppController *controller;
 			[parentMenu addItem:[NSMenuItem separatorItem]];
 		} else {
 			menuTitle = [NSString stringWithCString:item->name];
+			if (item->type == MENU_CUSTOMDIALOG || item->type == MENU_DIALOG)
+				menuTitle = [menuTitle stringByAppendingString:@"..."];
 			menuShortName = [NSString stringWithCString:item->shortname];
 			newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:@""];
 			[menuItems setValue:newItem forKey:menuShortName];
@@ -112,14 +115,14 @@ AppController *controller;
 			[newItem release];
 		}
 	}
-
+	
 	[pool release];
 }
 
 - (void)toggleMenuWithContext:(struct uih_context *)context name:(CONST char *)name
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
+	
 	CONST struct menuitem *xaosItem = menu_findcommand(name);
 	NSMenuItem *menuItem = [menuItems objectForKey:[NSString stringWithCString:name]];
 	
@@ -134,6 +137,91 @@ AppController *controller;
 		}
 	}
 	[pool release];
+}
+
+- (void)showDialogWithContext:(struct uih_context *)context name:(CONST char *)name
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	CONST menuitem *item = menu_findcommand (name);
+	if (!item) return;
+	
+	CONST menudialog *dialog = menu_getdialog (context, item);
+	if (!dialog) return;
+	
+	int nitems;
+	for (nitems = 0; dialog[nitems].question; nitems++);
+	
+	if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE))
+	{
+		NSString *fileName = nil;
+		int result = 0;
+		
+		switch(dialog[0].type) {
+			case DIALOG_IFILE:
+			{
+				NSArray *fileTypes = nil;
+				if (strcmp(name, "loadpos") == 0)			
+					fileTypes = [NSArray arrayWithObject:@"xpf"];
+				else if (strcmp(name, "play") == 0)
+					fileTypes = [NSArray arrayWithObject:@"xaf"];
+				
+				NSOpenPanel *oPanel = [NSOpenPanel openPanel];
+				
+				int result = [oPanel runModalForDirectory:NSHomeDirectory()
+													 file:nil types:fileTypes];
+				
+				if (result == NSOKButton)
+					fileName = [oPanel filename];
+				break;
+			}
+			case DIALOG_OFILE:
+			{
+				NSSavePanel *sPanel = [NSSavePanel savePanel];
+				if (strcmp(name, "savepos") == 0)			
+					[sPanel setRequiredFileType:@"xpf"];
+				else if (strcmp(name, "record") == 0)
+					[sPanel setRequiredFileType:@"xaf"];
+				else if (strcmp(name, "saveimg") == 0)
+					[sPanel setRequiredFileType:@"png"];
+				
+				int result = [sPanel runModalForDirectory:NSHomeDirectory() file:@"untitled"];
+				
+				if (result == NSOKButton)
+					fileName = [sPanel filename];
+				break;
+			}
+		}
+		
+		if (fileName) {
+			dialogparam *param = malloc (sizeof (dialogparam));
+			param->dstring = strdup([fileName cString]);
+			ui_menuactivate (item, param);
+		}
+		
+	} else {
+		CustomDialog *customDialog = [[CustomDialog alloc] initWithContext:context menuItem:item dialog:dialog];
+		[NSApp beginSheet:customDialog modalForWindow:window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+		[NSApp runModalForWindow:customDialog];
+		[NSApp endSheet:customDialog];
+		[customDialog orderOut:self];
+		[customDialog release];
+	}
+	
+	[pool release];
+}
+
+- (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name
+{
+	NSString *anchor = [NSString stringWithCString:name];
+	
+	// Display help frontpage instead of main XaoS page
+	if ([anchor isEqualToString:@"main"])
+		anchor = @"access";
+	
+	// Display requested help page
+	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
+	
 }
 
 @end

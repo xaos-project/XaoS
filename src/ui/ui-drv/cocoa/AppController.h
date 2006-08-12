@@ -8,6 +8,7 @@
 @interface AppController : NSObject
 {
     IBOutlet FractalView *view;
+	IBOutlet NSWindow *window;
 	NSMutableDictionary *menuItems;
 }
 

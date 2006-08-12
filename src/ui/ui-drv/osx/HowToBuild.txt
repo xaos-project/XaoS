@@ -1,0 +1,36 @@
+XaoS for Mac OS X (Carbon)
+Build Instructions
+
+By J.B. Langston III
+
+Here are instructions for getting the XaoS Xcode project to build successfully 
+assuming you have downloaded a released source tarball or gotten the source 
+from CVS:
+
+1) Create the config.h symbolic link in the src/include directory:
+
+cd $XAOS_HOME/src/include
+ln -s config/config.autoconf config.h
+
+2) Build libpng
+
+    a) Download the latest libpng from 
+        ftp://ftp.simplesystems.org/pub/libpng/png/src/
+    b) Download the libpng Xcode project from 
+        http://www.bigzaphod.org/macosx/libpng/
+    c) Extract libpng
+    d) Extract libpng-xcode.tar.gz into the libpng-x.x.x/projects dir and then 
+       open the project using Xcode.
+    e) Select Project->Edit Active Target 'libpng'
+    f) On the build tab, change the following settings
+        - Framework Version -> to match your version of libpng, e.g. "1.2.12"
+        - Installation Directory -> @executable_path/../Frameworks
+    g) Select Project->Set Active Build Configuration->Release
+    h) Select Build->Build to build the project
+    i) Copy libpng.framework from $LIBPNG_HOME/projects/xcode/build/Release
+        to $XAOS_HOME/src/ui/ui-drv/osx
+
+3) Build XaoS
+
+You should now be able to build XaoS.  Have fun! If you have questions,
+feel free to e-mail me: jb-langston at austin dot rr dot com

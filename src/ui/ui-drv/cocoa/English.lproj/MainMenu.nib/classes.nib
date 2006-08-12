@@ -1,9 +1,10 @@
 {
     IBClasses = (
         {
+            ACTIONS = {performMenuAction = id; }; 
             CLASS = AppController; 
             LANGUAGE = ObjC; 
-            OUTLETS = {view = FractalView; }; 
+            OUTLETS = {view = FractalView; window = NSWindow; }; 
             SUPERCLASS = NSObject; 
         }, 
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 

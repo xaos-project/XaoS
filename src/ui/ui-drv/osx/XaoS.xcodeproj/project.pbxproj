@@ -289,6 +289,7 @@
 		3DE333600A44ADA700091810 /* rtfconv.bat in Resources */ = {isa = PBXBuildFile; fileRef = 3DE332850A44ADA700091810 /* rtfconv.bat */; };
 		3DE333610A44ADA700091810 /* xaos.hlp in Resources */ = {isa = PBXBuildFile; fileRef = 3DE332860A44ADA700091810 /* xaos.hlp */; };
 		3DE333620A44ADA700091810 /* xaoswin.Hpj in Resources */ = {isa = PBXBuildFile; fileRef = 3DE332870A44ADA700091810 /* xaoswin.Hpj */; };
+		3DE4FE6B0A7AE0AE00491C86 /* HowToBuild.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4FE6A0A7AE0AE00491C86 /* HowToBuild.txt */; };
 		3DF0013C0A3F992C007A00AB /* osxevents.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DF0013B0A3F992C007A00AB /* osxevents.c */; };
 		3DF002E60A40ED0E007A00AB /* osxmenus.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DF002E50A40ED0E007A00AB /* osxmenus.c */; };
 		8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */; };
@@ -594,6 +595,7 @@
 		3DE332850A44ADA700091810 /* rtfconv.bat */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = rtfconv.bat; sourceTree = "<group>"; };
 		3DE332860A44ADA700091810 /* xaos.hlp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = xaos.hlp; sourceTree = "<group>"; };
 		3DE332870A44ADA700091810 /* xaoswin.Hpj */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = xaoswin.Hpj; sourceTree = "<group>"; };
+		3DE4FE6A0A7AE0AE00491C86 /* HowToBuild.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HowToBuild.txt; sourceTree = "<group>"; };
 		3DF0013A0A3F992C007A00AB /* osxcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osxcommon.h; sourceTree = "<group>"; };
 		3DF0013B0A3F992C007A00AB /* osxevents.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osxevents.c; sourceTree = "<group>"; };
 		3DF002E50A40ED0E007A00AB /* osxmenus.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = osxmenus.c; sourceTree = "<group>"; };
@@ -784,6 +786,7 @@
 			isa = PBXGroup;
 			children = (
 				3D573A9F0A42613A009A2F5F /* ChangeLog.txt */,
+				3DE4FE6A0A7AE0AE00491C86 /* HowToBuild.txt */,
 			);
 			name = Documents;
 			sourceTree = "<group>";
@@ -1342,6 +1345,7 @@
 				3DE333600A44ADA700091810 /* rtfconv.bat in Resources */,
 				3DE333610A44ADA700091810 /* xaos.hlp in Resources */,
 				3DE333620A44ADA700091810 /* xaoswin.Hpj in Resources */,
+				3DE4FE6B0A7AE0AE00491C86 /* HowToBuild.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1443,7 +1447,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = XaoS_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
@@ -1469,6 +1473,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = XaoS_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;

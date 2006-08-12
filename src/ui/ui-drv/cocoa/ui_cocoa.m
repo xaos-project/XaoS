@@ -103,14 +103,14 @@ void osx_menu (struct uih_context *c, CONST char *name)
 	//printf("osx_menu\n");
 }
 
-void osx_dialog (struct uih_context *c, CONST char *name)
+void osx_showDialog (struct uih_context *c, CONST char *name)
 {
-	//printf("osx_dialog\n");
+	[controller showDialogWithContext:c name:name];
 }
 
-void osx_help (struct uih_context *c, CONST char *name)
+void osx_showHelp (struct uih_context *c, CONST char *name)
 {
-	//printf("osx_help\n");
+	[controller showHelpWithContext:c name:name];
 }
 
 int main(int argc, char* argv[])
@@ -128,8 +128,8 @@ struct gui_driver osx_gui_driver = {
     osx_buildMenu,	// setrootmenu
     osx_toggleMenu,	// enabledisable
     osx_menu,		// menu
-    NULL,			// dialog
-    NULL			// help
+    osx_showDialog,	// dialog
+    osx_showHelp	// help
 };
 
 
@@ -163,11 +163,11 @@ struct ui_driver osx_driver = {
     /* maxheight */     0,
     /* imagetype */     UI_TRUECOLOR,
     /* palettestart */  0, 
-    /* paletteend */    0, 
-    /* maxentries */    0,
+    /* paletteend */    256, 
+    /* maxentries */    255,
     /* rmask */         0xff000000,
-    /* gmask */         0x00110000,
-    /* bmask */         0x00001100,
+    /* gmask */         0x00ff0000,
+    /* bmask */         0x0000ff00,
     /* gui_driver */    &osx_gui_driver
 };
 

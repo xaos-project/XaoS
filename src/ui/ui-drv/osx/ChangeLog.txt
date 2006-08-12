@@ -130,6 +130,24 @@ Beta 3
 
 --
 
+Beta 4
+
+* Fixed render option
+
+* Fixed color bug on Intel-based Macs
+
+* Added -windowsize and -autoscreensize command line arguments
+
+--
+
+3.2.2
+
+* Disabled alloca, which was preventing XaoS from rendering images over 2500x2500
+
+* Added fullscreen driver
+
+* Upgraded libpng to 1.2.12
+
 
 Known Issues:
 
