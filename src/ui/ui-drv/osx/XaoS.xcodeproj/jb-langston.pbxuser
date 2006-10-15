@@ -38,14 +38,30 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 176492398;
-			PBXWorkspaceStateSaveDate = 176492398;
-		};
-		perUserProjectItems = {
-			3DFE4A480A850F64006D63B5 /* PBXTextBookmark */ = 3DFE4A480A850F64006D63B5 /* PBXTextBookmark */;
-			3DFE4A490A850F64006D63B5 /* PBXTextBookmark */ = 3DFE4A490A850F64006D63B5 /* PBXTextBookmark */;
-			3DFE4A670A85104A006D63B5 /* PBXTextBookmark */ = 3DFE4A670A85104A006D63B5 /* PBXTextBookmark */;
-			3DFE4A680A85104A006D63B5 /* PBXTextBookmark */ = 3DFE4A680A85104A006D63B5 /* PBXTextBookmark */;
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					200,
+					63,
+					20,
+					48.1626,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 182642084;
+			PBXWorkspaceStateSaveDate = 182642084;
 		};
 		sourceControlManager = 3D5176F10A3E4A3300C14735 /* Source Control */;
 		userBuildSettings = {
@@ -240,7 +256,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {2318, 2324}}";
 			sepNavSelRange = "{5599, 0}";
-			sepNavVisRect = "{{0, 1641}, {721, 666}}";
+			sepNavVisRect = "{{0, 1634}, {721, 666}}";
 			sepNavWindowFrame = "{{707, 301}, {766, 795}}";
 		};
 	};
@@ -320,46 +336,6 @@
 			sepNavVisRect = "{{0, 742}, {721, 666}}";
 			sepNavWindowFrame = "{{753, 211}, {766, 795}}";
 		};
-	};
-	3DFE4A480A850F64006D63B5 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3D573A9F0A42613A009A2F5F /* ChangeLog.txt */;
-		name = "ChangeLog.txt: 149";
-		rLen = 0;
-		rLoc = 5599;
-		rType = 0;
-		vrLen = 1135;
-		vrLoc = 5049;
-	};
-	3DFE4A490A850F64006D63B5 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3DF002E50A40ED0E007A00AB /* osxmenus.c */;
-		name = "osxmenus.c: 30";
-		rLen = 0;
-		rLoc = 1071;
-		rType = 0;
-		vrLen = 1272;
-		vrLoc = 1520;
-	};
-	3DFE4A670A85104A006D63B5 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3D573A9F0A42613A009A2F5F /* ChangeLog.txt */;
-		name = "ChangeLog.txt: 149";
-		rLen = 0;
-		rLoc = 5599;
-		rType = 0;
-		vrLen = 1136;
-		vrLoc = 5048;
-	};
-	3DFE4A680A85104A006D63B5 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 3DF002E50A40ED0E007A00AB /* osxmenus.c */;
-		name = "osxmenus.c: 30";
-		rLen = 0;
-		rLoc = 1071;
-		rType = 0;
-		vrLen = 1272;
-		vrLoc = 1520;
 	};
 	8D0C4E890486CD37000505A6 /* XaoS */ = {
 		activeExec = 0;

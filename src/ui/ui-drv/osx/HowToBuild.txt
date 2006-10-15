@@ -7,12 +7,7 @@ Here are instructions for getting the XaoS Xcode project to build successfully
 assuming you have downloaded a released source tarball or gotten the source 
 from CVS:
 
-1) Create the config.h symbolic link in the src/include directory:
-
-cd $XAOS_HOME/src/include
-ln -s config/config.autoconf config.h
-
-2) Build libpng
+1) Build libpng
 
     a) Download the latest libpng from 
         ftp://ftp.simplesystems.org/pub/libpng/png/src/
@@ -30,7 +25,7 @@ ln -s config/config.autoconf config.h
     i) Copy libpng.framework from $LIBPNG_HOME/projects/xcode/build/Release
         to $XAOS_HOME/src/ui/ui-drv/osx
 
-3) Build XaoS
+2) Build XaoS
 
 You should now be able to build XaoS.  Have fun! If you have questions,
 feel free to e-mail me: jb-langston at austin dot rr dot com
