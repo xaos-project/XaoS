@@ -204,10 +204,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3DE4FE400A7ADBF100491C86</string>
+						<string>3DB915C00AE2E40600A3AF69</string>
 						<key>history</key>
 						<array>
-							<string>3D5467320A7857F200D29B39</string>
+							<string>3DE4FE400A7ADBF100491C86</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -244,10 +244,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3DE4FE410A7ADBF100491C86</string>
+						<string>3DB915C10AE2E40600A3AF69</string>
 						<key>history</key>
 						<array>
-							<string>3D5467330A7857F200D29B39</string>
+							<string>3DE4FE410A7ADBF100491C86</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -284,10 +284,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>3DE4FE420A7ADBF100491C86</string>
+						<string>3DB915C20AE2E40600A3AF69</string>
 						<key>history</key>
 						<array>
-							<string>3D5467340A7857F200D29B39</string>
+							<string>3DE4FE420A7ADBF100491C86</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -380,13 +380,15 @@
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>29B97315FDCFA39411CA2CEA</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
+								<string>1C37FBAC04509CD000000102</string>
+								<string>3DB915A60AE2E2A400A3AF69</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>5</integer>
-									<integer>1</integer>
+									<integer>11</integer>
+									<integer>8</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -491,9 +493,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>3DE4FE3E0A7ADBF100491C86</string>
+				<string>3DB9159A0AE2E19B00A3AF69</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>3DE4FE3F0A7ADBF100491C86</string>
+				<string>3DB9159B0AE2E19B00A3AF69</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -627,11 +629,12 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>3D2884DC0A3685A8004C2595</string>
 		<string>3DA850FF0A6F097700968F2D</string>
 		<string>3D0F57FE0A6735390088FC13</string>
-		<string>1C0AD2B3069F1EA900FABCE6</string>
 		<string>3DA8533B0A6F1CE000968F2D</string>
-		<string>/Users/jb-langston/Devl/Unix/XaoS/XaoS/src/ui/ui-drv/cocoa/XaoS.xcodeproj</string>
+		<string>/Users/jb-langston/Devl/Unix/XaoS/cvs/XaoS/src/ui/ui-drv/cocoa/XaoS.xcodeproj</string>
+		<string>1C0AD2B3069F1EA900FABCE6</string>
 	</array>
 	<key>WindowString</key>
 	<string>299 780 690 397 0 0 1920 1178 </string>
@@ -655,7 +658,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>xmenu.c</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -672,6 +675,8 @@
 							<string>698pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -711,7 +716,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>3D2884DC0A3685A8004C2595</string>
-				<string>3D1C7D9F0A706E6E004DCC81</string>
+				<string>3DB915970AE2E19B00A3AF69</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -1081,9 +1086,9 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C0AD2B3069F1EA900FABCE6</string>
-				<string>3DE4FE430A7ADBF100491C86</string>
+				<string>3DB915980AE2E19B00A3AF69</string>
 				<string>1CD0528B0623707200166675</string>
-				<string>3DE4FE440A7ADBF100491C86</string>
+				<string>3DB915990AE2E19B00A3AF69</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.run</string>

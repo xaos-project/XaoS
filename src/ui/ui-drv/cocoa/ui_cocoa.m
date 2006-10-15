@@ -171,4 +171,39 @@ struct ui_driver osx_driver = {
     /* gui_driver */    &osx_gui_driver
 };
 
+struct ui_driver osx_fullscreen_driver = {
+    /* name */          "Mac OS X Fullscreen Driver",
+    /* init */          osx_initDriver,
+    /* getsize */       osx_getImageSize,
+    /* processevents */ osx_processEvents,
+    /* getmouse */      osx_getMouse,
+    /* uninit */        osx_uninitDriver,
+    /* set_color */     NULL,
+    /* set_range */     NULL,
+    /* print */         osx_printText,
+    /* display */       osx_refreshDisplay,
+    /* alloc_buffers */ osx_allocBuffers,
+    /* free_buffers */  osx_freeBuffers,
+    /* filp_buffers */  osx_flipBuffers,
+    /* mousetype */     osx_setMouseType,
+    /* flush */         NULL,
+    /* textwidth */     12,
+    /* textheight */    12,
+    /* params */        osx_params,
+    /* flags */         RESOLUTION | PIXELSIZE,
+    /* width */         0.01, 
+    /* height */        0.01,
+    /* maxwidth */      0, 
+    /* maxheight */     0,
+    /* imagetype */     UI_TRUECOLOR,
+    /* palettestart */  0, 
+    /* paletteend */    256, 
+    /* maxentries */    255,
+    /* rmask */         0xff000000,
+    /* gmask */         0x00ff0000,
+    /* bmask */         0x0000ff00,
+    /* gui_driver */    &osx_gui_driver
+};
+
+
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/
