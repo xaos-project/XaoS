@@ -10,9 +10,14 @@
     IBOutlet FractalView *view;
 	IBOutlet NSWindow *window;
 	NSMutableDictionary *menuItems;
+	NSMutableDictionary *powerKeyDictionary;
+#ifdef VIDEATOR_SUPPORT
+	id _videatorProxy;
+	NSCalendarDate *_killDate;
+#endif
 }
 
-- (void)mainThread;
+// - (void)mainThread; NOT IMPLEMENTED - USE NSThread if you want it!
 - (void)refreshDisplay;
 - (void)printText:(CONST char *)text atX:(int)x y:(int)y;
 - (void)flipBuffers;
@@ -25,7 +30,10 @@
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)menuName parent:(NSMenu *)parentMenu;
 - (void)toggleMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
+- (void)showDialogWithContext:(struct uih_context *)context name:(CONST char *)name;
+- (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name;
 
+- (void)keyPressed:(NSString *)key;
 @end
 
 extern AppController *controller;

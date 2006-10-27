@@ -19,5 +19,5 @@
 - (int)allocBuffer1:(char **)b1 buffer2:(char **)b2;
 - (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb;
 - (void)flipBuffers;
-
+- (NSBitmapImageRep *)imageRep;
 @end

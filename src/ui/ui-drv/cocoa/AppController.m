@@ -1,19 +1,75 @@
 #import "AppController.h"
 #import "CustomDialog.h"
+//#import <QuartzCore/CIImage.h>
 
 AppController *controller;
 
+#ifdef VIDEATOR_SUPPORT
+#define VideatorServer	([NSString stringWithFormat:@"VideatorServer-%@",[[NSProcessInfo processInfo] hostName]])
+
+@protocol VideatorVendedProtocol
+// to notify in main thread
+- (void)runUpdateAlert:(NSString *)latestVersionNumber;
+	// XaoS
+- (BOOL)wantsXaoSImage;
+- (void)setXaosImageData:(NSData *)bmData;
+@end
+#endif /* http://www.stone.com/Videator support */
+
 @implementation AppController
+
+#ifdef VIDEATOR_SUPPORT
+
+- (void)connectionDidDie:(NSNotification *)n {
+	_videatorProxy = nil;
+	_killDate = [[NSCalendarDate date] retain];
+	NSLog(@"Videator is dead... ...Long Live Videator!");
+}
+
+- (void)getProxy {
+	// do not try and reconnect to an application that is terminating:
+	if (_killDate && [_killDate timeIntervalSinceNow] > -10.0) return;
+	else _killDate = nil;
+	
+	_videatorProxy = [[NSConnection rootProxyForConnectionWithRegisteredName:VideatorServer host:nil] retain];
+				// if we can't find it, no big deal:
+	if (_videatorProxy != nil) {
+		[_videatorProxy setProtocolForProxy:@protocol(VideatorVendedProtocol)];
+		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionDidDie:) name:@"VideatorWillTerminate" object:nil];
+	}
+}
+#endif /* http://www.stone.com/Videator support */
+
+- (void)refreshDisplay
+{
+	[view setNeedsDisplay:YES];
+	
+#ifdef VIDEATOR_SUPPORT
+	// Andrew's Videator hook - costs almost nothing since the view maintains the bitmapImageRep in hand -
+	// We call it here because other mechanisms might cause a redraw in the view but we don't want that overhead
+	// unless we've been notified that there really was a change:
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	if (!_videatorProxy) [self getProxy];
+NS_DURING
+	if (_videatorProxy!=nil && [_videatorProxy wantsXaoSImage])
+		[_videatorProxy setXaosImageData:[[view imageRep] TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:0]];
+NS_HANDLER
+	
+NS_ENDHANDLER
+	
+	[pool release];
+#endif /* http://www.stone.com/Videator support */
+}
 
 - (void)awakeFromNib
 {
 	controller = self;
 	menuItems = [[NSMutableDictionary alloc] init];
-}
-
-- (void)refreshDisplay
-{
-	[view setNeedsDisplay:YES];
+	powerKeyDictionary = [[NSMutableDictionary alloc] init];
+	
+	// this is how we implement hotkeys in about 8 lines of code ;-)
+	[[view window] makeFirstResponder:view];
+	[[view window] setDelegate:self]; 
 }
 
 - (void)printText:(CONST char *)text atX:(int)x y:(int)y
@@ -64,17 +120,28 @@ AppController *controller;
 	
 }
 
+- (void)clearMenu:(NSMenu *)menu
+{
+	while ([menu numberOfItems] > 1) {
+		[menu removeItemAtIndex:1];
+	}
+}
+
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name
 {
 	[self clearMenu:[NSApp mainMenu]];
 	[self buildMenuWithContext:context name:name parent:[NSApp mainMenu]];
 }
 
-- (void)clearMenu:(NSMenu *)menu
-{
-	while ([menu numberOfItems] > 1) {
-		[menu removeItemAtIndex:1];
-	}
+// If you want more command-keys, just add them here based on their name:
+
+- (NSString *)keyEquivalentForName:(NSString *)name {
+	if ([name isEqualToString:@"Undo"]) return @"z";
+	else if ([name isEqualToString:@"Redo"]) return @"Z";
+	else if ([name isEqualToString:@"Load..."]) return @"o";
+	else if ([name isEqualToString:@"Save..."]) return @"s";
+	return @"";
+	
 }
 
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)menuName parent:(NSMenu *)parentMenu
@@ -87,24 +154,37 @@ AppController *controller;
 	NSString *menuTitle, *menuShortName;
 	
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSMenu *mainMenu = [NSApp mainMenu];
 	
 	for (i=0; (item = menu_item(menuName, i)) != NULL; i++)
 	{
 		if (item->type == MENU_SEPARATOR) {
 			[parentMenu addItem:[NSMenuItem separatorItem]];
 		} else {
+			NSString *keyEquiv = @"";
 			menuTitle = [NSString stringWithCString:item->name];
 			if (item->type == MENU_CUSTOMDIALOG || item->type == MENU_DIALOG)
 				menuTitle = [menuTitle stringByAppendingString:@"..."];
+			
+			keyEquiv = [self keyEquivalentForName:menuTitle];
+			
+			if (item->key && parentMenu != mainMenu)
+				menuTitle = [NSString stringWithFormat:@"%@ (%s)",menuTitle,item->key];
+			
 			menuShortName = [NSString stringWithCString:item->shortname];
-			newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:@""];
+			newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:keyEquiv];
+			
+			if (item->key && parentMenu != mainMenu)
+				[powerKeyDictionary setObject:newItem forKey:[NSString stringWithFormat:@"%s",item->key]];
+
+			
 			[menuItems setValue:newItem forKey:menuShortName];
 			if (item->type == MENU_SUBMENU) {
 				newMenu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle];
 				[newItem setSubmenu:newMenu];
 				[self buildMenuWithContext:context name:item->shortname parent:newMenu];
 				[newMenu release];
-			} else {
+			} else {				
 				[newItem setTarget:self];
 				[newItem setAction:@selector(performMenuAction:)];
 				[newItem setRepresentedObject:menuShortName];
@@ -155,7 +235,6 @@ AppController *controller;
 	if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE))
 	{
 		NSString *fileName = nil;
-		int result = 0;
 		
 		switch(dialog[0].type) {
 			case DIALOG_IFILE:
@@ -222,6 +301,15 @@ AppController *controller;
 	// Display requested help page
 	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
 	
+}
+
+- (void)initApp:(int)fullscreen {
+   /// code cannot go here because ui_driver not defined  here - please refer to ui_cocoa.m for more info...    
+}
+
+- (void)keyPressed:(NSString *)key {
+	NSMenuItem *item = [powerKeyDictionary valueForKey:key];
+	if (item) 	[self performMenuAction:item];
 }
 
 @end

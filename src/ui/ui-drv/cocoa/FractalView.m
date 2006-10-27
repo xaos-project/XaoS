@@ -7,6 +7,9 @@
 //
 
 #import "FractalView.h"
+@interface NSObject(AppDelegateStuff)
+- (void)keyPressed:(NSString *)key;
+@end
 
 @implementation FractalView
 
@@ -26,7 +29,7 @@
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-	printf("mouseDown");
+	if (0) printf("mouseDown");
 
 	// Get location and translate coordinates to origin at upper left corner
 	NSPoint mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
@@ -36,26 +39,26 @@
 	
 	// Select button based on modifier keys
 	if ([theEvent modifierFlags] & NSControlKeyMask) {
-		printf("+NSControlKeyMask");
+		if (0) printf("+NSControlKeyMask");
 		mouseButton |= BUTTON3;
 	} else if ([theEvent modifierFlags] & NSShiftKeyMask) {
-		printf("+NSShiftKeyMask");
+		if (0) printf("+NSShiftKeyMask");
 		mouseButton |= BUTTON2;
 	} else {
 		mouseButton |= BUTTON1;
 	}
-	printf("\n");
+	if (0) printf("\n");
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-	printf("mouseUp\n");
+	if (0) printf("mouseUp\n");
     mouseButton = 0;
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
-	printf("mouseDragged\n");
+	if (0) printf("mouseDragged\n");
 
 	// Get location and translate coordinates to origin at upper left corner
 	NSPoint mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
@@ -70,6 +73,10 @@
         // Drawing code here.
         [imageRep[currentBuffer] drawInRect:[self bounds]];
 	}
+}
+
+- (NSBitmapImageRep *)imageRep {
+	return imageRep[currentBuffer];
 }
 
 - (int)allocBuffer1:(char **)b1 buffer2:(char **)b2 
@@ -115,6 +122,13 @@
 - (void)flipBuffers
 {
 	currentBuffer ^= 1;
+}
+
+// ACS: need to implement hot keys!
+
+- (void)keyDown:(NSEvent *)e {
+	NSString *characters = [e characters];
+	if ([characters length] > 0) [[[self window] delegate] keyPressed:[NSString stringWithFormat:@"%C",[characters characterAtIndex:0]]];
 }
 
 @end

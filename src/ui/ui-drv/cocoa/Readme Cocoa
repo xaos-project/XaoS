@@ -1,0 +1,17 @@
+2006-10-23 - Andrew Stone (andrew@stone.com)
+	- to build for Videator: -DVIDEATOR_SUPPORT
+	- added this file
+	- added Credits.html
+	- modified InfoPlist.strings
+	- MainMenu.nib
+		- changed NewApplication to XaoS
+		- changed window title to indicate this version of XaoS talks to Videator
+		
+	- AppController.m: added distributed notification with imageRep
+	- FractalView.m: added method to return current imageRep
+2006-10-25
+	- ui_cocoa.m now byte swaps color masks
+	
+2006-10-26
+	- hot keys working
+	- tutorial and help working ala carbon

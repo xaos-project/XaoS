@@ -45,27 +45,35 @@ osx_processEvents (int wait, int *mx, int *my, int *mb, int *k)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	NSDate *eventDate = wait ? [NSDate distantFuture] : [NSDate distantPast];
-
+	// NSDate *eventDate = wait ? [NSDate distantFuture] : [NSDate distantPast];
+	
 	NSEvent *event = [NSApp nextEventMatchingMask: NSAnyEventMask
-					    untilDate: nil
-					       inMode: NSDefaultRunLoopMode
-					      dequeue: YES];
-
+										untilDate: nil
+										   inMode: NSDefaultRunLoopMode
+										  dequeue: YES];
+	
 	if (event != nil)
 	{
 	    [NSApp sendEvent: event];
 	}
-
+	
 	[pool release];
-
+	
 	[controller getMouseX:mx mouseY:my mouseButton:mb keys:k];
 }
+
 
 static int
 osx_initDriver ()
 {	
-	//[controller initApp];
+	osx_init(0);
+    return ( /*1 for sucess 0 for fail */ 1);
+}
+
+static int
+osx_initDriverFull ()
+{	
+	osx_init(1);
     return ( /*1 for sucess 0 for fail */ 1);
 }
 
@@ -103,6 +111,7 @@ void osx_menu (struct uih_context *c, CONST char *name)
 	//printf("osx_menu\n");
 }
 
+
 void osx_showDialog (struct uih_context *c, CONST char *name)
 {
 	[controller showDialogWithContext:c name:name];
@@ -120,8 +129,8 @@ int main(int argc, char* argv[])
 	[NSBundle loadNibNamed:@"MainMenu" owner:NSApp];
 	
 	[NSApp finishLaunching];
-
-	XaoS_main(argc, argv);
+	
+	return XaoS_main(argc, argv);
 }
 
 struct gui_driver osx_gui_driver = {
@@ -129,12 +138,12 @@ struct gui_driver osx_gui_driver = {
     osx_toggleMenu,	// enabledisable
     osx_menu,		// menu
     osx_showDialog,	// dialog
-    osx_showHelp	// help
+    NULL	// help
 };
 
 
 static struct params osx_params[] = {
-  {NULL, 0, NULL, NULL}
+	{NULL, 0, NULL, NULL}
 };
 
 struct ui_driver osx_driver = {
@@ -173,7 +182,7 @@ struct ui_driver osx_driver = {
 
 struct ui_driver osx_fullscreen_driver = {
     /* name */          "Mac OS X Fullscreen Driver",
-    /* init */          osx_initDriver,
+    /* init */          osx_initDriverFull,
     /* getsize */       osx_getImageSize,
     /* processevents */ osx_processEvents,
     /* getmouse */      osx_getMouse,
@@ -205,5 +214,27 @@ struct ui_driver osx_fullscreen_driver = {
     /* gui_driver */    &osx_gui_driver
 };
 
+int osx_init (int fullscreen)
+{
+    struct ui_driver    *driver;
+    
+    driver = fullscreen ? &osx_fullscreen_driver : &osx_driver;
+	
+    // The following is necessary to ensure correct colors on Intel-based Macs
+    // Determine if machine is little-endian and if so swap color mask bytes
+	{
+		unsigned char c[4];
+		*(unsigned short *) c = 0xff;
+		if (c[0] == (unsigned char) 0xff) {
+			int shift = 0;
+#define SWAPE(c)  (((c&0xffU)<<24)|((c&0xff00U)<<8)|((c&0xff0000U)>>8)|((c&0xff000000U)>>24))
+			driver->rmask = SWAPE (driver->rmask) >> shift;
+			driver->gmask = SWAPE (driver->gmask) >> shift;
+			driver->bmask = SWAPE (driver->bmask) >> shift;
+		}
+	}
+	return 0;
+    
+}
 
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/
