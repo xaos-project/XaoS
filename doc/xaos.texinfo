@@ -3332,7 +3332,7 @@ OS/2 ports (320x200 graphics and AA-lib)
 Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
 @item Zsigmond Kovacs
 Fractal examples
-@item J. B. Langston III (jb.langston@@gmail.com)
+@item J. B. Langston III (jb-langston@@austin.rr.com)
 Native Mac OS X port (from version 3.2.2)
 @item Andreas Madritsch (amadritsch@@datacomm.ch)
 New fractal types, bailout, many fixes
@@ -3356,8 +3356,12 @@ Spanish translations
 Periodicity checking
 @item Jan Olderdissen (jan@@olderdissen.com)
 Win32 port
+@item Ilinca Sitaru (ilinca.sitaru@@gmail.com)
+Romanian translation
 @item Daniel Skarda
 Fractal examples
+@item Andrew Stone (Stone Design - www.stone.com)
+Mac OS X improvements, Videator support
 @item Marton Torok (marton.torok@@gmail.com)
 Small fixes for pipes
 @item Pavel Tzekov (paveltz@@csoft.bg)

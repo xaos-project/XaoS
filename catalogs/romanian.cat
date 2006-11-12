@@ -1,0 +1,1140 @@
+# Message catalog file required to replay XaoS tutorials in
+# English language
+#
+# Copyright (C) 1997 by Jan Hubicka
+#
+# Corrected by Tim Goowin
+# Further corrections by David Meleedy
+# And some more by Nix
+#
+# There are a few things you should know if you want to change or
+# translate this file.
+#
+# The format of this catalog is identifier[blanks]"value"[blanks]
+#
+# Identifier is a key used by the program. Do not translate it!  Only
+# translate the value.  If you want a quote character `"' in the text,
+# use `\"'. For `\' use `\\'. Don't use `\n' for enter; use a literal
+# newline.
+#
+# If you wish to translate this file into any new language, please let
+# me know. You should translate this text freely: you don't need to use
+# exactly the same sentences as here, if you have idea how to make text
+# more funny, interesting, or add some information, do it.
+#
+# You can use longer or shorter sentences, since XaoS will automatically
+# calculate time for each subtitle.
+#
+# Also, please let me have any suggestions for improving this text and
+# the tutorials.
+#
+# Tutorial text needs to fit into a 320x200 screen. So all lines must be
+# shorter than 40 characters.  This is 40 characters:
+#234567890123456789012345678901234567890
+# And thats not much! Be careful!
+# Please check that your updated tutorials work in 320x200 to ensure
+# that everything is OK.
+#########################################################
+#For file dimension.xaf
+
+fmath "Matematica de la baza fractalilor"
+fmath1 "Fractalii sunt un nou domeniu al
+matematicii, asa cã mai existã încã
+multe intrebãri la care nu s-a gãsit
+rãspuns."
+fmath2 "Chiar si definitiile sunt inexacte"
+fmath3 "De obicei numim ceva un fractal dacã
+prezintã o anumitã auto-similaritate"
+
+
+def1 "Una din posibilele definitii este..."
+#Definition from the intro.xaf is displayed here.
+#If it is a problem in your langage catalog, let me
+#know and I will create a special key
+def2 "Ce inseamna aceasta?"
+def3 "Pentru a explica trebuie mai intai
+sa intelegem ce inseamna dimensiunea
+topologica si dimensiunea
+Hausdorff Besicovich."
+
+topo1 "Dimensiunea topologica
+este dimensiunea \"normala\"."
+topo2 "Un punct are dimensiunea 0"
+topo3 "O linie are dimensiunea 1"
+topo4 "O suprafata are 2, etc..."
+
+hb1 "Definitia dimensiunii
+Hausdorff Besicovich provine de la
+simplul fapt ca:"
+hb2 "O linie pe care o marim astfel incat
+isi dubleaza lungimea, este de doua ori
+mai lunga decat era."
+
+hb3 "Pe de alta parte, daca marim un patrat
+in mod similar, dimensiunea acestuia
+creste de patru ori."
+hb4 "Reguli asemanatoare sunt valabile si in
+dimensiuni mai mari."
+hb5 "Plecand de la acest fapt, pentru a
+calcula dimensiuni se poate folosi
+urmatoarea ecuatie:"
+hb6 "dimensiune = log s / log z
+unde z este schimbarea de marire si
+s este schimbarea dimensiunii"
+hb7 "pentru o linie pe care o marim de 2 ori,
+schimbarea dimensiunii este tot 2
+(dimensiunea se dubleaza).
+log 2 / log 2 = 1"
+hb8 "pentru un patrat pe care il marim de 2 ori,
+schimbarea dimensiunii este 4
+(dimensiunea creste de 4 ori).
+log 4 / log 2 = 2"
+hb9 "Deci aceasta definitie da aceleasi
+rezultate pentru forme normale"
+hb10 "Lucrurile devin mai interesante
+la fractali..."
+
+hb11 "Sa luam in considerare o curba a
+unui fulg de zapada"
+hb12 "care se creeaza prin impartirea
+repetata a unei linii in 4 linii."
+hb13 "Noile linii au lungimea egala cu 1/3
+din lungimea liniei originale"
+hb14 "Daca marim de 3 ori, aceste linii vor fi
+exact la fel de mari ca si liniile
+originale."
+hb15 "Din cauza auto-similaritatii create
+prin repetarea infinita a acestei
+metamorfoze,"
+hb15b "fiecare din aceste parti va deveni
+o copie exacta a fractalului original."
+hb16 "Pentru ca exista 4 astfel de copii,
+dimensiunea fractalului creste de 4X"
+hb17 "Dupa ce punem aceste valori in
+ecuatii:
+log 4 / log 3 = 1.261"
+hb18 "Obtinem o valoare mai mare decat 1
+(Dimensiunea topologica a curbei)"
+hb19 "Dimensiunea Hausdorff Besicovich
+(1.261) este mai mare decat dimensiunea
+topologica."
+hb20 "Considerand aceasta definitie,
+fulgul de zapada este un fractal."
+
+defe1 "Dar totusi, aceasta definitie nu
+este perfecta deoarece exclude multe
+forme care sunt de fapt fractali."
+defe2 "Dar arata una din interesantele
+proprietati ale fractalilor,"
+defe3 "si este destul de populara."
+defe4 "Dimensiunea Hausdorff Besicovich
+este numita deseori si
+\"dimensiunea fractala\""
+
+#########################################################
+#For file escape.xaf
+escape "Matematica de la baza fractalilor
+
+Capitolul 2 - Fractalii Escape time "
+escape1 "Unii fractali (ca si fulgul de zapada)
+se pot crea prin simpla divizare si
+repetite."
+escape2 "XaoS poate genera o alta
+categorie de fractali - numiti
+fractali escape time."
+escape3 "Metoda pentru generarea acestora
+este un pic diferita, dar se bazeaza
+tot pe iteratie."
+escape4 "Ei considera tot ecranul ca
+un plan complex"
+escape5 "Axa reala este plasata orizontal"
+escape6 "si cea imaginara este plasata vertical"
+escape7 "Fiecare punct are propria orbita"
+escape8 "Traiectoria orbitei se calculeaza
+folosind functia iterativa, f(z,c)
+unde z este pozitia anterioara si c
+este noua pozitie de pe ecran."
+escape9 "De exemplu pentru multimea Mandelbrot,
+functia iterativa este z=z^c+c"
+orbit1 "In cazul in care dorim sa studiem
+punctul 0 - 0.6i"
+orbit2 "Atribuim acest parametru la c"
+orbit3 "Iteratia orbitei incepe
+la z=0+0i"
+orbit3b "Apoi calculam in mod repetat
+functia iterativa, si obtinem in mod
+repetat o noua valoare z pentru
+iteratia urmatoare."
+orbit4 "Definim punctul care apartine multimii,
+in cazul in care orbita ramane finita."
+orbit5 "In acest caz ramane..."
+orbit6 "Asa ca acest punct apartine multimii."
+orbit7 "In alte cazuri ar tinde repede
+la infinit."
+orbit8 "(de exemplu, valoarea 10+0i
+Prima iteratie este 110,
+a doua 12110 etc..)"
+orbit9 "Asa ca astfel de puncte se afla in
+afara multimii."
+
+bail1 "Vorbim tot despre numere infinite si
+iteratii ale numerelor infinite..."
+bail2 "Dar calculatoarele sunt finite,
+asa ca nu pot calcula exact fractalii."
+bail3 "Se poate demonstra ca, in cazul in
+care distanta dintre orbita si zero
+este mai mare decat 2, orbita va tinde
+intotdeauna la inifinit."
+bail4 "Asa ca putem intrerupe calculele
+dupa ce orbita pica acest test.
+(Acesta se numeste testul de salvare
+- bailout)"
+bail5 "In cazurile in care calculam
+puncte din afara multimii, avem nevoie
+acum doar de un numar finit de
+iteratii."
+bail6 "Acestui fapt se datoreaza aparitia
+dungilor colorate din jurul multimii."
+#bail7 "They are colored according to the
+#number of iterations of orbits needed
+#to fall in the bailout set."
+bail7 "Ele sunt colorate in concordanta
+cu numarul iteratiilor orbitelor necesar
+pentru a cadea in multimea de salvare
+(bailout)."
+iter1 "In interiorul multimii avem
+in continuare nevoie de un numar
+infinit de calcule"
+iter2 "Singura metoda de a face acest lucru
+este sa intrerupem calculele dupa un
+numar dat de iteratii si sa folosim
+rezultatele aproximative"
+iter3 "Astfel, numarul maxim de iteratii
+determina cat de exacta va fi
+aproximarea."
+iter4 "Fara nici o iteratie, s-ar crea doar
+un cerc cu raza 2
+(din cauza conditiei de salvare
+(bailout))"
+iter5 "Cresterea numarului de iteratii va
+determina aproximari mai exacte, dar va
+lua si mai mult timp pentru calculare."
+limit1 "XaoS calculeaza implicit
+170 de iteratii."
+limit2 "Unele zone se pot mari mult timp
+fara a se ajunge la aceasta limita."
+limit3 "In alte zone se obtin rezultate
+inexacte destul de repede."
+limit4 "Imaginile devin destul de
+plictisitoare cand se intampla acest
+lucru."
+limit5 "Dar dupa cresterea numarului de
+iteratii, se obtin multe detalii
+noi si interesante."
+ofracts1 "Alti fractali din XaoS se
+calculeaza folosind alte formule si alte
+teste de salvare (bailout), dar la baza
+este aceeasi metoda."
+ofracts2 "Deoarece este nevoie de atat de multe
+calcule, XaoS face foarte multe
+optimizari.
+
+Daca doriti, puteti citi despre acestea
+in fisierul doc/xaos.info"
+
+#########################################################
+#For file anim.xaf
+anim "Privire generala
+a caracteristicilor XaoS
+
+Fisiere de animatii si de pozitie "
+
+#########################################################
+#For file anim.xhf
+
+anim2 "Dupa cum ati observat,
+XaoS poate reda animatii si
+tutoriale."
+
+anim3 "Ele se pot incarca direct
+din XaoS,"
+
+languag1 "deoarece animatiile si
+fisierele de pozitie sunt stocate
+intr-un limbaj de comenzi simplu"
+
+languag2 "(fisierele de pozitie sunt
+animatii cu un singur cadru)."
+
+languag3 "Animatiile pot fi editate
+manual mai tarziu pentru a obtine
+rezultate si mai profesioniste."
+
+languag4 "Majoritatea animatiilor din aceste
+tutoriale au fost scrise complet manual,
+incepand de la un singur fisier de
+pozitie."
+
+modif1 "O simpla modificare"
+
+modif2 "genereaza un film de micsoare
+(\"unzoom\"),"
+modif3 "si aceasta modificare, un film de
+marire (\"zoom\")."
+
+newanim "De asemenea, se pot scrie animatii
+si efecte complet noi."
+
+examples "XaoS vine si cu multe fisiere cu
+exemple, care pot fi incarcate aleator
+din meniul salveaza/incarca."
+
+examples2 "De asemenea, poti folosi fisierele
+de pozitie pentru a schimba date cu
+alte programe."
+
+examples3 "Singurele limite sunt propria
+imaginatie, si limbajul de comenzi
+descris in xaos.info."
+
+#########################################################
+#For file barnsley.xaf
+
+intro4 "Fractali - O introducere
+
+Capitolul 5-Formula lui Barnsley"
+
+barnsley1 "Inca o formula a lui
+Michael Barnsley"
+
+barnsley2 "genereaza acest fractal ciudat."
+
+barnsley3 "Nu este foarte interesant de
+explorat,"
+
+barnsley4 "dar are multimi Julia foarte frumoase!"
+
+barnsley5 "Este interesant pentru ca are
+o structura \"cristalina\","
+
+barnsley6 "mai degraba decat o structura
+\"organica\" gasita in multi alti
+fractali."
+
+barnsley7 "Michael Barnsley a descoperit si
+alte formule."
+
+barnsley8 "Una dintre ele genereaza acest fractal."
+
+#########################################################
+#For file filter.xaf
+
+filter "Privire generala
+a caracteristicilor XaoS
+
+filtre"
+
+
+#########################################################
+#For file filter.xhf
+
+filter1 "Un filtru este un efect aplicat
+fiecarui cadru, dupa ce se calculeaza
+fractalul."
+
+filter2 "XaoS implementeaza urmatoarele
+filtre:"
+
+motblur "estomparea miscarii,"
+
+edge "doua filtre pentru detectatrea
+marginilor,"
+
+edge2 "(primul face linii groase si este
+util la rezolutii mari,"
+
+edge3 "al doilea face linii mai inguste),"
+
+star "a filtru simplu \"star-field\","
+
+interlace "un filtru de intretesere
+(\"interlace\"), (acesta
+mareste viteaza de calcul si da un
+efect de estompare a miscarii la
+rezolutii mai mari),"
+
+stereo "un filtru de stereograma (random dot
+stereogram),"
+
+stereo2 "(daca nu puteti vedea nimic in
+urmatoarele imagini si in mod normal
+puteti vedea stereograme (random dot),
+probabil ati configurat gresit
+dimensiunea ecranului---folositi `xaos
+-ajutor' pentru mai multe informatii),"
+
+emboss1 "un filtru de reliefare,"  #NEW
+
+palettef1 "un filtru de emulare a paletei,
+(activeaza ciclarea culorilor pe
+monitoare truecolor)"  #NEW
+
+truecolorf "un filtru true color, (creaza
+imagini true-color pe monitoare 8bpp)."
+
+#########################################################
+#For file fractal.xaf
+
+end "Sfarsit."
+
+fcopyright "Introducerea la fractali
+a fost facuta de Jan Hubicka in iulie
+1997, modificata si actualizata
+ulterior pentru versiuni noi
+ale XaoS
+
+Corecturi de catre:
+Tim Goodwin <tgoodwin@cygnus.co.uk>
+si
+David Meleedy <dmm@skepsis.com>
+si
+Nix <nix@esperi.demon.co.uk>"
+# Add your copyright here if you are translating/correcting this file
+
+suggestions "
+Please send all ideas,
+suggestion, thanks, flames
+and bug-reports to:
+
+xaos-discuss@lists.sourceforge.net
+
+Thank You"
+
+#########################################################
+#For file incolor.xaf
+
+incolor1 "De obicei, punctele care apartin
+multimii se afiseaza folosind o singura
+culoare."
+
+incolor2 "Acest lucru face granita multimii
+foarte vizibila, dar zonele din
+interiorul multimii sunt destul de
+plictisitoare."
+
+incolor3 "Pentru a le face mai interesante,
+puteti folosi valoarea ultimei orbite
+pentru a atribui o culoare punctelor
+din interiorul multimii."
+
+incolor4 "XaoS are zece feluri diferite de
+a face aceasta. Ele se numesc
+\"moduri de colorare interioara\"."
+
+zmag "zmag
+
+Culoarea se calculeaza folosind
+magnitudinea ultimei orbite."
+
+#########################################################
+#For file innew.xaf
+
+innew1 "Descompunere
+
+Aceasta functioneaza la fel ca
+descompunerea culorilor din modurile
+de colorare exterioara
+"
+
+innew2 "Real / Imag
+
+Culoarea se calculeaza din partea reala
+a ultimei orbite, impartita la
+partea imaginara."
+
+innew3 "Urmatoarele 6 moduri de colorare
+sunt formule alese aleator sau copiate
+din alte programe."
+
+#########################################################
+#For file intro.xaf
+
+fractal "...Fractalii..."
+fractal1 "Ce este un fractal?"
+
+fractal2 "Definitia lui Benoit Mandelbrot:
+un fractal este o multime a carei
+dimensiune Hausdorff Besicovich
+este strict mai mare decat
+dimensiunea topologica."
+
+fractal3 "Esti inca in bezna?"
+
+fractal4 "Nu te ingrijora.
+Aceasta definitie este importanta numai
+daca esti matematician."
+
+fractal5 "In romana,
+un fractal este o forma"
+
+fractal6 "care se construieste din bucati,"
+
+fractal7 "si fiecare dintre aceste bucati
+este o copie aproximativa la scara
+redusa a intregului fractal."
+
+fractal8 "Acest proces se repeta"
+
+fractal9 "pentru a construi fractalul complet."
+
+facts "Exista multe lucruri surprinzatoare
+despre fractali:"
+
+fact1 "Fractalii nu depind de scala,"
+fact2 "sunt auto-similari,"
+fact3 "si de multe ori se aseamana unor
+obiecte din natura"
+#fact4 "such as clouds, mountains,
+#or coastlines."
+#fact4 "cum ar fi norii, muntii,
+#sau linia tarmului."
+fact5 "Exista si multe structuri
+matematice care definesc fractalii,"
+fact6 "ca cele pe care le vezi pe ecran."
+fmath4 "Cei mai multi fractali sunt creati
+printr-un proces iterativ"
+fmath5 "de exemplu, fractalul conoscut
+drept curba lui von Koch"
+fmath6 "se creeaza prin schimbarea unei linii"
+fmath7 "in patru linii"
+fmath8 "Aceasta este prima iteratie
+a procesului"
+fmath9 "Apoi repetam aceasta schimbare"
+fmath10 "dupa 2 iteratii..."
+fmath11 "dupa 3 iteratii..."
+fmath12 "dupa 4 iteratii.."
+fmath13 "si dupa un numar infinit de
+iteratii obtinem un fractal."
+fmath14 "Forma lui arata ca o treime
+dintr-un fulg de zapada."
+tree1 "Prin metode asemanatoare se pot
+construi si multe alte forme."
+tree2 "De exemplu prin schimbarea liniei
+in alt fel"
+tree3 "Putem obtine un copac."
+nstr "Iteratiile pot introduce
+zgomot aleator intr-un fractal"
+nstr2 "Prin schimbarea unei linii in doua
+linii"
+nstr3 "si adaugand o mica eroare"
+nstr4 "poti obtine fractali care arata ca
+o linie de coasta."
+nstr5 "Un proces asemanator ar putea crea
+nori, munti, si multe atle forme din
+natura"
+
+#######################################################
+## mset.xaf
+
+fact7 "Fara nici un dubiu, cel mai faimos
+fractal este.."
+
+mset "Multimea Mandelbrot"
+mset1 "Este generat dintr-o formula
+foarte simpla,"
+mset2 "dar este unul dintre cei mai
+frumosi fractali."
+mset3 "Deoarece multimea Mandelbrot este un
+fractal,"
+mset4 "granitele sale contin"
+mset5 "copii in miniatura a intregii
+multimi."
+mset6 "Aceasta este cea mai mare, cam de
+50 de ori mai mica decat intreaga
+multime."
+mset7 "Multimea Mandelbrot nu este complet
+auto-similara,"
+mset8 "astfel incat fiecare copie in
+miniatura este diferita."
+mset9 "Aceasa este cam de 76,000 de ori
+mai mica decat intregul."
+mset10 "Copii din diferite zone ale
+multimii difera si mai mult."
+
+nat "Granitele nu contin doar copii ale
+intregii multimi,"
+nat1 "ci o varietate cu adevarat infinita
+de forme diferite."
+nat2 "Unele dintre acestea seamana
+surprinzator cu cele gasite in natura:"
+nat3 "puteti vedea copaci,"
+nat4 "rauri cu lacuri,"
+nat5 "galaxii,"
+nat6 "si cascade."
+nat7 "Multimea Mandelbrot contine si multe forme
+complet noi."
+
+###############################################################################
+############
+
+juliach "Fractali - O introducere
+
+Capitolul 2-Julia"
+
+julia "Multimea Mandelbrot nu este singurul
+fractal generat de formula:
+z=z^2+c"
+julia1 "Celalalt este..."
+julia2 "multimea Julia"
+julia3 "Nu este doar o singura multime Julia,"
+julia4 "ci o varietate infinita de
+multimi Julia."
+julia5 "Fiecare se construieste dintr-o
+\"samanta\" (valoare initiala),"
+julia6 "care este un punct selectat
+din multimea Mandelbrot."
+julia7 "Multimea Mandelbrot poate fi vazuta
+ca o harta formata din mai multe
+multimi Julia."
+julia8 "Puncte din interiorul multimii
+Mandelbrot corespund multimilor Julia
+cu zone negre mari conectate intre ele,"
+julia9 "si punctele din exteriorul multimii
+Mandelbrot corespund unor multimi Julia
+neconectate."
+julia10 "Cele mai interesante multimi Julia
+isi au samanta (valoarea initiala)
+exact pe granita multimii Mandelbrot."
+
+theme "Tema unei multimi Julia
+depinde tare de punctul pe care il
+alegi drept samanta (valoare initiala)."
+theme1 "Cand maresti multimea Mandelbrot,
+obtii un fractal foarte similar
+tematic"
+theme2 "cand ne uitam la multimea
+Julia corespunzatoare."
+theme3 "Dar daca micsorezi inapoi, dupa marire,
+descoperi"
+theme4 "ca te afli intr-un fractal
+complet diferit."
+theme5 "Multimile Julia pot parea destul
+de plictisitoare, deoarece nu-si
+schimba tema"
+theme6 "si raman fidele samantei (valorii
+initiale) alese din multimea
+Mandelbrot."
+theme7 "Dar daca alegi cu atentie samanta,
+(valoarea initiala) poti genera"
+theme8 "imagini frumoase."
+
+#########################################################
+#For file keys.xhf
+
+keys "Taste:
+
+q          - stop redare
+Space      - sari peste cadru
+             (poate dura un timp)
+Stanga/Dreapta - ajusteaza viteza subtitrarii"
+
+#########################################################
+#For file magnet.xaf
+
+intro7 "Fractali - O introducere
+
+Capitolul 8-Magnet"
+
+magnet "Aceasta NU ESTE multimea Mandelbrot."
+magnet1 "Acest fractal se numeste \"magnet\"
+pentru ca formula lui provine din
+fizica teoretica."
+magnet2 "Este derivat din studiul
+laticelor teoretice in contextul
+transformarilor renormalizatoare
+magnetice."
+
+similiar "Asemanarea sa cu multimea Mandelbrot
+este interesanta deoarece este o
+formula din lumea reala."
+
+magjulia "Multimile Julia ale sale sunt
+destul de deosebite."
+
+magnet3 "Exista si un al doilea fractal magnet."
+
+#########################################################
+#For file new.xaf
+
+new "Ce aduce nou versiunea 3.0?"
+speed "1. Metode de marire a vitezei"
+speed1 "Buclele principale de calcul
+verifica acum periodicitatea."
+speed2 "Se calculeaza imagini noi
+prin detectarea marginilor,"
+speed3 "astfel incat calcularea iamginilor
+noi este mult mai rapida."
+speed4 "De exemplu, calcularea
+multimii Mandelbrot la
+1,000,000 iteratii..."
+speed5 "calculare..."
+speed6 "terminat."
+speed7 "XaoS are o euristica care
+deseteaza automat verificarea
+periodicitatii cand se asteapta ca
+punctul calculat sa fie in afara multimii
+(cand toate punctele din jurul lui
+sunt in afara multimii)."
+speed8 "Si rutinele principale de marire
+au fost optimizate astfel incat
+marirea se face de aproximativ
+doua ori mai repede."
+speed9 "XaoS atinge acum 130FPS
+pe 130Mhz Pentium."
+
+new2 "2. Filtre."
+new3 "3. Noua moduri de colorare
+exterioara."
+new4 "4. Moduri noi de colorare
+interioara."
+new5 "5. Moduri de colorare true-color."
+new6 "6. Salveaza animatia/reda animatia."
+newend "Si multe altele, cum ar fi
+rotirea imaginilor, o mai buna generare a
+paletei de culori...  Vezi ChangeLog pentru
+o lista completa a schimbarilor." #NEW
+
+#########################################################
+#For file newton.xaf
+
+intro3 "Fractali - O introducere
+
+Capitolul 4-Metoda lui Newton"
+newton "Acest fractal se genereaza printr-o
+formula complet diferita:"
+newton1 "Metoda numerica a lui Newton pentru
+gasirea radacinilor ecuatiei polnomiale
+x^3=1."
+newton2 "Numara iteratiile necesare pentru
+gasirea radacinii aproximante."
+newton3 "Poti vedea cele trei radacini ca
+cercuri albastre."
+newton4 "Cele mai interesante zone sunt
+locurile in care punctul de plecare
+este aproape echidistant fata de doua
+sau trei radacini."
+newton5 "Acest fractal este foarte auto-
+similar si nu prea interesant de
+cercetat."
+newton6 "Dar XaoS poate genera multimi
+asemanatoare cu multimile Julia,"
+newton7 "unde foloseste eroarea de aproximare
+drept samanta (valoare initiala)."
+newton8 "Acest lucru face ca fractalul Newton
+sa devina mai interesant."
+newton9 "XaoS poate genera si un alt
+fractal Newton."
+newton10 "Metoda numerica a lui Newton pentru
+gasirea radacinilor ecuatiei polinomoale
+x^4=1."
+newton11 "Poti vedea cele patru radacini
+drept cercuri albastre."
+
+#########################################################
+#For file octo.xaf
+intro6 "Fractali - O introducere
+
+Capitolul 7-Octo"
+octo "Octo este un fractal mai putin
+cunoscut."
+octo1 "L-am ales pentru XaoS din cauza
+formei sale neobisnuite."
+octo2 "XaoS poate genera multimi
+asemanatoare cu multimile Julia,
+similare cu cele din multimea
+Newton."
+
+#########################################################
+#For file outcolor.xaf
+
+outcolor "Moduri de colorare exterioara"
+outcolor1 "Multimea Mandelbrot este doar lacul
+negru si plictisitor din
+mijlocul ecranului"
+outcolor2 "Dungile colorate dimprejurul lui
+sunt garnitele multimii."
+outcolor3 "In mod normal, colorarea se bazeaza
+pe numarul de iteratii necesare
+pentru a atinge valoarea de salvare
+(bail-out)."
+outcolor4 "Dar exista si ale modalitati
+de colorare."
+outcolor5 "XaoS le numeste moduri
+de colorare exterioara."
+
+iterreal "iter+real
+
+Acest mod coloreaza granitele prin
+adunarea partii reale a ultimei orbite
+la numarul de iteratii."
+iterreal1 "Il poti utiliza pentru a transforma
+imaginile plictisitoare in imagini mult
+mai interesante."
+
+iterimag "iter+imag este asemanator cu iter+real."
+iterimag2 "Singura diferenta este ca foloseste
+partea imaginara a ultimei orbite."
+
+iprdi "iter+real/imag
+
+Acest mod coloreaza granitele
+prin adunarea numarului de iteratii la
+partea reala a ultimei orbite,
+impartind apoi la partea imaginara."
+
+sum "iter+real+imag+real/imag
+
+este suma tuturor modurilor anterioare
+de colorare."
+
+decomp "descompunere binara
+
+cand partea imaginara este mai mare
+decat zero, acest mod foloseste numarul
+de iteratii; altfel foloseste
+numarul maxim de iteratii minus
+numarul de iteratii de descompunere
+binara."
+
+bio "biomorphs
+
+Acest mod de colorare se numeste astfel
+deoarece face unii fractali sa arate
+ca niste organisme unicelulare."
+
+#########################################################
+#For file outnew.xhf
+
+potential "potential
+
+Acest mod de colorare arata
+forte bine in true-color
+pentru imagini nemarite."
+
+cdecom "descompunearea culorilor"
+cdecom2 "In acest mod, culorile se calculeaza
+pornind de la unghiul ultimei orbite."
+cdecom3 "Este asemanator cu descompunearea
+binara dar interpoleaza culorile
+mai neted."
+cdecom4 "Pentru tipul Newton, se poate folosi
+pentru colorarea multimii bazandu-se
+pe radacina conoscuta, mai degraba decat pe
+numarul de iteratii."
+
+smooth "neted
+
+Modul de colorare neteda incearca
+sa elimine dungile cauzate de iteratii
+si sa faca gradatii netede."
+smooth1 "Nu functioneaza pentru multimea
+Newton si nici pentru formule magnet din
+cauza ca acestea au atractori finiti."
+smooth2 "Functioneaza numai pentru true color
+si modurile high color ale monitorului.
+Asa ca daca ai 8bpp, va trebui sa
+setezi filtrul true color."
+
+#########################################################
+#For file outnew.xhf
+
+intro5 "Fractali -O introducere
+
+Capitolul 6-Phoenix"
+
+phoenix "Aceasta este multimea Mandelbrot
+pentru o formula conoscuta ca Phoenix."
+
+phoenix1 "Arata altfel decat ceilalti fractali
+din XaoS, dar se poate gasi o anumita
+asemanare cu multimea Mandelbrot:"
+
+phoenix2 "multimea Phoenix contine si ea o
+\"coada\" cu copii in miniatura a
+intregii multimi,"
+
+phoenix3 "exista totusi o corespondenta
+de \"tema\" intre versiunea Mandelbrot
+si multimile Julia,"
+
+phoenix4 "dar multimie Julia sunt foarte diferite."
+
+#########################################################
+#For file plane.xaf
+
+plane1 "De obicei, partea reala a unui punct
+din planul complex se reprezinta
+pe coordonata x de pe ecran; partea
+imaginara se reprezinta pe
+coordonata y."
+
+plane2 "XaoS ofera 6 moduri alternative
+de reprezentare"
+plane3 "1/mu
+
+Aceasta este o inversiune - zone de la
+infinit sunt aduse la 0 si 0 se reprezinta
+la infinit. Prin aceasta se poate
+vedea ce se intampla cu un fractal
+cand acesta este de-marit (unzoomed)
+de un numar infinit de ori."
+plane4 "Aceasta este o multime Mandelbrot
+normala..."
+plane5 "si aceasta este una inversata."
+plane6 "Dupa cum poti observa, multimea
+a fost in mijloc si acum este peste tot.
+Zona albastra infinit de mare din
+jurul multimii se mapeaza pe cercul mic
+din jurul punctului 0."
+plane7 "Urmatoarele cateva imagini vor fi
+aratate in modul normal, si dupa aceea
+in modul inversat pentru ca sa
+vezi ce se intampla"
+
+plane8 "1/mu+0.25
+
+Acesta este alt mod de inversiune, dar
+are un alt centru de inversiune.
+"
+plane9 "Fiindca centrul inversiunii se afla
+pe granita multimii Mandelbrot,
+poti vedea acum granite parabolice
+infinite."
+plane10 "Are un efect interesant si asupra
+altor fractali, deoarece de obicei le strica
+simetria."
+
+lambda "Planul lambda ofera o vedere
+complet diferita."
+
+ilambda "1/lambda
+
+Aceasta este o combinatie a
+inversiunii cu planul lambda."
+
+imlambda "1/(lambda-1)
+
+Aceasta este o combinatie de lambda,
+miscare, si inversiune."
+
+imlambda2 "Ofera o deformare foarte
+interesanta a multimii Mandelbrot."
+
+mick "1/(mu-1.40115)
+
+Aceasta este din nou o inversiune
+cu un centru mutat. Centrul este acum
+plasat in puncte Feigenbaum - puncte
+unde multimea Mandelbrot este auto-
+similara. Acest lucru mareste foarte tare
+detaliile din jurul acestui punct."
+
+#########################################################
+#For file power.xaf
+
+intro2 "Fractali - O introducere
+
+Capitolul 3-Multimi Mandelbrot de ordin superior"
+
+power "z^2+c nu este singura formula
+care genereaza fractali."
+power2 "Una doar putin modificata: x^3+c
+genereaza un fractal asemanator."
+power3 "Si contine, desigur, multe
+copii ale multimii principale."
+
+power4 "Fractali asemanatori pot fi generati
+de formule putin modificate"
+
+pjulia "si fiecare dintre ei are si un sir
+corespunzator de multimi Julia."
+
+#########################################################
+#For file truecolor.xaf
+
+truecolor "Moduri de colorare true-color"
+truecolor1 "De obicei fractalii se coloreaza
+utilizand o paleta de culori. In modul
+true-color, paleta se emuleaza."
+truecolor2 "Singura diferenta este ca
+paleta este mai vasta si colurile sunt
+interpolate neted in modurile de
+colorare."
+truecolor3 "Modul de colorare true-color
+utilizeaza o tehnica complet diferita.
+Foloseste diversi parametri din calcule"
+truecolor4 "pentru a genera o culoare
+anume - nu doar un index la
+paleta."
+truecolor5 "Acest lucru face posibila prezentarea
+a pana la patru valori in fiecare pixel."
+truecolor6 "Modul de colorare true-color
+are desigur nevoie de true color. Asa ca pe
+ecrane 8bpp, trebuie sa setezi filtrul
+de true-color."
+
+#########################################################
+#for file pert.xaf  #NEW (up to end of file)
+
+pert0 "Perturbarea"
+pert1 "Asa cum formula Julia foloseste
+diferite seminte (valori initiale)
+pentru a genera diferite multimi
+Julia dintr-o singura formula,"
+pert2 "la fel poti schimba valoarea de
+perturbare pentru multimile Mandelbrot."
+pert3 "Se schimba pozitia de inceput a
+orbitei de la valoarea implicita 0."
+pert4 "Valoarea ei nu afecteaza
+fractalul rezultat atat de tare precum afecteaza
+samanta (valoarea initiala) multimile
+Julia, dar este folositor cand doresti
+sa faci astfel incat un fractal sa fie
+mai aleator."
+
+##########################################################
+#for file palette.xaf
+
+pal "Palete aleatoare"
+pal0 "XaoS nu vine cu biblioteci mari
+de palete predefinite ca multe alte
+programe, dar genereaza
+palete aleatoare."
+pal1 "Asa ca poti pur si simplu sa
+apesi tasta 'P' pana cand XaoS
+genereaza paleta pe care o doresti
+pentru fractalul tau."
+pal2 "Se utilizeaza trei algoritmi
+diferiti:"
+pal3 "Primul face dungi pornind de la o
+culoare oarecare la negru."
+pal4 "Al doilea face dungi pornind de la negru
+margand la o culoare oarecare si
+ajungand la alb."
+pal5 "Al treilea se inspira din picturi
+cubiste."
+
+###########################################################
+#for file other.xaf
+
+auto1 "Pilot automat"
+auto2 "Daca esti lenes, poti seta pilotul
+automat pentru a lasa XaoS
+sa exploreze un fractal in mod
+automat."
+fastjulia1 "Modul de parcurgere rapida
+a unei multimi Julia"
+fastjulia2 "Acest mod iti da voie sa \"morph\"
+multimea Julia in concordanta cu
+samanta (valoarea initiala) curenta."
+fastjulia3 "Este folositor de asemenea si ca
+avanpremiera a unei zone inainte sa
+o maresti - din cauza corespondentei
+tematice intre Julia si punctul ales,
+poti vedea tema aproximtiva din jurul
+unui punct inainte sa maresti."
+rotation "Rotirea imaginilor"
+cycling "Ciclarea culorilor"
+bailout "Salvare (bailout)"
+bailout1 "Aceasta este multimea Mandelbrot
+cu modul de colorare exterioara 'neted.'"
+bailout2 "Prin marirea valorii de salvare
+(bailout) la 64, obtii
+tranzitii mai echilibrate de culoare."
+bailout3 "Pentru majoritatea tipurilor de
+fractali, valori diferite de salvare
+(bailout) dau ca rezultat fractali
+asemanatori."
+bailout4 "Acest lucru nu este adevarat pentru
+fractalii Barnsley."
+
+##############################################
+#for file trice.xaf
+
+trice1 "Fractali Triceratops si Catseye (ochi de pisica)"
+trice2 "Daca schimbi valoarea de salvare
+(bailout)"
+trice3 "a unui fractal escape-time"
+trice4 "la o valoare mai mica,"
+trice5 "vei obtine un alt fractal."
+trice6 "Cu aceasta metoda putem obtine"
+trice7 "sabloane foarte interesante"
+trice8 "cu zone separate colorate intr-o
+singura culoare."
+trice9 "Fractalul Triceratops"
+trice10 "este si el facut prin aceasta metoda."
+trice11 "Se pot face multe poze asemanatoare"
+trice12 "din Triceratops."
+trice13 "Fractalul Catseye (ochi de pisica)"
+trice14 "arata ca un ochi de pisica."
+trice15 "Dar daca marim valoarea de salvare
+(bailout)..."
+trice16 "...obtinem un fractal si mai
+interesant..."
+trice17 "...cu bule..."
+trice18 "...si multimi Julia foarte frumoase."
+
+##############################################
+#for file fourfr.xaf
+
+fourfr1 "Mandelbar, Lambda, Manowar si Spider"
+fourfr2 "Aceasta este multimea Mandelbar."
+fourfr3 "Formula ei este: z = (conj(z))^2 + c"
+fourfr4 "Cateva din multimile ei Julia sunt
+interesante."
+fourfr5 "Dar sa vedem alti fractali acum."
+fourfr6 "Fractalul Lambda are o structura"
+fourfr7 "asemanatoare cu cea a lui Mandelbrot."
+fourfr8 "Este ca multimea Mandelbrot
+in planul lambda."
+fourfr9 "Dar Lambda este o multime Julia,
+aici este MandelLambda."
+fourfr10 "...modul rapid Julia..."
+fourfr11 "Acesta este fractalul Manowar."
+fourfr12 "A fost gasit de catre un utilizator
+al Fractint."
+fourfr13 "Are multimi Julia asemanatoare
+cu intreaga multime."
+fourfr14 "Acest fractal se numeste Spider
+(paianjen)."
+fourfr15 "A fost gasit tot de catre un
+utilizator al Fractint."
+fourfr16 "Si are si el multimi Julia asemanatoare
+cu intreaga multime."
+
+##############################################
+#for file classic.xaf
+
+classic1 "Sierpinski Gasket, S.Carpet,
+Koch Snowflake(fulgul de zapada al
+lui Koch)"
+classic2 "Acesta este faimosul fractal
+Sierpinski Gasket."
+classic3 "Si aceasta este varianta
+escape-time a sa."
+classic4 "Ii poti schimba forma prin selectarea"
+classic5 "unei alte 'seminte (valori
+initiale) Julia'"
+classic6 "Acesta este fractalul Sierpinski Carpet."
+classic7 "Si aici este varianta
+escape-time a sa."
+classic8 "Si acesta este conoscut."
+classic9 "Si, in sfarsit, aceasta este varianta
+escape-time"
+classic10 "a fractalului Koch Snowflake
+(fulgul de zapada al lui Koch)."
+
+##############################################
+#for file otherfr.xaf
+
+otherfr1 "Alte tipuri de fractali in XaoS"

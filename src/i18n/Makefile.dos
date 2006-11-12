@@ -1,4 +1,4 @@
-LANGUAGES=hu es fr cs de
+LANGUAGES=hu es fr cs de ro
 
 # This makefile is based on Makefile.in (Unix version). It had to be
 # simplified in certain places.

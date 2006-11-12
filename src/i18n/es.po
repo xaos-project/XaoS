@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-13 07:26+0200\n"
+"POT-Creation-Date: 2006-11-12 23:25+0100\n"
 "PO-Revision-Date: 2002-10-04 15:22+0200\n"
 "Last-Translator: César Pérez <oroz@users.sourceforge.net>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -192,32 +192,32 @@ msgstr "Miniestado"
 msgid "Driver"
 msgstr "Driver"
 
-#: ../ui/ui.c:1460
+#: ../ui/ui.c:1464
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Bienvenido a XaoS versión %s"
 
-#: ../ui/ui.c:1608
+#: ../ui/ui.c:1612
 msgid "Can not allocate buffers"
 msgstr "No se puede asignar búfer"
 
-#: ../ui/ui.c:1626
+#: ../ui/ui.c:1630
 msgid "Can not create palette"
 msgstr "No se puede crear la paleta"
 
-#: ../ui/ui.c:1639
+#: ../ui/ui.c:1643
 msgid "Can not create image"
 msgstr "No se puede crear la imagen"
 
-#: ../ui/ui.c:1674 ../ui/ui.c:1728
+#: ../ui/ui.c:1678 ../ui/ui.c:1732
 msgid "Can not allocate tables"
 msgstr "No se asignar tablas"
 
-#: ../ui/ui.c:1712
+#: ../ui/ui.c:1716
 msgid "Can not initialize driver"
 msgstr "No se puede inicializar el driver"
 
-#: ../ui/ui.c:1715
+#: ../ui/ui.c:1719
 msgid "Can not return back to previous driver"
 msgstr "No se puede volver al driver anterior"
 

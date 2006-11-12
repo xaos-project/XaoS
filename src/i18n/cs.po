@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-13 07:26+0200\n"
+"POT-Creation-Date: 2006-11-12 23:25+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: MadSoft <madsoft@centrum.cz>\n"
 "Language-Team: Czech\n"
@@ -232,38 +232,38 @@ msgid "Driver"
 msgstr "Grafický ovladaè"
 
 # ../ui/ui.c:1494
-#: ../ui/ui.c:1460
+#: ../ui/ui.c:1464
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Zdravíme vás ve %s Xaos verzi!"
 
 # ../ui/ui.c:801
-#: ../ui/ui.c:1608
+#: ../ui/ui.c:1612
 msgid "Can not allocate buffers"
 msgstr "Není dostatek pufferu"
 
 # ../ui/ui.c:812
-#: ../ui/ui.c:1626
+#: ../ui/ui.c:1630
 msgid "Can not create palette"
 msgstr "Paleta barev nelze vytvoøit"
 
 # ../ui/ui.c:820
-#: ../ui/ui.c:1639
+#: ../ui/ui.c:1643
 msgid "Can not create image"
 msgstr "Obraz nelze vytvoøit"
 
 # ../ui/ui.c:853 ../ui/ui.c:917
-#: ../ui/ui.c:1674 ../ui/ui.c:1728
+#: ../ui/ui.c:1678 ../ui/ui.c:1732
 msgid "Can not allocate tables"
 msgstr "Není místo pro tabulky"
 
 # ../ui/ui.c:901
-#: ../ui/ui.c:1712
+#: ../ui/ui.c:1716
 msgid "Can not initialize driver"
 msgstr "Grafický ovladaè nelze inicializovat"
 
 # ../ui/ui.c:904
-#: ../ui/ui.c:1715
+#: ../ui/ui.c:1719
 msgid "Can not return back to previous driver"
 msgstr "Pøedchzí grafický ovladaè nelze zobrazit"
 

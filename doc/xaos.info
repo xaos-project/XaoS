@@ -3450,7 +3450,7 @@ Appendix B Credits
 *Zsigmond Kovacs*
      Fractal examples
 
-*J. B. Langston III (jb.langston@gmail.com)*
+*J. B. Langston III (jb-langston@austin.rr.com)*
      Native Mac OS X port (from version 3.2.2)
 
 *Andreas Madritsch (amadritsch@datacomm.ch)*
@@ -3487,8 +3487,14 @@ Appendix B Credits
 *Jan Olderdissen (jan@olderdissen.com)*
      Win32 port
 
+*Ilinca Sitaru (ilinca.sitaru@gmail.com)*
+     Romanian translation
+
 *Daniel Skarda*
      Fractal examples
+
+*Andrew Stone (Stone Design - www.stone.com)*
+     Mac OS X improvements, Videator support
 
 *Marton Torok (marton.torok@gmail.com)*
      Small fixes for pipes
@@ -3735,7 +3741,7 @@ Node: palette107318
 Node: cycling108182
 Node: shiftpalette109161
 Node: authors109873
-Node: lists112446
-Node: index113212
+Node: lists112611
+Node: index113377
 
 End Tag Table

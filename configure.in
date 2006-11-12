@@ -1,4 +1,4 @@
-AC_INIT(XaoS, 3.2.2, xaos-devel@lists.sourceforge.net)
+AC_INIT(XaoS, 3.2.3, xaos-devel@lists.sourceforge.net)
 
 # FIXME: unfortunately version still have to be changed
 # in src/include/version.h and some lines later in this file, too
@@ -23,7 +23,7 @@ dnl
 # AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 # AC_SUBST(PACKAGE)
 # AC_SUBST(VERSION)
-ALL_LINGUAS="cs es hu fr de"
+ALL_LINGUAS="cs es hu fr de ro"
 AM_GNU_GETTEXT
 
 AC_PATH_PROG([MSGMERGE], [msgmerge], , [$PATH:../bin])
