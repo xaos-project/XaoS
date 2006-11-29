@@ -1137,6 +1137,8 @@ MAIN_FUNCTION (int argc, char **argv)
       printf ("An error occured in your setlocale/gettext installation.\n");
       printf ("I18n menus will not be available.\n");
     }
+    locale = setlocale (LC_MESSAGES, "");
+	  printf ("locale: %s\n", locale);
 #ifdef _WIN32
   // x_message("%s",locale);
   if (locale != NULL)

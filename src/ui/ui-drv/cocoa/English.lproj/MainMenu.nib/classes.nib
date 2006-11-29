@@ -1,7 +1,7 @@
 {
     IBClasses = (
         {
-            ACTIONS = {performMenuAction = id; }; 
+            ACTIONS = {performMenuAction = id; showPreferencesPanel = id; }; 
             CLASS = AppController; 
             LANGUAGE = ObjC; 
             OUTLETS = {view = FractalView; window = NSWindow; }; 

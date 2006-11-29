@@ -15,8 +15,8 @@
 	int currentBuffer;
 	NSBitmapImageRep *imageRep[2];
 }
-
 - (int)allocBuffer1:(char **)b1 buffer2:(char **)b2;
+- (void)freeBuffers;
 - (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb;
 - (void)flipBuffers;
 - (NSBitmapImageRep *)imageRep;

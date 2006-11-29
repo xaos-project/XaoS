@@ -544,6 +544,7 @@ uih_rotationspeed (uih_context * c, number_t speed)
 {
   c->rotationspeed = speed;
 }
+
 static void
 uih_cyclinghandler (void *userdata, int n)
 {
@@ -1847,7 +1848,7 @@ uih_mkpalette (uih_context * c)
   uih_cycling_continue (c);
 }
 
-/*Basic inicialization routines */
+/*Basic initialization routines */
 
 static void
 uih_alloctables (uih_context * c)
@@ -2286,6 +2287,22 @@ uih_restorepalette (uih_context * uih)
 }
 
 void
+uih_loadpalette(uih_context * c, struct palette *palette) 
+{
+	if (c->palette2) destroypalette(c->palette2);
+	c->palette2 = clonepalette(palette);
+	uih_restorepalette(c);
+	uih_palettechg (c);
+}
+
+struct palette *
+uih_clonepalette(uih_context * c)
+{
+	if (c->zengine->fractalc->palette != NULL) 
+		return clonepalette (c->zengine->fractalc->palette);
+}
+
+void
 uih_setformula (uih_context * c, int num)
 {
   set_formula (c->fcontext, num);
@@ -2439,4 +2456,15 @@ uih_initialize (struct filter *f, struct initdata *i)
   if (wascycling)
     uih_cycling_on (uih), wascycling = 0;
   return returnval;
+}
+
+void uih_inhibittextsw (uih_context * c) {
+	c->inhibittextoutput ^= 1;
+	uih_updatemenus (c, "inhibittextoutput");
+}
+
+int uih_inhibittextselected (uih_context *c) {
+	if (c == NULL)
+		return 0;
+	return c->inhibittextoutput;
 }

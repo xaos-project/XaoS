@@ -1,6 +1,8 @@
 #import "AppController.h"
 #import "CustomDialog.h"
+#import "PrefsController.h"
 //#import <QuartzCore/CIImage.h>
+#import "ui.h"
 
 AppController *controller;
 
@@ -18,6 +20,38 @@ AppController *controller;
 
 @implementation AppController
 
+static NSString *EnableVideator = @"EnableVideator";
+
++ (void)setupDefaults
+{
+    NSString *userDefaultsValuesPath;
+    NSDictionary *userDefaultsValuesDict;
+    NSDictionary *initialValuesDict;
+    NSArray *resettableUserDefaultsKeys;
+    
+    // load the default values for the user defaults
+    userDefaultsValuesPath=[[NSBundle mainBundle] pathForResource:@"UserDefaults" 
+														   ofType:@"plist"];
+    userDefaultsValuesDict=[NSDictionary dictionaryWithContentsOfFile:userDefaultsValuesPath];
+    
+    // set them in the standard user defaults
+    [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsValuesDict];
+    
+    // if your application supports resetting a subset of the defaults to 
+    // factory values, you should set those values 
+    // in the shared user defaults controller
+    resettableUserDefaultsKeys=[NSArray arrayWithObjects:EnableVideator,nil];
+    initialValuesDict=[userDefaultsValuesDict dictionaryWithValuesForKeys:resettableUserDefaultsKeys];
+    
+    // Set the initial values in the shared user defaults controller 
+    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
+}
+
+
++ (void)initialize {
+		[self setupDefaults];
+}
+
 #ifdef VIDEATOR_SUPPORT
 
 - (void)connectionDidDie:(NSNotification *)n {
@@ -27,6 +61,9 @@ AppController *controller;
 }
 
 - (void)getProxy {
+	// simply return if user does not want this
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:EnableVideator]) return;
+	
 	// do not try and reconnect to an application that is terminating:
 	if (_killDate && [_killDate timeIntervalSinceNow] > -10.0) return;
 	else _killDate = nil;
@@ -51,7 +88,7 @@ AppController *controller;
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	if (!_videatorProxy) [self getProxy];
 NS_DURING
-	if (_videatorProxy!=nil && [_videatorProxy wantsXaoSImage])
+	if (_videatorProxy!=nil /* DO NOT WAIT FOR THE ROUNDTRIP && [_videatorProxy wantsXaoSImage] */)
 		[_videatorProxy setXaosImageData:[[view imageRep] TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:0]];
 NS_HANDLER
 	
@@ -60,16 +97,24 @@ NS_ENDHANDLER
 	[pool release];
 #endif /* http://www.stone.com/Videator support */
 }
+- (void)updateWindowTitle {
+#ifdef VIDEATOR_SUPPORT
+	NSString *s = [[NSUserDefaults standardUserDefaults] boolForKey:EnableVideator]?@"XaoS - Videator Enabled" : @"XaoS";
+#else
+	NSString *s = @"XaoS";
+#endif
+	[[view window] setTitle:s];
+}
 
 - (void)awakeFromNib
 {
 	controller = self;
 	menuItems = [[NSMutableDictionary alloc] init];
-	powerKeyDictionary = [[NSMutableDictionary alloc] init];
 	
 	// this is how we implement hotkeys in about 8 lines of code ;-)
 	[[view window] makeFirstResponder:view];
 	[[view window] setDelegate:self]; 
+	[self updateWindowTitle];
 }
 
 - (void)printText:(CONST char *)text atX:(int)x y:(int)y
@@ -84,6 +129,11 @@ NS_ENDHANDLER
 - (int)allocBuffer1:(char **)b1 buffer2:(char **)b2 
 {
 	return [view allocBuffer1:b1 buffer2:b2];
+}
+
+- (void)freeBuffers
+{
+    [view freeBuffers];
 }
 
 - (void)getWidth:(int *)w height:(int *)h
@@ -101,7 +151,7 @@ NS_ENDHANDLER
 - (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb keys:(int *)k
 {
 	[view getMouseX:mx mouseY:my mouseButton:mb];
-	*k = 0;
+	*k = keysDown;
 }
 
 - (void)setMouseType:(int)type
@@ -118,6 +168,12 @@ NS_ENDHANDLER
 	
 	ui_menuactivate(item, NULL);
 	
+	if ([name isEqualToString:@"inhibittextoutput"]) {
+		if (!_performanceCursor) _performanceCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
+		[[view window]invalidateCursorRectsForView:view];
+		NSCursor *cursor = [sender state] ? _performanceCursor : [NSCursor arrowCursor];
+		[view addCursorRect:[view bounds] cursor:cursor];
+	}
 }
 
 - (void)clearMenu:(NSMenu *)menu
@@ -126,6 +182,7 @@ NS_ENDHANDLER
 		[menu removeItemAtIndex:1];
 	}
 }
+
 
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name
 {
@@ -170,13 +227,14 @@ NS_ENDHANDLER
 			
 			if (item->key && parentMenu != mainMenu)
 				menuTitle = [NSString stringWithFormat:@"%@ (%s)",menuTitle,item->key];
-			
+
+            // Disappearing Help menu in Leopard - probably due to the new search field dude
+            if (NSAppKitVersionNumber > 830.0 && [menuTitle isEqualToString:@"Help"]) {
+				menuTitle = @"Learn";
+			}
+            			
 			menuShortName = [NSString stringWithCString:item->shortname];
 			newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:keyEquiv];
-			
-			if (item->key && parentMenu != mainMenu)
-				[powerKeyDictionary setObject:newItem forKey:[NSString stringWithFormat:@"%s",item->key]];
-
 			
 			[menuItems setValue:newItem forKey:menuShortName];
 			if (item->type == MENU_SUBMENU) {
@@ -285,6 +343,7 @@ NS_ENDHANDLER
 		[NSApp endSheet:customDialog];
 		[customDialog orderOut:self];
 		[customDialog release];
+		[[view window] makeKeyAndOrderFront:self];
 	}
 	
 	[pool release];
@@ -303,13 +362,91 @@ NS_ENDHANDLER
 	
 }
 
-- (void)initApp:(int)fullscreen {
-   /// code cannot go here because ui_driver not defined  here - please refer to ui_cocoa.m for more info...    
+- (void)keyDown:(NSEvent *)e
+{
+    NSString *characters = [e characters];
+    if ([characters length] == 0) return;
+    
+    unichar keyChar = [characters characterAtIndex:0];
+    switch(keyChar) {
+        case NSLeftArrowFunctionKey:
+            keysDown |= 1;
+            ui_key(UIKEY_LEFT);
+            break;
+        case NSRightArrowFunctionKey:
+            keysDown |= 2;
+            ui_key(UIKEY_RIGHT);
+            break;
+        case NSUpArrowFunctionKey:
+            keysDown |= 4;
+            ui_key(UIKEY_UP);
+            break;
+        case NSDownArrowFunctionKey:
+            keysDown |= 8;
+            ui_key(UIKEY_DOWN);
+            break;
+        case NSBackspaceCharacter:
+            ui_key(UIKEY_BACKSPACE);
+            break;
+        case NSEndFunctionKey:
+            ui_key(UIKEY_END);
+            break;
+        /*
+        case kEscapeCharCode:
+            ui_key(UIKEY_ESC);
+            break;
+        */
+        case NSHomeFunctionKey:
+            ui_key(UIKEY_HOME);
+            break;
+        case NSPageDownFunctionKey:
+            ui_key(UIKEY_PGDOWN);
+            break;
+        case NSPageUpFunctionKey:
+            ui_key(UIKEY_PGUP);
+            break;
+        case NSTabCharacter:
+            ui_key(UIKEY_TAB);
+            break;
+        default:
+            ui_key(keyChar);
+    }
 }
 
-- (void)keyPressed:(NSString *)key {
-	NSMenuItem *item = [powerKeyDictionary valueForKey:key];
-	if (item) 	[self performMenuAction:item];
+- (void)keyUp:(NSEvent *)e
+{
+    NSString *characters = [e characters];
+    if ([characters length] == 0) return;
+    
+    unichar keyChar = [characters characterAtIndex:0];
+    switch(keyChar)	{
+        case NSLeftArrowFunctionKey:
+            keysDown &= ~1;
+            break;
+        case NSRightArrowFunctionKey:
+            keysDown &= ~2;
+            break;
+        case NSUpArrowFunctionKey:
+            keysDown &= ~4;
+            break;
+        case NSDownArrowFunctionKey:
+            keysDown &= ~8;
+            break;
+    }
+}
+
+- (IBAction)showPreferencesPanel:(id)sender
+{
+    if (!prefsController) {
+        prefsController = [[PrefsController alloc] init];
+    }
+    [prefsController showWindow:self];
+}
+
+- (void) dealloc
+{
+    [prefsController release];
+    [super dealloc];
 }
 
 @end

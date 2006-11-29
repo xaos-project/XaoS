@@ -13,7 +13,8 @@
 
 @implementation FractalView
 
-- (id)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code here.
@@ -68,19 +69,22 @@
 	
 }
 
-- (void)drawRect:(NSRect)rect {
+- (void)drawRect:(NSRect)rect
+{
 	if (imageRep[currentBuffer]) {
         // Drawing code here.
         [imageRep[currentBuffer] drawInRect:[self bounds]];
 	}
 }
 
-- (NSBitmapImageRep *)imageRep {
+- (NSBitmapImageRep *)imageRep
+{
 	return imageRep[currentBuffer];
 }
 
 - (int)allocBuffer1:(char **)b1 buffer2:(char **)b2 
 {
+    currentBuffer = 0;
     // Initialize image rep to current size of image view
     NSRect bounds = [self bounds];
     imageRep[0] = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
@@ -112,6 +116,12 @@
 	return [imageRep[0] bytesPerRow];
 }
 
+- (void)freeBuffers
+{
+    [imageRep[0] release];
+    [imageRep[1] release];
+}
+
 - (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb 
 {
 	*mx = mouseX;
@@ -126,9 +136,20 @@
 
 // ACS: need to implement hot keys!
 
-- (void)keyDown:(NSEvent *)e {
-	NSString *characters = [e characters];
-	if ([characters length] > 0) [[[self window] delegate] keyPressed:[NSString stringWithFormat:@"%C",[characters characterAtIndex:0]]];
+- (void)viewDidEndLiveResize
+{
+    ui_resize();
+    
+}
+
+- (void)keyDown:(NSEvent *)e
+{
+	[[[self window] delegate] keyDown:e];
+}
+
+- (void)keyUp:(NSEvent *)e
+{
+	[[[self window] delegate] keyUp:e];
 }
 
 @end

@@ -134,7 +134,9 @@ uih_message1 (uih_context * c, CONST char *message, int type)
 int
 uih_message (uih_context * c, CONST char *message)
 {
-  return (uih_message1 (c, message, 0));
+  if (c->inhibittextoutput) return 0;
+
+   return (uih_message1 (c, message, 0));
 }
 
 int
