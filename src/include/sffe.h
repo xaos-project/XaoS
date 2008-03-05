@@ -11,7 +11,7 @@
 //	SFFE_CMPLX_GSL - uses GSL complex number routines
 //	SFFE_CMPLX_ASM - uses my asm complex unit (compile it with NASM)
 ///////////////////////////////////////////////////////////////////////////////////////
-// special build for XaoS, for more info viseit
+// special build for XaoS, for more info visit
 // http://www.segfaultlabs.com/projects/sfXaos
 /////////////////////////////////////////////////////////////////////////////////////*/
 

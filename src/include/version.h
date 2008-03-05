@@ -20,5 +20,5 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#define PACKAGE_VERSION "3.2.3"
+#define PACKAGE_VERSION "3.3"
 #define XaoS_VERSION PACKAGE_VERSION

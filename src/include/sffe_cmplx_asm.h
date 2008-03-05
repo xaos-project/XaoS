@@ -4,7 +4,7 @@
 // author  : Mateusz Malczak ( mateusz@malczak.info )
 // wpage   : www.segfaultlabs.com/projects/sffe
 ///////////////////////////////////////////////////////////////////////////////////////
-// special build for XaoS, for more info viseit
+// special build for XaoS, for more info visit
 // http://www.segfaultlabs.com/projects/sfXaos
 /////////////////////////////////////////////////////////////////////////////////////*/
 #ifndef SFFE_CMPLX_ASM_H

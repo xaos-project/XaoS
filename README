@@ -1,30 +1,6 @@
-Welcome to sfXaoS...
-sfXaoS is extended XaoS build...
-
 Welcome to XaoS...
 
-This file gives general information about XaoS.
-
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/README,v 1.4 2008-03-05 11:02:08 rxpi Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/README,v 1.5 2008-03-05 11:47:20 kovzol Exp $
 
-After 6 years of pause, we have put together XaoS 3.1. In fact, it was
-almost complete already in 1997. In addition, there may be other
-cleanups and fixes to be done but we leave them for version 3.2.
-
-During this long delay many users downloaded and installed XaoS 3.0 and
-also the prerelease versions. Many Linux distributors packages still use
-3.0 because the official release have not come out yet. This is the main
-reason we decided to push XaoS 3.1 out as soon as possible.
-
-In addition, many developers contributed to the XaoS project. To allow
-them the possibility to develop the code more efficient, we moved to
-SourceForge, are using CVS tracking and the source code has been
-indented using GNU style. The were also some minor improvements
-since 1997, e.g. internationalization or adding new fractal types.
-
-The result of the work of the developer crew is this software you can
-install now. Please go on and read file doc/INSTALL to continue and/or
-read the other files in directory doc/.
-
-Please visit XaoS web site for additional information (xaos.sf.net).
+Please visit http://xaos.sf.net for related information.

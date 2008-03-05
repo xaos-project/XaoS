@@ -1,7 +1,7 @@
-AC_INIT(XaoS, 3.2.3, xaos-devel@lists.sourceforge.net)
+AC_INIT(XaoS, 3.3, xaos-devel@lists.sourceforge.net)
 
 # FIXME: unfortunately version still have to be changed
-# in src/include/version.h and some lines later in this file, too
+# in src/include/version.h
 
 AC_PREREQ(2.52)
 POSTCOMPILE=""
@@ -17,12 +17,6 @@ dnl
 dnl GNU gettext related things
 dnl
 
-# PACKAGE=XaoS
-# VERSION=3.2.1
-# AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
-# AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
-# AC_SUBST(PACKAGE)
-# AC_SUBST(VERSION)
 ALL_LINGUAS="cs es hu fr de ro"
 AM_GNU_GETTEXT
 
@@ -930,7 +924,7 @@ if test $sffe = yes; then
  if test $gsl = yes; then
 		GSL_LIBS=""
 		AC_PATH_PROG(GSL_CONFIG, gsl-config, no)
-		echo "$GSL_CONFIG"
+		# echo "$GSL_CONFIG" # --- I think this is not needed, just for debug --- Zoltan
 		AC_MSG_CHECKING(for GSL)
 		 if test "$GSL_CONFIG" = "no" ; then
 		  gsl=no
