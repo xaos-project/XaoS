@@ -25,6 +25,10 @@
 #include <config.h>
 #include <zoom.h>
 
+ #ifdef SFFE_USING
+	#include "sffe.h"
+ #endif
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -39,9 +43,14 @@ extern "C"
 #define P_INVLAMBDA 4
 #define P_TRANLAMBDA 5
 #define P_MEREBERG 6
+#define P_USER 7
   extern void recalculate (int plane, number_t *, number_t *) REGISTERS (3);
 
   extern CONST char *CONST planename[];
+
+ #ifdef SFFE_USING
+   extern CONST sffe *planec;
+ #endif
 
 #ifdef __cplusplus
 }

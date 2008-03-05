@@ -72,6 +72,10 @@
 #define gettext(STRING) STRING
 #endif
 
+#ifdef SFFE_USING
+	#include "sffe.h"
+#endif
+
 #ifdef DESTICKY
 int euid, egid;
 #endif
@@ -103,9 +107,10 @@ main_loop (void)
   NORETURN;
 
      int prog_argc;
+     int err;
      char **prog_argv;
 /*UI state */
-     uih_context *uih;
+//     uih_context *uih;
      CONST struct ui_driver *driver;
      char statustext[256];
      int ui_nogui;
@@ -137,6 +142,12 @@ main_loop (void)
      static int maxframerate = 80;
      static float defscreenwidth = 0.0, defscreenheight = 0.0, defpixelwidth =
        0.0, defpixelheight = 0.0;
+
+#ifdef SFFE_USING
+     char *sffeform = NULL;
+     char *sffeinit = NULL;
+#endif
+
      CONST struct params global_params[] = {
        {"-delay", P_NUMBER, &delaytime,
 	"Delay screen updates (milliseconds)"},
@@ -173,6 +184,12 @@ main_loop (void)
 	"exact size of one pixel in centimeters"},
        {"-pixelheight", P_FLOAT, &defpixelheight,
 	"exact size of one pixel in centimeters"},
+#ifdef SFFE_USING
+       {"-formula", P_STRING, &sffeform,
+	"user formula"},
+       {"-forminit", P_STRING, &sffeinit,
+	"z0 for user formula"},
+#endif
        {NULL, 0, NULL, NULL}
      };
 
@@ -457,6 +474,12 @@ ui_drawstatus (uih_context * uih, void *data)
   sprintf (str, gettext ("Fractal type:%s"),
 	   uih->fcontext->
 	   mandelbrot ? gettext ("Mandelbrot") : gettext ("Julia"));
+#ifdef SFFE_USING
+  if ( uih->fcontext->currentformula->flags&SFFE_FRACTAL )
+  {
+  	sprintf (str, gettext ("Formula:%s"),uih->parser->expression);
+  }; 
+#endif
   xprint (uih->image, uih->font, 0, statusstart + h, str, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("View:[%1.12f,%1.12f]"),
@@ -1100,6 +1123,12 @@ ui_unregistermenus (void)
 }
 
 int number_six = 6;
+
+#ifdef SFFE_USING
+	/* parser variables vars */
+	cmplx Z,C,pZ;
+#endif
+
 #define MAX_WELCOME 50
 #ifndef MAIN_FUNCTION
 #define MAIN_FUNCTION main
@@ -1137,8 +1166,6 @@ MAIN_FUNCTION (int argc, char **argv)
       printf ("An error occured in your setlocale/gettext installation.\n");
       printf ("I18n menus will not be available.\n");
     }
-    locale = setlocale (LC_MESSAGES, "");
-	  printf ("locale: %s\n", locale);
 #ifdef _WIN32
   // x_message("%s",locale);
   if (locale != NULL)
@@ -1463,7 +1490,7 @@ MAIN_FUNCTION (int argc, char **argv)
       }
   }
 #ifndef _plan9_
-  sprintf (welcome, gettext ("Welcome to XaoS version %s"), XaoS_VERSION);
+  sprintf (welcome, gettext ("Welcome to XaoS version %s"), XaoS_VERSION); /*TYPE*/
   uih_message (uih, welcome);
 #endif
   uih_updatemenus (uih, driver->name);
@@ -1578,10 +1605,28 @@ MAIN_FUNCTION (int argc, char **argv)
       x_message ("Approximation loop speed: %g FPS", c / 5.0);
       ui_doquit (0);
     }
+
+#ifdef SFFE_USING
+ /*SFFE : malczak */
+	if ( sffeform ) err = sffe_parse( &uih->parser, (char*)sffeform ); else
+   		sffe_parse( &uih->parser, "z^2+c");
+	if ( sffeinit )
+	{
+		uih->pinit = sffe_alloc();
+		sffe_regvar( &uih->pinit, &pZ, 'p' );
+		sffe_regvar( &uih->pinit, &C, 'c');
+		if ( sffe_parse( &uih->pinit, (char*)sffeinit )>0 ) sffe_free(&uih->pinit);
+		 
+	};
+    if (err>0) sffe_parse( &uih->parser, "z^2+c");
+ /*SFFE*/
+#endif
+
   driver->print (0, textheight1 * 8, "Entering main loop");
   ui_flush ();
   main_loop ();
   ui_quit ();
+
   return (0);
 }
 

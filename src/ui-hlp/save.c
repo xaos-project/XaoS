@@ -399,6 +399,16 @@ uih_saveframe (struct uih_context *uih)
 	  save_keystringc (uih, "formula",
 			   uih->fcontext->currentformula->shortname),
 	    s->fcontext->currentformula = uih->fcontext->currentformula;
+#ifdef SFFE_USING
+/*SFFE : malczak */
+		if ( (int)(uih->fcontext->currentformula - formulas)==24 ) //user formula
+		{
+			save_stringc ( uih, "usrform", uih->parser->expression );
+				if ( uih->pinit ) save_stringc ( uih, "usrformInit", uih->pinit->expression );
+				  else save_stringc ( uih, "usrformInit", "" );
+		};
+/*SFFE : malczak */
+#endif
 	  set_formula (s->fcontext,
 		       (int) (uih->fcontext->currentformula - formulas));
 	}

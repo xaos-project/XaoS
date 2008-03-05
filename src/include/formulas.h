@@ -25,9 +25,26 @@
 #include <config.h>
 #include <fractal.h>
 
+#ifdef SFFE_USING
+	#include "sffe.h"
+	 #ifdef SFFE_CMPLX_ASM
+ 	  #include "sffe_cmplx_asm.h"
+	 #elif SFFE_CMPLX_GSL
+ 	  #include "sffe_cmplx_gsl.h"
+	 #endif
+#endif
+
 #ifdef __cplusplus
 extern "C"
 {
+#endif
+
+#ifdef SFFE_USING
+	/*extern sffe* parser;
+	extern sffe* pinit;*/
+	extern cmplx Z;
+	extern cmplx pZ;
+	extern cmplx C;
 #endif
 
 #define MAX_LAMBDA 2

@@ -118,6 +118,7 @@ extern "C"
     CONST struct gui_driver *gui_driver;
   };
 
+  struct uih_context *uih;
 
   number_t ui_getfloat (CONST char *text);
   void ui_resize (void);

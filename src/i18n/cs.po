@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-12 23:25+0100\n"
+"POT-Creation-Date: 2008-02-26 11:58+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: MadSoft <madsoft@centrum.cz>\n"
 "Language-Team: Czech\n"
@@ -15,1343 +15,1367 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 # ../ui/ui.c:307
-#: ../ui/ui.c:312
+#: ../ui/ui.c:329
 msgid "XaoS is out of memory."
 msgstr "Memórie je zaplnìná."
 
 # ../ui/ui.c:355
-#: ../ui/ui.c:362
+#: ../ui/ui.c:379
 #, fuzzy, c-format
 msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
 msgstr ""
 "%2$.2f-krát %1$s %3$2.2f obrazù/sec %4$c %5$i %6$i %7$i %8$i               "
 
 # ../ui/ui.c:355
-#: ../ui/ui.c:363
+#: ../ui/ui.c:380
 msgid "unzoomed"
 msgstr "zmen¹ení"
 
 # ../ui/ui.c:355
-#: ../ui/ui.c:363
+#: ../ui/ui.c:380
 msgid "zoomed"
 msgstr "zvìt¹ení"
 
 # ../ui/ui.c:358
-#: ../ui/ui.c:371
+#: ../ui/ui.c:388
 #, c-format
 msgid "framerate:%f\n"
 msgstr "obnovení obrazu:%f\n"
 
 # ../ui/ui.c:406
-#: ../ui/ui.c:419
+#: ../ui/ui.c:436
 #, c-format
 msgid "Enabling: %s. "
 msgstr "%s zapnout."
 
 # ../ui/ui.c:408
-#: ../ui/ui.c:421
+#: ../ui/ui.c:438
 #, c-format
 msgid "Disabling: %s. "
 msgstr "%s vypnout."
 
 # ../ui/ui.c:442
-#: ../ui/ui.c:453
+#: ../ui/ui.c:470
 #, c-format
 msgid "Fractal name:%s"
 msgstr "Jméno fraktálu:%s"
 
 # ../ui/ui.c:444
-#: ../ui/ui.c:457
+#: ../ui/ui.c:474
 #, c-format
 msgid "Fractal type:%s"
 msgstr "Tip fraktálu:%s"
 
 # ../ui/ui.c:444
-#: ../ui/ui.c:459
+#: ../ui/ui.c:476
 msgid "Mandelbrot"
 msgstr ""
 
 # ../ui/ui.c:444
-#: ../ui/ui.c:459
+#: ../ui/ui.c:476
 msgid "Julia"
 msgstr ""
 
+# ../ui-hlp/menu.c:916
+#: ../ui/ui.c:480
+#, fuzzy, c-format
+msgid "Formula:%s"
+msgstr "Vzorec"
+
 # ../ui/ui.c:446
-#: ../ui/ui.c:462
+#: ../ui/ui.c:485
 #, c-format
 msgid "View:[%1.12f,%1.12f]"
 msgstr "Zobrazení:[%1.12f,%1.12f]"
 
 # ../ui/ui.c:448
-#: ../ui/ui.c:466
+#: ../ui/ui.c:489
 #, c-format
 msgid "size:[%1.12f,%1.12f]"
 msgstr "Velikost:[%1.12fx%1.12f]"
 
 # ../ui/ui.c:450
-#: ../ui/ui.c:470
+#: ../ui/ui.c:493
 #, c-format
 msgid "Rotation:%4.2f   Screen size:%i:%i"
 msgstr "Otáèení:%4.2f  Velikost obrazovky:%i:%i"
 
 # ../ui/ui.c:452
-#: ../ui/ui.c:475
+#: ../ui/ui.c:498
 #, c-format
 msgid "Iterations:%-4i Palette size:%i"
 msgstr "Poèet iterací:%-4i  Velikost palety barev:%i"
 
 # ../ui/ui.c:454
-#: ../ui/ui.c:482
+#: ../ui/ui.c:505
 #, c-format
 msgid "Autopilot:%-4s  Plane:%s"
 msgstr "Autopilot:%-4s  Plocha:%s"
 
 # ../ui/ui.c:454
-#: ../ui/ui.c:483
+#: ../ui/ui.c:506
 msgid "On"
 msgstr "Zapnout"
 
 # ../ui/ui.c:454
-#: ../ui/ui.c:483
+#: ../ui/ui.c:506
 msgid "Off"
 msgstr "Vypnout"
 
 # ../ui/ui.c:456
-#: ../ui/ui.c:487
+#: ../ui/ui.c:510
 #, c-format
 msgid "incoloring:%s    outcoloring:%s"
 msgstr "vnitøní vybarvení:%s   vnìj¹í vybarvení:%s"
 
 # ../ui/ui.c:458
-#: ../ui/ui.c:492
+#: ../ui/ui.c:515
 #, c-format
 msgid "zoomspeed:%f"
 msgstr "rychlost zvìt¹ení:%f"
 
 # ../ui/ui.c:461
-#: ../ui/ui.c:496
+#: ../ui/ui.c:519
 msgid "Parameter:none"
 msgstr "Parametr:není"
 
 # ../ui/ui.c:463
-#: ../ui/ui.c:498
+#: ../ui/ui.c:521
 #, c-format
 msgid "Parameter:[%f,%f]"
 msgstr "Parametr:[%f,%f]"
 
 # ../ui/ui.c:550
-#: ../ui/ui.c:594
+#: ../ui/ui.c:617
 #, c-format
 msgid "Please wait while calculating %s"
 msgstr "Prosím èekejte, %s fraktál se pøipravuje..."
 
 # ../ui/ui.c:657
-#: ../ui/ui.c:701
+#: ../ui/ui.c:724
 #, c-format
 msgid "Letters per second %i  "
 msgstr "%i písmen za sekundu"
 
 # ../ui/ui.c:669 ../ui/ui.c:677
-#: ../ui/ui.c:716 ../ui/ui.c:727
+#: ../ui/ui.c:739 ../ui/ui.c:750
 #, c-format
 msgid "Rotation speed:%2.2f degrees per second "
 msgstr "Rychlost rotace:%2.2f stupòù za sekundu "
 
 # ../ui/ui.c:687
-#: ../ui/ui.c:739
-#, c-format
+#: ../ui/ui.c:762
+#, fuzzy, c-format
 msgid "Iterations: %i   "
 msgstr "Poèet iterací: %i   "
 
 # ../ui/ui.c:704
-#: ../ui/ui.c:758
+#: ../ui/ui.c:781
 #, c-format
 msgid "Cycling speed: %i   "
 msgstr "Rychlost obracení barev: %i   "
 
 # ../ui/ui.c:717 ../ui/ui.c:730
-#: ../ui/ui.c:773 ../ui/ui.c:788
+#: ../ui/ui.c:796 ../ui/ui.c:811
 #, c-format
 msgid "speed:%2.2f "
 msgstr "rychlost:%2.2f "
 
 # ../ui/ui.c:968
-#: ../ui/ui.c:883
+#: ../ui/ui.c:906
 #, c-format
 msgid "Thank you for using XaoS\n"
 msgstr "Dìkujeme za pou¾ití programu XaoS\n"
 
 # ../ui/ui.c:1008
-#: ../ui/ui.c:924
+#: ../ui/ui.c:947
 msgid "Skipping, please wait..."
 msgstr "Pøeskakování, prosím èekejte..."
 
-#: ../ui/ui.c:1024 ../ui/ui.c:1026 ../ui/ui-drv/win32/ui_win32.c:1535
+#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1535
 msgid "Resize"
 msgstr ""
 
 # ../ui/ui.c:1146
-#: ../ui/ui.c:1040
+#: ../ui/ui.c:1063
 msgid "Quit"
 msgstr "Zavøít"
 
 # ../ui/ui.c:1147
-#: ../ui/ui.c:1041
+#: ../ui/ui.c:1064
 msgid "Exit now"
 msgstr "Zavøít ihned"
 
 # ../ui/ui.c:1148
-#: ../ui/ui.c:1043
+#: ../ui/ui.c:1066
 msgid "Not yet"
 msgstr "Je¹tì rad¹i ne"
 
 # ../ui-hlp/menu.c:935 ../ui-hlp/menu.c:940 ../ui/ui.c:1149
-#: ../ui/ui.c:1046 ../ui-hlp/menu.c:1050 ../ui-hlp/menu.c:1065
+#: ../ui/ui.c:1069 ../ui-hlp/menu.c:1068 ../ui-hlp/menu.c:1083
 #: ../ui/dialog.c:430 ../ui/dialog.c:1446
 msgid "Help"
 msgstr "Nápovìda"
 
 # ../ui/ui.c:1150
-#: ../ui/ui.c:1048
+#: ../ui/ui.c:1071
 msgid "Disable XaoS's builtin GUI"
 msgstr "Vypnutí zabudované GUI"
 
 # ../ui/ui.c:1152 ../ui/ui.c:1156
-#: ../ui/ui.c:1052 ../ui/ui.c:1058
+#: ../ui/ui.c:1075 ../ui/ui.c:1081
 msgid "Status"
 msgstr "Vlastnosti"
 
 # ../ui/ui.c:1153 ../ui/ui.c:1157
-#: ../ui/ui.c:1054 ../ui/ui.c:1060
+#: ../ui/ui.c:1077 ../ui/ui.c:1083
 msgid "Ministatus"
 msgstr "Hlavnìj¹í vlastnosti"
 
 # ../ui/ui.c:1159 ../ui/ui.c:1160
-#: ../ui/ui.c:1063 ../ui/ui.c:1064
+#: ../ui/ui.c:1086 ../ui/ui.c:1087
 msgid "Driver"
 msgstr "Grafický ovladaè"
 
 # ../ui/ui.c:1494
-#: ../ui/ui.c:1464
+#: ../ui/ui.c:1493
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Zdravíme vás ve %s Xaos verzi!"
 
 # ../ui/ui.c:801
-#: ../ui/ui.c:1612
+#: ../ui/ui.c:1659
 msgid "Can not allocate buffers"
 msgstr "Není dostatek pufferu"
 
 # ../ui/ui.c:812
-#: ../ui/ui.c:1630
+#: ../ui/ui.c:1677
 msgid "Can not create palette"
 msgstr "Paleta barev nelze vytvoøit"
 
 # ../ui/ui.c:820
-#: ../ui/ui.c:1643
+#: ../ui/ui.c:1690
 msgid "Can not create image"
 msgstr "Obraz nelze vytvoøit"
 
 # ../ui/ui.c:853 ../ui/ui.c:917
-#: ../ui/ui.c:1678 ../ui/ui.c:1732
+#: ../ui/ui.c:1725 ../ui/ui.c:1779
 msgid "Can not allocate tables"
 msgstr "Není místo pro tabulky"
 
 # ../ui/ui.c:901
-#: ../ui/ui.c:1716
+#: ../ui/ui.c:1763
 msgid "Can not initialize driver"
 msgstr "Grafický ovladaè nelze inicializovat"
 
 # ../ui/ui.c:904
-#: ../ui/ui.c:1719
+#: ../ui/ui.c:1766
 msgid "Can not return back to previous driver"
 msgstr "Pøedchzí grafický ovladaè nelze zobrazit"
 
 # ../ui-hlp/menu.c:992 ../ui-hlp/menu.c:993 ../ui-hlp/menu.c:1099
-#: ../ui-hlp/menu.c:123
+#: ../ui-hlp/menu.c:127
 #, fuzzy
 msgid "Perturbation:"
 msgstr "Perturbace"
 
 # ../ui-hlp/menu.c:1007
-#: ../ui-hlp/menu.c:127
+#: ../ui-hlp/menu.c:131
 #, fuzzy
 msgid "Julia-seed:"
 msgstr "Rychlost julia"
 
 # ../ui-hlp/menu.c:892
-#: ../ui-hlp/menu.c:131
+#: ../ui-hlp/menu.c:135
 #, fuzzy
 msgid "Morphing type:"
 msgstr "Pøetvoøící se èára"
 
 # ../ui/ui.c:1152 ../ui/ui.c:1156
-#: ../ui-hlp/menu.c:132
+#: ../ui-hlp/menu.c:136
 #, fuzzy
 msgid "Startuptime:"
 msgstr "Vlastnosti"
 
-#: ../ui-hlp/menu.c:133
+#: ../ui-hlp/menu.c:137
 msgid "Stoptime:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:137
+#: ../ui-hlp/menu.c:141
 msgid "File to render:"
 msgstr ""
 
 # ../ui-hlp/menu.c:928 ../ui-hlp/menu.c:938
-#: ../ui-hlp/menu.c:138
+#: ../ui-hlp/menu.c:142
 #, fuzzy
 msgid "Basename:"
 msgstr "Soubor"
 
-#: ../ui-hlp/menu.c:139
+#: ../ui-hlp/menu.c:143
 msgid "Width:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:140
+#: ../ui-hlp/menu.c:144
 #, fuzzy
 msgid "Height:"
 msgstr "Doprava"
 
-#: ../ui-hlp/menu.c:141
+#: ../ui-hlp/menu.c:145
 msgid "Real width (cm):"
 msgstr ""
 
-#: ../ui-hlp/menu.c:142
+#: ../ui-hlp/menu.c:146
 msgid "Real height (cm):"
 msgstr ""
 
 # ../ui/ui.c:358
-#: ../ui-hlp/menu.c:143
+#: ../ui-hlp/menu.c:147
 #, fuzzy
 msgid "Framerate:"
 msgstr "obnovení obrazu:%f\n"
 
-#: ../ui-hlp/menu.c:144
+#: ../ui-hlp/menu.c:148
 msgid "Image type:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:145
+#: ../ui-hlp/menu.c:149
 msgid "Antialiasing:"
 msgstr ""
 
 # ../ui-hlp/menu.c:1045
-#: ../ui-hlp/menu.c:146
+#: ../ui-hlp/menu.c:150
 #, fuzzy
 msgid "Always recalculate:"
 msgstr "Poèítání"
 
-#: ../ui-hlp/menu.c:147
+#: ../ui-hlp/menu.c:151
 msgid "Calculate MPEG motion vectors:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:148
+#: ../ui-hlp/menu.c:152
 msgid "Recommended I frame distance:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:152
+#: ../ui-hlp/menu.c:156
 #, fuzzy
 msgid "Center:"
 msgstr "Doprostøed"
 
-#: ../ui-hlp/menu.c:153
+#: ../ui-hlp/menu.c:157
 msgid "Radius:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:154 ../ui-hlp/menu.c:219
+#: ../ui-hlp/menu.c:158 ../ui-hlp/menu.c:223
 msgid "Angle:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:158
+#: ../ui-hlp/menu.c:162
 #, fuzzy
 msgid "Mode:"
 msgstr "Do prostøed"
 
 # ../ui/ui.c:1152 ../ui/ui.c:1156
-#: ../ui-hlp/menu.c:159
+#: ../ui-hlp/menu.c:163
 #, fuzzy
 msgid "Start:"
 msgstr "Vlastnosti"
 
-#: ../ui-hlp/menu.c:160
+#: ../ui-hlp/menu.c:164
 msgid "End:"
 msgstr ""
 
 # ../ui-hlp/menu.c:952
-#: ../ui-hlp/menu.c:164
+#: ../ui-hlp/menu.c:168
 #, fuzzy
 msgid "Color:"
 msgstr "Barva"
 
 # ../ui-hlp/menu.c:1033
-#: ../ui-hlp/menu.c:168
+#: ../ui-hlp/menu.c:172
 #, fuzzy
 msgid "Rotations per second:"
 msgstr "Rychlost rotace"
 
 # ../ui-hlp/menu.c:924 ../ui-hlp/menu.c:925
-#: ../ui-hlp/menu.c:172
+#: ../ui-hlp/menu.c:176
 #, fuzzy
 msgid "Letters per second:"
 msgstr "Písmen za sekund"
 
 # ../ui-hlp/menu.c:1023
-#: ../ui-hlp/menu.c:176
+#: ../ui-hlp/menu.c:180
 #, fuzzy
 msgid "Iterations:"
 msgstr "Iterace"
 
-#: ../ui-hlp/menu.c:180
+#: ../ui-hlp/menu.c:184
 msgid "Text:"
 msgstr ""
 
 # ../ui-hlp/menu.c:944
-#: ../ui-hlp/menu.c:184
+#: ../ui-hlp/menu.c:188
 #, fuzzy
 msgid "Your command:"
 msgstr "Pøíkaz"
 
 # ../ui-hlp/menu.c:928 ../ui-hlp/menu.c:938
-#: ../ui-hlp/menu.c:188 ../ui-hlp/menu.c:192 ../ui-hlp/menu.c:196
-#: ../ui-hlp/menu.c:200 ../ui-hlp/menu.c:252
+#: ../ui-hlp/menu.c:192 ../ui-hlp/menu.c:196 ../ui-hlp/menu.c:200
+#: ../ui-hlp/menu.c:204 ../ui-hlp/menu.c:256
 #, fuzzy
 msgid "Filename:"
 msgstr "Soubor"
 
 # ../ui-hlp/menu.c:916
-#: ../ui-hlp/menu.c:204
+#: ../ui-hlp/menu.c:208 ../ui-hlp/menu.c:296
 #, fuzzy
 msgid "Formula:"
 msgstr "Vzorec"
 
-#: ../ui-hlp/menu.c:208
+#: ../ui-hlp/menu.c:212
 #, fuzzy
 msgid "X center:"
 msgstr "Doprostøed"
 
-#: ../ui-hlp/menu.c:209
+#: ../ui-hlp/menu.c:213
 #, fuzzy
 msgid "Y center:"
 msgstr "Doprostøed"
 
-#: ../ui-hlp/menu.c:210
+#: ../ui-hlp/menu.c:214
 msgid "X Radius:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:211
+#: ../ui-hlp/menu.c:215
 msgid "Y Radius:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:215
+#: ../ui-hlp/menu.c:219
 msgid "Coordinates:"
 msgstr ""
 
 # ../ui-hlp/menu.c:1031
-#: ../ui-hlp/menu.c:223
+#: ../ui-hlp/menu.c:227
 #, fuzzy
 msgid "continuous rotation"
 msgstr "Plynulá rotace"
 
 # ../ui-hlp/menu.c:1035
-#: ../ui-hlp/menu.c:227
+#: ../ui-hlp/menu.c:231
 #, fuzzy
 msgid "Fast rotation"
 msgstr "Rychlý re¾im rotace"
 
 # ../ui-hlp/menu.c:919
-#: ../ui-hlp/menu.c:231
+#: ../ui-hlp/menu.c:235
 #, fuzzy
 msgid "filter"
 msgstr "Filtr"
 
-#: ../ui-hlp/menu.c:232
+#: ../ui-hlp/menu.c:236
 msgid "enable"
 msgstr ""
 
-#: ../ui-hlp/menu.c:236
+#: ../ui-hlp/menu.c:240
 msgid "Amount:"
 msgstr ""
 
 # ../ui-hlp/menu.c:1048
-#: ../ui-hlp/menu.c:240
+#: ../ui-hlp/menu.c:244
 #, fuzzy
 msgid "Zooming speed:"
 msgstr "Rychlost zvìt¹ení"
 
-#: ../ui-hlp/menu.c:244
+#: ../ui-hlp/menu.c:248
 msgid "Name:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:248
+#: ../ui-hlp/menu.c:252
 msgid "Bailout:"
 msgstr ""
 
 # ../ui-hlp/menu.c:999
-#: ../ui-hlp/menu.c:256
+#: ../ui-hlp/menu.c:260
 #, fuzzy
 msgid "Julia mode:"
 msgstr "Re¾im julia"
 
 # ../ui-hlp/menu.c:953
-#: ../ui-hlp/menu.c:260
+#: ../ui-hlp/menu.c:264
 #, fuzzy
 msgid "Horizontal position:"
 msgstr "Vodorovná pozice textu"
 
 # ../ui-hlp/menu.c:954
-#: ../ui-hlp/menu.c:261
+#: ../ui-hlp/menu.c:265
 #, fuzzy
 msgid "Vertical position:"
 msgstr "Svislá pozice textu"
 
 # ../ui-hlp/menu.c:1021
-#: ../ui-hlp/menu.c:265
+#: ../ui-hlp/menu.c:269
 #, fuzzy
 msgid "Dynamic resolution:"
 msgstr "Dinamické rozlo¾ení"
 
-#: ../ui-hlp/menu.c:269
+#: ../ui-hlp/menu.c:273
 msgid "Time:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:273 ../ui-hlp/menu.c:277
+#: ../ui-hlp/menu.c:277 ../ui-hlp/menu.c:281
 msgid "Number:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:281
+#: ../ui-hlp/menu.c:285
 msgid "Algorithm number:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:282
+#: ../ui-hlp/menu.c:286
 msgid "Seed:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:283
+#: ../ui-hlp/menu.c:287
 msgid "Shift:"
 msgstr ""
 
 # ../ui-hlp/menu.c:924 ../ui-hlp/menu.c:925
-#: ../ui-hlp/menu.c:287
+#: ../ui-hlp/menu.c:291
 #, fuzzy
 msgid "Frames per second:"
 msgstr "Písmen za sekund"
 
-#: ../ui-hlp/menu.c:336
+# ../ui-hlp/menu.c:1023
+#: ../ui-hlp/menu.c:300
+#, fuzzy
+msgid "Initialization:"
+msgstr "Iterace"
+
+#: ../ui-hlp/menu.c:354
 msgid ""
 "renderanim: Width parameter must be positive integer in the range 0..4096"
 msgstr ""
 
-#: ../ui-hlp/menu.c:343
+#: ../ui-hlp/menu.c:361
 msgid ""
 "renderanim: Height parameter must be positive integer in the range 0..4096"
 msgstr ""
 
-#: ../ui-hlp/menu.c:350
+#: ../ui-hlp/menu.c:368
 msgid "renderanim: Invalid real width and height dimensions"
 msgstr ""
 
-#: ../ui-hlp/menu.c:355
+#: ../ui-hlp/menu.c:373
 msgid "renderanim: invalid framerate"
 msgstr ""
 
-#: ../ui-hlp/menu.c:362
+#: ../ui-hlp/menu.c:380
 msgid "renderanim: antialiasing not supported in 256 color mode"
 msgstr ""
 
-#: ../ui-hlp/menu.c:367
+#: ../ui-hlp/menu.c:385
 msgid "renderanim: incorrect I frame distance"
 msgstr ""
 
-#: ../ui-hlp/menu.c:423 ../ui-hlp/menu.c:437
+#: ../ui-hlp/menu.c:441 ../ui-hlp/menu.c:455
 msgid "animateview: Invalid viewpoint"
 msgstr ""
 
-#: ../ui-hlp/menu.c:451
+#: ../ui-hlp/menu.c:469
 msgid "Invalid viewpoint"
 msgstr ""
 
 # ../ui-hlp/menu.c:919
-#: ../ui-hlp/menu.c:698
+#: ../ui-hlp/menu.c:716
 #, fuzzy
 msgid "Unknown palette type"
 msgstr "Filtr"
 
-#: ../ui-hlp/menu.c:767 ../ui-hlp/menu.c:777
+#: ../ui-hlp/menu.c:785 ../ui-hlp/menu.c:795
 msgid "Initialization of color cycling failed."
 msgstr ""
 
-#: ../ui-hlp/menu.c:768 ../ui-hlp/menu.c:778
+#: ../ui-hlp/menu.c:786 ../ui-hlp/menu.c:796
 msgid "Try to enable palette emulation filter"
 msgstr ""
 
-#: ../ui-hlp/menu.c:889
+#: ../ui-hlp/menu.c:907
 #, c-format
 msgid "Algorithm:%i seed:%i size:%i"
 msgstr ""
 
 # ../ui-hlp/menu.c:876
-#: ../ui-hlp/menu.c:942
+#: ../ui-hlp/menu.c:960
 msgid "Root menu"
 msgstr "Hlavní menu"
 
 # ../ui-hlp/menu.c:877
-#: ../ui-hlp/menu.c:943
+#: ../ui-hlp/menu.c:961
 msgid "Animation root menu"
 msgstr "Hlavní menu animací"
 
 # ../ui-hlp/menu.c:878
-#: ../ui-hlp/menu.c:944
+#: ../ui-hlp/menu.c:962
 msgid "Replay only commands"
 msgstr ""
 
 # ../ui-hlp/menu.c:879
-#: ../ui-hlp/menu.c:945
+#: ../ui-hlp/menu.c:963
 msgid "Command line options only"
 msgstr ""
 
 # ../ui-hlp/menu.c:882
-#: ../ui-hlp/menu.c:948
+#: ../ui-hlp/menu.c:966
 msgid "print menus specifications of all menus"
 msgstr ""
 
 # ../ui-hlp/menu.c:883
-#: ../ui-hlp/menu.c:953
+#: ../ui-hlp/menu.c:971
 msgid "print menu specification"
 msgstr ""
 
 # ../ui-hlp/menu.c:884
-#: ../ui-hlp/menu.c:956
+#: ../ui-hlp/menu.c:974
 msgid "print menu specification in xshl format"
 msgstr ""
 
 # ../ui-hlp/menu.c:885
-#: ../ui-hlp/menu.c:960
+#: ../ui-hlp/menu.c:978
 msgid "print all menu specifications in xshl format"
 msgstr ""
 
 # ../ui-hlp/menu.c:886
-#: ../ui-hlp/menu.c:962
+#: ../ui-hlp/menu.c:980
 msgid "print dialog specification"
 msgstr ""
 
 # ../ui-hlp/menu.c:890
-#: ../ui-hlp/menu.c:967
+#: ../ui-hlp/menu.c:985
 msgid "Line drawing functions"
 msgstr "Funkce malování èar"
 
 # ../ui-hlp/menu.c:891
-#: ../ui-hlp/menu.c:968
+#: ../ui-hlp/menu.c:986
 msgid "Line"
 msgstr "Èára"
 
 # ../ui-hlp/menu.c:892
-#: ../ui-hlp/menu.c:971
+#: ../ui-hlp/menu.c:989
 msgid "Morph line"
 msgstr "Pøetvoøící se èára"
 
 # ../ui-hlp/menu.c:893
-#: ../ui-hlp/menu.c:973
+#: ../ui-hlp/menu.c:991
 msgid "Morph last line"
 msgstr "Pøemìòující se poslední èára"
 
 # ../ui-hlp/menu.c:894
-#: ../ui-hlp/menu.c:976
+#: ../ui-hlp/menu.c:994
 msgid "Set line key"
 msgstr "Nastavení èárového klíèe"
 
 # ../ui-hlp/menu.c:895
-#: ../ui-hlp/menu.c:978
+#: ../ui-hlp/menu.c:996
 msgid "Clear line"
 msgstr "Vymazání èáry"
 
 # ../ui-hlp/menu.c:896
-#: ../ui-hlp/menu.c:981
+#: ../ui-hlp/menu.c:999
 msgid "Clear all lines"
 msgstr "Vymazání v¹ech èar"
 
 # ../ui-hlp/menu.c:898
-#: ../ui-hlp/menu.c:982
+#: ../ui-hlp/menu.c:1000
 msgid "Animation functions"
 msgstr "Animace"
 
 # ../ui-hlp/menu.c:899 ../ui-hlp/menu.c:995 ../ui-hlp/menu.c:1000
-#: ../ui-hlp/menu.c:983 ../ui-hlp/menu.c:1169 ../ui-hlp/menu.c:1178
+#: ../ui-hlp/menu.c:1001 ../ui-hlp/menu.c:1195 ../ui-hlp/menu.c:1204
 msgid "View"
 msgstr "Zobrazení"
 
 # ../ui-hlp/menu.c:900
-#: ../ui-hlp/menu.c:987
+#: ../ui-hlp/menu.c:1005
 msgid "Morph view"
 msgstr ""
 
 # ../ui-hlp/menu.c:901
-#: ../ui-hlp/menu.c:989
+#: ../ui-hlp/menu.c:1007
 msgid "Morph julia"
 msgstr ""
 
 # ../ui-hlp/menu.c:902
-#: ../ui-hlp/menu.c:994
+#: ../ui-hlp/menu.c:1012
 msgid "Move view"
 msgstr ""
 
 # ../ui-hlp/menu.c:903
-#: ../ui-hlp/menu.c:995
+#: ../ui-hlp/menu.c:1013
 msgid "Morph angle"
 msgstr ""
 
 # ../ui-hlp/menu.c:904
-#: ../ui-hlp/menu.c:1000
+#: ../ui-hlp/menu.c:1018
 msgid "Zoom center"
 msgstr "Centrum zvìt¹ení"
 
 # ../ui-hlp/menu.c:905
-#: ../ui-hlp/menu.c:1002
+#: ../ui-hlp/menu.c:1020
 msgid "Zoom"
 msgstr "Zvìt¹ení"
 
 # ../ui-hlp/menu.c:906
-#: ../ui-hlp/menu.c:1003
+#: ../ui-hlp/menu.c:1021
 msgid "Un-zoom"
 msgstr "Zmen¹ení"
 
 # ../ui-hlp/menu.c:907
-#: ../ui-hlp/menu.c:1006
+#: ../ui-hlp/menu.c:1024
 msgid "Stop zooming"
 msgstr "Zastavení zvìt¹ení"
 
 # ../ui-hlp/menu.c:908
-#: ../ui-hlp/menu.c:1007
+#: ../ui-hlp/menu.c:1025
 msgid "Smooth morphing parameters"
 msgstr "Parametry zahladìní"
 
 # ../ui-hlp/menu.c:910
-#: ../ui-hlp/menu.c:1009
+#: ../ui-hlp/menu.c:1027
 msgid "Timing functions"
 msgstr "Èasování"
 
 # ../ui-hlp/menu.c:911
-#: ../ui-hlp/menu.c:1010
+#: ../ui-hlp/menu.c:1028
 msgid "Usleep"
 msgstr "Èekání"
 
 # ../ui-hlp/menu.c:912
-#: ../ui-hlp/menu.c:1013
+#: ../ui-hlp/menu.c:1031
 msgid "Wait for text"
 msgstr "Èekání na text"
 
 # ../ui-hlp/menu.c:913
-#: ../ui-hlp/menu.c:1014
+#: ../ui-hlp/menu.c:1032
 msgid "Wait for complete image"
 msgstr "Èekání na zobrazení obrazu"
 
 # ../ui-hlp/menu.c:914
-#: ../ui-hlp/menu.c:1017
+#: ../ui-hlp/menu.c:1035
 msgid "Include file"
 msgstr "Navlékání souboru"
 
 # ../ui-hlp/menu.c:915 ../ui-hlp/menu.c:1009
-#: ../ui-hlp/menu.c:1019 ../ui-hlp/menu.c:1212
+#: ../ui-hlp/menu.c:1037 ../ui-hlp/menu.c:1238
 msgid "Default palette"
 msgstr "Základní barvy"
 
 # ../ui-hlp/menu.c:916
-#: ../ui-hlp/menu.c:1022
+#: ../ui-hlp/menu.c:1040
 msgid "Formula"
 msgstr "Vzorec"
 
 # ../ui-hlp/menu.c:917
-#: ../ui-hlp/menu.c:1024
+#: ../ui-hlp/menu.c:1042
 msgid "Maximal zooming step"
 msgstr "Maximální krok zìt¹ení"
 
 # ../ui-hlp/menu.c:918
-#: ../ui-hlp/menu.c:1028
+#: ../ui-hlp/menu.c:1046
 msgid "Zooming speedup"
 msgstr "Rychlost zvìt¹ení"
 
 # ../ui-hlp/menu.c:919
-#: ../ui-hlp/menu.c:1030
+#: ../ui-hlp/menu.c:1048
 msgid "Filter"
 msgstr "Filtr"
 
 # ../ui-hlp/menu.c:924 ../ui-hlp/menu.c:925
-#: ../ui-hlp/menu.c:1034 ../ui-hlp/menu.c:1039
+#: ../ui-hlp/menu.c:1052 ../ui-hlp/menu.c:1057
 msgid "Letters per second"
 msgstr "Písmen za sekund"
 
 # ../ui-hlp/menu.c:926 ../ui-hlp/menu.c:1046
-#: ../ui-hlp/menu.c:1041 ../ui-hlp/menu.c:1298
+#: ../ui-hlp/menu.c:1059 ../ui-hlp/menu.c:1324
 msgid "Interrupt"
 msgstr "Pøeru¹ení"
 
 # ../ui-hlp/menu.c:928 ../ui-hlp/menu.c:938
-#: ../ui-hlp/menu.c:1043 ../ui-hlp/menu.c:1052
+#: ../ui-hlp/menu.c:1061 ../ui-hlp/menu.c:1070
 msgid "File"
 msgstr "Soubor"
 
 # ../ui-hlp/menu.c:929
-#: ../ui-hlp/menu.c:1044
+#: ../ui-hlp/menu.c:1062
 msgid "Edit"
 msgstr "Upravení"
 
 # ../ui-hlp/menu.c:930
-#: ../ui-hlp/menu.c:1045
+#: ../ui-hlp/menu.c:1063
 msgid "Fractal"
 msgstr "Fraktál"
 
 # ../ui-hlp/menu.c:931
-#: ../ui-hlp/menu.c:1046
+#: ../ui-hlp/menu.c:1064
 msgid "Calculation"
 msgstr "Poèítání"
 
 # ../ui-hlp/menu.c:932 ../ui-hlp/menu.c:1096
-#: ../ui-hlp/menu.c:1047 ../ui-hlp/menu.c:1370
+#: ../ui-hlp/menu.c:1065 ../ui-hlp/menu.c:1396
 msgid "Filters"
 msgstr "Filtry"
 
 # ../ui-hlp/menu.c:933 ../ui-hlp/menu.c:941
-#: ../ui-hlp/menu.c:1048 ../ui-hlp/menu.c:1064
+#: ../ui-hlp/menu.c:1066 ../ui-hlp/menu.c:1082
 msgid "UI"
 msgstr "U¾ivatelské rozhraní"
 
 # ../ui-hlp/menu.c:934
-#: ../ui-hlp/menu.c:1049
+#: ../ui-hlp/menu.c:1067
 msgid "Misc"
 msgstr "Ostatní"
 
 # ../ui-hlp/menu.c:937
-#: ../ui-hlp/menu.c:1051
+#: ../ui-hlp/menu.c:1069
 msgid "Tutorials"
 msgstr "Výuky"
 
 # ../ui-hlp/menu.c:939
-#: ../ui-hlp/menu.c:1058 ../ui-hlp/menu.c:1061
+#: ../ui-hlp/menu.c:1076 ../ui-hlp/menu.c:1079
 msgid "Stop replay"
 msgstr "Zastavení opakování"
 
 # ../ui-hlp/menu.c:944
-#: ../ui-hlp/menu.c:1066
+#: ../ui-hlp/menu.c:1084
 msgid "Command"
 msgstr "Pøíkaz"
 
 # ../ui-hlp/menu.c:945
-#: ../ui-hlp/menu.c:1068
+#: ../ui-hlp/menu.c:1086
 msgid "Play string"
 msgstr "Spustìní øetìzce"
 
 # ../ui-hlp/menu.c:946
-#: ../ui-hlp/menu.c:1070
+#: ../ui-hlp/menu.c:1088
 msgid "Render animation"
 msgstr ""
 
 # ../ui-hlp/menu.c:948
-#: ../ui-hlp/menu.c:1073
+#: ../ui-hlp/menu.c:1091
 msgid "Clear screen"
 msgstr "Vièi¹tìní obrazovky"
 
 # ../ui-hlp/menu.c:949
-#: ../ui-hlp/menu.c:1075
+#: ../ui-hlp/menu.c:1093
 msgid "Display fractal"
 msgstr "Zobrazení fraktálu"
 
 # ../ui-hlp/menu.c:951
-#: ../ui-hlp/menu.c:1078
+#: ../ui-hlp/menu.c:1096
 msgid "Display text"
 msgstr "Zobrazení textu"
 
 # ../ui-hlp/menu.c:952
-#: ../ui-hlp/menu.c:1080
+#: ../ui-hlp/menu.c:1098
 msgid "Color"
 msgstr "Barva"
 
 # ../ui-hlp/menu.c:953
-#: ../ui-hlp/menu.c:1082
+#: ../ui-hlp/menu.c:1100
 msgid "Horizontal text position"
 msgstr "Vodorovná pozice textu"
 
 # ../ui-hlp/menu.c:954
-#: ../ui-hlp/menu.c:1083
+#: ../ui-hlp/menu.c:1101
 msgid "Vertical text position"
 msgstr "Svislá pozice textu"
 
 # ../ui-hlp/menu.c:955
-#: ../ui-hlp/menu.c:1085
+#: ../ui-hlp/menu.c:1103
 msgid "Text position"
 msgstr "Pozice textu"
 
 # ../ui-hlp/menu.c:956
-#: ../ui-hlp/menu.c:1089
+#: ../ui-hlp/menu.c:1107
 msgid "Message"
 msgstr "Vzkaz"
 
 # ../ui-hlp/menu.c:968
-#: ../ui-hlp/menu.c:1111
+#: ../ui-hlp/menu.c:1129
 msgid "Load"
 msgstr "Otevøení"
 
 # ../ui-hlp/menu.c:969
-#: ../ui-hlp/menu.c:1114
+#: ../ui-hlp/menu.c:1132
 msgid "Save"
 msgstr "Ulo¾ení"
 
 # ../ui-hlp/menu.c:972
-#: ../ui-hlp/menu.c:1116
+#: ../ui-hlp/menu.c:1134
 msgid "Record"
 msgstr "Nahrávání"
 
 # ../ui-hlp/menu.c:973
-#: ../ui-hlp/menu.c:1120
+#: ../ui-hlp/menu.c:1138
 msgid "Replay"
 msgstr "Pøehrávání"
 
 # ../ui-hlp/menu.c:975
-#: ../ui-hlp/menu.c:1127
+#: ../ui-hlp/menu.c:1145
 msgid "Save image"
 msgstr "Ulo¾ení obrazu"
 
 # ../ui-hlp/menu.c:976
-#: ../ui-hlp/menu.c:1128
+#: ../ui-hlp/menu.c:1146
 msgid "Load random example"
 msgstr "Nahrání náhodného pøíkladu"
 
 # ../ui-hlp/menu.c:977
-#: ../ui-hlp/menu.c:1131
+#: ../ui-hlp/menu.c:1149
 msgid "Save configuration"
 msgstr "Ulo¾ení konfigurace"
 
 # ../ui-hlp/menu.c:982
-#: ../ui-hlp/menu.c:1135
+#: ../ui-hlp/menu.c:1153
 msgid "Undo"
 msgstr "Zpìt"
 
 # ../ui-hlp/menu.c:983
-#: ../ui-hlp/menu.c:1139
+#: ../ui-hlp/menu.c:1157
 msgid "Redo"
 msgstr "Udìlat znovu"
 
 # ../ui-hlp/menu.c:984
-#: ../ui-hlp/menu.c:1143
+#: ../ui-hlp/menu.c:1161
 msgid "Formulae"
 msgstr "Vzorec"
 
 # ../ui-hlp/menu.c:984
-#: ../ui-hlp/menu.c:1144
+#: ../ui-hlp/menu.c:1162
 #, fuzzy
 msgid "More formulae"
 msgstr "Vzorec"
 
+# ../ui-hlp/menu.c:984
+#: ../ui-hlp/menu.c:1167
+#, fuzzy
+msgid "User formula"
+msgstr "Vzorec"
+
+# ../ui-hlp/menu.c:890
+#: ../ui-hlp/menu.c:1168
+#, fuzzy
+msgid "User initialization"
+msgstr "Funkce malování èar"
+
 # ../ui-hlp/menu.c:986
-#: ../ui-hlp/menu.c:1146
+#: ../ui-hlp/menu.c:1172
 msgid "Incoloring mode"
 msgstr "Vnitøní vybarvení"
 
 # ../ui-hlp/menu.c:987
-#: ../ui-hlp/menu.c:1147
+#: ../ui-hlp/menu.c:1173
 msgid "Outcoloring mode"
 msgstr "Vnìj¹í vybarvení"
 
 # ../ui-hlp/menu.c:988
-#: ../ui-hlp/menu.c:1148
+#: ../ui-hlp/menu.c:1174
 msgid "Plane"
 msgstr "Plocha"
 
 # ../ui-hlp/menu.c:989
-#: ../ui-hlp/menu.c:1149
+#: ../ui-hlp/menu.c:1175
 msgid "Palette"
 msgstr "Paleta barev"
 
 # ../ui-hlp/menu.c:991
-#: ../ui-hlp/menu.c:1152
+#: ../ui-hlp/menu.c:1178
 msgid "Mandelbrot mode"
 msgstr "Re¾im mandelbrot"
 
 # ../ui-hlp/menu.c:992 ../ui-hlp/menu.c:993 ../ui-hlp/menu.c:1099
-#: ../ui-hlp/menu.c:1158 ../ui-hlp/menu.c:1162 ../ui-hlp/menu.c:1373
+#: ../ui-hlp/menu.c:1184 ../ui-hlp/menu.c:1188 ../ui-hlp/menu.c:1399
 msgid "Perturbation"
 msgstr "Perturbace"
 
 # ../ui-hlp/menu.c:997
-#: ../ui-hlp/menu.c:1173
+#: ../ui-hlp/menu.c:1199
 msgid "Reset to defaults"
 msgstr "Nastavení standartu zpìt"
 
 # ../ui-hlp/menu.c:999
-#: ../ui-hlp/menu.c:1174
+#: ../ui-hlp/menu.c:1200
 msgid "Julia mode"
 msgstr "Re¾im julia"
 
 # ../ui-hlp/menu.c:1001
-#: ../ui-hlp/menu.c:1181
+#: ../ui-hlp/menu.c:1207
 msgid "Set angle"
 msgstr "Nastavení úhlu"
 
 # ../ui-hlp/menu.c:1002
-#: ../ui-hlp/menu.c:1185
+#: ../ui-hlp/menu.c:1211
 msgid "Set plane"
 msgstr "Nastavení plochy"
 
 # ../ui-hlp/menu.c:1003
-#: ../ui-hlp/menu.c:1189
+#: ../ui-hlp/menu.c:1215
 msgid "Inside coloring mode"
 msgstr "Vnitøní vybarvení"
 
 # ../ui-hlp/menu.c:1004
-#: ../ui-hlp/menu.c:1194
+#: ../ui-hlp/menu.c:1220
 msgid "Outside coloring mode"
 msgstr "Vnìj¹í vybarvení"
 
 # ../ui-hlp/menu.c:1005
-#: ../ui-hlp/menu.c:1198
+#: ../ui-hlp/menu.c:1224
 msgid "Inside truecolor coloring mode"
 msgstr "Vnitøní truecolor vybarvení"
 
 # ../ui-hlp/menu.c:1006
-#: ../ui-hlp/menu.c:1204
+#: ../ui-hlp/menu.c:1230
 msgid "Outside truecolor coloring mode"
 msgstr "Vnìj¹í truecolor vybarvení"
 
 # ../ui-hlp/menu.c:1007
-#: ../ui-hlp/menu.c:1208
+#: ../ui-hlp/menu.c:1234
 msgid "Julia seed"
 msgstr "Rychlost julia"
 
 # ../ui-hlp/menu.c:1010
-#: ../ui-hlp/menu.c:1214
+#: ../ui-hlp/menu.c:1240
 msgid "Random palette"
 msgstr "Náhodné barvy"
 
 # ../ui-hlp/menu.c:1011
-#: ../ui-hlp/menu.c:1217
+#: ../ui-hlp/menu.c:1243
 msgid "Custom palette"
 msgstr "U¾ivatelské barvy"
 
 # ../ui-hlp/menu.c:1013
-#: ../ui-hlp/menu.c:1221
+#: ../ui-hlp/menu.c:1247
 msgid "Color cycling"
 msgstr "Cirkulace barev"
 
 # ../ui-hlp/menu.c:1014
-#: ../ui-hlp/menu.c:1223
+#: ../ui-hlp/menu.c:1249
 msgid "Reversed color cycling"
 msgstr "Zpìtná cirkulace barev"
 
 # ../ui-hlp/menu.c:1015
-#: ../ui-hlp/menu.c:1228
+#: ../ui-hlp/menu.c:1254
 msgid "Color cycling speed"
 msgstr "Rychlost cirkulace barev"
 
 # ../ui-hlp/menu.c:1017
-#: ../ui-hlp/menu.c:1232
+#: ../ui-hlp/menu.c:1258
 msgid "Shift palette"
 msgstr "Posun barevné palety"
 
 # ../ui-hlp/menu.c:1018
-#: ../ui-hlp/menu.c:1234
+#: ../ui-hlp/menu.c:1260
 msgid "Shift one forward"
 msgstr "Posun dopøedu o jeden krok"
 
 # ../ui-hlp/menu.c:1019
-#: ../ui-hlp/menu.c:1237
+#: ../ui-hlp/menu.c:1263
 msgid "Shift one backward"
 msgstr "Posun dozadu o jeden krok"
 
 # ../ui-hlp/menu.c:1020
-#: ../ui-hlp/menu.c:1239 ../engine/zoom.c:1491
+#: ../ui-hlp/menu.c:1265 ../engine/zoom.c:1491
 msgid "Solid guessing"
 msgstr "Solidní hádání"
 
 # ../ui-hlp/menu.c:1021
-#: ../ui-hlp/menu.c:1240
+#: ../ui-hlp/menu.c:1266
 msgid "Dynamic resolution"
 msgstr "Dinamické rozlo¾ení"
 
 # ../ui-hlp/menu.c:1022
-#: ../ui-hlp/menu.c:1242
+#: ../ui-hlp/menu.c:1268
 msgid "Periodicity checking"
 msgstr "Kontrola pravidelnosti"
 
 # ../ui-hlp/menu.c:1023
-#: ../ui-hlp/menu.c:1244
+#: ../ui-hlp/menu.c:1270
 msgid "Iterations"
 msgstr "Iterace"
 
-#: ../ui-hlp/menu.c:1246
+#: ../ui-hlp/menu.c:1272
 msgid "Bailout"
 msgstr ""
 
 # ../ui-hlp/menu.c:1025
-#: ../ui-hlp/menu.c:1249
+#: ../ui-hlp/menu.c:1275
 msgid "Fast julia mode"
 msgstr "Rychlý re¾im julia"
 
 # ../ui-hlp/menu.c:1026
-#: ../ui-hlp/menu.c:1251
+#: ../ui-hlp/menu.c:1277
 msgid "Rotation"
 msgstr "Rotace"
 
 # ../ui-hlp/menu.c:1027
-#: ../ui-hlp/menu.c:1252
+#: ../ui-hlp/menu.c:1278
 msgid "Solid guessing range"
 msgstr "Interval hádání"
 
 # ../ui-hlp/menu.c:1029
-#: ../ui-hlp/menu.c:1255
+#: ../ui-hlp/menu.c:1281
 msgid "Disable rotation"
 msgstr "Rotace vypnuta"
 
 # ../ui-hlp/menu.c:1031
-#: ../ui-hlp/menu.c:1259
+#: ../ui-hlp/menu.c:1285
 msgid "Continuous rotation"
 msgstr "Plynulá rotace"
 
 # ../ui-hlp/menu.c:1032
-#: ../ui-hlp/menu.c:1262
+#: ../ui-hlp/menu.c:1288
 msgid "Rotate by mouse"
 msgstr "Rotace mi¹í"
 
 # ../ui-hlp/menu.c:1033
-#: ../ui-hlp/menu.c:1266
+#: ../ui-hlp/menu.c:1292
 msgid "Rotation speed"
 msgstr "Rychlost rotace"
 
 # ../ui-hlp/menu.c:1034
-#: ../ui-hlp/menu.c:1269
+#: ../ui-hlp/menu.c:1295
 msgid "Automatic rotation"
 msgstr "Automatická rotace"
 
 # ../ui-hlp/menu.c:1035
-#: ../ui-hlp/menu.c:1274
+#: ../ui-hlp/menu.c:1300
 msgid "Fast rotation mode"
 msgstr "Rychlý re¾im rotace"
 
 # ../ui-hlp/menu.c:1037
-#: ../ui-hlp/menu.c:1278
+#: ../ui-hlp/menu.c:1304
 msgid "Disable dynamic resolution"
 msgstr "Dinamický rozli¹ení vypnuto"
 
 # ../ui-hlp/menu.c:1039
-#: ../ui-hlp/menu.c:1281
+#: ../ui-hlp/menu.c:1307
 msgid "Use only during animation"
 msgstr "Jenom bìhem animace"
 
 # ../ui-hlp/menu.c:1040
-#: ../ui-hlp/menu.c:1285
+#: ../ui-hlp/menu.c:1311
 msgid "Use also for new images"
 msgstr "Pou¾ij toto i u nových obrazù"
 
 # ../ui-hlp/menu.c:1041
-#: ../ui-hlp/menu.c:1287
+#: ../ui-hlp/menu.c:1313
 msgid "Dynamic resolution mode"
 msgstr "Re¾im dinamického rozli¹ení"
 
 # ../ui-hlp/menu.c:1043
-#: ../ui-hlp/menu.c:1291
+#: ../ui-hlp/menu.c:1317
 msgid "Autopilot"
 msgstr "Autopilot"
 
 # ../ui-hlp/menu.c:1045
-#: ../ui-hlp/menu.c:1294
+#: ../ui-hlp/menu.c:1320
 msgid "Recalculate"
 msgstr "Poèítání"
 
 # ../ui-hlp/menu.c:1048
-#: ../ui-hlp/menu.c:1303
+#: ../ui-hlp/menu.c:1329
 msgid "Zooming speed"
 msgstr "Rychlost zvìt¹ení"
 
 # ../ui-hlp/menu.c:1049
-#: ../ui-hlp/menu.c:1305
+#: ../ui-hlp/menu.c:1331
 msgid "Fixed step"
 msgstr "Stálý krok"
 
 # ../ui-hlp/menu.c:1050
-#: ../ui-hlp/menu.c:1309
+#: ../ui-hlp/menu.c:1335
 msgid "Disable solid guessing"
 msgstr "Solidní hádání vypnuto"
 
 # ../ui-hlp/menu.c:1052
-#: ../ui-hlp/menu.c:1313
+#: ../ui-hlp/menu.c:1339
 msgid "Guess 2x2 rectangles"
 msgstr "2x2 obdélník"
 
 # ../ui-hlp/menu.c:1053
-#: ../ui-hlp/menu.c:1315
+#: ../ui-hlp/menu.c:1341
 msgid "Guess 3x3 rectangles"
 msgstr "3x3 obdélník"
 
 # ../ui-hlp/menu.c:1054
-#: ../ui-hlp/menu.c:1319
+#: ../ui-hlp/menu.c:1345
 msgid "Guess 4x4 rectangles"
 msgstr "4x4 obdélník"
 
 # ../ui-hlp/menu.c:1055
-#: ../ui-hlp/menu.c:1321
+#: ../ui-hlp/menu.c:1347
 msgid "Guess 5x5 rectangles"
 msgstr "5x5 obdélník"
 
 # ../ui-hlp/menu.c:1056
-#: ../ui-hlp/menu.c:1325
+#: ../ui-hlp/menu.c:1351
 msgid "Guess 6x6 rectangles"
 msgstr "6x6 obdélník"
 
 # ../ui-hlp/menu.c:1057
-#: ../ui-hlp/menu.c:1327
+#: ../ui-hlp/menu.c:1353
 msgid "Guess 7x7 rectangles"
 msgstr "7x7 obdélník"
 
 # ../ui-hlp/menu.c:1058
-#: ../ui-hlp/menu.c:1331
+#: ../ui-hlp/menu.c:1357
 msgid "Guess 8x8 rectangles"
 msgstr "8x8 obdélník"
 
 # ../ui-hlp/menu.c:1059
-#: ../ui-hlp/menu.c:1333
+#: ../ui-hlp/menu.c:1359
 msgid "Guess unlimited rectangles"
 msgstr "Nomezený èíslo obdélníkù"
 
-#: ../ui-hlp/menu.c:1337
+#: ../ui-hlp/menu.c:1363
 msgid "Language"
 msgstr ""
 
 # ../ui-hlp/menu.c:1065
-#: ../ui-hlp/menu.c:1340
+#: ../ui-hlp/menu.c:1366
 msgid "An introduction to fractals"
 msgstr "Zavedení do svìta fraktálù"
 
 # ../ui-hlp/menu.c:1066
-#: ../ui-hlp/menu.c:1341
+#: ../ui-hlp/menu.c:1367
 msgid "XaoS features overview"
 msgstr "Tipy a triky"
 
 # ../ui-hlp/menu.c:1067
-#: ../ui-hlp/menu.c:1342
+#: ../ui-hlp/menu.c:1368
 msgid "Math behind fractals"
 msgstr "Matematika fraktálù"
 
-#: ../ui-hlp/menu.c:1343 ../ui-hlp/menu.c:1381
+#: ../ui-hlp/menu.c:1369 ../ui-hlp/menu.c:1407
 msgid "Other fractal types in XaoS"
 msgstr ""
 
 # ../ui-hlp/menu.c:1068
-#: ../ui-hlp/menu.c:1344
+#: ../ui-hlp/menu.c:1370
 msgid "What's new?"
 msgstr "Novinky"
 
 # ../ui-hlp/menu.c:1079 ../ui-hlp/menu.c:1103
-#: ../ui-hlp/menu.c:1354 ../ui-hlp/menu.c:1376
+#: ../ui-hlp/menu.c:1380 ../ui-hlp/menu.c:1402
 msgid "Whole story"
 msgstr "V¹echny kapitoly"
 
 # ../ui-hlp/menu.c:1081
-#: ../ui-hlp/menu.c:1356
+#: ../ui-hlp/menu.c:1382
 msgid "Introduction"
 msgstr "Úvod"
 
 # ../ui-hlp/menu.c:1082
-#: ../ui-hlp/menu.c:1357
+#: ../ui-hlp/menu.c:1383
 msgid "Mandelbrot set"
 msgstr "Souprava mandelbrot"
 
 # ../ui-hlp/menu.c:1083
-#: ../ui-hlp/menu.c:1358
+#: ../ui-hlp/menu.c:1384
 msgid "Julia set"
 msgstr "Souprava julia"
 
 # ../ui-hlp/menu.c:1084
-#: ../ui-hlp/menu.c:1359
+#: ../ui-hlp/menu.c:1385
 msgid "Higher power Mandelbrots"
 msgstr "Mandelbroty vy¹¹í tøídy"
 
 # ../ui-hlp/menu.c:1085
-#: ../ui-hlp/menu.c:1360
+#: ../ui-hlp/menu.c:1386
 msgid "Newton's method"
 msgstr "Newtonova metoda"
 
 # ../ui-hlp/menu.c:1086
-#: ../ui-hlp/menu.c:1361
+#: ../ui-hlp/menu.c:1387
 msgid "Barnsley's formula"
 msgstr "Barnsleyuv vzorec"
 
 # ../ui-hlp/menu.c:1087
-#: ../ui-hlp/menu.c:1362
+#: ../ui-hlp/menu.c:1388
 msgid "Phoenix"
 msgstr "Phoenix"
 
 # ../ui-hlp/menu.c:1088
-#: ../ui-hlp/menu.c:1363
+#: ../ui-hlp/menu.c:1389
 msgid "Octo"
 msgstr "Octo"
 
 # ../ui-hlp/menu.c:1089
-#: ../ui-hlp/menu.c:1364
+#: ../ui-hlp/menu.c:1390
 msgid "Magnet"
 msgstr "Magnet"
 
 # ../ui-hlp/menu.c:1091
-#: ../ui-hlp/menu.c:1365
+#: ../ui-hlp/menu.c:1391
 msgid "All features"
 msgstr "V¹echny vlastnosti"
 
 # ../ui-hlp/menu.c:1093
-#: ../ui-hlp/menu.c:1367
+#: ../ui-hlp/menu.c:1393
 msgid "Outcoloring modes"
 msgstr "Vnìj¹í vybarvení"
 
 # ../ui-hlp/menu.c:1094
-#: ../ui-hlp/menu.c:1368
+#: ../ui-hlp/menu.c:1394
 msgid "Incoloring modes"
 msgstr "Vnitøní vybarvení"
 
 # ../ui-hlp/menu.c:1095
-#: ../ui-hlp/menu.c:1369
+#: ../ui-hlp/menu.c:1395
 msgid "True-color coloring modes"
 msgstr "True-color vybarvovací re¾imy"
 
 # ../ui-hlp/menu.c:1097
-#: ../ui-hlp/menu.c:1371
+#: ../ui-hlp/menu.c:1397
 msgid "Planes"
 msgstr "Plochy"
 
 # ../ui-hlp/menu.c:1098
-#: ../ui-hlp/menu.c:1372
+#: ../ui-hlp/menu.c:1398
 msgid "Animations and position files"
 msgstr "Animace a soubory pozic"
 
 # ../ui-hlp/menu.c:1100
-#: ../ui-hlp/menu.c:1374
+#: ../ui-hlp/menu.c:1400
 msgid "Random palettes"
 msgstr "Náhodné barevné palety"
 
 # ../ui-hlp/menu.c:1101
-#: ../ui-hlp/menu.c:1375
+#: ../ui-hlp/menu.c:1401
 msgid "Other noteworthy features"
 msgstr "Dal¹í malièkosti"
 
 # ../ui-hlp/menu.c:1105
-#: ../ui-hlp/menu.c:1378
+#: ../ui-hlp/menu.c:1404
 msgid "The definition and fractal dimension"
 msgstr "Definice a fraktaldimenze"
 
 # ../ui-hlp/menu.c:1106
-#: ../ui-hlp/menu.c:1380
+#: ../ui-hlp/menu.c:1406
 msgid "Escape time fractals"
 msgstr "Fraktaly na základu útìku"
 
-#: ../ui-hlp/menu.c:1383
+#: ../ui-hlp/menu.c:1409
 msgid "Triceratops and Catseye fractals"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1384
+#: ../ui-hlp/menu.c:1410
 msgid "Mandelbar, Lambda, Manowar and Spider"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1385
+#: ../ui-hlp/menu.c:1411
 msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
 msgstr ""
 
 # ../ui-hlp/menu.c:1108
-#: ../ui-hlp/menu.c:1386
+#: ../ui-hlp/menu.c:1412
 msgid "What's new in 3.0?"
 msgstr "Novinky ve verzi 3.0"
 
@@ -1487,50 +1511,50 @@ msgstr "Parametry zahladìní"
 msgid "Replay disabled at line %i"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:697
+#: ../ui-hlp/ui_helper.c:701
 msgid "Tutorial files not found. Reinstall XaoS"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:703
+#: ../ui-hlp/ui_helper.c:707
 msgid "Preparing first image"
 msgstr ""
 
 # ../ui-hlp/menu.c:976
-#: ../ui-hlp/ui_helper.c:714
+#: ../ui-hlp/ui_helper.c:718
 #, fuzzy
 msgid "Could not open examples"
 msgstr "Nahrání náhodného pøíkladu"
 
-#: ../ui-hlp/ui_helper.c:721
+#: ../ui-hlp/ui_helper.c:725
 #, c-format
 msgid "File %s loaded."
 msgstr ""
 
 # ../ui-hlp/menu.c:975
-#: ../ui-hlp/ui_helper.c:731
+#: ../ui-hlp/ui_helper.c:735
 #, fuzzy
 msgid "Saving image..."
 msgstr "Ulo¾ení obrazu"
 
 # ../ui-hlp/menu.c:926 ../ui-hlp/menu.c:1046
-#: ../ui-hlp/ui_helper.c:741
+#: ../ui-hlp/ui_helper.c:745
 #, fuzzy
 msgid "Save interrupted"
 msgstr "Pøeru¹ení"
 
-#: ../ui-hlp/ui_helper.c:751 ../ui-hlp/ui_helper.c:770
-#: ../ui-hlp/ui_helper.c:843
+#: ../ui-hlp/ui_helper.c:755 ../ui-hlp/ui_helper.c:774
+#: ../ui-hlp/ui_helper.c:847
 #, c-format
 msgid "File %s saved."
 msgstr ""
 
 # ../ui/ui.c:853 ../ui/ui.c:917
-#: ../ui-hlp/ui_helper.c:763
+#: ../ui-hlp/ui_helper.c:767
 #, fuzzy
 msgid "Can not open file"
 msgstr "Není místo pro tabulky"
 
-#: ../ui-hlp/ui_helper.c:868
+#: ../ui-hlp/ui_helper.c:872
 #, c-format
 msgid "Recording to file %s enabled."
 msgstr ""
@@ -1554,117 +1578,117 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ../ui-hlp/render.c:44
+#: ../ui-hlp/render.c:47
 #, c-format
 msgid "Error: %s"
 msgstr ""
 
 # ../ui/ui.c:853 ../ui/ui.c:917
-#: ../ui-hlp/render.c:127
+#: ../ui-hlp/render.c:130
 #, fuzzy
 msgid "Cannot open motion vector file!"
 msgstr "Není místo pro tabulky"
 
-#: ../ui-hlp/render.c:290
+#: ../ui-hlp/render.c:293
 #, c-format
 msgid "Vectors: %i"
 msgstr ""
 
-#: ../ui-hlp/render.c:296
+#: ../ui-hlp/render.c:299
 msgid "Initializing"
 msgstr ""
 
 # ../ui/ui.c:812
-#: ../ui-hlp/render.c:305
+#: ../ui-hlp/render.c:308
 #, fuzzy
 msgid "Cannot create palette"
 msgstr "Paleta barev nelze vytvoøit"
 
 # ../ui/ui.c:820
-#: ../ui-hlp/render.c:317
+#: ../ui-hlp/render.c:320
 #, fuzzy
 msgid "Cannot create image\n"
 msgstr "Obraz nelze vytvoøit"
 
 # ../ui/ui.c:820
-#: ../ui-hlp/render.c:326
+#: ../ui-hlp/render.c:329
 #, fuzzy
 msgid "Cannot create checking buffer!"
 msgstr "Obraz nelze vytvoøit"
 
 # ../ui/ui.c:812
-#: ../ui-hlp/render.c:336 ../ui-hlp/render.c:642
+#: ../ui-hlp/render.c:339 ../ui-hlp/render.c:645
 #, fuzzy
 msgid "Cannot create context\n"
 msgstr "Paleta barev nelze vytvoøit"
 
 # ../ui/ui.c:853 ../ui/ui.c:917
-#: ../ui-hlp/render.c:349
+#: ../ui-hlp/render.c:352
 #, fuzzy
 msgid "Cannot open animation file\n"
 msgstr "Není místo pro tabulky"
 
-#: ../ui-hlp/render.c:361 ../ui-hlp/render.c:652
+#: ../ui-hlp/render.c:364 ../ui-hlp/render.c:655
 msgid "Loading catalogs"
 msgstr ""
 
-#: ../ui-hlp/render.c:394
+#: ../ui-hlp/render.c:397
 msgid "Processing command line options"
 msgstr ""
 
 # ../ui-hlp/menu.c:1039
-#: ../ui-hlp/render.c:419
+#: ../ui-hlp/render.c:422
 #, fuzzy
 msgid "Enabling animation replay\n"
 msgstr "Jenom bìhem animace"
 
 # ../ui/ui.c:853 ../ui/ui.c:917
-#: ../ui-hlp/render.c:427 ../ui-hlp/render.c:555
+#: ../ui-hlp/render.c:430 ../ui-hlp/render.c:558
 #, fuzzy
 msgid "Cannot open image file"
 msgstr "Není místo pro tabulky"
 
 # ../ui/ui.c:853 ../ui/ui.c:917
-#: ../ui-hlp/render.c:442
+#: ../ui-hlp/render.c:445
 #, fuzzy
 msgid "Cannot open pattern file"
 msgstr "Není místo pro tabulky"
 
-#: ../ui-hlp/render.c:459 ../ui-hlp/render.c:461 ../ui-hlp/render.c:689
+#: ../ui-hlp/render.c:462 ../ui-hlp/render.c:464 ../ui-hlp/render.c:692
 msgid "Entering calculation loop!"
 msgstr ""
 
-#: ../ui-hlp/render.c:491
+#: ../ui-hlp/render.c:494
 #, c-format
 msgid "Frame %i skipped."
 msgstr ""
 
-#: ../ui-hlp/render.c:493
+#: ../ui-hlp/render.c:496
 #, c-format
 msgid "Frames %i - %i skipped."
 msgstr ""
 
-#: ../ui-hlp/render.c:497
+#: ../ui-hlp/render.c:500
 #, c-format
 msgid "Frame %4i: "
 msgstr ""
 
-#: ../ui-hlp/render.c:569
+#: ../ui-hlp/render.c:572
 msgid " done."
 msgstr ""
 
-#: ../ui-hlp/render.c:575
+#: ../ui-hlp/render.c:578
 msgid " skipping..."
 msgstr ""
 
 # ../ui-hlp/menu.c:926 ../ui-hlp/menu.c:1046
-#: ../ui-hlp/render.c:609 ../ui-hlp/render.c:709
+#: ../ui-hlp/render.c:612 ../ui-hlp/render.c:712
 #, fuzzy
 msgid "Calculation interrupted"
 msgstr "Pøeru¹ení"
 
 # ../ui-hlp/menu.c:931
-#: ../ui-hlp/render.c:613 ../ui-hlp/render.c:615 ../ui-hlp/render.c:712
+#: ../ui-hlp/render.c:616 ../ui-hlp/render.c:618 ../ui-hlp/render.c:715
 #, fuzzy
 msgid "Calculation finished"
 msgstr "Poèítání"

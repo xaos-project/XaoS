@@ -30,9 +30,92 @@ and we also have three <a lists>mailing lists</a>.
 <a drivers>Driver specific documentation</a><p>
 <a format>XaoS' file format</a><p>
 <a menus>Menus, commands and parameter index</a><p>
+<a sffe>User formulas</a><p>
 </center>
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%sffe
+<head>Using user formulas</head>
+<p>
+Current XaoS release supports entering user formulas during runtime.
+Select <tt>Fractal>User formula</tt> to define custom fractal formula.
+Using <tt>Fractal>User initialization</tt> option, user can change 
+sequance starting point <emph>z0</emph>. By default (in orginal Mandelbrot
+fractal <emph>z0</emph> is set to 0 ). User formulas should be interpreted
+as functions of type <br>
+<emph>Z(n+1) = formula( Z(n), Z(n-1), C )</emph>
+<p>
+In user formulas, as shown above, three variables are available<br>
+<dl>
+<dt>z
+<dd>current sequance point Z(n)
+<dt>c
+<dd>current plane 'point'
+<dt>p
+<dd>previous sequance point Z(n-1)
+</dl>
+<p>
+Format for complex numbers is <emph>{re;im}</emph><br>
+eg. {3;2} is complex number 3+2i
+<p>
+User formulas are calculated using SFFE library. Two implementations
+of complex math are available - first is based on <tt>GSL</tt> library.
+Second one is based asm implementation of complex math, and can be
+quite faster my less stable. User can select complex math backend during
+compilation.
+<p>
+To use GSL complex math write :<br>
+<emph>
+make clean<br>
+./configure --with-gsl=yes<br>
+make<br>
+</emph>
+<p>
+To use asm complex math write :<br>
+<emph>
+make clean<br>
+./configure --with-gsl=no<br>
+make<br>
+</emph>
+<p>
+Available functions are listed below:
+<dl>
+<p>
+<dt>basic operations
+<dd>+,-,*,/
+<p>
+<dt>basic trigonometry
+<dd>sin,cos,tan,cot
+<dd>asin,acos,atan,acot
+<dd>sinh,cosh,tanh,coth
+<p>
+<dt>Exponential and logarithmic functions
+<dd>exp,
+<dd>log - natural logarithm
+<dd>log2,log10
+<dd>logN(base,z) - logarithm of base N (where N is integer)
+<dd>logCN(base,z) - logarithm of base CN ( where CN is complex )
+<p>
+<dt>power functions
+<dd>powi - power with integer exponent (fastest)
+<dd>powd - power with real exponent
+<dd>powdc - power with complex exponent
+<dd>pow - same as powd
+<dd>sqr - square
+<p>
+<dt>square functions
+<dd>sqrt - square root of complex number
+<dd>rtni(z,n,i) - i-th root of n-th orgder
+<p>
+<dt>other functions
+<dd>rand(max) - random real number in range [0,max)
+<dd>inv - inverse
+<dd>abs - absolute values
+<dd>re - real part
+<dd>im - imaginary part
+</dl>
+<p>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %mpeg
@@ -317,6 +400,8 @@ The following tags are supported:
 <dd>Native Mac OS X port (from version 3.2.2)
 <dt>Andreas Madritsch (amadritsch@datacomm.ch)
 <dd>New fractal types, bailout, many fixes
+<dt>Mateusz Malczak (mateusz@malczak.info)
+<dd>user formulas evaluation library
 <dt>Giorgio Marazzi (gmarazzi@vtr.net)
 <dd>Improvements and fixes for espanhol.cat
 <dt>Thomas Marsh

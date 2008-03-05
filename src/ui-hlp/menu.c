@@ -94,7 +94,11 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
   *uih_filterdialog, *uih_shiftdialog, *uih_speeddialog, *printdialog,
   *uih_bailoutdialog, *saveanimdialog, *uih_juliamodedialog,
   *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog,
-  *uih_numdialog, *uih_fpdialog, *palettedialog, *uih_cyclingdialog;
+  *uih_numdialog, *uih_fpdialog, *palettedialog, *uih_cyclingdialog
+#ifdef SFFE_USING
+	,*uih_sffedialog, *uih_sffeinitdialog
+#endif
+;
 
 extern char *xtextposnames[];
 extern char *ytextposnames[];
@@ -287,6 +291,16 @@ static menudialog uih_perturbationdialog[] = {
   DIALOGINT_I (gettext ("Frames per second:"), 0);
   NULL_I ();
 
+#ifdef SFFE_USING
+  Register (uih_sffedialog);
+  DIALOGSTR_I (gettext ("Formula:"), "z^2+c");
+  NULL_I ();
+
+  Register (uih_sffeinitdialog);
+  DIALOGSTR_I (gettext ("Initialization:"), "");
+  NULL_I ();
+#endif
+
 #ifdef DEBUG
   printf ("Filled %d widgets out of %d.\n",
 	  no_menudialogs_i18n, MAX_MENUDIALOGS_I18N);
@@ -299,6 +313,10 @@ static menudialog uih_perturbationdialog[] = {
  * End of registering internationalized dialogs.
  */
 
+#ifdef SFFE_USING
+ void uih_sffein (uih_context * c, CONST char *text);
+ void uih_sffeinitin (uih_context * c, CONST char *text);
+#endif
 
 static void
 uih_smoothmorph (struct uih_context *c, dialogparam * p)
@@ -755,21 +773,11 @@ uih_cyclingselected (struct uih_context *c)
 {
   if (c == NULL)
     return 0;
-  return (c->cycling && c->cyclingdirection==1);
-}
-static int
-uih_rcyclingselected (struct uih_context *c)
-{
-	if (c == NULL)
-		return 0;
-	return (c->cycling && c->cyclingdirection==-1);
+  return (c->cycling);
 }
 static void
 uih_cyclingsw (struct uih_context *c)
 {
-  // Andrew Stone: this fixes what I consider a bug - switching from Y to y should keep cycling:
-  if (c->cycling && c->cyclingdirection == -1) uih_cycling_off (c);
-	
   c->cyclingdirection = 1;
   if (c->cycling)
     uih_cycling_off (c);
@@ -780,9 +788,6 @@ uih_cyclingsw (struct uih_context *c)
 static void
 uih_rcyclingsw (struct uih_context *c)
 {
-// Andrew Stone: this fixes what I consider a bug - switching from y to Y should keep cycling:
-  if (c->cycling && c->cyclingdirection == 1) uih_cycling_off (c);
-	
   c->cyclingdirection = -1;
   if (c->cycling)
     uih_cycling_off (c);
@@ -1156,6 +1161,14 @@ uih_registermenus_i18n (void)
   SUBMENU_I ("fractal", NULL, gettext ("Formulae"), "mformula");
   SUBMENU_I ("fractal", NULL, gettext ("More formulae"), "oformula");
   MENUSEPARATOR_I ("fractal");
+
+#ifdef SFFE_USING
+/*FIXME: Should allow multiline */
+  MENUDIALOG_I ("fractal", NULL, gettext ("User formula"), "usrform", 0, uih_sffein, uih_sffedialog);	
+  MENUDIALOG_I ("fractal", NULL, gettext ("User initialization"), "usrformInit", 0, uih_sffeinitin, uih_sffeinitdialog);	
+#endif
+
+  MENUSEPARATOR_I ("fractal");
   SUBMENU_I ("fractal", "f", gettext ("Incoloring mode"), "mincoloring");
   SUBMENU_I ("fractal", "c", gettext ("Outcoloring mode"), "moutcoloring");
   SUBMENU_I ("fractal", "i", gettext ("Plane"), "mplane");
@@ -1235,7 +1248,7 @@ uih_registermenus_i18n (void)
 	       "cycling", 0, uih_cyclingsw, uih_cyclingselected);
   MENUNOPCB_I ("palettemenu", "Y", gettext ("Reversed color cycling"),
 	       "rcycling", MENUFLAG_NOOPTION | MENUFLAG_NOPLAY,
-	       uih_rcyclingsw, uih_rcyclingselected);
+	       uih_rcyclingsw, uih_cyclingselected);
   MENUCDIALOG_I ("palettemenu", NULL,
 		 gettext
 		 ("Color cycling speed"),
@@ -1303,9 +1316,6 @@ uih_registermenus_i18n (void)
   MENUNOPCB_I ("ui", "a",
 	       gettext ("Autopilot"),
 	       "autopilot", 0, uih_autopilotsw, uih_autopilotselected);
-  MENUNOPCB_I ("ui", "P",
-			gettext ("Performance Mode"),
-			"inhibittextoutput", 0, uih_inhibittextsw, uih_inhibittextselected);
   MENUSEPARATOR_I ("ui");
   MENUNOP_I ("ui", "r", gettext ("Recalculate"),
 	     "recalculate", 0, uih_recalculate);
@@ -1600,3 +1610,76 @@ uih_unregistermenus (void)
 
   menu_delete (menuitems2, NITEMS (menuitems2));
 }
+
+#ifdef SFFE_USING
+void
+uih_sffein (uih_context * c, CONST char *text)
+{
+ char str[200]; 
+ int err;
+ if ( strlen(text) )
+ {
+  c->parser->errormsg = (char*)str;
+	if ( (err=sffe_parse( &c->parser, (char*)text ))> 0 )
+	{
+		uih_message (c, str);
+		sffe_parse( &c->parser, "z^2+c");
+		uih_sffedialog->defstr = c->parser->expression;		
+	} else 
+	     {  
+		uih_sffedialog->defstr = c->parser->expression;
+		uih_message( c, c->parser->expression );
+			if ( !(c->fcontext->currentformula->flags&SFFE_FRACTAL) )
+			{
+				uih_setformula(c,24);
+				//uih_newimage(c);
+			} else uih_recalculate(c);
+	     };
+
+  c->parser->errormsg = NULL;
+ };
+};
+
+void
+uih_sffeinitin (uih_context * c, CONST char *text)
+{
+ extern cmplx pZ;
+ extern cmplx C;
+ char str[200]; 
+ int err;
+ uih_sffeinitdialog->defstr = "";
+  if ( strlen(text) )
+  {
+	if ( !c->pinit )
+	{
+		c->pinit = sffe_alloc();
+ 		sffe_regvar( &c->pinit, &pZ, 'p' );
+ 		sffe_regvar( &c->pinit, &C, 'c');
+	};
+
+    c->pinit->errormsg = (char*)str;
+        if ( (err=sffe_parse( &c->pinit, (char*)text ))>0 )
+	{ 
+		uih_message (c,str);
+		sffe_free(&c->pinit); 
+		c->pinit=NULL; 
+	} else 
+		{
+			uih_sffeinitdialog->defstr = c->pinit->expression; /*FIXME shouldnt this be done by str copy */
+			uih_message( c, c->pinit->expression );
+				if ( !(c->fcontext->currentformula->flags&SFFE_FRACTAL) )
+				{
+					uih_setformula(c,24);
+					//uih_newimage(c);
+				} else uih_recalculate(c);
+			c->pinit->errormsg = NULL;
+		};
+
+  } else if ( c->pinit ) 
+	  { 
+		sffe_free(&c->pinit); 
+		c->pinit=NULL; 
+		uih_recalculate(c);
+ 	  };
+};
+#endif

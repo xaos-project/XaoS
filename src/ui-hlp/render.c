@@ -13,6 +13,7 @@
 #include <stdarg.h>
 #endif
 
+#include <ui.h>
 #include <fconfig.h>
 #include <filter.h>
 #include <fractal.h>
@@ -32,7 +33,9 @@
 #define MESSAGES 2
 #define ALL 3
 static int noiselevel;
-static struct uih_context *uih, *gc;
+/*static struct uih_context *uih, *gc;*/
+static struct uih_context *gc;
+extern struct uih_context *uih;
 static int newline = 1;
 static int interrupt = 0;
 static void

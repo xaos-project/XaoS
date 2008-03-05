@@ -48,6 +48,8 @@ long_double=test
 pthread=no
 png=yes
 xshm=yes
+gsl=yes
+sffe=yes
 
 dnl
 dnl Long double is a way to archieve deeper zooms. It is very fast
@@ -100,6 +102,25 @@ AC_ARG_WITH(png,
 	  png=no
 	fi
 ])
+AC_ARG_WITH(gsl,
+	[  --with-gsl=yes/no	enables/disables GSL complex routines],[
+	if test x$withval = xyes; then
+	  gsl=yes
+	fi
+	if test x$withval = xno; then
+	  gsl=no
+	fi
+])
+AC_ARG_WITH(sffe,
+	[  --with-sffe=yes/no	enables/disables SFFE (user formula evaluator) support (development)],[
+	if test x$withval = xyes; then
+	  sffe=yes
+	fi
+	if test x$withval = xno; then
+	  sffe=no
+	fi
+])
+	
 
 AC_DEFUN(AC_PROG_CC_M,
 [AC_CACHE_CHECK(whether ${CC-cc} accepts -m$1, ac_cv_prog_cc_m$1,
@@ -331,7 +352,7 @@ if test "x$CCOPTS" = x; then
     if test x$GCC = xyes; then
         PROG_GCC_Os
         if test x$mflag = x486; then
-            CCOPTS="-D__OPTIMIZE__ -Wall  -Wundef -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align  -Wwrite-strings -Wsign-compare -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs $mmflag -fstrength-reduce -ffast-math -fomit-frame-pointer -pipe"
+            CCOPTS="-D__OPTIMIZE__ -Wall  -Wundef -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align  -Wwrite-strings -Wsign-compare -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs $mmflag -fstrength-reduce -ffast-math -pipe"
             PROG_CC_SWITCH(fno-exceptions,exceptions)
 	    CCOPTS1="$CCOPTS -O6 -funroll-loops"
 	    if test x$use_cc_g_flag = xyes; then
@@ -339,6 +360,11 @@ if test "x$CCOPTS" = x; then
 		    CCOPTS='-march=486 -g -O'
 		fi
 	    fi
+
+	    if test $sffe = yes; then
+		CCOPTS = "$CCOPTS -Waggregate-return"
+	    fi
+
 	else
             CCOPTS='-Wall -fstrength-reduce -ffast-math -pipe'
             PROG_CC_SWITCH(fno-exceptions,exceptions)
@@ -400,6 +426,10 @@ i?86) CFLAGS="$CFLAGS -DUSE_i386ASM"
 esac
 fi
 fi
+case $target_os in
+*linux*) CMPLX_O_TARGET=elf;;
+*cygwin*) CMPLX_O_TARGET=coff;;
+esac
 if test  "$win32_driver_test" = yes; then
            win32_driver=no
 	   case $target_os in
@@ -891,7 +921,46 @@ AC_SUBST(LIBPATH)
 TOPDIR=`nolinks=1;pwd`
 AC_SUBST(TOPDIR)
 AC_SUBST(LOCALEDIR)
+# sffe cmplx detection (flow is : GLS -> sffeASM -> none)
+if test $sffe = yes; then
+ echo "------------------------------------------------------------" 
+ echo "Complex math parser:"
+ echo "try GSL: $gsl"
+ 
+ if test $gsl = yes; then
+		GSL_LIBS=""
+		AC_PATH_PROG(GSL_CONFIG, gsl-config, no)
+		echo "$GSL_CONFIG"
+		AC_MSG_CHECKING(for GSL)
+		 if test "$GSL_CONFIG" = "no" ; then
+		  gsl=no
+		  AC_MSG_RESULT(no)
+		 else
+		  echo "using GSL for complex numbers"
+		  GSL_LIBS=`$GSL_CONFIG --libs`
+		  CFLAGS="$CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
+		  CFLAGS1="$CFLAGS1 -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
+		  DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
+		fi 
+ fi
 
+ if test $gsl = no; then 
+	AC_CHECK_PROG([NASM],[nasm],[yes])
+		if test "$NASM" = yes; then
+			  echo "using NASM for complex numbers"
+			  CFLAGS="$CFLAGS -DSFFE_USING -DSFFE_CMPLX_ASM"
+			  CFLAGS1="$CFLAGS1 -DSFFE_USING -DSFFE_CMPLX_ASM"
+			  DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
+  		fi
+ fi
+ echo "------------------------------------------------------------"
+else
+	CFLAGS="$CFLAGS -fomit-frame-pointer"
+	CFLAGS1="$CFLAGS1 -fomit-frame-pointer"
+fi
+
+
+LIBS="$LIBS $GSL_LIBS"
 INCDIR="-I${SRCPATH}/include"
 CFLAGS="$CFLAGS $INCDIR"
 CFLAGS1="$CFLAGS1 $INCDIR"
@@ -904,6 +973,7 @@ AC_SUBST(STICKY)
 AC_SUBST(CFLAGS1)
 AC_SUBST(CXXFLAGS)
 AC_SUBST(ASMOBJS)
+AC_SUBST(CMPLX_O_TARGET)
 
 AC_OUTPUT(src/i18n/Makefile.in
     Makefile src/Makefile src/i18n/Makefile src/engine/Makefile 
@@ -911,8 +981,10 @@ AC_OUTPUT(src/i18n/Makefile.in
     src/ui/ui-drv/aa/Makefile src/ui/ui-drv/ggi/Makefile
     src/ui/ui-drv/svga/Makefile src/ui/ui-drv/x11/Makefile
     src/ui/ui-drv/dga/Makefile src/ui/ui-drv/win32/Makefile
-    src/ui/ui-drv/BeOS/Makefile doc/Makefile help/Makefile
-	  )
+    src/ui/ui-drv/BeOS/Makefile doc/Makefile help/Makefile 
+    src/sffe/Makefile
+  )
+
 echo "------------------------------------------------------------"
 echo "Compiler options:"
 echo " CC          : $CC"

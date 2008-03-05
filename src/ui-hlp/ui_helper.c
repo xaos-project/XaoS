@@ -35,6 +35,10 @@
 #include "play.h"
 #include <archaccel.h>
 
+#ifdef SFFE_USING
+	#include "sffe.h"
+#endif
+
 #ifdef HAVE_GETTEXT
 #include <libintl.h>
 #else
@@ -544,7 +548,6 @@ uih_rotationspeed (uih_context * c, number_t speed)
 {
   c->rotationspeed = speed;
 }
-
 static void
 uih_cyclinghandler (void *userdata, int n)
 {
@@ -1848,7 +1851,7 @@ uih_mkpalette (uih_context * c)
   uih_cycling_continue (c);
 }
 
-/*Basic initialization routines */
+/*Basic inicialization routines */
 
 static void
 uih_alloctables (uih_context * c)
@@ -2068,7 +2071,10 @@ uih_setplane (uih_context * c, int mode)
   if (c->fcontext->plane != mode)
     {
       char str[10];
-      c->fcontext->plane = mode;
+      c->fcontext->plane = mode;	
+	//if ( c->fcontext->plane == P_USER )
+		//printf("USER NOT IMPLEMENTED");
+		//uih_sffein( c, "z^3-c" )
       c->fcontext->version++;
       uih_newimage (c);
       sprintf (str, "plane%i", mode);
@@ -2186,6 +2192,9 @@ uih_drawcscreen (struct uih_context *uih, void *data)
   if (uih->clearscreen)
     clear_image (uih->image);
 }
+#ifdef SFFE_USING
+	extern cmplx C,Z,pZ;
+#endif
 struct uih_context *
 uih_mkcontext (int flags, struct image *image,
 	       int (*passfunc) (struct uih_context *, int, CONST char *,
@@ -2240,6 +2249,15 @@ uih_mkcontext (int flags, struct image *image,
   uih->maintimer = tl_create_timer ();
   uih->calculatetimer = tl_create_timer ();
   uih->doittimer = tl_create_timer ();
+#ifdef SFFE_USING
+  uih->pinit = NULL;
+  uih->parser = sffe_alloc();
+  uih->cparser = sffe_alloc();
+  sffe_regvar( &uih->parser, &pZ, 'p');
+  sffe_regvar( &uih->parser, &Z, 'z');
+  sffe_regvar( &uih->parser, &C, 'c');
+  //sffe_regvar( &uih->cparser, &C, 
+#endif
   tl_update_time ();
   tl_reset_timer (uih->maintimer);
   tl_reset_timer (uih->calculatetimer);
@@ -2284,22 +2302,6 @@ uih_restorepalette (uih_context * uih)
     }
   uih->palette2 = NULL;
   uih_finishpalette (uih);
-}
-
-void
-uih_loadpalette(uih_context * c, struct palette *palette) 
-{
-	if (c->palette2) destroypalette(c->palette2);
-	c->palette2 = clonepalette(palette);
-	uih_restorepalette(c);
-	uih_palettechg (c);
-}
-
-struct palette *
-uih_clonepalette(uih_context * c)
-{
-	if (c->zengine->fractalc->palette != NULL) 
-		return clonepalette (c->zengine->fractalc->palette);
 }
 
 void
@@ -2369,6 +2371,11 @@ uih_freecontext (uih_context * c)
 {
   struct filter *f;
   int i;
+#ifdef SFFE_USING
+   sffe_free(&c->cparser);
+   sffe_free(&c->parser);
+    if ( c->pinit ) sffe_free(&c->pinit);
+#endif
   if (c->emulator != NULL)
     uih_noconstantframetime (c);
   for (i = 0; i < UNDOLEVEL; i++)
@@ -2458,13 +2465,3 @@ uih_initialize (struct filter *f, struct initdata *i)
   return returnval;
 }
 
-void uih_inhibittextsw (uih_context * c) {
-	c->inhibittextoutput ^= 1;
-	uih_updatemenus (c, "inhibittextoutput");
-}
-
-int uih_inhibittextselected (uih_context *c) {
-	if (c == NULL)
-		return 0;
-	return c->inhibittextoutput;
-}

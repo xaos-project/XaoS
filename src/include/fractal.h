@@ -121,6 +121,11 @@ extern "C"
 #define STARTZERO 1
 #define JULIA_BTRACE 2
 #define MANDEL_BTRACE 4
+
+#ifdef SFFE_USING
+	#define SFFE_FRACTAL 8
+#endif
+
 #define BTRACEOK ((cformula.flags&(2<<cfractalc.mandelbrot))&&!cfractalc.incoloringmode&&cfractalc.coloringmode!=7)
 #define rotate(f,x,y) { \
   number_t tmp; \

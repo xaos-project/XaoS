@@ -1,6 +1,5 @@
-
 /* 
- *     XaoS, a fast portable realtime fractal zoomer 
+ *     XaoS, a fast portable realtime fractal zoomer  
  *                  Copyright (C) 1996,1997 by
  *
  *      Jan Hubicka          (hubicka@paru.cas.cz)
@@ -58,6 +57,7 @@
 #include <filter.h>
 #include <fractal.h>
 #include "julia.h"
+#include <ui_helper.h>
 #ifndef M_PI
 #define M_PI 3.1415
 #endif
@@ -68,6 +68,11 @@
 #define FUNCTYPE
 #endif
 
+#ifdef SFFE_USING
+	#include "sffe.h"
+	
+	extern struct uih_context *uih; // to be able to use sffe parser
+#endif
 
 CONST char *CONST incolorname[] = {
   "0",
@@ -626,7 +631,6 @@ REGISTERS (3)
 	    zre = rp - ip + pre; \
             ip=zim*zim; \
             rp=zre*zre;
-
 #ifdef _NEVER_
 #ifdef __GNUC__
 #ifdef __i386__
@@ -1189,6 +1193,28 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define PRESMOOTH zre=zpr*zpr+zpm*zpm
 #include "docalc.c"
 
+#ifdef SFFE_USING
+ /* SFFE - malczak */
+ //#define VARIABLES sffe *p = uih->parser; 
+ #define INIT cmplxset(pZ,0,0); cmplxset(C,pre,pim); \
+		if (uih->pinit) Z=sffe_eval(uih->pinit); else cmplxset(Z,zre,zim);
+ //#define SAVE cmplxset(pZ,real(Z),imag(Z));
+ //#define PRETEST 0
+ #define FORMULA \
+	 Z = sffe_eval(uih->parser);\
+	 cmplxset(pZ,zre,zim); \
+	 zre = real( Z ); \
+	 zim = imag( Z );
+ #define BTEST less_than_4(zre*zre+zim*zim)
+ //less_than_4(rp+ip)
+ #define CALC sffe_calc
+ #define JULIA sffe_julia
+ #define SCALC ssffe_calc
+ //#define SMOOTH
+ #include "docalc.c"
+#endif
+
+
 static CONST symetrytype sym6[] = {
   {0, 1.73205080758},
   {0, -1.73205080758}
@@ -1209,7 +1235,7 @@ static CONST symetrytype sym16[] = {
 };
 
 CONST struct formula formulas[] = {
-  {
+  {/* 0 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    mand_calc,
@@ -1251,7 +1277,7 @@ CONST struct formula formulas[] = {
     },
    MANDEL_BTRACE,
    },
-  {
+  {/* 1 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    mand3_calc,
@@ -1293,7 +1319,7 @@ CONST struct formula formulas[] = {
     },
    MANDEL_BTRACE,
    },
-  {
+  {/* 2 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    mand4_calc,
@@ -1335,7 +1361,7 @@ CONST struct formula formulas[] = {
     },
    MANDEL_BTRACE,
    },
-  {
+  {/* 3 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    mand5_calc,
@@ -1377,7 +1403,7 @@ CONST struct formula formulas[] = {
     },
    MANDEL_BTRACE,
    },
-  {
+  {/* 4 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    mand6_calc,
@@ -1419,7 +1445,7 @@ CONST struct formula formulas[] = {
     },
    MANDEL_BTRACE,
    },
-  {
+  {/* 5 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    newton_calc,
@@ -1461,7 +1487,7 @@ CONST struct formula formulas[] = {
     },
    STARTZERO,
    },
-  { /* formula added by Andreas Madritsch */
+  { /* formula added by Andreas Madritsch */ /* 6 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    newton4_calc,
@@ -1503,7 +1529,7 @@ CONST struct formula formulas[] = {
     },
    STARTZERO,
    },
-  {
+  {/* 7 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    barnsley1_calc,
@@ -1545,7 +1571,7 @@ CONST struct formula formulas[] = {
     },
    STARTZERO | MANDEL_BTRACE,
    },
-  { /* formula added by Andreas Madritsch */
+  { /* formula added by Andreas Madritsch *//* 8 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    barnsley2_calc,
@@ -1587,7 +1613,7 @@ CONST struct formula formulas[] = {
     },
    STARTZERO | MANDEL_BTRACE,
    },
-  { /* formula added by Arpad Fekete */
+  { /* formula added by Arpad Fekete *//* 9 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    barnsley3_calc,
@@ -1629,7 +1655,7 @@ CONST struct formula formulas[] = {
     },
    STARTZERO | MANDEL_BTRACE,
    },
-  {
+  {/* 10 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    octo_calc,
@@ -1671,7 +1697,7 @@ CONST struct formula formulas[] = {
     },
    MANDEL_BTRACE | STARTZERO,
    },
-  {
+  {/* 11 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    phoenix_calc,
@@ -1713,7 +1739,7 @@ CONST struct formula formulas[] = {
     },
    MANDEL_BTRACE,
    },
-  {
+  {/* 12 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    magnet_calc,
@@ -1755,7 +1781,7 @@ CONST struct formula formulas[] = {
     },
    STARTZERO,
    },
-  { /* formula added by Andreas Madritsch */
+  { /* formula added by Andreas Madritsch *//* 13 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    magnet2_calc,
@@ -1797,7 +1823,7 @@ CONST struct formula formulas[] = {
     },
    STARTZERO,
    },
-  { /* formula added by Arpad Fekete */
+  { /* formula added by Arpad Fekete *//* 14 */
    FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    trice_calc,
@@ -1838,7 +1864,7 @@ CONST struct formula formulas[] = {
     },
    MANDEL_BTRACE,
    },
-   { /* formula added by Arpad Fekete */
+   { /* formula added by Arpad Fekete *//* 15 */
     FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    catseye_calc,
@@ -1879,7 +1905,7 @@ CONST struct formula formulas[] = {
     },
    MANDEL_BTRACE,
    },
-   { /*formula added by Arpad Fekete*/
+   { /*formula added by Arpad Fekete*//* 16 */
      /*in Gnofract4d from mathworld.wolfram.com*/
     FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
@@ -1921,7 +1947,7 @@ CONST struct formula formulas[] = {
     },
     MANDEL_BTRACE,
    },
-   { /* formula added by Arpad Fekete (from fractint)*/
+   { /* formula added by Arpad Fekete (from fractint)*//* 17 */
     FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    mlambda_calc,
@@ -1962,7 +1988,7 @@ CONST struct formula formulas[] = {
     },
     MANDEL_BTRACE,
    },
-   { /* formula added by Arpad Fekete (from fractint)*/
+   { /* formula added by Arpad Fekete (from fractint)*//* 18 */
     FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    manowar_calc,
@@ -2003,7 +2029,7 @@ CONST struct formula formulas[] = {
     },
     MANDEL_BTRACE,
    },
-   { /* formula added by Arpad Fekete (from fractint)*/
+   { /* formula added by Arpad Fekete (from fractint)*//* 19 */
     FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    spider_calc,
@@ -2044,7 +2070,7 @@ CONST struct formula formulas[] = {
     },
     MANDEL_BTRACE,
    },
-   { /* formula added by Arpad Fekete, method from fractint */
+   { /* formula added by Arpad Fekete, method from fractint *//* 20 */
     FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    sier_calc,
@@ -2085,7 +2111,7 @@ CONST struct formula formulas[] = {
     },
     MANDEL_BTRACE,
    },
-   { /* formula added by Arpad Fekete, method from fractint */
+   { /* formula added by Arpad Fekete, method from fractint *//* 21 */
     FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    carpet_calc,
@@ -2126,7 +2152,7 @@ CONST struct formula formulas[] = {
     },
     MANDEL_BTRACE,
    },
-   { /* formula added by Arpad Fekete, method from fractint */
+   { /* formula added by Arpad Fekete, method from fractint *//* 22 */
     FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    koch_calc,
@@ -2167,7 +2193,7 @@ CONST struct formula formulas[] = {
     },
     MANDEL_BTRACE,
    }   ,
-   { /* formula added by Z. Kovacs */
+   { /* formula added by Z. Kovacs *//* 23 */
     FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
    hornflake_calc,
@@ -2208,6 +2234,51 @@ CONST struct formula formulas[] = {
     },
     MANDEL_BTRACE,
    }   
+#ifdef SFFE_USING
+, { /* formula added by M. Malczak - SFFE *//* 24 */
+       FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+   sffe_calc,
+   NULL,
+   NULL,
+   NULL,
+#endif
+   sffe_julia,
+   {"User defined", "User defined"},
+   "user",
+   /*{0.5, -2.0, 1.25, -1.25}, */
+   {-0.75, 0.0, 1, 1},
+   0, 1, 0.0, 0.0,
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   MANDEL_BTRACE|SFFE_FRACTAL,
+   }
+#endif
+
 };
 
 #ifdef SLOWFUNCPTR
@@ -2291,6 +2362,11 @@ calculateswitch (register number_t x1, register number_t y1,
 	case 23:
 	  return (hornflake_calc (x1, y1, x2, y2));
 	  break; 	  	  	  	  	
+#ifdef SFFE_USING
+	case 24:
+	  return (sffe_calc (x1, y1, x2, y2));
+	  break; 	  	  	  	  	
+#endif
 	}
     else
       switch (cfractalc.currentformula - formulas)
@@ -2367,6 +2443,11 @@ calculateswitch (register number_t x1, register number_t y1,
 	case 23:
 	  return (hornflake_calc (x1, y1, x2, y2));
 	  break; 	  	    	  	  
+#ifdef SFFE_USING
+	case 24:
+	  return (sffe_calc (x1, y1, x2, y2));
+	  break; 	  	  	  	  	
+#endif
 	}
   else if (cfractalc.coloringmode == 9)
     switch (cfractalc.currentformula - formulas)
@@ -2443,6 +2524,11 @@ calculateswitch (register number_t x1, register number_t y1,
       case 23:
 	return (hornflake_calc (x1, y1, x2, y2));
 	break; 	
+#ifdef SFFE_USING
+	case 24:
+	  return (sffe_calc (x1, y1, x2, y2));
+	  break; 	  	  	  	  	
+#endif
       }
   else
     switch (cfractalc.currentformula - formulas)
@@ -2519,6 +2605,11 @@ calculateswitch (register number_t x1, register number_t y1,
       case 22:
 	return (hornflake_calc (x1, y1, x2, y2));
 	break; 		
+#ifdef SFFE_USING
+	case 23:
+	  return (sffe_calc (x1, y1, x2, y2));
+	  break; 	  	  	  	  	
+#endif
       }
   return 0;
 }

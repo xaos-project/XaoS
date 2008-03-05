@@ -408,8 +408,8 @@ menu_activate (CONST menuitem * item, struct uih_context *c, dialogparam * d)
     case MENU_CUSTOMDIALOG:
       if (!menu_havedialog (item, c))
 	{
-	  ((void (*)(struct uih_context * c, dialogparam *)) item->
-	   function) (c, (dialogparam *) NULL);
+	  ((void (*)(struct uih_context * c, dialogparam *)) item->function)
+	    (c, (dialogparam *) NULL);
 	}
       else
 	{
@@ -444,8 +444,8 @@ menu_activate (CONST menuitem * item, struct uih_context *c, dialogparam * d)
 		  break;
 		case DIALOG_STRING:
 		case DIALOG_KEYSTRING:
-		  ((void (*)(struct uih_context * c, char *)) item->
-		   function) (c, d[0].dstring);
+		  ((void (*)(struct uih_context * c, char *)) item->function)
+		    (c, d[0].dstring);
 		  break;
 		case DIALOG_IFILE:
 		case DIALOG_OFILE:
@@ -459,8 +459,8 @@ menu_activate (CONST menuitem * item, struct uih_context *c, dialogparam * d)
 
 	    }
 	  else
-	    ((void (*)(struct uih_context * c, dialogparam *)) item->
-	     function) (c, d);
+	    ((void (*)(struct uih_context * c, dialogparam *)) item->function)
+	      (c, d);
 	}
       break;
     default:
@@ -486,8 +486,8 @@ menu_enabled (CONST menuitem * item, struct uih_context *c)
 								      item->
 								      iparam));
       case MENU_STRING:
-	return (((int (*)(struct uih_context *, CONST char *)) item->
-		 control) (c, (CONST char *) item->pparam));
+	return (((int (*)(struct uih_context *, CONST char *)) item->control)
+		(c, (CONST char *) item->pparam));
       default:
 	x_error ("Menu_enabled: unknown type!");
 	break;
@@ -717,7 +717,7 @@ menu_findcommand (CONST char *name)
   len = strlen (name);
   if (len > 100)
     return NULL;
-  entry = namehash[HASH (name, len)];
+	entry = namehash[HASH (name, len)];
   while (entry != NULL)
     {
       if (!strcmp (entry->item->shortname, name))

@@ -9,12 +9,13 @@ RANLIB = @RANLIB@
 TLIBS = @DRIVERLIBS@ 
 
 DIRS = \
-       filter \
-       engine \
-       ui-hlp \
-       ui \
-       util \
-       @DRIVERDIRS@ 
+	sffe \
+	filter \
+	engine \
+	ui-hlp \
+	ui \
+	util \
+	@DRIVERDIRS@ 
 
 PROG = @BINPATH@/xaos
 OBJS = $(SRCS:.c=.o)
