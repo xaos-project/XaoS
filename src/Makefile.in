@@ -47,7 +47,7 @@ internationalization:
 clean:
 	@for name in $(DIRS) i18n ; do sh -c "cd $$name ; $(MAKE) $@"; done
 	rm -f include/config.h
-	rm -f $(PROG)
+	rm -f $(PROG) lib/lib*.a
 
 distclean: clean
 	rm  -f Makefile

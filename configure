@@ -12785,7 +12785,7 @@ echo "${ECHO_T}$ac_exceptions" >&6; }
 	    fi
 
 	    if test $sffe = yes; then
-		CCOPTS = "$CCOPTS -Waggregate-return"
+		CCOPTS="$CCOPTS -Waggregate-return" # fixed by Zoltan
 	    fi
 
 	else
@@ -19437,7 +19437,6 @@ echo "${ECHO_T}no" >&6; }
 fi
 
 
-		# echo "$GSL_CONFIG" # --- I think this is not needed, just for debug --- Zoltan
 		{ echo "$as_me:$LINENO: checking for GSL" >&5
 echo $ECHO_N "checking for GSL... $ECHO_C" >&6; }
 		 if test "$GSL_CONFIG" = "no" ; then
@@ -19445,6 +19444,8 @@ echo $ECHO_N "checking for GSL... $ECHO_C" >&6; }
 		  { echo "$as_me:$LINENO: result: no" >&5
 echo "${ECHO_T}no" >&6; }
 		 else
+		  { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
 		  echo "using GSL for complex numbers"
 		  GSL_LIBS=`$GSL_CONFIG --libs`
 		  CFLAGS="$CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
@@ -19496,6 +19497,10 @@ fi
 			  CFLAGS="$CFLAGS -DSFFE_USING -DSFFE_CMPLX_ASM"
 			  CFLAGS1="$CFLAGS1 -DSFFE_USING -DSFFE_CMPLX_ASM"
 			  DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
+		else
+		    { { echo "$as_me:$LINENO: error: Neither GSL, nor NASM is installed. XaoS is unable to compile." >&5
+echo "$as_me: error: Neither GSL, nor NASM is installed. XaoS is unable to compile." >&2;}
+   { (exit 1); exit 1; }; }
   		fi
  fi
  echo "------------------------------------------------------------"

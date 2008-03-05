@@ -4,7 +4,7 @@ Internationalization (i18n) in XaoS
 Zoltan Kovacs <kovzol@math.u-szeged.hu>
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/src/i18n/README,v 1.6 2003-02-28 08:58:15 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/src/i18n/README,v 1.7 2008-03-05 13:00:31 kovzol Exp $
 
 
 
@@ -104,3 +104,46 @@ Your help is also welcome.
 * Ceser Perez contributed the Spanish translations.
 
 Thanks to everyone!
+
+
+6. IMPORTANT NOTES FOR MODERN LINUX SYSTEMS
+
+(Contributed by Á. Fekete and Z. Kovács.)
+
+This section describes how to display Hungarian characters correctly in XaoS
+on Ubuntu 7.10. But this may be help on other systems, too. The section should
+be useful for other non-English users as well.
+
+XaoS displays Hungarian characters wrongly because the locale is not set well.
+
+1.) So check the output of the following command:
+
+$ locale
+
+and if the locale character set is not ISO-8859-2,
+then this should be the problem. In this case,
+
+2.) check if your locale is in /var/lib/locales/supported.d/local
+(and /var/lib/locales/supported.d/*) and if not, write a line describing
+
+your locale to the end of these files. That line should be one line of
+the file /usr/share/i18n/SUPPORTED, for example:
+
+hu_HU ISO-8859-2
+
+3.) Run
+
+$ sudo dpkg-reconfigure locales
+
+entering your administrative password.
+
+4.) Before running xaos, give this locale to the LC_ALL environment
+variable, for example:
+
+$ export LC_ALL=hu_HU
+
+5.) You should be able to run xaos with the menu in readable format,
+but the letters õ and û are still not good in the terminal. If you want
+
+to change that and are using gnome-terminal, set the character encoding
+to Central European (ISO-8859-2) in the Terminal menu.
