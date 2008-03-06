@@ -9,7 +9,7 @@ SRCS =  sffe.c \
 	sffe_cmplx_asm.c \
 	sffe_cmplx_gsl.c 
 
-OBJS = $(SRCS:.c=.o) asm/cmplx.o
+OBJS = $(SRCS:.c=.o) @ASM_CMPLX_O@
 
 TLIB = ../lib/libsffe.a
 
@@ -20,7 +20,7 @@ asm/cmplx.o: asm/cmplx.asm
 
 $(TLIB):$(OBJS)
 	rm -f $@
-	$(AR) rc $@ $(OBJS) asm/cmplx.o
+	$(AR) rc $@ $(OBJS) @ASM_CMPLX_O@
 	$(RANLIB) $@ 
 
 keywords.c: keywords.gperf

@@ -1,8 +1,5 @@
 AC_INIT(XaoS, 3.3, xaos-devel@lists.sourceforge.net)
 
-# FIXME: unfortunately version still have to be changed
-# in src/include/version.h
-
 AC_PREREQ(2.52)
 POSTCOMPILE=""
 AC_CONFIG_HEADER(src/include/aconfig.h src/include/version.h)
@@ -935,6 +932,7 @@ if test $sffe = yes; then
 		  CFLAGS="$CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
 		  CFLAGS1="$CFLAGS1 -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
 		  DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
+		  ASM_CMPLX_O=""
 		fi 
  fi
 
@@ -945,6 +943,7 @@ if test $sffe = yes; then
 			  CFLAGS="$CFLAGS -DSFFE_USING -DSFFE_CMPLX_ASM"
 			  CFLAGS1="$CFLAGS1 -DSFFE_USING -DSFFE_CMPLX_ASM"
 			  DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
+			  ASM_CMPLX_O="asm/cmplx.o"
 		else
 		    AC_MSG_ERROR([Neither GSL, nor NASM is installed. XaoS is unable to compile.])
   		fi
@@ -970,6 +969,7 @@ AC_SUBST(CFLAGS1)
 AC_SUBST(CXXFLAGS)
 AC_SUBST(ASMOBJS)
 AC_SUBST(CMPLX_O_TARGET)
+AC_SUBST(ASM_CMPLX_O)
 
 AC_OUTPUT(src/i18n/Makefile.in
     Makefile src/Makefile src/i18n/Makefile src/engine/Makefile 
