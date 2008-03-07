@@ -1,5 +1,5 @@
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.22 2008-03-05 13:00:04 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.23 2008-03-07 00:31:17 kovzol Exp $
 
 RELEASE NOTES FOR XAOS VERSION 3.3
 ----------------------------------
@@ -12,7 +12,7 @@ audience now.
 Mateusz has been working on the underlying SFFE (SegFaults Formula
 Evaluator) library for several months. XaoS-3.3 can be compiled using
 both NASM (Netwide Assembler) or GSL (GNU Scientific Library) for the
-underlying complex arithmetic used by SFFE. For more information about
+underlying complex arithmetics used by SFFE. For more information about
 the available user functions please read the enclosed documentation or
 visit Mateusz's info page on http://www.segfaultlabs.com/sfXaoS.
 

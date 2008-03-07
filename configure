@@ -1479,9 +1479,6 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-# FIXME: unfortunately version still have to be changed
-# in src/include/version.h
-
 
 POSTCOMPILE=""
                     ac_config_headers="$ac_config_headers src/include/aconfig.h src/include/version.h"
@@ -5620,6 +5617,7 @@ echo "${ECHO_T}$LINGUAS" >&6
 
 
 
+if test "$USE_NLS" = "1"; then
 # Extract the first word of "msgmerge", so it can be a program name with args.
 set dummy msgmerge; ac_word=$2
 echo "$as_me:$LINENO: checking for $ac_word" >&5
@@ -5661,9 +5659,12 @@ echo "${ECHO_T}no" >&6
 fi
 
 if test "$ac_cv_path_MSGMERGE" = ""; then
- { { echo "$as_me:$LINENO: error: Install the msgmerge utility first for i18n" >&5
-echo "$as_me: error: Install the msgmerge utility first for i18n" >&2;}
+ { { echo "$as_me:$LINENO: error: Install the msgmerge utility first for i18n
+or re-configure XaoS with --disable-nls" >&5
+echo "$as_me: error: Install the msgmerge utility first for i18n
+or re-configure XaoS with --disable-nls" >&2;}
    { (exit 1); exit 1; }; }
+ fi
  fi
 
 
@@ -5787,134 +5788,60 @@ fi;
 
 
 
-
-if test x$long_double = xtest; then
-case $target_cpu in
-i?86*) long_double=yes
-           mflag=486
-	   case $target_cpu in
-	   i386*)
-	    mmflag="-march=386"
-	    ;;
-	   i486*)
-	    mmflag="-march=486"
-	    ;;
-	   athlon_xp*)
-	    echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -mathlon" >&5
-echo $ECHO_N "checking whether ${CC-cc} accepts -mathlon... $ECHO_C" >&6
-if test "${ac_cv_prog_cc_mathlon+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  echo 'void f(){}' > conftest.c
-if test -z "`${CC-cc} -march=athlon -c conftest.c 2>&1`"; then
-    ac_cv_prog_cc_mathlon=yes
-    else
-        ac_cv_prog_cc_mathlon=no
-    fi
-	rm -f conftest*
-
-fi
-echo "$as_me:$LINENO: result: $ac_cv_prog_cc_mathlon" >&5
-echo "${ECHO_T}$ac_cv_prog_cc_mathlon" >&6
-	    if test $ac_cv_prog_cc_mathlon = yes; then
-	      mmflag="-march=athlon"
-	    else
-	    mmflag="-march=486"
-	    fi
-	    ;;
-	   i586*)
-	    echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -mpentium" >&5
-echo $ECHO_N "checking whether ${CC-cc} accepts -mpentium... $ECHO_C" >&6
-if test "${ac_cv_prog_cc_mpentium+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  echo 'void f(){}' > conftest.c
-if test -z "`${CC-cc} -march=pentium -c conftest.c 2>&1`"; then
-    ac_cv_prog_cc_mpentium=yes
-    else
-        ac_cv_prog_cc_mpentium=no
-    fi
-	rm -f conftest*
-
-fi
-echo "$as_me:$LINENO: result: $ac_cv_prog_cc_mpentium" >&5
-echo "${ECHO_T}$ac_cv_prog_cc_mpentium" >&6
-	    if test $ac_cv_prog_cc_mpentium = yes; then
-	      mmflag="-march=pentium"
-	    else
-	    echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -m586" >&5
-echo $ECHO_N "checking whether ${CC-cc} accepts -m586... $ECHO_C" >&6
-if test "${ac_cv_prog_cc_m586+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  echo 'void f(){}' > conftest.c
-if test -z "`${CC-cc} -march=586 -c conftest.c 2>&1`"; then
-    ac_cv_prog_cc_m586=yes
-    else
-        ac_cv_prog_cc_m586=no
-    fi
-	rm -f conftest*
-
-fi
-echo "$as_me:$LINENO: result: $ac_cv_prog_cc_m586" >&5
-echo "${ECHO_T}$ac_cv_prog_cc_m586" >&6
-	    if test $ac_cv_prog_cc_m586 = yes; then
-	      mmflag="-march=586"
-	    else
-	    mmflag="-march=486"
-	    fi
-	    fi
-	    ;;
-	   i?86*)
-	    echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -mpentiumpro" >&5
-echo $ECHO_N "checking whether ${CC-cc} accepts -mpentiumpro... $ECHO_C" >&6
-if test "${ac_cv_prog_cc_mpentiumpro+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  echo 'void f(){}' > conftest.c
-if test -z "`${CC-cc} -march=pentiumpro -c conftest.c 2>&1`"; then
-    ac_cv_prog_cc_mpentiumpro=yes
-    else
-        ac_cv_prog_cc_mpentiumpro=no
-    fi
-	rm -f conftest*
-
-fi
-echo "$as_me:$LINENO: result: $ac_cv_prog_cc_mpentiumpro" >&5
-echo "${ECHO_T}$ac_cv_prog_cc_mpentiumpro" >&6
-	    if test $ac_cv_prog_cc_mpentiumpro = yes; then
-	      mmflag="-march=pentiumpro"
-	    else
-	    echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -m686" >&5
-echo $ECHO_N "checking whether ${CC-cc} accepts -m686... $ECHO_C" >&6
-if test "${ac_cv_prog_cc_m686+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  echo 'void f(){}' > conftest.c
-if test -z "`${CC-cc} -march=686 -c conftest.c 2>&1`"; then
-    ac_cv_prog_cc_m686=yes
-    else
-        ac_cv_prog_cc_m686=no
-    fi
-	rm -f conftest*
-
-fi
-echo "$as_me:$LINENO: result: $ac_cv_prog_cc_m686" >&5
-echo "${ECHO_T}$ac_cv_prog_cc_m686" >&6
-	    if test $ac_cv_prog_cc_m686 = yes; then
-	      mmflag="-march=686"
-	    else
-	    mmflag="-march=486"
-	    fi
-	    fi
-	   ;;
-	   esac
-	   ;;
-unknown)
-           long_double=yes
-	   ;;
-esac
-fi
+# This seems to be unnecessary for modern gcc versions
+# (and some Os's like Darwin, cannot use -march at all, so disabling:
+# if test x$long_double = xtest; then
+# case $target_cpu in
+# i?86*) long_double=yes
+#           mflag=486
+#	   case $target_cpu in
+#	   i386*)
+#	    mmflag="-march=386"
+#	    ;;
+#	   i486*)
+#	    mmflag="-march=486"
+#	    ;;
+#	   athlon_xp*)
+#	    AC_PROG_CC_M(athlon)
+#	    if test $ac_cv_prog_cc_mathlon = yes; then
+#	      mmflag="-march=athlon"
+#	    else
+#	    mmflag="-march=486"
+#	    fi
+#	    ;;
+#	   i586*)
+#	    AC_PROG_CC_M(pentium)
+#	    if test $ac_cv_prog_cc_mpentium = yes; then
+#	      mmflag="-march=pentium"
+#	    else
+#	    AC_PROG_CC_M(586)
+#	    if test $ac_cv_prog_cc_m586 = yes; then
+#	      mmflag="-march=586"
+#	    else
+#	    mmflag="-march=486"
+#	    fi
+#	    fi
+#	    ;;
+#	   i?86*)
+#	    AC_PROG_CC_M(pentiumpro)
+#	    if test $ac_cv_prog_cc_mpentiumpro = yes; then
+#	      mmflag="-march=pentiumpro"
+#	    else
+#	    AC_PROG_CC_M(686)
+#	    if test $ac_cv_prog_cc_m686 = yes; then
+#	      mmflag="-march=686"
+#	    else
+#	    mmflag="-march=486"
+#	    fi
+#	    fi
+#	   ;;
+#	   esac
+#	   ;;
+#unknown)
+#           long_double=yes
+#	   ;;
+#esac
+#fi
 
 echo "$as_me:$LINENO: checking whether ${MAKE-make} sets \$(MAKE)" >&5
 echo $ECHO_N "checking whether ${MAKE-make} sets \$(MAKE)... $ECHO_C" >&6
@@ -7018,7 +6945,7 @@ test "x$enable_libtool_lock" != xno && enable_libtool_lock=yes
 case $host in
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 7021 "configure"' > conftest.$ac_ext
+  echo '#line 6948 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -7559,7 +7486,7 @@ chmod -w .
 save_CFLAGS="$CFLAGS"
 CFLAGS="$CFLAGS -o out/conftest2.$ac_objext"
 compiler_c_o=no
-if { (eval echo configure:7562: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>out/conftest.err; } && test -s out/conftest2.$ac_objext; then
+if { (eval echo configure:7489: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>out/conftest.err; } && test -s out/conftest2.$ac_objext; then
   # The compiler can only warn and ignore the option if not recognized
   # So say no if there are warnings
   if test -s out/conftest.err; then
@@ -9372,7 +9299,7 @@ else
     lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 9375 "configure"
+#line 9302 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -9470,7 +9397,7 @@ else
     lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 9473 "configure"
+#line 9400 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -11786,6 +11713,7 @@ fi
 case $target_os in
 *linux*) CMPLX_O_TARGET=elf;;
 *cygwin*) CMPLX_O_TARGET=coff;;
+*darwin*) CMPLX_O_TARGET=macho;;
 esac
 if test  "$win32_driver_test" = yes; then
            win32_driver=no

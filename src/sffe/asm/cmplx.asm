@@ -14,7 +14,10 @@
 
 	%ifndef DELPHI
 	;	section .text use32 class=CODE ;class=CODE - needed for Borlands Compiler
-	section CODE use32
+
+	;	section CODE use32
+	; ".text" is more portable than "CODE use32":
+	section .text
 	%endif
 
 	;; internal use

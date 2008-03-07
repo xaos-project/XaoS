@@ -17,9 +17,12 @@ dnl
 ALL_LINGUAS="cs es hu fr de ro"
 AM_GNU_GETTEXT
 
+if test "$USE_NLS" = "1"; then
 AC_PATH_PROG([MSGMERGE], [msgmerge], , [$PATH:../bin])
 if test "$ac_cv_path_MSGMERGE" = ""; then
- AC_MSG_ERROR([Install the msgmerge utility first for i18n])
+ AC_MSG_ERROR([Install the msgmerge utility first for i18n
+or re-configure XaoS with --disable-nls])
+ fi
  fi
 
 dnl
@@ -209,59 +212,60 @@ if test -z "`${CC-cc} -Os -c conftest.c 2>&1`"; then
 ])])
 
 
-
-if test x$long_double = xtest; then
-case $target_cpu in
-i?86*) long_double=yes
-           mflag=486
-	   case $target_cpu in
-	   i386*)
-	    mmflag="-march=386"
-	    ;;
-	   i486*)
-	    mmflag="-march=486"
-	    ;;
-	   athlon_xp*)
-	    AC_PROG_CC_M(athlon)
-	    if test $ac_cv_prog_cc_mathlon = yes; then
-	      mmflag="-march=athlon"
-	    else
-	    mmflag="-march=486"
-	    fi
-	    ;;
-	   i586*)
-	    AC_PROG_CC_M(pentium)
-	    if test $ac_cv_prog_cc_mpentium = yes; then
-	      mmflag="-march=pentium"
-	    else
-	    AC_PROG_CC_M(586)
-	    if test $ac_cv_prog_cc_m586 = yes; then
-	      mmflag="-march=586"
-	    else
-	    mmflag="-march=486"
-	    fi
-	    fi
-	    ;;
-	   i?86*)
-	    AC_PROG_CC_M(pentiumpro)
-	    if test $ac_cv_prog_cc_mpentiumpro = yes; then
-	      mmflag="-march=pentiumpro"
-	    else
-	    AC_PROG_CC_M(686)
-	    if test $ac_cv_prog_cc_m686 = yes; then
-	      mmflag="-march=686"
-	    else
-	    mmflag="-march=486"
-	    fi
-	    fi
-	   ;;
-	   esac
-	   ;;
-unknown)
-           long_double=yes
-	   ;;
-esac
-fi
+# This seems to be unnecessary for modern gcc versions
+# (and some Os's like Darwin, cannot use -march at all, so disabling:
+# if test x$long_double = xtest; then
+# case $target_cpu in
+# i?86*) long_double=yes
+#           mflag=486
+#	   case $target_cpu in
+#	   i386*)
+#	    mmflag="-march=386"
+#	    ;;
+#	   i486*)
+#	    mmflag="-march=486"
+#	    ;;
+#	   athlon_xp*)
+#	    AC_PROG_CC_M(athlon)
+#	    if test $ac_cv_prog_cc_mathlon = yes; then
+#	      mmflag="-march=athlon"
+#	    else
+#	    mmflag="-march=486"
+#	    fi
+#	    ;;
+#	   i586*)
+#	    AC_PROG_CC_M(pentium)
+#	    if test $ac_cv_prog_cc_mpentium = yes; then
+#	      mmflag="-march=pentium"
+#	    else
+#	    AC_PROG_CC_M(586)
+#	    if test $ac_cv_prog_cc_m586 = yes; then
+#	      mmflag="-march=586"
+#	    else
+#	    mmflag="-march=486"
+#	    fi
+#	    fi
+#	    ;;
+#	   i?86*)
+#	    AC_PROG_CC_M(pentiumpro)
+#	    if test $ac_cv_prog_cc_mpentiumpro = yes; then
+#	      mmflag="-march=pentiumpro"
+#	    else
+#	    AC_PROG_CC_M(686)
+#	    if test $ac_cv_prog_cc_m686 = yes; then
+#	      mmflag="-march=686"
+#	    else
+#	    mmflag="-march=486"
+#	    fi
+#	    fi
+#	   ;;
+#	   esac
+#	   ;;
+#unknown)
+#           long_double=yes
+#	   ;;
+#esac
+#fi
 
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
@@ -420,6 +424,7 @@ fi
 case $target_os in
 *linux*) CMPLX_O_TARGET=elf;;
 *cygwin*) CMPLX_O_TARGET=coff;;
+*darwin*) CMPLX_O_TARGET=macho;;
 esac
 if test  "$win32_driver_test" = yes; then
            win32_driver=no
