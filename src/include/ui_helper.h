@@ -277,6 +277,9 @@ extern "C"
 
     int encoding;
 
+    /* performers really don't want text echoed to the screen */
+	int inhibittextoutput;
+	
 #ifdef SFFE_USING
     /*User formulas (used in sffe parser) */
     sffe *cparser;
@@ -370,6 +373,7 @@ extern "C"
   void uih_mkpalette (uih_context * c);
   void uih_savepalette (uih_context * c);
   void uih_restorepalette (uih_context * c);
+  void uih_loadpalette(uih_context * c, struct palette *palette);
 
 /*autopilot handling */
   void uih_autopilot_on (uih_context * c);
@@ -536,6 +540,8 @@ extern "C"
   void uih_inittext (uih_context * c);
   void uih_destroytext (uih_context * c);
 
+  void uih_inhibittextsw (uih_context * c);	 
+  int uih_inhibittextselected (uih_context *c);
 
 #ifdef __cplusplus
 }
