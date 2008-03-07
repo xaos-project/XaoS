@@ -773,11 +773,21 @@ uih_cyclingselected (struct uih_context *c)
 {
   if (c == NULL)
     return 0;
-  return (c->cycling);
+ return (c->cycling && c->cyclingdirection==1);
+}	 
+static int	 
+uih_rcyclingselected (struct uih_context *c)	 
+{	 
+        if (c == NULL)	 
+                return 0;	 
+        return (c->cycling && c->cyclingdirection==-1);
 }
 static void
 uih_cyclingsw (struct uih_context *c)
 {
+ // Andrew Stone: this fixes what I consider a bug - switching from Y to y should keep cycling:	 
+  if (c->cycling && c->cyclingdirection == -1) 
+	uih_cycling_off (c);
   c->cyclingdirection = 1;
   if (c->cycling)
     uih_cycling_off (c);
@@ -788,6 +798,9 @@ uih_cyclingsw (struct uih_context *c)
 static void
 uih_rcyclingsw (struct uih_context *c)
 {
+  // Andrew Stone: this fixes what I consider a bug - switching from y to Y should keep cycling:	 
+  if (c->cycling && c->cyclingdirection == 1) 
+	uih_cycling_off (c);
   c->cyclingdirection = -1;
   if (c->cycling)
     uih_cycling_off (c);
@@ -1248,7 +1261,7 @@ uih_registermenus_i18n (void)
 	       "cycling", 0, uih_cyclingsw, uih_cyclingselected);
   MENUNOPCB_I ("palettemenu", "Y", gettext ("Reversed color cycling"),
 	       "rcycling", MENUFLAG_NOOPTION | MENUFLAG_NOPLAY,
-	       uih_rcyclingsw, uih_cyclingselected);
+	       uih_rcyclingsw, uih_rcyclingselected);
   MENUCDIALOG_I ("palettemenu", NULL,
 		 gettext
 		 ("Color cycling speed"),
@@ -1316,6 +1329,9 @@ uih_registermenus_i18n (void)
   MENUNOPCB_I ("ui", "a",
 	       gettext ("Autopilot"),
 	       "autopilot", 0, uih_autopilotsw, uih_autopilotselected);
+	 MENUNOPCB_I ("ui", "P",	 
+           gettext ("Performance Mode"),	 
+           "inhibittextoutput", 0, uih_inhibittextsw, uih_inhibittextselected);
   MENUSEPARATOR_I ("ui");
   MENUNOP_I ("ui", "r", gettext ("Recalculate"),
 	     "recalculate", 0, uih_recalculate);
