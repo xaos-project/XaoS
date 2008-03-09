@@ -934,8 +934,9 @@ if test $sffe = yes; then
 		  AC_MSG_RESULT(yes)
 		  echo "using GSL for complex numbers"
 		  GSL_LIBS=`$GSL_CONFIG --libs`
-		  CFLAGS="$CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
-		  CFLAGS1="$CFLAGS1 -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
+		  GSL_CFLAGS=`$GSL_CONFIG --cflags`
+		  CFLAGS="$CFLAGS $GSL_CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
+		  CFLAGS1="$CFLAGS1 $GSL_CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
 		  DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
 		  ASM_CMPLX_O=""
 		fi 
@@ -953,6 +954,15 @@ if test $sffe = yes; then
 		    AC_MSG_ERROR([Neither GSL, nor NASM is installed. XaoS is unable to compile.])
   		fi
  fi
+
+dnl   Added 20070306 by JB Langston
+dnl   Apple's gcc chokes on the assembly in i386.c:
+dnl     i386.c: In function `_control87': 
+dnl     i386.c:31: error: PIC register `bx' clobbered in `asm' 
+dnl   so we disable assembly on that platform
+case $target_os in
+	*darwin*) CFLAGS1="$CFLAGS1 -DNOASSEMBLY";;
+esac
  echo "------------------------------------------------------------"
 else
 	CFLAGS="$CFLAGS -fomit-frame-pointer"
