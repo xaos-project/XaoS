@@ -7,24 +7,33 @@ Here are instructions for getting the XaoS Xcode project to build successfully
 assuming you have downloaded a released source tarball or gotten the source 
 from CVS:
 
-1) Build libpng
+A) Build libpng
 
-    a) Download the latest libpng from 
+    1) Download the latest libpng from 
+
         ftp://ftp.simplesystems.org/pub/libpng/png/src/
-    b) Download the libpng Xcode project from 
-        http://www.bigzaphod.org/macosx/libpng/
-    c) Extract libpng
-    d) Extract libpng-xcode.tar.gz into the libpng-x.x.x/projects dir and then 
-       open the project using Xcode.
-    e) Select Project->Edit Active Target 'libpng'
-    f) On the build tab, change the following settings
-        - Framework Version -> to match your version of libpng, e.g. "1.2.12"
-        - Installation Directory -> @executable_path/../Frameworks
-    g) Select Project->Set Active Build Configuration->Release
-    h) Select Build->Build to build the project
-    i) Copy libpng.framework from $LIBPNG_HOME/projects/xcode/build/Release
-        to $XAOS_HOME/src/ui/ui-drv/osx
 
+    2) Configure libpng for universal binaries with the following command:
+
+          env CFLAGS="-O -g -isysroot /Developer/SDKs/MacOSX10.4u.sdk -arch i386 -arch ppc -mmacosx-version-min=10.4" \
+              LDFLAGS="-arch i386 -arch ppc" \
+	          ./configure --prefix=$XAOS_ROOT/src/ui/ui-drv/osx/thirdparty --disable-dependency-tracking
+	   
+	   Be sure to replace $XAOS_ROOT with the root of your XaoS source folder.
+	   
+       For more information about building open source libraries as universal binaries:	   
+	   http://developer.apple.com/technotes/tn2005/tn2137.html
+	
+	3) Make and install libpng:
+	   
+	   make && make install
+	   
+	4) Download the latest gsl from 
+
+       ftp://ftp.gnu.org/gnu/gsl/
+       
+    5) Repeat steps 2 and 3 for gsl
+	
 2) Build XaoS
 
 You should now be able to build XaoS.  Have fun! If you have questions,

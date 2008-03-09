@@ -200,20 +200,6 @@ osx_init (int fullscreen)
     
     driver = fullscreen ? &osx_fullscreen_driver : &osx_driver;
 
-    // The following is necessary to ensure correct colors on Intel-based Macs
-    // Determine if machine is little-endian and if so swap color mask bytes
-	{
-		unsigned char c[4];
-		*(unsigned short *) c = 0xff;
-		if (c[0] == (unsigned char) 0xff) {
-			int shift = 0;
-#define SWAPE(c)  (((c&0xffU)<<24)|((c&0xff00U)<<8)|((c&0xff0000U)>>8)|((c&0xff000000U)>>24))
-			driver->rmask = SWAPE (driver->rmask) >> shift;
-			driver->gmask = SWAPE (driver->gmask) >> shift;
-			driver->bmask = SWAPE (driver->bmask) >> shift;
-		}
-	}
-    
     // Determine screen dimensions
     mainDisplay = CGMainDisplayID();
     screenSize = CGDisplayScreenSize(mainDisplay);
@@ -369,9 +355,15 @@ struct ui_driver osx_driver = {
     /* palettestart */  0, 
     /* paletteend */    0, 
     /* maxentries */    0,
+#if __BIG_ENDIAN__
     /* rmask */         0x00ff0000,
     /* gmask */         0x0000ff00,
     /* bmask */         0x000000ff,
+#else
+    /* rmask */         0x0000ff00,
+    /* gmask */         0x00ff0000,
+    /* bmask */         0xff000000,
+#endif
     /* gui_driver */    &osx_gui_driver
 };
 
@@ -403,9 +395,15 @@ struct ui_driver osx_fullscreen_driver = {
     /* palettestart */  0, 
     /* paletteend */    0, 
     /* maxentries */    0,
+#if __BIG_ENDIAN__
     /* rmask */         0x00ff0000,
     /* gmask */         0x0000ff00,
     /* bmask */         0x000000ff,
+#else
+    /* rmask */         0x0000ff00,
+    /* gmask */         0x00ff0000,
+    /* bmask */         0xff000000,
+#endif
     /* gui_driver */    NULL
 };
 
