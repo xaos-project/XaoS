@@ -608,7 +608,6 @@
 		20286C29FDCF999611CA2CEA /* XaoS */ = {
 			isa = PBXGroup;
 			children = (
-				D96C30270D83AF2800C9357A /* libgsl.dylib */,
 				3D573A9E0A42612F009A2F5F /* Documents */,
 				20286C2AFDCF999611CA2CEA /* Sources */,
 				3D5176F00A3E4A3300C14735 /* Common Sources */,
@@ -1062,6 +1061,7 @@
 		D936E87C0BFE756F0011C818 /* Embedded Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D96C30270D83AF2800C9357A /* libgsl.dylib */,
 				D9218A060D81124200432768 /* libpng.dylib */,
 			);
 			name = "Embedded Frameworks and Libraries";
