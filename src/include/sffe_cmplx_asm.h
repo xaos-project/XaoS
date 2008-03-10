@@ -1,4 +1,3 @@
-#ifdef SFFE_CMPLX_ASM
 /*/////////////////////////////////////////////////////////////////////////////////////
 // project : sFFe ( SegFault (or Segmentation Fault :) ) formula evalutaor )
 // author  : Mateusz Malczak ( mateusz@malczak.info )
@@ -9,6 +8,9 @@
 /////////////////////////////////////////////////////////////////////////////////////*/
 #ifndef SFFE_CMPLX_ASM_H
 #define SFFE_CMPLX_ASM_H
+
+#include <config.h>
+#ifdef SFFE_CMPLX_ASM
 
 #include "sffe.h"
 

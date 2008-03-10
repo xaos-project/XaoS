@@ -17,6 +17,7 @@
 
 #ifndef SFFE_H
 #define SFFE_H
+#include <config.h>
 #include <stdlib.h>
 
 /* dont udef next line. removing this definitions can lead to compile and/or runtime errors */

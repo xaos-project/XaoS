@@ -1173,10 +1173,10 @@ uih_registermenus_i18n (void)
 	     | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_redo);
   SUBMENU_I ("fractal", NULL, gettext ("Formulae"), "mformula");
   SUBMENU_I ("fractal", NULL, gettext ("More formulae"), "oformula");
-  MENUSEPARATOR_I ("fractal");
 
 #ifdef SFFE_USING
-/*FIXME: Should allow multiline */
+  /*FIXME: Should allow multiline */
+  MENUSEPARATOR_I ("fractal");
   MENUDIALOG_I ("fractal", NULL, gettext ("User formula"), "usrform", 0, uih_sffein, uih_sffedialog);	
   MENUDIALOG_I ("fractal", NULL, gettext ("User initialization"), "usrformInit", 0, uih_sffeinitin, uih_sffeinitdialog);	
 #endif

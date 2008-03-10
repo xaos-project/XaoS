@@ -1,4 +1,3 @@
-#ifdef SFFE_CMPLX_ASM
 /*/////////////////////////////////////////////////////////////////////////////////////
 // project : sFFe ( SegFault (or Segmentation Fault :) ) formula evalutaor )
 // author  : Mateusz Malczak ( mateusz@malczak.info )
@@ -7,6 +6,9 @@
 // special build for XaoS, for more info visit
 // http://www.segfaultlabs.com/projects/sfXaos
 /////////////////////////////////////////////////////////////////////////////////////*/
+
+#include <config.h>
+#ifdef SFFE_CMPLX_ASM
 
 #include <math.h>
 #include "sffe.h"
