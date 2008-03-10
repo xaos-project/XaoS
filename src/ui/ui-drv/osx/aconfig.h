@@ -58,11 +58,12 @@
 /* #undef HAVE_GETTEXT */
 #define NO_MALLOC_H 1
 
-// Enable SFFE
-#ifdef __i386__
+// Enable SFFE; use ASM for i386 and GSL for PowerPC
 #define SFFE_USING 1
+#ifdef __i386__
+#define SFFE_CMPLX_ASM 1
+#else
 #define SFFE_CMPLX_GSL 1
-//#define SFFE_CMPLX_ASM 1
 #endif
 
 #endif

@@ -1515,10 +1515,6 @@
 					ppc,
 					i386,
 				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					SFFE_CMPLX_GSL,
-					SFFE_USING,
-				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ./thirdparty/include;
@@ -1534,10 +1530,6 @@
 				ARCHS = (
 					ppc,
 					i386,
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					SFFE_CMPLX_GSL,
-					SFFE_USING,
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
