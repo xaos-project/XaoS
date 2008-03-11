@@ -722,6 +722,7 @@ CFLAGS1
 ASMOBJS
 CMPLX_O_TARGET
 ASM_CMPLX_O
+POFILES
 LIBOBJS
 LTLIBOBJS'
 ac_subst_files=''
@@ -1797,6 +1798,12 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 POSTCOMPILE=""
 ac_config_headers="$ac_config_headers src/include/aconfig.h src/include/version.h"
+
+
+cat >>confdefs.h <<\_ACEOF
+#define _GNU_SOURCE 1
+_ACEOF
+
 
 ac_aux_dir=
 for ac_dir in "$srcdir" "$srcdir/.." "$srcdir/../.."; do
@@ -14270,6 +14277,7 @@ CXXFLAGS="$CXXFLAGS $INCDIR"
 
 
 
+
 ac_config_files="$ac_config_files src/i18n/Makefile.in Makefile src/Makefile src/i18n/Makefile src/engine/Makefile src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile src/ui/ui-drv/aa/Makefile src/ui/ui-drv/ggi/Makefile src/ui/ui-drv/svga/Makefile src/ui/ui-drv/x11/Makefile src/ui/ui-drv/dga/Makefile src/ui/ui-drv/win32/Makefile src/ui/ui-drv/BeOS/Makefile doc/Makefile help/Makefile src/sffe/Makefile"
 
 cat >confcache <<\_ACEOF
@@ -15073,11 +15081,12 @@ CFLAGS1!$CFLAGS1$ac_delim
 ASMOBJS!$ASMOBJS$ac_delim
 CMPLX_O_TARGET!$CMPLX_O_TARGET$ac_delim
 ASM_CMPLX_O!$ASM_CMPLX_O$ac_delim
+POFILES!$POFILES$ac_delim
 LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 12; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 13; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

@@ -3,6 +3,7 @@ AC_INIT(XaoS, 3.3, xaos-devel@lists.sourceforge.net)
 AC_PREREQ(2.52)
 POSTCOMPILE=""
 AC_CONFIG_HEADER(src/include/aconfig.h src/include/version.h)
+AC_GNU_SOURCE
 AC_CANONICAL_SYSTEM
 CCOPTS="$CFLAGS"
 CCOPTS1="$CFLAGS1"
@@ -986,6 +987,7 @@ AC_SUBST(ASMOBJS)
 AC_SUBST(CMPLX_O_TARGET)
 AC_SUBST(ASM_CMPLX_O)
 AC_SUBST(RANLIB)
+AC_SUBST(POFILES)
 
 AC_OUTPUT(src/i18n/Makefile.in
     Makefile src/Makefile src/i18n/Makefile src/engine/Makefile 
