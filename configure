@@ -5398,7 +5398,7 @@ _ACEOF
 
 
 
-if test "$USE_NLS" = "yes"; then
+if test "x$USE_NLS" = xyes; then
   # Extract the first word of "msgmerge", so it can be a program name with args.
 set dummy msgmerge; ac_word=$2
 { echo "$as_me:$LINENO: checking for $ac_word" >&5
@@ -5440,12 +5440,18 @@ echo "${ECHO_T}no" >&6; }
 fi
 
 
-  if test "$ac_cv_path_MSGMERGE" = ""; then
+  if test "x$ac_cv_path_MSGMERGE" = x; then
     { { echo "$as_me:$LINENO: error: Install the msgmerge utility first for i18n
                   or re-configure XaoS with --disable-nls" >&5
 echo "$as_me: error: Install the msgmerge utility first for i18n
                   or re-configure XaoS with --disable-nls" >&2;}
    { (exit 1); exit 1; }; }
+  fi
+  if test "x$POFILES" = x; then
+    for lang in $ALL_LINGUAS; do
+      GMOFILES="$GMOFILES $lang.gmo"
+      POFILES="$POFILES $lang.po"
+    done
   fi
 fi
 

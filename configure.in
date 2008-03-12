@@ -18,11 +18,17 @@ dnl
 ALL_LINGUAS="cs es hu fr de ro"
 AM_GNU_GETTEXT([external])
 
-if test "$USE_NLS" = "yes"; then
+if test "x$USE_NLS" = xyes; then
   AC_PATH_PROG([MSGMERGE], [msgmerge], , [$PATH:../bin])
-  if test "$ac_cv_path_MSGMERGE" = ""; then
+  if test "x$ac_cv_path_MSGMERGE" = x; then
     AC_MSG_ERROR([Install the msgmerge utility first for i18n
                   or re-configure XaoS with --disable-nls])
+  fi
+  if test "x$POFILES" = x; then
+    for lang in $ALL_LINGUAS; do
+      GMOFILES="$GMOFILES $lang.gmo"
+      POFILES="$POFILES $lang.po"
+    done
   fi
 fi
 
