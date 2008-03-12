@@ -282,6 +282,8 @@
 		D9218A210D81131400432768 /* sffe_cmplx_gsl.c in Sources */ = {isa = PBXBuildFile; fileRef = D9218A190D81131400432768 /* sffe_cmplx_gsl.c */; };
 		D96C30280D83AF2800C9357A /* libgsl.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = D96C30270D83AF2800C9357A /* libgsl.dylib */; };
 		D96C30300D83B14100C9357A /* libgsl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D96C30270D83AF2800C9357A /* libgsl.dylib */; };
+		D96C30A20D84EDC200C9357A /* COPYING in CopyFiles */ = {isa = PBXBuildFile; fileRef = D96C309F0D84ED6900C9357A /* COPYING */; };
+		D96C30A30D84EDC200C9357A /* Read Me.rtf in CopyFiles */ = {isa = PBXBuildFile; fileRef = D96C309E0D84ECE900C9357A /* Read Me.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -293,6 +295,17 @@
 			files = (
 				D9218A070D81124200432768 /* libpng.dylib in CopyFiles */,
 				D96C30280D83AF2800C9357A /* libgsl.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D96C30A50D84EDE200C9357A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				D96C30A20D84EDC200C9357A /* COPYING in CopyFiles */,
+				D96C30A30D84EDC200C9357A /* Read Me.rtf in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,6 +594,8 @@
 		D9218A190D81131400432768 /* sffe_cmplx_gsl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sffe_cmplx_gsl.c; sourceTree = "<group>"; };
 		D9218A2E0D8115D400432768 /* aconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aconfig.h; sourceTree = "<group>"; };
 		D96C30270D83AF2800C9357A /* libgsl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libgsl.dylib; sourceTree = "<group>"; };
+		D96C309E0D84ECE900C9357A /* Read Me.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Read Me.rtf"; sourceTree = "<group>"; };
+		D96C309F0D84ED6900C9357A /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = COPYING; path = ../../../../COPYING; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -765,6 +780,8 @@
 		3D573A9E0A42612F009A2F5F /* Documents */ = {
 			isa = PBXGroup;
 			children = (
+				D96C309F0D84ED6900C9357A /* COPYING */,
+				D96C309E0D84ECE900C9357A /* Read Me.rtf */,
 				3D573A9F0A42613A009A2F5F /* ChangeLog.txt */,
 				3DE4FE6A0A7AE0AE00491C86 /* HowToBuild.txt */,
 			);
@@ -1079,6 +1096,7 @@
 				8D0C4E8F0486CD37000505A6 /* Sources */,
 				8D0C4E910486CD37000505A6 /* Frameworks */,
 				D9218A090D81128300432768 /* CopyFiles */,
+				D96C30A50D84EDE200C9357A /* CopyFiles */,
 			);
 			buildRules = (
 			);
