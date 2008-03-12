@@ -335,8 +335,7 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
   new->parent_window = RootWindow (new->display, new->screen);
   defaultvisual = DefaultVisual (new->display, new->screen);
   new->params = params;
-  new->visual = defaultvisual;
-  vis.depth = new->depth = DefaultDepth (new->display, new->screen);
+
   found = 0;
   for (i = 32; i > 13 && !found; i--)
     if (XMatchVisualInfo (new->display, new->screen, i, TrueColor, &vis))
@@ -378,10 +377,10 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
     {
       found = 8;
     }
-  if (!found)
+  if (!found || params->fullscreen || params->rootwindow)
     {
       new->visual = defaultvisual;
-      vis.depth = new->depth = DefaultDepth (new->display, new->screen);
+      new->depth = DefaultDepth (new->display, new->screen);
     }
   else
     {
