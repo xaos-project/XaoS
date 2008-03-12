@@ -400,6 +400,8 @@ x11_copy ()
 static int
 x11_init (void)
 {
+  if (xparams.windowid != -1)
+    xparams.rootwindow = xparams.fullscreen = 0;
   if (xparams.fullscreen || xparams.rootwindow)
     sharedcolormap = 1;		/*private colormap is broken in fullscreen
 				   mode (at least at my X) */
@@ -597,6 +599,7 @@ static CONST struct params params[] = {
   {"-nomitshm", P_SWITCH, &xparams.nomitshm, "Disable MITSHM extension."},
   {"-fullscreen", P_SWITCH, &xparams.fullscreen, "Enable fullscreen mode."},
   {"-windowid", P_NUMBER, &xparams.windowid, "Use selected window."},
+  {"-window-id", P_NUMBER, &xparams.windowid, "Use selected window."},
   {"-root", P_SWITCH, &xparams.rootwindow, "Use root window."},
   {NULL, 0, NULL, NULL}
 };
