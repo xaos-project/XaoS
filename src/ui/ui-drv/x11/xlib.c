@@ -337,7 +337,7 @@ xalloc_display (CONST char *s, int x, int y, xlibparam * params)
   new->params = params;
 
   found = 0;
-  for (i = 32; i > 13 && !found; i--)
+  for (i = 31; i > 13 && !found; i--)
     if (XMatchVisualInfo (new->display, new->screen, i, TrueColor, &vis))
       {
 	found = 1;
