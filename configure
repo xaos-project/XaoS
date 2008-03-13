@@ -11349,8 +11349,10 @@ fi
 
 test "x$prefix" = xNONE && prefix=$ac_default_prefix
 eval datadir2=$datadir
+eval datadir3=$datadir2
+# This is a madness! eval can evaluate only one level of variable...
 cat >>confdefs.h <<_ACEOF
-#define DATAPATH "${datadir2}/XaoS"
+#define DATAPATH "${datadir3}/XaoS"
 _ACEOF
 
 

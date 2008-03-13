@@ -732,7 +732,9 @@ AC_STRUCT_TM
 
 test "x$prefix" = xNONE && prefix=$ac_default_prefix
 eval datadir2=$datadir
-AC_DEFINE_UNQUOTED(DATAPATH,"${datadir2}/XaoS")
+eval datadir3=$datadir2
+# This is a madness! eval can evaluate only one level of variable...
+AC_DEFINE_UNQUOTED(DATAPATH,"${datadir3}/XaoS")
 
 AC_CHECK_SIZEOF(short)
 AC_CHECK_SIZEOF(int)
