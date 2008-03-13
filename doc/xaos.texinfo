@@ -3333,9 +3333,11 @@ Internationalization, Hungarian translations, finalizing version 3.1, bug fixes,
 @item Zsigmond Kovacs
 Fractal examples
 @item J. B. Langston III (jb-langston@@austin.rr.com)
-Native Mac OS X port (from version 3.2.2)
+Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
 @item Andreas Madritsch (amadritsch@@datacomm.ch)
 New fractal types, bailout, many fixes
+@item Mateusz Malczak (mateusz@@malczak.info)
+User formula evaluation library
 @item Giorgio Marazzi (gmarazzi@@vtr.net)
 Improvements and fixes for espanhol.cat
 @item Thomas Marsh
@@ -3361,7 +3363,7 @@ Romanian translation
 @item Daniel Skarda
 Fractal examples
 @item Andrew Stone (Stone Design - www.stone.com)
-Mac OS X improvements, Videator support
+Videator Support, Cocoa improvements, performance mode, bug fixes
 @item Marton Torok (marton.torok@@gmail.com)
 Small fixes for pipes
 @item Pavel Tzekov (paveltz@@csoft.bg)
@@ -3370,6 +3372,8 @@ Win32 support
 Tcl/Tk interface
 @item Tapio K. Vocaldo (taps@@rmx.com)
 Macintosh port
+@item Tormod Volden
+Fixes for X11 driver to improve compatability with Xorg, XScreenSaver, Beryl and Compiz
 @item Philippe Wautelet (p.wautelet@@fractalzone.be)
 Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
 @end table

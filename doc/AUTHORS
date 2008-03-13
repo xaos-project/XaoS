@@ -49,13 +49,14 @@ Zsigmond Kovacs
      Fractal examples
 
 J. B. Langston III (jb-langston@austin.rr.com)
-     Native Mac OS X port (from version 3.2.2)
+     Native Mac OS X port (from version 3.2.2); web redesign;
+     co-maintainer
 
 Andreas Madritsch (amadritsch@datacomm.ch)
      New fractal types, bailout, many fixes
 
 Mateusz Malczak (mateusz@malczak.info)
-     user formulas evaluation library
+     User formula evaluation library
 
 Giorgio Marazzi (gmarazzi@vtr.net)
      Improvements and fixes for espanhol.cat
@@ -95,7 +96,7 @@ Daniel Skarda
      Fractal examples
 
 Andrew Stone (Stone Design - www.stone.com)
-     Mac OS X improvements, Videator support
+     Videator Support, Cocoa improvements, performance mode, bug fixes
 
 Marton Torok (marton.torok@gmail.com)
      Small fixes for pipes
@@ -108,6 +109,10 @@ Charles Vidal
 
 Tapio K. Vocaldo (taps@rmx.com)
      Macintosh port
+
+Tormod Volden
+     Fixes for X11 driver to improve compatability with Xorg,
+     XScreenSaver, Beryl and Compiz
 
 Philippe Wautelet (p.wautelet@fractalzone.be)
      Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes

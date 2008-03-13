@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-13 12:15+0100\n"
+"POT-Creation-Date: 2008-03-13 13:28+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: Hungarian\n"
@@ -152,6 +152,7 @@ msgid "speed:%2.2f "
 msgstr "sebesség:%2.2f "
 
 #: ../ui/ui.c:906
+#, c-format
 msgid "Thank you for using XaoS\n"
 msgstr "Köszönjük, hogy a XaoS programot használta!\n"
 
