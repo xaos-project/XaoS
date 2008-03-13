@@ -2,18 +2,20 @@
 #ifndef ACONFIG_H
 #define ACONFIG_H
 /* #undef HAVE_PTHREAD_SIGHANDLER */
-#define DATAPATH "${prefix}/share/XaoS"
+
+/* XaoS xio library uses \01 to indicate paths relative to the executable */
+#define DATAPATH "\01/../Resources"
+
+/* Using alloca causes stack overflows on large images */
 /* #undef C_ALLOCA */
+
 /* #undef const */
 /* #undef USE_PTHREAD */
-/*Avoid stack frame explosion on Windoze*/
-#ifndef _WIN32
-/*BeOS crashes badly when large amounts of stack are consumed */
-#ifndef __BEOS__
-#define HAVE_ALLOCA 1
-#define HAVE_ALLOCA_H 1
-#endif
-#endif
+
+/* alloca function causes stack overflow for large images */
+/* #define HAVE_ALLOCA 1 */
+/* #define HAVE_ALLOCA_H 1 */
+
 #define HAVE_FABSL 1
 /* #undef HAVE__FABSL */
 /* #undef HAVE___FABSL */
@@ -58,7 +60,7 @@
 /* #undef HAVE_GETTEXT */
 #define NO_MALLOC_H 1
 
-// Enable SFFE; use ASM for i386 and GSL for PowerPC
+/* Enable SFFE; use ASM for i386 and GSL for PowerPC */
 #define SFFE_USING 1
 #ifdef __i386__
 #define SFFE_CMPLX_ASM 1
