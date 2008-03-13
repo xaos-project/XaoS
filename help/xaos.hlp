@@ -427,7 +427,7 @@ The following tags are supported:
 <dt>Daniel Skarda
 <dd>Fractal examples
 <dt>Andrew Stone (Stone Design - www.stone.com)
-<dd>Mac OS X improvements, Videator support
+<dd>Videator Support, Cocoa improvements, performance mode, bug fixes
 <dt>Marton Torok (marton.torok@gmail.com)
 <dd>Small fixes for pipes
 <dt>Pavel Tzekov (paveltz@csoft.bg)
@@ -437,7 +437,7 @@ The following tags are supported:
 <dt>Tapio K. Vocaldo (taps@rmx.com)
 <dd>Macintosh port
 <dt>Tormod Volden
-<dd>Fixes for X11 driver to improve compatability with Xorg and xscreensaver
+<dd>Fixes for X11 driver to improve compatability with Xorg, XScreenSaver, Beryl and Compiz
 <dt>Philippe Wautelet (p.wautelet@fractalzone.be)
 <dd>Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
 </dl>
