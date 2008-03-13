@@ -1,6 +1,6 @@
 # XaoS NLS file for Hungarian language.
 # Copyright (C) 2002 Free Software Foundation, Inc.
-# Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2002.
+# Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2002, 2008.
 #
 msgid ""
 msgstr ""
@@ -65,9 +65,8 @@ msgid "Julia"
 msgstr ""
 
 #: ../ui/ui.c:480
-#, fuzzy, c-format
 msgid "Formula:%s"
-msgstr "Képlet:"
+msgstr "Képlet:%s"
 
 #: ../ui/ui.c:485
 #, c-format
@@ -137,7 +136,6 @@ msgid "Rotation speed:%2.2f degrees per second "
 msgstr "Forgatási sebesség:%2.2f fok másodpercenként "
 
 #: ../ui/ui.c:762
-#, fuzzy, c-format
 msgid "Iterations: %i   "
 msgstr "Iterációk száma: %i   "
 
@@ -444,9 +442,8 @@ msgid "Frames per second:"
 msgstr "Másodpercenkénti képkockaszám:"
 
 #: ../ui-hlp/menu.c:300
-#, fuzzy
 msgid "Initialization:"
-msgstr "Iterációk:"
+msgstr "Alapérték:"
 
 #: ../ui-hlp/menu.c:354
 msgid ""
@@ -780,14 +777,12 @@ msgid "More formulae"
 msgstr "További képletek"
 
 #: ../ui-hlp/menu.c:1180
-#, fuzzy
 msgid "User formula"
-msgstr "További képletek"
+msgstr "Egyedi képlet"
 
 #: ../ui-hlp/menu.c:1181
-#, fuzzy
 msgid "User initialization"
-msgstr "Vonalrajzoló függvények"
+msgstr "Egyedi képlet alapérték"
 
 #: ../ui-hlp/menu.c:1185
 msgid "Incoloring mode"
@@ -1310,7 +1305,7 @@ msgstr "Mégsem"
 #: ../ui-hlp/render.c:47
 #, c-format
 msgid "Error: %s"
-msgstr ""
+msgstr "Hiba: %s"
 
 #: ../ui-hlp/render.c:130
 msgid "Cannot open motion vector file!"
@@ -1319,11 +1314,11 @@ msgstr "A mozgásvektor fájl nem nyitható meg!"
 #: ../ui-hlp/render.c:293
 #, c-format
 msgid "Vectors: %i"
-msgstr ""
+msgstr "Vektorok: %i"
 
 #: ../ui-hlp/render.c:299
 msgid "Initializing"
-msgstr ""
+msgstr "Inicializálás"
 
 #: ../ui-hlp/render.c:308
 msgid "Cannot create palette"
@@ -1347,11 +1342,11 @@ msgstr "Az animációs fájl nem nyitható meg\n"
 
 #: ../ui-hlp/render.c:364 ../ui-hlp/render.c:655
 msgid "Loading catalogs"
-msgstr ""
+msgstr "Filmfájlok szövegeinek betöltése"
 
 #: ../ui-hlp/render.c:397
 msgid "Processing command line options"
-msgstr ""
+msgstr "Parancssori opciók feldolgozása"
 
 #: ../ui-hlp/render.c:422
 msgid "Enabling animation replay\n"
@@ -1367,7 +1362,7 @@ msgstr "A mintát tartalmazó fájl nem nyitható meg"
 
 #: ../ui-hlp/render.c:462 ../ui-hlp/render.c:464 ../ui-hlp/render.c:692
 msgid "Entering calculation loop!"
-msgstr ""
+msgstr "A számítási ciklus kezdete!"
 
 #: ../ui-hlp/render.c:494
 #, c-format
@@ -1411,6 +1406,3 @@ msgstr "Beilleszt"
 #: ../ui/ui-drv/win32/ui_win32.c:1373
 msgid "About"
 msgstr "Névjegy"
-
-#~ msgid "formulae"
-#~ msgstr "Képlet"
