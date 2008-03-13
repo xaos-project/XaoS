@@ -39,40 +39,40 @@ and we also have three <a lists>mailing lists</a>.
 <head>Using user formulas</head>
 <p>
 Current XaoS release supports entering user formulas during runtime.
-Select <tt>Fractal>User formula</tt> to define custom fractal formula.
-Using <tt>Fractal>User initialization</tt> option, user can change 
-sequance starting point <emph>z0</emph>. By default (in orginal Mandelbrot
-fractal <emph>z0</emph> is set to 0 ). User formulas should be interpreted
-as functions of type <br>
-<emph>Z(n+1) = formula( Z(n), Z(n-1), C )</emph>
+Select <tt>Fractal/User formula</tt> to define custom fractal formula.
+Using <tt>Fractal/User initialization</tt> option, user can change 
+seqeance starting point <emph>z0</emph>. By default (in orginal Mandelbrot
+fractal) <emph>z0</emph> is set to 0. User formulas should be interpreted
+as functions of type<br>
+<emph>Z(n+1) = formula (Z(n), Z(n-1), C)</emph>.
 <p>
-In user formulas, as shown above, three variables are available<br>
+In user formulas, as shown above, three variables are available:<br>
 <dl>
 <dt>z
 <dd>current sequance point Z(n)
 <dt>c
 <dd>current plane 'point'
 <dt>p
-<dd>previous sequance point Z(n-1)
+<dd>previous sequence point Z(n-1)
 </dl>
 <p>
 Format for complex numbers is <emph>{re;im}</emph><br>
-eg. {3;2} is complex number 3+2i
+eg. {3;2} is complex number 3+2i.
 <p>
 User formulas are calculated using SFFE library. Two implementations
-of complex math are available - first is based on <tt>GSL</tt> library.
-Second one is based asm implementation of complex math, and can be
-quite faster my less stable. User can select complex math backend during
+of complex math are available: first is based on <tt>GSL</tt> library,
+second one is based on asm implementation of complex math, and can be
+much faster but less stable. User can select complex math backend during
 compilation.
 <p>
-To use GSL complex math write :<br>
+To use GSL complex math write:<br>
 <emph>
 make clean<br>
 ./configure --with-gsl=yes<br>
 make<br>
 </emph>
 <p>
-To use asm complex math write :<br>
+To use asm complex math write:<br>
 <emph>
 make clean<br>
 ./configure --with-gsl=no<br>
@@ -83,19 +83,19 @@ Available functions are listed below:
 <dl>
 <p>
 <dt>basic operations
-<dd>+,-,*,/
+<dd>+, -, *, /
 <p>
 <dt>basic trigonometry
-<dd>sin,cos,tan,cot
-<dd>asin,acos,atan,acot
-<dd>sinh,cosh,tanh,coth
+<dd>sin, cos, tan, cot
+<dd>asin, acos, atan, acot
+<dd>sinh, cosh, tanh, coth
 <p>
 <dt>Exponential and logarithmic functions
-<dd>exp,
+<dd>exp
 <dd>log - natural logarithm
-<dd>log2,log10
-<dd>logN(base,z) - logarithm of base N (where N is integer)
-<dd>logCN(base,z) - logarithm of base CN ( where CN is complex )
+<dd>log2, log10
+<dd>logN (base, z) - logarithm of base N (where N is integer)
+<dd>logCN (base, z) - logarithm of base CN (where CN is complex)
 <p>
 <dt>power functions
 <dd>powi - power with integer exponent (fastest)
@@ -105,13 +105,13 @@ Available functions are listed below:
 <dd>sqr - square
 <p>
 <dt>square functions
-<dd>sqrt - square root of complex number
-<dd>rtni(z,n,i) - i-th root of n-th orgder
+<dd>sqrt - square root of a complex number
+<dd>rtni (z, n, i) - i-th root of n-th orgder
 <p>
 <dt>other functions
-<dd>rand(max) - random real number in range [0,max)
+<dd>rand (max) - random real number in range [0, max)
 <dd>inv - inverse
-<dd>abs - absolute values
+<dd>abs - absolute value
 <dd>re - real part
 <dd>im - imaginary part
 </dl>
@@ -394,7 +394,7 @@ The following tags are supported:
 <dd>OS/2 ports (320x200 graphics and AA-lib)
 <dt>Zoltan Kovacs (kovzol@math.u-szeged.hu)
 <dd>Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
-<dt>Zsigmond Kovacs
+<dt>Zsigmond Kovacs (kovzsi@gmail.com)
 <dd>Fractal examples
 <dt>J. B. Langston III (jb-langston@austin.rr.com)
 <dd>Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer

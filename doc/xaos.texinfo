@@ -3330,7 +3330,7 @@ BeOS driver, deutsch.cat
 OS/2 ports (320x200 graphics and AA-lib)
 @item Zoltan Kovacs (kovzol@@math.u-szeged.hu)
 Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
-@item Zsigmond Kovacs
+@item Zsigmond Kovacs (kovzsi@@gmail.com)
 Fractal examples
 @item J. B. Langston III (jb-langston@@austin.rr.com)
 Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
