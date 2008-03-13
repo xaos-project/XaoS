@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-12 01:42+0100\n"
+"POT-Creation-Date: 2008-03-13 12:15+0100\n"
 "PO-Revision-Date: 2003-02-11 02:02+GMT\n"
 "Last-Translator: \n"
 "Language-Team:  <de@li.org>\n"
@@ -153,7 +153,6 @@ msgid "speed:%2.2f "
 msgstr "Geschwindigkeit:%2.2f "
 
 #: ../ui/ui.c:906
-#, c-format
 msgid "Thank you for using XaoS\n"
 msgstr "Danke, dass Sie XaoS benutzt haben\n"
 
