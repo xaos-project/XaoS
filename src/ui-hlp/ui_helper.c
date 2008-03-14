@@ -2317,7 +2317,9 @@ struct palette *
 uih_clonepalette(uih_context * c)	 
 {	 
         if (c->zengine->fractalc->palette != NULL)	 
-                return clonepalette (c->zengine->fractalc->palette);	 
+                return clonepalette (c->zengine->fractalc->palette);
+	// I hope this is OK:
+	return NULL;
 }	 
 
 void

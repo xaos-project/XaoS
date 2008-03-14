@@ -52,11 +52,11 @@ sffunction* sffe_operator( char op )
 {
  switch( op )
  {
-  case '^' : return sfcmplxfunc; break;
-  case '+' : return sfcmplxfunc+1; break;
-  case '-' : return sfcmplxfunc+2; break;
-  case '*' : return sfcmplxfunc+3; break;
-  case '/' : return sfcmplxfunc+4; break;
+  case '^' : return (sffunction*) sfcmplxfunc; break;
+  case '+' : return (sffunction*) sfcmplxfunc+1; break;
+  case '-' : return (sffunction*) sfcmplxfunc+2; break;
+  case '*' : return (sffunction*) sfcmplxfunc+3; break;
+  case '/' : return (sffunction*) sfcmplxfunc+4; break;
  };
  return NULL;
 };
@@ -667,7 +667,7 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 			stack->size += 1;
 			f += 1;
 			ch1 = NULL;
-		/* no break - handle bracket after function name *
+		/* no break - handle bracket after function name */
 	/* (  */
 		 case '(' : 
 			/* store current stack */

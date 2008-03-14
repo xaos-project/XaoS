@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+// For memcpy and strlen:
+#include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <X11/Xlib.h>
@@ -27,7 +29,7 @@
 
 /* Mouse */
 static int mouseX, mouseY, oldmouseX, oldmouseY;
-static CONST char *mousepointer = mouse_pointer_data;
+static CONST unsigned char *mousepointer = mouse_pointer_data;
 static char *storeddata = NULL;
 static unsigned int mousebuttons = 0;
 static CONST char *defmode = "320x200";
@@ -113,7 +115,7 @@ restore (char *data, char *store, int depth, int lpitch, int width,
 }
 
 static void
-drawmouse (char *data, CONST char *mouse, int depth, int lpitch, int width,
+drawmouse (char *data, CONST unsigned char *mouse, int depth, int lpitch, int width,
 	   int height, int xpos, int ypos)
 {
   int x, y, z, c;
