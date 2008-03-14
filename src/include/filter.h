@@ -65,7 +65,29 @@ extern "C"
 #define interpol1(i1,i2,n,mask) ((((i1)&(mask))*(n)+((i2)&(mask))*(256-(n)))&((mask)<<8))
 #define interpol(i1,i2,n,mr,mg,mb) ((interpol1(i1,i2,n,mr)+interpol1(i1,i2,n,mg)+interpol1(i1,i2,n,mb))>>8)
 #define intergray(i1,i2,n) (((i1)*n+(i2)*(256-(n)))>>8)
-#define interpoltype(palette,i1,i2,n) ((palette).type==GRAYSCALE || (palette).type == LARGEITER?intergray(i1,i2,n):interpol(i1,i2,n,(palette).info.truec.rmask,(palette).info.truec.gmask,(palette).info.truec.bmask))
+    /* 
+     * J.B. Langston 3/13/2008
+     *
+     * The Mac OS X driver requires a 32-bit rgb mask where the most significant
+     * byte is on (e.g., 0xffffff00). This exposed a bug in the interpol macro
+     * that resulted in distorted colors for the smooth coloring modes.
+     * If the interpol macro is applied to such a mask, it causes an overflow
+     * of the 32-bit int, and the left-most color byte is lost.
+     *
+     * I added shiftinterpol macro to handle such masks. It shifts everything 1 
+     * byte to the right, performs the calculation, and then shifts everything 
+     * back 1 byte to the left when it is done.
+     *
+     * I also created the safeinterpol macro which detects if the most
+     * signficant byte in the mask is on, and uses the shiftinterpol macro if
+     * so, or the orignal interpol macro if not.
+     *
+     * I then modified the interpoltype macro to use the safeinterpol macro
+     * instead of the interpol macro directly.
+     */
+#define shiftinterpol(i1,i2,n,mr,mg,mb) (interpol((i1)>>8,(i2)>>8,n,(mr)>>8,(mg)>>8,(mb)>>8)<<8)
+#define safeinterpol(i1,i2,n,mr,mg,mb) ((((mr)|(mg)|(mb))&0xff000000)?shiftinterpol(i1,i2,n,mr,mg,mb):interpol(i1,i2,n,mr,mg,mb))
+#define interpoltype(palette,i1,i2,n) ((palette).type==GRAYSCALE || (palette).type == LARGEITER?intergray(i1,i2,n):safeinterpol(i1,i2,n,(palette).info.truec.rmask,(palette).info.truec.gmask,(palette).info.truec.bmask))
 /*palette flags */
 #define UNKNOWNENTRIES 1
 #define DONOTCHANGE 2
