@@ -70,215 +70,16 @@
 		3DD96AAB0A37D79B0061CC6D /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD96AAA0A37D79B0061CC6D /* AppController.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		B40386220AF1189300269D42 /* xstdio_osx.c in Sources */ = {isa = PBXBuildFile; fileRef = B40386210AF1189300269D42 /* xstdio_osx.c */; };
-		B40386720AF12C6400269D42 /* cesky.cat in Resources */ = {isa = PBXBuildFile; fileRef = B403866A0AF12C6400269D42 /* cesky.cat */; };
-		B40386730AF12C6400269D42 /* deutsch.cat in Resources */ = {isa = PBXBuildFile; fileRef = B403866B0AF12C6400269D42 /* deutsch.cat */; };
-		B40386740AF12C6400269D42 /* english.cat in Resources */ = {isa = PBXBuildFile; fileRef = B403866C0AF12C6400269D42 /* english.cat */; };
-		B40386750AF12C6400269D42 /* espanhol.cat in Resources */ = {isa = PBXBuildFile; fileRef = B403866D0AF12C6400269D42 /* espanhol.cat */; };
-		B40386760AF12C6400269D42 /* francais.cat in Resources */ = {isa = PBXBuildFile; fileRef = B403866E0AF12C6400269D42 /* francais.cat */; };
-		B40386770AF12C6400269D42 /* magyar.cat in Resources */ = {isa = PBXBuildFile; fileRef = B403866F0AF12C6400269D42 /* magyar.cat */; };
-		B40386BB0AF12C8C00269D42 /* 3dtutor.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386840AF12C8C00269D42 /* 3dtutor.xaf */; };
-		B40386BC0AF12C8C00269D42 /* anim.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386850AF12C8C00269D42 /* anim.xaf */; };
-		B40386BD0AF12C8C00269D42 /* anim.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386860AF12C8C00269D42 /* anim.xhf */; };
-		B40386BE0AF12C8C00269D42 /* barnsley.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386870AF12C8C00269D42 /* barnsley.xaf */; };
-		B40386BF0AF12C8C00269D42 /* Bclosing.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386880AF12C8C00269D42 /* Bclosing.xaf */; };
-		B40386C00AF12C8C00269D42 /* Bintro.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386890AF12C8C00269D42 /* Bintro.xaf */; };
-		B40386C10AF12C8C00269D42 /* Bolyai.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B403868A0AF12C8C00269D42 /* Bolyai.xaf */; };
-		B40386C20AF12C8C00269D42 /* classic.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B403868B0AF12C8C00269D42 /* classic.xaf */; };
-		B40386C30AF12C8C00269D42 /* coast.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B403868C0AF12C8C00269D42 /* coast.xhf */; };
-		B40386C40AF12C8C00269D42 /* dimension.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B403868D0AF12C8C00269D42 /* dimension.xaf */; };
-		B40386C50AF12C8C00269D42 /* escape.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B403868E0AF12C8C00269D42 /* escape.xaf */; };
-		B40386C60AF12C8C00269D42 /* features.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B403868F0AF12C8C00269D42 /* features.xaf */; };
-		B40386C70AF12C8C00269D42 /* filter.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386900AF12C8C00269D42 /* filter.xaf */; };
-		B40386C80AF12C8C00269D42 /* filter.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386910AF12C8C00269D42 /* filter.xhf */; };
-		B40386C90AF12C8C00269D42 /* flake1.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386920AF12C8C00269D42 /* flake1.xhf */; };
-		B40386CA0AF12C8C00269D42 /* flake2.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386930AF12C8C00269D42 /* flake2.xhf */; };
-		B40386CB0AF12C8C00269D42 /* flake3.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386940AF12C8C00269D42 /* flake3.xhf */; };
-		B40386CC0AF12C8C00269D42 /* flake4.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386950AF12C8C00269D42 /* flake4.xhf */; };
-		B40386CD0AF12C8C00269D42 /* flake5.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386960AF12C8C00269D42 /* flake5.xhf */; };
-		B40386CE0AF12C8C00269D42 /* flaketh.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386970AF12C8C00269D42 /* flaketh.xhf */; };
-		B40386CF0AF12C8C00269D42 /* fmath.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386980AF12C8C00269D42 /* fmath.xaf */; };
-		B40386D00AF12C8C00269D42 /* fourfr.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386990AF12C8C00269D42 /* fourfr.xaf */; };
-		B40386D10AF12C8C00269D42 /* fractal.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B403869A0AF12C8C00269D42 /* fractal.xaf */; };
-		B40386D20AF12C8C00269D42 /* head.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B403869B0AF12C8C00269D42 /* head.xhf */; };
-		B40386D30AF12C8C00269D42 /* incolor.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B403869C0AF12C8C00269D42 /* incolor.xaf */; };
-		B40386D40AF12C8C00269D42 /* innew.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B403869D0AF12C8C00269D42 /* innew.xhf */; };
-		B40386D50AF12C8C00269D42 /* intro.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B403869E0AF12C8C00269D42 /* intro.xaf */; };
-		B40386D60AF12C8C00269D42 /* julia.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B403869F0AF12C8C00269D42 /* julia.xaf */; };
-		B40386D70AF12C8C00269D42 /* keys.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386A00AF12C8C00269D42 /* keys.xhf */; };
-		B40386D80AF12C8C00269D42 /* line1.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386A10AF12C8C00269D42 /* line1.xhf */; };
-		B40386D90AF12C8C00269D42 /* magnet.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386A20AF12C8C00269D42 /* magnet.xaf */; };
-		B40386DA0AF12C8C00269D42 /* mset.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386A30AF12C8C00269D42 /* mset.xaf */; };
-		B40386DB0AF12C8C00269D42 /* msetren.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386A40AF12C8C00269D42 /* msetren.xaf */; };
-		B40386DC0AF12C8C00269D42 /* new30.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386A50AF12C8C00269D42 /* new30.xaf */; };
-		B40386DD0AF12C8C00269D42 /* newton.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386A60AF12C8C00269D42 /* newton.xaf */; };
-		B40386DE0AF12C8C00269D42 /* octo.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386A70AF12C8C00269D42 /* octo.xaf */; };
-		B40386DF0AF12C8C00269D42 /* other.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386A80AF12C8C00269D42 /* other.xaf */; };
-		B40386E00AF12C8C00269D42 /* otherfr.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386A90AF12C8C00269D42 /* otherfr.xaf */; };
-		B40386E10AF12C8C00269D42 /* outcolor.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386AA0AF12C8C00269D42 /* outcolor.xaf */; };
-		B40386E20AF12C8C00269D42 /* outnew.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386AB0AF12C8C00269D42 /* outnew.xhf */; };
-		B40386E30AF12C8C00269D42 /* palette.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386AC0AF12C8C00269D42 /* palette.xaf */; };
-		B40386E40AF12C8C00269D42 /* palette.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386AD0AF12C8C00269D42 /* palette.xhf */; };
-		B40386E50AF12C8C00269D42 /* pause.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386AE0AF12C8C00269D42 /* pause.xhf */; };
-		B40386E60AF12C8C00269D42 /* pert.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386AF0AF12C8C00269D42 /* pert.xaf */; };
-		B40386E70AF12C8C00269D42 /* pert.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386B00AF12C8C00269D42 /* pert.xhf */; };
-		B40386E80AF12C8C00269D42 /* phoenix.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386B10AF12C8C00269D42 /* phoenix.xaf */; };
-		B40386E90AF12C8C00269D42 /* plane.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386B20AF12C8C00269D42 /* plane.xaf */; };
-		B40386EA0AF12C8C00269D42 /* power.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386B30AF12C8C00269D42 /* power.xaf */; };
-		B40386EB0AF12C8C00269D42 /* render.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386B40AF12C8C00269D42 /* render.xaf */; };
-		B40386EC0AF12C8C00269D42 /* square.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386B50AF12C8C00269D42 /* square.xhf */; };
-		B40386ED0AF12C8C00269D42 /* tree.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386B60AF12C8C00269D42 /* tree.xhf */; };
-		B40386EE0AF12C8C00269D42 /* trice.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386B70AF12C8C00269D42 /* trice.xaf */; };
-		B40386EF0AF12C8C00269D42 /* truecol.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40386B80AF12C8C00269D42 /* truecol.xaf */; };
-		B40386F00AF12C8C00269D42 /* truecol.xhf in Resources */ = {isa = PBXBuildFile; fileRef = B40386B90AF12C8C00269D42 /* truecol.xhf */; };
-		B40387070AF12CDA00269D42 /* 0rfel1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387050AF12CDA00269D42 /* 0rfel1.xpf */; };
-		B40387080AF12CDA00269D42 /* 0rfel2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387060AF12CDA00269D42 /* 0rfel2.xpf */; };
-		B40387790AF12CF300269D42 /* 2spirals.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387140AF12CF300269D42 /* 2spirals.xpf */; };
-		B403877A0AF12CF300269D42 /* 3d1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387150AF12CF300269D42 /* 3d1.xpf */; };
-		B403877B0AF12CF300269D42 /* 3d2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387160AF12CF300269D42 /* 3d2.xpf */; };
-		B403877C0AF12CF300269D42 /* 3d3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387170AF12CF300269D42 /* 3d3.xpf */; };
-		B403877D0AF12CF300269D42 /* 3d4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387180AF12CF300269D42 /* 3d4.xpf */; };
-		B403877E0AF12CF300269D42 /* 3d5.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387190AF12CF300269D42 /* 3d5.xpf */; };
-		B403877F0AF12CF300269D42 /* 3d6.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403871A0AF12CF300269D42 /* 3d6.xpf */; };
-		B40387800AF12CF300269D42 /* 3d7.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403871B0AF12CF300269D42 /* 3d7.xpf */; };
-		B40387810AF12CF300269D42 /* 3d8.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403871C0AF12CF300269D42 /* 3d8.xpf */; };
-		B40387820AF12CF300269D42 /* 3d9.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403871D0AF12CF300269D42 /* 3d9.xpf */; };
-		B40387830AF12CF300269D42 /* axe.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403871E0AF12CF300269D42 /* axe.xpf */; };
-		B40387840AF12CF300269D42 /* barnsl1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403871F0AF12CF300269D42 /* barnsl1.xpf */; };
-		B40387850AF12CF300269D42 /* barnsl2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387200AF12CF300269D42 /* barnsl2.xpf */; };
-		B40387860AF12CF300269D42 /* barnsl3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387210AF12CF300269D42 /* barnsl3.xpf */; };
-		B40387870AF12CF300269D42 /* barnsl4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387220AF12CF300269D42 /* barnsl4.xpf */; };
-		B40387880AF12CF300269D42 /* barnsl5.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387230AF12CF300269D42 /* barnsl5.xpf */; };
-		B40387890AF12CF300269D42 /* barnsl6.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387240AF12CF300269D42 /* barnsl6.xpf */; };
-		B403878A0AF12CF300269D42 /* barnsl7.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387250AF12CF300269D42 /* barnsl7.xpf */; };
-		B403878B0AF12CF300269D42 /* barnsl8.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387260AF12CF300269D42 /* barnsl8.xpf */; };
-		B403878C0AF12CF300269D42 /* barnsl9.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387270AF12CF300269D42 /* barnsl9.xpf */; };
-		B403878D0AF12CF300269D42 /* beatle.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387280AF12CF300269D42 /* beatle.xpf */; };
-		B403878E0AF12CF300269D42 /* beatle2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387290AF12CF300269D42 /* beatle2.xpf */; };
-		B403878F0AF12CF300269D42 /* brown.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403872A0AF12CF300269D42 /* brown.xpf */; };
-		B40387900AF12CF300269D42 /* checker.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403872B0AF12CF300269D42 /* checker.xpf */; };
-		B40387910AF12CF300269D42 /* crone.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403872C0AF12CF300269D42 /* crone.xpf */; };
-		B40387920AF12CF300269D42 /* dblspira.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403872D0AF12CF300269D42 /* dblspira.xpf */; };
-		B40387930AF12CF300269D42 /* dragons.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403872E0AF12CF300269D42 /* dragons.xpf */; };
-		B40387940AF12CF300269D42 /* dragons2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403872F0AF12CF300269D42 /* dragons2.xpf */; };
-		B40387950AF12CF300269D42 /* edge.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387300AF12CF300269D42 /* edge.xpf */; };
-		B40387960AF12CF300269D42 /* edge2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387310AF12CF300269D42 /* edge2.xpf */; };
-		B40387970AF12CF300269D42 /* edge3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387320AF12CF300269D42 /* edge3.xpf */; };
-		B40387980AF12CF300269D42 /* eifell.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387330AF12CF300269D42 /* eifell.xpf */; };
-		B40387990AF12CF300269D42 /* galaxy.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387340AF12CF300269D42 /* galaxy.xpf */; };
-		B403879A0AF12CF300269D42 /* goldrive.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387350AF12CF300269D42 /* goldrive.xpf */; };
-		B403879B0AF12CF300269D42 /* head.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387360AF12CF300269D42 /* head.xpf */; };
-		B403879C0AF12CF300269D42 /* head2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387370AF12CF300269D42 /* head2.xpf */; };
-		B403879D0AF12CF300269D42 /* head3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387380AF12CF300269D42 /* head3.xpf */; };
-		B403879E0AF12CF300269D42 /* incolor1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387390AF12CF300269D42 /* incolor1.xpf */; };
-		B403879F0AF12CF300269D42 /* incolor2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403873A0AF12CF300269D42 /* incolor2.xpf */; };
-		B40387A00AF12CF300269D42 /* incolor3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403873B0AF12CF300269D42 /* incolor3.xpf */; };
-		B40387A10AF12CF300269D42 /* incolor4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403873C0AF12CF300269D42 /* incolor4.xpf */; };
-		B40387A20AF12CF300269D42 /* incolor5.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403873D0AF12CF300269D42 /* incolor5.xpf */; };
-		B40387A30AF12CF300269D42 /* julia.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403873E0AF12CF300269D42 /* julia.xpf */; };
-		B40387A40AF12CF300269D42 /* julia2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403873F0AF12CF300269D42 /* julia2.xpf */; };
-		B40387A50AF12CF300269D42 /* julia3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387400AF12CF300269D42 /* julia3.xpf */; };
-		B40387A60AF12CF300269D42 /* julia4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387410AF12CF300269D42 /* julia4.xpf */; };
-		B40387A70AF12CF300269D42 /* julia5.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387420AF12CF300269D42 /* julia5.xpf */; };
-		B40387A80AF12CF300269D42 /* juliaanim.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40387430AF12CF300269D42 /* juliaanim.xaf */; };
-		B40387A90AF12CF300269D42 /* lemon.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387440AF12CF300269D42 /* lemon.xpf */; };
-		B40387AA0AF12CF300269D42 /* light.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387450AF12CF300269D42 /* light.xpf */; };
-		B40387AB0AF12CF300269D42 /* magnet.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387460AF12CF300269D42 /* magnet.xpf */; };
-		B40387AC0AF12CF300269D42 /* magnet1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387470AF12CF300269D42 /* magnet1.xpf */; };
-		B40387AD0AF12CF300269D42 /* magnet2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387480AF12CF300269D42 /* magnet2.xpf */; };
-		B40387AE0AF12CF300269D42 /* magnet3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387490AF12CF300269D42 /* magnet3.xpf */; };
-		B40387AF0AF12CF300269D42 /* magnet4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403874A0AF12CF300269D42 /* magnet4.xpf */; };
-		B40387B00AF12CF300269D42 /* mand1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403874B0AF12CF300269D42 /* mand1.xpf */; };
-		B40387B10AF12CF300269D42 /* mand2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403874C0AF12CF300269D42 /* mand2.xpf */; };
-		B40387B20AF12CF300269D42 /* mand3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403874D0AF12CF300269D42 /* mand3.xpf */; };
-		B40387B30AF12CF300269D42 /* mand4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403874E0AF12CF300269D42 /* mand4.xpf */; };
-		B40387B40AF12CF300269D42 /* mand5.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403874F0AF12CF300269D42 /* mand5.xpf */; };
-		B40387B50AF12CF300269D42 /* mand7.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387500AF12CF300269D42 /* mand7.xpf */; };
-		B40387B60AF12CF300269D42 /* mand8.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387510AF12CF300269D42 /* mand8.xpf */; };
-		B40387B70AF12CF300269D42 /* mandanim.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40387520AF12CF300269D42 /* mandanim.xaf */; };
-		B40387B80AF12CF300269D42 /* minibrot.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387530AF12CF300269D42 /* minibrot.xpf */; };
-		B40387B90AF12CF300269D42 /* newton.xaf in Resources */ = {isa = PBXBuildFile; fileRef = B40387540AF12CF300269D42 /* newton.xaf */; };
-		B40387BA0AF12CF300269D42 /* newton.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387550AF12CF300269D42 /* newton.xpf */; };
-		B40387BB0AF12CF300269D42 /* newton2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387560AF12CF300269D42 /* newton2.xpf */; };
-		B40387BC0AF12CF300269D42 /* newton3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387570AF12CF300269D42 /* newton3.xpf */; };
-		B40387BD0AF12CF300269D42 /* octo.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387580AF12CF300269D42 /* octo.xpf */; };
-		B40387BE0AF12CF300269D42 /* palace.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387590AF12CF300269D42 /* palace.xpf */; };
-		B40387BF0AF12CF300269D42 /* perb1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403875A0AF12CF300269D42 /* perb1.xpf */; };
-		B40387C00AF12CF300269D42 /* perb2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403875B0AF12CF300269D42 /* perb2.xpf */; };
-		B40387C10AF12CF300269D42 /* perb3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403875C0AF12CF300269D42 /* perb3.xpf */; };
-		B40387C20AF12CF300269D42 /* perb4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403875D0AF12CF300269D42 /* perb4.xpf */; };
-		B40387C30AF12CF300269D42 /* perb5.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403875E0AF12CF300269D42 /* perb5.xpf */; };
-		B40387C40AF12CF300269D42 /* phoenix1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403875F0AF12CF300269D42 /* phoenix1.xpf */; };
-		B40387C50AF12CF300269D42 /* phoenix2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387600AF12CF300269D42 /* phoenix2.xpf */; };
-		B40387C60AF12CF300269D42 /* redjulia.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387610AF12CF300269D42 /* redjulia.xpf */; };
-		B40387C70AF12CF300269D42 /* redmand.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387620AF12CF300269D42 /* redmand.xpf */; };
-		B40387C80AF12CF300269D42 /* redmand2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387630AF12CF300269D42 /* redmand2.xpf */; };
-		B40387C90AF12CF300269D42 /* rocks.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387640AF12CF300269D42 /* rocks.xpf */; };
-		B40387CA0AF12CF300269D42 /* shell.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387650AF12CF300269D42 /* shell.xpf */; };
-		B40387CB0AF12CF300269D42 /* something.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387660AF12CF300269D42 /* something.xpf */; };
-		B40387CC0AF12CF300269D42 /* spiral.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387670AF12CF300269D42 /* spiral.xpf */; };
-		B40387CD0AF12CF300269D42 /* spiral2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387680AF12CF300269D42 /* spiral2.xpf */; };
-		B40387CE0AF12CF300269D42 /* spiral3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387690AF12CF300269D42 /* spiral3.xpf */; };
-		B40387CF0AF12CF300269D42 /* spiral4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403876A0AF12CF300269D42 /* spiral4.xpf */; };
-		B40387D00AF12CF300269D42 /* sprial.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403876B0AF12CF300269D42 /* sprial.xpf */; };
-		B40387D10AF12CF300269D42 /* sun.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403876C0AF12CF300269D42 /* sun.xpf */; };
-		B40387D20AF12CF300269D42 /* thebug.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403876D0AF12CF300269D42 /* thebug.xpf */; };
-		B40387D30AF12CF300269D42 /* tower.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403876E0AF12CF300269D42 /* tower.xpf */; };
-		B40387D40AF12CF300269D42 /* tree.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403876F0AF12CF300269D42 /* tree.xpf */; };
-		B40387D50AF12CF300269D42 /* triangle.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387700AF12CF300269D42 /* triangle.xpf */; };
-		B40387D60AF12CF300269D42 /* truecol1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387710AF12CF300269D42 /* truecol1.xpf */; };
-		B40387D70AF12CF300269D42 /* truecol2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387720AF12CF300269D42 /* truecol2.xpf */; };
-		B40387D80AF12CF300269D42 /* truecol3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387730AF12CF300269D42 /* truecol3.xpf */; };
-		B40387D90AF12CF300269D42 /* truecol4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387740AF12CF300269D42 /* truecol4.xpf */; };
-		B40387DA0AF12CF300269D42 /* truecol5.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387750AF12CF300269D42 /* truecol5.xpf */; };
-		B40387DB0AF12CF300269D42 /* truecol6.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387760AF12CF300269D42 /* truecol6.xpf */; };
-		B40387DC0AF12CF300269D42 /* truecol7.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387770AF12CF300269D42 /* truecol7.xpf */; };
-		B40387DD0AF12CF300269D42 /* ufo.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387780AF12CF300269D42 /* ufo.xpf */; };
-		B40387EE0AF12D1300269D42 /* fract0.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387E90AF12D1300269D42 /* fract0.xpf */; };
-		B40387EF0AF12D1300269D42 /* fract1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387EA0AF12D1300269D42 /* fract1.xpf */; };
-		B40387F00AF12D1300269D42 /* hornflake1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387EB0AF12D1300269D42 /* hornflake1.xpf */; };
-		B40387F10AF12D1300269D42 /* hornflake2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387EC0AF12D1300269D42 /* hornflake2.xpf */; };
-		B40387F20AF12D1300269D42 /* mand9.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40387ED0AF12D1300269D42 /* mand9.xpf */; };
-		B40388310AF12D4600269D42 /* bolygo.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403880B0AF12D4600269D42 /* bolygo.xpf */; };
-		B40388320AF12D4600269D42 /* csiga2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403880C0AF12D4600269D42 /* csiga2.xpf */; };
-		B40388330AF12D4600269D42 /* csiga3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403880D0AF12D4600269D42 /* csiga3.xpf */; };
-		B40388340AF12D4600269D42 /* csiga4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403880E0AF12D4600269D42 /* csiga4.xpf */; };
-		B40388350AF12D4600269D42 /* csiga5.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403880F0AF12D4600269D42 /* csiga5.xpf */; };
-		B40388360AF12D4600269D42 /* gamma.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388100AF12D4600269D42 /* gamma.xpf */; };
-		B40388370AF12D4600269D42 /* golden.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388110AF12D4600269D42 /* golden.xpf */; };
-		B40388380AF12D4600269D42 /* impulzus.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388120AF12D4600269D42 /* impulzus.xpf */; };
-		B40388390AF12D4600269D42 /* kovzsi2.1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388130AF12D4600269D42 /* kovzsi2.1.xpf */; };
-		B403883A0AF12D4600269D42 /* kovzsi2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388140AF12D4600269D42 /* kovzsi2.xpf */; };
-		B403883B0AF12D4600269D42 /* kovzsi3.1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388150AF12D4600269D42 /* kovzsi3.1.xpf */; };
-		B403883C0AF12D4600269D42 /* kovzsi3.2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388160AF12D4600269D42 /* kovzsi3.2.xpf */; };
-		B403883D0AF12D4600269D42 /* kovzsi4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388170AF12D4600269D42 /* kovzsi4.xpf */; };
-		B403883E0AF12D4600269D42 /* kovzsi6.1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388180AF12D4600269D42 /* kovzsi6.1.xpf */; };
-		B403883F0AF12D4600269D42 /* kovzsi6.2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388190AF12D4600269D42 /* kovzsi6.2.xpf */; };
-		B40388400AF12D4600269D42 /* kovzsi6.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403881A0AF12D4600269D42 /* kovzsi6.xpf */; };
-		B40388410AF12D4600269D42 /* kovzsi7.1.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403881B0AF12D4600269D42 /* kovzsi7.1.xpf */; };
-		B40388420AF12D4600269D42 /* kovzsi7.2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403881C0AF12D4600269D42 /* kovzsi7.2.xpf */; };
-		B40388430AF12D4600269D42 /* kovzsi7.3.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403881D0AF12D4600269D42 /* kovzsi7.3.xpf */; };
-		B40388440AF12D4600269D42 /* kovzsi7.4.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403881E0AF12D4600269D42 /* kovzsi7.4.xpf */; };
-		B40388450AF12D4600269D42 /* kovzsi7.5.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403881F0AF12D4600269D42 /* kovzsi7.5.xpf */; };
-		B40388460AF12D4600269D42 /* kovzsi8.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388200AF12D4600269D42 /* kovzsi8.xpf */; };
-		B40388470AF12D4600269D42 /* kovzsi9.2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388210AF12D4600269D42 /* kovzsi9.2.xpf */; };
-		B40388480AF12D4600269D42 /* kovzsi9.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388220AF12D4600269D42 /* kovzsi9.xpf */; };
-		B40388490AF12D4600269D42 /* kovzsi10.2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388230AF12D4600269D42 /* kovzsi10.2.xpf */; };
-		B403884A0AF12D4600269D42 /* kovzsi12.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388240AF12D4600269D42 /* kovzsi12.xpf */; };
-		B403884B0AF12D4600269D42 /* kovzsi14.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388250AF12D4600269D42 /* kovzsi14.xpf */; };
-		B403884C0AF12D4600269D42 /* kovzsi15.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388260AF12D4600269D42 /* kovzsi15.xpf */; };
-		B403884D0AF12D4600269D42 /* kovzsi16.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388270AF12D4600269D42 /* kovzsi16.xpf */; };
-		B403884E0AF12D4600269D42 /* kovzsi17.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388280AF12D4600269D42 /* kovzsi17.xpf */; };
-		B403884F0AF12D4600269D42 /* light.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388290AF12D4600269D42 /* light.xpf */; };
-		B40388500AF12D4600269D42 /* lighting.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403882A0AF12D4600269D42 /* lighting.xpf */; };
-		B40388510AF12D4600269D42 /* nap.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403882B0AF12D4600269D42 /* nap.xpf */; };
-		B40388520AF12D4600269D42 /* orveny.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403882C0AF12D4600269D42 /* orveny.xpf */; };
-		B40388530AF12D4600269D42 /* pavaszem.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403882D0AF12D4600269D42 /* pavaszem.xpf */; };
-		B40388540AF12D4600269D42 /* pavaszem2.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403882E0AF12D4600269D42 /* pavaszem2.xpf */; };
-		B40388550AF12D4600269D42 /* pepita.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B403882F0AF12D4600269D42 /* pepita.xpf */; };
-		B40388560AF12D4600269D42 /* zsigapro.xpf in Resources */ = {isa = PBXBuildFile; fileRef = B40388300AF12D4600269D42 /* zsigapro.xpf */; };
-		B40388780AF12D9800269D42 /* xaos.hlp in Resources */ = {isa = PBXBuildFile; fileRef = B403886C0AF12D9800269D42 /* xaos.hlp */; };
 		B47764AB0AEDCA9700F341CE /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = B47764A90AEDCA9700F341CE /* Credits.html */; };
+		D9332D160D8CFC060010D650 /* cmplx.asm in Sources */ = {isa = PBXBuildFile; fileRef = D9332D0E0D8CFC060010D650 /* cmplx.asm */; };
+		D9332D180D8CFC060010D650 /* sffe.c in Sources */ = {isa = PBXBuildFile; fileRef = D9332D100D8CFC060010D650 /* sffe.c */; };
+		D9332D190D8CFC060010D650 /* sffe_cmplx_asm.c in Sources */ = {isa = PBXBuildFile; fileRef = D9332D110D8CFC060010D650 /* sffe_cmplx_asm.c */; };
+		D9332D1A0D8CFC060010D650 /* sffe_cmplx_gsl.c in Sources */ = {isa = PBXBuildFile; fileRef = D9332D120D8CFC060010D650 /* sffe_cmplx_gsl.c */; };
+		D9332D4C0D8CFEF60010D650 /* libgsl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9332D4A0D8CFEF60010D650 /* libgsl.dylib */; };
+		D9332D4D0D8CFEF60010D650 /* libpng.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9332D4B0D8CFEF60010D650 /* libpng.dylib */; };
+		D9332D500D8CFF330010D650 /* libgsl.dylib in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = D9332D4A0D8CFEF60010D650 /* libgsl.dylib */; };
+		D9332D510D8CFF330010D650 /* libpng.dylib in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = D9332D4B0D8CFEF60010D650 /* libpng.dylib */; };
+		D9332D530D8CFF650010D650 /* xstdio.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D2884620A3684EF004C2595 /* xstdio.c */; };
 		D99CD03E0B05515700170329 /* aconfig.h.in in Resources */ = {isa = PBXBuildFile; fileRef = D99CD0060B05515700170329 /* aconfig.h.in */; };
 		D99CD03F0B05515700170329 /* aconfig.be in Resources */ = {isa = PBXBuildFile; fileRef = D99CD00D0B05515700170329 /* aconfig.be */; };
 		D99CD0400B05515700170329 /* aconfig.mac in Resources */ = {isa = PBXBuildFile; fileRef = D99CD00E0B05515700170329 /* aconfig.mac */; };
@@ -297,6 +98,21 @@
 		D99CD2C60B06EE1200170329 /* GeneralPreferences.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D99CD2C50B06EE1200170329 /* GeneralPreferences.tiff */; };
 		D99CD2DB0B06EEA700170329 /* vidiot.icns in Resources */ = {isa = PBXBuildFile; fileRef = D99CD2DA0B06EEA700170329 /* vidiot.icns */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D9332D4F0D8CFF320010D650 /* Copy Embedded Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D9332D500D8CFF330010D650 /* libgsl.dylib in Copy Embedded Frameworks */,
+				D9332D510D8CFF330010D650 /* libpng.dylib in Copy Embedded Frameworks */,
+			);
+			name = "Copy Embedded Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -374,216 +190,15 @@
 		3DD96AAA0A37D79B0061CC6D /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* XaoS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XaoS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B40386210AF1189300269D42 /* xstdio_osx.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = xstdio_osx.c; sourceTree = "<group>"; };
-		B403866A0AF12C6400269D42 /* cesky.cat */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = cesky.cat; path = ../../../../catalogs/cesky.cat; sourceTree = SOURCE_ROOT; };
-		B403866B0AF12C6400269D42 /* deutsch.cat */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = deutsch.cat; path = ../../../../catalogs/deutsch.cat; sourceTree = SOURCE_ROOT; };
-		B403866C0AF12C6400269D42 /* english.cat */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = english.cat; path = ../../../../catalogs/english.cat; sourceTree = SOURCE_ROOT; };
-		B403866D0AF12C6400269D42 /* espanhol.cat */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = espanhol.cat; path = ../../../../catalogs/espanhol.cat; sourceTree = SOURCE_ROOT; };
-		B403866E0AF12C6400269D42 /* francais.cat */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = francais.cat; path = ../../../../catalogs/francais.cat; sourceTree = SOURCE_ROOT; };
-		B403866F0AF12C6400269D42 /* magyar.cat */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = magyar.cat; path = ../../../../catalogs/magyar.cat; sourceTree = SOURCE_ROOT; };
-		B40386840AF12C8C00269D42 /* 3dtutor.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 3dtutor.xaf; path = ../../../../tutorial/3dtutor.xaf; sourceTree = SOURCE_ROOT; };
-		B40386850AF12C8C00269D42 /* anim.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = anim.xaf; path = ../../../../tutorial/anim.xaf; sourceTree = SOURCE_ROOT; };
-		B40386860AF12C8C00269D42 /* anim.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = anim.xhf; path = ../../../../tutorial/anim.xhf; sourceTree = SOURCE_ROOT; };
-		B40386870AF12C8C00269D42 /* barnsley.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = barnsley.xaf; path = ../../../../tutorial/barnsley.xaf; sourceTree = SOURCE_ROOT; };
-		B40386880AF12C8C00269D42 /* Bclosing.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = Bclosing.xaf; path = ../../../../tutorial/Bclosing.xaf; sourceTree = SOURCE_ROOT; };
-		B40386890AF12C8C00269D42 /* Bintro.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = Bintro.xaf; path = ../../../../tutorial/Bintro.xaf; sourceTree = SOURCE_ROOT; };
-		B403868A0AF12C8C00269D42 /* Bolyai.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = Bolyai.xaf; path = ../../../../tutorial/Bolyai.xaf; sourceTree = SOURCE_ROOT; };
-		B403868B0AF12C8C00269D42 /* classic.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = classic.xaf; path = ../../../../tutorial/classic.xaf; sourceTree = SOURCE_ROOT; };
-		B403868C0AF12C8C00269D42 /* coast.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = coast.xhf; path = ../../../../tutorial/coast.xhf; sourceTree = SOURCE_ROOT; };
-		B403868D0AF12C8C00269D42 /* dimension.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = dimension.xaf; path = ../../../../tutorial/dimension.xaf; sourceTree = SOURCE_ROOT; };
-		B403868E0AF12C8C00269D42 /* escape.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = escape.xaf; path = ../../../../tutorial/escape.xaf; sourceTree = SOURCE_ROOT; };
-		B403868F0AF12C8C00269D42 /* features.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = features.xaf; path = ../../../../tutorial/features.xaf; sourceTree = SOURCE_ROOT; };
-		B40386900AF12C8C00269D42 /* filter.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = filter.xaf; path = ../../../../tutorial/filter.xaf; sourceTree = SOURCE_ROOT; };
-		B40386910AF12C8C00269D42 /* filter.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = filter.xhf; path = ../../../../tutorial/filter.xhf; sourceTree = SOURCE_ROOT; };
-		B40386920AF12C8C00269D42 /* flake1.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = flake1.xhf; path = ../../../../tutorial/flake1.xhf; sourceTree = SOURCE_ROOT; };
-		B40386930AF12C8C00269D42 /* flake2.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = flake2.xhf; path = ../../../../tutorial/flake2.xhf; sourceTree = SOURCE_ROOT; };
-		B40386940AF12C8C00269D42 /* flake3.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = flake3.xhf; path = ../../../../tutorial/flake3.xhf; sourceTree = SOURCE_ROOT; };
-		B40386950AF12C8C00269D42 /* flake4.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = flake4.xhf; path = ../../../../tutorial/flake4.xhf; sourceTree = SOURCE_ROOT; };
-		B40386960AF12C8C00269D42 /* flake5.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = flake5.xhf; path = ../../../../tutorial/flake5.xhf; sourceTree = SOURCE_ROOT; };
-		B40386970AF12C8C00269D42 /* flaketh.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = flaketh.xhf; path = ../../../../tutorial/flaketh.xhf; sourceTree = SOURCE_ROOT; };
-		B40386980AF12C8C00269D42 /* fmath.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = fmath.xaf; path = ../../../../tutorial/fmath.xaf; sourceTree = SOURCE_ROOT; };
-		B40386990AF12C8C00269D42 /* fourfr.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = fourfr.xaf; path = ../../../../tutorial/fourfr.xaf; sourceTree = SOURCE_ROOT; };
-		B403869A0AF12C8C00269D42 /* fractal.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = fractal.xaf; path = ../../../../tutorial/fractal.xaf; sourceTree = SOURCE_ROOT; };
-		B403869B0AF12C8C00269D42 /* head.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = head.xhf; path = ../../../../tutorial/head.xhf; sourceTree = SOURCE_ROOT; };
-		B403869C0AF12C8C00269D42 /* incolor.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = incolor.xaf; path = ../../../../tutorial/incolor.xaf; sourceTree = SOURCE_ROOT; };
-		B403869D0AF12C8C00269D42 /* innew.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = innew.xhf; path = ../../../../tutorial/innew.xhf; sourceTree = SOURCE_ROOT; };
-		B403869E0AF12C8C00269D42 /* intro.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = intro.xaf; path = ../../../../tutorial/intro.xaf; sourceTree = SOURCE_ROOT; };
-		B403869F0AF12C8C00269D42 /* julia.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = julia.xaf; path = ../../../../tutorial/julia.xaf; sourceTree = SOURCE_ROOT; };
-		B40386A00AF12C8C00269D42 /* keys.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = keys.xhf; path = ../../../../tutorial/keys.xhf; sourceTree = SOURCE_ROOT; };
-		B40386A10AF12C8C00269D42 /* line1.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = line1.xhf; path = ../../../../tutorial/line1.xhf; sourceTree = SOURCE_ROOT; };
-		B40386A20AF12C8C00269D42 /* magnet.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = magnet.xaf; path = ../../../../tutorial/magnet.xaf; sourceTree = SOURCE_ROOT; };
-		B40386A30AF12C8C00269D42 /* mset.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = mset.xaf; path = ../../../../tutorial/mset.xaf; sourceTree = SOURCE_ROOT; };
-		B40386A40AF12C8C00269D42 /* msetren.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = msetren.xaf; path = ../../../../tutorial/msetren.xaf; sourceTree = SOURCE_ROOT; };
-		B40386A50AF12C8C00269D42 /* new30.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = new30.xaf; path = ../../../../tutorial/new30.xaf; sourceTree = SOURCE_ROOT; };
-		B40386A60AF12C8C00269D42 /* newton.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = newton.xaf; path = ../../../../tutorial/newton.xaf; sourceTree = SOURCE_ROOT; };
-		B40386A70AF12C8C00269D42 /* octo.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = octo.xaf; path = ../../../../tutorial/octo.xaf; sourceTree = SOURCE_ROOT; };
-		B40386A80AF12C8C00269D42 /* other.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = other.xaf; path = ../../../../tutorial/other.xaf; sourceTree = SOURCE_ROOT; };
-		B40386A90AF12C8C00269D42 /* otherfr.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = otherfr.xaf; path = ../../../../tutorial/otherfr.xaf; sourceTree = SOURCE_ROOT; };
-		B40386AA0AF12C8C00269D42 /* outcolor.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = outcolor.xaf; path = ../../../../tutorial/outcolor.xaf; sourceTree = SOURCE_ROOT; };
-		B40386AB0AF12C8C00269D42 /* outnew.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = outnew.xhf; path = ../../../../tutorial/outnew.xhf; sourceTree = SOURCE_ROOT; };
-		B40386AC0AF12C8C00269D42 /* palette.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = palette.xaf; path = ../../../../tutorial/palette.xaf; sourceTree = SOURCE_ROOT; };
-		B40386AD0AF12C8C00269D42 /* palette.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = palette.xhf; path = ../../../../tutorial/palette.xhf; sourceTree = SOURCE_ROOT; };
-		B40386AE0AF12C8C00269D42 /* pause.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = pause.xhf; path = ../../../../tutorial/pause.xhf; sourceTree = SOURCE_ROOT; };
-		B40386AF0AF12C8C00269D42 /* pert.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = pert.xaf; path = ../../../../tutorial/pert.xaf; sourceTree = SOURCE_ROOT; };
-		B40386B00AF12C8C00269D42 /* pert.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = pert.xhf; path = ../../../../tutorial/pert.xhf; sourceTree = SOURCE_ROOT; };
-		B40386B10AF12C8C00269D42 /* phoenix.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = phoenix.xaf; path = ../../../../tutorial/phoenix.xaf; sourceTree = SOURCE_ROOT; };
-		B40386B20AF12C8C00269D42 /* plane.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = plane.xaf; path = ../../../../tutorial/plane.xaf; sourceTree = SOURCE_ROOT; };
-		B40386B30AF12C8C00269D42 /* power.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = power.xaf; path = ../../../../tutorial/power.xaf; sourceTree = SOURCE_ROOT; };
-		B40386B40AF12C8C00269D42 /* render.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = render.xaf; path = ../../../../tutorial/render.xaf; sourceTree = SOURCE_ROOT; };
-		B40386B50AF12C8C00269D42 /* square.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = square.xhf; path = ../../../../tutorial/square.xhf; sourceTree = SOURCE_ROOT; };
-		B40386B60AF12C8C00269D42 /* tree.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = tree.xhf; path = ../../../../tutorial/tree.xhf; sourceTree = SOURCE_ROOT; };
-		B40386B70AF12C8C00269D42 /* trice.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = trice.xaf; path = ../../../../tutorial/trice.xaf; sourceTree = SOURCE_ROOT; };
-		B40386B80AF12C8C00269D42 /* truecol.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = truecol.xaf; path = ../../../../tutorial/truecol.xaf; sourceTree = SOURCE_ROOT; };
-		B40386B90AF12C8C00269D42 /* truecol.xhf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = truecol.xhf; path = ../../../../tutorial/truecol.xhf; sourceTree = SOURCE_ROOT; };
-		B40387050AF12CDA00269D42 /* 0rfel1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 0rfel1.xpf; path = ../../../../examples/0rfelyus/0rfel1.xpf; sourceTree = SOURCE_ROOT; };
-		B40387060AF12CDA00269D42 /* 0rfel2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 0rfel2.xpf; path = ../../../../examples/0rfelyus/0rfel2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387140AF12CF300269D42 /* 2spirals.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 2spirals.xpf; path = ../../../../examples/Hubicka/2spirals.xpf; sourceTree = SOURCE_ROOT; };
-		B40387150AF12CF300269D42 /* 3d1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 3d1.xpf; path = ../../../../examples/Hubicka/3d1.xpf; sourceTree = SOURCE_ROOT; };
-		B40387160AF12CF300269D42 /* 3d2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 3d2.xpf; path = ../../../../examples/Hubicka/3d2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387170AF12CF300269D42 /* 3d3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 3d3.xpf; path = ../../../../examples/Hubicka/3d3.xpf; sourceTree = SOURCE_ROOT; };
-		B40387180AF12CF300269D42 /* 3d4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 3d4.xpf; path = ../../../../examples/Hubicka/3d4.xpf; sourceTree = SOURCE_ROOT; };
-		B40387190AF12CF300269D42 /* 3d5.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 3d5.xpf; path = ../../../../examples/Hubicka/3d5.xpf; sourceTree = SOURCE_ROOT; };
-		B403871A0AF12CF300269D42 /* 3d6.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 3d6.xpf; path = ../../../../examples/Hubicka/3d6.xpf; sourceTree = SOURCE_ROOT; };
-		B403871B0AF12CF300269D42 /* 3d7.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 3d7.xpf; path = ../../../../examples/Hubicka/3d7.xpf; sourceTree = SOURCE_ROOT; };
-		B403871C0AF12CF300269D42 /* 3d8.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 3d8.xpf; path = ../../../../examples/Hubicka/3d8.xpf; sourceTree = SOURCE_ROOT; };
-		B403871D0AF12CF300269D42 /* 3d9.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = 3d9.xpf; path = ../../../../examples/Hubicka/3d9.xpf; sourceTree = SOURCE_ROOT; };
-		B403871E0AF12CF300269D42 /* axe.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = axe.xpf; path = ../../../../examples/Hubicka/axe.xpf; sourceTree = SOURCE_ROOT; };
-		B403871F0AF12CF300269D42 /* barnsl1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = barnsl1.xpf; path = ../../../../examples/Hubicka/barnsl1.xpf; sourceTree = SOURCE_ROOT; };
-		B40387200AF12CF300269D42 /* barnsl2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = barnsl2.xpf; path = ../../../../examples/Hubicka/barnsl2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387210AF12CF300269D42 /* barnsl3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = barnsl3.xpf; path = ../../../../examples/Hubicka/barnsl3.xpf; sourceTree = SOURCE_ROOT; };
-		B40387220AF12CF300269D42 /* barnsl4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = barnsl4.xpf; path = ../../../../examples/Hubicka/barnsl4.xpf; sourceTree = SOURCE_ROOT; };
-		B40387230AF12CF300269D42 /* barnsl5.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = barnsl5.xpf; path = ../../../../examples/Hubicka/barnsl5.xpf; sourceTree = SOURCE_ROOT; };
-		B40387240AF12CF300269D42 /* barnsl6.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = barnsl6.xpf; path = ../../../../examples/Hubicka/barnsl6.xpf; sourceTree = SOURCE_ROOT; };
-		B40387250AF12CF300269D42 /* barnsl7.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = barnsl7.xpf; path = ../../../../examples/Hubicka/barnsl7.xpf; sourceTree = SOURCE_ROOT; };
-		B40387260AF12CF300269D42 /* barnsl8.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = barnsl8.xpf; path = ../../../../examples/Hubicka/barnsl8.xpf; sourceTree = SOURCE_ROOT; };
-		B40387270AF12CF300269D42 /* barnsl9.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = barnsl9.xpf; path = ../../../../examples/Hubicka/barnsl9.xpf; sourceTree = SOURCE_ROOT; };
-		B40387280AF12CF300269D42 /* beatle.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = beatle.xpf; path = ../../../../examples/Hubicka/beatle.xpf; sourceTree = SOURCE_ROOT; };
-		B40387290AF12CF300269D42 /* beatle2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = beatle2.xpf; path = ../../../../examples/Hubicka/beatle2.xpf; sourceTree = SOURCE_ROOT; };
-		B403872A0AF12CF300269D42 /* brown.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = brown.xpf; path = ../../../../examples/Hubicka/brown.xpf; sourceTree = SOURCE_ROOT; };
-		B403872B0AF12CF300269D42 /* checker.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = checker.xpf; path = ../../../../examples/Hubicka/checker.xpf; sourceTree = SOURCE_ROOT; };
-		B403872C0AF12CF300269D42 /* crone.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = crone.xpf; path = ../../../../examples/Hubicka/crone.xpf; sourceTree = SOURCE_ROOT; };
-		B403872D0AF12CF300269D42 /* dblspira.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = dblspira.xpf; path = ../../../../examples/Hubicka/dblspira.xpf; sourceTree = SOURCE_ROOT; };
-		B403872E0AF12CF300269D42 /* dragons.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = dragons.xpf; path = ../../../../examples/Hubicka/dragons.xpf; sourceTree = SOURCE_ROOT; };
-		B403872F0AF12CF300269D42 /* dragons2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = dragons2.xpf; path = ../../../../examples/Hubicka/dragons2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387300AF12CF300269D42 /* edge.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = edge.xpf; path = ../../../../examples/Hubicka/edge.xpf; sourceTree = SOURCE_ROOT; };
-		B40387310AF12CF300269D42 /* edge2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = edge2.xpf; path = ../../../../examples/Hubicka/edge2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387320AF12CF300269D42 /* edge3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = edge3.xpf; path = ../../../../examples/Hubicka/edge3.xpf; sourceTree = SOURCE_ROOT; };
-		B40387330AF12CF300269D42 /* eifell.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = eifell.xpf; path = ../../../../examples/Hubicka/eifell.xpf; sourceTree = SOURCE_ROOT; };
-		B40387340AF12CF300269D42 /* galaxy.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = galaxy.xpf; path = ../../../../examples/Hubicka/galaxy.xpf; sourceTree = SOURCE_ROOT; };
-		B40387350AF12CF300269D42 /* goldrive.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = goldrive.xpf; path = ../../../../examples/Hubicka/goldrive.xpf; sourceTree = SOURCE_ROOT; };
-		B40387360AF12CF300269D42 /* head.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = head.xpf; path = ../../../../examples/Hubicka/head.xpf; sourceTree = SOURCE_ROOT; };
-		B40387370AF12CF300269D42 /* head2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = head2.xpf; path = ../../../../examples/Hubicka/head2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387380AF12CF300269D42 /* head3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = head3.xpf; path = ../../../../examples/Hubicka/head3.xpf; sourceTree = SOURCE_ROOT; };
-		B40387390AF12CF300269D42 /* incolor1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = incolor1.xpf; path = ../../../../examples/Hubicka/incolor1.xpf; sourceTree = SOURCE_ROOT; };
-		B403873A0AF12CF300269D42 /* incolor2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = incolor2.xpf; path = ../../../../examples/Hubicka/incolor2.xpf; sourceTree = SOURCE_ROOT; };
-		B403873B0AF12CF300269D42 /* incolor3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = incolor3.xpf; path = ../../../../examples/Hubicka/incolor3.xpf; sourceTree = SOURCE_ROOT; };
-		B403873C0AF12CF300269D42 /* incolor4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = incolor4.xpf; path = ../../../../examples/Hubicka/incolor4.xpf; sourceTree = SOURCE_ROOT; };
-		B403873D0AF12CF300269D42 /* incolor5.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = incolor5.xpf; path = ../../../../examples/Hubicka/incolor5.xpf; sourceTree = SOURCE_ROOT; };
-		B403873E0AF12CF300269D42 /* julia.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = julia.xpf; path = ../../../../examples/Hubicka/julia.xpf; sourceTree = SOURCE_ROOT; };
-		B403873F0AF12CF300269D42 /* julia2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = julia2.xpf; path = ../../../../examples/Hubicka/julia2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387400AF12CF300269D42 /* julia3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = julia3.xpf; path = ../../../../examples/Hubicka/julia3.xpf; sourceTree = SOURCE_ROOT; };
-		B40387410AF12CF300269D42 /* julia4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = julia4.xpf; path = ../../../../examples/Hubicka/julia4.xpf; sourceTree = SOURCE_ROOT; };
-		B40387420AF12CF300269D42 /* julia5.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = julia5.xpf; path = ../../../../examples/Hubicka/julia5.xpf; sourceTree = SOURCE_ROOT; };
-		B40387430AF12CF300269D42 /* juliaanim.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = juliaanim.xaf; path = ../../../../examples/Hubicka/juliaanim.xaf; sourceTree = SOURCE_ROOT; };
-		B40387440AF12CF300269D42 /* lemon.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = lemon.xpf; path = ../../../../examples/Hubicka/lemon.xpf; sourceTree = SOURCE_ROOT; };
-		B40387450AF12CF300269D42 /* light.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = light.xpf; path = ../../../../examples/Hubicka/light.xpf; sourceTree = SOURCE_ROOT; };
-		B40387460AF12CF300269D42 /* magnet.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = magnet.xpf; path = ../../../../examples/Hubicka/magnet.xpf; sourceTree = SOURCE_ROOT; };
-		B40387470AF12CF300269D42 /* magnet1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = magnet1.xpf; path = ../../../../examples/Hubicka/magnet1.xpf; sourceTree = SOURCE_ROOT; };
-		B40387480AF12CF300269D42 /* magnet2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = magnet2.xpf; path = ../../../../examples/Hubicka/magnet2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387490AF12CF300269D42 /* magnet3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = magnet3.xpf; path = ../../../../examples/Hubicka/magnet3.xpf; sourceTree = SOURCE_ROOT; };
-		B403874A0AF12CF300269D42 /* magnet4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = magnet4.xpf; path = ../../../../examples/Hubicka/magnet4.xpf; sourceTree = SOURCE_ROOT; };
-		B403874B0AF12CF300269D42 /* mand1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = mand1.xpf; path = ../../../../examples/Hubicka/mand1.xpf; sourceTree = SOURCE_ROOT; };
-		B403874C0AF12CF300269D42 /* mand2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = mand2.xpf; path = ../../../../examples/Hubicka/mand2.xpf; sourceTree = SOURCE_ROOT; };
-		B403874D0AF12CF300269D42 /* mand3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = mand3.xpf; path = ../../../../examples/Hubicka/mand3.xpf; sourceTree = SOURCE_ROOT; };
-		B403874E0AF12CF300269D42 /* mand4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = mand4.xpf; path = ../../../../examples/Hubicka/mand4.xpf; sourceTree = SOURCE_ROOT; };
-		B403874F0AF12CF300269D42 /* mand5.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = mand5.xpf; path = ../../../../examples/Hubicka/mand5.xpf; sourceTree = SOURCE_ROOT; };
-		B40387500AF12CF300269D42 /* mand7.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = mand7.xpf; path = ../../../../examples/Hubicka/mand7.xpf; sourceTree = SOURCE_ROOT; };
-		B40387510AF12CF300269D42 /* mand8.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = mand8.xpf; path = ../../../../examples/Hubicka/mand8.xpf; sourceTree = SOURCE_ROOT; };
-		B40387520AF12CF300269D42 /* mandanim.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = mandanim.xaf; path = ../../../../examples/Hubicka/mandanim.xaf; sourceTree = SOURCE_ROOT; };
-		B40387530AF12CF300269D42 /* minibrot.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = minibrot.xpf; path = ../../../../examples/Hubicka/minibrot.xpf; sourceTree = SOURCE_ROOT; };
-		B40387540AF12CF300269D42 /* newton.xaf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = newton.xaf; path = ../../../../examples/Hubicka/newton.xaf; sourceTree = SOURCE_ROOT; };
-		B40387550AF12CF300269D42 /* newton.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = newton.xpf; path = ../../../../examples/Hubicka/newton.xpf; sourceTree = SOURCE_ROOT; };
-		B40387560AF12CF300269D42 /* newton2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = newton2.xpf; path = ../../../../examples/Hubicka/newton2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387570AF12CF300269D42 /* newton3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = newton3.xpf; path = ../../../../examples/Hubicka/newton3.xpf; sourceTree = SOURCE_ROOT; };
-		B40387580AF12CF300269D42 /* octo.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = octo.xpf; path = ../../../../examples/Hubicka/octo.xpf; sourceTree = SOURCE_ROOT; };
-		B40387590AF12CF300269D42 /* palace.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = palace.xpf; path = ../../../../examples/Hubicka/palace.xpf; sourceTree = SOURCE_ROOT; };
-		B403875A0AF12CF300269D42 /* perb1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = perb1.xpf; path = ../../../../examples/Hubicka/perb1.xpf; sourceTree = SOURCE_ROOT; };
-		B403875B0AF12CF300269D42 /* perb2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = perb2.xpf; path = ../../../../examples/Hubicka/perb2.xpf; sourceTree = SOURCE_ROOT; };
-		B403875C0AF12CF300269D42 /* perb3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = perb3.xpf; path = ../../../../examples/Hubicka/perb3.xpf; sourceTree = SOURCE_ROOT; };
-		B403875D0AF12CF300269D42 /* perb4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = perb4.xpf; path = ../../../../examples/Hubicka/perb4.xpf; sourceTree = SOURCE_ROOT; };
-		B403875E0AF12CF300269D42 /* perb5.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = perb5.xpf; path = ../../../../examples/Hubicka/perb5.xpf; sourceTree = SOURCE_ROOT; };
-		B403875F0AF12CF300269D42 /* phoenix1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = phoenix1.xpf; path = ../../../../examples/Hubicka/phoenix1.xpf; sourceTree = SOURCE_ROOT; };
-		B40387600AF12CF300269D42 /* phoenix2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = phoenix2.xpf; path = ../../../../examples/Hubicka/phoenix2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387610AF12CF300269D42 /* redjulia.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = redjulia.xpf; path = ../../../../examples/Hubicka/redjulia.xpf; sourceTree = SOURCE_ROOT; };
-		B40387620AF12CF300269D42 /* redmand.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = redmand.xpf; path = ../../../../examples/Hubicka/redmand.xpf; sourceTree = SOURCE_ROOT; };
-		B40387630AF12CF300269D42 /* redmand2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = redmand2.xpf; path = ../../../../examples/Hubicka/redmand2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387640AF12CF300269D42 /* rocks.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = rocks.xpf; path = ../../../../examples/Hubicka/rocks.xpf; sourceTree = SOURCE_ROOT; };
-		B40387650AF12CF300269D42 /* shell.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = shell.xpf; path = ../../../../examples/Hubicka/shell.xpf; sourceTree = SOURCE_ROOT; };
-		B40387660AF12CF300269D42 /* something.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = something.xpf; path = ../../../../examples/Hubicka/something.xpf; sourceTree = SOURCE_ROOT; };
-		B40387670AF12CF300269D42 /* spiral.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = spiral.xpf; path = ../../../../examples/Hubicka/spiral.xpf; sourceTree = SOURCE_ROOT; };
-		B40387680AF12CF300269D42 /* spiral2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = spiral2.xpf; path = ../../../../examples/Hubicka/spiral2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387690AF12CF300269D42 /* spiral3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = spiral3.xpf; path = ../../../../examples/Hubicka/spiral3.xpf; sourceTree = SOURCE_ROOT; };
-		B403876A0AF12CF300269D42 /* spiral4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = spiral4.xpf; path = ../../../../examples/Hubicka/spiral4.xpf; sourceTree = SOURCE_ROOT; };
-		B403876B0AF12CF300269D42 /* sprial.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = sprial.xpf; path = ../../../../examples/Hubicka/sprial.xpf; sourceTree = SOURCE_ROOT; };
-		B403876C0AF12CF300269D42 /* sun.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = sun.xpf; path = ../../../../examples/Hubicka/sun.xpf; sourceTree = SOURCE_ROOT; };
-		B403876D0AF12CF300269D42 /* thebug.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = thebug.xpf; path = ../../../../examples/Hubicka/thebug.xpf; sourceTree = SOURCE_ROOT; };
-		B403876E0AF12CF300269D42 /* tower.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = tower.xpf; path = ../../../../examples/Hubicka/tower.xpf; sourceTree = SOURCE_ROOT; };
-		B403876F0AF12CF300269D42 /* tree.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = tree.xpf; path = ../../../../examples/Hubicka/tree.xpf; sourceTree = SOURCE_ROOT; };
-		B40387700AF12CF300269D42 /* triangle.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = triangle.xpf; path = ../../../../examples/Hubicka/triangle.xpf; sourceTree = SOURCE_ROOT; };
-		B40387710AF12CF300269D42 /* truecol1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = truecol1.xpf; path = ../../../../examples/Hubicka/truecol1.xpf; sourceTree = SOURCE_ROOT; };
-		B40387720AF12CF300269D42 /* truecol2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = truecol2.xpf; path = ../../../../examples/Hubicka/truecol2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387730AF12CF300269D42 /* truecol3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = truecol3.xpf; path = ../../../../examples/Hubicka/truecol3.xpf; sourceTree = SOURCE_ROOT; };
-		B40387740AF12CF300269D42 /* truecol4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = truecol4.xpf; path = ../../../../examples/Hubicka/truecol4.xpf; sourceTree = SOURCE_ROOT; };
-		B40387750AF12CF300269D42 /* truecol5.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = truecol5.xpf; path = ../../../../examples/Hubicka/truecol5.xpf; sourceTree = SOURCE_ROOT; };
-		B40387760AF12CF300269D42 /* truecol6.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = truecol6.xpf; path = ../../../../examples/Hubicka/truecol6.xpf; sourceTree = SOURCE_ROOT; };
-		B40387770AF12CF300269D42 /* truecol7.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = truecol7.xpf; path = ../../../../examples/Hubicka/truecol7.xpf; sourceTree = SOURCE_ROOT; };
-		B40387780AF12CF300269D42 /* ufo.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = ufo.xpf; path = ../../../../examples/Hubicka/ufo.xpf; sourceTree = SOURCE_ROOT; };
-		B40387E90AF12D1300269D42 /* fract0.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = fract0.xpf; path = ../../../../examples/ZKovacs/fract0.xpf; sourceTree = SOURCE_ROOT; };
-		B40387EA0AF12D1300269D42 /* fract1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = fract1.xpf; path = ../../../../examples/ZKovacs/fract1.xpf; sourceTree = SOURCE_ROOT; };
-		B40387EB0AF12D1300269D42 /* hornflake1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = hornflake1.xpf; path = ../../../../examples/ZKovacs/hornflake1.xpf; sourceTree = SOURCE_ROOT; };
-		B40387EC0AF12D1300269D42 /* hornflake2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = hornflake2.xpf; path = ../../../../examples/ZKovacs/hornflake2.xpf; sourceTree = SOURCE_ROOT; };
-		B40387ED0AF12D1300269D42 /* mand9.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = mand9.xpf; path = ../../../../examples/ZKovacs/mand9.xpf; sourceTree = SOURCE_ROOT; };
-		B403880B0AF12D4600269D42 /* bolygo.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = bolygo.xpf; path = ../../../../examples/ZsKovacs/bolygo.xpf; sourceTree = SOURCE_ROOT; };
-		B403880C0AF12D4600269D42 /* csiga2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = csiga2.xpf; path = ../../../../examples/ZsKovacs/csiga2.xpf; sourceTree = SOURCE_ROOT; };
-		B403880D0AF12D4600269D42 /* csiga3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = csiga3.xpf; path = ../../../../examples/ZsKovacs/csiga3.xpf; sourceTree = SOURCE_ROOT; };
-		B403880E0AF12D4600269D42 /* csiga4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = csiga4.xpf; path = ../../../../examples/ZsKovacs/csiga4.xpf; sourceTree = SOURCE_ROOT; };
-		B403880F0AF12D4600269D42 /* csiga5.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = csiga5.xpf; path = ../../../../examples/ZsKovacs/csiga5.xpf; sourceTree = SOURCE_ROOT; };
-		B40388100AF12D4600269D42 /* gamma.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = gamma.xpf; path = ../../../../examples/ZsKovacs/gamma.xpf; sourceTree = SOURCE_ROOT; };
-		B40388110AF12D4600269D42 /* golden.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = golden.xpf; path = ../../../../examples/ZsKovacs/golden.xpf; sourceTree = SOURCE_ROOT; };
-		B40388120AF12D4600269D42 /* impulzus.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = impulzus.xpf; path = ../../../../examples/ZsKovacs/impulzus.xpf; sourceTree = SOURCE_ROOT; };
-		B40388130AF12D4600269D42 /* kovzsi2.1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi2.1.xpf; path = ../../../../examples/ZsKovacs/kovzsi2.1.xpf; sourceTree = SOURCE_ROOT; };
-		B40388140AF12D4600269D42 /* kovzsi2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi2.xpf; path = ../../../../examples/ZsKovacs/kovzsi2.xpf; sourceTree = SOURCE_ROOT; };
-		B40388150AF12D4600269D42 /* kovzsi3.1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi3.1.xpf; path = ../../../../examples/ZsKovacs/kovzsi3.1.xpf; sourceTree = SOURCE_ROOT; };
-		B40388160AF12D4600269D42 /* kovzsi3.2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi3.2.xpf; path = ../../../../examples/ZsKovacs/kovzsi3.2.xpf; sourceTree = SOURCE_ROOT; };
-		B40388170AF12D4600269D42 /* kovzsi4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi4.xpf; path = ../../../../examples/ZsKovacs/kovzsi4.xpf; sourceTree = SOURCE_ROOT; };
-		B40388180AF12D4600269D42 /* kovzsi6.1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi6.1.xpf; path = ../../../../examples/ZsKovacs/kovzsi6.1.xpf; sourceTree = SOURCE_ROOT; };
-		B40388190AF12D4600269D42 /* kovzsi6.2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi6.2.xpf; path = ../../../../examples/ZsKovacs/kovzsi6.2.xpf; sourceTree = SOURCE_ROOT; };
-		B403881A0AF12D4600269D42 /* kovzsi6.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi6.xpf; path = ../../../../examples/ZsKovacs/kovzsi6.xpf; sourceTree = SOURCE_ROOT; };
-		B403881B0AF12D4600269D42 /* kovzsi7.1.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi7.1.xpf; path = ../../../../examples/ZsKovacs/kovzsi7.1.xpf; sourceTree = SOURCE_ROOT; };
-		B403881C0AF12D4600269D42 /* kovzsi7.2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi7.2.xpf; path = ../../../../examples/ZsKovacs/kovzsi7.2.xpf; sourceTree = SOURCE_ROOT; };
-		B403881D0AF12D4600269D42 /* kovzsi7.3.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi7.3.xpf; path = ../../../../examples/ZsKovacs/kovzsi7.3.xpf; sourceTree = SOURCE_ROOT; };
-		B403881E0AF12D4600269D42 /* kovzsi7.4.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi7.4.xpf; path = ../../../../examples/ZsKovacs/kovzsi7.4.xpf; sourceTree = SOURCE_ROOT; };
-		B403881F0AF12D4600269D42 /* kovzsi7.5.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi7.5.xpf; path = ../../../../examples/ZsKovacs/kovzsi7.5.xpf; sourceTree = SOURCE_ROOT; };
-		B40388200AF12D4600269D42 /* kovzsi8.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi8.xpf; path = ../../../../examples/ZsKovacs/kovzsi8.xpf; sourceTree = SOURCE_ROOT; };
-		B40388210AF12D4600269D42 /* kovzsi9.2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi9.2.xpf; path = ../../../../examples/ZsKovacs/kovzsi9.2.xpf; sourceTree = SOURCE_ROOT; };
-		B40388220AF12D4600269D42 /* kovzsi9.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi9.xpf; path = ../../../../examples/ZsKovacs/kovzsi9.xpf; sourceTree = SOURCE_ROOT; };
-		B40388230AF12D4600269D42 /* kovzsi10.2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi10.2.xpf; path = ../../../../examples/ZsKovacs/kovzsi10.2.xpf; sourceTree = SOURCE_ROOT; };
-		B40388240AF12D4600269D42 /* kovzsi12.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi12.xpf; path = ../../../../examples/ZsKovacs/kovzsi12.xpf; sourceTree = SOURCE_ROOT; };
-		B40388250AF12D4600269D42 /* kovzsi14.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi14.xpf; path = ../../../../examples/ZsKovacs/kovzsi14.xpf; sourceTree = SOURCE_ROOT; };
-		B40388260AF12D4600269D42 /* kovzsi15.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi15.xpf; path = ../../../../examples/ZsKovacs/kovzsi15.xpf; sourceTree = SOURCE_ROOT; };
-		B40388270AF12D4600269D42 /* kovzsi16.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi16.xpf; path = ../../../../examples/ZsKovacs/kovzsi16.xpf; sourceTree = SOURCE_ROOT; };
-		B40388280AF12D4600269D42 /* kovzsi17.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = kovzsi17.xpf; path = ../../../../examples/ZsKovacs/kovzsi17.xpf; sourceTree = SOURCE_ROOT; };
-		B40388290AF12D4600269D42 /* light.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = light.xpf; path = ../../../../examples/ZsKovacs/light.xpf; sourceTree = SOURCE_ROOT; };
-		B403882A0AF12D4600269D42 /* lighting.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = lighting.xpf; path = ../../../../examples/ZsKovacs/lighting.xpf; sourceTree = SOURCE_ROOT; };
-		B403882B0AF12D4600269D42 /* nap.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = nap.xpf; path = ../../../../examples/ZsKovacs/nap.xpf; sourceTree = SOURCE_ROOT; };
-		B403882C0AF12D4600269D42 /* orveny.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = orveny.xpf; path = ../../../../examples/ZsKovacs/orveny.xpf; sourceTree = SOURCE_ROOT; };
-		B403882D0AF12D4600269D42 /* pavaszem.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = pavaszem.xpf; path = ../../../../examples/ZsKovacs/pavaszem.xpf; sourceTree = SOURCE_ROOT; };
-		B403882E0AF12D4600269D42 /* pavaszem2.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = pavaszem2.xpf; path = ../../../../examples/ZsKovacs/pavaszem2.xpf; sourceTree = SOURCE_ROOT; };
-		B403882F0AF12D4600269D42 /* pepita.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = pepita.xpf; path = ../../../../examples/ZsKovacs/pepita.xpf; sourceTree = SOURCE_ROOT; };
-		B40388300AF12D4600269D42 /* zsigapro.xpf */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = zsigapro.xpf; path = ../../../../examples/ZsKovacs/zsigapro.xpf; sourceTree = SOURCE_ROOT; };
-		B403886C0AF12D9800269D42 /* xaos.hlp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = xaos.hlp; path = ../../../../help/xaos.hlp; sourceTree = SOURCE_ROOT; };
 		B47764940AEDC6EA00F341CE /* Readme Cocoa */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Readme Cocoa"; sourceTree = "<group>"; };
 		B47764AA0AEDCA9700F341CE /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; name = English; path = English.lproj/Credits.html; sourceTree = "<group>"; };
+		D9332D0E0D8CFC060010D650 /* cmplx.asm */ = {isa = PBXFileReference; explicitFileType = sourcecode.nasm; fileEncoding = 4; path = cmplx.asm; sourceTree = "<group>"; };
+		D9332D100D8CFC060010D650 /* sffe.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sffe.c; sourceTree = "<group>"; };
+		D9332D110D8CFC060010D650 /* sffe_cmplx_asm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sffe_cmplx_asm.c; sourceTree = "<group>"; };
+		D9332D120D8CFC060010D650 /* sffe_cmplx_gsl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sffe_cmplx_gsl.c; sourceTree = "<group>"; };
+		D9332D4A0D8CFEF60010D650 /* libgsl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libgsl.dylib; sourceTree = "<group>"; };
+		D9332D4B0D8CFEF60010D650 /* libpng.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libpng.dylib; sourceTree = "<group>"; };
+		D9332D720D8D01580010D650 /* HowToBuild.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HowToBuild.txt; sourceTree = "<group>"; };
 		D99CD0060B05515700170329 /* aconfig.h.in */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = aconfig.h.in; sourceTree = "<group>"; };
 		D99CD0070B05515700170329 /* archaccel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = archaccel.h; sourceTree = "<group>"; };
 		D99CD0080B05515700170329 /* btrace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = btrace.h; sourceTree = "<group>"; };
@@ -650,6 +265,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				D9332D4C0D8CFEF60010D650 /* libgsl.dylib in Frameworks */,
+				D9332D4D0D8CFEF60010D650 /* libpng.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,10 +319,12 @@
 			children = (
 				B47764A90AEDCA9700F341CE /* Credits.html */,
 				B47764940AEDC6EA00F341CE /* Readme Cocoa */,
+				D9332D720D8D01580010D650 /* HowToBuild.txt */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				3D2884540A3684E1004C2595 /* Shared Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				D9332D490D8CFED20010D650 /* Embedded Frameworks and Libraries */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -718,7 +337,6 @@
 				3D2884D10A368505004C2595 /* aconfig.h */,
 				32CA4F630368D1EE00C91783 /* XaoS_Prefix.pch */,
 				3DD6BDA30A4778A700C37438 /* ui_cocoa.m */,
-				B40386210AF1189300269D42 /* xstdio_osx.c */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -728,10 +346,6 @@
 			children = (
 				D99CD2C50B06EE1200170329 /* GeneralPreferences.tiff */,
 				D99CD2DA0B06EEA700170329 /* vidiot.icns */,
-				B40386560AF12C1600269D42 /* catalogs */,
-				B40386590AF12C2100269D42 /* tutorial */,
-				B403865F0AF12C3900269D42 /* help */,
-				B403865C0AF12C2C00269D42 /* examples */,
 				3DB97EF80A3A3A820050B5C8 /* XaoS.icns */,
 				3DD96A940A37D3800061CC6D /* MainMenu.nib */,
 				D99CD2750B06E76100170329 /* PrefsWindow.nib */,
@@ -753,6 +367,7 @@
 		3D2884540A3684E1004C2595 /* Shared Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D9332D090D8CFC060010D650 /* sffe */,
 				D99CD0050B05515700170329 /* include */,
 				3D28847F0A3684EF004C2595 /* engine */,
 				3D2884780A3684EF004C2595 /* filter */,
@@ -855,271 +470,33 @@
 			name = engine;
 			sourceTree = "<group>";
 		};
-		B40386560AF12C1600269D42 /* catalogs */ = {
+		D9332D090D8CFC060010D650 /* sffe */ = {
 			isa = PBXGroup;
 			children = (
-				B403866A0AF12C6400269D42 /* cesky.cat */,
-				B403866B0AF12C6400269D42 /* deutsch.cat */,
-				B403866C0AF12C6400269D42 /* english.cat */,
-				B403866D0AF12C6400269D42 /* espanhol.cat */,
-				B403866E0AF12C6400269D42 /* francais.cat */,
-				B403866F0AF12C6400269D42 /* magyar.cat */,
+				D9332D0B0D8CFC060010D650 /* asm */,
+				D9332D100D8CFC060010D650 /* sffe.c */,
+				D9332D110D8CFC060010D650 /* sffe_cmplx_asm.c */,
+				D9332D120D8CFC060010D650 /* sffe_cmplx_gsl.c */,
 			);
-			name = catalogs;
+			name = sffe;
+			path = ../../../sffe;
+			sourceTree = SOURCE_ROOT;
+		};
+		D9332D0B0D8CFC060010D650 /* asm */ = {
+			isa = PBXGroup;
+			children = (
+				D9332D0E0D8CFC060010D650 /* cmplx.asm */,
+			);
+			path = asm;
 			sourceTree = "<group>";
 		};
-		B40386590AF12C2100269D42 /* tutorial */ = {
+		D9332D490D8CFED20010D650 /* Embedded Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				B40386840AF12C8C00269D42 /* 3dtutor.xaf */,
-				B40386850AF12C8C00269D42 /* anim.xaf */,
-				B40386860AF12C8C00269D42 /* anim.xhf */,
-				B40386870AF12C8C00269D42 /* barnsley.xaf */,
-				B40386880AF12C8C00269D42 /* Bclosing.xaf */,
-				B40386890AF12C8C00269D42 /* Bintro.xaf */,
-				B403868A0AF12C8C00269D42 /* Bolyai.xaf */,
-				B403868B0AF12C8C00269D42 /* classic.xaf */,
-				B403868C0AF12C8C00269D42 /* coast.xhf */,
-				B403868D0AF12C8C00269D42 /* dimension.xaf */,
-				B403868E0AF12C8C00269D42 /* escape.xaf */,
-				B403868F0AF12C8C00269D42 /* features.xaf */,
-				B40386900AF12C8C00269D42 /* filter.xaf */,
-				B40386910AF12C8C00269D42 /* filter.xhf */,
-				B40386920AF12C8C00269D42 /* flake1.xhf */,
-				B40386930AF12C8C00269D42 /* flake2.xhf */,
-				B40386940AF12C8C00269D42 /* flake3.xhf */,
-				B40386950AF12C8C00269D42 /* flake4.xhf */,
-				B40386960AF12C8C00269D42 /* flake5.xhf */,
-				B40386970AF12C8C00269D42 /* flaketh.xhf */,
-				B40386980AF12C8C00269D42 /* fmath.xaf */,
-				B40386990AF12C8C00269D42 /* fourfr.xaf */,
-				B403869A0AF12C8C00269D42 /* fractal.xaf */,
-				B403869B0AF12C8C00269D42 /* head.xhf */,
-				B403869C0AF12C8C00269D42 /* incolor.xaf */,
-				B403869D0AF12C8C00269D42 /* innew.xhf */,
-				B403869E0AF12C8C00269D42 /* intro.xaf */,
-				B403869F0AF12C8C00269D42 /* julia.xaf */,
-				B40386A00AF12C8C00269D42 /* keys.xhf */,
-				B40386A10AF12C8C00269D42 /* line1.xhf */,
-				B40386A20AF12C8C00269D42 /* magnet.xaf */,
-				B40386A30AF12C8C00269D42 /* mset.xaf */,
-				B40386A40AF12C8C00269D42 /* msetren.xaf */,
-				B40386A50AF12C8C00269D42 /* new30.xaf */,
-				B40386A60AF12C8C00269D42 /* newton.xaf */,
-				B40386A70AF12C8C00269D42 /* octo.xaf */,
-				B40386A80AF12C8C00269D42 /* other.xaf */,
-				B40386A90AF12C8C00269D42 /* otherfr.xaf */,
-				B40386AA0AF12C8C00269D42 /* outcolor.xaf */,
-				B40386AB0AF12C8C00269D42 /* outnew.xhf */,
-				B40386AC0AF12C8C00269D42 /* palette.xaf */,
-				B40386AD0AF12C8C00269D42 /* palette.xhf */,
-				B40386AE0AF12C8C00269D42 /* pause.xhf */,
-				B40386AF0AF12C8C00269D42 /* pert.xaf */,
-				B40386B00AF12C8C00269D42 /* pert.xhf */,
-				B40386B10AF12C8C00269D42 /* phoenix.xaf */,
-				B40386B20AF12C8C00269D42 /* plane.xaf */,
-				B40386B30AF12C8C00269D42 /* power.xaf */,
-				B40386B40AF12C8C00269D42 /* render.xaf */,
-				B40386B50AF12C8C00269D42 /* square.xhf */,
-				B40386B60AF12C8C00269D42 /* tree.xhf */,
-				B40386B70AF12C8C00269D42 /* trice.xaf */,
-				B40386B80AF12C8C00269D42 /* truecol.xaf */,
-				B40386B90AF12C8C00269D42 /* truecol.xhf */,
+				D9332D4A0D8CFEF60010D650 /* libgsl.dylib */,
+				D9332D4B0D8CFEF60010D650 /* libpng.dylib */,
 			);
-			name = tutorial;
-			sourceTree = "<group>";
-		};
-		B403865C0AF12C2C00269D42 /* examples */ = {
-			isa = PBXGroup;
-			children = (
-				B40387FF0AF12D3100269D42 /* ZsKovacs */,
-				B40386FC0AF12CBE00269D42 /* Orfelyus */,
-				B403870B0AF12CE000269D42 /* Hubicka */,
-				B40387E00AF12CFC00269D42 /* ZKovacs */,
-			);
-			name = examples;
-			sourceTree = "<group>";
-		};
-		B403865F0AF12C3900269D42 /* help */ = {
-			isa = PBXGroup;
-			children = (
-				B403886C0AF12D9800269D42 /* xaos.hlp */,
-			);
-			name = help;
-			sourceTree = "<group>";
-		};
-		B40386FC0AF12CBE00269D42 /* Orfelyus */ = {
-			isa = PBXGroup;
-			children = (
-				B40387050AF12CDA00269D42 /* 0rfel1.xpf */,
-				B40387060AF12CDA00269D42 /* 0rfel2.xpf */,
-			);
-			name = Orfelyus;
-			sourceTree = "<group>";
-		};
-		B403870B0AF12CE000269D42 /* Hubicka */ = {
-			isa = PBXGroup;
-			children = (
-				B40387140AF12CF300269D42 /* 2spirals.xpf */,
-				B40387150AF12CF300269D42 /* 3d1.xpf */,
-				B40387160AF12CF300269D42 /* 3d2.xpf */,
-				B40387170AF12CF300269D42 /* 3d3.xpf */,
-				B40387180AF12CF300269D42 /* 3d4.xpf */,
-				B40387190AF12CF300269D42 /* 3d5.xpf */,
-				B403871A0AF12CF300269D42 /* 3d6.xpf */,
-				B403871B0AF12CF300269D42 /* 3d7.xpf */,
-				B403871C0AF12CF300269D42 /* 3d8.xpf */,
-				B403871D0AF12CF300269D42 /* 3d9.xpf */,
-				B403871E0AF12CF300269D42 /* axe.xpf */,
-				B403871F0AF12CF300269D42 /* barnsl1.xpf */,
-				B40387200AF12CF300269D42 /* barnsl2.xpf */,
-				B40387210AF12CF300269D42 /* barnsl3.xpf */,
-				B40387220AF12CF300269D42 /* barnsl4.xpf */,
-				B40387230AF12CF300269D42 /* barnsl5.xpf */,
-				B40387240AF12CF300269D42 /* barnsl6.xpf */,
-				B40387250AF12CF300269D42 /* barnsl7.xpf */,
-				B40387260AF12CF300269D42 /* barnsl8.xpf */,
-				B40387270AF12CF300269D42 /* barnsl9.xpf */,
-				B40387280AF12CF300269D42 /* beatle.xpf */,
-				B40387290AF12CF300269D42 /* beatle2.xpf */,
-				B403872A0AF12CF300269D42 /* brown.xpf */,
-				B403872B0AF12CF300269D42 /* checker.xpf */,
-				B403872C0AF12CF300269D42 /* crone.xpf */,
-				B403872D0AF12CF300269D42 /* dblspira.xpf */,
-				B403872E0AF12CF300269D42 /* dragons.xpf */,
-				B403872F0AF12CF300269D42 /* dragons2.xpf */,
-				B40387300AF12CF300269D42 /* edge.xpf */,
-				B40387310AF12CF300269D42 /* edge2.xpf */,
-				B40387320AF12CF300269D42 /* edge3.xpf */,
-				B40387330AF12CF300269D42 /* eifell.xpf */,
-				B40387340AF12CF300269D42 /* galaxy.xpf */,
-				B40387350AF12CF300269D42 /* goldrive.xpf */,
-				B40387360AF12CF300269D42 /* head.xpf */,
-				B40387370AF12CF300269D42 /* head2.xpf */,
-				B40387380AF12CF300269D42 /* head3.xpf */,
-				B40387390AF12CF300269D42 /* incolor1.xpf */,
-				B403873A0AF12CF300269D42 /* incolor2.xpf */,
-				B403873B0AF12CF300269D42 /* incolor3.xpf */,
-				B403873C0AF12CF300269D42 /* incolor4.xpf */,
-				B403873D0AF12CF300269D42 /* incolor5.xpf */,
-				B403873E0AF12CF300269D42 /* julia.xpf */,
-				B403873F0AF12CF300269D42 /* julia2.xpf */,
-				B40387400AF12CF300269D42 /* julia3.xpf */,
-				B40387410AF12CF300269D42 /* julia4.xpf */,
-				B40387420AF12CF300269D42 /* julia5.xpf */,
-				B40387430AF12CF300269D42 /* juliaanim.xaf */,
-				B40387440AF12CF300269D42 /* lemon.xpf */,
-				B40387450AF12CF300269D42 /* light.xpf */,
-				B40387460AF12CF300269D42 /* magnet.xpf */,
-				B40387470AF12CF300269D42 /* magnet1.xpf */,
-				B40387480AF12CF300269D42 /* magnet2.xpf */,
-				B40387490AF12CF300269D42 /* magnet3.xpf */,
-				B403874A0AF12CF300269D42 /* magnet4.xpf */,
-				B403874B0AF12CF300269D42 /* mand1.xpf */,
-				B403874C0AF12CF300269D42 /* mand2.xpf */,
-				B403874D0AF12CF300269D42 /* mand3.xpf */,
-				B403874E0AF12CF300269D42 /* mand4.xpf */,
-				B403874F0AF12CF300269D42 /* mand5.xpf */,
-				B40387500AF12CF300269D42 /* mand7.xpf */,
-				B40387510AF12CF300269D42 /* mand8.xpf */,
-				B40387520AF12CF300269D42 /* mandanim.xaf */,
-				B40387530AF12CF300269D42 /* minibrot.xpf */,
-				B40387540AF12CF300269D42 /* newton.xaf */,
-				B40387550AF12CF300269D42 /* newton.xpf */,
-				B40387560AF12CF300269D42 /* newton2.xpf */,
-				B40387570AF12CF300269D42 /* newton3.xpf */,
-				B40387580AF12CF300269D42 /* octo.xpf */,
-				B40387590AF12CF300269D42 /* palace.xpf */,
-				B403875A0AF12CF300269D42 /* perb1.xpf */,
-				B403875B0AF12CF300269D42 /* perb2.xpf */,
-				B403875C0AF12CF300269D42 /* perb3.xpf */,
-				B403875D0AF12CF300269D42 /* perb4.xpf */,
-				B403875E0AF12CF300269D42 /* perb5.xpf */,
-				B403875F0AF12CF300269D42 /* phoenix1.xpf */,
-				B40387600AF12CF300269D42 /* phoenix2.xpf */,
-				B40387610AF12CF300269D42 /* redjulia.xpf */,
-				B40387620AF12CF300269D42 /* redmand.xpf */,
-				B40387630AF12CF300269D42 /* redmand2.xpf */,
-				B40387640AF12CF300269D42 /* rocks.xpf */,
-				B40387650AF12CF300269D42 /* shell.xpf */,
-				B40387660AF12CF300269D42 /* something.xpf */,
-				B40387670AF12CF300269D42 /* spiral.xpf */,
-				B40387680AF12CF300269D42 /* spiral2.xpf */,
-				B40387690AF12CF300269D42 /* spiral3.xpf */,
-				B403876A0AF12CF300269D42 /* spiral4.xpf */,
-				B403876B0AF12CF300269D42 /* sprial.xpf */,
-				B403876C0AF12CF300269D42 /* sun.xpf */,
-				B403876D0AF12CF300269D42 /* thebug.xpf */,
-				B403876E0AF12CF300269D42 /* tower.xpf */,
-				B403876F0AF12CF300269D42 /* tree.xpf */,
-				B40387700AF12CF300269D42 /* triangle.xpf */,
-				B40387710AF12CF300269D42 /* truecol1.xpf */,
-				B40387720AF12CF300269D42 /* truecol2.xpf */,
-				B40387730AF12CF300269D42 /* truecol3.xpf */,
-				B40387740AF12CF300269D42 /* truecol4.xpf */,
-				B40387750AF12CF300269D42 /* truecol5.xpf */,
-				B40387760AF12CF300269D42 /* truecol6.xpf */,
-				B40387770AF12CF300269D42 /* truecol7.xpf */,
-				B40387780AF12CF300269D42 /* ufo.xpf */,
-			);
-			name = Hubicka;
-			sourceTree = "<group>";
-		};
-		B40387E00AF12CFC00269D42 /* ZKovacs */ = {
-			isa = PBXGroup;
-			children = (
-				B40387E90AF12D1300269D42 /* fract0.xpf */,
-				B40387EA0AF12D1300269D42 /* fract1.xpf */,
-				B40387EB0AF12D1300269D42 /* hornflake1.xpf */,
-				B40387EC0AF12D1300269D42 /* hornflake2.xpf */,
-				B40387ED0AF12D1300269D42 /* mand9.xpf */,
-			);
-			name = ZKovacs;
-			sourceTree = "<group>";
-		};
-		B40387FF0AF12D3100269D42 /* ZsKovacs */ = {
-			isa = PBXGroup;
-			children = (
-				B403880B0AF12D4600269D42 /* bolygo.xpf */,
-				B403880C0AF12D4600269D42 /* csiga2.xpf */,
-				B403880D0AF12D4600269D42 /* csiga3.xpf */,
-				B403880E0AF12D4600269D42 /* csiga4.xpf */,
-				B403880F0AF12D4600269D42 /* csiga5.xpf */,
-				B40388100AF12D4600269D42 /* gamma.xpf */,
-				B40388110AF12D4600269D42 /* golden.xpf */,
-				B40388120AF12D4600269D42 /* impulzus.xpf */,
-				B40388130AF12D4600269D42 /* kovzsi2.1.xpf */,
-				B40388140AF12D4600269D42 /* kovzsi2.xpf */,
-				B40388150AF12D4600269D42 /* kovzsi3.1.xpf */,
-				B40388160AF12D4600269D42 /* kovzsi3.2.xpf */,
-				B40388170AF12D4600269D42 /* kovzsi4.xpf */,
-				B40388180AF12D4600269D42 /* kovzsi6.1.xpf */,
-				B40388190AF12D4600269D42 /* kovzsi6.2.xpf */,
-				B403881A0AF12D4600269D42 /* kovzsi6.xpf */,
-				B403881B0AF12D4600269D42 /* kovzsi7.1.xpf */,
-				B403881C0AF12D4600269D42 /* kovzsi7.2.xpf */,
-				B403881D0AF12D4600269D42 /* kovzsi7.3.xpf */,
-				B403881E0AF12D4600269D42 /* kovzsi7.4.xpf */,
-				B403881F0AF12D4600269D42 /* kovzsi7.5.xpf */,
-				B40388200AF12D4600269D42 /* kovzsi8.xpf */,
-				B40388210AF12D4600269D42 /* kovzsi9.2.xpf */,
-				B40388220AF12D4600269D42 /* kovzsi9.xpf */,
-				B40388230AF12D4600269D42 /* kovzsi10.2.xpf */,
-				B40388240AF12D4600269D42 /* kovzsi12.xpf */,
-				B40388250AF12D4600269D42 /* kovzsi14.xpf */,
-				B40388260AF12D4600269D42 /* kovzsi15.xpf */,
-				B40388270AF12D4600269D42 /* kovzsi16.xpf */,
-				B40388280AF12D4600269D42 /* kovzsi17.xpf */,
-				B40388290AF12D4600269D42 /* light.xpf */,
-				B403882A0AF12D4600269D42 /* lighting.xpf */,
-				B403882B0AF12D4600269D42 /* nap.xpf */,
-				B403882C0AF12D4600269D42 /* orveny.xpf */,
-				B403882D0AF12D4600269D42 /* pavaszem.xpf */,
-				B403882E0AF12D4600269D42 /* pavaszem2.xpf */,
-				B403882F0AF12D4600269D42 /* pepita.xpf */,
-				B40388300AF12D4600269D42 /* zsigapro.xpf */,
-			);
-			name = ZsKovacs;
+			name = "Embedded Frameworks and Libraries";
 			sourceTree = "<group>";
 		};
 		D99CD0050B05515700170329 /* include */ = {
@@ -1218,6 +595,8 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				D9332D4F0D8CFF320010D650 /* Copy Embedded Frameworks */,
+				D9332D630D8D00750010D650 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1235,9 +614,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "XaoS" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* XaoS */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* XaoS */,
 			);
@@ -1253,213 +634,6 @@
 				3DD96A960A37D3800061CC6D /* MainMenu.nib in Resources */,
 				3DB97EF90A3A3A820050B5C8 /* XaoS.icns in Resources */,
 				B47764AB0AEDCA9700F341CE /* Credits.html in Resources */,
-				B40386720AF12C6400269D42 /* cesky.cat in Resources */,
-				B40386730AF12C6400269D42 /* deutsch.cat in Resources */,
-				B40386740AF12C6400269D42 /* english.cat in Resources */,
-				B40386750AF12C6400269D42 /* espanhol.cat in Resources */,
-				B40386760AF12C6400269D42 /* francais.cat in Resources */,
-				B40386770AF12C6400269D42 /* magyar.cat in Resources */,
-				B40386BB0AF12C8C00269D42 /* 3dtutor.xaf in Resources */,
-				B40386BC0AF12C8C00269D42 /* anim.xaf in Resources */,
-				B40386BD0AF12C8C00269D42 /* anim.xhf in Resources */,
-				B40386BE0AF12C8C00269D42 /* barnsley.xaf in Resources */,
-				B40386BF0AF12C8C00269D42 /* Bclosing.xaf in Resources */,
-				B40386C00AF12C8C00269D42 /* Bintro.xaf in Resources */,
-				B40386C10AF12C8C00269D42 /* Bolyai.xaf in Resources */,
-				B40386C20AF12C8C00269D42 /* classic.xaf in Resources */,
-				B40386C30AF12C8C00269D42 /* coast.xhf in Resources */,
-				B40386C40AF12C8C00269D42 /* dimension.xaf in Resources */,
-				B40386C50AF12C8C00269D42 /* escape.xaf in Resources */,
-				B40386C60AF12C8C00269D42 /* features.xaf in Resources */,
-				B40386C70AF12C8C00269D42 /* filter.xaf in Resources */,
-				B40386C80AF12C8C00269D42 /* filter.xhf in Resources */,
-				B40386C90AF12C8C00269D42 /* flake1.xhf in Resources */,
-				B40386CA0AF12C8C00269D42 /* flake2.xhf in Resources */,
-				B40386CB0AF12C8C00269D42 /* flake3.xhf in Resources */,
-				B40386CC0AF12C8C00269D42 /* flake4.xhf in Resources */,
-				B40386CD0AF12C8C00269D42 /* flake5.xhf in Resources */,
-				B40386CE0AF12C8C00269D42 /* flaketh.xhf in Resources */,
-				B40386CF0AF12C8C00269D42 /* fmath.xaf in Resources */,
-				B40386D00AF12C8C00269D42 /* fourfr.xaf in Resources */,
-				B40386D10AF12C8C00269D42 /* fractal.xaf in Resources */,
-				B40386D20AF12C8C00269D42 /* head.xhf in Resources */,
-				B40386D30AF12C8C00269D42 /* incolor.xaf in Resources */,
-				B40386D40AF12C8C00269D42 /* innew.xhf in Resources */,
-				B40386D50AF12C8C00269D42 /* intro.xaf in Resources */,
-				B40386D60AF12C8C00269D42 /* julia.xaf in Resources */,
-				B40386D70AF12C8C00269D42 /* keys.xhf in Resources */,
-				B40386D80AF12C8C00269D42 /* line1.xhf in Resources */,
-				B40386D90AF12C8C00269D42 /* magnet.xaf in Resources */,
-				B40386DA0AF12C8C00269D42 /* mset.xaf in Resources */,
-				B40386DB0AF12C8C00269D42 /* msetren.xaf in Resources */,
-				B40386DC0AF12C8C00269D42 /* new30.xaf in Resources */,
-				B40386DD0AF12C8C00269D42 /* newton.xaf in Resources */,
-				B40386DE0AF12C8C00269D42 /* octo.xaf in Resources */,
-				B40386DF0AF12C8C00269D42 /* other.xaf in Resources */,
-				B40386E00AF12C8C00269D42 /* otherfr.xaf in Resources */,
-				B40386E10AF12C8C00269D42 /* outcolor.xaf in Resources */,
-				B40386E20AF12C8C00269D42 /* outnew.xhf in Resources */,
-				B40386E30AF12C8C00269D42 /* palette.xaf in Resources */,
-				B40386E40AF12C8C00269D42 /* palette.xhf in Resources */,
-				B40386E50AF12C8C00269D42 /* pause.xhf in Resources */,
-				B40386E60AF12C8C00269D42 /* pert.xaf in Resources */,
-				B40386E70AF12C8C00269D42 /* pert.xhf in Resources */,
-				B40386E80AF12C8C00269D42 /* phoenix.xaf in Resources */,
-				B40386E90AF12C8C00269D42 /* plane.xaf in Resources */,
-				B40386EA0AF12C8C00269D42 /* power.xaf in Resources */,
-				B40386EB0AF12C8C00269D42 /* render.xaf in Resources */,
-				B40386EC0AF12C8C00269D42 /* square.xhf in Resources */,
-				B40386ED0AF12C8C00269D42 /* tree.xhf in Resources */,
-				B40386EE0AF12C8C00269D42 /* trice.xaf in Resources */,
-				B40386EF0AF12C8C00269D42 /* truecol.xaf in Resources */,
-				B40386F00AF12C8C00269D42 /* truecol.xhf in Resources */,
-				B40387070AF12CDA00269D42 /* 0rfel1.xpf in Resources */,
-				B40387080AF12CDA00269D42 /* 0rfel2.xpf in Resources */,
-				B40387790AF12CF300269D42 /* 2spirals.xpf in Resources */,
-				B403877A0AF12CF300269D42 /* 3d1.xpf in Resources */,
-				B403877B0AF12CF300269D42 /* 3d2.xpf in Resources */,
-				B403877C0AF12CF300269D42 /* 3d3.xpf in Resources */,
-				B403877D0AF12CF300269D42 /* 3d4.xpf in Resources */,
-				B403877E0AF12CF300269D42 /* 3d5.xpf in Resources */,
-				B403877F0AF12CF300269D42 /* 3d6.xpf in Resources */,
-				B40387800AF12CF300269D42 /* 3d7.xpf in Resources */,
-				B40387810AF12CF300269D42 /* 3d8.xpf in Resources */,
-				B40387820AF12CF300269D42 /* 3d9.xpf in Resources */,
-				B40387830AF12CF300269D42 /* axe.xpf in Resources */,
-				B40387840AF12CF300269D42 /* barnsl1.xpf in Resources */,
-				B40387850AF12CF300269D42 /* barnsl2.xpf in Resources */,
-				B40387860AF12CF300269D42 /* barnsl3.xpf in Resources */,
-				B40387870AF12CF300269D42 /* barnsl4.xpf in Resources */,
-				B40387880AF12CF300269D42 /* barnsl5.xpf in Resources */,
-				B40387890AF12CF300269D42 /* barnsl6.xpf in Resources */,
-				B403878A0AF12CF300269D42 /* barnsl7.xpf in Resources */,
-				B403878B0AF12CF300269D42 /* barnsl8.xpf in Resources */,
-				B403878C0AF12CF300269D42 /* barnsl9.xpf in Resources */,
-				B403878D0AF12CF300269D42 /* beatle.xpf in Resources */,
-				B403878E0AF12CF300269D42 /* beatle2.xpf in Resources */,
-				B403878F0AF12CF300269D42 /* brown.xpf in Resources */,
-				B40387900AF12CF300269D42 /* checker.xpf in Resources */,
-				B40387910AF12CF300269D42 /* crone.xpf in Resources */,
-				B40387920AF12CF300269D42 /* dblspira.xpf in Resources */,
-				B40387930AF12CF300269D42 /* dragons.xpf in Resources */,
-				B40387940AF12CF300269D42 /* dragons2.xpf in Resources */,
-				B40387950AF12CF300269D42 /* edge.xpf in Resources */,
-				B40387960AF12CF300269D42 /* edge2.xpf in Resources */,
-				B40387970AF12CF300269D42 /* edge3.xpf in Resources */,
-				B40387980AF12CF300269D42 /* eifell.xpf in Resources */,
-				B40387990AF12CF300269D42 /* galaxy.xpf in Resources */,
-				B403879A0AF12CF300269D42 /* goldrive.xpf in Resources */,
-				B403879B0AF12CF300269D42 /* head.xpf in Resources */,
-				B403879C0AF12CF300269D42 /* head2.xpf in Resources */,
-				B403879D0AF12CF300269D42 /* head3.xpf in Resources */,
-				B403879E0AF12CF300269D42 /* incolor1.xpf in Resources */,
-				B403879F0AF12CF300269D42 /* incolor2.xpf in Resources */,
-				B40387A00AF12CF300269D42 /* incolor3.xpf in Resources */,
-				B40387A10AF12CF300269D42 /* incolor4.xpf in Resources */,
-				B40387A20AF12CF300269D42 /* incolor5.xpf in Resources */,
-				B40387A30AF12CF300269D42 /* julia.xpf in Resources */,
-				B40387A40AF12CF300269D42 /* julia2.xpf in Resources */,
-				B40387A50AF12CF300269D42 /* julia3.xpf in Resources */,
-				B40387A60AF12CF300269D42 /* julia4.xpf in Resources */,
-				B40387A70AF12CF300269D42 /* julia5.xpf in Resources */,
-				B40387A80AF12CF300269D42 /* juliaanim.xaf in Resources */,
-				B40387A90AF12CF300269D42 /* lemon.xpf in Resources */,
-				B40387AA0AF12CF300269D42 /* light.xpf in Resources */,
-				B40387AB0AF12CF300269D42 /* magnet.xpf in Resources */,
-				B40387AC0AF12CF300269D42 /* magnet1.xpf in Resources */,
-				B40387AD0AF12CF300269D42 /* magnet2.xpf in Resources */,
-				B40387AE0AF12CF300269D42 /* magnet3.xpf in Resources */,
-				B40387AF0AF12CF300269D42 /* magnet4.xpf in Resources */,
-				B40387B00AF12CF300269D42 /* mand1.xpf in Resources */,
-				B40387B10AF12CF300269D42 /* mand2.xpf in Resources */,
-				B40387B20AF12CF300269D42 /* mand3.xpf in Resources */,
-				B40387B30AF12CF300269D42 /* mand4.xpf in Resources */,
-				B40387B40AF12CF300269D42 /* mand5.xpf in Resources */,
-				B40387B50AF12CF300269D42 /* mand7.xpf in Resources */,
-				B40387B60AF12CF300269D42 /* mand8.xpf in Resources */,
-				B40387B70AF12CF300269D42 /* mandanim.xaf in Resources */,
-				B40387B80AF12CF300269D42 /* minibrot.xpf in Resources */,
-				B40387B90AF12CF300269D42 /* newton.xaf in Resources */,
-				B40387BA0AF12CF300269D42 /* newton.xpf in Resources */,
-				B40387BB0AF12CF300269D42 /* newton2.xpf in Resources */,
-				B40387BC0AF12CF300269D42 /* newton3.xpf in Resources */,
-				B40387BD0AF12CF300269D42 /* octo.xpf in Resources */,
-				B40387BE0AF12CF300269D42 /* palace.xpf in Resources */,
-				B40387BF0AF12CF300269D42 /* perb1.xpf in Resources */,
-				B40387C00AF12CF300269D42 /* perb2.xpf in Resources */,
-				B40387C10AF12CF300269D42 /* perb3.xpf in Resources */,
-				B40387C20AF12CF300269D42 /* perb4.xpf in Resources */,
-				B40387C30AF12CF300269D42 /* perb5.xpf in Resources */,
-				B40387C40AF12CF300269D42 /* phoenix1.xpf in Resources */,
-				B40387C50AF12CF300269D42 /* phoenix2.xpf in Resources */,
-				B40387C60AF12CF300269D42 /* redjulia.xpf in Resources */,
-				B40387C70AF12CF300269D42 /* redmand.xpf in Resources */,
-				B40387C80AF12CF300269D42 /* redmand2.xpf in Resources */,
-				B40387C90AF12CF300269D42 /* rocks.xpf in Resources */,
-				B40387CA0AF12CF300269D42 /* shell.xpf in Resources */,
-				B40387CB0AF12CF300269D42 /* something.xpf in Resources */,
-				B40387CC0AF12CF300269D42 /* spiral.xpf in Resources */,
-				B40387CD0AF12CF300269D42 /* spiral2.xpf in Resources */,
-				B40387CE0AF12CF300269D42 /* spiral3.xpf in Resources */,
-				B40387CF0AF12CF300269D42 /* spiral4.xpf in Resources */,
-				B40387D00AF12CF300269D42 /* sprial.xpf in Resources */,
-				B40387D10AF12CF300269D42 /* sun.xpf in Resources */,
-				B40387D20AF12CF300269D42 /* thebug.xpf in Resources */,
-				B40387D30AF12CF300269D42 /* tower.xpf in Resources */,
-				B40387D40AF12CF300269D42 /* tree.xpf in Resources */,
-				B40387D50AF12CF300269D42 /* triangle.xpf in Resources */,
-				B40387D60AF12CF300269D42 /* truecol1.xpf in Resources */,
-				B40387D70AF12CF300269D42 /* truecol2.xpf in Resources */,
-				B40387D80AF12CF300269D42 /* truecol3.xpf in Resources */,
-				B40387D90AF12CF300269D42 /* truecol4.xpf in Resources */,
-				B40387DA0AF12CF300269D42 /* truecol5.xpf in Resources */,
-				B40387DB0AF12CF300269D42 /* truecol6.xpf in Resources */,
-				B40387DC0AF12CF300269D42 /* truecol7.xpf in Resources */,
-				B40387DD0AF12CF300269D42 /* ufo.xpf in Resources */,
-				B40387EE0AF12D1300269D42 /* fract0.xpf in Resources */,
-				B40387EF0AF12D1300269D42 /* fract1.xpf in Resources */,
-				B40387F00AF12D1300269D42 /* hornflake1.xpf in Resources */,
-				B40387F10AF12D1300269D42 /* hornflake2.xpf in Resources */,
-				B40387F20AF12D1300269D42 /* mand9.xpf in Resources */,
-				B40388310AF12D4600269D42 /* bolygo.xpf in Resources */,
-				B40388320AF12D4600269D42 /* csiga2.xpf in Resources */,
-				B40388330AF12D4600269D42 /* csiga3.xpf in Resources */,
-				B40388340AF12D4600269D42 /* csiga4.xpf in Resources */,
-				B40388350AF12D4600269D42 /* csiga5.xpf in Resources */,
-				B40388360AF12D4600269D42 /* gamma.xpf in Resources */,
-				B40388370AF12D4600269D42 /* golden.xpf in Resources */,
-				B40388380AF12D4600269D42 /* impulzus.xpf in Resources */,
-				B40388390AF12D4600269D42 /* kovzsi2.1.xpf in Resources */,
-				B403883A0AF12D4600269D42 /* kovzsi2.xpf in Resources */,
-				B403883B0AF12D4600269D42 /* kovzsi3.1.xpf in Resources */,
-				B403883C0AF12D4600269D42 /* kovzsi3.2.xpf in Resources */,
-				B403883D0AF12D4600269D42 /* kovzsi4.xpf in Resources */,
-				B403883E0AF12D4600269D42 /* kovzsi6.1.xpf in Resources */,
-				B403883F0AF12D4600269D42 /* kovzsi6.2.xpf in Resources */,
-				B40388400AF12D4600269D42 /* kovzsi6.xpf in Resources */,
-				B40388410AF12D4600269D42 /* kovzsi7.1.xpf in Resources */,
-				B40388420AF12D4600269D42 /* kovzsi7.2.xpf in Resources */,
-				B40388430AF12D4600269D42 /* kovzsi7.3.xpf in Resources */,
-				B40388440AF12D4600269D42 /* kovzsi7.4.xpf in Resources */,
-				B40388450AF12D4600269D42 /* kovzsi7.5.xpf in Resources */,
-				B40388460AF12D4600269D42 /* kovzsi8.xpf in Resources */,
-				B40388470AF12D4600269D42 /* kovzsi9.2.xpf in Resources */,
-				B40388480AF12D4600269D42 /* kovzsi9.xpf in Resources */,
-				B40388490AF12D4600269D42 /* kovzsi10.2.xpf in Resources */,
-				B403884A0AF12D4600269D42 /* kovzsi12.xpf in Resources */,
-				B403884B0AF12D4600269D42 /* kovzsi14.xpf in Resources */,
-				B403884C0AF12D4600269D42 /* kovzsi15.xpf in Resources */,
-				B403884D0AF12D4600269D42 /* kovzsi16.xpf in Resources */,
-				B403884E0AF12D4600269D42 /* kovzsi17.xpf in Resources */,
-				B403884F0AF12D4600269D42 /* light.xpf in Resources */,
-				B40388500AF12D4600269D42 /* lighting.xpf in Resources */,
-				B40388510AF12D4600269D42 /* nap.xpf in Resources */,
-				B40388520AF12D4600269D42 /* orveny.xpf in Resources */,
-				B40388530AF12D4600269D42 /* pavaszem.xpf in Resources */,
-				B40388540AF12D4600269D42 /* pavaszem2.xpf in Resources */,
-				B40388550AF12D4600269D42 /* pepita.xpf in Resources */,
-				B40388560AF12D4600269D42 /* zsigapro.xpf in Resources */,
-				B40388780AF12D9800269D42 /* xaos.hlp in Resources */,
 				D99CD03E0B05515700170329 /* aconfig.h.in in Resources */,
 				D99CD03F0B05515700170329 /* aconfig.be in Resources */,
 				D99CD0400B05515700170329 /* aconfig.mac in Resources */,
@@ -1482,6 +656,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		D9332D630D8D00750010D650 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Make resource subdirectories\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/tutorial\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/examples\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/catalogs\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/help\n\n# Copy resources from project source directories\ncp $PROJECT_DIR/../../../../tutorial/*.x[ah]f $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/tutorial\ncp $PROJECT_DIR/../../../../examples/*/*.x[ap]f $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/examples\ncp $PROJECT_DIR/../../../../catalogs/*.cat $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/catalogs\ncp $PROJECT_DIR/../../../../help/xaos.hlp $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/help";
+		};
 		D9B9F1840AF1A3B500A2F860 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1493,7 +680,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "ln -sf $PROJECT_DIR/../../../include/config/config.autoconf $PROJECT_DIR/../../../include/config.h";
+			shellScript = "ln -sf $PROJECT_DIR/../../../include/config/config.autoconf $PROJECT_DIR/../../../include/config.h\n\ncp $PROJECT_DIR/thirdparty/lib/libpng.dylib $PROJECT_DIR/libpng.dylib\ninstall_name_tool -id @executable_path/../Frameworks/libintl.dylib $PROJECT_DIR/libintl.dylib\n\ncp $PROJECT_DIR/thirdparty/lib/libgsl.dylib $PROJECT_DIR/libgsl.dylib\ninstall_name_tool -id @executable_path/../Frameworks/libgsl.dylib $PROJECT_DIR/libgsl.dylib\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1561,8 +748,12 @@
 				3DD96AAB0A37D79B0061CC6D /* AppController.m in Sources */,
 				3DD6BDA40A4778A700C37438 /* ui_cocoa.m in Sources */,
 				3DB0F2EA0A65EB2300A9AD59 /* CustomDialog.m in Sources */,
-				B40386220AF1189300269D42 /* xstdio_osx.c in Sources */,
 				D99CD2510B06E13500170329 /* PrefsController.m in Sources */,
+				D9332D160D8CFC060010D650 /* cmplx.asm in Sources */,
+				D9332D180D8CFC060010D650 /* sffe.c in Sources */,
+				D9332D190D8CFC060010D650 /* sffe_cmplx_asm.c in Sources */,
+				D9332D1A0D8CFC060010D650 /* sffe_cmplx_gsl.c in Sources */,
+				D9332D530D8CFF650010D650 /* xstdio.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1614,6 +805,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				PRODUCT_NAME = XaoS;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
@@ -1631,6 +827,11 @@
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				PRODUCT_NAME = XaoS;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1641,10 +842,11 @@
 			buildSettings = {
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../../include;
+				HEADER_SEARCH_PATHS = ./thirdparty/include;
 				OTHER_CFLAGS = "-DVIDEATOR_SUPPORT";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				USER_HEADER_SEARCH_PATHS = ../../../include;
 			};
 			name = Debug;
 		};
@@ -1657,10 +859,11 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../../include;
+				HEADER_SEARCH_PATHS = ./thirdparty/include;
 				OTHER_CFLAGS = "-DVIDEATOR_SUPPORT";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				USER_HEADER_SEARCH_PATHS = ../../../include;
 			};
 			name = Release;
 		};
