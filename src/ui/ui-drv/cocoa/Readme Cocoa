@@ -15,3 +15,69 @@
 2006-10-26
 	- hot keys working
 	- tutorial and help working ala carbon
+
+2006-11-29 - J.B. Langston
+
+Committing additional changes submitted 10/30 by Andrew Stone:
+
+	- support for arrow keys
+		up/down change zoom speed
+		right/left: if cycling - change
+			if auto-rotation - change speed of rotation
+
+    - UI -> Performance Mode
+        This will turn off the echoing of messages to the screen
+
+    - going from cycle forward and backward no longer toggles cycling off
+
+	- BUG FIX: window now regains key status after after dialog
+        
+2008-03-14 - J.B. Langston
+
+    - Fixed bug with smooth color modes on PowerPC Macs (filter.h)
+
+2008-03-17 - J.B. Langston
+
+    - Added user formula support using SFFE/libgsl
+
+    - Added support for libpng to Cocoa
+
+    - Added build instructions to Cocoa project
+
+2008-03-18 - J.B. Langston
+
+    - Moved Videator support into separate VideatorProxy class and updated with 
+      Andrew's latest changes - UNTESTED
+
+    - Replaced funky bit-swapping code; now use #if __BIG_ENDIAN__ to set color 
+      masks correctly
+      
+    - Removed unnecessary xstdio_osx.c and made executable-relative paths work
+      with standard xstdio.c
+      
+    - Added Enter key equivalent for OK button on custom dialogs
+    
+    - Added call to resize image when maximizing window
+    
+    - Added call to terminate app on window close
+    
+    - Enabled long double support for deeper zooms
+
+    - Added event handling for middle and right mouse buttons
+    
+    - Added event handling for scroll wheel panning
+    
+    - Added copyright headers to all files
+    
+    - Changed [view setNeedsDisplay:YES] to [view display] to draw immediately
+      in order to eliminate jerky zooming motion
+      
+    - Added support to print status text
+    
+    - Made save and open panels use last selected directory instead of always
+      going back to home directory
+      
+    - Made window regains key status after open/save dialog
+      
+    - Fixes to custom dialogs to correctly display long doubles and allow
+      horizontal scrolling instead of wrapping values

@@ -1,4 +1,26 @@
-/* src/include/aconfig.h.  Generated from aconfig.h.in by configure.  */
+/*
+ *     XaoS, a fast portable realtime fractal zoomer 
+ *                  Copyright (C) 1996 by
+ *
+ *      Jan Hubicka          (hubicka@paru.cas.cz)
+ *      Thomas Marsh         (tmarsh@austin.ibm.com)
+ *
+ *    Cocoa Driver by J.B. Langston III (jb-langston@austin.rr.com)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
 #ifndef ACONFIG_H
 #define ACONFIG_H
 /* #undef HAVE_PTHREAD_SIGHANDLER */
@@ -14,13 +36,11 @@
 
 /* Using alloca causes stack overflows on large images */
 /* #undef C_ALLOCA */
+/* #define HAVE_ALLOCA 1 */
+/* #define HAVE_ALLOCA_H 1 */
 
 /* #undef const */
 /* #undef USE_PTHREAD */
-
-/* alloca function causes stack overflow for large images */
-/* #define HAVE_ALLOCA 1 */
-/* #define HAVE_ALLOCA_H 1 */
 
 #define HAVE_FABSL 1
 /* #undef HAVE__FABSL */
@@ -29,7 +49,7 @@
 #define USE_PNG 1
 #define HAVE_FINITE 1
 #define HAVE_SELECT 1
-/* #undef HAVE_LONG_DOUBLE */
+#define HAVE_LONG_DOUBLE 1
 /* #undef HAVE_REDRAWWIN */
 /* #undef HAVE_WREDRAWLN */
 #define USE_NCURSES 1

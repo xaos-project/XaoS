@@ -1,26 +1,36 @@
+/*
+ *     XaoS, a fast portable realtime fractal zoomer 
+ *                  Copyright (C) 1996 by
+ *
+ *      Jan Hubicka          (hubicka@paru.cas.cz)
+ *      Thomas Marsh         (tmarsh@austin.ibm.com)
+ *
+ *    Cocoa Driver by J.B. Langston III (jb-langston@austin.rr.com)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
 #import "AppController.h"
 #import "CustomDialog.h"
 #import "PrefsController.h"
-//#import <QuartzCore/CIImage.h>
+#import "VideatorProxy.h"
 #import "ui.h"
 
 AppController *controller;
 
-#ifdef VIDEATOR_SUPPORT
-#define VideatorServer	([NSString stringWithFormat:@"VideatorServer-%@",[[NSProcessInfo processInfo] hostName]])
-
-@protocol VideatorVendedProtocol
-// to notify in main thread
-- (void)runUpdateAlert:(NSString *)latestVersionNumber;
-	// XaoS
-- (BOOL)wantsXaoSImage;
-- (void)setXaosImageData:(NSData *)bmData;
-@end
-#endif /* http://www.stone.com/Videator support */
 
 @implementation AppController
-
-static NSString *EnableVideator = @"EnableVideator";
 
 + (void)setupDefaults
 {
@@ -40,7 +50,7 @@ static NSString *EnableVideator = @"EnableVideator";
     // if your application supports resetting a subset of the defaults to 
     // factory values, you should set those values 
     // in the shared user defaults controller
-    resettableUserDefaultsKeys=[NSArray arrayWithObjects:EnableVideator,nil];
+    resettableUserDefaultsKeys=[NSArray arrayWithObjects:@"EnableVideator",nil];
     initialValuesDict=[userDefaultsValuesDict dictionaryWithValuesForKeys:resettableUserDefaultsKeys];
     
     // Set the initial values in the shared user defaults controller 
@@ -49,76 +59,31 @@ static NSString *EnableVideator = @"EnableVideator";
 
 
 + (void)initialize {
-		[self setupDefaults];
+    [self setupDefaults];
 }
 
-#ifdef VIDEATOR_SUPPORT
-
-- (void)connectionDidDie:(NSNotification *)n {
-	_videatorProxy = nil;
-	_killDate = [[NSCalendarDate date] retain];
-	NSLog(@"Videator is dead... ...Long Live Videator!");
-}
-
-- (void)getProxy {
-	// simply return if user does not want this
-	if (![[NSUserDefaults standardUserDefaults] boolForKey:EnableVideator]) return;
-	
-	// do not try and reconnect to an application that is terminating:
-	if (_killDate && [_killDate timeIntervalSinceNow] > -10.0) return;
-	else _killDate = nil;
-	
-	_videatorProxy = [[NSConnection rootProxyForConnectionWithRegisteredName:VideatorServer host:nil] retain];
-				// if we can't find it, no big deal:
-	if (_videatorProxy != nil) {
-		[_videatorProxy setProtocolForProxy:@protocol(VideatorVendedProtocol)];
-		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionDidDie:) name:@"VideatorWillTerminate" object:nil];
-	}
-}
-#endif /* http://www.stone.com/Videator support */
 
 - (void)refreshDisplay
 {
-	[view setNeedsDisplay:YES];
-	
-#ifdef VIDEATOR_SUPPORT
-	// Andrew's Videator hook - costs almost nothing since the view maintains the bitmapImageRep in hand -
-	// We call it here because other mechanisms might cause a redraw in the view but we don't want that overhead
-	// unless we've been notified that there really was a change:
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	if (!_videatorProxy) [self getProxy];
-NS_DURING
-	if (_videatorProxy!=nil /* DO NOT WAIT FOR THE ROUNDTRIP && [_videatorProxy wantsXaoSImage] */)
-		[_videatorProxy setXaosImageData:[[view imageRep] TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:0]];
-NS_HANDLER
-	
-NS_ENDHANDLER
-	
-	[pool release];
-#endif /* http://www.stone.com/Videator support */
-}
-- (void)updateWindowTitle {
-#ifdef VIDEATOR_SUPPORT
-	NSString *s = [[NSUserDefaults standardUserDefaults] boolForKey:EnableVideator]?@"XaoS - Videator Enabled" : @"XaoS";
-#else
-	NSString *s = @"XaoS";
-#endif
-	[[view window] setTitle:s];
+	[view display]; //setNeedsDisplay:YES
+    [videatorProxy sendImageRep:[view imageRep]];
 }
 
 - (void)awakeFromNib
 {
 	controller = self;
 	menuItems = [[NSMutableDictionary alloc] init];
+    videatorProxy = [[VideatorProxy alloc] init];
 	
 	// this is how we implement hotkeys in about 8 lines of code ;-)
 	[[view window] makeFirstResponder:view];
 	[[view window] setDelegate:self]; 
-	[self updateWindowTitle];
+	//[self updateWindowTitle];
 }
 
 - (void)printText:(CONST char *)text atX:(int)x y:(int)y
 {
+    [view printText:text atX:x y:y];
 }
 
 - (void)flipBuffers
@@ -169,9 +134,9 @@ NS_ENDHANDLER
 	ui_menuactivate(item, NULL);
 	
 	if ([name isEqualToString:@"inhibittextoutput"]) {
-		if (!_performanceCursor) _performanceCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
+		if (!performanceCursor) performanceCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
 		[[view window]invalidateCursorRectsForView:view];
-		NSCursor *cursor = [sender state] ? _performanceCursor : [NSCursor arrowCursor];
+		NSCursor *cursor = [sender state] ? performanceCursor : [NSCursor arrowCursor];
 		[view addCursorRect:[view bounds] cursor:cursor];
 	}
 }
@@ -186,8 +151,10 @@ NS_ENDHANDLER
 
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name
 {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[self clearMenu:[NSApp mainMenu]];
 	[self buildMenuWithContext:context name:name parent:[NSApp mainMenu]];
+	[pool release];
 }
 
 // If you want more command-keys, just add them here based on their name:
@@ -226,13 +193,15 @@ NS_ENDHANDLER
 			keyEquiv = [self keyEquivalentForName:menuTitle];
 			
 			if (item->key && parentMenu != mainMenu)
-				menuTitle = [NSString stringWithFormat:@"%@ (%s)",menuTitle,item->key];
+				menuTitle = [NSString stringWithFormat:@"%@ (%s)", menuTitle, item->key];
 
+            /*
             // Disappearing Help menu in Leopard - probably due to the new search field dude
             if (NSAppKitVersionNumber > 830.0 && [menuTitle isEqualToString:@"Help"]) {
 				menuTitle = @"Learn";
 			}
-            			
+            */
+			
 			menuShortName = [NSString stringWithCString:item->shortname];
 			newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:keyEquiv];
 			
@@ -305,7 +274,7 @@ NS_ENDHANDLER
 				
 				NSOpenPanel *oPanel = [NSOpenPanel openPanel];
 				
-				int result = [oPanel runModalForDirectory:NSHomeDirectory()
+				int result = [oPanel runModalForDirectory:nil
 													 file:nil types:fileTypes];
 				
 				if (result == NSOKButton)
@@ -322,7 +291,7 @@ NS_ENDHANDLER
 				else if (strcmp(name, "saveimg") == 0)
 					[sPanel setRequiredFileType:@"png"];
 				
-				int result = [sPanel runModalForDirectory:NSHomeDirectory() file:@"untitled"];
+				int result = [sPanel runModalForDirectory:nil file:@"untitled"];
 				
 				if (result == NSOKButton)
 					fileName = [sPanel filename];
@@ -343,9 +312,9 @@ NS_ENDHANDLER
 		[NSApp endSheet:customDialog];
 		[customDialog orderOut:self];
 		[customDialog release];
-		[[view window] makeKeyAndOrderFront:self];
 	}
 	
+    [[view window] makeKeyAndOrderFront:self];
 	[pool release];
 }
 
@@ -391,11 +360,9 @@ NS_ENDHANDLER
         case NSEndFunctionKey:
             ui_key(UIKEY_END);
             break;
-        /*
-        case kEscapeCharCode:
+        case '\033': /* Escape */
             ui_key(UIKEY_ESC);
             break;
-        */
         case NSHomeFunctionKey:
             ui_key(UIKEY_HOME);
             break;
@@ -441,6 +408,16 @@ NS_ENDHANDLER
         prefsController = [[PrefsController alloc] init];
     }
     [prefsController showWindow:self];
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+    [NSApp terminate:self];
+}
+
+- (void)windowDidResize:(NSNotification *)notification {
+    /* Handle maximize restore, but ignore live resizing */
+    if (![view inLiveResize])
+        ui_resize();
 }
 
 - (void) dealloc

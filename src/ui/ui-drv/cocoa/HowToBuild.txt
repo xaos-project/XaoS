@@ -1,4 +1,4 @@
-XaoS for Mac OS X (Carbon)
+XaoS for Mac OS X (Cocoa)
 Build Instructions
 
 By J.B. Langston III
@@ -7,7 +7,7 @@ Here are instructions for getting the XaoS Xcode project to build successfully
 assuming you have downloaded a released source tarball or gotten the source 
 from CVS:
 
-A) Build libpng
+A) Build dependencies
 
     1) Download the latest libpng from 
 
@@ -34,7 +34,8 @@ A) Build libpng
        
     5) Repeat steps 2 and 3 for gsl
 	
-2) Build XaoS
+B) Build XaoS
 
-You should now be able to build XaoS.  Have fun! If you have questions,
-feel free to e-mail me: jb-langston at austin dot rr dot com
+    You should now be able to build XaoS from the Xcode project.
+
+Have fun! If you have questions, feel free to e-mail me: jb-langston at austin dot rr dot com

@@ -1,16 +1,30 @@
-//
-//  CustomDialog.m
-//  XaoS
-//
-//  Created by J.B. Langston III on 7/12/06.
-//  Copyright 2006 __MyCompanyName__. All rights reserved.
-//
-
+/*
+ *     XaoS, a fast portable realtime fractal zoomer 
+ *                  Copyright (C) 1996 by
+ *
+ *      Jan Hubicka          (hubicka@paru.cas.cz)
+ *      Thomas Marsh         (tmarsh@austin.ibm.com)
+ *
+ *    Cocoa Driver by J.B. Langston III (jb-langston@austin.rr.com)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
 #import "CustomDialog.h"
 
 #define MARGIN 20
 #define SPACING 8
-
 
 @implementation CustomDialog
 - (id)initWithContext:(struct uih_context *)myContext menuItem:(CONST menuitem *)myItem dialog:(CONST menudialog *)myDialog
@@ -69,12 +83,13 @@
 					[textField setEditable:YES];
 					[textField setBezeled:YES];
 					[textField setBezelStyle:NSTextFieldSquareBezel];
+                    [[textField cell] setScrollable:YES];
 					switch (dialog[i].type) {
 						case DIALOG_INT:
-							[textField setStringValue:[NSString stringWithFormat:@"%d", dialog[i].defint]];
+							[textField setIntValue:dialog[i].defint];
 							break;
 						case DIALOG_FLOAT:
-							[textField setStringValue:[NSString stringWithFormat:@"%f", dialog[i].deffloat]];
+							[textField setDoubleValue:dialog[i].deffloat];
 							break;
 						case DIALOG_STRING:
 							[textField setStringValue:[NSString stringWithCString:dialog[i].defstr]];
@@ -101,7 +116,8 @@
 					[textField setEditable:NO];
 					[textField setBezeled:YES];
 					[textField setBezelStyle:NSTextFieldSquareBezel];
-					[textField setStringValue:[NSString stringWithCString:dialog[i].defstr]];
+                    [[textField cell] setScrollable:YES];
+                    [textField setStringValue:[NSString stringWithCString:dialog[i].defstr]];
 					
 					//[textField sizeToFit];
 					if ([textField frame].size.width > maxControlWidth)
@@ -170,7 +186,8 @@
 					[textField setEditable:YES];
 					[textField setBezeled:YES];
 					[textField setBezelStyle:NSTextFieldSquareBezel];
-					[textField setStringValue:[NSString stringWithFormat:@"%f", dialog[i].deffloat]];
+                    [[textField cell] setScrollable:YES];
+					[textField setDoubleValue:dialog[i].deffloat];
 
 					//[textField sizeToFit];
 					coordWidth += [textField frame].size.width;
@@ -196,7 +213,8 @@
 					[textField setEditable:YES];
 					[textField setBezeled:YES];
 					[textField setBezelStyle:NSTextFieldSquareBezel];
-					[textField setStringValue:[NSString stringWithFormat:@"%f", dialog[i].deffloat2]];
+                    [[textField cell] setScrollable:YES];
+					[textField setDoubleValue:dialog[i].deffloat2];
 
 					//[textField sizeToFit];
 					coordWidth += [textField frame].size.width;
@@ -274,6 +292,7 @@
 		[okButton setTitle:@"OK"];
 		[okButton setButtonType:NSMomentaryPushInButton];
 		[okButton setBezelStyle:NSRoundedBezelStyle];
+        [okButton setKeyEquivalent:@"\r"];
 		[okButton setTarget:self];
 		[okButton setAction:@selector(execute:)];
 		[[self contentView] addSubview:okButton];
@@ -338,7 +357,7 @@
 				break;
 			case DIALOG_CHOICE:
 				control = [controls objectForKey:question];
-				p[i].dint = [control indexOfSelectedItem];
+				p[i].dint = [(NSPopUpButtonCell *)control indexOfSelectedItem];
 				break;
 		}
     }
