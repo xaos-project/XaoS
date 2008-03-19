@@ -78,6 +78,8 @@ Committing additional changes submitted 10/30 by Andrew Stone:
       going back to home directory
       
     - Made window regains key status after open/save dialog
+    
+    - Removed "-Videator Enabled" from titlebar
       
     - Fixes to custom dialogs to correctly display long doubles and allow
       horizontal scrolling instead of wrapping values
