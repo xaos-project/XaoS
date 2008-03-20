@@ -23,7 +23,6 @@
  */
 #import "AppController.h"
 #import "CustomDialog.h"
-#import "PrefsController.h"
 #import "VideatorProxy.h"
 #import "ui.h"
 
@@ -141,35 +140,31 @@ AppController *controller;
 	}
 }
 
-- (void)clearMenu:(NSMenu *)menu
-{
+- (void)clearMenu:(NSMenu *)menu {
 	while ([menu numberOfItems] > 1) {
 		[menu removeItemAtIndex:1];
 	}
 }
 
 
-- (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name
-{
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+- (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
 	[self clearMenu:[NSApp mainMenu]];
 	[self buildMenuWithContext:context name:name parent:[NSApp mainMenu]];
-	[pool release];
 }
 
-// If you want more command-keys, just add them here based on their name:
-
 - (NSString *)keyEquivalentForName:(NSString *)name {
+    // If you want more command-keys, just add them here based on their name:
 	if ([name isEqualToString:@"Undo"]) return @"z";
 	else if ([name isEqualToString:@"Redo"]) return @"Z";
 	else if ([name isEqualToString:@"Load..."]) return @"o";
 	else if ([name isEqualToString:@"Save..."]) return @"s";
 	return @"";
-	
 }
 
-- (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)menuName parent:(NSMenu *)parentMenu
-{
+- (void)buildMenuWithContext:(struct uih_context *)context 
+                        name:(CONST char *)menuName 
+                      parent:(NSMenu *)parentMenu {
+
 	int i;
 	CONST menuitem *item;
 	
@@ -177,11 +172,9 @@ AppController *controller;
     NSMenuItem *newItem;
 	NSString *menuTitle, *menuShortName;
 	
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSMenu *mainMenu = [NSApp mainMenu];
 	
-	for (i=0; (item = menu_item(menuName, i)) != NULL; i++)
-	{
+	for (i=0; (item = menu_item(menuName, i)) != NULL; i++)	{
 		if (item->type == MENU_SEPARATOR) {
 			[parentMenu addItem:[NSMenuItem separatorItem]];
 		} else {
@@ -222,14 +215,9 @@ AppController *controller;
 			[newItem release];
 		}
 	}
-	
-	[pool release];
 }
 
-- (void)toggleMenuWithContext:(struct uih_context *)context name:(CONST char *)name
-{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
+- (void)toggleMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
 	CONST struct menuitem *xaosItem = menu_findcommand(name);
 	NSMenuItem *menuItem = [menuItems objectForKey:[NSString stringWithCString:name]];
 	
@@ -243,13 +231,9 @@ AppController *controller;
 			}
 		}
 	}
-	[pool release];
 }
 
-- (void)showDialogWithContext:(struct uih_context *)context name:(CONST char *)name
-{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
+- (void)showDialogWithContext:(struct uih_context *)context name:(CONST char *)name {
 	CONST menuitem *item = menu_findcommand (name);
 	if (!item) return;
 	
@@ -259,8 +243,7 @@ AppController *controller;
 	int nitems;
 	for (nitems = 0; dialog[nitems].question; nitems++);
 	
-	if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE))
-	{
+	if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE)) {
 		NSString *fileName = nil;
 		
 		switch(dialog[0].type) {
@@ -315,11 +298,9 @@ AppController *controller;
 	}
 	
     [[view window] makeKeyAndOrderFront:self];
-	[pool release];
 }
 
-- (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name
-{
+- (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name {
 	NSString *anchor = [NSString stringWithCString:name];
 	
 	// Display help frontpage instead of main XaoS page
@@ -328,11 +309,9 @@ AppController *controller;
 	
 	// Display requested help page
 	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
-	
 }
 
-- (void)keyDown:(NSEvent *)e
-{
+- (void)keyDown:(NSEvent *)e {
     NSString *characters = [e characters];
     if ([characters length] == 0) return;
     
@@ -380,8 +359,7 @@ AppController *controller;
     }
 }
 
-- (void)keyUp:(NSEvent *)e
-{
+- (void)keyUp:(NSEvent *)e {
     NSString *characters = [e characters];
     if ([characters length] == 0) return;
     
@@ -402,14 +380,6 @@ AppController *controller;
     }
 }
 
-- (IBAction)showPreferencesPanel:(id)sender
-{
-    if (!prefsController) {
-        prefsController = [[PrefsController alloc] init];
-    }
-    [prefsController showWindow:self];
-}
-
 - (void)windowWillClose:(NSNotification *)notification {
     [NSApp terminate:self];
 }
@@ -418,12 +388,6 @@ AppController *controller;
     /* Handle maximize restore, but ignore live resizing */
     if (![view inLiveResize])
         ui_resize();
-}
-
-- (void) dealloc
-{
-    [prefsController release];
-    [super dealloc];
 }
 
 @end

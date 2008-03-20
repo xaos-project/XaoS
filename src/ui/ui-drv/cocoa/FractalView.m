@@ -22,14 +22,16 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 #import "FractalView.h"
+
 @interface NSObject(AppDelegateStuff)
+
 - (void)keyPressed:(NSString *)key;
+
 @end
 
 @implementation FractalView
 
-- (id)initWithFrame:(NSRect)frame
-{
+- (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
 		mouseButton = mouseX = mouseY = currentBuffer = 0;
@@ -37,14 +39,12 @@
     return self;
 }
 
-- (BOOL)isOpaque
-{
+- (BOOL)isOpaque {
 	return YES;
 }
 
-- (void)printText:(CONST char *)text atX:(int)x y:(int)y;
-{
-    messageText = [NSString stringWithCString:text];
+- (void)printText:(CONST char *)text atX:(int)x y:(int)y {
+    messageText = [[NSString stringWithCString:text] retain];
     messageLocation = NSMakePoint(x, [self bounds].size.height - y);
     [self setNeedsDisplay:YES];
 }
@@ -57,8 +57,7 @@
 	mouseY = bounds.size.height - mouseLoc.y;
 }
 
-- (void)mouseDown:(NSEvent *)theEvent
-{
+- (void)mouseDown:(NSEvent *)theEvent {
     [self calculateMouseLocationFromEvent:theEvent];
 
 	/* Emulate 3 buttons based on modifier keys */
@@ -72,52 +71,43 @@
 	}    
 }
 
-- (void)mouseUp:(NSEvent *)theEvent
-{
+- (void)mouseUp:(NSEvent *)theEvent {
     mouseButton = 0;
 }
 
-- (void)mouseDragged:(NSEvent *)theEvent
-{
+- (void)mouseDragged:(NSEvent *)theEvent {
     [self calculateMouseLocationFromEvent:theEvent];
 }
 
-- (void)rightMouseDown:(NSEvent *)theEvent
-{
+- (void)rightMouseDown:(NSEvent *)theEvent {
     [self calculateMouseLocationFromEvent:theEvent];
     mouseScrollWheel = 0;
     rightMouseButton = BUTTON3;
 }
 
-- (void)rightMouseUp:(NSEvent *)theEvent
-{
+- (void)rightMouseUp:(NSEvent *)theEvent {
     rightMouseButton = 0;
 }
 
-- (void)rightMouseDragged:(NSEvent *)theEvent
-{
+- (void)rightMouseDragged:(NSEvent *)theEvent {
     [self calculateMouseLocationFromEvent:theEvent];
 }
 
-- (void)otherMouseDown:(NSEvent *)theEvent
-{
+- (void)otherMouseDown:(NSEvent *)theEvent {
     [self calculateMouseLocationFromEvent:theEvent];
     mouseScrollWheel = 0;
     otherMouseButton = BUTTON2;
 }
 
-- (void)otherMouseUp:(NSEvent *)theEvent
-{
+- (void)otherMouseUp:(NSEvent *)theEvent {
     otherMouseButton = 0;
 }
 
-- (void)otherMouseDragged:(NSEvent *)theEvent
-{
+- (void)otherMouseDragged:(NSEvent *)theEvent {
     [self calculateMouseLocationFromEvent:theEvent];
 }
 
-- (void)scrollWheel:(NSEvent *)theEvent
-{
+- (void)scrollWheel:(NSEvent *)theEvent {
     /* Only scroll if no mouse buttons are held */
     if ((mouseButton | rightMouseButton | otherMouseButton) == 0) {
         mouseScrollWheel = BUTTON2;
@@ -126,8 +116,7 @@
     }
 }
 
-- (void)flagsChanged:(NSEvent *)theEvent
-{
+- (void)flagsChanged:(NSEvent *)theEvent {
 	/* Emulate 3 buttons based on modifier keys */
     if (mouseButton) {
         if ([theEvent modifierFlags] & NSControlKeyMask) {
@@ -140,25 +129,25 @@
     }
 }
 
-- (void)drawRect:(NSRect)rect
-{
+- (void)drawRect:(NSRect)rect {
 	if (imageRep[currentBuffer]) {
         [imageRep[currentBuffer] drawInRect:[self bounds]];
 	}
-
-    NSDictionary *attrsDictionary = 
-            [NSDictionary dictionaryWithObject:[NSColor whiteColor] 
-                                        forKey:NSForegroundColorAttributeName];
-    [messageText drawAtPoint:messageLocation withAttributes:attrsDictionary];
+    
+    if (messageText) {
+        NSDictionary *attrsDictionary = 
+                [NSDictionary dictionaryWithObject:[NSColor whiteColor] 
+                                            forKey:NSForegroundColorAttributeName];
+        [messageText drawAtPoint:messageLocation withAttributes:attrsDictionary];
+        [messageText release];
+    }
 }
 
-- (NSBitmapImageRep *)imageRep
-{
+- (NSBitmapImageRep *)imageRep {
 	return imageRep[currentBuffer];
 }
 
-- (int)allocBuffer1:(char **)b1 buffer2:(char **)b2 
-{
+- (int)allocBuffer1:(char **)b1 buffer2:(char **)b2 {
     currentBuffer = 0;
     /* Initialize image rep to current size of image view */
     NSRect bounds = [self bounds];
@@ -191,37 +180,31 @@
 	return [imageRep[0] bytesPerRow];
 }
 
-- (void)freeBuffers
-{
+- (void)freeBuffers {
     [imageRep[0] release];
     [imageRep[1] release];
 }
 
-- (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb 
-{
+- (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb {
 	*mx = mouseX;
 	*my = mouseY;
 	*mb = mouseButton | rightMouseButton | otherMouseButton | mouseScrollWheel;
 }
 
-- (void)flipBuffers
-{
+- (void)flipBuffers {
 	currentBuffer ^= 1;
 }
 
-- (void)viewDidEndLiveResize
-{
+- (void)viewDidEndLiveResize {
     /* Reallocate image only after live resize is complete */
     ui_resize();
 }
 
-- (void)keyDown:(NSEvent *)e
-{
+- (void)keyDown:(NSEvent *)e {
 	[[[self window] delegate] keyDown:e];
 }
 
-- (void)keyUp:(NSEvent *)e
-{
+- (void)keyUp:(NSEvent *)e {
 	[[[self window] delegate] keyUp:e];
 }
 

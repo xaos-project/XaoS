@@ -25,6 +25,9 @@
 #define ACONFIG_H
 /* #undef HAVE_PTHREAD_SIGHANDLER */
 
+/* Triggers Mac OS X-specific behavior in common sources */
+#define MACOSX
+
 /* Cocoa driver needs to do some pre-initialization in its own main function */
 #define MAIN_FUNCTION XaoS_main
 
@@ -79,7 +82,8 @@
 /* #undef SVGA_DRIVER */
 /* #undef WIN32_DRIVER */
 /* #undef DDRAW_DRIVER */
-#define OSX_DRIVER 1
+/* #undef OSX_DRIVER */
+#define COCOA_DRIVER 1
 #define SIZEOF_SHORT 2
 #define SIZEOF_INT 4
 #define SIZEOF_LONG 4

@@ -28,43 +28,56 @@
 struct ui_driver osx_driver;
 
 static void
-osx_printText(int x, int y, CONST char *text)
+cocoa_printText(int x, int y, CONST char *text)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[controller printText:text atX:x y:y];
+	[pool release];
 }
 
 static void
-osx_refreshDisplay()
+cocoa_refreshDisplay()
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     [controller refreshDisplay];
+	[pool release];
 }
 
 static void
-osx_flipBuffers ()
+cocoa_flipBuffers ()
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[controller flipBuffers];
+	[pool release];
 }
 
 void
-osx_freeBuffers (char *b1, char *b2)
+cocoa_freeBuffers (char *b1, char *b2)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[controller freeBuffers];
+	[pool release];
 }
 
 int
-osx_allocBuffers (char **b1, char **b2)
+cocoa_allocBuffers (char **b1, char **b2)
 {
-	return [controller allocBuffer1:b1 buffer2:b2];
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    int rowLength = [controller allocBuffer1:b1 buffer2:b2];
+	[pool release];
+	return rowLength;
 }
 
 static void
-osx_getImageSize (int *w, int *h)
+cocoa_getImageSize (int *w, int *h)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[controller getWidth:w height:h];
+	[pool release];
 }
 
 static void
-osx_processEvents (int wait, int *mx, int *my, int *mb, int *k)
+cocoa_processEvents (int wait, int *mx, int *my, int *mb, int *k)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
@@ -75,116 +88,140 @@ osx_processEvents (int wait, int *mx, int *my, int *mb, int *k)
 										   inMode: NSDefaultRunLoopMode
 										  dequeue: YES];
 	
-	if (event != nil)
-	{
+	if (event != nil) {
 	    [NSApp sendEvent: event];
 	}
 	
-	[pool release];
-	
 	[controller getMouseX:mx mouseY:my mouseButton:mb keys:k];
+    
+	[pool release];
 }
 
 
 static int
-osx_initDriver ()
+cocoa_initDriver ()
 {	
-	osx_init(0);
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	[pool release];
     return ( /*1 for sucess 0 for fail */ 1);
 }
 
 static int
-osx_initDriverFull ()
+cocoa_initDriverFull ()
 {	
-	osx_init(1);
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	[pool release];
     return ( /*1 for sucess 0 for fail */ 1);
 }
 
 static void
-osx_uninitDriver ()
+cocoa_uninitDriver ()
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	//[controller unInitApp];
+	[pool release];
 }
 
 static void
-osx_getMouse (int *x, int *y, int *b)
+cocoa_getMouse (int *x, int *y, int *b)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[controller getMouseX:x mouseY:y mouseButton:b];
+	[pool release];
 }
 
 
 static void
-osx_setMouseType (int type)
+cocoa_setMouseType (int type)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[controller setMouseType:type];
+	[pool release];
 }
 
-void osx_buildMenu (struct uih_context *uih, CONST char *name)
+void 
+cocoa_buildMenu (struct uih_context *uih, CONST char *name)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[controller buildMenuWithContext:uih name:name];
+	[pool release];
 }
 
-void osx_toggleMenu (struct uih_context *uih, CONST char *name)
+void 
+cocoa_toggleMenu (struct uih_context *uih, CONST char *name)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[controller toggleMenuWithContext:uih name:name];
+    [pool release];
 }
 
-void osx_menu (struct uih_context *c, CONST char *name)
+void 
+cocoa_menu (struct uih_context *c, CONST char *name)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    //[controller showPopUpMenuWithContext:c name:name];
+	[pool release];
 }
 
 
-void osx_showDialog (struct uih_context *c, CONST char *name)
+void 
+cocoa_showDialog (struct uih_context *c, CONST char *name)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[controller showDialogWithContext:c name:name];
+	[pool release];
 }
 
-void osx_showHelp (struct uih_context *c, CONST char *name)
+void 
+cocoa_showHelp (struct uih_context *c, CONST char *name)
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[controller showHelpWithContext:c name:name];
+	[pool release];
 }
 
-int main(int argc, char* argv[])
+int 
+main(int argc, char* argv[])
 {
 	[NSApplication sharedApplication];
 	[NSBundle loadNibNamed:@"MainMenu" owner:NSApp];
 	[NSApp finishLaunching];
 	
-	return XaoS_main(argc, argv);
+	return MAIN_FUNCTION(argc, argv);
 }
 
-struct gui_driver osx_gui_driver = {
-    osx_buildMenu,	// setrootmenu
-    osx_toggleMenu,	// enabledisable
+struct gui_driver cocoa_gui_driver = {
+    cocoa_buildMenu,	// setrootmenu
+    cocoa_toggleMenu,	// enabledisable
     NULL,		// menu
-    osx_showDialog,	// dialog
-    NULL	// help
+    cocoa_showDialog,	// dialog
+    cocoa_showHelp	// help
 };
 
 
-static struct params osx_params[] = {
+static struct params cocoa_params[] = {
 	{NULL, 0, NULL, NULL}
 };
 
-struct ui_driver osx_driver = {
-    /* name */          "Mac OS X Driver",
-    /* init */          osx_initDriver,
-    /* getsize */       osx_getImageSize,
-    /* processevents */ osx_processEvents,
-    /* getmouse */      osx_getMouse,
-    /* uninit */        osx_uninitDriver,
+struct ui_driver cocoa_driver = {
+    /* name */          "Mac OS X (Cocoa) Driver",
+    /* init */          cocoa_initDriver,
+    /* getsize */       cocoa_getImageSize,
+    /* processevents */ cocoa_processEvents,
+    /* getmouse */      cocoa_getMouse,
+    /* uninit */        cocoa_uninitDriver,
     /* set_color */     NULL,
     /* set_range */     NULL,
-    /* print */         osx_printText,
-    /* display */       osx_refreshDisplay,
-    /* alloc_buffers */ osx_allocBuffers,
-    /* free_buffers */  osx_freeBuffers,
-    /* filp_buffers */  osx_flipBuffers,
-    /* mousetype */     osx_setMouseType,
+    /* print */         cocoa_printText,
+    /* display */       cocoa_refreshDisplay,
+    /* alloc_buffers */ cocoa_allocBuffers,
+    /* free_buffers */  cocoa_freeBuffers,
+    /* filp_buffers */  cocoa_flipBuffers,
+    /* mousetype */     cocoa_setMouseType,
     /* flush */         NULL,
     /* textwidth */     12,
     /* textheight */    12,
-    /* params */        osx_params,
+    /* params */        cocoa_params,
     /* flags */         RESOLUTION | PIXELSIZE,
     /* width */         0.01, 
     /* height */        0.01,
@@ -203,54 +240,7 @@ struct ui_driver osx_driver = {
     /* gmask */         0x0000ff00,
     /* bmask */         0x00ff0000,
 #endif
-    /* gui_driver */    &osx_gui_driver
+    /* gui_driver */    &cocoa_gui_driver
 };
-
-struct ui_driver osx_fullscreen_driver = {
-    /* name */          "Mac OS X Fullscreen Driver",
-    /* init */          osx_initDriverFull,
-    /* getsize */       osx_getImageSize,
-    /* processevents */ osx_processEvents,
-    /* getmouse */      osx_getMouse,
-    /* uninit */        osx_uninitDriver,
-    /* set_color */     NULL,
-    /* set_range */     NULL,
-    /* print */         osx_printText,
-    /* display */       osx_refreshDisplay,
-    /* alloc_buffers */ osx_allocBuffers,
-    /* free_buffers */  osx_freeBuffers,
-    /* filp_buffers */  osx_flipBuffers,
-    /* mousetype */     osx_setMouseType,
-    /* flush */         NULL,
-    /* textwidth */     12,
-    /* textheight */    12,
-    /* params */        osx_params,
-    /* flags */         RESOLUTION | PIXELSIZE,
-    /* width */         0.01, 
-    /* height */        0.01,
-    /* maxwidth */      0, 
-    /* maxheight */     0,
-    /* imagetype */     UI_TRUECOLOR,
-    /* palettestart */  0, 
-    /* paletteend */    256, 
-    /* maxentries */    255,
-#if __BIG_ENDIAN__
-    /* rmask */         0xff000000,
-    /* gmask */         0x00ff0000,
-    /* bmask */         0x0000ff00,
-#else
-    /* rmask */         0x000000ff,
-    /* gmask */         0x0000ff00,
-    /* bmask */         0x00ff0000,
-#endif
-    /* gui_driver */    &osx_gui_driver
-};
-
-int osx_init (int fullscreen)
-{
-    struct ui_driver    *driver;
-    
-    driver = fullscreen ? &osx_fullscreen_driver : &osx_driver;
-}
 
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/

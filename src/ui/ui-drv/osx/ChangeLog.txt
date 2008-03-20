@@ -157,9 +157,26 @@ Known Issues:
 
 * Need to replace QuickDraw with Quartz since QuickDraw is now deprecated.
 
-* Full screen driver
-
 * Native dialog boxes a la Win32 driver.
 
 * Does not yet support i18n.  Need to do some work to get gettext to compile and link.
 
+--
+
+3.3
+
+* Added user formula support using SFFE/GSL library.
+* Fixed bug where colors display incorrectly on Intel Macs after switching from full screen back to windowed driver.
+* Upgraded libpng to 1.2.25.
+* Included libgsl 1.10.
+* Updated build instructions with easier third party library build process.
+* Added performance mode, which inhibits text display (useful for VJing).
+* Fixed bug where color cycling would stop when moving from forward cycling to reverse.
+
+--
+
+3.3.1
+
+* Fixed bug with smooth color modes on Intel Macs
+* Removed unnecessary xstdio_osx.c file, and made executable-relative paths work with standard xstdio.c
+* Enabled long double support for deeper zooms

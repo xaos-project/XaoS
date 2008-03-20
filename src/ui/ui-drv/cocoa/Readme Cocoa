@@ -83,3 +83,58 @@ Committing additional changes submitted 10/30 by Andrew Stone:
       
     - Fixes to custom dialogs to correctly display long doubles and allow
       horizontal scrolling instead of wrapping values
+      
+2008-03-20
+
+    CLEANUP
+    
+    - Added autorelease pools to all driver functions, wrapping all controller calls
+
+    - removed autorelease pools from inside controller methods
+    
+    - Removed Preferences nib, controller, menu item, and associated icons
+      (Videator support will be toggled via menu item in UI menu)
+    
+    - changed driver and function name to cocoa_* instead of osx_*
+    
+    - Added MACOSX define that can trigger shared functionality for Cocoa/Carbon drivers
+    
+    - Removed separate fullscreen driver
+      
+TODO:
+
+* i18n 
+    - Automate po/mo file build and packaging
+    - Add code to detect default locale and set LANG variable accordingly
+    - Add code to set locale directory correctly relative to executable path
+
+* help
+    - Create Mac OS X help file conversion script
+    - Automate help build and packaging
+    - Add Mac OS X help section
+
+* dialogs
+    - Hook up choose file button on custom dialogs
+    - Add validators to custom dialog fields
+    - Change render basename type from to DIALOG_STRING to DIALOG_OFILE 
+    
+* menus
+    - Implement validators to check/uncheck menu items when displayed
+    - Implement popup menus
+    - Add copy/paste functionality
+    
+* fullscreen
+    - Implement fullscreen code and add menu item
+    
+* cursors
+    - Add cursor changing code in cocoa driver
+    - Add hook to change cursor during performance mode
+
+* acs features
+    - Implement fast palette save/recall
+    - Implement autokeys on startup
+
+* videator
+    - Add enable/disable menu item
+    - Add links to Videator in Mac OS X help section
+

@@ -94,10 +94,6 @@
 		D99CD0480B05515700170329 /* config.plan9 in Resources */ = {isa = PBXBuildFile; fileRef = D99CD0160B05515700170329 /* config.plan9 */; };
 		D99CD0490B05515700170329 /* config.std in Resources */ = {isa = PBXBuildFile; fileRef = D99CD0170B05515700170329 /* config.std */; };
 		D99CD04A0B05515700170329 /* version.h.in in Resources */ = {isa = PBXBuildFile; fileRef = D99CD0360B05515700170329 /* version.h.in */; };
-		D99CD2510B06E13500170329 /* PrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99CD2500B06E13500170329 /* PrefsController.m */; };
-		D99CD2770B06E76100170329 /* PrefsWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = D99CD2750B06E76100170329 /* PrefsWindow.nib */; };
-		D99CD2C60B06EE1200170329 /* GeneralPreferences.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D99CD2C50B06EE1200170329 /* GeneralPreferences.tiff */; };
-		D99CD2DB0B06EEA700170329 /* vidiot.icns in Resources */ = {isa = PBXBuildFile; fileRef = D99CD2DA0B06EEA700170329 /* vidiot.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -255,11 +251,6 @@
 		D99CD03B0B05515700170329 /* xshl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = xshl.h; sourceTree = "<group>"; };
 		D99CD03C0B05515700170329 /* xthread.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = xthread.h; sourceTree = "<group>"; };
 		D99CD03D0B05515700170329 /* zoom.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = zoom.h; sourceTree = "<group>"; };
-		D99CD24F0B06E13500170329 /* PrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsController.h; sourceTree = "<group>"; };
-		D99CD2500B06E13500170329 /* PrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsController.m; sourceTree = "<group>"; };
-		D99CD2760B06E76100170329 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/PrefsWindow.nib; sourceTree = "<group>"; };
-		D99CD2C50B06EE1200170329 /* GeneralPreferences.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = GeneralPreferences.tiff; sourceTree = "<group>"; };
-		D99CD2DA0B06EEA700170329 /* vidiot.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = vidiot.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,8 +276,6 @@
 				3DD96AA00A37D5520061CC6D /* FractalView.m */,
 				3DB0F2E80A65EB2300A9AD59 /* CustomDialog.h */,
 				3DB0F2E90A65EB2300A9AD59 /* CustomDialog.m */,
-				D99CD24F0B06E13500170329 /* PrefsController.h */,
-				D99CD2500B06E13500170329 /* PrefsController.m */,
 				D9332D830D8D84540010D650 /* VideatorProxy.h */,
 				D9332D840D8D84540010D650 /* VideatorProxy.m */,
 			);
@@ -349,11 +338,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D99CD2C50B06EE1200170329 /* GeneralPreferences.tiff */,
-				D99CD2DA0B06EEA700170329 /* vidiot.icns */,
-				3DB97EF80A3A3A820050B5C8 /* XaoS.icns */,
 				3DD96A940A37D3800061CC6D /* MainMenu.nib */,
-				D99CD2750B06E76100170329 /* PrefsWindow.nib */,
+				3DB97EF80A3A3A820050B5C8 /* XaoS.icns */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
@@ -652,9 +638,6 @@
 				D99CD0480B05515700170329 /* config.plan9 in Resources */,
 				D99CD0490B05515700170329 /* config.std in Resources */,
 				D99CD04A0B05515700170329 /* version.h.in in Resources */,
-				D99CD2770B06E76100170329 /* PrefsWindow.nib in Resources */,
-				D99CD2C60B06EE1200170329 /* GeneralPreferences.tiff in Resources */,
-				D99CD2DB0B06EEA700170329 /* vidiot.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,7 +736,6 @@
 				3DD96AAB0A37D79B0061CC6D /* AppController.m in Sources */,
 				3DD6BDA40A4778A700C37438 /* ui_cocoa.m in Sources */,
 				3DB0F2EA0A65EB2300A9AD59 /* CustomDialog.m in Sources */,
-				D99CD2510B06E13500170329 /* PrefsController.m in Sources */,
 				D9332D160D8CFC060010D650 /* cmplx.asm in Sources */,
 				D9332D180D8CFC060010D650 /* sffe.c in Sources */,
 				D9332D190D8CFC060010D650 /* sffe_cmplx_asm.c in Sources */,
@@ -788,14 +770,6 @@
 				B47764AA0AEDCA9700F341CE /* English */,
 			);
 			name = Credits.html;
-			sourceTree = "<group>";
-		};
-		D99CD2750B06E76100170329 /* PrefsWindow.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D99CD2760B06E76100170329 /* English */,
-			);
-			name = PrefsWindow.nib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

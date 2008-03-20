@@ -1059,7 +1059,7 @@ static void
 ui_registermenus_i18n (void)
 {
   int no_menuitems_i18n = ui_no_menuitems_i18n;	/* This variable must be local. */
-#ifndef OSX_DRIVER
+#ifndef MACOSX
   SUBMENU_I ("file", "q", gettext ("Quit"), "quitmenu");
   MENUINT_I ("quitmenu", NULL, gettext ("Exit now"), "quit",
 	     MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quitwr, 1);

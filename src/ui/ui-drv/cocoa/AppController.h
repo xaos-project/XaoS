@@ -25,7 +25,6 @@
 
 #import "FractalView.h"
 #include "ui.h"
-@class PrefsController;
 @class VideatorProxy;
 
 @interface AppController : NSObject
@@ -37,7 +36,6 @@
 	NSCursor *performanceCursor;
     VideatorProxy *videatorProxy;
     int keysDown;
-    PrefsController *prefsController;
 }
 
 - (void)refreshDisplay;

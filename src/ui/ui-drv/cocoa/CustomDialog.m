@@ -27,8 +27,10 @@
 #define SPACING 8
 
 @implementation CustomDialog
-- (id)initWithContext:(struct uih_context *)myContext menuItem:(CONST menuitem *)myItem dialog:(CONST menudialog *)myDialog
-{
+- (id)initWithContext:(struct uih_context *)myContext 
+             menuItem:(CONST menuitem *)myItem 
+               dialog:(CONST menudialog *)myDialog {
+
 	context = myContext;
 	item = myItem;
 	dialog = myDialog;	
@@ -321,19 +323,16 @@
 	return self;
 }
 
-- (IBAction)execute:(id)sender
-{
+- (IBAction)execute:(id)sender {
 	int nitems;
 	for (nitems = 0; dialog[nitems].question; nitems++);
 	dialogparam *p = malloc (sizeof (*p) * nitems);
 
 	int i;
-	for (i = 0; i < nitems; i++)
-    {
+	for (i = 0; i < nitems; i++) {
 		NSString *question = [NSString stringWithCString:dialog[i].question];
 		NSControl *control;
-		switch (dialog[i].type)
-		{
+		switch (dialog[i].type) {
 			case DIALOG_IFILE:
 			case DIALOG_OFILE:
 			case DIALOG_STRING:
@@ -365,28 +364,23 @@
 	[NSApp stopModal];
 }
 
-- (IBAction)cancel:(id)sender
-{
+- (IBAction)cancel:(id)sender {
 	[NSApp stopModal];
 }
 
-- (IBAction)help:(id)sender
-{
-	osx_showHelp(context, item->shortname);
+- (IBAction)help:(id)sender {
+	ui_help(item->shortname);
 }
 
-- (IBAction)chooseInput:(id)sender
-{
+- (IBAction)chooseInput:(id)sender {
 	
 }
 
-- (IBAction)chooseOutput:(id)sender
-{
+- (IBAction)chooseOutput:(id)sender {
 	
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
 	[controls release];
 	[super dealloc];
 }

@@ -3,6 +3,9 @@
 #define ACONFIG_H
 /* #undef HAVE_PTHREAD_SIGHANDLER */
 
+/* Triggers Mac OS X-specific behavior in common sources */
+#define MACOSX
+
 /* prevents compilation error i386.c:31: error: PIC register ‘bx’ clobbered */
 #define NOASSEMBLY
 
@@ -26,7 +29,7 @@
 #define USE_PNG 1
 #define HAVE_FINITE 1
 #define HAVE_SELECT 1
-/* #undef HAVE_LONG_DOUBLE */
+#define HAVE_LONG_DOUBLE 1
 /* #undef HAVE_REDRAWWIN */
 /* #undef HAVE_WREDRAWLN */
 #define USE_NCURSES 1
