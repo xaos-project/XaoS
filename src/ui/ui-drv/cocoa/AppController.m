@@ -23,13 +23,14 @@
  */
 #import "AppController.h"
 #import "CustomDialog.h"
-#import "VideatorProxy.h"
 #import "ui.h"
 
 AppController *controller;
 
-
 @implementation AppController
+
+
+#pragma mark Defaults
 
 + (void)setupDefaults
 {
@@ -38,92 +39,52 @@ AppController *controller;
     NSDictionary *initialValuesDict;
     NSArray *resettableUserDefaultsKeys;
     
-    // load the default values for the user defaults
     userDefaultsValuesPath=[[NSBundle mainBundle] pathForResource:@"UserDefaults" 
 														   ofType:@"plist"];
     userDefaultsValuesDict=[NSDictionary dictionaryWithContentsOfFile:userDefaultsValuesPath];
     
-    // set them in the standard user defaults
     [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsValuesDict];
     
-    // if your application supports resetting a subset of the defaults to 
-    // factory values, you should set those values 
-    // in the shared user defaults controller
     resettableUserDefaultsKeys=[NSArray arrayWithObjects:@"EnableVideator",nil];
     initialValuesDict=[userDefaultsValuesDict dictionaryWithValuesForKeys:resettableUserDefaultsKeys];
     
-    // Set the initial values in the shared user defaults controller 
     [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
 }
 
+#pragma mark Initialization
 
 + (void)initialize {
     [self setupDefaults];
 }
 
-
-- (void)refreshDisplay
-{
-	[view display]; //setNeedsDisplay:YES
-    [videatorProxy sendImageRep:[view imageRep]];
-}
-
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
 	controller = self;
 	menuItems = [[NSMutableDictionary alloc] init];
-    videatorProxy = [[VideatorProxy alloc] init];
-	
-	// this is how we implement hotkeys in about 8 lines of code ;-)
+
 	[[view window] makeFirstResponder:view];
 	[[view window] setDelegate:self]; 
-	//[self updateWindowTitle];
 }
 
-- (void)printText:(CONST char *)text atX:(int)x y:(int)y
-{
-    [view printText:text atX:x y:y];
+#pragma mark Accessors
+
+- (FractalView *)view {
+    return view;
 }
 
-- (void)flipBuffers
-{
-	[view flipBuffers];
+#pragma mark Driver Initialization
+
+- (int)initDriver:(struct ui_driver)driver {
+    // TODO Implement driver initialization
+    return 1; // 1 for success; 0 for failure
 }
 
-- (int)allocBuffer1:(char **)b1 buffer2:(char **)b2 
-{
-	return [view allocBuffer1:b1 buffer2:b2];
+- (void)uninitDriver:(struct ui_driver)driver {
+    // TODO Implement driver uninitialization
 }
 
-- (void)freeBuffers
-{
-    [view freeBuffers];
-}
+#pragma mark Menus
 
-- (void)getWidth:(int *)w height:(int *)h
-{
-	NSRect bounds = [view bounds];
-	*w = bounds.size.width;
-	*h = bounds.size.height;
-}
-
-- (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb
-{
-	[view getMouseX:mx mouseY:my mouseButton:mb];
-}
-
-- (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb keys:(int *)k
-{
-	[view getMouseX:mx mouseY:my mouseButton:mb];
-	*k = keysDown;
-}
-
-- (void)setMouseType:(int)type
-{
-}
-
-- (void)performMenuAction:(NSMenuItem *)sender
-{
+- (void)performMenuAction:(NSMenuItem *)sender {
 	CONST menuitem *item;	
 	NSString *name;
 	
@@ -131,25 +92,12 @@ AppController *controller;
 	item = menu_findcommand([name cString]);
 	
 	ui_menuactivate(item, NULL);
-	
-	if ([name isEqualToString:@"inhibittextoutput"]) {
-		if (!performanceCursor) performanceCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
-		[[view window]invalidateCursorRectsForView:view];
-		NSCursor *cursor = [sender state] ? performanceCursor : [NSCursor arrowCursor];
-		[view addCursorRect:[view bounds] cursor:cursor];
-	}
 }
 
 - (void)clearMenu:(NSMenu *)menu {
 	while ([menu numberOfItems] > 1) {
 		[menu removeItemAtIndex:1];
 	}
-}
-
-
-- (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
-	[self clearMenu:[NSApp mainMenu]];
-	[self buildMenuWithContext:context name:name parent:[NSApp mainMenu]];
 }
 
 - (NSString *)keyEquivalentForName:(NSString *)name {
@@ -159,6 +107,11 @@ AppController *controller;
 	else if ([name isEqualToString:@"Load..."]) return @"o";
 	else if ([name isEqualToString:@"Save..."]) return @"s";
 	return @"";
+}
+
+- (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
+	[self clearMenu:[NSApp mainMenu]];
+	[self buildMenuWithContext:context name:name parent:[NSApp mainMenu]];
 }
 
 - (void)buildMenuWithContext:(struct uih_context *)context 
@@ -188,13 +141,6 @@ AppController *controller;
 			if (item->key && parentMenu != mainMenu)
 				menuTitle = [NSString stringWithFormat:@"%@ (%s)", menuTitle, item->key];
 
-            /*
-            // Disappearing Help menu in Leopard - probably due to the new search field dude
-            if (NSAppKitVersionNumber > 830.0 && [menuTitle isEqualToString:@"Help"]) {
-				menuTitle = @"Learn";
-			}
-            */
-			
 			menuShortName = [NSString stringWithCString:item->shortname];
 			newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:keyEquiv];
 			
@@ -232,6 +178,12 @@ AppController *controller;
 		}
 	}
 }
+
+- (void)showPopUpMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
+    // TODO Implement popup menus
+}
+
+#pragma mark Dialogs
 
 - (void)showDialogWithContext:(struct uih_context *)context name:(CONST char *)name {
 	CONST menuitem *item = menu_findcommand (name);
@@ -289,8 +241,14 @@ AppController *controller;
 		}
 		
 	} else {
-		CustomDialog *customDialog = [[CustomDialog alloc] initWithContext:context menuItem:item dialog:dialog];
-		[NSApp beginSheet:customDialog modalForWindow:window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+		CustomDialog *customDialog = [[CustomDialog alloc] initWithContext:context 
+                                                                  menuItem:item 
+                                                                    dialog:dialog];
+		[NSApp beginSheet:customDialog 
+           modalForWindow:window 
+            modalDelegate:nil 
+           didEndSelector:nil 
+              contextInfo:nil];
 		[NSApp runModalForWindow:customDialog];
 		[NSApp endSheet:customDialog];
 		[customDialog orderOut:self];
@@ -300,6 +258,8 @@ AppController *controller;
     [[view window] makeKeyAndOrderFront:self];
 }
 
+#pragma mark Help
+
 - (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name {
 	NSString *anchor = [NSString stringWithCString:name];
 	
@@ -307,85 +267,17 @@ AppController *controller;
 	if ([anchor isEqualToString:@"main"])
 		anchor = @"access";
 	
-	// Display requested help page
 	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
 }
 
-- (void)keyDown:(NSEvent *)e {
-    NSString *characters = [e characters];
-    if ([characters length] == 0) return;
-    
-    unichar keyChar = [characters characterAtIndex:0];
-    switch(keyChar) {
-        case NSLeftArrowFunctionKey:
-            keysDown |= 1;
-            ui_key(UIKEY_LEFT);
-            break;
-        case NSRightArrowFunctionKey:
-            keysDown |= 2;
-            ui_key(UIKEY_RIGHT);
-            break;
-        case NSUpArrowFunctionKey:
-            keysDown |= 4;
-            ui_key(UIKEY_UP);
-            break;
-        case NSDownArrowFunctionKey:
-            keysDown |= 8;
-            ui_key(UIKEY_DOWN);
-            break;
-        case NSBackspaceCharacter:
-            ui_key(UIKEY_BACKSPACE);
-            break;
-        case NSEndFunctionKey:
-            ui_key(UIKEY_END);
-            break;
-        case '\033': /* Escape */
-            ui_key(UIKEY_ESC);
-            break;
-        case NSHomeFunctionKey:
-            ui_key(UIKEY_HOME);
-            break;
-        case NSPageDownFunctionKey:
-            ui_key(UIKEY_PGDOWN);
-            break;
-        case NSPageUpFunctionKey:
-            ui_key(UIKEY_PGUP);
-            break;
-        case NSTabCharacter:
-            ui_key(UIKEY_TAB);
-            break;
-        default:
-            ui_key(keyChar);
-    }
-}
-
-- (void)keyUp:(NSEvent *)e {
-    NSString *characters = [e characters];
-    if ([characters length] == 0) return;
-    
-    unichar keyChar = [characters characterAtIndex:0];
-    switch(keyChar)	{
-        case NSLeftArrowFunctionKey:
-            keysDown &= ~1;
-            break;
-        case NSRightArrowFunctionKey:
-            keysDown &= ~2;
-            break;
-        case NSUpArrowFunctionKey:
-            keysDown &= ~4;
-            break;
-        case NSDownArrowFunctionKey:
-            keysDown &= ~8;
-            break;
-    }
-}
+#pragma mark Window Delegates
 
 - (void)windowWillClose:(NSNotification *)notification {
     [NSApp terminate:self];
 }
 
 - (void)windowDidResize:(NSNotification *)notification {
-    /* Handle maximize restore, but ignore live resizing */
+    // Handle maximize/zoom, but ignore live resizing
     if (![view inLiveResize])
         ui_resize();
 }

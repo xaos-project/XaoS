@@ -23,8 +23,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
+#ifdef VIDEATOR_SUPPORT
 #import <Cocoa/Cocoa.h>
-
 
 @interface VideatorProxy : NSObject {
 	BOOL _wantsThrottle;
@@ -36,3 +36,4 @@
 - (void)sendImageRep:(NSBitmapImageRep *)imageRep;
 
 @end
+#endif

@@ -27,13 +27,12 @@
 #define SPACING 8
 
 @implementation CustomDialog
+
+#pragma mark Initialization
+
 - (id)initWithContext:(struct uih_context *)myContext 
              menuItem:(CONST menuitem *)myItem 
                dialog:(CONST menudialog *)myDialog {
-
-	context = myContext;
-	item = myItem;
-	dialog = myDialog;	
 
 	NSRect windowRect		= NSMakeRect(200, 200, 300, 107);
 	NSRect helpButtonRect	= NSMakeRect(20, 20, 25, 25);
@@ -49,6 +48,10 @@
 								defer:YES];
 	
 	if (self) {
+        context = myContext;
+        item = myItem;
+        dialog = myDialog;	
+
 		[self setTitle:[NSString stringWithCString:item->name]];
 
 		controls = [[NSMutableDictionary alloc] initWithCapacity:10];
@@ -101,7 +104,6 @@
 							break;
 					}
 					
-					//[textField sizeToFit];
 					if ([textField frame].size.width > maxControlWidth)
 						maxControlWidth = [textField frame].size.width;
 
@@ -121,7 +123,6 @@
                     [[textField cell] setScrollable:YES];
                     [textField setStringValue:[NSString stringWithCString:dialog[i].defstr]];
 					
-					//[textField sizeToFit];
 					if ([textField frame].size.width > maxControlWidth)
 						maxControlWidth = [textField frame].size.width;
 
@@ -191,7 +192,6 @@
                     [[textField cell] setScrollable:YES];
 					[textField setDoubleValue:dialog[i].deffloat];
 
-					//[textField sizeToFit];
 					coordWidth += [textField frame].size.width;
 
 					[[self contentView] addSubview:textField];
@@ -218,7 +218,6 @@
                     [[textField cell] setScrollable:YES];
 					[textField setDoubleValue:dialog[i].deffloat2];
 
-					//[textField sizeToFit];
 					coordWidth += [textField frame].size.width;
 
 					[[self contentView] addSubview:textField];
@@ -323,6 +322,8 @@
 	return self;
 }
 
+# pragma mark Targets
+
 - (IBAction)execute:(id)sender {
 	int nitems;
 	for (nitems = 0; dialog[nitems].question; nitems++);
@@ -379,6 +380,8 @@
 - (IBAction)chooseOutput:(id)sender {
 	
 }
+
+#pragma mark Deallocation
 
 - (void)dealloc {
 	[controls release];

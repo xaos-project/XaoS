@@ -22,6 +22,9 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 #import "FractalView.h"
+#ifdef VIDEATOR_SUPPORT
+#import "VideatorProxy.h"
+#endif
 
 @interface NSObject(AppDelegateStuff)
 
@@ -31,36 +34,68 @@
 
 @implementation FractalView
 
+#pragma mark Initialization
+
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-		mouseButton = mouseX = mouseY = currentBuffer = 0;
+#ifdef VIDEATOR_SUPPORT
+        videatorProxy = [[VideatorProxy alloc] init];
+#endif
     }
     return self;
 }
+
+- (void)dealloc {
+#ifdef VIDEATOR_SUPPORT
+    [videatorProxy release];
+#endif
+    [super dealloc];
+}
+
+#pragma mark Drawing
 
 - (BOOL)isOpaque {
 	return YES;
 }
 
-- (void)printText:(CONST char *)text atX:(int)x y:(int)y {
-    messageText = [[NSString stringWithCString:text] retain];
-    messageLocation = NSMakePoint(x, [self bounds].size.height - y);
-    [self setNeedsDisplay:YES];
+- (void)drawRect:(NSRect)rect {
+	if (imageRep[currentBuffer]) {
+        [imageRep[currentBuffer] drawInRect:[self bounds]];
+	}
+    
+    if (messageText) {
+        NSDictionary *attrsDictionary = 
+        [NSDictionary dictionaryWithObject:[NSColor whiteColor] 
+                                    forKey:NSForegroundColorAttributeName];
+        [messageText drawAtPoint:messageLocation withAttributes:attrsDictionary];
+        [messageText release];
+        messageText = nil;
+    }
+
+#ifdef VIDEATOR_SUPPORT
+    [videatorProxy sendImageRep:imageRep[currentBuffer]];
+#endif    
 }
 
+#pragma mark Resize Handling
+
+- (void)viewDidEndLiveResize {
+    ui_resize();
+}
+
+#pragma mark Mouse Event Handling
+
 - (void)calculateMouseLocationFromEvent:(NSEvent *)theEvent {
-	// Get location and translate coordinates to origin at upper left corner
 	NSPoint mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-	NSRect bounds = [self bounds];
 	mouseX = mouseLoc.x;
-	mouseY = bounds.size.height - mouseLoc.y;
+	mouseY = [self bounds].size.height - mouseLoc.y;
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
     [self calculateMouseLocationFromEvent:theEvent];
-
-	/* Emulate 3 buttons based on modifier keys */
+    
+	// Emulate 3 buttons based on modifier keys
     mouseScrollWheel = 0;
 	if ([theEvent modifierFlags] & NSControlKeyMask) {
 		mouseButton = BUTTON3;
@@ -108,7 +143,7 @@
 }
 
 - (void)scrollWheel:(NSEvent *)theEvent {
-    /* Only scroll if no mouse buttons are held */
+    // Only scroll if no mouse buttons are held
     if ((mouseButton | rightMouseButton | otherMouseButton) == 0) {
         mouseScrollWheel = BUTTON2;
         mouseX += [theEvent deltaX];
@@ -116,8 +151,10 @@
     }
 }
 
+#pragma mark Keyboard Event Handling
+
 - (void)flagsChanged:(NSEvent *)theEvent {
-	/* Emulate 3 buttons based on modifier keys */
+	// Emulate 3 buttons based on modifier keys 
     if (mouseButton) {
         if ([theEvent modifierFlags] & NSControlKeyMask) {
             mouseButton = BUTTON3;
@@ -129,60 +166,81 @@
     }
 }
 
-- (void)drawRect:(NSRect)rect {
-	if (imageRep[currentBuffer]) {
-        [imageRep[currentBuffer] drawInRect:[self bounds]];
-	}
+- (void)keyDown:(NSEvent *)e {
+    NSString *characters = [e characters];
+    if ([characters length] == 0) return;
     
-    if (messageText) {
-        NSDictionary *attrsDictionary = 
-                [NSDictionary dictionaryWithObject:[NSColor whiteColor] 
-                                            forKey:NSForegroundColorAttributeName];
-        [messageText drawAtPoint:messageLocation withAttributes:attrsDictionary];
-        [messageText release];
+    unichar keyChar = [characters characterAtIndex:0];
+    switch(keyChar) {
+        case NSLeftArrowFunctionKey:
+            keysDown |= 1;
+            ui_key(UIKEY_LEFT);
+            break;
+        case NSRightArrowFunctionKey:
+            keysDown |= 2;
+            ui_key(UIKEY_RIGHT);
+            break;
+        case NSUpArrowFunctionKey:
+            keysDown |= 4;
+            ui_key(UIKEY_UP);
+            break;
+        case NSDownArrowFunctionKey:
+            keysDown |= 8;
+            ui_key(UIKEY_DOWN);
+            break;
+        case NSBackspaceCharacter:
+            ui_key(UIKEY_BACKSPACE);
+            break;
+        case NSEndFunctionKey:
+            ui_key(UIKEY_END);
+            break;
+        case '\033': // Escape
+            ui_key(UIKEY_ESC);
+            break;
+        case NSHomeFunctionKey:
+            ui_key(UIKEY_HOME);
+            break;
+        case NSPageDownFunctionKey:
+            ui_key(UIKEY_PGDOWN);
+            break;
+        case NSPageUpFunctionKey:
+            ui_key(UIKEY_PGUP);
+            break;
+        case NSTabCharacter:
+            ui_key(UIKEY_TAB);
+            break;
+        default:
+            ui_key(keyChar);
     }
 }
 
-- (NSBitmapImageRep *)imageRep {
-	return imageRep[currentBuffer];
+- (void)keyUp:(NSEvent *)e {
+    NSString *characters = [e characters];
+    if ([characters length] == 0) return;
+    
+    unichar keyChar = [characters characterAtIndex:0];
+    switch(keyChar)	{
+        case NSLeftArrowFunctionKey:
+            keysDown &= ~1;
+            break;
+        case NSRightArrowFunctionKey:
+            keysDown &= ~2;
+            break;
+        case NSUpArrowFunctionKey:
+            keysDown &= ~4;
+            break;
+        case NSDownArrowFunctionKey:
+            keysDown &= ~8;
+            break;
+    }
 }
 
-- (int)allocBuffer1:(char **)b1 buffer2:(char **)b2 {
-    currentBuffer = 0;
-    /* Initialize image rep to current size of image view */
+#pragma mark Accessors
+
+- (void)getWidth:(int *)w height:(int *)h {
     NSRect bounds = [self bounds];
-    imageRep[0] = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                       pixelsWide:bounds.size.width
-                                                       pixelsHigh:bounds.size.height
-                                                    bitsPerSample:8
-                                                  samplesPerPixel:3
-                                                         hasAlpha:NO
-                                                         isPlanar:NO
-                                                   colorSpaceName:NSDeviceRGBColorSpace
-                                                      bytesPerRow:0
-                                                     bitsPerPixel:32];
-	
-	*b1 = (char *)[imageRep[0] bitmapData];
-
-    imageRep[1] = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                       pixelsWide:bounds.size.width
-                                                       pixelsHigh:bounds.size.height
-                                                    bitsPerSample:8
-                                                  samplesPerPixel:3
-                                                         hasAlpha:NO
-                                                         isPlanar:NO
-                                                   colorSpaceName:NSDeviceRGBColorSpace
-                                                      bytesPerRow:0
-                                                     bitsPerPixel:32];
-	
-	*b2 = (char *)[imageRep[1] bitmapData];
-
-	return [imageRep[0] bytesPerRow];
-}
-
-- (void)freeBuffers {
-    [imageRep[0] release];
-    [imageRep[1] release];
+    *w = bounds.size.width;
+    *h = bounds.size.height;
 }
 
 - (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb {
@@ -191,21 +249,73 @@
 	*mb = mouseButton | rightMouseButton | otherMouseButton | mouseScrollWheel;
 }
 
+- (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb keys:(int *)k
+{
+	[self getMouseX:mx mouseY:my mouseButton:mb];
+	*k = keysDown;
+}
+
+#pragma mark Cursor
+
+- (void)setCursorType:(int)type {
+    // TODO Implement cursor handling
+    /*
+    if (!performanceCursor) performanceCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
+    [[view window]invalidateCursorRectsForView:view];
+    NSCursor *cursor = [sender state] ? performanceCursor : [NSCursor arrowCursor];
+    [view addCursorRect:[view bounds] cursor:cursor];
+     */
+}
+
+#pragma mark Text
+
+- (void)printText:(CONST char *)text atX:(int)x y:(int)y {
+    messageText = [[NSString stringWithCString:text] retain];
+    messageLocation = NSMakePoint(x, [self bounds].size.height - y);
+    [self setNeedsDisplay:YES];
+}
+
+#pragma mark Buffers
+
+- (int)allocBuffer1:(char **)b1 buffer2:(char **)b2 {
+    currentBuffer = 0;
+    NSRect bounds = [self bounds];
+    imageRep[0] = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                          pixelsWide:bounds.size.width
+                                                          pixelsHigh:bounds.size.height
+                                                       bitsPerSample:8
+                                                     samplesPerPixel:3
+                                                            hasAlpha:NO
+                                                            isPlanar:NO
+                                                      colorSpaceName:NSDeviceRGBColorSpace
+                                                         bytesPerRow:0
+                                                        bitsPerPixel:32];
+	
+	*b1 = (char *)[imageRep[0] bitmapData];
+    
+    imageRep[1] = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                          pixelsWide:bounds.size.width
+                                                          pixelsHigh:bounds.size.height
+                                                       bitsPerSample:8
+                                                     samplesPerPixel:3
+                                                            hasAlpha:NO
+                                                            isPlanar:NO
+                                                      colorSpaceName:NSDeviceRGBColorSpace
+                                                         bytesPerRow:0
+                                                        bitsPerPixel:32];
+	
+	*b2 = (char *)[imageRep[1] bitmapData];
+    
+	return [imageRep[0] bytesPerRow];
+}
+
+- (void)freeBuffers {
+    [imageRep[0] release];
+    [imageRep[1] release];
+}
+
 - (void)flipBuffers {
-	currentBuffer ^= 1;
-}
-
-- (void)viewDidEndLiveResize {
-    /* Reallocate image only after live resize is complete */
-    ui_resize();
-}
-
-- (void)keyDown:(NSEvent *)e {
-	[[[self window] delegate] keyDown:e];
-}
-
-- (void)keyUp:(NSEvent *)e {
-	[[[self window] delegate] keyUp:e];
+    currentBuffer ^= 1;
 }
 
 @end

@@ -25,13 +25,13 @@
 
 #include "ui.h"
 
-struct ui_driver osx_driver;
+struct ui_driver cocoa_driver;
 
 static void
 cocoa_printText(int x, int y, CONST char *text)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[controller printText:text atX:x y:y];
+	[[controller view] printText:text atX:x y:y];
 	[pool release];
 }
 
@@ -39,7 +39,7 @@ static void
 cocoa_refreshDisplay()
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    [controller refreshDisplay];
+    [[controller view] display];
 	[pool release];
 }
 
@@ -47,23 +47,23 @@ static void
 cocoa_flipBuffers ()
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[controller flipBuffers];
+	[[controller view] flipBuffers];
 	[pool release];
 }
 
-void
+static void 
 cocoa_freeBuffers (char *b1, char *b2)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[controller freeBuffers];
+	[[controller view] freeBuffers];
 	[pool release];
 }
 
-int
+static int
 cocoa_allocBuffers (char **b1, char **b2)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    int rowLength = [controller allocBuffer1:b1 buffer2:b2];
+    int rowLength = [[controller view] allocBuffer1:b1 buffer2:b2];
 	[pool release];
 	return rowLength;
 }
@@ -72,7 +72,7 @@ static void
 cocoa_getImageSize (int *w, int *h)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[controller getWidth:w height:h];
+	[[controller view] getWidth:w height:h];
 	[pool release];
 }
 
@@ -80,20 +80,15 @@ static void
 cocoa_processEvents (int wait, int *mx, int *my, int *mb, int *k)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	//NSDate *eventDate = wait ? [NSDate distantFuture] : [NSDate distantPast];
-	
+	NSDate *eventDate = wait ? [NSDate distantFuture] : [NSDate distantPast];
 	NSEvent *event = [NSApp nextEventMatchingMask: NSAnyEventMask
-										untilDate: nil
+										untilDate: eventDate
 										   inMode: NSDefaultRunLoopMode
 										  dequeue: YES];
-	
 	if (event != nil) {
 	    [NSApp sendEvent: event];
 	}
-	
-	[controller getMouseX:mx mouseY:my mouseButton:mb keys:k];
-    
+	[[controller view] getMouseX:mx mouseY:my mouseButton:mb keys:k];
 	[pool release];
 }
 
@@ -102,23 +97,16 @@ static int
 cocoa_initDriver ()
 {	
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    int status = [controller initDriver:cocoa_driver];
 	[pool release];
-    return ( /*1 for sucess 0 for fail */ 1);
-}
-
-static int
-cocoa_initDriverFull ()
-{	
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[pool release];
-    return ( /*1 for sucess 0 for fail */ 1);
+    return status;
 }
 
 static void
 cocoa_uninitDriver ()
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	//[controller unInitApp];
+	[controller uninitDriver:cocoa_driver];
 	[pool release];
 }
 
@@ -126,20 +114,20 @@ static void
 cocoa_getMouse (int *x, int *y, int *b)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[controller getMouseX:x mouseY:y mouseButton:b];
+	[[controller view] getMouseX:x mouseY:y mouseButton:b];
 	[pool release];
 }
 
 
 static void
-cocoa_setMouseType (int type)
+cocoa_setCursorType (int type)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[controller setMouseType:type];
+	[[controller view] setCursorType:type];
 	[pool release];
 }
 
-void 
+static void 
 cocoa_buildMenu (struct uih_context *uih, CONST char *name)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -147,7 +135,7 @@ cocoa_buildMenu (struct uih_context *uih, CONST char *name)
 	[pool release];
 }
 
-void 
+static void 
 cocoa_toggleMenu (struct uih_context *uih, CONST char *name)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -155,16 +143,16 @@ cocoa_toggleMenu (struct uih_context *uih, CONST char *name)
     [pool release];
 }
 
-void 
-cocoa_menu (struct uih_context *c, CONST char *name)
+static void 
+cocoa_showPopUpMenu (struct uih_context *c, CONST char *name)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    //[controller showPopUpMenuWithContext:c name:name];
+    [controller showPopUpMenuWithContext:c name:name];
 	[pool release];
 }
 
 
-void 
+static void 
 cocoa_showDialog (struct uih_context *c, CONST char *name)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -172,7 +160,7 @@ cocoa_showDialog (struct uih_context *c, CONST char *name)
 	[pool release];
 }
 
-void 
+static void 
 cocoa_showHelp (struct uih_context *c, CONST char *name)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -191,11 +179,11 @@ main(int argc, char* argv[])
 }
 
 struct gui_driver cocoa_gui_driver = {
-    cocoa_buildMenu,	// setrootmenu
-    cocoa_toggleMenu,	// enabledisable
-    NULL,		// menu
-    cocoa_showDialog,	// dialog
-    cocoa_showHelp	// help
+    /* setrootmenu */   cocoa_buildMenu,
+    /* enabledisable */ cocoa_toggleMenu,
+    /* menu */          NULL,
+    /* dialog */        cocoa_showDialog,
+    /* help */          cocoa_showHelp
 };
 
 
@@ -204,7 +192,7 @@ static struct params cocoa_params[] = {
 };
 
 struct ui_driver cocoa_driver = {
-    /* name */          "Mac OS X (Cocoa) Driver",
+    /* name */          "Cocoa Driver",
     /* init */          cocoa_initDriver,
     /* getsize */       cocoa_getImageSize,
     /* processevents */ cocoa_processEvents,
@@ -217,7 +205,7 @@ struct ui_driver cocoa_driver = {
     /* alloc_buffers */ cocoa_allocBuffers,
     /* free_buffers */  cocoa_freeBuffers,
     /* filp_buffers */  cocoa_flipBuffers,
-    /* mousetype */     cocoa_setMouseType,
+    /* mousetype */     cocoa_setCursorType,
     /* flush */         NULL,
     /* textwidth */     12,
     /* textheight */    12,

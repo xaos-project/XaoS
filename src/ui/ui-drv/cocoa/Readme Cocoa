@@ -86,7 +86,7 @@ Committing additional changes submitted 10/30 by Andrew Stone:
       
 2008-03-20
 
-    CLEANUP
+    REFACTORING/CLEANUP
     
     - Added autorelease pools to all driver functions, wrapping all controller calls
 
@@ -100,6 +100,16 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     - Added MACOSX define that can trigger shared functionality for Cocoa/Carbon drivers
     
     - Removed separate fullscreen driver
+    
+    - Removed wrapper functions from controller; now call view functions directly
+    
+    - Added functions for driver init and uninit to controller
+    
+    - Added pragma marks to categorize functions in controller and view
+    
+    - Moved videator hook to view's drawRect:
+    
+    - Added wait date to event handling to prevent busy waiting
       
 TODO:
 
@@ -124,7 +134,12 @@ TODO:
     - Add copy/paste functionality
     
 * fullscreen
-    - Implement fullscreen code and add menu item
+    - Implement fullscreen code
+    - Add menu item to UI menu to toggle fullscreen mode
+
+* driver
+    - Add driver initialization code
+    - Add driver uninitialization code
     
 * cursors
     - Add cursor changing code in cocoa driver
@@ -133,6 +148,8 @@ TODO:
 * acs features
     - Implement fast palette save/recall
     - Implement autokeys on startup
+    - Change Performance Mode to VJ mode
+      (performance mode might be confused with performance enhancement)
 
 * videator
     - Add enable/disable menu item
