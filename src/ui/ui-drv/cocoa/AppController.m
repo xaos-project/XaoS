@@ -262,11 +262,6 @@ AppController *controller;
 
 - (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name {
 	NSString *anchor = [NSString stringWithCString:name];
-	
-	// Display help frontpage instead of main XaoS page
-	if ([anchor isEqualToString:@"main"])
-		anchor = @"access";
-	
 	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
 }
 

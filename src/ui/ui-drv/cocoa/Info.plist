@@ -24,5 +24,9 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+    <key>CFBundleHelpBookFolder</key>
+    <string>XaoS Help</string>
+    <key>CFBundleHelpBookName</key>
+    <string>XaoS Help</string>
 </dict>
 </plist>

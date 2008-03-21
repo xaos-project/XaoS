@@ -94,6 +94,7 @@
 		D99CD0480B05515700170329 /* config.plan9 in Resources */ = {isa = PBXBuildFile; fileRef = D99CD0160B05515700170329 /* config.plan9 */; };
 		D99CD0490B05515700170329 /* config.std in Resources */ = {isa = PBXBuildFile; fileRef = D99CD0170B05515700170329 /* config.std */; };
 		D99CD04A0B05515700170329 /* version.h.in in Resources */ = {isa = PBXBuildFile; fileRef = D99CD0360B05515700170329 /* version.h.in */; };
+		D9F2169C0D9360F200EDDC31 /* XaoS Help in Resources */ = {isa = PBXBuildFile; fileRef = D9F216090D9360F200EDDC31 /* XaoS Help */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -251,6 +252,7 @@
 		D99CD03B0B05515700170329 /* xshl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = xshl.h; sourceTree = "<group>"; };
 		D99CD03C0B05515700170329 /* xthread.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = xthread.h; sourceTree = "<group>"; };
 		D99CD03D0B05515700170329 /* zoom.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = zoom.h; sourceTree = "<group>"; };
+		D9F216090D9360F200EDDC31 /* XaoS Help */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "XaoS Help"; path = "../../../../help/XaoS Help"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,6 +340,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D9F216090D9360F200EDDC31 /* XaoS Help */,
 				3DD96A940A37D3800061CC6D /* MainMenu.nib */,
 				3DB97EF80A3A3A820050B5C8 /* XaoS.icns */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -638,6 +641,7 @@
 				D99CD0480B05515700170329 /* config.plan9 in Resources */,
 				D99CD0490B05515700170329 /* config.std in Resources */,
 				D99CD04A0B05515700170329 /* version.h.in in Resources */,
+				D9F2169C0D9360F200EDDC31 /* XaoS Help in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,7 +672,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "ln -sf $PROJECT_DIR/../../../include/config/config.autoconf $PROJECT_DIR/../../../include/config.h\n\ncp $PROJECT_DIR/thirdparty/lib/libpng.dylib $PROJECT_DIR/libpng.dylib\ninstall_name_tool -id @executable_path/../Frameworks/libintl.dylib $PROJECT_DIR/libintl.dylib\n\ncp $PROJECT_DIR/thirdparty/lib/libgsl.dylib $PROJECT_DIR/libgsl.dylib\ninstall_name_tool -id @executable_path/../Frameworks/libgsl.dylib $PROJECT_DIR/libgsl.dylib\n";
+			shellScript = "cd $PROJECT_DIR/../../../../help\n./applehelpconv\ncd $PROJECT_DIR\n\nln -sf $PROJECT_DIR/../../../include/config/config.autoconf $PROJECT_DIR/../../../include/config.h\n\ncp $PROJECT_DIR/thirdparty/lib/libpng.dylib $PROJECT_DIR/libpng.dylib\ninstall_name_tool -id @executable_path/../Frameworks/libintl.dylib $PROJECT_DIR/libintl.dylib\n\ncp $PROJECT_DIR/thirdparty/lib/libgsl.dylib $PROJECT_DIR/libgsl.dylib\ninstall_name_tool -id @executable_path/../Frameworks/libgsl.dylib $PROJECT_DIR/libgsl.dylib\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

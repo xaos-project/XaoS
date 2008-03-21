@@ -110,6 +110,16 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     - Moved videator hook to view's drawRect:
     
     - Added wait date to event handling to prevent busy waiting
+    
+    HELP SUPPORT
+    
+    - Created Apple Help conversion script
+    
+    - Added help settings to Info.plist
+    
+    - Updated showHelpWithContext:name: method to show main help page
+    
+    - Added help conversion script to pre-compile script build phase
       
 TODO:
 
