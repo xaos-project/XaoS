@@ -1,0 +1,70 @@
+#!/bin/sh
+processline()
+{
+	echo "- $1 -"
+	name="$1"
+	anchors="<A NAME=\"$1\"></A>"
+	title=""
+	shift
+	while [ "$1" != "" ] ; do
+	  if [ "$1" != "$name" ] ; then
+	    anchors="$anchors <A NAME=\"$1\"></A>" 
+	  fi
+	  shift
+	done
+	if [ "$name" == "main" ]; then
+		title=\
+'<meta name="AppleTitle" content="XaoS Help">\
+<meta name="AppleIcon" content="XaoS%20Help/images/xaosicon16.png">'
+	fi
+	# I changed "0" to "$" because my sed
+	# doesn't want to understand "0".
+	# -- Zoltan
+	cat xaos.hlp | sed '1,/%'"$name"'/d;/^%/,$ d' | sed \
+'1,2s_<head>\([^<]*\)</head>_\
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">\
+<HTML>\
+<HEAD>\
+  <TITLE>XaoS Help - \1</TITLE>\
+  '"$title"'\
+</HEAD>\
+<BODY>\
+'"$anchors"'\
+<H1>\1</H1>\
+_g
+s_<head>_<H2>_g
+s_</head>_</H2>_g
+s_<center>_<SPAN CLASS="center">_g
+s_</center>_</SPAN>_g
+s_<emph>_<STRONG>_g
+s_<submenu>__g
+s_<menuhead>__g
+s_</menuhead>__g
+s_<mainmenu>__g
+s_<menuitems>__g
+s_<notex>__g
+s_</notex>__g
+s_<node.*>__g
+s_</emph>_</STRONG>_g
+s_<tt>_<CODE>_g
+s_</tt>_</CODE>_g
+s_<tutor \([^>]*\)>_<A HREF="help:runscript=XaoS%20Help/scripts/RunTutorialstring=\1">_g
+s_</tutor>_</A>_g
+s_<a \([^>]*\)>_<A HREF="help:anchor=\1 bookID=XaoS%20Help">_g
+s/'\'\''/"/g
+s/``/"/g' > $name.html
+	echo "</BODY></HTML>" >> $name.html
+	tidy -m $name.html
+	case $name in
+		main)	mv $name.html XaoS\ Help/XaoS\ Help.html;;
+		*)	mv $name.html XaoS\ Help/pages;;
+	esac
+}
+process()
+{
+	while read line ; do
+		eval "processline $line"
+	done
+}
+mkdir -p XaoS\ Help/{images,pages,scripts,style}
+grep "^%" xaos.hlp | sed '/%%/d;s/%//g' | process
