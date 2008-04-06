@@ -1,9 +1,13 @@
+#include <config.h>
 #ifdef _plan9_
 #include <u.h>
 #include <libc.h>
 #else
 #include <stdlib.h>
 #include <string.h>
+#endif
+#ifdef HAVE_GETTEXT
+#include <iconv.h>
 #endif
 #include <archaccel.h>
 
@@ -389,12 +393,72 @@ skip (CONST char *text)
   return (i);
 }
 
+#ifdef HAVE_GETTEXT
+int
+xiconv(int encoding,
+       char *out, int *outlen,
+       const char *in, int *inlen) {
+    /* 
+     * Since the built-in text system only supports Latin-1 and Lqtin-2
+     * encodings, we must convert strings from the user's native encoding to
+     * either Latin-1 or Latin-2 encoding as appropriate for the selected 
+     * language before passing them into the built-in text system.  This
+     * function wraps the gnu iconv library for this purpose.
+     */
+    
+	iconv_t cd;
+    char tocode[16];
+	size_t icv_inlen = *inlen, icv_outlen = *outlen;
+	const char *icv_in = (const char *) in;
+	char *icv_out = (char *) out;
+	int ret;
+    
+    sprintf(tocode, "ISO-8859-%d", encoding);
+    cd = iconv_open(tocode, "");
+    if (cd == (iconv_t)(-1))
+        return -1;
+    
+    ret = iconv(cd,
+                &icv_in, &icv_inlen,
+                &icv_out, &icv_outlen);
+    
+	if (in != NULL) {
+	    *inlen -= icv_inlen;
+	    *outlen -= icv_outlen;
+        out[*outlen] = '\0';
+	} else {
+	    *inlen = 0;
+	    *outlen = 0;
+	}
+    
+	if (icv_inlen != 0 || ret == (size_t) -1)
+        return -1;
+    
+    ret = iconv_close(cd);
+    
+    if (ret == -1)
+        return -1;
+    
+	return 0;
+}
+#endif
+
 int
 xprint (struct image *image, CONST struct xfont *current, int x, int y,
-	CONST char *text, int fgcolor, int bgcolor, int mode)
+	CONST char *text, int encoding, int fgcolor, int bgcolor, int mode)
 {
   int i = 0;
   int aacolor = 0;
+#ifdef HAVE_GETTEXT
+    char intext[BUFSIZ];
+    int inlen = strlen(text);
+    char outtext[BUFSIZ];
+    int outlen = BUFSIZ;
+    
+    strncpy(intext, text, BUFSIZ);
+    if (encoding && xiconv(encoding, outtext, &outlen, intext, &inlen) == 0)
+        text = outtext;
+#endif
   if (!text[0])
     return 0;
   /*Do some clipping */

@@ -42,11 +42,11 @@ draw (uih_context * c, void *data)
       w = xtextwidth (c->font, c->messg.message[n]);
       x = (c->image->width - w) / 2;
       if (c->messg.messagetype[n])
-	xprint (c->image, c->font, x, y, c->messg.message[n],
+	xprint (c->image, c->font, x, y, c->messg.message[n], c->encoding,
 		(c->image->flags & AAIMAGE) ? BGCOLOR (c) : SELCOLOR (c),
 		BGCOLOR (c), 0);
       else
-	xprint (c->image, c->font, x, y, c->messg.message[n],
+	xprint (c->image, c->font, x, y, c->messg.message[n], c->encoding,
 		(c->image->flags & AAIMAGE) ? BGCOLOR (c) : FGCOLOR (c),
 		BGCOLOR (c), 0);
     }

@@ -209,12 +209,12 @@ drawfile (uih_context * c, void *data)
 	}
       if (uih->palette->type & BITMAPS)
 	xprint (uih->image, uih->font, filex + 2 * BORDERWIDTH, ypos,
-		snames[i + namestart],
+		snames[i + namestart], uih->encoding,
 		i + namestart == selectedname ? FGCOLOR (uih) : BGCOLOR (uih),
 		BGCOLOR (uih), TEXT_PRESSED);
       else
 	xprint (uih->image, uih->font, filex + 2 * BORDERWIDTH, ypos,
-		snames[i + namestart], (i + namestart) == selectedname
+		snames[i + namestart], uih->encoding, (i + namestart) == selectedname
 		&& active == AFILELIST ? SELCOLOR (uih) : FGCOLOR (uih),
 		BGCOLOR (uih), 0);
       ypos += h;
@@ -244,13 +244,13 @@ drawfile (uih_context * c, void *data)
       if (uih->palette->type & BITMAPS)
 	xprint (uih->image, uih->font,
 		filex + filewidth / 2 + 2 * BORDERWIDTH, ypos,
-		sdirs[i + dirstart],
+		sdirs[i + dirstart], uih->encoding,
 		i + dirstart == selecteddir ? FGCOLOR (uih) : BGCOLOR (uih),
 		BGCOLOR (uih), TEXT_PRESSED);
       else
 	xprint (uih->image, uih->font,
 		filex + filewidth / 2 + 2 * BORDERWIDTH, ypos,
-		sdirs[i + dirstart], (i + dirstart) == selecteddir
+		sdirs[i + dirstart], uih->encoding, (i + dirstart) == selecteddir
 		&& active == ADIRLIST ? SELCOLOR (uih) : FGCOLOR (uih),
 		BGCOLOR (uih), 0);
       ypos += h;

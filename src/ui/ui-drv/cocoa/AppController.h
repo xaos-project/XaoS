@@ -33,6 +33,7 @@
 	IBOutlet NSWindow *window;
 	NSMutableDictionary *menuItems;
 	NSMutableDictionary *powerKeyDictionary;
+    struct uih_context *lastContext;
 }
 
 #pragma mark Accessors

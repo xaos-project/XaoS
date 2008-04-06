@@ -5,6 +5,7 @@ processline()
 	name="$1"
 	anchors="<A NAME=\"$1\"></A>"
 	title=""
+	stylesheet="../style/xaoshelp.css"
 	shift
 	while [ "$1" != "" ] ; do
 	  if [ "$1" != "$name" ] ; then
@@ -13,20 +14,20 @@ processline()
 	  shift
 	done
 	if [ "$name" == "main" ]; then
-		title=\
-'<meta name="AppleTitle" content="XaoS Help">\
-<meta name="AppleIcon" content="XaoS%20Help/images/xaosicon16.png">'
+		title='<meta name="AppleTitle" content="XaoS Help">'
+		stylesheet="style/xaoshelp.css"
 	fi
 	# I changed "0" to "$" because my sed
 	# doesn't want to understand "0".
 	# -- Zoltan
-	cat xaos.hlp | sed '1,/%'"$name"'/d;/^%/,$ d' | sed \
-'1,2s_<head>\([^<]*\)</head>_\
+	cat xaos.hlp | sed '/%'"$name"'/H' | sed '1,/%'"$name"'/d;/^%/,$ d' | sed \
+'1,/\<head\>/ s_<head>\([^<]*\)</head>_\
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">\
 <HTML>\
 <HEAD>\
-  <TITLE>XaoS Help - \1</TITLE>\
+  <TITLE>\1</TITLE>\
   '"$title"'\
+  <LINK HREF="'"$stylesheet"'" REL="stylesheet" TYPE="text/css">\
 </HEAD>\
 <BODY>\
 '"$anchors"'\
@@ -34,13 +35,15 @@ processline()
 _g
 s_<head>_<H2>_g
 s_</head>_</H2>_g
-s_<center>_<SPAN CLASS="center">_g
-s_</center>_</SPAN>_g
+s_<center>__g
+s_</center>__g
 s_<emph>_<STRONG>_g
 s_<submenu>__g
 s_<menuhead>__g
 s_</menuhead>__g
 s_<mainmenu>__g
+s_<main>__g
+s_<math>__g
 s_<menuitems>__g
 s_<notex>__g
 s_</notex>__g
@@ -54,7 +57,7 @@ s_<a \([^>]*\)>_<A HREF="help:anchor=\1 bookID=XaoS%20Help">_g
 s/'\'\''/"/g
 s/``/"/g' > $name.html
 	echo "</BODY></HTML>" >> $name.html
-	tidy -m $name.html
+	tidy -qm $name.html
 	case $name in
 		main)	mv $name.html XaoS\ Help/XaoS\ Help.html;;
 		*)	mv $name.html XaoS\ Help/pages;;
@@ -66,5 +69,8 @@ process()
 		eval "processline $line"
 	done
 }
+rm -rf XaoS\ Help
 mkdir -p XaoS\ Help/{images,pages,scripts,style}
+cp xaoshelp.css XaoS\ Help/style
 grep "^%" xaos.hlp | sed '/%%/d;s/%//g' | process
+/Developer/Applications/Utilities/Help\ Indexer.app/Contents/MacOS/Help\ Indexer "XaoS Help" -PantherIndexing YES -IndexAnchors YES -TigerIndexing YES

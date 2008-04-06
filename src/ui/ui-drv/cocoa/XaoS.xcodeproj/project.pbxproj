@@ -81,6 +81,8 @@
 		D9332D510D8CFF330010D650 /* libpng.dylib in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = D9332D4B0D8CFEF60010D650 /* libpng.dylib */; };
 		D9332D530D8CFF650010D650 /* xstdio.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D2884620A3684EF004C2595 /* xstdio.c */; };
 		D9332D850D8D84540010D650 /* VideatorProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = D9332D840D8D84540010D650 /* VideatorProxy.m */; };
+		D945112B0DA5CFA60017C926 /* libintl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D945112A0DA5CFA60017C926 /* libintl.dylib */; };
+		D94511310DA5D1270017C926 /* libintl.dylib in Copy Embedded Frameworks */ = {isa = PBXBuildFile; fileRef = D945112A0DA5CFA60017C926 /* libintl.dylib */; };
 		D99CD03E0B05515700170329 /* aconfig.h.in in Resources */ = {isa = PBXBuildFile; fileRef = D99CD0060B05515700170329 /* aconfig.h.in */; };
 		D99CD03F0B05515700170329 /* aconfig.be in Resources */ = {isa = PBXBuildFile; fileRef = D99CD00D0B05515700170329 /* aconfig.be */; };
 		D99CD0400B05515700170329 /* aconfig.mac in Resources */ = {isa = PBXBuildFile; fileRef = D99CD00E0B05515700170329 /* aconfig.mac */; };
@@ -104,6 +106,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D94511310DA5D1270017C926 /* libintl.dylib in Copy Embedded Frameworks */,
 				D9332D500D8CFF330010D650 /* libgsl.dylib in Copy Embedded Frameworks */,
 				D9332D510D8CFF330010D650 /* libpng.dylib in Copy Embedded Frameworks */,
 			);
@@ -199,6 +202,7 @@
 		D9332D720D8D01580010D650 /* HowToBuild.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HowToBuild.txt; sourceTree = "<group>"; };
 		D9332D830D8D84540010D650 /* VideatorProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideatorProxy.h; sourceTree = "<group>"; };
 		D9332D840D8D84540010D650 /* VideatorProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideatorProxy.m; sourceTree = "<group>"; };
+		D945112A0DA5CFA60017C926 /* libintl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libintl.dylib; sourceTree = "<group>"; };
 		D99CD0060B05515700170329 /* aconfig.h.in */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = aconfig.h.in; sourceTree = "<group>"; };
 		D99CD0070B05515700170329 /* archaccel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = archaccel.h; sourceTree = "<group>"; };
 		D99CD0080B05515700170329 /* btrace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = btrace.h; sourceTree = "<group>"; };
@@ -263,6 +267,7 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				D9332D4C0D8CFEF60010D650 /* libgsl.dylib in Frameworks */,
 				D9332D4D0D8CFEF60010D650 /* libpng.dylib in Frameworks */,
+				D945112B0DA5CFA60017C926 /* libintl.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,8 +335,8 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				3D2884D10A368505004C2595 /* aconfig.h */,
 				32CA4F630368D1EE00C91783 /* XaoS_Prefix.pch */,
+				3D2884D10A368505004C2595 /* aconfig.h */,
 				3DD6BDA30A4778A700C37438 /* ui_cocoa.m */,
 			);
 			name = "Other Sources";
@@ -487,6 +492,7 @@
 		D9332D490D8CFED20010D650 /* Embedded Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D945112A0DA5CFA60017C926 /* libintl.dylib */,
 				D9332D4A0D8CFEF60010D650 /* libgsl.dylib */,
 				D9332D4B0D8CFEF60010D650 /* libpng.dylib */,
 			);
@@ -659,7 +665,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Make resource subdirectories\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/tutorial\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/examples\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/catalogs\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/help\n\n# Copy resources from project source directories\ncp $PROJECT_DIR/../../../../tutorial/*.x[ah]f $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/tutorial\ncp $PROJECT_DIR/../../../../examples/*/*.x[ap]f $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/examples\ncp $PROJECT_DIR/../../../../catalogs/*.cat $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/catalogs\ncp $PROJECT_DIR/../../../../help/xaos.hlp $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/help";
+			shellScript = "# Make resource subdirectories\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/tutorial\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/examples\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/catalogs\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/help\nmkdir $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/locale\n\n# Copy resources from project source directories\ncp $PROJECT_DIR/../../../../tutorial/*.x[ah]f $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/tutorial\ncp $PROJECT_DIR/../../../../examples/*/*.x[ap]f $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/examples\ncp $PROJECT_DIR/../../../../catalogs/*.cat $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/catalogs\ncp $PROJECT_DIR/../../../../help/xaos.hlp $BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/help\n\n# Build message catalogs and copy to app bundle\ncd $PROJECT_DIR/../../../i18n\nlocaledir=$BUILT_PRODUCTS_DIR/XaoS.app/Contents/Resources/locale\npofiles=`ls *.po`\nmsgfmt=$PROJECT_DIR/thirdparty/bin/msgfmt\nfor pofile in $pofiles; do\n\tlang=`basename $pofile .po`\n\tmofile=${lang}.mo\n\t$msgfmt -o $mofile -c -v --statistics $pofile\n\tmkdir -p $localedir/$lang/LC_MESSAGES\n\tcp $mofile $localedir/$lang/LC_MESSAGES/xaos.mo\ndone\ncd $PROJECT_DIR";
 		};
 		D9B9F1840AF1A3B500A2F860 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -672,7 +678,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $PROJECT_DIR/../../../../help\n./applehelpconv\ncd $PROJECT_DIR\n\nln -sf $PROJECT_DIR/../../../include/config/config.autoconf $PROJECT_DIR/../../../include/config.h\n\ncp $PROJECT_DIR/thirdparty/lib/libpng.dylib $PROJECT_DIR/libpng.dylib\ninstall_name_tool -id @executable_path/../Frameworks/libintl.dylib $PROJECT_DIR/libintl.dylib\n\ncp $PROJECT_DIR/thirdparty/lib/libgsl.dylib $PROJECT_DIR/libgsl.dylib\ninstall_name_tool -id @executable_path/../Frameworks/libgsl.dylib $PROJECT_DIR/libgsl.dylib\n";
+			shellScript = "# create config.h from config.autoconf (normally done by makefile)\nln -sf $PROJECT_DIR/../../../include/config/config.autoconf $PROJECT_DIR/../../../include/config.h\n\n# change libraries to use executable-relative paths\ncp $PROJECT_DIR/thirdparty/lib/libpng.dylib $PROJECT_DIR/libpng.dylib\ninstall_name_tool -id @executable_path/../Frameworks/libpng.dylib $PROJECT_DIR/libpng.dylib\n\ncp $PROJECT_DIR/thirdparty/lib/libgsl.dylib $PROJECT_DIR/libgsl.dylib\ninstall_name_tool -id @executable_path/../Frameworks/libgsl.dylib $PROJECT_DIR/libgsl.dylib\n\ncp $PROJECT_DIR/thirdparty/lib/libintl.dylib $PROJECT_DIR/libintl.dylib\ninstall_name_tool -id @executable_path/../Frameworks/libintl.dylib $PROJECT_DIR/libintl.dylib\n\n# build apple help\ncd $PROJECT_DIR/../../../../help\n./applehelpconv\ncd $PROJECT_DIR\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -795,8 +801,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
 				PRODUCT_NAME = XaoS;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
@@ -822,7 +830,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				PRODUCT_NAME = XaoS;
 				WRAPPER_EXTENSION = app;
@@ -836,6 +846,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ./thirdparty/include;
 				OTHER_CFLAGS = "-DVIDEATOR_SUPPORT";
+				OTHER_LDFLAGS = "-liconv";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				USER_HEADER_SEARCH_PATHS = ../../../include;
@@ -853,6 +864,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ./thirdparty/include;
 				OTHER_CFLAGS = "-DVIDEATOR_SUPPORT";
+				OTHER_LDFLAGS = "-liconv";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				USER_HEADER_SEARCH_PATHS = ../../../include;

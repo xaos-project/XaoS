@@ -469,7 +469,7 @@ ui_drawstatus (uih_context * uih, void *data)
   int h = xtextheight (uih->font);
   sprintf (str, gettext ("Fractal name:%s"),
 	   uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
-  xprint (uih->image, uih->font, 0, statusstart, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart, str, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("Fractal type:%s"),
 	   uih->fcontext->
@@ -480,47 +480,47 @@ ui_drawstatus (uih_context * uih, void *data)
   	sprintf (str, gettext ("Formula:%s"),uih->parser->expression);
   }; 
 #endif
-  xprint (uih->image, uih->font, 0, statusstart + h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + h, str, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("View:[%1.12f,%1.12f]"),
 	   (double) uih->fcontext->s.cr, (double) uih->fcontext->s.ci);
-  xprint (uih->image, uih->font, 0, statusstart + 2 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 2 * h, str, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("size:[%1.12f,%1.12f]"),
 	   (double) uih->fcontext->s.rr, (double) uih->fcontext->s.ri);
-  xprint (uih->image, uih->font, 0, statusstart + 3 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 3 * h, str, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("Rotation:%4.2f   Screen size:%i:%i"),
 	   (double) uih->fcontext->angle, uih->image->width,
 	   uih->image->height);
-  xprint (uih->image, uih->font, 0, statusstart + 4 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 4 * h, str, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("Iterations:%-4i Palette size:%i"),
 	   uih->fcontext->maxiter, uih->image->palette->size);
-  xprint (uih->image, uih->font, 0, statusstart + 5 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 5 * h, str, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, "Bailout:%4.2f", (double) uih->fcontext->bailout);
-  xprint (uih->image, uih->font, 0, statusstart + 6 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 6 * h, str, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("Autopilot:%-4s  Plane:%s"),
 	   uih->autopilot ? gettext ("On") : gettext ("Off"),
 	   planename[uih->fcontext->plane]);
-  xprint (uih->image, uih->font, 0, statusstart + 7 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 7 * h, str, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("incoloring:%s    outcoloring:%s"),
 	   incolorname[uih->fcontext->incoloringmode],
 	   outcolorname[uih->fcontext->coloringmode]);
-  xprint (uih->image, uih->font, 0, statusstart + 8 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 8 * h, str, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   sprintf (str, gettext ("zoomspeed:%f"), (float) uih->maxstep * 1000);
-  xprint (uih->image, uih->font, 0, statusstart + 9 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 9 * h, str, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   if (uih->fcontext->mandelbrot)
     strcpy (str, gettext ("Parameter:none"));
   else
     sprintf (str, gettext ("Parameter:[%f,%f]"), (float) uih->fcontext->pre,
 	     (float) uih->fcontext->pim);
-  xprint (uih->image, uih->font, 0, statusstart + 10 * h, str, FGCOLOR (uih),
+  xprint (uih->image, uih->font, 0, statusstart + 10 * h, str, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
 #ifdef MEMCHECK
   {
@@ -571,7 +571,7 @@ ui_ministatuspos (uih_context * uih, int *x, int *y, int *w, int *h,
 static void
 ui_drawministatus (uih_context * uih, void *data)
 {
-  xprint (uih->image, uih->font, 0, ministatusstart, statustext,
+  xprint (uih->image, uih->font, 0, ministatusstart, statustext, uih->encoding,
 	  FGCOLOR (uih), BGCOLOR (uih), 0);
 }
 static void
@@ -1236,7 +1236,11 @@ MAIN_FUNCTION (int argc, char **argv)
     )
 #endif
 #else
-			  "/usr/share/locale")
+#ifdef USE_LOCALEPATH
+    localepath)
+#else
+    "/usr/share/locale")
+#endif
 #ifdef DEBUG
     )
 #endif

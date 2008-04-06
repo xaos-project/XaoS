@@ -119,7 +119,10 @@ extern "C"
   };
 
   struct uih_context *uih;
-
+#ifdef USE_LOCALEPATH
+    extern char *localepath;
+#endif
+    
   number_t ui_getfloat (CONST char *text);
   void ui_resize (void);
   void ui_call_resize (void);

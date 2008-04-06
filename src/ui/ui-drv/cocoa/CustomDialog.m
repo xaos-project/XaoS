@@ -23,6 +23,14 @@
  */
 #import "CustomDialog.h"
 
+#ifdef HAVE_GETTEXT
+#include <libintl.h>
+#include <locale.h>
+#define _(string) gettext(string)
+#else
+#define _(string) (string)
+#endif
+
 #define MARGIN 20
 #define SPACING 8
 
@@ -52,7 +60,7 @@
         item = myItem;
         dialog = myDialog;	
 
-		[self setTitle:[NSString stringWithCString:item->name]];
+		[self setTitle:[NSString stringWithUTF8String:item->name]];
 
 		controls = [[NSMutableDictionary alloc] initWithCapacity:10];
 		
@@ -64,7 +72,7 @@
 		
 		for (i = 0; i < nitems; i++) {
 			NSTextField *label = [[NSTextField alloc] initWithFrame:labelRect];
-			NSString *question = [NSString stringWithCString:dialog[i].question];
+			NSString *question = [NSString stringWithUTF8String:dialog[i].question];
 			[label setEditable:NO];
 			[label setBezeled:NO];
 			[label setDrawsBackground:NO];
@@ -97,10 +105,10 @@
 							[textField setDoubleValue:dialog[i].deffloat];
 							break;
 						case DIALOG_STRING:
-							[textField setStringValue:[NSString stringWithCString:dialog[i].defstr]];
+							[textField setStringValue:[NSString stringWithUTF8String:dialog[i].defstr]];
 							break;
 						case DIALOG_KEYSTRING:
-							[textField setStringValue:[NSString stringWithCString:dialog[i].defstr]];
+							[textField setStringValue:[NSString stringWithUTF8String:dialog[i].defstr]];
 							break;
 					}
 					
@@ -121,7 +129,7 @@
 					[textField setBezeled:YES];
 					[textField setBezelStyle:NSTextFieldSquareBezel];
                     [[textField cell] setScrollable:YES];
-                    [textField setStringValue:[NSString stringWithCString:dialog[i].defstr]];
+                    [textField setStringValue:[NSString stringWithUTF8String:dialog[i].defstr]];
 					
 					if ([textField frame].size.width > maxControlWidth)
 						maxControlWidth = [textField frame].size.width;
@@ -130,7 +138,7 @@
 					[controls setValue:textField forKey:question];					
 					
 					NSButton *chooseButton = [[NSButton alloc] initWithFrame:okButtonRect];
-					[chooseButton setTitle:@"Choose"];
+					[chooseButton setTitle:[NSString stringWithUTF8String:_("Choose")]];
 					[chooseButton setButtonType:NSMomentaryPushInButton];
 					[chooseButton setBezelStyle:NSRoundedBezelStyle];
 					[chooseButton setTarget:self];
@@ -160,7 +168,7 @@
 					int y;
 					for (y = 0; str[y] != NULL; y++)
 					{
-						NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithCString:str[y]] action:nil keyEquivalent:@""];
+						NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithUTF8String:str[y]] action:nil keyEquivalent:@""];
 						[menu addItem:menuItem];
 						[menuItem release];
 					}
@@ -290,7 +298,7 @@
 		cancelButtonRect.origin.x += windowRect.size.width - [self frame].size.width;
 		
 		NSButton *okButton = [[NSButton alloc] initWithFrame:okButtonRect];
-		[okButton setTitle:@"OK"];
+		[okButton setTitle:[NSString stringWithUTF8String:_("OK")]];
 		[okButton setButtonType:NSMomentaryPushInButton];
 		[okButton setBezelStyle:NSRoundedBezelStyle];
         [okButton setKeyEquivalent:@"\r"];
@@ -300,7 +308,7 @@
 		[okButton release];
 		
 		NSButton *cancelButton = [[NSButton alloc] initWithFrame:cancelButtonRect];
-		[cancelButton setTitle:@"Cancel"];
+		[cancelButton setTitle:[NSString stringWithUTF8String:_("Cancel")]];
 		[cancelButton setButtonType:NSMomentaryPushInButton];
 		[cancelButton setBezelStyle:NSRoundedBezelStyle];
 		[cancelButton setTarget:self];
@@ -331,7 +339,7 @@
 
 	int i;
 	for (i = 0; i < nitems; i++) {
-		NSString *question = [NSString stringWithCString:dialog[i].question];
+		NSString *question = [NSString stringWithUTF8String:dialog[i].question];
 		NSControl *control;
 		switch (dialog[i].type) {
 			case DIALOG_IFILE:
@@ -339,7 +347,7 @@
 			case DIALOG_STRING:
 			case DIALOG_KEYSTRING:
 				control = [controls objectForKey:question];
-				p[i].dstring = strdup ([[control stringValue] cString]);
+				p[i].dstring = strdup ([[control stringValue] UTF8String]);
 				break;
 			case DIALOG_INT:
 				control = [controls objectForKey:question];

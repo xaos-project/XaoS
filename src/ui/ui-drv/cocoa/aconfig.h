@@ -36,6 +36,7 @@
 
 /* XaoS xio library uses \01 to indicate paths relative to the executable */
 #define DATAPATH "\01/../Resources"
+#define USE_LOCALEPATH 1
 
 /* Using alloca causes stack overflows on large images */
 /* #undef C_ALLOCA */
@@ -87,7 +88,7 @@
 #define SIZEOF_SHORT 2
 #define SIZEOF_INT 4
 #define SIZEOF_LONG 4
-/* #undef HAVE_GETTEXT */
+#define HAVE_GETTEXT 1
 #define NO_MALLOC_H 1
 
 /* Enable SFFE; use ASM for i386 and GSL for PowerPC */

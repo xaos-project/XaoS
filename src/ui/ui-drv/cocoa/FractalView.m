@@ -270,7 +270,7 @@
 #pragma mark Text
 
 - (void)printText:(CONST char *)text atX:(int)x y:(int)y {
-    messageText = [[NSString stringWithCString:text] retain];
+    messageText = [[NSString stringWithUTF8String:text] retain];
     messageLocation = NSMakePoint(x, [self bounds].size.height - y);
     [self setNeedsDisplay:YES];
 }

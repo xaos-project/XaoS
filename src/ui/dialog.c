@@ -155,7 +155,7 @@ ui_drawbutton (CONST char *text, int pressed, int selected, int x1, int x2,
 		      (pressed != 0
 		       || selected != 0) * BORDER_PRESSED | BORDER_LIGHT);
       xprint (uih->image, uih->font, (x1 + x2 - width) / 2 + pressed,
-	      y + BORDERHEIGHT + pressed, text, selected
+	      y + BORDERHEIGHT + pressed, text, uih->encoding , selected
 	      || pressed ? BGCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih),
 	      TEXT_PRESSED);
     }
@@ -164,7 +164,7 @@ ui_drawbutton (CONST char *text, int pressed, int selected, int x1, int x2,
       uih_drawborder (uih, x1, y, x2 - x1, BUTTONHEIGHT,
 		      (pressed != 0) * BORDER_PRESSED | BORDER_LIGHT);
       xprint (uih->image, uih->font, (x1 + x2 - width) / 2 + pressed,
-	      y + BORDERHEIGHT + pressed, text,
+	      y + BORDERHEIGHT + pressed, text, uih->encoding,
 	      selected ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih),
 	      /*TEXT_PRESSED */ 0);
     }
@@ -191,7 +191,7 @@ ui_drawyesno (struct uih_context *c, void *data)
 {
   xprint (uih->image, uih->font,
 	  YESNOX + (yesnodialog.width - yesnodialog.questionwidth) / 2,
-	  YESNOY + BORDERHEIGHT, yesnodialog.question, FGCOLOR (uih),
+	  YESNOY + BORDERHEIGHT, yesnodialog.question, uih->encoding, FGCOLOR (uih),
 	  BGCOLOR (uih), 0);
   ui_drawbutton (yestext, yesnodialog.pressed == 0, yesnodialog.selected == 0,
 		 YESNOX + BORDERWIDTH + 1,
@@ -514,7 +514,7 @@ ui_drawtext (struct ui_textdata *d, int active)
   char *c = (char *) malloc (d->ndisplayed + 2);
   strncpy (c, d->text + d->start, d->ndisplayed);
   c[d->ndisplayed] = 0;
-  xprint (uih->image, uih->font, d->x, d->y, c,
+  xprint (uih->image, uih->font, d->x, d->y, c, uih->encoding,
 	  (uih->palette->type & BITMAPS) ? BGCOLOR (uih) : ((active
 							     && d->clear) ?
 							    SELCOLOR (uih) :
@@ -661,14 +661,14 @@ ui_drawquestion (struct dialogitem *item)
 		    dialog.half - dialog.x - 2 * BORDERWIDTH, BUTTONHEIGHT,
 		    FGCOLOR (uih));
       xprint (uih->image, uih->font, dialog.half - item->width,
-	      item->y + BORDERHEIGHT, item->dialog->question,
+	      item->y + BORDERHEIGHT, item->dialog->question, uih->encoding,
 	      SELECTED (item) ? BGCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih),
 	      TEXT_PRESSED);
     }
   else
     {
       xprint (uih->image, uih->font, dialog.half - item->width,
-	      item->y + BORDERHEIGHT, item->dialog->question,
+	      item->y + BORDERHEIGHT, item->dialog->question, uih->encoding, 
 	      SELECTED (item) ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih),
 	      0);
     }
@@ -862,7 +862,7 @@ ui_drawfile (struct dialogitem *item)
 		  BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
   ui_drawtext (data->text, SELECTED (item) && !data->active);
   xprint (uih->image, uih->font, dialog.half - item->width,
-	  item->y + BORDERHEIGHT, item->dialog->question,
+	  item->y + BORDERHEIGHT, item->dialog->question, uih->encoding,
 	  SELECTED (item) ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), 0);
   ui_drawquestion (item);
   ui_drawbutton ("B", data->pressed && SELECTED (item), SELECTED (item)
@@ -1050,10 +1050,10 @@ ui_drawcoord (struct dialogitem *item)
   ui_drawtext (data->text[0], SELECTED (item) && !data->active);
   ui_drawtext (data->text[1], SELECTED (item) && data->active);
   xprint (uih->image, uih->font, dialog.half + half, item->y + BORDERHEIGHT,
-	  "+", FGCOLOR (uih), BGCOLOR (uih), 0);
+	  "+", uih->encoding, FGCOLOR (uih), BGCOLOR (uih), 0);
   xprint (uih->image, uih->font,
 	  dialog.x + dialog.width - BORDERWIDTH - ENDSIZE,
-	  item->y + BORDERHEIGHT, "i", FGCOLOR (uih), BGCOLOR (uih), 0);
+	  item->y + BORDERHEIGHT, "i", uih->encoding, FGCOLOR (uih), BGCOLOR (uih), 0);
   ui_drawquestion (item);
 }
 static int
@@ -1166,7 +1166,7 @@ ui_drawchoicemenu (uih_context * uih, void *data)
     {
       xprint (uih->image, uih->font, choice->x + BORDERWIDTH,
 	      choice->y + BORDERHEIGHT + i * xtextheight (uih->font),
-	      choice->texts[i],
+	      choice->texts[i], uih->encoding,
 	      i == choice->active ? SELCOLOR (uih) : FGCOLOR (uih),
 	      BGCOLOR (uih), 0);
     }
@@ -1245,7 +1245,7 @@ ui_drawchoice (struct dialogitem *item)
   uih_drawborder (uih, dialog.half, item->y, item->width1,
 		  BUTTONHEIGHT | BORDER_LIGHT, 0);
   xprint (uih->image, uih->font, dialog.half + BORDERWIDTH,
-	  item->y + BORDERHEIGHT, data->texts[data->selected],
+	  item->y + BORDERHEIGHT, data->texts[data->selected], uih->encoding,
 	  SELECTED (item) ? SELCOLOR (uih) : FGCOLOR (uih), BGCOLOR (uih), 0);
   ui_drawquestion (item);
 }

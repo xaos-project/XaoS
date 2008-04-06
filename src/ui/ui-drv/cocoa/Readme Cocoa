@@ -120,18 +120,50 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     - Updated showHelpWithContext:name: method to show main help page
     
     - Added help conversion script to pre-compile script build phase
+
+2008-03-31
+
+    - Add copy/paste functionality for custom dialogs
+    
+    - Update help conversion script to automatically generate index
+    
+    - Update help to use stylesheets
+
+2008-04-04
+
+    - Add reference to gettext library, and script command to copy it
+
+    - Add code to detect default locale and set LANG variable accordingly
+
+
+2008-04-05
+
+    - Added Window menu and associated menu items
+    
+    - Fixed bug where key equivalents were not found when foreign languages
+      were selected
       
+    - I18nized cut/copy/paste/etc. menu items, and OK/Cancel dialog buttons
+    
+2008-04-06
+
+    - Add code to convert user's native text encoding (usually UTF-8) to
+      Latin1/2 to prevent garbled text through built-in text handling system
+      
+    - Automate po/mo file build and packaging
+
+    - Add code to set locale directory correctly relative to executable path
+
+
 TODO:
 
 * i18n 
-    - Automate po/mo file build and packaging
-    - Add code to detect default locale and set LANG variable accordingly
-    - Add code to set locale directory correctly relative to executable path
+    - I18nize menu items in application menu
+    - Make OK/Cancel buttons on custom dialogs autosize to fit i18n labels
 
 * help
-    - Create Mac OS X help file conversion script
-    - Automate help build and packaging
     - Add Mac OS X help section
+    - fix bug in help conversion that results in missing headers for some files
 
 * dialogs
     - Hook up choose file button on custom dialogs
@@ -141,7 +173,7 @@ TODO:
 * menus
     - Implement validators to check/uncheck menu items when displayed
     - Implement popup menus
-    - Add copy/paste functionality
+    - Add custom selector code to handle undo/redo/cut/copy/paste/etc.
     
 * fullscreen
     - Implement fullscreen code

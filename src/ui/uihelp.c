@@ -227,7 +227,7 @@ drawhelp (struct uih_context *c, void *data)
 		    fgcolor = SELCOLOR (uih);
 		}
 	    }
-	  xprint (uih->image, uih->font, x + helpx, y + helpy, curritem->text,
+	  xprint (uih->image, uih->font, x + helpx, y + helpy, curritem->text, 0,
 		  fgcolor, bgcolor, flags);
 	  curritem = curritem->next;
 	}

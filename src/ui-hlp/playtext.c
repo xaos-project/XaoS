@@ -155,7 +155,7 @@ draw (uih_context * c, void *data)
 	  break;
 	}
       string +=
-	xprint (c->image, c->font, x, y, string, fgcolor, bgcolor, flags) + 1;
+	xprint (c->image, c->font, x, y, string, 0, fgcolor, bgcolor, flags) + 1;
       y += xtextheight (c->font);
     }
 }

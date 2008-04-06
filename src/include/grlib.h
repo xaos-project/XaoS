@@ -11,8 +11,9 @@ extern "C"
   }
   xsmallfont, xbigfont, xbigfont2, xaafont, xsmallfontil1, xbigfontil1, 
     xmedfontil1, xbigfont3;
-  int xprint (struct image *image, CONST struct xfont *font, int x, int y,
-	      CONST char *text, int fgcolor, int bgcolor, int mode);
+  int xiconv(int encoding, char *out, int *outlen, const char *in, int *inlen);
+  int xprint (struct image *image, CONST struct xfont *current, int x, int y,
+              CONST char *text, int encoding, int fgcolor, int bgcolor, int mode);
 #define TEXT_PRESSED 1
 
 #define xtextheight(font) ((font)->height+1)

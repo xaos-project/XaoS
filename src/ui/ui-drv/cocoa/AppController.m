@@ -25,6 +25,14 @@
 #import "CustomDialog.h"
 #import "ui.h"
 
+#ifdef HAVE_GETTEXT
+#include <libintl.h>
+#include <locale.h>
+#define _(string) gettext(string)
+#else
+#define _(string) (string)
+#endif
+
 AppController *controller;
 
 @implementation AppController
@@ -89,7 +97,7 @@ AppController *controller;
 	NSString *name;
 	
 	name = [sender representedObject];
-	item = menu_findcommand([name cString]);
+	item = menu_findcommand([name UTF8String]);
 	
 	ui_menuactivate(item, NULL);
 }
@@ -102,14 +110,17 @@ AppController *controller;
 
 - (NSString *)keyEquivalentForName:(NSString *)name {
     // If you want more command-keys, just add them here based on their name:
-	if ([name isEqualToString:@"Undo"]) return @"z";
-	else if ([name isEqualToString:@"Redo"]) return @"Z";
-	else if ([name isEqualToString:@"Load..."]) return @"o";
-	else if ([name isEqualToString:@"Save..."]) return @"s";
+	if ([name isEqualToString:@"undo"]) return @"z";
+	if ([name isEqualToString:@"redo"]) return @"Z";
+	if ([name isEqualToString:@"loadpos"]) return @"o";
+	if ([name isEqualToString:@"savepos"]) return @"s";
 	return @"";
 }
 
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
+    /* Cache a reference to the last UI context we received */
+    lastContext = context;
+    
 	[self clearMenu:[NSApp mainMenu]];
 	[self buildMenuWithContext:context name:name parent:[NSApp mainMenu]];
 }
@@ -117,6 +128,8 @@ AppController *controller;
 - (void)buildMenuWithContext:(struct uih_context *)context 
                         name:(CONST char *)menuName 
                       parent:(NSMenu *)parentMenu {
+    /* Cache a reference to the last UI context we received */
+    lastContext = context;
 
 	int i;
 	CONST menuitem *item;
@@ -132,16 +145,17 @@ AppController *controller;
 			[parentMenu addItem:[NSMenuItem separatorItem]];
 		} else {
 			NSString *keyEquiv = @"";
-			menuTitle = [NSString stringWithCString:item->name];
+			menuTitle = [NSString stringWithUTF8String:item->name];
 			if (item->type == MENU_CUSTOMDIALOG || item->type == MENU_DIALOG)
 				menuTitle = [menuTitle stringByAppendingString:@"..."];
 			
-			keyEquiv = [self keyEquivalentForName:menuTitle];
+			menuShortName = [NSString stringWithUTF8String:item->shortname];
+
+			keyEquiv = [self keyEquivalentForName:menuShortName];
 			
 			if (item->key && parentMenu != mainMenu)
 				menuTitle = [NSString stringWithFormat:@"%@ (%s)", menuTitle, item->key];
 
-			menuShortName = [NSString stringWithCString:item->shortname];
 			newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:keyEquiv];
 			
 			[menuItems setValue:newItem forKey:menuShortName];
@@ -149,6 +163,39 @@ AppController *controller;
 				newMenu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle];
 				[newItem setSubmenu:newMenu];
 				[self buildMenuWithContext:context name:item->shortname parent:newMenu];
+                
+                /* These items are necessary to implement cut & paste in custom dialogs */
+                if ([menuShortName isEqualToString:@"edit"]) {
+                    [newMenu addItem:[NSMenuItem separatorItem]];
+                    [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Cut")]
+                                       action:@selector(cut:) keyEquivalent:@"x"];
+
+                    [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Copy")]
+                                       action:@selector(copy:) keyEquivalent:@"c"];
+                    
+                    [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Paste")]
+                                       action:@selector(paste:) keyEquivalent:@"v"];
+                    
+                    [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Delete")]
+                                       action:@selector(delete:) keyEquivalent:@""];
+                    
+                    [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Select All")]
+                                       action:@selector(selectAll:) keyEquivalent:@"a"];
+                }
+                
+                if ([menuShortName isEqualToString:@"window"]) {
+                    [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Minimize")]
+                                       action:@selector(performMiniaturize:) keyEquivalent:@"m"];
+
+                    [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Zoom")]
+                                       action:@selector(performZoom:) keyEquivalent:@""];
+
+                    [newMenu addItem:[NSMenuItem separatorItem]];
+
+                    [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Bring All to Front")]
+                                       action:@selector(arrangeInFront:) keyEquivalent:@""];
+                }
+                
 				[newMenu release];
 			} else {				
 				[newItem setTarget:self];
@@ -164,15 +211,18 @@ AppController *controller;
 }
 
 - (void)toggleMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
+    /* Cache a reference to the last UI context we received */
+    lastContext = context;
+
 	CONST struct menuitem *xaosItem = menu_findcommand(name);
-	NSMenuItem *menuItem = [menuItems objectForKey:[NSString stringWithCString:name]];
+	NSMenuItem *menuItem = [menuItems objectForKey:[NSString stringWithUTF8String:name]];
 	
 	[menuItem setState:(menu_enabled(xaosItem, context) ? NSOnState : NSOffState)];
 	if (xaosItem->flags & MENUFLAG_RADIO) {
 		NSEnumerator *itemEnumerator = [[[menuItem menu] itemArray] objectEnumerator];
 		while (menuItem = [itemEnumerator nextObject]) {
 			if ([menuItem representedObject]) {
-				xaosItem = menu_findcommand([[menuItem representedObject] cString]);
+				xaosItem = menu_findcommand([[menuItem representedObject] UTF8String]);
 				[menuItem setState:(menu_enabled(xaosItem, context) ? NSOnState : NSOffState)];
 			}
 		}
@@ -180,12 +230,18 @@ AppController *controller;
 }
 
 - (void)showPopUpMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
+    /* Cache a reference to the last UI context we received */
+    lastContext = context;
+
     // TODO Implement popup menus
 }
 
 #pragma mark Dialogs
 
 - (void)showDialogWithContext:(struct uih_context *)context name:(CONST char *)name {
+    /* Cache a reference to the last UI context we received */
+    lastContext = context;
+
 	CONST menuitem *item = menu_findcommand (name);
 	if (!item) return;
 	
@@ -236,7 +292,7 @@ AppController *controller;
 		
 		if (fileName) {
 			dialogparam *param = malloc (sizeof (dialogparam));
-			param->dstring = strdup([fileName cString]);
+			param->dstring = strdup([fileName UTF8String]);
 			ui_menuactivate (item, param);
 		}
 		
@@ -261,7 +317,10 @@ AppController *controller;
 #pragma mark Help
 
 - (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name {
-	NSString *anchor = [NSString stringWithCString:name];
+    /* Cache a reference to the last UI context we received */
+    lastContext = context;
+
+	NSString *anchor = [NSString stringWithUTF8String:name];
 	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
 }
 
@@ -275,6 +334,23 @@ AppController *controller;
     // Handle maximize/zoom, but ignore live resizing
     if (![view inLiveResize])
         ui_resize();
+}
+
+#pragma mark Application Delegates
+
+- (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
+    /* Don't try to open the file unless a valid context has been cached */
+    if (!lastContext) return NO;
+
+    if ([[filename pathExtension] isEqualToString:@"xpf"]) {
+        uih_loadfile(lastContext, [filename UTF8String]);
+        return YES;
+    } else if ([[filename pathExtension] isEqualToString:@"xaf"]) {
+        uih_playfile(lastContext, [filename UTF8String]);
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 @end
