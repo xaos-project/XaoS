@@ -154,16 +154,21 @@ Committing additional changes submitted 10/30 by Andrew Stone:
 
     - Add code to set locale directory correctly relative to executable path
 
+    - Implement popup menus
+
+    - fix bug in help conversion that results in missing headers for some files
+
+    - I18nize menu items in application menu
+    
+    - Add help applescript to automatically launch tutorials
 
 TODO:
 
 * i18n 
-    - I18nize menu items in application menu
     - Make OK/Cancel buttons on custom dialogs autosize to fit i18n labels
 
 * help
     - Add Mac OS X help section
-    - fix bug in help conversion that results in missing headers for some files
 
 * dialogs
     - Hook up choose file button on custom dialogs
@@ -172,7 +177,6 @@ TODO:
     
 * menus
     - Implement validators to check/uncheck menu items when displayed
-    - Implement popup menus
     - Add custom selector code to handle undo/redo/cut/copy/paste/etc.
     
 * fullscreen

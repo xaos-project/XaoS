@@ -173,56 +173,9 @@ cocoa_showHelp (struct uih_context *c, CONST char *name)
 }
 
 static void
-cocoa_initLanguages () {
-    /* 
-     * The LANG environment variables used by gettext to determine the locale
-     * are not normally set on Mac OS X, so we use the Cocoa API to retrieve
-     * the list of preferred languages and set the LANG variable accordingly.
-     */
-    
+cocoa_initLocale () {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-
-    /*
-     * Each of the locales we support is stored in its own subdirectory in the
-     * Resources/locale directory. The name of the directory corresponds to the
-     * ISO code for the locale.  Therefore, a list of the files in this  
-     * directory conveniently serves as a list of supported locales.
-     */
-    NSString *myLocalePath = [[[NSBundle mainBundle] resourcePath] 
-                            stringByAppendingPathComponent:@"locale"];
-
-#ifdef USE_LOCALEPATH
-    localepath = (char *)[myLocalePath UTF8String];
-#endif
-    
-    NSMutableArray *supportedLanguages = [[[NSFileManager defaultManager]
-                                           directoryContentsAtPath:myLocalePath] 
-                                          mutableCopy];
-
-    /* English is supported by default, so there isn't a locale directory for
-     * it.  But in order to match it with the user's preferred languages, it
-     * still has to be in the array of supported languages.
-     */
-    [supportedLanguages addObject:@"en"];
-    
-    /*
-     * The AppleLanguages user default returns an array of languages sorted 
-     * according to the User's settings in the International Preference Panel.
-     */
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *preferredLanguages = [defaults objectForKey:@"AppleLanguages"];
-    
-    /*
-     * Now we find the best match between the supported and preferred locales
-     * and set the LANG variable to that.
-     */
-    NSString *lang = [preferredLanguages firstObjectCommonWithArray:supportedLanguages];
-    if (lang)
-        setenv("LANG", [lang UTF8String], /*overwrite? */ 1);
-    
-    /*NSLog(@"supportedLanguages = %@\npreferredLanguages=%@\nLANG=%@", supportedLanguages, preferredLanguages,lang);*/
-
-    [supportedLanguages release];
+    [controller initLocale];
     [pool release];
 }
 
@@ -231,16 +184,14 @@ main(int argc, char* argv[])
 {
 	[NSApplication sharedApplication];
 	[NSBundle loadNibNamed:@"MainMenu" owner:NSApp];
-	[NSApp finishLaunching];
-	
-    cocoa_initLanguages();
+    cocoa_initLocale();
 	return MAIN_FUNCTION(argc, argv);
 }
 
 struct gui_driver cocoa_gui_driver = {
     /* setrootmenu */   cocoa_buildMenu,
     /* enabledisable */ cocoa_toggleMenu,
-    /* menu */          NULL,
+    /* menu */          cocoa_showPopUpMenu,
     /* dialog */        cocoa_showDialog,
     /* help */          cocoa_showHelp
 };

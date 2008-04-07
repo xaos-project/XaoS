@@ -40,10 +40,12 @@
 - (FractalView *)view;
 
 #pragma mark Driver Initialization
+- (int)initLocale;
 - (int)initDriver:(struct ui_driver)driver;
 - (void)uninitDriver:(struct ui_driver)driver;
 
 #pragma mark Menus
+- (void)localizeApplicationMenu;
 - (void)performMenuAction:(NSMenuItem *)sender;
 - (void)clearMenu:(NSMenu *)menu;
 - (NSString *)keyEquivalentForName:(NSString *)name;

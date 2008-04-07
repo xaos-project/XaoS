@@ -66,7 +66,9 @@ AppController *controller;
 }
 
 - (void)awakeFromNib {
+    /* Global variable allows C wrapper functions to call controller methods */
 	controller = self;
+
 	menuItems = [[NSMutableDictionary alloc] init];
 
 	[[view window] makeFirstResponder:view];
@@ -81,8 +83,64 @@ AppController *controller;
 
 #pragma mark Driver Initialization
 
+- (int)initLocale {
+    /* 
+     * The LANG environment variables used by gettext to determine the locale
+     * are not normally set on Mac OS X, so we use the Cocoa API to retrieve
+     * the list of preferred languages and set the LANG variable accordingly.
+     */
+    
+    NSString *myLocalePath = [[[NSBundle mainBundle] resourcePath] 
+                              stringByAppendingPathComponent:@"locale"];
+    
+#ifdef USE_LOCALEPATH
+    /* 
+     * This is a global variable defined in ui.h, which the main function uses
+     * to locate the locale files when USE_LOCALEPATH is defined.  If it is
+     * undefined, the main function will use the hard coded locale path instead.
+     */
+    localepath = (char *)[myLocalePath UTF8String];
+#endif
+    
+    /*
+     * Each of the locales we support is stored in its own subdirectory in the
+     * Resources/locale directory. The name of the directory corresponds to the
+     * ISO code for the locale.  Therefore, a list of the files in this  
+     * directory conveniently serves as a list of supported locales.
+     */
+    NSMutableArray *supportedLanguages = [[[NSFileManager defaultManager]
+                                           directoryContentsAtPath:myLocalePath] 
+                                          mutableCopy];
+    
+    /* English is supported by default, so there isn't a locale directory for
+     * it.  But in order to match it with the user's preferred languages, it
+     * still has to be in the array of supported languages.
+     */
+    [supportedLanguages addObject:@"en"];
+    
+    /*
+     * The AppleLanguages user default returns an array of languages sorted 
+     * according to the User's settings in the International Preference Panel.
+     */
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *preferredLanguages = [defaults objectForKey:@"AppleLanguages"];
+    
+    /*
+     * Now we find the best match between the supported and preferred locales
+     * and set the LANG variable to that.
+     */
+    NSString *lang = [preferredLanguages firstObjectCommonWithArray:supportedLanguages];
+    if (lang) setenv("LANG", [lang UTF8String], /*overwrite? */ 1);
+    
+    [supportedLanguages release];
+}    
+
 - (int)initDriver:(struct ui_driver)driver {
     // TODO Implement driver initialization
+    [self localizeApplicationMenu];
+
+	[NSApp finishLaunching];
+
     return 1; // 1 for success; 0 for failure
 }
 
@@ -91,6 +149,33 @@ AppController *controller;
 }
 
 #pragma mark Menus
+
+- (void)localizeApplicationMenu {
+    /* 
+     * Internationalize XaoS application menu.  We do this via code instead
+     * of within the nib because this allows all i18n to be cross-platform and
+     * self-contained within the po file instead of spread across many places.
+     */
+    NSMenu *appMenu = [[[NSApp mainMenu] itemWithTitle:@"XaoS"] menu];
+    
+    [[appMenu itemWithTitle:@"About XaoS"] 
+     setTitle:[NSString stringWithUTF8String:_("About XaoS")]];
+    
+    [[appMenu itemWithTitle:@"Services"] 
+     setTitle:[NSString stringWithUTF8String:_("Services")]];
+    
+    [[appMenu itemWithTitle:@"Hide XaoS"] 
+     setTitle:[NSString stringWithUTF8String:_("Hide XaoS")]];
+    
+    [[appMenu itemWithTitle:@"Hide Others"] 
+     setTitle:[NSString stringWithUTF8String:_("Hide Others")]];
+    
+    [[appMenu itemWithTitle:@"Show All"] 
+     setTitle:[NSString stringWithUTF8String:_("Show All")]];
+    
+    [[appMenu itemWithTitle:@"Quit XaoS"] 
+     setTitle:[NSString stringWithUTF8String:_("Quit XaoS")]];
+}
 
 - (void)performMenuAction:(NSMenuItem *)sender {
 	CONST menuitem *item;	
@@ -118,9 +203,6 @@ AppController *controller;
 }
 
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
-    /* Cache a reference to the last UI context we received */
-    lastContext = context;
-    
 	[self clearMenu:[NSApp mainMenu]];
 	[self buildMenuWithContext:context name:name parent:[NSApp mainMenu]];
 }
@@ -128,9 +210,6 @@ AppController *controller;
 - (void)buildMenuWithContext:(struct uih_context *)context 
                         name:(CONST char *)menuName 
                       parent:(NSMenu *)parentMenu {
-    /* Cache a reference to the last UI context we received */
-    lastContext = context;
-
 	int i;
 	CONST menuitem *item;
 	
@@ -211,9 +290,6 @@ AppController *controller;
 }
 
 - (void)toggleMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
-    /* Cache a reference to the last UI context we received */
-    lastContext = context;
-
 	CONST struct menuitem *xaosItem = menu_findcommand(name);
 	NSMenuItem *menuItem = [menuItems objectForKey:[NSString stringWithUTF8String:name]];
 	
@@ -230,18 +306,25 @@ AppController *controller;
 }
 
 - (void)showPopUpMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
-    /* Cache a reference to the last UI context we received */
-    lastContext = context;
-
-    // TODO Implement popup menus
+    NSMenu *popupMenu = [[NSMenu alloc] initWithTitle:@"Popup Menu"];
+    NSEvent *fakeEvent = 
+        [NSEvent otherEventWithType:NSApplicationDefined 
+                           location:[[view window] mouseLocationOutsideOfEventStream] 
+                      modifierFlags:0 
+                          timestamp:[NSDate timeIntervalSinceReferenceDate]
+                       windowNumber:[[view window] windowNumber]
+                            context:nil
+                            subtype:0
+                              data1:0
+                              data2:0];
+	[self buildMenuWithContext:context name:name parent:popupMenu];
+    [NSMenu popUpContextMenu:popupMenu withEvent:fakeEvent forView:view];
+    [popupMenu release];
 }
 
 #pragma mark Dialogs
 
 - (void)showDialogWithContext:(struct uih_context *)context name:(CONST char *)name {
-    /* Cache a reference to the last UI context we received */
-    lastContext = context;
-
 	CONST menuitem *item = menu_findcommand (name);
 	if (!item) return;
 	
@@ -317,9 +400,6 @@ AppController *controller;
 #pragma mark Help
 
 - (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name {
-    /* Cache a reference to the last UI context we received */
-    lastContext = context;
-
 	NSString *anchor = [NSString stringWithUTF8String:name];
 	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
 }
@@ -339,14 +419,11 @@ AppController *controller;
 #pragma mark Application Delegates
 
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
-    /* Don't try to open the file unless a valid context has been cached */
-    if (!lastContext) return NO;
-
     if ([[filename pathExtension] isEqualToString:@"xpf"]) {
-        uih_loadfile(lastContext, [filename UTF8String]);
+        uih_loadfile(uih, [filename UTF8String]);
         return YES;
     } else if ([[filename pathExtension] isEqualToString:@"xaf"]) {
-        uih_playfile(lastContext, [filename UTF8String]);
+        uih_playfile(uih, [filename UTF8String]);
         return YES;
     } else {
         return NO;
