@@ -1,0 +1,16 @@
+a { 
+	color: #778fbd; 
+	font-family: "Lucida Grande", Arial, sans-serif; 
+	font-weight: bold; 
+	text-decoration: none; 
+}
+
+a:hover {
+	font-family: "Lucida Grande", Arial, sans-serif;
+	text-decoration: underline;
+}
+
+body {
+	font-size: 9pt;
+	font-family: "Lucida Grande", Arial, sans-serif;
+}
