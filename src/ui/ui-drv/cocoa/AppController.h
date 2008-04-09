@@ -51,7 +51,7 @@
 - (NSString *)keyEquivalentForName:(NSString *)name;
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)menuName parent:(NSMenu *)parentMenu;
-- (void)toggleMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
+//- (void)toggleMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
 - (void)showPopUpMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
 
 #pragma mark Dialogs

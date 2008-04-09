@@ -162,6 +162,12 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     
     - Add help applescript to automatically launch tutorials
 
+2008-04-07
+
+    - Implement menu delegate to check/uncheck menu items when displayed
+
+    - Hook up choose file button on custom dialogs
+
 TODO:
 
 * i18n 
@@ -169,14 +175,14 @@ TODO:
 
 * help
     - Add Mac OS X help section
+    - Update out of date documentation
 
 * dialogs
-    - Hook up choose file button on custom dialogs
     - Add validators to custom dialog fields
     - Change render basename type from to DIALOG_STRING to DIALOG_OFILE 
+    - Fix crash after animation rendering
     
 * menus
-    - Implement validators to check/uncheck menu items when displayed
     - Add custom selector code to handle undo/redo/cut/copy/paste/etc.
     
 * fullscreen

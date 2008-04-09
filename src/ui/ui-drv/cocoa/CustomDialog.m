@@ -135,6 +135,7 @@
 						maxControlWidth = [textField frame].size.width;
 
 					[[self contentView] addSubview:textField];
+					[[textField cell] setRepresentedObject:question];
 					[controls setValue:textField forKey:question];					
 					
 					NSButton *chooseButton = [[NSButton alloc] initWithFrame:okButtonRect];
@@ -369,8 +370,8 @@
 				break;
 		}
     }
-	ui_menuactivate (item, p);
 	[NSApp stopModal];
+	ui_menuactivate (item, p);
 }
 
 - (IBAction)cancel:(id)sender {
@@ -382,11 +383,21 @@
 }
 
 - (IBAction)chooseInput:(id)sender {
-	
+    NSTextField *target = [[sender cell] representedObject];
+    NSOpenPanel *oPanel = [NSOpenPanel openPanel];
+
+    int result = [oPanel runModalForDirectory:nil file:nil types:nil];
+    if (result == NSOKButton)
+        [target setStringValue:[oPanel filename]];
 }
 
 - (IBAction)chooseOutput:(id)sender {
-	
+    NSTextField *target = [[sender cell] representedObject];
+    NSSavePanel *sPanel = [NSSavePanel savePanel];
+
+    int result = [sPanel runModalForDirectory:nil file:nil];
+    if (result == NSOKButton)
+        [target setStringValue:[sPanel filename]];
 }
 
 #pragma mark Deallocation

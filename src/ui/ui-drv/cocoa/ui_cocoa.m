@@ -139,6 +139,7 @@ cocoa_buildMenu (struct uih_context *uih, CONST char *name)
 	[pool release];
 }
 
+/*
 static void 
 cocoa_toggleMenu (struct uih_context *uih, CONST char *name)
 {
@@ -146,6 +147,7 @@ cocoa_toggleMenu (struct uih_context *uih, CONST char *name)
 	[controller toggleMenuWithContext:uih name:name];
     [pool release];
 }
+*/
 
 static void 
 cocoa_showPopUpMenu (struct uih_context *c, CONST char *name)
@@ -190,7 +192,7 @@ main(int argc, char* argv[])
 
 struct gui_driver cocoa_gui_driver = {
     /* setrootmenu */   cocoa_buildMenu,
-    /* enabledisable */ cocoa_toggleMenu,
+    /* enabledisable */ NULL,
     /* menu */          cocoa_showPopUpMenu,
     /* dialog */        cocoa_showDialog,
     /* help */          cocoa_showHelp

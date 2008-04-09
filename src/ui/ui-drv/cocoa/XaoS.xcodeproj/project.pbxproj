@@ -203,6 +203,7 @@
 		D9332D830D8D84540010D650 /* VideatorProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideatorProxy.h; sourceTree = "<group>"; };
 		D9332D840D8D84540010D650 /* VideatorProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideatorProxy.m; sourceTree = "<group>"; };
 		D945112A0DA5CFA60017C926 /* libintl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libintl.dylib; sourceTree = "<group>"; };
+		D9957E930DAC3C59006A7929 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		D99CD0060B05515700170329 /* aconfig.h.in */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = aconfig.h.in; sourceTree = "<group>"; };
 		D99CD0070B05515700170329 /* archaccel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = archaccel.h; sourceTree = "<group>"; };
 		D99CD0080B05515700170329 /* btrace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = btrace.h; sourceTree = "<group>"; };
@@ -337,6 +338,7 @@
 			children = (
 				32CA4F630368D1EE00C91783 /* XaoS_Prefix.pch */,
 				3D2884D10A368505004C2595 /* aconfig.h */,
+				D9957E930DAC3C59006A7929 /* version.h */,
 				3DD6BDA30A4778A700C37438 /* ui_cocoa.m */,
 			);
 			name = "Other Sources";

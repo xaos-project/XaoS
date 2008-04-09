@@ -240,6 +240,7 @@ AppController *controller;
 			[menuItems setValue:newItem forKey:menuShortName];
 			if (item->type == MENU_SUBMENU) {
 				newMenu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle];
+                [newMenu setDelegate:self];
 				[newItem setSubmenu:newMenu];
 				[self buildMenuWithContext:context name:item->shortname parent:newMenu];
                 
@@ -289,6 +290,7 @@ AppController *controller;
 	}
 }
 
+/*
 - (void)toggleMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
 	CONST struct menuitem *xaosItem = menu_findcommand(name);
 	NSMenuItem *menuItem = [menuItems objectForKey:[NSString stringWithUTF8String:name]];
@@ -304,22 +306,32 @@ AppController *controller;
 		}
 	}
 }
+ */
+
+- (void)menuNeedsUpdate:(NSMenu *)menu {
+	CONST struct menuitem *xaosItem;
+    NSMenuItem *menuItem;
+    NSEnumerator *itemEnumerator = [[menu itemArray] objectEnumerator];
+    while (menuItem = [itemEnumerator nextObject]) {
+        if ([menuItem representedObject]) {
+            xaosItem = menu_findcommand([[menuItem representedObject] UTF8String]);
+            [menuItem setState:(menu_enabled(xaosItem, uih) ? NSOnState : NSOffState)];
+        }
+    }
+}
 
 - (void)showPopUpMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
-    NSMenu *popupMenu = [[NSMenu alloc] initWithTitle:@"Popup Menu"];
-    NSEvent *fakeEvent = 
-        [NSEvent otherEventWithType:NSApplicationDefined 
-                           location:[[view window] mouseLocationOutsideOfEventStream] 
-                      modifierFlags:0 
-                          timestamp:[NSDate timeIntervalSinceReferenceDate]
-                       windowNumber:[[view window] windowNumber]
-                            context:nil
-                            subtype:0
-                              data1:0
-                              data2:0];
-	[self buildMenuWithContext:context name:name parent:popupMenu];
-    [NSMenu popUpContextMenu:popupMenu withEvent:fakeEvent forView:view];
-    [popupMenu release];
+    NSMenu *popUpMenu = [[NSMenu alloc] initWithTitle:@"Popup Menu"];
+    NSPopUpButtonCell *popUpButtonCell = [[NSPopUpButtonCell alloc] initTextCell:@"" pullsDown:NO];
+    NSRect frame = {{0.0, 0.0}, {0.0, 0.0}};
+    frame.origin = [[view window] mouseLocationOutsideOfEventStream];
+	[self buildMenuWithContext:context name:name parent:popUpMenu];
+    int state = [[popUpMenu itemAtIndex:0] state];
+    [popUpButtonCell setMenu:popUpMenu];
+    [[popUpMenu itemAtIndex:0] setState:state];
+    [popUpButtonCell performClickWithFrame:frame inView:view];
+    [popUpButtonCell release];
+    [popUpMenu release];
 }
 
 #pragma mark Dialogs
@@ -373,6 +385,8 @@ AppController *controller;
 			}
 		}
 		
+        [[view window] makeKeyAndOrderFront:self];
+
 		if (fileName) {
 			dialogparam *param = malloc (sizeof (dialogparam));
 			param->dstring = strdup([fileName UTF8String]);
@@ -390,11 +404,10 @@ AppController *controller;
               contextInfo:nil];
 		[NSApp runModalForWindow:customDialog];
 		[NSApp endSheet:customDialog];
+        [[view window] makeKeyAndOrderFront:self];
 		[customDialog orderOut:self];
 		[customDialog release];
 	}
-	
-    [[view window] makeKeyAndOrderFront:self];
 }
 
 #pragma mark Help
