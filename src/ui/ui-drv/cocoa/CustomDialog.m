@@ -130,12 +130,12 @@
 					[textField setBezelStyle:NSTextFieldSquareBezel];
                     [[textField cell] setScrollable:YES];
                     [textField setStringValue:[NSString stringWithUTF8String:dialog[i].defstr]];
+					[[textField cell] setRepresentedObject:[NSString stringWithUTF8String:dialog[i].defstr]];
 					
 					if ([textField frame].size.width > maxControlWidth)
 						maxControlWidth = [textField frame].size.width;
 
 					[[self contentView] addSubview:textField];
-					[[textField cell] setRepresentedObject:question];
 					[controls setValue:textField forKey:question];					
 					
 					NSButton *chooseButton = [[NSButton alloc] initWithFrame:okButtonRect];
@@ -384,18 +384,24 @@
 
 - (IBAction)chooseInput:(id)sender {
     NSTextField *target = [[sender cell] representedObject];
+    NSString *extension = [[[target cell] representedObject] pathExtension];
     NSOpenPanel *oPanel = [NSOpenPanel openPanel];
 
-    int result = [oPanel runModalForDirectory:nil file:nil types:nil];
+    int result = [oPanel runModalForDirectory:nil 
+                                         file:nil 
+                                        types:[NSArray arrayWithObject:extension]];
+    
     if (result == NSOKButton)
         [target setStringValue:[oPanel filename]];
 }
 
 - (IBAction)chooseOutput:(id)sender {
     NSTextField *target = [[sender cell] representedObject];
+    NSString *extension = [[[target cell] representedObject] pathExtension];
     NSSavePanel *sPanel = [NSSavePanel savePanel];
+    [sPanel setRequiredFileType:extension];
 
-    int result = [sPanel runModalForDirectory:nil file:nil];
+    int result = [sPanel runModalForDirectory:nil file:[target stringValue]];
     if (result == NSOKButton)
         [target setStringValue:[sPanel filename]];
 }

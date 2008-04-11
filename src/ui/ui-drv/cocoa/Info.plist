@@ -37,10 +37,6 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleHelpBookFolder</key>
-	<string>XaoS Help</string>
-	<key>CFBundleHelpBookName</key>
-	<string>XaoS Help</string>
 	<key>CFBundleIconFile</key>
 	<string>XaoS</string>
 	<key>CFBundleIdentifier</key>
@@ -54,12 +50,16 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3.3</string>
-	<key>NSAppleScriptEnabled</key>
-	<string>YES</string>
+	<string>3.4pre1</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>CFBundleHelpBookFolder</key>
+	<string>XaoSHelp</string>
+	<key>CFBundleHelpBookName</key>
+	<string>XaoSHelp</string>
+	<key>NSAppleScriptEnabled</key>
+	<string>YES</string>
 </dict>
 </plist>

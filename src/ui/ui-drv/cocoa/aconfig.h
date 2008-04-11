@@ -26,7 +26,7 @@
 /* #undef HAVE_PTHREAD_SIGHANDLER */
 
 
-#define DEBUG
+//#define DEBUG
 
 /* Triggers Mac OS X-specific behavior in common sources */
 #define MACOSX

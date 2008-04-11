@@ -22,6 +22,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 #import <Cocoa/Cocoa.h>
+#import <Carbon/Carbon.h>
 
 #import "FractalView.h"
 #include "ui.h"
@@ -29,20 +30,18 @@
 
 @interface AppController : NSObject
 {
-    IBOutlet FractalView *view;
-	IBOutlet NSWindow *window;
-	NSMutableDictionary *menuItems;
-	NSMutableDictionary *powerKeyDictionary;
-    struct uih_context *lastContext;
+    FractalView *view;
+    NSWindow *window;
+    BOOL applicationIsLaunched;
 }
 
 #pragma mark Accessors
 - (FractalView *)view;
 
 #pragma mark Driver Initialization
-- (int)initLocale;
-- (int)initDriver:(struct ui_driver)driver;
-- (void)uninitDriver:(struct ui_driver)driver;
+- (void)initLocale;
+- (int)initDriver:(struct ui_driver *)driver fullscreen:(BOOL)fullscreen;
+- (void)uninitDriver;
 
 #pragma mark Menus
 - (void)localizeApplicationMenu;
@@ -51,7 +50,6 @@
 - (NSString *)keyEquivalentForName:(NSString *)name;
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)menuName parent:(NSMenu *)parentMenu;
-//- (void)toggleMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
 - (void)showPopUpMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
 
 #pragma mark Dialogs

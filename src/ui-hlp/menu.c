@@ -139,7 +139,7 @@ static menudialog uih_perturbationdialog[] = {
 
   Register (uih_renderdialog);
   DIALOGIFILE_I (gettext ("File to render:"), "fract*.xaf");
-  DIALOGSTR_I (gettext ("Basename:"), "anim");
+  DIALOGOFILE_I (gettext ("Basename:"), "anim");
   DIALOGINT_I (gettext ("Width:"), 640);
   DIALOGINT_I (gettext ("Height:"), 480);
   DIALOGFLOAT_I (gettext ("Real width (cm):"), 29.0);
@@ -1078,6 +1078,7 @@ uih_registermenus_i18n (void)
   SUBMENU_I ("root", "e", gettext ("Filters"), "mfilter");
   SUBMENU_I ("root", NULL, gettext ("UI"), "ui");
   SUBMENU_I ("root", NULL, gettext ("Misc"), "misc");
+  SUBMENU_I ("root", NULL, gettext ("Window"), "window");
   SUBMENU_I ("root", NULL, gettext ("Help"), "helpmenu");
   SUBMENU_I ("helpmenu", NULL, gettext ("Tutorials"),
 	     "tutor") SUBMENUNOOPT_I ("animroot", "f", gettext ("File"),

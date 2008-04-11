@@ -123,13 +123,19 @@ Committing additional changes submitted 10/30 by Andrew Stone:
 
 2008-03-31
 
+    DIALOGS
+
     - Add copy/paste functionality for custom dialogs
+    
+    HELP
     
     - Update help conversion script to automatically generate index
     
     - Update help to use stylesheets
 
 2008-04-04
+
+    I18N
 
     - Add reference to gettext library, and script command to copy it
 
@@ -138,7 +144,11 @@ Committing additional changes submitted 10/30 by Andrew Stone:
 
 2008-04-05
 
+    MENUS
+    
     - Added Window menu and associated menu items
+    
+    I18N
     
     - Fixed bug where key equivalents were not found when foreign languages
       were selected
@@ -147,6 +157,8 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     
 2008-04-06
 
+    I18N
+    
     - Add code to convert user's native text encoding (usually UTF-8) to
       Latin1/2 to prevent garbled text through built-in text handling system
       
@@ -154,44 +166,86 @@ Committing additional changes submitted 10/30 by Andrew Stone:
 
     - Add code to set locale directory correctly relative to executable path
 
+    MENUS
+    
     - Implement popup menus
 
+    - I18nize menu items in application menu
+
+    HELP
+    
     - fix bug in help conversion that results in missing headers for some files
 
-    - I18nize menu items in application menu
-    
     - Add help applescript to automatically launch tutorials
 
 2008-04-07
 
+    MENUS
+
     - Implement menu delegate to check/uncheck menu items when displayed
 
+    DIALOGS
+    
     - Hook up choose file button on custom dialogs
+
+2008-04-09
+
+    FULL SCREEN
+    
+    - Implement fullscreen code
+
+    - Add menu item to UI menu to toggle fullscreen mode
+
+    - Change render basename type from to DIALOG_STRING to DIALOG_OFILE 
+    
+    DRIVER
+    
+    - Add driver initialization code
+
+    - Add driver uninitialization code
+    
+    MISC
+    
+    - Conditionalize custom script build phases so they do not do unnecessary work
+    
+2008-04-10
+
+    I18N
+    
+    - Added italian translation
+    
+    MISC
+    
+    - Rebuilt Xcode project to fix issues with debugger and interface builder
+    
+    - Incremented Cocoa version number from 3.3 to 3.4
+    
+    HELP
+    
+    - Got rid of space in help file name
+
 
 TODO:
 
+* bugs
+
+    - Fix crash after animation rendering
+    - Fix black screen with edge detection filters
+    - Fix black screen with pseudo-3d filter
+    - Fix black screen with hsv coloring modes
+    - Fix catseye rendering (shows empty circle without increasing bailout)
+    
 * i18n 
     - Make OK/Cancel buttons on custom dialogs autosize to fit i18n labels
 
 * help
     - Add Mac OS X help section
     - Update out of date documentation
+    - Add css element to make dt elements bold
+    - Add applescript command to launch tutorials
 
 * dialogs
     - Add validators to custom dialog fields
-    - Change render basename type from to DIALOG_STRING to DIALOG_OFILE 
-    - Fix crash after animation rendering
-    
-* menus
-    - Add custom selector code to handle undo/redo/cut/copy/paste/etc.
-    
-* fullscreen
-    - Implement fullscreen code
-    - Add menu item to UI menu to toggle fullscreen mode
-
-* driver
-    - Add driver initialization code
-    - Add driver uninitialization code
     
 * cursors
     - Add cursor changing code in cocoa driver

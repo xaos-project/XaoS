@@ -1182,6 +1182,8 @@ MAIN_FUNCTION (int argc, char **argv)
 	strcpy (language, "francais");
       if (strncmp (locale, "Romanian", 8) == 0)
 	strcpy (language, "romanian");
+      if (strncmp (locale, "Italian", 7) == 0)
+	strcpy (language, "italiano");
     }
   // x_message("%s",language);
 #else
@@ -1211,6 +1213,8 @@ MAIN_FUNCTION (int argc, char **argv)
 	strcpy (language, "francais");
       if (strcmp (locale, "ro") == 0)
 	strcpy (language, "romanian");
+      if (strcmp (locale, "it") == 0)
+	strcpy (language, "italiano");
     }
 #endif
 #ifdef DEBUG

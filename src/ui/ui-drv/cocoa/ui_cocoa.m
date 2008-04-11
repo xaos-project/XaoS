@@ -25,7 +25,7 @@
 
 #include "ui.h"
 
-struct ui_driver cocoa_driver;
+struct ui_driver cocoa_driver, cocoa_fullscreen_driver;
 
 #ifdef USE_LOCALEPATH
 char *localepath;
@@ -101,7 +101,16 @@ static int
 cocoa_initDriver ()
 {	
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    int status = [controller initDriver:cocoa_driver];
+    int status = [controller initDriver:&cocoa_driver fullscreen:NO];
+	[pool release];
+    return status;
+}
+
+static int
+cocoa_initFullScreenDriver ()
+{	
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    int status = [controller initDriver:&cocoa_fullscreen_driver fullscreen:YES];
 	[pool release];
     return status;
 }
@@ -110,7 +119,7 @@ static void
 cocoa_uninitDriver ()
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[controller uninitDriver:cocoa_driver];
+	[controller uninitDriver];
 	[pool release];
 }
 
@@ -139,16 +148,6 @@ cocoa_buildMenu (struct uih_context *uih, CONST char *name)
 	[pool release];
 }
 
-/*
-static void 
-cocoa_toggleMenu (struct uih_context *uih, CONST char *name)
-{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[controller toggleMenuWithContext:uih name:name];
-    [pool release];
-}
-*/
-
 static void 
 cocoa_showPopUpMenu (struct uih_context *c, CONST char *name)
 {
@@ -174,19 +173,14 @@ cocoa_showHelp (struct uih_context *c, CONST char *name)
 	[pool release];
 }
 
-static void
-cocoa_initLocale () {
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    [controller initLocale];
-    [pool release];
-}
-
 int 
 main(int argc, char* argv[])
 {
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	[NSApplication sharedApplication];
 	[NSBundle loadNibNamed:@"MainMenu" owner:NSApp];
-    cocoa_initLocale();
+    controller = [[AppController alloc] init];
+    [pool release];
 	return MAIN_FUNCTION(argc, argv);
 }
 
@@ -204,7 +198,7 @@ static struct params cocoa_params[] = {
 };
 
 struct ui_driver cocoa_driver = {
-    /* name */          "Cocoa Driver",
+    /* name */          "Mac OS X Windowed Driver",
     /* init */          cocoa_initDriver,
     /* getsize */       cocoa_getImageSize,
     /* processevents */ cocoa_processEvents,
@@ -222,9 +216,9 @@ struct ui_driver cocoa_driver = {
     /* textwidth */     12,
     /* textheight */    12,
     /* params */        cocoa_params,
-    /* flags */         RESOLUTION | PIXELSIZE,
-    /* width */         0.01, 
-    /* height */        0.01,
+    /* flags */         PIXELSIZE,
+    /* width */         0.0, 
+    /* height */        0.0,
     /* maxwidth */      0, 
     /* maxheight */     0,
     /* imagetype */     UI_TRUECOLOR,
@@ -243,4 +237,43 @@ struct ui_driver cocoa_driver = {
     /* gui_driver */    &cocoa_gui_driver
 };
 
+struct ui_driver cocoa_fullscreen_driver = {
+    /* name */          "Mac OS X Full Screen Driver",
+    /* init */          cocoa_initFullScreenDriver,
+    /* getsize */       cocoa_getImageSize,
+    /* processevents */ cocoa_processEvents,
+    /* getmouse */      cocoa_getMouse,
+    /* uninit */        cocoa_uninitDriver,
+    /* set_color */     NULL,
+    /* set_range */     NULL,
+    /* print */         cocoa_printText,
+    /* display */       cocoa_refreshDisplay,
+    /* alloc_buffers */ cocoa_allocBuffers,
+    /* free_buffers */  cocoa_freeBuffers,
+    /* filp_buffers */  cocoa_flipBuffers,
+    /* mousetype */     cocoa_setCursorType,
+    /* flush */         NULL,
+    /* textwidth */     12,
+    /* textheight */    12,
+    /* params */        cocoa_params,
+    /* flags */         PIXELSIZE | FULLSCREEN,
+    /* width */         0.0, 
+    /* height */        0.0,
+    /* maxwidth */      0, 
+    /* maxheight */     0,
+    /* imagetype */     UI_TRUECOLOR,
+    /* palettestart */  0, 
+    /* paletteend */    256, 
+    /* maxentries */    255,
+#if __BIG_ENDIAN__
+    /* rmask */         0xff000000,
+    /* gmask */         0x00ff0000,
+    /* bmask */         0x0000ff00,
+#else
+    /* rmask */         0x000000ff,
+    /* gmask */         0x0000ff00,
+    /* bmask */         0x00ff0000,
+#endif
+    /* gui_driver */    &cocoa_gui_driver
+};
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/

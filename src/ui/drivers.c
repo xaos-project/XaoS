@@ -24,7 +24,7 @@
 #include <ui.h>
 extern CONST struct ui_driver svga_driver, x11_driver, dog_driver,
   plan9_driver, plan9_driver, mac_driver, mac_full_driver, osx_driver, 
-  osx_fullscreen_driver, os2vio_driver, cocoa_driver,
+  osx_fullscreen_driver, os2vio_driver, cocoa_driver, cocoa_fullscreen_driver,
   be_driver, be_direct_driver, be_screen_driver, aalib_driver, ggi_driver,
   win32_driver, dxw_driver, dxf_driver, DGA_driver;
 CONST struct ui_driver *CONST drivers[] = {
@@ -69,6 +69,7 @@ CONST struct ui_driver *CONST drivers[] = {
 #endif
 #ifdef COCOA_DRIVER
   &cocoa_driver,
+  &cocoa_fullscreen_driver,
 #endif
 #ifdef BEOS_DRIVER
   &be_driver,

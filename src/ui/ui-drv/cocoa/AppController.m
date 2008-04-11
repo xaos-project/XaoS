@@ -33,6 +33,18 @@
 #define _(string) (string)
 #endif
 
+/*
+ * This category overrides standard NSWindow behavior which prevents a window
+ * from receiving keyboard events unless it has a titlebar. Without this, the 
+ * keyboard doesn't work in full screen mode.
+ */
+@implementation NSWindow (CanBecomeKeyWindowOverride)
+- (BOOL)canBecomeKeyWindow {
+    return YES;
+}
+@end
+
+
 AppController *controller;
 
 @implementation AppController
@@ -65,14 +77,13 @@ AppController *controller;
     [self setupDefaults];
 }
 
-- (void)awakeFromNib {
-    /* Global variable allows C wrapper functions to call controller methods */
-	controller = self;
-
-	menuItems = [[NSMutableDictionary alloc] init];
-
-	[[view window] makeFirstResponder:view];
-	[[view window] setDelegate:self]; 
+- (id)init {
+    self = [super init];
+    if (self) {
+        applicationIsLaunched = NO;
+        [self initLocale];
+    }
+    return self;
 }
 
 #pragma mark Accessors
@@ -83,7 +94,7 @@ AppController *controller;
 
 #pragma mark Driver Initialization
 
-- (int)initLocale {
+- (void)initLocale {
     /* 
      * The LANG environment variables used by gettext to determine the locale
      * are not normally set on Mac OS X, so we use the Cocoa API to retrieve
@@ -121,31 +132,77 @@ AppController *controller;
     /*
      * The AppleLanguages user default returns an array of languages sorted 
      * according to the User's settings in the International Preference Panel.
+     * We find the best match between the supported and preferred locales
+     * and set the LANG variable to that.
      */
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSArray *preferredLanguages = [defaults objectForKey:@"AppleLanguages"];
-    
-    /*
-     * Now we find the best match between the supported and preferred locales
-     * and set the LANG variable to that.
-     */
     NSString *lang = [preferredLanguages firstObjectCommonWithArray:supportedLanguages];
     if (lang) setenv("LANG", [lang UTF8String], /*overwrite? */ 1);
     
     [supportedLanguages release];
 }    
 
-- (int)initDriver:(struct ui_driver)driver {
-    // TODO Implement driver initialization
-    [self localizeApplicationMenu];
+- (int)initDriver:(struct ui_driver *)driver fullscreen:(BOOL)fullscreen {
+    /*
+     * Calculate the pixel size in cm. userSpaceScaleFactor returns: 
+     *      pixels per per point
+     *      pixels per inch = pixels per point * 72.0
+     *      inches per pixel = 1 / pixels per inch
+     *      cm per pixel = inches per pixel * 2.54
+     */
+    CGDirectDisplayID displayID = (CGDirectDisplayID)[[[[NSScreen mainScreen] deviceDescription] objectForKey:@"NSScreenNumber"] intValue];
+    CGSize displaySize = CGDisplayScreenSize(displayID);
+    NSSize displayResolution = [[NSScreen mainScreen] frame].size;
+    driver->width = (displaySize.width/displayResolution.width)/10;
+    driver->height = (displaySize.height/displayResolution.height)/10;
 
-	[NSApp finishLaunching];
+    if (fullscreen) {
+        /* 
+         * SetSystemUIMode is the easiest way to make a full screen application.
+         * It's Carbon, but it should be 64-bit safe.  kUIModeAllHidden hides
+         * the dock and menuBar and kUIOptionAutoShowMenuBar causes the menubar
+         * to automatically slide in when the user moves the mouse to the top
+         * edge of the screen.
+         */
+        SetSystemUIMode(kUIModeAllHidden, kUIOptionAutoShowMenuBar);
+        window = [[NSWindow alloc] initWithContentRect:[[NSScreen mainScreen] frame]
+                                             styleMask:NSBorderlessWindowMask 
+                                               backing:NSBackingStoreBuffered
+                                                 defer:YES];
+    } else {
+        window = [[NSWindow alloc] initWithContentRect:NSMakeRect(50, 50, 640, 480) 
+                                             styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask) 
+                                               backing:NSBackingStoreBuffered 
+                                                 defer:YES];
+    }
+
+    view = [[FractalView alloc] initWithFrame:[[window contentView] frame]];
+    [view setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
+    [[window contentView] addSubview:view];
+    [window makeFirstResponder:view];
+    [window setDelegate:self];
+    [window setTitle:@"XaoS"];
+    [window makeKeyAndOrderFront:self];
+
+    /*
+     * These tasks should only be done once, when the application first launches
+     * but for various reasons, they can't be done until after the main run
+     * loop has started.  That's why we put them in the driver init code.
+     */
+    if (!applicationIsLaunched) {
+        [self localizeApplicationMenu];
+        [NSApp finishLaunching];
+        applicationIsLaunched = YES;
+    }
 
     return 1; // 1 for success; 0 for failure
 }
 
-- (void)uninitDriver:(struct ui_driver)driver {
-    // TODO Implement driver uninitialization
+- (void)uninitDriver {
+    SetSystemUIMode(kUIModeNormal, 0);
+    [view release];
+    [window release];
 }
 
 #pragma mark Menus
@@ -187,12 +244,6 @@ AppController *controller;
 	ui_menuactivate(item, NULL);
 }
 
-- (void)clearMenu:(NSMenu *)menu {
-	while ([menu numberOfItems] > 1) {
-		[menu removeItemAtIndex:1];
-	}
-}
-
 - (NSString *)keyEquivalentForName:(NSString *)name {
     // If you want more command-keys, just add them here based on their name:
 	if ([name isEqualToString:@"undo"]) return @"z";
@@ -203,14 +254,26 @@ AppController *controller;
 }
 
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
-	[self clearMenu:[NSApp mainMenu]];
-	[self buildMenuWithContext:context name:name parent:[NSApp mainMenu]];
+    NSMenu *menu = [NSApp mainMenu];
+	while ([menu numberOfItems] > 1)
+		[menu removeItemAtIndex:1];
+	[self buildMenuWithContext:context name:name parent:menu];
 }
 
 - (void)buildMenuWithContext:(struct uih_context *)context 
                         name:(CONST char *)menuName 
-                      parent:(NSMenu *)parentMenu {
-	int i;
+                      parent:(NSMenu *)parentMenu
+{
+    [self buildMenuWithContext:context
+                          name:menuName
+                        parent:parentMenu
+                    isNumbered:NO];
+}
+- (void)buildMenuWithContext:(struct uih_context *)context 
+                        name:(CONST char *)menuName 
+                      parent:(NSMenu *)parentMenu
+                  isNumbered:(BOOL)isNumbered {
+	int i, numberKey = 1;
 	CONST menuitem *item;
 	
     NSMenu *newMenu;
@@ -237,7 +300,20 @@ AppController *controller;
 
 			newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:keyEquiv];
 			
-			[menuItems setValue:newItem forKey:menuShortName];
+            if (isNumbered && item->type != MENU_SUBMENU) {
+                if (numberKey < 10)
+                    keyEquiv = [NSString stringWithFormat:@"%d", numberKey];
+                else if (numberKey == 10)
+                    keyEquiv = @"0";
+                else if (numberKey < 36)
+                    keyEquiv = [NSString stringWithFormat:@"%c", 'a' + numberKey - 11];
+                    
+                [newItem setKeyEquivalent:keyEquiv];
+                [newItem setKeyEquivalentModifierMask:0];
+                
+                numberKey++;
+            }
+            
 			if (item->type == MENU_SUBMENU) {
 				newMenu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle];
                 [newMenu setDelegate:self];
@@ -290,24 +366,6 @@ AppController *controller;
 	}
 }
 
-/*
-- (void)toggleMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
-	CONST struct menuitem *xaosItem = menu_findcommand(name);
-	NSMenuItem *menuItem = [menuItems objectForKey:[NSString stringWithUTF8String:name]];
-	
-	[menuItem setState:(menu_enabled(xaosItem, context) ? NSOnState : NSOffState)];
-	if (xaosItem->flags & MENUFLAG_RADIO) {
-		NSEnumerator *itemEnumerator = [[[menuItem menu] itemArray] objectEnumerator];
-		while (menuItem = [itemEnumerator nextObject]) {
-			if ([menuItem representedObject]) {
-				xaosItem = menu_findcommand([[menuItem representedObject] UTF8String]);
-				[menuItem setState:(menu_enabled(xaosItem, context) ? NSOnState : NSOffState)];
-			}
-		}
-	}
-}
- */
-
 - (void)menuNeedsUpdate:(NSMenu *)menu {
 	CONST struct menuitem *xaosItem;
     NSMenuItem *menuItem;
@@ -324,8 +382,8 @@ AppController *controller;
     NSMenu *popUpMenu = [[NSMenu alloc] initWithTitle:@"Popup Menu"];
     NSPopUpButtonCell *popUpButtonCell = [[NSPopUpButtonCell alloc] initTextCell:@"" pullsDown:NO];
     NSRect frame = {{0.0, 0.0}, {0.0, 0.0}};
-    frame.origin = [[view window] mouseLocationOutsideOfEventStream];
-	[self buildMenuWithContext:context name:name parent:popUpMenu];
+    frame.origin = [window mouseLocationOutsideOfEventStream];
+	[self buildMenuWithContext:context name:name parent:popUpMenu isNumbered:YES];
     int state = [[popUpMenu itemAtIndex:0] state];
     [popUpButtonCell setMenu:popUpMenu];
     [[popUpMenu itemAtIndex:0] setState:state];
@@ -348,20 +406,16 @@ AppController *controller;
 	
 	if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE)) {
 		NSString *fileName = nil;
+        NSString *extension = [[NSString stringWithUTF8String:dialog[0].defstr] pathExtension];
 		
 		switch(dialog[0].type) {
 			case DIALOG_IFILE:
 			{
-				NSArray *fileTypes = nil;
-				if (strcmp(name, "loadpos") == 0)			
-					fileTypes = [NSArray arrayWithObject:@"xpf"];
-				else if (strcmp(name, "play") == 0)
-					fileTypes = [NSArray arrayWithObject:@"xaf"];
-				
 				NSOpenPanel *oPanel = [NSOpenPanel openPanel];
 				
 				int result = [oPanel runModalForDirectory:nil
-													 file:nil types:fileTypes];
+													 file:nil 
+                                                    types:[NSArray arrayWithObject:extension]];
 				
 				if (result == NSOKButton)
 					fileName = [oPanel filename];
@@ -370,12 +424,7 @@ AppController *controller;
 			case DIALOG_OFILE:
 			{
 				NSSavePanel *sPanel = [NSSavePanel savePanel];
-				if (strcmp(name, "savepos") == 0)			
-					[sPanel setRequiredFileType:@"xpf"];
-				else if (strcmp(name, "record") == 0)
-					[sPanel setRequiredFileType:@"xaf"];
-				else if (strcmp(name, "saveimg") == 0)
-					[sPanel setRequiredFileType:@"png"];
+                [sPanel setRequiredFileType:extension];
 				
 				int result = [sPanel runModalForDirectory:nil file:@"untitled"];
 				
@@ -385,7 +434,7 @@ AppController *controller;
 			}
 		}
 		
-        [[view window] makeKeyAndOrderFront:self];
+        [window makeKeyAndOrderFront:self];
 
 		if (fileName) {
 			dialogparam *param = malloc (sizeof (dialogparam));
@@ -404,7 +453,7 @@ AppController *controller;
               contextInfo:nil];
 		[NSApp runModalForWindow:customDialog];
 		[NSApp endSheet:customDialog];
-        [[view window] makeKeyAndOrderFront:self];
+        [window makeKeyAndOrderFront:self];
 		[customDialog orderOut:self];
 		[customDialog release];
 	}
@@ -414,7 +463,7 @@ AppController *controller;
 
 - (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name {
 	NSString *anchor = [NSString stringWithUTF8String:name];
-	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
+	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoSHelp"];
 }
 
 #pragma mark Window Delegates
