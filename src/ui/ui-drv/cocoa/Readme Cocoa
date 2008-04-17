@@ -224,6 +224,49 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     
     - Got rid of space in help file name
 
+2008-04-14
+
+    I18N
+
+    - Make OK/Cancel buttons on custom dialogs autosize to fit i18n labels
+    
+    MISC
+    
+    - Change Performance Mode to VJ mode (changed shortcut from P to v)
+      (performance mode might be confused with performance enhancement)
+    
+    - Added document icon
+    
+    - Added Close menu item to file menu
+    
+    - Fixed regression where window did not retain key status after dialog
+
+    - Add cursor changing code in cocoa driver
+
+    - Add hook to change cursor during performance mode
+
+2008-04-16
+
+    HELP
+
+    - Add css element to make dt elements bold
+    
+    - Add anchors for usrform and usrformInit to help file
+    
+    I18N
+    
+    - Updated italian po and catalog
+    
+    - Added Italian to configure.in ALL_LINGUAS
+    
+    MISC
+    
+    - Refine about dialog box
+    
+    - Add comments and cleanup
+    
+    - Changed version to 3.4pre1 in configure.in
+    
 
 TODO:
 
@@ -234,28 +277,15 @@ TODO:
     - Fix black screen with pseudo-3d filter
     - Fix black screen with hsv coloring modes
     - Fix catseye rendering (shows empty circle without increasing bailout)
+    - Cursor changing code has no effect
     
-* i18n 
-    - Make OK/Cancel buttons on custom dialogs autosize to fit i18n labels
-
 * help
     - Add Mac OS X help section
     - Update out of date documentation
-    - Add css element to make dt elements bold
-    - Add applescript command to launch tutorials
-
-* dialogs
-    - Add validators to custom dialog fields
-    
-* cursors
-    - Add cursor changing code in cocoa driver
-    - Add hook to change cursor during performance mode
 
 * acs features
     - Implement fast palette save/recall
     - Implement autokeys on startup
-    - Change Performance Mode to VJ mode
-      (performance mode might be confused with performance enhancement)
 
 * videator
     - Add enable/disable menu item

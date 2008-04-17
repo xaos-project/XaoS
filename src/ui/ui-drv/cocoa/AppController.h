@@ -46,11 +46,11 @@
 #pragma mark Menus
 - (void)localizeApplicationMenu;
 - (void)performMenuAction:(NSMenuItem *)sender;
-- (void)clearMenu:(NSMenu *)menu;
 - (NSString *)keyEquivalentForName:(NSString *)name;
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)menuName parent:(NSMenu *)parentMenu;
-- (void)showPopUpMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
+- (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)menuName parent:(NSMenu *)parentMenu isNumbered:(BOOL)isNumbered;
+    - (void)showPopUpMenuWithContext:(struct uih_context *)context name:(CONST char *)name;
 
 #pragma mark Dialogs
 - (void)showDialogWithContext:(struct uih_context *)context name:(CONST char *)name;

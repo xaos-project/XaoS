@@ -184,6 +184,7 @@ AppController *controller;
     [window setDelegate:self];
     [window setTitle:@"XaoS"];
     [window makeKeyAndOrderFront:self];
+    [NSApp setDelegate:self];
 
     /*
      * These tasks should only be done once, when the application first launches
@@ -235,11 +236,12 @@ AppController *controller;
 }
 
 - (void)performMenuAction:(NSMenuItem *)sender {
-	CONST menuitem *item;	
-	NSString *name;
-	
-	name = [sender representedObject];
-	item = menu_findcommand([name UTF8String]);
+    /*
+     * Find the XaoS menu item associated with the sending Cocoa menu item
+     * then invoke the callback to perform that action.
+     */
+	NSString *name = [sender representedObject];
+	CONST menuitem *item = menu_findcommand([name UTF8String]);
 	
 	ui_menuactivate(item, NULL);
 }
@@ -273,54 +275,65 @@ AppController *controller;
                         name:(CONST char *)menuName 
                       parent:(NSMenu *)parentMenu
                   isNumbered:(BOOL)isNumbered {
-	int i, numberKey = 1;
+	int i;
 	CONST menuitem *item;
-	
-    NSMenu *newMenu;
-    NSMenuItem *newItem;
-	NSString *menuTitle, *menuShortName;
-	
-	NSMenu *mainMenu = [NSApp mainMenu];
-	
 	for (i=0; (item = menu_item(menuName, i)) != NULL; i++)	{
 		if (item->type == MENU_SEPARATOR) {
 			[parentMenu addItem:[NSMenuItem separatorItem]];
 		} else {
-			NSString *keyEquiv = @"";
-			menuTitle = [NSString stringWithUTF8String:item->name];
-			if (item->type == MENU_CUSTOMDIALOG || item->type == MENU_DIALOG)
+			NSString *menuTitle = [NSString stringWithUTF8String:item->name];
+            
+            /* 
+             * Add elipses to menu items that open dialogs in order to conform
+             * with the Apple Human Interface Guidelines.
+             */
+            if (item->type == MENU_CUSTOMDIALOG || item->type == MENU_DIALOG)
 				menuTitle = [menuTitle stringByAppendingString:@"..."];
 			
-			menuShortName = [NSString stringWithUTF8String:item->shortname];
-
-			keyEquiv = [self keyEquivalentForName:menuShortName];
+			NSString *menuShortName = [NSString stringWithUTF8String:item->shortname];
+			NSString *keyEquiv = [self keyEquivalentForName:menuShortName];
 			
-			if (item->key && parentMenu != mainMenu)
+            /*
+             * Add classic XaoS key accelerator to name in parenthesis, unless
+             * this is the main menu.  This allows both Mac-style and Xaos-style
+             * key equivalents to co-exist.
+             */
+			if (item->key && parentMenu != [NSApp mainMenu])
 				menuTitle = [NSString stringWithFormat:@"%@ (%s)", menuTitle, item->key];
 
-			newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:keyEquiv];
+			NSMenuItem *newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:keyEquiv];
 			
+            /* 
+             * If this is a numbered pop-up menu, override the default key
+             * accelerator with a number or letter based on the position in
+             * the menu.
+             */
             if (isNumbered && item->type != MENU_SUBMENU) {
-                if (numberKey < 10)
-                    keyEquiv = [NSString stringWithFormat:@"%d", numberKey];
-                else if (numberKey == 10)
+                if (i < 9)
+                    keyEquiv = [NSString stringWithFormat:@"%d", i + 1];
+                else if (i == 9)
                     keyEquiv = @"0";
-                else if (numberKey < 36)
-                    keyEquiv = [NSString stringWithFormat:@"%c", 'a' + numberKey - 11];
+                else if (i < 35)
+                    keyEquiv = [NSString stringWithFormat:@"%c", 'a' + i - 10];
                     
                 [newItem setKeyEquivalent:keyEquiv];
                 [newItem setKeyEquivalentModifierMask:0];
-                
-                numberKey++;
             }
             
 			if (item->type == MENU_SUBMENU) {
-				newMenu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle];
+                /* Recursively build submenus */
+				NSMenu *newMenu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle];
                 [newMenu setDelegate:self];
 				[newItem setSubmenu:newMenu];
 				[self buildMenuWithContext:context name:item->shortname parent:newMenu];
                 
-                /* These items are necessary to implement cut & paste in custom dialogs */
+                /* Conditionally add special items to certain menus */
+                
+                /*
+                 * These items are necessary to provide the expected keyboard
+                 * equivalents for cut & paste operations in custom dialogs 
+                 * and to conform to the human interface guidelines
+                 */
                 if ([menuShortName isEqualToString:@"edit"]) {
                     [newMenu addItem:[NSMenuItem separatorItem]];
                     [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Cut")]
@@ -339,6 +352,11 @@ AppController *controller;
                                        action:@selector(selectAll:) keyEquivalent:@"a"];
                 }
                 
+                /* 
+                 * These items in the window menu are necessary to provide expected
+                 * keyboard equivalents for menu operations such as minimizing and
+                 * to conform with the human interface guidelnes.
+                 */
                 if ([menuShortName isEqualToString:@"window"]) {
                     [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Minimize")]
                                        action:@selector(performMiniaturize:) keyEquivalent:@"m"];
@@ -352,15 +370,34 @@ AppController *controller;
                                        action:@selector(arrangeInFront:) keyEquivalent:@""];
                 }
                 
+                /*
+                 * The close menu item in the File menu is necessary to provide
+                 * the expected Command-W close window keyboard equivalent and
+                 * to conform with the human interface guidelines.
+                 */
+                if ([menuShortName isEqualToString:@"file"]) {
+                    [newMenu addItem:[NSMenuItem separatorItem]];
+
+                    [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Close")] 
+                                       action:@selector(performClose:) keyEquivalent:@"w"];
+                }
+                
 				[newMenu release];
-			} else {				
+			} else {
+                /*
+                 * Set action for leaf menu items to generic callback function
+                 * and save the short name as the item's represented object. When
+                 * the callback is activated, it will find the XaoS menu item
+                 * to activate based on the represented object.
+                 */
 				[newItem setTarget:self];
 				[newItem setAction:@selector(performMenuAction:)];
 				[newItem setRepresentedObject:menuShortName];
 				if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX) && menu_enabled (item, context))
 					[newItem setState:NSOnState];
 			}
-			[parentMenu addItem:newItem];
+
+            [parentMenu addItem:newItem];
 			[newItem release];
 		}
 	}
@@ -405,9 +442,9 @@ AppController *controller;
 	for (nitems = 0; dialog[nitems].question; nitems++);
 	
 	if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE)) {
-		NSString *fileName = nil;
         NSString *extension = [[NSString stringWithUTF8String:dialog[0].defstr] pathExtension];
 		
+		NSString *fileName = nil;
 		switch(dialog[0].type) {
 			case DIALOG_IFILE:
 			{
@@ -453,8 +490,8 @@ AppController *controller;
               contextInfo:nil];
 		[NSApp runModalForWindow:customDialog];
 		[NSApp endSheet:customDialog];
-        [window makeKeyAndOrderFront:self];
 		[customDialog orderOut:self];
+        [window makeKeyAndOrderFront:self];
 		[customDialog release];
 	}
 }
@@ -463,7 +500,7 @@ AppController *controller;
 
 - (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name {
 	NSString *anchor = [NSString stringWithUTF8String:name];
-	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoSHelp"];
+	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
 }
 
 #pragma mark Window Delegates

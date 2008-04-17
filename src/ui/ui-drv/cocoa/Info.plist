@@ -11,6 +11,8 @@
 			<array>
 				<string>xaf</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>XaoSDocument</string>
 			<key>CFBundleTypeName</key>
 			<string>XaoS Animation File</string>
 			<key>CFBundleTypeRole</key>
@@ -25,6 +27,8 @@
 			<array>
 				<string>xpf</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>XaoSDocument</string>
 			<key>CFBundleTypeName</key>
 			<string>XaoS Position File</string>
 			<key>CFBundleTypeRole</key>
@@ -37,6 +41,10 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleHelpBookFolder</key>
+	<string>XaoSHelp</string>
+	<key>CFBundleHelpBookName</key>
+	<string>XaoSHelp</string>
 	<key>CFBundleIconFile</key>
 	<string>XaoS</string>
 	<key>CFBundleIdentifier</key>
@@ -51,15 +59,11 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>3.4pre1</string>
+	<key>NSAppleScriptEnabled</key>
+	<string>YES</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>CFBundleHelpBookFolder</key>
-	<string>XaoSHelp</string>
-	<key>CFBundleHelpBookName</key>
-	<string>XaoSHelp</string>
-	<key>NSAppleScriptEnabled</key>
-	<string>YES</string>
 </dict>
 </plist>

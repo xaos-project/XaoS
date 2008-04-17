@@ -56,6 +56,7 @@ extern "C"
 #define NORMALMOUSE 0
 #define WAITMOUSE 1
 #define REPLAYMOUSE 2
+#define VJMOUSE 3
 
 #define UIKEY_UP 257
 #define UIKEY_DOWN 258

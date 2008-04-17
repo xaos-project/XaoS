@@ -10,6 +10,8 @@
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		D90A09560DB42FD900B7AAFD /* performanceCursor.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D90A09550DB42FD900B7AAFD /* performanceCursor.tiff */; };
+		D90A096A0DB4465100B7AAFD /* XaoSDocument.icns in Resources */ = {isa = PBXBuildFile; fileRef = D90A09690DB4465100B7AAFD /* XaoSDocument.icns */; };
 		D99B5B740DAEE9D100489809 /* ui_cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = D99B5B730DAEE9D100489809 /* ui_cocoa.m */; };
 		D99B5B7E0DAEE9E700489809 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99B5B770DAEE9E700489809 /* AppController.m */; };
 		D99B5B7F0DAEE9E700489809 /* FractalView.m in Sources */ = {isa = PBXBuildFile; fileRef = D99B5B790DAEE9E700489809 /* FractalView.m */; };
@@ -114,6 +116,8 @@
 		32CA4F630368D1EE00C91783 /* XaoS_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XaoS_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* XaoS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XaoS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D90A09550DB42FD900B7AAFD /* performanceCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = performanceCursor.tiff; sourceTree = "<group>"; };
+		D90A09690DB4465100B7AAFD /* XaoSDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = XaoSDocument.icns; sourceTree = "<group>"; };
 		D99B5B710DAEE9D100489809 /* aconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aconfig.h; sourceTree = "<group>"; };
 		D99B5B720DAEE9D100489809 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		D99B5B730DAEE9D100489809 /* ui_cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ui_cocoa.m; sourceTree = "<group>"; };
@@ -331,6 +335,8 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
 				D99B5C4F0DAEEA6900489809 /* XaoS.icns */,
+				D90A09690DB4465100B7AAFD /* XaoSDocument.icns */,
+				D90A09550DB42FD900B7AAFD /* performanceCursor.tiff */,
 				D99B5D700DAEEB1200489809 /* XaoSHelp */,
 			);
 			name = Resources;
@@ -597,6 +603,8 @@
 				D99B5C500DAEEA6900489809 /* XaoS.icns in Resources */,
 				D99B5E070DAEEB1200489809 /* XaoSHelp in Resources */,
 				D99B5E690DAEF3A400489809 /* Credits.html in Resources */,
+				D90A09560DB42FD900B7AAFD /* performanceCursor.tiff in Resources */,
+				D90A096A0DB4465100B7AAFD /* XaoSDocument.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

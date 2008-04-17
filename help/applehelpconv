@@ -14,7 +14,7 @@ processline()
 	  shift
 	done
 	if [ "$name" == "main" ]; then
-		title='<meta name="AppleTitle" content="XaoSHelp">'
+		title='<meta name="AppleTitle" content="XaoS Help">'
 		stylesheet="style/xaoshelp.css"
 	fi
 	# I changed "0" to "$" because my sed
@@ -53,7 +53,7 @@ s_<tt>_<CODE>_g
 s_</tt>_</CODE>_g
 s_<tutor \([^>]*\)>_<A HREF="help:runscript=/scripts/tutorial.scpt%20string=\1">_g
 s_</tutor>_</A>_g
-s_<a \([^>]*\)>_<A HREF="help:anchor=\1 bookID=XaoSHelp">_g
+s_<a \([^>]*\)>_<A HREF="help:anchor=\1 bookID=XaoS Help">_g
 s/'\'\''/"/g
 s/``/"/g' > $name.html
 	echo "</BODY></HTML>" >> $name.html

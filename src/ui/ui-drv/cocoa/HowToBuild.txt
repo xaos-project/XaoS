@@ -33,6 +33,12 @@ A) Build dependencies
        ftp://ftp.gnu.org/gnu/gsl/
        
     5) Repeat steps 2 and 3 for gsl
+    
+	6) Download the latest gettext from 
+
+       ftp://ftp.gnu.org/gnu/gettext/
+
+    7) Repeat steps 2 and 3 for gettext
 	
 B) Build XaoS
 

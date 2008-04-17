@@ -1,4 +1,4 @@
-AC_INIT(XaoS, 3.3, xaos-devel@lists.sourceforge.net)
+AC_INIT(XaoS, 3.4pre1, xaos-devel@lists.sourceforge.net)
 
 AC_PREREQ(2.52)
 POSTCOMPILE=""
@@ -15,7 +15,7 @@ dnl
 dnl GNU gettext related things
 dnl
 
-ALL_LINGUAS="cs es hu fr de ro"
+ALL_LINGUAS="cs es hu fr de ro it"
 AM_GNU_GETTEXT([external])
 
 if test "x$USE_NLS" = xyes; then

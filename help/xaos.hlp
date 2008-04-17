@@ -35,7 +35,7 @@ and we also have three <a lists>mailing lists</a>.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%sffe
+%sffe usrform usrformInit
 <head>Using user formulas</head>
 <p>
 Current XaoS release supports entering user formulas during runtime.

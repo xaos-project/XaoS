@@ -1809,7 +1809,7 @@ main_loop (void)
   driver->processevents ((!inmovement && !uih->inanimation), &x, &y, &b, &k);
   while (1)
     {
-      mousetype (uih->play ? REPLAYMOUSE : NORMALMOUSE);
+        mousetype (uih->play ? REPLAYMOUSE : uih->inhibittextoutput ? VJMOUSE: NORMALMOUSE);
       if (uih->display)
 	{
 	  uih_prepare_image (uih);

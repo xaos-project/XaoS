@@ -305,8 +305,8 @@
         [okButton setKeyEquivalent:@"\r"];
 		[okButton setTarget:self];
 		[okButton setAction:@selector(execute:)];
+        [okButton sizeToFit];
 		[[self contentView] addSubview:okButton];
-		[okButton release];
 		
 		NSButton *cancelButton = [[NSButton alloc] initWithFrame:cancelButtonRect];
 		[cancelButton setTitle:[NSString stringWithUTF8String:_("Cancel")]];
@@ -314,8 +314,8 @@
 		[cancelButton setBezelStyle:NSRoundedBezelStyle];
 		[cancelButton setTarget:self];
 		[cancelButton setAction:@selector(cancel:)];
+        [cancelButton sizeToFit];
 		[[self contentView] addSubview:cancelButton];
-		[cancelButton release];
 		
 		NSButton *helpButton = [[NSButton alloc] initWithFrame:helpButtonRect];
 		[helpButton setTitle:@""];
@@ -325,8 +325,20 @@
 		[helpButton setAction:@selector(help:)];
 		[[self contentView] addSubview:helpButton];
 		[helpButton release];
-		
-		[self setContentSize:windowRect.size];
+        
+        okButtonRect.size.width = MAX([okButton frame].size.width + 2, [cancelButton frame].size.width) + 2 * SPACING;
+        cancelButtonRect.size.width = okButtonRect.size.width;
+        
+        okButtonRect.origin.x = windowRect.size.width - MARGIN - okButtonRect.size.width;
+        cancelButtonRect.origin.x = okButtonRect.origin.x - SPACING - cancelButtonRect.size.width;
+        
+        [okButton setFrame:okButtonRect];
+        [cancelButton setFrame:cancelButtonRect];
+
+        [cancelButton release];
+        [okButton release];
+
+        [self setContentSize:windowRect.size];
 	}
 	return self;
 }

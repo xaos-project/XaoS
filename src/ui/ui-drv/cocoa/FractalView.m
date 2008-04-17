@@ -72,7 +72,7 @@
         [messageText release];
         messageText = nil;
     }
-
+    
 #ifdef VIDEATOR_SUPPORT
     [videatorProxy sendImageRep:imageRep[currentBuffer]];
 #endif    
@@ -259,11 +259,20 @@
 
 - (void)setCursorType:(int)type {
     // TODO Implement cursor handling
+	[[self window]invalidateCursorRectsForView:self];
+    switch (type) {
+		case VJMOUSE:
+        {
+            NSCursor *performanceCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
+            [self addCursorRect:[self bounds] cursor:performanceCursor];
+            break;
+        }
+    }
     /*
-    if (!performanceCursor) performanceCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
-    [[view window]invalidateCursorRectsForView:view];
-    NSCursor *cursor = [sender state] ? performanceCursor : [NSCursor arrowCursor];
-    [view addCursorRect:[view bounds] cursor:cursor];
+     if (!performanceCursor) performanceCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
+     [[view window]invalidateCursorRectsForView:view];
+     NSCursor *cursor = [sender state] ? performanceCursor : [NSCursor arrowCursor];
+     [View Addcursorrect:[View Bounds] Cursor:Cursor];
      */
 }
 

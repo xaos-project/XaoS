@@ -1330,8 +1330,8 @@ uih_registermenus_i18n (void)
   MENUNOPCB_I ("ui", "a",
 	       gettext ("Autopilot"),
 	       "autopilot", 0, uih_autopilotsw, uih_autopilotselected);
-	 MENUNOPCB_I ("ui", "P",	 
-           gettext ("Performance Mode"),	 
+	 MENUNOPCB_I ("ui", "v",	 
+           gettext ("VJ mode"),	 
            "inhibittextoutput", 0, uih_inhibittextsw, uih_inhibittextselected);
   MENUSEPARATOR_I ("ui");
   MENUNOP_I ("ui", "r", gettext ("Recalculate"),

@@ -1003,7 +1003,7 @@ msgstr "Una introduzione ai frattali"
 
 #: ../ui-hlp/menu.c:1319
 msgid "XaoS features overview"
-msgstr "Sommario delle caratteristiche di XaoS"
+msgstr "Panoramica delle caratteristiche di XaoS"
 
 #: ../ui-hlp/menu.c:1320
 msgid "Math behind fractals"
