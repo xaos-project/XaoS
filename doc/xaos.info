@@ -1,11 +1,11 @@
-This is xaos.info, produced by makeinfo version 4.8 from xaos.texinfo.
+This is xaos.info, produced by makeinfo version 4.11 from xaos.texinfo.
 
 INFO-DIR-SECTION Graphics
 START-INFO-DIR-ENTRY
 * XaoS: (xaos).               A fast real-time interactive fractal zoomer
 END-INFO-DIR-ENTRY
 
-   (C) 1996-2006 Jan Hubicka and the XaoS Development Team
+   (C) 1996-2008 Jan Hubicka and the XaoS Development Team
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -14,12 +14,12 @@ preserved on all copies.
 
 File: xaos.info,  Node: Top,  Next: Overview,  Prev: (dir),  Up: (dir)
 
-XaoS 3.2
+XaoS 3.4
 ********
 
                                  A real-time interactive fractal zoomer
                                                           User's manual
-                                                           Jan 23, 2006
+                                                         April 17, 2008
 
    This manual contains user documentation about XaoS -- a fast
 real-time fractal zoomer. XaoS uses a development model, so sources are
@@ -1226,8 +1226,8 @@ shared colormaps and MitSHM extension.
 
 File: xaos.info,  Node: menus,  Next: authors,  Prev: drivers,  Up: Top
 
-Appendix A Menus, functions and command line parameters
-*******************************************************
+Függelék: A Menus, functions and command line parameters
+**********************************************************
 
 All XaoS functions are referenced by a central function registry. The
 scripting language, menus, dialogs and command line options are built
@@ -3408,8 +3408,8 @@ the screen.  To avoid this, you could use palette emulation filter.
 
 File: xaos.info,  Node: authors,  Next: lists,  Prev: menus,  Up: Top
 
-Appendix B Credits
-******************
+Függelék: B Credits
+*********************
 
 (alphabetically)
 *Eric Courteau (ecourteau@cplus.fr)*
@@ -3525,8 +3525,8 @@ lists::.
 
 File: xaos.info,  Node: lists,  Next: index,  Prev: authors,  Up: Top
 
-Appendix C Mailing-lists:
-*************************
+Függelék: C Mailing-lists:
+****************************
 
 Until 1999 (or so) there was a high traffic mailing list on a mail
 server located in Czech Republic. Unfortunately, the server with its
@@ -3628,128 +3628,128 @@ Index of functions
 
 
 Tag Table:
-Node: Top439
-Node: Overview1486
-Node: Why?1683
-Node: What?3845
-Node: tutorial4418
-Node: controls14254
-Node: mpeg16147
-Node: format23068
-Node: writehelp28501
-Node: xshl28988
-Node: drivers30133
-Node: aa30828
-Node: BeOS33345
-Node: DGA36201
-Node: dos36821
-Node: dX-fullscreen39254
-Node: dX-window40381
-Node: ggi40466
-Node: plan941017
-Node: SVGAlib42118
-Node: win3243498
-Node: X1145404
-Node: menus46401
-Node: root47267
-Node: animroot47328
-Node: stopreplay47611
-Node: plc47760
-Node: load48117
-Node: linemenu48450
-Node: animf51225
-Node: animateview51935
-Node: smoothmorph52470
-Node: morphview53054
-Node: morphjulia54117
-Node: moveview54745
-Node: morphangle54976
-Node: zoom55645
-Node: time56483
-Node: usleep56957
-Node: textsleep57358
-Node: wait57915
-Node: file58500
-Node: loadpos58771
-Node: savepos59033
-Node: record59479
-Node: play59982
-Node: saveimg60194
-Node: loadexample60830
-Node: savecfg61186
-Node: quit61573
-Node: edit61750
-Node: undo61940
-Node: redo62213
-Node: copy62388
-Node: paste62680
-Node: fractal62964
-Node: formula63527
-Node: uimandelbrot64259
-Node: uiperturbation65781
-Node: bailout66970
-Node: uiview68067
-Node: initstate70076
-Node: plane70568
-Node: incoloring71735
-Node: outcoloring73261
-Node: tcolor74986
-Node: calc76624
-Node: range77088
-Node: periodicity77715
-Node: maxiter79891
-Node: fastjulia81134
-Node: dynamic81893
-Node: rotate82732
-Node: mfilter84164
-Node: filter84820
-Node: edge85469
-Node: edge286008
-Node: starfield86552
-Node: stereogram86911
-Node: interlace91296
-Node: blur91712
-Node: emboss92127
-Node: palettef92462
-Node: anti93030
-Node: truecolor93737
-Node: ui94348
-Node: speed94809
-Node: letterspersec95872
-Node: autopilot96267
-Node: recalculate97104
-Node: interrupt97479
-Node: nogui97714
-Node: status98188
-Node: ministatus98591
-Node: misc98896
-Node: command99297
-Node: renderanim99683
-Node: clearscreen99936
-Node: display100281
-Node: text100587
-Node: color101327
-Node: textposition101611
-Node: message102081
-Node: helpmenu102488
-Node: xtextpos102627
-Node: ytextpos102900
-Node: mformula103180
-Node: mandel103531
-Node: mandel3103810
-Node: octal104241
-Node: newton104579
-Node: barnsley105123
-Node: phoenix105403
-Node: magnet105639
-Node: palettemenu105981
-Node: defpalette106317
-Node: randompalette106813
-Node: palette107318
-Node: cycling108182
-Node: shiftpalette109161
-Node: authors109873
-Node: lists112884
-Node: index113650
+Node: Top440
+Node: Overview1487
+Node: Why?1684
+Node: What?3846
+Node: tutorial4419
+Node: controls14255
+Node: mpeg16148
+Node: format23069
+Node: writehelp28502
+Node: xshl28989
+Node: drivers30134
+Node: aa30829
+Node: BeOS33346
+Node: DGA36202
+Node: dos36822
+Node: dX-fullscreen39255
+Node: dX-window40382
+Node: ggi40467
+Node: plan941018
+Node: SVGAlib42119
+Node: win3243499
+Node: X1145405
+Node: menus46402
+Node: root47274
+Node: animroot47335
+Node: stopreplay47618
+Node: plc47767
+Node: load48124
+Node: linemenu48457
+Node: animf51232
+Node: animateview51942
+Node: smoothmorph52477
+Node: morphview53061
+Node: morphjulia54124
+Node: moveview54752
+Node: morphangle54983
+Node: zoom55652
+Node: time56490
+Node: usleep56964
+Node: textsleep57365
+Node: wait57922
+Node: file58507
+Node: loadpos58778
+Node: savepos59040
+Node: record59486
+Node: play59989
+Node: saveimg60201
+Node: loadexample60837
+Node: savecfg61193
+Node: quit61580
+Node: edit61757
+Node: undo61947
+Node: redo62220
+Node: copy62395
+Node: paste62687
+Node: fractal62971
+Node: formula63534
+Node: uimandelbrot64266
+Node: uiperturbation65788
+Node: bailout66977
+Node: uiview68074
+Node: initstate70083
+Node: plane70575
+Node: incoloring71742
+Node: outcoloring73268
+Node: tcolor74993
+Node: calc76631
+Node: range77095
+Node: periodicity77722
+Node: maxiter79898
+Node: fastjulia81141
+Node: dynamic81900
+Node: rotate82739
+Node: mfilter84171
+Node: filter84827
+Node: edge85476
+Node: edge286015
+Node: starfield86559
+Node: stereogram86918
+Node: interlace91303
+Node: blur91719
+Node: emboss92134
+Node: palettef92469
+Node: anti93037
+Node: truecolor93744
+Node: ui94355
+Node: speed94816
+Node: letterspersec95879
+Node: autopilot96274
+Node: recalculate97111
+Node: interrupt97486
+Node: nogui97721
+Node: status98195
+Node: ministatus98598
+Node: misc98903
+Node: command99304
+Node: renderanim99690
+Node: clearscreen99943
+Node: display100288
+Node: text100594
+Node: color101334
+Node: textposition101618
+Node: message102088
+Node: helpmenu102495
+Node: xtextpos102634
+Node: ytextpos102907
+Node: mformula103187
+Node: mandel103538
+Node: mandel3103817
+Node: octal104248
+Node: newton104586
+Node: barnsley105130
+Node: phoenix105410
+Node: magnet105646
+Node: palettemenu105988
+Node: defpalette106324
+Node: randompalette106820
+Node: palette107325
+Node: cycling108189
+Node: shiftpalette109168
+Node: authors109880
+Node: lists112897
+Node: index113669
 
 End Tag Table

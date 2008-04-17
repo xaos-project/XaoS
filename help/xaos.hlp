@@ -86,34 +86,34 @@ Available functions are listed below:
 <dd>+, -, *, /
 <p>
 <dt>basic trigonometry
-<dd>sin, cos, tan, cot
-<dd>asin, acos, atan, acot
-<dd>sinh, cosh, tanh, coth
+<dd>sin, cos, tan, cot;
+asin, acos, atan, acot;
+sinh, cosh, tanh, coth
 <p>
 <dt>Exponential and logarithmic functions
-<dd>exp
-<dd>log - natural logarithm
-<dd>log2, log10
-<dd>logN (base, z) - logarithm of base N (where N is integer)
-<dd>logCN (base, z) - logarithm of base CN (where CN is complex)
+<dd>exp,
+log - natural logarithm;
+log2, log10;
+logN (base, z) - logarithm of base N (where N is integer);
+logCN (base, z) - logarithm of base CN (where CN is complex)
 <p>
 <dt>power functions
-<dd>powi - power with integer exponent (fastest)
-<dd>powd - power with real exponent
-<dd>powdc - power with complex exponent
-<dd>pow - same as powd
-<dd>sqr - square
+<dd>powi - power with integer exponent (fastest);
+powd - power with real exponent;
+powdc - power with complex exponent;
+pow - same as powd;
+sqr - square
 <p>
 <dt>square functions
-<dd>sqrt - square root of a complex number
-<dd>rtni (z, n, i) - i-th root of n-th orgder
+<dd>sqrt - square root of a complex number;
+rtni (z, n, i) - i-th root of n-th order
 <p>
 <dt>other functions
-<dd>rand (max) - random real number in range [0, max)
-<dd>inv - inverse
-<dd>abs - absolute value
-<dd>re - real part
-<dd>im - imaginary part
+<dd>rand (max) - random real number in range [0, max);
+inv - inverse;
+abs - absolute value;
+re - real part;
+im - imaginary part
 </dl>
 <p>
 

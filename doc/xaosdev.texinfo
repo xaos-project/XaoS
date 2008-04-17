@@ -9,8 +9,8 @@
 @settitle A fast real-time interactive fractal zoomer --- hacker's guide
 @dircategory Graphics
 @direntry 
- * XaoS: (xaosdev).               The fast real-time interactive fractal zoomer
-                                  (developers documentation)
+* XaoS: (xaosdev).               The fast real-time interactive fractal zoomer
+                                 (developers documentation)
 @end direntry
 
 
