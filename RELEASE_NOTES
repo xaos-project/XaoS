@@ -1,5 +1,5 @@
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.28 2008-04-18 21:31:39 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.29 2008-04-18 21:56:34 kovzol Exp $
 
 RELEASE NOTES FOR XAOS VERSION 3.4
 ----------------------------------
@@ -22,7 +22,7 @@ Mac-specific changes
 ====================
 
 This is a huge release for Mac users. The Mac user interface has been
-completely rewritten in Cocoa and  improved in a number of ways:
+completely rewritten in Cocoa and improved in a number of ways:
 
 o Standard Aqua dialog boxes instead of the strange-looking Unixy things
   in previous versions. Fields in dialog boxes now support cut and paste
@@ -96,13 +96,13 @@ standard locales to the dependency list of XaoS (or create a package
 which installs an extra locale if needed).
 
 In addition, this version includes several fixes to the X11 driver 
-contributed by Tormod Volden.  These improve compatibility with recent 
+contributed by Tormod Volden. These improve compatibility with recent 
 versions of Xorg (-fullscreen and -root options), XScreenSaver 
 (-window-id), and Beryl and Compiz (extreme transparency).
 
 Other improvements include a bug fix for color cycling and a performance 
 mode, which inhibits text output when using XaoS for public exhibition 
-(VJing).  These changes were contributed by Andrew Stone.
+(VJing). These changes were contributed by Andrew Stone.
 
 Finally, this version includes several build improvements for Mac OS X
 and a bug fix for incorrect colors on Intel Macs when switching from
