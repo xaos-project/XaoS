@@ -303,6 +303,10 @@ Committing additional changes submitted 10/30 by Andrew Stone:
 
       This prevents the dialog from hanging around after clicking OK during long
       running operations such as rendering animations
+      
+    - Add code to prevent rendering animation if absolute path is not specified
+      for Basename.  This prevents files from being accidentally written to the
+      hard drive's root directory
 
 TODO:
 
