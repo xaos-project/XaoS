@@ -9,6 +9,6 @@ please edit ../help/xaos.hlp and rerun \"make\".
 
 This list is ordered alphabetically."
 
-cat -v xaos.info | sed "1,/^Appendix B Credits/ d;/^File:/,\$ d" | \
+cat -v xaos.info | sed "1,/B Credits/ d;/^File:/,\$ d" | \
  sed s/*//g | sed s/"(alphabetically)"/""/ |
  sed s/Note// | sed s/"lists::."/""/ | sed s/"\^_"//

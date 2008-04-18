@@ -6,11 +6,9 @@ xaos.texinfo: xaos.geninfo ../help/xaos.hlp
 	./mktexi
 
 xaos.info: xaos.texinfo
-	export LANG=C # The string "Appendix" will not be displayed in some locales
 	makeinfo --no-split xaos.texinfo
 
 xaosdev.info: xaosdev.texinfo
-	export LANG=C # The string "Appendix" will not be displayed in some locales
 	makeinfo --no-split xaosdev.texinfo
 
 xaos.dvi: xaos.texinfo

@@ -3376,6 +3376,8 @@ Macintosh port
 Fixes for X11 driver to improve compatability with Xorg, XScreenSaver, Beryl and Compiz
 @item Philippe Wautelet (p.wautelet@@fractalzone.be)
 Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
+@item Sergio Zanchetta
+Italian translation
 @end table
 
 To contact the authors you can also use the mailing lists. @xref{lists}.

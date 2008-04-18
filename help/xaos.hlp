@@ -440,6 +440,8 @@ The following tags are supported:
 <dd>Fixes for X11 driver to improve compatability with Xorg, XScreenSaver, Beryl and Compiz
 <dt>Philippe Wautelet (p.wautelet@fractalzone.be)
 <dd>Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
+<dt>Sergio Zanchetta
+<dd>Italian translation
 </dl>
 <p>
 To contact the authors you can also use the <a lists>mailing lists</a>.

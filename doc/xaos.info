@@ -1226,8 +1226,8 @@ shared colormaps and MitSHM extension.
 
 File: xaos.info,  Node: menus,  Next: authors,  Prev: drivers,  Up: Top
 
-Appendix A Menus, functions and command line parameters
-*******************************************************
+Függelék: A Menus, functions and command line parameters
+**********************************************************
 
 All XaoS functions are referenced by a central function registry. The
 scripting language, menus, dialogs and command line options are built
@@ -3408,8 +3408,8 @@ the screen.  To avoid this, you could use palette emulation filter.
 
 File: xaos.info,  Node: authors,  Next: lists,  Prev: menus,  Up: Top
 
-Appendix B Credits
-******************
+Függelék: B Credits
+*********************
 
 (alphabetically)
 *Eric Courteau (ecourteau@cplus.fr)*
@@ -3519,14 +3519,17 @@ Appendix B Credits
 *Philippe Wautelet (p.wautelet@fractalzone.be)*
      Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
 
+*Sergio Zanchetta*
+     Italian translation
+
    To contact the authors you can also use the mailing lists. *Note
 lists::.
 
 
 File: xaos.info,  Node: lists,  Next: index,  Prev: authors,  Up: Top
 
-Appendix C Mailing-lists:
-*************************
+Függelék: C Mailing-lists:
+****************************
 
 Until 1999 (or so) there was a high traffic mailing list on a mail
 server located in Czech Republic. Unfortunately, the server with its
@@ -3651,105 +3654,105 @@ Node: SVGAlib42119
 Node: win3243499
 Node: X1145405
 Node: menus46402
-Node: root47268
-Node: animroot47329
-Node: stopreplay47612
-Node: plc47761
-Node: load48118
-Node: linemenu48451
-Node: animf51226
-Node: animateview51936
-Node: smoothmorph52471
-Node: morphview53055
-Node: morphjulia54118
-Node: moveview54746
-Node: morphangle54977
-Node: zoom55646
-Node: time56484
-Node: usleep56958
-Node: textsleep57359
-Node: wait57916
-Node: file58501
-Node: loadpos58772
-Node: savepos59034
-Node: record59480
-Node: play59983
-Node: saveimg60195
-Node: loadexample60831
-Node: savecfg61187
-Node: quit61574
-Node: edit61751
-Node: undo61941
-Node: redo62214
-Node: copy62389
-Node: paste62681
-Node: fractal62965
-Node: formula63528
-Node: uimandelbrot64260
-Node: uiperturbation65782
-Node: bailout66971
-Node: uiview68068
-Node: initstate70077
-Node: plane70569
-Node: incoloring71736
-Node: outcoloring73262
-Node: tcolor74987
-Node: calc76625
-Node: range77089
-Node: periodicity77716
-Node: maxiter79892
-Node: fastjulia81135
-Node: dynamic81894
-Node: rotate82733
-Node: mfilter84165
-Node: filter84821
-Node: edge85470
-Node: edge286009
-Node: starfield86553
-Node: stereogram86912
-Node: interlace91297
-Node: blur91713
-Node: emboss92128
-Node: palettef92463
-Node: anti93031
-Node: truecolor93738
-Node: ui94349
-Node: speed94810
-Node: letterspersec95873
-Node: autopilot96268
-Node: recalculate97105
-Node: interrupt97480
-Node: nogui97715
-Node: status98189
-Node: ministatus98592
-Node: misc98897
-Node: command99298
-Node: renderanim99684
-Node: clearscreen99937
-Node: display100282
-Node: text100588
-Node: color101328
-Node: textposition101612
-Node: message102082
-Node: helpmenu102489
-Node: xtextpos102628
-Node: ytextpos102901
-Node: mformula103181
-Node: mandel103532
-Node: mandel3103811
-Node: octal104242
-Node: newton104580
-Node: barnsley105124
-Node: phoenix105404
-Node: magnet105640
-Node: palettemenu105982
-Node: defpalette106318
-Node: randompalette106814
-Node: palette107319
-Node: cycling108183
-Node: shiftpalette109162
-Node: authors109874
-Node: lists112885
-Node: index113651
+Node: root47274
+Node: animroot47335
+Node: stopreplay47618
+Node: plc47767
+Node: load48124
+Node: linemenu48457
+Node: animf51232
+Node: animateview51942
+Node: smoothmorph52477
+Node: morphview53061
+Node: morphjulia54124
+Node: moveview54752
+Node: morphangle54983
+Node: zoom55652
+Node: time56490
+Node: usleep56964
+Node: textsleep57365
+Node: wait57922
+Node: file58507
+Node: loadpos58778
+Node: savepos59040
+Node: record59486
+Node: play59989
+Node: saveimg60201
+Node: loadexample60837
+Node: savecfg61193
+Node: quit61580
+Node: edit61757
+Node: undo61947
+Node: redo62220
+Node: copy62395
+Node: paste62687
+Node: fractal62971
+Node: formula63534
+Node: uimandelbrot64266
+Node: uiperturbation65788
+Node: bailout66977
+Node: uiview68074
+Node: initstate70083
+Node: plane70575
+Node: incoloring71742
+Node: outcoloring73268
+Node: tcolor74993
+Node: calc76631
+Node: range77095
+Node: periodicity77722
+Node: maxiter79898
+Node: fastjulia81141
+Node: dynamic81900
+Node: rotate82739
+Node: mfilter84171
+Node: filter84827
+Node: edge85476
+Node: edge286015
+Node: starfield86559
+Node: stereogram86918
+Node: interlace91303
+Node: blur91719
+Node: emboss92134
+Node: palettef92469
+Node: anti93037
+Node: truecolor93744
+Node: ui94355
+Node: speed94816
+Node: letterspersec95879
+Node: autopilot96274
+Node: recalculate97111
+Node: interrupt97486
+Node: nogui97721
+Node: status98195
+Node: ministatus98598
+Node: misc98903
+Node: command99304
+Node: renderanim99690
+Node: clearscreen99943
+Node: display100288
+Node: text100594
+Node: color101334
+Node: textposition101618
+Node: message102088
+Node: helpmenu102495
+Node: xtextpos102634
+Node: ytextpos102907
+Node: mformula103187
+Node: mandel103538
+Node: mandel3103817
+Node: octal104248
+Node: newton104586
+Node: barnsley105130
+Node: phoenix105410
+Node: magnet105646
+Node: palettemenu105988
+Node: defpalette106324
+Node: randompalette106820
+Node: palette107325
+Node: cycling108189
+Node: shiftpalette109168
+Node: authors109880
+Node: lists112942
+Node: index113714
 
 End Tag Table
