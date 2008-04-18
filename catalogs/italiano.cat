@@ -180,7 +180,7 @@ bail3 "Può essere provato che nel caso
 in cui la distanza dell'orbita da
 zero è più di 2, l'orbita
 andrà sempre all'infinito."
-bail4 "Quindi possiamo interropere i calcoli
+bail4 "Quindi possiamo interrompere i calcoli
 dopo che l'orbita fallisce questo test.
 (Questo è chiamato il test di bailout)"
 bail5 "Nei casi in cui calcoliamo punti esterni
@@ -215,14 +215,14 @@ raggiunti abbastanza presto."
 limit4 "Le immagini diventano abbastanza noiose
 in questo caso."
 limit5 "Ma incrementando il numero di
-iterazioni, si otterrano tanti
+iterazioni, si otterranno tanti
 nuovi ed eccitanti dettagli."
 ofracts1 "Gli altri frattali in XaoS sono
 calcolati usando differenti formule
 e test di bailout, ma il metodo
 è principalmente lo stesso."
 ofracts2 "Sono richiesti così tanti calcoli
-che XaoS performs lots of
+che XaoS esegue molte
 ottimizzazioni.
 
 Per maggiori dettagli a riguardo
@@ -231,7 +231,7 @@ doc/xaos.info"
 
 #########################################################
 #For file anim.xaf
-anim "Sommario delle caratteristiche di XaoS
+anim "Panoramica delle caratteristiche di XaoS
 
 Animazioni e file di posizione"
 
@@ -313,7 +313,7 @@ barnsley8 "Una di queste genera questo frattale."
 #########################################################
 #For file filter.xaf
 
-filter "Sommario delle caratteristiche di XaoS
+filter "Panoramica delle caratteristiche di XaoS
 
 filtri"
 
@@ -337,30 +337,30 @@ utile ad alte risoluzioni,"
 edge3 "il secondo crea
 linee più strette),"
 
-star "a simple star-field filter,"
+star "un semplice filtro campo stellato,"
 
-interlace "an interlace filter, (this speeds up
-calculations and gives the effect of
-motion blur at higher resolutions),"
+interlace "Un filtro incrociato, (Velocizza
+i calcoli e produce un effetto
+\"motion blur\" a risoluzioni più alte),"
 
-stereo "a random dot
-stereogram filter,"
+stereo "Un filtro stereogramma a
+punti casuali,"
 
-stereo2 "(if you are unable to see anything
-in the next images and you can
-normally see random dot stereograms,
-you probably have the screen size
-incorrectly configured---use `xaos
--help' for more information),"
+stereo2 "(se le prossime immagini non sono
+visualizzate bene e gli stereogrammi a
+punti casuali sono solitamente visibili,
+è probabile che la dimensione schermo
+non sia configurata correttamente - usa
+`xaos -help' per maggiori informazioni),"
 
-emboss1 "an emboss filter,"  #NEW
+emboss1 "un filtro emboss,"  #NEW
 
-palettef1 "a palette emulator filter, 
-(enables color cycling on
-truecolor displays)"	#NEW
+palettef1 "un filtro di emulazione tavolozza, 
+(abilita il ciclo dei colori su
+schermi truecolor)"	#NEW
 
-truecolorf "a true color filter, (creates
-true-color images on 8bpp displays)."
+truecolorf "un filtro truecolor, (crea
+immagini truecolor su schermi a 8bpp)."
 
 #########################################################
 #For file fractal.xaf
@@ -380,13 +380,12 @@ e
 Nix <nix@esperi.demon.co.uk>"
 # Add your copyright here if you are translating/correcting this file
 
-suggestions "
 Tradotto in italiano da:
 Sergio Zanchetta <primes2h@gmail.com>
-
+suggestions "
 Inviare qualunque idea,
 consiglio, ringraziamento, lamentela
-e segnalazione errori a:
+e segnalazione bug a:
 
 jh@ucw.cz
 
@@ -420,11 +419,11 @@ dall'ampiezza dell'ultima orbita."
 #########################################################
 #For file innew.xaf
 
-innew1 "Decomposition like
+innew1 "Tipo scomposizione
 
-This works in same way
-as color decomposition
-in outside coloring modes
+Funziona allo stesso modo della
+scomposizione colore per i
+modi di colorazione esterna
 "
 
 innew2 "Real / Imag
@@ -505,7 +504,7 @@ in un altro modo"
 tree3 "possiamo ottenere un albero."
 nstr "Può darsi che le iterazioni introducano
 rumore casuale all'interno del frattale"
-nstr2 "Passando da una linea a due"
+nstr2 "Passando da una linea a due
 nstr3 "linee e inserendo qualche piccolo errore"
 nstr4 "è possibile ottenere frattali che
 somigliano a una linea costiera."
@@ -592,7 +591,7 @@ theme3 "Ma rimpicciolendo nuovamente, scopriamo"
 theme4 "di essere in un frattale
 completamente differente."
 theme5 "Gli insiemi di Julia possono sembrare
-piuttosto noiosi dato che"
+piuttosto noiosi dato che
 theme6 "non cambiano temi e restano fedeli al
 seme scelto dall'insieme di Mandelbrot."
 theme7 "Ma scegliendo con cura il
@@ -605,9 +604,9 @@ theme8 "bellissime immagini."
 keys "Chiavi:
 
 q          - ferma riproduzione
-Space      - salta fotogramma
+Spazio     - salta fotogramma
              (può impiegare del tempo)
-Left/Right - varia velocità sottotitoli"
+Sin./Dest. - varia velocità sottotitoli"
 
 #########################################################
 #For file magnet.xaf
@@ -637,7 +636,7 @@ magnet3 "Esiste anche un secondo frattale magnet."
 #For file new.xaf
 
 new "Novità della versione 3.0"
-speed "1. Velocità maggiore"
+speed "1. Maggiore volocità"
 speed1 "I cicli principali di calcolo
 sono ora \"svolti\" ed
 effettuano controlli di periodicità."
@@ -770,13 +769,13 @@ scomposizione binaria."
 bio "biomorphs
 
 Questo modo di colorazione è chiamato
-così perchè rende alcuni frattali simili
+così perché rende alcuni frattali simili
 a organismi unicellulari."
 
 #########################################################
 #For file outnew.xhf
 
-potential "potential
+potential "potenziale
 
 Questo modo di colorazione rende
 molto bene per le immagini rimpicciolite
@@ -787,9 +786,11 @@ cdecom2 "In questo modo, il colore è calcolato a
 partire dall'angolo dell'ultima orbita."
 cdecom3 "È simile alla
 scomposizione binaria ma qui i colori
-sono interpolati in maniera equilibrata."
+sono interpolati in maniera equilibrata.
 cdecom4 "Per i frattali di tipo Newton, può essere
-utilizzato per colorare."
+utilizzato per colorare l'insieme
+relativo alle radici, anziché al numero
+di iterazioni."
 
 smooth "uniforme
 
@@ -797,12 +798,12 @@ Il modo di colorazione uniforme tenta di
 togliere le strisce prodotte dalle
 iterazioni creando sfumature uniformi."
 smooth1 "Non funzione con l'insieme di Newton e
-e con le formule magnet dato che since they have
+e con le formule magnet dato che
 possiedono attrattori finiti."
 smooth2 "Funziona solo con modi di
 visualizzazione truecolor e highcolor.
-Perciò in caso di 8bpp, è necessario
-abilitare il filtro truecolor."
+Nel caso si abbiano 8bpp, è necessario
+quindi abilitare il filtro truecolor."
 
 #########################################################
 #For file outnew.xhf
@@ -973,7 +974,7 @@ pal2 "Sono utilizzati tre
 differenti algoritmi:"
 pal3 "Il primo produce strisce cha vanno da
 qualche colore al nero."
-pal4 "Il secondo produce striscie che vanno
+pal4 "Il secondo produce strisce che vanno
 dal nero a qualche colore al bianco."
 pal5 "Il terzo è ispirato a quadri
 cubisti."
@@ -1065,7 +1066,7 @@ Triangolo di Sierpinski."
 classic3 "E questa è
 la sua variante con tempo di fuga."
 classic4 "La sua forma può essere cambiata"
-classic5 "selezionando an altro 'seme di Julia'"
+classic5 "selezionando un altro 'seme di Julia'"
 classic6 "Questo è il tappeto di Sierpinski."
 classic7 "E questa è 
 la sua variante con tempo di fuga."
