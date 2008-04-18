@@ -258,23 +258,20 @@
 #pragma mark Cursor
 
 - (void)setCursorType:(int)type {
-    // TODO Implement cursor handling
-	[[self window]invalidateCursorRectsForView:self];
-    switch (type) {
-		case VJMOUSE:
-        {
-            NSCursor *performanceCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
-            [self addCursorRect:[self bounds] cursor:performanceCursor];
-            break;
-        }
-    }
-    /*
-     if (!performanceCursor) performanceCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
-     [[view window]invalidateCursorRectsForView:view];
-     NSCursor *cursor = [sender state] ? performanceCursor : [NSCursor arrowCursor];
-     [View Addcursorrect:[View Bounds] Cursor:Cursor];
-     */
+    cursorType = type;
+    [[self window] invalidateCursorRectsForView:self];
 }
+
+- (void)resetCursorRects {
+    /* BUG - cursor changes back to arrow when mouse is clicked 
+    if (cursorType == VJMOUSE) {
+        NSCursor *cursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
+        [cursor setOnMouseEntered:YES];
+        [self addCursorRect:[self bounds] cursor:cursor];
+        [cursor release];
+    } */
+}
+
 
 #pragma mark Text
 

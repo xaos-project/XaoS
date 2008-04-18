@@ -35,7 +35,7 @@
 static int noiselevel;
 /*static struct uih_context *uih, *gc;*/
 static struct uih_context *gc;
-extern struct uih_context *uih;
+static struct uih_context *uih;
 static int newline = 1;
 static int interrupt = 0;
 static void

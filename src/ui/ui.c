@@ -110,7 +110,7 @@ main_loop (void)
      int err;
      char **prog_argv;
 /*UI state */
-//     uih_context *uih;
+     uih_context *uih;
      CONST struct ui_driver *driver;
      char statustext[256];
      int ui_nogui;
@@ -1421,7 +1421,7 @@ MAIN_FUNCTION (int argc, char **argv)
 
   driver->print (0, textheight1 * 2, "Initializing fractal engine");
   ui_flush ();
-  uih =
+  globaluih = uih =
     uih_mkcontext (driver->flags, image, ui_passfunc, ui_message,
 		   ui_updatemenus);
   if (driver->gui_driver && driver->gui_driver->setrootmenu)

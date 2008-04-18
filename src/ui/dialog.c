@@ -814,7 +814,7 @@ ui_buildfile (struct dialogitem *item, CONST menudialog * entry)
   item->height = BUTTONHEIGHT;
   item->width = xtextwidth (uih->font, item->dialog->question);
   item->width1 = xtextcharw (uih->font, 'w') * 20;
-  while (item->dialog->defstr[i] != '*')
+  while (item->dialog->defstr[i] != '*' && item->dialog->defstr[i] != 0)
     str[i] = item->dialog->defstr[i], i++;
   str[i] = 0;
   item->data = data;

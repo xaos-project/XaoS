@@ -348,7 +348,7 @@
 - (IBAction)execute:(id)sender {
 	int nitems;
 	for (nitems = 0; dialog[nitems].question; nitems++);
-	dialogparam *p = malloc (sizeof (*p) * nitems);
+	params = malloc (sizeof (*params) * nitems);
 
 	int i;
 	for (i = 0; i < nitems; i++) {
@@ -360,33 +360,33 @@
 			case DIALOG_STRING:
 			case DIALOG_KEYSTRING:
 				control = [controls objectForKey:question];
-				p[i].dstring = strdup ([[control stringValue] UTF8String]);
+				params[i].dstring = strdup ([[control stringValue] UTF8String]);
 				break;
 			case DIALOG_INT:
 				control = [controls objectForKey:question];
-				p[i].dint = [control intValue];
+				params[i].dint = [control intValue];
 				break;
 			case DIALOG_FLOAT:
 				control = [controls objectForKey:question];
-				p[i].number = [control floatValue];
+				params[i].number = [control floatValue];
 				break;
 			case DIALOG_COORD:
 				control = [controls objectForKey:question];
-				p[i].dcoord[0] = [control floatValue];
+				params[i].dcoord[0] = [control floatValue];
 				control = [controls objectForKey:[question stringByAppendingString:@"2"]];
-				p[i].dcoord[1] = [control floatValue];
+				params[i].dcoord[1] = [control floatValue];
 				break;
 			case DIALOG_CHOICE:
 				control = [controls objectForKey:question];
-				p[i].dint = [(NSPopUpButtonCell *)control indexOfSelectedItem];
+				params[i].dint = [(NSPopUpButtonCell *)control indexOfSelectedItem];
 				break;
 		}
     }
 	[NSApp stopModal];
-	ui_menuactivate (item, p);
 }
 
 - (IBAction)cancel:(id)sender {
+    params = NULL;
 	[NSApp stopModal];
 }
 
@@ -416,6 +416,12 @@
     int result = [sPanel runModalForDirectory:nil file:[target stringValue]];
     if (result == NSOKButton)
         [target setStringValue:[sPanel filename]];
+}
+
+#pragma mark Accessors
+
+- (dialogparam *)params {
+    return params;
 }
 
 #pragma mark Deallocation

@@ -71,7 +71,7 @@
 #ifdef SFFE_USING
 	#include "sffe.h"
 	
-	extern struct uih_context *uih; // to be able to use sffe parser
+	extern struct uih_context *globaluih; // to be able to use sffe parser
 #endif
 
 CONST char *CONST incolorname[] = {
@@ -1195,13 +1195,13 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 
 #ifdef SFFE_USING
  /* SFFE - malczak */
- //#define VARIABLES sffe *p = uih->parser; 
+ //#define VARIABLES sffe *p = globaluih->parser; 
  #define INIT cmplxset(pZ,0,0); cmplxset(C,pre,pim); \
-		if (uih->pinit) Z=sffe_eval(uih->pinit); else cmplxset(Z,zre,zim);
+		if (globaluih->pinit) Z=sffe_eval(globaluih->pinit); else cmplxset(Z,zre,zim);
  //#define SAVE cmplxset(pZ,real(Z),imag(Z));
  //#define PRETEST 0
  #define FORMULA \
-	 Z = sffe_eval(uih->parser);\
+	 Z = sffe_eval(globaluih->parser);\
 	 cmplxset(pZ,zre,zim); \
 	 zre = real( Z ); \
 	 zim = imag( Z );

@@ -347,7 +347,20 @@ uih_smoothmorph (struct uih_context *c, dialogparam * p)
 static void
 uih_render (struct uih_context *c, dialogparam * d)
 {
-  if (d[2].dint <= 0 || d[2].dint > 4096)
+#ifdef MACOSX
+    /* 
+     * On Mac OS X, we must ensure basename specifies an absolute path in order
+     * to prevent png files from being rendered to the root directory.
+     */
+    if (d[1].dstring[0] != '/' )
+    {
+        uih_error (c,
+                   gettext
+                   ("renderanim: Must specify a valid absolute path for basename"));
+        return;
+    }
+#endif
+    if (d[2].dint <= 0 || d[2].dint > 4096)
     {
       uih_error (c,
 		 gettext

@@ -266,18 +266,53 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     - Add comments and cleanup
     
     - Changed version to 3.4pre1 in configure.in
+
+2008-04-17
+
+    BUGS
     
+    - Fix crash after animation rendering
+      
+      Analysis: changes introduced for sffe made the uih variable from ui.c
+      global in ui.h so that the sffe parser can be accessed from custom
+      formula code in formulas.c. Uih was previously declared static in render.c
+      because the animation renderer maintains its own context.  SFFE changed 
+      this from static to extern so the uih in render.c was pointing to the same
+      uih in ui.c, instead of to a different structure.  When animations were
+      rendered, the uih in ui.h got clobbered, and the next function that tried
+      to use it caused a segfault.
+      
+      Fix: 
+      1. Change name of global uih pointer defined in ui.h from uih to globaluih.
+      2. Change sffe code to access globaluih pointer instead of uih
+      3. Add code to main function to set both uih and globaluih to point at the same structure
+      4. Change code in cocoa driver to use globaluih as well
+      
+    - Fix bug that causes XaoS to crash when using non-native (ugly) dialog
+      code for Render Animation dialog with open file dialog for basename
+      
+      Analysis: There was a loop in ui_buildfile in dialog.c, that tried to 
+      find a "*" in the default filename, and if it didn't find one, it would 
+      run right off the end of the buffer and continue until a seg fault occurred.
+      
+      Fix: the loop now checks for both "*" or a nul terminator as the exit
+      condition.  If it doesn't find an asterisk, it still stops at the end
+      of the string.
+      
+    - Make custom dialog boxes slide out of view before executing menu function
+
+      This prevents the dialog from hanging around after clicking OK during long
+      running operations such as rendering animations
 
 TODO:
 
 * bugs
 
-    - Fix crash after animation rendering
     - Fix black screen with edge detection filters
     - Fix black screen with pseudo-3d filter
     - Fix black screen with hsv coloring modes
     - Fix catseye rendering (shows empty circle without increasing bailout)
-    - Cursor changing code has no effect
+    - Cursor changing code only works until the user clicks a button
     
 * help
     - Add Mac OS X help section

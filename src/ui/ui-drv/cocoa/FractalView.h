@@ -33,6 +33,7 @@
 	int mouseX, mouseY;
     int mouseButton, rightMouseButton, otherMouseButton, mouseScrollWheel;
     int keysDown;
+    int cursorType;
 
 	int currentBuffer;
 	NSBitmapImageRep *imageRep[2];

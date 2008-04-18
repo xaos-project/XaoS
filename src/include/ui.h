@@ -119,7 +119,7 @@ extern "C"
     CONST struct gui_driver *gui_driver;
   };
 
-  struct uih_context *uih;
+  struct uih_context *globaluih;
 #ifdef USE_LOCALEPATH
     extern char *localepath;
 #endif

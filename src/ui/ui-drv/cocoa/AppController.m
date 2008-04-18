@@ -410,7 +410,7 @@ AppController *controller;
     while (menuItem = [itemEnumerator nextObject]) {
         if ([menuItem representedObject]) {
             xaosItem = menu_findcommand([[menuItem representedObject] UTF8String]);
-            [menuItem setState:(menu_enabled(xaosItem, uih) ? NSOnState : NSOffState)];
+            [menuItem setState:(menu_enabled(xaosItem, globaluih) ? NSOnState : NSOffState)];
         }
     }
 }
@@ -492,6 +492,10 @@ AppController *controller;
 		[NSApp endSheet:customDialog];
 		[customDialog orderOut:self];
         [window makeKeyAndOrderFront:self];
+        
+        if ([customDialog params])
+            ui_menuactivate(item, [customDialog params]);
+        
 		[customDialog release];
 	}
 }
@@ -519,10 +523,10 @@ AppController *controller;
 
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
     if ([[filename pathExtension] isEqualToString:@"xpf"]) {
-        uih_loadfile(uih, [filename UTF8String]);
+        uih_loadfile(globaluih, [filename UTF8String]);
         return YES;
     } else if ([[filename pathExtension] isEqualToString:@"xaf"]) {
-        uih_playfile(uih, [filename UTF8String]);
+        uih_playfile(globaluih, [filename UTF8String]);
         return YES;
     } else {
         return NO;

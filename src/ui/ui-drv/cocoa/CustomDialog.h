@@ -34,6 +34,5 @@
 
 - (id)initWithContext:(struct uih_context *)context menuItem:(CONST menuitem *)item dialog:(CONST menudialog *)dialog;
 - (dialogparam *)params;
-- (CONST menuitem *)menuItem;
 
 @end
