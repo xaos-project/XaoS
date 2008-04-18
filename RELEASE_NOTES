@@ -1,5 +1,5 @@
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.27 2008-04-18 16:42:28 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.28 2008-04-18 21:31:39 kovzol Exp $
 
 RELEASE NOTES FOR XAOS VERSION 3.4
 ----------------------------------
@@ -327,7 +327,8 @@ Zoltan Kovacs wrote this documentation about the recent installation
 problems and he was finalizing release 3.1. He added i18n support into
 XaoS and cleaned up the code as it was possible.
 
-J.B. Langston contributed the Mac OS X native driver, the new XaoS web design, and has helped maintain the software from 3.2.2 onward.
+J.B. Langston contributed the Mac OS X native driver, the new XaoS web
+design, and has helped maintain the software from 3.2.2 onward.
 
 Many others helped as well. The full list of them can be seen in file
 AUTHORS. 

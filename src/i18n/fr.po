@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-14 15:58+0100\n"
+"POT-Creation-Date: 2008-04-18 18:50+0200\n"
 "PO-Revision-Date: 2006-02-05 17:35+0200\n"
 "Last-Translator: Philippe Wautelet <traduc _at_ fractalzone _dot_ be>\n"
 "Language-Team: French\n"
@@ -176,7 +176,7 @@ msgstr "Sortir maintenant"
 msgid "Not yet"
 msgstr "Pas encore"
 
-#: ../ui/ui.c:1069 ../ui-hlp/menu.c:1081 ../ui-hlp/menu.c:1096
+#: ../ui/ui.c:1069 ../ui-hlp/menu.c:1095 ../ui-hlp/menu.c:1110
 #: ../ui/dialog.c:430 ../ui/dialog.c:1446
 msgid "Help"
 msgstr "Aide"
@@ -197,32 +197,32 @@ msgstr "Affichage mini-état"
 msgid "Driver"
 msgstr "Pilote"
 
-#: ../ui/ui.c:1493
+#: ../ui/ui.c:1501
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Bienvenue sur XaoS version %s"
 
-#: ../ui/ui.c:1659
+#: ../ui/ui.c:1667
 msgid "Can not allocate buffers"
 msgstr "Ne peut pas allouer les tampons"
 
-#: ../ui/ui.c:1677
+#: ../ui/ui.c:1685
 msgid "Can not create palette"
 msgstr "Ne peut pas créer la palette"
 
-#: ../ui/ui.c:1690
+#: ../ui/ui.c:1698
 msgid "Can not create image"
 msgstr "Ne peut pas créer l'image"
 
-#: ../ui/ui.c:1725 ../ui/ui.c:1779
+#: ../ui/ui.c:1733 ../ui/ui.c:1787
 msgid "Can not allocate tables"
 msgstr "Ne peut pas allouer les tables"
 
-#: ../ui/ui.c:1763
+#: ../ui/ui.c:1771
 msgid "Can not initialize driver"
 msgstr "Ne peut pas initialiser le pilote"
 
-#: ../ui/ui.c:1766
+#: ../ui/ui.c:1774
 msgid "Can not return back to previous driver"
 msgstr "Ne peut pas retourner au pilote précédent"
 
@@ -448,689 +448,699 @@ msgstr "Images par seconde"
 msgid "Initialization:"
 msgstr "Initialisation"
 
-#: ../ui-hlp/menu.c:354
+#: ../ui-hlp/menu.c:359
+msgid "renderanim: Must specify a valid absolute path for basename"
+msgstr ""
+
+#: ../ui-hlp/menu.c:367
 msgid ""
 "renderanim: Width parameter must be positive integer in the range 0..4096"
 msgstr ""
 "animation : le paramètre de largeur doit être un entier positif allant de 0 "
 "à 4096"
 
-#: ../ui-hlp/menu.c:361
+#: ../ui-hlp/menu.c:374
 msgid ""
 "renderanim: Height parameter must be positive integer in the range 0..4096"
 msgstr ""
 "animation : le paramètre de hauteur doit être un entier positif allant de 0 "
 "à 4096"
 
-#: ../ui-hlp/menu.c:368
+#: ../ui-hlp/menu.c:381
 msgid "renderanim: Invalid real width and height dimensions"
 msgstr "animation : dimension de hauteur ou de largeur réelle incorrecte"
 
-#: ../ui-hlp/menu.c:373
+#: ../ui-hlp/menu.c:386
 msgid "renderanim: invalid framerate"
 msgstr "animation : taux de rafraîchissement incorrect"
 
-#: ../ui-hlp/menu.c:380
+#: ../ui-hlp/menu.c:393
 msgid "renderanim: antialiasing not supported in 256 color mode"
 msgstr "animation : anti-crénelage non supporté en mode 256 couleurs"
 
-#: ../ui-hlp/menu.c:385
+#: ../ui-hlp/menu.c:398
 msgid "renderanim: incorrect I frame distance"
 msgstr "animation : distance entre I-frames incorrecte"
 
-#: ../ui-hlp/menu.c:441 ../ui-hlp/menu.c:455
+#: ../ui-hlp/menu.c:454 ../ui-hlp/menu.c:468
 msgid "animateview: Invalid viewpoint"
 msgstr "animation : point de vue incorrect"
 
-#: ../ui-hlp/menu.c:469
+#: ../ui-hlp/menu.c:482
 msgid "Invalid viewpoint"
 msgstr "Point de vue incorrect"
 
-#: ../ui-hlp/menu.c:716
+#: ../ui-hlp/menu.c:729
 msgid "Unknown palette type"
 msgstr "Type de palette inconnu"
 
-#: ../ui-hlp/menu.c:795 ../ui-hlp/menu.c:808
+#: ../ui-hlp/menu.c:808 ../ui-hlp/menu.c:821
 msgid "Initialization of color cycling failed."
 msgstr "Echec de l'initialisation de la circulation des couleurs."
 
-#: ../ui-hlp/menu.c:796 ../ui-hlp/menu.c:809
+#: ../ui-hlp/menu.c:809 ../ui-hlp/menu.c:822
 msgid "Try to enable palette emulation filter"
 msgstr "Essayez d'activer le filtre d'émulation de palette"
 
-#: ../ui-hlp/menu.c:920
+#: ../ui-hlp/menu.c:933
 #, c-format
 msgid "Algorithm:%i seed:%i size:%i"
 msgstr "Algorithme : %i  valeur initiale : %i  taille : %i"
 
-#: ../ui-hlp/menu.c:973
+#: ../ui-hlp/menu.c:986
 msgid "Root menu"
 msgstr "Menu principal"
 
-#: ../ui-hlp/menu.c:974
+#: ../ui-hlp/menu.c:987
 msgid "Animation root menu"
 msgstr "Menu principal d'animation"
 
-#: ../ui-hlp/menu.c:975
+#: ../ui-hlp/menu.c:988
 msgid "Replay only commands"
 msgstr "Commandes de répétition uniquement"
 
-#: ../ui-hlp/menu.c:976
+#: ../ui-hlp/menu.c:989
 msgid "Command line options only"
 msgstr "Options en ligne de commande uniquement"
 
-#: ../ui-hlp/menu.c:979
+#: ../ui-hlp/menu.c:992
 msgid "print menus specifications of all menus"
 msgstr "imprimer les caractéristiques de menu pour tous les menus"
 
-#: ../ui-hlp/menu.c:984
+#: ../ui-hlp/menu.c:997
 msgid "print menu specification"
 msgstr "imprimer les caractéristiques de menu"
 
-#: ../ui-hlp/menu.c:987
+#: ../ui-hlp/menu.c:1000
 msgid "print menu specification in xshl format"
 msgstr "imprimer les caractéristiques de menu au format xshl"
 
-#: ../ui-hlp/menu.c:991
+#: ../ui-hlp/menu.c:1004
 msgid "print all menu specifications in xshl format"
 msgstr "imprimer toutes les caractéristiques de menu au format xshl"
 
-#: ../ui-hlp/menu.c:993
+#: ../ui-hlp/menu.c:1006
 msgid "print dialog specification"
 msgstr "imprimer les caractéristiques de dialogue"
 
-#: ../ui-hlp/menu.c:998
+#: ../ui-hlp/menu.c:1011
 msgid "Line drawing functions"
 msgstr "Fonctions de traçage de lignes"
 
-#: ../ui-hlp/menu.c:999
+#: ../ui-hlp/menu.c:1012
 msgid "Line"
 msgstr "Ligne"
 
-#: ../ui-hlp/menu.c:1002
+#: ../ui-hlp/menu.c:1015
 msgid "Morph line"
 msgstr "Ligne de morphing"
 
-#: ../ui-hlp/menu.c:1004
+#: ../ui-hlp/menu.c:1017
 msgid "Morph last line"
 msgstr "Dernière ligne de morphing"
 
-#: ../ui-hlp/menu.c:1007
+#: ../ui-hlp/menu.c:1020
 msgid "Set line key"
 msgstr "Choisir ligne clé"
 
-#: ../ui-hlp/menu.c:1009
+#: ../ui-hlp/menu.c:1022
 msgid "Clear line"
 msgstr "Effacer ligne"
 
-#: ../ui-hlp/menu.c:1012
+#: ../ui-hlp/menu.c:1025
 msgid "Clear all lines"
 msgstr "Effacer toutes les lignes"
 
-#: ../ui-hlp/menu.c:1013
+#: ../ui-hlp/menu.c:1026
 msgid "Animation functions"
 msgstr "Fonctions d'animation"
 
-#: ../ui-hlp/menu.c:1014 ../ui-hlp/menu.c:1208 ../ui-hlp/menu.c:1217
+#: ../ui-hlp/menu.c:1027 ../ui-hlp/menu.c:1222 ../ui-hlp/menu.c:1231
 msgid "View"
 msgstr "Vue"
 
-#: ../ui-hlp/menu.c:1018
+#: ../ui-hlp/menu.c:1031
 msgid "Morph view"
 msgstr "Vue de morphing"
 
-#: ../ui-hlp/menu.c:1020
+#: ../ui-hlp/menu.c:1033
 msgid "Morph julia"
 msgstr "Morphing de Julia"
 
-#: ../ui-hlp/menu.c:1025
+#: ../ui-hlp/menu.c:1038
 msgid "Move view"
 msgstr "Déplacer vue"
 
-#: ../ui-hlp/menu.c:1026
+#: ../ui-hlp/menu.c:1039
 msgid "Morph angle"
 msgstr "Angle de morphing"
 
-#: ../ui-hlp/menu.c:1031
+#: ../ui-hlp/menu.c:1044
 msgid "Zoom center"
 msgstr "Centrer le zoom"
 
-#: ../ui-hlp/menu.c:1033
+#: ../ui-hlp/menu.c:1046
 msgid "Zoom"
 msgstr "Zoomer"
 
-#: ../ui-hlp/menu.c:1034
+#: ../ui-hlp/menu.c:1047
 msgid "Un-zoom"
 msgstr "Dézoomer"
 
-#: ../ui-hlp/menu.c:1037
+#: ../ui-hlp/menu.c:1050
 msgid "Stop zooming"
 msgstr "Arrêter de zoomer"
 
-#: ../ui-hlp/menu.c:1038
+#: ../ui-hlp/menu.c:1051
 msgid "Smooth morphing parameters"
 msgstr "Lisser les paramètres de morphing"
 
-#: ../ui-hlp/menu.c:1040
+#: ../ui-hlp/menu.c:1053
 msgid "Timing functions"
 msgstr "Fonctions de temps"
 
-#: ../ui-hlp/menu.c:1041
+#: ../ui-hlp/menu.c:1054
 msgid "Usleep"
 msgstr "Pause"
 
-#: ../ui-hlp/menu.c:1044
+#: ../ui-hlp/menu.c:1057
 msgid "Wait for text"
 msgstr "Attendre le texte"
 
-#: ../ui-hlp/menu.c:1045
+#: ../ui-hlp/menu.c:1058
 msgid "Wait for complete image"
 msgstr "Attendre l'image complète"
 
-#: ../ui-hlp/menu.c:1048
+#: ../ui-hlp/menu.c:1061
 msgid "Include file"
 msgstr "Inclure fichier"
 
-#: ../ui-hlp/menu.c:1050 ../ui-hlp/menu.c:1251
+#: ../ui-hlp/menu.c:1063 ../ui-hlp/menu.c:1265
 msgid "Default palette"
 msgstr "Palette par défaut"
 
-#: ../ui-hlp/menu.c:1053
+#: ../ui-hlp/menu.c:1066
 msgid "Formula"
 msgstr "Formule"
 
-#: ../ui-hlp/menu.c:1055
+#: ../ui-hlp/menu.c:1068
 msgid "Maximal zooming step"
 msgstr "Pas maximum pour le zoom"
 
-#: ../ui-hlp/menu.c:1059
+#: ../ui-hlp/menu.c:1072
 msgid "Zooming speedup"
 msgstr "Accélération du zoom"
 
-#: ../ui-hlp/menu.c:1061
+#: ../ui-hlp/menu.c:1074
 msgid "Filter"
 msgstr "Filtre"
 
-#: ../ui-hlp/menu.c:1065 ../ui-hlp/menu.c:1070
+#: ../ui-hlp/menu.c:1078 ../ui-hlp/menu.c:1083
 msgid "Letters per second"
 msgstr "Lettres par seconde"
 
-#: ../ui-hlp/menu.c:1072 ../ui-hlp/menu.c:1340
+#: ../ui-hlp/menu.c:1085 ../ui-hlp/menu.c:1354
 msgid "Interrupt"
 msgstr "Interrompt"
 
-#: ../ui-hlp/menu.c:1074 ../ui-hlp/menu.c:1083
+#: ../ui-hlp/menu.c:1087 ../ui-hlp/menu.c:1097
 msgid "File"
 msgstr "Fichier"
 
-#: ../ui-hlp/menu.c:1075
+#: ../ui-hlp/menu.c:1088
 msgid "Edit"
 msgstr "Edition"
 
-#: ../ui-hlp/menu.c:1076
+#: ../ui-hlp/menu.c:1089
 msgid "Fractal"
 msgstr "Fractal"
 
-#: ../ui-hlp/menu.c:1077
+#: ../ui-hlp/menu.c:1090
 msgid "Calculation"
 msgstr "Calcul"
 
-#: ../ui-hlp/menu.c:1078 ../ui-hlp/menu.c:1412
+#: ../ui-hlp/menu.c:1091 ../ui-hlp/menu.c:1426
 msgid "Filters"
 msgstr "Filtres"
 
-#: ../ui-hlp/menu.c:1079 ../ui-hlp/menu.c:1095
+#: ../ui-hlp/menu.c:1092 ../ui-hlp/menu.c:1109
 msgid "UI"
 msgstr "Interface"
 
-#: ../ui-hlp/menu.c:1080
+#: ../ui-hlp/menu.c:1093
 msgid "Misc"
 msgstr "Divers"
 
-#: ../ui-hlp/menu.c:1082
+#: ../ui-hlp/menu.c:1094
+#, fuzzy
+msgid "Window"
+msgstr "Annuler"
+
+#: ../ui-hlp/menu.c:1096
 msgid "Tutorials"
 msgstr "Didacticiels"
 
-#: ../ui-hlp/menu.c:1089 ../ui-hlp/menu.c:1092
+#: ../ui-hlp/menu.c:1103 ../ui-hlp/menu.c:1106
 msgid "Stop replay"
 msgstr "Arrêter la répétition"
 
-#: ../ui-hlp/menu.c:1097
+#: ../ui-hlp/menu.c:1111
 msgid "Command"
 msgstr "Commande"
 
-#: ../ui-hlp/menu.c:1099
+#: ../ui-hlp/menu.c:1113
 msgid "Play string"
 msgstr "Joue texte"
 
-#: ../ui-hlp/menu.c:1101
+#: ../ui-hlp/menu.c:1115
 msgid "Render animation"
 msgstr "Traiter l'animation"
 
-#: ../ui-hlp/menu.c:1104
+#: ../ui-hlp/menu.c:1118
 msgid "Clear screen"
 msgstr "Effacer écran"
 
-#: ../ui-hlp/menu.c:1106
+#: ../ui-hlp/menu.c:1120
 msgid "Display fractal"
 msgstr "Afficher fractal"
 
-#: ../ui-hlp/menu.c:1109
+#: ../ui-hlp/menu.c:1123
 msgid "Display text"
 msgstr "Afficher texte"
 
-#: ../ui-hlp/menu.c:1111
+#: ../ui-hlp/menu.c:1125
 msgid "Color"
 msgstr "Couleur"
 
-#: ../ui-hlp/menu.c:1113
+#: ../ui-hlp/menu.c:1127
 msgid "Horizontal text position"
 msgstr "Position horizontale du texte"
 
-#: ../ui-hlp/menu.c:1114
+#: ../ui-hlp/menu.c:1128
 msgid "Vertical text position"
 msgstr "Position verticale du texte"
 
-#: ../ui-hlp/menu.c:1116
+#: ../ui-hlp/menu.c:1130
 msgid "Text position"
 msgstr "Position du texte"
 
-#: ../ui-hlp/menu.c:1120
+#: ../ui-hlp/menu.c:1134
 msgid "Message"
 msgstr "Message"
 
-#: ../ui-hlp/menu.c:1142
+#: ../ui-hlp/menu.c:1156
 msgid "Load"
 msgstr "Ouvrir"
 
-#: ../ui-hlp/menu.c:1145
+#: ../ui-hlp/menu.c:1159
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../ui-hlp/menu.c:1147
+#: ../ui-hlp/menu.c:1161
 msgid "Record"
 msgstr "Enregistrer animation"
 
-#: ../ui-hlp/menu.c:1151
+#: ../ui-hlp/menu.c:1165
 msgid "Replay"
 msgstr "Rejouer animation"
 
-#: ../ui-hlp/menu.c:1158
+#: ../ui-hlp/menu.c:1172
 msgid "Save image"
 msgstr "Entregistrer image"
 
-#: ../ui-hlp/menu.c:1159
+#: ../ui-hlp/menu.c:1173
 msgid "Load random example"
 msgstr "Ouvrir un exemple aléatoire"
 
-#: ../ui-hlp/menu.c:1162
+#: ../ui-hlp/menu.c:1176
 msgid "Save configuration"
 msgstr "Enregistrer la configuration"
 
-#: ../ui-hlp/menu.c:1166
+#: ../ui-hlp/menu.c:1180
 msgid "Undo"
 msgstr "Annuler"
 
-#: ../ui-hlp/menu.c:1170
+#: ../ui-hlp/menu.c:1184
 msgid "Redo"
 msgstr "Refaire"
 
-#: ../ui-hlp/menu.c:1174
+#: ../ui-hlp/menu.c:1188
 msgid "Formulae"
 msgstr "Formule"
 
-#: ../ui-hlp/menu.c:1175
+#: ../ui-hlp/menu.c:1189
 msgid "More formulae"
 msgstr "Autres formules"
 
-#: ../ui-hlp/menu.c:1180
+#: ../ui-hlp/menu.c:1194
 #, fuzzy
 msgid "User formula"
 msgstr "Autres formules"
 
-#: ../ui-hlp/menu.c:1181
+#: ../ui-hlp/menu.c:1195
 #, fuzzy
 msgid "User initialization"
 msgstr "Initialisation"
 
-#: ../ui-hlp/menu.c:1185
+#: ../ui-hlp/menu.c:1199
 msgid "Incoloring mode"
 msgstr "Coloriage intérieur"
 
-#: ../ui-hlp/menu.c:1186
+#: ../ui-hlp/menu.c:1200
 msgid "Outcoloring mode"
 msgstr "Coloriage extérieur"
 
-#: ../ui-hlp/menu.c:1187
+#: ../ui-hlp/menu.c:1201
 msgid "Plane"
 msgstr "Plan"
 
-#: ../ui-hlp/menu.c:1188
+#: ../ui-hlp/menu.c:1202
 msgid "Palette"
 msgstr "Palette"
 
-#: ../ui-hlp/menu.c:1191
+#: ../ui-hlp/menu.c:1205
 msgid "Mandelbrot mode"
 msgstr "Mode Mandelbrot"
 
-#: ../ui-hlp/menu.c:1197 ../ui-hlp/menu.c:1201 ../ui-hlp/menu.c:1415
+#: ../ui-hlp/menu.c:1211 ../ui-hlp/menu.c:1215 ../ui-hlp/menu.c:1429
 msgid "Perturbation"
 msgstr "Perturbation"
 
-#: ../ui-hlp/menu.c:1212
+#: ../ui-hlp/menu.c:1226
 msgid "Reset to defaults"
 msgstr "Valeurs par défaut"
 
-#: ../ui-hlp/menu.c:1213
+#: ../ui-hlp/menu.c:1227
 msgid "Julia mode"
 msgstr "Mode Julia"
 
-#: ../ui-hlp/menu.c:1220
+#: ../ui-hlp/menu.c:1234
 msgid "Set angle"
 msgstr "Choisir l'angle"
 
-#: ../ui-hlp/menu.c:1224
+#: ../ui-hlp/menu.c:1238
 msgid "Set plane"
 msgstr "Choisir le plan"
 
 # #: ../ui-hlp/menu.c:1167
-#: ../ui-hlp/menu.c:1228
+#: ../ui-hlp/menu.c:1242
 msgid "Inside coloring mode"
 msgstr "Coloriage intérieur"
 
-#: ../ui-hlp/menu.c:1233
+#: ../ui-hlp/menu.c:1247
 msgid "Outside coloring mode"
 msgstr "Coloriage extérieur"
 
-#: ../ui-hlp/menu.c:1237
+#: ../ui-hlp/menu.c:1251
 msgid "Inside truecolor coloring mode"
 msgstr "Coloriage intérieur en vraies couleurs"
 
-#: ../ui-hlp/menu.c:1243
+#: ../ui-hlp/menu.c:1257
 msgid "Outside truecolor coloring mode"
 msgstr "Coloriage extérieur en vraies couleurs"
 
-#: ../ui-hlp/menu.c:1247
+#: ../ui-hlp/menu.c:1261
 msgid "Julia seed"
 msgstr "Initialisation de Julia"
 
-#: ../ui-hlp/menu.c:1253
+#: ../ui-hlp/menu.c:1267
 msgid "Random palette"
 msgstr "Palette aléatoire"
 
-#: ../ui-hlp/menu.c:1256
+#: ../ui-hlp/menu.c:1270
 msgid "Custom palette"
 msgstr "Palette personnelle"
 
-#: ../ui-hlp/menu.c:1260
+#: ../ui-hlp/menu.c:1274
 msgid "Color cycling"
 msgstr "Circulation des couleurs"
 
-#: ../ui-hlp/menu.c:1262
+#: ../ui-hlp/menu.c:1276
 msgid "Reversed color cycling"
 msgstr "Circulation des couleurs inversée"
 
-#: ../ui-hlp/menu.c:1267
+#: ../ui-hlp/menu.c:1281
 msgid "Color cycling speed"
 msgstr "Vitesse de circulation des couleurs"
 
-#: ../ui-hlp/menu.c:1271
+#: ../ui-hlp/menu.c:1285
 msgid "Shift palette"
 msgstr "Décaler palette"
 
-#: ../ui-hlp/menu.c:1273
+#: ../ui-hlp/menu.c:1287
 msgid "Shift one forward"
 msgstr "Avancer d'une unité"
 
-#: ../ui-hlp/menu.c:1276
+#: ../ui-hlp/menu.c:1290
 msgid "Shift one backward"
 msgstr "Reculer d'une unité"
 
-#: ../ui-hlp/menu.c:1278 ../engine/zoom.c:1491
+#: ../ui-hlp/menu.c:1292 ../engine/zoom.c:1491
 msgid "Solid guessing"
 msgstr "Estimation solide"
 
-#: ../ui-hlp/menu.c:1279
+#: ../ui-hlp/menu.c:1293
 msgid "Dynamic resolution"
 msgstr "Résolution dynamique"
 
-#: ../ui-hlp/menu.c:1281
+#: ../ui-hlp/menu.c:1295
 msgid "Periodicity checking"
 msgstr "Vérification périodicité"
 
-#: ../ui-hlp/menu.c:1283
+#: ../ui-hlp/menu.c:1297
 msgid "Iterations"
 msgstr "Itérations"
 
-#: ../ui-hlp/menu.c:1285
+#: ../ui-hlp/menu.c:1299
 msgid "Bailout"
 msgstr "Valeur d'échappement"
 
-#: ../ui-hlp/menu.c:1288
+#: ../ui-hlp/menu.c:1302
 msgid "Fast julia mode"
 msgstr "Mode Julia rapide"
 
-#: ../ui-hlp/menu.c:1290
+#: ../ui-hlp/menu.c:1304
 msgid "Rotation"
 msgstr "Rotation"
 
-#: ../ui-hlp/menu.c:1291
+#: ../ui-hlp/menu.c:1305
 msgid "Solid guessing range"
 msgstr "Portée de l'estimation solide"
 
-#: ../ui-hlp/menu.c:1294
+#: ../ui-hlp/menu.c:1308
 msgid "Disable rotation"
 msgstr "Désactiver rotation"
 
-#: ../ui-hlp/menu.c:1298
+#: ../ui-hlp/menu.c:1312
 msgid "Continuous rotation"
 msgstr "Rotation continue"
 
-#: ../ui-hlp/menu.c:1301
+#: ../ui-hlp/menu.c:1315
 msgid "Rotate by mouse"
 msgstr "Rotation à la souris"
 
-#: ../ui-hlp/menu.c:1305
+#: ../ui-hlp/menu.c:1319
 msgid "Rotation speed"
 msgstr "Vitesse de rotation"
 
-#: ../ui-hlp/menu.c:1308
+#: ../ui-hlp/menu.c:1322
 msgid "Automatic rotation"
 msgstr "Rotation automatique"
 
-#: ../ui-hlp/menu.c:1313
+#: ../ui-hlp/menu.c:1327
 msgid "Fast rotation mode"
 msgstr "Mode de rotation rapide"
 
-#: ../ui-hlp/menu.c:1317
+#: ../ui-hlp/menu.c:1331
 msgid "Disable dynamic resolution"
 msgstr "Désactiver la résolution dynamique"
 
-#: ../ui-hlp/menu.c:1320
+#: ../ui-hlp/menu.c:1334
 msgid "Use only during animation"
 msgstr "Utiliser seulement pendant l'animation"
 
-#: ../ui-hlp/menu.c:1324
+#: ../ui-hlp/menu.c:1338
 msgid "Use also for new images"
 msgstr "Utiliser aussi pour les nouvelles images"
 
-#: ../ui-hlp/menu.c:1326
+#: ../ui-hlp/menu.c:1340
 msgid "Dynamic resolution mode"
 msgstr "Mode de résolution dynamique"
 
-#: ../ui-hlp/menu.c:1330
+#: ../ui-hlp/menu.c:1344
 msgid "Autopilot"
 msgstr "Pilote automatique"
 
-#: ../ui-hlp/menu.c:1333
-msgid "Performance Mode"
-msgstr ""
+#: ../ui-hlp/menu.c:1347
+#, fuzzy
+msgid "VJ mode"
+msgstr "Mode Julia"
 
-#: ../ui-hlp/menu.c:1336
+#: ../ui-hlp/menu.c:1350
 msgid "Recalculate"
 msgstr "Recalculer"
 
-#: ../ui-hlp/menu.c:1345
+#: ../ui-hlp/menu.c:1359
 msgid "Zooming speed"
 msgstr "Vitesse de zoom"
 
-#: ../ui-hlp/menu.c:1347
+#: ../ui-hlp/menu.c:1361
 msgid "Fixed step"
 msgstr "Pas fixé"
 
-#: ../ui-hlp/menu.c:1351
+#: ../ui-hlp/menu.c:1365
 msgid "Disable solid guessing"
 msgstr "Désactiver l'estimation solide"
 
-#: ../ui-hlp/menu.c:1355
+#: ../ui-hlp/menu.c:1369
 msgid "Guess 2x2 rectangles"
 msgstr "Estimation en rectangles 2x2"
 
-#: ../ui-hlp/menu.c:1357
+#: ../ui-hlp/menu.c:1371
 msgid "Guess 3x3 rectangles"
 msgstr "Estimation en rectangles 3x3"
 
-#: ../ui-hlp/menu.c:1361
+#: ../ui-hlp/menu.c:1375
 msgid "Guess 4x4 rectangles"
 msgstr "Estimation en rectangles 4x4"
 
-#: ../ui-hlp/menu.c:1363
+#: ../ui-hlp/menu.c:1377
 msgid "Guess 5x5 rectangles"
 msgstr "Estimation en rectangles 5x5"
 
-#: ../ui-hlp/menu.c:1367
+#: ../ui-hlp/menu.c:1381
 msgid "Guess 6x6 rectangles"
 msgstr "Estimation en rectangles 6x6"
 
-#: ../ui-hlp/menu.c:1369
+#: ../ui-hlp/menu.c:1383
 msgid "Guess 7x7 rectangles"
 msgstr "Estimation en rectangles 7x7"
 
-#: ../ui-hlp/menu.c:1373
+#: ../ui-hlp/menu.c:1387
 msgid "Guess 8x8 rectangles"
 msgstr "Estimation en rectangles 8x8"
 
-#: ../ui-hlp/menu.c:1375
+#: ../ui-hlp/menu.c:1389
 msgid "Guess unlimited rectangles"
 msgstr "Estimation en rectangles illimités"
 
-#: ../ui-hlp/menu.c:1379
+#: ../ui-hlp/menu.c:1393
 msgid "Language"
 msgstr "Langue"
 
-#: ../ui-hlp/menu.c:1382
+#: ../ui-hlp/menu.c:1396
 msgid "An introduction to fractals"
 msgstr "Une introduction aux fractals"
 
-#: ../ui-hlp/menu.c:1383
+#: ../ui-hlp/menu.c:1397
 msgid "XaoS features overview"
 msgstr "Revue des caractéristiques de XaoS"
 
-#: ../ui-hlp/menu.c:1384
+#: ../ui-hlp/menu.c:1398
 msgid "Math behind fractals"
 msgstr "Les maths derrière les fractals"
 
-#: ../ui-hlp/menu.c:1385 ../ui-hlp/menu.c:1423
+#: ../ui-hlp/menu.c:1399 ../ui-hlp/menu.c:1437
 msgid "Other fractal types in XaoS"
 msgstr "Autres types de fractals dans XaoS"
 
-#: ../ui-hlp/menu.c:1386
+#: ../ui-hlp/menu.c:1400
 msgid "What's new?"
 msgstr "Nouveautés"
 
-#: ../ui-hlp/menu.c:1396 ../ui-hlp/menu.c:1418
+#: ../ui-hlp/menu.c:1410 ../ui-hlp/menu.c:1432
 msgid "Whole story"
 msgstr "Tous les détails"
 
-#: ../ui-hlp/menu.c:1398
+#: ../ui-hlp/menu.c:1412
 msgid "Introduction"
 msgstr "Introduction"
 
-#: ../ui-hlp/menu.c:1399
+#: ../ui-hlp/menu.c:1413
 msgid "Mandelbrot set"
 msgstr "Ensemble de Mandelbrot"
 
-#: ../ui-hlp/menu.c:1400
+#: ../ui-hlp/menu.c:1414
 msgid "Julia set"
 msgstr "Ensemble de Julia"
 
-#: ../ui-hlp/menu.c:1401
+#: ../ui-hlp/menu.c:1415
 msgid "Higher power Mandelbrots"
 msgstr "Puissances de Mandlebrot"
 
-#: ../ui-hlp/menu.c:1402
+#: ../ui-hlp/menu.c:1416
 msgid "Newton's method"
 msgstr "Méthode de Newton"
 
-#: ../ui-hlp/menu.c:1403
+#: ../ui-hlp/menu.c:1417
 msgid "Barnsley's formula"
 msgstr "Formule de Barnsley"
 
-#: ../ui-hlp/menu.c:1404
+#: ../ui-hlp/menu.c:1418
 msgid "Phoenix"
 msgstr "Phoenix"
 
-#: ../ui-hlp/menu.c:1405
+#: ../ui-hlp/menu.c:1419
 msgid "Octo"
 msgstr "Octo"
 
-#: ../ui-hlp/menu.c:1406
+#: ../ui-hlp/menu.c:1420
 msgid "Magnet"
 msgstr "Magnet"
 
-#: ../ui-hlp/menu.c:1407
+#: ../ui-hlp/menu.c:1421
 msgid "All features"
 msgstr "Toutes les caractéristiques"
 
-#: ../ui-hlp/menu.c:1409
+#: ../ui-hlp/menu.c:1423
 msgid "Outcoloring modes"
 msgstr "Coloration extérieure"
 
-#: ../ui-hlp/menu.c:1410
+#: ../ui-hlp/menu.c:1424
 msgid "Incoloring modes"
 msgstr "Coloration intérieure"
 
-#: ../ui-hlp/menu.c:1411
+#: ../ui-hlp/menu.c:1425
 msgid "True-color coloring modes"
 msgstr "Coloration en vraies couleurs"
 
-#: ../ui-hlp/menu.c:1413
+#: ../ui-hlp/menu.c:1427
 msgid "Planes"
 msgstr "Plans"
 
-#: ../ui-hlp/menu.c:1414
+#: ../ui-hlp/menu.c:1428
 msgid "Animations and position files"
 msgstr "Fichiers d'animation et de position"
 
-#: ../ui-hlp/menu.c:1416
+#: ../ui-hlp/menu.c:1430
 msgid "Random palettes"
 msgstr "Palettes aléatoires"
 
-#: ../ui-hlp/menu.c:1417
+#: ../ui-hlp/menu.c:1431
 msgid "Other noteworthy features"
 msgstr "Autres caractéristiques utiles"
 
-#: ../ui-hlp/menu.c:1420
+#: ../ui-hlp/menu.c:1434
 msgid "The definition and fractal dimension"
 msgstr "Définition et dimension fractale"
 
-#: ../ui-hlp/menu.c:1422
+#: ../ui-hlp/menu.c:1436
 msgid "Escape time fractals"
 msgstr "Fractals à temps d'échappement"
 
-#: ../ui-hlp/menu.c:1425
+#: ../ui-hlp/menu.c:1439
 msgid "Triceratops and Catseye fractals"
 msgstr "Fractals Triceratops et Oeil de chat"
 
-#: ../ui-hlp/menu.c:1426
+#: ../ui-hlp/menu.c:1440
 msgid "Mandelbar, Lambda, Manowar and Spider"
 msgstr "Mandelbar, Lambda, Manowar et Araignée"
 
-#: ../ui-hlp/menu.c:1427
+#: ../ui-hlp/menu.c:1441
 msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
 msgstr "Triangle de Sierpinski , Tapis de S., Flocon de Koch"
 
-#: ../ui-hlp/menu.c:1428
+#: ../ui-hlp/menu.c:1442
 msgid "What's new in 3.0?"
 msgstr "Nouveautés dans la version 3.0"
 
