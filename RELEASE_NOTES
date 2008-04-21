@@ -1,5 +1,5 @@
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.29 2008-04-18 21:56:34 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.30 2008-04-21 05:48:42 kovzol Exp $
 
 RELEASE NOTES FOR XAOS VERSION 3.4
 ----------------------------------
@@ -7,9 +7,11 @@ RELEASE NOTES FOR XAOS VERSION 3.4
 Cross-platform changes
 ======================
 
-o New Italian transalation courtesy of Sergio Zanchetta
+o New Italian translation courtesy of Sergio Zanchetta
 
-o Bug fix to prevent garbled characters when using non-english languages
+o Updated catalog and i18n for German by Andreas Madritsch
+
+o Bug fix to prevent garbled characters when using non-English languages
   on modern systems using UTF-8
 
 o Bug fix to prevent XaoS from crashing after using the Render Animation

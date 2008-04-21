@@ -4,7 +4,7 @@ Internationalization (i18n) in XaoS
 Zoltan Kovacs <kovzol@math.u-szeged.hu>
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/src/i18n/README,v 1.7 2008-03-05 13:00:31 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/src/i18n/README,v 1.8 2008-04-21 05:48:44 kovzol Exp $
 
 
 
@@ -47,11 +47,12 @@ German).
 * Type "make new-languages". This will generate a so-called .po-file
   for you (e.g. "cs.po" or "de.po"). 
 
-* Edit the generated file manually. The first 15 lines should be fill in
-  properly, otherwise nothing will work in your language. The other lines
-  should be also fill in respectively. Note that you only should change
-  the "msgstr" rows. See the Hungarian language file, "hu.po" for example.
-  Important, that the first "#, fuzzy" line must be removed.
+* Edit the generated file manually. The first 15 lines should be filled in
+  properly, otherwise nothing will work in your language. The other
+  lines should be also filled in respectively. Note that you should
+  change the "msgstr" rows only. See the Hungarian language file,
+  "hu.po" for example. Important, that the first "#, fuzzy" line must be
+  removed.
 
 * Type a "make" to generate the so-called .mo-files. These files will be
   installed later to the directory /usr/share/locale/ under Linux
@@ -109,6 +110,10 @@ Thanks to everyone!
 6. IMPORTANT NOTES FOR MODERN LINUX SYSTEMS
 
 (Contributed by Á. Fekete and Z. Kovács.)
+
+! Note: the information provided in this section is not valid anymore,
+! because XaoS 3.4 already support UTF-8 encodings natively. We don't
+! delete this section, however, for historical reasons. ;-)
 
 This section describes how to display Hungarian characters correctly in XaoS
 on Ubuntu 7.10. But this may be help on other systems, too. The section should

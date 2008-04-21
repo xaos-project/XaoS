@@ -81,7 +81,7 @@ hb9 "Diese Definition führt zu den
 erwarteten Resultaten für normale
 Formen."
 hb10 "Interessanter wird es bei Fraktalen."
-hb11 "Sehen Sie sich die sogenannte kochsche
+hb11 "Sehen Sie sich die so genannte kochsche
 Schneeflockenkurve an,"
 hb12 "welche entsteht, wenn man eine Linie in
 drei gleiche Abschnitte teilt und den
@@ -162,7 +162,7 @@ orbit1 "Um das Orbital, das dem Punkt
 orbit2 "müssen wir diese komplexe Zahl c
 zuweisen."
 orbit3 "Das Orbital beginnt bei
-z = 0 + 0i"
+z = 0 + 0.6i"
 orbit3b "Wir werten die iterative Funktion
 wiederholt aus, und erhalten bei jeder
 Auswertung einen neuen Punkt im
@@ -174,7 +174,7 @@ Endlichkeit bleibt."
 orbit5 "In unserem Beispiel ist dies der Fall..."
 orbit6 "Somit gehört dieser Punkt der
 Mandelbrotmenge an."
-orbit7 "In anderen Fällen verschwinden werden
+orbit7 "In anderen Fällen verschwinden
 die Orbitale in der Unendlichkeit."
 orbit8 "Untersuchen wir zum Beispiel den Punkt
 10 + 0i, erhalten wir nach der ersten
@@ -184,8 +184,8 @@ orbit9 "Solche Punkte gehören nicht der
 Mandelbrotmenge an."
 
 bail1 "Bis jetzt sprechen wir immer noch von
-unendlich grosse Zahlen."
-bail2 "Da computer nur endliche Zahlen
+unendlich grossen Zahlen."
+bail2 "Da Computer nur endliche Zahlen
 darstellen können, sind sie nicht in
 der Lage Fraktale exakt zu berechnen."
 bail3 "Es kann jedoch bewiesen werden,
@@ -196,7 +196,7 @@ bail4 "Somit können die Berechnungen
 abgebrochen werden, sobald das Orbital
 einen Abstand von 2 vom Nullpunkt
 überschritten hat und damit den
-sogenannten Bailout-Test nicht
+so genannten Bailout-Test nicht
 bestanden hat."
 bail5 "Für Punkte die nicht der
 Mandelbrotmenge angehören, benötigen
@@ -237,7 +237,7 @@ limit4 "Die Bilder werden ziemlich langweilig,
 wenn dies geschieht."
 limit5 "Nach erhöhen der maximalen Anzahl
 Iterationen erhalten Sie neue,
-interessanter Details."
+interessante Details."
 
 ofracts1 "Andere Fraktale in XaoS werden mit
 anderen Formeln und Bailout-Tests
@@ -268,7 +268,7 @@ anim3 "Die Aufzeichnung erfolgt direkt in XaoS."
 
 languag1 "Animations- und Positionsdateien
 werden in einer einfachen Kommando-
-sprache abgespeichert."
+sprache gespeichert."
 
 languag2 "Positionsdateien enthalten eine
 Animation mit nur einem Teilbild."
@@ -317,7 +317,7 @@ barnsley2 "Sie erzeugt dieses seltsame Fraktal."
 barnsley3 "Es hat keine besonders interessanten
 Stellen -"
 
-barnsley4 "Aber seine Juliamengen sind hübsch."
+barnsley4 "Aber ihre Juliamengen sind hübsch."
 
 barnsley5 "Es hat interessanterweise eine
 \"kristalline\" Struktur,"
@@ -370,7 +370,7 @@ stereo2 "Falls Sie in den nächsten Beispielen
 nichts sehen können, obwohl Sie
 Stereogramme schon kennen, ist wahr-
 scheinlich Ihre Bildschirmgröße falsch
-konfiguriert. \"xaos -help\" gibt Ihnen
+konfiguriert. \"XaoS-Hilfe\" gibt Ihnen
 weitere Informationen."
 
 emboss1 "Ein Prägeeffekt-Filter"
@@ -381,7 +381,7 @@ Palettenrotation darzustellen."
 
 truecolorf "Ein Truecolor-Filter erlaubt es Ihnen,
 auch auf 8-Bit-Bildschirmen Echtfarb-
-darstellungen zu erzeugen."
+Darstellungen zu erzeugen."
 
 #########################################################
 # Datei: fractal.xaf
@@ -417,7 +417,7 @@ kann der letzte Orbitwert benutzt
 werden, um die Farbe zu bestimmen."
 
 incolor4 "XaoS besitzt zehn verschiedene Methoden
-dafür, genannt \"in coloring modes\"."
+dafür, genannt \"Innere Färbungs Modi\"."
 
 zmag "zmag
 
@@ -442,7 +442,7 @@ durch den Imaginärteil."
 
 innew3 "Die anderen 6 Modi sind meist zufällig
 gewählte oder aus dem Programm
-\"flarium\" stammende Formeln."
+\"Flarium\" stammende Formeln."
 
 #########################################################
 # Datei: intro.xaf
@@ -459,7 +459,7 @@ fractal3 "Noch Fragen?"
 
 fractal4 "Egal. Diese Definition ist anfechtbar."
 
-fractal5 "In einfachereren Worten:
+fractal5 "In einfacheren Worten:
 Ein Fraktal ist eine Form,"
 
 fractal6 "zusammengesetzt aus Einzelstücken,"
@@ -481,13 +481,13 @@ wie sie in der Natur vorkommen."
 fact4 "Zum Beispiel Wolken, Berge oder Küsten."
 fact5 "Es gibt auch viele mathematische
 Strukturen, die Fraktale sind."
-fact6 "Wie jene, die Sie auf dem Schirm sehen."
+fact6 "Wie jene, die Sie auf dem Bildschirm sehen."
 fact7 "Die vielleicht bekannteste ist..."
 
 fmath4 "Die meisten Fraktale entstehen durch
 einen iterativen Prozess."
 fmath5 "So wird zum Beispiel das Fraktal, das
-unter dem Name kochsche Kurve
+unter dem Name kochsche Schneeflocken Kurve
 bekannt ist,"
 fmath6 "durch iteratives Ändern einer Linie"
 fmath7 "in vier Linien erzeugt."
@@ -505,7 +505,7 @@ tree1 "Mit ähnlichen Methoden kann eine
 Vielzahl anderer Formen erzeugt werden."
 tree2 "Indem man eine Linie in anderer Weise
 ändert,"
-tree3 "erhält man zum Beispiel ein Baum."
+tree3 "erhält man zum Beispiel einen Baum."
 nstr "Iterationen können auch zufällige
 Störungen in das Fraktal einbringen."
 nstr2 "Indem man eine Linie in zwei Linien
@@ -522,13 +522,13 @@ mset1 "Sie wird durch eine sehr
 einfache Formel erzeugt,"
 mset2 "aber sie ist eines der
 schönsten Fraktale."
-mset3 "Weil die Mandelbrotmenge ein Fraktal ist"
+mset3 "Weil die Mandelbrotmenge ein Fraktal ist,"
 mset4 "enthalten ihre Randbereiche"
 mset5 "verkleinerte Kopien der Gesamtmenge."
 mset6 "Dies ist die größte davon,
 nur ungefähr 50 mal kleiner."
 mset7 "Weil die Mandelbrotmenge nicht
-strikt selbstähnlich ist"
+strikt selbstähnlich ist,"
 mset8 "sind alle diese Mini-Kopien verschieden."
 mset9 "Diese ist 76000 mal kleiner."
 mset10 "Kopien in anderen Bereichen der Menge
@@ -545,7 +545,7 @@ nat3 "Sie können dort Bäume,"
 nat4 "Flüsse und Seen,"
 nat5 "Galaxien"
 nat6 "und Wasserfälle finden."
-nat7 "Die Menge enthält auch Formen
+nat7 "Das Fraktal enthält auch Formen
 ohne jede Entsprechung."
 
 juliach "Fraktale - Eine Einführung
@@ -568,12 +568,12 @@ julia8 "Punkte im Innern der Menge entsprechen
 Juliamengen mit großen geschlossenen
 schwarzen Flächen."
 julia9 "Punkte außerhalb der Menge entsprechen
-nichtzusammenhängenden Juliamengen."
+nicht zusammenhängenden Juliamengen."
 julia10 "Die interessantesten Juliamengen
 gehören aber zu den Randpunkten."
 
 theme "Das Aussehen der Juliamenge hängt stark
-von dem ausgewählten STartpunkt ab."
+von dem ausgewählten Startpunkt ab."
 theme1 "Bei starker Vergrößerung erhält man ein
 sehr ähnlich aussehendes Fraktal,"
 theme2 "nachdem man auf die Julia-
@@ -635,13 +635,13 @@ speed1 "Die Haupt-Berechnungsschleifen wurden
 entrollt und führen eine
 Periodizitätsprüfung durch."
 speed2 "Vollbilder werden durch
-Boundary Tracing berechnet."
+Boundary-Tracing berechnet."
 speed3 "Dadurch ist die Vollbildberechnung
 jetzt erheblich schneller."
 speed4 "Zum Beispiel die Berechnung
 der Mandelbrotmenge mit
 1.000.000 Iterationen..."
-speed5 "Rechnung läuft."
+speed5 "Berechnung läuft."
 speed6 "Fertig."
 speed7 "XaoS benutzt eine Heuristik und schaltet
 die Periodizitätsprüfung ab, wenn der
@@ -656,8 +656,8 @@ erreicht XaoS jetzt 130FPS."
 # Aber wir werden ja noch sehen...
 
 new2 "2. Filter"
-new3 "3. Neun \"out coloring modes\""
-new4 "4. Neue \"in coloring modes\""
+new3 "3. Neun \"Äussere Färbungs Modi\""
+new4 "4. Neue \"Innere Färbungs Modi\""
 new5 "5. Truecolor-Modi"
 new6 "6. Speichern/Wiedergabe von Animationen"
 newend "Und viele andere Verbesserungen, z.B.
@@ -711,7 +711,7 @@ erzeugen, ähnlich wie bei \"Newton\"."
 #########################################################
 # Datei: outcolor.xaf
 
-outcolor "Out coloring modes"
+outcolor "Äussere Färbungs Modi"
 outcolor1 "Die Mandelbrotmenge ist der langweilige
 schwarze Teich in der Bildschirmmitte."
 outcolor2 "Die farbigen Streifen rundherum
@@ -719,9 +719,9 @@ sind die Randbereiche der Menge."
 outcolor3 "Normalerweise werden zum Einfärben die
 Iterationen gezählt, bis der Wert der
 Formel z^2+c einen Grenzwert erreicht."
-outcolor4 "Aber es gibt auch anderen Methoden,
+outcolor4 "Aber es gibt auch andere Methoden,
 die Menge zu visualisieren."
-outcolor5 "In XaoS heißen sie \"out coloring modes\"."
+outcolor5 "In XaoS heißen sie \"Äussere Färbungs Modi\"."
 
 iterreal "iter+real
 
@@ -782,7 +782,7 @@ der angenäherten Wurzel zu erzielen."
 
 smooth "Farbverlauf
 
-Der Farbverlaufsmodus versucht, die
+Der Farbverlaufsmodus versucht die
 durch die Iterationen verursachten
 Streifen aufzulösen und glatte
 Farbübergänge zu schaffen."
@@ -835,10 +835,10 @@ Dies ist eine Inversion. Der unendlich
 ferne Punkt wird auf 0 abgebildet und
 umgekehrt.  Auf diese Art können Sie
 festellen, was mit dem Fraktal bei
-unendlichem Herauszommen passiert."
+unendlichem Herauszoomen passiert."
 plane4 "Dies ist eine normal Mandelbrotmenge."
 plane5 "Diese ist invertiert."
-plane6 "Wie Sie sehen war die Menge vorher in
+plane6 "Wie Sie sehen, war die Menge vorher in
 der Bildmitte, jetzt liegt sie am Rand.
 Das unendlich große blaue Gebiet rund
 um die Menge wurde auf einen kleinen
@@ -857,7 +857,7 @@ unendlich große parabolische Strukturen
 sehen."
 plane10 "Bei anderen Fraktalen treten ebenfalls
 interessante Effekte auf, weil dieser
-Modus normalerwise die Symmetrien
+Modus normalerweise die Symmetrien
 aufbricht."
 
 lambda "Eine völlig andere Darstellung
@@ -958,7 +958,7 @@ pal0 "XaoS hat keine große Bibliothek von
 vordefinierten Paletten (wie viele
 anderer Programme), sonder erzeugt
 zufällige Paletten."
-pal1 "Sie können solange die Taste 'P' drücken
+pal1 "Sie können solange die Taste 'P' drücken,
 bis XaoS eine Palette erzeugt, die
 Ihnen gefällt."
 pal2 "Drei verschiedene Algorithmen
@@ -993,13 +993,13 @@ rotation "Bildrotation"
 cycling "Palettenrotation"
 bailout "Fluchtradius"
 bailout1 "Das ist die Mandelbrotmenge unter
-Verwendung der äusseren Färbung smooth."
+Verwendung der äusseren Färbung Smooth."
 bailout2 "Vergrössert man den Fluchtradius auf 64,
 erhält man ausgeglichenere
 Farbübergänge."
 bailout3 "Bei den meisten Fraktaltypen ergeben
 sich bei verschiedenen Werten für den
-Fluchtradius ähliche Fraktale."
+Fluchtradius ähnliche Fraktale."
 bailout4 "Dies gilt nicht für Barnsley Fraktale."
 
 
@@ -1008,60 +1008,60 @@ bailout4 "Dies gilt nicht für Barnsley Fraktale."
 ##############################################
 #for file trice.xaf
 
-trice1 "Triceratops and Catseye fractals"
-trice2 "If you change the bailout value"
-trice3 "of an escape-time fractal"
-trice4 "to a smaller value,"
-trice5 "you will get an other fractal."
-trice6 "With this method we can get"
-trice7 "very interesting patterns"
-trice8 "with separate areas of one color."
-trice9 "The Triceratops fractal"
-trice10 "is also made with this method."
-trice11 "Many similar pictures can be"
-trice12 "made of Triceratops."
-trice13 "The Catseye fractal"
-trice14 "is like an eye of a cat."
-trice15 "But if we raise the bailout value..."
-trice16 "...we get a more interesting fractal..."
-trice17 "...with bubbles..."
-trice18 "...and beautiful Julias."
+trice1 "Triceratops und Katzenaugen Fraktale"
+trice2 "Wenn Sie den Fuchtradius"
+trice3 "eines Fliehzeit-Fraktals"
+trice4 "auf einen kleineren Wert ändern,"
+trice5 "erhalten Sie ein anderes Fraktal."
+trice6 "Mit dieser Methode erhalten wir"
+trice7 "sehr interessante Muster"
+trice8 "mit separaten Gebieten einer Farbe."
+trice9 "Das Triceratops Fraktal"
+trice10 "wird auch mit dieser Methode erzeugt."
+trice11 "Viele ähnliche Bilder"
+trice12 "können mit Triceratops erzeugt werden."
+trice13 "Das Katzenaugen Fraktal"
+trice14 "sieht wie ein Katzenauge aus."
+trice15 "Wenn wie den Fluchtradius vergrössern..."
+trice16 "...erhalten wir ein interessanteres Fraktal..."
+trice17 "...mit Blasen..."
+trice18 "...und schönen Juliamengen."
 
 ##############################################
 #for file fourfr.xaf
 
 fourfr1 "Mandelbar, Lambda, Manowar and Spider"
-fourfr2 "This is the Mandelbar set."
-fourfr3 "It's formula is: z = (conj(z))^2 + c"
-fourfr4 "Some of its Julias are interesting."
-fourfr5 "But let's see other fractals now."
-fourfr6 "The Lambda fractal has a structure"
-fourfr7 "similar to Mandelbrot's."
-fourfr8 "It's like the Mandelbrot set on the lambda plane."
-fourfr9 "But Lambda is a Julia set, here is MandelLambda."
-fourfr10 "...fast Julia mode..."
-fourfr11 "This is the fractal Manowar."
-fourfr12 "It was found by a user of Fractint."
-fourfr13 "It has Julias similar to the whole set."
-fourfr14 "This fractal is called Spider."
-fourfr15 "It was found by a user of Fractint, too."
-fourfr16 "And it has Julias similar to the whole set, too."
+fourfr2 "Das ist die Mandelbarmenge."
+fourfr3 "Ihre Formel ist: z = (conj(z))^2 + c"
+fourfr4 "Manche ihrer Juliamengen sind interessant."
+fourfr5 "Doch lasst uns jetzt andere Fraktale sehen."
+fourfr6 "Das Lambda Fraktal hat eine Struktur"
+fourfr7 "ähnlich dem Mandelbrot Fraktal."
+fourfr8 "Es ähnelt der Mandelbrotmenge in der Lambda Ebene."
+fourfr9 "Lambda ist eine Juliamenge, hier die Mandelbrotmenge."
+fourfr10 "...schneller Julia Modus..."
+fourfr11 "Das ist das Manowar Fraktal."
+fourfr12 "Es wurde von einem Fractint Benutzer gefunden."
+fourfr13 "Es hat Juliamengen, die ihm ähneln."
+fourfr14 "Dieses Fraktal heisst Spider."
+fourfr15 "Es wurde auch von einem Fractint Benutzer gefunden."
+fourfr16 "Es hat auch Juliamengen, die ihm ähneln."
 
 ##############################################
 #for file classic.xaf
 
-classic1 "Sierpinski Gasket, S.Carpet, Koch Snowflake"
-classic2 "This is the famous Sierpinski Gasket fractal."
-classic3 "And this is the escape-time variant of it."
-classic4 "You can change its shape by selecting"
-classic5 "another 'Julia seed'"
-classic6 "This fractal is the Sierpinski Carpet."
-classic7 "And here is it's escape-time variant."
-classic8 "This is famous, too."
-classic9 "And finally, this is the escape-time variant"
-classic10 " of the Koch Snowflake."
+classic1 "Sierpinski Dichtung, S.Teppich, Kochsche Schneeflocke"
+classic2 "Das ist das berühmte Sierpinski Dichtungs Fraktal."
+classic3 "Und das ist die Fliehzeit Variante davon."
+classic4 "Sie können seine Form ändern indem Sie"
+classic5 "einen anderen Julia Wert wählen"
+classic6 "Dieses Fraktal ist der Sierpinski Teppich."
+classic7 "Und das ist die Fliehzeit Variante davon."
+classic8 "Das ist ebenfalls berühmt."
+classic9 "Und das ist schliesslich die Fliehzeit Variante"
+classic10 "der Kochschen Schneeflocken."
 
 ##############################################
 #for file otherfr.xaf
 
-otherfr1 "Other fractal types in XaoS"
+otherfr1 "Andere Fraktale in XaoS"
