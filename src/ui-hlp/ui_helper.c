@@ -41,8 +41,9 @@
 
 #ifdef HAVE_GETTEXT
 #include <libintl.h>
+#define _(STRING) gettext(STRING)
 #else
-#define gettext(STRING) STRING
+#define _(STRING) STRING
 #endif
 
 #ifndef M_PI
@@ -698,13 +699,13 @@ uih_playtutorial (struct uih_context *c, CONST char *name)
   f = xio_gettutorial (name, tmp);
   if (f == NULL)
     {
-      uih_error (c, gettext ("Tutorial files not found. Reinstall XaoS"));
+      uih_error (c, _("Tutorial files not found. Reinstall XaoS"));
       return;
     }
   uih_replayenable (c, f, tmp, 1);
   if (c->passfunc != NULL)
     {
-      c->passfunc (c, 1, gettext ("Preparing first image"), 0);
+      c->passfunc (c, 1, _("Preparing first image"), 0);
     }
 }
 void
@@ -715,14 +716,14 @@ uih_loadexample (struct uih_context *c)
   c->errstring = NULL;
   if (f == NULL)
     {
-      uih_error (c, gettext ("Could not open examples"));
+      uih_error (c, _("Could not open examples"));
       return;
     }
   uih_load (c, f, name);
   if (c->errstring == NULL)
     {
       char s[256];
-      sprintf (s, gettext ("File %s loaded."), name);
+      sprintf (s, _("File %s loaded."), name);
       uih_message (c, s);
     }
 }
@@ -732,7 +733,7 @@ uih_savepngfile (struct uih_context *c, xio_constpath d)
   CONST char *s;
   if (c->passfunc != NULL)
     {
-      c->passfunc (c, 1, gettext ("Saving image..."), 0);
+      c->passfunc (c, 1, _("Saving image..."), 0);
     }
   if (c->recalculatemode)
     {
@@ -742,7 +743,7 @@ uih_savepngfile (struct uih_context *c, xio_constpath d)
     }
   if (c->interrupt)
     {
-      uih_message (c, gettext ("Save interrupted"));
+      uih_message (c, _("Save interrupted"));
       return;
     }
   c->errstring = NULL;
@@ -752,7 +753,7 @@ uih_savepngfile (struct uih_context *c, xio_constpath d)
   if (c->errstring == NULL)
     {
       char s[256];
-      sprintf (s, gettext ("File %s saved."), d);
+      sprintf (s, _("File %s saved."), d);
       uih_message (c, s);
     }
 }
@@ -764,14 +765,14 @@ uih_saveposfile (struct uih_context *c, xio_constpath d)
   f = xio_wopen (d);
   if (f == XIO_FAILED)
     {
-      uih_error (c, gettext ("Can not open file"));
+      uih_error (c, _("Can not open file"));
       return;
     }
   uih_save_possition (c, f, UIH_SAVEPOS);
   if (c->errstring == NULL)
     {
       char s[256];
-      sprintf (s, gettext ("File %s saved."), d);
+      sprintf (s, _("File %s saved."), d);
       uih_message (c, s);
     }
 }
@@ -844,7 +845,7 @@ uih_savecfg (struct uih_context *c)
   if (c->errstring == NULL)
     {
       char s[256];
-      sprintf (s, gettext ("File %s saved."), configfile);
+      sprintf (s, _("File %s saved."), configfile);
       uih_message (c, s);
     }
 }
@@ -869,7 +870,7 @@ uih_saveanimfile (struct uih_context *c, xio_constpath d)
   if (c->errstring == NULL)
     {
       char s[256];
-      sprintf (s, gettext ("Recording to file %s enabled."), d);
+      sprintf (s, _("Recording to file %s enabled."), d);
       uih_message (c, s);
     }
   uih_updatemenus (c, "record");

@@ -17,8 +17,9 @@
 
 #ifdef HAVE_GETTEXT
 #include <libintl.h>
+#define _(STRING) gettext(STRING)
 #else
-#define gettext(STRING) STRING
+#define _(STRING) STRING
 #endif
 
 static char **dirs;
@@ -188,7 +189,7 @@ drawfile (uih_context * c, void *data)
   ui_drawbutton ("OK", (pressedbutton == 0), active == AOK
 		 && activebutton == 0, filex + BORDERWIDTH,
 		 filex + filewidth / 2 - BORDERWIDTH, OKSTART);
-  ui_drawbutton (gettext ("Cancel"), (pressedbutton == 1), active == AOK
+  ui_drawbutton (_("Cancel"), (pressedbutton == 1), active == AOK
 		 && activebutton == 1, filex + filewidth / 2 + BORDERWIDTH,
 		 filex + filewidth - BORDERWIDTH, OKSTART);
 

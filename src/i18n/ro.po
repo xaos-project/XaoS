@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-18 18:50+0200\n"
+"POT-Creation-Date: 2008-04-23 23:04-0500\n"
 "PO-Revision-Date: 2003-02-11 02:02+GMT\n"
 "Last-Translator: \n"
 "Language-Team:  <de@li.org>\n"
@@ -15,1419 +15,1123 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.7\n"
 
-#: ../ui/ui.c:329
-msgid "XaoS is out of memory."
-msgstr "XaoS nu are suficienta memorie"
-
-#: ../ui/ui.c:379
-#, c-format
-msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
-msgstr "%s %.2f ori (%.1fE) %2.2f cadre/sec %c %i %i %i %i              "
-
-#: ../ui/ui.c:380
-msgid "unzoomed"
-msgstr "nemarit (unzoomed):"
-
-#: ../ui/ui.c:380
-msgid "zoomed"
-msgstr "marit (zoomed):"
-
-#: ../ui/ui.c:388
-#, c-format
-msgid "framerate:%f\n"
-msgstr "frecventa cadrelor: %f\n"
-
-#: ../ui/ui.c:436
-#, c-format
-msgid "Enabling: %s. "
-msgstr "%s se activeaza."
-
-#: ../ui/ui.c:438
-#, c-format
-msgid "Disabling: %s. "
-msgstr "%s se dezactiveaza."
-
-#: ../ui/ui.c:470
-#, c-format
-msgid "Fractal name:%s"
-msgstr "Numele fractalului:%s"
-
-#: ../ui/ui.c:474
-#, c-format
-msgid "Fractal type:%s"
-msgstr "Tipul fractalului:%s"
-
-#: ../ui/ui.c:476
-msgid "Mandelbrot"
-msgstr "Mandelbrot"
-
-#: ../ui/ui.c:476
-msgid "Julia"
-msgstr "Julia"
-
-#: ../ui/ui.c:480
-#, fuzzy, c-format
-msgid "Formula:%s"
-msgstr "Formula:"
-
-#: ../ui/ui.c:485
-#, c-format
-msgid "View:[%1.12f,%1.12f]"
-msgstr "Vedere:[%1.12f,%1.12f]"
-
-#: ../ui/ui.c:489
-#, c-format
-msgid "size:[%1.12f,%1.12f]"
-msgstr "Dimensiune:[%1.12f,%1.12f]"
-
-#: ../ui/ui.c:493
-#, c-format
-msgid "Rotation:%4.2f   Screen size:%i:%i"
-msgstr "Rotatie:%4.2f     Dimensiunea ecranului:%i:%i"
-
-#: ../ui/ui.c:498
-#, c-format
-msgid "Iterations:%-4i Palette size:%i"
-msgstr "Iteratii:%-4i  Dimensiunea paletei:%i"
-
-#: ../ui/ui.c:505
-#, c-format
-msgid "Autopilot:%-4s  Plane:%s"
-msgstr "Pilot automat:%-4s    Plan:%s"
-
-#: ../ui/ui.c:506
-msgid "On"
-msgstr "Pornit"
-
-#: ../ui/ui.c:506
-msgid "Off"
-msgstr "Oprit"
-
-#: ../ui/ui.c:510
-#, c-format
-msgid "incoloring:%s    outcoloring:%s"
-msgstr "Culoare interioara:%s  Culoare exterioara:%s"
-
-#: ../ui/ui.c:515
-#, c-format
-msgid "zoomspeed:%f"
-msgstr "viteza de marire (zoomspeed):%f"
-
-#: ../ui/ui.c:519
-msgid "Parameter:none"
-msgstr "Parametri:nici unul"
-
-#: ../ui/ui.c:521
-#, c-format
-msgid "Parameter:[%f,%f]"
-msgstr "Parametri:[%f,%f]"
-
-#: ../ui/ui.c:617
-#, c-format
-msgid "Please wait while calculating %s"
-msgstr "Asteptati va rog, fractalul %s se calculeaza "
-
-#: ../ui/ui.c:724
-#, c-format
-msgid "Letters per second %i  "
-msgstr "Litere pe secunda: %i  "
-
-#: ../ui/ui.c:739 ../ui/ui.c:750
-#, c-format
-msgid "Rotation speed:%2.2f degrees per second "
-msgstr "Viteza de rotatie:%2.2f grade pe secunda "
-
-#: ../ui/ui.c:762
-#, fuzzy, c-format
-msgid "Iterations: %i   "
-msgstr "Iteratii: %i   "
-
-#: ../ui/ui.c:781
-#, c-format
-msgid "Cycling speed: %i   "
-msgstr "Viteaza de ciclare: %i   "
-
-#: ../ui/ui.c:796 ../ui/ui.c:811
-#, c-format
-msgid "speed:%2.2f "
-msgstr "Viteza:%2.2f "
-
-#: ../ui/ui.c:906
-#, c-format
-msgid "Thank you for using XaoS\n"
-msgstr "Va multumim ca ati folosit XaoS\n"
-
-#: ../ui/ui.c:947
-msgid "Skipping, please wait..."
-msgstr "Se omite, va rugam asteptati..."
-
-#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1535
-msgid "Resize"
-msgstr "Redimensionare"
-
-#: ../ui/ui.c:1063
-msgid "Quit"
-msgstr "Terminare"
-
-#: ../ui/ui.c:1064
-msgid "Exit now"
-msgstr "Iesire acum"
-
-#: ../ui/ui.c:1066
-msgid "Not yet"
-msgstr "Inca nu"
-
-#: ../ui/ui.c:1069 ../ui-hlp/menu.c:1095 ../ui-hlp/menu.c:1110
-#: ../ui/dialog.c:430 ../ui/dialog.c:1446
-msgid "Help"
-msgstr "Ajutor"
-
-#: ../ui/ui.c:1071
-msgid "Disable XaoS's builtin GUI"
-msgstr "Dezactivare GUI implementat in XaoS"
-
-#: ../ui/ui.c:1075 ../ui/ui.c:1081
-msgid "Status"
-msgstr "Status"
-
-#: ../ui/ui.c:1077 ../ui/ui.c:1083
-msgid "Ministatus"
-msgstr "Ministatus"
-
-#: ../ui/ui.c:1086 ../ui/ui.c:1087
-msgid "Driver"
-msgstr "Driver"
-
-#: ../ui/ui.c:1501
-#, c-format
-msgid "Welcome to XaoS version %s"
-msgstr "Bine ati venit la XaoS Versiunea %s"
-
-#: ../ui/ui.c:1667
-msgid "Can not allocate buffers"
-msgstr "Nu se pot aloca bufferele"
-
-#: ../ui/ui.c:1685
-msgid "Can not create palette"
-msgstr "Nu se poate crea paleta"
-
-#: ../ui/ui.c:1698
-msgid "Can not create image"
-msgstr "Nu se poate crea imaginea"
-
-#: ../ui/ui.c:1733 ../ui/ui.c:1787
-msgid "Can not allocate tables"
-msgstr "Nu se pot aloca tabelele"
-
-#: ../ui/ui.c:1771
-msgid "Can not initialize driver"
-msgstr "Nu se poate initializa driverul"
-
-#: ../ui/ui.c:1774
-msgid "Can not return back to previous driver"
-msgstr "Nu se poate intoarce la driverul precedent"
-
-#: ../ui-hlp/menu.c:127
-msgid "Perturbation:"
-msgstr "Perturbare:"
-
-#: ../ui-hlp/menu.c:131
-msgid "Julia-seed:"
-msgstr "Julia-samanta(valoare initiala):"
-
-#: ../ui-hlp/menu.c:135
-msgid "Morphing type:"
-msgstr "Tipul de morphing:"
-
-#: ../ui-hlp/menu.c:136
-msgid "Startuptime:"
-msgstr "Timp de pornire:"
-
-#: ../ui-hlp/menu.c:137
-msgid "Stoptime:"
-msgstr "Timp de oprire:"
-
-#: ../ui-hlp/menu.c:141
-msgid "File to render:"
-msgstr "Fisierul de procesat:"
-
-#: ../ui-hlp/menu.c:142
-msgid "Basename:"
-msgstr "Nume de baza:"
-
-#: ../ui-hlp/menu.c:143
-msgid "Width:"
-msgstr "Latime:"
-
-#: ../ui-hlp/menu.c:144
-msgid "Height:"
-msgstr "Inaltime:"
-
-#: ../ui-hlp/menu.c:145
-msgid "Real width (cm):"
-msgstr "Latime reala (cm):"
-
-#: ../ui-hlp/menu.c:146
-msgid "Real height (cm):"
-msgstr "Inaltime reala (cm):"
-
-#: ../ui-hlp/menu.c:147
-msgid "Framerate:"
-msgstr "Frecventa cadrelor:"
-
-#: ../ui-hlp/menu.c:148
-msgid "Image type:"
-msgstr "Tipul imaginii:"
-
-#: ../ui-hlp/menu.c:149
-msgid "Antialiasing:"
-msgstr "Antialiasing:"
-
-#: ../ui-hlp/menu.c:150
-msgid "Always recalculate:"
-msgstr "Intotdeauna recalculeaza:"
-
-#: ../ui-hlp/menu.c:151
-msgid "Calculate MPEG motion vectors:"
-msgstr "Calculeaza vectorii de miscare MPEG:"
-
-#: ../ui-hlp/menu.c:152
-msgid "Recommended I frame distance:"
-msgstr "Distanta I-Frame recomandata:"
-
-#: ../ui-hlp/menu.c:156
-msgid "Center:"
-msgstr "Centru:"
-
-#: ../ui-hlp/menu.c:157
-msgid "Radius:"
-msgstr "Raza:"
-
-#: ../ui-hlp/menu.c:158 ../ui-hlp/menu.c:223
-msgid "Angle:"
-msgstr "Unghi:"
-
-#: ../ui-hlp/menu.c:162
-msgid "Mode:"
-msgstr "Mod:"
-
-#: ../ui-hlp/menu.c:163
-msgid "Start:"
-msgstr "Start:"
-
-#: ../ui-hlp/menu.c:164
-msgid "End:"
-msgstr "sfarsit:"
-
-#: ../ui-hlp/menu.c:168
-msgid "Color:"
-msgstr "Culoare:"
-
-#: ../ui-hlp/menu.c:172
-msgid "Rotations per second:"
-msgstr "Rotatii pe secunda:"
-
-#: ../ui-hlp/menu.c:176
-msgid "Letters per second:"
-msgstr "Litere pe secunda:"
-
-#: ../ui-hlp/menu.c:180
-msgid "Iterations:"
-msgstr "Iteratii:"
-
-#: ../ui-hlp/menu.c:184
-msgid "Text:"
-msgstr "Text:"
-
-#: ../ui-hlp/menu.c:188
-msgid "Your command:"
-msgstr "Comanda dumneavoastra:"
-
-#: ../ui-hlp/menu.c:192 ../ui-hlp/menu.c:196 ../ui-hlp/menu.c:200
-#: ../ui-hlp/menu.c:204 ../ui-hlp/menu.c:256
-msgid "Filename:"
-msgstr "Numele fisierului:"
-
-#: ../ui-hlp/menu.c:208 ../ui-hlp/menu.c:296
-msgid "Formula:"
-msgstr "Formula:"
-
-#: ../ui-hlp/menu.c:212
-msgid "X center:"
-msgstr "X-centru:"
-
-#: ../ui-hlp/menu.c:213
-msgid "Y center:"
-msgstr "Y-centru:"
-
-#: ../ui-hlp/menu.c:214
-msgid "X Radius:"
-msgstr "X-Raza:"
-
-#: ../ui-hlp/menu.c:215
-msgid "Y Radius:"
-msgstr "Y-Raza:"
-
-#: ../ui-hlp/menu.c:219
-msgid "Coordinates:"
-msgstr "Coordonate:"
-
-#: ../ui-hlp/menu.c:227
-msgid "continuous rotation"
-msgstr "Rotatie continua"
-
-#: ../ui-hlp/menu.c:231
-msgid "Fast rotation"
-msgstr "Rotatie rapida"
-
-#: ../ui-hlp/menu.c:235
-msgid "filter"
-msgstr "Filtru"
-
-#: ../ui-hlp/menu.c:236
-msgid "enable"
-msgstr "activare"
-
-#: ../ui-hlp/menu.c:240
-msgid "Amount:"
-msgstr "Cantitate:"
-
-#: ../ui-hlp/menu.c:244
-msgid "Zooming speed:"
-msgstr "Viteza de marire (zoom):"
-
-#: ../ui-hlp/menu.c:248
-msgid "Name:"
-msgstr "Nume:"
-
-#: ../ui-hlp/menu.c:252
-msgid "Bailout:"
-msgstr "Bailout (valoare de salvare):"
-
-#: ../ui-hlp/menu.c:260
-msgid "Julia mode:"
-msgstr "Mod Julia:"
-
-#: ../ui-hlp/menu.c:264
-msgid "Horizontal position:"
-msgstr "Pozitia orizontala:"
-
-#: ../ui-hlp/menu.c:265
-msgid "Vertical position:"
-msgstr "Pozitia verticala:"
-
-#: ../ui-hlp/menu.c:269
-msgid "Dynamic resolution:"
-msgstr "Rezolutie dinamica :"
-
-#: ../ui-hlp/menu.c:273
-msgid "Time:"
-msgstr "Timp:"
-
-#: ../ui-hlp/menu.c:277 ../ui-hlp/menu.c:281
-msgid "Number:"
-msgstr "Numar:"
-
-#: ../ui-hlp/menu.c:285
-msgid "Algorithm number:"
-msgstr "Numarul algoritmului:"
-
-#: ../ui-hlp/menu.c:286
-msgid "Seed:"
-msgstr "Samanta (valoare initiala):"
-
-#: ../ui-hlp/menu.c:287
-msgid "Shift:"
-msgstr "Deplasare:"
-
-#: ../ui-hlp/menu.c:291
-msgid "Frames per second:"
-msgstr "Cadre pe secunda:"
-
-#: ../ui-hlp/menu.c:300
-#, fuzzy
-msgid "Initialization:"
-msgstr "Initializare"
-
-#: ../ui-hlp/menu.c:359
+#: ../ui-hlp/menu.c:360
 msgid "renderanim: Must specify a valid absolute path for basename"
 msgstr ""
 
-#: ../ui-hlp/menu.c:367
+#: ../ui-hlp/menu.c:368
 msgid ""
 "renderanim: Width parameter must be positive integer in the range 0..4096"
 msgstr ""
 "procesarea animatiei: Latimea trebuie sa fie o valoare pozitva, intreaga "
 "intre 0 si 4096"
 
-#: ../ui-hlp/menu.c:374
+#: ../ui-hlp/menu.c:375
 msgid ""
 "renderanim: Height parameter must be positive integer in the range 0..4096"
 msgstr ""
 "procesarea animatiei: Inaltimea trebuie sa fie o valoare pozitva, intreaga "
 "intre 0 si 4096"
 
-#: ../ui-hlp/menu.c:381
+#: ../ui-hlp/menu.c:382
 msgid "renderanim: Invalid real width and height dimensions"
 msgstr "procesarea animatiei: latime si inaltime reala incorecte"
 
-#: ../ui-hlp/menu.c:386
-msgid "renderanim: invalid framerate"
-msgstr "procesarea animatiei: frecventa cadrelor incorecta"
-
-#: ../ui-hlp/menu.c:393
+#: ../ui-hlp/menu.c:394
 msgid "renderanim: antialiasing not supported in 256 color mode"
 msgstr ""
 "procesarea animatiei: Antialiasing nicht unterstützt im 256-Farben-Modus"
 
-#: ../ui-hlp/menu.c:398
-msgid "renderanim: incorrect I frame distance"
-msgstr "procesarea animatiei: Distanta I-Frame incorecta"
-
-#: ../ui-hlp/menu.c:454 ../ui-hlp/menu.c:468
-msgid "animateview: Invalid viewpoint"
-msgstr "vederea animatiei: punct de vedere incorect"
-
-#: ../ui-hlp/menu.c:482
-msgid "Invalid viewpoint"
-msgstr "Punct de vedere incorect"
-
-#: ../ui-hlp/menu.c:729
-msgid "Unknown palette type"
-msgstr "Tip de paleta necunoscut"
-
-#: ../ui-hlp/menu.c:808 ../ui-hlp/menu.c:821
-msgid "Initialization of color cycling failed."
-msgstr "Initializare ciclarii culorilor a esuat"
-
-#: ../ui-hlp/menu.c:809 ../ui-hlp/menu.c:822
-msgid "Try to enable palette emulation filter"
-msgstr "Incercare de activare a filtrului de emulare a paletei"
-
-#: ../ui-hlp/menu.c:933
-#, c-format
-msgid "Algorithm:%i seed:%i size:%i"
-msgstr "Algoritm:%i Valoare initiala:%i dimensiune:%i"
-
-#: ../ui-hlp/menu.c:986
-msgid "Root menu"
-msgstr "Meniu principal"
-
-#: ../ui-hlp/menu.c:987
-msgid "Animation root menu"
-msgstr "Meniu principal pentru animatii"
-
-#: ../ui-hlp/menu.c:988
-msgid "Replay only commands"
-msgstr "Comenzi numai pentru redare"
-
-#: ../ui-hlp/menu.c:989
-msgid "Command line options only"
-msgstr "Numai optiuni de la linia de comanda"
-
-#: ../ui-hlp/menu.c:992
-msgid "print menus specifications of all menus"
-msgstr "tipareste specificatiile de meniu pentru toate meniurile"
-
-#: ../ui-hlp/menu.c:997
+#: ../ui-hlp/menu.c:998
 msgid "print menu specification"
 msgstr "tipareste specificatiile meniului"
 
-#: ../ui-hlp/menu.c:1000
-msgid "print menu specification in xshl format"
-msgstr "tipareste specificatiile meniului in format xshl"
-
-#: ../ui-hlp/menu.c:1004
+#: ../ui-hlp/menu.c:1005
 msgid "print all menu specifications in xshl format"
 msgstr "tipareste toate specificatiile meniului in format xshl"
 
-#: ../ui-hlp/menu.c:1006
-msgid "print dialog specification"
-msgstr "tipareste specificatiile dialogului"
-
-#: ../ui-hlp/menu.c:1011
-msgid "Line drawing functions"
-msgstr "Functii pentru desenarea liniilor"
-
-#: ../ui-hlp/menu.c:1012
-msgid "Line"
-msgstr "Linie"
-
-#: ../ui-hlp/menu.c:1015
-msgid "Morph line"
-msgstr "Linie Morph"
-
-#: ../ui-hlp/menu.c:1017
-msgid "Morph last line"
-msgstr "Ultima linie Morph"
-
-#: ../ui-hlp/menu.c:1020
-msgid "Set line key"
-msgstr "Seteaza cheia liniei"
-
-#: ../ui-hlp/menu.c:1022
-msgid "Clear line"
-msgstr "Sterge linia"
-
-#: ../ui-hlp/menu.c:1025
-msgid "Clear all lines"
-msgstr "sterge toate liniile"
-
-#: ../ui-hlp/menu.c:1026
-msgid "Animation functions"
-msgstr "Functii pentru animatii"
-
-#: ../ui-hlp/menu.c:1027 ../ui-hlp/menu.c:1222 ../ui-hlp/menu.c:1231
-msgid "View"
-msgstr "Vedere"
-
-#: ../ui-hlp/menu.c:1031
+#: ../ui-hlp/menu.c:1032
 msgid "Morph view"
 msgstr "vedere Morph"
 
-#: ../ui-hlp/menu.c:1033
-msgid "Morph julia"
-msgstr "Morph Julia"
-
-#: ../ui-hlp/menu.c:1038
+#: ../ui-hlp/menu.c:1039
 msgid "Move view"
 msgstr "Deplaseaza vederea"
 
-#: ../ui-hlp/menu.c:1039
-msgid "Morph angle"
-msgstr "Unghiul de Morph"
-
-#: ../ui-hlp/menu.c:1044
+#: ../ui-hlp/menu.c:1045
 msgid "Zoom center"
 msgstr "Centrul maririi (zoom) "
 
-#: ../ui-hlp/menu.c:1046
-msgid "Zoom"
-msgstr "Marire (Zoom)"
-
-#: ../ui-hlp/menu.c:1047
-msgid "Un-zoom"
-msgstr "Un-zoom"
-
-#: ../ui-hlp/menu.c:1050
-msgid "Stop zooming"
-msgstr "Opreste marirea(zoom)"
-
-#: ../ui-hlp/menu.c:1051
-msgid "Smooth morphing parameters"
-msgstr "Parametrul de morphing neted"
-
-#: ../ui-hlp/menu.c:1053
-msgid "Timing functions"
-msgstr "Functii de timp"
-
-#: ../ui-hlp/menu.c:1054
-msgid "Usleep"
-msgstr "Usleep"
-
-#: ../ui-hlp/menu.c:1057
-msgid "Wait for text"
-msgstr "Asteapta textul"
-
-#: ../ui-hlp/menu.c:1058
-msgid "Wait for complete image"
-msgstr "Asteapta imaginea completa"
-
-#: ../ui-hlp/menu.c:1061
-msgid "Include file"
-msgstr "Include fisierul"
-
-#: ../ui-hlp/menu.c:1063 ../ui-hlp/menu.c:1265
-msgid "Default palette"
-msgstr "Paleta implicita"
-
-#: ../ui-hlp/menu.c:1066
-msgid "Formula"
-msgstr "Formula"
-
-#: ../ui-hlp/menu.c:1068
-msgid "Maximal zooming step"
-msgstr "Pasul maxim de marire (zoom)"
-
-#: ../ui-hlp/menu.c:1072
+#: ../ui-hlp/menu.c:1073
 msgid "Zooming speedup"
 msgstr "Cresterea vitezei de marire (zoom)"
 
-#: ../ui-hlp/menu.c:1074
-msgid "Filter"
-msgstr "Filru"
-
-#: ../ui-hlp/menu.c:1078 ../ui-hlp/menu.c:1083
+#: ../ui-hlp/menu.c:1084
 msgid "Letters per second"
 msgstr "Litere pe secunda"
 
-#: ../ui-hlp/menu.c:1085 ../ui-hlp/menu.c:1354
-msgid "Interrupt"
-msgstr "Intrerupe"
-
-#: ../ui-hlp/menu.c:1087 ../ui-hlp/menu.c:1097
-msgid "File"
-msgstr "Fisier"
-
-#: ../ui-hlp/menu.c:1088
-msgid "Edit"
-msgstr "Editare"
-
-#: ../ui-hlp/menu.c:1089
-msgid "Fractal"
-msgstr "Fractal"
-
-#: ../ui-hlp/menu.c:1090
-msgid "Calculation"
-msgstr "Calculare"
-
-#: ../ui-hlp/menu.c:1091 ../ui-hlp/menu.c:1426
-msgid "Filters"
-msgstr "Filtre"
-
-#: ../ui-hlp/menu.c:1092 ../ui-hlp/menu.c:1109
-msgid "UI"
-msgstr "Interfata utilizator (UI)"
-
-#: ../ui-hlp/menu.c:1093
-msgid "Misc"
-msgstr "Extra"
-
-#: ../ui-hlp/menu.c:1094
-#, fuzzy
-msgid "Window"
-msgstr "Refa"
-
-#: ../ui-hlp/menu.c:1096
-msgid "Tutorials"
-msgstr "Tutoriale"
-
-#: ../ui-hlp/menu.c:1103 ../ui-hlp/menu.c:1106
-msgid "Stop replay"
-msgstr "Opreste redarea"
-
-#: ../ui-hlp/menu.c:1111
-msgid "Command"
-msgstr "Comanda"
-
-#: ../ui-hlp/menu.c:1113
-msgid "Play string"
-msgstr "Arata sirul"
-
-#: ../ui-hlp/menu.c:1115
-msgid "Render animation"
-msgstr "Proceseaza animatia"
-
-#: ../ui-hlp/menu.c:1118
-msgid "Clear screen"
-msgstr "Sterge ecranul"
-
-#: ../ui-hlp/menu.c:1120
-msgid "Display fractal"
-msgstr "Arata fractalul"
-
-#: ../ui-hlp/menu.c:1123
-msgid "Display text"
-msgstr "Arata textul"
-
-#: ../ui-hlp/menu.c:1125
-msgid "Color"
-msgstr "Culoare"
-
-#: ../ui-hlp/menu.c:1127
-msgid "Horizontal text position"
-msgstr "Pozitia textului orizontal"
-
-#: ../ui-hlp/menu.c:1128
-msgid "Vertical text position"
-msgstr "Pozitia textului vertical"
-
-#: ../ui-hlp/menu.c:1130
-msgid "Text position"
-msgstr "Pozitiile textului"
-
-#: ../ui-hlp/menu.c:1134
-msgid "Message"
-msgstr "Mesaj"
-
-#: ../ui-hlp/menu.c:1156
-msgid "Load"
-msgstr "Incarca"
-
-#: ../ui-hlp/menu.c:1159
-msgid "Save"
-msgstr "Salveaza"
-
-#: ../ui-hlp/menu.c:1161
-msgid "Record"
-msgstr "Inregistreaza"
-
-#: ../ui-hlp/menu.c:1165
-msgid "Replay"
-msgstr "Reda"
-
-#: ../ui-hlp/menu.c:1172
+#: ../ui-hlp/menu.c:1175
 msgid "Save image"
 msgstr "Salveaza imaginea"
 
-#: ../ui-hlp/menu.c:1173
-msgid "Load random example"
-msgstr "Incarca un exemplu aleator"
-
-#: ../ui-hlp/menu.c:1176
-msgid "Save configuration"
-msgstr "Salveaza configuratia"
-
-#: ../ui-hlp/menu.c:1180
-msgid "Undo"
-msgstr "Refa"
-
-#: ../ui-hlp/menu.c:1184
-msgid "Redo"
-msgstr "Fa inapoi"
-
-#: ../ui-hlp/menu.c:1188
-msgid "Formulae"
-msgstr "Formule"
-
-#: ../ui-hlp/menu.c:1189
-#, fuzzy
-msgid "More formulae"
-msgstr "Alte formule"
-
-#: ../ui-hlp/menu.c:1194
-#, fuzzy
-msgid "User formula"
-msgstr "Alte formule"
-
-#: ../ui-hlp/menu.c:1195
-#, fuzzy
-msgid "User initialization"
-msgstr "Initializare"
-
-#: ../ui-hlp/menu.c:1199
-msgid "Incoloring mode"
-msgstr "Mod de colorare interioara"
-
-#: ../ui-hlp/menu.c:1200
-msgid "Outcoloring mode"
-msgstr "Mod de colorare exterioara"
-
-#: ../ui-hlp/menu.c:1201
-msgid "Plane"
-msgstr "Plan"
-
-#: ../ui-hlp/menu.c:1202
-msgid "Palette"
-msgstr "Paleta"
-
-#: ../ui-hlp/menu.c:1205
-msgid "Mandelbrot mode"
-msgstr "Modul Mandelbrot"
-
-#: ../ui-hlp/menu.c:1211 ../ui-hlp/menu.c:1215 ../ui-hlp/menu.c:1429
-msgid "Perturbation"
-msgstr "Perturbare"
-
-#: ../ui-hlp/menu.c:1226
-msgid "Reset to defaults"
-msgstr "Inapoi la setarile implicite"
-
-#: ../ui-hlp/menu.c:1227
-msgid "Julia mode"
-msgstr "Modul Julia"
-
-#: ../ui-hlp/menu.c:1234
-msgid "Set angle"
-msgstr "Seteaza unghiul"
-
-#: ../ui-hlp/menu.c:1238
-msgid "Set plane"
-msgstr "Seteaza planul"
-
-#: ../ui-hlp/menu.c:1242
-msgid "Inside coloring mode"
-msgstr "Modul de colorare interioara"
-
-#: ../ui-hlp/menu.c:1247
+#: ../ui-hlp/menu.c:1250
 msgid "Outside coloring mode"
 msgstr "Modul de colorare exterioara"
 
-#: ../ui-hlp/menu.c:1251
-msgid "Inside truecolor coloring mode"
-msgstr "Modul de colorare interioara true-color"
-
-#: ../ui-hlp/menu.c:1257
+#: ../ui-hlp/menu.c:1260
 msgid "Outside truecolor coloring mode"
 msgstr "Modul de colorare exterioara true-color"
 
-#: ../ui-hlp/menu.c:1261
-msgid "Julia seed"
-msgstr "Samanta (valoare initiala) Julia"
-
-#: ../ui-hlp/menu.c:1267
-msgid "Random palette"
-msgstr "Paleta aleatoare"
-
-#: ../ui-hlp/menu.c:1270
-msgid "Custom palette"
-msgstr "Paleta obisnuita"
-
-#: ../ui-hlp/menu.c:1274
-msgid "Color cycling"
-msgstr "Ciclarea culorilor"
-
-#: ../ui-hlp/menu.c:1276
-msgid "Reversed color cycling"
-msgstr "Ciclare inversata a culorilor "
-
-#: ../ui-hlp/menu.c:1281
+#: ../ui-hlp/menu.c:1284
 msgid "Color cycling speed"
 msgstr "Viteza de ciclare a culorilor"
 
-#: ../ui-hlp/menu.c:1285
-msgid "Shift palette"
-msgstr "Deplaseaza paleta"
-
-#: ../ui-hlp/menu.c:1287
-msgid "Shift one forward"
-msgstr "Deplaseaza cu un pas inainte"
-
-#: ../ui-hlp/menu.c:1290
-msgid "Shift one backward"
-msgstr "Deplaseaza cu un pas inapoi"
-
-#: ../ui-hlp/menu.c:1292 ../engine/zoom.c:1491
-msgid "Solid guessing"
-msgstr "Solid-Guessing"
-
-#: ../ui-hlp/menu.c:1293
-msgid "Dynamic resolution"
-msgstr "Rezolutie dinamica"
-
-#: ../ui-hlp/menu.c:1295
-msgid "Periodicity checking"
-msgstr "Verificarea periodicitatii"
-
-#: ../ui-hlp/menu.c:1297
-msgid "Iterations"
-msgstr "Iteratii"
-
-#: ../ui-hlp/menu.c:1299
-msgid "Bailout"
-msgstr "Valoare de salvare (bailout)"
-
-#: ../ui-hlp/menu.c:1302
-msgid "Fast julia mode"
-msgstr "Modul Julia rapid"
-
-#: ../ui-hlp/menu.c:1304
-msgid "Rotation"
-msgstr "Rotatie"
-
-#: ../ui-hlp/menu.c:1305
-msgid "Solid guessing range"
-msgstr "Intrevalul Solid-Guessing"
-
-#: ../ui-hlp/menu.c:1308
-msgid "Disable rotation"
-msgstr "Dezactiveaza rotatia"
-
-#: ../ui-hlp/menu.c:1312
-msgid "Continuous rotation"
-msgstr "Rotatie continua"
-
-#: ../ui-hlp/menu.c:1315
-msgid "Rotate by mouse"
-msgstr "Roteste cu mouse-ul"
-
-#: ../ui-hlp/menu.c:1319
+#: ../ui-hlp/menu.c:1322
 msgid "Rotation speed"
 msgstr "Viteza de rotatie"
 
-#: ../ui-hlp/menu.c:1322
-msgid "Automatic rotation"
-msgstr "Rotatie automata"
-
-#: ../ui-hlp/menu.c:1327
+#: ../ui-hlp/menu.c:1330
 msgid "Fast rotation mode"
 msgstr "Modul rapid de rotatie"
 
-#: ../ui-hlp/menu.c:1331
-msgid "Disable dynamic resolution"
-msgstr "Dezactiveaza rezolutia dinamica"
-
-#: ../ui-hlp/menu.c:1334
-msgid "Use only during animation"
-msgstr "A se folosi numai in timpul animatiilor"
-
-#: ../ui-hlp/menu.c:1338
+#: ../ui-hlp/menu.c:1341
 msgid "Use also for new images"
 msgstr "A se folosi si pentru imagini noi"
 
-#: ../ui-hlp/menu.c:1340
-msgid "Dynamic resolution mode"
-msgstr "Modul de rezolutie dinamica"
+#: ../ui-hlp/menu.c:1357
+msgid "Interrupt"
+msgstr "Intrerupe"
 
-#: ../ui-hlp/menu.c:1344
-msgid "Autopilot"
-msgstr "Pilot automat"
-
-#: ../ui-hlp/menu.c:1347
-#, fuzzy
-msgid "VJ mode"
-msgstr "Modul Julia"
-
-#: ../ui-hlp/menu.c:1350
-msgid "Recalculate"
-msgstr "Recalulare"
-
-#: ../ui-hlp/menu.c:1359
-msgid "Zooming speed"
-msgstr "Viteza de marire (zoom)"
-
-#: ../ui-hlp/menu.c:1361
-msgid "Fixed step"
-msgstr "Pas fixat"
-
-#: ../ui-hlp/menu.c:1365
+#: ../ui-hlp/menu.c:1368
 msgid "Disable solid guessing"
 msgstr "Dezactiveaza solid-guessing"
 
-#: ../ui-hlp/menu.c:1369
-msgid "Guess 2x2 rectangles"
-msgstr "Guess 2x2 dreptunghiuri"
-
-#: ../ui-hlp/menu.c:1371
-msgid "Guess 3x3 rectangles"
-msgstr "Guess 3x3 dreptunghiuri"
-
-#: ../ui-hlp/menu.c:1375
+#: ../ui-hlp/menu.c:1378
 msgid "Guess 4x4 rectangles"
 msgstr "Guess 4x4 dreptunghiuri"
 
-#: ../ui-hlp/menu.c:1377
-msgid "Guess 5x5 rectangles"
-msgstr "Guess 5x5 dreptunghiuri"
-
-#: ../ui-hlp/menu.c:1381
+#: ../ui-hlp/menu.c:1384
 msgid "Guess 6x6 rectangles"
 msgstr "Guess 6x6 dreptunghiuri"
 
-#: ../ui-hlp/menu.c:1383
-msgid "Guess 7x7 rectangles"
-msgstr "Guess 7x7 dreptunghiuri"
-
-#: ../ui-hlp/menu.c:1387
+#: ../ui-hlp/menu.c:1390
 msgid "Guess 8x8 rectangles"
 msgstr "Guess 8x8 dreptunghiuri"
-
-#: ../ui-hlp/menu.c:1389
-msgid "Guess unlimited rectangles"
-msgstr "Guess un numar nelimitat de dreptunghiuri"
-
-#: ../ui-hlp/menu.c:1393
-msgid "Language"
-msgstr "Limba"
-
-#: ../ui-hlp/menu.c:1396
-msgid "An introduction to fractals"
-msgstr "Fractali - O introducere"
-
-#: ../ui-hlp/menu.c:1397
-msgid "XaoS features overview"
-msgstr "XaoS - Eine Übersicht"
-
-#: ../ui-hlp/menu.c:1398
-msgid "Math behind fractals"
-msgstr "Matematica de la baza fractalilor"
-
-#: ../ui-hlp/menu.c:1399 ../ui-hlp/menu.c:1437
-msgid "Other fractal types in XaoS"
-msgstr "Alte tipuri de fractali in XaoS"
-
-#: ../ui-hlp/menu.c:1400
-msgid "What's new?"
-msgstr "Ce este nou?"
-
-#: ../ui-hlp/menu.c:1410 ../ui-hlp/menu.c:1432
-msgid "Whole story"
-msgstr "Toata povestea"
-
-#: ../ui-hlp/menu.c:1412
-msgid "Introduction"
-msgstr "Introducere"
-
-#: ../ui-hlp/menu.c:1413
-msgid "Mandelbrot set"
-msgstr "Multimea Mandelbrot"
-
-#: ../ui-hlp/menu.c:1414
-msgid "Julia set"
-msgstr "Multimea Julia"
-
-#: ../ui-hlp/menu.c:1415
-msgid "Higher power Mandelbrots"
-msgstr "Multimi Mandelbrot de ordin superior"
-
-#: ../ui-hlp/menu.c:1416
-msgid "Newton's method"
-msgstr "Metoda lui Newton"
-
-#: ../ui-hlp/menu.c:1417
-msgid "Barnsley's formula"
-msgstr "Formula lui Barnsley"
-
-#: ../ui-hlp/menu.c:1418
-msgid "Phoenix"
-msgstr "Phoenix"
-
-#: ../ui-hlp/menu.c:1419
-msgid "Octo"
-msgstr "Octo"
-
-#: ../ui-hlp/menu.c:1420
-msgid "Magnet"
-msgstr "Magnet"
-
-#: ../ui-hlp/menu.c:1421
-msgid "All features"
-msgstr "Toate Features"
-
-#: ../ui-hlp/menu.c:1423
-msgid "Outcoloring modes"
-msgstr "Moduri de colorare exterioara"
-
-#: ../ui-hlp/menu.c:1424
-msgid "Incoloring modes"
-msgstr "Moduri de colorare interioara"
-
-#: ../ui-hlp/menu.c:1425
-msgid "True-color coloring modes"
-msgstr "Moduri de colorare true-color"
-
-#: ../ui-hlp/menu.c:1427
-msgid "Planes"
-msgstr "Planuri"
-
-#: ../ui-hlp/menu.c:1428
-msgid "Animations and position files"
-msgstr "Fisierele de animatii si pozitie"
-
-#: ../ui-hlp/menu.c:1430
-msgid "Random palettes"
-msgstr "Palete aleatoare"
-
-#: ../ui-hlp/menu.c:1431
-msgid "Other noteworthy features"
-msgstr "Alte detalii (features) remarcabile"
-
-#: ../ui-hlp/menu.c:1434
-msgid "The definition and fractal dimension"
-msgstr "Definitia si dimensiunea fractalului"
-
-#: ../ui-hlp/menu.c:1436
-msgid "Escape time fractals"
-msgstr "Fractali escape-time"
-
-#: ../ui-hlp/menu.c:1439
-msgid "Triceratops and Catseye fractals"
-msgstr "Fractalii Triceratops si Catseye (ochi de pisica)"
-
-#: ../ui-hlp/menu.c:1440
-msgid "Mandelbar, Lambda, Manowar and Spider"
-msgstr "Mandelbar, Lambda, Manowar si Spider"
-
-#: ../ui-hlp/menu.c:1441
-msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
-msgstr ""
-"Sierpinski Gasket, S.Carpet, Koch Snowflake (fulgul de zapada al lui Koch)"
-
-#: ../ui-hlp/menu.c:1442
-msgid "What's new in 3.0?"
-msgstr "Ce este nou in versiunea 3.0?"
-
-#: ../ui-hlp/play.c:78
-msgid "line available only in animation replay"
-msgstr "Linie disponibila numai in animation replay"
-
-#: ../ui-hlp/play.c:105
-msgid "Morphing non existing line!"
-msgstr "Morphing o linie inexistenta!"
-
-#: ../ui-hlp/play.c:130
-msgid "linekey not available in this context!"
-msgstr "Cheia liniei nu este disponibila in acest context!"
-
-#: ../ui-hlp/play.c:320
-msgid "clear_line available only in animation replay"
-msgstr "Stergerea_liniei (clear_line) disponibila numai in animation replay"
-
-#: ../ui-hlp/play.c:331
-msgid "clear_lines available only in animation replay"
-msgstr "Stergerea_liniilor (clear_lines) disponibila numai in animation replay"
-
-#: ../ui-hlp/play.c:401
-msgid "Catalog file not found"
-msgstr "Nu s-a gasit fisierul catalog"
-
-#: ../ui-hlp/play.c:449
-msgid "Replay is already active"
-msgstr "Replay este deja activ"
-
-#: ../ui-hlp/play.c:454
-msgid "File open failed"
-msgstr "Fiserul nu a putut fi deschis"
-
-#: ../ui-hlp/play.c:460
-msgid "Out of memory"
-msgstr "Memorie insuficienta"
-
-#: ../ui-hlp/play.c:586 ../ui-hlp/play.c:607 ../ui-hlp/play.c:637
-#: ../ui-hlp/play.c:671
-msgid "Missing parameter"
-msgstr "Parametru lipsa"
-
-#: ../ui-hlp/play.c:589 ../ui-hlp/play.c:610 ../ui-hlp/play.c:640
-#: ../ui-hlp/play.c:674
-msgid "Unexpected end of file"
-msgstr "Sfarsit de fisier neasteptat"
-
-#: ../ui-hlp/play.c:622 ../ui-hlp/play.c:647
-msgid "Token is too long"
-msgstr "Token-ul este prea lung"
-
-#: ../ui-hlp/play.c:710
-msgid "Unknown formula type"
-msgstr "Tip de formula necunoscut"
-
-#: ../ui-hlp/play.c:718
-msgid "morph available only in animation replay"
-msgstr "Morph disponibil numai in animation replay"
-
-#: ../ui-hlp/play.c:723
-msgid "morphview: Invalid viewpoint"
-msgstr "vederea Morph (morphview): Punct de vedere eronat"
-
-#: ../ui-hlp/play.c:739
-msgid "move available only in animation replay"
-msgstr "Deplasare dispnibila numai in animation replay"
-
-#: ../ui-hlp/play.c:755
-msgid "morphjulia available only in animation replay"
-msgstr "Morphjulia dispnibila numai in animation replay"
-
-#: ../ui-hlp/play.c:770
-msgid "morphangle available only in animation replay"
-msgstr "Unghiul de Morph dispnibil numai in animation replay"
-
-#: ../ui-hlp/play.c:808
-msgid "Unknown filter"
-msgstr "Filtru necunoscut"
-
-#: ../ui-hlp/play.c:855
-msgid "sleep available only in animation replay"
-msgstr "Pause (sleep) disponibila numai in animation replay"
-
-#: ../ui-hlp/play.c:874
-#, c-format
-msgid "Internal program error #12 %i\n"
-msgstr "Eroare interna #12 %i\n"
-
-#: ../ui-hlp/play.c:898
-msgid "wait available only in animation replay"
-msgstr "Asteptare(wait) disponibil numi in animation replay"
-
-#: ../ui-hlp/play.c:953
-msgid "No catalog file loaded"
-msgstr "Nu s-a incarcat fisierul catalog"
-
-#: ../ui-hlp/play.c:959
-msgid "Message not found in catalog file"
-msgstr "Mesajul nu a fost gasit in fisierul catalog"
-
-#: ../ui-hlp/play.c:972
-msgid "load available only in animation replay"
-msgstr "Incarcare (load) disponibila numai in animation replay"
-
-#: ../ui-hlp/play.c:977
-msgid "Include level overflow"
-msgstr "Zu viele Dateien ineinander einbezogen"
-
-#: ../ui-hlp/play.c:987
-msgid "File not found"
-msgstr "Nu s-a gasit fisierul"
-
-#: ../ui-hlp/play.c:1006
-msgid "Too many parameters"
-msgstr "Prea multi parametri"
-
-#: ../ui-hlp/play.c:1049
-#, c-format
-msgid "Replay disabled at line %i"
-msgstr "Replay dezactivat pe linia %i"
-
-#: ../ui-hlp/ui_helper.c:701
-msgid "Tutorial files not found. Reinstall XaoS"
-msgstr "Fisierele cu tutoriale nu au fost gasite. Reinstalati XaoS"
-
-#: ../ui-hlp/ui_helper.c:707
-msgid "Preparing first image"
-msgstr "Se pregateste prima imagine"
-
-#: ../ui-hlp/ui_helper.c:718
-msgid "Could not open examples"
-msgstr "Exemplele nu s-au putut deschide"
-
-#: ../ui-hlp/ui_helper.c:725
-#, c-format
-msgid "File %s loaded."
-msgstr "S-a incarcat fisierul %s."
-
-#: ../ui-hlp/ui_helper.c:735
-msgid "Saving image..."
-msgstr "Imginea se salveaza..."
-
-#: ../ui-hlp/ui_helper.c:745
-msgid "Save interrupted"
-msgstr "Salvare intrerupta"
-
-#: ../ui-hlp/ui_helper.c:755 ../ui-hlp/ui_helper.c:774
-#: ../ui-hlp/ui_helper.c:847
-#, c-format
-msgid "File %s saved."
-msgstr "Fisierul %s salvat."
-
-#: ../ui-hlp/ui_helper.c:767
-msgid "Can not open file"
-msgstr "Nu se poate deschide fisierul"
-
-#: ../ui-hlp/ui_helper.c:872
-#, c-format
-msgid "Recording to file %s enabled."
-msgstr "S-a activat inregistrearea in fisierul %s "
 
 #: ../engine/zoom.c:1233
 msgid "Solid guessing 1"
 msgstr "Solid-Guessing 1"
 
+#: ../engine/zoom.c:1491
+msgid "Solid guessing"
+msgstr "Solid-Guessing"
+
 #: ../engine/btrace.c:294 ../engine/btrace.c:382
 msgid "Boundary trace"
 msgstr "Boundary-Trace"
 
-#: ../ui/dialog.c:332 ../ui/dialog.c:424 ../ui/dialog.c:1444
-msgid "OK"
-msgstr "OK"
-
-#: ../ui/dialog.c:333 ../ui/dialog.c:427 ../ui/dialog.c:1445
-#: ../ui/filesel.c:191
-msgid "Cancel"
-msgstr "Anulare"
-
-#: ../ui-hlp/render.c:47
-#, c-format
-msgid "Error: %s"
-msgstr "Eroare: %s"
-
-#: ../ui-hlp/render.c:130
-msgid "Cannot open motion vector file!"
-msgstr "Nu se poate deschide fisierul cu vectorii de miscare!"
-
-#: ../ui-hlp/render.c:293
-#, c-format
-msgid "Vectors: %i"
-msgstr "Vectori: %i"
-
-#: ../ui-hlp/render.c:299
-msgid "Initializing"
-msgstr "Initializare"
-
-#: ../ui-hlp/render.c:308
-msgid "Cannot create palette"
-msgstr "Nu se poate crea paleta"
-
-#: ../ui-hlp/render.c:320
-msgid "Cannot create image\n"
-msgstr "Nu se poate crea imaginea\n"
-
-#: ../ui-hlp/render.c:329
-msgid "Cannot create checking buffer!"
-msgstr "Nu se poate crea bufferul de control!"
-
-#: ../ui-hlp/render.c:339 ../ui-hlp/render.c:645
-msgid "Cannot create context\n"
-msgstr "Nu se poate crea contextul\n"
-
-#: ../ui-hlp/render.c:352
-msgid "Cannot open animation file\n"
-msgstr "Nu se poate deschide fisierul cu animatii\n"
-
-#: ../ui-hlp/render.c:364 ../ui-hlp/render.c:655
-msgid "Loading catalogs"
-msgstr "Cataloagele se incarca"
-
-#: ../ui-hlp/render.c:397
-msgid "Processing command line options"
-msgstr "Se prelucreaza optiunile de la linia de comanda"
-
-#: ../ui-hlp/render.c:422
-msgid "Enabling animation replay\n"
-msgstr "Se activeaza animation replay\n"
-
-#: ../ui-hlp/render.c:430 ../ui-hlp/render.c:558
-msgid "Cannot open image file"
-msgstr "Nu se poate deschide fisierul cu imaginea"
-
-#: ../ui-hlp/render.c:445
-msgid "Cannot open pattern file"
-msgstr "Nu se poate deschide fiserul de sabloane"
-
-#: ../ui-hlp/render.c:462 ../ui-hlp/render.c:464 ../ui-hlp/render.c:692
-msgid "Entering calculation loop!"
-msgstr "Intrare in bucla de calcul!"
-
-#: ../ui-hlp/render.c:494
-#, c-format
-msgid "Frame %i skipped."
-msgstr "cadrul %i a fost omis."
-
-#: ../ui-hlp/render.c:496
-#, c-format
-msgid "Frames %i - %i skipped."
-msgstr "S-au omis cadrele %i - %i."
-
-#: ../ui-hlp/render.c:500
-#, c-format
-msgid "Frame %4i: "
-msgstr "Cadru %4i: "
-
-#: ../ui-hlp/render.c:572
-msgid " done."
-msgstr " terminat."
-
-#: ../ui-hlp/render.c:578
-msgid " skipping..."
-msgstr " se omite..."
-
-#: ../ui-hlp/render.c:612 ../ui-hlp/render.c:712
-msgid "Calculation interrupted"
-msgstr "Calculare intrerupta"
-
-#: ../ui-hlp/render.c:616 ../ui-hlp/render.c:618 ../ui-hlp/render.c:715
-msgid "Calculation finished"
-msgstr "Calculare terminata"
-
-#: ../ui/ui-drv/win32/ui_win32.c:1370
+#: ../ui/ui-drv/win32/ui_win32.c:1370 ../ui/ui-drv/cocoa/AppController.m:342
 msgid "Copy"
 msgstr "Copiere"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1371
+#: ../ui/ui-drv/win32/ui_win32.c:1371 ../ui/ui-drv/cocoa/AppController.m:345
 msgid "Paste"
 msgstr "Redare (paste)"
 
 #: ../ui/ui-drv/win32/ui_win32.c:1373
 msgid "About"
 msgstr "Despre"
+
+#: ../ui/ui-drv/win32/ui_win32.c:1535
+msgid "Resize"
+msgstr "Redimensionare"
+
+#: ../ui/ui-drv/cocoa/AppController.m:220
+#, fuzzy
+msgid "About XaoS"
+msgstr "Despre"
+
+#: ../ui/ui-drv/cocoa/AppController.m:223
+msgid "Services"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:226
+msgid "Hide XaoS"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:229
+msgid "Hide Others"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:232
+msgid "Show All"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:235
+#, fuzzy
+msgid "Quit XaoS"
+msgstr "Terminare"
+
+#: ../ui/ui-drv/cocoa/AppController.m:339
+msgid "Cut"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:348
+#, fuzzy
+msgid "Delete"
+msgstr "Paleta"
+
+#: ../ui/ui-drv/cocoa/AppController.m:351
+msgid "Select All"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:361
+msgid "Minimize"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:364
+msgid "Zoom"
+msgstr "Marire (Zoom)"
+
+#: ../ui/ui-drv/cocoa/AppController.m:369
+msgid "Bring All to Front"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:381
+#, fuzzy
+msgid "Close"
+msgstr "Culoare"
+
+#: ../ui/ui-drv/cocoa/CustomDialog.m:142
+msgid "Choose"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/CustomDialog.m:302
+msgid "OK"
+msgstr "OK"
+
+#: ../ui/ui-drv/cocoa/CustomDialog.m:312
+msgid "Cancel"
+msgstr "Anulare"
+
+#~ msgid "XaoS is out of memory."
+#~ msgstr "XaoS nu are suficienta memorie"
+
+#~ msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
+#~ msgstr "%s %.2f ori (%.1fE) %2.2f cadre/sec %c %i %i %i %i              "
+
+#~ msgid "unzoomed"
+#~ msgstr "nemarit (unzoomed):"
+
+#~ msgid "zoomed"
+#~ msgstr "marit (zoomed):"
+
+#~ msgid "framerate:%f\n"
+#~ msgstr "frecventa cadrelor: %f\n"
+
+#~ msgid "Enabling: %s. "
+#~ msgstr "%s se activeaza."
+
+#~ msgid "Disabling: %s. "
+#~ msgstr "%s se dezactiveaza."
+
+#~ msgid "Fractal name:%s"
+#~ msgstr "Numele fractalului:%s"
+
+#~ msgid "Fractal type:%s"
+#~ msgstr "Tipul fractalului:%s"
+
+#~ msgid "Mandelbrot"
+#~ msgstr "Mandelbrot"
+
+#~ msgid "Julia"
+#~ msgstr "Julia"
+
+#, fuzzy
+#~ msgid "Formula:%s"
+#~ msgstr "Formula:"
+
+#~ msgid "View:[%1.12f,%1.12f]"
+#~ msgstr "Vedere:[%1.12f,%1.12f]"
+
+#~ msgid "size:[%1.12f,%1.12f]"
+#~ msgstr "Dimensiune:[%1.12f,%1.12f]"
+
+#~ msgid "Rotation:%4.2f   Screen size:%i:%i"
+#~ msgstr "Rotatie:%4.2f     Dimensiunea ecranului:%i:%i"
+
+#~ msgid "Iterations:%-4i Palette size:%i"
+#~ msgstr "Iteratii:%-4i  Dimensiunea paletei:%i"
+
+#~ msgid "Autopilot:%-4s  Plane:%s"
+#~ msgstr "Pilot automat:%-4s    Plan:%s"
+
+#~ msgid "On"
+#~ msgstr "Pornit"
+
+#~ msgid "Off"
+#~ msgstr "Oprit"
+
+#~ msgid "incoloring:%s    outcoloring:%s"
+#~ msgstr "Culoare interioara:%s  Culoare exterioara:%s"
+
+#~ msgid "zoomspeed:%f"
+#~ msgstr "viteza de marire (zoomspeed):%f"
+
+#~ msgid "Parameter:none"
+#~ msgstr "Parametri:nici unul"
+
+#~ msgid "Parameter:[%f,%f]"
+#~ msgstr "Parametri:[%f,%f]"
+
+#~ msgid "Please wait while calculating %s"
+#~ msgstr "Asteptati va rog, fractalul %s se calculeaza "
+
+#~ msgid "Letters per second %i  "
+#~ msgstr "Litere pe secunda: %i  "
+
+#~ msgid "Rotation speed:%2.2f degrees per second "
+#~ msgstr "Viteza de rotatie:%2.2f grade pe secunda "
+
+#, fuzzy
+#~ msgid "Iterations: %i   "
+#~ msgstr "Iteratii: %i   "
+
+#~ msgid "Cycling speed: %i   "
+#~ msgstr "Viteaza de ciclare: %i   "
+
+#~ msgid "speed:%2.2f "
+#~ msgstr "Viteza:%2.2f "
+
+#~ msgid "Thank you for using XaoS\n"
+#~ msgstr "Va multumim ca ati folosit XaoS\n"
+
+#~ msgid "Skipping, please wait..."
+#~ msgstr "Se omite, va rugam asteptati..."
+
+#~ msgid "Exit now"
+#~ msgstr "Iesire acum"
+
+#~ msgid "Not yet"
+#~ msgstr "Inca nu"
+
+#~ msgid "Help"
+#~ msgstr "Ajutor"
+
+#~ msgid "Disable XaoS's builtin GUI"
+#~ msgstr "Dezactivare GUI implementat in XaoS"
+
+#~ msgid "Status"
+#~ msgstr "Status"
+
+#~ msgid "Ministatus"
+#~ msgstr "Ministatus"
+
+#~ msgid "Driver"
+#~ msgstr "Driver"
+
+#~ msgid "Welcome to XaoS version %s"
+#~ msgstr "Bine ati venit la XaoS Versiunea %s"
+
+#~ msgid "Can not allocate buffers"
+#~ msgstr "Nu se pot aloca bufferele"
+
+#~ msgid "Can not create palette"
+#~ msgstr "Nu se poate crea paleta"
+
+#~ msgid "Can not create image"
+#~ msgstr "Nu se poate crea imaginea"
+
+#~ msgid "Can not allocate tables"
+#~ msgstr "Nu se pot aloca tabelele"
+
+#~ msgid "Can not initialize driver"
+#~ msgstr "Nu se poate initializa driverul"
+
+#~ msgid "Can not return back to previous driver"
+#~ msgstr "Nu se poate intoarce la driverul precedent"
+
+#~ msgid "Perturbation:"
+#~ msgstr "Perturbare:"
+
+#~ msgid "Julia-seed:"
+#~ msgstr "Julia-samanta(valoare initiala):"
+
+#~ msgid "Morphing type:"
+#~ msgstr "Tipul de morphing:"
+
+#~ msgid "Startuptime:"
+#~ msgstr "Timp de pornire:"
+
+#~ msgid "Stoptime:"
+#~ msgstr "Timp de oprire:"
+
+#~ msgid "File to render:"
+#~ msgstr "Fisierul de procesat:"
+
+#~ msgid "Basename:"
+#~ msgstr "Nume de baza:"
+
+#~ msgid "Width:"
+#~ msgstr "Latime:"
+
+#~ msgid "Height:"
+#~ msgstr "Inaltime:"
+
+#~ msgid "Real width (cm):"
+#~ msgstr "Latime reala (cm):"
+
+#~ msgid "Real height (cm):"
+#~ msgstr "Inaltime reala (cm):"
+
+#~ msgid "Framerate:"
+#~ msgstr "Frecventa cadrelor:"
+
+#~ msgid "Image type:"
+#~ msgstr "Tipul imaginii:"
+
+#~ msgid "Antialiasing:"
+#~ msgstr "Antialiasing:"
+
+#~ msgid "Always recalculate:"
+#~ msgstr "Intotdeauna recalculeaza:"
+
+#~ msgid "Calculate MPEG motion vectors:"
+#~ msgstr "Calculeaza vectorii de miscare MPEG:"
+
+#~ msgid "Recommended I frame distance:"
+#~ msgstr "Distanta I-Frame recomandata:"
+
+#~ msgid "Center:"
+#~ msgstr "Centru:"
+
+#~ msgid "Radius:"
+#~ msgstr "Raza:"
+
+#~ msgid "Angle:"
+#~ msgstr "Unghi:"
+
+#~ msgid "Mode:"
+#~ msgstr "Mod:"
+
+#~ msgid "Start:"
+#~ msgstr "Start:"
+
+#~ msgid "End:"
+#~ msgstr "sfarsit:"
+
+#~ msgid "Color:"
+#~ msgstr "Culoare:"
+
+#~ msgid "Rotations per second:"
+#~ msgstr "Rotatii pe secunda:"
+
+#~ msgid "Letters per second:"
+#~ msgstr "Litere pe secunda:"
+
+#~ msgid "Iterations:"
+#~ msgstr "Iteratii:"
+
+#~ msgid "Text:"
+#~ msgstr "Text:"
+
+#~ msgid "Your command:"
+#~ msgstr "Comanda dumneavoastra:"
+
+#~ msgid "Filename:"
+#~ msgstr "Numele fisierului:"
+
+#~ msgid "Formula:"
+#~ msgstr "Formula:"
+
+#~ msgid "X center:"
+#~ msgstr "X-centru:"
+
+#~ msgid "Y center:"
+#~ msgstr "Y-centru:"
+
+#~ msgid "X Radius:"
+#~ msgstr "X-Raza:"
+
+#~ msgid "Y Radius:"
+#~ msgstr "Y-Raza:"
+
+#~ msgid "Coordinates:"
+#~ msgstr "Coordonate:"
+
+#~ msgid "continuous rotation"
+#~ msgstr "Rotatie continua"
+
+#~ msgid "Fast rotation"
+#~ msgstr "Rotatie rapida"
+
+#~ msgid "filter"
+#~ msgstr "Filtru"
+
+#~ msgid "enable"
+#~ msgstr "activare"
+
+#~ msgid "Amount:"
+#~ msgstr "Cantitate:"
+
+#~ msgid "Zooming speed:"
+#~ msgstr "Viteza de marire (zoom):"
+
+#~ msgid "Name:"
+#~ msgstr "Nume:"
+
+#~ msgid "Bailout:"
+#~ msgstr "Bailout (valoare de salvare):"
+
+#~ msgid "Julia mode:"
+#~ msgstr "Mod Julia:"
+
+#~ msgid "Horizontal position:"
+#~ msgstr "Pozitia orizontala:"
+
+#~ msgid "Vertical position:"
+#~ msgstr "Pozitia verticala:"
+
+#~ msgid "Dynamic resolution:"
+#~ msgstr "Rezolutie dinamica :"
+
+#~ msgid "Time:"
+#~ msgstr "Timp:"
+
+#~ msgid "Number:"
+#~ msgstr "Numar:"
+
+#~ msgid "Algorithm number:"
+#~ msgstr "Numarul algoritmului:"
+
+#~ msgid "Seed:"
+#~ msgstr "Samanta (valoare initiala):"
+
+#~ msgid "Shift:"
+#~ msgstr "Deplasare:"
+
+#~ msgid "Frames per second:"
+#~ msgstr "Cadre pe secunda:"
+
+#, fuzzy
+#~ msgid "Initialization:"
+#~ msgstr "Initializare"
+
+#~ msgid "renderanim: invalid framerate"
+#~ msgstr "procesarea animatiei: frecventa cadrelor incorecta"
+
+#~ msgid "renderanim: incorrect I frame distance"
+#~ msgstr "procesarea animatiei: Distanta I-Frame incorecta"
+
+#~ msgid "animateview: Invalid viewpoint"
+#~ msgstr "vederea animatiei: punct de vedere incorect"
+
+#~ msgid "Invalid viewpoint"
+#~ msgstr "Punct de vedere incorect"
+
+#~ msgid "Unknown palette type"
+#~ msgstr "Tip de paleta necunoscut"
+
+#~ msgid "Initialization of color cycling failed."
+#~ msgstr "Initializare ciclarii culorilor a esuat"
+
+#~ msgid "Try to enable palette emulation filter"
+#~ msgstr "Incercare de activare a filtrului de emulare a paletei"
+
+#~ msgid "Algorithm:%i seed:%i size:%i"
+#~ msgstr "Algoritm:%i Valoare initiala:%i dimensiune:%i"
+
+#~ msgid "Root menu"
+#~ msgstr "Meniu principal"
+
+#~ msgid "Animation root menu"
+#~ msgstr "Meniu principal pentru animatii"
+
+#~ msgid "Replay only commands"
+#~ msgstr "Comenzi numai pentru redare"
+
+#~ msgid "Command line options only"
+#~ msgstr "Numai optiuni de la linia de comanda"
+
+#~ msgid "print menus specifications of all menus"
+#~ msgstr "tipareste specificatiile de meniu pentru toate meniurile"
+
+#~ msgid "print menu specification in xshl format"
+#~ msgstr "tipareste specificatiile meniului in format xshl"
+
+#~ msgid "print dialog specification"
+#~ msgstr "tipareste specificatiile dialogului"
+
+#~ msgid "Line drawing functions"
+#~ msgstr "Functii pentru desenarea liniilor"
+
+#~ msgid "Line"
+#~ msgstr "Linie"
+
+#~ msgid "Morph line"
+#~ msgstr "Linie Morph"
+
+#~ msgid "Morph last line"
+#~ msgstr "Ultima linie Morph"
+
+#~ msgid "Set line key"
+#~ msgstr "Seteaza cheia liniei"
+
+#~ msgid "Clear line"
+#~ msgstr "Sterge linia"
+
+#~ msgid "Clear all lines"
+#~ msgstr "sterge toate liniile"
+
+#~ msgid "Animation functions"
+#~ msgstr "Functii pentru animatii"
+
+#~ msgid "View"
+#~ msgstr "Vedere"
+
+#~ msgid "Morph julia"
+#~ msgstr "Morph Julia"
+
+#~ msgid "Morph angle"
+#~ msgstr "Unghiul de Morph"
+
+#~ msgid "Un-zoom"
+#~ msgstr "Un-zoom"
+
+#~ msgid "Stop zooming"
+#~ msgstr "Opreste marirea(zoom)"
+
+#~ msgid "Smooth morphing parameters"
+#~ msgstr "Parametrul de morphing neted"
+
+#~ msgid "Timing functions"
+#~ msgstr "Functii de timp"
+
+#~ msgid "Usleep"
+#~ msgstr "Usleep"
+
+#~ msgid "Wait for text"
+#~ msgstr "Asteapta textul"
+
+#~ msgid "Wait for complete image"
+#~ msgstr "Asteapta imaginea completa"
+
+#~ msgid "Include file"
+#~ msgstr "Include fisierul"
+
+#~ msgid "Default palette"
+#~ msgstr "Paleta implicita"
+
+#~ msgid "Formula"
+#~ msgstr "Formula"
+
+#~ msgid "Maximal zooming step"
+#~ msgstr "Pasul maxim de marire (zoom)"
+
+#~ msgid "Filter"
+#~ msgstr "Filru"
+
+#~ msgid "File"
+#~ msgstr "Fisier"
+
+#~ msgid "Edit"
+#~ msgstr "Editare"
+
+#~ msgid "Fractal"
+#~ msgstr "Fractal"
+
+#~ msgid "Calculation"
+#~ msgstr "Calculare"
+
+#~ msgid "Filters"
+#~ msgstr "Filtre"
+
+#~ msgid "UI"
+#~ msgstr "Interfata utilizator (UI)"
+
+#~ msgid "Misc"
+#~ msgstr "Extra"
+
+#, fuzzy
+#~ msgid "Window"
+#~ msgstr "Refa"
+
+#~ msgid "Tutorials"
+#~ msgstr "Tutoriale"
+
+#~ msgid "Stop replay"
+#~ msgstr "Opreste redarea"
+
+#~ msgid "Command"
+#~ msgstr "Comanda"
+
+#~ msgid "Play string"
+#~ msgstr "Arata sirul"
+
+#~ msgid "Render animation"
+#~ msgstr "Proceseaza animatia"
+
+#~ msgid "Clear screen"
+#~ msgstr "Sterge ecranul"
+
+#~ msgid "Display fractal"
+#~ msgstr "Arata fractalul"
+
+#~ msgid "Display text"
+#~ msgstr "Arata textul"
+
+#~ msgid "Horizontal text position"
+#~ msgstr "Pozitia textului orizontal"
+
+#~ msgid "Vertical text position"
+#~ msgstr "Pozitia textului vertical"
+
+#~ msgid "Text position"
+#~ msgstr "Pozitiile textului"
+
+#~ msgid "Message"
+#~ msgstr "Mesaj"
+
+#~ msgid "Load"
+#~ msgstr "Incarca"
+
+#~ msgid "Save"
+#~ msgstr "Salveaza"
+
+#~ msgid "Record"
+#~ msgstr "Inregistreaza"
+
+#~ msgid "Replay"
+#~ msgstr "Reda"
+
+#~ msgid "Load random example"
+#~ msgstr "Incarca un exemplu aleator"
+
+#~ msgid "Save configuration"
+#~ msgstr "Salveaza configuratia"
+
+#~ msgid "Undo"
+#~ msgstr "Refa"
+
+#~ msgid "Redo"
+#~ msgstr "Fa inapoi"
+
+#~ msgid "Formulae"
+#~ msgstr "Formule"
+
+#, fuzzy
+#~ msgid "More formulae"
+#~ msgstr "Alte formule"
+
+#, fuzzy
+#~ msgid "User formula"
+#~ msgstr "Alte formule"
+
+#, fuzzy
+#~ msgid "User initialization"
+#~ msgstr "Initializare"
+
+#~ msgid "Incoloring mode"
+#~ msgstr "Mod de colorare interioara"
+
+#~ msgid "Outcoloring mode"
+#~ msgstr "Mod de colorare exterioara"
+
+#~ msgid "Plane"
+#~ msgstr "Plan"
+
+#~ msgid "Mandelbrot mode"
+#~ msgstr "Modul Mandelbrot"
+
+#~ msgid "Perturbation"
+#~ msgstr "Perturbare"
+
+#~ msgid "Reset to defaults"
+#~ msgstr "Inapoi la setarile implicite"
+
+#~ msgid "Julia mode"
+#~ msgstr "Modul Julia"
+
+#~ msgid "Set angle"
+#~ msgstr "Seteaza unghiul"
+
+#~ msgid "Set plane"
+#~ msgstr "Seteaza planul"
+
+#~ msgid "Inside coloring mode"
+#~ msgstr "Modul de colorare interioara"
+
+#~ msgid "Inside truecolor coloring mode"
+#~ msgstr "Modul de colorare interioara true-color"
+
+#~ msgid "Julia seed"
+#~ msgstr "Samanta (valoare initiala) Julia"
+
+#~ msgid "Random palette"
+#~ msgstr "Paleta aleatoare"
+
+#~ msgid "Custom palette"
+#~ msgstr "Paleta obisnuita"
+
+#~ msgid "Color cycling"
+#~ msgstr "Ciclarea culorilor"
+
+#~ msgid "Reversed color cycling"
+#~ msgstr "Ciclare inversata a culorilor "
+
+#~ msgid "Shift palette"
+#~ msgstr "Deplaseaza paleta"
+
+#~ msgid "Shift one forward"
+#~ msgstr "Deplaseaza cu un pas inainte"
+
+#~ msgid "Shift one backward"
+#~ msgstr "Deplaseaza cu un pas inapoi"
+
+#~ msgid "Dynamic resolution"
+#~ msgstr "Rezolutie dinamica"
+
+#~ msgid "Periodicity checking"
+#~ msgstr "Verificarea periodicitatii"
+
+#~ msgid "Iterations"
+#~ msgstr "Iteratii"
+
+#~ msgid "Bailout"
+#~ msgstr "Valoare de salvare (bailout)"
+
+#~ msgid "Fast julia mode"
+#~ msgstr "Modul Julia rapid"
+
+#~ msgid "Rotation"
+#~ msgstr "Rotatie"
+
+#~ msgid "Solid guessing range"
+#~ msgstr "Intrevalul Solid-Guessing"
+
+#~ msgid "Disable rotation"
+#~ msgstr "Dezactiveaza rotatia"
+
+#~ msgid "Continuous rotation"
+#~ msgstr "Rotatie continua"
+
+#~ msgid "Rotate by mouse"
+#~ msgstr "Roteste cu mouse-ul"
+
+#~ msgid "Automatic rotation"
+#~ msgstr "Rotatie automata"
+
+#~ msgid "Disable dynamic resolution"
+#~ msgstr "Dezactiveaza rezolutia dinamica"
+
+#~ msgid "Use only during animation"
+#~ msgstr "A se folosi numai in timpul animatiilor"
+
+#~ msgid "Dynamic resolution mode"
+#~ msgstr "Modul de rezolutie dinamica"
+
+#~ msgid "Autopilot"
+#~ msgstr "Pilot automat"
+
+#, fuzzy
+#~ msgid "VJ mode"
+#~ msgstr "Modul Julia"
+
+#~ msgid "Recalculate"
+#~ msgstr "Recalulare"
+
+#~ msgid "Zooming speed"
+#~ msgstr "Viteza de marire (zoom)"
+
+#~ msgid "Fixed step"
+#~ msgstr "Pas fixat"
+
+#~ msgid "Guess 2x2 rectangles"
+#~ msgstr "Guess 2x2 dreptunghiuri"
+
+#~ msgid "Guess 3x3 rectangles"
+#~ msgstr "Guess 3x3 dreptunghiuri"
+
+#~ msgid "Guess 5x5 rectangles"
+#~ msgstr "Guess 5x5 dreptunghiuri"
+
+#~ msgid "Guess 7x7 rectangles"
+#~ msgstr "Guess 7x7 dreptunghiuri"
+
+#~ msgid "Guess unlimited rectangles"
+#~ msgstr "Guess un numar nelimitat de dreptunghiuri"
+
+#~ msgid "Language"
+#~ msgstr "Limba"
+
+#~ msgid "An introduction to fractals"
+#~ msgstr "Fractali - O introducere"
+
+#~ msgid "XaoS features overview"
+#~ msgstr "XaoS - Eine Übersicht"
+
+#~ msgid "Math behind fractals"
+#~ msgstr "Matematica de la baza fractalilor"
+
+#~ msgid "Other fractal types in XaoS"
+#~ msgstr "Alte tipuri de fractali in XaoS"
+
+#~ msgid "What's new?"
+#~ msgstr "Ce este nou?"
+
+#~ msgid "Whole story"
+#~ msgstr "Toata povestea"
+
+#~ msgid "Introduction"
+#~ msgstr "Introducere"
+
+#~ msgid "Mandelbrot set"
+#~ msgstr "Multimea Mandelbrot"
+
+#~ msgid "Julia set"
+#~ msgstr "Multimea Julia"
+
+#~ msgid "Higher power Mandelbrots"
+#~ msgstr "Multimi Mandelbrot de ordin superior"
+
+#~ msgid "Newton's method"
+#~ msgstr "Metoda lui Newton"
+
+#~ msgid "Barnsley's formula"
+#~ msgstr "Formula lui Barnsley"
+
+#~ msgid "Phoenix"
+#~ msgstr "Phoenix"
+
+#~ msgid "Octo"
+#~ msgstr "Octo"
+
+#~ msgid "Magnet"
+#~ msgstr "Magnet"
+
+#~ msgid "All features"
+#~ msgstr "Toate Features"
+
+#~ msgid "Outcoloring modes"
+#~ msgstr "Moduri de colorare exterioara"
+
+#~ msgid "Incoloring modes"
+#~ msgstr "Moduri de colorare interioara"
+
+#~ msgid "True-color coloring modes"
+#~ msgstr "Moduri de colorare true-color"
+
+#~ msgid "Planes"
+#~ msgstr "Planuri"
+
+#~ msgid "Animations and position files"
+#~ msgstr "Fisierele de animatii si pozitie"
+
+#~ msgid "Random palettes"
+#~ msgstr "Palete aleatoare"
+
+#~ msgid "Other noteworthy features"
+#~ msgstr "Alte detalii (features) remarcabile"
+
+#~ msgid "The definition and fractal dimension"
+#~ msgstr "Definitia si dimensiunea fractalului"
+
+#~ msgid "Escape time fractals"
+#~ msgstr "Fractali escape-time"
+
+#~ msgid "Triceratops and Catseye fractals"
+#~ msgstr "Fractalii Triceratops si Catseye (ochi de pisica)"
+
+#~ msgid "Mandelbar, Lambda, Manowar and Spider"
+#~ msgstr "Mandelbar, Lambda, Manowar si Spider"
+
+#~ msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
+#~ msgstr ""
+#~ "Sierpinski Gasket, S.Carpet, Koch Snowflake (fulgul de zapada al lui Koch)"
+
+#~ msgid "What's new in 3.0?"
+#~ msgstr "Ce este nou in versiunea 3.0?"
+
+#~ msgid "line available only in animation replay"
+#~ msgstr "Linie disponibila numai in animation replay"
+
+#~ msgid "Morphing non existing line!"
+#~ msgstr "Morphing o linie inexistenta!"
+
+#~ msgid "linekey not available in this context!"
+#~ msgstr "Cheia liniei nu este disponibila in acest context!"
+
+#~ msgid "clear_line available only in animation replay"
+#~ msgstr "Stergerea_liniei (clear_line) disponibila numai in animation replay"
+
+#~ msgid "clear_lines available only in animation replay"
+#~ msgstr ""
+#~ "Stergerea_liniilor (clear_lines) disponibila numai in animation replay"
+
+#~ msgid "Catalog file not found"
+#~ msgstr "Nu s-a gasit fisierul catalog"
+
+#~ msgid "Replay is already active"
+#~ msgstr "Replay este deja activ"
+
+#~ msgid "File open failed"
+#~ msgstr "Fiserul nu a putut fi deschis"
+
+#~ msgid "Out of memory"
+#~ msgstr "Memorie insuficienta"
+
+#~ msgid "Missing parameter"
+#~ msgstr "Parametru lipsa"
+
+#~ msgid "Unexpected end of file"
+#~ msgstr "Sfarsit de fisier neasteptat"
+
+#~ msgid "Token is too long"
+#~ msgstr "Token-ul este prea lung"
+
+#~ msgid "Unknown formula type"
+#~ msgstr "Tip de formula necunoscut"
+
+#~ msgid "morph available only in animation replay"
+#~ msgstr "Morph disponibil numai in animation replay"
+
+#~ msgid "morphview: Invalid viewpoint"
+#~ msgstr "vederea Morph (morphview): Punct de vedere eronat"
+
+#~ msgid "move available only in animation replay"
+#~ msgstr "Deplasare dispnibila numai in animation replay"
+
+#~ msgid "morphjulia available only in animation replay"
+#~ msgstr "Morphjulia dispnibila numai in animation replay"
+
+#~ msgid "morphangle available only in animation replay"
+#~ msgstr "Unghiul de Morph dispnibil numai in animation replay"
+
+#~ msgid "Unknown filter"
+#~ msgstr "Filtru necunoscut"
+
+#~ msgid "sleep available only in animation replay"
+#~ msgstr "Pause (sleep) disponibila numai in animation replay"
+
+#~ msgid "Internal program error #12 %i\n"
+#~ msgstr "Eroare interna #12 %i\n"
+
+#~ msgid "wait available only in animation replay"
+#~ msgstr "Asteptare(wait) disponibil numi in animation replay"
+
+#~ msgid "No catalog file loaded"
+#~ msgstr "Nu s-a incarcat fisierul catalog"
+
+#~ msgid "Message not found in catalog file"
+#~ msgstr "Mesajul nu a fost gasit in fisierul catalog"
+
+#~ msgid "load available only in animation replay"
+#~ msgstr "Incarcare (load) disponibila numai in animation replay"
+
+#~ msgid "Include level overflow"
+#~ msgstr "Zu viele Dateien ineinander einbezogen"
+
+#~ msgid "File not found"
+#~ msgstr "Nu s-a gasit fisierul"
+
+#~ msgid "Too many parameters"
+#~ msgstr "Prea multi parametri"
+
+#~ msgid "Replay disabled at line %i"
+#~ msgstr "Replay dezactivat pe linia %i"
+
+#~ msgid "Tutorial files not found. Reinstall XaoS"
+#~ msgstr "Fisierele cu tutoriale nu au fost gasite. Reinstalati XaoS"
+
+#~ msgid "Preparing first image"
+#~ msgstr "Se pregateste prima imagine"
+
+#~ msgid "Could not open examples"
+#~ msgstr "Exemplele nu s-au putut deschide"
+
+#~ msgid "File %s loaded."
+#~ msgstr "S-a incarcat fisierul %s."
+
+#~ msgid "Saving image..."
+#~ msgstr "Imginea se salveaza..."
+
+#~ msgid "Save interrupted"
+#~ msgstr "Salvare intrerupta"
+
+#~ msgid "File %s saved."
+#~ msgstr "Fisierul %s salvat."
+
+#~ msgid "Can not open file"
+#~ msgstr "Nu se poate deschide fisierul"
+
+#~ msgid "Recording to file %s enabled."
+#~ msgstr "S-a activat inregistrearea in fisierul %s "
+
+#~ msgid "Error: %s"
+#~ msgstr "Eroare: %s"
+
+#~ msgid "Cannot open motion vector file!"
+#~ msgstr "Nu se poate deschide fisierul cu vectorii de miscare!"
+
+#~ msgid "Vectors: %i"
+#~ msgstr "Vectori: %i"
+
+#~ msgid "Initializing"
+#~ msgstr "Initializare"
+
+#~ msgid "Cannot create palette"
+#~ msgstr "Nu se poate crea paleta"
+
+#~ msgid "Cannot create image\n"
+#~ msgstr "Nu se poate crea imaginea\n"
+
+#~ msgid "Cannot create checking buffer!"
+#~ msgstr "Nu se poate crea bufferul de control!"
+
+#~ msgid "Cannot create context\n"
+#~ msgstr "Nu se poate crea contextul\n"
+
+#~ msgid "Cannot open animation file\n"
+#~ msgstr "Nu se poate deschide fisierul cu animatii\n"
+
+#~ msgid "Loading catalogs"
+#~ msgstr "Cataloagele se incarca"
+
+#~ msgid "Processing command line options"
+#~ msgstr "Se prelucreaza optiunile de la linia de comanda"
+
+#~ msgid "Enabling animation replay\n"
+#~ msgstr "Se activeaza animation replay\n"
+
+#~ msgid "Cannot open image file"
+#~ msgstr "Nu se poate deschide fisierul cu imaginea"
+
+#~ msgid "Cannot open pattern file"
+#~ msgstr "Nu se poate deschide fiserul de sabloane"
+
+#~ msgid "Entering calculation loop!"
+#~ msgstr "Intrare in bucla de calcul!"
+
+#~ msgid "Frame %i skipped."
+#~ msgstr "cadrul %i a fost omis."
+
+#~ msgid "Frames %i - %i skipped."
+#~ msgstr "S-au omis cadrele %i - %i."
+
+#~ msgid "Frame %4i: "
+#~ msgstr "Cadru %4i: "
+
+#~ msgid " done."
+#~ msgstr " terminat."
+
+#~ msgid " skipping..."
+#~ msgstr " se omite..."
+
+#~ msgid "Calculation interrupted"
+#~ msgstr "Calculare intrerupta"
+
+#~ msgid "Calculation finished"
+#~ msgstr "Calculare terminata"
 
 #, fuzzy
 #~ msgid "User function"

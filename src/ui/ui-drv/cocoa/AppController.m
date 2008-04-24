@@ -138,7 +138,7 @@ AppController *controller;
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSArray *preferredLanguages = [defaults objectForKey:@"AppleLanguages"];
     NSString *lang = [preferredLanguages firstObjectCommonWithArray:supportedLanguages];
-    if (lang) setenv("LANG", [lang UTF8String], /*overwrite? */ 1);
+    if (lang) setenv("LANG", [lang UTF8String], /*overwrite? */ 0);
     
     [supportedLanguages release];
 }    

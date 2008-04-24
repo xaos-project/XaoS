@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-18 18:50+0200\n"
+"POT-Creation-Date: 2008-04-23 23:04-0500\n"
 "PO-Revision-Date: 2006-02-05 17:35+0200\n"
 "Last-Translator: Philippe Wautelet <traduc _at_ fractalzone _dot_ be>\n"
 "Language-Team: French\n"
@@ -14,1425 +14,1130 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../ui/ui.c:329
-msgid "XaoS is out of memory."
-msgstr "Pas assez de mémoire."
-
-#: ../ui/ui.c:379
-#, c-format
-msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
-msgstr "%s %.2f fois (%.1fE) %2.2f images/sec %c %i %i %i %i            "
-
-#: ../ui/ui.c:380
-msgid "unzoomed"
-msgstr "Réduit"
-
-#: ../ui/ui.c:380
-msgid "zoomed"
-msgstr "Aggrandi"
-
-#: ../ui/ui.c:388
-#, c-format
-msgid "framerate:%f\n"
-msgstr "taux de rafraîchissement : %f\n"
-
-#: ../ui/ui.c:436
-#, c-format
-msgid "Enabling: %s. "
-msgstr "Activation : %s. "
-
-#: ../ui/ui.c:438
-#, c-format
-msgid "Disabling: %s. "
-msgstr "Désactivation : %s. "
-
-#: ../ui/ui.c:470
-#, c-format
-msgid "Fractal name:%s"
-msgstr "Nom du fractal :  %s"
-
-#: ../ui/ui.c:474
-#, c-format
-msgid "Fractal type:%s"
-msgstr "Type de fractal : %s"
-
-#: ../ui/ui.c:476
-msgid "Mandelbrot"
-msgstr "Mandelbrot"
-
-#: ../ui/ui.c:476
-msgid "Julia"
-msgstr "Julia"
-
-#: ../ui/ui.c:480
-#, fuzzy, c-format
-msgid "Formula:%s"
-msgstr "Formule :"
-
-#: ../ui/ui.c:485
-#, c-format
-msgid "View:[%1.12f,%1.12f]"
-msgstr "Vue : [%1.12f,%1.12f]"
-
-#: ../ui/ui.c:489
-#, c-format
-msgid "size:[%1.12f,%1.12f]"
-msgstr "Taille : [%1.12f,%1.12f]"
-
-#: ../ui/ui.c:493
-#, c-format
-msgid "Rotation:%4.2f   Screen size:%i:%i"
-msgstr "Rotation : %4.2f   Taille d'écran : %i:%i"
-
-#: ../ui/ui.c:498
-#, c-format
-msgid "Iterations:%-4i Palette size:%i"
-msgstr "Itérations : %-4i Taille palette : %i"
-
-#: ../ui/ui.c:505
-#, c-format
-msgid "Autopilot:%-4s  Plane:%s"
-msgstr "Pilote automatique : %-4s  Plan : %s"
-
-#: ../ui/ui.c:506
-msgid "On"
-msgstr "Oui"
-
-#: ../ui/ui.c:506
-msgid "Off"
-msgstr "Non"
-
-#: ../ui/ui.c:510
-#, c-format
-msgid "incoloring:%s    outcoloring:%s"
-msgstr "Coloration intérieure : %s  extérieure : %s"
-
-#: ../ui/ui.c:515
-#, c-format
-msgid "zoomspeed:%f"
-msgstr "Vitesse de zoom : %f"
-
-#: ../ui/ui.c:519
-msgid "Parameter:none"
-msgstr "Paramètre : aucun"
-
-#: ../ui/ui.c:521
-#, c-format
-msgid "Parameter:[%f,%f]"
-msgstr "Paramètre : [%f,%f]"
-
-#: ../ui/ui.c:617
-#, c-format
-msgid "Please wait while calculating %s"
-msgstr "Patientez pendant le calcul de %s"
-
-#: ../ui/ui.c:724
-#, c-format
-msgid "Letters per second %i  "
-msgstr "Lettres par seconde %i  "
-
-#: ../ui/ui.c:739 ../ui/ui.c:750
-#, c-format
-msgid "Rotation speed:%2.2f degrees per second "
-msgstr "Vitesse de rotation : %2.2f degrés par seconde"
-
-#: ../ui/ui.c:762
-#, fuzzy, c-format
-msgid "Iterations: %i   "
-msgstr "Itérations: %i   "
-
-#: ../ui/ui.c:781
-#, c-format
-msgid "Cycling speed: %i   "
-msgstr "Vitesse de circulation : %i   "
-
-#: ../ui/ui.c:796 ../ui/ui.c:811
-#, c-format
-msgid "speed:%2.2f "
-msgstr "vitesse : %2.2f"
-
-#: ../ui/ui.c:906
-#, c-format
-msgid "Thank you for using XaoS\n"
-msgstr "Merci d'avoir utilisé XaoS\n"
-
-#: ../ui/ui.c:947
-msgid "Skipping, please wait..."
-msgstr "Saute image, patientez..."
-
-#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1535
-msgid "Resize"
-msgstr "Redimensionner"
-
-#: ../ui/ui.c:1063
-msgid "Quit"
-msgstr "Quitter"
-
-#: ../ui/ui.c:1064
-msgid "Exit now"
-msgstr "Sortir maintenant"
-
-#: ../ui/ui.c:1066
-msgid "Not yet"
-msgstr "Pas encore"
-
-#: ../ui/ui.c:1069 ../ui-hlp/menu.c:1095 ../ui-hlp/menu.c:1110
-#: ../ui/dialog.c:430 ../ui/dialog.c:1446
-msgid "Help"
-msgstr "Aide"
-
-#: ../ui/ui.c:1071
-msgid "Disable XaoS's builtin GUI"
-msgstr "Désactiver interface graphique interne de XaoS"
-
-#: ../ui/ui.c:1075 ../ui/ui.c:1081
-msgid "Status"
-msgstr "Affichage état"
-
-#: ../ui/ui.c:1077 ../ui/ui.c:1083
-msgid "Ministatus"
-msgstr "Affichage mini-état"
-
-#: ../ui/ui.c:1086 ../ui/ui.c:1087
-msgid "Driver"
-msgstr "Pilote"
-
-#: ../ui/ui.c:1501
-#, c-format
-msgid "Welcome to XaoS version %s"
-msgstr "Bienvenue sur XaoS version %s"
-
-#: ../ui/ui.c:1667
-msgid "Can not allocate buffers"
-msgstr "Ne peut pas allouer les tampons"
-
-#: ../ui/ui.c:1685
-msgid "Can not create palette"
-msgstr "Ne peut pas créer la palette"
-
-#: ../ui/ui.c:1698
-msgid "Can not create image"
-msgstr "Ne peut pas créer l'image"
-
-#: ../ui/ui.c:1733 ../ui/ui.c:1787
-msgid "Can not allocate tables"
-msgstr "Ne peut pas allouer les tables"
-
-#: ../ui/ui.c:1771
-msgid "Can not initialize driver"
-msgstr "Ne peut pas initialiser le pilote"
-
-#: ../ui/ui.c:1774
-msgid "Can not return back to previous driver"
-msgstr "Ne peut pas retourner au pilote précédent"
-
-#: ../ui-hlp/menu.c:127
-msgid "Perturbation:"
-msgstr "Perturbation :"
-
-#: ../ui-hlp/menu.c:131
-msgid "Julia-seed:"
-msgstr "Initialisation de l'ensemble de Julia :"
-
-#: ../ui-hlp/menu.c:135
-msgid "Morphing type:"
-msgstr "Type de morphing :"
-
-#: ../ui-hlp/menu.c:136
-msgid "Startuptime:"
-msgstr "Instant de démarrage :"
-
-#: ../ui-hlp/menu.c:137
-msgid "Stoptime:"
-msgstr "Instant d'arrêt :"
-
-#: ../ui-hlp/menu.c:141
-msgid "File to render:"
-msgstr "Fichier à traiter :"
-
-#: ../ui-hlp/menu.c:142
-msgid "Basename:"
-msgstr "Nom de base :"
-
-#: ../ui-hlp/menu.c:143
-msgid "Width:"
-msgstr "Largeur :"
-
-#: ../ui-hlp/menu.c:144
-msgid "Height:"
-msgstr "Hauteur :"
-
-#: ../ui-hlp/menu.c:145
-msgid "Real width (cm):"
-msgstr "Largeur réelle (cm) :"
-
-#: ../ui-hlp/menu.c:146
-msgid "Real height (cm):"
-msgstr "Hauteur réelle (cm) :"
-
-#: ../ui-hlp/menu.c:147
-msgid "Framerate:"
-msgstr "Taux de rafraîchissement :"
-
-#: ../ui-hlp/menu.c:148
-msgid "Image type:"
-msgstr "Type d'image :"
-
-#: ../ui-hlp/menu.c:149
-msgid "Antialiasing:"
-msgstr "Anti-crénelage :"
-
-#: ../ui-hlp/menu.c:150
-msgid "Always recalculate:"
-msgstr "Toujours recalculer :"
-
-#: ../ui-hlp/menu.c:151
-msgid "Calculate MPEG motion vectors:"
-msgstr "Calculer les vecteurs de mouvement MPEG :"
-
-#: ../ui-hlp/menu.c:152
-msgid "Recommended I frame distance:"
-msgstr "Distance conseillée entre les I-frames :"
-
-#: ../ui-hlp/menu.c:156
-msgid "Center:"
-msgstr "Centre :"
-
-#: ../ui-hlp/menu.c:157
-msgid "Radius:"
-msgstr "Rayon :"
-
-#: ../ui-hlp/menu.c:158 ../ui-hlp/menu.c:223
-msgid "Angle:"
-msgstr "Angle :"
-
-#: ../ui-hlp/menu.c:162
-msgid "Mode:"
-msgstr "Mode :"
-
-#: ../ui-hlp/menu.c:163
-msgid "Start:"
-msgstr "Début :"
-
-#: ../ui-hlp/menu.c:164
-msgid "End:"
-msgstr "Fin :"
-
-#: ../ui-hlp/menu.c:168
-msgid "Color:"
-msgstr "Couleur :"
-
-#: ../ui-hlp/menu.c:172
-msgid "Rotations per second:"
-msgstr "Rotations par seconde :"
-
-#: ../ui-hlp/menu.c:176
-msgid "Letters per second:"
-msgstr "Lettres par seconde :"
-
-#: ../ui-hlp/menu.c:180
-msgid "Iterations:"
-msgstr "Itérations :"
-
-#: ../ui-hlp/menu.c:184
-msgid "Text:"
-msgstr "Texte :"
-
-#: ../ui-hlp/menu.c:188
-msgid "Your command:"
-msgstr "Votre commande :"
-
-#: ../ui-hlp/menu.c:192 ../ui-hlp/menu.c:196 ../ui-hlp/menu.c:200
-#: ../ui-hlp/menu.c:204 ../ui-hlp/menu.c:256
-msgid "Filename:"
-msgstr "Nom de fichier :"
-
-#: ../ui-hlp/menu.c:208 ../ui-hlp/menu.c:296
-msgid "Formula:"
-msgstr "Formule :"
-
-#: ../ui-hlp/menu.c:212
-msgid "X center:"
-msgstr "Position horizontale centre :"
-
-#: ../ui-hlp/menu.c:213
-msgid "Y center:"
-msgstr "Position verticale centre :"
-
-#: ../ui-hlp/menu.c:214
-msgid "X Radius:"
-msgstr "Rayon horizontal :"
-
-#: ../ui-hlp/menu.c:215
-msgid "Y Radius:"
-msgstr "Rayon vertical :"
-
-#: ../ui-hlp/menu.c:219
-msgid "Coordinates:"
-msgstr "Coordonnées :"
-
-#: ../ui-hlp/menu.c:227
-msgid "continuous rotation"
-msgstr "rotation continue"
-
-#: ../ui-hlp/menu.c:231
-msgid "Fast rotation"
-msgstr "Rotation rapide"
-
-#: ../ui-hlp/menu.c:235
-msgid "filter"
-msgstr "filtre"
-
-#: ../ui-hlp/menu.c:236
-msgid "enable"
-msgstr "activer"
-
-#: ../ui-hlp/menu.c:240
-msgid "Amount:"
-msgstr "Quantité :"
-
-#: ../ui-hlp/menu.c:244
-msgid "Zooming speed:"
-msgstr "Vitesse de zoom :"
-
-#: ../ui-hlp/menu.c:248
-msgid "Name:"
-msgstr "Nom :"
-
-#: ../ui-hlp/menu.c:252
-msgid "Bailout:"
-msgstr "Valeur d'échappement :"
-
-#: ../ui-hlp/menu.c:260
-msgid "Julia mode:"
-msgstr "Mode Julia :"
-
-#: ../ui-hlp/menu.c:264
-msgid "Horizontal position:"
-msgstr "Position horizontale :"
-
-#: ../ui-hlp/menu.c:265
-msgid "Vertical position:"
-msgstr "Position verticale :"
-
-#: ../ui-hlp/menu.c:269
-msgid "Dynamic resolution:"
-msgstr "Résolution dynamique :"
-
-#: ../ui-hlp/menu.c:273
-msgid "Time:"
-msgstr "Heure :"
-
-#: ../ui-hlp/menu.c:277 ../ui-hlp/menu.c:281
-msgid "Number:"
-msgstr "Nombre :"
-
-#: ../ui-hlp/menu.c:285
-msgid "Algorithm number:"
-msgstr "Numéro d'algorithme :"
-
-#: ../ui-hlp/menu.c:286
-msgid "Seed:"
-msgstr "Valeur initiale :"
-
-#: ../ui-hlp/menu.c:287
-msgid "Shift:"
-msgstr "Décalage :"
-
-#: ../ui-hlp/menu.c:291
-msgid "Frames per second:"
-msgstr "Images par seconde"
-
-#: ../ui-hlp/menu.c:300
-#, fuzzy
-msgid "Initialization:"
-msgstr "Initialisation"
-
-#: ../ui-hlp/menu.c:359
+#: ../ui-hlp/menu.c:360
 msgid "renderanim: Must specify a valid absolute path for basename"
 msgstr ""
 
-#: ../ui-hlp/menu.c:367
+#: ../ui-hlp/menu.c:368
 msgid ""
 "renderanim: Width parameter must be positive integer in the range 0..4096"
 msgstr ""
 "animation : le paramètre de largeur doit être un entier positif allant de 0 "
 "à 4096"
 
-#: ../ui-hlp/menu.c:374
+#: ../ui-hlp/menu.c:375
 msgid ""
 "renderanim: Height parameter must be positive integer in the range 0..4096"
 msgstr ""
 "animation : le paramètre de hauteur doit être un entier positif allant de 0 "
 "à 4096"
 
-#: ../ui-hlp/menu.c:381
+#: ../ui-hlp/menu.c:382
 msgid "renderanim: Invalid real width and height dimensions"
 msgstr "animation : dimension de hauteur ou de largeur réelle incorrecte"
 
-#: ../ui-hlp/menu.c:386
-msgid "renderanim: invalid framerate"
-msgstr "animation : taux de rafraîchissement incorrect"
-
-#: ../ui-hlp/menu.c:393
+#: ../ui-hlp/menu.c:394
 msgid "renderanim: antialiasing not supported in 256 color mode"
 msgstr "animation : anti-crénelage non supporté en mode 256 couleurs"
 
-#: ../ui-hlp/menu.c:398
-msgid "renderanim: incorrect I frame distance"
-msgstr "animation : distance entre I-frames incorrecte"
-
-#: ../ui-hlp/menu.c:454 ../ui-hlp/menu.c:468
-msgid "animateview: Invalid viewpoint"
-msgstr "animation : point de vue incorrect"
-
-#: ../ui-hlp/menu.c:482
-msgid "Invalid viewpoint"
-msgstr "Point de vue incorrect"
-
-#: ../ui-hlp/menu.c:729
-msgid "Unknown palette type"
-msgstr "Type de palette inconnu"
-
-#: ../ui-hlp/menu.c:808 ../ui-hlp/menu.c:821
-msgid "Initialization of color cycling failed."
-msgstr "Echec de l'initialisation de la circulation des couleurs."
-
-#: ../ui-hlp/menu.c:809 ../ui-hlp/menu.c:822
-msgid "Try to enable palette emulation filter"
-msgstr "Essayez d'activer le filtre d'émulation de palette"
-
-#: ../ui-hlp/menu.c:933
-#, c-format
-msgid "Algorithm:%i seed:%i size:%i"
-msgstr "Algorithme : %i  valeur initiale : %i  taille : %i"
-
-#: ../ui-hlp/menu.c:986
-msgid "Root menu"
-msgstr "Menu principal"
-
-#: ../ui-hlp/menu.c:987
-msgid "Animation root menu"
-msgstr "Menu principal d'animation"
-
-#: ../ui-hlp/menu.c:988
-msgid "Replay only commands"
-msgstr "Commandes de répétition uniquement"
-
-#: ../ui-hlp/menu.c:989
-msgid "Command line options only"
-msgstr "Options en ligne de commande uniquement"
-
-#: ../ui-hlp/menu.c:992
-msgid "print menus specifications of all menus"
-msgstr "imprimer les caractéristiques de menu pour tous les menus"
-
-#: ../ui-hlp/menu.c:997
+#: ../ui-hlp/menu.c:998
 msgid "print menu specification"
 msgstr "imprimer les caractéristiques de menu"
 
-#: ../ui-hlp/menu.c:1000
-msgid "print menu specification in xshl format"
-msgstr "imprimer les caractéristiques de menu au format xshl"
-
-#: ../ui-hlp/menu.c:1004
+#: ../ui-hlp/menu.c:1005
 msgid "print all menu specifications in xshl format"
 msgstr "imprimer toutes les caractéristiques de menu au format xshl"
 
-#: ../ui-hlp/menu.c:1006
-msgid "print dialog specification"
-msgstr "imprimer les caractéristiques de dialogue"
-
-#: ../ui-hlp/menu.c:1011
-msgid "Line drawing functions"
-msgstr "Fonctions de traçage de lignes"
-
-#: ../ui-hlp/menu.c:1012
-msgid "Line"
-msgstr "Ligne"
-
-#: ../ui-hlp/menu.c:1015
-msgid "Morph line"
-msgstr "Ligne de morphing"
-
-#: ../ui-hlp/menu.c:1017
-msgid "Morph last line"
-msgstr "Dernière ligne de morphing"
-
-#: ../ui-hlp/menu.c:1020
-msgid "Set line key"
-msgstr "Choisir ligne clé"
-
-#: ../ui-hlp/menu.c:1022
-msgid "Clear line"
-msgstr "Effacer ligne"
-
-#: ../ui-hlp/menu.c:1025
-msgid "Clear all lines"
-msgstr "Effacer toutes les lignes"
-
-#: ../ui-hlp/menu.c:1026
-msgid "Animation functions"
-msgstr "Fonctions d'animation"
-
-#: ../ui-hlp/menu.c:1027 ../ui-hlp/menu.c:1222 ../ui-hlp/menu.c:1231
-msgid "View"
-msgstr "Vue"
-
-#: ../ui-hlp/menu.c:1031
+#: ../ui-hlp/menu.c:1032
 msgid "Morph view"
 msgstr "Vue de morphing"
 
-#: ../ui-hlp/menu.c:1033
-msgid "Morph julia"
-msgstr "Morphing de Julia"
-
-#: ../ui-hlp/menu.c:1038
+#: ../ui-hlp/menu.c:1039
 msgid "Move view"
 msgstr "Déplacer vue"
 
-#: ../ui-hlp/menu.c:1039
-msgid "Morph angle"
-msgstr "Angle de morphing"
-
-#: ../ui-hlp/menu.c:1044
+#: ../ui-hlp/menu.c:1045
 msgid "Zoom center"
 msgstr "Centrer le zoom"
 
-#: ../ui-hlp/menu.c:1046
-msgid "Zoom"
-msgstr "Zoomer"
-
-#: ../ui-hlp/menu.c:1047
-msgid "Un-zoom"
-msgstr "Dézoomer"
-
-#: ../ui-hlp/menu.c:1050
-msgid "Stop zooming"
-msgstr "Arrêter de zoomer"
-
-#: ../ui-hlp/menu.c:1051
-msgid "Smooth morphing parameters"
-msgstr "Lisser les paramètres de morphing"
-
-#: ../ui-hlp/menu.c:1053
-msgid "Timing functions"
-msgstr "Fonctions de temps"
-
-#: ../ui-hlp/menu.c:1054
-msgid "Usleep"
-msgstr "Pause"
-
-#: ../ui-hlp/menu.c:1057
-msgid "Wait for text"
-msgstr "Attendre le texte"
-
-#: ../ui-hlp/menu.c:1058
-msgid "Wait for complete image"
-msgstr "Attendre l'image complète"
-
-#: ../ui-hlp/menu.c:1061
-msgid "Include file"
-msgstr "Inclure fichier"
-
-#: ../ui-hlp/menu.c:1063 ../ui-hlp/menu.c:1265
-msgid "Default palette"
-msgstr "Palette par défaut"
-
-#: ../ui-hlp/menu.c:1066
-msgid "Formula"
-msgstr "Formule"
-
-#: ../ui-hlp/menu.c:1068
-msgid "Maximal zooming step"
-msgstr "Pas maximum pour le zoom"
-
-#: ../ui-hlp/menu.c:1072
+#: ../ui-hlp/menu.c:1073
 msgid "Zooming speedup"
 msgstr "Accélération du zoom"
 
-#: ../ui-hlp/menu.c:1074
-msgid "Filter"
-msgstr "Filtre"
-
-#: ../ui-hlp/menu.c:1078 ../ui-hlp/menu.c:1083
+#: ../ui-hlp/menu.c:1084
 msgid "Letters per second"
 msgstr "Lettres par seconde"
 
-#: ../ui-hlp/menu.c:1085 ../ui-hlp/menu.c:1354
-msgid "Interrupt"
-msgstr "Interrompt"
-
-#: ../ui-hlp/menu.c:1087 ../ui-hlp/menu.c:1097
-msgid "File"
-msgstr "Fichier"
-
-#: ../ui-hlp/menu.c:1088
-msgid "Edit"
-msgstr "Edition"
-
-#: ../ui-hlp/menu.c:1089
-msgid "Fractal"
-msgstr "Fractal"
-
-#: ../ui-hlp/menu.c:1090
-msgid "Calculation"
-msgstr "Calcul"
-
-#: ../ui-hlp/menu.c:1091 ../ui-hlp/menu.c:1426
-msgid "Filters"
-msgstr "Filtres"
-
-#: ../ui-hlp/menu.c:1092 ../ui-hlp/menu.c:1109
-msgid "UI"
-msgstr "Interface"
-
-#: ../ui-hlp/menu.c:1093
-msgid "Misc"
-msgstr "Divers"
-
-#: ../ui-hlp/menu.c:1094
-#, fuzzy
-msgid "Window"
-msgstr "Annuler"
-
-#: ../ui-hlp/menu.c:1096
-msgid "Tutorials"
-msgstr "Didacticiels"
-
-#: ../ui-hlp/menu.c:1103 ../ui-hlp/menu.c:1106
-msgid "Stop replay"
-msgstr "Arrêter la répétition"
-
-#: ../ui-hlp/menu.c:1111
-msgid "Command"
-msgstr "Commande"
-
-#: ../ui-hlp/menu.c:1113
-msgid "Play string"
-msgstr "Joue texte"
-
-#: ../ui-hlp/menu.c:1115
-msgid "Render animation"
-msgstr "Traiter l'animation"
-
-#: ../ui-hlp/menu.c:1118
-msgid "Clear screen"
-msgstr "Effacer écran"
-
-#: ../ui-hlp/menu.c:1120
-msgid "Display fractal"
-msgstr "Afficher fractal"
-
-#: ../ui-hlp/menu.c:1123
-msgid "Display text"
-msgstr "Afficher texte"
-
-#: ../ui-hlp/menu.c:1125
-msgid "Color"
-msgstr "Couleur"
-
-#: ../ui-hlp/menu.c:1127
-msgid "Horizontal text position"
-msgstr "Position horizontale du texte"
-
-#: ../ui-hlp/menu.c:1128
-msgid "Vertical text position"
-msgstr "Position verticale du texte"
-
-#: ../ui-hlp/menu.c:1130
-msgid "Text position"
-msgstr "Position du texte"
-
-#: ../ui-hlp/menu.c:1134
-msgid "Message"
-msgstr "Message"
-
-#: ../ui-hlp/menu.c:1156
-msgid "Load"
-msgstr "Ouvrir"
-
-#: ../ui-hlp/menu.c:1159
-msgid "Save"
-msgstr "Enregistrer"
-
-#: ../ui-hlp/menu.c:1161
-msgid "Record"
-msgstr "Enregistrer animation"
-
-#: ../ui-hlp/menu.c:1165
-msgid "Replay"
-msgstr "Rejouer animation"
-
-#: ../ui-hlp/menu.c:1172
+#: ../ui-hlp/menu.c:1175
 msgid "Save image"
 msgstr "Entregistrer image"
 
-#: ../ui-hlp/menu.c:1173
-msgid "Load random example"
-msgstr "Ouvrir un exemple aléatoire"
-
-#: ../ui-hlp/menu.c:1176
-msgid "Save configuration"
-msgstr "Enregistrer la configuration"
-
-#: ../ui-hlp/menu.c:1180
-msgid "Undo"
-msgstr "Annuler"
-
-#: ../ui-hlp/menu.c:1184
-msgid "Redo"
-msgstr "Refaire"
-
-#: ../ui-hlp/menu.c:1188
-msgid "Formulae"
-msgstr "Formule"
-
-#: ../ui-hlp/menu.c:1189
-msgid "More formulae"
-msgstr "Autres formules"
-
-#: ../ui-hlp/menu.c:1194
-#, fuzzy
-msgid "User formula"
-msgstr "Autres formules"
-
-#: ../ui-hlp/menu.c:1195
-#, fuzzy
-msgid "User initialization"
-msgstr "Initialisation"
-
-#: ../ui-hlp/menu.c:1199
-msgid "Incoloring mode"
-msgstr "Coloriage intérieur"
-
-#: ../ui-hlp/menu.c:1200
-msgid "Outcoloring mode"
-msgstr "Coloriage extérieur"
-
-#: ../ui-hlp/menu.c:1201
-msgid "Plane"
-msgstr "Plan"
-
-#: ../ui-hlp/menu.c:1202
-msgid "Palette"
-msgstr "Palette"
-
-#: ../ui-hlp/menu.c:1205
-msgid "Mandelbrot mode"
-msgstr "Mode Mandelbrot"
-
-#: ../ui-hlp/menu.c:1211 ../ui-hlp/menu.c:1215 ../ui-hlp/menu.c:1429
-msgid "Perturbation"
-msgstr "Perturbation"
-
-#: ../ui-hlp/menu.c:1226
-msgid "Reset to defaults"
-msgstr "Valeurs par défaut"
-
-#: ../ui-hlp/menu.c:1227
-msgid "Julia mode"
-msgstr "Mode Julia"
-
-#: ../ui-hlp/menu.c:1234
-msgid "Set angle"
-msgstr "Choisir l'angle"
-
-#: ../ui-hlp/menu.c:1238
-msgid "Set plane"
-msgstr "Choisir le plan"
-
-# #: ../ui-hlp/menu.c:1167
-#: ../ui-hlp/menu.c:1242
-msgid "Inside coloring mode"
-msgstr "Coloriage intérieur"
-
-#: ../ui-hlp/menu.c:1247
+#: ../ui-hlp/menu.c:1250
 msgid "Outside coloring mode"
 msgstr "Coloriage extérieur"
 
-#: ../ui-hlp/menu.c:1251
-msgid "Inside truecolor coloring mode"
-msgstr "Coloriage intérieur en vraies couleurs"
-
-#: ../ui-hlp/menu.c:1257
+#: ../ui-hlp/menu.c:1260
 msgid "Outside truecolor coloring mode"
 msgstr "Coloriage extérieur en vraies couleurs"
 
-#: ../ui-hlp/menu.c:1261
-msgid "Julia seed"
-msgstr "Initialisation de Julia"
-
-#: ../ui-hlp/menu.c:1267
-msgid "Random palette"
-msgstr "Palette aléatoire"
-
-#: ../ui-hlp/menu.c:1270
-msgid "Custom palette"
-msgstr "Palette personnelle"
-
-#: ../ui-hlp/menu.c:1274
-msgid "Color cycling"
-msgstr "Circulation des couleurs"
-
-#: ../ui-hlp/menu.c:1276
-msgid "Reversed color cycling"
-msgstr "Circulation des couleurs inversée"
-
-#: ../ui-hlp/menu.c:1281
+#: ../ui-hlp/menu.c:1284
 msgid "Color cycling speed"
 msgstr "Vitesse de circulation des couleurs"
 
-#: ../ui-hlp/menu.c:1285
-msgid "Shift palette"
-msgstr "Décaler palette"
-
-#: ../ui-hlp/menu.c:1287
-msgid "Shift one forward"
-msgstr "Avancer d'une unité"
-
-#: ../ui-hlp/menu.c:1290
-msgid "Shift one backward"
-msgstr "Reculer d'une unité"
-
-#: ../ui-hlp/menu.c:1292 ../engine/zoom.c:1491
-msgid "Solid guessing"
-msgstr "Estimation solide"
-
-#: ../ui-hlp/menu.c:1293
-msgid "Dynamic resolution"
-msgstr "Résolution dynamique"
-
-#: ../ui-hlp/menu.c:1295
-msgid "Periodicity checking"
-msgstr "Vérification périodicité"
-
-#: ../ui-hlp/menu.c:1297
-msgid "Iterations"
-msgstr "Itérations"
-
-#: ../ui-hlp/menu.c:1299
-msgid "Bailout"
-msgstr "Valeur d'échappement"
-
-#: ../ui-hlp/menu.c:1302
-msgid "Fast julia mode"
-msgstr "Mode Julia rapide"
-
-#: ../ui-hlp/menu.c:1304
-msgid "Rotation"
-msgstr "Rotation"
-
-#: ../ui-hlp/menu.c:1305
-msgid "Solid guessing range"
-msgstr "Portée de l'estimation solide"
-
-#: ../ui-hlp/menu.c:1308
-msgid "Disable rotation"
-msgstr "Désactiver rotation"
-
-#: ../ui-hlp/menu.c:1312
-msgid "Continuous rotation"
-msgstr "Rotation continue"
-
-#: ../ui-hlp/menu.c:1315
-msgid "Rotate by mouse"
-msgstr "Rotation à la souris"
-
-#: ../ui-hlp/menu.c:1319
+#: ../ui-hlp/menu.c:1322
 msgid "Rotation speed"
 msgstr "Vitesse de rotation"
 
-#: ../ui-hlp/menu.c:1322
-msgid "Automatic rotation"
-msgstr "Rotation automatique"
-
-#: ../ui-hlp/menu.c:1327
+#: ../ui-hlp/menu.c:1330
 msgid "Fast rotation mode"
 msgstr "Mode de rotation rapide"
 
-#: ../ui-hlp/menu.c:1331
-msgid "Disable dynamic resolution"
-msgstr "Désactiver la résolution dynamique"
-
-#: ../ui-hlp/menu.c:1334
-msgid "Use only during animation"
-msgstr "Utiliser seulement pendant l'animation"
-
-#: ../ui-hlp/menu.c:1338
+#: ../ui-hlp/menu.c:1341
 msgid "Use also for new images"
 msgstr "Utiliser aussi pour les nouvelles images"
 
-#: ../ui-hlp/menu.c:1340
-msgid "Dynamic resolution mode"
-msgstr "Mode de résolution dynamique"
+#: ../ui-hlp/menu.c:1357
+msgid "Interrupt"
+msgstr "Interrompt"
 
-#: ../ui-hlp/menu.c:1344
-msgid "Autopilot"
-msgstr "Pilote automatique"
-
-#: ../ui-hlp/menu.c:1347
-#, fuzzy
-msgid "VJ mode"
-msgstr "Mode Julia"
-
-#: ../ui-hlp/menu.c:1350
-msgid "Recalculate"
-msgstr "Recalculer"
-
-#: ../ui-hlp/menu.c:1359
-msgid "Zooming speed"
-msgstr "Vitesse de zoom"
-
-#: ../ui-hlp/menu.c:1361
-msgid "Fixed step"
-msgstr "Pas fixé"
-
-#: ../ui-hlp/menu.c:1365
+#: ../ui-hlp/menu.c:1368
 msgid "Disable solid guessing"
 msgstr "Désactiver l'estimation solide"
 
-#: ../ui-hlp/menu.c:1369
-msgid "Guess 2x2 rectangles"
-msgstr "Estimation en rectangles 2x2"
-
-#: ../ui-hlp/menu.c:1371
-msgid "Guess 3x3 rectangles"
-msgstr "Estimation en rectangles 3x3"
-
-#: ../ui-hlp/menu.c:1375
+#: ../ui-hlp/menu.c:1378
 msgid "Guess 4x4 rectangles"
 msgstr "Estimation en rectangles 4x4"
 
-#: ../ui-hlp/menu.c:1377
-msgid "Guess 5x5 rectangles"
-msgstr "Estimation en rectangles 5x5"
-
-#: ../ui-hlp/menu.c:1381
+#: ../ui-hlp/menu.c:1384
 msgid "Guess 6x6 rectangles"
 msgstr "Estimation en rectangles 6x6"
 
-#: ../ui-hlp/menu.c:1383
-msgid "Guess 7x7 rectangles"
-msgstr "Estimation en rectangles 7x7"
-
-#: ../ui-hlp/menu.c:1387
+#: ../ui-hlp/menu.c:1390
 msgid "Guess 8x8 rectangles"
 msgstr "Estimation en rectangles 8x8"
-
-#: ../ui-hlp/menu.c:1389
-msgid "Guess unlimited rectangles"
-msgstr "Estimation en rectangles illimités"
-
-#: ../ui-hlp/menu.c:1393
-msgid "Language"
-msgstr "Langue"
-
-#: ../ui-hlp/menu.c:1396
-msgid "An introduction to fractals"
-msgstr "Une introduction aux fractals"
-
-#: ../ui-hlp/menu.c:1397
-msgid "XaoS features overview"
-msgstr "Revue des caractéristiques de XaoS"
-
-#: ../ui-hlp/menu.c:1398
-msgid "Math behind fractals"
-msgstr "Les maths derrière les fractals"
-
-#: ../ui-hlp/menu.c:1399 ../ui-hlp/menu.c:1437
-msgid "Other fractal types in XaoS"
-msgstr "Autres types de fractals dans XaoS"
-
-#: ../ui-hlp/menu.c:1400
-msgid "What's new?"
-msgstr "Nouveautés"
-
-#: ../ui-hlp/menu.c:1410 ../ui-hlp/menu.c:1432
-msgid "Whole story"
-msgstr "Tous les détails"
-
-#: ../ui-hlp/menu.c:1412
-msgid "Introduction"
-msgstr "Introduction"
-
-#: ../ui-hlp/menu.c:1413
-msgid "Mandelbrot set"
-msgstr "Ensemble de Mandelbrot"
-
-#: ../ui-hlp/menu.c:1414
-msgid "Julia set"
-msgstr "Ensemble de Julia"
-
-#: ../ui-hlp/menu.c:1415
-msgid "Higher power Mandelbrots"
-msgstr "Puissances de Mandlebrot"
-
-#: ../ui-hlp/menu.c:1416
-msgid "Newton's method"
-msgstr "Méthode de Newton"
-
-#: ../ui-hlp/menu.c:1417
-msgid "Barnsley's formula"
-msgstr "Formule de Barnsley"
-
-#: ../ui-hlp/menu.c:1418
-msgid "Phoenix"
-msgstr "Phoenix"
-
-#: ../ui-hlp/menu.c:1419
-msgid "Octo"
-msgstr "Octo"
-
-#: ../ui-hlp/menu.c:1420
-msgid "Magnet"
-msgstr "Magnet"
-
-#: ../ui-hlp/menu.c:1421
-msgid "All features"
-msgstr "Toutes les caractéristiques"
-
-#: ../ui-hlp/menu.c:1423
-msgid "Outcoloring modes"
-msgstr "Coloration extérieure"
-
-#: ../ui-hlp/menu.c:1424
-msgid "Incoloring modes"
-msgstr "Coloration intérieure"
-
-#: ../ui-hlp/menu.c:1425
-msgid "True-color coloring modes"
-msgstr "Coloration en vraies couleurs"
-
-#: ../ui-hlp/menu.c:1427
-msgid "Planes"
-msgstr "Plans"
-
-#: ../ui-hlp/menu.c:1428
-msgid "Animations and position files"
-msgstr "Fichiers d'animation et de position"
-
-#: ../ui-hlp/menu.c:1430
-msgid "Random palettes"
-msgstr "Palettes aléatoires"
-
-#: ../ui-hlp/menu.c:1431
-msgid "Other noteworthy features"
-msgstr "Autres caractéristiques utiles"
-
-#: ../ui-hlp/menu.c:1434
-msgid "The definition and fractal dimension"
-msgstr "Définition et dimension fractale"
-
-#: ../ui-hlp/menu.c:1436
-msgid "Escape time fractals"
-msgstr "Fractals à temps d'échappement"
-
-#: ../ui-hlp/menu.c:1439
-msgid "Triceratops and Catseye fractals"
-msgstr "Fractals Triceratops et Oeil de chat"
-
-#: ../ui-hlp/menu.c:1440
-msgid "Mandelbar, Lambda, Manowar and Spider"
-msgstr "Mandelbar, Lambda, Manowar et Araignée"
-
-#: ../ui-hlp/menu.c:1441
-msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
-msgstr "Triangle de Sierpinski , Tapis de S., Flocon de Koch"
-
-#: ../ui-hlp/menu.c:1442
-msgid "What's new in 3.0?"
-msgstr "Nouveautés dans la version 3.0"
-
-#: ../ui-hlp/play.c:78
-msgid "line available only in animation replay"
-msgstr "ligne disponible seulement lors de répétition d'animation"
-
-#: ../ui-hlp/play.c:105
-msgid "Morphing non existing line!"
-msgstr "Ligne de morphing non existante!"
-
-#: ../ui-hlp/play.c:130
-msgid "linekey not available in this context!"
-msgstr "ligne clé non disponible dans ce contexte!"
-
-#: ../ui-hlp/play.c:320
-msgid "clear_line available only in animation replay"
-msgstr "effaçage de ligne disponible seulement lors de répétition d'animation"
-
-#: ../ui-hlp/play.c:331
-msgid "clear_lines available only in animation replay"
-msgstr "effaçage de lignes disponible seulement lors de répétition d'animation"
-
-#: ../ui-hlp/play.c:401
-msgid "Catalog file not found"
-msgstr "Fichier catalogue non trouvé"
-
-#: ../ui-hlp/play.c:449
-msgid "Replay is already active"
-msgstr "Répétition déja active"
-
-#: ../ui-hlp/play.c:454
-msgid "File open failed"
-msgstr "Echec d'ouverture du fichier"
-
-#: ../ui-hlp/play.c:460
-msgid "Out of memory"
-msgstr "Pas assez de mémoire"
-
-#: ../ui-hlp/play.c:586 ../ui-hlp/play.c:607 ../ui-hlp/play.c:637
-#: ../ui-hlp/play.c:671
-msgid "Missing parameter"
-msgstr "Paramètre manquant"
-
-#: ../ui-hlp/play.c:589 ../ui-hlp/play.c:610 ../ui-hlp/play.c:640
-#: ../ui-hlp/play.c:674
-msgid "Unexpected end of file"
-msgstr "Fin inattendue de fichier"
-
-#: ../ui-hlp/play.c:622 ../ui-hlp/play.c:647
-#, fuzzy
-msgid "Token is too long"
-msgstr "Le \"token\" est trop long"
-
-#: ../ui-hlp/play.c:710
-msgid "Unknown formula type"
-msgstr "Type de formule inconnu"
-
-#: ../ui-hlp/play.c:718
-#, fuzzy
-msgid "morph available only in animation replay"
-msgstr "Morphing disponible seulement lors de répétition d'animation"
-
-#: ../ui-hlp/play.c:723
-#, fuzzy
-msgid "morphview: Invalid viewpoint"
-msgstr "Vue morphing : point de vue incorrect"
-
-#: ../ui-hlp/play.c:739
-msgid "move available only in animation replay"
-msgstr "déplacement disponible seulement lors de répétition d'animation"
-
-#: ../ui-hlp/play.c:755
-#, fuzzy
-msgid "morphjulia available only in animation replay"
-msgstr "Morphjulia disponible seulement lors de répétition d'animation"
-
-#: ../ui-hlp/play.c:770
-#, fuzzy
-msgid "morphangle available only in animation replay"
-msgstr "Morphangle disponible seulement lors de répétition d'animation"
-
-#: ../ui-hlp/play.c:808
-msgid "Unknown filter"
-msgstr "Filtre inconnu"
-
-#: ../ui-hlp/play.c:855
-msgid "sleep available only in animation replay"
-msgstr "pause disponible seulement lors de répétition d'animation"
-
-#: ../ui-hlp/play.c:874
-#, c-format
-msgid "Internal program error #12 %i\n"
-msgstr "Erreur interne #12 %i\n"
-
-#: ../ui-hlp/play.c:898
-#, fuzzy
-msgid "wait available only in animation replay"
-msgstr "wait disponible seulement lors de répétition d'animation"
-
-#: ../ui-hlp/play.c:953
-msgid "No catalog file loaded"
-msgstr "Pas de fichier catalogue chargé"
-
-#: ../ui-hlp/play.c:959
-msgid "Message not found in catalog file"
-msgstr "Message non trouvé dans fichier catalogue"
-
-#: ../ui-hlp/play.c:972
-#, fuzzy
-msgid "load available only in animation replay"
-msgstr "Load disponible seulement lors de répétition d'animation"
-
-#: ../ui-hlp/play.c:977
-msgid "Include level overflow"
-msgstr "Dépassement de niveau d'inclusion"
-
-#: ../ui-hlp/play.c:987
-msgid "File not found"
-msgstr "Fichier non trouvé"
-
-#: ../ui-hlp/play.c:1006
-msgid "Too many parameters"
-msgstr "Trop de paramètres"
-
-#: ../ui-hlp/play.c:1049
-#, c-format
-msgid "Replay disabled at line %i"
-msgstr "Répétition désactivée à la ligne %i"
-
-#: ../ui-hlp/ui_helper.c:701
-msgid "Tutorial files not found. Reinstall XaoS"
-msgstr "Fichiers didacticiels introuvables. Réinstallez XaoS"
-
-#: ../ui-hlp/ui_helper.c:707
-msgid "Preparing first image"
-msgstr "Préparation première image"
-
-#: ../ui-hlp/ui_helper.c:718
-msgid "Could not open examples"
-msgstr "Echec ouverture exemples"
-
-#: ../ui-hlp/ui_helper.c:725
-#, c-format
-msgid "File %s loaded."
-msgstr "Fichier %s chargé."
-
-#: ../ui-hlp/ui_helper.c:735
-msgid "Saving image..."
-msgstr "Enregistrement image..."
-
-#: ../ui-hlp/ui_helper.c:745
-msgid "Save interrupted"
-msgstr "Enregistrement interrompu"
-
-#: ../ui-hlp/ui_helper.c:755 ../ui-hlp/ui_helper.c:774
-#: ../ui-hlp/ui_helper.c:847
-#, c-format
-msgid "File %s saved."
-msgstr "Fichier %s enregistré"
-
-#: ../ui-hlp/ui_helper.c:767
-msgid "Can not open file"
-msgstr "Echec ouverture fichier"
-
-#: ../ui-hlp/ui_helper.c:872
-#, c-format
-msgid "Recording to file %s enabled."
-msgstr "Enregistrement vers le fichier %s activé."
 
 #: ../engine/zoom.c:1233
 msgid "Solid guessing 1"
 msgstr "Estimation solide 1"
 
+#: ../engine/zoom.c:1491
+msgid "Solid guessing"
+msgstr "Estimation solide"
+
 #: ../engine/btrace.c:294 ../engine/btrace.c:382
 msgid "Boundary trace"
 msgstr "Détection de frontière"
 
-#: ../ui/dialog.c:332 ../ui/dialog.c:424 ../ui/dialog.c:1444
-msgid "OK"
-msgstr "OK"
-
-#: ../ui/dialog.c:333 ../ui/dialog.c:427 ../ui/dialog.c:1445
-#: ../ui/filesel.c:191
-msgid "Cancel"
-msgstr "Annuler"
-
-#: ../ui-hlp/render.c:47
-#, c-format
-msgid "Error: %s"
-msgstr "Erreur : %s"
-
-#: ../ui-hlp/render.c:130
-msgid "Cannot open motion vector file!"
-msgstr "Echec ouverture fichier vecteurs mouvement"
-
-#: ../ui-hlp/render.c:293
-#, c-format
-msgid "Vectors: %i"
-msgstr "Vecteurs : %i"
-
-#: ../ui-hlp/render.c:299
-msgid "Initializing"
-msgstr "Initialisation"
-
-#: ../ui-hlp/render.c:308
-msgid "Cannot create palette"
-msgstr "Echec création palette"
-
-#: ../ui-hlp/render.c:320
-msgid "Cannot create image\n"
-msgstr "Echec création image\n"
-
-#: ../ui-hlp/render.c:329
-msgid "Cannot create checking buffer!"
-msgstr "Echec création tampon de vérification!"
-
-#: ../ui-hlp/render.c:339 ../ui-hlp/render.c:645
-msgid "Cannot create context\n"
-msgstr "Echec création contexte\n"
-
-#: ../ui-hlp/render.c:352
-msgid "Cannot open animation file\n"
-msgstr "Echec ouverture fichier d'animation\n"
-
-#: ../ui-hlp/render.c:364 ../ui-hlp/render.c:655
-msgid "Loading catalogs"
-msgstr "Chargement catalogues"
-
-#: ../ui-hlp/render.c:397
-msgid "Processing command line options"
-msgstr "Traitement options ligne de commande"
-
-#: ../ui-hlp/render.c:422
-msgid "Enabling animation replay\n"
-msgstr "Activation de la répétition d'animation\n"
-
-#: ../ui-hlp/render.c:430 ../ui-hlp/render.c:558
-msgid "Cannot open image file"
-msgstr "Echec ouverture fichier image"
-
-#: ../ui-hlp/render.c:445
-#, fuzzy
-msgid "Cannot open pattern file"
-msgstr "Echec ouverture fichier de motif"
-
-#: ../ui-hlp/render.c:462 ../ui-hlp/render.c:464 ../ui-hlp/render.c:692
-msgid "Entering calculation loop!"
-msgstr "Commençant boucle de calcul!"
-
-#: ../ui-hlp/render.c:494
-#, c-format
-msgid "Frame %i skipped."
-msgstr "Image %i sautée."
-
-#: ../ui-hlp/render.c:496
-#, c-format
-msgid "Frames %i - %i skipped."
-msgstr "Images %i - %i sautées."
-
-#: ../ui-hlp/render.c:500
-#, c-format
-msgid "Frame %4i: "
-msgstr "Image %4i : "
-
-#: ../ui-hlp/render.c:572
-msgid " done."
-msgstr " terminé."
-
-#: ../ui-hlp/render.c:578
-msgid " skipping..."
-msgstr " saute..."
-
-#: ../ui-hlp/render.c:612 ../ui-hlp/render.c:712
-msgid "Calculation interrupted"
-msgstr "Calcul interrompu"
-
-#: ../ui-hlp/render.c:616 ../ui-hlp/render.c:618 ../ui-hlp/render.c:715
-msgid "Calculation finished"
-msgstr "Calcul terminé"
-
-#: ../ui/ui-drv/win32/ui_win32.c:1370
+#: ../ui/ui-drv/win32/ui_win32.c:1370 ../ui/ui-drv/cocoa/AppController.m:342
 msgid "Copy"
 msgstr "Copier"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1371
+#: ../ui/ui-drv/win32/ui_win32.c:1371 ../ui/ui-drv/cocoa/AppController.m:345
 msgid "Paste"
 msgstr "Coller"
 
 #: ../ui/ui-drv/win32/ui_win32.c:1373
 msgid "About"
 msgstr "A propos"
+
+#: ../ui/ui-drv/win32/ui_win32.c:1535
+msgid "Resize"
+msgstr "Redimensionner"
+
+#: ../ui/ui-drv/cocoa/AppController.m:220
+#, fuzzy
+msgid "About XaoS"
+msgstr "A propos"
+
+#: ../ui/ui-drv/cocoa/AppController.m:223
+msgid "Services"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:226
+msgid "Hide XaoS"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:229
+msgid "Hide Others"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:232
+msgid "Show All"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:235
+#, fuzzy
+msgid "Quit XaoS"
+msgstr "Quitter"
+
+#: ../ui/ui-drv/cocoa/AppController.m:339
+msgid "Cut"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:348
+#, fuzzy
+msgid "Delete"
+msgstr "Palette"
+
+#: ../ui/ui-drv/cocoa/AppController.m:351
+msgid "Select All"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:361
+msgid "Minimize"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:364
+msgid "Zoom"
+msgstr "Zoomer"
+
+#: ../ui/ui-drv/cocoa/AppController.m:369
+msgid "Bring All to Front"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/AppController.m:381
+#, fuzzy
+msgid "Close"
+msgstr "Couleur"
+
+#: ../ui/ui-drv/cocoa/CustomDialog.m:142
+msgid "Choose"
+msgstr ""
+
+#: ../ui/ui-drv/cocoa/CustomDialog.m:302
+msgid "OK"
+msgstr "OK"
+
+#: ../ui/ui-drv/cocoa/CustomDialog.m:312
+msgid "Cancel"
+msgstr "Annuler"
+
+#~ msgid "XaoS is out of memory."
+#~ msgstr "Pas assez de mémoire."
+
+#~ msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
+#~ msgstr "%s %.2f fois (%.1fE) %2.2f images/sec %c %i %i %i %i            "
+
+#~ msgid "unzoomed"
+#~ msgstr "Réduit"
+
+#~ msgid "zoomed"
+#~ msgstr "Aggrandi"
+
+#~ msgid "framerate:%f\n"
+#~ msgstr "taux de rafraîchissement : %f\n"
+
+#~ msgid "Enabling: %s. "
+#~ msgstr "Activation : %s. "
+
+#~ msgid "Disabling: %s. "
+#~ msgstr "Désactivation : %s. "
+
+#~ msgid "Fractal name:%s"
+#~ msgstr "Nom du fractal :  %s"
+
+#~ msgid "Fractal type:%s"
+#~ msgstr "Type de fractal : %s"
+
+#~ msgid "Mandelbrot"
+#~ msgstr "Mandelbrot"
+
+#~ msgid "Julia"
+#~ msgstr "Julia"
+
+#, fuzzy
+#~ msgid "Formula:%s"
+#~ msgstr "Formule :"
+
+#~ msgid "View:[%1.12f,%1.12f]"
+#~ msgstr "Vue : [%1.12f,%1.12f]"
+
+#~ msgid "size:[%1.12f,%1.12f]"
+#~ msgstr "Taille : [%1.12f,%1.12f]"
+
+#~ msgid "Rotation:%4.2f   Screen size:%i:%i"
+#~ msgstr "Rotation : %4.2f   Taille d'écran : %i:%i"
+
+#~ msgid "Iterations:%-4i Palette size:%i"
+#~ msgstr "Itérations : %-4i Taille palette : %i"
+
+#~ msgid "Autopilot:%-4s  Plane:%s"
+#~ msgstr "Pilote automatique : %-4s  Plan : %s"
+
+#~ msgid "On"
+#~ msgstr "Oui"
+
+#~ msgid "Off"
+#~ msgstr "Non"
+
+#~ msgid "incoloring:%s    outcoloring:%s"
+#~ msgstr "Coloration intérieure : %s  extérieure : %s"
+
+#~ msgid "zoomspeed:%f"
+#~ msgstr "Vitesse de zoom : %f"
+
+#~ msgid "Parameter:none"
+#~ msgstr "Paramètre : aucun"
+
+#~ msgid "Parameter:[%f,%f]"
+#~ msgstr "Paramètre : [%f,%f]"
+
+#~ msgid "Please wait while calculating %s"
+#~ msgstr "Patientez pendant le calcul de %s"
+
+#~ msgid "Letters per second %i  "
+#~ msgstr "Lettres par seconde %i  "
+
+#~ msgid "Rotation speed:%2.2f degrees per second "
+#~ msgstr "Vitesse de rotation : %2.2f degrés par seconde"
+
+#, fuzzy
+#~ msgid "Iterations: %i   "
+#~ msgstr "Itérations: %i   "
+
+#~ msgid "Cycling speed: %i   "
+#~ msgstr "Vitesse de circulation : %i   "
+
+#~ msgid "speed:%2.2f "
+#~ msgstr "vitesse : %2.2f"
+
+#~ msgid "Thank you for using XaoS\n"
+#~ msgstr "Merci d'avoir utilisé XaoS\n"
+
+#~ msgid "Skipping, please wait..."
+#~ msgstr "Saute image, patientez..."
+
+#~ msgid "Exit now"
+#~ msgstr "Sortir maintenant"
+
+#~ msgid "Not yet"
+#~ msgstr "Pas encore"
+
+#~ msgid "Help"
+#~ msgstr "Aide"
+
+#~ msgid "Disable XaoS's builtin GUI"
+#~ msgstr "Désactiver interface graphique interne de XaoS"
+
+#~ msgid "Status"
+#~ msgstr "Affichage état"
+
+#~ msgid "Ministatus"
+#~ msgstr "Affichage mini-état"
+
+#~ msgid "Driver"
+#~ msgstr "Pilote"
+
+#~ msgid "Welcome to XaoS version %s"
+#~ msgstr "Bienvenue sur XaoS version %s"
+
+#~ msgid "Can not allocate buffers"
+#~ msgstr "Ne peut pas allouer les tampons"
+
+#~ msgid "Can not create palette"
+#~ msgstr "Ne peut pas créer la palette"
+
+#~ msgid "Can not create image"
+#~ msgstr "Ne peut pas créer l'image"
+
+#~ msgid "Can not allocate tables"
+#~ msgstr "Ne peut pas allouer les tables"
+
+#~ msgid "Can not initialize driver"
+#~ msgstr "Ne peut pas initialiser le pilote"
+
+#~ msgid "Can not return back to previous driver"
+#~ msgstr "Ne peut pas retourner au pilote précédent"
+
+#~ msgid "Perturbation:"
+#~ msgstr "Perturbation :"
+
+#~ msgid "Julia-seed:"
+#~ msgstr "Initialisation de l'ensemble de Julia :"
+
+#~ msgid "Morphing type:"
+#~ msgstr "Type de morphing :"
+
+#~ msgid "Startuptime:"
+#~ msgstr "Instant de démarrage :"
+
+#~ msgid "Stoptime:"
+#~ msgstr "Instant d'arrêt :"
+
+#~ msgid "File to render:"
+#~ msgstr "Fichier à traiter :"
+
+#~ msgid "Basename:"
+#~ msgstr "Nom de base :"
+
+#~ msgid "Width:"
+#~ msgstr "Largeur :"
+
+#~ msgid "Height:"
+#~ msgstr "Hauteur :"
+
+#~ msgid "Real width (cm):"
+#~ msgstr "Largeur réelle (cm) :"
+
+#~ msgid "Real height (cm):"
+#~ msgstr "Hauteur réelle (cm) :"
+
+#~ msgid "Framerate:"
+#~ msgstr "Taux de rafraîchissement :"
+
+#~ msgid "Image type:"
+#~ msgstr "Type d'image :"
+
+#~ msgid "Antialiasing:"
+#~ msgstr "Anti-crénelage :"
+
+#~ msgid "Always recalculate:"
+#~ msgstr "Toujours recalculer :"
+
+#~ msgid "Calculate MPEG motion vectors:"
+#~ msgstr "Calculer les vecteurs de mouvement MPEG :"
+
+#~ msgid "Recommended I frame distance:"
+#~ msgstr "Distance conseillée entre les I-frames :"
+
+#~ msgid "Center:"
+#~ msgstr "Centre :"
+
+#~ msgid "Radius:"
+#~ msgstr "Rayon :"
+
+#~ msgid "Angle:"
+#~ msgstr "Angle :"
+
+#~ msgid "Mode:"
+#~ msgstr "Mode :"
+
+#~ msgid "Start:"
+#~ msgstr "Début :"
+
+#~ msgid "End:"
+#~ msgstr "Fin :"
+
+#~ msgid "Color:"
+#~ msgstr "Couleur :"
+
+#~ msgid "Rotations per second:"
+#~ msgstr "Rotations par seconde :"
+
+#~ msgid "Letters per second:"
+#~ msgstr "Lettres par seconde :"
+
+#~ msgid "Iterations:"
+#~ msgstr "Itérations :"
+
+#~ msgid "Text:"
+#~ msgstr "Texte :"
+
+#~ msgid "Your command:"
+#~ msgstr "Votre commande :"
+
+#~ msgid "Filename:"
+#~ msgstr "Nom de fichier :"
+
+#~ msgid "Formula:"
+#~ msgstr "Formule :"
+
+#~ msgid "X center:"
+#~ msgstr "Position horizontale centre :"
+
+#~ msgid "Y center:"
+#~ msgstr "Position verticale centre :"
+
+#~ msgid "X Radius:"
+#~ msgstr "Rayon horizontal :"
+
+#~ msgid "Y Radius:"
+#~ msgstr "Rayon vertical :"
+
+#~ msgid "Coordinates:"
+#~ msgstr "Coordonnées :"
+
+#~ msgid "continuous rotation"
+#~ msgstr "rotation continue"
+
+#~ msgid "Fast rotation"
+#~ msgstr "Rotation rapide"
+
+#~ msgid "filter"
+#~ msgstr "filtre"
+
+#~ msgid "enable"
+#~ msgstr "activer"
+
+#~ msgid "Amount:"
+#~ msgstr "Quantité :"
+
+#~ msgid "Zooming speed:"
+#~ msgstr "Vitesse de zoom :"
+
+#~ msgid "Name:"
+#~ msgstr "Nom :"
+
+#~ msgid "Bailout:"
+#~ msgstr "Valeur d'échappement :"
+
+#~ msgid "Julia mode:"
+#~ msgstr "Mode Julia :"
+
+#~ msgid "Horizontal position:"
+#~ msgstr "Position horizontale :"
+
+#~ msgid "Vertical position:"
+#~ msgstr "Position verticale :"
+
+#~ msgid "Dynamic resolution:"
+#~ msgstr "Résolution dynamique :"
+
+#~ msgid "Time:"
+#~ msgstr "Heure :"
+
+#~ msgid "Number:"
+#~ msgstr "Nombre :"
+
+#~ msgid "Algorithm number:"
+#~ msgstr "Numéro d'algorithme :"
+
+#~ msgid "Seed:"
+#~ msgstr "Valeur initiale :"
+
+#~ msgid "Shift:"
+#~ msgstr "Décalage :"
+
+#~ msgid "Frames per second:"
+#~ msgstr "Images par seconde"
+
+#, fuzzy
+#~ msgid "Initialization:"
+#~ msgstr "Initialisation"
+
+#~ msgid "renderanim: invalid framerate"
+#~ msgstr "animation : taux de rafraîchissement incorrect"
+
+#~ msgid "renderanim: incorrect I frame distance"
+#~ msgstr "animation : distance entre I-frames incorrecte"
+
+#~ msgid "animateview: Invalid viewpoint"
+#~ msgstr "animation : point de vue incorrect"
+
+#~ msgid "Invalid viewpoint"
+#~ msgstr "Point de vue incorrect"
+
+#~ msgid "Unknown palette type"
+#~ msgstr "Type de palette inconnu"
+
+#~ msgid "Initialization of color cycling failed."
+#~ msgstr "Echec de l'initialisation de la circulation des couleurs."
+
+#~ msgid "Try to enable palette emulation filter"
+#~ msgstr "Essayez d'activer le filtre d'émulation de palette"
+
+#~ msgid "Algorithm:%i seed:%i size:%i"
+#~ msgstr "Algorithme : %i  valeur initiale : %i  taille : %i"
+
+#~ msgid "Root menu"
+#~ msgstr "Menu principal"
+
+#~ msgid "Animation root menu"
+#~ msgstr "Menu principal d'animation"
+
+#~ msgid "Replay only commands"
+#~ msgstr "Commandes de répétition uniquement"
+
+#~ msgid "Command line options only"
+#~ msgstr "Options en ligne de commande uniquement"
+
+#~ msgid "print menus specifications of all menus"
+#~ msgstr "imprimer les caractéristiques de menu pour tous les menus"
+
+#~ msgid "print menu specification in xshl format"
+#~ msgstr "imprimer les caractéristiques de menu au format xshl"
+
+#~ msgid "print dialog specification"
+#~ msgstr "imprimer les caractéristiques de dialogue"
+
+#~ msgid "Line drawing functions"
+#~ msgstr "Fonctions de traçage de lignes"
+
+#~ msgid "Line"
+#~ msgstr "Ligne"
+
+#~ msgid "Morph line"
+#~ msgstr "Ligne de morphing"
+
+#~ msgid "Morph last line"
+#~ msgstr "Dernière ligne de morphing"
+
+#~ msgid "Set line key"
+#~ msgstr "Choisir ligne clé"
+
+#~ msgid "Clear line"
+#~ msgstr "Effacer ligne"
+
+#~ msgid "Clear all lines"
+#~ msgstr "Effacer toutes les lignes"
+
+#~ msgid "Animation functions"
+#~ msgstr "Fonctions d'animation"
+
+#~ msgid "View"
+#~ msgstr "Vue"
+
+#~ msgid "Morph julia"
+#~ msgstr "Morphing de Julia"
+
+#~ msgid "Morph angle"
+#~ msgstr "Angle de morphing"
+
+#~ msgid "Un-zoom"
+#~ msgstr "Dézoomer"
+
+#~ msgid "Stop zooming"
+#~ msgstr "Arrêter de zoomer"
+
+#~ msgid "Smooth morphing parameters"
+#~ msgstr "Lisser les paramètres de morphing"
+
+#~ msgid "Timing functions"
+#~ msgstr "Fonctions de temps"
+
+#~ msgid "Usleep"
+#~ msgstr "Pause"
+
+#~ msgid "Wait for text"
+#~ msgstr "Attendre le texte"
+
+#~ msgid "Wait for complete image"
+#~ msgstr "Attendre l'image complète"
+
+#~ msgid "Include file"
+#~ msgstr "Inclure fichier"
+
+#~ msgid "Default palette"
+#~ msgstr "Palette par défaut"
+
+#~ msgid "Formula"
+#~ msgstr "Formule"
+
+#~ msgid "Maximal zooming step"
+#~ msgstr "Pas maximum pour le zoom"
+
+#~ msgid "Filter"
+#~ msgstr "Filtre"
+
+#~ msgid "File"
+#~ msgstr "Fichier"
+
+#~ msgid "Edit"
+#~ msgstr "Edition"
+
+#~ msgid "Fractal"
+#~ msgstr "Fractal"
+
+#~ msgid "Calculation"
+#~ msgstr "Calcul"
+
+#~ msgid "Filters"
+#~ msgstr "Filtres"
+
+#~ msgid "UI"
+#~ msgstr "Interface"
+
+#~ msgid "Misc"
+#~ msgstr "Divers"
+
+#, fuzzy
+#~ msgid "Window"
+#~ msgstr "Annuler"
+
+#~ msgid "Tutorials"
+#~ msgstr "Didacticiels"
+
+#~ msgid "Stop replay"
+#~ msgstr "Arrêter la répétition"
+
+#~ msgid "Command"
+#~ msgstr "Commande"
+
+#~ msgid "Play string"
+#~ msgstr "Joue texte"
+
+#~ msgid "Render animation"
+#~ msgstr "Traiter l'animation"
+
+#~ msgid "Clear screen"
+#~ msgstr "Effacer écran"
+
+#~ msgid "Display fractal"
+#~ msgstr "Afficher fractal"
+
+#~ msgid "Display text"
+#~ msgstr "Afficher texte"
+
+#~ msgid "Horizontal text position"
+#~ msgstr "Position horizontale du texte"
+
+#~ msgid "Vertical text position"
+#~ msgstr "Position verticale du texte"
+
+#~ msgid "Text position"
+#~ msgstr "Position du texte"
+
+#~ msgid "Message"
+#~ msgstr "Message"
+
+#~ msgid "Load"
+#~ msgstr "Ouvrir"
+
+#~ msgid "Save"
+#~ msgstr "Enregistrer"
+
+#~ msgid "Record"
+#~ msgstr "Enregistrer animation"
+
+#~ msgid "Replay"
+#~ msgstr "Rejouer animation"
+
+#~ msgid "Load random example"
+#~ msgstr "Ouvrir un exemple aléatoire"
+
+#~ msgid "Save configuration"
+#~ msgstr "Enregistrer la configuration"
+
+#~ msgid "Undo"
+#~ msgstr "Annuler"
+
+#~ msgid "Redo"
+#~ msgstr "Refaire"
+
+#~ msgid "Formulae"
+#~ msgstr "Formule"
+
+#~ msgid "More formulae"
+#~ msgstr "Autres formules"
+
+#, fuzzy
+#~ msgid "User formula"
+#~ msgstr "Autres formules"
+
+#, fuzzy
+#~ msgid "User initialization"
+#~ msgstr "Initialisation"
+
+#~ msgid "Incoloring mode"
+#~ msgstr "Coloriage intérieur"
+
+#~ msgid "Outcoloring mode"
+#~ msgstr "Coloriage extérieur"
+
+#~ msgid "Plane"
+#~ msgstr "Plan"
+
+#~ msgid "Mandelbrot mode"
+#~ msgstr "Mode Mandelbrot"
+
+#~ msgid "Perturbation"
+#~ msgstr "Perturbation"
+
+#~ msgid "Reset to defaults"
+#~ msgstr "Valeurs par défaut"
+
+#~ msgid "Julia mode"
+#~ msgstr "Mode Julia"
+
+#~ msgid "Set angle"
+#~ msgstr "Choisir l'angle"
+
+#~ msgid "Set plane"
+#~ msgstr "Choisir le plan"
+
+# #: ../ui-hlp/menu.c:1167
+#~ msgid "Inside coloring mode"
+#~ msgstr "Coloriage intérieur"
+
+#~ msgid "Inside truecolor coloring mode"
+#~ msgstr "Coloriage intérieur en vraies couleurs"
+
+#~ msgid "Julia seed"
+#~ msgstr "Initialisation de Julia"
+
+#~ msgid "Random palette"
+#~ msgstr "Palette aléatoire"
+
+#~ msgid "Custom palette"
+#~ msgstr "Palette personnelle"
+
+#~ msgid "Color cycling"
+#~ msgstr "Circulation des couleurs"
+
+#~ msgid "Reversed color cycling"
+#~ msgstr "Circulation des couleurs inversée"
+
+#~ msgid "Shift palette"
+#~ msgstr "Décaler palette"
+
+#~ msgid "Shift one forward"
+#~ msgstr "Avancer d'une unité"
+
+#~ msgid "Shift one backward"
+#~ msgstr "Reculer d'une unité"
+
+#~ msgid "Dynamic resolution"
+#~ msgstr "Résolution dynamique"
+
+#~ msgid "Periodicity checking"
+#~ msgstr "Vérification périodicité"
+
+#~ msgid "Iterations"
+#~ msgstr "Itérations"
+
+#~ msgid "Bailout"
+#~ msgstr "Valeur d'échappement"
+
+#~ msgid "Fast julia mode"
+#~ msgstr "Mode Julia rapide"
+
+#~ msgid "Rotation"
+#~ msgstr "Rotation"
+
+#~ msgid "Solid guessing range"
+#~ msgstr "Portée de l'estimation solide"
+
+#~ msgid "Disable rotation"
+#~ msgstr "Désactiver rotation"
+
+#~ msgid "Continuous rotation"
+#~ msgstr "Rotation continue"
+
+#~ msgid "Rotate by mouse"
+#~ msgstr "Rotation à la souris"
+
+#~ msgid "Automatic rotation"
+#~ msgstr "Rotation automatique"
+
+#~ msgid "Disable dynamic resolution"
+#~ msgstr "Désactiver la résolution dynamique"
+
+#~ msgid "Use only during animation"
+#~ msgstr "Utiliser seulement pendant l'animation"
+
+#~ msgid "Dynamic resolution mode"
+#~ msgstr "Mode de résolution dynamique"
+
+#~ msgid "Autopilot"
+#~ msgstr "Pilote automatique"
+
+#, fuzzy
+#~ msgid "VJ mode"
+#~ msgstr "Mode Julia"
+
+#~ msgid "Recalculate"
+#~ msgstr "Recalculer"
+
+#~ msgid "Zooming speed"
+#~ msgstr "Vitesse de zoom"
+
+#~ msgid "Fixed step"
+#~ msgstr "Pas fixé"
+
+#~ msgid "Guess 2x2 rectangles"
+#~ msgstr "Estimation en rectangles 2x2"
+
+#~ msgid "Guess 3x3 rectangles"
+#~ msgstr "Estimation en rectangles 3x3"
+
+#~ msgid "Guess 5x5 rectangles"
+#~ msgstr "Estimation en rectangles 5x5"
+
+#~ msgid "Guess 7x7 rectangles"
+#~ msgstr "Estimation en rectangles 7x7"
+
+#~ msgid "Guess unlimited rectangles"
+#~ msgstr "Estimation en rectangles illimités"
+
+#~ msgid "Language"
+#~ msgstr "Langue"
+
+#~ msgid "An introduction to fractals"
+#~ msgstr "Une introduction aux fractals"
+
+#~ msgid "XaoS features overview"
+#~ msgstr "Revue des caractéristiques de XaoS"
+
+#~ msgid "Math behind fractals"
+#~ msgstr "Les maths derrière les fractals"
+
+#~ msgid "Other fractal types in XaoS"
+#~ msgstr "Autres types de fractals dans XaoS"
+
+#~ msgid "What's new?"
+#~ msgstr "Nouveautés"
+
+#~ msgid "Whole story"
+#~ msgstr "Tous les détails"
+
+#~ msgid "Introduction"
+#~ msgstr "Introduction"
+
+#~ msgid "Mandelbrot set"
+#~ msgstr "Ensemble de Mandelbrot"
+
+#~ msgid "Julia set"
+#~ msgstr "Ensemble de Julia"
+
+#~ msgid "Higher power Mandelbrots"
+#~ msgstr "Puissances de Mandlebrot"
+
+#~ msgid "Newton's method"
+#~ msgstr "Méthode de Newton"
+
+#~ msgid "Barnsley's formula"
+#~ msgstr "Formule de Barnsley"
+
+#~ msgid "Phoenix"
+#~ msgstr "Phoenix"
+
+#~ msgid "Octo"
+#~ msgstr "Octo"
+
+#~ msgid "Magnet"
+#~ msgstr "Magnet"
+
+#~ msgid "All features"
+#~ msgstr "Toutes les caractéristiques"
+
+#~ msgid "Outcoloring modes"
+#~ msgstr "Coloration extérieure"
+
+#~ msgid "Incoloring modes"
+#~ msgstr "Coloration intérieure"
+
+#~ msgid "True-color coloring modes"
+#~ msgstr "Coloration en vraies couleurs"
+
+#~ msgid "Planes"
+#~ msgstr "Plans"
+
+#~ msgid "Animations and position files"
+#~ msgstr "Fichiers d'animation et de position"
+
+#~ msgid "Random palettes"
+#~ msgstr "Palettes aléatoires"
+
+#~ msgid "Other noteworthy features"
+#~ msgstr "Autres caractéristiques utiles"
+
+#~ msgid "The definition and fractal dimension"
+#~ msgstr "Définition et dimension fractale"
+
+#~ msgid "Escape time fractals"
+#~ msgstr "Fractals à temps d'échappement"
+
+#~ msgid "Triceratops and Catseye fractals"
+#~ msgstr "Fractals Triceratops et Oeil de chat"
+
+#~ msgid "Mandelbar, Lambda, Manowar and Spider"
+#~ msgstr "Mandelbar, Lambda, Manowar et Araignée"
+
+#~ msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
+#~ msgstr "Triangle de Sierpinski , Tapis de S., Flocon de Koch"
+
+#~ msgid "What's new in 3.0?"
+#~ msgstr "Nouveautés dans la version 3.0"
+
+#~ msgid "line available only in animation replay"
+#~ msgstr "ligne disponible seulement lors de répétition d'animation"
+
+#~ msgid "Morphing non existing line!"
+#~ msgstr "Ligne de morphing non existante!"
+
+#~ msgid "linekey not available in this context!"
+#~ msgstr "ligne clé non disponible dans ce contexte!"
+
+#~ msgid "clear_line available only in animation replay"
+#~ msgstr ""
+#~ "effaçage de ligne disponible seulement lors de répétition d'animation"
+
+#~ msgid "clear_lines available only in animation replay"
+#~ msgstr ""
+#~ "effaçage de lignes disponible seulement lors de répétition d'animation"
+
+#~ msgid "Catalog file not found"
+#~ msgstr "Fichier catalogue non trouvé"
+
+#~ msgid "Replay is already active"
+#~ msgstr "Répétition déja active"
+
+#~ msgid "File open failed"
+#~ msgstr "Echec d'ouverture du fichier"
+
+#~ msgid "Out of memory"
+#~ msgstr "Pas assez de mémoire"
+
+#~ msgid "Missing parameter"
+#~ msgstr "Paramètre manquant"
+
+#~ msgid "Unexpected end of file"
+#~ msgstr "Fin inattendue de fichier"
+
+#, fuzzy
+#~ msgid "Token is too long"
+#~ msgstr "Le \"token\" est trop long"
+
+#~ msgid "Unknown formula type"
+#~ msgstr "Type de formule inconnu"
+
+#, fuzzy
+#~ msgid "morph available only in animation replay"
+#~ msgstr "Morphing disponible seulement lors de répétition d'animation"
+
+#, fuzzy
+#~ msgid "morphview: Invalid viewpoint"
+#~ msgstr "Vue morphing : point de vue incorrect"
+
+#~ msgid "move available only in animation replay"
+#~ msgstr "déplacement disponible seulement lors de répétition d'animation"
+
+#, fuzzy
+#~ msgid "morphjulia available only in animation replay"
+#~ msgstr "Morphjulia disponible seulement lors de répétition d'animation"
+
+#, fuzzy
+#~ msgid "morphangle available only in animation replay"
+#~ msgstr "Morphangle disponible seulement lors de répétition d'animation"
+
+#~ msgid "Unknown filter"
+#~ msgstr "Filtre inconnu"
+
+#~ msgid "sleep available only in animation replay"
+#~ msgstr "pause disponible seulement lors de répétition d'animation"
+
+#~ msgid "Internal program error #12 %i\n"
+#~ msgstr "Erreur interne #12 %i\n"
+
+#, fuzzy
+#~ msgid "wait available only in animation replay"
+#~ msgstr "wait disponible seulement lors de répétition d'animation"
+
+#~ msgid "No catalog file loaded"
+#~ msgstr "Pas de fichier catalogue chargé"
+
+#~ msgid "Message not found in catalog file"
+#~ msgstr "Message non trouvé dans fichier catalogue"
+
+#, fuzzy
+#~ msgid "load available only in animation replay"
+#~ msgstr "Load disponible seulement lors de répétition d'animation"
+
+#~ msgid "Include level overflow"
+#~ msgstr "Dépassement de niveau d'inclusion"
+
+#~ msgid "File not found"
+#~ msgstr "Fichier non trouvé"
+
+#~ msgid "Too many parameters"
+#~ msgstr "Trop de paramètres"
+
+#~ msgid "Replay disabled at line %i"
+#~ msgstr "Répétition désactivée à la ligne %i"
+
+#~ msgid "Tutorial files not found. Reinstall XaoS"
+#~ msgstr "Fichiers didacticiels introuvables. Réinstallez XaoS"
+
+#~ msgid "Preparing first image"
+#~ msgstr "Préparation première image"
+
+#~ msgid "Could not open examples"
+#~ msgstr "Echec ouverture exemples"
+
+#~ msgid "File %s loaded."
+#~ msgstr "Fichier %s chargé."
+
+#~ msgid "Saving image..."
+#~ msgstr "Enregistrement image..."
+
+#~ msgid "Save interrupted"
+#~ msgstr "Enregistrement interrompu"
+
+#~ msgid "File %s saved."
+#~ msgstr "Fichier %s enregistré"
+
+#~ msgid "Can not open file"
+#~ msgstr "Echec ouverture fichier"
+
+#~ msgid "Recording to file %s enabled."
+#~ msgstr "Enregistrement vers le fichier %s activé."
+
+#~ msgid "Error: %s"
+#~ msgstr "Erreur : %s"
+
+#~ msgid "Cannot open motion vector file!"
+#~ msgstr "Echec ouverture fichier vecteurs mouvement"
+
+#~ msgid "Vectors: %i"
+#~ msgstr "Vecteurs : %i"
+
+#~ msgid "Initializing"
+#~ msgstr "Initialisation"
+
+#~ msgid "Cannot create palette"
+#~ msgstr "Echec création palette"
+
+#~ msgid "Cannot create image\n"
+#~ msgstr "Echec création image\n"
+
+#~ msgid "Cannot create checking buffer!"
+#~ msgstr "Echec création tampon de vérification!"
+
+#~ msgid "Cannot create context\n"
+#~ msgstr "Echec création contexte\n"
+
+#~ msgid "Cannot open animation file\n"
+#~ msgstr "Echec ouverture fichier d'animation\n"
+
+#~ msgid "Loading catalogs"
+#~ msgstr "Chargement catalogues"
+
+#~ msgid "Processing command line options"
+#~ msgstr "Traitement options ligne de commande"
+
+#~ msgid "Enabling animation replay\n"
+#~ msgstr "Activation de la répétition d'animation\n"
+
+#~ msgid "Cannot open image file"
+#~ msgstr "Echec ouverture fichier image"
+
+#, fuzzy
+#~ msgid "Cannot open pattern file"
+#~ msgstr "Echec ouverture fichier de motif"
+
+#~ msgid "Entering calculation loop!"
+#~ msgstr "Commençant boucle de calcul!"
+
+#~ msgid "Frame %i skipped."
+#~ msgstr "Image %i sautée."
+
+#~ msgid "Frames %i - %i skipped."
+#~ msgstr "Images %i - %i sautées."
+
+#~ msgid "Frame %4i: "
+#~ msgstr "Image %4i : "
+
+#~ msgid " done."
+#~ msgstr " terminé."
+
+#~ msgid " skipping..."
+#~ msgstr " saute..."
+
+#~ msgid "Calculation interrupted"
+#~ msgstr "Calcul interrompu"
+
+#~ msgid "Calculation finished"
+#~ msgstr "Calcul terminé"
 
 #, fuzzy
 #~ msgid "User function"

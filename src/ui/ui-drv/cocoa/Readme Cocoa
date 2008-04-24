@@ -307,6 +307,22 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     - Add code to prevent rendering animation if absolute path is not specified
       for Basename.  This prevents files from being accidentally written to the
       hard drive's root directory
+      
+2008-04-23
+
+    I18N
+    
+    - Changes to -initLocale: do not overwrite LANG if it is already set
+    
+    - Replace gettext (...) with _(...) in all files
+    
+    - Added AppController.m and CustomDialog.m in i18n/Makefile.in.in
+    
+    - Regenerated po and pot files with new strings from cocoa driver
+    
+    MISC
+    
+    - Conditionalize window menu with #ifdef MACOSX
 
 TODO:
 
@@ -321,6 +337,7 @@ TODO:
 * help
     - Add Mac OS X help section
     - Update out of date documentation
+    - Add links to Videator in Mac OS X help section
 
 * acs features
     - Implement fast palette save/recall
@@ -328,5 +345,4 @@ TODO:
 
 * videator
     - Add enable/disable menu item
-    - Add links to Videator in Mac OS X help section
 

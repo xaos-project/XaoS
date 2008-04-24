@@ -52,8 +52,9 @@
 
 #ifdef HAVE_GETTEXT
 #include <libintl.h>
+#define _(STRING) gettext(STRING)
 #else
-#define gettext(STRING) STRING
+#define _(STRING) STRING
 #endif
 
 struct dialogitem;
@@ -329,8 +330,8 @@ ui_buildok (struct dialogitem *item, CONST menudialog * entry)
 {
   struct okdata *ok;
   item->height = BUTTONHEIGHT;
-  okwidth = xtextwidth (uih->font, gettext ("OK"));
-  cancelwidth = xtextwidth (uih->font, gettext ("Cancel"));
+  okwidth = xtextwidth (uih->font, _("OK"));
+  cancelwidth = xtextwidth (uih->font, _("Cancel"));
   item->width = okwidth + 2 * BORDERWIDTH + 2;
   item->width1 = cancelwidth + 2 * BORDERWIDTH + 2;
   if (item->width < item->width1)
@@ -421,13 +422,13 @@ static void
 ui_drawok (struct dialogitem *item)
 {
   struct okdata *ok = (struct okdata *) item->data;
-  ui_drawbutton (gettext ("OK"), ok->pressed == 0, SELECTED (item)
+  ui_drawbutton (_("OK"), ok->pressed == 0, SELECTED (item)
 		 && ok->selected == 0, dialog.x + BORDERWIDTH + 1,
 		 dialog.x + (dialog.width) / 3 - 1, item->y);
-  ui_drawbutton (gettext ("Cancel"), ok->pressed == 1, SELECTED (item)
+  ui_drawbutton (_("Cancel"), ok->pressed == 1, SELECTED (item)
 		 && ok->selected == 1, dialog.x + (dialog.width) / 3 + 1,
 		 dialog.x + 2 * dialog.width / 3 - BORDERWIDTH, item->y);
-  ui_drawbutton (gettext ("Help"), ok->pressed == 2, SELECTED (item)
+  ui_drawbutton (_("Help"), ok->pressed == 2, SELECTED (item)
 		 && ok->selected == 2, dialog.x + 2 * (dialog.width) / 3,
 		 dialog.x + dialog.width - BORDERWIDTH - 1, item->y);
 }
@@ -1441,9 +1442,9 @@ ui_builddialog (CONST menuitem * item)
     }
   dialog.height += YSKIP * (n - 1);
   n =
-    xtextwidth (uih->font, gettext ("OK")) + xtextwidth (uih->font,
-							 gettext ("Cancel")) +
-    xtextwidth (uih->font, gettext ("Help")) + 10;
+    xtextwidth (uih->font, _("OK")) + xtextwidth (uih->font,
+							 _("Cancel")) +
+    xtextwidth (uih->font, _("Help")) + 10;
   if (dialog.width < n)
     dialog.width = n;
   dialog.half = dialog.width + 2 * BORDERWIDTH;
