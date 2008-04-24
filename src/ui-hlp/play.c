@@ -22,9 +22,8 @@
 
 #ifdef HAVE_GETTEXT
 #include <libintl.h>
-#define _(STRING) gettext(STRING)
 #else
-#define _(STRING) STRING
+#define gettext(STRING) STRING
 #endif
 
 #define nextchar() (uih->playstring==NULL?xio_getc(FD):uih->playstring[uih->playpos++])
@@ -76,7 +75,7 @@ uih_line (uih_context * c, dialogparam * d)
   struct uih_line *l;
   if (c->playstring != NULL)
     {
-      seterr (_("line available only in animation replay"));
+      seterr (gettext ("line available only in animation replay"));
       return;
     }
   w = uih_registerline (c, 0, -1, -1, -1, -1);
@@ -103,7 +102,7 @@ uih_morphline (uih_context * c, dialogparam * d)
   l = uih_findkey (c, c->playc->lines.currkey);
   if (l == NULL)
     {
-      seterr (_("Morphing non existing line!"));
+      seterr (gettext ("Morphing non existing line!"));
       return;
     }
   c->playc->lines.currkey++;
@@ -128,7 +127,7 @@ uih_setkey (uih_context * c, int line)
 {
   if (!c->play)
     {
-      seterr (_("linekey not available in this context!"));
+      seterr (gettext ("linekey not available in this context!"));
       return;
     }
   c->playc->lines.currkey = line;
@@ -318,7 +317,7 @@ uih_clear_line (uih_context * c)
 {
   if (c->playstring != NULL)
     {
-      seterr (_("clear_line available only in animation replay"));
+      seterr (gettext ("clear_line available only in animation replay"));
       return;
     }
   uih_removeline (c, uih_findkey (c, c->playc->lines.currkey++));
@@ -329,7 +328,7 @@ uih_clear_lines (uih_context * c)
 {
   if (c->playstring != NULL)
     {
-      seterr (_("clear_lines available only in animation replay"));
+      seterr (gettext ("clear_lines available only in animation replay"));
       return;
     }
   while (c->playc->lines.first != NULL)
@@ -399,7 +398,7 @@ uih_loadcatalog (uih_context * c, CONST char *name)
 	  firsttime = 0;
 	  return 0;
 	}			/*Let XaoS work as stand alone executable */
-      uih_error (c, _("Catalog file not found"));
+      uih_error (c, gettext ("Catalog file not found"));
       return 0;
     }
   firsttime = 0;
@@ -447,18 +446,18 @@ uih_replayenable (struct uih_context *uih, xio_file f, xio_constpath filename,
   CONST char *s;
   if (uih->play)
     {
-      uih_error (uih, _("Replay is already active"));
+      uih_error (uih, gettext ("Replay is already active"));
       return 0;
     }
   if (f == XIO_FAILED)
     {
-      uih_error (uih, _("File open failed"));
+      uih_error (uih, gettext ("File open failed"));
       return 0;
     }
   p = (struct uih_playcontext *) calloc (1, sizeof (*p));
   if (p == NULL)
     {
-      uih_error (uih, _("Out of memory"));
+      uih_error (uih, gettext ("Out of memory"));
       return 0;
     }
   if (animr)
@@ -584,10 +583,10 @@ gettoken (struct uih_context *uih)
     {
       if (uih->playstring)
 	{
-	  seterr (_("Missing parameter"));
+	  seterr (gettext ("Missing parameter"));
 	}
       else
-	seterr (_("Unexpected end of file"));
+	seterr (gettext ("Unexpected end of file"));
       return 0;
     }
   if ((c = nextchar ()) == '"')
@@ -605,10 +604,10 @@ gettoken (struct uih_context *uih)
 	    {
 	      if (uih->playstring)
 		{
-		  seterr (_("Missing parameter"));
+		  seterr (gettext ("Missing parameter"));
 		}
 	      else
-		seterr (_("Unexpected end of file"));
+		seterr (gettext ("Unexpected end of file"));
 	      return 0;
 	    }
 	  if (c == '\n' && uih->playstring == NULL)
@@ -620,7 +619,7 @@ gettoken (struct uih_context *uih)
 	  i++;
 	  if (i >= 1024)
 	    {
-	      seterr (_("Token is too long"));
+	      seterr (gettext ("Token is too long"));
 	      i = 0;
 	    }
 	}
@@ -635,17 +634,17 @@ gettoken (struct uih_context *uih)
 	{
 	  if (uih->playstring)
 	    {
-	      seterr (_("Missing parameter"));
+	      seterr (gettext ("Missing parameter"));
 	    }
 	  else
-	    seterr (_("Unexpected end of file"));
+	    seterr (gettext ("Unexpected end of file"));
 	  return 0;
 	}
       token[i] = c;
       i++;
       if (i >= 1024)
 	{
-	  seterr (_("Token is too long"));
+	  seterr (gettext ("Token is too long"));
 	  i = 0;
 	}
     }
@@ -669,10 +668,10 @@ gettoken (struct uih_context *uih)
     {
       if (uih->playstring)
 	{
-	  seterr (_("Missing parameter"));
+	  seterr (gettext ("Missing parameter"));
 	}
       else
-	seterr (_("Unexpected end of file"));
+	seterr (gettext ("Unexpected end of file"));
       return 0;
     }
   if (c == ')')
@@ -708,7 +707,7 @@ uih_play_formula (struct uih_context *uih, char *fname)
 	  return;
 	}
     }
-  seterr (_("Unknown formula type"));
+  seterr (gettext ("Unknown formula type"));
 }
 
 void
@@ -716,12 +715,12 @@ uih_playmorph (struct uih_context *uih, dialogparam * d)
 {
   if (uih->playstring != NULL)
     {
-      seterr (_("morph available only in animation replay"));
+      seterr (gettext ("morph available only in animation replay"));
       return;
     }
   if (d[2].number <= 0 || d[3].number <= 0)
     {
-      seterr (_("morphview: Invalid viewpoint"));
+      seterr (gettext ("morphview: Invalid viewpoint"));
       uih->playc->destination = uih->fcontext->currentformula->v;
     }
   uih->playc->source = uih->fcontext->s;
@@ -737,7 +736,7 @@ uih_playmove (struct uih_context *uih, number_t x, number_t y)
 {
   if (uih->playstring != NULL)
     {
-      seterr (_("move available only in animation replay"));
+      seterr (gettext ("move available only in animation replay"));
       return;
     }
   uih->playc->source = uih->fcontext->s;
@@ -753,7 +752,7 @@ uih_playmorphjulia (struct uih_context *uih, number_t x, number_t y)
 {
   if (uih->playstring != NULL)
     {
-      seterr (_("morphjulia available only in animation replay"));
+      seterr (gettext ("morphjulia available only in animation replay"));
       return;
     }
   uih->playc->sr = uih->fcontext->pre;
@@ -768,7 +767,7 @@ uih_playmorphangle (struct uih_context *uih, number_t angle)
 {
   if (uih->playstring != NULL)
     {
-      seterr (_("morphangle available only in animation replay"));
+      seterr (gettext ("morphangle available only in animation replay"));
       return;
     }
   uih->playc->morphangle = 1;
@@ -806,7 +805,7 @@ uih_playfilter (struct uih_context *uih, dialogparam * p)
 	  return;
 	}
     }
-  seterr (_("Unknown filter"));
+  seterr (gettext ("Unknown filter"));
 }
 
 void
@@ -853,7 +852,7 @@ uih_playusleep (struct uih_context *uih, int time)
   parsenext = 0;
   if (uih->playstring != NULL)
     {
-      seterr (_("sleep available only in animation replay"));
+      seterr (gettext ("sleep available only in animation replay"));
       return;
     }
   uih->playc->frametime = time;
@@ -872,7 +871,7 @@ uih_playusleep (struct uih_context *uih, int time)
 	  tl_add_timer (syncgroup, uih->playc->timer);
 	}
       else
-	printf (_("Internal program error #12 %i\n"),
+	printf (gettext ("Internal program error #12 %i\n"),
 		uih->playc->playframe);
     }
   uih->playc->starttime = tl_lookup_timer (uih->playc->timer);
@@ -896,7 +895,7 @@ uih_playwait (struct uih_context *uih)
   parsenext = 0;
   if (uih->playstring != NULL)
     {
-      seterr (_("wait available only in animation replay"));
+      seterr (gettext ("wait available only in animation replay"));
       return;
     }
   if (!uih->uncomplette && !uih->display && !uih->recalculatemode
@@ -951,13 +950,13 @@ uih_playmessage (struct uih_context *uih, char *name)
   char *message;
   if (catalog == NULL)
     {
-      uih_text (uih, _("No catalog file loaded"));
+      uih_text (uih, gettext ("No catalog file loaded"));
       return;
     }
   message = find_text (catalog, name);
   if (message == NULL)
     {
-      uih_text (uih, _("Message not found in catalog file"));
+      uih_text (uih, gettext ("Message not found in catalog file"));
       return;
     }
   uih_text (uih, message);
@@ -970,12 +969,12 @@ uih_playload (struct uih_context *uih, xio_path file)
   xio_pathdata tmp;
   if (uih->playstring != NULL)
     {
-      seterr (_("load available only in animation replay"));
+      seterr (gettext ("load available only in animation replay"));
       return;
     }
   if (uih->playc->level == MAXLEVEL)
     {
-      seterr (_("Include level overflow"));
+      seterr (gettext ("Include level overflow"));
       return;
     }
 
@@ -985,7 +984,7 @@ uih_playload (struct uih_context *uih, xio_path file)
 
   if (f == XIO_FAILED)
     {
-      seterr (_("File not found"));
+      seterr (gettext ("File not found"));
       return;
     }
   uih->playc->prevfiles[uih->playc->level] = uih->playc->file;
@@ -1004,7 +1003,7 @@ uih_processcommand (struct uih_context *uih, int flags)
     seterr (error);
   if (!last)
     {
-      seterr (_("Too many parameters"));
+      seterr (gettext ("Too many parameters"));
     }
 }
 void
@@ -1047,7 +1046,7 @@ uih_playupdate (struct uih_context *uih)
 	  uih_error (uih, errstring);
 	  if (uih->play)
 	    {
-	      sprintf (errtext, _("Replay disabled at line %i"),
+	      sprintf (errtext, gettext ("Replay disabled at line %i"),
 		       uih->playc->line);
 	      uih_message (uih, errtext);
 	    }

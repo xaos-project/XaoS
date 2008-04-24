@@ -314,8 +314,6 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     
     - Changes to -initLocale: do not overwrite LANG if it is already set
     
-    - Replace gettext (...) with _(...) in all files
-    
     - Added AppController.m and CustomDialog.m in i18n/Makefile.in.in
     
     - Regenerated po and pot files with new strings from cocoa driver

@@ -24,9 +24,8 @@
 
 #ifdef HAVE_GETTEXT
 #include <libintl.h>
-#define _(STRING) gettext(STRING)
 #else
-#define _(STRING) STRING
+#define gettext(STRING) STRING
 #endif
 
 #define SILENT 0
@@ -45,7 +44,7 @@ error (CONST char *str)
   if (noiselevel < ERRORS)
     return;
   if (!gc)
-    x_error (_("Error: %s"), str);
+    x_error (gettext ("Error: %s"), str);
   uih_error (gc, str);
 }
 static void
@@ -128,7 +127,7 @@ save_frame_dist (uih_context * c, int backward, struct frame_info *f1,
   f = xio_wopen (str);
   if (f == NULL)
     {
-      x_error (_("Cannot open motion vector file!"));
+      x_error (gettext ("Cannot open motion vector file!"));
       return;
     }
   for (y1 = 0; y1 < (c->image->height + 7) / 8; y1++)
@@ -291,13 +290,13 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
     gc->incalculation = 1;
 
   mvectors = motionvectors;
-  printmsg (_("Vectors: %i"), motionvectors);
+  printmsg (gettext ("Vectors: %i"), motionvectors);
   if (iframedist2)
     iframedist = iframedist2;
   else
     iframedist = 27;
 
-  printmsg (_("Initializing"));
+  printmsg (gettext ("Initializing"));
   if (!(type & (TRUECOLOR24 | TRUECOLOR | TRUECOLOR16 | GRAYSCALE)))
     antialias = 0;
 
@@ -306,7 +305,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
 
   if (!pal)
     {
-      error (_("Cannot create palette"));
+      error (gettext ("Cannot create palette"));
       if (gc)
 	gc->incalculation = 0;
       return 0;
@@ -318,7 +317,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
   img = create_image_mem (width, height, 2, pal, pixelwidth, pixelheight);
   if (!img)
     {
-      error (_("Cannot create image\n"));
+      error (gettext ("Cannot create image\n"));
       if (gc)
 	gc->incalculation = 0;
       destroypalette (pal);
@@ -327,7 +326,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
   saveddata = (char *) malloc (img->width * img->height * img->bytesperpixel);
   if (saveddata == NULL)
     {
-      error (_("Cannot create checking buffer!"));
+      error (gettext ("Cannot create checking buffer!"));
       if (gc)
 	gc->incalculation = 0;
       destroy_image (img);
@@ -337,7 +336,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
   uih = uih_mkcontext (0, img, passfunc, NULL, NULL);
   if (!uih)
     {
-      error (_("Cannot create context\n"));
+      error (gettext ("Cannot create context\n"));
       if (gc)
 	gc->incalculation = 0;
       destroy_image (img);
@@ -350,7 +349,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
   af = xio_ropen (animation);
   if (af == NULL)
     {
-      error (_("Cannot open animation file\n"));
+      error (gettext ("Cannot open animation file\n"));
       if (gc)
 	gc->incalculation = 0;
       uih_freecontext (uih);
@@ -362,7 +361,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
 
   if (!gc)
     {
-      printmsg (_("Loading catalogs"));
+      printmsg (gettext ("Loading catalogs"));
       if (!gc)
 	{
 	  uih_loadcatalog (uih, "english");
@@ -395,7 +394,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
 	  xio_close (af);
 	  return 0;
 	}
-      printmsg (_("Processing command line options"));
+      printmsg (gettext ("Processing command line options"));
       {
 	CONST menuitem *item;
 	dialogparam *d;
@@ -420,7 +419,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
 	}
     }
 
-  printmsg (_("Enabling animation replay\n"));
+  printmsg (gettext ("Enabling animation replay\n"));
 
   uih_replayenable (uih, af, animation, 1);
 
@@ -428,7 +427,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
   of = xio_wopen (s);
   if (of == NULL)
     {
-      error (_("Cannot open image file"));
+      error (gettext ("Cannot open image file"));
       if (gc)
 	gc->incalculation = 0;
       uih_freecontext (uih);
@@ -443,7 +442,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
   patf = xio_wopen (s);
   if (patf == NULL)
     {
-      error (_("Cannot open pattern file"));
+      error (gettext ("Cannot open pattern file"));
       if (gc)
 	gc->incalculation = 0;
       uih_freecontext (uih);
@@ -460,9 +459,9 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
 
 
   if (!gc)
-    x_message (_("Entering calculation loop!"));
+    x_message (gettext ("Entering calculation loop!"));
   else
-    printmsg (_("Entering calculation loop!"));
+    printmsg (gettext ("Entering calculation loop!"));
 
   while ((uih->play || uih->display) && !interrupt)
     {
@@ -492,13 +491,13 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
 	  if (lastframenum < framenum - 1)
 	    {
 	      if (lastframenum == framenum - 1)
-		printmsg (_("Frame %i skipped."), framenum - 1);
+		printmsg (gettext ("Frame %i skipped."), framenum - 1);
 	      else
-		printmsg (_("Frames %i - %i skipped."), lastframenum,
+		printmsg (gettext ("Frames %i - %i skipped."), lastframenum,
 			  framenum - 1);
 	    }
 
-	  printmsg (_("Frame %4i: "), framenum);
+	  printmsg (gettext ("Frame %4i: "), framenum);
 
 	  newline = 1;
 	  newimage = 0;
@@ -556,7 +555,7 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
 	      f = fopen (s, "wb");
 	      if (f == NULL)
 		{
-		  error (_("Cannot open image file"));
+		  error (gettext ("Cannot open image file"));
 		  if (gc)
 		    gc->incalculation = 0;
 		  uih_freecontext (uih);
@@ -570,13 +569,13 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
 		  return 0;
 		}
 	      writepng (f, uih->image);
-	      printmsg (_(" done."));
+	      printmsg (gettext (" done."));
 	      uih_displayed (uih);
 	      lastframenum = framenum;
 	    }
 	  else
 	    {
-	      printmsg (_(" skipping..."));
+	      printmsg (gettext (" skipping..."));
 	      uih_displayed (uih);
 	    }
 	}
@@ -610,13 +609,13 @@ uih_renderanimation (struct uih_context *gc1, CONST char *basename,
   destroy_image (img);
   destroypalette (pal);
   if (interrupt)
-    error (_("Calculation interrupted"));
+    error (gettext ("Calculation interrupted"));
   else
     {
       if (!gc)
-	x_message (_("Calculation finished"));
+	x_message (gettext ("Calculation finished"));
       else
-	printmsg (_("Calculation finished"));
+	printmsg (gettext ("Calculation finished"));
     }
   if (gc)
     gc->incalculation = 0;
@@ -643,7 +642,7 @@ uih_renderimage (struct uih_context *gc1, xio_file af,
   uih = uih_mkcontext (0, img, passfunc, NULL, NULL);
   if (!uih)
     {
-      error (_("Cannot create context\n"));
+      error (gettext ("Cannot create context\n"));
       if (gc)
 	gc->incalculation = 0;
       return 0;
@@ -653,7 +652,7 @@ uih_renderimage (struct uih_context *gc1, xio_file af,
 
   if (!gc)
     {
-      printmsg (_("Loading catalogs"));
+      printmsg (gettext ("Loading catalogs"));
       uih_loadcatalog (uih, "english");
       if (uih->errstring)
 	{
@@ -690,7 +689,7 @@ uih_renderimage (struct uih_context *gc1, xio_file af,
 	gc->incalculation = 0;
       return 0;
     }
-  printmsg (_("Entering calculation loop!"));
+  printmsg (gettext ("Entering calculation loop!"));
 
   tl_process_group (syncgroup, NULL);
   uih_update (uih, 0, 0, 0);
@@ -710,10 +709,10 @@ uih_renderimage (struct uih_context *gc1, xio_file af,
   uih_freecontext (uih);
   uih_freecatalog (uih);
   if (interrupt)
-    error (_("Calculation interrupted"));
+    error (gettext ("Calculation interrupted"));
   else
     {
-      printmsg (_("Calculation finished"));
+      printmsg (gettext ("Calculation finished"));
     }
   if (gc)
     gc->incalculation = 0;
