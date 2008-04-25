@@ -27,13 +27,16 @@
 #import <Cocoa/Cocoa.h>
 
 @interface VideatorProxy : NSObject {
-	BOOL _wantsThrottle;
-	NSDate *_lastFrameCreatedDate;
-	id _videatorProxy;
-	NSCalendarDate *_killDate;
+    BOOL _wantsThrottle;
+    NSDate *_lastFrameCreatedDate;
+    id _videatorProxy;
+    NSCalendarDate *_killDate;
+    BOOL _videatorEnabled;
 }
 
 - (void)sendImageRep:(NSBitmapImageRep *)imageRep;
+- (void)toggleVideator:(id)sender;
+- (BOOL)videatorEnabled;
 
 @end
 #endif

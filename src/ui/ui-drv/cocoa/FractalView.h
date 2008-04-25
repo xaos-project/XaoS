@@ -30,14 +30,14 @@
 #endif
 
 @interface FractalView : NSView {
-	int mouseX, mouseY;
+    int mouseX, mouseY;
     int mouseButton, rightMouseButton, otherMouseButton, mouseScrollWheel;
     int keysDown;
     int cursorType;
-
-	int currentBuffer;
-	NSBitmapImageRep *imageRep[2];
-
+    
+    int currentBuffer;
+    NSBitmapImageRep *imageRep[2];
+    
     NSString *messageText;
     NSPoint messageLocation;
     
@@ -52,6 +52,7 @@
 - (void)flipBuffers;
 
 #pragma mark Accessors
+- (VideatorProxy *)videatorProxy;
 - (void)getWidth:(int *)w height:(int *)h;
 - (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb;
 - (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb keys:(int *)k;

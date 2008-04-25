@@ -27,6 +27,7 @@
 
 
 //#define DEBUG
+#define VIDEATOR_SUPPORT
 
 /* Triggers Mac OS X-specific behavior in common sources */
 #define MACOSX

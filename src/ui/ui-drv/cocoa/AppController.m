@@ -50,33 +50,7 @@ AppController *controller;
 @implementation AppController
 
 
-#pragma mark Defaults
-
-+ (void)setupDefaults
-{
-    NSString *userDefaultsValuesPath;
-    NSDictionary *userDefaultsValuesDict;
-    NSDictionary *initialValuesDict;
-    NSArray *resettableUserDefaultsKeys;
-    
-    userDefaultsValuesPath=[[NSBundle mainBundle] pathForResource:@"UserDefaults" 
-														   ofType:@"plist"];
-    userDefaultsValuesDict=[NSDictionary dictionaryWithContentsOfFile:userDefaultsValuesPath];
-    
-    [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsValuesDict];
-    
-    resettableUserDefaultsKeys=[NSArray arrayWithObjects:@"EnableVideator",nil];
-    initialValuesDict=[userDefaultsValuesDict dictionaryWithValuesForKeys:resettableUserDefaultsKeys];
-    
-    [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:initialValuesDict];
-}
-
 #pragma mark Initialization
-
-+ (void)initialize {
-    [self setupDefaults];
-}
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -156,7 +130,7 @@ AppController *controller;
     NSSize displayResolution = [[NSScreen mainScreen] frame].size;
     driver->width = (displaySize.width/displayResolution.width)/10;
     driver->height = (displaySize.height/displayResolution.height)/10;
-
+    
     if (fullscreen) {
         /* 
          * SetSystemUIMode is the easiest way to make a full screen application.
@@ -176,7 +150,7 @@ AppController *controller;
                                                backing:NSBackingStoreBuffered 
                                                  defer:YES];
     }
-
+    
     view = [[FractalView alloc] initWithFrame:[[window contentView] frame]];
     [view setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
     [[window contentView] addSubview:view];
@@ -185,7 +159,7 @@ AppController *controller;
     [window setTitle:@"XaoS"];
     [window makeKeyAndOrderFront:self];
     [NSApp setDelegate:self];
-
+    
     /*
      * These tasks should only be done once, when the application first launches
      * but for various reasons, they can't be done until after the main run
@@ -196,7 +170,7 @@ AppController *controller;
         [NSApp finishLaunching];
         applicationIsLaunched = YES;
     }
-
+    
     return 1; // 1 for success; 0 for failure
 }
 
@@ -240,26 +214,26 @@ AppController *controller;
      * Find the XaoS menu item associated with the sending Cocoa menu item
      * then invoke the callback to perform that action.
      */
-	NSString *name = [sender representedObject];
-	CONST menuitem *item = menu_findcommand([name UTF8String]);
-	
-	ui_menuactivate(item, NULL);
+    NSString *name = [sender representedObject];
+    CONST menuitem *item = menu_findcommand([name UTF8String]);
+    
+    ui_menuactivate(item, NULL);
 }
 
 - (NSString *)keyEquivalentForName:(NSString *)name {
     // If you want more command-keys, just add them here based on their name:
-	if ([name isEqualToString:@"undo"]) return @"z";
-	if ([name isEqualToString:@"redo"]) return @"Z";
-	if ([name isEqualToString:@"loadpos"]) return @"o";
-	if ([name isEqualToString:@"savepos"]) return @"s";
-	return @"";
+    if ([name isEqualToString:@"undo"]) return @"z";
+    if ([name isEqualToString:@"redo"]) return @"Z";
+    if ([name isEqualToString:@"loadpos"]) return @"o";
+    if ([name isEqualToString:@"savepos"]) return @"s";
+    return @"";
 }
 
 - (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
     NSMenu *menu = [NSApp mainMenu];
-	while ([menu numberOfItems] > 1)
-		[menu removeItemAtIndex:1];
-	[self buildMenuWithContext:context name:name parent:menu];
+    while ([menu numberOfItems] > 1)
+        [menu removeItemAtIndex:1];
+    [self buildMenuWithContext:context name:name parent:menu];
 }
 
 - (void)buildMenuWithContext:(struct uih_context *)context 
@@ -271,61 +245,63 @@ AppController *controller;
                         parent:parentMenu
                     isNumbered:NO];
 }
+
 - (void)buildMenuWithContext:(struct uih_context *)context 
                         name:(CONST char *)menuName 
                       parent:(NSMenu *)parentMenu
                   isNumbered:(BOOL)isNumbered {
-	int i;
-	CONST menuitem *item;
-	for (i=0; (item = menu_item(menuName, i)) != NULL; i++)	{
-		if (item->type == MENU_SEPARATOR) {
-			[parentMenu addItem:[NSMenuItem separatorItem]];
-		} else {
-			NSString *menuTitle = [NSString stringWithUTF8String:item->name];
+    int i, n;
+    CONST menuitem *item;
+    for (i=0,n=1; (item = menu_item(menuName, i)) != NULL; i++)	{
+        if (item->type == MENU_SEPARATOR) {
+            [parentMenu addItem:[NSMenuItem separatorItem]];
+        } else {
+            NSString *menuTitle = [NSString stringWithUTF8String:item->name];
             
             /* 
              * Add elipses to menu items that open dialogs in order to conform
              * with the Apple Human Interface Guidelines.
              */
             if (item->type == MENU_CUSTOMDIALOG || item->type == MENU_DIALOG)
-				menuTitle = [menuTitle stringByAppendingString:@"..."];
-			
-			NSString *menuShortName = [NSString stringWithUTF8String:item->shortname];
-			NSString *keyEquiv = [self keyEquivalentForName:menuShortName];
-			
+                menuTitle = [menuTitle stringByAppendingString:@"..."];
+            
+            NSString *menuShortName = [NSString stringWithUTF8String:item->shortname];
+            NSString *keyEquiv = [self keyEquivalentForName:menuShortName];
+            
             /*
              * Add classic XaoS key accelerator to name in parenthesis, unless
              * this is the main menu.  This allows both Mac-style and Xaos-style
              * key equivalents to co-exist.
              */
-			if (item->key && parentMenu != [NSApp mainMenu])
-				menuTitle = [NSString stringWithFormat:@"%@ (%s)", menuTitle, item->key];
-
-			NSMenuItem *newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:keyEquiv];
-			
+            if (item->key && parentMenu != [NSApp mainMenu])
+                menuTitle = [NSString stringWithFormat:@"%@ (%s)", menuTitle, item->key];
+            
+            NSMenuItem *newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle action:nil keyEquivalent:keyEquiv];
+            
             /* 
              * If this is a numbered pop-up menu, override the default key
              * accelerator with a number or letter based on the position in
              * the menu.
              */
             if (isNumbered && item->type != MENU_SUBMENU) {
-                if (i < 9)
-                    keyEquiv = [NSString stringWithFormat:@"%d", i + 1];
-                else if (i == 9)
+                if (n < 9)
+                    keyEquiv = [NSString stringWithFormat:@"%d", n];
+                else if (n == 10)
                     keyEquiv = @"0";
-                else if (i < 35)
-                    keyEquiv = [NSString stringWithFormat:@"%c", 'a' + i - 10];
-                    
+                else if (n < 36)
+                    keyEquiv = [NSString stringWithFormat:@"%c", 'a' + n - 11];
+                
                 [newItem setKeyEquivalent:keyEquiv];
                 [newItem setKeyEquivalentModifierMask:0];
+                n++;
             }
             
-			if (item->type == MENU_SUBMENU) {
+            if (item->type == MENU_SUBMENU) {
                 /* Recursively build submenus */
-				NSMenu *newMenu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle];
+                NSMenu *newMenu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:menuTitle];
                 [newMenu setDelegate:self];
-				[newItem setSubmenu:newMenu];
-				[self buildMenuWithContext:context name:item->shortname parent:newMenu];
+                [newItem setSubmenu:newMenu];
+                [self buildMenuWithContext:context name:item->shortname parent:newMenu];
                 
                 /* Conditionally add special items to certain menus */
                 
@@ -338,7 +314,7 @@ AppController *controller;
                     [newMenu addItem:[NSMenuItem separatorItem]];
                     [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Cut")]
                                        action:@selector(cut:) keyEquivalent:@"x"];
-
+                    
                     [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Copy")]
                                        action:@selector(copy:) keyEquivalent:@"c"];
                     
@@ -360,12 +336,12 @@ AppController *controller;
                 if ([menuShortName isEqualToString:@"window"]) {
                     [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Minimize")]
                                        action:@selector(performMiniaturize:) keyEquivalent:@"m"];
-
+                    
                     [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Zoom")]
                                        action:@selector(performZoom:) keyEquivalent:@""];
-
+                    
                     [newMenu addItem:[NSMenuItem separatorItem]];
-
+                    
                     [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Bring All to Front")]
                                        action:@selector(arrangeInFront:) keyEquivalent:@""];
                 }
@@ -376,41 +352,60 @@ AppController *controller;
                  * to conform with the human interface guidelines.
                  */
                 if ([menuShortName isEqualToString:@"file"]) {
-                    [newMenu addItem:[NSMenuItem separatorItem]];
-
-                    [newMenu addItemWithTitle:[NSString stringWithUTF8String:_("Close")] 
-                                       action:@selector(performClose:) keyEquivalent:@"w"];
+                    int i = [newMenu indexOfItemWithRepresentedObject:@"savepos"];
+                    [newMenu insertItemWithTitle:[NSString stringWithUTF8String:_("Close")] 
+                                          action:@selector(performClose:)
+                                   keyEquivalent:@"w"
+                                         atIndex:i];
+                    [newMenu insertItem:[NSMenuItem separatorItem] atIndex:i];
                 }
                 
-				[newMenu release];
-			} else {
+                /*
+                 * Add Videator Output menu item in the UI menu just below
+                 * VJ Mode.  This will toggle sending video feed to Videator.
+                 */
+                if ([menuShortName isEqualToString:@"ui"]) {
+                    int i = [newMenu indexOfItemWithRepresentedObject:@"inhibittextoutput"]+1;
+                    NSMenuItem *item = [newMenu insertItemWithTitle:[NSString stringWithUTF8String:_("Videator Output")] 
+                                          action:@selector(toggleVideator:) 
+                                   keyEquivalent:@""
+                                         atIndex:i];
+                    [item setTarget:[view videatorProxy]];
+                    [item setRepresentedObject:@"videator"];
+                }
+
+                [newMenu release];
+            } else {
                 /*
                  * Set action for leaf menu items to generic callback function
                  * and save the short name as the item's represented object. When
                  * the callback is activated, it will find the XaoS menu item
                  * to activate based on the represented object.
                  */
-				[newItem setTarget:self];
-				[newItem setAction:@selector(performMenuAction:)];
-				[newItem setRepresentedObject:menuShortName];
-				if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX) && menu_enabled (item, context))
-					[newItem setState:NSOnState];
-			}
-
+                [newItem setTarget:self];
+                [newItem setAction:@selector(performMenuAction:)];
+                [newItem setRepresentedObject:menuShortName];
+                if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX) && menu_enabled (item, context))
+                    [newItem setState:NSOnState];
+            }
+            
             [parentMenu addItem:newItem];
-			[newItem release];
-		}
-	}
+            [newItem release];
+        }
+    }
 }
 
 - (void)menuNeedsUpdate:(NSMenu *)menu {
-	CONST struct menuitem *xaosItem;
+    CONST struct menuitem *xaosItem;
     NSMenuItem *menuItem;
     NSEnumerator *itemEnumerator = [[menu itemArray] objectEnumerator];
     while (menuItem = [itemEnumerator nextObject]) {
         if ([menuItem representedObject]) {
             xaosItem = menu_findcommand([[menuItem representedObject] UTF8String]);
-            [menuItem setState:(menu_enabled(xaosItem, globaluih) ? NSOnState : NSOffState)];
+            if (xaosItem)
+                [menuItem setState:(menu_enabled(xaosItem, globaluih) ? NSOnState : NSOffState)];
+            else if ([[menuItem representedObject] isEqualToString:@"videator"])
+                [menuItem setState:([[view videatorProxy] videatorEnabled] ? NSOnState : NSOffState)];
         }
     }
 }
@@ -420,7 +415,7 @@ AppController *controller;
     NSPopUpButtonCell *popUpButtonCell = [[NSPopUpButtonCell alloc] initTextCell:@"" pullsDown:NO];
     NSRect frame = {{0.0, 0.0}, {0.0, 0.0}};
     frame.origin = [window mouseLocationOutsideOfEventStream];
-	[self buildMenuWithContext:context name:name parent:popUpMenu isNumbered:YES];
+    [self buildMenuWithContext:context name:name parent:popUpMenu isNumbered:YES];
     int state = [[popUpMenu itemAtIndex:0] state];
     [popUpButtonCell setMenu:popUpMenu];
     [[popUpMenu itemAtIndex:0] setState:state];
@@ -432,79 +427,79 @@ AppController *controller;
 #pragma mark Dialogs
 
 - (void)showDialogWithContext:(struct uih_context *)context name:(CONST char *)name {
-	CONST menuitem *item = menu_findcommand (name);
-	if (!item) return;
-	
-	CONST menudialog *dialog = menu_getdialog (context, item);
-	if (!dialog) return;
-	
-	int nitems;
-	for (nitems = 0; dialog[nitems].question; nitems++);
-	
-	if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE)) {
+    CONST menuitem *item = menu_findcommand (name);
+    if (!item) return;
+    
+    CONST menudialog *dialog = menu_getdialog (context, item);
+    if (!dialog) return;
+    
+    int nitems;
+    for (nitems = 0; dialog[nitems].question; nitems++);
+    
+    if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE)) {
         NSString *extension = [[NSString stringWithUTF8String:dialog[0].defstr] pathExtension];
-		
-		NSString *fileName = nil;
-		switch(dialog[0].type) {
-			case DIALOG_IFILE:
-			{
-				NSOpenPanel *oPanel = [NSOpenPanel openPanel];
-				
-				int result = [oPanel runModalForDirectory:nil
-													 file:nil 
-                                                    types:[NSArray arrayWithObject:extension]];
-				
-				if (result == NSOKButton)
-					fileName = [oPanel filename];
-				break;
-			}
-			case DIALOG_OFILE:
-			{
-				NSSavePanel *sPanel = [NSSavePanel savePanel];
-                [sPanel setRequiredFileType:extension];
-				
-				int result = [sPanel runModalForDirectory:nil file:@"untitled"];
-				
-				if (result == NSOKButton)
-					fileName = [sPanel filename];
-				break;
-			}
-		}
-		
+        
+        NSString *fileName = nil;
+        switch(dialog[0].type) {
+          case DIALOG_IFILE:
+          {
+              NSOpenPanel *oPanel = [NSOpenPanel openPanel];
+              
+              int result = [oPanel runModalForDirectory:nil
+                                                   file:nil 
+                                                  types:[NSArray arrayWithObject:extension]];
+              
+              if (result == NSOKButton)
+                  fileName = [oPanel filename];
+              break;
+          }
+          case DIALOG_OFILE:
+          {
+              NSSavePanel *sPanel = [NSSavePanel savePanel];
+              [sPanel setRequiredFileType:extension];
+              
+              int result = [sPanel runModalForDirectory:nil file:@"untitled"];
+              
+              if (result == NSOKButton)
+                  fileName = [sPanel filename];
+              break;
+          }
+        }
+        
         [window makeKeyAndOrderFront:self];
-
-		if (fileName) {
-			dialogparam *param = malloc (sizeof (dialogparam));
-			param->dstring = strdup([fileName UTF8String]);
-			ui_menuactivate (item, param);
-		}
-		
-	} else {
-		CustomDialog *customDialog = [[CustomDialog alloc] initWithContext:context 
+        
+        if (fileName) {
+            dialogparam *param = malloc (sizeof (dialogparam));
+            param->dstring = strdup([fileName UTF8String]);
+            ui_menuactivate (item, param);
+        }
+        
+    } else {
+        CustomDialog *customDialog = [[CustomDialog alloc] initWithContext:context 
                                                                   menuItem:item 
                                                                     dialog:dialog];
-		[NSApp beginSheet:customDialog 
+        [NSApp beginSheet:customDialog 
            modalForWindow:window 
             modalDelegate:nil 
            didEndSelector:nil 
               contextInfo:nil];
-		[NSApp runModalForWindow:customDialog];
-		[NSApp endSheet:customDialog];
-		[customDialog orderOut:self];
+        [NSApp runModalForWindow:customDialog];
+        [NSApp endSheet:customDialog];
+        [customDialog orderOut:self];
         [window makeKeyAndOrderFront:self];
         
         if ([customDialog params])
             ui_menuactivate(item, [customDialog params]);
         
-		[customDialog release];
-	}
+        [customDialog release];
+    }
 }
 
 #pragma mark Help
 
 - (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name {
-	NSString *anchor = [NSString stringWithUTF8String:name];
-	[[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
+    NSString *anchor = [NSString stringWithUTF8String:name];
+    [[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
 }
 
 #pragma mark Window Delegates

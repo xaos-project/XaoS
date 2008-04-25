@@ -56,13 +56,13 @@
 #pragma mark Drawing
 
 - (BOOL)isOpaque {
-	return YES;
+    return YES;
 }
 
 - (void)drawRect:(NSRect)rect {
-	if (imageRep[currentBuffer]) {
+    if (imageRep[currentBuffer]) {
         [imageRep[currentBuffer] drawInRect:[self bounds]];
-	}
+    }
     
     if (messageText) {
         NSDictionary *attrsDictionary = 
@@ -87,23 +87,23 @@
 #pragma mark Mouse Event Handling
 
 - (void)calculateMouseLocationFromEvent:(NSEvent *)theEvent {
-	NSPoint mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-	mouseX = mouseLoc.x;
-	mouseY = [self bounds].size.height - mouseLoc.y;
+    NSPoint mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    mouseX = mouseLoc.x;
+    mouseY = [self bounds].size.height - mouseLoc.y;
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
     [self calculateMouseLocationFromEvent:theEvent];
     
-	// Emulate 3 buttons based on modifier keys
+    // Emulate 3 buttons based on modifier keys
     mouseScrollWheel = 0;
-	if ([theEvent modifierFlags] & NSControlKeyMask) {
-		mouseButton = BUTTON3;
-	} else if ([theEvent modifierFlags] & NSShiftKeyMask) {
-		mouseButton = BUTTON2;
-	} else {
-		mouseButton = BUTTON1;
-	}    
+    if ([theEvent modifierFlags] & NSControlKeyMask) {
+        mouseButton = BUTTON3;
+    } else if ([theEvent modifierFlags] & NSShiftKeyMask) {
+        mouseButton = BUTTON2;
+    } else {
+        mouseButton = BUTTON1;
+    }    
 }
 
 - (void)mouseUp:(NSEvent *)theEvent {
@@ -154,7 +154,7 @@
 #pragma mark Keyboard Event Handling
 
 - (void)flagsChanged:(NSEvent *)theEvent {
-	// Emulate 3 buttons based on modifier keys 
+    // Emulate 3 buttons based on modifier keys 
     if (mouseButton) {
         if ([theEvent modifierFlags] & NSControlKeyMask) {
             mouseButton = BUTTON3;
@@ -172,45 +172,45 @@
     
     unichar keyChar = [characters characterAtIndex:0];
     switch(keyChar) {
-        case NSLeftArrowFunctionKey:
-            keysDown |= 1;
-            ui_key(UIKEY_LEFT);
-            break;
-        case NSRightArrowFunctionKey:
-            keysDown |= 2;
-            ui_key(UIKEY_RIGHT);
-            break;
-        case NSUpArrowFunctionKey:
-            keysDown |= 4;
-            ui_key(UIKEY_UP);
-            break;
-        case NSDownArrowFunctionKey:
-            keysDown |= 8;
-            ui_key(UIKEY_DOWN);
-            break;
-        case NSBackspaceCharacter:
-            ui_key(UIKEY_BACKSPACE);
-            break;
-        case NSEndFunctionKey:
-            ui_key(UIKEY_END);
-            break;
-        case '\033': // Escape
-            ui_key(UIKEY_ESC);
-            break;
-        case NSHomeFunctionKey:
-            ui_key(UIKEY_HOME);
-            break;
-        case NSPageDownFunctionKey:
-            ui_key(UIKEY_PGDOWN);
-            break;
-        case NSPageUpFunctionKey:
-            ui_key(UIKEY_PGUP);
-            break;
-        case NSTabCharacter:
-            ui_key(UIKEY_TAB);
-            break;
-        default:
-            ui_key(keyChar);
+      case NSLeftArrowFunctionKey:
+          keysDown |= 1;
+          ui_key(UIKEY_LEFT);
+          break;
+      case NSRightArrowFunctionKey:
+          keysDown |= 2;
+          ui_key(UIKEY_RIGHT);
+          break;
+      case NSUpArrowFunctionKey:
+          keysDown |= 4;
+          ui_key(UIKEY_UP);
+          break;
+      case NSDownArrowFunctionKey:
+          keysDown |= 8;
+          ui_key(UIKEY_DOWN);
+          break;
+      case NSBackspaceCharacter:
+          ui_key(UIKEY_BACKSPACE);
+          break;
+      case NSEndFunctionKey:
+          ui_key(UIKEY_END);
+          break;
+      case '\033': // Escape
+          ui_key(UIKEY_ESC);
+          break;
+      case NSHomeFunctionKey:
+          ui_key(UIKEY_HOME);
+          break;
+      case NSPageDownFunctionKey:
+          ui_key(UIKEY_PGDOWN);
+          break;
+      case NSPageUpFunctionKey:
+          ui_key(UIKEY_PGUP);
+          break;
+      case NSTabCharacter:
+          ui_key(UIKEY_TAB);
+          break;
+      default:
+          ui_key(keyChar);
     }
 }
 
@@ -220,22 +220,26 @@
     
     unichar keyChar = [characters characterAtIndex:0];
     switch(keyChar)	{
-        case NSLeftArrowFunctionKey:
-            keysDown &= ~1;
-            break;
-        case NSRightArrowFunctionKey:
-            keysDown &= ~2;
-            break;
-        case NSUpArrowFunctionKey:
-            keysDown &= ~4;
-            break;
-        case NSDownArrowFunctionKey:
-            keysDown &= ~8;
-            break;
+      case NSLeftArrowFunctionKey:
+          keysDown &= ~1;
+          break;
+      case NSRightArrowFunctionKey:
+          keysDown &= ~2;
+          break;
+      case NSUpArrowFunctionKey:
+          keysDown &= ~4;
+          break;
+      case NSDownArrowFunctionKey:
+          keysDown &= ~8;
+          break;
     }
 }
 
 #pragma mark Accessors
+
+- (VideatorProxy *)videatorProxy {
+    return videatorProxy;
+}
 
 - (void)getWidth:(int *)w height:(int *)h {
     NSRect bounds = [self bounds];
@@ -244,15 +248,15 @@
 }
 
 - (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb {
-	*mx = mouseX;
-	*my = mouseY;
-	*mb = mouseButton | rightMouseButton | otherMouseButton | mouseScrollWheel;
+    *mx = mouseX;
+    *my = mouseY;
+    *mb = mouseButton | rightMouseButton | otherMouseButton | mouseScrollWheel;
 }
 
 - (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb keys:(int *)k
 {
-	[self getMouseX:mx mouseY:my mouseButton:mb];
-	*k = keysDown;
+    [self getMouseX:mx mouseY:my mouseButton:mb];
+    *k = keysDown;
 }
 
 #pragma mark Cursor
@@ -264,12 +268,12 @@
 
 - (void)resetCursorRects {
     /* BUG - cursor changes back to arrow when mouse is clicked 
-    if (cursorType == VJMOUSE) {
-        NSCursor *cursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
-        [cursor setOnMouseEntered:YES];
-        [self addCursorRect:[self bounds] cursor:cursor];
-        [cursor release];
-    } */
+     if (cursorType == VJMOUSE) {
+     NSCursor *cursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"performanceCursor"] hotSpot:NSMakePoint(1.0,1.0)];
+     [cursor setOnMouseEntered:YES];
+     [self addCursorRect:[self bounds] cursor:cursor];
+     [cursor release];
+     } */
 }
 
 
@@ -296,8 +300,8 @@
                                                       colorSpaceName:NSDeviceRGBColorSpace
                                                          bytesPerRow:0
                                                         bitsPerPixel:32];
-	
-	*b1 = (char *)[imageRep[0] bitmapData];
+    
+    *b1 = (char *)[imageRep[0] bitmapData];
     
     imageRep[1] = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
                                                           pixelsWide:bounds.size.width
@@ -309,10 +313,10 @@
                                                       colorSpaceName:NSDeviceRGBColorSpace
                                                          bytesPerRow:0
                                                         bitsPerPixel:32];
-	
-	*b2 = (char *)[imageRep[1] bitmapData];
     
-	return [imageRep[0] bytesPerRow];
+    *b2 = (char *)[imageRep[1] bitmapData];
+    
+    return [imageRep[0] bytesPerRow];
 }
 
 - (void)freeBuffers {

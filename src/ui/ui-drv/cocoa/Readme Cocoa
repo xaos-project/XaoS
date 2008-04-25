@@ -322,6 +322,15 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     
     - Conditionalize window menu with #ifdef MACOSX
 
+2008-04-24
+
+    - Add enable/disable menu item for Videator
+    
+    - Move Close menu item to proper place in File menu
+    
+    - Reindent code
+
+
 TODO:
 
 * bugs
@@ -340,7 +349,4 @@ TODO:
 * acs features
     - Implement fast palette save/recall
     - Implement autokeys on startup
-
-* videator
-    - Add enable/disable menu item
 

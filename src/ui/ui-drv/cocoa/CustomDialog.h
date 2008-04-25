@@ -25,11 +25,11 @@
 #include "ui.h"
 
 @interface CustomDialog : NSWindow {
-	struct uih_context *context; 
-	CONST menuitem *item;
-	CONST menudialog *dialog;
+    struct uih_context *context; 
+    CONST menuitem *item;
+    CONST menudialog *dialog;
     dialogparam *params;
-	NSMutableDictionary *controls;
+    NSMutableDictionary *controls;
 }
 
 - (id)initWithContext:(struct uih_context *)context menuItem:(CONST menuitem *)item dialog:(CONST menudialog *)dialog;
