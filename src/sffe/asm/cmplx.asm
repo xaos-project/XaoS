@@ -4,13 +4,13 @@
 	;        http://www.malczak.info
 	; 	       SFFE libs
 	; http://segfaultlabs.com/projects/sffe
-	global _cabs,_carg,_cargs,_cargc
-	global _cinv
-	global _cexp,_cln,_clog2,_clog
-	global _csin,_ccos,_csincos,_ctan,_ccot
-	global _csinh,_ccosh,_ctanh,_ccoth
-	global _ccpow, _cpowd, _cpowi, _cpowc
-	global _csqrt, _crtni
+	global _sffecabs,_sffecarg,_sffecargs,_sffecargc
+	global _sffecinv
+	global _sffecexp,_sffecln,_sffeclog2,_sffeclog
+	global _sffecsin,_sffeccos,_sffecsincos,_sffectan,_sffeccot
+	global _sffecsinh,_sffeccosh,_sffectanh,_sffeccoth
+	global _sffeccpow, _sffecpowd, _sffecpowi, _sffecpowc
+	global _sffecsqrt, _sffecrtni
 
 	%ifndef DELPHI
 	;	section .text use32 class=CODE ;class=CODE - needed for Borlands Compiler
@@ -24,7 +24,7 @@
 %ifdef DELPHI
 [section expfunc_text use32]
 %endif
-_cexpfnc: 			; exponent of real argument
+_sffecexpfnc: 			; exponent of real argument
     fldl2e
 	fmulp   st1
 	fld     st0
@@ -44,7 +44,7 @@ _cexpfnc: 			; exponent of real argument
 %ifdef DELPHI
 [section cabs_text use32]
 %endif
-_cabs:
+_sffecabs:
 	push 	ebp
 	mov 	ebp, esp
 	fld     qword [ebp+08h]
@@ -59,7 +59,7 @@ _cabs:
 %ifdef DELPHI
 [section carg_text use32]
 %endif
-_carg:
+_sffecarg:
 	push 	ebp
 	mov		ebp, esp
 	fld     qword [ebp+08h]   
@@ -72,7 +72,7 @@ _carg:
 %ifdef DELPHI
 [section cargs_text use32]
 %endif
-_cargs:
+_sffecargs:
 	push	ebp
 	mov 	ebp, esp
 	fld     qword [ebp+10h]
@@ -90,7 +90,7 @@ _cargs:
 %ifdef DELPHI
 [section cargc_text use32]
 %endif
-_cargc:
+_sffecargc:
 	push	ebp
 	mov 	ebp, esp
 	fld     qword [ebp+08h]   
@@ -108,7 +108,7 @@ _cargc:
 %ifdef DELPHI
 [section cinv_text use32]
 %endif
-_cinv:				
+_sffecinv:				
 	push	ebp
 	mov		ebp, esp		
 	mov     edx, [ebp+08h] 
@@ -132,12 +132,12 @@ _cinv:
 %ifdef DELPHI
 [section cexp_text use32]
 %endif
-_cexp:	
+_sffecexp:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	fld     qword [ebp+0ch]	
-	call	_cexpfnc
+	call	_sffecexpfnc
 	fld     qword [ebp+14h]
 	fsincos
 	fld     st2
@@ -152,7 +152,7 @@ _cexp:
 %ifdef DELPHI
 [section cln_text use32]
 %endif
-_cln:	
+_sffecln:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
@@ -182,7 +182,7 @@ _cln:
 %ifdef DELPHI
 [section clog2_text use32]
 %endif
-_clog2:	
+_sffeclog2:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
@@ -210,7 +210,7 @@ _clog2:
 %ifdef DELPHI
 [section clog_text use32]
 %endif
-_clog:	
+_sffeclog:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
@@ -249,7 +249,7 @@ _clog:
 %ifdef DELPHI
 [section csin_text use32]
 %endif
-_csin:
+_sffecsin:
 	push	ebp
 	mov		ebp, esp
 	mov     eax, [ebp+08h]
@@ -257,7 +257,7 @@ _csin:
 	fld1
 	faddp	st1
 	fld     qword [ebp+14h]
-	call	_cexpfnc
+	call	_sffecexpfnc
 	fld1
 	fdiv    st1
 	fld     st1;-
@@ -283,7 +283,7 @@ _csin:
 %ifdef DELPHI
 [section ccos_text use32]
 %endif
-_ccos:	
+_sffeccos:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
@@ -291,7 +291,7 @@ _ccos:
 	fld1
 	faddp	st1
 	fld     qword [ebp+14h] 
-	call	_cexpfnc
+	call	_sffecexpfnc
 	fld1                    
 	fdiv    st1     
 	fld     st1
@@ -318,7 +318,7 @@ _ccos:
 %ifdef DELPHI
 [section ctan_text use32]
 %endif
-_ctan:	
+_sffectan:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
@@ -328,7 +328,7 @@ _ctan:
 	faddp	st1                   
 	fld     qword [ebp+14h]
 	fadd    qword [ebp+14h]
-	call	_cexpfnc
+	call	_sffecexpfnc
 	fld1       
 	fdiv    st1
 	fld     st1
@@ -356,7 +356,7 @@ _ctan:
 %ifdef DELPHI
 [section ccot_text use32]
 %endif
-_ccot:	
+_sffeccot:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
@@ -366,7 +366,7 @@ _ccot:
 	faddp	st1
 	fld     qword [ebp+14h]
 	fadd    qword [ebp+14h]
-	call	_cexpfnc
+	call	_sffecexpfnc
 	fld1                   
 	fdiv    st1    
 	fld     st1
@@ -397,7 +397,7 @@ _ccot:
 %ifdef DELPHI
 [section csinh_text use32]
 %endif
-_csinh:	
+_sffecsinh:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
@@ -405,7 +405,7 @@ _csinh:
 	fld1
 	faddp	st1
 	fld     qword [ebp+0Ch]
-	call	_cexpfnc
+	call	_sffecexpfnc
 	fld1       
 	fdiv    st1
 	fld     st1
@@ -430,12 +430,12 @@ _csinh:
 %ifdef DELPHI
 [section ccosh_text use32]
 %endif
-_ccosh:	
+_sffeccosh:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	fld     qword [ebp+0ch]
-	call	_cexpfnc
+	call	_sffecexpfnc
 	fld     st0
 	fld1
 	fxch    st1
@@ -468,7 +468,7 @@ _ccosh:
 %ifdef DELPHI
 [section ctanh_text use32]
 %endif
-_ctanh:	
+_sffectanh:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
@@ -478,7 +478,7 @@ _ctanh:
 	faddp	st1
 	fld     qword [ebp+0ch]
 	fadd    qword [ebp+0ch]
-	call	_cexpfnc
+	call	_sffecexpfnc
 	fld1
 	fdiv    st1
 	fld     st1
@@ -507,7 +507,7 @@ _ctanh:
 %ifdef DELPHI
 [section ccoth_text use32]
 %endif
-_ccoth:	
+_sffeccoth:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
@@ -517,7 +517,7 @@ _ccoth:
 	faddp	st1
 	fld     qword [ebp+0ch]
 	fadd    qword [ebp+0ch]
-	call	_cexpfnc
+	call	_sffecexpfnc
 	fld1                   
 	fdiv    st1
 	fld     st1
@@ -548,7 +548,7 @@ _ccoth:
 %ifdef DELPHI
 [section ccpow_text use32]
 %endif
-_ccpow:	
+_sffeccpow:	
 ;TODO: wyeliminowac xch po wystepujace po obliczeniu theta
 	push	ebp
 	mov		ebp,esp
@@ -586,7 +586,7 @@ _ccpow:
 	faddp	st1
 	fxch	st1
 	
-	call	_cexpfnc
+	call	_sffecexpfnc
 	fxch 	st1
 	fsincos                       
 	fld     st2                 
@@ -610,7 +610,7 @@ s	fwait
 %ifdef DELPHI
 [section cpowd_text use32]
 %endif
-_cpowd:
+_sffecpowd:
 	push	ebp
 	mov		ebp,esp
 ;	fld1                          
@@ -639,7 +639,7 @@ _cpowd:
 	fdivp    st1
 	fmul     qword [ebp+1ch]
   
-	call	_cexpfnc
+	call	_sffecexpfnc
 	fxch    st1
 	fsincos                   
 	fld     st2
@@ -662,7 +662,7 @@ END2:
 %ifdef DELPHI
 [section cpowi_text use32]
 %endif
-_cpowi:
+_sffecpowi:
 	push	ebp
 	mov		ebp,esp
 	;z module
@@ -722,7 +722,7 @@ END53:
 %ifdef DELPHI
 [section cpowc_text use32]
 %endif
-_cpowc:
+_sffecpowc:
 	push	ebp
 	mov		ebp,esp
 	fld     qword [ebp+0ch]
@@ -781,7 +781,7 @@ END3:
 %ifdef DELPHI
 [section csqrt_text use32]
 %endif
-_csqrt:
+_sffecsqrt:
 	push	ebp
 	mov		ebp,esp
 	push 	ebx
@@ -831,7 +831,7 @@ IMAGPOS:
 %ifdef DELPHI
 [section crtni_text use32]
 %endif
-_crtni:
+_sffecrtni:
 	push	ebp
 	mov		ebp,esp
 	;z module
@@ -892,7 +892,7 @@ END4:
 	ret
 
 %ifndef DELPHI	
-_cfunc:	
+_sffecfunc:	
 	push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]

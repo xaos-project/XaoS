@@ -19,8 +19,8 @@
  #define cmplxset(c,r,i) ( c = cset(r,i) )
  #define real(c) (c).r
  #define imag(c) (c).i
-
-#ifdef linux
+/*
+#if (defined linux || defined __APPLE__)
  #define cabs   _cabs
  #define carg   _carg
  #define cargs  _cargs
@@ -45,36 +45,36 @@
  #define csqrt  _csqrt
  #define crtni  _crtni
 #endif
-
+*/
  #ifdef __cplusplus
   extern "C" {
  #endif
 
  /* written with asm in file cmplx.asm, compile with NASM */
-extern double cabs( const cmplx c );
-extern double carg( const cmplx c );
-extern double cargs( const cmplx c );
-extern double cargc( const cmplx c );
-extern cmplx cinv( const cmplx c );
-extern cmplx cexp( const cmplx c );
-extern cmplx cln( const cmplx c );
-extern cmplx clog2( const cmplx c );
-extern cmplx clog( const cmplx c, unsigned int base );
-extern cmplx csin( const cmplx c );
-extern cmplx ccos( const cmplx c );
-extern cmplx ctan( const cmplx c );
-extern cmplx ccot( const cmplx c );
-extern cmplx csinh( const cmplx c );
-extern cmplx ccosh( const cmplx c );
-extern cmplx ctanh( const cmplx c );
-extern cmplx ccoth( const cmplx c );
+extern double sffecabs( const cmplx c );
+extern double sffecarg( const cmplx c );
+extern double sffecargs( const cmplx c );
+extern double sffecargc( const cmplx c );
+extern cmplx sffecinv( const cmplx c );
+extern cmplx sffecexp( const cmplx c );
+extern cmplx sffecln( const cmplx c );
+extern cmplx sffeclog2( const cmplx c );
+extern cmplx sffeclog( const cmplx c, unsigned int base );
+extern cmplx sffecsin( const cmplx c );
+extern cmplx sffeccos( const cmplx c );
+extern cmplx sffectan( const cmplx c );
+extern cmplx sffeccot( const cmplx c );
+extern cmplx sffecsinh( const cmplx c );
+extern cmplx sffeccosh( const cmplx c );
+extern cmplx sffectanh( const cmplx c );
+extern cmplx sffeccoth( const cmplx c );
  /* power functions */
-extern cmplx ccpow( const cmplx b, const cmplx exp );
-extern cmplx cpowd( const cmplx b, double exp );
-extern cmplx cpowi( const cmplx b, int exp );
-extern cmplx cpowc( double b, const cmplx exp );  
-extern cmplx csqrt(const cmplx b ); /* square root */
-extern cmplx crtni( const cmplx b, int n, int i ); /* i-th solution of N-th order root of a CN*/
+extern cmplx sffeccpow( const cmplx b, const cmplx exp );
+extern cmplx sffecpowd( const cmplx b, double exp );
+extern cmplx sffecpowi( const cmplx b, int exp );
+extern cmplx sffecpowc( double b, const cmplx exp );  
+extern cmplx sffecsqrt(const cmplx b ); /* square root */
+extern cmplx sffecrtni( const cmplx b, int n, int i ); /* i-th solution of N-th order root of a CN*/
 /*complex numbers for mparser*/
 cmplx cset( double r, double i );
 cmplx cadd(const cmplx c1, const cmplx c2);

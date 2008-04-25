@@ -439,7 +439,7 @@ free_fractalc (fractal_context * c)
 void
 speed_test (fractal_context * c, struct image *img)
 {
-  unsigned int sum;
+  //unsigned int sum;
   tl_timer *t;
   int time;
   unsigned int i;

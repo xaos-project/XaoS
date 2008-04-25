@@ -237,9 +237,11 @@
 
 #pragma mark Accessors
 
+#ifdef VIDEATOR_SUPPORT
 - (VideatorProxy *)videatorProxy {
     return videatorProxy;
 }
+#endif
 
 - (void)getWidth:(int *)w height:(int *)h {
     NSRect bounds = [self bounds];

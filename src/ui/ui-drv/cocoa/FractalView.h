@@ -52,7 +52,10 @@
 - (void)flipBuffers;
 
 #pragma mark Accessors
+
+#ifdef VIDEATOR_SUPPORT
 - (VideatorProxy *)videatorProxy;
+#endif
 - (void)getWidth:(int *)w height:(int *)h;
 - (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb;
 - (void)getMouseX:(int *)mx mouseY:(int *)my mouseButton:(int *)mb keys:(int *)k;

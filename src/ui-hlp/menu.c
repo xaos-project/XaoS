@@ -82,7 +82,7 @@ CONST char *CONST uih_colornames[] = {
 #define MAX_MENUDIALOGS_I18N 100
 #define Register(variable) variable = & menudialogs_i18n[no_menudialogs_i18n]
 static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
-static int no_menudialogs_i18n;
+//static int no_menudialogs_i18n;
 
 static menudialog *uih_perturbationdialog, *uih_juliadialog,
   *uih_smoothmorphdialog, *uih_renderdialog, *uih_viewdialog,
@@ -1345,9 +1345,10 @@ uih_registermenus_i18n (void)
   MENUNOPCB_I ("ui", "a",
 	       gettext ("Autopilot"),
 	       "autopilot", 0, uih_autopilotsw, uih_autopilotselected);
-	 MENUNOPCB_I ("ui", "v",	 
-           gettext ("VJ mode"),	 
-           "inhibittextoutput", 0, uih_inhibittextsw, uih_inhibittextselected);
+  MENUSEPARATOR_I ("ui");
+  MENUNOPCB_I ("ui", "v",	 
+              gettext ("VJ mode"),	 
+              "inhibittextoutput", 0, uih_inhibittextsw, uih_inhibittextselected);
   MENUSEPARATOR_I ("ui");
   MENUNOP_I ("ui", "r", gettext ("Recalculate"),
 	     "recalculate", 0, uih_recalculate);

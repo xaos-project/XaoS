@@ -365,6 +365,7 @@ AppController *controller;
                  * VJ Mode.  This will toggle sending video feed to Videator.
                  */
                 if ([menuShortName isEqualToString:@"ui"]) {
+#ifdef VIDEATOR_SUPPORT
                     int i = [newMenu indexOfItemWithRepresentedObject:@"inhibittextoutput"]+1;
                     NSMenuItem *item = [newMenu insertItemWithTitle:[NSString stringWithUTF8String:_("Videator Output")] 
                                           action:@selector(toggleVideator:) 
@@ -372,6 +373,7 @@ AppController *controller;
                                          atIndex:i];
                     [item setTarget:[view videatorProxy]];
                     [item setRepresentedObject:@"videator"];
+#endif
                 }
 
                 [newMenu release];
@@ -404,8 +406,10 @@ AppController *controller;
             xaosItem = menu_findcommand([[menuItem representedObject] UTF8String]);
             if (xaosItem)
                 [menuItem setState:(menu_enabled(xaosItem, globaluih) ? NSOnState : NSOffState)];
+#ifdef VIDEATOR_SUPPORT
             else if ([[menuItem representedObject] isEqualToString:@"videator"])
                 [menuItem setState:([[view videatorProxy] videatorEnabled] ? NSOnState : NSOffState)];
+#endif
         }
     }
 }

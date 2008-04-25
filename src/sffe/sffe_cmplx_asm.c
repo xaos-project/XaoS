@@ -111,25 +111,25 @@ sfarg* sfdiv( sfarg * const p ) /*  /   */
 
 sfarg* sfsin( sfarg * const p ) /* sin */
 {
- sfvalue(p) = csin( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffecsin( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
 sfarg* sfcos( sfarg * const p ) /* cos */
 {
- sfvalue(p) = ccos( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffeccos( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
 sfarg* sftan( sfarg * const p ) /* tan */
 {
- sfvalue(p) = ctan( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffectan( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
 sfarg* sfcot( sfarg * const p ) /* ctan */
 {
- sfvalue(p) = ccot( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffeccot( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
@@ -167,86 +167,86 @@ sfarg* sfatan2( sfarg * const p ) /* atan2 */
 
 sfarg* sfsinh( sfarg * const p ) /* sinh */
 {
- sfvalue(p) = csinh( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffecsinh( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
 sfarg* sfcosh( sfarg * const p ) /* cosh */
 {
- sfvalue(p) = ccosh( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffeccosh( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
 sfarg* sftanh( sfarg * const p ) /* tanh */
 {
- sfvalue(p) = ctanh( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffectanh( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
 sfarg* sfcoth( sfarg * const p ) /* ctanh */
 {
- sfvalue(p) = ccoth( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffeccoth( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
 
 sfarg* sfexp( sfarg * const p ) /* exp */
 {
- sfvalue(p) = cexp( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffecexp( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
 sfarg* sflog( sfarg * const p ) /* log */
 {
- sfvalue(p) = cln( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffecln( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
 sfarg* sflog2( sfarg * const p ) /* log2 */
 {
- sfvalue(p) = clog2( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffeclog2( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
 sfarg* sflog10( sfarg * const p ) /* log2 */
 {
- sfvalue(p) = clog( sfvalue( sfaram1(p) ), 10 );
+ sfvalue(p) = sffeclog( sfvalue( sfaram1(p) ), 10 );
  return sfaram1(p);
 };
 
 sfarg* sflogN( sfarg * const p ) /* logN */
 {
- sfvalue(p) = clog( sfvalue( sfaram1(p) ) , sfvalue( sfaram2(p) ).r );
+ sfvalue(p) = sffeclog( sfvalue( sfaram1(p) ) , sfvalue( sfaram2(p) ).r );
  return sfaram2(p);
 };
 
 sfarg* sflogCN( sfarg * const p ) /* logCN */
 {
- sfvalue(p) = cdiv( cln( sfvalue( sfaram2(p) ) ), cln( sfvalue( sfaram1(p) ) ) );
+ sfvalue(p) = cdiv( sffecln( sfvalue( sfaram2(p) ) ), sffecln( sfvalue( sfaram1(p) ) ) );
  return sfaram2(p);
 };
 
 sfarg* sfpow( sfarg * const p ) /* csflx pow */
 {
- sfvalue(p) = ccpow( sfvalue( sfaram2(p) ), sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffeccpow( sfvalue( sfaram2(p) ), sfvalue( sfaram1(p) ) );
  return sfaram2(p);
 };
 
 sfarg* sfpowi( sfarg * const p ) /* int pow */
 {
- sfvalue(p) = cpowi( sfvalue( sfaram2(p) ), (int)( sfvalue( sfaram1(p) ).r ) );
+ sfvalue(p) = sffecpowi( sfvalue( sfaram2(p) ), (int)( sfvalue( sfaram1(p) ).r ) );
  return sfaram2(p);
 };
 
 sfarg* sfpowd( sfarg * const p ) /* double pow */
 {
- sfvalue(p) = cpowd( sfvalue( sfaram2(p) ), sfvalue( sfaram1(p) ).r );
+ sfvalue(p) = sffecpowd( sfvalue( sfaram2(p) ), sfvalue( sfaram1(p) ).r );
  return sfaram2(p);
 };
 
 sfarg* sfpowdc( sfarg * const p ) /* double to csflx pow */
 {
- sfvalue(p) = cpowc( sfvalue( sfaram2(p) ).r, sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffecpowc( sfvalue( sfaram2(p) ).r, sfvalue( sfaram1(p) ) );
  return sfaram2(p);
 };
 
@@ -258,19 +258,19 @@ sfarg* sfsqr( sfarg * const p ) /* sqr */
 
 sfarg* sfsqrt( sfarg * const p ) /* sqrt */
 {
- sfvalue(p) = csqrt( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffecsqrt( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
 sfarg* sfrtni( sfarg * const p ) /* rtni */ //cos tu nie tak jak powinno byc ;(
 {
- sfvalue(p) = crtni( sfvalue( sfaram3(p) ), (int)( sfvalue( sfaram2(p) ).r ), (int)( sfvalue( sfaram1(p) ).r ) );
+ sfvalue(p) = sffecrtni( sfvalue( sfaram3(p) ), (int)( sfvalue( sfaram2(p) ).r ), (int)( sfvalue( sfaram1(p) ).r ) );
  return sfaram3(p);
 };
 
 sfarg* sfinv( sfarg * const p ) /* cinv */
 {
- sfvalue(p) = cinv( sfvalue( sfaram1(p) ) );
+ sfvalue(p) = sffecinv( sfvalue( sfaram1(p) ) );
  return sfaram1(p);
 };
 
@@ -288,7 +288,7 @@ sfarg* sffloor( sfarg * const p ) /* floor */
 
 sfarg* sfabs( sfarg * const p ) /* abs - |z|*/
 {
- sfvalue(p).r = cabs( sfvalue( sfaram1(p) ) );
+ sfvalue(p).r = sffecabs( sfvalue( sfaram1(p) ) );
  sfvalue(p).i = 0;
  return sfaram1(p);
 };
