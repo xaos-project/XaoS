@@ -25,12 +25,12 @@ and we also have three <a lists>mailing lists</a>.
 <center>
 <a tutorial>Tutorial</a><p>
 <a controls>Basic controls</a><p>
-<a writehelp>How to write this help file</a><p>
-<a mpeg>How to encode MPEG files</a><p>
+<a sffe>User formulas</a><p>
+<a mpeg>How to encode video files</a><p>
 <a drivers>Driver specific documentation</a><p>
 <a format>XaoS' file format</a><p>
+<a writehelp>How to write this help file</a><p>
 <a menus>Menus, commands and parameter index</a><p>
-<a sffe>User formulas</a><p>
 </center>
 
 
@@ -38,12 +38,11 @@ and we also have three <a lists>mailing lists</a>.
 %sffe usrform usrformInit
 <head>Using user formulas</head>
 <p>
-Current XaoS release supports entering user formulas during runtime.
-Select <tt>Fractal/User formula</tt> to define custom fractal formula.
-Using <tt>Fractal/User initialization</tt> option, user can change 
-seqeance starting point <emph>z0</emph>. By default (in orginal Mandelbrot
-fractal) <emph>z0</emph> is set to 0. User formulas should be interpreted
-as functions of type<br>
+XaoS supports entering your own custom formulas.
+Select <tt>User formula</tt> from the <tt>Fractal</tt> menu to define a 
+custom fractal formula.  Select <tt>User initialization</tt> to change 
+the sequence starting point <emph>z0</emph>. By default <emph>z0</emph> 
+is set to 0. User formulas should be interpreted as functions in the form<br>
 <emph>Z(n+1) = formula (Z(n), Z(n-1), C)</emph>.
 <p>
 In user formulas, as shown above, three variables are available:<br>
@@ -58,26 +57,6 @@ In user formulas, as shown above, three variables are available:<br>
 <p>
 Format for complex numbers is <emph>{re;im}</emph><br>
 eg. {3;2} is complex number 3+2i.
-<p>
-User formulas are calculated using SFFE library. Two implementations
-of complex math are available: first is based on <tt>GSL</tt> library,
-second one is based on asm implementation of complex math, and can be
-much faster but less stable. User can select complex math backend during
-compilation.
-<p>
-To use GSL complex math write:<br>
-<emph>
-make clean<br>
-./configure --with-gsl=yes<br>
-make<br>
-</emph>
-<p>
-To use asm complex math write:<br>
-<emph>
-make clean<br>
-./configure --with-gsl=no<br>
-make<br>
-</emph>
 <p>
 Available functions are listed below:
 <dl>
@@ -120,7 +99,7 @@ im - imaginary part
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %mpeg
 
-<head>How to encode MPEG files from XaoS</head>
+<head>How to encode video files from XaoS</head>
 <p>
 To save a sequence, make a <tt>xaf</tt> file first (the easiest way to do this is
 to use the <emph>record</emph> function in the file menu). Then you need to render
@@ -169,6 +148,55 @@ of <tt>mv</tt> or symbolic linking.
 A list of all filenames is saved into the file <tt>[basename].par</tt>, where each line is
 the name of one frame. The names repeat here if necessary, so you can use this
 file to supply filenames to the encoder.
+<head>Encoding videos</head>
+Once XaoS has generated the png files for each frame of the animation, you
+can use a third-party video encoder to convert the sequence of images into
+a video file.  We currently recommend the following encoders, which support
+a wide variety of video codecs and file formats:
+<dl>
+<dt>ffmpeg
+<dd>Available from: <tt>http://ffmpeg.mplayerhq.hu/</tt><br>
+Instructions: <tt>http://ffmpeg.mplayerhq.hu/faq.html#SEC12</tt>
+<dt>mencoder
+<dd>Part of mplayer, available from: http://www.mplayerhq.hu/<br>
+Instructions: <tt>http://www.mplayerhq.hu/DOCS/HTML/en/menc-feat-enc-images.html</tt>
+</dl>
+These are both command line tools.  If you prefer a graphical tool, you may
+prefer Quicktime Pro from Apple (http://www.apple.com/quicktime/pro/). However,
+this software costs approximately US$30, and the authors of XaoS have no
+experience with it.  Although QuickTime may be easier to use, the two free 
+encoders above are just as capable once you learn how to use them.
+
+<p>
+Note: we used to recommend <a berkeley>Berkeley parallel MPEG encoder</a> to 
+compress the generated png files into MPEG videos.  However, it has not 
+been updated for a very long time and no longer appears to compile on 
+modern systems.  Also, there are much more modern codecs available that 
+provide better video quality and compression rates.  Still, we have kept 
+the following instructions mainly for historic purposes.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%berkeley
+<head>Berkeley parallel MPEG encoder</head>
+
+This is the encoder we used to recommend. However, it has not been updated
+for a very long time and no longer appears to compile on modern systems.
+Also, there are much more modern codecs available that provide better video
+quality and compression rates.  Still, we have kept the following 
+instructions mainly for historic purposes.
+<p>
+It is available at Berkeley's FTP site <tt>mm-ftp.CS.Berkeley.EDU</tt> and called
+<tt>mpeg_encode1.5b</tt>
+<p>
+It has lots of options to tune, so you should spend quite a lot of time
+playing with this. The configuration I use is in file <tt>doc/mpeg.param</tt>.
+<p>
+I've also made some patches that makes possible to use the pattern and motion
+files generated from XaoS. The patch is in <tt>doc/mpeg_encode.patch</tt>. So if
+you want to use these features (they are <emph>EXPERIMENTAL</emph>) you might apply this
+patch and recompile the encoder.
+<p>
+Once you filled the <tt>mpeg.param</tt> file (see comments inside), you should render
+sequence using <tt>mpeg_encode [filename]</tt> and with luck you are done.
 
 <head>Pattern file</head>
 
@@ -236,24 +264,6 @@ most programs look 10-20 pixels around each point for motion vectors).
 <p>
 To enable saving of motion vector files, add the option
 <tt>-rendervectors</tt>.
-
-<head>Berkeley parallel MPEG encoder</head>
-
-This is the encoder I use. It seems to be the best freely available software
-encoder I've tested. It can generate quite small files, but it is rather slow.
-It is available at Berkeley's FTP site <tt>mm-ftp.CS.Berkeley.EDU</tt> and called
-<tt>mpeg_encode1.5b</tt>
-<p>
-It has lots of options to tune, so you should spend quite a lot of time
-playing with this. The configuration I use is in file <tt>doc/mpeg.param</tt>.
-<p>
-I've also made some patches that makes possible to use the pattern and motion
-files generated from XaoS. The patch is in <tt>doc/mpeg_encode.patch</tt>. So if
-you want to use these features (they are <emph>EXPERIMENTAL</emph>) you might apply this
-patch and recompile the encoder.
-<p>
-Once you filled the <tt>mpeg.param</tt> file (see comments inside), you should render
-sequence using <tt>mpeg_encode [filename]</tt> and with luck you are done.
 
 
 

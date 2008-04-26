@@ -284,7 +284,7 @@ AppController *controller;
              * the menu.
              */
             if (isNumbered && item->type != MENU_SUBMENU) {
-                if (n < 9)
+                if (n < 10)
                     keyEquiv = [NSString stringWithFormat:@"%d", n];
                 else if (n == 10)
                     keyEquiv = @"0";
@@ -364,8 +364,8 @@ AppController *controller;
                  * Add Videator Output menu item in the UI menu just below
                  * VJ Mode.  This will toggle sending video feed to Videator.
                  */
-                if ([menuShortName isEqualToString:@"ui"]) {
 #ifdef VIDEATOR_SUPPORT
+                if ([menuShortName isEqualToString:@"ui"]) {
                     int i = [newMenu indexOfItemWithRepresentedObject:@"inhibittextoutput"]+1;
                     NSMenuItem *item = [newMenu insertItemWithTitle:[NSString stringWithUTF8String:_("Videator Output")] 
                                           action:@selector(toggleVideator:) 
@@ -373,8 +373,8 @@ AppController *controller;
                                          atIndex:i];
                     [item setTarget:[view videatorProxy]];
                     [item setRepresentedObject:@"videator"];
-#endif
                 }
+#endif
 
                 [newMenu release];
             } else {
