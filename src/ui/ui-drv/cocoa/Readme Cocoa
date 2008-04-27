@@ -333,6 +333,18 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     - Cleanups to eliminate warnings
     
     - Conditionalize videator code
+    
+2008-04-26
+
+    - Update video encoding section to recommend ffmpeg, mencoder
+    
+    - Move Berkeley MPEG encoder information to historical section
+    
+    - Create help section to explain how to get support
+    
+    - Add library copyright information to credits help section
+    
+    - Update Development help section with recent contribution instructions
 
 TODO:
 

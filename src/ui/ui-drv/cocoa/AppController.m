@@ -23,6 +23,7 @@
  */
 #import "AppController.h"
 #import "CustomDialog.h"
+#import "VideatorProxy.h"
 #import "ui.h"
 
 #ifdef HAVE_GETTEXT
@@ -117,7 +118,8 @@ AppController *controller;
     [supportedLanguages release];
 }    
 
-- (int)initDriver:(struct ui_driver *)driver fullscreen:(BOOL)fullscreen {
+- (int)initDriver:(struct ui_driver *)driver 
+       fullscreen:(BOOL)fullscreen {
     /*
      * Calculate the pixel size in cm. userSpaceScaleFactor returns: 
      *      pixels per per point
@@ -229,7 +231,8 @@ AppController *controller;
     return @"";
 }
 
-- (void)buildMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
+- (void)buildMenuWithContext:(struct uih_context *)context 
+                        name:(CONST char *)name {
     NSMenu *menu = [NSApp mainMenu];
     while ([menu numberOfItems] > 1)
         [menu removeItemAtIndex:1];
@@ -238,8 +241,7 @@ AppController *controller;
 
 - (void)buildMenuWithContext:(struct uih_context *)context 
                         name:(CONST char *)menuName 
-                      parent:(NSMenu *)parentMenu
-{
+                      parent:(NSMenu *)parentMenu {
     [self buildMenuWithContext:context
                           name:menuName
                         parent:parentMenu
@@ -414,7 +416,8 @@ AppController *controller;
     }
 }
 
-- (void)showPopUpMenuWithContext:(struct uih_context *)context name:(CONST char *)name {
+- (void)showPopUpMenuWithContext:(struct uih_context *)context 
+                            name:(CONST char *)name {
     NSMenu *popUpMenu = [[NSMenu alloc] initWithTitle:@"Popup Menu"];
     NSPopUpButtonCell *popUpButtonCell = [[NSPopUpButtonCell alloc] initTextCell:@"" pullsDown:NO];
     NSRect frame = {{0.0, 0.0}, {0.0, 0.0}};
@@ -430,7 +433,8 @@ AppController *controller;
 
 #pragma mark Dialogs
 
-- (void)showDialogWithContext:(struct uih_context *)context name:(CONST char *)name {
+- (void)showDialogWithContext:(struct uih_context *)context 
+                         name:(CONST char *)name {
     CONST menuitem *item = menu_findcommand (name);
     if (!item) return;
     
@@ -501,7 +505,8 @@ AppController *controller;
 
 #pragma mark Help
 
-- (void)showHelpWithContext:(struct uih_context *)context name:(CONST char *)name {
+- (void)showHelpWithContext:(struct uih_context *)context 
+                       name:(CONST char *)name {
     NSString *anchor = [NSString stringWithUTF8String:name];
     [[NSHelpManager sharedHelpManager] openHelpAnchor:anchor inBook:@"XaoS Help"];
 }
@@ -520,7 +525,8 @@ AppController *controller;
 
 #pragma mark Application Delegates
 
-- (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
+- (BOOL)application:(NSApplication *)theApplication 
+           openFile:(NSString *)filename {
     if ([[filename pathExtension] isEqualToString:@"xpf"]) {
         uih_loadfile(globaluih, [filename UTF8String]);
         return YES;

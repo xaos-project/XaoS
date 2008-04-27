@@ -4,34 +4,302 @@
 <center>
 Welcome to XaoS - a real-time fractal zoomer. 
 </center>
+
 <p>
-XaoS is free software. You are welcome to redistribute it under certain
-<a gpl>conditions</a>. It also means that you may get <emph>sources</emph>
-and help its <a authors>authors</a> with the 
-<a devel>development</a>.
+<a about>About XaoS</a><br>
+Learn who's behind XaoS and how you can help.
+
 <p>
-If you don't know what a fractal is, please try the tutorial ``<tutor fractal.xaf>An introduction to fractals</tutor>''. 
-If you are new to XaoS you should try it too, since it is quite a good example of XaoS's features. 
+<a start>Getting started</a><br>
+Start here to learn how to use XaoS's basic features.
+
 <p>
-To see more about XaoS' features, try the tutorial 
-``<tutor features.xaf>XaoS features overview</tutor>''. 
+<a support>Getting support</a><br>
+How to report problems and get help from the XaoS community.
+
 <p>
-Both the tutorials are divided into chapters and available from help menu.
-So you don't need to watch them all at once (they are about half an hour long)
-<head>Where to get up-to date information</head>
-The XaoS homepage is <tt>http://xaos.sf.net</tt>
-and we also have three <a lists>mailing lists</a>.
-<head>Other things to read</head>
-<center>
-<a tutorial>Tutorial</a><p>
-<a controls>Basic controls</a><p>
-<a sffe>User formulas</a><p>
-<a mpeg>How to encode video files</a><p>
-<a drivers>Driver specific documentation</a><p>
-<a format>XaoS' file format</a><p>
-<a writehelp>How to write this help file</a><p>
-<a menus>Menus, commands and parameter index</a><p>
-</center>
+<a sffe>User formulas</a><br>
+Learn how to render your own formulas in XaoS.
+
+<p>
+<a video>Encoding videos</a><br>
+Learn how to create videos from your XaoS animations.
+
+<p>
+<a drivers>Platform-specific documentation</a><br>
+XaoS runs on many platforms. Read instructions specific to yours.
+
+<p>
+<a format>XaoS' file format</a><br>
+Learn how to tweak your saved fractals and animations.
+
+<p>
+<a menus>Menus, commands and parameter index</a><br>
+An in-depth discussion of all of XaoS's commands.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%about
+<head>About XaoS</head>
+
+XaoS is free software. You are welcome to redistribute it under the terms of
+the <a gpl>GNU General Public License</a>. This also means that you may get 
+<emph>sources</emph> and help improve XaoS through an open 
+<a devel>development process</a>.
+
+<head>Credits</head>
+(alphabetically)
+<dl>
+<dt>Eric Courteau (ecourteau@cplus.fr)
+<dd>francais.cat (translation of tutorials)
+<dt>Jean-Pierre Demailly (Jean-Pierre.Demailly@ujf-grenoble.fr)
+<dd>Updates for French translation
+<dt>Radek Doulik (rodo@atrey.karlin.mff.cuni.cz)
+<dd>TK interface, windowid patches
+<dt>Martin Dozsa (madsoft@centrum.cz)
+<dd>cs.po (Czech translation of menus)
+<dt>Arpad Fekete (Fekete.Arpad.2@stud.u-szeged.hu)
+<dd>some new fractals, and the 'More formulae' menu
+<dt>Tim Goodwin	(tgoodwin@cygnus.co.uk)
+<dd>english.cat corrections
+<dt>Ben Hines
+<dd>autoconf suggestions, Mac OS X port
+<dt>Jan Hubicka	(jh@ucw.cz) 
+<dd>Zooming routines, ugly interface, palettes, drivers, autopilot, filters, documentation, tutorials etc.
+<dt>Jens Kilian	(jjk@acm.org)
+<dd>BeOS driver, deutsch.cat
+<dt>Thomas A. K. Kjaer (takjaer@imv.aau.dk)
+<dd>OS/2 ports (320x200 graphics and AA-lib)
+<dt>Zoltan Kovacs (kovzol@math.u-szeged.hu)
+<dd>Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
+<dt>Zsigmond Kovacs (kovzsi@gmail.com)
+<dd>Fractal examples
+<dt>J.B. Langston III (jb-langston@austin.rr.com)
+<dd>Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
+<dt>Andreas Madritsch (amadritsch@datacomm.ch)
+<dd>New fractal types, bailout, many fixes
+<dt>Mateusz Malczak (xaos@malczak.info)
+<dd>User formula evaluation library
+<dt>Giorgio Marazzi (gmarazzi@vtr.net)
+<dd>Improvements and fixes for espanhol.cat
+<dt>Thomas Marsh
+<dd>First zoomer, formulae, planes, X11 driver, inversions, many ideas
+<dt>Dominic Mazzoni (dmazzoni@cs.cmu.edu)
+<dd>Macintosh port (version 2.0)
+<dt>David Meleedy
+<dd>Grammatical and spelling fixed version of <tt>xaos.6</tt>
+<dt>Paul Nasca (zynaddsubfx@yahoo.com)
+<dd>Ministatus improvement
+<dt>Nix (nix@esperi.demon.co.uk)
+<dd>Grammatical and spelling fixed version of <tt>xaos.hlp</tt> and other files
+<dt>Terje Pedersen (terjepe@login.eunet.no)
+<dd>Amiga port
+<dt>Cesar Perez (oroz@users.sourceforge.net)
+<dd>Spanish translations
+<dt>Fabrice Premel (premelfa@etu.utc.fr)
+<dd>Periodicity checking
+<dt>Jan Olderdissen (jan@olderdissen.com)
+<dd>Win32 port
+<dt>Ilinca Sitaru (ilinca.sitaru@gmail.com)
+<dd>Romanian translation
+<dt>Daniel Skarda
+<dd>Fractal examples
+<dt>Andrew Stone (Stone Design - www.stone.com)
+<dd>Videator Support, Cocoa improvements, performance mode, bug fixes
+<dt>Marton Torok (marton.torok@gmail.com)
+<dd>Small fixes for pipes
+<dt>Pavel Tzekov (paveltz@csoft.bg)
+<dd>Win32 support
+<dt>Charles Vidal
+<dd>Tcl/Tk interface
+<dt>Tapio K. Vocaldo (taps@rmx.com)
+<dd>Macintosh port
+<dt>Tormod Volden
+<dd>Fixes for X11 driver to improve compatability with Xorg, XScreenSaver, Beryl and Compiz
+<dt>Philippe Wautelet (p.wautelet@fractalzone.be)
+<dd>Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
+<dt>Sergio Zanchetta
+<dd>Italian translation
+</dl>
+<head>Included Software</head>
+XaoS uses the following libraries. These libraries may be included
+with some binary distributions of XaoS.
+<p>
+<emph>gettext 0.17</emph><br>
+Website: <tt>http://www.gnu.org/software/gettext/</tt><br>
+Copyright (C) 1995-1997, 2000-2007 Free Software Foundation, Inc.<br>
+License GPLv3+: GNU GPL version 3 or later (http://gnu.org/licenses/gpl.html)<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.
+<p>
+<emph>GNU Scientific Library 1.11</emph><br>
+Website: <tt>http://www.gnu.org/software/gsl/</tt><br>
+Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007 The GSL Team.<br>
+License GPLv3+: GNU GPL version 3 or later (http://gnu.org/licenses/gpl.html)<br>
+This is free software: you are free to change and redistribute it.<br>
+There is NO WARRANTY, to the extent permitted by law.
+<p>
+<emph>libpng 1.2.25</emph><br>
+Website: <tt>http://www.libpng.org/pub/png/libpng.html</tt><br>
+Copyright (c) 1998-2008 Glenn Randers-Pehrson<br>
+Copyright (c) 1996-1997 Andreas Dilger<br>
+Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%start
+<head>Getting Started</head>
+
+<a controls>Basic controls</a>
+<br>Learn the basic commands to control XaoS.
+
+<p>
+<tutor fractal.xaf>An introduction to fractals</tutor>
+<br>Try this animated tutorial if you don't know what a fractal is. If 
+you are new to XaoS you should try it too, since it is quite a good example 
+of XaoS's features. 
+
+<p>
+<tutor features.xaf>XaoS features overview</tutor>
+<br>Watch this tutorial to discover more of XaoS' features.
+
+<p>
+Both the tutorials are divided into chapters and available from help menu, 
+so you don't need to watch them all at once (they are about half an hour long).
+
+<p>
+<a tutorial>XaoS Overview</a>
+<br>A written introduction to all of XaoS's features.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%support
+<head>Getting Support</head>
+XaoS is a community-supported free software project.  There are many ways
+to get help, all of which are explained below.
+
+<head>Home Page</head>
+The XaoS homepage is <tt>http://xaos.sf.net</tt>.  Check here for the 
+latest news and information about XaoS and to download the latest versions.
+
+
+<head>Discussion Forums</head>
+XaoS has two discussion forums hosted on SourceForge.  You can read them 
+freely, but in order to post, you must to register for a free SourceForge 
+account.
+
+<dl>
+<dt>Help
+<dd>Provides a place for you to ask for help using XaoS.  Other XaoS users
+and/or the XaoS developers will answer your questions.
+<p><tt>http://sourceforge.net/forum/forum.php?forum_id=17768</tt>
+<dt>Open Discussion
+<dd>Provides a place to discuss anything related to XaoS or fractals.  
+You can share tips, your own fractal creations, or any other fractal-related 
+ideas with other XaoS users.
+<p><tt>http://sourceforge.net/forum/forum.php?forum_id=17767</tt>
+</dl>
+
+<p>
+We welcome you to join these forums and become involved in the XaoS community.
+
+<head>Mailing Lists</head>
+
+XaoS currently has three mailing lists hosted on SourceForge. Unfortunately, 
+there is currently very little traffic on any of them.  Hopefully in the future, 
+we can get more XaoS users and developers involved in the mailing lists. 
+The lists are as follows:
+
+<dl>
+<dt>xaos-announce@lists.sourceforge.net
+<dd>Low volume list that is used only to announce new releases.
+<p>Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-announce</tt>
+<br>Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-announce</tt> 
+
+<dt>xaos-devel@lists.sourceforge.net
+<dd>Developer mailing list, where the developers coordinate and discuss XaoS development.
+<p>Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-devel</tt>
+<br>Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-devel</tt>
+
+<dt>xaos-discuss@lists.sourceforge.net
+<dd>General discussion list is for XaoS users to share tips and ideas about XaoS.
+<p>Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-discuss</tt>
+<br>Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-discuss</tt>
+</dl>
+
+<p>
+Please feel free to join any or all of these mailing lists and share your ideas with the 
+developers and other XaoS users.
+
+<head>Bug Reports</head>
+If you think you have found a bug in XaoS, please report it.  The developers will do their
+best to resolve the bug in a timely manner.
+
+<p>
+Bug Tracker: <tt>http://sourceforge.net/tracker/?atid=105771&group_id=5771</tt>
+
+<p>
+<emph>Please don't submit duplicate bugs</emph>. Browse the existing ones first to make 
+sure nobody has already reported it.  You may add additional information about a bug by 
+entering a comment on an existing bug.
+
+<p>
+If you are not sure if something is a bug, please open a support request. The developers
+will try to answer your question and can convert your support request to a bug if necessary.
+
+<p>
+Support Requests: <tt>http://sourceforge.net/tracker/?atid=205771&group_id=5771</tt>
+
+<head>Feature Requests</head>
+If you have an idea for a great new feature you'd like to XaoS, please let us know about it.  
+You can submit a feature request via SourceForge, and the XaoS developers will do their best to
+implement your request in a future version.
+
+<p>
+Feature Requests: <tt>http://sourceforge.net/tracker/?atid=355771&group_id=5771</tt>
+
+<p>
+<emph>Please don't submit duplicate feature requests</emph>. Browse the existing ones 
+first to make sure nobody has already requested the feature your want.  You may add your 
+vote for a feature by adding a comment to the existing request.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%devel
+<head>Development</head>
+XaoS is free software. One of the most significant rights its <a gpl>license</a>
+grants to you is the right to <emph>freely get, study and improve</emph> its
+source code, which is available from the XaoS homepage.
+<p>
+If you want to do some development, you are encouraged to send your work back
+to the <a about>authors</a>; if it is well done, it will be added to the
+next release. All changes should be submitted to the SourceForge patch tracker:
+<tt>http://sourceforge.net/tracker/?group_id=5771&atid=305771</tt>
+<p>
+XaoS has open development model. All development is coordinated via the SourceForge
+website (<tt>http://www.sourceforge.net/projects/xaos</tt>). Development versions are
+available via CVS (see <tt>http://sourceforge.net/cvs/?group_id=5771</tt> for instructions),
+so if you are interested in the future of XaoS, give the latest source a try! We also 
+have a several <a support>mailing lists</a>, where you can subscribe if you want to be 
+informed about latest releases, discuss XaoS with others, or participate in the development
+process.
+<p>
+XaoS is quite easily extensible. You might want to
+read a bit about its internals in the file <emph>doc/xaosdev.info</emph>.
+XaoS is also portable, so if it doesn't work on your favorite platform (or
+there is just an old version available), you could quite easily port it.
+<p>
+<head>Volunteer Opportunities</head>
+XaoS needs volunteers to make it the best fractal program it can be! 
+You don't have to be a programmer to help.  The following 
+tasks open to volunteers:
+
+<p>Improving the documentation via the Wiki (and improving the DokuWiki converter).
+<p>Compiling binaries for your favorite operating system.
+<p>Reviewing the source code, adding comments, and checking lines which generate warnings during compilation.
+<p>Creating additional tutorials and examples.
+<p>Translating XaoS into your language.
+<p>Implementing feature requests.
+<p>Fixing outstanding bugs.
+<p>If you would like to volunteer, join the mailing lists and let us know. We would be happy to help you get started!
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,44 +364,46 @@ im - imaginary part
 </dl>
 <p>
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%mpeg
+%video
 
 <head>How to encode video files from XaoS</head>
 <p>
-To save a sequence, make a <tt>xaf</tt> file first (the easiest way to do this is
-to use the <emph>record</emph> function in the file menu). Then you need to render
-the sequence. XaoS can output sequences of ordinary <tt>PNG</tt> images, that
-can later be used by an MPEG encoder.
+To create a video, make and <tt>xaf</tt> file first (the easiest way to do this is
+to use the <emph>record</emph> function in the file menu). Then you need to render 
+the animation. XaoS can output sequences of ordinary <tt>PNG</tt> images, that
+can later be used by a video encoder.
 <p>
-<head>Generating sequences for MPEG</head>
+<head>Generating image sequences for video</head>
 <p>
-To encode a sequence, use the following command:
+To generate an image sequence, choose <emph>Render Animation</emph> from the <emph>Misc</emph>
+menu.  You can also use the following command on the command line:
 <p><tt>
 xaos -render [filename] -size 352x240 -antialiasing 
        -renderframerate 24 -basename [basename]
 </tt><p>
-<tt>[filename]</tt> is the name of the <tt>xaf</tt> file,
-<tt>[basename]</tt> is the name used as the base for rendered images.
-XaoS adds a four digit number and extension automatically.
+<emph>File to render</emph> (<tt>[filename]</tt>) is the name of the <tt>xaf</tt> file,
+<emph>Basename</emph> (<tt>[basename]</tt>) is the name used as the base filename for rendered images.  This should also include the path where you want to save the images.
+XaoS adds a four digit sequence number and <tt>.png</tt> extension to this name automatically.
 <p>
-You might also want to change the resolution. 352x240 is the default size
-for MPEG files, but other sizes work as well. Each dimension must be a multiple
-of 16.
+You might also want to change the resolution. Make sure that the resolution
+you choose is supported by the video codec you wish to use.
 <p>
-The framerate can also be altered. MPEG supports only a few selected framerates
-(namely 23.976, 24, 25, 29.97, 30) and you can pick any of them.
+The framerate can also be altered. Make sure you choose a framerate that is supported by
+the video codec you wish to use.
 <p>
-<tt>-antialiasing</tt> is used to produce anti-aliased images. It takes a much longer
+<emph>Antialiasing</emph> (<tt>-antialiasing</tt>) is used to produce anti-aliased images. 
+It takes a much longer
 time and much more memory to calculate them, but resulting images are better
-for MPEG DCT compression and they are <emph>compressed about 3 times more</emph>.
+for video compression and they result in a much smaller video file.
 (the same is true of <emph>JPEG images</emph>)
 <p>
-At the other hand, the other XaoS rendering option <tt>-alwaysrecalc</tt> (which disables
+On the other hand, the other XaoS rendering option <emph>Always Recalculate</emph> (<tt>-alwaysrecalc</tt>) (which disables
 XaoS's zooming optimizations) is <emph>not recommended</emph>. If that's used, the
 sequence of animation then contains quite a lot of extra information, which
-increases size of MPEG file, but because of MPEG's lossy compression it is hard
-to see any difference. So it don't worth it.
+increases size of video file, but because of the codec's lossy compression it is hard
+to see any difference, so it's not worth it.
 <head>Rendered files</head>
 Once you start it, XaoS will generate thousands of frames. They take quite
 a long time to calculate and save, and consume plenty of disk space.
@@ -169,11 +439,10 @@ encoders above are just as capable once you learn how to use them.
 
 <p>
 Note: we used to recommend <a berkeley>Berkeley parallel MPEG encoder</a> to 
-compress the generated png files into MPEG videos.  However, it has not 
-been updated for a very long time and no longer appears to compile on 
-modern systems.  Also, there are much more modern codecs available that 
-provide better video quality and compression rates.  Still, we have kept 
-the following instructions mainly for historic purposes.
+encode the generated png files into MPEG videos.  We have kept 
+the instructions mainly for historic purposes.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %berkeley
 <head>Berkeley parallel MPEG encoder</head>
@@ -266,9 +535,6 @@ To enable saving of motion vector files, add the option
 <tt>-rendervectors</tt>.
 
 
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %controls
 <head>Basic controls</head>
@@ -327,10 +593,6 @@ context sensitive help work.
 The help file is written in a special format called <a xshl>xshl</a>.
 </notex>
 
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %xshl
 <head>xshl</head>
@@ -376,133 +638,7 @@ The following tags are supported:
 <dd>Ignore this in texinfo manuals
 </dl>
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%authors
 
-<head>Credits</head>
-(alphabetically)
-<dl>
-<dt>Eric Courteau (ecourteau@cplus.fr)
-<dd>francais.cat (translation of tutorials)
-<dt>Jean-Pierre Demailly (Jean-Pierre.Demailly@ujf-grenoble.fr)
-<dd>Updates for French translation
-<dt>Radek Doulik (rodo@atrey.karlin.mff.cuni.cz)
-<dd>GTK interface, windowid patches
-<dt>Martin Dozsa (madsoft@centrum.cz)
-<dd>cs.po (Czech translation of menus)
-<dt>Arpad Fekete (Fekete.Arpad.2@stud.u-szeged.hu)
-<dd>some new fractals, and the 'More formulae' menu
-<dt>Tim Goodwin	(tgoodwin@cygnus.co.uk)
-<dd>english.cat corrections
-<dt>Ben Hines
-<dd>autoconf suggestions, Mac OS X port
-<dt>Jan Hubicka	(jh@ucw.cz) 
-<dd>Zooming routines, ugly interface, palettes, drivers, autopilot, filters, documentation, tutorials etc.
-<dt>Jens Kilian	(jjk@acm.org)
-<dd>BeOS driver, deutsch.cat
-<dt>Thomas A. K. Kjaer (takjaer@imv.aau.dk)
-<dd>OS/2 ports (320x200 graphics and AA-lib)
-<dt>Zoltan Kovacs (kovzol@math.u-szeged.hu)
-<dd>Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
-<dt>Zsigmond Kovacs (kovzsi@gmail.com)
-<dd>Fractal examples
-<dt>J. B. Langston III (jb-langston@austin.rr.com)
-<dd>Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
-<dt>Andreas Madritsch (amadritsch@datacomm.ch)
-<dd>New fractal types, bailout, many fixes
-<dt>Mateusz Malczak (xaos@malczak.info)
-<dd>User formula evaluation library
-<dt>Giorgio Marazzi (gmarazzi@vtr.net)
-<dd>Improvements and fixes for espanhol.cat
-<dt>Thomas Marsh
-<dd>First zoomer, formulae, planes, X11 driver, inversions, many ideas
-<dt>Dominic Mazzoni (dmazzoni@cs.cmu.edu)
-<dd>Macintosh port (version 2.0)
-<dt>David Meleedy
-<dd>Grammatical and spelling fixed version of <tt>xaos.6</tt>
-<dt>Paul Nasca (zynaddsubfx@yahoo.com)
-<dd>Ministatus improvement
-<dt>Nix (nix@esperi.demon.co.uk)
-<dd>Grammatical and spelling fixed version of <tt>xaos.hlp</tt> and other files
-<dt>Terje Pedersen (terjepe@login.eunet.no)
-<dd>Amiga port
-<dt>Cesar Perez (oroz@users.sourceforge.net)
-<dd>Spanish translations
-<dt>Fabrice Premel (premelfa@etu.utc.fr)
-<dd>Periodicity checking
-<dt>Jan Olderdissen (jan@olderdissen.com)
-<dd>Win32 port
-<dt>Ilinca Sitaru (ilinca.sitaru@gmail.com)
-<dd>Romanian translation
-<dt>Daniel Skarda
-<dd>Fractal examples
-<dt>Andrew Stone (Stone Design - www.stone.com)
-<dd>Videator Support, Cocoa improvements, performance mode, bug fixes
-<dt>Marton Torok (marton.torok@gmail.com)
-<dd>Small fixes for pipes
-<dt>Pavel Tzekov (paveltz@csoft.bg)
-<dd>Win32 support
-<dt>Charles Vidal
-<dd>Tcl/Tk interface
-<dt>Tapio K. Vocaldo (taps@rmx.com)
-<dd>Macintosh port
-<dt>Tormod Volden
-<dd>Fixes for X11 driver to improve compatability with Xorg, XScreenSaver, Beryl and Compiz
-<dt>Philippe Wautelet (p.wautelet@fractalzone.be)
-<dd>Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
-<dt>Sergio Zanchetta
-<dd>Italian translation
-</dl>
-<p>
-To contact the authors you can also use the <a lists>mailing lists</a>.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%devel
-<head>Development</head>
-XaoS is free software. One of the most significant rights its <a gpl>license</a>
-grants to you is the right to <emph>freely get, study and improve</emph> its
-source code, which is available from the XaoS homepage.
-<p>
-If you want to do some development, you are encouraged to send your work back
-to the <a authors>authors</a>; if it is well done, it will be added to the
-next release. All changes should be sent to my address:
-<tt>jh@ucw.cz</tt>
-<p>
-XaoS has open development model. Development versions are available at
-SourceForge website <tt>(http://xaos.sf.net)</tt>,
-so if you are interested in the development, you might try them. We also have a
-<a lists>developers mailing list</a>, where you might subscribe, if you want
-to be informed about latest development, discuss various things and so on.
-<p>
-We need many developers. XaoS is quite easily extensible. You might want to
-read a bit about its internals in the file <emph>doc/xaos.info</emph>.
-XaoS is also portable, so if it doesn't work on your favorite platform (or
-there is just an old version available), you could quite easily port it.
-<p>
-We also need authors for tutorials, people who can translate
-them into a foreign language etc...
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%lists
-
-<head>Mailing-lists:</head>
-Until 1999 (or so) there was a high traffic mailing list
-on a mail server located in Czech Republic. Unfortunately,
-the server with its mailing lists no longer works.
-<p>
-In 2001 XaoS moved to the SourceForge developer site
-and now there are 3 new mailing lists. Unfortunately,
-at the time of writing this documentation its traffic
-is about 0. Hopefully the development will continue
-using these mailing lists. Namely,
-<dl>
-<dt>xaos-announce@lists.sourceforge.net,
-<dt>xaos-devel@lists.sourceforge.net,
-<dt>xaos-discuss@lists.sourceforge.net.
-</dl>
-<p>
-Please feel free to join any or all of these
-mailing lists and share your ideas with the developers.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %format
@@ -644,7 +780,7 @@ And following is the ``rotozooming'' animation:
 
 I plan to make a gallery of animations and position files on the XaoS home-page,
 so please send any nice animations and images you created using XaoS
-to <tt>jh@ucw.cz</tt>.
+to the <a support>mailing list</a> or upload them to our website.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %drivers
 
