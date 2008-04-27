@@ -546,6 +546,10 @@ By default the mouse buttons work in the following way:
 <dt>middle<dd>move fractal in a drag-and-drop fashion
 </dl>
 <p>
+<emph>Note:</emph> Since most Macs only have one button mice, these controls
+are emulated on Mac OS X using modifier keys.  See the help section on 
+<a cocoa>Mac OS X</a> for details.
+<p>
 This behavior can change. If you enable rotation, the first button is used for rotating
 fractals. Also, in fast Julia mode, the first button is used to change the seed.
 <p>
@@ -784,12 +788,22 @@ to the <a support>mailing list</a> or upload them to our website.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %drivers
 
-<head>Driver specific documentation</head>
+<head>Platform-specific documentation</head>
 XaoS is portable and works on many different platforms. Since not all platforms are
-exactly the same, there are some differences between the behaviour of XaoS on
+exactly the same, there are some differences between the behavior of XaoS on
 different platforms. Here is documentation about each specific port.
 <notex>
 <center>
+<p>
+<a X11>X11 driver</a>
+<p>
+<a cocoa>Mac OS X driver</a>
+<p>
+<a win32>Win32 driver</a>
+<p>
+<a dX-window>DirectX windowed driver</a>
+<p>
+<a dX-fullscreen>DirectX fullscreen driver</a>
 <p>
 <a aa>AA-lib driver</a>
 <p>
@@ -801,21 +815,86 @@ different platforms. Here is documentation about each specific port.
 <p>
 <a SVGAlib>SVGAlib driver</a>
 <p>
-<a X11>X11 driver</a>
-<p>
 <a DGA>DGA driver</a>
-<p>
-<a win32>Win32 driver</a>
-<p>
-<a dX-window>DirectX windowed driver</a>
-<p>
-<a dX-fullscreen>DirectX fullscreen driver</a>
 <p>
 <a BeOS>BeOS drivers (BeOS, DirectWindow, WindowScreen) </a>
 </center>
 </notex>
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%cocoa
 
+<head>Mac OS X port</head>
+XaoS has full support for Mac OS X including native menus, dialogs, help,
+Finder integration, drag and drop, and basic AppleScript support. 
+<p>
+The Mac OS X port of XaoS strives to provide a Mac-like experience, while
+retaining compatibility with other platforms.  Some Mac-specific details
+are outlined below.
+
+<head>Zooming</head>
+Since most Macs have one button mice, the middle and right buttons are emulated
+with modifier keys. This means there are multiple ways to perform basic zooming 
+operations:
+
+<dl>
+<dt>Zoom in
+<dd>Hold down the main mouse button.
+<dt>Zoom out
+<dd>1. Hold down the Ctrl key while pressing the main mouse button.
+<br>2. Use the right mouse button if you have one.
+<br>3. On laptops with gestures enabled, place two fingers on your trackpad and press the main mouse button.
+<dt>Pan
+<dd>1. Hold down the Shift key while dragging with the main mouse button.
+<br>2. Drag with the center button if you have one.
+<br>3. Use the scroll wheel or ball if you have one to pan up/down and left/right.
+<br>4. On laptops with gestures enabled, swipe two fingers across the trackpad to pan horizontally or vertically.
+</dl>
+
+<head>Keyboard Shortcuts</head>
+XaoS menu functions have been mapped to commonly used Mac keyboard shortcuts.  For example,
+Open is Cmd-O and Undo is Cmd-Z, just as you would expect.
+
+<p>However, XaoS also has its own 
+long-standing tradition of cross-platform keyboard shortcuts.  These keyboard shortcuts are 
+also displayed in the menus inside parentheses.  For example, the menu item "Autopilot (a)" 
+means that you can press a (with no modifier keys) to activate Autopilot.  All of these 
+traditional XaoS shortcuts do not use modifier keys, so they do not conflict with any standard 
+Mac OS X shortcuts.
+
+<p>In some cases, the same function may be performed with both a traditional
+XaoS shortcut and a Mac OS X-specific shortcut.  You can choose whichever one is more 
+comfortable for you.
+
+<head>Full Screen Mode</head>
+The Mac OS X port supports a full screen mode.  To enter it, select <emph>Mac OS X Full Screen Driver</emph>
+from the <emph>UI -> Driver</emph> submenu.  Once you enter full screen mode, the menu bar will
+automatically hide.  To access the menu bar, move your mouse to the top of the screen and the menu
+bar will slide into view.  When you move your mouse away, it will automatically disappear again.
+To return to windowed mode, select <emph>Mac OS X Windowed Driver</emph>
+from the <emph>UI -> Driver</emph> submenu.
+
+<head>Videator Support</head>
+XaoS for Mac OS X can send live a live video stream to Stone Design's Videator (<tt>http://stone.com/Videator/</tt>),
+which can then do post-processing using Mac OS X's core video technology. This combination creates mind-blowing visuals
+that are great for VJing (live video performance art).
+<p>To turn on output to Videator, select <emph>Videator Output</emph> from the <emph>UI</emph> menu.
+See <tt>http://stone.com/Videator/VJ.html</tt> for more details on how using Videator with XaoS.
+
+<head>Known Issues</head>
+The following are known issues specific to the current version of XaoS for Mac OS X.
+So far, I haven't been able to figure out how to fix them.
+<p>
+<dl>
+<dt>Catseye fractal does not render properly.
+<dd>Workaround: Set the bailout to just over 4 (e.g., 4.000000001). After changing this setting, the fractal renders as expected.
+<dt>Edge detection and edge detection 2 filters do not work.
+<dd>Workaround: also enable the palette emulator filter at the same time.  This allows the filters to work as expected.
+<dt>Pseudo 3d filter does not work.
+<dd>Unfortunately, there is no known workaround at this time.
+</dl>
+<p>
+The Mac OS X driver was written by J.B. Langston, 2006-2008.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %aa
@@ -934,6 +1013,7 @@ Everything else might work well, but there are no guarantees. It is alpha qualit
 software.
 <p>
 GGI driver was written by Jan Hubicka, 1998.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %plan9
 
@@ -958,6 +1038,7 @@ programs like Mortha. You can disable this behavior using
 <tt>-nopalette</tt> switch, but this will slow down XaoS.
 <p>
 Plan9 driver was written by Jan Hubicka, 1997.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %SVGAlib
 
@@ -1030,6 +1111,8 @@ loop. Relax and wait for the message box signaling the end of the loop.
 Note that XaoS also supports the <a dX-window>DirectX</a> API.
 <p>
 Win32 driver was written by Jan Hubicka, Jan Olderdissen and Pavel Tzekov, 1999.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %dX-window
 
@@ -1057,6 +1140,7 @@ command line option.
 <p>
 DirectX driver was written by Jan Hubicka, Jan Olderdissen
 and Pavel Tzekov, 1999.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %dX-fullscreen
 
@@ -1084,6 +1168,7 @@ releated information.
 <p>
 DirectX driver was written by Jan Hubicka, Jan Olderdissen
 and Pavel Tzekov, 1999.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %BeOS DirectWindow WindowScreen
 

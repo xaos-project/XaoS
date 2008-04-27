@@ -346,6 +346,10 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     
     - Update Development help section with recent contribution instructions
 
+    - Add Mac OS X help section
+
+    - Add links to Videator in Mac OS X help section
+
 TODO:
 
 * bugs
@@ -356,11 +360,6 @@ TODO:
     - Fix catseye rendering (shows empty circle without increasing bailout)
     - Cursor changing code only works until the user clicks a button
     
-* help
-    - Add Mac OS X help section
-    - Update out of date documentation
-    - Add links to Videator in Mac OS X help section
-
 * acs features
     - Implement fast palette save/recall
     - Implement autokeys on startup
