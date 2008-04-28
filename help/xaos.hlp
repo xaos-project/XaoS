@@ -238,7 +238,7 @@ best to resolve the bug in a timely manner.
 Bug Tracker: <tt>http://sourceforge.net/tracker/?atid=105771&group_id=5771</tt>
 
 <p>
-<emph>Please don't submit duplicate bugs</emph>. Browse the existing ones first to make 
+Please don't submit duplicate bugs. Browse the existing ones first to make 
 sure nobody has already reported it.  You may add additional information about a bug by 
 entering a comment on an existing bug.
 
@@ -258,7 +258,7 @@ implement your request in a future version.
 Feature Requests: <tt>http://sourceforge.net/tracker/?atid=355771&group_id=5771</tt>
 
 <p>
-<emph>Please don't submit duplicate feature requests</emph>. Browse the existing ones 
+Please don't submit duplicate feature requests. Browse the existing ones 
 first to make sure nobody has already requested the feature your want.  You may add your 
 vote for a feature by adding a comment to the existing request.
 
@@ -274,7 +274,7 @@ to the <a about>authors</a>; if it is well done, it will be added to the
 next release. All changes should be submitted to the SourceForge patch tracker:
 <tt>http://sourceforge.net/tracker/?group_id=5771&atid=305771</tt>
 <p>
-XaoS has open development model. All development is coordinated via the SourceForge
+XaoS has an open development model. All development is coordinated via the SourceForge
 website (<tt>http://www.sourceforge.net/projects/xaos</tt>). Development versions are
 available via CVS (see <tt>http://sourceforge.net/cvs/?group_id=5771</tt> for instructions),
 so if you are interested in the future of XaoS, give the latest source a try! We also 
