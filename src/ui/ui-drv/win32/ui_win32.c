@@ -1355,10 +1355,10 @@ win32_paste (void)
     }
 }
 
-#define MAX_MENUITEMS_I18N 20
+#define MAX_MENUITEMS_I18N 7
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
 
-int uiw_no_menuitems_i18n = 0, uiw_no_cutpasteitems_i18n;
+int uiw_no_menuitems_i18n, uiw_no_cutpasteitems_i18n;
 
 static menuitem *cutpasteitems;
 static void
@@ -1395,6 +1395,7 @@ win32_init (void)
   win32_driver.textheight = fontHeight;
   getres (&win32_driver.width, &win32_driver.height);
   win32_createrootmenu ();
+  uiw_no_menuitems_i18n = 0;
   add_cutpasteitems ();
   return r;
 }
@@ -1671,6 +1672,7 @@ dxw_init (void)
     return 0;
   win32_createrootmenu ();
   getres (&dxw_driver.width, &dxw_driver.height);
+  uiw_no_menuitems_i18n = 0;
   add_cutpasteitems ();
   return r;
 }
@@ -1686,6 +1688,7 @@ dxf_init (void)
 
   if (!dx_imgparams ())
     return 0;
+  uiw_no_menuitems_i18n = 0;
   add_resizeitems ();
   add_cutpasteitems ();
   return r;
