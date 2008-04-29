@@ -149,26 +149,26 @@ Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
 %start
 <head>Getting Started</head>
 
-<a controls>Basic controls</a>
-<br>Learn the basic commands to control XaoS.
+<a controls>Basic controls</a><br>
+Learn the basic commands to control XaoS.
 
 <p>
-<tutor fractal.xaf>An introduction to fractals</tutor>
-<br>Try this animated tutorial if you don't know what a fractal is. If 
+<tutor fractal.xaf>An introduction to fractals</tutor><br>
+Try this animated tutorial if you don't know what a fractal is. If 
 you are new to XaoS you should try it too, since it is quite a good example 
 of XaoS's features. 
 
 <p>
-<tutor features.xaf>XaoS features overview</tutor>
-<br>Watch this tutorial to discover more of XaoS' features.
+<tutor features.xaf>XaoS features overview</tutor><br>
+Watch this tutorial to discover more of XaoS' features.
 
 <p>
 Both the tutorials are divided into chapters and available from help menu, 
 so you don't need to watch them all at once (they are about half an hour long).
 
 <p>
-<a tutorial>XaoS Overview</a>
-<br>A written introduction to all of XaoS's features.
+<a tutorial>XaoS Overview</a><br>
+A written introduction to all of XaoS's features.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -211,19 +211,19 @@ The lists are as follows:
 
 <dl>
 <dt>xaos-announce@lists.sourceforge.net
-<dd>Low volume list that is used only to announce new releases.
-<p>Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-announce</tt>
-<br>Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-announce</tt> 
+<dd>Low volume list that is used only to announce new releases.<p>
+Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-announce</tt><br>
+Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-announce</tt> 
 
 <dt>xaos-devel@lists.sourceforge.net
-<dd>Developer mailing list, where the developers coordinate and discuss XaoS development.
-<p>Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-devel</tt>
-<br>Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-devel</tt>
+<dd>Developer mailing list, where the developers coordinate and discuss XaoS development.<p>
+	Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-devel</tt><br>
+Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-devel</tt>
 
 <dt>xaos-discuss@lists.sourceforge.net
-<dd>General discussion list is for XaoS users to share tips and ideas about XaoS.
-<p>Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-discuss</tt>
-<br>Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-discuss</tt>
+<dd>General discussion list is for XaoS users to share tips and ideas about XaoS.<p>
+Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-discuss</tt><br>
+Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-discuss</tt>
 </dl>
 
 <p>
@@ -841,14 +841,14 @@ operations:
 <dt>Zoom in
 <dd>Hold down the main mouse button.
 <dt>Zoom out
-<dd>1. Hold down the Ctrl key while pressing the main mouse button.
-<br>2. Use the right mouse button if you have one.
-<br>3. On laptops with gestures enabled, place two fingers on your trackpad and press the main mouse button.
+<dd>1. Hold down the Ctrl key while pressing the main mouse button.<br>
+	2. Use the right mouse button if you have one.<br>
+	3. On laptops with gestures enabled, place two fingers on your trackpad and press the main mouse button.
 <dt>Pan
-<dd>1. Hold down the Shift key while dragging with the main mouse button.
-<br>2. Drag with the center button if you have one.
-<br>3. Use the scroll wheel or ball if you have one to pan up/down and left/right.
-<br>4. On laptops with gestures enabled, swipe two fingers across the trackpad to pan horizontally or vertically.
+<dd>1. Hold down the Shift key while dragging with the main mouse button.<br>
+	2. Drag with the center button if you have one.<br>
+	3. Use the scroll wheel or ball if you have one to pan up/down and left/right.<br>
+	4. On laptops with gestures enabled, swipe two fingers across the trackpad to pan horizontally or vertically.
 </dl>
 
 <head>Keyboard Shortcuts</head>
