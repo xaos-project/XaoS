@@ -189,7 +189,7 @@
 		D96C30270D83AF2800C9357A /* libgsl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libgsl.dylib; sourceTree = "<group>"; };
 		D96C309E0D84ECE900C9357A /* Read Me.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Read Me.rtf"; sourceTree = "<group>"; };
 		D96C309F0D84ED6900C9357A /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = COPYING; path = ../../../../COPYING; sourceTree = SOURCE_ROOT; };
-		D98E99C40D879CD300E32031 /* xstdio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xstdio.c; path = ../../../../../XaoS.bak2/src/util/xstdio.c; sourceTree = SOURCE_ROOT; };
+		D98E99C40D879CD300E32031 /* xstdio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xstdio.c; path = ../../../util/xstdio.c; sourceTree = SOURCE_ROOT; };
 		D98E99DD0D879F1200E32031 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
