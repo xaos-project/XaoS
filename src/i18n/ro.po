@@ -4,16 +4,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: XaoS 3.2\n"
+"Project-Id-Version: XaoS 3.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-24 00:02-0500\n"
-"PO-Revision-Date: 2003-02-11 02:02+GMT\n"
-"Last-Translator: \n"
-"Language-Team:  <de@li.org>\n"
+"PO-Revision-Date: 2008-04-28 11:21+0100\n"
+"Last-Translator: Zoltan Kovacs <kovzol@matek.hu>\n"
+"Language-Team: The XaoS Development Team <xaos-devel@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.7\n"
+"X-Poedit-Language: Romanian\n"
+"X-Poedit-Country: ROMANIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: ../ui/ui.c:329
 msgid "XaoS is out of memory."
@@ -132,7 +135,8 @@ msgstr "Asteptati va rog, fractalul %s se calculeaza "
 msgid "Letters per second %i  "
 msgstr "Litere pe secunda: %i  "
 
-#: ../ui/ui.c:739 ../ui/ui.c:750
+#: ../ui/ui.c:739
+#: ../ui/ui.c:750
 #, c-format
 msgid "Rotation speed:%2.2f degrees per second "
 msgstr "Viteza de rotatie:%2.2f grade pe secunda "
@@ -147,7 +151,8 @@ msgstr "Iteratii: %i   "
 msgid "Cycling speed: %i   "
 msgstr "Viteaza de ciclare: %i   "
 
-#: ../ui/ui.c:796 ../ui/ui.c:811
+#: ../ui/ui.c:796
+#: ../ui/ui.c:811
 #, c-format
 msgid "speed:%2.2f "
 msgstr "Viteza:%2.2f "
@@ -161,7 +166,9 @@ msgstr "Va multumim ca ati folosit XaoS\n"
 msgid "Skipping, please wait..."
 msgstr "Se omite, va rugam asteptati..."
 
-#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1535
+#: ../ui/ui.c:1047
+#: ../ui/ui.c:1049
+#: ../ui/ui-drv/win32/ui_win32.c:1535
 msgid "Resize"
 msgstr "Redimensionare"
 
@@ -178,8 +185,11 @@ msgstr "Iesire acum"
 msgid "Not yet"
 msgstr "Inca nu"
 
-#: ../ui/ui.c:1069 ../ui-hlp/menu.c:1095 ../ui-hlp/menu.c:1110
-#: ../ui/dialog.c:430 ../ui/dialog.c:1446
+#: ../ui/ui.c:1069
+#: ../ui-hlp/menu.c:1095
+#: ../ui-hlp/menu.c:1110
+#: ../ui/dialog.c:430
+#: ../ui/dialog.c:1446
 msgid "Help"
 msgstr "Ajutor"
 
@@ -187,15 +197,18 @@ msgstr "Ajutor"
 msgid "Disable XaoS's builtin GUI"
 msgstr "Dezactivare GUI implementat in XaoS"
 
-#: ../ui/ui.c:1075 ../ui/ui.c:1081
+#: ../ui/ui.c:1075
+#: ../ui/ui.c:1081
 msgid "Status"
 msgstr "Status"
 
-#: ../ui/ui.c:1077 ../ui/ui.c:1083
+#: ../ui/ui.c:1077
+#: ../ui/ui.c:1083
 msgid "Ministatus"
 msgstr "Ministatus"
 
-#: ../ui/ui.c:1086 ../ui/ui.c:1087
+#: ../ui/ui.c:1086
+#: ../ui/ui.c:1087
 msgid "Driver"
 msgstr "Driver"
 
@@ -216,7 +229,8 @@ msgstr "Nu se poate crea paleta"
 msgid "Can not create image"
 msgstr "Nu se poate crea imaginea"
 
-#: ../ui/ui.c:1733 ../ui/ui.c:1787
+#: ../ui/ui.c:1733
+#: ../ui/ui.c:1787
 msgid "Can not allocate tables"
 msgstr "Nu se pot aloca tabelele"
 
@@ -304,7 +318,8 @@ msgstr "Centru:"
 msgid "Radius:"
 msgstr "Raza:"
 
-#: ../ui-hlp/menu.c:158 ../ui-hlp/menu.c:223
+#: ../ui-hlp/menu.c:158
+#: ../ui-hlp/menu.c:223
 msgid "Angle:"
 msgstr "Unghi:"
 
@@ -344,12 +359,16 @@ msgstr "Text:"
 msgid "Your command:"
 msgstr "Comanda dumneavoastra:"
 
-#: ../ui-hlp/menu.c:192 ../ui-hlp/menu.c:196 ../ui-hlp/menu.c:200
-#: ../ui-hlp/menu.c:204 ../ui-hlp/menu.c:256
+#: ../ui-hlp/menu.c:192
+#: ../ui-hlp/menu.c:196
+#: ../ui-hlp/menu.c:200
+#: ../ui-hlp/menu.c:204
+#: ../ui-hlp/menu.c:256
 msgid "Filename:"
 msgstr "Numele fisierului:"
 
-#: ../ui-hlp/menu.c:208 ../ui-hlp/menu.c:296
+#: ../ui-hlp/menu.c:208
+#: ../ui-hlp/menu.c:296
 msgid "Formula:"
 msgstr "Formula:"
 
@@ -425,7 +444,8 @@ msgstr "Rezolutie dinamica :"
 msgid "Time:"
 msgstr "Timp:"
 
-#: ../ui-hlp/menu.c:277 ../ui-hlp/menu.c:281
+#: ../ui-hlp/menu.c:277
+#: ../ui-hlp/menu.c:281
 msgid "Number:"
 msgstr "Numar:"
 
@@ -455,18 +475,12 @@ msgid "renderanim: Must specify a valid absolute path for basename"
 msgstr ""
 
 #: ../ui-hlp/menu.c:367
-msgid ""
-"renderanim: Width parameter must be positive integer in the range 0..4096"
-msgstr ""
-"procesarea animatiei: Latimea trebuie sa fie o valoare pozitva, intreaga "
-"intre 0 si 4096"
+msgid "renderanim: Width parameter must be positive integer in the range 0..4096"
+msgstr "procesarea animatiei: Latimea trebuie sa fie o valoare pozitva, intreaga intre 0 si 4096"
 
 #: ../ui-hlp/menu.c:374
-msgid ""
-"renderanim: Height parameter must be positive integer in the range 0..4096"
-msgstr ""
-"procesarea animatiei: Inaltimea trebuie sa fie o valoare pozitva, intreaga "
-"intre 0 si 4096"
+msgid "renderanim: Height parameter must be positive integer in the range 0..4096"
+msgstr "procesarea animatiei: Inaltimea trebuie sa fie o valoare pozitva, intreaga intre 0 si 4096"
 
 #: ../ui-hlp/menu.c:381
 msgid "renderanim: Invalid real width and height dimensions"
@@ -478,14 +492,14 @@ msgstr "procesarea animatiei: frecventa cadrelor incorecta"
 
 #: ../ui-hlp/menu.c:393
 msgid "renderanim: antialiasing not supported in 256 color mode"
-msgstr ""
-"procesarea animatiei: Antialiasing nicht unterst�tzt im 256-Farben-Modus"
+msgstr "procesarea animatiei: Antialiasing nicht unterstützt im 256-Farben-Modus"
 
 #: ../ui-hlp/menu.c:398
 msgid "renderanim: incorrect I frame distance"
 msgstr "procesarea animatiei: Distanta I-Frame incorecta"
 
-#: ../ui-hlp/menu.c:454 ../ui-hlp/menu.c:468
+#: ../ui-hlp/menu.c:454
+#: ../ui-hlp/menu.c:468
 msgid "animateview: Invalid viewpoint"
 msgstr "vederea animatiei: punct de vedere incorect"
 
@@ -497,11 +511,13 @@ msgstr "Punct de vedere incorect"
 msgid "Unknown palette type"
 msgstr "Tip de paleta necunoscut"
 
-#: ../ui-hlp/menu.c:808 ../ui-hlp/menu.c:821
+#: ../ui-hlp/menu.c:808
+#: ../ui-hlp/menu.c:821
 msgid "Initialization of color cycling failed."
 msgstr "Initializare ciclarii culorilor a esuat"
 
-#: ../ui-hlp/menu.c:809 ../ui-hlp/menu.c:822
+#: ../ui-hlp/menu.c:809
+#: ../ui-hlp/menu.c:822
 msgid "Try to enable palette emulation filter"
 msgstr "Incercare de activare a filtrului de emulare a paletei"
 
@@ -578,7 +594,9 @@ msgstr "sterge toate liniile"
 msgid "Animation functions"
 msgstr "Functii pentru animatii"
 
-#: ../ui-hlp/menu.c:1027 ../ui-hlp/menu.c:1222 ../ui-hlp/menu.c:1231
+#: ../ui-hlp/menu.c:1027
+#: ../ui-hlp/menu.c:1222
+#: ../ui-hlp/menu.c:1231
 msgid "View"
 msgstr "Vedere"
 
@@ -602,7 +620,8 @@ msgstr "Unghiul de Morph"
 msgid "Zoom center"
 msgstr "Centrul maririi (zoom) "
 
-#: ../ui-hlp/menu.c:1046 ../ui/ui-drv/cocoa/AppController.m:364
+#: ../ui-hlp/menu.c:1046
+#: ../ui/ui-drv/cocoa/AppController.m:364
 msgid "Zoom"
 msgstr "Marire (Zoom)"
 
@@ -638,7 +657,8 @@ msgstr "Asteapta imaginea completa"
 msgid "Include file"
 msgstr "Include fisierul"
 
-#: ../ui-hlp/menu.c:1063 ../ui-hlp/menu.c:1265
+#: ../ui-hlp/menu.c:1063
+#: ../ui-hlp/menu.c:1265
 msgid "Default palette"
 msgstr "Paleta implicita"
 
@@ -658,17 +678,20 @@ msgstr "Cresterea vitezei de marire (zoom)"
 msgid "Filter"
 msgstr "Filru"
 
-#: ../ui-hlp/menu.c:1078 ../ui-hlp/menu.c:1083
+#: ../ui-hlp/menu.c:1078
+#: ../ui-hlp/menu.c:1083
 msgid "Letters per second"
 msgstr "Litere pe secunda"
 
-#: ../ui-hlp/menu.c:1085 ../ui-hlp/menu.c:1354
+#: ../ui-hlp/menu.c:1085
+#: ../ui-hlp/menu.c:1354
 msgid "Interrupt"
 msgstr "Intrerupe"
 
-#: ../ui-hlp/menu.c:1087 ../ui-hlp/menu.c:1097
+#: ../ui-hlp/menu.c:1087
+#: ../ui-hlp/menu.c:1097
 msgid "File"
-msgstr "Fisier"
+msgstr "Fisier ºfirsãt"
 
 #: ../ui-hlp/menu.c:1088
 msgid "Edit"
@@ -682,11 +705,13 @@ msgstr "Fractal"
 msgid "Calculation"
 msgstr "Calculare"
 
-#: ../ui-hlp/menu.c:1091 ../ui-hlp/menu.c:1426
+#: ../ui-hlp/menu.c:1091
+#: ../ui-hlp/menu.c:1426
 msgid "Filters"
 msgstr "Filtre"
 
-#: ../ui-hlp/menu.c:1092 ../ui-hlp/menu.c:1109
+#: ../ui-hlp/menu.c:1092
+#: ../ui-hlp/menu.c:1109
 msgid "UI"
 msgstr "Interfata utilizator (UI)"
 
@@ -703,7 +728,8 @@ msgstr "Refa"
 msgid "Tutorials"
 msgstr "Tutoriale"
 
-#: ../ui-hlp/menu.c:1103 ../ui-hlp/menu.c:1106
+#: ../ui-hlp/menu.c:1103
+#: ../ui-hlp/menu.c:1106
 msgid "Stop replay"
 msgstr "Opreste redarea"
 
@@ -828,7 +854,9 @@ msgstr "Redare (paste)"
 msgid "Mandelbrot mode"
 msgstr "Modul Mandelbrot"
 
-#: ../ui-hlp/menu.c:1211 ../ui-hlp/menu.c:1215 ../ui-hlp/menu.c:1429
+#: ../ui-hlp/menu.c:1211
+#: ../ui-hlp/menu.c:1215
+#: ../ui-hlp/menu.c:1429
 msgid "Perturbation"
 msgstr "Perturbare"
 
@@ -900,7 +928,8 @@ msgstr "Deplaseaza cu un pas inainte"
 msgid "Shift one backward"
 msgstr "Deplaseaza cu un pas inapoi"
 
-#: ../ui-hlp/menu.c:1292 ../engine/zoom.c:1491
+#: ../ui-hlp/menu.c:1292
+#: ../engine/zoom.c:1491
 msgid "Solid guessing"
 msgstr "Solid-Guessing"
 
@@ -1039,13 +1068,14 @@ msgstr "Fractali - O introducere"
 
 #: ../ui-hlp/menu.c:1397
 msgid "XaoS features overview"
-msgstr "XaoS - Eine �bersicht"
+msgstr "XaoS - Eine Übersicht"
 
 #: ../ui-hlp/menu.c:1398
 msgid "Math behind fractals"
 msgstr "Matematica de la baza fractalilor"
 
-#: ../ui-hlp/menu.c:1399 ../ui-hlp/menu.c:1437
+#: ../ui-hlp/menu.c:1399
+#: ../ui-hlp/menu.c:1437
 msgid "Other fractal types in XaoS"
 msgstr "Alte tipuri de fractali in XaoS"
 
@@ -1053,7 +1083,8 @@ msgstr "Alte tipuri de fractali in XaoS"
 msgid "What's new?"
 msgstr "Ce este nou?"
 
-#: ../ui-hlp/menu.c:1410 ../ui-hlp/menu.c:1432
+#: ../ui-hlp/menu.c:1410
+#: ../ui-hlp/menu.c:1432
 msgid "Whole story"
 msgstr "Toata povestea"
 
@@ -1143,8 +1174,7 @@ msgstr "Mandelbar, Lambda, Manowar si Spider"
 
 #: ../ui-hlp/menu.c:1441
 msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
-msgstr ""
-"Sierpinski Gasket, S.Carpet, Koch Snowflake (fulgul de zapada al lui Koch)"
+msgstr "Sierpinski Gasket, S.Carpet, Koch Snowflake (fulgul de zapada al lui Koch)"
 
 #: ../ui-hlp/menu.c:1442
 msgid "What's new in 3.0?"
@@ -1186,17 +1216,22 @@ msgstr "Fiserul nu a putut fi deschis"
 msgid "Out of memory"
 msgstr "Memorie insuficienta"
 
-#: ../ui-hlp/play.c:586 ../ui-hlp/play.c:607 ../ui-hlp/play.c:637
+#: ../ui-hlp/play.c:586
+#: ../ui-hlp/play.c:607
+#: ../ui-hlp/play.c:637
 #: ../ui-hlp/play.c:671
 msgid "Missing parameter"
 msgstr "Parametru lipsa"
 
-#: ../ui-hlp/play.c:589 ../ui-hlp/play.c:610 ../ui-hlp/play.c:640
+#: ../ui-hlp/play.c:589
+#: ../ui-hlp/play.c:610
+#: ../ui-hlp/play.c:640
 #: ../ui-hlp/play.c:674
 msgid "Unexpected end of file"
 msgstr "Sfarsit de fisier neasteptat"
 
-#: ../ui-hlp/play.c:622 ../ui-hlp/play.c:647
+#: ../ui-hlp/play.c:622
+#: ../ui-hlp/play.c:647
 msgid "Token is too long"
 msgstr "Token-ul este prea lung"
 
@@ -1295,7 +1330,8 @@ msgstr "Imginea se salveaza..."
 msgid "Save interrupted"
 msgstr "Salvare intrerupta"
 
-#: ../ui-hlp/ui_helper.c:755 ../ui-hlp/ui_helper.c:774
+#: ../ui-hlp/ui_helper.c:755
+#: ../ui-hlp/ui_helper.c:774
 #: ../ui-hlp/ui_helper.c:847
 #, c-format
 msgid "File %s saved."
@@ -1314,17 +1350,23 @@ msgstr "S-a activat inregistrearea in fisierul %s "
 msgid "Solid guessing 1"
 msgstr "Solid-Guessing 1"
 
-#: ../engine/btrace.c:294 ../engine/btrace.c:382
+#: ../engine/btrace.c:294
+#: ../engine/btrace.c:382
 msgid "Boundary trace"
 msgstr "Boundary-Trace"
 
-#: ../ui/dialog.c:332 ../ui/dialog.c:424 ../ui/dialog.c:1444
+#: ../ui/dialog.c:332
+#: ../ui/dialog.c:424
+#: ../ui/dialog.c:1444
 #: ../ui/ui-drv/cocoa/CustomDialog.m:302
 msgid "OK"
 msgstr "OK"
 
-#: ../ui/dialog.c:333 ../ui/dialog.c:427 ../ui/dialog.c:1445
-#: ../ui/filesel.c:191 ../ui/ui-drv/cocoa/CustomDialog.m:312
+#: ../ui/dialog.c:333
+#: ../ui/dialog.c:427
+#: ../ui/dialog.c:1445
+#: ../ui/filesel.c:191
+#: ../ui/ui-drv/cocoa/CustomDialog.m:312
 msgid "Cancel"
 msgstr "Anulare"
 
@@ -1358,7 +1400,8 @@ msgstr "Nu se poate crea imaginea\n"
 msgid "Cannot create checking buffer!"
 msgstr "Nu se poate crea bufferul de control!"
 
-#: ../ui-hlp/render.c:339 ../ui-hlp/render.c:645
+#: ../ui-hlp/render.c:339
+#: ../ui-hlp/render.c:645
 msgid "Cannot create context\n"
 msgstr "Nu se poate crea contextul\n"
 
@@ -1366,7 +1409,8 @@ msgstr "Nu se poate crea contextul\n"
 msgid "Cannot open animation file\n"
 msgstr "Nu se poate deschide fisierul cu animatii\n"
 
-#: ../ui-hlp/render.c:364 ../ui-hlp/render.c:655
+#: ../ui-hlp/render.c:364
+#: ../ui-hlp/render.c:655
 msgid "Loading catalogs"
 msgstr "Cataloagele se incarca"
 
@@ -1378,7 +1422,8 @@ msgstr "Se prelucreaza optiunile de la linia de comanda"
 msgid "Enabling animation replay\n"
 msgstr "Se activeaza animation replay\n"
 
-#: ../ui-hlp/render.c:430 ../ui-hlp/render.c:558
+#: ../ui-hlp/render.c:430
+#: ../ui-hlp/render.c:558
 msgid "Cannot open image file"
 msgstr "Nu se poate deschide fisierul cu imaginea"
 
@@ -1386,7 +1431,9 @@ msgstr "Nu se poate deschide fisierul cu imaginea"
 msgid "Cannot open pattern file"
 msgstr "Nu se poate deschide fiserul de sabloane"
 
-#: ../ui-hlp/render.c:462 ../ui-hlp/render.c:464 ../ui-hlp/render.c:692
+#: ../ui-hlp/render.c:462
+#: ../ui-hlp/render.c:464
+#: ../ui-hlp/render.c:692
 msgid "Entering calculation loop!"
 msgstr "Intrare in bucla de calcul!"
 
@@ -1413,19 +1460,24 @@ msgstr " terminat."
 msgid " skipping..."
 msgstr " se omite..."
 
-#: ../ui-hlp/render.c:612 ../ui-hlp/render.c:712
+#: ../ui-hlp/render.c:612
+#: ../ui-hlp/render.c:712
 msgid "Calculation interrupted"
 msgstr "Calculare intrerupta"
 
-#: ../ui-hlp/render.c:616 ../ui-hlp/render.c:618 ../ui-hlp/render.c:715
+#: ../ui-hlp/render.c:616
+#: ../ui-hlp/render.c:618
+#: ../ui-hlp/render.c:715
 msgid "Calculation finished"
 msgstr "Calculare terminata"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1370 ../ui/ui-drv/cocoa/AppController.m:342
+#: ../ui/ui-drv/win32/ui_win32.c:1370
+#: ../ui/ui-drv/cocoa/AppController.m:342
 msgid "Copy"
 msgstr "Copiere"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1371 ../ui/ui-drv/cocoa/AppController.m:345
+#: ../ui/ui-drv/win32/ui_win32.c:1371
+#: ../ui/ui-drv/cocoa/AppController.m:345
 msgid "Paste"
 msgstr "Redare (paste)"
 
@@ -1492,6 +1544,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "User function"
 #~ msgstr "Functii pentru desenarea liniilor"
-
 #~ msgid "formulae"
 #~ msgstr "Formule"
+

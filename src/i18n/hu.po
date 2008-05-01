@@ -21,7 +21,7 @@ msgstr "Elfogyott a memória."
 #: ../ui/ui.c:379
 #, c-format
 msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
-msgstr ""
+msgstr "%s %.2f-szoros (%.1fE) %2.2f kép/mp %c %i %i %i %i            "
 
 #: ../ui/ui.c:380
 msgid "unzoomed"
@@ -57,14 +57,12 @@ msgid "Fractal type:%s"
 msgstr "Fraktál típusa:%s"
 
 #: ../ui/ui.c:476
-#, fuzzy
 msgid "Mandelbrot"
-msgstr "Mandelbrot-halmaz"
+msgstr "Mandelbrot"
 
 #: ../ui/ui.c:476
-#, fuzzy
 msgid "Julia"
-msgstr "Julia-halmaz"
+msgstr "Julia"
 
 #: ../ui/ui.c:480
 #, c-format
@@ -167,7 +165,6 @@ msgid "Resize"
 msgstr "Átméretez"
 
 #: ../ui/ui.c:1063
-#, fuzzy
 msgid "Quit"
 msgstr "Kilépés"
 
@@ -250,9 +247,8 @@ msgid "Stoptime:"
 msgstr "Leállítási idõ:"
 
 #: ../ui-hlp/menu.c:141
-#, fuzzy
 msgid "File to render:"
-msgstr "Hiányzó fájl"
+msgstr "Feldolgozandó fájl:"
 
 #: ../ui-hlp/menu.c:142
 msgid "Basename:"
@@ -283,9 +279,8 @@ msgid "Image type:"
 msgstr "Kép típusa:"
 
 #: ../ui-hlp/menu.c:149
-#, fuzzy
 msgid "Antialiasing:"
-msgstr "Inicializálás"
+msgstr "Élsimítás:"
 
 #: ../ui-hlp/menu.c:150
 msgid "Always recalculate:"
@@ -471,9 +466,8 @@ msgid "renderanim: Invalid real width and height dimensions"
 msgstr ""
 
 #: ../ui-hlp/menu.c:386
-#, fuzzy
 msgid "renderanim: invalid framerate"
-msgstr "renderanim: hibás I képkocka-távolság:"
+msgstr "renderanim: hibás képkocka-ráta"
 
 #: ../ui-hlp/menu.c:393
 msgid "renderanim: antialiasing not supported in 256 color mode"
@@ -485,11 +479,11 @@ msgstr "renderanim: hibás I képkocka-távolság:"
 
 #: ../ui-hlp/menu.c:454 ../ui-hlp/menu.c:468
 msgid "animateview: Invalid viewpoint"
-msgstr ""
+msgstr "animateview: Érvénytelen nézõpont"
 
 #: ../ui-hlp/menu.c:482
 msgid "Invalid viewpoint"
-msgstr ""
+msgstr "Érvénytelen nézõpont"
 
 #: ../ui-hlp/menu.c:729
 msgid "Unknown palette type"
@@ -510,7 +504,7 @@ msgstr "Algoritmus:%i mag:%i méret:%i"
 
 #: ../ui-hlp/menu.c:986
 msgid "Root menu"
-msgstr ""
+msgstr "Fõmenü"
 
 #: ../ui-hlp/menu.c:987
 msgid "Animation root menu"
@@ -518,20 +512,19 @@ msgstr "Animáció fõmenü"
 
 #: ../ui-hlp/menu.c:988
 msgid "Replay only commands"
-msgstr ""
+msgstr "Csak visszajátszó parancsok"
 
 #: ../ui-hlp/menu.c:989
-#, fuzzy
 msgid "Command line options only"
-msgstr "Parancssori opciók feldolgozása"
+msgstr "Csak parancssori opciók"
 
 #: ../ui-hlp/menu.c:992
 msgid "print menus specifications of all menus"
-msgstr ""
+msgstr "minden menü specifikációjának kiírása"
 
 #: ../ui-hlp/menu.c:997
 msgid "print menu specification"
-msgstr ""
+msgstr "a menü specifikáció kiírása"
 
 #: ../ui-hlp/menu.c:1000
 msgid "print menu specification in xshl format"
@@ -586,18 +579,16 @@ msgid "Morph view"
 msgstr ""
 
 #: ../ui-hlp/menu.c:1033
-#, fuzzy
 msgid "Morph julia"
-msgstr "Átalakuló vonal"
+msgstr ""
 
 #: ../ui-hlp/menu.c:1038
 msgid "Move view"
 msgstr ""
 
 #: ../ui-hlp/menu.c:1039
-#, fuzzy
 msgid "Morph angle"
-msgstr "Átalakuló vonal"
+msgstr ""
 
 #: ../ui-hlp/menu.c:1044
 msgid "Zoom center"
@@ -696,9 +687,8 @@ msgid "Misc"
 msgstr "Egyéb"
 
 #: ../ui-hlp/menu.c:1094
-#, fuzzy
 msgid "Window"
-msgstr "Mégse"
+msgstr "Ablak"
 
 #: ../ui-hlp/menu.c:1096
 msgid "Tutorials"
@@ -733,9 +723,8 @@ msgid "Display text"
 msgstr "Szöveg megjelenítése"
 
 #: ../ui-hlp/menu.c:1125
-#, fuzzy
 msgid "Color"
-msgstr "Szín:"
+msgstr "Szín"
 
 #: ../ui-hlp/menu.c:1127
 msgid "Horizontal text position"
@@ -818,9 +807,8 @@ msgid "Plane"
 msgstr "Sík"
 
 #: ../ui-hlp/menu.c:1202
-#, fuzzy
 msgid "Palette"
-msgstr "Beilleszt"
+msgstr "Paletta"
 
 #: ../ui-hlp/menu.c:1205
 msgid "Mandelbrot mode"
@@ -975,9 +963,8 @@ msgid "Autopilot"
 msgstr "Robotpilóta"
 
 #: ../ui-hlp/menu.c:1347
-#, fuzzy
 msgid "VJ mode"
-msgstr "Julia-mód"
+msgstr "VJ mód"
 
 #: ../ui-hlp/menu.c:1350
 msgid "Recalculate"
@@ -1148,9 +1135,8 @@ msgid "What's new in 3.0?"
 msgstr "Újdonságok a 3.0-s verzióban"
 
 #: ../ui-hlp/play.c:78
-#, fuzzy
 msgid "line available only in animation replay"
-msgstr "a \"sleep\" csak animáció visszajátszásakor használható"
+msgstr "a \"line\" csak animáció visszajátszásakor használható"
 
 #: ../ui-hlp/play.c:105
 msgid "Morphing non existing line!"
@@ -1161,14 +1147,12 @@ msgid "linekey not available in this context!"
 msgstr ""
 
 #: ../ui-hlp/play.c:320
-#, fuzzy
 msgid "clear_line available only in animation replay"
-msgstr "a \"sleep\" csak animáció visszajátszásakor használható"
+msgstr "a \"clear_line\" csak animáció visszajátszásakor használható"
 
 #: ../ui-hlp/play.c:331
-#, fuzzy
 msgid "clear_lines available only in animation replay"
-msgstr "a \"sleep\" csak animáció visszajátszásakor használható"
+msgstr "a \"clear_lines\" csak animáció visszajátszásakor használható"
 
 #: ../ui-hlp/play.c:401
 msgid "Catalog file not found"
@@ -1205,28 +1189,24 @@ msgid "Unknown formula type"
 msgstr "Ismeretlen képlettípus"
 
 #: ../ui-hlp/play.c:718
-#, fuzzy
 msgid "morph available only in animation replay"
-msgstr "a \"sleep\" csak animáció visszajátszásakor használható"
+msgstr "a \"morph\" csak animáció visszajátszásakor használható"
 
 #: ../ui-hlp/play.c:723
 msgid "morphview: Invalid viewpoint"
-msgstr ""
+msgstr "morphview: Érvénytelen nézõpont"
 
 #: ../ui-hlp/play.c:739
-#, fuzzy
 msgid "move available only in animation replay"
-msgstr "a \"sleep\" csak animáció visszajátszásakor használható"
+msgstr "a \"move\" csak animáció visszajátszásakor használható"
 
 #: ../ui-hlp/play.c:755
-#, fuzzy
 msgid "morphjulia available only in animation replay"
-msgstr "a \"sleep\" csak animáció visszajátszásakor használható"
+msgstr "a \"morphjulia\" csak animáció visszajátszásakor használható"
 
 #: ../ui-hlp/play.c:770
-#, fuzzy
 msgid "morphangle available only in animation replay"
-msgstr "a \"sleep\" csak animáció visszajátszásakor használható"
+msgstr "a \"morphangle\" csak animáció visszajátszásakor használható"
 
 #: ../ui-hlp/play.c:808
 msgid "Unknown filter"
@@ -1441,57 +1421,53 @@ msgid "About"
 msgstr "Névjegy"
 
 #: ../ui/ui-drv/cocoa/AppController.m:220
-#, fuzzy
 msgid "About XaoS"
-msgstr "Névjegy"
+msgstr "A XaoS névjegye"
 
 #: ../ui/ui-drv/cocoa/AppController.m:223
 msgid "Services"
-msgstr ""
+msgstr "Szolgáltatások"
 
 #: ../ui/ui-drv/cocoa/AppController.m:226
 msgid "Hide XaoS"
-msgstr ""
+msgstr "A XaoS elrejtése"
 
 #: ../ui/ui-drv/cocoa/AppController.m:229
 msgid "Hide Others"
-msgstr ""
+msgstr "A többi elrejtése"
 
 #: ../ui/ui-drv/cocoa/AppController.m:232
 msgid "Show All"
-msgstr ""
+msgstr "Mindent mutat"
 
 #: ../ui/ui-drv/cocoa/AppController.m:235
-#, fuzzy
 msgid "Quit XaoS"
-msgstr "Kilépés"
+msgstr "Kilépés a XaoS-ból"
 
 #: ../ui/ui-drv/cocoa/AppController.m:339
 msgid "Cut"
-msgstr ""
+msgstr "Kivágás"
 
 #: ../ui/ui-drv/cocoa/AppController.m:348
-#, fuzzy
 msgid "Delete"
-msgstr "Színpaletta"
+msgstr "Törlés"
 
 #: ../ui/ui-drv/cocoa/AppController.m:351
 msgid "Select All"
-msgstr ""
+msgstr "Mindent kijelöl"
 
 #: ../ui/ui-drv/cocoa/AppController.m:361
 msgid "Minimize"
-msgstr ""
+msgstr "Minimalizálás"
 
 #: ../ui/ui-drv/cocoa/AppController.m:369
 msgid "Bring All to Front"
-msgstr ""
+msgstr "Mindent felülre"
 
 #: ../ui/ui-drv/cocoa/AppController.m:381
-#, fuzzy
 msgid "Close"
-msgstr "Szín"
+msgstr "Bezár"
 
 #: ../ui/ui-drv/cocoa/CustomDialog.m:142
 msgid "Choose"
-msgstr ""
+msgstr "Kiválaszt"
