@@ -6,9 +6,9 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,162,2,32,14,WS_GROUP
     ICON            "BIG",IDC_STATIC,3,2,18,20
     LTEXT           "Free Sofware Foundation",IDC_COMPANY,30,2,130,8
-    LTEXT           "XaoS - an realtime fractal zoomer",IDC_FILEDESC,30,10,121,8
-    RTEXT           "3.2",IDC_PRODVER,136,10,17,8
-    LTEXT           "Copyright 1996-2006 Jan Hubicka, Thomas Marsh and others",IDC_COPYRIGHT,30,18,167,8
+    LTEXT           "XaoS - a realtime fractal zoomer",IDC_FILEDESC,30,10,121,8
+    RTEXT           "3.4",IDC_PRODVER,136,10,17,8
+    LTEXT           "Copyright 1996-2008 Jan Hubicka, Thomas Marsh and others",IDC_COPYRIGHT,30,18,167,8
     LTEXT           "OSVERSION",IDC_OSVERSION,46,34,138,8
     LTEXT           "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.  \n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. \n\nYou should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.",IDC_LICENSE,3,49,192,5*18
     LTEXT           "Crashing on:",IDC_LABEL,4,34,40,8
