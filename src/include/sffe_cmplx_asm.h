@@ -19,33 +19,33 @@
  #define cmplxset(c,r,i) ( c = cset(r,i) )
  #define real(c) (c).r
  #define imag(c) (c).i
-/*
-#if (defined linux || defined __APPLE__)
- #define cabs   _cabs
- #define carg   _carg
- #define cargs  _cargs
- #define cargc  _cargc
- #define cinv   _cinv
- #define cexp   _cexp
- #define cln    _cln
- #define clog2  _clog2
- #define clog   _clog
- #define csin   _csin
- #define ccos   _ccos
- #define ctan   _ctan
- #define ccot   _ccot
- #define csinh  _csinh
- #define ccosh  _ccosh
- #define ctanh  _ctanh
- #define ccoth  _ccoth
- #define ccpow  _ccpow
- #define cpowd  _cpowd
- #define cpowi  _cpowi
- #define cpowc  _cpowc
- #define csqrt  _csqrt
- #define crtni  _crtni
+
+#ifdef __ELF__
+ #define sffecabs   _sffecabs
+ #define sffecarg   _sffecarg
+ #define sffecargs  _sffecargs
+ #define sffecargc  _sffecargc
+ #define sffecinv   _sffecinv
+ #define sffecexp   _sffecexp
+ #define sffecln    _sffecln
+ #define sffeclog2  _sffeclog2
+ #define sffeclog   _sffeclog
+ #define sffecsin   _sffecsin
+ #define sffeccos   _sffeccos
+ #define sffectan   _sffectan
+ #define sffeccot   _sffeccot
+ #define sffecsinh  _sffecsinh
+ #define sffeccosh  _sffeccosh
+ #define sffectanh  _sffectanh
+ #define sffeccoth  _sffeccoth
+ #define sffeccpow  _sffeccpow
+ #define sffecpowd  _sffecpowd
+ #define sffecpowi  _sffecpowi
+ #define sffecpowc  _sffecpowc
+ #define sffecsqrt  _sffecsqrt
+ #define sffecrtni  _sffecrtni
 #endif
-*/
+
  #ifdef __cplusplus
   extern "C" {
  #endif
