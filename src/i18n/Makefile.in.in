@@ -24,6 +24,12 @@ install: $(MO-FILES)
 	 @INSTALL@ -m 444 $$i.mo $(DESTDIR)$(LOCALEDIR)/$$i/LC_MESSAGES/xaos.mo; \
 	 done
 
+install-win: $(MO-FILES)
+	@for i in $(LANGUAGES); do \
+	 @INSTALL@ -d $(DESTDIR)/locale/$$i/LC_MESSAGES; \
+	 @INSTALL@ -m 444 $$i.mo $(DESTDIR)/locale/$$i/LC_MESSAGES/xaos.mo; \
+	 done
+
 clean:
 	rm -f $(MO-FILES)
 

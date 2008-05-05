@@ -61,3 +61,27 @@ install:
         else : ; fi
 
 	if [ "@USE_NLS@" = "yes" ]; then $(MAKE) -C src/i18n/ install; fi
+
+install-win:
+	@INSTALL@ -d $(DESTDIR)/tutorial
+	@INSTALL@ -d $(DESTDIR)/examples
+	@INSTALL@ -d $(DESTDIR)/catalogs
+	@INSTALL@ -d $(DESTDIR)/doc
+	@INSTALL@ -d $(DESTDIR)/help
+	@INSTALL@ -d $(DESTDIR)/bin
+
+	@INSTALL@ tutorial/*.x[ah]f $(DESTDIR)/tutorial
+	@INSTALL@ examples/README $(DESTDIR)/examples
+	@INSTALL@ examples/Hubicka/*.x[ap]f $(DESTDIR)/examples
+	@INSTALL@ examples/0rfelyus/*.x[ap]f $(DESTDIR)/examples
+	@INSTALL@ examples/ZKovacs/*.x[ap]f $(DESTDIR)/examples
+	@INSTALL@ examples/ZsKovacs/*.x[ap]f $(DESTDIR)/examples
+	@INSTALL@ examples/Malczak/*.x[ap]f $(DESTDIR)/examples
+	@INSTALL@ catalogs/*.cat catalogs/README $(DESTDIR)/catalogs
+	@INSTALL@ doc/README doc/README.bugs doc/compilers.txt doc/AUTHORS doc/PROBLEMS $(DESTDIR)/doc
+	@if test -f "help/XAOSWIN.HLP"; then          \
+	  @INSTALL@ help/XAOSWIN.HLP $(DESTDIR)/help; \
+	fi
+	@INSTALL@ bin/xaos.exe $(DESTDIR)/bin
+
+	if [ "@USE_NLS@" = "yes" ]; then $(MAKE) -C src/i18n/ install-win; fi

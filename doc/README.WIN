@@ -2,7 +2,7 @@
 
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.8 2003-03-19 12:09:25 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.9 2008-05-05 16:11:50 kovzol Exp $
 
 Last updated by:
 Zoltan Kovacs (2003-01-23)
@@ -129,6 +129,12 @@ directory lib/mingw/ of your Cygwin installation and rename it to
 libpthread.a. To compile XaoS with thread support you use the switch
 --with-pthread=yes with the configure script.
 
+To install XaoS type
+
+export DESTDIR=<installdir>
+
+in a bash shell, where <installdir> should be the absolute path of
+the folder in which XaoS should be installed. Type make install-win
+to install XaoS.
+
 XaoS was tested only on Intel platform, but it should work on alpha too.
-
-
