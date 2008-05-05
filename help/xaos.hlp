@@ -30,7 +30,7 @@ Learn how to create videos from your XaoS animations.
 XaoS runs on many platforms. Read instructions specific to yours.
 
 <p>
-<a format>XaoS' file format</a><br>
+<a format>XaoS's file format</a><br>
 Learn how to tweak your saved fractals and animations.
 
 <p>
@@ -160,7 +160,7 @@ of XaoS's features.
 
 <p>
 <tutor features.xaf>XaoS features overview</tutor><br>
-Watch this tutorial to discover more of XaoS' features.
+Watch this tutorial to discover more of XaoS's features.
 
 <p>
 Both the tutorials are divided into chapters and available from help menu, 
@@ -646,7 +646,7 @@ The following tags are supported:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %format
-<head>XaoS' file format</head>
+<head>XaoS's file format</head>
 This section describes the format used by XaoS for animations, configuration
 files and saved positions. All these files have a common format, designed
 to be easily readable, to allow manual editing of files and easy conversion by
@@ -692,7 +692,7 @@ This function loads and interprets a file. It works similarly to <tt>#include</t
 in C.
 <dt>initstate
 <dd>
-Available in version 3.0 and above, this function resets XaoS' state to default
+Available in version 3.0 and above, this function resets XaoS's state to default
 values. This command should be at the beginning of each animation file,
 since otherwise some stuff previously enabled by user could cause unexpected
 effects. State is not reset by default before playing animations since it would
@@ -2370,7 +2370,7 @@ don't forget to disable it later.
 <head>Reset to defaults</head>
 <p><emph>Syntax</emph>:(initstate)
 <p>
-This function resets most of XaoS' values to their defaults. It is useful when
+This function resets most of XaoS's values to their defaults. It is useful when
 you get lost and want to start from the beginning. It should also be used
 as the first command of every animation file, to ensure that the file is always
 played with the same settings in effect.
@@ -2946,7 +2946,7 @@ to get a Grand Design spiral galaxy :)
      <dt>2
      <dd>Sit 60cm away from monitor
      <dt>3
-     <dd>If you use a windowed environment, resize XaoS' window to make it wider than, say, 15 cm.
+     <dd>If you use a windowed environment, resize XaoS's window to make it wider than, say, 15 cm.
      <dt>4
      <dd>Enable the filter (by pressing <tt>E</tt>)
      <dt>5
