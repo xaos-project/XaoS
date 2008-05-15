@@ -190,7 +190,7 @@ AppController *controller;
      * of within the nib because this allows all i18n to be cross-platform and
      * self-contained within the po file instead of spread across many places.
      */
-    NSMenu *appMenu = [[[NSApp mainMenu] itemWithTitle:@"XaoS"] menu];
+    NSMenu *appMenu = [[[NSApp mainMenu] itemAtIndex:0] submenu];
     
     [[appMenu itemWithTitle:@"About XaoS"] 
      setTitle:[NSString stringWithUTF8String:_("About XaoS")]];
