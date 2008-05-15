@@ -82,14 +82,14 @@ manual (design overview, algorithm description etc.).
 * Overview::		What does this software do then?
 * tutorial::		XaoS tutorial
 * controls::		Basic controls
-* mpeg::		How to encode MPEG files
+* video::		How to encode video files
 * format::		XaoS's file format description
 * writehelp::		How to write XaoS help files
 * xshl::		XaoS simple hypertext language
 * drivers::		Driver specific documentation
 * menus::		Functions, menu items and command line parameters
-* authors::		Credits
-* lists::		Mailing lists
+* about::		Credits
+* support::		Getting Support
 * index::		Function index
 @end menu
 
@@ -157,20 +157,20 @@ random palette generation, color cycling etc...
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node controls, mpeg, tutorial ,Top
+@node controls, video, tutorial ,Top
 
 @c ## chapter controls ##
 
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node mpeg, format, controls ,Top
+@node video, format, controls ,Top
 
-@c ## chapter mpeg ##
+@c ## chapter video ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node format, writehelp,mpeg ,Top
+@node format, writehelp,video ,Top
 @c ## chapter format ##
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
@@ -257,23 +257,23 @@ random palette generation, color cycling etc...
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node menus, authors,  drivers,Top
+@node menus, about,  drivers,Top
 
 @c ## menus controls ##
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 @comment  node-name,  next,      previous,  up
-@node authors, lists,menus ,Top
-@c ## appendix authors ##
+@node about, support,menus ,Top
+@c ## appendix about ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node lists, index ,authors ,Top
-@c ## appendix lists ##
+@node support, index ,about ,Top
+@c ## appendix support ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node index,  ,lists ,Top
+@node index,  ,support ,Top
 @unnumbered Index of functions
 
 @printindex fn

@@ -82,14 +82,14 @@ manual (design overview, algorithm description etc.).
 * Overview::		What does this software do then?
 * tutorial::		XaoS tutorial
 * controls::		Basic controls
-* mpeg::		How to encode MPEG files
+* video::		How to encode video files
 * format::		XaoS's file format description
 * writehelp::		How to write XaoS help files
 * xshl::		XaoS simple hypertext language
 * drivers::		Driver specific documentation
 * menus::		Functions, menu items and command line parameters
-* authors::		Credits
-* lists::		Mailing lists
+* about::		Credits
+* support::		Getting Support
 * index::		Function index
 @end menu
 
@@ -401,7 +401,7 @@ to have an idea what XaoS can do.
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node controls, mpeg, tutorial ,Top
+@node controls, video, tutorial ,Top
 
 @chapter Basic controls
 By default the mouse buttons work in the following way:
@@ -414,6 +414,10 @@ zoom out
 @item middle
 move fractal in a drag-and-drop fashion
 @end table
+
+@emph{Note:} Since most Macs only have one button mice, these controls
+are emulated on Mac OS X using modifier keys. See the help section on
+Mac OS X for details.
 
 This behavior can change. If you enable rotation, the first button is used for rotating
 fractals. Also, in fast Julia mode, the first button is used to change the seed.
@@ -452,13 +456,93 @@ shown in gray next to the menu items they trigger.
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node mpeg, format, controls ,Top
+@node video, format, controls ,Top
 
-@c ## chapter mpeg ##
+
+@chapter How to encode video files from XaoS
+
+To create a video, make and @code{xaf} file first (the easiest way to do this is
+to use the @emph{record} function in the file menu). Then you need to render
+the animation. XaoS can output sequences of ordinary @code{PNG} images, that
+can later be used by a video encoder.
+
+@section Generating image sequences for video
+
+To generate an image sequence, choose @emph{Render Animation} from the @emph{Misc}
+menu. You can also use the following command on the command line:
+
+
+@example
+xaos -render [filename] -size 352x240 -antialiasing
+-renderframerate 24 -basename [basename]
+@end example
+
+
+@emph{File to render} (@code{[filename]}) is the name of the @code{xaf} file,
+@emph{Basename} (@code{[basename]}) is the name used as the base filename for rendered images. This should also include the path where you want to save the images.
+XaoS adds a four digit sequence number and @code{.png} extension to this name automatically.
+
+You might also want to change the resolution. Make sure that the resolution
+you choose is supported by the video codec you wish to use.
+
+The framerate can also be altered. Make sure you choose a framerate that is supported by
+the video codec you wish to use.
+
+@emph{Antialiasing} (@code{-antialiasing}) is used to produce anti-aliased images.
+It takes a much longer
+time and much more memory to calculate them, but resulting images are better
+for video compression and they result in a much smaller video file.
+(the same is true of @emph{JPEG images})
+
+On the other hand, the other XaoS rendering option @emph{Always Recalculate} (@code{-alwaysrecalc}) (which disables
+XaoS's zooming optimizations) is @emph{not recommended}. If that's used, the
+sequence of animation then contains quite a lot of extra information, which
+increases size of video file, but because of the codec's lossy compression it is hard
+to see any difference, so it's not worth it.
+@section Rendered files
+Once you start it, XaoS will generate thousands of frames. They take quite
+a long time to calculate and save, and consume plenty of disk space.
+(e.g. to render part 1 of the tutorial you need about 60MB and half an hour of time).
+
+All images are named @code{[basename]framenum.png}. For example @code{intro0001.png} is
+the first frame of the animation intro. If consecutive frames are the same, XaoS
+doesn't save them, so some frames may be missing. If your encoder can't handle
+that, you will need to write a simple script which will fill in the gaps by means
+of @code{mv} or symbolic linking.
+
+A list of all filenames is saved into the file @code{[basename].par}, where each line is
+the name of one frame. The names repeat here if necessary, so you can use this
+file to supply filenames to the encoder.
+@section Encoding videos
+Once XaoS has generated the png files for each frame of the animation, you
+can use a third-party video encoder to convert the sequence of images into
+a video file. We currently recommend the following encoders, which support
+a wide variety of video codecs and file formats:
+@table @strong
+@item ffmpeg
+Available from: @code{http://ffmpeg.mplayerhq.hu/}
+Instructions: @code{http://ffmpeg.mplayerhq.hu/faq.html#SEC12}
+@item mencoder
+Part of mplayer, available from: http://www.mplayerhq.hu/
+Instructions: @code{http://www.mplayerhq.hu/DOCS/HTML/en/menc-feat-enc-images.html}
+@end table
+These are both command line tools. If you prefer a graphical tool, you may
+prefer Quicktime Pro from Apple (http://www.apple.com/quicktime/pro/). However,
+this software costs approximately US$30, and the authors of XaoS have no
+experience with it. Although QuickTime may be easier to use, the two free
+encoders above are just as capable once you learn how to use them.
+
+
+Note: we used to recommend Berkeley parallel MPEG encoder to
+encode the generated png files into MPEG videos. We have kept
+the instructions mainly for historic purposes.
+
+
+@c ## chapter video ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node format, writehelp,mpeg ,Top
+@node format, writehelp,video ,Top
 @chapter XaoS' file format
 This section describes the format used by XaoS for animations, configuration
 files and saved positions. All these files have a common format, designed
@@ -617,7 +701,7 @@ And following is the ``rotozooming'' animation:
 
 I plan to make a gallery of animations and position files on the XaoS home-page,
 so please send any nice animations and images you created using XaoS
-to @code{jh@@ucw.cz}.
+to the mailing list or upload them to our website.
 @c ## chapter format ##
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
@@ -630,10 +714,6 @@ written as @code{%keyword}
 If you are writing documentation about some command in the XaoS function
 registry, use the same keyword as the name of the command in order to make
 context sensitive help work.
-
-
-
-
 
 
 @c ## chapter writehelp ##
@@ -683,18 +763,18 @@ activate tutorial
 Ignore this in texinfo manuals
 @end table
 
+
+
 @c ## section xshl ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
 @node drivers, menus,xshl ,Top
 
-@chapter Driver specific documentation
+@chapter Platform-specific documentation
 XaoS is portable and works on many different platforms. Since not all platforms are
-exactly the same, there are some differences between the behaviour of XaoS on
+exactly the same, there are some differences between the behavior of XaoS on
 different platforms. Here is documentation about each specific port.
-
-
 
 @c ## chapter drivers ##
 
@@ -945,6 +1025,7 @@ releated information.
 
 DirectX driver was written by Jan Hubicka, Jan Olderdissen
 and Pavel Tzekov, 1999.
+
 @c ## section dX-fullscreen ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -968,6 +1049,7 @@ Everything else might work well, but there are no guarantees. It is alpha qualit
 software.
 
 GGI driver was written by Jan Hubicka, 1998.
+
 @c ## section ggi ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -995,6 +1077,7 @@ programs like Mortha. You can disable this behavior using
 @code{-nopalette} switch, but this will slow down XaoS.
 
 Plan9 driver was written by Jan Hubicka, 1997.
+
 @c ## section plan9 ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1073,6 +1156,8 @@ loop. Relax and wait for the message box signaling the end of the loop.
 Note that XaoS also supports the DirectX API.
 
 Win32 driver was written by Jan Hubicka, Jan Olderdissen and Pavel Tzekov, 1999.
+
+
 @c ## section win32 ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1104,7 +1189,7 @@ X11 driver was written by Jan Hubicka and Thomas Marsh, 1997.
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node menus, authors,  drivers,Top
+@node menus, about,  drivers,Top
 
 @appendix Menus, functions and command line parameters
 All XaoS functions are referenced by a central function registry. The
@@ -3159,8 +3244,8 @@ To avoid this, you could use palette emulation filter. @xref{palettef}.
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 @comment  node-name,  next,      previous,  up
-@node authors, lists,menus ,Top
-
+@node about, support,menus ,Top
+@appendix About XaoS
 @appendix Credits
 (alphabetically)
 @table @strong
@@ -3169,7 +3254,7 @@ francais.cat (translation of tutorials)
 @item Jean-Pierre Demailly (Jean-Pierre.Demailly@@ujf-grenoble.fr)
 Updates for French translation
 @item Radek Doulik (rodo@@atrey.karlin.mff.cuni.cz)
-GTK interface, windowid patches
+TK interface, windowid patches
 @item Martin Dozsa (madsoft@@centrum.cz)
 cs.po (Czech translation of menus)
 @item Arpad Fekete (Fekete.Arpad.2@@stud.u-szeged.hu)
@@ -3188,7 +3273,7 @@ OS/2 ports (320x200 graphics and AA-lib)
 Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
 @item Zsigmond Kovacs (kovzsi@@gmail.com)
 Fractal examples
-@item J. B. Langston III (jb-langston@@austin.rr.com)
+@item J.B. Langston III (jb-langston@@austin.rr.com)
 Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
 @item Andreas Madritsch (amadritsch@@datacomm.ch)
 New fractal types, bailout, many fixes
@@ -3235,38 +3320,139 @@ Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
 @item Sergio Zanchetta
 Italian translation
 @end table
+@subsection Included Software
+XaoS uses the following libraries. These libraries may be included
+with some binary distributions of XaoS.
 
-To contact the authors you can also use the mailing lists. @xref{lists}.
-@c ## appendix authors ##
+@emph{gettext 0.17}
+Website: @code{http://www.gnu.org/software/gettext/}
+Copyright (C) 1995-1997, 2000-2007 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later (http://gnu.org/licenses/gpl.html)
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+@emph{GNU Scientific Library 1.11}
+Website: @code{http://www.gnu.org/software/gsl/}
+Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007 The GSL Team.
+License GPLv3+: GNU GPL version 3 or later (http://gnu.org/licenses/gpl.html)
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+@emph{libpng 1.2.25}
+Website: @code{http://www.libpng.org/pub/png/libpng.html}
+Copyright (c) 1998-2008 Glenn Randers-Pehrson
+Copyright (c) 1996-1997 Andreas Dilger
+Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
+
+@c ## appendix about ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node lists, index ,authors ,Top
+@node support, index ,about ,Top
+@appendix Getting Support
+XaoS is a community-supported free software project. There are many ways
+to get help, all of which are explained below.
 
-@appendix Mailing-lists:
-Until 1999 (or so) there was a high traffic mailing list
-on a mail server located in Czech Republic. Unfortunately,
-the server with its mailing lists no longer works.
+@appendix Home Page
+The XaoS homepage is @code{http://xaos.sf.net}. Check here for the
+latest news and information about XaoS and to download the latest versions.
 
-In 2001 XaoS moved to the SourceForge developer site
-and now there are 3 new mailing lists. Unfortunately,
-at the time of writing this documentation its traffic
-is about 0. Hopefully the development will continue
-using these mailing lists. Namely,
+
+@subsection Discussion Forums
+XaoS has two discussion forums hosted on SourceForge. You can read them
+freely, but in order to post, you must to register for a free SourceForge
+account.
+
 @table @strong
-@item xaos-announce@@lists.sourceforge.net,
-@item xaos-devel@@lists.sourceforge.net,
-@item xaos-discuss@@lists.sourceforge.net.
+@item Help
+Provides a place for you to ask for help using XaoS. Other XaoS users
+and/or the XaoS developers will answer your questions.
+
+
+@code{http://sourceforge.net/forum/forum.php?forum_id=17768}
+@item Open Discussion
+Provides a place to discuss anything related to XaoS or fractals.
+You can share tips, your own fractal creations, or any other fractal-related
+ideas with other XaoS users.
+
+
+@code{http://sourceforge.net/forum/forum.php?forum_id=17767}
 @end table
 
-Please feel free to join any or all of these
-mailing lists and share your ideas with the developers.
 
-@c ## appendix lists ##
+We welcome you to join these forums and become involved in the XaoS community.
+
+@subsection Mailing Lists
+
+XaoS currently has three mailing lists hosted on SourceForge. Unfortunately,
+there is currently very little traffic on any of them. Hopefully in the future,
+we can get more XaoS users and developers involved in the mailing lists.
+The lists are as follows:
+
+@table @strong
+@item xaos-announce@@lists.sourceforge.net
+Low volume list that is used only to announce new releases.
+
+
+Subscribe: @code{http://lists.sourceforge.net/mailman/listinfo/xaos-announce}
+Archive: @code{http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-announce}
+
+@item xaos-devel@@lists.sourceforge.net
+Developer mailing list, where the developers coordinate and discuss XaoS development.
+
+
+Subscribe: @code{http://lists.sourceforge.net/mailman/listinfo/xaos-devel}
+Archive: @code{http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-devel}
+
+@item xaos-discuss@@lists.sourceforge.net
+General discussion list is for XaoS users to share tips and ideas about XaoS.
+
+
+Subscribe: @code{http://lists.sourceforge.net/mailman/listinfo/xaos-discuss}
+Archive: @code{http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-discuss}
+@end table
+
+
+Please feel free to join any or all of these mailing lists and share your ideas with the
+developers and other XaoS users.
+
+@subsection Bug Reports
+If you think you have found a bug in XaoS, please report it. The developers will do their
+best to resolve the bug in a timely manner.
+
+
+Bug Tracker: @code{http://sourceforge.net/tracker/?atid=105771&group_id=5771}
+
+
+Please don't submit duplicate bugs. Browse the existing ones first to make
+sure nobody has already reported it. You may add additional information about a bug by
+entering a comment on an existing bug.
+
+
+If you are not sure if something is a bug, please open a support request. The developers
+will try to answer your question and can convert your support request to a bug if necessary.
+
+
+Support Requests: @code{http://sourceforge.net/tracker/?atid=205771&group_id=5771}
+
+@subsection Feature Requests
+If you have an idea for a great new feature you'd like to XaoS, please let us know about it.
+You can submit a feature request via SourceForge, and the XaoS developers will do their best to
+implement your request in a future version.
+
+
+Feature Requests: @code{http://sourceforge.net/tracker/?atid=355771&group_id=5771}
+
+
+Please don't submit duplicate feature requests. Browse the existing ones
+first to make sure nobody has already requested the feature your want. You may add your
+vote for a feature by adding a comment to the existing request.
+
+@c ## appendix support ##
 
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
-@node index,  ,lists ,Top
+@node index,  ,support ,Top
 @unnumbered Index of functions
 
 @printindex fn
