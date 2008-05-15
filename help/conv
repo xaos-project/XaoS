@@ -107,7 +107,7 @@ appendix()
 {
 	sed '1,/<\/head>/ s/<head>/@appendix /g
 	s/<\/head>//g
-	s/<head>/@subappendix /g
+	s/<head>/@subsection /g
 	'
 }
 case "$1" in

@@ -41,12 +41,12 @@ An in-depth discussion of all of XaoS's commands.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %about
 <head>About XaoS</head>
-
+<notex>
 XaoS is free software. You are welcome to redistribute it under the terms of
 the <a gpl>GNU General Public License</a>. This also means that you may get 
 <emph>sources</emph> and help improve XaoS through an open 
 <a devel>development process</a>.
-
+</notex>
 <head>Credits</head>
 (alphabetically)
 <dl>
