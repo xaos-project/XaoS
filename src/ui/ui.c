@@ -1251,6 +1251,7 @@ MAIN_FUNCTION (int argc, char **argv)
 #endif
 #endif
     ;
+  bind_textdomain_codeset ("xaos", "UTF-8");
   textdomain ("xaos");
   /* Done setting locales. */
 #endif

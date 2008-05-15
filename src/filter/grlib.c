@@ -414,7 +414,7 @@ xiconv(int encoding,
 	int ret;
     
     sprintf(tocode, "ISO-8859-%d", encoding);
-    cd = iconv_open(tocode, "");
+    cd = iconv_open(tocode, "UTF-8");
     if (cd == (iconv_t)(-1))
         return -1;
     

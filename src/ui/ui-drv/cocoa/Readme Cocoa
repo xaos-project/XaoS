@@ -350,6 +350,10 @@ Committing additional changes submitted 10/30 by Andrew Stone:
 
     - Add links to Videator in Mac OS X help section
 
+2008-05-15
+
+	- Fix diacritical mark rendering on Mac OS X Tiger
+
 TODO:
 
 * bugs
