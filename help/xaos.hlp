@@ -250,7 +250,7 @@ will try to answer your question and can convert your support request to a bug i
 Support Requests: <tt>http://sourceforge.net/tracker/?atid=205771&group_id=5771</tt>
 
 <head>Feature Requests</head>
-If you have an idea for a great new feature you'd like to XaoS, please let us know about it.  
+If you have an idea for a great new feature you'd like to see added to XaoS, please let us know about it.  
 You can submit a feature request via SourceForge, and the XaoS developers will do their best to
 implement your request in a future version.
 
@@ -875,7 +875,7 @@ To return to windowed mode, select <emph>Mac OS X Windowed Driver</emph>
 from the <emph>UI -> Driver</emph> submenu.
 
 <head>Videator Support</head>
-XaoS for Mac OS X can send live a live video stream to Stone Design's Videator (<tt>http://stone.com/Videator/</tt>),
+XaoS for Mac OS X can send a live video stream to Stone Design's Videator (<tt>http://stone.com/Videator/</tt>),
 which can then do post-processing using Mac OS X's core video technology. This combination creates mind-blowing visuals
 that are great for VJing (live video performance art).
 <p>To turn on output to Videator, select <emph>Videator Output</emph> from the <emph>UI</emph> menu.
