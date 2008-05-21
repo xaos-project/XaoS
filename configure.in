@@ -41,6 +41,7 @@ x11_linked=no
 x_driver_test=yes
 dga_driver_test=yes
 ggi_driver_test=yes
+gtk_driver_test=no
 aa_driver_test=yes
 vga_driver_test=yes
 win32_driver_test=yes
@@ -300,6 +301,12 @@ AC_ARG_WITH(dga-driver,
         [  --with-dga-driver=no    disables DGA driver],[
 	if test x$withval = xno; then
 	  dga_driver_test=no
+	fi
+])
+AC_ARG_WITH(gtk-driver,
+        [  --with-gtk-driver=no    disables GGI driver],[
+	if test x$withval = xno; then
+	  gtk_driver_test=no
 	fi
 ])
 AC_ARG_WITH(ggi-driver,
@@ -798,6 +805,12 @@ if test  "$dga_driver_test" = yes; then
   AC_CHECK_LIB(Xxf86vm,XF86VidModeGetModeLine,LIBS="$LIBS -lXxf86vm", dga_driver=false, $LIBS )
 fi
 
+if test  "$gtk_driver_test" = yes; then
+  PKG_CHECK_MODULES([DEPS], gtk+-2.0 >= 2.2 glib-2.0 >= 2.2, gtk_driver=true, gtk_driver=false)
+  AC_SUBST(DEPS_CFLAGS)
+  AC_SUBST(DEPS_LIBS)
+fi
+
 if test  "$ggi_driver_test" = yes; then
   ggi_driver=true
   AC_CHECK_LIB(ggi,ggiInit,LIBS="$LIBS -lggi", ggi_driver=false, $LIBS )
@@ -827,6 +840,18 @@ if test "x$aa_driver" = xtrue; then
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/aa"
   DRIVERLIBS="$DRIVERLIBS lib/libuiaa.a"
   echo "   aa-lib"
+fi
+fi
+
+if test "$gtk_driver_test" = yes; then
+if test "x$gtk_driver" = xtrue; then
+  drivers=yes
+  AC_DEFINE(GTK_DRIVER)
+  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/gtk"
+  DRIVERLIBS="$DRIVERLIBS lib/libuigtk.a"
+  CFLAGS="$CFLAGS $DEPS_CFLAGS"
+  LIBS="$LIBS $DEPS_LIBS"
+  echo "   gtk+"
 fi
 fi
 
@@ -1004,7 +1029,7 @@ AC_OUTPUT(src/i18n/Makefile.in
     src/ui/ui-drv/svga/Makefile src/ui/ui-drv/x11/Makefile
     src/ui/ui-drv/dga/Makefile src/ui/ui-drv/win32/Makefile
     src/ui/ui-drv/BeOS/Makefile doc/Makefile help/Makefile 
-    src/sffe/Makefile
+    src/ui/ui-drv/gtk/Makefile src/sffe/Makefile
   )
 
 echo "------------------------------------------------------------"

@@ -44,6 +44,7 @@
 #undef CURSES_DRIVER
 #undef BEOS_DRIVER
 #undef AA_DRIVER
+#undef GTK_DRIVER
 #undef GGI_DRIVER
 #undef X11_DRIVER
 #undef DGA_DRIVER

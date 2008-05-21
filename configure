@@ -680,6 +680,7 @@ INSTALL_SCRIPT
 INSTALL_DATA
 mkdir_p
 USE_NLS
+GETTEXT_MACRO_VERSION
 MSGFMT
 GMSGFMT
 MSGFMT_015
@@ -687,6 +688,7 @@ GMSGFMT_015
 XGETTEXT
 XGETTEXT_015
 MSGMERGE
+XGETTEXT_EXTRA_OPTIONS
 INTL_MACOSX_LIBS
 LIBICONV
 LTLIBICONV
@@ -704,6 +706,9 @@ CXX
 CXXFLAGS
 ac_ct_CXX
 ALLOCA
+PKG_CONFIG
+DEPS_CFLAGS
+DEPS_LIBS
 REALTOPDIR
 BINPATH
 AR
@@ -738,7 +743,10 @@ CPP
 XMKMF
 CXX
 CXXFLAGS
-CCC'
+CCC
+PKG_CONFIG
+DEPS_CFLAGS
+DEPS_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1338,6 +1346,7 @@ Optional Packages:
   --with-sffe=yes/no	enables/disables SFFE (user formula evaluator) support (development)
   --with-x11-driver=no    disables x11 driver
   --with-dga-driver=no    disables DGA driver
+  --with-gtk-driver=no    disables GGI driver
   --with-ggi-driver=no    disables GGI driver
   --with-svga-driver=no   disables svga driver
   --with-win32-driver=no  disables Win32 driver
@@ -1361,6 +1370,9 @@ Some influential environment variables:
   XMKMF       Path to xmkmf, Makefile generator for X Window System
   CXX         C++ compiler command
   CXXFLAGS    C++ compiler flags
+  PKG_CONFIG  path to pkg-config utility
+  DEPS_CFLAGS C compiler flags for DEPS, overriding pkg-config
+  DEPS_LIBS   linker flags for DEPS, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -3441,53 +3453,38 @@ test -z "$INSTALL_SCRIPT" && INSTALL_SCRIPT='${INSTALL}'
 
 test -z "$INSTALL_DATA" && INSTALL_DATA='${INSTALL} -m 644'
 
-{ echo "$as_me:$LINENO: checking for a thread-safe mkdir -p" >&5
-echo $ECHO_N "checking for a thread-safe mkdir -p... $ECHO_C" >&6; }
-if test -z "$MKDIR_P"; then
-  if test "${ac_cv_path_mkdir+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
+if mkdir -p --version . >/dev/null 2>&1 && test ! -d ./--version; then
+  # We used to keeping the `.' as first argument, in order to
+  # allow $(mkdir_p) to be used without argument.  As in
+  #   $(mkdir_p) $(somedir)
+  # where $(somedir) is conditionally defined.  However this is wrong
+  # for two reasons:
+  #  1. if the package is installed by a user who cannot write `.'
+  #     make install will fail,
+  #  2. the above comment should most certainly read
+  #     $(mkdir_p) $(DESTDIR)$(somedir)
+  #     so it does not work when $(somedir) is undefined and
+  #     $(DESTDIR) is not.
+  #  To support the latter case, we have to write
+  #     test -z "$(somedir)" || $(mkdir_p) $(DESTDIR)$(somedir),
+  #  so the `.' trick is pointless.
+  mkdir_p='mkdir -p --'
 else
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH$PATH_SEPARATOR/opt/sfw/bin
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_prog in mkdir gmkdir; do
-	 for ac_exec_ext in '' $ac_executable_extensions; do
-	   { test -f "$as_dir/$ac_prog$ac_exec_ext" && $as_test_x "$as_dir/$ac_prog$ac_exec_ext"; } || continue
-	   case `"$as_dir/$ac_prog$ac_exec_ext" --version 2>&1` in #(
-	     'mkdir (GNU coreutils) '* | \
-	     'mkdir (coreutils) '* | \
-	     'mkdir (fileutils) '4.1*)
-	       ac_cv_path_mkdir=$as_dir/$ac_prog$ac_exec_ext
-	       break 3;;
-	   esac
-	 done
-       done
-done
-IFS=$as_save_IFS
-
-fi
-
-  if test "${ac_cv_path_mkdir+set}" = set; then
-    MKDIR_P="$ac_cv_path_mkdir -p"
+  # On NextStep and OpenStep, the `mkdir' command does not
+  # recognize any option.  It will interpret all options as
+  # directories to create, and then abort because `.' already
+  # exists.
+  for d in ./-p ./--version;
+  do
+    test -d $d && rmdir $d
+  done
+  # $(mkinstalldirs) is defined by Automake if mkinstalldirs exists.
+  if test -f "$ac_aux_dir/mkinstalldirs"; then
+    mkdir_p='$(mkinstalldirs)'
   else
-    # As a last resort, use the slow shell script.  Don't cache a
-    # value for MKDIR_P within a source directory, because that will
-    # break other packages using the cache if that directory is
-    # removed, or if the value is a relative name.
-    test -d ./--version && rmdir ./--version
-    MKDIR_P="$ac_install_sh -d"
+    mkdir_p='$(install_sh) -d'
   fi
 fi
-{ echo "$as_me:$LINENO: result: $MKDIR_P" >&5
-echo "${ECHO_T}$MKDIR_P" >&6; }
-
-mkdir_p="$MKDIR_P"
-case $mkdir_p in
-  [\\/$]* | ?:[\\/]*) ;;
-  */*) mkdir_p="\$(top_builddir)/$mkdir_p" ;;
-esac
 
 
   { echo "$as_me:$LINENO: checking whether NLS is requested" >&5
@@ -3503,6 +3500,9 @@ fi
 echo "${ECHO_T}$USE_NLS" >&6; }
 
 
+
+
+      GETTEXT_MACRO_VERSION=0.17
 
 
 
@@ -3780,6 +3780,9 @@ fi
         test -n "$localedir" || localedir='${datadir}/locale'
 
 
+    test -n "${XGETTEXT_EXTRA_OPTIONS+set}" || XGETTEXT_EXTRA_OPTIONS=
+
+
   ac_config_commands="$ac_config_commands po-directories"
 
 
@@ -3932,12 +3935,14 @@ fi
 { echo "$as_me:$LINENO: result: $acl_cv_rpath" >&5
 echo "${ECHO_T}$acl_cv_rpath" >&6; }
   wl="$acl_cv_wl"
-  libext="$acl_cv_libext"
-  shlibext="$acl_cv_shlibext"
-  hardcode_libdir_flag_spec="$acl_cv_hardcode_libdir_flag_spec"
-  hardcode_libdir_separator="$acl_cv_hardcode_libdir_separator"
-  hardcode_direct="$acl_cv_hardcode_direct"
-  hardcode_minus_L="$acl_cv_hardcode_minus_L"
+  acl_libext="$acl_cv_libext"
+  acl_shlibext="$acl_cv_shlibext"
+  acl_libname_spec="$acl_cv_libname_spec"
+  acl_library_names_spec="$acl_cv_library_names_spec"
+  acl_hardcode_libdir_flag_spec="$acl_cv_hardcode_libdir_flag_spec"
+  acl_hardcode_libdir_separator="$acl_cv_hardcode_libdir_separator"
+  acl_hardcode_direct="$acl_cv_hardcode_direct"
+  acl_hardcode_minus_L="$acl_cv_hardcode_minus_L"
     # Check whether --enable-rpath was given.
 if test "${enable_rpath+set}" = set; then
   enableval=$enable_rpath; :
@@ -3964,6 +3969,7 @@ fi
     done
     IFS="$acl_save_IFS"
   fi
+
 
 
 
@@ -4016,6 +4022,7 @@ fi
       LIBICONV=
   LTLIBICONV=
   INCICONV=
+  LIBICONV_PREFIX=
   rpathdirs=
   ltrpathdirs=
   names_already_handled=
@@ -4049,27 +4056,50 @@ fi
           found_la=
           found_so=
           found_a=
+          eval libname=\"$acl_libname_spec\"    # typically: libname=lib$name
+          if test -n "$acl_shlibext"; then
+            shrext=".$acl_shlibext"             # typically: shrext=.so
+          else
+            shrext=
+          fi
           if test $use_additional = yes; then
-            if test -n "$shlibext" \
-               && { test -f "$additional_libdir/lib$name.$shlibext" \
-                    || { test "$shlibext" = dll \
-                         && test -f "$additional_libdir/lib$name.dll.a"; }; }; then
-              found_dir="$additional_libdir"
-              if test -f "$additional_libdir/lib$name.$shlibext"; then
-                found_so="$additional_libdir/lib$name.$shlibext"
+            dir="$additional_libdir"
+                                    if test -n "$acl_shlibext"; then
+              if test -f "$dir/$libname$shrext"; then
+                found_dir="$dir"
+                found_so="$dir/$libname$shrext"
               else
-                found_so="$additional_libdir/lib$name.dll.a"
-              fi
-              if test -f "$additional_libdir/lib$name.la"; then
-                found_la="$additional_libdir/lib$name.la"
-              fi
-            else
-              if test -f "$additional_libdir/lib$name.$libext"; then
-                found_dir="$additional_libdir"
-                found_a="$additional_libdir/lib$name.$libext"
-                if test -f "$additional_libdir/lib$name.la"; then
-                  found_la="$additional_libdir/lib$name.la"
+                if test "$acl_library_names_spec" = '$libname$shrext$versuffix'; then
+                  ver=`(cd "$dir" && \
+                        for f in "$libname$shrext".*; do echo "$f"; done \
+                        | sed -e "s,^$libname$shrext\\\\.,," \
+                        | sort -t '.' -n -r -k1,1 -k2,2 -k3,3 -k4,4 -k5,5 \
+                        | sed 1q ) 2>/dev/null`
+                  if test -n "$ver" && test -f "$dir/$libname$shrext.$ver"; then
+                    found_dir="$dir"
+                    found_so="$dir/$libname$shrext.$ver"
+                  fi
+                else
+                  eval library_names=\"$acl_library_names_spec\"
+                  for f in $library_names; do
+                    if test -f "$dir/$f"; then
+                      found_dir="$dir"
+                      found_so="$dir/$f"
+                      break
+                    fi
+                  done
                 fi
+              fi
+            fi
+                        if test "X$found_dir" = "X"; then
+              if test -f "$dir/$libname.$acl_libext"; then
+                found_dir="$dir"
+                found_a="$dir/$libname.$acl_libext"
+              fi
+            fi
+            if test "X$found_dir" != "X"; then
+              if test -f "$dir/$libname.la"; then
+                found_la="$dir/$libname.la"
               fi
             fi
           fi
@@ -4087,26 +4117,42 @@ fi
               case "$x" in
                 -L*)
                   dir=`echo "X$x" | sed -e 's/^X-L//'`
-                  if test -n "$shlibext" \
-                     && { test -f "$dir/lib$name.$shlibext" \
-                          || { test "$shlibext" = dll \
-                               && test -f "$dir/lib$name.dll.a"; }; }; then
-                    found_dir="$dir"
-                    if test -f "$dir/lib$name.$shlibext"; then
-                      found_so="$dir/lib$name.$shlibext"
-                    else
-                      found_so="$dir/lib$name.dll.a"
-                    fi
-                    if test -f "$dir/lib$name.la"; then
-                      found_la="$dir/lib$name.la"
-                    fi
-                  else
-                    if test -f "$dir/lib$name.$libext"; then
+                                    if test -n "$acl_shlibext"; then
+                    if test -f "$dir/$libname$shrext"; then
                       found_dir="$dir"
-                      found_a="$dir/lib$name.$libext"
-                      if test -f "$dir/lib$name.la"; then
-                        found_la="$dir/lib$name.la"
+                      found_so="$dir/$libname$shrext"
+                    else
+                      if test "$acl_library_names_spec" = '$libname$shrext$versuffix'; then
+                        ver=`(cd "$dir" && \
+                              for f in "$libname$shrext".*; do echo "$f"; done \
+                              | sed -e "s,^$libname$shrext\\\\.,," \
+                              | sort -t '.' -n -r -k1,1 -k2,2 -k3,3 -k4,4 -k5,5 \
+                              | sed 1q ) 2>/dev/null`
+                        if test -n "$ver" && test -f "$dir/$libname$shrext.$ver"; then
+                          found_dir="$dir"
+                          found_so="$dir/$libname$shrext.$ver"
+                        fi
+                      else
+                        eval library_names=\"$acl_library_names_spec\"
+                        for f in $library_names; do
+                          if test -f "$dir/$f"; then
+                            found_dir="$dir"
+                            found_so="$dir/$f"
+                            break
+                          fi
+                        done
                       fi
+                    fi
+                  fi
+                                    if test "X$found_dir" = "X"; then
+                    if test -f "$dir/$libname.$acl_libext"; then
+                      found_dir="$dir"
+                      found_a="$dir/$libname.$acl_libext"
+                    fi
+                  fi
+                  if test "X$found_dir" != "X"; then
+                    if test -f "$dir/$libname.la"; then
+                      found_la="$dir/$libname.la"
                     fi
                   fi
                   ;;
@@ -4132,10 +4178,10 @@ fi
                 if test -z "$haveit"; then
                   ltrpathdirs="$ltrpathdirs $found_dir"
                 fi
-                                if test "$hardcode_direct" = yes; then
+                                if test "$acl_hardcode_direct" = yes; then
                                                       LIBICONV="${LIBICONV}${LIBICONV:+ }$found_so"
                 else
-                  if test -n "$hardcode_libdir_flag_spec" && test "$hardcode_minus_L" = no; then
+                  if test -n "$acl_hardcode_libdir_flag_spec" && test "$acl_hardcode_minus_L" = no; then
                                                             LIBICONV="${LIBICONV}${LIBICONV:+ }$found_so"
                                                             haveit=
                     for x in $rpathdirs; do
@@ -4167,7 +4213,7 @@ fi
                     if test -z "$haveit"; then
                       LIBICONV="${LIBICONV}${LIBICONV:+ }-L$found_dir"
                     fi
-                    if test "$hardcode_minus_L" != no; then
+                    if test "$acl_hardcode_minus_L" != no; then
                                                                                         LIBICONV="${LIBICONV}${LIBICONV:+ }$found_so"
                     else
                                                                                                                                                                                 LIBICONV="${LIBICONV}${LIBICONV:+ }-l$name"
@@ -4186,6 +4232,7 @@ fi
             case "$found_dir" in
               */$acl_libdirstem | */$acl_libdirstem/)
                 basedir=`echo "X$found_dir" | sed -e 's,^X,,' -e "s,/$acl_libdirstem/"'*$,,'`
+                LIBICONV_PREFIX="$basedir"
                 additional_includedir="$basedir/include"
                 ;;
             esac
@@ -4336,21 +4383,21 @@ fi
     done
   done
   if test "X$rpathdirs" != "X"; then
-    if test -n "$hardcode_libdir_separator"; then
+    if test -n "$acl_hardcode_libdir_separator"; then
                         alldirs=
       for found_dir in $rpathdirs; do
-        alldirs="${alldirs}${alldirs:+$hardcode_libdir_separator}$found_dir"
+        alldirs="${alldirs}${alldirs:+$acl_hardcode_libdir_separator}$found_dir"
       done
             acl_save_libdir="$libdir"
       libdir="$alldirs"
-      eval flag=\"$hardcode_libdir_flag_spec\"
+      eval flag=\"$acl_hardcode_libdir_flag_spec\"
       libdir="$acl_save_libdir"
       LIBICONV="${LIBICONV}${LIBICONV:+ }$flag"
     else
             for found_dir in $rpathdirs; do
         acl_save_libdir="$libdir"
         libdir="$found_dir"
-        eval flag=\"$hardcode_libdir_flag_spec\"
+        eval flag=\"$acl_hardcode_libdir_flag_spec\"
         libdir="$acl_save_libdir"
         LIBICONV="${LIBICONV}${LIBICONV:+ }$flag"
       done
@@ -4749,6 +4796,132 @@ fi
 { echo "$as_me:$LINENO: result: $am_cv_func_iconv" >&5
 echo "${ECHO_T}$am_cv_func_iconv" >&6; }
   if test "$am_cv_func_iconv" = yes; then
+    { echo "$as_me:$LINENO: checking for working iconv" >&5
+echo $ECHO_N "checking for working iconv... $ECHO_C" >&6; }
+if test "${am_cv_func_iconv_works+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+
+            am_save_LIBS="$LIBS"
+      if test $am_cv_lib_iconv = yes; then
+        LIBS="$LIBS $LIBICONV"
+      fi
+      if test "$cross_compiling" = yes; then
+  case "$host_os" in
+           aix* | hpux*) am_cv_func_iconv_works="guessing no" ;;
+           *)            am_cv_func_iconv_works="guessing yes" ;;
+         esac
+else
+  cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+#include <iconv.h>
+#include <string.h>
+int main ()
+{
+  /* Test against AIX 5.1 bug: Failures are not distinguishable from successful
+     returns.  */
+  {
+    iconv_t cd_utf8_to_88591 = iconv_open ("ISO8859-1", "UTF-8");
+    if (cd_utf8_to_88591 != (iconv_t)(-1))
+      {
+        static const char input[] = "\342\202\254"; /* EURO SIGN */
+        char buf[10];
+        const char *inptr = input;
+        size_t inbytesleft = strlen (input);
+        char *outptr = buf;
+        size_t outbytesleft = sizeof (buf);
+        size_t res = iconv (cd_utf8_to_88591,
+                            (char **) &inptr, &inbytesleft,
+                            &outptr, &outbytesleft);
+        if (res == 0)
+          return 1;
+      }
+  }
+#if 0 /* This bug could be worked around by the caller.  */
+  /* Test against HP-UX 11.11 bug: Positive return value instead of 0.  */
+  {
+    iconv_t cd_88591_to_utf8 = iconv_open ("utf8", "iso88591");
+    if (cd_88591_to_utf8 != (iconv_t)(-1))
+      {
+        static const char input[] = "\304rger mit b\366sen B\374bchen ohne Augenma\337";
+        char buf[50];
+        const char *inptr = input;
+        size_t inbytesleft = strlen (input);
+        char *outptr = buf;
+        size_t outbytesleft = sizeof (buf);
+        size_t res = iconv (cd_88591_to_utf8,
+                            (char **) &inptr, &inbytesleft,
+                            &outptr, &outbytesleft);
+        if ((int)res > 0)
+          return 1;
+      }
+  }
+#endif
+  /* Test against HP-UX 11.11 bug: No converter from EUC-JP to UTF-8 is
+     provided.  */
+  if (/* Try standardized names.  */
+      iconv_open ("UTF-8", "EUC-JP") == (iconv_t)(-1)
+      /* Try IRIX, OSF/1 names.  */
+      && iconv_open ("UTF-8", "eucJP") == (iconv_t)(-1)
+      /* Try AIX names.  */
+      && iconv_open ("UTF-8", "IBM-eucJP") == (iconv_t)(-1)
+      /* Try HP-UX names.  */
+      && iconv_open ("utf8", "eucJP") == (iconv_t)(-1))
+    return 1;
+  return 0;
+}
+_ACEOF
+rm -f conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_link") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  am_cv_func_iconv_works=yes
+else
+  echo "$as_me: program exited with status $ac_status" >&5
+echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+( exit $ac_status )
+am_cv_func_iconv_works=no
+fi
+rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+fi
+
+
+      LIBS="$am_save_LIBS"
+
+fi
+{ echo "$as_me:$LINENO: result: $am_cv_func_iconv_works" >&5
+echo "${ECHO_T}$am_cv_func_iconv_works" >&6; }
+    case "$am_cv_func_iconv_works" in
+      *no) am_func_iconv=no am_cv_lib_iconv=no ;;
+      *)   am_func_iconv=yes ;;
+    esac
+  else
+    am_func_iconv=no am_cv_lib_iconv=no
+  fi
+  if test "$am_func_iconv" = yes; then
 
 cat >>confdefs.h <<\_ACEOF
 #define HAVE_ICONV 1
@@ -4765,6 +4938,7 @@ echo "${ECHO_T}$LIBICONV" >&6; }
     LIBICONV=
     LTLIBICONV=
   fi
+
 
 
 
@@ -4816,6 +4990,7 @@ fi
       LIBINTL=
   LTLIBINTL=
   INCINTL=
+  LIBINTL_PREFIX=
   rpathdirs=
   ltrpathdirs=
   names_already_handled=
@@ -4849,27 +5024,50 @@ fi
           found_la=
           found_so=
           found_a=
+          eval libname=\"$acl_libname_spec\"    # typically: libname=lib$name
+          if test -n "$acl_shlibext"; then
+            shrext=".$acl_shlibext"             # typically: shrext=.so
+          else
+            shrext=
+          fi
           if test $use_additional = yes; then
-            if test -n "$shlibext" \
-               && { test -f "$additional_libdir/lib$name.$shlibext" \
-                    || { test "$shlibext" = dll \
-                         && test -f "$additional_libdir/lib$name.dll.a"; }; }; then
-              found_dir="$additional_libdir"
-              if test -f "$additional_libdir/lib$name.$shlibext"; then
-                found_so="$additional_libdir/lib$name.$shlibext"
+            dir="$additional_libdir"
+                                    if test -n "$acl_shlibext"; then
+              if test -f "$dir/$libname$shrext"; then
+                found_dir="$dir"
+                found_so="$dir/$libname$shrext"
               else
-                found_so="$additional_libdir/lib$name.dll.a"
-              fi
-              if test -f "$additional_libdir/lib$name.la"; then
-                found_la="$additional_libdir/lib$name.la"
-              fi
-            else
-              if test -f "$additional_libdir/lib$name.$libext"; then
-                found_dir="$additional_libdir"
-                found_a="$additional_libdir/lib$name.$libext"
-                if test -f "$additional_libdir/lib$name.la"; then
-                  found_la="$additional_libdir/lib$name.la"
+                if test "$acl_library_names_spec" = '$libname$shrext$versuffix'; then
+                  ver=`(cd "$dir" && \
+                        for f in "$libname$shrext".*; do echo "$f"; done \
+                        | sed -e "s,^$libname$shrext\\\\.,," \
+                        | sort -t '.' -n -r -k1,1 -k2,2 -k3,3 -k4,4 -k5,5 \
+                        | sed 1q ) 2>/dev/null`
+                  if test -n "$ver" && test -f "$dir/$libname$shrext.$ver"; then
+                    found_dir="$dir"
+                    found_so="$dir/$libname$shrext.$ver"
+                  fi
+                else
+                  eval library_names=\"$acl_library_names_spec\"
+                  for f in $library_names; do
+                    if test -f "$dir/$f"; then
+                      found_dir="$dir"
+                      found_so="$dir/$f"
+                      break
+                    fi
+                  done
                 fi
+              fi
+            fi
+                        if test "X$found_dir" = "X"; then
+              if test -f "$dir/$libname.$acl_libext"; then
+                found_dir="$dir"
+                found_a="$dir/$libname.$acl_libext"
+              fi
+            fi
+            if test "X$found_dir" != "X"; then
+              if test -f "$dir/$libname.la"; then
+                found_la="$dir/$libname.la"
               fi
             fi
           fi
@@ -4887,26 +5085,42 @@ fi
               case "$x" in
                 -L*)
                   dir=`echo "X$x" | sed -e 's/^X-L//'`
-                  if test -n "$shlibext" \
-                     && { test -f "$dir/lib$name.$shlibext" \
-                          || { test "$shlibext" = dll \
-                               && test -f "$dir/lib$name.dll.a"; }; }; then
-                    found_dir="$dir"
-                    if test -f "$dir/lib$name.$shlibext"; then
-                      found_so="$dir/lib$name.$shlibext"
-                    else
-                      found_so="$dir/lib$name.dll.a"
-                    fi
-                    if test -f "$dir/lib$name.la"; then
-                      found_la="$dir/lib$name.la"
-                    fi
-                  else
-                    if test -f "$dir/lib$name.$libext"; then
+                                    if test -n "$acl_shlibext"; then
+                    if test -f "$dir/$libname$shrext"; then
                       found_dir="$dir"
-                      found_a="$dir/lib$name.$libext"
-                      if test -f "$dir/lib$name.la"; then
-                        found_la="$dir/lib$name.la"
+                      found_so="$dir/$libname$shrext"
+                    else
+                      if test "$acl_library_names_spec" = '$libname$shrext$versuffix'; then
+                        ver=`(cd "$dir" && \
+                              for f in "$libname$shrext".*; do echo "$f"; done \
+                              | sed -e "s,^$libname$shrext\\\\.,," \
+                              | sort -t '.' -n -r -k1,1 -k2,2 -k3,3 -k4,4 -k5,5 \
+                              | sed 1q ) 2>/dev/null`
+                        if test -n "$ver" && test -f "$dir/$libname$shrext.$ver"; then
+                          found_dir="$dir"
+                          found_so="$dir/$libname$shrext.$ver"
+                        fi
+                      else
+                        eval library_names=\"$acl_library_names_spec\"
+                        for f in $library_names; do
+                          if test -f "$dir/$f"; then
+                            found_dir="$dir"
+                            found_so="$dir/$f"
+                            break
+                          fi
+                        done
                       fi
+                    fi
+                  fi
+                                    if test "X$found_dir" = "X"; then
+                    if test -f "$dir/$libname.$acl_libext"; then
+                      found_dir="$dir"
+                      found_a="$dir/$libname.$acl_libext"
+                    fi
+                  fi
+                  if test "X$found_dir" != "X"; then
+                    if test -f "$dir/$libname.la"; then
+                      found_la="$dir/$libname.la"
                     fi
                   fi
                   ;;
@@ -4932,10 +5146,10 @@ fi
                 if test -z "$haveit"; then
                   ltrpathdirs="$ltrpathdirs $found_dir"
                 fi
-                                if test "$hardcode_direct" = yes; then
+                                if test "$acl_hardcode_direct" = yes; then
                                                       LIBINTL="${LIBINTL}${LIBINTL:+ }$found_so"
                 else
-                  if test -n "$hardcode_libdir_flag_spec" && test "$hardcode_minus_L" = no; then
+                  if test -n "$acl_hardcode_libdir_flag_spec" && test "$acl_hardcode_minus_L" = no; then
                                                             LIBINTL="${LIBINTL}${LIBINTL:+ }$found_so"
                                                             haveit=
                     for x in $rpathdirs; do
@@ -4967,7 +5181,7 @@ fi
                     if test -z "$haveit"; then
                       LIBINTL="${LIBINTL}${LIBINTL:+ }-L$found_dir"
                     fi
-                    if test "$hardcode_minus_L" != no; then
+                    if test "$acl_hardcode_minus_L" != no; then
                                                                                         LIBINTL="${LIBINTL}${LIBINTL:+ }$found_so"
                     else
                                                                                                                                                                                 LIBINTL="${LIBINTL}${LIBINTL:+ }-l$name"
@@ -4986,6 +5200,7 @@ fi
             case "$found_dir" in
               */$acl_libdirstem | */$acl_libdirstem/)
                 basedir=`echo "X$found_dir" | sed -e 's,^X,,' -e "s,/$acl_libdirstem/"'*$,,'`
+                LIBINTL_PREFIX="$basedir"
                 additional_includedir="$basedir/include"
                 ;;
             esac
@@ -5136,21 +5351,21 @@ fi
     done
   done
   if test "X$rpathdirs" != "X"; then
-    if test -n "$hardcode_libdir_separator"; then
+    if test -n "$acl_hardcode_libdir_separator"; then
                         alldirs=
       for found_dir in $rpathdirs; do
-        alldirs="${alldirs}${alldirs:+$hardcode_libdir_separator}$found_dir"
+        alldirs="${alldirs}${alldirs:+$acl_hardcode_libdir_separator}$found_dir"
       done
             acl_save_libdir="$libdir"
       libdir="$alldirs"
-      eval flag=\"$hardcode_libdir_flag_spec\"
+      eval flag=\"$acl_hardcode_libdir_flag_spec\"
       libdir="$acl_save_libdir"
       LIBINTL="${LIBINTL}${LIBINTL:+ }$flag"
     else
             for found_dir in $rpathdirs; do
         acl_save_libdir="$libdir"
         libdir="$found_dir"
-        eval flag=\"$hardcode_libdir_flag_spec\"
+        eval flag=\"$acl_hardcode_libdir_flag_spec\"
         libdir="$acl_save_libdir"
         LIBINTL="${LIBINTL}${LIBINTL:+ }$flag"
       done
@@ -5461,6 +5676,7 @@ x11_linked=no
 x_driver_test=yes
 dga_driver_test=yes
 ggi_driver_test=yes
+gtk_driver_test=yes
 aa_driver_test=yes
 vga_driver_test=yes
 win32_driver_test=yes
@@ -5863,6 +6079,16 @@ if test "${with_dga_driver+set}" = set; then
   withval=$with_dga_driver;
 	if test x$withval = xno; then
 	  dga_driver_test=no
+	fi
+
+fi
+
+
+# Check whether --with-gtk-driver was given.
+if test "${with_gtk_driver+set}" = set; then
+  withval=$with_gtk_driver;
+	if test x$withval = xno; then
+	  gtk_driver_test=no
 	fi
 
 fi
@@ -13911,6 +14137,202 @@ fi
 
 fi
 
+if test  "$gtk_driver_test" = yes; then
+
+
+if test "x$ac_cv_env_PKG_CONFIG_set" != "xset"; then
+	if test -n "$ac_tool_prefix"; then
+  # Extract the first word of "${ac_tool_prefix}pkg-config", so it can be a program name with args.
+set dummy ${ac_tool_prefix}pkg-config; ac_word=$2
+{ echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6; }
+if test "${ac_cv_path_PKG_CONFIG+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $PKG_CONFIG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_PKG_CONFIG="$PKG_CONFIG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+PKG_CONFIG=$ac_cv_path_PKG_CONFIG
+if test -n "$PKG_CONFIG"; then
+  { echo "$as_me:$LINENO: result: $PKG_CONFIG" >&5
+echo "${ECHO_T}$PKG_CONFIG" >&6; }
+else
+  { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+fi
+
+
+fi
+if test -z "$ac_cv_path_PKG_CONFIG"; then
+  ac_pt_PKG_CONFIG=$PKG_CONFIG
+  # Extract the first word of "pkg-config", so it can be a program name with args.
+set dummy pkg-config; ac_word=$2
+{ echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6; }
+if test "${ac_cv_path_ac_pt_PKG_CONFIG+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $ac_pt_PKG_CONFIG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_ac_pt_PKG_CONFIG="$ac_pt_PKG_CONFIG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_ac_pt_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+ac_pt_PKG_CONFIG=$ac_cv_path_ac_pt_PKG_CONFIG
+if test -n "$ac_pt_PKG_CONFIG"; then
+  { echo "$as_me:$LINENO: result: $ac_pt_PKG_CONFIG" >&5
+echo "${ECHO_T}$ac_pt_PKG_CONFIG" >&6; }
+else
+  { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+fi
+
+  if test "x$ac_pt_PKG_CONFIG" = x; then
+    PKG_CONFIG=""
+  else
+    case $cross_compiling:$ac_tool_warned in
+yes:)
+{ echo "$as_me:$LINENO: WARNING: In the future, Autoconf will not detect cross-tools
+whose name does not start with the host triplet.  If you think this
+configuration is useful to you, please write to autoconf@gnu.org." >&5
+echo "$as_me: WARNING: In the future, Autoconf will not detect cross-tools
+whose name does not start with the host triplet.  If you think this
+configuration is useful to you, please write to autoconf@gnu.org." >&2;}
+ac_tool_warned=yes ;;
+esac
+    PKG_CONFIG=$ac_pt_PKG_CONFIG
+  fi
+else
+  PKG_CONFIG="$ac_cv_path_PKG_CONFIG"
+fi
+
+fi
+if test -n "$PKG_CONFIG"; then
+	_pkg_min_version=0.9.0
+	{ echo "$as_me:$LINENO: checking pkg-config is at least version $_pkg_min_version" >&5
+echo $ECHO_N "checking pkg-config is at least version $_pkg_min_version... $ECHO_C" >&6; }
+	if $PKG_CONFIG --atleast-pkgconfig-version $_pkg_min_version; then
+		{ echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+	else
+		{ echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+		PKG_CONFIG=""
+	fi
+
+fi
+
+pkg_failed=no
+{ echo "$as_me:$LINENO: checking for DEPS" >&5
+echo $ECHO_N "checking for DEPS... $ECHO_C" >&6; }
+
+if test -n "$PKG_CONFIG"; then
+    if test -n "$DEPS_CFLAGS"; then
+        pkg_cv_DEPS_CFLAGS="$DEPS_CFLAGS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.2 glib-2.0 >= 2.2\"") >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_DEPS_CFLAGS=`$PKG_CONFIG --cflags "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+if test -n "$PKG_CONFIG"; then
+    if test -n "$DEPS_LIBS"; then
+        pkg_cv_DEPS_LIBS="$DEPS_LIBS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.2 glib-2.0 >= 2.2\"") >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_DEPS_LIBS=`$PKG_CONFIG --libs "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        DEPS_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2"`
+        else
+	        DEPS_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2"`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$DEPS_PKG_ERRORS" >&5
+
+	{ echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+                gtk_driver=false
+elif test $pkg_failed = untried; then
+	gtk_driver=false
+else
+	DEPS_CFLAGS=$pkg_cv_DEPS_CFLAGS
+	DEPS_LIBS=$pkg_cv_DEPS_LIBS
+        { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+	gtk_driver=true
+fi
+
+
+fi
+
 if test  "$ggi_driver_test" = yes; then
   ggi_driver=true
   { echo "$as_me:$LINENO: checking for ggiInit in -lggi" >&5
@@ -14018,6 +14440,21 @@ _ACEOF
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/aa"
   DRIVERLIBS="$DRIVERLIBS lib/libuiaa.a"
   echo "   aa-lib"
+fi
+fi
+
+if test "$gtk_driver_test" = yes; then
+if test "x$gtk_driver" = xtrue; then
+  drivers=yes
+  cat >>confdefs.h <<\_ACEOF
+#define GTK_DRIVER 1
+_ACEOF
+
+  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/gtk"
+  DRIVERLIBS="$DRIVERLIBS lib/libuigtk.a"
+  CFLAGS="$CFLAGS $DEPS_CFLAGS"
+  LIBS="$LIBS $DEPS_LIBS"
+  echo "   gtk+"
 fi
 fi
 
@@ -14285,7 +14722,7 @@ CXXFLAGS="$CXXFLAGS $INCDIR"
 
 
 
-ac_config_files="$ac_config_files src/i18n/Makefile.in Makefile src/Makefile src/i18n/Makefile src/engine/Makefile src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile src/ui/ui-drv/aa/Makefile src/ui/ui-drv/ggi/Makefile src/ui/ui-drv/svga/Makefile src/ui/ui-drv/x11/Makefile src/ui/ui-drv/dga/Makefile src/ui/ui-drv/win32/Makefile src/ui/ui-drv/BeOS/Makefile doc/Makefile help/Makefile src/sffe/Makefile"
+ac_config_files="$ac_config_files src/i18n/Makefile.in Makefile src/Makefile src/i18n/Makefile src/engine/Makefile src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile src/ui/ui-drv/aa/Makefile src/ui/ui-drv/ggi/Makefile src/ui/ui-drv/svga/Makefile src/ui/ui-drv/x11/Makefile src/ui/ui-drv/dga/Makefile src/ui/ui-drv/win32/Makefile src/ui/ui-drv/BeOS/Makefile doc/Makefile help/Makefile src/ui/ui-drv/gtk/Makefile src/sffe/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -14747,7 +15184,6 @@ gives unlimited permission to copy, distribute and modify it."
 ac_pwd='$ac_pwd'
 srcdir='$srcdir'
 INSTALL='$INSTALL'
-MKDIR_P='$MKDIR_P'
 _ACEOF
 
 cat >>$CONFIG_STATUS <<\_ACEOF
@@ -14877,6 +15313,7 @@ do
     "src/ui/ui-drv/BeOS/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui/ui-drv/BeOS/Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
     "help/Makefile") CONFIG_FILES="$CONFIG_FILES help/Makefile" ;;
+    "src/ui/ui-drv/gtk/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui/ui-drv/gtk/Makefile" ;;
     "src/sffe/Makefile") CONFIG_FILES="$CONFIG_FILES src/sffe/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
@@ -15005,6 +15442,7 @@ INSTALL_SCRIPT!$INSTALL_SCRIPT$ac_delim
 INSTALL_DATA!$INSTALL_DATA$ac_delim
 mkdir_p!$mkdir_p$ac_delim
 USE_NLS!$USE_NLS$ac_delim
+GETTEXT_MACRO_VERSION!$GETTEXT_MACRO_VERSION$ac_delim
 MSGFMT!$MSGFMT$ac_delim
 GMSGFMT!$GMSGFMT$ac_delim
 MSGFMT_015!$MSGFMT_015$ac_delim
@@ -15012,6 +15450,7 @@ GMSGFMT_015!$GMSGFMT_015$ac_delim
 XGETTEXT!$XGETTEXT$ac_delim
 XGETTEXT_015!$XGETTEXT_015$ac_delim
 MSGMERGE!$MSGMERGE$ac_delim
+XGETTEXT_EXTRA_OPTIONS!$XGETTEXT_EXTRA_OPTIONS$ac_delim
 INTL_MACOSX_LIBS!$INTL_MACOSX_LIBS$ac_delim
 LIBICONV!$LIBICONV$ac_delim
 LTLIBICONV!$LTLIBICONV$ac_delim
@@ -15029,14 +15468,12 @@ CXX!$CXX$ac_delim
 CXXFLAGS!$CXXFLAGS$ac_delim
 ac_ct_CXX!$ac_ct_CXX$ac_delim
 ALLOCA!$ALLOCA$ac_delim
+PKG_CONFIG!$PKG_CONFIG$ac_delim
+DEPS_CFLAGS!$DEPS_CFLAGS$ac_delim
+DEPS_LIBS!$DEPS_LIBS$ac_delim
 REALTOPDIR!$REALTOPDIR$ac_delim
 BINPATH!$BINPATH$ac_delim
 AR!$AR$ac_delim
-SRCPATH!$SRCPATH$ac_delim
-LIBPATH!$LIBPATH$ac_delim
-TOPDIR!$TOPDIR$ac_delim
-LOCALEDIR!$LOCALEDIR$ac_delim
-GSL_CONFIG!$GSL_CONFIG$ac_delim
 _ACEOF
 
   if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 97; then
@@ -15078,6 +15515,11 @@ _ACEOF
 ac_delim='%!_!# '
 for ac_last_try in false false false false false :; do
   cat >conf$$subs.sed <<_ACEOF
+SRCPATH!$SRCPATH$ac_delim
+LIBPATH!$LIBPATH$ac_delim
+TOPDIR!$TOPDIR$ac_delim
+LOCALEDIR!$LOCALEDIR$ac_delim
+GSL_CONFIG!$GSL_CONFIG$ac_delim
 NASM!$NASM$ac_delim
 INCDIR!$INCDIR$ac_delim
 DRIVERLIBS!$DRIVERLIBS$ac_delim
@@ -15093,7 +15535,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 13; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 18; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
@@ -15320,11 +15762,6 @@ ac_abs_srcdir=$ac_abs_top_srcdir$ac_dir_suffix
   [\\/$]* | ?:[\\/]* ) ac_INSTALL=$INSTALL ;;
   *) ac_INSTALL=$ac_top_build_prefix$INSTALL ;;
   esac
-  ac_MKDIR_P=$MKDIR_P
-  case $MKDIR_P in
-  [\\/$]* | ?:[\\/]* ) ;;
-  */*) ac_MKDIR_P=$ac_top_build_prefix$MKDIR_P ;;
-  esac
 _ACEOF
 
 cat >>$CONFIG_STATUS <<\_ACEOF
@@ -15378,7 +15815,6 @@ s&@builddir@&$ac_builddir&;t t
 s&@abs_builddir@&$ac_abs_builddir&;t t
 s&@abs_top_builddir@&$ac_abs_top_builddir&;t t
 s&@INSTALL@&$ac_INSTALL&;t t
-s&@MKDIR_P@&$ac_MKDIR_P&;t t
 $ac_datarootdir_hack
 " $ac_file_inputs | sed -f "$tmp/subs-1.sed" | sed -f "$tmp/subs-2.sed" >$tmp/out
 
