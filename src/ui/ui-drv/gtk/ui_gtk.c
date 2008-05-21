@@ -3,16 +3,115 @@
 /*includes */
 #include <cairo.h>
 #include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
 #include <ui.h>
 
 int xaos_gtk_width = 640;
 int xaos_gtk_height = 480;
 
+int xaos_gtk_mouse_x = 0;
+int xaos_gtk_mouse_y = 0;
+int xaos_gtk_mouse_buttons = 0;
+int xaos_gtk_keys = 0;
+
+GtkWidget *xaos_gtk_drawing_area;
+
 int xaos_gtk_current_surface;
 cairo_surface_t *xaos_gtk_surface[2];
 
 static gboolean
-xaos_gtk_on_expose_event(GtkWidget *widget,
+xaos_gtk_on_motion_notify_event (GtkWidget *widget,
+    GdkEventMotion *event,
+    gpointer data)
+{
+  xaos_gtk_mouse_x = event->x;
+  xaos_gtk_mouse_y = event->y;
+}
+
+static gboolean
+xaos_gtk_on_key_press_event (GtkWidget *widget,
+    GdkEventKey *event,
+    gpointer data)
+{
+  switch (event->keyval) {
+    case GDK_Left:
+      xaos_gtk_keys |= 1;
+      ui_key(UIKEY_LEFT);
+      break;
+    case GDK_Right:
+      xaos_gtk_keys |= 2;
+      ui_key(UIKEY_RIGHT);
+      break;
+    case GDK_Up:
+      xaos_gtk_keys |= 4;
+      ui_key(UIKEY_UP);
+      break;
+    case GDK_Down:
+      xaos_gtk_keys |= 8;
+      ui_key(UIKEY_DOWN);
+      break;
+  }
+}
+
+static gboolean
+xaos_gtk_on_key_release_event (GtkWidget *widget,
+    GdkEventKey *event,
+    gpointer data)
+{
+  switch (event->keyval) {
+    case GDK_Left:
+      xaos_gtk_keys &= ~1;
+      break;
+    case GDK_Right:
+      xaos_gtk_keys &= ~2;
+      break;
+    case GDK_Up:
+      xaos_gtk_keys &= ~4;
+      break;
+    case GDK_Down:
+      xaos_gtk_keys &= ~8;
+      break;
+  }
+}
+
+static gboolean
+xaos_gtk_on_button_press_event (GtkWidget *widget,
+    GdkEventButton *event,
+    gpointer data)
+{
+  switch (event->button) {
+    case 1:
+      xaos_gtk_mouse_buttons |= BUTTON1;
+      break;
+    case 2:
+      xaos_gtk_mouse_buttons |= BUTTON2;
+      break;
+    case 3:
+      xaos_gtk_mouse_buttons |= BUTTON3;
+      break;
+  }
+}
+
+static gboolean
+xaos_gtk_on_button_release_event (GtkWidget *widget,
+    GdkEventButton *event,
+    gpointer data)
+{
+  switch (event->button) {
+    case 1:
+      xaos_gtk_mouse_buttons &= ~BUTTON1;
+      break;
+    case 2:
+      xaos_gtk_mouse_buttons &= ~BUTTON2;
+      break;
+    case 3:
+      xaos_gtk_mouse_buttons &= ~BUTTON3;
+      break;
+  }
+}
+
+static gboolean
+xaos_gtk_on_expose_event (GtkWidget *widget,
     GdkEventExpose *event,
     gpointer data)
 {
@@ -40,6 +139,7 @@ xaos_gtk_print (int x, int y, CONST char *text)
 static void
 xaos_gtk_display ()
 {
+  gtk_widget_queue_draw (xaos_gtk_drawing_area);
 }
 
 static void
@@ -81,18 +181,17 @@ xaos_gtk_getsize (int *w, int *h)
 static void
 xaos_gtk_processevents (int wait, int *mx, int *my, int *mb, int *k)
 {
-  gtk_main_iteration();
-  *mx = 0;
-  *my = 0;
-  *mb = 0;
-  *k = 0;
+  gtk_main_iteration_do(wait? TRUE : FALSE);
+  *mx = xaos_gtk_mouse_x;
+  *my = xaos_gtk_mouse_y;
+  *mb = xaos_gtk_mouse_buttons;
+  *k = xaos_gtk_keys;
 }
 
 static int
 xaos_gtk_init ()
 {
   GtkWidget *window;
-  GtkWidget *darea;
 
   int argc = 0;
   char **argv = NULL;
@@ -101,10 +200,35 @@ xaos_gtk_init ()
 
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-  darea = gtk_drawing_area_new();
-  gtk_container_add(GTK_CONTAINER(window), darea);
+  xaos_gtk_drawing_area = gtk_drawing_area_new();
+  gtk_container_add(GTK_CONTAINER(window), xaos_gtk_drawing_area);
 
-  g_signal_connect(darea, "expose-event",
+  gtk_widget_add_events (xaos_gtk_drawing_area, 
+		  GDK_POINTER_MOTION_MASK |
+		  GDK_BUTTON_PRESS_MASK | 
+		  GDK_BUTTON_RELEASE_MASK |
+		  GDK_KEY_PRESS_MASK |
+		  GDK_KEY_RELEASE_MASK);
+
+  GTK_WIDGET_SET_FLAGS (xaos_gtk_drawing_area, GTK_CAN_FOCUS);
+  gtk_widget_grab_focus (xaos_gtk_drawing_area);
+
+  g_signal_connect(xaos_gtk_drawing_area, "motion-notify-event",
+      G_CALLBACK(xaos_gtk_on_motion_notify_event), NULL);
+
+  g_signal_connect(xaos_gtk_drawing_area, "button-press-event",
+      G_CALLBACK(xaos_gtk_on_button_press_event), NULL);
+
+  g_signal_connect(xaos_gtk_drawing_area, "button-release-event",
+      G_CALLBACK(xaos_gtk_on_button_release_event), NULL);
+
+  g_signal_connect(xaos_gtk_drawing_area, "key-press-event",
+      G_CALLBACK(xaos_gtk_on_key_press_event), NULL);
+
+  g_signal_connect(xaos_gtk_drawing_area, "key-release-event",
+      G_CALLBACK(xaos_gtk_on_key_release_event), NULL);
+
+  g_signal_connect(xaos_gtk_drawing_area, "expose-event",
       G_CALLBACK(xaos_gtk_on_expose_event), NULL);
 
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
@@ -123,9 +247,9 @@ xaos_gtk_uninit ()
 static void
 xaos_gtk_getmouse (int *x, int *y, int *b)
 {
-  *x = 0;
-  *y = 0;
-  *b = 0;
+  *x = xaos_gtk_mouse_x;
+  *y = xaos_gtk_mouse_y;
+  *b = xaos_gtk_mouse_buttons;
 }
 
 
@@ -178,7 +302,7 @@ struct ui_driver gtk_driver = {
     /* rmask */         0x00ff0000,
     /* gmask */         0x0000ff00,
     /* bmask */         0x000000ff,
-    /* gui_driver */    NULL
+    /* gui_driver */    &gtk_gui_driver
 };
 
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/
