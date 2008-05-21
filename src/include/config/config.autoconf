@@ -67,6 +67,14 @@ before #include <ddraw.h>*/
 #ifdef SVGA_DRIVER
 #define DESTICKY
 #endif
+#ifdef COCOA_DRIVER
+#define SFIXEDCOLOR
+#define STRUECOLOR
+#define STRUECOLOR16
+#define STRUECOLOR24
+#define SMBITMAPS
+#define SLBITMAPS
+#endif
 #ifdef X11_DRIVER
 #define SFIXEDCOLOR
 #define STRUECOLOR

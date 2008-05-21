@@ -360,13 +360,21 @@ Committing additional changes submitted 10/30 by Andrew Stone:
 	
 	- Add link to XaoS Website in About dialog
 
+2008-05-20
+
+    - Fix black screen with edge detection filters
+
+    - Fix black screen with pseudo-3d filter
+
+    - Fix black screen with hsv coloring modes
+	
+	- Automatically save window position and size
+
+
 TODO:
 
 * bugs
 
-    - Fix black screen with edge detection filters
-    - Fix black screen with pseudo-3d filter
-    - Fix black screen with hsv coloring modes
     - Fix catseye rendering (shows empty circle without increasing bailout)
     - Cursor changing code only works until the user clicks a button
     

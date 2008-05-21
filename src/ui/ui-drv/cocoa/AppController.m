@@ -151,6 +151,7 @@ AppController *controller;
                                              styleMask:(NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask) 
                                                backing:NSBackingStoreBuffered 
                                                  defer:YES];
+		[window setFrameAutosaveName:@"XaoSWindow"];
     }
     
     view = [[FractalView alloc] initWithFrame:[[window contentView] frame]];
