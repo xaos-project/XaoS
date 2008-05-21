@@ -882,16 +882,9 @@ that are great for VJing (live video performance art).
 See <tt>http://stone.com/Videator/VJ.html</tt> for more details on how using Videator with XaoS.
 
 <head>Known Issues</head>
-The following are known issues specific to the current version of XaoS for Mac OS X.
-So far, I haven't been able to figure out how to fix them.
-<p>
 <dl>
 <dt>Catseye fractal does not render properly.
 <dd>Workaround: Set the bailout to just over 4 (e.g., 4.000000001). After changing this setting, the fractal renders as expected.
-<dt>Edge detection and edge detection 2 filters do not work.
-<dd>Workaround: also enable the palette emulator filter at the same time.  This allows the filters to work as expected.
-<dt>Pseudo 3d filter does not work.
-<dd>Unfortunately, there is no known workaround at this time.
 </dl>
 <p>
 The Mac OS X driver was written by J.B. Langston, 2006-2008.

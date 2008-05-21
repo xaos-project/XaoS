@@ -369,6 +369,8 @@ Committing additional changes submitted 10/30 by Andrew Stone:
     - Fix black screen with hsv coloring modes
 	
 	- Automatically save window position and size
+	
+	- Update help file to remove workarounds for fixed issues
 
 
 TODO:
