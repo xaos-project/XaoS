@@ -33,6 +33,8 @@ xaos_gtk_on_key_press_event (GtkWidget *widget,
     GdkEventKey *event,
     gpointer data)
 {
+  guint32 key;
+
   switch (event->keyval) {
     case GDK_Left:
       xaos_gtk_keys |= 1;
@@ -50,6 +52,32 @@ xaos_gtk_on_key_press_event (GtkWidget *widget,
       xaos_gtk_keys |= 8;
       ui_key(UIKEY_DOWN);
       break;
+    case GDK_Page_Up:
+      xaos_gtk_keys |= 4;
+      ui_key(UIKEY_PGUP);
+      break;
+    case GDK_Page_Down:
+      xaos_gtk_keys |= 8;
+      ui_key(UIKEY_PGDOWN);
+      break;
+    case GDK_BackSpace:
+      ui_key(UIKEY_BACKSPACE);
+      break;
+    case GDK_Escape:
+      ui_key(UIKEY_ESC);
+      break;
+    case GDK_Home:
+      ui_key(UIKEY_HOME);
+      break;
+    case GDK_End:
+      ui_key(UIKEY_END);
+      break;
+    case GDK_Tab:
+      ui_key(UIKEY_TAB);
+      break;
+    default:
+      key = gdk_keyval_to_unicode (event->keyval);
+      ui_key(key);
   }
 }
 
@@ -69,6 +97,12 @@ xaos_gtk_on_key_release_event (GtkWidget *widget,
       xaos_gtk_keys &= ~4;
       break;
     case GDK_Down:
+      xaos_gtk_keys &= ~8;
+      break;
+    case GDK_Page_Up:
+      xaos_gtk_keys &= ~4;
+      break;
+    case GDK_Page_Down:
       xaos_gtk_keys &= ~8;
       break;
   }
@@ -302,7 +336,7 @@ struct ui_driver gtk_driver = {
     /* rmask */         0x00ff0000,
     /* gmask */         0x0000ff00,
     /* bmask */         0x000000ff,
-    /* gui_driver */    &gtk_gui_driver
+    /* gui_driver */    //&gtk_gui_driver
 };
 
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/
