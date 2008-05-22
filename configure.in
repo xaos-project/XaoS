@@ -293,51 +293,35 @@ dnl AC_HEADER_STDC
 
 AC_ARG_WITH(x11-driver,
         [  --with-x11-driver=no    disables x11 driver],[
-	if test x$withval = xno; then
-	  x_driver_test=no
-	fi
+	  x_driver_test=$withval
 ])
 AC_ARG_WITH(dga-driver,
         [  --with-dga-driver=no    disables DGA driver],[
-	if test x$withval = xno; then
-	  dga_driver_test=no
-	fi
+	  dga_driver_test=$withval
 ])
 AC_ARG_WITH(gtk-driver,
         [  --with-gtk-driver=no    disables GGI driver],[
-	if test x$withval = xno; then
-	  gtk_driver_test=no
-	fi
+	  gtk_driver_test=$withval
 ])
 AC_ARG_WITH(ggi-driver,
         [  --with-ggi-driver=no    disables GGI driver],[
-	if test x$withval = xno; then
-	  ggi_driver_test=no
-	fi
+	  ggi_driver_test=$withval
 ])
 AC_ARG_WITH(svga-driver,
         [  --with-svga-driver=no   disables svga driver],[
-	if test x$withval = xno; then
-	  vga_driver_test=no
-	fi
+	  vga_driver_test=$withval
 ])
 AC_ARG_WITH(win32-driver,
         [  --with-win32-driver=no  disables Win32 driver],[
-	if test x$withval = xno; then
-	  win32_driver_test=no
-	fi
+	  win32_driver_test=$withval
 ])
 AC_ARG_WITH(BeOS-driver,
         [  --with-BeOS-driver=no   disables BeOS driver],[
-	if test x$withval = xno; then
-	  BeOS_driver_test=no
-	fi
+	  BeOS_driver_test=$withval
 ])
 AC_ARG_WITH(aa-driver,
         [  --with-aa-driver=no     disables aa-lib driver],[
-	if test x$withval = xno; then
-	  aa_driver_test=no
-	fi
+	  aa_driver_test=$withval
 ])
 
 if test  "$dga_driver_test" = yes -o "$x_driver_test" = yes -o "$aa_driver_test" = yes; then

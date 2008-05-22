@@ -6067,9 +6067,7 @@ test -z "$INSTALL_DATA" && INSTALL_DATA='${INSTALL} -m 644'
 # Check whether --with-x11-driver was given.
 if test "${with_x11_driver+set}" = set; then
   withval=$with_x11_driver;
-	if test x$withval = xno; then
-	  x_driver_test=no
-	fi
+	  x_driver_test=$withval
 
 fi
 
@@ -6077,9 +6075,7 @@ fi
 # Check whether --with-dga-driver was given.
 if test "${with_dga_driver+set}" = set; then
   withval=$with_dga_driver;
-	if test x$withval = xno; then
-	  dga_driver_test=no
-	fi
+	  dga_driver_test=$withval
 
 fi
 
@@ -6087,9 +6083,7 @@ fi
 # Check whether --with-gtk-driver was given.
 if test "${with_gtk_driver+set}" = set; then
   withval=$with_gtk_driver;
-	if test x$withval = xno; then
-	  gtk_driver_test=no
-	fi
+	  gtk_driver_test=$withval
 
 fi
 
@@ -6097,9 +6091,7 @@ fi
 # Check whether --with-ggi-driver was given.
 if test "${with_ggi_driver+set}" = set; then
   withval=$with_ggi_driver;
-	if test x$withval = xno; then
-	  ggi_driver_test=no
-	fi
+	  ggi_driver_test=$withval
 
 fi
 
@@ -6107,9 +6099,7 @@ fi
 # Check whether --with-svga-driver was given.
 if test "${with_svga_driver+set}" = set; then
   withval=$with_svga_driver;
-	if test x$withval = xno; then
-	  vga_driver_test=no
-	fi
+	  vga_driver_test=$withval
 
 fi
 
@@ -6117,9 +6107,7 @@ fi
 # Check whether --with-win32-driver was given.
 if test "${with_win32_driver+set}" = set; then
   withval=$with_win32_driver;
-	if test x$withval = xno; then
-	  win32_driver_test=no
-	fi
+	  win32_driver_test=$withval
 
 fi
 
@@ -6127,9 +6115,7 @@ fi
 # Check whether --with-BeOS-driver was given.
 if test "${with_BeOS_driver+set}" = set; then
   withval=$with_BeOS_driver;
-	if test x$withval = xno; then
-	  BeOS_driver_test=no
-	fi
+	  BeOS_driver_test=$withval
 
 fi
 
@@ -6137,9 +6123,7 @@ fi
 # Check whether --with-aa-driver was given.
 if test "${with_aa_driver+set}" = set; then
   withval=$with_aa_driver;
-	if test x$withval = xno; then
-	  aa_driver_test=no
-	fi
+	  aa_driver_test=$withval
 
 fi
 
