@@ -19,6 +19,13 @@ GtkWidget *xaos_gtk_drawing_area;
 int xaos_gtk_current_surface;
 cairo_surface_t *xaos_gtk_surface[2];
 
+static void 
+xaos_gtk_on_destroy( GtkWidget *widget, 
+    gpointer   data )
+{
+  ui_quit();
+}
+
 static gboolean
 xaos_gtk_on_motion_notify_event (GtkWidget *widget,
     GdkEventMotion *event,
@@ -26,6 +33,7 @@ xaos_gtk_on_motion_notify_event (GtkWidget *widget,
 {
   xaos_gtk_mouse_x = event->x;
   xaos_gtk_mouse_y = event->y;
+  return TRUE;
 }
 
 static gboolean
@@ -79,6 +87,7 @@ xaos_gtk_on_key_press_event (GtkWidget *widget,
       key = gdk_keyval_to_unicode (event->keyval);
       ui_key(key);
   }
+  return TRUE;
 }
 
 static gboolean
@@ -106,6 +115,7 @@ xaos_gtk_on_key_release_event (GtkWidget *widget,
       xaos_gtk_keys &= ~8;
       break;
   }
+  return TRUE;
 }
 
 static gboolean
@@ -124,6 +134,7 @@ xaos_gtk_on_button_press_event (GtkWidget *widget,
       xaos_gtk_mouse_buttons |= BUTTON3;
       break;
   }
+  return TRUE;
 }
 
 static gboolean
@@ -142,6 +153,7 @@ xaos_gtk_on_button_release_event (GtkWidget *widget,
       xaos_gtk_mouse_buttons &= ~BUTTON3;
       break;
   }
+  return TRUE;
 }
 
 static gboolean
@@ -232,10 +244,19 @@ xaos_gtk_init ()
 
   gtk_init (&argc, &argv);
 
-  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_position (GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+  gtk_window_set_default_size (GTK_WINDOW(window), 640, 480); 
+  gtk_window_set_title (GTK_WINDOW(window), "XaoS");
+
+  g_signal_connect (G_OBJECT(window), "destroy", 
+      G_CALLBACK(xaos_gtk_on_destroy), NULL);
 
   xaos_gtk_drawing_area = gtk_drawing_area_new();
-  gtk_container_add(GTK_CONTAINER(window), xaos_gtk_drawing_area);
+  gtk_container_add (GTK_CONTAINER(window), xaos_gtk_drawing_area);
+
+  GTK_WIDGET_SET_FLAGS (xaos_gtk_drawing_area, GTK_CAN_FOCUS);
+  gtk_widget_grab_focus (xaos_gtk_drawing_area);
 
   gtk_widget_add_events (xaos_gtk_drawing_area, 
 		  GDK_POINTER_MOTION_MASK |
@@ -244,29 +265,23 @@ xaos_gtk_init ()
 		  GDK_KEY_PRESS_MASK |
 		  GDK_KEY_RELEASE_MASK);
 
-  GTK_WIDGET_SET_FLAGS (xaos_gtk_drawing_area, GTK_CAN_FOCUS);
-  gtk_widget_grab_focus (xaos_gtk_drawing_area);
-
-  g_signal_connect(xaos_gtk_drawing_area, "motion-notify-event",
+  g_signal_connect(G_OBJECT(xaos_gtk_drawing_area), "motion-notify-event",
       G_CALLBACK(xaos_gtk_on_motion_notify_event), NULL);
 
-  g_signal_connect(xaos_gtk_drawing_area, "button-press-event",
+  g_signal_connect(G_OBJECT(xaos_gtk_drawing_area), "button-press-event",
       G_CALLBACK(xaos_gtk_on_button_press_event), NULL);
 
-  g_signal_connect(xaos_gtk_drawing_area, "button-release-event",
+  g_signal_connect(G_OBJECT(xaos_gtk_drawing_area), "button-release-event",
       G_CALLBACK(xaos_gtk_on_button_release_event), NULL);
 
-  g_signal_connect(xaos_gtk_drawing_area, "key-press-event",
+  g_signal_connect(G_OBJECT(xaos_gtk_drawing_area), "key-press-event",
       G_CALLBACK(xaos_gtk_on_key_press_event), NULL);
 
-  g_signal_connect(xaos_gtk_drawing_area, "key-release-event",
+  g_signal_connect(G_OBJECT(xaos_gtk_drawing_area), "key-release-event",
       G_CALLBACK(xaos_gtk_on_key_release_event), NULL);
 
-  g_signal_connect(xaos_gtk_drawing_area, "expose-event",
+  g_signal_connect(G_OBJECT(xaos_gtk_drawing_area), "expose-event",
       G_CALLBACK(xaos_gtk_on_expose_event), NULL);
-
-  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-  gtk_window_set_default_size(GTK_WINDOW(window), 640, 480); 
 
   gtk_widget_show_all(window);
 
