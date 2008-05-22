@@ -371,6 +371,10 @@ Committing additional changes submitted 10/30 by Andrew Stone:
 	- Automatically save window position and size
 	
 	- Update help file to remove workarounds for fixed issues
+	
+2008-05-22
+
+	- Increment version numbers
 
 
 TODO:
