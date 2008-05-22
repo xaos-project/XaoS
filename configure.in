@@ -1,4 +1,4 @@
-AC_INIT(XaoS, 3.4pre1, xaos-devel@lists.sourceforge.net)
+AC_INIT(XaoS, 3.4, xaos-devel@lists.sourceforge.net)
 
 AC_PREREQ(2.52)
 POSTCOMPILE=""
