@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-27 21:22+0200\n"
+"POT-Creation-Date: 2008-05-21 22:36+0200\n"
 "PO-Revision-Date: 2008-04-27 21:48+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <de@li.org>\n"
@@ -162,7 +162,7 @@ msgstr "Danke, dass Sie XaoS benutzt haben\n"
 msgid "Skipping, please wait..."
 msgstr "Beim Überspringen, bitte warten..."
 
-#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1535
+#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1536
 msgid "Resize"
 msgstr "Anzeige"
 
@@ -199,32 +199,32 @@ msgstr "Ministatus"
 msgid "Driver"
 msgstr "Treiber"
 
-#: ../ui/ui.c:1501
+#: ../ui/ui.c:1502
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Willkommen zu XaoS Version %s"
 
-#: ../ui/ui.c:1667
+#: ../ui/ui.c:1668
 msgid "Can not allocate buffers"
 msgstr "Kann Puffer nicht allozieren"
 
-#: ../ui/ui.c:1685
+#: ../ui/ui.c:1686
 msgid "Can not create palette"
 msgstr "Kann Palette nicht erzeugen"
 
-#: ../ui/ui.c:1698
+#: ../ui/ui.c:1699
 msgid "Can not create image"
 msgstr "Kann Bild nicht erzeugen"
 
-#: ../ui/ui.c:1733 ../ui/ui.c:1787
+#: ../ui/ui.c:1734 ../ui/ui.c:1788
 msgid "Can not allocate tables"
 msgstr "Kann Tabellen nicht erzeugen"
 
-#: ../ui/ui.c:1771
+#: ../ui/ui.c:1772
 msgid "Can not initialize driver"
 msgstr "Kann Treiber nicht initialisieren"
 
-#: ../ui/ui.c:1774
+#: ../ui/ui.c:1775
 msgid "Can not return back to previous driver"
 msgstr "Kann nicht zu vorhergehendem Treiber zurückkehren"
 
@@ -454,13 +454,15 @@ msgid "renderanim: Must specify a valid absolute path for basename"
 msgstr "Animationsberechnung: Gültigen, absoluten Pfad für Basisname angeben"
 
 #: ../ui-hlp/menu.c:367
-msgid "renderanim: Width parameter must be positive integer in the range 0..4096"
+msgid ""
+"renderanim: Width parameter must be positive integer in the range 0..4096"
 msgstr ""
 "Animationsberechnung: Breite muss einen positiven, ganzzahligen Wert "
 "zwischen 0 und 4096 haben"
 
 #: ../ui-hlp/menu.c:374
-msgid "renderanim: Height parameter must be positive integer in the range 0..4096"
+msgid ""
+"renderanim: Height parameter must be positive integer in the range 0..4096"
 msgstr ""
 "Animationsberechnung: Höhe muss einen positiven, ganzzahligen Wert zwischen "
 "0 und 4096 haben"
@@ -475,7 +477,8 @@ msgstr "Animationsberechnung: Falsche Bildfrequenz"
 
 #: ../ui-hlp/menu.c:393
 msgid "renderanim: antialiasing not supported in 256 color mode"
-msgstr "Animationsberechnung: Antialiasing nicht unterstützt im 256-Farben-Modus"
+msgstr ""
+"Animationsberechnung: Antialiasing nicht unterstützt im 256-Farben-Modus"
 
 #: ../ui-hlp/menu.c:398
 msgid "renderanim: incorrect I frame distance"
@@ -598,7 +601,7 @@ msgstr "Morphe Winkel"
 msgid "Zoom center"
 msgstr "Zoomzentrum"
 
-#: ../ui-hlp/menu.c:1046 ../ui/ui-drv/cocoa/AppController.m:342
+#: ../ui-hlp/menu.c:1046 ../ui/ui-drv/cocoa/AppController.m:343
 msgid "Zoom"
 msgstr "Zoom"
 
@@ -1409,11 +1412,11 @@ msgstr "Berechnung unterbrochen"
 msgid "Calculation finished"
 msgstr "Berechnung beendet"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1370 ../ui/ui-drv/cocoa/AppController.m:320
+#: ../ui/ui-drv/win32/ui_win32.c:1370 ../ui/ui-drv/cocoa/AppController.m:321
 msgid "Copy"
 msgstr "Kopieren"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1371 ../ui/ui-drv/cocoa/AppController.m:323
+#: ../ui/ui-drv/win32/ui_win32.c:1371 ../ui/ui-drv/cocoa/AppController.m:324
 msgid "Paste"
 msgstr "Einfügen"
 
@@ -1421,59 +1424,58 @@ msgstr "Einfügen"
 msgid "About"
 msgstr "Info"
 
-#: ../ui/ui-drv/cocoa/AppController.m:196
+#: ../ui/ui-drv/cocoa/AppController.m:197
 msgid "About XaoS"
 msgstr "Über XaoS"
 
-#: ../ui/ui-drv/cocoa/AppController.m:199
+#: ../ui/ui-drv/cocoa/AppController.m:200
 msgid "Services"
 msgstr "Dienste"
 
-#: ../ui/ui-drv/cocoa/AppController.m:202
+#: ../ui/ui-drv/cocoa/AppController.m:203
 msgid "Hide XaoS"
 msgstr "XaoS ausblenden"
 
-#: ../ui/ui-drv/cocoa/AppController.m:205
+#: ../ui/ui-drv/cocoa/AppController.m:206
 msgid "Hide Others"
 msgstr "Andere ausblenden"
 
-#: ../ui/ui-drv/cocoa/AppController.m:208
+#: ../ui/ui-drv/cocoa/AppController.m:209
 msgid "Show All"
 msgstr "Alle einblenden"
 
-#: ../ui/ui-drv/cocoa/AppController.m:211
+#: ../ui/ui-drv/cocoa/AppController.m:212
 msgid "Quit XaoS"
 msgstr "XaoS Beenden"
 
-#: ../ui/ui-drv/cocoa/AppController.m:317
+#: ../ui/ui-drv/cocoa/AppController.m:318
 msgid "Cut"
 msgstr "Ausschneiden"
 
-#: ../ui/ui-drv/cocoa/AppController.m:326
+#: ../ui/ui-drv/cocoa/AppController.m:327
 msgid "Delete"
 msgstr "Löschen"
 
-#: ../ui/ui-drv/cocoa/AppController.m:329
+#: ../ui/ui-drv/cocoa/AppController.m:330
 msgid "Select All"
 msgstr "Alle auswählen"
 
-#: ../ui/ui-drv/cocoa/AppController.m:339
+#: ../ui/ui-drv/cocoa/AppController.m:340
 msgid "Minimize"
 msgstr "Im Dock ablegen"
 
-#: ../ui/ui-drv/cocoa/AppController.m:347
+#: ../ui/ui-drv/cocoa/AppController.m:348
 msgid "Bring All to Front"
 msgstr "Alle nach vorne bringen"
 
-#: ../ui/ui-drv/cocoa/AppController.m:358
+#: ../ui/ui-drv/cocoa/AppController.m:359
 msgid "Close"
 msgstr "Schliessen"
 
-#: ../ui/ui-drv/cocoa/AppController.m:372
+#: ../ui/ui-drv/cocoa/AppController.m:373
 msgid "Videator Output"
 msgstr "Videator Ausgabe"
 
 #: ../ui/ui-drv/cocoa/CustomDialog.m:142
 msgid "Choose"
 msgstr "Wählen"
-

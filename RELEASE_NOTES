@@ -1,5 +1,5 @@
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.32 2008-05-22 00:09:35 jblang Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/RELEASE_NOTES,v 1.33 2008-05-22 19:37:21 kovzol Exp $
 
 RELEASE NOTES FOR XAOS VERSION 3.4
 ----------------------------------
@@ -74,23 +74,27 @@ o Edge Detection and Pseudo 3D filters now work correctly.  Fixed a
 
 Experimental GTK+ Port
 ======================
+
 An experimental GTK+ user interface has been added in the src/ui/ui-drv/gtk
-directory.  Eventually we hope to replace the old X11 interface with this
+directory. Eventually we hope to replace the old X11 interface with this
 one so that XaoS will blend in seamlessly with the GNOME environment.
 
 Right now, this port is incomplete and it should be considered an alpha-
-quality preview.  As such, the GTK+ port will not be compiled by default.
+quality preview. As such, the GTK+ port will not be compiled by default.
 You must explicitly enable it using the following configure switch:
+
 	--with-gtk-driver=yes
+
 In addition, we recommend you disable all other drivers when using the GTK
 driver using the following configure switches:
+
 	--with-x11-driver=no
 	--with-dga-driver=no
 	--with-ggi-driver=no
 	--with-aa-driver=no
 
 Please do not report bugs against the GTK+ driver. We know that it is very
-buggy and we are working to rapidly improve it.  If you want to help with the
+buggy and we are working to rapidly improve it. If you want to help with the
 GTK+ driver's development, please contact the xaos-devel mailing list first,
 since it is likely that your patches could conflict with the rapid development
 that is taking place on this driver.

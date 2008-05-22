@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xaos\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-28 15:15+0200\n"
+"POT-Creation-Date: 2008-05-21 22:36+0200\n"
 "PO-Revision-Date: 2008-04-08 10:10+0000\n"
 "Last-Translator: Sergio Zanchetta <Unknown>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -163,7 +163,7 @@ msgstr "Grazie di utilizzare XaoS\n"
 msgid "Skipping, please wait..."
 msgstr "Passaggio al successivo, attendere..."
 
-#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1535
+#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1536
 msgid "Resize"
 msgstr "Ridimensiona"
 
@@ -200,32 +200,32 @@ msgstr "Stato ridotto"
 msgid "Driver"
 msgstr "Driver"
 
-#: ../ui/ui.c:1501
+#: ../ui/ui.c:1502
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Benvenuto a XaoS versione %s"
 
-#: ../ui/ui.c:1667
+#: ../ui/ui.c:1668
 msgid "Can not allocate buffers"
 msgstr "Non è possibile allocare i buffer"
 
-#: ../ui/ui.c:1685
+#: ../ui/ui.c:1686
 msgid "Can not create palette"
 msgstr "Non è possibile creare la tavolozza"
 
-#: ../ui/ui.c:1698
+#: ../ui/ui.c:1699
 msgid "Can not create image"
 msgstr "Non è possibile creare l'immagine"
 
-#: ../ui/ui.c:1733 ../ui/ui.c:1787
+#: ../ui/ui.c:1734 ../ui/ui.c:1788
 msgid "Can not allocate tables"
 msgstr "Non è possibile allocare le tabelle"
 
-#: ../ui/ui.c:1771
+#: ../ui/ui.c:1772
 msgid "Can not initialize driver"
 msgstr "Non è possibile inizializzare il driver"
 
-#: ../ui/ui.c:1774
+#: ../ui/ui.c:1775
 msgid "Can not return back to previous driver"
 msgstr "Non è possibile tornare al driver precedente"
 
@@ -452,7 +452,9 @@ msgstr "Inizializzazione:"
 
 #: ../ui-hlp/menu.c:359
 msgid "renderanim: Must specify a valid absolute path for basename"
-msgstr "renderanim: deve essere specificato un percorso assoluto valido per il nome base"
+msgstr ""
+"renderanim: deve essere specificato un percorso assoluto valido per il nome "
+"base"
 
 #: ../ui-hlp/menu.c:367
 msgid ""
@@ -601,7 +603,7 @@ msgstr "Trasforma angolo"
 msgid "Zoom center"
 msgstr "Ingrandisci al centro"
 
-#: ../ui-hlp/menu.c:1046 ../ui/ui-drv/cocoa/AppController.m:364
+#: ../ui-hlp/menu.c:1046 ../ui/ui-drv/cocoa/AppController.m:343
 msgid "Zoom"
 msgstr "Ingrandimento"
 
@@ -661,7 +663,7 @@ msgstr "Filtro"
 msgid "Letters per second"
 msgstr "Lettere al secondo"
 
-#: ../ui-hlp/menu.c:1085 ../ui-hlp/menu.c:1356
+#: ../ui-hlp/menu.c:1085 ../ui-hlp/menu.c:1357
 msgid "Interrupt"
 msgstr "Interrompi"
 
@@ -681,7 +683,7 @@ msgstr "Frattale"
 msgid "Calculation"
 msgstr "Calcolo"
 
-#: ../ui-hlp/menu.c:1091 ../ui-hlp/menu.c:1428
+#: ../ui-hlp/menu.c:1091 ../ui-hlp/menu.c:1429
 msgid "Filters"
 msgstr "Filtri"
 
@@ -821,7 +823,7 @@ msgstr "Tavolozza"
 msgid "Mandelbrot mode"
 msgstr "Modalità Mandelbrot"
 
-#: ../ui-hlp/menu.c:1213 ../ui-hlp/menu.c:1217 ../ui-hlp/menu.c:1431
+#: ../ui-hlp/menu.c:1213 ../ui-hlp/menu.c:1217 ../ui-hlp/menu.c:1432
 msgid "Perturbation"
 msgstr "Perturbazione"
 
@@ -969,175 +971,175 @@ msgstr "Modalità a risoluzione dinamica"
 msgid "Autopilot"
 msgstr "Pilota automatico"
 
-#: ../ui-hlp/menu.c:1349
+#: ../ui-hlp/menu.c:1350
 msgid "VJ mode"
 msgstr "Modalità VJ"
 
-#: ../ui-hlp/menu.c:1352
+#: ../ui-hlp/menu.c:1353
 msgid "Recalculate"
 msgstr "Ricalcola"
 
-#: ../ui-hlp/menu.c:1361
+#: ../ui-hlp/menu.c:1362
 msgid "Zooming speed"
 msgstr "Velocità di ingrandimento"
 
-#: ../ui-hlp/menu.c:1363
+#: ../ui-hlp/menu.c:1364
 msgid "Fixed step"
 msgstr "Passo fisso"
 
-#: ../ui-hlp/menu.c:1367
+#: ../ui-hlp/menu.c:1368
 msgid "Disable solid guessing"
 msgstr "Disabilita la stima di uniformità"
 
-#: ../ui-hlp/menu.c:1371
+#: ../ui-hlp/menu.c:1372
 msgid "Guess 2x2 rectangles"
 msgstr "Stima rettangoli 2x2"
 
-#: ../ui-hlp/menu.c:1373
+#: ../ui-hlp/menu.c:1374
 msgid "Guess 3x3 rectangles"
 msgstr "Stima rettangoli 3x3"
 
-#: ../ui-hlp/menu.c:1377
+#: ../ui-hlp/menu.c:1378
 msgid "Guess 4x4 rectangles"
 msgstr "Stima rettangoli 4x4"
 
-#: ../ui-hlp/menu.c:1379
+#: ../ui-hlp/menu.c:1380
 msgid "Guess 5x5 rectangles"
 msgstr "Stima rettangoli 5x5"
 
-#: ../ui-hlp/menu.c:1383
+#: ../ui-hlp/menu.c:1384
 msgid "Guess 6x6 rectangles"
 msgstr "Stima rettangoli 6x6"
 
-#: ../ui-hlp/menu.c:1385
+#: ../ui-hlp/menu.c:1386
 msgid "Guess 7x7 rectangles"
 msgstr "Stima rettangoli 7x7"
 
-#: ../ui-hlp/menu.c:1389
+#: ../ui-hlp/menu.c:1390
 msgid "Guess 8x8 rectangles"
 msgstr "Stima rettangoli 8x8"
 
-#: ../ui-hlp/menu.c:1391
+#: ../ui-hlp/menu.c:1392
 msgid "Guess unlimited rectangles"
 msgstr "Stima rettangoli illimitati"
 
-#: ../ui-hlp/menu.c:1395
+#: ../ui-hlp/menu.c:1396
 msgid "Language"
 msgstr "Lingua"
 
-#: ../ui-hlp/menu.c:1398
+#: ../ui-hlp/menu.c:1399
 msgid "An introduction to fractals"
 msgstr "Una introduzione ai frattali"
 
-#: ../ui-hlp/menu.c:1399
+#: ../ui-hlp/menu.c:1400
 msgid "XaoS features overview"
 msgstr "Panoramica delle caratteristiche di XaoS"
 
-#: ../ui-hlp/menu.c:1400
+#: ../ui-hlp/menu.c:1401
 msgid "Math behind fractals"
 msgstr "La matematica che sta dietro ai frattali"
 
-#: ../ui-hlp/menu.c:1401 ../ui-hlp/menu.c:1439
+#: ../ui-hlp/menu.c:1402 ../ui-hlp/menu.c:1440
 msgid "Other fractal types in XaoS"
 msgstr "Altri tipi di frattali in XaoS"
 
-#: ../ui-hlp/menu.c:1402
+#: ../ui-hlp/menu.c:1403
 msgid "What's new?"
 msgstr "Novità"
 
-#: ../ui-hlp/menu.c:1412 ../ui-hlp/menu.c:1434
+#: ../ui-hlp/menu.c:1413 ../ui-hlp/menu.c:1435
 msgid "Whole story"
 msgstr "Racconto completo"
 
-#: ../ui-hlp/menu.c:1414
+#: ../ui-hlp/menu.c:1415
 msgid "Introduction"
 msgstr "Introduzione"
 
-#: ../ui-hlp/menu.c:1415
+#: ../ui-hlp/menu.c:1416
 msgid "Mandelbrot set"
 msgstr "Insieme di Mandelbrot"
 
-#: ../ui-hlp/menu.c:1416
+#: ../ui-hlp/menu.c:1417
 msgid "Julia set"
 msgstr "Insieme di Julia"
 
-#: ../ui-hlp/menu.c:1417
+#: ../ui-hlp/menu.c:1418
 msgid "Higher power Mandelbrots"
 msgstr "Mandelbrot a potenze superiori"
 
-#: ../ui-hlp/menu.c:1418
+#: ../ui-hlp/menu.c:1419
 msgid "Newton's method"
 msgstr "Metodo di Newton"
 
-#: ../ui-hlp/menu.c:1419
+#: ../ui-hlp/menu.c:1420
 msgid "Barnsley's formula"
 msgstr "Formula di Barnsley"
 
-#: ../ui-hlp/menu.c:1420
+#: ../ui-hlp/menu.c:1421
 msgid "Phoenix"
 msgstr "Phoenix"
 
-#: ../ui-hlp/menu.c:1421
+#: ../ui-hlp/menu.c:1422
 msgid "Octo"
 msgstr "Octo"
 
-#: ../ui-hlp/menu.c:1422
+#: ../ui-hlp/menu.c:1423
 msgid "Magnet"
 msgstr "Magnet"
 
-#: ../ui-hlp/menu.c:1423
+#: ../ui-hlp/menu.c:1424
 msgid "All features"
 msgstr "Tutte le caratteristiche"
 
-#: ../ui-hlp/menu.c:1425
+#: ../ui-hlp/menu.c:1426
 msgid "Outcoloring modes"
 msgstr "Modi di colorazione esterna"
 
-#: ../ui-hlp/menu.c:1426
+#: ../ui-hlp/menu.c:1427
 msgid "Incoloring modes"
 msgstr "Modi di colorazione interna"
 
-#: ../ui-hlp/menu.c:1427
+#: ../ui-hlp/menu.c:1428
 msgid "True-color coloring modes"
 msgstr "Modi di colorazione truecolor"
 
-#: ../ui-hlp/menu.c:1429
+#: ../ui-hlp/menu.c:1430
 msgid "Planes"
 msgstr "Piani"
 
-#: ../ui-hlp/menu.c:1430
+#: ../ui-hlp/menu.c:1431
 msgid "Animations and position files"
 msgstr "Animazioni e file di posizione"
 
-#: ../ui-hlp/menu.c:1432
+#: ../ui-hlp/menu.c:1433
 msgid "Random palettes"
 msgstr "Tavolozze casuali"
 
-#: ../ui-hlp/menu.c:1433
+#: ../ui-hlp/menu.c:1434
 msgid "Other noteworthy features"
 msgstr "Altre caratteristiche degne di nota"
 
-#: ../ui-hlp/menu.c:1436
+#: ../ui-hlp/menu.c:1437
 msgid "The definition and fractal dimension"
 msgstr "La definizione di frattale e la sua dimensione"
 
-#: ../ui-hlp/menu.c:1438
+#: ../ui-hlp/menu.c:1439
 msgid "Escape time fractals"
 msgstr "Frattali con tempo di fuga"
 
-#: ../ui-hlp/menu.c:1441
+#: ../ui-hlp/menu.c:1442
 msgid "Triceratops and Catseye fractals"
 msgstr "Frattali Triceratopo e Occhi di gatto"
 
-#: ../ui-hlp/menu.c:1442
+#: ../ui-hlp/menu.c:1443
 msgid "Mandelbar, Lambda, Manowar and Spider"
 msgstr "Mandelbar, Lambda, Manowar e Spider"
 
-#: ../ui-hlp/menu.c:1443
+#: ../ui-hlp/menu.c:1444
 msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
 msgstr "Triangolo e tappeto-Sierpinski,fiocco di neve-Koch"
 
-#: ../ui-hlp/menu.c:1444
+#: ../ui-hlp/menu.c:1445
 msgid "What's new in 3.0?"
 msgstr "Novità della versione 3.0"
 
@@ -1412,11 +1414,11 @@ msgstr "Calcolo interrotto"
 msgid "Calculation finished"
 msgstr "Calcolo concluso"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1370 ../ui/ui-drv/cocoa/AppController.m:342
+#: ../ui/ui-drv/win32/ui_win32.c:1370 ../ui/ui-drv/cocoa/AppController.m:321
 msgid "Copy"
 msgstr "Copia"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1371 ../ui/ui-drv/cocoa/AppController.m:345
+#: ../ui/ui-drv/win32/ui_win32.c:1371 ../ui/ui-drv/cocoa/AppController.m:324
 msgid "Paste"
 msgstr "Incolla"
 
@@ -1424,54 +1426,57 @@ msgstr "Incolla"
 msgid "About"
 msgstr "Informazioni su..."
 
-#: ../ui/ui-drv/cocoa/AppController.m:220
-#,
+#: ../ui/ui-drv/cocoa/AppController.m:197
 msgid "About XaoS"
 msgstr "Informazioni su XaoS"
 
-#: ../ui/ui-drv/cocoa/AppController.m:223
+#: ../ui/ui-drv/cocoa/AppController.m:200
 msgid "Services"
 msgstr "Servizi"
 
-#: ../ui/ui-drv/cocoa/AppController.m:226
+#: ../ui/ui-drv/cocoa/AppController.m:203
 msgid "Hide XaoS"
 msgstr "Nascondi XaoS"
 
-#: ../ui/ui-drv/cocoa/AppController.m:229
+#: ../ui/ui-drv/cocoa/AppController.m:206
 msgid "Hide Others"
 msgstr "Nascondi le altre"
 
-#: ../ui/ui-drv/cocoa/AppController.m:232
+#: ../ui/ui-drv/cocoa/AppController.m:209
 msgid "Show All"
 msgstr "Mostra tutte"
 
-#: ../ui/ui-drv/cocoa/AppController.m:235
+#: ../ui/ui-drv/cocoa/AppController.m:212
 msgid "Quit XaoS"
 msgstr "Esci da XaoS"
 
-#: ../ui/ui-drv/cocoa/AppController.m:339
+#: ../ui/ui-drv/cocoa/AppController.m:318
 msgid "Cut"
 msgstr "Taglia"
 
-#: ../ui/ui-drv/cocoa/AppController.m:348
+#: ../ui/ui-drv/cocoa/AppController.m:327
 msgid "Delete"
 msgstr "Elimina"
 
-#: ../ui/ui-drv/cocoa/AppController.m:351
+#: ../ui/ui-drv/cocoa/AppController.m:330
 msgid "Select All"
 msgstr "Seleziona tutto"
 
-#: ../ui/ui-drv/cocoa/AppController.m:361
+#: ../ui/ui-drv/cocoa/AppController.m:340
 msgid "Minimize"
 msgstr "Minimizza"
 
-#: ../ui/ui-drv/cocoa/AppController.m:369
+#: ../ui/ui-drv/cocoa/AppController.m:348
 msgid "Bring All to Front"
 msgstr "Porta tutto in primo piano"
 
-#: ../ui/ui-drv/cocoa/AppController.m:381
+#: ../ui/ui-drv/cocoa/AppController.m:359
 msgid "Close"
 msgstr "Chiudi"
+
+#: ../ui/ui-drv/cocoa/AppController.m:373
+msgid "Videator Output"
+msgstr ""
 
 #: ../ui/ui-drv/cocoa/CustomDialog.m:142
 msgid "Choose"
