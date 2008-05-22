@@ -16,6 +16,8 @@ int xaos_gtk_keys = 0;
 
 GtkWidget *xaos_gtk_drawing_area;
 
+GtkWidget *xaos_gtk_menu_bar;
+
 int xaos_gtk_current_surface;
 cairo_surface_t *xaos_gtk_surface[2];
 
@@ -173,8 +175,69 @@ xaos_gtk_on_expose_event (GtkWidget *widget,
   return FALSE;
 }
 
+void
+xaos_gtk_menuitem_on_activate (GtkMenuItem *item, gpointer data)
+{
+  ui_menuactivate((CONST menuitem *)data, NULL);
+}
+
+static void
+xaos_gtk_add_menu (struct uih_context *uih, CONST char *name, GtkWidget *parent)
+{
+  CONST menuitem *item;
+  gchar *menulabel;
+  GtkWidget *menuitem;
+  GtkWidget *submenu;
+  int i;
+
+  for (i = 0; (item = menu_item(name, i)) != NULL; i++)
+    {
+      if (item->type == MENU_SEPARATOR)
+	  menuitem = gtk_separator_menu_item_new ();
+      else
+        {
+	  if (item->type == MENU_CUSTOMDIALOG || item->type == MENU_DIALOG)
+              menulabel = g_strconcat (item->name, "...", NULL);
+	  else
+	      menulabel = g_strdup (item->name);
+
+	  if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX))
+	    {
+	      menuitem = gtk_check_menu_item_new_with_label (menulabel);
+	      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem),
+			                      menu_enabled(item, uih));
+	      gtk_check_menu_item_set_draw_as_radio (GTK_CHECK_MENU_ITEM (menuitem),
+			                             item->flags & MENUFLAG_RADIO);
+	    }
+	  else
+	      menuitem = gtk_menu_item_new_with_label (menulabel);
+
+	  g_free(menulabel);
+	}
+
+      gtk_menu_shell_append (GTK_MENU_SHELL (parent), menuitem);
+      gtk_widget_show (menuitem);
+
+      if (item->type == MENU_SUBMENU)
+        {
+	  submenu = gtk_menu_new();
+	  xaos_gtk_add_menu(uih, item->shortname, submenu);
+	  gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem), submenu);
+	}
+      else
+        {
+	  g_signal_connect (G_OBJECT (menuitem), "activate",
+                            G_CALLBACK (xaos_gtk_menuitem_on_activate),
+			    (gpointer) item);
+	      
+	}
+    }
+}
+
+static void
 xaos_gtk_build_menu (struct uih_context *uih, CONST char *name)
 {
+  xaos_gtk_add_menu (uih, name, xaos_gtk_menu_bar);
 }
 
 static void
@@ -238,6 +301,7 @@ static int
 xaos_gtk_init ()
 {
   GtkWidget *window;
+  GtkWidget *vbox;
 
   int argc = 0;
   char **argv = NULL;
@@ -245,25 +309,34 @@ xaos_gtk_init ()
   gtk_init (&argc, &argv);
 
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_position (GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-  gtk_window_set_default_size (GTK_WINDOW(window), 640, 480); 
-  gtk_window_set_title (GTK_WINDOW(window), "XaoS");
+  gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
+  gtk_window_set_default_size (GTK_WINDOW (window), 640, 480); 
+  gtk_window_set_title (GTK_WINDOW (window), "XaoS");
 
   g_signal_connect (G_OBJECT(window), "destroy", 
-      G_CALLBACK(xaos_gtk_on_destroy), NULL);
+      G_CALLBACK (xaos_gtk_on_destroy), NULL);
+
+  vbox = gtk_vbox_new (FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (window), vbox);
+  gtk_widget_show (vbox);
+
+  xaos_gtk_menu_bar = gtk_menu_bar_new ();
+  gtk_box_pack_start (GTK_BOX (vbox), xaos_gtk_menu_bar, FALSE, FALSE, 0);
+  gtk_widget_show(xaos_gtk_menu_bar);
 
   xaos_gtk_drawing_area = gtk_drawing_area_new();
-  gtk_container_add (GTK_CONTAINER(window), xaos_gtk_drawing_area);
+  gtk_box_pack_end (GTK_BOX (vbox), xaos_gtk_drawing_area, TRUE, TRUE, 0);
+  gtk_widget_show (xaos_gtk_drawing_area);
 
   GTK_WIDGET_SET_FLAGS (xaos_gtk_drawing_area, GTK_CAN_FOCUS);
   gtk_widget_grab_focus (xaos_gtk_drawing_area);
 
   gtk_widget_add_events (xaos_gtk_drawing_area, 
-		  GDK_POINTER_MOTION_MASK |
-		  GDK_BUTTON_PRESS_MASK | 
-		  GDK_BUTTON_RELEASE_MASK |
-		  GDK_KEY_PRESS_MASK |
-		  GDK_KEY_RELEASE_MASK);
+      GDK_POINTER_MOTION_MASK | 
+      GDK_BUTTON_PRESS_MASK | 
+      GDK_BUTTON_RELEASE_MASK |
+      GDK_KEY_PRESS_MASK | 
+      GDK_KEY_RELEASE_MASK);
 
   g_signal_connect(G_OBJECT(xaos_gtk_drawing_area), "motion-notify-event",
       G_CALLBACK(xaos_gtk_on_motion_notify_event), NULL);
@@ -351,7 +424,7 @@ struct ui_driver gtk_driver = {
     /* rmask */         0x00ff0000,
     /* gmask */         0x0000ff00,
     /* bmask */         0x000000ff,
-    /* gui_driver */    //&gtk_gui_driver
+    /* gui_driver */    &gtk_gui_driver
 };
 
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/
