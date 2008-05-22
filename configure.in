@@ -39,11 +39,11 @@ dnl
 use_asm=no
 x11_linked=no
 x_driver_test=yes
-dga_driver_test=yes
-ggi_driver_test=yes
+dga_driver_test=no
+ggi_driver_test=no
 gtk_driver_test=no
-aa_driver_test=yes
-vga_driver_test=yes
+aa_driver_test=no
+vga_driver_test=no
 win32_driver_test=yes
 BeOS_driver_test=yes
 long_double=test
