@@ -18,6 +18,8 @@ GtkWidget *xaos_gtk_drawing_area;
 
 GtkWidget *xaos_gtk_menu_bar;
 
+GHashTable *xaos_gtk_menuitem_table = NULL;
+
 int xaos_gtk_current_surface;
 cairo_surface_t *xaos_gtk_surface[2];
 
@@ -176,18 +178,27 @@ xaos_gtk_on_expose_event (GtkWidget *widget,
 }
 
 void
-xaos_gtk_menuitem_on_activate (GtkMenuItem *item, gpointer data)
+xaos_gtk_menuitem_on_activate (GtkMenuItem *item,
+    gpointer data)
 {
-  ui_menuactivate((CONST menuitem *)data, NULL);
+  /* 
+   * gtk emits activate signal when radio buttons are deactivated as well.
+   * we want to ignore these signals.
+   */
+
+  if (!GTK_IS_RADIO_MENU_ITEM(item) || gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(item)))
+     ui_menuactivate((CONST menuitem *)data, NULL);
 }
 
 static void
-xaos_gtk_add_menu (struct uih_context *uih, CONST char *name, GtkWidget *parent)
+xaos_gtk_build_menu (struct uih_context *uih, CONST char *name, GtkWidget *parent)
 {
   CONST menuitem *item;
   gchar *menulabel;
   GtkWidget *menuitem;
   GtkWidget *submenu;
+  GSList *group = NULL;
+
   int i;
 
   for (i = 0; (item = menu_item(name, i)) != NULL; i++)
@@ -201,16 +212,18 @@ xaos_gtk_add_menu (struct uih_context *uih, CONST char *name, GtkWidget *parent)
 	  else
 	      menulabel = g_strdup (item->name);
 
-	  if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX))
-	    {
+	  if (item->flags & MENUFLAG_CHECKBOX)
 	      menuitem = gtk_check_menu_item_new_with_label (menulabel);
-	      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem),
-			                      menu_enabled(item, uih));
-	      gtk_check_menu_item_set_draw_as_radio (GTK_CHECK_MENU_ITEM (menuitem),
-			                             item->flags & MENUFLAG_RADIO);
-	    }
+	  else if (item->flags & MENUFLAG_RADIO)
+	  {
+	      menuitem = gtk_radio_menu_item_new_with_label(group, menulabel);
+	      group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
+	  }
 	  else
 	      menuitem = gtk_menu_item_new_with_label (menulabel);
+
+	  if (menu_enabled(item, uih))
+	  	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem), TRUE);
 
 	  g_free(menulabel);
 	}
@@ -221,7 +234,7 @@ xaos_gtk_add_menu (struct uih_context *uih, CONST char *name, GtkWidget *parent)
       if (item->type == MENU_SUBMENU)
         {
 	  submenu = gtk_menu_new();
-	  xaos_gtk_add_menu(uih, item->shortname, submenu);
+	  xaos_gtk_build_menu(uih, item->shortname, submenu);
 	  gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem), submenu);
 	}
       else
@@ -229,15 +242,21 @@ xaos_gtk_add_menu (struct uih_context *uih, CONST char *name, GtkWidget *parent)
 	  g_signal_connect (G_OBJECT (menuitem), "activate",
                             G_CALLBACK (xaos_gtk_menuitem_on_activate),
 			    (gpointer) item);
-	      
+	  g_hash_table_insert(xaos_gtk_menuitem_table, name, menuitem);
 	}
     }
 }
 
 static void
-xaos_gtk_build_menu (struct uih_context *uih, CONST char *name)
+xaos_gtk_build_root_menu (struct uih_context *uih, CONST char *name)
 {
-  xaos_gtk_add_menu (uih, name, xaos_gtk_menu_bar);
+  xaos_gtk_menuitem_table = g_hash_table_new (g_str_hash, g_str_equal);
+  xaos_gtk_build_menu (uih, name, xaos_gtk_menu_bar);
+}
+
+static void
+xaos_gtk_toggle_menuitem(struct uih_context *uih, CONST char *name)
+{
 }
 
 static void
@@ -290,7 +309,9 @@ xaos_gtk_getsize (int *w, int *h)
 static void
 xaos_gtk_processevents (int wait, int *mx, int *my, int *mb, int *k)
 {
-  gtk_main_iteration_do(wait? TRUE : FALSE);
+  while (gtk_events_pending ())
+    gtk_main_iteration_do (wait ? TRUE : FALSE);
+
   *mx = xaos_gtk_mouse_x;
   *my = xaos_gtk_mouse_y;
   *mb = xaos_gtk_mouse_buttons;
@@ -386,8 +407,8 @@ static struct params xaos_gtk_params[] = {
 };
 
 struct gui_driver gtk_gui_driver = {
-    /* dorootmenu */	xaos_gtk_build_menu,
-    /* enabledisable */	NULL,
+    /* dorootmenu */	xaos_gtk_build_root_menu,
+    /* enabledisable */	xaos_gtk_toggle_menuitem,
     /* popup */		NULL,
     /* dialog */	NULL,
     /* help */		NULL
