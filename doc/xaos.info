@@ -32,14 +32,14 @@ description etc.).
 * Overview::		What does this software do then?
 * tutorial::		XaoS tutorial
 * controls::		Basic controls
-* mpeg::		How to encode MPEG files
+* video::		How to encode video files
 * format::		XaoS's file format description
 * writehelp::		How to write XaoS help files
 * xshl::		XaoS simple hypertext language
 * drivers::		Driver specific documentation
 * menus::		Functions, menu items and command line parameters
-* authors::		Credits
-* lists::		Mailing lists
+* about::		Credits
+* support::		Getting Support
 * index::		Function index
 
 
@@ -364,7 +364,7 @@ them. You might also want to see the _animated tutorials_ from the
 _help menu_, to have an idea what XaoS can do.
 
 
-File: xaos.info,  Node: controls,  Next: mpeg,  Prev: tutorial,  Up: Top
+File: xaos.info,  Node: controls,  Next: video,  Prev: tutorial,  Up: Top
 
 3 Basic controls
 ****************
@@ -379,6 +379,10 @@ By default the mouse buttons work in the following way:
 
 *middle*
      move fractal in a drag-and-drop fashion
+
+   _Note:_ Since most Macs only have one button mice, these controls
+are emulated on Mac OS X using modifier keys. See the help section on
+Mac OS X for details.
 
    This behavior can change. If you enable rotation, the first button
 is used for rotating fractals. Also, in fast Julia mode, the first
@@ -415,47 +419,49 @@ of the screen/window. It is useful to learn the shortcut keys, which are
 shown in gray next to the menu items they trigger.
 
 
-File: xaos.info,  Node: mpeg,  Next: format,  Prev: controls,  Up: Top
+File: xaos.info,  Node: video,  Next: format,  Prev: controls,  Up: Top
 
-4 How to encode MPEG files from XaoS
-************************************
+4 How to encode video files from XaoS
+*************************************
 
-To save a sequence, make a `xaf' file first (the easiest way to do this
-is to use the _record_ function in the file menu). Then you need to
-render the sequence. XaoS can output sequences of ordinary `PNG'
-images, that can later be used by an MPEG encoder.
+To create a video, make and `xaf' file first (the easiest way to do
+this is to use the _record_ function in the file menu). Then you need
+to render the animation. XaoS can output sequences of ordinary `PNG'
+images, that can later be used by a video encoder.
 
-4.1 Generating sequences for MPEG
-=================================
+4.1 Generating image sequences for video
+========================================
 
-To encode a sequence, use the following command:
+To generate an image sequence, choose _Render Animation_ from the _Misc_
+menu. You can also use the following command on the command line:
 
      xaos -render [filename] -size 352x240 -antialiasing
      -renderframerate 24 -basename [basename]
 
-   `[filename]' is the name of the `xaf' file, `[basename]' is the name
-used as the base for rendered images.  XaoS adds a four digit number
-and extension automatically.
+   _File to render_ (`[filename]') is the name of the `xaf' file,
+_Basename_ (`[basename]') is the name used as the base filename for
+rendered images. This should also include the path where you want to
+save the images.  XaoS adds a four digit sequence number and `.png'
+extension to this name automatically.
 
-   You might also want to change the resolution. 352x240 is the default
-size for MPEG files, but other sizes work as well. Each dimension must
-be a multiple of 16.
+   You might also want to change the resolution. Make sure that the
+resolution you choose is supported by the video codec you wish to use.
 
-   The framerate can also be altered. MPEG supports only a few selected
-framerates (namely 23.976, 24, 25, 29.97, 30) and you can pick any of
-them.
+   The framerate can also be altered. Make sure you choose a framerate
+that is supported by the video codec you wish to use.
 
-   `-antialiasing' is used to produce anti-aliased images. It takes a
-much longer time and much more memory to calculate them, but resulting
-images are better for MPEG DCT compression and they are _compressed
-about 3 times more_.  (the same is true of _JPEG images_)
+   _Antialiasing_ (`-antialiasing') is used to produce anti-aliased
+images.  It takes a much longer time and much more memory to calculate
+them, but resulting images are better for video compression and they
+result in a much smaller video file.  (the same is true of _JPEG
+images_)
 
-   At the other hand, the other XaoS rendering option `-alwaysrecalc'
-(which disables XaoS's zooming optimizations) is _not recommended_. If
-that's used, the sequence of animation then contains quite a lot of
-extra information, which increases size of MPEG file, but because of
-MPEG's lossy compression it is hard to see any difference. So it don't
-worth it.
+   On the other hand, the other XaoS rendering option _Always
+Recalculate_ (`-alwaysrecalc') (which disables XaoS's zooming
+optimizations) is _not recommended_. If that's used, the sequence of
+animation then contains quite a lot of extra information, which
+increases size of video file, but because of the codec's lossy
+compression it is hard to see any difference, so it's not worth it.
 
 4.2 Rendered files
 ==================
@@ -476,102 +482,34 @@ symbolic linking.
 where each line is the name of one frame. The names repeat here if
 necessary, so you can use this file to supply filenames to the encoder.
 
-4.3 Pattern file
-================
+4.3 Encoding videos
+===================
 
-Some other files are generated as well. A _pattern file_ is generated,
-which contains a _recommended order of P, B and I frames_.
+Once XaoS has generated the png files for each frame of the animation,
+you can use a third-party video encoder to convert the sequence of
+images into a video file. We currently recommend the following
+encoders, which support a wide variety of video codecs and file formats:
+*ffmpeg*
+     Available from: `http://ffmpeg.mplayerhq.hu/' Instructions:
+     `http://ffmpeg.mplayerhq.hu/faq.html#SEC12'
 
-   MPEG sequence consist of these three frames. The _I frames_ are just
-images saved in a format similar to JPEG files.
+*mencoder*
+     Part of mplayer, available from: http://www.mplayerhq.hu/
+     Instructions:
+     `http://www.mplayerhq.hu/DOCS/HTML/en/menc-feat-enc-images.html'
+   These are both command line tools. If you prefer a graphical tool,
+you may prefer Quicktime Pro from Apple
+(http://www.apple.com/quicktime/pro/). However, this software costs
+approximately US$30, and the authors of XaoS have no experience with
+it. Although QuickTime may be easier to use, the two free encoders
+above are just as capable once you learn how to use them.
 
-   The _P frames_ are images which are constructed as a delta from the
-previous one (the latest I or P frame). In case consecutive frames are
-similar (and in animations they often are), a P frame takes much less
-disk space than an I frame.
-
-   The _B frames_ are constructed from the nearest previous P or I frame
-and the next P or I frame. They take even less disk space, but they are
-quite hard to encode. Also they are _not used as previous frames_, so
-their information is lost once they are displayed. They are usually
-rendered at lower quality than a P or I frame and used just to
-interpolate nearest frame and make animation smoother. It is generally
-not a good idea to make a whole sequence just from B frames.
-
-   Using just P frames is generally not a good idea. It makes the file
-shorter, but to jump into Nth frame of animation you need to
-_recalculate all P and B frames since latest I frame_. Decoders often
-want to jump to some frame (when the user asks, or when they can't
-decode a sequence in time and must skip some), so you need to have some
-I frames in the animation to make this possible.  The latter reason
-means that you need to place them quite often. Usually they are used
-for every 15th frame or thereabouts. Because they cost quite a lot, in
-my animations I usually use every 27th frame. To set this distance use
-`-iframedist' option. It should be a multiple of 3.
-
-   XaoS generates a recommended order of frames based on its knowledge
-of fractal motion. Situations where the screen doesn't move at all are
-rendered just from P frames (since jumping is usually not required
-here); in situations where the screen changes completely (at least in
-XaoS's opinion) I frames are used and in other cases, a standard
-sequence `IBBPBBPBBPBBP...' is used.
-
-   If your encoder supports this, you should supply this pattern for
-encoding to squeeze out some bytes.
-
-4.4 Motion vector files
-=======================
-
-XaoS also generates a motion vector recommendation for the encoder.
-This is useful for encoding of B and P frames.
-
-   If some objects on the screen are moving at a constant speed, motion
-vectors can store that speed, so no image needs to be saved to
-represent that change.
-
-   Calculating this motion vector is a very significant task. If you
-guess them well, you increase quality and reduce file size, which is
-always great.  Calculation also takes lots of CPU and it is hard to get
-optimal vectors (it just takes too long).
-
-   XaoS knows how the fractals move, so it can calculate this vectors
-quite easily. XaoS saves this information into `*.p' and `*.b' files.
-(`*.p' are for P frames, `*.b' are for B frames). If your encoder
-supports this, you should provide this vector to increase quality. They
-are `not exact' (XaoS can make mistakes); the encoder should try to
-find its own vectors, then try XaoS's ones, and pick whichever is
-better.
-
-   This technique saves quite a lot of bytes in fast zooming/un-zooming
-animations (where images move more than 3 or 5 pixels per frame--since
-most programs look 10-20 pixels around each point for motion vectors).
-
-   To enable saving of motion vector files, add the option
-`-rendervectors'.
-
-4.5 Berkeley parallel MPEG encoder
-==================================
-
-This is the encoder I use. It seems to be the best freely available
-software encoder I've tested. It can generate quite small files, but it
-is rather slow.  It is available at Berkeley's FTP site
-`mm-ftp.CS.Berkeley.EDU' and called `mpeg_encode1.5b'
-
-   It has lots of options to tune, so you should spend quite a lot of
-time playing with this. The configuration I use is in file
-`doc/mpeg.param'.
-
-   I've also made some patches that makes possible to use the pattern
-and motion files generated from XaoS. The patch is in
-`doc/mpeg_encode.patch'. So if you want to use these features (they are
-_EXPERIMENTAL_) you might apply this patch and recompile the encoder.
-
-   Once you filled the `mpeg.param' file (see comments inside), you
-should render sequence using `mpeg_encode [filename]' and with luck you
-are done.
+   Note: we used to recommend Berkeley parallel MPEG encoder to encode
+the generated png files into MPEG videos. We have kept the instructions
+mainly for historic purposes.
 
 
-File: xaos.info,  Node: format,  Next: writehelp,  Prev: mpeg,  Up: Top
+File: xaos.info,  Node: format,  Next: writehelp,  Prev: video,  Up: Top
 
 5 XaoS' file format
 *******************
@@ -719,7 +657,7 @@ animation from the original file:
 
 I plan to make a gallery of animations and position files on the XaoS
 home-page, so please send any nice animations and images you created
-using XaoS to `jh@ucw.cz'.
+using XaoS to the mailing list or upload them to our website.
 
 
 File: xaos.info,  Node: writehelp,  Next: xshl,  Prev: format,  Up: Top
@@ -800,12 +738,12 @@ present in `src/util/xshl.c' to parse it.
 
 File: xaos.info,  Node: drivers,  Next: menus,  Prev: xshl,  Up: Top
 
-8 Driver specific documentation
-*******************************
+8 Platform-specific documentation
+*********************************
 
 XaoS is portable and works on many different platforms. Since not all
 platforms are exactly the same, there are some differences between the
-behaviour of XaoS on different platforms. Here is documentation about
+behavior of XaoS on different platforms. Here is documentation about
 each specific port.
 
 * Menu:
@@ -1224,7 +1162,7 @@ shared colormaps and MitSHM extension.
    X11 driver was written by Jan Hubicka and Thomas Marsh, 1997.
 
 
-File: xaos.info,  Node: menus,  Next: authors,  Prev: drivers,  Up: Top
+File: xaos.info,  Node: menus,  Next: about,  Prev: drivers,  Up: Top
 
 Függelék: A Menus, functions and command line parameters
 **********************************************************
@@ -3406,9 +3344,12 @@ the screen.  To avoid this, you could use palette emulation filter.
    _Available as_: menu item, command line option, command
 
 
-File: xaos.info,  Node: authors,  Next: lists,  Prev: menus,  Up: Top
+File: xaos.info,  Node: about,  Next: support,  Prev: menus,  Up: Top
 
-Függelék: B Credits
+Függelék: B About XaoS
+************************
+
+Függelék: C Credits
 *********************
 
 (alphabetically)
@@ -3419,7 +3360,7 @@ Függelék: B Credits
      Updates for French translation
 
 *Radek Doulik (rodo@atrey.karlin.mff.cuni.cz)*
-     GTK interface, windowid patches
+     TK interface, windowid patches
 
 *Martin Dozsa (madsoft@centrum.cz)*
      cs.po (Czech translation of menus)
@@ -3450,14 +3391,14 @@ Függelék: B Credits
 *Zsigmond Kovacs (kovzsi@gmail.com)*
      Fractal examples
 
-*J. B. Langston III (jb-langston@austin.rr.com)*
+*J.B. Langston III (jb-langston@austin.rr.com)*
      Native Mac OS X port (from version 3.2.2); web redesign;
      co-maintainer
 
 *Andreas Madritsch (amadritsch@datacomm.ch)*
      New fractal types, bailout, many fixes
 
-*Mateusz Malczak (mateusz@malczak.info)*
+*Mateusz Malczak (xaos@malczak.info)*
      User formula evaluation library
 
 *Giorgio Marazzi (gmarazzi@vtr.net)*
@@ -3522,34 +3463,144 @@ Függelék: B Credits
 *Sergio Zanchetta*
      Italian translation
 
-   To contact the authors you can also use the mailing lists. *Note
-lists::.
+C.0.1 Included Software
+-----------------------
+
+XaoS uses the following libraries. These libraries may be included with
+some binary distributions of XaoS.
+
+   _gettext 0.17_ Website: `http://www.gnu.org/software/gettext/'
+Copyright (C) 1995-1997, 2000-2007 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later
+(http://gnu.org/licenses/gpl.html) This is free software: you are free
+to change and redistribute it.  There is NO WARRANTY, to the extent
+permitted by law.
+
+   _GNU Scientific Library 1.11_ Website:
+`http://www.gnu.org/software/gsl/' Copyright (C) 1996, 1997, 1998,
+1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007 The GSL Team.
+License GPLv3+: GNU GPL version 3 or later
+(http://gnu.org/licenses/gpl.html) This is free software: you are free
+to change and redistribute it.  There is NO WARRANTY, to the extent
+permitted by law.
+
+   _libpng 1.2.25_ Website: `http://www.libpng.org/pub/png/libpng.html'
+Copyright (c) 1998-2008 Glenn Randers-Pehrson Copyright (c) 1996-1997
+Andreas Dilger Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
 
 
-File: xaos.info,  Node: lists,  Next: index,  Prev: authors,  Up: Top
+File: xaos.info,  Node: support,  Next: index,  Prev: about,  Up: Top
 
-Függelék: C Mailing-lists:
-****************************
+Függelék: D Getting Support
+*****************************
 
-Until 1999 (or so) there was a high traffic mailing list on a mail
-server located in Czech Republic. Unfortunately, the server with its
-mailing lists no longer works.
+XaoS is a community-supported free software project. There are many ways
+to get help, all of which are explained below.
 
-   In 2001 XaoS moved to the SourceForge developer site and now there
-are 3 new mailing lists. Unfortunately, at the time of writing this
-documentation its traffic is about 0. Hopefully the development will
-continue using these mailing lists. Namely,
-*xaos-announce@lists.sourceforge.net,*
+Függelék: E Home Page
+***********************
 
-*xaos-devel@lists.sourceforge.net,*
+The XaoS homepage is `http://xaos.sf.net'. Check here for the latest
+news and information about XaoS and to download the latest versions.
 
-*xaos-discuss@lists.sourceforge.net.*
+E.0.1 Discussion Forums
+-----------------------
+
+XaoS has two discussion forums hosted on SourceForge. You can read them
+freely, but in order to post, you must to register for a free
+SourceForge account.
+
+*Help*
+     Provides a place for you to ask for help using XaoS. Other XaoS
+     users and/or the XaoS developers will answer your questions.
+
+     `http://sourceforge.net/forum/forum.php?forum_id=17768'
+
+*Open Discussion*
+     Provides a place to discuss anything related to XaoS or fractals.
+     You can share tips, your own fractal creations, or any other
+     fractal-related ideas with other XaoS users.
+
+     `http://sourceforge.net/forum/forum.php?forum_id=17767'
+
+   We welcome you to join these forums and become involved in the XaoS
+community.
+
+E.0.2 Mailing Lists
+-------------------
+
+XaoS currently has three mailing lists hosted on SourceForge.
+Unfortunately, there is currently very little traffic on any of them.
+Hopefully in the future, we can get more XaoS users and developers
+involved in the mailing lists.  The lists are as follows:
+
+*xaos-announce@lists.sourceforge.net*
+     Low volume list that is used only to announce new releases.
+
+     Subscribe:
+     `http://lists.sourceforge.net/mailman/listinfo/xaos-announce'
+     Archive:
+     `http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-announce'
+
+*xaos-devel@lists.sourceforge.net*
+     Developer mailing list, where the developers coordinate and
+     discuss XaoS development.
+
+     Subscribe:
+     `http://lists.sourceforge.net/mailman/listinfo/xaos-devel'
+     Archive:
+     `http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-devel'
+
+*xaos-discuss@lists.sourceforge.net*
+     General discussion list is for XaoS users to share tips and ideas
+     about XaoS.
+
+     Subscribe:
+     `http://lists.sourceforge.net/mailman/listinfo/xaos-discuss'
+     Archive:
+     `http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-discuss'
 
    Please feel free to join any or all of these mailing lists and share
-your ideas with the developers.
+your ideas with the developers and other XaoS users.
+
+E.0.3 Bug Reports
+-----------------
+
+If you think you have found a bug in XaoS, please report it. The
+developers will do their best to resolve the bug in a timely manner.
+
+   Bug Tracker:
+`http://sourceforge.net/tracker/?atid=105771&group_id=5771'
+
+   Please don't submit duplicate bugs. Browse the existing ones first
+to make sure nobody has already reported it. You may add additional
+information about a bug by entering a comment on an existing bug.
+
+   If you are not sure if something is a bug, please open a support
+request. The developers will try to answer your question and can
+convert your support request to a bug if necessary.
+
+   Support Requests:
+`http://sourceforge.net/tracker/?atid=205771&group_id=5771'
+
+E.0.4 Feature Requests
+----------------------
+
+If you have an idea for a great new feature you'd like to XaoS, please
+let us know about it.  You can submit a feature request via
+SourceForge, and the XaoS developers will do their best to implement
+your request in a future version.
+
+   Feature Requests:
+`http://sourceforge.net/tracker/?atid=355771&group_id=5771'
+
+   Please don't submit duplicate feature requests. Browse the existing
+ones first to make sure nobody has already requested the feature your
+want. You may add your vote for a feature by adding a comment to the
+existing request.
 
 
-File: xaos.info,  Node: index,  Prev: lists,  Up: Top
+File: xaos.info,  Node: index,  Prev: support,  Up: Top
 
 Index of functions
 ******************
@@ -3632,127 +3683,127 @@ Index of functions
 
 Tag Table:
 Node: Top440
-Node: Overview1487
-Node: Why?1684
-Node: What?3846
-Node: tutorial4419
-Node: controls14255
-Node: mpeg16148
-Node: format23069
-Node: writehelp28502
-Node: xshl28989
-Node: drivers30134
-Node: aa30829
-Node: BeOS33346
-Node: DGA36202
-Node: dos36822
-Node: dX-fullscreen39255
-Node: dX-window40382
-Node: ggi40467
-Node: plan941018
-Node: SVGAlib42119
-Node: win3243499
-Node: X1145405
-Node: menus46402
-Node: root47274
-Node: animroot47335
-Node: stopreplay47618
-Node: plc47767
-Node: load48124
-Node: linemenu48457
-Node: animf51232
-Node: animateview51942
-Node: smoothmorph52477
-Node: morphview53061
-Node: morphjulia54124
-Node: moveview54752
-Node: morphangle54983
-Node: zoom55652
-Node: time56490
-Node: usleep56964
-Node: textsleep57365
-Node: wait57922
-Node: file58507
-Node: loadpos58778
-Node: savepos59040
-Node: record59486
-Node: play59989
-Node: saveimg60201
-Node: loadexample60837
-Node: savecfg61193
-Node: quit61580
-Node: edit61757
-Node: undo61947
-Node: redo62220
-Node: copy62395
-Node: paste62687
-Node: fractal62971
-Node: formula63534
-Node: uimandelbrot64266
-Node: uiperturbation65788
-Node: bailout66977
-Node: uiview68074
-Node: initstate70083
-Node: plane70575
-Node: incoloring71742
-Node: outcoloring73268
-Node: tcolor74993
-Node: calc76631
-Node: range77095
-Node: periodicity77722
-Node: maxiter79898
-Node: fastjulia81141
-Node: dynamic81900
-Node: rotate82739
-Node: mfilter84171
-Node: filter84827
-Node: edge85476
-Node: edge286015
-Node: starfield86559
-Node: stereogram86918
-Node: interlace91303
-Node: blur91719
-Node: emboss92134
-Node: palettef92469
-Node: anti93037
-Node: truecolor93744
-Node: ui94355
-Node: speed94816
-Node: letterspersec95879
-Node: autopilot96274
-Node: recalculate97111
-Node: interrupt97486
-Node: nogui97721
-Node: status98195
-Node: ministatus98598
-Node: misc98903
-Node: command99304
-Node: renderanim99690
-Node: clearscreen99943
-Node: display100288
-Node: text100594
-Node: color101334
-Node: textposition101618
-Node: message102088
-Node: helpmenu102495
-Node: xtextpos102634
-Node: ytextpos102907
-Node: mformula103187
-Node: mandel103538
-Node: mandel3103817
-Node: octal104248
-Node: newton104586
-Node: barnsley105130
-Node: phoenix105410
-Node: magnet105646
-Node: palettemenu105988
-Node: defpalette106324
-Node: randompalette106820
-Node: palette107325
-Node: cycling108189
-Node: shiftpalette109168
-Node: authors109880
-Node: lists112942
-Node: index113714
+Node: Overview1491
+Node: Why?1688
+Node: What?3850
+Node: tutorial4423
+Node: controls14259
+Node: video16315
+Node: format20282
+Node: writehelp25751
+Node: xshl26238
+Node: drivers27383
+Node: aa28081
+Node: BeOS30598
+Node: DGA33454
+Node: dos34074
+Node: dX-fullscreen36507
+Node: dX-window37634
+Node: ggi37719
+Node: plan938270
+Node: SVGAlib39371
+Node: win3240751
+Node: X1142657
+Node: menus43654
+Node: root44524
+Node: animroot44585
+Node: stopreplay44868
+Node: plc45017
+Node: load45374
+Node: linemenu45707
+Node: animf48482
+Node: animateview49192
+Node: smoothmorph49727
+Node: morphview50311
+Node: morphjulia51374
+Node: moveview52002
+Node: morphangle52233
+Node: zoom52902
+Node: time53740
+Node: usleep54214
+Node: textsleep54615
+Node: wait55172
+Node: file55757
+Node: loadpos56028
+Node: savepos56290
+Node: record56736
+Node: play57239
+Node: saveimg57451
+Node: loadexample58087
+Node: savecfg58443
+Node: quit58830
+Node: edit59007
+Node: undo59197
+Node: redo59470
+Node: copy59645
+Node: paste59937
+Node: fractal60221
+Node: formula60784
+Node: uimandelbrot61516
+Node: uiperturbation63038
+Node: bailout64227
+Node: uiview65324
+Node: initstate67333
+Node: plane67825
+Node: incoloring68992
+Node: outcoloring70518
+Node: tcolor72243
+Node: calc73881
+Node: range74345
+Node: periodicity74972
+Node: maxiter77148
+Node: fastjulia78391
+Node: dynamic79150
+Node: rotate79989
+Node: mfilter81421
+Node: filter82077
+Node: edge82726
+Node: edge283265
+Node: starfield83809
+Node: stereogram84168
+Node: interlace88553
+Node: blur88969
+Node: emboss89384
+Node: palettef89719
+Node: anti90287
+Node: truecolor90994
+Node: ui91605
+Node: speed92066
+Node: letterspersec93129
+Node: autopilot93524
+Node: recalculate94361
+Node: interrupt94736
+Node: nogui94971
+Node: status95445
+Node: ministatus95848
+Node: misc96153
+Node: command96554
+Node: renderanim96940
+Node: clearscreen97193
+Node: display97538
+Node: text97844
+Node: color98584
+Node: textposition98868
+Node: message99338
+Node: helpmenu99745
+Node: xtextpos99884
+Node: ytextpos100157
+Node: mformula100437
+Node: mandel100788
+Node: mandel3101067
+Node: octal101498
+Node: newton101836
+Node: barnsley102380
+Node: phoenix102660
+Node: magnet102896
+Node: palettemenu103238
+Node: defpalette103574
+Node: randompalette104070
+Node: palette104575
+Node: cycling105439
+Node: shiftpalette106418
+Node: about107130
+Node: support111243
+Node: index115066
 
 End Tag Table
