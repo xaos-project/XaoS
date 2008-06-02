@@ -543,7 +543,7 @@ the instructions mainly for historic purposes.
 @c %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 @comment  node-name,  next,      previous,  up
 @node format, writehelp,video ,Top
-@chapter XaoS' file format
+@chapter XaoS's file format
 This section describes the format used by XaoS for animations, configuration
 files and saved positions. All these files have a common format, designed
 to be easily readable, to allow manual editing of files and easy conversion by
@@ -589,7 +589,7 @@ This function loads and interprets a file. It works similarly to @code{#include}
 in C.
 @item initstate
 
-Available in version 3.0 and above, this function resets XaoS' state to default
+Available in version 3.0 and above, this function resets XaoS's state to default
 values. This command should be at the beginning of each animation file,
 since otherwise some stuff previously enabled by user could cause unexpected
 effects. State is not reset by default before playing animations since it would
@@ -2032,7 +2032,7 @@ don't forget to disable it later.
 @defun initstate 
 @end defun
 
-This function resets most of XaoS' values to their defaults. It is useful when
+This function resets most of XaoS's values to their defaults. It is useful when
 you get lost and want to start from the beginning. It should also be used
 as the first command of every animation file, to ensure that the file is always
 played with the same settings in effect.
@@ -2610,7 +2610,7 @@ Start XaoS with options specifying the exact size of your screen or one pixel on
 @item 2
 Sit 60cm away from monitor
 @item 3
-If you use a windowed environment, resize XaoS' window to make it wider than, say, 15 cm.
+If you use a windowed environment, resize XaoS's window to make it wider than, say, 15 cm.
 @item 4
 Enable the filter (by pressing @code{E})
 @item 5
@@ -3436,7 +3436,7 @@ will try to answer your question and can convert your support request to a bug i
 Support Requests: @code{http://sourceforge.net/tracker/?atid=205771&group_id=5771}
 
 @subsection Feature Requests
-If you have an idea for a great new feature you'd like to XaoS, please let us know about it.
+If you have an idea for a great new feature you'd like to see added to XaoS, please let us know about it.
 You can submit a feature request via SourceForge, and the XaoS developers will do their best to
 implement your request in a future version.
 

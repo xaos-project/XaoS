@@ -11,8 +11,10 @@ test -x tarball || exit 1 # Sorry, this script should be run inside its director
 cd ..
 ./configure
 cd doc
+make clean
 make
 cd ../help
+make clean
 make
 cd ..
 make clean

@@ -511,8 +511,8 @@ mainly for historic purposes.
 
 File: xaos.info,  Node: format,  Next: writehelp,  Prev: video,  Up: Top
 
-5 XaoS' file format
-*******************
+5 XaoS's file format
+********************
 
 This section describes the format used by XaoS for animations,
 configuration files and saved positions. All these files have a common
@@ -563,7 +563,7 @@ functions. *Note animf::. Also, the following functions are significant:
      `#include' in C.
 
 *initstate*
-     Available in version 3.0 and above, this function resets XaoS'
+     Available in version 3.0 and above, this function resets XaoS's
      state to default values. This command should be at the beginning
      of each animation file, since otherwise some stuff previously
      enabled by user could cause unexpected effects. State is not reset
@@ -2022,7 +2022,7 @@ A.8.6 Reset to defaults
 
  -- Function: initstate
 
-   This function resets most of XaoS' values to their defaults. It is
+   This function resets most of XaoS's values to their defaults. It is
 useful when you get lost and want to start from the beginning. It
 should also be used as the first command of every animation file, to
 ensure that the file is always played with the same settings in effect.
@@ -2659,7 +2659,7 @@ probably be unable to see anything; make the window bigger.
      Sit 60cm away from monitor
 
 *3*
-     If you use a windowed environment, resize XaoS' window to make it
+     If you use a windowed environment, resize XaoS's window to make it
      wider than, say, 15 cm.
 
 *4*
@@ -3586,10 +3586,10 @@ convert your support request to a bug if necessary.
 E.0.4 Feature Requests
 ----------------------
 
-If you have an idea for a great new feature you'd like to XaoS, please
-let us know about it.  You can submit a feature request via
-SourceForge, and the XaoS developers will do their best to implement
-your request in a future version.
+If you have an idea for a great new feature you'd like to see added to
+XaoS, please let us know about it.  You can submit a feature request
+via SourceForge, and the XaoS developers will do their best to
+implement your request in a future version.
 
    Feature Requests:
 `http://sourceforge.net/tracker/?atid=355771&group_id=5771'
@@ -3690,120 +3690,120 @@ Node: tutorial4423
 Node: controls14259
 Node: video16315
 Node: format20282
-Node: writehelp25751
-Node: xshl26238
-Node: drivers27383
-Node: aa28081
-Node: BeOS30598
-Node: DGA33454
-Node: dos34074
-Node: dX-fullscreen36507
-Node: dX-window37634
-Node: ggi37719
-Node: plan938270
-Node: SVGAlib39371
-Node: win3240751
-Node: X1142657
-Node: menus43654
-Node: root44524
-Node: animroot44585
-Node: stopreplay44868
-Node: plc45017
-Node: load45374
-Node: linemenu45707
-Node: animf48482
-Node: animateview49192
-Node: smoothmorph49727
-Node: morphview50311
-Node: morphjulia51374
-Node: moveview52002
-Node: morphangle52233
-Node: zoom52902
-Node: time53740
-Node: usleep54214
-Node: textsleep54615
-Node: wait55172
-Node: file55757
-Node: loadpos56028
-Node: savepos56290
-Node: record56736
-Node: play57239
-Node: saveimg57451
-Node: loadexample58087
-Node: savecfg58443
-Node: quit58830
-Node: edit59007
-Node: undo59197
-Node: redo59470
-Node: copy59645
-Node: paste59937
-Node: fractal60221
-Node: formula60784
-Node: uimandelbrot61516
-Node: uiperturbation63038
-Node: bailout64227
-Node: uiview65324
-Node: initstate67333
-Node: plane67825
-Node: incoloring68992
-Node: outcoloring70518
-Node: tcolor72243
-Node: calc73881
-Node: range74345
-Node: periodicity74972
-Node: maxiter77148
-Node: fastjulia78391
-Node: dynamic79150
-Node: rotate79989
-Node: mfilter81421
-Node: filter82077
-Node: edge82726
-Node: edge283265
-Node: starfield83809
-Node: stereogram84168
-Node: interlace88553
-Node: blur88969
-Node: emboss89384
-Node: palettef89719
-Node: anti90287
-Node: truecolor90994
-Node: ui91605
-Node: speed92066
-Node: letterspersec93129
-Node: autopilot93524
-Node: recalculate94361
-Node: interrupt94736
-Node: nogui94971
-Node: status95445
-Node: ministatus95848
-Node: misc96153
-Node: command96554
-Node: renderanim96940
-Node: clearscreen97193
-Node: display97538
-Node: text97844
-Node: color98584
-Node: textposition98868
-Node: message99338
-Node: helpmenu99745
-Node: xtextpos99884
-Node: ytextpos100157
-Node: mformula100437
-Node: mandel100788
-Node: mandel3101067
-Node: octal101498
-Node: newton101836
-Node: barnsley102380
-Node: phoenix102660
-Node: magnet102896
-Node: palettemenu103238
-Node: defpalette103574
-Node: randompalette104070
-Node: palette104575
-Node: cycling105439
-Node: shiftpalette106418
-Node: about107130
-Node: support111243
-Node: index115066
+Node: writehelp25754
+Node: xshl26241
+Node: drivers27386
+Node: aa28084
+Node: BeOS30601
+Node: DGA33457
+Node: dos34077
+Node: dX-fullscreen36510
+Node: dX-window37637
+Node: ggi37722
+Node: plan938273
+Node: SVGAlib39374
+Node: win3240754
+Node: X1142660
+Node: menus43657
+Node: root44527
+Node: animroot44588
+Node: stopreplay44871
+Node: plc45020
+Node: load45377
+Node: linemenu45710
+Node: animf48485
+Node: animateview49195
+Node: smoothmorph49730
+Node: morphview50314
+Node: morphjulia51377
+Node: moveview52005
+Node: morphangle52236
+Node: zoom52905
+Node: time53743
+Node: usleep54217
+Node: textsleep54618
+Node: wait55175
+Node: file55760
+Node: loadpos56031
+Node: savepos56293
+Node: record56739
+Node: play57242
+Node: saveimg57454
+Node: loadexample58090
+Node: savecfg58446
+Node: quit58833
+Node: edit59010
+Node: undo59200
+Node: redo59473
+Node: copy59648
+Node: paste59940
+Node: fractal60224
+Node: formula60787
+Node: uimandelbrot61519
+Node: uiperturbation63041
+Node: bailout64230
+Node: uiview65327
+Node: initstate67336
+Node: plane67829
+Node: incoloring68996
+Node: outcoloring70522
+Node: tcolor72247
+Node: calc73885
+Node: range74349
+Node: periodicity74976
+Node: maxiter77152
+Node: fastjulia78395
+Node: dynamic79154
+Node: rotate79993
+Node: mfilter81425
+Node: filter82081
+Node: edge82730
+Node: edge283269
+Node: starfield83813
+Node: stereogram84172
+Node: interlace88558
+Node: blur88974
+Node: emboss89389
+Node: palettef89724
+Node: anti90292
+Node: truecolor90999
+Node: ui91610
+Node: speed92071
+Node: letterspersec93134
+Node: autopilot93529
+Node: recalculate94366
+Node: interrupt94741
+Node: nogui94976
+Node: status95450
+Node: ministatus95853
+Node: misc96158
+Node: command96559
+Node: renderanim96945
+Node: clearscreen97198
+Node: display97543
+Node: text97849
+Node: color98589
+Node: textposition98873
+Node: message99343
+Node: helpmenu99750
+Node: xtextpos99889
+Node: ytextpos100162
+Node: mformula100442
+Node: mandel100793
+Node: mandel3101072
+Node: octal101503
+Node: newton101841
+Node: barnsley102385
+Node: phoenix102665
+Node: magnet102901
+Node: palettemenu103243
+Node: defpalette103579
+Node: randompalette104075
+Node: palette104580
+Node: cycling105444
+Node: shiftpalette106423
+Node: about107135
+Node: support111248
+Node: index115084
 
 End Tag Table
