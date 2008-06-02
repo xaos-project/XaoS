@@ -2,11 +2,11 @@
 
 
 Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.9 2008-05-05 16:11:50 kovzol Exp $
+$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/README.WIN,v 1.10 2008-06-02 14:34:17 kovzol Exp $
 
 Last updated by:
 Zoltan Kovacs (2003-01-23)
-Andreas Madritsch (2002-10-03, 2003-03-04, 2003-03-18)
+Andreas Madritsch (2002-10-03, 2003-03-04, 2003-03-18; April and May 2008)
 
 
 *WARNING*
@@ -133,8 +133,18 @@ To install XaoS type
 
 export DESTDIR=<installdir>
 
-in a bash shell, where <installdir> should be the absolute path of
-the folder in which XaoS should be installed. Type make install-win
+in a bash shell, where <installdir> should bee the absolute path ot
+the flolder in which XaoS should be installe. Type make install-win
 to install XaoS.
 
+To build the XaoS installer, install XaoS to
+XaoS/src/ui/ui-drv/win32/installer/XaoS.
+If you compiled XaoS with i18n support, copy the libraries
+libiconv-2.dll and libintl-8.dll to
+XaoS/src/ui/ui-drv/win32/installer/XaoS/bin.
+Download NSIS from http://nsis.sourceforge.net/ and install it.
+Compile the script XaoS Installer.nsi in the directory
+XaoS/src/ui/ui-drv/win32/installer.
+
 XaoS was tested only on Intel platform, but it should work on alpha too.
+
