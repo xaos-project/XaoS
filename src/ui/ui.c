@@ -1251,7 +1251,9 @@ MAIN_FUNCTION (int argc, char **argv)
 #endif
 #endif
     ;
+#ifndef _WIN32
   bind_textdomain_codeset ("xaos", "UTF-8");
+#endif
   textdomain ("xaos");
   /* Done setting locales. */
 #endif
