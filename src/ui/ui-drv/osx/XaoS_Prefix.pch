@@ -1,5 +1,0 @@
-//
-// Prefix header for all source files of the 'XaoS' target in the 'XaoS' project.
-//
-
-#include <Carbon/Carbon.h>

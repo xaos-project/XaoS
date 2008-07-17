@@ -1,3 +1,0 @@
-@set LANG=es
-xaos
-
