@@ -9,7 +9,6 @@ SRCS = \
        png.c \
        catalog.c \
        thread.c \
-       be_thread.c \
        xstring.c \
        help.c \
        xerror.c \

@@ -14706,7 +14706,7 @@ CXXFLAGS="$CXXFLAGS $INCDIR"
 
 
 
-ac_config_files="$ac_config_files src/i18n/Makefile.in Makefile src/Makefile src/i18n/Makefile src/engine/Makefile src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile src/ui/ui-drv/aa/Makefile src/ui/ui-drv/ggi/Makefile src/ui/ui-drv/svga/Makefile src/ui/ui-drv/x11/Makefile src/ui/ui-drv/dga/Makefile src/ui/ui-drv/win32/Makefile src/ui/ui-drv/BeOS/Makefile doc/Makefile help/Makefile src/ui/ui-drv/gtk/Makefile src/sffe/Makefile"
+ac_config_files="$ac_config_files src/i18n/Makefile.in Makefile src/Makefile src/i18n/Makefile src/engine/Makefile src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile src/ui/ui-drv/x11/Makefile src/ui/ui-drv/win32/Makefile doc/Makefile help/Makefile src/ui/ui-drv/gtk/Makefile src/sffe/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -15288,13 +15288,8 @@ do
     "src/ui/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui/Makefile" ;;
     "src/filter/Makefile") CONFIG_FILES="$CONFIG_FILES src/filter/Makefile" ;;
     "src/ui-hlp/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui-hlp/Makefile" ;;
-    "src/ui/ui-drv/aa/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui/ui-drv/aa/Makefile" ;;
-    "src/ui/ui-drv/ggi/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui/ui-drv/ggi/Makefile" ;;
-    "src/ui/ui-drv/svga/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui/ui-drv/svga/Makefile" ;;
     "src/ui/ui-drv/x11/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui/ui-drv/x11/Makefile" ;;
-    "src/ui/ui-drv/dga/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui/ui-drv/dga/Makefile" ;;
     "src/ui/ui-drv/win32/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui/ui-drv/win32/Makefile" ;;
-    "src/ui/ui-drv/BeOS/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui/ui-drv/BeOS/Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
     "help/Makefile") CONFIG_FILES="$CONFIG_FILES help/Makefile" ;;
     "src/ui/ui-drv/gtk/Makefile") CONFIG_FILES="$CONFIG_FILES src/ui/ui-drv/gtk/Makefile" ;;
