@@ -30,19 +30,19 @@ _control87 (unsigned short newcw, unsigned short mask)
     {				/* mask is not 0 */
       asm volatile ("                                                  \n\
         mov    %2, %%ax                                             \n\
-        mov    %3, %%bx                                             \n\
-        and    %%bx, %%ax                                           \n\
-        not    %%bx                                                 \n\
+        mov    %3, %%cx                                             \n\
+        and    %%cx, %%ax                                           \n\
+        not    %%cx                                                 \n\
         nop                                                         \n\
         wait                                                        \n\
         mov    %1, %%dx                                             \n\
-        and    %%bx, %%dx                                           \n\
+        and    %%cx, %%dx                                           \n\
         or     %%ax, %%dx                                           \n\
         mov    %%dx, %0                                             \n\
         wait                                                        \n\
         fldcw  %1                                                     ": /* outputs */ "=m" (cw)
 		    : /* inputs */ "m" (cw), "m" (newcw), "m" (mask)
-		    : /* registers */ "ax", "bx", "dx"
+		    : /* registers */ "ax", "cx", "dx"
 	);
     }
   return cw;
