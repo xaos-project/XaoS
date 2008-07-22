@@ -75,7 +75,6 @@
 		D99B5C490DAEEA2700489809 /* xerror.c in Sources */ = {isa = PBXBuildFile; fileRef = D99B5BFE0DAEEA2700489809 /* xerror.c */; };
 		D99B5C4A0DAEEA2700489809 /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = D99B5BFF0DAEEA2700489809 /* thread.c */; };
 		D99B5C4B0DAEEA2700489809 /* timers.c in Sources */ = {isa = PBXBuildFile; fileRef = D99B5C000DAEEA2700489809 /* timers.c */; };
-		D99B5C4C0DAEEA2700489809 /* be_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = D99B5C010DAEEA2700489809 /* be_thread.c */; };
 		D99B5C4D0DAEEA2700489809 /* xstdio.c in Sources */ = {isa = PBXBuildFile; fileRef = D99B5C020DAEEA2700489809 /* xstdio.c */; };
 		D99B5C4E0DAEEA2700489809 /* catalog.c in Sources */ = {isa = PBXBuildFile; fileRef = D99B5C030DAEEA2700489809 /* catalog.c */; };
 		D99B5C500DAEEA6900489809 /* XaoS.icns in Resources */ = {isa = PBXBuildFile; fileRef = D99B5C4F0DAEEA6900489809 /* XaoS.icns */; };
@@ -140,7 +139,6 @@
 		D99B5B910DAEEA2700489809 /* c256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c256.h; sourceTree = "<group>"; };
 		D99B5B920DAEEA2700489809 /* catalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = catalog.h; sourceTree = "<group>"; };
 		D99B5B930DAEEA2700489809 /* complex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = complex.h; sourceTree = "<group>"; };
-		D99B5BA00DAEEA2700489809 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		D99B5BA10DAEEA2700489809 /* cursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cursor.h; sourceTree = "<group>"; };
 		D99B5BA20DAEEA2700489809 /* fconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fconfig.h; sourceTree = "<group>"; };
 		D99B5BA30DAEEA2700489809 /* filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filter.h; sourceTree = "<group>"; };
@@ -154,20 +152,16 @@
 		D99B5BAC0DAEEA2700489809 /* __math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = __math.h; sourceTree = "<group>"; };
 		D99B5BAD0DAEEA2700489809 /* ctrl87.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ctrl87.h; sourceTree = "<group>"; };
 		D99B5BAE0DAEEA2700489809 /* sstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sstring.h; sourceTree = "<group>"; };
-		D99B5BB00DAEEA2700489809 /* CommonDialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonDialogs.h; sourceTree = "<group>"; };
-		D99B5BB10DAEEA2700489809 /* malloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = malloc.h; sourceTree = "<group>"; };
-		D99B5BB20DAEEA2700489809 /* stdioMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdioMac.h; sourceTree = "<group>"; };
 		D99B5BB30DAEEA2700489809 /* misc-f.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "misc-f.h"; sourceTree = "<group>"; };
 		D99B5BB40DAEEA2700489809 /* param.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = param.h; sourceTree = "<group>"; };
 		D99B5BB50DAEEA2700489809 /* pixel_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pixel_t.h; sourceTree = "<group>"; };
 		D99B5BB60DAEEA2700489809 /* plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
-		D99B5BB70DAEEA2700489809 /* prefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prefix.h; sourceTree = "<group>"; };
 		D99B5BB80DAEEA2700489809 /* timers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timers.h; sourceTree = "<group>"; };
 		D99B5BB90DAEEA2700489809 /* true24.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = true24.h; sourceTree = "<group>"; };
 		D99B5BBA0DAEEA2700489809 /* truecolor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = truecolor.h; sourceTree = "<group>"; };
 		D99B5BBB0DAEEA2700489809 /* ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
 		D99B5BBC0DAEEA2700489809 /* ui_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui_helper.h; sourceTree = "<group>"; };
-		D99B5BBD0DAEEA2700489809 /* version.h */ = {isa = PBXFileReference; lastKnownFileType = file; path = version.h; sourceTree = "<group>"; };
+		D99B5BBD0DAEEA2700489809 /* version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		D99B5BBE0DAEEA2700489809 /* version.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = version.h.in; sourceTree = "<group>"; };
 		D99B5BBF0DAEEA2700489809 /* xerror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xerror.h; sourceTree = "<group>"; };
 		D99B5BC00DAEEA2700489809 /* xio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xio.h; sourceTree = "<group>"; };
@@ -230,7 +224,6 @@
 		D99B5BFE0DAEEA2700489809 /* xerror.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xerror.c; path = ../../../util/xerror.c; sourceTree = SOURCE_ROOT; };
 		D99B5BFF0DAEEA2700489809 /* thread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = thread.c; path = ../../../util/thread.c; sourceTree = SOURCE_ROOT; };
 		D99B5C000DAEEA2700489809 /* timers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = timers.c; path = ../../../util/timers.c; sourceTree = SOURCE_ROOT; };
-		D99B5C010DAEEA2700489809 /* be_thread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = be_thread.c; path = ../../../util/be_thread.c; sourceTree = SOURCE_ROOT; };
 		D99B5C020DAEEA2700489809 /* xstdio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xstdio.c; path = ../../../util/xstdio.c; sourceTree = SOURCE_ROOT; };
 		D99B5C030DAEEA2700489809 /* catalog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = catalog.c; path = ../../../util/catalog.c; sourceTree = SOURCE_ROOT; };
 		D99B5C4F0DAEEA6900489809 /* XaoS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = XaoS.icns; sourceTree = "<group>"; };
@@ -393,7 +386,6 @@
 				D99B5B910DAEEA2700489809 /* c256.h */,
 				D99B5B920DAEEA2700489809 /* catalog.h */,
 				D99B5B930DAEEA2700489809 /* complex.h */,
-				D99B5BA00DAEEA2700489809 /* config.h */,
 				D99B5BA10DAEEA2700489809 /* cursor.h */,
 				D99B5BA20DAEEA2700489809 /* fconfig.h */,
 				D99B5BA30DAEEA2700489809 /* filter.h */,
@@ -410,7 +402,6 @@
 				D99B5BB40DAEEA2700489809 /* param.h */,
 				D99B5BB50DAEEA2700489809 /* pixel_t.h */,
 				D99B5BB60DAEEA2700489809 /* plane.h */,
-				D99B5BB70DAEEA2700489809 /* prefix.h */,
 				D99B5BB80DAEEA2700489809 /* timers.h */,
 				D99B5BB90DAEEA2700489809 /* true24.h */,
 				D99B5BBA0DAEEA2700489809 /* truecolor.h */,
@@ -443,9 +434,6 @@
 		D99B5BAF0DAEEA2700489809 /* mac */ = {
 			isa = PBXGroup;
 			children = (
-				D99B5BB00DAEEA2700489809 /* CommonDialogs.h */,
-				D99B5BB10DAEEA2700489809 /* malloc.h */,
-				D99B5BB20DAEEA2700489809 /* stdioMac.h */,
 			);
 			path = mac;
 			sourceTree = "<group>";
@@ -535,7 +523,6 @@
 				D99B5BFE0DAEEA2700489809 /* xerror.c */,
 				D99B5BFF0DAEEA2700489809 /* thread.c */,
 				D99B5C000DAEEA2700489809 /* timers.c */,
-				D99B5C010DAEEA2700489809 /* be_thread.c */,
 				D99B5C020DAEEA2700489809 /* xstdio.c */,
 				D99B5C030DAEEA2700489809 /* catalog.c */,
 			);
@@ -709,7 +696,6 @@
 				D99B5C490DAEEA2700489809 /* xerror.c in Sources */,
 				D99B5C4A0DAEEA2700489809 /* thread.c in Sources */,
 				D99B5C4B0DAEEA2700489809 /* timers.c in Sources */,
-				D99B5C4C0DAEEA2700489809 /* be_thread.c in Sources */,
 				D99B5C4D0DAEEA2700489809 /* xstdio.c in Sources */,
 				D99B5C4E0DAEEA2700489809 /* catalog.c in Sources */,
 			);

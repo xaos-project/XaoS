@@ -35,9 +35,6 @@
 /* Cocoa driver needs to do some pre-initialization in its own main function */
 #define MAIN_FUNCTION XaoS_main
 
-/* prevents compilation error i386.c:31: error: PIC register ‘bx’ clobbered */
-#define NOASSEMBLY
-
 /* XaoS xio library uses \01 to indicate paths relative to the executable */
 #define DATAPATH "\01/../Resources"
 #define USE_LOCALEPATH 1
