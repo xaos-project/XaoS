@@ -7,6 +7,7 @@
 #include "about.h"
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "xaos.exe.manifest"
 BIG                   ICON    DISCARDABLE     "xaos.ico"
 SMALL                  ICON    DISCARDABLE     "small.ico"
 

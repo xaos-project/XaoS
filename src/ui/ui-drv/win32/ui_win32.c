@@ -1369,6 +1369,8 @@ add_cutpasteitems ()
   MENUSEPARATOR_I ("edit");
   MENUNOP_I ("edit", NULL, gettext ("Copy"), "copy", 0, win32_copy);
   MENUNOP_I ("edit", NULL, gettext ("Paste"), "paste", 0, win32_paste);
+  MENUNOP_I ("misc", NULL, "Generate .dlg files", "genresources", 0,
+	     win32_genresources);
   MENUSEPARATOR_I ("helpmenu");
   MENUNOP_I ("helpmenu", NULL, gettext ("About"), "about", 0, AboutBox);
   no_menuitems_i18n -= uiw_no_menuitems_i18n;
@@ -1535,8 +1537,6 @@ add_resizeitems ()
   int no_menuitems_i18n = uiw_no_menuitems_i18n;	/* This variable must be local. */
   MENUCDIALOG_I ("ui", "=", gettext ("Resize"), "resize", 0, dx_resize,
 		 dx_resizedialog);
-  MENUNOP_I ("misc", NULL, "Generate .dlg files", "genresources", 0,
-	     win32_genresources);
   no_menuitems_i18n -= uiw_no_menuitems_i18n;
   resizeitems = &(menuitems_i18n[uiw_no_menuitems_i18n]);
   uiw_no_resizeitems_i18n = no_menuitems_i18n;

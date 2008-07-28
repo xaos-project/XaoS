@@ -363,6 +363,7 @@ win32_outputdialog (struct uih_context *uih, CONST struct menuitem *item)
 	   width, height);
   fprintf (file, "STYLE DS_MODALFRAME | WS_CAPTION | WS_SYSMENU\n");
   fprintf (file, "CAPTION \"%s\"\n", item->name);
+  fprintf (file, "FONT 8, \"MS Shell Dlg\"\n");
   fprintf (file, "BEGIN\n");
   for (i = 0; dialog[i].question; i++)
     {
