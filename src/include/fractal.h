@@ -31,7 +31,7 @@ extern "C"
 #include "fconfig.h"
 #define INCOLORING 11
 #define OUTCOLORING 11
-#define TCOLOR 11
+#define TCOLOR 15
 
   typedef struct
   {

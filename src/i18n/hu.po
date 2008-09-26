@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-21 22:36+0200\n"
+"POT-Creation-Date: 2008-09-26 11:44+0200\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: Hungarian\n"
@@ -160,7 +160,7 @@ msgstr "Köszönjük, hogy a XaoS programot használta!\n"
 msgid "Skipping, please wait..."
 msgstr "Továbblépés, kérem várjon..."
 
-#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1536
+#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1538
 msgid "Resize"
 msgstr "Átméretez"
 
@@ -197,32 +197,32 @@ msgstr "Fõbb jellemzõk"
 msgid "Driver"
 msgstr "Grafikus meghajtó"
 
-#: ../ui/ui.c:1502
+#: ../ui/ui.c:1504
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Köszöntjük a XaoS %s verziójában!"
 
-#: ../ui/ui.c:1668
+#: ../ui/ui.c:1670
 msgid "Can not allocate buffers"
 msgstr "Nincs elegendõ puffer"
 
-#: ../ui/ui.c:1686
+#: ../ui/ui.c:1688
 msgid "Can not create palette"
 msgstr "A színpaletta nem hozható létre"
 
-#: ../ui/ui.c:1699
+#: ../ui/ui.c:1701
 msgid "Can not create image"
 msgstr "A kép nem hozható létre"
 
-#: ../ui/ui.c:1734 ../ui/ui.c:1788
+#: ../ui/ui.c:1736 ../ui/ui.c:1790
 msgid "Can not allocate tables"
 msgstr "Nincs hely a tábláknak"
 
-#: ../ui/ui.c:1772
+#: ../ui/ui.c:1774
 msgid "Can not initialize driver"
 msgstr "A grafikus meghajtó nem inicializálható"
 
-#: ../ui/ui.c:1775
+#: ../ui/ui.c:1777
 msgid "Can not return back to previous driver"
 msgstr "Az elõzõ grafikus meghajtó nem tölthetõ be"
 
@@ -1416,7 +1416,7 @@ msgstr "Másol"
 msgid "Paste"
 msgstr "Beilleszt"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1373
+#: ../ui/ui-drv/win32/ui_win32.c:1375
 msgid "About"
 msgstr "Névjegy"
 

@@ -116,6 +116,8 @@ CONST char *CONST tcolorname[] = {
   "abs(re*im-csqr) abs(re^2-csqr) abs(im^2-csqr)",
   "angle angle2 angle",
   "Disable truecolor colouring",
+  "simple red (for education purposes)",
+  "simple blue (for education purposes)",
   NULL
 };
 
@@ -261,7 +263,8 @@ REGISTERS (3)
        truecolor_output (number_t zre, number_t zim, number_t pre,
 			 number_t pim, int mode, int inset)
 {
-  /*WARNING r and b fiends are swapped for HISTORICAL REASONS (BUG :) */
+  /* WARNING: r and b fields are swapped for HISTORICAL REASONS (BUG :),
+   * in other words: use r for blue and b for red. */
   int r = 0, g = 0, b = 0, w = 0;
 
   switch (mode)
@@ -405,6 +408,17 @@ REGISTERS (3)
 	r = (int) (atan2 ((double) zre, (double) zim) * 128 / M_PI) + 128;
 	g = (int) (atan2 ((double) zre, (double) zim) * 128 / M_PI) + 128;
 	b = (int) (atan2 ((double) zim, (double) zre) * 128 / M_PI) + 128;
+      }
+      break;
+    // case 11 is for disabling truecolor mode
+    case 12:
+      {
+	b = 255; g = 0; r = 0; w = 50;
+      }
+      break;
+    case 13:
+      {
+	r = 255; g = 0; b = 0; w = 0;
       }
       break;
     }

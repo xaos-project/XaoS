@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-21 22:36+0200\n"
+"POT-Creation-Date: 2008-09-26 11:44+0200\n"
 "PO-Revision-Date: 2008-04-28 11:21+0100\n"
 "Last-Translator: Zoltan Kovacs <kovzol@matek.hu>\n"
 "Language-Team: The XaoS Development Team <xaos-devel@lists.sf.net>\n"
@@ -164,7 +164,7 @@ msgstr "Va multumim ca ati folosit XaoS\n"
 msgid "Skipping, please wait..."
 msgstr "Se omite, va rugam asteptati..."
 
-#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1536
+#: ../ui/ui.c:1047 ../ui/ui.c:1049 ../ui/ui-drv/win32/ui_win32.c:1538
 msgid "Resize"
 msgstr "Redimensionare"
 
@@ -202,32 +202,32 @@ msgstr "Ministatus"
 msgid "Driver"
 msgstr "Driver"
 
-#: ../ui/ui.c:1502
+#: ../ui/ui.c:1504
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Bine ati venit la XaoS Versiunea %s"
 
-#: ../ui/ui.c:1668
+#: ../ui/ui.c:1670
 msgid "Can not allocate buffers"
 msgstr "Nu se pot aloca bufferele"
 
-#: ../ui/ui.c:1686
+#: ../ui/ui.c:1688
 msgid "Can not create palette"
 msgstr "Nu se poate crea paleta"
 
-#: ../ui/ui.c:1699
+#: ../ui/ui.c:1701
 msgid "Can not create image"
 msgstr "Nu se poate crea imaginea"
 
-#: ../ui/ui.c:1734 ../ui/ui.c:1788
+#: ../ui/ui.c:1736 ../ui/ui.c:1790
 msgid "Can not allocate tables"
 msgstr "Nu se pot aloca tabelele"
 
-#: ../ui/ui.c:1772
+#: ../ui/ui.c:1774
 msgid "Can not initialize driver"
 msgstr "Nu se poate initializa driverul"
 
-#: ../ui/ui.c:1775
+#: ../ui/ui.c:1777
 msgid "Can not return back to previous driver"
 msgstr "Nu se poate intoarce la driverul precedent"
 
@@ -1432,7 +1432,7 @@ msgstr "Copiere"
 msgid "Paste"
 msgstr "Redare (paste)"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1373
+#: ../ui/ui-drv/win32/ui_win32.c:1375
 msgid "About"
 msgstr "Despre"
 
