@@ -48,7 +48,7 @@ install:
 
 	@INSTALL@ -m 444 catalogs/*.cat catalogs/README $(DESTDIR)$(datadir)/XaoS/catalogs
 	@INSTALL@ -m 444 help/xaos.hlp $(DESTDIR)$(datadir)/XaoS/help
-	@INSTALL@ -m 444 doc/README doc/README.bugs doc/compilers.txt doc/AUTHORS doc/PROBLEMS $(DESTDIR)$(datadir)/XaoS/doc
+	@INSTALL@ -m 444 AUTHORS NEWS COPYING TODO INSTALL ChangeLog ChangeLog.old $(DESTDIR)$(datadir)/XaoS/doc
 	@INSTALL@ -m 444 doc/xaos.6 $(DESTDIR)$(mandir)/man6
 	-@STICKY@
 	test -z "$(infodir)" || @INSTALL@ -d "$(DESTDIR)$(infodir)"

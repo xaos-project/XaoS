@@ -3281,7 +3281,7 @@ New fractal types, bailout, many fixes
 User formula evaluation library
 @item Giorgio Marazzi (gmarazzi@@vtr.net)
 Improvements and fixes for espanhol.cat
-@item Thomas Marsh
+@item Thomas Marsh (thomas.marsh2@@gmail.com)
 First zoomer, formulae, planes, X11 driver, inversions, many ideas
 @item Dominic Mazzoni (dmazzoni@@cs.cmu.edu)
 Macintosh port (version 2.0)
