@@ -1,9 +1,11 @@
 XaoS - a real time fractal zoomer and morpher
+=============================================
 
 Original authors of XaoS are Jan Hubicka (jh@ucw.cz) and Thomas  Marsh
 (tmarsh@tivoli.com). Many other people contributed to the project as
 well. Their list is too long to be included here. See AUTHORS file in
 the XaoS distribution.
+
 
 INTRODUCTION
 ------------
@@ -18,6 +20,7 @@ Mandelbrot viewer by Thomas later modified by Jan to support high
 frame-rate zooming. Other additions were later made including autopilot 
 (for those of you without driver licenses), palette changing, PNG
 saving, and fractal inversion.
+
 
 SUPPORTED PLATFORMS
 -------------------
@@ -44,6 +47,7 @@ optimizations. All supported platforms use a common configure script for
 setting up the needed Makefiles. Please read the INSTALL file for
 details.
 
+
 FEATURES
 --------
 
@@ -66,10 +70,24 @@ FEATURES
 
 ...and many more!  
 
+
 HOMEPAGE
 --------
 
 http://xaos.sf.net
+
+
+HOW TO REPORT BUGS
+==================
+
+Please try to reproduce the bug and send a description and output of
+
+  xaos -config
+
+to the developers list (xaos-devel@lists.sourceforge.net).
+
+Also debugger info (backtraces and so forth) is welcome.
+
 
 THANKS TO
 ---------
@@ -83,6 +101,7 @@ THANKS TO
   * Linus Torvalds (for the best kernel)
   * Tim Wegner & Bert Tyler (for Fractint)
   * Darryl House (for making code of Fractint readable)
+
 
 NO THANKS TO
 ------------

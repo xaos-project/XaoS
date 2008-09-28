@@ -1,6 +1,6 @@
 all: doc
 
-doc: xaos.info dvi AUTHORS
+doc: xaos.info dvi ../AUTHORS
 
 xaos.texinfo: xaos.geninfo ../help/xaos.hlp
 	./mktexi
@@ -29,8 +29,8 @@ dvi: xaos.dvi xaosdev.dvi
 	 xaosdev.tps xaosdev.vr xaosdev.vrs xaos.cps xaos.fns xaos.kys \
 	 xaos.pgs xaos.tps xaos.vrs
 
-AUTHORS: xaos.info
-	./mkauthors > AUTHORS
+../AUTHORS: xaos.info
+	./mkauthors > ../AUTHORS
 
 clean:
-	rm -f xaos.info xaos.texinfo xaos.dvi xaosdev.dvi AUTHORS
+	rm -f xaos.info xaos.texinfo xaos.dvi xaosdev.dvi # ../AUTHORS

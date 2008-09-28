@@ -1,194 +1,210 @@
 HOW TO COMPILE AND INSTALL XAOS
--------------------------------
+===============================
 
-Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/doc/INSTALL,v 1.1 2003-03-18 10:08:15 kovzol Exp $
+For end users, this documentation is unnecessary. Compilation is
+interesting for you only if
+
+  * you are a packager of a Linux distribution,
+  * you want to try new features which are not yet included in the
+    available binary packages for your distribution,
+  * you want to try some changes/enhancements on XaoS source code.
+  
+In other cases you are recommended to install a binary version using
+your software installation tool (e.g. synaptic on Ubuntu/Debian
+systems) or downloading a package from http://xaos.sf.net.
 
 
-For Unix/X11:
+For Unix/X11
+============
 
-   To compile XaoS you need optimizing ANSI compatible C compiler and at
-   least one of the following libraries:
+To compile XaoS 4.x you need optimizing ANSI compatible C compiler and 
+the Xlib library.
 
-    o Xlib
-    o SVGAlib
-    o AA-lib 
-    o GGI
+To compile XaoS with image saving code you also need zlib and pnglib
+installed. They are available at:
 
-   To compile XaoS with image saving code you also need zlib and pnglib
-   installed. They are available at:
+  * ftp://ftp.uu.net/graphics/png/src/zlib-0.95.tar.gz
+  * ftp://ftp.uu.net/graphics/png/src/libpng-0.81.tar.gz
 
-   ftp://ftp.uu.net/graphics/png/src/zlib-0.95.tar.gz
-   ftp://ftp.uu.net/graphics/png/src/libpng-0.81.tar.gz
+But, in general, both are available in your Unix version automatically.
 
-   AA-lib is a library alowing high quality ascii-art output from XaoS
-   available at AA-project homepage http://aa-project.sf.net. You need
-   at least version 1.4. (At the time of writing this documentation,
-   1.4rc2 is out and final version of AA-lib is not released yet. 1.4rc2
-   works properly.)
+AA-lib is a library alowing high quality ascii-art output from XaoS
+available at AA-project homepage http://aa-project.sf.net. You need at
+least version 1.4. (At the time of writing this documentation, 1.4rc2 is
+out and final version of AA-lib is not released yet. 1.4rc2 works
+properly.)
 
-   To use internationalization (i18n) you also need GNU gettext
-   (which is automatically available on most Unix systems and also
-   exists on DOS).
+To use internationalization (i18n) you also need GNU gettext.
 
-   XaoS now have a configure script so following should work correctly:
+XaoS now have a configure script so the following should work correctly:
 
-        CFLAGS=(your best size optimizing switches)
-        CFLAGS1=(your best speed optimizing switches)
-	export CFLAGS
+  CFLAGS=(your best size optimizing switches)
+  CFLAGS1=(your best speed optimizing switches)
+  export CFLAGS
 
-	   # Note that these two steps are not required on PC/Linux
-           # and for all gcc compilers XaoS uses quite good switches.
-           # But this is REQUIRED for other compilers, because XaoS
-           # is coded to be a good target for optimizer and NEEDS to
-           # be optimized to work in reasonable speed.
+  # Note that these two steps are not required on PC/Linux
+  # and for all gcc compilers XaoS uses quite good switches.
+  # But this is REQUIRED for other compilers, because XaoS
+  # is coded to be a good target for optimizer and NEEDS to
+  # be optimized to work in reasonable speed.
 
-	./configure [options...usually not required]
-	make
-	make install
+  ./configure [options --- usually not required]
+  make
+  make install
 
-   You may also read compilers.txt, that contain info about various
-   compilers, best optimizing switches and common problems, since XaoS
-   often forces compilers (including gcc) to crash/generate wrong code.
-   
-   For better results:
-   Edit src/include/config/config.autoconf to reflect your system. 
+For better results please edit src/include/config/config.autoconf to
+reflect your system. 
 
-   IMPORTANT NOTE:
-   XaoS can optionally use long double for zooming. It allows
-   deeper zooms with no performance lost on Intel platforms. Some
-   other platforms supports long double too, but it is usually
-   emulated so it is incredibly slow. Configure script by default
-   enables long double just on i?86 and unknown processors.
+To enable experimental SMP support please use:
 
-   If you have processor reported as unknown that is non Intel and
-   XaoS is incredibly slow, please try:
+  --with-pthread=yes
 
-   ./configure -with-long-double=no
-   make clean
-   make
 
-   to recompile XaoS. Please let me know about this problem, so
-   autodetection may be included in future versions of configure
-   script.
+For Win32
+=========
 
-   If you have time to experiment and have some non Intel compatible
-   platform, please try:
+(Edited by Andreas Madritsch, 2002-10-03, 2003-03-04, 2003-03-18; April
+and May 2008.)
 
-   ./configure -with-long-double=yes
-   make clean
-   make
+Features/requirements
+---------------------
 
-   And try whether XaoS still works at same speed (framerate is
-   displayed using l key) and let me know in case that XaoS still works
-   at same higher/bit slower (not 100 times or so) speed, so I your
-   platform can be autodetected in future version of the script. I did
-   unsuccesful tests on following architectures/processors:
+XaoS has fully featured support for Win32 and DirectX API. The Win32
+driver should work on Windows 9x, Windows NT, Windows XP and even on
+Windows 3.1 with win32s in all bit depths supported by Windows. It was
+originally tested only on Windows 95 in 4, 8, 16, 24 and 32 bpp modes.
+XaoS works well in all tested modes except the 16 color mode where it
+uses Windows conversion routines and because they are slow and ugly,
+XaoS is slow and ugly.
 
-   HP425e - Motorola MC68040
-   HP700 - Parisc
-   SGI
-   SUN
+DirectX support is optional, so you don't need DirectX DLL libraries
+installed on your system. The driver supports 8, 16, 24 and 32 bit
+depths in fullscreen mode and 16, 24, 32 bit depths in windowed mode.
+256 colors are not supported in windowed mode because of palette
+mapping problems, so use win32 driver instead. In fullscreen mode press
+'=' to change default resolution.
 
-   But it can differ at various processor types, so I don't say
-   that all SGI's or SUN's do not work with long double.
+Compiling XaoS
+--------------
 
-   Options available:
+To compile XaoS you need Cygwin, MinGW, the DirectX header files, zlib
+and libpng.
 
-     By default XaoS will try to configure and compile following drivers:
+Cygwin can be downloaded from http://www.cygwin.com/. It is recommended
+to install at least all base and devel packages except the mingw-runtime
+package, because MinGW support of Cygwin is incomplete, which causes
+dependencies on cygwin1.dll.
 
-      X11
-      SVGAlib
-      Curses
+MinGW can be downloaded from http://www.mingw.org/. Create a new
+directory, copy the downloaded tar archive into that directory and
+gunzip and untar the archive. Copy all the header files and
+subdirectories contained in the extracted include/ directory to the
+directory usr/include/mingw/ of your Cygwin installation. Copy all the
+libraries and subdirectories in the extracted lib/ directory to the
+directory lib/mingw/ of your cygwin installation. If one of the MinGW
+directories does not exist, you have to create it. If there are already
+files in one of the MinGW directories, that have the same name as files
+you have to copy there, then overwrite these files.
 
-     This may cause some problems. To reduce binary file size and/or
-     solve such problems you may disable driver using:
+The DirectX header files can be downloaded from
+http://www.microsoft.com/downloads/. Extract the downloaded file and
+copy all the header files located in the extracted include/ directory to
+the directory usr/include/mingw/ of your Cygwin installation. If there
+are already files there that have the same name as files, you have to
+copy there, then overwrite them.
 
-      --with-x11-driver=no       to disable X11 driver
-      --with-svga-driver=no      to disable SVGAlib driver
-      --with-curses-driver=no    to disable (N)Curses driver
+Zlib and libpng can be downloaded from http://sourceforge.net/. Simply
+search for libpng. Zlib can be downloaded from the same web page as
+libpng. Gunzip and untar zlib and libpng in the same directory. Rename
+the extracted directories from zlib and libpng to zlib and libpng
+respectively.
 
-     There may be problems with configuring a bit non standard curses
-     library. You may use following options:
+To compile and install zlib, change to the directory zlib/ and type
 
-      --with-sunos-curses        to force SunOS 4.x curses
-      --with-osf1-curses         to force OSF/1 curses
-      --with-vcurses[=incdir]    to force SysV curses
-      --with-ncurses[=base-dir]  to compile with ncurses/locate base dir
-      --with-x                   use the X Window System
+  ./configure --prefix=/usr/local --includedir=/usr/include/mingw
+  --libdir=/lib/mingw
 
-     Also finding X includes can be a problem:
+from the bash shell shipped with Cygwin (the above is one line, don't
+break the line). Edit the just generated makefile and add the compiler
+switch -mno-cygwin to the CFLAGS and LDFLAGS. I also had to remove the
+minigzip testprogram from TEST_OBJS and the target all, because some
+libraries were not found in my Cygwin installation. After saving the
+changes to the makefile, type make in the bash shell. Install zlib by
+typing make install.
 
-      --x-includes=DIR          X include files are in DIR
-      --x-libraries=DIR         X library files are in DIR
+To compile and install libpng, copy the file makefile.cygwin from the
+subdirectory scripts/ of the directory libpng/ to the directory libpng/
+and name it makefile. Edit the just copied and renamed makefile and put
+the line MINGW=1 above the line ifdef MINGW. Uncomment the lines
+#ZLIBLIB=../zlib and #ZLIBINC=../zlib and instead comment the lines
+ZLIBLIB= /usr/lib and ZLIBINC=. It seems to be necessary to make a
+symbolic link named lib in the directory usr/ of your Cygwin
+installation which points to the lib/ directory of the Cygwin
+installation by typing
 
-     For Linux gpm library use:
+  ln -s /usr/lib /lib
 
-      --with-gpm-mouse=base-dir specifies the base gpm directory
+in the bash shell. After saving the changes to the makefile, change to
+the directory libpng/ and type make. Copy the header files png.h and
+pngconf.h located in the directory libpng/ to the directory
+usr/include/mingw/ of your Cygwin installation. Copy the library
+libpng.a also located in the directory libpng/ to the directory
+lib/mingw/ of your cygwin installation.
 
-     To enable experimental SMP support use:
+Now change to the directory XaoS/ and type
 
-      --with-pthread=yes
+  export CPPFLAGS=-I/usr/include/mingw
+  export LDFLAGS=-L/lib/mingw
+  ./configure --with-x11-driver=no --with-dga-driver=no --disable-nls
 
-     note that it is really untested in version 3.0 since I don't have
-     an SMP machine :). (Someone who can lend me some?)
+in the bash shell. The switches --with-x11-driver=no and
+--with-dga-driver=no are needed if you have installed Cygwin with
+XFree86 to prevent the configure script to try to build XaoS for X11.
+The switch --disable-nls is needed because internationalization is not
+yet implemented for the Windows native interface (see more information
+on this later). Type make to build XaoS.
 
-     Threaded version works well with aadriver, partially (w/o console
-     switching) with SVGAlib driver and X11 driver needs patched Xlib
-     for threads. I believe it will be normal soon (when glibc will
-     become more popular).
+If you wish i18n support you have to download gettext from
+http://www.mingw.org/ and libiconv from
+http://www.mingw.org/download.shtml. Copy the header files libintl.h,
+iconv.h and libcharset.h to the directory usr/include/mingw/ of your
+Cygwin installation. Copy the libraries and libtool library files
+charset.alias, libgettextlib.dll.a, libgettextlib.la,
+libgettextsrc.dll.a, libgettextsrc.la, libintl.a, libintl.dll.a,
+libintl.la, libcharset.a, libcharset.dll.a, libcharset.la,
+libiconv.dll.a and libiconv.la to the directory lib/mingw/ of your
+Cygwin installation. To compile XaoS with i18n support you omit the
+switch --disable-nls when executing the configure script.
 
-   Note that XaoS is automatically installed with sticky bit enabled
-   when SVGA driver is compiled, but it is sticky bit safe since it
-   switches to normal privilegies after drivers are initialized.
+If you wish thread support you have to download libpthread from
+ftp://sources.redhat.com/pub/pthreads-win32. Copy the header files
+pthread.h, sched.h and semaphore.h to the directory usr/include/mingw/
+of your Cygwin installation. Copy the library libpthreadGC.a to the
+directory lib/mingw/ of your Cygwin installation and rename it to
+libpthread.a. To compile XaoS with thread support you use the switch
+--with-pthread=yes with the configure script.
 
------------------------------------------------------------------------------
+To install XaoS please type
 
-For Win32:
+  export DESTDIR=<installdir>
 
-   To build XaoS you need the CygWin32 compiler v20 or later (a quite
-   good GCC clone for Windows. See http://sourceware.cygnus.com),
-   DirectX headers hacked for gcc, pnglib and zlib. The build procedure
-   is similar to UNIX. Do:
+in a bash shell, where <installdir> should be the absolute path of the
+folder in which XaoS should be installed. Type make install-win to
+install XaoS.
 
-   sh configure
-   make
+To build the XaoS installer, install XaoS to
+XaoS/src/ui/ui-drv/win32/installer/XaoS. If you compiled XaoS with i18n
+support, copy the libraries libiconv-2.dll and libintl-8.dll to
+XaoS/src/ui/ui-drv/win32/installer/XaoS/bin. Download NSIS from
+http://nsis.sourceforge.net/ and install it. Compile the script XaoS
+Installer.nsi in the directory XaoS/src/ui/ui-drv/win32/installer.
 
-   Everything should be autodetected. If you have installed X11 or GGI
-   libraries, XaoS should build their drivers as well.
-   
-   XaoS compiles on Microsoft Visual Studio as well. Please contact Ray
-   Gardener at Daylon Graphics if you are interested in the compilation
-   process. He offers commercial support and sells a modified version of
-   XaoS for Windows users (the source is free, you have to pay for the
-   compilation).
+XaoS was tested only on Intel platform, but it should work on alpha too.
 
------------------------------------------------------------------------------
 
-For DOS:
+Binary versions
+===============
 
-   You need thd DJGPP GNU compiler, Allegro graphics, zlib and pnglib
-
-   Use:
-
-   build.bat
-	
-   If you get in trouble, please read README2.dos.
-
------------------------------------------------------------------------------
-
-For Mac:
-
-    Read README.mac for more information.
-
------------------------------------------------------------------------------
-
-For plan9:
-
-    XaoS comes with mk scripts because I am unable to write functional
-    mkfile on my reduced system. Start mk and wait..
-
-============================================================================
-
-You may also get a binary distribution.
-For more information browse XaoS homepage (http://sf.net/projects/xaos).
+As mentioned above, you may also get a binary distribution. For more
+information please browse the XaoS homepage
+(http://sf.net/projects/xaos).
