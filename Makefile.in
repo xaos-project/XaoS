@@ -78,7 +78,7 @@ install-win:
 	@INSTALL@ examples/ZsKovacs/*.x[ap]f $(DESTDIR)/examples
 	@INSTALL@ examples/Malczak/*.x[ap]f $(DESTDIR)/examples
 	@INSTALL@ catalogs/*.cat catalogs/README $(DESTDIR)/catalogs
-	@INSTALL@ doc/README doc/README.bugs doc/compilers.txt doc/AUTHORS doc/PROBLEMS $(DESTDIR)/doc
+	@INSTALL@ AUTHORS NEWS COPYING TODO INSTALL ChangeLog ChangeLog.old $(DESTDIR)/doc
 	@if test -f "help/XAOSWIN.HLP"; then          \
 	  @INSTALL@ help/XAOSWIN.HLP $(DESTDIR)/help; \
 	fi
