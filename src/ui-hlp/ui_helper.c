@@ -2195,6 +2195,8 @@ uih_drawcscreen (struct uih_context *uih, void *data)
 #ifdef SFFE_USING
 	extern cmplx C,Z,pZ;
 #endif
+extern struct uih_context *globaluih;
+
 struct uih_context *
 uih_mkcontext (int flags, struct image *image,
 	       int (*passfunc) (struct uih_context *, int, CONST char *,
@@ -2252,12 +2254,17 @@ uih_mkcontext (int flags, struct image *image,
 #ifdef SFFE_USING
   uih->pinit = NULL;
   uih->parser = sffe_alloc();
-  uih->cparser = sffe_alloc();
+ /* uih->cparser = sffe_alloc(); */
   sffe_regvar( &uih->parser, &pZ, 'p');
   sffe_regvar( &uih->parser, &Z, 'z');
   sffe_regvar( &uih->parser, &C, 'c');
-  //sffe_regvar( &uih->cparser, &C, 
+  /* sffe_regvar( &uih->cparser, &C, */
 #endif
+ /* 25.I.2009, Bugfix #2507911, malczak
+  * initilize globaluih here, not in 'ui.c'
+  */
+  globaluih = uih;
+ 
   tl_update_time ();
   tl_reset_timer (uih->maintimer);
   tl_reset_timer (uih->calculatetimer);
@@ -2390,7 +2397,7 @@ uih_freecontext (uih_context * c)
   struct filter *f;
   int i;
 #ifdef SFFE_USING
-   sffe_free(&c->cparser);
+   /* sffe_free(&c->cparser); */
    sffe_free(&c->parser);
     if ( c->pinit ) sffe_free(&c->pinit);
 #endif

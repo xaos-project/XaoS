@@ -1338,6 +1338,9 @@ MAIN_FUNCTION (int argc, char **argv)
 #ifdef STATISTICS
 		 "statistics enabled\n"
 #endif
+#ifdef SFFE_USING
+		 "user formula evaluation\n"
+#endif
 #endif
 		 , XaoS_VERSION, (int) sizeof (FPOINT_TYPE),
 		 (int) sizeof (int), CONFIGFILE);
@@ -1424,9 +1427,10 @@ MAIN_FUNCTION (int argc, char **argv)
 
   driver->print (0, textheight1 * 2, "Initializing fractal engine");
   ui_flush ();
-  globaluih = uih =
-    uih_mkcontext (driver->flags, image, ui_passfunc, ui_message,
-		   ui_updatemenus);
+
+  /* gloabuih initialization moved into uih_mkcontext function : malczak */
+  uih = uih_mkcontext (driver->flags, image, ui_passfunc, ui_message, ui_updatemenus);
+  
   if (driver->gui_driver && driver->gui_driver->setrootmenu)
     driver->gui_driver->setrootmenu (uih, uih->menuroot);
   ui_flush ();
@@ -1619,16 +1623,18 @@ MAIN_FUNCTION (int argc, char **argv)
 
 #ifdef SFFE_USING
  /*SFFE : malczak */
-	if ( sffeform ) err = sffe_parse( &uih->parser, (char*)sffeform ); else
+        if ( uih->parser->expression == NULL )
+            if ( sffeform ) err = sffe_parse( &uih->parser, (char*)sffeform ); else
    		sffe_parse( &uih->parser, "z^2+c");
+		
 	if ( sffeinit )
 	{
 		uih->pinit = sffe_alloc();
 		sffe_regvar( &uih->pinit, &pZ, 'p' );
 		sffe_regvar( &uih->pinit, &C, 'c');
-		if ( sffe_parse( &uih->pinit, (char*)sffeinit )>0 ) sffe_free(&uih->pinit);
-		 
+			if ( sffe_parse( &uih->pinit, (char*)sffeinit )>0 ) sffe_free(&uih->pinit);
 	};
+	
     if (err>0) sffe_parse( &uih->parser, "z^2+c");
  /*SFFE*/
 #endif

@@ -282,8 +282,8 @@ extern "C"
 	
 #ifdef SFFE_USING
     /*User formulas (used in sffe parser) */
-    sffe *cparser;
-    sffe *parser;
+    /*sffe *cparser;  user define c evaluation formula, not used now, not used yet */
+    sffe *parser;   /* fractal formula */
     sffe *pinit;
 #endif
 

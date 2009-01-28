@@ -116,7 +116,7 @@ int sffe_parse(sffe **parser, char *expression);
 /* evaulate function and return evaluation result */
 sfNumber sffe_eval(sffe *const parser);
 /* evaluate without returnig result */
-void sffe_eval2(sffe *const parser);
+//void sffe_eval2(sffe *const parser);
 /* register user function with name 'vname', with 'parcnt' parameters and defined with function pointed by 'funptr'*/
 void* sffe_regfunc(sffe **parser, char *vname, unsigned int parcnt, sffptr funptr);
 /* register single variable 'vptrs' identified by name 'vchars' */

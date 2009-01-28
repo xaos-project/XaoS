@@ -24,16 +24,9 @@
  #include "sffe_cmplx_gsl.h"
 #endif
 
-
-#ifdef SFFE_DLL
-	#define SFFE_EXPORT __declspec(dllexport)
-#else
-	#define SFFE_EXPORT
-#endif
-
-#define sfset(arg,val) \
+#define sfset(arg,val) {\
 	(arg)->value = (sfNumber*)malloc(sizeof(sfNumber));\
-		if ( (arg)->value )  cmplxset( *((arg)->value), (val),0 ) ;
+		if ( (arg)->value )  cmplxset( *((arg)->value), (val),0 ); }
 
 #define sfvar(p,parser,idx) (p)->value = (sfNumber*)((parser)->vars+idx)
 
@@ -75,7 +68,7 @@ void *sffe_const( char* fn, size_t len, void *ptr )
 /************************* custom function */
 
 
-SFFE_EXPORT sffe *sffe_alloc(void)
+sffe *sffe_alloc(void)
 {
  sffe *rp = (sffe*)malloc(sizeof(sffe));
   if ( !rp ) return NULL;
@@ -83,33 +76,45 @@ SFFE_EXPORT sffe *sffe_alloc(void)
  return rp;
 };
 
-SFFE_EXPORT void sffe_free(sffe **parser)
+static void sffe_clear( sffe **parser )
 {
  sffe *p = *parser;
  unsigned int i=0,j;
 	for (;i<p->argCount;i++)
 	{
 		for ( j=0;j<p->varCount;j++ )
-			if ( p->args[i].value==p->varPtrs[j] ) 
+			if ( p->args[i].value==p->varPtrs[j] )
 			j=p->varCount;
-		if ( j==p->varCount ) 
-			if ( p->args[i].value ) 
+		if ( j==p->varCount )
+			if ( p->args[i].value )
 				free( p->args[i].value );
 	};
-  if ( p->userf ) 
-	free( p->userf );
   if ( p->expression )
-        free( p->expression );
-// free(p->statics);
- free(p->args);
- free(p->oprs);
- free(p->varChars);
- free(p->varPtrs);
+    free( p->expression );
+  if ( p->args )
+    free(p->args);
+  if ( p->oprs )
+    free(p->oprs);
+ p->expression = NULL;
+ p->args = NULL;
+ p->oprs = NULL;
+};
+
+void sffe_free(sffe **parser)
+{
+ sffe_clear( parser );
+  if ( (*parser)->userf )
+    free( (*parser)->userf );
+  if ( (*parser)->varChars )
+    free((*parser)->varChars);
+  if ( (*parser)->varPtrs )
+    free((*parser)->varPtrs);
  free(*parser);
  parser = NULL;
 };
 
-SFFE_EXPORT void sffe_eval2(sffe *const parser)
+/* not really used, marked to remove 
+void sffe_eval2(sffe *const parser)
 {
  register sfopr* optro;
  register sfopr* optr = parser->oprs;
@@ -120,9 +125,9 @@ SFFE_EXPORT void sffe_eval2(sffe *const parser)
 		optro->arg->parg = optro->arg-1;
 		optr->arg->parg = optr->f( optr->arg )->parg;
   };
-};
+};*/
 
-SFFE_EXPORT sfNumber sffe_eval(sffe *const parser)
+sfNumber sffe_eval(sffe *const parser)
 {
  register sfopr* optro;
  register sfopr* optr = parser->oprs;
@@ -136,7 +141,7 @@ SFFE_EXPORT sfNumber sffe_eval(sffe *const parser)
  return *(parser->result);
 };
 
-SFFE_EXPORT void* sffe_regvar(sffe **parser, sfNumber *vptrs, char vchars)
+void* sffe_regvar(sffe **parser, sfNumber *vptrs, char vchars)
 {
  unsigned int i = (*parser)->varCount;
  (*parser)->varCount += 1;
@@ -149,7 +154,7 @@ SFFE_EXPORT void* sffe_regvar(sffe **parser, sfNumber *vptrs, char vchars)
  return (void*)((*parser)->varPtrs+i);
 };
 
-SFFE_EXPORT void* sffe_regvars(sffe **parser, unsigned int cN, sfNumber **vptrs, char *vchars)
+void* sffe_regvars(sffe **parser, unsigned int cN, sfNumber **vptrs, char *vchars)
 {
  unsigned int i = (*parser)->varCount;
  (*parser)->varCount += cN;
@@ -165,7 +170,7 @@ SFFE_EXPORT void* sffe_regvars(sffe **parser, unsigned int cN, sfNumber **vptrs,
  return (void*)((*parser)->varPtrs+i);
 };
 
-SFFE_EXPORT sfNumber* sffe_varptr(sffe *const parser, char vchar )
+sfNumber* sffe_varptr(sffe *const parser, char vchar )
 {
  unsigned int i=0;
   while ( i<parser->varCount )
@@ -176,7 +181,7 @@ SFFE_EXPORT sfNumber* sffe_varptr(sffe *const parser, char vchar )
  return NULL;
 };
 
-SFFE_EXPORT sfNumber* sffe_setvar(sffe **parser, sfNumber *vptrs, char vchars)
+sfNumber* sffe_setvar(sffe **parser, sfNumber *vptrs, char vchars)
 {
  unsigned int i=0;
   while ( i<(*parser)->varCount )
@@ -192,7 +197,7 @@ SFFE_EXPORT sfNumber* sffe_setvar(sffe **parser, sfNumber *vptrs, char vchars)
  return NULL;
 };
 
-SFFE_EXPORT void* sffe_regfunc(sffe **parser, char *vname, unsigned int parcnt, sffptr funptr)
+void* sffe_regfunc(sffe **parser, char *vname, unsigned int parcnt, sffptr funptr)
 { 
  sffunction *sff;
  unsigned short i;
@@ -208,18 +213,6 @@ SFFE_EXPORT void* sffe_regfunc(sffe **parser, char *vname, unsigned int parcnt, 
  sff->fptr = funptr;
  (*parser)->userfCount += 1;
  return (void*)sff;
-};
-
-unsigned char sffe_priority(char *chr) 
-{
- switch ( *chr )
- { 
-  case 'f': return 5; 
-  case '^': return 3; 
-  case '*': case '/': return 2;
-  case '+': case '-':  return 1;
-  default : return 0;
- };
 };
 
 void *sffe_variable(sffe *const p, char *fname, size_t len)
@@ -298,25 +291,24 @@ char sffe_doname(char **str)
    do{*str+=1;}while(isalnum(**str)||**str=='_');  
    if ( strchr("+-*/^~!@#$%&<>?\\:\"|",(int)**str) ) return 1; /*punctator  */
    if ( **str=='(' ) return 2; /* ( - funkcja  */
-   if ( **str=='.' ) return 3; /*error :( bo to oznacza cos w stylu X. COS. PI.*/
+   if ( **str=='.' ) return 3; /*error :( this means something like X. COS. PI.*/
   return 1;
 };
 
-SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
+int sffe_parse(sffe **parser, char *expression)
 {
 /**************var area */
  struct opstack__
  {
 	#ifdef SFFE_DEVEL
-	 char t;		//used only in debug mode to print stack notation on screen
+		char c; /* used in debug build to store operator character */
 	#endif
-	 unsigned char parcnt;  //store number of parameters for functions 
+	 unsigned char t;		/* store priority of the operator 'f' */
 	 sffptr f;
  };
   struct stack__ {	
     struct opstack__	*stck;
     unsigned int   	size;   //number of items on stack
-    unsigned char  	tpro;   //priority of operator on top of stack
     struct stack__	*prev;
   } *stmp, *stack;
  sffunction **fnctbl;
@@ -357,7 +349,7 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 			{\
 				stack->size-=1;\
 				insertfnc(NULL);\
-				printf("%c",stack->stck[stack->size].t);\
+				printf("%c",stack->stck[stack->size].c);\
 				p->oprs[ui1].arg = (sfarg*)arg;\
 				p->oprs[ui1].f = stack->stck[stack->size].f;\
 				ui1 += 1;\
@@ -374,7 +366,16 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 				arg += 1;\
 			};
 #endif
-		
+
+#define priority(chr)\
+ (*chr=='f')?0x60:(\
+	(*chr=='^')?0x40:(\
+		((*chr=='/')||(*chr=='*'))?0x20:(\
+			((*chr=='+')||(*chr=='-'))?0x00:0x80\
+		)\
+	)\
+ )
+
 #ifdef SFFE_DEVEL
  printf("parse - BEGIN\n");
 #endif
@@ -386,19 +387,9 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
  //parser
  p = *parser;
 	/* clear all internal structures */
-		for (ui1=0;ui1<p->argCount;ui1+=1)
-		{
-			for ( ui2=0;ui2<p->varCount;ui2+=1 )
-				if ( p->args[ui1].value==p->varPtrs[ui2] ) 
-					ui2=p->varCount;
-			if ( ui2==p->varCount ) //not found to be var
-				if ( p->args[ui1].value ) 
-					free( p->args[ui1].value );
-		};
-	free(p->args); p->args = NULL;	
-	free(p->oprs); p->oprs = NULL;
-		if ( p->expression ) free( p->expression );	
-	p->expression = NULL;
+            if ( p->expression )
+                sffe_clear( parser );
+ 
  p->oprCount = 0;
  p->argCount = 0;
  p->expression = (char*)malloc(strlen( expression )+1);
@@ -453,7 +444,7 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
   printf("| check (dl.=%d) :|%s|\n",strlen(p->expression),p->expression);
 #endif
  
-/*! PHASE 2 !!!!!!!! tokenize expression, lexical analizis (need optimizations) */
+/*! PHASE 2 !!!!!!!! tokenize expression, lexical analysis (need optimizations) */
   *expcode = '\0';
   ch2 = NULL;
   ui1 = 0;
@@ -513,7 +504,11 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 			p->args = (sfarg*)realloc( p->args, (++p->argCount)*sizeof(sfarg) );
 			  if (!p->args) errset(MEMERROR); 
 			arg = p->args+p->argCount-1;
-			sfset( arg, atof(ch1) );
+				/* 22.I.2009 fix for '-n'/'+n', which was parsed as 0*n */
+				if ( (ech-ch1)==1 && ( *ch1=='-' ) )
+					sfset( arg, -1 )	
+				else	
+					sfset( arg, atof(ch1) );
 			/*epx*/
 			opr = 'n';
 		} else
@@ -560,7 +555,7 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 					fnctbl[p->oprCount-1] = fnctbl[p->oprCount-2];
 					fnctbl[p->oprCount-2] = (sffunction*)ch1;
 				  } else fnctbl[p->oprCount-1] = (sffunction*)ch1;
-				ch1 = (char*)(int)opr; /* trick! ]:-> */
+				ch1 = (char*)(int)opr; /* ]:-> */
 				code('*');
 				opr = (char)(int)ch1;
 				ch1 = NULL;
@@ -599,12 +594,9 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 	stack->size = 0; /* 0-stack is empty, but ready to write (one slot allocated), >0-number of element on stack */
 	stack->stck = (struct opstack__*)malloc(sizeof(struct opstack__));
 	stack->prev = NULL;
-	stack->tpro = 0;
 	memset(stack->stck,0,sizeof(struct opstack__));
     ui1 = 0; /* used in defines */
     f = fnctbl;
-    ch2 = (char*)malloc(1); /* store number of parameters here */
-    *ch2 = 0;
 	
 	while( *ech && !err )
 	{			
@@ -618,35 +610,30 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 					printf("%c",*ch1); 
 				#endif
 				arg+=1; 
-			} 
+			};
+			 
+		   ch1 = (char*)(int)(priority(ech));
 				/* there is an operator on stack */
 				if ( stack->size )
 				{		 
-				  ch1 = (char*)(int)sffe_priority(ech);
-					/* with higher priority (so must go first), */
-					 if ( (unsigned char)(int)ch1 >= (unsigned char)(stack->tpro&0x0f) )
-					 {
-						stack->tpro = (stack->tpro&0xF0)|((unsigned char)((int)ch1&0x0F));
-						stack->stck = (struct opstack__*)realloc( stack->stck, (stack->size+1)*sizeof(struct opstack__));
-					 }
-					  else /* if not, lower priority operators must wait */
-						 {
-							 while( stack->size )
-								sfpopstack(NULL);
-							stack->size = 0;
-							stack->stck = (struct opstack__*)realloc( stack->stck, sizeof(struct opstack__));
-							stack->tpro = (stack->tpro&0xF0)|((unsigned char)((int)ch1&0x0F));	
-						 };
-				} else /* in case only one operator on stack ? */
-				       /* i dont remember what does why this line is imporatant */
-					stack->tpro = (stack->tpro&0xF0)|(sffe_priority(ech)&0x0F);
+				  /* double casting to get rid of 'cast from pointer to integer of different size' warning 
+				   * remove all operators with higher, or equal priority 
+				   **/
+				  while ( (unsigned char)(int)ch1 <= stack->stck[stack->size-1].t )
+				  {
+					sfpopstack(NULL);
+					stack->stck = (struct opstack__*)realloc( stack->stck, sizeof(struct opstack__)); /* is this reallocation really needed ?!? */
+						if ( stack->size == 0 ) break;
+				  };
+				 stack->stck = (struct opstack__*)realloc( stack->stck, (stack->size+1)*sizeof(struct opstack__));
+				};
+				
+				#ifdef SFFE_DEVEL
+				   stack->stck[stack->size].c = *ech;
+				#endif
 
-			#ifdef SFFE_DEVEL
-				stack->stck[stack->size].t = *ech;
-			#endif
-
-		   stack->stck[stack->size].f = ((sffunction*)(*f))->fptr; /* get function pointer */
-		   stack->stck[stack->size].parcnt = 0; /* for now skip params count */
+		   stack->stck[stack->size].t = (unsigned char)(int)ch1; /* store operator prority */
+ 		   stack->stck[stack->size].f = ((sffunction*)(*f))->fptr; /* get function pointer */
 		   stack->size += 1;
 		   f+=1;
 		   ch1 = NULL;
@@ -654,20 +641,18 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 	/* F  */
 		 case 'f' :
 			stack->stck = (struct opstack__*)realloc( stack->stck, (stack->size+1)*sizeof(struct opstack__));
-			 #ifdef SFFE_DEVEL
-				stack->stck[stack->size].t = *ech;
-			 #endif
-
+				#ifdef SFFE_DEVEL
+				   stack->stck[stack->size].c = 'f';
+				#endif
+				
+			/* mark operator as a function, and store number of parameters (0 - unlimited) */
+			stack->stck[stack->size].t = 0x60 | ( ((sffunction*)(*f))->parcnt & 0x1F ); 
 			stack->stck[stack->size].f = ((sffunction*)(*f))->fptr; /* get function pointer */
-
-			ch2 = realloc( ch2, *ch2+2 );
-			*ch2 += 1;
-			ch2[(int)*ch2] = ((sffunction*)(*f))->parcnt;
 
 			stack->size += 1;
 			f += 1;
 			ch1 = NULL;
-		/* no break - handle bracket after function name */
+		 break;
 	/* (  */
 		 case '(' : 
 			/* store current stack */
@@ -677,33 +662,28 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 			stack->size = 0;
 			stack->stck = (struct opstack__*)malloc(sizeof(struct opstack__));
 				#ifdef SFFE_DEVEL
-					stack->stck[0].t = '_';
+					stack->stck[0].c = '_';
 				#endif			
-			stack->tpro = 0x0;
-			  if ( *ech=='f' ) 
-			  {
-				ech += 1;
-				stack->tpro = 0x80;
-			  };
 			opr = 0;
 		 break;
 	/*  ; */
 		 case ';':
-			if ( ch1 ) 
-			{ 
-				#ifdef SFFE_DEVEL
-					printf("%c",*ch1); 
-				#endif
-				arg+=1; 
-				ch1 = NULL;
-			};
+			/* check if anything whas been read !!! */
+				if ( ch1 ) 
+				{ 
+					#ifdef SFFE_DEVEL
+						printf("%c",*ch1); 
+					#endif
+					arg+=1; 
+					ch1 = NULL;
+				};
 			    	/* if there is something on stack, flush it we need to read next parameter */
 				while( stack->size ) sfpopstack(NULL);			
 			  
 			  /* wrong number of parameters */
- 			  if ( (int)ch2[(int)*ch2] == 1 ) errset(PARCNTERROR)
-
-		      ch2[(int)*ch2] -= 1; 
+			  ch2 = (char*)(stack->prev->stck + stack->prev->size - 1);
+				if ( (((struct opstack__*)ch2)->t&0x1f) == 1 ) errset(PARCNTERROR);
+			  ((struct opstack__*)ch2)->t = 0x60 | ( (((struct opstack__*)ch2)->t&0x1f)-1 );
 		 break;
 	/* )  */
 		 case ')' : 
@@ -715,25 +695,27 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 				arg+=1; 
 			  } 
 			ch1 = NULL;			
-			opr = stack->tpro&0xF0;
-				while( stack->size )
-					sfpopstack(NULL);
+
+			    	/* if there is something on stack, flush it we need to read next parameter */
+				while( stack->size ) sfpopstack(NULL);
+				
 			  if ( !stack->prev ) errset(STACKERROR);
 			stmp = stack;
 			free( stmp->stck );
 			stack = stmp->prev;
 			free(stmp);
 			
-				/* i was reading function */
-				if ( opr ) 
+				/* i was reading function, if so at the top of current
+				*  stack is a function. identified by '*.t==3'  
+				**/
+			ch2 = (char*)(stack->stck + stack->size - 1);
+				if ( (((struct opstack__*)ch2)->t&0xE0) == 0x60 )
 				{	
 				  /* wrong number of parameters */
-  	 			  if ( (int)ch2[(int)*ch2]>1 ) errset(PARCNTERROR);
+				  if ( (((struct opstack__*)ch2)->t&0x1f) > 1 ) errset(PARCNTERROR);
 				    if (!err)
 				    {
-					ch2 = realloc( ch2, ch2[0] );
-					*ch2 -= 1;
-					sfpopstack(NULL);
+					 sfpopstack(NULL);
 						if ( stack->size )
 							stack->stck = (struct opstack__*)realloc( stack->stck, (stack->size)*sizeof(struct opstack__));
 				    };
@@ -744,8 +726,6 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 		};
 	 ech += 1;
 	};
-
-    free(ch2); /* free */
 
 	if ( !err )
 	{
@@ -763,7 +743,7 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 				{
 					stack->size -= 1;
 						#ifdef SFFE_DEVEL
-							printf("%c",stack->stck[stack->size].t);
+							printf("%c",stack->stck[stack->size].c);
 						#endif
 					insertfnc(NULL);				
 					p->oprs[ui1].arg = (sfarg*)arg;
@@ -847,24 +827,11 @@ SFFE_EXPORT int sffe_parse(sffe **parser, char *expression)
 			case NO_FUNCTIONS : sprintf(p->errormsg, "Formula error ! ARE YOU KIDDING ME ?!? : %s",ch1); break;
 		};
    	/* if error -> clean up */
-		for (ui1=0;ui1<p->argCount;ui1+=1)
-		{
-			for ( ui2=0;ui2<p->varCount;ui2+=1 )
-				if ( p->args[ui1].value==p->varPtrs[ui2] ) 
-					ui2=p->varCount;
-			if ( ui2==p->varCount )
-				if ( p->args[ui1].value ) 
-					free( p->args[ui1].value );
-		};
-	free(p->args); p->args = NULL;	
-	free(p->oprs); p->oprs = NULL;
-	p->oprCount = 0;
-	p->argCount = 0;
-		if ( p->expression ) free( p->expression );	
-	p->expression = NULL;
+        sffe_clear( &p );
  };
 
  /*undefine defines*/
+ #undef priority
  #undef sfpopstack
  #undef insertfnc
  #undef code

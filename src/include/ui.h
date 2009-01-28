@@ -120,6 +120,7 @@ extern "C"
   };
 
   struct uih_context *globaluih;
+  
 #ifdef USE_LOCALEPATH
     extern char *localepath;
 #endif
