@@ -1,0 +1,10 @@
+Barnsley1
+=========
+
+This is a formula by Michael Barnsley. It produces very nice crystalline Julia
+sets. See the `tutorial chapter`_.
+
+**Available as**: menu item, command line option
+
+.. _`tutorial chapter`:
+    xaostutor://barnsley.xaf

@@ -1,0 +1,54 @@
+Basic controls
+==============
+
+By default the mouse buttons work in the following way:
+
+left
+
+    zoom in
+
+right
+
+    zoom out
+
+middle
+
+    move fractal in a drag-and-drop fashion
+
+**Note:** Since most Macs only have one button mice, these controls are
+emulated on Mac OS X using modifier keys. See the help section on `Mac OS X`_
+for details.
+
+This behavior can change. If you enable rotation, the first button is used for
+rotating fractals. Also, in fast Julia mode, the first button is used to change
+the seed.
+
+If you don't have a middle button, press both buttons to enable emulation.
+
+After few minutes of zooming you will probably exceed the precision and the
+fractals will get boring. If you are getting strange big rectangles on the
+screen, you probably reached the numeric limit: there is no way to avoid this
+except un-zoom back and choose a different area. It doesn't hurt so much, since
+you have zoomed approximately 64 051 194 700 380 384 times, so there are quite
+a lot of areas to explore. Algorithms with unlimited precision exist, but they
+are still too slow for real-time zooming.
+
+The other possibility is that you have reached the iteration limit. The fractal
+is calculated approximately, and in this case you need to increase number of
+iterations used for approximation (and decrease the speed in the process). This
+is done from the menu or using the arrow keys **Left** and **Right**.
+
+An **Up** and **Down** keys should be used to change zooming speed. Note that
+higher speed costs more and image will be blocky.
+
+This behavior can also change. With palette cycling enabled, **Left** and
+**Right** keys change cycling speed; in continuous rotation they change
+rotation speed.
+
+All other functions are available from the menu, which (in the default
+configuration) are displayed when you move the mouse to the top of the
+screen/window. It is useful to learn the shortcut keys, which are shown in gray
+next to the menu items they trigger.
+
+.. _`mac os x`:
+    xaoshelp://cocoa

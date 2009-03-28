@@ -1,0 +1,22 @@
+Menus, functions and command line parameters
+============================================
+
+All XaoS functions are referenced by a central function registry. The scripting
+language, menus, dialogs and command line options are built from this database.
+This section contains information about all functions available in this
+registry.
+
+`Root menu`_
+
+`Animation root menu`_
+
+`Replay only commands`_
+
+.. _`animation root menu`:
+    xaoshelp://animroot
+
+.. _`root menu`:
+    xaoshelp://root
+
+.. _`replay only commands`:
+    xaoshelp://plc

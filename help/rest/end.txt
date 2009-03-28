@@ -1,0 +1,74 @@
+`Line drawing functions`_
+
+`Animation functions`_
+
+`Timing functions`_
+
+`File`_
+
+`Edit`_
+
+`Fractal`_
+
+`Calculation`_
+
+`Filters`_
+
+`UI`_
+
+`Misc`_
+
+`Help`_
+
+`Horizontal text position`_
+
+`Vertical text position`_
+
+`Formulae`_
+
+`Palette`_
+
+.. _`calculation`:
+    xaoshelp://calc
+
+.. _`filters`:
+    xaoshelp://mfilter
+
+.. _`horizontal text position`:
+    xaoshelp://xtextpos
+
+.. _`edit`:
+    xaoshelp://edit
+
+.. _`misc`:
+    xaoshelp://misc
+
+.. _`palette`:
+    xaoshelp://palettemenu
+
+.. _`animation functions`:
+    xaoshelp://animf
+
+.. _`timing functions`:
+    xaoshelp://time
+
+.. _`ui`:
+    xaoshelp://ui
+
+.. _`file`:
+    xaoshelp://file
+
+.. _`formulae`:
+    xaoshelp://mformula
+
+.. _`vertical text position`:
+    xaoshelp://ytextpos
+
+.. _`fractal`:
+    xaoshelp://fractal
+
+.. _`line drawing functions`:
+    xaoshelp://linemenu
+
+.. _`help`:
+    xaoshelp://helpmenu

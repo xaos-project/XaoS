@@ -1,0 +1,28 @@
+Getting Started
+===============
+
+`Basic controls`_ Learn the basic commands to control XaoS.
+
+`An introduction to fractals`_ Try this animated tutorial if you don't know
+what a fractal is. If you are new to XaoS you should try it too, since it is
+quite a good example of XaoS's features.
+
+`XaoS features overview`_ Watch this tutorial to discover more of XaoS's
+features.
+
+Both the tutorials are divided into chapters and available from help menu, so
+you don't need to watch them all at once (they are about half an hour long).
+
+`XaoS Overview`_ A written introduction to all of XaoS's features.
+
+.. _`basic controls`:
+    xaoshelp://controls
+
+.. _`an introduction to fractals`:
+    xaostutor://fractal.xaf
+
+.. _`xaos overview`:
+    xaoshelp://tutorial
+
+.. _`xaos features overview`:
+    xaostutor://features.xaf

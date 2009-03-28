@@ -1,0 +1,23 @@
+Vertical text position
+======================
+
+Select the vertical position used to display `text`_. It can be placed at the
+top, in the middle or at the bottom of the screen.
+
+`Up`_
+
+`Middle`_
+
+`Bottom`_
+
+.. _`text`:
+    xaoshelp://text
+
+.. _`bottom`:
+    xaoshelp://ytextbottom
+
+.. _`up`:
+    xaoshelp://ytextup
+
+.. _`middle`:
+    xaoshelp://ytextmiddle

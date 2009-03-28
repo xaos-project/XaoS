@@ -1,0 +1,30 @@
+Palette
+=======
+
+This menu contains functions to change the palette the fractal is displayed
+with.
+
+`Default palette`_
+
+`Random palette`_
+
+`Custom palette`_
+
+`Color cycling`_
+
+`Shift palette`_
+
+.. _`custom palette`:
+    xaoshelp://palette
+
+.. _`color cycling`:
+    xaoshelp://cycling
+
+.. _`shift palette`:
+    xaoshelp://shiftpalette
+
+.. _`default palette`:
+    xaoshelp://defpalette
+
+.. _`random palette`:
+    xaoshelp://randompalette

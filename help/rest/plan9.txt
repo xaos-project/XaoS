@@ -1,0 +1,22 @@
+Plan9 driver
+============
+
+Plan9 is a very nice small operating system by the authors of Unix at Bell
+Labs. It is very incompatible with other operating systems; even the C compiler
+and header files are different, but XaoS should work well there (even on the
+limited free demo installation without any POSIX compatibility stuff)
+
+There are a few limitations: the file selector and image saving don't work. You
+can save position files and then later render them on the other OS, or save
+screenshots.
+
+Plan9 terminals also don't provide any way to catch the arrow keys, so you
+can't use them. Use the mouse to navigate in the menus. Also, getting the
+screen resolution is impossible, so use -pixelwidth and -pixelheight instead of
+-screenwidth and -screenheight.
+
+By default XaoS changes the colormap. This will collide with other colorful
+programs like Mortha. You can disable this behavior using -nopalette switch,
+but this will slow down XaoS.
+
+Plan9 driver was written by Jan Hubicka, 1997.

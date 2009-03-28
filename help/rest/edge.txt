@@ -1,0 +1,18 @@
+Edge detection
+==============
+
+This filter is a standard edge detection algorithm; solid areas are filled in
+black. Some fractals look very interesting with this filter (and some areas of
+some fractals just look like noise). This version of the filter produces
+relatively wide lines, so is useful at higher resolutions. The filter `edge
+detection2`_ makes thinner lines, for the low resolution modes.
+
+`More information about filters`_
+
+**Available as**: menu item, command line option
+
+.. _`more information about filters`:
+    xaoshelp://filter
+
+.. _`edge detection2`:
+    xaoshelp://edge2

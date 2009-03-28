@@ -1,0 +1,54 @@
+Misc
+====
+
+Miscellaneous functions.
+
+`Command`_
+
+`Render animation`_
+
+`Clear screen`_
+
+`Display fractal`_
+
+`Display text`_
+
+`Color`_
+
+`Horizontal text position`_
+
+`Vertical text position`_
+
+`Text position`_
+
+`Message`_
+
+.. _`text position`:
+    xaoshelp://textposition
+
+.. _`horizontal text position`:
+    xaoshelp://xtextpos
+
+.. _`color`:
+    xaoshelp://color
+
+.. _`render animation`:
+    xaoshelp://renderanim
+
+.. _`command`:
+    xaoshelp://command
+
+.. _`clear screen`:
+    xaoshelp://clearscreen
+
+.. _`display text`:
+    xaoshelp://text
+
+.. _`vertical text position`:
+    xaoshelp://ytextpos
+
+.. _`message`:
+    xaoshelp://message
+
+.. _`display fractal`:
+    xaoshelp://display

@@ -1,0 +1,42 @@
+Calculation
+===========
+
+This menu contains functions that control calculation parameters such as the
+maximum iteration count and periodicity checking.
+
+`Solid guessing`_
+
+`Dynamic resolution`_
+
+`Periodicity checking`_
+
+`Iterations`_
+
+`Bailout`_
+
+`Fast Julia mode`_
+
+`Dynamic resolution`_
+
+`Rotation`_
+
+.. _`solid guessing`:
+    xaoshelp://range
+
+.. _`fast julia mode`:
+    xaoshelp://fastjulia
+
+.. _`periodicity checking`:
+    xaoshelp://periodicity
+
+.. _`dynamic resolution`:
+    xaoshelp://dynamic
+
+.. _`bailout`:
+    xaoshelp://bailout
+
+.. _`iterations`:
+    xaoshelp://maxiter
+
+.. _`rotation`:
+    xaoshelp://rotate

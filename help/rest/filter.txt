@@ -1,0 +1,82 @@
+Filter command
+==============
+
+**Syntax**:(filter keyword bool)
+
+This command is used to enable or disable `filters`_. The **keyword** specifies
+the filter to change, and should be one of the following:
+
+'edge
+
+    `Edge detection`_
+
+'edge2
+
+    `Edge detection2`_
+
+'starfield
+
+    `Starfield`_
+
+'stereogram
+
+    `Random dot stereogram`_
+
+'interlace
+
+    `Interlace filter`_
+
+'blur
+
+    `Motion blur`_
+
+'emboss
+
+    `Emboss`_
+
+'palette
+
+    `Palette emulator`_
+
+'anti
+
+    `Antialiasing`_
+
+'truecolor
+
+    `Truecolor`_
+
+**Available as**: command
+
+.. _`edge detection2`:
+    xaoshelp://edge2
+
+.. _`edge detection`:
+    xaoshelp://edge
+
+.. _`palette emulator`:
+    xaoshelp://palette
+
+.. _`motion blur`:
+    xaoshelp://blur
+
+.. _`antialiasing`:
+    xaoshelp://anti
+
+.. _`truecolor`:
+    xaoshelp://truecolor
+
+.. _`random dot stereogram`:
+    xaoshelp://stereogram
+
+.. _`filters`:
+    xaoshelp://mfilter
+
+.. _`emboss`:
+    xaoshelp://emboss
+
+.. _`starfield`:
+    xaoshelp://starfield
+
+.. _`interlace filter`:
+    xaoshelp://interlace

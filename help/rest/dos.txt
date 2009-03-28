@@ -1,0 +1,54 @@
+DOS driver
+==========
+
+This is a fully featured driver for DJGPP and allegro. It supports many VGA
+modes, VESA 1.0--3.0, VBE/AF, S3 and some other cards.
+
+The following problems may occur:
+
+Some DPMI servers may cause problems
+
+    Some DPMI servers like the one from Novell/Dr/Open DOS are buggy. Use clean
+    DOS instead and XaoS will automatically start cwsdpmi. Under Open Dr DOS
+    use dpmi off at command line to disable it.
+
+Higher resolutions don't work
+
+    If your videocard has enough memory for the selected resolution, you most
+    probably have an unsupported videocard. Please use a VESA BIOS extension on
+    this videocard. (See the note about VESA at the end of this section.)
+
+XaoS needs a coprocessor
+
+    I don't distribute a coprocessor library linked into XaoS because it is too
+    slow for a real-time zoomer. Coprocessor emulation will not help, because
+    xaos works in protected mode.
+
+XaoS needs mouse driver to be usable
+
+XaoS works slowly in higher resolution
+
+    This could also be caused by Allegro's slow driver or your videocard's VESA
+    BIOS. You could try some other VESA BIOS extension instead. Look at the
+    http://www.talula.demon.co.uk for the FreeBE project or Scitech Display
+    Doctor package. (See the note about VESA at the end of this section.)
+
+VESA
+----
+
+VESA is a standard for using higher resolutions in DOS. Many videocards have
+VESA support in the BIOS so you don't need any additional software, while
+others need support from a special program. Also some VESA BIOS implementations
+are buggy or suboptimal; there are 3 different versions, version 1.0 is many
+times slower than 2.0, which has support for protected mode and linear
+framebuffers. So if you have problems with higher resolutions, or some graphics
+modes are not available (like 320x200 truecolor), you might try some software
+package which emulates VESA.
+
+The most famous VESA emulating program is Scitech Display Doctor. It has
+support for many videocards and is quite reliable. It's disadvantage is that it
+is shareware and works for only 30 days. You might also look on ftp.simtel.net,
+where there are many VESA emulation packages such as s3vbe or the new FreeBe
+project at http://www.talula.demon.co.uk
+
+DOS driver was written by Jan Hubicka, 1997.

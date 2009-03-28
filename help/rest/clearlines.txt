@@ -1,0 +1,12 @@
+Clear all lines
+===============
+
+**Syntax**:(clearlines)
+
+Clear all displayed lines. Lines can also be cleared using the clearscreen or
+display commands available from the `Misc menu`_.
+
+**Available as**: command
+
+.. _`misc menu`:
+    xaoshelp://misc

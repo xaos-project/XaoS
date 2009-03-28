@@ -1,0 +1,9 @@
+Redo
+====
+
+Redo last undone operation. See `undo`_.
+
+**Available as**: menu item
+
+.. _`undo`:
+    xaoshelp://undo

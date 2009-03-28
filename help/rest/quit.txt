@@ -1,0 +1,8 @@
+Quit
+====
+
+**Syntax**:(quit)
+
+Quit XaoS.
+
+**Available as**: menu item, command line option, command

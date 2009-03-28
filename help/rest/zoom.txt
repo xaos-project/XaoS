@@ -1,0 +1,32 @@
+Zooming functions
+=================
+
+The functions for zooming/unzooming were created mainly for recording
+animations. In manually created animation files, it is easier to use
+`morphview`_.
+
+**Syntax**:(zoomcenter complex) This function sets the center to zoom in on.
+The center is given as a position in fractal coordinates.
+
+**Available as**: command
+
+**Syntax**:(zoom) Start zooming to the area specified by zoomcenter.
+
+The speed of zooming should be controlled by the function `speed`_ or in a more
+exact way by maxstep and speedup.
+
+**Syntax**:(unzoom)
+
+Start unzooming from the area specified by zoomcenter.
+
+**Available as**: command
+
+**Syntax**:(stop) Stop zooming or unzooming.
+
+**Available as**: command
+
+.. _`speed`:
+    xaoshelp://speed
+
+.. _`morphview`:
+    xaoshelp://morphview

@@ -1,0 +1,11 @@
+Usleep
+======
+
+**Syntax**:(usleep integer)
+
+This function waits for a given amount of time (in usec) before processing the
+next command. The screen is recalculated and displayed at the beginning of
+usleep if necessary necessary. The remaining time is spent in waiting or
+performing animation.
+
+**Available as**: command

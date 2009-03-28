@@ -1,0 +1,83 @@
+Outside coloring mode
+=====================
+
+**Syntax**:(outcoloring integer)
+
+Outcoloring modes are similar to `incoloring modes`_, but indicate how to
+display the areas outside the set instead. As with incoloring modes, the value
+of the latest orbit can be used to determine the color of each pixel, but the
+default is to use the number of iterations needed for the value at that point
+to become recognisably divergent as the color.
+
+The `tutorial on outcoloring`_ has more information and examples.
+
+The cryptic names of the modes are mathematical formulae, where **iter** means
+the number of iterations required for the value to become recognisably
+divergent, **real** means the real part of the latest orbit, and **imag** means
+the imaginary part. **binary decomposition** uses a different color when the
+imaginary part of the orbit is lower than zero, and **smooth** attempts to
+remove stripes and discontinuities. Also, `truecolor`_ outcoloring modes are
+available, that display one value in each of the red, blue and green color
+planes (or, for some modes, in each of the hue, saturation and value planes).
+
+In the scripting language, the outcoloring mode is specified by one of the
+following integers:
+
+0
+
+    iter (default)
+
+1
+
+    iter+real
+
+2
+
+    iter+imag
+
+3
+
+    iter+real/imag
+
+4
+
+    iter+real+imag+real/imag
+
+5
+
+    binary decomposition
+
+6
+
+    biomorphs
+
+7
+
+    potential
+
+8
+
+    color decomposition
+
+9
+
+    smooth
+
+10
+
+    True-color outcoloring mode. To set exact parameters for truecolor coloring
+    use `outtcoloring`_.
+
+**Available as**: command line option, command
+
+.. _`tutorial on outcoloring`:
+    xaostutor://outcolor.xaf
+
+.. _`truecolor`:
+    xaoshelp://tcolor
+
+.. _`incoloring modes`:
+    xaoshelp://incoloring
+
+.. _`outtcoloring`:
+    xaoshelp://tcolor

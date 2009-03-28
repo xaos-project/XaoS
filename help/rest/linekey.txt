@@ -1,0 +1,8 @@
+Set line key
+============
+
+**Syntax**:(linekey integer)
+
+Set current line key.
+
+**Available as**: command

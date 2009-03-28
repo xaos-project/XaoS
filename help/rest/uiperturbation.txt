@@ -1,0 +1,34 @@
+Perturbation
+============
+
+Perturbation is a simple trick which changes the point at which orbits start.
+Traditionally zero is used, but other values can generate interesting results
+too.
+
+On enabling this function from the menu, you will be asked for a complex number
+specifying the perturbation. It is a toggle; selecting it again resets the
+perturbation to zero without prompting.
+
+It can be used to specify a complex number representing a point on the screen.
+If you hit the B key instead of using the menu, the current mouse position is
+used. This too is a toggle, so B again will disable perturbation by setting it
+to zero.
+
+This function only has an effect for certain formulae (like the `Mandelbrot
+set`_) and only then in `Mandelbrot mode`_.
+
+**Available as**: menu item
+
+**Syntax**:(perturbation complex)
+
+This is the scripting-language variation of the perturbation function. Instead
+of toggling, you always specify the perturbation to use. Use 0 0 to disable
+perturbation.
+
+**Available as**: command line option, command
+
+.. _`mandelbrot mode`:
+    xaoshelp://uimandelbrot
+
+.. _`mandelbrot set`:
+    xaoshelp://mandel

@@ -1,0 +1,6 @@
+Replay animation
+================
+
+Replay a XaoS animation file (.xaf).
+
+**Available as**: menu item, command line option

@@ -1,0 +1,9 @@
+Load random example
+===================
+
+**Syntax**:(loadexample)
+
+Choose random .xpf file from the examples directory and load it. You might use
+it as the starting point for next exploration.
+
+**Available as**: menu item, command line option, command

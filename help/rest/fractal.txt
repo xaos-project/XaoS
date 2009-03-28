@@ -1,0 +1,60 @@
+Fractal
+=======
+
+This menu contains all functions related to fractal parameters and display; you
+can change things like the formula used, coloring modes, seeds and much else.
+
+`Formula`_
+
+`formulae`_
+
+`Incoloring mode`_
+
+`Outcoloring mode`_
+
+`Plane`_
+
+`Palette`_
+
+`Mandelbrot mode`_
+
+`Perturbation`_
+
+`View`_
+
+`Reset to defaults`_
+
+`True-color coloring modes`_
+
+.. _`incoloring mode`:
+    xaoshelp://incoloring
+
+.. _`outcoloring mode`:
+    xaoshelp://outcoloring
+
+.. _`palette`:
+    xaoshelp://palettemenu
+
+.. _`perturbation`:
+    xaoshelp://uiperturbation
+
+.. _`reset to defaults`:
+    xaoshelp://initstate
+
+.. _`mandelbrot mode`:
+    xaoshelp://uimandelbrot
+
+.. _`plane`:
+    xaoshelp://plane
+
+.. _`formulae`:
+    xaoshelp://mformula
+
+.. _`formula`:
+    xaoshelp://formula
+
+.. _`true-color coloring modes`:
+    xaoshelp://tcolor
+
+.. _`view`:
+    xaoshelp://uiview

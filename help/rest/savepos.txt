@@ -1,0 +1,13 @@
+Save XaoS position file
+=======================
+
+**Syntax**:(savepos file)
+
+Save current state to a XaoS position file (*.xpf). This file is
+human-readable, and can easily be improved by hand after saving, or used as a
+base for animations. See the `format description`_ for more information.
+
+**Available as**: menu item, command line option, command
+
+.. _`format description`:
+    xaoshelp://format

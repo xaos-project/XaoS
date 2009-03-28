@@ -1,0 +1,6 @@
+Stop replay
+===========
+
+Terminate animation replay.
+
+**Available as**: menu item

@@ -1,0 +1,65 @@
+Filters
+=======
+
+Filters are a post-calculation effect applied to the resulting image. They can
+do things like motion blurring, edge detection, emulation of palettes or
+truecolor on displays that can't handle them, and such things. There is a
+`tutorial chapter`_ about them.
+
+`Filter command`_
+
+`Edge detection`_
+
+`Edge detection2`_
+
+`Starfield`_
+
+`Random dot stereogram`_
+
+`Interlace filter`_
+
+`Motion blur`_
+
+`Emboss`_
+
+`Palette emulator`_
+
+`Antialiasing`_
+
+`Truecolor emulator`_
+
+.. _`edge detection2`:
+    xaoshelp://edge2
+
+.. _`edge detection`:
+    xaoshelp://edge
+
+.. _`motion blur`:
+    xaoshelp://blur
+
+.. _`antialiasing`:
+    xaoshelp://anti
+
+.. _`starfield`:
+    xaoshelp://starfield
+
+.. _`random dot stereogram`:
+    xaoshelp://stereogram
+
+.. _`filter command`:
+    xaoshelp://filter
+
+.. _`truecolor emulator`:
+    xaoshelp://truecolor
+
+.. _`palette emulator`:
+    xaoshelp://palettef
+
+.. _`emboss`:
+    xaoshelp://emboss
+
+.. _`tutorial chapter`:
+    xaostutor://filter.xaf
+
+.. _`interlace filter`:
+    xaoshelp://interlace

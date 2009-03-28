@@ -1,0 +1,24 @@
+Edit
+====
+
+A fairly ordinary Edit menu.
+
+`Undo`_
+
+`Redo`_
+
+`Copy`_
+
+`Paste`_
+
+.. _`paste`:
+    xaoshelp://paste
+
+.. _`copy`:
+    xaoshelp://copy
+
+.. _`redo`:
+    xaoshelp://redo
+
+.. _`undo`:
+    xaoshelp://undo

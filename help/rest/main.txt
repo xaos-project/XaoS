@@ -1,0 +1,60 @@
+XaoS
+====
+
+Welcome to XaoS - a real-time fractal zoomer.
+
+`About XaoS`_
+
+    Learn who's behind XaoS and how you can help.
+
+`Getting started`_
+
+    Start here to learn how to use XaoS's basic features.
+
+`Getting support`_
+
+    How to report problems and get help from the XaoS community.
+
+`User formulas`_
+
+    Learn how to render your own formulas in XaoS.
+
+`Encoding videos`_
+
+    Learn how to create videos from your XaoS animations.
+
+`Platform-specific documentation`_
+
+    XaoS runs on many platforms. Read instructions specific to yours.
+
+`XaoS's file format`_
+
+    Learn how to tweak your saved fractals and animations.
+
+`Menus, commands and parameter index`_
+
+    An in-depth discussion of all of XaoS's commands.
+
+.. _`about xaos`:
+    xaoshelp://about
+
+.. _`getting started`:
+    xaoshelp://start
+
+.. _`getting support`:
+    xaoshelp://support
+
+.. _`encoding videos`:
+    xaoshelp://video
+
+.. _`xaos's file format`:
+    xaoshelp://format
+
+.. _`platform-specific documentation`:
+    xaoshelp://drivers
+
+.. _`menus, commands and parameter index`:
+    xaoshelp://menus
+
+.. _`user formulas`:
+    xaoshelp://sffe

@@ -1,0 +1,13 @@
+Interlace filter
+================
+
+The interlace filter halves the horizontal resolution, and in each frame
+alternates between drawing only the even and only the odd lines. This speeds up
+the calculation, and in higher resolutions produces a motion-blur-like effect.
+
+`More information about filters`_
+
+**Available as**: menu item, command line option
+
+.. _`more information about filters`:
+    xaoshelp://filter

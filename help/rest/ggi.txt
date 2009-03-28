@@ -1,0 +1,12 @@
+GGI driver
+==========
+
+GGI stands for General Graphics Interface. Part of this project is to develop
+libggi, a portable graphics library, and XaoS's GGI driver uses that. It is
+experimental, since the API of libggi is not stabilized yet. There are some
+problems with keyboard handling--the shift key doesn't work yet.
+
+Everything else might work well, but there are no guarantees. It is alpha
+quality software.
+
+GGI driver was written by Jan Hubicka, 1998.

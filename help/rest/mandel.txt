@@ -1,0 +1,10 @@
+Mandelbrot
+==========
+
+The Mandelbrot set is the most famous escape time fractal ever. It has the
+simple formula z=z^2+c. See the `tutorial chapter`_.
+
+**Available as**: menu item, command line option
+
+.. _`tutorial chapter`:
+    xaostutor://mset.xaf

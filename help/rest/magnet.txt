@@ -1,0 +1,11 @@
+Magnet
+======
+
+This is a formula that comes from theoretical physics. It is derived from the
+study of theoretical lattices in the context of magnetic renormalization
+transformations. See the `tutorial chapter`_.
+
+**Available as**: menu item, command line option
+
+.. _`tutorial chapter`:
+    xaostutor://phoenix.xaf

@@ -1,0 +1,64 @@
+Line drawing functions
+======================
+
+XaoS has support for drawing lines. These functions are available only in
+animations and could be used to show some parts of fractals or draw simple
+diagrams. See the tutorial "`Introduction to fractals`_" for examples of this
+feature.
+
+Lines can be drawn in **screen** coordinates, where 0,0 is the top left corner
+and 1,1 is bottom right, **scaled** coordinates, which are similar, but scaled
+to keep 0,0--1,1 rectangular, or **Fractal** coordinates, to draw a line at an
+exact position on the screen.
+
+The color of the line should be specified by the `color`_ command. You might
+draw an arbitrary number of lines and, later, morph them. Each line is
+identified by a unique numeric key; the current key can be set using linekey.
+Commands for changing lines operate on the line with the current key. (Lines
+drawn in sequence have consecutive numbers.)
+
+For example:
+
+(color 'red) (line 'scaled 0.3 0.5 0.7 0.5) (line 'scaled 0.3 0.5 0.7 0.5)
+(line 'scaled 0.3 0.5 0.3 0.5) (line 'scaled 0.7 0.5 0.7 0.5) (linekey 0)
+(morphline 'scaled 0.3 0.3 0.7 0.3) (morphline 'scaled 0.3 0.7 0.7 0.7)
+(morphline 'scaled 0.3 0.3 0.3 0.7) (morphline 'scaled 0.7 0.3 0.7 0.7) (usleep
+1000000)
+
+Creates line morphing to rectangle.
+
+`Draw line`_
+
+`Morph line`_
+
+`Morph last line`_
+
+`Set line key`_
+
+`Clear line`_
+
+`Clear all lines`_
+
+.. _`color`:
+    xaoshelp://color
+
+.. _`morph line`:
+    xaoshelp://morphline
+
+.. _`set line key`:
+    xaoshelp://linekey
+
+.. _`clear line`:
+    xaoshelp://clearline
+
+.. _`clear all lines`:
+    xaoshelp://clearlines
+
+.. _`introduction to fractals`:
+    xaostutor://intro.xaf
+
+.. _`draw line`:
+    xaoshelp://line
+
+.. _`morph last line`:
+    xaoshelp://morphlastline

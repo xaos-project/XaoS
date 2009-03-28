@@ -1,0 +1,9 @@
+Color
+=====
+
+**Syntax**:(color keyword)
+
+Change text and line color. **keyword** should be one of 'white, 'black and
+'red.
+
+**Available as**: menu item, command line option, command

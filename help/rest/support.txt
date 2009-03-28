@@ -1,0 +1,102 @@
+Getting Support
+===============
+
+XaoS is a community-supported free software project. There are many ways to get
+help, all of which are explained below.
+
+Home Page
+---------
+
+The XaoS homepage is http://xaos.sf.net. Check here for the latest news and
+information about XaoS and to download the latest versions.
+
+Discussion Forums
+-----------------
+
+XaoS has two discussion forums hosted on SourceForge. You can read them freely,
+but in order to post, you must to register for a free SourceForge account.
+
+Help
+
+    Provides a place for you to ask for help using XaoS. Other XaoS users
+    and/or the XaoS developers will answer your questions.
+
+    http://sourceforge.net/forum/forum.php?forum_id=17768
+
+Open Discussion
+
+    Provides a place to discuss anything related to XaoS or fractals. You can
+    share tips, your own fractal creations, or any other fractal-related ideas
+    with other XaoS users.
+
+    http://sourceforge.net/forum/forum.php?forum_id=17767
+
+We welcome you to join these forums and become involved in the XaoS community.
+
+Mailing Lists
+-------------
+
+XaoS currently has three mailing lists hosted on SourceForge. Unfortunately,
+there is currently very little traffic on any of them. Hopefully in the future,
+we can get more XaoS users and developers involved in the mailing lists. The
+lists are as follows:
+
+xaos-announce@lists.sourceforge.net
+
+    Low volume list that is used only to announce new releases.
+
+    Subscribe: http://lists.sourceforge.net/mailman/listinfo/xaos-announce
+    Archive:
+    http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-announce
+
+xaos-devel@lists.sourceforge.net
+
+    Developer mailing list, where the developers coordinate and discuss XaoS
+    development.
+
+    Subscribe: http://lists.sourceforge.net/mailman/listinfo/xaos-devel
+    Archive: http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-devel
+
+xaos-discuss@lists.sourceforge.net
+
+    General discussion list is for XaoS users to share tips and ideas about
+    XaoS.
+
+    Subscribe: http://lists.sourceforge.net/mailman/listinfo/xaos-discuss
+    Archive:
+    http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-discuss
+
+Please feel free to join any or all of these mailing lists and share your ideas
+with the developers and other XaoS users.
+
+Bug Reports
+-----------
+
+If you think you have found a bug in XaoS, please report it. The developers
+will do their best to resolve the bug in a timely manner.
+
+Bug Tracker: http://sourceforge.net/tracker/?atid=105771&group_id=5771
+
+Please don't submit duplicate bugs. Browse the existing ones first to make sure
+nobody has already reported it. You may add additional information about a bug
+by entering a comment on an existing bug.
+
+If you are not sure if something is a bug, please open a support request. The
+developers will try to answer your question and can convert your support
+request to a bug if necessary.
+
+Support Requests: http://sourceforge.net/tracker/?atid=205771&group_id=5771
+
+Feature Requests
+----------------
+
+If you have an idea for a great new feature you'd like to see added to XaoS,
+please let us know about it. You can submit a feature request via SourceForge,
+and the XaoS developers will do their best to implement your request in a
+future version.
+
+Feature Requests: http://sourceforge.net/tracker/?atid=355771&group_id=5771
+
+Please don't submit duplicate feature requests. Browse the existing ones first
+to make sure nobody has already requested the feature your want. You may add
+your vote for a feature by adding a comment to the existing request.

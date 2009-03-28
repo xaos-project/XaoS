@@ -1,0 +1,37 @@
+Smooth Morphing
+===============
+
+**Syntax**:(morphview keystring starttime endtime) This function lets you
+smoothly start and stop morphing. Specify starttime and stoptime as nonzero,
+and morphing will speed up and slow down for that number of usecs.
+
+The keystring is used to select what morphing you want to control. It is one of
+the following:
+
+'view
+
+    control `morphview`_
+
+'angle
+
+    control `morphangle`_
+
+'julia
+
+    control `morphjulia`_
+
+'line
+
+    control `morphline`_
+
+.. _`morphline`:
+    xaoshelp://morphline
+
+.. _`morphview`:
+    xaoshelp://morphview
+
+.. _`morphangle`:
+    xaoshelp://morphangle
+
+.. _`morphjulia`:
+    xaoshelp://morphjulia

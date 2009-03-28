@@ -1,0 +1,8 @@
+Interrupt
+=========
+
+**Syntax**:(interrupt)
+
+Interrupt current calculation.
+
+**Available as**: menu item, command line option, command

@@ -1,0 +1,25 @@
+Replay only commands
+====================
+
+Some commands, such as timing primitives or animation functions, are available
+only in animation files.
+
+`Line drawing functions`_
+
+`Animation functions`_
+
+`Timing functions`_
+
+`Include file`_
+
+.. _`timing functions`:
+    xaoshelp://time
+
+.. _`include file`:
+    xaoshelp://load
+
+.. _`line drawing functions`:
+    xaoshelp://linemenu
+
+.. _`animation functions`:
+    xaoshelp://animf

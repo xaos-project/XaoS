@@ -1,0 +1,55 @@
+formulae
+========
+
+Each escape time fractal has its own formula. XaoS supports the following
+formulae:
+
+`Mandelbrot`_
+
+`Mandelbrot^3`_
+
+`Mandelbrot^4`_
+
+`Mandelbrot^5`_
+
+`Mandelbrot^6`_
+
+`Octal`_
+
+`Newton`_
+
+`Barnsley1`_
+
+`Phoenix`_
+
+`Magnet`_
+
+.. _`barnsley1`:
+    xaoshelp://barnsley
+
+.. _`phoenix`:
+    xaoshelp://phoenix
+
+.. _`newton`:
+    xaoshelp://newton
+
+.. _`mandelbrot`:
+    xaoshelp://mandel
+
+.. _`magnet`:
+    xaoshelp://magnet
+
+.. _`octal`:
+    xaoshelp://octal
+
+.. _`mandelbrot^3`:
+    xaoshelp://mandel3
+
+.. _`mandelbrot^4`:
+    xaoshelp://mandel4
+
+.. _`mandelbrot^5`:
+    xaoshelp://mandel5
+
+.. _`mandelbrot^6`:
+    xaoshelp://mandel6

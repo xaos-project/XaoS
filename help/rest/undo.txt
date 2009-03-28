@@ -1,0 +1,8 @@
+Undo
+====
+
+Undo last operation. `Last operation' is quite hard to define in XaoS (where
+changes are continuous), so it might be surprising. I hope it will do what you
+want.
+
+**Available as**: menu item

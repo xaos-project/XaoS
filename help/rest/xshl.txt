@@ -1,0 +1,73 @@
+xshl
+====
+
+**Xshl** stands for **XaoS simple hypertext language**. It uses similar tags to
+HTML. It is simpler and more restrictive in order to make it easy to parse
+using various scripts. In C code you can use the library present in
+src/util/xshl.c to parse it.
+
+The following tags are supported:
+
+head
+
+    make headings (should be at the beginning of the page, at least)
+
+emph
+
+    emphasize
+
+tt
+
+    Use non proportional font
+
+br
+
+    Break line
+
+p
+
+    Next paragraph
+
+dl
+
+    Definition list
+
+dt
+
+    Definition tag (should be used only inside a definition list)
+
+dd
+
+    Definition description (should be used only inside a definition list)
+
+center
+
+    align to center
+
+right
+
+    align to right
+
+red
+
+    change color to red (should not be used in help files)
+
+black
+
+    change color to black (should not be used in help files)
+
+white
+
+    change color to white (should not be used in help files)
+
+a name
+
+    link to other help page
+
+tutor name
+
+    activate tutorial
+
+notex
+
+    Ignore this in texinfo manuals

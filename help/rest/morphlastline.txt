@@ -1,0 +1,17 @@
+Morph last line
+---------------
+
+**Syntax**:(morphlastline keyword complex complex)
+
+This function has the same functionality as `morphline`_, but it doesn't
+increase the line key, and touches the line with the previous key. This is
+useful when you want to move a just-drawn line--you don't need to set
+`linekey`_ back.
+
+**Available as**: command
+
+.. _`linekey`:
+    xaoshelp://linekey
+
+.. _`morphline`:
+    xaoshelp://morphline

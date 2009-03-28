@@ -1,0 +1,75 @@
+BeOS support
+============
+
+XaoS has pretty advanced support for BeOS R4. It works on both PowerPC and
+Intel platforms, supports multithreading, the clipboard, file dragging, has
+native look and feel and can work as an image translator from XaoS files to
+images.
+
+The first version of the BeOS driver was written by Jens Kilian and later
+extended by Jan Hubicka.
+
+Installation
+------------
+
+You can start the installation script to do everything for you. If you want
+something special, read this section.
+
+In order for XaoS to work you need to keep the executable together with its
+data files (help, examples, catalogs and the tutorials directory)
+
+When first started, XaoS registers two new mime types called
+image/x-xaos-position for XaoS Position Files and video/x-xaos-animation for
+XaoS Animation Files, registers icons for them and sets itself as default
+application.
+
+Available display drivers
+-------------------------
+
+XaoS supports following drivers:
+
+BeOS
+
+    Standard windowed driver using application server
+
+DirectWindow
+
+    Driver done using Game Kit's direct window class
+
+WindowScreen
+
+    Fullscreen driver.
+
+By default, XaoS starts in windowed mode and uses the application server for
+output. You could change the driver to DirectWindow to use direct access to
+video RAM. Note that this mode is slower in most cases, and not supported by
+some videocards.
+
+The BeOS driver by default chooses the most similar bitmap supported by XaoS to
+achieve best and fastest results. In the UI menu you can change this default
+choice to another one if you wish. Also you can ask the BeOS and DirectWindow
+to resize to fullscreen mode.
+
+XaoS also supports real fullscreen mode using the BWindowScreen API. To switch
+XaoS to this driver, use the UI menu. If you want to use this mode by default,
+use the -driver WindowScreen command line option.
+
+This driver differs a lot from windowed ones. It use direct access to the video
+card, allowing you to change video mode. Also, the 256 color mode can access
+the palette, so it is not dithered like the windowed mode. Because BeOS can't
+do GUI in fullscreen mode, XaoS uses its own toolkit. I hope you will feel
+confortable in it.
+
+XaoS as translator
+------------------
+
+You should be able to open XaoS files in graphics applications such as
+ShowImage or ArtPaing. In Preferences you can find the DataTranslations
+program, that can be used to set the size, type and DPI of the resulting image.
+Also antialiasing can be enabled.
+
+Note that **translation can take a while**. So be patient and wait for the
+result.
+
+If the translator doesn't work, ensure that you have a link to the XaoS
+executable in /boot/beos/system/add-ons/Translators/.

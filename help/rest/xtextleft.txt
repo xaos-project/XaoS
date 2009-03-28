@@ -1,0 +1,9 @@
+Left
+====
+
+Draw `text`_ at the left side of the screen.
+
+**Available as**: menu item
+
+.. _`text`:
+    xaoshelp://text

@@ -1,0 +1,14 @@
+Octal
+=====
+
+This is a less well-known fractal that Thomas discovered in Fractint. It has an
+interesting shape when displayed in the alternative `planes`_. See the
+`tutorial chapter`_.
+
+**Available as**: menu item, command line option
+
+.. _`tutorial chapter`:
+    xaostutor://octo.xaf
+
+.. _`planes`:
+    xaoshelp://mplane

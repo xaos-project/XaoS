@@ -1,0 +1,9 @@
+Up
+==
+
+Draw `text`_ at the top of the screen.
+
+**Available as**: menu item
+
+.. _`text`:
+    xaoshelp://text

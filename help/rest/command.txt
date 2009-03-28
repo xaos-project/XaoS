@@ -1,0 +1,12 @@
+Command
+=======
+
+You can invoke all XaoS functions using a simple command language reminiscent
+of Scheme. This option lets you run a single command. If you want to run more
+than one, you might want to use an `XaoS animation file`_ instead; they are
+written in the same language.
+
+**Available as**: menu item
+
+.. _`xaos animation file`:
+    xaoshelp://format

@@ -1,0 +1,16 @@
+Random palette
+==============
+
+**Syntax**:(randompalette)
+
+Create a random palette. XaoS will automatically pick one of its
+palette-generation algorithms and create one.
+
+Note that changing the palette in truecolor modes forces recalculation of the
+whole screen. To avoid this, you can enable the `palette emulation filter`_
+first.
+
+**Available as**: menu item, command line option, command
+
+.. _`palette emulation filter`:
+    xaoshelp://palettef

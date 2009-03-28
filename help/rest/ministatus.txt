@@ -1,0 +1,9 @@
+Ministatus
+==========
+
+**Syntax**:(ministatus bool)
+
+Enable/disable status line. This contains basic information such as how much
+you are zoomed and the framerate.
+
+**Available as**: menu item, command line option, command

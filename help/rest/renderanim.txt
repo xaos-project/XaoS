@@ -1,0 +1,10 @@
+Render animation
+================
+
+Render an animation to image files. See `How to encode MPEG files`_ for more
+information.
+
+**Available as**: menu item,
+
+.. _`how to encode mpeg files`:
+    xaoshelp://mpeg

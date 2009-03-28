@@ -1,0 +1,25 @@
+Animation root menu
+===================
+
+This menu is displayed at the top of the screen when animation replay is
+active.
+
+`File`_
+
+`Stop replay`_
+
+`Help`_
+
+`UI`_
+
+.. _`ui`:
+    xaoshelp://ui
+
+.. _`stop replay`:
+    xaoshelp://stopreplay
+
+.. _`file`:
+    xaoshelp://file
+
+.. _`help`:
+    xaoshelp://helpmenu

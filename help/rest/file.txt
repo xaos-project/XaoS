@@ -1,0 +1,42 @@
+File
+====
+
+`Load`_
+
+`Save`_
+
+`Record`_
+
+`Replay`_
+
+`Save image`_
+
+`Load random example`_
+
+`Save configuration`_
+
+`Quit`_
+
+.. _`load`:
+    xaoshelp://loadpos
+
+.. _`quit`:
+    xaoshelp://quit
+
+.. _`save image`:
+    xaoshelp://saveimg
+
+.. _`record`:
+    xaoshelp://record
+
+.. _`replay`:
+    xaoshelp://play
+
+.. _`load random example`:
+    xaoshelp://loadexample
+
+.. _`save`:
+    xaoshelp://savepos
+
+.. _`save configuration`:
+    xaoshelp://savecfg

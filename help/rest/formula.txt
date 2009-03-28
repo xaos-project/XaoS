@@ -1,0 +1,69 @@
+Formula
+=======
+
+**Syntax**:(formula keyword)
+
+Set the current fractal formula. keyword should be one of the following:
+
+'mandel
+
+    Standard `Mandelbrot set`_.
+
+'mandel3
+
+    `Mandelbrot set, power 3`_.
+
+'mandel4
+
+    Mandelbrot set, power 4.
+
+'mandel5
+
+    Mandelbrot set, power 5.
+
+'mandel6
+
+    Mandelbrot set, power 6.
+
+'newton
+
+    `Newton's approximation method`_.
+
+'barnsley
+
+    `First Barnsley's formula`_.
+
+'octo
+
+    `Fractint's octo`_.
+
+'phoenix
+
+    `Phoenix`_.
+
+'magnet
+
+    `Magnet`_.
+
+**Available as**: command
+
+.. _`first barnsley's formula`:
+    xaoshelp://barnsley
+
+.. _`mandelbrot set`:
+    xaoshelp://mandel
+
+.. _`phoenix`:
+    xaoshelp://phoenix
+
+.. _`mandelbrot set, power 3`:
+    xaoshelp://mandel3
+
+.. _`magnet`:
+    xaoshelp://magnet
+
+.. _`fractint's octo`:
+    xaoshelp://octal
+
+.. _`newton's approximation method`:
+    xaoshelp://newton

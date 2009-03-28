@@ -1,0 +1,80 @@
+Truecolor coloring mode
+=======================
+
+**Syntax**:(intcoloring integer)
+
+**Syntax**:(outtcoloring integer)
+
+Truecolor coloring modes are similar to `incolor`_ and `outcolor`_ coloring
+modes; but instead of using a palette, they directly calculate the red, green
+and blue components of the color. This lets you display more parameters at
+once, and produces interesting and often attractive results. On 8bpp displays
+you need to enable the `palette emulator filter`_ first to see anything, amd
+the quality won't be so good, as far fewer colors are available per parameter.
+
+The `tutorial on truecolor coloring modes`_ has more information and examples.
+
+The cryptic names of the modes are always three mathematical formulae (one for
+each color component), where **real** means the real part of the latest orbit,
+and **imag** means the imaginary part.
+
+To enable inside/outside truecolor coloring mode in the scripting language, set
+incoloring/outcoloring value to 10 (truecolor coloring mode) before (or after)
+calling intcoloring or outtcoloring.
+
+In the scripting language, the coloring mode is specified by one of the
+following integers:
+
+0
+
+    black
+
+1
+
+    re*im sin(re^2) angle
+
+2
+
+    sin(re) sin(im) sin(square)
+
+3
+
+    hsv
+
+4
+
+    hsv2
+
+5
+
+    cos(re^c) cos(im^2) cos(square)
+
+6
+
+    abs(re^2) abs(im^2) abs(square)
+
+7
+
+    re*im re*re im*im
+
+8
+
+    abs(im*cim) abs(re*cre) abs(re*cim)
+
+9
+
+    abs(re*im-csqr) abs(re^2-csqr) abs(im^2-csqr)
+
+**Available as**: command line option, command
+
+.. _`outcolor`:
+    xaoshelp://outcoloring
+
+.. _`tutorial on truecolor coloring modes`:
+    xaostutor://truecol.xaf
+
+.. _`incolor`:
+    xaoshelp://incoloring
+
+.. _`palette emulator filter`:
+    xaoshelp://palettef

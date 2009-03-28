@@ -1,0 +1,16 @@
+Mandelbrot^3--Mandelbrot^6
+==========================
+
+This fractal is a simple modification of the standard `Mandelbrot set`_
+formula, using z=z^3+c instead of z=z^2+c.
+
+Other derivations of the Mandelbrot set (Mandelbrot^4 and so on) use even
+higher powers. See the `tutorial chapter`_.
+
+**Available as**: menu item, command line option
+
+.. _`mandelbrot set`:
+    xaoshelp://mandel
+
+.. _`tutorial chapter`:
+    xaostutor://power.xaf

@@ -1,0 +1,13 @@
+Solid guessing range
+====================
+
+**Syntax**:(range integer)
+
+XaoS has a solid guessing optimization: if all corners of a rectangle have the
+same color, it assumes that the whole rectangle is a solid colored block, and
+doesn't calculate points inside the rectangle. This optimization saves lots of
+calculation, but sometimes introduces errors. This value alters the maximum
+size of the rectangle that can be guessed at one time. The default value is 3;
+use 0 to disable the optimization.
+
+**Available as**: command line option, command

@@ -1,0 +1,14 @@
+Morph line
+----------
+
+**Syntax**:(morphline keyword complex complex)
+
+Morph current line to given coordinates. keyword specifies type of coordinates
+and should be one of the following: `fractal, `screen or `scaled. The line will
+start moving at the next `timing command`_, and reach the final position before
+the end of it. This function also increases the line key.
+
+**Available as**: command
+
+.. _`timing command`:
+    xaoshelp://time

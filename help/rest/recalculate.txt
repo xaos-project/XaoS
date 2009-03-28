@@ -1,0 +1,12 @@
+Recalculate
+===========
+
+**Syntax**:(recalculate)
+
+Recalculate current fractal. This should be used when the fractal on the screen
+is strange because of error propagation caused by `solid guessing`_.
+
+**Available as**: menu item, command line option, command
+
+.. _`solid guessing`:
+    xaoshelp://range

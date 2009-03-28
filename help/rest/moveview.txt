@@ -1,0 +1,7 @@
+Move view
+=========
+
+**Syntax**:(moveview complex) Smoothly move the image center to another
+position.
+
+**Available as**: command

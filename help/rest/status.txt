@@ -1,0 +1,10 @@
+Status
+======
+
+**Syntax**:(status bool)
+
+Enable/disable status information. This displays some useful information about
+the current fractal, such as viewpoint etc. (In low-resolution modes it also
+almost completely obscures the current fractal...)
+
+**Available as**: menu item, command line option, command
