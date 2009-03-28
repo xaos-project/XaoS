@@ -15,4 +15,4 @@ A simple "rotozooming" animation:
 **Available as**: command
 
 .. _`fast rotate mode`:
-    xaoshelp://rotate
+    [help:rotate]

@@ -10,4 +10,4 @@ languages. It should be used only in the multi-lingual XaoS tutorials.
 **Available as**: command line option, command
 
 .. _`text`:
-    xaoshelp://text
+    [help:text]

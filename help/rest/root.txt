@@ -20,25 +20,25 @@ displayed--the `Animation root menu`_.
 `Help`_
 
 .. _`file`:
-    xaoshelp://file
+    [help:file]
 
 .. _`calculation`:
-    xaoshelp://calc
+    [help:calc]
 
 .. _`animation root menu`:
-    xaoshelp://animroot
+    [help:animroot]
 
 .. _`misc`:
-    xaoshelp://misc
+    [help:misc]
 
 .. _`ui`:
-    xaoshelp://ui
+    [help:ui]
 
 .. _`filters`:
-    xaoshelp://mfilter
+    [help:mfilter]
 
 .. _`fractal`:
-    xaoshelp://fractal
+    [help:fractal]
 
 .. _`help`:
-    xaoshelp://helpmenu
+    [help:helpmenu]

@@ -13,16 +13,16 @@ real paletted mode).
 **Available as**: menu item, command line option
 
 .. _`incoloring`:
-    xaoshelp://incoloring
+    [help:incoloring]
 
 .. _`truecolor coloring`:
-    xaoshelp://tcolor
+    [help:tcolor]
 
 .. _`outcoloring`:
-    xaoshelp://outcoloring
+    [help:outcoloring]
 
 .. _`truecolor`:
-    xaoshelp://truecolor
+    [help:truecolor]
 
 .. _`more information about filters`:
-    xaoshelp://filter
+    [help:filter]

@@ -13,4 +13,4 @@ Viewport is selected by the center and two radiuses (real and imaginary). See
 **Available as**: command
 
 .. _`view`:
-    xaoshelp://uiview
+    [help:uiview]

@@ -36,4 +36,4 @@ Win32 driver was written by Jan Hubicka, Jan Olderdissen and Pavel Tzekov,
 1999.
 
 .. _`directx`:
-    xaoshelp://dX-window
+    [help:dX-window]

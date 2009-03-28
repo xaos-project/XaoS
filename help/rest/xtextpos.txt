@@ -11,13 +11,13 @@ left, in the center or at the right.
 `Right`_
 
 .. _`text`:
-    xaoshelp://text
+    [help:text]
 
 .. _`right`:
-    xaoshelp://xtexteight
+    [help:xtexteight]
 
 .. _`center`:
-    xaoshelp://xtextcenter
+    [help:xtextcenter]
 
 .. _`left`:
-    xaoshelp://xtextleft
+    [help:xtextleft]

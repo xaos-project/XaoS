@@ -21,22 +21,22 @@ maximum iteration count and periodicity checking.
 `Rotation`_
 
 .. _`solid guessing`:
-    xaoshelp://range
+    [help:range]
 
 .. _`fast julia mode`:
-    xaoshelp://fastjulia
+    [help:fastjulia]
 
 .. _`periodicity checking`:
-    xaoshelp://periodicity
+    [help:periodicity]
 
 .. _`dynamic resolution`:
-    xaoshelp://dynamic
+    [help:dynamic]
 
 .. _`bailout`:
-    xaoshelp://bailout
+    [help:bailout]
 
 .. _`iterations`:
-    xaoshelp://maxiter
+    [help:maxiter]
 
 .. _`rotation`:
-    xaoshelp://rotate
+    [help:rotate]

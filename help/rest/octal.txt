@@ -8,7 +8,7 @@ interesting shape when displayed in the alternative `planes`_. See the
 **Available as**: menu item, command line option
 
 .. _`tutorial chapter`:
-    xaostutor://octo.xaf
+    [tutor:octo.xaf]
 
 .. _`planes`:
-    xaoshelp://mplane
+    [help:mplane]

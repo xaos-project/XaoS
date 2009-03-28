@@ -6,4 +6,4 @@ This menu contains help and tutorials.
 `Help`_
 
 .. _`help`:
-    xaoshelp://help
+    [help:help]

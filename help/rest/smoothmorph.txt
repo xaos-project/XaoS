@@ -25,13 +25,13 @@ the following:
     control `morphline`_
 
 .. _`morphline`:
-    xaoshelp://morphline
+    [help:morphline]
 
 .. _`morphview`:
-    xaoshelp://morphview
+    [help:morphview]
 
 .. _`morphangle`:
-    xaoshelp://morphangle
+    [help:morphangle]
 
 .. _`morphjulia`:
-    xaoshelp://morphjulia
+    [help:morphjulia]

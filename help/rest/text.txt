@@ -12,7 +12,7 @@ value can be changed during replay with the arrow keys.
 **Available as**: command
 
 .. _`usleep`:
-    xaoshelp://usleep
+    [help:usleep]
 
 .. _`letterspersec`:
-    xaoshelp://letterspersec
+    [help:letterspersec]

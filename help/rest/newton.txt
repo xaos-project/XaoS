@@ -12,4 +12,4 @@ formulae").
 **Available as**: menu item, command line option
 
 .. _`tutorial chapter`:
-    xaostutor://newton.xaf
+    [tutor:newton.xaf]

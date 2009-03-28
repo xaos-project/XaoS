@@ -65,4 +65,4 @@ In the scripting language, the planes are numbered as follows:
 **Available as**: command line option, command
 
 .. _`tutorial about planes`:
-    xaostutor://plane.xaf
+    [tutor:plane.xaf]

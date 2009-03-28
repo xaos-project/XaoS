@@ -10,7 +10,7 @@ mode`_.
 **Available as**: menu item, command line option
 
 .. _`outcoloring mode`:
-    xaoshelp://outcoloring
+    [help:outcoloring]
 
 .. _`more information about filters`:
-    xaoshelp://filter
+    [help:filter]

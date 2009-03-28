@@ -13,16 +13,16 @@ colors as a real truecolor display).
 **Available as**: menu item, command line option
 
 .. _`outcoloring`:
-    xaoshelp://outcoloring
+    [help:outcoloring]
 
 .. _`palette`:
-    xaoshelp://palettef
+    [help:palettef]
 
 .. _`incoloring`:
-    xaoshelp://incoloring
+    [help:incoloring]
 
 .. _`truecolor coloring`:
-    xaoshelp://tcolor
+    [help:tcolor]
 
 .. _`more information about filters`:
-    xaoshelp://filter
+    [help:filter]

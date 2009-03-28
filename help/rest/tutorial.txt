@@ -251,16 +251,16 @@ also want to see the **animated tutorials** from the **help menu**, to have an
 idea what XaoS can do.
 
 .. _`out-coloring modes`:
-    xaostutor://outcolor.xaf
+    [tutor:outcolor.xaf]
 
 .. _`julia set`:
-    xaostutor://julia.xaf
+    [tutor:julia.xaf]
 
 .. _`filters`:
-    xaoshelp://filter
+    [help:filter]
 
 .. _`incoloring modes`:
-    xaostutor://incolor.xaf
+    [tutor:incolor.xaf]
 
 .. _`palette emulator filter`:
-    xaoshelp://palettef
+    [help:palettef]

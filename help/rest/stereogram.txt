@@ -102,4 +102,4 @@ problems like astigmatism, can make it impossible to see stereograms at all.
 **Available as**: menu item, command line option
 
 .. _`more information about filters`:
-    xaoshelp://filter
+    [help:filter]

@@ -12,7 +12,7 @@ detection2`_ makes thinner lines, for the low resolution modes.
 **Available as**: menu item, command line option
 
 .. _`more information about filters`:
-    xaoshelp://filter
+    [help:filter]
 
 .. _`edge detection2`:
-    xaoshelp://edge2
+    [help:edge2]

@@ -16,4 +16,4 @@ place by dragging with the first mouse button depressed; then change to the
 **Available as**: menu item, command line option, command
 
 .. _`julia mode`:
-    xaoshelp://uimandelbrot
+    [help:uimandelbrot]

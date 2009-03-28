@@ -51,4 +51,4 @@ screen/window. It is useful to learn the shortcut keys, which are shown in gray
 next to the menu items they trigger.
 
 .. _`mac os x`:
-    xaoshelp://cocoa
+    [help:cocoa]

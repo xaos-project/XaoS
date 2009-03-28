@@ -10,4 +10,4 @@ animation replay.
 **Available as**: command line option, command
 
 .. _`textsleep`:
-    xaoshelp://textsleep
+    [help:textsleep]

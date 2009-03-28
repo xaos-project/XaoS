@@ -7,4 +7,4 @@ information.
 **Available as**: menu item, command line option
 
 .. _`format description`:
-    xaoshelp://format
+    [help:format]

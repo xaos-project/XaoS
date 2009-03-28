@@ -16,4 +16,4 @@ hate jagged edges).
 **Available as**: menu item, command line option
 
 .. _`more information about filters`:
-    xaoshelp://filter
+    [help:filter]

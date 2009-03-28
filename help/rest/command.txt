@@ -9,4 +9,4 @@ written in the same language.
 **Available as**: menu item
 
 .. _`xaos animation file`:
-    xaoshelp://format
+    [help:format]

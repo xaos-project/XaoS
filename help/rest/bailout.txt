@@ -23,4 +23,4 @@ types.
 **Syntax**:(bailout float)
 
 .. _`mandelbrot set`:
-    xaoshelp://mandel
+    [help:mandel]

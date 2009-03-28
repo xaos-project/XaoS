@@ -48,22 +48,22 @@ Set the current fractal formula. keyword should be one of the following:
 **Available as**: command
 
 .. _`first barnsley's formula`:
-    xaoshelp://barnsley
+    [help:barnsley]
 
 .. _`mandelbrot set`:
-    xaoshelp://mandel
+    [help:mandel]
 
 .. _`phoenix`:
-    xaoshelp://phoenix
+    [help:phoenix]
 
 .. _`mandelbrot set, power 3`:
-    xaoshelp://mandel3
+    [help:mandel3]
 
 .. _`magnet`:
-    xaoshelp://magnet
+    [help:magnet]
 
 .. _`fractint's octo`:
-    xaoshelp://octal
+    [help:octal]
 
 .. _`newton's approximation method`:
-    xaoshelp://newton
+    [help:newton]

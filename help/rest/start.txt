@@ -16,13 +16,13 @@ you don't need to watch them all at once (they are about half an hour long).
 `XaoS Overview`_ A written introduction to all of XaoS's features.
 
 .. _`basic controls`:
-    xaoshelp://controls
+    [help:controls]
 
 .. _`an introduction to fractals`:
-    xaostutor://fractal.xaf
+    [tutor:fractal.xaf]
 
 .. _`xaos overview`:
-    xaoshelp://tutorial
+    [help:tutorial]
 
 .. _`xaos features overview`:
-    xaostutor://features.xaf
+    [tutor:features.xaf]

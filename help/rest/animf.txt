@@ -25,25 +25,25 @@ Will do a 5 second long unzooming animation.
 `Zooming functions`_
 
 .. _`morph julia`:
-    xaoshelp://morphjulia
+    [help:morphjulia]
 
 .. _`morph view`:
-    xaoshelp://morphview
+    [help:morphview]
 
 .. _`animate view`:
-    xaoshelp://animateview
+    [help:animateview]
 
 .. _`timing function`:
-    xaoshelp://time
+    [help:time]
 
 .. _`morph angle`:
-    xaoshelp://morphangle
+    [help:morphangle]
 
 .. _`zooming functions`:
-    xaoshelp://zoom
+    [help:zoom]
 
 .. _`smooth morphing`:
-    xaoshelp://smoothmorph
+    [help:smoothmorph]
 
 .. _`move view`:
-    xaoshelp://moveview
+    [help:moveview]

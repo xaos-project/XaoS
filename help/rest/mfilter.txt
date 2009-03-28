@@ -29,37 +29,37 @@ truecolor on displays that can't handle them, and such things. There is a
 `Truecolor emulator`_
 
 .. _`edge detection2`:
-    xaoshelp://edge2
+    [help:edge2]
 
 .. _`edge detection`:
-    xaoshelp://edge
+    [help:edge]
 
 .. _`motion blur`:
-    xaoshelp://blur
+    [help:blur]
 
 .. _`antialiasing`:
-    xaoshelp://anti
+    [help:anti]
 
 .. _`starfield`:
-    xaoshelp://starfield
+    [help:starfield]
 
 .. _`random dot stereogram`:
-    xaoshelp://stereogram
+    [help:stereogram]
 
 .. _`filter command`:
-    xaoshelp://filter
+    [help:filter]
 
 .. _`truecolor emulator`:
-    xaoshelp://truecolor
+    [help:truecolor]
 
 .. _`palette emulator`:
-    xaoshelp://palettef
+    [help:palettef]
 
 .. _`emboss`:
-    xaoshelp://emboss
+    [help:emboss]
 
 .. _`tutorial chapter`:
-    xaostutor://filter.xaf
+    [tutor:filter.xaf]
 
 .. _`interlace filter`:
-    xaoshelp://interlace
+    [help:interlace]

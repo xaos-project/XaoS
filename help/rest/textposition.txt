@@ -11,4 +11,4 @@ the second the vertical position. The horizontal position should be one of
 **Available as**: command line option, command
 
 .. _`text`:
-    xaoshelp://text
+    [help:text]

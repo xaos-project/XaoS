@@ -23,7 +23,7 @@ zooming animation:
 **Available as**: command
 
 .. _`usleep`:
-    xaoshelp://usleep
+    [help:usleep]
 
 .. _`view`:
-    xaoshelp://uiview
+    [help:uiview]

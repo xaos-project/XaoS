@@ -24,31 +24,31 @@ Miscellaneous functions.
 `Message`_
 
 .. _`text position`:
-    xaoshelp://textposition
+    [help:textposition]
 
 .. _`horizontal text position`:
-    xaoshelp://xtextpos
+    [help:xtextpos]
 
 .. _`color`:
-    xaoshelp://color
+    [help:color]
 
 .. _`render animation`:
-    xaoshelp://renderanim
+    [help:renderanim]
 
 .. _`command`:
-    xaoshelp://command
+    [help:command]
 
 .. _`clear screen`:
-    xaoshelp://clearscreen
+    [help:clearscreen]
 
 .. _`display text`:
-    xaoshelp://text
+    [help:text]
 
 .. _`vertical text position`:
-    xaoshelp://ytextpos
+    [help:ytextpos]
 
 .. _`message`:
-    xaoshelp://message
+    [help:message]
 
 .. _`display fractal`:
-    xaoshelp://display
+    [help:display]

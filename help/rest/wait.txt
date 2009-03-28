@@ -14,7 +14,7 @@ This function deadlocks if used with `animation functions`_; don't do that.
 **Available as**: command
 
 .. _`animation functions`:
-    xaoshelp://animf
+    [help:animf]
 
 .. _`motion blur`:
-    xaoshelp://blur
+    [help:blur]

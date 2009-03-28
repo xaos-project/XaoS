@@ -36,25 +36,25 @@ Welcome to XaoS - a real-time fractal zoomer.
     An in-depth discussion of all of XaoS's commands.
 
 .. _`about xaos`:
-    xaoshelp://about
+    [help:about]
 
 .. _`getting started`:
-    xaoshelp://start
+    [help:start]
 
 .. _`getting support`:
-    xaoshelp://support
+    [help:support]
 
 .. _`encoding videos`:
-    xaoshelp://video
+    [help:video]
 
 .. _`xaos's file format`:
-    xaoshelp://format
+    [help:format]
 
 .. _`platform-specific documentation`:
-    xaoshelp://drivers
+    [help:drivers]
 
 .. _`menus, commands and parameter index`:
-    xaoshelp://menus
+    [help:menus]
 
 .. _`user formulas`:
-    xaoshelp://sffe
+    [help:sffe]

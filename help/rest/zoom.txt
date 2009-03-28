@@ -26,7 +26,7 @@ Start unzooming from the area specified by zoomcenter.
 **Available as**: command
 
 .. _`speed`:
-    xaoshelp://speed
+    [help:speed]
 
 .. _`morphview`:
-    xaoshelp://morphview
+    [help:morphview]

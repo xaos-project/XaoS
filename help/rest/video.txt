@@ -84,4 +84,4 @@ generated png files into MPEG videos. We have kept the instructions mainly for
 historic purposes.
 
 .. _`berkeley parallel mpeg encoder`:
-    xaoshelp://berkeley
+    [help:berkeley]

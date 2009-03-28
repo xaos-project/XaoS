@@ -18,25 +18,25 @@ File
 `Quit`_
 
 .. _`load`:
-    xaoshelp://loadpos
+    [help:loadpos]
 
 .. _`quit`:
-    xaoshelp://quit
+    [help:quit]
 
 .. _`save image`:
-    xaoshelp://saveimg
+    [help:saveimg]
 
 .. _`record`:
-    xaoshelp://record
+    [help:record]
 
 .. _`replay`:
-    xaoshelp://play
+    [help:play]
 
 .. _`load random example`:
-    xaoshelp://loadexample
+    [help:loadexample]
 
 .. _`save`:
-    xaoshelp://savepos
+    [help:savepos]
 
 .. _`save configuration`:
-    xaoshelp://savecfg
+    [help:savecfg]

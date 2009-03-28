@@ -8,4 +8,4 @@ transformations. See the `tutorial chapter`_.
 **Available as**: menu item, command line option
 
 .. _`tutorial chapter`:
-    xaostutor://phoenix.xaf
+    [tutor:phoenix.xaf]

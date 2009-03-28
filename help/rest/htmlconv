@@ -1,6 +1,9 @@
 #!/bin/sh
 
-for file in *.txt; do
-	echo $file
-	sed -f htmllinks.sed $file | rst2html.py > "html/`basename \"$file\" .txt`.html"
+mypath=`dirname $0`
+
+for file in $mypath/*.txt; do
+	basename=`basename $file .txt`
+	echo "- $basename -"
+	sed -f $mypath/htmllinks.sed $file | rst2html.py > $basename.html
 done

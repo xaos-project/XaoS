@@ -15,4 +15,4 @@ screen. To avoid this, you could use `palette emulation filter`_.
 **Available as**: menu item, command line option, command
 
 .. _`palette emulation filter`:
-    xaoshelp://palettef
+    [help:palettef]

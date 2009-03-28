@@ -30,37 +30,37 @@ on different platforms. Here is documentation about each specific port.
 `BeOS drivers (BeOS, DirectWindow, WindowScreen)`_
 
 .. _`plan9 driver`:
-    xaoshelp://plan9
+    [help:plan9]
 
 .. _`win32 driver`:
-    xaoshelp://win32
+    [help:win32]
 
 .. _`x11 driver`:
-    xaoshelp://X11
+    [help:X11]
 
 .. _`directx fullscreen driver`:
-    xaoshelp://dX-fullscreen
+    [help:dX-fullscreen]
 
 .. _`ms-dos driver`:
-    xaoshelp://dos
+    [help:dos]
 
 .. _`svgalib driver`:
-    xaoshelp://SVGAlib
+    [help:SVGAlib]
 
 .. _`ggi driver`:
-    xaoshelp://ggi
+    [help:ggi]
 
 .. _`mac os x driver`:
-    xaoshelp://cocoa
+    [help:cocoa]
 
 .. _`beos drivers (beos, directwindow, windowscreen)`:
-    xaoshelp://BeOS
+    [help:BeOS]
 
 .. _`directx windowed driver`:
-    xaoshelp://dX-window
+    [help:dX-window]
 
 .. _`dga driver`:
-    xaoshelp://DGA
+    [help:DGA]
 
 .. _`aa-lib driver`:
-    xaoshelp://aa
+    [help:aa]

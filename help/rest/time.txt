@@ -13,10 +13,10 @@ delays start keep running through the delay.
 `Wait for complete image`_
 
 .. _`usleep`:
-    xaoshelp://usleep
+    [help:usleep]
 
 .. _`wait for text`:
-    xaoshelp://textsleep
+    [help:textsleep]
 
 .. _`wait for complete image`:
-    xaoshelp://wait
+    [help:wait]

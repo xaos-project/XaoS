@@ -12,13 +12,13 @@ A fairly ordinary Edit menu.
 `Paste`_
 
 .. _`paste`:
-    xaoshelp://paste
+    [help:paste]
 
 .. _`copy`:
-    xaoshelp://copy
+    [help:copy]
 
 .. _`redo`:
-    xaoshelp://redo
+    [help:redo]
 
 .. _`undo`:
-    xaoshelp://undo
+    [help:undo]

@@ -124,10 +124,10 @@ home-page, so please send any nice animations and images you created using XaoS
 to the `mailing list`_ or upload them to our website.
 
 .. _`xaos registry`:
-    xaoshelp://menus
+    [help:menus]
 
 .. _`animation functions`:
-    xaoshelp://animf
+    [help:animf]
 
 .. _`mailing list`:
-    xaoshelp://support
+    [help:support]

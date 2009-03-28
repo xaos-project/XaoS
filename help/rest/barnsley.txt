@@ -7,4 +7,4 @@ sets. See the `tutorial chapter`_.
 **Available as**: menu item, command line option
 
 .. _`tutorial chapter`:
-    xaostutor://barnsley.xaf
+    [tutor:barnsley.xaf]

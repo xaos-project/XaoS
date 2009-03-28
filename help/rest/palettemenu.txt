@@ -15,16 +15,16 @@ with.
 `Shift palette`_
 
 .. _`custom palette`:
-    xaoshelp://palette
+    [help:palette]
 
 .. _`color cycling`:
-    xaoshelp://cycling
+    [help:cycling]
 
 .. _`shift palette`:
-    xaoshelp://shiftpalette
+    [help:shiftpalette]
 
 .. _`default palette`:
-    xaoshelp://defpalette
+    [help:defpalette]
 
 .. _`random palette`:
-    xaoshelp://randompalette
+    [help:randompalette]

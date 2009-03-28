@@ -68,13 +68,13 @@ following integers:
 **Available as**: command line option, command
 
 .. _`outcolor`:
-    xaoshelp://outcoloring
+    [help:outcoloring]
 
 .. _`tutorial on truecolor coloring modes`:
-    xaostutor://truecol.xaf
+    [tutor:truecol.xaf]
 
 .. _`incolor`:
-    xaoshelp://incoloring
+    [help:incoloring]
 
 .. _`palette emulator filter`:
-    xaoshelp://palettef
+    [help:palettef]

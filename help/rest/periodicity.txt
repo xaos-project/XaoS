@@ -37,10 +37,10 @@ calculation in XaoS, and there is a lengthy section in the hacker's manual
 **Available as**: menu item, command line option, command
 
 .. _`incoloring`:
-    xaoshelp://incoloring
+    [help:incoloring]
 
 .. _`escape time fractals`:
-    xaostutor://escape.xaf
+    [tutor:escape.xaf]
 
 .. _`maxiter`:
-    xaoshelp://maxiter
+    [help:maxiter]

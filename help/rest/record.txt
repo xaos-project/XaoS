@@ -13,4 +13,4 @@ disables it.
 **Available as**: menu item, command line option, command
 
 .. _`format description`:
-    xaoshelp://format
+    [help:format]

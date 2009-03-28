@@ -71,13 +71,13 @@ following integers:
 **Available as**: command line option, command
 
 .. _`tutorial on outcoloring`:
-    xaostutor://outcolor.xaf
+    [tutor:outcolor.xaf]
 
 .. _`truecolor`:
-    xaoshelp://tcolor
+    [help:tcolor]
 
 .. _`incoloring modes`:
-    xaoshelp://incoloring
+    [help:incoloring]
 
 .. _`outtcoloring`:
-    xaoshelp://tcolor
+    [help:tcolor]

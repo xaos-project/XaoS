@@ -49,10 +49,10 @@ If you would like to volunteer, join the mailing lists and let us know. We
 would be happy to help you get started!
 
 .. _`mailing lists`:
-    xaoshelp://support
+    [help:support]
 
 .. _`license`:
-    xaoshelp://gpl
+    [help:gpl]
 
 .. _`authors`:
-    xaoshelp://about
+    [help:about]

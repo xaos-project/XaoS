@@ -13,13 +13,13 @@ active.
 `UI`_
 
 .. _`ui`:
-    xaoshelp://ui
+    [help:ui]
 
 .. _`stop replay`:
-    xaoshelp://stopreplay
+    [help:stopreplay]
 
 .. _`file`:
-    xaoshelp://file
+    [help:file]
 
 .. _`help`:
-    xaoshelp://helpmenu
+    [help:helpmenu]

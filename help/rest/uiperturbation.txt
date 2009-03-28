@@ -28,7 +28,7 @@ perturbation.
 **Available as**: command line option, command
 
 .. _`mandelbrot mode`:
-    xaoshelp://uimandelbrot
+    [help:uimandelbrot]
 
 .. _`mandelbrot set`:
-    xaoshelp://mandel
+    [help:mandel]

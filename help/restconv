@@ -7,8 +7,8 @@ processline()
 	anchors=""
 	echo "$1.txt $*" >> anchors
 	while [ "$1" != "" ] ; do
-		echo "s!xaoshelp://$1!$name.html!g" >> htmllinks.sed
-		echo "s!xaoshelp://$1!help:anchor=$name bookID=XaoS Help!g" >> applehelplinks.sed
+		echo "s!\[help:$1\]!$name.html!g" >> htmllinks.sed
+		echo "s!\[help:$1\]!help:anchor=$name bookID=XaoS Help!g" >> applehelplinks.sed
 		shift
 	done
 	# I changed "0" to "$" because my sed
@@ -41,9 +41,9 @@ s_<node.*>__g
 s_</emph>_</strong>_g
 s_<tt>_<code>_g
 s_</tt>_</code>_g
-s_<tutor \([^>]*\)>_<A HREF="xaostutor://\1">_g
+s_<tutor \([^>]*\)>_<A HREF="[tutor:\1]">_g
 s_</tutor>_</A>_g
-s_<a \([^>]*\)>_<A HREF="xaoshelp://\1">_g
+s_<a \([^>]*\)>_<A HREF="[help:\1]">_g
 s/'\'\''/"/g
 s/``/"/g' >> $name.html
         if [ $2 ]; then
@@ -52,7 +52,7 @@ s/``/"/g' >> $name.html
 	echo "</BODY></HTML>" >> $name.html
 	cat -n $name.html
 	tidy -utf8 -asxml -qm $name.html
-	../xhtml2rest.py $name.html > $name.txt
+	$mypath/xhtml2rest.py $name.html > $name.txt
 	rm $name.html
 }
 process()

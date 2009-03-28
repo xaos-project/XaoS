@@ -13,13 +13,13 @@ only in animation files.
 `Include file`_
 
 .. _`timing functions`:
-    xaoshelp://time
+    [help:time]
 
 .. _`include file`:
-    xaoshelp://load
+    [help:load]
 
 .. _`line drawing functions`:
-    xaoshelp://linemenu
+    [help:linemenu]
 
 .. _`animation functions`:
-    xaoshelp://animf
+    [help:animf]

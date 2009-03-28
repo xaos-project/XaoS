@@ -12,4 +12,4 @@ context sensitive help work.
 The help file is written in a special format called `xshl`_.
 
 .. _`xshl`:
-    xaoshelp://xshl
+    [help:xshl]

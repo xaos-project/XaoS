@@ -11,13 +11,13 @@ top, in the middle or at the bottom of the screen.
 `Bottom`_
 
 .. _`text`:
-    xaoshelp://text
+    [help:text]
 
 .. _`bottom`:
-    xaoshelp://ytextbottom
+    [help:ytextbottom]
 
 .. _`up`:
-    xaoshelp://ytextup
+    [help:ytextup]
 
 .. _`middle`:
-    xaoshelp://ytextmiddle
+    [help:ytextmiddle]

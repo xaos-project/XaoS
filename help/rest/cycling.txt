@@ -26,4 +26,4 @@ cycle in the opposite direction.
 **Available as**: menu item, command line option, command
 
 .. _`palette emulation filter`:
-    xaoshelp://palettef
+    [help:palettef]

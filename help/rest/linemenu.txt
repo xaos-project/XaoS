@@ -40,25 +40,25 @@ Creates line morphing to rectangle.
 `Clear all lines`_
 
 .. _`color`:
-    xaoshelp://color
+    [help:color]
 
 .. _`morph line`:
-    xaoshelp://morphline
+    [help:morphline]
 
 .. _`set line key`:
-    xaoshelp://linekey
+    [help:linekey]
 
 .. _`clear line`:
-    xaoshelp://clearline
+    [help:clearline]
 
 .. _`clear all lines`:
-    xaoshelp://clearlines
+    [help:clearlines]
 
 .. _`introduction to fractals`:
-    xaostutor://intro.xaf
+    [tutor:intro.xaf]
 
 .. _`draw line`:
-    xaoshelp://line
+    [help:line]
 
 .. _`morph last line`:
-    xaoshelp://morphlastline
+    [help:morphlastline]

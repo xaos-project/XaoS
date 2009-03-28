@@ -13,10 +13,10 @@ registry.
 `Replay only commands`_
 
 .. _`animation root menu`:
-    xaoshelp://animroot
+    [help:animroot]
 
 .. _`root menu`:
-    xaoshelp://root
+    [help:root]
 
 .. _`replay only commands`:
-    xaoshelp://plc
+    [help:plc]

@@ -10,7 +10,7 @@ higher powers. See the `tutorial chapter`_.
 **Available as**: menu item, command line option
 
 .. _`mandelbrot set`:
-    xaoshelp://mandel
+    [help:mandel]
 
 .. _`tutorial chapter`:
-    xaostutor://power.xaf
+    [tutor:power.xaf]

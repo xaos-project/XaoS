@@ -27,34 +27,34 @@ can change things like the formula used, coloring modes, seeds and much else.
 `True-color coloring modes`_
 
 .. _`incoloring mode`:
-    xaoshelp://incoloring
+    [help:incoloring]
 
 .. _`outcoloring mode`:
-    xaoshelp://outcoloring
+    [help:outcoloring]
 
 .. _`palette`:
-    xaoshelp://palettemenu
+    [help:palettemenu]
 
 .. _`perturbation`:
-    xaoshelp://uiperturbation
+    [help:uiperturbation]
 
 .. _`reset to defaults`:
-    xaoshelp://initstate
+    [help:initstate]
 
 .. _`mandelbrot mode`:
-    xaoshelp://uimandelbrot
+    [help:uimandelbrot]
 
 .. _`plane`:
-    xaoshelp://plane
+    [help:plane]
 
 .. _`formulae`:
-    xaoshelp://mformula
+    [help:mformula]
 
 .. _`formula`:
-    xaoshelp://formula
+    [help:formula]
 
 .. _`true-color coloring modes`:
-    xaoshelp://tcolor
+    [help:tcolor]
 
 .. _`view`:
-    xaoshelp://uiview
+    [help:uiview]

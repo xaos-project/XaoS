@@ -9,4 +9,4 @@ is mainly useful in tutorials and similar animations.
 **Available as**: menu item, command
 
 .. _`display`:
-    xaoshelp://display
+    [help:display]

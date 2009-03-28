@@ -11,4 +11,4 @@ the end of it. This function also increases the line key.
 **Available as**: command
 
 .. _`timing command`:
-    xaoshelp://time
+    [help:time]

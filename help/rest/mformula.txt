@@ -25,31 +25,31 @@ formulae:
 `Magnet`_
 
 .. _`barnsley1`:
-    xaoshelp://barnsley
+    [help:barnsley]
 
 .. _`phoenix`:
-    xaoshelp://phoenix
+    [help:phoenix]
 
 .. _`newton`:
-    xaoshelp://newton
+    [help:newton]
 
 .. _`mandelbrot`:
-    xaoshelp://mandel
+    [help:mandel]
 
 .. _`magnet`:
-    xaoshelp://magnet
+    [help:magnet]
 
 .. _`octal`:
-    xaoshelp://octal
+    [help:octal]
 
 .. _`mandelbrot^3`:
-    xaoshelp://mandel3
+    [help:mandel3]
 
 .. _`mandelbrot^4`:
-    xaoshelp://mandel4
+    [help:mandel4]
 
 .. _`mandelbrot^5`:
-    xaoshelp://mandel5
+    [help:mandel5]
 
 .. _`mandelbrot^6`:
-    xaoshelp://mandel6
+    [help:mandel6]

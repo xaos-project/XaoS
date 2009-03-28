@@ -67,10 +67,10 @@ specified by one of the following integers:
 **Available as**: command line option, command
 
 .. _`tutorial on incoloring`:
-    xaostutor://incolor.xaf
+    [tutor:incolor.xaf]
 
 .. _`truecolor`:
-    xaoshelp://tcolor
+    [help:tcolor]
 
 .. _`tcolor`:
-    xaoshelp://tcolor
+    [help:tcolor]

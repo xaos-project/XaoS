@@ -6,4 +6,4 @@ Draw `text`_ at the bottom of the screen.
 **Available as**: menu item
 
 .. _`text`:
-    xaoshelp://text
+    [help:text]

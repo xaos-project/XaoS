@@ -37,7 +37,7 @@ Select the current julia seed.
 **Available as**: command line option, command
 
 .. _`julia set`:
-    xaostutor://julia.xaf
+    [tutor:julia.xaf]
 
 .. _`fast julia mode`:
-    xaoshelp://fastjulia
+    [help:fastjulia]

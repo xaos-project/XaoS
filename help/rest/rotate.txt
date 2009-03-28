@@ -36,4 +36,4 @@ values are allowed and rotate anticlockwise.
 **Available as**: menu item, command line option, command
 
 .. _`morphangle`:
-    xaoshelp://morphangle
+    [help:morphangle]

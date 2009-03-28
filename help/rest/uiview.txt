@@ -45,4 +45,4 @@ to disable it later.
 **Available as**: command line option, command
 
 .. _`fast rotation mode`:
-    xaoshelp://rotate
+    [help:rotate]

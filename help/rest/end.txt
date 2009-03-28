@@ -29,46 +29,46 @@
 `Palette`_
 
 .. _`calculation`:
-    xaoshelp://calc
+    [help:calc]
 
 .. _`filters`:
-    xaoshelp://mfilter
+    [help:mfilter]
 
 .. _`horizontal text position`:
-    xaoshelp://xtextpos
+    [help:xtextpos]
 
 .. _`edit`:
-    xaoshelp://edit
+    [help:edit]
 
 .. _`misc`:
-    xaoshelp://misc
+    [help:misc]
 
 .. _`palette`:
-    xaoshelp://palettemenu
+    [help:palettemenu]
 
 .. _`animation functions`:
-    xaoshelp://animf
+    [help:animf]
 
 .. _`timing functions`:
-    xaoshelp://time
+    [help:time]
 
 .. _`ui`:
-    xaoshelp://ui
+    [help:ui]
 
 .. _`file`:
-    xaoshelp://file
+    [help:file]
 
 .. _`formulae`:
-    xaoshelp://mformula
+    [help:mformula]
 
 .. _`vertical text position`:
-    xaoshelp://ytextpos
+    [help:ytextpos]
 
 .. _`fractal`:
-    xaoshelp://fractal
+    [help:fractal]
 
 .. _`line drawing functions`:
-    xaoshelp://linemenu
+    [help:linemenu]
 
 .. _`help`:
-    xaoshelp://helpmenu
+    [help:helpmenu]

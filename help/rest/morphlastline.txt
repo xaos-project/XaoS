@@ -11,7 +11,7 @@ useful when you want to move a just-drawn line--you don't need to set
 **Available as**: command
 
 .. _`linekey`:
-    xaoshelp://linekey
+    [help:linekey]
 
 .. _`morphline`:
-    xaoshelp://morphline
+    [help:morphline]

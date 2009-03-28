@@ -49,34 +49,34 @@ the filter to change, and should be one of the following:
 **Available as**: command
 
 .. _`edge detection2`:
-    xaoshelp://edge2
+    [help:edge2]
 
 .. _`edge detection`:
-    xaoshelp://edge
+    [help:edge]
 
 .. _`palette emulator`:
-    xaoshelp://palette
+    [help:palette]
 
 .. _`motion blur`:
-    xaoshelp://blur
+    [help:blur]
 
 .. _`antialiasing`:
-    xaoshelp://anti
+    [help:anti]
 
 .. _`truecolor`:
-    xaoshelp://truecolor
+    [help:truecolor]
 
 .. _`random dot stereogram`:
-    xaoshelp://stereogram
+    [help:stereogram]
 
 .. _`filters`:
-    xaoshelp://mfilter
+    [help:mfilter]
 
 .. _`emboss`:
-    xaoshelp://emboss
+    [help:emboss]
 
 .. _`starfield`:
-    xaoshelp://starfield
+    [help:starfield]
 
 .. _`interlace filter`:
-    xaoshelp://interlace
+    [help:interlace]

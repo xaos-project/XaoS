@@ -177,7 +177,7 @@ law.
 Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
 
 .. _`gnu general public license`:
-    xaoshelp://gpl
+    [help:gpl]
 
 .. _`development process`:
-    xaoshelp://devel
+    [help:devel]

@@ -10,4 +10,4 @@ base for animations. See the `format description`_ for more information.
 **Available as**: menu item, command line option, command
 
 .. _`format description`:
-    xaoshelp://format
+    [help:format]

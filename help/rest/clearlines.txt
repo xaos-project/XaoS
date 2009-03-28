@@ -9,4 +9,4 @@ display commands available from the `Misc menu`_.
 **Available as**: command
 
 .. _`misc menu`:
-    xaoshelp://misc
+    [help:misc]
