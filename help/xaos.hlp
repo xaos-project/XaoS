@@ -5,38 +5,31 @@
 Welcome to XaoS - a real-time fractal zoomer. 
 </center>
 
-<p>
-<a about>About XaoS</a><br>
-Learn who's behind XaoS and how you can help.
+<dl>
+<dt><a about>About XaoS</a>
+<dd>Learn who's behind XaoS and how you can help.
 
-<p>
-<a start>Getting started</a><br>
-Start here to learn how to use XaoS's basic features.
+<dt><a start>Getting started</a>
+<dd>Start here to learn how to use XaoS's basic features.
 
-<p>
-<a support>Getting support</a><br>
-How to report problems and get help from the XaoS community.
+<dt><a support>Getting support</a>
+<dd>How to report problems and get help from the XaoS community.
 
-<p>
-<a sffe>User formulas</a><br>
-Learn how to render your own formulas in XaoS.
+<dt><a sffe>User formulas</a>
+<dd>Learn how to render your own formulas in XaoS.
 
-<p>
-<a video>Encoding videos</a><br>
-Learn how to create videos from your XaoS animations.
+<dt><a video>Encoding videos</a>
+<dd>Learn how to create videos from your XaoS animations.
 
-<p>
-<a drivers>Platform-specific documentation</a><br>
-XaoS runs on many platforms. Read instructions specific to yours.
+<dt><a drivers>Platform-specific documentation</a>
+<dd>XaoS runs on many platforms. Read instructions specific to yours.
 
-<p>
-<a format>XaoS's file format</a><br>
-Learn how to tweak your saved fractals and animations.
+<dt><a format>XaoS's file format</a>
+<dd>Learn how to tweak your saved fractals and animations.
 
-<p>
-<a menus>Menus, commands and parameter index</a><br>
-An in-depth discussion of all of XaoS's commands.
-
+<dt><a menus>Menus, commands and parameter index</a>
+<dd>An in-depth discussion of all of XaoS's commands.
+</dl>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %about
@@ -2537,8 +2530,8 @@ integers:
 <p><emph>Syntax</emph>:(intcoloring integer)
 <p><emph>Syntax</emph>:(outtcoloring integer)
 <p>
-Truecolor coloring modes are similar to <a incoloring>incolor</a> and <a
-outcoloring>outcolor</a> coloring modes; but instead of using a palette,
+Truecolor coloring modes are similar to <a incoloring>incolor</a> and 
+<a outcoloring>outcolor</a> coloring modes; but instead of using a palette,
 they directly calculate the red, green and blue components of the color.
 This lets you display more parameters at once, and produces interesting
 and often attractive results. On 8bpp displays you need to enable the
@@ -3485,8 +3478,8 @@ higher powers. See the <tutor power.xaf>tutorial chapter</tutor>.
 <head>Octal</head>
 <p>
 This is a less well-known fractal that Thomas discovered in Fractint.
-It has an interesting shape when displayed in the alternative <a
-mplane>planes</a>. See the <tutor octo.xaf>tutorial chapter</tutor>.
+It has an interesting shape when displayed in the alternative 
+<a mplane>planes</a>. See the <tutor octo.xaf>tutorial chapter</tutor>.
 <p>
 <emph>Available as</emph>: menu item, command line option
 
