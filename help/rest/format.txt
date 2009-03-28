@@ -83,51 +83,65 @@ wait
     unfinished fractal there looks ugly. You should also call it, when you want
     to do something as soon as possible.
 
-Example:
+Example::
 
-;configure everything for the first frame (inistate) (palette 1 1163254293 0)
-;custom palette (cycling #t) ;enable cycling (cyclingspeed 7) (maxiter 276)
-;higher number of iterations (range 3) ;default range for solid guessing
-(usleep 1000000) ;second frame starts here (moveview -1.8101154154614007889
--8.2687205907162041209E-05) ;just move the image (usleep 1000000) ;third frame
-(morphview -1.8101154154614007889 -8.2687205907162041209E-05
-6.277210971069452361E-10 6.2772109785334669875E-10) ;10 seconds of zooming into
-selected rectangle (usleep 100000000)
+	;configure everything for the first frame
+	(inistate)
+	(palette 1 1163254293 0) ;custom palette
+	(cycling #t) ;enable cycling
+	(cyclingspeed 7)
+	(maxiter 276) ;higher number of iterations
+	(range 3) ;default range for solid guessing
+	(usleep 1000000) ;second frame starts here
+	(moveview -1.8101154154614007889 -8.2687205907162041209E-05)
+	;just move the image
+	(usleep 1000000) ;third frame
+	(morphview -1.8101154154614007889 -8.2687205907162041209E-05
+	6.277210971069452361E-10 6.2772109785334669875E-10)
+	;10 seconds of zooming into selected
+	rectangle
+	(usleep 100000000)
 
 The best way to learn XaoS command language is probably to read position files
 and modify them. For example, to create zooming animation from the original
-file:
+file::
 
-(initstate) (defaultpalette 0) (formula 'mandel) (view -1.64128273713
--5.50393226816E-05 9.69332308848E-08 9.69332308834E-08)
+	(initstate)
+	(defaultpalette 0)
+	(formula 'mandel)
+	(view -1.64128273713 -5.50393226816E-05 9.69332308848E-08 9.69332308834E-08)
 
-Just change the view command to morphview, and add usleep:
+Just change the view command to morphview, and add usleep::
 
-(initstate) (defaultpalette 0) (formula 'mandel) (morphview -1.64128273713
--5.50393226816E-05 9.69332308848E-08 9.69332308834E-08) (usleep 10000000)
+	(initstate)
+	(defaultpalette 0)
+	(formula 'mandel)
+	(morphview -1.64128273713 -5.50393226816E-05 9.69332308848E-08 9.69332308834E-08)
+	(usleep 10000000)
 
-The following code produces Julia morphing in the real axis:
+The following code produces Julia morphing in the real axis::
 
-(initstate) (fastjulia #t) (juliaseed -2 0) (morphjulia 2 0) (usleep 2000000)
+	(initstate)
+	(fastjulia #t)
+	(juliaseed -2 0)
+	(morphjulia 2 0)
+	(usleep 2000000)
 
-And following is the "rotozooming" animation:
+And following is the "rotozooming" animation::
 
-(initstate) (fastrotate #t) (morphview -1.64128273713 -5.50393226816E-05
-9.69332308848E-08 9.69332308834E-08) (morphangle 300) (usleep 10000000) (wait)
-(fastrotate #f)
+	(initstate)
+	(fastrotate #t)
+	(morphview -1.64128273713 -5.50393226816E-05 9.69332308848E-08
+	9.69332308834E-08)
+	(morphangle 300)
+	(usleep 10000000)
+	(wait)
+	(fastrotate #f)
 
-XaoS gallery
-------------
-
-I plan to make a gallery of animations and position files on the XaoS
-home-page, so please send any nice animations and images you created using XaoS
-to the `mailing list`_ or upload them to our website.
+..
 
 .. _`xaos registry`:
     [help:menus]
 
 .. _`animation functions`:
     [help:animf]
-
-.. _`mailing list`:
-    [help:support]
