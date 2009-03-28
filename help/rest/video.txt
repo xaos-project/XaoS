@@ -65,19 +65,33 @@ variety of video codecs and file formats:
 
 ffmpeg
 
-    Available from: http://ffmpeg.mplayerhq.hu/ Instructions:
-    http://ffmpeg.mplayerhq.hu/faq.html#SEC12
+* `ffmpeg home page`_
+* `ffmpeg instructions`_
 
-mencoder
+.. _`ffmpeg home page`:
+	http://ffmpeg.mplayerhq.hu/ 
 
-    Part of mplayer, available from: http://www.mplayerhq.hu/ Instructions:
-    http://www.mplayerhq.hu/DOCS/HTML/en/menc-feat-enc-images.html
+.. _`ffmpeg Instructions`:
+	 http://ffmpeg.mplayerhq.hu/faq.html#SEC12
+
+mencoder (part of mplayer)
+
+    * `mplayer homepage`_
+    * `mencoder instructions`_
+
+.. _`mplayer homepage`:
+	http://www.mplayerhq.hu/ 
+
+.. _`mencoder instructions`:
+	http://www.mplayerhq.hu/DOCS/HTML/en/menc-feat-enc-images.html
 
 These are both command line tools. If you prefer a graphical tool, you may
-prefer Quicktime Pro from Apple (http://www.apple.com/quicktime/pro/). However,
-this software costs approximately US$30, and the authors of XaoS have no
-experience with it. Although QuickTime may be easier to use, the two free
+prefer `Quicktime Pro`_ from Apple. However, this software costs approximately 
+US $30. Although QuickTime may be easier to use, the two free
 encoders above are just as capable once you learn how to use them.
+
+.. _`Quicktime Pro`:
+	http://www.apple.com/quicktime/pro/
 
 Note: we used to recommend `Berkeley parallel MPEG encoder`_ to encode the
 generated png files into MPEG videos. We have kept the instructions mainly for

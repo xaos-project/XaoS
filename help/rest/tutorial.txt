@@ -74,13 +74,18 @@ On SHIFT-F is a fractal called **Catseye** found by Arpad. This is more
 interesting if you change the bailout value.
 
 On SHIFT-G is a fractal called **Mandelbar**. It was in Gnofract4d, and they
-found it at: http://mathworld.wolfram.com/MandelbarSet.html
+found it at `Wolfram Mathworld`_.
+
+.. _`Wolfram Mathworld`:
+	http://mathworld.wolfram.com/MandelbarSet.html
 
 On SHIFT-H is the **Lambda** fractal.
 
 On SHIFT-I and SHIFT-J are the **Manowar** and **Spider** fractals, they were
-found by users of fractint. (Scott Taylor or Lee Skinner) It was on
-http://spanky.triumf.ca/www/fractint/ taylor_skinner_type.html
+found by users of fractint. (`Scott Taylor or Lee Skinner`_).
+
+.. _`Scott Taylor or Lee Skinner`:
+	http://spanky.triumf.ca/www/fractint/taylor_skinner_type.html
 
 The next 3 fractals are famous classic fractals.
 

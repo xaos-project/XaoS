@@ -64,14 +64,19 @@ submenu.
 Videator Support
 ----------------
 
-XaoS for Mac OS X can send a live video stream to Stone Design's Videator
-(http://stone.com/Videator/), which can then do post-processing using Mac OS
+XaoS for Mac OS X can send a live video stream to Stone Design's Videator_, 
+which can then do post-processing using Mac OS
 X's core video technology. This combination creates mind-blowing visuals that
 are great for VJing (live video performance art).
 
+.. _Videator:
+    http://stone.com/Videator/
+
 To turn on output to Videator, select **Videator Output** from the **UI** menu.
-See http://stone.com/Videator/VJ.html for more details on how using Videator
-with XaoS.
+See these instructions_ for more details on using Videator with XaoS.
+
+.. _instructions:
+    http://stone.com/Videator/VJ.html
 
 Known Issues
 ------------

@@ -4,6 +4,8 @@ mypath=`dirname $0`
 
 for file in $mypath/*.txt; do
 	basename=`basename $file .txt`
-	echo "- $basename -"
-	sed -f $mypath/htmllinks.sed $file | rst2html.py > $basename.html
+	if [ $file -nt $basename.html ]; then
+		echo "- $basename -"
+		sed -f $mypath/htmllinks.sed $file | rst2html.py > $basename.html
+	fi
 done

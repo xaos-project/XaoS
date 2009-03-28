@@ -3,7 +3,10 @@ AA-lib driver
 
 The AA driver is currently the most advanced and portable driver for XaoS. It
 is based on AAlib--a high quality ASCII-art library developed by the
-AA-project. (see http://aa-project.sf.net)
+`AA-project`_. 
+
+.. _`AA-project`:
+    http://aa-project.sourceforge.net/
 
 It is a fully featured XaoS driver for text mode displays. It supports 256
 colors and the mouse where possible.
