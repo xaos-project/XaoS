@@ -76,8 +76,8 @@ ffmpeg
 
 mencoder (part of mplayer)
 
-    * `mplayer homepage`_
-    * `mencoder instructions`_
+* `mplayer homepage`_
+* `mencoder instructions`_
 
 .. _`mplayer homepage`:
 	http://www.mplayerhq.hu/ 
