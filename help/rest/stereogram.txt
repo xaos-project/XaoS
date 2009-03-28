@@ -40,7 +40,7 @@ The following command line options are provided to specify sizes:
 
     Lets you specify the size of your screen in centimeters. Note that you need
     to specify the size of the visible image on the monitor, not the size with
-    edge borders, or the size of the tube. The simplistic `my monitor is 17",
+    edge borders, or the size of the tube. The simplistic 'my monitor is 17",
     just turn 17" into centimeters' doesn't work; that 17" is a marketing
     figure and has only a vague connection to reality. Get out a ruler and
     measure it.

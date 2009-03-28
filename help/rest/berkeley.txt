@@ -77,8 +77,8 @@ Calculation also takes lots of CPU and it is hard to get optimal vectors (it
 just takes too long).
 
 XaoS knows how the fractals move, so it can calculate this vectors quite
-easily. XaoS saves this information into *.p and *.b files. (*.p are for P
-frames, *.b are for B frames). If your encoder supports this, you should
+easily. XaoS saves this information into \*.p and \*.b files. (\*.p are for P
+frames, \*.b are for B frames). If your encoder supports this, you should
 provide this vector to increase quality. They are not exact (XaoS can make
 mistakes); the encoder should try to find its own vectors, then try XaoS's
 ones, and pick whichever is better.

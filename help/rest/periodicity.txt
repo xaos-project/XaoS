@@ -27,7 +27,7 @@ That's why the advantages of this optimization are questionable. You should
 probably experiment with enabling and disabling it. Sometimes XaoS is faster
 with this enabled, sometimes when disabled. Also, this method works only when
 `incoloring`_ methods are disabled, and only for some fractal types (some
-fractal types, e.g. newton, don't have any concept of an area `inside the set'
+fractal types, e.g. newton, don't have any concept of an area 'inside the set'
 at all.)
 
 The tutorial chapter "`Escape time fractals`_" has more information on fractal

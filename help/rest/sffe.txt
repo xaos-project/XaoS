@@ -27,7 +27,7 @@ Available functions are listed below:
 
 basic operations
 
-    +, -, *, /
+    +, -, \*, /
 
 basic trigonometry
 

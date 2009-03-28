@@ -3,7 +3,7 @@ Record animation
 
 **Syntax**:(record bool [ file ])
 
-e Toggle recording to a XaoS animation file (*.xaf). This file is
+Toggle recording to a XaoS animation file (\*.xaf). This file is
 human-readable, and can easily be improved by hand after recording. See the
 `format description`_ for more information.
 

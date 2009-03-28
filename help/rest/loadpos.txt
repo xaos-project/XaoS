@@ -1,7 +1,7 @@
 Load XaoS position file
 =======================
 
-Load a XaoS position file (*.xpf). See the `format description`_ for more
+Load a XaoS position file (\*.xpf). See the `format description`_ for more
 information.
 
 **Available as**: menu item, command line option
