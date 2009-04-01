@@ -1,3 +1,5 @@
+.. _end:
+
 `Line drawing functions`_
 
 `Animation functions`_

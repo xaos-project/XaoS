@@ -1,3 +1,5 @@
+.. _textsleep:
+
 Wait for text
 =============
 

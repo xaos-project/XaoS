@@ -1,3 +1,5 @@
+.. _animroot:
+
 Animation root menu
 ===================
 

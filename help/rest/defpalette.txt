@@ -1,3 +1,5 @@
+.. _defpalette:
+
 Default palette
 ===============
 

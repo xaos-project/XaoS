@@ -1,3 +1,5 @@
+.. _writehelp:
+
 How to write XaoS help files
 ============================
 

@@ -1,3 +1,5 @@
+.. _animateview:
+
 Animate view
 ============
 

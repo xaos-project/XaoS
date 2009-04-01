@@ -1,3 +1,5 @@
+.. _menus:
+
 Menus, functions and command line parameters
 ============================================
 

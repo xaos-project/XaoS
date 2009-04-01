@@ -1,3 +1,5 @@
+.. _text:
+
 Wait for text
 =============
 

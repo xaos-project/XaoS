@@ -1,3 +1,7 @@
+.. _uiview:
+.. _view:
+.. _angle:
+
 View
 ====
 

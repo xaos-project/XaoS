@@ -1,3 +1,7 @@
+.. _uimandelbrot:
+.. _julia:
+.. _juliaseed:
+
 Mandelbrot/Julia mode
 =====================
 

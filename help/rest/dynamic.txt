@@ -1,3 +1,9 @@
+.. _dynamic:
+.. _nodynamic:
+.. _dynamicanimation:
+.. _dynamicnew:
+.. _fastmode:
+
 Dynamic resolution
 ==================
 

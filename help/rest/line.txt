@@ -1,3 +1,5 @@
+.. _line:
+
 Line drawing functions
 ======================
 

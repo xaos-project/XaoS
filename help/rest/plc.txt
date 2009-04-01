@@ -1,3 +1,5 @@
+.. _plc:
+
 Replay only commands
 ====================
 

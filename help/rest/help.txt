@@ -1,9 +1,6 @@
+.. _help:
+
 Help
 ====
 
 This menu contains help and tutorials.
-
-`Help`_
-
-.. _`help`:
-    [help:help]

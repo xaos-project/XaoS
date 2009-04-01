@@ -1,3 +1,5 @@
+.. _morphline:
+
 Morph line
 ----------
 

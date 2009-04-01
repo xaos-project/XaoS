@@ -1,3 +1,5 @@
+.. _nogui:
+
 Disable XaoS's builtin GUI
 ==========================
 

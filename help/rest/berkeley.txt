@@ -1,3 +1,5 @@
+.. _berkeley:
+
 Berkeley parallel MPEG encoder
 ==============================
 

@@ -1,3 +1,17 @@
+.. _range:
+.. _mguess:
+.. _guess0:
+.. _guess1:
+.. _guess2:
+.. _guess3:
+.. _guess4:
+.. _guess5:
+.. _guess6:
+.. _guess7:
+.. _guess8:
+.. _guess9:
+.. _guessall:
+
 Solid guessing range
 ====================
 

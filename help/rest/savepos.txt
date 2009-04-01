@@ -1,3 +1,5 @@
+.. _savepos:
+
 Save XaoS position file
 =======================
 

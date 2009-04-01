@@ -1,3 +1,7 @@
+.. _shiftpalette:
+.. _fshift:
+.. _bshift:
+
 Shift palette
 =============
 

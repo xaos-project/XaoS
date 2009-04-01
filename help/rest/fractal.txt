@@ -1,3 +1,5 @@
+.. _fractal:
+
 Fractal
 =======
 

@@ -1,3 +1,5 @@
+.. _initstate:
+
 Reset to defaults
 =================
 

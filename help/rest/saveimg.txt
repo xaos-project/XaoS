@@ -1,3 +1,5 @@
+.. _saveimg:
+
 Save image
 ==========
 

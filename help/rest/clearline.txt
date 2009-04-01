@@ -1,3 +1,5 @@
+.. _clearline:
+
 Clear line
 ==========
 

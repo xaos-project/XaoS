@@ -1,3 +1,17 @@
+.. _outcoloring:
+.. _moutcoloring:
+.. _out1:
+.. _out2:
+.. _out3:
+.. _out4:
+.. _out5:
+.. _out6:
+.. _out7:
+.. _out8:
+.. _out9:
+.. _out10:
+.. _out0:
+
 Outside coloring mode
 =====================
 

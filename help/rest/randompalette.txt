@@ -1,3 +1,5 @@
+.. _randompalette:
+
 Random palette
 ==============
 

@@ -1,3 +1,7 @@
+.. _sffe:
+.. _usrform:
+.. _usrformInit:
+
 Using user formulas
 ===================
 

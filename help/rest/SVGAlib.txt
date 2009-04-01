@@ -1,3 +1,5 @@
+.. _SVGAlib:
+
 SVGAlib driver
 ==============
 

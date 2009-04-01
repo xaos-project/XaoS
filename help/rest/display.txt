@@ -1,3 +1,5 @@
+.. _display:
+
 Display fractal
 ===============
 

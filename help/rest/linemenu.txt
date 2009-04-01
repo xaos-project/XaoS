@@ -1,3 +1,5 @@
+.. _linemenu:
+
 Line drawing functions
 ======================
 

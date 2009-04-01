@@ -1,3 +1,5 @@
+.. _format:
+
 XaoS's file format
 ==================
 

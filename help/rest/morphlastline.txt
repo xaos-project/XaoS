@@ -1,3 +1,5 @@
+.. _morphlastline:
+
 Morph last line
 ---------------
 

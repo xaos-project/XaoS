@@ -1,3 +1,5 @@
+.. _dX-fullscreen:
+
 DirectX fullscreen driver
 =========================
 

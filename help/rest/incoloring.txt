@@ -1,3 +1,17 @@
+.. _incoloring:
+.. _mincoloring:
+.. _in1:
+.. _in2:
+.. _in3:
+.. _in4:
+.. _in5:
+.. _in6:
+.. _in7:
+.. _in8:
+.. _in9:
+.. _in10:
+.. _in0:
+
 Inside coloring mode
 ====================
 

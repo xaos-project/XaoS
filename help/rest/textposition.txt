@@ -1,3 +1,5 @@
+.. _textposition:
+
 Text position
 =============
 

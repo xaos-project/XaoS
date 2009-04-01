@@ -1,3 +1,6 @@
+.. _status:
+.. _animstatus:
+
 Status
 ======
 

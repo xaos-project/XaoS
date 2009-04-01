@@ -1,3 +1,7 @@
+.. _cycling:
+.. _rcycling:
+.. _cyclingspeed:
+
 Color cycling
 =============
 

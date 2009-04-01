@@ -1,3 +1,5 @@
+.. _dX-window:
+
 DirectX windowed driver
 =======================
 

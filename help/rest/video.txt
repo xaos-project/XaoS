@@ -1,3 +1,5 @@
+.. _video:
+
 How to encode video files from XaoS
 ===================================
 

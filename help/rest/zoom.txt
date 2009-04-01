@@ -1,3 +1,7 @@
+.. _zoom:
+.. _unzoom:
+.. _stop:
+
 Zooming functions
 =================
 

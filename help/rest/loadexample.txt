@@ -1,3 +1,5 @@
+.. _loadexample:
+
 Load random example
 ===================
 

@@ -1,3 +1,33 @@
+.. _tcolor:
+.. _intcoloring:
+.. _outtcoloring:
+.. _tincoloring:
+.. _toucoloring:
+.. _int0:
+.. _int1:
+.. _int2:
+.. _int3:
+.. _int4:
+.. _int5:
+.. _int6:
+.. _int7:
+.. _int8:
+.. _int9:
+.. _int10:
+.. _int11:
+.. _outt0:
+.. _outt1:
+.. _outt2:
+.. _outt3:
+.. _outt4:
+.. _outt5:
+.. _outt6:
+.. _outt7:
+.. _outt8:
+.. _outt9:
+.. _outt10:
+.. _outt11:
+
 Truecolor coloring mode
 =======================
 

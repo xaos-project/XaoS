@@ -1,3 +1,7 @@
+.. _quit:
+.. _quitmenu:
+.. _noquit:
+
 Quit
 ====
 

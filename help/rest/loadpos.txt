@@ -1,3 +1,5 @@
+.. _loadpos:
+
 Load XaoS position file
 =======================
 

@@ -1,3 +1,5 @@
+.. _edge2:
+
 Edge detection2
 ===============
 

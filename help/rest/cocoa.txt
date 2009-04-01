@@ -1,3 +1,5 @@
+.. _cocoa:
+
 Mac OS X port
 =============
 

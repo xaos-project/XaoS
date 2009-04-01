@@ -1,3 +1,5 @@
+.. _gpl:
+
 GNU GENERAL PUBLIC LICENSE
 ==========================
 

@@ -1,3 +1,5 @@
+.. _xtextpos:
+
 Horizontal text position
 ========================
 

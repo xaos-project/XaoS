@@ -1,3 +1,5 @@
+.. _savecfg:
+
 Save configuration
 ==================
 

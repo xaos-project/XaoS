@@ -1,3 +1,11 @@
+.. _rotate:
+.. _norotate:
+.. _controtate:
+.. _mouserotate:
+.. _rotationspeed:
+.. _autorotate:
+.. _fastrotate:
+
 Image rotation
 ==============
 

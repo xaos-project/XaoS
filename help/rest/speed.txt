@@ -1,3 +1,7 @@
+.. _speed:
+.. _speedup:
+.. _maxstep:
+
 Zooming speed
 =============
 
