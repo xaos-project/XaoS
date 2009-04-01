@@ -465,22 +465,8 @@ def handleAnchor(node):
     result.text = result.text.strip()
     if result.text == '': return result
     target = node.getAttribute('href').strip()
-    if target=="" or target[0]=='#': return result  # Ignore intrnl links
     result.text = re.sub('\s+', ' ', result.text)
-    key = result.text.lower()
-    if hyperlinks.has_key(key) and hyperlinks[key]!=target:
-        # The following try-except is a quick hack to ensure that the
-        # program will not stop because of problems in the warning
-        # mechanism. One such specific problem is a UnicodeEncodeError 
-        # when result.text contains difficult characters.
-        try:
-            warnings.warn("Ignoring second appearance of anchor '" + result.text +
-                                                    "' with different target")
-        except:
-            pass
-        return result
-    hyperlinks[key] = target
-    result.text = '`'+result.text+'`_'
+    result.text = ':ref:`'+result.text+' <'+target+'>`'
     return result
 
 def handleHeading(node):
