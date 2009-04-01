@@ -6,27 +6,12 @@ Palette
 This menu contains functions to change the palette the fractal is displayed
 with.
 
-`Default palette`_
+:ref:`Default palette <defpalette>`
 
-`Random palette`_
+:ref:`Random palette <randompalette>`
 
-`Custom palette`_
+:ref:`Custom palette <palette>`
 
-`Color cycling`_
+:ref:`Color cycling <cycling>`
 
-`Shift palette`_
-
-.. _`custom palette`:
-    [help:palette]
-
-.. _`color cycling`:
-    [help:cycling]
-
-.. _`shift palette`:
-    [help:shiftpalette]
-
-.. _`default palette`:
-    [help:defpalette]
-
-.. _`random palette`:
-    [help:randompalette]
+:ref:`Shift palette <shiftpalette>`

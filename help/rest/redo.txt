@@ -3,9 +3,6 @@
 Redo
 ====
 
-Redo last undone operation. See `undo`_.
+Redo last undone operation. See :ref:`undo <undo>`.
 
 **Available as**: menu item
-
-.. _`undo`:
-    [help:undo]

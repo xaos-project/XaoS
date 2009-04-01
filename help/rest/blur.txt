@@ -5,15 +5,9 @@ Motion blur
 
 Motion blur mixes the current frame with previous ones to produce a motion-blur
 effect. It might be rather slow in 16bpp truecolor modes. The best results can
-probably be seen in 8bpp modes, so you might want to enable the `palette
-filter`_ first.
+probably be seen in 8bpp modes, so you might want to enable the :ref:`palette
+filter <palettef>` first.
 
-`More information about filters`_
+:ref:`More information about filters <filter>`
 
 **Available as**: menu item, command line option
-
-.. _`more information about filters`:
-    [help:filter]
-
-.. _`palette filter`:
-    [help:palettef]

@@ -8,17 +8,8 @@ language, menus, dialogs and command line options are built from this database.
 This section contains information about all functions available in this
 registry.
 
-`Root menu`_
+:ref:`Root menu <root>`
 
-`Animation root menu`_
+:ref:`Animation root menu <animroot>`
 
-`Replay only commands`_
-
-.. _`animation root menu`:
-    [help:animroot]
-
-.. _`root menu`:
-    [help:root]
-
-.. _`replay only commands`:
-    [help:plc]
+:ref:`Replay only commands <plc>`

@@ -6,57 +6,24 @@ Fractal
 This menu contains all functions related to fractal parameters and display; you
 can change things like the formula used, coloring modes, seeds and much else.
 
-`Formula`_
+:ref:`Formula <formula>`
 
-`formulae`_
+:ref:`formulae <mformula>`
 
-`Incoloring mode`_
+:ref:`Incoloring mode <incoloring>`
 
-`Outcoloring mode`_
+:ref:`Outcoloring mode <outcoloring>`
 
-`Plane`_
+:ref:`Plane <plane>`
 
-`Palette`_
+:ref:`Palette <palettemenu>`
 
-`Mandelbrot mode`_
+:ref:`Mandelbrot mode <uimandelbrot>`
 
-`Perturbation`_
+:ref:`Perturbation <uiperturbation>`
 
-`View`_
+:ref:`View <uiview>`
 
-`Reset to defaults`_
+:ref:`Reset to defaults <initstate>`
 
-`True-color coloring modes`_
-
-.. _`incoloring mode`:
-    [help:incoloring]
-
-.. _`outcoloring mode`:
-    [help:outcoloring]
-
-.. _`palette`:
-    [help:palettemenu]
-
-.. _`perturbation`:
-    [help:uiperturbation]
-
-.. _`reset to defaults`:
-    [help:initstate]
-
-.. _`mandelbrot mode`:
-    [help:uimandelbrot]
-
-.. _`plane`:
-    [help:plane]
-
-.. _`formulae`:
-    [help:mformula]
-
-.. _`formula`:
-    [help:formula]
-
-.. _`true-color coloring modes`:
-    [help:tcolor]
-
-.. _`view`:
-    [help:uiview]
+:ref:`True-color coloring modes <tcolor>`

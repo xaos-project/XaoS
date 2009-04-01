@@ -42,11 +42,8 @@ fits on the screen.
 **Syntax**:(angle float)
 
 Set the rotation angle in degrees. By default this causes recalculation of the
-screen. You can enable the `fast rotation mode`_, which lets you rotate the
-screen without recalculation; but it slows down other things, so don't forget
-to disable it later.
+screen. You can enable the :ref:`fast rotation mode <rotate>`, which lets you
+rotate the screen without recalculation; but it slows down other things, so
+don't forget to disable it later.
 
 **Available as**: command line option, command
-
-.. _`fast rotation mode`:
-    [help:rotate]

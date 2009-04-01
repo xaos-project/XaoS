@@ -13,9 +13,6 @@ them look as nice as possible. Antialiasing also helps a lot when you want to
 encode JPEG or MPEG files; they are much shorter if antialiased (MPEG and JPEG
 hate jagged edges).
 
-`More information about filters`_
+:ref:`More information about filters <filter>`
 
 **Available as**: menu item, command line option
-
-.. _`more information about filters`:
-    [help:filter]

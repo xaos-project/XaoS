@@ -5,47 +5,23 @@ Animation functions
 
 These functions are used to animate fractal state--to zoom, unzoom and morph
 various parameters. They should be used only in animation files. Animations are
-usually performed for a time selected by an immediately following `timing
-function`_. For example:
+usually performed for a time selected by an immediately following :ref:`timing
+function <time>`. For example:
 
 (view 0 0 1 1) (morphview 0 0 2 2) (usleep 5000000)
 
 Will do a 5 second long unzooming animation.
 
-`Animate view`_
+:ref:`Animate view <animateview>`
 
-`Smooth morphing`_
+:ref:`Smooth morphing <smoothmorph>`
 
-`Morph view`_
+:ref:`Morph view <morphview>`
 
-`Morph julia`_
+:ref:`Morph julia <morphjulia>`
 
-`Move view`_
+:ref:`Move view <moveview>`
 
-`Morph angle`_
+:ref:`Morph angle <morphangle>`
 
-`Zooming functions`_
-
-.. _`morph julia`:
-    [help:morphjulia]
-
-.. _`morph view`:
-    [help:morphview]
-
-.. _`animate view`:
-    [help:animateview]
-
-.. _`timing function`:
-    [help:time]
-
-.. _`morph angle`:
-    [help:morphangle]
-
-.. _`zooming functions`:
-    [help:zoom]
-
-.. _`smooth morphing`:
-    [help:smoothmorph]
-
-.. _`move view`:
-    [help:moveview]
+:ref:`Zooming functions <zoom>`

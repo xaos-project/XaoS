@@ -5,22 +5,10 @@ Edit
 
 A fairly ordinary Edit menu.
 
-`Undo`_
+:ref:`Undo <undo>`
 
-`Redo`_
+:ref:`Redo <redo>`
 
-`Copy`_
+:ref:`Copy <copy>`
 
-`Paste`_
-
-.. _`paste`:
-    [help:paste]
-
-.. _`copy`:
-    [help:copy]
-
-.. _`redo`:
-    [help:redo]
-
-.. _`undo`:
-    [help:undo]
+:ref:`Paste <paste>`

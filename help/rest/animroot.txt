@@ -6,22 +6,10 @@ Animation root menu
 This menu is displayed at the top of the screen when animation replay is
 active.
 
-`File`_
+:ref:`File <file>`
 
-`Stop replay`_
+:ref:`Stop replay <stopreplay>`
 
-`Help`_
+:ref:`Help <helpmenu>`
 
-`UI`_
-
-.. _`ui`:
-    [help:ui]
-
-.. _`stop replay`:
-    [help:stopreplay]
-
-.. _`file`:
-    [help:file]
-
-.. _`help`:
-    [help:helpmenu]
+:ref:`UI <ui>`

@@ -9,11 +9,11 @@ Set the current fractal formula. keyword should be one of the following:
 
 'mandel
 
-    Standard `Mandelbrot set`_.
+    Standard :ref:`Mandelbrot set <mandel>`.
 
 'mandel3
 
-    `Mandelbrot set, power 3`_.
+    :ref:`Mandelbrot set, power 3 <mandel3>`.
 
 'mandel4
 
@@ -29,43 +29,22 @@ Set the current fractal formula. keyword should be one of the following:
 
 'newton
 
-    `Newton's approximation method`_.
+    :ref:`Newton's approximation method <newton>`.
 
 'barnsley
 
-    `First Barnsley's formula`_.
+    :ref:`First Barnsley's formula <barnsley>`.
 
 'octo
 
-    `Fractint's octo`_.
+    :ref:`Fractint's octo <octal>`.
 
 'phoenix
 
-    `Phoenix`_.
+    :ref:`Phoenix <phoenix>`.
 
 'magnet
 
-    `Magnet`_.
+    :ref:`Magnet <magnet>`.
 
 **Available as**: command
-
-.. _`first barnsley's formula`:
-    [help:barnsley]
-
-.. _`mandelbrot set`:
-    [help:mandel]
-
-.. _`phoenix`:
-    [help:phoenix]
-
-.. _`mandelbrot set, power 3`:
-    [help:mandel3]
-
-.. _`magnet`:
-    [help:magnet]
-
-.. _`fractint's octo`:
-    [help:octal]
-
-.. _`newton's approximation method`:
-    [help:newton]

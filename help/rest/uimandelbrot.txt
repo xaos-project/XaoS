@@ -7,7 +7,8 @@ Mandelbrot/Julia mode
 
 Most fractals rendered by XaoS can be represented as Mandelbrot sets or Julias.
 Each point in the Mandelbrot set has its own Julia set. To learn more about
-this correspondence, see the tutorial on the `Julia set`_.
+this correspondence, see the tutorial on the :ref:`Julia set
+<[tutor:julia.xaf]>`.
 
 This function switches between Mandelbrot and Julia representations. When
 switching to Julia, you need to set the seed--a point selected from the
@@ -20,7 +21,7 @@ current mouse position is used.
 
 Good seedpoints lie at the boundaries of the Mandelbrot set; other seeds
 usually generate quite a boring fractal. You can also explore various seeds at
-high speed using the `Fast Julia mode`_.
+high speed using the :ref:`Fast Julia mode <fastjulia>`.
 
 Not all fractals have Julias, but XaoS can generate fake Julia sets for those
 that do not, which use some Julia-like modification of the formula; so this
@@ -39,9 +40,3 @@ This function is used to enable/disable julia mode in animation files.
 Select the current julia seed.
 
 **Available as**: command line option, command
-
-.. _`julia set`:
-    [tutor:julia.xaf]
-
-.. _`fast julia mode`:
-    [help:fastjulia]

@@ -5,15 +5,9 @@ Morph last line
 
 **Syntax**:(morphlastline keyword complex complex)
 
-This function has the same functionality as `morphline`_, but it doesn't
-increase the line key, and touches the line with the previous key. This is
-useful when you want to move a just-drawn line--you don't need to set
-`linekey`_ back.
+This function has the same functionality as :ref:`morphline <morphline>`, but
+it doesn't increase the line key, and touches the line with the previous key.
+This is useful when you want to move a just-drawn line--you don't need to set
+:ref:`linekey <linekey>` back.
 
 **Available as**: command
-
-.. _`linekey`:
-    [help:linekey]
-
-.. _`morphline`:
-    [help:morphline]

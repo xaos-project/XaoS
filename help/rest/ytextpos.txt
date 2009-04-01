@@ -3,23 +3,11 @@
 Vertical text position
 ======================
 
-Select the vertical position used to display `text`_. It can be placed at the
-top, in the middle or at the bottom of the screen.
+Select the vertical position used to display :ref:`text <text>`. It can be
+placed at the top, in the middle or at the bottom of the screen.
 
-`Up`_
+:ref:`Up <ytextup>`
 
-`Middle`_
+:ref:`Middle <ytextmiddle>`
 
-`Bottom`_
-
-.. _`text`:
-    [help:text]
-
-.. _`bottom`:
-    [help:ytextbottom]
-
-.. _`up`:
-    [help:ytextup]
-
-.. _`middle`:
-    [help:ytextmiddle]
+:ref:`Bottom <ytextbottom>`

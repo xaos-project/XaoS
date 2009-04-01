@@ -5,14 +5,11 @@ Record animation
 
 **Syntax**:(record bool [ file ])
 
-Toggle recording to a XaoS animation file (\*.xaf). This file is
+e Toggle recording to a XaoS animation file (\*.xaf). This file is
 human-readable, and can easily be improved by hand after recording. See the
-`format description`_ for more information.
+:ref:`format description <format>` for more information.
 
 From the scripting language, (record #t) enables recording, and (record #f)
 disables it.
 
 **Available as**: menu item, command line option, command
-
-.. _`format description`:
-    [help:format]

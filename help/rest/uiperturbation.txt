@@ -17,8 +17,9 @@ If you hit the B key instead of using the menu, the current mouse position is
 used. This too is a toggle, so B again will disable perturbation by setting it
 to zero.
 
-This function only has an effect for certain formulae (like the `Mandelbrot
-set`_) and only then in `Mandelbrot mode`_.
+This function only has an effect for certain formulae (like the
+:ref:`Mandelbrot set <mandel>`) and only then in :ref:`Mandelbrot mode
+<uimandelbrot>`.
 
 **Available as**: menu item
 
@@ -29,9 +30,3 @@ of toggling, you always specify the perturbation to use. Use 0 0 to disable
 perturbation.
 
 **Available as**: command line option, command
-
-.. _`mandelbrot mode`:
-    [help:uimandelbrot]
-
-.. _`mandelbrot set`:
-    [help:mandel]

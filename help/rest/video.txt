@@ -95,9 +95,6 @@ encoders above are just as capable once you learn how to use them.
 .. _`Quicktime Pro`:
 	http://www.apple.com/quicktime/pro/
 
-Note: we used to recommend `Berkeley parallel MPEG encoder`_ to encode the
+Note: we used to recommend :ref:`Berkeley parallel MPEG encoder <berkeley>` to encode the
 generated png files into MPEG videos. We have kept the instructions mainly for
 historic purposes.
-
-.. _`berkeley parallel mpeg encoder`:
-    [help:berkeley]

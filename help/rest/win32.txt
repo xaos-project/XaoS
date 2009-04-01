@@ -32,10 +32,7 @@ display anything, but only renders images. Start the rendering, and a message
 box will inform you that XaoS is entering the calculation loop. Relax and wait
 for the message box signaling the end of the loop.
 
-Note that XaoS also supports the `DirectX`_ API.
+Note that XaoS also supports the :ref:`DirectX <dX-window>` API.
 
 Win32 driver was written by Jan Hubicka, Jan Olderdissen and Pavel Tzekov,
 1999.
-
-.. _`directx`:
-    [help:dX-window]

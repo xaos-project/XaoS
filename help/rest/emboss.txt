@@ -4,15 +4,9 @@ Emboss
 ======
 
 This is a standard emboss filter, as seen in programs such as the GIMP or
-Photoshop. It produces especially nice results with the smooth `outcoloring
-mode`_.
+Photoshop. It produces especially nice results with the smooth
+:ref:`outcoloring mode <outcoloring>`.
 
-`More information about filters`_
+:ref:`More information about filters <filter>`
 
 **Available as**: menu item, command line option
-
-.. _`outcoloring mode`:
-    [help:outcoloring]
-
-.. _`more information about filters`:
-    [help:filter]

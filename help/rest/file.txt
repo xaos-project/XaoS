@@ -3,42 +3,18 @@
 File
 ====
 
-`Load`_
+:ref:`Load <loadpos>`
 
-`Save`_
+:ref:`Save <savepos>`
 
-`Record`_
+:ref:`Record <record>`
 
-`Replay`_
+:ref:`Replay <play>`
 
-`Save image`_
+:ref:`Save image <saveimg>`
 
-`Load random example`_
+:ref:`Load random example <loadexample>`
 
-`Save configuration`_
+:ref:`Save configuration <savecfg>`
 
-`Quit`_
-
-.. _`load`:
-    [help:loadpos]
-
-.. _`quit`:
-    [help:quit]
-
-.. _`save image`:
-    [help:saveimg]
-
-.. _`record`:
-    [help:record]
-
-.. _`replay`:
-    [help:play]
-
-.. _`load random example`:
-    [help:loadexample]
-
-.. _`save`:
-    [help:savepos]
-
-.. _`save configuration`:
-    [help:savecfg]
+:ref:`Quit <quit>`

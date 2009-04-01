@@ -5,9 +5,6 @@ Magnet
 
 This is a formula that comes from theoretical physics. It is derived from the
 study of theoretical lattices in the context of magnetic renormalization
-transformations. See the `tutorial chapter`_.
+transformations. See the :ref:`tutorial chapter <[tutor:phoenix.xaf]>`.
 
 **Available as**: menu item, command line option
-
-.. _`tutorial chapter`:
-    [tutor:phoenix.xaf]

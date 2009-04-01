@@ -5,19 +5,19 @@ Line drawing functions
 
 XaoS has support for drawing lines. These functions are available only in
 animations and could be used to show some parts of fractals or draw simple
-diagrams. See the tutorial "`Introduction to fractals`_" for examples of this
-feature.
+diagrams. See the tutorial ":ref:`Introduction to fractals
+<[tutor:intro.xaf]>`" for examples of this feature.
 
 Lines can be drawn in **screen** coordinates, where 0,0 is the top left corner
 and 1,1 is bottom right, **scaled** coordinates, which are similar, but scaled
 to keep 0,0--1,1 rectangular, or **Fractal** coordinates, to draw a line at an
 exact position on the screen.
 
-The color of the line should be specified by the `color`_ command. You might
-draw an arbitrary number of lines and, later, morph them. Each line is
-identified by a unique numeric key; the current key can be set using linekey.
-Commands for changing lines operate on the line with the current key. (Lines
-drawn in sequence have consecutive numbers.)
+The color of the line should be specified by the :ref:`color <color>` command.
+You might draw an arbitrary number of lines and, later, morph them. Each line
+is identified by a unique numeric key; the current key can be set using
+linekey. Commands for changing lines operate on the line with the current key.
+(Lines drawn in sequence have consecutive numbers.)
 
 For example:
 
@@ -29,38 +29,14 @@ For example:
 
 Creates line morphing to rectangle.
 
-`Draw line`_
+:ref:`Draw line <line>`
 
-`Morph line`_
+:ref:`Morph line <morphline>`
 
-`Morph last line`_
+:ref:`Morph last line <morphlastline>`
 
-`Set line key`_
+:ref:`Set line key <linekey>`
 
-`Clear line`_
+:ref:`Clear line <clearline>`
 
-`Clear all lines`_
-
-.. _`color`:
-    [help:color]
-
-.. _`morph line`:
-    [help:morphline]
-
-.. _`set line key`:
-    [help:linekey]
-
-.. _`clear line`:
-    [help:clearline]
-
-.. _`clear all lines`:
-    [help:clearlines]
-
-.. _`introduction to fractals`:
-    [tutor:intro.xaf]
-
-.. _`draw line`:
-    [help:line]
-
-.. _`morph last line`:
-    [help:morphlastline]
+:ref:`Clear all lines <clearlines>`

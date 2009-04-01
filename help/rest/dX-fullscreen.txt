@@ -19,11 +19,8 @@ change graphics mode.
 
 If you want to start XaoS in DirectX, use the -driver dX-fullscreen option.
 
-See the `Win32 driver`_ documentation for some more Windows releated
-information.
+See the :ref:`Win32 driver <win32>` documentation for some more Windows
+releated information.
 
 DirectX driver was written by Jan Hubicka, Jan Olderdissen and Pavel Tzekov,
 1999.
-
-.. _`win32 driver`:
-    [help:win32]

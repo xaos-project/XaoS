@@ -8,17 +8,8 @@ for a given time, or wait until calculation is complete. The animation
 functions are controlled by such waiting; animations that are running while
 delays start keep running through the delay.
 
-`Usleep`_
+:ref:`Usleep <usleep>`
 
-`Wait for text`_
+:ref:`Wait for text <textsleep>`
 
-`Wait for complete image`_
-
-.. _`usleep`:
-    [help:usleep]
-
-.. _`wait for text`:
-    [help:textsleep]
-
-.. _`wait for complete image`:
-    [help:wait]
+:ref:`Wait for complete image <wait>`

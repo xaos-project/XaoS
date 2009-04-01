@@ -14,9 +14,7 @@ rotated palettes could look different on different displays (because they may
 have different palette sizes).
 
 Shifting the palette on truecolor displays causes a recalculation of the
-screen. To avoid this, you could use `palette emulation filter`_.
+screen. To avoid this, you could use :ref:`palette emulation filter
+<palettef>`.
 
 **Available as**: menu item, command line option, command
-
-.. _`palette emulation filter`:
-    [help:palettef]

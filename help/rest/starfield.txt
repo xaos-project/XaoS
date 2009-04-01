@@ -7,9 +7,6 @@ The starfield filter generates random stars whose density depends on the
 iteration count. Choose your favorite spiral fractal and enable this filter to
 get a Grand Design spiral galaxy :)
 
-`More information about filters`_
+:ref:`More information about filters <filter>`
 
 **Available as**: menu item, command line option
-
-.. _`more information about filters`:
-    [help:filter]

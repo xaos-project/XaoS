@@ -3,10 +3,7 @@
 Render animation
 ================
 
-Render an animation to image files. See `How to encode MPEG files`_ for more
-information.
+Render an animation to image files. See :ref:`How to encode MPEG files <mpeg>`
+for more information.
 
 **Available as**: menu item,
-
-.. _`how to encode mpeg files`:
-    [help:mpeg]

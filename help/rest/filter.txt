@@ -5,80 +5,47 @@ Filter command
 
 **Syntax**:(filter keyword bool)
 
-This command is used to enable or disable `filters`_. The **keyword** specifies
-the filter to change, and should be one of the following:
+This command is used to enable or disable :ref:`filters <mfilter>`. The
+**keyword** specifies the filter to change, and should be one of the following:
 
 'edge
 
-    `Edge detection`_
+    :ref:`Edge detection <edge>`
 
 'edge2
 
-    `Edge detection2`_
+    :ref:`Edge detection2 <edge2>`
 
 'starfield
 
-    `Starfield`_
+    :ref:`Starfield <starfield>`
 
 'stereogram
 
-    `Random dot stereogram`_
+    :ref:`Random dot stereogram <stereogram>`
 
 'interlace
 
-    `Interlace filter`_
+    :ref:`Interlace filter <interlace>`
 
 'blur
 
-    `Motion blur`_
+    :ref:`Motion blur <blur>`
 
 'emboss
 
-    `Emboss`_
+    :ref:`Emboss <emboss>`
 
 'palette
 
-    `Palette emulator`_
+    :ref:`Palette emulator <palette>`
 
 'anti
 
-    `Antialiasing`_
+    :ref:`Antialiasing <anti>`
 
 'truecolor
 
-    `Truecolor`_
+    :ref:`Truecolor <truecolor>`
 
 **Available as**: command
-
-.. _`edge detection2`:
-    [help:edge2]
-
-.. _`edge detection`:
-    [help:edge]
-
-.. _`palette emulator`:
-    [help:palette]
-
-.. _`motion blur`:
-    [help:blur]
-
-.. _`antialiasing`:
-    [help:anti]
-
-.. _`truecolor`:
-    [help:truecolor]
-
-.. _`random dot stereogram`:
-    [help:stereogram]
-
-.. _`filters`:
-    [help:mfilter]
-
-.. _`emboss`:
-    [help:emboss]
-
-.. _`starfield`:
-    [help:starfield]
-
-.. _`interlace filter`:
-    [help:interlace]

@@ -12,28 +12,16 @@ the following:
 
 'view
 
-    control `morphview`_
+    control :ref:`morphview <morphview>`
 
 'angle
 
-    control `morphangle`_
+    control :ref:`morphangle <morphangle>`
 
 'julia
 
-    control `morphjulia`_
+    control :ref:`morphjulia <morphjulia>`
 
 'line
 
-    control `morphline`_
-
-.. _`morphline`:
-    [help:morphline]
-
-.. _`morphview`:
-    [help:morphview]
-
-.. _`morphangle`:
-    [help:morphangle]
-
-.. _`morphjulia`:
-    [help:morphjulia]
+    control :ref:`morphline <morphline>`

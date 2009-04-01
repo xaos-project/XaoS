@@ -4,8 +4,8 @@ About XaoS
 ==========
 
 XaoS is free software. You are welcome to redistribute it under the terms of
-the `GNU General Public License`_. This also means that you may get **sources**
-and help improve XaoS through an open `development process`_.
+the :ref:`GNU General Public License <gpl>`. This also means that you may get **sources**
+and help improve XaoS through an open :ref:`development process <devel>`.
 
 Credits
 -------
@@ -193,9 +193,3 @@ libpng_
 
 .. _`GNU GPL version 3 or later`:
     http://gnu.org/licenses/gpl.html
-
-.. _`gnu general public license`:
-    [help:gpl]
-
-.. _`development process`:
-    [help:devel]

@@ -6,39 +6,18 @@ Calculation
 This menu contains functions that control calculation parameters such as the
 maximum iteration count and periodicity checking.
 
-`Solid guessing`_
+:ref:`Solid guessing <range>`
 
-`Dynamic resolution`_
+:ref:`Dynamic resolution <dynamic>`
 
-`Periodicity checking`_
+:ref:`Periodicity checking <periodicity>`
 
-`Iterations`_
+:ref:`Iterations <maxiter>`
 
-`Bailout`_
+:ref:`Bailout <bailout>`
 
-`Fast Julia mode`_
+:ref:`Fast Julia mode <fastjulia>`
 
-`Dynamic resolution`_
+:ref:`Dynamic resolution <dynamic>`
 
-`Rotation`_
-
-.. _`solid guessing`:
-    [help:range]
-
-.. _`fast julia mode`:
-    [help:fastjulia]
-
-.. _`periodicity checking`:
-    [help:periodicity]
-
-.. _`dynamic resolution`:
-    [help:dynamic]
-
-.. _`bailout`:
-    [help:bailout]
-
-.. _`iterations`:
-    [help:maxiter]
-
-.. _`rotation`:
-    [help:rotate]
+:ref:`Rotation <rotate>`

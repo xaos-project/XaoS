@@ -6,62 +6,26 @@ Filters
 Filters are a post-calculation effect applied to the resulting image. They can
 do things like motion blurring, edge detection, emulation of palettes or
 truecolor on displays that can't handle them, and such things. There is a
-`tutorial chapter`_ about them.
+:ref:`tutorial chapter <[tutor:filter.xaf]>` about them.
 
-`Filter command`_
+:ref:`Filter command <filter>`
 
-`Edge detection`_
+:ref:`Edge detection <edge>`
 
-`Edge detection2`_
+:ref:`Edge detection2 <edge2>`
 
-`Starfield`_
+:ref:`Starfield <starfield>`
 
-`Random dot stereogram`_
+:ref:`Random dot stereogram <stereogram>`
 
-`Interlace filter`_
+:ref:`Interlace filter <interlace>`
 
-`Motion blur`_
+:ref:`Motion blur <blur>`
 
-`Emboss`_
+:ref:`Emboss <emboss>`
 
-`Palette emulator`_
+:ref:`Palette emulator <palettef>`
 
-`Antialiasing`_
+:ref:`Antialiasing <anti>`
 
-`Truecolor emulator`_
-
-.. _`edge detection2`:
-    [help:edge2]
-
-.. _`edge detection`:
-    [help:edge]
-
-.. _`motion blur`:
-    [help:blur]
-
-.. _`antialiasing`:
-    [help:anti]
-
-.. _`starfield`:
-    [help:starfield]
-
-.. _`random dot stereogram`:
-    [help:stereogram]
-
-.. _`filter command`:
-    [help:filter]
-
-.. _`truecolor emulator`:
-    [help:truecolor]
-
-.. _`palette emulator`:
-    [help:palettef]
-
-.. _`emboss`:
-    [help:emboss]
-
-.. _`tutorial chapter`:
-    [tutor:filter.xaf]
-
-.. _`interlace filter`:
-    [help:interlace]
+:ref:`Truecolor emulator <truecolor>`

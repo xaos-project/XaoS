@@ -99,9 +99,6 @@ eye, is deformed. A deformed fractal can be caused by your specifying your
 monitor size wrongly. Visual problems that damage depth perception, as well as
 problems like astigmatism, can make it impossible to see stereograms at all.
 
-`More information about filters`_
+:ref:`More information about filters <filter>`
 
 **Available as**: menu item, command line option
-
-.. _`more information about filters`:
-    [help:filter]

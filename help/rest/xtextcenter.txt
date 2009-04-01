@@ -3,9 +3,6 @@
 Center
 ======
 
-Draw `text`_ in the center of the screen.
+Draw :ref:`text <text>` in the center of the screen.
 
 **Available as**: menu item
-
-.. _`text`:
-    [help:text]

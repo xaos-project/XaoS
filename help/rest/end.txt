@@ -1,76 +1,31 @@
 .. _end:
 
-`Line drawing functions`_
+:ref:`Line drawing functions <linemenu>`
 
-`Animation functions`_
+:ref:`Animation functions <animf>`
 
-`Timing functions`_
+:ref:`Timing functions <time>`
 
-`File`_
+:ref:`File <file>`
 
-`Edit`_
+:ref:`Edit <edit>`
 
-`Fractal`_
+:ref:`Fractal <fractal>`
 
-`Calculation`_
+:ref:`Calculation <calc>`
 
-`Filters`_
+:ref:`Filters <mfilter>`
 
-`UI`_
+:ref:`UI <ui>`
 
-`Misc`_
+:ref:`Misc <misc>`
 
-`Help`_
+:ref:`Help <helpmenu>`
 
-`Horizontal text position`_
+:ref:`Horizontal text position <xtextpos>`
 
-`Vertical text position`_
+:ref:`Vertical text position <ytextpos>`
 
-`Formulae`_
+:ref:`Formulae <mformula>`
 
-`Palette`_
-
-.. _`calculation`:
-    [help:calc]
-
-.. _`filters`:
-    [help:mfilter]
-
-.. _`horizontal text position`:
-    [help:xtextpos]
-
-.. _`edit`:
-    [help:edit]
-
-.. _`misc`:
-    [help:misc]
-
-.. _`palette`:
-    [help:palettemenu]
-
-.. _`animation functions`:
-    [help:animf]
-
-.. _`timing functions`:
-    [help:time]
-
-.. _`ui`:
-    [help:ui]
-
-.. _`file`:
-    [help:file]
-
-.. _`formulae`:
-    [help:mformula]
-
-.. _`vertical text position`:
-    [help:ytextpos]
-
-.. _`fractal`:
-    [help:fractal]
-
-.. _`line drawing functions`:
-    [help:linemenu]
-
-.. _`help`:
-    [help:helpmenu]
+:ref:`Palette <palettemenu>`

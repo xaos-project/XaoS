@@ -4,13 +4,7 @@ Octal
 =====
 
 This is a less well-known fractal that Thomas discovered in Fractint. It has an
-interesting shape when displayed in the alternative `planes`_. See the
-`tutorial chapter`_.
+interesting shape when displayed in the alternative :ref:`planes <mplane>`. See
+the :ref:`tutorial chapter <[tutor:octo.xaf]>`.
 
 **Available as**: menu item, command line option
-
-.. _`tutorial chapter`:
-    [tutor:octo.xaf]
-
-.. _`planes`:
-    [help:mplane]

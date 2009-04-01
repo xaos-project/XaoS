@@ -5,14 +5,11 @@ Animate view
 
 **Syntax**:(animateview float float float float)
 
-This function is almost identical to function `view`_. It expects that the view
-will be changed only slightly, so recalculation is done with ANIMATE priority.
-This means that dynamic resolution is used by default.
+This function is almost identical to function :ref:`view <uiview>`. It expects
+that the view will be changed only slightly, so recalculation is done with
+ANIMATE priority. This means that dynamic resolution is used by default.
 
 Viewport is selected by the center and two radiuses (real and imaginary). See
-`view`_ for more information.
+:ref:`view <uiview>` for more information.
 
 **Available as**: command
-
-.. _`view`:
-    [help:uiview]

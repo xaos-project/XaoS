@@ -22,16 +22,17 @@ convention; you could color them in differently to make the fractal look more
 interesting. The only method available to make areas inside the set visible is
 to display the value of the latest orbit as the value of each pixel.
 
-The `tutorial on incoloring`_ has more information and examples.
+The :ref:`tutorial on incoloring <[tutor:incolor.xaf]>` has more information
+and examples.
 
 XaoS has many different ways to show that value. The cryptic names of the modes
 are mathematical formulae, where **real** means the real part of the latest
 orbit, and **imag** means the imaginary part. **zmag** uses the magnitude of
 the value. The **Decomposition-like** method uses the angle of the orbit. Also,
-`truecolor`_ incoloring modes are available, that display one value in each of
-the red, blue and green color planes (or, for some modes, in each of the hue,
-saturation and value planes). In the scripting language, the incoloring mode is
-specified by one of the following integers:
+:ref:`truecolor <tcolor>` incoloring modes are available, that display one
+value in each of the red, blue and green color planes (or, for some modes, in
+each of the hue, saturation and value planes). In the scripting language, the
+incoloring mode is specified by one of the following integers:
 
 0
 
@@ -75,16 +76,7 @@ specified by one of the following integers:
 
 10
 
-    Truecolor. To set exact parameters for truecolor coloring use the `tcolor`_
-    command.
+    Truecolor. To set exact parameters for truecolor coloring use the
+    :ref:`tcolor <tcolor>` command.
 
 **Available as**: command line option, command
-
-.. _`tutorial on incoloring`:
-    [tutor:incolor.xaf]
-
-.. _`truecolor`:
-    [help:tcolor]
-
-.. _`tcolor`:
-    [help:tcolor]

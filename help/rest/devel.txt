@@ -3,22 +3,22 @@
 Development
 ===========
 
-XaoS is free software. One of the most significant rights its `license`_ grants
-to you is the right to **freely get, study and improve** its source code, which
-is available from the XaoS homepage.
+XaoS is free software. One of the most significant rights its :ref:`license
+<gpl>` grants to you is the right to **freely get, study and improve** its
+source code, which is available from the XaoS homepage.
 
 If you want to do some development, you are encouraged to send your work back
-to the `authors`_; if it is well done, it will be added to the next release.
-All changes should be submitted to the SourceForge patch tracker:
+to the :ref:`authors <about>`; if it is well done, it will be added to the next
+release. All changes should be submitted to the SourceForge patch tracker:
 http://sourceforge.net/tracker/?group_id=5771&atid=305771
 
 XaoS has an open development model. All development is coordinated via the
 SourceForge website (http://www.sourceforge.net/projects/xaos). Development
 versions are available via CVS (see http://sourceforge.net/cvs/?group_id=5771
 for instructions), so if you are interested in the future of XaoS, give the
-latest source a try! We also have a several `mailing lists`_, where you can
-subscribe if you want to be informed about latest releases, discuss XaoS with
-others, or participate in the development process.
+latest source a try! We also have a several :ref:`mailing lists <support>`,
+where you can subscribe if you want to be informed about latest releases,
+discuss XaoS with others, or participate in the development process.
 
 XaoS is quite easily extensible. You might want to read a bit about its
 internals in the file **doc/xaosdev.info**. XaoS is also portable, so if it
@@ -49,12 +49,3 @@ Fixing outstanding bugs.
 
 If you would like to volunteer, join the mailing lists and let us know. We
 would be happy to help you get started!
-
-.. _`mailing lists`:
-    [help:support]
-
-.. _`license`:
-    [help:gpl]
-
-.. _`authors`:
-    [help:about]

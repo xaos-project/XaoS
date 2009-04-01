@@ -5,10 +5,7 @@ Clear screen
 
 **Syntax**:(clearscreen)
 
-Clear the screen. To display the fractal again, use `display`_. This function
-is mainly useful in tutorials and similar animations.
+Clear the screen. To display the fractal again, use :ref:`display <display>`.
+This function is mainly useful in tutorials and similar animations.
 
 **Available as**: menu item, command
-
-.. _`display`:
-    [help:display]

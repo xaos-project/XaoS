@@ -6,9 +6,7 @@ Recalculate
 **Syntax**:(recalculate)
 
 Recalculate current fractal. This should be used when the fractal on the screen
-is strange because of error propagation caused by `solid guessing`_.
+is strange because of error propagation caused by :ref:`solid guessing
+<range>`.
 
 **Available as**: menu item, command line option, command
-
-.. _`solid guessing`:
-    [help:range]

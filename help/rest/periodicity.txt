@@ -6,12 +6,12 @@ Periodicity checking
 **Syntax**:(periodicity bool)
 
 Periodicity checking is one way to speed up the calculation. Areas inside the
-set always need `maxiter`_ iterations to determine that the point is probably
-inside the set (while it is rare for areas outside to need anywhere near that
-much). Often the orbital trajectory falls into a periodic, repeating cycle; if
-that can be detected, the calculation can be stopped early, as there's no way
-that the orbit can ever leave the cycle again (hence it cannot diverge, hence
-the point must be inside the set).
+set always need :ref:`maxiter <maxiter>` iterations to determine that the point
+is probably inside the set (while it is rare for areas outside to need anywhere
+near that much). Often the orbital trajectory falls into a periodic, repeating
+cycle; if that can be detected, the calculation can be stopped early, as
+there's no way that the orbit can ever leave the cycle again (hence it cannot
+diverge, hence the point must be inside the set).
 
 Implementating this method efficiently is quite problematic. It slows down the
 cases where cycles are not found, because cycle-checking is quite hard work and
@@ -28,21 +28,12 @@ since areas inside the set are usually not calculated at all.
 That's why the advantages of this optimization are questionable. You should
 probably experiment with enabling and disabling it. Sometimes XaoS is faster
 with this enabled, sometimes when disabled. Also, this method works only when
-`incoloring`_ methods are disabled, and only for some fractal types (some
-fractal types, e.g. newton, don't have any concept of an area 'inside the set'
-at all.)
+:ref:`incoloring <incoloring>` methods are disabled, and only for some fractal
+types (some fractal types, e.g. newton, don't have any concept of an area
+'inside the set' at all.)
 
-The tutorial chapter "`Escape time fractals`_" has more information on fractal
-calculation in XaoS, and there is a lengthy section in the hacker's manual
-(xaosdev.texinfo) devoted to the subject.
+The tutorial chapter ":ref:`Escape time fractals <[tutor:escape.xaf]>`" has
+more information on fractal calculation in XaoS, and there is a lengthy section
+in the hacker's manual (xaosdev.texinfo) devoted to the subject.
 
 **Available as**: menu item, command line option, command
-
-.. _`incoloring`:
-    [help:incoloring]
-
-.. _`escape time fractals`:
-    [tutor:escape.xaf]
-
-.. _`maxiter`:
-    [help:maxiter]

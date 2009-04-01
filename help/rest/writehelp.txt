@@ -11,7 +11,4 @@ If you are writing documentation about some command in the XaoS function
 registry, use the same keyword as the name of the command in order to make
 context sensitive help work.
 
-The help file is written in a special format called `xshl`_.
-
-.. _`xshl`:
-    [help:xshl]
+The help file is written in a special format called :ref:`xshl <xshl>`.

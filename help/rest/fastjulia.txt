@@ -13,9 +13,6 @@ good enough for a fast preview.
 
 If you want to select a good seedpoint, enable fast Julia mode and find a nice
 place by dragging with the first mouse button depressed; then change to the
-`Julia mode`_ to see the exact image.
+:ref:`Julia mode <uimandelbrot>` to see the exact image.
 
 **Available as**: menu item, command line option, command
-
-.. _`julia mode`:
-    [help:uimandelbrot]

@@ -6,15 +6,10 @@ Edge detection2
 This filter is a standard edge detection algorithm; solid areas are filled in
 black. Some fractals look very interesting with this filter (and some areas of
 some fractals just look like noise). This version of the filter produces
-relatively tight lines, so is useful at lower resolutions. The filter `edge
-detection`_ makes thinner lines, for the high resolution modes.
+relatively tight lines, so is useful at lower resolutions. The filter
+:ref:`edge detection <edge>` makes thinner lines, for the high resolution
+modes.
 
-`More information about filters`_
+:ref:`More information about filters <filter>`
 
 **Available as**: menu item, command line option
-
-.. _`more information about filters`:
-    [help:filter]
-
-.. _`edge detection`:
-    [help:edge]

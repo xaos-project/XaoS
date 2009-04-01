@@ -3,23 +3,11 @@
 Horizontal text position
 ========================
 
-Select the horizontal position used to display `text`_. It can be placed at the
-left, in the center or at the right.
+Select the horizontal position used to display :ref:`text <text>`. It can be
+placed at the left, in the center or at the right.
 
-`Left`_
+:ref:`Left <xtextleft>`
 
-`Center`_
+:ref:`Center <xtextcenter>`
 
-`Right`_
-
-.. _`text`:
-    [help:text]
-
-.. _`right`:
-    [help:xtexteight]
-
-.. _`center`:
-    [help:xtextcenter]
-
-.. _`left`:
-    [help:xtextleft]
+:ref:`Right <xtexteight>`

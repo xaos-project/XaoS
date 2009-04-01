@@ -5,52 +5,22 @@ Misc
 
 Miscellaneous functions.
 
-`Command`_
+:ref:`Command <command>`
 
-`Render animation`_
+:ref:`Render animation <renderanim>`
 
-`Clear screen`_
+:ref:`Clear screen <clearscreen>`
 
-`Display fractal`_
+:ref:`Display fractal <display>`
 
-`Display text`_
+:ref:`Display text <text>`
 
-`Color`_
+:ref:`Color <color>`
 
-`Horizontal text position`_
+:ref:`Horizontal text position <xtextpos>`
 
-`Vertical text position`_
+:ref:`Vertical text position <ytextpos>`
 
-`Text position`_
+:ref:`Text position <textposition>`
 
-`Message`_
-
-.. _`text position`:
-    [help:textposition]
-
-.. _`horizontal text position`:
-    [help:xtextpos]
-
-.. _`color`:
-    [help:color]
-
-.. _`render animation`:
-    [help:renderanim]
-
-.. _`command`:
-    [help:command]
-
-.. _`clear screen`:
-    [help:clearscreen]
-
-.. _`display text`:
-    [help:text]
-
-.. _`vertical text position`:
-    [help:ytextpos]
-
-.. _`message`:
-    [help:message]
-
-.. _`display fractal`:
-    [help:display]
+:ref:`Message <message>`

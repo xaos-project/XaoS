@@ -5,42 +5,18 @@ Root menu
 
 This menu is usually displayed at the top of the screen or window. It contains
 all currently available submenus. During animation another menu is
-displayed--the `Animation root menu`_.
+displayed--the :ref:`Animation root menu <animroot>`.
 
-`File`_
+:ref:`File <file>`
 
-`Fractal`_
+:ref:`Fractal <fractal>`
 
-`Calculation`_
+:ref:`Calculation <calc>`
 
-`Filters`_
+:ref:`Filters <mfilter>`
 
-`UI`_
+:ref:`UI <ui>`
 
-`Misc`_
+:ref:`Misc <misc>`
 
-`Help`_
-
-.. _`file`:
-    [help:file]
-
-.. _`calculation`:
-    [help:calc]
-
-.. _`animation root menu`:
-    [help:animroot]
-
-.. _`misc`:
-    [help:misc]
-
-.. _`ui`:
-    [help:ui]
-
-.. _`filters`:
-    [help:mfilter]
-
-.. _`fractal`:
-    [help:fractal]
-
-.. _`help`:
-    [help:helpmenu]
+:ref:`Help <helpmenu>`

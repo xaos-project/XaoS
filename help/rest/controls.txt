@@ -18,8 +18,8 @@ middle
     move fractal in a drag-and-drop fashion
 
 **Note:** Since most Macs only have one button mice, these controls are
-emulated on Mac OS X using modifier keys. See the help section on `Mac OS X`_
-for details.
+emulated on Mac OS X using modifier keys. See the help section on :ref:`Mac OS
+X <cocoa>` for details.
 
 This behavior can change. If you enable rotation, the first button is used for
 rotating fractals. Also, in fast Julia mode, the first button is used to change
@@ -51,6 +51,3 @@ All other functions are available from the menu, which (in the default
 configuration) are displayed when you move the mouse to the top of the
 screen/window. It is useful to learn the shortcut keys, which are shown in gray
 next to the menu items they trigger.
-
-.. _`mac os x`:
-    [help:cocoa]

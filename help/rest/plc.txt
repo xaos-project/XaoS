@@ -6,22 +6,10 @@ Replay only commands
 Some commands, such as timing primitives or animation functions, are available
 only in animation files.
 
-`Line drawing functions`_
+:ref:`Line drawing functions <linemenu>`
 
-`Animation functions`_
+:ref:`Animation functions <animf>`
 
-`Timing functions`_
+:ref:`Timing functions <time>`
 
-`Include file`_
-
-.. _`timing functions`:
-    [help:time]
-
-.. _`include file`:
-    [help:load]
-
-.. _`line drawing functions`:
-    [help:linemenu]
-
-.. _`animation functions`:
-    [help:animf]
+:ref:`Include file <load>`

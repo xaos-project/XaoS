@@ -3,9 +3,7 @@
 Phoenix
 =======
 
-This formula produces very nice Julia sets. See the `tutorial chapter`_.
+This formula produces very nice Julia sets. See the :ref:`tutorial chapter
+<[tutor:phoenix.xaf]>`.
 
 **Available as**: menu item, command line option
-
-.. _`tutorial chapter`:
-    [tutor:phoenix.xaf]

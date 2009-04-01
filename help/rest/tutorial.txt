@@ -76,18 +76,13 @@ On SHIFT-F is a fractal called **Catseye** found by Arpad. This is more
 interesting if you change the bailout value.
 
 On SHIFT-G is a fractal called **Mandelbar**. It was in Gnofract4d, and they
-found it at `Wolfram Mathworld`_.
-
-.. _`Wolfram Mathworld`:
-	http://mathworld.wolfram.com/MandelbarSet.html
+found it at: http://mathworld.wolfram.com/MandelbarSet.html
 
 On SHIFT-H is the **Lambda** fractal.
 
 On SHIFT-I and SHIFT-J are the **Manowar** and **Spider** fractals, they were
-found by users of fractint. (`Scott Taylor or Lee Skinner`_).
-
-.. _`Scott Taylor or Lee Skinner`:
-	http://spanky.triumf.ca/www/fractint/taylor_skinner_type.html
+found by users of fractint. (Scott Taylor or Lee Skinner) It was on
+http://spanky.triumf.ca/www/fractint/ taylor_skinner_type.html
 
 The next 3 fractals are famous classic fractals.
 
@@ -106,7 +101,8 @@ To make fractals yet more interesting, more coloring modes for points outside
 the set are provided. "Classical coloring mode" uses the number of iterations
 that the orbit required to escape to (nearly) infinity. You can change this
 mode from the **Fractal menu** or by pressing key C To see more about coloring
-modes, try the tutorial on `Incoloring modes`_ from the XaoS features overview.
+modes, try the tutorial on :ref:`Incoloring modes <[tutor:incolor.xaf]>` from
+the XaoS features overview.
 
 Those cryptic names for coloring modes are mathematical formulae, where
 **iter** means number of iterations, **real** means real coordinate of last
@@ -119,8 +115,8 @@ In-coloring mode is similar to out-coloring, except that it changes how things
 inside the set are displayed. This can also be changed from the **fractal
 menu** or by pressing F.
 
-You might also want to see the tutorial on `Out-coloring modes`_ from the XaoS
-features overview.
+You might also want to see the tutorial on :ref:`Out-coloring modes
+<[tutor:outcolor.xaf]>` from the XaoS features overview.
 
 Planes
 ------
@@ -173,8 +169,8 @@ Mandelbrot/Julia switching
 
 Most of the fractals displayed by XaoS (currently all of them) have two forms:
 Mandelbrot and Julia. Every point in a Mandelbrot set has its own Julia set. To
-see more about this correspondence, try the tutorial on `Julia set`_ from the
-Introduction to fractals.
+see more about this correspondence, try the tutorial on :ref:`Julia set
+<[tutor:julia.xaf]>` from the Introduction to fractals.
 
 In the Mandelbrot mode, you can get a corresponding Julia by moving the mouse
 to an interesting point and pressing M. To get back press M again. Some
@@ -204,18 +200,18 @@ find one you like.
 Filters
 -------
 
-Many interesting effects are done by post-calculation `filters`_. XaoS has
-filters that do everything from embossing, through motion-blurring, right
-through to turning the fractal into a stereogram. To enable them use the filter
-menu or press E.
+Many interesting effects are done by post-calculation :ref:`filters <filter>`.
+XaoS has filters that do everything from embossing, through motion-blurring,
+right through to turning the fractal into a stereogram. To enable them use the
+filter menu or press E.
 
 Palette cycling
 ---------------
 
 This is a very old trick that makes the Mandelbrot set a little flashier. You
 may enable or disable it using Y. In the truecolor modes you need to enable the
-`palette emulator filter`_ first. This is done via the E key, or from the
-filter menu.
+:ref:`palette emulator filter <palettef>` first. This is done via the E key, or
+from the filter menu.
 
 Changing number of iterations
 -----------------------------
@@ -256,18 +252,3 @@ XaoS has many other features, but they don't fit into this tutorial. Most of
 them are available from the menu, so you can experiment with them. You might
 also want to see the **animated tutorials** from the **help menu**, to have an
 idea what XaoS can do.
-
-.. _`out-coloring modes`:
-    [tutor:outcolor.xaf]
-
-.. _`julia set`:
-    [tutor:julia.xaf]
-
-.. _`filters`:
-    [help:filter]
-
-.. _`incoloring modes`:
-    [tutor:incolor.xaf]
-
-.. _`palette emulator filter`:
-    [help:palettef]

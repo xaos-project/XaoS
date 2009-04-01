@@ -5,11 +5,9 @@ Message
 
 **Syntax**:(message string)
 
-This function is almost identical to the `text`_ function, except that it uses
-message catalogs in the catalog directory to translate messages into other
-languages. It should be used only in the multi-lingual XaoS tutorials.
+This function is almost identical to the :ref:`text <text>` function, except
+that it uses message catalogs in the catalog directory to translate messages
+into other languages. It should be used only in the multi-lingual XaoS
+tutorials.
 
 **Available as**: command line option, command
-
-.. _`text`:
-    [help:text]

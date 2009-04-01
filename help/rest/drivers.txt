@@ -7,62 +7,26 @@ XaoS is portable and works on many different platforms. Since not all platforms
 are exactly the same, there are some differences between the behavior of XaoS
 on different platforms. Here is documentation about each specific port.
 
-`X11 driver`_
+:ref:`X11 driver <X11>`
 
-`Mac OS X driver`_
+:ref:`Mac OS X driver <cocoa>`
 
-`Win32 driver`_
+:ref:`Win32 driver <win32>`
 
-`DirectX windowed driver`_
+:ref:`DirectX windowed driver <dX-window>`
 
-`DirectX fullscreen driver`_
+:ref:`DirectX fullscreen driver <dX-fullscreen>`
 
-`AA-lib driver`_
+:ref:`AA-lib driver <aa>`
 
-`MS-DOS driver`_
+:ref:`MS-DOS driver <dos>`
 
-`GGI driver`_
+:ref:`GGI driver <ggi>`
 
-`plan9 driver`_
+:ref:`plan9 driver <plan9>`
 
-`SVGAlib driver`_
+:ref:`SVGAlib driver <SVGAlib>`
 
-`DGA driver`_
+:ref:`DGA driver <DGA>`
 
-`BeOS drivers (BeOS, DirectWindow, WindowScreen)`_
-
-.. _`plan9 driver`:
-    [help:plan9]
-
-.. _`win32 driver`:
-    [help:win32]
-
-.. _`x11 driver`:
-    [help:X11]
-
-.. _`directx fullscreen driver`:
-    [help:dX-fullscreen]
-
-.. _`ms-dos driver`:
-    [help:dos]
-
-.. _`svgalib driver`:
-    [help:SVGAlib]
-
-.. _`ggi driver`:
-    [help:ggi]
-
-.. _`mac os x driver`:
-    [help:cocoa]
-
-.. _`beos drivers (beos, directwindow, windowscreen)`:
-    [help:BeOS]
-
-.. _`directx windowed driver`:
-    [help:dX-window]
-
-.. _`dga driver`:
-    [help:DGA]
-
-.. _`aa-lib driver`:
-    [help:aa]
+:ref:`BeOS drivers (BeOS, DirectWindow, WindowScreen) <BeOS>`

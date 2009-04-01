@@ -3,28 +3,14 @@
 Palette emulator
 ================
 
-XaoS can work in either palette or `truecolor`_ mode. Both modes have
-advantages and disadvantages. Palette mode allows effects such as palette
-rotation, while truecolor mode allows smoother `incoloring`_ and `outcoloring`_
-modes and the `truecolor coloring`_ modes. If your display is truecolor, you
-can enable this filter to get palette emulation (albeit not as cheaply as in a
-real paletted mode).
+XaoS can work in either palette or :ref:`truecolor <truecolor>` mode. Both
+modes have advantages and disadvantages. Palette mode allows effects such as
+palette rotation, while truecolor mode allows smoother :ref:`incoloring
+<incoloring>` and :ref:`outcoloring <outcoloring>` modes and the
+:ref:`truecolor coloring <tcolor>` modes. If your display is truecolor, you can
+enable this filter to get palette emulation (albeit not as cheaply as in a real
+paletted mode).
 
-`More information about filters`_
+:ref:`More information about filters <filter>`
 
 **Available as**: menu item, command line option
-
-.. _`incoloring`:
-    [help:incoloring]
-
-.. _`truecolor coloring`:
-    [help:tcolor]
-
-.. _`outcoloring`:
-    [help:outcoloring]
-
-.. _`truecolor`:
-    [help:truecolor]
-
-.. _`more information about filters`:
-    [help:filter]

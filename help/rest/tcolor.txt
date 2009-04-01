@@ -35,14 +35,16 @@ Truecolor coloring mode
 
 **Syntax**:(outtcoloring integer)
 
-Truecolor coloring modes are similar to `incolor`_ and `outcolor`_ coloring
-modes; but instead of using a palette, they directly calculate the red, green
-and blue components of the color. This lets you display more parameters at
-once, and produces interesting and often attractive results. On 8bpp displays
-you need to enable the `palette emulator filter`_ first to see anything, amd
-the quality won't be so good, as far fewer colors are available per parameter.
+Truecolor coloring modes are similar to :ref:`incolor <incoloring>` and
+:ref:`outcolor <outcoloring>` coloring modes; but instead of using a palette,
+they directly calculate the red, green and blue components of the color. This
+lets you display more parameters at once, and produces interesting and often
+attractive results. On 8bpp displays you need to enable the :ref:`palette
+emulator filter <palettef>` first to see anything, amd the quality won't be so
+good, as far fewer colors are available per parameter.
 
-The `tutorial on truecolor coloring modes`_ has more information and examples.
+The :ref:`tutorial on truecolor coloring modes <[tutor:truecol.xaf]>` has more
+information and examples.
 
 The cryptic names of the modes are always three mathematical formulae (one for
 each color component), where **real** means the real part of the latest orbit,
@@ -96,15 +98,3 @@ following integers:
     abs(re*im-csqr) abs(re^2-csqr) abs(im^2-csqr)
 
 **Available as**: command line option, command
-
-.. _`outcolor`:
-    [help:outcoloring]
-
-.. _`tutorial on truecolor coloring modes`:
-    [tutor:truecol.xaf]
-
-.. _`incolor`:
-    [help:incoloring]
-
-.. _`palette emulator filter`:
-    [help:palettef]

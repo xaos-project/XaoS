@@ -4,3 +4,5 @@ Help
 ====
 
 This menu contains help and tutorials.
+
+:ref:`Help <help>`

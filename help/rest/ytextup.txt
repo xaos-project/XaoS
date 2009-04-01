@@ -3,9 +3,6 @@
 Up
 ==
 
-Draw `text`_ at the top of the screen.
+Draw :ref:`text <text>` at the top of the screen.
 
 **Available as**: menu item
-
-.. _`text`:
-    [help:text]

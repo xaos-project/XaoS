@@ -7,42 +7,18 @@ UI
 This menu contains functions to control the user interface layer of XaoS:
 zooming speed, the autopilot, realtime status information, and so on.
 
-`Zooming speed`_
+:ref:`Zooming speed <speed>`
 
-`Letters per second`_
+:ref:`Letters per second <letterspersec>`
 
-`Autopilot`_
+:ref:`Autopilot <auto>`
 
-`Recalculate`_
+:ref:`Recalculate <recalculate>`
 
-`Interrupt`_
+:ref:`Interrupt <interrupt>`
 
-`Disable XaoS's builtin GUI`_
+:ref:`Disable XaoS's builtin GUI <nogui>`
 
-`Status`_
+:ref:`Status <status>`
 
-`Ministatus`_
-
-.. _`Zooming speed`:
-	[help:speed]
-
-.. _`Letters per second`:
-	[help:letterspersec]
-
-.. _`Autopilot`:
-	[help:autopilot]
-
-.. _`Recalculate`:
-	[help:recalculate]
-
-.. _`Interrupt`:
-	[help:interrupt]
-
-.. _`Disable XaoS's builtin GUI`:
-	[help:nogui]
-
-.. _`Status`:
-	[help:status]
-
-.. _`Ministatus`:
-	[help:ministatus]
+:ref:`Ministatus <ministatus>`

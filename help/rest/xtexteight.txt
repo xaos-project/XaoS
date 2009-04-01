@@ -3,9 +3,6 @@
 Right
 =====
 
-Draw `text`_ at the right side of the screen.
+Draw :ref:`text <text>` at the right side of the screen.
 
 **Available as**: menu item
-
-.. _`text`:
-    [help:text]
