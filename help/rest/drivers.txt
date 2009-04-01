@@ -7,26 +7,18 @@ XaoS is portable and works on many different platforms. Since not all platforms
 are exactly the same, there are some differences between the behavior of XaoS
 on different platforms. Here is documentation about each specific port.
 
-:ref:`X11 driver <X11>`
+.. toctree::
+	:maxdepth: 2
 
-:ref:`Mac OS X driver <cocoa>`
-
-:ref:`Win32 driver <win32>`
-
-:ref:`DirectX windowed driver <dX-window>`
-
-:ref:`DirectX fullscreen driver <dX-fullscreen>`
-
-:ref:`AA-lib driver <aa>`
-
-:ref:`MS-DOS driver <dos>`
-
-:ref:`GGI driver <ggi>`
-
-:ref:`plan9 driver <plan9>`
-
-:ref:`SVGAlib driver <SVGAlib>`
-
-:ref:`DGA driver <DGA>`
-
-:ref:`BeOS drivers (BeOS, DirectWindow, WindowScreen) <BeOS>`
+	X11
+	cocoa
+	win32
+	dX-window
+	dX-fullscreen
+	aa
+	dos
+	ggi
+	plan9
+	SVGAlib
+	DGA
+	BeOS

@@ -3,17 +3,22 @@
 Getting Started
 ===============
 
-:ref:`Basic controls <controls>` Learn the basic commands to control XaoS.
+.. toctree::
+   :maxdepth: 2
 
-:ref:`An introduction to fractals <[tutor:fractal.xaf]>` Try this animated
-tutorial if you don't know what a fractal is. If you are new to XaoS you should
-try it too, since it is quite a good example of XaoS's features.
+   controls
+   tutorial
 
-:ref:`XaoS features overview <[tutor:features.xaf]>` Watch this tutorial to
-discover more of XaoS's features.
+:ref:`An introduction to fractals <[tutor:fractal.xaf]>` 
+
+	Try this animated
+	tutorial if you don't know what a fractal is. If you are new to XaoS you should
+	try it too, since it is quite a good example of XaoS's features.
+
+:ref:`XaoS features overview <[tutor:features.xaf]>` 
+
+	Watch this tutorial to
+	discover more of XaoS's features.
 
 Both the tutorials are divided into chapters and available from help menu, so
 you don't need to watch them all at once (they are about half an hour long).
-
-:ref:`XaoS Overview <tutorial>` A written introduction to all of XaoS's
-features.
