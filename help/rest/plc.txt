@@ -6,10 +6,10 @@ Replay only commands
 Some commands, such as timing primitives or animation functions, are available
 only in animation files.
 
-:ref:`Line drawing functions <linemenu>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Animation functions <animf>`
-
-:ref:`Timing functions <time>`
-
-:ref:`Include file <load>`
+   linemenu
+   animf
+   time
+   load

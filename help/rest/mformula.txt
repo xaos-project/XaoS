@@ -6,22 +6,13 @@ formulae
 Each escape time fractal has its own formula. XaoS supports the following
 formulae:
 
-:ref:`Mandelbrot <mandel>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Mandelbrot^3 <mandel3>`
-
-:ref:`Mandelbrot^4 <mandel4>`
-
-:ref:`Mandelbrot^5 <mandel5>`
-
-:ref:`Mandelbrot^6 <mandel6>`
-
-:ref:`Octal <octal>`
-
-:ref:`Newton <newton>`
-
-:ref:`Barnsley1 <barnsley>`
-
-:ref:`Phoenix <phoenix>`
-
-:ref:`Magnet <magnet>`
+   mandel
+   mandel3
+   octal
+   newton
+   barnsley
+   phoenix
+   magnet

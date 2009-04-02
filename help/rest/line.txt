@@ -5,8 +5,7 @@ Line drawing functions
 
 XaoS has support for drawing lines. These functions are available only in
 animations and could be used to show some parts of fractals or draw simple
-diagrams. See the tutorial ":ref:`Introduction to fractals
-<[tutor:intro.xaf]>`" for examples of this feature.
+diagrams. See the tutorial ":tutor:`Introduction to fractals <intro.xaf>`" for examples of this feature.
 
 Lines can be drawn in **screen** coordinates, where 0,0 is the top left corner
 and 1,1 is bottom right, **scaled** coordinates, which are similar, but scaled

@@ -6,12 +6,11 @@ Palette
 This menu contains functions to change the palette the fractal is displayed
 with.
 
-:ref:`Default palette <defpalette>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Random palette <randompalette>`
-
-:ref:`Custom palette <palette>`
-
-:ref:`Color cycling <cycling>`
-
-:ref:`Shift palette <shiftpalette>`
+   defpalette
+   randompalette
+   palette
+   cycling
+   shiftpalette

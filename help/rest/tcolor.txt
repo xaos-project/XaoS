@@ -43,7 +43,7 @@ attractive results. On 8bpp displays you need to enable the :ref:`palette
 emulator filter <palettef>` first to see anything, amd the quality won't be so
 good, as far fewer colors are available per parameter.
 
-The :ref:`tutorial on truecolor coloring modes <[tutor:truecol.xaf]>` has more
+The :tutor:`tutorial on truecolor coloring modes <truecol.xaf>` has more
 information and examples.
 
 The cryptic names of the modes are always three mathematical formulae (one for

@@ -6,8 +6,9 @@ Vertical text position
 Select the vertical position used to display :ref:`text <text>`. It can be
 placed at the top, in the middle or at the bottom of the screen.
 
-:ref:`Up <ytextup>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Middle <ytextmiddle>`
-
-:ref:`Bottom <ytextbottom>`
+   ytextup
+   ytextmiddle
+   ytextbottom

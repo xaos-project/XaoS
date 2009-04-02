@@ -6,26 +6,19 @@ Filters
 Filters are a post-calculation effect applied to the resulting image. They can
 do things like motion blurring, edge detection, emulation of palettes or
 truecolor on displays that can't handle them, and such things. There is a
-:ref:`tutorial chapter <[tutor:filter.xaf]>` about them.
+:tutor:`tutorial chapter <filter.xaf>` about them.
 
-:ref:`Filter command <filter>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Edge detection <edge>`
-
-:ref:`Edge detection2 <edge2>`
-
-:ref:`Starfield <starfield>`
-
-:ref:`Random dot stereogram <stereogram>`
-
-:ref:`Interlace filter <interlace>`
-
-:ref:`Motion blur <blur>`
-
-:ref:`Emboss <emboss>`
-
-:ref:`Palette emulator <palettef>`
-
-:ref:`Antialiasing <anti>`
-
-:ref:`Truecolor emulator <truecolor>`
+   filter
+   edge
+   edge2
+   starfield
+   stereogram
+   interlace
+   blur
+   emboss
+   palettef
+   anti
+   truecolor

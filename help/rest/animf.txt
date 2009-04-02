@@ -12,16 +12,13 @@ function <time>`. For example:
 
 Will do a 5 second long unzooming animation.
 
-:ref:`Animate view <animateview>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Smooth morphing <smoothmorph>`
-
-:ref:`Morph view <morphview>`
-
-:ref:`Morph julia <morphjulia>`
-
-:ref:`Move view <moveview>`
-
-:ref:`Morph angle <morphangle>`
-
-:ref:`Zooming functions <zoom>`
+   animateview
+   smoothmorph
+   morphview
+   morphjulia
+   moveview
+   morphangle
+   zoom

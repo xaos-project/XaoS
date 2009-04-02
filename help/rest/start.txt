@@ -9,13 +9,13 @@ Getting Started
    controls
    tutorial
 
-:ref:`An introduction to fractals <[tutor:fractal.xaf]>` 
+:tutor:`An introduction to fractals <fractal.xaf>` 
 
 	Try this animated
 	tutorial if you don't know what a fractal is. If you are new to XaoS you should
 	try it too, since it is quite a good example of XaoS's features.
 
-:ref:`XaoS features overview <[tutor:features.xaf]>` 
+:tutor:`XaoS features overview <features.xaf>` 
 
 	Watch this tutorial to
 	discover more of XaoS's features.

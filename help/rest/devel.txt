@@ -49,3 +49,8 @@ Fixing outstanding bugs.
 
 If you would like to volunteer, join the mailing lists and let us know. We
 would be happy to help you get started!
+
+.. toctree::
+   :maxdepth: 2
+
+   writehelp

@@ -4,6 +4,6 @@ Barnsley1
 =========
 
 This is a formula by Michael Barnsley. It produces very nice crystalline Julia
-sets. See the :ref:`tutorial chapter <[tutor:barnsley.xaf]>`.
+sets. See the :tutor:`tutorial chapter <barnsley.xaf>`.
 
 **Available as**: menu item, command line option

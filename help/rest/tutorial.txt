@@ -101,7 +101,7 @@ To make fractals yet more interesting, more coloring modes for points outside
 the set are provided. "Classical coloring mode" uses the number of iterations
 that the orbit required to escape to (nearly) infinity. You can change this
 mode from the **Fractal menu** or by pressing key C To see more about coloring
-modes, try the tutorial on :ref:`Incoloring modes <[tutor:incolor.xaf]>` from
+modes, try the tutorial on :tutor:`Incoloring modes <incolor.xaf>` from
 the XaoS features overview.
 
 Those cryptic names for coloring modes are mathematical formulae, where
@@ -115,8 +115,7 @@ In-coloring mode is similar to out-coloring, except that it changes how things
 inside the set are displayed. This can also be changed from the **fractal
 menu** or by pressing F.
 
-You might also want to see the tutorial on :ref:`Out-coloring modes
-<[tutor:outcolor.xaf]>` from the XaoS features overview.
+You might also want to see the tutorial on :tutor:`Out-coloring modes <outcolor.xaf>` from the XaoS features overview.
 
 Planes
 ------
@@ -169,8 +168,7 @@ Mandelbrot/Julia switching
 
 Most of the fractals displayed by XaoS (currently all of them) have two forms:
 Mandelbrot and Julia. Every point in a Mandelbrot set has its own Julia set. To
-see more about this correspondence, try the tutorial on :ref:`Julia set
-<[tutor:julia.xaf]>` from the Introduction to fractals.
+see more about this correspondence, try the tutorial on :tutor:`Julia set <julia.xaf>` from the Introduction to fractals.
 
 In the Mandelbrot mode, you can get a corresponding Julia by moving the mouse
 to an interesting point and pressing M. To get back press M again. Some

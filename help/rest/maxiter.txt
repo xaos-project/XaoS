@@ -18,7 +18,7 @@ this value could become too low, and the fractal will become boring. You might
 try increasing this value if you want to get the image interesting again; but
 this necessarily slows down the calculation at the same time.
 
-The tutorial chapter ":ref:`Escape time fractals <[tutor:escape.xaf]>`" has
+The tutorial chapter ":tutor:`Escape time fractals <escape.xaf>`" has
 more information on fractal calculation in XaoS, and there is a lengthy section
 in the hacker's manual (xaosdev.texinfo) devoted to the subject.
 

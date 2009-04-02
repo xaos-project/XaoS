@@ -6,18 +6,14 @@ Calculation
 This menu contains functions that control calculation parameters such as the
 maximum iteration count and periodicity checking.
 
-:ref:`Solid guessing <range>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Dynamic resolution <dynamic>`
-
-:ref:`Periodicity checking <periodicity>`
-
-:ref:`Iterations <maxiter>`
-
-:ref:`Bailout <bailout>`
-
-:ref:`Fast Julia mode <fastjulia>`
-
-:ref:`Dynamic resolution <dynamic>`
-
-:ref:`Rotation <rotate>`
+   range
+   dynamic
+   periodicity
+   maxiter
+   bailout
+   fastjulia
+   dynamic
+   rotate

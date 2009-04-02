@@ -44,7 +44,7 @@ lambda plane, 1/lambda, 1/lambda-1
     A very interesting mode for the Mandelbrot set, this makes small things
     large, for easier browsing of the set's details.
 
-The :ref:`tutorial about planes <[tutor:plane.xaf]>` has some examples.
+The :tutor:`tutorial about planes <plane.xaf>` has some examples.
 
 In the scripting language, the planes are numbered as follows:
 

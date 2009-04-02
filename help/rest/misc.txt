@@ -5,22 +5,16 @@ Misc
 
 Miscellaneous functions.
 
-:ref:`Command <command>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Render animation <renderanim>`
-
-:ref:`Clear screen <clearscreen>`
-
-:ref:`Display fractal <display>`
-
-:ref:`Display text <text>`
-
-:ref:`Color <color>`
-
-:ref:`Horizontal text position <xtextpos>`
-
-:ref:`Vertical text position <ytextpos>`
-
-:ref:`Text position <textposition>`
-
-:ref:`Message <message>`
+   command
+   renderanim
+   clearscreen
+   display
+   text
+   color
+   xtextpos
+   ytextpos
+   textposition
+   message

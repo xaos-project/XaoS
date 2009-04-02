@@ -3,18 +3,14 @@
 File
 ====
 
-:ref:`Load <loadpos>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Save <savepos>`
-
-:ref:`Record <record>`
-
-:ref:`Replay <play>`
-
-:ref:`Save image <saveimg>`
-
-:ref:`Load random example <loadexample>`
-
-:ref:`Save configuration <savecfg>`
-
-:ref:`Quit <quit>`
+   loadpos
+   savepos
+   record
+   play
+   saveimg
+   loadexample
+   savecfg
+   quit

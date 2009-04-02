@@ -7,8 +7,7 @@ Mandelbrot/Julia mode
 
 Most fractals rendered by XaoS can be represented as Mandelbrot sets or Julias.
 Each point in the Mandelbrot set has its own Julia set. To learn more about
-this correspondence, see the tutorial on the :ref:`Julia set
-<[tutor:julia.xaf]>`.
+this correspondence, see the tutorial on the :tutor:`Julia set <julia.xaf>`.
 
 This function switches between Mandelbrot and Julia representations. When
 switching to Julia, you need to set the seed--a point selected from the

@@ -22,7 +22,7 @@ convention; you could color them in differently to make the fractal look more
 interesting. The only method available to make areas inside the set visible is
 to display the value of the latest orbit as the value of each pixel.
 
-The :ref:`tutorial on incoloring <[tutor:incolor.xaf]>` has more information
+The :tutor:`tutorial on incoloring <incolor.xaf>` has more information
 and examples.
 
 XaoS has many different ways to show that value. The cryptic names of the modes

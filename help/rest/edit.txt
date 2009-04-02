@@ -5,10 +5,10 @@ Edit
 
 A fairly ordinary Edit menu.
 
-:ref:`Undo <undo>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Redo <redo>`
-
-:ref:`Copy <copy>`
-
-:ref:`Paste <paste>`
+   undo
+   redo
+   copy
+   paste

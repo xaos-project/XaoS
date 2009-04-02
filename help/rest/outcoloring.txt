@@ -23,7 +23,7 @@ modes, the value of the latest orbit can be used to determine the color of each
 pixel, but the default is to use the number of iterations needed for the value
 at that point to become recognisably divergent as the color.
 
-The :ref:`tutorial on outcoloring <[tutor:outcolor.xaf]>` has more information
+The :tutor:`tutorial on outcoloring <outcolor.xaf>` has more information
 and examples.
 
 The cryptic names of the modes are mathematical formulae, where **iter** means

@@ -8,8 +8,9 @@ language, menus, dialogs and command line options are built from this database.
 This section contains information about all functions available in this
 registry.
 
-:ref:`Root menu <root>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Animation root menu <animroot>`
-
-:ref:`Replay only commands <plc>`
+   root
+   animroot
+   plc

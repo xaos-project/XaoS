@@ -6,10 +6,10 @@ Animation root menu
 This menu is displayed at the top of the screen when animation replay is
 active.
 
-:ref:`File <file>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Stop replay <stopreplay>`
-
-:ref:`Help <helpmenu>`
-
-:ref:`UI <ui>`
+   file
+   stopreplay
+   ui
+   helpmenu

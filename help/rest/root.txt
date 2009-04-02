@@ -7,16 +7,14 @@ This menu is usually displayed at the top of the screen or window. It contains
 all currently available submenus. During animation another menu is
 displayed--the :ref:`Animation root menu <animroot>`.
 
-:ref:`File <file>`
+.. toctree::
+   :maxdepth: 2
 
-:ref:`Fractal <fractal>`
-
-:ref:`Calculation <calc>`
-
-:ref:`Filters <mfilter>`
-
-:ref:`UI <ui>`
-
-:ref:`Misc <misc>`
-
-:ref:`Help <helpmenu>`
+   file
+   edit
+   fractal
+   calc
+   mfilter
+   ui
+   misc
+   helpmenu
