@@ -10,15 +10,9 @@ on different platforms. Here is documentation about each specific port.
 .. toctree::
 	:maxdepth: 2
 
-	X11
 	cocoa
 	win32
 	dX-window
 	dX-fullscreen
+	X11
 	aa
-	dos
-	ggi
-	plan9
-	SVGAlib
-	DGA
-	BeOS
