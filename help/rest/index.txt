@@ -8,13 +8,14 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   background
    start
-   support
    sffe
    video
-   drivers
    format
+   drivers
    menus
+   support
    devel
    about
    gpl

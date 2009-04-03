@@ -54,3 +54,5 @@ would be happy to help you get started!
    :maxdepth: 2
 
    writehelp
+   xaosdev
+   addformula
