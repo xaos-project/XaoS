@@ -1,57 +1,18 @@
 .. _devel:
 
-Development
-===========
-
-XaoS is free software. One of the most significant rights its :ref:`license
-<gpl>` grants to you is the right to **freely get, study and improve** its
-source code, which is available from the XaoS homepage.
-
 If you want to do some development, you are encouraged to send your work back
 to the :ref:`authors <about>`; if it is well done, it will be added to the next
 release. All changes should be submitted to the SourceForge patch tracker:
 http://sourceforge.net/tracker/?group_id=5771&atid=305771
-
-XaoS has an open development model. All development is coordinated via the
-SourceForge website (http://www.sourceforge.net/projects/xaos). Development
-versions are available via CVS (see http://sourceforge.net/cvs/?group_id=5771
-for instructions), so if you are interested in the future of XaoS, give the
-latest source a try! We also have a several :ref:`mailing lists <support>`,
-where you can subscribe if you want to be informed about latest releases,
-discuss XaoS with others, or participate in the development process.
 
 XaoS is quite easily extensible. You might want to read a bit about its
 internals in the file **doc/xaosdev.info**. XaoS is also portable, so if it
 doesn't work on your favorite platform (or there is just an old version
 available), you could quite easily port it.
 
-Volunteer Opportunities
------------------------
-
-XaoS needs volunteers to make it the best fractal program it can be! You don't
-have to be a programmer to help. The following tasks open to volunteers:
-
-Improving the documentation via the Wiki (and improving the DokuWiki
-converter).
-
-Compiling binaries for your favorite operating system.
-
-Reviewing the source code, adding comments, and checking lines which generate
-warnings during compilation.
-
-Creating additional tutorials and examples.
-
-Translating XaoS into your language.
-
-Implementing feature requests.
-
-Fixing outstanding bugs.
-
-If you would like to volunteer, join the mailing lists and let us know. We
-would be happy to help you get started!
 
 .. toctree::
-   :maxdepth: 2
+   :hidden:
 
    writehelp
    xaosdev

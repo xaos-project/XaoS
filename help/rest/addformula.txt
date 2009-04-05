@@ -50,8 +50,7 @@ other formula descriptions.
 15. {{}{}... structures about the symmetries of the incoloring modes}
 
 These are made:
-{vertical_symmetry, horizontical_symmetry, 
- size_of_other_symmetries, other_symmetries}
+{vertical_symmetry, horizontical_symmetry, size_of_other_symmetries, other_symmetries}
 
 Horizontical and vertical symmetries can be INT_MAX or 0, 
 INT_MAX means no symmetry, 0 means symmetry

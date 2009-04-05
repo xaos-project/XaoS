@@ -3,6 +3,8 @@
 XaoS's file format
 ==================
 
+.. highlight:: scheme
+
 This section describes the format used by XaoS for animations, configuration
 files and saved positions. All these files have a common format, designed to be
 easily readable, to allow manual editing of files and easy conversion by other
@@ -14,47 +16,40 @@ hope there will not be many incompatibilities between various XaoS versions.
 The format is a simple set of commands executed sequentially. XaoS does not
 provide any variables/cycles as usual scripting languages do, but future
 extension to full-blown Scheme should be easy since the format uses Scheme-like
-syntax. The syntax of every command is:
+syntax. The syntax of every command is::
 
-(command_name **[param1] [param2]**)
+	(command_name [param1] [param2])
 
 where parameters are optional and separated by whitespace (an arbitrary number
 of spaces, tabs and newlines). The parameters can have the following types:
 
 integer
-
     number w/o decimal point (123)
 
 float
-
     floating point number in decimal notation with optional exponent (1.23E2)
 
 keyword
-
     text started by quote '. It is used to pass various string constants like
     formula name ('mandel) Quote is required for scheme compatibility
 
 string
-
     Text inside double quotes. The only parameter that should contain
     whitespace
 
 boolean
-
     #t for true or #f for false
 
 There is a complete description of all XaoS functions (with some examples) and
-an index of functions in the `XaoS registry`_. You may particularly want to
-read about the `animation functions`_. Also, the following functions are
+an index of functions in the :ref:`XaoS registry <menus>`. You may particularly want to
+read about the :ref:`animation functions <animf>`. Also, the following functions are
 significant:
 
 load
-
     This function loads and interprets a file. It works similarly to #include
     in C.
 
 initstate
-
     Available in version 3.0 and above, this function resets XaoS's state to
     default values. This command should be at the beginning of each animation
     file, since otherwise some stuff previously enabled by user could cause
@@ -64,7 +59,6 @@ initstate
     language will be available, this should be a much more interesting subject.
 
 usleep
-
     This function waits for a selected amount of time(in usec) before
     processing the next command. The screen is recalculated and displayed at
     the beginning of the sleep if necessary. The remaining time is spent by
@@ -72,7 +66,6 @@ usleep
     via animation commands.
 
 wait
-
     Waits until the animation or image rendering is complete. Do not call this
     function when zoom, or continuous rotation is active otherwise deadlock
     happens. It is a good idea to call it immediately before text subtitles are
@@ -133,17 +126,8 @@ And following is the "rotozooming" animation::
 
 	(initstate)
 	(fastrotate #t)
-	(morphview -1.64128273713 -5.50393226816E-05 9.69332308848E-08
-	9.69332308834E-08)
+	(morphview -1.64128273713 -5.50393226816E-05 9.69332308848E-08 9.69332308834E-08)
 	(morphangle 300)
 	(usleep 10000000)
 	(wait)
 	(fastrotate #f)
-
-..
-
-.. _`xaos registry`:
-    [help:menus]
-
-.. _`animation functions`:
-    [help:animf]
