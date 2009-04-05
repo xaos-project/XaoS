@@ -1,7 +1,9 @@
-.. highlight:: c
+.. _internals:
 
-A fast real-time interactive fractal zoomer --- hacker's guide
-==============================================================
+XaoS Internals
+==============
+
+.. highlight:: c
 
 Overview of the XaoS design
 -----------------------------
