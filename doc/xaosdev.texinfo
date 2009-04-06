@@ -30,10 +30,10 @@ this permission notice are preserved on all copies.
 
 @titlepage
 
-@title{XaoS @value{VERSION}}
-@subtitle{A fast real-time fractal zoomer --- hacker's guide}
+@title XaoS @value{VERSION}
+@subtitle A fast real-time fractal zoomer --- hacker's guide
 
-@author{Jan Hubi@v cka}
+@author Jan Hubi@v cka
 @tex
 Dukelsk\'ych bojovn\'\i ku 1944 
 @end tex
