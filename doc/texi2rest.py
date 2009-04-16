@@ -3,73 +3,46 @@
 NAME
 ====
 
-xhtml2rest - Convert xhtml to reStructuredText
+texi2rest - Convert texinfo xml represenation to reStructuredText
 
 SYNOPSIS
 ========
 
-xhtml2rest *xhtmlfile* > *restfile*
+texi2rest *xmlfile* > *restfile*
 
 DESCRIPTION
 ===========
 
-``xhtml2rest``, which, far from being a decent and complete program, is
-only something to begin with, hopefully processes the given UTF-8
-xhtml file and produces reStructuredText "source code" in the standard
-output.  If your input is html and/or not in UTF-8, you can convert it
-to UTF-8 xhtml using ``iconv`` and ``tidy``:
+``texi2rest`` is based on ``xhtml2rest`` by Antonios Christofides. He
+included the following disclaimer for his program, and it applies
+equally to mine: far from being a decent and complete program, this is
+only something to begin with, which hopefully processes the given UTF-8
+texinfo xml file and produces reStructuredText "source code" in the
+standard output.
 
-    iconv -f *source_encoding* -t utf-8 *source_html* > *html_utf8*
+Before processing the texinfo file, you must convert it to xml using
+the makeinfo command:
 
-    tidy -utf8 -asxml -o *xhtmlfile* *html_utf8*
+    makeinfo --xml *texifile*
 
-    xhtml2rest *xhtmlfile* > *restfile*
-
-Interestingly, since reStructuredText is not simple markup, but has
-very strict rules with the intention that the source is perfectly
-readable, it turns out that converting html to reStructuredText is
-actually *rendering*. ``xhtml2rest`` is a small rendering engine. Since
-I had no time to study how existing rendering engines work, I had to
-reinvent the wheel. So although the code is clean (I actually wrote it
-twice), I doubt that the core logic is adequate for future extensions.
-But it's better than nothing. There is some documentation in the code,
-but feel free to email me if you need more explanations.
+    texi2rest *xmlfile* > *restfile*
 
 LIMITATIONS
 ===========
 
-I created ``xhtml2rest`` for a very specific job. It does that job
-correctly, but for your web page it might not work. It should not be
-very hard, however, either to improve the code, or to determine what
-it is in your web page that confuses ``xhtml2rest`` and remove it.
+I am writing this specifically to convert the XaoS project's
+documentation. I do not plan to implement full conversion of every 
+texinfo directive--only the ones used in the documentation I am trying
+to convert. Hopefully other interested parties will contribute further
+improvements.
 
-Other than that, there are the following limitations:
-
-* No indented tables
-
-* No multi-col or -row spans in tables
-
-* No support for \<br>
-
-* Not tested in nested tables (check http://www.w3m.org/story.html)
-
-* \<th> support is quick and dirty
-
-* If the same anchor text is met twice, the anchor is ignored
-
-* No indented \<pre> elements (but I'm not sure the HTML standard
-  allows them)
-
-* Images are ignored
-
-* The word HARDWIRED in the code indicates a hardwired hack which is
-  specific to the job I wanted ``xhtml2rest`` to do.
 
 META
 ====
 
-``xhtml2rest`` was created by Antonios Christofides,
-anthony@itia.ntua.gr, May-June 2005.
+``texi2rest`` was hacked together by J.B. Langston, 
+jb-langston@austin.rr.com, based on ``xhtml2rest`` by
+Antonios Christofides, anthony@itia.ntua.gr.
 
 Revision: $Revision: 3753 $
 
@@ -84,6 +57,59 @@ import math
 import UserList
 import warnings
 import codecs
+
+###############################################################################
+# Configuration: these values change the behavior of the conversion
+
+# Texinfo commands that generate emphasis markup (i.e., *text*)
+EMPHASIS_COMMANDS = ('emph', 'i', 'slanted', 'var')
+
+# Texinfo commands that generate strong markup (i.e., **text**)
+STRONG_COMMANDS = ('strong', 'b')
+
+# Texinfo commands that generate literal markup (i.e.,``text``)
+LITERAL_COMMANDS = ('code', 'verb' 'tt')
+
+# Texinfo commands that map to reST roles of the same name (i.e., :role:`text`)
+VERBATIM_COMMANDS = ('dfn', 'file', 'command', 'option', 'kbd', 'samp', 'math')
+
+# Texinfo commands that map to differnet reStructuredText roles (i.e., :role:`text`)
+MAPPED_COMMANDS = {
+    'env': 'envvar', 
+    'key': 'kbd', 
+    'cite': 'title' 
+}
+
+# Texinfo commands that do not generate any markup, but preserve nested text
+IGNORED_COMMANDS = ('url', 'sc', 'r', 'sansserif', 'titlefont', 'dmn', 'logo', 'punct')
+
+# Texinfo commands that are deleted from output, including nested text
+DELETED_COMMANDS = ()
+
+# Map of Texinfo section commands to section underline/overline characters
+# Single character indicates underline only; double characters indicates overline+underline
+SECTION_COMMANDS = {
+    # level 1
+    'top': '**',
+    'chapter': '**',
+    'unnumbered': '**',
+    'appendix': '**',
+    # level 2
+    'section': '=',
+    'unnumberedsec': '=',
+    'appendixsec': '=',
+    # level 3
+    'subsection': '-',
+    'unnumberedsubsec': '-',
+    'appendixsubsec': '-',
+    # level 4
+    'subsubsection': '^',
+    'unnumberedsubsubsec': '^',
+    'appendixsubsubsec': '^',
+}
+
+
+###############################################################################
 
 ###############################################################################
 # Global variables. I know. I'm terribly sorry. Please get rid of them.
@@ -420,34 +446,21 @@ def handleNodeList(nodelist):
 def handleNode(node):
     if node.nodeType == node.TEXT_NODE:
         return handleText(node)
-    elif node.nodeName=="title":
-        return handleHeading(node)
-    elif node.nodeName=='quotation':  # HARDWIRED
-        return handleBlockQuote(node)
-    elif node.nodeName in ('texinfo', 'node', 'chapter', 'section', 'subsection', 'para') and node.parentNode.nodeName != "item":
-        return handleGenericBlock(node)
-    elif node.nodeName in ('emph'):
+    elif node.nodeName in EMPHASIS_COMMANDS:
         return handleEmphasis(node)
-    elif node.nodeName in ('strong'):
+    elif node.nodeName in STRONG_COMMANDS:
         return handleStrong(code)
-    elif node.nodeName in ('code'):
-        return handleCode(node)
-    elif node.nodeName in ('var'):
-        return handleVar(node)
-    elif node.nodeName in ('itemize', 'enumerate', 'definition'):
-        return handleList(node)
-    elif node.nodeName in ('item', 'definitionterm', 'definitionitem'):
-        return handleListItem(node)
-    #elif node.nodeName in ('table'):
-    #    return handleTable(node)
-    #elif node.nodeName in ('tr'):
-    #    return handleTr(node)
-    elif node.nodeName in ('example'):
-        return handlePre(node)
-    elif node.nodeName in ('indexterm'):
-        return Ditem('')
+    elif node.nodeName in LITERAL_COMMANDS:
+        return handleLiteral(node)
+    elif node.nodeName in VERBATIM_COMMANDS:
+        return handleVerbatimCommand(node)
+    elif node.nodeName in MAPPED_COMMANDS:
+        return handleMappedCommand(node)
+    elif node.nodeName in IGNORED_COMMANDS:
+        return handleIgnoredCommand(node)
+    elif node.nodeName in DELETED_COMMANDS:
+        return handleDeletedCommand(node)
     elif node.hasChildNodes():
-        #print "Unhandled node: " + node.nodeName
         contents = handleNodeList(node.childNodes)
         if len(contents) == 1: return contents[0]
         if len(contents) == 0: return Ditem('')
@@ -468,14 +481,53 @@ def mergeChildren(node):
     if contents: return contents[0]
     else: return Ditem('')
 
+def handleEmphasis(node):
+    result = mergeChildren(node)
+    result.type = node.nodeName
+    if result.text:
+        result.text = '*' + result.text + '*'
+    return result
+
+def handleStrong(node):
+    result = mergeChildren(node)
+    result.type = node.nodeName
+    if result.text:
+        result.text = '**' + result.text + '**'
+    return result
+
+def handleLiteral(node):
+    result = mergeChildren(node)
+    result.type = node.nodeName
+    if result.text:
+        result.text = '``' + result.text + '``'
+    return result
+
+def handleVerbatimCommand(node):
+    result = mergeChildren(node)
+    result.type = node.nodeName
+    if result.text:
+        result.text = ':' + node.nodeName + ':`' + result.text + '`'
+    return result
+
+def handleMappedCommand(node):
+    result = mergeChildren(node)
+    result.type = node.nodeName
+    if result.text:
+        result.text = ':' + MAPPED_COMMANDS[node.nodeName] + ':`' + result.text + '`'
+    return result
+
+def handleIgnoredCommand(node):
+    result = mergeChildren(node)
+    result.type = node.nodeName
+    return result
+
+def handleDeletedCommand(node):
+    result = ''
+    result.type = node.nodeName
+    return result
+
 def handleText(node):
-    if node.parentNode.nodeName == "defcategory":
-        if node.data == "Function":
-            return Ditem(".. cfunction:: ")
-        elif node.data == "Variable":
-            return Ditem(".. cvar:: ")
-    else:
-        return Ditem(node.data)
+    return Ditem(node.data)
 
 def handleAnchor(node):
     result = mergeChildren(node)
@@ -492,34 +544,6 @@ def handleHeading(node):
     if contents.empty(): return contents
     result = HeadingDitem(node.parentNode.nodeName)
     result.children.append(contents)
-    return result
-
-def handleEmphasis(node):
-    result = mergeChildren(node)
-    result.type = node.nodeName
-    if result.text:
-        result.text = '*' + result.text + '*'
-    return result
-
-def handleStrong(node):
-    result = mergeChildren(node)
-    result.type = node.nodeName
-    if result.text:
-        result.text = '**' + result.text + '**'
-    return result
-
-def handleCode(node):
-    result = mergeChildren(node)
-    result.type = node.nodeName
-    if result.text:
-        result.text = '``' + result.text + '``'
-    return result
-
-def handleVar(node):
-    result = mergeChildren(node)
-    result.type = node.nodeName
-    if result.text:
-        result.text = ':cdata:`' + result.text + '`'
     return result
 
 def handleGenericBlock(node):
