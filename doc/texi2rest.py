@@ -28,84 +28,14 @@ import sys
 import textwrap
 import codecs
 
-###############################################################################
-# Configuration: these values change the behavior of the conversion
+import rest
+import texinfo
 
-inline = {
-    # emphasize
-    'emph'      : emphasis,
-    'strong'    : strong,
-
-    # font
-    'b'         : strong,
-    'i'         : emphasis,
-    'r'         : ignore,
-    'sansserif' : ignore,
-    'slanted'   : emphasis,
-    'titlefont' : ignore,
-    'tt'        : literal,
-    'sc'        : ignore,
-
-    # markup
-    'code'      : literal,
-    'command'   : role('command'),
-    'env'       : role('envvar'),
-    'file'      : role('file'),
-    'option'    : role('option'),
-    'samp'      : role('samp'),
-    'verb'      : literal,
-    'dfn'       : role('dfn'),
-    'cite'      : role('title'),
-    'key'       : role('kbd'),
-    'kbd'       : role('kbd'),
-    'var'       : emphasis,
-    'acronym'   : abbr('acronymword', 'acronymdesc'),
-    'abbrev'    : abbr('abbrevword', 'abbrevdesc'),
-    'url'       : literal,
-
-    # math
-    'math'      : role('math'),
-    'dmn'       : ignore,
-
-    # reference
-    'xref'      : ref('xrefnodename', 'xrefprintedname'),
-    'inforef'   : ref('inforefnodename', 'inforefrefname'),
-    'indexterm' : index,
-    'email'     : hyperlink('emailaddress', 'emailname'),
-    'uref'      : hyperlink('urefurl', 'urefdesc'),
-
-    # misc
-    'logo'      : ignore,
-    'punct'     : ignore
-}
-
-section = {
-    # level 1
-    'top'                 : section('*', True),
-    'chapter'             : section('*', True),
-    'unnumbered'          : section('*', True),
-    'appendix'            : section('*', True),
-
-    # level 2
-    'section'             : section('='),
-    'unnumberedsec'       : section('='),
-    'appendixsec'         : section('='),
-
-    # level 3
-    'subsection'          : section('-'),
-    'unnumberedsubsec'    : section('-'),
-    'appendixsubsec'      : section('-'),
-
-    # level 4
-    'subsubsection'       : section('^'),
-    'unnumberedsubsubsec' : section('^'),
-    'appendixsubsubsec'   : section('^')
-}
-###############################################################################
-
-dom1 = xml.dom.minidom.parse(sys.argv[1])
-ditem = handleNode(dom1.getElementsByTagName("texinfo")[0])
-ditem.propagate_indents()
 (utf8_encode, utf8_decode, utf8_reader, utf8_writer) = codecs.lookup('utf-8')
 outf = utf8_writer(sys.stdout)
-outf.write(ditem.format(79) + '\n')
+
+dom = xml.dom.minidom.parse('./xaosdev.xml') #sys.argv[1]
+nodes = dom.getElementsByTagName('para')
+
+for node in nodes:
+    outf.write(rest.parseMarkup(texinfo.inline, node) + '\n\n')
