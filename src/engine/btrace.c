@@ -169,11 +169,10 @@ static int exitnow;
 #define PAGESIZE (1<<PAGESHIFT)
 #define MAXPAGES 200		/*Well limit is about 6MB of stack..Hope it will never owerflow */
 #define MAXSIZE (MAXPAGES*PAGESIZE-1)
-struct stack
-{
-  int color;
-  short x, y;
-  char direction;
+struct stack {
+    int color;
+    short x, y;
+    char direction;
 };
 static int npages[MAXTHREADS];
 static struct stack *pages[MAXPAGES];
@@ -181,10 +180,10 @@ static struct stack **starts[MAXTHREADS];
 static int sizes[MAXTHREADS];
 static int maxsize, maxsize2;
 static CONST char dirrections[][2] = {
-  {0, -1},
-  {1, 0},
-  {0, 1},
-  {-1, 0},
+    {0, -1},
+    {1, 0},
+    {0, 1},
+    {-1, 0},
 };
 
 #define addstack(sx,sy,d,c,periodicity) { \
@@ -239,10 +238,10 @@ static unsigned char *calculated;
 
 static number_t *xcoord, *ycoord;
 #ifndef inline
-REGISTERS (3)
-     CONSTF static pixel32_t calculatepixel (int x, int y, int peri)
+REGISTERS(3)
+CONSTF static pixel32_t calculatepixel(int x, int y, int peri)
 {
-  return (calculate (xcoord[x], ycoord[y], peri));
+    return (calculate(xcoord[x], ycoord[y], peri));
 }
 #else
 #define calculatepixel(x,y,peri) (calculate(xcoord[x],ycoord[y],peri))
@@ -286,354 +285,312 @@ REGISTERS (3)
 
 #ifndef SLOWCACHESYNC
 #ifndef nthreads
-static int
-tracerectangle2 (int x1, int y1, int x2, int y2)
+static int tracerectangle2(int x1, int y1, int x2, int y2)
 {
-  int x, y;
-  cfilter.max = y2 - y1;
-  cfilter.pass = gettext ("Boundary trace");
-  cfilter.pos = 0;
-  maxsize = MAXPAGES / nthreads;
-  for (y = 0; y < nthreads; y++)
-    {
-      npages[y] = 0;		/*stack is empty */
-      sizes[y] = 0;
-      starts[y] = pages + y * maxsize;
+    int x, y;
+    cfilter.max = y2 - y1;
+    cfilter.pass = gettext("Boundary trace");
+    cfilter.pos = 0;
+    maxsize = MAXPAGES / nthreads;
+    for (y = 0; y < nthreads; y++) {
+	npages[y] = 0;		/*stack is empty */
+	sizes[y] = 0;
+	starts[y] = pages + y * maxsize;
     }
-  maxsize *= PAGESIZE;
-  maxsize2 = maxsize * nthreads;
-  size = 0;
-  nwaiting = 0;
-  exitnow = 0;
-  inset = cpalette.pixels[0];
-  for (y = y1; y <= y2; y++)
-    {
-      memset_long (calculated + x1 + y * CALCWIDTH, 0, x2 - x1 + 1);
+    maxsize *= PAGESIZE;
+    maxsize2 = maxsize * nthreads;
+    size = 0;
+    nwaiting = 0;
+    exitnow = 0;
+    inset = cpalette.pixels[0];
+    for (y = y1; y <= y2; y++) {
+	memset_long(calculated + x1 + y * CALCWIDTH, 0, x2 - x1 + 1);
     }
-  for (x = x1; x <= x2; x += 4)
-    {
-      addstack1 (x, y1, LEFT, INT_MAX);
-      addstack1 (x, y2, RIGHT, INT_MAX);
+    for (x = x1; x <= x2; x += 4) {
+	addstack1(x, y1, LEFT, INT_MAX);
+	addstack1(x, y2, RIGHT, INT_MAX);
     }
-  for (y = y1; y <= y2; y += 4)
-    {
-      addstack1 (x1, y, DOWN, INT_MAX);
-      addstack1 (x2, y, UP, INT_MAX);
+    for (y = y1; y <= y2; y += 4) {
+	addstack1(x1, y, DOWN, INT_MAX);
+	addstack1(x2, y, UP, INT_MAX);
     }
-  xstart = x1;
-  ystart = y1;
-  xend = x2;
-  yend = y2;
-  switch (cimage.bytesperpixel)
-    {
+    xstart = x1;
+    ystart = y1;
+    xend = x2;
+    yend = y2;
+    switch (cimage.bytesperpixel) {
     case 1:
-      xth_function (queue8, NULL, 1);
-      xth_sync ();
-      xth_function (bfill8, NULL, yend - ystart - 1);
-      break;
+	xth_function(queue8, NULL, 1);
+	xth_sync();
+	xth_function(bfill8, NULL, yend - ystart - 1);
+	break;
 #ifdef SUPPORT16
     case 2:
-      xth_function (queue16, NULL, 1);
-      xth_sync ();
-      xth_function (bfill16, NULL, yend - ystart - 1);
-      break;
+	xth_function(queue16, NULL, 1);
+	xth_sync();
+	xth_function(bfill16, NULL, yend - ystart - 1);
+	break;
 #endif
 #ifdef STRUECOLOR24
     case 3:
-      xth_function (queue24, NULL, 1);
-      xth_sync ();
-      xth_function (bfill24, NULL, yend - ystart - 1);
-      break;
+	xth_function(queue24, NULL, 1);
+	xth_sync();
+	xth_function(bfill24, NULL, yend - ystart - 1);
+	break;
 #endif
     case 4:
-      xth_function (queue32, NULL, 1);
-      xth_sync ();
-      xth_function (bfill32, NULL, yend - ystart - 1);
-      break;
+	xth_function(queue32, NULL, 1);
+	xth_sync();
+	xth_function(bfill32, NULL, yend - ystart - 1);
+	break;
     }
-  xth_sync ();
-  for (y = 0; y < nthreads; y++)
-    for (x = 0; x < npages[y]; x++)
-      free (starts[y][x]);	/*free memory allocated for stack */
-  return 1;
+    xth_sync();
+    for (y = 0; y < nthreads; y++)
+	for (x = 0; x < npages[y]; x++)
+	    free(starts[y][x]);	/*free memory allocated for stack */
+    return 1;
 }
 #endif
 #endif
-static void
-skip (int x1, int y1, int x2, int y2)
+static void skip(int x1, int y1, int x2, int y2)
 {
-  int src = y1;
-  int xstart = x1 * cimage.bytesperpixel;
-  int xsize = (x2 - x1 + 1) * cimage.bytesperpixel;
-  y1++;
-  for (; y1 <= y2; y1++)
-    {
-      memcpy (cimage.currlines[y1] + xstart, cimage.currlines[src] + xstart,
-	      xsize);
-      ycoord[y1] = ycoord[src];
+    int src = y1;
+    int xstart = x1 * cimage.bytesperpixel;
+    int xsize = (x2 - x1 + 1) * cimage.bytesperpixel;
+    y1++;
+    for (; y1 <= y2; y1++) {
+	memcpy(cimage.currlines[y1] + xstart,
+	       cimage.currlines[src] + xstart, xsize);
+	ycoord[y1] = ycoord[src];
     }
 }
-static int
-tracerectangle (int x1, int y1, int x2, int y2)
+
+static int tracerectangle(int x1, int y1, int x2, int y2)
 {
-  int x, y;
-  unsigned char *calc;
-  cfilter.max = y2 - y1;
-  cfilter.pass = gettext ("Boundary trace");
-  cfilter.pos = 0;
-  for (y = y1; y <= y2; y++)
-    {
-      memset_long (calculated + x1 + y * CALCWIDTH, 0,
-		   (size_t) (x2 - x1 + 1));
+    int x, y;
+    unsigned char *calc;
+    cfilter.max = y2 - y1;
+    cfilter.pass = gettext("Boundary trace");
+    cfilter.pos = 0;
+    for (y = y1; y <= y2; y++) {
+	memset_long(calculated + x1 + y * CALCWIDTH, 0,
+		    (size_t) (x2 - x1 + 1));
     }
-  switch (cimage.bytesperpixel)
-    {
+    switch (cimage.bytesperpixel) {
     case 1:
-      for (y = y1; y <= y2; y++)
-	{
-	  calc = calculated + y * CALCWIDTH;
-	  for (x = x1; x <= x2; x++)
-	    if (!calc[x])
-	      {
-		tracecolor8 (x1, y1, x2, y2, x, y);
-	      }
-	  cfilter.pos = y - y1;
-	  callwait ();
-	  if (cfilter.interrupt)
-	    {
-	      skip (x1, y, x2, y2);
-	      return 0;
+	for (y = y1; y <= y2; y++) {
+	    calc = calculated + y * CALCWIDTH;
+	    for (x = x1; x <= x2; x++)
+		if (!calc[x]) {
+		    tracecolor8(x1, y1, x2, y2, x, y);
+		}
+	    cfilter.pos = y - y1;
+	    callwait();
+	    if (cfilter.interrupt) {
+		skip(x1, y, x2, y2);
+		return 0;
 	    }
 	}
-      break;
+	break;
 #ifdef SUPPORT16
     case 2:
-      for (y = y1; y <= y2; y++)
-	{
-	  calc = calculated + y * CALCWIDTH;
-	  for (x = x1; x <= x2; x++)
-	    if (!calc[x])
-	      {
-		tracecolor16 (x1, y1, x2, y2, x, y);
-	      }
-	  cfilter.pos = y - y1;
-	  callwait ();
-	  if (cfilter.interrupt)
-	    {
-	      skip (x1, y, x2, y2);
-	      return 0;
+	for (y = y1; y <= y2; y++) {
+	    calc = calculated + y * CALCWIDTH;
+	    for (x = x1; x <= x2; x++)
+		if (!calc[x]) {
+		    tracecolor16(x1, y1, x2, y2, x, y);
+		}
+	    cfilter.pos = y - y1;
+	    callwait();
+	    if (cfilter.interrupt) {
+		skip(x1, y, x2, y2);
+		return 0;
 	    }
 	}
-      break;
+	break;
 #endif
 #ifdef STRUECOLOR24
     case 3:
-      for (y = y1; y <= y2; y++)
-	{
-	  calc = calculated + y * CALCWIDTH;
-	  for (x = x1; x <= x2; x++)
-	    if (!calc[x])
-	      {
-		tracecolor24 (x1, y1, x2, y2, x, y);
-	      }
-	  cfilter.pos = y - y1;
-	  callwait ();
-	  if (cfilter.interrupt)
-	    {
-	      skip (x1, y, x2, y2);
-	      return 0;
+	for (y = y1; y <= y2; y++) {
+	    calc = calculated + y * CALCWIDTH;
+	    for (x = x1; x <= x2; x++)
+		if (!calc[x]) {
+		    tracecolor24(x1, y1, x2, y2, x, y);
+		}
+	    cfilter.pos = y - y1;
+	    callwait();
+	    if (cfilter.interrupt) {
+		skip(x1, y, x2, y2);
+		return 0;
 	    }
 	}
 #endif
     case 4:
-      for (y = y1; y <= y2; y++)
-	{
-	  calc = calculated + y * CALCWIDTH;
-	  for (x = x1; x <= x2; x++)
-	    if (!calc[x])
-	      {
-		tracecolor32 (x1, y1, x2, y2, x, y);
-	      }
-	  cfilter.pos = y - y1;
-	  callwait ();
-	  if (cfilter.interrupt)
-	    {
-	      skip (x1, y, x2, y2);
-	      return 0;
+	for (y = y1; y <= y2; y++) {
+	    calc = calculated + y * CALCWIDTH;
+	    for (x = x1; x <= x2; x++)
+		if (!calc[x]) {
+		    tracecolor32(x1, y1, x2, y2, x, y);
+		}
+	    cfilter.pos = y - y1;
+	    callwait();
+	    if (cfilter.interrupt) {
+		skip(x1, y, x2, y2);
+		return 0;
 	    }
 	}
-      break;
+	break;
     }
-  return 1;
+    return 1;
 }
 
 int
-boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos,
-	       number_t * ypos)
+boundarytrace(int x1, int y1, int x2, int y2, number_t * xpos,
+	      number_t * ypos)
 {
-  int i;
-  int i1;
-  int xsym, ysym;
-  int cy1, cy2;
-  int cx1, cx2;
-  int ydiv;
+    int i;
+    int i1;
+    int xsym, ysym;
+    int cy1, cy2;
+    int cx1, cx2;
+    int ydiv;
 #ifdef HAVE_ALLOCA
-  calculated = (unsigned char *) alloca (cimage.width * (y2 + 1));
+    calculated = (unsigned char *) alloca(cimage.width * (y2 + 1));
 #else
-  calculated = (unsigned char *) malloc (cimage.width * (y2 + 1));
+    calculated = (unsigned char *) malloc(cimage.width * (y2 + 1));
 #endif
-  if (calculated == NULL)
-    {
-      return 0;
+    if (calculated == NULL) {
+	return 0;
     }
-  xcoord = xpos;
-  ycoord = ypos;
+    xcoord = xpos;
+    ycoord = ypos;
 
 
-  if (cursymetry.xsym < cfractalc.rs.nc || cursymetry.xsym > cfractalc.rs.mc)
-    xsym = -10;
-  else
-    xsym =
-      (int) (0.5 +
-	     ((cursymetry.xsym -
-	       cfractalc.rs.nc) * cimage.width / (cfractalc.rs.mc -
-						  cfractalc.rs.nc)));
-  if (cursymetry.ysym < cfractalc.rs.ni || cursymetry.ysym > cfractalc.rs.mi)
-    ysym = -10;
-  else
-    ysym =
-      (int) (0.5 +
-	     ((cursymetry.ysym -
-	       cfractalc.rs.ni) * cimage.height / (cfractalc.rs.mi -
-						   cfractalc.rs.ni)));
-  ydiv =
-    (int) (0.5 +
-	   ((-cfractalc.rs.ni) * cimage.height /
-	    (cfractalc.rs.mi - cfractalc.rs.ni)));
-  if (xsym > x1 && xsym < x2)
-    {
-      if (xsym - x1 > x2 - xsym)
-	cx1 = x1, cx2 = xsym;
-      else
-	/*xsym--, */ cx1 = xsym, cx2 = x2;
+    if (cursymetry.xsym < cfractalc.rs.nc
+	|| cursymetry.xsym > cfractalc.rs.mc)
+	xsym = -10;
+    else
+	xsym =
+	    (int) (0.5 +
+		   ((cursymetry.xsym -
+		     cfractalc.rs.nc) * cimage.width / (cfractalc.rs.mc -
+							cfractalc.rs.nc)));
+    if (cursymetry.ysym < cfractalc.rs.ni
+	|| cursymetry.ysym > cfractalc.rs.mi)
+	ysym = -10;
+    else
+	ysym =
+	    (int) (0.5 +
+		   ((cursymetry.ysym -
+		     cfractalc.rs.ni) * cimage.height / (cfractalc.rs.mi -
+							 cfractalc.rs.
+							 ni)));
+    ydiv =
+	(int) (0.5 +
+	       ((-cfractalc.rs.ni) * cimage.height /
+		(cfractalc.rs.mi - cfractalc.rs.ni)));
+    if (xsym > x1 && xsym < x2) {
+	if (xsym - x1 > x2 - xsym)
+	    cx1 = x1, cx2 = xsym;
+	else
+	    /*xsym--, */ cx1 = xsym, cx2 = x2;
+    } else
+	xsym = -1, cx1 = x1, cx2 = x2;
+    if (ysym > y1 && ysym < y2) {
+	if (ysym - y1 > y2 - ysym)
+	    cy1 = y1, cy2 = ysym;
+	else
+	    cy1 = ysym, cy2 = y2;
+    } else
+	ysym = -1, cy1 = y1, cy2 = y2;
+    for (i = cx1; i <= cx2; i++) {
+	xcoord[i] =
+	    cfractalc.rs.nc + i * (cfractalc.rs.mc -
+				   cfractalc.rs.nc) / cimage.width;
     }
-  else
-    xsym = -1, cx1 = x1, cx2 = x2;
-  if (ysym > y1 && ysym < y2)
-    {
-      if (ysym - y1 > y2 - ysym)
-	cy1 = y1, cy2 = ysym;
-      else
-	cy1 = ysym, cy2 = y2;
+    for (i = cy1; i <= cy2; i++) {
+	ycoord[i] =
+	    cfractalc.rs.ni + i * (cfractalc.rs.mi -
+				   cfractalc.rs.ni) / cimage.height;
     }
-  else
-    ysym = -1, cy1 = y1, cy2 = y2;
-  for (i = cx1; i <= cx2; i++)
-    {
-      xcoord[i] =
-	cfractalc.rs.nc + i * (cfractalc.rs.mc -
-			       cfractalc.rs.nc) / cimage.width;
-    }
-  for (i = cy1; i <= cy2; i++)
-    {
-      ycoord[i] =
-	cfractalc.rs.ni + i * (cfractalc.rs.mi -
-			       cfractalc.rs.ni) / cimage.height;
-    }
-  i = 1;
+    i = 1;
 #ifndef SLOWCACHESYNC
 #ifndef nthreads
-  if (nthreads != 1)
-    {
-      if (ydiv > cy1 && ydiv < cy2)
-	{
-	  i |= tracerectangle2 (cx1, cy1, cx2, ydiv),
-	    i |= tracerectangle2 (cx1, ydiv, cx2, cy2);
-	}
-      else
-	i |= tracerectangle2 (cx1, cy1, cx2, cy2);
-    }
-  else
+    if (nthreads != 1) {
+	if (ydiv > cy1 && ydiv < cy2) {
+	    i |= tracerectangle2(cx1, cy1, cx2, ydiv),
+		i |= tracerectangle2(cx1, ydiv, cx2, cy2);
+	} else
+	    i |= tracerectangle2(cx1, cy1, cx2, cy2);
+    } else
 #endif
 #endif
     {
-      if (ydiv > cy1 && ydiv < cy2)
-	{
-	  i |= tracerectangle (cx1, cy1, cx2, ydiv),
-	    i |= tracerectangle (cx1, ydiv, cx2, cy2);
-	}
-      else
-	i |= tracerectangle (cx1, cy1, cx2, cy2);
+	if (ydiv > cy1 && ydiv < cy2) {
+	    i |= tracerectangle(cx1, cy1, cx2, ydiv),
+		i |= tracerectangle(cx1, ydiv, cx2, cy2);
+	} else
+	    i |= tracerectangle(cx1, cy1, cx2, cy2);
     }
-  if (!i)
-    {
+    if (!i) {
 #ifndef HAVE_ALLOCA
-      free (calculated);
+	free(calculated);
 #endif
-      return 0;
+	return 0;
     }
 #ifndef HAVE_ALLOCA
-  free (calculated);
+    free(calculated);
 #endif
-  drivercall (cimage,
-	      dosymetries8 (x1, x2, y1, y2, xsym, cx1, cx2),
-	      dosymetries16 (x1, x2, y1, y2, xsym, cx1, cx2),
-	      dosymetries24 (x1, x2, y1, y2, xsym, cx1, cx2),
-	      dosymetries32 (x1, x2, y1, y2, xsym, cx1, cx2));
-  for (i = cx1; i <= cx2; i++)
-    {
-      if (xsym != -1)
-	{
-	  i1 = 2 * xsym - i;
-	  if (i1 >= x1 && i1 <= x2 && i != i1)
-	    xcoord[i1] = 2 * cursymetry.xsym - xcoord[i];
+    drivercall(cimage,
+	       dosymetries8(x1, x2, y1, y2, xsym, cx1, cx2),
+	       dosymetries16(x1, x2, y1, y2, xsym, cx1, cx2),
+	       dosymetries24(x1, x2, y1, y2, xsym, cx1, cx2),
+	       dosymetries32(x1, x2, y1, y2, xsym, cx1, cx2));
+    for (i = cx1; i <= cx2; i++) {
+	if (xsym != -1) {
+	    i1 = 2 * xsym - i;
+	    if (i1 >= x1 && i1 <= x2 && i != i1)
+		xcoord[i1] = 2 * cursymetry.xsym - xcoord[i];
 	}
     }
-  for (i = cy1; i <= cy2; i++)
-    {
-      if (ysym != -1)
-	{
-	  i1 = 2 * ysym - i;
-	  if (i1 >= y1 && i1 <= y2 && i != i1)
-	    ycoord[i1] = 2 * cursymetry.ysym - ycoord[i];
+    for (i = cy1; i <= cy2; i++) {
+	if (ysym != -1) {
+	    i1 = 2 * ysym - i;
+	    if (i1 >= y1 && i1 <= y2 && i != i1)
+		ycoord[i1] = 2 * cursymetry.ysym - ycoord[i];
 	}
     }
-  if (cy1 != y1)
-    {
-      register int yy1, yy2;
-      int xstart = x1 * cimage.bytesperpixel;
-      int xsize = (x2 - x1 + 1) * cimage.bytesperpixel;
-      yy1 = y1;
-      yy2 = 2 * ysym - y1;
-      while (yy1 < yy2)
-	{
-	  memcpy (cimage.currlines[yy1] + xstart,
-		  cimage.currlines[yy2] + xstart, (size_t) xsize);
-	  yy1++;
-	  yy2--;
+    if (cy1 != y1) {
+	register int yy1, yy2;
+	int xstart = x1 * cimage.bytesperpixel;
+	int xsize = (x2 - x1 + 1) * cimage.bytesperpixel;
+	yy1 = y1;
+	yy2 = 2 * ysym - y1;
+	while (yy1 < yy2) {
+	    memcpy(cimage.currlines[yy1] + xstart,
+		   cimage.currlines[yy2] + xstart, (size_t) xsize);
+	    yy1++;
+	    yy2--;
 	}
     }
-  if (cy2 != y2)
-    {
-      register int yy1, yy2;
-      int xstart = x1 * cimage.bytesperpixel;
-      int xsize = (x2 - x1 + 1) * cimage.bytesperpixel;
-      yy1 = y2;
-      yy2 = 2 * ysym - y2;
-      while (yy1 > yy2)
-	{
-	  memcpy (cimage.currlines[yy1] + xstart,
-		  cimage.currlines[yy2] + xstart, (size_t) xsize);
-	  yy1--;
-	  yy2++;
+    if (cy2 != y2) {
+	register int yy1, yy2;
+	int xstart = x1 * cimage.bytesperpixel;
+	int xsize = (x2 - x1 + 1) * cimage.bytesperpixel;
+	yy1 = y2;
+	yy2 = 2 * ysym - y2;
+	while (yy1 > yy2) {
+	    memcpy(cimage.currlines[yy1] + xstart,
+		   cimage.currlines[yy2] + xstart, (size_t) xsize);
+	    yy1--;
+	    yy2++;
 	}
     }
-  return 1;
+    return 1;
 }
 
-int
-boundarytraceall (number_t * xpos, number_t * ypos)
+int boundarytraceall(number_t * xpos, number_t * ypos)
 {
-  return (boundarytrace
-	  (0, 0, cimage.width - 1, cimage.height - 1, xpos, ypos));
+    return (boundarytrace
+	    (0, 0, cimage.width - 1, cimage.height - 1, xpos, ypos));
 }

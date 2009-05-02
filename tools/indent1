@@ -4,4 +4,4 @@
 cp $1 .indent1.tmp
 ./wintounix .indent1.tmp > $1
 rm .indent1.tmp
-indent $1
+indent -kr $1

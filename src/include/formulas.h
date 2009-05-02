@@ -26,25 +26,24 @@
 #include <fractal.h>
 
 #ifdef SFFE_USING
-	#include "sffe.h"
-	 #ifdef SFFE_CMPLX_ASM
- 	  #include "sffe_cmplx_asm.h"
-	 #elif SFFE_CMPLX_GSL
- 	  #include "sffe_cmplx_gsl.h"
-	 #endif
+#include "sffe.h"
+#ifdef SFFE_CMPLX_ASM
+#include "sffe_cmplx_asm.h"
+#elif SFFE_CMPLX_GSL
+#include "sffe_cmplx_gsl.h"
+#endif
 #endif
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 #ifdef SFFE_USING
-	/*extern sffe* parser;
-	extern sffe* pinit;*/
-	extern cmplx Z;
-	extern cmplx pZ;
-	extern cmplx C;
+    /*extern sffe* parser;
+       extern sffe* pinit; */
+    extern cmplx Z;
+    extern cmplx pZ;
+    extern cmplx C;
 #endif
 
 #define MAX_LAMBDA 2
@@ -52,12 +51,12 @@ extern "C"
 
 #define FORMULAMAGIC 1121
 
-  extern CONST char *CONST incolorname[];
-  extern CONST struct formula formulas[];
-  extern CONST char *CONST outcolorname[];
-  extern CONST char *CONST tcolorname[];
-  extern CONST int nformulas;
-  extern CONST int nmformulas;
+    extern CONST char *CONST incolorname[];
+    extern CONST struct formula formulas[];
+    extern CONST char *CONST outcolorname[];
+    extern CONST char *CONST tcolorname[];
+    extern CONST int nformulas;
+    extern CONST int nmformulas;
 
 #ifdef __cplusplus
 }

@@ -29,8 +29,7 @@
 #include "param.h"
 #include "xmenu.h"
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 
@@ -70,72 +69,70 @@ extern "C"
 #define UIKEY_PGUP 264
 #define UIKEY_PGDOWN 265
 
-  typedef unsigned char ui_rgb[4];
-  typedef ui_rgb *ui_palette;
-  struct uih_context;
-  struct gui_driver
-  {
-    void (*setrootmenu) (struct uih_context * c, CONST char *name);
-    void (*enabledisable) (struct uih_context * c, CONST char *name);
-    void (*menu) (struct uih_context * c, CONST char *name);
-    void (*dialog) (struct uih_context * c, CONST char *name);
-    void (*help) (struct uih_context * c, CONST char *name);
-  };
-  struct ui_driver
-  {
-    CONST char *name;
-    int (*init) (void);		/*initializing function. recturns 0 if fail */
-    void (*getsize) (int *, int *);	/*get current size..in fullscreen versions
+    typedef unsigned char ui_rgb[4];
+    typedef ui_rgb *ui_palette;
+    struct uih_context;
+    struct gui_driver {
+	void (*setrootmenu) (struct uih_context * c, CONST char *name);
+	void (*enabledisable) (struct uih_context * c, CONST char *name);
+	void (*menu) (struct uih_context * c, CONST char *name);
+	void (*dialog) (struct uih_context * c, CONST char *name);
+	void (*help) (struct uih_context * c, CONST char *name);
+    };
+    struct ui_driver {
+	CONST char *name;
+	int (*init) (void);	/*initializing function. recturns 0 if fail */
+	void (*getsize) (int *, int *);	/*get current size..in fullscreen versions
 					   i.e svga and dos asks user for it */
-    void (*processevents) (int, int *, int *, int *, int *);
-    /*processevents..calls ui_resize,ui_key
-       laso returns possitions of mouse..
-       waits for event if first parameter is
-       1 */
-    void (*getmouse) (int *, int *, int *);
-    /*returns current mouse possitions */
-    void (*uninit) (void);
-    /*called before exit */
-    int (*set_color) (int, int, int, int);
-    void (*set_range) (ui_palette palette, int, int);
-    /*sets palette color and returns number */
-    void (*print) (int, int, CONST char *);	/*prints text */
-    void (*display) (void);	/*displays bitmap */
-    int (*alloc_buffers) (char **buffer1, char **buffer2);	/*makes buffers */
-    void (*free_buffers) (char *buffer1, char *buffer2);	/*frees buffers */
-    void (*flip_buffers) (void);	/*prints text */
-    void (*mousetype) (int type);
-    void (*flush) (void);
-    int textwidth;
-    int textheight;		/*width of text */
-    /*int helpsize; */
-    CONST struct params *params;
-    int flags;
-    float width, height;
-    int maxwidth, maxheight;
-    int imagetype;
-    int palettestart, paletteend, maxentries;
-    int rmask, gmask, bmask;
-    CONST struct gui_driver *gui_driver;
-  };
+	void (*processevents) (int, int *, int *, int *, int *);
+	/*processevents..calls ui_resize,ui_key
+	   laso returns possitions of mouse..
+	   waits for event if first parameter is
+	   1 */
+	void (*getmouse) (int *, int *, int *);
+	/*returns current mouse possitions */
+	void (*uninit) (void);
+	/*called before exit */
+	int (*set_color) (int, int, int, int);
+	void (*set_range) (ui_palette palette, int, int);
+	/*sets palette color and returns number */
+	void (*print) (int, int, CONST char *);	/*prints text */
+	void (*display) (void);	/*displays bitmap */
+	int (*alloc_buffers) (char **buffer1, char **buffer2);	/*makes buffers */
+	void (*free_buffers) (char *buffer1, char *buffer2);	/*frees buffers */
+	void (*flip_buffers) (void);	/*prints text */
+	void (*mousetype) (int type);
+	void (*flush) (void);
+	int textwidth;
+	int textheight;		/*width of text */
+	/*int helpsize; */
+	CONST struct params *params;
+	int flags;
+	float width, height;
+	int maxwidth, maxheight;
+	int imagetype;
+	int palettestart, paletteend, maxentries;
+	int rmask, gmask, bmask;
+	CONST struct gui_driver *gui_driver;
+    };
 
-  struct uih_context *globaluih;
-  
+    struct uih_context *globaluih;
+
 #ifdef USE_LOCALEPATH
     extern char *localepath;
 #endif
-    
-  number_t ui_getfloat (CONST char *text);
-  void ui_resize (void);
-  void ui_call_resize (void);
-  void ui_quit (void) NORETURN;
-  void ui_menu (CONST char *text);
-  void ui_menuactivate (CONST menuitem * item, dialogparam * d);
-  int ui_key (int);
-  void ui_loadstr (CONST char *data);
-  xio_path ui_getfile (CONST char *basename, CONST char *extension);
-  void ui_help (CONST char *name);
-  char *ui_getpos (void);
+
+    number_t ui_getfloat(CONST char *text);
+    void ui_resize(void);
+    void ui_call_resize(void);
+    void ui_quit(void) NORETURN;
+    void ui_menu(CONST char *text);
+    void ui_menuactivate(CONST menuitem * item, dialogparam * d);
+    int ui_key(int);
+    void ui_loadstr(CONST char *data);
+    xio_path ui_getfile(CONST char *basename, CONST char *extension);
+    void ui_help(CONST char *name);
+    char *ui_getpos(void);
 
 
 

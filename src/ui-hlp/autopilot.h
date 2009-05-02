@@ -26,8 +26,8 @@
 #include <config.h>
 #include <ui_helper.h>
 
-void do_autopilot (uih_context *, int *, int *, int *, void (*)(void),
-		   int times);
-void clean_autopilot (uih_context *);
+void do_autopilot(uih_context *, int *, int *, int *, void (*)(void),
+		  int times);
+void clean_autopilot(uih_context *);
 
 #endif

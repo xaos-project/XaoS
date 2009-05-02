@@ -37,16 +37,14 @@
 #include <config.h>
 #include <misc-f.h>
 static unsigned int state;
-void
-XaoS_srandom (unsigned int x)
+void XaoS_srandom(unsigned int x)
 {
-  state = x;
+    state = x;
 }
 
 #define MYLONG_MAX 0xffffff	/* this is enough for me */
-long int
-XaoS_random (void)
+long int XaoS_random(void)
 {
-  state = ((state * 1103515245) + 12345) & MYLONG_MAX;
-  return state;
+    state = ((state * 1103515245) + 12345) & MYLONG_MAX;
+    return state;
 }

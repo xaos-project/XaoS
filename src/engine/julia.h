@@ -1,7 +1,7 @@
 #ifndef JULIA_H
 #define JULIA_H
-void init_julia (struct image *img, number_t rangep, number_t range,
-		 number_t xdelta, number_t ystep);
+void init_julia(struct image *img, number_t rangep, number_t range,
+		number_t xdelta, number_t ystep);
 #define SAG			/*solid anti-guessing */
 #define NOT_CALCULATED (unsigned char)0
 #define INSET (unsigned char)0

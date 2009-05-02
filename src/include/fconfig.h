@@ -60,4 +60,4 @@ typedef FPOINT_TYPE number_t;
 #define STAT(x)
 #endif
 #define NUMBER_BIG ((number_t)INT_MAX)
-#endif /*FCONFIG_H */
+#endif				/*FCONFIG_H */

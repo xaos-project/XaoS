@@ -26,7 +26,7 @@
 #ifdef VIDEATOR_SUPPORT
 #import <Cocoa/Cocoa.h>
 
-@interface VideatorProxy : NSObject {
+@ interface VideatorProxy:NSObject {
     BOOL _wantsThrottle;
     NSDate *_lastFrameCreatedDate;
     id _videatorProxy;
@@ -34,9 +34,9 @@
     BOOL _videatorEnabled;
 }
 
-- (void)sendImageRep:(NSBitmapImageRep *)imageRep;
-- (void)toggleVideator:(id)sender;
-- (BOOL)videatorEnabled;
+-(void) sendImageRep:(NSBitmapImageRep *) imageRep;
+-(void) toggleVideator:(id) sender;
+-(BOOL) videatorEnabled;
 
 @end
 #endif

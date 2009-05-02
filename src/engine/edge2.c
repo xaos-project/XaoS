@@ -36,82 +36,78 @@
 #define do_edge do_edge16
 #include "edge2d.c"
 
-static int
-requirement (struct filter *f, struct requirements *r)
+static int requirement(struct filter *f, struct requirements *r)
 {
-  f->req = *r;
-  r->nimages = 1;
-  r->flags &= ~IMAGEDATA;
-  r->supportedmask = MASK1BPP | MASK2BPP | MASK3BPP | MASK4BPP;
-  return (f->next->action->requirement (f->next, r));
+    f->req = *r;
+    r->nimages = 1;
+    r->flags &= ~IMAGEDATA;
+    r->supportedmask = MASK1BPP | MASK2BPP | MASK3BPP | MASK4BPP;
+    return (f->next->action->requirement(f->next, r));
 }
 
-static int
-initialize (struct filter *f, struct initdata *i)
+static int initialize(struct filter *f, struct initdata *i)
 {
-  inhermisc (f, i);
-  /*in/out coloring modes looks better in iter modes. This also saves some
-     memory in truecolor. */
-  if (f->data != NULL)
-    destroypalette ((struct palette *) f->data);
-  f->data =
-    createpalette (0, 65536,
-		   i->image->bytesperpixel <= 1 ? SMALLITER : LARGEITER, 0,
-		   65536, NULL, NULL, NULL, NULL, NULL);
-  if (!inherimage
-      (f, i, TOUCHIMAGE | NEWIMAGE, 0, 0, (struct palette *) f->data, 0, 0))
-    return 0;
-  return (f->previous->action->initialize (f->previous, i));
+    inhermisc(f, i);
+    /*in/out coloring modes looks better in iter modes. This also saves some
+       memory in truecolor. */
+    if (f->data != NULL)
+	destroypalette((struct palette *) f->data);
+    f->data =
+	createpalette(0, 65536,
+		      i->image->bytesperpixel <= 1 ? SMALLITER : LARGEITER,
+		      0, 65536, NULL, NULL, NULL, NULL, NULL);
+    if (!inherimage
+	(f, i, TOUCHIMAGE | NEWIMAGE, 0, 0, (struct palette *) f->data, 0,
+	 0))
+	return 0;
+    return (f->previous->action->initialize(f->previous, i));
 }
 
-static struct filter *
-getinstance (CONST struct filteraction *a)
+static struct filter *getinstance(CONST struct filteraction *a)
 {
-  struct filter *f = createfilter (a);
-  f->name = "Edge detection";
-  return (f);
+    struct filter *f = createfilter(a);
+    f->name = "Edge detection";
+    return (f);
 }
 
-static void
-destroyinstance (struct filter *f)
+static void destroyinstance(struct filter *f)
 {
-  if (f->data != NULL)
-    destroypalette ((struct palette *) f->data);
-  destroyinheredimage (f);
-  free (f);
+    if (f->data != NULL)
+	destroypalette((struct palette *) f->data);
+    destroyinheredimage(f);
+    free(f);
 }
 
-static int
-doit (struct filter *f, int flags, int time)
+static int doit(struct filter *f, int flags, int time)
 {
-  int val;
-  int size = f->childimage->palette->type == SMALLITER ? 253 : 65536;
-  if (f->image->palette->size < size)
-    size = f->image->palette->size;
-  if (((struct palette *) f->data)->size != size)
-    ((struct palette *) f->data)->size =
-      size, ((struct palette *) f->data)->version++;
-  updateinheredimage (f);
-  val = f->previous->action->doit (f->previous, flags, time);
-  drivercall (*f->image,
-	      xth_function (do_edge8, f, f->image->height),
-	      xth_function (do_edge16, f, f->image->height),
-	      xth_function (do_edge24, f, f->image->height),
-	      xth_function (do_edge32, f, f->image->height));
-  xth_sync ();
-  return val;
+    int val;
+    int size = f->childimage->palette->type == SMALLITER ? 253 : 65536;
+    if (f->image->palette->size < size)
+	size = f->image->palette->size;
+    if (((struct palette *) f->data)->size != size)
+	((struct palette *) f->data)->size =
+	    size, ((struct palette *) f->data)->version++;
+    updateinheredimage(f);
+    val = f->previous->action->doit(f->previous, flags, time);
+    drivercall(*f->image,
+	       xth_function(do_edge8, f, f->image->height),
+	       xth_function(do_edge16, f, f->image->height),
+	       xth_function(do_edge24, f, f->image->height),
+	       xth_function(do_edge32, f, f->image->height));
+    xth_sync();
+    return val;
 }
 
 CONST struct filteraction edge2_filter = {
-  "Edge detection2",
-  "edge2",
-  0,
-  getinstance,
-  destroyinstance,
-  doit,
-  requirement,
-  initialize,
-  convertupgeneric,
-  convertdowngeneric,
-  NULL
+    "Edge detection2",
+    "edge2",
+    0,
+    getinstance,
+    destroyinstance,
+    doit,
+    requirement,
+    initialize,
+    convertupgeneric,
+    convertdowngeneric,
+    NULL
 };
