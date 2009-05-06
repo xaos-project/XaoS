@@ -5,6 +5,8 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <ui.h>
+#include <stdlib.h>
+#include <string.h>
 
 int width = 640;
 int height = 480;
@@ -27,19 +29,16 @@ static void window_destroyed(GtkWidget * widget, gpointer data)
     ui_quit();
 }
 
-static gboolean
-mouse_moved(GtkWidget * widget,
-					 GdkEventMotion * event,
-					 gpointer data)
+static gboolean mouse_moved(GtkWidget * widget, GdkEventMotion * event,
+			    gpointer data)
 {
     mouse_x = event->x;
     mouse_y = event->y;
     return TRUE;
 }
 
-static gboolean
-key_pressed(GtkWidget * widget,
-				     GdkEventKey * event, gpointer data)
+static gboolean key_pressed(GtkWidget * widget, GdkEventKey * event,
+			    gpointer data)
 {
     guint32 key;
 
@@ -90,9 +89,8 @@ key_pressed(GtkWidget * widget,
     return TRUE;
 }
 
-static gboolean
-key_released(GtkWidget * widget,
-				       GdkEventKey * event, gpointer data)
+static gboolean key_released(GtkWidget * widget, GdkEventKey * event,
+			     gpointer data)
 {
     switch (event->keyval) {
     case GDK_Left:
@@ -117,10 +115,8 @@ key_released(GtkWidget * widget,
     return TRUE;
 }
 
-static gboolean
-button_pressed(GtkWidget * widget,
-					GdkEventButton * event,
-					gpointer data)
+static gboolean button_pressed(GtkWidget * widget, GdkEventButton * event,
+			       gpointer data)
 {
     switch (event->button) {
     case 1:
@@ -136,10 +132,8 @@ button_pressed(GtkWidget * widget,
     return TRUE;
 }
 
-static gboolean
-button_released(GtkWidget * widget,
-					  GdkEventButton * event,
-					  gpointer data)
+static gboolean button_released(GtkWidget * widget, GdkEventButton * event,
+				gpointer data)
 {
     switch (event->button) {
     case 1:
@@ -155,19 +149,20 @@ button_released(GtkWidget * widget,
     return TRUE;
 }
 
-static gboolean
-drawing_area_resized (GtkWidget * widget, GdkEventConfigure * event)
+static gboolean drawing_area_resized(GtkWidget * widget,
+				     GdkEventConfigure * event)
 {
     if (surface[0] && surface[1]) {
 	width = event->width;
 	height = event->height;
 	ui_resize();
     }
+
+    return FALSE;
 }
 
- static gboolean
-drawing_area_exposed(GtkWidget * widget,
-				  GdkEventExpose * event, gpointer data)
+static gboolean drawing_area_exposed(GtkWidget * widget,
+				     GdkEventExpose * event, gpointer data)
 {
     cairo_t *cr;
 
@@ -183,7 +178,7 @@ drawing_area_exposed(GtkWidget * widget,
 
 void menuitem_activated(GtkMenuItem * item, gpointer data)
 {
-    /* 
+    /*
      * gtk emits activate signal when radio buttons are deactivated as well.
      * we want to ignore these signals.
      */
@@ -193,9 +188,8 @@ void menuitem_activated(GtkMenuItem * item, gpointer data)
 	ui_menuactivate((CONST menuitem *) data, NULL);
 }
 
-static void
-build_menu(struct uih_context *uih, CONST char *name,
-		GtkWidget * parent)
+static void build_menu(struct uih_context *uih, CONST char *name,
+		       GtkWidget * parent)
 {
     CONST menuitem *item;
     gchar *menulabel;
@@ -232,7 +226,7 @@ build_menu(struct uih_context *uih, CONST char *name,
 
 	    g_free(menulabel);
 
-	    g_hash_table_insert(menuitem_table, item->shortname,
+	    g_hash_table_insert(menuitem_table, (gpointer) item->shortname,
 				menuitem);
 	}
 
@@ -251,31 +245,271 @@ build_menu(struct uih_context *uih, CONST char *name,
     }
 }
 
-static void build_root_menu(struct uih_context *uih, CONST char *name)
+static void dorootmenu(struct uih_context *uih, CONST char *name)
 {
     if (menuitem_table)
 	g_hash_table_destroy(menuitem_table);
 
     gtk_container_foreach(GTK_CONTAINER(menu_bar),
-			  (GtkCallback)gtk_widget_destroy, NULL);
+			  (GtkCallback) gtk_widget_destroy, NULL);
 
     menuitem_table = g_hash_table_new(g_str_hash, g_str_equal);
     build_menu(uih, name, menu_bar);
 }
 
-static void toggle_menuitem(struct uih_context *uih, CONST char *name)
+static void dialog(struct uih_context *uih, CONST char *name)
+{
+    CONST menuitem *item = menu_findcommand(name);
+    if (!item)
+	return;
+    CONST menudialog *dialog = menu_getdialog(uih, item);
+    if (!dialog)
+	return;
+
+    int nitems;
+    for (nitems = 0; dialog[nitems].question; nitems++);
+
+    if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type
+			== DIALOG_OFILE)) {
+
+	GtkFileChooserAction action;
+	gchar *title;
+	switch (dialog[0].type) {
+	case DIALOG_IFILE:
+	    action = GTK_FILE_CHOOSER_ACTION_OPEN;
+	    title = "Open File";
+	    break;
+	case DIALOG_OFILE:
+	    action = GTK_FILE_CHOOSER_ACTION_SAVE;
+	    title = "Save as...";
+	    break;
+	}
+
+	GtkWidget *chooser = gtk_file_chooser_dialog_new(title,
+							 GTK_WINDOW
+							 (window), action,
+							 GTK_STOCK_CANCEL,
+							 GTK_RESPONSE_CANCEL,
+							 GTK_STOCK_OK,
+							 GTK_RESPONSE_OK,
+							 NULL);
+
+	GtkFileFilter *filter = gtk_file_filter_new();
+	// TODO: Set default extension for save dialog
+	gtk_file_filter_add_pattern(filter,
+				    g_strrstr(dialog[0].defstr, "*"));
+	gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(chooser), filter);
+
+	gint result = gtk_dialog_run(GTK_DIALOG(chooser));
+
+	if (result == GTK_RESPONSE_OK) {
+	    gchar *filename =
+		gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
+	    dialogparam *param = malloc(sizeof(dialogparam));
+	    param->dstring = strdup(filename);
+	    ui_menuactivate(item, param);
+	}
+	gtk_widget_destroy(chooser);
+
+    } else {
+	GtkWidget *window, *table;
+	GHashTable *widget_hash =
+	    g_hash_table_new(g_str_hash, g_str_equal);
+
+	window =
+	    gtk_dialog_new_with_buttons("XaoS", NULL, GTK_DIALOG_MODAL,
+					GTK_STOCK_OK, GTK_RESPONSE_OK,
+					GTK_STOCK_CANCEL,
+					GTK_RESPONSE_CANCEL,
+					GTK_STOCK_HELP, GTK_RESPONSE_HELP,
+					NULL);
+
+	gtk_dialog_set_default_response(GTK_DIALOG(window),
+					GTK_RESPONSE_OK);
+
+	table = gtk_table_new(nitems, 5, FALSE);
+
+	int i;
+	for (i = 0; i < nitems; i++) {
+	    GtkWidget *label = gtk_label_new(dialog[i].question);
+	    gtk_table_attach_defaults(GTK_TABLE(table), label, 0, 1, i,
+				      i + 1);
+
+	    switch (dialog[i].type) {
+	    case DIALOG_COORD:{
+		    GtkWidget *widget;
+		    gchar *value;
+		    widget = gtk_entry_new();
+		    value = g_strdup_printf("%f", dialog[i].deffloat);
+		    gtk_entry_set_text(GTK_ENTRY(widget), value);
+		    g_free(value);
+		    gtk_table_attach_defaults(GTK_TABLE(table), widget, 1,
+					      2, i, i + 1);
+
+		    g_hash_table_insert(widget_hash, dialog[i].question,
+					widget);
+
+		    widget = gtk_label_new("+");
+		    gtk_table_attach_defaults(GTK_TABLE(table), widget, 2,
+					      3, i, i + 1);
+
+		    widget = gtk_entry_new();
+		    value = g_strdup_printf("%f", dialog[i].deffloat2);
+		    gtk_entry_set_text(GTK_ENTRY(widget), value);
+		    gtk_table_attach_defaults(GTK_TABLE(table), widget, 3,
+					      4, i, i + 1);
+		    g_free(value);
+
+		    gchar *key =
+			g_strconcat(dialog[i].question, "2", NULL);
+		    g_hash_table_insert(widget_hash, key, widget);
+		    //g_free(key);
+
+		    widget = gtk_label_new("i");
+		    gtk_table_attach_defaults(GTK_TABLE(table), widget, 4,
+					      5, i, i + 1);
+
+		    break;
+		}
+	    case DIALOG_IFILE:
+	    case DIALOG_OFILE:{
+		    GtkFileChooserAction action;
+		    gchar *title;
+		    switch (dialog[i].type) {
+		    case DIALOG_IFILE:
+			action = GTK_FILE_CHOOSER_ACTION_OPEN;
+			title = "Open File";
+			break;
+		    case DIALOG_OFILE:
+			action = GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER;
+			title = "Save as...";
+			break;
+		    }
+
+		    // TODO: Set default chooser value
+		    GtkWidget *chooser =
+			gtk_file_chooser_button_new(title, action);
+		    gtk_table_attach_defaults(GTK_TABLE(table), chooser, 1,
+					      4, i, i + 1);
+
+		    g_hash_table_insert(widget_hash, dialog[i].question,
+					chooser);
+		    break;
+		}
+	    case DIALOG_CHOICE:{
+		    GtkWidget *combo = gtk_combo_box_new_text();
+		    CONST char **str = (CONST char **) dialog[i].defstr;
+		    int y;
+		    for (y = 0; str[y] != NULL; y++)
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combo),
+						  str[y]);
+		    gtk_combo_box_set_active(GTK_COMBO_BOX(combo),
+					     dialog[i].defint);
+		    gtk_table_attach_defaults(GTK_TABLE(table), combo, 1,
+					      4, i, i + 1);
+
+		    g_hash_table_insert(widget_hash, dialog[i].question,
+					combo);
+		    break;
+
+		}
+	    default:{
+		    GtkWidget *entry = gtk_entry_new();
+		    gchar *value;
+		    switch (dialog[i].type) {
+		    case DIALOG_INT:
+			value = g_strdup_printf("%d", dialog[i].defint);
+			break;
+		    case DIALOG_FLOAT:
+			value = g_strdup_printf("%f", dialog[i].deffloat);
+			break;
+		    case DIALOG_STRING:
+		    case DIALOG_KEYSTRING:
+			value = g_strdup(dialog[i].defstr);
+			break;
+		    }
+		    gtk_entry_set_text(GTK_ENTRY(entry), value);
+		    g_free(value);
+		    gtk_table_attach_defaults(GTK_TABLE(table), entry, 1,
+					      4, i, i + 1);
+
+		    g_hash_table_insert(widget_hash, dialog[i].question,
+					entry);
+		    break;
+		}
+	    }
+
+	}
+
+	gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(window)->vbox),
+				    table);
+	gtk_widget_show_all(window);
+
+	gint result = gtk_dialog_run(GTK_DIALOG(window));
+
+	if (result == GTK_RESPONSE_OK) {
+	    dialogparam *params = malloc(sizeof(dialogparam) * nitems);
+
+	    for (i = 0; i < nitems; i++) {
+		GtkWidget *widget = g_hash_table_lookup(widget_hash,
+							dialog[i].
+							question);
+		switch (dialog[i].type) {
+		case DIALOG_IFILE:
+		case DIALOG_OFILE:
+		    params[i].dstring =
+			strdup(gtk_file_chooser_get_filename
+			       (GTK_FILE_CHOOSER(widget)));
+		    break;
+		case DIALOG_STRING:
+		case DIALOG_KEYSTRING:
+		    params[i].dstring =
+			strdup(gtk_entry_get_text(GTK_ENTRY(widget)));
+		    break;
+		case DIALOG_INT:
+		    params[i].dint
+			= atoi(gtk_entry_get_text(GTK_ENTRY(widget)));
+		    break;
+		case DIALOG_FLOAT:
+		    // TODO: Should use long double conversion instead of atof
+		    params[i].number =
+			atof(gtk_entry_get_text(GTK_ENTRY(widget)));
+		    break;
+		case DIALOG_COORD:
+		    params[i].dcoord[0] =
+			atof(gtk_entry_get_text(GTK_ENTRY(widget)));
+		    gchar *key =
+			g_strconcat(dialog[i].question, "2", NULL);
+		    widget = g_hash_table_lookup(widget_hash, key);
+		    g_free(key);
+		    params[i].dcoord[1] =
+			atof(gtk_entry_get_text(GTK_ENTRY(widget)));
+		    break;
+		case DIALOG_CHOICE:
+		    params[i].dint =
+			gtk_combo_box_get_active(GTK_COMBO_BOX(widget));
+		    break;
+		}
+	    }
+	    ui_menuactivate(item, params);
+	}
+
+	g_hash_table_destroy(widget_hash);
+	gtk_widget_destroy(window);
+    }
+}
+
+static void enabledisable(struct uih_context *uih, CONST char *name)
 {
     if (menuitem_table) {
-    	GtkMenuItem *menuitem = g_hash_table_lookup(menuitem_table, name);
-
-	g_signal_handlers_block_matched(menuitem, G_SIGNAL_MATCH_FUNC, 
-					0, 0, 0, menuitem_activated, 0);
-
-        gtk_check_menu_item_set_active(menuitem, 
-				!gtk_check_menu_item_get_active(menuitem));
-
-	g_signal_handlers_unblock_matched(menuitem, G_SIGNAL_MATCH_FUNC, 
-					  0, 0, 0, menuitem_activated, 0);
+	CONST struct menuitem *item = menu_findcommand(name);
+	GtkCheckMenuItem *menuitem =
+	    g_hash_table_lookup(menuitem_table, name);
+	g_signal_handlers_block_matched(menuitem, G_SIGNAL_MATCH_FUNC, 0,
+					0, 0, menuitem_activated, 0);
+	gtk_check_menu_item_set_active(menuitem, menu_enabled(item, uih));
+	g_signal_handlers_unblock_matched(menuitem, G_SIGNAL_MATCH_FUNC, 0,
+					  0, 0, menuitem_activated, 0);
     }
 }
 
@@ -303,10 +537,10 @@ void free_buffers(char *b1, char *b2)
 
 int alloc_buffers(char **b1, char **b2)
 {
-    surface[0] = cairo_image_surface_create(CAIRO_FORMAT_RGB24,
-						 width, height);
-    surface[1] = cairo_image_surface_create(CAIRO_FORMAT_RGB24,
-						 width, height);
+    surface[0] =
+	cairo_image_surface_create(CAIRO_FORMAT_RGB24, width, height);
+    surface[1] =
+	cairo_image_surface_create(CAIRO_FORMAT_RGB24, width, height);
 
     *b1 = (char *) cairo_image_surface_get_data(surface[0]);
     *b2 = (char *) cairo_image_surface_get_data(surface[1]);
@@ -365,31 +599,24 @@ static int init()
     GTK_WIDGET_SET_FLAGS(drawing_area, GTK_CAN_FOCUS);
     gtk_widget_grab_focus(drawing_area);
 
-    gtk_widget_add_events(drawing_area,
-			  GDK_POINTER_MOTION_MASK |
-			  GDK_BUTTON_PRESS_MASK |
-			  GDK_BUTTON_RELEASE_MASK |
-			  GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
+    gtk_widget_add_events(drawing_area, GDK_POINTER_MOTION_MASK
+			  | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
+			  | GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
 
     g_signal_connect(G_OBJECT(drawing_area), "motion-notify-event",
-		     G_CALLBACK(mouse_moved),
-		     NULL);
+		     G_CALLBACK(mouse_moved), NULL);
 
     g_signal_connect(G_OBJECT(drawing_area), "button-press-event",
-		     G_CALLBACK(button_pressed),
-		     NULL);
+		     G_CALLBACK(button_pressed), NULL);
 
     g_signal_connect(G_OBJECT(drawing_area), "button-release-event",
-		     G_CALLBACK(button_released),
-		     NULL);
+		     G_CALLBACK(button_released), NULL);
 
     g_signal_connect(G_OBJECT(drawing_area), "key-press-event",
-		     G_CALLBACK(key_pressed),
-		     NULL);
+		     G_CALLBACK(key_pressed), NULL);
 
     g_signal_connect(G_OBJECT(drawing_area), "key-release-event",
-		     G_CALLBACK(key_released),
-		     NULL);
+		     G_CALLBACK(key_released), NULL);
 
     g_signal_connect(G_OBJECT(drawing_area), "expose-event",
 		     G_CALLBACK(drawing_area_exposed), NULL);
@@ -404,8 +631,12 @@ static int init()
 
 static void uninit()
 {
-    g_signal_handlers_disconnect_matched(window, G_SIGNAL_MATCH_FUNC, 
-					 0, 0, 0, window_destroyed, 0);
+    /*
+     * Disconnect window destroy event to prevent XaoS from
+     * quitting when switching drivers
+     */
+    g_signal_handlers_disconnect_matched(window, G_SIGNAL_MATCH_FUNC, 0, 0,
+					 0, window_destroyed, 0);
 
     gtk_widget_destroy(window);
 }
@@ -417,60 +648,58 @@ static void getmouse(int *x, int *y, int *b)
     *b = mouse_buttons;
 }
 
-
 static void mousetype(int type)
 {
 }
 
-static struct params params[] = {
-    {"", P_HELP, NULL, "GTK+ driver options:"},
-    {NULL, 0, NULL, NULL}
+static struct params params[] =
+    { {"", P_HELP, NULL, "GTK+ driver options:"},
+{NULL, 0, NULL, NULL}
 };
 
 struct gui_driver gtk_gui_driver = {
-    /* dorootmenu */ build_root_menu,
-    /* enabledisable */ toggle_menuitem,
-    /* popup */ NULL,
-    /* dialog */ NULL,
-    /* help */ NULL
+/* dorootmenu */ dorootmenu,
+/* enabledisable */ enabledisable,
+/* popup */ NULL,
+/* dialog */ dialog,
+/* help */ NULL
 };
 
 struct ui_driver gtk_driver = {
-    /* name */ "GTK+ Driver",
-    /* init */ init,
-    /* getsize */ getsize,
-    /* processevents */ processevents,
-    /* getmouse */ getmouse,
-    /* uninit */ uninit,
-    /* set_color */ NULL,
-    /* set_range */ NULL,
-    /* print */ print,
-    /* display */ display,
-    /* alloc_buffers */ alloc_buffers,
-    /* free_buffers */ free_buffers,
-    /* filp_buffers */ flip_buffers,
-    /* mousetype */ mousetype,
-    /* flush */ NULL,
-    /* textwidth */ 12,
-    /* textheight */ 12,
-    /* params */ params,
-    /* flags */
-	RESOLUTION | PIXELSIZE | NOFLUSHDISPLAY | FULLSCREEN |
-	PALETTE_ROTATION | ROTATE_INSIDE_CALCULATION,
-    /* width */ 0.01,
-    /* height */ 0.01,
-    /* maxwidth */ 0,
-    /* maxheight */ 0,
-    /* imagetype */ UI_TRUECOLOR,
-    /* palettestart */ 0,
-    /* paletteend */ 0,
-    /* maxentries */ 0,
-    /* rmask */ 0x00ff0000,
-    /* gmask */ 0x0000ff00,
-    /* bmask */ 0x000000ff,
-    /* gui_driver */ &gtk_gui_driver
-};
+/* name */ "GTK+ Driver",
+/* init */ init,
+/* getsize */ getsize,
+/* processevents */ processevents,
+/* getmouse */ getmouse,
+/* uninit */ uninit,
+/* set_color */ NULL,
+/* set_range */ NULL,
+/* print */ print,
+/* display */ display,
+/* alloc_buffers */ alloc_buffers,
+/* free_buffers */ free_buffers,
+/* filp_buffers */ flip_buffers,
+/* mousetype */ mousetype,
+/* flush */ NULL,
+/* textwidth */ 12,
+/* textheight */ 12,
+/* params */ params,
 
-/* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/
+/* flags */ RESOLUTION | PIXELSIZE | NOFLUSHDISPLAY | FULLSCREEN
+	| PALETTE_ROTATION | ROTATE_INSIDE_CALCULATION,
+
+/* width */ 0.01,
+/* height */ 0.01,
+/* maxwidth */ 0,
+/* maxheight */ 0,
+/* imagetype */ UI_TRUECOLOR,
+/* palettestart */ 0,
+/* paletteend */ 0,
+/* maxentries */ 0,
+/* rmask */ 0x00ff0000,
+/* gmask */ 0x0000ff00,
+/* bmask */ 0x000000ff,
+/* gui_driver */ &gtk_gui_driver
+};
 
 #endif
