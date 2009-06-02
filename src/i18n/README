@@ -41,6 +41,8 @@ This will work only on Unix systems.
 * Edit ../../configure.in and add your language code into the LINGUAS
 variable. This is a 2 letter long code (e.g. "cs" for Czech, "de" for
 German).
+
+* Run autoconf.
 	
 * Type "./configure" in the directory ../.., then come back.
 

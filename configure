@@ -3342,7 +3342,7 @@ fi
 
 
 
-ALL_LINGUAS="cs es hu fr de ro it"
+ALL_LINGUAS="cs es hu fr de ro it pt"
 { echo "$as_me:$LINENO: checking whether ${MAKE-make} sets \$(MAKE)" >&5
 echo $ECHO_N "checking whether ${MAKE-make} sets \$(MAKE)... $ECHO_C" >&6; }
 set x ${MAKE-make}; ac_make=`echo "$2" | sed 's/+/p/g; s/[^a-zA-Z0-9_]/_/g'`

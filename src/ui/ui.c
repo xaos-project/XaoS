@@ -1075,7 +1075,7 @@ int MAIN_FUNCTION(int argc, char **argv)
 {
     int i;
     int width, height;
-    char welcome[MAX_WELCOME], language[10];
+    char welcome[MAX_WELCOME], language[11];
 #ifdef HAVE_GETTEXT
     char *locale;
 #endif
@@ -1114,6 +1114,8 @@ int MAIN_FUNCTION(int argc, char **argv)
 	    strcpy(language, "romanian");
 	if (strncmp(locale, "Italian", 7) == 0)
 	    strcpy(language, "italiano");
+	if (strncmp(locale, "Portuguese", 10) == 0)
+	    strcpy(language, "portuguese");
     }
     // x_message("%s",language);
 #else
@@ -1144,6 +1146,8 @@ int MAIN_FUNCTION(int argc, char **argv)
 	    strcpy(language, "romanian");
 	if (strcmp(locale, "it") == 0)
 	    strcpy(language, "italiano");
+	if (strcmp(locale, "pt") == 0)
+	    strcpy(language, "portuguese");
     }
 #endif
 #ifdef DEBUG
