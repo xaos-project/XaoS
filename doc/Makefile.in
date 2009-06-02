@@ -6,10 +6,10 @@ xaos.texinfo: xaos.geninfo ../help/xaos.hlp
 	./mktexi
 
 xaos.info: xaos.texinfo
-	makeinfo --no-split xaos.texinfo
+	makeinfo --no-split xaos.texinfo --force
 
 xaosdev.info: xaosdev.texinfo
-	makeinfo --no-split xaosdev.texinfo
+	makeinfo --no-split xaosdev.texinfo --force
 
 xaos.dvi: xaos.texinfo
 	tex xaos.texinfo

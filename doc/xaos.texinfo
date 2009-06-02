@@ -2211,8 +2211,8 @@ True-color outcoloring mode. To set exact parameters for truecolor coloring use 
 @defun outtcoloring integer 
 @end defun
 
-Truecolor coloring modes are similar to incolor and <a
-outcoloring>outcolor</a> coloring modes; but instead of using a palette,
+Truecolor coloring modes are similar to incolor and
+outcolor coloring modes; but instead of using a palette,
 they directly calculate the red, green and blue components of the color.
 This lets you display more parameters at once, and produces interesting
 and often attractive results. On 8bpp displays you need to enable the
@@ -3067,8 +3067,8 @@ higher powers. See the tutorial chapter.
 @appendixsubsec Octal
 
 This is a less well-known fractal that Thomas discovered in Fractint.
-It has an interesting shape when displayed in the alternative <a
-mplane>planes</a>. See the tutorial chapter.
+It has an interesting shape when displayed in the alternative
+planes. @xref{mplane}. See the tutorial chapter.
 
 @emph{Available as}: menu item, command line option
 
@@ -3249,6 +3249,8 @@ To avoid this, you could use palette emulation filter. @xref{palettef}.
 @appendix Credits
 (alphabetically)
 @table @strong
+@item Lucio Henrique de Araujo (lucio.matema@@gmail.com)
+Brazilian/Portuguese translation
 @item Eric Courteau (ecourteau@@cplus.fr)
 francais.cat (translation of tutorials)
 @item Jean-Pierre Demailly (Jean-Pierre.Demailly@@ujf-grenoble.fr)
@@ -3259,6 +3261,8 @@ TK interface, windowid patches
 cs.po (Czech translation of menus)
 @item Arpad Fekete (Fekete.Arpad.2@@stud.u-szeged.hu)
 some new fractals, and the 'More formulae' menu
+@item Zelia Maria Horta Garcia (zeliagarcia@@seed.pr.gov.br)
+Brazilian/Portuguese translation
 @item Tim Goodwin (tgoodwin@@cygnus.co.uk)
 english.cat corrections
 @item Ben Hines
