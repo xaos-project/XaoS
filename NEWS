@@ -1,4 +1,4 @@
-RELEASE NOTES FOR XAOS VERSION 4.0
+RELEASE NOTES FOR XAOS VERSION 3.5
 ----------------------------------
 
 Cross-platform changes
@@ -6,6 +6,14 @@ Cross-platform changes
 
 o New Portuguese translation courtesy of Lucio Henrique de Arujo and
   Zelia Maria Horta Garcia
+  
+o fix for a bug in user formulas (Mateusz Malczak)
+
+Windows-specific changes
+========================
+
+o making the GUI look better using modern fonts and control styles
+  (J.B. Langston)
 
 RELEASE NOTES FOR XAOS VERSION 3.4
 ----------------------------------
