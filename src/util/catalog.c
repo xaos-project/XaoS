@@ -108,6 +108,7 @@ static catalog_t *alloc_catalog(void)
 /*
  * Parse an catalog file and save values into memory
  */
+// FIXME: this macro gives a segfault if \" is used in text. kovzol, 2009-06-29
 #define seterror(text) sprintf(errort,"line %i:%s",line,text),*error=errort
 catalog_t *load_catalog(xio_file f, CONST char **error)
 {
@@ -123,7 +124,7 @@ catalog_t *load_catalog(xio_file f, CONST char **error)
 	*error = "Out of memory";
     }
     if (f == NULL) {
-	*error = "File could not be opended";
+	*error = "File could not be opened";
 	free_catalog(catalog);
 	return NULL;
     }
@@ -145,6 +146,7 @@ catalog_t *load_catalog(xio_file f, CONST char **error)
 	    }
 	}
 	while (c == ' ' || c == '\n' || c == '\r' || c == '\t');
+
 	/*Skip blanks */
 	if (c == XIO_EOF) {
 	    if (xio_feof(f))
@@ -164,12 +166,13 @@ catalog_t *load_catalog(xio_file f, CONST char **error)
 	    if (c == '\n')
 		line++;
 	    if (i == 1024) {
-		seterror("Name is too long(1024 or more characters)");
+		seterror("Name is too long (>=1024 characters)");
 		free_catalog(catalog);
 		xio_close(f);
 		return NULL;
 	    }
 	}
+	
 	while (c != '\n' && c != ' ' && c != '\t' && c != XIO_EOF);
 
 	/*Skip blanks */
@@ -186,16 +189,17 @@ catalog_t *load_catalog(xio_file f, CONST char **error)
 	/*Skip blanks */
 	if (c == XIO_EOF) {
 	    if (xio_feof(f))
-		seterror("Inexpected end of file after name field");
+		seterror("Unexpected end of file after name field");
 	    else
 		seterror("read error");
 	    free_catalog(catalog);
 	    xio_close(f);
 	    return NULL;
 	}
+	
 	name[i] = 0;
 	if (c != '"') {
-	    seterror("Begin of value field expected (\")");
+	    seterror("Begin of value field expected"); // Text modified due to segfault problem, see above (kovzol)
 	    free_catalog(catalog);
 	    xio_close(f);
 	    return NULL;
@@ -221,7 +225,7 @@ catalog_t *load_catalog(xio_file f, CONST char **error)
 	    }
 	    size++;
 	    if (i == 1024) {
-		seterror("Value is too long(1024 or more characters)");
+		seterror("Value is too long (>=1024 characters)");
 		free_catalog(catalog);
 		xio_close(f);
 		return NULL;
@@ -230,11 +234,12 @@ catalog_t *load_catalog(xio_file f, CONST char **error)
 	while (c != '"' && c != XIO_EOF);
 
 	if (c == XIO_EOF) {
-	    seterror("Inexpeced end of file in value filed");
+	    seterror("Unexpected EOF in value field");
 	    free_catalog(catalog);
 	    xio_close(f);
 	    return NULL;
 	}
+	
 	value[i] = 0;
 	find_variable(catalog, name, value);
     }				/*while */
