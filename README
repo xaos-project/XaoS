@@ -25,13 +25,13 @@ saving, and fractal inversion.
 SUPPORTED PLATFORMS
 -------------------
 
-From version 4.0 primarily supported platforms are:
+Starting from version 3.5, the supported platforms are:
 
   * Posix (Linux, Unix, FreeBSD, ...)
   * Microsoft Windows (95, 98, XP)
   * Mac OS X
   
-The following platforms were also natively supported in version 3.x:
+The following platforms were also supported in earlier 3.x versions:
 
   * BeOS
   * Old Macintosh versions
@@ -39,8 +39,9 @@ The following platforms were also natively supported in version 3.x:
   * OS/2
   * Plan 9
 
-Due to development reasons we only work on the primarily supported
-platforms, the other ones are no longer supported.
+Due to the lack of volunteers interested in maintaing older platforms, we are
+discontinuing support for them.
+
 
 To compile XaoS you need ANSI compliant compiler with GOOD
 optimizations. All supported platforms use a common configure script for

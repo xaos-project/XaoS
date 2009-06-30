@@ -7,13 +7,21 @@ Cross-platform changes
 o New Portuguese translation courtesy of Lucio Henrique de Arujo and
   Zelia Maria Horta Garcia
   
-o fix for a bug in user formulas (Mateusz Malczak)
+o Fixed crash bug when using -render command line option with user formulas
+  (Mateusz Malczak)
+
+o Removed support for unmaintained platforms (DOS, BeOS, Plan 9, etc.)
+
+o Updated documentation to reflect infrastructure changes
+  (Discussion and issue tracking have moved to Google Groups and Google Code)
+
 
 Windows-specific changes
 ========================
 
-o making the GUI look better using modern fonts and control styles
+o Better looking GUI with modern fonts and control styles on XP and Vista
   (J.B. Langston)
+
 
 RELEASE NOTES FOR XAOS VERSION 3.4
 ----------------------------------

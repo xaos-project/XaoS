@@ -16,9 +16,9 @@
 				          and invoke yet longer ones etc.. */
 #define STEP		(0.0006*3)
 				/*speedup */
-#define XSIZE		480
+#define XSIZE		640
 				       /*default sizes of window */
-#define YSIZE		360
+#define YSIZE		480
 #define ROTATIONSPEED   30
 
 
