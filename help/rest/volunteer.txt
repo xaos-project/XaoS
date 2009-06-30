@@ -20,14 +20,14 @@ volunteers:
 * Reviewing and documenting the source code
 * Implementing new features and fixing bugs
 
-All development activities are coordinated through SourceForge__. If you want to
+All development activities are coordinated through `Google Code`__. If you want to
 contribute, we recommend that you sign up for an account so that you can
 use its facilities to coordinate your activites with the rest of the team.
 
-__ http://www.sourceforge.net/projects/xaos
+__ http://gnuxaos.googlecode.com/
 
-Before you start, please join the `xaos-devel`__ mailing list and let us know
+Before you start, please join the `xaos-devel`__ discussion group and let us know
 what you want to work on.  We would be happy to help you get started!
 
-__ http://lists.sourceforge.net/mailman/listinfo/xaos-devel
+__ http://groups.google.com/group/xaos-devel
 

@@ -26,10 +26,9 @@ __ http://docutils.sourceforge.net/docs/user/rst/quickstart.html
 If you are only making a small change, feel free to submit it as plain text, 
 and the maintainers will be happy to convert it to reST for you.
 
-All changes to the documentation should be submitted via the SourceForge `patch 
-tracker`__.
+All changes to the documentation should be submitted via the  `issue tracker`__.
 
-__ https://sourceforge.net/tracker/?group_id=5771&atid=305771
+__ http://code.google.com/p/gnuxaos/issues/list
 
 
 .. highlight:: rest

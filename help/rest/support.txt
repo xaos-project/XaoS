@@ -3,8 +3,7 @@
 Getting Support
 ===============
 
-XaoS is a community-supported free software project. There are many ways to get
-help, all of which are explained below.
+XaoS is a community-supported free software project.
 
 Home Page
 ---------
@@ -14,69 +13,56 @@ information about XaoS and to download the latest versions.
 
 __ http://xaos.sourceforge.net/
 
-.. _forums:
 
-Discussion Forums
------------------
 
-XaoS has two discussion forums hosted on SourceForge. You can read them freely,
-but in order to post, you must to register for a free SourceForge account.
+Users' Discussion Group
+-----------------------
 
-Help__
-	A place for you to ask for help using XaoS. Other XaoS users
-	and/or the XaoS developers will answer your questions.
+The `xaos-users`__ discussion group on Google Groups provides a place for XaoS users 
+to help each other get the most out of XaoS. XaoS developers also monitor this 
+discussion and answer questions from time to time.
 
-__ http://sourceforge.net/forum/forum.php?forum_id=17768
+__ http://groups.google.com/group/xaos-users
 
-`Open Discussion`__
-	A place to discuss anything related to XaoS or fractals. You can share tips, 
-	your own fractal creations, or any other fractal-related ideas with other 
-	XaoS users.
+You can browse the archives freely but you must join the group in order to post. 
+However, Google Groups provides a range of options for participation from a 
+traditional mailing list to a completely web-based forum, so you don’t have to get
+emails if you don’t want to.
 
-__ http://sourceforge.net/forum/forum.php?forum_id=17767
+If you have a question or problem, please feel free to ask for help. We also 
+encourageyou to share examples (.xaf or .xpf files), hints and tips. If you have 
+a gallery of images created using XaoS, feel free to post a link to the group.
 
-We welcome you to join these forums and become involved in the XaoS community.
 
-.. _bugs:
+Developers' Discussion Group
+----------------------------
 
-Bug Reports
------------
+The `xaos-devel`__ discussion group on Google Groups is where XaoS developers 
+discuss and coordinate the further development of XaoS. XaoS users are welcome to 
+monitor this forum as well, but general discussion and requests for help should be 
+posted to the Users’ Discussion Group instead.
 
-If you think you have found a bug in XaoS, please report it. The developers
-will do their best to resolve the bug in a timely manner.
+__ http://groups.google.com/group/xaos-devel
 
-* `Browse open bugs`__
-* `Report a bug`__
 
-__ http://sourceforge.net/tracker/?atid=105771&group_id=5771&func=browse
+Issue Tracker
+-------------
 
-__ http://sourceforge.net/tracker/?atid=105771&group_id=5771
+Issues are tracked on `Google Code`__. If you think you have found a bug in XaoS or 
+have an idea for a great new feature, please let us know about it. However, if 
+you’re not sure how to submit a useful issue report, please ask on the xaos-users 
+discussion group first (see above).
 
-.. note::
+__ http://code.google.com/p/gnuxaos/issues/list
 
-	Please don't submit duplicate bugs. Browse the existing ones first to make sure
-	nobody has already reported it. You may add additional information about a bug
-	by entering a comment on an existing bug.
+Please don’t submit duplicate issues. Search the existing ones first to make sure 
+nobody has already reported it. You can add additional information about a bug by 
+entering a comment on an existing bug. You can also express your interest in an issue 
+by using the “Star” function on Google Code. This lets the developers know how many 
+users are interested in an issue and also allows you receive status updates.
 
-.. _features:
+The developers will do their best to respond to issues in a timely manner. However, 
+keep in mind that XaoS is developed on a volunteer basis and the developers work on 
+it in their spare time. Therefore, we can’t guarantee that issues will be addressed 
+in a certain timeframe.
 
-Feature Requests
-----------------
-
-If you have an idea for a great new feature you'd like to see added to XaoS,
-please let us know about it. You can submit a feature request via SourceForge,
-and the XaoS developers will do their best to implement your request in a
-future version.
-
-* `Browse feature requests`__
-* `Request a feature`__
-
-__ http://sourceforge.net/tracker/?atid=355771&group_id=5771&func=browse
-
-__ http://sourceforge.net/tracker/?atid=355771&group_id=5771
-
-.. note::
-
-	Please don't submit duplicate feature requests. Browse the existing ones first
-	to make sure nobody has already requested the feature your want. You may add
-	your vote for a feature by adding a comment to the existing request.
