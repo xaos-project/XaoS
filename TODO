@@ -1,90 +1,66 @@
 TODO ITEMS
 ----------
 
-*needs check*
+Visit the issue tracker at http://code.google.com/p/gnuxaos/issues/list
+for a list of outstanding issues.
 
-Last modification information:
-$Header: /home/jblang/XaoS-cvsbackup/XaoS/TODO,v 1.10 2008-03-05 11:02:08 rxpi Exp $
+In particular, we would welcome volunteers to help us finish the 
+following projects that we are currently focusing on:
 
 
-General todos (for all platforms)
----------------------------------
+GTK+ User Interface (Beta)
+==========================
 
-  o  Update catalogs for tutorials.
-  o  Fix -threads 200 problem.
-  o  Fix multithreaded boundary trace algorithm.
-  o  Remove playstring, because it is obsolette now. (?)
-  o  Document smoothmorph. (?)
-  o  Make this list shorter. :)
-  o  Solve syncing in X driver...
-  o  X Window System screen saver version idea:
-        Calculate big Mandelbrot.
-	Then using autopilot select good point.
-	Display smaller rectangle (320x200) and make
-	zoom to this point inside.
-	Do this repeatively for more points. Then you
-	will get main Mandelbrot with more zoom
-	windows. Select most interesting one.
-	Make it big again.
-	And repeat... :)
-	Easy! Isn't it?
-  o  More ports of course...
-  o  Video sequence saving. Make support for creating 
-     movie file with saved movements and possibly calculated
-     points. This should make very small movie files with
-     approx. 1113 points for one frame. 500kb = 500 frames = 25
-     seconds of animation with compression about 50% (runlength
-     or lzo library).
-  o  Automatic recalculation of videos for other resolution 
-     or configuration. Because movie files will require 
-     exactly same optimizations and movements as they 
-     were created. 
-  o  Use CLN (numeric library) for optimizing calculations.
-  o  Trying to use FFTW package to support high precision
-     calculations for >10e20 zooms with Fast Fourier Transform.
-  o  Finishing internationalization.
-  o  Adding more fractal types (Newton^k etc.).
+The GTK+ user interface is approaching beta quality.  We welcome beta 
+testers to try out this version and let us know what issues you encounter. 
+Please share your feedback with us on the developer's discussion group at:
+http://groups.google.com/group/xaos-devel.
 
-BeOS related todos
-------------------
+We ask that beta testers be advanced users who are comfortable compiling
+software from source and submitting useful bug reports including backtraces.
+If you are not comfortable with this, then please wait for the final version
+to be released.  We would also really appreciate it if any experienced GTK+ 
+developers can review our code and make suggestions for improvement. 
 
-  o  Avoid mouse pooling in DirectScreen driver.
-  o  Figure out how to get image directory in translator.
-  o  Fix configure dialog in XaoS translator.
-  o  Does translator need to support all bitmap types?
-  o  Figure out how to get the red, green and blue masks in DirectScreen.
-  o  Support for scripting - XaoS's internal scripting langugage should be
-     probably well mapped to Be's scripting system. But I am not sure how much is
-     useful and I would like to see any good examples for usage of scripting first.
-  o  Change XaoS to the Media Node producing video stream from XaoS save
-     files.... How much this can be useful? For recording XaoS's videos?
-     Filtering it using Be's Nodes?
-     Can we use it for interactive mode too? Can be this useful for
-     something? Anyway I seems to like Be's node system (very similar to
-     filter system internally used by XaoS) and I would like to try its
-     programming.
-     Maybe the GUI should be external program starting XaoS Node use the
-     scripting (or send the XaoS' commands) to control XaoS. Then we should
-     probably add any Be's filtering node to XaoS's filtering system...
+Since the GTK+ UI is still not ready for everyday use, it will not be 
+compiled by default. You must explicitly enable it using the following
+configure switch:
 
-Windows related todos
----------------------
+	--with-gtk-driver=yes
 
-  o  Fix problems in windowsed directX mode and palette.
-  o  AAlib driver?
-  
-DOS related todos
------------------
+In addition, we recommend you disable all other drivers when using the GTK
+driver using the following configure switches:
 
-  o  Latin2 fonts for some basic messages use incorrect code page.
+	--with-x11-driver=no
 
-Please contact the developers if you want to do something
-from this long todo. :)
 
-Additional... (for 3.1.3+)
---------------------------
+New Documentation Format (Beta)
+===============================
 
-  o  fix Daniel Skarda's entry in help/authors [DONE]
-  o  put version string to only one place [DONE]
-  o  review documentation (wiki?) [DONE]
-  o  create mktgz and other cool tools
+We are in the process of migrating the XaoS help system to Sphinx and
+reStructuredText.  Our  user manual was previously in a crippled subset 
+of HTML that we dubbed XSHL, which was missing many features necessary 
+for maintaining modern, attractive documentation.  
+
+Sphinx was developed by the Python project for their documentation, and 
+it is very similar to a Wiki in the way you mark  up the text.  It can 
+output the results as HTML, PDF, and Windows Help.  It supports all the
+important things that are missing from the current help format, such as
+tables, images, and internet hyperlinks.  It can even convert LaTeX math 
+markup into image files that get included in the HTML output.
+
+The documentation still needs a lot of work before it is ready, and we 
+have to make some modifications to Sphinx itself in order to integrate 
+the documentation it produces with XaoS's help system.  However, it is 
+far enough along that we would welcome volunteers who are familar with 
+reStructuredText to submit improvements to the documentation.
+
+The new documentation is located in the help/rest directory, and it can
+be converted into HTML or PDF using the included Makefile.  In order to
+generate the output, you will need to install Sphinx.  Visit the Sphinx
+homepage at http://sphinx.pocoo.org/ for installation instructions and
+more information on the new documentation format.
+
+If you would like to help with the documentation, please contact us on 
+the discussion group at: http://groups.google.com/group/xaos-devel.
+We will be happy to help you get started.
