@@ -17,7 +17,7 @@ systems) or downloading a package from http://xaos.sf.net.
 For Unix/X11
 ============
 
-To compile XaoS 4.x you need optimizing ANSI compatible C compiler and 
+To compile XaoS you need optimizing ANSI compatible C compiler and 
 the Xlib library.
 
 To compile XaoS with image saving code you also need zlib and pnglib
