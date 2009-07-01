@@ -428,7 +428,7 @@ if test  "$win32_driver_test" = yes; then
            win32_driver=no
 	   case $target_os in
 	    *cygwin*) win32_driver=yes
-	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion -lmingwex -lhtmlhelp"
+	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion -lmingwex"
 	                CFLAGS="$CFLAGS -mno-cygwin -mwindows"
 	                CFLAGS1="$CFLAGS1 -mno-cygwin -mwindows"
 			;;
@@ -702,7 +702,7 @@ fi
 
 dnl Checks for header files.
 
-AC_CHECK_HEADERS([OS.h alloca.h ddraw.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h])
+AC_CHECK_HEADERS([OS.h alloca.h ddraw.h htmlhelp.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -802,6 +802,11 @@ fi
 
 if test "$ac_cv_header_malloc_h" = "no"; then
  AC_DEFINE(NO_MALLOC_H)
+ fi
+
+if test "$ac_cv_header_htmlhelp_h" = "yes"; then
+ AC_DEFINE(HTML_HELP)
+ LIBS="$LIBS -lhtmlhelp"
  fi
 
 if test "$ac_cv_header_ddraw_h" = "yes"; then

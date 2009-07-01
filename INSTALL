@@ -118,7 +118,7 @@ http://msdn.microsoft.com/en-us/library/ms669985(VS.85).aspx.  Install the
 SDK, then copy the following files from the HTML Help Workshop installation
 to your Cygwin installation:
 
-htmlhelp.h   from "HTML Help Workshop\include" to /usr/include/mingw
+htmlhelp.h   from "HTML Help Workshop\include" to /usr/include/w32api
 htmlhelp.lib from "HTML Help Workshop\lib"     to /usr/lib/mingw
 
 Zlib and libpng can be downloaded from http://sourceforge.net/. Simply

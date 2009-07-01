@@ -3,7 +3,9 @@
 #include <config.h>
 #ifdef WIN32_DRIVER
 #include <windows.h>
+#ifdef HTML_HELP
 #include <htmlhelp.h>
+#endif
 #ifdef DDRAW_DRIVER
 #include <ddraw.h>
 #endif
@@ -1648,6 +1650,7 @@ static void dx_mousetype(int type)
 
 void win32_help(struct uih_context *c, CONST char *name)
 {
+#ifdef HTML_HELP
     FILE *f;
     char *n;
     if (helpname == NULL) {
@@ -1679,6 +1682,9 @@ void win32_help(struct uih_context *c, CONST char *name)
     if (!HtmlHelp(hWnd, helpname, HH_ALINK_LOOKUP, (DWORD) &link)) {
 	x_error("Could not display help for topic %s from file %s", name, helpname);
     }
+#else
+    x_error("Help support not included in this executable.");
+#endif
 }
 
 

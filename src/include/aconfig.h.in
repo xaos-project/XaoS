@@ -51,6 +51,7 @@
 #undef SVGA_DRIVER
 #undef WIN32_DRIVER
 #undef DDRAW_DRIVER
+#undef HTML_HELP
 #undef SIZEOF_SHORT
 #undef SIZEOF_INT
 #undef SIZEOF_LONG

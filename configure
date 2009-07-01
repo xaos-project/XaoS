@@ -9072,7 +9072,7 @@ if test  "$win32_driver_test" = yes; then
            win32_driver=no
 	   case $target_os in
 	    *cygwin*) win32_driver=yes
-	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion -lmingwex -lhtmlhelp"
+	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion -lmingwex"
 	                CFLAGS="$CFLAGS -mno-cygwin -mwindows"
 	                CFLAGS1="$CFLAGS1 -mno-cygwin -mwindows"
 			;;
@@ -11787,7 +11787,8 @@ fi
 
 
 
-for ac_header in OS.h alloca.h ddraw.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h
+
+for ac_header in OS.h alloca.h ddraw.h htmlhelp.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h
 do
 as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 if { as_var=$as_ac_Header; eval "test \"\${$as_var+set}\" = set"; }; then
@@ -15676,6 +15677,14 @@ if test "$ac_cv_header_malloc_h" = "no"; then
 #define NO_MALLOC_H 1
 _ACEOF
 
+ fi
+
+if test "$ac_cv_header_htmlhelp_h" = "yes"; then
+ cat >>confdefs.h <<\_ACEOF
+#define HTML_HELP 1
+_ACEOF
+
+ LIBS="$LIBS -lhtmlhelp"
  fi
 
 if test "$ac_cv_header_ddraw_h" = "yes"; then
