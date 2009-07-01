@@ -22,6 +22,9 @@ Windows-specific changes
 o Improved GUI appearance with modern fonts and controls on XP and Vista
   (J.B. Langston)
 
+o Help format changed from WinHelp to HtmlHelp.  WinHelp was no longer
+  supported starting with Windows Vista and Windows 7.
+
 
 GTK+ User Interface (Beta)
 ==========================

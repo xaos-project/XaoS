@@ -70,9 +70,9 @@ Features/requirements
 ---------------------
 
 XaoS has fully featured support for Win32 and DirectX API. The Win32
-driver should work on Windows 9x, Windows NT, Windows XP and even on
-Windows 3.1 with win32s in all bit depths supported by Windows. It was
-originally tested only on Windows 95 in 4, 8, 16, 24 and 32 bpp modes.
+driver should work on Windows 9x, NT, XP, Vista, and 7 in all bit 
+depths supported by Windows. It was originally tested only on 
+Windows 95 in 4, 8, 16, 24 and 32 bpp modes.
 XaoS works well in all tested modes except the 16 color mode where it
 uses Windows conversion routines and because they are slow and ugly,
 XaoS is slow and ugly.
@@ -87,8 +87,8 @@ mapping problems, so use win32 driver instead. In fullscreen mode press
 Compiling XaoS
 --------------
 
-To compile XaoS you need Cygwin, MinGW, the DirectX header files, zlib
-and libpng.
+To compile XaoS you need Cygwin, MinGW, the DirectX header files, the HTML
+Help 1.4 SDK, zlib and libpng.
 
 Cygwin can be downloaded from http://www.cygwin.com/. It is recommended
 to install at least all base and devel packages except the mingw-runtime
@@ -112,6 +112,14 @@ copy all the header files located in the extracted include/ directory to
 the directory usr/include/mingw/ of your Cygwin installation. If there
 are already files there that have the same name as files, you have to
 copy there, then overwrite them.
+
+The HTML Help 1.4 SDK can be downloaded from
+http://msdn.microsoft.com/en-us/library/ms669985(VS.85).aspx.  Install the
+SDK, then copy the following files from the HTML Help Workshop installation
+to your Cygwin installation:
+
+htmlhelp.h   from "HTML Help Workshop\include" to /usr/include/mingw
+htmlhelp.lib from "HTML Help Workshop\lib"     to /usr/lib/mingw
 
 Zlib and libpng can be downloaded from http://sourceforge.net/. Simply
 search for libpng. Zlib can be downloaded from the same web page as

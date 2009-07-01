@@ -3208,7 +3208,7 @@ they are written in the same language.
 %renderanim
 <head>Render animation</head>
 <p>
-Render an animation to image files. See <a mpeg>How to encode MPEG files</a>
+Render an animation to image files. See <a video>How to encode video files</a>
 for more information.
 <p>
 <emph>Available as</emph>: menu item,
