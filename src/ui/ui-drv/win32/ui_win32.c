@@ -3,6 +3,7 @@
 #include <config.h>
 #ifdef WIN32_DRIVER
 #include <windows.h>
+#include <htmlhelp.h>
 #ifdef DDRAW_DRIVER
 #include <ddraw.h>
 #endif
@@ -1650,26 +1651,33 @@ void win32_help(struct uih_context *c, CONST char *name)
     FILE *f;
     char *n;
     if (helpname == NULL) {
-	if (!strcmp(name, "main"))
-	    name = "Contents";
 	if (directX == DXFULLSCREEN)
 	    ShowWindow(hWnd, SW_MINIMIZE);
-	n = xio_fixpath("\01\\help\\xaoswin.hlp");
+	n = xio_fixpath("\01\\help\\xaoshelp.chm");
 	if ((f = fopen(n, "r"))) {
 	    fclose(f);
 	} else {
 	    free(n);
-	    n = xio_fixpath("\01\\..\\help\\xaoswin.hlp");
+	    n = xio_fixpath("\01\\..\\help\\xaoshelp.chm");
 	    if ((f = fopen(n, "r"))) {
 		fclose(f);
 	    } else
-		n = strdup("..\\help\\xaoswin.hlp");
+		n = strdup("..\\help\\xaoshelp.chm");
 	}
 	helpname = n;
     }
-    if (!WinHelp
-	(hWnd, helpname, HELP_PARTIALKEY, (ULONG) (CONST char *) name)) {
-	x_error("Failed to start WinHelp on topic %s", name);
+    HH_AKLINK link;
+    link.cbStruct =     sizeof(HH_AKLINK) ;
+    link.fReserved =    FALSE ;
+    link.pszKeywords =  name ;
+    link.pszUrl =       NULL ;
+    link.pszMsgText =   NULL ;
+    link.pszMsgTitle =  NULL ;
+    link.pszWindow =    NULL ;
+    link.fIndexOnFail = TRUE ;
+
+    if (!HtmlHelp(hWnd, helpname, HH_ALINK_LOOKUP, (DWORD) &link)) {
+	x_error("Could not display help for topic %s from file %s", name, helpname);
     }
 }
 
