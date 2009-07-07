@@ -422,11 +422,17 @@ fi
 case $target_os in
 *linux*) CMPLX_O_TARGET=elf;;
 *cygwin*) CMPLX_O_TARGET=coff;;
+*mingw*) CMPLX_O_TARGET=coff;;
 *darwin*) CMPLX_O_TARGET=macho;;
 esac
 if test  "$win32_driver_test" = yes; then
            win32_driver=no
 	   case $target_os in
+	    *mingw*) win32_driver=yes
+	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion -lmingwex"
+	                CFLAGS="$CFLAGS -mwindows"
+	                CFLAGS1="$CFLAGS1 -mwindows"
+			;;
 	    *cygwin*) win32_driver=yes
 	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion -lmingwex"
 	                CFLAGS="$CFLAGS -mno-cygwin -mwindows"
