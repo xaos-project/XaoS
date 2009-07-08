@@ -2,6 +2,7 @@
    windowed/fullscreen) drivers, because they have a lot of common stuff. */
 #include <config.h>
 #ifdef WIN32_DRIVER
+#define _WIN32_WINNT 0x0501 /* Enable access to Windows XP APIs */
 #include <windows.h>
 #ifdef HTML_HELP
 #include <htmlhelp.h>
@@ -1729,6 +1730,13 @@ WinMain(HINSTANCE hInstance1,
 	    lpCmdLine[i] = 0;
 	else if (!i || !lpCmdLine[i - 1])
 	    argv[argc] = lpCmdLine + i, argc++;
+    }
+
+    /* Attach to parent console if available so output will be visible */
+    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+	/* make sure stdout is not already redirected before redefining */
+	if (_fileno(stdout) == -1 || _get_osfhandle(fileno(stdout)) == -1)
+	    freopen("CON", "w", stdout);
     }
 
     hInstance = hInstance1;
