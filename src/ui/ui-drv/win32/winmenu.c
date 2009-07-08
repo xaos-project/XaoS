@@ -102,6 +102,8 @@ win32_appendmenu(struct uih_context *c, struct menurecord *menu)
 	    out[y + hotkeyed] = item->name[y];
 	}
 	out[y + hotkeyed] = 0;
+	if (item->type == MENU_CUSTOMDIALOG || item->type == MENU_DIALOG)
+	    strcat(out, "...");
 	if (menu->type != MAIN && item->key) {
 	    strcat(out, "\t");
 	    strcat(out, item->key);
