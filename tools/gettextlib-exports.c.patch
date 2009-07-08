@@ -1,0 +1,12 @@
+--- ./gettext-tools/woe32dll/gettextlib-exports.c.orig	2009-07-07 22:36:06 -0500
++++ ./gettext-tools/woe32dll/gettextlib-exports.c	2009-07-07 22:36:21 -0500
+@@ -26,7 +26,7 @@
+ VARIABLE(gl_array_list_implementation)
+ VARIABLE(gl_linkedhash_list_implementation)
+ VARIABLE(program_name)
+-VARIABLE(rpl_optarg)
+-VARIABLE(rpl_optind)
++/*VARIABLE(rpl_optarg)
++VARIABLE(rpl_optind)*/
+ VARIABLE(simple_backup_suffix)
+ VARIABLE(styled_ostream_typeinfo)
