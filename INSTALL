@@ -218,15 +218,31 @@ XaoS source distribution here or check out the latest sources from Subversion.
 Copy the file msys_profile from the tools directory in the XaoS source
 distribution to "$HOME/.profile".  
 
-Edit the "$HOME/.profile" file with vi or another text editor and make sure 
-all the *_HOME variables at the top point to the correct location where you 
-installed each of the dependencies.  These variables are necessary so that 
-MinGW can find the libraries and header files that you installed to various 
-locations on your system.  You should not have to modify the second half of 
-the file.
+Edit the "$HOME/.profile" file and make sure all the *_HOME variables at the 
+top point to the correct location where you installed each of the 
+dependencies.  These variables are necessary so that MinGW can find the 
+libraries and header files that you installed to various locations on your 
+computer.  You should not have to modify the second half of the file.
 
-Exit MSYS and start it again so that the new settings in your .profile will
-be reread and the variables will be set properly.
+Copy the file msys_manifest from the tools directory in the XaoS source
+distibution to the /bin directory with the following commands:
+
+  cp tools/msys_manifest /bin/install.exe.manifest
+  cp tools/msys_manifest /bin/install-info.exe.manifest
+  cp tools/msys_manifest /bin/patch.exe.manifest
+
+These files are necessary to prevent "Permission Denied" errors caused by UAC
+under Windows Vista and Windows 7 when running these programs.
+
+Rename /bin/rxvt.exe to /bin/rxvt1.exe with the following command:
+
+  mv /bin/rxvt.exe /bin/rxvt1.exe
+
+This will prevent the MSYS prompt from opening in rxvt and use a standard 
+windows console window instead. This is necessary because some programs
+such as svn will not work correctly when run from rxvt.
+
+Exit and restart MSYS so that these changes will take effect.
 
 
 Building XaoS
@@ -234,8 +250,8 @@ Building XaoS
 
 To build XaoS, type the following commands from the XaoS source root:
 
-./configure
-make
+  ./configure
+  make
 
 XaoS will automatically detect what dependencies you have installed and
 configure itself to support whatever features are available.  If you find
@@ -245,6 +261,11 @@ correctly in your "$HOME/.profile" file.
 
 To compile XaoS with thread support you pass the switch --with-pthread=yes 
 to the configure script.
+
+To build the windows help file go to the help directory and run the following
+command:
+
+  make chm
 
 To install XaoS to a staging directory, type the following commands:
 
