@@ -30,6 +30,7 @@ if test "x$USE_NLS" = xyes; then
       POFILES="$POFILES $lang.po"
     done
   fi
+  LIBS="$LIBS $LIBINTL"
 fi
 
 dnl
@@ -476,7 +477,7 @@ if test x$pthread = xtest; then
     CFLAGS1="$CFLAGS1 -D_REENTRANT"
     AC_CHECK_FUNCS(pthread_sighandler)
   else
-    echo "No pthread library available! Can not compile threaded version"
+    echo "No pthread library available! Cannot compile threaded version"
     exit
   fi
   fi
@@ -708,7 +709,7 @@ fi
 
 dnl Checks for header files.
 
-AC_CHECK_HEADERS([OS.h alloca.h ddraw.h htmlhelp.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h])
+AC_CHECK_HEADERS([OS.h alloca.h ddraw.h htmlhelp.h errno.h fcntl.h float.h iconv.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -716,7 +717,7 @@ AC_C_INLINE
 if test "x$long_double" = xyes; then
 AC_C_LONG_DOUBLE
 else
-echo Long double disabled, since it should be too slow at this CPU
+echo Long double disabled, since it would be too slow on this CPU
 fi
 AC_HEADER_TIME
 AC_HEADER_DIRENT
@@ -746,6 +747,7 @@ dnl AC_FUNC_STAT
 dnl AC_FUNC_VPRINTF
 
 AC_CHECK_LIB(m, pow)
+AC_CHECK_LIB(iconv, libiconv_open)
 
 if test $png = yes; then
   AC_CHECK_LIB(z, inflate)
@@ -817,11 +819,6 @@ if test "$ac_cv_header_htmlhelp_h" = "yes"; then
 
 if test "$ac_cv_header_ddraw_h" = "yes"; then
  AC_DEFINE(DDRAW_DRIVER)
- fi
-
-if test "$nls_cv_use_gnu_gettext" = yes; then
- AC_DEFINE(HAVE_GETTEXT)
- LIBS="$LIBS -lintl"
  fi
 
 
@@ -1026,7 +1023,7 @@ echo " LIBS        : $LIBS"
 echo " X_LIBS      : $X_LIBS"
 echo "------------------------------------------------------------"
 echo " "
-echo "READ CUREFULLY FOLLOWING WARNINGS"
+echo "READ THE FOLLOWING WARNINGS CAREFULLY"
 echo " "
 if test "x$ac_cv_header_stdc" = xno; then
   AC_MSG_WARN(There are no ANSI C headers avaiable. XaoS will have troubles with compiling.)
@@ -1056,17 +1053,11 @@ fi
 if test x"$ac_cv_lib_z_inflate" = xno; then
  if test x"$ac_cv_lib_gz_inflate" = xno; then
   echo "You need zlib to compile XaoS with image saving code."
-  echo "Please download it from:"
-  echo "  ftp://sunsite.unc.edu/pub/Linux/libs"
-  echo "  or ftp://ftp.uu.net/graphics/png/src/zlib-0.95.tar.gz"
   echo
  fi
 fi
 if test x"$ac_cv_lib_png_png_create_info_struct" = xno; then
   echo "You need pnglib to compile XaoS with image saving code."
-  echo "Please download it from:"
-  echo "  ftp://sunsite.unc.edu/pub/Linux/libs"
-  echo "  or ftp://ftp.uu.net/graphics/png/src/libpng-0.81.tar.gz"
   echo
 fi
 echo " "

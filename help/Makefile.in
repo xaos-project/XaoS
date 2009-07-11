@@ -3,6 +3,10 @@ all: rtf html
 rtf: xaos.hlp
 	./rtfconv
 
+chm: xaos.hlp
+	./winhelpconv
+	hhc xaoshelp.hhp
+
 html: xaos.hlp
 	./htmlconv
 
