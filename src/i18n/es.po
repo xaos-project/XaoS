@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-29 12:57+0200\n"
+"POT-Creation-Date: 2009-07-11 08:56-0700\n"
 "PO-Revision-Date: 2002-10-04 15:22+0200\n"
 "Last-Translator: César Pérez <oroz@users.sourceforge.net>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -160,7 +160,7 @@ msgstr "Gracias por usar XaoS\n"
 msgid "Skipping, please wait..."
 msgstr "Saltando, por favor espere..."
 
-#: ../ui/ui.c:983 ../ui/ui.c:985 ../ui/ui-drv/win32/ui_win32.c:1449
+#: ../ui/ui.c:983 ../ui/ui.c:985 ../ui/ui-drv/win32/ui_win32.c:1453
 msgid "Resize"
 msgstr ""
 
@@ -1481,16 +1481,16 @@ msgstr "Interrumpir"
 msgid "Calculation finished"
 msgstr "Cálculo"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1288 ../ui/ui-drv/cocoa/AppController.m:321
+#: ../ui/ui-drv/win32/ui_win32.c:1292 ../ui/ui-drv/cocoa/AppController.m:321
 msgid "Copy"
 msgstr ""
 
-#: ../ui/ui-drv/win32/ui_win32.c:1289 ../ui/ui-drv/cocoa/AppController.m:324
+#: ../ui/ui-drv/win32/ui_win32.c:1293 ../ui/ui-drv/cocoa/AppController.m:324
 #, fuzzy
 msgid "Paste"
 msgstr "Paleta"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1293
+#: ../ui/ui-drv/win32/ui_win32.c:1297
 msgid "About"
 msgstr ""
 

@@ -1,6 +1,8 @@
 XaoS - a real time fractal zoomer and morpher
 =============================================
 
+For installation instructions please see the INSTALL file.
+
 Original authors of XaoS are Jan Hubicka (jh@ucw.cz) and Thomas  Marsh
 (tmarsh@tivoli.com). Many other people contributed to the project as
 well. Their list is too long to be included here. See AUTHORS file in
@@ -27,11 +29,11 @@ SUPPORTED PLATFORMS
 
 Starting from version 3.5, the supported platforms are:
 
-  * Posix (Linux, Unix, FreeBSD, ...)
-  * Microsoft Windows (95, 98, XP)
-  * Mac OS X
+  * POSIX (Linux, FreeBSD, Solaris, etc.)
+  * Microsoft Windows (XP or later)
+  * Mac OS X (10.4 or later)
   
-The following platforms were also supported in earlier 3.x versions:
+The following platforms were also supported in earlier versions:
 
   * BeOS
   * Old Macintosh versions
@@ -39,14 +41,12 @@ The following platforms were also supported in earlier 3.x versions:
   * OS/2
   * Plan 9
 
-Due to the lack of volunteers interested in maintaing older platforms, we are
-discontinuing support for them.
+Due to the lack of volunteers interested in maintaing older platforms, we 
+are discontinuing support for them.  If you want to use XaoS on one of
+these platforms, please download an earlier version.
 
-
-To compile XaoS you need ANSI compliant compiler with GOOD
-optimizations. All supported platforms use a common configure script for
-setting up the needed Makefiles. Please read the INSTALL file for
-details.
+Of course, volunteers are always welcome to resurrect support for older
+platforms or port XaoS to other platforms it doesn't currently support.
 
 
 FEATURES
@@ -79,7 +79,7 @@ http://xaos.sf.net
 
 
 HOW TO REPORT BUGS
-==================
+------------------
 
 Please try to reproduce the bug and submit a description and output of
 
@@ -87,7 +87,7 @@ Please try to reproduce the bug and submit a description and output of
 
 to the issue tracker (http://code.google.com/p/gnuxaos/issues/list).
 
-Also debugger info (backtraces and so forth) are welcome.
+Debugger info (backtraces and so forth) is also welcome.
 
 
 THANKS TO

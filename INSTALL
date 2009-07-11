@@ -1,110 +1,143 @@
 HOW TO COMPILE AND INSTALL XAOS
 ===============================
 
-For end users, this documentation is unnecessary. Compilation is
-interesting for you only if
+NOTE: This is the source code package for XaoS. You cannot use XaoS from this package until you compile it.  For end users, we recommend using
+a pre-built binary instead. 
 
-  * you are a packager of a Linux distribution,
+If you would like to install a binary version for Windows or Mac OS X, download the appropriate package for your operating system from 
+
+  http://xaos.sf.net
+
+For Ubuntu and Debian users, type the following from a shell prompt to 
+automatically install XaoS:
+
+  sudo apt-get install xaos
+
+For other GNU/Linux users, refer to your distribution's instructions for
+installing packages from its repositories.  
+
+Compilation from source is only necessary if:
+
+  * you are a packager for an operating system distribution,
   * you want to try new features which are not yet included in the
-    available binary packages for your distribution,
+    binary packages available for your distribution,
   * you want to try some changes/enhancements on XaoS source code.
 
-You should be comfortable compiling software and executing commands from 
-a Unix command line before attempting these instructions.
+You should be comfortable compiling software and working on a Unix command
+line before attempting these instructions.
   
-In other cases you are recommended to install a binary version using
-your software installation tool (e.g. synaptic on Ubuntu/Debian
-systems) or by downloading a package from http://xaos.sf.net.
 
 
-For Unix/X11
-============
+Unix-Like Systems
+=================
 
-To compile XaoS you need optimizing ANSI compatible C compiler and 
-the Xlib library.
+Build Requirements
+------------------
 
-To compile XaoS with image saving code you also need zlib and pnglib
-installed. They are available at:
+XaoS should compile on most modern Unix-like systems.  It has been most
+recently tested on Ubuntu 9.04.
 
-  * ftp://ftp.uu.net/graphics/png/src/zlib-0.95.tar.gz
-  * ftp://ftp.uu.net/graphics/png/src/libpng-0.81.tar.gz
+To compile XaoS you need a modern version of gcc (3.x or higher).  Other optimizing C compilers may work but have not been tested.
 
-But, in general, both are available in your Unix version automatically.
+To build the X11 UI, you need: 
 
-AA-lib is a library alowing high quality ascii-art output from XaoS
-available at AA-project homepage http://aa-project.sf.net. You need at
-least version 1.4. (At the time of writing this documentation, 1.4rc2 is
-out and final version of AA-lib is not released yet. 1.4rc2 works
-properly.)
+  * Xlib library and headers from http://www.x.org/.
 
-To use internationalization (i18n) you also need GNU gettext.
+For the GTK UI you need:
 
-XaoS now have a configure script so the following should work correctly:
+  * GTK+ 2.x (tested with 2.16) from http://www.gtk.org/.
+
+XaoS can display fractals as high quality ASCII art. For this, you need:
+
+  * AA-lib 1.4 or higher from http://aa-project.sf.net
+
+To compile XaoS with support for saving images you need:
+
+  * zlib from http://www.zlib.net/
+  * libpng from http://www.libpng.org/pub/png/libpng.html
+
+To use internationalization (i18n) you need:
+
+  * gettext from http://www.gnu.org/software/gettext/
+  * libiconv from http://www.gnu.org/software/libiconv/
+
+To support user-defined formulas, you need ONE of the following:
+
+  * nasm from http://www.nasm.us/
+  * gsl from http://www.gnu.org/software/gsl/
+
+Nasm will only work on x86 architectures, but GSL should work on any
+modern platform.
+
+Many modern GNU/Linux distributions separate the run-time and development
+components of their libraries into different packages.  If you install
+these dependencies from your distribution's repository, please make sure to
+install the development packages as well (usually marked -dev or -devel).
+
+Users of Ubuntu and Debian can automatically install all the necessary 
+build dependencies from above by typing:
+
+  sudo apt-get build-dep xaos
+
+However, GTK+ is not configured as a build dependency yet, so you will
+need to install it manually by typing:
+
+  sudo apt-get install libgtk2.0-dev
+
+
+Building XaoS
+-------------
+
+To build XaoS, type the following commands from the XaoS source directory:
+
+  ./configure
+  make
+
+XaoS will automatically detect which dependencies you have installed and
+configure itself to support whatever features are available.  If you find
+that some feature is missing, please verify that you have installed the
+corresponding dependency (including the developer libraries).
+
+Configure will try to choose the best optimization switches for your
+architecture, but it may not work well for less common ones.  You can 
+provide optimization flags by specifying them before running configure:
 
   CFLAGS=(your best size optimizing switches)
   CFLAGS1=(your best speed optimizing switches)
-  export CFLAGS
+  export CFLAGS CFLAGS1
 
-  # Note that these two steps are not required on PC/Linux
-  # and for all gcc compilers XaoS uses quite good switches.
-  # But this is REQUIRED for other compilers, because XaoS
-  # is coded to be a good target for optimizer and NEEDS to
-  # be optimized to work in reasonable speed.
+You can also customize what optional features to build by passing options
+to the configure script.
 
-  ./configure [options --- usually not required]
-  make
-  make install
-
-For better results please edit src/include/config/config.autoconf to
-reflect your system. 
-
-To enable experimental SMP support please use:
+To enable experimental SMP support use:
 
   --with-pthread=yes
+
+To enable the experimental GTK UI, use:
+
+  --with-gtk-driver=yes --with-x11-driver=no
+
+To enable the aa-lib driver, use:
+
+  --with-aa-driver=yes
+
+Run "./configure --help" for a full list of options.
+
+Once you have successfully compiled XaoS, type the following to install it:
+
+  sudo make install
 
 
 For Win32
 =========
 
-Written by Andreas Madritsch, 2002-10-03, 2003-03-04, 2003-03-18; April
-and May 2008.
-
-Rewritten by J.B. Langston 2009-07-11 to use MinGW compiler with pre-built
-dependencies.  Hopefully these instructions are easier than before.
-
-Features/requirements
----------------------
-
-XaoS has fully featured support for Win32 and DirectX API. The Win32
-driver should work on Windows XP, Vista, and 7 in all bit 
-depths supported by Windows. It was originally tested only on 
-Windows 95 in 4, 8, 16, 24 and 32 bpp modes.
-XaoS works well in all tested modes except the 16 color mode where it
-uses Windows conversion routines and because they are slow and ugly,
-XaoS is slow and ugly.
-
-DirectX support is optional, so you don't need DirectX DLL libraries
-installed on your system. The driver supports 8, 16, 24 and 32 bit
-depths in fullscreen mode and 16, 24, 32 bit depths in windowed mode.
-256 colors are not supported in windowed mode because of palette
-mapping problems, so use win32 driver instead. In fullscreen mode press
-'=' to change default resolution.
+Instructions by Andreas Madritsch. Revised and simplified by J.B. Langston on 2009-07-11.
 
 Build Requirements
 ------------------
 
-To compile a fully-featured XaoS binary on Windows, you need the following
-packages.
-
-The packages are broken down by the functionality that requires them. If 
-you are not trying to compile an official binary and only want to work on 
-a certain part of the code, you can skip the dependencies that are not
-relevant to the code you want to work on.
-
-The recommended version of each package is listed. These versions have
-been tested as of this writing and are used to build the official Windows
-binary.  You can try to use newer versions if you like, but if you run into
-problems, please try the version listed.
+XaoS supports Windows XP or later.  To compile a fully-featured XaoS binary
+on Windows, you need the following dependencies:
 
 Always required:
 * MinGW		5.1.4
@@ -121,7 +154,7 @@ Required to build with DirectX support:
 
 Required to build with built-in help support:
 * HTML Help SDK	1.3
-* tidy 		060405
+* tidy 		20040704
 
 Required to build with image saving support:
 * zlib 		1.2.3
@@ -137,14 +170,23 @@ Required to build with smp support:
 Required to build the installer:
 * NSIS		2.45
 
+The dependencies are broken down by the functionality that requires them. If 
+you are not trying to compile an official binary and only want to test or
+develop a certain subset of XaoS's features, you can skip the dependencies
+that are not relevant to those features.
+
+The recommended version of each package is listed. These versions have
+been tested as of this writing and are used to build the official Windows
+binary.  You can try to use newer versions if you like, but if you run into
+problems, please try the version listed.
 
 Download Locations
 ------------------
 
-The following are the download locations for the binaries required to build
-XaoS on Windows.  All direct links are current as of this writing.  If a 
-direct link is broken, please refer to the homepages instead to find the
-current location of the package.
+The following are the download locations for the pre-built binaries of the
+dependencies required to build XaoS on Windows.  All direct links are
+current as of this writing.  If a direct link is broken, please refer to the
+homepage instead to find the current location of the package.
 
 MinGW, MSYS, msysDTK 
 ````````````````````
@@ -207,19 +249,24 @@ Run the installer for each of the dependencies above using the default
 options.  If desired, you can specify a different install location, but you 
 will have to adjust the instructions accordingly.
 
-Pthreads-w32 will extract to the current directory by default. The recommended
-installation location is C:\pthreads-w32.
+Pthreads-w32 will extract to the current directory by default. The
+recommended installation location is C:\pthreads-w32.
 
-Tidy does not have an installer; it is just a zipped EXE file, so put it
-somewhere in your path.  C:\MinGW\bin would be a good location if that is
-where you installed MinGW.
+Tidy does not have an installer; it is just a zipped executable, so put
+tidy.exe somewhere in your path.  C:\MinGW\bin would be a good location if
+that is where you installed MinGW.
 
 Run MSYS by clicking the icon in your start menu or on your desktop.  This
-will bring you to a bash prompt very similar to Linux or Unix.  Extract the
-XaoS source distribution here or check out the latest sources from Subversion.
+will bring you to a bash prompt very similar to GNU/Linux or Unix.  
 
-Copy the file msys_profile from the tools directory in the XaoS source
-distribution to "$HOME/.profile".  
+Extract the XaoS source files or check out the latest sources from Subversion.  If your Windows username contains spaces, do not extract the
+sources in your home directory.  Instead create a directory called /build
+and extract them there.  The following steps should be done from the root
+directory of the XaoS sources.
+
+Add the contents of msys_profile from the tools directory to your profile:
+
+   cat tools/msys_profile >> $HOME/.profile
 
 Edit the "$HOME/.profile" file and make sure all the *_HOME variables at the 
 top point to the correct location where you installed each of the 
@@ -227,15 +274,15 @@ dependencies.  These variables are necessary so that MinGW can find the
 libraries and header files that you installed to various locations on your 
 computer.  You should not have to modify the second half of the file.
 
-Copy the file msys_manifest from the tools directory in the XaoS source
-distibution to the /bin directory with the following commands:
+Copy the file msys_manifest from the tools directory to the /bin directory 
+with the following commands:
 
   cp tools/msys_manifest /bin/install.exe.manifest
   cp tools/msys_manifest /bin/install-info.exe.manifest
   cp tools/msys_manifest /bin/patch.exe.manifest
 
-These files are necessary to prevent "Permission Denied" errors caused by UAC
-under Windows Vista and Windows 7 when running these programs.
+These files are necessary to prevent "Permission denied" errors caused by 
+UAC under Windows Vista and Windows 7 when running these programs.
 
 Rename /bin/rxvt.exe to /bin/rxvt1.exe with the following command:
 
@@ -262,7 +309,10 @@ that some feature is missing, please verify that you have installed the
 corresponding dependency and that the installation location is specified
 correctly in your "$HOME/.profile" file.
 
-To compile XaoS with thread support you pass the switch --with-pthread=yes 
+To compile XaoS with thread support pass the switch 
+
+  --with-pthread=yes 
+
 to the configure script.
 
 To build the windows help file go to the help directory and run the following
@@ -281,3 +331,57 @@ should be installed.
 To build the XaoS installer, install XaoS to
 XaoS/src/ui/ui-drv/win32/installer/XaoS. Use NSIS to compile the script XaoS
 Installer.nsi in the directory XaoS/src/ui/ui-drv/win32/installer.
+
+
+Mac OS X
+========
+
+Build Dependencies
+------------------
+
+XaoS runs on Mac OS X 10.4 or later but compilation has only been tested 
+recently on 10.5.
+
+Xcode 3.0 or later is required to compile XaoS for Mac OS X. You can find 
+it on the Developer Tools disc that came with your computer or download it
+from:
+
+  http://developer.apple.com/mac/
+
+To compile XaoS you need the following third party libraries:
+
+  * libpng from http://www.libpng.org/pub/png/libpng.html
+  * gettext from http://www.gnu.org/software/gettext/
+  * gsl from http://www.gnu.org/software/gsl/
+
+Extract each library and build them using the following commands:
+
+  env CFLAGS="-O -g -isysroot /Developer/SDKs/MacOSX10.4u.sdk \
+              -arch i386 -arch ppc -mmacosx-version-min=10.4" \
+      LDFLAGS="-arch i386 -arch ppc" \
+  ./configure --prefix=$XAOS_ROOT/src/ui/ui-drv/cocoa/thirdparty \
+              --disable-dependency-tracking
+
+  make
+  make install
+
+Be sure to replace $XAOS_ROOT with the root of your XaoS folder. This 
+will install the libraries and headers in src/ui/ui-drv/cocoa/thirdparty
+where the Xcode project will be able to find them.
+	   
+For more information about building open source libraries as universal 
+binaries see:
+	   
+  http://developer.apple.com/technotes/tn2005/tn2137.html
+	
+
+Building XaoS
+-------------
+
+The Mac OS X version of XaoS is not compiled using the configure scripts in
+the root directory.  Instead, use the Xcode project located in:
+
+  src/ui/ui-drv/cocoa/XaoS.xcodeproj
+
+If the libraries were installed properly, you should be able to build XaoS
+from the Xcode project.

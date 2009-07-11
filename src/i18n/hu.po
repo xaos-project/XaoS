@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-29 12:57+0200\n"
+"POT-Creation-Date: 2009-07-11 08:56-0700\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: Zoltan Kovacs <kovzol@math.u-szeged.hu>\n"
 "Language-Team: Hungarian\n"
@@ -160,7 +160,7 @@ msgstr "Köszönjük, hogy a XaoS programot használta!\n"
 msgid "Skipping, please wait..."
 msgstr "Továbblépés, kérem várjon..."
 
-#: ../ui/ui.c:983 ../ui/ui.c:985 ../ui/ui-drv/win32/ui_win32.c:1449
+#: ../ui/ui.c:983 ../ui/ui.c:985 ../ui/ui-drv/win32/ui_win32.c:1453
 msgid "Resize"
 msgstr "Átméretez"
 
@@ -1408,15 +1408,15 @@ msgstr "A számítás félbeszakadt"
 msgid "Calculation finished"
 msgstr "A számítás véget ért"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1288 ../ui/ui-drv/cocoa/AppController.m:321
+#: ../ui/ui-drv/win32/ui_win32.c:1292 ../ui/ui-drv/cocoa/AppController.m:321
 msgid "Copy"
 msgstr "Másol"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1289 ../ui/ui-drv/cocoa/AppController.m:324
+#: ../ui/ui-drv/win32/ui_win32.c:1293 ../ui/ui-drv/cocoa/AppController.m:324
 msgid "Paste"
 msgstr "Beilleszt"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1293
+#: ../ui/ui-drv/win32/ui_win32.c:1297
 msgid "About"
 msgstr "Névjegy"
 

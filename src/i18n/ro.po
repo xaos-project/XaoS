@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-29 12:57+0200\n"
+"POT-Creation-Date: 2009-07-11 08:56-0700\n"
 "PO-Revision-Date: 2008-04-28 11:21+0100\n"
 "Last-Translator: Zoltan Kovacs <kovzol@matek.hu>\n"
 "Language-Team: The XaoS Development Team <xaos-devel@lists.sf.net>\n"
@@ -164,7 +164,7 @@ msgstr "Va multumim ca ati folosit XaoS\n"
 msgid "Skipping, please wait..."
 msgstr "Se omite, va rugam asteptati..."
 
-#: ../ui/ui.c:983 ../ui/ui.c:985 ../ui/ui-drv/win32/ui_win32.c:1449
+#: ../ui/ui.c:983 ../ui/ui.c:985 ../ui/ui-drv/win32/ui_win32.c:1453
 msgid "Resize"
 msgstr "Redimensionare"
 
@@ -1424,15 +1424,15 @@ msgstr "Calculare intrerupta"
 msgid "Calculation finished"
 msgstr "Calculare terminata"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1288 ../ui/ui-drv/cocoa/AppController.m:321
+#: ../ui/ui-drv/win32/ui_win32.c:1292 ../ui/ui-drv/cocoa/AppController.m:321
 msgid "Copy"
 msgstr "Copiere"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1289 ../ui/ui-drv/cocoa/AppController.m:324
+#: ../ui/ui-drv/win32/ui_win32.c:1293 ../ui/ui-drv/cocoa/AppController.m:324
 msgid "Paste"
 msgstr "Redare (paste)"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1293
+#: ../ui/ui-drv/win32/ui_win32.c:1297
 msgid "About"
 msgstr "Despre"
 
