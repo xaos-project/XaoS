@@ -1,10 +1,12 @@
 HOW TO COMPILE AND INSTALL XAOS
 ===============================
 
-NOTE: This is the source code package for XaoS. You cannot use XaoS from this package until you compile it.  For end users, we recommend using
-a pre-built binary instead. 
+NOTE: This is the source code package for XaoS. You cannot use XaoS from 
+this package until you compile it.  For end users, we recommend using a 
+pre-built binary instead. 
 
-If you would like to install a binary version for Windows or Mac OS X, download the appropriate package for your operating system from 
+If you would like to install a binary version for Windows or Mac OS X, 
+download the appropriate package for your operating system from 
 
   http://xaos.sf.net
 
@@ -37,7 +39,8 @@ Build Requirements
 XaoS should compile on most modern Unix-like systems.  It has been most
 recently tested on Ubuntu 9.04.
 
-To compile XaoS you need a modern version of gcc (3.x or higher).  Other optimizing C compilers may work but have not been tested.
+To compile XaoS you need a modern version of gcc (3.x or higher).  Other 
+optimizing C compilers may work but have not been tested.
 
 To build the X11 UI, you need: 
 
@@ -131,7 +134,8 @@ Once you have successfully compiled XaoS, type the following to install it:
 For Win32
 =========
 
-Instructions by Andreas Madritsch. Revised and simplified by J.B. Langston on 2009-07-11.
+Instructions by Andreas Madritsch. Revised and simplified by J.B. Langston 
+on 2009-07-11.
 
 Build Requirements
 ------------------
