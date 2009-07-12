@@ -643,6 +643,7 @@ POFILES
 ASM_CMPLX_O
 CMPLX_O_TARGET
 ASMOBJS
+CXXFLAGS
 CFLAGS1
 STICKY
 DRIVERDIRS
@@ -662,14 +663,6 @@ DEPS_LIBS
 DEPS_CFLAGS
 PKG_CONFIG
 ALLOCA
-ac_ct_CXX
-CXXFLAGS
-CXX
-X_EXTRA_LIBS
-X_LIBS
-X_PRE_LIBS
-X_CFLAGS
-XMKMF
 RANLIB
 POSUB
 LTLIBINTL
@@ -689,14 +682,11 @@ MSGFMT
 GETTEXT_MACRO_VERSION
 USE_NLS
 mkdir_p
+MKDIR_P
 INSTALL_DATA
 INSTALL_SCRIPT
 INSTALL_PROGRAM
 SET_MAKE
-target_os
-target_vendor
-target_cpu
-target
 host_os
 host_vendor
 host_cpu
@@ -768,18 +758,9 @@ with_png
 with_gsl
 with_sffe
 with_x11_driver
-with_dga_driver
 with_gtk_driver
-with_ggi_driver
-with_svga_driver
 with_win32_driver
-with_BeOS_driver
 with_aa_driver
-with_x
-with_sunos_curses
-with_osf1_curses
-with_vcurses
-with_ncurses
 '
       ac_precious_vars='build_alias
 host_alias
@@ -790,10 +771,6 @@ LDFLAGS
 LIBS
 CPPFLAGS
 CPP
-XMKMF
-CXX
-CXXFLAGS
-CCC
 PKG_CONFIG
 DEPS_CFLAGS
 DEPS_LIBS'
@@ -1406,14 +1383,9 @@ _ACEOF
 
   cat <<\_ACEOF
 
-X features:
-  --x-includes=DIR    X include files are in DIR
-  --x-libraries=DIR   X library files are in DIR
-
 System types:
   --build=BUILD     configure for building on BUILD [guessed]
   --host=HOST       cross-compile to build programs to run on HOST [BUILD]
-  --target=TARGET   configure for building compilers for TARGET [HOST]
 _ACEOF
 fi
 
@@ -1444,20 +1416,11 @@ Optional Packages:
   --with-pthread=yes      enables SMP support (experimental)
   --with-png=yes/no       enables/disables PNG saving support
   --with-gsl=yes/no	enables/disables GSL complex routines
-  --with-sffe=yes/no	enables/disables SFFE (user formula evaluator) support (development)
+  --with-sffe=yes/no	enables/disables SFFE (user formula evaluator) support
   --with-x11-driver=no    disables x11 driver
-  --with-dga-driver=no    disables DGA driver
-  --with-gtk-driver=no    disables GGI driver
-  --with-ggi-driver=no    disables GGI driver
-  --with-svga-driver=no   disables svga driver
+  --with-gtk-driver=no    disables GTK driver
   --with-win32-driver=no  disables Win32 driver
-  --with-BeOS-driver=no   disables BeOS driver
   --with-aa-driver=no     disables aa-lib driver
-  --with-x                use the X Window System
-  --with-sunos-curses     forces SunOS 4.x curses
-  --with-osf1-curses	  forces OSF/1 curses
-  --with-vcurses=incdir   forces SysV curses
-  --with-ncurses=base-dir compile with ncurses/locate base dir
 
 Some influential environment variables:
   CC          C compiler command
@@ -1468,9 +1431,6 @@ Some influential environment variables:
   CPPFLAGS    C/C++/Objective C preprocessor flags, e.g. -I<include dir> if
               you have headers in a nonstandard directory <include dir>
   CPP         C preprocessor
-  XMKMF       Path to xmkmf, Makefile generator for X Window System
-  CXX         C++ compiler command
-  CXXFLAGS    C++ compiler flags
   PKG_CONFIG  path to pkg-config utility
   DEPS_CFLAGS C compiler flags for DEPS, overriding pkg-config
   DEPS_LIBS   linker flags for DEPS, overriding pkg-config
@@ -3833,49 +3793,6 @@ IFS=$ac_save_IFS
 case $host_os in *\ *) host_os=`echo "$host_os" | sed 's/ /-/g'`;; esac
 
 
-{ $as_echo "$as_me:$LINENO: checking target system type" >&5
-$as_echo_n "checking target system type... " >&6; }
-if test "${ac_cv_target+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  if test "x$target_alias" = x; then
-  ac_cv_target=$ac_cv_host
-else
-  ac_cv_target=`$SHELL "$ac_aux_dir/config.sub" $target_alias` ||
-    { { $as_echo "$as_me:$LINENO: error: $SHELL $ac_aux_dir/config.sub $target_alias failed" >&5
-$as_echo "$as_me: error: $SHELL $ac_aux_dir/config.sub $target_alias failed" >&2;}
-   { (exit 1); exit 1; }; }
-fi
-
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_target" >&5
-$as_echo "$ac_cv_target" >&6; }
-case $ac_cv_target in
-*-*-*) ;;
-*) { { $as_echo "$as_me:$LINENO: error: invalid value of canonical target" >&5
-$as_echo "$as_me: error: invalid value of canonical target" >&2;}
-   { (exit 1); exit 1; }; };;
-esac
-target=$ac_cv_target
-ac_save_IFS=$IFS; IFS='-'
-set x $ac_cv_target
-shift
-target_cpu=$1
-target_vendor=$2
-shift; shift
-# Remember, the first character of IFS is used to create $*,
-# except with old shells:
-target_os=$*
-IFS=$ac_save_IFS
-case $target_os in *\ *) target_os=`echo "$target_os" | sed 's/ /-/g'`;; esac
-
-
-# The aliases save the names the user supplied, while $host etc.
-# will get canonicalized.
-test -n "$target_alias" &&
-  test "$program_prefix$program_suffix$program_transform_name" = \
-    NONENONEs,x,x, &&
-  program_prefix=${target_alias}-
 CCOPTS="$CFLAGS"
 CCOPTS1="$CFLAGS1"
 CXXFLAGS1="$CXXFLAGS"
@@ -4739,38 +4656,53 @@ test -z "$INSTALL_SCRIPT" && INSTALL_SCRIPT='${INSTALL}'
 
 test -z "$INSTALL_DATA" && INSTALL_DATA='${INSTALL} -m 644'
 
-if mkdir -p --version . >/dev/null 2>&1 && test ! -d ./--version; then
-  # We used to keeping the `.' as first argument, in order to
-  # allow $(mkdir_p) to be used without argument.  As in
-  #   $(mkdir_p) $(somedir)
-  # where $(somedir) is conditionally defined.  However this is wrong
-  # for two reasons:
-  #  1. if the package is installed by a user who cannot write `.'
-  #     make install will fail,
-  #  2. the above comment should most certainly read
-  #     $(mkdir_p) $(DESTDIR)$(somedir)
-  #     so it does not work when $(somedir) is undefined and
-  #     $(DESTDIR) is not.
-  #  To support the latter case, we have to write
-  #     test -z "$(somedir)" || $(mkdir_p) $(DESTDIR)$(somedir),
-  #  so the `.' trick is pointless.
-  mkdir_p='mkdir -p --'
+{ $as_echo "$as_me:$LINENO: checking for a thread-safe mkdir -p" >&5
+$as_echo_n "checking for a thread-safe mkdir -p... " >&6; }
+if test -z "$MKDIR_P"; then
+  if test "${ac_cv_path_mkdir+set}" = set; then
+  $as_echo_n "(cached) " >&6
 else
-  # On NextStep and OpenStep, the `mkdir' command does not
-  # recognize any option.  It will interpret all options as
-  # directories to create, and then abort because `.' already
-  # exists.
-  for d in ./-p ./--version;
-  do
-    test -d $d && rmdir $d
-  done
-  # $(mkinstalldirs) is defined by Automake if mkinstalldirs exists.
-  if test -f "$ac_aux_dir/mkinstalldirs"; then
-    mkdir_p='$(mkinstalldirs)'
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH$PATH_SEPARATOR/opt/sfw/bin
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_prog in mkdir gmkdir; do
+	 for ac_exec_ext in '' $ac_executable_extensions; do
+	   { test -f "$as_dir/$ac_prog$ac_exec_ext" && $as_test_x "$as_dir/$ac_prog$ac_exec_ext"; } || continue
+	   case `"$as_dir/$ac_prog$ac_exec_ext" --version 2>&1` in #(
+	     'mkdir (GNU coreutils) '* | \
+	     'mkdir (coreutils) '* | \
+	     'mkdir (fileutils) '4.1*)
+	       ac_cv_path_mkdir=$as_dir/$ac_prog$ac_exec_ext
+	       break 3;;
+	   esac
+	 done
+       done
+done
+IFS=$as_save_IFS
+
+fi
+
+  if test "${ac_cv_path_mkdir+set}" = set; then
+    MKDIR_P="$ac_cv_path_mkdir -p"
   else
-    mkdir_p='$(install_sh) -d'
+    # As a last resort, use the slow shell script.  Don't cache a
+    # value for MKDIR_P within a source directory, because that will
+    # break other packages using the cache if that directory is
+    # removed, or if the value is a relative name.
+    test -d ./--version && rmdir ./--version
+    MKDIR_P="$ac_install_sh -d"
   fi
 fi
+{ $as_echo "$as_me:$LINENO: result: $MKDIR_P" >&5
+$as_echo "$MKDIR_P" >&6; }
+
+mkdir_p="$MKDIR_P"
+case $mkdir_p in
+  [\\/$]* | ?:[\\/]*) ;;
+  */*) mkdir_p="\$(top_builddir)/$mkdir_p" ;;
+esac
 
 
   { $as_echo "$as_me:$LINENO: checking whether NLS is requested" >&5
@@ -6994,13 +6926,9 @@ fi
 use_asm=no
 x11_linked=no
 x_driver_test=yes
-dga_driver_test=no
-ggi_driver_test=no
 gtk_driver_test=no
 aa_driver_test=no
-vga_driver_test=no
 win32_driver_test=yes
-BeOS_driver_test=yes
 long_double=test
 pthread=no
 png=yes
@@ -7098,6 +7026,9 @@ if test "${with_sffe+set}" = set; then
 	fi
 
 fi
+
+
+
 
 
 
@@ -7402,34 +7333,10 @@ if test "${with_x11_driver+set}" = set; then
 fi
 
 
-# Check whether --with-dga-driver was given.
-if test "${with_dga_driver+set}" = set; then
-  withval=$with_dga_driver;
-	  dga_driver_test=$withval
-
-fi
-
-
 # Check whether --with-gtk-driver was given.
 if test "${with_gtk_driver+set}" = set; then
   withval=$with_gtk_driver;
 	  gtk_driver_test=$withval
-
-fi
-
-
-# Check whether --with-ggi-driver was given.
-if test "${with_ggi_driver+set}" = set; then
-  withval=$with_ggi_driver;
-	  ggi_driver_test=$withval
-
-fi
-
-
-# Check whether --with-svga-driver was given.
-if test "${with_svga_driver+set}" = set; then
-  withval=$with_svga_driver;
-	  vga_driver_test=$withval
 
 fi
 
@@ -7442,14 +7349,6 @@ if test "${with_win32_driver+set}" = set; then
 fi
 
 
-# Check whether --with-BeOS-driver was given.
-if test "${with_BeOS_driver+set}" = set; then
-  withval=$with_BeOS_driver;
-	  BeOS_driver_test=$withval
-
-fi
-
-
 # Check whether --with-aa-driver was given.
 if test "${with_aa_driver+set}" = set; then
   withval=$with_aa_driver;
@@ -7457,1388 +7356,6 @@ if test "${with_aa_driver+set}" = set; then
 
 fi
 
-
-if test  "$dga_driver_test" = yes -o "$x_driver_test" = yes -o "$aa_driver_test" = yes; then
-{ $as_echo "$as_me:$LINENO: checking for X" >&5
-$as_echo_n "checking for X... " >&6; }
-
-
-# Check whether --with-x was given.
-if test "${with_x+set}" = set; then
-  withval=$with_x;
-fi
-
-# $have_x is `yes', `no', `disabled', or empty when we do not yet know.
-if test "x$with_x" = xno; then
-  # The user explicitly disabled X.
-  have_x=disabled
-else
-  case $x_includes,$x_libraries in #(
-    *\'*) { { $as_echo "$as_me:$LINENO: error: cannot use X directory names containing '" >&5
-$as_echo "$as_me: error: cannot use X directory names containing '" >&2;}
-   { (exit 1); exit 1; }; };; #(
-    *,NONE | NONE,*) if test "${ac_cv_have_x+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  # One or both of the vars are not set, and there is no cached value.
-ac_x_includes=no ac_x_libraries=no
-rm -f -r conftest.dir
-if mkdir conftest.dir; then
-  cd conftest.dir
-  cat >Imakefile <<'_ACEOF'
-incroot:
-	@echo incroot='${INCROOT}'
-usrlibdir:
-	@echo usrlibdir='${USRLIBDIR}'
-libdir:
-	@echo libdir='${LIBDIR}'
-_ACEOF
-  if (export CC; ${XMKMF-xmkmf}) >/dev/null 2>/dev/null && test -f Makefile; then
-    # GNU make sometimes prints "make[1]: Entering...", which would confuse us.
-    for ac_var in incroot usrlibdir libdir; do
-      eval "ac_im_$ac_var=\`\${MAKE-make} $ac_var 2>/dev/null | sed -n 's/^$ac_var=//p'\`"
-    done
-    # Open Windows xmkmf reportedly sets LIBDIR instead of USRLIBDIR.
-    for ac_extension in a so sl dylib la dll; do
-      if test ! -f "$ac_im_usrlibdir/libX11.$ac_extension" &&
-	 test -f "$ac_im_libdir/libX11.$ac_extension"; then
-	ac_im_usrlibdir=$ac_im_libdir; break
-      fi
-    done
-    # Screen out bogus values from the imake configuration.  They are
-    # bogus both because they are the default anyway, and because
-    # using them would break gcc on systems where it needs fixed includes.
-    case $ac_im_incroot in
-	/usr/include) ac_x_includes= ;;
-	*) test -f "$ac_im_incroot/X11/Xos.h" && ac_x_includes=$ac_im_incroot;;
-    esac
-    case $ac_im_usrlibdir in
-	/usr/lib | /usr/lib64 | /lib | /lib64) ;;
-	*) test -d "$ac_im_usrlibdir" && ac_x_libraries=$ac_im_usrlibdir ;;
-    esac
-  fi
-  cd ..
-  rm -f -r conftest.dir
-fi
-
-# Standard set of common directories for X headers.
-# Check X11 before X11Rn because it is often a symlink to the current release.
-ac_x_header_dirs='
-/usr/X11/include
-/usr/X11R6/include
-/usr/X11R5/include
-/usr/X11R4/include
-
-/usr/include/X11
-/usr/include/X11R6
-/usr/include/X11R5
-/usr/include/X11R4
-
-/usr/local/X11/include
-/usr/local/X11R6/include
-/usr/local/X11R5/include
-/usr/local/X11R4/include
-
-/usr/local/include/X11
-/usr/local/include/X11R6
-/usr/local/include/X11R5
-/usr/local/include/X11R4
-
-/usr/X386/include
-/usr/x386/include
-/usr/XFree86/include/X11
-
-/usr/include
-/usr/local/include
-/usr/unsupported/include
-/usr/athena/include
-/usr/local/x11r5/include
-/usr/lpp/Xamples/include
-
-/usr/openwin/include
-/usr/openwin/share/include'
-
-if test "$ac_x_includes" = no; then
-  # Guess where to find include files, by looking for Xlib.h.
-  # First, try using that file with no special directory specified.
-  cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-#include <X11/Xlib.h>
-_ACEOF
-if { (ac_try="$ac_cpp conftest.$ac_ext"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_cpp conftest.$ac_ext") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } >/dev/null && {
-	 test -z "$ac_c_preproc_warn_flag$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       }; then
-  # We can compile using X headers with no special include directory.
-ac_x_includes=
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-  for ac_dir in $ac_x_header_dirs; do
-  if test -r "$ac_dir/X11/Xlib.h"; then
-    ac_x_includes=$ac_dir
-    break
-  fi
-done
-fi
-
-rm -f conftest.err conftest.$ac_ext
-fi # $ac_x_includes = no
-
-if test "$ac_x_libraries" = no; then
-  # Check for the libraries.
-  # See if we find them without any special options.
-  # Don't add to $LIBS permanently.
-  ac_save_LIBS=$LIBS
-  LIBS="-lX11 $LIBS"
-  cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-#include <X11/Xlib.h>
-int
-main ()
-{
-XrmInitialize ()
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  LIBS=$ac_save_LIBS
-# We can link X programs with no special library path.
-ac_x_libraries=
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	LIBS=$ac_save_LIBS
-for ac_dir in `$as_echo "$ac_x_includes $ac_x_header_dirs" | sed s/include/lib/g`
-do
-  # Don't even attempt the hair of trying to link an X program!
-  for ac_extension in a so sl dylib la dll; do
-    if test -r "$ac_dir/libX11.$ac_extension"; then
-      ac_x_libraries=$ac_dir
-      break 2
-    fi
-  done
-done
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-fi # $ac_x_libraries = no
-
-case $ac_x_includes,$ac_x_libraries in #(
-  no,* | *,no | *\'*)
-    # Didn't find X, or a directory has "'" in its name.
-    ac_cv_have_x="have_x=no";; #(
-  *)
-    # Record where we found X for the cache.
-    ac_cv_have_x="have_x=yes\
-	ac_x_includes='$ac_x_includes'\
-	ac_x_libraries='$ac_x_libraries'"
-esac
-fi
-;; #(
-    *) have_x=yes;;
-  esac
-  eval "$ac_cv_have_x"
-fi # $with_x != no
-
-if test "$have_x" != yes; then
-  { $as_echo "$as_me:$LINENO: result: $have_x" >&5
-$as_echo "$have_x" >&6; }
-  no_x=yes
-else
-  # If each of the values was on the command line, it overrides each guess.
-  test "x$x_includes" = xNONE && x_includes=$ac_x_includes
-  test "x$x_libraries" = xNONE && x_libraries=$ac_x_libraries
-  # Update the cache value to reflect the command line values.
-  ac_cv_have_x="have_x=yes\
-	ac_x_includes='$x_includes'\
-	ac_x_libraries='$x_libraries'"
-  { $as_echo "$as_me:$LINENO: result: libraries $x_libraries, headers $x_includes" >&5
-$as_echo "libraries $x_libraries, headers $x_includes" >&6; }
-fi
-
-if test "$no_x" = yes; then
-  # Not all programs may use this symbol, but it does not hurt to define it.
-
-cat >>confdefs.h <<\_ACEOF
-#define X_DISPLAY_MISSING 1
-_ACEOF
-
-  X_CFLAGS= X_PRE_LIBS= X_LIBS= X_EXTRA_LIBS=
-else
-  if test -n "$x_includes"; then
-    X_CFLAGS="$X_CFLAGS -I$x_includes"
-  fi
-
-  # It would also be nice to do this for all -L options, not just this one.
-  if test -n "$x_libraries"; then
-    X_LIBS="$X_LIBS -L$x_libraries"
-    # For Solaris; some versions of Sun CC require a space after -R and
-    # others require no space.  Words are not sufficient . . . .
-    { $as_echo "$as_me:$LINENO: checking whether -R must be followed by a space" >&5
-$as_echo_n "checking whether -R must be followed by a space... " >&6; }
-    ac_xsave_LIBS=$LIBS; LIBS="$LIBS -R$x_libraries"
-    ac_xsave_c_werror_flag=$ac_c_werror_flag
-    ac_c_werror_flag=yes
-    cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-int
-main ()
-{
-
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  { $as_echo "$as_me:$LINENO: result: no" >&5
-$as_echo "no" >&6; }
-       X_LIBS="$X_LIBS -R$x_libraries"
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	LIBS="$ac_xsave_LIBS -R $x_libraries"
-       cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-int
-main ()
-{
-
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  { $as_echo "$as_me:$LINENO: result: yes" >&5
-$as_echo "yes" >&6; }
-	  X_LIBS="$X_LIBS -R $x_libraries"
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	{ $as_echo "$as_me:$LINENO: result: neither works" >&5
-$as_echo "neither works" >&6; }
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-    ac_c_werror_flag=$ac_xsave_c_werror_flag
-    LIBS=$ac_xsave_LIBS
-  fi
-
-  # Check for system-dependent libraries X programs must link with.
-  # Do this before checking for the system-independent R6 libraries
-  # (-lICE), since we may need -lsocket or whatever for X linking.
-
-  if test "$ISC" = yes; then
-    X_EXTRA_LIBS="$X_EXTRA_LIBS -lnsl_s -linet"
-  else
-    # Martyn Johnson says this is needed for Ultrix, if the X
-    # libraries were built with DECnet support.  And Karl Berry says
-    # the Alpha needs dnet_stub (dnet does not exist).
-    ac_xsave_LIBS="$LIBS"; LIBS="$LIBS $X_LIBS -lX11"
-    cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char XOpenDisplay ();
-int
-main ()
-{
-return XOpenDisplay ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  :
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	{ $as_echo "$as_me:$LINENO: checking for dnet_ntoa in -ldnet" >&5
-$as_echo_n "checking for dnet_ntoa in -ldnet... " >&6; }
-if test "${ac_cv_lib_dnet_dnet_ntoa+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-ldnet  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char dnet_ntoa ();
-int
-main ()
-{
-return dnet_ntoa ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_dnet_dnet_ntoa=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_dnet_dnet_ntoa=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_dnet_dnet_ntoa" >&5
-$as_echo "$ac_cv_lib_dnet_dnet_ntoa" >&6; }
-if test "x$ac_cv_lib_dnet_dnet_ntoa" = x""yes; then
-  X_EXTRA_LIBS="$X_EXTRA_LIBS -ldnet"
-fi
-
-    if test $ac_cv_lib_dnet_dnet_ntoa = no; then
-      { $as_echo "$as_me:$LINENO: checking for dnet_ntoa in -ldnet_stub" >&5
-$as_echo_n "checking for dnet_ntoa in -ldnet_stub... " >&6; }
-if test "${ac_cv_lib_dnet_stub_dnet_ntoa+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-ldnet_stub  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char dnet_ntoa ();
-int
-main ()
-{
-return dnet_ntoa ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_dnet_stub_dnet_ntoa=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_dnet_stub_dnet_ntoa=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_dnet_stub_dnet_ntoa" >&5
-$as_echo "$ac_cv_lib_dnet_stub_dnet_ntoa" >&6; }
-if test "x$ac_cv_lib_dnet_stub_dnet_ntoa" = x""yes; then
-  X_EXTRA_LIBS="$X_EXTRA_LIBS -ldnet_stub"
-fi
-
-    fi
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-    LIBS="$ac_xsave_LIBS"
-
-    # msh@cis.ufl.edu says -lnsl (and -lsocket) are needed for his 386/AT,
-    # to get the SysV transport functions.
-    # Chad R. Larson says the Pyramis MIS-ES running DC/OSx (SVR4)
-    # needs -lnsl.
-    # The nsl library prevents programs from opening the X display
-    # on Irix 5.2, according to T.E. Dickey.
-    # The functions gethostbyname, getservbyname, and inet_addr are
-    # in -lbsd on LynxOS 3.0.1/i386, according to Lars Hecking.
-    { $as_echo "$as_me:$LINENO: checking for gethostbyname" >&5
-$as_echo_n "checking for gethostbyname... " >&6; }
-if test "${ac_cv_func_gethostbyname+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-/* Define gethostbyname to an innocuous variant, in case <limits.h> declares gethostbyname.
-   For example, HP-UX 11i <limits.h> declares gettimeofday.  */
-#define gethostbyname innocuous_gethostbyname
-
-/* System header to define __stub macros and hopefully few prototypes,
-    which can conflict with char gethostbyname (); below.
-    Prefer <limits.h> to <assert.h> if __STDC__ is defined, since
-    <limits.h> exists even on freestanding compilers.  */
-
-#ifdef __STDC__
-# include <limits.h>
-#else
-# include <assert.h>
-#endif
-
-#undef gethostbyname
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char gethostbyname ();
-/* The GNU C library defines this for functions which it implements
-    to always fail with ENOSYS.  Some functions are actually named
-    something starting with __ and the normal name is an alias.  */
-#if defined __stub_gethostbyname || defined __stub___gethostbyname
-choke me
-#endif
-
-int
-main ()
-{
-return gethostbyname ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_func_gethostbyname=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_func_gethostbyname=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_func_gethostbyname" >&5
-$as_echo "$ac_cv_func_gethostbyname" >&6; }
-
-    if test $ac_cv_func_gethostbyname = no; then
-      { $as_echo "$as_me:$LINENO: checking for gethostbyname in -lnsl" >&5
-$as_echo_n "checking for gethostbyname in -lnsl... " >&6; }
-if test "${ac_cv_lib_nsl_gethostbyname+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lnsl  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char gethostbyname ();
-int
-main ()
-{
-return gethostbyname ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_nsl_gethostbyname=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_nsl_gethostbyname=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_nsl_gethostbyname" >&5
-$as_echo "$ac_cv_lib_nsl_gethostbyname" >&6; }
-if test "x$ac_cv_lib_nsl_gethostbyname" = x""yes; then
-  X_EXTRA_LIBS="$X_EXTRA_LIBS -lnsl"
-fi
-
-      if test $ac_cv_lib_nsl_gethostbyname = no; then
-	{ $as_echo "$as_me:$LINENO: checking for gethostbyname in -lbsd" >&5
-$as_echo_n "checking for gethostbyname in -lbsd... " >&6; }
-if test "${ac_cv_lib_bsd_gethostbyname+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lbsd  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char gethostbyname ();
-int
-main ()
-{
-return gethostbyname ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_bsd_gethostbyname=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_bsd_gethostbyname=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_bsd_gethostbyname" >&5
-$as_echo "$ac_cv_lib_bsd_gethostbyname" >&6; }
-if test "x$ac_cv_lib_bsd_gethostbyname" = x""yes; then
-  X_EXTRA_LIBS="$X_EXTRA_LIBS -lbsd"
-fi
-
-      fi
-    fi
-
-    # lieder@skyler.mavd.honeywell.com says without -lsocket,
-    # socket/setsockopt and other routines are undefined under SCO ODT
-    # 2.0.  But -lsocket is broken on IRIX 5.2 (and is not necessary
-    # on later versions), says Simon Leinen: it contains gethostby*
-    # variants that don't use the name server (or something).  -lsocket
-    # must be given before -lnsl if both are needed.  We assume that
-    # if connect needs -lnsl, so does gethostbyname.
-    { $as_echo "$as_me:$LINENO: checking for connect" >&5
-$as_echo_n "checking for connect... " >&6; }
-if test "${ac_cv_func_connect+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-/* Define connect to an innocuous variant, in case <limits.h> declares connect.
-   For example, HP-UX 11i <limits.h> declares gettimeofday.  */
-#define connect innocuous_connect
-
-/* System header to define __stub macros and hopefully few prototypes,
-    which can conflict with char connect (); below.
-    Prefer <limits.h> to <assert.h> if __STDC__ is defined, since
-    <limits.h> exists even on freestanding compilers.  */
-
-#ifdef __STDC__
-# include <limits.h>
-#else
-# include <assert.h>
-#endif
-
-#undef connect
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char connect ();
-/* The GNU C library defines this for functions which it implements
-    to always fail with ENOSYS.  Some functions are actually named
-    something starting with __ and the normal name is an alias.  */
-#if defined __stub_connect || defined __stub___connect
-choke me
-#endif
-
-int
-main ()
-{
-return connect ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_func_connect=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_func_connect=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_func_connect" >&5
-$as_echo "$ac_cv_func_connect" >&6; }
-
-    if test $ac_cv_func_connect = no; then
-      { $as_echo "$as_me:$LINENO: checking for connect in -lsocket" >&5
-$as_echo_n "checking for connect in -lsocket... " >&6; }
-if test "${ac_cv_lib_socket_connect+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lsocket $X_EXTRA_LIBS $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char connect ();
-int
-main ()
-{
-return connect ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_socket_connect=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_socket_connect=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_socket_connect" >&5
-$as_echo "$ac_cv_lib_socket_connect" >&6; }
-if test "x$ac_cv_lib_socket_connect" = x""yes; then
-  X_EXTRA_LIBS="-lsocket $X_EXTRA_LIBS"
-fi
-
-    fi
-
-    # Guillermo Gomez says -lposix is necessary on A/UX.
-    { $as_echo "$as_me:$LINENO: checking for remove" >&5
-$as_echo_n "checking for remove... " >&6; }
-if test "${ac_cv_func_remove+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-/* Define remove to an innocuous variant, in case <limits.h> declares remove.
-   For example, HP-UX 11i <limits.h> declares gettimeofday.  */
-#define remove innocuous_remove
-
-/* System header to define __stub macros and hopefully few prototypes,
-    which can conflict with char remove (); below.
-    Prefer <limits.h> to <assert.h> if __STDC__ is defined, since
-    <limits.h> exists even on freestanding compilers.  */
-
-#ifdef __STDC__
-# include <limits.h>
-#else
-# include <assert.h>
-#endif
-
-#undef remove
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char remove ();
-/* The GNU C library defines this for functions which it implements
-    to always fail with ENOSYS.  Some functions are actually named
-    something starting with __ and the normal name is an alias.  */
-#if defined __stub_remove || defined __stub___remove
-choke me
-#endif
-
-int
-main ()
-{
-return remove ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_func_remove=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_func_remove=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_func_remove" >&5
-$as_echo "$ac_cv_func_remove" >&6; }
-
-    if test $ac_cv_func_remove = no; then
-      { $as_echo "$as_me:$LINENO: checking for remove in -lposix" >&5
-$as_echo_n "checking for remove in -lposix... " >&6; }
-if test "${ac_cv_lib_posix_remove+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lposix  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char remove ();
-int
-main ()
-{
-return remove ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_posix_remove=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_posix_remove=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_posix_remove" >&5
-$as_echo "$ac_cv_lib_posix_remove" >&6; }
-if test "x$ac_cv_lib_posix_remove" = x""yes; then
-  X_EXTRA_LIBS="$X_EXTRA_LIBS -lposix"
-fi
-
-    fi
-
-    # BSDI BSD/OS 2.1 needs -lipc for XOpenDisplay.
-    { $as_echo "$as_me:$LINENO: checking for shmat" >&5
-$as_echo_n "checking for shmat... " >&6; }
-if test "${ac_cv_func_shmat+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-/* Define shmat to an innocuous variant, in case <limits.h> declares shmat.
-   For example, HP-UX 11i <limits.h> declares gettimeofday.  */
-#define shmat innocuous_shmat
-
-/* System header to define __stub macros and hopefully few prototypes,
-    which can conflict with char shmat (); below.
-    Prefer <limits.h> to <assert.h> if __STDC__ is defined, since
-    <limits.h> exists even on freestanding compilers.  */
-
-#ifdef __STDC__
-# include <limits.h>
-#else
-# include <assert.h>
-#endif
-
-#undef shmat
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char shmat ();
-/* The GNU C library defines this for functions which it implements
-    to always fail with ENOSYS.  Some functions are actually named
-    something starting with __ and the normal name is an alias.  */
-#if defined __stub_shmat || defined __stub___shmat
-choke me
-#endif
-
-int
-main ()
-{
-return shmat ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_func_shmat=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_func_shmat=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_func_shmat" >&5
-$as_echo "$ac_cv_func_shmat" >&6; }
-
-    if test $ac_cv_func_shmat = no; then
-      { $as_echo "$as_me:$LINENO: checking for shmat in -lipc" >&5
-$as_echo_n "checking for shmat in -lipc... " >&6; }
-if test "${ac_cv_lib_ipc_shmat+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lipc  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char shmat ();
-int
-main ()
-{
-return shmat ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_ipc_shmat=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_ipc_shmat=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_ipc_shmat" >&5
-$as_echo "$ac_cv_lib_ipc_shmat" >&6; }
-if test "x$ac_cv_lib_ipc_shmat" = x""yes; then
-  X_EXTRA_LIBS="$X_EXTRA_LIBS -lipc"
-fi
-
-    fi
-  fi
-
-  # Check for libraries that X11R6 Xt/Xaw programs need.
-  ac_save_LDFLAGS=$LDFLAGS
-  test -n "$x_libraries" && LDFLAGS="$LDFLAGS -L$x_libraries"
-  # SM needs ICE to (dynamically) link under SunOS 4.x (so we have to
-  # check for ICE first), but we must link in the order -lSM -lICE or
-  # we get undefined symbols.  So assume we have SM if we have ICE.
-  # These have to be linked with before -lX11, unlike the other
-  # libraries we check for below, so use a different variable.
-  # John Interrante, Karl Berry
-  { $as_echo "$as_me:$LINENO: checking for IceConnectionNumber in -lICE" >&5
-$as_echo_n "checking for IceConnectionNumber in -lICE... " >&6; }
-if test "${ac_cv_lib_ICE_IceConnectionNumber+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lICE $X_EXTRA_LIBS $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char IceConnectionNumber ();
-int
-main ()
-{
-return IceConnectionNumber ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_ICE_IceConnectionNumber=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_ICE_IceConnectionNumber=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_ICE_IceConnectionNumber" >&5
-$as_echo "$ac_cv_lib_ICE_IceConnectionNumber" >&6; }
-if test "x$ac_cv_lib_ICE_IceConnectionNumber" = x""yes; then
-  X_PRE_LIBS="$X_PRE_LIBS -lSM -lICE"
-fi
-
-  LDFLAGS=$ac_save_LDFLAGS
-
-fi
-
-fi
 
 cc_uses_g=yes
 if test x$GCC = xyes; then
@@ -8853,40 +7370,40 @@ if test "x$CCOPTS" = x; then
     if test x$GCC = xyes; then
         { $as_echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -Os" >&5
 $as_echo_n "checking whether ${CC-cc} accepts -Os... " >&6; }
-if test "${ac_Os+set}" = set; then
+if test "${ac_cv_Os+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
   echo 'void f(){}' > conftest.c
 if test -z "`${CC-cc} -Os -c conftest.c 2>&1`"; then
-    ac_Os=yes
+    ac_cv_Os=yes
     CCOPTS="$CCOPTS -"
     else
-        ac_Os=no
+        ac_cv_Os=no
     fi
 	rm -f conftest*
 
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_Os" >&5
-$as_echo "$ac_Os" >&6; }
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_Os" >&5
+$as_echo "$ac_cv_Os" >&6; }
         if test x$mflag = x486; then
             CCOPTS="-D__OPTIMIZE__ -Wall  -Wundef -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align  -Wwrite-strings -Wsign-compare -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs $mmflag -fstrength-reduce -ffast-math -pipe"
             { $as_echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -fno-exceptions" >&5
 $as_echo_n "checking whether ${CC-cc} accepts -fno-exceptions... " >&6; }
-if test "${ac_exceptions+set}" = set; then
+if test "${ac_cv_exceptions+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
   echo 'void f(){}' > conftest.c
 if test -z "`${CC-cc} -fno-exceptions -c conftest.c 2>&1`"; then
-    eval "ac_exceptions=yes"
+    eval "ac_cv_exceptions=yes"
     CCOPTS="$CCOPTS -fno-exceptions"
     else
-        eval "ac_exceptions=no"
+        eval "ac_cv_exceptions=no"
     fi
 	rm -f conftest*
 
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_exceptions" >&5
-$as_echo "$ac_exceptions" >&6; }
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_exceptions" >&5
+$as_echo "$ac_cv_exceptions" >&6; }
 	    CCOPTS1="$CCOPTS -O6 -funroll-loops"
 	    if test x$use_cc_g_flag = xyes; then
 		if test $cc_uses_g = yes; then
@@ -8902,21 +7419,21 @@ $as_echo "$ac_exceptions" >&6; }
             CCOPTS='-Wall -fstrength-reduce -ffast-math -pipe'
             { $as_echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -fno-exceptions" >&5
 $as_echo_n "checking whether ${CC-cc} accepts -fno-exceptions... " >&6; }
-if test "${ac_exceptions+set}" = set; then
+if test "${ac_cv_exceptions+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
   echo 'void f(){}' > conftest.c
 if test -z "`${CC-cc} -fno-exceptions -c conftest.c 2>&1`"; then
-    eval "ac_exceptions=yes"
+    eval "ac_cv_exceptions=yes"
     CCOPTS="$CCOPTS -fno-exceptions"
     else
-        eval "ac_exceptions=no"
+        eval "ac_cv_exceptions=no"
     fi
 	rm -f conftest*
 
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_exceptions" >&5
-$as_echo "$ac_exceptions" >&6; }
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_exceptions" >&5
+$as_echo "$ac_cv_exceptions" >&6; }
             CCOPTS1='-O6 -Wall -fstrength-reduce -ffast-math -funroll-loops -pipe'
 	    if test x$use_cc_g_flag = xyes; then
 		if test $cc_uses_g = yes; then
@@ -8924,7 +7441,7 @@ $as_echo "$ac_exceptions" >&6; }
 		fi
 	    fi
 	fi
-        if test x$ac_Os = xyes; then
+        if test x$ac_cv_Os = xyes; then
 	    CCOPTS="$CCOPTS -Os"
 	else
 	    CCOPTS="$CCOPTS -O2"
@@ -8932,60 +7449,60 @@ $as_echo "$ac_exceptions" >&6; }
         #PROG_CC_SWITCH1(fmove-all-movables,movables)
         { $as_echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -frerun-loop-opt" >&5
 $as_echo_n "checking whether ${CC-cc} accepts -frerun-loop-opt... " >&6; }
-if test "${ac_loopopt+set}" = set; then
+if test "${ac_cv_loopopt+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
   echo 'void f(){}' > conftest.c
 if test -z "`${CC-cc} -frerun-loop-opt -c conftest.c 2>&1`"; then
-    eval "ac_loopopt=yes"
+    eval "ac_cv_loopopt=yes"
     CCOPTS1="$CCOPTS1 -frerun-loop-opt"
     else
-        eval "ac_loopopt=no"
+        eval "ac_cv_loopopt=no"
     fi
 	rm -f conftest*
 
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_loopopt" >&5
-$as_echo "$ac_loopopt" >&6; }
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_loopopt" >&5
+$as_echo "$ac_cv_loopopt" >&6; }
         { $as_echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -fstrict-aliasing" >&5
 $as_echo_n "checking whether ${CC-cc} accepts -fstrict-aliasing... " >&6; }
-if test "${ac_aliasopt+set}" = set; then
+if test "${ac_cv_aliasopt+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
   echo 'void f(){}' > conftest.c
 if test -z "`${CC-cc} -fstrict-aliasing -c conftest.c 2>&1`"; then
-    eval "ac_aliasopt=yes"
+    eval "ac_cv_aliasopt=yes"
     CCOPTS1="$CCOPTS1 -fstrict-aliasing"
     CCOPTS="$CCOPTS -fstrict-aliasing"
     else
-        eval "ac_aliasopt=no"
+        eval "ac_cv_aliasopt=no"
     fi
 	rm -f conftest*
 
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_aliasopt" >&5
-$as_echo "$ac_aliasopt" >&6; }
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_aliasopt" >&5
+$as_echo "$ac_cv_aliasopt" >&6; }
         { $as_echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -malign-double" >&5
 $as_echo_n "checking whether ${CC-cc} accepts -malign-double... " >&6; }
-if test "${ac_alignopt+set}" = set; then
+if test "${ac_cv_alignopt+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
   echo 'void f(){}' > conftest.c
 if test -z "`${CC-cc} -malign-double -c conftest.c 2>&1`"; then
-    eval "ac_alignopt=yes"
+    eval "ac_cv_alignopt=yes"
     CCOPTS1="$CCOPTS1 -malign-double"
     CCOPTS="$CCOPTS -malign-double"
     else
-        eval "ac_alignopt=no"
+        eval "ac_cv_alignopt=no"
     fi
 	rm -f conftest*
 
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_alignopt" >&5
-$as_echo "$ac_alignopt" >&6; }
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_alignopt" >&5
+$as_echo "$ac_cv_alignopt" >&6; }
 	{ $as_echo "$as_me:$LINENO: checking whether ${CC-cc} have bugfree -mno-ieee-fp" >&5
 $as_echo_n "checking whether ${CC-cc} have bugfree -mno-ieee-fp... " >&6; }
-if test "${ac_mno_ieee_fp+set}" = set; then
+if test "${ac_cv_mno_ieee_fp+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
   echo 'void f(){
@@ -8996,17 +7513,17 @@ here. This version were development, so hope they are dead now. */
 #endif
 }' > conftest.c
 if test -z "`${CC-cc} -mno-ieee-fp -c conftest.c 2>&1`"; then
-    ac_mno_ieee_fp=yes
+    ac_cv_mno_ieee_fp=yes
     CCOPTS1="$CCOPTS1 -mno-ieee-fp"
     CCOPTS="$CCOPTS -mno-ieee-fp"
     else
-        ac_mno_ieee_fp=no
+        ac_cv_mno_ieee_fp=no
     fi
 	rm -f conftest*
 
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_mno_ieee_fp" >&5
-$as_echo "$ac_mno_ieee_fp" >&6; }
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_mno_ieee_fp" >&5
+$as_echo "$ac_cv_mno_ieee_fp" >&6; }
     else
 	if test x$use_cc_g_flag = xyes; then
 	    CCOPTS="$CFLAGS"
@@ -9019,21 +7536,21 @@ $as_echo "$ac_mno_ieee_fp" >&6; }
             *)
 	     { $as_echo "$as_me:$LINENO: checking whether ${CC-cc} accepts -O" >&5
 $as_echo_n "checking whether ${CC-cc} accepts -O... " >&6; }
-if test "${ac_optimizations+set}" = set; then
+if test "${ac_cv_optimizations+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
   echo 'void f(){}' > conftest.c
 if test -z "`${CC-cc} -O -c conftest.c 2>&1`"; then
-    eval "ac_optimizations=yes"
+    eval "ac_cv_optimizations=yes"
     CCOPTS="$CCOPTS -O"
     else
-        eval "ac_optimizations=no"
+        eval "ac_cv_optimizations=no"
     fi
 	rm -f conftest*
 
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_optimizations" >&5
-$as_echo "$ac_optimizations" >&6; }
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_optimizations" >&5
+$as_echo "$ac_cv_optimizations" >&6; }
 	     ;;
             esac
 	fi
@@ -9046,9 +7563,6 @@ if test "$CCOPTS1" = "" ; then
 fi
 CFLAGS1="$CCOPTS1"
 
-
-
-search_ncurses=true
 
 ASMOBJS=""
 CFLAGS=${CFLAGS--O}
@@ -9064,490 +7578,20 @@ i?86) CFLAGS="$CFLAGS -DUSE_i386ASM"
 esac
 fi
 fi
-case $target_os in
+case $host_os in
 *linux*) CMPLX_O_TARGET=elf;;
-*cygwin*) CMPLX_O_TARGET=coff;;
-*mingw*) CMPLX_O_TARGET=coff;;
+*cygwin* | *mingw*) CMPLX_O_TARGET=coff;;
 *darwin*) CMPLX_O_TARGET=macho;;
 esac
 if test  "$win32_driver_test" = yes; then
            win32_driver=no
-	   case $target_os in
-	    *mingw*) win32_driver=yes
+	   case $host_os in
+	    *mingw* | *cygwin*) win32_driver=yes
 	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion -lmingwex"
 	                CFLAGS="$CFLAGS -mwindows"
 	                CFLAGS1="$CFLAGS1 -mwindows"
 			;;
-	    *cygwin*) win32_driver=yes
-	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion -lmingwex"
-	                CFLAGS="$CFLAGS -mno-cygwin -mwindows"
-	                CFLAGS1="$CFLAGS1 -mno-cygwin -mwindows"
-			;;
 	   esac
-fi
-if test  "$BeOS_driver_test" = yes; then
-
-{ $as_echo "$as_me:$LINENO: checking for be_app in -lbe" >&5
-$as_echo_n "checking for be_app in -lbe... " >&6; }
-if test "${ac_cv_lib_be_be_app+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lbe  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char be_app ();
-int
-main ()
-{
-return be_app ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_be_be_app=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_be_be_app=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_be_be_app" >&5
-$as_echo "$ac_cv_lib_be_be_app" >&6; }
-if test "x$ac_cv_lib_be_be_app" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBBE 1
-_ACEOF
-
-  LIBS="-lbe $LIBS"
-
-fi
-
-           if test "x$ac_cv_lib_be_be_app" = xyes; then
-	      ac_ext=cpp
-ac_cpp='$CXXCPP $CPPFLAGS'
-ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
-if test -z "$CXX"; then
-  if test -n "$CCC"; then
-    CXX=$CCC
-  else
-    if test -n "$ac_tool_prefix"; then
-  for ac_prog in g++ c++ gpp aCC CC cxx cc++ cl.exe FCC KCC RCC xlC_r xlC
-  do
-    # Extract the first word of "$ac_tool_prefix$ac_prog", so it can be a program name with args.
-set dummy $ac_tool_prefix$ac_prog; ac_word=$2
-{ $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_prog_CXX+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$CXX"; then
-  ac_cv_prog_CXX="$CXX" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_prog_CXX="$ac_tool_prefix$ac_prog"
-    $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-IFS=$as_save_IFS
-
-fi
-fi
-CXX=$ac_cv_prog_CXX
-if test -n "$CXX"; then
-  { $as_echo "$as_me:$LINENO: result: $CXX" >&5
-$as_echo "$CXX" >&6; }
-else
-  { $as_echo "$as_me:$LINENO: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-    test -n "$CXX" && break
-  done
-fi
-if test -z "$CXX"; then
-  ac_ct_CXX=$CXX
-  for ac_prog in g++ c++ gpp aCC CC cxx cc++ cl.exe FCC KCC RCC xlC_r xlC
-do
-  # Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-{ $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_prog_ac_ct_CXX+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$ac_ct_CXX"; then
-  ac_cv_prog_ac_ct_CXX="$ac_ct_CXX" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_prog_ac_ct_CXX="$ac_prog"
-    $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-IFS=$as_save_IFS
-
-fi
-fi
-ac_ct_CXX=$ac_cv_prog_ac_ct_CXX
-if test -n "$ac_ct_CXX"; then
-  { $as_echo "$as_me:$LINENO: result: $ac_ct_CXX" >&5
-$as_echo "$ac_ct_CXX" >&6; }
-else
-  { $as_echo "$as_me:$LINENO: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  test -n "$ac_ct_CXX" && break
-done
-
-  if test "x$ac_ct_CXX" = x; then
-    CXX="g++"
-  else
-    case $cross_compiling:$ac_tool_warned in
-yes:)
-{ $as_echo "$as_me:$LINENO: WARNING: using cross tools not prefixed with host triplet" >&5
-$as_echo "$as_me: WARNING: using cross tools not prefixed with host triplet" >&2;}
-ac_tool_warned=yes ;;
-esac
-    CXX=$ac_ct_CXX
-  fi
-fi
-
-  fi
-fi
-# Provide some information about the compiler.
-$as_echo "$as_me:$LINENO: checking for C++ compiler version" >&5
-set X $ac_compile
-ac_compiler=$2
-{ (ac_try="$ac_compiler --version >&5"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_compiler --version >&5") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); }
-{ (ac_try="$ac_compiler -v >&5"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_compiler -v >&5") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); }
-{ (ac_try="$ac_compiler -V >&5"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_compiler -V >&5") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); }
-
-{ $as_echo "$as_me:$LINENO: checking whether we are using the GNU C++ compiler" >&5
-$as_echo_n "checking whether we are using the GNU C++ compiler... " >&6; }
-if test "${ac_cv_cxx_compiler_gnu+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-int
-main ()
-{
-#ifndef __GNUC__
-       choke me
-#endif
-
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext
-if { (ac_try="$ac_compile"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_compile") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_cxx_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest.$ac_objext; then
-  ac_compiler_gnu=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_compiler_gnu=no
-fi
-
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-ac_cv_cxx_compiler_gnu=$ac_compiler_gnu
-
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_cxx_compiler_gnu" >&5
-$as_echo "$ac_cv_cxx_compiler_gnu" >&6; }
-if test $ac_compiler_gnu = yes; then
-  GXX=yes
-else
-  GXX=
-fi
-ac_test_CXXFLAGS=${CXXFLAGS+set}
-ac_save_CXXFLAGS=$CXXFLAGS
-{ $as_echo "$as_me:$LINENO: checking whether $CXX accepts -g" >&5
-$as_echo_n "checking whether $CXX accepts -g... " >&6; }
-if test "${ac_cv_prog_cxx_g+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_save_cxx_werror_flag=$ac_cxx_werror_flag
-   ac_cxx_werror_flag=yes
-   ac_cv_prog_cxx_g=no
-   CXXFLAGS="-g"
-   cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-int
-main ()
-{
-
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext
-if { (ac_try="$ac_compile"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_compile") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_cxx_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest.$ac_objext; then
-  ac_cv_prog_cxx_g=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	CXXFLAGS=""
-      cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-int
-main ()
-{
-
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext
-if { (ac_try="$ac_compile"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_compile") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_cxx_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest.$ac_objext; then
-  :
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cxx_werror_flag=$ac_save_cxx_werror_flag
-	 CXXFLAGS="-g"
-	 cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-int
-main ()
-{
-
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext
-if { (ac_try="$ac_compile"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_compile") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_cxx_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest.$ac_objext; then
-  ac_cv_prog_cxx_g=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-
-fi
-
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-fi
-
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-fi
-
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-   ac_cxx_werror_flag=$ac_save_cxx_werror_flag
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_prog_cxx_g" >&5
-$as_echo "$ac_cv_prog_cxx_g" >&6; }
-if test "$ac_test_CXXFLAGS" = set; then
-  CXXFLAGS=$ac_save_CXXFLAGS
-elif test $ac_cv_prog_cxx_g = yes; then
-  if test "$GXX" = yes; then
-    CXXFLAGS="-g -O2"
-  else
-    CXXFLAGS="-g"
-  fi
-else
-  if test "$GXX" = yes; then
-    CXXFLAGS="-O2"
-  else
-    CXXFLAGS=
-  fi
-fi
-ac_ext=c
-ac_cpp='$CPP $CPPFLAGS'
-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_c_compiler_gnu
-
-	      LIBS="$LIBS -lgame -lmedia -ltracker -ltranslation -Xlinker -soname=_APP_"
-              #PROG_CC_SWITCH2(Wno-multichar,nowarnopt1)
-              #PROG_CC_SWITCH2(Wno-ctor-dtor-privacy,nowarnopt2)
-	      if test "$CXXFLAGS1" == "" ; then
-                if test x$GCC = xyes; then
-		  CXXFLAGS="$CFLAGS"
-		  CXXFLAGS="$CXXFLAGS -Wno-multichar -Wno-ctor-dtor-privacy"
-		fi
-	      fi
-	      POSTCOMPILE="strip ../bin/xaos ; xres -o ../bin/xaos ui/ui-drv/BeOS/XaoS.rsrc ; mimeset -f ../bin/xaos"
-              BeOS_driver=yes
-	   else
-              BeOS_driver=no
-	   fi
 fi
 
 
@@ -9955,1261 +7999,9 @@ fi
 
 
 
-
-
-
-
-
-
-# Check whether --with-sunos-curses was given.
-if test "${with_sunos_curses+set}" = set; then
-  withval=$with_sunos_curses;
-	if test x$withval = xyes; then
-
-	search_ncurses=false
-	screen_manager="SunOS 4.x /usr/5include curses"
-	{ $as_echo "$as_me:$LINENO: result: Using SunOS 4.x /usr/5include curses" >&5
-$as_echo "Using SunOS 4.x /usr/5include curses" >&6; }
-	cat >>confdefs.h <<\_ACEOF
-#define SUNOS_CURSES 1
-_ACEOF
-
-	cat >>confdefs.h <<\_ACEOF
-#define NO_COLOR_SUPPORT 1
-_ACEOF
-
-	cat >>confdefs.h <<\_ACEOF
-#define USE_SYSV_CURSES 1
-_ACEOF
-
-	CFLAGS="$CFLAGS -I/usr/5include"
-	{ $as_echo "$as_me:$LINENO: result: Please note that some screen refreshs may fail" >&5
-$as_echo "Please note that some screen refreshs may fail" >&6; }
-	{ $as_echo "$as_me:$LINENO: WARNING: Reconsider using Slang" >&5
-$as_echo "$as_me: WARNING: Reconsider using Slang" >&2;}
-
-	fi
-
-fi
-
-
-
-# Check whether --with-osf1-curses was given.
-if test "${with_osf1_curses+set}" = set; then
-  withval=$with_osf1_curses;
-	if test x$withval = xyes; then
-
-
-{ $as_echo "$as_me:$LINENO: checking for initscr in -lcurses" >&5
-$as_echo_n "checking for initscr in -lcurses... " >&6; }
-if test "${ac_cv_lib_curses_initscr+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lcurses  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char initscr ();
-int
-main ()
-{
-return initscr ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_curses_initscr=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_curses_initscr=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_curses_initscr" >&5
-$as_echo "$ac_cv_lib_curses_initscr" >&6; }
-if test "x$ac_cv_lib_curses_initscr" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBCURSES 1
-_ACEOF
-
-  LIBS="-lcurses $LIBS"
-
-fi
-
-       if test "x$ac_cv_lib_curses_initscr" = xyes; then
-       { $as_echo "$as_me:$LINENO: result: Using OSF1 curses" >&5
-$as_echo "Using OSF1 curses" >&6; }
-       search_ncurses=false
-       screen_manager="OSF1 curses"
-       cat >>confdefs.h <<\_ACEOF
-#define NO_COLOR_SUPPORT 1
-_ACEOF
-
-       cat >>confdefs.h <<\_ACEOF
-#define USE_SYSV_CURSES 1
-_ACEOF
-
-       fi
-
-	fi
-
-fi
-
-
-
-# Check whether --with-vcurses was given.
-if test "${with_vcurses+set}" = set; then
-  withval=$with_vcurses; if test x$withval = xyes; then
-		CFLAGS="$CFLAGS"
-        else
-		CFLAGS="$CFLAGS -I$withval"
-	fi
-
-
-{ $as_echo "$as_me:$LINENO: checking for initscr in -lcurses" >&5
-$as_echo_n "checking for initscr in -lcurses... " >&6; }
-if test "${ac_cv_lib_curses_initscr+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lcurses  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char initscr ();
-int
-main ()
-{
-return initscr ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_curses_initscr=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_curses_initscr=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_curses_initscr" >&5
-$as_echo "$ac_cv_lib_curses_initscr" >&6; }
-if test "x$ac_cv_lib_curses_initscr" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBCURSES 1
-_ACEOF
-
-  LIBS="-lcurses $LIBS"
-
-fi
-
-        if test "x$ac_cv_lib_curses_initscr" = xyes; then
-	{ $as_echo "$as_me:$LINENO: result: Using SysV curses" >&5
-$as_echo "Using SysV curses" >&6; }
-	cat >>confdefs.h <<\_ACEOF
-#define USE_SYSV_CURSES 1
-_ACEOF
-
-	search_ncurses=false
-	screen_manager="SysV/curses"
-	fi
-
-
-fi
-
-
-
-# Check whether --with-ncurses was given.
-if test "${with_ncurses+set}" = set; then
-  withval=$with_ncurses; if test x$withval = xyes
-	then
-		search_ncurses=true
-	else
-		LIBS="$LIBS -L$withval/lib -lncurses"
-		CFLAGS="$CFLAGS -I$withval/include"
-		search_ncurses=false
-		screen_manager="ncurses"
-		cat >>confdefs.h <<\_ACEOF
-#define USE_NCURSES 1
-_ACEOF
-
-	fi
-
-fi
-
-
-
-
-
-
-
 if test "$aa_driver_test" = yes; then
     OLDLIBS="$LIBS"
     OLDCFLAGS="$CFLAGS"
-    { $as_echo "$as_me:$LINENO: checking \"location of curses\"..." >&5
-$as_echo "$as_me: checking \"location of curses\"..." >&6;}
-
-{ $as_echo "$as_me:$LINENO: checking for Gpm_Repeat in -lgpm" >&5
-$as_echo_n "checking for Gpm_Repeat in -lgpm... " >&6; }
-if test "${ac_cv_lib_gpm_Gpm_Repeat+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lgpm  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char Gpm_Repeat ();
-int
-main ()
-{
-return Gpm_Repeat ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_gpm_Gpm_Repeat=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_gpm_Gpm_Repeat=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_gpm_Gpm_Repeat" >&5
-$as_echo "$ac_cv_lib_gpm_Gpm_Repeat" >&6; }
-if test "x$ac_cv_lib_gpm_Gpm_Repeat" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBGPM 1
-_ACEOF
-
-  LIBS="-lgpm $LIBS"
-
-fi
-
-
-{ $as_echo "$as_me:$LINENO: checking for SLsmg_init_smg in -lslang" >&5
-$as_echo_n "checking for SLsmg_init_smg in -lslang... " >&6; }
-if test "${ac_cv_lib_slang_SLsmg_init_smg+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lslang  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char SLsmg_init_smg ();
-int
-main ()
-{
-return SLsmg_init_smg ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_slang_SLsmg_init_smg=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_slang_SLsmg_init_smg=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_slang_SLsmg_init_smg" >&5
-$as_echo "$ac_cv_lib_slang_SLsmg_init_smg" >&6; }
-if test "x$ac_cv_lib_slang_SLsmg_init_smg" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBSLANG 1
-_ACEOF
-
-  LIBS="-lslang $LIBS"
-
-fi
-
-
-
-    if $search_ncurses
-    then
-        if test -f /usr/include/ncurses.h
-	then
-	    LIBS1="$LIBS"
- 	    LIBS="$LIBS "
-
-{ $as_echo "$as_me:$LINENO: checking for initscr in -lncurses" >&5
-$as_echo_n "checking for initscr in -lncurses... " >&6; }
-if test "${ac_cv_lib_ncurses_initscr+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lncurses  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char initscr ();
-int
-main ()
-{
-return initscr ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_ncurses_initscr=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_ncurses_initscr=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_ncurses_initscr" >&5
-$as_echo "$ac_cv_lib_ncurses_initscr" >&6; }
-if test "x$ac_cv_lib_ncurses_initscr" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBNCURSES 1
-_ACEOF
-
-  LIBS="-lncurses $LIBS"
-
-fi
-
-            if test "x$ac_cv_lib_ncurses_initscr" = xyes; then
-	      { $as_echo "$as_me:$LINENO: result: Found ncurses on /usr/include/ncurses.h" >&5
-$as_echo "Found ncurses on /usr/include/ncurses.h" >&6; }
- 	      LIBS="$LIBS "
-	      CFLAGS="$CFLAGS -I/usr/include/ncurses "
-	      search_ncurses=false
-	      screen_manager="ncurses on /usr/include"
-	      cat >>confdefs.h <<\_ACEOF
-#define USE_NCURSES 1
-_ACEOF
-
-	    else
-             unset ac_cv_lib_ncurses_initscr
-	     LIBS="$LIBS1"
-	    fi
-	fi
-    fi
-
-
-    if $search_ncurses
-    then
-        if test -f /usr/include/ncurses/ncurses.h
-	then
-	    LIBS1="$LIBS"
- 	    LIBS="$LIBS "
-
-{ $as_echo "$as_me:$LINENO: checking for initscr in -lncurses" >&5
-$as_echo_n "checking for initscr in -lncurses... " >&6; }
-if test "${ac_cv_lib_ncurses_initscr+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lncurses  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char initscr ();
-int
-main ()
-{
-return initscr ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_ncurses_initscr=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_ncurses_initscr=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_ncurses_initscr" >&5
-$as_echo "$ac_cv_lib_ncurses_initscr" >&6; }
-if test "x$ac_cv_lib_ncurses_initscr" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBNCURSES 1
-_ACEOF
-
-  LIBS="-lncurses $LIBS"
-
-fi
-
-            if test "x$ac_cv_lib_ncurses_initscr" = xyes; then
-	      { $as_echo "$as_me:$LINENO: result: Found ncurses on /usr/include/ncurses/ncurses.h" >&5
-$as_echo "Found ncurses on /usr/include/ncurses/ncurses.h" >&6; }
- 	      LIBS="$LIBS "
-	      CFLAGS="$CFLAGS -I/usr/include/ncurses"
-	      search_ncurses=false
-	      screen_manager="ncurses on /usr/include/ncurses"
-	      cat >>confdefs.h <<\_ACEOF
-#define USE_NCURSES 1
-_ACEOF
-
-	    else
-             unset ac_cv_lib_ncurses_initscr
-	     LIBS="$LIBS1"
-	    fi
-	fi
-    fi
-
-
-    if $search_ncurses
-    then
-        if test -f /usr/local/include/ncurses.h
-	then
-	    LIBS1="$LIBS"
- 	    LIBS="$LIBS "
-
-{ $as_echo "$as_me:$LINENO: checking for initscr in -lncurses" >&5
-$as_echo_n "checking for initscr in -lncurses... " >&6; }
-if test "${ac_cv_lib_ncurses_initscr+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lncurses  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char initscr ();
-int
-main ()
-{
-return initscr ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_ncurses_initscr=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_ncurses_initscr=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_ncurses_initscr" >&5
-$as_echo "$ac_cv_lib_ncurses_initscr" >&6; }
-if test "x$ac_cv_lib_ncurses_initscr" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBNCURSES 1
-_ACEOF
-
-  LIBS="-lncurses $LIBS"
-
-fi
-
-            if test "x$ac_cv_lib_ncurses_initscr" = xyes; then
-	      { $as_echo "$as_me:$LINENO: result: Found ncurses on /usr/local/include/ncurses.h" >&5
-$as_echo "Found ncurses on /usr/local/include/ncurses.h" >&6; }
- 	      LIBS="$LIBS "
-	      CFLAGS="$CFLAGS -L/usr/local/lib"
-	      search_ncurses=false
-	      screen_manager=-I/usr/local/include
-	      cat >>confdefs.h <<\_ACEOF
-#define USE_NCURSES 1
-_ACEOF
-
-	    else
-             unset ac_cv_lib_ncurses_initscr
-	     LIBS="$LIBS1"
-	    fi
-	fi
-    fi
-
-
-    if $search_ncurses
-    then
-        if test -f /usr/local/include/ncurses/ncurses.h
-	then
-	    LIBS1="$LIBS"
- 	    LIBS="$LIBS -L/usr/local/lib -L/usr/local/lib/ncurses"
-
-{ $as_echo "$as_me:$LINENO: checking for initscr in -lncurses" >&5
-$as_echo_n "checking for initscr in -lncurses... " >&6; }
-if test "${ac_cv_lib_ncurses_initscr+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lncurses  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char initscr ();
-int
-main ()
-{
-return initscr ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_ncurses_initscr=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_ncurses_initscr=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_ncurses_initscr" >&5
-$as_echo "$ac_cv_lib_ncurses_initscr" >&6; }
-if test "x$ac_cv_lib_ncurses_initscr" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBNCURSES 1
-_ACEOF
-
-  LIBS="-lncurses $LIBS"
-
-fi
-
-            if test "x$ac_cv_lib_ncurses_initscr" = xyes; then
-	      { $as_echo "$as_me:$LINENO: result: Found ncurses on /usr/local/include/ncurses/ncurses.h" >&5
-$as_echo "Found ncurses on /usr/local/include/ncurses/ncurses.h" >&6; }
- 	      LIBS="$LIBS -L/usr/local/lib -L/usr/local/lib/ncurses"
-	      CFLAGS="$CFLAGS -I/usr/local/include/ncurses"
-	      search_ncurses=false
-	      screen_manager="ncurses on /usr/local/include/ncurses"
-	      cat >>confdefs.h <<\_ACEOF
-#define USE_NCURSES 1
-_ACEOF
-
-	    else
-             unset ac_cv_lib_ncurses_initscr
-	     LIBS="$LIBS1"
-	    fi
-	fi
-    fi
-
-
-
-    if $search_ncurses
-    then
-        if test -f /usr/local/include/ncurses/curses.h
-	then
-	    LIBS1="$LIBS"
- 	    LIBS="$LIBS -L/usr/local/lib"
-
-{ $as_echo "$as_me:$LINENO: checking for initscr in -lncurses" >&5
-$as_echo_n "checking for initscr in -lncurses... " >&6; }
-if test "${ac_cv_lib_ncurses_initscr+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lncurses  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char initscr ();
-int
-main ()
-{
-return initscr ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_ncurses_initscr=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_ncurses_initscr=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_ncurses_initscr" >&5
-$as_echo "$ac_cv_lib_ncurses_initscr" >&6; }
-if test "x$ac_cv_lib_ncurses_initscr" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBNCURSES 1
-_ACEOF
-
-  LIBS="-lncurses $LIBS"
-
-fi
-
-            if test "x$ac_cv_lib_ncurses_initscr" = xyes; then
-	      { $as_echo "$as_me:$LINENO: result: Found ncurses on /usr/local/include/ncurses/curses.h" >&5
-$as_echo "Found ncurses on /usr/local/include/ncurses/curses.h" >&6; }
- 	      LIBS="$LIBS -L/usr/local/lib"
-	      CFLAGS="$CFLAGS -I/usr/local/include/ncurses -DRENAMED_NCURSES"
-	      search_ncurses=false
-	      screen_manager="renamed ncurses on /usr/local/.../ncurses"
-	      cat >>confdefs.h <<\_ACEOF
-#define USE_NCURSES 1
-_ACEOF
-
-	    else
-             unset ac_cv_lib_ncurses_initscr
-	     LIBS="$LIBS1"
-	    fi
-	fi
-    fi
-
-
-
-    if $search_ncurses
-    then
-        if test -f /usr/include/ncurses/curses.h
-	then
-	    LIBS1="$LIBS"
- 	    LIBS="$LIBS "
-
-{ $as_echo "$as_me:$LINENO: checking for initscr in -lncurses" >&5
-$as_echo_n "checking for initscr in -lncurses... " >&6; }
-if test "${ac_cv_lib_ncurses_initscr+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lncurses  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char initscr ();
-int
-main ()
-{
-return initscr ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_ncurses_initscr=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_ncurses_initscr=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_ncurses_initscr" >&5
-$as_echo "$ac_cv_lib_ncurses_initscr" >&6; }
-if test "x$ac_cv_lib_ncurses_initscr" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBNCURSES 1
-_ACEOF
-
-  LIBS="-lncurses $LIBS"
-
-fi
-
-            if test "x$ac_cv_lib_ncurses_initscr" = xyes; then
-	      { $as_echo "$as_me:$LINENO: result: Found ncurses on /usr/include/ncurses/curses.h" >&5
-$as_echo "Found ncurses on /usr/include/ncurses/curses.h" >&6; }
- 	      LIBS="$LIBS "
-	      CFLAGS="$CFLAGS -I/usr/include/ncurses -DRENAMED_NCURSES"
-	      search_ncurses=false
-	      screen_manager="renamed ncurses on /usr/include/ncurses"
-	      cat >>confdefs.h <<\_ACEOF
-#define USE_NCURSES 1
-_ACEOF
-
-	    else
-             unset ac_cv_lib_ncurses_initscr
-	     LIBS="$LIBS1"
-	    fi
-	fi
-    fi
-
-
-    if $search_ncurses
-    then
-        if test -f /usr/include/curses.h
-	then
-	    LIBS1="$LIBS"
- 	    LIBS="$LIBS "
-
-{ $as_echo "$as_me:$LINENO: checking for initscr in -lcurses" >&5
-$as_echo_n "checking for initscr in -lcurses... " >&6; }
-if test "${ac_cv_lib_curses_initscr+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lcurses  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char initscr ();
-int
-main ()
-{
-return initscr ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_curses_initscr=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_curses_initscr=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_curses_initscr" >&5
-$as_echo "$ac_cv_lib_curses_initscr" >&6; }
-if test "x$ac_cv_lib_curses_initscr" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBCURSES 1
-_ACEOF
-
-  LIBS="-lcurses $LIBS"
-
-fi
-
-            if test "x$ac_cv_lib_curses_initscr" = xyes; then
-	      { $as_echo "$as_me:$LINENO: result: Found generic curses on /usr/include/curses.h" >&5
-$as_echo "Found generic curses on /usr/include/curses.h" >&6; }
-	      CFLAGS="$CFLAGS "
-	      search_ncurses=false
-	      screen_manager="curses on /usr/include"
-	      cat >>confdefs.h <<\_ACEOF
-#define USE_CURSES 1
-_ACEOF
-
-	    else
-             unset ac_cv_lib_curses_initscr
-	     LIBS="$LIBS1"
-	    fi
-	fi
-    fi
-
-
-                if $search_ncurses
-    then
-        cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-#include </usr/include/curses.h>
-
-_ACEOF
-if (eval "$ac_cpp conftest.$ac_ext") 2>&5 |
-  $EGREP "init_color" >/dev/null 2>&1; then
-
-
-{ $as_echo "$as_me:$LINENO: checking for initscr in -lcurses" >&5
-$as_echo_n "checking for initscr in -lcurses... " >&6; }
-if test "${ac_cv_lib_curses_initscr+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lcurses  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char initscr ();
-int
-main ()
-{
-return initscr ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_curses_initscr=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_curses_initscr=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_curses_initscr" >&5
-$as_echo "$ac_cv_lib_curses_initscr" >&6; }
-if test "x$ac_cv_lib_curses_initscr" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBCURSES 1
-_ACEOF
-
-  LIBS="-lcurses $LIBS"
-
-fi
-
-        if test "x$ac_cv_lib_curses_initscr" = xyes; then
-	{ $as_echo "$as_me:$LINENO: result: Using SysV curses" >&5
-$as_echo "Using SysV curses" >&6; }
-	cat >>confdefs.h <<\_ACEOF
-#define USE_SYSV_CURSES 1
-_ACEOF
-
-	search_ncurses=false
-	screen_manager="SysV/curses"
-	fi
-
-fi
-rm -f conftest*
-
-    fi
-
-                        if $search_ncurses
-    then
-	if test -f /usr/5include/curses.h
-	then
-
-	search_ncurses=false
-	screen_manager="SunOS 4.x /usr/5include curses"
-	{ $as_echo "$as_me:$LINENO: result: Using SunOS 4.x /usr/5include curses" >&5
-$as_echo "Using SunOS 4.x /usr/5include curses" >&6; }
-	cat >>confdefs.h <<\_ACEOF
-#define SUNOS_CURSES 1
-_ACEOF
-
-	cat >>confdefs.h <<\_ACEOF
-#define NO_COLOR_SUPPORT 1
-_ACEOF
-
-	cat >>confdefs.h <<\_ACEOF
-#define USE_SYSV_CURSES 1
-_ACEOF
-
-	CFLAGS="$CFLAGS -I/usr/5include"
-	{ $as_echo "$as_me:$LINENO: result: Please note that some screen refreshs may fail" >&5
-$as_echo "Please note that some screen refreshs may fail" >&6; }
-	{ $as_echo "$as_me:$LINENO: WARNING: Reconsider using Slang" >&5
-$as_echo "$as_me: WARNING: Reconsider using Slang" >&2;}
-
-        fi
-    fi
 
     search_aalib=true;
     if test "x$no_x" = x; then
@@ -11307,7 +8099,7 @@ fi
 $as_echo "Found aalib on /usr/include/aalib.h" >&6; }
               { $as_echo "$as_me:$LINENO: checking whether aalib version >= 1.4" >&5
 $as_echo_n "checking whether aalib version >= 1.4... " >&6; }
-if test "${ac_aalib_ver_ok+set}" = set; then
+if test "${ac_cv_aalib_ver_ok+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
   echo '#include <aalib.h>
@@ -11321,16 +8113,16 @@ void f(){
 #endif
 }' > conftest.c
 if test -z "`${CC-cc} -c conftest.c 2>&1`"; then
-    ac_aalib_ver_ok=yes
+    ac_cv_aalib_ver_ok=yes
     else
-        ac_aalib_ver_ok=no
+        ac_cv_aalib_ver_ok=no
     fi
 	rm -f conftest*
 
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_aalib_ver_ok" >&5
-$as_echo "$ac_aalib_ver_ok" >&6; }
- 	      if test $ac_aalib_ver_ok = yes; then
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_aalib_ver_ok" >&5
+$as_echo "$ac_cv_aalib_ver_ok" >&6; }
+ 	      if test $ac_cv_aalib_ver_ok = yes; then
                #LIBS="$LIBS "
 	       x11_linked=yes
                CFLAGS="$CFLAGS "
@@ -11438,7 +8230,7 @@ fi
 $as_echo "Found aalib on /usr/local/include/aalib.h" >&6; }
               { $as_echo "$as_me:$LINENO: checking whether aalib version >= 1.4" >&5
 $as_echo_n "checking whether aalib version >= 1.4... " >&6; }
-if test "${ac_aalib_ver_ok+set}" = set; then
+if test "${ac_cv_aalib_ver_ok+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
   echo '#include <aalib.h>
@@ -11452,16 +8244,16 @@ void f(){
 #endif
 }' > conftest.c
 if test -z "`${CC-cc} -c conftest.c 2>&1`"; then
-    ac_aalib_ver_ok=yes
+    ac_cv_aalib_ver_ok=yes
     else
-        ac_aalib_ver_ok=no
+        ac_cv_aalib_ver_ok=no
     fi
 	rm -f conftest*
 
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_aalib_ver_ok" >&5
-$as_echo "$ac_aalib_ver_ok" >&6; }
- 	      if test $ac_aalib_ver_ok = yes; then
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_aalib_ver_ok" >&5
+$as_echo "$ac_cv_aalib_ver_ok" >&6; }
+ 	      if test $ac_cv_aalib_ver_ok = yes; then
                #LIBS="$LIBS -L/usr/local/lib"
 	       x11_linked=yes
                CFLAGS="$CFLAGS -I/usr/local/include"
@@ -11571,7 +8363,7 @@ fi
 $as_echo "Found aalib on $name/aalib.h" >&6; }
               { $as_echo "$as_me:$LINENO: checking whether aalib version >= 1.4" >&5
 $as_echo_n "checking whether aalib version >= 1.4... " >&6; }
-if test "${ac_aalib_ver_ok+set}" = set; then
+if test "${ac_cv_aalib_ver_ok+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
   echo '#include <aalib.h>
@@ -11585,16 +8377,16 @@ void f(){
 #endif
 }' > conftest.c
 if test -z "`${CC-cc} -c conftest.c 2>&1`"; then
-    ac_aalib_ver_ok=yes
+    ac_cv_aalib_ver_ok=yes
     else
-        ac_aalib_ver_ok=no
+        ac_cv_aalib_ver_ok=no
     fi
 	rm -f conftest*
 
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_aalib_ver_ok" >&5
-$as_echo "$ac_aalib_ver_ok" >&6; }
- 	      if test $ac_aalib_ver_ok = yes; then
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_aalib_ver_ok" >&5
+$as_echo "$ac_cv_aalib_ver_ok" >&6; }
+ 	      if test $ac_cv_aalib_ver_ok = yes; then
                #LIBS="$LIBS "-L$name""
 	       x11_linked=yes
                CFLAGS="$CFLAGS "-I$name""
@@ -11623,158 +8415,6 @@ $as_echo "$ac_aalib_ver_ok" >&6; }
 fi
 
 
-if test  "$vga_driver_test" = yes; then
-
-{ $as_echo "$as_me:$LINENO: checking for vga_hasmode in -lvga" >&5
-$as_echo_n "checking for vga_hasmode in -lvga... " >&6; }
-if test "${ac_cv_lib_vga_vga_hasmode+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lvga  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char vga_hasmode ();
-int
-main ()
-{
-return vga_hasmode ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_vga_vga_hasmode=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_vga_vga_hasmode=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_vga_vga_hasmode" >&5
-$as_echo "$ac_cv_lib_vga_vga_hasmode" >&6; }
-if test "x$ac_cv_lib_vga_vga_hasmode" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBVGA 1
-_ACEOF
-
-  LIBS="-lvga $LIBS"
-
-fi
-
-
-{ $as_echo "$as_me:$LINENO: checking for gl_write in -lvgagl" >&5
-$as_echo_n "checking for gl_write in -lvgagl... " >&6; }
-if test "${ac_cv_lib_vgagl_gl_write+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lvgagl  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char gl_write ();
-int
-main ()
-{
-return gl_write ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_vgagl_gl_write=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_vgagl_gl_write=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_vgagl_gl_write" >&5
-$as_echo "$ac_cv_lib_vgagl_gl_write" >&6; }
-if test "x$ac_cv_lib_vgagl_gl_write" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBVGAGL 1
-_ACEOF
-
-  LIBS="-lvgagl $LIBS"
-
-fi
-
-fi
 
 
 
@@ -11793,10 +8433,7 @@ fi
 
 
 
-
-
-
-for ac_header in OS.h alloca.h ddraw.h htmlhelp.h errno.h fcntl.h float.h iconv.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h
+for ac_header in alloca.h ddraw.h htmlhelp.h errno.h fcntl.h float.h iconv.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h
 do
 as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 if { as_var=$as_ac_Header; eval "test \"\${$as_var+set}\" = set"; }; then
@@ -12126,40 +8763,28 @@ esac
 
 if test "x$long_double" = xyes; then
 
-
-  { $as_echo "$as_me:$LINENO: checking for long double with more range or precision than double" >&5
-$as_echo_n "checking for long double with more range or precision than double... " >&6; }
-if test "${ac_cv_type_long_double_wider+set}" = set; then
+  { $as_echo "$as_me:$LINENO: checking for long double" >&5
+$as_echo_n "checking for long double... " >&6; }
+if test "${ac_cv_type_long_double+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
-  cat >conftest.$ac_ext <<_ACEOF
+  if test "$GCC" = yes; then
+       ac_cv_type_long_double=yes
+     else
+       cat >conftest.$ac_ext <<_ACEOF
 /* confdefs.h.  */
 _ACEOF
 cat confdefs.h >>conftest.$ac_ext
 cat >>conftest.$ac_ext <<_ACEOF
 /* end confdefs.h.  */
-#include <float.h>
-	    long double const a[] =
-	      {
-		 0.0L, DBL_MIN, DBL_MAX, DBL_EPSILON,
-		 LDBL_MIN, LDBL_MAX, LDBL_EPSILON
-	      };
-	    long double
-	    f (long double x)
-	    {
-	       return ((x + (unsigned long int) 10) * (-1 / x) + a[0]
-			+ (x ? f (x) : 'c'));
-	    }
-
+/* The Stardent Vistra knows sizeof (long double), but does
+		 not support it.  */
+	      long double foo = 0.0L;
 int
 main ()
 {
-static int test_array [1 - 2 * !((0 < ((DBL_MAX_EXP < LDBL_MAX_EXP)
-		   + (DBL_MANT_DIG < LDBL_MANT_DIG)
-		   - (LDBL_MAX_EXP < DBL_MAX_EXP)
-		   - (LDBL_MANT_DIG < DBL_MANT_DIG)))
-	    && (int) LDBL_EPSILON == 0
-	  )];
+static int test_array [1 - 2 * !(/* On Ultrix 4.3 cc, long double is 4 and double is 8.  */
+	      sizeof (double) <= sizeof (long double))];
 test_array [0] = 0
 
   ;
@@ -12184,34 +8809,26 @@ $as_echo "$ac_try_echo") >&5
 	 test -z "$ac_c_werror_flag" ||
 	 test ! -s conftest.err
        } && test -s conftest.$ac_objext; then
-  ac_cv_type_long_double_wider=yes
+  ac_cv_type_long_double=yes
 else
   $as_echo "$as_me: failed program was:" >&5
 sed 's/^/| /' conftest.$ac_ext >&5
 
-	ac_cv_type_long_double_wider=no
+	ac_cv_type_long_double=no
 fi
 
 rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+     fi
 fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_type_long_double_wider" >&5
-$as_echo "$ac_cv_type_long_double_wider" >&6; }
-  if test $ac_cv_type_long_double_wider = yes; then
-
-cat >>confdefs.h <<\_ACEOF
-#define HAVE_LONG_DOUBLE_WIDER 1
-_ACEOF
-
-  fi
-
-    ac_cv_c_long_double=$ac_cv_type_long_double_wider
-    if test $ac_cv_c_long_double = yes; then
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_type_long_double" >&5
+$as_echo "$ac_cv_type_long_double" >&6; }
+  if test $ac_cv_type_long_double = yes; then
 
 cat >>confdefs.h <<\_ACEOF
 #define HAVE_LONG_DOUBLE 1
 _ACEOF
 
-    fi
+  fi
 
 else
 echo Long double disabled, since it would be too slow on this CPU
@@ -12598,64 +9215,6 @@ cat >>confdefs.h <<\_ACEOF
 _ACEOF
 
 fi
-
-{ $as_echo "$as_me:$LINENO: checking return type of signal handlers" >&5
-$as_echo_n "checking return type of signal handlers... " >&6; }
-if test "${ac_cv_type_signal+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-#include <sys/types.h>
-#include <signal.h>
-
-int
-main ()
-{
-return *(signal (0, 0)) (0) == 1;
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext
-if { (ac_try="$ac_compile"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_compile") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest.$ac_objext; then
-  ac_cv_type_signal=int
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_type_signal=void
-fi
-
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_type_signal" >&5
-$as_echo "$ac_cv_type_signal" >&6; }
-
-cat >>confdefs.h <<_ACEOF
-#define RETSIGTYPE $ac_cv_type_signal
-_ACEOF
-
 
 { $as_echo "$as_me:$LINENO: checking for pid_t" >&5
 $as_echo_n "checking for pid_t... " >&6; }
@@ -14785,64 +11344,6 @@ _ACEOF
 
 fi
 
-{ $as_echo "$as_me:$LINENO: checking return type of signal handlers" >&5
-$as_echo_n "checking return type of signal handlers... " >&6; }
-if test "${ac_cv_type_signal+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-#include <sys/types.h>
-#include <signal.h>
-
-int
-main ()
-{
-return *(signal (0, 0)) (0) == 1;
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext
-if { (ac_try="$ac_compile"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_compile") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest.$ac_objext; then
-  ac_cv_type_signal=int
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_type_signal=void
-fi
-
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_type_signal" >&5
-$as_echo "$ac_cv_type_signal" >&6; }
-
-cat >>confdefs.h <<_ACEOF
-#define RETSIGTYPE $ac_cv_type_signal
-_ACEOF
-
-
 
 
 
@@ -15342,151 +11843,6 @@ fi
 
 fi
 fi
-if test  "$dga_driver_test" = yes; then
-  dga_driver=true
-  { $as_echo "$as_me:$LINENO: checking for XF86DGAQueryVersion in -lXxf86dga" >&5
-$as_echo_n "checking for XF86DGAQueryVersion in -lXxf86dga... " >&6; }
-if test "${ac_cv_lib_Xxf86dga_XF86DGAQueryVersion+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lXxf86dga $LIBS  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char XF86DGAQueryVersion ();
-int
-main ()
-{
-return XF86DGAQueryVersion ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_Xxf86dga_XF86DGAQueryVersion=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_Xxf86dga_XF86DGAQueryVersion=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_Xxf86dga_XF86DGAQueryVersion" >&5
-$as_echo "$ac_cv_lib_Xxf86dga_XF86DGAQueryVersion" >&6; }
-if test "x$ac_cv_lib_Xxf86dga_XF86DGAQueryVersion" = x""yes; then
-  LIBS="$LIBS -lXxf86dga"
-else
-  dga_driver=false
-fi
-
-  { $as_echo "$as_me:$LINENO: checking for XF86VidModeGetModeLine in -lXxf86vm" >&5
-$as_echo_n "checking for XF86VidModeGetModeLine in -lXxf86vm... " >&6; }
-if test "${ac_cv_lib_Xxf86vm_XF86VidModeGetModeLine+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lXxf86vm $LIBS  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char XF86VidModeGetModeLine ();
-int
-main ()
-{
-return XF86VidModeGetModeLine ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_Xxf86vm_XF86VidModeGetModeLine=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_Xxf86vm_XF86VidModeGetModeLine=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_Xxf86vm_XF86VidModeGetModeLine" >&5
-$as_echo "$ac_cv_lib_Xxf86vm_XF86VidModeGetModeLine" >&6; }
-if test "x$ac_cv_lib_Xxf86vm_XF86VidModeGetModeLine" = x""yes; then
-  LIBS="$LIBS -lXxf86vm"
-else
-  dga_driver=false
-fi
-
-fi
 
 if test  "$gtk_driver_test" = yes; then
 
@@ -15680,87 +12036,12 @@ fi
 
 fi
 
-if test  "$ggi_driver_test" = yes; then
-  ggi_driver=true
-  { $as_echo "$as_me:$LINENO: checking for ggiInit in -lggi" >&5
-$as_echo_n "checking for ggiInit in -lggi... " >&6; }
-if test "${ac_cv_lib_ggi_ggiInit+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lggi $LIBS  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char ggiInit ();
-int
-main ()
-{
-return ggiInit ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ac_cv_lib_ggi_ggiInit=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_ggi_ggiInit=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:$LINENO: result: $ac_cv_lib_ggi_ggiInit" >&5
-$as_echo "$ac_cv_lib_ggi_ggiInit" >&6; }
-if test "x$ac_cv_lib_ggi_ggiInit" = x""yes; then
-  LIBS="$LIBS -lggi"
-else
-  ggi_driver=false
-fi
-
-fi
-
 if test "$ac_cv_header_malloc_h" = "no"; then
  cat >>confdefs.h <<\_ACEOF
 #define NO_MALLOC_H 1
 _ACEOF
 
- fi
+fi
 
 if test "$ac_cv_header_htmlhelp_h" = "yes"; then
  cat >>confdefs.h <<\_ACEOF
@@ -15768,14 +12049,14 @@ if test "$ac_cv_header_htmlhelp_h" = "yes"; then
 _ACEOF
 
  LIBS="$LIBS -lhtmlhelp"
- fi
+fi
 
 if test "$ac_cv_header_ddraw_h" = "yes"; then
  cat >>confdefs.h <<\_ACEOF
 #define DDRAW_DRIVER 1
 _ACEOF
 
- fi
+fi
 
 
 echo "------------------------------------------------------------"
@@ -15809,19 +12090,6 @@ _ACEOF
 fi
 fi
 
-if test "$ggi_driver_test" = yes; then
-if test "x$ggi_driver" = xtrue; then
-  drivers=yes
-  cat >>confdefs.h <<\_ACEOF
-#define GGI_DRIVER 1
-_ACEOF
-
-  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/ggi"
-  DRIVERLIBS="$DRIVERLIBS lib/libuiggi.a"
-  echo "   ggi-lib"
-fi
-fi
-
 if test  "$x_driver_test" = yes; then
 if test "x$no_x" = x; then
   drivers=yes
@@ -15848,40 +12116,7 @@ _ACEOF
   CFLAGS1="$CFLAGS1 $X_CFLAGS"
 fi
 fi
-if test  "$x_driver_test" = yes; then
-if test "x$dga_driver" = xtrue; then
-  drivers=yes
-  cat >>confdefs.h <<\_ACEOF
-#define DGA_DRIVER 1
-_ACEOF
 
-  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/dga"
-  DRIVERLIBS="$DRIVERLIBS lib/libuidga.a"
-  echo "   DGA"
-  if test "$x11_linked" = no; then
-    LIBS="$LIBS $X_EXTRA_LIBS $X_LIBS -lX11"
-  fi
-  CFLAGS="$CFLAGS $X_CFLAGS"
-  CFLAGS1="$CFLAGS1 $X_CFLAGS"
-fi
-fi
-if test  "$vga_driver_test" = yes; then
-if test "x$ac_cv_lib_vga_vga_hasmode$ac_cv_lib_vgagl_gl_write" = xyesyes; then
-  drivers=yes
-  cat >>confdefs.h <<\_ACEOF
-#define SVGA_DRIVER 1
-_ACEOF
-
-  STICKY='chmod +s $(DESTDIR)$(bindir)/xaos; chown root $(DESTDIR)$(bindir)/xaos; chgrp root $(DESTDIR)$(bindir)/xaos'
-  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/svga"
-  DRIVERLIBS="$DRIVERLIBS lib/libuisvga.a"
-  if test "x$ac_cv_func_pthread_sighandler" = xyes; then
-  echo "   SVGAlib   with linuxthread hack"
-  else
-  echo "   SVGAlib"
-  fi
-fi
-fi
 if test  "$win32_driver" = yes; then
   drivers=yes
   cat >>confdefs.h <<\_ACEOF
@@ -15899,19 +12134,7 @@ _ACEOF
    echo ""
   fi
 fi
-if test  "$BeOS_driver" = yes; then
-  drivers=yes
-  cat >>confdefs.h <<\_ACEOF
-#define BEOS_DRIVER 1
-_ACEOF
 
-  #STICKY='chmod +s $(DESTDIR)$(bindir)/xaos; chown root $(DESTDIR)$(bindir)/xaos; chgrp root $(DESTDIR)$(bindir)/xaos'
-  DRIVERDIRS="$DRIVERDIRS ui/ui-drv/BeOS"
-  #DRIVERLIBS="ui/ui-drv/win32/ui_win32.o lib/libuiwin32.a ui/ui-drv/win32/xaos.res $DRIVERLIBS"
-  DRIVERLIBS="ui/ui-drv/BeOS/be_main.o ui/ui-drv/BeOS/ui_be.o lib/libuibe.a $DRIVERLIBS"
-  #ui/ui-drv/win32/xaos.res $DRIVERLIBS"
-  echo "   BeOS"
-fi
 REALTOPDIR=`nolinks=1; pwd`
 
 BINPATH="$REALTOPDIR/bin"
@@ -15933,8 +12156,8 @@ if test $sffe = yes; then
  echo "try GSL: $gsl"
 
  if test $gsl = yes; then
-		GSL_LIBS=""
-		# Extract the first word of "gsl-config", so it can be a program name with args.
+  GSL_LIBS=""
+  # Extract the first word of "gsl-config", so it can be a program name with args.
 set dummy gsl-config; ac_word=$2
 { $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
@@ -15975,27 +12198,27 @@ $as_echo "no" >&6; }
 fi
 
 
-		{ $as_echo "$as_me:$LINENO: checking for GSL" >&5
+  { $as_echo "$as_me:$LINENO: checking for GSL" >&5
 $as_echo_n "checking for GSL... " >&6; }
-		 if test "$GSL_CONFIG" = "no" ; then
-		  gsl=no
-		  { $as_echo "$as_me:$LINENO: result: no" >&5
+  if test "$GSL_CONFIG" = "no" ; then
+    gsl=no
+    { $as_echo "$as_me:$LINENO: result: no" >&5
 $as_echo "no" >&6; }
-		 else
-		  { $as_echo "$as_me:$LINENO: result: yes" >&5
+  else
+    { $as_echo "$as_me:$LINENO: result: yes" >&5
 $as_echo "yes" >&6; }
-		  echo "using GSL for complex numbers"
-		  GSL_LIBS=`$GSL_CONFIG --libs`
-		  GSL_CFLAGS=`$GSL_CONFIG --cflags`
-		  CFLAGS="$CFLAGS $GSL_CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
-		  CFLAGS1="$CFLAGS1 $GSL_CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
-		  DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
-		  ASM_CMPLX_O=""
-		fi
+    echo "using GSL for complex numbers"
+    GSL_LIBS=`$GSL_CONFIG --libs`
+    GSL_CFLAGS=`$GSL_CONFIG --cflags`
+    CFLAGS="$CFLAGS $GSL_CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
+    CFLAGS1="$CFLAGS1 $GSL_CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
+    DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
+    ASM_CMPLX_O=""
+  fi
  fi
 
  if test $gsl = no; then
-	# Extract the first word of "nasm", so it can be a program name with args.
+  # Extract the first word of "nasm", so it can be a program name with args.
 set dummy nasm; ac_word=$2
 { $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
@@ -16032,17 +12255,15 @@ $as_echo "no" >&6; }
 fi
 
 
-		if test "$NASM" = yes; then
-			  echo "using NASM for complex numbers"
-			  CFLAGS="$CFLAGS -DSFFE_USING -DSFFE_CMPLX_ASM"
-			  CFLAGS1="$CFLAGS1 -DSFFE_USING -DSFFE_CMPLX_ASM"
-			  DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
-			  ASM_CMPLX_O="asm/cmplx.o"
-		else
-		    { { $as_echo "$as_me:$LINENO: error: Neither GSL, nor NASM is installed. XaoS is unable to compile." >&5
-$as_echo "$as_me: error: Neither GSL, nor NASM is installed. XaoS is unable to compile." >&2;}
-   { (exit 1); exit 1; }; }
-  		fi
+  if test "$NASM" = yes; then
+    echo "using NASM for complex numbers"
+    CFLAGS="$CFLAGS -DSFFE_USING -DSFFE_CMPLX_ASM"
+    CFLAGS1="$CFLAGS1 -DSFFE_USING -DSFFE_CMPLX_ASM"
+    DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
+    ASM_CMPLX_O="asm/cmplx.o"
+  else
+    sffe=no
+  fi
  fi
  echo "------------------------------------------------------------"
 else
@@ -16564,6 +12785,7 @@ gives unlimited permission to copy, distribute and modify it."
 ac_pwd='$ac_pwd'
 srcdir='$srcdir'
 INSTALL='$INSTALL'
+MKDIR_P='$MKDIR_P'
 test -n "\$AWK" || AWK=awk
 _ACEOF
 
@@ -17195,6 +13417,11 @@ ac_abs_srcdir=$ac_abs_top_srcdir$ac_dir_suffix
   [\\/$]* | ?:[\\/]* ) ac_INSTALL=$INSTALL ;;
   *) ac_INSTALL=$ac_top_build_prefix$INSTALL ;;
   esac
+  ac_MKDIR_P=$MKDIR_P
+  case $MKDIR_P in
+  [\\/$]* | ?:[\\/]* ) ;;
+  */*) ac_MKDIR_P=$ac_top_build_prefix$MKDIR_P ;;
+  esac
 _ACEOF
 
 cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
@@ -17251,6 +13478,7 @@ s&@builddir@&$ac_builddir&;t t
 s&@abs_builddir@&$ac_abs_builddir&;t t
 s&@abs_top_builddir@&$ac_abs_top_builddir&;t t
 s&@INSTALL@&$ac_INSTALL&;t t
+s&@MKDIR_P@&$ac_MKDIR_P&;t t
 $ac_datarootdir_hack
 "
 eval sed \"\$ac_sed_extra\" "$ac_file_inputs" | $AWK -f "$tmp/subs.awk" >$tmp/out \
@@ -17517,18 +13745,22 @@ $as_echo "$as_me: WARNING: Read INSTALL file for troubleshooting tips." >&2;}
 fi
 if test x"$ac_cv_lib_z_inflate" = xno; then
  if test x"$ac_cv_lib_gz_inflate" = xno; then
-  echo "You need zlib to compile XaoS with image saving code."
-  echo
+  { $as_echo "$as_me:$LINENO: WARNING: You need zlib to compile XaoS with image saving support." >&5
+$as_echo "$as_me: WARNING: You need zlib to compile XaoS with image saving support." >&2;}
  fi
 fi
 if test x"$ac_cv_lib_png_png_create_info_struct" = xno; then
-  echo "You need pnglib to compile XaoS with image saving code."
-  echo
+  { $as_echo "$as_me:$LINENO: WARNING: You need pnglib to compile XaoS with image saving support." >&5
+$as_echo "$as_me: WARNING: You need pnglib to compile XaoS with image saving support." >&2;}
+fi
+if test x"$sffe" = xno; then
+  { $as_echo "$as_me:$LINENO: WARNING: You need GSL or NASM to comple XaoS with user formulas." >&5
+$as_echo "$as_me: WARNING: You need GSL or NASM to comple XaoS with user formulas." >&2;}
 fi
 echo " "
 echo "END OF WARNINGS"
 echo " "
-echo "In case you have troubles with compiling or running"
-echo "XaoS please read doc/compilers.txt."
+echo "In case you have trouble with compiling or running"
+echo "XaoS please read the INSTALL file."
 echo "------------------------------------------------------------"
 

@@ -1239,9 +1239,6 @@ int MAIN_FUNCTION(int argc, char **argv)
 #ifdef HAVE_LONG_DOUBLE
 		  "using long double\n"
 #endif
-#ifdef USE_NCURSES
-		  "using ncurses\n"
-#endif
 #ifdef const
 		  "const disabled\n"
 #endif
