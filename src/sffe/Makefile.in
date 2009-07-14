@@ -1,5 +1,5 @@
 CC     = @CC@
-CFLAGS = @CFLAGS1@
+CFLAGS = @CFLAGS@
 LIBS   = @LIBS@
 LFLAGS = @LDFLAGS@
 AR     = @AR@

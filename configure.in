@@ -1,23 +1,20 @@
 AC_INIT([XaoS],[3.5],[xaos-devel@lists.sourceforge.net])
 
 AC_PREREQ(2.63)
-POSTCOMPILE=""
 AC_CONFIG_HEADER(src/include/aconfig.h src/include/version.h)
-AC_USE_SYSTEM_EXTENSIONS
-AC_CANONICAL_HOST
-CCOPTS="$CFLAGS"
-CCOPTS1="$CFLAGS1"
-CXXFLAGS1="$CXXFLAGS"
 AC_PROG_CC
-AC_PROG_GCC_TRADITIONAL
+AX_COMPILER_VENDOR
+AX_CC_MAXOPT
+
+AC_CANONICAL_HOST
 
 dnl
 dnl GNU gettext related things
 dnl
 
-ALL_LINGUAS="cs es hu fr de ro it pt"
+AM_ICONV
 AM_GNU_GETTEXT([external])
-
+ALL_LINGUAS="cs es hu fr de ro it pt"
 if test "x$USE_NLS" = xyes; then
   AC_PATH_PROG([MSGMERGE], [msgmerge], , [$PATH:../bin])
   if test "x$ac_cv_path_MSGMERGE" = x; then
@@ -30,14 +27,12 @@ if test "x$USE_NLS" = xyes; then
       POFILES="$POFILES $lang.po"
     done
   fi
-  LIBS="$LIBS $LIBINTL"
 fi
 
 dnl
 dnl drivers to test (if available)
 dnl
 
-use_asm=no
 x11_linked=no
 x_driver_test=yes
 gtk_driver_test=no
@@ -72,15 +67,6 @@ AC_ARG_WITH(mitshm,
 	fi
 	if test x$withval = xno; then
 	  xshm=no
-	fi
-])
-AC_ARG_WITH(i386asm,
-        [  --with-i386asm=yes/no   enables/disables usage of optimized asm routines],[
-	if test x$withval = xyes; then
-	  use_asm=yes
-	fi
-	if test x$withval = xno; then
-	  use_asm=no
 	fi
 ])
 AC_ARG_WITH(pthread,
@@ -121,36 +107,6 @@ AC_ARG_WITH(sffe,
 ])
 	
 
-AC_DEFUN([AC_PROG_CC_M],
-[AC_CACHE_CHECK(whether ${CC-cc} accepts -m$1, ac_cv_prog_cc_m$1,
-[echo 'void f(){}' > conftest.c
-if test -z "`${CC-cc} -march=$1 -c conftest.c 2>&1`"; then
-    ac_cv_prog_cc_m$1=yes
-    else
-        ac_cv_prog_cc_m$1=no
-    fi
-	rm -f conftest*
-])])
-
-AC_DEFUN([PROG_GCC_NO_IEEE_FP],
-[AC_CACHE_CHECK(whether ${CC-cc} have bugfree -mno-ieee-fp, ac_cv_mno_ieee_fp,
-[echo 'void f(){ 
-#if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 93) 
-#error you compiler is buggy heh! 
-/* Only latest 2.93.x versions of egcs was bugfree, but I can''t check it 
-here. This version were development, so hope they are dead now. */ 
-#endif 
-}' > conftest.c
-if test -z "`${CC-cc} -mno-ieee-fp -c conftest.c 2>&1`"; then
-    ac_cv_mno_ieee_fp=yes
-    CCOPTS1="$CCOPTS1 -mno-ieee-fp"
-    CCOPTS="$CCOPTS -mno-ieee-fp"
-    else
-        ac_cv_mno_ieee_fp=no
-    fi
-	rm -f conftest*
-])])
-
 AC_DEFUN([AC_PROG_AALIB_VER_OK],
 [AC_CACHE_CHECK(whether aalib version >= 1.4, ac_cv_aalib_ver_ok,
 [echo '#include <aalib.h>
@@ -171,125 +127,16 @@ if test -z "`${CC-cc} -c conftest.c 2>&1`"; then
 	rm -f conftest*
 ])])
 
-AC_DEFUN([PROG_CC_SWITCH1],
-[AC_CACHE_CHECK(whether ${CC-cc} accepts -$1, ac_cv_$2,
-[echo 'void f(){}' > conftest.c
-if test -z "`${CC-cc} -$1 -c conftest.c 2>&1`"; then
-    eval "ac_cv_$2=yes"
-    CCOPTS1="$CCOPTS1 -$1"
-    else
-        eval "ac_cv_$2=no"
-    fi
-	rm -f conftest*
-])])
-AC_DEFUN([PROG_CC_SWITCH2],
-[AC_CACHE_CHECK(whether ${CC-cc} accepts -$1, ac_cv_$2,
-[echo 'void f(){}' > conftest.c
-if test -z "`${CC-cc} -$1 -c conftest.c 2>&1`"; then
-    eval "ac_cv_$2=yes"
-    CCOPTS1="$CCOPTS1 -$1"
-    CCOPTS="$CCOPTS -$1"
-    else
-        eval "ac_cv_$2=no"
-    fi
-	rm -f conftest*
-])])
-
-AC_DEFUN([PROG_CC_SWITCH],
-[AC_CACHE_CHECK(whether ${CC-cc} accepts -$1, ac_cv_$2,
-[echo 'void f(){}' > conftest.c
-if test -z "`${CC-cc} -$1 -c conftest.c 2>&1`"; then
-    eval "ac_cv_$2=yes"
-    CCOPTS="$CCOPTS -$1"
-    else
-        eval "ac_cv_$2=no"
-    fi
-	rm -f conftest*
-])])
-
-AC_DEFUN([PROG_GCC_Os],
-[AC_CACHE_CHECK(whether ${CC-cc} accepts -Os, ac_cv_Os,
-[echo 'void f(){}' > conftest.c
-if test -z "`${CC-cc} -Os -c conftest.c 2>&1`"; then
-    ac_cv_Os=yes
-    CCOPTS="$CCOPTS -$1"
-    else
-        ac_cv_Os=no
-    fi
-	rm -f conftest*
-])])
-
-
-# This seems to be unnecessary for modern gcc versions
-# (and some Os's like Darwin, cannot use -march at all, so disabling:
-# if test x$long_double = xtest; then
-# case $target_cpu in
-# i?86*) long_double=yes
-#           mflag=486
-#	   case $target_cpu in
-#	   i386*)
-#	    mmflag="-march=386"
-#	    ;;
-#	   i486*)
-#	    mmflag="-march=486"
-#	    ;;
-#	   athlon_xp*)
-#	    AC_PROG_CC_M(athlon)
-#	    if test $ac_cv_prog_cc_mathlon = yes; then
-#	      mmflag="-march=athlon"
-#	    else
-#	    mmflag="-march=486"
-#	    fi
-#	    ;;
-#	   i586*)
-#	    AC_PROG_CC_M(pentium)
-#	    if test $ac_cv_prog_cc_mpentium = yes; then
-#	      mmflag="-march=pentium"
-#	    else
-#	    AC_PROG_CC_M(586)
-#	    if test $ac_cv_prog_cc_m586 = yes; then
-#	      mmflag="-march=586"
-#	    else
-#	    mmflag="-march=486"
-#	    fi
-#	    fi
-#	    ;;
-#	   i?86*)
-#	    AC_PROG_CC_M(pentiumpro)
-#	    if test $ac_cv_prog_cc_mpentiumpro = yes; then
-#	      mmflag="-march=pentiumpro"
-#	    else
-#	    AC_PROG_CC_M(686)
-#	    if test $ac_cv_prog_cc_m686 = yes; then
-#	      mmflag="-march=686"
-#	    else
-#	    mmflag="-march=486"
-#	    fi
-#	    fi
-#	   ;;
-#	   esac
-#	   ;;
-#unknown)
-#           long_double=yes
-#	   ;;
-#esac
-#fi
-
 AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 
 dnl CFLAGS="-O"
 dnl Checks for programs.
 
-STICKY=''
-
-use_cc_g_flag=no
 DRIVERDIRS=""
 LOCALEDIR="/usr/share/locale"
 DRIVERLIBS="lib/libui.a lib/libui-hlp.a lib/libengine.a lib/libutil.a lib/libfilter.a"
-CFLAGS="$CCOPTS"
 AC_PROG_INSTALL
-dnl AC_HEADER_STDC
 
 AC_ARG_WITH(x11-driver,
         [  --with-x11-driver=no    disables x11 driver],[
@@ -308,108 +155,14 @@ AC_ARG_WITH(aa-driver,
 	  aa_driver_test=$withval
 ])
 
-dnl
-dnl This part supplies reasonable defaults for CFLAGS, if they weren't
-dnl specified by ''CFLAGS=flags ./configure''
-dnl
-cc_uses_g=yes
-if test x$GCC = xyes; then
-    if test x$ac_cv_prog_gcc_g = xyes; then
-	:
-    else
-	cc_uses_g=no
-    fi
-fi
-
-if test "x$CCOPTS" = x; then
-    if test x$GCC = xyes; then
-        PROG_GCC_Os
-        if test x$mflag = x486; then
-            CCOPTS="-D__OPTIMIZE__ -Wall  -Wundef -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align  -Wwrite-strings -Wsign-compare -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs $mmflag -fstrength-reduce -ffast-math -pipe"
-            PROG_CC_SWITCH(fno-exceptions,exceptions)
-	    CCOPTS1="$CCOPTS -O6 -funroll-loops"
-	    if test x$use_cc_g_flag = xyes; then
-		if test $cc_uses_g = yes; then
-		    CCOPTS='-march=486 -g -O'
-		fi
-	    fi
-
-	    if test $sffe = yes; then
-		CCOPTS="$CCOPTS -Waggregate-return" # fixed by Zoltan
-	    fi
-
-	else
-            CCOPTS='-Wall -fstrength-reduce -ffast-math -pipe'
-            PROG_CC_SWITCH(fno-exceptions,exceptions)
-            CCOPTS1='-O6 -Wall -fstrength-reduce -ffast-math -funroll-loops -pipe'
-	    if test x$use_cc_g_flag = xyes; then
-		if test $cc_uses_g = yes; then
-		    CCOPTS='-g -O'
-		fi
-	    fi
-	fi
-        if test x$ac_cv_Os = xyes; then
-	    CCOPTS="$CCOPTS -Os"
-	else
-	    CCOPTS="$CCOPTS -O2"
-        fi
-        #PROG_CC_SWITCH1(fmove-all-movables,movables)
-        PROG_CC_SWITCH1(frerun-loop-opt,loopopt)
-        PROG_CC_SWITCH2(fstrict-aliasing,aliasopt)
-        PROG_CC_SWITCH2(malign-double,alignopt)
-	PROG_GCC_NO_IEEE_FP
-    else
-	if test x$use_cc_g_flag = xyes; then
-	    CCOPTS="$CFLAGS"
-	else
-	    CCOPTS=
-            case $target in
-            m68k-hp-hpux8.00)
-             CCOPTS="-Aa -D_INCLUDE_POSIX_SOURCE -D_INCLUDE_HPUX_SOURCE -D_INCLUDE_XOPEN_SOURCE +O3"
-             ;;
-            *) 
-	     PROG_CC_SWITCH(O,optimizations)
-	     ;;
-            esac
-	fi
-    fi
-fi
-
-CFLAGS="$CCOPTS"
-if test "$CCOPTS1" = "" ; then
-  CCOPTS1="$CCOPTS"
-fi
-CFLAGS1="$CCOPTS1"
-
-
-ASMOBJS=""
-CFLAGS=${CFLAGS--O}
-CFLAGS1=${CFLAGS1--O}
-LDFLAGS=${LDFLAGS--O}
-if test x$use_asm = xyes; then
-if test x$GCC = xyes; then
-case $target_cpu in
-i?86) CFLAGS="$CFLAGS -DUSE_i386ASM"
-     CFLAGS1="$CFLAGS1 -DUSE_i386ASM"
-     ASMOBJS="i386asm.o"
-     ;;
-esac
-fi
-fi
-case $host_os in
-*linux*) CMPLX_O_TARGET=elf;;
-*cygwin* | *mingw*) CMPLX_O_TARGET=coff;;
-*darwin*) CMPLX_O_TARGET=macho;;
-esac
 if test  "$win32_driver_test" = yes; then
-           win32_driver=no
-	   case $host_os in
-	    *mingw* | *cygwin*) win32_driver=yes
-	    		LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion -lmingwex"
-	                CFLAGS="$CFLAGS -mwindows"
-	                CFLAGS1="$CFLAGS1 -mwindows"
-			;;
-	   esac
+  win32_driver=no
+  case $host_os in
+    *mingw* | *cygwin*) win32_driver=yes
+    LIBS="$LIBS  -lgdi32  -lmsvcrt -luser32 -lversion -lmingwex"
+    CFLAGS="$CFLAGS -mwindows"
+    ;;
+  esac
 fi
 
 
@@ -418,14 +171,12 @@ if test x$pthread = xtest; then
   if test "x$ac_cv_func_pthread_create" = xyes; then
     AC_DEFINE(USE_PTHREAD)
     CFLAGS="$CFLAGS -D_REENTRANT"
-    CFLAGS1="$CFLAGS1 -D_REENTRANT"
     AC_CHECK_FUNCS(pthread_sighandler)
   else
   AC_CHECK_LIB(pthread,pthread_create)
   if test "x$ac_cv_lib_pthread_pthread_create" = xyes; then
     AC_DEFINE(USE_PTHREAD)
     CFLAGS="$CFLAGS -D_REENTRANT"
-    CFLAGS1="$CFLAGS1 -D_REENTRANT"
     AC_CHECK_FUNCS(pthread_sighandler)
   else
     echo "No pthread library available! Cannot compile threaded version"
@@ -496,7 +247,7 @@ fi
 
 dnl Checks for header files.
 
-AC_CHECK_HEADERS([alloca.h ddraw.h htmlhelp.h errno.h fcntl.h float.h iconv.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h])
+AC_CHECK_HEADERS([alloca.h ddraw.h htmlhelp.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -533,7 +284,6 @@ dnl AC_FUNC_STAT
 dnl AC_FUNC_VPRINTF
 
 AC_CHECK_LIB(m, pow)
-AC_CHECK_LIB(iconv, libiconv_open)
 
 if test $png = yes; then
   AC_CHECK_LIB(z, inflate)
@@ -639,14 +389,12 @@ if test "x$no_x" = x; then
     x11_linked=yes
   fi
   CFLAGS="$CFLAGS $X_CFLAGS"
-  CFLAGS1="$CFLAGS1 $X_CFLAGS"
 fi
 fi
 
 if test  "$win32_driver" = yes; then
   drivers=yes
   AC_DEFINE(WIN32_DRIVER)
-  #STICKY='chmod +s $(DESTDIR)$(bindir)/xaos; chown root $(DESTDIR)$(bindir)/xaos; chgrp root $(DESTDIR)$(bindir)/xaos'
   DRIVERDIRS="$DRIVERDIRS ui/ui-drv/win32"
   DRIVERLIBS="ui/ui-drv/win32/ui_win32.o lib/libuiwin32.a ui/ui-drv/win32/xaos.res $DRIVERLIBS"
   LOCALEDIR="../../locale"
@@ -691,7 +439,6 @@ if test $sffe = yes; then
     GSL_LIBS=`$GSL_CONFIG --libs`
     GSL_CFLAGS=`$GSL_CONFIG --cflags`
     CFLAGS="$CFLAGS $GSL_CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
-    CFLAGS1="$CFLAGS1 $GSL_CFLAGS -fomit-frame-pointer -DSFFE_USING -DSFFE_CMPLX_GSL"
     DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
     ASM_CMPLX_O=""
   fi 
@@ -702,9 +449,13 @@ if test $sffe = yes; then
   if test "$NASM" = yes; then
     echo "using NASM for complex numbers"
     CFLAGS="$CFLAGS -DSFFE_USING -DSFFE_CMPLX_ASM"
-    CFLAGS1="$CFLAGS1 -DSFFE_USING -DSFFE_CMPLX_ASM"
     DRIVERLIBS="$DRIVERLIBS lib/libsffe.a"
     ASM_CMPLX_O="asm/cmplx.o"
+    case $host_os in
+      *cygwin* | *mingw*) CMPLX_O_TARGET=coff;;
+      *darwin*) CMPLX_O_TARGET=macho;;
+      *) CMPLX_O_TARGET=elf;;
+    esac
   else
     sffe=no
   fi
@@ -712,26 +463,15 @@ if test $sffe = yes; then
  echo "------------------------------------------------------------"
 else
 	CFLAGS="$CFLAGS -fomit-frame-pointer"
-	CFLAGS1="$CFLAGS1 -fomit-frame-pointer"
 fi
 
 
 LIBS="$LIBS $GSL_LIBS"
-INCDIR="-I${SRCPATH}/include"
-CFLAGS="$CFLAGS $INCDIR"
-CFLAGS1="$CFLAGS1 $INCDIR"
-CXXFLAGS="$CXXFLAGS $INCDIR"
-AC_SUBST(INCDIR)
+CFLAGS="$CFLAGS -I${SRCPATH}/include"
 AC_SUBST(DRIVERLIBS)
-AC_SUBST(POSTCOMPILE)
 AC_SUBST(DRIVERDIRS)
-AC_SUBST(STICKY)
-AC_SUBST(CFLAGS1)
-AC_SUBST(CXXFLAGS)
-AC_SUBST(ASMOBJS)
 AC_SUBST(CMPLX_O_TARGET)
 AC_SUBST(ASM_CMPLX_O)
-AC_SUBST(RANLIB)
 AC_SUBST(POFILES)
 
 AC_CONFIG_FILES([src/i18n/Makefile.in
@@ -747,8 +487,6 @@ echo "------------------------------------------------------------"
 echo "Compiler options:"
 echo " CC          : $CC"
 echo " CFLAGS      : $CFLAGS"
-echo " CFLAGS1     : $CFLAGS1"
-echo " CXXFLAGS    : $CXXFLAGS"
 echo " LDLAGS      : $LDLAGS"
 echo " LIBS        : $LIBS"
 echo " X_LIBS      : $X_LIBS"

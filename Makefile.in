@@ -50,7 +50,6 @@ install:
 	@INSTALL@ -m 444 help/xaos.hlp $(DESTDIR)$(datadir)/XaoS/help
 	@INSTALL@ -m 444 AUTHORS NEWS COPYING TODO INSTALL ChangeLog ChangeLog.old $(DESTDIR)$(datadir)/XaoS/doc
 	@INSTALL@ -m 444 doc/xaos.6 $(DESTDIR)$(mandir)/man6
-	-@STICKY@
 	test -z "$(infodir)" || @INSTALL@ -d "$(DESTDIR)$(infodir)"
 	@INSTALL@ -m 444 doc/xaos.info $(DESTDIR)$(infodir)/xaos.info
 	@if (install-info --version) >/dev/null 2>&1; then      \

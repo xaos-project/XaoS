@@ -1,6 +1,6 @@
 CC     = @CC@
 CFLAGS = @CFLAGS@
-LIBS   = @LIBS@ 
+LIBS   = @LIBICONV@ @LIBINTL@ @LIBS@
 LFLAGS = @LDFLAGS@
 AR     = @AR@
 RANLIB = @RANLIB@
@@ -36,7 +36,6 @@ libs:
 
 $(PROG): @BINPATH@ @LIBPATH@ include/config.h libs
 	$(CC) $(CFLAGS) $(LFLAGS) -o $@ $(TLIBS) $(LIBS)
-	@POSTCOMPILE@
 
 include/config.h:
 	cp include/config/config.autoconf include/config.h
