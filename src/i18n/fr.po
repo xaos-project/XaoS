@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-11 08:56-0700\n"
+"POT-Creation-Date: 2009-07-14 20:44-0500\n"
 "PO-Revision-Date: 2006-02-05 17:35+0200\n"
 "Last-Translator: Philippe Wautelet <traduc _at_ fractalzone _dot_ be>\n"
 "Language-Team: French\n"
@@ -198,32 +198,32 @@ msgstr "Affichage mini-état"
 msgid "Driver"
 msgstr "Pilote"
 
-#: ../ui/ui.c:1423
+#: ../ui/ui.c:1420
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Bienvenue sur XaoS version %s"
 
-#: ../ui/ui.c:1582
+#: ../ui/ui.c:1579
 msgid "Can not allocate buffers"
 msgstr "Ne peut pas allouer les tampons"
 
-#: ../ui/ui.c:1600
+#: ../ui/ui.c:1597
 msgid "Can not create palette"
 msgstr "Ne peut pas créer la palette"
 
-#: ../ui/ui.c:1612
+#: ../ui/ui.c:1609
 msgid "Can not create image"
 msgstr "Ne peut pas créer l'image"
 
-#: ../ui/ui.c:1643 ../ui/ui.c:1694
+#: ../ui/ui.c:1640 ../ui/ui.c:1691
 msgid "Can not allocate tables"
 msgstr "Ne peut pas allouer les tables"
 
-#: ../ui/ui.c:1680
+#: ../ui/ui.c:1677
 msgid "Can not initialize driver"
 msgstr "Ne peut pas initialiser le pilote"
 
-#: ../ui/ui.c:1683
+#: ../ui/ui.c:1680
 msgid "Can not return back to previous driver"
 msgstr "Ne peut pas retourner au pilote précédent"
 

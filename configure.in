@@ -2,11 +2,16 @@ AC_INIT([XaoS],[3.5],[xaos-devel@lists.sourceforge.net])
 
 AC_PREREQ(2.63)
 AC_CONFIG_HEADER(src/include/aconfig.h src/include/version.h)
+
+AC_CANONICAL_HOST
+# Force compilation without cygwin dependency
+case $host_os in
+  *cygwin*) CC='gcc -mno-cygwin' ;;
+esac
+
 AC_PROG_CC
 AX_COMPILER_VENDOR
 AX_CC_MAXOPT
-
-AC_CANONICAL_HOST
 
 dnl
 dnl GNU gettext related things

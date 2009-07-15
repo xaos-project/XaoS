@@ -1,4 +1,4 @@
-## .profile for XaoS MSYS build environment
+## .bash_profile for XaoS Cygwin build environment
 ##
 ## IMPORTANT! Please modify the lines below to point to the location where you 
 ## have installed each package.  Note that paths are written with forward 
@@ -6,23 +6,18 @@
 ## "/c" instead of "c:".
 #############################################################################
 
-GNUWIN32_HOME='/c/Program Files/GnuWin32'
-NASM_HOME='/c/Program Files/NASM'
-HTMLHELP_HOME='/c/Program Files/HTML Help Workshop'
-DIRECTX_HOME='/c/Program Files/Microsoft DirectX SDK (March 2009)'
-PTHREADS_HOME='/c/pthreads-w32'
+GNUWIN32_HOME='/cygdrive/c/Program Files/GnuWin32'
+HTMLHELP_HOME='/cygdrive/c/Program Files/HTML Help Workshop'
+DIRECTX_HOME='/cygdrive/c/Program Files/Microsoft DirectX SDK (March 2009)'
+PTHREADS_HOME='/cygdrive/c/pthreads-w32'
 
 #############################################################################
 ## You should not have to modify anything below this line
-
 
 # GnuWin32
 PATH=$PATH:$GNUWIN32_HOME/bin
 C_INCLUDE_PATH=$C_INCLUDE_PATH:$GNUWIN32_HOME/include
 LIBRARY_PATH=$LIBRARY_PATH:$GNUWIN32_HOME/lib
-
-# nasm
-PATH=$PATH:$NASM_HOME
 
 # HTML Help Workshop
 PATH=$PATH:$HTMLHELP_HOME

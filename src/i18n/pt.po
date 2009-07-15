@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-11 08:56-0700\n"
+"POT-Creation-Date: 2009-07-14 20:44-0500\n"
 "PO-Revision-Date: 2009-06-01 14:07-0300\n"
 "Last-Translator: Lucio de Araujo <lucio.matema@gmail.com>\n"
 "Language-Team: Portuguese <zeliagarcia@seed.pr.gov.br>\n"
@@ -201,32 +201,32 @@ msgstr "Miniestado"
 msgid "Driver"
 msgstr "Navegador"
 
-#: ../ui/ui.c:1423
+#: ../ui/ui.c:1420
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Bem-vindo ao XaoS versão %s"
 
-#: ../ui/ui.c:1582
+#: ../ui/ui.c:1579
 msgid "Can not allocate buffers"
 msgstr "Não pode partilhar buffers (memórias temporárias)"
 
-#: ../ui/ui.c:1600
+#: ../ui/ui.c:1597
 msgid "Can not create palette"
 msgstr "Não pode criar paleta"
 
-#: ../ui/ui.c:1612
+#: ../ui/ui.c:1609
 msgid "Can not create image"
 msgstr "Não pode criar imagem"
 
-#: ../ui/ui.c:1643 ../ui/ui.c:1694
+#: ../ui/ui.c:1640 ../ui/ui.c:1691
 msgid "Can not allocate tables"
 msgstr "Não pode partilhar tabelas"
 
-#: ../ui/ui.c:1680
+#: ../ui/ui.c:1677
 msgid "Can not initialize driver"
 msgstr "Não pode inicializar o navegador"
 
-#: ../ui/ui.c:1683
+#: ../ui/ui.c:1680
 msgid "Can not return back to previous driver"
 msgstr "Não pode retornar ao navegador anterior"
 
