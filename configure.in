@@ -105,6 +105,8 @@ AC_ARG_WITH(sffe,
 	  sffe=no
 	fi
 ])
+
+
 	
 
 AC_DEFUN([AC_PROG_AALIB_VER_OK],
@@ -154,6 +156,11 @@ AC_ARG_WITH(aa-driver,
         [  --with-aa-driver=no     disables aa-lib driver],[
 	  aa_driver_test=$withval
 ])
+
+if test "$x_driver_test" = yes -o "$aa_driver_test" = yes; then
+  AC_PATH_XTRA
+fi
+
 
 if test  "$win32_driver_test" = yes; then
   win32_driver=no
