@@ -292,7 +292,15 @@ from:
 
  http://developer.apple.com/mac/
 
-To compile XaoS you need the following third party libraries:
+Pre-compiled binaries for additional Mac OS X third-party build dependencies
+can be downloaded from:
+
+ http://downloads.sourceforge.net/sourceforge/xaos/xaos-thirdparty-cocoa-20090714.tar.gz
+
+Exract this file within the src/ui/ui-drv/cocoa/thirdparty directory of your
+XaoS source distribution.
+
+Alternatively, to compile third party dependencies from source, download:
 
  * libpng from http://www.libpng.org/pub/png/libpng.html
  * gettext from http://www.gnu.org/software/gettext/
