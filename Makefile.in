@@ -76,6 +76,7 @@ install-win:
 	@INSTALL@ examples/ZKovacs/*.x[ap]f $(DESTDIR)/examples
 	@INSTALL@ examples/ZsKovacs/*.x[ap]f $(DESTDIR)/examples
 	@INSTALL@ examples/Malczak/*.x[ap]f $(DESTDIR)/examples
+	@INSTALL@ examples/Langston/*.x[ap]f $(DESTDIR)/examples
 	@INSTALL@ catalogs/*.cat catalogs/README $(DESTDIR)/catalogs
 	@INSTALL@ AUTHORS NEWS COPYING TODO INSTALL ChangeLog ChangeLog.old $(DESTDIR)/doc
 	@if test -f "help/xaoshelp.chm"; then          \
