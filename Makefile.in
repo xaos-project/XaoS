@@ -78,8 +78,8 @@ install-win:
 	@INSTALL@ examples/Malczak/*.x[ap]f $(DESTDIR)/examples
 	@INSTALL@ catalogs/*.cat catalogs/README $(DESTDIR)/catalogs
 	@INSTALL@ AUTHORS NEWS COPYING TODO INSTALL ChangeLog ChangeLog.old $(DESTDIR)/doc
-	@if test -f "help/XAOSWIN.HLP"; then          \
-	  @INSTALL@ help/XAOSWIN.HLP $(DESTDIR)/help; \
+	@if test -f "help/xaoshelp.chm"; then          \
+	  @INSTALL@ help/xaoshelp.chm $(DESTDIR)/help; \
 	fi
 	@INSTALL@ bin/xaos.exe $(DESTDIR)/bin
 
