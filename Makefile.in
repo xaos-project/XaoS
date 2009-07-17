@@ -45,6 +45,7 @@ install:
 	@INSTALL@ -m 444 examples/ZKovacs/*.x[ap]f $(DESTDIR)$(datadir)/XaoS/examples
 	@INSTALL@ -m 444 examples/ZsKovacs/*.x[ap]f $(DESTDIR)$(datadir)/XaoS/examples
 	@INSTALL@ -m 444 examples/Malczak/*.x[ap]f $(DESTDIR)$(datadir)/XaoS/examples
+	@INSTALL@ -m 444 examples/Langston/*.x[ap]f $(DESTDIR)$(datadir)/XaoS/examples
 
 	@INSTALL@ -m 444 catalogs/*.cat catalogs/README $(DESTDIR)$(datadir)/XaoS/catalogs
 	@INSTALL@ -m 444 help/xaos.hlp $(DESTDIR)$(datadir)/XaoS/help
