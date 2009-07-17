@@ -15,15 +15,20 @@ o Removed support for unmaintained platforms (DOS, BeOS, Plan 9, etc.)
 o Updated documentation to reflect infrastructure changes
   (Discussion and issue tracking have moved to Google Groups and Google Code)
 
+o Additional fractal examples by J.B. Langston
+
 
 Windows-specific changes
 ========================
 
 o Improved GUI appearance with modern fonts and controls on XP and Vista
-  (J.B. Langston)
 
 o Help format changed from WinHelp to HtmlHelp.  WinHelp was no longer
   supported starting with Windows Vista and Windows 7.
+
+o Fixed bug where output was invisible when using XaoS from the command line
+
+o Simplified and improved build instructions for Windows developers
 
 
 GTK+ User Interface (Beta)
