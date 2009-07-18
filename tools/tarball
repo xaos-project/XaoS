@@ -3,7 +3,7 @@
 # Assumes that the directory name is XaoS/tools where we currently are.
 # Be careful: this script will delete files without asking questions!
 
-NAME=XaoS-3.4
+NAME=xaos-3.5
 
 test -x tarball || exit 1 # Sorry, this script should be run inside its directory.
 
@@ -21,11 +21,11 @@ make clean
 make distclean
 rm -fR autom4te.cache
 cd ..
-rm -fR /tmp/XaoS /tmp/$NAME /tmp/$NAME.tar.gz
-cp -a XaoS /tmp
+rm -fR /tmp/xaos /tmp/$NAME /tmp/$NAME.tar.gz
+cp -a xaos /tmp
 cd /tmp
-mv XaoS $NAME
+mv xaos $NAME
 cd $NAME
-find -name CVS | xargs rm -fR
+find -name .svn | xargs rm -fR
 cd ..
 tar czf $NAME.tar.gz $NAME
