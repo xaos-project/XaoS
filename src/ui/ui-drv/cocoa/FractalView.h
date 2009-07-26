@@ -65,5 +65,6 @@
 
 #pragma mark Text
 -(void) printText:(CONST char *)text atX:(int)x y:(int) y;
+- (NSDictionary *) textAttributes;
 
 @end

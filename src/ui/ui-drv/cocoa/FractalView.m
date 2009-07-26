@@ -65,10 +65,7 @@
     }
     
     if (messageText) {
-        NSDictionary *attrsDictionary = 
-        [NSDictionary dictionaryWithObject:[NSColor whiteColor] 
-                                    forKey:NSForegroundColorAttributeName];
-        [messageText drawAtPoint:messageLocation withAttributes:attrsDictionary];
+        [messageText drawAtPoint:messageLocation withAttributes:[self textAttributes]];
         [messageText release];
         messageText = nil;
     }
@@ -281,6 +278,23 @@
 
 #pragma mark Text
 
+- (NSDictionary *)textAttributes {
+	
+	NSMutableDictionary *attrsDictionary = [NSMutableDictionary dictionaryWithObject:[NSColor whiteColor] 
+																			  forKey:NSForegroundColorAttributeName];
+	
+	NSShadow *dockStyleTextShadow = [[NSShadow alloc] init];
+	[dockStyleTextShadow setShadowOffset:NSMakeSize(2, -2)];
+	[dockStyleTextShadow setShadowBlurRadius:1];
+	[dockStyleTextShadow setShadowColor:[NSColor blackColor]];
+	[attrsDictionary setValue:[NSFont boldSystemFontOfSize:12.0] forKey:NSFontAttributeName];
+	[attrsDictionary setValue:dockStyleTextShadow forKey:NSShadowAttributeName];
+	[dockStyleTextShadow autorelease];
+	
+	return attrsDictionary;
+}
+
+
 - (void)printText:(CONST char *)text atX:(int)x y:(int)y {
     messageText = [[NSString stringWithUTF8String:text] retain];
     messageLocation = NSMakePoint(x, [self bounds].size.height - y);
@@ -317,7 +331,7 @@
                                                         bitsPerPixel:32];
     
     *b2 = (char *)[imageRep[1] bitmapData];
-    
+    NSLog(@"bytesPerRow = %d", [imageRep[0] bytesPerRow]);
     return [imageRep[0] bytesPerRow];
 }
 
