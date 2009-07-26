@@ -12,8 +12,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		D90A09560DB42FD900B7AAFD /* performanceCursor.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D90A09550DB42FD900B7AAFD /* performanceCursor.tiff */; };
 		D90A096A0DB4465100B7AAFD /* XaoSDocument.icns in Resources */ = {isa = PBXBuildFile; fileRef = D90A09690DB4465100B7AAFD /* XaoSDocument.icns */; };
-		D962AF50101BF0E3003C66CE /* grlib_cairo.m in Sources */ = {isa = PBXBuildFile; fileRef = D962AF4F101BF0E3003C66CE /* grlib_cairo.m */; };
-		D962AFF2101C1FE3003C66CE /* libcairo.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D962AFF1101C1FE3003C66CE /* libcairo.dylib */; };
+		D962B0AD101CA598003C66CE /* grlib_cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = D962B0AC101CA598003C66CE /* grlib_cocoa.m */; };
 		D99B5B740DAEE9D100489809 /* ui_cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = D99B5B730DAEE9D100489809 /* ui_cocoa.m */; };
 		D99B5B7E0DAEE9E700489809 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99B5B770DAEE9E700489809 /* AppController.m */; };
 		D99B5B7F0DAEE9E700489809 /* FractalView.m in Sources */ = {isa = PBXBuildFile; fileRef = D99B5B790DAEE9E700489809 /* FractalView.m */; };
@@ -118,8 +117,7 @@
 		8D1107320486CEB800E47090 /* XaoS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XaoS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D90A09550DB42FD900B7AAFD /* performanceCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = performanceCursor.tiff; sourceTree = "<group>"; };
 		D90A09690DB4465100B7AAFD /* XaoSDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = XaoSDocument.icns; sourceTree = "<group>"; };
-		D962AF4F101BF0E3003C66CE /* grlib_cairo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = grlib_cairo.m; sourceTree = "<group>"; };
-		D962AFF1101C1FE3003C66CE /* libcairo.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcairo.dylib; path = thirdparty/lib/libcairo.dylib; sourceTree = "<group>"; };
+		D962B0AC101CA598003C66CE /* grlib_cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = grlib_cocoa.m; sourceTree = "<group>"; };
 		D99B5B710DAEE9D100489809 /* aconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aconfig.h; sourceTree = "<group>"; };
 		D99B5B720DAEE9D100489809 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		D99B5B730DAEE9D100489809 /* ui_cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ui_cocoa.m; sourceTree = "<group>"; };
@@ -247,7 +245,6 @@
 				D99B5E0C0DAEEB4C00489809 /* libintl.dylib in Frameworks */,
 				D99B5E0D0DAEEB4C00489809 /* libgsl.dylib in Frameworks */,
 				D99B5E0E0DAEEB4C00489809 /* libpng.dylib in Frameworks */,
-				D962AFF2101C1FE3003C66CE /* libcairo.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +316,7 @@
 				D99B5B710DAEE9D100489809 /* aconfig.h */,
 				D99B5B720DAEE9D100489809 /* version.h */,
 				D99B5B730DAEE9D100489809 /* ui_cocoa.m */,
-				D962AF4F101BF0E3003C66CE /* grlib_cairo.m */,
+				D962B0AC101CA598003C66CE /* grlib_cocoa.m */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -535,7 +532,6 @@
 		D99B5E080DAEEB2B00489809 /* Embedded Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D962AFF1101C1FE3003C66CE /* libcairo.dylib */,
 				D99B5E090DAEEB4C00489809 /* libintl.dylib */,
 				D99B5E0A0DAEEB4C00489809 /* libgsl.dylib */,
 				D99B5E0B0DAEEB4C00489809 /* libpng.dylib */,
@@ -701,7 +697,7 @@
 				D99B5C4B0DAEEA2700489809 /* timers.c in Sources */,
 				D99B5C4D0DAEEA2700489809 /* xstdio.c in Sources */,
 				D99B5C4E0DAEEA2700489809 /* catalog.c in Sources */,
-				D962AF50101BF0E3003C66CE /* grlib_cairo.m in Sources */,
+				D962B0AD101CA598003C66CE /* grlib_cocoa.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

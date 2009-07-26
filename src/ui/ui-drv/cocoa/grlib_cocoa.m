@@ -87,7 +87,7 @@ xfont16il1,
 #define line line8
 #define saveline saveline8
 #define restoreline restoreline8
-#include "grlibd.c"
+#include "../../../filter/grlibd.c"
 #include <hicolor.h>
 #define drawchar drawchar16
 #define hline hline16
@@ -98,7 +98,7 @@ xfont16il1,
 #define line line16
 #define saveline saveline16
 #define restoreline restoreline16
-#include "grlibd.c"
+#include "../../../filter/grlibd.c"
 #include <true24.h>
 #define drawchar drawchar24
 #define hline hline24
@@ -109,7 +109,7 @@ xfont16il1,
 #define line line24
 #define saveline saveline24
 #define restoreline restoreline24
-#include "grlibd.c"
+#include "../../../filter/grlibd.c"
 #include <truecolor.h>
 #define drawchar drawchar32
 #define hline hline32
@@ -120,7 +120,7 @@ xfont16il1,
 #define line line32
 #define saveline saveline32
 #define restoreline restoreline32
-#include "grlibd.c"
+#include "../../../filter/grlibd.c"
 #ifdef SBITMAPS
 static inline void
 drawchar1(struct image *img, int x, int y, int fgcolor,
