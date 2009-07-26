@@ -8,262 +8,262 @@
 #########################################################
 #For file dimension.xaf
 encoding "2"
-fmath "Fraktály a matematika"
-fmath1 "Fraktály jsou pomìrnì novou
-èástí matematiky a proto je zde
-je¹tì mnoho nevyøe¹enıch otázek"
-fmath2 "Dokonce neexistuje ani uspokojivá
+fmath "FraktÃ¡ly a matematika"
+fmath1 "FraktÃ¡ly jsou pomÄ›rnÄ› novou
+ÄÃ¡stÃ­ matematiky a proto je zde
+jeÅ¡tÄ› mnoho nevyÅ™eÅ¡enÃ½ch otÃ¡zek"
+fmath2 "Dokonce neexistuje ani uspokojivÃ¡
 definice"
-fmath3 "Vìt¹inou pova¾ujeme za fraktály
-v¹echno, kde lze
-najít jistou sobìpodobnost."
+fmath3 "VÄ›tÅ¡inou povaÅ¾ujeme za fraktÃ¡ly
+vÅ¡echno, kde lze
+najÃ­t jistou sobÄ›podobnost."
 
-def1 "Jednou z mo¾nıch definic je..."
-def2 "Co to znamená?"
-def3 "Napøed je nutné rozumìt rozdílu
-mezi Hausdorff Besicovichovou dimmenzí
-a topologickou dimenzí."
+def1 "Jednou z moÅ¾nÃ½ch definic je..."
+def2 "Co to znamenÃ¡?"
+def3 "NapÅ™ed je nutnÃ© rozumÄ›t rozdÃ­lu
+mezi Hausdorff Besicovichovou dimmenzÃ­
+a topologickou dimenzÃ­."
 
-topo1 "Topologická dimenze odpovídá
-\"normální\" pøedstavì o dimenzi"
-topo2 "bod má dimenzi 0"
-topo3 "køivka 1"
+topo1 "TopologickÃ¡ dimenze odpovÃ­dÃ¡
+\"normÃ¡lnÃ­\" pÅ™edstavÄ› o dimenzi"
+topo2 "bod mÃ¡ dimenzi 0"
+topo3 "kÅ™ivka 1"
 topo4 "a rovina 2"
 
 hb1 "Definice Hausdorff Besicovichovy
-dimenze vychází z jednoduchého
-pozorování"
-hb2 "Velikost dvojnásobnì zvìt¹ené úseèky
-se zvìt¹í dvakrát"
-hb3 "Velikost zvìt¹eného ètverce
-ale ètyøikrát"
-hb4 "Podobnì se chovají i vy¹¹í dimenze"
-hb5 "K vıpoètu dimenze z této hodnoty
-lze pou¾ít následující vzorec:"
+dimenze vychÃ¡zÃ­ z jednoduchÃ©ho
+pozorovÃ¡nÃ­"
+hb2 "Velikost dvojnÃ¡sobnÄ› zvÄ›tÅ¡enÃ© ÃºseÄky
+se zvÄ›tÅ¡Ã­ dvakrÃ¡t"
+hb3 "Velikost zvÄ›tÅ¡enÃ©ho Ätverce
+ale ÄtyÅ™ikrÃ¡t"
+hb4 "PodobnÄ› se chovajÃ­ i vyÅ¡Å¡Ã­ dimenze"
+hb5 "K vÃ½poÄtu dimenze z tÃ©to hodnoty
+lze pouÅ¾Ã­t nÃ¡sledujÃ­cÃ­ vzorec:"
 hb6 "dimenze = log s / log z
-kde z je zmìna zvìt¹ení a
-s je zmìna velikosti objektu"
-hb7 "Pro úseèku a zvìt¹ení 2
-je zmìna velikosti také 2.
+kde z je zmÄ›na zvÄ›tÅ¡enÃ­ a
+s je zmÄ›na velikosti objektu"
+hb7 "Pro ÃºseÄku a zvÄ›tÅ¡enÃ­ 2
+je zmÄ›na velikosti takÃ© 2.
 log 2 / log 2 = 1"
-hb8 "Pro ètverec a zvìt¹ení 2
-je zmìna velikosti 4.
+hb8 "Pro Ätverec a zvÄ›tÅ¡enÃ­ 2
+je zmÄ›na velikosti 4.
 log 4 / log 2 = 2"
 hb9 "Hausdorff Besicovichova dimenze
-je tedy u mnoha objektù stejná jako
-topologická dimenze"
-hb10 "Zajímavìj¹í jsou vısledky u fraktálù"
-hb11 "Vezmìme napøíklad snìhovou vloèku,"
-hb12 "která vznikne opakovanım nahrazováním
-jedné úseèky za ètyøi."
-hb13 "Nové úseèky jsou v¾dy tøetinové
-oproti pùvodním"
-hb14 "Po trojnásobném zvìt¹ení tedy budou
-stejnì dlouhé,"
-hb15 "Díky sobìpodobnosti, která vznikla
-opakovanım nahrazováním,"
-hb15b "ka¾dá tato èást je kopie celého
-fraktálu v pùvodní velikosti,"
-hb16 "Proto¾e jsou zde ètyøi takové kopie,
-fraktál se zvìt¹il ètyøikrát"
-hb17 "Po dosazení:
+je tedy u mnoha objektÅ¯ stejnÃ¡ jako
+topologickÃ¡ dimenze"
+hb10 "ZajÃ­mavÄ›jÅ¡Ã­ jsou vÃ½sledky u fraktÃ¡lÅ¯"
+hb11 "VezmÄ›me napÅ™Ã­klad snÄ›hovou vloÄku,"
+hb12 "kterÃ¡ vznikne opakovanÃ½m nahrazovÃ¡nÃ­m
+jednÃ© ÃºseÄky za ÄtyÅ™i."
+hb13 "NovÃ© ÃºseÄky jsou vÅ¾dy tÅ™etinovÃ©
+oproti pÅ¯vodnÃ­m"
+hb14 "Po trojnÃ¡sobnÃ©m zvÄ›tÅ¡enÃ­ tedy budou
+stejnÄ› dlouhÃ©,"
+hb15 "DÃ­ky sobÄ›podobnosti, kterÃ¡ vznikla
+opakovanÃ½m nahrazovÃ¡nÃ­m,"
+hb15b "kaÅ¾dÃ¡ tato ÄÃ¡st je kopie celÃ©ho
+fraktÃ¡lu v pÅ¯vodnÃ­ velikosti,"
+hb16 "ProtoÅ¾e jsou zde ÄtyÅ™i takovÃ© kopie,
+fraktÃ¡l se zvÄ›tÅ¡il ÄtyÅ™ikrÃ¡t"
+hb17 "Po dosazenÃ­:
 log 4 / log 3 = 1.261"
-hb18 "Získali jsme tedy hodnotu vìt¹í
-ne¾ 1 (topologická dimenze køivky)"
+hb18 "ZÃ­skali jsme tedy hodnotu vÄ›tÅ¡Ã­
+neÅ¾ 1 (topologickÃ¡ dimenze kÅ™ivky)"
 hb19 "Hausdorff Besicovichova dimenze (1.261)
-je vy¹¹í, ne¾ topologická dimenze (1)"
+je vyÅ¡Å¡Ã­, neÅ¾ topologickÃ¡ dimenze (1)"
 hb20 "Podle definice tedy je
-snìhová vloèka fraktál"
+snÄ›hovÃ¡ vloÄka fraktÃ¡l"
 
-defe1 "Tato definice neni perfektní,
-proto¾e vyluèuje nìkteré tvary,
-které lze pova¾ovat za fraktály."
-defe2 "Ukazuje ale jednu ze zajímavıch
-vlastností fraktálù"
-defe3 "a je pomìrnì èasto pou¾ívana."
+defe1 "Tato definice neni perfektnÃ­,
+protoÅ¾e vyluÄuje nÄ›kterÃ© tvary,
+kterÃ© lze povaÅ¾ovat za fraktÃ¡ly."
+defe2 "Ukazuje ale jednu ze zajÃ­mavÃ½ch
+vlastnostÃ­ fraktÃ¡lÅ¯"
+defe3 "a je pomÄ›rnÄ› Äasto pouÅ¾Ã­vana."
 defe4 "Hausdorff Besicovichova dimenze
-se také èasto nazıvá 
-\"fraktálovou dimenzí\""
+se takÃ© Äasto nazÃ½vÃ¡ 
+\"fraktÃ¡lovou dimenzÃ­\""
 
 
 #########################################################
 #For file escape.xaf
-escape "Fraktály a matematika
+escape "FraktÃ¡ly a matematika
 
-kapitola druhá
+kapitola druhÃ¡
 
 escape time fractals"
-escape1 "Nìkteré fraktály (jako
-snìhová vloèka) se generují
-jednoduchım postupem"
+escape1 "NÄ›kterÃ© fraktÃ¡ly (jako
+snÄ›hovÃ¡ vloÄka) se generujÃ­
+jednoduchÃ½m postupem"
 escape2 "XaoS je ale program
-pro vıpoèet jiného typu fraktálù -
-známych jako escape time fractals"
-escape3 "Metoda jejich generování
-je trohu odli¹ná, ale také zalo¾ena
-na iterování"
-escape4 "Obrazovka je pova¾ována
-za rovinu komplexních èísel"
-escape5 "Reálná osa je horizontálnì"
-escape6 "a imaginární vertikálnì"
-escape7 "Ka¾dı bod má svùj orbit"
-escape8 "Jeho¾ trajektorie se vypoète
-pomocí iteraèní funkce f(z,c),
-kde z je hodnota z pøedchozí iterace
+pro vÃ½poÄet jinÃ©ho typu fraktÃ¡lÅ¯ -
+znÃ¡mych jako escape time fractals"
+escape3 "Metoda jejich generovÃ¡nÃ­
+je trohu odliÅ¡nÃ¡, ale takÃ© zaloÅ¾ena
+na iterovÃ¡nÃ­"
+escape4 "Obrazovka je povaÅ¾ovÃ¡na
+za rovinu komplexnÃ­ch ÄÃ­sel"
+escape5 "ReÃ¡lnÃ¡ osa je horizontÃ¡lnÄ›"
+escape6 "a imaginÃ¡rnÃ­ vertikÃ¡lnÄ›"
+escape7 "KaÅ¾dÃ½ bod mÃ¡ svÅ¯j orbit"
+escape8 "JehoÅ¾ trajektorie se vypoÄte
+pomocÃ­ iteraÄnÃ­ funkce f(z,c),
+kde z je hodnota z pÅ™edchozÃ­ iterace
 a c je parametr (bod na obrazovce)"
-escape9 "Napøíklad u Mandelbrotovy
-mno¾iny iteraèní funkce je z = z^2 + c"
-orbit1 "napøíklad pokud se budeme
-zajímat o bod 0 - 0.6i"
-orbit2 "pou¾ijeme ho jako hodnotu pro
+escape9 "NapÅ™Ã­klad u Mandelbrotovy
+mnoÅ¾iny iteraÄnÃ­ funkce je z = z^2 + c"
+orbit1 "napÅ™Ã­klad pokud se budeme
+zajÃ­mat o bod 0 - 0.6i"
+orbit2 "pouÅ¾ijeme ho jako hodnotu pro
 parametr c"
-orbit3 "Orbit v¾dy zaèíná na pozici
+orbit3 "Orbit vÅ¾dy zaÄÃ­nÃ¡ na pozici
 z = 0 + 0i"
-orbit3b "potom budeme opakovanì
-poèítat iteraèní funkci a poka¾dé
-získáme novou hodnotu z pro dal¹í
+orbit3b "potom budeme opakovanÄ›
+poÄÃ­tat iteraÄnÃ­ funkci a pokaÅ¾dÃ©
+zÃ­skÃ¡me novou hodnotu z pro dalÅ¡Ã­
 iteraci"
-orbit4 "Pokud orbit zùstane v koneènıch
-hodnotách, bod patøí do mno¾iny."
-orbit5 "V tomto pøípadì posloupnost
+orbit4 "Pokud orbit zÅ¯stane v koneÄnÃ½ch
+hodnotÃ¡ch, bod patÅ™Ã­ do mnoÅ¾iny."
+orbit5 "V tomto pÅ™Ã­padÄ› posloupnost
 konverguje"
-orbit6 "Proto tento bod patøí do mno¾iny"
-orbit7 "V jinıch pøípadech ale nemusí"
-orbit8 "(napøíklad pro bod 10 + 0i
-první iterace je 110, druhá
+orbit6 "Proto tento bod patÅ™Ã­ do mnoÅ¾iny"
+orbit7 "V jinÃ½ch pÅ™Ã­padech ale nemusÃ­"
+orbit8 "(napÅ™Ã­klad pro bod 10 + 0i
+prvnÃ­ iterace je 110, druhÃ¡
 12110 atd.)"
-orbit9 "Takové body jsou mimo mno¾inu"
+orbit9 "TakovÃ© body jsou mimo mnoÅ¾inu"
 
-bail1 "Poøád ale mluvíme o nekoneèném
-poètu iterací a nekoneènıch èíslech"
-bail2 "Proto¾e jsou ale poèítaèe
-koneèné, není mo¾né provédst vıpoèet
-pøesnì"
-bail3 "Lze ale dokázat, ¾e pokud
-vzdálenost orbitu od nuly vìt¹í, ne¾ 2,
-orbit poka¾dé uteèe do nekoneèna"
-bail4 "Proto mù¾eme pøeru¹it vıpoèet,
-pokud bod opusti okolí nuly
+bail1 "PoÅ™Ã¡d ale mluvÃ­me o nekoneÄnÃ©m
+poÄtu iteracÃ­ a nekoneÄnÃ½ch ÄÃ­slech"
+bail2 "ProtoÅ¾e jsou ale poÄÃ­taÄe
+koneÄnÃ©, nenÃ­ moÅ¾nÃ© provÃ©dst vÃ½poÄet
+pÅ™esnÄ›"
+bail3 "Lze ale dokÃ¡zat, Å¾e pokud
+vzdÃ¡lenost orbitu od nuly vÄ›tÅ¡Ã­, neÅ¾ 2,
+orbit pokaÅ¾dÃ© uteÄe do nekoneÄna"
+bail4 "Proto mÅ¯Å¾eme pÅ™eruÅ¡it vÃ½poÄet,
+pokud bod opusti okolÃ­ nuly
 (bailout test)"
-bail5 "V pøíadì, ¾e poèítáme bod mimo
-mno¾inu, potøebujeme tedy pouze
-koneènı poèet iterací"
-bail6 "Také se pomocí tohoto testu
-vytváøí barevné pruhy okolo mno¾iny"
-bail7 "Obarvují se podle poètu iterací,
-které orbit potøeboval k poru¹ení
+bail5 "V pÅ™Ã­adÄ›, Å¾e poÄÃ­tÃ¡me bod mimo
+mnoÅ¾inu, potÅ™ebujeme tedy pouze
+koneÄnÃ½ poÄet iteracÃ­"
+bail6 "TakÃ© se pomocÃ­ tohoto testu
+vytvÃ¡Å™Ã­ barevnÃ© pruhy okolo mnoÅ¾iny"
+bail7 "ObarvujÃ­ se podle poÄtu iteracÃ­,
+kterÃ© orbit potÅ™eboval k poruÅ¡enÃ­
 bailout testu"
 
-iter1 "Uvnitø mno¾iny ale stále
-potøebujeme nekoneènì iterací"
-iter2 "Je tedy nutné vıpoèet
-pøeru¹it po daném maximálním
-poètu iterací"
-iter3 "Maximální poèet iterací
-urèuje pøesnost vıpoètu"
-iter4 "Pokud neprovedeme ¾ádné
-iterace, bailout test vytvoøí
-kruh o polomìru 2"
-iter5 "Zvy¹ováním maximálního poètu
-iterací dostaneme pøesnìj¹í a
-pøesnìj¹í aproximaci"
+iter1 "UvnitÅ™ mnoÅ¾iny ale stÃ¡le
+potÅ™ebujeme nekoneÄnÄ› iteracÃ­"
+iter2 "Je tedy nutnÃ© vÃ½poÄet
+pÅ™eruÅ¡it po danÃ©m maximÃ¡lnÃ­m
+poÄtu iteracÃ­"
+iter3 "MaximÃ¡lnÃ­ poÄet iteracÃ­
+urÄuje pÅ™esnost vÃ½poÄtu"
+iter4 "Pokud neprovedeme Å¾Ã¡dnÃ©
+iterace, bailout test vytvoÅ™Ã­
+kruh o polomÄ›ru 2"
+iter5 "ZvyÅ¡ovÃ¡nÃ­m maximÃ¡lnÃ­ho poÄtu
+iteracÃ­ dostaneme pÅ™esnÄ›jÅ¡Ã­ a
+pÅ™esnÄ›jÅ¡Ã­ aproximaci"
 
-limit1 "XaoS standardnì poèítá 170
-iterací"
-limit2 "V nìkterıch místech je mo¾né
-zoomomovat pomìrnì dlouho bez
-dosa¾ení limitu pøesnosti"
-limit3 "V jinıch místech ale 
-lze dosáhnout limitu docela brzo"
-limit4 "vısledek je potom ponìkud
-jednotvárnı"
-limit5 "Po zvı¹ení poètu iterací ale
-vznikne mnoho novıch detailù"
-ofracts1 "Ostatní fraktály v XaoSovi
-jsou poèítánı pomocí jinıch formulí
-a bailout testù, ale základní
-postup je stejnı"
-ofracts2 "Tento postup je nároènı
-na vıkon poèítaèe. XaoS
-má mnoho optimalizací o kerıch
-se mù¾ete doèíst v souboru
+limit1 "XaoS standardnÄ› poÄÃ­tÃ¡ 170
+iteracÃ­"
+limit2 "V nÄ›kterÃ½ch mÃ­stech je moÅ¾nÃ©
+zoomomovat pomÄ›rnÄ› dlouho bez
+dosaÅ¾enÃ­ limitu pÅ™esnosti"
+limit3 "V jinÃ½ch mÃ­stech ale 
+lze dosÃ¡hnout limitu docela brzo"
+limit4 "vÃ½sledek je potom ponÄ›kud
+jednotvÃ¡rnÃ½"
+limit5 "Po zvÃ½Å¡enÃ­ poÄtu iteracÃ­ ale
+vznikne mnoho novÃ½ch detailÅ¯"
+ofracts1 "OstatnÃ­ fraktÃ¡ly v XaoSovi
+jsou poÄÃ­tÃ¡nÃ½ pomocÃ­ jinÃ½ch formulÃ­
+a bailout testÅ¯, ale zÃ¡kladnÃ­
+postup je stejnÃ½"
+ofracts2 "Tento postup je nÃ¡roÄnÃ½
+na vÃ½kon poÄÃ­taÄe. XaoS
+mÃ¡ mnoho optimalizacÃ­ o kerÃ½ch
+se mÅ¯Å¾ete doÄÃ­st v souboru
 doc/xaos.info"
 
 #########################################################
 #For file anim.xaf
-anim "Ukládání a pøehrávání
-animací"
+anim "UklÃ¡dÃ¡nÃ­ a pÅ™ehrÃ¡vÃ¡nÃ­
+animacÃ­"
 
 #########################################################
 #For file anim.xhf
 
-anim2 "Mo¾ná jste si u¾ v¹imli,
-¾e XaoS umí pøehrávat animace."
+anim2 "MoÅ¾nÃ¡ jste si uÅ¾ vÅ¡imli,
+Å¾e XaoS umÃ­ pÅ™ehrÃ¡vat animace."
 
-anim3 "Ty je mo¾né vytváøet pøímo
+anim3 "Ty je moÅ¾nÃ© vytvÃ¡Å™et pÅ™Ã­mo
 v XaoSovi"
 
-languag1 "Proto¾e
-jsou ale animace a pozice ulo¾eny
-pomocí jednoduchého jazyka,"
+languag1 "ProtoÅ¾e
+jsou ale animace a pozice uloÅ¾eny
+pomocÃ­ jednoduchÃ©ho jazyka,"
 
-languag2 "(pozice jsou ve steném
-formátu jako animace)"
+languag2 "(pozice jsou ve stenÃ©m
+formÃ¡tu jako animace)"
 
-languag3 "je mo¾né potom animace
-ruènì upravovat."
+languag3 "je moÅ¾nÃ© potom animace
+ruÄnÄ› upravovat."
 
 
-languag4 "Vìt¹ina animací dodávanıch
-s XaoSem je psaná kompletnì ruènì
-pouze s pomocí ulo¾enıch pozic"
+languag4 "VÄ›tÅ¡ina animacÃ­ dodÃ¡vanÃ½ch
+s XaoSem je psanÃ¡ kompletnÄ› ruÄnÄ›
+pouze s pomocÃ­ uloÅ¾enÃ½ch pozic"
 
-modif1 "Jenom jednoduchou úpravou
+modif1 "Jenom jednoduchou Ãºpravou
 tohoto souboru"
 
-modif2 "Je mo¾né vygenerovat 
-jednoduchou \"zmen¹ovací\" animaci."
-modif3 "Pomocí této zmìny \"zvìt¹ovací\" animaci."
+modif2 "Je moÅ¾nÃ© vygenerovat 
+jednoduchou \"zmenÅ¡ovacÃ­\" animaci."
+modif3 "PomocÃ­ tÃ©to zmÄ›ny \"zvÄ›tÅ¡ovacÃ­\" animaci."
 
-newanim "Také je mo¾né napsat úplnì
-nové animace a efekty"
+newanim "TakÃ© je moÅ¾nÃ© napsat ÃºplnÄ›
+novÃ© animace a efekty"
 
-examples "Inspiraci mù¾ete hledat
-také v pøíkladech, které lze
-nahrávat v náhodném poøadí ze
+examples "Inspiraci mÅ¯Å¾ete hledat
+takÃ© v pÅ™Ã­kladech, kterÃ© lze
+nahrÃ¡vat v nÃ¡hodnÃ©m poÅ™adÃ­ ze
 save/load menu"
 
-examples2 "Pomocí ulo¾enıch pozic
-je také mo¾né pøevádìt souøadnice
-do jinıch programù."
+examples2 "PomocÃ­ uloÅ¾enÃ½ch pozic
+je takÃ© moÅ¾nÃ© pÅ™evÃ¡dÄ›t souÅ™adnice
+do jinÃ½ch programÅ¯."
 
 examples3 "Fantazii se meze
-nekladou snad kromì jazyka
-pou¾itého v souborech popsaného
+nekladou snad kromÄ› jazyka
+pouÅ¾itÃ©ho v souborech popsanÃ©ho
 v xaos.info"
 
 #########################################################
 #For file barnsley.xaf
 
-intro4 "Úvod do fraktálù
+intro4 "Ãšvod do fraktÃ¡lÅ¯
 
-Èást pátá - Formulka pana Barnsleyho"
+ÄŒÃ¡st pÃ¡tÃ¡ - Formulka pana Barnsleyho"
 
 barnsley1 "Jinou formulku si
 vymyslel pan Michael Barnsley"
 
-barnsley2 "Vısledkem je tento podivnı fraktál"
+barnsley2 "VÃ½sledkem je tento podivnÃ½ fraktÃ¡l"
 
-barnsley3 "Nepatøí zrovna k nejzajímavìj¹ím"
+barnsley3 "NepatÅ™Ã­ zrovna k nejzajÃ­mavÄ›jÅ¡Ã­m"
 
-barnsley4 "Jeho Juliovy mno¾iny
-vypadají mnohem lépe."
+barnsley4 "Jeho Juliovy mnoÅ¾iny
+vypadajÃ­ mnohem lÃ©pe."
 
-barnsley5 "Jejich struktura pøipomíná krystaly,"
+barnsley5 "Jejich struktura pÅ™ipomÃ­nÃ¡ krystaly,"
 
-barnsley6 "narozdíl od vìt¹iny ostatních 
-fraktálù v XaoSovi, které 
-vypadají spí¹e organicky"
+barnsley6 "narozdÃ­l od vÄ›tÅ¡iny ostatnÃ­ch 
+fraktÃ¡lÅ¯ v XaoSovi, kterÃ© 
+vypadajÃ­ spÃ­Å¡e organicky"
 #########################################################
 #For file filter.xaf
 
@@ -272,44 +272,44 @@ filter "filtry"
 #########################################################
 #For file filter.xhf
 
-filter1 "Filtr je efekt aplikovanı
-na data potom, co se fraktál vypoète"
+filter1 "Filtr je efekt aplikovanÃ½
+na data potom, co se fraktÃ¡l vypoÄte"
 
-filter2 "XaoS má následující filtry"
+filter2 "XaoS mÃ¡ nÃ¡sledujÃ­cÃ­ filtry"
 
 motblur "Motion blur"
 
-edge "Dva rùzné filtry 
+edge "Dva rÅ¯znÃ© filtry 
 na detekci hran"
 
-edge2 "První dìlá hrany tlust¹í
-a proto je pìknı hlavnì ve vysokıch
-rozli¹eních"
+edge2 "PrvnÃ­ dÄ›lÃ¡ hrany tlustÅ¡Ã­
+a proto je pÄ›knÃ½ hlavnÄ› ve vysokÃ½ch
+rozliÅ¡enÃ­ch"
 
-edge3 "Druhı dìlá hrany tenèí"
+edge3 "DruhÃ½ dÄ›lÃ¡ hrany tenÄÃ­"
 
 star "Starfield"
 
 interlace "Interlace filter 
 
-zrychluje vıpoèet a ve vı¹¹ím rozlí¹ení
-dìlá podobnı efekt jako Motion Blur"
+zrychluje vÃ½poÄet a ve vÃ½Å¡Å¡Ã­m rozlÃ­Å¡enÃ­
+dÄ›lÃ¡ podobnÃ½ efekt jako Motion Blur"
 
 stereo "Stereogram filter"
 
-stereo2 "Pokud v následují
-èásti nic neuvidíte, mo¾ná
-to není tím, ¾e neumíte ¹ilhat,
-ale proto, ¾e XaoS pøedpokládá
-men¹í monitor. To mù¾ete zmìnit
-parametry z pøíkazové øádky.
-Pøeètìte si xaos -help."
+stereo2 "Pokud v nÃ¡sledujÃ­
+ÄÃ¡sti nic neuvidÃ­te, moÅ¾nÃ¡
+to nenÃ­ tÃ­m, Å¾e neumÃ­te Å¡ilhat,
+ale proto, Å¾e XaoS pÅ™edpoklÃ¡dÃ¡
+menÅ¡Ã­ monitor. To mÅ¯Å¾ete zmÄ›nit
+parametry z pÅ™Ã­kazovÃ© Å™Ã¡dky.
+PÅ™eÄtÄ›te si xaos -help."
 
 emboss1 "Emboss filter"
 
-palettef1 "Palette emulator umo¾òuje
+palettef1 "Palette emulator umoÅ¾Åˆuje
 rotaci palety i v true-coloru"
-truecolorf "Poslední filtr emuluje
+truecolorf "PoslednÃ­ filtr emuluje
 true-color."
 
 #########################################################
@@ -317,44 +317,44 @@ true-color."
 
 end "Konec"
 
-fcopyright "Úvod do fraktálù
-vytvoøil Jan Hubièka 
-v èervenci roku 1997"
+fcopyright "Ãšvod do fraktÃ¡lÅ¯
+vytvoÅ™il Jan HubiÄka 
+v Äervenci roku 1997"
 
 suggestions "
-Po¹lete mi v¹echny 
-nápady a komentáøe
+PoÅ¡lete mi vÅ¡echny 
+nÃ¡pady a komentÃ¡Å™e
 na moji adresu:
 
 xaos-discuss@lists.sourceforge.net
 
-Dìkuji"
+DÄ›kuji"
 
 #########################################################
 #For file incolor.xaf
 
-incolor1 "Vìt¹inou se body
-uvnitø mno¾iny kreslí jednou
+incolor1 "VÄ›tÅ¡inou se body
+uvnitÅ™ mnoÅ¾iny kreslÃ­ jednou
 barvou"
 
-incolor2 "To pìknì zvırazní hranice
-ale oblasti ivnitø vypadají ponìkud
-nudnì."
+incolor2 "To pÄ›knÄ› zvÃ½raznÃ­ hranice
+ale oblasti ivnitÅ™ vypadajÃ­ ponÄ›kud
+nudnÄ›."
 
-incolor3 "Pokud je chcete mít
-trochu zábavnìj¹í, mù¾ete pou¾it
-hodnotu posledního orbitu
-k urèení barvy"
+incolor3 "Pokud je chcete mÃ­t
+trochu zÃ¡bavnÄ›jÅ¡Ã­, mÅ¯Å¾ete pouÅ¾it
+hodnotu poslednÃ­ho orbitu
+k urÄenÃ­ barvy"
 
-incolor4 "XaoS má deset rùznıch
-takovıch vıpoètù, které nazıvá
+incolor4 "XaoS mÃ¡ deset rÅ¯znÃ½ch
+takovÃ½ch vÃ½poÄtÅ¯, kterÃ© nazÃ½vÃ¡
 \"incoloring modes\""
 
 zmag "zmag
 
-Barva se poèítá podle
-vzdálenosti posledního
-orbitu od poèátku"
+Barva se poÄÃ­tÃ¡ podle
+vzdÃ¡lenosti poslednÃ­ho
+orbitu od poÄÃ¡tku"
 
 #########################################################
 #For file innew.xaf
@@ -364,412 +364,412 @@ innew1 "Decomposition like
 Funguje stejne jako
 \"color decomposition\"
 v \"outcoloring modes\"
-tedy podle úhlu posledního
+tedy podle Ãºhlu poslednÃ­ho
 orbitu"
 
 innew2 "real/imag
 
-Jak název napovídá, barva
-se vypoète podle reálné èásti
-posledního orbitu vydìlené imaginární"
+Jak nÃ¡zev napovÃ­dÃ¡, barva
+se vypoÄte podle reÃ¡lnÃ© ÄÃ¡sti
+poslednÃ­ho orbitu vydÄ›lenÃ© imaginÃ¡rnÃ­"
 
-innew3 "Následujících 6 re¾imù
-nemá nìjaké hlub¹í opodstatnìní
-snad mimo toho, ¾e vypadají zajímavì.
-Èást je opsána z programu flarium."
+innew3 "NÃ¡sledujÃ­cÃ­ch 6 reÅ¾imÅ¯
+nemÃ¡ nÄ›jakÃ© hlubÅ¡Ã­ opodstatnÄ›nÃ­
+snad mimo toho, Å¾e vypadajÃ­ zajÃ­mavÄ›.
+ÄŒÃ¡st je opsÃ¡na z programu flarium."
 
 #########################################################
 #For file intro.xaf
 
-fractal "...Fraktály..."
+fractal "...FraktÃ¡ly..."
 fractal1 "Co to je?"
 
 fractal2 "Definice pana Mandelbrota:
-Fraktál je mno¾ina, pro kterou
+FraktÃ¡l je mnoÅ¾ina, pro kterou
 Hausdorff Besicovichova dimenze
-pøesahuje topologickou dimenzi."
+pÅ™esahuje topologickou dimenzi."
 
-fractal3 "Nìco snad není jasné?"
+fractal3 "NÄ›co snad nenÃ­ jasnÃ©?"
 
-fractal4 "Nevadí.
+fractal4 "NevadÃ­.
 
-Vìt¹ina matematikù stejnì není
-touto definicí uspokojena"
+VÄ›tÅ¡ina matematikÅ¯ stejnÄ› nenÃ­
+touto definicÃ­ uspokojena"
 
-fractal5 "Jednodu¹e:"
+fractal5 "JednoduÅ¡e:"
 
-fractal6 "fraktál je slo¾enı z èástí"
+fractal6 "fraktÃ¡l je sloÅ¾enÃ½ z ÄÃ¡stÃ­"
 
-fractal7 "kde ka¾dá je pøibli¾ná
-zmen¹ená kopie celku"
+fractal7 "kde kaÅ¾dÃ¡ je pÅ™ibliÅ¾nÃ¡
+zmenÅ¡enÃ¡ kopie celku"
 
-fractal8 "Neustálım kopírováním"
+fractal8 "NeustÃ¡lÃ½m kopÃ­rovÃ¡nÃ­m"
 
-fractal9 "vznikne celı fraktál."
+fractal9 "vznikne celÃ½ fraktÃ¡l."
 
-facts "Co je na fraktálech tak zajímavého?"
+facts "Co je na fraktÃ¡lech tak zajÃ­mavÃ©ho?"
 
-fact1 "Jsou nezavislé na mìøítku"
-fact2 "Jsou sobìpodobné"
-fact3 "A èasto se vyskytují
-v pøirodì."
-#fact4 "Napøíklad mraky, hory
-#nebo pobøe¾í."
-fact5 "Ale i hodnì matematickıch
-konstrukcí jsou fraktály"
-fact6 "Jednu právì sledujete na obrazovce"
+fact1 "Jsou nezavislÃ© na mÄ›Å™Ã­tku"
+fact2 "Jsou sobÄ›podobnÃ©"
+fact3 "A Äasto se vyskytujÃ­
+v pÅ™irodÄ›."
+#fact4 "NapÅ™Ã­klad mraky, hory
+#nebo pobÅ™eÅ¾Ã­."
+fact5 "Ale i hodnÄ› matematickÃ½ch
+konstrukcÃ­ jsou fraktÃ¡ly"
+fact6 "Jednu prÃ¡vÄ› sledujete na obrazovce"
 
-fmath4 "Mnoho fraktálù lze konstruovat
-iteraèním postupem"
-fmath5 "Napøíklad fraktál známı
-jako køivka von Kochové"
-fmath6 "vznikne zamìòováním úseèky"
-fmath7 "za ètyøi"
-fmath8 "Toto je první iterace"
-fmath9 "Nyní ale postup mù¾eme opakovat"
-fmath10 "a získat druhou,"
-fmath11 "tøetí,"
-fmath12 "a ètvrtou iteraci."
-fmath13 "Po nekoneèném poètu iterací
-vznikne fraktál,"
-fmath14 "kterı pøipomíná jednu tøetinu
-snìhové vloèky"
-tree1 "Mnoho jinıch tvrarù lze zkonstruovat
-podobnım postupem"
-tree2 "Napøíklad jinou zámìnou úseèky"
+fmath4 "Mnoho fraktÃ¡lÅ¯ lze konstruovat
+iteraÄnÃ­m postupem"
+fmath5 "NapÅ™Ã­klad fraktÃ¡l znÃ¡mÃ½
+jako kÅ™ivka von KochovÃ©"
+fmath6 "vznikne zamÄ›ÅˆovÃ¡nÃ­m ÃºseÄky"
+fmath7 "za ÄtyÅ™i"
+fmath8 "Toto je prvnÃ­ iterace"
+fmath9 "NynÃ­ ale postup mÅ¯Å¾eme opakovat"
+fmath10 "a zÃ­skat druhou,"
+fmath11 "tÅ™etÃ­,"
+fmath12 "a Ätvrtou iteraci."
+fmath13 "Po nekoneÄnÃ©m poÄtu iteracÃ­
+vznikne fraktÃ¡l,"
+fmath14 "kterÃ½ pÅ™ipomÃ­nÃ¡ jednu tÅ™etinu
+snÄ›hovÃ© vloÄky"
+tree1 "Mnoho jinÃ½ch tvrarÅ¯ lze zkonstruovat
+podobnÃ½m postupem"
+tree2 "NapÅ™Ã­klad jinou zÃ¡mÄ›nou ÃºseÄky"
 tree3 "vznikne strom"
-nstr "Iterace také mohou bıt zalo¾ené
-na náhodnıch èíslech"
-nstr2 "Zámìnou úseèky"
-nstr3 "za dvì s malou chybou"
-nstr4 "vznikne fraktál pøipomínající pobøe¾í"
-nstr5 "Podobnım postupem lze vytvoøit
-mraky, pohoøí a mnoho dal¹ích 
-tvarù z pøírody"
+nstr "Iterace takÃ© mohou bÃ½t zaloÅ¾enÃ©
+na nÃ¡hodnÃ½ch ÄÃ­slech"
+nstr2 "ZÃ¡mÄ›nou ÃºseÄky"
+nstr3 "za dvÄ› s malou chybou"
+nstr4 "vznikne fraktÃ¡l pÅ™ipomÃ­najÃ­cÃ­ pobÅ™eÅ¾Ã­"
+nstr5 "PodobnÃ½m postupem lze vytvoÅ™it
+mraky, pohoÅ™Ã­ a mnoho dalÅ¡Ã­ch 
+tvarÅ¯ z pÅ™Ã­rody"
 
 ############################################################################
 # mset.xaf
 
-fact7 "Nejznámìj¹í je..."
+fact7 "NejznÃ¡mÄ›jÅ¡Ã­ je..."
 
-mset "Mandelbrotova mno¾ina"
-mset1 "Je generována jednoduchım
-vırazem"
+mset "Mandelbrotova mnoÅ¾ina"
+mset1 "Je generovÃ¡na jednoduchÃ½m
+vÃ½razem"
 mset2 "Ale je to jeden
-z nejkrásnìj¹ích fraktálù"
-mset3 "Proto¾e je sobìpodobná,"
-mset4 "hranice mno¾iny obsahují"
-mset5 "miniaturní kopie celku"
-mset6 "Toto je nejvìt¹í kopie.
-Pouze pøibli¾nì 50krát zmen¹ená"
-mset7 "Mandelbrotova mno¾ina není
-èistì sobìpodobná"
-mset8 "Ka¾dá miniaturní kopie
-se li¹í"
-mset9 "Tato je 76000krát men¹í"
-mset10 "Kopie z jinıch èástí
-jsou odli¹nìj¹í."
+z nejkrÃ¡snÄ›jÅ¡Ã­ch fraktÃ¡lÅ¯"
+mset3 "ProtoÅ¾e je sobÄ›podobnÃ¡,"
+mset4 "hranice mnoÅ¾iny obsahujÃ­"
+mset5 "miniaturnÃ­ kopie celku"
+mset6 "Toto je nejvÄ›tÅ¡Ã­ kopie.
+Pouze pÅ™ibliÅ¾nÄ› 50krÃ¡t zmenÅ¡enÃ¡"
+mset7 "Mandelbrotova mnoÅ¾ina nenÃ­
+ÄistÄ› sobÄ›podobnÃ¡"
+mset8 "KaÅ¾dÃ¡ miniaturnÃ­ kopie
+se liÅ¡Ã­"
+mset9 "Tato je 76000krÃ¡t menÅ¡Ã­"
+mset10 "Kopie z jinÃ½ch ÄÃ¡stÃ­
+jsou odliÅ¡nÄ›jÅ¡Ã­."
 
-nat "Hranice mno¾iny
-neobsahují pouze miniaturní
+nat "Hranice mnoÅ¾iny
+neobsahujÃ­ pouze miniaturnÃ­
 kopie celku"
-nat1 "Ale i nekoneèné mno¾ství
-jinıch tvarù"
-nat2 "Nìkteré jsou neuvìøitelnì
-podobné tìm z pøírody"
-nat3 "Vypadají jako stromy,"
-nat4 "øeky a jezera,"
+nat1 "Ale i nekoneÄnÃ© mnoÅ¾stvÃ­
+jinÃ½ch tvarÅ¯"
+nat2 "NÄ›kterÃ© jsou neuvÄ›Å™itelnÄ›
+podobnÃ© tÄ›m z pÅ™Ã­rody"
+nat3 "VypadajÃ­ jako stromy,"
+nat4 "Å™eky a jezera,"
 nat5 "galaxie"
-nat6 "nebo vodopády"
-nat7 "Obsahuje ale i naprosto nové tvary"
+nat6 "nebo vodopÃ¡dy"
+nat7 "Obsahuje ale i naprosto novÃ© tvary"
 
-juliach "Úvod do fraktálù
+juliach "Ãšvod do fraktÃ¡lÅ¯
 
-Èást druhá - Juliova mno¾ina"
-julia "Mandelbrotova mno¾ina
-není jedinım fraktálem generovanım
-vırazem z=z^2+c,"
-julia1 "dal¹ím je"
-julia2 "Juliova mno¾ina"
-julia3 "Zajímavé je, ¾e není
-pouze jediná taková mno¾ina,"
+ÄŒÃ¡st druhÃ¡ - Juliova mnoÅ¾ina"
+julia "Mandelbrotova mnoÅ¾ina
+nenÃ­ jedinÃ½m fraktÃ¡lem generovanÃ½m
+vÃ½razem z=z^2+c,"
+julia1 "dalÅ¡Ã­m je"
+julia2 "Juliova mnoÅ¾ina"
+julia3 "ZajÃ­mavÃ© je, Å¾e nenÃ­
+pouze jedinÃ¡ takovÃ¡ mnoÅ¾ina,"
 julia4 "ale je jich hned
-nekoneènì mnoho"
-julia5 "Ka¾dá se li¹í pouze jednou hodnotou"
-julia6 "Bodem zvolenım v Mandelbrotovì mno¾ine"
-julia7 "Mandelbrotova mno¾ina je
-vpodstatì mapa Juliovıch mno¾in."
-julia8 "Body uvnitø mno¾iny mají
-Juliovy mno¾iny velké a spojité"
-julia9 "Body vnì mají Juliovy 
-mno¾iny nespojité"
-julia10 "Nejzajímavìj¹í jsou body
-na hranicích"
+nekoneÄnÄ› mnoho"
+julia5 "KaÅ¾dÃ¡ se liÅ¡Ã­ pouze jednou hodnotou"
+julia6 "Bodem zvolenÃ½m v MandelbrotovÄ› mnoÅ¾ine"
+julia7 "Mandelbrotova mnoÅ¾ina je
+vpodstatÄ› mapa JuliovÃ½ch mnoÅ¾in."
+julia8 "Body uvnitÅ™ mnoÅ¾iny majÃ­
+Juliovy mnoÅ¾iny velkÃ© a spojitÃ©"
+julia9 "Body vnÄ› majÃ­ Juliovy 
+mnoÅ¾iny nespojitÃ©"
+julia10 "NejzajÃ­mavÄ›jÅ¡Ã­ jsou body
+na hranicÃ­ch"
 
-theme "Téma juliovy mno¾iny zále¾í
-na bodu zvolém v Mandelbrotovì mno¾inì"
+theme "TÃ©ma juliovy mnoÅ¾iny zÃ¡leÅ¾Ã­
+na bodu zvolÃ©m v MandelbrotovÄ› mnoÅ¾inÄ›"
 
-theme1 "Ve zmen¹ení jsou
-detaily kolem zvoleného bodu"
+theme1 "Ve zmenÅ¡enÃ­ jsou
+detaily kolem zvolenÃ©ho bodu"
 
-theme2 "velmi podobné s Mandlebrotovou mno¾inou."
-theme3 "Po zmen¹ení ale zjistíte"
-theme4 "¾e se jedná o úplnì jinı fraktál"
-theme5 "Juliovy mno¾iny na první pohled
-vypadají nudnì, proto¾e se téma nemìní"
-theme6 "Zùstává to zvolené 
-v Mandelbrotové mno¾inì"
-theme7 "Peèlivım vıbìrem bodu lze
-ale získat"
-theme8 "zajímavé obrázky"
+theme2 "velmi podobnÃ© s Mandlebrotovou mnoÅ¾inou."
+theme3 "Po zmenÅ¡enÃ­ ale zjistÃ­te"
+theme4 "Å¾e se jednÃ¡ o ÃºplnÄ› jinÃ½ fraktÃ¡l"
+theme5 "Juliovy mnoÅ¾iny na prvnÃ­ pohled
+vypadajÃ­ nudnÄ›, protoÅ¾e se tÃ©ma nemÄ›nÃ­"
+theme6 "ZÅ¯stÃ¡vÃ¡ to zvolenÃ© 
+v MandelbrotovÃ© mnoÅ¾inÄ›"
+theme7 "PeÄlivÃ½m vÃ½bÄ›rem bodu lze
+ale zÃ­skat"
+theme8 "zajÃ­mavÃ© obrÃ¡zky"
 
 #########################################################
 #For file keys.xhf
 
-keys "Klávesy:
+keys "KlÃ¡vesy:
 
-q            - Konec pøehrávání       
-Space        - urychlení              
-               (mù¾e chvíli trvat)    
-vlevo/vpravo - zmìna rychlosti titulkù"
+q            - Konec pÅ™ehrÃ¡vÃ¡nÃ­       
+Space        - urychlenÃ­              
+               (mÅ¯Å¾e chvÃ­li trvat)    
+vlevo/vpravo - zmÄ›na rychlosti titulkÅ¯"
 
 #########################################################
 #For file magnet.xaf
 
-intro7 "Úvod do fraktálù
+intro7 "Ãšvod do fraktÃ¡lÅ¯
 
-Èást osmá - Magnet"
+ÄŒÃ¡st osmÃ¡ - Magnet"
 
-magnet "Toto není Mandelbrotova mno¾ina"
-magnet1 "Tento fraktál se nazıvá magnet,
-proto¾e pochází z teoretické
+magnet "Toto nenÃ­ Mandelbrotova mnoÅ¾ina"
+magnet1 "Tento fraktÃ¡l se nazÃ½vÃ¡ magnet,
+protoÅ¾e pochÃ¡zÃ­ z teoretickÃ©
 fyziky"
-magnet2 "Vychází ze studie
-magnetickıch renormalizaèních
-transformací"
+magnet2 "VychÃ¡zÃ­ ze studie
+magnetickÃ½ch renormalizaÄnÃ­ch
+transformacÃ­"
 
 similiar "Podobnost s Mandelbrotovou
-mno¾inou je zajímavá, proto¾e to
-u¾ není pouze matematická høièka."
+mnoÅ¾inou je zajÃ­mavÃ¡, protoÅ¾e to
+uÅ¾ nenÃ­ pouze matematickÃ¡ hÅ™iÄka."
 
-magjulia "Má neobvyklé juliovy mno¾iny"
+magjulia "MÃ¡ neobvyklÃ© juliovy mnoÅ¾iny"
 
 #########################################################
 #For file new.xaf
 
-new "Co je nového ve verzi 3.0?"
-speed "1. Je rychlej¹í1"
-speed1 "Hlavní vıpoèetní smyèka
-nyní hledá periody a dìlá nìkolik
-iterací najednou"
-speed2 "Nové fraktály se poèitají
-pomocí metody \"boundary detection\""
-speed3 "Vıpoèet novıch fraktálù je proto
-mnohem rychlej¹í."
-speed4 "Napøíklad Mandelbrotova
-mno¾ina pøi 1 000 000 iterací"
-speed5 "poèítám..."
+new "Co je novÃ©ho ve verzi 3.0?"
+speed "1. Je rychlejÅ¡Ã­1"
+speed1 "HlavnÃ­ vÃ½poÄetnÃ­ smyÄka
+nynÃ­ hledÃ¡ periody a dÄ›lÃ¡ nÄ›kolik
+iteracÃ­ najednou"
+speed2 "NovÃ© fraktÃ¡ly se poÄitajÃ­
+pomocÃ­ metody \"boundary detection\""
+speed3 "VÃ½poÄet novÃ½ch fraktÃ¡lÅ¯ je proto
+mnohem rychlejÅ¡Ã­."
+speed4 "NapÅ™Ã­klad Mandelbrotova
+mnoÅ¾ina pÅ™i 1 000 000 iteracÃ­"
+speed5 "poÄÃ­tÃ¡m..."
 speed6 "Hotovo"
-speed7 "XaoS má heruistiku
-a nehledá periody 
-tam, kde je neoèekává.
-(¾ádné takové kolem nejsou)"
-speed8 "Take hlavní rutinky byly
-optimalizovány a jsou dvakrát
-rychlej¹í"
-speed9 "Tak¾e nyní dosahuje 130FPS
+speed7 "XaoS mÃ¡ heruistiku
+a nehledÃ¡ periody 
+tam, kde je neoÄekÃ¡vÃ¡.
+(Å¾Ã¡dnÃ© takovÃ© kolem nejsou)"
+speed8 "Take hlavnÃ­ rutinky byly
+optimalizovÃ¡ny a jsou dvakrÃ¡t
+rychlejÅ¡Ã­"
+speed9 "TakÅ¾e nynÃ­ dosahuje 130FPS
 na 130Mhz pentiu"
 
 new2 "2. filtry"
-new3 "3. devìt outcoloring modù"
-new4 "4. nové incoloring mody"
+new3 "3. devÄ›t outcoloring modÅ¯"
+new4 "4. novÃ© incoloring mody"
 new5 "5. Truecolor coloring mody"
-new6 "6. Pøehrávání a ukládání animací"
-newend "A dal¹í zmìny jako rotace, lep¹í
-nahodné palety apod. Kompletní seznam
-zmìn je v souboru ChangeLog"
+new6 "6. PÅ™ehrÃ¡vÃ¡nÃ­ a uklÃ¡dÃ¡nÃ­ animacÃ­"
+newend "A dalÅ¡Ã­ zmÄ›ny jako rotace, lepÅ¡Ã­
+nahodnÃ© palety apod. KompletnÃ­ seznam
+zmÄ›n je v souboru ChangeLog"
 
 #########################################################
 #For file newton.xaf
 
-intro3 "Úvod do fraktálù
+intro3 "Ãšvod do fraktÃ¡lÅ¯
 
-Èást ètvrtá-Newtonova metoda"
-newton "Tento fraktál je generovanı
-uplnì jinım vıpoètem"
-newton1 "Newtonovou aproximaèní metodou
-pro hledání koøenù polynomu x^3=1"
-newton2 "Sleduje se poèet iterací
-nutnı k dosa¾ení pøibli¾ného vısledku"
-newton3 "Tøi koøeny mù¾ete vidìt jako
-modré koleèka"
-newton4 "Nejzajímavìj¹í jsou ale
-èásti, kde si vıpoèet nebyl jistı,
-ke kterému koøenu se vydá"
-newton5 "Fraktál je velmi sobìpodobnı
-a tak tu u¾ nic moc nového nenajdete"
-newton6 "Ale je mo¾né vygenerovat
-\"skoro-Juliovy\" mno¾iny"
-newton7 "Kde se zvolenı bod
-pøiète jako chyba pøi aproximaci"
-newton8 "To vnese do vıpoètu nepoøadek
-a uèiní fraktál zajímavìj¹ím"
+ÄŒÃ¡st ÄtvrtÃ¡-Newtonova metoda"
+newton "Tento fraktÃ¡l je generovanÃ½
+uplnÄ› jinÃ½m vÃ½poÄtem"
+newton1 "Newtonovou aproximaÄnÃ­ metodou
+pro hledÃ¡nÃ­ koÅ™enÅ¯ polynomu x^3=1"
+newton2 "Sleduje se poÄet iteracÃ­
+nutnÃ½ k dosaÅ¾enÃ­ pÅ™ibliÅ¾nÃ©ho vÃ½sledku"
+newton3 "TÅ™i koÅ™eny mÅ¯Å¾ete vidÄ›t jako
+modrÃ© koleÄka"
+newton4 "NejzajÃ­mavÄ›jÅ¡Ã­ jsou ale
+ÄÃ¡sti, kde si vÃ½poÄet nebyl jistÃ½,
+ke kterÃ©mu koÅ™enu se vydÃ¡"
+newton5 "FraktÃ¡l je velmi sobÄ›podobnÃ½
+a tak tu uÅ¾ nic moc novÃ©ho nenajdete"
+newton6 "Ale je moÅ¾nÃ© vygenerovat
+\"skoro-Juliovy\" mnoÅ¾iny"
+newton7 "Kde se zvolenÃ½ bod
+pÅ™iÄte jako chyba pÅ™i aproximaci"
+newton8 "To vnese do vÃ½poÄtu nepoÅ™adek
+a uÄinÃ­ fraktÃ¡l zajÃ­mavÄ›jÅ¡Ã­m"
 
 #########################################################
 #For file octo.xaf
-intro6 "Úvod do fraktálù
+intro6 "Ãšvod do fraktÃ¡lÅ¯
 
-Èást sedmá-Octo"
+ÄŒÃ¡st sedmÃ¡-Octo"
 octo "Octo je jeden 
-z ménì známych fraktálù"
+z mÃ©nÄ› znÃ¡mych fraktÃ¡lÅ¯"
 octo1 "Vybrali jsme jej,
-proto¾e má neobvyklı tvar"
-octo2 "Podobnì jako u Newtonova
-fraktálu XaoS umí generovat
-\"skoro-Juliovy\" mno¾iny"
+protoÅ¾e mÃ¡ neobvyklÃ½ tvar"
+octo2 "PodobnÄ› jako u Newtonova
+fraktÃ¡lu XaoS umÃ­ generovat
+\"skoro-Juliovy\" mnoÅ¾iny"
 
 #########################################################
 #For file outcolor.xaf
 
 outcolor "Out coloring modes"
-outcolor1 "Mandelbrotova mno¾ina
-je to o¹klivé èerné uprostøed
+outcolor1 "Mandelbrotova mnoÅ¾ina
+je to oÅ¡klivÃ© ÄernÃ© uprostÅ™ed
 obrazovky"
-outcolor2 "Barevna vìc okolo jsou
+outcolor2 "Barevna vÄ›c okolo jsou
 pouze hranice"
-outcolor3 "Normálnì se barva urèuje
-podle poètu iterací nutnıch
-k dosa¾ení limitu"
-outcolor4 "Ale jsou i jiné cesty"
-outcolor5 "XaoS je nazıvá
+outcolor3 "NormÃ¡lnÄ› se barva urÄuje
+podle poÄtu iteracÃ­ nutnÃ½ch
+k dosaÅ¾enÃ­ limitu"
+outcolor4 "Ale jsou i jinÃ© cesty"
+outcolor5 "XaoS je nazÃ½vÃ¡
 \"outcoloring modes\""
 
 iterreal "iter+real
 
-K obarvení pøiète reálnou èást
-posledního orbitu k poètu iterací"
-iterreal1 "Nìkteré nudnìj¹í obrázky
-tím lze vylep¹it"
+K obarvenÃ­ pÅ™iÄte reÃ¡lnou ÄÃ¡st
+poslednÃ­ho orbitu k poÄtu iteracÃ­"
+iterreal1 "NÄ›kterÃ© nudnÄ›jÅ¡Ã­ obrÃ¡zky
+tÃ­m lze vylepÅ¡it"
 
-iterimag "Dal¹í coloring mode-iter+imag
-má podobné vısledky"
-iterimag2 "Není se èemu divit -
-jedinı rozdíl je, ¾e pøièíta
-imaginární èást orbitu"
+iterimag "DalÅ¡Ã­ coloring mode-iter+imag
+mÃ¡ podobnÃ© vÃ½sledky"
+iterimag2 "NenÃ­ se Äemu divit -
+jedinÃ½ rozdÃ­l je, Å¾e pÅ™iÄÃ­ta
+imaginÃ¡rnÃ­ ÄÃ¡st orbitu"
 
 iprdi "iter+real/imag
 
-Zde se pøiète realná èást posledního
-orbitu vydìlená imaginarní k poètu
-iterací"
+Zde se pÅ™iÄte realnÃ¡ ÄÃ¡st poslednÃ­ho
+orbitu vydÄ›lenÃ¡ imaginarnÃ­ k poÄtu
+iteracÃ­"
 
 sum "iter+real+imag+real/imag
 
-A toto je souèet v¹ech pøedchozích"
+A toto je souÄet vÅ¡ech pÅ™edchozÃ­ch"
 
 decomp "binarry decompossition
 
-Pokud je imaginární èást
-men¹í ne¾ nula, odeète se
-poèet iterací od maximálního
-poètu iterací, jinak se pou¾íva
-poèet iterací"
+Pokud je imaginÃ¡rnÃ­ ÄÃ¡st
+menÅ¡Ã­ neÅ¾ nula, odeÄte se
+poÄet iteracÃ­ od maximÃ¡lnÃ­ho
+poÄtu iteracÃ­, jinak se pouÅ¾Ã­va
+poÄet iteracÃ­"
 
 bio "Biomorphs
 
-Tento re¾im se tak jmenuje proto,
-¾e nìkteré fraktály potom vypadají
-jako jednobunìèní ¾ivoèichové"
+Tento reÅ¾im se tak jmenuje proto,
+Å¾e nÄ›kterÃ© fraktÃ¡ly potom vypadajÃ­
+jako jednobunÄ›ÄnÃ­ Å¾ivoÄichovÃ©"
 
 #########################################################
 #For file outnew.xhf
 
 potential "Potential
 
-Tento re¾im vypdá nejlépe
-v true-color re¾imu"
+Tento reÅ¾im vypdÃ¡ nejlÃ©pe
+v true-color reÅ¾imu"
 
 cdecom "color decompossition"
-cdecom2 "Barva se vypoète
-podle úhlu posledního orbitu"
-cdecom3 "Je podobná binární
-dekompozici ale barva pøechází
+cdecom2 "Barva se vypoÄte
+podle Ãºhlu poslednÃ­ho orbitu"
+cdecom3 "Je podobnÃ¡ binÃ¡rnÃ­
+dekompozici ale barva pÅ™echÃ¡zÃ­
 plynule"
-cdecom4 "V Newtonovì fraktálu
-obarvuje bod podle koøenu, ke
-kterému se pøibli¾uje a ne podle
-poètu iterací"
+cdecom4 "V NewtonovÄ› fraktÃ¡lu
+obarvuje bod podle koÅ™enu, ke
+kterÃ©mu se pÅ™ibliÅ¾uje a ne podle
+poÄtu iteracÃ­"
 
 smooth "smooth
 
-Tento re¾im se pokou¹í
-vytvoøit plynulé pøechody
-a zarovnat skoky zpùsobené
-zmìnou poètu iterací"
-smooth1 "Nefunguje na fraktálech
+Tento reÅ¾im se pokouÅ¡Ã­
+vytvoÅ™it plynulÃ© pÅ™echody
+a zarovnat skoky zpÅ¯sobenÃ©
+zmÄ›nou poÄtu iteracÃ­"
+smooth1 "Nefunguje na fraktÃ¡lech
 Newton a Magnet"
-smooth2 "Funguje také
+smooth2 "Funguje takÃ©
 pouze v true-coloru proto
-si zapnìte truecolor filtr
-pokud jej nemáte"
+si zapnÄ›te truecolor filtr
+pokud jej nemÃ¡te"
 
 #########################################################
 #For file outnew.xhf
 
-intro5 "Úvod do fraktálù
+intro5 "Ãšvod do fraktÃ¡lÅ¯
 
-Èást ¹está - Phoenix"
+ÄŒÃ¡st Å¡estÃ¡ - Phoenix"
 
-phoenix "Toto je Mandelbrotova mno¾ina
-pro formuli známou jako Phoenix"
+phoenix "Toto je Mandelbrotova mnoÅ¾ina
+pro formuli znÃ¡mou jako Phoenix"
 
-phoenix1 "Vypadá trochu jinak ne¾
-ostatní fraktály v XaoSovi ale je
-mo¾ne najít jistou podobnost
-s Mandelbrotovou mno¾inou"
+phoenix1 "VypadÃ¡ trochu jinak neÅ¾
+ostatnÃ­ fraktÃ¡ly v XaoSovi ale je
+moÅ¾ne najÃ­t jistou podobnost
+s Mandelbrotovou mnoÅ¾inou"
 
-phoenix2 "Také obsahuje \"anténu\" vepøedu"
+phoenix2 "TakÃ© obsahuje \"antÃ©nu\" vepÅ™edu"
 
-phoenix3 "Poøád téma Jiliovy mno¾iny
-odpovídá tématu kolem zvoleného bodu,"
+phoenix3 "PoÅ™Ã¡d tÃ©ma Jiliovy mnoÅ¾iny
+odpovÃ­dÃ¡ tÃ©matu kolem zvolenÃ©ho bodu,"
 
-phoenix4 "ale Juliovy mno¾iny vypadají
+phoenix4 "ale Juliovy mnoÅ¾iny vypadajÃ­
 docela jinak"
 
 #########################################################
 #For file plane.xaf
 
-plane1 "Normálnì realná souøadnice
-bodu odpovídá x-ové souradnici na
-obrazovce a imaginární y-ové"
+plane1 "NormÃ¡lnÄ› realnÃ¡ souÅ™adnice
+bodu odpovÃ­dÃ¡ x-ovÃ© souradnici na
+obrazovce a imaginÃ¡rnÃ­ y-ovÃ©"
 
-plane2 "XaoS má ale i 6 dal¹ích metod"
+plane2 "XaoS mÃ¡ ale i 6 dalÅ¡Ã­ch metod"
 plane3 "1/mu
 
-Kruhová inverse - èásti z nekoneèna
-jdou no nuly a nula do nekoneèna"
-plane4 "Toto je normální
-Mandelbrotova mno¾ina"
+KruhovÃ¡ inverse - ÄÃ¡sti z nekoneÄna
+jdou no nuly a nula do nekoneÄna"
+plane4 "Toto je normÃ¡lnÃ­
+Mandelbrotova mnoÅ¾ina"
 plane5 "A toto po inversi"
-plane6 "Mno¾ina byla ve støedu,
-proto je nyní v¹ude kolem a
-nekoneèná modrá oblast kolem
-je teï malé koleèko uprostøed"
-plane7 "Dal¹í obrázky budou
-poka¾dé ukázávny normálnì
+plane6 "MnoÅ¾ina byla ve stÅ™edu,
+proto je nynÃ­ vÅ¡ude kolem a
+nekoneÄnÃ¡ modrÃ¡ oblast kolem
+je teÄ malÃ© koleÄko uprostÅ™ed"
+plane7 "DalÅ¡Ã­ obrÃ¡zky budou
+pokaÅ¾dÃ© ukÃ¡zÃ¡vny normÃ¡lnÄ›
 a po inversi"
 
 plane8 "1/mu+0.25
 
-Zobrazení je podobné inversi, 
-pouze støed je posunut"
-plane9 "Proto¾e støed je
-na hranici mno¾iny, zobrazila
-se jako nekoneèná parabola"
-plane10 "Zajímavì skresluje i jiné fraktály,
-proto¾e robíjí jejich symetrii"
+ZobrazenÃ­ je podobnÃ© inversi, 
+pouze stÅ™ed je posunut"
+plane9 "ProtoÅ¾e stÅ™ed je
+na hranici mnoÅ¾iny, zobrazila
+se jako nekoneÄnÃ¡ parabola"
+plane10 "ZajÃ­mavÄ› skresluje i jinÃ© fraktÃ¡ly,
+protoÅ¾e robÃ­jÃ­ jejich symetrii"
 
-lambda "Zobrazení lambda"
+lambda "ZobrazenÃ­ lambda"
 
 ilambda "1/lambda
 
@@ -778,114 +778,114 @@ Kombinace inverze a lambdy"
 imlambda "1/(lambda-1)
 
 Kombinace inverze,
-posunutí a lambdy"
+posunutÃ­ a lambdy"
 
-imlambda2 "Zpùsobuje zajímavou
-deformaci Mandelbrotovy mno¾iny"
+imlambda2 "ZpÅ¯sobuje zajÃ­mavou
+deformaci Mandelbrotovy mnoÅ¾iny"
 
 mick "1/(mu-1.40115)
 
-A opìt inverze s posunitím,
-nyní posunuta do speciálního
-bodu Mandelbrotovy mno¾iny.
-V okolí tohoto bodu je mno¾ina
-sobìpodobná. Toto skreslení
-zvìt¹uje tuto èást"
+A opÄ›t inverze s posunitÃ­m,
+nynÃ­ posunuta do speciÃ¡lnÃ­ho
+bodu Mandelbrotovy mnoÅ¾iny.
+V okolÃ­ tohoto bodu je mnoÅ¾ina
+sobÄ›podobnÃ¡. Toto skreslenÃ­
+zvÄ›tÅ¡uje tuto ÄÃ¡st"
 
 #########################################################
 #For file power.xaf
 
-intro2 "Úvod do fraktálù
+intro2 "Ãšvod do fraktÃ¡lÅ¯
 
-Èást tøetí-Mandelbrotovy mno¾iny 
-vy¹¹ích øádù"
+ÄŒÃ¡st tÅ™etÃ­-Mandelbrotovy mnoÅ¾iny 
+vyÅ¡Å¡Ã­ch Å™Ã¡dÅ¯"
 
-power "z^2+c není jedinı vzorec
-generující fraktál"
-power2 "Jenom trochu upravenı - x^3+c
-generuje fraktál také"
-power3 "Ten samozøejmì také obsahuje
-kopie hlavni no¾iny"
+power "z^2+c nenÃ­ jedinÃ½ vzorec
+generujÃ­cÃ­ fraktÃ¡l"
+power2 "Jenom trochu upravenÃ½ - x^3+c
+generuje fraktÃ¡l takÃ©"
+power3 "Ten samozÅ™ejmÄ› takÃ© obsahuje
+kopie hlavni noÅ¾iny"
 
-power4 "Dal¹í takové fraktály
-vzniknou upravenımi vzorci"
+power4 "DalÅ¡Ã­ takovÃ© fraktÃ¡ly
+vzniknou upravenÃ½mi vzorci"
 
-pjulia "A ka¾dá taková mno¾ina 
-má odpovidající Juliovy mno¾iny"
+pjulia "A kaÅ¾dÃ¡ takovÃ¡ mnoÅ¾ina 
+mÃ¡ odpovidajÃ­cÃ­ Juliovy mnoÅ¾iny"
 
 #########################################################
 #For file truecolor.xaf
 
 truecolor "Truecolor coloring modes"
-truecolor1 "Normálnì se fraktály
-obarvují pomocí palety. V truecoloru
+truecolor1 "NormÃ¡lnÄ› se fraktÃ¡ly
+obarvujÃ­ pomocÃ­ palety. V truecoloru
 se paleta emuluje"
-truecolor2 "Jedinı rozdíl je,
-¾e paleta je vìt¹í a barvy
-se plynule interpolují"
+truecolor2 "JedinÃ½ rozdÃ­l je,
+Å¾e paleta je vÄ›tÅ¡Ã­ a barvy
+se plynule interpolujÃ­"
 truecolor3 "Truecolor coloring mode
-má úplnì jinı pøístup. Pou¾ívá
-rùzné hodnoty z vypoètu,"
-truecolor4 "k vıpoètu pøímo barvy,
-nejenom pozice v paletì"
-truecolor5 "To umo¾òuje zobrazit
-a¾ ètyøi hodnoty v jednom bodì"
+mÃ¡ ÃºplnÄ› jinÃ½ pÅ™Ã­stup. PouÅ¾Ã­vÃ¡
+rÅ¯znÃ© hodnoty z vypoÄtu,"
+truecolor4 "k vÃ½poÄtu pÅ™Ã­mo barvy,
+nejenom pozice v paletÄ›"
+truecolor5 "To umoÅ¾Åˆuje zobrazit
+aÅ¾ ÄtyÅ™i hodnoty v jednom bodÄ›"
 truecolor6 "Truecolor coloring
-mode vy¾aduje truecolor. Pokud
-ho nemáte, zapnìte si laskavì
+mode vyÅ¾aduje truecolor. Pokud
+ho nemÃ¡te, zapnÄ›te si laskavÄ›
 truecolor filtr"
 
 #########################################################
 #For file pert.xaf
 
 pert0 "Perturbation"
-pert1 "Podobnì jako u Juliovy
-mno¾iny mù¾ete mìnit parametr
-pro generování"
-pert2 "Je mo¾né v Mandelbrotovì
-mno¾inì mìnit parametr jménem
+pert1 "PodobnÄ› jako u Juliovy
+mnoÅ¾iny mÅ¯Å¾ete mÄ›nit parametr
+pro generovÃ¡nÃ­"
+pert2 "Je moÅ¾nÃ© v MandelbrotovÄ›
+mnoÅ¾inÄ› mÄ›nit parametr jmÃ©nem
 \"perturbation\""
-pert3 "Ovlivní se tím startovní
-pozice orbitu, která je obvykle [0,0]"
-pert4 "Nedìlá tak zajímavé zmìny
-jako parametr Juliovy Mno¾iny,
-ale je tím mo¾né fraktál udìlat
-náhodnìj¹í."
+pert3 "OvlivnÃ­ se tÃ­m startovnÃ­
+pozice orbitu, kterÃ¡ je obvykle [0,0]"
+pert4 "NedÄ›lÃ¡ tak zajÃ­mavÃ© zmÄ›ny
+jako parametr Juliovy MnoÅ¾iny,
+ale je tÃ­m moÅ¾nÃ© fraktÃ¡l udÄ›lat
+nÃ¡hodnÄ›jÅ¡Ã­."
 
 #########################################################
 #For file palette.xaf
 
-pal "Náhodné palety"
-pal0 "XaoS nemá ¾ádné ruènì
-definované palety jako
-vìt¹ina ostatních programù
-generujicí fraktály,
-místo toho je generuje náhodnì"
-pal1 "Jednodu¹e maèkejte 'P'
-tak dlouho, dokud si nìjakou
-z nabízenıch palet nevyberete"
-pal2 "Jsou pou¾ity tøi algoritmy"
-pal3 "První dìlá pøechody 
-z èerné do náhodne barvy"
-pal4 "Druhı pøechod z èerné do barvy
-a potom do bílé"
-pal5 "Tøetí je inspirován
-kubistickımi obrazy"
+pal "NÃ¡hodnÃ© palety"
+pal0 "XaoS nemÃ¡ Å¾Ã¡dnÃ© ruÄnÄ›
+definovanÃ© palety jako
+vÄ›tÅ¡ina ostatnÃ­ch programÅ¯
+generujicÃ­ fraktÃ¡ly,
+mÃ­sto toho je generuje nÃ¡hodnÄ›"
+pal1 "JednoduÅ¡e maÄkejte 'P'
+tak dlouho, dokud si nÄ›jakou
+z nabÃ­zenÃ½ch palet nevyberete"
+pal2 "Jsou pouÅ¾ity tÅ™i algoritmy"
+pal3 "PrvnÃ­ dÄ›lÃ¡ pÅ™echody 
+z ÄernÃ© do nÃ¡hodne barvy"
+pal4 "DruhÃ½ pÅ™echod z ÄernÃ© do barvy
+a potom do bÃ­lÃ©"
+pal5 "TÅ™etÃ­ je inspirovÃ¡n
+kubistickÃ½mi obrazy"
 
 #########################################################
 #For file other.xaf
 
 auto1 "Autopilot"
-auto2 "Ti línìj¹í mù¾ou jednodu¹e
+auto2 "Ti lÃ­nÄ›jÅ¡Ã­ mÅ¯Å¾ou jednoduÅ¡e
 zapnout autopilota a nechat
-XaoS zkoumat fraktál automaticky"
-fastjulia1 "Re¾im pro vıbìr Juliovy mno¾iny"
-fastjulia2 "V tomto re¾imu mù¾ete mìnit
-parametr Juliovy mno¾iny plynule"
-fastjulia3 "Díky podobnosti s okolím
-bodu v Mandelbrotovì mno¾inì je také
-jej mo¾né pou¾ít jako preview bodu
-pøed tím, ne¾ tam zaènete zoomovat"
+XaoS zkoumat fraktÃ¡l automaticky"
+fastjulia1 "ReÅ¾im pro vÃ½bÄ›r Juliovy mnoÅ¾iny"
+fastjulia2 "V tomto reÅ¾imu mÅ¯Å¾ete mÄ›nit
+parametr Juliovy mnoÅ¾iny plynule"
+fastjulia3 "DÃ­ky podobnosti s okolÃ­m
+bodu v MandelbrotovÄ› mnoÅ¾inÄ› je takÃ©
+jej moÅ¾nÃ© pouÅ¾Ã­t jako preview bodu
+pÅ™ed tÃ­m, neÅ¾ tam zaÄnete zoomovat"
 rotation "Rotace obrazu"
 cycling "Rotace palety"
 

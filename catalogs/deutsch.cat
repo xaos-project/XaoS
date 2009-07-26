@@ -1,7 +1,7 @@
-# Katalogdatei für die Wiedergabe der XaoS-Tutorials auf deutsch.
+# Katalogdatei fÃ¼r die Wiedergabe der XaoS-Tutorials auf deutsch.
 #
 # Copyright (C) 1997 by Jan Hubicka
-# Übersetzung von Jens Kilian <jjk@acm.org>
+# Ãœbersetzung von Jens Kilian <jjk@acm.org>
 #
 # Falls Sie Xaos diese Datei modifizieren wollen, sollten Sie folgendes beachten:
 #
@@ -9,16 +9,16 @@
 # identifikator[leerzeichen]"wert"[leerzeichen]
 #
 # Der Identifikator ist ein kurzer Text, der in den Tutorials benutzt wird
-# und nicht übersetzt werden darf. Nur der Wert sollte geändert werden.
-# Verwenden Sie \" anstelle von " und \\ anstelle von \. Zeilenumbrüche
+# und nicht Ã¼bersetzt werden darf. Nur der Wert sollte geÃ¤ndert werden.
+# Verwenden Sie \" anstelle von " und \\ anstelle von \. ZeilenumbrÃ¼che
 # direkt eingeben (nicht mit \n).
 #
-# Sie können die Texte verkürzen oder verlängern; XaoS passt die
+# Sie kÃ¶nnen die Texte verkÃ¼rzen oder verlÃ¤ngern; XaoS passt die
 # Darstellungszeit automatisch an. Beachten Sie, dass der Text auf einen
 # 320x200 Pixel grossen Bildschirm passen sollte; dazu sollte keine Zeile
-# länger als 40 Zeichen sein. Das ist nicht viel:
+# lÃ¤nger als 40 Zeichen sein. Das ist nicht viel:
 #234567890123456789012345678901234567890
-# Bitte kontrollieren Sie, ob sich die Tutorials bei einer Auflösung von
+# Bitte kontrollieren Sie, ob sich die Tutorials bei einer AuflÃ¶sung von
 # 320x200 noch darstellen lassen.
 #
 # Wenn Sie Fehler in dieser Datei finden, lassen Sie es mich bitte wissen.
@@ -28,18 +28,18 @@
 fmath "Die Mathematik hinter Fraktalen"
 fmath1 "Fraktale Geometrie ist ein sehr junges
 Gebiet der Mathematik, weshalb hier
-noch viele Fragen ungelöst sind."
+noch viele Fragen ungelÃ¶st sind."
 fmath2 "Sogar die Definitionen sind unklar."
 fmath3 "Normalerweise nennen wir etwas fraktal,
-wenn eine gewisse Selbstähnlichkeit
+wenn eine gewisse SelbstÃ¤hnlichkeit
 gefunden werden kann.  "
 
-def1 "Eine der möglichen Definitionen ist:"
+def1 "Eine der mÃ¶glichen Definitionen ist:"
 #Definition from the intro.xaf is displayed here.
 #If it is a problem in your langage catalog, let me
 #know and I will create a special key
 def2 "Was heisst das?"
-def3 "Um dies zu erklären, müssen wir zuerst
+def3 "Um dies zu erklÃ¤ren, mÃ¼ssen wir zuerst
 verstehen, was die topologische- und
 die Hausdorff-Besicovich-Dimension
 sind."
@@ -48,20 +48,20 @@ topo1 "Die topologische Dimension
 ist die \"normale\" Dimension."
 topo2 "Ein Punkt hat 0 Dimensionen"
 topo3 "Eine Linie hat 1 Dimension"
-topo4 "Eine Fläche hat 2, usw."
+topo4 "Eine FlÃ¤che hat 2, usw."
 
 hb1 "Die Definition der
 Hausdorff-Besicovich-Dimension
 kommt von der einfachen Tatsache, dass"
 hb2 "eine Linie die so gezoomt wird,
-dass sich ihre Länge verdoppelt,
+dass sich ihre LÃ¤nge verdoppelt,
 danach zwei mal so lang ist,
 wie sie vorher war."
-hb3 "Andererseits wächst die Ausdehnung
+hb3 "Andererseits wÃ¤chst die Ausdehnung
 eines Quadrates, das in gleicher Weise
 gezoomt wird, um den Faktor vier."
-hb4 "Ähnliche Regeln funktionieren auch
-für Objekte, die sich in mehrere
+hb4 "Ã„hnliche Regeln funktionieren auch
+fÃ¼r Objekte, die sich in mehrere
 Dimensionen ausdehnen."
 hb5 "Um Dimensionen mit Hilfe dieser
 Tatsache zu berechnen, kann folgende
@@ -70,15 +70,15 @@ hb6 "Dimension = log s / log z,
 wobei z dem Zoomfaktor
 und s der Ausdehnung entspricht"
 hb7 "Wird eine Linie um den Faktor 2
-gezoomt, ändert auch die Ausdehnung
+gezoomt, Ã¤ndert auch die Ausdehnung
 um den Faktor 2.
 log 2 / log 2 = 1"
 hb8 "Wird ein Quadrat um den Faktor 2
-gezoomt, ändert die Ausdehnung um den
+gezoomt, Ã¤ndert die Ausdehnung um den
 Faktor 4.
 log 4 / log 2 = 2"
-hb9 "Diese Definition führt zu den
-erwarteten Resultaten für normale
+hb9 "Diese Definition fÃ¼hrt zu den
+erwarteten Resultaten fÃ¼r normale
 Formen."
 hb10 "Interessanter wird es bei Fraktalen."
 hb11 "Sehen Sie sich die so genannte kochsche
@@ -88,28 +88,28 @@ drei gleiche Abschnitte teilt und den
 Mittleren durch zwei ebenso lange
 Abschnitte ersetzt und diesen Vorgang
 beliebig oft wiederholt."
-hb13 "Die neuen Linien haben 1/3 der Grösse
-der ursprünglichen Linie."
+hb13 "Die neuen Linien haben 1/3 der GrÃ¶sse
+der ursprÃ¼nglichen Linie."
 hb14 "Nach dem Zoomen um den Faktor 3,
 sind diese Linien exakt gleich lang
-wie die ursprüngliche Linie."
-hb15 "Wegen der Selbstähnlichkeit, die durch
+wie die ursprÃ¼ngliche Linie."
+hb15 "Wegen der SelbstÃ¤hnlichkeit, die durch
 unendlich wiederholtes Teilen entsteht,"
 hb15b "wird jedes dieser Teile eine exakte
-Kopie des ursprünglichen Fraktals."
+Kopie des ursprÃ¼nglichen Fraktals."
 hb16 "Weil beim Teilen vier solche Kopien
-entstehen, wächst die Ausdehnung des
+entstehen, wÃ¤chst die Ausdehnung des
 Fraktals um den Faktor 4."
 hb17 "Nun setzen wir diesen Wert in unsere
 Gleichung ein:
 log 4 / log 3 = 1.261"
-hb18 "Wir erhalten einen Wert der grösser als
+hb18 "Wir erhalten einen Wert der grÃ¶sser als
 1 (die topologische Dimension der
 Kurve) ist."
 hb19 "Die Hausdorff-Besicovich-Dimension
-(1.261) ist grösser als die
+(1.261) ist grÃ¶sser als die
 topologische Dimension."
-hb20 "Gemäss dieser Definition 
+hb20 "GemÃ¤ss dieser Definition 
 ist die Schneeflockenkurve ein Fraktal."
 
 defe1 "Diese Definition ist jedoch nicht
@@ -117,7 +117,7 @@ perfekt, da sie eine Menge Formen
 ausschliesst, die auch Fraktale sind."
 defe2 "Aber sie zeigt eine der interessanten
 Eigenschaften von Fraktalen"
-defe3 "und sie ist sehr populär."
+defe3 "und sie ist sehr populÃ¤r."
 defe4 "Die-Hausdorff-Besicovich Dimension
 wird auch \"fraktale Dimension\"
 genannt."
@@ -133,18 +133,18 @@ escape1 "Gewisse Fraktale
 werden durch sich wiederholende 
 Aufteilung erzeugt."
 escape2 "XaoS kann Fraktale erzeugen,
-die einer andere Kategorie angehören
+die einer andere Kategorie angehÃ¶ren
 und Fliehzeit-Fraktale genannt werden."
 escape3 "Die Methode diese zu erzeugen,
 unterscheidet sich von der im
-vorhergehenden Kapitel erläuterten,
+vorhergehenden Kapitel erlÃ¤uterten,
 basiert aber auch auf der Iteration
 (Wiederholung)."
 escape4 "Betrachten wir den ganzen
 Bildschirm als eine komplexe Ebene."
 escape5 "Die reelle Achse ist
 horizontal orientiert."
-escape6 "Die imaginäre Achse ist
+escape6 "Die imaginÃ¤re Achse ist
 vertikal orientiert."
 escape7 "Jeder Punkt hat sein eigenes Orbital,"
 escape8 "dessen Laufbahn durch die iterative
@@ -152,108 +152,108 @@ Formel f(z,c) beschrieben wird, wobei
 z der Position im Orbital entspricht,
 die der zu berechnenden voran geht,
 und c der Punkt ist, dem das Orbital
-angehört."
+angehÃ¶rt."
 escape9 "Die iterative Funktion
-für die Mandelbrotmenge lautet
+fÃ¼r die Mandelbrotmenge lautet
 z=z^c+c."
 
 orbit1 "Um das Orbital, das dem Punkt
-0 - 0.6i angehört, zu untersuchen,"
-orbit2 "müssen wir diese komplexe Zahl c
+0 - 0.6i angehÃ¶rt, zu untersuchen,"
+orbit2 "mÃ¼ssen wir diese komplexe Zahl c
 zuweisen."
 orbit3 "Das Orbital beginnt bei
 z = 0 + 0.6i"
 orbit3b "Wir werten die iterative Funktion
 wiederholt aus, und erhalten bei jeder
 Auswertung einen neuen Punkt im
-Orbital, den wir sogleich für die
-nächste Auswertung verwenden."
-orbit4 "Der Punkt gehört der Mandelbrotmenge an,
+Orbital, den wir sogleich fÃ¼r die
+nÃ¤chste Auswertung verwenden."
+orbit4 "Der Punkt gehÃ¶rt der Mandelbrotmenge an,
 falls das Orbital in der
 Endlichkeit bleibt."
 orbit5 "In unserem Beispiel ist dies der Fall..."
-orbit6 "Somit gehört dieser Punkt der
+orbit6 "Somit gehÃ¶rt dieser Punkt der
 Mandelbrotmenge an."
-orbit7 "In anderen Fällen verschwinden
+orbit7 "In anderen FÃ¤llen verschwinden
 die Orbitale in der Unendlichkeit."
 orbit8 "Untersuchen wir zum Beispiel den Punkt
 10 + 0i, erhalten wir nach der ersten
 Iteration 10, nach der zweiten 110,
 nach der dritten 12110, usw."
-orbit9 "Solche Punkte gehören nicht der
+orbit9 "Solche Punkte gehÃ¶ren nicht der
 Mandelbrotmenge an."
 
 bail1 "Bis jetzt sprechen wir immer noch von
 unendlich grossen Zahlen."
 bail2 "Da Computer nur endliche Zahlen
-darstellen können, sind sie nicht in
+darstellen kÃ¶nnen, sind sie nicht in
 der Lage Fraktale exakt zu berechnen."
 bail3 "Es kann jedoch bewiesen werden,
 dass Orbitale, die einen Abstand von
-2 vom Nullpunkt überschreiten, stets
+2 vom Nullpunkt Ã¼berschreiten, stets
 in der Unendlichkeit verschwinden."
-bail4 "Somit können die Berechnungen
+bail4 "Somit kÃ¶nnen die Berechnungen
 abgebrochen werden, sobald das Orbital
 einen Abstand von 2 vom Nullpunkt
-überschritten hat und damit den
+Ã¼berschritten hat und damit den
 so genannten Bailout-Test nicht
 bestanden hat."
-bail5 "Für Punkte die nicht der
-Mandelbrotmenge angehören, benötigen
+bail5 "FÃ¼r Punkte die nicht der
+Mandelbrotmenge angehÃ¶ren, benÃ¶tigen
 wir jetzt nur noch eine endliche Anzahl
 Iterationen."
 bail6 "Auf diese Weise entstehen die farbigen
 Streifen um die Mandelbrotmenge."
 bail7 "Sie werden je nach Anzahl Iterationen
-eingefärbt, die notwendig sind, um
+eingefÃ¤rbt, die notwendig sind, um
 einen Abstand von 2 vom Nullpunkt zu
-überschreitet."
+Ã¼berschreitet."
 
-iter1 "Auch für Punkte die der Mandelbrotmenge
-angehören, sind unendlich viele
-Iterationen möglich."
+iter1 "Auch fÃ¼r Punkte die der Mandelbrotmenge
+angehÃ¶ren, sind unendlich viele
+Iterationen mÃ¶glich."
 iter2 "Um die Berechnungen zu einem Ende
 zu bringen, wird nach einer
 vorgegebener Anzahl Iterationen
 abgebrochen und angenommen, dass der
-Punkt der Mandelbrotmenge angehört."
+Punkt der Mandelbrotmenge angehÃ¶rt."
 iter3 "Die maximale Anzahl der Iterationen
 bestimmt die Genauigkeit der
-Annäherung."
-iter4 "Ohne Iterationen würde lediglich
+AnnÃ¤herung."
+iter4 "Ohne Iterationen wÃ¼rde lediglich
 ein Kreis mit Radius 2 entstehen."
-iter5 "Je höher die maximale Anzahl
+iter5 "Je hÃ¶her die maximale Anzahl
 Iterationen, um so exakter die
-Annäherung und um so mehr Zeit wird für
-die Berechnung benötigt."
-limit1 "XaoS verwendet standardmässig
+AnnÃ¤herung und um so mehr Zeit wird fÃ¼r
+die Berechnung benÃ¶tigt."
+limit1 "XaoS verwendet standardmÃ¤ssig
 170 Iterationen."
-limit2 "In gewisse Bereiche können Sie
+limit2 "In gewisse Bereiche kÃ¶nnen Sie
 weit hinein zoomen, ohne unexakte
 Resultate zu erhalten."
 limit3 "In anderen Bereichen erhalten Sie
 relativ schnell unexakte Resultate."
 limit4 "Die Bilder werden ziemlich langweilig,
 wenn dies geschieht."
-limit5 "Nach erhöhen der maximalen Anzahl
+limit5 "Nach erhÃ¶hen der maximalen Anzahl
 Iterationen erhalten Sie neue,
 interessante Details."
 
 ofracts1 "Andere Fraktale in XaoS werden mit
 anderen Formeln und Bailout-Tests
 berechnet, die Methode bleibt aber
-grundsätzlich die selbe."
+grundsÃ¤tzlich die selbe."
 ofracts2 "Es sind so viele Berechnungen notwendig,
 dass XaoS viele Optimierungen
 vornehmen muss.
 
-Mehr Informationen darüber finden Sie
+Mehr Informationen darÃ¼ber finden Sie
 in der Datei doc/xaos.info"
 
 #########################################################
 # Datei: anim.xaf
 
-anim "Überblick: Features von XaoS
+anim "Ãœberblick: Features von XaoS
 
 Animations- und Positions-Dateien"
 
@@ -273,7 +273,7 @@ sprache gespeichert."
 languag2 "Positionsdateien enthalten eine
 Animation mit nur einem Teilbild."
 
-languag3 "Die Dateien sollten nachträglich von
+languag3 "Die Dateien sollten nachtrÃ¤glich von
 Hand bearbeitet werden, um das Ergebnis
 zu verbessern."
 
@@ -281,43 +281,43 @@ languag4 "Die meisten Animationen in den Tutorials
 wurden komplett von Hand erstellt
 (ausgehend von einer Positionsdatei)."
 
-modif1 "Eine simple Änderung dieser
+modif1 "Eine simple Ã„nderung dieser
 vereinfachten Positionsdatei"
 
-modif2 "ergibt eine Kamerafahrt rückwärts."
-modif3 "Und diese Änderung eine Vorwärtsfahrt."
+modif2 "ergibt eine Kamerafahrt rÃ¼ckwÃ¤rts."
+modif3 "Und diese Ã„nderung eine VorwÃ¤rtsfahrt."
 
-newanim "Sie können auch komplett neue
+newanim "Sie kÃ¶nnen auch komplett neue
 Animationen und Effekte erzeugen."
 
-examples "Viele Beispiele sind beigefügt, aus
-denen Sie mit dem Save/Load-Menü eine
-zufällige Auswahl treffen können."
+examples "Viele Beispiele sind beigefÃ¼gt, aus
+denen Sie mit dem Save/Load-MenÃ¼ eine
+zufÃ¤llige Auswahl treffen kÃ¶nnen."
 
-examples2 "Über die Positionsdateien können Sie
+examples2 "Ãœber die Positionsdateien kÃ¶nnen Sie
 auch Koordinaten mit anderen Programmen
 austauschen."
 
-examples3 "Die einzigen Beschränkungen sind Ihre
+examples3 "Die einzigen BeschrÃ¤nkungen sind Ihre
 Phantasie und die Kommandosprache, die
 im File \"xaos.info\" beschrieben wird."
 
 #########################################################
 # Datei: barnsley.xaf
 
-intro4 "Fraktale - Eine Einführung
+intro4 "Fraktale - Eine EinfÃ¼hrung
 
 Kapitel 5 - Die Barnsley-Formel"
 
 barnsley1 "Eine weitere Formel, die von
-Michael Barnsley eingeführt wurde."
+Michael Barnsley eingefÃ¼hrt wurde."
 
 barnsley2 "Sie erzeugt dieses seltsame Fraktal."
 
 barnsley3 "Es hat keine besonders interessanten
 Stellen -"
 
-barnsley4 "Aber ihre Juliamengen sind hübsch."
+barnsley4 "Aber ihre Juliamengen sind hÃ¼bsch."
 
 barnsley5 "Es hat interessanterweise eine
 \"kristalline\" Struktur,"
@@ -326,7 +326,7 @@ barnsley6 "im Gegensatz zu den \"organischen\"
 Strukturen vieler anderer Fraktale."
 
 barnsley7 "Michael Barnsley hat auch andere
-Formeln eingeführt."
+Formeln eingefÃ¼hrt."
 
 barnsley8
  "Eine davon erzeugt dieses Fraktal."
@@ -334,7 +334,7 @@ barnsley8
 #########################################################
 # Datei: filter.xaf
 
-filter "Überblick: Features von XaoS
+filter "Ãœberblick: Features von XaoS
 
 Filter"
 
@@ -347,14 +347,14 @@ Fraktal berechnet wurde."
 
 filter2 "XaoS besitzt folgende Filter:"
 
-# Fällt jemandem was Besseres ein?
+# FÃ¤llt jemandem was Besseres ein?
 motblur "Motion Blur"
 
 edge "Zwei Kantenerkennungsfilter"
 
 edge2 "Der erste erzeugt breite Linien
-und eignet sich besonders für
-hohe Auflösungen."
+und eignet sich besonders fÃ¼r
+hohe AuflÃ¶sungen."
 
 edge3 "Der zweite macht die Linien schmaler."
 
@@ -362,20 +362,20 @@ star "Ein einfacher Sternenfilter"
 
 interlace "Der Halbbildfilter beschleunigt die
 Berechnung und erzeugt bei hoher
-Auflösung einen Bewegungseffekt."
+AuflÃ¶sung einen Bewegungseffekt."
 
 stereo "Stereogramm-Filter"
 
-stereo2 "Falls Sie in den nächsten Beispielen
-nichts sehen können, obwohl Sie
+stereo2 "Falls Sie in den nÃ¤chsten Beispielen
+nichts sehen kÃ¶nnen, obwohl Sie
 Stereogramme schon kennen, ist wahr-
-scheinlich Ihre Bildschirmgröße falsch
+scheinlich Ihre BildschirmgrÃ¶ÃŸe falsch
 konfiguriert. \"XaoS-Hilfe\" gibt Ihnen
 weitere Informationen."
 
-emboss1 "Ein Prägeeffekt-Filter"
+emboss1 "Ein PrÃ¤geeffekt-Filter"
 
-palettef1 "Ein Palettenemulator macht es möglich,
+palettef1 "Ein Palettenemulator macht es mÃ¶glich,
 auch auf Truecolor-Bildschirmen eine
 Palettenrotation darzustellen."
 
@@ -388,13 +388,13 @@ Darstellungen zu erzeugen."
 
 end "Ende"
 
-fcopyright "Die Einführung in die Fraktale wurde
+fcopyright "Die EinfÃ¼hrung in die Fraktale wurde
 im Juli 1997 von Jan Hubicka erstellt.
-Übersetzung von Jens Kilian."
+Ãœbersetzung von Jens Kilian."
 
 suggestions "
 Bitte schicken Sie alle Ideen,
-Vorschläge, Danksagungen, Flames
+VorschlÃ¤ge, Danksagungen, Flames
 und Bug-Reports an
 
 xaos-discuss@lists.sourceforge.net
@@ -408,16 +408,16 @@ incolor1 "Normalerweise werden die Bildpunkte
 im Innern der berechneten Menge als
 einheitliche Farbe dargestellt."
 
-incolor2 "Dies macht die Ränder der Menge deutlich
+incolor2 "Dies macht die RÃ¤nder der Menge deutlich
 sichtbar, aber der Innenraum kann durch
-die Farbfläche recht langweilig werden."
+die FarbflÃ¤che recht langweilig werden."
 
 incolor3 "Um ihn etwas interessanter zu machen,
 kann der letzte Orbitwert benutzt
 werden, um die Farbe zu bestimmen."
 
 incolor4 "XaoS besitzt zehn verschiedene Methoden
-dafür, genannt \"Innere Färbungs Modi\"."
+dafÃ¼r, genannt \"Innere FÃ¤rbungs Modi\"."
 
 zmag "zmag
 
@@ -430,18 +430,18 @@ des letzten Orbits berechnet."
 innew1 "decomposition like
 
 Arbeitet in derselben Weise wie die
-Farbzerlegung bei der Einfärbung
-der äußeren Bildpunkte."
+Farbzerlegung bei der EinfÃ¤rbung
+der Ã¤uÃŸeren Bildpunkte."
 
 
 innew2 "real/imag
 
 Die Farbe errechnet sich aus dem
 Realteil des letzten Orbits, geteilt
-durch den Imaginärteil."
+durch den ImaginÃ¤rteil."
 
-innew3 "Die anderen 6 Modi sind meist zufällig
-gewählte oder aus dem Programm
+innew3 "Die anderen 6 Modi sind meist zufÃ¤llig
+gewÃ¤hlte oder aus dem Programm
 \"Flarium\" stammende Formeln."
 
 #########################################################
@@ -453,7 +453,7 @@ fractal1 "Was ist ein Fraktal?"
 fractal2 "Die Definition von Benoit Mandelbrot:
 Ein Fraktal ist eine Menge, deren
 Hausdorff-Besicovich-Dimension ihre
-topologische Dimension übersteigt."
+topologische Dimension Ã¼bersteigt."
 
 fractal3 "Noch Fragen?"
 
@@ -462,9 +462,9 @@ fractal4 "Egal. Diese Definition ist anfechtbar."
 fractal5 "In einfacheren Worten:
 Ein Fraktal ist eine Form,"
 
-fractal6 "zusammengesetzt aus Einzelstücken,"
+fractal6 "zusammengesetzt aus EinzelstÃ¼cken,"
 
-fractal7 "von denen jedes angenähert eine
+fractal7 "von denen jedes angenÃ¤hert eine
 verkleinerte Kopie des Ganzen ist."
 
 fractal8 "Dieser Prozess, immer wieder angewendet,"
@@ -472,13 +472,13 @@ fractal8 "Dieser Prozess, immer wieder angewendet,"
 fractal9 "erzeugt das gesamte Fraktal."
 
 facts "Fraktale haben viele
-überraschende Eigenschaften."
+Ã¼berraschende Eigenschaften."
 
-fact1 "Fraktale sind maßstabsunabhängig,"
-fact2 "sie sind selbstähnlich,"
+fact1 "Fraktale sind maÃŸstabsunabhÃ¤ngig,"
+fact2 "sie sind selbstÃ¤hnlich,"
 fact3 "und sie beschreiben Objekte,
 wie sie in der Natur vorkommen."
-fact4 "Zum Beispiel Wolken, Berge oder Küsten."
+fact4 "Zum Beispiel Wolken, Berge oder KÃ¼sten."
 fact5 "Es gibt auch viele mathematische
 Strukturen, die Fraktale sind."
 fact6 "Wie jene, die Sie auf dem Bildschirm sehen."
@@ -489,7 +489,7 @@ einen iterativen Prozess."
 fmath5 "So wird zum Beispiel das Fraktal, das
 unter dem Name kochsche Schneeflocken Kurve
 bekannt ist,"
-fmath6 "durch iteratives Ändern einer Linie"
+fmath6 "durch iteratives Ã„ndern einer Linie"
 fmath7 "in vier Linien erzeugt."
 fmath8 "Dies ist die erste Iteration des
 Prozesses."
@@ -501,62 +501,62 @@ fmath13 "Und nach unendlicher Anzahl Iterationen
 erhalten wir ein Fraktal."
 fmath14 "Seine Form sieht aus wie ein Teil einer
 Schneeflocke."
-tree1 "Mit ähnlichen Methoden kann eine
+tree1 "Mit Ã¤hnlichen Methoden kann eine
 Vielzahl anderer Formen erzeugt werden."
 tree2 "Indem man eine Linie in anderer Weise
-ändert,"
-tree3 "erhält man zum Beispiel einen Baum."
-nstr "Iterationen können auch zufällige
-Störungen in das Fraktal einbringen."
+Ã¤ndert,"
+tree3 "erhÃ¤lt man zum Beispiel einen Baum."
+nstr "Iterationen kÃ¶nnen auch zufÃ¤llige
+StÃ¶rungen in das Fraktal einbringen."
 nstr2 "Indem man eine Linie in zwei Linien
-ändert"
-nstr3 "und einen kleinen Fehler hinzufügt,"
+Ã¤ndert"
+nstr3 "und einen kleinen Fehler hinzufÃ¼gt,"
 nstr4 "kann man Fraktale erzeugen, die wie
-Küstenlinien aussehen."
-nstr5 "Ein ähnlicher Prozess könnte Wolken,
-Berge und viele andere natürliche
+KÃ¼stenlinien aussehen."
+nstr5 "Ein Ã¤hnlicher Prozess kÃ¶nnte Wolken,
+Berge und viele andere natÃ¼rliche
 Formen erzeugen."
 
 mset "Die Mandelbrotmenge."
 mset1 "Sie wird durch eine sehr
 einfache Formel erzeugt,"
 mset2 "aber sie ist eines der
-schönsten Fraktale."
+schÃ¶nsten Fraktale."
 mset3 "Weil die Mandelbrotmenge ein Fraktal ist,"
 mset4 "enthalten ihre Randbereiche"
 mset5 "verkleinerte Kopien der Gesamtmenge."
-mset6 "Dies ist die größte davon,
-nur ungefähr 50 mal kleiner."
+mset6 "Dies ist die grÃ¶ÃŸte davon,
+nur ungefÃ¤hr 50 mal kleiner."
 mset7 "Weil die Mandelbrotmenge nicht
-strikt selbstähnlich ist,"
+strikt selbstÃ¤hnlich ist,"
 mset8 "sind alle diese Mini-Kopien verschieden."
 mset9 "Diese ist 76000 mal kleiner."
 mset10 "Kopien in anderen Bereichen der Menge
-weisen größere Unterschiede auf."
+weisen grÃ¶ÃŸere Unterschiede auf."
 
 nat "Aber die Randbereiche enthalten
 nicht nur Kopien der Gesamtmenge."
 nat1 "Sie enthalten auch unendliche
 Variationen verschiedener Ornamente."
-nat2 "Einige davon ähneln in überraschender
+nat2 "Einige davon Ã¤hneln in Ã¼berraschender
 Weise Formen, wie man sie in der Natur
 vorfindet."
-nat3 "Sie können dort Bäume,"
-nat4 "Flüsse und Seen,"
+nat3 "Sie kÃ¶nnen dort BÃ¤ume,"
+nat4 "FlÃ¼sse und Seen,"
 nat5 "Galaxien"
-nat6 "und Wasserfälle finden."
-nat7 "Das Fraktal enthält auch Formen
+nat6 "und WasserfÃ¤lle finden."
+nat7 "Das Fraktal enthÃ¤lt auch Formen
 ohne jede Entsprechung."
 
-juliach "Fraktale - Eine Einführung
+juliach "Fraktale - Eine EinfÃ¼hrung
 
 Kapitel 2 - Julia"
 julia "Die Mandelbrotmenge ist nicht das
 einzige Fraktal, das durch die Formel
 z=z^2+c erzeugt wird."
-julia1 "Ebenfalls berühmt sind die"
+julia1 "Ebenfalls berÃ¼hmt sind die"
 julia2 "Juliamengen."
-julia3 "Interessant an ihnen ist, daß es
+julia3 "Interessant an ihnen ist, daÃŸ es
 nicht nur eine einzige Juliamenge gibt,"
 julia4 "sondern unendlich viele Variationen."
 julia5 "Sie alle unterscheiden sich nur
@@ -565,30 +565,30 @@ julia6 "einem Punkt aus der Mandelbrotmenge."
 julia7 "Man kann die Mandelbrotmenge
 als Karte der Juliamengen betrachten."
 julia8 "Punkte im Innern der Menge entsprechen
-Juliamengen mit großen geschlossenen
-schwarzen Flächen."
-julia9 "Punkte außerhalb der Menge entsprechen
-nicht zusammenhängenden Juliamengen."
+Juliamengen mit groÃŸen geschlossenen
+schwarzen FlÃ¤chen."
+julia9 "Punkte auÃŸerhalb der Menge entsprechen
+nicht zusammenhÃ¤ngenden Juliamengen."
 julia10 "Die interessantesten Juliamengen
-gehören aber zu den Randpunkten."
+gehÃ¶ren aber zu den Randpunkten."
 
-theme "Das Aussehen der Juliamenge hängt stark
-von dem ausgewählten Startpunkt ab."
-theme1 "Bei starker Vergrößerung erhält man ein
-sehr ähnlich aussehendes Fraktal,"
+theme "Das Aussehen der Juliamenge hÃ¤ngt stark
+von dem ausgewÃ¤hlten Startpunkt ab."
+theme1 "Bei starker VergrÃ¶ÃŸerung erhÃ¤lt man ein
+sehr Ã¤hnlich aussehendes Fraktal,"
 theme2 "nachdem man auf die Julia-
 Darstellung umschaltet."
 theme3 "Aber beim Herausfahren werden Sie sehen,"
-theme4 "daß Sie sich in einem völlig
+theme4 "daÃŸ Sie sich in einem vÃ¶llig
 anderen Fraktal befinden."
 theme5 "Juliamengen scheinen recht
 langweilig zu sein, weil sich
-ihr Aussehen nicht ändert,"
-theme6 "sondern immer der ausgewählten Stelle
-aus der Mandelbrotmenge ähnlich sieht."
-theme7 "Aber durch sorgfältige Wahl
+ihr Aussehen nicht Ã¤ndert,"
+theme6 "sondern immer der ausgewÃ¤hlten Stelle
+aus der Mandelbrotmenge Ã¤hnlich sieht."
+theme7 "Aber durch sorgfÃ¤ltige Wahl
 des Anfangspunktes ergeben sich"
-theme8 "schöne Bilder."
+theme8 "schÃ¶ne Bilder."
 
 #########################################################
 # Datei: keys.xhf
@@ -596,19 +596,19 @@ theme8 "schöne Bilder."
 keys "Tasten:
 
 q          - Wiedergabe abbrechen    
-Space      - Bild überspringen       
+Space      - Bild Ã¼berspringen       
              (kann etwas dauern)     
 Left/Right - Geschwindigkeit anpassen"
 
 #########################################################
 # Datei: magnet.xaf
 
-intro7 "Fraktale - Eine Einführung
+intro7 "Fraktale - Eine EinfÃ¼hrung
 
 Kapitel 8 - Magnet"
 
 magnet "Dies ist NICHT die Mandelbotmenge."
-magnet1 "Dieses Fraktal heißt \"Magnet\",
+magnet1 "Dieses Fraktal heiÃŸt \"Magnet\",
 weil seine Berechnungsformel aus
 der theoretischen Physik kommt."
 magnet2 "Es stammt aus der Erforschung
@@ -617,11 +617,11 @@ auf dem Gebiet magnetischer
 Renormalisierungstransformationen."
 # Ey boah, ey!
 
-similiar "Seine Ähnlichkeit mit der Mandelbrotmenge
+similiar "Seine Ã„hnlichkeit mit der Mandelbrotmenge
 ist interessant, weil dies eine Formel
 aus der realen Welt ist."
 
-magjulia "Seine Juliamenge sind recht ungewöhnlich."
+magjulia "Seine Juliamenge sind recht ungewÃ¶hnlich."
 
 magnet3 "Es gibt auch noch ein zweites
 Magnet Fraktal."
@@ -632,8 +632,8 @@ Magnet Fraktal."
 new "Was gibt's Neues in Version 3.0?"
 speed "1. Speedups"
 speed1 "Die Haupt-Berechnungsschleifen wurden
-entrollt und führen eine
-Periodizitätsprüfung durch."
+entrollt und fÃ¼hren eine
+PeriodizitÃ¤tsprÃ¼fung durch."
 speed2 "Vollbilder werden durch
 Boundary-Tracing berechnet."
 speed3 "Dadurch ist die Vollbildberechnung
@@ -641,14 +641,14 @@ jetzt erheblich schneller."
 speed4 "Zum Beispiel die Berechnung
 der Mandelbrotmenge mit
 1.000.000 Iterationen..."
-speed5 "Berechnung läuft."
+speed5 "Berechnung lÃ¤uft."
 speed6 "Fertig."
 speed7 "XaoS benutzt eine Heuristik und schaltet
-die Periodizitätsprüfung ab, wenn der
+die PeriodizitÃ¤tsprÃ¼fung ab, wenn der
 berechnete Punkt vermutlich nicht ins
-Innere der Mandelbrotmenge fällt."
+Innere der Mandelbrotmenge fÃ¤llt."
 speed8 "Auch die Zoom-Funktionen wurden
-beschleunigt, so daß sie jetzt
+beschleunigt, so daÃŸ sie jetzt
 ca. doppelt so schnell sind."
 speed9 "Auf einem 130MHz-Pentium
 erreicht XaoS jetzt 130FPS."
@@ -656,8 +656,8 @@ erreicht XaoS jetzt 130FPS."
 # Aber wir werden ja noch sehen...
 
 new2 "2. Filter"
-new3 "3. Neun \"Äussere Färbungs Modi\""
-new4 "4. Neue \"Innere Färbungs Modi\""
+new3 "3. Neun \"Ã„ussere FÃ¤rbungs Modi\""
+new4 "4. Neue \"Innere FÃ¤rbungs Modi\""
 new5 "5. Truecolor-Modi"
 new6 "6. Speichern/Wiedergabe von Animationen"
 newend "Und viele andere Verbesserungen, z.B.
@@ -667,24 +667,24 @@ Die volle Liste steht im \"ChangeLog\"."
 #########################################################
 # Datei: newton.xaf
 
-intro3 "Fraktale - Eine Einführung
+intro3 "Fraktale - Eine EinfÃ¼hrung
 
 Kapitel 4 - Die Newton-Methode"
 newton "Dieses Fraktal wird auf eine
-völlig andere Weise berechnet -"
+vÃ¶llig andere Weise berechnet -"
 newton1 "Newtonsche Approximation zum Auffinden
 der Wurzeln des Polynoms x^3=1."
-newton2 "Gezählt wird die Anzahl der Iterationen
-beim Auffinden der genäherten Wurzel."
-newton3 "Sie können die drei Wurzeln
+newton2 "GezÃ¤hlt wird die Anzahl der Iterationen
+beim Auffinden der genÃ¤herten Wurzel."
+newton3 "Sie kÃ¶nnen die drei Wurzeln
 sehen (als blaue Kreise)."
 newton4 "Die interessantesten Stellen sind jene,
 an denen das Newton-Verfahren unsicher
 ist, welche der Wurzeln richtig ist."
-newton5 "Das Fraktal ist sehr selbstähnlich
+newton5 "Das Fraktal ist sehr selbstÃ¤hnlich
 und nicht besonders interessant."
 newton6 "Aber XaoS kann \"Pseudo-Juliamengen\"
-dafür erzeugen."
+dafÃ¼r erzeugen."
 newton7 "Es benutzt dazu den Startwert als
 Fehler bei der Approximation."
 newton8 "Das macht das Fraktal interessanter."
@@ -692,72 +692,72 @@ newton9 "XaoS kann auch noch ein anderes
 Newton Fraktal erzeugen."
 newton10 "Newtonsche Approximation zum Auffinden
 der Wurzeln des Polynoms x^4=1."
-newton11 "Auch hier können Sie die vier Wurzeln
+newton11 "Auch hier kÃ¶nnen Sie die vier Wurzeln
 sehen (als blaue Kreise)."
 
 #########################################################
 # Datei: octo.xaf
-intro6 "Fraktale - Eine Einführung
+intro6 "Fraktale - Eine EinfÃ¼hrung
 
 Kapitel 7 - Octo"
 octo "Octo ist ein Fraktal, das durch
 eine weniger oft benutzte Formel
 erzeugt wird."
-octo1 "Wir haben es für XaoS wegen seiner
-ungewöhnlichen Form ausgewählt."
-octo2 "XaoS kann \"Pseudo-Juliamengen\" dafür
-erzeugen, ähnlich wie bei \"Newton\"."
+octo1 "Wir haben es fÃ¼r XaoS wegen seiner
+ungewÃ¶hnlichen Form ausgewÃ¤hlt."
+octo2 "XaoS kann \"Pseudo-Juliamengen\" dafÃ¼r
+erzeugen, Ã¤hnlich wie bei \"Newton\"."
 
 #########################################################
 # Datei: outcolor.xaf
 
-outcolor "Äussere Färbungs Modi"
+outcolor "Ã„ussere FÃ¤rbungs Modi"
 outcolor1 "Die Mandelbrotmenge ist der langweilige
 schwarze Teich in der Bildschirmmitte."
 outcolor2 "Die farbigen Streifen rundherum
 sind die Randbereiche der Menge."
-outcolor3 "Normalerweise werden zum Einfärben die
-Iterationen gezählt, bis der Wert der
+outcolor3 "Normalerweise werden zum EinfÃ¤rben die
+Iterationen gezÃ¤hlt, bis der Wert der
 Formel z^2+c einen Grenzwert erreicht."
 outcolor4 "Aber es gibt auch andere Methoden,
 die Menge zu visualisieren."
-outcolor5 "In XaoS heißen sie \"Äussere Färbungs Modi\"."
+outcolor5 "In XaoS heiÃŸen sie \"Ã„ussere FÃ¤rbungs Modi\"."
 
 iterreal "iter+real
 
 Berechnet die Farbe aus dem Realteil
 des letzten Orbits plus der Anzahl
 der Iterationen."
-iterreal1 "Sie können diesen Modus benutzen,
-um langweilige Bilder hübscher
+iterreal1 "Sie kÃ¶nnen diesen Modus benutzen,
+um langweilige Bilder hÃ¼bscher
 zu machen."
 
 iterimag "Der zweite Modus - iter+imag -
-ergibt ähnliche Resultate."
+ergibt Ã¤hnliche Resultate."
 iterimag2 "Der einzige Unterschied dabei ist,
-daß der Imaginärteil des Orbits
+daÃŸ der ImaginÃ¤rteil des Orbits
 verwendet wird."
 
 iprdi "iter+real/imag
 
 Berechnet die Farbe aus dem Quotienten
-von Real- und Imaginärteil des letzten
+von Real- und ImaginÃ¤rteil des letzten
 Orbits plus der Anzahl der Iterationen."
 
 sum "iter+real+imag+real/imag
 
 Die Summe aller vorigen Modi."
 
-decomp "Binäre Zerlegung
+decomp "BinÃ¤re Zerlegung
 
-Wenn der Imaginärteil positiv ist,
+Wenn der ImaginÃ¤rteil positiv ist,
 wird die Zahl der Iterationen benutzt,
 ansonsten die Differenz zwischen der
 maximalen und gemessenen Anzahl."
 
 bio "Biomorphs
 
-Dieser Modus heißt so, weil er einigen
+Dieser Modus heiÃŸt so, weil er einigen
 Fraktalen das Aussehen einzelliger
 Lebewesen verleiht."
 
@@ -768,36 +768,36 @@ potential "Potential
 
 Dieser Modus sieht besonders gut
 in Truecolor-Darstellung bei
-wenig vergrößerten Bildern aus."
+wenig vergrÃ¶ÃŸerten Bildern aus."
 
 cdecom "Farbzerlegung"
 cdecom2 "Die Farbe wird aus dem Winkel
 des letzten Orbits berechnet."
-cdecom3 "Die Farbzerlegung ähnelt der binären
+cdecom3 "Die Farbzerlegung Ã¤hnelt der binÃ¤ren
 Zerlegung, aber interpoliert die
-Farben gleichmäßig."
+Farben gleichmÃ¤ÃŸig."
 cdecom4 "Im Newton-Fraktal kann sie benutzt
-werden, um eine Einfärbung aufgrund
-der angenäherten Wurzel zu erzielen."
+werden, um eine EinfÃ¤rbung aufgrund
+der angenÃ¤herten Wurzel zu erzielen."
 
 smooth "Farbverlauf
 
 Der Farbverlaufsmodus versucht die
 durch die Iterationen verursachten
-Streifen aufzulösen und glatte
-Farbübergänge zu schaffen."
+Streifen aufzulÃ¶sen und glatte
+FarbÃ¼bergÃ¤nge zu schaffen."
 smooth1 "Er funktioniert nicht bei den Fraktalen
 \"Newton\" und \"Magnet\", weil diese
 endliche Attraktoren besitzen."
-smooth2 "Er benötigt außerdem einen Truecolor-,
+smooth2 "Er benÃ¶tigt auÃŸerdem einen Truecolor-,
 Hi-Color- oder Real-Color-Modus.
-Bei 8bpp-Darstellung muß dazu der
+Bei 8bpp-Darstellung muÃŸ dazu der
 Truecolor-Filter eingeschaltet werden."
 
 #########################################################
 # Datei: outnew.xhf
 
-intro5 "Fraktale - Eine Einführung
+intro5 "Fraktale - Eine EinfÃ¼hrung
 
 Kapitel 6 - Phoenix"
 
@@ -806,13 +806,13 @@ der Formel namens \"Phoenix\"."
 
 phoenix1 "Sie sieht anders aus als die anderen
 Fraktale in XaoS, aber man kann einige
-Ähnlichkeiten zur Mandelbrotmenge
+Ã„hnlichkeiten zur Mandelbrotmenge
 darin finden."
 
-phoenix2 "Sie enthält ebenfalls eine \"Antenne\"
+phoenix2 "Sie enthÃ¤lt ebenfalls eine \"Antenne\"
 mit Miniaturkopien der Gesamtmenge."
 
-phoenix3 "Es gibt auch thematische Zusammenhänge
+phoenix3 "Es gibt auch thematische ZusammenhÃ¤nge
 zwischen den Juliamengen und der
 Mandelbrot-Version."
 
@@ -824,7 +824,7 @@ sind sehr verschieden."
 
 plane1 "Normalerweise wird der Realteil eines
 Bildpunktes auf die X-Achse des Bild-
-schirms abgebildet, der Imanginärteil
+schirms abgebildet, der ImanginÃ¤rteil
 auf die Y-Achse."
 
 plane2 "XaoS bietet 6 alternative
@@ -833,34 +833,34 @@ plane3 "1/mu
 
 Dies ist eine Inversion. Der unendlich
 ferne Punkt wird auf 0 abgebildet und
-umgekehrt.  Auf diese Art können Sie
+umgekehrt.  Auf diese Art kÃ¶nnen Sie
 festellen, was mit dem Fraktal bei
 unendlichem Herauszoomen passiert."
 plane4 "Dies ist eine normal Mandelbrotmenge."
 plane5 "Diese ist invertiert."
 plane6 "Wie Sie sehen, war die Menge vorher in
 der Bildmitte, jetzt liegt sie am Rand.
-Das unendlich große blaue Gebiet rund
+Das unendlich groÃŸe blaue Gebiet rund
 um die Menge wurde auf einen kleinen
 Kreis um den Nullpunkt abgebildet."
-plane7 "Die nächsten Bilder werden alle jeweils
+plane7 "Die nÃ¤chsten Bilder werden alle jeweils
 normal und invertiert dargestellt,
-damit Sie sehen können, was passiert."
+damit Sie sehen kÃ¶nnen, was passiert."
 
 plane8 "1/mu+0.25
 
-Dieser Modus ähnelt der Inversion,
+Dieser Modus Ã¤hnelt der Inversion,
 aber mit einem verschobenen Zentrum."
 plane9 "Weil der Mittelpunkt jetzt auf dem Rand
-der Mandelbrotmenge liegt, können Sie
-unendlich große parabolische Strukturen
+der Mandelbrotmenge liegt, kÃ¶nnen Sie
+unendlich groÃŸe parabolische Strukturen
 sehen."
 plane10 "Bei anderen Fraktalen treten ebenfalls
 interessante Effekte auf, weil dieser
 Modus normalerweise die Symmetrien
 aufbricht."
 
-lambda "Eine völlig andere Darstellung
+lambda "Eine vÃ¶llig andere Darstellung
 ergibt die lambda-Ebene."
 
 ilambda "1/lambda
@@ -882,27 +882,27 @@ mick "1/(mu-1.40115)
 Dies ist wiederum eine Inversion mit
 verschobenem Zentrum.  Der Mittelpunkt
 ist nun der Feigenbaum-Punkt, an dem
-die Menge selbstähnlich ist. Details
+die Menge selbstÃ¤hnlich ist. Details
 rund um diesen Punkt werden stark
-vergrößert."
+vergrÃ¶ÃŸert."
 
 #########################################################
 # Datei: power.xaf
 
-intro2 "Fraktale - Eine Einführung
+intro2 "Fraktale - Eine EinfÃ¼hrung
 
 Kapitel 3
-Mandelbrotmengen höherer Ordnung"
+Mandelbrotmengen hÃ¶herer Ordnung"
 
 power "z^2+c ist nicht die einzige Formel,
 die ein Fraktal erzeugt."
-power2 "Eine leicht veränderte Version - z^3+c -
-ergibt ein ähnliches Fraktal."
-power3 "Es enthält natürlich auch
+power2 "Eine leicht verÃ¤nderte Version - z^3+c -
+ergibt ein Ã¤hnliches Fraktal."
+power3 "Es enthÃ¤lt natÃ¼rlich auch
 Kopien der Gesamtmenge."
 
-power4 "Ähnliche Fraktale können mit
-weiteren leicht veränderten
+power4 "Ã„hnliche Fraktale kÃ¶nnen mit
+weiteren leicht verÃ¤nderten
 Formeln erzeugt werden."
 
 pjulia "Jedes davon hat auch
@@ -913,14 +913,14 @@ entsprechende Juliamengen."
 
 truecolor "Truecolor-Modi"
 truecolor1 "Normalerweise werden die Fraktale
-mit Hilfe einer Palette eingefärbt.
+mit Hilfe einer Palette eingefÃ¤rbt.
 Bei Truecolor-Darstellung wird die
 Palette emuliert."
-truecolor2 "Der einzige Unterschied ist, daß
-die Palette größer ist und die
-Farbverläufe glatter sind."
+truecolor2 "Der einzige Unterschied ist, daÃŸ
+die Palette grÃ¶ÃŸer ist und die
+FarbverlÃ¤ufe glatter sind."
 truecolor3 "Der Truecolor-Farbmodus arbeitet
-auf völlig andere Weise. Er benutzt
+auf vÃ¶llig andere Weise. Er benutzt
 verschiedene Parameter, die bei der
 Berechnung des Fraktals auftreten."
 truecolor4 "Er berechnet die Farben selbst, anstelle
@@ -928,8 +928,8 @@ eine Palette zu benutzen."
 truecolor5 "Dies erlaubt, bis zu vier verschiedene
 Werte in einem Pixel darzustellen."
 truecolor6 "Der Truecolor-Farbmodus funktioniert
-natürlich nur in Truecolor-Darstellung.
-Auf einem 8-bit-Display müssen Sie also
+natÃ¼rlich nur in Truecolor-Darstellung.
+Auf einem 8-bit-Display mÃ¼ssen Sie also
 den Truecolor-Filter aktivieren."
 
 #########################################################
@@ -940,33 +940,33 @@ pert1 "Der Anfangswert bei Darstellung einer
 Juliamenge erlaubt es, mit derselben
 Berechnungsformel verschiedene
 Juliamengen zu erzeugen."
-pert2 "Sie können für die Mandelbrotmenge durch
+pert2 "Sie kÃ¶nnen fÃ¼r die Mandelbrotmenge durch
 Angabe eines Perturbationswertes einen
-ähnlichen Effekt erreichen."
-pert3 "Dieser Wert verändert den Ausgangspunkt
-für die Iteration (normal [0,0])."
-pert4 "Er verändert das Fraktal nicht so stark
+Ã¤hnlichen Effekt erreichen."
+pert3 "Dieser Wert verÃ¤ndert den Ausgangspunkt
+fÃ¼r die Iteration (normal [0,0])."
+pert4 "Er verÃ¤ndert das Fraktal nicht so stark
 wie es der Startwert einer Juliamenge
-tut, aber er ist nützlich, wenn Sie das
-Fraktal etwas zufälliger machen wollen."
+tut, aber er ist nÃ¼tzlich, wenn Sie das
+Fraktal etwas zufÃ¤lliger machen wollen."
 
 ##########################################################
 #for file palette.xaf
 
 pal "Zufallspaletten"
-pal0 "XaoS hat keine große Bibliothek von
+pal0 "XaoS hat keine groÃŸe Bibliothek von
 vordefinierten Paletten (wie viele
 anderer Programme), sonder erzeugt
-zufällige Paletten."
-pal1 "Sie können solange die Taste 'P' drücken,
+zufÃ¤llige Paletten."
+pal1 "Sie kÃ¶nnen solange die Taste 'P' drÃ¼cken,
 bis XaoS eine Palette erzeugt, die
-Ihnen gefällt."
+Ihnen gefÃ¤llt."
 pal2 "Drei verschiedene Algorithmen
-werden dafür benutzt."
-pal3 "Der erste erzeugt Übergänge von farbigen
+werden dafÃ¼r benutzt."
+pal3 "Der erste erzeugt ÃœbergÃ¤nge von farbigen
 zu schwarzen Streifen."
-pal4 "Der zweite erzeugt Übergänge von
-schwarzen über farbige zu weißen
+pal4 "Der zweite erzeugt ÃœbergÃ¤nge von
+schwarzen Ã¼ber farbige zu weiÃŸen
 Streifen."
 pal5 "Der letzte wurde von kubistischer
 Malerei inspiriert."
@@ -975,32 +975,32 @@ Malerei inspiriert."
 #for file other.xaf
 
 auto1 "Autopilot"
-auto2 "Wenn Sie faul sind, können Sie den
+auto2 "Wenn Sie faul sind, kÃ¶nnen Sie den
 Autopiloten einschalten und XaoS
 das Fraktal automatisch erforschen
 lassen."
 fastjulia1 "Schneller Julia-Suchmodus"
-fastjulia2 "In diesem Modus können Sie den
+fastjulia2 "In diesem Modus kÃ¶nnen Sie den
 Anfangswert einer Juliamenge
 durch eine Animation finden."
-fastjulia3 "Er ist auch nützlich als eine Vorschau
+fastjulia3 "Er ist auch nÃ¼tzlich als eine Vorschau
 der Juliamenge, bevor Sie hereinzoomen.
 Wegen des thematischen Zusammenhangs
 zwischen Juliamenge und der Umgebung
-des gewählten Punktes können Sie das
-ungefähre Aussehen im Voraus bestimmen."
+des gewÃ¤hlten Punktes kÃ¶nnen Sie das
+ungefÃ¤hre Aussehen im Voraus bestimmen."
 rotation "Bildrotation"
 cycling "Palettenrotation"
 bailout "Fluchtradius"
 bailout1 "Das ist die Mandelbrotmenge unter
-Verwendung der äusseren Färbung Smooth."
-bailout2 "Vergrössert man den Fluchtradius auf 64,
-erhält man ausgeglichenere
-Farbübergänge."
+Verwendung der Ã¤usseren FÃ¤rbung Smooth."
+bailout2 "VergrÃ¶ssert man den Fluchtradius auf 64,
+erhÃ¤lt man ausgeglichenere
+FarbÃ¼bergÃ¤nge."
 bailout3 "Bei den meisten Fraktaltypen ergeben
-sich bei verschiedenen Werten für den
-Fluchtradius ähnliche Fraktale."
-bailout4 "Dies gilt nicht für Barnsley Fraktale."
+sich bei verschiedenen Werten fÃ¼r den
+Fluchtradius Ã¤hnliche Fraktale."
+bailout4 "Dies gilt nicht fÃ¼r Barnsley Fraktale."
 
 
 
@@ -1011,21 +1011,21 @@ bailout4 "Dies gilt nicht für Barnsley Fraktale."
 trice1 "Triceratops und Katzenaugen Fraktale"
 trice2 "Wenn Sie den Fuchtradius"
 trice3 "eines Fliehzeit-Fraktals"
-trice4 "auf einen kleineren Wert ändern,"
+trice4 "auf einen kleineren Wert Ã¤ndern,"
 trice5 "erhalten Sie ein anderes Fraktal."
 trice6 "Mit dieser Methode erhalten wir"
 trice7 "sehr interessante Muster"
 trice8 "mit separaten Gebieten einer Farbe."
 trice9 "Das Triceratops Fraktal"
 trice10 "wird auch mit dieser Methode erzeugt."
-trice11 "Viele ähnliche Bilder"
-trice12 "können mit Triceratops erzeugt werden."
+trice11 "Viele Ã¤hnliche Bilder"
+trice12 "kÃ¶nnen mit Triceratops erzeugt werden."
 trice13 "Das Katzenaugen Fraktal"
 trice14 "sieht wie ein Katzenauge aus."
-trice15 "Wenn wie den Fluchtradius vergrössern..."
+trice15 "Wenn wie den Fluchtradius vergrÃ¶ssern..."
 trice16 "...erhalten wir ein interessanteres Fraktal..."
 trice17 "...mit Blasen..."
-trice18 "...und schönen Juliamengen."
+trice18 "...und schÃ¶nen Juliamengen."
 
 ##############################################
 #for file fourfr.xaf
@@ -1036,28 +1036,28 @@ fourfr3 "Ihre Formel ist: z = (conj(z))^2 + c"
 fourfr4 "Manche ihrer Juliamengen sind interessant."
 fourfr5 "Doch lasst uns jetzt andere Fraktale sehen."
 fourfr6 "Das Lambda Fraktal hat eine Struktur"
-fourfr7 "ähnlich dem Mandelbrot Fraktal."
-fourfr8 "Es ähnelt der Mandelbrotmenge in der Lambda Ebene."
+fourfr7 "Ã¤hnlich dem Mandelbrot Fraktal."
+fourfr8 "Es Ã¤hnelt der Mandelbrotmenge in der Lambda Ebene."
 fourfr9 "Lambda ist eine Juliamenge, hier die Mandelbrotmenge."
 fourfr10 "...schneller Julia Modus..."
 fourfr11 "Das ist das Manowar Fraktal."
 fourfr12 "Es wurde von einem Fractint Benutzer gefunden."
-fourfr13 "Es hat Juliamengen, die ihm ähneln."
+fourfr13 "Es hat Juliamengen, die ihm Ã¤hneln."
 fourfr14 "Dieses Fraktal heisst Spider."
 fourfr15 "Es wurde auch von einem Fractint Benutzer gefunden."
-fourfr16 "Es hat auch Juliamengen, die ihm ähneln."
+fourfr16 "Es hat auch Juliamengen, die ihm Ã¤hneln."
 
 ##############################################
 #for file classic.xaf
 
 classic1 "Sierpinski Dichtung, S.Teppich, Kochsche Schneeflocke"
-classic2 "Das ist das berühmte Sierpinski Dichtungs Fraktal."
+classic2 "Das ist das berÃ¼hmte Sierpinski Dichtungs Fraktal."
 classic3 "Und das ist die Fliehzeit Variante davon."
-classic4 "Sie können seine Form ändern indem Sie"
-classic5 "einen anderen Julia Wert wählen"
+classic4 "Sie kÃ¶nnen seine Form Ã¤ndern indem Sie"
+classic5 "einen anderen Julia Wert wÃ¤hlen"
 classic6 "Dieses Fraktal ist der Sierpinski Teppich."
 classic7 "Und das ist die Fliehzeit Variante davon."
-classic8 "Das ist ebenfalls berühmt."
+classic8 "Das ist ebenfalls berÃ¼hmt."
 classic9 "Und das ist schliesslich die Fliehzeit Variante"
 classic10 "der Kochschen Schneeflocken."
 

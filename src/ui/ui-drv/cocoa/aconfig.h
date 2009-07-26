@@ -100,4 +100,16 @@
 #define SFFE_CMPLX_GSL 1
 #endif
 
+/* Define colors based on hardware endianness */
+#if __BIG_ENDIAN__
+#define RMASK 0xff000000
+#define GMASK 0x00ff0000
+#define BMASK 0x0000ff00
+#else
+#define RMASK 0x000000ff
+#define GMASK 0x0000ff00
+#define BMASK 0x00ff0000
+#endif
+
+
 #endif

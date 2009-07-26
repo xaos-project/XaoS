@@ -47,17 +47,17 @@ un oggetto contenente una qualche
 autosomiglianza."
 
 
-def1 "Una delle possibili definizioni è..."
+def1 "Una delle possibili definizioni Ã¨..."
 #Definition from the intro.xaf is displayed here.
 #If it is a problem in your langage catalog, let me
 #know and I will create a special key
-def2 "Cosa significa tutto ciò?"
+def2 "Cosa significa tutto ciÃ²?"
 def3 "Per spiegarlo dobbiamo prima capire cosa
 sono le dimensioni topologiche e le
 dimensioni di Hausdorff Besicovich."
 
 topo1 "La dimensione topologica
-è la \"normale\" dimensione."
+Ã¨ la \"normale\" dimensione."
 topo2 "Un punto ha 0 dimensioni."
 topo3 "Una linea ha 1 dimensione."
 topo4 "Una superficie ha 2 dimensioni, ecc..."
@@ -73,20 +73,20 @@ aumenta di quattro volte."
 hb4 "Regole simili funzionano anche per
 dimensioni maggiori."
 hb5 "Per calcolare le dimensioni che
-si ottengono da tutto ciò, si può
+si ottengono da tutto ciÃ², si puÃ²
 utilizzare la seguente equazione:"
 hb6 "dimensione = log s / log z
-dove z è l'ingrandimento e
-s è la variazione di misura"
+dove z Ã¨ l'ingrandimento e
+s Ã¨ la variazione di misura"
 hb7 "per un segmento con ingrandimento 2,
-la variazione di misura è anch'essa 2.
+la variazione di misura Ã¨ anch'essa 2.
 log 2 / log 2 = 1"
 hb8 "per un quadrato con ingrandimento 2,
 la variazione di misura risulta 4.
 log 4 / log 2 = 2"
-hb9 "Questa definizione dà poi gli stessi
+hb9 "Questa definizione dÃ  poi gli stessi
 risultati per le forme tradizionali."
-hb10 "Le cose diventeranno più interessanti
+hb10 "Le cose diventeranno piÃ¹ interessanti
 con i frattali..."
 
 hb11 "Consideriamo una curva a fiocco di neve,"
@@ -101,7 +101,7 @@ hb15 "A causa della autosomiglianza
 creata dalla ripetizione infinita
 di questa metamorfosi,"
 hb15b "ognuna di queste parti
-diventerà una copia esatta
+diventerÃ  una copia esatta
 del frattale originale."
 hb16 "Dato che esistono 4 di queste copie, la
 misura del frattale cresce di 4 volte."
@@ -111,16 +111,16 @@ hb18 "otteniamo un valore maggiore di 1
 (La dimensione topologica
 della curva)."
 hb19 "La dimensione di Hausdorff Besicovich
-(1.261) è maggiore della
+(1.261) Ã¨ maggiore della
 dimensione topologica."
 hb20 "In accordo con questa definizione,
-il fiocco di neve è un frattale."
+il fiocco di neve Ã¨ un frattale."
 
 defe1 "Questa definizione comunque
-non è perfetta, dato che esclude un
+non Ã¨ perfetta, dato che esclude un
 gran numero di forme che sono frattali."
-defe2 "Però mette in mostra una delle
-proprietà interessanti dei frattali,"
+defe2 "PerÃ² mette in mostra una delle
+proprietÃ  interessanti dei frattali,"
 defe3 "che risulta piuttosto nota."
 defe4 "La dimensione di Hausdorff Besicovich
 viene spesso chiamata anche
@@ -134,23 +134,23 @@ capitolo 2 - Frattali con tempo di fuga"
 escape1 "Alcuni frattali (come il fiocco di neve)
 sono creati attraverso semplici
 suddivisioni e ripetizioni."
-escape2 "XaoS può generare una diversa
+escape2 "XaoS puÃ² generare una diversa
 categoria di frattali, chiamati
 frattali con tempo di fuga."
-escape3 "Il metodo per ottenerli è
-in qualche modo diverso, ma è basato
+escape3 "Il metodo per ottenerli Ã¨
+in qualche modo diverso, ma Ã¨ basato
 anche sull'utilizzo di iterazioni."
 escape4 "Questi frattali considerano l'intero
 schermo come un piano complesso."
-escape5 "L'asse reale è posto orizzontalmente"
+escape5 "L'asse reale Ã¨ posto orizzontalmente"
 escape6 "e quello immaginario verticalmente."
 escape7 "Ogni punto possiede la sua orbita,"
-escape8 "la traiettoria della quale è calcolata
+escape8 "la traiettoria della quale Ã¨ calcolata
 usando la funzione iterativa f(z,c),
-dove z è la posizione precedente
-e c è la nuova posizione sullo schermo."
+dove z Ã¨ la posizione precedente
+e c Ã¨ la nuova posizione sullo schermo."
 escape9 "Nell'insieme di Mandelbrot, ad esempio,
-la funzione iterativa è z=z^c+c"
+la funzione iterativa Ã¨ z=z^c+c"
 orbit1 "Nel caso volessimo esaminare
 il punto 0 - 0.6i,"
 orbit2 "assegniamo il valore stesso a c."
@@ -163,7 +163,7 @@ utilizzare nell'iterazione successiva."
 orbit4 "Delimitiamo il punto appartenente
 all'insieme, nel caso in cui l'orbita
 risulti finita."
-orbit5 "In questo caso lo è..."
+orbit5 "In questo caso lo Ã¨..."
 orbit6 "Questo punto, quindi, risulta
 interno all'insieme."
 orbit7 "In altri casi sarebbe andato
@@ -179,15 +179,15 @@ di numeri infiniti..."
 bail2 "Ma i computer sono
 finiti, quindi non possono
 calcolare i frattali in maniera esatta."
-bail3 "Si può dimostrare che nel caso
+bail3 "Si puÃ² dimostrare che nel caso
 in cui la distanza dell'orbita dal punto
 zero risulti maggiore di 2, l'orbita
-stessa andrà sempre all'infinito."
+stessa andrÃ  sempre all'infinito."
 bail4 "Possiamo quindi interrompere i calcoli
 quando l'orbita fallisce questo test.
-(Questo è chiamato il test di bailout)"
+(Questo Ã¨ chiamato il test di bailout)"
 bail5 "Se dobbiamo calcolare punti esterni
-all'insieme, è ora necessario solo
+all'insieme, Ã¨ ora necessario solo
 un numero finito di iterazioni."
 bail6 "Tutto questo genera anche le strisce
 colorate intorno all'insieme."
@@ -202,17 +202,17 @@ l'interruzione dei calcoli dopo un
 dato numero di iterazioni, utilizzando
 poi i risultati approssimati."
 iter3 "Il numero massimo di iterazioni
-specifica dunque quanto sarà
+specifica dunque quanto sarÃ 
 esatta l'approssimazione."
 iter4 "Senza alcuna iterazione viene
 creato solo un cerchio di raggio 2.
 (a causa della condizione di bailout)"
-iter5 "Un maggior numero di iterazioni dà
+iter5 "Un maggior numero di iterazioni dÃ 
 approssimazioni migliori, ma necessita
-di tempi di calcolo più lunghi."
+di tempi di calcolo piÃ¹ lunghi."
 limit1 "XaoS, in maniera predefinita, calcola
 170 iterazioni."
-limit2 "In alcune aree è possibile effettuare
+limit2 "In alcune aree Ã¨ possibile effettuare
 molti ingrandimenti senza mai
 raggiungere questo limite."
 limit3 "In altre zone risultati inesatti sono
@@ -225,8 +225,8 @@ nuovi ed eccitanti dettagli."
 ofracts1 "Gli altri frattali in XaoS sono
 calcolati usando differenti formule
 e test di bailout, ma il metodo
-utilizzato è principalmente lo stesso."
-ofracts2 "Sono richiesti così tanti calcoli
+utilizzato Ã¨ principalmente lo stesso."
+ofracts2 "Sono richiesti cosÃ¬ tanti calcoli
 che XaoS deve eseguire molte
 ottimizzazioni.
 
@@ -244,7 +244,7 @@ Animazioni e file di posizione"
 #For file anim.xhf
 
 anim2 "Come probabilmente avrete notato,
-XaoS è in grado di riprodurre guide
+XaoS Ã¨ in grado di riprodurre guide
 e animazioni."
 
 anim3 "Possono essere registrati
@@ -259,7 +259,7 @@ singoli fotogrammi di una animazione)."
 
 languag3 "Le animazioni possono essere modificate
 a posteriori, in maniera manuale, per
-ottenere risultati più professionali."
+ottenere risultati piÃ¹ professionali."
 
 languag4 "Quasi tutte le animazioni di queste
 guide sono state create manualmente
@@ -272,19 +272,19 @@ di \"rimpicciolimento\","
 modif3 "mentre quest'altra un filmato
 di \"ingrandimento\"."
 
-newanim "È anche possibile creare animazioni
+newanim "Ãˆ anche possibile creare animazioni
 ed effetti completamente nuovi."
 
 examples "XaoS contiene inoltre molti
 file di esempio, che possono essere
 caricati in maniera casuale dal
-menù salva / carica."
+menÃ¹ salva / carica."
 
-examples2 "È anche possibile usare i file di
+examples2 "Ãˆ anche possibile usare i file di
 posizione per scambiare informazioni
 con altri programmi."
 
-examples3 "L'unico limite è la propria
+examples3 "L'unico limite Ã¨ la propria
 immaginazione e il linguaggio a
 comandi descritto in xaos.info."
 
@@ -300,12 +300,12 @@ introdotta da Michael Barnsley,"
 
 barnsley2 "genera questo strano frattale."
 
-barnsley3 "Non è molto interessante
+barnsley3 "Non Ã¨ molto interessante
 da esplorare,"
 
 barnsley4 "ma contiene bellissimi Julia!"
 
-barnsley5 "È interessante perché ha
+barnsley5 "Ãˆ interessante perchÃ© ha
 una struttura \"cristallina\","
 
 barnsley6 "a differenza della struttura
@@ -327,7 +327,7 @@ filtri"
 #########################################################
 #For file filter.xhf
 
-filter1 "Un filtro è un effetto applicato
+filter1 "Un filtro Ã¨ un effetto applicato
 ad ogni fotogramma dopo che il frattale
 viene calcolato."
 
@@ -338,17 +338,17 @@ motblur "motion blur,"
 
 edge "filtri di rilevamento due bordi,"
 
-edge2 "(il primo crea linee ampie ed è
+edge2 "(il primo crea linee ampie ed Ã¨
 utile ad alte risoluzioni,"
 
 edge3 "il secondo crea
-linee più strette),"
+linee piÃ¹ strette),"
 
 star "un filtro campo stellato semplice,"
 
 interlace "Un filtro incrociato, (Velocizza
 i calcoli e produce un effetto
-\"motion blur\" a risoluzioni più alte),"
+\"motion blur\" a risoluzioni piÃ¹ alte),"
 
 stereo "Un filtro stereogramma a
 punti casuali,"
@@ -356,7 +356,7 @@ punti casuali,"
 stereo2 "(se le prossime immagini non sono
 visualizzate bene, ma solitamente gli
 stereogrammi a punti casuali sono 
-visibili, è probabile che la dimensione
+visibili, Ã¨ probabile che la dimensione
 dello schermo non sia configurata
 correttamente - usa `xaos -help'
 per maggiori informazioni),"
@@ -375,7 +375,7 @@ immagini truecolor su schermi con 8bpp)."
 
 end "Fine."
 
-fcopyright "L'introduzione ai frattali è stata
+fcopyright "L'introduzione ai frattali Ã¨ stata
 creata da Jan Hubicka nel Luglio 1997 e
 successivamente modificata e aggiornata
 per le nuove versioni di XaoS.
@@ -407,13 +407,13 @@ incolor1 "Di solito i punti interni dell'insieme
 sono visualizzati utilizzando un singolo
 colore a tinta unita."
 
-incolor2 "Ciò rende molto visibili i contorni
+incolor2 "CiÃ² rende molto visibili i contorni
 dell'insieme, ma le aree interne
 all'insieme stesso risultano
 piuttosto soporifere."
 
-incolor3 "Per rendere il tutto un po' più
-interessante, è possibile utilizzare il
+incolor3 "Per rendere il tutto un po' piÃ¹
+interessante, Ã¨ possibile utilizzare il
 valore dell'ultima orbita per assegnare
 un colore ai punti interni all'insieme."
 
@@ -452,26 +452,26 @@ caso o copiate da altri programmi."
 
 
 fractal "...Frattali..."
-fractal1 "Cos'è un frattale?"
+fractal1 "Cos'Ã¨ un frattale?"
 
 fractal2 "Definizione di Benoit Mandelbrot:
-un frattale è un insieme per il quale
+un frattale Ã¨ un insieme per il quale
 la dimensione di Hausdorff Besicovich
-è strettamente maggiore della
+Ã¨ strettamente maggiore della
 dimensione topologica."
 
 fractal3 "Brancolate nel buio?"
 
 fractal4 "Non preoccupatevi.
-Questa definizione è importante solo se
+Questa definizione Ã¨ importante solo se
 siete dei matematici."
 
 fractal5 "In termini pratici,
-un frattale è una forma"
+un frattale Ã¨ una forma"
 
 fractal6 "costituita da parti"
 
-fractal7 "ognuna delle quali è approssimativamente
+fractal7 "ognuna delle quali Ã¨ approssimativamente
 una copia in misura ridotta dell'intero
 frattale."
 
@@ -480,7 +480,7 @@ fractal8 "Questo processo si ripete all'infinito"
 fractal9 "per creare l'intero frattale."
 
 facts "I frattali sono caratterizzati
-da proprietà sorprendenti:"
+da proprietÃ  sorprendenti:"
 
 fact1 "I frattali non dipendono dalla scala,"
 fact2 "sono autosomiglianti,"
@@ -507,18 +507,18 @@ fmath11 "...dopo 3 iterazioni..."
 fmath12 "...dopo 4 iterazioni..."
 fmath13 "...e dopo un infinito numero
 di iterazioni otteniamo un frattale."
-fmath14 "La sua forma è simile a quella
+fmath14 "La sua forma Ã¨ simile a quella
 di un terzo di un fiocco di neve."
-tree1 "Utilizzando metodi simili è possibile
+tree1 "Utilizzando metodi simili Ã¨ possibile
 costruire molte altre forme."
 tree2 "Ad esempio modificando un segmento
 in un altro modo"
 tree3 "possiamo ottenere un albero."
-nstr "Può darsi che le iterazioni introducano
+nstr "PuÃ² darsi che le iterazioni introducano
 disturbi casuali all'interno del frattale."
 nstr2 "Passando da un segmento a due segmenti"
 nstr3 "e aggiungendo qualche piccolo errore,"
-nstr4 "è possibile ottenere frattali che
+nstr4 "Ã¨ possibile ottenere frattali che
 ricordano una linea costiera."
 nstr5 "Un processo simile potrebbe creare
 nuvole, montagne e molte altre forme
@@ -527,33 +527,33 @@ presenti in natura."
 #######################################################
 ## mset.xaf
 
-fact7 "Indubbiamente il frattale più famoso è..."
+fact7 "Indubbiamente il frattale piÃ¹ famoso Ã¨..."
 
 mset "...l'insieme di Mandelbrot."
-mset1 "È generato da
+mset1 "Ãˆ generato da
 una formula molto semplice"
 mset2 "ma risulta uno dei
-frattali più belli."
+frattali piÃ¹ belli."
 mset3 "Dato che l'insieme di Mandelbrot
-è un frattale,"
+Ã¨ un frattale,"
 mset4 "i suoi contorni contengono"
 mset5 "copie in miniatura
 dell'intero insieme."
-mset6 "Questa è la copia più grande, circa 50
-volte più piccola dell'intero insieme."
-mset7 "L'insieme di Mandelbrot non è
+mset6 "Questa Ã¨ la copia piÃ¹ grande, circa 50
+volte piÃ¹ piccola dell'intero insieme."
+mset7 "L'insieme di Mandelbrot non Ã¨
 completamente autosomigliante,"
 mset8 "quindi ogni copia in miniatura
 risulta diversa."
-mset9 "Questa è circa 76.000 volte
-più piccola di tutto l'intero."
+mset9 "Questa Ã¨ circa 76.000 volte
+piÃ¹ piccola di tutto l'intero."
 mset10 "Altre copie, che si trovano in zone
 diverse dell'insieme, sono ancora
-più differenti."
+piÃ¹ differenti."
 
 nat "I contorni non contengono solamente
 copie dell'intero insieme,"
-nat1 "ma una vera e propria varietà infinita
+nat1 "ma una vera e propria varietÃ  infinita
 di forme differenti."
 nat2 "Alcune di queste sono sorprendentemente
 simili a quelle presenti in natura:"
@@ -571,25 +571,25 @@ juliach "Una introduzione ai frattali
 
 Capitolo 2-Julia"
 
-julia "L'insieme di Mandelbrot non è l'unico
+julia "L'insieme di Mandelbrot non Ã¨ l'unico
 frattale generato dalla formula:
 z=z^2+c"
-julia1 "L'altro è..."
+julia1 "L'altro Ã¨..."
 julia2 "l'insieme di Julia"
 julia3 "Non esiste un unico insieme di Julia,"
 julia4 "ma ce ne sono un'infinita
-varietà."
-julia5 "Ognuno è creato partendo da un \"seme\","
-julia6 "che non è altro che un punto selezionato
+varietÃ ."
+julia5 "Ognuno Ã¨ creato partendo da un \"seme\","
+julia6 "che non Ã¨ altro che un punto selezionato
 da un insieme di Mandelbrot."
-julia7 "L'insieme di Mandelbrot può essere visto
+julia7 "L'insieme di Mandelbrot puÃ² essere visto
 come una mappa di vari insiemi di Julia."
 julia8 "Punti interni all'insieme di Mandelbrot
 corrispondono a insiemi di Julia
 con grandi aree nere connesse,"
 julia9 "mentre punti esterni all'insieme stesso
 corrispondono a Julia non connessi."
-julia10 "Gli insiemi di Julia più interessanti
+julia10 "Gli insiemi di Julia piÃ¹ interessanti
 hanno i loro semi proprio sui confini
 dell'insieme di Mandelbrot."
 
@@ -620,8 +620,8 @@ keys "Tasti:
 
 q          - ferma riproduzione        
 Spazio     - salta fotogramma          
-             (può richiedere tempo)    
-Sin./Dest. - varia velocità sottotitoli"
+             (puÃ² richiedere tempo)    
+Sin./Dest. - varia velocitÃ  sottotitoli"
 
 #########################################################
 #For file magnet.xaf
@@ -631,17 +631,17 @@ intro7 "Una introduzione ai frattali
 
 Capitolo 8-Magnet"
 
-magnet "Questo NON è l'insieme di Mandelbrot."
-magnet1 "Questo frattale è chiamato \"magnet\"
-perchè la sua formula viene
+magnet "Questo NON Ã¨ l'insieme di Mandelbrot."
+magnet1 "Questo frattale Ã¨ chiamato \"magnet\"
+perchÃ¨ la sua formula viene
 dalla fisica teorica."
 magnet2 "Deriva dallo studio di reticoli teorici
 nel contesto delle trasformazioni di
 rinormalizzazione magnetica."
 
 similiar "La sua somiglianza con l'insieme di
-Mandelbrot è interessante, visto che
-è una formula del mondo reale."
+Mandelbrot Ã¨ interessante, visto che
+Ã¨ una formula del mondo reale."
 
 magjulia "I suoi insiemi di Julia sono insoliti."
 
@@ -650,15 +650,15 @@ magnet3 "Esiste anche un secondo frattale magnet."
 #########################################################
 #For file new.xaf
 
-new "Novità della versione 3.0"
-speed "1. Maggiore velocità"
+new "NovitÃ  della versione 3.0"
+speed "1. Maggiore velocitÃ "
 speed1 "I cicli principali di calcolo
 vengono ora \"svolti\" ed
-effettuano controlli di periodicità."
+effettuano controlli di periodicitÃ ."
 speed2 "Le nuove immagini sono calcolate usando
 il rilevamento dei contorni,"
 speed3 "quindi il calcolo delle nuove immagini
-risulta ora molto più veloce."
+risulta ora molto piÃ¹ veloce."
 speed4 "Ad esempio: calcolo
 dell'insieme di Mandelbrot a
 1,000,000 iterazioni..."
@@ -666,13 +666,13 @@ speed5 "calcolo in corso..."
 speed6 "finito."
 speed7 "XaoS ha una euristica che disabilita
 automaticamente il controllo di
-periodicità quando non ci si attende
+periodicitÃ  quando non ci si attende
 che il punto calcolato sia interno
 all'insieme (quando non lo sono neanche
 tutti i punti circostanti)."
 speed8 "Sono state ottimizzate anche le routine
 principali di ingrandimento, 
-raddoppiando circa la velocità
+raddoppiando circa la velocitÃ 
 di ingrandimento stessa."
 speed9 "Adesso XaoS raggiunge 130FPS
 su un Pentium 130Mhz."
@@ -693,7 +693,7 @@ il ChangeLog per l'elenco completo." #NEW
 intro3 "Una introduzione ai frattali
 
 Capitolo 4-Metodo di Newton"
-newton "Questo frattale è generato
+newton "Questo frattale Ã¨ generato
 da una formula completamente differente:"
 newton1 "metodo numerico di Newton per
 trovare le radici di un polinomio x^3=1."
@@ -701,18 +701,18 @@ newton2 "Vengono contate le iterazioni richieste
 per ottenere la radice approssimata."
 newton3 "I cerchi blu corrispondono
 alle tre radici."
-newton4 "Le parti più interessanti sono nelle
-zone in cui il punto di partenza è
+newton4 "Le parti piÃ¹ interessanti sono nelle
+zone in cui il punto di partenza Ã¨
 quasi equidistante a due o a tre radici."
-newton5 "Questo frattale è molto autosomigliante
-e non è molto interessante da esplorare."
-newton6 "Ma XaoS è capace di
+newton5 "Questo frattale Ã¨ molto autosomigliante
+e non Ã¨ molto interessante da esplorare."
+newton6 "Ma XaoS Ã¨ capace di
 generare insiemi \"tipo Julia\""
 newton7 "dove viene utilizzato l'errore
 di approssimazione come seme."
 newton8 "Questo rende il frattale di Newton
-molto più interessante."
-newton9 "XaoS può anche generare
+molto piÃ¹ interessante."
+newton9 "XaoS puÃ² anche generare
 un altro frattale di Newton."
 newton10 "Metodo numerico di Newton per
 trovare le radici di un polinomio x^4=1."
@@ -724,10 +724,10 @@ alle quattro radici."
 intro6 "Una introduzione ai frattali
 
 Capitolo 7-Octo"
-octo "Octo è un frattale molto meno noto."
-octo1 "È stato scelto per XaoS
+octo "Octo Ã¨ un frattale molto meno noto."
+octo1 "Ãˆ stato scelto per XaoS
 a causa della sua insolita forma."
-octo2 "XaoS è anche in grado di
+octo2 "XaoS Ã¨ anche in grado di
 generare insiemi \"tipo Julia\"
 simili a quelli dell'insieme di Newton."
 
@@ -736,12 +736,12 @@ simili a quelli dell'insieme di Newton."
 
 outcolor "Modi di colorazione esterna"
 outcolor1 "L'insieme di Mandelbrot
-è solo il noioso lago nero
+Ã¨ solo il noioso lago nero
 che si trova al centro dello schermo"
 outcolor2 "Le parti colorate
 che si trovano intorno
 sono i confini dell'insieme stesso."
-outcolor3 "Normalmente, la colorazione è basata
+outcolor3 "Normalmente, la colorazione Ã¨ basata
 sul numero di iterazioni richieste
 per raggiungere il valore di bailout."
 outcolor4 "Ma esistono anche altri metodi
@@ -754,11 +754,11 @@ iterreal "iter+real
 Questo modo colora i contorni
 aggiungendo la parte reale dell'ultima
 orbita al numero di iterazioni."
-iterreal1 "Può essere utilizzato per rendere più
+iterreal1 "PuÃ² essere utilizzato per rendere piÃ¹
 interessanti immagini piuttosto noiose."
 
-iterimag "iter+imag è simile a iter+real."
-iterimag2 "L'unica differenza è che viene
+iterimag "iter+imag Ã¨ simile a iter+real."
+iterimag2 "L'unica differenza Ã¨ che viene
 utilizzata la parte immaginaria
 dell'ultima orbita."
 
@@ -771,12 +771,12 @@ immaginaria dell'ultima orbita."
 
 sum "iter+real+imag+real/imag
 
-è la somma di tutti precedenti modi di
+Ã¨ la somma di tutti precedenti modi di
 colorazione."
 
 decomp "scomposizione binaria
 
-Quando la parte immaginaria è maggiore
+Quando la parte immaginaria Ã¨ maggiore
 di zero questo modo utilizza il numero
 di iterazioni, altrimenti utilizza il
 numero massimo di iterazioni meno
@@ -785,8 +785,8 @@ scomposizione binaria."
 
 bio "biomorphs
 
-Questo modo di colorazione è chiamato
-così perché rende alcuni frattali simili
+Questo modo di colorazione Ã¨ chiamato
+cosÃ¬ perchÃ© rende alcuni frattali simili
 a organismi unicellulari."
 
 #########################################################
@@ -799,14 +799,14 @@ molto bene per immagini rimpicciolite
 utilizzando colori truecolor."
 
 cdecom "decomposizione del colore"
-cdecom2 "In questo modalità, il colore
-è calcolato a partire dall'angolo
+cdecom2 "In questo modalitÃ , il colore
+Ã¨ calcolato a partire dall'angolo
 dell'ultima orbita."
-cdecom3 "È simile alla scomposizione
+cdecom3 "Ãˆ simile alla scomposizione
 binaria, ma in questo caso i colori
 sono interpolati in maniera equilibrata."
 cdecom4 "Nei frattali di tipo Newton
-può essere usato per colorare l'insieme
+puÃ² essere usato per colorare l'insieme
 relativo alla radice trovata, piuttosto
 che al numero di iterazioni."
 
@@ -815,7 +815,7 @@ smooth "uniforme
 Il modo di colorazione uniforme cerca
 di eliminare le righe prodotte dalle
 iterazioni creando sfumature uniformi."
-smooth1 "Non può essere applicato all'insieme
+smooth1 "Non puÃ² essere applicato all'insieme
 di Newton e alle formule magnet,
 dato che possiedono attrattori finiti."
 smooth2 "Funziona solo con modi di
@@ -830,11 +830,11 @@ intro5 "Una introduzione ai frattali
 
 Capitolo 6-Phoenix"
 
-phoenix "Questo è l'insieme di Mandelbrot
+phoenix "Questo Ã¨ l'insieme di Mandelbrot
 di una formula conosciuta come Phoenix."
 
 phoenix1 "Sembra diverso dagli altri frattali
-di XaoS, ma è possibile trovare alcune
+di XaoS, ma Ã¨ possibile trovare alcune
 somiglianze con l'insieme di Mandelbrot:"
 
 phoenix2 "L'insieme di Phoenix
@@ -851,36 +851,36 @@ phoenix4 "ma gli Julia risultano molto diversi."
 #For file plane.xaf
 
 plane1 "Di solito nel piano complesso la
-parte reale di un punto è mappata sulla
+parte reale di un punto Ã¨ mappata sulla
 coordinata x dello schermo mentre la
-parte immaginaria è mappata sulla
+parte immaginaria Ã¨ mappata sulla
 coordinata y."
 
 plane2 "XaoS fornisce 6 modi alternativi
 di mappatura"
 plane3 "1/mu
 
-Questa è un'inversione: le aree
-all'infinito vanno a 0 e 0 è mappato
-all'infinito. In questo modo si vede ciò
+Questa Ã¨ un'inversione: le aree
+all'infinito vanno a 0 e 0 Ã¨ mappato
+all'infinito. In questo modo si vede ciÃ²
 che accade a un frattale quando viene
 rimpicciolito infinitamente."
-plane4 "Questo è un Mandelbrot normale..."
-plane5 "...e questo è un Mandelbrot invertito."
-plane6 "Come si può vedere,
+plane4 "Questo Ã¨ un Mandelbrot normale..."
+plane5 "...e questo Ã¨ un Mandelbrot invertito."
+plane6 "Come si puÃ² vedere,
 prima l'insieme era al centro
 e ora si trova tutto intorno.
 L'area blu infinitamente grande intorno
-all'insieme è mappata all'interno del
+all'insieme Ã¨ mappata all'interno del
 piccolo cerchio intorno a 0."
 plane7 "Le prossime immagini verranno
-prima mostrate in modalità normale
-e poi in modalità invertita
-per mostrare ciò che accade."
+prima mostrate in modalitÃ  normale
+e poi in modalitÃ  invertita
+per mostrare ciÃ² che accade."
 
 plane8 "1/mu+0.25
 
-Questo è un altro modo invertito, ma
+Questo Ã¨ un altro modo invertito, ma
 con un centro di inversione differente.
 "
 plane9 "Dato che il centro di inversione cade
@@ -896,12 +896,12 @@ visione completamente diversa."
 
 ilambda "1/lambda
 
-Questa è una combinazione tra il piano
+Questa Ã¨ una combinazione tra il piano
 invertito e il piano lambda."
 
 imlambda "1/(lambda-1)
 
-Questa è una combinazione tra piano
+Questa Ã¨ una combinazione tra piano
 lambda, spostamento e inversione."
 
 imlambda2 "Fornisce una deformazione molto
@@ -909,11 +909,11 @@ interessante dell'insieme di Mandelbrot."
 
 mick "1/(mu-1.40115)
 
-Questa è ancora una inversione con un
-centro spostato. Il centro è ora piazzato
+Questa Ã¨ ancora una inversione con un
+centro spostato. Il centro Ã¨ ora piazzato
 dentro i punti di Feigenbaum, punti
-nei quali l'insieme di Mandelbrot è
-autosomigliante. Ciò esalta enormemente
+nei quali l'insieme di Mandelbrot Ã¨
+autosomigliante. CiÃ² esalta enormemente
 i dettagli intorno a questo punto."
 
 #########################################################
@@ -923,11 +923,11 @@ intro2 "Una introduzione ai frattali
 
 Capitolo 3-Mandelbrot a potenze superiori"
 
-power "z^2+c non è l'unica formula
+power "z^2+c non Ã¨ l'unica formula
 che genera frattali."
 power2 "Con una leggermente modificata, x^3+c,
 otteniamo un frattale simile,"
-power3 "che naturalmente è pieno
+power3 "che naturalmente Ã¨ pieno
 di copie dell'insieme principale."
 
 power4 "Frattali simili possono essere generati
@@ -942,9 +942,9 @@ di insiemi di Julia corrispondenti."
 truecolor "Modi di colorazione truecolor"
 truecolor1 "Di solito i frattali sono colorati
 usando una tavolozza. Nel modo truecolor
-la tavolozza stessa è emulata."
-truecolor2 "L'unica differenza è che la
-tavolozza è più grande e i colori
+la tavolozza stessa Ã¨ emulata."
+truecolor2 "L'unica differenza Ã¨ che la
+tavolozza Ã¨ piÃ¹ grande e i colori
 vengono interpolati in maniera uniforme
 in modi di colorazione."
 truecolor3 "Il modo di colorazione truecolor
@@ -969,15 +969,15 @@ pert1 "Nello stesso modo in cui semi differenti
 producono vari insiemi di Julia
 partendo da un unica formula,"
 pert2 "l'insieme di Mandelbrot
-può essere modificato attraverso
+puÃ² essere modificato attraverso
 il valore di perturbazione."
 pert3 "Quest'ultimo cambia la posizione di
 partenza dell'orbita, predefinita a 0."
 pert4 "Il valore di perturbazione non influenza
 il frattale tanto quanto il seme nei
 confronti degli insiemi di Julia,
-ma è utile per ottenere un frattale
-più casuale."
+ma Ã¨ utile per ottenere un frattale
+piÃ¹ casuale."
 
 ##########################################################
 #for file palette.xaf
@@ -985,7 +985,7 @@ più casuale."
 pal "Tavolozze casuali"
 pal0 "XaoS non contiene una grande libreria
 di tavolozze predefinite come avviene 
-in molti altri programmi, ma è in grado
+in molti altri programmi, ma Ã¨ in grado
 di generare tavolozze casuali."
 pal1 "Ad ogni pressione del tasto \"P\"
 XaoS genera una nuova tavolozza da
@@ -996,14 +996,14 @@ pal3 "Il primo crea strisce che vanno da
 alcuni colori al nero."
 pal4 "Il secondo produce strisce che vanno
 dal nero, a diversi colori e al bianco."
-pal5 "Il terzo è ispirato a dipinti
+pal5 "Il terzo Ã¨ ispirato a dipinti
 cubisti."
 
 ###########################################################
 #for file other.xaf
 
 auto1 "Pilota automatico"
-auto2 "Per le persone pigre è possibile
+auto2 "Per le persone pigre Ã¨ possibile
 abilitare il pilota automatico,
 per lasciare che XaoS esplori
 un frattale in maniera automatica."
@@ -1011,16 +1011,16 @@ fastjulia1 "Modo di esplorazione Julia veloce"
 fastjulia2 "Questo modo permette la trasformazione
 dell'insieme di Julia in accordo con
 il seme attuale."
-fastjulia3 "È anche utile come anteprima di
+fastjulia3 "Ãˆ anche utile come anteprima di
 un'area prima dell'ingrandimento: a
 causa della corrispondenza tematica tra
 l'insieme di Julia e il punto scelto,
-è possibile vedere il tema approssimato
+Ã¨ possibile vedere il tema approssimato
 intorno ad un punto prima di ingrandire."
 rotation "Rotazione dell'immagine"
 cycling "Ciclo dei colori"
 bailout "Bailout"
-bailout1 "Questo è l'insieme di Mandelbrot con un
+bailout1 "Questo Ã¨ l'insieme di Mandelbrot con un
 modo di colorazione esterna \"uniforme\"."
 bailout2 "Incrementando a 64 il valore di bailout,
 otteniamo una variazione graduale
@@ -1039,19 +1039,19 @@ per i frattali di Barnsley."
 trice1 "Frattali Triceratopo e Occhi di gatto"
 trice2 "Portando il valore di bailout"
 trice3 "di un frattale con tempo di fuga"
-trice4 "ad un valore più piccolo,"
-trice5 "si otterrà un altro frattale."
+trice4 "ad un valore piÃ¹ piccolo,"
+trice5 "si otterrÃ  un altro frattale."
 trice6 "Con questo metodo possiamo creare"
 trice7 "trame molto interessanti"
 trice8 "con aree a tinta unita separate."
 trice9 "Anche il frattale Triceratopo"
-trice10 "è creato con questo metodo."
+trice10 "Ã¨ creato con questo metodo."
 trice11 "Molte immagini simili"
 trice12 "si possono creare con il Triceratopo."
 trice13 "Il frattale Occhi di gatto"
-trice14 "è come l'occhio di un gatto."
+trice14 "Ã¨ come l'occhio di un gatto."
 trice15 "Ma se innalziamo il valore di bailout"
-trice16 "otteniamo un frattale più interessante.."
+trice16 "otteniamo un frattale piÃ¹ interessante.."
 trice17 "..con bolle.."
 trice18 "..e bellissimi Julia."
 
@@ -1059,23 +1059,23 @@ trice18 "..e bellissimi Julia."
 #for file fourfr.xaf
 
 fourfr1 "Mandelbar, Lambda, Manowar e Spider"
-fourfr2 "Questo è l'insieme di Mandelbar."
-fourfr3 "La sua formula è: z = (conj(z))^2 + c"
+fourfr2 "Questo Ã¨ l'insieme di Mandelbar."
+fourfr3 "La sua formula Ã¨: z = (conj(z))^2 + c"
 fourfr4 "Alcuni suoi Julia sono interessanti."
 fourfr5 "Ma ora vediamo altri frattali."
 fourfr6 "Il frattale Lambda ha una struttura"
 fourfr7 "simile al frattale di Mandelbrot."
-fourfr8 "È come un insieme di Mandelbrot
+fourfr8 "Ãˆ come un insieme di Mandelbrot
 in un piano lambda."
-fourfr9 "Ma Lambda è un insieme di Julia...
-...e questo è MandelLambda."
+fourfr9 "Ma Lambda Ã¨ un insieme di Julia...
+...e questo Ã¨ MandelLambda."
 fourfr10 "...modo di Julia veloce..."
-fourfr11 "Questo è il frattale Manowar."
-fourfr12 "È stato scoperto da un utente del
+fourfr11 "Questo Ã¨ il frattale Manowar."
+fourfr12 "Ãˆ stato scoperto da un utente del
 programma Fractint."
 fourfr13 "Contiene Julia simili a tutto l'insieme."
-fourfr14 "Questo frattale è chiamato Spider."
-fourfr15 "Anche questo è stato scoperto
+fourfr14 "Questo frattale Ã¨ chiamato Spider."
+fourfr15 "Anche questo Ã¨ stato scoperto
 da un utente del programma Fractint."
 fourfr16 "Ed anche questo contiene Julia simili
 all'intero insieme."
@@ -1085,17 +1085,17 @@ all'intero insieme."
 
 classic1 "Triangolo e Tappeto di Sierpinski,
 Fiocco di neve di Koch"
-classic2 "Questo è il famoso frattale chiamato
+classic2 "Questo Ã¨ il famoso frattale chiamato
 Triangolo di Sierpinski."
-classic3 "E questa è la sua
+classic3 "E questa Ã¨ la sua
 variante con tempo di fuga."
-classic4 "La sua forma può essere modificata"
+classic4 "La sua forma puÃ² essere modificata"
 classic5 "selezionando un altro \"seme di Julia\"."
-classic6 "Questo è il Tappeto di Sierpinski."
-classic7 "E questa è la sua
+classic6 "Questo Ã¨ il Tappeto di Sierpinski."
+classic7 "E questa Ã¨ la sua
 variante con tempo di fuga."
-classic8 "Anche questo è famoso."
-classic9 "E infine, questa è
+classic8 "Anche questo Ã¨ famoso."
+classic9 "E infine, questa Ã¨
 la variante con tempo di fuga"
 classic10 "del Fiocco di neve di Koch."
 

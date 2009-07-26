@@ -519,6 +519,16 @@ int xtextwidth(CONST struct xfont *font, CONST char *text)
     return (i * font->width + 1);
 }
 
+int xtextheight(CONST struct xfont *font) 
+{
+    return font->height+1;
+}
+
+int xtextcharw(CONST struct xfont *font, CONST char c);
+{
+    return font->width;
+}
+
 void xhline(struct image *image, int x, int y, int width, int fgcolor)
 {
     /*Do some clipping */

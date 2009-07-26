@@ -225,16 +225,10 @@ struct ui_driver cocoa_driver = {
     /* palettestart */  0, 
     /* paletteend */    256, 
     /* maxentries */    255,
-#if __BIG_ENDIAN__
-    /* rmask */         0xff000000,
-    /* gmask */         0x00ff0000,
-    /* bmask */         0x0000ff00,
-#else
-    /* rmask */         0x000000ff,
-    /* gmask */         0x0000ff00,
-    /* bmask */         0x00ff0000,
-#endif
-    /* gui_driver */    &cocoa_gui_driver
+	/* rmask */         RMASK,
+	/* gmask */         GMASK,
+	/* bmask */         BMASK,
+	/* gui_driver */    &cocoa_gui_driver
 };
 
 struct ui_driver cocoa_fullscreen_driver = {
@@ -265,15 +259,9 @@ struct ui_driver cocoa_fullscreen_driver = {
     /* palettestart */  0, 
     /* paletteend */    256, 
     /* maxentries */    255,
-#if __BIG_ENDIAN__
-    /* rmask */         0xff000000,
-    /* gmask */         0x00ff0000,
-    /* bmask */         0x0000ff00,
-#else
-    /* rmask */         0x000000ff,
-    /* gmask */         0x0000ff00,
-    /* bmask */         0x00ff0000,
-#endif
+    /* rmask */         RMASK,
+    /* gmask */         GMASK,
+    /* bmask */         BMASK,
     /* gui_driver */    &cocoa_gui_driver
 };
 /* DONT FORGET TO ADD DOCUMENTATION ABOUT YOUR DRIVER INTO xaos.hlp FILE!*/

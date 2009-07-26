@@ -14,10 +14,13 @@ extern "C" {
 	       int y, CONST char *text, int encoding, int fgcolor,
 	       int bgcolor, int mode);
 #define TEXT_PRESSED 1
-
+/*
 #define xtextheight(font) ((font)->height+1)
 #define xtextcharw(font,c) ((font)->width)
+ */
     int xtextwidth(CONST struct xfont *font, CONST char *text);
+    int xtextheight(CONST struct xfont *font);
+    int xtextcharw(CONST struct xfont *font, CONST char c);
     void xrectangle(struct image *image, int x, int y, int width,
 		    int height, int fgcolor);
     void xvline(struct image *image, int x, int y, int height,

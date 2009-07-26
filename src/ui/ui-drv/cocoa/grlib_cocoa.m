@@ -126,15 +126,15 @@ static inline void
 drawchar1(struct image *img, int x, int y, int fgcolor,
 		  unsigned char letter)
 {
-    int fontwidth = (RWIDTH(letter) + 7) / 8;
-    CONST unsigned char *bitmap = &DATA[letter * HEIGHT * fontwidth];
-    unsigned char *current;
-    int yend = y + HEIGHT;
-    if (y < 0)
+	int fontwidth = (RWIDTH(letter) + 7) / 8;
+	CONST unsigned char *bitmap = &DATA[letter * HEIGHT * fontwidth];
+	unsigned char *current;
+	int yend = y + HEIGHT;
+	if (y < 0)
 		bitmap -= y, y = 0;
-    if (yend > img->height)
+	if (yend > img->height)
 		yend = img->height;
-    for (; y < yend; y++) {
+	for (; y < yend; y++) {
 		unsigned int b = *(bitmap++);
 		if (fontwidth == 2) {
 			b <<= 8;
@@ -163,29 +163,29 @@ drawchar1(struct image *img, int x, int y, int fgcolor,
 			} else
 				*current &= ~(b >> 8);
 		}
-    }
+	}
 }
 
 static void hline1(struct image *img, int x, int y, int l, int color)
 {
-    int x2 = x + l;
-    int c1 = 255;
-    int c2 = 255;
-    unsigned char *current = img->currlines[y] + x / 8;
-    unsigned char *currend = img->currlines[y] + x2 / 8;
-    if (img->palette->type & (LBITMAP | LIBITMAP)) {
+	int x2 = x + l;
+	int c1 = 255;
+	int c2 = 255;
+	unsigned char *current = img->currlines[y] + x / 8;
+	unsigned char *currend = img->currlines[y] + x2 / 8;
+	if (img->palette->type & (LBITMAP | LIBITMAP)) {
 		c2 >>= x2 & 7;
 		c1 <<= 8 - (x & 7);
-    } else {
+	} else {
 		c1 >>= x & 7;
 		c2 <<= 8 - (x2 & 7);
-    }
-    if (current == currend) {
+	}
+	if (current == currend) {
 		if (color)
 			*current |= c1 & c2;
 		else
 			*current &= ~(c1 & c2);
-    } else {
+	} else {
 		if (color) {
 			*current |= c1;
 			*currend |= c2;
@@ -195,20 +195,20 @@ static void hline1(struct image *img, int x, int y, int l, int color)
 			*currend &= ~c2;
 			memset(current + 1, 0, currend - current - 1);
 		}
-    }
+	}
 }
 
 static void vline1(struct image *img, int x, int y, int l, int color)
 {
-    unsigned char c = 128 >> (x & 7);
-    l += y;
-    x /= 8;
-    if (img->palette->type & (LBITMAP | LIBITMAP)) {
+	unsigned char c = 128 >> (x & 7);
+	l += y;
+	x /= 8;
+	if (img->palette->type & (LBITMAP | LIBITMAP)) {
 		c = ((c >> 1) & 0x55) | ((c << 1) & 0xaa);
 		c = ((c >> 2) & 0x33) | ((c << 2) & 0xcc);
 		c = ((c >> 4) & 0x0f) | ((c << 4) & 0xf0);
-    }
-    if (color)
+	}
+	if (color)
 		while (y <= l) {
 			unsigned char *current = img->currlines[y] + x;
 			*current |= c;
@@ -227,21 +227,21 @@ static inline void
 rectangle1(struct image *img, int x, int y, int width, int height,
 		   int fgcolor)
 {
-    height += y;
-    while (y < height)
+	height += y;
+	while (y < height)
 		hline1(img, x, y, width - 1, fgcolor), y++;
 }
 
 static inline void
 line1(struct image *img, int x, int y, int x2, int y2, int color)
 {
-    int dx = x2 - x;
-    int dy = y2 - y;
-    int ady = abs(dy);
+	int dx = x2 - x;
+	int dy = y2 - y;
+	int ady = abs(dy);
 #ifdef SLBITMAPS
-    int type = img->palette->type;
+	int type = img->palette->type;
 #endif
-    if (dx < ady) {
+	if (dx < ady) {
 		int plus = (dx << 16) / ady;
 		if (dy < 0) {
 			int dy = (x << 16) | (65536 / 2);
@@ -316,7 +316,7 @@ line1(struct image *img, int x, int y, int x2, int y2, int color)
 										ady++;
 									}
 		}
-    } else {
+	} else {
 		int plus = (dy << 16) / dx;
 		ady = x;
 		dy = (y << 16) | (65536 / 2);
@@ -353,76 +353,41 @@ line1(struct image *img, int x, int y, int x2, int y2, int color)
 									dy += plus;
 									ady++;
 								}
-    }
-    return;
+	}
+	return;
 }
 #endif
 
 static int skip(CONST char *text)
 {
-    int i = 0;
-    while (*text && *text != '\n')
+	int i = 0;
+	while (*text && *text != '\n')
 		i++, text++;
-    return (i);
+	return (i);
 }
 
-#ifdef HAVE_GETTEXT
-int
-xiconv(int encoding, char *out, int *outlen, const char *in, int *inlen)
-{
-    /* 
-     * Since the built-in text system only supports Latin-1 and Lqtin-2
-     * encodings, we must convert strings from the user's native encoding to
-     * either Latin-1 or Latin-2 encoding as appropriate for the selected 
-     * language before passing them into the built-in text system.  This
-     * function wraps the gnu iconv library for this purpose.
-     */
+NSMutableDictionary *textAttributes(int fgcolor, int bgcolor) {
 	
-    iconv_t cd;
-    char tocode[16];
-    size_t icv_inlen = *inlen, icv_outlen = *outlen;
-    const char *icv_in = (const char *) in;
-    char *icv_out = (char *) out;
-    int ret;
-	
-    sprintf(tocode, "ISO-8859-%d", encoding);
-    cd = iconv_open(tocode, "UTF-8");
-    if (cd == (iconv_t) (-1))
-		return -1;
-	
-    ret = iconv(cd, &icv_in, &icv_inlen, &icv_out, &icv_outlen);
-	
-    if (in != NULL) {
-		*inlen -= icv_inlen;
-		*outlen -= icv_outlen;
-		out[*outlen] = '\0';
-    } else {
-		*inlen = 0;
-		*outlen = 0;
-    }
-	
-    if (icv_inlen != 0 || ret == (size_t) - 1)
-		return -1;
-	
-    ret = iconv_close(cd);
-	
-    if (ret == -1)
-		return -1;
-	
-    return 0;
-}
-#endif
-
-NSDictionary *textAttributes() {
+	float red, green, blue;
 	
 	NSMutableDictionary *attrsDictionary = [NSMutableDictionary dictionaryWithObject:[NSColor whiteColor] 
 																			  forKey:NSForegroundColorAttributeName];
 
+	//NSLog(@"%x", fgcolor);
+	red   = (fgcolor & RMASK) / 256.0;
+	green = (fgcolor & GMASK) / 256.0;
+	blue  = (fgcolor & BMASK) / 256.0;
+	[attrsDictionary setValue:[NSColor colorWithDeviceRed:red green:green blue:blue alpha:1.0] forKey:NSForegroundColorAttributeName];
+	
 	NSShadow *dockStyleTextShadow = [[NSShadow alloc] init];
 	[dockStyleTextShadow setShadowOffset:NSMakeSize(2, -2)];
 	[dockStyleTextShadow setShadowBlurRadius:1];
-	[dockStyleTextShadow setShadowColor:[NSColor blackColor]];
+	red   = (bgcolor & RMASK) / 256.0;
+	green = (bgcolor & GMASK) / 256.0;
+	blue  = (bgcolor & BMASK) / 256.0;
+	[dockStyleTextShadow setShadowColor:[NSColor colorWithDeviceRed:red green:green blue:blue alpha:1.0]];
 	[attrsDictionary setValue:[NSFont boldSystemFontOfSize:12.0] forKey:NSFontAttributeName];
+	//[attrsDictionary setValue:[NSFont fontWithName:@"Monaco" size:12.0] forKey:NSFontAttributeName];
 	[attrsDictionary setValue:dockStyleTextShadow forKey:NSShadowAttributeName];
 	[dockStyleTextShadow autorelease];
 	
@@ -432,9 +397,9 @@ NSDictionary *textAttributes() {
 
 int
 xprint(struct image *image, CONST struct xfont *current, int x, int y,
-       CONST char *text, int encoding, int fgcolor, int bgcolor, int mode)
+	   CONST char *text, int encoding, int fgcolor, int bgcolor, int mode)
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:image->currlines
 																		 pixelsWide:image->width
@@ -446,50 +411,87 @@ xprint(struct image *image, CONST struct xfont *current, int x, int y,
 																	 colorSpaceName:NSDeviceRGBColorSpace
 																		bytesPerRow:0
 																	   bitsPerPixel:32];
-
+	
 	[NSGraphicsContext saveGraphicsState];
 	NSGraphicsContext *context = [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
 	[NSGraphicsContext setCurrentContext:context];
-
+	
+	
 	NSString *messageText = [NSString stringWithUTF8String:text];
 	
-	NSDictionary *attrsDictionary = textAttributes();
+	int lines = [[[NSString stringWithUTF8String:text] componentsSeparatedByString:@"\n"] count];
+	
+	NSMutableDictionary *attrsDictionary = textAttributes(fgcolor, bgcolor);
 	
 	NSRect boundingRect = [messageText boundingRectWithSize:NSMakeSize(image->width, image->height) options:0 attributes:attrsDictionary];
-	[messageText drawAtPoint:NSMakePoint(x, image->height - y - boundingRect.size.height) withAttributes:attrsDictionary];
+	[messageText drawAtPoint:NSMakePoint(x, image->height - y - boundingRect.size.height * lines) withAttributes:attrsDictionary];
 	
 	[NSGraphicsContext restoreGraphicsState];
-
+	
 	[imageRep release];
 	[pool release];
-
+	
 	return strlen(text);
 }
 
 int xtextwidth(CONST struct xfont *font, CONST char *text)
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-	NSString *messageText = [NSString stringWithUTF8String:text];
-
-	NSMutableDictionary *attrsDictionary = textAttributes();
-	NSRect boundingRect = [messageText boundingRectWithSize:NSMakeSize(10000, 10000) options:0 attributes:attrsDictionary];
+	int width = 0;
+	
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	NSArray *messageLines = [[NSString stringWithUTF8String:text] componentsSeparatedByString:@"\n"];
+	
+	NSMutableDictionary *attrsDictionary = textAttributes(0 , 0);
+	
+	NSEnumerator *enumerator = [messageLines objectEnumerator];
+	NSString *messageLine;
+	
+	while ((messageLine = [enumerator nextObject])) {
+		NSRect boundingRect = [messageLine boundingRectWithSize:NSMakeSize(640, 480) options:0 attributes:attrsDictionary];
+		width = MAX(width, boundingRect.size.width);
+	}
+	
 	[pool release];
-	return boundingRect.size.width;
+	return ceil(width) + 2;
 }
+
+int xtextheight(CONST struct xfont *font) {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	NSString *messageText = @"Test String";
+	
+	NSMutableDictionary *attrsDictionary = textAttributes(0, 0);
+	NSRect boundingRect = [messageText boundingRectWithSize:NSMakeSize(640, 480) options:0 attributes:attrsDictionary];
+	[pool release];
+	return ceil(boundingRect.size.height) + 2;
+}
+
+int xtextcharw(CONST struct xfont *font, CONST char c)
+{
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	NSString *messageText = [NSString stringWithFormat:@"%c", c];
+	
+	NSMutableDictionary *attrsDictionary = textAttributes(0, 0);
+	NSRect boundingRect = [messageText boundingRectWithSize:NSMakeSize(640, 480) options:0 attributes:attrsDictionary];
+	[pool release];
+	return ceil(boundingRect.size.width) + 2;
+}
+
 
 void xhline(struct image *image, int x, int y, int width, int fgcolor)
 {
-    /*Do some clipping */
-    if (x + width < 0 || y < 0 || y >= image->height || x >= image->width)
+	/*Do some clipping */
+	if (x + width < 0 || y < 0 || y >= image->height || x >= image->width)
 		return;
-    if (x + width >= image->width - 1)
+	if (x + width >= image->width - 1)
 		width = image->width - x - 2;
-    if (x < 0)
+	if (x < 0)
 		width += x, x = 0;
-    if (width < 0)
+	if (width < 0)
 		return;
-    switch (image->bytesperpixel) {
+	switch (image->bytesperpixel) {
 #ifdef SBITMAPS
 		case 0:
 			hline1(image, x, y, width, fgcolor);
@@ -511,21 +513,21 @@ void xhline(struct image *image, int x, int y, int width, int fgcolor)
 		case 4:
 			hline32(image, x, y, width, fgcolor);
 			break;
-    }
+	}
 }
 
 void xvline(struct image *image, int x, int y, int height, int fgcolor)
 {
-    /*Do some clipping */
-    if (x < 0 || y + height < 0 || y >= image->height || x >= image->width)
+	/*Do some clipping */
+	if (x < 0 || y + height < 0 || y >= image->height || x >= image->width)
 		return;
-    if (y + height >= image->height - 1)
+	if (y + height >= image->height - 1)
 		height = image->height - y - 2;
-    if (y < 0)
+	if (y < 0)
 		height += y, y = 0;
-    if (height < 0)
+	if (height < 0)
 		return;
-    switch (image->bytesperpixel) {
+	switch (image->bytesperpixel) {
 #ifdef SBITMAPS
 		case 0:
 			vline1(image, x, y, height, fgcolor);
@@ -547,36 +549,36 @@ void xvline(struct image *image, int x, int y, int height, int fgcolor)
 		case 4:
 			vline32(image, x, y, height, fgcolor);
 			break;
-    }
+	}
 }
 
 void
 xrectangle(struct image *image, int x, int y, int width, int height,
 		   int fgcolor)
 {
-    /*Do some clipping */
-    if (x + width < 0 || y + height < 0 || y >= image->height
+	/*Do some clipping */
+	if (x + width < 0 || y + height < 0 || y >= image->height
 		|| x >= image->width)
 		return;
-    if (x + width >= image->width)
+	if (x + width >= image->width)
 		width = image->width - x;
-    if (x < 0)
+	if (x < 0)
 		width += x, x = 0;
-    if (width < 0)
+	if (width < 0)
 		return;
-    if (y + height >= image->height)
+	if (y + height >= image->height)
 		height = image->height - y;
-    if (y < 0)
+	if (y < 0)
 		height += y, y = 0;
-    if (height < 0)
+	if (height < 0)
 		return;
-    if (image->flags & AAIMAGE) {
+	if (image->flags & AAIMAGE) {
 		int x1, y1;
 		for (x1 = x / 2; x1 < (x + width) / 2; x1++)
 			for (y1 = y / 2; y1 < (y + height) / 2; y1++)
 				aa_colordata[x1 + y1 * image->width / 2] = 255;
-    }
-    switch (image->bytesperpixel) {
+	}
+	switch (image->bytesperpixel) {
 #ifdef SBITMAPS
 		case 0:
 			rectangle1(image, x, y, width, height, fgcolor);
@@ -598,33 +600,33 @@ xrectangle(struct image *image, int x, int y, int width, int height,
 		case 4:
 			rectangle32(image, x, y, width, height, fgcolor);
 			break;
-    }
+	}
 }
 
 static inline char *savehline(struct image *i, int x1, int y, int x2)
 {
-    int start, end;
-    char *c;
-    if (!i->bytesperpixel)
+	int start, end;
+	char *c;
+	if (!i->bytesperpixel)
 		start = (x1) / 8, end = (x2 + 1 + 7) / 8;
-    else
+	else
 		start = x1 * i->bytesperpixel, end = (x2 + 1) * i->bytesperpixel;
-    c = (char *) malloc(end - start);
-    if (c == NULL)
+	c = (char *) malloc(end - start);
+	if (c == NULL)
 		return NULL;
-    memcpy(c, i->currlines[y] + start, end - start);
-    return c;
+	memcpy(c, i->currlines[y] + start, end - start);
+	return c;
 }
 
 static inline void
 restorehline(struct image *i, char *c, int x1, int y, int x2)
 {
-    int start, end;
-    if (!i->bytesperpixel)
+	int start, end;
+	if (!i->bytesperpixel)
 		start = (x1) / 8, end = (x2 + 1 + 7) / 8;
-    else
+	else
 		start = x1 * i->bytesperpixel, end = (x2 + 1) * i->bytesperpixel;
-    memcpy(i->currlines[y] + start, c, end - start);
+	memcpy(i->currlines[y] + start, c, end - start);
 }
 
 #define  __clipx1 0
@@ -633,25 +635,25 @@ restorehline(struct image *i, char *c, int x1, int y, int x2)
 #define  __clipy2 (img->height-2)
 static inline int regioncode(struct image *img, const int x, const int y)
 {
-    int dx1, dx2, dy1, dy2;
-    int result;
-    result = 0;
-    dy2 = __clipy2 - y;
-    if (dy2 < 0)
+	int dx1, dx2, dy1, dy2;
+	int result;
+	result = 0;
+	dy2 = __clipy2 - y;
+	if (dy2 < 0)
 		result++;
-    result <<= 1;
-    dy1 = y - __clipy1;
-    if (dy1 < 0)
+	result <<= 1;
+	dy1 = y - __clipy1;
+	if (dy1 < 0)
 		result++;
-    result <<= 1;
-    dx2 = __clipx2 - x;
-    if (dx2 < 0)
+	result <<= 1;
+	dx2 = __clipx2 - x;
+	if (dx2 < 0)
 		result++;
-    result <<= 1;
-    dx1 = x - __clipx1;
-    if (dx1 < 0)
+	result <<= 1;
+	dx1 = x - __clipx1;
+	if (dx1 < 0)
 		result++;
-    return result;
+	return result;
 }
 
 #define swap(x, y) { int temp = x; x = y; y = temp; }
@@ -698,8 +700,8 @@ swap(y1,y2);   \
 
 void xline(struct image *img, int x1, int y1, int x2, int y2, int color)
 {
-    doclip(return);
-    if (x1 == x2) {
+	doclip(return);
+	if (x1 == x2) {
 		if (y2 < y1) {
 			swap(y1, y2);
 		}
@@ -726,7 +728,7 @@ void xline(struct image *img, int x1, int y1, int x2, int y2, int color)
 				vline32(img, x1, y1, y2 - y1, color);
 				break;
 		}
-    } else if (y1 == y2) {
+	} else if (y1 == y2) {
 		switch (img->bytesperpixel) {
 #ifdef SBITMAPS
 			case 0:
@@ -750,7 +752,7 @@ void xline(struct image *img, int x1, int y1, int x2, int y2, int color)
 				hline32(img, x1, y1, x2 - x1, color);
 				break;
 		}
-    } else {
+	} else {
 		switch (img->bytesperpixel) {
 #ifdef SBITMAPS
 			case 0:
@@ -774,15 +776,15 @@ void xline(struct image *img, int x1, int y1, int x2, int y2, int color)
 				line32(img, x1, y1, x2, y2, color);
 				break;
 		}
-    }
+	}
 }
 
 char *xsaveline(struct image *img, int x1, int y1, int x2, int y2)
 {
-    doclip(return (NULL));
-    if (y1 == y2) {
+	doclip(return (NULL));
+	if (y1 == y2) {
 		return (savehline(img, x1, y1, x2));
-    } else if (x1 == x2) {
+	} else if (x1 == x2) {
 		if (y2 < y1) {
 			swap(y1, y2);
 		}
@@ -804,7 +806,7 @@ char *xsaveline(struct image *img, int x1, int y1, int x2, int y2)
 			case 4:
 				return (savevline32(img, x1, y1, y2 - y1));
 		}
-    } else {
+	} else {
 		switch (img->bytesperpixel) {
 #ifdef SBITMAPS
 			case 0:
@@ -827,41 +829,41 @@ char *xsaveline(struct image *img, int x1, int y1, int x2, int y2)
 			case 4:
 				return (saveline32(img, x1, y1, x2, y2));
 		}
-    }
-    return NULL;
+	}
+	return NULL;
 }
 
 void xprepareimage(struct image *img)
 {
-    if (img->flags & AAIMAGE) {
+	if (img->flags & AAIMAGE) {
 		memset(aa_colordata, (char) 255, img->width * img->height / 4);
-    }
-    aa_cursorx = -1;
-    aa_cursory = -1;
+	}
+	aa_cursorx = -1;
+	aa_cursory = -1;
 }
 
 void xdrawcursor(struct image *img, int x, int y, int color, int height)
 {
-    if (img->flags & AAIMAGE) {
+	if (img->flags & AAIMAGE) {
 		aa_cursorx = x / 2;
 		aa_cursory = y / 2;
-    } else {
+	} else {
 		xvline(img, x, y, height, color);
 		xhline(img, x - 1, y - 1, 1, color);
 		xhline(img, x + 1, y - 1, 1, color);
 		xhline(img, x - 1, y + height, 1, color);
 		xhline(img, x + 1, y + height, 1, color);
-    }
+	}
 }
 
 void
 xrestoreline(struct image *img, char *data, int x1, int y1, int x2, int y2)
 {
-    doclip(return);
-    if (y1 == y2) {
+	doclip(return);
+	if (y1 == y2) {
 		restorehline(img, data, x1, y1, x2);
 		return;
-    } else if (x1 == x2) {
+	} else if (x1 == x2) {
 		if (y2 < y1) {
 			swap(y1, y2);
 		}
@@ -888,7 +890,7 @@ xrestoreline(struct image *img, char *data, int x1, int y1, int x2, int y2)
 				restorevline32(img, data, x1, y1, y2 - y1);
 				break;
 		}
-    } else {
+	} else {
 		switch (img->bytesperpixel) {
 #ifdef SBITMAPS
 			case 0:
@@ -916,6 +918,6 @@ xrestoreline(struct image *img, char *data, int x1, int y1, int x2, int y2)
 				restoreline32(img, data, x1, y1, x2, y2);
 				break;
 		}
-    }
-    return;
+	}
+	return;
 }
