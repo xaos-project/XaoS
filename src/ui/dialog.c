@@ -440,7 +440,7 @@ void ui_updatetext(struct ui_textdata *d)
 	for (i = 0; d->text[d->start + i]; i++) {
 	    if (d->start + i == d->cursor)
 		d->cursorpos = wi;
-	    wi += xtextcharw(uih->font, d->taxt[d->start + i]);
+	    wi += xtextcharw(uih->font, d->text[d->start + i]);
 	    if (wi >= d->width) {
 		break;
 	    }

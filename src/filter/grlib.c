@@ -524,7 +524,7 @@ int xtextheight(CONST struct xfont *font)
     return font->height+1;
 }
 
-int xtextcharw(CONST struct xfont *font, CONST char c);
+int xtextcharw(CONST struct xfont *font, CONST char c)
 {
     return font->width;
 }
