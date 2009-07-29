@@ -410,6 +410,8 @@ xiconv(int encoding, char *out, int *outlen, const char *in, int *inlen)
 }
 #endif
 
+#ifndef PLATFORM_TEXT_RENDERING
+
 int
 xprint(struct image *image, CONST struct xfont *current, int x, int y,
        CONST char *text, int encoding, int fgcolor, int bgcolor, int mode)
@@ -528,6 +530,8 @@ int xtextcharw(CONST struct xfont *font, CONST char c)
 {
     return font->width;
 }
+
+#endif
 
 void xhline(struct image *image, int x, int y, int width, int fgcolor)
 {

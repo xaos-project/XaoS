@@ -45,7 +45,7 @@
 /* #define HAVE_ALLOCA_H 1 */
 
 /* #undef const */
-/* #undef USE_PTHREAD */
+#define USE_PTHREAD 1
 
 #define HAVE_FABSL 1
 /* #undef HAVE__FABSL */
@@ -110,6 +110,8 @@
 #define GMASK 0x0000ff00
 #define BMASK 0x00ff0000
 #endif
+
+#define PLATFORM_TEXT_RENDERING
 
 
 #endif

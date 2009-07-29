@@ -13,6 +13,7 @@
 		D90A09560DB42FD900B7AAFD /* performanceCursor.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D90A09550DB42FD900B7AAFD /* performanceCursor.tiff */; };
 		D90A096A0DB4465100B7AAFD /* XaoSDocument.icns in Resources */ = {isa = PBXBuildFile; fileRef = D90A09690DB4465100B7AAFD /* XaoSDocument.icns */; };
 		D962B0AD101CA598003C66CE /* grlib_cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = D962B0AC101CA598003C66CE /* grlib_cocoa.m */; };
+		D962B20C101E9149003C66CE /* grlib.c in Sources */ = {isa = PBXBuildFile; fileRef = D962B20B101E9149003C66CE /* grlib.c */; };
 		D99B5B740DAEE9D100489809 /* ui_cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = D99B5B730DAEE9D100489809 /* ui_cocoa.m */; };
 		D99B5B7E0DAEE9E700489809 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = D99B5B770DAEE9E700489809 /* AppController.m */; };
 		D99B5B7F0DAEE9E700489809 /* FractalView.m in Sources */ = {isa = PBXBuildFile; fileRef = D99B5B790DAEE9E700489809 /* FractalView.m */; };
@@ -118,6 +119,7 @@
 		D90A09550DB42FD900B7AAFD /* performanceCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = performanceCursor.tiff; sourceTree = "<group>"; };
 		D90A09690DB4465100B7AAFD /* XaoSDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = XaoSDocument.icns; sourceTree = "<group>"; };
 		D962B0AC101CA598003C66CE /* grlib_cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = grlib_cocoa.m; sourceTree = "<group>"; };
+		D962B20B101E9149003C66CE /* grlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = grlib.c; path = ../../../filter/grlib.c; sourceTree = SOURCE_ROOT; };
 		D99B5B710DAEE9D100489809 /* aconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aconfig.h; sourceTree = "<group>"; };
 		D99B5B720DAEE9D100489809 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		D99B5B730DAEE9D100489809 /* ui_cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ui_cocoa.m; sourceTree = "<group>"; };
@@ -162,7 +164,6 @@
 		D99B5BBA0DAEEA2700489809 /* truecolor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = truecolor.h; sourceTree = "<group>"; };
 		D99B5BBB0DAEEA2700489809 /* ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
 		D99B5BBC0DAEEA2700489809 /* ui_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui_helper.h; sourceTree = "<group>"; };
-		D99B5BBD0DAEEA2700489809 /* version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		D99B5BBE0DAEEA2700489809 /* version.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = version.h.in; sourceTree = "<group>"; };
 		D99B5BBF0DAEEA2700489809 /* xerror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xerror.h; sourceTree = "<group>"; };
 		D99B5BC00DAEEA2700489809 /* xio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xio.h; sourceTree = "<group>"; };
@@ -398,7 +399,6 @@
 				D99B5BA90DAEEA2700489809 /* grlib.h */,
 				D99B5BAA0DAEEA2700489809 /* hicolor.h */,
 				D99B5BAB0DAEEA2700489809 /* i386 */,
-				D99B5BAF0DAEEA2700489809 /* mac */,
 				D99B5BB30DAEEA2700489809 /* misc-f.h */,
 				D99B5BB40DAEEA2700489809 /* param.h */,
 				D99B5BB50DAEEA2700489809 /* pixel_t.h */,
@@ -408,7 +408,6 @@
 				D99B5BBA0DAEEA2700489809 /* truecolor.h */,
 				D99B5BBB0DAEEA2700489809 /* ui.h */,
 				D99B5BBC0DAEEA2700489809 /* ui_helper.h */,
-				D99B5BBD0DAEEA2700489809 /* version.h */,
 				D99B5BBE0DAEEA2700489809 /* version.h.in */,
 				D99B5BBF0DAEEA2700489809 /* xerror.h */,
 				D99B5BC00DAEEA2700489809 /* xio.h */,
@@ -430,13 +429,6 @@
 				D99B5BAE0DAEEA2700489809 /* sstring.h */,
 			);
 			path = i386;
-			sourceTree = "<group>";
-		};
-		D99B5BAF0DAEEA2700489809 /* mac */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = mac;
 			sourceTree = "<group>";
 		};
 		D99B5BC60DAEEA2700489809 /* engine */ = {
@@ -470,6 +462,7 @@
 		D99B5BDC0DAEEA2700489809 /* filter */ = {
 			isa = PBXGroup;
 			children = (
+				D962B20B101E9149003C66CE /* grlib.c */,
 				D99B5BDD0DAEEA2700489809 /* filter.c */,
 				D99B5BDE0DAEEA2700489809 /* palette.c */,
 				D99B5BDF0DAEEA2700489809 /* random.c */,
@@ -698,6 +691,7 @@
 				D99B5C4D0DAEEA2700489809 /* xstdio.c in Sources */,
 				D99B5C4E0DAEEA2700489809 /* catalog.c in Sources */,
 				D962B0AD101CA598003C66CE /* grlib_cocoa.m in Sources */,
+				D962B20C101E9149003C66CE /* grlib.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
