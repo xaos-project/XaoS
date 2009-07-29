@@ -36,42 +36,42 @@ int aa_cursorx, aa_cursory;
 static CONST struct xfont *currentfont;
 CONST struct xfont xaafont = {
     NULL,
-    2, 1, 2
+    2, 1, 2, 2
 };
 
 CONST struct xfont xsmallfont = {
     xfont14,
-    8, 14, 8
+    8, 14, 8, 2
 };
 
 CONST struct xfont xbigfont = {
     xfont16,
-    9, 16, 8
+    9, 16, 8, 2
 };
 
 CONST struct xfont xbigfont2 = {
     xfont32,
-    18, 32, 16
+    18, 32, 16, 2
 };
 
 CONST struct xfont xbigfont3 = {
     xfont48,
-    18, 48, 16
+    18, 48, 16, 2
 };
 
 CONST struct xfont xsmallfontil1 = {
     xfont8il1,
-    8, 8, 8
+    8, 8, 8, 1
 };
 
 CONST struct xfont xmedfontil1 = {
     xfont14il1,
-    8, 14, 8
+    8, 14, 8, 1
 };
 
 CONST struct xfont xbigfontil1 = {
     xfont16il1,
-    9, 16, 8
+    9, 16, 8, 1
 };
 
 #include <c256.h>
@@ -414,7 +414,7 @@ xiconv(int encoding, char *out, int *outlen, const char *in, int *inlen)
 
 int
 xprint(struct image *image, CONST struct xfont *current, int x, int y,
-       CONST char *text, int encoding, int fgcolor, int bgcolor, int mode)
+       CONST char *text, int fgcolor, int bgcolor, int mode)
 {
     int i = 0;
     int aacolor = 0;
@@ -425,8 +425,8 @@ xprint(struct image *image, CONST struct xfont *current, int x, int y,
     int outlen = BUFSIZ;
 
     strncpy(intext, text, BUFSIZ);
-    if (encoding
-	&& xiconv(encoding, outtext, &outlen, intext, &inlen) == 0)
+    if (current->encoding
+	&& xiconv(current->encoding, outtext, &outlen, intext, &inlen) == 0)
 	text = outtext;
 #endif
     if (!text[0])
@@ -509,12 +509,31 @@ xprint(struct image *image, CONST struct xfont *current, int x, int y,
 	text++;
 	i++;
     }
-    return i + skip(text);
+    /*
+     * We need to return the number of bytes used from the string that is 
+     * passed into the function; not the number of characters displayed.  The
+     * number of bytes and the number of characters is not always the same in
+     * UTF-8 encoding.  So I changed this to count the number of bytes to 
+     * the next newline or nul in the original string that was passed in.
+     */
+    /* return i + skip(text); */
+    return skip(intext); 
 }
 
 int xtextwidth(CONST struct xfont *font, CONST char *text)
 {
     int i;
+#ifdef HAVE_GETTEXT
+    char intext[BUFSIZ];
+    int inlen = strlen(text);
+    char outtext[BUFSIZ];
+    int outlen = BUFSIZ;
+    
+    strncpy(intext, text, BUFSIZ);
+    if (font->encoding
+	&& xiconv(font->encoding, outtext, &outlen, intext, &inlen) == 0)
+	text = outtext;
+#endif
     for (i = 0; text[i] && text[i] != '\n'; i++);
     if (font->width == 2)
 	return (i * font->width);

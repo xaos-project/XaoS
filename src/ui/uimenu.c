@@ -147,7 +147,7 @@ static void ui_drawmenu(uih_context * c, void *data)
     s[1] = 0;
     if (!(m->flags & MENU_HORIZONTAL))
 	xprint(c->image, c->font, m->x + (m->width - m->namewidth) / 2,
-	       m->y + BORDERWIDTH, m->fullname, c->encoding, SELCOLOR(c),
+	       m->y + BORDERWIDTH, m->fullname, SELCOLOR(c),
 	       BGCOLOR(c), 0);
     for (i = 0; i < m->n; i++) {
 	int color = (i == m->selected ? SELCOLOR(c) : FGCOLOR(c));
@@ -172,14 +172,14 @@ static void ui_drawmenu(uih_context * c, void *data)
 	    else
 		s[0] = 'A' + (i - 10);
 	    xprint(c->image, c->font, m->items[i].x, m->items[i].y, s,
-		   c->encoding, color, BGCOLOR(c), pressed);
+		   color, BGCOLOR(c), pressed);
 	    if (menu_enabled(m->items[i].item, uih)) {
 		xprint(c->image, c->font, m->items[i].x + width1,
-		       m->items[i].y, "X", c->encoding, color, BGCOLOR(c),
+		       m->items[i].y, "X", color, BGCOLOR(c),
 		       pressed);
 	    }
 	    xprint(c->image, c->font, m->items[i].x + width1 + MENUPAUSE,
-		   m->items[i].y, m->items[i].item->name, c->encoding,
+		   m->items[i].y, m->items[i].item->name,
 		   color, BGCOLOR(c), pressed);
 	    if (m->items[i].item->key) {
 		char ch[20];
@@ -187,17 +187,17 @@ static void ui_drawmenu(uih_context * c, void *data)
 		xprint(c->image, c->font,
 		       m->items[i].x + m->items[i].width - SUBMENUWIDTH -
 		       xtextwidth(uih->font, ch), m->items[i].y, ch,
-		       c->encoding, LIGHTGRAYCOLOR(c), BGCOLOR(c),
+		       LIGHTGRAYCOLOR(c), BGCOLOR(c),
 		       pressed);
 	    }
 	    if (m->items[i].item->type == MENU_SUBMENU)
 		xprint(c->image, c->font,
 		       m->items[i].x + m->items[i].width - SUBMENUWIDTH,
-		       m->items[i].y, ">", c->encoding, color, BGCOLOR(c),
+		       m->items[i].y, ">", color, BGCOLOR(c),
 		       pressed);
 	} else {
 	    xprint(c->image, c->font, m->items[i].x, m->items[i].y,
-		   m->items[i].item->name, c->encoding, color, BGCOLOR(c),
+		   m->items[i].item->name, color, BGCOLOR(c),
 		   pressed);
 	    if (m->items[i].item->key) {
 		char ch[20];
@@ -205,7 +205,7 @@ static void ui_drawmenu(uih_context * c, void *data)
 		xprint(c->image, c->font,
 		       m->items[i].x + xtextwidth(uih->font,
 						  m->items[i].item->name) +
-		       2, m->items[i].y, ch, c->encoding,
+		       2, m->items[i].y, ch,
 		       LIGHTGRAYCOLOR(c), BGCOLOR(c), pressed);
 	    }
 	}

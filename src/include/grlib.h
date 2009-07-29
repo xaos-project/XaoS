@@ -5,13 +5,13 @@ extern "C" {
 #endif
     extern CONST struct xfont {
 	CONST unsigned char *data;
-	int width, height, realwidth;
+	int width, height, realwidth, encoding;
     } xsmallfont, xbigfont, xbigfont2, xaafont, xsmallfontil1, xbigfontil1,
 	xmedfontil1, xbigfont3;
     int xiconv(int encoding, char *out, int *outlen, const char *in,
 	       int *inlen);
     int xprint(struct image *image, CONST struct xfont *current, int x,
-	       int y, CONST char *text, int encoding, int fgcolor,
+	       int y, CONST char *text, int fgcolor,
 	       int bgcolor, int mode);
 #define TEXT_PRESSED 1
 /*

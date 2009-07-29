@@ -39,12 +39,10 @@ static void draw(uih_context * c, void *data)
 	x = (c->image->width - w) / 2;
 	if (c->messg.messagetype[n])
 	    xprint(c->image, c->font, x, y, c->messg.message[n],
-		   c->encoding,
 		   (c->image->flags & AAIMAGE) ? BGCOLOR(c) : SELCOLOR(c),
 		   BGCOLOR(c), 0);
 	else
 	    xprint(c->image, c->font, x, y, c->messg.message[n],
-		   c->encoding,
 		   (c->image->flags & AAIMAGE) ? BGCOLOR(c) : FGCOLOR(c),
 		   BGCOLOR(c), 0);
     }

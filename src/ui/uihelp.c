@@ -225,7 +225,7 @@ static void drawhelp(struct uih_context *c, void *data)
 		}
 	    }
 	    xprint(uih->image, uih->font, x + helpx, y + helpy,
-		   curritem->text, 0, fgcolor, bgcolor, flags);
+		   curritem->text, fgcolor, bgcolor, flags);
 	    curritem = curritem->next;
 	}
 	i++;

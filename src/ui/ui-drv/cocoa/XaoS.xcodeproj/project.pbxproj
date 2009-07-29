@@ -118,6 +118,7 @@
 		8D1107320486CEB800E47090 /* XaoS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XaoS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D90A09550DB42FD900B7AAFD /* performanceCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = performanceCursor.tiff; sourceTree = "<group>"; };
 		D90A09690DB4465100B7AAFD /* XaoSDocument.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = XaoSDocument.icns; sourceTree = "<group>"; };
+		D95DA721101FE23800826B31 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		D962B0AC101CA598003C66CE /* grlib_cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = grlib_cocoa.m; sourceTree = "<group>"; };
 		D962B20B101E9149003C66CE /* grlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = grlib.c; path = ../../../filter/grlib.c; sourceTree = SOURCE_ROOT; };
 		D99B5B710DAEE9D100489809 /* aconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aconfig.h; sourceTree = "<group>"; };
@@ -383,6 +384,7 @@
 		D99B5B8D0DAEEA2700489809 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				D95DA721101FE23800826B31 /* config.h */,
 				D99B5B8F0DAEEA2700489809 /* archaccel.h */,
 				D99B5B900DAEEA2700489809 /* btrace.h */,
 				D99B5B910DAEEA2700489809 /* c256.h */,

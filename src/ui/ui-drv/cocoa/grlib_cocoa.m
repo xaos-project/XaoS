@@ -53,7 +53,7 @@ NSMutableDictionary *textAttributes(int fgcolor, int bgcolor) {
 
 int
 xprint(struct image *image, CONST struct xfont *current, int x, int y,
-       CONST char *text, int encoding, int fgcolor, int bgcolor, int mode)
+       CONST char *text, int fgcolor, int bgcolor, int mode)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -87,12 +87,18 @@ xprint(struct image *image, CONST struct xfont *current, int x, int y,
     
     [NSGraphicsContext restoreGraphicsState];
     
-    int messageLength = [messageText length];
+    /* 
+     * The calling functions expect the return value to be the number of
+     * bytes in the string, not the number of characters (this is not always
+     * equal for UTF-8 strings).  Therefore, we don't use [messageText length].
+     */
+    int bytesUsed = [messageText 
+			 lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
     
     [imageRep release];
     [pool release];
     
-    return messageLength;
+    return bytesUsed;
 }
 
 int xtextwidth(CONST struct xfont *font, CONST char *text)

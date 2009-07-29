@@ -68,20 +68,10 @@ before #include <ddraw.h>*/
 #define DESTICKY
 #endif
 #ifdef COCOA_DRIVER
-#define SFIXEDCOLOR
 #define STRUECOLOR
-#define STRUECOLOR16
-#define STRUECOLOR24
-#define SMBITMAPS
-#define SLBITMAPS
 #endif
 #ifdef GTK_DRIVER
-#define SFIXEDCOLOR
 #define STRUECOLOR
-#define STRUECOLOR16
-#define STRUECOLOR24
-#define SMBITMAPS
-#define SLBITMAPS
 #endif
 #ifdef X11_DRIVER
 #define SFIXEDCOLOR

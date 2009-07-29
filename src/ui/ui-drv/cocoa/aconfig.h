@@ -54,7 +54,12 @@
 #define USE_PNG 1
 #define HAVE_FINITE 1
 #define HAVE_SELECT 1
+
+/* Long double is too slow on PowerPC; only enable for i386 build */
+#ifdef __i386__
 #define HAVE_LONG_DOUBLE 1
+#endif
+
 /* #undef HAVE_REDRAWWIN */
 /* #undef HAVE_WREDRAWLN */
 #define USE_NCURSES 1
@@ -111,7 +116,8 @@
 #define BMASK 0x00ff0000
 #endif
 
-#define PLATFORM_TEXT_RENDERING
+/* Use platform-provided text rendering instead of built-in */
+#define PLATFORM_TEXT_RENDERING 1
 
 
 #endif
