@@ -1106,7 +1106,7 @@ int MAIN_FUNCTION(int argc, char **argv)
 	    strcpy(language, "cesky");
 	if (strncmp(locale, "German", 6) == 0)
 	    strcpy(language, "deutsch");
-	if (strncmp(locale, "Spanish", 8) == 0)
+	if (strncmp(locale, "Spanish", 7) == 0)
 	    strcpy(language, "espanhol");
 	if (strncmp(locale, "French", 6) == 0)
 	    strcpy(language, "francais");
