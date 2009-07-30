@@ -247,7 +247,7 @@
 (usleep 3000000)
 
 (palette 1 260946575 0)
-(formula 'mandel6)
+(formula 'mandel9)
 (angle 23.5)
 (plane 1)
 (view 0 0 2.5 2.5)
@@ -330,7 +330,7 @@
 
 
 (palette 1 446680187 0)
-(formula 'mandel6)
+(formula 'mandel9)
 (julia #t)
 (juliaseed 0.70552939851789381277 -0.00148898531548975377)
 (plane 1)

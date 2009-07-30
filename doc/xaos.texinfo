@@ -3051,9 +3051,9 @@ simple formula @math{z=z^2+c}. See the tutorial chapter.
 @node mandel3,  octal,  mandel,  mformula
 
 
-@appendixsubsec Mandelbrot^3---Mandelbrot^6
+@appendixsubsec Mandelbrot^3---Mandelbrot^6 and Mandelbrot^9
 
-This fractal is a simple modification of the standard
+The Mandelbrot^3 fractal is a simple modification of the standard
 Mandelbrot set formula, using @math{z=z^3+c} instead of
 @math{z=z^2+c}.
 

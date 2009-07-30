@@ -3136,11 +3136,11 @@ the simple formula z=z^2+c. See the tutorial chapter.
 
 File: xaos.info,  Node: mandel3,  Next: octal,  Prev: mandel,  Up: mformula
 
-A.18.2 Mandelbrot^3--Mandelbrot^6
----------------------------------
+A.18.2 Mandelbrot^3--Mandelbrot^6 and Mandelbrot^9
+--------------------------------------------------
 
-This fractal is a simple modification of the standard Mandelbrot set
-formula, using z=z^3+c instead of z=z^2+c.
+The Mandelbrot^3 fractal is a simple modification of the standard
+Mandelbrot set formula, using z=z^3+c instead of z=z^2+c.
 
    Other derivations of the Mandelbrot set (Mandelbrot^4 and so on) use
 even higher powers. See the tutorial chapter.

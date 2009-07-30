@@ -168,7 +168,7 @@
 
 
 (palette 1 1530690807 0)
-(formula 'mandel6)
+(formula 'mandel9)
 (juliaseed 0.51635174418604654479 -0.50000000000000003215)
 (julia #t)
 (angle 0)

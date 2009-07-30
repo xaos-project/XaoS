@@ -25,7 +25,7 @@
 (textsleep)
 (display)
 (plane 0)
-(formula 'mandel6)
+(formula 'mandel9)
 (message "plane7")
 (textsleep)
 (plane 1)
@@ -33,7 +33,7 @@
 (textsleep)
 
 (palette 1 1188637657 0)
-(formula 'mandel6)
+(formula 'mandel9)
 (juliaseed 0.073764534883720934955 0.78750000000000005065)
 (maxiter 170)
 (outcoloring 6)
@@ -244,7 +244,7 @@
 (usleep 2000000)
 
 (palette 1 1366212337 0)
-(formula 'mandel6)
+(formula 'mandel9)
 (angle -270)
 (outcoloring 0)
 (incoloring 1)

@@ -35,6 +35,9 @@
  * You have been warned :)
  */
 
+// Some help can be read below about line 700. :-)
+   
+
 #ifndef _MAC
 #include <aconfig.h>
 #endif
@@ -695,6 +698,30 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 #endif
 #endif
 
+/* Some help for the brave ones. :-)
+ *
+ * Mandelbrot's original formula is z=z^2+c which means
+ * z[next]=z[previous]^2+c.
+ * Here c is the pixel coordinates from the screen and z[0] is usually 0
+ * (if not perturbation was added.)
+ * In the following code z[previous] is described by (zre;zim)
+ * and z[next] will also be zre and zim.
+ * c is described by (pre;pim).
+ * Finally rp and ip are helper variables, mostly for checking the bailout
+ * (which usually means abs(z)>=4, see BTEST).
+ *
+ * Both basic operations and some other functions (c_mul, c_pow3, ...) can
+ * be used. For a "detailed" description refer to ../include/complex.h.
+ * 
+ * If you add/modify fractals, please note that struct formula_formulas
+ * (at line cca. 1300) should be also edited for proper initialization
+ * and for menu entries. However it is not self-explanatory, just copy-paste
+ * existing tables and give it a try.
+ *
+ * -- Zoltan, 2009-07-30
+ */
+
+
 #define BTEST less_than_4(rp+ip)
 #define SMOOTH
 #define SCALC smand_calc
@@ -853,7 +880,7 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 #define BTEST less_than_4(rp+ip)
 #define FORMULA \
 	c_pow3(zre, zim, rp, ip); \
-	c_pow3(rp, ip, t, zim); \
+	c_mul(rp, ip, rp, ip, t, zim); \
 	zre = t + pre; \
 	zim += pim; \
 	rp = zre * zre; \
@@ -864,6 +891,26 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 #define CALC mand6_calc
 #define PERI mand6_peri
 #define JULIA mand6_julia
+#define RANGE 2
+#define RPIP
+#include "docalc.c"
+
+
+#define VARIABLES register number_t t;
+#define BTEST less_than_4(rp+ip)
+#define FORMULA \
+	c_pow3(zre, zim, rp, ip); \
+	c_pow3(rp, ip, t, zim); \
+	zre = t + pre; \
+	zim += pim; \
+	rp = zre * zre; \
+	ip = zim * zim;
+#define SMOOTH
+#define SCALC smand9_calc
+#define SPERI smand9_peri
+#define CALC mand9_calc
+#define PERI mand9_peri
+#define JULIA mand9_julia
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
@@ -1418,21 +1465,21 @@ CONST struct formula formulas[] = {
      {0.0, 0.0, 2.5, 2.5},
      1, 1, 0.0, 0.0,
      {
-      {0, 0, 6, sym16},
+      {INT_MAX, 0, 2, sym6},
       {INT_MAX, 0, 0, NULL},
-      {0, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
-      {0, INT_MAX, 0, NULL},
-      {0, 0, 0, NULL},
-      {0, 0, 6, sym16},
       {INT_MAX, INT_MAX, 0, NULL},
-      {0, 0, 6, sym16},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, 0, 0, NULL},
+      {INT_MAX, 0, 2, sym6},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, 0, 2, sym6},
       {INT_MAX, INT_MAX, 0, NULL},
       },
      {
-      {0, 0, 6, sym16},
-      {0, 0, 6, sym16},
+      {INT_MAX, 0, 2, sym6},
+      {INT_MAX, 0, 2, sym6},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
@@ -2233,9 +2280,52 @@ CONST struct formula formulas[] = {
       {INT_MAX, INT_MAX, 0, NULL},
       },
      MANDEL_BTRACE,
+     },
+    {				/* formula added by Z. Kovacs, originally mand6 but it was mand9 by accident *//* 24 */
+     FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+     mand9_calc,
+     mand9_peri,
+     smand9_calc,
+     smand9_peri,
+#endif
+     mand9_julia,
+     {"Mandelbrot^9", "Julia^9"},
+     "mandel9",
+     /*{1.25, -1.25, 1.25, -1.25}, */
+     {0.0, 0.0, 2.5, 2.5},
+     1, 1, 0.0, 0.0,
+     {
+      {0, 0, 6, sym16},
+      {INT_MAX, 0, 0, NULL},
+      {0, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {0, INT_MAX, 0, NULL},
+      {0, 0, 0, NULL},
+      {0, 0, 6, sym16},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {0, 0, 6, sym16},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     {
+      {0, 0, 6, sym16},
+      {0, 0, 6, sym16},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     MANDEL_BTRACE,
      }
+     
 #ifdef SFFE_USING
-    , {				/* formula added by M. Malczak - SFFE *//* 24 */
+    , {				/* formula added by M. Malczak - SFFE *//* 25 */
        FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
        sffe_calc,

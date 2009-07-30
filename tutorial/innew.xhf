@@ -264,7 +264,7 @@
 
 (usleep 3000000)
 (palette 3 1922881361 0)
-(formula 'mandel6)
+(formula 'mandel9)
 (juliaseed 0.0052688957935183619152 -0.91151897227867659647)
 (angle 67.7)
 (maxiter 4)
