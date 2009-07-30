@@ -1164,8 +1164,8 @@ shared colormaps and MitSHM extension.
 
 File: xaos.info,  Node: menus,  Next: about,  Prev: drivers,  Up: Top
 
-Appendix A Menus, functions and command line parameters
-*******************************************************
+Függelék: A Menus, functions and command line parameters
+**********************************************************
 
 All XaoS functions are referenced by a central function registry. The
 scripting language, menus, dialogs and command line options are built
@@ -3155,7 +3155,7 @@ A.18.3 Octal
 
 This is a less well-known fractal that Thomas discovered in Fractint.
 It has an interesting shape when displayed in the alternative planes.
-*Note mplane::. See the tutorial chapter.
+*Note plane::. See the tutorial chapter.
 
    _Available as_: menu item, command line option
 
@@ -3346,15 +3346,18 @@ the screen.  To avoid this, you could use palette emulation filter.
 
 File: xaos.info,  Node: about,  Next: support,  Prev: menus,  Up: Top
 
-Appendix B About XaoS
-*********************
+Függelék: B About XaoS
+************************
 
-Appendix C Credits
-******************
+Függelék: C Credits
+*********************
 
 (alphabetically)
 *Lucio Henrique de Araujo (lucio.matema@gmail.com)*
      Brazilian/Portuguese translation
+
+*Samuel Bizien (samuel@bizien.info)*
+     Beryl fractal
 
 *Eric Courteau (ecourteau@cplus.fr)*
      francais.cat (translation of tutorials)
@@ -3369,7 +3372,7 @@ Appendix C Credits
      cs.po (Czech translation of menus)
 
 *Arpad Fekete (Fekete.Arpad.2@stud.u-szeged.hu)*
-     some new fractals, and the 'More formulae' menu
+     Some new fractals, and the 'More formulae' menu
 
 *Zelia Maria Horta Garcia (zeliagarcia@seed.pr.gov.br)*
      Brazilian/Portuguese translation
@@ -3497,14 +3500,14 @@ Andreas Dilger Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
 
 File: xaos.info,  Node: support,  Next: index,  Prev: about,  Up: Top
 
-Appendix D Getting Support
-**************************
+Függelék: D Getting Support
+*****************************
 
 XaoS is a community-supported free software project. There are many ways
 to get help, all of which are explained below.
 
-Appendix E Home Page
-********************
+Függelék: E Home Page
+***********************
 
 The XaoS homepage is `http://xaos.sf.net'. Check here for the latest
 news and information about XaoS and to download the latest versions.
@@ -3711,105 +3714,105 @@ Node: SVGAlib39374
 Node: win3240754
 Node: X1142660
 Node: menus43657
-Node: root44521
-Node: animroot44582
-Node: stopreplay44865
-Node: plc45014
-Node: load45371
-Node: linemenu45704
-Node: animf48479
-Node: animateview49189
-Node: smoothmorph49724
-Node: morphview50308
-Node: morphjulia51371
-Node: moveview51999
-Node: morphangle52230
-Node: zoom52899
-Node: time53737
-Node: usleep54211
-Node: textsleep54612
-Node: wait55169
-Node: file55754
-Node: loadpos56025
-Node: savepos56287
-Node: record56733
-Node: play57236
-Node: saveimg57448
-Node: loadexample58084
-Node: savecfg58440
-Node: quit58827
-Node: edit59004
-Node: undo59194
-Node: redo59467
-Node: copy59642
-Node: paste59934
-Node: fractal60218
-Node: formula60781
-Node: uimandelbrot61513
-Node: uiperturbation63035
-Node: bailout64224
-Node: uiview65321
-Node: initstate67330
-Node: plane67823
-Node: incoloring68990
-Node: outcoloring70516
-Node: tcolor72241
-Node: calc73861
-Node: range74325
-Node: periodicity74952
-Node: maxiter77128
-Node: fastjulia78371
-Node: dynamic79130
-Node: rotate79969
-Node: mfilter81401
-Node: filter82057
-Node: edge82706
-Node: edge283245
-Node: starfield83789
-Node: stereogram84148
-Node: interlace88534
-Node: blur88950
-Node: emboss89365
-Node: palettef89700
-Node: anti90268
-Node: truecolor90975
-Node: ui91586
-Node: speed92047
-Node: letterspersec93110
-Node: autopilot93505
-Node: recalculate94342
-Node: interrupt94717
-Node: nogui94952
-Node: status95426
-Node: ministatus95829
-Node: misc96134
-Node: command96535
-Node: renderanim96921
-Node: clearscreen97174
-Node: display97519
-Node: text97825
-Node: color98565
-Node: textposition98849
-Node: message99319
-Node: helpmenu99726
-Node: xtextpos99865
-Node: ytextpos100138
-Node: mformula100418
-Node: mandel100769
-Node: mandel3101048
-Node: octal101479
-Node: newton101819
-Node: barnsley102363
-Node: phoenix102643
-Node: magnet102879
-Node: palettemenu103221
-Node: defpalette103557
-Node: randompalette104053
-Node: palette104558
-Node: cycling105422
-Node: shiftpalette106401
-Node: about107113
-Node: support111426
-Node: index115250
+Node: root44527
+Node: animroot44588
+Node: stopreplay44871
+Node: plc45020
+Node: load45377
+Node: linemenu45710
+Node: animf48485
+Node: animateview49195
+Node: smoothmorph49730
+Node: morphview50314
+Node: morphjulia51377
+Node: moveview52005
+Node: morphangle52236
+Node: zoom52905
+Node: time53743
+Node: usleep54217
+Node: textsleep54618
+Node: wait55175
+Node: file55760
+Node: loadpos56031
+Node: savepos56293
+Node: record56739
+Node: play57242
+Node: saveimg57454
+Node: loadexample58090
+Node: savecfg58446
+Node: quit58833
+Node: edit59010
+Node: undo59200
+Node: redo59473
+Node: copy59648
+Node: paste59940
+Node: fractal60224
+Node: formula60787
+Node: uimandelbrot61519
+Node: uiperturbation63041
+Node: bailout64230
+Node: uiview65327
+Node: initstate67336
+Node: plane67829
+Node: incoloring68996
+Node: outcoloring70522
+Node: tcolor72247
+Node: calc73867
+Node: range74331
+Node: periodicity74958
+Node: maxiter77134
+Node: fastjulia78377
+Node: dynamic79136
+Node: rotate79975
+Node: mfilter81407
+Node: filter82063
+Node: edge82712
+Node: edge283251
+Node: starfield83795
+Node: stereogram84154
+Node: interlace88540
+Node: blur88956
+Node: emboss89371
+Node: palettef89706
+Node: anti90274
+Node: truecolor90981
+Node: ui91592
+Node: speed92053
+Node: letterspersec93116
+Node: autopilot93511
+Node: recalculate94348
+Node: interrupt94723
+Node: nogui94958
+Node: status95432
+Node: ministatus95835
+Node: misc96140
+Node: command96541
+Node: renderanim96927
+Node: clearscreen97180
+Node: display97525
+Node: text97831
+Node: color98571
+Node: textposition98855
+Node: message99325
+Node: helpmenu99732
+Node: xtextpos99871
+Node: ytextpos100144
+Node: mformula100424
+Node: mandel100775
+Node: mandel3101054
+Node: octal101531
+Node: newton101870
+Node: barnsley102414
+Node: phoenix102694
+Node: magnet102930
+Node: palettemenu103272
+Node: defpalette103608
+Node: randompalette104104
+Node: palette104609
+Node: cycling105473
+Node: shiftpalette106452
+Node: about107164
+Node: support111546
+Node: index115382
 
 End Tag Table

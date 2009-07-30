@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-14 20:44-0500\n"
+"POT-Creation-Date: 2009-07-30 11:52+0200\n"
 "PO-Revision-Date: 2008-04-28 11:21+0100\n"
 "Last-Translator: Zoltan Kovacs <kovzol@matek.hu>\n"
 "Language-Team: The XaoS Development Team <xaos-devel@lists.sf.net>\n"
@@ -182,7 +182,7 @@ msgid "Not yet"
 msgstr "Inca nu"
 
 #: ../ui/ui.c:1004 ../ui-hlp/menu.c:1055 ../ui-hlp/menu.c:1070
-#: ../ui/dialog.c:404 ../ui/dialog.c:1381
+#: ../ui/dialog.c:404 ../ui/dialog.c:1380
 msgid "Help"
 msgstr "Ajutor"
 
@@ -1273,42 +1273,42 @@ msgstr "Prea multi parametri"
 msgid "Replay disabled at line %i"
 msgstr "Replay dezactivat pe linia %i"
 
-#: ../ui-hlp/ui_helper.c:645
+#: ../ui-hlp/ui_helper.c:646
 msgid "Tutorial files not found. Reinstall XaoS"
 msgstr "Fisierele cu tutoriale nu au fost gasite. Reinstalati XaoS"
 
-#: ../ui-hlp/ui_helper.c:650
+#: ../ui-hlp/ui_helper.c:651
 msgid "Preparing first image"
 msgstr "Se pregateste prima imagine"
 
-#: ../ui-hlp/ui_helper.c:660
+#: ../ui-hlp/ui_helper.c:661
 msgid "Could not open examples"
 msgstr "Exemplele nu s-au putut deschide"
 
-#: ../ui-hlp/ui_helper.c:666
+#: ../ui-hlp/ui_helper.c:667
 #, c-format
 msgid "File %s loaded."
 msgstr "S-a incarcat fisierul %s."
 
-#: ../ui-hlp/ui_helper.c:675
+#: ../ui-hlp/ui_helper.c:676
 msgid "Saving image..."
 msgstr "Imginea se salveaza..."
 
-#: ../ui-hlp/ui_helper.c:683
+#: ../ui-hlp/ui_helper.c:684
 msgid "Save interrupted"
 msgstr "Salvare intrerupta"
 
-#: ../ui-hlp/ui_helper.c:692 ../ui-hlp/ui_helper.c:709
-#: ../ui-hlp/ui_helper.c:776
+#: ../ui-hlp/ui_helper.c:693 ../ui-hlp/ui_helper.c:710
+#: ../ui-hlp/ui_helper.c:777
 #, c-format
 msgid "File %s saved."
 msgstr "Fisierul %s salvat."
 
-#: ../ui-hlp/ui_helper.c:703
+#: ../ui-hlp/ui_helper.c:704
 msgid "Can not open file"
 msgstr "Nu se poate deschide fisierul"
 
-#: ../ui-hlp/ui_helper.c:798
+#: ../ui-hlp/ui_helper.c:799
 #, c-format
 msgid "Recording to file %s enabled."
 msgstr "S-a activat inregistrearea in fisierul %s "
@@ -1321,12 +1321,12 @@ msgstr "Solid-Guessing 1"
 msgid "Boundary trace"
 msgstr "Boundary-Trace"
 
-#: ../ui/dialog.c:312 ../ui/dialog.c:398 ../ui/dialog.c:1378
+#: ../ui/dialog.c:312 ../ui/dialog.c:398 ../ui/dialog.c:1377
 #: ../ui/ui-drv/cocoa/CustomDialog.m:302
 msgid "OK"
 msgstr "OK"
 
-#: ../ui/dialog.c:313 ../ui/dialog.c:401 ../ui/dialog.c:1380
+#: ../ui/dialog.c:313 ../ui/dialog.c:401 ../ui/dialog.c:1379
 #: ../ui/filesel.c:184 ../ui/ui-drv/cocoa/CustomDialog.m:312
 msgid "Cancel"
 msgstr "Anulare"

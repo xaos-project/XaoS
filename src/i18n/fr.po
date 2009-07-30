@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-14 20:44-0500\n"
+"POT-Creation-Date: 2009-07-30 11:52+0200\n"
 "PO-Revision-Date: 2006-02-05 17:35+0200\n"
 "Last-Translator: Philippe Wautelet <traduc _at_ fractalzone _dot_ be>\n"
 "Language-Team: French\n"
@@ -178,7 +178,7 @@ msgid "Not yet"
 msgstr "Pas encore"
 
 #: ../ui/ui.c:1004 ../ui-hlp/menu.c:1055 ../ui-hlp/menu.c:1070
-#: ../ui/dialog.c:404 ../ui/dialog.c:1381
+#: ../ui/dialog.c:404 ../ui/dialog.c:1380
 msgid "Help"
 msgstr "Aide"
 
@@ -1274,42 +1274,42 @@ msgstr "Trop de paramètres"
 msgid "Replay disabled at line %i"
 msgstr "Répétition désactivée à la ligne %i"
 
-#: ../ui-hlp/ui_helper.c:645
+#: ../ui-hlp/ui_helper.c:646
 msgid "Tutorial files not found. Reinstall XaoS"
 msgstr "Fichiers didacticiels introuvables. Réinstallez XaoS"
 
-#: ../ui-hlp/ui_helper.c:650
+#: ../ui-hlp/ui_helper.c:651
 msgid "Preparing first image"
 msgstr "Préparation première image"
 
-#: ../ui-hlp/ui_helper.c:660
+#: ../ui-hlp/ui_helper.c:661
 msgid "Could not open examples"
 msgstr "Echec ouverture exemples"
 
-#: ../ui-hlp/ui_helper.c:666
+#: ../ui-hlp/ui_helper.c:667
 #, c-format
 msgid "File %s loaded."
 msgstr "Fichier %s chargé."
 
-#: ../ui-hlp/ui_helper.c:675
+#: ../ui-hlp/ui_helper.c:676
 msgid "Saving image..."
 msgstr "Enregistrement image..."
 
-#: ../ui-hlp/ui_helper.c:683
+#: ../ui-hlp/ui_helper.c:684
 msgid "Save interrupted"
 msgstr "Enregistrement interrompu"
 
-#: ../ui-hlp/ui_helper.c:692 ../ui-hlp/ui_helper.c:709
-#: ../ui-hlp/ui_helper.c:776
+#: ../ui-hlp/ui_helper.c:693 ../ui-hlp/ui_helper.c:710
+#: ../ui-hlp/ui_helper.c:777
 #, c-format
 msgid "File %s saved."
 msgstr "Fichier %s enregistré"
 
-#: ../ui-hlp/ui_helper.c:703
+#: ../ui-hlp/ui_helper.c:704
 msgid "Can not open file"
 msgstr "Echec ouverture fichier"
 
-#: ../ui-hlp/ui_helper.c:798
+#: ../ui-hlp/ui_helper.c:799
 #, c-format
 msgid "Recording to file %s enabled."
 msgstr "Enregistrement vers le fichier %s activé."
@@ -1322,12 +1322,12 @@ msgstr "Estimation solide 1"
 msgid "Boundary trace"
 msgstr "Détection de frontière"
 
-#: ../ui/dialog.c:312 ../ui/dialog.c:398 ../ui/dialog.c:1378
+#: ../ui/dialog.c:312 ../ui/dialog.c:398 ../ui/dialog.c:1377
 #: ../ui/ui-drv/cocoa/CustomDialog.m:302
 msgid "OK"
 msgstr "OK"
 
-#: ../ui/dialog.c:313 ../ui/dialog.c:401 ../ui/dialog.c:1380
+#: ../ui/dialog.c:313 ../ui/dialog.c:401 ../ui/dialog.c:1379
 #: ../ui/filesel.c:184 ../ui/ui-drv/cocoa/CustomDialog.m:312
 msgid "Cancel"
 msgstr "Annuler"

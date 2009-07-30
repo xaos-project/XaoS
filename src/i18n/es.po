@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-14 20:44-0500\n"
+"POT-Creation-Date: 2009-07-30 11:52+0200\n"
 "PO-Revision-Date: 2002-10-04 15:22+0200\n"
 "Last-Translator: César Pérez <oroz@users.sourceforge.net>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -178,7 +178,7 @@ msgid "Not yet"
 msgstr "Todavía no"
 
 #: ../ui/ui.c:1004 ../ui-hlp/menu.c:1055 ../ui-hlp/menu.c:1070
-#: ../ui/dialog.c:404 ../ui/dialog.c:1381
+#: ../ui/dialog.c:404 ../ui/dialog.c:1380
 msgid "Help"
 msgstr "Ayuda"
 
@@ -1313,46 +1313,46 @@ msgstr ""
 msgid "Replay disabled at line %i"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:645
+#: ../ui-hlp/ui_helper.c:646
 msgid "Tutorial files not found. Reinstall XaoS"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:650
+#: ../ui-hlp/ui_helper.c:651
 msgid "Preparing first image"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:660
+#: ../ui-hlp/ui_helper.c:661
 #, fuzzy
 msgid "Could not open examples"
 msgstr "Cargar ejemplo aleatorio"
 
-#: ../ui-hlp/ui_helper.c:666
+#: ../ui-hlp/ui_helper.c:667
 #, c-format
 msgid "File %s loaded."
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:675
+#: ../ui-hlp/ui_helper.c:676
 #, fuzzy
 msgid "Saving image..."
 msgstr "Guardar imagen"
 
-#: ../ui-hlp/ui_helper.c:683
+#: ../ui-hlp/ui_helper.c:684
 #, fuzzy
 msgid "Save interrupted"
 msgstr "Interrumpir"
 
-#: ../ui-hlp/ui_helper.c:692 ../ui-hlp/ui_helper.c:709
-#: ../ui-hlp/ui_helper.c:776
+#: ../ui-hlp/ui_helper.c:693 ../ui-hlp/ui_helper.c:710
+#: ../ui-hlp/ui_helper.c:777
 #, c-format
 msgid "File %s saved."
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:703
+#: ../ui-hlp/ui_helper.c:704
 #, fuzzy
 msgid "Can not open file"
 msgstr "No se asignar tablas"
 
-#: ../ui-hlp/ui_helper.c:798
+#: ../ui-hlp/ui_helper.c:799
 #, c-format
 msgid "Recording to file %s enabled."
 msgstr ""
@@ -1365,12 +1365,12 @@ msgstr ""
 msgid "Boundary trace"
 msgstr ""
 
-#: ../ui/dialog.c:312 ../ui/dialog.c:398 ../ui/dialog.c:1378
+#: ../ui/dialog.c:312 ../ui/dialog.c:398 ../ui/dialog.c:1377
 #: ../ui/ui-drv/cocoa/CustomDialog.m:302
 msgid "OK"
 msgstr ""
 
-#: ../ui/dialog.c:313 ../ui/dialog.c:401 ../ui/dialog.c:1380
+#: ../ui/dialog.c:313 ../ui/dialog.c:401 ../ui/dialog.c:1379
 #: ../ui/filesel.c:184 ../ui/ui-drv/cocoa/CustomDialog.m:312
 msgid "Cancel"
 msgstr ""

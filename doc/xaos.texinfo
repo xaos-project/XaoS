@@ -3068,7 +3068,7 @@ higher powers. See the tutorial chapter.
 
 This is a less well-known fractal that Thomas discovered in Fractint.
 It has an interesting shape when displayed in the alternative
-planes. @xref{mplane}. See the tutorial chapter.
+planes. @xref{plane}. See the tutorial chapter.
 
 @emph{Available as}: menu item, command line option
 
@@ -3251,6 +3251,8 @@ To avoid this, you could use palette emulation filter. @xref{palettef}.
 @table @strong
 @item Lucio Henrique de Araujo (lucio.matema@@gmail.com)
 Brazilian/Portuguese translation
+@item Samuel Bizien (samuel@@bizien.info)
+Beryl fractal
 @item Eric Courteau (ecourteau@@cplus.fr)
 francais.cat (translation of tutorials)
 @item Jean-Pierre Demailly (Jean-Pierre.Demailly@@ujf-grenoble.fr)
@@ -3260,7 +3262,7 @@ TK interface, windowid patches
 @item Martin Dozsa (madsoft@@centrum.cz)
 cs.po (Czech translation of menus)
 @item Arpad Fekete (Fekete.Arpad.2@@stud.u-szeged.hu)
-some new fractals, and the 'More formulae' menu
+Some new fractals, and the 'More formulae' menu
 @item Zelia Maria Horta Garcia (zeliagarcia@@seed.pr.gov.br)
 Brazilian/Portuguese translation
 @item Tim Goodwin (tgoodwin@@cygnus.co.uk)
