@@ -718,6 +718,9 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
  * and for menu entries. However it is not self-explanatory, just copy-paste
  * existing tables and give it a try.
  *
+ * Finally, please also edit the calculateswitch function and
+ * the nmformulas constant (at the end of this file).
+ *
  * -- Zoltan, 2009-07-30
  */
 
@@ -2452,8 +2455,12 @@ calculateswitch(register number_t x1, register number_t y1,
 	    case 23:
 		return (hornflake_calc(x1, y1, x2, y2));
 		break;
-#ifdef SFFE_USING
 	    case 24:
+		return (smand9_peri(x1, y1, x2, y2));
+		break;
+		
+#ifdef SFFE_USING
+	    case 25:
 		return (sffe_calc(x1, y1, x2, y2));
 		break;
 #endif
@@ -2531,8 +2538,12 @@ calculateswitch(register number_t x1, register number_t y1,
 	    case 23:
 		return (hornflake_calc(x1, y1, x2, y2));
 		break;
-#ifdef SFFE_USING
 	    case 24:
+		return (mand9_peri(x1, y1, x2, y2));
+		break;
+		
+#ifdef SFFE_USING
+	    case 25:
 		return (sffe_calc(x1, y1, x2, y2));
 		break;
 #endif
@@ -2610,8 +2621,12 @@ calculateswitch(register number_t x1, register number_t y1,
 	case 23:
 	    return (hornflake_calc(x1, y1, x2, y2));
 	    break;
-#ifdef SFFE_USING
 	case 24:
+	    return (smand6_calc(x1, y1, x2, y2));
+	    break;
+	    
+#ifdef SFFE_USING
+	case 25:
 	    return (sffe_calc(x1, y1, x2, y2));
 	    break;
 #endif
@@ -2686,11 +2701,15 @@ calculateswitch(register number_t x1, register number_t y1,
 	case 22:
 	    return (koch_calc(x1, y1, x2, y2));
 	    break;
-	case 22:
+	case 23:
 	    return (hornflake_calc(x1, y1, x2, y2));
 	    break;
+	case 24:
+	    return (mand9_calc(x1, y1, x2, y2));
+	    break;
+	    
 #ifdef SFFE_USING
-	case 23:
+	case 25:
 	    return (sffe_calc(x1, y1, x2, y2));
 	    break;
 #endif
@@ -2701,4 +2720,4 @@ calculateswitch(register number_t x1, register number_t y1,
 
 CONST struct formula *currentformula;
 CONST int nformulas = sizeof(formulas) / sizeof(struct formula);
-CONST int nmformulas = 14;
+CONST int nmformulas = 15;
