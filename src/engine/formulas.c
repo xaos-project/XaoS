@@ -1243,6 +1243,29 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 #define PRESMOOTH zre=zpr*zpr+zpm*zpm
 #include "docalc.c"
 
+
+#define VARIABLES register number_t yre, yim, re1tmp, re2tmp, im1tmp;
+#define BTEST (rp+ip<9||(yre*yre+yim*yim)<4*(rp+ip))
+#define INIT yre=pre; yim=pim;
+#define FORMULA \
+        re1tmp=zre; \
+      	re2tmp=yre; \
+	im1tmp=zim; \
+        zre=re1tmp+yre; \
+	zim=im1tmp+yim; \
+	yre=(re1tmp*re2tmp-im1tmp*yim   ); \
+	yim=(re1tmp*yim   +re2tmp*im1tmp); \
+	rp=zre*zre; \
+	ip=zim*zim;
+#define CALC beryl_calc
+#define JULIA beryl_julia
+#define PERI beryl_peri
+#define RANGE 2
+#define RPIP
+#include "docalc.c"
+
+
+
 #ifdef SFFE_USING
  /* SFFE - malczak */
  //#define VARIABLES sffe *p = globaluih->parser; 
@@ -2325,10 +2348,53 @@ CONST struct formula formulas[] = {
       {INT_MAX, INT_MAX, 0, NULL},
       },
      MANDEL_BTRACE,
-     }
+     },
+     
+   { /* formula added by S. Bizien *//* 25 */
+    FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+   beryl_calc,
+   beryl_peri,
+   NULL,
+   NULL,
+#endif
+   NULL,
+   {"Beryl", "Beryl"},
+   "beryl",
+   {-0.6, 0, 2, 2},
+   0, 0, 1.0, 0.0,
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+   {
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    {INT_MAX, INT_MAX, 0, NULL},
+    },
+    MANDEL_BTRACE,
+    }   
+     
      
 #ifdef SFFE_USING
-    , {				/* formula added by M. Malczak - SFFE *//* 25 */
+    , {				/* formula added by M. Malczak - SFFE *//* 26 */
        FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
        sffe_calc,
@@ -2458,9 +2524,12 @@ calculateswitch(register number_t x1, register number_t y1,
 	    case 24:
 		return (smand9_peri(x1, y1, x2, y2));
 		break;
+	    case 25:
+		return (beryl_calc(x1, y1, x2, y2));
+		break;
 		
 #ifdef SFFE_USING
-	    case 25:
+	    case 26:
 		return (sffe_calc(x1, y1, x2, y2));
 		break;
 #endif
@@ -2541,9 +2610,12 @@ calculateswitch(register number_t x1, register number_t y1,
 	    case 24:
 		return (mand9_peri(x1, y1, x2, y2));
 		break;
+	    case 25:
+		return (beryl_peri(x1, y1, x2, y2));
+		break;
 		
 #ifdef SFFE_USING
-	    case 25:
+	    case 26:
 		return (sffe_calc(x1, y1, x2, y2));
 		break;
 #endif
@@ -2624,9 +2696,12 @@ calculateswitch(register number_t x1, register number_t y1,
 	case 24:
 	    return (smand6_calc(x1, y1, x2, y2));
 	    break;
+	case 25:
+	    return (beryl_calc(x1, y1, x2, y2));
+	    break;
 	    
 #ifdef SFFE_USING
-	case 25:
+	case 26:
 	    return (sffe_calc(x1, y1, x2, y2));
 	    break;
 #endif
@@ -2707,9 +2782,12 @@ calculateswitch(register number_t x1, register number_t y1,
 	case 24:
 	    return (mand9_calc(x1, y1, x2, y2));
 	    break;
+	case 25:
+	    return (beryl_peri(x1, y1, x2, y2));
+	    break;
 	    
 #ifdef SFFE_USING
-	case 25:
+	case 26:
 	    return (sffe_calc(x1, y1, x2, y2));
 	    break;
 #endif
@@ -2720,4 +2798,4 @@ calculateswitch(register number_t x1, register number_t y1,
 
 CONST struct formula *currentformula;
 CONST int nformulas = sizeof(formulas) / sizeof(struct formula);
-CONST int nmformulas = 15;
+CONST int nmformulas = 16; // Is this correct here? -- Zoltan, 2009-07-30
