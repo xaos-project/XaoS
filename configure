@@ -3382,7 +3382,9 @@ $as_echo "$icc_archflag" >&6; }
 
     gnu)
      # default optimization flags for gcc on all systems
-     CFLAGS="-O3 -fomit-frame-pointer"
+     # 2009-07-30 JB Langston
+     # removed -fomit-frame-pointer due to incompatibility with SFFE
+     CFLAGS="-O3"
 
      # -malign-double for x86 systems
       { $as_echo "$as_me:$LINENO: checking whether C compiler accepts -malign-double" >&5

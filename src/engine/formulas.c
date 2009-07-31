@@ -192,9 +192,18 @@ typedef union {
                           return (interpoltype (cpalette, i2, i1, iter)); \
                         } \
                       }
+/* 2009-07-30 JB Langston:
+ * Fixing bug #3: HSV modes are completely black when compiled with GCC 4...
+ * Removed CONSTF qualifier from hsv_to_rgb declaration. CONSTF macro is 
+ * defined to __attribute__((__const__)), on which I found some more details 
+ * here: http://unixwiz.net/techtips/gnu-c-attributes.html#const.  Apparently
+ * this should never be used with a function that takes a pointer or relies on
+ * side-effects, and hsv_to_rgb does both.  Therefore, it should never have 
+ * been declared this way in the first place.
+ */
 
 static INLINE void
-hsv_to_rgb(int h, int s, int v, int *red, int *green, int *blue) CONSTF;
+hsv_to_rgb(int h, int s, int v, int *red, int *green, int *blue) /*CONSTF*/;
 static INLINE void
 hsv_to_rgb(int h, int s, int v, int *red, int *green, int *blue)
 {

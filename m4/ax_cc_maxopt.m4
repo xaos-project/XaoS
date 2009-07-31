@@ -136,7 +136,9 @@ if test "$ac_test_CFLAGS" != "set"; then
 
     gnu)
      # default optimization flags for gcc on all systems
-     CFLAGS="-O3 -fomit-frame-pointer"
+     # 2009-07-30 JB Langston
+     # removed -fomit-frame-pointer due to incompatibility with SFFE
+     CFLAGS="-O3" 
 
      # -malign-double for x86 systems
      AX_CHECK_COMPILER_FLAGS(-malign-double, CFLAGS="$CFLAGS -malign-double")
