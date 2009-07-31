@@ -418,13 +418,13 @@ xprint(struct image *image, CONST struct xfont *current, int x, int y,
 {
     int i = 0;
     int aacolor = 0;
-#ifdef HAVE_GETTEXT
     char intext[BUFSIZ];
     int inlen = strlen(text);
     char outtext[BUFSIZ];
     int outlen = BUFSIZ;
-
     strncpy(intext, text, BUFSIZ);
+
+#ifdef HAVE_GETTEXT
     if (current->encoding
 	&& xiconv(current->encoding, outtext, &outlen, intext, &inlen) == 0)
 	text = outtext;

@@ -4,9 +4,12 @@
 #include <cairo.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
-#include <ui.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include <filter.h>
+#include <grlib.h>
+#include <ui.h>
 
 int width = 640;
 int height = 480;
@@ -612,6 +615,84 @@ static void getmouse(int *x, int *y, int *b) {
 
 static void mousetype(int type) {
 }
+
+static int skip(CONST char *text)
+{
+    int i = 0;
+    while (*text && *text != '\n')
+	i++, text++;
+    return (i);
+}
+
+int
+xprint(struct image *image, CONST struct xfont *current, int x, int y,
+       CONST char *text, int fgcolor, int bgcolor, int mode)
+{
+    cairo_text_extents_t extents;
+    cairo_t *cr = cairo_create(surface[image->currimage]);
+    
+    char *nl = strstr(text, "\n");
+    nl = 0;
+    
+    cairo_select_font_face (cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
+                                   CAIRO_FONT_WEIGHT_BOLD);
+    cairo_set_font_size (cr, 12.0);
+    cairo_text_extents (cr, text, &extents);
+    cairo_set_source_rgb (cr, 0, 0, 0);
+    cairo_move_to (cr, x + 1, y + extents.height + 1);
+    cairo_show_text (cr, text);
+    cairo_set_source_rgb (cr, 1, 1, 1);
+    cairo_move_to (cr, x, y + extents.height);
+    cairo_show_text (cr, text);
+    
+    cairo_destroy(cr);
+    return strlen(text);
+}
+
+int xtextwidth(CONST struct xfont *font, CONST char *text)
+{
+    cairo_text_extents_t extents;
+    cairo_t *cr = cairo_create(surface[current_surface]);
+    
+    cairo_select_font_face (cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
+                                   CAIRO_FONT_WEIGHT_BOLD);
+    cairo_set_font_size (cr, 12.0);
+    cairo_text_extents (cr, text, &extents);
+    cairo_destroy(cr);
+
+    return ceil(extents.width) + 5;
+}
+
+int xtextheight(CONST struct xfont *font) {
+    cairo_text_extents_t extents;
+    cairo_t *cr = cairo_create(surface[current_surface]);
+    
+    cairo_select_font_face (cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
+                                   CAIRO_FONT_WEIGHT_BOLD);
+    cairo_set_font_size (cr, 12.0);
+    cairo_text_extents (cr, "'Speed: 500", &extents);
+    cairo_destroy(cr);
+
+    return ceil(extents.height) + 5;
+}
+
+int xtextcharw(CONST struct xfont *font, CONST char c)
+{
+    cairo_text_extents_t extents;
+    char text[255];
+    cairo_t *cr = cairo_create(surface[current_surface]);
+    
+    cairo_select_font_face (cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
+                                   CAIRO_FONT_WEIGHT_BOLD);
+    cairo_set_font_size (cr, 12.0);
+    sprintf(text, "%c", c);
+    cairo_text_extents (cr, text, &extents);
+    cairo_destroy(cr);
+
+    return extents.width;
+}
+
+
 
 static struct params params[] = { { "", P_HELP, NULL, "GTK+ driver options:" },
 		{ NULL, 0, NULL, NULL } };
