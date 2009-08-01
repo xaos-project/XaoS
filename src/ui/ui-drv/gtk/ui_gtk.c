@@ -6,6 +6,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include <filter.h>
 #include <grlib.h>
@@ -624,53 +625,70 @@ static int skip(CONST char *text)
     return (i);
 }
 
+#ifdef PLATFORM_TEXT_RENDERING
+
 int
 xprint(struct image *image, CONST struct xfont *current, int x, int y,
        CONST char *text, int fgcolor, int bgcolor, int mode)
 {
-    cairo_text_extents_t extents;
     cairo_t *cr = cairo_create(surface[image->currimage]);
-    
-    char *nl = strstr(text, "\n");
-    nl = 0;
     
     cairo_select_font_face (cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
                                    CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size (cr, 12.0);
-    cairo_text_extents (cr, text, &extents);
+    cairo_set_font_size (cr, 18.0);
+
+    char line[BUFSIZ];
+    int pos = strcspn(text, "\n");
+    strncpy(line, text, pos);
+    line[pos] = '\0';
+
+    cairo_text_extents_t extents;
+    cairo_text_extents (cr, line, &extents);
+    
     cairo_set_source_rgb (cr, 0, 0, 0);
     cairo_move_to (cr, x + 1, y + extents.height + 1);
-    cairo_show_text (cr, text);
+    cairo_show_text (cr, line);
+
     cairo_set_source_rgb (cr, 1, 1, 1);
     cairo_move_to (cr, x, y + extents.height);
-    cairo_show_text (cr, text);
+    cairo_show_text (cr, line);
     
     cairo_destroy(cr);
-    return strlen(text);
+
+    return strlen(line);
 }
 
 int xtextwidth(CONST struct xfont *font, CONST char *text)
 {
-    cairo_text_extents_t extents;
     cairo_t *cr = cairo_create(surface[current_surface]);
     
     cairo_select_font_face (cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
                                    CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size (cr, 12.0);
-    cairo_text_extents (cr, text, &extents);
+    cairo_set_font_size (cr, 18.0);
+
+    char line[BUFSIZ];
+    int pos = strcspn(text, "\n");
+    strncpy(line, text, pos);
+    line[pos] = '\0';
+
+    cairo_text_extents_t extents;
+    cairo_text_extents (cr, line, &extents);
+
     cairo_destroy(cr);
 
-    return ceil(extents.width) + 5;
+    return ceil(extents.width) + 1;
 }
 
 int xtextheight(CONST struct xfont *font) {
-    cairo_text_extents_t extents;
     cairo_t *cr = cairo_create(surface[current_surface]);
     
     cairo_select_font_face (cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
                                    CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size (cr, 12.0);
-    cairo_text_extents (cr, "'Speed: 500", &extents);
+    cairo_set_font_size (cr, 18.0);
+
+    cairo_text_extents_t extents;
+    cairo_text_extents (cr, "Wg'", &extents);
+
     cairo_destroy(cr);
 
     return ceil(extents.height) + 5;
@@ -678,21 +696,24 @@ int xtextheight(CONST struct xfont *font) {
 
 int xtextcharw(CONST struct xfont *font, CONST char c)
 {
-    cairo_text_extents_t extents;
-    char text[255];
     cairo_t *cr = cairo_create(surface[current_surface]);
     
     cairo_select_font_face (cr, "Sans", CAIRO_FONT_SLANT_NORMAL,
                                    CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size (cr, 12.0);
+    cairo_set_font_size (cr, 18.0);
+
+    char text[2];
     sprintf(text, "%c", c);
+
+    cairo_text_extents_t extents;
     cairo_text_extents (cr, text, &extents);
+
     cairo_destroy(cr);
 
-    return extents.width;
+    return ceil(extents.width) + 1;
 }
 
-
+#endif
 
 static struct params params[] = { { "", P_HELP, NULL, "GTK+ driver options:" },
 		{ NULL, 0, NULL, NULL } };
