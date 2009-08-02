@@ -2423,8 +2423,12 @@ CONST struct formula formulas[] = {
        {"User defined", "User defined"},
        "user",
        /*{0.5, -2.0, 1.25, -1.25}, */
-       {-0.75, 0.0, 1, 1},
-       0, 1, 0.0, 0.0,
+	/*{-0.75, 0.0, 1, 1},*/
+	/* 2009-08-01 JB Langston
+	 * Changed default zoom level to match Mandelbrot
+	 */
+	{-0.75, 0.0, 2.5, 2.5},
+	0, 1, 0.0, 0.0,
        {
 	{INT_MAX, INT_MAX, 0, NULL},
 	{INT_MAX, INT_MAX, 0, NULL},
