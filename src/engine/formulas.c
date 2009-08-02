@@ -48,8 +48,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#ifdef __EMX__
 #include <float.h>
+#ifdef __EMX__
 #include <sys/cdefs.h>
 #endif
 #include <stdio.h>
@@ -946,7 +946,15 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 #include "docalc.c"
 
 #define VARIABLES register number_t zor,zoi;
-#define BTEST less_than_4(rp+ip)
+/* 2009-08-01 JB Langston
+ * On Mac OS X, for some reason Cat's Eye renders as an empty circle unless
+ * the bailout is slightly more than 4.  This doesn't appear to happen on any
+ * other operating systems, and it's not processor specific.  It's probably
+ * a compiler bug, but I haven't been able to figure out exactly what's
+ * happening.  I can work around it by subtracting LDBL_MIN from the amount 
+ * before performing the bailout test.
+ */
+#define BTEST less_than_4(rp+ip-LDBL_MIN)
 #define FORMULA \
 	c_div(pre,pim,zre,zim,rp,ip); \
 	c_div(zre,zim,pre,pim,zor,zoi); \
