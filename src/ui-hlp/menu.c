@@ -1636,8 +1636,7 @@ void uih_sffein(uih_context * c, CONST char *text)
 	    uih_sffedialog->defstr = c->parser->expression;
 	    uih_message(c, c->parser->expression);
 	    if (!(c->fcontext->currentformula->flags & SFFE_FRACTAL)) {
-		uih_setformula(c, 24);
-		//uih_newimage(c);
+		uih_play_formula(c, "user");
 	    } else
 		uih_recalculate(c);
 	};
@@ -1669,8 +1668,7 @@ void uih_sffeinitin(uih_context * c, CONST char *text)
 	    uih_sffeinitdialog->defstr = c->pinit->expression;	/*FIXME shouldnt this be done by str copy */
 	    uih_message(c, c->pinit->expression);
 	    if (!(c->fcontext->currentformula->flags & SFFE_FRACTAL)) {
-		uih_setformula(c, 24);
-		//uih_newimage(c);
+		uih_play_formula(c, "user");
 	    } else
 		uih_recalculate(c);
 	    c->pinit->errormsg = NULL;
