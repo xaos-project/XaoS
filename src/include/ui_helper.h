@@ -272,6 +272,9 @@ extern "C" {
 	/* performers really don't want text echoed to the screen */
 	int inhibittextoutput;
 
+        /* user data */
+        void *data;
+
 #ifdef SFFE_USING
 	/*User formulas (used in sffe parser) */
 	/*sffe *cparser;  user define c evaluation formula, not used now, not used yet */
