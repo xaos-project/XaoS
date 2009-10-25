@@ -1,12 +1,12 @@
 # XaoS NLS file for Czech language.
 # Copyright (C) 2002 Free Software Foundation, Inc.
 # Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2002.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-30 11:52+0200\n"
+"POT-Creation-Date: 2009-08-14 13:35-0500\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: MadSoft <madsoft@centrum.cz>\n"
 "Language-Team: Czech\n"
