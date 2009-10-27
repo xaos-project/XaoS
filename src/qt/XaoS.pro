@@ -54,10 +54,12 @@ SOURCES += main.cpp \
     ../util/timers.c \
     mainwindow.cpp \
     fractalparameters.cpp \
-    fractalmodel.cpp
+    fractalmodel.cpp \
+    abstractfractalmodel.cpp
 HEADERS += fractalwidget.h \
     mainwindow.h \
     fractalparameters.h \
-    fractalmodel.h
+    fractalmodel.h \
+    abstractfractalmodel.h
 INCLUDEPATH = ../include
 FORMS += fractalparameters.ui

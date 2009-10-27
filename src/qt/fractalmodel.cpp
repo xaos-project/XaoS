@@ -32,6 +32,36 @@ void uih_initmessages(uih_context * c) {}
 void uih_destroymessages(uih_context * c) {}
 void uih_printmessages(uih_context * c) {}
 
+int ui_passfunc(struct uih_context *c, int display, CONST char *text,
+            float percent)
+{
+    char str[80];
+    //int x = 0, y = 0, b = 0, k = 0;
+    //driver->processevents(0, &x, &y, &b, &k);
+    QApplication::processEvents();
+    //ui_mouse(x, y, b, k);
+    //CHECKPROCESSEVENTS(b, k);
+    if (!c->play) {
+        if (c->display)
+            /*ui_display(),*/ display = 1;
+        if (!c->interruptiblemode && !c->play) {
+            if (display) {
+                if (percent)
+                    sprintf(str, "%s %3.2f%%        ", text,
+                            (double) percent);
+                else
+                    sprintf(str, "%s          ", text);
+                uih_message(c, str);
+                //ui_flush();
+            }
+        } else {
+            //if (!(driver->flags & NOFLUSHDISPLAY))
+                //ui_flush();
+        }
+    }
+    return (0);
+}
+
 FractalModel::FractalModel()
 {
     m_mouseX = m_mouseY = m_mouseButtons = 0;
@@ -57,13 +87,13 @@ FractalModel::FractalModel()
         m_planes += planename[i];
     }
 
-    m_uih = uih_mkcontext(0, createImage(QSize(640, 480)), NULL, NULL, NULL);
+    m_uih = uih_mkcontext(0, createImage(QSize(640, 480)), ui_passfunc, NULL, NULL);
     m_uih->data = this;
     //m_uih->fcontext->version++;
     //uih_loadcatalog(m_uih, "english");
     uih_newimage(m_uih);
 
-    QTimer::singleShot(0, this, SLOT(updateFractal()));
+    QTimer::singleShot(16, this, SLOT(updateFractal()));
 }
 
 FractalModel::~FractalModel()
@@ -175,7 +205,7 @@ void FractalModel::updateFractal()
     uih_displayed(m_uih);
     uih_update(m_uih, m_mouseX, m_mouseY, m_mouseButtons);
     int time = tl_process_group(syncgroup, NULL);
-    QTimer::singleShot(0, this, SLOT(updateFractal()));
+    QTimer::singleShot(16, this, SLOT(updateFractal()));
 }
 
 void FractalModel::copy()

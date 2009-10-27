@@ -60,6 +60,48 @@
   <variable>buildconfiguration-Debug-buildstep0</variable>
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList" >
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-YbwAElUju0,guid=e1fe80d7c34ab894516c0f924ae62d26</value>
+    <value type="QString" >DESKTOP_SESSION=gnome</value>
+    <value type="QString" >DESKTOP_STARTUP_ID=</value>
+    <value type="QString" >DISPLAY=:0.0</value>
+    <value type="QString" >GDMSESSION=gnome</value>
+    <value type="QString" >GDM_KEYBOARD_LAYOUT=us</value>
+    <value type="QString" >GDM_LANG=en_US.UTF-8</value>
+    <value type="QString" >GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
+    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-mzjJMj/socket</value>
+    <value type="QString" >GTK_MODULES=canberra-gtk-module</value>
+    <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/jblang/.gtkrc-1.2-gnome2</value>
+    <value type="QString" >HOME=/home/jblang</value>
+    <value type="QString" >LANG=en_US.UTF-8</value>
+    <value type="QString" >LD_LIBRARY_PATH=/usr/lib/qtcreator:</value>
+    <value type="QString" >LIBGL_DRIVERS_PATH=/usr/lib/dri</value>
+    <value type="QString" >LOGNAME=jblang</value>
+    <value type="QString" >ORBIT_SOCKETDIR=/tmp/orbit-jblang</value>
+    <value type="QString" >PATH=/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
+    <value type="QString" >PWD=/home/jblang</value>
+    <value type="QString" >QTDIR=/usr</value>
+    <value type="QString" >SESSION_MANAGER=local/cloud9:@/tmp/.ICE-unix/1777,unix/cloud9:/tmp/.ICE-unix/1777</value>
+    <value type="QString" >SHELL=/bin/bash</value>
+    <value type="QString" >SPEECHD_PORT=7560</value>
+    <value type="QString" >SSH_AGENT_PID=1833</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-mzjJMj/socket.ssh</value>
+    <value type="QString" >USER=jblang</value>
+    <value type="QString" >USERNAME=jblang</value>
+    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-jblang-vHhphv/database</value>
+    <value type="QString" >XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
+    <value type="QString" >XDG_SESSION_COOKIE=6762e6b40f354eee20cdb96c4ae4a7c7-1256598821.910036-1354876962</value>
+   </valuelist>
+   <valuelist key="abstractProcess.arguments" type="QVariantList" >
+    <value type="QString" >/home/jblang/xaos/src/qt/XaoS.pro</value>
+    <value type="QString" >-spec</value>
+    <value type="QString" >/usr/share/qt4/mkspecs/linux-g++</value>
+    <value type="QString" >-r</value>
+    <value type="QString" >CONFIG+=debug</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString" >/usr/bin/qmake-qt4</value>
+   <value key="abstractProcess.enabled" type="bool" >false</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/home/jblang/xaos/src/qt</value>
    <value key="buildConfiguration" type="int" >2</value>
   </valuemap>
  </data>
@@ -67,6 +109,44 @@
   <variable>buildconfiguration-Debug-buildstep1</variable>
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList" >
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-YbwAElUju0,guid=e1fe80d7c34ab894516c0f924ae62d26</value>
+    <value type="QString" >DESKTOP_SESSION=gnome</value>
+    <value type="QString" >DESKTOP_STARTUP_ID=</value>
+    <value type="QString" >DISPLAY=:0.0</value>
+    <value type="QString" >GDMSESSION=gnome</value>
+    <value type="QString" >GDM_KEYBOARD_LAYOUT=us</value>
+    <value type="QString" >GDM_LANG=en_US.UTF-8</value>
+    <value type="QString" >GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
+    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-mzjJMj/socket</value>
+    <value type="QString" >GTK_MODULES=canberra-gtk-module</value>
+    <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/jblang/.gtkrc-1.2-gnome2</value>
+    <value type="QString" >HOME=/home/jblang</value>
+    <value type="QString" >LANG=en_US.UTF-8</value>
+    <value type="QString" >LD_LIBRARY_PATH=/usr/lib/qtcreator:</value>
+    <value type="QString" >LIBGL_DRIVERS_PATH=/usr/lib/dri</value>
+    <value type="QString" >LOGNAME=jblang</value>
+    <value type="QString" >ORBIT_SOCKETDIR=/tmp/orbit-jblang</value>
+    <value type="QString" >PATH=/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
+    <value type="QString" >PWD=/home/jblang</value>
+    <value type="QString" >QTDIR=/usr</value>
+    <value type="QString" >SESSION_MANAGER=local/cloud9:@/tmp/.ICE-unix/1777,unix/cloud9:/tmp/.ICE-unix/1777</value>
+    <value type="QString" >SHELL=/bin/bash</value>
+    <value type="QString" >SPEECHD_PORT=7560</value>
+    <value type="QString" >SSH_AGENT_PID=1833</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-mzjJMj/socket.ssh</value>
+    <value type="QString" >USER=jblang</value>
+    <value type="QString" >USERNAME=jblang</value>
+    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-jblang-vHhphv/database</value>
+    <value type="QString" >XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
+    <value type="QString" >XDG_SESSION_COOKIE=6762e6b40f354eee20cdb96c4ae4a7c7-1256598821.910036-1354876962</value>
+   </valuelist>
+   <valuelist key="abstractProcess.arguments" type="QVariantList" >
+    <value type="QString" >-w</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString" >/usr/bin/make</value>
+   <value key="abstractProcess.enabled" type="bool" >true</value>
+   <value key="abstractProcess.workingDirectory" type="QString" >/home/jblang/xaos/src/qt</value>
   </valuemap>
  </data>
  <data>
