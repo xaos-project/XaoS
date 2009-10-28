@@ -38,31 +38,8 @@ void uih_printmessages(uih_context * c) {}
 int ui_passfunc(struct uih_context *c, int display, CONST char *text,
             float percent)
 {
-    char str[80];
-    //int x = 0, y = 0, b = 0, k = 0;
-    //driver->processevents(0, &x, &y, &b, &k);
-    processEvents();
-    //ui_mouse(x, y, b, k);
-    //CHECKPROCESSEVENTS(b, k);
-    if (!c->play) {
-        if (c->display)
-            /*ui_display(),*/ display = 1;
-        if (!c->interruptiblemode && !c->play) {
-            if (display) {
-                if (percent)
-                    sprintf(str, "%s %3.2f%%        ", text,
-                            (double) percent);
-                else
-                    sprintf(str, "%s          ", text);
-                uih_message(c, str);
-                //ui_flush();
-            }
-        } else {
-            //if (!(driver->flags & NOFLUSHDISPLAY))
-                //ui_flush();
-        }
-    }
-    return (0);
+    AbstractFractalModel *m = reinterpret_cast<AbstractFractalModel*>(c->data);
+    m->passFunc(display, text, percent);
 }
 
 void AbstractFractalModel::initApp(int argc, char **argv)
@@ -140,7 +117,7 @@ void AbstractFractalModel::resizeImage()
         if (!uih_updateimage(m_uih, createImage())) {
             //driver->uninit();
             //ui_outofmem();
-            x_fatalerror(gettext("Can not allocate tables"));
+            x_fatalerror(("Can not allocate tables"));
         }
         tl_process_group(syncgroup, NULL);
         //tl_reset_timer(maintimer);
@@ -154,31 +131,31 @@ void AbstractFractalModel::resizeImage()
     uih_cycling_continue(m_uih);
 }
 
-static const char *AbstractFractalModel::formulaName(int index)
+const char *AbstractFractalModel::formulaName(int index)
 {
 }
 
-static const char *AbstractFractalModel::exteriorColorModeName(int index)
+const char *AbstractFractalModel::exteriorColorModeName(int index)
 {
 }
 
-static const char *AbstractFractalModel::interiorColorModeName(int index)
+const char *AbstractFractalModel::interiorColorModeName(int index)
 {
 }
 
-static const char *AbstractFractalModel::planeName(int index)
+const char *AbstractFractalModel::planeName(int index)
 {
 }
 
-static const char *AbstractFractalModel::solidGuessingModeName(int index)
+const char *AbstractFractalModel::solidGuessingModeName(int index)
 {
 }
 
-static const char *AbstractFractalModel::dynamicResolutionModeName(int index)
+const char *AbstractFractalModel::dynamicResolutionModeName(int index)
 {
 }
 
-static const char *AbstractFractalModel::filterName(int index)
+const char *AbstractFractalModel::filterName(int index)
 {
 }
 
@@ -264,35 +241,17 @@ void AbstractFractalModel::generateRandomPalette()
 {
 }
 
-int AbstractFractalModel::customPaletteAlgorithm()
+int AbstractFractalModel::paletteAlgorithm()
 {
 }
 
-int AbstractFractalModel::customPaletteSeed()
+int AbstractFractalModel::paletteSeed()
 {
 }
 
-int AbstractFractalModel::customPaletteShift()
+void AbstractFractalModel::generateCustomPalette()
 {
 }
-
-void AbstractFractalModel::generateCustomPalette(int algorithm, int seed, int shift)
-{
-}
-
-
-void AbstractFractalModel::cyclePaletteForward()
-{
-}
-
-void AbstractFractalModel::cyclePaletteReverse()
-{
-}
-
-void AbstractFractalModel::stopPaletteCycling()
-{
-}
-
 
 int AbstractFractalModel::paletteCyclingSpeed()
 {
@@ -301,7 +260,6 @@ int AbstractFractalModel::paletteCyclingSpeed()
 void AbstractFractalModel::setPaletteCyclingSpeed(int speed)
 {
 }
-
 
 int AbstractFractalModel::paletteShift()
 {
@@ -336,23 +294,14 @@ void AbstractFractalModel::setJuliaSeedY(double y)
 {
 }
 
-void AbstractFractalModel::setJuliaSeed(double x, double y)
+
+bool AbstractFractalModel::isJulia()
 {
 }
 
-
-bool AbstractFractalModel::isMandelbrot()
+void AbstractFractalModel::setIsJulia(bool julia)
 {
 }
-
-void AbstractFractalModel::enableMandelbrot()
-{
-}
-
-void AbstractFractalModel::disableMandelbrot()
-{
-}
-
 
 double AbstractFractalModel::perturbationX()
 {
@@ -370,23 +319,6 @@ void AbstractFractalModel::setPerturbationY(double y)
 {
 }
 
-void AbstractFractalModel::setPerturbation(double x, double y)
-{
-}
-
-
-bool AbstractFractalModel::isPerturbed()
-{
-}
-
-void AbstractFractalModel::enablePerturbation()
-{
-}
-
-void AbstractFractalModel::disablePerturbation()
-{
-}
-
 
 double AbstractFractalModel::centerX()
 {
@@ -401,10 +333,6 @@ void AbstractFractalModel::setCenterX(double x)
 }
 
 void AbstractFractalModel::setCenterY(double y)
-{
-}
-
-void AbstractFractalModel::setCenter(double x, double y)
 {
 }
 
@@ -480,11 +408,7 @@ bool AbstractFractalModel::isPeriodicityCheckingEnabled()
 {
 }
 
-void AbstractFractalModel::enablePeriodicityChecking()
-{
-}
-
-void AbstractFractalModel::disablePeriodicityChecking()
+void AbstractFractalModel::setPeriodicityCheckingEnabled(bool periodicity)
 {
 }
 
@@ -493,11 +417,7 @@ bool AbstractFractalModel::isFastJuliaEnabled()
 {
 }
 
-void AbstractFractalModel::enableFastJulia()
-{
-}
-
-void AbstractFractalModel::disableFastJulia()
+void AbstractFractalModel::setFastJuliaEnabled(bool fastJulia)
 {
 }
 
@@ -506,11 +426,7 @@ bool AbstractFractalModel::isRotationEnabled()
 {
 }
 
-void AbstractFractalModel::enableRotation()
-{
-}
-
-void AbstractFractalModel::disableRotation()
+void AbstractFractalModel::setRotationEnabled(bool rotation)
 {
 }
 
@@ -528,11 +444,7 @@ bool AbstractFractalModel::isAutopilotEnabled()
 {
 }
 
-void AbstractFractalModel::enableAutopilot()
-{
-}
-
-void AbstractFractalModel::disableAutopilot()
+void AbstractFractalModel::setAutopilotEnabled(bool autopilot)
 {
 }
 
@@ -546,15 +458,11 @@ void AbstractFractalModel::setZoomSpeed(int speed)
 }
 
 
-void AbstractFractalModel::isFilterEnabled(int index)
+bool AbstractFractalModel::isFilterEnabled(int index)
 {
 }
 
-void AbstractFractalModel::enableFilter(int index)
-{
-}
-
-void AbstractFractalModel::disableFilter(int index)
+void AbstractFractalModel::setFilterEnabled(int index, bool enabled)
 {
 }
 
@@ -568,24 +476,20 @@ double AbstractFractalModel::framesPerSecond()
 }
 
 
-int AbstractFractalModel::isFixedStepEnabled()
+bool AbstractFractalModel::isFixedStepEnabled()
 {
 }
 
-bool AbstractFractalModel::enableFixedStep()
-{
-}
-
-bool AbstractFractalModel::disableFixedStep()
+void AbstractFractalModel::setFixedStepEnabled(bool fixedStep)
 {
 }
 
 
-MouseMode AbstractFractalModel::mouseMode()
+AbstractFractalModel::MouseMode AbstractFractalModel::mouseMode()
 {
 }
 
-void AbstractFractalModel::setMouseMode(MouseMode mouseMode)
+void AbstractFractalModel::setMouseMode(AbstractFractalModel::MouseMode mouseMode)
 {
 }
 
@@ -617,20 +521,60 @@ void AbstractFractalModel::setTextColor(int color)
 }
 
 
-HorizontalTextAlignment AbstractFractalModel::horizontalTextAlignment()
+int AbstractFractalModel::horizontalTextAlignment()
 {
 }
 
-void AbstractFractalModel::setHorizontalTextAlignment(HorizontalTextAlignment alignment)
+void AbstractFractalModel::setHorizontalTextAlignment(int alignment)
 {
 }
 
 
-VerticalTextAlignment AbstractFractalModel::verticalTextAlignment()
+int AbstractFractalModel::verticalTextAlignment()
 {
 }
 
-void AbstractFractalModel::setVerticalTextAlignment(VerticalTextAlignment alignment)
+void AbstractFractalModel::setVerticalTextAlignment(int alignment)
 {
 }
 
+void AbstractFractalModel::processChanges()
+{
+
+    int m_formula;
+    char *m_userFormula;
+    char *m_userFormulaInitialization;
+    int m_interiorColorMode;
+    int m_interiorTrueColorMode;
+    int m_exteriorColorMode;
+    int m_exteriorTrueColorMode;
+    int m_paletteAlgorithm;
+    int m_paletteSeed;
+    int m_paletteShift;
+    PaletteCyclingMode m_paletteCyclingMode;
+    int m_paletteCyclingSpeed;
+    double m_juliaSeedX;
+    double m_juliaSeedY;
+    bool m_isJulia;
+    double m_perturbationX;
+    double m_perturbationY;
+    double m_centerX;
+    double m_centerY;
+    double m_radius;
+    double m_angle;
+    int m_iterations;
+    int m_bailout;
+    int m_solidGuessingMode;
+    int m_dynamicResolutionMode;
+    bool m_isFastJuliaEnabled;
+    bool m_isRotationEnabled;
+    int m_rotationSpeed;
+    bool m_isAutoPilotEnabled;
+    int m_zoomSpeed;
+    std::vector<bool> m_filterEnabled;
+    bool m_isFixedStepEnabled;
+    MouseMode m_mouseMode;
+    int m_textColor;
+    int m_horizontalTextAlignment;
+    int m_verticalTextAlignment;
+}

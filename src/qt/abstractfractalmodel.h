@@ -1,10 +1,13 @@
 #ifndef ABSTRACTFRACTALMODEL_H
 #define ABSTRACTFRACTALMODEL_H
 
+#include <vector>
+
 class AbstractFractalModel
 {
 private:
     struct uih_context *m_uih;
+
 
 protected:
     int m_redMask;
@@ -22,7 +25,6 @@ protected:
     int m_mouseY;
     int m_mouseButtons;
 
-
 private:
     struct image *createImage();
     void resizeImage();
@@ -38,9 +40,10 @@ public:
     virtual void clearMessage() = 0;
     virtual void showError(const char *error) = 0;
 
-    enum MouseMode { ZoomIn, ZoomOut, Pan, Rotate, Julia };
-    enum HorizontalTextAlignment { Left, Center, Right };
-    enum VerticalTextAlignment {Top, Middle, Bottom };
+    enum MouseMode { MouseZoomIn, MouseZoomOut, MousePan, MouseRotate, MouseJulia };
+    enum HorizontalTextAlignment { TextAlignmentLeft, TextAlignmentCenter, TextAlignmentRight };
+    enum VerticalTextAlignment {TextAlignmentTop, TextAlignmentMiddle, TextAlignmentBottom };
+    enum PaletteCyclingMode { PaletteCyclingOff, PaletteCyclingForward, PaletteCyclingReverse };
 
     AbstractFractalModel();
 
@@ -48,6 +51,7 @@ public:
     static const char *formulaName(int index);
     static const char *exteriorColorModeName(int index);
     static const char *interiorColorModeName(int index);
+    static const char *trueColorModeName(int index);
     static const char *planeName(int index);
     static const char *solidGuessingModeName(int index);
     static const char *dynamicResolutionModeName(int index);
@@ -72,56 +76,63 @@ public:
     int formula();
     void setFormula(int index);
 
+    const char *userFormula();
+    void setUserFormula(const char *userFormula);
+
+    const char *userFormulaInitialization();
+    void setUserFormulaInitialization(const char *userFormulaInitialization);
+
     int exteriorColorMode();
     void setExteriorColorMode(int index);
+
+    int exteriorTrueColorMode();
+    void setExteriorTrueColorMode(int index);
 
     int interiorColorMode();
     void setInteriorColorMode(int index);
 
-    void restoreDefaultPalette();
-    void generateRandomPalette();
-    int customPaletteAlgorithm();
-    int customPaletteSeed();
-    int customPaletteShift();
-    void generateCustomPalette(int algorithm, int seed, int shift);
+    int interiorTrueColorMode();
+    void setInteriorTrueColorMode(int index);
 
-    void cyclePaletteForward();
-    void cyclePaletteReverse();
-    void stopPaletteCycling();
+    int paletteAlgorithm();
+    void setPaletteAlgorithm(int algorithm);
 
-    int paletteCyclingSpeed();
-    void setPaletteCyclingSpeed(int speed);
+    int paletteSeed();
+    void setPaletteSeed(int seed);
 
     int paletteShift();
     void setPaletteShift(int shift);
+
     void shiftPaletteForward();
     void shiftPaletteBackward();
+
+    void restoreDefaultPalette();
+    void generateRandomPalette();
+    void generateCustomPalette();
+
+    PaletteCyclingMode paletteCyclingMode();
+    void setPaletteCyclingMode(PaletteCyclingMode mode);
+
+    int paletteCyclingSpeed();
+    void setPaletteCyclingSpeed(int speed);
 
     double juliaSeedX();
     double juliaSeedY();
     void setJuliaSeedX(double x);
     void setJuliaSeedY(double y);
-    void setJuliaSeed(double x, double y);
 
-    bool isMandelbrot();
-    void enableMandelbrot();
-    void disableMandelbrot();
+    bool isJulia();
+    void setIsJulia(bool julia);
 
     double perturbationX();
     double perturbationY();
     void setPerturbationX(double x);
     void setPerturbationY(double y);
-    void setPerturbation(double x, double y);
-
-    bool isPerturbed();
-    void enablePerturbation();
-    void disablePerturbation();
 
     double centerX();
     double centerY();
     void setCenterX(double x);
     void setCenterY(double y);
-    void setCenter(double x, double y);
 
     double radius();
     void setRadius(double radius);
@@ -146,37 +157,28 @@ public:
     void setDynamicResolutionMode(int mode);
 
     bool isPeriodicityCheckingEnabled();
-    void enablePeriodicityChecking();
-    void disablePeriodicityChecking();
+    void setPeriodicityCheckingEnabled(bool periodicityChecking);
 
     bool isFastJuliaEnabled();
-    void enableFastJulia();
-    void disableFastJulia();
+    void setFastJuliaEnabled(bool fastJulia);
 
     bool isRotationEnabled();
-    void enableRotation();
-    void disableRotation();
+    void setRotationEnabled(bool rotation);
 
     int rotationSpeed();
     void setRotationSpeed(int speed);
 
     bool isAutopilotEnabled();
-    void enableAutopilot();
-    void disableAutopilot();
+    void setAutopilotEnabled(bool autopilot);
 
     int zoomSpeed();
     void setZoomSpeed(int speed);
 
-    void isFilterEnabled(int index);
-    void enableFilter(int index);
-    void disableFilter(int index);
+    bool isFilterEnabled(int index);
+    void setFilterEnabled(int index, bool enabled);
 
-    double zoomFactor();
-    double framesPerSecond();
-
-    int isFixedStepEnabled();
-    bool enableFixedStep();
-    bool disableFixedStep();
+    bool isFixedStepEnabled();
+    void setFixedStepEnabled(bool fixedStep);
 
     MouseMode mouseMode();
     void setMouseMode(MouseMode mouseMode);
@@ -190,11 +192,92 @@ public:
     int textColor();
     void setTextColor(int color);
 
-    HorizontalTextAlignment horizontalTextAlignment();
-    void setHorizontalTextAlignment(HorizontalTextAlignment alignment);
+    int horizontalTextAlignment();
+    void setHorizontalTextAlignment(int alignment);
 
-    VerticalTextAlignment verticalTextAlignment();
-    void setVerticalTextAlignment(VerticalTextAlignment alignment);
+    int verticalTextAlignment();
+    void setVerticalTextAlignment(int alignment);
+
+    double zoomFactor();
+    double framesPerSecond();
+
+private:
+    int m_formula;
+    char *m_userFormula;
+    char *m_userFormulaInitialization;
+    int m_interiorColorMode;
+    int m_interiorTrueColorMode;
+    int m_exteriorColorMode;
+    int m_exteriorTrueColorMode;
+    int m_paletteAlgorithm;
+    int m_paletteSeed;
+    int m_paletteShift;
+    PaletteCyclingMode m_paletteCyclingMode;
+    int m_paletteCyclingSpeed;
+    double m_juliaSeedX;
+    double m_juliaSeedY;
+    bool m_isJulia;
+    double m_perturbationX;
+    double m_perturbationY;
+    double m_centerX;
+    double m_centerY;
+    double m_radius;
+    double m_angle;
+    int m_iterations;
+    int m_bailout;
+    int m_solidGuessingMode;
+    int m_dynamicResolutionMode;
+    bool m_isFastJuliaEnabled;
+    bool m_isRotationEnabled;
+    int m_rotationSpeed;
+    bool m_isAutoPilotEnabled;
+    int m_zoomSpeed;
+    std::vector<bool> m_filterEnabled;
+    bool m_isFixedStepEnabled;
+    MouseMode m_mouseMode;
+    int m_textColor;
+    int m_horizontalTextAlignment;
+    int m_verticalTextAlignment;
+
+
+    bool m_formulaChanged;
+    bool m_userFormulaChanged;
+    bool m_userFormulaInitializationChanged;
+    bool m_booleriorColorModeChanged;
+    bool m_booleriorTrueColorModeChanged;
+    bool m_exteriorColorModeChanged;
+    bool m_exteriorTrueColorModeChanged;
+    bool m_paletteAlgorithmChanged;
+    bool m_paletteSeedChanged;
+    bool m_paletteShiftChanged;
+    bool m_paletteCyclingModeChanged;
+    bool m_paletteCyclingSpeedChanged;
+    bool m_juliaSeedXChanged;
+    bool m_juliaSeedYChanged;
+    bool m_isJuliaChanged;
+    bool m_perturbationXChanged;
+    bool m_perturbationYChanged;
+    bool m_centerXChanged;
+    bool m_centerYChanged;
+    bool m_radiusChanged;
+    bool m_angleChanged;
+    bool m_iterationsChanged;
+    bool m_bailoutChanged;
+    bool m_solidGuessingModeChanged;
+    bool m_dynamicResolutionModeChanged;
+    bool m_isFastJuliaEnabledChanged;
+    bool m_isRotationEnabledChanged;
+    bool m_rotationSpeedChanged;
+    bool m_isAutoPilotEnabledChanged;
+    bool m_zoomSpeedChanged;
+    std::vector<bool> m_filterEnabledChanged;
+    bool m_isFixedStepEnabledChanged;
+    bool m_mouseModeChanged;
+    bool m_textColorChanged;
+    bool m_horizontalTextAlignmentChanged;
+    bool m_verticalTextAlignmentChanged;
+
+
 };
 
 #endif // ABSTRACTFRACTALMODEL_H
