@@ -8,7 +8,7 @@
 
 
 #include "../include/i386/ctrl87.h"
-#include "../include/config.h"
+#include <config.h>
 
 #ifdef __GNUC__
 #ifdef __i386__

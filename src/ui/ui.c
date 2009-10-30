@@ -102,7 +102,6 @@ static void ui_mouse(int mousex, int mousey, int mousebuttons,
 xio_pathdata configfile;
 static void ui_unregistermenus(void);
 static void ui_mkimages(int, int);
-static void main_loop(void) NORETURN;
 
 int prog_argc;
 int err;
@@ -1063,15 +1062,8 @@ cmplx Z, C, pZ;
 #endif
 
 #define MAX_WELCOME 50
-#ifndef MAIN_FUNCTION
-#define MAIN_FUNCTION main
-#endif
-#ifdef __cplusplus
-extern "C" {
-    int MAIN_FUNCTION(int argc, char **argv);
-}
-#endif
-int MAIN_FUNCTION(int argc, char **argv)
+
+void ui_init(int argc, char **argv)
 {
     int i;
     int width, height;
@@ -1093,36 +1085,36 @@ int MAIN_FUNCTION(int argc, char **argv)
     /* Setting all locales for XaoS: */
     locale = setlocale(LC_ALL, "");
     if (locale == NULL) {
-	printf
-	    ("An error occured in your setlocale/gettext installation.\n");
-	printf("I18n menus will not be available.\n");
+        printf
+            ("An error occured in your setlocale/gettext installation.\n");
+        printf("I18n menus will not be available.\n");
     }
 #ifdef _WIN32
     // x_message("%s",locale);
     if (locale != NULL) {
-	if (strncmp(locale, "Hungarian", 9) == 0)
-	    strcpy(language, "magyar");
-	if (strncmp(locale, "Czech", 5) == 0)
-	    strcpy(language, "cesky");
-	if (strncmp(locale, "German", 6) == 0)
-	    strcpy(language, "deutsch");
-	if (strncmp(locale, "Spanish", 7) == 0)
-	    strcpy(language, "espanhol");
-	if (strncmp(locale, "French", 6) == 0)
-	    strcpy(language, "francais");
-	if (strncmp(locale, "Romanian", 8) == 0)
-	    strcpy(language, "romanian");
-	if (strncmp(locale, "Italian", 7) == 0)
-	    strcpy(language, "italiano");
-	if (strncmp(locale, "Portuguese", 10) == 0)
-	    strcpy(language, "portuguese");
+        if (strncmp(locale, "Hungarian", 9) == 0)
+            strcpy(language, "magyar");
+        if (strncmp(locale, "Czech", 5) == 0)
+            strcpy(language, "cesky");
+        if (strncmp(locale, "German", 6) == 0)
+            strcpy(language, "deutsch");
+        if (strncmp(locale, "Spanish", 7) == 0)
+            strcpy(language, "espanhol");
+        if (strncmp(locale, "French", 6) == 0)
+            strcpy(language, "francais");
+        if (strncmp(locale, "Romanian", 8) == 0)
+            strcpy(language, "romanian");
+        if (strncmp(locale, "Italian", 7) == 0)
+            strcpy(language, "italiano");
+        if (strncmp(locale, "Portuguese", 10) == 0)
+            strcpy(language, "portuguese");
     }
     // x_message("%s",language);
 #else
     if ((locale == NULL) || (strcmp(locale, "C") == 0))
-	locale = getenv("LANG");
+        locale = getenv("LANG");
     else
-	locale = setlocale(LC_MESSAGES, "");
+        locale = setlocale(LC_MESSAGES, "");
 
 
 #ifdef DEBUG
@@ -1130,24 +1122,24 @@ int MAIN_FUNCTION(int argc, char **argv)
 #endif
 
     if (locale != NULL) {
-	if (strlen(locale) > 2)
-	    locale[2] = '\0';
-	if (strcmp(locale, "hu") == 0)
-	    strcpy(language, "magyar");
-	if (strcmp(locale, "cs") == 0)
-	    strcpy(language, "cesky");
-	if (strcmp(locale, "de") == 0)
-	    strcpy(language, "deutsch");
-	if (strcmp(locale, "es") == 0)
-	    strcpy(language, "espanhol");
-	if (strcmp(locale, "fr") == 0)
-	    strcpy(language, "francais");
-	if (strcmp(locale, "ro") == 0)
-	    strcpy(language, "romanian");
-	if (strcmp(locale, "it") == 0)
-	    strcpy(language, "italiano");
-	if (strcmp(locale, "pt") == 0)
-	    strcpy(language, "portuguese");
+        if (strlen(locale) > 2)
+            locale[2] = '\0';
+        if (strcmp(locale, "hu") == 0)
+            strcpy(language, "magyar");
+        if (strcmp(locale, "cs") == 0)
+            strcpy(language, "cesky");
+        if (strcmp(locale, "de") == 0)
+            strcpy(language, "deutsch");
+        if (strcmp(locale, "es") == 0)
+            strcpy(language, "espanhol");
+        if (strcmp(locale, "fr") == 0)
+            strcpy(language, "francais");
+        if (strcmp(locale, "ro") == 0)
+            strcpy(language, "romanian");
+        if (strcmp(locale, "it") == 0)
+            strcpy(language, "italiano");
+        if (strcmp(locale, "pt") == 0)
+            strcpy(language, "portuguese");
     }
 #endif
 #ifdef DEBUG
@@ -1160,30 +1152,30 @@ int MAIN_FUNCTION(int argc, char **argv)
 #ifdef DEBUG
     printf("Text domain will be bound to directory %s.\n",
 #endif
-	   bindtextdomain("xaos",
+           bindtextdomain("xaos",
 #ifdef DOG_DRIVER
-			  "..\\locale")
+                          "..\\locale")
 #ifdef DEBUG
-	)
+        )
 #endif
 #else
 #ifdef _WIN32
-			  "..\\locale")
+                          "..\\locale")
 #ifdef DEBUG
-	)
+        )
 #endif
 #else
 #ifdef USE_LOCALEPATH
-			  localepath)
+                          localepath)
 #else
-			  "/usr/share/locale")
+                          "/usr/share/locale")
 #endif
 #ifdef DEBUG
-	)
+        )
 #endif
 #endif
 #endif
-	;
+        ;
 #ifndef _WIN32
     bind_textdomain_codeset("xaos", "UTF-8");
 #endif
@@ -1201,7 +1193,7 @@ int MAIN_FUNCTION(int argc, char **argv)
     ui_registermenus();
     ui_registermenus_i18n();	/* Internationalized menus. */
     for (i = 0; i < ndrivers; i++)
-	params_register(drivers[i]->params);
+        params_register(drivers[i]->params);
 #ifdef __alpha__
 #ifdef __linux__
     extern void ieee_set_fp_control(unsigned long);
@@ -1211,10 +1203,10 @@ int MAIN_FUNCTION(int argc, char **argv)
     prog_argc = argc;
     prog_argv = argv;
     if (!params_parser(argc, argv)) {
-	ui_unregistermenus();
-	uih_unregistermenus();
-	xio_uninit();
-	exit_xaos(-1);
+        ui_unregistermenus();
+        uih_unregistermenus();
+        xio_uninit();
+        exit_xaos(-1);
     }
 #ifdef MEM_DEBUG
     D_NORMAL;
@@ -1229,104 +1221,104 @@ int MAIN_FUNCTION(int argc, char **argv)
 #endif
     if (printconfig) {
 #define tostring(s) #s
-	x_message("XaoS configuration\n"
-		  "Version:   %s\n"
-		  "Type size: %i\n" "integer size: %i\n" "configfile: %s\n"
+        x_message("XaoS configuration\n"
+                  "Version:   %s\n"
+                  "Type size: %i\n" "integer size: %i\n" "configfile: %s\n"
 #ifndef _plan9_
 #ifdef HAVE_ALLOCA
-		  "using alloca\n"
+                  "using alloca\n"
 #endif
 #ifdef HAVE_LONG_DOUBLE
-		  "using long double\n"
+                  "using long double\n"
 #endif
 #ifdef const
-		  "const disabled\n"
+                  "const disabled\n"
 #endif
 #ifdef inline
-		  "inline disabled\n"
+                  "inline disabled\n"
 #endif
 #ifdef HAVE_GETTIMEOFDAY
-		  "using gettimeofday\n"
+                  "using gettimeofday\n"
 #endif
 #ifdef HAVE_FTIME
-		  "using ftime\n"
+                  "using ftime\n"
 #endif
 #ifdef MITSHM
-		  "using mitshm\n"
+                  "using mitshm\n"
 #endif
 #ifdef HAVE_MOUSEMASK
-		  "using ncurses mouse\n"
+                  "using ncurses mouse\n"
 #endif
 #ifdef DEBUG
-		  "debug enabled\n"
+                  "debug enabled\n"
 #endif
 #ifdef NDEBUG
-		  "assertions disabled\n"
+                  "assertions disabled\n"
 #endif
 #ifdef STATISTICS
-		  "statistics enabled\n"
+                  "statistics enabled\n"
 #endif
 #ifdef SFFE_USING
-		  "user formula evaluation\n"
+                  "user formula evaluation\n"
 #endif
 #endif
-		  , XaoS_VERSION, (int) sizeof(FPOINT_TYPE),
-		  (int) sizeof(int), CONFIGFILE);
+                  , XaoS_VERSION, (int) sizeof(FPOINT_TYPE),
+                  (int) sizeof(int), CONFIGFILE);
     }
     if (deflist || printconfig) {
-	char s[256];
-	strcpy(s, "Available drivers: ");
-	for (i = 0; i < ndrivers; i++) {
-	    strcat(s, drivers[i]->name);
-	    if (i < ndrivers - 1)
-		strcat(s, ", ");
-	}
-	x_message(s);
-	ui_unregistermenus();
-	uih_unregistermenus();
-	xio_uninit();
-	exit_xaos(0);
+        char s[256];
+        strcpy(s, "Available drivers: ");
+        for (i = 0; i < ndrivers; i++) {
+            strcat(s, drivers[i]->name);
+            if (i < ndrivers - 1)
+                strcat(s, ", ");
+        }
+        x_message(s);
+        ui_unregistermenus();
+        uih_unregistermenus();
+        xio_uninit();
+        exit_xaos(0);
     }
 #ifndef _plan9_
     xth_init(defthreads);
 #endif
     {
-	int i = ui_dorender_params();
-	if (i) {
-	    ui_unregistermenus();
-	    uih_unregistermenus();
-	    xio_uninit();
-	    exit_xaos(i - 1);
-	}
+        int i = ui_dorender_params();
+        if (i) {
+            ui_unregistermenus();
+            uih_unregistermenus();
+            xio_uninit();
+            exit_xaos(i - 1);
+        }
     }
     if (defdriver != NULL) {
-	for (i = 0; i < ndrivers; i++) {
-	    int y;
-	    for (y = 0;
-		 tolower(drivers[i]->name[y]) == tolower(defdriver[y])
-		 && drivers[i]->name[y] != 0; y++);
-	    if (drivers[i]->name[y] == 0) {
-		driver = drivers[i];
-		if (driver->init())
-		    break;
-		else {
-		    x_fatalerror("Can not initialize %s driver",
-				 defdriver);
-		}
-	    }
-	}
-	if (i == ndrivers) {
-	    x_fatalerror("Unknown driver %s", defdriver);
-	}
+        for (i = 0; i < ndrivers; i++) {
+            int y;
+            for (y = 0;
+                 tolower(drivers[i]->name[y]) == tolower(defdriver[y])
+                 && drivers[i]->name[y] != 0; y++);
+            if (drivers[i]->name[y] == 0) {
+                driver = drivers[i];
+                if (driver->init())
+                    break;
+                else {
+                    x_fatalerror("Can not initialize %s driver",
+                                 defdriver);
+                }
+            }
+        }
+        if (i == ndrivers) {
+            x_fatalerror("Unknown driver %s", defdriver);
+        }
     } else {
-	for (i = 0; i < ndrivers; i++) {
-	    driver = drivers[i];
-	    if (driver->init())
-		break;
-	}
-	if (i == ndrivers) {
-	    x_fatalerror("Can not initialize driver");
-	}
+        for (i = 0; i < ndrivers; i++) {
+            driver = drivers[i];
+            if (driver->init())
+                break;
+        }
+        if (i == ndrivers) {
+            x_fatalerror("Can not initialize driver");
+        }
     }
 #ifdef DEBUG
     printf("Getting size\n");
@@ -1346,24 +1338,24 @@ int MAIN_FUNCTION(int argc, char **argv)
 
     /* gloabuih initialization moved into uih_mkcontext function : malczak */
     uih =
-	uih_mkcontext(driver->flags, image, ui_passfunc, ui_message,
-		      ui_updatemenus);
+        uih_mkcontext(driver->flags, image, ui_passfunc, ui_message,
+                      ui_updatemenus);
 
     if (driver->gui_driver && driver->gui_driver->setrootmenu)
-	driver->gui_driver->setrootmenu(uih, uih->menuroot);
+        driver->gui_driver->setrootmenu(uih, uih->menuroot);
     ui_flush();
 #ifdef HOMEDIR
     if (getenv("HOME") != NULL) {
-	char home[256], *env = getenv("HOME");
-	int maxsize = 255 - (int) strlen(CONFIGFILE) - 1;	/*Avoid buffer owerflow */
-	int i;
-	for (i = 0; i < maxsize && env[i]; i++)
-	    home[i] = env[i];
-	home[i] = 0;
-	xio_addfname(configfile, home, CONFIGFILE);
+        char home[256], *env = getenv("HOME");
+        int maxsize = 255 - (int) strlen(CONFIGFILE) - 1;	/*Avoid buffer owerflow */
+        int i;
+        for (i = 0; i < maxsize && env[i]; i++)
+            home[i] = env[i];
+        home[i] = 0;
+        xio_addfname(configfile, home, CONFIGFILE);
     } else
 #endif
-	xio_addfname(configfile, XIO_EMPTYPATH, CONFIGFILE);
+        xio_addfname(configfile, XIO_EMPTYPATH, CONFIGFILE);
     ui_flush();
     srand(time(NULL));
     uih->fcontext->version++;
@@ -1382,39 +1374,39 @@ int MAIN_FUNCTION(int argc, char **argv)
     tl_reset_timer(arrowtimer);
 #ifdef COMPILE_PIPE
     if (defpipe != NULL) {
-	driver->print(0, textheight1 * 5, "Initializing pipe");
-	ui_flush();
-	ui_pipe_init(defpipe);
+        driver->print(0, textheight1 * 5, "Initializing pipe");
+        ui_flush();
+        ui_pipe_init(defpipe);
     }
 #else
     if (defpipe != NULL) {
-	x_fatalerror("Pipe input not supported!");
+        x_fatalerror("Pipe input not supported!");
     }
 #endif
     /*uih_constantframetime(uih,1000000/20); */
     driver->print(0, textheight1 * 6, "Reading configuration file");
     {
-	xio_file f = xio_ropen(configfile);	/*load the configuration file */
-	if (f != XIO_FAILED) {
-	    uih_load(uih, f, configfile);
-	    if (uih->errstring) {
-		x_error("Configuration file %s load failed", configfile);
-		uih_printmessages(uih);
-		x_error("Hint:try to remove it :)");
-		ui_doquit(1);
-	    }
-	}
+        xio_file f = xio_ropen(configfile);	/*load the configuration file */
+        if (f != XIO_FAILED) {
+            uih_load(uih, f, configfile);
+            if (uih->errstring) {
+                x_error("Configuration file %s load failed", configfile);
+                uih_printmessages(uih);
+                x_error("Hint:try to remove it :)");
+                ui_doquit(1);
+            }
+        }
     }
     driver->print(0, textheight1 * 7,
-		  "Processing command line parameters");
+                  "Processing command line parameters");
     ui_flush();
     {
-	CONST menuitem *item;
-	dialogparam *d;
-	while ((item = menu_delqueue(&d)) != NULL) {
-	    uih_saveundo(uih);
-	    menu_activate(item, uih, d);
-	}
+        CONST menuitem *item;
+        dialogparam *d;
+        while ((item = menu_delqueue(&d)) != NULL) {
+            uih_saveundo(uih);
+            menu_activate(item, uih, d);
+        }
     }
 #ifndef _plan9_
     sprintf(welcome, gettext("Welcome to XaoS version %s"), XaoS_VERSION);
@@ -1422,135 +1414,148 @@ int MAIN_FUNCTION(int argc, char **argv)
 #endif
     uih_updatemenus(uih, driver->name);
     if (printspeed) {
-	int c = 0;
-	int x, y, b, k;
-	int linesize = uih->image->bytesperpixel * uih->image->height;
-	int size = linesize * uih->image->height;
-	driver->print(0, textheight1 * 8, "Preparing for speedtest");
-	ui_flush();
-	uih->passfunc = NULL;
-	tl_sleep(1000000);
-	for (c = 0; c < 5; c++)
-	    driver->display(), ui_flush();
-	driver->processevents(0, &x, &y, &b, &k);
-	driver->print(0, textheight1 * 9, "Measuring dislay speed");
-	ui_flush();
-	tl_sleep(1000000);
-	tl_update_time();
-	tl_reset_timer(maintimer);
-	c = 0;
-	while (tl_lookup_timer(maintimer) < 5000000)
-	    driver->display(), ui_flush(), driver->processevents(0, &x, &y,
-								 &b, &k),
-		tl_update_time(), c++;
-	x_message("Driver speed: %g FPS (%.4f MBPS)", c / 5.0,
-		  c * (double) size / 5.0 / 1024 / 1024);
+        int c = 0;
+        int x, y, b, k;
+        int linesize = uih->image->bytesperpixel * uih->image->height;
+        int size = linesize * uih->image->height;
+        driver->print(0, textheight1 * 8, "Preparing for speedtest");
+        ui_flush();
+        uih->passfunc = NULL;
+        tl_sleep(1000000);
+        for (c = 0; c < 5; c++)
+            driver->display(), ui_flush();
+        driver->processevents(0, &x, &y, &b, &k);
+        driver->print(0, textheight1 * 9, "Measuring dislay speed");
+        ui_flush();
+        tl_sleep(1000000);
+        tl_update_time();
+        tl_reset_timer(maintimer);
+        c = 0;
+        while (tl_lookup_timer(maintimer) < 5000000)
+            driver->display(), ui_flush(), driver->processevents(0, &x, &y,
+                                                                 &b, &k),
+                tl_update_time(), c++;
+        x_message("Driver speed: %g FPS (%.4f MBPS)", c / 5.0,
+                  c * (double) size / 5.0 / 1024 / 1024);
 
-	driver->print(0, textheight1 * 10, "Measuring memcpy speed");
-	ui_flush();
-	for (c = 0; c < 5; c++) {
-	    for (x = 0; x < uih->image->height; x++)
-		memcpy(uih->image->currlines[y], uih->image->oldlines[y],
-		       linesize);
-	}
-	tl_update_time();
-	tl_reset_timer(maintimer);
-	c = 0;
-	while (tl_lookup_timer(maintimer) < 5000000) {
-	    for (x = 0; x < uih->image->height; x++)
-		memcpy(uih->image->currlines[y], uih->image->oldlines[y],
-		       linesize);
-	    tl_update_time(), c++;
-	}
-	x_message("Memcpy speed: %g FPS (%.4f MBPS)", c / 5.0,
-		  c * (double) size / 5.0 / 1024 / 1024);
+        driver->print(0, textheight1 * 10, "Measuring memcpy speed");
+        ui_flush();
+        for (c = 0; c < 5; c++) {
+            for (x = 0; x < uih->image->height; x++)
+                memcpy(uih->image->currlines[y], uih->image->oldlines[y],
+                       linesize);
+        }
+        tl_update_time();
+        tl_reset_timer(maintimer);
+        c = 0;
+        while (tl_lookup_timer(maintimer) < 5000000) {
+            for (x = 0; x < uih->image->height; x++)
+                memcpy(uih->image->currlines[y], uih->image->oldlines[y],
+                       linesize);
+            tl_update_time(), c++;
+        }
+        x_message("Memcpy speed: %g FPS (%.4f MBPS)", c / 5.0,
+                  c * (double) size / 5.0 / 1024 / 1024);
 
-	driver->print(0, textheight1 * 10,
-		      "Measuring missaligned memcpy speed");
-	tl_update_time();
-	tl_reset_timer(maintimer);
-	c = 0;
-	while (tl_lookup_timer(maintimer) < 5000000) {
-	    for (x = 0; x < uih->image->height; x++)
-		memcpy(uih->image->currlines[y] + 1,
-		       uih->image->oldlines[y] + 2, linesize - 2);
-	    tl_update_time(), c++;
-	}
-	x_message("Missaligned memcpy speed: %g FPS (%.4f MBPS)", c / 5.0,
-		  c * (double) size / 5.0 / 1024 / 1024);
+        driver->print(0, textheight1 * 10,
+                      "Measuring missaligned memcpy speed");
+        tl_update_time();
+        tl_reset_timer(maintimer);
+        c = 0;
+        while (tl_lookup_timer(maintimer) < 5000000) {
+            for (x = 0; x < uih->image->height; x++)
+                memcpy(uih->image->currlines[y] + 1,
+                       uih->image->oldlines[y] + 2, linesize - 2);
+            tl_update_time(), c++;
+        }
+        x_message("Missaligned memcpy speed: %g FPS (%.4f MBPS)", c / 5.0,
+                  c * (double) size / 5.0 / 1024 / 1024);
 
-	driver->print(0, textheight1 * 10, "Measuring size6 memcpy speed");
-	tl_update_time();
-	tl_reset_timer(maintimer);
-	c = 0;
-	while (tl_lookup_timer(maintimer) < 5000000) {
-	    int x, y;
-	    for (y = 0; y < uih->image->height; y++)
-		for (x = 0; x < linesize - 6; x += 6) {
-		    memcpy(uih->image->currlines[y] + x,
-			   uih->image->oldlines[y] + x, number_six);
-		}
-	    tl_update_time(), c++;
-	}
-	x_message("Size 6 memcpy speed: %g FPS (%.4f MBPS)", c / 5.0,
-		  c * (double) size / 5.0 / 1024 / 1024);
+        driver->print(0, textheight1 * 10, "Measuring size6 memcpy speed");
+        tl_update_time();
+        tl_reset_timer(maintimer);
+        c = 0;
+        while (tl_lookup_timer(maintimer) < 5000000) {
+            int x, y;
+            for (y = 0; y < uih->image->height; y++)
+                for (x = 0; x < linesize - 6; x += 6) {
+                    memcpy(uih->image->currlines[y] + x,
+                           uih->image->oldlines[y] + x, number_six);
+                }
+            tl_update_time(), c++;
+        }
+        x_message("Size 6 memcpy speed: %g FPS (%.4f MBPS)", c / 5.0,
+                  c * (double) size / 5.0 / 1024 / 1024);
 
-	driver->display();
-	driver->print(0, textheight1 * 11, "Measuring calculation speed");
-	ui_flush();
-	speed_test(uih->fcontext, image);
-	driver->print(0, textheight1 * 12,
-		      "Measuring new image calculation loop");
-	ui_flush();
-	uih_prepare_image(uih);
-	tl_update_time();
-	tl_reset_timer(maintimer);
-	for (c = 0; c < 5; c++)
-	    uih_newimage(uih), uih->fcontext->version++,
-		uih_prepare_image(uih);
-	driver->display();
-	ui_flush();
-	x_message("New image caluclation took %g seconds (%.2g fps)",
-		  tl_lookup_timer(maintimer) / 5.0 / 1000000.0,
-		  5000000.0 / tl_lookup_timer(maintimer));
-	tl_update_time();
-	for (c = 0; c < 5; c++)
-	    uih_animate_image(uih), uih_prepare_image(uih), c++;
-	c = 0;
-	tl_update_time();
-	tl_reset_timer(maintimer);
-	driver->print(0, textheight1 * 13,
-		      "Measuring zooming algorithm loop");
-	ui_flush();
-	while (tl_lookup_timer(maintimer) < 5000000)
-	    uih_animate_image(uih), uih_prepare_image(uih),
-		tl_update_time(), c++;
-	x_message("Approximation loop speed: %g FPS", c / 5.0);
-	ui_doquit(0);
+        driver->display();
+        driver->print(0, textheight1 * 11, "Measuring calculation speed");
+        ui_flush();
+        speed_test(uih->fcontext, image);
+        driver->print(0, textheight1 * 12,
+                      "Measuring new image calculation loop");
+        ui_flush();
+        uih_prepare_image(uih);
+        tl_update_time();
+        tl_reset_timer(maintimer);
+        for (c = 0; c < 5; c++)
+            uih_newimage(uih), uih->fcontext->version++,
+                uih_prepare_image(uih);
+        driver->display();
+        ui_flush();
+        x_message("New image caluclation took %g seconds (%.2g fps)",
+                  tl_lookup_timer(maintimer) / 5.0 / 1000000.0,
+                  5000000.0 / tl_lookup_timer(maintimer));
+        tl_update_time();
+        for (c = 0; c < 5; c++)
+            uih_animate_image(uih), uih_prepare_image(uih), c++;
+        c = 0;
+        tl_update_time();
+        tl_reset_timer(maintimer);
+        driver->print(0, textheight1 * 13,
+                      "Measuring zooming algorithm loop");
+        ui_flush();
+        while (tl_lookup_timer(maintimer) < 5000000)
+            uih_animate_image(uih), uih_prepare_image(uih),
+                tl_update_time(), c++;
+        x_message("Approximation loop speed: %g FPS", c / 5.0);
+        ui_doquit(0);
     }
 #ifdef SFFE_USING
     /*SFFE : malczak */
     if (uih->parser->expression == NULL)
-	if (sffeform)
-	    err = sffe_parse(&uih->parser, (char *) sffeform);
-	else
-	    sffe_parse(&uih->parser, "z^2+c");
+        if (sffeform)
+            err = sffe_parse(&uih->parser, (char *) sffeform);
+        else
+            sffe_parse(&uih->parser, "z^2+c");
 
     if (sffeinit) {
-	uih->pinit = sffe_alloc();
-	sffe_regvar(&uih->pinit, &pZ, 'p');
-	sffe_regvar(&uih->pinit, &C, 'c');
-	if (sffe_parse(&uih->pinit, (char *) sffeinit) > 0)
-	    sffe_free(&uih->pinit);
+        uih->pinit = sffe_alloc();
+        sffe_regvar(&uih->pinit, &pZ, 'p');
+        sffe_regvar(&uih->pinit, &C, 'c');
+        if (sffe_parse(&uih->pinit, (char *) sffeinit) > 0)
+            sffe_free(&uih->pinit);
     };
 
     if (err > 0)
-	sffe_parse(&uih->parser, "z^2+c");
+        sffe_parse(&uih->parser, "z^2+c");
      /*SFFE*/
 #endif
-	driver->print(0, textheight1 * 8, "Entering main loop");
+        driver->print(0, textheight1 * 8, "Entering main loop");
     ui_flush();
-    main_loop();
+}
+
+#ifndef MAIN_FUNCTION
+#define MAIN_FUNCTION main
+#endif
+#ifdef __cplusplus
+extern "C" {
+    int MAIN_FUNCTION(int argc, char **argv);
+}
+#endif
+int MAIN_FUNCTION(int argc, char **argv)
+{
+    ui_init(argc, argv);
+    ui_mainloop(1);
     ui_quit();
 
     return (0);
@@ -1704,14 +1709,14 @@ static void ui_driver(int d)
     uih_updatemenus(uih, driver->name);
 }
 
-NORETURN static void main_loop(void)
+void ui_mainloop(int loop)
 {
     int inmovement = 1;
     int x, y, b, k;
     int time;
     driver->processevents((!inmovement && !uih->inanimation), &x, &y, &b,
 			  &k);
-    while (1) {
+    do {
 	mousetype(uih->play ? REPLAYMOUSE : uih->
 		  inhibittextoutput ? VJMOUSE : NORMALMOUSE);
 	if (uih->display) {
@@ -1751,5 +1756,5 @@ NORETURN static void main_loop(void)
 	    ui_driver(todriver - 1), todriver = 0;
 	if (callresize)
 	    ui_resize(), callresize = 0;
-    }
+    } while (loop);
 }

@@ -2006,7 +2006,7 @@ static void uih_drawcscreen(struct uih_context *uih, void *data)
 #ifdef SFFE_USING
 extern cmplx C, Z, pZ;
 #endif
-extern struct uih_context *globaluih;
+struct uih_context *globaluih;
 
 struct uih_context *uih_mkcontext(int flags, struct image *image,
 				  int (*passfunc) (struct uih_context *,

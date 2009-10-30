@@ -116,7 +116,7 @@ extern "C" {
 	CONST struct gui_driver *gui_driver;
     };
 
-    struct uih_context *globaluih;
+    extern struct uih_context *globaluih;
 
 #ifdef USE_LOCALEPATH
     extern char *localepath;
@@ -133,6 +133,8 @@ extern "C" {
     xio_path ui_getfile(CONST char *basename, CONST char *extension);
     void ui_help(CONST char *name);
     char *ui_getpos(void);
+    void ui_init(int argc, char **name);
+    void ui_mainloop(int loop);
 
 
 
