@@ -18,17 +18,20 @@ void FractalWidget::paintEvent (QPaintEvent *event)
 
 void FractalWidget::mousePressEvent(QMouseEvent *event)
 {
+    m_mousePosition = event->pos();
     m_mouseButtons = event->buttons();
 }
 
 void FractalWidget::mouseReleaseEvent(QMouseEvent *event)
 {
+    m_mousePosition = event->pos();
     m_mouseButtons = event->buttons();
 }
 
 void FractalWidget::mouseMoveEvent(QMouseEvent *event)
 {
     m_mousePosition = event->pos();
+    m_mouseButtons = event->buttons();
 }
 
 void FractalWidget::wheelEvent(QWheelEvent *event)

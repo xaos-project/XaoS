@@ -103,6 +103,7 @@ qt_setCursorType (int type)
 static void
 qt_buildMenu (struct uih_context *uih, CONST char *name)
 {
+    window->buildMenu(uih, name);
 }
 
 static void
@@ -123,9 +124,9 @@ qt_showHelp (struct uih_context *c, CONST char *name)
 struct gui_driver qt_gui_driver = {
 /* setrootmenu */   qt_buildMenu,
 /* enabledisable */ NULL,
-/* menu */          qt_showPopUpMenu,
-/* dialog */        qt_showDialog,
-/* help */          qt_showHelp
+/* menu */          NULL,
+/* dialog */        NULL,
+/* help */          NULL
 };
 
 static struct params qt_params[] = {
@@ -163,5 +164,5 @@ struct ui_driver qt_driver = {
 /* rmask */         0xff0000,
 /* gmask */         0x00ff00,
 /* bmask */         0x0000ff,
-/* gui_driver */    NULL//&qt_gui_driver
+/* gui_driver */    &qt_gui_driver
 };

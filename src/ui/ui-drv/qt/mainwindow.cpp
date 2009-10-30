@@ -125,3 +125,51 @@ void MainWindow::startMainLoop()
     ui_mainloop(0);
     QTimer::singleShot(0, this, SLOT(startMainLoop()));
 }
+
+void MainWindow::buildMenu(struct uih_context *uih, const char *name)
+{
+    const menuitem *item;
+    for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
+        if (item->type == MENU_SUBMENU) {
+            QMenu *menu = menuBar()->addMenu(QString(item->name));
+            buildMenu(uih, item->shortname, menu);
+        }
+    }
+}
+
+void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *parent)
+{
+    const menuitem *item;
+    for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
+        QString itemName(item->name);
+        switch (item->type) {
+        case MENU_SEPARATOR:
+            parent->addSeparator();
+            break;
+        case MENU_SUBMENU:
+        {
+            QMenu *menu = parent->addMenu(itemName);
+            buildMenu(uih, item->shortname, menu);
+            break;
+        }
+        case MENU_DIALOG:
+        case MENU_CUSTOMDIALOG:
+            itemName += "...";
+        default:
+        {
+            QAction *action = new QAction(itemName, this);
+            action->setData(QVariant(item->shortname));
+            connect(action, SIGNAL(triggered()), this, SLOT(activateMenuItem()));
+            parent->addAction(action);
+            break;
+        }
+        }
+    }
+}
+
+void MainWindow::activateMenuItem()
+{
+    QAction *action = qobject_cast<QAction *>(sender());
+    const menuitem *item = menu_findcommand(action->data().toString().toAscii());
+    ui_menuactivate(item, NULL);
+}

@@ -40,8 +40,12 @@ private:
     void showMessage(const QString &message);
     void setCursorType(int type);
 
+    void buildMenu(struct uih_context *uih, const char *name);
+    void buildMenu(struct uih_context *uih, const char *name, QMenu *parent);
+
 public slots:
     void startMainLoop();
+    void activateMenuItem();
 };
 
 #endif // MAINWINDOW_H
