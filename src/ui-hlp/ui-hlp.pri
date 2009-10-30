@@ -1,10 +1,10 @@
-SOURCES += \
-    $$PWD/autopilot.c \
+SOURCES += $$PWD/autopilot.c \
     $$PWD/ui_helper.c \
     $$PWD/menu.c \
-    $$PWD/messg.c \
     $$PWD/play.c \
     $$PWD/render.c \
     $$PWD/playtext.c \
     $$PWD/save.c \
-    $$PWD/wstack.c \
+    $$PWD/wstack.c
+
+#    $$PWD/messg.c \

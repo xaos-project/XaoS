@@ -37,8 +37,12 @@ void MainWindow::writeSettings()
 
 void MainWindow::createImages()
 {
-    m_image[0] = new QImage(m_fractalWidget->width(), m_fractalWidget->height(), QImage::Format_RGB32);
-    m_image[1] = new QImage(m_fractalWidget->width(), m_fractalWidget->height(), QImage::Format_RGB32);
+    m_image[0] = new QImage(m_fractalWidget->width(),
+                            m_fractalWidget->height(),
+                            QImage::Format_RGB32);
+    m_image[1] = new QImage(m_fractalWidget->width(),
+                            m_fractalWidget->height(),
+                            QImage::Format_RGB32);
     m_activeImage = 0;
 }
 
@@ -101,7 +105,6 @@ void MainWindow::showMessage(const QString &message)
 
 void MainWindow::setCursorType(int type)
 {
-    /*
     switch (type) {
     case WAITMOUSE:
         setCursor(Qt::WaitCursor);
@@ -117,13 +120,32 @@ void MainWindow::setCursorType(int type)
         m_fractalWidget->setCursor(Qt::ArrowCursor);
         break;
     }
-    */
 }
 
 void MainWindow::startMainLoop()
 {
     ui_mainloop(0);
     QTimer::singleShot(0, this, SLOT(startMainLoop()));
+}
+
+QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
+{
+    static QHash<QString, QKeySequence::StandardKey> map;
+    if (map.isEmpty()) {
+        map["initstate"] = QKeySequence::New;
+        map["loadpos"] = QKeySequence::Open;
+        map["savepos"] = QKeySequence::Save;
+        map["undo"] = QKeySequence::Undo;
+        map["redo"] = QKeySequence::Redo;
+        map["recalculate"] = QKeySequence::Refresh;
+        map["help"] = QKeySequence::HelpContents;
+    }
+
+    if (map.contains(name)) {
+        return map[name];
+    } else {
+        return QKeySequence::UnknownKey;
+    }
 }
 
 void MainWindow::buildMenu(struct uih_context *uih, const char *name)
@@ -158,6 +180,7 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
         default:
         {
             QAction *action = new QAction(itemName, this);
+            action->setShortcuts(keyForItem(item->shortname));
             action->setData(QVariant(item->shortname));
             connect(action, SIGNAL(triggered()), this, SLOT(activateMenuItem()));
             parent->addAction(action);

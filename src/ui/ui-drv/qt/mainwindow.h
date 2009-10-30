@@ -19,6 +19,8 @@ private:
     void readSettings();
     void writeSettings();
 
+    static QKeySequence::StandardKey keyForItem(const QString &name);
+
  public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();

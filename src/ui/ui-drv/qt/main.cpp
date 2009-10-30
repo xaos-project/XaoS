@@ -1,7 +1,11 @@
-#include "ui.h"
-
 #include <QtGui/QApplication>
+
 #include "mainwindow.h"
+
+#include "ui.h"
+#include "filter.h"
+#include "ui_helper.h"
+
 
 MainWindow *window;
 
@@ -91,7 +95,7 @@ qt_getMouse (int *x, int *y, int *b)
 static void
 qt_printText(int x, int y, CONST char *text)
 {
-    window->showMessage(QString(text));
+    //window->showMessage(QString(text));
 }
 
 static void
@@ -120,6 +124,30 @@ static void
 qt_showHelp (struct uih_context *c, CONST char *name)
 {
 }
+
+int uih_message(uih_context * c, CONST char *message)
+{
+    printf(message);
+    window->showMessage(QString(message));
+    return 0;
+}
+
+int uih_error(uih_context * c, CONST char *error)
+{
+    //window->showError(QString(error));
+    return 0;
+}
+
+void uih_clearmessages(uih_context * c)
+{
+    //window->clearMessage();
+}
+
+void uih_initmessages(uih_context * c) {}
+void uih_rmmessage(uih_context * c, int pid) {}
+void uih_destroymessages(uih_context * c) {}
+void uih_printmessages(uih_context * c) {}
+
 
 struct gui_driver qt_gui_driver = {
 /* setrootmenu */   qt_buildMenu,
