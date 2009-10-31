@@ -15,11 +15,18 @@ private:
 
     QImage *m_image[2];
     int m_activeImage;
+    QPoint m_mousePosition;
+    int m_mouseButtons;
 
     void readSettings();
     void writeSettings();
 
     static QKeySequence::StandardKey keyForItem(const QString &name);
+
+private slots:
+    void updateMouse(QMouseEvent *event);
+    void updateMouse(QWheelEvent *event);
+    void updateSize();
 
  public:
     MainWindow(QWidget *parent = 0);
@@ -44,6 +51,8 @@ private:
 
     void buildMenu(struct uih_context *uih, const char *name);
     void buildMenu(struct uih_context *uih, const char *name, QMenu *parent);
+
+    void showDialog(struct uih_context *uih, const char *name);
 
 public slots:
     void startMainLoop();

@@ -7,9 +7,11 @@ INCLUDEPATH = ../../../include \
     .
 SOURCES += main.cpp \
     mainwindow.cpp \
-    fractalwidget.cpp
+    fractalwidget.cpp \
+    customdialog.cpp
 HEADERS += mainwindow.h \
-    fractalwidget.h
+    fractalwidget.h \
+    customdialog.h
 include($$PWD/../../../engine/engine.pri)
 include($$PWD/../../../filter/filter.pri)
 include($$PWD/../../../ui/ui.pri)

@@ -76,7 +76,7 @@ qt_redrawImage()
 static void
 qt_processEvents (int wait, int *mx, int *my, int *mb, int *k)
 {
-    //QCoreApplication::processEvents();
+    QCoreApplication::processEvents(wait ? QEventLoop::WaitForMoreEvents : QEventLoop::AllEvents);
 
     *mx = window->mousePosition().x();
     *my = window->mousePosition().y();
@@ -118,6 +118,7 @@ qt_showPopUpMenu (struct uih_context *c, CONST char *name)
 static void
 qt_showDialog (struct uih_context *c, CONST char *name)
 {
+    window->showDialog(c, name);
 }
 
 static void
@@ -153,7 +154,7 @@ struct gui_driver qt_gui_driver = {
 /* setrootmenu */   qt_buildMenu,
 /* enabledisable */ NULL,
 /* menu */          NULL,
-/* dialog */        NULL,
+/* dialog */        qt_showDialog,
 /* help */          NULL
 };
 

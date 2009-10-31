@@ -5,7 +5,6 @@
 FractalWidget::FractalWidget()
 {
     m_image = 0;
-    m_mouseButtons = 0;
 }
 
 void FractalWidget::paintEvent (QPaintEvent *event)
@@ -18,38 +17,31 @@ void FractalWidget::paintEvent (QPaintEvent *event)
 
 void FractalWidget::mousePressEvent(QMouseEvent *event)
 {
-    m_mousePosition = event->pos();
-    m_mouseButtons = event->buttons();
+    emit mouseChanged(event);
 }
 
 void FractalWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-    m_mousePosition = event->pos();
-    m_mouseButtons = event->buttons();
+    emit mouseChanged(event);
 }
 
 void FractalWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    m_mousePosition = event->pos();
-    m_mouseButtons = event->buttons();
+    emit mouseChanged(event);
+}
+
+void FractalWidget::resizeEvent(QResizeEvent *event)
+{
+    emit sizeChanged();
 }
 
 void FractalWidget::wheelEvent(QWheelEvent *event)
 {
+    emit mouseChanged(event);
 }
 
 void FractalWidget::drawImage(QImage *image)
 {
     m_image = image;
     update();
-}
-
-QPoint FractalWidget::mousePosition()
-{
-    return m_mousePosition;
-}
-
-Qt::MouseButtons FractalWidget::mouseButtons()
-{
-    return m_mouseButtons;
 }

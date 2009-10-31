@@ -20,13 +20,17 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
-    void paintEvent ( QPaintEvent * event );
+    void paintEvent (QPaintEvent *event);
+    void resizeEvent(QResizeEvent *event);
+
+signals:
+    void mouseChanged(QMouseEvent *event);
+    void mouseChanged(QWheelEvent *event);
+    void sizeChanged();
 
 public:
     FractalWidget();
     void drawImage(QImage *image);
-    QPoint mousePosition();
-    Qt::MouseButtons mouseButtons();
 };
 
 #endif // FRACTALWIDGET_H
