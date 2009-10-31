@@ -13,10 +13,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_mouseButtons = 0;
     m_mousePosition = QPoint(0, 0);
     m_keyCombination = 0;
-
     m_image[0] = m_image[1] = 0;
-
     m_uih = 0;
+
+    setWindowTitle(QCoreApplication::applicationName());
+    setWindowIcon(QIcon(":/images/xaosbig.png"));
 
     m_fractalWidget = new FractalWidget();
     setCentralWidget(m_fractalWidget);
@@ -215,19 +216,18 @@ void MainWindow::showMessage(const QString &message)
         statusBar()->showMessage(message, 5000);
 }
 
+void MainWindow::showError(const QString &error)
+{
+    if (!error.isEmpty())
+        QMessageBox::warning(this, this->windowTitle(), error, QMessageBox::Close);
+}
+
 void MainWindow::setCursorType(int type)
 {
-    switch (type) {
-    case WAITMOUSE:
-    case REPLAYMOUSE:
+    if (type == WAITMOUSE || type == REPLAYMOUSE)
         m_fractalWidget->setCursor(Qt::WaitCursor);
-        break;
-
-    case NORMALMOUSE:
-    default:
+    else
         m_fractalWidget->setCursor(Qt::ArrowCursor);
-        break;
-    }
 }
 
 void MainWindow::startMainLoop()
@@ -279,25 +279,18 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
 
     const menuitem *item;
     for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
-        QString itemName(item->name);
-        switch (item->type) {
-        case MENU_SEPARATOR:
-            parent->addSeparator();
-            break;
 
-        case MENU_SUBMENU:
-        {
+        QString itemName(item->name);
+        if (item->type == MENU_DIALOG || item->type == MENU_CUSTOMDIALOG)
+            itemName += "...";
+
+        if (item->type == MENU_SEPARATOR) {
+            parent->addSeparator();
+        } else if (item->type == MENU_SUBMENU) {
             QMenu *menu = parent->addMenu(item->name);
             connect(menu, SIGNAL(aboutToShow()), this, SLOT(updateMenu()));
             buildMenu(uih, item->shortname, menu);
-            break;
-        }
-
-        case MENU_DIALOG:
-        case MENU_CUSTOMDIALOG:
-            itemName += "...";
-        default:
-        {
+        } else {
             QAction *action = new QAction(itemName, parent);
             action->setShortcuts(keyForItem(item->shortname));
             action->setObjectName(item->shortname);
@@ -309,8 +302,6 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
             }
             connect(action, SIGNAL(triggered()), this, SLOT(activateMenuItem()));
             parent->addAction(action);
-            break;
-        }
         }
     }
 }
@@ -348,20 +339,24 @@ void MainWindow::showDialog(struct uih_context *uih, const char *name)
     for (nitems = 0; dialog[nitems].question; nitems++);
 
     if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE)) {
-        QString fileName;
+        QString filter = QString("*.%1").arg(QFileInfo(dialog[0].defstr).completeSuffix());
+        QString directory = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
 
+        QString fileName;
         if (dialog[0].type == DIALOG_IFILE)
-             fileName = QFileDialog::getOpenFileName(this);
+            fileName = QFileDialog::getOpenFileName(this, item->name, directory, filter);
         else if (dialog[0].type == DIALOG_OFILE)
-             fileName = QFileDialog::getSaveFileName(this);
+            fileName = QFileDialog::getSaveFileName(this, item->name, directory, filter);
+
 
         if (!fileName.isNull()) {
-            dialogparam *param = (dialogparam *)malloc(sizeof (dialogparam));
+            dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
             param->dstring = strdup(fileName.toUtf8());
             ui_menuactivate(item, param);
         }
     } else {
         CustomDialog customDialog(uih, item, dialog, this);
-        customDialog.exec();
+        if (customDialog.exec() == QDialog::Accepted)
+            ui_menuactivate(item, customDialog.parameters());
     }
 }

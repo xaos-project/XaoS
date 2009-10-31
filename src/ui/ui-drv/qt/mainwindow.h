@@ -53,6 +53,7 @@ private slots:
     int keyCombination();
 
     void showMessage(const QString &message);
+    void showError(const QString &error);
     void setCursorType(int type);
 
     void buildMenu(struct uih_context *uih, const char *name);

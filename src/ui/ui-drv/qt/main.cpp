@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication::setApplicationName("XaoS");
     QCoreApplication::setApplicationVersion(XaoS_VERSION);
-    QCoreApplication::setOrganizationName("XaoS");
+    QCoreApplication::setOrganizationName("XaoS Project");
     QCoreApplication::setOrganizationDomain("xaos.sourceforge.net");
 
     QApplication a(argc, argv);
@@ -130,13 +130,13 @@ qt_showHelp (struct uih_context *c, CONST char *name)
 int uih_message(uih_context * c, CONST char *message)
 {
     printf(message);
-    window->showMessage(QString(message));
+    window->showMessage(message);
     return 0;
 }
 
 int uih_error(uih_context * c, CONST char *error)
 {
-    //window->showError(QString(error));
+    window->showError(error);
     return 0;
 }
 
