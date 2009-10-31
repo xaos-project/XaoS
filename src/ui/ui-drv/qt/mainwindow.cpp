@@ -12,13 +12,18 @@ MainWindow::MainWindow(QWidget *parent)
 {
     m_mouseButtons = 0;
     m_mousePosition = QPoint(0, 0);
+    m_keyCombination = 0;
 
     m_image[0] = m_image[1] = 0;
+
+    m_uih = 0;
 
     m_fractalWidget = new FractalWidget();
     setCentralWidget(m_fractalWidget);
     connect(m_fractalWidget, SIGNAL(mouseChanged(QMouseEvent*)), this, SLOT(updateMouse(QMouseEvent*)));
     connect(m_fractalWidget, SIGNAL(sizeChanged()), this, SLOT(updateSize()));
+    connect(m_fractalWidget, SIGNAL(keyPressed(QKeyEvent*)), this, SLOT(addKey(QKeyEvent*)));
+    connect(m_fractalWidget, SIGNAL(keyReleased(QKeyEvent*)), this, SLOT(removeKey(QKeyEvent*)));
 
     readSettings();
 }
@@ -48,11 +53,85 @@ void MainWindow::updateMouse(QMouseEvent *event)
     m_mousePosition = event->pos();
     m_mouseButtons = 0;
     if (event->buttons() & Qt::LeftButton)
-        m_mouseButtons |= BUTTON1;
+    {
+#ifdef Q_WS_MAC
+        // Use modifier keys to emulate other buttons on Macs with single buton mouse
+        if (event->modifiers() & Qt::MetaModifier) // Qt::MetaModifier maps to control on Macs
+            m_mouseButtons |= BUTTON3;
+        else if (event->modifiers() & Qt::ShiftModifier)
+            m_mouseButtons |= BUTTON2;
+        else
+#endif
+            m_mouseButtons |= BUTTON1;
+    }
     if (event->buttons() & Qt::MidButton)
         m_mouseButtons |= BUTTON2;
     if (event->buttons() & Qt::RightButton)
         m_mouseButtons |= BUTTON3;
+}
+
+void MainWindow::addKey(QKeyEvent *event)
+{
+        switch (event->key()) {
+        case Qt::Key_Left:
+                m_keyCombination |= 1;
+                ui_key(UIKEY_LEFT);
+                break;
+        case Qt::Key_Right:
+                m_keyCombination |= 2;
+                ui_key(UIKEY_RIGHT);
+                break;
+        case Qt::Key_Up:
+                m_keyCombination |= 4;
+                ui_key(UIKEY_UP);
+                break;
+        case Qt::Key_Down:
+                m_keyCombination |= 8;
+                ui_key(UIKEY_DOWN);
+                break;
+        case Qt::Key_PageUp:
+                ui_key(UIKEY_PGUP);
+                break;
+        case Qt::Key_PageDown:
+                ui_key(UIKEY_PGDOWN);
+                break;
+        case Qt::Key_Backspace:
+                ui_key(UIKEY_BACKSPACE);
+                break;
+        case Qt::Key_Escape:
+                ui_key(UIKEY_ESC);
+                break;
+        case Qt::Key_Home:
+                ui_key(UIKEY_HOME);
+                break;
+        case Qt::Key_End:
+                ui_key(UIKEY_END);
+                break;
+        case Qt::Key_Tab:
+                ui_key(UIKEY_TAB);
+                break;
+        default:
+                if (!event->text().isEmpty())
+                    ui_key(event->text().toAscii()[0]);
+        }
+}
+
+void MainWindow::removeKey(QKeyEvent *event)
+{
+        switch (event->key()) {
+        case Qt::Key_Left:
+                m_keyCombination &= ~1;
+                break;
+        case Qt::Key_Right:
+                m_keyCombination &= ~2;
+                break;
+        case Qt::Key_Up:
+                m_keyCombination &= ~4;
+                break;
+        case Qt::Key_Down:
+                m_keyCombination &= ~8;
+                break;
+        }
 }
 
 void MainWindow::updateMouse(QWheelEvent *event)
@@ -96,6 +175,7 @@ int MainWindow::imageBytesPerLine()
 {
     return m_image[0]->bytesPerLine();
 }
+
 QSize MainWindow::imageSize()
 {
     return m_fractalWidget->size();
@@ -121,9 +201,15 @@ int MainWindow::mouseButtons()
     return m_mouseButtons;
 }
 
+int MainWindow::keyCombination()
+{
+    return m_keyCombination;
+}
+
 void MainWindow::showMessage(const QString &message)
 {
-    statusBar()->showMessage(message, 5000);
+    if (!message.isEmpty())
+        statusBar()->showMessage(message, 5000);
 }
 
 void MainWindow::setCursorType(int type)
@@ -149,6 +235,8 @@ void MainWindow::startMainLoop()
 
 void MainWindow::buildMenu(struct uih_context *uih, const char *name)
 {
+    m_uih = uih;
+
     const menuitem *item;
     for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
         if (item->type == MENU_SUBMENU) {
@@ -180,7 +268,9 @@ QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
 
 void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *parent)
 {
-    QActionGroup *group = new QActionGroup(this);
+    m_uih = uih;
+
+    QActionGroup *group = new QActionGroup(parent);
 
     const menuitem *item;
     for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
@@ -193,6 +283,7 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
         case MENU_SUBMENU:
         {
             QMenu *menu = parent->addMenu(item->name);
+            connect(menu, SIGNAL(aboutToShow()), this, SLOT(updateMenu()));
             buildMenu(uih, item->shortname, menu);
             break;
         }
@@ -219,6 +310,18 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
     }
 }
 
+void MainWindow::updateMenu()
+{
+    QMenu *menu = qobject_cast<QMenu *>(sender());
+    QAction *action;
+    foreach(action, menu->actions()) {
+        if (action->isCheckable()) {
+            const menuitem *item = menu_findcommand(action->data().toString().toAscii());
+            action->setChecked(menu_enabled(item, m_uih));
+        }
+    }
+}
+
 void MainWindow::activateMenuItem()
 {
     QAction *action = qobject_cast<QAction *>(sender());
@@ -228,6 +331,8 @@ void MainWindow::activateMenuItem()
 
 void MainWindow::showDialog(struct uih_context *uih, const char *name)
 {
+    m_uih = uih;
+
     const menuitem *item = menu_findcommand(name);
     if (!item) return;
 

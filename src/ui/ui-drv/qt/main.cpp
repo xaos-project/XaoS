@@ -5,6 +5,7 @@
 #include "ui.h"
 #include "filter.h"
 #include "ui_helper.h"
+#include "version.h"
 
 
 MainWindow *window;
@@ -12,7 +13,7 @@ MainWindow *window;
 int main(int argc, char *argv[])
 {
     QCoreApplication::setApplicationName("XaoS");
-    QCoreApplication::setApplicationVersion("4.0");
+    QCoreApplication::setApplicationVersion(XaoS_VERSION);
     QCoreApplication::setOrganizationName("XaoS");
     QCoreApplication::setOrganizationDomain("xaos.sourceforge.net");
 
@@ -81,7 +82,7 @@ qt_processEvents (int wait, int *mx, int *my, int *mb, int *k)
     *mx = window->mousePosition().x();
     *my = window->mousePosition().y();
     *mb = window->mouseButtons();
-    *k = 0;
+    *k = window->keyCombination();
 }
 
 static void
@@ -95,7 +96,7 @@ qt_getMouse (int *x, int *y, int *b)
 static void
 qt_printText(int x, int y, CONST char *text)
 {
-    //window->showMessage(QString(text));
+    window->showMessage(text);
 }
 
 static void

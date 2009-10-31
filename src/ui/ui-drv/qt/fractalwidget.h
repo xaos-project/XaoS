@@ -20,12 +20,16 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
     void paintEvent (QPaintEvent *event);
     void resizeEvent(QResizeEvent *event);
 
 signals:
     void mouseChanged(QMouseEvent *event);
     void mouseChanged(QWheelEvent *event);
+    void keyPressed(QKeyEvent *event);
+    void keyReleased(QKeyEvent *event);
     void sizeChanged();
 
 public:

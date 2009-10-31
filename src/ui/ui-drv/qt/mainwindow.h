@@ -12,11 +12,12 @@ class MainWindow : public QMainWindow
 
 private:
     FractalWidget *m_fractalWidget;
-
     QImage *m_image[2];
     int m_activeImage;
     QPoint m_mousePosition;
     int m_mouseButtons;
+    int m_keyCombination;
+    struct uih_context *m_uih;
 
     void readSettings();
     void writeSettings();
@@ -26,7 +27,11 @@ private:
 private slots:
     void updateMouse(QMouseEvent *event);
     void updateMouse(QWheelEvent *event);
+    void addKey(QKeyEvent *event);
+    void removeKey(QKeyEvent *event);
+    void activateMenuItem();
     void updateSize();
+    void updateMenu();
 
  public:
     MainWindow(QWidget *parent = 0);
@@ -45,6 +50,7 @@ private slots:
 
     QPoint mousePosition();
     int mouseButtons();
+    int keyCombination();
 
     void showMessage(const QString &message);
     void setCursorType(int type);
@@ -56,7 +62,6 @@ private slots:
 
 public slots:
     void startMainLoop();
-    void activateMenuItem();
 };
 
 #endif // MAINWINDOW_H
