@@ -54,20 +54,27 @@ void MainWindow::updateMouse(QMouseEvent *event)
     m_mouseButtons = 0;
     if (event->buttons() & Qt::LeftButton)
     {
+        // Use modifier keys to emulate other buttons
 #ifdef Q_WS_MAC
-        // Use modifier keys to emulate other buttons on Macs with single buton mouse
-        if (event->modifiers() & Qt::MetaModifier) // Qt::MetaModifier maps to control on Macs
+        // Qt::MetaModifier maps to control key on Macs
+        if (event->modifiers() & Qt::MetaModifier)
+#else
+        if (event->modifiers() & Qt::ControlModifier)
+#endif
             m_mouseButtons |= BUTTON3;
         else if (event->modifiers() & Qt::ShiftModifier)
             m_mouseButtons |= BUTTON2;
         else
-#endif
             m_mouseButtons |= BUTTON1;
     }
     if (event->buttons() & Qt::MidButton)
         m_mouseButtons |= BUTTON2;
     if (event->buttons() & Qt::RightButton)
         m_mouseButtons |= BUTTON3;
+}
+
+void MainWindow::updateMouse(QWheelEvent *event)
+{
 }
 
 void MainWindow::addKey(QKeyEvent *event)
@@ -132,10 +139,6 @@ void MainWindow::removeKey(QKeyEvent *event)
                 m_keyCombination &= ~8;
                 break;
         }
-}
-
-void MainWindow::updateMouse(QWheelEvent *event)
-{
 }
 
 void MainWindow::updateSize()
@@ -237,6 +240,8 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name)
 {
     m_uih = uih;
 
+    menuBar()->clear();
+
     const menuitem *item;
     for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
         if (item->type == MENU_SUBMENU) {
@@ -293,9 +298,9 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
             itemName += "...";
         default:
         {
-            QAction *action = new QAction(itemName, this);
+            QAction *action = new QAction(itemName, parent);
             action->setShortcuts(keyForItem(item->shortname));
-            action->setData(QVariant(item->shortname));
+            action->setObjectName(item->shortname);
             if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX)) {
                 action->setCheckable(true);
                 action->setChecked(menu_enabled(item, uih));
@@ -316,7 +321,7 @@ void MainWindow::updateMenu()
     QAction *action;
     foreach(action, menu->actions()) {
         if (action->isCheckable()) {
-            const menuitem *item = menu_findcommand(action->data().toString().toAscii());
+            const menuitem *item = menu_findcommand(action->objectName().toAscii());
             action->setChecked(menu_enabled(item, m_uih));
         }
     }
@@ -325,7 +330,7 @@ void MainWindow::updateMenu()
 void MainWindow::activateMenuItem()
 {
     QAction *action = qobject_cast<QAction *>(sender());
-    const menuitem *item = menu_findcommand(action->data().toString().toAscii());
+    const menuitem *item = menu_findcommand(action->objectName().toAscii());
     ui_menuactivate(item, NULL);
 }
 
