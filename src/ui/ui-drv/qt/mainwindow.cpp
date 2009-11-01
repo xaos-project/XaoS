@@ -340,7 +340,7 @@ void MainWindow::showDialog(struct uih_context *uih, const char *name)
 
     if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE)) {
         QString filter = QString("*.%1").arg(QFileInfo(dialog[0].defstr).completeSuffix());
-        QString directory = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+        QString directory;// = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
 
         QString fileName;
         if (dialog[0].type == DIALOG_IFILE)

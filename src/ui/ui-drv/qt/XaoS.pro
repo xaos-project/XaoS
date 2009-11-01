@@ -2,7 +2,7 @@
 # Project created by QtCreator 2009-10-29T19:21:55
 # -------------------------------------------------
 TARGET = xaos
-DESTDIR = $$PWD/../../../../bin
+DESTDIR = $PWD/../../../../../bin
 TEMPLATE = app
 INCLUDEPATH += $$PWD \
     $$PWD/../../../include
@@ -20,4 +20,5 @@ include($$PWD/../../../ui/ui-drv/qt/qt.pri)
 include($$PWD/../../../ui-hlp/ui-hlp.pri)
 include($$PWD/../../../util/util.pri)
 include($$PWD/config.pri)
+include($$PWD/../../../sffe/sffe.pri)
 RESOURCES += XaoS.qrc
