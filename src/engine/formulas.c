@@ -1075,6 +1075,22 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 #include "docalc.c"
 
 #define VARIABLES
+#define INIT
+#define BTEST (zre*zre+zim*zim<1)
+#define FORMULA \
+	zre=3*zre;zim=3*zim; \
+	if((zim-2)*(zim-2)+zre*zre<1)zim=zim-2; \
+	if((zim+2)*(zim+2)+zre*zre<1)zim=zim+2; \
+	if((zim-1)*(zim-1)+(zre-1.7320508)*(zre-1.7320508)<1){zim=zim-1;zre=zre-1.7320508;} \
+	if((zim+1)*(zim+1)+(zre-1.7320508)*(zre-1.7320508)<1){zim=zim+1;zre=zre-1.7320508;} \
+	if((zim-1)*(zim-1)+(zre+1.7320508)*(zre+1.7320508)<1){zim=zim-1;zre=zre+1.7320508;} \
+	if((zim+1)*(zim+1)+(zre+1.7320508)*(zre+1.7320508)<1){zim=zim+1;zre=zre+1.7320508;}
+#define CALC circle7_calc
+#define RANGE 2
+#define RPIP
+#include "docalc.c"
+
+#define VARIABLES
 #define INIT \
 	if((zre==pre)&&(zim==pim)){pre=1;pim=1;} \
 	if(pre<0)pre=(-pre);if(pim<0)pim=(-pim); \
@@ -2464,6 +2480,47 @@ CONST struct formula formulas[] = {
       {INT_MAX, INT_MAX, 0, NULL},
       },
      MANDEL_BTRACE,
+     },
+    {				/* formula added by Arpad Fekete *//* 27 */
+     FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+     circle7_calc,
+     NULL,
+     NULL,
+     NULL,
+#endif
+     NULL,
+     {"Circle 7", "Circle 7"},
+     "circle7",
+     {0.0, 0.0, 2.5, 2.5},
+     0, 0, 0.0, 0.0,
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     MANDEL_BTRACE,
      }
 
 #ifdef SFFE_USING
@@ -2607,9 +2664,12 @@ calculateswitch(register number_t x1, register number_t y1,
             case 26:
 		return (goldsier_calc(x1, y1, x2, y2));
 		break;
+            case 27:
+		return (circle7_calc(x1, y1, x2, y2));
+		break;
 		
 #ifdef SFFE_USING
-	    case 27:
+	    case 28:
 		return (sffe_calc(x1, y1, x2, y2));
 		break;
 #endif
@@ -2696,9 +2756,12 @@ calculateswitch(register number_t x1, register number_t y1,
             case 26:
 		return (goldsier_calc(x1, y1, x2, y2));
 		break;
+            case 27:
+		return (circle7_calc(x1, y1, x2, y2));
+		break;
 		
 #ifdef SFFE_USING
-	    case 27:
+	    case 28:
 		return (sffe_calc(x1, y1, x2, y2));
 		break;
 #endif
@@ -2785,9 +2848,12 @@ calculateswitch(register number_t x1, register number_t y1,
         case 26:
             return (goldsier_calc(x1, y1, x2, y2));
             break;
+        case 27:
+            return (circle7_calc(x1, y1, x2, y2));
+            break;
 	    
 #ifdef SFFE_USING
-	case 27:
+	case 28:
 	    return (sffe_calc(x1, y1, x2, y2));
 	    break;
 #endif
@@ -2874,9 +2940,12 @@ calculateswitch(register number_t x1, register number_t y1,
         case 26:
             return (goldsier_calc(x1, y1, x2, y2));
 	    break;
+        case 27:
+            return (circle7_calc(x1, y1, x2, y2));
+	    break;
 	    
 #ifdef SFFE_USING
-	case 27:
+	case 28:
 	    return (sffe_calc(x1, y1, x2, y2));
 	    break;
 #endif
