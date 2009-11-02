@@ -954,6 +954,7 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
  * happening.  I can work around it by subtracting LDBL_MIN from the amount 
  * before performing the bailout test.
  */
+// #define LDBL_MIN 0.00000001
 #define BTEST less_than_4(rp+ip-LDBL_MIN)
 #define FORMULA \
 	c_div(pre,pim,zre,zim,rp,ip); \
