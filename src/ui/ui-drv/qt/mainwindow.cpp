@@ -49,6 +49,12 @@ void MainWindow::writeSettings()
     settings.setValue("imageSize", size());
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    writeSettings();
+    ui_quit();
+}
+
 void MainWindow::updateMouse(QMouseEvent *event)
 {
     m_mousePosition = event->pos();
@@ -228,12 +234,6 @@ void MainWindow::setCursorType(int type)
         m_fractalWidget->setCursor(Qt::WaitCursor);
     else
         m_fractalWidget->setCursor(Qt::ArrowCursor);
-}
-
-void MainWindow::startMainLoop()
-{
-    ui_mainloop(0);
-    QTimer::singleShot(0, this, SLOT(startMainLoop()));
 }
 
 void MainWindow::buildMenu(struct uih_context *uih, const char *name)

@@ -24,6 +24,9 @@ private:
 
     static QKeySequence::StandardKey keyForItem(const QString &name);
 
+protected:
+    void closeEvent(QCloseEvent *event);
+
 private slots:
     void updateMouse(QMouseEvent *event);
     void updateMouse(QWheelEvent *event);
@@ -60,9 +63,6 @@ private slots:
     void buildMenu(struct uih_context *uih, const char *name, QMenu *parent);
 
     void showDialog(struct uih_context *uih, const char *name);
-
-public slots:
-    void startMainLoop();
 };
 
 #endif // MAINWINDOW_H

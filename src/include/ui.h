@@ -133,8 +133,7 @@ extern "C" {
     xio_path ui_getfile(CONST char *basename, CONST char *extension);
     void ui_help(CONST char *name);
     char *ui_getpos(void);
-    void ui_init(int argc, char **name);
-    void ui_mainloop(int loop);
+    int MAIN_FUNCTION(int argc, char **argv);
 
 
 

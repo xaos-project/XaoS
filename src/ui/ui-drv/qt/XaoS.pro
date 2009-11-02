@@ -1,7 +1,12 @@
 # -------------------------------------------------
 # Project created by QtCreator 2009-10-29T19:21:55
 # -------------------------------------------------
-TARGET = xaos
+macx {
+    TARGET = XaoS
+} else {
+    TARGET = xaos
+}
+
 DESTDIR = $PWD/../../../../../bin
 TEMPLATE = app
 INCLUDEPATH += $$PWD \

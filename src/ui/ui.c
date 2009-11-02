@@ -1547,11 +1547,6 @@ void ui_init(int argc, char **argv)
 #ifndef MAIN_FUNCTION
 #define MAIN_FUNCTION main
 #endif
-#ifdef __cplusplus
-extern "C" {
-    int MAIN_FUNCTION(int argc, char **argv);
-}
-#endif
 int MAIN_FUNCTION(int argc, char **argv)
 {
     ui_init(argc, argv);

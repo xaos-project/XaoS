@@ -18,12 +18,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("xaos.sourceforge.net");
 
     QApplication a(argc, argv);
-    ui_init(argc, argv);
-
-    if (window)
-        window->startMainLoop();
-
-    return a.exec();
+    MAIN_FUNCTION(argc, argv);
+    //return a.exec();
 }
 
 static int
