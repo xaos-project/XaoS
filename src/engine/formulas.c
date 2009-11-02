@@ -1060,6 +1060,21 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 
 #define VARIABLES
 #define INIT \
+	if((zre==pre)&&(zim==pim)){pre=0.5;pim=0.8660254;} \
+	if(pim<0)pim=(-pim); \
+	if(((pim*zre-pre*zim)<0)||(zim<0)){zre=2*pre+2;zim=2*pim;}
+#define BTEST ((pim*zre+(1-pre)*zim)<pim)
+#define FORMULA \
+	zre=1.6180339*zre;zim=1.6180339*zim; \
+	if((pim*zre-pre*zim)>pim*0.6180339)zre=zre-0.6180339; \
+	if(zim>pim*0.6180339){zim=zim-pim*0.6180339;zre=zre-pre*0.6180339;}
+#define CALC goldsier_calc
+#define RANGE 2
+#define RPIP
+#include "docalc.c"
+
+#define VARIABLES
+#define INIT \
 	if((zre==pre)&&(zim==pim)){pre=1;pim=1;} \
 	if(pre<0)pre=(-pre);if(pim<0)pim=(-pim); \
 	if((zre<0)||(zre>pre)){zre=pre/2;zim=pim/2;} \
@@ -2407,11 +2422,51 @@ CONST struct formula formulas[] = {
     {INT_MAX, INT_MAX, 0, NULL},
     },
     MANDEL_BTRACE,
-    }   
-     
-     
+    },   
+    {				/* formula added by Arpad Fekete *//* 26 */
+     FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+     goldsier_calc,
+     NULL,
+     NULL,
+     NULL,
+#endif
+     NULL,
+     {"Golden Sierpinski", "Golden Sierpinski"},
+     "goldsier",
+     {0.5, 0.43, 1.5, 1.0},
+     0, 0, 0.5, 0.8660254,
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     MANDEL_BTRACE,
+     }
+
 #ifdef SFFE_USING
-    , {				/* formula added by M. Malczak - SFFE *//* 26 */
+    , {				/* formula added by M. Malczak - SFFE *//* 27 */
        FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
        sffe_calc,
@@ -2548,9 +2603,12 @@ calculateswitch(register number_t x1, register number_t y1,
 	    case 25:
 		return (beryl_calc(x1, y1, x2, y2));
 		break;
+            case 26:
+		return (goldsier_calc(x1, y1, x2, y2));
+		break;
 		
 #ifdef SFFE_USING
-	    case 26:
+	    case 27:
 		return (sffe_calc(x1, y1, x2, y2));
 		break;
 #endif
@@ -2634,9 +2692,12 @@ calculateswitch(register number_t x1, register number_t y1,
 	    case 25:
 		return (beryl_peri(x1, y1, x2, y2));
 		break;
+            case 26:
+		return (goldsier_calc(x1, y1, x2, y2));
+		break;
 		
 #ifdef SFFE_USING
-	    case 26:
+	    case 27:
 		return (sffe_calc(x1, y1, x2, y2));
 		break;
 #endif
@@ -2720,9 +2781,12 @@ calculateswitch(register number_t x1, register number_t y1,
 	case 25:
 	    return (beryl_calc(x1, y1, x2, y2));
 	    break;
+        case 26:
+            return (goldsier_calc(x1, y1, x2, y2));
+            break;
 	    
 #ifdef SFFE_USING
-	case 26:
+	case 27:
 	    return (sffe_calc(x1, y1, x2, y2));
 	    break;
 #endif
@@ -2806,9 +2870,12 @@ calculateswitch(register number_t x1, register number_t y1,
 	case 25:
 	    return (beryl_peri(x1, y1, x2, y2));
 	    break;
+        case 26:
+            return (goldsier_calc(x1, y1, x2, y2));
+	    break;
 	    
 #ifdef SFFE_USING
-	case 26:
+	case 27:
 	    return (sffe_calc(x1, y1, x2, y2));
 	    break;
 #endif

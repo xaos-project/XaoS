@@ -1,12 +1,12 @@
 # XaoS NLS file for Czech language.
 # Copyright (C) 2002 Free Software Foundation, Inc.
 # Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2002.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-14 13:35-0500\n"
+"POT-Creation-Date: 2009-11-02 12:04+0100\n"
 "PO-Revision-Date: 2002-08-17 21:44+0200\n"
 "Last-Translator: MadSoft <madsoft@centrum.cz>\n"
 "Language-Team: Czech\n"
@@ -15,233 +15,233 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 # ../ui/ui.c:307
-#: ../ui/ui.c:314
+#: ../ui/ui.c:313
 msgid "XaoS is out of memory."
 msgstr "Memórie je zaplnìná."
 
 # ../ui/ui.c:355
-#: ../ui/ui.c:360
+#: ../ui/ui.c:359
 #, fuzzy, c-format
 msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
 msgstr ""
 "%2$.2f-krát %1$s %3$2.2f obrazù/sec %4$c %5$i %6$i %7$i %8$i               "
 
 # ../ui/ui.c:355
-#: ../ui/ui.c:361
+#: ../ui/ui.c:360
 msgid "unzoomed"
 msgstr "zmen¹ení"
 
 # ../ui/ui.c:355
-#: ../ui/ui.c:361
+#: ../ui/ui.c:360
 msgid "zoomed"
 msgstr "zvìt¹ení"
 
 # ../ui/ui.c:358
-#: ../ui/ui.c:369
+#: ../ui/ui.c:368
 #, c-format
 msgid "framerate:%f\n"
 msgstr "obnovení obrazu:%f\n"
 
 # ../ui/ui.c:406
-#: ../ui/ui.c:409
+#: ../ui/ui.c:408
 #, c-format
 msgid "Enabling: %s. "
 msgstr "%s zapnout."
 
 # ../ui/ui.c:408
-#: ../ui/ui.c:411
+#: ../ui/ui.c:410
 #, c-format
 msgid "Disabling: %s. "
 msgstr "%s vypnout."
 
 # ../ui/ui.c:442
-#: ../ui/ui.c:441
+#: ../ui/ui.c:440
 #, c-format
 msgid "Fractal name:%s"
 msgstr "Jméno fraktálu:%s"
 
 # ../ui/ui.c:444
-#: ../ui/ui.c:446
+#: ../ui/ui.c:445
 #, c-format
 msgid "Fractal type:%s"
 msgstr "Tip fraktálu:%s"
 
 # ../ui-hlp/menu.c:1082
-#: ../ui/ui.c:448
+#: ../ui/ui.c:447
 #, fuzzy
 msgid "Mandelbrot"
 msgstr "Souprava mandelbrot"
 
 # ../ui-hlp/menu.c:1083
-#: ../ui/ui.c:449
+#: ../ui/ui.c:448
 #, fuzzy
 msgid "Julia"
 msgstr "Souprava julia"
 
 # ../ui-hlp/menu.c:916
-#: ../ui/ui.c:452
+#: ../ui/ui.c:451
 #, fuzzy, c-format
 msgid "Formula:%s"
 msgstr "Vzorec"
 
 # ../ui/ui.c:446
-#: ../ui/ui.c:457
+#: ../ui/ui.c:456
 #, c-format
 msgid "View:[%1.12f,%1.12f]"
 msgstr "Zobrazení:[%1.12f,%1.12f]"
 
 # ../ui/ui.c:448
-#: ../ui/ui.c:461
+#: ../ui/ui.c:460
 #, c-format
 msgid "size:[%1.12f,%1.12f]"
 msgstr "Velikost:[%1.12fx%1.12f]"
 
 # ../ui/ui.c:450
-#: ../ui/ui.c:465
+#: ../ui/ui.c:464
 #, c-format
 msgid "Rotation:%4.2f   Screen size:%i:%i"
 msgstr "Otáèení:%4.2f  Velikost obrazovky:%i:%i"
 
 # ../ui/ui.c:452
-#: ../ui/ui.c:470
+#: ../ui/ui.c:469
 #, c-format
 msgid "Iterations:%-4i Palette size:%i"
 msgstr "Poèet iterací:%-4i  Velikost palety barev:%i"
 
 # ../ui/ui.c:454
-#: ../ui/ui.c:477
+#: ../ui/ui.c:476
 #, c-format
 msgid "Autopilot:%-4s  Plane:%s"
 msgstr "Autopilot:%-4s  Plocha:%s"
 
 # ../ui/ui.c:454
-#: ../ui/ui.c:478
+#: ../ui/ui.c:477
 msgid "On"
 msgstr "Zapnout"
 
 # ../ui/ui.c:454
-#: ../ui/ui.c:478
+#: ../ui/ui.c:477
 msgid "Off"
 msgstr "Vypnout"
 
 # ../ui/ui.c:456
-#: ../ui/ui.c:482
+#: ../ui/ui.c:481
 #, c-format
 msgid "incoloring:%s    outcoloring:%s"
 msgstr "vnitøní vybarvení:%s   vnìj¹í vybarvení:%s"
 
 # ../ui/ui.c:458
-#: ../ui/ui.c:487
+#: ../ui/ui.c:486
 #, c-format
 msgid "zoomspeed:%f"
 msgstr "rychlost zvìt¹ení:%f"
 
 # ../ui/ui.c:461
-#: ../ui/ui.c:491
+#: ../ui/ui.c:490
 msgid "Parameter:none"
 msgstr "Parametr:není"
 
 # ../ui/ui.c:463
-#: ../ui/ui.c:493
+#: ../ui/ui.c:492
 #, c-format
 msgid "Parameter:[%f,%f]"
 msgstr "Parametr:[%f,%f]"
 
 # ../ui/ui.c:550
-#: ../ui/ui.c:585
+#: ../ui/ui.c:584
 #, c-format
 msgid "Please wait while calculating %s"
 msgstr "Prosím èekejte, %s fraktál se pøipravuje..."
 
 # ../ui/ui.c:657
-#: ../ui/ui.c:685
+#: ../ui/ui.c:684
 #, c-format
 msgid "Letters per second %i  "
 msgstr "%i písmen za sekundu"
 
 # ../ui/ui.c:669 ../ui/ui.c:677
-#: ../ui/ui.c:698 ../ui/ui.c:709
+#: ../ui/ui.c:697 ../ui/ui.c:708
 #, c-format
 msgid "Rotation speed:%2.2f degrees per second "
 msgstr "Rychlost rotace:%2.2f stupòù za sekundu "
 
 # ../ui/ui.c:687
-#: ../ui/ui.c:719
+#: ../ui/ui.c:718
 #, fuzzy, c-format
 msgid "Iterations: %i   "
 msgstr "Poèet iterací: %i   "
 
 # ../ui/ui.c:704
-#: ../ui/ui.c:735
+#: ../ui/ui.c:734
 #, c-format
 msgid "Cycling speed: %i   "
 msgstr "Rychlost obracení barev: %i   "
 
 # ../ui/ui.c:717 ../ui/ui.c:730
-#: ../ui/ui.c:748 ../ui/ui.c:762
+#: ../ui/ui.c:747 ../ui/ui.c:761
 #, c-format
 msgid "speed:%2.2f "
 msgstr "rychlost:%2.2f "
 
 # ../ui/ui.c:968
-#: ../ui/ui.c:854
+#: ../ui/ui.c:853
 #, c-format
 msgid "Thank you for using XaoS\n"
 msgstr "Dìkujeme za pou¾ití programu XaoS\n"
 
 # ../ui/ui.c:1008
-#: ../ui/ui.c:891
+#: ../ui/ui.c:890
 msgid "Skipping, please wait..."
 msgstr "Pøeskakování, prosím èekejte..."
 
-#: ../ui/ui.c:983 ../ui/ui.c:985 ../ui/ui-drv/win32/ui_win32.c:1453
+#: ../ui/ui.c:982 ../ui/ui.c:984 ../ui/ui-drv/win32/ui_win32.c:1453
 msgid "Resize"
 msgstr ""
 
 # ../ui/ui.c:1146
-#: ../ui/ui.c:998
+#: ../ui/ui.c:997
 #, fuzzy
 msgid "Quit"
 msgstr "Zavøít"
 
 # ../ui/ui.c:1147
-#: ../ui/ui.c:999
+#: ../ui/ui.c:998
 msgid "Exit now"
 msgstr "Zavøít ihned"
 
 # ../ui/ui.c:1148
-#: ../ui/ui.c:1001
+#: ../ui/ui.c:1000
 msgid "Not yet"
 msgstr "Je¹tì rad¹i ne"
 
 # ../ui-hlp/menu.c:935 ../ui-hlp/menu.c:940 ../ui/ui.c:1149
-#: ../ui/ui.c:1004 ../ui-hlp/menu.c:1055 ../ui-hlp/menu.c:1070
+#: ../ui/ui.c:1003 ../ui-hlp/menu.c:1055 ../ui-hlp/menu.c:1070
 #: ../ui/dialog.c:404 ../ui/dialog.c:1380
 msgid "Help"
 msgstr "Nápovìda"
 
 # ../ui/ui.c:1150
-#: ../ui/ui.c:1006
+#: ../ui/ui.c:1005
 msgid "Disable XaoS's builtin GUI"
 msgstr "Vypnutí zabudované GUI"
 
 # ../ui/ui.c:1152 ../ui/ui.c:1156
-#: ../ui/ui.c:1010 ../ui/ui.c:1016
+#: ../ui/ui.c:1009 ../ui/ui.c:1015
 msgid "Status"
 msgstr "Vlastnosti"
 
 # ../ui/ui.c:1153 ../ui/ui.c:1157
-#: ../ui/ui.c:1012 ../ui/ui.c:1018
+#: ../ui/ui.c:1011 ../ui/ui.c:1017
 msgid "Ministatus"
 msgstr "Hlavnìj¹í vlastnosti"
 
 # ../ui/ui.c:1159 ../ui/ui.c:1160
-#: ../ui/ui.c:1021 ../ui/ui.c:1022
+#: ../ui/ui.c:1020 ../ui/ui.c:1021
 msgid "Driver"
 msgstr "Grafický ovladaè"
 
 # ../ui/ui.c:1494
-#: ../ui/ui.c:1420
+#: ../ui/ui.c:1412
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Zdravíme vás ve %s Xaos verzi!"
