@@ -3,6 +3,7 @@
 # -------------------------------------------------
 macx {
     TARGET = XaoS
+    ICON = XaoS.icns
 } else {
     TARGET = xaos
 }
