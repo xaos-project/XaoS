@@ -1,11 +1,16 @@
 # -------------------------------------------------
 # Project created by QtCreator 2009-10-29T19:21:55
 # -------------------------------------------------
+
 macx {
     TARGET = XaoS
     ICON = XaoS.icns
 } else {
     TARGET = xaos
+}
+
+win32 {
+    RC_FILE = xaos.rc
 }
 
 DESTDIR = $PWD/../../../../../bin

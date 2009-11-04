@@ -102,6 +102,7 @@ static void ui_mouse(int mousex, int mousey, int mousebuttons,
 xio_pathdata configfile;
 static void ui_unregistermenus(void);
 static void ui_mkimages(int, int);
+static void ui_mainloop(int loop);
 
 int prog_argc;
 int err;
@@ -1704,7 +1705,7 @@ static void ui_driver(int d)
     uih_updatemenus(uih, driver->name);
 }
 
-void ui_mainloop(int loop)
+static void ui_mainloop(int loop)
 {
     int inmovement = 1;
     int x, y, b, k;

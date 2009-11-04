@@ -8,15 +8,16 @@ SOURCES += \
 ASM_SOURCES += \
     $$PWD/asm/cmplx.asm
 
+nasm.input = ASM_SOURCES
+nasm.output = $$PWD/${QMAKE_FILE_BASE}.o
+
 win32 {
-    nasm.commands = nasm -f coff -o ${OBJECTS_DIR}${QMAKE_FILE_BASE}.o ${QMAKE_FILE_NAME}
+    nasm.commands = nasm -f coff -o $$PWD/${QMAKE_FILE_BASE}.o ${QMAKE_FILE_NAME}
 } else:macx {
-    nasm.commands = nasm -f macho -o ${OBJECTS_DIR}${QMAKE_FILE_BASE}.o ${QMAKE_FILE_NAME}
+    nasm.commands = nasm -f macho -o $$PWD/${QMAKE_FILE_BASE}.o ${QMAKE_FILE_NAME}
 } else {
-    nasm.commands = nasm -f elf -o ${OBJECTS_DIR}${QMAKE_FILE_BASE}.o ${QMAKE_FILE_NAME}
+    nasm.commands = nasm -f elf -o $$PWD/${QMAKE_FILE_BASE}.o ${QMAKE_FILE_NAME}
 }
 
-nasm.input = ASM_SOURCES
-nasm.output = ${QMAKE_FILE_BASE}.o
 
 QMAKE_EXTRA_COMPILERS += nasm
