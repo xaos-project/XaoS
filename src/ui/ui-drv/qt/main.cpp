@@ -108,6 +108,18 @@ qt_buildMenu (struct uih_context *uih, CONST char *name)
 }
 
 static void
+qt_popupMenu (struct uih_context *uih, CONST char *name)
+{
+    window->popupMenu(uih, name);
+}
+
+static void
+qt_toggleMenu (struct uih_context *uih, CONST char *name)
+{
+    window->toggleMenu(uih, name);
+}
+
+static void
 qt_showPopUpMenu (struct uih_context *c, CONST char *name)
 {
 }
@@ -149,8 +161,8 @@ void uih_printmessages(uih_context * c) {}
 
 struct gui_driver qt_gui_driver = {
 /* setrootmenu */   qt_buildMenu,
-/* enabledisable */ NULL,
-/* menu */          NULL,
+/* enabledisable */ qt_toggleMenu,
+/* menu */          qt_popupMenu,
 /* dialog */        qt_showDialog,
 /* help */          NULL
 };

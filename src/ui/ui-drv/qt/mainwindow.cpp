@@ -14,10 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_mousePosition = QPoint(0, 0);
     m_keyCombination = 0;
     m_image[0] = m_image[1] = 0;
-    m_uih = 0;
-
     setWindowTitle(QCoreApplication::applicationName());
-    setWindowIcon(QIcon(":/images/xaosbig.png"));
 
     m_fractalWidget = new FractalWidget();
     setCentralWidget(m_fractalWidget);
@@ -236,21 +233,6 @@ void MainWindow::setCursorType(int type)
         m_fractalWidget->setCursor(Qt::ArrowCursor);
 }
 
-void MainWindow::buildMenu(struct uih_context *uih, const char *name)
-{
-    m_uih = uih;
-
-    menuBar()->clear();
-
-    const menuitem *item;
-    for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
-        if (item->type == MENU_SUBMENU) {
-            QMenu *menu = menuBar()->addMenu(QString(item->name));
-            buildMenu(uih, item->shortname, menu);
-        }
-    }
-}
-
 QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
 {
     static QHash<QString, QKeySequence::StandardKey> map;
@@ -271,10 +253,21 @@ QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
     }
 }
 
+void MainWindow::buildMenu(struct uih_context *uih, const char *name)
+{
+    menuBar()->clear();
+
+    const menuitem *item;
+    for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
+        if (item->type == MENU_SUBMENU) {
+            QMenu *menu = menuBar()->addMenu(QString(item->name));
+            buildMenu(uih, item->shortname, menu);
+        }
+    }
+}
+
 void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *parent)
 {
-    m_uih = uih;
-
     QActionGroup *group = new QActionGroup(parent);
 
     const menuitem *item;
@@ -288,7 +281,6 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
             parent->addSeparator();
         } else if (item->type == MENU_SUBMENU) {
             QMenu *menu = parent->addMenu(item->name);
-            connect(menu, SIGNAL(aboutToShow()), this, SLOT(updateMenu()));
             buildMenu(uih, item->shortname, menu);
         } else {
             QAction *action = new QAction(itemName, parent);
@@ -306,16 +298,20 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
     }
 }
 
-void MainWindow::updateMenu()
+void MainWindow::popupMenu(struct uih_context *uih, const char *name)
 {
-    QMenu *menu = qobject_cast<QMenu *>(sender());
-    QAction *action;
-    foreach(action, menu->actions()) {
-        if (action->isCheckable()) {
-            const menuitem *item = menu_findcommand(action->objectName().toAscii());
-            action->setChecked(menu_enabled(item, m_uih));
-        }
-    }
+    QMenu *menu = new QMenu(this);
+    buildMenu(uih, name, menu);
+    menu->exec(mapToGlobal(m_mousePosition));
+    delete menu;
+}
+
+void MainWindow::toggleMenu(struct uih_context *uih, const char *name)
+{
+    const menuitem *item = menu_findcommand(name);
+    QAction *action = menuBar()->findChild<QAction *>(name);
+    if (action)
+        action->setChecked(menu_enabled(item, uih));
 }
 
 void MainWindow::activateMenuItem()
@@ -327,8 +323,6 @@ void MainWindow::activateMenuItem()
 
 void MainWindow::showDialog(struct uih_context *uih, const char *name)
 {
-    m_uih = uih;
-
     const menuitem *item = menu_findcommand(name);
     if (!item) return;
 

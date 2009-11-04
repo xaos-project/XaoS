@@ -17,7 +17,6 @@ private:
     QPoint m_mousePosition;
     int m_mouseButtons;
     int m_keyCombination;
-    struct uih_context *m_uih;
 
     void readSettings();
     void writeSettings();
@@ -34,7 +33,6 @@ private slots:
     void removeKey(QKeyEvent *event);
     void activateMenuItem();
     void updateSize();
-    void updateMenu();
 
  public:
     MainWindow(QWidget *parent = 0);
@@ -61,6 +59,8 @@ private slots:
 
     void buildMenu(struct uih_context *uih, const char *name);
     void buildMenu(struct uih_context *uih, const char *name, QMenu *parent);
+    void popupMenu(struct uih_context *uih, const char *name);
+    void toggleMenu(struct uih_context *uih, const char *name);
 
     void showDialog(struct uih_context *uih, const char *name);
 };

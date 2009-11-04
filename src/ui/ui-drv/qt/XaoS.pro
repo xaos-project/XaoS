@@ -32,4 +32,3 @@ include($$PWD/../../../ui-hlp/ui-hlp.pri)
 include($$PWD/../../../util/util.pri)
 include($$PWD/config.pri)
 include($$PWD/../../../sffe/sffe.pri)
-RESOURCES += XaoS.qrc

@@ -5,6 +5,7 @@
 FractalWidget::FractalWidget()
 {
     setFocusPolicy(Qt::WheelFocus);
+    setMouseTracking(true);
     m_image = 0;
 }
 

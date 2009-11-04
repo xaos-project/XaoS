@@ -1056,16 +1056,11 @@ void uih_registermenus_i18n(void)
     SUBMENU_I("helpmenu", NULL, gettext("Tutorials"),
 	      "tutor") SUBMENUNOOPT_I("animroot", "f", gettext("File"),
 				      "file");
-#ifdef MACOSX
-    // You cannot have menu items directly on the root menu in Mac OS X
+    // You cannot have menu items directly on the root menu in some OS
     // So we put the "Stop Replay" item in the UI menu instead
     MENUSEPARATOR_I("uia");
     MENUNOP_I("uia", "s", gettext("Stop replay"), "stopreplay",
 	      UI | MENUFLAG_INTERRUPT, uih_replaydisable);
-#else
-    MENUNOP_I("animroot", "s", gettext("Stop replay"), "stopreplay",
-	      UI | MENUFLAG_INTERRUPT, uih_replaydisable);
-#endif
     SUBMENUNOOPT_I("animroot", NULL, gettext("UI"), "uia");
     SUBMENUNOOPT_I("animroot", NULL, gettext("Help"), "helpmenu");
     MENUDIALOG_I("misc", "!", gettext("Command"), "command", UI,
