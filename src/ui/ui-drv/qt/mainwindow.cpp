@@ -10,24 +10,21 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    m_mouseButtons = 0;
-    m_mousePosition = QPoint(0, 0);
-    m_keyCombination = 0;
-    m_image[0] = m_image[1] = 0;
     setWindowTitle(QCoreApplication::applicationName());
 
     m_fractalWidget = new FractalWidget();
     setCentralWidget(m_fractalWidget);
-    connect(m_fractalWidget, SIGNAL(mouseChanged(QMouseEvent*)), this, SLOT(updateMouse(QMouseEvent*)));
-    connect(m_fractalWidget, SIGNAL(sizeChanged()), this, SLOT(updateSize()));
-    connect(m_fractalWidget, SIGNAL(keyPressed(QKeyEvent*)), this, SLOT(addKey(QKeyEvent*)));
-    connect(m_fractalWidget, SIGNAL(keyReleased(QKeyEvent*)), this, SLOT(removeKey(QKeyEvent*)));
 
     readSettings();
 }
 
 MainWindow::~MainWindow()
 {
+}
+
+FractalWidget *MainWindow::fractalWidget()
+{
+    return m_fractalWidget;
 }
 
 void MainWindow::readSettings()
@@ -52,185 +49,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
     ui_quit();
 }
 
-void MainWindow::updateMouse(QMouseEvent *event)
-{
-    m_mousePosition = event->pos();
-    m_mouseButtons = 0;
-    if (event->buttons() & Qt::LeftButton)
-    {
-        // Use modifier keys to emulate other buttons
-#ifdef Q_WS_MAC
-        // Qt::MetaModifier maps to control key on Macs
-        if (event->modifiers() & Qt::MetaModifier)
-#else
-        if (event->modifiers() & Qt::ControlModifier)
-#endif
-            m_mouseButtons |= BUTTON3;
-        else if (event->modifiers() & Qt::ShiftModifier)
-            m_mouseButtons |= BUTTON2;
-        else
-            m_mouseButtons |= BUTTON1;
-    }
-    if (event->buttons() & Qt::MidButton)
-        m_mouseButtons |= BUTTON2;
-    if (event->buttons() & Qt::RightButton)
-        m_mouseButtons |= BUTTON3;
-}
-
-void MainWindow::updateMouse(QWheelEvent *event)
-{
-}
-
-void MainWindow::addKey(QKeyEvent *event)
-{
-        switch (event->key()) {
-        case Qt::Key_Left:
-                m_keyCombination |= 1;
-                ui_key(UIKEY_LEFT);
-                break;
-        case Qt::Key_Right:
-                m_keyCombination |= 2;
-                ui_key(UIKEY_RIGHT);
-                break;
-        case Qt::Key_Up:
-                m_keyCombination |= 4;
-                ui_key(UIKEY_UP);
-                break;
-        case Qt::Key_Down:
-                m_keyCombination |= 8;
-                ui_key(UIKEY_DOWN);
-                break;
-        case Qt::Key_PageUp:
-                ui_key(UIKEY_PGUP);
-                break;
-        case Qt::Key_PageDown:
-                ui_key(UIKEY_PGDOWN);
-                break;
-        case Qt::Key_Backspace:
-                ui_key(UIKEY_BACKSPACE);
-                break;
-        case Qt::Key_Escape:
-                ui_key(UIKEY_ESC);
-                break;
-        case Qt::Key_Home:
-                ui_key(UIKEY_HOME);
-                break;
-        case Qt::Key_End:
-                ui_key(UIKEY_END);
-                break;
-        case Qt::Key_Tab:
-                ui_key(UIKEY_TAB);
-                break;
-        default:
-                if (!event->text().isEmpty())
-                    ui_key(event->text().toAscii()[0]);
-        }
-}
-
-void MainWindow::removeKey(QKeyEvent *event)
-{
-        switch (event->key()) {
-        case Qt::Key_Left:
-                m_keyCombination &= ~1;
-                break;
-        case Qt::Key_Right:
-                m_keyCombination &= ~2;
-                break;
-        case Qt::Key_Up:
-                m_keyCombination &= ~4;
-                break;
-        case Qt::Key_Down:
-                m_keyCombination &= ~8;
-                break;
-        }
-}
-
-void MainWindow::updateSize()
-{
-    if (m_image[0] && m_image[1])
-        ui_resize();
-}
-
-void MainWindow::createImages()
-{
-    m_image[0] = new QImage(m_fractalWidget->width(),
-                            m_fractalWidget->height(),
-                            QImage::Format_RGB32);
-    m_image[1] = new QImage(m_fractalWidget->width(),
-                            m_fractalWidget->height(),
-                            QImage::Format_RGB32);
-    m_activeImage = 0;
-}
-
-void MainWindow::destroyImages()
-{
-    delete m_image[0];
-    delete m_image[1];
-}
-
-char *MainWindow::imageBuffer1()
-{
-    return (char *)m_image[0]->bits();
-}
-
-char *MainWindow::imageBuffer2()
-{
-    return (char *)m_image[1]->bits();
-}
-
-int MainWindow::imageBytesPerLine()
-{
-    return m_image[0]->bytesPerLine();
-}
-
-QSize MainWindow::imageSize()
-{
-    return m_fractalWidget->size();
-}
-
-void MainWindow::switchActiveImage()
-{
-    m_activeImage ^= 1;
-}
-
-void MainWindow::redrawImage()
-{
-    m_fractalWidget->drawImage(m_image[m_activeImage]);
-}
-
-QPoint MainWindow::mousePosition()
-{
-    return m_mousePosition;
-}
-
-int MainWindow::mouseButtons()
-{
-    return m_mouseButtons;
-}
-
-int MainWindow::keyCombination()
-{
-    return m_keyCombination;
-}
-
 void MainWindow::showMessage(const QString &message)
 {
-    if (!message.isEmpty())
-        statusBar()->showMessage(message, 5000);
-}
-
-void MainWindow::showError(const QString &error)
-{
-    if (!error.isEmpty())
-        QMessageBox::warning(this, this->windowTitle(), error, QMessageBox::Close);
-}
-
-void MainWindow::setCursorType(int type)
-{
-    if (type == WAITMOUSE || type == REPLAYMOUSE)
-        m_fractalWidget->setCursor(Qt::WaitCursor);
-    else
-        m_fractalWidget->setCursor(Qt::ArrowCursor);
+    statusBar()->showMessage(message, 5000);
 }
 
 QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
@@ -302,7 +123,7 @@ void MainWindow::popupMenu(struct uih_context *uih, const char *name)
 {
     QMenu *menu = new QMenu(this);
     buildMenu(uih, name, menu);
-    menu->exec(mapToGlobal(m_mousePosition));
+    menu->exec(QCursor::pos());
     delete menu;
 }
 

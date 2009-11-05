@@ -5,3 +5,6 @@ SOURCES += \
     $$PWD/grlib.c \
     $$PWD/font.c \
     $$PWD/filter.c \
+
+OTHER_FILES += \
+    $$PWD/grlibd.c

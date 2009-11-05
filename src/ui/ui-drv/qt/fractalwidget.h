@@ -11,9 +11,13 @@ class FractalWidget : public QWidget
     Q_OBJECT
 
 private:
-    QImage *m_image;
+    QImage *m_image[2];
+    int m_activeImage;
     QPoint m_mousePosition;
-    Qt::MouseButtons m_mouseButtons;
+    int m_mouseButtons;
+    int m_keyCombination;
+
+    void updateMouse(QMouseEvent *event);
 
 protected:
     void mousePressEvent(QMouseEvent *event);
@@ -34,7 +38,22 @@ signals:
 
 public:
     FractalWidget();
-    void drawImage(QImage *image);
+
+    void createImages();
+    void destroyImages();
+
+    char *imageBuffer1();
+    char *imageBuffer2();
+    int imageBytesPerLine();
+    QSize imageSize();
+
+    void switchActiveImage();
+
+    QPoint mousePosition();
+    int mouseButtons();
+    int keyCombination();
+
+    void setCursorType(int type);
 };
 
 #endif // FRACTALWIDGET_H

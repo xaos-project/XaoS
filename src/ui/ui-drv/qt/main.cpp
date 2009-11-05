@@ -1,6 +1,7 @@
 #include <QtGui/QApplication>
 
 #include "mainwindow.h"
+#include "fractalwidget.h"
 
 #include "ui.h"
 #include "filter.h"
@@ -9,6 +10,7 @@
 
 
 MainWindow *window;
+FractalWidget *widget;
 
 int main(int argc, char *argv[])
 {
@@ -26,6 +28,7 @@ static int
 qt_initDriver ()
 {
     window = new MainWindow();
+    widget = window->fractalWidget();
     window->show();
     return 1;
 }
@@ -39,35 +42,35 @@ qt_uninitDriver ()
 static int
 qt_allocBuffers (char **b1, char **b2)
 {
-    window->createImages();
-    *b1 = window->imageBuffer1();
-    *b2 = window->imageBuffer2();
-    return window->imageBytesPerLine();
+    widget->createImages();
+    *b1 = widget->imageBuffer1();
+    *b2 = widget->imageBuffer2();
+    return widget->imageBytesPerLine();
 }
 
 static void
 qt_freeBuffers (char *b1, char *b2)
 {
-    window->destroyImages();
+    widget->destroyImages();
 }
 
 static void
 qt_getImageSize (int *w, int *h)
 {
-    *w = window->imageSize().width();
-    *h = window->imageSize().height();
+    *w = widget->size().width();
+    *h = widget->size().height();
 }
 
 static void
 qt_flipBuffers ()
 {
-    window->switchActiveImage();
+    widget->switchActiveImage();
 }
 
 static void
 qt_redrawImage()
 {
-    window->redrawImage();
+    widget->update();
 }
 
 static void
@@ -75,18 +78,18 @@ qt_processEvents (int wait, int *mx, int *my, int *mb, int *k)
 {
     QCoreApplication::processEvents(wait ? QEventLoop::WaitForMoreEvents : QEventLoop::AllEvents);
 
-    *mx = window->mousePosition().x();
-    *my = window->mousePosition().y();
-    *mb = window->mouseButtons();
-    *k = window->keyCombination();
+    *mx = widget->mousePosition().x();
+    *my = widget->mousePosition().y();
+    *mb = widget->mouseButtons();
+    *k = widget->keyCombination();
 }
 
 static void
 qt_getMouse (int *x, int *y, int *b)
 {
-    *x = window->mousePosition().x();
-    *y = window->mousePosition().y();
-    *b = window->mouseButtons();
+    *x = widget->mousePosition().x();
+    *y = widget->mousePosition().y();
+    *b = widget->mouseButtons();
 }
 
 static void
@@ -98,7 +101,7 @@ qt_printText(int x, int y, CONST char *text)
 static void
 qt_setCursorType (int type)
 {
-    window->setCursorType(type);
+    widget->setCursorType(type);
 }
 
 static void
@@ -120,11 +123,6 @@ qt_toggleMenu (struct uih_context *uih, CONST char *name)
 }
 
 static void
-qt_showPopUpMenu (struct uih_context *c, CONST char *name)
-{
-}
-
-static void
 qt_showDialog (struct uih_context *c, CONST char *name)
 {
     window->showDialog(c, name);
@@ -134,30 +132,6 @@ static void
 qt_showHelp (struct uih_context *c, CONST char *name)
 {
 }
-
-int uih_message(uih_context * c, CONST char *message)
-{
-    printf(message);
-    window->showMessage(message);
-    return 0;
-}
-
-int uih_error(uih_context * c, CONST char *error)
-{
-    window->showError(error);
-    return 0;
-}
-
-void uih_clearmessages(uih_context * c)
-{
-    //window->clearMessage();
-}
-
-void uih_initmessages(uih_context * c) {}
-void uih_rmmessage(uih_context * c, int pid) {}
-void uih_destroymessages(uih_context * c) {}
-void uih_printmessages(uih_context * c) {}
-
 
 struct gui_driver qt_gui_driver = {
 /* setrootmenu */   qt_buildMenu,

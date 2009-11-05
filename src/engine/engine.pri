@@ -20,3 +20,16 @@ SOURCES += \
     $$PWD/plane.c \
     $$PWD/julia.c \
     $$PWD/i386.c
+
+OTHER_FILES += \
+    $$PWD/3dd.c \
+    $$PWD/btraced.c \
+    $$PWD/docalc.c \
+    $$PWD/edged.c \
+    $$PWD/edge2d.c \
+    $$PWD/docalc.c \
+    $$PWD/paletted.c \
+    $$PWD/rotated.c \
+    $$PWD/stard.c \
+    $$PWD/stereod.c \
+    $$PWD/zoomd.c

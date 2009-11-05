@@ -1,18 +1,12 @@
 # -------------------------------------------------
 # Project created by QtCreator 2009-10-29T19:21:55
 # -------------------------------------------------
-
-macx {
+macx { 
     TARGET = XaoS
     ICON = XaoS.icns
-} else {
-    TARGET = xaos
 }
-
-win32 {
-    RC_FILE = xaos.rc
-}
-
+else:TARGET = xaos
+win32:RC_FILE = xaos.rc
 DESTDIR = $PWD/../../../../../bin
 TEMPLATE = app
 INCLUDEPATH += $$PWD \
@@ -32,3 +26,5 @@ include($$PWD/../../../ui-hlp/ui-hlp.pri)
 include($$PWD/../../../util/util.pri)
 include($$PWD/config.pri)
 include($$PWD/../../../sffe/sffe.pri)
+include($$PWD/../../../include/include.pri)
+OTHER_FILES += 

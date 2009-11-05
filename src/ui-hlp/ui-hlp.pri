@@ -5,6 +5,8 @@ SOURCES += $$PWD/autopilot.c \
     $$PWD/render.c \
     $$PWD/playtext.c \
     $$PWD/save.c \
+    $$PWD/messg.c \
     $$PWD/wstack.c
 
-#    $$PWD/messg.c \
+OTHER_FILES += \
+    $$PWD/autod.c
