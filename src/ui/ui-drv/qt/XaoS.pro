@@ -27,4 +27,3 @@ include($$PWD/../../../util/util.pri)
 include($$PWD/config.pri)
 include($$PWD/../../../sffe/sffe.pri)
 include($$PWD/../../../include/include.pri)
-OTHER_FILES += 
