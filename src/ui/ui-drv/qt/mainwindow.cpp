@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setWindowTitle(QCoreApplication::applicationName());
 
+    statusBar()->show();
+
     m_fractalWidget = new FractalWidget();
     setCentralWidget(m_fractalWidget);
 
@@ -32,7 +34,7 @@ void MainWindow::readSettings()
     QSettings settings;
     QPoint pos = settings.value("windowPosition", QPoint(200, 200)).toPoint();
     QSize size = settings.value("imageSize", QSize(640, 480)).toSize();
-    resize(size);
+    m_fractalWidget->setSizeHint(size);
     move(pos);
 }
 

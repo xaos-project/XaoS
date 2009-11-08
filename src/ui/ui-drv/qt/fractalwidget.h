@@ -1,7 +1,7 @@
 #ifndef FRACTALWIDGET_H
 #define FRACTALWIDGET_H
 
-#include <QWidget>
+#include <QGLWidget>
 
 class QImage;
 class QPoint;
@@ -14,8 +14,10 @@ private:
     QImage *m_image[2];
     int m_activeImage;
     QPoint m_mousePosition;
-    int m_mouseButtons;
+    Qt::MouseButtons m_mouseButtons;
+    Qt::KeyboardModifiers m_keyboardModifiers;
     int m_keyCombination;
+    QSize m_sizeHint;
 
     void updateMouse(QMouseEvent *event);
 
@@ -28,13 +30,6 @@ protected:
     void keyReleaseEvent(QKeyEvent *event);
     void paintEvent (QPaintEvent *event);
     void resizeEvent(QResizeEvent *event);
-
-signals:
-    void mouseChanged(QMouseEvent *event);
-    void mouseChanged(QWheelEvent *event);
-    void keyPressed(QKeyEvent *event);
-    void keyReleased(QKeyEvent *event);
-    void sizeChanged();
 
 public:
     FractalWidget();
@@ -54,6 +49,9 @@ public:
     int keyCombination();
 
     void setCursorType(int type);
+
+    QSize sizeHint() const;
+    void setSizeHint(const QSize &size);
 };
 
 #endif // FRACTALWIDGET_H

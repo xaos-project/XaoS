@@ -1,7 +1,7 @@
 /* This file actually implements three drivers (win32 and DirectX 
    windowed/fullscreen) drivers, because they have a lot of common stuff. */
 #include <config.h>
-#ifdef WIN32_DRIVER
+//#ifdef WIN32_DRIVER
 #define _WIN32_WINNT 0x0501 /* Enable access to Windows XP APIs */
 #include <windows.h>
 #ifdef HTML_HELP
