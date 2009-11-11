@@ -1091,6 +1091,28 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 #include "docalc.c"
 
 #define VARIABLES
+#define INIT
+#define BTEST (zre*zre+zim*zim<1)
+#define FORMULA \
+	if(((zim-0.5)*(zim-0.5)+zre*zre > 0.1111111)&& \
+	   ((zim+0.5)*(zim+0.5)+zre*zre > 0.1111111)&& \
+	   ((zim-0.25)*(zim-0.25)+(zre-0.4330127)*(zre-0.4330127) > 0.1111111)&& \
+	   ((zim+0.25)*(zim+0.25)+(zre-0.4330127)*(zre-0.4330127) > 0.1111111)&& \
+	   ((zim-0.25)*(zim-0.25)+(zre+0.4330127)*(zre+0.4330127) > 0.1111111)&& \
+	   ((zim+0.25)*(zim+0.25)+(zre+0.4330127)*(zre+0.4330127) > 0.1111111))zre=100; \
+	if(((zim-0.5)*(zim-0.5)+zre*zre < 0.1111111)&&(1.7320508*zre-zim < 0)&&(-1.7320508*zre-zim < 0))zim=zim-0.5; \
+	else if(((zim+0.5)*(zim+0.5)+zre*zre < 0.1111111)&&(1.7320508*zre-zim > 0)&&(-1.7320508*zre-zim > 0))zim=zim+0.5; \
+	else if(((zim-0.25)*(zim-0.25)+(zre-0.4330127)*(zre-0.4330127) < 0.1111111)&&(zim > 0)&&(1.7320508*zre-zim > 0)){zim=zim-0.25;zre=zre-0.4330127;} \
+	else if(((zim+0.25)*(zim+0.25)+(zre-0.4330127)*(zre-0.4330127) < 0.1111111)&&(zim < 0)&&(-1.7320508*zre-zim < 0)){zim=zim+0.25;zre=zre-0.4330127;} \
+	else if(((zim-0.25)*(zim-0.25)+(zre+0.4330127)*(zre+0.4330127) < 0.1111111)&&(zim > 0)&&(-1.7320508*zre-zim > 0)){zim=zim-0.25;zre=zre+0.4330127;} \
+	else if(((zim+0.25)*(zim+0.25)+(zre+0.4330127)*(zre+0.4330127) < 0.1111111)&&(zim < 0)&&(1.7320508*zre-zim < 0)){zim=zim+0.25;zre=zre+0.4330127;} \
+	zre=3*zre;zim=3*zim;
+#define CALC circle6_calc
+#define RANGE 2
+#define RPIP
+#include "docalc.c"
+
+#define VARIABLES
 #define INIT \
 	if((zre==pre)&&(zim==pim)){pre=1;pim=1;} \
 	if(pre<0)pre=(-pre);if(pim<0)pim=(-pim); \
@@ -2521,10 +2543,51 @@ CONST struct formula formulas[] = {
       {INT_MAX, INT_MAX, 0, NULL},
       },
      MANDEL_BTRACE,
+     },
+    {				/* formula added by Arpad Fekete *//* 28 */
+     FORMULAMAGIC,
+#ifndef SLOWFUNCPTR
+     circle6_calc,
+     NULL,
+     NULL,
+     NULL,
+#endif
+     NULL,
+     {"Circle 6", "Circle 6"},
+     "circle6",
+     {0.0, 0.0, 2.5, 2.5},
+     0, 0, 0.0, 0.0,
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     MANDEL_BTRACE,
      }
 
 #ifdef SFFE_USING
-    , {				/* formula added by M. Malczak - SFFE *//* 27 */
+    , {				/* formula added by M. Malczak - SFFE *//* 29 */
        FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
        sffe_calc,
@@ -2667,9 +2730,12 @@ calculateswitch(register number_t x1, register number_t y1,
             case 27:
 		return (circle7_calc(x1, y1, x2, y2));
 		break;
+            case 28:
+		return (circle6_calc(x1, y1, x2, y2));
+		break;
 		
 #ifdef SFFE_USING
-	    case 28:
+	    case 29:
 		return (sffe_calc(x1, y1, x2, y2));
 		break;
 #endif
@@ -2759,9 +2825,12 @@ calculateswitch(register number_t x1, register number_t y1,
             case 27:
 		return (circle7_calc(x1, y1, x2, y2));
 		break;
+            case 28:
+		return (circle6_calc(x1, y1, x2, y2));
+		break;
 		
 #ifdef SFFE_USING
-	    case 28:
+	    case 29:
 		return (sffe_calc(x1, y1, x2, y2));
 		break;
 #endif
@@ -2851,9 +2920,12 @@ calculateswitch(register number_t x1, register number_t y1,
         case 27:
             return (circle7_calc(x1, y1, x2, y2));
             break;
+        case 28:
+            return (circle6_calc(x1, y1, x2, y2));
+            break;
 	    
 #ifdef SFFE_USING
-	case 28:
+	case 29:
 	    return (sffe_calc(x1, y1, x2, y2));
 	    break;
 #endif
@@ -2943,9 +3015,12 @@ calculateswitch(register number_t x1, register number_t y1,
         case 27:
             return (circle7_calc(x1, y1, x2, y2));
 	    break;
+        case 28:
+            return (circle6_calc(x1, y1, x2, y2));
+	    break;
 	    
 #ifdef SFFE_USING
-	case 28:
+	case 29:
 	    return (sffe_calc(x1, y1, x2, y2));
 	    break;
 #endif
