@@ -58,22 +58,15 @@ void MainWindow::showMessage(const QString &message)
 
 QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
 {
-    static QHash<QString, QKeySequence::StandardKey> map;
-    if (map.isEmpty()) {
-        map["initstate"] = QKeySequence::New;
-        map["loadpos"] = QKeySequence::Open;
-        map["savepos"] = QKeySequence::Save;
-        map["undo"] = QKeySequence::Undo;
-        map["redo"] = QKeySequence::Redo;
-        map["recalculate"] = QKeySequence::Refresh;
-        map["help"] = QKeySequence::HelpContents;
-    }
+    if (name =="initstate") return QKeySequence::New;
+    if (name =="loadpos") return QKeySequence::Open;
+    if (name =="savepos") return QKeySequence::Save;
+    if (name =="undo") return QKeySequence::Undo;
+    if (name =="redo") return QKeySequence::Redo;
+    if (name =="recalculate") return QKeySequence::Refresh;
+    if (name =="help") return QKeySequence::HelpContents;
 
-    if (map.contains(name)) {
-        return map[name];
-    } else {
-        return QKeySequence::UnknownKey;
-    }
+    return QKeySequence::UnknownKey;
 }
 
 void MainWindow::buildMenu(struct uih_context *uih, const char *name)
