@@ -810,13 +810,11 @@ void uih_saveanimfile(struct uih_context *c, xio_constpath d)
 
 CONST char *uih_save(struct uih_context *c, xio_constpath filename)
 {
-    FILE *f;
     CONST char *r;
     uih_cycling_stop(c);
     uih_stoptimers(c);
     uih_clearwindows(c);
-    f = fopen(filename, "wb");
-    r = writepng(f, c->queue->saveimage);
+    r = writepng(filename, c->queue->saveimage);
     uih_cycling_continue(c);
     uih_resumetimers(c);
     return (r);

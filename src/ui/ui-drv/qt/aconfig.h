@@ -18,7 +18,7 @@
 /* #undef HAVE__FABSL */
 /* #undef HAVE___FABSL */
 #define HAVE_FTIME 1
-/* #undef USE_PNG */
+#define USE_PNG 1
 #define HAVE_FINITE 1
 /* #undef HAVE_SELECT */
 #define HAVE_LONG_DOUBLE 1

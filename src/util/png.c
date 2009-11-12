@@ -18,15 +18,16 @@
 #include <filter.h>
 #include <version.h>
 #include <misc-f.h>
+#include <xio.h>
 #ifndef USE_PNG
-CONST char *writepng(FILE * f, CONST struct image *img)
+CONST char *writepng(xio_constpath filename, CONST struct image *img)
 {
     return
 	"XaoS can not save images because it was incorrectly compiled. Please compile it with zlib and libpng";
 }
 #else
 
-CONST char *writepng(FILE * file, CONST struct image *image)
+CONST char *writepng(xio_constpath filename, CONST struct image *image)
 {
     png_structp png_ptr;
     png_infop info_ptr;
@@ -44,6 +45,7 @@ CONST char *writepng(FILE * file, CONST struct image *image)
 	 sizeof(text)}
     };
 #endif
+    FILE *file = fopen(filename, "wb");
     errno = -1;
     if (file == NULL) {
 	return strerror(errno);
