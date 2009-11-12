@@ -1,7 +1,7 @@
 #ifndef FRACTALWIDGET_H
 #define FRACTALWIDGET_H
 
-#include <QGLWidget>
+#include <QWidget>
 
 class QImage;
 class QPoint;
