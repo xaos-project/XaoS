@@ -1092,22 +1092,24 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 
 #define VARIABLES
 #define INIT
-#define BTEST (zre*zre+zim*zim<1)
+#define BTEST less_than_4((rp+ip)/4.0)
 #define FORMULA \
-	if(((zim-0.5)*(zim-0.5)+zre*zre > 0.1111111)&& \
-	   ((zim+0.5)*(zim+0.5)+zre*zre > 0.1111111)&& \
-	   ((zim-0.25)*(zim-0.25)+(zre-0.4330127)*(zre-0.4330127) > 0.1111111)&& \
-	   ((zim+0.25)*(zim+0.25)+(zre-0.4330127)*(zre-0.4330127) > 0.1111111)&& \
-	   ((zim-0.25)*(zim-0.25)+(zre+0.4330127)*(zre+0.4330127) > 0.1111111)&& \
-	   ((zim+0.25)*(zim+0.25)+(zre+0.4330127)*(zre+0.4330127) > 0.1111111))zre=100; \
-	if(((zim-0.5)*(zim-0.5)+zre*zre < 0.1111111)&&(1.7320508*zre-zim < 0)&&(-1.7320508*zre-zim < 0))zim=zim-0.5; \
-	else if(((zim+0.5)*(zim+0.5)+zre*zre < 0.1111111)&&(1.7320508*zre-zim > 0)&&(-1.7320508*zre-zim > 0))zim=zim+0.5; \
-	else if(((zim-0.25)*(zim-0.25)+(zre-0.4330127)*(zre-0.4330127) < 0.1111111)&&(zim > 0)&&(1.7320508*zre-zim > 0)){zim=zim-0.25;zre=zre-0.4330127;} \
-	else if(((zim+0.25)*(zim+0.25)+(zre-0.4330127)*(zre-0.4330127) < 0.1111111)&&(zim < 0)&&(-1.7320508*zre-zim < 0)){zim=zim+0.25;zre=zre-0.4330127;} \
-	else if(((zim-0.25)*(zim-0.25)+(zre+0.4330127)*(zre+0.4330127) < 0.1111111)&&(zim > 0)&&(-1.7320508*zre-zim > 0)){zim=zim-0.25;zre=zre+0.4330127;} \
-	else if(((zim+0.25)*(zim+0.25)+(zre+0.4330127)*(zre+0.4330127) < 0.1111111)&&(zim < 0)&&(1.7320508*zre-zim < 0)){zim=zim+0.25;zre=zre+0.4330127;} \
-	zre=3*zre;zim=3*zim;
-#define CALC circle6_calc
+	if (less_than_0 (zre)) { \
+	    rp = zre + 1; \
+	} else { \
+	    rp = zre - 1; \
+	} \
+	if (less_than_0 (zim)) { \
+	    ip = zim + 1; \
+	} else { \
+	    ip = zim - 1; \
+	} \
+	c_mul(rp, ip, pre, pim, zre, zim); \
+	rp = zre * zre; \
+	ip = zim * zim;
+#define SMOOTH
+#define CALC symbarn_calc
+#define JULIA symbarn_julia
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
@@ -2547,16 +2549,18 @@ CONST struct formula formulas[] = {
     {				/* formula added by Arpad Fekete *//* 28 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
-     circle6_calc,
+     symbarn_calc,
      NULL,
      NULL,
      NULL,
 #endif
-     NULL,
-     {"Circle 6", "Circle 6"},
-     "circle6",
-     {0.0, 0.0, 2.5, 2.5},
-     0, 0, 0.0, 0.0,
+     symbarn_julia,
+     {"Sym. Barnsley M.", "Sym. Barnsley"},
+     "symbarn",
+     {0.0, 0.0, 8.0, 1.0},
+     0, 0, 1.3, 1.3,
+     /* Arpad hasn't created the symmetry properties, */
+     /* because he doesn't considered it to be important */
      {
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
@@ -2731,7 +2735,7 @@ calculateswitch(register number_t x1, register number_t y1,
 		return (circle7_calc(x1, y1, x2, y2));
 		break;
             case 28:
-		return (circle6_calc(x1, y1, x2, y2));
+		return (symbarn_calc(x1, y1, x2, y2));
 		break;
 		
 #ifdef SFFE_USING
@@ -2826,7 +2830,7 @@ calculateswitch(register number_t x1, register number_t y1,
 		return (circle7_calc(x1, y1, x2, y2));
 		break;
             case 28:
-		return (circle6_calc(x1, y1, x2, y2));
+		return (symbarn_calc(x1, y1, x2, y2));
 		break;
 		
 #ifdef SFFE_USING
@@ -2921,7 +2925,7 @@ calculateswitch(register number_t x1, register number_t y1,
             return (circle7_calc(x1, y1, x2, y2));
             break;
         case 28:
-            return (circle6_calc(x1, y1, x2, y2));
+            return (symbarn_calc(x1, y1, x2, y2));
             break;
 	    
 #ifdef SFFE_USING
@@ -3016,7 +3020,7 @@ calculateswitch(register number_t x1, register number_t y1,
             return (circle7_calc(x1, y1, x2, y2));
 	    break;
         case 28:
-            return (circle6_calc(x1, y1, x2, y2));
+            return (symbarn_calc(x1, y1, x2, y2));
 	    break;
 	    
 #ifdef SFFE_USING
