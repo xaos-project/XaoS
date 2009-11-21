@@ -1,5 +1,9 @@
 .. _play:
 
+.. index::
+   pair: menu item; Replay
+   pair: command line option; play
+
 Replay animation
 ================
 

@@ -1,5 +1,8 @@
 .. _redo:
 
+.. index::
+   pair: menu item; Redo
+
 Redo
 ====
 

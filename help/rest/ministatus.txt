@@ -1,6 +1,11 @@
 .. _ministatus:
 .. _animministatus:
 
+.. index::
+   pair: menu item; Ministatus
+   pair: command line option; ministatus
+   pair: command; ministatus
+
 Ministatus
 ==========
 

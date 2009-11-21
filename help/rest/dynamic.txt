@@ -4,6 +4,11 @@
 .. _dynamicnew:
 .. _fastmode:
 
+.. index::
+   pair: menu item; Dynamic resolution
+   pair: command line option; fastmode
+   pair: command; fastmode
+
 Dynamic resolution
 ==================
 

@@ -1,5 +1,10 @@
 .. _record:
 
+.. index::
+   pair: menu item; Record
+   pair: command line option; record
+   pair: command; record
+
 Record animation
 ================
 

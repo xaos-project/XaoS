@@ -1,7 +1,10 @@
 .. _video:
 
-How to encode video files from XaoS
-===================================
+.. index::
+   pair: Encoding; Videos
+
+Encoding Videos
+===============
 
 To create a video, make and xaf file first (the easiest way to do this is to
 use the **record** function in the file menu). Then you need to render the

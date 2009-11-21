@@ -2,6 +2,13 @@
 .. _view:
 .. _angle:
 
+.. index::
+   pair: menu item; View
+   pair: command line option; view
+   pair: command; view
+   pair: command line option; angle
+   pair: command; angle
+
 View
 ====
 

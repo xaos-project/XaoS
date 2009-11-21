@@ -1,5 +1,9 @@
 .. _command:
 
+.. index::
+   pair: menu item; Command
+   pair: command; command
+
 Command
 =======
 

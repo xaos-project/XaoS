@@ -1,5 +1,10 @@
 .. _autopilot:
 
+.. index::
+   pair: menu item; Autopilot
+   pair: command line option; autopilot
+   pair: command; autopilot
+
 Autopilot
 =========
 

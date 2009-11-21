@@ -1,5 +1,10 @@
 .. _periodicity:
 
+.. index::
+   pair: menu item; Periodicity checking
+   pair: command line option; periodicity
+   pair: command; periodicity
+
 Periodicity checking
 ====================
 
@@ -13,7 +18,7 @@ cycle; if that can be detected, the calculation can be stopped early, as
 there's no way that the orbit can ever leave the cycle again (hence it cannot
 diverge, hence the point must be inside the set).
 
-Implementating this method efficiently is quite problematic. It slows down the
+Implementing this method efficiently is quite problematic. It slows down the
 cases where cycles are not found, because cycle-checking is quite hard work and
 has to take place for all points, even those that don't become cyclic. Because
 of the inexactness of floating-point calculations, the cycles are never exact,

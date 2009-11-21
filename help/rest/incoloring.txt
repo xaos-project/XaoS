@@ -12,6 +12,11 @@
 .. _in10:
 .. _in0:
 
+.. index::
+   pair: command line option; incoloring
+   pair: command; incoloring
+   pair: menu; Incoloring mode
+
 Inside coloring mode
 ====================
 

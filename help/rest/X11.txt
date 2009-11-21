@@ -1,5 +1,9 @@
 .. _X11:
 
+.. index::
+   pair: driver; X11
+   pair: platform; Unix
+
 X11 driver
 ==========
 

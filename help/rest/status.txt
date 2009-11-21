@@ -1,6 +1,11 @@
 .. _status:
 .. _animstatus:
 
+.. index::
+   pair: menu item; Status
+   pair: command line option; status
+   pair: command; status
+
 Status
 ======
 

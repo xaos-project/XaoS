@@ -1,5 +1,8 @@
 .. _renderanim:
 
+.. index::
+   pair: menu item; Render animation
+
 Render animation
 ================
 

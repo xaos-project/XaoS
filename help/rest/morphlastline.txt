@@ -1,5 +1,8 @@
 .. _morphlastline:
 
+.. index::
+   pair: command; morphlastline
+
 Morph last line
 ---------------
 

@@ -1,5 +1,8 @@
 .. _load:
 
+.. index::
+   pair: command; load
+
 Include file
 ============
 

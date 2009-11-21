@@ -1,5 +1,8 @@
 .. _ytextbottom:
 
+.. index::
+   pair: menu item; Bottom
+
 Bottom
 ======
 

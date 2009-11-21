@@ -1,5 +1,8 @@
 .. _undo:
 
+.. index::
+   pair: menu item; Undo
+
 Undo
 ====
 

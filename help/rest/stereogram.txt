@@ -1,5 +1,10 @@
 .. _stereogram:
 
+.. index::
+   pair: menu item; Random dot stereogram
+   pair: command line option; stereogram
+   pair: filter; Random dot stereogram
+
 Random dot stereogram
 =====================
 

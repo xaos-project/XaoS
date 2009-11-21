@@ -1,5 +1,10 @@
 .. _edge:
 
+.. index::
+   pair: command line option; edge
+   pair: menu item; Edge detection
+   pair: filter; Edge detection
+
 Edge detection
 ==============
 

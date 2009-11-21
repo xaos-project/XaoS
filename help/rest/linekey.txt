@@ -1,5 +1,8 @@
 .. _linekey:
 
+.. index::
+   pair: command; linekey
+
 Set line key
 ============
 

@@ -12,6 +12,11 @@
 .. _out10:
 .. _out0:
 
+.. index::
+   pair: command line option; outcoloring
+   pair: command; outcoloring
+   pair: menu; Outcoloring mode
+
 Outside coloring mode
 =====================
 

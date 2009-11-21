@@ -1,5 +1,7 @@
 .. _support:
 
+.. index:: Support, Home Page, Discussion Groups, Issue Tracker, Bugs
+
 Getting Support
 ===============
 

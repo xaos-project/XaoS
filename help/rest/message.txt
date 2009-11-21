@@ -1,5 +1,9 @@
 .. _message:
 
+.. index::
+   pair: command line option; message
+   pair: command; message
+
 Message
 =======
 

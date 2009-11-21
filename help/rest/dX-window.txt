@@ -1,5 +1,9 @@
 .. _dX-window:
 
+.. index::
+   pair: driver; DirectX windowed
+   pair: platform; Windows
+
 DirectX windowed driver
 =======================
 

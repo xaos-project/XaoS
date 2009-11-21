@@ -1,5 +1,10 @@
 .. _emboss:
 
+.. index::
+   pair: command line option; emboss
+   pair: menu item; Emboss
+   pair: filter; Emboss
+
 Emboss
 ======
 

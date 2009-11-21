@@ -1,7 +1,15 @@
 .. _about:
 
+.. index:: About Xaos, Credits, Included Software
+
 About XaoS
 ==========
+
+.. toctree::
+
+   background
+   gpl
+   volunteer
 
 XaoS is free software. You are welcome to redistribute it and/or modify it under the terms of
 the :ref:`GNU General Public License <gpl>`. In return, we need :ref:`volunteers <volunteer>` to help
@@ -154,9 +162,3 @@ libpng_
 
 .. _`GNU GPL version 3 or later`:
     http://gnu.org/licenses/gpl.html
-
-.. toctree::
-   :hidden:
-
-   gpl
-   volunteer

@@ -1,5 +1,10 @@
 .. _savepos:
 
+.. index::
+   pair: menu item; Save
+   pair: command line option; savepos
+   pair: command; savepos
+
 Save XaoS position file
 =======================
 

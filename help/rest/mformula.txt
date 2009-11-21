@@ -1,5 +1,8 @@
 .. _mformula:
 
+.. index::
+   pair: menu; Formulae
+
 formulae
 ========
 
@@ -7,7 +10,6 @@ Each escape time fractal has its own formula. XaoS supports the following
 formulae:
 
 .. toctree::
-   :maxdepth: 2
 
    mandel
    mandel3

@@ -1,4 +1,7 @@
-.. _xtexteight:
+.. _xtextright:
+
+.. index::
+   pair: menu item; Right
 
 Right
 =====

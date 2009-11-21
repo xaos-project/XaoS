@@ -1,5 +1,8 @@
 .. _wait:
 
+.. index:
+   pair: command; wait
+
 Wait for complete image
 =======================
 

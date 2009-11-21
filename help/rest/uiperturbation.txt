@@ -1,6 +1,11 @@
 .. _uiperturbation:
 .. _perturbation:
 
+.. index::
+   pair: menu item; Perturbation
+   pair: command line option; perturbation
+   pair: command; perturbation
+
 Perturbation
 ============
 

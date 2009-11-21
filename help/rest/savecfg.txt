@@ -1,5 +1,10 @@
 .. _savecfg:
 
+.. index::
+   pair: menu item; Save configuration
+   pair: command line option; savecfg
+   pair: command; savecfg
+
 Save configuration
 ==================
 

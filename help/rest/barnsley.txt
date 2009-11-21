@@ -1,5 +1,10 @@
 .. _barnsley:
 
+.. index::
+   pair: menu item; Barnsley1
+   pair: command line option; barnsley
+   pair: formula; Barnsley1
+
 Barnsley1
 =========
 

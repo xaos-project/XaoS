@@ -1,5 +1,8 @@
 .. _textsleep:
 
+.. index::
+   pair: command; textsleep
+
 Wait for text
 =============
 

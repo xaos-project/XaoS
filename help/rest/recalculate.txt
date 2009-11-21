@@ -1,5 +1,10 @@
 .. _recalculate:
 
+.. index::
+   pair: menu item; Recalculate
+   pair: command line option; recalculate
+   pair: command; recalculate
+
 Recalculate
 ===========
 

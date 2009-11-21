@@ -1,9 +1,14 @@
 .. _smoothmorph:
 
+.. index::
+   pair: command; morphview
+
 Smooth Morphing
 ===============
 
-**Syntax**:(morphview keystring starttime endtime) This function lets you
+**Syntax**:(morphview keystring starttime endtime) 
+
+This function lets you
 smoothly start and stop morphing. Specify starttime and stoptime as nonzero,
 and morphing will speed up and slow down for that number of usecs.
 

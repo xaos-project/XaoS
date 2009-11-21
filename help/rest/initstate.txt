@@ -1,5 +1,10 @@
 .. _initstate:
 
+.. index::
+   pair: menu item; Reset to defaults
+   pair: command line option; initstate
+   pair: command; initstate
+
 Reset to defaults
 =================
 

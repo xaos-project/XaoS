@@ -2,6 +2,11 @@
 .. _fshift:
 .. _bshift:
 
+.. index::
+   pair: menu item; Shift palette
+   pair: command line option; shiftpalette
+   pair: command; shiftpalette
+
 Shift palette
 =============
 

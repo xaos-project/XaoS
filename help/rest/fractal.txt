@@ -1,5 +1,8 @@
 .. _fractal:
 
+.. index::
+   pair: menu; Fractal
+
 Fractal
 =======
 
@@ -7,7 +10,6 @@ This menu contains all functions related to fractal parameters and display; you
 can change things like the formula used, coloring modes, seeds and much else.
 
 .. toctree::
-   :maxdepth: 2
 
    formula
    mformula

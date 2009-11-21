@@ -2,6 +2,13 @@
 .. _unzoom:
 .. _stop:
 
+.. index::
+   pair: functions; Zooming
+   pair: command; zoomcenter
+   pair: command; zoom
+   pair: command; unzoom
+   pair: command; stop
+
 Zooming functions
 =================
 

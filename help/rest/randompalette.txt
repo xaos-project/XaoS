@@ -1,5 +1,10 @@
 .. _randompalette:
 
+.. index::
+   pair: menu item; Random palette
+   pair: command line option; randompalette
+   pair: command; randompalette
+
 Random palette
 ==============
 

@@ -1,3 +1,7 @@
+.. index::
+   pair: driver; AA-lib
+   pair: platform; Unix
+
 .. _aa:
 
 AA-lib driver

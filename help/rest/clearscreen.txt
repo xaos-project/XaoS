@@ -1,5 +1,9 @@
 .. _clearscreen:
 
+.. index::
+   pair: menu item; Clear screen
+   pair: command; clearscreen
+
 Clear screen
 ============
 

@@ -1,5 +1,9 @@
 .. _dX-fullscreen:
 
+.. index::
+   pair: driver; DirectX fullscreen
+   pair: platform; Windows
+
 DirectX fullscreen driver
 =========================
 

@@ -1,12 +1,14 @@
 .. _misc:
 
+.. index::
+   pair: menu; Misc
+
 Misc
 ====
 
 Miscellaneous functions.
 
 .. toctree::
-   :maxdepth: 2
 
    command
    renderanim

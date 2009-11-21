@@ -1,5 +1,8 @@
 .. _ytextpos:
 
+.. index::
+   pair: menu; Vertical text position
+
 Vertical text position
 ======================
 
@@ -7,7 +10,6 @@ Select the vertical position used to display :ref:`text <text>`. It can be
 placed at the top, in the middle or at the bottom of the screen.
 
 .. toctree::
-   :maxdepth: 2
 
    ytextup
    ytextmiddle

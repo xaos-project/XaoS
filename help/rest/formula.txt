@@ -1,5 +1,8 @@
 .. _formula:
 
+.. index::
+   pair: command; formula
+
 Formula
 =======
 

@@ -1,5 +1,11 @@
 .. _textposition:
 
+.. index::
+   pair: menu; Horizontal text position
+   pair: menu; Vertical text position
+   pair: command line option; textposition
+   pair: command; textposition
+
 Text position
 =============
 

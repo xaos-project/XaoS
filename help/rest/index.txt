@@ -30,17 +30,13 @@ Welcome to XaoS - a real-time fractal zoomer.
 | An in-depth discussion of all of XaoS's commands.
 
 .. toctree::
-   :hidden:
 
-   background
+   about
    controls
    tutorial
-   start
+   support
    sffe
    video
    format
    drivers
    menus
-   support
-   about
-   devel

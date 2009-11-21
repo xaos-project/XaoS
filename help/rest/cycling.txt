@@ -1,3 +1,14 @@
+.. index::
+   pair: menu item; Color cycling
+   pair: command line option; cycling
+   pair: command; cycling
+   pair: menu item; Reversed color cycling
+   pair: command line option; rcycling
+   pair: command; rcycling
+   pair: menu item; Color cycling speed
+   pair: command; cyclingspeed
+   pair: command line option; cyclingspeed
+
 .. _cycling:
 .. _rcycling:
 .. _cyclingspeed:

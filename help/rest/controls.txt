@@ -1,5 +1,7 @@
 .. _controls:
 
+.. index:: Basic Controls
+
 Basic Controls
 ==============
 

@@ -1,5 +1,7 @@
 .. _drivers:
 
+.. index:: Platforms, Drivers
+
 Platform-specific documentation
 ===============================
 
@@ -8,7 +10,6 @@ are exactly the same, there are some differences between the behavior of XaoS
 on different platforms. Here is documentation about each specific port.
 
 .. toctree::
-	:maxdepth: 2
 
 	cocoa
 	win32

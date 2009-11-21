@@ -1,5 +1,10 @@
 .. _maxiter:
 
+.. index::
+   pair: menu item; Iterations
+   pair: command line option; maxiter
+   pair: command; maxiter 
+
 Iterations
 ==========
 

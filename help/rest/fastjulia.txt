@@ -1,5 +1,10 @@
 .. _fastjulia:
 
+.. index::
+   pair: menu item; Fast Julia mode
+   pair: command line option; fastjulia
+   pair: command; fastjulia
+
 Fast Julia mode
 ===============
 

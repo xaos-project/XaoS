@@ -2,6 +2,24 @@
 .. _mandel4:
 .. _mandel5:
 .. _mandel6:
+.. _mandel9:
+
+.. index::
+   pair: menu item; Mandelbrot^3
+   pair: formula; Mandelbrot^3
+   pair: command line option; mandel3
+   pair: menu item; Mandelbrot^4
+   pair: formula; Mandelbrot^4
+   pair: command line option; mandel4
+   pair: menu item; Mandelbrot^5
+   pair: formula; Mandelbrot^5
+   pair: command line option; mandel5
+   pair: menu item; Mandelbrot^6
+   pair: formula; Mandelbrot^6
+   pair: command line option; mandel6
+   pair: menu item; Mandelbrot^9
+   pair: formula; Mandelbrot^9
+   pair: command line option; mandel9
 
 Mandelbrot^3--Mandelbrot^6
 ==========================

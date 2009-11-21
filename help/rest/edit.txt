@@ -1,12 +1,14 @@
 .. _edit:
 
+.. index::
+   pair: menu; Edit
+
 Edit
 ====
 
 A fairly ordinary Edit menu.
 
 .. toctree::
-   :maxdepth: 2
 
    undo
    redo

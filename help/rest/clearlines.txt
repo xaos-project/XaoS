@@ -1,5 +1,8 @@
 .. _clearlines:
 
+.. index::
+   pair: command; clearlines
+
 Clear all lines
 ===============
 

@@ -1,5 +1,10 @@
 .. _defpalette:
 
+.. index::
+   pair: menu item; Default palette
+   pair: command line option; defaultpalette
+   pair: command; defaultpalette
+
 Default palette
 ===============
 

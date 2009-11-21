@@ -2,6 +2,13 @@
 .. _julia:
 .. _juliaseed:
 
+.. index::
+   pair: menu item; Mandelbrot mode
+   pair: command line option; julia
+   pair: command; julia
+   pair: command line option; juliaseed
+   pair: command; juliaseed
+
 Mandelbrot/Julia mode
 =====================
 

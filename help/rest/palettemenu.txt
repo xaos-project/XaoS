@@ -1,5 +1,8 @@
 .. _palettemenu:
 
+.. index::
+   pair: menu; Palette
+
 Palette
 =======
 
@@ -7,7 +10,6 @@ This menu contains functions to change the palette the fractal is displayed
 with.
 
 .. toctree::
-   :maxdepth: 2
 
    defpalette
    randompalette

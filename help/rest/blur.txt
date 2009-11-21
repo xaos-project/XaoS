@@ -1,5 +1,10 @@
 .. _blur:
 
+.. index::
+   pair: menu item; Motion blur
+   pair: command line option; blur
+   pair: filter; Motion blur
+
 Motion blur
 ===========
 

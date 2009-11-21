@@ -2,14 +2,26 @@
 .. _usrform:
 .. _usrformInit:
 
-Using user formulas
-===================
+.. index::
+   pair: menu item; User formula
+   pair: menu item; User initialization
+   pair: command; usrform
+   pair: command line option; usrform
+   pair: command; usrformInit
+   pair: command line option; usrformInit
+   single: sffe
+
+User Formulas
+=============
 
 XaoS supports entering your own custom formulas. Select User formula from the
 Fractal menu to define a custom fractal formula. Select User initialization to
 change the sequence starting point **z0**. By default **z0** is set to 0. User
 formulas should be interpreted as functions in the form **Z(n+1) = formula
 (Z(n), Z(n-1), C)**.
+
+Variables
+---------
 
 In user formulas, as shown above, three variables are available:
 
@@ -25,7 +37,14 @@ p
 
     previous sequence point Z(n-1)
 
+Constants
+---------
+
 Format for complex numbers is **{re;im}** eg. {3;2} is complex number 3+2i.
+
+
+Functions
+---------
 
 Available functions are listed below:
 

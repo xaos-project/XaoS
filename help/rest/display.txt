@@ -1,5 +1,9 @@
 .. _display:
 
+.. index::
+   pair: menu item; Display fractal
+   pair: command; display
+
 Display fractal
 ===============
 

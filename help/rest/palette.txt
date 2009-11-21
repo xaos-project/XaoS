@@ -1,16 +1,39 @@
 .. _palette:
 
-Palette emulator
-================
+.. index::
+   pair: menu item; Custom palette
+   pair: command line option; palette
+   pair: command; palette
 
-XaoS can work in either palette or :ref:`truecolor <truecolor>` mode. Both
-modes have advantages and disadvantages. Palette mode allows effects such as
-palette rotation, while truecolor mode allows smoother :ref:`incoloring
-<incoloring>` and :ref:`outcoloring <outcoloring>` modes and the
-:ref:`truecolor coloring <tcolor>` modes. If your display is truecolor, you can
-enable this filter to get palette emulation (albeit not as cheaply as in a real
-paletted mode).
+Custom palette
+==============
 
-:ref:`More information about filters <filter>`
+**Syntax**:(palette integer integer integer)
 
-**Available as**: menu item, command line option
+A custom palette lets you re-create some of the random palettes. The first value
+specifies the algorithm, which should currently be one of the following:
+
+0
+
+    Default palette
+
+1
+
+    Black to color gradient
+
+2
+
+    Black to color to white gradient
+
+3
+
+    Cubistic-like algorithm.
+
+The seed specifies a random seed for the palette; different seeds generate
+different palettes. The last value is the amount by which the palette is shifted.
+
+Note that changing the palette in the truecolor modes forces recalculation of
+the whole screen. To avoid this, you can enable the
+:ref:`palette emulation filter <palettef>` first.
+
+**Available as**: menu item, command line option, command

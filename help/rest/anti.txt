@@ -1,5 +1,10 @@
 .. _anti:
 
+.. index::
+   pair: command line option; anti
+   pair: menu item; Antialiasing
+   pair: filter; Anitaliasing
+
 Antialiasing
 ============
 

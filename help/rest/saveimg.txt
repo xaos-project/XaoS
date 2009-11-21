@@ -1,5 +1,10 @@
 .. _saveimg:
 
+.. index::
+   pair: menu item; Save image
+   pair: command line option; saveimg
+   pair: command; saveimg
+
 Save image
 ==========
 

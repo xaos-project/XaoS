@@ -12,6 +12,11 @@
 .. _guess9:
 .. _guessall:
 
+.. index::
+   pair: command line option; range
+   pair: command; range
+   pair: menu; Solid guessing
+
 Solid guessing range
 ====================
 

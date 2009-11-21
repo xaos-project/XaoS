@@ -1,7 +1,10 @@
 .. _format:
 
-XaoS's file format
-==================
+.. index::
+   pair: file; format
+
+File Format
+===========
 
 .. highlight:: scheme
 

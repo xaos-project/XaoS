@@ -1,5 +1,9 @@
 .. _win32:
 
+.. index::
+   pair: driver; Win32
+   pair: platform; Windows
+
 Win32 driver
 ============
 

@@ -1,5 +1,8 @@
 .. _paste:
 
+.. index::
+   pair: menu item; Paste
+
 Paste
 =====
 

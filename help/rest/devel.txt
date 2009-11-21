@@ -1,5 +1,7 @@
 .. _devel:
 
+.. index:: Development
+
 If you want to do some development, you are encouraged to send your work back
 to the :ref:`authors <about>`; if it is well done, it will be added to the next
 release. All changes should be submitted to the SourceForge patch tracker:
@@ -12,7 +14,6 @@ available), you could quite easily port it.
 
 
 .. toctree::
-   :hidden:
 
    writehelp
    xaosdev

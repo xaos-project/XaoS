@@ -1,5 +1,8 @@
 .. _animateview:
 
+.. index::
+   pair: command; animateview
+
 Animate view
 ============
 

@@ -1,5 +1,8 @@
 .. _morphline:
 
+.. index::
+   pair: command; morphline
+
 Morph line
 ----------
 

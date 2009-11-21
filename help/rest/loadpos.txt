@@ -1,5 +1,9 @@
 .. _loadpos:
 
+.. index::
+   pair: menu item; Load
+   pair: command line option; loadpos
+
 Load XaoS position file
 =======================
 

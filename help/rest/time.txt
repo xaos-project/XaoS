@@ -1,5 +1,8 @@
 .. _time:
 
+.. index::
+   pair: functions; Timing
+
 Timing functions
 ================
 
@@ -9,7 +12,6 @@ functions are controlled by such waiting; animations that are running while
 delays start keep running through the delay.
 
 .. toctree::
-   :maxdepth: 2
 
    usleep
    textsleep

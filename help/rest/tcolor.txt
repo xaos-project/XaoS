@@ -28,6 +28,14 @@
 .. _outt10:
 .. _outt11:
 
+.. index::
+   pair: menu; True-color outcoloring mode
+   pair: command line option; intcoloring
+   pair: command; intcoloring
+   pair: menu; True-color incoloring mode
+   pair: command line option; outtcoloring
+   pair: command; outtcoloring
+
 Truecolor coloring mode
 =======================
 

@@ -1,5 +1,8 @@
 .. _volunteer:
 
+.. index::
+   pair: Volunteer; Opportunities
+
 Volunteer Opportunities
 =======================
 

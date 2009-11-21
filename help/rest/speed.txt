@@ -2,6 +2,13 @@
 .. _speedup:
 .. _maxstep:
 
+.. index::
+   pair: menu item; Zooming speed
+   pair: command line option; speed
+   pair: command; speed
+   pair: command; maxstep
+   pair: command; speedup
+
 Zooming speed
 =============
 

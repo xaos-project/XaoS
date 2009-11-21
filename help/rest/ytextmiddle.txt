@@ -1,5 +1,8 @@
 .. _ytextmiddle:
 
+.. index::
+   pair: menu item; Middle
+
 Middle
 ======
 

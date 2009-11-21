@@ -1,5 +1,10 @@
+.. index:: Background
+
 Background
 ==========
+
+What is XaoS?
+-------------
 
 XaoS is a realtime interactive fractal zoomer. This means that it lets you
 zoom smoothly into any place in the fractal you choose without the many hours

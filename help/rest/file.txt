@@ -1,10 +1,12 @@
 .. _file:
 
+.. index::
+   pair: menu; File
+
 File
 ====
 
 .. toctree::
-   :maxdepth: 2
 
    loadpos
    savepos

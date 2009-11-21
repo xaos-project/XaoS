@@ -1,5 +1,8 @@
 .. _copy:
 
+.. index::
+   pair: menu item; Copy
+
 Copy
 ====
 

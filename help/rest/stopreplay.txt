@@ -1,5 +1,8 @@
 .. _stopreplay:
 
+.. index::
+   pair: menu item; Stop replay
+
 Stop replay
 ===========
 

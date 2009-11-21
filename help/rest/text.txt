@@ -1,15 +1,28 @@
 .. _text:
 
-Wait for text
-=============
+.. index::
+   pair: menu item; Display text
+   pair: command line option; text
+   pair: command; text
 
-**Syntax**:(textsleep)
+Display text
+============
 
-This function's behavior is very similar to :ref:`usleep <usleep>`, but the
-time is calculated from the number of letters currently displayed onscreen. If
-you want to wait just long enough for the user to read the subtitle, use this
-function. The user can alter the replay speed as desired using
-:ref:`letterspersec <letterspersec>`. This value can be changed during replay
-with the arrow keys.
+**Syntax**:(text string)
 
-**Available as**: command
+Display the given text on the screen. This function is mainly useful in tutorials.
+Text should be cleared by printing lots of spaces, or using the
+:ref:`clearscreen` or :ref:`display` functions. You might also want to use the 
+:ref:`textposition` function to select the part of the screen to display the text on.
+
+To wait for the user to read the text, you can use the :ref:`textsleep` function.
+
+Example::
+
+	(clearscreen)
+	(textposition 'center 'middle)
+	(text "Welcome into my animation")
+	(textsleep)
+	(display)
+
+**Available as**: menu item, command line option, command

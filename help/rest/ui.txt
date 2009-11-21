@@ -1,6 +1,9 @@
 .. _ui:
 .. _uia:
 
+.. index::
+   pair: menu; UI
+
 UI
 ==
 
@@ -8,7 +11,6 @@ This menu contains functions to control the user interface layer of XaoS:
 zooming speed, the autopilot, realtime status information, and so on.
 
 .. toctree::
-   :maxdepth: 2
 
    speed
    letterspersec

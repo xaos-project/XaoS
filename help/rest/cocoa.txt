@@ -1,7 +1,11 @@
 .. _cocoa:
 
-Mac OS X port
-=============
+.. index::
+   pair: driver; Cocoa
+   pair: platform; Mac OS X
+
+Mac OS X
+========
 
 XaoS has full support for Mac OS X including native menus, dialogs, help,
 Finder integration, drag and drop, and basic AppleScript support.

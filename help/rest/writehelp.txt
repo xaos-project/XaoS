@@ -1,5 +1,7 @@
 .. _documentation:
 
+.. index:: Documentation; Help; Sphinx; reStructuredText
+
 XaoS Documentation
 ==================
 

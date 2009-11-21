@@ -1,5 +1,8 @@
 .. _filter:
 
+.. index::
+   pair: command; filter
+
 Filter command
 ==============
 

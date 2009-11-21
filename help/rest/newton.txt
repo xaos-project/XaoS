@@ -1,5 +1,10 @@
 .. _newton:
 
+.. index::
+   pair: menu item; Newton
+   pair: command line option; newton
+   pair: formula; Newton
+
 Newton
 ======
 

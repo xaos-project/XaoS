@@ -1,5 +1,8 @@
 .. _gpl:
 
+.. index::
+   pair: license; GPL
+
 GNU GENERAL PUBLIC LICENSE
 ==========================
 

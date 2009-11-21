@@ -1,7 +1,9 @@
 .. _tutorial:
 
-XaoS tutorial
-=============
+.. index:: Tutorial, Features, Overview
+
+Feature Overview
+================
 
 This is a brief introduction to the basic XaoS features.
 

@@ -1,5 +1,10 @@
 .. _octal:
 
+.. index::
+   pair: menu item; Octal
+   pair: command line option; octal
+   pair: formula; Octal
+
 Octal
 =====
 

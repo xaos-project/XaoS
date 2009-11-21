@@ -2,6 +2,11 @@
 .. _quitmenu:
 .. _noquit:
 
+.. index::
+   pair: menu item; Quit
+   pair: command line option; quit
+   pair: command; quit
+
 Quit
 ====
 

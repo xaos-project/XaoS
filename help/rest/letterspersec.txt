@@ -1,6 +1,10 @@
 .. _letterspersec:
 .. _animletterspersec:
 
+.. index::
+   pair: command line option; letterspersec
+   pair: command; letterspersec
+
 Letters per second
 ==================
 

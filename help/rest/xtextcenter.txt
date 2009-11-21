@@ -1,5 +1,8 @@
 .. _xtextcenter:
 
+.. index::
+   pair: menu item; Center
+
 Center
 ======
 

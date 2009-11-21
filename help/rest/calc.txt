@@ -1,5 +1,8 @@
 .. _calc:
 
+.. index::
+   pair: menu; Calculation
+
 Calculation
 ===========
 
@@ -7,7 +10,6 @@ This menu contains functions that control calculation parameters such as the
 maximum iteration count and periodicity checking.
 
 .. toctree::
-   :maxdepth: 2
 
    range
    dynamic

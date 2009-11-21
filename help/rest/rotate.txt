@@ -6,6 +6,18 @@
 .. _autorotate:
 .. _fastrotate:
 
+.. index::
+   pair: menu; Rotation
+   pair: command line option; fastrotate
+   pair: command; fastrotate
+   pair: menu item; Continuous rotation
+   pair: command line option; autorotate
+   pair: command; autorotate
+   pair: menu item; Rotation speed
+   pair: command line option; rotationspeed
+   pair: command; rotationspeed
+
+
 Image rotation
 ==============
 
@@ -24,8 +36,9 @@ speed.
 
 **Syntax**:(fastrotate bool)
 
-This function is used to enable and disable fast rotation mode. **Available
-as**: command line option, command
+This function is used to enable and disable fast rotation mode. 
+
+**Available as**: command line option, command
 
 Automatic rotation
 ------------------

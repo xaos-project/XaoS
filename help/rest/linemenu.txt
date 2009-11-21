@@ -1,4 +1,9 @@
 .. _linemenu:
+.. _line:
+
+.. index::
+   pair: functions; Line drawing
+   pair: command; line
 
 Line drawing functions
 ======================
@@ -18,18 +23,23 @@ is identified by a unique numeric key; the current key can be set using
 linekey. Commands for changing lines operate on the line with the current key.
 (Lines drawn in sequence have consecutive numbers.)
 
-For example:
+For example::
 
-(color 'red) (line 'scaled 0.3 0.5 0.7 0.5) (line 'scaled 0.3 0.5 0.7 0.5)
-(line 'scaled 0.3 0.5 0.3 0.5) (line 'scaled 0.7 0.5 0.7 0.5) (linekey 0)
-(morphline 'scaled 0.3 0.3 0.7 0.3) (morphline 'scaled 0.3 0.7 0.7 0.7)
-(morphline 'scaled 0.3 0.3 0.3 0.7) (morphline 'scaled 0.7 0.3 0.7 0.7) (usleep
-1000000)
+	(color 'red) 
+	(line 'scaled 0.3 0.5 0.7 0.5) 
+	(line 'scaled 0.3 0.5 0.7 0.5)
+	(line 'scaled 0.3 0.5 0.3 0.5) 
+	(line 'scaled 0.7 0.5 0.7 0.5) 
+	(linekey 0)
+	(morphline 'scaled 0.3 0.3 0.7 0.3) 
+	(morphline 'scaled 0.3 0.7 0.7 0.7)
+	(morphline 'scaled 0.3 0.3 0.3 0.7) 
+	(morphline 'scaled 0.7 0.3 0.7 0.7) 
+	(usleep 1000000)
 
 Creates line morphing to rectangle.
 
 .. toctree::
-   :maxdepth: 2
 
    line
    morphline

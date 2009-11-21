@@ -12,6 +12,10 @@
 .. _plane9:
 .. _plane10:
 
+.. index::
+   pair: command line option; plane
+   pair: command; plane
+
 Plane
 =====
 

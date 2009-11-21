@@ -1,5 +1,7 @@
 .. _menus:
 
+.. index:: Menus, Functions, Command Line Parameters
+
 Menus, functions and command line parameters
 ============================================
 
@@ -9,7 +11,6 @@ This section contains information about all functions available in this
 registry.
 
 .. toctree::
-   :maxdepth: 2
 
    root
    animroot
