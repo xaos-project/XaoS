@@ -1616,6 +1616,11 @@ static void ui_mkimages(int w, int h)
 void ui_resize(void)
 {
     int w, h;
+    
+    /* Prevent crash on startup for Mac OS X */
+    if (!uih)
+	return;
+    
     if (uih->incalculation) {
 	uih_interrupt(uih);
 	return;
