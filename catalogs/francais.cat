@@ -208,7 +208,7 @@ bail6 "Ceci permet aussi de créer les zones
 colorées entourant l'ensemble."
 bail7 "Celles-ci sont colorées en fonction
 du nombre d'itérations de l'orbite 
-nécessaires needed pour tomber dans la
+nécessaires pour tomber dans la
 \"zone d'abandon\" (extérieur du cercle 
 de rayon 2)."
 
