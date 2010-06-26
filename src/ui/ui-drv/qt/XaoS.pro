@@ -17,13 +17,16 @@ SOURCES += main.cpp \
     customdialog.cpp
 HEADERS += mainwindow.h \
     fractalwidget.h \
-    customdialog.h
+    customdialog.h \
+    config.h \
+    aconfig.h \
+    version.h
+
 include($$PWD/../../../engine/engine.pri)
 include($$PWD/../../../filter/filter.pri)
 include($$PWD/../../../ui/ui.pri)
 include($$PWD/../../../ui/ui-drv/qt/qt.pri)
 include($$PWD/../../../ui-hlp/ui-hlp.pri)
 include($$PWD/../../../util/util.pri)
-include($$PWD/config.pri)
 include($$PWD/../../../sffe/sffe.pri)
 include($$PWD/../../../include/include.pri)

@@ -21,6 +21,10 @@ SOURCES += \
     $$PWD/julia.c \
     $$PWD/i386.c
 
+HEADERS += \
+    $$PWD/calculate.h \
+    $$PWD/julia.h
+
 OTHER_FILES += \
     $$PWD/3dd.c \
     $$PWD/btraced.c \

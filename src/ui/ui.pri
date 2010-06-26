@@ -8,3 +8,6 @@ SOURCES += \
     $$PWD/uimenu.c \
     $$PWD/pipecmd.c \
     $$PWD/dialog.c
+
+HEADERS += \
+    $$PWD/uiint.h
