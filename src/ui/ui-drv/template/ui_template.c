@@ -28,7 +28,7 @@ void template_free_buffers(char *b1, char *b2)
 {
 }
 
-int template_alloc_buffers(char **b1, char **b2)
+int template_alloc_buffers(char **b1, char **b2, void **data)
 {
     return 1;			/* bytes per scanline */
 }

@@ -1371,7 +1371,7 @@ static void win32_display()
     ReleaseDC(hWnd, hDC);
 }
 
-static int win32_alloc_buffers(char **b1, char **b2)
+static int win32_alloc_buffers(char **b1, char **b2, void **data)
 {
     currentbuff = 0;
     // calculate DWORD aligned line length

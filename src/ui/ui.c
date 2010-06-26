@@ -1564,6 +1564,7 @@ static void ui_mkimages(int w, int h)
     int width, height;
     union paletteinfo info;
     char *b1, *b2;
+    void *data;
     width = w;
     height = h;
     if (resizeregistered && !(driver->flags & RESIZE_COMMAND)) {
@@ -1575,7 +1576,7 @@ static void ui_mkimages(int w, int h)
 	    resizeregistered = 1;
 	}
     }
-    if (!(scanline = driver->alloc_buffers(&b1, &b2))) {
+    if (!(scanline = driver->alloc_buffers(&b1, &b2, &data))) {
 	driver->uninit();
 	x_error(gettext("Can not allocate buffers"));
 	ui_outofmem();
@@ -1611,6 +1612,7 @@ static void ui_mkimages(int w, int h)
 	ui_outofmem();
 	exit_xaos(-1);
     }
+    image->data = data;
 }
 
 void ui_resize(void)

@@ -98,7 +98,7 @@ extern "C" {
 		/*sets palette color and returns number */
 		void (*print) (int, int, CONST char *);	/*prints text */
 		void (*display) (void);	/*displays bitmap */
-		int (*alloc_buffers) (char **buffer1, char **buffer2);	/*makes buffers */
+                int (*alloc_buffers) (char **buffer1, char **buffer2, void **data);	/*makes buffers */
 		void (*free_buffers) (char *buffer1, char *buffer2);	/*frees buffers */
 		void (*flip_buffers) (void);	/*prints text */
 		void (*mousetype) (int type);

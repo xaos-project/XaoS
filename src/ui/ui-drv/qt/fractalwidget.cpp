@@ -151,6 +151,11 @@ char *FractalWidget::imageBuffer2()
     return (char *)m_image[1]->bits();
 }
 
+void *FractalWidget::imagePointer()
+{
+    return m_image;
+}
+
 int FractalWidget::imageBytesPerLine()
 {
     return m_image[0]->bytesPerLine();

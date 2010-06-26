@@ -39,6 +39,7 @@ public:
 
     char *imageBuffer1();
     char *imageBuffer2();
+    void *imagePointer();
     int imageBytesPerLine();
     QSize imageSize();
 
