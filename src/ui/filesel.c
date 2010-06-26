@@ -53,7 +53,7 @@ static int filex, filey, filewidth, fileheight;
 
 #define LISTWIDTH ((filewidth-10*BORDERWIDTH-2*SCROLLWIDTH)/2)
 
-#define NVISIBLE ((LISTEND-LISTSTART-2*BORDERHEIGHT)/xtextheight(uih->font))
+#define NVISIBLE ((LISTEND-LISTSTART-2*BORDERHEIGHT)/grlib.xtextheight(uih->font))
 
 static int selectedname;
 static int selecteddir;
@@ -101,7 +101,7 @@ static char **ui_mksnames(int nnames, char **names, int width)
 						   void *))strcmp */ compar);
 	snames = (char **) malloc(sizeof(*snames) * nnames);
 	for (i = 0; i < nnames; i++) {
-	    if (xtextwidth(uih->font, names[i]) <= width)
+	    if (grlib.xtextwidth(uih->font, names[i]) <= width)
 		snames[i] = mystrdup(names[i]);
 	    else {
 		int y;
@@ -109,12 +109,12 @@ static char **ui_mksnames(int nnames, char **names, int width)
 		int len = (int) strlen(names[i]);
 		snames[i] = (char *) malloc(strlen(names[i]) + 2);
 		for (y = len - 4; y < len; y++)
-		    swidth += xtextcharw(uih->font, names[i][y]);
-		swidth += xtextcharw(uih->font, '|');
+		    swidth += grlib.xtextcharw(uih->font, names[i][y]);
+		swidth += grlib.xtextcharw(uih->font, '|');
 		y = 0;
 		while (swidth < width) {
 		    snames[i][y] = names[i][y];
-		    swidth += xtextcharw(uih->font, names[i][y]);
+		    swidth += grlib.xtextcharw(uih->font, names[i][y]);
 		    y++;
 		}
 		snames[i][y - 1] = '|';
@@ -170,7 +170,7 @@ static void drawfile(uih_context * c, void *data)
 {
     int i;
     int ypos;
-    int h = xtextheight(uih->font);
+    int h = grlib.xtextheight(uih->font);
     uih_drawborder(uih, filex + BORDERWIDTH, DIRSTART,
 		   filewidth - 2 * BORDERWIDTH, BUTTONHEIGHT,
 		   BORDER_PRESSED | BORDER_LIGHT);
@@ -195,20 +195,20 @@ static void drawfile(uih_context * c, void *data)
     ypos = LISTSTART + BORDERHEIGHT;
     for (i = 0; ypos + h < LISTEND && i + namestart < nnames; i++) {
 	if (i + namestart == selectedname) {
-	    xrectangle(uih->image, filex + 2 * BORDERWIDTH, ypos,
+	    grlib.xrectangle(uih->image, filex + 2 * BORDERWIDTH, ypos,
 		       LISTWIDTH, h,
 		       (uih->palette->
 			type & BITMAPS) ? BGCOLOR(uih) :
 		       LIGHTGRAYCOLOR(uih));
 	}
 	if (uih->palette->type & BITMAPS)
-	    xprint(uih->image, uih->font, filex + 2 * BORDERWIDTH, ypos,
+	    grlib.xprint(uih->image, uih->font, filex + 2 * BORDERWIDTH, ypos,
 		   snames[i + namestart], 
 		   i + namestart ==
 		   selectedname ? FGCOLOR(uih) : BGCOLOR(uih),
 		   BGCOLOR(uih), TEXT_PRESSED);
 	else
-	    xprint(uih->image, uih->font, filex + 2 * BORDERWIDTH, ypos,
+	    grlib.xprint(uih->image, uih->font, filex + 2 * BORDERWIDTH, ypos,
 		   snames[i + namestart], 
 		   (i + namestart) == selectedname
 		   && active == AFILELIST ? SELCOLOR(uih) : FGCOLOR(uih),
@@ -229,20 +229,20 @@ static void drawfile(uih_context * c, void *data)
     ypos = LISTSTART + BORDERHEIGHT;
     for (i = 0; ypos + h < LISTEND && i + dirstart < ndirs; i++) {
 	if (i + dirstart == selecteddir) {
-	    xrectangle(uih->image, filex + filewidth / 2 + 2 * BORDERWIDTH,
+	    grlib.xrectangle(uih->image, filex + filewidth / 2 + 2 * BORDERWIDTH,
 		       ypos, LISTWIDTH, h,
 		       (uih->palette->type & BITMAPS) ? BGCOLOR(uih) :
 		       LIGHTGRAYCOLOR(uih));
 	}
 	if (uih->palette->type & BITMAPS)
-	    xprint(uih->image, uih->font,
+	    grlib.xprint(uih->image, uih->font,
 		   filex + filewidth / 2 + 2 * BORDERWIDTH, ypos,
 		   sdirs[i + dirstart], 
 		   i + dirstart ==
 		   selecteddir ? FGCOLOR(uih) : BGCOLOR(uih), BGCOLOR(uih),
 		   TEXT_PRESSED);
 	else
-	    xprint(uih->image, uih->font,
+	    grlib.xprint(uih->image, uih->font,
 		   filex + filewidth / 2 + 2 * BORDERWIDTH, ypos,
 		   sdirs[i + dirstart], 
 		   (i + dirstart) == selecteddir
@@ -591,7 +591,7 @@ int ui_mousefilesel(int x, int y, int buttons, int flags)
 	    if (flags & MOUSE_PRESS) {
 		int atitem =
 		    (y - LISTSTART -
-		     BORDERHEIGHT) / xtextheight(uih->font);
+		     BORDERHEIGHT) / grlib.xtextheight(uih->font);
 		if (atitem < 0)
 		    atitem = 0;
 		if (!mouseat) {

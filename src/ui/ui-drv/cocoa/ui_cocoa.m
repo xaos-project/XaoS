@@ -176,6 +176,7 @@ cocoa_showHelp (struct uih_context *c, CONST char *name)
 int 
 main(int argc, char* argv[])
 {
+	register_grlib_cocoa();
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     [NSApplication sharedApplication];
     [NSBundle loadNibNamed:@"MainMenu" owner:NSApp];

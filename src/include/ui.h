@@ -22,17 +22,17 @@
 #ifndef UI_H
 #define UI_H
 /*
-#include "xio.h"
-#include "zoom.h"
-*/
+ #include "xio.h"
+ #include "zoom.h"
+ */
 #include "config.h"
 #include "param.h"
 #include "xmenu.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-
+	
+	
 #undef BUTTON1
 #undef BUTTON2
 #undef BUTTON3
@@ -50,13 +50,13 @@ extern "C" {
 #define UI_LIBITMAP 1024
 #define UI_MIBITMAP 2048
 #define UI_FIXEDCOLOR 4096
-
-
+	
+	
 #define NORMALMOUSE 0
 #define WAITMOUSE 1
 #define REPLAYMOUSE 2
 #define VJMOUSE 3
-
+	
 #define UIKEY_UP 257
 #define UIKEY_DOWN 258
 #define UIKEY_LEFT 259
@@ -68,60 +68,60 @@ extern "C" {
 #define UIKEY_END 263
 #define UIKEY_PGUP 264
 #define UIKEY_PGDOWN 265
-
+	
     typedef unsigned char ui_rgb[4];
     typedef ui_rgb *ui_palette;
     struct uih_context;
     struct gui_driver {
-	void (*setrootmenu) (struct uih_context * c, CONST char *name);
-	void (*enabledisable) (struct uih_context * c, CONST char *name);
-	void (*menu) (struct uih_context * c, CONST char *name);
-	void (*dialog) (struct uih_context * c, CONST char *name);
-	void (*help) (struct uih_context * c, CONST char *name);
+		void (*setrootmenu) (struct uih_context * c, CONST char *name);
+		void (*enabledisable) (struct uih_context * c, CONST char *name);
+		void (*menu) (struct uih_context * c, CONST char *name);
+		void (*dialog) (struct uih_context * c, CONST char *name);
+		void (*help) (struct uih_context * c, CONST char *name);
     };
     struct ui_driver {
-	CONST char *name;
-	int (*init) (void);	/*initializing function. recturns 0 if fail */
-	void (*getsize) (int *, int *);	/*get current size..in fullscreen versions
-					   i.e svga and dos asks user for it */
-	void (*processevents) (int, int *, int *, int *, int *);
-	/*processevents..calls ui_resize,ui_key
-	   laso returns possitions of mouse..
-	   waits for event if first parameter is
-	   1 */
-	void (*getmouse) (int *, int *, int *);
-	/*returns current mouse possitions */
-	void (*uninit) (void);
-	/*called before exit */
-	int (*set_color) (int, int, int, int);
-	void (*set_range) (ui_palette palette, int, int);
-	/*sets palette color and returns number */
-	void (*print) (int, int, CONST char *);	/*prints text */
-	void (*display) (void);	/*displays bitmap */
-	int (*alloc_buffers) (char **buffer1, char **buffer2);	/*makes buffers */
-	void (*free_buffers) (char *buffer1, char *buffer2);	/*frees buffers */
-	void (*flip_buffers) (void);	/*prints text */
-	void (*mousetype) (int type);
-	void (*flush) (void);
-	int textwidth;
-	int textheight;		/*width of text */
-	/*int helpsize; */
-	CONST struct params *params;
-	int flags;
-	float width, height;
-	int maxwidth, maxheight;
-	int imagetype;
-	int palettestart, paletteend, maxentries;
-	int rmask, gmask, bmask;
-	CONST struct gui_driver *gui_driver;
+		CONST char *name;
+		int (*init) (void);	/*initializing function. recturns 0 if fail */
+		void (*getsize) (int *, int *);	/*get current size..in fullscreen versions
+										 i.e svga and dos asks user for it */
+		void (*processevents) (int, int *, int *, int *, int *);
+		/*processevents..calls ui_resize,ui_key
+		 laso returns possitions of mouse..
+		 waits for event if first parameter is
+		 1 */
+		void (*getmouse) (int *, int *, int *);
+		/*returns current mouse possitions */
+		void (*uninit) (void);
+		/*called before exit */
+		int (*set_color) (int, int, int, int);
+		void (*set_range) (ui_palette palette, int, int);
+		/*sets palette color and returns number */
+		void (*print) (int, int, CONST char *);	/*prints text */
+		void (*display) (void);	/*displays bitmap */
+		int (*alloc_buffers) (char **buffer1, char **buffer2);	/*makes buffers */
+		void (*free_buffers) (char *buffer1, char *buffer2);	/*frees buffers */
+		void (*flip_buffers) (void);	/*prints text */
+		void (*mousetype) (int type);
+		void (*flush) (void);
+		int textwidth;
+		int textheight;		/*width of text */
+		/*int helpsize; */
+		CONST struct params *params;
+		int flags;
+		float width, height;
+		int maxwidth, maxheight;
+		int imagetype;
+		int palettestart, paletteend, maxentries;
+		int rmask, gmask, bmask;
+		CONST struct gui_driver *gui_driver;
     };
-
+	
     extern struct uih_context *globaluih;
-
+	
 #ifdef USE_LOCALEPATH
     extern char *localepath;
 #endif
-
+	
     number_t ui_getfloat(CONST char *text);
     void ui_resize(void);
     void ui_call_resize(void);
@@ -134,9 +134,9 @@ extern "C" {
     void ui_help(CONST char *name);
     char *ui_getpos(void);
     int MAIN_FUNCTION(int argc, char **argv);
-
-
-
+	
+	
+	
 #ifndef RANDOM_PALETTE_SIZE
 #define RANDOM_PALETTE_SIZE 1	/*FIXME currently ignored */
 #define FULLSCREEN 2
@@ -153,7 +153,7 @@ extern "C" {
 #define NOFLUSHDISPLAY 2048
 #define AALIB	(4096*2)
 #define RESIZE_COMMAND (4096*4)
-
+	
 #ifdef __cplusplus
 }
 #endif

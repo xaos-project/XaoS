@@ -26,7 +26,7 @@
 
 #import "FractalView.h"
 #include "ui.h"
-@ class VideatorProxy;
+@class VideatorProxy;
 
 @interface AppController:NSObject {
     FractalView *view;

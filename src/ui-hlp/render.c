@@ -248,7 +248,7 @@ uih_renderanimation(struct uih_context *gc1, CONST char *basename,
 	createpalette(0, 0, type, 0, 0, NULL, NULL, NULL, NULL, NULL);
     struct image *img;
     xio_file of;
-    FILE *f;
+    /*FILE *f;*/
     xio_file af;
     char s[200];
     int lastframenum = -1;
@@ -508,7 +508,7 @@ uih_renderanimation(struct uih_context *gc1, CONST char *basename,
 		curframe.name = s;
 		curframe.newimage = newimage;
 
-
+		/*
 		f = fopen(s, "wb");
 		if (f == NULL) {
 		    error(gettext("Cannot open image file"));
@@ -524,7 +524,8 @@ uih_renderanimation(struct uih_context *gc1, CONST char *basename,
 		    xio_close(patf);
 		    return 0;
 		}
-		writepng(f, uih->image);
+		*/
+		writepng(s, uih->image);
 		printmsg(gettext(" done."));
 		uih_displayed(uih);
 		lastframenum = framenum;

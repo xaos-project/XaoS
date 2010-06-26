@@ -67,10 +67,10 @@ int ui_nmenus;
 #define MENU_PRESSED 2
 #define MENU_AUTOHIDE 4
 
-#define SUBMENUWIDTH xtextwidth(uih->font, ">")
-#define MENUPAUSE xtextwidth(uih->font, "X")
-#define MENUWIDTH(a) (xtextwidth(uih->font, "w")+MENUPAUSE+xtextwidth(uih->font, a)+SUBMENUWIDTH)
-#define HMENUWIDTH(a) (xtextwidth(uih->font, a)+xtextwidth(uih->font, "  "))
+#define SUBMENUWIDTH grlib.xtextwidth(uih->font, ">")
+#define MENUPAUSE grlib.xtextwidth(uih->font, "X")
+#define MENUWIDTH(a) (grlib.xtextwidth(uih->font, "w")+MENUPAUSE+grlib.xtextwidth(uih->font, a)+SUBMENUWIDTH)
+#define HMENUWIDTH(a) (grlib.xtextwidth(uih->font, a)+grlib.xtextwidth(uih->font, "  "))
 
 #define SEPARATORSIZE 6
 static struct ui_menuitems *ui_getmenuitems(CONST char *name, int *width1,
@@ -88,7 +88,7 @@ static struct ui_menuitems *ui_getmenuitems(CONST char *name, int *width1,
 	    nseparators++;
     n -= nseparators;
     *n1 = n;
-    *height1 = n * xtextheight(uih->font) + nseparators * SEPARATORSIZE;
+    *height1 = n * grlib.xtextheight(uih->font) + nseparators * SEPARATORSIZE;
     items =
 	(struct ui_menuitems *) malloc(n * sizeof(struct ui_menuitems));
     nseparators = 0;
@@ -109,18 +109,18 @@ static struct ui_menuitems *ui_getmenuitems(CONST char *name, int *width1,
 	    if (items[i].item->key) {
 		char c[10];
 		sprintf(c, "(%s)", items[i].item->key);
-		w += xtextwidth(uih->font, c);
+		w += grlib.xtextwidth(uih->font, c);
 	    }
 	} else {
 	    w = MENUWIDTH(items[i].item->name);
 	    if (items[i].item->key) {
 		char c[10];
 		sprintf(c, " %s ", items[i].item->key);
-		w += xtextwidth(uih->font, c);
+		w += grlib.xtextwidth(uih->font, c);
 	    }
 	}
 	items[i].width = w;
-	items[i].height = xtextheight(uih->font) + 1;
+	items[i].height = grlib.xtextheight(uih->font) + 1;
 	if (w > width)
 	    width = w;
     }
@@ -142,11 +142,11 @@ static void ui_drawmenu(uih_context * c, void *data)
 {
     struct ui_menu *m = (struct ui_menu *) data;
     int i;
-    int width1 = xtextwidth(c->font, "w");
+    int width1 = grlib.xtextwidth(c->font, "w");
     char s[2];
     s[1] = 0;
     if (!(m->flags & MENU_HORIZONTAL))
-	xprint(c->image, c->font, m->x + (m->width - m->namewidth) / 2,
+	grlib.xprint(c->image, c->font, m->x + (m->width - m->namewidth) / 2,
 	       m->y + BORDERWIDTH, m->fullname, SELCOLOR(c),
 	       BGCOLOR(c), 0);
     for (i = 0; i < m->n; i++) {
@@ -155,15 +155,15 @@ static void ui_drawmenu(uih_context * c, void *data)
 	if ((uih->palette->type & BITMAPS) && i == m->selected) {
 	    pressed = TEXT_PRESSED;
 	    color = BGCOLOR(c);
-	    xrectangle(uih->image, m->items[i].x, m->items[i].y,
+	    grlib.xrectangle(uih->image, m->items[i].x, m->items[i].y,
 		       m->items[i].width, m->items[i].height, FGCOLOR(c));
 	}
 	if (!(m->flags & MENU_HORIZONTAL)) {
 	    if (m->items[i].separator) {
-		xhline(c->image, m->x + 5,
+		grlib.xhline(c->image, m->x + 5,
 		       m->items[i].y - 2 - SEPARATORSIZE / 2,
 		       m->width - 10, BGCOLOR(c));
-		xhline(c->image, m->x + 5,
+		grlib.xhline(c->image, m->x + 5,
 		       m->items[i].y - 1 - SEPARATORSIZE / 2,
 		       m->width - 10, LIGHTGRAYCOLOR(c));
 	    }
@@ -171,39 +171,39 @@ static void ui_drawmenu(uih_context * c, void *data)
 		s[0] = '0' + (i == 9 ? 0 : i + 1);
 	    else
 		s[0] = 'A' + (i - 10);
-	    xprint(c->image, c->font, m->items[i].x, m->items[i].y, s,
+	    grlib.xprint(c->image, c->font, m->items[i].x, m->items[i].y, s,
 		   color, BGCOLOR(c), pressed);
 	    if (menu_enabled(m->items[i].item, uih)) {
-		xprint(c->image, c->font, m->items[i].x + width1,
+		grlib.xprint(c->image, c->font, m->items[i].x + width1,
 		       m->items[i].y, "X", color, BGCOLOR(c),
 		       pressed);
 	    }
-	    xprint(c->image, c->font, m->items[i].x + width1 + MENUPAUSE,
+	    grlib.xprint(c->image, c->font, m->items[i].x + width1 + MENUPAUSE,
 		   m->items[i].y, m->items[i].item->name,
 		   color, BGCOLOR(c), pressed);
 	    if (m->items[i].item->key) {
 		char ch[20];
 		sprintf(ch, " %s ", m->items[i].item->key);
-		xprint(c->image, c->font,
+		grlib.xprint(c->image, c->font,
 		       m->items[i].x + m->items[i].width - SUBMENUWIDTH -
-		       xtextwidth(uih->font, ch), m->items[i].y, ch,
+		       grlib.xtextwidth(uih->font, ch), m->items[i].y, ch,
 		       LIGHTGRAYCOLOR(c), BGCOLOR(c),
 		       pressed);
 	    }
 	    if (m->items[i].item->type == MENU_SUBMENU)
-		xprint(c->image, c->font,
+		grlib.xprint(c->image, c->font,
 		       m->items[i].x + m->items[i].width - SUBMENUWIDTH,
 		       m->items[i].y, ">", color, BGCOLOR(c),
 		       pressed);
 	} else {
-	    xprint(c->image, c->font, m->items[i].x, m->items[i].y,
+	    grlib.xprint(c->image, c->font, m->items[i].x, m->items[i].y,
 		   m->items[i].item->name, color, BGCOLOR(c),
 		   pressed);
 	    if (m->items[i].item->key) {
 		char ch[20];
 		sprintf(ch, "%s", m->items[i].item->key);
-		xprint(c->image, c->font,
-		       m->items[i].x + xtextwidth(uih->font,
+		grlib.xprint(c->image, c->font,
+		       m->items[i].x + grlib.xtextwidth(uih->font,
 						  m->items[i].item->name) +
 		       2, m->items[i].y, ch,
 		       LIGHTGRAYCOLOR(c), BGCOLOR(c), pressed);
@@ -217,7 +217,7 @@ static struct ui_menu *ui_buildmenu(CONST char *name, int x, int y,
 {
     int shift = 0;
     int width, height;
-    int textheight = xtextheight(uih->font);
+    int textheight = grlib.xtextheight(uih->font);
     struct ui_menu *menu;
     int i;
     menu = (struct ui_menu *) malloc(sizeof(*menu));
@@ -230,12 +230,12 @@ static struct ui_menu *ui_buildmenu(CONST char *name, int x, int y,
     menu->selected = -1;
     menu->fullname = menu_fullname(name);
     menu->name = name;
-    menu->namewidth = xtextwidth(uih->font, menu->fullname);
+    menu->namewidth = grlib.xtextwidth(uih->font, menu->fullname);
     if (!(menu->flags & MENU_HORIZONTAL)) {
 	if (menu->namewidth > width)
 	    width = menu->namewidth;
 	width += 2 * BORDERWIDTH;
-	height += 2 * BORDERHEIGHT + xtextheight(uih->font);
+	height += 2 * BORDERHEIGHT + grlib.xtextheight(uih->font);
 	if (x + width > uih->image->width)
 	    x = uih->image->width - width;
 	if (y + height > uih->image->height)
@@ -443,7 +443,7 @@ int ui_menumouse(int x, int y, int mousebuttons, int flags)
     } else {
 	if (!ui_nogui &&
 	    (!driver->gui_driver || !driver->gui_driver->setrootmenu) &&
-	    (flags & MOUSE_MOVE) && y < xtextheight(uih->font) + 1
+	    (flags & MOUSE_MOVE) && y < grlib.xtextheight(uih->font) + 1
 	    && !(mousebuttons))
 	    ui_openmenu(uih->menuroot, 0, 0,
 			MENU_HORIZONTAL | MENU_AUTOHIDE);

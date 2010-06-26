@@ -364,7 +364,7 @@ static int skip(CONST char *text)
 }
 
 #ifdef HAVE_GETTEXT
-int
+static int
 xiconv(int encoding, char *out, int *outlen, const char *in, int *inlen)
 {
     /* 
@@ -410,9 +410,9 @@ xiconv(int encoding, char *out, int *outlen, const char *in, int *inlen)
 }
 #endif
 
-#ifndef PLATFORM_TEXT_RENDERING
+//#ifndef PLATFORM_TEXT_RENDERING
 
-int
+static int
 xprint(struct image *image, CONST struct xfont *current, int x, int y,
        CONST char *text, int fgcolor, int bgcolor, int mode)
 {
@@ -520,7 +520,7 @@ xprint(struct image *image, CONST struct xfont *current, int x, int y,
     return skip(intext); 
 }
 
-int xtextwidth(CONST struct xfont *font, CONST char *text)
+static int xtextwidth(CONST struct xfont *font, CONST char *text)
 {
     int i;
 #ifdef HAVE_GETTEXT
@@ -540,19 +540,19 @@ int xtextwidth(CONST struct xfont *font, CONST char *text)
     return (i * font->width + 1);
 }
 
-int xtextheight(CONST struct xfont *font) 
+static int xtextheight(CONST struct xfont *font) 
 {
     return font->height+1;
 }
 
-int xtextcharw(CONST struct xfont *font, CONST char c)
+static int xtextcharw(CONST struct xfont *font, CONST char c)
 {
     return font->width;
 }
 
-#endif
+//#endif /* PLATFORM_TEXT_RENDERING */
 
-void xhline(struct image *image, int x, int y, int width, int fgcolor)
+static void xhline(struct image *image, int x, int y, int width, int fgcolor)
 {
     /*Do some clipping */
     if (x + width < 0 || y < 0 || y >= image->height || x >= image->width)
@@ -588,7 +588,7 @@ void xhline(struct image *image, int x, int y, int width, int fgcolor)
     }
 }
 
-void xvline(struct image *image, int x, int y, int height, int fgcolor)
+static void xvline(struct image *image, int x, int y, int height, int fgcolor)
 {
     /*Do some clipping */
     if (x < 0 || y + height < 0 || y >= image->height || x >= image->width)
@@ -624,7 +624,7 @@ void xvline(struct image *image, int x, int y, int height, int fgcolor)
     }
 }
 
-void
+static void
 xrectangle(struct image *image, int x, int y, int width, int height,
 	   int fgcolor)
 {
@@ -770,7 +770,7 @@ static inline int regioncode(struct image *img, const int x, const int y)
     swap(y1,y2);   \
   }
 
-void xline(struct image *img, int x1, int y1, int x2, int y2, int color)
+static void xline(struct image *img, int x1, int y1, int x2, int y2, int color)
 {
     doclip(return);
     if (x1 == x2) {
@@ -851,7 +851,7 @@ void xline(struct image *img, int x1, int y1, int x2, int y2, int color)
     }
 }
 
-char *xsaveline(struct image *img, int x1, int y1, int x2, int y2)
+static char *xsaveline(struct image *img, int x1, int y1, int x2, int y2)
 {
     doclip(return (NULL));
     if (y1 == y2) {
@@ -905,7 +905,7 @@ char *xsaveline(struct image *img, int x1, int y1, int x2, int y2)
     return NULL;
 }
 
-void xprepareimage(struct image *img)
+static void xprepareimage(struct image *img)
 {
     if (img->flags & AAIMAGE) {
 	memset(aa_colordata, (char) 255, img->width * img->height / 4);
@@ -914,7 +914,7 @@ void xprepareimage(struct image *img)
     aa_cursory = -1;
 }
 
-void xdrawcursor(struct image *img, int x, int y, int color, int height)
+static void xdrawcursor(struct image *img, int x, int y, int color, int height)
 {
     if (img->flags & AAIMAGE) {
 	aa_cursorx = x / 2;
@@ -928,7 +928,7 @@ void xdrawcursor(struct image *img, int x, int y, int color, int height)
     }
 }
 
-void
+static void
 xrestoreline(struct image *img, char *data, int x1, int y1, int x2, int y2)
 {
     doclip(return);
@@ -993,3 +993,19 @@ xrestoreline(struct image *img, char *data, int x1, int y1, int x2, int y2)
     }
     return;
 }
+
+struct grlib_driver grlib = 
+{
+	xprint,
+	xtextwidth,
+	xtextheight,
+	xtextcharw,
+	xrectangle,
+	xvline,
+	xhline,
+	xsaveline,
+	xrestoreline,
+	xline,
+	xprepareimage,
+	xdrawcursor
+};

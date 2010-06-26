@@ -1,5 +1,4 @@
 #include <config.h>
-#ifdef PLATFORM_TEXT_RENDERING
 
 #import <Cocoa/Cocoa.h>
 
@@ -9,7 +8,7 @@
 #include <ui_helper.h>
 #include <grlib.h>
 
-NSMutableDictionary *textAttributes(int fgcolor, int bgcolor) {
+static NSMutableDictionary *textAttributes(int fgcolor, int bgcolor) {
     
     float red, green, blue;
     
@@ -51,7 +50,7 @@ NSMutableDictionary *textAttributes(int fgcolor, int bgcolor) {
 }
 
 
-int
+static int
 xprint(struct image *image, CONST struct xfont *current, int x, int y,
        CONST char *text, int fgcolor, int bgcolor, int mode)
 {
@@ -101,7 +100,7 @@ xprint(struct image *image, CONST struct xfont *current, int x, int y,
     return bytesUsed;
 }
 
-int xtextwidth(CONST struct xfont *font, CONST char *text)
+static int xtextwidth(CONST struct xfont *font, CONST char *text)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -117,7 +116,7 @@ int xtextwidth(CONST struct xfont *font, CONST char *text)
     return ceil(textSize.width) + 2;
 }
 
-int xtextheight(CONST struct xfont *font) {
+static int xtextheight(CONST struct xfont *font) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     NSString *messageText = @"Test String";
@@ -128,7 +127,7 @@ int xtextheight(CONST struct xfont *font) {
     return ceil(textSize.height) + 2;
 }
 
-int xtextcharw(CONST struct xfont *font, CONST char c)
+static int xtextcharw(CONST struct xfont *font, CONST char c)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -139,4 +138,11 @@ int xtextcharw(CONST struct xfont *font, CONST char c)
     [pool release];
     return ceil(textSize.width) + 2;
 }
-#endif
+
+void register_grlib_cocoa(void) {
+	grlib.xprint = xprint;
+	grlib.xtextwidth = xtextwidth;
+	grlib.xtextheight = xtextheight;
+	grlib.xtextcharw = xtextcharw;
+}
+

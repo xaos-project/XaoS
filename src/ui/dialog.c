@@ -142,20 +142,20 @@ void
 ui_drawbutton(CONST char *text, int pressed, int selected, int x1, int x2,
 	      int y)
 {
-    int width = xtextwidth(uih->font, text);
+    int width = grlib.xtextwidth(uih->font, text);
     /*printf("%s %i %i\n",text,pressed,selected); */
     if (uih->palette->type & BITMAPS) {
 	uih_drawborder(uih, x1, y, x2 - x1, BUTTONHEIGHT,
 		       (pressed != 0
 			|| selected != 0) * BORDER_PRESSED | BORDER_LIGHT);
-	xprint(uih->image, uih->font, (x1 + x2 - width) / 2 + pressed,
+	grlib.xprint(uih->image, uih->font, (x1 + x2 - width) / 2 + pressed,
 	       y + BORDERHEIGHT + pressed, text, selected
 	       || pressed ? BGCOLOR(uih) : FGCOLOR(uih), BGCOLOR(uih),
 	       TEXT_PRESSED);
     } else {
 	uih_drawborder(uih, x1, y, x2 - x1, BUTTONHEIGHT,
 		       (pressed != 0) * BORDER_PRESSED | BORDER_LIGHT);
-	xprint(uih->image, uih->font, (x1 + x2 - width) / 2 + pressed,
+	grlib.xprint(uih->image, uih->font, (x1 + x2 - width) / 2 + pressed,
 	       y + BORDERHEIGHT + pressed, text, 
 	       selected ? SELCOLOR(uih) : FGCOLOR(uih), BGCOLOR(uih),
 	       /*TEXT_PRESSED */ 0);
@@ -181,7 +181,7 @@ ui_yesnopos(struct uih_context *c, int *x, int *y, int *w, int *h,
 
 static void ui_drawyesno(struct uih_context *c, void *data)
 {
-    xprint(uih->image, uih->font,
+    grlib.xprint(uih->image, uih->font,
 	   YESNOX + (yesnodialog.width - yesnodialog.questionwidth) / 2,
 	   YESNOY + BORDERHEIGHT, yesnodialog.question, 
 	   FGCOLOR(uih), BGCOLOR(uih), 0);
@@ -212,11 +212,11 @@ void ui_buildyesno(CONST char *question, void (*handler) (int yes))
     if (yesnodialogvisible)
 	ui_closeyesno(0);
     yesnodialogvisible = 1;
-    yesnodialog.questionwidth = xtextwidth(uih->font, question);
+    yesnodialog.questionwidth = grlib.xtextwidth(uih->font, question);
     yesnodialog.question = mystrdup(question);
     yesnodialog.mousereleased = 0;
     yesnodialog.width =
-	xtextwidth(uih->font, yestext) + xtextwidth(uih->font,
+	grlib.xtextwidth(uih->font, yestext) + grlib.xtextwidth(uih->font,
 						    notext) +
 	8 * BORDERWIDTH + 2;
     if (yesnodialog.width < yesnodialog.questionwidth)
@@ -309,8 +309,8 @@ static void ui_buildok(struct dialogitem *item, CONST menudialog * entry)
 {
     struct okdata *ok;
     item->height = BUTTONHEIGHT;
-    okwidth = xtextwidth(uih->font, gettext("OK"));
-    cancelwidth = xtextwidth(uih->font, gettext("Cancel"));
+    okwidth = grlib.xtextwidth(uih->font, gettext("OK"));
+    cancelwidth = grlib.xtextwidth(uih->font, gettext("Cancel"));
     item->width = okwidth + 2 * BORDERWIDTH + 2;
     item->width1 = cancelwidth + 2 * BORDERWIDTH + 2;
     if (item->width < item->width1)
@@ -440,7 +440,7 @@ void ui_updatetext(struct ui_textdata *d)
 	for (i = 0; d->text[d->start + i]; i++) {
 	    if (d->start + i == d->cursor)
 		d->cursorpos = wi;
-	    wi += xtextcharw(uih->font, d->text[d->start + i]);
+	    wi += grlib.xtextcharw(uih->font, d->text[d->start + i]);
 	    if (wi >= d->width) {
 		break;
 	    }
@@ -485,7 +485,7 @@ void ui_drawtext(struct ui_textdata *d, int active)
     char *c = (char *) malloc(d->ndisplayed + 2);
     strncpy(c, d->text + d->start, d->ndisplayed);
     c[d->ndisplayed] = 0;
-    xprint(uih->image, uih->font, d->x, d->y, c, 
+    grlib.xprint(uih->image, uih->font, d->x, d->y, c, 
 	   (uih->palette->type & BITMAPS) ? BGCOLOR(uih) : ((active
 							     && d->clear) ?
 							    SELCOLOR(uih) :
@@ -493,22 +493,22 @@ void ui_drawtext(struct ui_textdata *d, int active)
 	   BGCOLOR(uih),
 	   (uih->palette->type & BITMAPS) ? TEXT_PRESSED : 0);
     if (active) {
-	xdrawcursor(uih->image, d->x + d->cursorpos, d->y,
+	grlib.xdrawcursor(uih->image, d->x + d->cursorpos, d->y,
 		    (uih->palette->
 		     type & BITMAPS) ? BGCOLOR(uih) : SELCOLOR(uih),
-		    xtextheight(uih->font));
+		    grlib.xtextheight(uih->font));
     }
     free(c);
 }
 
 void ui_textmouse(struct ui_textdata *d, int x, int y)
 {
-    if (y > d->y && y < d->y + xtextheight(uih->font) && x > d->x) {
+    if (y > d->y && y < d->y + grlib.xtextheight(uih->font) && x > d->x) {
 	int w = 0;
 	int i;
 	int xp = d->x;
 	for (i = 0; i < d->ndisplayed + 1 && xp - w / 2 < x; i++) {
-	    w = xtextcharw(uih->font, d->text[i + d->start]);
+	    w = grlib.xtextcharw(uih->font, d->text[i + d->start]);
 	    xp += w;
 	}
 	d->cursor = i + d->start - 1;
@@ -602,8 +602,8 @@ static void
 ui_buildstring(struct dialogitem *item, CONST menudialog * entry)
 {
     item->height = BUTTONHEIGHT;
-    item->width = xtextwidth(uih->font, item->dialog->question);
-    item->width1 = xtextcharw(uih->font, 'w') * 20;
+    item->width = grlib.xtextwidth(uih->font, item->dialog->question);
+    item->width1 = grlib.xtextcharw(uih->font, 'w') * 20;
     item->data = ui_opentext(0, 0, 2043, item->dialog->defstr);
 }
 
@@ -618,15 +618,15 @@ static void ui_drawquestion(struct dialogitem *item)
 {
     if (uih->palette->type & BITMAPS) {
 	if (SELECTED(item))
-	    xrectangle(uih->image, dialog.x + BORDERWIDTH, item->y,
+	    grlib.xrectangle(uih->image, dialog.x + BORDERWIDTH, item->y,
 		       dialog.half - dialog.x - 2 * BORDERWIDTH,
 		       BUTTONHEIGHT, FGCOLOR(uih));
-	xprint(uih->image, uih->font, dialog.half - item->width,
+	grlib.xprint(uih->image, uih->font, dialog.half - item->width,
 	       item->y + BORDERHEIGHT, item->dialog->question,
 	       SELECTED(item) ? BGCOLOR(uih) : FGCOLOR(uih),
 	       BGCOLOR(uih), TEXT_PRESSED);
     } else {
-	xprint(uih->image, uih->font, dialog.half - item->width,
+	grlib.xprint(uih->image, uih->font, dialog.half - item->width,
 	       item->y + BORDERHEIGHT, item->dialog->question,
 	       SELECTED(item) ? SELCOLOR(uih) : FGCOLOR(uih), BGCOLOR(uih),
 	       0);
@@ -680,8 +680,8 @@ static void ui_buildint(struct dialogitem *item, CONST menudialog * entry)
 {
     char s[50];
     item->height = BUTTONHEIGHT;
-    item->width = xtextwidth(uih->font, item->dialog->question);
-    item->width1 = xtextcharw(uih->font, 'w') * 5;
+    item->width = grlib.xtextwidth(uih->font, item->dialog->question);
+    item->width1 = grlib.xtextcharw(uih->font, 'w') * 5;
     sprintf(s, "%i", item->dialog->defint);
     item->data = ui_opentext(0, 0, 2043, s);
 }
@@ -741,7 +741,7 @@ number_t ui_getfloat(CONST char *c)
     return (param);
 }
 
-#define BROWSEWIDTH /*(2*BORDERWIDTH+xtextcharw(uih->font,'B'))*/BUTTONHEIGHT
+#define BROWSEWIDTH /*(2*BORDERWIDTH+grlib.xtextcharw(uih->font,'B'))*/BUTTONHEIGHT
 struct ui_filedata {
     struct ui_textdata *text;
     int active;
@@ -769,8 +769,8 @@ static void ui_buildfile(struct dialogitem *item, CONST menudialog * entry)
 	(struct ui_filedata *) malloc(sizeof(*data));
     int i = 0;
     item->height = BUTTONHEIGHT;
-    item->width = xtextwidth(uih->font, item->dialog->question);
-    item->width1 = xtextcharw(uih->font, 'w') * 20;
+    item->width = grlib.xtextwidth(uih->font, item->dialog->question);
+    item->width1 = grlib.xtextcharw(uih->font, 'w') * 20;
     while (item->dialog->defstr[i] != '*' && item->dialog->defstr[i] != 0)
 	str[i] = item->dialog->defstr[i], i++;
     str[i] = 0;
@@ -818,7 +818,7 @@ static void ui_drawfile(struct dialogitem *item)
     uih_drawborder(uih, dialog.half, item->y, wholesize - BROWSEWIDTH,
 		   BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
     ui_drawtext(data->text, SELECTED(item) && !data->active);
-    xprint(uih->image, uih->font, dialog.half - item->width,
+    grlib.xprint(uih->image, uih->font, dialog.half - item->width,
 	   item->y + BORDERHEIGHT, item->dialog->question,
 	   SELECTED(item) ? SELCOLOR(uih) : FGCOLOR(uih), BGCOLOR(uih), 0);
     ui_drawquestion(item);
@@ -920,8 +920,8 @@ ui_buildfloat(struct dialogitem *item, CONST menudialog * entry)
 {
     char s[50];
     item->height = BUTTONHEIGHT;
-    item->width = xtextwidth(uih->font, item->dialog->question);
-    item->width1 = xtextcharw(uih->font, 'w') * 10;
+    item->width = grlib.xtextwidth(uih->font, item->dialog->question);
+    item->width1 = grlib.xtextcharw(uih->font, 'w') * 10;
     sprintf(s, "%g", (double) item->dialog->deffloat);
     item->data = ui_opentext(0, 0, 2043, s);
 }
@@ -953,8 +953,8 @@ ui_buildcoord(struct dialogitem *item, CONST menudialog * entry)
     struct ui_coorddata *data =
 	(struct ui_coorddata *) malloc(sizeof(*data));
     item->height = BUTTONHEIGHT;
-    item->width = xtextwidth(uih->font, item->dialog->question);
-    item->width1 = xtextcharw(uih->font, 'w') * 20;
+    item->width = grlib.xtextwidth(uih->font, item->dialog->question);
+    item->width1 = grlib.xtextcharw(uih->font, 'w') * 20;
     item->data = data;
     data->active = 0;
     sprintf(s, "%g", (double) item->dialog->deffloat);
@@ -973,8 +973,8 @@ static void ui_destroycoord(struct dialogitem *item, dialogparam * param)
     free(data);
 }
 
-#define SPACESIZE xtextwidth(uih->font,"+")
-#define ENDSIZE xtextwidth(uih->font,"i")
+#define SPACESIZE grlib.xtextwidth(uih->font,"+")
+#define ENDSIZE grlib.xtextwidth(uih->font,"i")
 static void ui_drawcoord(struct dialogitem *item)
 {
     struct ui_coorddata *data = (struct ui_coorddata *) item->data;
@@ -997,10 +997,10 @@ static void ui_drawcoord(struct dialogitem *item)
 		   BUTTONHEIGHT, BORDER_PRESSED | BORDER_LIGHT);
     ui_drawtext(data->text[0], SELECTED(item) && !data->active);
     ui_drawtext(data->text[1], SELECTED(item) && data->active);
-    xprint(uih->image, uih->font, dialog.half + half,
+    grlib.xprint(uih->image, uih->font, dialog.half + half,
 	   item->y + BORDERHEIGHT, "+", FGCOLOR(uih),
 	   BGCOLOR(uih), 0);
-    xprint(uih->image, uih->font,
+    grlib.xprint(uih->image, uih->font,
 	   dialog.x + dialog.width - BORDERWIDTH - ENDSIZE,
 	   item->y + BORDERHEIGHT, "i", FGCOLOR(uih),
 	   BGCOLOR(uih), 0);
@@ -1107,8 +1107,8 @@ static void ui_drawchoicemenu(uih_context * uih, void *data)
     struct ui_choicedata *choice = (struct ui_choicedata *) data;
     int i;
     for (i = 0; i < choice->n; i++) {
-	xprint(uih->image, uih->font, choice->x + BORDERWIDTH,
-	       choice->y + BORDERHEIGHT + i * xtextheight(uih->font),
+	grlib.xprint(uih->image, uih->font, choice->x + BORDERWIDTH,
+	       choice->y + BORDERHEIGHT + i * grlib.xtextheight(uih->font),
 	       choice->texts[i],
 	       i == choice->active ? SELCOLOR(uih) : FGCOLOR(uih),
 	       BGCOLOR(uih), 0);
@@ -1123,9 +1123,9 @@ ui_buildchoicemenu(struct uih_context *uih, struct ui_choicedata *choice,
 	return;
     choice->width = width + 2 * BORDERWIDTH;
     choice->x = x;
-    choice->height = xtextheight(uih->font) * choice->n + 2 * BORDERHEIGHT;
+    choice->height = grlib.xtextheight(uih->font) * choice->n + 2 * BORDERHEIGHT;
     choice->active = choice->selected;
-    choice->y = y - choice->active * xtextheight(uih->font);
+    choice->y = y - choice->active * grlib.xtextheight(uih->font);
     dialog.mousegrab = 1;
     if (choice->x + choice->width > uih->image->width)
 	choice->x = uih->image->width - choice->width;
@@ -1160,13 +1160,13 @@ ui_buildchoice(struct dialogitem *item, CONST menudialog * entry)
     struct ui_choicedata *data =
 	(struct ui_choicedata *) malloc(sizeof(*data));
     item->height = BUTTONHEIGHT;
-    item->width = xtextwidth(uih->font, item->dialog->question);
+    item->width = grlib.xtextwidth(uih->font, item->dialog->question);
     item->width1 = 0;
     data->menu = NULL;
 
     data->texts = (CONST char **) entry->defstr;
     for (i = 0; data->texts[i] != NULL; i++) {
-	int w = xtextwidth(uih->font, data->texts[i]);
+	int w = grlib.xtextwidth(uih->font, data->texts[i]);
 	if (w > item->width1)
 	    item->width1 = w;
     }
@@ -1189,7 +1189,7 @@ static void ui_drawchoice(struct dialogitem *item)
     struct ui_choicedata *data = (struct ui_choicedata *) item->data;
     uih_drawborder(uih, dialog.half, item->y, item->width1,
 		   BUTTONHEIGHT | BORDER_LIGHT, 0);
-    xprint(uih->image, uih->font, dialog.half + BORDERWIDTH,
+    grlib.xprint(uih->image, uih->font, dialog.half + BORDERWIDTH,
 	   item->y + BORDERHEIGHT, data->texts[data->selected],
 	   SELECTED(item) ? SELCOLOR(uih) : FGCOLOR(uih),
 	   BGCOLOR(uih), 0);
@@ -1254,7 +1254,7 @@ ui_mousechoice(struct dialogitem *item, int x, int y, int buttons,
 	    return;
 	}
 	if ((flags & MOUSE_MOVE) && in) {
-	    in = (y - data->y) / xtextheight(uih->font);
+	    in = (y - data->y) / grlib.xtextheight(uih->font);
 	    if (in < 0)
 		in = 0;
 	    if (in >= data->n)
@@ -1374,10 +1374,10 @@ void ui_builddialog(CONST menuitem * item)
 	    dialog.width = dialog.items[n].width;
     }
     dialog.height += YSKIP * (n - 1);
-    n = xtextwidth(uih->font, gettext("OK")) + xtextwidth(uih->font,
+    n = grlib.xtextwidth(uih->font, gettext("OK")) + grlib.xtextwidth(uih->font,
 							  gettext
 							  ("Cancel")) +
-	xtextwidth(uih->font, gettext("Help")) + 10;
+	grlib.xtextwidth(uih->font, gettext("Help")) + 10;
     if (dialog.width < n)
 	dialog.width = n;
     dialog.half = dialog.width + 2 * BORDERWIDTH;

@@ -147,13 +147,13 @@ uih_drawborder(struct uih_context *uih, int x, int y, int width,
 	uih_darkrectangle(uih->image, x + 1, y + 1, width - 2,
 			  height - 2) /*, leftcolor = GRAYCOLOR (uih) */ ;
     else {
-	xrectangle(uih->image, x + 1, y + 1, width - 2, height - 2,
+	grlib.xrectangle(uih->image, x + 1, y + 1, width - 2, height - 2,
 		   bgcolor);
     }
-    xhline(uih->image, x, y, width - 1, leftcolor);
-    xhline(uih->image, x, y + height - 1, width - 1, rightcolor);
-    xvline(uih->image, x, y, height - 1, leftcolor);
-    xvline(uih->image, x + width - 1, y, height - 1, rightcolor);
+    grlib.xhline(uih->image, x, y, width - 1, leftcolor);
+    grlib.xhline(uih->image, x, y + height - 1, width - 1, rightcolor);
+    grlib.xvline(uih->image, x, y, height - 1, leftcolor);
+    grlib.xvline(uih->image, x + width - 1, y, height - 1, rightcolor);
 }
 
 struct uih_window *uih_registerw(struct uih_context *uih, uih_getposfunc
@@ -272,7 +272,7 @@ void uih_clearwindows(struct uih_context *uih)
     while (w) {
 	if (w->getpos == NULL) {
 	    if (w->saveddata != NULL) {
-		xrestoreline(uih->image, w->saveddata, w->x, w->y,
+		grlib.xrestoreline(uih->image, w->saveddata, w->x, w->y,
 			     w->width + w->x, w->height + w->y);
 		free(w->saveddata);
 		w->saveddata = NULL;
@@ -441,7 +441,7 @@ void uih_drawwindows(struct uih_context *uih)
 		     || w->y + w->height < savedminy || w->x > savedmaxx
 		     || w->y > savedmaxy)) {
 		    w->saveddata =
-			xsaveline(uih->image, w->x, w->y, w->width + w->x,
+			grlib.xsaveline(uih->image, w->x, w->y, w->width + w->x,
 				  w->height + w->y);
 		}
 	    } else {
@@ -514,7 +514,7 @@ void uih_drawwindows(struct uih_context *uih)
 #endif
 #define lwi 0
 #define lwj 0
-		    xline(uih->image, w->x + lwi, w->y + lwj,
+		    grlib.xline(uih->image, w->x + lwi, w->y + lwj,
 			  w->width + w->x + lwi, w->height + w->y + lwj,
 			  w->savedline);
 	} else if (w->width && w->height) {

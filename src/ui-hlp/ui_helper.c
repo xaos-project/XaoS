@@ -1026,7 +1026,7 @@ void uih_prepare_image(uih_context * c)
 	uih_update_lines(c);
     if (c->display) {
 	uih_clearwindows(c);
-	xprepareimage(c->image);
+	grlib.xprepareimage(c->image);
 	if (uih_needrecalculate(c))
 	    uih_do_fractal(c);
     }
