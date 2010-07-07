@@ -155,16 +155,16 @@ static int win32_dodialog(struct dialogrecord *r, HWND hDLG)
 	case DIALOG_FLOAT:
 	    GetDlgItemText(hDLG, i * PERITEM + ITEMSTART, s, sizeof(s));
 	    p[i].number = r->dialog[i].deffloat;
-	    p[i].number = x_strtold(s, NULL);
+	    p[i].number = ui_getfloat(s);
 	    break;
 	case DIALOG_COORD:
 	    GetDlgItemText(hDLG, i * PERITEM + ITEMSTART, s, sizeof(s));
 	    p[i].dcoord[0] = r->dialog[i].deffloat;
-	    p[i].dcoord[0] = x_strtold(s, NULL);
+	    p[i].dcoord[0] = ui_getfloat(s);
 	    GetDlgItemText(hDLG, i * PERITEM + ITEMSTART + 1, s,
 			   sizeof(s));
 	    p[i].dcoord[1] = r->dialog[i].deffloat2;
-	    p[i].dcoord[1] = x_strtold(s, NULL);
+	    p[i].dcoord[1] = ui_getfloat(s);
 	    break;
 	case DIALOG_CHOICE:
 	    /*x_message("Choice is not implemented yet"); */

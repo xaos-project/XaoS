@@ -1711,7 +1711,7 @@ static struct params dxwparams[] = {
 };
 
 extern int XaoS_main(int argc, char **argv);
-int STDCALL
+int APIENTRY
 WinMain(HINSTANCE hInstance1,
 	HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
