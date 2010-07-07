@@ -12,9 +12,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#ifdef linux
 #include <ctype.h>
-#endif
 #include <string.h>
 
 #include "sffe.h"
@@ -361,7 +359,7 @@ int sffe_parse(sffe ** parser, char *expression)
     char *ech;
     char *ch1, *ch2;
     char *expcode;		/*tokenized form : (f(n)+f(n))*f(n)-n (f-func, n-num,const) */
-    unsigned int ui1, ui2;
+    unsigned int ui1;//, ui2;
     unsigned char opr;
     char err;
     sffe *p;

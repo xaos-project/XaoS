@@ -726,7 +726,7 @@ static int
 myfixedalloccolor(struct palette *p, int init, int r, int g, int b)
 {
     struct palette *palette = (struct palette *) p->data;
-    fixedalloccolor(p, init, r, g, b);
+    (void)fixedalloccolor(p, init, r, g, b);
     return (palette->alloccolor(palette, init, r, g, b));
 }
 

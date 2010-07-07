@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("xaos.sourceforge.net");
 
     QApplication a(argc, argv);
-    MAIN_FUNCTION(argc, argv);
     //return a.exec();
+    return MAIN_FUNCTION(argc, argv);
 }
 
 static int
@@ -139,7 +139,7 @@ struct gui_driver qt_gui_driver = {
 /* enabledisable */ qt_toggleMenu,
 /* menu */          qt_popupMenu,
 /* dialog */        qt_showDialog,
-/* help */          NULL
+/* help */          qt_showHelp
 };
 
 static struct params qt_params[] = {

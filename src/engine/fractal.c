@@ -422,14 +422,14 @@ void speed_test(fractal_context * c, struct image *img)
 #ifdef SLOWFUNCPTR
     i = calculateswitch(0.0, 0.0, 0.0, 0.0, 0);
 #else
-    cfractalc.currentformula->calculate(0.0, 0.0, 0.0, 0.0);
+    (void)cfractalc.currentformula->calculate(0.0, 0.0, 0.0, 0.0);
     if (cfractalc.currentformula->calculate_periodicity != NULL)
-	cfractalc.currentformula->calculate_periodicity(0.0, 0.0, 0.0,
+        (void)cfractalc.currentformula->calculate_periodicity(0.0, 0.0, 0.0,
 							0.0);
     if (cfractalc.currentformula->smooth_calculate != NULL)
-	cfractalc.currentformula->smooth_calculate(0.0, 0.0, 0.0, 0.0);
+        (void)cfractalc.currentformula->smooth_calculate(0.0, 0.0, 0.0, 0.0);
     if (cfractalc.currentformula->smooth_calculate_periodicity != NULL)
-	cfractalc.currentformula->smooth_calculate_periodicity(0.0, 0.0,
+        (void)cfractalc.currentformula->smooth_calculate_periodicity(0.0, 0.0,
 							       0.0, 0.0);
 #endif
     cfractalc.maxiter = 20000000;

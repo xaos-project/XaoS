@@ -1107,7 +1107,6 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 	c_mul(rp, ip, pre, pim, zre, zim); \
 	rp = zre * zre; \
 	ip = zim * zim;
-#define SMOOTH
 #define CALC symbarn_calc
 #define JULIA symbarn_julia
 #define RANGE 2
@@ -1331,7 +1330,6 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 	rp=zre*zre; \
 	ip=zim*zim;
 #define CALC beryl_calc
-#define JULIA beryl_julia
 #define PERI beryl_peri
 #define RANGE 2
 #define RPIP
@@ -1355,8 +1353,8 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
  //less_than_4(rp+ip)
 #define CALC sffe_calc
 #define JULIA sffe_julia
-#define SCALC ssffe_calc
- //#define SMOOTH
+//#define SCALC ssffe_calc
+//#define SMOOTH
 #include "docalc.c"
 #endif
 

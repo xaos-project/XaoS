@@ -1,10 +1,7 @@
 #include <config.h>
 #ifndef _plan9_
 #include <string.h>
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
-#include <string.h>
+#include <stdlib.h>
 #else
 #include <u.h>
 #include <libc.h>

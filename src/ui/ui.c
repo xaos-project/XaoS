@@ -1523,11 +1523,12 @@ void ui_init(int argc, char **argv)
     }
 #ifdef SFFE_USING
     /*SFFE : malczak */
-    if (uih->parser->expression == NULL)
+    if (uih->parser->expression == NULL) {
         if (sffeform)
             err = sffe_parse(&uih->parser, (char *) sffeform);
         else
             sffe_parse(&uih->parser, "z^2+c");
+    }
 
     if (sffeinit) {
         uih->pinit = sffe_alloc();
@@ -1554,7 +1555,7 @@ int MAIN_FUNCTION(int argc, char **argv)
     ui_mainloop(1);
     ui_quit();
 
-    return (0);
+    return 0;
 }
 
 static void ui_mkimages(int w, int h)
