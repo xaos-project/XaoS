@@ -41,7 +41,7 @@ static int parsenext;
 
 static CONST char *CONST animroot = "animroot";
 
-static inline struct uih_line *uih_findkey(uih_context * c, int key)
+static INLINE struct uih_line *uih_findkey(uih_context * c, int key)
 {
     struct uih_line *l = c->playc->lines.first;
     while (l != NULL) {
@@ -52,7 +52,7 @@ static inline struct uih_line *uih_findkey(uih_context * c, int key)
     return NULL;
 }
 
-static inline void uih_removeline(uih_context * c, struct uih_line *l)
+static INLINE void uih_removeline(uih_context * c, struct uih_line *l)
 {
     if (l == NULL)
 	return;

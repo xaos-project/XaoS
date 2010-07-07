@@ -4,9 +4,7 @@
  */
 #include <config.h>
 #ifndef _plan9_
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
+#include <stdlib.h>
 #include <stdio.h>		/*for NULL */
 #else
 #include <u.h>

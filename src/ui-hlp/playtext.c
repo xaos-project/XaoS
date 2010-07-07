@@ -11,7 +11,7 @@
 #include <xerror.h>
 #include <grlib.h>
 
-static inline void
+static INLINE void
 prepare(struct uih_context *c, char *string, int *xmax, int *nr)
 {
     int xm = 0;

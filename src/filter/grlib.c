@@ -119,7 +119,7 @@ CONST struct xfont xbigfontil1 = {
 #define restoreline restoreline32
 #include "grlibd.c"
 #ifdef SBITMAPS
-static inline void
+static INLINE void
 drawchar1(struct image *img, int x, int y, int fgcolor,
 	  unsigned char letter)
 {
@@ -220,7 +220,7 @@ static void vline1(struct image *img, int x, int y, int l, int color)
     }
 }
 
-static inline void
+static INLINE void
 rectangle1(struct image *img, int x, int y, int width, int height,
 	   int fgcolor)
 {
@@ -229,7 +229,7 @@ rectangle1(struct image *img, int x, int y, int width, int height,
 	hline1(img, x, y, width - 1, fgcolor), y++;
 }
 
-static inline void
+static INLINE void
 line1(struct image *img, int x, int y, int x2, int y2, int color)
 {
     int dx = x2 - x;
@@ -677,7 +677,7 @@ xrectangle(struct image *image, int x, int y, int width, int height,
     }
 }
 
-static inline char *savehline(struct image *i, int x1, int y, int x2)
+static INLINE char *savehline(struct image *i, int x1, int y, int x2)
 {
     int start, end;
     char *c;
@@ -692,7 +692,7 @@ static inline char *savehline(struct image *i, int x1, int y, int x2)
     return c;
 }
 
-static inline void
+static INLINE void
 restorehline(struct image *i, char *c, int x1, int y, int x2)
 {
     int start, end;
@@ -707,7 +707,7 @@ restorehline(struct image *i, char *c, int x1, int y, int x2)
 #define  __clipy1 0
 #define  __clipx2 (img->width-2)
 #define  __clipy2 (img->height-2)
-static inline int regioncode(struct image *img, const int x, const int y)
+static INLINE int regioncode(struct image *img, const int x, const int y)
 {
     int dx1, dx2, dy1, dy2;
     int result;

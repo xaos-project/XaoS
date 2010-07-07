@@ -3,10 +3,14 @@
 #if defined(__EMX__) || defined(__APPLE__)
 #include <sys/types.h>
 #endif
+#ifdef HAVE_DIRENT_H
 #include <dirent.h>
+#endif
 #include <sys/stat.h>
 #include <stdlib.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #else
 #include <u.h>
 #include <libc.h>
@@ -46,9 +50,7 @@ int
 xio_getfiles(xio_constpath path1, char ***names, char ***dirs,
 	     int *nnames2, int *ndirs2)
 {
-#ifdef _plan9_
-    *nnames2 = *ndirs2 = 0;
-#else
+#ifdef HAVE_DIRENT_H
     char *path = xio_fixpath(path1);
     int maxnames = 200, maxdirs = 200;
     int nnames = 0, ndirs = 0;
@@ -102,6 +104,8 @@ xio_getfiles(xio_constpath path1, char ***names, char ***dirs,
     *ndirs2 = ndirs;
     closedir(dir);
     return 1;
+#else
+    *nnames2 = *ndirs2 = 0;
 #endif
 }
 
@@ -154,7 +158,7 @@ xio_path xio_getfilename(CONST char *basename, CONST char *extension)
 
 xio_file xio_getrandomexample(xio_path name)
 {
-#ifndef _plan9_
+#ifdef HAVE_DIRENT_H
     static CONST char *CONST paths[] = {	/*Where examples should be located? */
 	EXAMPLESPATH,		/*Data path when XaoS is propertly installed */
 	"\01" XIO_PATHSEPSTR "examples",

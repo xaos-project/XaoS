@@ -146,6 +146,8 @@ static struct params qt_params[] = {
 {NULL, 0, NULL, NULL}
 };
 
+extern "C" {
+
 struct ui_driver qt_driver = {
 /* name */          "Qt Driver",
 /* init */          qt_initDriver,
@@ -179,3 +181,5 @@ struct ui_driver qt_driver = {
 /* bmask */         0x0000ff,
 /* gui_driver */    &qt_gui_driver
 };
+
+}

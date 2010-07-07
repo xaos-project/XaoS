@@ -31,9 +31,7 @@
 #else
 #include <stdio.h>
 #ifndef _MAC
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
+#include <stdlib.h>
 #endif
 #ifndef _plan9_
 #include <limits.h>

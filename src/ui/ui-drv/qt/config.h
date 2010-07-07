@@ -18,6 +18,10 @@
 #define CONFIGFILE ".XaoSrc"
 #endif
 
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 /*For compilers that don't support nameless unions, do a
 #define NONAMELESSUNION
 before #include <ddraw.h>*/
@@ -38,7 +42,11 @@ before #include <ddraw.h>*/
 #define FPOINT_TYPE double
 #endif
 #define CONST const
+#ifdef _MSC_VER
+#define INLINE __inline
+#else
 #define INLINE inline
+#endif
 
 /* BeOS have broken long double IO routines on i386. Use our replacements */
 #ifdef __BEOS__
@@ -48,6 +56,7 @@ before #include <ddraw.h>*/
 #endif
 
 /* Win32 don't support long double IO. Use our replacements if possible */
+#ifdef HAVE_LONG_DOUBLE
 #ifdef _WIN32
 #ifndef __GNUC__
 1
@@ -55,6 +64,7 @@ before #include <ddraw.h>*/
  * compiler */
 #endif
 #define USE_XLDIO
+#endif
 #endif
 
 #include "gccaccel.h"

@@ -1,8 +1,6 @@
 #ifndef _plan9_
 #include <config.h>
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
+#include <stdlib.h>
 #include <stdio.h>		/*for NULL */
 #include <math.h>
 #else

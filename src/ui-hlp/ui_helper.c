@@ -34,7 +34,9 @@
 #include "grlib.h"
 #include "play.h"
 #include <archaccel.h>
+#ifdef HAVE_LIBGEN_H
 #include <libgen.h>
+#endif
 
 #ifdef SFFE_USING
 #include "sffe.h"
@@ -664,7 +666,11 @@ void uih_loadexample(struct uih_context *c)
     uih_load(c, f, name);
     if (c->errstring == NULL) {
 	char s[256];
+#ifdef HAVE_LIBGEN_H
 	sprintf(s, gettext("File %s loaded."), basename(name));
+#else
+        sprintf(s, gettext("File %s loaded."), name);
+#endif
 	uih_message(c, s);
     }
 }

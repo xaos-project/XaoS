@@ -21,7 +21,9 @@
 /* #define USE_PNG 1 */
 #define HAVE_FINITE 1
 /* #undef HAVE_SELECT */
+#ifndef _MSC_VER
 #define HAVE_LONG_DOUBLE 1
+#endif
 /* #undef HAVE_REDRAWWIN */
 /* #undef HAVE_WREDRAWLN */
 /* #undef USE_NCURSES */
@@ -38,9 +40,13 @@
 /* Define if you have the <limits.h> header file.  */
 #define HAVE_LIMITS_H 1
 /* Define if you have the <sys/time.h> header file.  */
+#ifndef _MSC_VER
 #define HAVE_SYS_TIME_H 1
+#endif
 /* Define if you have the <unistd.h> header file.  */
+#ifndef _MSC_VER
 #define HAVE_UNISTD_H 1
+#endif
 /* #undef MITSHM */
 /* #undef CURSES_DRIVER */
 /* #undef BEOS_DRIVER */

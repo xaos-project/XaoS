@@ -145,7 +145,7 @@ static long double ptenneg[] = {
     1e-512L, 1e-1024L, 1e-2048L, 1e-4096L
 };
 
-static inline char tochar(int n)
+static INLINE char tochar(int n)
 {
     if (n >= 9)
 	return '9';
@@ -154,7 +154,7 @@ static inline char tochar(int n)
     return n + '0';
 }
 
-static inline int todigit(char c)
+static INLINE int todigit(char c)
 {
     if (c <= '0')
 	return 0;
@@ -185,7 +185,7 @@ static long double PREC = 1.0L / P;
 /* #define FAST_LDOUBLE_CONVERSION */
 #if 1
 #define modfl mymodfl
-inline long double m_floor(long double x)
+INLINE long double m_floor(long double x)
 {
     register long double __value;
     volatile unsigned short int __cw, __cwtmp;
@@ -200,7 +200,7 @@ inline long double m_floor(long double x)
 
 }
 
-static inline long double mymodfl(long double x, long double *pint)
+static INLINE long double mymodfl(long double x, long double *pint)
 {
     /*int p=(int) x; */
     long double p = m_floor(x);
