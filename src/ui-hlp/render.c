@@ -38,7 +38,7 @@ static struct uih_context *gc;
 static struct uih_context *uih;
 static int newline = 1;
 static int interrupt = 0;
-static void error(CONST char *str)
+static void error(const char *str)
 {
     if (noiselevel < ERRORS)
 	return;
@@ -76,7 +76,7 @@ static void printmsg(const char *text, ...)
 }
 
 static int
-passfunc(struct uih_context *c, int display, CONST char *text,
+passfunc(struct uih_context *c, int display, const char *text,
 	 float percent)
 {
     if (noiselevel < ALL)
@@ -237,11 +237,11 @@ uih_encodeframe(int startpos, int endpos, struct frame_info *curframe)
 
 extern struct filteraction antialias_filter;
 int
-uih_renderanimation(struct uih_context *gc1, CONST char *basename,
-		    CONST xio_constpath animation, int width, int height,
+uih_renderanimation(struct uih_context *gc1, const char *basename,
+		    const xio_constpath animation, int width, int height,
 		    float pixelwidth, float pixelheight, int frametime,
 		    int type, int antialias, int slowmode,
-		    int letterspersec, CONST char *catalog,
+		    int letterspersec, const char *catalog,
 		    int motionvectors, int iframedist2)
 {
     struct palette *pal =
@@ -365,7 +365,7 @@ uih_renderanimation(struct uih_context *gc1, CONST char *basename,
 	}
 	printmsg(gettext("Processing command line options"));
 	{
-	    CONST menuitem *item;
+	    const menuitem *item;
 	    dialogparam *d;
 	    while ((item = menu_delqueue(&d)) != NULL) {
 		menu_activate(item, uih, d);
@@ -579,8 +579,8 @@ uih_renderanimation(struct uih_context *gc1, CONST char *basename,
 
 int
 uih_renderimage(struct uih_context *gc1, xio_file af,
-		CONST xio_constpath path, struct image *img, int antialias,
-		CONST char *catalog, int noise)
+		const xio_constpath path, struct image *img, int antialias,
+		const char *catalog, int noise)
 {
     int aliasnum = 0;
     int ok = 1;

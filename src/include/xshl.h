@@ -33,16 +33,16 @@ extern char *xshl_error;
 struct xshl_line *xshl_interpret(void *userdata, int (*get) (void *),
                                  int width, int getwidth(void *,
                                                          int flags,
-                                                         CONST char
+                                                         const char
                                                          *text),
                                  int startflags, int smallheight,
                                  int bigheight);
 void xshl_free(struct xshl_line *);
-int xshl_textlen(void *data, int flags, CONST char *text);
+int xshl_textlen(void *data, int flags, const char *text);
 void xshl_print(int startskip, struct xshl_line *lines);
-struct xshl_line *help_make(CONST char *command,
+struct xshl_line *help_make(const char *command,
                             int getwidth(void *, int flags,
-                                         CONST char *text), int width,
+                                         const char *text), int width,
                             int smallheight, int bigheight);
 #ifdef __cplusplus
 }

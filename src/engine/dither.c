@@ -36,7 +36,7 @@
 #include <xthread.h>
 #include <archaccel.h>
 #define MSIZE 8
-static CONST unsigned char matrix[MSIZE][MSIZE] = {
+static const unsigned char matrix[MSIZE][MSIZE] = {
     {0, 192, 48, 240, 12, 204, 60, 252,},
     {128, 64, 176, 112, 140, 76, 188, 124,},
     {32, 224, 16, 208, 44, 236, 28, 220,},
@@ -401,7 +401,7 @@ static int initialize(struct filter *f, struct initdata *i)
     }
 }
 
-static struct filter *getinstance(CONST struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     struct ditherdata *i = (struct ditherdata *) calloc(1, sizeof(*i));
@@ -418,8 +418,8 @@ static void convert(void *data, struct taskinfo *task, int r1, int r2)
     struct filter *RESTRICT f = (struct filter *) data;
     struct image *RESTRICT img1 = f->childimage;
     struct image *RESTRICT img2 = f->image;
-    CONST struct ditherdata *RESTRICT s = (struct ditherdata *) f->data;
-    CONST pixel32_t *RESTRICT src, *srcend;
+    const struct ditherdata *RESTRICT s = (struct ditherdata *) f->data;
+    const pixel32_t *RESTRICT src, *srcend;
     int r, g, b;
     pixel8_t *RESTRICT dest;
     int i;
@@ -705,7 +705,7 @@ static void myremovefilter(struct filter *f)
 }
 
 
-CONST struct filteraction truecolor_filter = {
+const struct filteraction truecolor_filter = {
     "Truecolor emulator",
     "truecolor",
     0,
@@ -790,7 +790,7 @@ static int initializefixed(struct filter *f, struct initdata *i)
     }
 }
 
-static struct filter *getinstancefixed(CONST struct filteraction *a)
+static struct filter *getinstancefixed(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     struct fixeddata *i = (struct fixeddata *) calloc(1, sizeof(*i));
@@ -904,7 +904,7 @@ static void destroyinstancefixed(struct filter *f)
     free(f);
 }
 
-CONST struct filteraction fixedcolor_filter = {
+const struct filteraction fixedcolor_filter = {
     "Palette emulator",
     "fixedcolor",
     0,
@@ -953,7 +953,7 @@ static int initializebitmap(struct filter *f, struct initdata *i)
     }
 }
 
-static struct filter *getinstancebitmap(CONST struct filteraction *a)
+static struct filter *getinstancebitmap(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     struct bitmapdata *i = (struct bitmapdata *) calloc(1, sizeof(*i));
@@ -1184,7 +1184,7 @@ static void destroyinstancebitmap(struct filter *f)
     free(f);
 }
 
-CONST struct filteraction bitmap_filter = {
+const struct filteraction bitmap_filter = {
     "Palette emulator",
     "bitmap",
     0,

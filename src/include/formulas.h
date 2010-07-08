@@ -51,12 +51,12 @@ extern cmplx C;
 
 #define FORMULAMAGIC 1121
 
-extern CONST char *CONST incolorname[];
-extern CONST struct formula formulas[];
-extern CONST char *CONST outcolorname[];
-extern CONST char *CONST tcolorname[];
-extern CONST int nformulas;
-extern CONST int nmformulas;
+extern const char *const incolorname[];
+extern const struct formula formulas[];
+extern const char *const outcolorname[];
+extern const char *const tcolorname[];
+extern const int nformulas;
+extern const int nmformulas;
 
 #ifdef __cplusplus
 }

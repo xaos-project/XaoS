@@ -26,33 +26,33 @@
 #define LANG_I(name,name2) MENUSTRING_I("lang", NULL, name,name2,0, (void (*) (struct uih_context *c, char *))uih_loadcatalog, name2)
 #define TUTOR_I(name1,name2,name3) MENUSTRING_I(name1, NULL, name2,name3,MENUFLAG_INTERRUPT|UI,uih_playtutorial,name3)
 
-CONST static char *CONST morphstypes[] = {
+const static char *const morphstypes[] = {
     "view",
     "julia",
     "angle",
     "line"
 };
 
-static CONST char *CONST imgtypes[] = {
+static const char *const imgtypes[] = {
     "Truecolor",
     "256 colors",
     NULL
 };
 
-static CONST char *CONST yesno[] = {
+static const char *const yesno[] = {
     "No",
     "Yes",
     NULL
 };
 
-CONST static char *CONST lineposs[] = {
+const static char *const lineposs[] = {
     "screen",
     "scaled",
     "fractal",
     NULL
 };
 
-CONST char *CONST uih_colornames[] = {
+const char *const uih_colornames[] = {
     "white",
     "black",
     "red",
@@ -316,8 +316,8 @@ static menudialog uih_perturbationdialog[] = {
  */
 
 #ifdef SFFE_USING
-void uih_sffein(uih_context * c, CONST char *text);
-void uih_sffeinitin(uih_context * c, CONST char *text);
+void uih_sffein(uih_context * c, const char *text);
+void uih_sffeinitin(uih_context * c, const char *text);
 #endif
 
 static void uih_smoothmorph(struct uih_context *c, dialogparam * p)
@@ -493,11 +493,11 @@ static menudialog *uih_getviewdialog(struct uih_context *c)
     return (uih_viewdialog);
 }
 
-static void uih_printdialog(struct uih_context *c, CONST char *name)
+static void uih_printdialog(struct uih_context *c, const char *name)
 {
-    CONST menuitem *item = menu_findcommand(name);
+    const menuitem *item = menu_findcommand(name);
     int y;
-    CONST menudialog *di;
+    const menudialog *di;
     if (item == NULL) {
 	fprintf(stderr, "print_dialog:unknown function %s\n", name);
 	return;
@@ -543,7 +543,7 @@ static void uih_printdialog(struct uih_context *c, CONST char *name)
 	    printf("choice {");
 	    {
 		int y;
-		CONST char **str = (CONST char **) di->defstr;
+		const char **str = (const char **) di->defstr;
 		for (y = 0; str[y] != NULL; y++)
 		    printf("%s ", str[y]);
 		printf("}");
@@ -557,11 +557,11 @@ static void uih_printdialog(struct uih_context *c, CONST char *name)
 }
 
 static void
-uih_printmenu(struct uih_context *c, CONST char *name, int recursive)
+uih_printmenu(struct uih_context *c, const char *name, int recursive)
 {
-    CONST char *fullname;
+    const char *fullname;
     int i = 0;
-    CONST menuitem *item;
+    const menuitem *item;
     if ((fullname = menu_fullname(name)) == NULL) {
 	printf("Menu not found\n");
 	return;
@@ -598,7 +598,7 @@ uih_printmenu(struct uih_context *c, CONST char *name, int recursive)
 	}
 }
 
-static void uih_printmenuwr(struct uih_context *c, CONST char *name)
+static void uih_printmenuwr(struct uih_context *c, const char *name)
 {
     uih_printmenu(c, name, 0);
 }
@@ -916,7 +916,7 @@ static void uih_bshift(uih_context * c)
     uih_shiftpalette(c, -1);
 }
 
-static CONST menuitem *menuitems;	/*XaoS menu specifications */
+static const menuitem *menuitems;	/*XaoS menu specifications */
 /* This structure is now empty. All static definitions have been moved
    to uih_registermenus_i18n() which fills up its own static array. */
 
@@ -1420,7 +1420,7 @@ void uih_registermenus_i18n(void)
 }
 
 
-static CONST menuitem menuitems2[] = {
+static const menuitem menuitems2[] = {
     SUBMENU("mincoloring", NULL, "True-color incoloring mode",
 	    "tincoloring"),
     SUBMENU("moutcoloring", NULL, "True-color outcoloring mode",
@@ -1617,7 +1617,7 @@ void uih_unregistermenus(void)
 }
 
 #ifdef SFFE_USING
-void uih_sffein(uih_context * c, CONST char *text)
+void uih_sffein(uih_context * c, const char *text)
 {
     char str[200];
     int err;
@@ -1640,7 +1640,7 @@ void uih_sffein(uih_context * c, CONST char *text)
     };
 };
 
-void uih_sffeinitin(uih_context * c, CONST char *text)
+void uih_sffeinitin(uih_context * c, const char *text)
 {
     extern cmplx pZ;
     extern cmplx C;

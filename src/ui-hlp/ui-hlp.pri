@@ -10,3 +10,5 @@ SOURCES += $$PWD/autopilot.c \
 
 OTHER_FILES += \
     $$PWD/autod.c
+
+HEADERS += $$PWD/play.h

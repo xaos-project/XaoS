@@ -39,7 +39,7 @@ typedef struct {
 struct symetryinfo {
     number_t xsym, ysym;
     int nsymetries;
-    CONST symetrytype *symetry;
+    const symetrytype *symetry;
 };
 typedef struct {
     number_t mc, nc;
@@ -59,8 +59,8 @@ struct formula {
 #endif
     void (*calculate_julia) (struct image * img, register number_t pre,
                              register number_t pim);
-    CONST char *name[2];
-    CONST char *shortname;
+    const char *name[2];
+    const char *shortname;
     vinfo v;
     int hasperiodicity;
     int mandelbrot;
@@ -73,7 +73,7 @@ struct formula {
 struct fractal_context {
     number_t pre, pim;
     number_t bre, bim;
-    CONST struct formula *currentformula;
+    const struct formula *currentformula;
     number_t angle;
     int periodicity;
     unsigned int maxiter;
@@ -153,7 +153,7 @@ void set_fractalc(fractal_context *, struct image *img);
 void fractalc_resize_to(fractal_context *, float, float);
 void update_view(fractal_context *);
 void free_fractalc(fractal_context *);
-fractal_context *make_fractalc(CONST int, float, float);
+fractal_context *make_fractalc(const int, float, float);
 void speed_test(fractal_context *, struct image *img);
 unsigned int calculateswitch(register number_t x1,
                          register number_t y1,

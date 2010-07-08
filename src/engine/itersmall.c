@@ -40,7 +40,7 @@ static int initialize(struct filter *f, struct initdata *i)
     return (f->previous->action->initialize(f->previous, i));
 }
 
-static struct filter *getinstance(CONST struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     struct siterdata *i = (struct siterdata *) calloc(1, sizeof(*i));
@@ -156,7 +156,7 @@ static int doit(struct filter *f, int flags, int time)
     return val;
 }
 
-CONST struct filteraction smalliter_filter = {
+const struct filteraction smalliter_filter = {
     "Smalliter image convertor",
     "smalliter",
     0,

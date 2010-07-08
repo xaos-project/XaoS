@@ -33,7 +33,7 @@
 #include <version.h>
 #include <xerror.h>
 #define MAXPARAMS 40
-static CONST struct params *params[40];
+static const struct params *params[40];
 int nparams;
 
 int params_parser(int argc, char **argv)
@@ -41,7 +41,7 @@ int params_parser(int argc, char **argv)
     int i, p = 0, d;
     int ie = 0;
     int is;
-    CONST struct params *par = NULL;
+    const struct params *par = NULL;
     int error = 0;
     int found;
     for (i = 1; i < argc && !error; i++) {
@@ -166,7 +166,7 @@ int params_parser(int argc, char **argv)
     return (1);
 }
 
-void params_register(CONST struct params *par)
+void params_register(const struct params *par)
 {
     params[nparams++] = par;
 }

@@ -27,10 +27,10 @@ extern "C" {
 #endif
 
 struct params {
-    CONST char *name;
+    const char *name;
     int type;
     void *value;
-    CONST char *help;
+    const char *help;
 };
 
 #define P_SWITCH 0
@@ -40,7 +40,7 @@ struct params {
 #define P_HELP 4
 
 int params_parser(int, char **);
-void params_register(CONST struct params *par);
+void params_register(const struct params *par);
 
 #ifdef __cplusplus
 }

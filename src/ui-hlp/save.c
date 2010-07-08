@@ -21,10 +21,10 @@
 static int first;
 static int changed;
 static int last;
-CONST char *CONST save_fastmode[] =
+const char *const save_fastmode[] =
     { "zero", "never", "animation", "new", "allways", NULL };
-CONST char *CONST xtextposnames[] = { "left", "center", "right", NULL };
-CONST char *CONST ytextposnames[] = { "top", "middle", "bottom", NULL };
+const char *const xtextposnames[] = { "left", "center", "right", NULL };
+const char *const ytextposnames[] = { "top", "middle", "bottom", NULL };
 
 REGISTERS(3)
 static void outputerror(struct uih_context *uih)
@@ -38,7 +38,7 @@ static void outputerror(struct uih_context *uih)
 }
 
 REGISTERS(3)
-static void start_save(struct uih_context *uih, CONST char *name)
+static void start_save(struct uih_context *uih, const char *name)
 {
     if (!changed && !uih->savec->firsttime) {
 	char s[256];
@@ -61,7 +61,7 @@ static void stop_save(struct uih_context *uih)
 
 #ifdef SAVEKEYWORDUSED
 REGISTERS(3)
-static void save_keyword(struct uih_context *uih, CONST char *name)
+static void save_keyword(struct uih_context *uih, const char *name)
 {
     if (!first)
 	myputc(' ');
@@ -71,7 +71,7 @@ static void save_keyword(struct uih_context *uih, CONST char *name)
 }
 #endif
 REGISTERS(3)
-static void save_keystring(struct uih_context *uih, CONST char *name)
+static void save_keystring(struct uih_context *uih, const char *name)
 {
     if (!first)
 	myputc(' ');
@@ -166,7 +166,7 @@ static void save_onoff(struct uih_context *uih, int number)
 }
 
 REGISTERS(3)
-static void save_string(struct uih_context *uih, CONST char *text)
+static void save_string(struct uih_context *uih, const char *text)
 {
     int i = 0;
     if (!first)
@@ -185,7 +185,7 @@ static void save_string(struct uih_context *uih, CONST char *text)
 
 REGISTERS(3)
 static void
-save_intc(struct uih_context *uih, CONST char *name, int number)
+save_intc(struct uih_context *uih, const char *name, int number)
 {
     start_save(uih, name);
     save_int(uih, number);
@@ -194,7 +194,7 @@ save_intc(struct uih_context *uih, CONST char *name, int number)
 
 REGISTERS(3)
 static void
-save_onoffc(struct uih_context *uih, CONST char *name, int number)
+save_onoffc(struct uih_context *uih, const char *name, int number)
 {
     start_save(uih, name);
     save_onoff(uih, number);
@@ -203,7 +203,7 @@ save_onoffc(struct uih_context *uih, CONST char *name, int number)
 
 REGISTERS(3)
 static void
-save_floatc(struct uih_context *uih, CONST char *name, number_t number)
+save_floatc(struct uih_context *uih, const char *name, number_t number)
 {
     start_save(uih, name);
     save_float(uih, number);
@@ -212,7 +212,7 @@ save_floatc(struct uih_context *uih, CONST char *name, number_t number)
 
 REGISTERS(3)
 static void
-save_float2c(struct uih_context *uih, CONST char *name,
+save_float2c(struct uih_context *uih, const char *name,
 	     number_t number, int places)
 {
     start_save(uih, name);
@@ -222,7 +222,7 @@ save_float2c(struct uih_context *uih, CONST char *name,
 
 REGISTERS(3)
 static void
-save_coordc(struct uih_context *uih, CONST char *name,
+save_coordc(struct uih_context *uih, const char *name,
 	    number_t number, number_t number2)
 {
     start_save(uih, name);
@@ -233,8 +233,8 @@ save_coordc(struct uih_context *uih, CONST char *name,
 
 REGISTERS(3)
 static void
-save_keystringc(struct uih_context *uih, CONST char *name,
-		CONST char *param)
+save_keystringc(struct uih_context *uih, const char *name,
+		const char *param)
 {
     start_save(uih, name);
     save_keystring(uih, param);
@@ -243,7 +243,7 @@ save_keystringc(struct uih_context *uih, CONST char *name,
 
 REGISTERS(3)
 static void
-save_stringc(struct uih_context *uih, CONST char *name, CONST char *param)
+save_stringc(struct uih_context *uih, const char *name, const char *param)
 {
     start_save(uih, name);
     save_string(uih, param);
@@ -251,7 +251,7 @@ save_stringc(struct uih_context *uih, CONST char *name, CONST char *param)
 }
 
 REGISTERS(3)
-static void save_noparam(struct uih_context *uih, CONST char *name)
+static void save_noparam(struct uih_context *uih, const char *name)
 {
     start_save(uih, name);
     stop_save(uih);
@@ -260,15 +260,15 @@ static void save_noparam(struct uih_context *uih, CONST char *name)
 REGISTERS(3)
 static void
 save_nstring(struct uih_context *uih, int number,
-	     CONST char *CONST * CONST texts)
+	     const char *const * const texts)
 {
     save_keystring(uih, texts[number]);
 }
 
 REGISTERS(3)
 static void
-save_nstringc(struct uih_context *uih, CONST char *name, int number,
-	      CONST char *CONST * CONST texts)
+save_nstringc(struct uih_context *uih, const char *name, int number,
+	      const char *const * const texts)
 {
     save_keystringc(uih, name, texts[number]);
 }

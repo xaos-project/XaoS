@@ -43,7 +43,7 @@
 
 
 static char *defrender = NULL;
-static CONST char *rbasename = "anim";
+static const char *rbasename = "anim";
 static int alias = 0;
 static int slowmode = 0;
 static char *imgtype;
@@ -52,7 +52,7 @@ static float framerate;
 static int letterspersec = 20;
 static int defvectors;
 static int iframedist;
-CONST struct params ui_fractal_params[] = {
+const struct params ui_fractal_params[] = {
 
     {"", P_HELP, NULL, "Animation rendering:"},
     {"-render", P_STRING, &defrender,

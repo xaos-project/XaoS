@@ -94,7 +94,7 @@ qt_getMouse (int *x, int *y, int *b)
 }
 
 static void
-qt_printText(int x, int y, CONST char *text)
+qt_printText(int x, int y, const char *text)
 {
     window->showMessage(text);
 }
@@ -106,31 +106,31 @@ qt_setCursorType (int type)
 }
 
 static void
-qt_buildMenu (struct uih_context *uih, CONST char *name)
+qt_buildMenu (struct uih_context *uih, const char *name)
 {
     window->buildMenu(uih, name);
 }
 
 static void
-qt_popupMenu (struct uih_context *uih, CONST char *name)
+qt_popupMenu (struct uih_context *uih, const char *name)
 {
     window->popupMenu(uih, name);
 }
 
 static void
-qt_toggleMenu (struct uih_context *uih, CONST char *name)
+qt_toggleMenu (struct uih_context *uih, const char *name)
 {
     window->toggleMenu(uih, name);
 }
 
 static void
-qt_showDialog (struct uih_context *c, CONST char *name)
+qt_showDialog (struct uih_context *c, const char *name)
 {
     window->showDialog(c, name);
 }
 
 static void
-qt_showHelp (struct uih_context *c, CONST char *name)
+qt_showHelp (struct uih_context *c, const char *name)
 {
 }
 

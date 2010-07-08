@@ -46,7 +46,7 @@ static int pressedbutton = -1;
 static int selectedbutton = -1;
 
 #define NBUTTONS 3
-CONST char *CONST names[] = { "OK", "Back", "Main" };
+const char *const names[] = { "OK", "Back", "Main" };
 
 #define BUTTONSTART(i) (helpx+BORDERWIDTH+(helpwidth-2*BORDERWIDTH)/NBUTTONS*(i))
 static void ui_build_help(char *name);
@@ -84,7 +84,7 @@ void ui_close_help(void)
     }
 }
 
-static int getwidth(void *data, int flags, CONST char *text)
+static int getwidth(void *data, int flags, const char *text)
 {
     if (uih->image->flags & AAIMAGE)
 	return (grlib.xtextwidth(uih->font, text));
@@ -469,7 +469,7 @@ static void ui_build_help(char *name)
     helpw = uih_registerw(uih, helpsize, drawhelp, 0, DRAWBORDER);
 }
 
-void ui_help(CONST char *name)
+void ui_help(const char *name)
 {
     if (strlen(name) > 4 && !strcmp(name + strlen(name) - 4, ".xaf")) {
 	uih_playtutorial(uih, name);

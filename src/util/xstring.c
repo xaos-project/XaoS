@@ -41,7 +41,7 @@ static int sputc(int c, xio_file s)
     return 0;
 }
 
-static int sputs(CONST char *c, xio_file s)
+static int sputs(const char *c, xio_file s)
 {
     int l = strlen(c);
     struct fr *f = (struct fr *) s->data;
@@ -108,7 +108,7 @@ char *xio_getstring(xio_file s)
     return c;
 }
 
-xio_file xio_strropen(CONST char *string)
+xio_file xio_strropen(const char *string)
 {
     xio_file s = (xio_file) calloc(1, sizeof(*s));
     struct fr *f = (struct fr *) calloc(1, sizeof(*f));

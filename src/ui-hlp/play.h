@@ -15,8 +15,8 @@ typedef void (*funcptr) (void);
 #define PARAM_KEYSTRING 5
 #define PARAM_COORD 6
 #define PARAM_STRING 7
-extern CONST char *CONST save_fastmode[];
-extern CONST char *CONST uih_colornames[];
+extern const char *const save_fastmode[];
+extern const char *const uih_colornames[];
 void uih_play_formula(struct uih_context *uih, char *name);
 void uih_playfilter(struct uih_context *uih, dialogparam * p);
 void uih_zoomcenter(struct uih_context *uih, number_t x, number_t y);

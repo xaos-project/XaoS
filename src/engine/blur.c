@@ -144,7 +144,7 @@ static int initialize(struct filter *f, struct initdata *i)
     return (f->previous->action->initialize(f->previous, i));
 }
 
-static struct filter *getinstance(CONST struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     struct blurdata *i = (struct blurdata *) calloc(1, sizeof(*i));
@@ -378,7 +378,7 @@ static void myremovefilter(struct filter *f)
     }
 }
 
-CONST struct filteraction blur_filter = {
+const struct filteraction blur_filter = {
     "Motionblur",
     "blur",
     0,

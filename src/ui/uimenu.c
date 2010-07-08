@@ -46,13 +46,13 @@
 #define NMENUS 20
 struct ui_menuitems {
     int x, y, width, height;
-    CONST menuitem *item;
+    const menuitem *item;
     int separator;
 };
 static struct ui_menu {
     int x, y, width, height;
-    CONST char *name;
-    CONST char *fullname;
+    const char *name;
+    const char *fullname;
     int namewidth;
     int selected;
     int n;
@@ -73,11 +73,11 @@ int ui_nmenus;
 #define HMENUWIDTH(a) (grlib.xtextwidth(uih->font, a)+grlib.xtextwidth(uih->font, "  "))
 
 #define SEPARATORSIZE 6
-static struct ui_menuitems *ui_getmenuitems(CONST char *name, int *width1,
+static struct ui_menuitems *ui_getmenuitems(const char *name, int *width1,
 					    int *height1, int *n1,
 					    int horizontal)
 {
-    CONST menuitem *item;
+    const menuitem *item;
     int nseparators = 0;
     int i;
     int width = 0;
@@ -212,7 +212,7 @@ static void ui_drawmenu(uih_context * c, void *data)
     }
 }
 
-static struct ui_menu *ui_buildmenu(CONST char *name, int x, int y,
+static struct ui_menu *ui_buildmenu(const char *name, int x, int y,
 				    int flags)
 {
     int shift = 0;
@@ -288,7 +288,7 @@ static void ui_closemenu(struct ui_menu *menu)
     free(menu);
 }
 
-static void ui_openmenu(CONST char *name, int x, int y, int flags)
+static void ui_openmenu(const char *name, int x, int y, int flags)
 {
     if (ui_nogui) {
 	printf("menu \"%s\"\n", name);
@@ -320,7 +320,7 @@ void ui_closemenus(void)
 	ui_closetopmenu();
 }
 
-void ui_menu(CONST char *m)
+void ui_menu(const char *m)
 {
     int mousex, mousey, buttons;
     driver->getmouse(&mousex, &mousey, &buttons);
@@ -329,7 +329,7 @@ void ui_menu(CONST char *m)
 
 static void ui_menupress(int number)
 {
-    CONST menuitem *item;
+    const menuitem *item;
     if (number >= ui_menus[ui_nmenus - 1]->n)
 	return;
     ui_menus[ui_nmenus - 1]->selected = number;
@@ -471,7 +471,7 @@ int ui_menukey(int key)
 	    return 1;
 	case 'h':
 	    {
-		CONST menuitem *item = menu->items[menu->selected].item;
+		const menuitem *item = menu->items[menu->selected].item;
 		ui_closemenus();
 		if (menu->selected >= 0) {
 		    ui_help(item->shortname);

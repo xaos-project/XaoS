@@ -73,14 +73,14 @@ typedef unsigned char ui_rgb[4];
 typedef ui_rgb *ui_palette;
 struct uih_context;
 struct gui_driver {
-    void (*setrootmenu) (struct uih_context * c, CONST char *name);
-    void (*enabledisable) (struct uih_context * c, CONST char *name);
-    void (*menu) (struct uih_context * c, CONST char *name);
-    void (*dialog) (struct uih_context * c, CONST char *name);
-    void (*help) (struct uih_context * c, CONST char *name);
+    void (*setrootmenu) (struct uih_context * c, const char *name);
+    void (*enabledisable) (struct uih_context * c, const char *name);
+    void (*menu) (struct uih_context * c, const char *name);
+    void (*dialog) (struct uih_context * c, const char *name);
+    void (*help) (struct uih_context * c, const char *name);
 };
 struct ui_driver {
-    CONST char *name;
+    const char *name;
     int (*init) (void);	/*initializing function. recturns 0 if fail */
     void (*getsize) (int *, int *);	/*get current size..in fullscreen versions
                                                                          i.e svga and dos asks user for it */
@@ -96,7 +96,7 @@ struct ui_driver {
     int (*set_color) (int, int, int, int);
     void (*set_range) (ui_palette palette, int, int);
     /*sets palette color and returns number */
-    void (*print) (int, int, CONST char *);	/*prints text */
+    void (*print) (int, int, const char *);	/*prints text */
     void (*display) (void);	/*displays bitmap */
     int (*alloc_buffers) (char **buffer1, char **buffer2, void **data);	/*makes buffers */
     void (*free_buffers) (char *buffer1, char *buffer2);	/*frees buffers */
@@ -106,14 +106,14 @@ struct ui_driver {
     int textwidth;
     int textheight;		/*width of text */
     /*int helpsize; */
-    CONST struct params *params;
+    const struct params *params;
     int flags;
     float width, height;
     int maxwidth, maxheight;
     int imagetype;
     int palettestart, paletteend, maxentries;
     int rmask, gmask, bmask;
-    CONST struct gui_driver *gui_driver;
+    const struct gui_driver *gui_driver;
 };
 
 extern struct uih_context *globaluih;
@@ -122,16 +122,16 @@ extern struct uih_context *globaluih;
 extern char *localepath;
 #endif
 
-number_t ui_getfloat(CONST char *text);
+number_t ui_getfloat(const char *text);
 void ui_resize(void);
 void ui_call_resize(void);
 void ui_quit(void) NORETURN;
-void ui_menu(CONST char *text);
-void ui_menuactivate(CONST menuitem * item, dialogparam * d);
+void ui_menu(const char *text);
+void ui_menuactivate(const menuitem * item, dialogparam * d);
 int ui_key(int);
-void ui_loadstr(CONST char *data);
-xio_path ui_getfile(CONST char *basename, CONST char *extension);
-void ui_help(CONST char *name);
+void ui_loadstr(const char *data);
+xio_path ui_getfile(const char *basename, const char *extension);
+void ui_help(const char *name);
 char *ui_getpos(void);
 int MAIN_FUNCTION(int argc, char **argv);
 

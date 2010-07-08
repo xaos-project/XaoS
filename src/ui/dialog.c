@@ -58,7 +58,7 @@
 
 struct dialogitem;
 struct dialogtype {
-    void (*build) (struct dialogitem * item, CONST menudialog * entry);
+    void (*build) (struct dialogitem * item, const menudialog * entry);
     int (*key) (struct dialogitem * item, int key);
     void (*mouse) (struct dialogitem * item, int x, int y, int buttons,
 		   int flags);
@@ -69,25 +69,25 @@ struct dialogtype {
 struct dialogitem {
     int y;
     int width, width1, height;
-    CONST menudialog *dialog;
+    const menudialog *dialog;
     void *data;
-    CONST struct dialogtype *type;
+    const struct dialogtype *type;
 };
 static struct opendialog {
     int x, y, width, height;
     int half;
     int nitems;
-    CONST menudialog *dialog;
+    const menudialog *dialog;
     int mousereleased;
     int mousegrab;
-    CONST menuitem *item;
+    const menuitem *item;
     int current;
     struct dialogitem *items;
     struct uih_window *window;
 } dialog;
 
 static dialogparam *qparam;
-static CONST menuitem *qitem;
+static const menuitem *qitem;
 
 int dialogvisible;
 
@@ -104,9 +104,9 @@ static struct yesnodialog {
 } yesnodialog;
 
 // These 3 definitions are no longer used:
-static CONST char *CONST oktext = "OK";
-static CONST char *CONST canceltext = "Cancel";
-static CONST char *CONST helptext = "Help";
+static const char *const oktext = "OK";
+static const char *const canceltext = "Cancel";
+static const char *const helptext = "Help";
 
 static int okwidth;
 static int cancelwidth;
@@ -133,13 +133,13 @@ struct okdata {
     int selected;
 };
 
-CONST char *CONST yestext = "Yes";
-CONST char *CONST notext = "No";
+const char *const yestext = "Yes";
+const char *const notext = "No";
 #define YESNOX ((uih->image->width-yesnodialog.width)/2)
 #define YESNOHEIGHT (2*BUTTONHEIGHT+2*BORDERHEIGHT)
 #define YESNOY ((uih->image->height-YESNOHEIGHT)/2)
 void
-ui_drawbutton(CONST char *text, int pressed, int selected, int x1, int x2,
+ui_drawbutton(const char *text, int pressed, int selected, int x1, int x2,
 	      int y)
 {
     int width = grlib.xtextwidth(uih->font, text);
@@ -207,7 +207,7 @@ static void ui_closeyesno(int success)
     uih->display = 1;
 }
 
-void ui_buildyesno(CONST char *question, void (*handler) (int yes))
+void ui_buildyesno(const char *question, void (*handler) (int yes))
 {
     if (yesnodialogvisible)
 	ui_closeyesno(0);
@@ -305,7 +305,7 @@ static int ui_mouseyesno(int x, int y, int buttons, int flags)
     return 1;
 }
 
-static void ui_buildok(struct dialogitem *item, CONST menudialog * entry)
+static void ui_buildok(struct dialogitem *item, const menudialog * entry)
 {
     struct okdata *ok;
     item->height = BUTTONHEIGHT;
@@ -414,7 +414,7 @@ static void ui_unselectok(struct dialogitem *item)
     uih->display = 1;
 }
 
-CONST static struct dialogtype okdialog = {
+const static struct dialogtype okdialog = {
     ui_buildok,
     ui_keyok,
     ui_mouseok,
@@ -457,7 +457,7 @@ void ui_updatetext(struct ui_textdata *d)
     while (again);
 }
 
-struct ui_textdata *ui_opentext(int x, int y, int width, CONST char *def)
+struct ui_textdata *ui_opentext(int x, int y, int width, const char *def)
 {
     struct ui_textdata *d = (struct ui_textdata *) malloc(sizeof(*d));
     char *text;
@@ -599,7 +599,7 @@ int ui_textkey(struct ui_textdata *d, int key)
 }
 
 static void
-ui_buildstring(struct dialogitem *item, CONST menudialog * entry)
+ui_buildstring(struct dialogitem *item, const menudialog * entry)
 {
     item->height = BUTTONHEIGHT;
     item->width = grlib.xtextwidth(uih->font, item->dialog->question);
@@ -667,7 +667,7 @@ static void ui_unselectstring(struct dialogitem *item)
 {
 }
 
-CONST static struct dialogtype stringdialog = {
+const static struct dialogtype stringdialog = {
     ui_buildstring,
     ui_keystring,
     ui_mousestring,
@@ -676,7 +676,7 @@ CONST static struct dialogtype stringdialog = {
     ui_unselectstring
 };
 
-static void ui_buildint(struct dialogitem *item, CONST menudialog * entry)
+static void ui_buildint(struct dialogitem *item, const menudialog * entry)
 {
     char s[50];
     item->height = BUTTONHEIGHT;
@@ -693,7 +693,7 @@ static void ui_destroyint(struct dialogitem *item, dialogparam * param)
     ui_closetext(text);
 }
 
-CONST static struct dialogtype intdialog = {
+const static struct dialogtype intdialog = {
     ui_buildint,
     ui_keystring,
     ui_mousestring,
@@ -702,7 +702,7 @@ CONST static struct dialogtype intdialog = {
     ui_unselectstring
 };
 
-static CONST char *ui_getextension(CONST char *ch)
+static const char *ui_getextension(const char *ch)
 {
     int i = 0;
     while (ch[i]) {
@@ -713,7 +713,7 @@ static CONST char *ui_getextension(CONST char *ch)
     return ch + i;
 }
 
-number_t ui_getfloat(CONST char *c)
+number_t ui_getfloat(const char *c)
 {
 #ifdef HAVE_LONG_DOUBLE
     long double param;
@@ -749,7 +749,7 @@ struct ui_filedata {
 };
 
 static struct dialogitem *curritem;
-static void filecallback(CONST char *name, int succ)
+static void filecallback(const char *name, int succ)
 {
     struct ui_filedata *text = (struct ui_filedata *) curritem->data;
     if (succ) {
@@ -762,7 +762,7 @@ static void filecallback(CONST char *name, int succ)
 	ui_closedialog(succ);
 }
 
-static void ui_buildfile(struct dialogitem *item, CONST menudialog * entry)
+static void ui_buildfile(struct dialogitem *item, const menudialog * entry)
 {
     char str[256];
     struct ui_filedata *data =
@@ -906,7 +906,7 @@ static void ui_unselectfile(struct dialogitem *item)
 	text->pressed = 0, uih->display = 1;
 }
 
-CONST static struct dialogtype filedialog = {
+const static struct dialogtype filedialog = {
     ui_buildfile,
     ui_keyfile,
     ui_mousefile,
@@ -916,7 +916,7 @@ CONST static struct dialogtype filedialog = {
 };
 
 static void
-ui_buildfloat(struct dialogitem *item, CONST menudialog * entry)
+ui_buildfloat(struct dialogitem *item, const menudialog * entry)
 {
     char s[50];
     item->height = BUTTONHEIGHT;
@@ -933,7 +933,7 @@ static void ui_destroyfloat(struct dialogitem *item, dialogparam * param)
     ui_closetext(text);
 }
 
-CONST static struct dialogtype floatdialog = {
+const static struct dialogtype floatdialog = {
     ui_buildfloat,
     ui_keystring,
     ui_mousestring,
@@ -947,7 +947,7 @@ struct ui_coorddata {
     int active;
 };
 static void
-ui_buildcoord(struct dialogitem *item, CONST menudialog * entry)
+ui_buildcoord(struct dialogitem *item, const menudialog * entry)
 {
     char s[50];
     struct ui_coorddata *data =
@@ -1069,7 +1069,7 @@ static void ui_unselectcoord(struct dialogitem *item)
     text->active = 0;
 }
 
-CONST static struct dialogtype coorddialog = {
+const static struct dialogtype coorddialog = {
     ui_buildcoord,
     ui_keycoord,
     ui_mousecoord,
@@ -1079,7 +1079,7 @@ CONST static struct dialogtype coorddialog = {
 };
 
 struct ui_choicedata {
-    CONST char **texts;
+    const char **texts;
     int selected;
     int n;
 
@@ -1154,7 +1154,7 @@ ui_closechoicemenu(struct uih_context *uih, struct ui_choicedata *choice)
 }
 
 static void
-ui_buildchoice(struct dialogitem *item, CONST menudialog * entry)
+ui_buildchoice(struct dialogitem *item, const menudialog * entry)
 {
     int i;
     struct ui_choicedata *data =
@@ -1164,7 +1164,7 @@ ui_buildchoice(struct dialogitem *item, CONST menudialog * entry)
     item->width1 = 0;
     data->menu = NULL;
 
-    data->texts = (CONST char **) entry->defstr;
+    data->texts = (const char **) entry->defstr;
     for (i = 0; data->texts[i] != NULL; i++) {
 	int w = grlib.xtextwidth(uih->font, data->texts[i]);
 	if (w > item->width1)
@@ -1280,7 +1280,7 @@ static void ui_unselectchoice(struct dialogitem *item)
     ui_closechoicemenu(uih, data);
 }
 
-CONST static struct dialogtype choicedialog = {
+const static struct dialogtype choicedialog = {
     ui_buildchoice,
     ui_keychoice,
     ui_mousechoice,
@@ -1311,7 +1311,7 @@ static void ui_dialogdraw(struct uih_context *c, void *data)
 }
 
 #define YSKIP 2
-void ui_builddialog(CONST menuitem * item)
+void ui_builddialog(const menuitem * item)
 {
     int n = 2;
     int ypos;

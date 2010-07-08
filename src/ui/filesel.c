@@ -39,8 +39,8 @@ static char lastdir[256];
 static char *currdir;
 
 static struct uih_window *filew;
-static CONST char *mask;
-static void (*callback) (CONST char *name, int succ);
+static const char *mask;
+static void (*callback) (const char *name, int succ);
 int filevisible;
 static int filex, filey, filewidth, fileheight;
 
@@ -93,9 +93,9 @@ static void ui_freenames(void)
 	free(sdirs), sdirs = NULL;
 }
 
-static int compar(CONST void *a, CONST void *b)
+static int compar(const void *a, const void *b)
 {
-    return (strcmp(*(CONST char **) a, *(CONST char **) b));
+    return (strcmp(*(const char **) a, *(const char **) b));
 }
 
 static char **ui_mksnames(int nnames, char **names, int width)
@@ -103,7 +103,7 @@ static char **ui_mksnames(int nnames, char **names, int width)
     char **snames = NULL;
     int i;
     if (nnames) {
-	qsort(names, nnames, sizeof(*names),	/*(int (*)(CONST void *, CONST
+	qsort(names, nnames, sizeof(*names),	/*(int (*)(const void *, const
 						   void *))strcmp */ compar);
 	snames = (char **) malloc(sizeof(*snames) * nnames);
 	for (i = 0; i < nnames; i++) {
@@ -338,7 +338,7 @@ static void setdir(int name)
     uih->display = 1;
 }
 
-static void setexactdir(CONST char *dirstring)
+static void setexactdir(const char *dirstring)
 {
     free(currdir);
     currdir = mystrdup(dirstring);
@@ -651,8 +651,8 @@ int ui_mousefilesel(int x, int y, int buttons, int flags)
 }
 
 void
-ui_buildfilesel(CONST char *f, CONST char *m,
-		void (*c) (CONST char *, int))
+ui_buildfilesel(const char *f, const char *m,
+		void (*c) (const char *, int))
 {
     if (filevisible) {
 	x_fatalerror("Internal error!");

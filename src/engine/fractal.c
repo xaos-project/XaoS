@@ -105,7 +105,7 @@ static void recalc_view(fractal_context * c)
 	xc = c->rs.ni, c->rs.ni = c->rs.mi, c->rs.mi = xc;
 }
 
-static void set_view(fractal_context * c, CONST vinfo * s)
+static void set_view(fractal_context * c, const vinfo * s)
 {
     c->s = *s;
     recalc_view(c);
@@ -118,7 +118,7 @@ static void /*INLINE */ combine_methods(void)
     int i, j;
 #endif
     int angle = (int) cfractalc.angle;
-    CONST struct symetryinfo *s1 =
+    const struct symetryinfo *s1 =
 	cfractalc.currentformula->out + cfractalc.coloringmode, *s2 =
 	cfractalc.currentformula->in + cfractalc.incoloringmode;
     if (angle < 0) {
@@ -351,7 +351,7 @@ void fractalc_resize_to(fractal_context * c, float wi, float he)
 
 
 
-fractal_context *make_fractalc(CONST int formula, float wi, float he)
+fractal_context *make_fractalc(const int formula, float wi, float he)
 {
     fractal_context *new_ctxt;
 

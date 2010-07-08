@@ -46,10 +46,10 @@ extern "C" {
 extern void recalculate(int plane, number_t *,
                         number_t *) REGISTERS(3);
 
-extern CONST char *CONST planename[];
+extern const char *const planename[];
 
 #ifdef SFFE_USING
-extern CONST sffe *planec;
+extern const sffe *planec;
 #endif
 
 #ifdef __cplusplus

@@ -16,8 +16,8 @@
  * new variable is added into table, if name is not present here or value is
  * changed othewise.
  */
-static char *find_variable(catalog_t * context, CONST char *name,
-			   CONST char *newvalue)
+static char *find_variable(catalog_t * context, const char *name,
+			   const char *newvalue)
 {
     int r = 0;
     int hash = (int) strlen(name);
@@ -107,7 +107,7 @@ static catalog_t *alloc_catalog(void)
  */
 // FIXME: this macro gives a segfault if \" is used in text. kovzol, 2009-06-29
 #define seterror(text) sprintf(errort,"line %i:%s",line,text),*error=errort
-catalog_t *load_catalog(xio_file f, CONST char **error)
+catalog_t *load_catalog(xio_file f, const char **error)
 {
     int i;
     int line = 1;
@@ -244,7 +244,7 @@ catalog_t *load_catalog(xio_file f, CONST char **error)
     return (catalog);
 }				/*load_catalog */
 
-char *find_text(catalog_t * catalog, CONST char *name)
+char *find_text(catalog_t * catalog, const char *name)
 {
     return (find_variable(catalog, name, NULL));
 }

@@ -41,7 +41,7 @@ struct palette {
     /*Preallocated palette cells */
     int ncells;
     unsigned int *index;
-    CONST rgb_t *prergb;
+    const rgb_t *prergb;
     union paletteinfo info;
 };
 struct image {
@@ -165,18 +165,18 @@ struct requirements {
 struct filter {
     struct filter *next, *previous;
     struct queue *queue;
-    CONST struct filteraction *action;
+    const struct filteraction *action;
     struct image *image, *childimage;
     struct requirements req;
     struct fractal_context *fractalc;
     void *data;
-    CONST char *name;
+    const char *name;
     int flags;
     int imageversion;	/*For detection whether image changed or not */
     void (*wait_function) (struct filter * f);
     /*stuff for wait_function */
     int pos, max, incalculation, readyforinterrupt, interrupt;
-    CONST char *pass;
+    const char *pass;
 };
 struct initdata {
     void (*wait_function) (struct filter * f);
@@ -185,10 +185,10 @@ struct initdata {
     int flags;
 };
 struct filteraction {
-    CONST char *name;
-    CONST char *shortname;
+    const char *name;
+    const char *shortname;
     int flags;
-    struct filter *(*getinstance) (CONST struct filteraction * a);
+    struct filter *(*getinstance) (const struct filteraction * a);
     void (*destroyinstance) (struct filter * f);
     int (*doit) (struct filter * f, int flags, int time);
     int (*requirement) (struct filter * f, struct requirements * r);
@@ -209,7 +209,7 @@ struct queue {
 /*filter actions */
 
 extern unsigned int col_diff[3][512];
-struct filter *createfilter(CONST struct filteraction *fa);
+struct filter *createfilter(const struct filteraction *fa);
 struct queue *create_queue(struct filter *f);
 void insertfilter(struct filter *f1, struct filter *f2);
 void removefilter(struct filter *f);
@@ -225,7 +225,7 @@ int inherimage(struct filter *f, struct initdata *data, int flags,
 void destroyinheredimage(struct filter *f);
 void updateinheredimage(struct filter *f);
 
-void inhermisc(struct filter *f, CONST struct initdata *i);
+void inhermisc(struct filter *f, const struct initdata *i);
 
 /*image actions */
 

@@ -261,13 +261,13 @@ void updateinheredimage(struct filter *f)
     }
 }
 
-void inhermisc(struct filter *f, CONST struct initdata *data)
+void inhermisc(struct filter *f, const struct initdata *data)
 {
     f->wait_function = data->wait_function;
     f->fractalc = data->fractalc;
 }
 
-struct filter *createfilter(CONST struct filteraction *fa)
+struct filter *createfilter(const struct filteraction *fa)
 {
     struct filter *f = (struct filter *) calloc(1, sizeof(struct filter));
     if (f == NULL)

@@ -24,20 +24,20 @@
 static struct queuelist {
     struct queuelist *next;
     struct queuelist *previous;
-    CONST menuitem *item;
+    const menuitem *item;
     dialogparam *d;
 } *firstqueue = NULL, *lastqueue = NULL;
 static struct entry {
     struct entry *next;
     struct entry *previous;
     struct entry *nextname;
-    CONST menuitem *item;
+    const menuitem *item;
 } *firstitem = NULL, *lastitem = NULL;
 
 struct entry *namehash[HASHSIZE];
 
 static void
-x_menu_insert(CONST menuitem * item, struct entry *iitem, int n)
+x_menu_insert(const menuitem * item, struct entry *iitem, int n)
 {
     int i;
     int len;
@@ -97,12 +97,12 @@ x_menu_insert(CONST menuitem * item, struct entry *iitem, int n)
     }
 }
 
-void menu_add(CONST menuitem * item, int n)
+void menu_add(const menuitem * item, int n)
 {
     x_menu_insert(item, NULL, n);
 }
 
-void menu_insert(CONST menuitem * item, CONST char *before, int n)
+void menu_insert(const menuitem * item, const char *before, int n)
 {
     struct entry *e = firstitem;
     while (e != NULL) {
@@ -113,7 +113,7 @@ void menu_insert(CONST menuitem * item, CONST char *before, int n)
     x_menu_insert(item, e, n);
 }
 
-void menu_delete(CONST menuitem * items, int n)
+void menu_delete(const menuitem * items, int n)
 {
     int d = 0, i;
     struct entry *item = firstitem;
@@ -169,7 +169,7 @@ void menu_delete(CONST menuitem * items, int n)
     }				/*for */
 }
 
-void menu_addqueue(CONST menuitem * item, dialogparam * d)
+void menu_addqueue(const menuitem * item, dialogparam * d)
 {
     struct queuelist *list;
     list = (struct queuelist *) calloc(1, sizeof(struct queuelist));
@@ -188,9 +188,9 @@ void menu_addqueue(CONST menuitem * item, dialogparam * d)
     lastqueue = list;
 }
 
-CONST menuitem *menu_delqueue(dialogparam ** d)
+const menuitem *menu_delqueue(dialogparam ** d)
 {
-    CONST struct menuitem *item;
+    const struct menuitem *item;
     struct queuelist *list = firstqueue;
     if (firstqueue == NULL)
 	return NULL;
@@ -205,12 +205,12 @@ CONST menuitem *menu_delqueue(dialogparam ** d)
     return (item);
 }
 
-CONST static void *menu_rfind(CONST void
+const static void *menu_rfind(const void
 			      *(*function) (struct entry * item),
-			      CONST char *root)
+			      const char *root)
 {
     struct entry *item = firstitem;
-    CONST void *r;
+    const void *r;
     while (item != NULL) {
 	if (!strcmp(root, item->item->menuname)) {
 	    if ((r = function(item)) != NULL)
@@ -225,8 +225,8 @@ CONST static void *menu_rfind(CONST void
     return NULL;
 }
 
-CONST static char *findkey;
-CONST static void *cmpfunction(struct entry *item)
+const static char *findkey;
+const static void *cmpfunction(struct entry *item)
 {
     if (item->item->key == NULL)
 	return NULL;
@@ -235,27 +235,27 @@ CONST static void *cmpfunction(struct entry *item)
     return NULL;
 }
 
-CONST menuitem *menu_findkey(CONST char *key, CONST char *root)
+const menuitem *menu_findkey(const char *key, const char *root)
 {
     findkey = key;
-    return ((CONST menuitem *) menu_rfind(cmpfunction, root));
+    return ((const menuitem *) menu_rfind(cmpfunction, root));
 }
 
-static CONST menuitem *finditem;
-CONST static void *cmpfunction2(struct entry *item)
+static const menuitem *finditem;
+const static void *cmpfunction2(struct entry *item)
 {
     if (item->item == finditem)
 	return item;
     return NULL;
 }
 
-int menu_available(CONST menuitem * item, CONST char *root)
+int menu_available(const menuitem * item, const char *root)
 {
     finditem = item;
     return (menu_rfind(cmpfunction2, root) != NULL);
 }
 
-CONST char *menu_fullname(CONST char *menu)
+const char *menu_fullname(const char *menu)
 {
     struct entry *item = firstitem;
     while (item != NULL) {
@@ -268,7 +268,7 @@ CONST char *menu_fullname(CONST char *menu)
     return NULL;
 }
 
-CONST menuitem *menu_item(CONST char *menu, int n)
+const menuitem *menu_item(const char *menu, int n)
 {
     struct entry *item = firstitem;
     while (item != NULL) {
@@ -283,7 +283,7 @@ CONST menuitem *menu_item(CONST char *menu, int n)
     return NULL;
 }
 
-static CONST menuitem *menu_item2(CONST char *menu, int n)
+static const menuitem *menu_item2(const char *menu, int n)
 {
     struct entry *item = firstitem;
     while (item != NULL) {
@@ -297,7 +297,7 @@ static CONST menuitem *menu_item2(CONST char *menu, int n)
     return NULL;
 }
 
-int menu_havedialog(CONST menuitem * item, struct uih_context *c)
+int menu_havedialog(const menuitem * item, struct uih_context *c)
 {
     if (item->type != MENU_DIALOG && item->type != MENU_CUSTOMDIALOG)
 	return 0;
@@ -308,7 +308,7 @@ int menu_havedialog(CONST menuitem * item, struct uih_context *c)
     return (!menu_enabled(item, c));
 }
 
-static void menu_freeparam(dialogparam * d, CONST struct dialog *di)
+static void menu_freeparam(dialogparam * d, const struct dialog *di)
 {
     switch (di->type) {
     case DIALOG_STRING:
@@ -320,11 +320,11 @@ static void menu_freeparam(dialogparam * d, CONST struct dialog *di)
 }
 
 void
-menu_destroydialog(CONST menuitem * item, dialogparam * d,
+menu_destroydialog(const menuitem * item, dialogparam * d,
 		   struct uih_context *uih)
 {
     int i;
-    CONST struct dialog *di = menu_getdialog(uih, item);
+    const struct dialog *di = menu_getdialog(uih, item);
     for (i = 0; di[i].question; i++) {
 	menu_freeparam(d + i, di + i);
     }
@@ -333,7 +333,7 @@ menu_destroydialog(CONST menuitem * item, dialogparam * d,
 }
 
 void
-menu_activate(CONST menuitem * item, struct uih_context *c,
+menu_activate(const menuitem * item, struct uih_context *c,
 	      dialogparam * d)
 {
     if (c == NULL
@@ -365,8 +365,8 @@ menu_activate(CONST menuitem * item, struct uih_context *c,
 								iparam);
 	break;
     case MENU_STRING:
-	((void (*)(struct uih_context *, CONST char *)) item->function) (c,
-									 (CONST
+	((void (*)(struct uih_context *, const char *)) item->function) (c,
+									 (const
 									  char
 									  *)
 									 item->pparam);
@@ -378,7 +378,7 @@ menu_activate(CONST menuitem * item, struct uih_context *c,
 	     function)
 		(c, (dialogparam *) NULL);
 	} else {
-	    CONST menudialog *di = menu_getdialog(c, item);
+	    const menudialog *di = menu_getdialog(c, item);
 	    if (di[0].question == NULL) {
 		((void (*)(struct uih_context * c, dialogparam *))
 		 item->function) (c, (dialogparam *) NULL);
@@ -429,7 +429,7 @@ menu_activate(CONST menuitem * item, struct uih_context *c,
     }
 }
 
-int menu_enabled(CONST menuitem * item, struct uih_context *c)
+int menu_enabled(const menuitem * item, struct uih_context *c)
 {
     if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX))
 	switch (item->type) {
@@ -444,9 +444,9 @@ int menu_enabled(CONST menuitem * item, struct uih_context *c)
 	    return (((int (*)(struct uih_context *, int)) item->
 		     control) (c, item->iparam));
 	case MENU_STRING:
-	    return (((int (*)(struct uih_context *, CONST char *)) item->
+	    return (((int (*)(struct uih_context *, const char *)) item->
 		     control)
-		    (c, (CONST char *) item->pparam));
+		    (c, (const char *) item->pparam));
 	default:
 	    x_error("Menu_enabled: unknown type!");
 	    break;
@@ -454,7 +454,7 @@ int menu_enabled(CONST menuitem * item, struct uih_context *c)
     return 0;
 }
 
-void menu_delnumbered(int n, CONST char *name)
+void menu_delnumbered(int n, const char *name)
 {
     menuitem *items;
     int i;
@@ -470,14 +470,14 @@ void menu_delnumbered(int n, CONST char *name)
     free(items);
 }
 
-CONST menuitem *menu_genernumbered(int n, CONST char *menuname,
-				   CONST char *CONST * CONST names,
-				   CONST char *keys, int type, int flags,
+const menuitem *menu_genernumbered(int n, const char *menuname,
+				   const char *const * const names,
+				   const char *keys, int type, int flags,
 				   void (*function) (struct uih_context *
 						     context, int),
 				   int (*control) (struct uih_context *
 						   context, int),
-				   CONST char *prefix)
+				   const char *prefix)
 {
     int l = keys != NULL ? (int) strlen(keys) : -1;
     int i;
@@ -510,7 +510,7 @@ CONST menuitem *menu_genernumbered(int n, CONST char *menuname,
     return (item);
 }
 
-number_t menu_getfloat(CONST char *s, CONST char **error)
+number_t menu_getfloat(const char *s, const char **error)
 {
 #ifdef HAVE_LONG_DOUBLE
     long double param = 0;
@@ -540,11 +540,11 @@ number_t menu_getfloat(CONST char *s, CONST char **error)
 }
 
 int menuparse_scheme = 0;
-CONST char *menu_fillparam(struct uih_context *uih, tokenfunc f,
-			   CONST menudialog * d, dialogparam * p)
+const char *menu_fillparam(struct uih_context *uih, tokenfunc f,
+			   const menudialog * d, dialogparam * p)
 {
     char *c = f(uih);
-    CONST char *error = NULL;
+    const char *error = NULL;
     if (c == NULL)
 	return "Parameter expected";
     switch (d->type) {
@@ -606,7 +606,7 @@ CONST char *menu_fillparam(struct uih_context *uih, tokenfunc f,
 	}
 	{
 	    int i;
-	    CONST char **keys = (CONST char **) d->defstr;
+	    const char **keys = (const char **) d->defstr;
 	    for (i = 0;; i++) {
 		if (keys[i] == NULL)
 		    return "Unknown parameter";
@@ -643,10 +643,10 @@ CONST char *menu_fillparam(struct uih_context *uih, tokenfunc f,
 }
 
 static char errorstr[256];
-CONST menuitem *menu_findcommand(CONST char *name)
+const menuitem *menu_findcommand(const char *name)
 {
     struct entry *entry;
-    CONST menuitem *item;
+    const menuitem *item;
     int len;
     len = strlen(name);
     if (len > 100)
@@ -664,11 +664,11 @@ CONST menuitem *menu_findcommand(CONST char *name)
     return (item);
 }
 
-CONST char *menu_processcommand(struct uih_context *uih, tokenfunc f,
-				int scheme, int mask, CONST char *root)
+const char *menu_processcommand(struct uih_context *uih, tokenfunc f,
+				int scheme, int mask, const char *root)
 {
     char *c = f(uih);
-    CONST menuitem *item;
+    const menuitem *item;
     menuparse_scheme = scheme;
     if (c == NULL) {
 	if (!menuparse_scheme)
@@ -724,12 +724,12 @@ CONST char *menu_processcommand(struct uih_context *uih, tokenfunc f,
 
     {
 	dialogparam *param;
-	CONST menudialog *d = menu_getdialog(uih, item);
+	const menudialog *d = menu_getdialog(uih, item);
 	int i, n;
 	for (n = 0; d[n].question != NULL; n++);
 	param = (dialogparam *) malloc(n * sizeof(dialogparam));
 	for (i = 0; i < n; i++) {
-	    CONST char *error;
+	    const char *error;
 	    error = menu_fillparam(uih, f, d + i, param + i);
 	    if (error != NULL) {
 		sprintf(errorstr, "Function '%s' parameter %i:%s",
@@ -765,7 +765,7 @@ static char *gettoken(struct uih_context *c)
 
 int menu_processargs(int n, int argc, char **argv)
 {
-    CONST char *error;
+    const char *error;
     argpos = n;
     argposs = n;
     margc = argc;
@@ -804,7 +804,7 @@ void menu_printhelp(void)
 		    }
 		    printf(" -%-15s", e1->item->shortname);
 		    if (menu_havedialog(e1->item, NULL)) {
-			CONST menudialog *d =
+			const menudialog *d =
 			    menu_getdialog(NULL, e1->item);
 			while (d->question != NULL) {
 			    switch (d->type) {
@@ -830,8 +830,8 @@ void menu_printhelp(void)
 			    case DIALOG_CHOICE:
 				{
 				    int i;
-				    CONST char **keys =
-					(CONST char **) d->defstr;
+				    const char **keys =
+					(const char **) d->defstr;
 				    for (i = 0;; i++) {
 					if (keys[i] == NULL)
 					    break;
@@ -858,11 +858,11 @@ void menu_printhelp(void)
     }
 }
 
-void uih_xshlprintmenu(struct uih_context *c, CONST char *name)
+void uih_xshlprintmenu(struct uih_context *c, const char *name)
 {
     int i = 0;
     int nexti;
-    CONST menuitem *item, *nextitem, *lastitem;
+    const menuitem *item, *nextitem, *lastitem;
     int comma;
     printf("%%%s\n\n", name);
     printf("<menuhead><head>%s</head></menuhead>\n", menu_fullname(name));
@@ -897,7 +897,7 @@ void uih_xshlprintmenu(struct uih_context *c, CONST char *name)
 		if (item->type == MENU_DIALOG
 		    || item->type == MENU_CUSTOMDIALOG) {
 		    int y;
-		    CONST menudialog *di;
+		    const menudialog *di;
 		    di = menu_getdialog(c, item);
 		    if (item->flags & MENUFLAG_CHECKBOX)
 			printf(" [");
@@ -988,7 +988,7 @@ void uih_xshlprintmenus(struct uih_context *c)
 void
 menu_forall(struct uih_context *c,
 	    void (*callback) (struct uih_context * c,
-			      CONST menuitem * item))
+			      const menuitem * item))
 {
     struct entry *e = firstitem;
     while (e != NULL) {

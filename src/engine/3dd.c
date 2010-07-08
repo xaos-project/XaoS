@@ -6,7 +6,7 @@ static void convert_3d(struct filter *f, int *x1, int *y1)
     int x = *x1;
     unsigned int inp;
     unsigned int height = data->height;
-    register CONST spixel_t *input;
+    register const spixel_t *input;
     if (x >= f->childimage->width - 5 || x < 0
 	|| *y1 > f->childimage->height) {
 	*x1 += *y1 / 2;
@@ -43,7 +43,7 @@ static void convertup_3d(struct filter *f, int *x1, int *y1)
     int x = *x1;
     unsigned int inp;
     unsigned int height = data->height;
-    register CONST spixel_t *input;
+    register const spixel_t *input;
     if (x >= f->childimage->width - 5)
 	x = f->childimage->width - 6;
     if (y >= f->childimage->height - 3)
@@ -73,7 +73,7 @@ static void do_3d(void *dataptr, struct taskinfo *task, int r1, int r2)
     unsigned int x;
     unsigned int end;
     unsigned int sum;
-    spixel_t CONST *RESTRICT input;
+    spixel_t const *RESTRICT input;
     unsigned int *RESTRICT lengths;
     unsigned int *RESTRICT sums;
     unsigned int *RESTRICT relsums;
@@ -86,7 +86,7 @@ static void do_3d(void *dataptr, struct taskinfo *task, int r1, int r2)
     unsigned int colheight = data->colheight;
     unsigned int midcolor = data->midcolor;
     unsigned int darkcolor = data->darkcolor;
-    CONST unsigned int *RESTRICT pixels = data->pixels;
+    const unsigned int *RESTRICT pixels = data->pixels;
     cpixel_t *RESTRICT * RESTRICT currlines =
 	(cpixel_t * RESTRICT * RESTRICT) f->image->currlines;
     struct inp {

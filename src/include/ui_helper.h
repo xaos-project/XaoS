@@ -122,12 +122,12 @@ struct uih_playcontext {
     char *undos[256];
 };
 struct uih_context {
-    void (*updatemenus) (struct uih_context *, CONST char *);
+    void (*updatemenus) (struct uih_context *, const char *);
     /*stuff that should be visible from outside */
     number_t speedup, maxstep;	/*zooming speed */
 
     /* Informations provided to the user interface: */
-    CONST char *menuroot;
+    const char *menuroot;
     int display;		/*1 when ui wants to display something */
     int save;		/*1 if save animation is enabled */
     int play;		/*1 if animation replay is active */
@@ -137,7 +137,7 @@ struct uih_context {
     int interrupt;		/*set to interrupt current calculation */
 
     /*server's callbacks */
-    int (*passfunc) (struct uih_context *, int, CONST char *, float);
+    int (*passfunc) (struct uih_context *, int, const char *, float);
     void (*longwait) (struct uih_context *);
 
     struct uih_undocontext undo;
@@ -177,9 +177,9 @@ struct uih_context {
     char *text[3];		/*Currently displayed text informations: */
     struct uih_window *textwindow[3], *cscreenwindow;
     int textpos[3], textcolor[3];
-    CONST char *errstring;	/*String of last unprocessed error */
+    const char *errstring;	/*String of last unprocessed error */
 
-    CONST struct xfont *font;	/*Font used by UI */
+    const struct xfont *font;	/*Font used by UI */
     struct uih_window *wtop;
     int wflipped;
     int wdisplayed;
@@ -197,7 +197,7 @@ struct uih_context {
     /*replay variables */
     struct uih_playcontext *playc;
     int playpos;
-    CONST char *playstring;
+    const char *playstring;
 
     /*For constant framerate */
     struct timeemulator *emulator;
@@ -347,19 +347,19 @@ typedef struct uih_context uih_context;
 
 #define uih_updatemenus(uih,c) if(uih->updatemenus!=NULL) uih->updatemenus(uih,c);
 
-extern CONST struct filteraction *CONST uih_filters[MAXFILTERS];
-extern CONST int uih_nfilters;
+extern const struct filteraction *const uih_filters[MAXFILTERS];
+extern const int uih_nfilters;
 
 struct uih_context *uih_mkcontext(int flags, struct image *image,
                                   int (*passfunc) (struct uih_context
                                                    *, int,
-                                                   CONST char *,
+                                                   const char *,
                                                    float),
                                   void (*longwait) (struct uih_context
                                                     *),
                                   void (*updatemenus) (struct
                                                        uih_context * c,
-                                                       CONST char *));
+                                                       const char *));
 int uih_updateimage(uih_context * c, struct image *img);
 void uih_freecontext(uih_context * c);
 
@@ -379,7 +379,7 @@ void uih_autopilot_off(uih_context * c);
 /*misc functions */
 int uih_update(uih_context * c, int mousex, int mousey,
                int mousebuttons);
-CONST char *uih_save(struct uih_context *c, xio_constpath filename);
+const char *uih_save(struct uih_context *c, xio_constpath filename);
 void uih_tbreak(uih_context * c);
 double uih_displayed(uih_context * c);
 void uih_do_fractal(uih_context * c);
@@ -437,15 +437,15 @@ void uih_saveframe(struct uih_context *uih);
 void uih_save_possition(struct uih_context *uih, xio_file f, int mode);
 
 void uih_load(struct uih_context *uih, xio_file f, xio_constpath name);
-void uih_loadstr(struct uih_context *uih, CONST char *data);
-void uih_playstr(struct uih_context *uih, CONST char *data);
+void uih_loadstr(struct uih_context *uih, const char *data);
+void uih_playstr(struct uih_context *uih, const char *data);
 void uih_playupdate(struct uih_context *uih);
 void uih_replaydisable(struct uih_context *uih);
 void uih_skipframe(struct uih_context *uih);
 int uih_replayenable(struct uih_context *uih, xio_file f,
                      xio_constpath filename, int animroot);
-void uih_command(struct uih_context *uih, CONST char *command);
-void uih_playtutorial(struct uih_context *c, CONST char *name);
+void uih_command(struct uih_context *uih, const char *command);
+void uih_playtutorial(struct uih_context *c, const char *name);
 
 /* Easy to use functions for handling save/load*/
 void uih_loadfile(struct uih_context *uih, xio_constpath d);
@@ -467,7 +467,7 @@ void uih_slowdowntimers(uih_context * c, int time);
 /*text output functions */
 void uih_clearscreen(uih_context * c);
 void uih_settextpos(uih_context * c, int x, int y);
-void uih_text(uih_context * c, CONST char *text);
+void uih_text(uih_context * c, const char *text);
 void uih_letterspersec(uih_context * c, int n);
 
 /*image rotation functions */
@@ -480,7 +480,7 @@ void uih_rotate(uih_context * c, int mode);
 void uih_rotationspeed(uih_context * c, number_t speed);
 
 /*Catalog functions */
-int uih_loadcatalog(uih_context * c, CONST char *name);
+int uih_loadcatalog(uih_context * c, const char *name);
 void uih_freecatalog(uih_context * c);
 
 void uih_registermenus(void);
@@ -507,8 +507,8 @@ struct uih_window *uih_registerline(struct uih_context *uih, int color,
 /*Messages*/
 void uih_scrollup(uih_context * c);
 void uih_clearmessages(uih_context * c);
-int uih_message(uih_context * c, CONST char *message);
-int uih_error(uih_context * c, CONST char *error);
+int uih_message(uih_context * c, const char *message);
+int uih_error(uih_context * c, const char *error);
 void uih_rmmessage(uih_context * c, int pid);
 void uih_printmessages(uih_context * c);
 
@@ -525,16 +525,16 @@ void uih_redo(uih_context * c);
 void uih_setfont(uih_context * c);
 
 /*animation rendering*/
-int uih_renderanimation(struct uih_context *gc, CONST char *basename,
-                        CONST xio_constpath animation, int width,
+int uih_renderanimation(struct uih_context *gc, const char *basename,
+                        const xio_constpath animation, int width,
                         int height, float pixelwidth,
                         float pixelheight, int frametime, int type,
                         int antialiasing, int slowmode,
-                        int letterspersec, CONST char *catalog,
+                        int letterspersec, const char *catalog,
                         int motionvectors, int iframedist2);
 int uih_renderimage(struct uih_context *gc1, xio_file af,
                     xio_constpath path, struct image *img,
-                    int antialias, CONST char *catalog, int noise);
+                    int antialias, const char *catalog, int noise);
 
 void uih_initmessages(uih_context * c);
 void uih_destroymessages(uih_context * c);

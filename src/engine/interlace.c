@@ -64,7 +64,7 @@ static int initialize(struct filter *f, struct initdata *i)
     return (f->previous->action->initialize(f->previous, i));
 }
 
-static struct filter *getinstance(CONST struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     struct intdata *i = (struct intdata *) calloc(1, sizeof(*i));
@@ -119,7 +119,7 @@ static void convertdown(struct filter *f, int *x, int *y)
     f->previous->action->convertdown(f->previous, x, y);
 }
 
-CONST struct filteraction interlace_filter = {
+const struct filteraction interlace_filter = {
     "Interlace filter",
     "interlace",
     0,

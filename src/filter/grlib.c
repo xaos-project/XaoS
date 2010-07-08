@@ -22,54 +22,54 @@
 #define HEIGHT (currentfont->height)
 #define DATA currentfont->data
 
-extern CONST unsigned char xfont8[];
-extern CONST unsigned char xfont16[];
-extern CONST unsigned char xfont32[];
-extern CONST unsigned char xfont48[];
-extern CONST unsigned char xfont14[];
-extern CONST unsigned char xfont8il1[];
-extern CONST unsigned char xfont16il1[];
-extern CONST unsigned char xfont14il1[];
+extern const unsigned char xfont8[];
+extern const unsigned char xfont16[];
+extern const unsigned char xfont32[];
+extern const unsigned char xfont48[];
+extern const unsigned char xfont14[];
+extern const unsigned char xfont8il1[];
+extern const unsigned char xfont16il1[];
+extern const unsigned char xfont14il1[];
 unsigned char *aa_chardata;
 unsigned char *aa_colordata;
 int aa_cursorx, aa_cursory;
-static CONST struct xfont *currentfont;
-CONST struct xfont xaafont = {
+static const struct xfont *currentfont;
+const struct xfont xaafont = {
     NULL,
     2, 1, 2, 2
 };
 
-CONST struct xfont xsmallfont = {
+const struct xfont xsmallfont = {
     xfont14,
     8, 14, 8, 2
 };
 
-CONST struct xfont xbigfont = {
+const struct xfont xbigfont = {
     xfont16,
     9, 16, 8, 2
 };
 
-CONST struct xfont xbigfont2 = {
+const struct xfont xbigfont2 = {
     xfont32,
     18, 32, 16, 2
 };
 
-CONST struct xfont xbigfont3 = {
+const struct xfont xbigfont3 = {
     xfont48,
     18, 48, 16, 2
 };
 
-CONST struct xfont xsmallfontil1 = {
+const struct xfont xsmallfontil1 = {
     xfont8il1,
     8, 8, 8, 1
 };
 
-CONST struct xfont xmedfontil1 = {
+const struct xfont xmedfontil1 = {
     xfont14il1,
     8, 14, 8, 1
 };
 
-CONST struct xfont xbigfontil1 = {
+const struct xfont xbigfontil1 = {
     xfont16il1,
     9, 16, 8, 1
 };
@@ -124,7 +124,7 @@ drawchar1(struct image *img, int x, int y, int fgcolor,
 	  unsigned char letter)
 {
     int fontwidth = (RWIDTH(letter) + 7) / 8;
-    CONST unsigned char *bitmap = &DATA[letter * HEIGHT * fontwidth];
+    const unsigned char *bitmap = &DATA[letter * HEIGHT * fontwidth];
     unsigned char *current;
     int yend = y + HEIGHT;
     if (y < 0)
@@ -355,7 +355,7 @@ line1(struct image *img, int x, int y, int x2, int y2, int color)
 }
 #endif
 
-static int skip(CONST char *text)
+static int skip(const char *text)
 {
     int i = 0;
     while (*text && *text != '\n')
@@ -413,8 +413,8 @@ xiconv(int encoding, char *out, int *outlen, const char *in, int *inlen)
 //#ifndef PLATFORM_TEXT_RENDERING
 
 static int
-xprint(struct image *image, CONST struct xfont *current, int x, int y,
-       CONST char *text, int fgcolor, int bgcolor, int mode)
+xprint(struct image *image, const struct xfont *current, int x, int y,
+       const char *text, int fgcolor, int bgcolor, int mode)
 {
     int i = 0;
     int aacolor = 0;
@@ -522,7 +522,7 @@ xprint(struct image *image, CONST struct xfont *current, int x, int y,
     return skip(intext); 
 }
 
-static int xtextwidth(CONST struct xfont *font, CONST char *text)
+static int xtextwidth(const struct xfont *font, const char *text)
 {
     int i;
 #ifdef HAVE_GETTEXT
@@ -542,12 +542,12 @@ static int xtextwidth(CONST struct xfont *font, CONST char *text)
     return (i * font->width + 1);
 }
 
-static int xtextheight(CONST struct xfont *font) 
+static int xtextheight(const struct xfont *font) 
 {
     return font->height+1;
 }
 
-static int xtextcharw(CONST struct xfont *font, CONST char c)
+static int xtextcharw(const struct xfont *font, const char c)
 {
     return font->width;
 }

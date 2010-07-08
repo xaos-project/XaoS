@@ -29,9 +29,9 @@ extern "C" {
 #define LOWQUALITY (1<<30)
 #define ZOOMMASK (LOWQUALITY|UNCOMPLETTE)
 
-extern CONST struct filteraction zoom_filter;
+extern const struct filteraction zoom_filter;
 extern struct filter cfilter;
-extern CONST struct filteraction subwindow_filter;
+extern const struct filteraction subwindow_filter;
 void subwindow_setsecond(struct filter *f, struct filter *f1);
 
 #ifdef __cplusplus

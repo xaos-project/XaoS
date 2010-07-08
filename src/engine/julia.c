@@ -76,7 +76,7 @@ static int initialize(struct filter *f, struct initdata *i)
     return (1);
 }
 
-static struct filter *getinstance(CONST struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     f->name = "Julia generator";
@@ -105,7 +105,7 @@ static int doit(struct filter *f, int flags, int time)
     return 0;
 }
 
-CONST struct filteraction julia_filter = {
+const struct filteraction julia_filter = {
     "Julia generator",
     "julia",
     0,

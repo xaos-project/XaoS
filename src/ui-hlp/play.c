@@ -31,7 +31,7 @@
 #define endoffile() (uih->playstring==NULL?xio_feof(FD):uih->playstring[uih->playpos]==0)
 static int nonblockmode;
 static catalog_t *catalog;	/*The message catalog should be "session wide" */
-CONST static char *errstring;
+const static char *errstring;
 #define seterr(str) {if(errstring==NULL) errstring=str;}
 #define FD uih->playc->file
 static char token[1024];
@@ -39,7 +39,7 @@ static int first;
 static int last;
 static int parsenext;
 
-static CONST char *CONST animroot = "animroot";
+static const char *const animroot = "animroot";
 
 static INLINE struct uih_line *uih_findkey(uih_context * c, int key)
 {
@@ -346,10 +346,10 @@ void uih_setfont(struct uih_context *uih)
     }
 }
 
-int uih_loadcatalog(uih_context * c, CONST char *name)
+int uih_loadcatalog(uih_context * c, const char *name)
 {
     static int firsttime = 1;
-    static CONST char *str;
+    static const char *str;
     xio_file f = xio_getcatalog(name);
     if (f == XIO_FAILED) {
 	if (firsttime) {
@@ -400,7 +400,7 @@ uih_replayenable(struct uih_context *uih, xio_file f,
 		 xio_constpath filename, int animr)
 {
     struct uih_playcontext *p;
-    CONST char *s;
+    const char *s;
     if (uih->play) {
 	uih_error(uih, gettext("Replay is already active"));
 	return 0;
@@ -696,7 +696,7 @@ void uih_playautorotate(struct uih_context *uih, int mode)
 
 void uih_playfilter(struct uih_context *uih, dialogparam * p)
 {
-    CONST char *fname = p[0].dstring;
+    const char *fname = p[0].dstring;
     int mode;
     int i;
     for (i = 0; i < uih_nfilters; i++) {
@@ -871,7 +871,7 @@ void uih_playload(struct uih_context *uih, xio_path file)
 
 static void uih_processcommand(struct uih_context *uih, int flags)
 {
-    CONST char *error;
+    const char *error;
     first = 1;
     last = 0;
     error = menu_processcommand(uih, gettokenwr, 1, flags, uih->menuroot);
@@ -933,7 +933,7 @@ void uih_load(struct uih_context *uih, xio_file f, xio_constpath filename)
     nonblockmode = 0;
 }
 
-void uih_command(struct uih_context *uih, CONST char *command)
+void uih_command(struct uih_context *uih, const char *command)
 {
     errstring = NULL;
     uih->playpos = 0;

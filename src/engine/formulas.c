@@ -77,7 +77,7 @@
 extern struct uih_context *globaluih;	// to be able to use sffe parser
 #endif
 
-CONST char *CONST incolorname[] = {
+const char *const incolorname[] = {
     "0",
     "zmag",
     "Decomposition-like",
@@ -92,7 +92,7 @@ CONST char *CONST incolorname[] = {
     NULL
 };
 
-CONST char *CONST outcolorname[] = {
+const char *const outcolorname[] = {
     "iter",
     "iter+real",
     "iter+imag",
@@ -107,7 +107,7 @@ CONST char *CONST outcolorname[] = {
     NULL
 };
 
-CONST char *CONST tcolorname[] = {
+const char *const tcolorname[] = {
     "black",
     "re*im sin(re^2) angle",
     "sin(re) sin(im) sin(square)",
@@ -1359,17 +1359,17 @@ pacalc(long double zre, long double zim, long double pre, long double pim)
 #endif
 
 
-static CONST symetrytype sym6[] = {
+static const symetrytype sym6[] = {
     {0, 1.73205080758},
     {0, -1.73205080758}
 };
 
-static CONST symetrytype sym8[] = {
+static const symetrytype sym8[] = {
     {0, 1},
     {0, -1}
 };
 
-static CONST symetrytype sym16[] = {
+static const symetrytype sym16[] = {
     {0, 1},
     {0, -1},
     {0, 0.414214},
@@ -1378,7 +1378,7 @@ static CONST symetrytype sym16[] = {
     {0, -2.414214}
 };
 
-CONST struct formula formulas[] = {
+const struct formula formulas[] = {
     {				/* 0 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
@@ -3031,6 +3031,6 @@ calculateswitch(register number_t x1, register number_t y1,
 }
 #endif
 
-CONST struct formula *currentformula;
-CONST int nformulas = sizeof(formulas) / sizeof(struct formula);
-CONST int nmformulas = 16; // Is this correct here? -- Zoltan, 2009-07-30
+const struct formula *currentformula;
+const int nformulas = sizeof(formulas) / sizeof(struct formula);
+const int nmformulas = 16; // Is this correct here? -- Zoltan, 2009-07-30

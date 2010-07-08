@@ -25,8 +25,8 @@
 
 
 #define ALL (~0)
-CONST static struct tag {
-    CONST char *name;
+const static struct tag {
+    const char *name;
     int andflagenable;
     int orflagenable;
     int andflagdisable;
@@ -306,7 +306,7 @@ static struct boxitem *xshl_readbox(void *data, int (*get) (void *))
 
 struct xshl_line *xshl_interpret(void *data, int (*get) (void *),
 				 int width, int getwidth(void *, int flags,
-							 CONST char *text),
+							 const char *text),
 				 int startflags, int smallheight,
 				 int bigheight)
 {
@@ -423,7 +423,7 @@ struct xshl_line *xshl_interpret(void *data, int (*get) (void *),
 }
 
 
-int xshl_textlen(void *data, int flags, CONST char *text)
+int xshl_textlen(void *data, int flags, const char *text)
 {
     return ((int) strlen(text));
 }

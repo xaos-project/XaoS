@@ -28,7 +28,7 @@ static long double powten[] = {
     1e512L, 1e1024L, 1e2048L, 1e4096L
 };
 
-long double x_strtold(CONST char *s, CONST char **sret)
+long double x_strtold(const char *s, const char **sret)
 {
     long double r;		/* result */
     int e, ne;			/* exponent */

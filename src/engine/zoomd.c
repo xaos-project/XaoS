@@ -283,7 +283,7 @@ dosymetry2(void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
 static INLINE void fillline(int line)
 {
     register unsigned char *RESTRICT vbuff = cimage.currlines[line];
-    CONST struct filltable *RESTRICT table = (struct filltable *) tmpdata;
+    const struct filltable *RESTRICT table = (struct filltable *) tmpdata;
     while (table->length) {
 	register cpixeldata_t s =
 	    p_get((cpixel_t *) (vbuff + table->from));

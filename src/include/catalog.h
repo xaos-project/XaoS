@@ -16,9 +16,9 @@ typedef struct catalog {
     struct varnames *root[CHASHMAX];
 } catalog_t;
 /*Find text in catalog */
-extern char *find_text(catalog_t * catalog, CONST char *name);
+extern char *find_text(catalog_t * catalog, const char *name);
 /*Load catalog from file */
-extern catalog_t *load_catalog(xio_file f, CONST char **error);
+extern catalog_t *load_catalog(xio_file f, const char **error);
 /*Free memory used by catalog */
 extern void free_catalog(catalog_t *);
 #ifdef __cplusplus

@@ -549,7 +549,7 @@ static int segmentsize;
 
 
 static unsigned char colors[MAXNSEGMENTS][3];
-static CONST unsigned char colors1[DEFNSEGMENTS][3] = {
+static const unsigned char colors1[DEFNSEGMENTS][3] = {
     /*{8, 14, 32}, */
     {0, 0, 0},
     {120, 119, 238},

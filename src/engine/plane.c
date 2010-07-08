@@ -41,7 +41,7 @@
 #include <fconfig.h>
 #include <plane.h>
 #include <complex.h>
-CONST char *CONST planename[] = {
+const char *const planename[] = {
     "mu",
     "1/mu",
     "1/(mu+0.25)",

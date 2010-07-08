@@ -41,7 +41,7 @@ before #include <ddraw.h>*/
 #undef FPOINT_TYPE
 #define FPOINT_TYPE double
 #endif
-#define CONST const
+#define const const
 #ifdef _MSC_VER
 #define INLINE __inline
 #else

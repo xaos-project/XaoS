@@ -72,7 +72,7 @@ static int initialize(struct filter *f, struct initdata *i)
     return (f->previous->action->initialize(f->previous, i));
 }
 
-static struct filter *getinstance(CONST struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     struct starfielddata *i =
@@ -120,7 +120,7 @@ static void myremovefilter(struct filter *f)
     }
 }
 
-CONST struct filteraction starfield_filter = {
+const struct filteraction starfield_filter = {
     "Starfield",
     "starfield",
     0,

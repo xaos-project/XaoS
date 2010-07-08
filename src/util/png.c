@@ -20,14 +20,14 @@
 #include <misc-f.h>
 #include <xio.h>
 #ifndef USE_PNG
-CONST char *writepng(xio_constpath filename, CONST struct image *img)
+const char *writepng(xio_constpath filename, const struct image *img)
 {
     return
 	"XaoS can not save images because it was incorrectly compiled. Please compile it with zlib and libpng";
 }
 #else
 
-CONST char *writepng(xio_constpath filename, CONST struct image *image)
+const char *writepng(xio_constpath filename, const struct image *image)
 {
     png_structp png_ptr;
     png_infop info_ptr;

@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 void x_ldout(long double param, int prec, xio_file stream);
-long double x_strtold(CONST char *s, CONST char **sret);
+long double x_strtold(const char *s, const char **sret);
 #ifdef __cplusplus
 }
 #endif

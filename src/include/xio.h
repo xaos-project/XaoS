@@ -44,7 +44,7 @@ the main I/O routines are in the xstdio file
 #include <stdio.h>
 
 typedef char *xio_path;
-typedef CONST char *xio_constpath;
+typedef const char *xio_constpath;
 typedef char xio_pathdata[4096];
 extern char *xio_appdir;	/*Where application binary is */
 extern char *xio_homedir;
@@ -77,27 +77,27 @@ extern char *xio_homedir;
 #define xio_errorstring() strerror(errno)
 #endif				/*plan9 */
 
-char *xio_fixpath(CONST char *name);
+char *xio_fixpath(const char *name);
 #endif				/*USE_STDIO */
 
 xio_file xio_ropen(xio_constpath name);
 xio_file xio_wopen(xio_constpath name);
-xio_file xio_strropen(CONST char *c);
+xio_file xio_strropen(const char *c);
 xio_file xio_strwopen(void);
 char *xio_getstring(xio_file f);
 xio_path xio_getdirectory(xio_constpath name);
-xio_path xio_getfilename(CONST char *base, CONST char *extension);
+xio_path xio_getfilename(const char *base, const char *extension);
 xio_file xio_getrandomexample(xio_path name);
-xio_file xio_getcatalog(CONST char *name);
+xio_file xio_getcatalog(const char *name);
 xio_file xio_gethelp(void);
-xio_file xio_gettutorial(CONST char *name, xio_path result);
+xio_file xio_gettutorial(const char *name, xio_path result);
 
 /*look trought directory with examples, choose one file, open it (and return
  *descriptor+put name into name parameter*/
 int xio_exist(xio_constpath name);
 int xio_getfiles(xio_constpath path, char ***names, char ***dirs,
                  int *nnames, int *ndirs);
-void xio_init(CONST char *c);
+void xio_init(const char *c);
 void xio_uninit(void);
 
 

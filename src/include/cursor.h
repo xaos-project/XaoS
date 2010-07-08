@@ -1,4 +1,4 @@
-CONST static unsigned char wait_pointer_data[256] = {
+const static unsigned char wait_pointer_data[256] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 1, 0, 0,
@@ -17,7 +17,7 @@ CONST static unsigned char wait_pointer_data[256] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0,
 };
 
-CONST static unsigned char mouse_pointer_data[256] = {
+const static unsigned char mouse_pointer_data[256] = {
     1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     1, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

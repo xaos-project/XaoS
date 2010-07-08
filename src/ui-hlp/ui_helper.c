@@ -58,11 +58,11 @@
 #define uih_palettechg(uih) if(!uih->recalculatemode&&uih->queue->palettechg!=NULL) uih->recalculatemode=UIH_PALETTEDRAW, uih->display=1
 #include <misc-f.h>
 
-static struct filter *uih_getinstance(CONST struct filteraction *a);
+static struct filter *uih_getinstance(const struct filteraction *a);
 static void uih_destroyinstance(struct filter *f);
 static int uih_require(struct filter *f, struct requirements *r);
 static int uih_initialize(struct filter *f, struct initdata *i);
-static CONST rgb_t uicolors[] = {
+static const rgb_t uicolors[] = {
     {0, 0, 0},
     {255, 255, 255},
     {255, 65, 0},
@@ -71,7 +71,7 @@ static CONST rgb_t uicolors[] = {
     {128 + 64, 128 + 64, 128 + 64}
 };
 
-static CONST rgb_t uibwcolors[] = {
+static const rgb_t uibwcolors[] = {
     {0, 0, 0},
     {255, 255, 255},
     {255, 255, 255},
@@ -80,7 +80,7 @@ static CONST rgb_t uibwcolors[] = {
     {255, 255, 255}
 };
 
-static CONST struct filteraction uih_filter = {
+static const struct filteraction uih_filter = {
     "XaoS's user interface layer",
     "ui",
     0,
@@ -97,13 +97,13 @@ static CONST struct filteraction uih_filter = {
 static uih_context *uih;
 static int waitcount, waitcount1, waitcount2;
 
-extern CONST struct filteraction interlace_filter, stereogram_filter,
+extern const struct filteraction interlace_filter, stereogram_filter,
     subwindow_filter, smalliter_filter, julia_filter, blur_filter,
     edge_filter, edge2_filter, rotate_filter, starfield_filter,
     truecolor_filter, fixedcolor_filter, bitmap_filter, emboss_filter,
     palette_filter, antialias_filter, threed_filter;
 
-CONST struct filteraction *CONST uih_filters[MAXFILTERS] = {
+const struct filteraction *const uih_filters[MAXFILTERS] = {
     &edge_filter,
     &edge2_filter,
     &threed_filter,
@@ -118,7 +118,7 @@ CONST struct filteraction *CONST uih_filters[MAXFILTERS] = {
     NULL
 };
 
-CONST int uih_nfilters = 11;
+const int uih_nfilters = 11;
 
 static void uih_invalidatepos(uih_context * uih)
 {
@@ -315,7 +315,7 @@ static void uih_fixedcolordisable(uih_context * c)
 static int uih_fixedcolorenable(uih_context * c)
 {
 #ifdef SCONVERTORS
-    CONST struct filteraction *fa = NULL;
+    const struct filteraction *fa = NULL;
     int wascycling = 0;
     preallocpalette(c->palette);
     switch (c->image->palette->type) {
@@ -389,7 +389,7 @@ void uih_angle(uih_context * c, number_t angle)
 
 void uih_rotatemode(uih_context * c, int mode)
 {
-    CONST char *names[] = {
+    const char *names[] = {
 	"norotate",
 	"mouserotate",
 	"controtate"
@@ -598,7 +598,7 @@ void uih_loadfile(struct uih_context *c, xio_constpath d)
     return;
 }
 
-void uih_loadstr(struct uih_context *c, CONST char *data)
+void uih_loadstr(struct uih_context *c, const char *data)
 {
     xio_file f;
     f = xio_strropen(data);
@@ -606,7 +606,7 @@ void uih_loadstr(struct uih_context *c, CONST char *data)
     return;
 }
 
-void uih_playstr(struct uih_context *c, CONST char *data)
+void uih_playstr(struct uih_context *c, const char *data)
 {
     xio_file f;
     f = xio_strropen(mystrdup(data));
@@ -638,7 +638,7 @@ void uih_playfile(struct uih_context *c, xio_constpath d)
     return;
 }
 
-void uih_playtutorial(struct uih_context *c, CONST char *name)
+void uih_playtutorial(struct uih_context *c, const char *name)
 {
     xio_pathdata tmp;
     xio_file f = XIO_FAILED;
@@ -677,7 +677,7 @@ void uih_loadexample(struct uih_context *c)
 
 void uih_savepngfile(struct uih_context *c, xio_constpath d)
 {
-    CONST char *s;
+    const char *s;
     if (c->passfunc != NULL) {
 	c->passfunc(c, 1, gettext("Saving image..."), 0);
     }
@@ -814,9 +814,9 @@ void uih_saveanimfile(struct uih_context *c, xio_constpath d)
 
 
 
-CONST char *uih_save(struct uih_context *c, xio_constpath filename)
+const char *uih_save(struct uih_context *c, xio_constpath filename)
 {
-    CONST char *r;
+    const char *r;
     uih_cycling_stop(c);
     uih_stoptimers(c);
     uih_clearwindows(c);
@@ -1128,7 +1128,7 @@ double uih_displayed(uih_context * c)
     return (c->lastspeed);
 }
 
-void uih_text(uih_context * c, CONST char *text)
+void uih_text(uih_context * c, const char *text)
 {
     int i, l;
     c->display = 1;
@@ -1172,12 +1172,12 @@ void uih_clearscreen(uih_context * c)
 
 void uih_settextpos(uih_context * c, int x, int y)
 {
-    CONST char *names1[] = {
+    const char *names1[] = {
 	"ytextposup",
 	"ytextposmiddle",
 	"ytextposbottom",
     };
-    CONST char *names2[] = {
+    const char *names2[] = {
 	"xtextposleft",
 	"xtextposcenter",
 	"xtextposright",
@@ -1852,7 +1852,7 @@ void uih_setjuliaseed(uih_context * c, number_t zre, number_t zim)
 
 void uih_setfastmode(uih_context * c, int mode)
 {
-    CONST char *names[] = {
+    const char *names[] = {
 	"nodynamic",
 	"nodynamic",
 	"dynamicanimation",
@@ -2014,11 +2014,11 @@ struct uih_context *globaluih;
 
 struct uih_context *uih_mkcontext(int flags, struct image *image,
 				  int (*passfunc) (struct uih_context *,
-						   int, CONST char *,
+						   int, const char *,
 						   float),
 				  void (*longwait) (struct uih_context *),
 				  void (*upd) (struct uih_context *,
-					       CONST char *))
+					       const char *))
 {
     uih_context *uih;
     uih = (uih_context *) calloc(sizeof(*uih), 1);	/*setup parameters */
@@ -2226,7 +2226,7 @@ void uih_freecontext(uih_context * c)
     free(c);
 }
 
-static struct filter *uih_getinstance(CONST struct filteraction *a)
+static struct filter *uih_getinstance(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     f->data = uih;

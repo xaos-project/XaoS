@@ -243,7 +243,7 @@ static int *mulmid;
  *on the screen is symetrical and it is quite rare case...who knows
  */
 static void
-				    /*INLINE */ preparesymetries(register realloc_t * realloc, CONST int size,
+				    /*INLINE */ preparesymetries(register realloc_t * realloc, const int size,
 								 register
 								 int symi,
 								 number_t
@@ -369,7 +369,7 @@ static void
 
 static /*INLINE */ void
 newpossitions(realloc_t * realloc, unsigned int size, number_t begin1,
-	      number_t end1, CONST number_t * fpos, int yend)
+	      number_t end1, const number_t * fpos, int yend)
 {
     realloc_t *rs, *re, *rend;
     number_t step = size / (end1 - begin1);
@@ -441,10 +441,10 @@ newpossitions(realloc_t * realloc, unsigned int size, number_t begin1,
  * Let me know :)
  */
 static /*INLINE */ void
-mkrealloc_table(CONST number_t * RESTRICT fpos,
+mkrealloc_table(const number_t * RESTRICT fpos,
 		realloc_t * RESTRICT realloc,
-		CONST unsigned int size, CONST number_t begin,
-		CONST number_t end, number_t sym, unsigned char *tmpdata)
+		const unsigned int size, const number_t begin,
+		const number_t end, number_t sym, unsigned char *tmpdata)
 {
     unsigned int i;
     int counter;
@@ -1706,7 +1706,7 @@ static int do_fractal(struct filter *f, int flags, int /*@unused@ */ time)
 }
 
 
-static struct filter *getinstance(CONST struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     f->data = make_context();
@@ -1747,7 +1747,7 @@ static int initialize(struct filter *f, struct initdata *i)
     return (1);
 }
 
-CONST struct filteraction zoom_filter = {
+const struct filteraction zoom_filter = {
     "XaoS's zooming engine",
     "zoom",
     0,

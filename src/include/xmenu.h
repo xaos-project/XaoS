@@ -16,10 +16,10 @@ typedef union {
     void *dummy;
 } dialogparam;
 typedef struct dialog {
-    CONST char *question;
+    const char *question;
     int type;
     int defint;
-    CONST char *defstr;
+    const char *defstr;
     number_t deffloat;
     number_t deffloat2;
 } menudialog;
@@ -42,7 +42,7 @@ typedef char *(*tokenfunc) (struct uih_context * c);
 #define DIALOGINT(question,default)  {question, DIALOG_INT, default}
 #define DIALOGONOFF(question,default)  {question, DIALOG_ONOFF, default}
 #define DIALOGFLOAT(question,default)  {question, DIALOG_FLOAT, 0, NULL, default}
-#define DIALOGCHOICE(question,table,default)  {question, DIALOG_CHOICE, default,(CONST char *)table}
+#define DIALOGCHOICE(question,table,default)  {question, DIALOG_CHOICE, default,(const char *)table}
 #define DIALOGCOORD(question,default1,default2)  {question, DIALOG_COORD,0, NULL, default1,default2}
 
 #define DIALOGIFILE_I(_question,_filename) \
@@ -99,7 +99,7 @@ menudialogs_i18n[no_menudialogs_i18n].deffloat=_default; \
 menudialogs_i18n[no_menudialogs_i18n].question=_question; \
 menudialogs_i18n[no_menudialogs_i18n].type=DIALOG_CHOICE; \
 menudialogs_i18n[no_menudialogs_i18n].defint=_default; \
-menudialogs_i18n[no_menudialogs_i18n].defstr=(CONST char *)_table; \
+menudialogs_i18n[no_menudialogs_i18n].defstr=(const char *)_table; \
 ++no_menudialogs_i18n;
 
 #define DIALOGCOORD_I(_question,_default1,_default2) \
@@ -121,17 +121,17 @@ menudialogs_i18n[no_menudialogs_i18n].deffloat=0; \
                                                                                                                                                                                                                                                                                    ++no_menudialogs_i18n;
 
 typedef struct menuitem {
-    CONST char *menuname;
-    CONST char *key;
-    CONST char *name;
-    CONST char *shortname;
+    const char *menuname;
+    const char *key;
+    const char *name;
+    const char *shortname;
     int type;
     int flags;
     void (*function) (void);
     int iparam;
-    CONST void *pparam;
+    const void *pparam;
     int (*control) (void);
-    CONST menudialog *(*dialog) (struct uih_context *);
+    const menudialog *(*dialog) (struct uih_context *);
 } menuitem;
 
 #define MENU_NOPARAM 1
@@ -158,8 +158,8 @@ All of these definitions will become obsolete soon: */
 #define SUBMENUNOOPT(menuname,key,name,param) {menuname, key, name,param, MENU_SUBMENU, MENUFLAG_NOOPTION, NULL,0,NULL}
 #define MENUDIALOG(menuname,key,name,shortname,flags,function,param) {menuname, key, name,shortname, MENU_DIALOG, flags, (void (*)(void))function,0,param}
 #define MENUDIALOGCB(menuname,key,name,shortname,flags,function,param,check) {menuname, key, name,shortname, MENU_DIALOG, flags|MENUFLAG_CHECKBOX, (void (*)(void))function,0,param,(int (*)(void))check}
-#define MENUCDIALOG(menuname,key,name,shortname,flags,function,param) {menuname, key, name,shortname, MENU_CUSTOMDIALOG, flags, (void (*)(void))function,0,NULL,NULL,(CONST menudialog *(*)(struct uih_context *))param}
-#define MENUCDIALOGCB(menuname,key,name,shortname,flags,function,param,check) {menuname, key, name,shortname, MENU_CUSTOMDIALOG, flags|MENUFLAG_CHECKBOX,(void (*)(void))function,0,NULL,(int (*)(void))check,(CONST menudialog *(*)(struct uih_context *))param}
+#define MENUCDIALOG(menuname,key,name,shortname,flags,function,param) {menuname, key, name,shortname, MENU_CUSTOMDIALOG, flags, (void (*)(void))function,0,NULL,NULL,(const menudialog *(*)(struct uih_context *))param}
+#define MENUCDIALOGCB(menuname,key,name,shortname,flags,function,param,check) {menuname, key, name,shortname, MENU_CUSTOMDIALOG, flags|MENUFLAG_CHECKBOX,(void (*)(void))function,0,NULL,(int (*)(void))check,(const menudialog *(*)(struct uih_context *))param}
 #define MENUSTRING(menuname,key,name,shortname,flags,function,param) {menuname, key, name,shortname, MENU_STRING, flags, (void (*)(void))function,0,param}
 
 
@@ -268,7 +268,7 @@ menuitems_i18n[no_menuitems_i18n].name = _name; \
 menuitems_i18n[no_menuitems_i18n].pparam = NULL; \
 menuitems_i18n[no_menuitems_i18n].control = NULL; \
 menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function; \
-menuitems_i18n[no_menuitems_i18n].dialog = (CONST menudialog *(*)(struct uih_context *))_param; \
+menuitems_i18n[no_menuitems_i18n].dialog = (const menudialog *(*)(struct uih_context *))_param; \
 ++no_menuitems_i18n;
 
 #define MENUCDIALOGCB_I(_menuname,_key,_name,_shortname,_flags,_function,_param,_check)\
@@ -282,7 +282,7 @@ menuitems_i18n[no_menuitems_i18n].name = _name; \
 menuitems_i18n[no_menuitems_i18n].pparam = _param; \
 menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;  \
 menuitems_i18n[no_menuitems_i18n].control = (int (*)(void))_check; \
-menuitems_i18n[no_menuitems_i18n].dialog = (CONST menudialog *(*)(struct uih_context *))_param; \
+menuitems_i18n[no_menuitems_i18n].dialog = (const menudialog *(*)(struct uih_context *))_param; \
 ++no_menuitems_i18n;
 
 #define MENUSEPARATOR_I(_menuname) \
@@ -336,48 +336,48 @@ menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;  \
 
 #define NITEMS(n) (sizeof(n)/sizeof(menuitem))
 #define menu_getdialog(context, m) \
-((m)->type==MENU_DIALOG?(CONST menudialog *)(m)->pparam:(m)->dialog(context))
+((m)->type==MENU_DIALOG?(const menudialog *)(m)->pparam:(m)->dialog(context))
 
-        void menu_add(CONST menuitem * item, int n);
-void menu_insert(CONST menuitem * item, CONST char *before, int n);
-CONST menuitem *menu_findkey(CONST char *key, CONST char *root);
-CONST menuitem *menu_findcommand(CONST char *name);
-CONST char *menu_fullname(CONST char *menu);
-CONST menuitem *menu_item(CONST char *menu, int n);
-void menu_delete(CONST menuitem * items, int n);
-int menu_enabled(CONST menuitem * item, struct uih_context *c);
-void menu_activate(CONST menuitem * item, struct uih_context *c,
+        void menu_add(const menuitem * item, int n);
+void menu_insert(const menuitem * item, const char *before, int n);
+const menuitem *menu_findkey(const char *key, const char *root);
+const menuitem *menu_findcommand(const char *name);
+const char *menu_fullname(const char *menu);
+const menuitem *menu_item(const char *menu, int n);
+void menu_delete(const menuitem * items, int n);
+int menu_enabled(const menuitem * item, struct uih_context *c);
+void menu_activate(const menuitem * item, struct uih_context *c,
                    dialogparam * d);
-CONST menuitem *menu_genernumbered(int n, CONST char *menuname,
-                                   CONST char *CONST * CONST names,
-                                   CONST char *keys, int type,
+const menuitem *menu_genernumbered(int n, const char *menuname,
+                                   const char *const * const names,
+                                   const char *keys, int type,
                                    int flags,
                                    void (*fint) (struct uih_context *
                                                  context, int),
                                    int (*cint) (struct uih_context *
                                                 context, int),
-                                   CONST char *prefix);
-void menu_delnumbered(int n, CONST char *name);
-void menu_addqueue(CONST menuitem * item, dialogparam * d);
-CONST menuitem *menu_delqueue(dialogparam ** d);
-void menu_destroydialog(CONST menuitem * item, dialogparam * d,
+                                   const char *prefix);
+void menu_delnumbered(int n, const char *name);
+void menu_addqueue(const menuitem * item, dialogparam * d);
+const menuitem *menu_delqueue(dialogparam ** d);
+void menu_destroydialog(const menuitem * item, dialogparam * d,
                         struct uih_context *uih);
-int menu_havedialog(CONST menuitem * item, struct uih_context *c);
-int menu_available(CONST menuitem * item, CONST char *root);
-CONST char *menu_processcommand(struct uih_context *uih, tokenfunc f,
+int menu_havedialog(const menuitem * item, struct uih_context *c);
+int menu_available(const menuitem * item, const char *root);
+const char *menu_processcommand(struct uih_context *uih, tokenfunc f,
                                 int scheme, int mask,
-                                CONST char *root);
+                                const char *root);
 void menu_printhelp(void);
 
-number_t menu_getfloat(CONST char *s, CONST char **error);
-CONST char *menu_fillparam(struct uih_context *uih, tokenfunc f,
-                           CONST menudialog * d, dialogparam * p);
+number_t menu_getfloat(const char *s, const char **error);
+const char *menu_fillparam(struct uih_context *uih, tokenfunc f,
+                           const menudialog * d, dialogparam * p);
 int menu_processargs(int n, int argc, char **argv);
-void uih_xshlprintmenu(struct uih_context *c, CONST char *name);
+void uih_xshlprintmenu(struct uih_context *c, const char *name);
 void uih_xshlprintmenus(struct uih_context *c);
 void menu_forall(struct uih_context *c,
                  void (*callback) (struct uih_context * c,
-                                   CONST menuitem * item));
+                                   const menuitem * item));
 
 #ifdef __cplusplus
 }

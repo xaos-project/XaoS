@@ -61,7 +61,7 @@ static int initialize(struct filter *f, struct initdata *i)
     return (f->previous->action->initialize(f->previous, i));
 }
 
-static struct filter *getinstance(CONST struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     f->name = "Edge detection";
@@ -96,7 +96,7 @@ static int doit(struct filter *f, int flags, int time)
     return val;
 }
 
-CONST struct filteraction edge_filter = {
+const struct filteraction edge_filter = {
     "Edge detection",
     "edge",
     0,

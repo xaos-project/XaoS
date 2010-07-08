@@ -75,7 +75,7 @@ static void ui_pipe_handler(void *data, int q)
 #endif
 }
 
-void ui_pipe_init(CONST char *name)
+void ui_pipe_init(const char *name)
 {
 #ifdef O_NONBLOCK
     if ((int) strlen(name) == 1 && name[0] == '-') {

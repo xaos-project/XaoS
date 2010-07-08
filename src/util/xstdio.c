@@ -31,7 +31,7 @@
 char *xio_appdir;
 char *xio_homedir;
 
-char *xio_fixpath(CONST char *c)
+char *xio_fixpath(const char *c)
 {
     if (c[0] == '~') {
 	char *c1 = (char *) malloc(strlen(c) + strlen(xio_homedir) + 5);
@@ -126,7 +126,7 @@ xio_path xio_getdirectory(xio_constpath filename)
     return (mystrdup(directory));
 }
 
-xio_path xio_getfilename(CONST char *basename, CONST char *extension)
+xio_path xio_getfilename(const char *basename, const char *extension)
 {
     static char name[40];
     int nimage = 0;
@@ -160,7 +160,7 @@ xio_path xio_getfilename(CONST char *basename, CONST char *extension)
 xio_file xio_getrandomexample(xio_path name)
 {
 #ifdef HAVE_DIRENT_H
-    static CONST char *CONST paths[] = {	/*Where examples should be located? */
+    static const char *const paths[] = {	/*Where examples should be located? */
 	EXAMPLESPATH,		/*Data path when XaoS is propertly installed */
 	"\01" XIO_PATHSEPSTR "examples",
 	/*XaoS was started from root of source tree */
@@ -251,9 +251,9 @@ xio_file xio_getrandomexample(xio_path name)
 #endif
 }
 
-xio_file xio_getcatalog(CONST char *name)
+xio_file xio_getcatalog(const char *name)
 {
-    static CONST xio_constpath paths[] = {	/*Where catalogs should be located? */
+    static const xio_constpath paths[] = {	/*Where catalogs should be located? */
 	CATALOGSPATH,		/*Data path when XaoS is propertly installed */
 #ifndef _plan9_
 	"\01" XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
@@ -290,7 +290,7 @@ xio_file xio_getcatalog(CONST char *name)
 
 xio_file xio_gethelp(void)
 {
-    static CONST xio_constpath paths[] = {	/*Where help should be located? */
+    static const xio_constpath paths[] = {	/*Where help should be located? */
 	HELPPATH,		/*Data path when XaoS is propertly installed */
 #ifndef _plan9_
 	"\01" XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
@@ -322,11 +322,11 @@ xio_file xio_gethelp(void)
     return (f);
 }
 
-xio_file xio_gettutorial(CONST char *name, xio_path tmp)
+xio_file xio_gettutorial(const char *name, xio_path tmp)
 {
     int i;
     xio_file f = XIO_FAILED;
-    static CONST xio_constpath paths[] = {	/*Where tutorials should be located? */
+    static const xio_constpath paths[] = {	/*Where tutorials should be located? */
 	TUTORIALPATH,		/*Data path when XaoS is propertly installed */
 #ifndef _plan9_
 	"\01" XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,
@@ -366,7 +366,7 @@ static int sputc(int c, xio_file f)
     return putc(c, (FILE *) f->data);
 }
 
-static int sputs(CONST char *c, xio_file f)
+static int sputs(const char *c, xio_file f)
 {
     return fputs(c, (FILE *) f->data);
 }
@@ -398,7 +398,7 @@ static int ssclose(xio_file f)
     return r;
 }
 
-xio_file xio_ropen(CONST char *name)
+xio_file xio_ropen(const char *name)
 {
     xio_file f = (xio_file) calloc(1, sizeof(*f));
     name = xio_fixpath(name);
@@ -415,7 +415,7 @@ xio_file xio_ropen(CONST char *name)
     return f;
 }
 
-xio_file xio_wopen(CONST char *name)
+xio_file xio_wopen(const char *name)
 {
     xio_file f = (xio_file) calloc(1, sizeof(*f));
     name = xio_fixpath(name);
@@ -438,7 +438,7 @@ xio_file xio_wopen(CONST char *name)
 #ifdef _WIN32
 #define DRIVES
 #endif
-void xio_init(CONST char *name)
+void xio_init(const char *name)
 {
     if (getenv("HOME"))
 	xio_homedir = mystrdup(getenv("HOME"));

@@ -109,7 +109,7 @@ int err;
 char **prog_argv;
 /*UI state */
 uih_context *uih;
-CONST struct ui_driver *driver;
+const struct ui_driver *driver;
 char statustext[256];
 int ui_nogui;
 static struct image *image;
@@ -146,7 +146,7 @@ char *sffeform = NULL;
 char *sffeinit = NULL;
 #endif
 
-CONST struct params global_params[] = {
+const struct params global_params[] = {
     {"-delay", P_NUMBER, &delaytime,
      "Delay screen updates (milliseconds)"},
     {"-driver", P_STRING, &defdriver, "Select driver"},
@@ -192,9 +192,9 @@ CONST struct params global_params[] = {
 };
 
 static int resizeregistered = 0;
-static void ui_updatemenus(uih_context * c, CONST char *name)
+static void ui_updatemenus(uih_context * c, const char *name)
 {
-    CONST struct menuitem *item;
+    const struct menuitem *item;
     if (ui_nogui) {
 	if (name == NULL) {
 	    printf("Root \"%s\"", uih->menuroot);
@@ -316,7 +316,7 @@ static void ui_outofmem(void)
 
 #define CHECKPROCESSEVENTS(b,k) assert(!((k)&~15)&&!((b)&~(BUTTON1|BUTTON2|BUTTON3)))
 static int
-ui_passfunc(struct uih_context *c, int display, CONST char *text,
+ui_passfunc(struct uih_context *c, int display, const char *text,
 	    float percent)
 {
     char str[80];
@@ -383,7 +383,7 @@ void ui_updatestarts(void)
     uih->messg.messagestart = y;
 }
 
-void ui_menuactivate(CONST menuitem * item, dialogparam * d)
+void ui_menuactivate(const menuitem * item, dialogparam * d)
 {
     if (item == NULL)
 	return;
@@ -420,7 +420,7 @@ void ui_menuactivate(CONST menuitem * item, dialogparam * d)
     }
 }
 
-xio_path ui_getfile(CONST char *basename, CONST char *extension)
+xio_path ui_getfile(const char *basename, const char *extension)
 {
     return (xio_getfilename(basename, extension));
 }
@@ -590,7 +590,7 @@ static void ui_message(struct uih_context *u)
 
 #define ROTATESPEEDUP 30
 static int
-procescounter(int *counter, CONST char *text, int speed, int keys,
+procescounter(int *counter, const char *text, int speed, int keys,
 	      int lastkeys, int down, int up, int tenskip, int min,
 	      int max)
 {
@@ -819,7 +819,7 @@ static void ui_setdriver(uih_context * c, int d)
 
 static void processbuffer(void)
 {
-    CONST menuitem *item;
+    const menuitem *item;
     dialogparam *d;
     if (uih->incalculation)
 	return;
@@ -872,7 +872,7 @@ int ui_key(int key)
 {
     int sym;
     char mkey[2];
-    CONST menuitem *item;
+    const menuitem *item;
 #ifdef _plan9_
 #define ui_keyfilesel(k) 0
 #endif
@@ -913,7 +913,7 @@ int ui_key(int key)
 	    if (item != NULL) {
 		dialogparam *p = NULL;
 		if (menu_havedialog(item, uih)) {
-		    CONST menudialog *d = menu_getdialog(uih, item);
+		    const menudialog *d = menu_getdialog(uih, item);
 		    int mousex, mousey, buttons;
 		    driver->getmouse(&mousex, &mousey, &buttons);
 		    if (d[0].question != NULL && d[1].question == NULL
@@ -946,7 +946,7 @@ char *ui_getpos(void)
     return (uih_savepostostr(uih));
 }
 
-void ui_loadstr(CONST char *n)
+void ui_loadstr(const char *n)
 {
     uih_loadstr(uih, n);
 }
@@ -1402,7 +1402,7 @@ void ui_init(int argc, char **argv)
                   "Processing command line parameters");
     ui_flush();
     {
-        CONST menuitem *item;
+        const menuitem *item;
         dialogparam *d;
         while ((item = menu_delqueue(&d)) != NULL) {
             uih_saveundo(uih);
@@ -1664,7 +1664,7 @@ void ui_resize(void)
 
 static void ui_driver(int d)
 {
-    CONST struct ui_driver *driver1;
+    const struct ui_driver *driver1;
     int width, height;
     ui_closemenus();
     ui_closedialog(0);

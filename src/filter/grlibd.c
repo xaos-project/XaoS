@@ -4,7 +4,7 @@ drawchar(struct image *img, int x, int y, int fgcolor,
 	 unsigned char letter)
 {
     int fontwidth = (RWIDTH(letter) + 7) / 8;
-    CONST unsigned char *bitmap = &DATA[letter * HEIGHT * fontwidth];
+    const unsigned char *bitmap = &DATA[letter * HEIGHT * fontwidth];
     cpixel_t *current;
     int yend = y + HEIGHT;
     if (y < 0)

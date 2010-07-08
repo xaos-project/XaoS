@@ -58,7 +58,7 @@ static int requirement(struct filter *f, struct requirements *r)
     return (f->next->action->requirement(f->next, r));
 }
 
-extern CONST struct filteraction stereogram_filter;
+extern const struct filteraction stereogram_filter;
 static int initialize(struct filter *f, struct initdata *i)
 {
     struct threeddata *d = (struct threeddata *) f->data;
@@ -105,7 +105,7 @@ static int initialize(struct filter *f, struct initdata *i)
     return (f->previous->action->initialize(f->previous, i));
 }
 
-static struct filter *getinstance(CONST struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     struct threeddata *d = calloc(sizeof(*d), 1);
@@ -223,7 +223,7 @@ static void convertdown(struct filter *f, int *x, int *y)
 	f->previous->action->convertdown(f->previous, x, y);
 }
 
-CONST struct filteraction threed_filter = {
+const struct filteraction threed_filter = {
     "Pseudo 3d",
     "threed",
     0,

@@ -99,7 +99,7 @@ void uih_destroymessages(uih_context * c)
 	uih_removew(c, c->messg.w[i]);
 }
 
-static int uih_message1(uih_context * c, CONST char *message, int type)
+static int uih_message1(uih_context * c, const char *message, int type)
 {
     static int pid;
     int i;
@@ -121,7 +121,7 @@ static int uih_message1(uih_context * c, CONST char *message, int type)
     return (pid);
 }
 
-int uih_message(uih_context * c, CONST char *message)
+int uih_message(uih_context * c, const char *message)
 {
     if (c->inhibittextoutput)
 	return 0;
@@ -129,7 +129,7 @@ int uih_message(uih_context * c, CONST char *message)
     return (uih_message1(c, message, 0));
 }
 
-int uih_error(uih_context * c, CONST char *error)
+int uih_error(uih_context * c, const char *error)
 {
     char str[256];
     sprintf(str, "Error: %s", error);

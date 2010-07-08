@@ -177,7 +177,7 @@ static struct stack *pages[MAXPAGES];
 static struct stack **starts[MAXTHREADS];
 static int sizes[MAXTHREADS];
 static int maxsize, maxsize2;
-static CONST char dirrections[][2] = {
+static const char dirrections[][2] = {
     {0, -1},
     {1, 0},
     {0, 1},

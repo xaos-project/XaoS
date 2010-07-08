@@ -26,9 +26,9 @@ static int gethelp(void *userdata)
     return c;
 }
 
-struct xshl_line *help_make(CONST char *command,
+struct xshl_line *help_make(const char *command,
 			    int getwidth(void *, int flags,
-					 CONST char *text), int width,
+					 const char *text), int width,
 			    int smallheight, int bigheight)
 {
     struct helpstatus *s = (struct helpstatus *) malloc(sizeof(*s));

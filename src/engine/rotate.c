@@ -81,7 +81,7 @@ static int initialize(struct filter *f, struct initdata *i)
     return (f->previous->action->initialize(f->previous, i));
 }
 
-static struct filter *getinstance(CONST struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
     struct filter *f = createfilter(a);
     struct rotatedata *i = (struct rotatedata *) calloc(1, sizeof(*i));
@@ -185,7 +185,7 @@ static void convertdown(struct filter *f, int *x, int *y)
 
 
 
-CONST struct filteraction rotate_filter = {
+const struct filteraction rotate_filter = {
     "Image rotation",
     "rotate",
     0,

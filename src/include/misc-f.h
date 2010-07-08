@@ -6,10 +6,10 @@ extern "C" {
 #endif
 struct image;
 
-CONST char *writepng(xio_constpath filename, CONST struct image *image);
+const char *writepng(xio_constpath filename, const struct image *image);
 void XaoS_srandom(unsigned int x);
 long int XaoS_random(void);
-char *mystrdup(CONST char *);
+char *mystrdup(const char *);
 
 #ifdef __cplusplus
 }
