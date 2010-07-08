@@ -1,7 +1,7 @@
-# generated automatically by aclocal 1.10.2 -*- Autoconf -*-
+# generated automatically by aclocal 1.11.1 -*- Autoconf -*-
 
 # Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
-# 2005, 2006, 2007, 2008  Free Software Foundation, Inc.
+# 2005, 2006, 2007, 2008, 2009  Free Software Foundation, Inc.
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -2392,3 +2392,8 @@ case $mkdir_p in
 esac
 ])
 
+m4_include([m4/ax_cc_maxopt.m4])
+m4_include([m4/ax_check_compiler_flags.m4])
+m4_include([m4/ax_compiler_vendor.m4])
+m4_include([m4/ax_gcc_archflag.m4])
+m4_include([m4/ax_gcc_x86_cpuid.m4])
