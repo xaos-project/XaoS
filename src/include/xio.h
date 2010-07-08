@@ -1,6 +1,6 @@
 /* This is implementation of input/output routines similar to stdio.
-   purpose of this library is to hide differences between OSes (Mac OS don't
-   have stdio!) and allow general streams to strings etc. */
+purpose of this library is to hide differences between OSes (Mac OS don't
+have stdio!) and allow general streams to strings etc. */
 #ifndef XIO1_H
 #define XIO1_H 1
 #include <config.h>
@@ -10,18 +10,18 @@ extern "C" {
 
 
 #define XIO_FAILED NULL
-    struct xio_filestruct {
-	void *data;
-	int (*fputc) (int c, struct xio_filestruct * f);
-	int (*fputs) (const char *s, struct xio_filestruct * f);
-	int (*fgetc) (struct xio_filestruct * f);
-	int (*fungetc) (int c, struct xio_filestruct * f);
-	int (*xeof) (struct xio_filestruct * f);
-	int (*fclose) (struct xio_filestruct * f);
-	int (*flush) (struct xio_filestruct * f);
-    };
+struct xio_filestruct {
+    void *data;
+    int (*fputc) (int c, struct xio_filestruct * f);
+    int (*fputs) (const char *s, struct xio_filestruct * f);
+    int (*fgetc) (struct xio_filestruct * f);
+    int (*fungetc) (int c, struct xio_filestruct * f);
+    int (*xeof) (struct xio_filestruct * f);
+    int (*fclose) (struct xio_filestruct * f);
+    int (*flush) (struct xio_filestruct * f);
+};
 
-    typedef struct xio_filestruct *xio_file;
+typedef struct xio_filestruct *xio_file;
 
 #define xio_puts(s,f) (f)->fputs((s),(f))
 #define xio_putc(s,f) (f)->fputc((s),(f))
@@ -32,8 +32,8 @@ extern "C" {
 #define xio_flush(f) if ((f)->flush!=NULL) (f)->flush((f))
 
 /* Standard stdio maps. These defines says, that filenames are strings and
-   path is separated by slash or backslash (windoze, dog)
-   the main I/O routines are in the xstdio file
+path is separated by slash or backslash (windoze, dog)
+the main I/O routines are in the xstdio file
 */
 
 #ifdef USE_STDIO
@@ -43,11 +43,11 @@ extern "C" {
 #endif
 #include <stdio.h>
 
-    typedef char *xio_path;
-    typedef CONST char *xio_constpath;
-    typedef char xio_pathdata[4096];
-    extern char *xio_appdir;	/*Where application binary is */
-    extern char *xio_homedir;
+typedef char *xio_path;
+typedef CONST char *xio_constpath;
+typedef char xio_pathdata[4096];
+extern char *xio_appdir;	/*Where application binary is */
+extern char *xio_homedir;
 
 
 #ifdef _WIN32
@@ -77,28 +77,28 @@ extern "C" {
 #define xio_errorstring() strerror(errno)
 #endif				/*plan9 */
 
-    char *xio_fixpath(CONST char *name);
+char *xio_fixpath(CONST char *name);
 #endif				/*USE_STDIO */
 
-    xio_file xio_ropen(xio_constpath name);
-    xio_file xio_wopen(xio_constpath name);
-    xio_file xio_strropen(CONST char *c);
-    xio_file xio_strwopen(void);
-    char *xio_getstring(xio_file f);
-    xio_path xio_getdirectory(xio_constpath name);
-    xio_path xio_getfilename(CONST char *base, CONST char *extension);
-    xio_file xio_getrandomexample(xio_path name);
-    xio_file xio_getcatalog(CONST char *name);
-    xio_file xio_gethelp(void);
-    xio_file xio_gettutorial(CONST char *name, xio_path result);
+xio_file xio_ropen(xio_constpath name);
+xio_file xio_wopen(xio_constpath name);
+xio_file xio_strropen(CONST char *c);
+xio_file xio_strwopen(void);
+char *xio_getstring(xio_file f);
+xio_path xio_getdirectory(xio_constpath name);
+xio_path xio_getfilename(CONST char *base, CONST char *extension);
+xio_file xio_getrandomexample(xio_path name);
+xio_file xio_getcatalog(CONST char *name);
+xio_file xio_gethelp(void);
+xio_file xio_gettutorial(CONST char *name, xio_path result);
 
-    /*look trought directory with examples, choose one file, open it (and return
-     *descriptor+put name into name parameter*/
-    int xio_exist(xio_constpath name);
-    int xio_getfiles(xio_constpath path, char ***names, char ***dirs,
-		     int *nnames, int *ndirs);
-    void xio_init(CONST char *c);
-    void xio_uninit(void);
+/*look trought directory with examples, choose one file, open it (and return
+ *descriptor+put name into name parameter*/
+int xio_exist(xio_constpath name);
+int xio_getfiles(xio_constpath path, char ***names, char ***dirs,
+                 int *nnames, int *ndirs);
+void xio_init(CONST char *c);
+void xio_uninit(void);
 
 
 #ifdef __cplusplus

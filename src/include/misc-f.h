@@ -4,12 +4,12 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    struct image;
+struct image;
 
-    CONST char *writepng(xio_constpath filename, CONST struct image *image);
-    void XaoS_srandom(unsigned int x);
-    long int XaoS_random(void);
-    char *mystrdup(CONST char *);
+CONST char *writepng(xio_constpath filename, CONST struct image *image);
+void XaoS_srandom(unsigned int x);
+long int XaoS_random(void);
+char *mystrdup(CONST char *);
 
 #ifdef __cplusplus
 }

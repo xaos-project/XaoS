@@ -106,27 +106,27 @@ extern "C" {
 #endif
 
 /* create formula evaluator structure */
-    sffe *sffe_alloc(void);
+sffe *sffe_alloc(void);
 /* free fe structure */
-    void sffe_free(sffe ** parser);
+void sffe_free(sffe ** parser);
 /* parse expression 'expression' and strore result in 'parser' struct, error (if any) returned */
-    int sffe_parse(sffe ** parser, char *expression);
+int sffe_parse(sffe ** parser, char *expression);
 /* evaulate function and return evaluation result */
-    sfNumber sffe_eval(sffe * const parser);
+sfNumber sffe_eval(sffe * const parser);
 /* evaluate without returnig result */
 //void sffe_eval2(sffe *const parser);
 /* register user function with name 'vname', with 'parcnt' parameters and defined with function pointed by 'funptr'*/
-    void *sffe_regfunc(sffe ** parser, char *vname, unsigned int parcnt,
-		       sffptr funptr);
+void *sffe_regfunc(sffe ** parser, char *vname, unsigned int parcnt,
+                   sffptr funptr);
 /* register single variable 'vptrs' identified by name 'vchars' */
-    void *sffe_regvar(sffe ** parser, sfNumber * vptrs, char vchars);
+void *sffe_regvar(sffe ** parser, sfNumber * vptrs, char vchars);
 /* register multiple variables */
-    void *sffe_regvars(sffe ** parser, unsigned int cN, sfNumber ** vptrs,
-		       char *vchars);
+void *sffe_regvars(sffe ** parser, unsigned int cN, sfNumber ** vptrs,
+                   char *vchars);
 /* get variable 'vchar' pointer */
-    sfNumber *sffe_varptr(sffe * const parser, char vchar);
+sfNumber *sffe_varptr(sffe * const parser, char vchar);
 /* set 'vptrs' as 'vchars' variable  */
-    sfNumber *sffe_setvar(sffe ** parser, sfNumber * vptrs, char vchars);
+sfNumber *sffe_setvar(sffe ** parser, sfNumber * vptrs, char vchars);
 
 #ifdef __cplusplus
 }

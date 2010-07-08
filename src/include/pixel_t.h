@@ -3,16 +3,14 @@ typedef unsigned int pixel32_t;
 #elif SIZEOF_LONG==4
 typedef unsigned long pixel32_t;
 #else
-/*#error define size for pixel32 please */
-00
+#error define size for pixel32 please
 #endif
 #if SIZEOF_SHORT==2
 typedef unsigned short pixel16_t;
 #elif SIZEOF_INT==2
 typedef unsigned int pixel16_t;
 #else
-/*#error define size for pixel16 please */
-    00
+#error define size for pixel16 please
 #endif
 typedef unsigned char pixel8_t;
 typedef unsigned char ppixel24_t[3];
