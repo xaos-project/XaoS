@@ -40,6 +40,8 @@
 #undef HAVE_SYS_TIME_H
 /* Define if you have the <unistd.h> header file.  */
 #undef HAVE_UNISTD_H
+#undef HAVE_DIRENT_H
+#undef HAVE_LIBGEN_H
 #undef MITSHM
 #undef CURSES_DRIVER
 #undef BEOS_DRIVER
