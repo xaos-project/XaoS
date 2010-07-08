@@ -1,3 +1,4 @@
+#include <config.h>
 #ifndef _plan9_
 #include <string.h>
 #if defined(__EMX__) || defined(__APPLE__)
@@ -15,7 +16,6 @@
 #include <u.h>
 #include <libc.h>
 #endif
-#include <config.h>
 #include <filter.h>
 #include <fractal.h>
 #include <ui_helper.h>
