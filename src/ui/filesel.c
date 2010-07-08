@@ -3,6 +3,11 @@
 #include <string.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#else
+#ifdef _WIN32
+#include <direct.h>
+#define getcwd _getcwd
+#endif
 #endif
 
 #include <config.h>

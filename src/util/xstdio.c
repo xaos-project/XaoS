@@ -106,6 +106,7 @@ xio_getfiles(xio_constpath path1, char ***names, char ***dirs,
     return 1;
 #else
     *nnames2 = *ndirs2 = 0;
+    return 0;
 #endif
 }
 
@@ -245,6 +246,8 @@ xio_file xio_getrandomexample(xio_path name)
     f = xio_ropen(name);
     free(realpath);
     return (f);
+#else
+    return NULL;
 #endif
 }
 
