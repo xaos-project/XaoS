@@ -44,6 +44,9 @@ struct palette {
     const rgb_t *prergb;
     union paletteinfo info;
 };
+
+struct image_driver;
+
 struct image {
     float pixelwidth, pixelheight;
     pixel_t **oldlines;
@@ -57,7 +60,17 @@ struct image {
     int version;
     struct palette *palette;
     void *data;		/*userdata */
+    struct image_driver *driver;
 };
+
+struct image_driver {
+    int (*print) (struct image *image, int x, int y,
+                const char *text, int fgcolor, int bgcolor, int mode);
+    int (*textwidth) (struct image *image, const char *text);
+    int (*textheight) (struct image *image);
+    int (*textcharw) (struct image *image, const char c);
+};
+
 #define interpol1(i1,i2,n,mask) ((((i1)&(mask))*(n)+((i2)&(mask))*(256-(n)))&((mask)<<8))
 #define interpol(i1,i2,n,mr,mg,mb) ((interpol1(i1,i2,n,mr)+interpol1(i1,i2,n,mg)+interpol1(i1,i2,n,mb))>>8)
 #define intergray(i1,i2,n) (((i1)*n+(i2)*(256-(n)))>>8)

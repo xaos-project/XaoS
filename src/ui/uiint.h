@@ -9,7 +9,7 @@
 #define BORDERWIDTH 2
 #define BORDERHEIGHT 2
 
-#define BUTTONHEIGHT (grlib.xtextheight(uih->font)+2*BORDERWIDTH)
+#define BUTTONHEIGHT (xtextheight(uih->image, uih->font)+2*BORDERWIDTH)
 
 struct ui_textdata {
     int x, y, width;

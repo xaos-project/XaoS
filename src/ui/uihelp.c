@@ -38,7 +38,7 @@ static int selectedline;
 #define YPOS(yp) (2*BORDERWIDTH+ (yp)-ui_helppos[historypos]+10)
 #define SCROOLSTART (helpx+helpwidth-WBORDERS)
 #define WBORDERS (4*BORDERWIDTH+SCROOLSIZE)
-#define HBORDERS (grlib.xtextheight(uih->font)+8*BORDERHEIGHT)
+#define HBORDERS (xtextheight(uih->image, uih->font)+8*BORDERHEIGHT)
 #define WIDTH  (uih->image->width-WBORDERS)
 #define HEIGHT (uih->image->height-HBORDERS)
 
@@ -87,8 +87,8 @@ void ui_close_help(void)
 static int getwidth(void *data, int flags, const char *text)
 {
     if (uih->image->flags & AAIMAGE)
-	return (grlib.xtextwidth(uih->font, text));
-    return (grlib.xtextwidth(uih->font, text) - 1);
+        return (xtextwidth(uih->image, uih->font, text));
+    return (xtextwidth(uih->image, uih->font, text) - 1);
 }
 
 static void
@@ -149,7 +149,7 @@ static void drawhelp(struct uih_context *c, void *data)
     }
     while ((y =
 	    YPOS(lines[i].y)) <
-	   helpheight - HBORDERS - grlib.xtextheight(uih->font)
+           helpheight - HBORDERS - xtextheight(uih->image, uih->font)
 	   && lines[i].y >= 0) {
 	curritem = lines[i].first;
 	while (curritem != NULL) {
@@ -177,15 +177,15 @@ static void drawhelp(struct uih_context *c, void *data)
 		    if (curritem == presseditem
 			|| curritem == selecteditem)
 			fgcolor =
-			    FGCOLOR(uih), grlib.xrectangle(uih->image, x + helpx,
+			    FGCOLOR(uih), xrectangle(uih->image, x + helpx,
 						     y + helpy,
 						     curritem->width,
-						     grlib.xtextheight(uih->
-								 font),
+                                                     xtextheight(uih->image,
+                                                                 uih->font),
 						     BGCOLOR(uih));
 		    else
-			grlib.xhline(uih->image, x + helpx,
-			       y + helpy + grlib.xtextheight(uih->font) - 1,
+			xhline(uih->image, x + helpx,
+                               y + helpy + xtextheight(uih->image, uih->font) - 1,
 			       curritem->width, BGCOLOR(uih));
 		} else {
 		    if (uih->image->flags & AAIMAGE)
@@ -198,21 +198,21 @@ static void drawhelp(struct uih_context *c, void *data)
 			if (i > 3
 			    && !strcmp(".xaf",
 				       curritem->c.linktext + i - 4))
-			    grlib.xhline(uih->image, x + helpx,
-				   y + helpy + grlib.xtextheight(uih->font) - 1,
+			    xhline(uih->image, x + helpx,
+                                   y + helpy + xtextheight(uih->image, uih->font) - 1,
 				   curritem->width, curritem == presseditem
 				   || curritem ==
 				   selecteditem ? SELCOLOR(uih) :
 				   SELCOLOR(uih));
 			else
-			    grlib.xhline(uih->image, x + helpx,
-				   y + helpy + grlib.xtextheight(uih->font) - 1,
+			    xhline(uih->image, x + helpx,
+                                   y + helpy + xtextheight(uih->image, uih->font) - 1,
 				   curritem->width, curritem == presseditem
 				   || curritem ==
 				   selecteditem ? SELCOLOR(uih) :
 				   LIGHTGRAYCOLOR2(uih));
-			grlib.xhline(uih->image, x + helpx + 1,
-			       y + helpy + grlib.xtextheight(uih->font) - 0,
+			xhline(uih->image, x + helpx + 1,
+                               y + helpy + xtextheight(uih->image, uih->font) - 0,
 			       curritem->width, BGCOLOR(uih));
 		    }
 		    flags = 0;
@@ -224,7 +224,7 @@ static void drawhelp(struct uih_context *c, void *data)
 			fgcolor = SELCOLOR(uih);
 		}
 	    }
-	    grlib.xprint(uih->image, uih->font, x + helpx, y + helpy,
+	    xprint(uih->image, uih->font, x + helpx, y + helpy,
 		   curritem->text, fgcolor, bgcolor, flags);
 	    curritem = curritem->next;
 	}
@@ -375,12 +375,12 @@ int ui_helpmouse(int x, int y, int buttons, int flags)
 	    return 1;
 	} else
 	    grabbed = 0;
-	y -= helpy + grlib.xtextheight(uih->font);
+        y -= helpy + xtextheight(uih->image, uih->font);
 	x -= 2 * BORDERWIDTH + helpx;
 	pressedbutton = -1;
 	if (presseditem != NULL) {
 	    if (YPOS(lines[pressedline].y) + 1 >= y
-		&& YPOS(lines[pressedline].y) <= y + grlib.xtextheight(uih->font)
+                && YPOS(lines[pressedline].y) <= y + xtextheight(uih->image, uih->font)
 		&& presseditem->x <= x
 		&& presseditem->x + presseditem->width >= x)
 		atpressed = 1;
@@ -390,7 +390,7 @@ int ui_helpmouse(int x, int y, int buttons, int flags)
 	    for (i = 0;
 		 lines[i].y >= 0 && (YPOS(lines[i].y) + 1 <= y
 				     || YPOS(lines[i].y) >=
-				     y + grlib.xtextheight(uih->font)); i++);
+                                     y + xtextheight(uih->image, uih->font)); i++);
 	    if (lines[i].y >= 0) {
 		struct xshl_item *item = lines[i].first;
 		while (item != NULL) {
@@ -437,16 +437,16 @@ static void ui_build_help(char *name)
 	ui_close_help();
     pressedbutton = -1;
     helpvisible = 1;
-    width = 80 * grlib.xtextwidth(uih->font, "w");
+    width = 80 * xtextwidth(uih->image, uih->font, "w");
     if (width > WIDTH)
 	width = WIDTH;
     lines =
 	help_make(name ? name : "main", getwidth, width - 2,
-		  grlib.xtextheight(uih->font), grlib.xtextheight(uih->font));
+                  xtextheight(uih->image, uih->font), xtextheight(uih->image, uih->font));
     if (lines == NULL) {
 	lines =
-	    help_make("main", getwidth, width - 2, grlib.xtextheight(uih->font),
-		      grlib.xtextheight(uih->font));
+            help_make("main", getwidth, width - 2, xtextheight(uih->image, uih->font),
+                      xtextheight(uih->image, uih->font));
 	if (lines == NULL) {
 	    helpvisible = 0;
 	    uih_message(uih, "Help file not found");
@@ -459,7 +459,7 @@ static void ui_build_help(char *name)
     helpwidth = width;
     helpx = (uih->image->width - width) / 2;
     for (i = 0; lines[i].y >= 0; i++);
-    textheight = lines[i - 1].y + 4 * grlib.xtextheight(uih->font);
+    textheight = lines[i - 1].y + 4 * xtextheight(uih->image, uih->font);
     if (textheight < HEIGHT)
 	helpheight = textheight;
     else

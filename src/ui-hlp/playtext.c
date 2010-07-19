@@ -29,7 +29,7 @@ prepare(struct uih_context *c, char *string, int *xmax, int *nr)
 		*nr = n;
 		return;
 	    } else
-		tmp += grlib.xtextcharw(c->font, *string);
+                tmp += xtextcharw(c->image, c->font, *string);
 	    if (pos > 255)
 		break;
 	    string++;
@@ -60,7 +60,7 @@ getpos(uih_context * c, int *x, int *y, int *w, int *h, void *data)
 	return;
     }
     prepare(c, c->text[num], &xmax, &nr);
-    nr *= grlib.xtextheight(c->font);
+    nr *= xtextheight(c->image, c->font);
     switch (num) {
     case 0:
 	*y = 0;
@@ -98,7 +98,7 @@ static void draw(uih_context * c, void *data)
     if (c->text[num] == NULL)
 	return;
     prepare(c, c->text[num], &xmax, &n);
-    nr = n * grlib.xtextheight(c->font);
+    nr = n * xtextheight(c->image, c->font);
     switch (c->textcolor[num]) {
     case 0:
 	fgcolor = FGCOLOR(c);
@@ -131,7 +131,7 @@ static void draw(uih_context * c, void *data)
     }
     string = c->text[num];
     for (i = 0; i < n; i++) {
-	xmax = grlib.xtextwidth(c->font, string);
+	xmax = xtextwidth(c->image, c->font, string);
 	switch (c->textpos[num]) {
 	case 0:
 	    x = 0;
@@ -144,10 +144,10 @@ static void draw(uih_context * c, void *data)
 	    break;
 	}
 	string +=
-	    grlib.xprint(c->image, c->font, x, y, string,
+	    xprint(c->image, c->font, x, y, string,
 			    fgcolor, bgcolor,
 		   flags) + 1;
-	y += grlib.xtextheight(c->font);
+        y += xtextheight(c->image, c->font);
     }
 }
 

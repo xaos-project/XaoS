@@ -18,10 +18,10 @@ getpos(uih_context * c, int *x, int *y, int *w, int *h, void *data)
 {
     int n = (int) data;
     if (c->messg.message[n] != NULL) {
-	int he = grlib.xtextheight(c->font);
+	int he = xtextheight(c->image, c->font);
 	*y = c->messg.messagestart + he * n;
 	*h = he;
-	*w = grlib.xtextwidth(c->font, c->messg.message[n]);
+	*w = xtextwidth(c->image, c->font, c->messg.message[n]);
 	*x = (c->image->width - *w) / 2;
     } else {
 	*w = *h = *x = *y = 0;
@@ -33,16 +33,16 @@ static void draw(uih_context * c, void *data)
     int x, y, w;
     int n = (int) data;
     if (c->messg.message[n] != NULL) {
-	int h = grlib.xtextheight(c->font);
+	int h = xtextheight(c->image, c->font);
 	y = c->messg.messagestart + h * n;
-	w = grlib.xtextwidth(c->font, c->messg.message[n]);
+	w = xtextwidth(c->image, c->font, c->messg.message[n]);
 	x = (c->image->width - w) / 2;
 	if (c->messg.messagetype[n])
-	    grlib.xprint(c->image, c->font, x, y, c->messg.message[n],
+	    xprint(c->image, c->font, x, y, c->messg.message[n],
 		   (c->image->flags & AAIMAGE) ? BGCOLOR(c) : SELCOLOR(c),
 		   BGCOLOR(c), 0);
 	else
-	    grlib.xprint(c->image, c->font, x, y, c->messg.message[n],
+	    xprint(c->image, c->font, x, y, c->messg.message[n],
 		   (c->image->flags & AAIMAGE) ? BGCOLOR(c) : FGCOLOR(c),
 		   BGCOLOR(c), 0);
     }
