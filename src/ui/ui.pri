@@ -11,3 +11,6 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/uiint.h
+
+OTHER_FILES += \
+    src/ui/ui-drv/qt/qt.pri

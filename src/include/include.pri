@@ -1,3 +1,5 @@
+INCLUDEPATH += $$PWD
+
 HEADERS += \
     $$PWD/archaccel.h \
     $$PWD/btrace.h \
