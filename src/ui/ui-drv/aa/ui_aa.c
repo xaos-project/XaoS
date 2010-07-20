@@ -72,7 +72,7 @@ aa_free_buffers (char *b1, char *b2)
 }
 
 static int
-aa_alloc_buffers (char **b1, char **b2, void **data)
+aa_alloc_buffers (char **b1, char **b2, struct image **image_out)
 {
   secondary = malloc (aa_imgwidth (c) * aa_imgheight (c));
   *(unsigned char **) b2 = secondary;

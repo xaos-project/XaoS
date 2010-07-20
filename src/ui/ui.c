@@ -1577,43 +1577,58 @@ static void ui_mkimages(int w, int h)
 	    resizeregistered = 1;
 	}
     }
-    if (!(scanline = driver->alloc_buffers(&b1, &b2, &data))) {
+    switch (scanline = driver->alloc_buffers(&b1, &b2, &image)) {
+    case 0: /* ERROR: Driver could not allocate buffers */
 	driver->uninit();
 	x_error(gettext("Can not allocate buffers"));
 	ui_outofmem();
 	exit_xaos(-1);
+        break;
+    case -1:
+        /*
+         * If the driver returns -1, it means that it has preconfigured the
+         * image and returned it via the image out parameter.  Since the
+         * image is already set up, we don't need to do anything else here.
+         */
+        break;
+    default:
+        /*
+         * Otherwise, the driver returns a positive number indicating the
+         * number of bytes in a scanline. We allocate the image using the
+         * traditional method. This is retained for backwards compatibility
+         * with old drivers that do not pre-configure the image themselves.
+         */
+        info.truec.rmask = driver->rmask;
+        info.truec.gmask = driver->gmask;
+        info.truec.bmask = driver->bmask;
+        palette =
+            createpalette(driver->palettestart, driver->paletteend,
+                          driver->imagetype,
+                          (driver->
+                           flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0,
+                          driver->maxentries,
+                          driver->set_color != NULL ? ui_alloccolor : NULL,
+                          driver->set_range != NULL ? ui_setpalette : NULL,
+                          NULL, NULL, &info);
+        if (!palette) {
+            driver->uninit();
+            x_error(gettext("Can not create palette"));
+            ui_outofmem();
+            exit_xaos(-1);
+        }
+        image =
+            create_image_cont(width, height, scanline, 2, (unsigned char *) b1,
+                              (unsigned char *) b2, palette, ui_flip,
+                              (driver->flags & AALIB) ? AAIMAGE : 0,
+                              get_windowwidth(width) / width,
+                              get_windowheight(height) / height);
+        if (!image) {
+            driver->uninit();
+            x_error(gettext("Can not create image"));
+            ui_outofmem();
+            exit_xaos(-1);
+        }
     }
-    info.truec.rmask = driver->rmask;
-    info.truec.gmask = driver->gmask;
-    info.truec.bmask = driver->bmask;
-    palette =
-	createpalette(driver->palettestart, driver->paletteend,
-		      driver->imagetype,
-		      (driver->
-		       flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0,
-		      driver->maxentries,
-		      driver->set_color != NULL ? ui_alloccolor : NULL,
-		      driver->set_range != NULL ? ui_setpalette : NULL,
-		      NULL, NULL, &info);
-    if (!palette) {
-	driver->uninit();
-	x_error(gettext("Can not create palette"));
-	ui_outofmem();
-	exit_xaos(-1);
-    }
-    image =
-	create_image_cont(width, height, scanline, 2, (unsigned char *) b1,
-			  (unsigned char *) b2, palette, ui_flip,
-			  (driver->flags & AALIB) ? AAIMAGE : 0,
-			  get_windowwidth(width) / width,
-			  get_windowheight(height) / height);
-    if (!image) {
-	driver->uninit();
-	x_error(gettext("Can not create image"));
-	ui_outofmem();
-	exit_xaos(-1);
-    }
-    image->data = data;
 }
 
 void ui_resize(void)

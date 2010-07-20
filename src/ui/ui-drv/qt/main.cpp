@@ -40,12 +40,12 @@ qt_uninitDriver ()
 }
 
 static int
-qt_allocBuffers (char **b1, char **b2, void **data)
+qt_allocBuffers (char **b1, char **b2, struct image **image_out)
 {
     widget->createImages();
     *b1 = widget->imageBuffer1();
     *b2 = widget->imageBuffer2();
-    *data = widget->imagePointer();
+    //*data = widget->imagePointer();
     return widget->imageBytesPerLine();
 }
 

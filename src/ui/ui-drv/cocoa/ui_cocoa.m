@@ -64,7 +64,7 @@ cocoa_freeBuffers (char *b1, char *b2)
 }
 
 static int
-cocoa_allocBuffers (char **b1, char **b2, void **data)
+cocoa_allocBuffers (char **b1, char **b2, struct image **image_out)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     int rowLength = [[controller view] allocBuffer1:b1 buffer2:b2];

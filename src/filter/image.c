@@ -142,6 +142,8 @@ struct image *create_image_cont(int width, int height, int scanlinesize,
 	}
     img->flags |= FREELINES;
     img->scanline = scanlinesize;
+    img->data = NULL;
+    img->driver = NULL;
     return (img);
 }
 
