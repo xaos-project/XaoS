@@ -421,6 +421,9 @@ xprint(struct image *image, const struct xfont *current, int x, int y,
     char intext[BUFSIZ];
     strncpy(intext, text, BUFSIZ);
 
+    if (image->driver && image->driver->print)
+        return image->driver->print(image, x, y, text, fgcolor, bgcolor, mode);
+
 #ifdef HAVE_GETTEXT
     {
         int inlen = strlen(text);
@@ -525,6 +528,10 @@ xprint(struct image *image, const struct xfont *current, int x, int y,
 int xtextwidth(struct image *image, const struct xfont *font, const char *text)
 {
     int i;
+
+    if (image->driver && image->driver->textwidth)
+        return image->driver->textwidth(image, text);
+
 #ifdef HAVE_GETTEXT
     char intext[BUFSIZ];
     int inlen = strlen(text);
@@ -544,11 +551,17 @@ int xtextwidth(struct image *image, const struct xfont *font, const char *text)
 
 int xtextheight(struct image *image, const struct xfont *font)
 {
+    if (image->driver && image->driver->textheight)
+        return image->driver->textheight(image);
+
     return font->height+1;
 }
 
 int xtextcharw(struct image *image, const struct xfont *font, const char c)
 {
+    if (image->driver && image->driver->charwidth)
+        return image->driver->charwidth(image, c);
+
     return font->width;
 }
 

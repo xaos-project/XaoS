@@ -22,6 +22,9 @@
 #ifndef USE_PNG
 const char *writepng(xio_constpath filename, const struct image *img)
 {
+    if (img->driver && img->driver->saveimage)
+        return img->driver->saveimage(img, filename);
+
     return
 	"XaoS can not save images because it was incorrectly compiled. Please compile it with zlib and libpng";
 }

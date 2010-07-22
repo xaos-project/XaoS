@@ -94,7 +94,7 @@ int euid, egid;
 #define STATUSLINES 11
 #endif
 static void ui_mouse(int mousex, int mousey, int mousebuttons,
-		     int iterchange);
+                     int iterchange);
 #ifndef exit_xaos
 #define exit_xaos(i) exit(i)
 #endif
@@ -196,40 +196,40 @@ static void ui_updatemenus(uih_context * c, const char *name)
 {
     const struct menuitem *item;
     if (ui_nogui) {
-	if (name == NULL) {
-	    printf("Root \"%s\"", uih->menuroot);
-	}
-	item = menu_findcommand(name);
-	if (item == NULL) {
-	    /*x_fatalerror ("Internall error:unknown command %s", name); */
-	    return;
-	}
-	if (item->flags & MENUFLAG_CHECKBOX) {
-	    if (menu_enabled(item, c))
-		printf("checkbox \"%s\" on\n", name);
-	    else
-		printf("checkbox \"%s\" off\n", name);
-	}
-	if (item->flags & MENUFLAG_RADIO) {
-	    if (menu_enabled(item, c))
-		printf("radio \"%s\"\n", name);
-	}
+        if (name == NULL) {
+            printf("Root \"%s\"", uih->menuroot);
+        }
+        item = menu_findcommand(name);
+        if (item == NULL) {
+            /*x_fatalerror ("Internall error:unknown command %s", name); */
+            return;
+        }
+        if (item->flags & MENUFLAG_CHECKBOX) {
+            if (menu_enabled(item, c))
+                printf("checkbox \"%s\" on\n", name);
+            else
+                printf("checkbox \"%s\" off\n", name);
+        }
+        if (item->flags & MENUFLAG_RADIO) {
+            if (menu_enabled(item, c))
+                printf("radio \"%s\"\n", name);
+        }
     }
     if (driver != NULL && driver->gui_driver) {
-	if (name == NULL) {
-	    if (driver->gui_driver->setrootmenu)
-		driver->gui_driver->setrootmenu(c, uih->menuroot);
-	    return;
-	}
-	item = menu_findcommand(name);
-	if (item == NULL) {
-	    /*fprintf (stderr, "Internall error:unknown command %s\n", name); */
-	    return;
-	}
-	if (item->flags & (MENUFLAG_CHECKBOX | MENUFLAG_RADIO)) {
-	    if (driver->gui_driver->enabledisable)
-		driver->gui_driver->enabledisable(uih, name);
-	}
+        if (name == NULL) {
+            if (driver->gui_driver->setrootmenu)
+                driver->gui_driver->setrootmenu(c, uih->menuroot);
+            return;
+        }
+        item = menu_findcommand(name);
+        if (item == NULL) {
+            /*fprintf (stderr, "Internall error:unknown command %s\n", name); */
+            return;
+        }
+        if (item->flags & (MENUFLAG_CHECKBOX | MENUFLAG_RADIO)) {
+            if (driver->gui_driver->enabledisable)
+                driver->gui_driver->enabledisable(uih, name);
+        }
     }
 }
 
@@ -239,33 +239,33 @@ static void mousetype(int m)
 #define filevisible 0
 #endif
     if (ui_nmenus || helpvisible || filevisible || dialogvisible
-	|| yesnodialogvisible)
-	m = NORMALMOUSE;
+        || yesnodialogvisible)
+        m = NORMALMOUSE;
     if (mouse != m) {
-	mouse = m;
-	if (driver->mousetype != NULL)
-	    driver->mousetype(m);
+        mouse = m;
+        if (driver->mousetype != NULL)
+            driver->mousetype(m);
     }
 }
 
 static void ui_display(void)
 {
     if (nthreads == 1)
-	uih_drawwindows(uih);
+        uih_drawwindows(uih);
     driver->display();
     uih_cycling_continue(uih);
     if (!(driver->flags & NOFLUSHDISPLAY))
-	ui_flush();
+        ui_flush();
 }
 
 float ui_get_windowwidth(int width)
 {
     if (defscreenwidth > 0.0 && driver->flags & RESOLUTION)
-	return (defscreenwidth * width / driver->maxwidth);
+        return (defscreenwidth * width / driver->maxwidth);
     if (defscreenwidth > 0.0)
-	return (defscreenwidth);
+        return (defscreenwidth);
     if (defpixelwidth > 0.0)
-	return (defpixelwidth * width);
+        return (defpixelwidth * width);
     return (0);
 }
 
@@ -273,24 +273,24 @@ static float get_windowwidth(int width)
 {
     float w = ui_get_windowwidth(width);
     if (w)
-	return w;
+        return w;
     if (driver->flags & PIXELSIZE)
-	return (driver->width * width);
+        return (driver->width * width);
     if (driver->flags & SCREENSIZE)
-	return (driver->width);
+        return (driver->width);
     if (driver->flags & RESOLUTION)
-	return (29.0 / driver->maxwidth * width);
+        return (29.0 / driver->maxwidth * width);
     return (29.0);
 }
 
 float ui_get_windowheight(int height)
 {
     if (defscreenheight > 0.0 && driver->flags & RESOLUTION)
-	return (defscreenheight * height / driver->maxheight);
+        return (defscreenheight * height / driver->maxheight);
     if (defscreenheight > 0.0)
-	return (defscreenheight);
+        return (defscreenheight);
     if (defpixelheight > 0.0)
-	return (defpixelheight * height);
+        return (defpixelheight * height);
     return 0;
 }
 
@@ -298,13 +298,13 @@ static float get_windowheight(int height)
 {
     float h = ui_get_windowheight(height);
     if (h)
-	return h;
+        return h;
     if (driver->flags & PIXELSIZE)
-	return (driver->height * height);
+        return (driver->height * height);
     if (driver->flags & SCREENSIZE)
-	return (driver->height);
+        return (driver->height);
     if (driver->flags & RESOLUTION)
-	return (21.0 / driver->maxheight * height);
+        return (21.0 / driver->maxheight * height);
     return (21.5);
 }
 
@@ -317,7 +317,7 @@ static void ui_outofmem(void)
 #define CHECKPROCESSEVENTS(b,k) assert(!((k)&~15)&&!((b)&~(BUTTON1|BUTTON2|BUTTON3)))
 static int
 ui_passfunc(struct uih_context *c, int display, const char *text,
-	    float percent)
+            float percent)
 {
     char str[80];
     int x = 0, y = 0, b = 0, k = 0;
@@ -325,22 +325,22 @@ ui_passfunc(struct uih_context *c, int display, const char *text,
     ui_mouse(x, y, b, k);
     CHECKPROCESSEVENTS(b, k);
     if (!uih->play) {
-	if (uih->display)
-	    ui_display(), display = 1;
-	if (!c->interruptiblemode && !uih->play) {
-	    if (display) {
-		if (percent)
-		    sprintf(str, "%s %3.2f%%        ", text,
-			    (double) percent);
-		else
-		    sprintf(str, "%s          ", text);
-		driver->print(0, uih->image->height - textheight1, str);
-		ui_flush();
-	    }
-	} else {
-	    if (!(driver->flags & NOFLUSHDISPLAY))
-		ui_flush();
-	}
+        if (uih->display)
+            ui_display(), display = 1;
+        if (!c->interruptiblemode && !uih->play) {
+            if (display) {
+                if (percent)
+                    sprintf(str, "%s %3.2f%%        ", text,
+                            (double) percent);
+                else
+                    sprintf(str, "%s          ", text);
+                driver->print(0, uih->image->height - textheight1, str);
+                ui_flush();
+            }
+        } else {
+            if (!(driver->flags & NOFLUSHDISPLAY))
+                ui_flush();
+        }
     }
     return (0);
 }
@@ -348,7 +348,7 @@ ui_passfunc(struct uih_context *c, int display, const char *text,
 static void ui_updatestatus(void)
 {
     double times =
-	(uih->fcontext->currentformula->v.rr) / (uih->fcontext->s.rr);
+        (uih->fcontext->currentformula->v.rr) / (uih->fcontext->s.rr);
     double timesnop = log(times) / log(10.0);
     double speed;
     uih_drawwindows(uih);
@@ -356,16 +356,16 @@ static void ui_updatestatus(void)
     uih_cycling_continue(uih);
     speed = uih_displayed(uih);
     sprintf(statustext,
-	    gettext
-	    ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "),
-	    times < 1 ? gettext("unzoomed") : gettext("zoomed"),
-	    times < 1 ? 1.0 / times : times, timesnop, speed,
-	    uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1,
-	    uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1,
-	    uih->fcontext->maxiter);
+            gettext
+            ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "),
+            times < 1 ? gettext("unzoomed") : gettext("zoomed"),
+            times < 1 ? 1.0 / times : times, timesnop, speed,
+            uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1,
+            uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1,
+            uih->fcontext->maxiter);
 
     if (!(driver->flags & NOFLUSHDISPLAY))
-	ui_flush();
+        ui_flush();
     STAT(printf(gettext("framerate:%f\n"), speed));
     driver->print(0, 0, "");
 }
@@ -386,37 +386,37 @@ void ui_updatestarts(void)
 void ui_menuactivate(const menuitem * item, dialogparam * d)
 {
     if (item == NULL)
-	return;
+        return;
     ui_closemenus();
     if (item->type == MENU_SUBMENU) {
-	ui_menu(item->shortname);
-	return;
+        ui_menu(item->shortname);
+        return;
     } else {
-	if (menu_havedialog(item, uih) && d == NULL) {
-	    ui_builddialog(item);
-	    return;
-	}
-	if (uih->incalculation && !(item->flags & MENUFLAG_INCALC)) {
-	    menu_addqueue(item, d);
-	    if (item->flags & MENUFLAG_INTERRUPT)
-		uih_interrupt(uih);
-	    return;
-	}
-	if (item->flags & MENUFLAG_CHECKBOX) {
-	    char s[256];
-	    ui_updatestatus();
-	    if (!menu_enabled(item, uih))
-		sprintf(s, gettext("Enabling: %s. "), item->name);
-	    else
-		sprintf(s, gettext("Disabling: %s. "), item->name);
-	    uih_message(uih, s);
-	    ui_flush();
-	} else
-	    uih_message(uih, item->name);
-	uih_saveundo(uih);
-	menu_activate(item, uih, d);
-	if (d != NULL)
-	    menu_destroydialog(item, d, uih);
+        if (menu_havedialog(item, uih) && d == NULL) {
+            ui_builddialog(item);
+            return;
+        }
+        if (uih->incalculation && !(item->flags & MENUFLAG_INCALC)) {
+            menu_addqueue(item, d);
+            if (item->flags & MENUFLAG_INTERRUPT)
+                uih_interrupt(uih);
+            return;
+        }
+        if (item->flags & MENUFLAG_CHECKBOX) {
+            char s[256];
+            ui_updatestatus();
+            if (!menu_enabled(item, uih))
+                sprintf(s, gettext("Enabling: %s. "), item->name);
+            else
+                sprintf(s, gettext("Disabling: %s. "), item->name);
+            uih_message(uih, s);
+            ui_flush();
+        } else
+            uih_message(uih, item->name);
+        uih_saveundo(uih);
+        menu_activate(item, uih, d);
+        if (d != NULL)
+            menu_destroydialog(item, d, uih);
     }
 }
 
@@ -439,72 +439,72 @@ static void ui_drawstatus(uih_context * uih, void *data)
     char str[6000];
     int h = xtextheight(uih->image, uih->font);
     sprintf(str, gettext("Fractal name:%s"),
-	    uih->fcontext->currentformula->name[!uih->fcontext->
-						mandelbrot]);
-    xprint(uih->image, uih->font, 0, statusstart, str, 
-	   FGCOLOR(uih), BGCOLOR(uih), 0);
+            uih->fcontext->currentformula->name[!uih->fcontext->
+                                                mandelbrot]);
+    xprint(uih->image, uih->font, 0, statusstart, str,
+           FGCOLOR(uih), BGCOLOR(uih), 0);
     sprintf(str, gettext("Fractal type:%s"),
-	    uih->
-	    fcontext->mandelbrot ? gettext("Mandelbrot") :
-	    gettext("Julia"));
+            uih->
+            fcontext->mandelbrot ? gettext("Mandelbrot") :
+            gettext("Julia"));
 #ifdef SFFE_USING
     if (uih->fcontext->currentformula->flags & SFFE_FRACTAL) {
-	sprintf(str, gettext("Formula:%s"), uih->parser->expression);
+        sprintf(str, gettext("Formula:%s"), uih->parser->expression);
     };
 #endif
-    xprint(uih->image, uih->font, 0, statusstart + h, str, 
-	   FGCOLOR(uih), BGCOLOR(uih), 0);
+    xprint(uih->image, uih->font, 0, statusstart + h, str,
+           FGCOLOR(uih), BGCOLOR(uih), 0);
     sprintf(str, gettext("View:[%1.12f,%1.12f]"),
-	    (double) uih->fcontext->s.cr, (double) uih->fcontext->s.ci);
+            (double) uih->fcontext->s.cr, (double) uih->fcontext->s.ci);
     xprint(uih->image, uih->font, 0, statusstart + 2 * h, str,
-	    FGCOLOR(uih), BGCOLOR(uih), 0);
+            FGCOLOR(uih), BGCOLOR(uih), 0);
     sprintf(str, gettext("size:[%1.12f,%1.12f]"),
-	    (double) uih->fcontext->s.rr, (double) uih->fcontext->s.ri);
+            (double) uih->fcontext->s.rr, (double) uih->fcontext->s.ri);
     xprint(uih->image, uih->font, 0, statusstart + 3 * h, str,
-	    FGCOLOR(uih), BGCOLOR(uih), 0);
+            FGCOLOR(uih), BGCOLOR(uih), 0);
     sprintf(str, gettext("Rotation:%4.2f   Screen size:%i:%i"),
-	    (double) uih->fcontext->angle, uih->image->width,
-	    uih->image->height);
+            (double) uih->fcontext->angle, uih->image->width,
+            uih->image->height);
     xprint(uih->image, uih->font, 0, statusstart + 4 * h, str,
-	    FGCOLOR(uih), BGCOLOR(uih), 0);
+            FGCOLOR(uih), BGCOLOR(uih), 0);
     sprintf(str, gettext("Iterations:%-4i Palette size:%i"),
-	    uih->fcontext->maxiter, uih->image->palette->size);
+            uih->fcontext->maxiter, uih->image->palette->size);
     xprint(uih->image, uih->font, 0, statusstart + 5 * h, str,
-	    FGCOLOR(uih), BGCOLOR(uih), 0);
+            FGCOLOR(uih), BGCOLOR(uih), 0);
     sprintf(str, "Bailout:%4.2f", (double) uih->fcontext->bailout);
     xprint(uih->image, uih->font, 0, statusstart + 6 * h, str,
-	    FGCOLOR(uih), BGCOLOR(uih), 0);
+            FGCOLOR(uih), BGCOLOR(uih), 0);
     sprintf(str, gettext("Autopilot:%-4s  Plane:%s"),
-	    uih->autopilot ? gettext("On") : gettext("Off"),
-	    planename[uih->fcontext->plane]);
+            uih->autopilot ? gettext("On") : gettext("Off"),
+            planename[uih->fcontext->plane]);
     xprint(uih->image, uih->font, 0, statusstart + 7 * h, str,
-	    FGCOLOR(uih), BGCOLOR(uih), 0);
+            FGCOLOR(uih), BGCOLOR(uih), 0);
     sprintf(str, gettext("incoloring:%s    outcoloring:%s"),
-	    incolorname[uih->fcontext->incoloringmode],
-	    outcolorname[uih->fcontext->coloringmode]);
+            incolorname[uih->fcontext->incoloringmode],
+            outcolorname[uih->fcontext->coloringmode]);
     xprint(uih->image, uih->font, 0, statusstart + 8 * h, str,
-	    FGCOLOR(uih), BGCOLOR(uih), 0);
+            FGCOLOR(uih), BGCOLOR(uih), 0);
     sprintf(str, gettext("zoomspeed:%f"), (float) uih->maxstep * 1000);
     xprint(uih->image, uih->font, 0, statusstart + 9 * h, str,
-	    FGCOLOR(uih), BGCOLOR(uih), 0);
+            FGCOLOR(uih), BGCOLOR(uih), 0);
     if (uih->fcontext->mandelbrot)
-	strcpy(str, gettext("Parameter:none"));
+        strcpy(str, gettext("Parameter:none"));
     else
-	sprintf(str, gettext("Parameter:[%f,%f]"),
-		(float) uih->fcontext->pre, (float) uih->fcontext->pim);
+        sprintf(str, gettext("Parameter:[%f,%f]"),
+                (float) uih->fcontext->pre, (float) uih->fcontext->pim);
     xprint(uih->image, uih->font, 0, statusstart + 10 * h, str,
-	    FGCOLOR(uih), BGCOLOR(uih), 0);
+            FGCOLOR(uih), BGCOLOR(uih), 0);
 #ifdef MEMCHECK
     {
-	struct mallinfo i = mallinfo();
-	sprintf(str, "Allocated arena:%i Wasted:%i %i", i.arena, i.ordblks,
-		i.fordblks);
-	xprint(uih->image, uih->font, 0, statusstart + 11 * h, str,
-	       FGCOLOR(uih), BGCOLOR(uih), 0);
-	sprintf(str, "Mmaped blocks%i Mmaped area:%i keep:%i", i.hblks,
-		i.hblkhd, i.keepcost);
-	xprint(uih->image, uih->font, 0, statusstart + 12 * h, str,
-	       FGCOLOR(uih), BGCOLOR(uih), 0);
+        struct mallinfo i = mallinfo();
+        sprintf(str, "Allocated arena:%i Wasted:%i %i", i.arena, i.ordblks,
+                i.fordblks);
+        xprint(uih->image, uih->font, 0, statusstart + 11 * h, str,
+               FGCOLOR(uih), BGCOLOR(uih), 0);
+        sprintf(str, "Mmaped blocks%i Mmaped area:%i keep:%i", i.hblks,
+                i.hblkhd, i.keepcost);
+        xprint(uih->image, uih->font, 0, statusstart + 12 * h, str,
+               FGCOLOR(uih), BGCOLOR(uih), 0);
     }
 #endif
     ui_flush();
@@ -513,11 +513,11 @@ static void ui_drawstatus(uih_context * uih, void *data)
 static void ui_status(uih_context * uih)
 {
     if (statuswindow == NULL) {
-	statuswindow =
-	    uih_registerw(uih, ui_statuspos, ui_drawstatus, NULL, 0);
+        statuswindow =
+            uih_registerw(uih, ui_statuspos, ui_drawstatus, NULL, 0);
     } else {
-	uih_removew(uih, statuswindow);
-	statuswindow = NULL;
+        uih_removew(uih, statuswindow);
+        statuswindow = NULL;
     }
     ui_updatemenus(uih, "status");
     ui_updatemenus(uih, "animministatus");
@@ -531,7 +531,7 @@ static int ui_statusenabled(uih_context * uih)
 
 static void
 ui_ministatuspos(uih_context * uih, int *x, int *y, int *w, int *h,
-		 void *data)
+                 void *data)
 {
     *x = 0;
     *y = ministatusstart;
@@ -542,7 +542,7 @@ ui_ministatuspos(uih_context * uih, int *x, int *y, int *w, int *h,
 static void ui_drawministatus(uih_context * uih, void *data)
 {
     xprint(uih->image, uih->font, 0, ministatusstart, statustext,
-	    FGCOLOR(uih), BGCOLOR(uih), 0);
+            FGCOLOR(uih), BGCOLOR(uih), 0);
 }
 
 static void ui_noguisw(uih_context * uih)
@@ -559,12 +559,12 @@ static int ui_noguienabled(uih_context * uih)
 static void ui_ministatus(uih_context * uih)
 {
     if (ministatuswindow == NULL) {
-	ministatuswindow =
-	    uih_registerw(uih, ui_ministatuspos, ui_drawministatus, NULL,
-			  0);
+        ministatuswindow =
+            uih_registerw(uih, ui_ministatuspos, ui_drawministatus, NULL,
+                          0);
     } else {
-	uih_removew(uih, ministatuswindow);
-	ministatuswindow = NULL;
+        uih_removew(uih, ministatuswindow);
+        ministatuswindow = NULL;
     }
     ui_updatestarts();
     ui_updatemenus(uih, "ministatus");
@@ -580,63 +580,63 @@ static void ui_message(struct uih_context *u)
 {
     char s[80];
     if (uih->play)
-	return;
+        return;
     mousetype(WAITMOUSE);
     sprintf(s, gettext("Please wait while calculating %s"),
-	    uih->fcontext->currentformula->name[!uih->fcontext->
-						mandelbrot]);
+            uih->fcontext->currentformula->name[!uih->fcontext->
+                                                mandelbrot]);
     driver->print(0, 0, s);
 }
 
 #define ROTATESPEEDUP 30
 static int
 procescounter(int *counter, const char *text, int speed, int keys,
-	      int lastkeys, int down, int up, int tenskip, int min,
-	      int max)
+              int lastkeys, int down, int up, int tenskip, int min,
+              int max)
 {
     static int pid = -1;
     int changed = 0;
     char str[80];
     if (tl_lookup_timer(arrowtimer) > 1000000)
-	tl_reset_timer(arrowtimer);
+        tl_reset_timer(arrowtimer);
     if ((keys & up) && !(lastkeys & up)) {
-	(*counter)++;
-	tenskip = 0;
-	changed = 1;
-	tl_reset_timer(arrowtimer);
+        (*counter)++;
+        tenskip = 0;
+        changed = 1;
+        tl_reset_timer(arrowtimer);
     }
     if ((keys & down) && !(lastkeys & down)) {
-	(*counter)--;
-	tenskip = 0;
-	changed = 1;
-	tl_reset_timer(arrowtimer);
+        (*counter)--;
+        tenskip = 0;
+        changed = 1;
+        tl_reset_timer(arrowtimer);
     }
     while (tl_lookup_timer(arrowtimer) > speed * FRAMETIME) {
-	tl_slowdown_timer(arrowtimer, speed * FRAMETIME);
-	if (keys & up) {
-	    if (tenskip && !(*counter % 10))
-		(*counter) += 10;
-	    else
-		(*counter)++;
-	    changed = 1;
-	}
-	if (keys & down) {
-	    if (tenskip && !(*counter % 10))
-		(*counter) -= 10;
-	    else
-		(*counter)--;
-	    changed = 1;
-	}
+        tl_slowdown_timer(arrowtimer, speed * FRAMETIME);
+        if (keys & up) {
+            if (tenskip && !(*counter % 10))
+                (*counter) += 10;
+            else
+                (*counter)++;
+            changed = 1;
+        }
+        if (keys & down) {
+            if (tenskip && !(*counter % 10))
+                (*counter) -= 10;
+            else
+                (*counter)--;
+            changed = 1;
+        }
     }
     if (changed) {
-	if (*counter > max)
-	    *counter = max;
-	if (*counter < min)
-	    *counter = min;
-	sprintf(str, text, *counter);
-	uih_rmmessage(uih, pid);
-	pid = uih_message(uih, str);
-	ui_flush();
+        if (*counter > max)
+            *counter = max;
+        if (*counter < min)
+            *counter = min;
+        sprintf(str, text, *counter);
+        uih_rmmessage(uih, pid);
+        pid = uih_message(uih, str);
+        ui_flush();
     }
     return changed;
 }
@@ -649,121 +649,121 @@ ui_mouse(int mousex, int mousey, int mousebuttons, int iterchange)
     static int spid;
     flags = 0;
     if (mousex != lastx || mousey != lasty)
-	flags |= MOUSE_MOVE;
+        flags |= MOUSE_MOVE;
     if ((mousebuttons & BUTTON1) && !(lastbuttons & BUTTON1))
-	flags |= MOUSE_PRESS;
+        flags |= MOUSE_PRESS;
     if (!(mousebuttons & BUTTON1) && (lastbuttons & BUTTON1))
-	flags |= MOUSE_RELEASE;
+        flags |= MOUSE_RELEASE;
     if (mousebuttons & BUTTON1)
-	flags |= MOUSE_DRAG;
+        flags |= MOUSE_DRAG;
     lastx = mousex;
     lasty = mousey;
     lastbuttons = mousebuttons;
     tl_update_time();
     CHECKPROCESSEVENTS(mousebuttons, iterchange);
     if (ui_helpmouse(mousex, mousey, mousebuttons, flags)) {
-	uih_update(uih, mousex, mousey, 0);
-	return;
+        uih_update(uih, mousex, mousey, 0);
+        return;
     }
 #ifndef _plan9_
     if (ui_mousefilesel(mousex, mousey, mousebuttons, flags)) {
-	uih_update(uih, mousex, mousey, 0);
-	return;
+        uih_update(uih, mousex, mousey, 0);
+        return;
     }
 #endif
     if (ui_dialogmouse(mousex, mousey, mousebuttons, flags)) {
-	uih_update(uih, mousex, mousey, 0);
-	return;
+        uih_update(uih, mousex, mousey, 0);
+        return;
     }
     if (ui_menumouse(mousex, mousey, mousebuttons, flags)) {
-	uih_update(uih, mousex, mousey, 0);
-	return;
+        uih_update(uih, mousex, mousey, 0);
+        return;
     }
     uih_update(uih, mousex, mousey, mousebuttons);
     if (uih->play) {
-	procescounter(&uih->letterspersec,
-		      gettext("Letters per second %i  "), 2, iterchange,
-		      lastiter, 1, 2, 0, 1, INT_MAX);
-	return;
+        procescounter(&uih->letterspersec,
+                      gettext("Letters per second %i  "), 2, iterchange,
+                      lastiter, 1, 2, 0, 1, INT_MAX);
+        return;
     }
     if (!uih->cycling) {
-	if (uih->rotatemode == ROTATE_CONTINUOUS) {
-	    static int rpid;
-	    if (iterchange == 2) {
-		uih->rotationspeed +=
-		    ROTATESPEEDUP * tl_lookup_timer(maintimer) / 1000000.0;
-		uih_rmmessage(uih, rpid);
-		sprintf(str,
-			gettext
-			("Rotation speed:%2.2f degrees per second "),
-			(float) uih->rotationspeed);
-		rpid = uih_message(uih, str);
-		ui_flush();
-	    }
-	    if (iterchange == 1) {
-		uih->rotationspeed -=
-		    ROTATESPEEDUP * tl_lookup_timer(maintimer) / 1000000.0;
-		uih_rmmessage(uih, rpid);
-		sprintf(str,
-			gettext
-			("Rotation speed:%2.2f degrees per second "),
-			(float) uih->rotationspeed);
-		rpid = uih_message(uih, str);
-		ui_flush();
-	    }
-	    tl_reset_timer(maintimer);
-	} else {
-	    if (!dirty)
-		maxiter = uih->fcontext->maxiter;
-	    if (procescounter
-		(&maxiter, gettext("Iterations: %i   "), 1, iterchange,
-		 lastiter, 1, 2, 1, 1, INT_MAX) || (iterchange & 3)) {
-		dirty = 1;
-		lastiter = iterchange;
-		return;
-	    }
-	}
+        if (uih->rotatemode == ROTATE_CONTINUOUS) {
+            static int rpid;
+            if (iterchange == 2) {
+                uih->rotationspeed +=
+                    ROTATESPEEDUP * tl_lookup_timer(maintimer) / 1000000.0;
+                uih_rmmessage(uih, rpid);
+                sprintf(str,
+                        gettext
+                        ("Rotation speed:%2.2f degrees per second "),
+                        (float) uih->rotationspeed);
+                rpid = uih_message(uih, str);
+                ui_flush();
+            }
+            if (iterchange == 1) {
+                uih->rotationspeed -=
+                    ROTATESPEEDUP * tl_lookup_timer(maintimer) / 1000000.0;
+                uih_rmmessage(uih, rpid);
+                sprintf(str,
+                        gettext
+                        ("Rotation speed:%2.2f degrees per second "),
+                        (float) uih->rotationspeed);
+                rpid = uih_message(uih, str);
+                ui_flush();
+            }
+            tl_reset_timer(maintimer);
+        } else {
+            if (!dirty)
+                maxiter = uih->fcontext->maxiter;
+            if (procescounter
+                (&maxiter, gettext("Iterations: %i   "), 1, iterchange,
+                 lastiter, 1, 2, 1, 1, INT_MAX) || (iterchange & 3)) {
+                dirty = 1;
+                lastiter = iterchange;
+                return;
+            }
+        }
     }
     if (dirty) {
-	if (uih->incalculation)
-	    uih_interrupt(uih);
-	else
-	    uih_setmaxiter(uih, maxiter), dirty = 0;
+        if (uih->incalculation)
+            uih_interrupt(uih);
+        else
+            uih_setmaxiter(uih, maxiter), dirty = 0;
     }
     if (uih->cycling) {
-	if (procescounter
-	    (&uih->cyclingspeed, gettext("Cycling speed: %i   "), 1,
-	     iterchange, lastiter, 1, 2, 0, -1000000, INT_MAX)) {
-	    uih_setcycling(uih, uih->cyclingspeed);
-	}
+        if (procescounter
+            (&uih->cyclingspeed, gettext("Cycling speed: %i   "), 1,
+             iterchange, lastiter, 1, 2, 0, -1000000, INT_MAX)) {
+            uih_setcycling(uih, uih->cyclingspeed);
+        }
     }
     if (iterchange & 4
-	&& (tl_lookup_timer(maintimer) > FRAMETIME || mousebuttons)) {
-	double mul1 = tl_lookup_timer(maintimer) / FRAMETIME;
-	double su = 1 + (SPEEDUP - 1) * mul1;
-	if (su > 2 * SPEEDUP)
-	    su = SPEEDUP;
-	tl_reset_timer(maintimer);
-	uih->speedup *= su, uih->maxstep *= su;
-	sprintf(str, gettext("speed:%2.2f "),
-		(double) uih->speedup * (1.0 / STEP));
-	uih_rmmessage(uih, spid);
-	spid = uih_message(uih, str);
-	ui_flush();
+        && (tl_lookup_timer(maintimer) > FRAMETIME || mousebuttons)) {
+        double mul1 = tl_lookup_timer(maintimer) / FRAMETIME;
+        double su = 1 + (SPEEDUP - 1) * mul1;
+        if (su > 2 * SPEEDUP)
+            su = SPEEDUP;
+        tl_reset_timer(maintimer);
+        uih->speedup *= su, uih->maxstep *= su;
+        sprintf(str, gettext("speed:%2.2f "),
+                (double) uih->speedup * (1.0 / STEP));
+        uih_rmmessage(uih, spid);
+        spid = uih_message(uih, str);
+        ui_flush();
     }
     if (iterchange & 8
-	&& (tl_lookup_timer(maintimer) > FRAMETIME || mousebuttons)) {
-	double mul1 = tl_lookup_timer(maintimer) / FRAMETIME;
-	double su = 1 + (SPEEDUP - 1) * mul1;
-	if (su > 2 * SPEEDUP)
-	    su = SPEEDUP;
-	tl_reset_timer(maintimer);
-	uih->speedup /= su, uih->maxstep /= su;
-	sprintf(str, gettext("speed:%2.2f "),
-		(double) uih->speedup * (1 / STEP));
-	uih_rmmessage(uih, spid);
-	spid = uih_message(uih, str);
-	ui_flush();
+        && (tl_lookup_timer(maintimer) > FRAMETIME || mousebuttons)) {
+        double mul1 = tl_lookup_timer(maintimer) / FRAMETIME;
+        double su = 1 + (SPEEDUP - 1) * mul1;
+        if (su > 2 * SPEEDUP)
+            su = SPEEDUP;
+        tl_reset_timer(maintimer);
+        uih->speedup /= su, uih->maxstep /= su;
+        sprintf(str, gettext("speed:%2.2f "),
+                (double) uih->speedup * (1 / STEP));
+        uih_rmmessage(uih, spid);
+        spid = uih_message(uih, str);
+        ui_flush();
     }
     lastiter = iterchange;
     return;
@@ -781,16 +781,16 @@ ui_alloccolor(struct palette *pal, int init, int r, int g, int b)
     int i;
     i = driver->set_color(r, g, b, init);
     if (i == -1)
-	return (-1);
+        return (-1);
     if (init)
-	pal->size = 0;
+        pal->size = 0;
     pal->pixels[pal->size] = i;
     pal->rgb[i][0] = r;
     pal->rgb[i][1] = g;
     pal->rgb[i][2] = b;
     pal->size++;
     if (driver->flags & UPDATE_AFTER_PALETTE) {
-	uih->display = 1;
+        uih->display = 1;
     }
     return (i);
 }
@@ -822,9 +822,9 @@ static void processbuffer(void)
     const menuitem *item;
     dialogparam *d;
     if (uih->incalculation)
-	return;
+        return;
     while ((item = menu_delqueue(&d)) != NULL) {
-	ui_menuactivate(item, d);
+        ui_menuactivate(item, d);
     }
 }
 
@@ -859,13 +859,13 @@ void ui_quit(void)
 static void ui_quitwr(uih_context * c, int quit)
 {
     if (c == NULL) {
-	ui_unregistermenus();
-	uih_unregistermenus();
-	xio_uninit();
-	exit_xaos(0);
+        ui_unregistermenus();
+        uih_unregistermenus();
+        xio_uninit();
+        exit_xaos(0);
     }
     if (quit)
-	ui_quit();
+        ui_quit();
 }
 
 int ui_key(int key)
@@ -877,56 +877,56 @@ int ui_key(int key)
 #define ui_keyfilesel(k) 0
 #endif
     if (!ui_helpkeys(key) && !ui_keyfilesel(key) && !ui_dialogkeys(key)
-	&& !ui_menukey(key))
-	switch (sym = tolower(key)) {
-	case ' ':
-	    ui_closemenus();
-	    uih->display = 1;
-	    if (uih->play) {
-		if (uih->incalculation)
-		    ui_updatestatus();
-		else {
-		    uih_skipframe(uih);
-		    driver->print(0, 0,
-				  gettext("Skipping, please wait..."));
-		}
-	    }
-	    break;
-	default:
-	    {
-		int number;
-		if (sym >= '0' && sym <= '9') {
-		    number = sym - '1';
-		    if (number < 0)
-			number = 9;
-		    if (number == -1)
-			break;
-		}
-	    }
-	    mkey[0] = key;
-	    mkey[1] = 0;
-	    item = menu_findkey(mkey, uih->menuroot);
-	    if (item == NULL) {
-		mkey[0] = sym;
-		item = menu_findkey(mkey, uih->menuroot);
-	    }
-	    if (item != NULL) {
-		dialogparam *p = NULL;
-		if (menu_havedialog(item, uih)) {
-		    const menudialog *d = menu_getdialog(uih, item);
-		    int mousex, mousey, buttons;
-		    driver->getmouse(&mousex, &mousey, &buttons);
-		    if (d[0].question != NULL && d[1].question == NULL
-			&& d[0].type == DIALOG_COORD) {
-			p = (dialogparam *) malloc(sizeof(dialogparam));
-			uih_screentofractalcoord(uih, mousex, mousey,
-						 p->dcoord, p->dcoord + 1);
-		    }
-		}
-		ui_menuactivate(item, p);
-	    }
-	    break;
-	}
+        && !ui_menukey(key))
+        switch (sym = tolower(key)) {
+        case ' ':
+            ui_closemenus();
+            uih->display = 1;
+            if (uih->play) {
+                if (uih->incalculation)
+                    ui_updatestatus();
+                else {
+                    uih_skipframe(uih);
+                    driver->print(0, 0,
+                                  gettext("Skipping, please wait..."));
+                }
+            }
+            break;
+        default:
+            {
+                int number;
+                if (sym >= '0' && sym <= '9') {
+                    number = sym - '1';
+                    if (number < 0)
+                        number = 9;
+                    if (number == -1)
+                        break;
+                }
+            }
+            mkey[0] = key;
+            mkey[1] = 0;
+            item = menu_findkey(mkey, uih->menuroot);
+            if (item == NULL) {
+                mkey[0] = sym;
+                item = menu_findkey(mkey, uih->menuroot);
+            }
+            if (item != NULL) {
+                dialogparam *p = NULL;
+                if (menu_havedialog(item, uih)) {
+                    const menudialog *d = menu_getdialog(uih, item);
+                    int mousex, mousey, buttons;
+                    driver->getmouse(&mousex, &mousey, &buttons);
+                    if (d[0].question != NULL && d[1].question == NULL
+                        && d[0].type == DIALOG_COORD) {
+                        p = (dialogparam *) malloc(sizeof(dialogparam));
+                        uih_screentofractalcoord(uih, mousex, mousey,
+                                                 p->dcoord, p->dcoord + 1);
+                    }
+                }
+                ui_menuactivate(item, p);
+            }
+            break;
+        }
     processbuffer();
     return 0;
 }
@@ -981,9 +981,9 @@ static void add_resizeitems()
     // General version, it's needed now:
     int no_menuitems_i18n = ui_no_menuitems_i18n;	/* This variable must be local. */
     MENUNOP_I("ui", "=", gettext("Resize"), "resize",
-	      UI | MENUFLAG_INTERRUPT, ui_call_resize);
+              UI | MENUFLAG_INTERRUPT, ui_call_resize);
     MENUNOP_I("uia", "=", gettext("Resize"), "animresize",
-	      UI | MENUFLAG_INTERRUPT, ui_call_resize);
+              UI | MENUFLAG_INTERRUPT, ui_call_resize);
     no_menuitems_i18n -= ui_no_menuitems_i18n;
     resizeitems = &menuitems_i18n[ui_no_menuitems_i18n];
     menu_add(resizeitems, no_menuitems_i18n);
@@ -997,26 +997,26 @@ static void ui_registermenus_i18n(void)
 #ifndef MACOSX
     SUBMENU_I("file", "q", gettext("Quit"), "quitmenu");
     MENUINT_I("quitmenu", NULL, gettext("Exit now"), "quit",
-	      MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quitwr, 1);
+              MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quitwr, 1);
     MENUINT_I("quitmenu", NULL, gettext("Not yet"), "noquit", UI,
-	      ui_quitwr, 0);
+              ui_quitwr, 0);
 #endif
     MENUNOP_I("helpmenu", "h", gettext("Help"), "help", MENUFLAG_INCALC,
-	      ui_helpwr);
+              ui_helpwr);
     MENUNOPCB_I("ui", NULL, gettext("Disable XaoS's builtin GUI"), "nogui",
-		MENUFLAG_INCALC | MENUFLAG_ATSTARTUP | MENUFLAG_NOMENU,
-		ui_noguisw, ui_noguienabled);
+                MENUFLAG_INCALC | MENUFLAG_ATSTARTUP | MENUFLAG_NOMENU,
+                ui_noguisw, ui_noguienabled);
     MENUSEPARATOR_I("ui");
     MENUNOPCB_I("ui", "/", gettext("Status"), "status", MENUFLAG_INCALC, ui_status, ui_statusenabled);	/*FIXME: add also ? as key */
 
     MENUNOPCB_I("ui", "l", gettext("Ministatus"), "ministatus",
-		MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
+                MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
     MENUSEPARATOR_I("ui");
     MENUSEPARATOR_I("uia");
     MENUNOPCB_I("uia", "/", gettext("Status"), "animstatus", UI | MENUFLAG_INCALC, ui_status, ui_statusenabled);	/*FIXME: add also ? as key */
 
     MENUNOPCB_I("uia", "l", gettext("Ministatus"), "animministatus",
-		UI | MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
+                UI | MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
     MENUSEPARATOR_I("uia");
     SUBMENU_I("ui", NULL, gettext("Driver"), "drivers");
     SUBMENU_I("uia", NULL, gettext("Driver"), "drivers");
@@ -1034,15 +1034,15 @@ static void ui_registermenus(void)
     menu_add(menuitems, NITEMS(menuitems));
     driveritems = item = (menuitem *) malloc(sizeof(menuitem) * ndrivers);
     for (i = 0; i < ndrivers; i++) {
-	item[i].menuname = "drivers";
-	item[i].shortname = drivers[i]->name;
-	item[i].key = NULL;
-	item[i].type = MENU_INT;
-	item[i].flags = MENUFLAG_RADIO | UI;
-	item[i].iparam = i;
-	item[i].name = drivers[i]->name;
-	item[i].function = (void (*)(void)) ui_setdriver;
-	item[i].control = (int (*)(void)) ui_driverselected;
+        item[i].menuname = "drivers";
+        item[i].shortname = drivers[i]->name;
+        item[i].key = NULL;
+        item[i].type = MENU_INT;
+        item[i].flags = MENUFLAG_RADIO | UI;
+        item[i].iparam = i;
+        item[i].name = drivers[i]->name;
+        item[i].function = (void (*)(void)) ui_setdriver;
+        item[i].control = (int (*)(void)) ui_driverselected;
     }
     menu_add(item, ndrivers);
 }
@@ -1058,7 +1058,7 @@ static void ui_unregistermenus(void)
 int number_six = 6;
 
 #ifdef SFFE_USING
-	/* parser variables vars */
+        /* parser variables vars */
 cmplx Z, C, pZ;
 #endif
 
@@ -1569,79 +1569,65 @@ static void ui_mkimages(int w, int h)
     width = w;
     height = h;
     if (resizeregistered && !(driver->flags & RESIZE_COMMAND)) {
-	menu_delete(resizeitems, ui_no_resizeitems);
-	resizeregistered = 0;
+        menu_delete(resizeitems, ui_no_resizeitems);
+        resizeregistered = 0;
     } else {
-	if (!resizeregistered && (driver->flags & RESIZE_COMMAND)) {
-	    add_resizeitems();
-	    resizeregistered = 1;
-	}
-    }
-    switch (scanline = driver->alloc_buffers(&b1, &b2, &image)) {
-    case 0: /* ERROR: Driver could not allocate buffers */
-	driver->uninit();
-	x_error(gettext("Can not allocate buffers"));
-	ui_outofmem();
-	exit_xaos(-1);
-        break;
-    case -1:
-        /*
-         * If the driver returns -1, it means that it has preconfigured the
-         * image and returned it via the image out parameter.  Since the
-         * image is already set up, we don't need to do anything else here.
-         */
-        break;
-    default:
-        /*
-         * Otherwise, the driver returns a positive number indicating the
-         * number of bytes in a scanline. We allocate the image using the
-         * traditional method. This is retained for backwards compatibility
-         * with old drivers that do not pre-configure the image themselves.
-         */
-        info.truec.rmask = driver->rmask;
-        info.truec.gmask = driver->gmask;
-        info.truec.bmask = driver->bmask;
-        palette =
-            createpalette(driver->palettestart, driver->paletteend,
-                          driver->imagetype,
-                          (driver->
-                           flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0,
-                          driver->maxentries,
-                          driver->set_color != NULL ? ui_alloccolor : NULL,
-                          driver->set_range != NULL ? ui_setpalette : NULL,
-                          NULL, NULL, &info);
-        if (!palette) {
-            driver->uninit();
-            x_error(gettext("Can not create palette"));
-            ui_outofmem();
-            exit_xaos(-1);
-        }
-        image =
-            create_image_cont(width, height, scanline, 2, (unsigned char *) b1,
-                              (unsigned char *) b2, palette, ui_flip,
-                              (driver->flags & AALIB) ? AAIMAGE : 0,
-                              get_windowwidth(width) / width,
-                              get_windowheight(height) / height);
-        if (!image) {
-            driver->uninit();
-            x_error(gettext("Can not create image"));
-            ui_outofmem();
-            exit_xaos(-1);
+        if (!resizeregistered && (driver->flags & RESIZE_COMMAND)) {
+            add_resizeitems();
+            resizeregistered = 1;
         }
     }
+    if (!(scanline = driver->alloc_buffers(&b1, &b2, &data))) {
+        driver->uninit();
+        x_error(gettext("Can not allocate buffers"));
+        ui_outofmem();
+        exit_xaos(-1);
+    }
+    info.truec.rmask = driver->rmask;
+    info.truec.gmask = driver->gmask;
+    info.truec.bmask = driver->bmask;
+    palette =
+        createpalette(driver->palettestart, driver->paletteend,
+                      driver->imagetype,
+                      (driver->
+                       flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0,
+                      driver->maxentries,
+                      driver->set_color != NULL ? ui_alloccolor : NULL,
+                      driver->set_range != NULL ? ui_setpalette : NULL,
+                      NULL, NULL, &info);
+    if (!palette) {
+        driver->uninit();
+        x_error(gettext("Can not create palette"));
+        ui_outofmem();
+        exit_xaos(-1);
+    }
+    image =
+        create_image_cont(width, height, scanline, 2, (unsigned char *) b1,
+                          (unsigned char *) b2, palette, ui_flip,
+                          (driver->flags & AALIB) ? AAIMAGE : 0,
+                          get_windowwidth(width) / width,
+                          get_windowheight(height) / height);
+    if (!image) {
+        driver->uninit();
+        x_error(gettext("Can not create image"));
+        ui_outofmem();
+        exit_xaos(-1);
+    }
+    image->data = data;
+    image->driver = driver->image_driver;
 }
 
 void ui_resize(void)
 {
     int w, h;
-    
+
     /* Prevent crash on startup for Mac OS X */
     if (!uih)
-	return;
-    
+        return;
+
     if (uih->incalculation) {
-	uih_interrupt(uih);
-	return;
+        uih_interrupt(uih);
+        return;
     }
     ui_closemenus();
     ui_closedialog(0);
@@ -1653,22 +1639,22 @@ void ui_resize(void)
     driver->getsize(&w, &h);
     assert(w > 0 && w < 65000 && h > 0 && h < 65000);
     if (w != uih->image->width || h != uih->image->height
-	|| (driver->flags & UPDATE_AFTER_RESIZE)
-	|| uih->palette->type != driver->imagetype) {
-	driver->free_buffers(NULL, NULL);
-	destroy_image(uih->image);
-	destroypalette(uih->palette);
-	ui_mkimages(w, h);
-	if (!uih_updateimage(uih, image)) {
-	    driver->uninit();
-	    x_error(gettext("Can not allocate tables"));
-	    ui_outofmem();
-	    exit_xaos(-1);
-	}
-	tl_process_group(syncgroup, NULL);
-	tl_reset_timer(maintimer);
-	tl_reset_timer(arrowtimer);
-	uih_newimage(uih);
+        || (driver->flags & UPDATE_AFTER_RESIZE)
+        || uih->palette->type != driver->imagetype) {
+        driver->free_buffers(NULL, NULL);
+        destroy_image(uih->image);
+        destroypalette(uih->palette);
+        ui_mkimages(w, h);
+        if (!uih_updateimage(uih, image)) {
+            driver->uninit();
+            x_error(gettext("Can not allocate tables"));
+            ui_outofmem();
+            exit_xaos(-1);
+        }
+        tl_process_group(syncgroup, NULL);
+        tl_reset_timer(maintimer);
+        tl_reset_timer(arrowtimer);
+        uih_newimage(uih);
     }
     uih_newimage(uih);
     uih_restorepalette(uih);
@@ -1685,9 +1671,9 @@ static void ui_driver(int d)
     ui_closedialog(0);
     ui_close_help();
     if (d < 0)
-	d = 0;
+        d = 0;
     if (d >= ndrivers)
-	d = ndrivers - 1;
+        d = ndrivers - 1;
     uih_stoptimers(uih);
     driver1 = driver;
     uih_clearwindows(uih);
@@ -1697,13 +1683,13 @@ static void ui_driver(int d)
     driver->uninit();
     driver = drivers[d];
     if (!driver->init()) {
-	driver = driver1;
-	uih_error(uih, gettext("Can not initialize driver"));
-	if (!driver1->init()) {
-	    x_fatalerror(gettext
-			 ("Can not return back to previous driver"));
-	} else
-	    driver = driver1;
+        driver = driver1;
+        uih_error(uih, gettext("Can not initialize driver"));
+        if (!driver1->init()) {
+            x_fatalerror(gettext
+                         ("Can not return back to previous driver"));
+        } else
+            driver = driver1;
     }
     driver->getsize(&width, &height);
     destroy_image(uih->image);
@@ -1711,13 +1697,13 @@ static void ui_driver(int d)
     uih->flags = driver->flags;
     ui_mkimages(width, height);
     if (!uih_updateimage(uih, image)) {
-	driver->uninit();
-	x_error(gettext("Can not allocate tables"));
-	ui_outofmem();
-	exit_xaos(-1);
+        driver->uninit();
+        x_error(gettext("Can not allocate tables"));
+        ui_outofmem();
+        exit_xaos(-1);
     }
     if (driver->gui_driver && driver->gui_driver->setrootmenu)
-	driver->gui_driver->setrootmenu(uih, uih->menuroot);
+        driver->gui_driver->setrootmenu(uih, uih->menuroot);
     tl_process_group(syncgroup, NULL);
     tl_reset_timer(maintimer);
     tl_reset_timer(arrowtimer);
@@ -1734,46 +1720,46 @@ static void ui_mainloop(int loop)
     int x, y, b, k;
     int time;
     driver->processevents((!inmovement && !uih->inanimation), &x, &y, &b,
-			  &k);
+                          &k);
     do {
-	mousetype(uih->play ? REPLAYMOUSE : uih->
-		  inhibittextoutput ? VJMOUSE : NORMALMOUSE);
-	if (uih->display) {
-	    uih_prepare_image(uih);
-	    ui_updatestatus();
-	}
-	if ((time = tl_process_group(syncgroup, NULL)) != -1) {
-	    if (!inmovement && !uih->inanimation) {
-		if (time > 1000000 / 50)
-		    time = 1000000 / 50;
-		if (time > delaytime) {
-		    tl_sleep(time - delaytime);
-		    tl_update_time();
-		}
-	    }
-	    inmovement = 1;
-	}
-	if (delaytime || maxframerate) {
-	    tl_update_time();
-	    time = tl_lookup_timer(loopt);
-	    tl_reset_timer(loopt);
-	    time = 1000000 / maxframerate - time;
-	    if (time < delaytime)
-		time = delaytime;
-	    if (time) {
-		tl_sleep(time);
-		tl_update_time();
-	    }
-	}
-	processbuffer();
-	driver->processevents((!inmovement && !uih->inanimation), &x, &y,
-			      &b, &k);
+        mousetype(uih->play ? REPLAYMOUSE : uih->
+                  inhibittextoutput ? VJMOUSE : NORMALMOUSE);
+        if (uih->display) {
+            uih_prepare_image(uih);
+            ui_updatestatus();
+        }
+        if ((time = tl_process_group(syncgroup, NULL)) != -1) {
+            if (!inmovement && !uih->inanimation) {
+                if (time > 1000000 / 50)
+                    time = 1000000 / 50;
+                if (time > delaytime) {
+                    tl_sleep(time - delaytime);
+                    tl_update_time();
+                }
+            }
+            inmovement = 1;
+        }
+        if (delaytime || maxframerate) {
+            tl_update_time();
+            time = tl_lookup_timer(loopt);
+            tl_reset_timer(loopt);
+            time = 1000000 / maxframerate - time;
+            if (time < delaytime)
+                time = delaytime;
+            if (time) {
+                tl_sleep(time);
+                tl_update_time();
+            }
+        }
+        processbuffer();
+        driver->processevents((!inmovement && !uih->inanimation), &x, &y,
+                              &b, &k);
 
-	inmovement = 0;
-	ui_mouse(x, y, b, k);
-	if (todriver)
-	    ui_driver(todriver - 1), todriver = 0;
-	if (callresize)
-	    ui_resize(), callresize = 0;
+        inmovement = 0;
+        ui_mouse(x, y, b, k);
+        if (todriver)
+            ui_driver(todriver - 1), todriver = 0;
+        if (callresize)
+            ui_resize(), callresize = 0;
     } while (loop);
 }

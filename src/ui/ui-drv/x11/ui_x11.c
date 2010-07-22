@@ -122,7 +122,7 @@ static void x11_free_buffers(char *b1, char *b2)
     }
 }
 
-static int x11_alloc_buffers(char **b1, char **b2, struct image **image_out)
+static int x11_alloc_buffers(char **b1, char **b2, void **data)
 {
     if (!allocated) {
 	XSync(d->display, 0);

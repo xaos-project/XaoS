@@ -69,7 +69,7 @@ struct image_driver {
     int (*textwidth) (struct image *image, const char *text);
     int (*textheight) (struct image *image);
     int (*charwidth) (struct image *image, const char c);
-    const char * (*saveimage) (const char *filename);
+    const char * (*saveimage) (struct image *image, const char *filename);
 };
 
 #define interpol1(i1,i2,n,mask) ((((i1)&(mask))*(n)+((i2)&(mask))*(256-(n)))&((mask)<<8))

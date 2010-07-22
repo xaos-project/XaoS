@@ -509,7 +509,7 @@ void free_buffers(char *b1, char *b2) {
 	surface[1] = NULL;
 }
 
-int alloc_buffers(char **b1, char **b2, struct image **image_out) {
+int alloc_buffers(char **b1, char **b2, void **data) {
 	surface[0] = cairo_image_surface_create(CAIRO_FORMAT_RGB24, width, height);
 	surface[1] = cairo_image_surface_create(CAIRO_FORMAT_RGB24, width, height);
 

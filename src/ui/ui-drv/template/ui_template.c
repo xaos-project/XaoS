@@ -28,14 +28,9 @@ void template_free_buffers(char *b1, char *b2)
 {
 }
 
-int template_alloc_buffers(char **b1, char **b2, struct image **image_out)
+int template_alloc_buffers(char **b1, char **b2, void **data)
 {
-/*
- * If you create your own image struct, assign it to *image_out and return -1.
- * Otherwise just allocate the image buffers and assign them to *b1 and *b2,
- * then return the bytes per scanline. Return 0 to indicate an error.
- */
-    return 1;
+    return 1; /* bytes per scanline */
 }
 
 static void template_getsize(int *w, int *h)

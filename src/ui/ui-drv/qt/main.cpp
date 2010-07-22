@@ -1,10 +1,12 @@
-#include <QtGui/QApplication>
+#include <QtGui>
+#include <cstring>
 
 #include "mainwindow.h"
 #include "fractalwidget.h"
 
 #include "ui.h"
 #include "filter.h"
+#include "grlib.h"
 #include "ui_helper.h"
 #include "version.h"
 
@@ -20,6 +22,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("xaos.sourceforge.net");
 
     QApplication a(argc, argv);
+
     //return a.exec();
     return MAIN_FUNCTION(argc, argv);
 }
@@ -40,12 +43,12 @@ qt_uninitDriver ()
 }
 
 static int
-qt_allocBuffers (char **b1, char **b2, struct image **image_out)
+qt_allocBuffers (char **b1, char **b2, void **data)
 {
     widget->createImages();
     *b1 = widget->imageBuffer1();
     *b2 = widget->imageBuffer2();
-    //*data = widget->imagePointer();
+    *data = widget->imagePointer();
     return widget->imageBytesPerLine();
 }
 
@@ -134,12 +137,88 @@ qt_showHelp (struct uih_context *c, const char *name)
 {
 }
 
+QFont qt_getFont() {
+    return QFont(QApplication::font().family(), 12);
+    //return QFont("Calibri", 12);
+}
+
+int qt_imagePrint(struct image *image, int x, int y,
+                   const char *text, int fgcolor, int bgcolor, int mode)
+{
+    char line[BUFSIZ];
+    int pos = strcspn(text, "\n");
+    strncpy(line, text, pos);
+    line[pos] = '\0';
+
+    QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
+    QFontMetrics metrics(qt_getFont(), qimage);
+    QPainter painter(qimage);
+    painter.setFont(qt_getFont());
+
+    if (mode == TEXT_PRESSED) {
+        painter.setPen(fgcolor);
+        painter.drawText(x + 1, y + 1 + metrics.ascent(), line);
+    } else {
+        painter.setPen(bgcolor);
+        painter.drawText(x + 1, y + 1 + metrics.ascent(), line);
+        painter.setPen(fgcolor);
+        painter.drawText(x, y + metrics.ascent(), line);
+    }
+
+    return strlen(line);
+}
+
+int qt_imageTextWidth(struct image *image, const char *text)
+{
+    char line[BUFSIZ];
+    int pos = strcspn(text, "\n");
+    strncpy(line, text, pos);
+    line[pos] = '\0';
+
+    QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
+    QFontMetrics metrics(qt_getFont(), qimage);
+
+    return metrics.width(line) + 1;
+}
+
+int qt_imageTextHeight(struct image *image)
+{
+    QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
+    QFontMetrics metrics(qt_getFont(), qimage);
+
+    return metrics.height() + 1;
+}
+
+int qt_imageCharWidth(struct image *image, const char c)
+{
+    QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
+    QFontMetrics metrics(qt_getFont(), qimage);
+
+    return metrics.width(c);
+}
+
+const char *qt_saveImage(struct image *image, const char *filename)
+{
+    QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
+    qimage->save(filename);
+    return NULL;
+}
+
 struct gui_driver qt_gui_driver = {
 /* setrootmenu */   qt_buildMenu,
 /* enabledisable */ qt_toggleMenu,
 /* menu */          qt_popupMenu,
 /* dialog */        qt_showDialog,
 /* help */          qt_showHelp
+};
+
+struct image_driver qt_image_driver =
+{
+/* print */      qt_imagePrint,
+/* textwidth */  qt_imageTextWidth,
+/* textheight */ qt_imageTextHeight,
+/* charwidth */  qt_imageCharWidth,
+/* saveimage */  qt_saveImage
 };
 
 static struct params qt_params[] = {
@@ -179,7 +258,8 @@ struct ui_driver qt_driver = {
 /* rmask */         0xff0000,
 /* gmask */         0x00ff00,
 /* bmask */         0x0000ff,
-/* gui_driver */    &qt_gui_driver
+/* gui_driver */    &qt_gui_driver,
+                    &qt_image_driver
 };
 
 }
