@@ -1,12 +1,12 @@
 #ifndef FRACTALWIDGET_H
 #define FRACTALWIDGET_H
 
-#include <QWidget>
+#include <QGLWidget>
 
 class QImage;
 class QPoint;
 
-class FractalWidget : public QWidget
+class FractalWidget : public QGLWidget
 {
     Q_OBJECT
 
@@ -28,11 +28,14 @@ protected:
     void wheelEvent(QWheelEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
-    void paintEvent (QPaintEvent *event);
+    //void paintEvent (QPaintEvent *event);
     void resizeEvent(QResizeEvent *event);
 
 public:
     FractalWidget();
+
+    void paintGL();
+    void resizeGL(int w, int h);
 
     void createImages();
     void destroyImages();

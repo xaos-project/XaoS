@@ -3,6 +3,7 @@
 #include "ui.h"
 
 #include <QtGui>
+#include <QtOpenGL>
 
 FractalWidget::FractalWidget()
 {
@@ -123,7 +124,7 @@ void FractalWidget::resizeEvent(QResizeEvent *event)
     if (m_image[0] && m_image[1])
         ui_call_resize();
 }
-
+/*
 void FractalWidget::paintEvent (QPaintEvent *event)
 {
     if (m_image[m_activeImage]) {
@@ -131,6 +132,24 @@ void FractalWidget::paintEvent (QPaintEvent *event)
         painter.setCompositionMode(QPainter::CompositionMode_Source);
         painter.drawImage(0, 0, *m_image[m_activeImage]);
     }
+}
+*/
+
+void FractalWidget::paintGL()
+{
+    if (m_image[m_activeImage]) {
+        QImage glimage = QGLWidget::convertToGLFormat(*m_image[m_activeImage]);
+        glDrawPixels(glimage.width(), glimage.height(), GL_RGBA, GL_UNSIGNED_BYTE, glimage.bits());
+    }
+}
+
+void FractalWidget::resizeGL(int w, int h)
+{
+    glViewport (0, 0, w, h);
+    glMatrixMode (GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, w,0,h,-1,1);
+    glMatrixMode (GL_MODELVIEW);
 }
 
 void FractalWidget::createImages()

@@ -74,7 +74,7 @@ qt_flipBuffers ()
 static void
 qt_redrawImage()
 {
-    widget->update();
+    widget->repaint();
 }
 
 static void
