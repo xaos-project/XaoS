@@ -124,17 +124,8 @@ void FractalWidget::resizeEvent(QResizeEvent *event)
     if (m_image[0] && m_image[1])
         ui_call_resize();
 }
-/*
-void FractalWidget::paintEvent (QPaintEvent *event)
-{
-    if (m_image[m_activeImage]) {
-        QPainter painter(this);
-        painter.setCompositionMode(QPainter::CompositionMode_Source);
-        painter.drawImage(0, 0, *m_image[m_activeImage]);
-    }
-}
-*/
 
+#ifdef USE_OPENGL
 void FractalWidget::paintGL()
 {
     if (m_image[m_activeImage]) {
@@ -151,6 +142,16 @@ void FractalWidget::resizeGL(int w, int h)
     glOrtho(0, w,0,h,-1,1);
     glMatrixMode (GL_MODELVIEW);
 }
+#else
+void FractalWidget::paintEvent (QPaintEvent *event)
+{
+    if (m_image[m_activeImage]) {
+        QPainter painter(this);
+        painter.setCompositionMode(QPainter::CompositionMode_Source);
+        painter.drawImage(0, 0, *m_image[m_activeImage]);
+    }
+}
+#endif
 
 void FractalWidget::createImages()
 {

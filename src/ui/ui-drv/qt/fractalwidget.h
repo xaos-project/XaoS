@@ -6,7 +6,11 @@
 class QImage;
 class QPoint;
 
+#ifdef USE_OPENGL
 class FractalWidget : public QGLWidget
+#else
+class FractalWidget : public QWidget
+#endif
 {
     Q_OBJECT
 
@@ -28,14 +32,18 @@ protected:
     void wheelEvent(QWheelEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
-    //void paintEvent (QPaintEvent *event);
+#ifndef USE_OPENGL
+    void paintEvent (QPaintEvent *event);
+#endif
     void resizeEvent(QResizeEvent *event);
 
 public:
     FractalWidget();
 
+#ifdef USE_OPENGL
     void paintGL();
     void resizeGL(int w, int h);
+#endif
 
     void createImages();
     void destroyImages();

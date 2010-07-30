@@ -3,6 +3,8 @@
 # -------------------------------------------------
 TEMPLATE = app
 
+QT += opengl
+
 macx {
     TARGET = XaoS
 } else {
