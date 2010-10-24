@@ -522,7 +522,7 @@ msgstr "Svislá pozice textu"
 #: ../ui-hlp/menu.c:271
 #, fuzzy
 msgid "Dynamic resolution:"
-msgstr "Dinamické rozlo¾ení"
+msgstr "Dynamické rozlo¾ení"
 
 #: ../ui-hlp/menu.c:275
 msgid "Time:"
@@ -1105,7 +1105,7 @@ msgstr "Solidní hádání"
 # ../ui-hlp/menu.c:1021
 #: ../ui-hlp/menu.c:1249
 msgid "Dynamic resolution"
-msgstr "Dinamické rozlo¾ení"
+msgstr "Dynamické rozlo¾ení"
 
 # ../ui-hlp/menu.c:1022
 #: ../ui-hlp/menu.c:1251
@@ -1169,7 +1169,7 @@ msgstr "Rychlý re¾im rotace"
 # ../ui-hlp/menu.c:1037
 #: ../ui-hlp/menu.c:1289
 msgid "Disable dynamic resolution"
-msgstr "Dinamický rozli¹ení vypnuto"
+msgstr "Dynamický rozli¹ení vypnuto"
 
 # ../ui-hlp/menu.c:1039
 #: ../ui-hlp/menu.c:1292
@@ -1184,7 +1184,7 @@ msgstr "Pou¾ij toto i u nových obrazù"
 # ../ui-hlp/menu.c:1041
 #: ../ui-hlp/menu.c:1298
 msgid "Dynamic resolution mode"
-msgstr "Re¾im dinamického rozli¹ení"
+msgstr "Re¾im dynamického rozli¹ení"
 
 # ../ui-hlp/menu.c:1043
 #: ../ui-hlp/menu.c:1302
