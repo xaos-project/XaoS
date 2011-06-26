@@ -157,23 +157,12 @@ that are not relevant to those features.
 
 To compile XaoS, you need:
 
- * Cygwin from http://www.cygwin.com/
+   MinGW from http://sourceforge.net/projects/mingw/
 
- In addition to the Base packages, the following packages are required:
+Download the latest version of mingw-get-inst. 
 
-   autoconf gcc make gettext gettext-devel subversion tidy
-
- The following packages are are also recommended to make Cygwin nicer to use:
-
-   indent mintty ncurses unzip vim wget
-
- Any dependencies required by these packages will be automatically selected
- when you select the package.  Do not unselect any of the dependencies that
- the installer automatically chooses.
-
- HINT: These packages will be easier to find if you maximize the Cygwin
-       installer and click the View button until you reach "Full" mode to
-       list the packages in alphabetical order.
+In addition to the packages provided by MinGW you will need some additional
+packages to support optional features.
 
 To build with DirectX support you need:
 
@@ -186,24 +175,11 @@ To build with online help support you need:
 
 To compile XaoS with support for saving images you need:
 
- * zlib binaries from http://gnuwin32.sourceforge.net/packages/zlib.htm
- * libpng binaries from http://gnuwin32.sourceforge.net/packages/libpng.htm
+ * libpng binaries from http://www.libpng.org/pub/png/libpng.html
 
- Download the installer for each labeled "Complete package, except sources"
+To support user-defined formulas, you need ONE of the following:
 
-To use internationalization (i18n) you need:
-
- * libiconv binaries from http://gnuwin32.sourceforge.net/packages/libiconv.htm
- * gettext binaries from http://gnuwin32.sourceforge.net/packages/gettext.htm
-
- Download the installer for each labeled "Complete package, except sources"
-
-To compile XaoS with smp support you need:
-
- * Pthreads-w32	from http://sourceware.org/pthreads-win32/
-
- NOTE: Pthreads-w32 will extract to the current directory by default. The
-       recommended installation path is C:\pthreads-w32.
+ * nasm from http://www.nasm.us/
 
 To build the XaoS installer you need:
 
@@ -213,10 +189,23 @@ To build the XaoS installer you need:
 Preparation
 -----------
 
-After running the installer for each of the dependencies above, start Cygwin
-from the icon on your desktop or in your start menu.  For a nicer shell, start
-MinTTY from the start menu (assuming you installed it). You will be presented
-with a bash command prompt very similar to GNU/Linux or Unix.
+Run the mingw-get-inst installer and install at least the C compiler and 
+MinGW Developer Toolkit components.
+
+After installation is complete, launch the MinGW Shell and execute the
+following command to install zlib:
+
+  mingw-get install libz
+
+Extract libpng and change to the libpng directory in the MinGW shell. Execute
+the following command to compile and install libpng:
+
+  ./configure --prefix=/mingw && make && make install
+
+Extract nasm and copy nasm.exe to C:\MinGW\bin.
+
+Install the DirectX SDK, HTML Help SDK and NSIS install system with the default
+options.  
 
 Extract the XaoS source files:
 
