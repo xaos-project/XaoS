@@ -18,8 +18,7 @@ SOURCES += \
     $$PWD/3d.c \
     $$PWD/subwindow.c \
     $$PWD/plane.c \
-    $$PWD/julia.c \
-    $$PWD/i386.c
+    $$PWD/julia.c
 
 HEADERS += \
     $$PWD/calculate.h \

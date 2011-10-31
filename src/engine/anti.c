@@ -1,27 +1,15 @@
-#include <config.h>
-#ifndef _plan9_
-#ifndef __cplusplus
+#include "config.h"
+
 #include <math.h>
-#endif
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
 #include <string.h>
-#include <config.h>
 #include <stdio.h>
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
-#include <xerror.h>
-#include <filter.h>
-#include <fractal.h>
-#include <xthread.h>
+
+#include "xerror.h"
+#include "filter.h"
+#include "fractal.h"
+#include "xthread.h"
+
 struct antidata {
     int shift;
 };

@@ -1,37 +1,31 @@
-#include <config.h>
-#ifndef _plan9_
-#ifdef NO_MALLOC_H
+#include "config.h"
+
 #include <stdlib.h>
-#else
-#include <malloc.h>
-#endif
 #include <stdio.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
-#include <filter.h>
-#include <fractal.h>
-#include <xthread.h>
+
+#include "filter.h"
+#include "fractal.h"
+#include "xthread.h"
+
 struct palettedata {
     struct palette *palette;
     int active;
     unsigned int table[256];
 };
-#include <c256.h>
+
+#include "c256.h"
 #define cpalette palette8
 #include "paletted.c"
 
-#include <truecolor.h>
+#include "truecolor.h"
 #define cpalette palette32
 #include "paletted.c"
 
-#include <true24.h>
+#include "true24.h"
 #define cpalette palette24
 #include "paletted.c"
 
-#include <hicolor.h>
+#include "hicolor.h"
 #define cpalette palette16
 #include "paletted.c"
 

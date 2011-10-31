@@ -13,28 +13,18 @@
  * Note that quite interesting alg. is for preparing dithering table at
  * fixedcolor displays.
  */
-#include <config.h>
-#ifndef _plan9_
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
+#include "config.h"
+
 #include <stdio.h>
 #include <string.h>
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
-#include <fconfig.h>
-#include <filter.h>
-#include <xerror.h>
-#include <fractal.h>
-#include <xthread.h>
-#include <archaccel.h>
+
+#include "fconfig.h"
+#include "filter.h"
+#include "xerror.h"
+#include "fractal.h"
+#include "xthread.h"
+#include "archaccel.h"
 #define MSIZE 8
 static const unsigned char matrix[MSIZE][MSIZE] = {
     {0, 192, 48, 240, 12, 204, 60, 252,},

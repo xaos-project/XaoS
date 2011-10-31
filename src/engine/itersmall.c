@@ -1,21 +1,11 @@
-#include <config.h>
-#ifndef _plan9_
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
-#include <config.h>
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
+#include "config.h"
+
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
+
 #define SLARGEITER
-#include <filter.h>
-#include <xthread.h>
+#include "filter.h"
+#include "xthread.h"
+
 #define NCOLORS 256
 #define IMAGETYPE SMALLITER
 #define spixel_t pixel8_t
@@ -88,7 +78,7 @@ static void convert16(void *data, struct taskinfo *task, int r1, int r2)
 }
 
 #ifdef STRUECOLOR24
-#include <true24.h>
+#include "true24.h"
 static void convert24(void *data, struct taskinfo *task, int r1, int r2)
 {
     struct filter *f = (struct filter *) data;

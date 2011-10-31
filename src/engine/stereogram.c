@@ -1,19 +1,9 @@
-#ifndef _plan9_
-#include <config.h>
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
+#include "config.h"
+
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
-#include <xthread.h>
-#include <filter.h>
+
+#include "xthread.h"
+#include "filter.h"
 
 #define PIXELWIDTH (f->image->pixelwidth)	/*all distances in cm */
 #define PIXELHEIGHT (f->image->pixelheight)
@@ -34,19 +24,19 @@ struct stereogramdata {
     struct palette *savedpalette;
 };
 
-#include <c256.h>
+#include "c256.h"
 #define do_stereogram do_stereogram8
 #include "stereod.c"
 
-#include <hicolor.h>
+#include "hicolor.h"
 #define do_stereogram do_stereogram16
 #include "stereod.c"
 
-#include <true24.h>
+#include "true24.h"
 #define do_stereogram do_stereogram24
 #include "stereod.c"
 
-#include <truecolor.h>
+#include "truecolor.h"
 #define do_stereogram do_stereogram32
 #include "stereod.c"
 
