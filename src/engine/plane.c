@@ -19,16 +19,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#include "config.h"
-
+#ifdef __EMX__
+#include <float.h>
+#include <sys/cdefs.h>
+#endif
+#ifdef _plan9_
+#include <u.h>
+#include <libc.h>
+#ifndef NULL
+#define NULL (void *)0
+#endif
+#else
 #include <stdio.h>
+#include <aconfig.h>
 #include <math.h>
+#ifdef HAVE_LIMITS_H
 #include <limits.h>
-
-#include "fconfig.h"
-#include "plane.h"
-#include "complex.h"
-
+#endif
+#include <config.h>
+#endif
+#include <fconfig.h>
+#include <plane.h>
+#include <complex.h>
 const char *const planename[] = {
     "mu",
     "1/mu",

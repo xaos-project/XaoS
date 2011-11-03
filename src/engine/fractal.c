@@ -20,25 +20,49 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 /*#define STATISTICS */
-#include "config.h"
-
+#include <aconfig.h>
 #include <string.h>
+#include <config.h>
+#include <fconfig.h>
+#ifdef _plan9_
+#include <u.h>
+#include <libc.h>
 #include <stdio.h>
+#else
+#include <stdio.h>
+#ifndef _MAC
 #include <stdlib.h>
+#endif
+#ifndef _plan9_
 #include <limits.h>
 #include <assert.h>
 #include <math.h>
-
-#include "fconfig.h"
-#include "filter.h"
-#include "complex.h"
-#include "plane.h"
-#include "timers.h"
-#include "xerror.h"
-
+#endif
+#endif
+#ifdef __EMX__
+#include <float.h>
+#include <sys/cdefs.h>
+#endif
+#include <filter.h>
+#include <complex.h>
+#include <plane.h>
+#include "../include/timers.h"
+#ifdef __GNUC__
+#ifdef __i386__
+#ifndef PC_64
+#include <i386/ctrl87.h>
+#endif
+#endif
+#endif
+#ifdef __alpha__
+#ifdef __linux__
+#include <asm/fpu.h>
+#endif
+#endif
 #ifndef M_PI
 #define M_PI 3.1415
 #endif
+#include <xerror.h>
 
 struct symetryinfo2 cursymetry;
 struct palette cpalette;

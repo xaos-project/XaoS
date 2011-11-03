@@ -1,10 +1,21 @@
-#include "config.h"
-
+#include <config.h>
+#ifndef _plan9_
+#ifndef NO_MALLOC_H
+#include <malloc.h>
+#endif
+#include <config.h>
 #include <limits.h>
+#ifdef HAVE_ALLOCA_H
+#include <alloca.h>
+#endif
 #include <stdlib.h>
-
-#include "filter.h"
-#include "xthread.h"
+#else
+#include <u.h>
+#include <libc.h>
+#include <stdio.h>
+#endif
+#include <filter.h>
+#include <xthread.h>
 
 struct starfielddata {
     struct palette *palette;
@@ -25,16 +36,16 @@ static INLINE unsigned int myrandom(void)
 }
 
 #define IMAGETYPE SMALLITER
-#include "c256.h"
+#include <c256.h>
 #define do_starfield do_starfield8
 #include "stard.c"
-#include "hicolor.h"
+#include <hicolor.h>
 #define do_starfield do_starfield16
 #include "stard.c"
-#include "true24.h"
+#include <true24.h>
 #define do_starfield do_starfield24
 #include "stard.c"
-#include "truecolor.h"
+#include <truecolor.h>
 #define do_starfield do_starfield32
 #include "stard.c"
 static int requirement(struct filter *f, struct requirements *r)

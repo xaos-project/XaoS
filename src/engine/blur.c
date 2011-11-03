@@ -1,22 +1,30 @@
-#include "config.h"
-
+#include <config.h>
+#ifndef _plan9_
+#ifndef NO_MALLOC_H
+#include <malloc.h>
+#endif
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
+#ifdef HAVE_ALLOCA_H
+#include <alloca.h>
+#endif
 #include <stdlib.h>
-
-#include "filter.h"
-#include "fractal.h"
-#include "xthread.h"
-#include "xerror.h"
-#include "archaccel.h"
-
+#else
+#include <u.h>
+#include <libc.h>
+#include <stdio.h>
+#endif
+#include <filter.h>
+#include <fractal.h>
+#include <xthread.h>
+#include <xerror.h>
+#include <archaccel.h>
 #define SIZE 64
 #define SIZE2 8
 #define AMOUNT 0.005
 #define DIV 1000.0
 #define MAXFRAMES 800*1000	/*after 800 frames should be OK */
-
 struct blurdata {
     int bckuptime;
     int counter;

@@ -1,22 +1,19 @@
-#include "config.h"
-
+#include <config.h>
+#ifndef _plan9_
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <limits.h>
-
+#else
+#include <u.h>
+#include <libc.h>
+#include <stdio.h>
+#endif
 #define SLARGEITER
-#include "filter.h"
-#include "fractal.h"
-#include "xthread.h"
-#include "archaccel.h"
-#include "filter.h"
-#include "btrace.h"
-#include "plane.h"
-#include "calculate.h"
-
-
+#include <filter.h>
+#include <fractal.h>
+#include <xthread.h>
 /* 
  * This is an implementation of famous boundary trace algorithm.
  * See fractint documentation if you don't know what this means :)
@@ -141,6 +138,15 @@
  * using one thread. When two threads enabled (at my one processor linux
  * box) lock/unlock overhead eats next 8%, three threads eats next 1% :)
  */
+#ifdef HAVE_ALLOCA_H
+#include <alloca.h>
+#endif
+#include <archaccel.h>
+
+#include <filter.h>
+#include <btrace.h>
+#include <plane.h>
+#include "calculate.h"
 
 #define UP 0
 #define RIGHT 1
@@ -240,28 +246,28 @@ CONSTF static pixel32_t calculatepixel(int x, int y, int peri)
 #endif
 #define putpixel(x,y,c) p_setp((cpixel_t *)cimage.currlines[y],x,c)
 #define getpixel(x,y) p_getp((cpixel_t *)cimage.currlines[y],x)
-#include "c256.h"
+#include <c256.h>
 #define tracecolor tracecolor8
 #define tracepoint tracepoint8
 #define dosymetries dosymetries8
 #define queue queue8
 #define bfill bfill8
 #include "btraced.c"
-#include "hicolor.h"
+#include <hicolor.h>
 #define tracecolor tracecolor16
 #define tracepoint tracepoint16
 #define dosymetries dosymetries16
 #define queue queue16
 #define bfill bfill16
 #include "btraced.c"
-#include "true24.h"
+#include <true24.h>
 #define tracecolor tracecolor24
 #define tracepoint tracepoint24
 #define dosymetries dosymetries24
 #define queue queue24
 #define bfill bfill24
 #include "btraced.c"
-#include "truecolor.h"
+#include <truecolor.h>
 #define tracecolor tracecolor32
 #define tracepoint tracepoint32
 #define dosymetries dosymetries32

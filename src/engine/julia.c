@@ -1,13 +1,25 @@
-#include "config.h"
-
+#ifdef _plan9_
+#include <u.h>
+#include <stdio.h>
+#include <libc.h>
+#else
 #include <math.h>
 #include <string.h>
+#include <config.h>
+#ifndef NO_MALLOC_H
+#include <malloc.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "filter.h"
+#endif
+#include <filter.h>
 #include "julia.h"
-#include "archaccel.h"
+#include <config.h>
+#ifdef HAVE_ALLOCA_H
+#include <alloca.h>
+#endif
+#include <filter.h>
+#include <archaccel.h>
 
 
 /*most of code was moved to docalc.c */

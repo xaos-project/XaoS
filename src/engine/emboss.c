@@ -1,12 +1,19 @@
-#include "config.h"
-
+#include <config.h>
+#ifndef _plan9_
+#ifdef NO_MALLOC_H
 #include <stdlib.h>
+#else
+#include <malloc.h>
+#endif
 #include <stdio.h>
-
-#include "filter.h"
-#include "fractal.h"
-#include "xthread.h"
-
+#else
+#include <u.h>
+#include <libc.h>
+#include <stdio.h>
+#endif
+#include <filter.h>
+#include <fractal.h>
+#include <xthread.h>
 struct embossdata {
     struct palette *savedpalette, *palette;
     int xdist, ydist;

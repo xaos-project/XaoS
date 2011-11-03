@@ -20,25 +20,47 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 /*#define DRAW */
-#include "config.h"
-#include "fconfig.h"
-
+#include <config.h>
+#include <fconfig.h>
+#ifdef _plan9_
+#include <u.h>
+#include <libc.h>
+#include <stdio.h>
+#else
 #include <stdlib.h>
 #include <stdio.h>
+#ifndef _MAC
+#ifndef NO_MALLOC_H
+#include <malloc.h>
+#endif
+#endif
+#ifdef __EMX__
+#include <float.h>
+#include <sys/cdefs.h>
+#endif
+#include <aconfig.h>
+#ifdef HAVE_LIMITS_H
 #include <limits.h>
+#endif
 #include <math.h>
 #include <string.h>
+#ifdef HAVE_ALLOCA_H
+#include <alloca.h>
+#endif
+#ifndef _plan9_
+/*#undef NDEBUG */
 #include <assert.h>
-
+#endif
+#endif
 #define SLARGEITER
-#include "filter.h"
-#include "zoom.h"
-#include "archaccel.h"
-#include "complex.h"		/*for myabs */
-#include "plane.h"
-#include "btrace.h"
-#include "xthread.h"
-#include "xerror.h"
+#include <filter.h>
+#include <zoom.h>
+#include <archaccel.h>
+#include <complex.h>		/*for myabs */
+#include <plane.h>
+#include <btrace.h>
+#include <xthread.h>
+#include <xerror.h>
 #include "calculate.h"		/*an inlined calulate function */
 
 #ifdef HAVE_GETTEXT
@@ -130,28 +152,28 @@ static void fillline_32(int line) REGISTERS(0);
  *about better one that allows to generate custom code for 8,16,24,32
  *bpp modes and use of static variables
  */
-#include "c256.h"
+#include <c256.h>
 #define fillline fillline_8
 #define dosymetry2 dosymetry2_8
 #define calcline calcline_8
 #define calccolumn calccolumn_8
 #include "zoomd.c"
 
-#include "truecolor.h"
+#include <truecolor.h>
 #define fillline fillline_32
 #define dosymetry2 dosymetry2_32
 #define calcline calcline_32
 #define calccolumn calccolumn_32
 #include "zoomd.c"
 
-#include "true24.h"
+#include <true24.h>
 #define fillline fillline_24
 #define dosymetry2 dosymetry2_24
 #define calcline calcline_24
 #define calccolumn calccolumn_24
 #include "zoomd.c"
 
-#include "hicolor.h"
+#include <hicolor.h>
 #define fillline fillline_16
 #define dosymetry2 dosymetry2_16
 #define calcline calcline_16

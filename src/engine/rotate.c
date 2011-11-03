@@ -4,36 +4,46 @@
  * 'E' menu.
  * It is used to implement fast rotation mode
  */
-#include "config.h"
-
+#include <config.h>
+#ifndef _plan9_
 #include <string.h>
 #include <limits.h>
+#include <archaccel.h>
+#ifndef __cplusplus
 #include <math.h>
+#endif
+#ifdef NO_MALLOC_H
 #include <stdlib.h>
-
+#else
+#include <malloc.h>
+#endif
+#else
+#include <u.h>
+#include <libc.h>
+#include <stdio.h>
+#endif
 #define SLARGEITER
-#include "xthread.h"
-#include "filter.h"
-#include "archaccel.h"
+#include <xthread.h>
+#include <filter.h>
 
 struct rotatedata {
     number_t angle;
     number_t x1, y1, x2, y2, xx1, yy1, xx2, yy2;
 };
 
-#include "c256.h"
+#include <c256.h>
 #define do_rotate do_rotate8
 #include "rotated.c"
 
-#include "truecolor.h"
+#include <truecolor.h>
 #define do_rotate do_rotate32
 #include "rotated.c"
 
-#include "true24.h"
+#include <true24.h>
 #define do_rotate do_rotate24
 #include "rotated.c"
 
-#include "hicolor.h"
+#include <hicolor.h>
 #define do_rotate do_rotate16
 #include "rotated.c"
 

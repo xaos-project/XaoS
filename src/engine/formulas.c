@@ -19,6 +19,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
+#ifdef _plan9_
+#include <u.h>
+#include <libc.h>
+#include <stdio.h>
+#else
 /* Hello reader!
  * code you are looking at is dangerous for both you and your hardware! PLEASE
  * CLOSE THIS FILE UNLESS YOU REALY KNOW WHAT YOU ARE DOING.
@@ -33,22 +38,29 @@
 // Some help can be read below about line 700. :-)
    
 
-#include "config.h"
+#ifndef _MAC
+#include <aconfig.h>
+#endif
 
+#ifdef HAVE_LIMITS_H
 #include <limits.h>
+#endif
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
+#ifdef __EMX__
+#include <sys/cdefs.h>
+#endif
 #include <stdio.h>
-
-#include "archaccel.h"
-#include "complex.h"
-#include "filter.h"
-#include "fractal.h"
+#endif				/*plan9 */
+#include <archaccel.h>
+#include <config.h>
+#include <complex.h>
+#include <filter.h>
+#include <fractal.h>
 #include "julia.h"
-#include "ui_helper.h"
-
+#include <ui_helper.h>
 #ifndef M_PI
 #define M_PI 3.1415
 #endif

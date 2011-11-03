@@ -1,11 +1,18 @@
-#include "config.h"
-
+#include <config.h>
+#ifndef _plan9_
+#ifdef NO_MALLOC_H
 #include <stdlib.h>
+#else
+#include <malloc.h>
+#endif
 #include <stdio.h>		/*for NULL */
 #include <string.h>		/*for memcpy */
-
-#include "filter.h"
-
+#else
+#include <u.h>
+#include <libc.h>
+#include <stdio.h>
+#endif
+#include <filter.h>
 struct intdata {
     unsigned char *lastent;
     int changed;
