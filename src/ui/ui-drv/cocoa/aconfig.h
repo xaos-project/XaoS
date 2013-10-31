@@ -27,7 +27,7 @@
 
 
 //#define DEBUG
-#define VIDEATOR_SUPPORT
+//#define VIDEATOR_SUPPORT
 
 /* Triggers Mac OS X-specific behavior in common sources */
 #define MACOSX
@@ -107,13 +107,13 @@
 
 /* Define colors based on hardware endianness */
 #if __BIG_ENDIAN__
-#define RMASK 0xff000000
-#define GMASK 0x00ff0000
-#define BMASK 0x0000ff00
+#define RMASK 0xff0000
+#define GMASK 0x00ff00
+#define BMASK 0x0000ff
 #else
-#define RMASK 0x000000ff
-#define GMASK 0x0000ff00
-#define BMASK 0x00ff0000
+#define RMASK 0x0000ff
+#define GMASK 0x00ff00
+#define BMASK 0xff0000
 #endif
 
 /* Use platform-provided text rendering instead of built-in */

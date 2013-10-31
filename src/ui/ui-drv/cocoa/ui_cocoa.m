@@ -176,7 +176,7 @@ cocoa_showHelp (struct uih_context *c, CONST char *name)
 int 
 main(int argc, char* argv[])
 {
-	register_grlib_cocoa();
+	//register_grlib_cocoa();
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     [NSApplication sharedApplication];
     [NSBundle loadNibNamed:@"MainMenu" owner:NSApp];
@@ -222,7 +222,7 @@ struct ui_driver cocoa_driver = {
 /* height */        0.0,
 /* maxwidth */      0, 
 /* maxheight */     0,
-/* imagetype */     UI_TRUECOLOR,
+/* imagetype */     UI_TRUECOLOR24,
 /* palettestart */  0, 
 /* paletteend */    256, 
 /* maxentries */    255,
@@ -256,7 +256,7 @@ struct ui_driver cocoa_fullscreen_driver = {
 /* height */        0.0,
 /* maxwidth */      0, 
 /* maxheight */     0,
-/* imagetype */     UI_TRUECOLOR,
+/* imagetype */     UI_TRUECOLOR24,
 /* palettestart */  0, 
 /* paletteend */    256, 
 /* maxentries */    255,

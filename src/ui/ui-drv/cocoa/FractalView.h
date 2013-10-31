@@ -29,14 +29,16 @@
 @ class VideatorProxy;
 #endif
 
-@interface FractalView:NSView {
+@interface FractalView: NSOpenGLView {
     int mouseX, mouseY;
     int mouseButton, rightMouseButton, otherMouseButton, mouseScrollWheel;
     int keysDown;
     int cursorType;
+    int width, height;
 
     int currentBuffer;
-    NSBitmapImageRep *imageRep[2];
+    //NSBitmapImageRep *imageRep[2];
+    unsigned char *buffer[2];
 
     NSString *messageText;
     NSPoint messageLocation;

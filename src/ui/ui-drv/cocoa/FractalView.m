@@ -22,6 +22,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 #import "FractalView.h"
+#include <OpenGL/gl.h>
 #ifdef VIDEATOR_SUPPORT
 #import "VideatorProxy.h"
 #endif
@@ -60,19 +61,14 @@
 }
 
 - (void)drawRect:(NSRect)rect {
-    if (imageRep[currentBuffer]) {
-        [imageRep[currentBuffer] drawInRect:[self bounds]];
+    if (buffer[currentBuffer] != NULL) {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glViewport (0, 0, width, height);
+        glRasterPos2f(-1, 1);
+        glPixelZoom(1, -1);
+        glDrawPixels(width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer[currentBuffer]);
+        glFlush();
     }
-    
-    if (messageText) {
-        [messageText drawAtPoint:messageLocation withAttributes:[self textAttributes]];
-        [messageText release];
-        messageText = nil;
-    }
-    
-#ifdef VIDEATOR_SUPPORT
-    [videatorProxy sendImageRep:imageRep[currentBuffer]];
-#endif    
 }
 
 #pragma mark Resize Handling
@@ -303,41 +299,24 @@
 
 #pragma mark Buffers
 
+
+
+
 - (int)allocBuffer1:(char **)b1 buffer2:(char **)b2 {
     currentBuffer = 0;
-    NSRect bounds = [self bounds];
-    imageRep[0] = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                          pixelsWide:bounds.size.width
-                                                          pixelsHigh:bounds.size.height
-                                                       bitsPerSample:8
-                                                     samplesPerPixel:3
-                                                            hasAlpha:NO
-                                                            isPlanar:NO
-                                                      colorSpaceName:NSDeviceRGBColorSpace
-                                                         bytesPerRow:0
-                                                        bitsPerPixel:32];
-    
-    *b1 = (char *)[imageRep[0] bitmapData];
-    
-    imageRep[1] = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                          pixelsWide:bounds.size.width
-                                                          pixelsHigh:bounds.size.height
-                                                       bitsPerSample:8
-                                                     samplesPerPixel:3
-                                                            hasAlpha:NO
-                                                            isPlanar:NO
-                                                      colorSpaceName:NSDeviceRGBColorSpace
-                                                         bytesPerRow:0
-                                                        bitsPerPixel:32];
-    
-    *b2 = (char *)[imageRep[1] bitmapData];
-    NSLog(@"bytesPerRow = %d", [imageRep[0] bytesPerRow]);
-    return [imageRep[0] bytesPerRow];
+    width = [self bounds].size.width;
+    height = [self bounds].size.height;
+    // align rows to 4-byte boundary per OpenGL default
+    int stride = width * ((24 + 7) / 8);
+    stride += 3 - ((stride - 1) & 3);
+    *b1 = (char *)(buffer[0] = malloc(stride * height));
+    *b2 = (char *)(buffer[1] = malloc(stride * height));
+    return stride;
 }
 
 - (void)freeBuffers {
-    [imageRep[0] release];
-    [imageRep[1] release];
+    free(buffer[0]);
+    free(buffer[1]);
 }
 
 - (void)flipBuffers {
