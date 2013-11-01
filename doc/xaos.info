@@ -1,11 +1,11 @@
-This is xaos.info, produced by makeinfo version 4.11 from xaos.texinfo.
+This is xaos.info, produced by makeinfo version 4.13 from xaos.texinfo.
 
 INFO-DIR-SECTION Graphics
 START-INFO-DIR-ENTRY
 * XaoS: (xaos).               A fast real-time interactive fractal zoomer
 END-INFO-DIR-ENTRY
 
-   (C) 1996-2008 Jan Hubicka and the XaoS Development Team
+   (C) 1996-2013 Jan Hubicka and the XaoS Development Team
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -14,12 +14,12 @@ preserved on all copies.
 
 File: xaos.info,  Node: Top,  Next: Overview,  Prev: (dir),  Up: (dir)
 
-XaoS 3.4
+XaoS 3.6
 ********
 
                                  A real-time interactive fractal zoomer
                                                           User's manual
-                                                         April 17, 2008
+                                                       November 1, 2013
 
    This manual contains user documentation about XaoS -- a fast
 real-time fractal zoomer. XaoS uses a development model, so sources are
@@ -421,8 +421,8 @@ shown in gray next to the menu items they trigger.
 
 File: xaos.info,  Node: video,  Next: format,  Prev: controls,  Up: Top
 
-4 How to encode video files from XaoS
-*************************************
+4 How to encode MPEG files from XaoS
+************************************
 
 To create a video, make and `xaf' file first (the easiest way to do
 this is to use the _record_ function in the file menu). Then you need
@@ -2975,7 +2975,7 @@ File: xaos.info,  Node: renderanim,  Next: clearscreen,  Prev: command,  Up: mis
 A.14.2 Render animation
 -----------------------
 
-Render an animation to image files. See How to encode MPEG files for
+Render an animation to image files. See How to encode video files for
 more information.
 
    _Available as_: menu item,
@@ -3371,7 +3371,7 @@ Függelék: C Credits
 *Martin Dozsa (madsoft@centrum.cz)*
      cs.po (Czech translation of menus)
 
-*Arpad Fekete (Fekete.Arpad.2@stud.u-szeged.hu)*
+*Arpad Fekete*
      Some new fractals, and the 'More formulae' menu
 
 *Zelia Maria Horta Garcia (zeliagarcia@seed.pr.gov.br)*
@@ -3518,7 +3518,6 @@ E.0.1 Discussion Forums
 XaoS has two discussion forums hosted on SourceForge. You can read them
 freely, but in order to post, you must to register for a free
 SourceForge account.
-
 *Help*
      Provides a place for you to ask for help using XaoS. Other XaoS
      users and/or the XaoS developers will answer your questions.
@@ -3698,121 +3697,121 @@ Node: What?3850
 Node: tutorial4423
 Node: controls14259
 Node: video16315
-Node: format20282
-Node: writehelp25754
-Node: xshl26241
-Node: drivers27386
-Node: aa28084
-Node: BeOS30601
-Node: DGA33457
-Node: dos34077
-Node: dX-fullscreen36510
-Node: dX-window37637
-Node: ggi37722
-Node: plan938273
-Node: SVGAlib39374
-Node: win3240754
-Node: X1142660
-Node: menus43657
-Node: root44527
-Node: animroot44588
-Node: stopreplay44871
-Node: plc45020
-Node: load45377
-Node: linemenu45710
-Node: animf48485
-Node: animateview49195
-Node: smoothmorph49730
-Node: morphview50314
-Node: morphjulia51377
-Node: moveview52005
-Node: morphangle52236
-Node: zoom52905
-Node: time53743
-Node: usleep54217
-Node: textsleep54618
-Node: wait55175
-Node: file55760
-Node: loadpos56031
-Node: savepos56293
-Node: record56739
-Node: play57242
-Node: saveimg57454
-Node: loadexample58090
-Node: savecfg58446
-Node: quit58833
-Node: edit59010
-Node: undo59200
-Node: redo59473
-Node: copy59648
-Node: paste59940
-Node: fractal60224
-Node: formula60787
-Node: uimandelbrot61519
-Node: uiperturbation63041
-Node: bailout64230
-Node: uiview65327
-Node: initstate67336
-Node: plane67829
-Node: incoloring68996
-Node: outcoloring70522
-Node: tcolor72247
-Node: calc73867
-Node: range74331
-Node: periodicity74958
-Node: maxiter77134
-Node: fastjulia78377
-Node: dynamic79136
-Node: rotate79975
-Node: mfilter81407
-Node: filter82063
-Node: edge82712
-Node: edge283251
-Node: starfield83795
-Node: stereogram84154
-Node: interlace88540
-Node: blur88956
-Node: emboss89371
-Node: palettef89706
-Node: anti90274
-Node: truecolor90981
-Node: ui91592
-Node: speed92053
-Node: letterspersec93116
-Node: autopilot93511
-Node: recalculate94348
-Node: interrupt94723
-Node: nogui94958
-Node: status95432
-Node: ministatus95835
-Node: misc96140
-Node: command96541
-Node: renderanim96927
-Node: clearscreen97180
-Node: display97525
-Node: text97831
-Node: color98571
-Node: textposition98855
-Node: message99325
-Node: helpmenu99732
-Node: xtextpos99871
-Node: ytextpos100144
-Node: mformula100424
-Node: mandel100775
-Node: mandel3101054
-Node: octal101531
-Node: newton101870
-Node: barnsley102414
-Node: phoenix102694
-Node: magnet102930
-Node: palettemenu103272
-Node: defpalette103608
-Node: randompalette104104
-Node: palette104609
-Node: cycling105473
-Node: shiftpalette106452
-Node: about107164
-Node: support111546
-Node: index115382
+Node: format20280
+Node: writehelp25752
+Node: xshl26239
+Node: drivers27384
+Node: aa28082
+Node: BeOS30599
+Node: DGA33455
+Node: dos34075
+Node: dX-fullscreen36508
+Node: dX-window37635
+Node: ggi37720
+Node: plan938271
+Node: SVGAlib39372
+Node: win3240752
+Node: X1142658
+Node: menus43655
+Node: root44525
+Node: animroot44586
+Node: stopreplay44869
+Node: plc45018
+Node: load45375
+Node: linemenu45708
+Node: animf48483
+Node: animateview49193
+Node: smoothmorph49728
+Node: morphview50312
+Node: morphjulia51375
+Node: moveview52003
+Node: morphangle52234
+Node: zoom52903
+Node: time53741
+Node: usleep54215
+Node: textsleep54616
+Node: wait55173
+Node: file55758
+Node: loadpos56029
+Node: savepos56291
+Node: record56737
+Node: play57240
+Node: saveimg57452
+Node: loadexample58088
+Node: savecfg58444
+Node: quit58831
+Node: edit59008
+Node: undo59198
+Node: redo59471
+Node: copy59646
+Node: paste59938
+Node: fractal60222
+Node: formula60785
+Node: uimandelbrot61517
+Node: uiperturbation63039
+Node: bailout64228
+Node: uiview65325
+Node: initstate67334
+Node: plane67827
+Node: incoloring68994
+Node: outcoloring70520
+Node: tcolor72245
+Node: calc73865
+Node: range74329
+Node: periodicity74956
+Node: maxiter77132
+Node: fastjulia78375
+Node: dynamic79134
+Node: rotate79973
+Node: mfilter81405
+Node: filter82061
+Node: edge82710
+Node: edge283249
+Node: starfield83793
+Node: stereogram84152
+Node: interlace88538
+Node: blur88954
+Node: emboss89369
+Node: palettef89704
+Node: anti90272
+Node: truecolor90979
+Node: ui91590
+Node: speed92051
+Node: letterspersec93114
+Node: autopilot93509
+Node: recalculate94346
+Node: interrupt94721
+Node: nogui94956
+Node: status95430
+Node: ministatus95833
+Node: misc96138
+Node: command96539
+Node: renderanim96925
+Node: clearscreen97179
+Node: display97524
+Node: text97830
+Node: color98570
+Node: textposition98854
+Node: message99324
+Node: helpmenu99731
+Node: xtextpos99870
+Node: ytextpos100143
+Node: mformula100423
+Node: mandel100774
+Node: mandel3101053
+Node: octal101530
+Node: newton101869
+Node: barnsley102413
+Node: phoenix102693
+Node: magnet102929
+Node: palettemenu103271
+Node: defpalette103607
+Node: randompalette104103
+Node: palette104608
+Node: cycling105472
+Node: shiftpalette106451
+Node: about107163
+Node: support111511
+Node: index115346
 
 End Tag Table

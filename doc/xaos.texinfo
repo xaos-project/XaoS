@@ -18,7 +18,7 @@
 
 
 @ifinfo
-@copyright{} 1996-2008 Jan Hubicka and the XaoS Development Team
+@copyright{} 1996-2013 Jan Hubicka and the XaoS Development Team
 
 Permission is granted to make and distribute verbatim
 copies of this manual provided the copyright notice and
@@ -28,8 +28,8 @@ this permission notice are preserved on all copies.
 
 @c %**end of header
 
-@set VERSION    3.4
-@set DATE       April 17, 2008
+@set VERSION    3.6
+@set DATE       November 1, 2013
 
 @titlepage
 
@@ -52,7 +52,7 @@ Email: @code{jh@@ucw.cz}
 @vskip 0pt plus 1filll
 @vskip 0pt plus 1filll
 
-@copyright{} 1996-2008 @tex Jan Hubi\v cka and the XaoS Development Team
+@copyright{} 1996-2013 @tex Jan Hubi\v cka and the XaoS Development Team
 @end tex
 
 Permission is granted to make and distribute verbatim
@@ -459,7 +459,7 @@ shown in gray next to the menu items they trigger.
 @node video, format, controls ,Top
 
 
-@chapter How to encode video files from XaoS
+@chapter How to encode MPEG files from XaoS
 
 To create a video, make and @code{xaf} file first (the easiest way to do this is
 to use the @emph{record} function in the file menu). Then you need to render
@@ -2899,7 +2899,7 @@ they are written in the same language.
 
 @appendixsubsec Render animation
 
-Render an animation to image files. See How to encode MPEG files
+Render an animation to image files. See How to encode video files
 for more information.
 
 @emph{Available as}: menu item,
@@ -3261,7 +3261,7 @@ Updates for French translation
 TK interface, windowid patches
 @item Martin Dozsa (madsoft@@centrum.cz)
 cs.po (Czech translation of menus)
-@item Arpad Fekete (Fekete.Arpad.2@@stud.u-szeged.hu)
+@item Arpad Fekete
 Some new fractals, and the 'More formulae' menu
 @item Zelia Maria Horta Garcia (zeliagarcia@@seed.pr.gov.br)
 Brazilian/Portuguese translation
@@ -3363,12 +3363,10 @@ to get help, all of which are explained below.
 The XaoS homepage is @code{http://xaos.sf.net}. Check here for the
 latest news and information about XaoS and to download the latest versions.
 
-
 @subsection Discussion Forums
 XaoS has two discussion forums hosted on SourceForge. You can read them
 freely, but in order to post, you must to register for a free SourceForge
 account.
-
 @table @strong
 @item Help
 Provides a place for you to ask for help using XaoS. Other XaoS users
@@ -3384,7 +3382,6 @@ ideas with other XaoS users.
 
 @code{http://sourceforge.net/forum/forum.php?forum_id=17767}
 @end table
-
 
 We welcome you to join these forums and become involved in the XaoS community.
 
@@ -3402,14 +3399,12 @@ Low volume list that is used only to announce new releases.
 
 Subscribe: @code{http://lists.sourceforge.net/mailman/listinfo/xaos-announce}
 Archive: @code{http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-announce}
-
 @item xaos-devel@@lists.sourceforge.net
 Developer mailing list, where the developers coordinate and discuss XaoS development.
 
 
 Subscribe: @code{http://lists.sourceforge.net/mailman/listinfo/xaos-devel}
 Archive: @code{http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-devel}
-
 @item xaos-discuss@@lists.sourceforge.net
 General discussion list is for XaoS users to share tips and ideas about XaoS.
 
@@ -3417,7 +3412,6 @@ General discussion list is for XaoS users to share tips and ideas about XaoS.
 Subscribe: @code{http://lists.sourceforge.net/mailman/listinfo/xaos-discuss}
 Archive: @code{http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-discuss}
 @end table
-
 
 Please feel free to join any or all of these mailing lists and share your ideas with the
 developers and other XaoS users.
@@ -3441,6 +3435,8 @@ will try to answer your question and can convert your support request to a bug i
 
 Support Requests: @code{http://sourceforge.net/tracker/?atid=205771&group_id=5771}
 
+
+
 @subsection Feature Requests
 If you have an idea for a great new feature you'd like to see added to XaoS, please let us know about it.
 You can submit a feature request via SourceForge, and the XaoS developers will do their best to
@@ -3453,6 +3449,8 @@ Feature Requests: @code{http://sourceforge.net/tracker/?atid=355771&group_id=577
 Please don't submit duplicate feature requests. Browse the existing ones
 first to make sure nobody has already requested the feature your want. You may add your
 vote for a feature by adding a comment to the existing request.
+
+
 
 @c ## appendix support ##
 

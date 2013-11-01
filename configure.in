@@ -1,4 +1,4 @@
-AC_INIT([XaoS],[3.5],[xaos-devel@lists.sourceforge.net])
+AC_INIT([XaoS],[3.6],[xaos-devel@lists.sourceforge.net])
 
 AC_PREREQ(2.63)
 AC_CONFIG_HEADER(src/include/aconfig.h src/include/version.h)

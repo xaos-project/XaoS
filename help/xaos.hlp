@@ -45,6 +45,8 @@ the <a gpl>GNU General Public License</a>. This also means that you may get
 <dl>
 <dt>Lucio Henrique de Araujo (lucio.matema@gmail.com)
 <dd>Brazilian/Portuguese translation
+<dt>Samuel Bizien (samuel@bizien.info)
+<dd>Beryl fractal
 <dt>Eric Courteau (ecourteau@cplus.fr)
 <dd>francais.cat (translation of tutorials)
 <dt>Jean-Pierre Demailly (Jean-Pierre.Demailly@ujf-grenoble.fr)
@@ -53,8 +55,8 @@ the <a gpl>GNU General Public License</a>. This also means that you may get
 <dd>TK interface, windowid patches
 <dt>Martin Dozsa (madsoft@centrum.cz)
 <dd>cs.po (Czech translation of menus)
-<dt>Arpad Fekete (Fekete.Arpad.2@stud.u-szeged.hu)
-<dd>some new fractals, and the 'More formulae' menu
+<dt>Arpad Fekete
+<dd>Some new fractals, and the 'More formulae' menu
 <dt>Zelia Maria Horta Garcia (zeliagarcia@seed.pr.gov.br)
 <dd>Brazilian/Portuguese translation
 <dt>Tim Goodwin	(tgoodwin@cygnus.co.uk)
@@ -170,65 +172,76 @@ A written introduction to all of XaoS's features.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %support
-<head>Support</head>
-XaoS is a community-supported free software project.
+<head>Getting Support</head>
+XaoS is a community-supported free software project. There are many ways
+to get help, all of which are explained below.
 
 <head>Home Page</head>
-Site: <tt>http://xaos.sourceforge.net</tt><p>
+The XaoS homepage is <tt>http://xaos.sf.net</tt>. Check here for the
+latest news and information about XaoS and to download the latest versions.
 
-Check the Xaos home page for the latest news and information about 
-XaoS and to download the latest versions.
+<head>Discussion Forums</head>
+XaoS has two discussion forums hosted on SourceForge. You can read them
+freely, but in order to post, you must to register for a free SourceForge
+account. 
+<dl>
+<dt>Help
+<dd>Provides a place for you to ask for help using XaoS. Other XaoS users
+and/or the XaoS developers will answer your questions.<p>
+<tt>http://sourceforge.net/forum/forum.php?forum_id=17768</tt>
+<dt>Open Discussion
+<dd>Provides a place to discuss anything related to XaoS or fractals.
+You can share tips, your own fractal creations, or any other fractal-related
+ideas with other XaoS users.<p>
+<tt>http://sourceforge.net/forum/forum.php?forum_id=17767</tt>
+</dl>
 
-<head>Users' Discussion Group</head>
-Site: <tt>http://groups.google.com/group/xaos-users</tt><p>
+We welcome you to join these forums and become involved in the XaoS community.
 
-The xaos-users discussion group on Google Groups provides a place for XaoS 
-users to help each other get the most out of XaoS. XaoS developers also 
-monitor this discussion and answer questions from time to time.<p>
+<head>Mailing Lists</head>
 
-You can browse the archives freely but you must join the group in order to 
-post. However, Google Groups provides a range of options for participation 
-from a traditional mailing list to a completely web-based forum, so you 
-don't have to get emails if you don't want to.<p>
+XaoS currently has three mailing lists hosted on SourceForge. Unfortunately,
+there is currently very little traffic on any of them. Hopefully in the future,
+we can get more XaoS users and developers involved in the mailing lists.
+The lists are as follows:
 
-If you have a question or problem, please feel free to ask for help. We 
-also encourage you to share examples (.xaf or .xpf files), hints and 
-tips. If you have a gallery of images created using XaoS, feel free to 
-post a link to the group.
+<dl>
+<dt>xaos-announce@lists.sourceforge.net
+<dd>Low volume list that is used only to announce new releases.<p>
+Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-announce</tt>
+Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-announce</tt>
+<dt>xaos-devel@lists.sourceforge.net
+<dd>Developer mailing list, where the developers coordinate and discuss XaoS development.<p>
+Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-devel</tt>
+Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-devel</tt>
+<dt>xaos-discuss@lists.sourceforge.net
+<dd>General discussion list is for XaoS users to share tips and ideas about XaoS.<p>
+Subscribe: <tt>http://lists.sourceforge.net/mailman/listinfo/xaos-discuss</tt>
+Archive: <tt>http://sourceforge.net/mailarchive/forum.php?forum_name=xaos-discuss</tt>
+</dl>
 
+Please feel free to join any or all of these mailing lists and share your ideas with the
+developers and other XaoS users.
 
-<head>Developers' Discussion Group</head>
+<head>Bug Reports</head>
+If you think you have found a bug in XaoS, please report it. The developers will do their
+best to resolve the bug in a timely manner.<p>
+Bug Tracker: <tt>http://sourceforge.net/tracker/?atid=105771&group_id=5771</tt><p>
+Please don't submit duplicate bugs. Browse the existing ones first to make
+sure nobody has already reported it. You may add additional information about a bug by
+entering a comment on an existing bug.<p>
+If you are not sure if something is a bug, please open a support request. The developers
+will try to answer your question and can convert your support request to a bug if necessary.<p>
+Support Requests: <tt>http://sourceforge.net/tracker/?atid=205771&group_id=5771</tt><p>
 
-Site: <tt>http://groups.google.com/group/xaos-devel</tt><p>
-
-The xaos-devel discussion group on Google Groups is where XaoS developers 
-discuss and coordinate the further development of XaoS. XaoS users are 
-welcome to monitor this forum as well, but general discussion and requests 
-for help should be posted to the Users' Discussion Group instead.
-
-
-<head>Issue Tracker</head>
-
-Site: <tt>http://code.google.com/p/gnuxaos/issues/list</tt><p>
-
-Issues are tracked on Google Code. If you think you have found a bug in 
-XaoS or have an idea for a great new feature, please let us know about it. 
-However, if you're not sure how to submit a useful issue report, please ask 
-on the xaos-users discussion group first (see above).<p>
-
-Please don't submit duplicate issues. Search the existing ones first to make 
-sure nobody has already reported it. You can add additional information about 
-a bug by entering a comment on an existing bug. You can also express your 
-interest in an issue by using the "Star" function on Google Code. This lets 
-the developers know how many users are interested in an issue and also allows 
-you receive status updates.<p>
-
-The developers will do their best to respond to issues in a timely manner. 
-However, keep in mind that XaoS is developed on a volunteer basis and the 
-developers work on it in their spare time. Therefore, we can't guarantee that 
-issues will be addressed in a certain timeframe.<p>
-
-
+<head>Feature Requests</head>
+If you have an idea for a great new feature you'd like to see added to XaoS, please let us know about it.
+You can submit a feature request via SourceForge, and the XaoS developers will do their best to
+implement your request in a future version.<p>
+Feature Requests: <tt>http://sourceforge.net/tracker/?atid=355771&group_id=5771</tt><p>
+Please don't submit duplicate feature requests. Browse the existing ones
+first to make sure nobody has already requested the feature your want. You may add your
+vote for a feature by adding a comment to the existing request.<p>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %devel
@@ -334,7 +347,7 @@ im - imaginary part
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %video
 
-<head>How to encode video files from XaoS</head>
+<head>How to encode MPEG files from XaoS</head>
 <p>
 To create a video, make and <tt>xaf</tt> file first (the easiest way to do this is
 to use the <emph>record</emph> function in the file menu). Then you need to render 
@@ -3435,9 +3448,9 @@ simple formula <math>z=z^2+c</math>. See the <tutor mset.xaf>tutorial chapter</t
 <node mandel3, mandel, octal, mformula>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %mandel3 mandel4 mandel5 mandel6
-<head>Mandelbrot^3--Mandelbrot^6</head>
+<head>Mandelbrot^3--Mandelbrot^6 and Mandelbrot^9</head>
 <p>
-This fractal is a simple modification of the standard 
+The Mandelbrot^3 fractal is a simple modification of the standard 
 <a mandel>Mandelbrot set</a> formula, using <math>z=z^3+c</math> instead of
 <math>z=z^2+c</math>. 
 <p>
@@ -3452,7 +3465,7 @@ higher powers. See the <tutor power.xaf>tutorial chapter</tutor>.
 <p>
 This is a less well-known fractal that Thomas discovered in Fractint.
 It has an interesting shape when displayed in the alternative 
-<a mplane>planes</a>. See the <tutor octo.xaf>tutorial chapter</tutor>.
+<a plane>planes</a>. See the <tutor octo.xaf>tutorial chapter</tutor>.
 <p>
 <emph>Available as</emph>: menu item, command line option
 

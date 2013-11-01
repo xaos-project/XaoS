@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XaoS 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-14 10:56+0100\n"
+"POT-Creation-Date: 2013-11-01 09:09+0100\n"
 "PO-Revision-Date: 2006-02-05 17:35+0200\n"
 "Last-Translator: Philippe Wautelet <traduc _at_ fractalzone _dot_ be>\n"
 "Language-Team: French\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -203,27 +204,27 @@ msgstr "Pilote"
 msgid "Welcome to XaoS version %s"
 msgstr "Bienvenue sur XaoS version %s"
 
-#: ../ui/ui.c:1580
+#: ../ui/ui.c:1582
 msgid "Can not allocate buffers"
 msgstr "Ne peut pas allouer les tampons"
 
-#: ../ui/ui.c:1598
+#: ../ui/ui.c:1600
 msgid "Can not create palette"
 msgstr "Ne peut pas créer la palette"
 
-#: ../ui/ui.c:1610
+#: ../ui/ui.c:1612
 msgid "Can not create image"
 msgstr "Ne peut pas créer l'image"
 
-#: ../ui/ui.c:1641 ../ui/ui.c:1692
+#: ../ui/ui.c:1650 ../ui/ui.c:1701
 msgid "Can not allocate tables"
 msgstr "Ne peut pas allouer les tables"
 
-#: ../ui/ui.c:1678
+#: ../ui/ui.c:1687
 msgid "Can not initialize driver"
 msgstr "Ne peut pas initialiser le pilote"
 
-#: ../ui/ui.c:1681
+#: ../ui/ui.c:1690
 msgid "Can not return back to previous driver"
 msgstr "Ne peut pas retourner au pilote précédent"
 
@@ -1274,42 +1275,42 @@ msgstr "Trop de paramètres"
 msgid "Replay disabled at line %i"
 msgstr "Répétition désactivée à la ligne %i"
 
-#: ../ui-hlp/ui_helper.c:646
+#: ../ui-hlp/ui_helper.c:648
 msgid "Tutorial files not found. Reinstall XaoS"
 msgstr "Fichiers didacticiels introuvables. Réinstallez XaoS"
 
-#: ../ui-hlp/ui_helper.c:651
+#: ../ui-hlp/ui_helper.c:653
 msgid "Preparing first image"
 msgstr "Préparation première image"
 
-#: ../ui-hlp/ui_helper.c:661
+#: ../ui-hlp/ui_helper.c:663
 msgid "Could not open examples"
 msgstr "Echec ouverture exemples"
 
-#: ../ui-hlp/ui_helper.c:667
+#: ../ui-hlp/ui_helper.c:670 ../ui-hlp/ui_helper.c:672
 #, c-format
 msgid "File %s loaded."
 msgstr "Fichier %s chargé."
 
-#: ../ui-hlp/ui_helper.c:676
+#: ../ui-hlp/ui_helper.c:682
 msgid "Saving image..."
 msgstr "Enregistrement image..."
 
-#: ../ui-hlp/ui_helper.c:684
+#: ../ui-hlp/ui_helper.c:690
 msgid "Save interrupted"
 msgstr "Enregistrement interrompu"
 
-#: ../ui-hlp/ui_helper.c:693 ../ui-hlp/ui_helper.c:710
-#: ../ui-hlp/ui_helper.c:777
+#: ../ui-hlp/ui_helper.c:699 ../ui-hlp/ui_helper.c:716
+#: ../ui-hlp/ui_helper.c:783
 #, c-format
 msgid "File %s saved."
 msgstr "Fichier %s enregistré"
 
-#: ../ui-hlp/ui_helper.c:704
+#: ../ui-hlp/ui_helper.c:710
 msgid "Can not open file"
 msgstr "Echec ouverture fichier"
 
-#: ../ui-hlp/ui_helper.c:799
+#: ../ui-hlp/ui_helper.c:805
 #, c-format
 msgid "Recording to file %s enabled."
 msgstr "Enregistrement vers le fichier %s activé."
@@ -1318,7 +1319,7 @@ msgstr "Enregistrement vers le fichier %s activé."
 msgid "Solid guessing 1"
 msgstr "Estimation solide 1"
 
-#: ../engine/btrace.c:292 ../engine/btrace.c:373
+#: ../engine/btrace.c:290 ../engine/btrace.c:371
 msgid "Boundary trace"
 msgstr "Détection de frontière"
 
@@ -1328,7 +1329,7 @@ msgid "OK"
 msgstr "OK"
 
 #: ../ui/dialog.c:313 ../ui/dialog.c:401 ../ui/dialog.c:1379
-#: ../ui/filesel.c:184 ../ui/ui-drv/cocoa/CustomDialog.m:312
+#: ../ui/filesel.c:190 ../ui/ui-drv/cocoa/CustomDialog.m:312
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -1362,7 +1363,7 @@ msgstr "Echec création image\n"
 msgid "Cannot create checking buffer!"
 msgstr "Echec création tampon de vérification!"
 
-#: ../ui-hlp/render.c:313 ../ui-hlp/render.c:596
+#: ../ui-hlp/render.c:313 ../ui-hlp/render.c:597
 msgid "Cannot create context\n"
 msgstr "Echec création contexte\n"
 
@@ -1370,7 +1371,7 @@ msgstr "Echec création contexte\n"
 msgid "Cannot open animation file\n"
 msgstr "Echec ouverture fichier d'animation\n"
 
-#: ../ui-hlp/render.c:336 ../ui-hlp/render.c:605
+#: ../ui-hlp/render.c:336 ../ui-hlp/render.c:606
 msgid "Loading catalogs"
 msgstr "Chargement catalogues"
 
@@ -1382,7 +1383,7 @@ msgstr "Traitement options ligne de commande"
 msgid "Enabling animation replay\n"
 msgstr "Activation de la répétition d'animation\n"
 
-#: ../ui-hlp/render.c:396 ../ui-hlp/render.c:514
+#: ../ui-hlp/render.c:396
 msgid "Cannot open image file"
 msgstr "Echec ouverture fichier image"
 
@@ -1391,7 +1392,7 @@ msgstr "Echec ouverture fichier image"
 msgid "Cannot open pattern file"
 msgstr "Echec ouverture fichier de motif"
 
-#: ../ui-hlp/render.c:427 ../ui-hlp/render.c:429 ../ui-hlp/render.c:638
+#: ../ui-hlp/render.c:427 ../ui-hlp/render.c:429 ../ui-hlp/render.c:639
 msgid "Entering calculation loop!"
 msgstr "Commençant boucle de calcul!"
 
@@ -1410,19 +1411,19 @@ msgstr "Images %i - %i sautées."
 msgid "Frame %4i: "
 msgstr "Image %4i : "
 
-#: ../ui-hlp/render.c:528
+#: ../ui-hlp/render.c:529
 msgid " done."
 msgstr " terminé."
 
-#: ../ui-hlp/render.c:532
+#: ../ui-hlp/render.c:533
 msgid " skipping..."
 msgstr " saute..."
 
-#: ../ui-hlp/render.c:565 ../ui-hlp/render.c:657
+#: ../ui-hlp/render.c:566 ../ui-hlp/render.c:658
 msgid "Calculation interrupted"
 msgstr "Calcul interrompu"
 
-#: ../ui-hlp/render.c:568 ../ui-hlp/render.c:570 ../ui-hlp/render.c:659
+#: ../ui-hlp/render.c:569 ../ui-hlp/render.c:571 ../ui-hlp/render.c:660
 msgid "Calculation finished"
 msgstr "Calcul terminé"
 

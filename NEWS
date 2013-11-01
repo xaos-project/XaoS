@@ -1,3 +1,22 @@
+RELEASE NOTES FOR XAOS VERSION 3.6
+----------------------------------
+
+Cross-platform changes
+======================
+
+o Supporting libpng >= 1.5 and 1.6 (J.B. Langston, Petr Gajdos)
+
+o Various bug fixes
+
+o New fractal types (Arpad Fekete)
+
+
+Mac-specific changes
+====================
+
+o Fixing zooming on Mac OS X 10.8 (J.B. Langston)
+
+
 RELEASE NOTES FOR XAOS VERSION 3.5
 ----------------------------------
 
