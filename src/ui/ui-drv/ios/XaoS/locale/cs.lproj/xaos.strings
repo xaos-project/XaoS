@@ -1,0 +1,1065 @@
+/* nothing */
+"" = "Project-Id-Version: XaoS 3.2\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2009-07-14 20:44-0500\nPO-Revision-Date: 2002-08-17 21:44+0200\nLast-Translator: MadSoft <madsoft@centrum.cz>\nLanguage-Team: Czech\nMIME-Version: 1.0\nContent-Type: text/plain; charset=ISO-8859-2\nContent-Transfer-Encoding: 8-bit\n";
+
+/* nothing */
+"XaoS is out of memory." = "Memórie je zaplněná.";
+
+/* nothing */
+"%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            " = "%2$.2f-krát %1$s %3$2.2f obrazů/sec %4$c %5$i %6$i %7$i %8$i               ";
+
+/* nothing */
+"unzoomed" = "zmenšení";
+
+/* nothing */
+"zoomed" = "zvětšení";
+
+/* nothing */
+"framerate:%f\n" = "obnovení obrazu:%f\n";
+
+/* nothing */
+"Enabling: %s. " = "%s zapnout.";
+
+/* nothing */
+"Disabling: %s. " = "%s vypnout.";
+
+/* nothing */
+"Fractal name:%s" = "Jméno fraktálu:%s";
+
+/* nothing */
+"Fractal type:%s" = "Tip fraktálu:%s";
+
+/* nothing */
+"Mandelbrot" = "Souprava mandelbrot";
+
+/* nothing */
+"Julia" = "Souprava julia";
+
+/* nothing */
+"Formula:%s" = "Vzorec";
+
+/* nothing */
+"View:[%1.12f,%1.12f]" = "Zobrazení:[%1.12f,%1.12f]";
+
+/* nothing */
+"size:[%1.12f,%1.12f]" = "Velikost:[%1.12fx%1.12f]";
+
+/* nothing */
+"Rotation:%4.2f   Screen size:%i:%i" = "Otáčení:%4.2f  Velikost obrazovky:%i:%i";
+
+/* nothing */
+"Iterations:%-4i Palette size:%i" = "Počet iterací:%-4i  Velikost palety barev:%i";
+
+/* nothing */
+"Autopilot:%-4s  Plane:%s" = "Autopilot:%-4s  Plocha:%s";
+
+/* nothing */
+"On" = "Zapnout";
+
+/* nothing */
+"Off" = "Vypnout";
+
+/* nothing */
+"incoloring:%s    outcoloring:%s" = "vnitřní vybarvení:%s   vnější vybarvení:%s";
+
+/* nothing */
+"zoomspeed:%f" = "rychlost zvětšení:%f";
+
+/* nothing */
+"Parameter:none" = "Parametr:není";
+
+/* nothing */
+"Parameter:[%f,%f]" = "Parametr:[%f,%f]";
+
+/* nothing */
+"Please wait while calculating %s" = "Prosím čekejte, %s fraktál se připravuje...";
+
+/* nothing */
+"Letters per second %i  " = "%i písmen za sekundu";
+
+/* nothing */
+"Rotation speed:%2.2f degrees per second " = "Rychlost rotace:%2.2f stupňů za sekundu ";
+
+/* nothing */
+"Iterations: %i   " = "Počet iterací: %i   ";
+
+/* nothing */
+"Cycling speed: %i   " = "Rychlost obracení barev: %i   ";
+
+/* nothing */
+"speed:%2.2f " = "rychlost:%2.2f ";
+
+/* nothing */
+"Thank you for using XaoS\n" = "Děkujeme za použití programu XaoS\n";
+
+/* nothing */
+"Skipping, please wait..." = "Přeskakování, prosím čekejte...";
+
+/* nothing */
+"Resize" = "";
+
+/* nothing */
+"Quit" = "Zavřít";
+
+/* nothing */
+"Exit now" = "Zavřít ihned";
+
+/* nothing */
+"Not yet" = "Ještě radši ne";
+
+/* nothing */
+"Help" = "Nápověda";
+
+/* nothing */
+"Disable XaoS's builtin GUI" = "Vypnutí zabudované GUI";
+
+/* nothing */
+"Status" = "Vlastnosti";
+
+/* nothing */
+"Ministatus" = "Hlavnější vlastnosti";
+
+/* nothing */
+"Driver" = "Grafický ovladač";
+
+/* nothing */
+"Welcome to XaoS version %s" = "Zdravíme vás ve %s Xaos verzi!";
+
+/* nothing */
+"Can not allocate buffers" = "Není dostatek pufferu";
+
+/* nothing */
+"Can not create palette" = "Paleta barev nelze vytvořit";
+
+/* nothing */
+"Can not create image" = "Obraz nelze vytvořit";
+
+/* nothing */
+"Can not allocate tables" = "Není místo pro tabulky";
+
+/* nothing */
+"Can not initialize driver" = "Grafický ovladač nelze inicializovat";
+
+/* nothing */
+"Can not return back to previous driver" = "Předchzí grafický ovladač nelze zobrazit";
+
+/* nothing */
+"Perturbation:" = "Perturbace";
+
+/* nothing */
+"Julia-seed:" = "Rychlost julia";
+
+/* nothing */
+"Morphing type:" = "Přetvořící se čára";
+
+/* nothing */
+"Startuptime:" = "Vlastnosti";
+
+/* nothing */
+"Stoptime:" = "Vlastnosti";
+
+/* nothing */
+"File to render:" = "";
+
+/* nothing */
+"Basename:" = "Soubor";
+
+/* nothing */
+"Width:" = "";
+
+/* nothing */
+"Height:" = "Doprava";
+
+/* nothing */
+"Real width (cm):" = "";
+
+/* nothing */
+"Real height (cm):" = "";
+
+/* nothing */
+"Framerate:" = "obnovení obrazu:%f\n";
+
+/* nothing */
+"Image type:" = "";
+
+/* nothing */
+"Antialiasing:" = "Iterace";
+
+/* nothing */
+"Always recalculate:" = "Počítání";
+
+/* nothing */
+"Calculate MPEG motion vectors:" = "";
+
+/* nothing */
+"Recommended I frame distance:" = "";
+
+/* nothing */
+"Center:" = "Doprostřed";
+
+/* nothing */
+"Radius:" = "";
+
+/* nothing */
+"Angle:" = "";
+
+/* nothing */
+"Mode:" = "Do prostřed";
+
+/* nothing */
+"Start:" = "Vlastnosti";
+
+/* nothing */
+"End:" = "";
+
+/* nothing */
+"Color:" = "Barva";
+
+/* nothing */
+"Rotations per second:" = "Rychlost rotace";
+
+/* nothing */
+"Letters per second:" = "Písmen za sekund";
+
+/* nothing */
+"Iterations:" = "Iterace";
+
+/* nothing */
+"Text:" = "";
+
+/* nothing */
+"Your command:" = "Příkaz";
+
+/* nothing */
+"Filename:" = "Soubor";
+
+/* nothing */
+"Formula:" = "Vzorec";
+
+/* nothing */
+"X center:" = "Doprostřed";
+
+/* nothing */
+"Y center:" = "Doprostřed";
+
+/* nothing */
+"X Radius:" = "";
+
+/* nothing */
+"Y Radius:" = "";
+
+/* nothing */
+"Coordinates:" = "";
+
+/* nothing */
+"continuous rotation" = "Plynulá rotace";
+
+/* nothing */
+"Fast rotation" = "Rychlý režim rotace";
+
+/* nothing */
+"filter" = "Filtr";
+
+/* nothing */
+"enable" = "";
+
+/* nothing */
+"Amount:" = "";
+
+/* nothing */
+"Zooming speed:" = "Rychlost zvětšení";
+
+/* nothing */
+"Name:" = "";
+
+/* nothing */
+"Bailout:" = "";
+
+/* nothing */
+"Julia mode:" = "Režim julia";
+
+/* nothing */
+"Horizontal position:" = "Vodorovná pozice textu";
+
+/* nothing */
+"Vertical position:" = "Svislá pozice textu";
+
+/* nothing */
+"Dynamic resolution:" = "Dinamické rozložení";
+
+/* nothing */
+"Time:" = "";
+
+/* nothing */
+"Number:" = "";
+
+/* nothing */
+"Algorithm number:" = "";
+
+/* nothing */
+"Seed:" = "";
+
+/* nothing */
+"Shift:" = "";
+
+/* nothing */
+"Frames per second:" = "Písmen za sekund";
+
+/* nothing */
+"Initialization:" = "Iterace";
+
+/* nothing */
+"renderanim: Must specify a valid absolute path for basename" = "";
+
+/* nothing */
+"renderanim: Width parameter must be positive integer in the range 0..4096" = "";
+
+/* nothing */
+"renderanim: Height parameter must be positive integer in the range 0..4096" = "";
+
+/* nothing */
+"renderanim: Invalid real width and height dimensions" = "";
+
+/* nothing */
+"renderanim: invalid framerate" = "";
+
+/* nothing */
+"renderanim: antialiasing not supported in 256 color mode" = "";
+
+/* nothing */
+"renderanim: incorrect I frame distance" = "";
+
+/* nothing */
+"animateview: Invalid viewpoint" = "";
+
+/* nothing */
+"Invalid viewpoint" = "";
+
+/* nothing */
+"Unknown palette type" = "Filtr";
+
+/* nothing */
+"Initialization of color cycling failed." = "";
+
+/* nothing */
+"Try to enable palette emulation filter" = "";
+
+/* nothing */
+"Algorithm:%i seed:%i size:%i" = "";
+
+/* nothing */
+"Root menu" = "Hlavní menu";
+
+/* nothing */
+"Animation root menu" = "Hlavní menu animací";
+
+/* nothing */
+"Replay only commands" = "";
+
+/* nothing */
+"Command line options only" = "";
+
+/* nothing */
+"print menus specifications of all menus" = "";
+
+/* nothing */
+"print menu specification" = "";
+
+/* nothing */
+"print menu specification in xshl format" = "";
+
+/* nothing */
+"print all menu specifications in xshl format" = "";
+
+/* nothing */
+"print dialog specification" = "";
+
+/* nothing */
+"Line drawing functions" = "Funkce malování čar";
+
+/* nothing */
+"Line" = "Čára";
+
+/* nothing */
+"Morph line" = "Přetvořící se čára";
+
+/* nothing */
+"Morph last line" = "Přeměňující se poslední čára";
+
+/* nothing */
+"Set line key" = "Nastavení čárového klíče";
+
+/* nothing */
+"Clear line" = "Vymazání čáry";
+
+/* nothing */
+"Clear all lines" = "Vymazání všech čar";
+
+/* nothing */
+"Animation functions" = "Animace";
+
+/* nothing */
+"View" = "Zobrazení";
+
+/* nothing */
+"Morph view" = "";
+
+/* nothing */
+"Morph julia" = "Přetvořící se čára";
+
+/* nothing */
+"Move view" = "";
+
+/* nothing */
+"Morph angle" = "Přetvořící se čára";
+
+/* nothing */
+"Zoom center" = "Centrum zvětšení";
+
+/* nothing */
+"Zoom" = "Zvětšení";
+
+/* nothing */
+"Un-zoom" = "Zmenšení";
+
+/* nothing */
+"Stop zooming" = "Zastavení zvětšení";
+
+/* nothing */
+"Smooth morphing parameters" = "Parametry zahladění";
+
+/* nothing */
+"Timing functions" = "Časování";
+
+/* nothing */
+"Usleep" = "Čekání";
+
+/* nothing */
+"Wait for text" = "Čekání na text";
+
+/* nothing */
+"Wait for complete image" = "Čekání na zobrazení obrazu";
+
+/* nothing */
+"Include file" = "Navlékání souboru";
+
+/* nothing */
+"Default palette" = "Základní barvy";
+
+/* nothing */
+"Formula" = "Vzorec";
+
+/* nothing */
+"Maximal zooming step" = "Maximální krok zětšení";
+
+/* nothing */
+"Zooming speedup" = "Rychlost zvětšení";
+
+/* nothing */
+"Filter" = "Filtr";
+
+/* nothing */
+"Letters per second" = "Písmen za sekund";
+
+/* nothing */
+"Interrupt" = "Přerušení";
+
+/* nothing */
+"File" = "Soubor";
+
+/* nothing */
+"Edit" = "Upravení";
+
+/* nothing */
+"Fractal" = "Fraktál";
+
+/* nothing */
+"Calculation" = "Počítání";
+
+/* nothing */
+"Filters" = "Filtry";
+
+/* nothing */
+"UI" = "Uživatelské rozhraní";
+
+/* nothing */
+"Misc" = "Ostatní";
+
+/* nothing */
+"Window" = "Zpět";
+
+/* nothing */
+"Tutorials" = "Výuky";
+
+/* nothing */
+"Stop replay" = "Zastavení opakování";
+
+/* nothing */
+"Command" = "Příkaz";
+
+/* nothing */
+"Play string" = "Spustění řetězce";
+
+/* nothing */
+"Render animation" = "Jenom během animace";
+
+/* nothing */
+"Clear screen" = "Vičištění obrazovky";
+
+/* nothing */
+"Display fractal" = "Zobrazení fraktálu";
+
+/* nothing */
+"Display text" = "Zobrazení textu";
+
+/* nothing */
+"Color" = "Barva";
+
+/* nothing */
+"Horizontal text position" = "Vodorovná pozice textu";
+
+/* nothing */
+"Vertical text position" = "Svislá pozice textu";
+
+/* nothing */
+"Text position" = "Pozice textu";
+
+/* nothing */
+"Message" = "Vzkaz";
+
+/* nothing */
+"Load" = "Otevření";
+
+/* nothing */
+"Save" = "Uložení";
+
+/* nothing */
+"Record" = "Nahrávání";
+
+/* nothing */
+"Replay" = "Přehrávání";
+
+/* nothing */
+"Save image" = "Uložení obrazu";
+
+/* nothing */
+"Load random example" = "Nahrání náhodného příkladu";
+
+/* nothing */
+"Save configuration" = "Uložení konfigurace";
+
+/* nothing */
+"Undo" = "Zpět";
+
+/* nothing */
+"Redo" = "Udělat znovu";
+
+/* nothing */
+"Formulae" = "Vzorec";
+
+/* nothing */
+"More formulae" = "Vzorec";
+
+/* nothing */
+"User formula" = "Vzorec";
+
+/* nothing */
+"User initialization" = "Funkce malování čar";
+
+/* nothing */
+"Incoloring mode" = "Vnitřní vybarvení";
+
+/* nothing */
+"Outcoloring mode" = "Vnější vybarvení";
+
+/* nothing */
+"Plane" = "Plocha";
+
+/* nothing */
+"Palette" = "Paleta barev";
+
+/* nothing */
+"Mandelbrot mode" = "Režim mandelbrot";
+
+/* nothing */
+"Perturbation" = "Perturbace";
+
+/* nothing */
+"Reset to defaults" = "Nastavení standartu zpět";
+
+/* nothing */
+"Julia mode" = "Režim julia";
+
+/* nothing */
+"Set angle" = "Nastavení úhlu";
+
+/* nothing */
+"Set plane" = "Nastavení plochy";
+
+/* nothing */
+"Inside coloring mode" = "Vnitřní vybarvení";
+
+/* nothing */
+"Outside coloring mode" = "Vnější vybarvení";
+
+/* nothing */
+"Inside truecolor coloring mode" = "Vnitřní truecolor vybarvení";
+
+/* nothing */
+"Outside truecolor coloring mode" = "Vnější truecolor vybarvení";
+
+/* nothing */
+"Julia seed" = "Rychlost julia";
+
+/* nothing */
+"Random palette" = "Náhodné barvy";
+
+/* nothing */
+"Custom palette" = "Uživatelské barvy";
+
+/* nothing */
+"Color cycling" = "Cirkulace barev";
+
+/* nothing */
+"Reversed color cycling" = "Zpětná cirkulace barev";
+
+/* nothing */
+"Color cycling speed" = "Rychlost cirkulace barev";
+
+/* nothing */
+"Shift palette" = "Posun barevné palety";
+
+/* nothing */
+"Shift one forward" = "Posun dopředu o jeden krok";
+
+/* nothing */
+"Shift one backward" = "Posun dozadu o jeden krok";
+
+/* nothing */
+"Solid guessing" = "Solidní hádání";
+
+/* nothing */
+"Dynamic resolution" = "Dinamické rozložení";
+
+/* nothing */
+"Periodicity checking" = "Kontrola pravidelnosti";
+
+/* nothing */
+"Iterations" = "Iterace";
+
+/* nothing */
+"Bailout" = "";
+
+/* nothing */
+"Fast julia mode" = "Rychlý režim julia";
+
+/* nothing */
+"Rotation" = "Rotace";
+
+/* nothing */
+"Solid guessing range" = "Interval hádání";
+
+/* nothing */
+"Disable rotation" = "Rotace vypnuta";
+
+/* nothing */
+"Continuous rotation" = "Plynulá rotace";
+
+/* nothing */
+"Rotate by mouse" = "Rotace miší";
+
+/* nothing */
+"Rotation speed" = "Rychlost rotace";
+
+/* nothing */
+"Automatic rotation" = "Automatická rotace";
+
+/* nothing */
+"Fast rotation mode" = "Rychlý režim rotace";
+
+/* nothing */
+"Disable dynamic resolution" = "Dinamický rozlišení vypnuto";
+
+/* nothing */
+"Use only during animation" = "Jenom během animace";
+
+/* nothing */
+"Use also for new images" = "Použij toto i u nových obrazů";
+
+/* nothing */
+"Dynamic resolution mode" = "Režim dinamického rozlišení";
+
+/* nothing */
+"Autopilot" = "Autopilot";
+
+/* nothing */
+"VJ mode" = "Režim julia";
+
+/* nothing */
+"Recalculate" = "Počítání";
+
+/* nothing */
+"Zooming speed" = "Rychlost zvětšení";
+
+/* nothing */
+"Fixed step" = "Stálý krok";
+
+/* nothing */
+"Disable solid guessing" = "Solidní hádání vypnuto";
+
+/* nothing */
+"Guess 2x2 rectangles" = "2x2 obdélník";
+
+/* nothing */
+"Guess 3x3 rectangles" = "3x3 obdélník";
+
+/* nothing */
+"Guess 4x4 rectangles" = "4x4 obdélník";
+
+/* nothing */
+"Guess 5x5 rectangles" = "5x5 obdélník";
+
+/* nothing */
+"Guess 6x6 rectangles" = "6x6 obdélník";
+
+/* nothing */
+"Guess 7x7 rectangles" = "7x7 obdélník";
+
+/* nothing */
+"Guess 8x8 rectangles" = "8x8 obdélník";
+
+/* nothing */
+"Guess unlimited rectangles" = "Nomezený číslo obdélníků";
+
+/* nothing */
+"Language" = "";
+
+/* nothing */
+"An introduction to fractals" = "Zavedení do světa fraktálů";
+
+/* nothing */
+"XaoS features overview" = "Tipy a triky";
+
+/* nothing */
+"Math behind fractals" = "Matematika fraktálů";
+
+/* nothing */
+"Other fractal types in XaoS" = "";
+
+/* nothing */
+"What's new?" = "Novinky";
+
+/* nothing */
+"Whole story" = "Všechny kapitoly";
+
+/* nothing */
+"Introduction" = "Úvod";
+
+/* nothing */
+"Mandelbrot set" = "Souprava mandelbrot";
+
+/* nothing */
+"Julia set" = "Souprava julia";
+
+/* nothing */
+"Higher power Mandelbrots" = "Mandelbroty vyšší třídy";
+
+/* nothing */
+"Newton's method" = "Newtonova metoda";
+
+/* nothing */
+"Barnsley's formula" = "Barnsleyuv vzorec";
+
+/* nothing */
+"Phoenix" = "Phoenix";
+
+/* nothing */
+"Octo" = "Octo";
+
+/* nothing */
+"Magnet" = "Magnet";
+
+/* nothing */
+"All features" = "Všechny vlastnosti";
+
+/* nothing */
+"Outcoloring modes" = "Vnější vybarvení";
+
+/* nothing */
+"Incoloring modes" = "Vnitřní vybarvení";
+
+/* nothing */
+"True-color coloring modes" = "True-color vybarvovací režimy";
+
+/* nothing */
+"Planes" = "Plochy";
+
+/* nothing */
+"Animations and position files" = "Animace a soubory pozic";
+
+/* nothing */
+"Random palettes" = "Náhodné barevné palety";
+
+/* nothing */
+"Other noteworthy features" = "Další maličkosti";
+
+/* nothing */
+"The definition and fractal dimension" = "Definice a fraktaldimenze";
+
+/* nothing */
+"Escape time fractals" = "Fraktaly na základu útěku";
+
+/* nothing */
+"Triceratops and Catseye fractals" = "";
+
+/* nothing */
+"Mandelbar, Lambda, Manowar and Spider" = "";
+
+/* nothing */
+"Sierpinski Gasket, S.Carpet, Koch Snowflake" = "";
+
+/* nothing */
+"What's new in 3.0?" = "Novinky ve verzi 3.0";
+
+/* nothing */
+"line available only in animation replay" = "Jenom během animace";
+
+/* nothing */
+"Morphing non existing line!" = "Přeměňující se poslední čára";
+
+/* nothing */
+"linekey not available in this context!" = "";
+
+/* nothing */
+"clear_line available only in animation replay" = "Jenom během animace";
+
+/* nothing */
+"clear_lines available only in animation replay" = "Jenom během animace";
+
+/* nothing */
+"Catalog file not found" = "";
+
+/* nothing */
+"Replay is already active" = "";
+
+/* nothing */
+"File open failed" = "Není místo pro tabulky";
+
+/* nothing */
+"Out of memory" = "Memórie je zaplněná.";
+
+/* nothing */
+"Missing parameter" = "Parametry zahladění";
+
+/* nothing */
+"Unexpected end of file" = "";
+
+/* nothing */
+"Token is too long" = "";
+
+/* nothing */
+"Unknown formula type" = "Filtr";
+
+/* nothing */
+"morph available only in animation replay" = "Jenom během animace";
+
+/* nothing */
+"morphview: Invalid viewpoint" = "";
+
+/* nothing */
+"move available only in animation replay" = "Jenom během animace";
+
+/* nothing */
+"morphjulia available only in animation replay" = "Jenom během animace";
+
+/* nothing */
+"morphangle available only in animation replay" = "Jenom během animace";
+
+/* nothing */
+"Unknown filter" = "Filtr";
+
+/* nothing */
+"sleep available only in animation replay" = "Jenom během animace";
+
+/* nothing */
+"Internal program error #12 %i\n" = "";
+
+/* nothing */
+"wait available only in animation replay" = "Jenom během animace";
+
+/* nothing */
+"No catalog file loaded" = "";
+
+/* nothing */
+"Message not found in catalog file" = "";
+
+/* nothing */
+"load available only in animation replay" = "Jenom během animace";
+
+/* nothing */
+"Include level overflow" = "";
+
+/* nothing */
+"File not found" = "";
+
+/* nothing */
+"Too many parameters" = "Parametry zahladění";
+
+/* nothing */
+"Replay disabled at line %i" = "";
+
+/* nothing */
+"Tutorial files not found. Reinstall XaoS" = "";
+
+/* nothing */
+"Preparing first image" = "";
+
+/* nothing */
+"Could not open examples" = "Nahrání náhodného příkladu";
+
+/* nothing */
+"File %s loaded." = "";
+
+/* nothing */
+"Saving image..." = "Uložení obrazu";
+
+/* nothing */
+"Save interrupted" = "Přerušení";
+
+/* nothing */
+"File %s saved." = "";
+
+/* nothing */
+"Can not open file" = "Není místo pro tabulky";
+
+/* nothing */
+"Recording to file %s enabled." = "";
+
+/* nothing */
+"Solid guessing 1" = "Solidní hádání";
+
+/* nothing */
+"Boundary trace" = "";
+
+/* nothing */
+"OK" = "";
+
+/* nothing */
+"Cancel" = "";
+
+/* nothing */
+"Error: %s" = "";
+
+/* nothing */
+"Cannot open motion vector file!" = "Není místo pro tabulky";
+
+/* nothing */
+"Vectors: %i" = "";
+
+/* nothing */
+"Initializing" = "Iterace";
+
+/* nothing */
+"Cannot create palette" = "Paleta barev nelze vytvořit";
+
+/* nothing */
+"Cannot create image\n" = "Obraz nelze vytvořit";
+
+/* nothing */
+"Cannot create checking buffer!" = "Obraz nelze vytvořit";
+
+/* nothing */
+"Cannot create context\n" = "Paleta barev nelze vytvořit";
+
+/* nothing */
+"Cannot open animation file\n" = "Není místo pro tabulky";
+
+/* nothing */
+"Loading catalogs" = "";
+
+/* nothing */
+"Processing command line options" = "";
+
+/* nothing */
+"Enabling animation replay\n" = "Jenom během animace";
+
+/* nothing */
+"Cannot open image file" = "Není místo pro tabulky";
+
+/* nothing */
+"Cannot open pattern file" = "Není místo pro tabulky";
+
+/* nothing */
+"Entering calculation loop!" = "";
+
+/* nothing */
+"Frame %i skipped." = "";
+
+/* nothing */
+"Frames %i - %i skipped." = "";
+
+/* nothing */
+"Frame %4i: " = "";
+
+/* nothing */
+" done." = "";
+
+/* nothing */
+" skipping..." = "";
+
+/* nothing */
+"Calculation interrupted" = "Přerušení";
+
+/* nothing */
+"Calculation finished" = "Počítání";
+
+/* nothing */
+"Copy" = "";
+
+/* nothing */
+"Paste" = "Paleta barev";
+
+/* nothing */
+"About" = "";
+
+/* nothing */
+"About XaoS" = "";
+
+/* nothing */
+"Services" = "";
+
+/* nothing */
+"Hide XaoS" = "";
+
+/* nothing */
+"Hide Others" = "";
+
+/* nothing */
+"Show All" = "";
+
+/* nothing */
+"Quit XaoS" = "Zavřít";
+
+/* nothing */
+"Cut" = "";
+
+/* nothing */
+"Delete" = "Paleta barev";
+
+/* nothing */
+"Select All" = "";
+
+/* nothing */
+"Minimize" = "";
+
+/* nothing */
+"Bring All to Front" = "";
+
+/* nothing */
+"Close" = "Barva";
+
+/* nothing */
+"Videator Output" = "";
+
+/* nothing */
+"Choose" = "";
+

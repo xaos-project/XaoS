@@ -1,0 +1,1065 @@
+/* nothing */
+"" = "Project-Id-Version: xaos\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2009-07-14 20:44-0500\nPO-Revision-Date: 2008-04-08 10:10+0000\nLast-Translator: Sergio Zanchetta <Unknown>\nLanguage-Team: Italian <it@li.org>\nMIME-Version: 1.0\nContent-Type: text/plain; charset=ISO-8859-1\nContent-Transfer-Encoding: 8bit\nX-Launchpad-Export-Date: 2008-04-08 15:44+0000\nX-Generator: Launchpad (build Unknown)\n";
+
+/* nothing */
+"XaoS is out of memory." = "XaoS ha esaurito la memoria.";
+
+/* nothing */
+"%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            " = "%s %.2f volte (%.1fE) %2.2f fotogrammi/sec %c %i %i %i %i            ";
+
+/* nothing */
+"unzoomed" = "rimpicciolito";
+
+/* nothing */
+"zoomed" = "ingrandito";
+
+/* nothing */
+"framerate:%f\n" = "frequenza fotogrammi:%f\n";
+
+/* nothing */
+"Enabling: %s. " = "Abilitazione: %s. ";
+
+/* nothing */
+"Disabling: %s. " = "Disabilitazione: %s ";
+
+/* nothing */
+"Fractal name:%s" = "Nome del frattale:%s";
+
+/* nothing */
+"Fractal type:%s" = "Tipo di frattale:%s";
+
+/* nothing */
+"Mandelbrot" = "Mandelbrot";
+
+/* nothing */
+"Julia" = "Julia";
+
+/* nothing */
+"Formula:%s" = "Formula:%s";
+
+/* nothing */
+"View:[%1.12f,%1.12f]" = "Vista:[%1.12f,%1.12f]";
+
+/* nothing */
+"size:[%1.12f,%1.12f]" = "dimensione:[%1.12f,%1.12f]";
+
+/* nothing */
+"Rotation:%4.2f   Screen size:%i:%i" = "Rotazione:%4.2f Dimensione schermo:%i:%i";
+
+/* nothing */
+"Iterations:%-4i Palette size:%i" = "Iterazioni:%-4i Dimensione tavolozza:%i";
+
+/* nothing */
+"Autopilot:%-4s  Plane:%s" = "Pilota automatico:%-4s Piano:%s";
+
+/* nothing */
+"On" = "Attivo";
+
+/* nothing */
+"Off" = "Disattivo";
+
+/* nothing */
+"incoloring:%s    outcoloring:%s" = "colorazione interna:%s colorazione esterna:%s";
+
+/* nothing */
+"zoomspeed:%f" = "velocitŕ di ingrandimento:%f";
+
+/* nothing */
+"Parameter:none" = "Parametro:nessuno";
+
+/* nothing */
+"Parameter:[%f,%f]" = "Parametro:[%f,%f]";
+
+/* nothing */
+"Please wait while calculating %s" = "Attendere, calcolo di %s in corso...";
+
+/* nothing */
+"Letters per second %i  " = "Lettere al secondo %i  ";
+
+/* nothing */
+"Rotation speed:%2.2f degrees per second " = "Velocitŕ di rotazione:%2.2f gradi al secondo ";
+
+/* nothing */
+"Iterations: %i   " = "Iterazioni: %i   ";
+
+/* nothing */
+"Cycling speed: %i   " = "Velocitŕ di ciclo: %i   ";
+
+/* nothing */
+"speed:%2.2f " = "velocitŕ:%2.2f ";
+
+/* nothing */
+"Thank you for using XaoS\n" = "Grazie di utilizzare XaoS\n";
+
+/* nothing */
+"Skipping, please wait..." = "Passaggio al successivo, attendere...";
+
+/* nothing */
+"Resize" = "Ridimensiona";
+
+/* nothing */
+"Quit" = "Esci";
+
+/* nothing */
+"Exit now" = "Esci adesso";
+
+/* nothing */
+"Not yet" = "Non ancora";
+
+/* nothing */
+"Help" = "Aiuto";
+
+/* nothing */
+"Disable XaoS's builtin GUI" = "Disabilita l'interfaccia utente incorporata di XaoS";
+
+/* nothing */
+"Status" = "Stato";
+
+/* nothing */
+"Ministatus" = "Stato ridotto";
+
+/* nothing */
+"Driver" = "Driver";
+
+/* nothing */
+"Welcome to XaoS version %s" = "Benvenuto a XaoS versione %s";
+
+/* nothing */
+"Can not allocate buffers" = "Non č possibile allocare i buffer";
+
+/* nothing */
+"Can not create palette" = "Non č possibile creare la tavolozza";
+
+/* nothing */
+"Can not create image" = "Non č possibile creare l'immagine";
+
+/* nothing */
+"Can not allocate tables" = "Non č possibile allocare le tabelle";
+
+/* nothing */
+"Can not initialize driver" = "Non č possibile inizializzare il driver";
+
+/* nothing */
+"Can not return back to previous driver" = "Non č possibile tornare al driver precedente";
+
+/* nothing */
+"Perturbation:" = "Perturbazione:";
+
+/* nothing */
+"Julia-seed:" = "Seme di Julia:";
+
+/* nothing */
+"Morphing type:" = "Tipo di trasformazione:";
+
+/* nothing */
+"Startuptime:" = "Tempo di avvio:";
+
+/* nothing */
+"Stoptime:" = "Tempo di arresto:";
+
+/* nothing */
+"File to render:" = "File di rendering:";
+
+/* nothing */
+"Basename:" = "Nome base:";
+
+/* nothing */
+"Width:" = "Larghezza:";
+
+/* nothing */
+"Height:" = "Altezza:";
+
+/* nothing */
+"Real width (cm):" = "Larghezza reale (cm):";
+
+/* nothing */
+"Real height (cm):" = "Altezza reale (cm):";
+
+/* nothing */
+"Framerate:" = "Frequenza fotogrammi:";
+
+/* nothing */
+"Image type:" = "Tipo di immagine:";
+
+/* nothing */
+"Antialiasing:" = "Antialiasing:";
+
+/* nothing */
+"Always recalculate:" = "Ricalcola sempre:";
+
+/* nothing */
+"Calculate MPEG motion vectors:" = "Calcola vettori di movimento MPEG:";
+
+/* nothing */
+"Recommended I frame distance:" = "Distanza consigliata fotogramma I:";
+
+/* nothing */
+"Center:" = "Centro:";
+
+/* nothing */
+"Radius:" = "Raggio:";
+
+/* nothing */
+"Angle:" = "Angolo:";
+
+/* nothing */
+"Mode:" = "Modalitŕ:";
+
+/* nothing */
+"Start:" = "Inizio:";
+
+/* nothing */
+"End:" = "Fine:";
+
+/* nothing */
+"Color:" = "Colore:";
+
+/* nothing */
+"Rotations per second:" = "Rotazioni al secondo:";
+
+/* nothing */
+"Letters per second:" = "Lettere al secondo:";
+
+/* nothing */
+"Iterations:" = "Iterazioni:";
+
+/* nothing */
+"Text:" = "Testo:";
+
+/* nothing */
+"Your command:" = "Comando:";
+
+/* nothing */
+"Filename:" = "Nome file:";
+
+/* nothing */
+"Formula:" = "Formula:";
+
+/* nothing */
+"X center:" = "Centro X:";
+
+/* nothing */
+"Y center:" = "Centro Y:";
+
+/* nothing */
+"X Radius:" = "Raggio X:";
+
+/* nothing */
+"Y Radius:" = "Raggio Y:";
+
+/* nothing */
+"Coordinates:" = "Coordinate:";
+
+/* nothing */
+"continuous rotation" = "rotazione continua";
+
+/* nothing */
+"Fast rotation" = "Rotazione veloce";
+
+/* nothing */
+"filter" = "filtra";
+
+/* nothing */
+"enable" = "abilita";
+
+/* nothing */
+"Amount:" = "Quantitŕ:";
+
+/* nothing */
+"Zooming speed:" = "Velocitŕ di ingrandimento:";
+
+/* nothing */
+"Name:" = "Nome:";
+
+/* nothing */
+"Bailout:" = "Bailout:";
+
+/* nothing */
+"Julia mode:" = "Modalitŕ Julia:";
+
+/* nothing */
+"Horizontal position:" = "Posizione orizzontale:";
+
+/* nothing */
+"Vertical position:" = "Posizione verticale:";
+
+/* nothing */
+"Dynamic resolution:" = "Risoluzione dinamica:";
+
+/* nothing */
+"Time:" = "Tempo:";
+
+/* nothing */
+"Number:" = "Numero:";
+
+/* nothing */
+"Algorithm number:" = "Numero dell'algoritmo:";
+
+/* nothing */
+"Seed:" = "Seme:";
+
+/* nothing */
+"Shift:" = "Spostamento:";
+
+/* nothing */
+"Frames per second:" = "Fotogrammi al secondo:";
+
+/* nothing */
+"Initialization:" = "Inizializzazione:";
+
+/* nothing */
+"renderanim: Must specify a valid absolute path for basename" = "renderanim: deve essere specificato un percorso assoluto valido per il nome base";
+
+/* nothing */
+"renderanim: Width parameter must be positive integer in the range 0..4096" = "renderanim: il parametro larghezza deve essere un intero positivo nell'intervallo 0..4096";
+
+/* nothing */
+"renderanim: Height parameter must be positive integer in the range 0..4096" = "renderanim: il parametro altezza deve essere un intero positivo nell'intervallo 0..4096";
+
+/* nothing */
+"renderanim: Invalid real width and height dimensions" = "renderanim: dimensioni di larghezza e altezza reali non valide";
+
+/* nothing */
+"renderanim: invalid framerate" = "renderanim: frequenza di aggiornamento non valida";
+
+/* nothing */
+"renderanim: antialiasing not supported in 256 color mode" = "renderanim: antialiasing non supportato nella modalitŕ a 256 colori";
+
+/* nothing */
+"renderanim: incorrect I frame distance" = "renderanim: distanza fotogramma I non corretta";
+
+/* nothing */
+"animateview: Invalid viewpoint" = "animateview: punto di osservazione non valido";
+
+/* nothing */
+"Invalid viewpoint" = "Punto di osservazione non valido";
+
+/* nothing */
+"Unknown palette type" = "Tipo di tavolozza sconosciuto";
+
+/* nothing */
+"Initialization of color cycling failed." = "Inizializzazione del ciclo colori fallita.";
+
+/* nothing */
+"Try to enable palette emulation filter" = "Provare ad abilitare il filtro di emulazione tavolozza";
+
+/* nothing */
+"Algorithm:%i seed:%i size:%i" = "Algoritmo:%i seme: %i dimensione:%i";
+
+/* nothing */
+"Root menu" = "Menů radice";
+
+/* nothing */
+"Animation root menu" = "Menů radice dell'animazione";
+
+/* nothing */
+"Replay only commands" = "Riproduci solo i comandi";
+
+/* nothing */
+"Command line options only" = "Solo opzioni da linea di comando";
+
+/* nothing */
+"print menus specifications of all menus" = "stampa le specifiche di tutti i menů";
+
+/* nothing */
+"print menu specification" = "stampa la specifica del menů";
+
+/* nothing */
+"print menu specification in xshl format" = "stampa la specifica del menů in formato xshl";
+
+/* nothing */
+"print all menu specifications in xshl format" = "stampa tutte le specifiche del menů in formato xshl";
+
+/* nothing */
+"print dialog specification" = "stampa le specifiche di dialogo";
+
+/* nothing */
+"Line drawing functions" = "Funzioni di disegno linea";
+
+/* nothing */
+"Line" = "Linea";
+
+/* nothing */
+"Morph line" = "Trasforma linea";
+
+/* nothing */
+"Morph last line" = "Trasforma l'ultima linea";
+
+/* nothing */
+"Set line key" = "Imposta la chiave di linea";
+
+/* nothing */
+"Clear line" = "Cancella linea";
+
+/* nothing */
+"Clear all lines" = "Cancella tutte le linee";
+
+/* nothing */
+"Animation functions" = "Funzioni di animazione";
+
+/* nothing */
+"View" = "Vista";
+
+/* nothing */
+"Morph view" = "Trasforma vista";
+
+/* nothing */
+"Morph julia" = "Trasforma Julia";
+
+/* nothing */
+"Move view" = "Muovi vista";
+
+/* nothing */
+"Morph angle" = "Trasforma angolo";
+
+/* nothing */
+"Zoom center" = "Ingrandisci al centro";
+
+/* nothing */
+"Zoom" = "Ingrandimento";
+
+/* nothing */
+"Un-zoom" = "Rimpicciolimento";
+
+/* nothing */
+"Stop zooming" = "Ferma l'ingrandimento";
+
+/* nothing */
+"Smooth morphing parameters" = "Raffina i parametri di trasformazione";
+
+/* nothing */
+"Timing functions" = "Funzioni di temporizzazione";
+
+/* nothing */
+"Usleep" = "Usleep";
+
+/* nothing */
+"Wait for text" = "Attendere il testo";
+
+/* nothing */
+"Wait for complete image" = "Attendere l'immagine completa";
+
+/* nothing */
+"Include file" = "Includere il file";
+
+/* nothing */
+"Default palette" = "Tavolozza predefinita";
+
+/* nothing */
+"Formula" = "Formula";
+
+/* nothing */
+"Maximal zooming step" = "Passo di ingrandimento massimo";
+
+/* nothing */
+"Zooming speedup" = "Accelerazione ingrandimento";
+
+/* nothing */
+"Filter" = "Filtro";
+
+/* nothing */
+"Letters per second" = "Lettere al secondo";
+
+/* nothing */
+"Interrupt" = "Interrompi";
+
+/* nothing */
+"File" = "File";
+
+/* nothing */
+"Edit" = "Modifica";
+
+/* nothing */
+"Fractal" = "Frattale";
+
+/* nothing */
+"Calculation" = "Calcolo";
+
+/* nothing */
+"Filters" = "Filtri";
+
+/* nothing */
+"UI" = "IU";
+
+/* nothing */
+"Misc" = "Varie";
+
+/* nothing */
+"Window" = "Finestra";
+
+/* nothing */
+"Tutorials" = "Guide";
+
+/* nothing */
+"Stop replay" = "Interrompi la riproduzione";
+
+/* nothing */
+"Command" = "Comando";
+
+/* nothing */
+"Play string" = "Riproduci stringa";
+
+/* nothing */
+"Render animation" = "Rendering animazione";
+
+/* nothing */
+"Clear screen" = "Pulisci schermo";
+
+/* nothing */
+"Display fractal" = "Mostra frattale";
+
+/* nothing */
+"Display text" = "Mostra testo";
+
+/* nothing */
+"Color" = "Colore";
+
+/* nothing */
+"Horizontal text position" = "Posizione orizzontale testo";
+
+/* nothing */
+"Vertical text position" = "Posizione verticale testo";
+
+/* nothing */
+"Text position" = "Posizione testo";
+
+/* nothing */
+"Message" = "Messaggio";
+
+/* nothing */
+"Load" = "Carica";
+
+/* nothing */
+"Save" = "Salva";
+
+/* nothing */
+"Record" = "Registra";
+
+/* nothing */
+"Replay" = "Riproduci";
+
+/* nothing */
+"Save image" = "Salva immagine";
+
+/* nothing */
+"Load random example" = "Carica esempio casuale";
+
+/* nothing */
+"Save configuration" = "Salva configurazione";
+
+/* nothing */
+"Undo" = "Annulla";
+
+/* nothing */
+"Redo" = "Ripeti";
+
+/* nothing */
+"Formulae" = "Formule";
+
+/* nothing */
+"More formulae" = "Altre formule";
+
+/* nothing */
+"User formula" = "Formula utente";
+
+/* nothing */
+"User initialization" = "Inizializzazione utente";
+
+/* nothing */
+"Incoloring mode" = "Modo colorazione interna";
+
+/* nothing */
+"Outcoloring mode" = "Modo colorazione esterna";
+
+/* nothing */
+"Plane" = "Piano";
+
+/* nothing */
+"Palette" = "Tavolozza";
+
+/* nothing */
+"Mandelbrot mode" = "Modalitŕ Mandelbrot";
+
+/* nothing */
+"Perturbation" = "Perturbazione";
+
+/* nothing */
+"Reset to defaults" = "Reimposta valori predefiniti";
+
+/* nothing */
+"Julia mode" = "Modalitŕ Julia";
+
+/* nothing */
+"Set angle" = "Imposta angolo";
+
+/* nothing */
+"Set plane" = "Imposta piano";
+
+/* nothing */
+"Inside coloring mode" = "Modalitŕ di colorazione interna";
+
+/* nothing */
+"Outside coloring mode" = "Modalitŕ di colorazione esterna";
+
+/* nothing */
+"Inside truecolor coloring mode" = "Modalitŕ di colorazione interna truecolor";
+
+/* nothing */
+"Outside truecolor coloring mode" = "Modalitŕ di colorazione esterna truecolor";
+
+/* nothing */
+"Julia seed" = "Seme di Julia";
+
+/* nothing */
+"Random palette" = "Tavolozza casuale";
+
+/* nothing */
+"Custom palette" = "Tavolozza personalizzata";
+
+/* nothing */
+"Color cycling" = "Ciclo dei colori";
+
+/* nothing */
+"Reversed color cycling" = "Ciclo dei colori inverso";
+
+/* nothing */
+"Color cycling speed" = "Velocitŕ di ciclo dei colori";
+
+/* nothing */
+"Shift palette" = "Sposta tavolozza";
+
+/* nothing */
+"Shift one forward" = "Sposta avanti di uno";
+
+/* nothing */
+"Shift one backward" = "Sposta indietro di uno";
+
+/* nothing */
+"Solid guessing" = "Stima di uniformitŕ colore";
+
+/* nothing */
+"Dynamic resolution" = "Risoluzione dinamica";
+
+/* nothing */
+"Periodicity checking" = "Controllo di periodicitŕ";
+
+/* nothing */
+"Iterations" = "Iterazioni";
+
+/* nothing */
+"Bailout" = "Bailout";
+
+/* nothing */
+"Fast julia mode" = "Modalitŕ julia veloce";
+
+/* nothing */
+"Rotation" = "Rotazione";
+
+/* nothing */
+"Solid guessing range" = "Area di stima di uniformitŕ";
+
+/* nothing */
+"Disable rotation" = "Disabilita rotazione";
+
+/* nothing */
+"Continuous rotation" = "Rotazione continua";
+
+/* nothing */
+"Rotate by mouse" = "Ruota tramite mouse";
+
+/* nothing */
+"Rotation speed" = "Velocitŕ di rotazione";
+
+/* nothing */
+"Automatic rotation" = "Rotazione automatica";
+
+/* nothing */
+"Fast rotation mode" = "Modalitŕ di rotazione rapida";
+
+/* nothing */
+"Disable dynamic resolution" = "Disabilita la risoluzione dinamica";
+
+/* nothing */
+"Use only during animation" = "Usa solo durante l'animazione";
+
+/* nothing */
+"Use also for new images" = "Usa anche per nuove immagini";
+
+/* nothing */
+"Dynamic resolution mode" = "Modalitŕ a risoluzione dinamica";
+
+/* nothing */
+"Autopilot" = "Pilota automatico";
+
+/* nothing */
+"VJ mode" = "Modalitŕ VJ";
+
+/* nothing */
+"Recalculate" = "Ricalcola";
+
+/* nothing */
+"Zooming speed" = "Velocitŕ di ingrandimento";
+
+/* nothing */
+"Fixed step" = "Passo fisso";
+
+/* nothing */
+"Disable solid guessing" = "Disabilita la stima di uniformitŕ";
+
+/* nothing */
+"Guess 2x2 rectangles" = "Stima rettangoli 2x2";
+
+/* nothing */
+"Guess 3x3 rectangles" = "Stima rettangoli 3x3";
+
+/* nothing */
+"Guess 4x4 rectangles" = "Stima rettangoli 4x4";
+
+/* nothing */
+"Guess 5x5 rectangles" = "Stima rettangoli 5x5";
+
+/* nothing */
+"Guess 6x6 rectangles" = "Stima rettangoli 6x6";
+
+/* nothing */
+"Guess 7x7 rectangles" = "Stima rettangoli 7x7";
+
+/* nothing */
+"Guess 8x8 rectangles" = "Stima rettangoli 8x8";
+
+/* nothing */
+"Guess unlimited rectangles" = "Stima rettangoli illimitati";
+
+/* nothing */
+"Language" = "Lingua";
+
+/* nothing */
+"An introduction to fractals" = "Una introduzione ai frattali";
+
+/* nothing */
+"XaoS features overview" = "Panoramica delle caratteristiche di XaoS";
+
+/* nothing */
+"Math behind fractals" = "La matematica che sta dietro ai frattali";
+
+/* nothing */
+"Other fractal types in XaoS" = "Altri tipi di frattali in XaoS";
+
+/* nothing */
+"What's new?" = "Novitŕ";
+
+/* nothing */
+"Whole story" = "Racconto completo";
+
+/* nothing */
+"Introduction" = "Introduzione";
+
+/* nothing */
+"Mandelbrot set" = "Insieme di Mandelbrot";
+
+/* nothing */
+"Julia set" = "Insieme di Julia";
+
+/* nothing */
+"Higher power Mandelbrots" = "Mandelbrot a potenze superiori";
+
+/* nothing */
+"Newton's method" = "Metodo di Newton";
+
+/* nothing */
+"Barnsley's formula" = "Formula di Barnsley";
+
+/* nothing */
+"Phoenix" = "Phoenix";
+
+/* nothing */
+"Octo" = "Octo";
+
+/* nothing */
+"Magnet" = "Magnet";
+
+/* nothing */
+"All features" = "Tutte le caratteristiche";
+
+/* nothing */
+"Outcoloring modes" = "Modi di colorazione esterna";
+
+/* nothing */
+"Incoloring modes" = "Modi di colorazione interna";
+
+/* nothing */
+"True-color coloring modes" = "Modi di colorazione truecolor";
+
+/* nothing */
+"Planes" = "Piani";
+
+/* nothing */
+"Animations and position files" = "Animazioni e file di posizione";
+
+/* nothing */
+"Random palettes" = "Tavolozze casuali";
+
+/* nothing */
+"Other noteworthy features" = "Altre caratteristiche degne di nota";
+
+/* nothing */
+"The definition and fractal dimension" = "La definizione di frattale e la sua dimensione";
+
+/* nothing */
+"Escape time fractals" = "Frattali con tempo di fuga";
+
+/* nothing */
+"Triceratops and Catseye fractals" = "Frattali Triceratopo e Occhi di gatto";
+
+/* nothing */
+"Mandelbar, Lambda, Manowar and Spider" = "Mandelbar, Lambda, Manowar e Spider";
+
+/* nothing */
+"Sierpinski Gasket, S.Carpet, Koch Snowflake" = "Triangolo e tappeto-Sierpinski,fiocco di neve-Koch";
+
+/* nothing */
+"What's new in 3.0?" = "Novitŕ della versione 3.0";
+
+/* nothing */
+"line available only in animation replay" = "linea disponibile solo nella riproduzione animazione";
+
+/* nothing */
+"Morphing non existing line!" = "Trasformazione di una linea inesistente!";
+
+/* nothing */
+"linekey not available in this context!" = "linekey non disponibile in questo contesto!";
+
+/* nothing */
+"clear_line available only in animation replay" = "clear_line disponibile solo nella riproduzione animazione";
+
+/* nothing */
+"clear_lines available only in animation replay" = "clear_lines disponibile solo nella riproduzione animazione";
+
+/* nothing */
+"Catalog file not found" = "File del catalogo non trovato";
+
+/* nothing */
+"Replay is already active" = "La riproduzione č giŕ attiva";
+
+/* nothing */
+"File open failed" = "Apertura del file fallita";
+
+/* nothing */
+"Out of memory" = "Memoria esaurita";
+
+/* nothing */
+"Missing parameter" = "Parametro mancante";
+
+/* nothing */
+"Unexpected end of file" = "Fine file inattesa";
+
+/* nothing */
+"Token is too long" = "Il token č troppo lungo";
+
+/* nothing */
+"Unknown formula type" = "Tipo di formula sconosciuto";
+
+/* nothing */
+"morph available only in animation replay" = "morph disponibile solo nella riproduzione di animazione";
+
+/* nothing */
+"morphview: Invalid viewpoint" = "morphview: punto di osservazione non valido";
+
+/* nothing */
+"move available only in animation replay" = "move disponibile solo in riproduzione animazione";
+
+/* nothing */
+"morphjulia available only in animation replay" = "morphjulia disponibile solo in riproduzione animazione";
+
+/* nothing */
+"morphangle available only in animation replay" = "morphangle disponibile solo in riproduzione animazione";
+
+/* nothing */
+"Unknown filter" = "Filtro sconosciuto";
+
+/* nothing */
+"sleep available only in animation replay" = "sleep disponibile solo in riproduzione animazione";
+
+/* nothing */
+"Internal program error #12 %i\n" = "Errore interno del programma #12 %i\n";
+
+/* nothing */
+"wait available only in animation replay" = "wait disponibile solo nella riproduzione di animazione";
+
+/* nothing */
+"No catalog file loaded" = "Nessun file del catalogo caricato";
+
+/* nothing */
+"Message not found in catalog file" = "Messaggio non trovato nel file del catalogo";
+
+/* nothing */
+"load available only in animation replay" = "load disponibile solo nella riproduzione di animazione";
+
+/* nothing */
+"Include level overflow" = "Includi overflow di livello";
+
+/* nothing */
+"File not found" = "File non trovato";
+
+/* nothing */
+"Too many parameters" = "Troppi parametri";
+
+/* nothing */
+"Replay disabled at line %i" = "Riproduzione disabilitata alla linea %i";
+
+/* nothing */
+"Tutorial files not found. Reinstall XaoS" = "File della guida non trovati. Reinstallare XaoS";
+
+/* nothing */
+"Preparing first image" = "Preparazione della prima immagine";
+
+/* nothing */
+"Could not open examples" = "Impossibile aprire gli esempi";
+
+/* nothing */
+"File %s loaded." = "File %s caricato.";
+
+/* nothing */
+"Saving image..." = "Salvataggio dell'immagine...";
+
+/* nothing */
+"Save interrupted" = "Salvataggio interrotto";
+
+/* nothing */
+"File %s saved." = "File %s salvato.";
+
+/* nothing */
+"Can not open file" = "Impossibile aprire il file";
+
+/* nothing */
+"Recording to file %s enabled." = "Registrazione nel file %s abilitata.";
+
+/* nothing */
+"Solid guessing 1" = "Stima di uniformitŕ colore 1";
+
+/* nothing */
+"Boundary trace" = "Traccia dei contorni";
+
+/* nothing */
+"OK" = "OK";
+
+/* nothing */
+"Cancel" = "Annulla";
+
+/* nothing */
+"Error: %s" = "Errore: %s";
+
+/* nothing */
+"Cannot open motion vector file!" = "Impossibile aprire il file dei vettori di movimento!";
+
+/* nothing */
+"Vectors: %i" = "Vettori: %i";
+
+/* nothing */
+"Initializing" = "Inizializzazione";
+
+/* nothing */
+"Cannot create palette" = "Impossibile creare la tavolozza";
+
+/* nothing */
+"Cannot create image\n" = "Impossibile creare l'immagine\n";
+
+/* nothing */
+"Cannot create checking buffer!" = "Impossibile creare il buffer di controllo!";
+
+/* nothing */
+"Cannot create context\n" = "Impossibile creare il contesto\n";
+
+/* nothing */
+"Cannot open animation file\n" = "Impossibile aprire il file di animazione\n";
+
+/* nothing */
+"Loading catalogs" = "Carimento dei cataloghi";
+
+/* nothing */
+"Processing command line options" = "Elaborazione delle opzioni da linea di comando";
+
+/* nothing */
+"Enabling animation replay\n" = "Abilitazione della riproduzione animazione\n";
+
+/* nothing */
+"Cannot open image file" = "Impossibile aprire il file dell'immagine";
+
+/* nothing */
+"Cannot open pattern file" = "Impossibile aprire il file della trama";
+
+/* nothing */
+"Entering calculation loop!" = "Ingresso in un loop di calcolo!";
+
+/* nothing */
+"Frame %i skipped." = "Fotogramma %i saltato.";
+
+/* nothing */
+"Frames %i - %i skipped." = "Fotogrammi %i - %i saltati.";
+
+/* nothing */
+"Frame %4i: " = "Fotogramma %4i: ";
+
+/* nothing */
+" done." = " fatto.";
+
+/* nothing */
+" skipping..." = " passaggio al successivo...";
+
+/* nothing */
+"Calculation interrupted" = "Calcolo interrotto";
+
+/* nothing */
+"Calculation finished" = "Calcolo concluso";
+
+/* nothing */
+"Copy" = "Copia";
+
+/* nothing */
+"Paste" = "Incolla";
+
+/* nothing */
+"About" = "Informazioni su...";
+
+/* nothing */
+"About XaoS" = "Informazioni su XaoS";
+
+/* nothing */
+"Services" = "Servizi";
+
+/* nothing */
+"Hide XaoS" = "Nascondi XaoS";
+
+/* nothing */
+"Hide Others" = "Nascondi le altre";
+
+/* nothing */
+"Show All" = "Mostra tutte";
+
+/* nothing */
+"Quit XaoS" = "Esci da XaoS";
+
+/* nothing */
+"Cut" = "Taglia";
+
+/* nothing */
+"Delete" = "Elimina";
+
+/* nothing */
+"Select All" = "Seleziona tutto";
+
+/* nothing */
+"Minimize" = "Minimizza";
+
+/* nothing */
+"Bring All to Front" = "Porta tutto in primo piano";
+
+/* nothing */
+"Close" = "Chiudi";
+
+/* nothing */
+"Videator Output" = "";
+
+/* nothing */
+"Choose" = "Scegli";
+

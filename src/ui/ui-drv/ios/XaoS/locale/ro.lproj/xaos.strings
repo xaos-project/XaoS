@@ -1,0 +1,1065 @@
+/* nothing */
+"" = "Project-Id-Version: XaoS 3.4\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2009-07-14 20:44-0500\nPO-Revision-Date: 2008-04-28 11:21+0100\nLast-Translator: Zoltan Kovacs <kovzol@matek.hu>\nLanguage-Team: The XaoS Development Team <xaos-devel@lists.sf.net>\nMIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\nContent-Transfer-Encoding: 8bit\nX-Generator: KBabel 0.7\nX-Poedit-Language: Romanian\nX-Poedit-Country: ROMANIA\nX-Poedit-SourceCharset: utf-8\n";
+
+/* nothing */
+"XaoS is out of memory." = "XaoS nu are suficienta memorie";
+
+/* nothing */
+"%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            " = "%s %.2f ori (%.1fE) %2.2f cadre/sec %c %i %i %i %i              ";
+
+/* nothing */
+"unzoomed" = "nemarit (unzoomed):";
+
+/* nothing */
+"zoomed" = "marit (zoomed):";
+
+/* nothing */
+"framerate:%f\n" = "frecventa cadrelor: %f\n";
+
+/* nothing */
+"Enabling: %s. " = "%s se activeaza.";
+
+/* nothing */
+"Disabling: %s. " = "%s se dezactiveaza.";
+
+/* nothing */
+"Fractal name:%s" = "Numele fractalului:%s";
+
+/* nothing */
+"Fractal type:%s" = "Tipul fractalului:%s";
+
+/* nothing */
+"Mandelbrot" = "Mandelbrot";
+
+/* nothing */
+"Julia" = "Julia";
+
+/* nothing */
+"Formula:%s" = "Formula:";
+
+/* nothing */
+"View:[%1.12f,%1.12f]" = "Vedere:[%1.12f,%1.12f]";
+
+/* nothing */
+"size:[%1.12f,%1.12f]" = "Dimensiune:[%1.12f,%1.12f]";
+
+/* nothing */
+"Rotation:%4.2f   Screen size:%i:%i" = "Rotatie:%4.2f     Dimensiunea ecranului:%i:%i";
+
+/* nothing */
+"Iterations:%-4i Palette size:%i" = "Iteratii:%-4i  Dimensiunea paletei:%i";
+
+/* nothing */
+"Autopilot:%-4s  Plane:%s" = "Pilot automat:%-4s    Plan:%s";
+
+/* nothing */
+"On" = "Pornit";
+
+/* nothing */
+"Off" = "Oprit";
+
+/* nothing */
+"incoloring:%s    outcoloring:%s" = "Culoare interioara:%s  Culoare exterioara:%s";
+
+/* nothing */
+"zoomspeed:%f" = "viteza de marire (zoomspeed):%f";
+
+/* nothing */
+"Parameter:none" = "Parametri:nici unul";
+
+/* nothing */
+"Parameter:[%f,%f]" = "Parametri:[%f,%f]";
+
+/* nothing */
+"Please wait while calculating %s" = "Asteptati va rog, fractalul %s se calculeaza ";
+
+/* nothing */
+"Letters per second %i  " = "Litere pe secunda: %i  ";
+
+/* nothing */
+"Rotation speed:%2.2f degrees per second " = "Viteza de rotatie:%2.2f grade pe secunda ";
+
+/* nothing */
+"Iterations: %i   " = "Iteratii: %i   ";
+
+/* nothing */
+"Cycling speed: %i   " = "Viteaza de ciclare: %i   ";
+
+/* nothing */
+"speed:%2.2f " = "Viteza:%2.2f ";
+
+/* nothing */
+"Thank you for using XaoS\n" = "Va multumim ca ati folosit XaoS\n";
+
+/* nothing */
+"Skipping, please wait..." = "Se omite, va rugam asteptati...";
+
+/* nothing */
+"Resize" = "Redimensionare";
+
+/* nothing */
+"Quit" = "Terminare";
+
+/* nothing */
+"Exit now" = "Iesire acum";
+
+/* nothing */
+"Not yet" = "Inca nu";
+
+/* nothing */
+"Help" = "Ajutor";
+
+/* nothing */
+"Disable XaoS's builtin GUI" = "Dezactivare GUI implementat in XaoS";
+
+/* nothing */
+"Status" = "Status";
+
+/* nothing */
+"Ministatus" = "Ministatus";
+
+/* nothing */
+"Driver" = "Driver";
+
+/* nothing */
+"Welcome to XaoS version %s" = "Bine ati venit la XaoS Versiunea %s";
+
+/* nothing */
+"Can not allocate buffers" = "Nu se pot aloca bufferele";
+
+/* nothing */
+"Can not create palette" = "Nu se poate crea paleta";
+
+/* nothing */
+"Can not create image" = "Nu se poate crea imaginea";
+
+/* nothing */
+"Can not allocate tables" = "Nu se pot aloca tabelele";
+
+/* nothing */
+"Can not initialize driver" = "Nu se poate initializa driverul";
+
+/* nothing */
+"Can not return back to previous driver" = "Nu se poate intoarce la driverul precedent";
+
+/* nothing */
+"Perturbation:" = "Perturbare:";
+
+/* nothing */
+"Julia-seed:" = "Julia-samanta(valoare initiala):";
+
+/* nothing */
+"Morphing type:" = "Tipul de morphing:";
+
+/* nothing */
+"Startuptime:" = "Timp de pornire:";
+
+/* nothing */
+"Stoptime:" = "Timp de oprire:";
+
+/* nothing */
+"File to render:" = "Fisierul de procesat:";
+
+/* nothing */
+"Basename:" = "Nume de baza:";
+
+/* nothing */
+"Width:" = "Latime:";
+
+/* nothing */
+"Height:" = "Inaltime:";
+
+/* nothing */
+"Real width (cm):" = "Latime reala (cm):";
+
+/* nothing */
+"Real height (cm):" = "Inaltime reala (cm):";
+
+/* nothing */
+"Framerate:" = "Frecventa cadrelor:";
+
+/* nothing */
+"Image type:" = "Tipul imaginii:";
+
+/* nothing */
+"Antialiasing:" = "Antialiasing:";
+
+/* nothing */
+"Always recalculate:" = "Intotdeauna recalculeaza:";
+
+/* nothing */
+"Calculate MPEG motion vectors:" = "Calculeaza vectorii de miscare MPEG:";
+
+/* nothing */
+"Recommended I frame distance:" = "Distanta I-Frame recomandata:";
+
+/* nothing */
+"Center:" = "Centru:";
+
+/* nothing */
+"Radius:" = "Raza:";
+
+/* nothing */
+"Angle:" = "Unghi:";
+
+/* nothing */
+"Mode:" = "Mod:";
+
+/* nothing */
+"Start:" = "Start:";
+
+/* nothing */
+"End:" = "sfarsit:";
+
+/* nothing */
+"Color:" = "Culoare:";
+
+/* nothing */
+"Rotations per second:" = "Rotatii pe secunda:";
+
+/* nothing */
+"Letters per second:" = "Litere pe secunda:";
+
+/* nothing */
+"Iterations:" = "Iteratii:";
+
+/* nothing */
+"Text:" = "Text:";
+
+/* nothing */
+"Your command:" = "Comanda dumneavoastra:";
+
+/* nothing */
+"Filename:" = "Numele fisierului:";
+
+/* nothing */
+"Formula:" = "Formula:";
+
+/* nothing */
+"X center:" = "X-centru:";
+
+/* nothing */
+"Y center:" = "Y-centru:";
+
+/* nothing */
+"X Radius:" = "X-Raza:";
+
+/* nothing */
+"Y Radius:" = "Y-Raza:";
+
+/* nothing */
+"Coordinates:" = "Coordonate:";
+
+/* nothing */
+"continuous rotation" = "Rotatie continua";
+
+/* nothing */
+"Fast rotation" = "Rotatie rapida";
+
+/* nothing */
+"filter" = "Filtru";
+
+/* nothing */
+"enable" = "activare";
+
+/* nothing */
+"Amount:" = "Cantitate:";
+
+/* nothing */
+"Zooming speed:" = "Viteza de marire (zoom):";
+
+/* nothing */
+"Name:" = "Nume:";
+
+/* nothing */
+"Bailout:" = "Bailout (valoare de salvare):";
+
+/* nothing */
+"Julia mode:" = "Mod Julia:";
+
+/* nothing */
+"Horizontal position:" = "Pozitia orizontala:";
+
+/* nothing */
+"Vertical position:" = "Pozitia verticala:";
+
+/* nothing */
+"Dynamic resolution:" = "Rezolutie dinamica :";
+
+/* nothing */
+"Time:" = "Timp:";
+
+/* nothing */
+"Number:" = "Numar:";
+
+/* nothing */
+"Algorithm number:" = "Numarul algoritmului:";
+
+/* nothing */
+"Seed:" = "Samanta (valoare initiala):";
+
+/* nothing */
+"Shift:" = "Deplasare:";
+
+/* nothing */
+"Frames per second:" = "Cadre pe secunda:";
+
+/* nothing */
+"Initialization:" = "Initializare";
+
+/* nothing */
+"renderanim: Must specify a valid absolute path for basename" = "";
+
+/* nothing */
+"renderanim: Width parameter must be positive integer in the range 0..4096" = "procesarea animatiei: Latimea trebuie sa fie o valoare pozitva, intreaga intre 0 si 4096";
+
+/* nothing */
+"renderanim: Height parameter must be positive integer in the range 0..4096" = "procesarea animatiei: Inaltimea trebuie sa fie o valoare pozitva, intreaga intre 0 si 4096";
+
+/* nothing */
+"renderanim: Invalid real width and height dimensions" = "procesarea animatiei: latime si inaltime reala incorecte";
+
+/* nothing */
+"renderanim: invalid framerate" = "procesarea animatiei: frecventa cadrelor incorecta";
+
+/* nothing */
+"renderanim: antialiasing not supported in 256 color mode" = "procesarea animatiei: Antialiasing nicht unterstĂźtzt im 256-Farben-Modus";
+
+/* nothing */
+"renderanim: incorrect I frame distance" = "procesarea animatiei: Distanta I-Frame incorecta";
+
+/* nothing */
+"animateview: Invalid viewpoint" = "vederea animatiei: punct de vedere incorect";
+
+/* nothing */
+"Invalid viewpoint" = "Punct de vedere incorect";
+
+/* nothing */
+"Unknown palette type" = "Tip de paleta necunoscut";
+
+/* nothing */
+"Initialization of color cycling failed." = "Initializare ciclarii culorilor a esuat";
+
+/* nothing */
+"Try to enable palette emulation filter" = "Incercare de activare a filtrului de emulare a paletei";
+
+/* nothing */
+"Algorithm:%i seed:%i size:%i" = "Algoritm:%i Valoare initiala:%i dimensiune:%i";
+
+/* nothing */
+"Root menu" = "Meniu principal";
+
+/* nothing */
+"Animation root menu" = "Meniu principal pentru animatii";
+
+/* nothing */
+"Replay only commands" = "Comenzi numai pentru redare";
+
+/* nothing */
+"Command line options only" = "Numai optiuni de la linia de comanda";
+
+/* nothing */
+"print menus specifications of all menus" = "tipareste specificatiile de meniu pentru toate meniurile";
+
+/* nothing */
+"print menu specification" = "tipareste specificatiile meniului";
+
+/* nothing */
+"print menu specification in xshl format" = "tipareste specificatiile meniului in format xshl";
+
+/* nothing */
+"print all menu specifications in xshl format" = "tipareste toate specificatiile meniului in format xshl";
+
+/* nothing */
+"print dialog specification" = "tipareste specificatiile dialogului";
+
+/* nothing */
+"Line drawing functions" = "Functii pentru desenarea liniilor";
+
+/* nothing */
+"Line" = "Linie";
+
+/* nothing */
+"Morph line" = "Linie Morph";
+
+/* nothing */
+"Morph last line" = "Ultima linie Morph";
+
+/* nothing */
+"Set line key" = "Seteaza cheia liniei";
+
+/* nothing */
+"Clear line" = "Sterge linia";
+
+/* nothing */
+"Clear all lines" = "sterge toate liniile";
+
+/* nothing */
+"Animation functions" = "Functii pentru animatii";
+
+/* nothing */
+"View" = "Vedere";
+
+/* nothing */
+"Morph view" = "vedere Morph";
+
+/* nothing */
+"Morph julia" = "Morph Julia";
+
+/* nothing */
+"Move view" = "Deplaseaza vederea";
+
+/* nothing */
+"Morph angle" = "Unghiul de Morph";
+
+/* nothing */
+"Zoom center" = "Centrul maririi (zoom) ";
+
+/* nothing */
+"Zoom" = "Marire (Zoom)";
+
+/* nothing */
+"Un-zoom" = "Un-zoom";
+
+/* nothing */
+"Stop zooming" = "Opreste marirea(zoom)";
+
+/* nothing */
+"Smooth morphing parameters" = "Parametrul de morphing neted";
+
+/* nothing */
+"Timing functions" = "Functii de timp";
+
+/* nothing */
+"Usleep" = "Usleep";
+
+/* nothing */
+"Wait for text" = "Asteapta textul";
+
+/* nothing */
+"Wait for complete image" = "Asteapta imaginea completa";
+
+/* nothing */
+"Include file" = "Include fisierul";
+
+/* nothing */
+"Default palette" = "Paleta implicita";
+
+/* nothing */
+"Formula" = "Formula";
+
+/* nothing */
+"Maximal zooming step" = "Pasul maxim de marire (zoom)";
+
+/* nothing */
+"Zooming speedup" = "Cresterea vitezei de marire (zoom)";
+
+/* nothing */
+"Filter" = "Filru";
+
+/* nothing */
+"Letters per second" = "Litere pe secunda";
+
+/* nothing */
+"Interrupt" = "Intrerupe";
+
+/* nothing */
+"File" = "Fisier ÂşfirsĂŁt";
+
+/* nothing */
+"Edit" = "Editare";
+
+/* nothing */
+"Fractal" = "Fractal";
+
+/* nothing */
+"Calculation" = "Calculare";
+
+/* nothing */
+"Filters" = "Filtre";
+
+/* nothing */
+"UI" = "Interfata utilizator (UI)";
+
+/* nothing */
+"Misc" = "Extra";
+
+/* nothing */
+"Window" = "Refa";
+
+/* nothing */
+"Tutorials" = "Tutoriale";
+
+/* nothing */
+"Stop replay" = "Opreste redarea";
+
+/* nothing */
+"Command" = "Comanda";
+
+/* nothing */
+"Play string" = "Arata sirul";
+
+/* nothing */
+"Render animation" = "Proceseaza animatia";
+
+/* nothing */
+"Clear screen" = "Sterge ecranul";
+
+/* nothing */
+"Display fractal" = "Arata fractalul";
+
+/* nothing */
+"Display text" = "Arata textul";
+
+/* nothing */
+"Color" = "Culoare:";
+
+/* nothing */
+"Horizontal text position" = "Pozitia textului orizontal";
+
+/* nothing */
+"Vertical text position" = "Pozitia textului vertical";
+
+/* nothing */
+"Text position" = "Pozitiile textului";
+
+/* nothing */
+"Message" = "Mesaj";
+
+/* nothing */
+"Load" = "Incarca";
+
+/* nothing */
+"Save" = "Salveaza";
+
+/* nothing */
+"Record" = "Inregistreaza";
+
+/* nothing */
+"Replay" = "Reda";
+
+/* nothing */
+"Save image" = "Salveaza imaginea";
+
+/* nothing */
+"Load random example" = "Incarca un exemplu aleator";
+
+/* nothing */
+"Save configuration" = "Salveaza configuratia";
+
+/* nothing */
+"Undo" = "Refa";
+
+/* nothing */
+"Redo" = "Fa inapoi";
+
+/* nothing */
+"Formulae" = "Formule";
+
+/* nothing */
+"More formulae" = "Alte formule";
+
+/* nothing */
+"User formula" = "Alte formule";
+
+/* nothing */
+"User initialization" = "Initializare";
+
+/* nothing */
+"Incoloring mode" = "Mod de colorare interioara";
+
+/* nothing */
+"Outcoloring mode" = "Mod de colorare exterioara";
+
+/* nothing */
+"Plane" = "Plan";
+
+/* nothing */
+"Palette" = "Redare (paste)";
+
+/* nothing */
+"Mandelbrot mode" = "Modul Mandelbrot";
+
+/* nothing */
+"Perturbation" = "Perturbare";
+
+/* nothing */
+"Reset to defaults" = "Inapoi la setarile implicite";
+
+/* nothing */
+"Julia mode" = "Modul Julia";
+
+/* nothing */
+"Set angle" = "Seteaza unghiul";
+
+/* nothing */
+"Set plane" = "Seteaza planul";
+
+/* nothing */
+"Inside coloring mode" = "Modul de colorare interioara";
+
+/* nothing */
+"Outside coloring mode" = "Modul de colorare exterioara";
+
+/* nothing */
+"Inside truecolor coloring mode" = "Modul de colorare interioara true-color";
+
+/* nothing */
+"Outside truecolor coloring mode" = "Modul de colorare exterioara true-color";
+
+/* nothing */
+"Julia seed" = "Samanta (valoare initiala) Julia";
+
+/* nothing */
+"Random palette" = "Paleta aleatoare";
+
+/* nothing */
+"Custom palette" = "Paleta obisnuita";
+
+/* nothing */
+"Color cycling" = "Ciclarea culorilor";
+
+/* nothing */
+"Reversed color cycling" = "Ciclare inversata a culorilor ";
+
+/* nothing */
+"Color cycling speed" = "Viteza de ciclare a culorilor";
+
+/* nothing */
+"Shift palette" = "Deplaseaza paleta";
+
+/* nothing */
+"Shift one forward" = "Deplaseaza cu un pas inainte";
+
+/* nothing */
+"Shift one backward" = "Deplaseaza cu un pas inapoi";
+
+/* nothing */
+"Solid guessing" = "Solid-Guessing";
+
+/* nothing */
+"Dynamic resolution" = "Rezolutie dinamica";
+
+/* nothing */
+"Periodicity checking" = "Verificarea periodicitatii";
+
+/* nothing */
+"Iterations" = "Iteratii";
+
+/* nothing */
+"Bailout" = "Valoare de salvare (bailout)";
+
+/* nothing */
+"Fast julia mode" = "Modul Julia rapid";
+
+/* nothing */
+"Rotation" = "Rotatie";
+
+/* nothing */
+"Solid guessing range" = "Intrevalul Solid-Guessing";
+
+/* nothing */
+"Disable rotation" = "Dezactiveaza rotatia";
+
+/* nothing */
+"Continuous rotation" = "Rotatie continua";
+
+/* nothing */
+"Rotate by mouse" = "Roteste cu mouse-ul";
+
+/* nothing */
+"Rotation speed" = "Viteza de rotatie";
+
+/* nothing */
+"Automatic rotation" = "Rotatie automata";
+
+/* nothing */
+"Fast rotation mode" = "Modul rapid de rotatie";
+
+/* nothing */
+"Disable dynamic resolution" = "Dezactiveaza rezolutia dinamica";
+
+/* nothing */
+"Use only during animation" = "A se folosi numai in timpul animatiilor";
+
+/* nothing */
+"Use also for new images" = "A se folosi si pentru imagini noi";
+
+/* nothing */
+"Dynamic resolution mode" = "Modul de rezolutie dinamica";
+
+/* nothing */
+"Autopilot" = "Pilot automat";
+
+/* nothing */
+"VJ mode" = "Modul Julia";
+
+/* nothing */
+"Recalculate" = "Recalulare";
+
+/* nothing */
+"Zooming speed" = "Viteza de marire (zoom)";
+
+/* nothing */
+"Fixed step" = "Pas fixat";
+
+/* nothing */
+"Disable solid guessing" = "Dezactiveaza solid-guessing";
+
+/* nothing */
+"Guess 2x2 rectangles" = "Guess 2x2 dreptunghiuri";
+
+/* nothing */
+"Guess 3x3 rectangles" = "Guess 3x3 dreptunghiuri";
+
+/* nothing */
+"Guess 4x4 rectangles" = "Guess 4x4 dreptunghiuri";
+
+/* nothing */
+"Guess 5x5 rectangles" = "Guess 5x5 dreptunghiuri";
+
+/* nothing */
+"Guess 6x6 rectangles" = "Guess 6x6 dreptunghiuri";
+
+/* nothing */
+"Guess 7x7 rectangles" = "Guess 7x7 dreptunghiuri";
+
+/* nothing */
+"Guess 8x8 rectangles" = "Guess 8x8 dreptunghiuri";
+
+/* nothing */
+"Guess unlimited rectangles" = "Guess un numar nelimitat de dreptunghiuri";
+
+/* nothing */
+"Language" = "Limba";
+
+/* nothing */
+"An introduction to fractals" = "Fractali - O introducere";
+
+/* nothing */
+"XaoS features overview" = "XaoS - Eine Ăbersicht";
+
+/* nothing */
+"Math behind fractals" = "Matematica de la baza fractalilor";
+
+/* nothing */
+"Other fractal types in XaoS" = "Alte tipuri de fractali in XaoS";
+
+/* nothing */
+"What's new?" = "Ce este nou?";
+
+/* nothing */
+"Whole story" = "Toata povestea";
+
+/* nothing */
+"Introduction" = "Introducere";
+
+/* nothing */
+"Mandelbrot set" = "Multimea Mandelbrot";
+
+/* nothing */
+"Julia set" = "Multimea Julia";
+
+/* nothing */
+"Higher power Mandelbrots" = "Multimi Mandelbrot de ordin superior";
+
+/* nothing */
+"Newton's method" = "Metoda lui Newton";
+
+/* nothing */
+"Barnsley's formula" = "Formula lui Barnsley";
+
+/* nothing */
+"Phoenix" = "Phoenix";
+
+/* nothing */
+"Octo" = "Octo";
+
+/* nothing */
+"Magnet" = "Magnet";
+
+/* nothing */
+"All features" = "Toate Features";
+
+/* nothing */
+"Outcoloring modes" = "Moduri de colorare exterioara";
+
+/* nothing */
+"Incoloring modes" = "Moduri de colorare interioara";
+
+/* nothing */
+"True-color coloring modes" = "Moduri de colorare true-color";
+
+/* nothing */
+"Planes" = "Planuri";
+
+/* nothing */
+"Animations and position files" = "Fisierele de animatii si pozitie";
+
+/* nothing */
+"Random palettes" = "Palete aleatoare";
+
+/* nothing */
+"Other noteworthy features" = "Alte detalii (features) remarcabile";
+
+/* nothing */
+"The definition and fractal dimension" = "Definitia si dimensiunea fractalului";
+
+/* nothing */
+"Escape time fractals" = "Fractali escape-time";
+
+/* nothing */
+"Triceratops and Catseye fractals" = "Fractalii Triceratops si Catseye (ochi de pisica)";
+
+/* nothing */
+"Mandelbar, Lambda, Manowar and Spider" = "Mandelbar, Lambda, Manowar si Spider";
+
+/* nothing */
+"Sierpinski Gasket, S.Carpet, Koch Snowflake" = "Sierpinski Gasket, S.Carpet, Koch Snowflake (fulgul de zapada al lui Koch)";
+
+/* nothing */
+"What's new in 3.0?" = "Ce este nou in versiunea 3.0?";
+
+/* nothing */
+"line available only in animation replay" = "Linie disponibila numai in animation replay";
+
+/* nothing */
+"Morphing non existing line!" = "Morphing o linie inexistenta!";
+
+/* nothing */
+"linekey not available in this context!" = "Cheia liniei nu este disponibila in acest context!";
+
+/* nothing */
+"clear_line available only in animation replay" = "Stergerea_liniei (clear_line) disponibila numai in animation replay";
+
+/* nothing */
+"clear_lines available only in animation replay" = "Stergerea_liniilor (clear_lines) disponibila numai in animation replay";
+
+/* nothing */
+"Catalog file not found" = "Nu s-a gasit fisierul catalog";
+
+/* nothing */
+"Replay is already active" = "Replay este deja activ";
+
+/* nothing */
+"File open failed" = "Fiserul nu a putut fi deschis";
+
+/* nothing */
+"Out of memory" = "Memorie insuficienta";
+
+/* nothing */
+"Missing parameter" = "Parametru lipsa";
+
+/* nothing */
+"Unexpected end of file" = "Sfarsit de fisier neasteptat";
+
+/* nothing */
+"Token is too long" = "Token-ul este prea lung";
+
+/* nothing */
+"Unknown formula type" = "Tip de formula necunoscut";
+
+/* nothing */
+"morph available only in animation replay" = "Morph disponibil numai in animation replay";
+
+/* nothing */
+"morphview: Invalid viewpoint" = "vederea Morph (morphview): Punct de vedere eronat";
+
+/* nothing */
+"move available only in animation replay" = "Deplasare dispnibila numai in animation replay";
+
+/* nothing */
+"morphjulia available only in animation replay" = "Morphjulia dispnibila numai in animation replay";
+
+/* nothing */
+"morphangle available only in animation replay" = "Unghiul de Morph dispnibil numai in animation replay";
+
+/* nothing */
+"Unknown filter" = "Filtru necunoscut";
+
+/* nothing */
+"sleep available only in animation replay" = "Pause (sleep) disponibila numai in animation replay";
+
+/* nothing */
+"Internal program error #12 %i\n" = "Eroare interna #12 %i\n";
+
+/* nothing */
+"wait available only in animation replay" = "Asteptare(wait) disponibil numi in animation replay";
+
+/* nothing */
+"No catalog file loaded" = "Nu s-a incarcat fisierul catalog";
+
+/* nothing */
+"Message not found in catalog file" = "Mesajul nu a fost gasit in fisierul catalog";
+
+/* nothing */
+"load available only in animation replay" = "Incarcare (load) disponibila numai in animation replay";
+
+/* nothing */
+"Include level overflow" = "Zu viele Dateien ineinander einbezogen";
+
+/* nothing */
+"File not found" = "Nu s-a gasit fisierul";
+
+/* nothing */
+"Too many parameters" = "Prea multi parametri";
+
+/* nothing */
+"Replay disabled at line %i" = "Replay dezactivat pe linia %i";
+
+/* nothing */
+"Tutorial files not found. Reinstall XaoS" = "Fisierele cu tutoriale nu au fost gasite. Reinstalati XaoS";
+
+/* nothing */
+"Preparing first image" = "Se pregateste prima imagine";
+
+/* nothing */
+"Could not open examples" = "Exemplele nu s-au putut deschide";
+
+/* nothing */
+"File %s loaded." = "S-a incarcat fisierul %s.";
+
+/* nothing */
+"Saving image..." = "Imginea se salveaza...";
+
+/* nothing */
+"Save interrupted" = "Salvare intrerupta";
+
+/* nothing */
+"File %s saved." = "Fisierul %s salvat.";
+
+/* nothing */
+"Can not open file" = "Nu se poate deschide fisierul";
+
+/* nothing */
+"Recording to file %s enabled." = "S-a activat inregistrearea in fisierul %s ";
+
+/* nothing */
+"Solid guessing 1" = "Solid-Guessing 1";
+
+/* nothing */
+"Boundary trace" = "Boundary-Trace";
+
+/* nothing */
+"OK" = "OK";
+
+/* nothing */
+"Cancel" = "Anulare";
+
+/* nothing */
+"Error: %s" = "Eroare: %s";
+
+/* nothing */
+"Cannot open motion vector file!" = "Nu se poate deschide fisierul cu vectorii de miscare!";
+
+/* nothing */
+"Vectors: %i" = "Vectori: %i";
+
+/* nothing */
+"Initializing" = "Initializare";
+
+/* nothing */
+"Cannot create palette" = "Nu se poate crea paleta";
+
+/* nothing */
+"Cannot create image\n" = "Nu se poate crea imaginea\n";
+
+/* nothing */
+"Cannot create checking buffer!" = "Nu se poate crea bufferul de control!";
+
+/* nothing */
+"Cannot create context\n" = "Nu se poate crea contextul\n";
+
+/* nothing */
+"Cannot open animation file\n" = "Nu se poate deschide fisierul cu animatii\n";
+
+/* nothing */
+"Loading catalogs" = "Cataloagele se incarca";
+
+/* nothing */
+"Processing command line options" = "Se prelucreaza optiunile de la linia de comanda";
+
+/* nothing */
+"Enabling animation replay\n" = "Se activeaza animation replay\n";
+
+/* nothing */
+"Cannot open image file" = "Nu se poate deschide fisierul cu imaginea";
+
+/* nothing */
+"Cannot open pattern file" = "Nu se poate deschide fiserul de sabloane";
+
+/* nothing */
+"Entering calculation loop!" = "Intrare in bucla de calcul!";
+
+/* nothing */
+"Frame %i skipped." = "cadrul %i a fost omis.";
+
+/* nothing */
+"Frames %i - %i skipped." = "S-au omis cadrele %i - %i.";
+
+/* nothing */
+"Frame %4i: " = "Cadru %4i: ";
+
+/* nothing */
+" done." = " terminat.";
+
+/* nothing */
+" skipping..." = " se omite...";
+
+/* nothing */
+"Calculation interrupted" = "Calculare intrerupta";
+
+/* nothing */
+"Calculation finished" = "Calculare terminata";
+
+/* nothing */
+"Copy" = "Copiere";
+
+/* nothing */
+"Paste" = "Redare (paste)";
+
+/* nothing */
+"About" = "Despre";
+
+/* nothing */
+"About XaoS" = "Despre";
+
+/* nothing */
+"Services" = "";
+
+/* nothing */
+"Hide XaoS" = "";
+
+/* nothing */
+"Hide Others" = "";
+
+/* nothing */
+"Show All" = "";
+
+/* nothing */
+"Quit XaoS" = "Terminare";
+
+/* nothing */
+"Cut" = "";
+
+/* nothing */
+"Delete" = "Paleta";
+
+/* nothing */
+"Select All" = "";
+
+/* nothing */
+"Minimize" = "";
+
+/* nothing */
+"Bring All to Front" = "";
+
+/* nothing */
+"Close" = "Culoare";
+
+/* nothing */
+"Videator Output" = "";
+
+/* nothing */
+"Choose" = "";
+
