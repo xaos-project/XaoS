@@ -933,6 +933,7 @@ static /*INLINE */ void preparemoveoldpoints(void)
 }
 
 #ifndef USE_i386ASM
+REGISTERS(0)
 static /*INLINE */ void
 moveoldpoints(void /*@unused@ */ *data1,
 	      struct taskinfo /*@unused@ */ *task,

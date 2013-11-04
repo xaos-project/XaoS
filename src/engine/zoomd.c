@@ -26,6 +26,7 @@
  *
  */
 static void calcline(realloc_t * RESTRICT ry) REGISTERS(3);
+
 REGISTERS(3)
 static void calcline(realloc_t * RESTRICT ry)
 {
@@ -280,6 +281,7 @@ dosymetry2(void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
 #endif
 #undef bpp1
 
+REGISTERS(0)
 static INLINE void fillline(int line)
 {
     register unsigned char *RESTRICT vbuff = cimage.currlines[line];
