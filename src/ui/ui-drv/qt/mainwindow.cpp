@@ -4,7 +4,7 @@
 
 #include "ui.h"
 
-#include <QtGui>
+#include <QtWidgets>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -133,7 +133,7 @@ void MainWindow::toggleMenu(struct uih_context *uih, const char *name)
 void MainWindow::activateMenuItem()
 {
     QAction *action = qobject_cast<QAction *>(sender());
-    const menuitem *item = menu_findcommand(action->objectName().toAscii());
+    const menuitem *item = menu_findcommand(action->objectName().toLatin1());
     ui_menuactivate(item, NULL);
 }
 

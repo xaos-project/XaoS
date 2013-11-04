@@ -1,4 +1,4 @@
-#include <QtGui>
+#include <QtWidgets>
 
 
 #include "customdialog.h"
@@ -154,7 +154,7 @@ void CustomDialog::chooseInputFile()
     QLineEdit *field = findChild<QLineEdit *>(sender()->objectName());
 
     QString filter = "XaoS Files (*.xpf *.xaf)";
-    QString directory = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+    QString directory = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
     QString fileName = QFileDialog::getOpenFileName(this, sender()->objectName(), directory, filter);
     if (!fileName.isNull())
@@ -166,7 +166,7 @@ void CustomDialog::chooseInputFile()
 void CustomDialog::chooseOutputFile()
 {
     QLineEdit *field = findChild<QLineEdit *>(sender()->objectName());
-    QString directory = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+    QString directory = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 
     QString fileName = QFileDialog::getSaveFileName(this, sender()->objectName(), directory);
     if (!fileName.isNull())

@@ -91,7 +91,7 @@ void FractalWidget::keyPressEvent(QKeyEvent *event)
         break;
     default:
         if (!event->text().isEmpty())
-            ui_key(event->text().toAscii()[0]);
+            ui_key(event->text().toLatin1()[0]);
         else
             event->ignore();
     }
