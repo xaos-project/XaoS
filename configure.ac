@@ -10,8 +10,6 @@ AC_CANONICAL_HOST
 #esac
 
 AC_PROG_CC
-AX_COMPILER_VENDOR
-AX_CC_MAXOPT
 
 dnl
 dnl GNU gettext related things
@@ -19,6 +17,7 @@ dnl
 
 AM_ICONV
 AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION(0.18.1)
 ALL_LINGUAS="cs es hu fr de ro it pt"
 if test "x$USE_NLS" = xyes; then
   AC_PATH_PROG([MSGMERGE], [msgmerge], , [$PATH:../bin])
@@ -177,7 +176,7 @@ if test  "$win32_driver_test" = yes; then
   esac
 fi
 
-
+AH_TEMPLATE(USE_PTHREAD, [Define to use posix threads])
 if test x$pthread = xtest; then
   AC_CHECK_FUNCS(pthread_create)
   if test "x$ac_cv_func_pthread_create" = xyes; then
@@ -281,6 +280,7 @@ test "x$prefix" = xNONE && prefix=$ac_default_prefix
 eval datadir2=$datadir
 eval datadir3=$datadir2
 # This is a madness! eval can evaluate only one level of variable...
+AH_TEMPLATE(DATAPATH, [Define path to XaoS data files])
 AC_DEFINE_UNQUOTED(DATAPATH,"${datadir3}/XaoS")
 
 AC_CHECK_SIZEOF(short)
@@ -297,6 +297,7 @@ dnl AC_FUNC_VPRINTF
 
 AC_CHECK_LIB(m, pow)
 
+AH_TEMPLATE(USE_PNG, [Define to use libpng for image saving])
 if test $png = yes; then
   AC_CHECK_LIB(z, inflate)
   if test x"$ac_cv_lib_z_inflate" = xno; then
@@ -316,6 +317,8 @@ fi
 AC_FUNC_ALLOCA
 AC_CHECK_FUNCS([ftime getcwd gettimeofday memchr memmove memset pow select setlocale sqrt strdup strerror strstr sleep setitimer ftime finite fabsl _fabsl __fabsl])
 
+AH_TEMPLATE(HAVE_MITSHM_H, [Define if mitshm.h is present])
+AH_TEMPLATE(HAVE_IPC_H, [Define if ipc.h is present])
 if test  "$x_driver_test" = yes; then
 dnl X checks
 if test "x$no_x" = x; then 
@@ -345,15 +348,18 @@ if test  "$gtk_driver_test" = yes; then
   AC_SUBST(DEPS_LIBS)
 fi
 
+AH_TEMPLATE(NO_MALLOC_H, [Define on systems without malloc.h])
 if test "$ac_cv_header_malloc_h" = "no"; then
  AC_DEFINE(NO_MALLOC_H)
 fi
 
+AH_TEMPLATE(HTML_HELP, [Define to use Microsoft HTML Help Library])
 if test "$ac_cv_header_htmlhelp_h" = "yes"; then
  AC_DEFINE(HTML_HELP)
  LIBS="$LIBS -lhtmlhelp"
 fi
 
+AH_TEMPLATE(DDRAW_DRIVER, [Define to compile DirectDraw driver])
 if test "$ac_cv_header_ddraw_h" = "yes"; then
  AC_DEFINE(DDRAW_DRIVER)
 fi
@@ -362,6 +368,7 @@ fi
 echo "------------------------------------------------------------"
 echo "Available drivers:"
 drivers=no
+AH_TEMPLATE(AA_DRIVER, [Define to build aalib driver])
 if test "$aa_driver_test" = yes; then
 if test "x$aa_driver" = xtrue; then
   drivers=yes
@@ -372,6 +379,7 @@ if test "x$aa_driver" = xtrue; then
 fi
 fi
 
+AH_TEMPLATE(GTK_DRIVER, [Define to build GTK+ driver])
 if test "$gtk_driver_test" = yes; then
 if test "x$gtk_driver" = xtrue; then
   drivers=yes
@@ -384,6 +392,8 @@ if test "x$gtk_driver" = xtrue; then
 fi
 fi
 
+AH_TEMPLATE(X11_DRIVER, [Define to build X11 driver])
+AH_TEMPLATE(MITSHM, [Define to use MIT shared memory extensions])
 if test  "$x_driver_test" = yes; then
 if test "x$no_x" = x; then 
   drivers=yes
@@ -404,6 +414,7 @@ if test "x$no_x" = x; then
 fi
 fi
 
+AH_TEMPLATE(WIN32_DRIVER, [Define to build Windows driver])
 if test  "$win32_driver" = yes; then
   drivers=yes
   AC_DEFINE(WIN32_DRIVER)
