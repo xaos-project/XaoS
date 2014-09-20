@@ -606,14 +606,14 @@ uih_renderimage(struct uih_context *gc1, xio_file af,
 	printmsg(gettext("Loading catalogs"));
 	uih_loadcatalog(uih, "english");
 	if (uih->errstring) {
-	    fprintf(stderr, uih->errstring);
+	    fprintf(stderr, "%s", uih->errstring);
 	    uih_clearmessages(uih);
 	    uih->errstring = NULL;
 	}
 	if (catalog != NULL)
 	    uih_loadcatalog(uih, catalog);
 	if (uih->errstring) {
-	    fprintf(stderr, uih->errstring);
+	    fprintf(stderr, "%s", uih->errstring);
 	    uih_clearmessages(uih);
 	    uih->errstring = NULL;
 	}

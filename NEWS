@@ -318,7 +318,7 @@ This release is a CVS snapshot freeze for those who are using newer
 systems. The most important update is a fix for gcc-3.4. There are also
 
 - improvements in French and Spanish translations,
-- some more example files (contributed by Zsigmond Kov·cs),
+- some more example files (contributed by Zsigmond Kov√°cs),
 - some fixes which patch annoying problems.
 
 For other issues please read the ChangeLog file.
