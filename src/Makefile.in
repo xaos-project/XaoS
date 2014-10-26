@@ -31,7 +31,7 @@ all default: $(PROG) internationalization
 @LIBPATH@:
 	mkdir $@
 
-libs:
+libs: include/config.h
 	@for name in $(DIRS) ; do sh -c "cd $$name ; $(MAKE) all"; done
 
 $(PROG): @BINPATH@ @LIBPATH@ include/config.h libs
