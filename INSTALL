@@ -157,29 +157,7 @@ that are not relevant to those features.
 
 To compile XaoS, you need:
 
-   MinGW from http://sourceforge.net/projects/mingw/
-
-Download the latest version of mingw-get-inst. 
-
-In addition to the packages provided by MinGW you will need some additional
-packages to support optional features.
-
-To build with DirectX support you need:
-
- * DirectX SDK from http://msdn.microsoft.com/en-us/directx/aa937788.aspx
-
-To build with online help support you need:
-
- * HTML Help SDK from 
-                http://msdn.microsoft.com/en-us/library/ms670169(VS.85).aspx
-
-To compile XaoS with support for saving images you need:
-
- * libpng binaries from http://www.libpng.org/pub/png/libpng.html
-
-To support user-defined formulas, you need ONE of the following:
-
- * nasm from http://www.nasm.us/
+   MSYS2 from https://www.msys2.org/
 
 To build the XaoS installer you need:
 
@@ -189,49 +167,26 @@ To build the XaoS installer you need:
 Preparation
 -----------
 
-Run the mingw-get-inst installer and install at least the C compiler and 
-MinGW Developer Toolkit components.
+Install the latest version of MSYS2 and follow the instructions to update it. 
 
-After installation is complete, launch the MinGW Shell and execute the
-following command to install zlib:
+Start the "MSYS2 MinGW 32-bit" shell and install GCC and XaoS build dependencies:
 
-  mingw-get install libz
+    pacman -S make nasm mingw-w64-i686-gcc mingw-w64-i686-libpng
 
-Extract libpng and change to the libpng directory in the MinGW shell. Execute
-the following command to compile and install libpng:
-
-  ./configure --prefix=/mingw && make && make install
-
-Extract nasm and copy nasm.exe to C:\MinGW\bin.
-
-Install the DirectX SDK, HTML Help SDK and NSIS install system with the default
-options.  
+Optionally install the HTML Help SDK and NSIS install system.
 
 Extract the XaoS source files:
 
  tar xfz XaoS-$VERSION.tar.gz   # replace $VERSION with actual version
 
-Or, check out the latest sources from Subversion:
+Or, check out the latest sources from GitHub:
 
- svn co https://xaos.svn.sourceforge.net/svnroot/xaos/trunk xaos
+ git clone https://github.com/xaos-project/XaoS.git
 
 NOTE: If your Windows username contains spaces, do not extract the sources in
 your home directory.  Instead create a directory called, for example, /build
 and extract them there.
 
-The remaining steps should be performed from the root of the XaoS sources.
-
-Add the contents of cygwin_profile from the tools directory to your profile:
-
- cat tools/cygwin_profile >> $HOME/.bash_profile
-
-Edit the "$HOME/.bash_profile" file and make sure all the *_HOME variables at
-the top point to the correct location where you installed each of the 
-dependencies.  These variables are necessary so that gcc can find the 
-libraries and header files that you installed to various locations on your 
-computer.  You should not have to modify the second half of the file.
-
-Exit and restart Cygwin so the changes to your .bash_profile will take effect.
 
 
 Building XaoS
@@ -247,11 +202,6 @@ configure itself to support whatever features are available.  If you find
 that some feature is missing, please verify that you have installed the
 corresponding dependency and that the installation location is specified
 correctly in your "$HOME/.bash_profile" file.
-
-To build the windows help file go to the help directory and run the following
-command:
-
- make chm
 
 To install XaoS to a staging directory, type the following commands:
 
