@@ -8,6 +8,4 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface XaoSTests : SenTestCase
-
-@end
+@ interface XaoSTests:SenTestCase @ end

@@ -60,4 +60,4 @@
 #include <gccbuild.h>
 #endif
 
-#endif				/* COMPLEX_H */
+#endif /* COMPLEX_H */

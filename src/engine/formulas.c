@@ -36,7 +36,7 @@
  */
 
 // Some help can be read below about line 700. :-)
-   
+
 
 #ifndef _MAC
 #include <aconfig.h>
@@ -53,7 +53,7 @@
 #include <sys/cdefs.h>
 #endif
 #include <stdio.h>
-#endif				/*plan9 */
+#endif /*plan9 */
 #include <archaccel.h>
 #include <config.h>
 #include <complex.h>
@@ -74,7 +74,7 @@
 #ifdef SFFE_USING
 #include "sffe.h"
 
-extern struct uih_context *globaluih;	// to be able to use sffe parser
+extern struct uih_context *globaluih;   // to be able to use sffe parser
 #endif
 
 const char *const incolorname[] = {
@@ -135,7 +135,8 @@ const char *const tcolorname[] = {
 #ifdef __i386__121
 
 /* Use union to be alias-analysis correct.  */
-typedef union {
+typedef union
+{
     unsigned int *i;
     float *f;
 } fpint;
@@ -203,264 +204,222 @@ typedef union {
  */
 
 static INLINE void
-hsv_to_rgb(int h, int s, int v, int *red, int *green, int *blue) /*CONSTF*/;
-static INLINE void
-hsv_to_rgb(int h, int s, int v, int *red, int *green, int *blue)
+hsv_to_rgb (int h, int s, int v, int *red, int *green, int *blue)
+    /*CONSTF*/;
+     static INLINE void hsv_to_rgb (int h, int s, int v, int *red, int *green, int *blue)
 {
     int hue;
     int f, p, q, t;
 
     if (s == 0) {
-	*red = v;
-	*green = v;
-	*blue = v;
+        *red = v;
+        *green = v;
+        *blue = v;
     } else {
-	h %= 256;
-	if (h < 0)
-	    h += 256;
-	hue = h * 6;
+        h %= 256;
+        if (h < 0)
+            h += 256;
+        hue = h * 6;
 
-	f = hue & 255;
-	p = v * (256 - s) / 256;
-	q = v * (256 - (s * f) / 256) >> 8;
-	t = v * (256 * 256 - (s * (256 - f))) >> 16;
+        f = hue & 255;
+        p = v * (256 - s) / 256;
+        q = v * (256 - (s * f) / 256) >> 8;
+        t = v * (256 * 256 - (s * (256 - f))) >> 16;
 
-	switch ((int) (hue / 256)) {
-	case 0:
-	    *red = v;
-	    *green = t;
-	    *blue = p;
-	    break;
-	case 1:
-	    *red = q;
-	    *green = v;
-	    *blue = p;
-	    break;
-	case 2:
-	    *red = p;
-	    *green = v;
-	    *blue = t;
-	    break;
-	case 3:
-	    *red = p;
-	    *green = q;
-	    *blue = v;
-	    break;
-	case 4:
-	    *red = t;
-	    *green = p;
-	    *blue = v;
-	    break;
-	case 5:
-	    *red = v;
-	    *green = p;
-	    *blue = q;
-	    break;
-	}
+        switch ((int) (hue / 256)) {
+            case 0:
+                *red = v;
+                *green = t;
+                *blue = p;
+                break;
+            case 1:
+                *red = q;
+                *green = v;
+                *blue = p;
+                break;
+            case 2:
+                *red = p;
+                *green = v;
+                *blue = t;
+                break;
+            case 3:
+                *red = p;
+                *green = q;
+                *blue = v;
+                break;
+            case 4:
+                *red = t;
+                *green = p;
+                *blue = v;
+                break;
+            case 5:
+                *red = v;
+                *green = p;
+                *blue = q;
+                break;
+        }
     }
 }
 
 static unsigned int
-truecolor_output(number_t zre, number_t zim, number_t pre, number_t pim,
-		 int mode, int inset)
-CONSTF REGISTERS(3);
-REGISTERS(3)
-static unsigned int
-truecolor_output(number_t zre, number_t zim, number_t pre,
-		 number_t pim, int mode, int inset)
+truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim, int mode, int inset)
+     CONSTF REGISTERS (3);
+REGISTERS (3)
+     static unsigned int truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim, int mode, int inset)
 {
     /* WARNING: r and b fields are swapped for HISTORICAL REASONS (BUG :),
      * in other words: use r for blue and b for red. */
     int r = 0, g = 0, b = 0, w = 0;
 
     switch (mode) {
-    case 0:
-	break;
-    case 1:
-	b = (int) ((sin((double) atan2((double) zre, (double) zim) * 20) +
-		    1) * 127);
-	w = (int) ((sin((double) zim / zre)) * 127);
-	r = (int) ((int) (zre * zim));
-	g = (int) ((sin((double) (zre * zre) / 2) + 1) * 127);
-	break;
-    case 2:
-	if (!inset) {
-	    r = (int) ((sin((double) zre * 2) + 1) * 127);
-	    g = (int) ((sin((double) zim * 2) + 1) * 127);
-	    b = (int) ((sin((double) (zim * zim + zre * zre) / 2) +
-			1) * 127);
-	} else {
-	    r = (int) ((sin((double) zre * 50) + 1) * 127);
-	    g = (int) ((sin((double) zim * 50) + 1) * 127);
-	    b = (int) ((sin((double) (zim * zim + zre * zre) * 50) +
-			1) * 127);
-	}
-	w = (int) ((sin((double) zim / zre)) * 127);
-	break;
-    case 3:
-	if (inset)
-	    hsv_to_rgb((int)
-		       (atan2((double) zre, (double) zim) * 256 / M_PI),
-		       (int) ((sin((double) (zre * 50)) + 1) * 128),
-		       (int) ((sin((double) (zim * 50)) + 1) * 128), &r,
-		       &g, &b);
-	else
-	    hsv_to_rgb((int)
-		       (atan2((double) zre, (double) zim) * 256 / M_PI),
-		       (int) ((sin((double) zre) + 1) * 128),
-		       (int) ((sin((double) zim) + 1) * 128), &r, &g, &b);
-	break;
-    case 4:
-	if (inset)
-	    hsv_to_rgb((int)
-		       (sin((double) (zre * zre + zim * zim) * 0.1) * 256),
-		       (int) (sin(atan2((double) zre, (double) zim) * 10) *
-			      128 + 128),
-		       (int) ((sin((double) (zre + zim) * 10)) * 65 + 128),
-		       &r, &g, &b);
-	else
-	    hsv_to_rgb((int)
-		       (sin((double) (zre * zre + zim * zim) * 0.01) *
-			256),
-		       (int) (sin(atan2((double) zre, (double) zim) * 10) *
-			      128 + 128),
-		       (int) ((sin((double) (zre + zim) * 0.3)) * 65 +
-			      128), &r, &g, &b);
-	break;
-    case 5:
-	{
-	    if (!inset) {
-		r = (int) (cos((double) myabs(zre * zre)) * 128) + 128;
-		g = (int) (cos((double) myabs(zre * zim)) * 128) + 128;
-		b = (int) (cos((double) myabs(zim * zim + zre * zre)) *
-			   128) + 128;
-	    } else {
-		r = (int) (cos((double) myabs(zre * zre) * 10) * 128) +
-		    128;
-		g = (int) (cos((double) myabs(zre * zim) * 10) * 128) +
-		    128;
-		b = (int) (cos((double) myabs(zim * zim + zre * zre) * 10)
-			   * 128) + 128;
-	    }
-	}
-	break;
-    case 6:
-	{
-	    if (!inset) {
-		r = (int) (zre * zim * 64);
-		g = (int) (zre * zre * 64);
-		b = (int) (zim * zim * 64);
-	    } else
-		r = (int) (zre * zim * 256);
-	    g = (int) (zre * zre * 256);
-	    b = (int) (zim * zim * 256);
-	}
-	break;
-    case 7:
-	{
-	    if (!inset) {
-		r = (int) ((zre * zre + zim * zim - pre * pre -
-			    pim * pim) * 16);
-		g = (int) ((zre * zre * 2 - pre * pre - pim * pim) * 16);
-		b = (int) ((zim * zim * 2 - pre * pre - pim * pim) * 16);
-	    } else {
-		r = (int) ((zre * zre + zim * zim - pre * pre -
-			    pim * pim) * 256);
-		g = (int) ((zre * zre * 2 - pre * pre - pim * pim) * 256);
-		b = (int) ((zim * zim * 2 - pre * pre - pim * pim) * 256);
-	    }
-	}
-	break;
-    case 8:
-	{
-	    if (!inset) {
-		r = (int) ((myabs(zim * pim)) * 64);
-		g = (int) ((myabs(zre * pre)) * 64);
-		b = (int) ((myabs(zre * pim)) * 64);
-	    } else {
-		r = (int) ((myabs(zim * pim)) * 256);
-		g = (int) ((myabs(zre * pre)) * 256);
-		b = (int) ((myabs(zre * pim)) * 256);
-	    }
-	}
-	break;
-    case 9:
-	{
-	    if (!inset) {
-		r = (int) ((myabs(zre * zim - pre * pre - pim * pim)) *
-			   64);
-		g = (int) ((myabs(zre * zre - pre * pre - pim * pim)) *
-			   64);
-		b = (int) ((myabs(zim * zim - pre * pre - pim * pim)) *
-			   64);
-	    } else {
-		r = (int) ((myabs(zre * zim - pre * pre - pim * pim)) *
-			   256);
-		g = (int) ((myabs(zre * zre - pre * pre - pim * pim)) *
-			   256);
-		b = (int) ((myabs(zim * zim - pre * pre - pim * pim)) *
-			   256);
-	    }
-	}
-	break;
-    case 10:
-	{
-	    r = (int) (atan2((double) zre, (double) zim) * 128 / M_PI) +
-		128;
-	    g = (int) (atan2((double) zre, (double) zim) * 128 / M_PI) +
-		128;
-	    b = (int) (atan2((double) zim, (double) zre) * 128 / M_PI) +
-		128;
-	}
-	break;
-	// case 11 is for disabling truecolor mode
-    case 12:
-	{
-	    b = 255;
-	    g = 0;
-	    r = 0;
-	    w = 50;
-	}
-	break;
-    case 13:
-	{
-	    r = 255;
-	    g = 0;
-	    b = 0;
-	    w = 0;
-	}
-	break;
+        case 0:
+            break;
+        case 1:
+            b = (int) ((sin ((double) atan2 ((double) zre, (double) zim) * 20) + 1) * 127);
+            w = (int) ((sin ((double) zim / zre)) * 127);
+            r = (int) ((int) (zre * zim));
+            g = (int) ((sin ((double) (zre * zre) / 2) + 1) * 127);
+            break;
+        case 2:
+            if (!inset) {
+                r = (int) ((sin ((double) zre * 2) + 1) * 127);
+                g = (int) ((sin ((double) zim * 2) + 1) * 127);
+                b = (int) ((sin ((double) (zim * zim + zre * zre) / 2) + 1) * 127);
+            } else {
+                r = (int) ((sin ((double) zre * 50) + 1) * 127);
+                g = (int) ((sin ((double) zim * 50) + 1) * 127);
+                b = (int) ((sin ((double) (zim * zim + zre * zre) * 50) + 1) * 127);
+            }
+            w = (int) ((sin ((double) zim / zre)) * 127);
+            break;
+        case 3:
+            if (inset)
+                hsv_to_rgb ((int) (atan2 ((double) zre, (double) zim) * 256 / M_PI), (int) ((sin ((double) (zre * 50)) + 1) * 128), (int) ((sin ((double) (zim * 50)) + 1) * 128), &r, &g, &b);
+            else
+                hsv_to_rgb ((int) (atan2 ((double) zre, (double) zim) * 256 / M_PI), (int) ((sin ((double) zre) + 1) * 128), (int) ((sin ((double) zim) + 1) * 128), &r, &g, &b);
+            break;
+        case 4:
+            if (inset)
+                hsv_to_rgb ((int) (sin ((double) (zre * zre + zim * zim) * 0.1) * 256), (int) (sin (atan2 ((double) zre, (double) zim) * 10) * 128 + 128), (int) ((sin ((double) (zre + zim) * 10)) * 65 + 128), &r, &g, &b);
+            else
+                hsv_to_rgb ((int) (sin ((double) (zre * zre + zim * zim) * 0.01) * 256), (int) (sin (atan2 ((double) zre, (double) zim) * 10) * 128 + 128), (int) ((sin ((double) (zre + zim) * 0.3)) * 65 + 128), &r, &g, &b);
+            break;
+        case 5:
+            {
+                if (!inset) {
+                    r = (int) (cos ((double) myabs (zre * zre)) * 128) + 128;
+                    g = (int) (cos ((double) myabs (zre * zim)) * 128) + 128;
+                    b = (int) (cos ((double) myabs (zim * zim + zre * zre)) * 128) + 128;
+                } else {
+                    r = (int) (cos ((double) myabs (zre * zre) * 10) * 128) + 128;
+                    g = (int) (cos ((double) myabs (zre * zim) * 10) * 128) + 128;
+                    b = (int) (cos ((double) myabs (zim * zim + zre * zre) * 10) * 128) + 128;
+                }
+            }
+            break;
+        case 6:
+            {
+                if (!inset) {
+                    r = (int) (zre * zim * 64);
+                    g = (int) (zre * zre * 64);
+                    b = (int) (zim * zim * 64);
+                } else
+                    r = (int) (zre * zim * 256);
+                g = (int) (zre * zre * 256);
+                b = (int) (zim * zim * 256);
+            }
+            break;
+        case 7:
+            {
+                if (!inset) {
+                    r = (int) ((zre * zre + zim * zim - pre * pre - pim * pim) * 16);
+                    g = (int) ((zre * zre * 2 - pre * pre - pim * pim) * 16);
+                    b = (int) ((zim * zim * 2 - pre * pre - pim * pim) * 16);
+                } else {
+                    r = (int) ((zre * zre + zim * zim - pre * pre - pim * pim) * 256);
+                    g = (int) ((zre * zre * 2 - pre * pre - pim * pim) * 256);
+                    b = (int) ((zim * zim * 2 - pre * pre - pim * pim) * 256);
+                }
+            }
+            break;
+        case 8:
+            {
+                if (!inset) {
+                    r = (int) ((myabs (zim * pim)) * 64);
+                    g = (int) ((myabs (zre * pre)) * 64);
+                    b = (int) ((myabs (zre * pim)) * 64);
+                } else {
+                    r = (int) ((myabs (zim * pim)) * 256);
+                    g = (int) ((myabs (zre * pre)) * 256);
+                    b = (int) ((myabs (zre * pim)) * 256);
+                }
+            }
+            break;
+        case 9:
+            {
+                if (!inset) {
+                    r = (int) ((myabs (zre * zim - pre * pre - pim * pim)) * 64);
+                    g = (int) ((myabs (zre * zre - pre * pre - pim * pim)) * 64);
+                    b = (int) ((myabs (zim * zim - pre * pre - pim * pim)) * 64);
+                } else {
+                    r = (int) ((myabs (zre * zim - pre * pre - pim * pim)) * 256);
+                    g = (int) ((myabs (zre * zre - pre * pre - pim * pim)) * 256);
+                    b = (int) ((myabs (zim * zim - pre * pre - pim * pim)) * 256);
+                }
+            }
+            break;
+        case 10:
+            {
+                r = (int) (atan2 ((double) zre, (double) zim) * 128 / M_PI) + 128;
+                g = (int) (atan2 ((double) zre, (double) zim) * 128 / M_PI) + 128;
+                b = (int) (atan2 ((double) zim, (double) zre) * 128 / M_PI) + 128;
+            }
+            break;
+            // case 11 is for disabling truecolor mode
+        case 12:
+            {
+                b = 255;
+                g = 0;
+                r = 0;
+                w = 50;
+            }
+            break;
+        case 13:
+            {
+                r = 255;
+                g = 0;
+                b = 0;
+                w = 0;
+            }
+            break;
     }
 
     r += w;
     g += w;
     b += w;
     if (r < 0)
-	r = 0;
+        r = 0;
     else if (r > 255)
-	r = 255;
+        r = 255;
     if (g < 0)
-	g = 0;
+        g = 0;
     else if (g > 255)
-	g = 255;
+        g = 255;
     if (b < 0)
-	b = 0;
+        b = 0;
     else if (b > 255)
-	b = 255;
+        b = 255;
 
     switch (cpalette.type) {
-    case GRAYSCALE:
-	return ((unsigned int) (r * 76 + g * 151 + b * 29) *
-		(cpalette.end - cpalette.start) >> 16) + cpalette.start;
-    case TRUECOLOR:
-    case TRUECOLOR24:
-    case TRUECOLOR16:
-	r >>= cpalette.info.truec.bprec;
-	g >>= cpalette.info.truec.gprec;
-	b >>= cpalette.info.truec.rprec;
-	return ((r << cpalette.info.truec.bshift) +
-		(g << cpalette.info.truec.gshift) +
-		(b << cpalette.info.truec.rshift));
+        case GRAYSCALE:
+            return ((unsigned int) (r * 76 + g * 151 + b * 29) * (cpalette.end - cpalette.start) >> 16) + cpalette.start;
+        case TRUECOLOR:
+        case TRUECOLOR24:
+        case TRUECOLOR16:
+            r >>= cpalette.info.truec.bprec;
+            g >>= cpalette.info.truec.gprec;
+            b >>= cpalette.info.truec.rprec;
+            return ((r << cpalette.info.truec.bshift) + (g << cpalette.info.truec.gshift) + (b << cpalette.info.truec.rshift));
     }
 
     return cpalette.pixels[inset];
@@ -470,165 +429,150 @@ truecolor_output(number_t zre, number_t zim, number_t pre,
 #define __TEST__
 #endif
 static unsigned int
-color_output(number_t zre, number_t zim, unsigned int iter)
-CONSTF REGISTERS(3);
-static unsigned int
-REGISTERS(3) color_output(number_t zre, number_t zim, unsigned int iter)
+color_output (number_t zre, number_t zim, unsigned int iter)
+     CONSTF REGISTERS (3);
+     static unsigned int REGISTERS (3) color_output (number_t zre, number_t zim, unsigned int iter)
 {
     int i;
     iter <<= SHIFT;
     i = iter;
 
     switch (cfractalc.coloringmode) {
-    case 9:
-	break;
-    case 1:			/* real */
-	i = (int) (iter + zre * SMUL);
-	break;
-    case 2:			/* imag */
-	i = (int) (iter + zim * SMUL);
-	break;
-    case 3:			/* real / imag */
+        case 9:
+            break;
+        case 1:                /* real */
+            i = (int) (iter + zre * SMUL);
+            break;
+        case 2:                /* imag */
+            i = (int) (iter + zim * SMUL);
+            break;
+        case 3:                /* real / imag */
 #ifdef __TEST__
-	if (zim != 0)
+            if (zim != 0)
 #endif
-	    i = (int) (iter + (zre / zim) * SMUL);
-	break;
-    case 4:			/* all of the above */
+                i = (int) (iter + (zre / zim) * SMUL);
+            break;
+        case 4:                /* all of the above */
 #ifdef __TEST__
-	if (zim != 0)
+            if (zim != 0)
 #endif
-	    i = (int) (iter + (zre + zim + zre / zim) * SMUL);
-	break;
-    case 5:
-	if (zim > 0)
-	    i = ((cfractalc.maxiter << SHIFT) - iter);
-	break;
-    case 6:
-	if (myabs(zim) < 2.0 || myabs(zre) < 2.0)
-	    i = ((cfractalc.maxiter << SHIFT) - iter);
-	break;
-    case 7:
-	zre = zre * zre + zim * zim;
+                i = (int) (iter + (zre + zim + zre / zim) * SMUL);
+            break;
+        case 5:
+            if (zim > 0)
+                i = ((cfractalc.maxiter << SHIFT) - iter);
+            break;
+        case 6:
+            if (myabs (zim) < 2.0 || myabs (zre) < 2.0)
+                i = ((cfractalc.maxiter << SHIFT) - iter);
+            break;
+        case 7:
+            zre = zre * zre + zim * zim;
 #ifdef __TEST__
-	if (zre < 1 || !i)
-	    i = 0;
-	else
+            if (zre < 1 || !i)
+                i = 0;
+            else
 #endif
-	    i = (int) (sqrt(log((double) zre) / i) * 256 * 256);
-	break;
-    default:
-    case 8:
-	i = (int) ((atan2((double) zre, (double) zim) / (M_PI + M_PI) +
-		    0.75) * 20000);
-	break;
+                i = (int) (sqrt (log ((double) zre) / i) * 256 * 256);
+            break;
+        default:
+        case 8:
+            i = (int) ((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75) * 20000);
+            break;
     }
 
     if (i < 0) {
-	i = (((unsigned int) (cpalette.size - 1)) << 8) -
-	    ((-i) % (((unsigned int) (cpalette.size - 1) << 8))) - 1;
-	if (i < 0)
-	    i = 0;
+        i = (((unsigned int) (cpalette.size - 1)) << 8) - ((-i) % (((unsigned int) (cpalette.size - 1) << 8))) - 1;
+        if (i < 0)
+            i = 0;
     }
     iter = ((unsigned int) i) % ((cpalette.size - 1) << 8);
     if ((cpalette.type & (C256 | SMALLITER)) || !(iter & 255))
-	return (cpalette.pixels[1 + (iter >> 8)]);
+        return (cpalette.pixels[1 + (iter >> 8)]);
     {
-	unsigned int i1, i2;
+        unsigned int i1, i2;
 
-	i1 = cpalette.pixels[1 + (iter >> 8)];
+        i1 = cpalette.pixels[1 + (iter >> 8)];
 
-	if ((int) (iter >> 8) == cpalette.size - 2)
-	    i2 = cpalette.pixels[1];
-	else
-	    i2 = cpalette.pixels[2 + (iter >> 8)];
+        if ((int) (iter >> 8) == cpalette.size - 2)
+            i2 = cpalette.pixels[1];
+        else
+            i2 = cpalette.pixels[2 + (iter >> 8)];
 
-	iter &= 255;
-	return (interpoltype(cpalette, i2, i1, iter));
+        iter &= 255;
+        return (interpoltype (cpalette, i2, i1, iter));
     }
 
 }
 
 static unsigned int
-incolor_output(number_t zre, number_t zim, number_t pre, number_t pim,
-	       unsigned int iter)
-CONSTF REGISTERS(3);
-REGISTERS(3)
-static unsigned int
-incolor_output(number_t zre, number_t zim, number_t pre, number_t pim,
-	       unsigned int iter)
+incolor_output (number_t zre, number_t zim, number_t pre, number_t pim, unsigned int iter)
+     CONSTF REGISTERS (3);
+REGISTERS (3)
+     static unsigned int incolor_output (number_t zre, number_t zim, number_t pre, number_t pim, unsigned int iter)
 {
     int i = iter;
     switch (cfractalc.incoloringmode) {
-    case 1:			/* zmag */
-	i = (int) (((zre * zre + zim * zim) *
-		    (number_t) (cfractalc.maxiter >> 1) * SMUL + SMUL));
-	break;
-    case 2:			/* real */
-	i = (int) (((atan2((double) zre, (double) zim) / (M_PI + M_PI) +
-		     0.75) * 20000));
-	break;
-    default:
-	break;
-    case 3:			/* real / imag */
-	i = (int) (100 + (zre / zim) * SMUL * 10);
-	break;
-    case 4:
-	zre = myabs(zre);
-	zim = myabs(zim);
-	pre = myabs(pre);
-	pre = myabs(pim);
-	i += (int) (myabs(pre - zre) * 256 * 64);
-	i += (int) (myabs(pim - zim) * 256 * 64);
-	break;
-    case 5:
-	if (((int) ((zre * zre + zim * zim) * 10)) % 2)
-	    i = (int) (cos((double) (zre * zim * pre * pim)) * 256 * 256);
-	else
-	    i = (int) (sin((double) (zre * zim * pre * pim)) * 256 * 256);
-	break;
-    case 6:
-	i = (int) ((zre * zre +
-		    zim * zim) * cos((double) (zre * zre)) * 256 * 256);
-	break;
-    case 7:
-	i = (int) (sin((double) (zre * zre - zim * zim)) * 256 * 256);
-	break;
-    case 8:
-	i = (int) (atan((double) (zre * zim * pre * pim)) * 256 * 64);
-	break;
-    case 9:
-	if ((abs((int) (zre * 40)) % 2) ^ (abs((int) (zim * 40)) % 2))
-	    i = (int) (((atan2((double) zre, (double) zim) /
-			 (M_PI + M_PI) + 0.75)
-			* 20000));
-	else
-	    i = (int) (((atan2((double) zim, (double) zre) /
-			 (M_PI + M_PI) + 0.75)
-			* 20000));
-	break;
+        case 1:                /* zmag */
+            i = (int) (((zre * zre + zim * zim) * (number_t) (cfractalc.maxiter >> 1) * SMUL + SMUL));
+            break;
+        case 2:                /* real */
+            i = (int) (((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75) * 20000));
+            break;
+        default:
+            break;
+        case 3:                /* real / imag */
+            i = (int) (100 + (zre / zim) * SMUL * 10);
+            break;
+        case 4:
+            zre = myabs (zre);
+            zim = myabs (zim);
+            pre = myabs (pre);
+            pre = myabs (pim);
+            i += (int) (myabs (pre - zre) * 256 * 64);
+            i += (int) (myabs (pim - zim) * 256 * 64);
+            break;
+        case 5:
+            if (((int) ((zre * zre + zim * zim) * 10)) % 2)
+                i = (int) (cos ((double) (zre * zim * pre * pim)) * 256 * 256);
+            else
+                i = (int) (sin ((double) (zre * zim * pre * pim)) * 256 * 256);
+            break;
+        case 6:
+            i = (int) ((zre * zre + zim * zim) * cos ((double) (zre * zre)) * 256 * 256);
+            break;
+        case 7:
+            i = (int) (sin ((double) (zre * zre - zim * zim)) * 256 * 256);
+            break;
+        case 8:
+            i = (int) (atan ((double) (zre * zim * pre * pim)) * 256 * 64);
+            break;
+        case 9:
+            if ((abs ((int) (zre * 40)) % 2) ^ (abs ((int) (zim * 40)) % 2))
+                i = (int) (((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75) * 20000));
+            else
+                i = (int) (((atan2 ((double) zim, (double) zre) / (M_PI + M_PI) + 0.75) * 20000));
+            break;
     };
 
     if (i < 0) {
-	i = (((unsigned int) (cpalette.size - 1)) << 8) -
-	    ((-i) % (((unsigned int) (cpalette.size - 1) << 8))) - 1;
-	if (i < 0)
-	    i = 0;
+        i = (((unsigned int) (cpalette.size - 1)) << 8) - ((-i) % (((unsigned int) (cpalette.size - 1) << 8))) - 1;
+        if (i < 0)
+            i = 0;
     }
     iter = ((unsigned int) i) % ((cpalette.size - 1) << 8);
 
     if ((cpalette.type & (C256 | SMALLITER)) || !(iter & 255))
-	return (cpalette.pixels[1 + ((unsigned int) iter >> 8)]);
+        return (cpalette.pixels[1 + ((unsigned int) iter >> 8)]);
     {
-	unsigned int i1, i2;
-	i1 = cpalette.pixels[1 + ((unsigned int) iter >> 8)];
-	if (((unsigned int) iter >> 8) ==
-	    (unsigned int) (cpalette.size - 2))
-	    i2 = cpalette.pixels[1];
-	else
-	    i2 = cpalette.pixels[2 + ((unsigned int) iter >> 8)];
-	iter &= 255;
-	return (interpoltype(cpalette, i2, i1, iter));
+        unsigned int i1, i2;
+        i1 = cpalette.pixels[1 + ((unsigned int) iter >> 8)];
+        if (((unsigned int) iter >> 8) == (unsigned int) (cpalette.size - 2))
+            i2 = cpalette.pixels[1];
+        else
+            i2 = cpalette.pixels[2 + ((unsigned int) iter >> 8)];
+        iter &= 255;
+        return (interpoltype (cpalette, i2, i1, iter));
     }
 
 }
@@ -696,10 +640,10 @@ asm( \
 :"eax","st(2)","st(3)","st(4)","st(5)"); \
 }
 
-pacalc(long double zre, long double zim, long double pre, long double pim)
+pacalc (long double zre, long double zim, long double pre, long double pim)
 {
     int iter = 1000000;
-    NSFORMULALOOP(iter);
+    NSFORMULALOOP (iter);
     return iter;
 }
 #endif
@@ -1379,7 +1323,7 @@ static const symetrytype sym16[] = {
 };
 
 const struct formula formulas[] = {
-    {				/* 0 */
+    {                           /* 0 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      mand_calc,
@@ -1421,7 +1365,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* 1 */
+    {                           /* 1 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      mand3_calc,
@@ -1463,7 +1407,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* 2 */
+    {                           /* 2 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      mand4_calc,
@@ -1505,7 +1449,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* 3 */
+    {                           /* 3 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      mand5_calc,
@@ -1547,7 +1491,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* 4 */
+    {                           /* 4 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      mand6_calc,
@@ -1589,7 +1533,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* 5 */
+    {                           /* 5 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      newton_calc,
@@ -1631,7 +1575,7 @@ const struct formula formulas[] = {
       },
      STARTZERO,
      },
-    {				/* formula added by Andreas Madritsch *//* 6 */
+    {                           /* formula added by Andreas Madritsch *//* 6 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      newton4_calc,
@@ -1673,7 +1617,7 @@ const struct formula formulas[] = {
       },
      STARTZERO,
      },
-    {				/* 7 */
+    {                           /* 7 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      barnsley1_calc,
@@ -1715,7 +1659,7 @@ const struct formula formulas[] = {
       },
      STARTZERO | MANDEL_BTRACE,
      },
-    {				/* formula added by Andreas Madritsch *//* 8 */
+    {                           /* formula added by Andreas Madritsch *//* 8 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      barnsley2_calc,
@@ -1757,7 +1701,7 @@ const struct formula formulas[] = {
       },
      STARTZERO | MANDEL_BTRACE,
      },
-    {				/* formula added by Arpad Fekete *//* 9 */
+    {                           /* formula added by Arpad Fekete *//* 9 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      barnsley3_calc,
@@ -1799,7 +1743,7 @@ const struct formula formulas[] = {
       },
      STARTZERO | MANDEL_BTRACE,
      },
-    {				/* 10 */
+    {                           /* 10 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      octo_calc,
@@ -1841,7 +1785,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE | STARTZERO,
      },
-    {				/* 11 */
+    {                           /* 11 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      phoenix_calc,
@@ -1883,7 +1827,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* 12 */
+    {                           /* 12 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      magnet_calc,
@@ -1925,7 +1869,7 @@ const struct formula formulas[] = {
       },
      STARTZERO,
      },
-    {				/* formula added by Andreas Madritsch *//* 13 */
+    {                           /* formula added by Andreas Madritsch *//* 13 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      magnet2_calc,
@@ -1967,7 +1911,7 @@ const struct formula formulas[] = {
       },
      STARTZERO,
      },
-    {				/* formula added by Arpad Fekete *//* 14 */
+    {                           /* formula added by Arpad Fekete *//* 14 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      trice_calc,
@@ -2008,7 +1952,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* formula added by Arpad Fekete *//* 15 */
+    {                           /* formula added by Arpad Fekete *//* 15 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      catseye_calc,
@@ -2049,7 +1993,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/*formula added by Arpad Fekete *//* 16 */
+    {                           /*formula added by Arpad Fekete *//* 16 */
      /*in Gnofract4d from mathworld.wolfram.com */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
@@ -2091,7 +2035,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* formula added by Arpad Fekete (from fractint) *//* 17 */
+    {                           /* formula added by Arpad Fekete (from fractint) *//* 17 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      mlambda_calc,
@@ -2132,7 +2076,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* formula added by Arpad Fekete (from fractint) *//* 18 */
+    {                           /* formula added by Arpad Fekete (from fractint) *//* 18 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      manowar_calc,
@@ -2173,7 +2117,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* formula added by Arpad Fekete (from fractint) *//* 19 */
+    {                           /* formula added by Arpad Fekete (from fractint) *//* 19 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      spider_calc,
@@ -2214,7 +2158,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* formula added by Arpad Fekete, method from fractint *//* 20 */
+    {                           /* formula added by Arpad Fekete, method from fractint *//* 20 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      sier_calc,
@@ -2255,7 +2199,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* formula added by Arpad Fekete, method from fractint *//* 21 */
+    {                           /* formula added by Arpad Fekete, method from fractint *//* 21 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      carpet_calc,
@@ -2296,7 +2240,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* formula added by Arpad Fekete, method from fractint *//* 22 */
+    {                           /* formula added by Arpad Fekete, method from fractint *//* 22 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      koch_calc,
@@ -2337,7 +2281,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* formula added by Z. Kovacs *//* 23 */
+    {                           /* formula added by Z. Kovacs *//* 23 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      hornflake_calc,
@@ -2378,7 +2322,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* formula added by Z. Kovacs, originally mand6 but it was mand9 by accident *//* 24 */
+    {                           /* formula added by Z. Kovacs, originally mand6 but it was mand9 by accident *//* 24 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      mand9_calc,
@@ -2420,49 +2364,49 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-     
-   { /* formula added by S. Bizien *//* 25 */
-    FORMULAMAGIC,
+
+    {                           /* formula added by S. Bizien *//* 25 */
+     FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
-   beryl_calc,
-   beryl_peri,
-   NULL,
-   NULL,
+     beryl_calc,
+     beryl_peri,
+     NULL,
+     NULL,
 #endif
-   NULL,
-   {"Beryl", "Beryl"},
-   "beryl",
-   {-0.6, 0, 2, 2},
-   0, 0, 1.0, 0.0,
-   {
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    },
-   {
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    {INT_MAX, INT_MAX, 0, NULL},
-    },
-    MANDEL_BTRACE,
-    },   
-    {				/* formula added by Arpad Fekete *//* 26 */
+     NULL,
+     {"Beryl", "Beryl"},
+     "beryl",
+     {-0.6, 0, 2, 2},
+     0, 0, 1.0, 0.0,
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     MANDEL_BTRACE,
+     },
+    {                           /* formula added by Arpad Fekete *//* 26 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      goldsier_calc,
@@ -2503,7 +2447,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* formula added by Arpad Fekete *//* 27 */
+    {                           /* formula added by Arpad Fekete *//* 27 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      circle7_calc,
@@ -2544,7 +2488,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {				/* formula added by Arpad Fekete *//* 28 */
+    {                           /* formula added by Arpad Fekete *//* 28 */
      FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
      symbarn_calc,
@@ -2589,7 +2533,7 @@ const struct formula formulas[] = {
      }
 
 #ifdef SFFE_USING
-    , {				/* formula added by M. Malczak - SFFE *//* 29 */
+    , {                         /* formula added by M. Malczak - SFFE *//* 29 */
        FORMULAMAGIC,
 #ifndef SLOWFUNCPTR
        sffe_calc,
@@ -2601,38 +2545,38 @@ const struct formula formulas[] = {
        {"User defined", "User defined"},
        "user",
        /*{0.5, -2.0, 1.25, -1.25}, */
-	/*{-0.75, 0.0, 1, 1},*/
-	/* 2009-08-01 JB Langston
-	 * Changed default zoom level to match Mandelbrot
-	 */
-	{-0.75, 0.0, 2.5, 2.5},
-	0, 1, 0.0, 0.0,
+       /*{-0.75, 0.0, 1, 1}, */
+       /* 2009-08-01 JB Langston
+        * Changed default zoom level to match Mandelbrot
+        */
+       {-0.75, 0.0, 2.5, 2.5},
+       0, 1, 0.0, 0.0,
        {
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        },
        {
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	{INT_MAX, INT_MAX, 0, NULL},
-	},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        {INT_MAX, INT_MAX, 0, NULL},
+        },
        MANDEL_BTRACE | SFFE_FRACTAL,
        }
 #endif
@@ -2641,396 +2585,394 @@ const struct formula formulas[] = {
 
 #ifdef SLOWFUNCPTR
 unsigned int
-calculateswitch(register number_t x1, register number_t y1,
-		register number_t x2, register number_t y2,
-		int periodicity)
+calculateswitch (register number_t x1, register number_t y1, register number_t x2, register number_t y2, int periodicity)
 {
     if (periodicity && cfractalc.periodicity)
-	if (cfractalc.coloringmode == 9)
-	    switch (cfractalc.currentformula - formulas) {	/* periodicity checking and smoothmode SPERI */
-	    case 0:
-		return (smand_peri(x1, y1, x2, y2));
-		break;
-	    case 1:
-		return (smand3_peri(x1, y1, x2, y2));
-		break;
-	    case 2:
-		return (smand4_peri(x1, y1, x2, y2));
-		break;
-	    case 3:
-		return (smand5_peri(x1, y1, x2, y2));
-		break;
-	    case 4:
-		return (smand6_peri(x1, y1, x2, y2));
-		break;
-	    case 5:
-		return (newton_calc(x1, y1, x2, y2));
-		break;
-	    case 6:
-		return (newton4_calc(x1, y1, x2, y2));
-		break;
-	    case 7:
-		return (sbarnsley1_calc(x1, y1, x2, y2));
-		break;
-	    case 8:
-		return (sbarnsley2_calc(x1, y1, x2, y2));
-		break;
-	    case 9:
-		return (sbarnsley3_calc(x1, y1, x2, y2));
-		break;
-	    case 10:
-		return (octo_calc(x1, y1, x2, y2));
-		break;
-	    case 11:
-		return (sphoenix_peri(x1, y1, x2, y2));
-		break;
-	    case 12:
-		return (smagnet_peri(x1, y1, x2, y2));
-		break;
-	    case 13:
-		return (smagnet2_peri(x1, y1, x2, y2));
-		break;
-	    case 14:
-		return (strice_peri(x1, y1, x2, y2));
-		break;
-	    case 15:
-		return (scatseye_peri(x1, y1, x2, y2));
-		break;
-	    case 16:
-		return (smbar_peri(x1, y1, x2, y2));
-		break;
-	    case 17:
-		return (smlambda_peri(x1, y1, x2, y2));
-		break;
-	    case 18:
-		return (smanowar_calc(x1, y1, x2, y2));
-		break;
-	    case 19:
-		return (sspider_calc(x1, y1, x2, y2));
-		break;
-	    case 20:
-		return (sier_calc(x1, y1, x2, y2));
-		break;
-	    case 21:
-		return (carpet_calc(x1, y1, x2, y2));
-		break;
-	    case 22:
-		return (koch_calc(x1, y1, x2, y2));
-		break;
-	    case 23:
-		return (hornflake_calc(x1, y1, x2, y2));
-		break;
-	    case 24:
-		return (smand9_peri(x1, y1, x2, y2));
-		break;
-	    case 25:
-		return (beryl_calc(x1, y1, x2, y2));
-		break;
-            case 26:
-		return (goldsier_calc(x1, y1, x2, y2));
-		break;
-            case 27:
-		return (circle7_calc(x1, y1, x2, y2));
-		break;
-            case 28:
-		return (symbarn_calc(x1, y1, x2, y2));
-		break;
-		
+        if (cfractalc.coloringmode == 9)
+            switch (cfractalc.currentformula - formulas) {      /* periodicity checking and smoothmode SPERI */
+                case 0:
+                    return (smand_peri (x1, y1, x2, y2));
+                    break;
+                case 1:
+                    return (smand3_peri (x1, y1, x2, y2));
+                    break;
+                case 2:
+                    return (smand4_peri (x1, y1, x2, y2));
+                    break;
+                case 3:
+                    return (smand5_peri (x1, y1, x2, y2));
+                    break;
+                case 4:
+                    return (smand6_peri (x1, y1, x2, y2));
+                    break;
+                case 5:
+                    return (newton_calc (x1, y1, x2, y2));
+                    break;
+                case 6:
+                    return (newton4_calc (x1, y1, x2, y2));
+                    break;
+                case 7:
+                    return (sbarnsley1_calc (x1, y1, x2, y2));
+                    break;
+                case 8:
+                    return (sbarnsley2_calc (x1, y1, x2, y2));
+                    break;
+                case 9:
+                    return (sbarnsley3_calc (x1, y1, x2, y2));
+                    break;
+                case 10:
+                    return (octo_calc (x1, y1, x2, y2));
+                    break;
+                case 11:
+                    return (sphoenix_peri (x1, y1, x2, y2));
+                    break;
+                case 12:
+                    return (smagnet_peri (x1, y1, x2, y2));
+                    break;
+                case 13:
+                    return (smagnet2_peri (x1, y1, x2, y2));
+                    break;
+                case 14:
+                    return (strice_peri (x1, y1, x2, y2));
+                    break;
+                case 15:
+                    return (scatseye_peri (x1, y1, x2, y2));
+                    break;
+                case 16:
+                    return (smbar_peri (x1, y1, x2, y2));
+                    break;
+                case 17:
+                    return (smlambda_peri (x1, y1, x2, y2));
+                    break;
+                case 18:
+                    return (smanowar_calc (x1, y1, x2, y2));
+                    break;
+                case 19:
+                    return (sspider_calc (x1, y1, x2, y2));
+                    break;
+                case 20:
+                    return (sier_calc (x1, y1, x2, y2));
+                    break;
+                case 21:
+                    return (carpet_calc (x1, y1, x2, y2));
+                    break;
+                case 22:
+                    return (koch_calc (x1, y1, x2, y2));
+                    break;
+                case 23:
+                    return (hornflake_calc (x1, y1, x2, y2));
+                    break;
+                case 24:
+                    return (smand9_peri (x1, y1, x2, y2));
+                    break;
+                case 25:
+                    return (beryl_calc (x1, y1, x2, y2));
+                    break;
+                case 26:
+                    return (goldsier_calc (x1, y1, x2, y2));
+                    break;
+                case 27:
+                    return (circle7_calc (x1, y1, x2, y2));
+                    break;
+                case 28:
+                    return (symbarn_calc (x1, y1, x2, y2));
+                    break;
+
 #ifdef SFFE_USING
-	    case 29:
-		return (sffe_calc(x1, y1, x2, y2));
-		break;
+                case 29:
+                    return (sffe_calc (x1, y1, x2, y2));
+                    break;
 #endif
-	} else
-	    switch (cfractalc.currentformula - formulas) {	/* periodicity checking and no smoothmode PERI */
-	    case 0:
-		return (mand_peri(x1, y1, x2, y2));
-		break;
-	    case 1:
-		return (mand3_peri(x1, y1, x2, y2));
-		break;
-	    case 2:
-		return (mand4_peri(x1, y1, x2, y2));
-		break;
-	    case 3:
-		return (mand5_peri(x1, y1, x2, y2));
-		break;
-	    case 4:
-		return (mand6_peri(x1, y1, x2, y2));
-		break;
-	    case 5:
-		return (newton_calc(x1, y1, x2, y2));
-		break;
-	    case 6:
-		return (newton4_calc(x1, y1, x2, y2));
-		break;
-	    case 7:
-		return (barnsley1_calc(x1, y1, x2, y2));
-		break;
-	    case 8:
-		return (barnsley2_calc(x1, y1, x2, y2));
-		break;
-	    case 9:
-		return (barnsley3_calc(x1, y1, x2, y2));
-		break;
-	    case 10:
-		return (octo_calc(x1, y1, x2, y2));
-		break;
-	    case 11:
-		return (phoenix_peri(x1, y1, x2, y2));
-		break;
-	    case 12:
-		return (magnet_peri(x1, y1, x2, y2));
-		break;
-	    case 13:
-		return (magnet2_peri(x1, y1, x2, y2));
-		break;
-	    case 14:
-		return (trice_peri(x1, y1, x2, y2));
-		break;
-	    case 15:
-		return (catseye_peri(x1, y1, x2, y2));
-		break;
-	    case 16:
-		return (mbar_peri(x1, y1, x2, y2));
-		break;
-	    case 17:
-		return (mlambda_peri(x1, y1, x2, y2));
-		break;
-	    case 18:
-		return (manowar_calc(x1, y1, x2, y2));
-		break;
-	    case 19:
-		return (spider_calc(x1, y1, x2, y2));
-		break;
-	    case 20:
-		return (sier_calc(x1, y1, x2, y2));
-		break;
-	    case 21:
-		return (carpet_calc(x1, y1, x2, y2));
-		break;
-	    case 22:
-		return (koch_calc(x1, y1, x2, y2));
-		break;
-	    case 23:
-		return (hornflake_calc(x1, y1, x2, y2));
-		break;
-	    case 24:
-		return (mand9_peri(x1, y1, x2, y2));
-		break;
-	    case 25:
-		return (beryl_peri(x1, y1, x2, y2));
-		break;
-            case 26:
-		return (goldsier_calc(x1, y1, x2, y2));
-		break;
-            case 27:
-		return (circle7_calc(x1, y1, x2, y2));
-		break;
-            case 28:
-		return (symbarn_calc(x1, y1, x2, y2));
-		break;
-		
+        } else
+            switch (cfractalc.currentformula - formulas) {      /* periodicity checking and no smoothmode PERI */
+                case 0:
+                    return (mand_peri (x1, y1, x2, y2));
+                    break;
+                case 1:
+                    return (mand3_peri (x1, y1, x2, y2));
+                    break;
+                case 2:
+                    return (mand4_peri (x1, y1, x2, y2));
+                    break;
+                case 3:
+                    return (mand5_peri (x1, y1, x2, y2));
+                    break;
+                case 4:
+                    return (mand6_peri (x1, y1, x2, y2));
+                    break;
+                case 5:
+                    return (newton_calc (x1, y1, x2, y2));
+                    break;
+                case 6:
+                    return (newton4_calc (x1, y1, x2, y2));
+                    break;
+                case 7:
+                    return (barnsley1_calc (x1, y1, x2, y2));
+                    break;
+                case 8:
+                    return (barnsley2_calc (x1, y1, x2, y2));
+                    break;
+                case 9:
+                    return (barnsley3_calc (x1, y1, x2, y2));
+                    break;
+                case 10:
+                    return (octo_calc (x1, y1, x2, y2));
+                    break;
+                case 11:
+                    return (phoenix_peri (x1, y1, x2, y2));
+                    break;
+                case 12:
+                    return (magnet_peri (x1, y1, x2, y2));
+                    break;
+                case 13:
+                    return (magnet2_peri (x1, y1, x2, y2));
+                    break;
+                case 14:
+                    return (trice_peri (x1, y1, x2, y2));
+                    break;
+                case 15:
+                    return (catseye_peri (x1, y1, x2, y2));
+                    break;
+                case 16:
+                    return (mbar_peri (x1, y1, x2, y2));
+                    break;
+                case 17:
+                    return (mlambda_peri (x1, y1, x2, y2));
+                    break;
+                case 18:
+                    return (manowar_calc (x1, y1, x2, y2));
+                    break;
+                case 19:
+                    return (spider_calc (x1, y1, x2, y2));
+                    break;
+                case 20:
+                    return (sier_calc (x1, y1, x2, y2));
+                    break;
+                case 21:
+                    return (carpet_calc (x1, y1, x2, y2));
+                    break;
+                case 22:
+                    return (koch_calc (x1, y1, x2, y2));
+                    break;
+                case 23:
+                    return (hornflake_calc (x1, y1, x2, y2));
+                    break;
+                case 24:
+                    return (mand9_peri (x1, y1, x2, y2));
+                    break;
+                case 25:
+                    return (beryl_peri (x1, y1, x2, y2));
+                    break;
+                case 26:
+                    return (goldsier_calc (x1, y1, x2, y2));
+                    break;
+                case 27:
+                    return (circle7_calc (x1, y1, x2, y2));
+                    break;
+                case 28:
+                    return (symbarn_calc (x1, y1, x2, y2));
+                    break;
+
 #ifdef SFFE_USING
-	    case 29:
-		return (sffe_calc(x1, y1, x2, y2));
-		break;
+                case 29:
+                    return (sffe_calc (x1, y1, x2, y2));
+                    break;
 #endif
     } else if (cfractalc.coloringmode == 9)
-	switch (cfractalc.currentformula - formulas) {	/* no periodicity checking and smoothmode SCALC */
-	case 0:
-	    return (smand_calc(x1, y1, x2, y2));
-	    break;
-	case 1:
-	    return (smand3_calc(x1, y1, x2, y2));
-	    break;
-	case 2:
-	    return (smand4_calc(x1, y1, x2, y2));
-	    break;
-	case 3:
-	    return (smand5_calc(x1, y1, x2, y2));
-	    break;
-	case 4:
-	    return (smand6_calc(x1, y1, x2, y2));
-	    break;
-	case 5:
-	    return (newton_calc(x1, y1, x2, y2));
-	    break;
-	case 6:
-	    return (newton4_calc(x1, y1, x2, y2));
-	    break;
-	case 7:
-	    return (sbarnsley1_calc(x1, y1, x2, y2));
-	    break;
-	case 8:
-	    return (sbarnsley2_calc(x1, y1, x2, y2));
-	    break;
-	case 9:
-	    return (sbarnsley3_calc(x1, y1, x2, y2));
-	    break;
-	case 10:
-	    return (socto_calc(x1, y1, x2, y2));
-	    break;
-	case 11:
-	    return (sphoenix_calc(x1, y1, x2, y2));
-	    break;
-	case 12:
-	    return (smagnet_calc(x1, y1, x2, y2));
-	    break;
-	case 13:
-	    return (smagnet2_calc(x1, y1, x2, y2));
-	    break;
-	case 14:
-	    return (strice_calc(x1, y1, x2, y2));
-	    break;
-	case 15:
-	    return (scatseye_calc(x1, y1, x2, y2));
-	    break;
-	case 16:
-	    return (smbar_calc(x1, y1, x2, y2));
-	    break;
-	case 17:
-	    return (smlambda_calc(x1, y1, x2, y2));
-	    break;
-	case 18:
-	    return (smanowar_calc(x1, y1, x2, y2));
-	    break;
-	case 19:
-	    return (sspider_calc(x1, y1, x2, y2));
-	    break;
-	case 20:
-	    return (sier_calc(x1, y1, x2, y2));
-	    break;
-	case 21:
-	    return (carpet_calc(x1, y1, x2, y2));
-	    break;
-	case 22:
-	    return (koch_calc(x1, y1, x2, y2));
-	    break;
-	case 23:
-	    return (hornflake_calc(x1, y1, x2, y2));
-	    break;
-	case 24:
-	    return (smand6_calc(x1, y1, x2, y2));
-	    break;
-	case 25:
-	    return (beryl_calc(x1, y1, x2, y2));
-	    break;
-        case 26:
-            return (goldsier_calc(x1, y1, x2, y2));
-            break;
-        case 27:
-            return (circle7_calc(x1, y1, x2, y2));
-            break;
-        case 28:
-            return (symbarn_calc(x1, y1, x2, y2));
-            break;
-	    
+        switch (cfractalc.currentformula - formulas) {  /* no periodicity checking and smoothmode SCALC */
+            case 0:
+                return (smand_calc (x1, y1, x2, y2));
+                break;
+            case 1:
+                return (smand3_calc (x1, y1, x2, y2));
+                break;
+            case 2:
+                return (smand4_calc (x1, y1, x2, y2));
+                break;
+            case 3:
+                return (smand5_calc (x1, y1, x2, y2));
+                break;
+            case 4:
+                return (smand6_calc (x1, y1, x2, y2));
+                break;
+            case 5:
+                return (newton_calc (x1, y1, x2, y2));
+                break;
+            case 6:
+                return (newton4_calc (x1, y1, x2, y2));
+                break;
+            case 7:
+                return (sbarnsley1_calc (x1, y1, x2, y2));
+                break;
+            case 8:
+                return (sbarnsley2_calc (x1, y1, x2, y2));
+                break;
+            case 9:
+                return (sbarnsley3_calc (x1, y1, x2, y2));
+                break;
+            case 10:
+                return (socto_calc (x1, y1, x2, y2));
+                break;
+            case 11:
+                return (sphoenix_calc (x1, y1, x2, y2));
+                break;
+            case 12:
+                return (smagnet_calc (x1, y1, x2, y2));
+                break;
+            case 13:
+                return (smagnet2_calc (x1, y1, x2, y2));
+                break;
+            case 14:
+                return (strice_calc (x1, y1, x2, y2));
+                break;
+            case 15:
+                return (scatseye_calc (x1, y1, x2, y2));
+                break;
+            case 16:
+                return (smbar_calc (x1, y1, x2, y2));
+                break;
+            case 17:
+                return (smlambda_calc (x1, y1, x2, y2));
+                break;
+            case 18:
+                return (smanowar_calc (x1, y1, x2, y2));
+                break;
+            case 19:
+                return (sspider_calc (x1, y1, x2, y2));
+                break;
+            case 20:
+                return (sier_calc (x1, y1, x2, y2));
+                break;
+            case 21:
+                return (carpet_calc (x1, y1, x2, y2));
+                break;
+            case 22:
+                return (koch_calc (x1, y1, x2, y2));
+                break;
+            case 23:
+                return (hornflake_calc (x1, y1, x2, y2));
+                break;
+            case 24:
+                return (smand6_calc (x1, y1, x2, y2));
+                break;
+            case 25:
+                return (beryl_calc (x1, y1, x2, y2));
+                break;
+            case 26:
+                return (goldsier_calc (x1, y1, x2, y2));
+                break;
+            case 27:
+                return (circle7_calc (x1, y1, x2, y2));
+                break;
+            case 28:
+                return (symbarn_calc (x1, y1, x2, y2));
+                break;
+
 #ifdef SFFE_USING
-	case 29:
-	    return (sffe_calc(x1, y1, x2, y2));
-	    break;
+            case 29:
+                return (sffe_calc (x1, y1, x2, y2));
+                break;
 #endif
     } else
-	switch (cfractalc.currentformula - formulas) {	/* no periodicity checking and no smoothmode CALC */
-	case 0:
-	    return (mand_calc(x1, y1, x2, y2));
-	    break;
-	case 1:
-	    return (mand3_calc(x1, y1, x2, y2));
-	    break;
-	case 2:
-	    return (mand4_calc(x1, y1, x2, y2));
-	    break;
-	case 3:
-	    return (mand5_calc(x1, y1, x2, y2));
-	    break;
-	case 4:
-	    return (mand6_calc(x1, y1, x2, y2));
-	    break;
-	case 5:
-	    return (newton_calc(x1, y1, x2, y2));
-	    break;
-	case 6:
-	    return (newton4_calc(x1, y1, x2, y2));
-	    break;
-	case 7:
-	    return (barnsley1_calc(x1, y1, x2, y2));
-	    break;
-	case 8:
-	    return (barnsley2_calc(x1, y1, x2, y2));
-	    break;
-	case 9:
-	    return (barnsley3_calc(x1, y1, x2, y2));
-	    break;
-	case 10:
-	    return (octo_calc(x1, y1, x2, y2));
-	    break;
-	case 11:
-	    return (phoenix_calc(x1, y1, x2, y2));
-	    break;
-	case 12:
-	    return (magnet_calc(x1, y1, x2, y2));
-	    break;
-	case 13:
-	    return (magnet2_calc(x1, y1, x2, y2));
-	    break;
-	case 14:
-	    return (trice_calc(x1, y1, x2, y2));
-	    break;
-	case 15:
-	    return (catseye_calc(x1, y1, x2, y2));
-	    break;
-	case 16:
-	    return (mbar_calc(x1, y1, x2, y2));
-	    break;
-	case 17:
-	    return (mlambda_calc(x1, y1, x2, y2));
-	    break;
-	case 18:
-	    return (manowar_calc(x1, y1, x2, y2));
-	    break;
-	case 19:
-	    return (spider_calc(x1, y1, x2, y2));
-	    break;
-	case 20:
-	    return (sier_calc(x1, y1, x2, y2));
-	    break;
-	case 21:
-	    return (carpet_calc(x1, y1, x2, y2));
-	    break;
-	case 22:
-	    return (koch_calc(x1, y1, x2, y2));
-	    break;
-	case 23:
-	    return (hornflake_calc(x1, y1, x2, y2));
-	    break;
-	case 24:
-	    return (mand9_calc(x1, y1, x2, y2));
-	    break;
-	case 25:
-	    return (beryl_peri(x1, y1, x2, y2));
-	    break;
-        case 26:
-            return (goldsier_calc(x1, y1, x2, y2));
-	    break;
-        case 27:
-            return (circle7_calc(x1, y1, x2, y2));
-	    break;
-        case 28:
-            return (symbarn_calc(x1, y1, x2, y2));
-	    break;
-	    
+        switch (cfractalc.currentformula - formulas) {  /* no periodicity checking and no smoothmode CALC */
+            case 0:
+                return (mand_calc (x1, y1, x2, y2));
+                break;
+            case 1:
+                return (mand3_calc (x1, y1, x2, y2));
+                break;
+            case 2:
+                return (mand4_calc (x1, y1, x2, y2));
+                break;
+            case 3:
+                return (mand5_calc (x1, y1, x2, y2));
+                break;
+            case 4:
+                return (mand6_calc (x1, y1, x2, y2));
+                break;
+            case 5:
+                return (newton_calc (x1, y1, x2, y2));
+                break;
+            case 6:
+                return (newton4_calc (x1, y1, x2, y2));
+                break;
+            case 7:
+                return (barnsley1_calc (x1, y1, x2, y2));
+                break;
+            case 8:
+                return (barnsley2_calc (x1, y1, x2, y2));
+                break;
+            case 9:
+                return (barnsley3_calc (x1, y1, x2, y2));
+                break;
+            case 10:
+                return (octo_calc (x1, y1, x2, y2));
+                break;
+            case 11:
+                return (phoenix_calc (x1, y1, x2, y2));
+                break;
+            case 12:
+                return (magnet_calc (x1, y1, x2, y2));
+                break;
+            case 13:
+                return (magnet2_calc (x1, y1, x2, y2));
+                break;
+            case 14:
+                return (trice_calc (x1, y1, x2, y2));
+                break;
+            case 15:
+                return (catseye_calc (x1, y1, x2, y2));
+                break;
+            case 16:
+                return (mbar_calc (x1, y1, x2, y2));
+                break;
+            case 17:
+                return (mlambda_calc (x1, y1, x2, y2));
+                break;
+            case 18:
+                return (manowar_calc (x1, y1, x2, y2));
+                break;
+            case 19:
+                return (spider_calc (x1, y1, x2, y2));
+                break;
+            case 20:
+                return (sier_calc (x1, y1, x2, y2));
+                break;
+            case 21:
+                return (carpet_calc (x1, y1, x2, y2));
+                break;
+            case 22:
+                return (koch_calc (x1, y1, x2, y2));
+                break;
+            case 23:
+                return (hornflake_calc (x1, y1, x2, y2));
+                break;
+            case 24:
+                return (mand9_calc (x1, y1, x2, y2));
+                break;
+            case 25:
+                return (beryl_peri (x1, y1, x2, y2));
+                break;
+            case 26:
+                return (goldsier_calc (x1, y1, x2, y2));
+                break;
+            case 27:
+                return (circle7_calc (x1, y1, x2, y2));
+                break;
+            case 28:
+                return (symbarn_calc (x1, y1, x2, y2));
+                break;
+
 #ifdef SFFE_USING
-	case 29:
-	    return (sffe_calc(x1, y1, x2, y2));
-	    break;
+            case 29:
+                return (sffe_calc (x1, y1, x2, y2));
+                break;
 #endif
-	}
+        }
     return 0;
 }
 #endif
 
 const struct formula *currentformula;
-const int nformulas = sizeof(formulas) / sizeof(struct formula);
-const int nmformulas = 16; // Is this correct here? -- Zoltan, 2009-07-30
+const int nformulas = sizeof (formulas) / sizeof (struct formula);
+const int nmformulas = 16;      // Is this correct here? -- Zoltan, 2009-07-30

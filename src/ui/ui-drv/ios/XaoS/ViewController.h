@@ -7,11 +7,4 @@
 //
 
 
-@interface AppViewController : UIViewController <UIScrollViewDelegate>
-
-@end
-
-
-@interface ViewController : GLKViewController <UIGestureRecognizerDelegate, UIKeyInput>
-
-@end
+@ interface AppViewController: UIViewController < UIScrollViewDelegate > @end @ interface ViewController:GLKViewController < UIGestureRecognizerDelegate, UIKeyInput > @end

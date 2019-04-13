@@ -73,40 +73,34 @@ const struct params ui_fractal_params[] = {
     {NULL, 0, NULL, NULL}
 };
 
-int ui_dorender_params(void)
+int
+ui_dorender_params (void)
 {
     if (defrender != NULL) {
-	int imagetype = TRUECOLOR24;
-	int width = 640, height = 480;
+        int imagetype = TRUECOLOR24;
+        int width = 640, height = 480;
 #ifdef DESTICKY
-	seteuid(getuid());	/* Don't need supervisor rights anymore. */
-	setegid(getgid());
+        seteuid (getuid ());    /* Don't need supervisor rights anymore. */
+        setegid (getgid ());
 #endif
 #ifndef STRUECOLOR24
-	if (imagetype == TRUECOLOR24)
-	    imagetype = TRUECOLOR;
+        if (imagetype == TRUECOLOR24)
+            imagetype = TRUECOLOR;
 #endif
-	if (imgtype != NULL) {
-	    if (!strcmp("256", imgtype))
-		imagetype = C256;
-	    else if (!strcmp("truecolor", imgtype)) {
-		x_fatalerror("Unknown image type:%s", imgtype);
-	    }
-	}
-	if (defsize != NULL &&
-	    !sscanf(defsize, "%ix%i", &width, &height) &&
-	    (width <= 0 || height <= 0)) {
-	    x_fatalerror("Invalid size (use for example 320x200");
-	}
-	if (framerate <= 0)
-	    framerate = 30;
-	uih_renderanimation(NULL, rbasename, defrender, width, height,
-			    ui_get_windowwidth(width) / width,
-			    ui_get_windowheight(height) / height,
-			    (int) (1000000 / framerate), imagetype, alias,
-			    slowmode, letterspersec, NULL, defvectors,
-			    iframedist);
-	return 1;
+        if (imgtype != NULL) {
+            if (!strcmp ("256", imgtype))
+                imagetype = C256;
+            else if (!strcmp ("truecolor", imgtype)) {
+                x_fatalerror ("Unknown image type:%s", imgtype);
+            }
+        }
+        if (defsize != NULL && !sscanf (defsize, "%ix%i", &width, &height) && (width <= 0 || height <= 0)) {
+            x_fatalerror ("Invalid size (use for example 320x200");
+        }
+        if (framerate <= 0)
+            framerate = 30;
+        uih_renderanimation (NULL, rbasename, defrender, width, height, ui_get_windowwidth (width) / width, ui_get_windowheight (height) / height, (int) (1000000 / framerate), imagetype, alias, slowmode, letterspersec, NULL, defvectors, iframedist);
+        return 1;
     }
     return 0;
 }

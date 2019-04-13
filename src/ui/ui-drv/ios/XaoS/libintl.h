@@ -93,9 +93,10 @@
 extern int libintl_version;
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
-    
+
     /*!
      *  @brief gettext implementation
      *  @see gettext
@@ -114,91 +115,83 @@ extern "C" {
     {
         return libintl_gettext (__msgid);
     }
-    
     /*!
      *  @brief dgettext implementation
      *  @see dgettext
-     */
-    extern char *libintl_dgettext(const char *__domainname, const char *__msgid);
+     */ extern char *libintl_dgettext (const char *__domainname,
+                                       const char *__msgid);
     /*!
      *  @brief NSLocalizedStringFromTable
      *  @details This function works as like NSLocalizedStringFromTable(__msgid, __domainname)
      *  @see NSLocalizedStringFromTable
      */
-    static inline char *dgettext(const char *__domainname, const char *__msgid) {
-        return libintl_dgettext(__domainname, __msgid);
+    static inline char *dgettext (const char *__domainname, const char *__msgid)
+    {
+        return libintl_dgettext (__domainname, __msgid);
     }
-    
+
     /*!
      *  @brief dcgettext implementation
      *  @see dcgettext
      */
-    extern char *libintl_dcgettext (const char *__domainname, const char *__msgid,
-                                    int __category);
+    extern char *libintl_dcgettext (const char *__domainname, const char *__msgid, int __category);
     /*!
      *  @brief Redirect to libintl_dgettext
      *  @details Dummy implementation about category. __category would be ignored always.
      *  @see dgettext
      */
-    static inline char *dcgettext (const char *__domainname, const char *__msgid,
-                                   int __category) {
-        return libintl_dcgettext(__domainname, __msgid, __category);
+    static inline char *dcgettext (const char *__domainname, const char *__msgid, int __category)
+    {
+        return libintl_dcgettext (__domainname, __msgid, __category);
     }
-    
+
     /*!
      *  @brief ngettext implementation
      *  @see ngettext
      */
-    extern char *libintl_ngettext (const char *__msgid1, const char *__msgid2,
-                                   unsigned long int __n);
+    extern char *libintl_ngettext (const char *__msgid1, const char *__msgid2, unsigned long int __n);
     /*!
      *  @brief NSLocalizedStringFromTable with table from textdomain, detecting singular/plural
      *  @details Rough implementation about plural decision. This function works as like NSLocalizedStringFromTable(__msgid1, textdomain()). Replace __msgid1 with __msgid2 if __n is not 1. Use gettext-runtime for more complex plural system.
      *  @see textdomain
      *  @see NSLocalizedStringFromTable
      */
-    static inline char *ngettext (const char *__msgid1, const char *__msgid2,
-                                  unsigned long int __n) {
-        return libintl_ngettext(__msgid1, __msgid2, __n);
+    static inline char *ngettext (const char *__msgid1, const char *__msgid2, unsigned long int __n)
+    {
+        return libintl_ngettext (__msgid1, __msgid2, __n);
     }
-    
+
     /*!
      *  @brief dngettext implementation
      *  @see dngettext
      */
-    extern char *libintl_dngettext (const char *__domainname,
-                                    const char *__msgid1, const char *__msgid2,
-                                    unsigned long int __n);
+    extern char *libintl_dngettext (const char *__domainname, const char *__msgid1, const char *__msgid2, unsigned long int __n);
     /*!
      *  @brief NSLocalizedStringFromTable with detecting singular/plural
      *  @details Rough implementation about plural decision. This function works as like NSLocalizedStringFromTable(__msgid1, __domainname). Replace __msgid1 with __msgid2 if __n is not 1. Use gettext-runtime for more complex plural system.
      *  @see NSLocalizedStringFromTable
      */
-    static inline char *dngettext (const char *__domainname,
-                                   const char *__msgid1, const char *__msgid2,
-                                   unsigned long int __n) {
-        return libintl_dngettext(__domainname, __msgid1, __msgid2, __n);
+    static inline char *dngettext (const char *__domainname, const char *__msgid1, const char *__msgid2, unsigned long int __n)
+    {
+        return libintl_dngettext (__domainname, __msgid1, __msgid2, __n);
     }
-    
+
     /*!
      *  @brief dcngettext implementation
      *  @see dcngettext
      */
-    extern char *libintl_dcngettext (const char *__domainname,
-                                     const char *__msgid1, const char *__msgid2,
-                                     unsigned long int __n, int __category);
+    extern char *libintl_dcngettext (const char *__domainname, const char *__msgid1, const char *__msgid2, unsigned long int __n, int __category);
     /*!
      *  @brief Redirect to libintl_dngettext
      *  @details Dummy implementation about category. Rough implementation about plural decision. __category would be ignored always.
      *  @see dngettext
      */
-    static inline char *dcngettext (const char *__domainname,
-                                    const char *__msgid1, const char *__msgid2,
-                                    unsigned long int __n, int __category) {
-        return libintl_dcngettext(__domainname, __msgid1, __msgid2, __n, __category);
+    static inline char *dcngettext (const char *__domainname, const char *__msgid1, const char *__msgid2, unsigned long int __n, int __category)
+    {
+        return libintl_dcngettext (__domainname, __msgid1, __msgid2, __n, __category);
     }
-    
-    
+
+
     /*!
      *  @brief textdomain implementation
      *  @see textdomain
@@ -210,62 +203,60 @@ extern "C" {
      *      NULL to get. Or set current text domain name.
      *  @return Current domain name if __donaminname is NULL. Or set __domainname as current domain name and returns it.
      */
-    static inline char *textdomain (const char *__domainname) {
-        return libintl_textdomain(__domainname);
+    static inline char *textdomain (const char *__domainname)
+    {
+        return libintl_textdomain (__domainname);
     }
-    
+
     /*!
      *  @brief bindtextdomain implementation
      *  @see bindtextdomain
      */
-    extern char *libintl_bindtextdomain (const char *__domainname,
-                                         const char *__dirname);
+    extern char *libintl_bindtextdomain (const char *__domainname, const char *__dirname);
     /*!
      *  @brief Dummy implementation.
      *  @return __dirname
      *  @details Dummy implementation except return value. This returns __dirname for code compatibility. But does nothing else. If your code depends on this function, use gettext-runtime.
      */
-    static inline char *bindtextdomain (const char *__domainname,
-                                        const char *__dirname) {
-        return libintl_bindtextdomain(__domainname, __dirname);
+    static inline char *bindtextdomain (const char *__domainname, const char *__dirname)
+    {
+        return libintl_bindtextdomain (__domainname, __dirname);
     }
-    
+
     /*!
      *  @brief bind_textdomain_codeset implementation
      *  @see bind_textdomain_codeset
      */
-    extern char *libintl_bind_textdomain_codeset (const char *__domainname,
-                                                  const char *__codeset);
+    extern char *libintl_bind_textdomain_codeset (const char *__domainname, const char *__codeset);
     /*!
      *  @brief Dummy implementation.
      *  @return __codeset
      *  @details Dummy implementation except return value. This returns __codeset for code compatibility. But does nothing else. If your code depends on this function, use gettext-runtime.
      */
-    static inline char *bind_textdomain_codeset (const char *__domainname,
-                                                 const char *__codeset) {
-        return libintl_bind_textdomain_codeset(__domainname, __codeset);
+    static inline char *bind_textdomain_codeset (const char *__domainname, const char *__codeset)
+    {
+        return libintl_bind_textdomain_codeset (__domainname, __codeset);
     }
-    
-    
+
+
     /*!
      *  @brief Redirect to setlocale in <locale.h>
      *  @see setlocale
      */
     extern char *libintl_setlocale (int, const char *);
-    
+
     /*!
      *  @brief Redirect to newlocale in <xlocale.h>
      *  @see newlocale
      */
     extern locale_t libintl_newlocale (int, const char *, locale_t);
-    
+
     /*!
      *  @brief Dummy implementation! This funciton does nothing.
      *  @details Dummy implementation. If your code depends on this function, use gettext-runtime.
      */
-    extern void libintl_set_relocation_prefix (const char *orig_prefix,
-                                               const char *curr_prefix);
-    
+    extern void libintl_set_relocation_prefix (const char *orig_prefix, const char *curr_prefix);
+
 #ifdef __cplusplus
 }
 #endif

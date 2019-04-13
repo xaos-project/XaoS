@@ -35,15 +35,16 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 #ifdef SFFE_USING
 /*extern sffe* parser;
    extern sffe* pinit; */
-extern cmplx Z;
-extern cmplx pZ;
-extern cmplx C;
+    extern cmplx Z;
+    extern cmplx pZ;
+    extern cmplx C;
 #endif
 
 #define MAX_LAMBDA 2
@@ -51,14 +52,14 @@ extern cmplx C;
 
 #define FORMULAMAGIC 1121
 
-extern const char *const incolorname[];
-extern const struct formula formulas[];
-extern const char *const outcolorname[];
-extern const char *const tcolorname[];
-extern const int nformulas;
-extern const int nmformulas;
+    extern const char *const incolorname[];
+    extern const struct formula formulas[];
+    extern const char *const outcolorname[];
+    extern const char *const tcolorname[];
+    extern const int nformulas;
+    extern const int nmformulas;
 
 #ifdef __cplusplus
 }
 #endif
-#endif				/* FORMULAS_H */
+#endif                          /* FORMULAS_H */

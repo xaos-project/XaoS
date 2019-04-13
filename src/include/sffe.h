@@ -26,7 +26,8 @@
 /* --- */
 /*TODO long double needed*/
 #ifdef SFFE_CMPLX_ASM
-typedef struct cmpx__ {
+typedef struct cmpx__
+{
     double r, i;
 } cmplx;
 #define sfNumber 		cmplx
@@ -37,7 +38,8 @@ typedef gsl_complex cmplx;
 #endif
 
 /* basic sffe argument 'stack' */
-typedef struct sfargument__ {
+typedef struct sfargument__
+{
     struct sfargument__ *parg;
     sfNumber *value;
 } sfarg;
@@ -49,7 +51,8 @@ typedef sfarg *(*sffptr) (sfarg * const a);
 typedef void (*cfptr) (sfNumber * cnst);
 
 /* function type structure */
-typedef struct sffunction__ {
+typedef struct sffunction__
+{
     sffptr fptr;
     unsigned char parcnt;
     /*FIXME changed from char* to char[20] to get rid of warnings during compilation */
@@ -57,26 +60,28 @@ typedef struct sffunction__ {
 } sffunction;
 
 /* basic sffe 'stack' operation ( function + result slot ) */
-typedef struct sfoperation__ {
+typedef struct sfoperation__
+{
     sfarg *arg;
     sffptr f;
 } sfopr;
 
 /* SFFE main structure */
-typedef struct sffe__ {
+typedef struct sffe__
+{
 /*public*/
-    char *expression;		/* parsed expression (read-only) */
-    char *errormsg;		/* parser errors (read-only) */
-    sfNumber *result;		/* evaluation result (read-only) */
+    char *expression;           /* parsed expression (read-only) */
+    char *errormsg;             /* parser errors (read-only) */
+    sfNumber *result;           /* evaluation result (read-only) */
 /* protected/private */
-    unsigned int argCount;	/* number of argument in use */
+    unsigned int argCount;      /* number of argument in use */
     sfarg *args;
-    unsigned int oprCount;	/* number of operations in use */
+    unsigned int oprCount;      /* number of operations in use */
     sfopr *oprs;
-    unsigned int varCount;	/* number of used variables */
+    unsigned int varCount;      /* number of used variables */
     char *varChars;
     sfNumber **varPtrs;
-    unsigned int userfCount;	/* number of user functions */
+    unsigned int userfCount;    /* number of user functions */
     sffunction *userf;
 /* not used 
   unsigned int	stCount;	    
@@ -102,31 +107,30 @@ typedef struct sffe__ {
 
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /* create formula evaluator structure */
-sffe *sffe_alloc(void);
+    sffe *sffe_alloc (void);
 /* free fe structure */
-void sffe_free(sffe ** parser);
+    void sffe_free (sffe ** parser);
 /* parse expression 'expression' and strore result in 'parser' struct, error (if any) returned */
-int sffe_parse(sffe ** parser, char *expression);
+    int sffe_parse (sffe ** parser, char *expression);
 /* evaulate function and return evaluation result */
-sfNumber sffe_eval(sffe * const parser);
+    sfNumber sffe_eval (sffe * const parser);
 /* evaluate without returnig result */
 //void sffe_eval2(sffe *const parser);
 /* register user function with name 'vname', with 'parcnt' parameters and defined with function pointed by 'funptr'*/
-void *sffe_regfunc(sffe ** parser, char *vname, unsigned int parcnt,
-                   sffptr funptr);
+    void *sffe_regfunc (sffe ** parser, char *vname, unsigned int parcnt, sffptr funptr);
 /* register single variable 'vptrs' identified by name 'vchars' */
-void *sffe_regvar(sffe ** parser, sfNumber * vptrs, char vchars);
+    void *sffe_regvar (sffe ** parser, sfNumber * vptrs, char vchars);
 /* register multiple variables */
-void *sffe_regvars(sffe ** parser, unsigned int cN, sfNumber ** vptrs,
-                   char *vchars);
+    void *sffe_regvars (sffe ** parser, unsigned int cN, sfNumber ** vptrs, char *vchars);
 /* get variable 'vchar' pointer */
-sfNumber *sffe_varptr(sffe * const parser, char vchar);
+    sfNumber *sffe_varptr (sffe * const parser, char vchar);
 /* set 'vptrs' as 'vchars' variable  */
-sfNumber *sffe_setvar(sffe ** parser, sfNumber * vptrs, char vchars);
+    sfNumber *sffe_setvar (sffe ** parser, sfNumber * vptrs, char vchars);
 
 #ifdef __cplusplus
 }

@@ -13,7 +13,8 @@
 #define THREAD_H 1
 #include <fconfig.h>
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 #define MAXTHREADS 32
 /*You might increase this constant if needed
@@ -31,23 +32,24 @@ extern "C" {
 #include <OS.h>
 #endif
 
-struct taskinfo {
-    int n;
+    struct taskinfo
+    {
+        int n;
 #ifdef USE_PTHREAD
-    pthread_t id;
+        pthread_t id;
 #endif
 #ifdef _plan9_
-    int id;
+        int id;
 #endif
 #ifdef __BEOS__
-    thread_id id;
+        thread_id id;
 #endif
-};
+    };
 
-extern struct taskinfo definfo;
-extern int ethreads;	/*Is threading enabled? */
-extern int nthreads;	/*Number of threads */
-typedef void (*xfunction) (void *, struct taskinfo *, int, int);
+    extern struct taskinfo definfo;
+    extern int ethreads;        /*Is threading enabled? */
+    extern int nthreads;        /*Number of threads */
+    typedef void (*xfunction) (void *, struct taskinfo *, int, int);
 
 /*No-thread API implementation version */
 #define nothread { }
@@ -66,13 +68,13 @@ typedef void (*xfunction) (void *, struct taskinfo *, int, int);
 
 #ifdef USE_PTHREAD
 /* A posix thread API maps */
-void pth_init(int nthreads);
-void pth_uninit(void);
-void pth_function(xfunction f, void *d, int r);
-void pth_synchronize(void);
-void pth_bgjob(xfunction f, void *d);
-extern pthread_mutex_t semaphors[MAXSEMAPHORS];
-extern pthread_cond_t conds[MAXCONDS];
+    void pth_init (int nthreads);
+    void pth_uninit (void);
+    void pth_function (xfunction f, void *d, int r);
+    void pth_synchronize (void);
+    void pth_bgjob (xfunction f, void *d);
+    extern pthread_mutex_t semaphors[MAXSEMAPHORS];
+    extern pthread_cond_t conds[MAXCONDS];
 
 /*Map pthread API to XaoS thread API */
 
@@ -88,28 +90,29 @@ extern pthread_cond_t conds[MAXCONDS];
 #define xth_wakeup(n) if(ethreads) pthread_cond_broadcast(conds+(n))
 #define xth_wakefirst(n) if(ethreads) pthread_cond_signal(conds+(n))
 #define API_MAPPED
-#endif				/*USE_PTHREAD */
+#endif                          /*USE_PTHREAD */
 
 #ifdef _plan9_
 
-struct Stack {
-    int nwaiting;
-    int tags[MAXTHREADS];
-};
+    struct Stack
+    {
+        int nwaiting;
+        int tags[MAXTHREADS];
+    };
 #ifdef _plan9v2_
-#include <lock.h>		/* in plan9v3 part of libc */
+#include <lock.h>               /* in plan9v3 part of libc */
 #endif
 /* A plan9 thread API maps */
-void p9wait(struct Stack *s, Lock * l);
-void p9wakeup(struct Stack *s);
-void p9wakeall(struct Stack *s);
-void p9init(int nthreads);
-void p9uninit(void);
-void p9function(xfunction f, void *d, int r);
-void p9synchronize(void);
-void p9bgjob(xfunction f, void *d);
-extern Lock semaphors[MAXSEMAPHORS];
-extern struct Stack conds[MAXCONDS];
+    void p9wait (struct Stack *s, Lock * l);
+    void p9wakeup (struct Stack *s);
+    void p9wakeall (struct Stack *s);
+    void p9init (int nthreads);
+    void p9uninit (void);
+    void p9function (xfunction f, void *d, int r);
+    void p9synchronize (void);
+    void p9bgjob (xfunction f, void *d);
+    extern Lock semaphors[MAXSEMAPHORS];
+    extern struct Stack conds[MAXCONDS];
 
 /*Map pthread API to XaoS thread API */
 
@@ -125,46 +128,49 @@ extern struct Stack conds[MAXCONDS];
 #define xth_wakeup(n) if(ethreads) p9wakeall(conds+(n))
 #define xth_wakefirst(n) if(ethreads) p9wakeup(conds+(n))
 #define API_MAPPED
-#endif				/*USE_PTHREAD */
+#endif                          /*USE_PTHREAD */
 
 #ifdef __BEOS__
-typedef struct {
-    int32 cnt;
-    sem_id sem;
-} benaphore;
+    typedef struct
+    {
+        int32 cnt;
+        sem_id sem;
+    } benaphore;
 
-void acquire_benaphore(benaphore * p);
-void release_benaphore(benaphore * p);
+    void acquire_benaphore (benaphore * p);
+    void release_benaphore (benaphore * p);
 #ifdef __GNUC__
-extern
+    extern
 #endif
-        inline void acquire_benaphore(benaphore * p) {
-    if (atomic_add(&(p->cnt), 1) >= 1) {
-        /* Someone was faster. */
-        while (acquire_sem(p->sem) == B_INTERRUPTED);
+    inline void acquire_benaphore (benaphore * p)
+    {
+        if (atomic_add (&(p->cnt), 1) >= 1) {
+            /* Someone was faster. */
+            while (acquire_sem (p->sem) == B_INTERRUPTED);
+        }
     }
-}
 #ifdef __GNUC__
-extern
+    extern
 #endif
-        inline void release_benaphore(benaphore * p) {
-    if (atomic_add(&(p->cnt), -1) > 1) {
-        /* Someone was slower. */
-        release_sem(p->sem);
+    inline void release_benaphore (benaphore * p)
+    {
+        if (atomic_add (&(p->cnt), -1) > 1) {
+            /* Someone was slower. */
+            release_sem (p->sem);
+        }
     }
-}
 
-extern benaphore mutexes[MAXSEMAPHORS];
-extern benaphore condvars[MAXCONDS];
+    extern benaphore mutexes[MAXSEMAPHORS];
+    extern benaphore condvars[MAXCONDS];
 
-void be_thread_init(int num_threads);
-void be_thread_uninit(void);
-void be_thread_function(xfunction f, void *d, int r);
-void be_thread_synchronize(void);
-void be_thread_bgjob(xfunction f, void *d);
-void be_thread_sleep(benaphore * pCondition, benaphore * pMutex);
-void be_thread_wakeup(benaphore * pCondition);
-void be_thread_wakefirst(benaphore * pCondition);
+    void be_thread_init (int num_threads);
+    void be_thread_uninit (void);
+    void be_thread_function (xfunction f, void *d, int r);
+    void be_thread_synchronize (void);
+    void be_thread_bgjob (xfunction f, void *d);
+    void be_thread_sleep (benaphore * pCondition, benaphore * pMutex);
+    void be_thread_wakeup (benaphore * pCondition);
+    void be_thread_wakefirst (benaphore * pCondition);
 
 /* Map BeOS API to XaoS thread API. */
 
@@ -180,7 +186,7 @@ void be_thread_wakefirst(benaphore * pCondition);
 #define xth_wakeup(n) if(ethreads) be_thread_wakeup(condvars+(n))
 #define xth_wakefirst(n) if(ethreads) be_thread_wakefirst(condvars+(n))
 #define API_MAPPED
-#endif				/* __BEOS__ */
+#endif /* __BEOS__ */
 
 #ifndef API_MAPPED
 /*

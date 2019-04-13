@@ -22,12 +22,7 @@
 /*drivers registry */
 #include <config.h>
 #include <ui.h>
-extern const struct ui_driver svga_driver, x11_driver, dog_driver,
-    plan9_driver, plan9_driver, mac_driver, mac_full_driver, osx_driver,
-    osx_fullscreen_driver, os2vio_driver, cocoa_driver, qt_driver,
-    cocoa_fullscreen_driver, be_driver, be_direct_driver, be_screen_driver,
-    aalib_driver, gtk_driver, ggi_driver, win32_driver, dxw_driver,
-    dxf_driver, DGA_driver;
+extern const struct ui_driver svga_driver, x11_driver, dog_driver, plan9_driver, plan9_driver, mac_driver, mac_full_driver, osx_driver, osx_fullscreen_driver, os2vio_driver, cocoa_driver, qt_driver, cocoa_fullscreen_driver, be_driver, be_direct_driver, be_screen_driver, aalib_driver, gtk_driver, ggi_driver, win32_driver, dxw_driver, dxf_driver, DGA_driver;
 const struct ui_driver *const drivers[] = {
 #ifdef WIN32_DRIVER
     &win32_driver,
@@ -86,4 +81,4 @@ const struct ui_driver *const drivers[] = {
     NULL
 };
 
-const int ndrivers = (sizeof(drivers) / sizeof(*drivers) - 1);
+const int ndrivers = (sizeof (drivers) / sizeof (*drivers) - 1);

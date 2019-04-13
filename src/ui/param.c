@@ -36,7 +36,8 @@
 static const struct params *params[40];
 int nparams;
 
-int params_parser(int argc, char **argv)
+int
+params_parser (int argc, char **argv)
 {
     int i, p = 0, d;
     int ie = 0;
@@ -45,128 +46,118 @@ int params_parser(int argc, char **argv)
     int error = 0;
     int found;
     for (i = 1; i < argc && !error; i++) {
-	found = 0;
+        found = 0;
 #ifdef MACOSX
-	if (strncmp("-psn", argv[i], 4) == 0)
-	    continue;
+        if (strncmp ("-psn", argv[i], 4) == 0)
+            continue;
 #endif
-	if (!strcmp("-help", argv[i])) {
-	    error = 1;
-	    break;
-	}
-	for (d = 0; d < nparams; d++) {
-	    par = params[d];
-	    for (p = 0; par[p].name != NULL && !error; p++) {
-		if (!strcmp(par[p].name, argv[i])) {
-		    found = 1;
-		    is = i;
-		    switch (par[p].type) {
-		    case P_SWITCH:
-			*((int *) par[p].value) = 1;
-			break;
-		    case P_NUMBER:
-			{
-			    int n;
-			    if (i == argc - 1) {
-				x_error
-				    ("parameter %s requires numeric value.",
-				     argv[i]);
-				error = 1;
-				break;
-			    }
-			    if (sscanf(argv[i + 1], "%i", &n) != 1) {
-				x_error("parameter for %s is not number.",
-					argv[i]);
-				error = 1;
-				break;
-			    }
-			    *((int *) par[p].value) = n;
-			    i++;
-			}
-			break;
-		    case P_FLOAT:
-			{
-			    float n;
-			    if (i == argc - 1) {
-				x_error
-				    ("parameter %s requires floating point numeric value.",
-				     argv[i]);
-				error = 1;
-				break;
-			    }
-			    if (sscanf(argv[i + 1], "%f", &n) != 1) {
-				x_error
-				    ("parameter for %s is not floating point number.",
-				     argv[i]);
-				error = 1;
-				break;
-			    }
-			    *((float *) par[p].value) = n;
-			    i++;
-			}
-			break;
-		    case P_STRING:
-			{
-			    if (i == argc - 1) {
-				x_error
-				    ("parameter %s requires string value.",
-				     argv[i]);
-				error = 1;
-				break;
-			    }
-			    i++;
-			    *((char **) par[p].value) = *(argv + i);
-			}
-		    }
-		    ie = i;
-		    i = is;
-		}
-	    }
-	}
-	if (d == nparams && !found) {
-	    i = menu_processargs(i, argc, argv);
-	    if (i < 0) {
-		error = 1;
-		break;
-	    } else
-		i++;
-	} else
-	    i = ie;
+        if (!strcmp ("-help", argv[i])) {
+            error = 1;
+            break;
+        }
+        for (d = 0; d < nparams; d++) {
+            par = params[d];
+            for (p = 0; par[p].name != NULL && !error; p++) {
+                if (!strcmp (par[p].name, argv[i])) {
+                    found = 1;
+                    is = i;
+                    switch (par[p].type) {
+                        case P_SWITCH:
+                            *((int *) par[p].value) = 1;
+                            break;
+                        case P_NUMBER:
+                            {
+                                int n;
+                                if (i == argc - 1) {
+                                    x_error ("parameter %s requires numeric value.", argv[i]);
+                                    error = 1;
+                                    break;
+                                }
+                                if (sscanf (argv[i + 1], "%i", &n) != 1) {
+                                    x_error ("parameter for %s is not number.", argv[i]);
+                                    error = 1;
+                                    break;
+                                }
+                                *((int *) par[p].value) = n;
+                                i++;
+                            }
+                            break;
+                        case P_FLOAT:
+                            {
+                                float n;
+                                if (i == argc - 1) {
+                                    x_error ("parameter %s requires floating point numeric value.", argv[i]);
+                                    error = 1;
+                                    break;
+                                }
+                                if (sscanf (argv[i + 1], "%f", &n) != 1) {
+                                    x_error ("parameter for %s is not floating point number.", argv[i]);
+                                    error = 1;
+                                    break;
+                                }
+                                *((float *) par[p].value) = n;
+                                i++;
+                            }
+                            break;
+                        case P_STRING:
+                            {
+                                if (i == argc - 1) {
+                                    x_error ("parameter %s requires string value.", argv[i]);
+                                    error = 1;
+                                    break;
+                                }
+                                i++;
+                                *((char **) par[p].value) = *(argv + i);
+                            }
+                    }
+                    ie = i;
+                    i = is;
+                }
+            }
+        }
+        if (d == nparams && !found) {
+            i = menu_processargs (i, argc, argv);
+            if (i < 0) {
+                error = 1;
+                break;
+            } else
+                i++;
+        } else
+            i = ie;
     }
     if (error) {
-	const char *name[] = {
-	    "",
-	    "number",
-	    "string",
-	    "f.point"
-	};
+        const char *name[] = {
+            "",
+            "number",
+            "string",
+            "f.point"
+        };
 #ifndef _plan9_
-	printf("                 XaoS" XaoS_VERSION " help text\n");
-	printf
-	    (" (This help is genereated automagically. I am sorry for all inconvencies)\n\n");
+        printf ("                 XaoS" XaoS_VERSION " help text\n");
+        printf (" (This help is genereated automagically. I am sorry for all inconvencies)\n\n");
 #endif
-	printf("option string   param   description\n\n");
-	for (d = 0; d < nparams; d++) {
-	    par = params[d];
-	    for (p = 0; par[p].name != NULL; p++) {
-		if (par[p].type == P_HELP)
-		    printf("\n%s\n\n", par[p].help);
-		else if (!par[p].type)
-		    printf(" %-14s   %s\n", par[p].name, par[p].help);
-		else
-		    printf(" %-14s  %s\n%14s    %s\n", par[p].name,
-			   name[par[p].type], "", par[p].help);
-	    }
-	    if (p == 0)
-		printf(" No options avaiable for now\n");
-	}
-	menu_printhelp();
-	return 0;
+        printf ("option string   param   description\n\n");
+        for (d = 0; d < nparams; d++) {
+            par = params[d];
+            for (p = 0; par[p].name != NULL; p++) {
+                if (par[p].type == P_HELP)
+                    printf ("\n%s\n\n", par[p].help);
+                else if (!par[p].type)
+                    printf (" %-14s   %s\n", par[p].name, par[p].help);
+                else
+                    printf (" %-14s  %s\n%14s    %s\n", par[p].name, name[par[p].type], "", par[p].help);
+            }
+            if (p == 0)
+                printf (" No options avaiable for now\n");
+        }
+        menu_printhelp ();
+        return 0;
     }
     return (1);
 }
 
-void params_register(const struct params *par)
+void
+params_register (const struct params *par)
 {
     params[nparams++] = par;
 }

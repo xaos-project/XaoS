@@ -30,7 +30,8 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 
@@ -43,16 +44,15 @@ extern "C" {
 #define P_TRANLAMBDA 5
 #define P_MEREBERG 6
 #define P_USER 7
-extern void recalculate(int plane, number_t *,
-                        number_t *) REGISTERS(3);
+    extern void recalculate (int plane, number_t *, number_t *) REGISTERS (3);
 
-extern const char *const planename[];
+    extern const char *const planename[];
 
 #ifdef SFFE_USING
-extern const sffe *planec;
+    extern const sffe *planec;
 #endif
 
 #ifdef __cplusplus
 }
 #endif
-#endif				/* PLANE_H */
+#endif                          /* PLANE_H */

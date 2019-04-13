@@ -5,10 +5,10 @@
 #ifdef __BEOS__
 #define MAIN_FUNCTION be_main
 #ifdef __POWERPC__
-#  define SLOWCACHESYNC
-#  ifdef __MWERKS__
-#    define INLINEFABS(x) __fabs(x)
-#  endif
+#define SLOWCACHESYNC
+#ifdef __MWERKS__
+#define INLINEFABS(x) __fabs(x)
+#endif
 #endif
 #endif
 
@@ -29,12 +29,12 @@ before #include <ddraw.h>*/
 #define NONAMELESSUNION
 #endif
 
-/*#define I_WAS_HERE */      /*uncoment this to disable changing of parameters by atoconf */
+                                                                                                                                                                                                                                                                                                                 /*#define I_WAS_HERE *//*uncoment this to disable changing of parameters by atoconf */
 
 #define FPOINT_TYPE  long double
-				       /*floating point math type on computers
-				          with medium speed floating point math should   
-				          use float instead */
+                                       /*floating point math type on computers
+                                          with medium speed floating point math should   
+                                          use float instead */
 #include <aconfig.h>
 #define USE_STDIO
 #if !defined(HAVE_LONG_DOUBLE)&&!defined(I_WAS_HERE)
@@ -66,7 +66,6 @@ before #include <ddraw.h>*/
 #define USE_XLDIO
 #endif
 #endif
-
 #include "gccaccel.h"
 #ifdef HAVE_MOUSEMASK
 #define NCURSESMOUSE
@@ -125,12 +124,13 @@ before #include <ddraw.h>*/
 #endif
 #ifdef BEOS_DRIVER
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 #ifdef __GNUC__
-void be_exit_xaos(int i) __attribute__ ((__noreturn__));
+    void be_exit_xaos (int i) __attribute__ ((__noreturn__));
 #else
-void be_exit_xaos(int i);
+    void be_exit_xaos (int i);
 #endif
 #ifdef __cplusplus
 }
@@ -155,5 +155,4 @@ void be_exit_xaos(int i);
 #ifdef HAVE_SELECT
 #define COMPILE_PIPE
 #endif
-#endif				/*CONFIG_H */
-
+#endif                          /*CONFIG_H */

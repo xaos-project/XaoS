@@ -18,7 +18,7 @@
 #define REGISTERS(n) __attribute__ ((__regparm__(n)))
 #endif /*NOREGISTERS*/
 #endif /*__i386__ */
-#endif				/*version */
+#endif /*version */
 #endif /*__GNUC__*/
 #ifndef RESTRICT
 #define RESTRICT

@@ -56,8 +56,8 @@
 #define HAVE_FTIME 1
 /*#define USE_PNG 1*/
 #ifdef USE_PNG
-    #include <sys/time.h>
-    #include <pngpriv.h>
+#include <sys/time.h>
+#include <pngpriv.h>
 #endif
 
 #define HAVE_FINITE 1

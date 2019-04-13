@@ -3,12 +3,13 @@
 #ifdef USE_XLDIO
 #include "xio.h"
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
-void x_ldout(long double param, int prec, xio_file stream);
-long double x_strtold(const char *s, const char **sret);
+    void x_ldout (long double param, int prec, xio_file stream);
+    long double x_strtold (const char *s, const char **sret);
 #ifdef __cplusplus
 }
 #endif
-#endif				/*USE_XLDIO */
-#endif				/*X_LDIO_H */
+#endif                          /*USE_XLDIO */
+#endif                          /*X_LDIO_H */
