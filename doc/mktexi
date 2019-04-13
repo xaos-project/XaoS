@@ -1,5 +1,0 @@
-#!/bin/sh
-set -e
-echo "Generating xaos.texinfo..."
-awk '/##.*##/ {system("sh ../help/conv "$3" "$4" <../help/xaos.hlp ");};
-     /.*/ {print $0}'  <xaos.geninfo >xaos.texinfo

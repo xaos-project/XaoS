@@ -491,7 +491,7 @@ AC_CONFIG_FILES([src/i18n/Makefile.in
     src/util/Makefile src/ui/Makefile src/filter/Makefile src/ui-hlp/Makefile
     src/ui/ui-drv/aa/Makefile
     src/ui/ui-drv/x11/Makefile src/ui/ui-drv/win32/Makefile
-    doc/Makefile help/Makefile src/ui/ui-drv/gtk/Makefile src/sffe/Makefile
+    src/ui/ui-drv/gtk/Makefile src/sffe/Makefile
   ])
 AC_OUTPUT
 

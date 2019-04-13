@@ -1,9 +1,0 @@
-.. _helpmenu:
-
-.. index::
-   pair: menu; Help
-
-Help
-====
-
-This menu contains help and tutorials.
