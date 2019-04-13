@@ -1,13 +1,6 @@
 #include <config.h>
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#else
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
 #include <string.h>
-#endif
+#include <stdlib.h>
 
 #include <fconfig.h>
 #include <filter.h>
@@ -46,7 +39,7 @@ static int pressedbutton = -1;
 static int selectedbutton = -1;
 
 #define NBUTTONS 3
-const char *const names[] = { "OK", "Back", "Main" };
+const char *const names[] = { "OK", "Website", "Help" };
 
 #define BUTTONSTART(i) (helpx+BORDERWIDTH+(helpwidth-2*BORDERWIDTH)/NBUTTONS*(i))
 static void ui_build_help (char *name);
@@ -67,10 +60,10 @@ do_button (int i)
             ui_close_help ();
             break;
         case 1:
-            ui_backhelp ();
+            system("xdg-open " WEB_URL);
             break;
         case 2:
-            ui_help ("main");
+            system("xdg-open " HELP_URL);
             break;
     }
 }
