@@ -1,4 +1,4 @@
-HOW TO COMPILE AND INSTALL XAOS
+How to Compile and Install XaoS
 ===============================
 
 NOTE: This is the source code package for XaoS. You cannot use XaoS from 
@@ -7,13 +7,14 @@ pre-built binary instead.
 
 If you would like to install a binary version for Windows or Mac OS X, 
 download the appropriate package for your operating system from 
-
- http://xaos.sf.net
+http://xaos.sf.net.
 
 For Ubuntu and Debian users, type the following from a shell prompt to 
 automatically install XaoS:
 
+```
  sudo apt-get install xaos
+```
 
 For other GNU/Linux users, refer to your distribution's instructions for
 installing packages from its repositories.  
@@ -91,12 +92,16 @@ install the development packages as well (usually marked -dev or -devel).
 Users of Ubuntu and Debian can automatically install all the necessary 
 build dependencies from above by typing:
 
+```
  sudo apt-get build-dep xaos
+```
 
 However, GTK+ is not configured as a build dependency yet, so you will
 need to install it manually by typing:
 
+```
  sudo apt-get install libgtk2.0-dev
+```
 
 
 Building XaoS
@@ -104,8 +109,10 @@ Building XaoS
 
 To build XaoS, type the following commands from the XaoS source directory:
 
+```
  ./configure
  make
+```
 
 XaoS will automatically detect which dependencies you have installed and
 configure itself to support whatever features are available.  If you find
@@ -116,29 +123,25 @@ Configure will try to choose the best optimization switches for your
 architecture, but it may not work well for less common ones.  You can 
 provide optimization flags by specifying them before running configure:
 
+```
  CFLAGS=(your best optimizing switches)
  export CFLAGS
+```
 
 You can also customize what optional features to build by passing options
 to the configure script.
 
-To enable experimental SMP support use:
+- To enable experimental SMP support use `--with-pthread=yes`
+- To enable the experimental GTK UI, use: `--with-gtk-driver=yes --with-x11-driver=no`
+- To enable the aa-lib driver, use: `--with-aa-driver=yes`
 
- --with-pthread=yes
-
-To enable the experimental GTK UI, use:
-
- --with-gtk-driver=yes --with-x11-driver=no
-
-To enable the aa-lib driver, use:
-
- --with-aa-driver=yes
-
-Run "./configure --help" for a full list of options.
+Run `./configure --help` for a full list of options.
 
 Once you have successfully compiled XaoS, type the following to install it:
 
+```
  sudo make install
+```
 
 
 For Win32
@@ -155,13 +158,8 @@ you are not trying to compile an official binary and only want to test or
 develop a certain subset of XaoS's features, you can skip the dependencies
 that are not relevant to those features.
 
-To compile XaoS, you need:
-
-   MSYS2 from https://www.msys2.org/
-
-To build the XaoS installer you need:
-
- * NSIS from http://nsis.sourceforge.net/
+- To compile XaoS, you need MSYS2 from https://www.msys2.org/
+- To build the XaoS installer you need NSIS from http://nsis.sourceforge.net/
 
 
 Preparation
@@ -171,17 +169,21 @@ Install the latest version of MSYS2 and follow the instructions to update it.
 
 Start the "MSYS2 MinGW 32-bit" shell and install GCC and XaoS build dependencies:
 
-    pacman -S make nasm mingw-w64-i686-gcc mingw-w64-i686-libpng
-
-Optionally install the HTML Help SDK and NSIS install system.
+```
+pacman -S make nasm mingw-w64-i686-gcc mingw-w64-i686-libpng
+```
 
 Extract the XaoS source files:
 
- tar xfz XaoS-$VERSION.tar.gz   # replace $VERSION with actual version
+```
+tar xfz XaoS-$VERSION.tar.gz   # replace $VERSION with actual version
+```
 
 Or, check out the latest sources from GitHub:
 
- git clone https://github.com/xaos-project/XaoS.git
+```
+git clone https://github.com/xaos-project/XaoS.git
+```
 
 NOTE: If your Windows username contains spaces, do not extract the sources in
 your home directory.  Instead create a directory called, for example, /build
@@ -194,26 +196,29 @@ Building XaoS
 
 To build XaoS, type the following commands from the XaoS source root:
 
- ./configure
- make
+```
+./configure
+make
+```
 
 XaoS will automatically detect what dependencies you have installed and
 configure itself to support whatever features are available.  If you find
 that some feature is missing, please verify that you have installed the
-corresponding dependency and that the installation location is specified
-correctly in your "$HOME/.bash_profile" file.
+corresponding dependency installed.
 
 To install XaoS to a staging directory, type the following commands:
 
- export DESTDIR=<installdir>
- make install-win
+```
+export DESTDIR=<installdir>
+make install-win
+```
 
-where <installdir> should be the absolute path of the folder in which XaoS 
+where `<installdir>` should be the absolute path of the folder in which XaoS 
 should be installed.
 
 To build the XaoS installer, install XaoS to
-XaoS/src/ui/ui-drv/win32/installer/XaoS. Use NSIS to compile the script XaoS
-Installer.nsi in the directory XaoS/src/ui/ui-drv/win32/installer.
+`XaoS/src/ui/ui-drv/win32/installer/XaoS`. Use NSIS to compile the script XaoS
+Installer.nsi in the directory `XaoS/src/ui/ui-drv/win32/installer`.
 
 
 Mac OS X
@@ -227,16 +232,13 @@ recently on 10.5.
 
 Xcode 3.0 or later is required to compile XaoS for Mac OS X. You can find 
 it on the Developer Tools disc that came with your computer or download it
-from:
-
- http://developer.apple.com/mac/
+from: http://developer.apple.com/mac/
 
 Pre-compiled binaries for additional Mac OS X third-party build dependencies
-can be downloaded from:
+can be downloaded from: 
+http://downloads.sourceforge.net/sourceforge/xaos/xaos-thirdparty-cocoa-20090714.tar.gz
 
- http://downloads.sourceforge.net/sourceforge/xaos/xaos-thirdparty-cocoa-20090714.tar.gz
-
-Exract this file within the src/ui/ui-drv/cocoa/thirdparty directory of your
+Exract this file within the `src/ui/ui-drv/cocoa/thirdparty` directory of your
 XaoS source distribution.
 
 Alternatively, to compile third party dependencies from source, download:
@@ -247,6 +249,7 @@ Alternatively, to compile third party dependencies from source, download:
 
 Extract each library and build them using the following commands:
 
+```
  env CFLAGS="-O -g -isysroot /Developer/SDKs/MacOSX10.4u.sdk \
              -arch i386 -arch ppc -mmacosx-version-min=10.4" \
      LDFLAGS="-arch i386 -arch ppc" \
@@ -255,15 +258,14 @@ Extract each library and build them using the following commands:
 
  make
  make install
+```
 
 Be sure to replace $XAOS_ROOT with the root of your XaoS folder. This 
 will install the libraries and headers in src/ui/ui-drv/cocoa/thirdparty
 where the Xcode project will be able to find them.
 	   
 For more information about building open source libraries as universal 
-binaries see:
-	   
- http://developer.apple.com/technotes/tn2005/tn2137.html
+binaries see: http://developer.apple.com/technotes/tn2005/tn2137.html
 	
 
 Building XaoS
@@ -271,8 +273,7 @@ Building XaoS
 
 The Mac OS X version of XaoS is not compiled using the configure scripts in
 the root directory.  Instead, use the Xcode project located in:
-
- src/ui/ui-drv/cocoa/XaoS.xcodeproj
+`src/ui/ui-drv/cocoa/XaoS.xcodeproj`.
 
 If the libraries were installed properly, you should be able to build XaoS
 from the Xcode project.
