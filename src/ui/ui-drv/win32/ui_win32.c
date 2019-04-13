@@ -4,9 +4,6 @@
 #ifdef WIN32_DRIVER
 #define _WIN32_WINNT 0x0501     /* Enable access to Windows XP APIs */
 #include <windows.h>
-#ifdef HTML_HELP
-#include <htmlhelp.h>
-#endif
 #ifdef DDRAW_DRIVER
 #include <ddraw.h>
 #endif
@@ -1611,43 +1608,8 @@ dx_mousetype (int type)
 void
 win32_help (struct uih_context *c, CONST char *name)
 {
-#ifdef HTML_HELP
-    FILE *f;
-    char *n;
-    if (helpname == NULL) {
-        if (directX == DXFULLSCREEN)
-            ShowWindow (hWnd, SW_MINIMIZE);
-        n = xio_fixpath ("\01\\help\\xaoshelp.chm");
-        if ((f = fopen (n, "r"))) {
-            fclose (f);
-        } else {
-            free (n);
-            n = xio_fixpath ("\01\\..\\help\\xaoshelp.chm");
-            if ((f = fopen (n, "r"))) {
-                fclose (f);
-            } else
-                n = strdup ("..\\help\\xaoshelp.chm");
-        }
-        helpname = n;
-    }
-    HH_AKLINK link;
-    link.cbStruct = sizeof (HH_AKLINK);
-    link.fReserved = FALSE;
-    link.pszKeywords = name;
-    link.pszUrl = NULL;
-    link.pszMsgText = NULL;
-    link.pszMsgTitle = NULL;
-    link.pszWindow = NULL;
-    link.fIndexOnFail = TRUE;
-
-    if (!HtmlHelp (hWnd, helpname, HH_ALINK_LOOKUP, (DWORD) & link)) {
-        x_error ("Could not display help for topic %s from file %s", name, helpname);
-    }
-#else
-    x_error ("Help support not included in this executable.");
-#endif
+    ShellExecute(NULL, "open", HELP_URL, NULL, NULL, SW_SHOWNORMAL);
 }
-
 
 static struct params params[] = {
     {"", P_HELP, NULL, "Win32 driver options:"},

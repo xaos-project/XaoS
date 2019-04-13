@@ -4,11 +4,6 @@ AC_PREREQ(2.63)
 AC_CONFIG_HEADER(src/include/aconfig.h src/include/version.h)
 
 AC_CANONICAL_HOST
-# Force compilation without cygwin dependency
-#case $host_os in
-# *cygwin*) CC='gcc -mno-cygwin' ;;
-#esac
-
 AC_PROG_CC
 
 dnl
@@ -258,7 +253,7 @@ fi
 
 dnl Checks for header files.
 
-AC_CHECK_HEADERS([alloca.h ddraw.h htmlhelp.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h libgen.h dirent.h])
+AC_CHECK_HEADERS([alloca.h ddraw.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h libgen.h dirent.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -351,12 +346,6 @@ fi
 AH_TEMPLATE(NO_MALLOC_H, [Define on systems without malloc.h])
 if test "$ac_cv_header_malloc_h" = "no"; then
  AC_DEFINE(NO_MALLOC_H)
-fi
-
-AH_TEMPLATE(HTML_HELP, [Define to use Microsoft HTML Help Library])
-if test "$ac_cv_header_htmlhelp_h" = "yes"; then
- AC_DEFINE(HTML_HELP)
- LIBS="$LIBS -lhtmlhelp"
 fi
 
 AH_TEMPLATE(DDRAW_DRIVER, [Define to compile DirectDraw driver])

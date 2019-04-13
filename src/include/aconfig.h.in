@@ -77,9 +77,6 @@
 /* Define to 1 if you have the `gettimeofday' function. */
 #undef HAVE_GETTIMEOFDAY
 
-/* Define to 1 if you have the <htmlhelp.h> header file. */
-#undef HAVE_HTMLHELP_H
-
 /* Define if you have the iconv() function and it works. */
 #undef HAVE_ICONV
 
@@ -222,9 +219,6 @@
 
 /* Define to 1 if you have the `__fabsl' function. */
 #undef HAVE___FABSL
-
-/* Define to use Microsoft HTML Help Library */
-#undef HTML_HELP
 
 /* Define as const if the declaration of iconv() needs const. */
 #undef ICONV_CONST

@@ -2,6 +2,8 @@
 #define CONFIG_H
 #define HOMEDIR
 
+#define HELP_URL "https://github.com/xaos-project/XaoS/wiki"
+
 #ifdef __BEOS__
 #define MAIN_FUNCTION be_main
 #ifdef __POWERPC__
