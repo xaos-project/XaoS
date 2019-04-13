@@ -44,9 +44,6 @@
 #endif
 #include <math.h>
 #include <string.h>
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
 #ifndef _plan9_
 /*#undef NDEBUG */
 #include <assert.h>
@@ -1512,21 +1509,13 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
     if (maxres < cimage.height)
         maxres = cimage.height;
     size = ALIGN ((maxres) * (DSIZE + 1) * (int) sizeof (struct dyn_data)) + 2 * ALIGN (maxres * (int) sizeof (struct dyn_data **)) + ALIGN ((maxres + 2) * (int) sizeof (int));
-#ifdef HAVE_ALLOCA
-    tmpdata = (unsigned char *) alloca (size);
-#else
     tmpdata = (unsigned char *) malloc (size);
-#endif
     if (tmpdata == NULL) {
         x_error ("XaoS fatal error:Could not allocate memory for temporary data of size %i. " "I am unable to handle this problem so please resize to smaller window.", size);
         return 0;
     }
     if (nthreads != 1) {
-#ifdef HAVE_ALLOCA
-        tmpdata1 = (unsigned char *) alloca (size);
-#else
         tmpdata1 = (unsigned char *) malloc (size);
-#endif
         if (tmpdata1 == NULL) {
             x_error ("XaoS fatal error:Could not allocate memory for temporary data of size %i. " "I am unable to handle this problem so please resize to smaller window", size);
             return 0;
@@ -1611,11 +1600,9 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
         f->flags |= LOWQUALITY;
     if (getzcontext (f)->changed)
         rflags |= CHANGED;
-#ifndef HAVE_ALLOCA
     free (tmpdata);
     if (nthreads != 1)
         free (tmpdata1);
-#endif
     return rflags;
 }
 

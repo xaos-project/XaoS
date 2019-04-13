@@ -39,11 +39,6 @@
 #define DATAPATH "\01/../Resources"
 #define USE_LOCALEPATH 1
 
-/* Using alloca causes stack overflows on large images */
-/* #undef C_ALLOCA */
-/* #define HAVE_ALLOCA 1 */
-/* #define HAVE_ALLOCA_H 1 */
-
 /* #undef const */
 #define USE_PTHREAD 1
 

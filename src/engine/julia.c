@@ -15,9 +15,6 @@
 #include <filter.h>
 #include "julia.h"
 #include <config.h>
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
 #include <filter.h>
 #include <archaccel.h>
 

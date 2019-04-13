@@ -253,7 +253,7 @@ fi
 
 dnl Checks for header files.
 
-AC_CHECK_HEADERS([alloca.h ddraw.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h libgen.h dirent.h])
+AC_CHECK_HEADERS([ddraw.h errno.h fcntl.h float.h libintl.h limits.h locale.h malloc.h stddef.h stdlib.h string.h sys/time.h sys/timeb.h unistd.h libgen.h dirent.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST

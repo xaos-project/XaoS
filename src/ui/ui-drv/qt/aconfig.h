@@ -3,15 +3,12 @@
 #define ACONFIG_H
 /* #undef HAVE_PTHREAD_SIGHANDLER */
 #define DATAPATH "/usr/local/share/XaoS"
-/* #undef C_ALLOCA */
 /* #undef const */
 /* #undef USE_PTHREAD */
 /*Avoid stack frame explosion on Windoze*/
 #ifndef _WIN32
 /*BeOS crashes badly when large amounts of stack are consumed */
 #ifndef __BEOS__
-#define HAVE_ALLOCA 1
-/* #undef HAVE_ALLOCA_H */
 #endif
 #endif
 #define HAVE_FABSL 1

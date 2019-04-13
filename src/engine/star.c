@@ -5,9 +5,6 @@
 #endif
 #include <config.h>
 #include <limits.h>
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
 #include <stdlib.h>
 #else
 #include <u.h>

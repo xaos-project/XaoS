@@ -1179,9 +1179,6 @@ ui_init (int argc, char **argv)
 #define tostring(s) #s
         x_message ("XaoS configuration\n" "Version:   %s\n" "Type size: %i\n" "integer size: %i\n" "configfile: %s\n"
 #ifndef _plan9_
-#ifdef HAVE_ALLOCA
-                   "using alloca\n"
-#endif
 #ifdef HAVE_LONG_DOUBLE
                    "using long double\n"
 #endif

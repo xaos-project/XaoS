@@ -3,9 +3,6 @@
 #ifndef NO_MALLOC_H
 #include <malloc.h>
 #endif
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
 #include <stdlib.h>
 #else
 #include <u.h>
@@ -113,11 +110,7 @@ doit (struct filter *f, int flags, int time)
     else
         s->palette->size = NCOLORS;
     val = f->previous->action->doit (f->previous, flags, time);
-#ifdef HAVE_ALLOCA
-    table = (int *) alloca (sizeof (int) * NCOLORS);
-#else
     table = (int *) malloc (sizeof (int) * NCOLORS);
-#endif
     dist = (f->fractalc->s.rr) / 2;
     maxdist = INDEX_DIST * FNC (f->fractalc->maxiter) + START1;
     do {
@@ -142,9 +135,7 @@ doit (struct filter *f, int flags, int time)
     }
     drivercall (*f->image, xth_function (do_stereogram8, f, f->childimage->height), xth_function (do_stereogram16, f, f->childimage->height), xth_function (do_stereogram24, f, f->childimage->height), xth_function (do_stereogram32, f, f->childimage->height));
     xth_sync ();
-#ifndef HAVE_ALLOCA
     free (table);
-#endif
     return val;
 }
 

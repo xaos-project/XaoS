@@ -20,9 +20,6 @@
 #endif
 #include <stdio.h>
 #include <string.h>
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
 #include <stdlib.h>
 #else
 #include <u.h>

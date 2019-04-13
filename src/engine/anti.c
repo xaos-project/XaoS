@@ -9,9 +9,6 @@
 #include <string.h>
 #include <config.h>
 #include <stdio.h>
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
 #include <stdlib.h>
 #else
 #include <u.h>

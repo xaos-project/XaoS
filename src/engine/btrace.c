@@ -138,9 +138,6 @@
  * using one thread. When two threads enabled (at my one processor linux
  * box) lock/unlock overhead eats next 8%, three threads eats next 1% :)
  */
-#ifdef HAVE_ALLOCA_H
-#include <alloca.h>
-#endif
 #include <archaccel.h>
 
 #include <filter.h>
@@ -453,11 +450,7 @@ boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos, number_t * ypos)
     int cy1, cy2;
     int cx1, cx2;
     int ydiv;
-#ifdef HAVE_ALLOCA
-    calculated = (unsigned char *) alloca (cimage.width * (y2 + 1));
-#else
     calculated = (unsigned char *) malloc (cimage.width * (y2 + 1));
-#endif
     if (calculated == NULL) {
         return 0;
     }
@@ -512,14 +505,10 @@ boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos, number_t * ypos)
             i |= tracerectangle (cx1, cy1, cx2, cy2);
     }
     if (!i) {
-#ifndef HAVE_ALLOCA
         free (calculated);
-#endif
         return 0;
     }
-#ifndef HAVE_ALLOCA
     free (calculated);
-#endif
     drivercall (cimage, dosymetries8 (x1, x2, y1, y2, xsym, cx1, cx2), dosymetries16 (x1, x2, y1, y2, xsym, cx1, cx2), dosymetries24 (x1, x2, y1, y2, xsym, cx1, cx2), dosymetries32 (x1, x2, y1, y2, xsym, cx1, cx2));
     for (i = cx1; i <= cx2; i++) {
         if (xsym != -1) {

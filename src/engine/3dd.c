@@ -90,15 +90,9 @@ do_3d (void *dataptr, struct taskinfo *task, int r1, int r2)
         unsigned int down;
     } *inpdata;
 
-#ifdef HAVE_ALLOCA1
-    lengths = (unsigned int *) alloca (sizeof (unsigned int) * f->image->width);
-    inpdata = (struct inp *) alloca (sizeof (struct inp) * (f->image->width + 2));
-    sums = (unsigned int *) alloca (sizeof (unsigned int) * (f->image->width + 2) * 2);
-#else
     lengths = (unsigned int *) malloc (sizeof (unsigned int) * f->image->width);
     inpdata = (struct inp *) malloc (sizeof (struct inp) * (f->image->width + 2));
     sums = (unsigned int *) malloc (sizeof (unsigned int) * (f->image->width + 2) * 2);
-#endif
     for (x = 0; x < (unsigned int) f->image->width; x++)
         lengths[x] = f->image->height - 1, sums[x * 2 + 0] = 0, sums[x * 2 + 1] = 0, inpdata[x].max = 0;
     sums[x * 2 + 0] = 0, sums[x * 2 + 1] = 0, inpdata[x].max = 0;
@@ -167,11 +161,9 @@ do_3d (void *dataptr, struct taskinfo *task, int r1, int r2)
             x++;
         }
     }
-#ifndef HAVE_ALLOCA1
     free (lengths);
     free (inpdata);
     free (sums);
-#endif
 }
 #endif
 #undef do_3d
