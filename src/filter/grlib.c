@@ -367,7 +367,7 @@ xiconv (int encoding, char *out, int *outlen, const char *in, int *inlen)
     iconv_t cd;
     char tocode[16];
     size_t icv_inlen = *inlen, icv_outlen = *outlen;
-    const char *icv_in = (const char *) in;
+    char *icv_in = (char *) in;
     char *icv_out = (char *) out;
     int ret;
 

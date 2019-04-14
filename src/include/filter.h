@@ -63,7 +63,7 @@ extern "C"
         int version;
         struct palette *palette;
         void *data;             /*userdata */
-        struct image_driver *driver;
+        const struct image_driver *driver;
     };
 
     struct image_driver

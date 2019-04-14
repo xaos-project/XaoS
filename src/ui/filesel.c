@@ -1,3 +1,4 @@
+#include <aconfig.h>
 #ifndef _plan9_
 #include <stdlib.h>
 #include <string.h>
@@ -606,7 +607,8 @@ ui_buildfilesel (const char *f, const char *m, void (*c) (const char *, int))
     }
     pressedbutton = activebutton = active = -1;
     if (lastdir[0] == 0)
-        getcwd (lastdir, 256);
+        if (getcwd (lastdir, 256) == NULL)
+            lastdir[0] = 0;
     lastdir[255] = 0;
     currdir = mystrdup (lastdir);
     callback = c;

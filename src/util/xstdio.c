@@ -467,7 +467,8 @@ xio_init (const char *name)
         buf[0] = '.';
         buf[1] = 0;
 #ifndef _plan9_
-        getcwd (buf, sizeof (buf));
+        if (getcwd (buf, sizeof (buf)) == NULL)
+            buf[0] = 0;
 #endif
         xio_appdir = mystrdup (buf);
         {

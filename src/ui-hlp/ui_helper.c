@@ -1890,7 +1890,7 @@ uih_setplane (uih_context * c, int mode)
         mode = rand () % i;
     uih_invalidatepos (c);
     if (c->fcontext->plane != mode) {
-        char str[10];
+        char str[20];
         c->fcontext->plane = mode;
         //if ( c->fcontext->plane == P_USER )
         //printf("USER NOT IMPLEMENTED");
