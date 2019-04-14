@@ -458,14 +458,14 @@ boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos, number_t * ypos)
     ycoord = ypos;
 
 
-    if (cursymetry.xsym < cfractalc.rs.nc || cursymetry.xsym > cfractalc.rs.mc)
+    if (cursymmetry.xsym < cfractalc.rs.nc || cursymmetry.xsym > cfractalc.rs.mc)
         xsym = -10;
     else
-        xsym = (int) (0.5 + ((cursymetry.xsym - cfractalc.rs.nc) * cimage.width / (cfractalc.rs.mc - cfractalc.rs.nc)));
-    if (cursymetry.ysym < cfractalc.rs.ni || cursymetry.ysym > cfractalc.rs.mi)
+        xsym = (int) (0.5 + ((cursymmetry.xsym - cfractalc.rs.nc) * cimage.width / (cfractalc.rs.mc - cfractalc.rs.nc)));
+    if (cursymmetry.ysym < cfractalc.rs.ni || cursymmetry.ysym > cfractalc.rs.mi)
         ysym = -10;
     else
-        ysym = (int) (0.5 + ((cursymetry.ysym - cfractalc.rs.ni) * cimage.height / (cfractalc.rs.mi - cfractalc.rs.ni)));
+        ysym = (int) (0.5 + ((cursymmetry.ysym - cfractalc.rs.ni) * cimage.height / (cfractalc.rs.mi - cfractalc.rs.ni)));
     ydiv = (int) (0.5 + ((-cfractalc.rs.ni) * cimage.height / (cfractalc.rs.mi - cfractalc.rs.ni)));
     if (xsym > x1 && xsym < x2) {
         if (xsym - x1 > x2 - xsym)
@@ -514,14 +514,14 @@ boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos, number_t * ypos)
         if (xsym != -1) {
             i1 = 2 * xsym - i;
             if (i1 >= x1 && i1 <= x2 && i != i1)
-                xcoord[i1] = 2 * cursymetry.xsym - xcoord[i];
+                xcoord[i1] = 2 * cursymmetry.xsym - xcoord[i];
         }
     }
     for (i = cy1; i <= cy2; i++) {
         if (ysym != -1) {
             i1 = 2 * ysym - i;
             if (i1 >= y1 && i1 <= y2 && i != i1)
-                ycoord[i1] = 2 * cursymetry.ysym - ycoord[i];
+                ycoord[i1] = 2 * cursymmetry.ysym - ycoord[i];
         }
     }
     if (cy1 != y1) {

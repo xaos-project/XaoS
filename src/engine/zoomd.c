@@ -188,7 +188,7 @@ REGISTERS (3)
 }
 
 static /*INLINE */ void
-dosymetry2 (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
+dosymmetry2 (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
             int r1, int r2)
 {
     cpixel_t **vbuff = (cpixel_t **) cimage.currlines;
@@ -250,7 +250,7 @@ static INLINE void fillline (int line)
 }
 #endif
 #endif
-#undef dosymetry2
+#undef dosymmetry2
 #undef calcline
 #undef calccolumn
 #undef fillline

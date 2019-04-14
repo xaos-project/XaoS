@@ -454,7 +454,7 @@ Version 2.2
 	o small well hidden bug in reallocation algorithm discovered.
 	o removed passing in registers to avoid compiler bug
 	o now allows unzoom greater than MAX_INT again
-	o symetry handling works for deeper unzooms too.
+	o symmetry handling works for deeper unzooms too.
 	o more test for owerflowing/underflowing of resolution.
 	  so now produces garbage but does not crash(feature?)
 	o more exact zooming/unzooming
@@ -476,7 +476,7 @@ Version 2.2
 	o rewrote solid guessing
 	o some variables in drivers structure changed to flags
       Speedups:
-        o symetry handling code in mkrealloc table optimized a bit.
+        o symmetry handling code in mkrealloc table optimized a bit.
 	  now is faster,shorter and does better job. :)
 	o non x/y symetries disabled because they slowes down for now..
 	o approximation algorithm optimized-lots of memory accesses 

@@ -1303,17 +1303,17 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #endif
 
 
-static const symetrytype sym6[] = {
+static const symmetrytype sym6[] = {
     {0, 1.73205080758},
     {0, -1.73205080758}
 };
 
-static const symetrytype sym8[] = {
+static const symmetrytype sym8[] = {
     {0, 1},
     {0, -1}
 };
 
-static const symetrytype sym16[] = {
+static const symmetrytype sym16[] = {
     {0, 1},
     {0, -1},
     {0, 0.414214},

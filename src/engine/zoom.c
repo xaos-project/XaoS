@@ -119,7 +119,7 @@ zoom_context czoomc;
 struct filter cfilter;
 #ifdef STATISTICS
 static int tocalculate = 0, avoided = 0;
-static int nadded = 0, nsymetry = 0, nskipped = 0;
+static int nadded = 0, nsymmetry = 0, nskipped = 0;
 int nperi = 0;
 #endif
 
@@ -154,28 +154,28 @@ static void fillline_32 (int line) REGISTERS (0);
  */
 #include <c256.h>
 #define fillline fillline_8
-#define dosymetry2 dosymetry2_8
+#define dosymmetry2 dosymmetry2_8
 #define calcline calcline_8
 #define calccolumn calccolumn_8
 #include "zoomd.c"
 
 #include <truecolor.h>
 #define fillline fillline_32
-#define dosymetry2 dosymetry2_32
+#define dosymmetry2 dosymmetry2_32
 #define calcline calcline_32
 #define calccolumn calccolumn_32
 #include "zoomd.c"
 
 #include <true24.h>
 #define fillline fillline_24
-#define dosymetry2 dosymetry2_24
+#define dosymmetry2 dosymmetry2_24
 #define calcline calcline_24
 #define calccolumn calccolumn_24
 #include "zoomd.c"
 
 #include <hicolor.h>
 #define fillline fillline_16
-#define dosymetry2 dosymetry2_16
+#define dosymmetry2 dosymmetry2_16
 #define calcline calcline_16
 #define calccolumn calccolumn_16
 #include "zoomd.c"
@@ -342,7 +342,7 @@ preparesymetries (register realloc_t * realloc, const int size, register int sym
             reallocs->symref = i;
             realloc->position = sym - reallocs->position;
         }
-        STAT (nsymetry++);
+        STAT (nsymmetry++);
 
 #ifndef NDEBUG
         if (realloc->symto < -1 || realloc->symto >= size) {
@@ -450,7 +450,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
     register struct dyn_data *previous = NULL, *bestdata = NULL;
     register int myprice;
 #ifdef STATISTICS
-    nadded = 0, nsymetry = 0, nskipped = 0;
+    nadded = 0, nsymmetry = 0, nskipped = 0;
 #endif
 
     pos = (int *) tmpdata;
@@ -471,7 +471,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
     }
     pos[size] = INT_MAX;
     step = (end - begin) / (number_t) size;
-    if (begin > sym || sym > end)       /*calculate symetry point */
+    if (begin > sym || sym > end)       /*calculate symmetry point */
         symi = -2;
     else {
         symi = (int) ((sym - begin) / step);
@@ -809,8 +809,8 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
     }
 
 
-    STAT (printf ("%i added %i skipped %i mirrored\n", nadded, nskipped, nsymetry));
-    STAT (nadded2 += nadded; nskipped2 += nskipped; nsymetry2 += nsymetry);
+    STAT (printf ("%i added %i skipped %i mirrored\n", nadded, nskipped, nsymmetry));
+    STAT (nadded2 += nadded; nskipped2 += nskipped; nsymmetry2 += nsymmetry);
 }
 
 struct movedata
@@ -1169,12 +1169,12 @@ REGISTERS (3)
     }
 }
 
-/* We can't do both symetryies (x and y) in one loop at multithreaded
+/* We can't do both symmetryies (x and y) in one loop at multithreaded
  * systems,since we need to take care to points at the cross of symetrized
  * point/column
  */
 static void
-dosymetry (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
+dosymmetry (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
            int r1, int r2)
 {
     unsigned char **vbuff = cimage.currlines + r1;
@@ -1360,9 +1360,9 @@ calculatenewinterruptible (void)
 
     xth_sync ();
     if (nsymetrized) {
-        xth_function (dosymetry, NULL, cimage.height);
+        xth_function (dosymmetry, NULL, cimage.height);
         xth_sync ();
-        drivercall (cimage, xth_function (dosymetry2_8, NULL, cimage.width), xth_function (dosymetry2_16, NULL, cimage.width), xth_function (dosymetry2_24, NULL, cimage.width), xth_function (dosymetry2_32, NULL, cimage.width));
+        drivercall (cimage, xth_function (dosymmetry2_8, NULL, cimage.width), xth_function (dosymmetry2_16, NULL, cimage.width), xth_function (dosymmetry2_24, NULL, cimage.width), xth_function (dosymmetry2_32, NULL, cimage.width));
         xth_sync ();
     }
     if (cfilter.interrupt) {
@@ -1466,7 +1466,7 @@ startbgmkrealloc (void /*@unused@ */ *data,
                   int /*@unused@ */ r1,
                   int /*@unused@ */ r2)
 {
-    mkrealloc_table (czoomc.ypos, czoomc.reallocy, (unsigned int) cimage.height, cfractalc.rs.ni, cfractalc.rs.mi, cursymetry.ysym, tmpdata1);
+    mkrealloc_table (czoomc.ypos, czoomc.reallocy, (unsigned int) cimage.height, cfractalc.rs.ni, cfractalc.rs.mi, cursymmetry.ysym, tmpdata1);
 }
 
 static int
@@ -1534,7 +1534,7 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
     xth_bgjob (startbgmkrealloc, NULL);
 
     cfilter.pass = "Making x realloc table";
-    mkrealloc_table (czoomc.xpos, czoomc.reallocx, (unsigned int) cimage.width, cfractalc.rs.nc, cfractalc.rs.mc, cursymetry.xsym, tmpdata);
+    mkrealloc_table (czoomc.xpos, czoomc.reallocx, (unsigned int) cimage.width, cfractalc.rs.nc, cfractalc.rs.mc, cursymmetry.xsym, tmpdata);
 
     callwait ();
 
@@ -1575,9 +1575,9 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
         callwait ();
         xth_sync ();
         if (nsymetrized) {
-            xth_function (dosymetry, NULL, cimage.height);
+            xth_function (dosymmetry, NULL, cimage.height);
             xth_sync ();
-            drivercall (cimage, xth_function (dosymetry2_8, NULL, cimage.width), xth_function (dosymetry2_16, NULL, cimage.width), xth_function (dosymetry2_24, NULL, cimage.width), xth_function (dosymetry2_32, NULL, cimage.width));
+            drivercall (cimage, xth_function (dosymmetry2_8, NULL, cimage.width), xth_function (dosymmetry2_16, NULL, cimage.width), xth_function (dosymmetry2_24, NULL, cimage.width), xth_function (dosymmetry2_32, NULL, cimage.width));
             xth_sync ();
         }
         if (getzcontext (f)->incomplete) {
@@ -1591,7 +1591,7 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
         *posptr = r->position;
     }
 #ifdef STATISTICS
-    STAT (printf ("Statistics: frames %i\n" "mkrealloctable: added %i, symetry %i\n" "calculate loop: tocalculate %i avoided %i\n" "calculate:calculated %i inside %i\n" "iters inside:%i iters outside:%i periodicty:%i\n", frames2, nadded2, nsymetry2, tocalculate2, avoided2, ncalculated2, ninside2, niter2, niter1, nperi));
+    STAT (printf ("Statistics: frames %i\n" "mkrealloctable: added %i, symmetry %i\n" "calculate loop: tocalculate %i avoided %i\n" "calculate:calculated %i inside %i\n" "iters inside:%i iters outside:%i periodicty:%i\n", frames2, nadded2, nsymmetry2, tocalculate2, avoided2, ncalculated2, ninside2, niter2, niter1, nperi));
 #endif
     f->flags &= ~ZOOMMASK;
     if (getzcontext (f)->incomplete)

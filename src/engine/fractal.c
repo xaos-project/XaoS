@@ -64,13 +64,13 @@
 #endif
 #include <xerror.h>
 
-struct symetryinfo2 cursymetry;
+struct symmetryinfo2 cursymmetry;
 struct palette cpalette;
 struct image cimage;
 struct fractal_context cfractalc;
 struct formula cformula;
 
-static symetry2 sym_lines[100];
+static symmetry2 sym_lines[100];
 
 
 static void
@@ -120,88 +120,88 @@ combine_methods (void)
     int i, j;
 #endif
     int angle = (int) cfractalc.angle;
-    const struct symetryinfo *s1 = cfractalc.currentformula->out + cfractalc.coloringmode, *s2 = cfractalc.currentformula->in + cfractalc.incoloringmode;
+    const struct symmetryinfo *s1 = cfractalc.currentformula->out + cfractalc.coloringmode, *s2 = cfractalc.currentformula->in + cfractalc.incoloringmode;
     if (angle < 0) {
         angle = 360 - ((-angle) % 360);
     } else
         angle %= 360;
     if (cfractalc.mandelbrot != cfractalc.currentformula->mandelbrot || cfractalc.bre || cfractalc.bim) {
-        cursymetry.xsym = (number_t) INT_MAX;
-        cursymetry.ysym = (number_t) INT_MAX;
-        cursymetry.nsymetries = 0;
+        cursymmetry.xsym = (number_t) INT_MAX;
+        cursymmetry.ysym = (number_t) INT_MAX;
+        cursymmetry.nsymetries = 0;
         return;
     }
 #ifdef __UNDEFINED__
-    cursymetry.xmul = cimage.width / (cfractalc.rs.mc - cfractalc.rs.nc);
-    cursymetry.ymul = cimage.height / (cfractalc.rs.mi - cfractalc.rs.ni);
-    cursymetry.xdist = (cfractalc.rs.mc - cfractalc.rs.nc) / cimage.width / 6;
-    cursymetry.ydist = (cfractalc.rs.mi - cfractalc.rs.ni) / cimage.height / 6;
+    cursymmetry.xmul = cimage.width / (cfractalc.rs.mc - cfractalc.rs.nc);
+    cursymmetry.ymul = cimage.height / (cfractalc.rs.mi - cfractalc.rs.ni);
+    cursymmetry.xdist = (cfractalc.rs.mc - cfractalc.rs.nc) / cimage.width / 6;
+    cursymmetry.ydist = (cfractalc.rs.mi - cfractalc.rs.ni) / cimage.height / 6;
 #endif
     if (s1->xsym == s2->xsym)
-        cursymetry.xsym = s1->xsym;
+        cursymmetry.xsym = s1->xsym;
     else
-        cursymetry.xsym = (number_t) INT_MAX;
+        cursymmetry.xsym = (number_t) INT_MAX;
     if (s1->ysym == s2->ysym)
-        cursymetry.ysym = s1->ysym;
+        cursymmetry.ysym = s1->ysym;
     else
-        cursymetry.ysym = (number_t) INT_MAX;
+        cursymmetry.ysym = (number_t) INT_MAX;
     switch (cfractalc.plane) {
         case P_PARABOL:
-            cursymetry.xsym = (number_t) INT_MAX;
+            cursymmetry.xsym = (number_t) INT_MAX;
             break;
         case P_LAMBDA:
-            if (cursymetry.xsym == 0 && cursymetry.ysym == 0)
-                cursymetry.xsym = (number_t) 1;
+            if (cursymmetry.xsym == 0 && cursymmetry.ysym == 0)
+                cursymmetry.xsym = (number_t) 1;
             else
-                cursymetry.xsym = (number_t) INT_MAX;
+                cursymmetry.xsym = (number_t) INT_MAX;
             break;
         case P_INVLAMBDA:
-            cursymetry.xsym = (number_t) INT_MAX;
+            cursymmetry.xsym = (number_t) INT_MAX;
             break;
         case P_TRANLAMBDA:
-            if (cursymetry.xsym != 0 || cursymetry.ysym != 0)
-                cursymetry.xsym = (number_t) INT_MAX;
+            if (cursymmetry.xsym != 0 || cursymmetry.ysym != 0)
+                cursymmetry.xsym = (number_t) INT_MAX;
             break;
         case P_MEREBERG:
-            cursymetry.xsym = (number_t) INT_MAX;
+            cursymmetry.xsym = (number_t) INT_MAX;
             break;
     }
-    cursymetry.symetry = sym_lines;
-    cursymetry.nsymetries = 0;
+    cursymmetry.symmetry = sym_lines;
+    cursymmetry.nsymetries = 0;
     if ((number_t) angle == cfractalc.angle) {
         switch (angle) {
             case 0:
                 break;
             case 180:
-                cursymetry.xsym = -cursymetry.xsym;
-                cursymetry.ysym = -cursymetry.ysym;
+                cursymmetry.xsym = -cursymmetry.xsym;
+                cursymmetry.ysym = -cursymmetry.ysym;
                 break;
             case 90:
                 {
-                    number_t tmp = cursymetry.xsym;
-                    cursymetry.xsym = -cursymetry.ysym;
-                    cursymetry.ysym = tmp;
+                    number_t tmp = cursymmetry.xsym;
+                    cursymmetry.xsym = -cursymmetry.ysym;
+                    cursymmetry.ysym = tmp;
                 }
                 break;
             case 210:
                 {
-                    number_t tmp = cursymetry.xsym;
-                    cursymetry.xsym = cursymetry.ysym;
-                    cursymetry.ysym = -tmp;
+                    number_t tmp = cursymmetry.xsym;
+                    cursymmetry.xsym = cursymmetry.ysym;
+                    cursymmetry.ysym = -tmp;
                 }
                 break;
             default:
-                cursymetry.xsym = (number_t) INT_MAX;
-                cursymetry.ysym = (number_t) INT_MAX;
+                cursymmetry.xsym = (number_t) INT_MAX;
+                cursymmetry.ysym = (number_t) INT_MAX;
         }
     } else {
-        cursymetry.xsym = (number_t) INT_MAX;
-        cursymetry.ysym = (number_t) INT_MAX;
+        cursymmetry.xsym = (number_t) INT_MAX;
+        cursymmetry.ysym = (number_t) INT_MAX;
     }
-    if (cursymetry.xsym == -(number_t) INT_MAX)
-        cursymetry.xsym = (number_t) INT_MAX;
-    if (cursymetry.ysym == -(number_t) INT_MAX)
-        cursymetry.ysym = (number_t) INT_MAX;
+    if (cursymmetry.xsym == -(number_t) INT_MAX)
+        cursymmetry.xsym = (number_t) INT_MAX;
+    if (cursymmetry.ysym == -(number_t) INT_MAX)
+        cursymmetry.ysym = (number_t) INT_MAX;
 }
 
 void
@@ -263,11 +263,11 @@ set_fractalc (fractal_context * context, struct image *img)
 
     combine_methods ();
 
-    if (cursymetry.xsym == (number_t) INT_MAX)
-        cursymetry.xsym = cfractalc.rs.mc + INT_MAX;
+    if (cursymmetry.xsym == (number_t) INT_MAX)
+        cursymmetry.xsym = cfractalc.rs.mc + INT_MAX;
 
-    if (cursymetry.ysym == (number_t) INT_MAX)
-        cursymetry.ysym = cfractalc.rs.mi + INT_MAX;
+    if (cursymmetry.ysym == (number_t) INT_MAX)
+        cursymmetry.ysym = cfractalc.rs.mi + INT_MAX;
 
 #ifndef SLOWFUNCPTR
     if (cfractalc.coloringmode == 9 && cformula.smooth_calculate != NULL && (cpalette.type & (TRUECOLOR | TRUECOLOR16 | TRUECOLOR24 | GRAYSCALE | LARGEITER))) {

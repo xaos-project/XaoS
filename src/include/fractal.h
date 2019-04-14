@@ -36,13 +36,13 @@ extern "C"
     typedef struct
     {
         number_t y0, k;
-    } symetrytype;
+    } symmetrytype;
 
-    struct symetryinfo
+    struct symmetryinfo
     {
         number_t xsym, ysym;
         int nsymetries;
-        const symetrytype *symetry;
+        const symmetrytype *symmetry;
     };
     typedef struct
     {
@@ -68,8 +68,8 @@ extern "C"
         int hasperiodicity;
         int mandelbrot;
         number_t pre, pim;
-        struct symetryinfo (out[OUTCOLORING + 1]);
-        struct symetryinfo (in[INCOLORING + 1]);
+        struct symmetryinfo (out[OUTCOLORING + 1]);
+        struct symmetryinfo (in[INCOLORING + 1]);
         int flags;
     };
 
@@ -102,13 +102,13 @@ extern "C"
     typedef struct
     {
         double y0, k, kk, y0k;
-    } symetry2;
+    } symmetry2;
 
-    struct symetryinfo2
+    struct symmetryinfo2
     {
         number_t xsym, ysym;
         int nsymetries;
-        symetry2 *symetry;
+        symmetry2 *symmetry;
         number_t xmul, ymul, xdist, ydist;
     };
 #define STARTZERO 1
@@ -133,7 +133,7 @@ number_t tmp; \
           x=tmp; \
         }
 
-    extern struct symetryinfo2 cursymetry;
+    extern struct symmetryinfo2 cursymmetry;
     extern struct fractal_context cfractalc;
     extern struct formula cformula;
     extern struct palette cpalette;
@@ -143,7 +143,7 @@ number_t tmp; \
 /*This is an statistics variables printed from various parts
 *of XaoS.
 */
-    extern int nadded2, nsymetry2, nskipped2;
+    extern int nadded2, nsymmetry2, nskipped2;
     extern int tocalculate2, avoided2, frames2;
     extern int ncalculated2, ninside2;
     extern int niter2, niter1;
