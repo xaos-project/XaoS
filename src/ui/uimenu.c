@@ -43,7 +43,7 @@
 #include "uiint.h"
 
 
-#define NMENUS 20
+#define NMENUS 30
 struct ui_menuitems
 {
     int x, y, width, height;
