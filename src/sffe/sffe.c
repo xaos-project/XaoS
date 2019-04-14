@@ -622,9 +622,9 @@ sffe_parse (sffe ** parser, char *expression)
                         fnctbl[p->oprCount - 2] = (sffunction *) ch1;
                     } else
                         fnctbl[p->oprCount - 1] = (sffunction *) ch1;
-                    ch1 = (char *) (int) opr;   /* ]:-> */
+                    ch1 = (char *) (long) opr;   /* ]:-> */
                     code ('*');
-                    opr = (char) (int) ch1;
+                    opr = (char) (long) ch1;
                     ch1 = NULL;
                 };
 
@@ -678,13 +678,13 @@ sffe_parse (sffe ** parser, char *expression)
                         arg += 1;
                     };
 
-                    ch1 = (char *) (int) (priority (ech));
+                    ch1 = (char *) (long) (priority (ech));
                     /* there is an operator on stack */
                     if (stack->size) {
                         /* double casting to get rid of 'cast from pointer to integer of different size' warning 
                          * remove all operators with higher, or equal priority 
                          **/
-                        while ((unsigned char) (int) ch1 <= stack->stck[stack->size - 1].t) {
+                        while ((unsigned char) (long) ch1 <= stack->stck[stack->size - 1].t) {
                             sfpopstack (NULL);
                             stack->stck = (struct opstack__ *) realloc (stack->stck, sizeof (struct opstack__));        /* is this reallocation really needed ?!? */
                             if (stack->size == 0)
@@ -697,7 +697,7 @@ sffe_parse (sffe ** parser, char *expression)
                     stack->stck[stack->size].c = *ech;
 #endif
 
-                    stack->stck[stack->size].t = (unsigned char) (int) ch1;     /* store operator prority */
+                    stack->stck[stack->size].t = (unsigned char) (long) ch1;     /* store operator prority */
                     stack->stck[stack->size].f = ((sffunction *) (*f))->fptr;   /* get function pointer */
                     stack->size += 1;
                     f += 1;
