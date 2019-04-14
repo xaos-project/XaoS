@@ -405,6 +405,8 @@ x11_init (void)
     replay = XCreateFontCursor (d->display, XC_dot);
     if (d->truecolor || d->privatecolormap)
         x11_driver.flags &= ~RANDOM_PALETTE_SIZE;
+    XSync(d->display, 0);
+    xupdate_size(d);
     if (!alloc_image (d)) {
         xfree_display (d);
         return (0);
