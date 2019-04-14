@@ -781,7 +781,7 @@ uih_playwait (struct uih_context *uih)
         seterr (gettext ("wait available only in animation replay"));
         return;
     }
-    if (!uih->uncomplette && !uih->display && !uih->recalculatemode && !uih->displaytext && !uih->clearscreen) {
+    if (!uih->incomplete && !uih->display && !uih->recalculatemode && !uih->displaytext && !uih->clearscreen) {
         uih->playc->playframe++;
     } else {
         uih_setcomplettehandler (uih, handler1, uih);

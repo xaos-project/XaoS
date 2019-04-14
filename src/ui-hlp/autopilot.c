@@ -107,7 +107,7 @@ do_autopilot (uih_context * context, int *x, int *y, int *controls, void (*chang
         changed ();
     }
     /*Are we waiting for better qualitty? */
-    if (!context->c1 && context->zengine->flags & UNCOMPLETTE) {
+    if (!context->c1 && context->zengine->flags & INCOMPLETE) {
         return;
     }
     assert (changed != NULL);
@@ -178,7 +178,7 @@ do_autopilot (uih_context * context, int *x, int *y, int *controls, void (*chang
                         c = look232 (context, *x, *y, 10000, NGUESSES1);
             }
             if (!c) {
-                if ((context->zengine->flags & UNCOMPLETTE)) {
+                if ((context->zengine->flags & INCOMPLETE)) {
                     context->c1 = 0;
                 } else
                     context->c1 = BUTTON3, context->autime >>= 1;

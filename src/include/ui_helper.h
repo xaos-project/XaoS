@@ -169,7 +169,7 @@ extern "C"
         int fastmode;           /*when draw in fast mode */
         int juliamode;
         int fastrotate;
-        int uncomplette;        /*1 if image is not complettly caluclated or in animation */
+        int incomplete;        /*1 if image is not complettly caluclated or in animation */
         int dirty;              /*1 if image is inexact */
         int inanimation;        /*1 if uih_update wants to be called soon */
         int fastanimation;      /*1 if animation needs to be fast */

@@ -94,7 +94,7 @@ typedef struct zoom_context
     int forversion;
     int forpversion;
     realloc_t *reallocx, *reallocy;
-    int uncomplette;
+    int incomplete;
     int changed;
 } zoom_context;
 
@@ -110,8 +110,8 @@ struct filltable
 
 #define callwait() if(cfilter.wait_function!=NULL) cfilter.wait_function(&cfilter);
 #define tcallwait() if(!xth_nthread(task)&&cfilter.wait_function!=NULL) cfilter.wait_function(&cfilter);
-#define setuncomplette(i) (getzcontext(&cfilter)->uncomplette=i)
-#define incuncomplette() (getzcontext(&cfilter)->uncomplette++)
+#define setincomplete(i) (getzcontext(&cfilter)->incomplete=i)
+#define incincomplete() (getzcontext(&cfilter)->incomplete++)
 #define setchanged(i) (getzcontext(&cfilter)->changed=i)
 
 
@@ -1003,7 +1003,7 @@ filly (void
         ry--;
     for (rend = czoomc.reallocy + rr2, rend2 = czoomc.reallocy + cimage.height; ry < rend; ry++) {
         if (ry->dirty > 0) {
-            incuncomplette ();
+            incincomplete ();
             r1 = ry - 1;
             for (r2 = ry + 1; r2 < rend2 && r2->dirty > 0; r2++);
 #ifdef _UNDEFINED_
@@ -1456,7 +1456,7 @@ make_context (void)
     new_ctxt->reallocy = NULL;
     new_ctxt->xpos = NULL;
     new_ctxt->ypos = NULL;
-    new_ctxt->uncomplette = 0;
+    new_ctxt->incomplete = 0;
     return (new_ctxt);
 }
 
@@ -1495,14 +1495,14 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
         if (BTRACEOK && !(flags & INTERRUPTIBLE)) {
             boundarytraceall (czoomc.xpos, czoomc.ypos);
             f->flags &= ~ZOOMMASK;
-            return CHANGED | (cfilter.interrupt ? UNCOMPLETTE : 0);
+            return CHANGED | (cfilter.interrupt ? INCOMPLETE : 0);
         }
     } else
         rflags |= INEXACT;
 
     czoomc = *getzcontext (f);
 
-    setuncomplette (0);
+    setincomplete (0);
     setchanged (0);
 
     maxres = cimage.width;
@@ -1567,7 +1567,7 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
     else {
         xth_function (calculatenew, NULL, 1);
         if (cfilter.interrupt) {
-            getzcontext (f)->uncomplette = 1;
+            getzcontext (f)->incomplete = 1;
         }
         cfilter.pos = 0;
         cfilter.max = 0;
@@ -1580,7 +1580,7 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
             drivercall (cimage, xth_function (dosymetry2_8, NULL, cimage.width), xth_function (dosymetry2_16, NULL, cimage.width), xth_function (dosymetry2_24, NULL, cimage.width), xth_function (dosymetry2_32, NULL, cimage.width));
             xth_sync ();
         }
-        if (getzcontext (f)->uncomplette) {
+        if (getzcontext (f)->incomplete) {
             fill ();
         }
     }
@@ -1594,9 +1594,9 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
     STAT (printf ("Statistics: frames %i\n" "mkrealloctable: added %i, symetry %i\n" "calculate loop: tocalculate %i avoided %i\n" "calculate:calculated %i inside %i\n" "iters inside:%i iters outside:%i periodicty:%i\n", frames2, nadded2, nsymetry2, tocalculate2, avoided2, ncalculated2, ninside2, niter2, niter1, nperi));
 #endif
     f->flags &= ~ZOOMMASK;
-    if (getzcontext (f)->uncomplette)
-        rflags |= UNCOMPLETTE, f->flags |= UNCOMPLETTE;
-    if (getzcontext (f)->uncomplette > (cimage.width + cimage.height) / 2)
+    if (getzcontext (f)->incomplete)
+        rflags |= INCOMPLETE, f->flags |= INCOMPLETE;
+    if (getzcontext (f)->incomplete > (cimage.width + cimage.height) / 2)
         f->flags |= LOWQUALITY;
     if (getzcontext (f)->changed)
         rflags |= CHANGED;

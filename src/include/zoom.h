@@ -28,7 +28,7 @@ extern "C"
 
 
 #define LOWQUALITY (1<<30)
-#define ZOOMMASK (LOWQUALITY|UNCOMPLETTE)
+#define ZOOMMASK (LOWQUALITY|INCOMPLETE)
 
     extern const struct filteraction zoom_filter;
     extern struct filter cfilter;

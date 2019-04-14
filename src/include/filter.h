@@ -148,7 +148,7 @@ extern "C"
 #define INEXACT 1
 #define CHANGED 2
 #define ANIMATION 4
-#define UNCOMPLETTE (1<<29)
+#define INCOMPLETE (1<<29)
 /*flags for filters */
 #define ALLOCEDIMAGE 1          /*used by inherimage mechanizm */
 #define SHAREDDATA 2

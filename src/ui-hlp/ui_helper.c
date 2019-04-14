@@ -1002,18 +1002,18 @@ uih_do_fractal (uih_context * c)
         c->fastanimation = 0;
     if (c->emulator)
         c->inanimation = 1;
-    if (flags & (ANIMATION | UNCOMPLETTE) || (c->rotatemode == ROTATE_CONTINUOUS)) {
+    if (flags & (ANIMATION | INCOMPLETE) || (c->rotatemode == ROTATE_CONTINUOUS)) {
         tl_resume_timer (c->doittimer);
-        c->uncomplette = 1;
+        c->incomplete = 1;
         c->inanimation = 2;
-        if (flags & UNCOMPLETTE)
+        if (flags & INCOMPLETE)
             c->recalculatemode = UIH_ANIMATION;
         else
             c->recalculatemode = UIH_FILTERANIMATION;
         c->display = 1;
     } else {
         tl_stop_timer (c->doittimer);
-        c->uncomplette = 0;
+        c->incomplete = 0;
     }
     if ((flags & CHANGED) && (!c->play || !c->nonfractalscreen)) {
         c->display = 1;
@@ -1042,7 +1042,7 @@ uih_prepare_image (uih_context * c)
 void
 uih_callcomplette (uih_context * c)
 {
-    if (!c->uncomplette && !c->display && !c->recalculatemode && !c->inanimation && c->complettehandler != NULL) {
+    if (!c->incomplete && !c->display && !c->recalculatemode && !c->inanimation && c->complettehandler != NULL) {
         c->complettehandler (c->handlerdata);
     }
 }
@@ -1602,7 +1602,7 @@ uih_update (uih_context * c, int mousex, int mousey, int mousebuttons)
     }
     if (!inmovement)
         uih_tbreak (c);
-    if (c->uncomplette)
+    if (c->incomplete)
         inmovement = 1;
     if (!c->recalculatemode && !c->display)
         uih_finishpalette (c);
