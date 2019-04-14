@@ -71,7 +71,7 @@ printmsg (const char *text, ...)
         printf ("\n");
     } else {
         char s[256];
-        vsprintf (s, text, ap);
+        vsnprintf (s, 256, text, ap);
         uih_message (gc, s);
         interrupt |= gc->interrupt |= gc->passfunc (gc, 1, s, 100);
         uih_clearwindows (gc);
