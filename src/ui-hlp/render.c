@@ -227,7 +227,7 @@ uih_encodeframe (int startpos, int endpos, struct frame_info *curframe)
 
 extern struct filteraction antialias_filter;
 int
-uih_renderanimation (struct uih_context *gc1, const char *basename, const xio_constpath animation, int width, int height, float pixelwidth, float pixelheight, int frametime, int type, int antialias, int slowmode, int letterspersec, const char *catalog, int motionvectors, int iframedist2)
+uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpath animation, int width, int height, float pixelwidth, float pixelheight, int frametime, int type, int antialias, int slowmode, int letterspersec, const char *catalog, int motionvectors, int iframedist2)
 {
     struct palette *pal = createpalette (0, 0, type, 0, 0, NULL, NULL, NULL, NULL, NULL);
     struct image *img;
@@ -555,7 +555,7 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, const xio_co
 }
 
 int
-uih_renderimage (struct uih_context *gc1, xio_file af, const xio_constpath path, struct image *img, int antialias, const char *catalog, int noise)
+uih_renderimage (struct uih_context *gc1, xio_file af, xio_constpath path, struct image *img, int antialias, const char *catalog, int noise)
 {
     int aliasnum = 0;
     int ok = 1;
