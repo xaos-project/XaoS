@@ -80,7 +80,7 @@ AC_ARG_WITH(pthread,
 AC_ARG_WITH(png,
         [  --with-png=yes/no       enables/disables PNG saving support],[
 	if test x$withval = xyes; then
-	  png=test
+	  png=yes
 	fi
 	if test x$withval = xno; then
 	  png=no
