@@ -176,7 +176,7 @@ extern "C"
         int palettetype, paletteseed;   /*0 for default palette,1,2 for random */
         int clearscreen;        /*1 when ui want to clear screen */
         int indofractal;        /*1 when caluclation is in the process */
-        int xtextpos, ytextpos; /*possitioning of text */
+        int xtextpos, ytextpos; /*positioning of text */
         int color;              /*Color of text */
         int recalculatemode;    /*informations for user interface */
         int stoppedtimers;      /*1 when timers are stopped */
@@ -428,7 +428,7 @@ extern "C"
     int uih_save_enable (struct uih_context *uih, xio_file f, int mode);
     void uih_save_disable (struct uih_context *uih);
     void uih_saveframe (struct uih_context *uih);
-    void uih_save_possition (struct uih_context *uih, xio_file f, int mode);
+    void uih_save_position (struct uih_context *uih, xio_file f, int mode);
 
     void uih_load (struct uih_context *uih, xio_file f, xio_constpath name);
     void uih_loadstr (struct uih_context *uih, const char *data);

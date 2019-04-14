@@ -92,7 +92,7 @@ requirement (struct filter *f, struct requirements *r)
  *  palette. 
  *
  *  Uses alg. similar to foodfill - it adds one seed per every color in 
- *  palette to its best possition. Then areas around seed are filled by 
+ *  palette to its best position. Then areas around seed are filled by 
  *  same color because it is best aproximation for them, and then areas 
  *  about them etc...
  *
@@ -136,7 +136,7 @@ requirement (struct filter *f, struct requirements *r)
   (((int)dist((r1), (g1), (b1), \
 	      (int)(pal1)[0], (int)(pal1)[1], (int)(pal1)[2])))
 
-  /* checking of possition */
+  /* checking of position */
 #define dopos(rp, gp, bp, ts) \
   if ((rp > -1 || r > 0) && (rp < 1 || r < 248) && \
       (gp > -1 || g > 0) && (gp < 1 || g < 248) && \

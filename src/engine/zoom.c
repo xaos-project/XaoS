@@ -72,7 +72,7 @@ static int nsymetrized;
 unsigned char *tmpdata, *tmpdata1;
 struct realloc_s
 {
-    number_t possition;
+    number_t position;
     number_t price;
     unsigned int plus;
     int recalculate;
@@ -265,7 +265,7 @@ preparesymetries (register realloc_t * realloc, const int size, register int sym
         if (realloc->symto != -1)
             continue;
 
-        fy = realloc->possition;
+        fy = realloc->position;
         realloc->symto = 2 * symi - i;
 
         if (realloc->symto >= size - RANGE)
@@ -284,9 +284,9 @@ preparesymetries (register realloc_t * realloc, const int size, register int sym
 
         if (realloc->recalculate) {
             for (; j < RANGE && realloc->symto + j < size - 1; j++) {
-                ftmp = sym - (reallocs + j)->possition;
+                ftmp = sym - (reallocs + j)->position;
                 if ((tmp1 = myabs (ftmp - fy)) < dist) {
-                    if ((realloc == r || ftmp > (realloc - 1)->possition) && (ftmp < (realloc + 1)->possition)) {
+                    if ((realloc == r || ftmp > (realloc - 1)->position) && (ftmp < (realloc + 1)->position)) {
                         dist = tmp1;
                         min = j;
                     }
@@ -298,9 +298,9 @@ preparesymetries (register realloc_t * realloc, const int size, register int sym
             for (; j < RANGE && realloc->symto + j < size - 1; j++) {
                 if (!realloc->recalculate)
                     continue;
-                ftmp = sym - (reallocs + j)->possition;
+                ftmp = sym - (reallocs + j)->position;
                 if ((tmp1 = myabs (ftmp - fy)) < dist) {
-                    if ((realloc == r || ftmp > (realloc - 1)->possition) && (ftmp < (realloc + 1)->possition)) {
+                    if ((realloc == r || ftmp > (realloc - 1)->position) && (ftmp < (realloc + 1)->position)) {
                         dist = tmp1;
                         min = j;
                     }
@@ -327,7 +327,7 @@ preparesymetries (register realloc_t * realloc, const int size, register int sym
             realloc->symref = (int) (reallocs - r);
             STAT (nadded -= reallocs->recalculate);
             reallocs->recalculate = 0;
-            reallocs->possition = sym - realloc->possition;
+            reallocs->position = sym - realloc->position;
         } else {
             if (reallocs->symto != -1) {
                 realloc->symto = -1;
@@ -340,7 +340,7 @@ preparesymetries (register realloc_t * realloc, const int size, register int sym
             realloc->plus = reallocs->plus;
             realloc->recalculate = 0;
             reallocs->symref = i;
-            realloc->possition = sym - reallocs->possition;
+            realloc->position = sym - reallocs->position;
         }
         STAT (nsymetry++);
 
@@ -359,7 +359,7 @@ preparesymetries (register realloc_t * realloc, const int size, register int sym
 }
 
 static void
-newpossitions (realloc_t * realloc, unsigned int size, number_t begin1, number_t end1, const number_t * fpos, int yend)
+newpositions (realloc_t * realloc, unsigned int size, number_t begin1, number_t end1, const number_t * fpos, int yend)
 {
     realloc_t *rs, *re, *rend;
     number_t step = size / (end1 - begin1);
@@ -377,14 +377,14 @@ newpossitions (realloc_t * realloc, unsigned int size, number_t begin1, number_t
             if (re == rend)
                 end = end1;
             else
-                end = re->possition;
+                end = re->position;
 
             if (rs == realloc - 1) {
                 start = begin1;
                 if (start > end)
                     start = end;
             } else
-                start = rs->possition;
+                start = rs->position;
 
             if (re == rend && start > end)
                 end = start;
@@ -398,13 +398,13 @@ newpossitions (realloc_t * realloc, unsigned int size, number_t begin1, number_t
             switch (yend) {
                 case 1:
                     for (rs++; rs < re; rs++) {
-                        start += end, rs->possition = start;
+                        start += end, rs->position = start;
                         rs->price = 1 / (1 + myabs (fpos[rs - realloc] - start) * step);
                     }
                     break;
                 case 2:
                     for (rs++; rs < re; rs++) {
-                        start += end, rs->possition = start;
+                        start += end, rs->position = start;
                         rs->price = (myabs (fpos[rs - realloc] - start) * step);
                         if (rs == realloc || rs == rend - 1)
                             rs->price *= 500;
@@ -412,7 +412,7 @@ newpossitions (realloc_t * realloc, unsigned int size, number_t begin1, number_t
                     break;
                 default:
                     for (rs++; rs < re; rs++) {
-                        start += end, rs->possition = start;
+                        start += end, rs->position = start;
                         rs->price = (number_t) 1;
                     }
                     break;
@@ -528,7 +528,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
                 previous = END, myprice = 0;
         }
 
-        data = getbest (i);     /*find store possition */
+        data = getbest (i);     /*find store position */
         myprice += NEWPRICE;
         bestdata = data;
         data->previous = previous;
@@ -544,7 +544,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
         /* Now try all acceptable connection and calculate best possibility
          * with this connection
          */
-        if (ps != pe) {         /*in case that previous had also possitions */
+        if (ps != pe) {         /*in case that previous had also positions */
             int price1 = INT_MAX;
             /*At first line of previous interval we have only one possibility
              *don't connect previous line at all.
@@ -746,7 +746,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
                 }
             }
         }
-        /*previous = ps; *//*store possitions for next loop */
+        /*previous = ps; *//*store positions for next loop */
         ps = ps1;
         ps1 = pe;
         pe = p;
@@ -791,7 +791,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
         } else {
             p = ((unsigned int) (bestdata - dyndata)) >> DSIZES;
             assert (p >= 0 && p < size);
-            realloc->possition = fpos[p];
+            realloc->position = fpos[p];
             realloc->plus = p;
             realloc->dirty = 0;
             realloc->recalculate = 0;
@@ -802,7 +802,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
 
 
 
-    newpossitions (realloc, size, begin, end, fpos, yend);
+    newpositions (realloc, size, begin, end, fpos, yend);
     realloc = r;
     if (symi <= (int) size && symi >= 0) {
         preparesymetries (r, (int) size, symi, sym, step);
@@ -952,7 +952,7 @@ mkfilltable (void)
             while (rx < rend2 && rx->dirty) {
                 n = (int) (r2 - rx);
                 assert (n > 0);
-                if (r2 < rend2 && (r1 < czoomc.reallocx || rx->possition - r1->possition > r2->possition - rx->possition))
+                if (r2 < rend2 && (r1 < czoomc.reallocx || rx->position - r1->position > r2->position - rx->position))
                     vsrc = (int) (r2 - czoomc.reallocx), r1 = r2;
                 else {
                     vsrc = (int) (r1 - czoomc.reallocx);
@@ -969,7 +969,7 @@ mkfilltable (void)
                 tbl[num].end = tbl[num].length * cimage.bytesperpixel + tbl[num].to;
                 /*printf("%i %i %i %i\n",num,tbl[num].length, tbl[num].to, tbl[num].from); */
                 while (n) {
-                    rx->possition = czoomc.reallocx[vsrc].possition;
+                    rx->position = czoomc.reallocx[vsrc].position;
                     rx->dirty = 0;
                     rx++;
                     n--;
@@ -1019,7 +1019,7 @@ filly (void
                         return;
                 } else if (r2 >= rend2)
                     rs = r1;
-                else if (ry->possition - r1->possition < r2->possition - ry->possition)
+                else if (ry->position - r1->position < r2->position - ry->position)
                     rs = r1;
                 else
                     rs = r2;
@@ -1028,7 +1028,7 @@ filly (void
                     ry->dirty = -1;
                 }
                 memcpy (vbuff[ry - czoomc.reallocy], vbuff[rs - czoomc.reallocy], (size_t) linesize);
-                ry->possition = rs->possition;
+                ry->position = rs->position;
                 ry->dirty = -1;
                 ry++;
             }
@@ -1161,7 +1161,7 @@ REGISTERS (3)
     realloc_t *r3;
     while (r < r2) {
         r3 = r + (((unsigned int) (r2 - r)) >> 1);
-        r3->price = (r2->possition - r3->possition) * (r3->price);
+        r3->price = (r2->position - r3->position) * (r3->price);
         if (r3->symref != -1)
             r3->price = r3->price / 2;
         addprices (r, r3);
@@ -1585,10 +1585,10 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
         }
     }
     for (r = czoomc.reallocx, posptr = czoomc.xpos, rend = czoomc.reallocx + cimage.width; r < rend; r++, posptr++) {
-        *posptr = r->possition;
+        *posptr = r->position;
     }
     for (r = czoomc.reallocy, posptr = czoomc.ypos, rend = czoomc.reallocy + cimage.height; r < rend; r++, posptr++) {
-        *posptr = r->possition;
+        *posptr = r->position;
     }
 #ifdef STATISTICS
     STAT (printf ("Statistics: frames %i\n" "mkrealloctable: added %i, symetry %i\n" "calculate loop: tocalculate %i avoided %i\n" "calculate:calculated %i inside %i\n" "iters inside:%i iters outside:%i periodicty:%i\n", frames2, nadded2, nsymetry2, tocalculate2, avoided2, ncalculated2, ninside2, niter2, niter1, nperi));

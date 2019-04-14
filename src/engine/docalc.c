@@ -183,7 +183,7 @@ REGISTERS (3)
                 I386HACK;       /*do next 8 iteration w/o out of bounds checking */
                 do {
                     /*hmm..we are probably in some deep area. */
-                    szre = zre; /*save current possition */
+                    szre = zre; /*save current position */
                     szim = zim;
                     SAVE;
                     UFORMULA;
@@ -200,7 +200,7 @@ REGISTERS (3)
                 while (BTEST && iter);
                 if (!(BTEST)) { /*we got out of bounds */
                     iter <<= 3;
-                    iter += 8;  /*restore saved possition */
+                    iter += 8;  /*restore saved position */
                     RESTORE;
                     zre = szre;
                     zim = szim;
@@ -542,7 +542,7 @@ REGISTERS (3)
                 }
                 while (BTEST && iter);
                 if (!BTEST) {   /*we got out of bounds */
-                    iter += 8;  /*restore saved possition */
+                    iter += 8;  /*restore saved position */
                     RESTORE;
                     zre = szre;
                     zim = szim;

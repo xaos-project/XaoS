@@ -89,11 +89,11 @@ extern "C"
                                            i.e svga and dos asks user for it */
         void (*processevents) (int, int *, int *, int *, int *);
         /*processevents..calls ui_resize,ui_key
-           laso returns possitions of mouse..
+           laso returns positions of mouse..
            waits for event if first parameter is
            1 */
         void (*getmouse) (int *, int *, int *);
-        /*returns current mouse possitions */
+        /*returns current mouse positions */
         void (*uninit) (void);
         /*called before exit */
         int (*set_color) (int, int, int, int);

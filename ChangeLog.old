@@ -217,7 +217,7 @@ Version 3.0
 	  x implemented in cleaner way than old ugly-interface
 	  x hides XaoS's internals and provides easy to understand
 	    set of functions for users of XaoS engine.
-	o XaoS now uses center/range possitioning instead of
+	o XaoS now uses center/range positioning instead of
 	  left top/right bottom becase:
 	  x it is better human readable (you can see zoom easily)
 	  x it is more exact (small difference do not fall to zero
@@ -306,7 +306,7 @@ Version 3.0
 	  range and lowqualitty detection and seems to have better 
 	  results
 	o Macro system in calculation loop caused instant speedup. Why?
-	o New new possition caluclation algorithm. Seems to be a bit faster
+	o New new position caluclation algorithm. Seems to be a bit faster
 	  and produces better results
 	o Random dot generator now reduces resolution to 1/4, 
 	  because brain is unable to decode image inormations at 
@@ -355,7 +355,7 @@ Version 3.0
 	  dislike writing of image saving code. Please if you have 
 	  some, or you want to write code, that don't require these 
 	  libraries, let me know.
-	o Saving of possition.
+	o Saving of position.
 	o Documentation is now in texinfo format. Describes some XaoS
 	  internals
 	o Timer library: 

@@ -718,7 +718,7 @@ uih_saveposfile (struct uih_context *c, xio_constpath d)
         uih_error (c, gettext ("Can not open file"));
         return;
     }
-    uih_save_possition (c, f, UIH_SAVEPOS);
+    uih_save_position (c, f, UIH_SAVEPOS);
     if (c->errstring == NULL) {
         char s[256];
         sprintf (s, gettext ("File %s saved."), d);
@@ -732,7 +732,7 @@ uih_savepostostr (struct uih_context *c)
     xio_file f;
     c->errstring = NULL;
     f = xio_strwopen ();
-    uih_save_possition (c, f, UIH_SAVEPOS);
+    uih_save_position (c, f, UIH_SAVEPOS);
     return (xio_getstring (f));
 }
 
@@ -746,7 +746,7 @@ uih_saveundo (struct uih_context *c)
     if (c->undo.undos[c->undo.last])
         free (c->undo.undos[c->undo.last]);
     f = xio_strwopen ();
-    uih_save_possition (c, f, UIH_SAVEPOS);
+    uih_save_position (c, f, UIH_SAVEPOS);
     c->undo.undos[c->undo.last] = xio_getstring (f);
     c->undo.last = (c->undo.last + 1) % UNDOLEVEL;
 }
@@ -790,7 +790,7 @@ uih_savecfg (struct uih_context *c)
         uih_message (c, (char *) xio_errorstring ());
         return;
     }
-    uih_save_possition (c, f, UIH_SAVEALL);
+    uih_save_position (c, f, UIH_SAVEALL);
     if (c->errstring == NULL) {
         char s[256];
         sprintf (s, gettext ("File %s saved."), configfile);

@@ -480,7 +480,7 @@ uih_saveframe (struct uih_context *uih)
             for (i = 0; i < 3; i++) {
                 if (uih->displaytext & (1 << i)) {
                     if (s->ytextpos != i || s->xtextpos != uih->textpos[i]) {
-                        start_save (uih, "textpossition");
+                        start_save (uih, "textposition");
                         save_nstring (uih, uih->xtextpos, xtextposnames);
                         save_nstring (uih, uih->ytextpos, ytextposnames);
                         stop_save (uih);
@@ -612,7 +612,7 @@ uih_save_disable (struct uih_context *uih)
 }
 
 void
-uih_save_possition (struct uih_context *uih, xio_file f, int mode)
+uih_save_position (struct uih_context *uih, xio_file f, int mode)
 {
     struct uih_savedcontext *c = uih->savec;
     int save = uih->save;

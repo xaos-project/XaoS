@@ -42,7 +42,7 @@ REGISTERS (3)
     cppixel_t *vbuff1 = (cpixel_t **) cimage.currlines + (ry - czoomc.reallocy);
     assert (ry >= czoomc.reallocy);
     assert (ry < czoomc.reallocy + cimage.height);
-    y = ry->possition;
+    y = ry->position;
     rend = ry - range - 1;
     if (czoomc.reallocy > rend)
         rend = czoomc.reallocy;
@@ -58,7 +58,7 @@ REGISTERS (3)
         for (rx = czoomc.reallocx, vbuff = *vbuff1, rend1 = czoomc.reallocx + cimage.width; rx < rend1; rx++) {
             if (!rx->dirty) {
                 STAT (tocalculate++);
-                p_set (vbuff, (cpixeldata_t) calculate (rx->possition, y, cfractalc.periodicity));
+                p_set (vbuff, (cpixeldata_t) calculate (rx->position, y, cfractalc.periodicity));
 #ifdef DRAW
                 vga_setcolor (0xff0000);
                 vga_drawpixel (rx - czoomc.reallocx, ry - czoomc.reallocy);
@@ -85,9 +85,9 @@ REGISTERS (3)
                     STAT (avoided++);
                 } else {
                     if (cfractalc.periodicity && distdown < INT_MAX / 4 && distup < INT_MAX / 4 && (p_get (vbuffu) != inset && p_get (vbuffd) != inset && p_getp (vbuff, -distup) != inset && p_getp (vbuffu, -distup) != inset && p_getp (vbuffu, +distdown) != inset && p_getp (vbuffd, -distup) != inset && p_getp (vbuffd, +distdown) != inset))
-                        p_set (vbuff, (cpixeldata_t) calculate (rx->possition, y, 0));
+                        p_set (vbuff, (cpixeldata_t) calculate (rx->position, y, 0));
                     else
-                        p_set (vbuff, (cpixeldata_t) calculate (rx->possition, y, cfractalc.periodicity));
+                        p_set (vbuff, (cpixeldata_t) calculate (rx->position, y, cfractalc.periodicity));
 #ifdef DRAW
                     vga_setcolor (0xffffff);
                     vga_drawpixel (rx - czoomc.reallocx, ry - czoomc.reallocy);
@@ -132,13 +132,13 @@ REGISTERS (3)
         rend = czoomc.reallocx + cimage.width;
     for (rxr = rx + 1; rxr < rend && rxr->dirty; rxr++);
     distr = (int) (rxr - rx);
-    x = rx->possition;
+    x = rx->position;
     rend = czoomc.reallocx + cimage.width;
     if (rxr >= czoomc.reallocx + cimage.width || rxl < czoomc.reallocx || rxr->dirty || rxl->dirty) {
         for (ry = czoomc.reallocy, vbuff = (cppixel_t *) cimage.currlines, rend1 = czoomc.reallocy + cimage.height; ry < rend1; ry++, vbuff++) {
             if (!ry->dirty) {
                 STAT (tocalculate++);
-                p_setp ((*vbuff), pos, (cpixeldata_t) calculate (x, ry->possition, cfractalc.periodicity));
+                p_setp ((*vbuff), pos, (cpixeldata_t) calculate (x, ry->position, cfractalc.periodicity));
 #ifdef DRAW
                 vga_setcolor (0xff0000);
                 vga_drawpixel (rx - czoomc.reallocx, ry - czoomc.reallocy);
@@ -168,9 +168,9 @@ REGISTERS (3)
                     p_setp (vbuff[0], pos, c);
                 } else {
                     if (cfractalc.periodicity && distdown < INT_MAX / 4 && distup < INT_MAX / 4 && (p_getp (vbuff[0], distl) != inset && p_getp (vbuff[0], distr) != inset && p_getp (vbuff[distdown], distr) != inset && p_getp (vbuff[distdown], distl) != inset && p_getp (vbuff[-distup], distl) != inset && p_getp (vbuff[-distup], pos) != inset && p_getp (vbuff[-distup], distr) != inset))
-                        p_setp (vbuff[0], pos, (cpixeldata_t) calculate (x, ry->possition, 0));
+                        p_setp (vbuff[0], pos, (cpixeldata_t) calculate (x, ry->position, 0));
                     else
-                        p_setp (vbuff[0], pos, (cpixeldata_t) calculate (x, ry->possition, cfractalc.periodicity));
+                        p_setp (vbuff[0], pos, (cpixeldata_t) calculate (x, ry->position, cfractalc.periodicity));
 #ifdef DRAW
                     vga_setcolor (0xffffff);
                     vga_drawpixel (rx - czoomc.reallocx, ry - czoomc.reallocy);

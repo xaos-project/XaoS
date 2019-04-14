@@ -667,7 +667,7 @@ sum "iter+real+imag+real/imag
 
 A toto je součet všech předchozích"
 
-decomp "binarry decompossition
+decomp "binarry decomposition
 
 Pokud je imaginární část
 menší než nula, odečte se
@@ -689,7 +689,7 @@ potential "Potential
 Tento režim vypdá nejlépe
 v true-color režimu"
 
-cdecom "color decompossition"
+cdecom "color decomposition"
 cdecom2 "Barva se vypočte
 podle úhlu posledního orbitu"
 cdecom3 "Je podobná binární
