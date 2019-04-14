@@ -116,7 +116,7 @@ load_catalog (xio_file f, const char **error)
     int size;
     int c;
     catalog_t *catalog = alloc_catalog ();
-    static char errort[40];
+    static char errort[80];
     char name[1024];
     char value[1024];
     if (catalog == NULL) {
