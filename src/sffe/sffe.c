@@ -876,7 +876,7 @@ sffe_parse (sffe ** parser, char *expression)
                 printf (" NUMBER FORMAT!! : %s\n", ch1);
                 break;
             case UNKNOWNCONST:
-                printf (" UNKOWN CONST or VAR NAME!! : %s\n", ch1);
+                printf (" UNKNOWN CONST or VAR NAME!! : %s\n", ch1);
                 break;
             case OPERATOR:
                 printf (" UNKNOWN OPERATOR!! : %s\n", ch1);
@@ -908,7 +908,7 @@ sffe_parse (sffe ** parser, char *expression)
                     sprintf (p->errormsg, "Formula error ! NUMBER FORMAT!! : %s", ch1);
                     break;
                 case UNKNOWNCONST:
-                    sprintf (p->errormsg, "Formula error ! UNKOWN CONST or VAR NAME!! : %s", ch1);
+                    sprintf (p->errormsg, "Formula error ! UNKNOWN CONST or VAR NAME!! : %s", ch1);
                     break;
                 case OPERATOR:
                     sprintf (p->errormsg, "Formula error ! UNKNOWN OPERATOR!! : %s", ch1);

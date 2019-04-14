@@ -148,7 +148,7 @@ params_parser (int argc, char **argv)
                     printf (" %-14s  %s\n%14s    %s\n", par[p].name, name[par[p].type], "", par[p].help);
             }
             if (p == 0)
-                printf (" No options avaiable for now\n");
+                printf (" No options available for now\n");
         }
         menu_printhelp ();
         return 0;

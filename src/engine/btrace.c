@@ -69,8 +69,8 @@
  no:we are meeting boundary with different color - so we need
  to track this boundary too. add point at right to stack with oposite
  direction and boundary color set to current color
- 3) look forward: similiar scheme as to look right
- 4) look left: again similiar
+ 3) look forward: similar scheme as to look right
+ 4) look left: again similar
  5) exit
 
  This hould trace boundaries to distance 1 (I hope) and do not miss anything.

@@ -10592,8 +10592,8 @@ echo " "
 echo "READ THE FOLLOWING WARNINGS CAREFULLY"
 echo " "
 if test "x$ac_cv_header_stdc" = xno; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: There are no ANSI C headers avaiable. XaoS will have troubles with compiling." >&5
-$as_echo "$as_me: WARNING: There are no ANSI C headers avaiable. XaoS will have troubles with compiling." >&2;}
+  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: There are no ANSI C headers available. XaoS will have troubles with compiling." >&5
+$as_echo "$as_me: WARNING: There are no ANSI C headers available. XaoS will have troubles with compiling." >&2;}
   config_problem=yes
 fi
 if test "x$ac_cv_c_compiler_gnu" = xyes; then

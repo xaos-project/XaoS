@@ -507,7 +507,7 @@ xalloc_color (xdisplay * d, int r, int g, int b, int readwrite)
             if (!XAllocColorCells (d->display, d->colormap, 0, 0, 0, &cell, 1)) {
                 d->xcolor.n--;
                 if (d->xcolor.n <= 32)
-                    printf ("Colormap is too full! close some colorfull applications or use -private\n");
+                    printf ("Colormap is too full! close some colorful applications or use -private\n");
                 return (-1);
             }
             d->xcolor.c[d->xcolor.n - 1].pixel = cell;
@@ -518,7 +518,7 @@ xalloc_color (xdisplay * d, int r, int g, int b, int readwrite)
     if (!XAllocColor (d->display, d->colormap, &(d->xcolor.c[d->xcolor.n - 1]))) {
         d->xcolor.n--;
         if (d->xcolor.n <= 32)
-            printf ("Colormap is too full! close some colorfull aplications or use -private\n");
+            printf ("Colormap is too full! close some colorful aplications or use -private\n");
         return (-1);
     }
     d->pixels[d->xcolor.n - 1] = d->xcolor.c[d->xcolor.n - 1].pixel;

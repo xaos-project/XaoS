@@ -91,7 +91,7 @@ requirement (struct filter *f, struct requirements *r)
  *  Fills an lookup table with conversion data for the specified
  *  palette. 
  *
- *  Uses alg. similiar to foodfill - it adds one seed per every color in 
+ *  Uses alg. similar to foodfill - it adds one seed per every color in 
  *  palette to its best possition. Then areas around seed are filled by 
  *  same color because it is best aproximation for them, and then areas 
  *  about them etc...
@@ -393,7 +393,7 @@ getinstance (const struct filteraction *a)
     struct ditherdata *i = (struct ditherdata *) calloc (1, sizeof (*i));
     i->palette = createpalette (0, 65536, TRUECOLOR, 0, 65536, NULL, NULL, NULL, NULL, NULL);
     f->data = i;
-    f->name = "Truecolor to 8bpp convertor";
+    f->name = "Truecolor to 8bpp converter";
     return (f);
 }
 

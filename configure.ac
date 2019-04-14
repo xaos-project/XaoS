@@ -507,7 +507,7 @@ echo " "
 echo "READ THE FOLLOWING WARNINGS CAREFULLY"
 echo " "
 if test "x$ac_cv_header_stdc" = xno; then
-  AC_MSG_WARN(There are no ANSI C headers avaiable. XaoS will have troubles with compiling.)
+  AC_MSG_WARN(There are no ANSI C headers available. XaoS will have troubles with compiling.)
   config_problem=yes
 fi
 if test "x$ac_cv_c_compiler_gnu" = xyes; then

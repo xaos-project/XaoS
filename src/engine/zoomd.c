@@ -229,7 +229,7 @@ dosymetry2 (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
 #undef bpp1
 
 REGISTERS (0)
-     static INLINE void fillline (int line)
+static INLINE void fillline (int line)
 {
     register unsigned char *RESTRICT vbuff = cimage.currlines[line];
     const struct filltable *RESTRICT table = (struct filltable *) tmpdata;

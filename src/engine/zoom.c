@@ -714,7 +714,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
              * Situation is simplier now, since we know that behind us is
              * large hole and our decisions don't affect best solution for
              * previous problem. Se we have just one answer
-             * Situation is similiar to latest loop in previous case
+             * Situation is similar to latest loop in previous case
              */
             int myprice1;       /*simplified loop for case that previous
                                    y had no lines */

@@ -175,7 +175,7 @@ const struct params global_params[] = {
     {"-screenheight", P_FLOAT, &defscreenheight,
      "exact size of screen in centimeters"},
     {"", P_HELP, NULL,
-     "  Use this option in case you use some kind of virtual screen\n  or something similiar that confuses previous options"},
+     "  Use this option in case you use some kind of virtual screen\n  or something similar that confuses previous options"},
     {"-pixelwidth", P_FLOAT, &defpixelwidth,
      "exact size of one pixel in centimeters"},
     {"-pixelheight", P_FLOAT, &defpixelheight,

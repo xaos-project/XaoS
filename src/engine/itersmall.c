@@ -47,7 +47,7 @@ getinstance (const struct filteraction *a)
     struct siterdata *i = (struct siterdata *) calloc (1, sizeof (*i));
     i->palette = createpalette (0, 65536, IMAGETYPE, 0, 65536, NULL, NULL, NULL, NULL, NULL);
     f->data = i;
-    f->name = "Smalliter image convertor";
+    f->name = "Smalliter image converter";
     return (f);
 }
 
@@ -156,7 +156,7 @@ doit (struct filter *f, int flags, int time)
 }
 
 const struct filteraction smalliter_filter = {
-    "Smalliter image convertor",
+    "Smalliter image converter",
     "smalliter",
     0,
     getinstance,
