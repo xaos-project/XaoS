@@ -358,7 +358,7 @@ ui_updatestatus (void)
     driver->display ();
     uih_cycling_continue (uih);
     speed = uih_displayed (uih);
-    sprintf (statustext, gettext ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "), times < 1 ? gettext ("unzoomed") : gettext ("zoomed"), times < 1 ? 1.0 / times : times, timesnop, speed, uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1, uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1, uih->fcontext->maxiter);
+    sprintf (statustext, gettext ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "), times < 1 ? gettext ("unzoomed") : gettext ("zoomed"), times < 1 ? 1.0 / times : times, timesnop, speed, uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1, uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1, uih->fcontext->maxiter);
 
     if (!(driver->flags & NOFLUSHDISPLAY))
         ui_flush ();
@@ -453,7 +453,7 @@ ui_drawstatus (uih_context * uih, void *data)
     xprint (uih->image, uih->font, 0, statusstart + 3 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, gettext ("Rotation:%4.2f   Screen size:%i:%i"), (double) uih->fcontext->angle, uih->image->width, uih->image->height);
     xprint (uih->image, uih->font, 0, statusstart + 4 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    sprintf (str, gettext ("Iterations:%-4i Palette size:%i"), uih->fcontext->maxiter, uih->image->palette->size);
+    sprintf (str, gettext ("Iterations:%-4u Palette size:%i"), uih->fcontext->maxiter, uih->image->palette->size);
     xprint (uih->image, uih->font, 0, statusstart + 5 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, "Bailout:%4.2f", (double) uih->fcontext->bailout);
     xprint (uih->image, uih->font, 0, statusstart + 6 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
