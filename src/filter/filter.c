@@ -207,7 +207,7 @@ inherimage (struct filter *f, struct initdata *data, int flags, int width, int h
         i = data->image, ddatalost = (data->flags & DATALOST) || (f->childimage != data->image);
     if (sharedimage && datalost (f, data))
         ddatalost = 1;
-    else if ((f->flags | SHAREDDATA) && datalost (f, data) && !(i->flags & FREEDATA))
+    else if ((f->flags & SHAREDDATA) && datalost (f, data) && !(i->flags & FREEDATA))
         ddatalost = 1;
     if (ddatalost)
         data->flags |= DATALOST;
