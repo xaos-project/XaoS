@@ -1092,6 +1092,8 @@ ui_init (int argc, char **argv)
             strcpy (language, "francais");
         if (strcmp (locale, "ro") == 0)
             strcpy (language, "romanian");
+        if (strcmp (locale, "ru") == 0)
+            strcpy (language, "russian");
         if (strcmp (locale, "it") == 0)
             strcpy (language, "italiano");
         if (strcmp (locale, "pt") == 0)

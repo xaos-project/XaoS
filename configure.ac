@@ -13,7 +13,7 @@ dnl
 AM_ICONV
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION(0.18.1)
-ALL_LINGUAS="cs es hu fr de ro it pt"
+ALL_LINGUAS="cs es hu fr de ro ru it pt"
 if test "x$USE_NLS" = xyes; then
   AC_PATH_PROG([MSGMERGE], [msgmerge], , [$PATH:../bin])
   if test "x$ac_cv_path_MSGMERGE" = x; then
