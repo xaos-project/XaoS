@@ -37,6 +37,7 @@
 - Tormod Volden: Fixes for X11 driver to improve compatability with Xorg, XScreenSaver, Beryl and Compiz
 - [Philippe Wautelet](mailto:p.wautelet@fractalzone.be): Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
 - Sergio Zanchetta: Italian translation
+- Alexey Loginov: Russian translation
 
 ## Included Software
 
