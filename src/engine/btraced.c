@@ -422,7 +422,7 @@ bfill (void *dat, struct taskinfo *task, int r1, int r2)
 #endif
 #endif
 static void
-dosymetries (int x1, int x2, int y1, int y2, int xsym, int cx1, int cx2)
+dosymmetries (int x1, int x2, int y1, int y2, int xsym, int cx1, int cx2)
 {
     if (cx1 != x1) {
         register int y;
@@ -453,7 +453,7 @@ dosymetries (int x1, int x2, int y1, int y2, int xsym, int cx1, int cx2)
 }
 #endif
 
-#undef dosymetries
+#undef dosymmetries
 #undef tracepoint
 #undef tracecolor
 #undef queue

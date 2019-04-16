@@ -41,7 +41,7 @@ extern "C"
     struct symmetryinfo
     {
         number_t xsym, ysym;
-        int nsymetries;
+        int nsymmetries;
         const symmetrytype *symmetry;
     };
     typedef struct
@@ -107,7 +107,7 @@ extern "C"
     struct symmetryinfo2
     {
         number_t xsym, ysym;
-        int nsymetries;
+        int nsymmetries;
         symmetry2 *symmetry;
         number_t xmul, ymul, xdist, ydist;
     };

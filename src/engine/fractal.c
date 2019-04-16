@@ -128,7 +128,7 @@ combine_methods (void)
     if (cfractalc.mandelbrot != cfractalc.currentformula->mandelbrot || cfractalc.bre || cfractalc.bim) {
         cursymmetry.xsym = (number_t) INT_MAX;
         cursymmetry.ysym = (number_t) INT_MAX;
-        cursymmetry.nsymetries = 0;
+        cursymmetry.nsymmetries = 0;
         return;
     }
 #ifdef __UNDEFINED__
@@ -167,7 +167,7 @@ combine_methods (void)
             break;
     }
     cursymmetry.symmetry = sym_lines;
-    cursymmetry.nsymetries = 0;
+    cursymmetry.nsymmetries = 0;
     if ((number_t) angle == cfractalc.angle) {
         switch (angle) {
             case 0:

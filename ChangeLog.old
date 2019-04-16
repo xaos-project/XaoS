@@ -478,7 +478,7 @@ Version 2.2
       Speedups:
         o symmetry handling code in mkrealloc table optimized a bit.
 	  now is faster,shorter and does better job. :)
-	o non x/y symetries disabled because they slowes down for now..
+	o non x/y symmetries disabled because they slowes down for now..
 	o approximation algorithm optimized-lots of memory accesses 
 	  avoided-great speedup..
 	  now performs much better(16fps -> 18 on 486)

@@ -247,28 +247,28 @@ REGISTERS (3)
 #include <c256.h>
 #define tracecolor tracecolor8
 #define tracepoint tracepoint8
-#define dosymetries dosymetries8
+#define dosymmetries dosymmetries8
 #define queue queue8
 #define bfill bfill8
 #include "btraced.c"
 #include <hicolor.h>
 #define tracecolor tracecolor16
 #define tracepoint tracepoint16
-#define dosymetries dosymetries16
+#define dosymmetries dosymmetries16
 #define queue queue16
 #define bfill bfill16
 #include "btraced.c"
 #include <true24.h>
 #define tracecolor tracecolor24
 #define tracepoint tracepoint24
-#define dosymetries dosymetries24
+#define dosymmetries dosymmetries24
 #define queue queue24
 #define bfill bfill24
 #include "btraced.c"
 #include <truecolor.h>
 #define tracecolor tracecolor32
 #define tracepoint tracepoint32
-#define dosymetries dosymetries32
+#define dosymmetries dosymmetries32
 #define queue queue32
 #define bfill bfill32
 #include "btraced.c"
@@ -509,7 +509,7 @@ boundarytrace (int x1, int y1, int x2, int y2, number_t * xpos, number_t * ypos)
         return 0;
     }
     free (calculated);
-    drivercall (cimage, dosymetries8 (x1, x2, y1, y2, xsym, cx1, cx2), dosymetries16 (x1, x2, y1, y2, xsym, cx1, cx2), dosymetries24 (x1, x2, y1, y2, xsym, cx1, cx2), dosymetries32 (x1, x2, y1, y2, xsym, cx1, cx2));
+    drivercall (cimage, dosymmetries8 (x1, x2, y1, y2, xsym, cx1, cx2), dosymmetries16 (x1, x2, y1, y2, xsym, cx1, cx2), dosymmetries24 (x1, x2, y1, y2, xsym, cx1, cx2), dosymmetries32 (x1, x2, y1, y2, xsym, cx1, cx2));
     for (i = cx1; i <= cx2; i++) {
         if (xsym != -1) {
             i1 = 2 * xsym - i;

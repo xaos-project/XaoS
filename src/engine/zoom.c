@@ -68,7 +68,7 @@
 
 #define ASIZE 16
 #define ALIGN(x) (((x)+ASIZE-1)&(~(ASIZE-1)))
-static int nsymetrized;
+static int nsymmetrized;
 unsigned char *tmpdata, *tmpdata1;
 struct realloc_s
 {
@@ -245,7 +245,7 @@ static int *mulmid;
  */
 
 static void 
-preparesymetries (register realloc_t * realloc, const int size, register int symi, number_t sym, number_t step)
+preparesymmetries (register realloc_t * realloc, const int size, register int symi, number_t sym, number_t step)
 {
     register int i;
     register int istart = 0;
@@ -258,7 +258,7 @@ preparesymetries (register realloc_t * realloc, const int size, register int sym
         i = 0;
     realloc += i;
 
-    for (; i <= symi; i++, realloc++) { /*makes symetries */
+    for (; i <= symi; i++, realloc++) { /*makes symmetries */
         int j, min = 0;
         number_t dist = NUMBER_BIG, tmp1;
 
@@ -321,7 +321,7 @@ preparesymetries (register realloc_t * realloc, const int size, register int sym
                 continue;
             reallocs->plus = realloc->plus;
             reallocs->symto = i;
-            nsymetrized++;
+            nsymmetrized++;
             istart = realloc->symto - 1;
             reallocs->dirty = 1;
             realloc->symref = (int) (reallocs - r);
@@ -335,7 +335,7 @@ preparesymetries (register realloc_t * realloc, const int size, register int sym
             }
             istart = realloc->symto - 1;
             STAT (nadded -= realloc->recalculate);
-            nsymetrized++;
+            nsymmetrized++;
             realloc->dirty = 1;
             realloc->plus = reallocs->plus;
             realloc->recalculate = 0;
@@ -805,7 +805,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
     newpositions (realloc, size, begin, end, fpos, yend);
     realloc = r;
     if (symi <= (int) size && symi >= 0) {
-        preparesymetries (r, (int) size, symi, sym, step);
+        preparesymmetries (r, (int) size, symi, sym, step);
     }
 
 
@@ -1170,7 +1170,7 @@ REGISTERS (3)
 }
 
 /* We can't do both symmetryies (x and y) in one loop at multithreaded
- * systems,since we need to take care to points at the cross of symetrized
+ * systems,since we need to take care to points at the cross of symmetrized
  * point/column
  */
 static void
@@ -1354,12 +1354,12 @@ calculatenewinterruptible (void)
 
     cfilter.pos = 0;
     cfilter.max = 0;
-    cfilter.pass = "Procesing symetries";
+    cfilter.pass = "Procesing symmetries";
     cfilter.incalculation = 0;
     callwait ();
 
     xth_sync ();
-    if (nsymetrized) {
+    if (nsymmetrized) {
         xth_function (dosymmetry, NULL, cimage.height);
         xth_sync ();
         drivercall (cimage, xth_function (dosymmetry2_8, NULL, cimage.width), xth_function (dosymmetry2_16, NULL, cimage.width), xth_function (dosymmetry2_24, NULL, cimage.width), xth_function (dosymmetry2_32, NULL, cimage.width));
@@ -1527,7 +1527,7 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
     cfilter.readyforinterrupt = 0;
     cfilter.interrupt = 0;
 
-    nsymetrized = 0;
+    nsymmetrized = 0;
     cfilter.max = 0;
     cfilter.pos = 0;
     cfilter.pass = "Making y realloc table";
@@ -1571,10 +1571,10 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
         }
         cfilter.pos = 0;
         cfilter.max = 0;
-        cfilter.pass = "Procesing symetries";
+        cfilter.pass = "Procesing symmetries";
         callwait ();
         xth_sync ();
-        if (nsymetrized) {
+        if (nsymmetrized) {
             xth_function (dosymmetry, NULL, cimage.height);
             xth_sync ();
             drivercall (cimage, xth_function (dosymmetry2_8, NULL, cimage.width), xth_function (dosymmetry2_16, NULL, cimage.width), xth_function (dosymmetry2_24, NULL, cimage.width), xth_function (dosymmetry2_32, NULL, cimage.width));
