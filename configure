@@ -6085,7 +6085,7 @@ $as_echo "#define HAVE_DCGETTEXT 1" >>confdefs.h
 
 
 
-ALL_LINGUAS="cs es hu fr de ro it pt"
+ALL_LINGUAS="cs es hu fr de ro ru it pt"
 if test "x$USE_NLS" = xyes; then
   # Extract the first word of "msgmerge", so it can be a program name with args.
 set dummy msgmerge; ac_word=$2
