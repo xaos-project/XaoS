@@ -12,6 +12,9 @@
 #endif
 #endif
 
+#define HELP_URL "https://github.com/xaos-project/XaoS/wiki"
+#define WEB_URL "http://xaos.sourceforge.net/"
+
 #ifdef _WIN32
 #define CONFIGFILE "XaoS.cfg"
 #else
