@@ -6,7 +6,6 @@ exec_prefix= @exec_prefix@
 datadir= @datadir@
 bindir= @bindir@
 mandir= @mandir@
-infodir= @infodir@
 
 @SET_MAKE@
 
@@ -49,17 +48,8 @@ install:
 
 	@INSTALL@ -m 444 catalogs/*.cat catalogs/README $(DESTDIR)$(datadir)/XaoS/catalogs
 	@INSTALL@ -m 444 help/xaos.hlp $(DESTDIR)$(datadir)/XaoS/help
-	@INSTALL@ -m 444 AUTHORS NEWS COPYING TODO INSTALL ChangeLog ChangeLog.old $(DESTDIR)$(datadir)/XaoS/doc
+	@INSTALL@ -m 444 CREDITS.md NEWS COPYING TODO INSTALL.md ChangeLog ChangeLog.old $(DESTDIR)$(datadir)/XaoS/doc
 	@INSTALL@ -m 444 doc/xaos.6 $(DESTDIR)$(mandir)/man6
-	test -z "$(infodir)" || @INSTALL@ -d "$(DESTDIR)$(infodir)"
-	@INSTALL@ -m 444 doc/xaos.info $(DESTDIR)$(infodir)/xaos.info
-	@if (install-info --version) >/dev/null 2>&1; then      \
-	  echo " install-info --info-dir='$(DESTDIR)$(infodir)' \
-	         '$(DESTDIR)$(infodir)/xaos.info'";             \
-	  install-info --info-dir="$(DESTDIR)$(infodir)"        \
-	               "$(DESTDIR)$(infodir)/xaos.info";        \
-        else : ; fi
-
 	if [ "@USE_NLS@" = "yes" ]; then $(MAKE) -C src/i18n/ install; fi
 
 install-win:
