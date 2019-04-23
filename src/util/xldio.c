@@ -188,7 +188,7 @@ static long double PREC = 1.0L / P;
 /* #define FAST_LDOUBLE_CONVERSION */
 #if 1
 #define modfl mymodfl
-INLINE long double
+static INLINE long double
 m_floor (long double x)
 {
     register long double __value;

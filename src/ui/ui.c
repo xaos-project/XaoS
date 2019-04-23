@@ -551,7 +551,7 @@ ui_ministatusenabled (uih_context * uih)
 static void
 ui_message (struct uih_context *u)
 {
-    char s[80];
+    char s[100];
     if (uih->play)
         return;
     mousetype (WAITMOUSE);
@@ -1017,7 +1017,7 @@ int number_six = 6;
 cmplx Z, C, pZ;
 #endif
 
-#define MAX_WELCOME 50
+#define MAX_WELCOME 80
 
 void
 ui_init (int argc, char **argv)

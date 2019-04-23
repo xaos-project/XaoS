@@ -60,11 +60,11 @@ do_button (int i)
             ui_close_help ();
             break;
         case 1:
-            if (system("xdg-xopen " WEB_URL) != 0)
+            if (system("xdg-open " WEB_URL) != 0)
                 uih_error(uih, "Unable to open website: " WEB_URL);
             break;
         case 2:
-            if (system("xdg-oxpen " HELP_URL) != 0)
+            if (system("xdg-open " HELP_URL) != 0)
                 uih_error(uih, "Unable to open website: " HELP_URL);
             break;
     }
