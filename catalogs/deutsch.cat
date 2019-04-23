@@ -248,7 +248,7 @@ dass XaoS viele Optimierungen
 vornehmen muss.
 
 Mehr Informationen darüber finden Sie
-in der Datei doc/xaos.info"
+in der Dokumentation"
 
 #########################################################
 # Datei: anim.xaf
@@ -299,8 +299,8 @@ auch Koordinaten mit anderen Programmen
 austauschen."
 
 examples3 "Die einzigen Beschränkungen sind Ihre
-Phantasie und die Kommandosprache, die
-im File \"xaos.info\" beschrieben wird."
+Phantasie und die Kommandosprache, 
+im Dokumentation beschrieben wird."
 
 #########################################################
 # Datei: barnsley.xaf

@@ -241,8 +241,7 @@ para que o Xaos execute muitas
 otimizações.
 
 Você pode ler sobre
-isso no arquivo
-doc/xaos.info"
+isso na documentação"
 
 #########################################################
 #For file anim.xaf
@@ -295,7 +294,7 @@ outros programas."
 
 examples3 "O único limite é a sua
 imaginação, e a linguagem 
-de comando descrita no xaos.info."
+de comando descrita na documentação."
 
 #########################################################
 #For file barnsley.xaf

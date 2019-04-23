@@ -226,8 +226,7 @@ that XaoS performs lots of
 optimizations.
 
 You might want to read about
-these in the file
-doc/xaos.info"
+these in the documentation."
 
 #########################################################
 #For file anim.xaf
@@ -279,7 +278,7 @@ other programs."
 
 examples3 "The only limits are your
 imagination, and the command
-language described in xaos.info."
+language described in the docs."
 
 #########################################################
 #For file barnsley.xaf

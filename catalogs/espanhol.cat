@@ -227,8 +227,8 @@ básicamente el mismo."
 ofracts2 "Se requiere mucho cálculo para
 que XaoS realice muchas optimizaciones.
 
-Puedes leer más sobre esto, en el 
-fichero (archivo) doc/xaos.info"
+Puedes leer más sobre esto, en la 
+documentación."
 
 #########################################################
 #Para el fichero anim.xaf
@@ -281,8 +281,9 @@ ficheros de posición para cambiar
 coordenadas con otros programas."
 
 examples3 "Los únicos límites son
-tu imaginación y el lenguage
-de comandos descrito en xaos.info."
+tu imaginación y el lenguage de
+comandos descrito en la
+documentación."
 
 #########################################################
 #Para el fichero barnsley.xaf

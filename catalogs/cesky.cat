@@ -186,8 +186,7 @@ postup je stejný"
 ofracts2 "Tento postup je náročný
 na výkon počítače. XaoS
 má mnoho optimalizací o kerých
-se můžete dočíst v souboru
-doc/xaos.info"
+se můžete dočíst v dokumentaci"
 
 #########################################################
 #For file anim.xaf
@@ -240,7 +239,7 @@ do jiných programů."
 examples3 "Fantazii se meze
 nekladou snad kromě jazyka
 použitého v souborech popsaného
-v xaos.info"
+v dokumentaci"
 
 #########################################################
 #For file barnsley.xaf

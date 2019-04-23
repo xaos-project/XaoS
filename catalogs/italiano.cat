@@ -231,8 +231,7 @@ che XaoS deve eseguire molte
 ottimizzazioni.
 
 Per maggiori dettagli a riguardo
-consultare il file
-doc/xaos.info"
+consultare la documentazione"
 
 #########################################################
 #For file anim.xaf
@@ -286,7 +285,7 @@ con altri programmi."
 
 examples3 "L'unico limite è la propria
 immaginazione e il linguaggio a
-comandi descritto in xaos.info."
+comandi descritto in la documentazione."
 
 #########################################################
 #For file barnsley.xaf

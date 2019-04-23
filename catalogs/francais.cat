@@ -252,8 +252,7 @@ des tas d'optimisations pour gagner
 du temps...
 
 Si vous le souhaitez, vous pouvez lire
-plus de détails dans le fichier:
-doc/xaos.info"
+plus de détails dans la documentation."
 
 #########################################################
 #pour anim.xaf
@@ -306,7 +305,7 @@ d'autres programmes"
 
 examples3 "La seule limitation est votre 
 imagination et le language de commande
-décrit dans le fichier xaos.info"
+décrit dans la documentation"
 
 #########################################################
 #For file barnsley.xaf
