@@ -1164,6 +1164,7 @@ uih_registermenus_i18n (void)
     LANG_I ("Espanhol", "espanhol");
     LANG_I ("Francais", "francais");
     LANG_I ("Magyar", "magyar");
+    LANG_I ("Russian", "russian");
 #endif
     TUTOR_I ("intro", gettext ("Whole story"), "fractal.xaf");
     MENUSEPARATOR_I ("intro");
