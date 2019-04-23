@@ -4,13 +4,14 @@
 # Translators:
 # AlexL <loginov.alex.valer@gmail.com>, 2015,2019
 # Vasi Litl <burivesnik0@gmail.com>, 2017
+# Олег o1hk <o1h2k3@yandex.ru>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: rus-xaos\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-13 11:01-0500\n"
-"PO-Revision-Date: 2019-04-16 01:38+0000\n"
-"Last-Translator: AlexL <loginov.alex.valer@gmail.com>\n"
+"PO-Revision-Date: 2019-04-22 22:07+0000\n"
+"Last-Translator: Олег o1hk <o1h2k3@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/rus-open-source/rus-xaos/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +49,7 @@ msgstr "Включение: %s. "
 #: ../ui/ui.c:409
 #, c-format
 msgid "Disabling: %s. "
-msgstr "Выключение: %s. "
+msgstr "Отключение: %s. "
 
 #: ../ui/ui.c:441
 #, c-format
@@ -109,7 +110,7 @@ msgstr "Выкл"
 #: ../ui/ui.c:462
 #, c-format
 msgid "incoloring:%s    outcoloring:%s"
-msgstr "в цвете:%s    не в цвете:%s"
+msgstr "окрашивание внутри:%s    окрашивание снаружи:%s"
 
 #: ../ui/ui.c:464
 #, c-format
@@ -232,7 +233,7 @@ msgstr "Невозможно вернуться к предыдущему дра
 
 #: ../ui-hlp/menu.c:120
 msgid "Perturbation:"
-msgstr "Пертурбация:"
+msgstr "Возмущение:"
 
 #: ../ui-hlp/menu.c:124
 msgid "Julia-seed:"
@@ -800,11 +801,11 @@ msgstr "Пользовательская инициализация:"
 
 #: ../ui-hlp/menu.c:1077
 msgid "Incoloring mode"
-msgstr "Режим в цвете"
+msgstr "Режим окрашивания внутри"
 
 #: ../ui-hlp/menu.c:1078
 msgid "Outcoloring mode"
-msgstr "Режим не в цвете"
+msgstr "Режим окрашивания снаружи"
 
 #: ../ui-hlp/menu.c:1079
 msgid "Plane"
@@ -820,7 +821,7 @@ msgstr "Режим Мандельброта"
 
 #: ../ui-hlp/menu.c:1083 ../ui-hlp/menu.c:1084 ../ui-hlp/menu.c:1187
 msgid "Perturbation"
-msgstr "Пертурбация"
+msgstr "Возмущение"
 
 #: ../ui-hlp/menu.c:1088
 msgid "Reset to defaults"
@@ -840,19 +841,19 @@ msgstr "Установить плоскость"
 
 #: ../ui-hlp/menu.c:1093
 msgid "Inside coloring mode"
-msgstr "Внутри режима окрашивания"
+msgstr "Режим окрашивания внутри"
 
 #: ../ui-hlp/menu.c:1094
 msgid "Outside coloring mode"
-msgstr "Вне режима окрашивания"
+msgstr "Режим окрашивания снаружи"
 
 #: ../ui-hlp/menu.c:1095
 msgid "Inside truecolor coloring mode"
-msgstr "Внутри режима окрашивания в истинный цвет"
+msgstr "Режим окрашивания внутри в истинный цвет"
 
 #: ../ui-hlp/menu.c:1096
 msgid "Outside truecolor coloring mode"
-msgstr "Вне режима окрашивания в истинный цвет"
+msgstr "Режим окрашивания снаружи в истинный цвет"
 
 #: ../ui-hlp/menu.c:1097
 msgid "Julia seed"
@@ -1088,15 +1089,15 @@ msgstr "Все возможности"
 
 #: ../ui-hlp/menu.c:1181
 msgid "Outcoloring modes"
-msgstr "Режимы не в цвете"
+msgstr "Режимы окрашивания снаружи"
 
 #: ../ui-hlp/menu.c:1182
 msgid "Incoloring modes"
-msgstr "Режимы в цвете"
+msgstr "Режимы окрашивания внутри"
 
 #: ../ui-hlp/menu.c:1183
 msgid "True-color coloring modes"
-msgstr "Режимы истинного цвета"
+msgstr "Режимы окрашивания в истинный цвет"
 
 #: ../ui-hlp/menu.c:1185
 msgid "Planes"
@@ -1120,11 +1121,11 @@ msgstr "Размер определений и фракталов"
 
 #: ../ui-hlp/menu.c:1193
 msgid "Escape time fractals"
-msgstr "Выйти из временных фракталов"
+msgstr "Фракталы побега времени"
 
 #: ../ui-hlp/menu.c:1196
 msgid "Triceratops and Catseye fractals"
-msgstr "Трицератопс и фракталы Кэтси"
+msgstr "Фракталы Трицератопс и Кэтси"
 
 #: ../ui-hlp/menu.c:1197
 msgid "Mandelbar, Lambda, Manowar and Spider"
@@ -1132,7 +1133,7 @@ msgstr "Мандельбар, Лямбда, Мановар и Спайдер"
 
 #: ../ui-hlp/menu.c:1198
 msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
-msgstr "Уплотнение Серпинского, Ковёр, Снежинка Коха"
+msgstr "Уплотнение Серпинского, Ковёр Серпинского, Снежинка Коха"
 
 #: ../ui-hlp/menu.c:1199
 msgid "What's new in 3.0?"
@@ -1372,7 +1373,7 @@ msgstr "Невозможно открыть файл изображения"
 
 #: ../ui-hlp/render.c:393
 msgid "Cannot open pattern file"
-msgstr "Невозможно открыть файл палитры"
+msgstr "Невозможно открыть файл узора"
 
 #: ../ui-hlp/render.c:410 ../ui-hlp/render.c:412 ../ui-hlp/render.c:614
 msgid "Entering calculation loop!"
