@@ -14,8 +14,7 @@ FractalWidget::FractalWidget()
     m_image[0] = m_image[1] = 0;
 
     setAutoFillBackground(false);
-    setAttribute(Qt::WA_NoSystemBackground, true);
-    setAttribute(Qt::WA_PaintOnScreen, true);
+    setAttribute(Qt::WA_OpaquePaintEvent, true);
 
     setFocusPolicy(Qt::WheelFocus);
     setMouseTracking(true);
