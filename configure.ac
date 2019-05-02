@@ -338,7 +338,7 @@ fi
 fi
 
 if test  "$gtk_driver_test" = yes; then
-  PKG_CHECK_MODULES([DEPS], gtk+-2.0 >= 2.2 glib-2.0 >= 2.2, gtk_driver=true, gtk_driver=false)
+  PKG_CHECK_MODULES([DEPS], gtk+-3.0 >= 3.18 glib-2.0 >= 2.48, gtk_driver=true, gtk_driver=false)
   AC_SUBST(DEPS_CFLAGS)
   AC_SUBST(DEPS_LIBS)
 fi

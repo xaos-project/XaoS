@@ -3,7 +3,7 @@
 /*includes */
 #include <cairo.h>
 #include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>
+#include <gdk/gdk.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -54,43 +54,43 @@ key_pressed (GtkWidget * widget, GdkEventKey * event, gpointer data)
     guint32 key;
 
     switch (event->keyval) {
-        case GDK_Left:
+        case GDK_KEY_Left:
             keys |= 1;
             ui_key (UIKEY_LEFT);
             break;
-        case GDK_Right:
+        case GDK_KEY_Right:
             keys |= 2;
             ui_key (UIKEY_RIGHT);
             break;
-        case GDK_Up:
+        case GDK_KEY_Up:
             keys |= 4;
             ui_key (UIKEY_UP);
             break;
-        case GDK_Down:
+        case GDK_KEY_Down:
             keys |= 8;
             ui_key (UIKEY_DOWN);
             break;
-        case GDK_Page_Up:
+        case GDK_KEY_Page_Up:
             keys |= 4;
             ui_key (UIKEY_PGUP);
             break;
-        case GDK_Page_Down:
+        case GDK_KEY_Page_Down:
             keys |= 8;
             ui_key (UIKEY_PGDOWN);
             break;
-        case GDK_BackSpace:
+        case GDK_KEY_BackSpace:
             ui_key (UIKEY_BACKSPACE);
             break;
-        case GDK_Escape:
+        case GDK_KEY_Escape:
             ui_key (UIKEY_ESC);
             break;
-        case GDK_Home:
+        case GDK_KEY_Home:
             ui_key (UIKEY_HOME);
             break;
-        case GDK_End:
+        case GDK_KEY_End:
             ui_key (UIKEY_END);
             break;
-        case GDK_Tab:
+        case GDK_KEY_Tab:
             ui_key (UIKEY_TAB);
             break;
         default:
@@ -104,22 +104,22 @@ static gboolean
 key_released (GtkWidget * widget, GdkEventKey * event, gpointer data)
 {
     switch (event->keyval) {
-        case GDK_Left:
+        case GDK_KEY_Left:
             keys &= ~1;
             break;
-        case GDK_Right:
+        case GDK_KEY_Right:
             keys &= ~2;
             break;
-        case GDK_Up:
+        case GDK_KEY_Up:
             keys &= ~4;
             break;
-        case GDK_Down:
+        case GDK_KEY_Down:
             keys &= ~8;
             break;
-        case GDK_Page_Up:
+        case GDK_KEY_Page_Up:
             keys &= ~4;
             break;
-        case GDK_Page_Down:
+        case GDK_KEY_Page_Down:
             keys &= ~8;
             break;
     }
@@ -173,17 +173,12 @@ drawing_area_resized (GtkWidget * widget, GdkEventConfigure * event)
 }
 
 static gboolean
-drawing_area_exposed (GtkWidget * widget, GdkEventExpose * event, gpointer data)
+draw_callback (GtkWidget * widget, cairo_t *cr)
 {
-    cairo_t *cr;
-
-    cr = gdk_cairo_create (widget->window);
 
     cairo_set_source_surface (cr, surface[current_surface], 0, 0);
     cairo_paint (cr);
-
-    cairo_destroy (cr);
-
+    
     return FALSE;
 }
 
@@ -289,9 +284,9 @@ dialog (struct uih_context *uih, const char *name)
         }
 
         GtkWidget *chooser = gtk_file_chooser_dialog_new (title, GTK_WINDOW (window), action,
-                                                          GTK_STOCK_CANCEL,
+                                                          "_Cancel",
                                                           GTK_RESPONSE_CANCEL,
-                                                          GTK_STOCK_OK,
+                                                          "_OK",
                                                           GTK_RESPONSE_OK,
                                                           NULL);
 
@@ -314,7 +309,7 @@ dialog (struct uih_context *uih, const char *name)
         GtkWidget *window, *table;
         GHashTable *widget_hash = g_hash_table_new (g_str_hash, g_str_equal);
 
-        window = gtk_dialog_new_with_buttons ("XaoS", NULL, GTK_DIALOG_MODAL, GTK_STOCK_OK, GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_HELP, GTK_RESPONSE_HELP, NULL);
+        window = gtk_dialog_new_with_buttons ("XaoS", NULL, GTK_DIALOG_MODAL, "_OK", GTK_RESPONSE_OK, "_Cancel", GTK_RESPONSE_CANCEL, NULL);
 
         gtk_dialog_set_default_response (GTK_DIALOG (window), GTK_RESPONSE_OK);
 
@@ -328,7 +323,7 @@ dialog (struct uih_context *uih, const char *name)
             GtkWidget *label = gtk_label_new (dialog[i].question);
             GtkWidget *align = gtk_alignment_new (0, 0.5, 0, 0);
             gtk_container_add (GTK_CONTAINER (align), GTK_WIDGET (label));
-            gtk_table_attach_defaults (GTK_TABLE (table), align, 0, 1, i, i + 1);
+            gtk_table_attach(GTK_TABLE (table), align, 0, 1, i, i + 1, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
 
             switch (dialog[i].type) {
                 case DIALOG_COORD:
@@ -339,17 +334,17 @@ dialog (struct uih_context *uih, const char *name)
                         value = g_strdup_printf (DOUBLE_FORMAT, dialog[i].deffloat);
                         gtk_entry_set_text (GTK_ENTRY (widget), value);
                         g_free (value);
-                        gtk_table_attach_defaults (GTK_TABLE (table), widget, 1, 2, i, i + 1);
+                        gtk_table_attach(GTK_TABLE (table), widget, 1, 2, i, i + 1, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
 
-                        g_hash_table_insert (widget_hash, dialog[i].question, widget);
+                        g_hash_table_insert (widget_hash, (gpointer) dialog[i].question, widget);
 
                         widget = gtk_label_new ("+");
-                        gtk_table_attach_defaults (GTK_TABLE (table), widget, 2, 3, i, i + 1);
+                        gtk_table_attach(GTK_TABLE (table), widget, 2, 3, i, i + 1, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
 
                         widget = gtk_entry_new ();
                         value = g_strdup_printf (DOUBLE_FORMAT, dialog[i].deffloat2);
                         gtk_entry_set_text (GTK_ENTRY (widget), value);
-                        gtk_table_attach_defaults (GTK_TABLE (table), widget, 3, 4, i, i + 1);
+                        gtk_table_attach(GTK_TABLE (table), widget, 3, 4, i, i + 1, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
                         g_free (value);
 
                         gchar *key = g_strconcat (dialog[i].question, "2", NULL);
@@ -357,7 +352,7 @@ dialog (struct uih_context *uih, const char *name)
                         //g_free(key);
 
                         widget = gtk_label_new ("i");
-                        gtk_table_attach_defaults (GTK_TABLE (table), widget, 4, 5, i, i + 1);
+                        gtk_table_attach(GTK_TABLE (table), widget, 4, 5, i, i + 1, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
 
                         break;
                     }
@@ -379,22 +374,22 @@ dialog (struct uih_context *uih, const char *name)
 
                         // TODO: Set default chooser value
                         GtkWidget *chooser = gtk_file_chooser_button_new (title, action);
-                        gtk_table_attach_defaults (GTK_TABLE (table), chooser, 1, 4, i, i + 1);
+                        gtk_table_attach(GTK_TABLE (table), chooser, 1, 4, i, i + 1, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
 
-                        g_hash_table_insert (widget_hash, dialog[i].question, chooser);
+                        g_hash_table_insert (widget_hash, (gpointer) dialog[i].question, chooser);
                         break;
                     }
                 case DIALOG_CHOICE:
                     {
-                        GtkWidget *combo = gtk_combo_box_new_text ();
+                        GtkWidget *combo = gtk_combo_box_text_new ();
                         const char **str = (const char **) dialog[i].defstr;
                         int y;
                         for (y = 0; str[y] != NULL; y++)
-                            gtk_combo_box_append_text (GTK_COMBO_BOX (combo), str[y]);
+                            gtk_combo_box_text_append_text (GTK_COMBO_BOX (combo), str[y]);
                         gtk_combo_box_set_active (GTK_COMBO_BOX (combo), dialog[i].defint);
-                        gtk_table_attach_defaults (GTK_TABLE (table), combo, 1, 4, i, i + 1);
+                        gtk_table_attach(GTK_TABLE (table), combo, 1, 4, i, i + 1, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
 
-                        g_hash_table_insert (widget_hash, dialog[i].question, combo);
+                        g_hash_table_insert (widget_hash, (gpointer) dialog[i].question, combo);
                         break;
 
                     }
@@ -416,16 +411,16 @@ dialog (struct uih_context *uih, const char *name)
                         }
                         gtk_entry_set_text (GTK_ENTRY (entry), value);
                         g_free (value);
-                        gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 4, i, i + 1);
+                        gtk_table_attach(GTK_TABLE (table), entry, 1, 4, i, i + 1, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 0, 0);
 
-                        g_hash_table_insert (widget_hash, dialog[i].question, entry);
+                        g_hash_table_insert (widget_hash, (gpointer) dialog[i].question, entry);
                         break;
                     }
             }
 
         }
 
-        gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG (window)->vbox), table);
+        gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(window))), table, TRUE, TRUE, 0);
         gtk_widget_show_all (window);
 
         gint result = gtk_dialog_run (GTK_DIALOG (window));
@@ -569,7 +564,7 @@ init ()
 
     g_signal_connect (G_OBJECT (window), "destroy", G_CALLBACK (window_destroyed), NULL);
 
-    vbox = gtk_vbox_new (FALSE, 0);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add (GTK_CONTAINER (window), vbox);
     gtk_widget_show (vbox);
 
@@ -581,7 +576,7 @@ init ()
     gtk_box_pack_end (GTK_BOX (vbox), drawing_area, TRUE, TRUE, 0);
     gtk_widget_show (drawing_area);
 
-    GTK_WIDGET_SET_FLAGS (drawing_area, GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus (drawing_area, TRUE);
     gtk_widget_grab_focus (drawing_area);
 
     gtk_widget_add_events (drawing_area, GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
@@ -596,7 +591,7 @@ init ()
 
     g_signal_connect (G_OBJECT (drawing_area), "key-release-event", G_CALLBACK (key_released), NULL);
 
-    g_signal_connect (G_OBJECT (drawing_area), "expose-event", G_CALLBACK (drawing_area_exposed), NULL);
+    g_signal_connect (G_OBJECT (drawing_area), "draw", G_CALLBACK (draw_callback), NULL);
 
     g_signal_connect (G_OBJECT (drawing_area), "configure-event", G_CALLBACK (drawing_area_resized), NULL);
 
