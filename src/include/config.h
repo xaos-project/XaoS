@@ -89,6 +89,14 @@ before #include <ddraw.h>*/
 #define SMBITMAPS
 #define SLBITMAPS
 #endif
+#ifdef QT_DRIVER
+#define SFIXEDCOLOR
+#define STRUECOLOR
+#define STRUECOLOR16
+#define STRUECOLOR24
+#define SMBITMAPS
+#define SLBITMAPS
+#endif
 #ifdef X11_DRIVER
 #define SFIXEDCOLOR
 #define STRUECOLOR
