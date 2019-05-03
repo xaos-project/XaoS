@@ -73,9 +73,6 @@ before #include <ddraw.h>*/
 #ifndef HAVE_LIMITS_H
 #define INT_MAX 2127423647
 #endif
-#ifdef SVGA_DRIVER
-#define DESTICKY
-#endif
 #ifdef COCOA_DRIVER
 #define SFIXEDCOLOR
 #define STRUECOLOR
@@ -98,20 +95,6 @@ before #include <ddraw.h>*/
 #define STRUECOLOR16
 #define STRUECOLOR24
 #define SMBITMAPS
-#define SLBITMAPS
-#endif
-#ifdef SVGA_DRIVER
-#undef STRUECOLOR16
-#define STRUECOLOR16
-#undef STRUECOLOR24
-#define STRUECOLOR24
-#endif
-#ifdef GGI_DRIVER
-#undef STRUECOLOR16
-#define STRUECOLOR16
-#undef STRUECOLOR24
-#define STRUECOLOR24
-#undef SLBITMAPS
 #define SLBITMAPS
 #endif
 #ifdef BEOS_DRIVER
@@ -147,4 +130,3 @@ void be_exit_xaos(int i);
 #define COMPILE_PIPE
 #endif
 #endif				/*CONFIG_H */
-
