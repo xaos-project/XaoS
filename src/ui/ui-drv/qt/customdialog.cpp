@@ -96,11 +96,10 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item, const 
     dialogLayout->addLayout(formLayout);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(
-                (QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::Help),
+                (QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
                 Qt::Horizontal, this);
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-    connect(buttonBox, SIGNAL(helpRequested()), this, SLOT(showHelp()));
     dialogLayout->addWidget(buttonBox);
 
     setLayout(dialogLayout);
@@ -171,9 +170,4 @@ void CustomDialog::chooseOutputFile()
     QString fileName = QFileDialog::getSaveFileName(this, sender()->objectName(), directory);
     if (!fileName.isNull())
         field->setText(fileName);
-}
-
-void CustomDialog::showHelp()
-{
-    ui_help(m_menuitem->shortname);
 }

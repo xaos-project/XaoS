@@ -135,6 +135,7 @@ showDialog (struct uih_context *c, const char *name)
 static void
 showHelp (struct uih_context *c, const char *name)
 {
+    QDesktopServices::openUrl(QUrl(HELP_URL));
 }
 
 QFont getFont() {

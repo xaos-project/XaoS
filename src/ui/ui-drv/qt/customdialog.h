@@ -10,7 +10,6 @@ class CustomDialog:public QDialog  {
     dialogparam * m_parameters;
 private slots:void chooseInputFile ();
     void chooseOutputFile ();
-    void showHelp ();
 public:CustomDialog (struct uih_context *uih, const menuitem * item, const menudialog * dialog, QWidget * parent = 0);
     void accept ();
     dialogparam * parameters ();
