@@ -58,13 +58,14 @@ void MainWindow::showMessage(const QString &message)
 
 QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
 {
-    if (name =="initstate") return QKeySequence::New;
-    if (name =="loadpos") return QKeySequence::Open;
-    if (name =="savepos") return QKeySequence::Save;
-    if (name =="undo") return QKeySequence::Undo;
-    if (name =="redo") return QKeySequence::Redo;
-    if (name =="recalculate") return QKeySequence::Refresh;
-    if (name =="help") return QKeySequence::HelpContents;
+    if (name == "initstate") return QKeySequence::New;
+    if (name == "loadpos") return QKeySequence::Open;
+    if (name == "savepos") return QKeySequence::Save;
+    if (name == "quit") return QKeySequence::Quit;
+    if (name == "undo") return QKeySequence::Undo;
+    if (name == "redo") return QKeySequence::Redo;
+    if (name == "recalculate") return QKeySequence::Refresh;
+    if (name == "help") return QKeySequence::HelpContents;
 
     return QKeySequence::UnknownKey;
 }
