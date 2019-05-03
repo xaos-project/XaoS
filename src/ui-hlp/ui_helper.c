@@ -2063,9 +2063,9 @@ uih_mkcontext (int flags, struct image *image, int (*passfunc) (struct uih_conte
     uih->pinit = NULL;
     uih->parser = sffe_alloc ();
     /* uih->cparser = sffe_alloc(); */
-    sffe_regvar (&uih->parser, &pZ, 'p');
-    sffe_regvar (&uih->parser, &Z, 'z');
-    sffe_regvar (&uih->parser, &C, 'c');
+    sffe_regvar (&uih->parser, &pZ, "p");
+    sffe_regvar (&uih->parser, &Z, "z");
+    sffe_regvar (&uih->parser, &C, "c");
     /* sffe_regvar( &uih->cparser, &C, */
 #endif
     /* 25.I.2009, Bugfix #2507911, malczak

@@ -1,12 +1,12 @@
-	.globl _sffecabs,_sffecarg,_sffecargs,_sffecargc
-	.globl _sffecinv
-	.globl _sffecexp,_sffecln,_sffeclog2,_sffeclog
-	.globl _sffecsin,_sffeccos,_sffecsincos,_sffectan,_sffeccot
-	.globl _sffecsinh,_sffeccosh,_sffectanh,_sffeccoth
-	.globl _sffeccpow, _sffecpowd, _sffecpowi, _sffecpowc
-	.globl _sffecsqrt, _sffecrtni
+.global _sffecabs,_sffecarg,_sffecargs,_sffecargc
+.global _sffecinv
+.global _sffecexp,_sffecln,_sffeclog2,_sffeclog
+.global _sffecsin,_sffeccos,_sffecsincos,_sffectan,_sffeccot
+.global _sffecsinh,_sffeccosh,_sffectanh,_sffeccoth
+.global _sffeccpow, _sffecpowd, _sffecpowi, _sffecpowc
+.global _sffecsqrt, _sffecrtni
 
-	.text
+.text
 	
 _sffecexpfnc:
 	fldl2e 

@@ -1434,8 +1434,8 @@ uih_sffeinitin (uih_context * c, const char *text)
     if (strlen (text)) {
         if (!c->pinit) {
             c->pinit = sffe_alloc ();
-            sffe_regvar (&c->pinit, &pZ, 'p');
-            sffe_regvar (&c->pinit, &C, 'c');
+            sffe_regvar (&c->pinit, &pZ, "p");
+            sffe_regvar (&c->pinit, &C, "c");
         };
 
         c->pinit->errormsg = (char *) str;

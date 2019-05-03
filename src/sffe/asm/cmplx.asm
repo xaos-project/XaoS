@@ -45,7 +45,7 @@ _sffecexpfnc: 			; exponent of real argument
 [section cabs_text use32]
 %endif
 _sffecabs:
-	push 	ebp
+	;push 	ebp
 	mov 	ebp, esp
 	fld     qword [ebp+08h]
 	fmul    qword [ebp+08h]
@@ -60,7 +60,7 @@ _sffecabs:
 [section carg_text use32]
 %endif
 _sffecarg:
-	push 	ebp
+	;push 	ebp
 	mov		ebp, esp
 	fld     qword [ebp+08h]   
 	fld     qword [ebp+10h]   
@@ -73,7 +73,7 @@ _sffecarg:
 [section cargs_text use32]
 %endif
 _sffecargs:
-	push	ebp
+	;push	ebp
 	mov 	ebp, esp
 	fld     qword [ebp+10h]
 	fld     qword [ebp+08h]
@@ -91,7 +91,7 @@ _sffecargs:
 [section cargc_text use32]
 %endif
 _sffecargc:
-	push	ebp
+	;push	ebp
 	mov 	ebp, esp
 	fld     qword [ebp+08h]   
 	fld     qword [ebp+08h]   
@@ -109,7 +109,7 @@ _sffecargc:
 [section cinv_text use32]
 %endif
 _sffecinv:				
-	push	ebp
+	;push	ebp
 	mov		ebp, esp		
 	mov     edx, [ebp+08h] 
 	fld     qword [ebp+0ch] 
@@ -133,7 +133,7 @@ _sffecinv:
 [section cexp_text use32]
 %endif
 _sffecexp:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	fld     qword [ebp+0ch]	
@@ -153,7 +153,7 @@ _sffecexp:
 [section cln_text use32]
 %endif
 _sffecln:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	;theta
@@ -183,7 +183,7 @@ _sffecln:
 [section clog2_text use32]
 %endif
 _sffeclog2:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	fld1
@@ -211,7 +211,7 @@ _sffeclog2:
 [section clog_text use32]
 %endif
 _sffeclog:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	;ln(base) 
@@ -250,7 +250,7 @@ _sffeclog:
 [section csin_text use32]
 %endif
 _sffecsin:
-	push	ebp
+	;push	ebp
 	mov		ebp, esp
 	mov     eax, [ebp+08h]
 	fld1
@@ -284,7 +284,7 @@ _sffecsin:
 [section ccos_text use32]
 %endif
 _sffeccos:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	fld1
@@ -319,7 +319,7 @@ _sffeccos:
 [section ctan_text use32]
 %endif
 _sffectan:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	;sinh(2b) cosh(2b) 
@@ -357,7 +357,7 @@ _sffectan:
 [section ccot_text use32]
 %endif
 _sffeccot:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	;sinh(2b) cosh(2b) 
@@ -398,7 +398,7 @@ _sffeccot:
 [section csinh_text use32]
 %endif
 _sffecsinh:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	fld1
@@ -431,7 +431,7 @@ _sffecsinh:
 [section ccosh_text use32]
 %endif
 _sffeccosh:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	fld     qword [ebp+0ch]
@@ -469,7 +469,7 @@ _sffeccosh:
 [section ctanh_text use32]
 %endif
 _sffectanh:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	;sinh(2a) cosh(2a)
@@ -508,7 +508,7 @@ _sffectanh:
 [section ccoth_text use32]
 %endif
 _sffeccoth:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	;sinh(2b) cosh(2b) 
@@ -550,7 +550,7 @@ _sffeccoth:
 %endif
 _sffeccpow:	
 ;TODO: wyeliminowac xch po wystepujace po obliczeniu theta
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	fld1
 	;z module
@@ -611,7 +611,7 @@ s	fwait
 [section cpowd_text use32]
 %endif
 _sffecpowd:
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 ;	fld1                          
 	;z module
@@ -663,7 +663,7 @@ END2:
 [section cpowi_text use32]
 %endif
 _sffecpowi:
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	;z module
 	fild    dword [ebp+1ch]   ;st(0)=n 
@@ -723,7 +723,7 @@ END53:
 [section cpowc_text use32]
 %endif
 _sffecpowc:
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	fld     qword [ebp+0ch]
 	ftst
@@ -782,9 +782,9 @@ END3:
 [section csqrt_text use32]
 %endif
 _sffecsqrt:
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
-	push 	ebx
+	;push 	ebx
 	mov     ebx, [ebp+08h]
 	;z module
 	fld     qword [ebp+0ch]   
@@ -811,7 +811,7 @@ _sffecsqrt:
 	fdivp 	st1
 	fsqrt	
 	;imag sign check
-	push	eax
+	;push	eax
 	fld 	qword [ebp+14h]
 	ftst
 	fstp 	st0
@@ -820,10 +820,10 @@ _sffecsqrt:
 	jz     IMAGPOS
 	fchs	
 IMAGPOS:
-	pop		eax
+; 	pop		eax
 	fwait
 	fstp 	qword [ebx+08h]		
-	pop		ebx
+; 	pop		ebx
 	leave
 	ret
 
@@ -832,7 +832,7 @@ IMAGPOS:
 [section crtni_text use32]
 %endif
 _sffecrtni:
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	;z module
 	fld     qword [ebp+0ch]   
@@ -893,7 +893,7 @@ END4:
 
 %ifndef DELPHI	
 _sffecfunc:	
-	push	ebp
+	;push	ebp
 	mov		ebp,esp
 	mov     eax, [ebp+08h]
 	leave
