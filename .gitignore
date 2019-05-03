@@ -54,3 +54,4 @@ aconfig.h
 config.h
 version.h
 src/i18n/Makefile.in
+XaoS.pro.user
