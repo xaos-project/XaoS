@@ -955,9 +955,7 @@ ui_registermenus_i18n (void)
 {
     int no_menuitems_i18n = ui_no_menuitems_i18n;       /* This variable must be local. */
 #ifndef MACOSX
-    SUBMENU_I ("file", "q", gettext ("Quit"), "quitmenu");
-    MENUINT_I ("quitmenu", NULL, gettext ("Exit now"), "quit", MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quitwr, 1);
-    MENUINT_I ("quitmenu", NULL, gettext ("Not yet"), "noquit", UI, ui_quitwr, 0);
+    MENUINT_I ("file", NULL, gettext ("Quit"), "quit", MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quitwr, 1);
 #endif
     MENUNOP_I ("helpmenu", "h", gettext ("Help"), "help", MENUFLAG_INCALC, ui_helpwr);
     MENUNOPCB_I ("ui", NULL, gettext ("Disable XaoS's builtin GUI"), "nogui", MENUFLAG_INCALC | MENUFLAG_ATSTARTUP | MENUFLAG_NOMENU, ui_noguisw, ui_noguienabled);
