@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 }
 
 static int
-qt_initDriver ()
+initDriver ()
 {
     window = new MainWindow();
     widget = window->fractalWidget();
@@ -37,13 +37,13 @@ qt_initDriver ()
 }
 
 static void
-qt_uninitDriver ()
+uninitDriver ()
 {
     delete window;
 }
 
 static int
-qt_allocBuffers (char **b1, char **b2, void **data)
+allocBuffers (char **b1, char **b2, void **data)
 {
     widget->createImages();
     *b1 = widget->imageBuffer1();
@@ -53,32 +53,32 @@ qt_allocBuffers (char **b1, char **b2, void **data)
 }
 
 static void
-qt_freeBuffers (char *b1, char *b2)
+freeBuffers (char *b1, char *b2)
 {
     widget->destroyImages();
 }
 
 static void
-qt_getImageSize (int *w, int *h)
+getImageSize (int *w, int *h)
 {
     *w = widget->size().width();
     *h = widget->size().height();
 }
 
 static void
-qt_flipBuffers ()
+flipBuffers ()
 {
     widget->switchActiveImage();
 }
 
 static void
-qt_redrawImage()
+redrawImage()
 {
     widget->repaint();
 }
 
 static void
-qt_processEvents (int wait, int *mx, int *my, int *mb, int *k)
+processEvents (int wait, int *mx, int *my, int *mb, int *k)
 {
     QCoreApplication::processEvents(wait ? QEventLoop::WaitForMoreEvents : QEventLoop::AllEvents);
 
@@ -89,7 +89,7 @@ qt_processEvents (int wait, int *mx, int *my, int *mb, int *k)
 }
 
 static void
-qt_getMouse (int *x, int *y, int *b)
+getMouse (int *x, int *y, int *b)
 {
     *x = widget->mousePosition().x();
     *y = widget->mousePosition().y();
@@ -97,53 +97,53 @@ qt_getMouse (int *x, int *y, int *b)
 }
 
 static void
-qt_printText(int x, int y, const char *text)
+printText(int x, int y, const char *text)
 {
     window->showMessage(text);
 }
 
 static void
-qt_setCursorType (int type)
+setCursorType (int type)
 {
     widget->setCursorType(type);
 }
 
 static void
-qt_buildMenu (struct uih_context *uih, const char *name)
+buildMenu (struct uih_context *uih, const char *name)
 {
     window->buildMenu(uih, name);
 }
 
 static void
-qt_popupMenu (struct uih_context *uih, const char *name)
+popupMenu (struct uih_context *uih, const char *name)
 {
     window->popupMenu(uih, name);
 }
 
 static void
-qt_toggleMenu (struct uih_context *uih, const char *name)
+toggleMenu (struct uih_context *uih, const char *name)
 {
     window->toggleMenu(uih, name);
 }
 
 static void
-qt_showDialog (struct uih_context *c, const char *name)
+showDialog (struct uih_context *c, const char *name)
 {
     window->showDialog(c, name);
 }
 
 static void
-qt_showHelp (struct uih_context *c, const char *name)
+showHelp (struct uih_context *c, const char *name)
 {
 }
 
-QFont qt_getFont() {
+QFont getFont() {
     return QFont(QApplication::font().family(), 12);
     //return QFont("Calibri", 12);
 }
 
-int qt_imagePrint(struct image *image, int x, int y,
-                   const char *text, int fgcolor, int bgcolor, int mode)
+int imagePrint(struct image *image, int x, int y,
+               const char *text, int fgcolor, int bgcolor, int mode)
 {
     char line[BUFSIZ];
     int pos = strcspn(text, "\n");
@@ -151,9 +151,9 @@ int qt_imagePrint(struct image *image, int x, int y,
     line[pos] = '\0';
 
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
-    QFontMetrics metrics(qt_getFont(), qimage);
+    QFontMetrics metrics(getFont(), qimage);
     QPainter painter(qimage);
-    painter.setFont(qt_getFont());
+    painter.setFont(getFont());
 
     if (mode == TEXT_PRESSED) {
         painter.setPen(fgcolor);
@@ -168,7 +168,7 @@ int qt_imagePrint(struct image *image, int x, int y,
     return strlen(line);
 }
 
-int qt_imageTextWidth(struct image *image, const char *text)
+int imageTextWidth(struct image *image, const char *text)
 {
     char line[BUFSIZ];
     int pos = strcspn(text, "\n");
@@ -176,90 +176,90 @@ int qt_imageTextWidth(struct image *image, const char *text)
     line[pos] = '\0';
 
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
-    QFontMetrics metrics(qt_getFont(), qimage);
+    QFontMetrics metrics(getFont(), qimage);
 
     return metrics.width(line) + 1;
 }
 
-int qt_imageTextHeight(struct image *image)
+int imageTextHeight(struct image *image)
 {
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
-    QFontMetrics metrics(qt_getFont(), qimage);
+    QFontMetrics metrics(getFont(), qimage);
 
     return metrics.height() + 1;
 }
 
-int qt_imageCharWidth(struct image *image, const char c)
+int imageCharWidth(struct image *image, const char c)
 {
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
-    QFontMetrics metrics(qt_getFont(), qimage);
+    QFontMetrics metrics(getFont(), qimage);
 
     return metrics.width(c);
 }
 
-const char *qt_saveImage(struct image *image, const char *filename)
+const char *saveImage(struct image *image, const char *filename)
 {
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
     qimage->save(filename);
     return NULL;
 }
 
-struct gui_driver qt_gui_driver = {
-/* setrootmenu */   qt_buildMenu,
-/* enabledisable */ qt_toggleMenu,
-/* menu */          qt_popupMenu,
-/* dialog */        qt_showDialog,
-/* help */          qt_showHelp
+struct gui_driver gui_driver = {
+    /* setrootmenu */   buildMenu,
+    /* enabledisable */ toggleMenu,
+    /* menu */          popupMenu,
+    /* dialog */        showDialog,
+    /* help */          showHelp
 };
 
-struct image_driver qt_image_driver =
+struct image_driver image_driver =
 {
-/* print */      qt_imagePrint,
-/* textwidth */  qt_imageTextWidth,
-/* textheight */ qt_imageTextHeight,
-/* charwidth */  qt_imageCharWidth,
-/* saveimage */  qt_saveImage
+    /* print */      imagePrint,
+    /* textwidth */  imageTextWidth,
+    /* textheight */ imageTextHeight,
+    /* charwidth */  imageCharWidth,
+    /* saveimage */  saveImage
 };
 
-static struct params qt_params[] = {
+static struct params params[] = {
 {NULL, 0, NULL, NULL}
 };
 
 extern "C" {
 
 struct ui_driver qt_driver = {
-/* name */          "Qt Driver",
-/* init */          qt_initDriver,
-/* getsize */       qt_getImageSize,
-/* processevents */ qt_processEvents,
-/* getmouse */      qt_getMouse,
-/* uninit */        qt_uninitDriver,
-/* set_color */     NULL,
-/* set_range */     NULL,
-/* print */         qt_printText,
-/* display */       qt_redrawImage,
-/* alloc_buffers */ qt_allocBuffers,
-/* free_buffers */  qt_freeBuffers,
-/* filp_buffers */  qt_flipBuffers,
-/* mousetype */     qt_setCursorType,
-/* flush */         NULL,
-/* textwidth */     12,
-/* textheight */    12,
-/* params */        qt_params,
-/* flags */         PIXELSIZE,
-/* width */         0.01,
-/* height */        0.01,
-/* maxwidth */      0,
-/* maxheight */     0,
-/* imagetype */     UI_TRUECOLOR,
-/* palettestart */  0,
-/* paletteend */    256,
-/* maxentries */    255,
-/* rmask */         0xff0000,
-/* gmask */         0x00ff00,
-/* bmask */         0x0000ff,
-/* gui_driver */    &qt_gui_driver,
-                    &qt_image_driver
+    /* name */          "Qt Driver",
+    /* init */          initDriver,
+    /* getsize */       getImageSize,
+    /* processevents */ processEvents,
+    /* getmouse */      getMouse,
+    /* uninit */        uninitDriver,
+    /* set_color */     NULL,
+    /* set_range */     NULL,
+    /* print */         printText,
+    /* display */       redrawImage,
+    /* alloc_buffers */ allocBuffers,
+    /* free_buffers */  freeBuffers,
+    /* filp_buffers */  flipBuffers,
+    /* mousetype */     setCursorType,
+    /* flush */         NULL,
+    /* textwidth */     12,
+    /* textheight */    12,
+    /* params */        params,
+    /* flags */         PIXELSIZE,
+    /* width */         0.01,
+    /* height */        0.01,
+    /* maxwidth */      0,
+    /* maxheight */     0,
+    /* imagetype */     UI_TRUECOLOR,
+    /* palettestart */  0,
+    /* paletteend */    256,
+    /* maxentries */    255,
+    /* rmask */         0xff0000,
+    /* gmask */         0x00ff00,
+    /* bmask */         0x0000ff,
+    /* gui_driver */    &gui_driver,
+    &image_driver
 };
 
 }

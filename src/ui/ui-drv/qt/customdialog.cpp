@@ -6,7 +6,7 @@
 #include "ui.h"
 
 CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item, const menudialog *dialog, QWidget *parent)
-        : QDialog(parent)
+    : QDialog(parent)
 {
     m_menuitem = item;
     m_dialog = dialog;
@@ -96,8 +96,8 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item, const 
     dialogLayout->addLayout(formLayout);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(
-            (QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::Help),
-            Qt::Horizontal, this);
+                (QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::Help),
+                Qt::Horizontal, this);
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     connect(buttonBox, SIGNAL(helpRequested()), this, SLOT(showHelp()));

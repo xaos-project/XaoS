@@ -32,11 +32,11 @@ before #include <ddraw.h>*/
 #define NONAMELESSUNION
 #endif
 
-                                                                                                                                                                                                                                                                                                                 /*#define I_WAS_HERE *//*uncoment this to disable changing of parameters by atoconf */
+/*#define I_WAS_HERE *//*uncoment this to disable changing of parameters by atoconf */
 
 #define FPOINT_TYPE  long double
-                                       /*floating point math type on computers
-                                          with medium speed floating point math should   
+/*floating point math type on computers
+                                          with medium speed floating point math should
                                           use float instead */
 #include <aconfig.h>
 #define USE_STDIO
@@ -131,9 +131,9 @@ extern "C"
 {
 #endif
 #ifdef __GNUC__
-    void be_exit_xaos (int i) __attribute__ ((__noreturn__));
+void be_exit_xaos (int i) __attribute__ ((__noreturn__));
 #else
-    void be_exit_xaos (int i);
+void be_exit_xaos (int i);
 #endif
 #ifdef __cplusplus
 }

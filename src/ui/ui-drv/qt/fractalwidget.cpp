@@ -198,12 +198,12 @@ QPoint FractalWidget::mousePosition()
 int FractalWidget::mouseButtons()
 {
 
-   // Qt::MetaModifier maps to control key on Macs
-   Qt::KeyboardModifier controlModifier =
-#ifdef Q_WS_MAC
-           Qt::MetaModifier;
+    // Qt::MetaModifier maps to control key on Macs
+    Qt::KeyboardModifier controlModifier =
+        #ifdef Q_WS_MAC
+            Qt::MetaModifier;
 #else
-           Qt::ControlModifier;
+            Qt::ControlModifier;
 #endif
 
     int mouseButtons = 0;
