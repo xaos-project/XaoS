@@ -18,7 +18,7 @@ all:
 distclean:
 	#@$(MAKE) -C src $@
 	@$(MAKE) -C src distclean
-	rm -f libtool config.cache config.status config.log src/include/config.h src/include/aconfig.h
+	rm -f libtool config.cache config.status config.log src/include/aconfig.h
 	rm -f src/Makefile.common src/arch/linux/Makefile.main
 	rm -f `find . -name Makefile`
 	rm -f `find . -name '*~'`

@@ -37,15 +37,11 @@ libs: include/config.h
 $(PROG): @BINPATH@ @LIBPATH@ include/config.h libs
 	$(CC) $(CFLAGS) $(LFLAGS) -o $@ $(TLIBS) $(LIBS)
 
-include/config.h:
-	cp include/config/config.autoconf include/config.h
-
 internationalization:
 	if [ "@USE_NLS@" = "yes" ]; then $(MAKE) -C i18n/ all; fi
 
 clean:
 	@for name in $(DIRS) i18n ; do sh -c "cd $$name ; $(MAKE) $@"; done
-	rm -f include/config.h
 	rm -f $(PROG) lib/lib*.a
 
 distclean: clean

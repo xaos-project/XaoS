@@ -13,6 +13,5 @@ HEADERS += \
     $$PWD/mainwindow.h \
     $$PWD/fractalwidget.h \
     $$PWD/customdialog.h \
-    $$PWD/config.h \
     $$PWD/aconfig.h \
     $$PWD/version.h

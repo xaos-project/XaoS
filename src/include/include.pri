@@ -1,6 +1,7 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
+    $$PWD/config.h \
     $$PWD/archaccel.h \
     $$PWD/btrace.h \
     $$PWD/c256.h \
