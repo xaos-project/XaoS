@@ -45,7 +45,7 @@ void MainWindow::writeSettings()
     settings.setValue("imageSize", size());
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void MainWindow::closeEvent(QCloseEvent *)
 {
     writeSettings();
     ui_quit();
@@ -64,6 +64,7 @@ QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
     if (name == "quit") return QKeySequence::Quit;
     if (name == "undo") return QKeySequence::Undo;
     if (name == "redo") return QKeySequence::Redo;
+    if (name == "interrupt") return QKeySequence::Cancel;
     if (name == "recalculate") return QKeySequence::Refresh;
     if (name == "help") return QKeySequence::HelpContents;
 
