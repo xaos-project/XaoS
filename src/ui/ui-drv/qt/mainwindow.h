@@ -9,9 +9,12 @@ class MainWindow:public QMainWindow  {
     void readSettings ();
     void writeSettings ();
     static QKeySequence::StandardKey keyForItem (const QString & name);
-protected:void closeEvent (QCloseEvent * event);
-private slots:void activateMenuItem ();
-public:MainWindow (QWidget * parent = 0);
+protected:
+    void closeEvent (QCloseEvent *);
+private slots:
+    void activateMenuItem ();
+public:
+    MainWindow (QWidget * parent = 0);
     ~MainWindow ();
     FractalWidget * fractalWidget ();
     void showMessage (const QString & message);

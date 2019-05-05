@@ -65,12 +65,7 @@
 #include <grlib.h>
 #include <archaccel.h>
 #include "uiint.h"
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#include <locale.h>
-#else
-#define gettext(STRING) STRING
-#endif
+#include "i18n.h"
 
 #ifdef SFFE_USING
 #include "sffe.h"
@@ -1460,8 +1455,8 @@ ui_init (int argc, char **argv)
 
     if (sffeinit) {
         uih->pinit = sffe_alloc ();
-        sffe_regvar (&uih->pinit, &pZ, 'p');
-        sffe_regvar (&uih->pinit, &C, 'c');
+        sffe_regvar (&uih->pinit, &pZ, "p");
+        sffe_regvar (&uih->pinit, &C, "c");
         if (sffe_parse (&uih->pinit, (char *) sffeinit) > 0)
             sffe_free (&uih->pinit);
     };

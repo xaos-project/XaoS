@@ -41,12 +41,7 @@
 #ifdef SFFE_USING
 #include "sffe.h"
 #endif
-
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#else
-#define gettext(STRING) STRING
-#endif
+#include "i18n.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846

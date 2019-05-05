@@ -14,4 +14,5 @@ HEADERS += \
     $$PWD/fractalwidget.h \
     $$PWD/customdialog.h \
     $$PWD/aconfig.h \
+    $$PWD/qt_gettext.h \
     $$PWD/version.h

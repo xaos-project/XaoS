@@ -20,7 +20,7 @@
 #define SIZEOF_SHORT 2
 #define SIZEOF_INT 4
 #define SIZEOF_LONG 4
-/* #undef HAVE_GETTEXT */
+#define QT_GETTEXT
 #define NO_MALLOC_H 1
 #define MAIN_FUNCTION ui_main
 #endif

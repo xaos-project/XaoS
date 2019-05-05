@@ -1,5 +1,7 @@
 #include <QtWidgets>
 #include <cstring>
+#include <iostream>
+#include <set>
 
 #include "mainwindow.h"
 #include "fractalwidget.h"
@@ -21,9 +23,15 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("XaoS Project");
     QCoreApplication::setOrganizationDomain("xaos.sourceforge.net");
 
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
 
-    //return a.exec();
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_" + QLocale::system().name(),
+            QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    app.installTranslator(&qtTranslator);
+    QTranslator xaosTranslator;
+    xaosTranslator.load("XaoS_" + QLocale::system().name());
+    app.installTranslator(&xaosTranslator);
     return MAIN_FUNCTION(argc, argv);
 }
 
@@ -227,6 +235,14 @@ static struct params params[] = {
 };
 
 extern "C" {
+
+const char
+*qt_gettext(const char *text)
+{
+    static std::set<std::string> strings;
+    std::string string = QCoreApplication::translate("", text).toStdString();
+    return strings.insert(string).first->c_str();
+}
 
 struct ui_driver qt_driver = {
     /* name */          "Qt Driver",

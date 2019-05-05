@@ -60,11 +60,8 @@
 #include <xerror.h>
 #include "calculate.h"          /*an inlined calulate function */
 
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#else
-#define gettext(STRING) STRING
-#endif
+#include "i18n.h"
+
 
 #define ASIZE 16
 #define ALIGN(x) (((x)+ASIZE-1)&(~(ASIZE-1)))

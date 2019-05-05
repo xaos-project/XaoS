@@ -22,14 +22,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 #import "CustomDialog.h"
-
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#include <locale.h>
-#define _(string) gettext(string)
-#else
-#define _(string) (string)
-#endif
+#include "i18n.h"
 
 #define MARGIN 20
 #define SPACING 8

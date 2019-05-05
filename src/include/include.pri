@@ -17,6 +17,7 @@ HEADERS += \
     $$PWD/generic.h \
     $$PWD/grlib.h \
     $$PWD/hicolor.h \
+    $$PWD/i18n.h \
     $$PWD/misc-f.h \
     $$PWD/param.h \
     $$PWD/pixel_t.h \

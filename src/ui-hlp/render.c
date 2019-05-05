@@ -21,12 +21,7 @@
 #include <misc-f.h>
 #include <xmenu.h>
 #include <xerror.h>
-
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#else
-#define gettext(STRING) STRING
-#endif
+#include "i18n.h"
 
 #define SILENT 0
 #define ERRORS 1

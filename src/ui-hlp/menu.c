@@ -15,11 +15,7 @@
 #include <plane.h>
 #include <xmenu.h>
 #include "play.h"
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#else
-#define gettext(STRING) STRING
-#endif
+#include "i18n.h"
 
 #define LANG(name,name2) MENUSTRING("lang", NULL, name,name2,0, (void (*) (struct uih_context *c, char *))uih_loadcatalog, name2)
 #define TUTOR(name1,name2,name3) MENUSTRING(name1, NULL, name2,name3,MENUFLAG_INTERRUPT|UI,uih_playtutorial,name3)

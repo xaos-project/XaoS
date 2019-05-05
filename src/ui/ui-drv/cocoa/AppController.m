@@ -26,14 +26,7 @@
 #import "VideatorProxy.h"
 #import "ui.h"
 
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#include <locale.h>
-#define _(string) gettext(string)
-#else
-#define _(string) (string)
-#endif
-
+#include "i18n.h"
 /*
  * This category overrides standard NSWindow behavior which prevents a window
  * from receiving keyboard events unless it has a titlebar. Without this, the 

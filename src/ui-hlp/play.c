@@ -19,12 +19,7 @@
 #include <xmenu.h>
 #include <grlib.h>
 #include "play.h"
-
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#else
-#define gettext(STRING) STRING
-#endif
+#include "i18n.h"
 
 #define nextchar() (uih->playstring==NULL?xio_getc(FD):uih->playstring[uih->playpos++])
 #define ungetchar(c) (uih->playstring==NULL?xio_ungetc(c,FD):uih->playpos--)

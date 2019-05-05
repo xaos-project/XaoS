@@ -272,12 +272,7 @@ REGISTERS (3)
 #define queue queue32
 #define bfill bfill32
 #include "btraced.c"
-
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#else
-#define gettext(STRING) STRING
-#endif
+#include "i18n.h"
 
 #ifndef SLOWCACHESYNC
 #ifndef nthreads

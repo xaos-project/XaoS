@@ -21,12 +21,7 @@
 #include <xerror.h>
 #include <misc-f.h>
 #include "uiint.h"
-
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#else
-#define gettext(STRING) STRING
-#endif
+#include "i18n.h"
 
 static char **dirs;
 static char **sdirs;

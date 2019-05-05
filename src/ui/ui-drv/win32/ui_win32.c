@@ -30,19 +30,7 @@
 
 #define MOUSEWIDTH 16
 #define MOUSEHEIGHT 16
-
-#ifdef HAVE_GETTEXT
-
-#include <libintl.h>
-
-#include <locale.h>
-
-#else
-
-#define gettext(STRING) STRING
-
-#endif
-
+#include "i18n.h"
 
 
 HINSTANCE hInstance;

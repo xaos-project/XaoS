@@ -11,12 +11,7 @@
 #include <ui.h>
 #include <xmenu.h>
 #include "ui_win32.h"
-
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#else
-#define gettext(STRING) STRING
-#endif
+#include "i18n.h"
 
 TCHAR text[100];
 

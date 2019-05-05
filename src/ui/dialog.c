@@ -49,12 +49,7 @@
 #include "uiint.h"
 #include <xldio.h>
 #include <misc-f.h>
-
-#ifdef HAVE_GETTEXT
-#include <libintl.h>
-#else
-#define gettext(STRING) STRING
-#endif
+#include "i18n.h"
 
 struct dialogitem;
 struct dialogtype
