@@ -12,8 +12,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setWindowTitle(QCoreApplication::applicationName());
 
-    statusBar()->show();
-
     m_fractalWidget = new FractalWidget();
     setCentralWidget(m_fractalWidget);
 
@@ -51,11 +49,6 @@ void MainWindow::closeEvent(QCloseEvent *)
     ui_quit();
 }
 
-void MainWindow::showMessage(const QString &message)
-{
-    statusBar()->showMessage(message, 5000);
-}
-
 QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
 {
     if (name == "initstate") return QKeySequence::New;
@@ -86,7 +79,9 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name)
 
 void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *parent)
 {
-    QActionGroup *group = new QActionGroup(parent);
+    QActionGroup *group = 0;
+
+    connect(parent, SIGNAL(aboutToShow()), SLOT(updateMenuCheckmarks()));
 
     const menuitem *item;
     for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
@@ -107,8 +102,11 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
             if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX)) {
                 action->setCheckable(true);
                 action->setChecked(menu_enabled(item, uih));
-                if (item->flags & MENUFLAG_RADIO)
+                if (item->flags & MENUFLAG_RADIO) {
+                    if (!group)
+                        group = new QActionGroup(parent);
                     action->setActionGroup(group);
+                }
             }
             connect(action, SIGNAL(triggered()), this, SLOT(activateMenuItem()));
             parent->addAction(action);
@@ -135,8 +133,20 @@ void MainWindow::toggleMenu(struct uih_context *uih, const char *name)
 void MainWindow::activateMenuItem()
 {
     QAction *action = qobject_cast<QAction *>(sender());
-    const menuitem *item = menu_findcommand(action->objectName().toLatin1());
+    const menuitem *item = menu_findcommand(action->objectName().toUtf8());
     ui_menuactivate(item, NULL);
+}
+
+void MainWindow::updateMenuCheckmarks()
+{
+    QMenu *menu = qobject_cast<QMenu *>(sender());
+    foreach(QAction *action, menu->actions()) {
+        if (action->isCheckable()) {
+            const menuitem *item = menu_findcommand(action->objectName().toUtf8());
+            action->setChecked(menu_enabled(item, globaluih));
+        }
+    }
+
 }
 
 void MainWindow::showDialog(struct uih_context *uih, const char *name)

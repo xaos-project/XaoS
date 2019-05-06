@@ -107,7 +107,6 @@ getMouse (int *x, int *y, int *b)
 static void
 printText(int x, int y, const char *text)
 {
-    window->showMessage(text);
 }
 
 static void
@@ -148,7 +147,6 @@ showHelp (struct uih_context *c, const char *name)
 
 QFont getFont() {
     return QFont(QApplication::font().family(), 12);
-    //return QFont("Calibri", 12);
 }
 
 int imagePrint(struct image *image, int x, int y,
