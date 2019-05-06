@@ -237,11 +237,15 @@ static struct params params[] = {
 extern "C" {
 
 const char
-*qt_gettext(const char *text)
+*qt_gettext(char *text)
 {
-    static std::set<std::string> strings;
-    std::string string = QCoreApplication::translate("", text).toStdString();
-    return strings.insert(string).first->c_str();
+    static std::map<char *, char *> strings;
+    char *trans = strings[text];
+    if (trans == NULL) {
+        trans = strdup(QCoreApplication::translate("", text).toStdString().c_str());
+        strings[text] = trans;
+    }
+    return trans;
 }
 
 struct ui_driver qt_driver = {
