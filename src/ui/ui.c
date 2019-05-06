@@ -1017,7 +1017,7 @@ ui_init (int argc, char **argv)
 {
     int i;
     int width, height;
-    char welcome[MAX_WELCOME], language[11];
+    char welcome[MAX_WELCOME], language[20];
 #ifdef HAVE_GETTEXT
     char *locale;
 #endif
@@ -1030,10 +1030,10 @@ ui_init (int argc, char **argv)
     setegid (getgid ());
 #endif
 
-    strcpy (language, "english");
+    strcpy (language, "en");
 #ifdef HAVE_GETTEXT
     /* Setting all locales for XaoS: */
-    locale = setlocale (LC_ALL, "");
+    locale = setlocale (LC_MESSAGES, "");
     if (locale == NULL) {
         printf ("An error occured in your setlocale/gettext installation.\n");
         printf ("I18n menus will not be available.\n");
@@ -1042,58 +1042,37 @@ ui_init (int argc, char **argv)
     // x_message("%s",locale);
     if (locale != NULL) {
         if (strncmp (locale, "Hungarian", 9) == 0)
-            strcpy (language, "magyar");
+            strcpy (language, "hu");
         if (strncmp (locale, "Czech", 5) == 0)
-            strcpy (language, "cesky");
+            strcpy (language, "cs");
         if (strncmp (locale, "German", 6) == 0)
-            strcpy (language, "deutsch");
+            strcpy (language, "de");
         if (strncmp (locale, "Spanish", 7) == 0)
-            strcpy (language, "espanhol");
+            strcpy (language, "es");
         if (strncmp (locale, "French", 6) == 0)
-            strcpy (language, "francais");
+            strcpy (language, "fr");
         if (strncmp (locale, "Romanian", 8) == 0)
-            strcpy (language, "romanian");
+            strcpy (language, "ro");
         if (strncmp (locale, "Russian", 7) == 0)
-            strcpy (language, "russian");
+            strcpy (language, "ru");
         if (strncmp (locale, "Italian", 7) == 0)
-            strcpy (language, "italiano");
+            strcpy (language, "it");
         if (strncmp (locale, "Portuguese", 10) == 0)
-            strcpy (language, "portuguese");
+            strcpy (language, "po");
     }
-    // x_message("%s",language);
 #else
-    if ((locale == NULL) || (strcmp (locale, "C") == 0))
-        locale = getenv ("LANG");
-    else
-        locale = setlocale (LC_MESSAGES, "");
+    if (locale != NULL && strcmp (locale, "C") != 0) {
+        strcpy(language, locale);
+	language[2] = '\0';
+    }
+        
+
 
 
 #ifdef DEBUG
     printf ("Trying to use locale settings for %s.\n", locale);
 #endif
 
-    if (locale != NULL) {
-        if (strlen (locale) > 2)
-            locale[2] = '\0';
-        if (strcmp (locale, "hu") == 0)
-            strcpy (language, "magyar");
-        if (strcmp (locale, "cs") == 0)
-            strcpy (language, "cesky");
-        if (strcmp (locale, "de") == 0)
-            strcpy (language, "deutsch");
-        if (strcmp (locale, "es") == 0)
-            strcpy (language, "espanhol");
-        if (strcmp (locale, "fr") == 0)
-            strcpy (language, "francais");
-        if (strcmp (locale, "ro") == 0)
-            strcpy (language, "romanian");
-        if (strcmp (locale, "ru") == 0)
-            strcpy (language, "russian");
-        if (strcmp (locale, "it") == 0)
-            strcpy (language, "italiano");
-        if (strcmp (locale, "pt") == 0)
-            strcpy (language, "portuguese");
-    }
 #endif
 #ifdef DEBUG
     printf ("Using catalog file for %s language.\n", language);
