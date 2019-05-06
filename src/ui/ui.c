@@ -1058,7 +1058,7 @@ ui_init (int argc, char **argv)
         if (strncmp (locale, "Italian", 7) == 0)
             strcpy (language, "it");
         if (strncmp (locale, "Portuguese", 10) == 0)
-            strcpy (language, "po");
+            strcpy (language, "pt");
     }
 #else
     if (locale != NULL && strcmp (locale, "C") != 0) {
