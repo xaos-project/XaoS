@@ -1018,9 +1018,7 @@ ui_init (int argc, char **argv)
     int i;
     int width, height;
     char welcome[MAX_WELCOME], language[20];
-#ifdef HAVE_GETTEXT
-    char *locale;
-#endif
+    char *locale = NULL;
 #ifdef DESTICKY
     euid = geteuid ();
     egid = getegid ();
@@ -1030,7 +1028,6 @@ ui_init (int argc, char **argv)
     setegid (getgid ());
 #endif
 
-    strcpy (language, "en");
 #ifdef HAVE_GETTEXT
     /* Setting all locales for XaoS: */
     locale = setlocale (LC_MESSAGES, "");
@@ -1039,7 +1036,7 @@ ui_init (int argc, char **argv)
         printf ("I18n menus will not be available.\n");
     }
 #ifdef _WIN32
-    // x_message("%s",locale);
+    /* Convert from windows language name to ISO 639-1 language code */
     if (locale != NULL) {
         if (strncmp (locale, "Hungarian", 9) == 0)
             strcpy (language, "hu");
@@ -1061,9 +1058,17 @@ ui_init (int argc, char **argv)
             strcpy (language, "pt");
     }
 #else
+    bind_textdomain_codeset ("xaos", "UTF-8");
+#endif
+#endif
+#ifdef QT_GETTEXT
+    locale = qt_locale();
+#endif
     if (locale != NULL && strcmp (locale, "C") != 0) {
         strcpy(language, locale);
-	language[2] = '\0';
+        language[2] = '\0';
+    } else {
+        strcpy (language, "en");
     }
         
 
@@ -1071,17 +1076,7 @@ ui_init (int argc, char **argv)
 
 #ifdef DEBUG
     printf ("Trying to use locale settings for %s.\n", locale);
-#endif
-
-#endif
-#ifdef DEBUG
     printf ("Using catalog file for %s language.\n", language);
-#endif
-    /* Without this some locales (e.g. the Hungarian) replaces "." to ","
-       in numerical format and this will cause an automatic truncation
-       at each parameter at certain places, e.g. drawing a new fractal. */
-    setlocale (LC_NUMERIC, "C");
-#ifdef DEBUG
     printf ("Text domain will be bound to directory %s.\n",
 #endif
             bindtextdomain ("xaos",
@@ -1108,12 +1103,8 @@ ui_init (int argc, char **argv)
 #endif
 #endif
         ;
-#ifndef _WIN32
-    bind_textdomain_codeset ("xaos", "UTF-8");
-#endif
     textdomain ("xaos");
     /* Done setting locales. */
-#endif
     xio_init (argv[0]);
     params_register (global_params);
     params_register (ui_fractal_params);

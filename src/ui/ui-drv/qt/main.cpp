@@ -235,6 +235,12 @@ static struct params params[] = {
 extern "C" {
 
 const char
+*qt_locale()
+{
+    return QLocale::system().name().toStdString().c_str();
+}
+
+const char
 *qt_gettext(char *text)
 {
     static std::map<char *, char *> strings;

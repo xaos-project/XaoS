@@ -12,6 +12,7 @@
 #define bindtextdomain(x, y) (y)
 #define textdomain(x)
 const char *qt_gettext(const char *text);
+const char *qt_locale();
 #define gettext(STRING) qt_gettext(STRING)
 
 #else
