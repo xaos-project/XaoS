@@ -19,11 +19,13 @@ SOURCES += \
     $$PWD/subwindow.c \
     $$PWD/plane.c \
     $$PWD/julia.c \
-    $$PWD/i386.c
+    $$PWD/i386.c \
+    $$PWD/exprtk.cpp
 
 HEADERS += \
     $$PWD/calculate.h \
-    $$PWD/julia.h
+    $$PWD/julia.h \
+    $$PWD/exprtk.hpp
 
 OTHER_FILES += \
     $$PWD/3dd.c \

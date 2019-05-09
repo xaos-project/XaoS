@@ -71,6 +71,8 @@
 #include "sffe.h"
 #endif
 
+#include "exprtk.h"
+
 #ifdef DESTICKY
 int euid, egid;
 #endif
@@ -1434,6 +1436,9 @@ ui_init (int argc, char **argv)
     if (err > 0)
         sffe_parse (&uih->parser, "z^2+c");
      /*SFFE*/
+#endif
+#ifdef USE_EXPRTK
+    exprtk_init();
 #endif
         driver->print (0, textheight1 * 8, "Entering main loop");
     ui_flush ();
