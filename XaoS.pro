@@ -18,6 +18,14 @@ CONFIG(debug, debug|release) {
 
 #DEFINES += USE_EXPRTK
 
+
+TRANSLATIONS = $$files($$PWD/src/i18n/*.po)
+updateqm.input = TRANSLATIONS
+updateqm.output = $$PWD/bin/XaoS_${QMAKE_FILE_BASE}.qm
+updateqm.commands = lrelease ${QMAKE_FILE_NAME} -qm ${QMAKE_FILE_OUT}
+updateqm.CONFIG += no_link target_predeps
+QMAKE_EXTRA_COMPILERS += updateqm
+
 DESTDIR = $$PWD/bin
 
 include($$PWD/src/engine/engine.pri)
