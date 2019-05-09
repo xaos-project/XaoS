@@ -5,8 +5,6 @@ TEMPLATE = app
 
 QT += opengl
 
-LIBS += -lmuparserx
-
 macx {
     TARGET = XaoS
 } else {
