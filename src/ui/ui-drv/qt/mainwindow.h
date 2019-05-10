@@ -22,6 +22,7 @@ public:
     FractalWidget *fractalWidget();
     void buildMenu(struct uih_context *uih, const char *name);
     void buildMenu(struct uih_context *uih, const char *name, QMenu *parent);
+    void buildMenu(struct uih_context *uih, const char *name, QMenu *parent, bool numbered);
     void popupMenu(struct uih_context *uih, const char *name);
     void toggleMenu(struct uih_context *uih, const char *name);
     void showDialog(struct uih_context *uih, const char *name);

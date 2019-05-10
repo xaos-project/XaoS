@@ -72,29 +72,43 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name)
     for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
         if (item->type == MENU_SUBMENU) {
             QMenu *menu = menuBar()->addMenu(QString(item->name));
-            buildMenu(uih, item->shortname, menu);
+            buildMenu(uih, item->shortname, menu, false);
         }
     }
 }
 
-void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *parent)
+void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *parent, bool numbered)
 {
     QActionGroup *group = 0;
 
     connect(parent, SIGNAL(aboutToShow()), SLOT(updateMenuCheckmarks()));
 
     const menuitem *item;
-    for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
+    for (int i = 0, n = 0; (item = menu_item(name, i)) != NULL; i++) {
 
         QString itemName(item->name);
+        if (numbered) {
+            char c;
+            if (n < 9)
+                c = n + '1';
+            else if (n == 9)
+                c = '0';
+            else
+                c = 'A' + n - 10;
+            itemName = QString::asprintf("&%c ", c) + itemName;
+
+            if (item->type != MENU_SEPARATOR)
+                n++;
+        }
+
         if (item->type == MENU_DIALOG || item->type == MENU_CUSTOMDIALOG)
             itemName += "...";
 
         if (item->type == MENU_SEPARATOR) {
             parent->addSeparator();
         } else if (item->type == MENU_SUBMENU) {
-            QMenu *menu = parent->addMenu(item->name);
-            buildMenu(uih, item->shortname, menu);
+            QMenu *menu = parent->addMenu(itemName);
+            buildMenu(uih, item->shortname, menu, numbered);
         } else {
             QAction *action = new QAction(itemName, parent);
             action->setShortcuts(keyForItem(item->shortname));
@@ -117,7 +131,7 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
 void MainWindow::popupMenu(struct uih_context *uih, const char *name)
 {
     QMenu *menu = new QMenu(this);
-    buildMenu(uih, name, menu);
+    buildMenu(uih, name, menu, true);
     menu->exec(QCursor::pos());
     delete menu;
 }
