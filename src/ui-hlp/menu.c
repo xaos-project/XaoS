@@ -1010,7 +1010,7 @@ uih_registermenus_i18n (void)
     SUBMENU_I ("root", NULL, gettext ("Calculation"), "calc");
     SUBMENU_I ("root", "e", gettext ("Filters"), "mfilter");
     SUBMENU_I ("root", NULL, gettext ("Misc"), "misc");
-    SUBMENU_I ("root", NULL, gettext ("Window"), "ui");
+    SUBMENU_I ("root", NULL, gettext ("View"), "ui");
 #ifdef MACOSX
     SUBMENU_I ("root", NULL, gettext ("Window"), "window");
 #endif
@@ -1020,7 +1020,7 @@ uih_registermenus_i18n (void)
     // So we put the "Stop Replay" item in the UI menu instead
     MENUSEPARATOR_I ("uia");
     MENUNOP_I ("uia", "s", gettext ("Stop replay"), "stopreplay", UI | MENUFLAG_INTERRUPT, uih_replaydisable);
-    SUBMENUNOOPT_I ("animroot", NULL, gettext ("Window"), "uia");
+    SUBMENUNOOPT_I ("animroot", NULL, gettext ("View"), "uia");
     SUBMENUNOOPT_I ("animroot", NULL, gettext ("Help"), "helpmenu");
     MENUDIALOG_I ("misc", "!", gettext ("Command"), "command", UI, uih_command, dcommand);
     MENUDIALOG_I ("misc", NULL, gettext ("Play string"), "playstr", MENUFLAG_NOMENU, uih_playstr, dcommand);
