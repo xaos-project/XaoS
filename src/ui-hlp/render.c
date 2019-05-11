@@ -112,8 +112,6 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
 #endif
     struct palette *pal = createpalette (0, 0, type, 0, 0, NULL, NULL, NULL, NULL, NULL);
     struct image *img;
-    xio_file of;
-    /*FILE *f; */
     xio_file af;
     char s[200];
     int lastframenum = -1;
@@ -252,20 +250,6 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
 
     uih_replayenable (uih, af, animation, 1);
 
-    sprintf (s, "%s.par", basename);
-    of = xio_wopen (s);
-    if (of == NULL) {
-        error (gettext ("Cannot open image file"));
-        if (gc)
-            gc->incalculation = 0;
-        uih_freecontext (uih);
-        destroy_image (img);
-        destroypalette (pal);
-        free (saveddata);
-        if (!gc)
-            uih_freecatalog (uih);
-        return 0;
-    }
     uih_letterspersec (uih, letterspersec);
 
 
@@ -286,7 +270,6 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
             free (saveddata);
             if (!gc)
                 uih_freecatalog (uih);
-            xio_close (of);
             return 0;
         }
         fflush (stdout);
@@ -354,9 +337,6 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
                 uih_displayed (uih);
             }
         }
-        xio_puts (s, of);
-        xio_puts ("\n", of);
-        xio_flush (of);
         framenum++;
     }
     curframe.newimage = 1;
@@ -370,10 +350,8 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
         free (saveddata);
         if (!gc)
             uih_freecatalog (uih);
-        xio_close (of);
         return 0;
     }
-    xio_close (of);
     free (saveddata);
     uih_freecontext (uih);
     destroy_image (img);
