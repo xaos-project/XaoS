@@ -7,10 +7,19 @@ SOURCES += \
     $$PWD/filesel.c \
     $$PWD/uimenu.c \
     $$PWD/pipecmd.c \
-    $$PWD/dialog.c
+    $$PWD/dialog.c \
+    $$PWD/main.cpp \
+    $$PWD/mainwindow.cpp \
+    $$PWD/fractalwidget.cpp \
+    $$PWD/customdialog.cpp
 
 HEADERS += \
-    $$PWD/uiint.h
+    $$PWD/uiint.h \
+    $$PWD/mainwindow.h \
+    $$PWD/fractalwidget.h \
+    $$PWD/customdialog.h
 
-OTHER_FILES += \
-    src/ui/ui-drv/qt/qt.pri
+INCLUDEPATH += $$PWD
+
+macx:ICON = $$PWD/XaoS.icns
+win32:RC_FILE = $$PWD/xaos.rc
