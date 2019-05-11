@@ -25,8 +25,6 @@ Documentation
 
 Documentation is maintained on the [GitHub Wiki](https://github.com/xaos-project/XaoS/wiki).
 
-For installation instructions see the [INSTALL](INSTALL.md) file.
-
 User Support
 ------------
 
@@ -54,12 +52,9 @@ you are able to fix a bug yourself, pull requests are very welcome.
 Supported Platforms
 -------------------
 
-Starting from version 3.5, the supported platforms are:
+XaoS is based on Qt, and supports Linux, Mac, and Windows.
 
-  * POSIX (Linux, FreeBSD, Solaris, etc.)
-  * Microsoft Windows (XP or later)
-  * Mac OS X (10.4 or later)
-  
+ 
 License
 -------
 
