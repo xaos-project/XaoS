@@ -266,9 +266,9 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
         return 0;
     }
     if (!pixelwidth)
-        pixelwidth = 29.0 / width;
+        pixelwidth = 0.025; // pixel pitch of modern non-retina monitors is roughly in this range
     if (!pixelheight)
-        pixelheight = 21.5 / height;
+        pixelheight = 0.025;   // most importantly pixels should be square to avoid distorted image
 #ifdef QT_DRIVER
         img = qt_create_image(width, height, pal, pixelwidth, pixelheight);
 #else
