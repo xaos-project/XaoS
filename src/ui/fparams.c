@@ -94,6 +94,9 @@ ui_dorender_params (void)
                 x_fatalerror ("Unknown image type:%s", imgtype);
             }
         }
+#ifdef QT_DRIVER
+        imagetype = TRUECOLOR;
+#endif
         if (defsize != NULL && !sscanf (defsize, "%ix%i", &width, &height) && (width <= 0 || height <= 0)) {
             x_fatalerror ("Invalid size (use for example 320x200");
         }

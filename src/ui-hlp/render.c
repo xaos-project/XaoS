@@ -224,6 +224,9 @@ extern struct filteraction antialias_filter;
 int
 uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpath animation, int width, int height, float pixelwidth, float pixelheight, int frametime, int type, int antialias, int slowmode, int letterspersec, const char *catalog, int motionvectors, int iframedist2)
 {
+#ifdef QT_DRIVER
+    type = TRUECOLOR;
+#endif
     struct palette *pal = createpalette (0, 0, type, 0, 0, NULL, NULL, NULL, NULL, NULL);
     struct image *img;
     xio_file of;
