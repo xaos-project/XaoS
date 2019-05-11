@@ -131,8 +131,8 @@ static menudialog uih_perturbationdialog[] = {
     DIALOGOFILE_I (gettext ("Basename:"), "anim");
     DIALOGINT_I (gettext ("Width:"), 640);
     DIALOGINT_I (gettext ("Height:"), 480);
-    DIALOGFLOAT_I (gettext ("Real width (cm):"), 29.0);
-    DIALOGFLOAT_I (gettext ("Real height (cm):"), 21.0);
+    DIALOGFLOAT_I (gettext ("Pixel width (cm):"), 0.025);
+    DIALOGFLOAT_I (gettext ("Pixel height (cm):"), 0.025);
     DIALOGFLOAT_I (gettext ("Framerate:"), 30);
     DIALOGCHOICE_I (gettext ("Image type:"), imgtypes, 0);
     DIALOGCHOICE_I (gettext ("Antialiasing:"), yesno, 0);
@@ -362,7 +362,7 @@ uih_render (struct uih_context *c, dialogparam * d)
         uih_error (c, gettext ("renderanim: antialiasing not supported in 256 color mode"));
         return;
     }
-    uih_renderanimation (c, d[1].dstring, (xio_path) d[0].dstring, d[2].dint, d[3].dint, d[4].number / d[2].dint, d[5].number / d[3].dint, (int) (1000000 / d[6].number),
+    uih_renderanimation (c, d[1].dstring, (xio_path) d[0].dstring, d[2].dint, d[3].dint, d[4].number, d[5].number, (int) (1000000 / d[6].number),
 #ifdef STRUECOLOR24
                          d[7].dint ? C256 : TRUECOLOR24,
 #else
