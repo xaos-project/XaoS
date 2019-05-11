@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'XaoS' target in the 'XaoS' project
-//
-
-#ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-#endif
