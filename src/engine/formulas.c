@@ -77,8 +77,6 @@
 extern struct uih_context *globaluih;   // to be able to use sffe parser
 #endif
 
-#include "exprtk.h"
-
 const char *const incolorname[] = {
     "0",
     "zmag",
@@ -1301,17 +1299,6 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA sffe_julia
 //#define SCALC ssffe_calc
 //#define SMOOTH
-#include "docalc.c"
-#endif
-
-#ifdef USE_EXPRTK
-#define VARIABLES exprtk_cmplx z;
-#define FORMULA \
-    z = exprtk_eval(zre, zim, pre, pim);\
-    zre=z.re; zim=z.im;
-#define BTEST less_than_4(zre*zre+zim*zim)
-#define CALC exprtk_calc
-#define JULIA exprtk_julia
 #include "docalc.c"
 #endif
 
@@ -2592,49 +2579,6 @@ const struct formula formulas[] = {
        MANDEL_BTRACE | SFFE_FRACTAL,
        }
 #endif
-#ifdef USE_EXPRTK
-    , {                         /* user-defined formula using ExprTk *//* 30 */
-       FORMULAMAGIC,
-#ifndef SLOWFUNCPTR
-       exprtk_calc,
-       NULL,
-       NULL,
-       NULL,
-#endif
-       exprtk_julia,
-       {"User defined", "User defined"},
-       "exprtk",
-       {-0.75, 0.0, 2.5, 2.5},
-       0, 1, 0.0, 0.0,
-       {
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        },
-       {
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        {INT_MAX, INT_MAX, 0, NULL},
-        },
-       MANDEL_BTRACE,
-       }
-#endif
 
 };
 
@@ -2738,11 +2682,6 @@ calculateswitch (register number_t x1, register number_t y1, register number_t x
                     return (sffe_calc (x1, y1, x2, y2));
                     break;
 #endif
-#ifdef USE_EXPRTK
-                case 29:
-                    return (exprtk_calc (x1, y1, x2, y2));
-                    break;
-#endif
         } else
             switch (cfractalc.currentformula - formulas) {      /* periodicity checking and no smoothmode PERI */
                 case 0:
@@ -2836,11 +2775,6 @@ calculateswitch (register number_t x1, register number_t y1, register number_t x
 #ifdef SFFE_USING
                 case 29:
                     return (sffe_calc (x1, y1, x2, y2));
-                    break;
-#endif
-#ifdef USE_EXPRTK
-                case 29:
-                    return (exprtk_calc (x1, y1, x2, y2));
                     break;
 #endif
     } else if (cfractalc.coloringmode == 9)
@@ -2938,11 +2872,6 @@ calculateswitch (register number_t x1, register number_t y1, register number_t x
                 return (sffe_calc (x1, y1, x2, y2));
                 break;
 #endif
-#ifdef USE_EXPRTK
-            case 29:
-                return (exprtk_calc (x1, y1, x2, y2));
-                break;
-#endif
     } else
         switch (cfractalc.currentformula - formulas) {  /* no periodicity checking and no smoothmode CALC */
             case 0:
@@ -3036,11 +2965,6 @@ calculateswitch (register number_t x1, register number_t y1, register number_t x
 #ifdef SFFE_USING
             case 29:
                 return (sffe_calc (x1, y1, x2, y2));
-                break;
-#endif
-#ifdef USE_EXPRTK
-            case 29:
-                return (exprtk_calc (x1, y1, x2, y2));
                 break;
 #endif
         }
