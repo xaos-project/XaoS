@@ -512,7 +512,7 @@ extern "C"
     void uih_setfont (uih_context * c);
 
 /*animation rendering*/
-    int uih_renderanimation (struct uih_context *gc, const char *basename, const xio_constpath animation, int width, int height, float pixelwidth, float pixelheight, int frametime, int type, int antialiasing, int slowmode, int letterspersec, const char *catalog, int motionvectors, int iframedist2);
+    int uih_renderanimation (struct uih_context *gc, const char *basename, const xio_constpath animation, int width, int height, float pixelwidth, float pixelheight, int frametime, int type, int antialiasing, int slowmode, int letterspersec, const char *catalog);
     int uih_renderimage (struct uih_context *gc1, xio_file af, xio_constpath path, struct image *img, int antialias, const char *catalog, int noise);
 
     void uih_initmessages (uih_context * c);

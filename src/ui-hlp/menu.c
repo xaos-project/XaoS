@@ -137,8 +137,6 @@ static menudialog uih_perturbationdialog[] = {
     DIALOGCHOICE_I (gettext ("Image type:"), imgtypes, 0);
     DIALOGCHOICE_I (gettext ("Antialiasing:"), yesno, 0);
     DIALOGCHOICE_I (gettext ("Always recalculate:"), yesno, 0);
-    DIALOGCHOICE_I (gettext ("Calculate MPEG motion vectors:"), yesno, 0);
-    DIALOGINT_I (gettext ("Recommended I frame distance:"), 27);
     NULL_I ();
 
     Register (uih_viewdialog);
@@ -374,7 +372,7 @@ uih_render (struct uih_context *c, dialogparam * d)
 #else
                          d[7].dint ? C256 : TRUECOLOR,
 #endif
-                         d[8].dint, d[9].dint, c->letterspersec, NULL, d[10].dint, d[11].dint);
+                         d[8].dint, d[9].dint, c->letterspersec, NULL);
 }
 
 static menudialog *
