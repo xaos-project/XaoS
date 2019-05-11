@@ -11,6 +11,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
+#ifndef _WIN32
+#include <unistd.h>
+#endif
 #endif
 
 #include <ui.h>
@@ -277,9 +280,8 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
         uih_update (uih, 0, 0, 0);
 
 
-        printmsg (gettext ("Rendering frame %i..."), framenum);
         if (uih->display) {
-
+            printmsg (gettext ("Rendering frame %i..."), framenum);
 
             newline = 1;
             newimage = 0;
@@ -319,6 +321,25 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
             } else {
                 uih_displayed (uih);
             }
+        }
+
+        if (lastframenum < framenum) {
+            // The image is a duplicate of the previous frame
+            char t[256];
+            sprintf(t, "%s%06i.png", basename, framenum);
+#ifdef _WIN32
+            // No symlinks on windows, so just save another copy
+            writepng(t, uih->image);
+#else
+            // On Unix, save a symlink.
+            printmsg (gettext ("Linking frame %i to %i..."), framenum, lastframenum);
+            if (symlink(s, t) != 0) {
+                if (gc)
+                    uih_error(gc, "Error creating symlink.");
+               else
+                    printf("Error creating symlink.");
+            }
+#endif
         }
         framenum++;
     }
