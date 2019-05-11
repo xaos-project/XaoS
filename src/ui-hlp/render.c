@@ -277,35 +277,22 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
         uih_update (uih, 0, 0, 0);
 
 
+        printmsg (gettext ("Rendering frame %i..."), framenum);
         if (uih->display) {
 
-            if (lastframenum < framenum - 1) {
-                if (lastframenum == framenum - 1)
-                    printmsg (gettext ("Frame %i skipped."), framenum - 1);
-                else
-                    printmsg (gettext ("Frames %i - %i skipped."), lastframenum, framenum - 1);
-            }
-
-            printmsg (gettext ("Frame %4i: "), framenum);
 
             newline = 1;
             newimage = 0;
             if (uih->recalculatemode > 0) {
-                if (!gc)
-                    printf ("calculating"), fflush (stdout);
                 if (slowmode)
                     uih_newimage (uih), uih->fcontext->version++;
             }
             if (antialias && !uih->filter[aliasnum]) {
-                if (!gc)
-                    printf ("antialias ");
                 uih->aliasnum = aliasnum;
                 uih_enablefilter (uih, aliasnum);
             }
             uih_prepare_image (uih);
 
-            if (!gc)
-                printf (" rendering");
             fflush (stdout);
             uih_drawwindows (uih);
 
@@ -320,8 +307,6 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
             if (y != img->height) {
                 for (; y < img->height; y++)
                     memcpy (saveddata + img->width * img->bytesperpixel * y, uih->image->currlines[y], img->width * img->bytesperpixel);
-                if (!gc)
-                    printf (" saving");
                 fflush (stdout);
                 sprintf (s, "%s%06i.png", basename, framenum);
                 curframe.rect = uih->fcontext->rs;
@@ -329,11 +314,9 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
                 curframe.name = s;
                 curframe.newimage = newimage;
                 writepng (s, uih->image);
-                printmsg (gettext (" done."));
                 uih_displayed (uih);
                 lastframenum = framenum;
             } else {
-                printmsg (gettext (" skipping..."));
                 uih_displayed (uih);
             }
         }
