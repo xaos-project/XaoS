@@ -212,7 +212,6 @@ struct gui_driver gui_driver = {
     /* help */          showHelp
 };
 
-const struct image *createImage(int width, int height, struct palette* pal, float pixelwidth, float pixelheight);
 void freeImage(struct image *img);
 
 struct image_driver image_driver =
@@ -222,38 +221,9 @@ struct image_driver image_driver =
     /* textheight */ imageTextHeight,
     /* charwidth */  imageCharWidth,
     /* saveimage */  saveImage,
-    /* createimage*/ createImage,
     /* freeimage */  freeImage
 };
 
-const struct image
-*createImage(int width, int height, struct palette* pal, float pixelwidth, float pixelheight)
-{
-    QImage **data = (QImage **)malloc(2 * sizeof(QImage *));
-    data[0] = new QImage(width, height, QImage::Format_RGB32);
-    data[1] = new QImage(width, height, QImage::Format_RGB32);
-    union paletteinfo info;
-    info.truec.rmask = 0xff0000;
-    info.truec.gmask = 0x00ff00;
-    info.truec.bmask = 0x0000ff;
-    if (pal)
-        free(pal);
-    pal = createpalette (0, 0, TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, NULL);
-    if (!pal) {
-        return NULL;
-    }
-    struct image* img = create_image_cont (width, height, data[0]->bytesPerLine(), 2, data[0]->bits(), data[1]->bits(), pal, NULL, DRIVERFREE, pixelwidth, pixelheight);
-    if (!img) {
-        delete data[0];
-        delete data[1];
-        free(data);
-        return NULL;
-    }
-    img->data = data;
-    img->driver = &image_driver;
-
-    return img;
-}
 
 void freeImage(struct image *img)
 {
@@ -269,6 +239,35 @@ static struct params params[] = {
 };
 
 extern "C" {
+
+const struct image
+*qt_create_image(int width, int height, struct palette* palette, float pixelwidth, float pixelheight)
+{
+    QImage **data = (QImage **)malloc(2 * sizeof(QImage *));
+    data[0] = new QImage(width, height, QImage::Format_RGB32);
+    data[1] = new QImage(width, height, QImage::Format_RGB32);
+    union paletteinfo info;
+    info.truec.rmask = 0xff0000;
+    info.truec.gmask = 0x00ff00;
+    info.truec.bmask = 0x0000ff;
+    if (palette)
+        free(palette);
+    palette = createpalette(0, 0, TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, NULL);
+    if (!palette) {
+        return NULL;
+    }
+    struct image* img = create_image_cont(width, height, data[0]->bytesPerLine(), 2, data[0]->bits(), data[1]->bits(), palette, NULL, DRIVERFREE, pixelwidth, pixelheight);
+    if (!img) {
+        delete data[0];
+        delete data[1];
+        free(data);
+        return NULL;
+    }
+    img->data = data;
+    img->driver = &image_driver;
+
+    return img;
+}
 
 const char
 *qt_locale()

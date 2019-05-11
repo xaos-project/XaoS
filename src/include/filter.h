@@ -73,7 +73,6 @@ extern "C"
         int (*textheight) (struct image * image);
         int (*charwidth) (struct image * image, const char c);
         const char *(*saveimage) (struct image * image, const char *filename);
-        const struct image*(*createimage) (int width, int height, struct palette *pal, float pixelwidth, float pixelheight);
         void (*freeimage) (struct image* img);
     };
 
@@ -256,6 +255,9 @@ extern "C"
     struct image *create_image_cont (int width, int height, int scanlinesize, int nimages, pixel_t * buf1, pixel_t * buf2, struct palette *palette, void (*flip) (struct image * img), int flags, float pixelwidth, float pixelheight);
     struct image *create_image_mem (int width, int height, int nimages, struct palette *palette, float pixelwidth, float pixelheight);
     struct image *create_subimage (struct image *simg, int width, int height, int nimages, struct palette *palette, float pixelwidth, float pixelheight);
+#ifdef QT_DRIVER
+    const struct image *qt_create_image(int width, int height, struct palette* palette, float pixelwidth, float pixelheight);
+#endif
 
     void destroy_image (struct image *img);
     void clear_image (struct image *img);
