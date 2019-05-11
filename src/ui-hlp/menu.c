@@ -362,10 +362,6 @@ uih_render (struct uih_context *c, dialogparam * d)
         uih_error (c, gettext ("renderanim: antialiasing not supported in 256 color mode"));
         return;
     }
-    if (d[11].dint <= 0 || d[11].dint >= 1000000) {
-        uih_error (c, gettext ("renderanim: incorrect I frame distance"));
-        return;
-    }
     uih_renderanimation (c, d[1].dstring, (xio_path) d[0].dstring, d[2].dint, d[3].dint, d[4].number / d[2].dint, d[5].number / d[3].dint, (int) (1000000 / d[6].number),
 #ifdef STRUECOLOR24
                          d[7].dint ? C256 : TRUECOLOR24,
