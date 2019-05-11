@@ -16,7 +16,7 @@ CONFIG(debug, debug|release) {
     win32:CONFIG += console
 }
 
-TRANSLATIONS = $$files($$PWD/src/i18n/*.po)
+TRANSLATIONS = $$files($$PWD/i18n/*.po)
 updateqm.input = TRANSLATIONS
 updateqm.output = $$PWD/bin/XaoS_${QMAKE_FILE_BASE}.qm
 updateqm.commands = lrelease ${QMAKE_FILE_NAME} -qm ${QMAKE_FILE_OUT}

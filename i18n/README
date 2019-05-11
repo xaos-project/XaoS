@@ -1,0 +1,5 @@
+XaoS is transitioning from gettext to Qt for i18n.  Until all of the files
+containing translatable text can be converted to C++, we will still use
+po/pot files to store the translations, while using Qt lrelease to generate
+qm files from the po files for release. Eventually, the plan is to move 
+fully to Qt Linguist.  
