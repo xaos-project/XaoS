@@ -1131,7 +1131,7 @@ uih_text (uih_context * c, const char *text)
     l = (int) strlen (text);
     c->todisplayletters = 0;
     for (i = 0; i < l; i++) {
-        if (!isspace (text[i]))
+        if (!isspace(text[i]) && !ispunct(text[i]))
             c->todisplayletters++;
         if (text[i] == '-')
             c->todisplayletters += 3;
