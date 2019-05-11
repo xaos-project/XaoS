@@ -340,7 +340,7 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
                 if (!gc)
                     printf (" saving");
                 fflush (stdout);
-                sprintf (s, "%s%04i.png", basename, framenum);
+                sprintf (s, "%s%06i.png", basename, framenum);
                 curframe.rect = uih->fcontext->rs;
                 curframe.angle = uih->fcontext->angle;
                 curframe.name = s;
