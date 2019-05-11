@@ -208,6 +208,10 @@ create_subimage (struct image *simg, int width, int height, int nimages, struct 
 void
 destroy_image (struct image *img)
 {
+    if ((img->flags & DRIVERFREE) && img->driver && img->driver->freeimage) {
+        img->driver->freeimage(img);
+        return;
+    }
     if (img->flags & FREEDATA) {
         free (*img->currlines);
         if (img->nimages == 2)

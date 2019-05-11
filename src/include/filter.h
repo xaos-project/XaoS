@@ -73,6 +73,8 @@ extern "C"
         int (*textheight) (struct image * image);
         int (*charwidth) (struct image * image, const char c);
         const char *(*saveimage) (struct image * image, const char *filename);
+        const struct image*(*createimage) (int width, int height, struct palette *pal, float pixelwidth, float pixelheight);
+        void (*freeimage) (struct image* img);
     };
 
 #define interpol1(i1,i2,n,mask) ((((i1)&(mask))*(n)+((i2)&(mask))*(256-(n)))&((mask)<<8))
@@ -111,6 +113,7 @@ extern "C"
 #define FREEDATA 2
 #define AAIMAGE 4
 #define PROTECTBUFFERS 8
+#define DRIVERFREE 16
 /*palette types supported by most of engine*/
 #define C256 1
 #define GRAYSCALE 2

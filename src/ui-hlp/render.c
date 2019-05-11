@@ -269,7 +269,11 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
         pixelwidth = 29.0 / width;
     if (!pixelheight)
         pixelheight = 21.5 / height;
-    img = create_image_mem (width, height, 2, pal, pixelwidth, pixelheight);
+    if (gc1->image->driver && gc1->image->driver->createimage)
+        img = gc1->image->driver->createimage(width, height, pal, pixelwidth, pixelheight);
+    else
+        img = create_image_mem (width, height, 2, pal, pixelwidth, pixelheight);
+
     if (!img) {
         error (gettext ("Cannot create image\n"));
         if (gc)
