@@ -1,5 +1,4 @@
 SOURCES += \
-    $$PWD/drivers.c \
     $$PWD/ui.c \
     $$PWD/uihelp.c \
     $$PWD/param.c \

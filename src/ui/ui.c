@@ -134,6 +134,14 @@ static int defthreads = 0;
 static int maxframerate = 80;
 static float defscreenwidth = 0.0, defscreenheight = 0.0, defpixelwidth = 0.0, defpixelheight = 0.0;
 
+extern const struct ui_driver qt_driver;
+const struct ui_driver *const drivers[] = {
+    &qt_driver,
+    NULL
+};
+
+const int ndrivers = (sizeof (drivers) / sizeof (*drivers) - 1);
+
 #ifdef SFFE_USING
 char *sffeform = NULL;
 char *sffeinit = NULL;
