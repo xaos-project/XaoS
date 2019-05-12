@@ -411,9 +411,6 @@ REGISTERS (3)
     return cpalette.pixels[inset];
 }
 
-#ifdef __alpha__
-#define __TEST__
-#endif
 static unsigned int
 color_output (number_t zre, number_t zim, unsigned int iter)
      CONSTF REGISTERS (3);

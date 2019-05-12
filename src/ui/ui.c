@@ -1026,12 +1026,6 @@ ui_init (int argc, char **argv)
     ui_registermenus_i18n ();   /* Internationalized menus. */
     for (i = 0; i < ndrivers; i++)
         params_register (drivers[i]->params);
-#ifdef __alpha__
-#ifdef __linux__
-    extern void ieee_set_fp_control (unsigned long);
-    ieee_set_fp_control (1UL);
-#endif
-#endif
     prog_argc = argc;
     prog_argv = argv;
     if (!params_parser (argc, argv)) {

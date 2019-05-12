@@ -40,11 +40,6 @@
 #endif
 #endif
 #endif
-#ifdef __alpha__
-#ifdef __linux__
-#include <asm/fpu.h>
-#endif
-#endif
 #ifndef M_PI
 #define M_PI 3.1415
 #endif
@@ -338,13 +333,6 @@ make_fractalc (const int formula, float wi, float he)
 #ifndef NOASSEMBLY
     _control87 (PC_64 | MCW_EM | MCW_RC, MCW_PC | MCW_EM | MCW_RC);
 #endif
-#endif
-#endif
-#ifdef __alpha__
-#ifdef __linux__
-    extern void ieee_set_fp_control (unsigned long);
-    /* ieee_set_fp_control(IEEE_TRAP_ENABLE_INV); */
-    ieee_set_fp_control (0UL);  /* ignore everything possible */
 #endif
 #endif
     new_ctxt = (fractal_context *) calloc (1, sizeof (fractal_context));
