@@ -1,9 +1,6 @@
 #include <config.h>
 #ifndef _plan9_
 #include <string.h>
-#if defined(__EMX__) || defined(__APPLE__)
-#include <sys/types.h>
-#endif
 #ifdef HAVE_DIRENT_H
 #include <dirent.h>
 #endif

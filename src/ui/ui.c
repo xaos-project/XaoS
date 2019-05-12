@@ -33,12 +33,6 @@
 #include <string.h>
 #include <errno.h>
 #include <math.h>
-#ifdef __EMX__
-#include <float.h>
-#endif
-#ifdef __EMX__
-#include <sys/types.h>
-#endif
 #ifndef _MAC
 #include <sys/stat.h>
 #endif

@@ -19,10 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#ifdef __EMX__
-#include <float.h>
-#include <sys/cdefs.h>
-#endif
 #ifdef _plan9_
 #include <u.h>
 #include <libc.h>

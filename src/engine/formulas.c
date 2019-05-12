@@ -49,9 +49,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
-#ifdef __EMX__
-#include <sys/cdefs.h>
-#endif
 #include <stdio.h>
 #endif /*plan9 */
 #include <archaccel.h>

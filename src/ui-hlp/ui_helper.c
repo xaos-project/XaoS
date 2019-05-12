@@ -9,14 +9,6 @@
 #include <math.h>
 #include <string.h>
 #include <errno.h>
-#ifdef __EMX__
-#include <float.h>
-/*
-   #ifndef M_PI
-   #define M_PI 3.14159265358979323846
-   #endif
- */
-#endif
 #else
 #include <u.h>
 #include <libc.h>

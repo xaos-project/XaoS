@@ -39,10 +39,6 @@
 #include <math.h>
 #endif
 #endif
-#ifdef __EMX__
-#include <float.h>
-#include <sys/cdefs.h>
-#endif
 #include <filter.h>
 #include <complex.h>
 #include <plane.h>
