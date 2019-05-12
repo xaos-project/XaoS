@@ -24,9 +24,6 @@
 #include <fconfig.h>
 #include <string.h>
 #include <stdlib.h>
-#ifdef DESTICKY
-#include <unistd.h>
-#endif
 #include <filter.h>
 #include <ui_helper.h>
 #include <ui.h>
@@ -74,10 +71,6 @@ ui_dorender_params (void)
     if (defrender != NULL) {
         int imagetype = TRUECOLOR24;
         int width = 640, height = 480;
-#ifdef DESTICKY
-        seteuid (getuid ());    /* Don't need supervisor rights anymore. */
-        setegid (getgid ());
-#endif
 #ifndef STRUECOLOR24
         if (imagetype == TRUECOLOR24)
             imagetype = TRUECOLOR;

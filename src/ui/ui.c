@@ -55,9 +55,6 @@
 #include "sffe.h"
 #endif
 
-#ifdef DESTICKY
-int euid, egid;
-#endif
 #ifdef DEBUG
 #ifdef __linux__
 #include <malloc.h>
@@ -1001,14 +998,6 @@ ui_init (int argc, char **argv)
     int width, height;
     char welcome[MAX_WELCOME], language[20];
     char *locale = NULL;
-#ifdef DESTICKY
-    euid = geteuid ();
-    egid = getegid ();
-#endif
-#ifdef DESTICKY
-    seteuid (getuid ());        /* Don't need supervisor rights anymore. */
-    setegid (getgid ());
-#endif
 
 #ifdef HAVE_GETTEXT
     /* Setting all locales for XaoS: */
