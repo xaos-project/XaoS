@@ -16,14 +16,13 @@ static void buildMenu(struct uih_context *uih, const char *name);
 static void toggleMenu(struct uih_context *uih, const char *name);
 static void popupMenu(struct uih_context *uih, const char *name);
 static void showDialog(struct uih_context *c, const char *name);
-static void showHelp(struct uih_context *c, const char *name);
 
 struct gui_driver gui_driver = {
     /* setrootmenu */   buildMenu,
     /* enabledisable */ toggleMenu,
     /* menu */          popupMenu,
     /* dialog */        showDialog,
-    /* help */          showHelp
+    /* help */          NULL
 };
 
 static int imagePrint(struct image *image, int x, int y, const char *text, int fgcolor, int bgcolor, int mode);
@@ -227,8 +226,8 @@ showDialog(struct uih_context *c, const char *name)
     window->showDialog(c, name);
 }
 
-static void
-showHelp(struct uih_context *c, const char *name)
+void
+ui_help(struct uih_context *c, const char *name)
 {
     QDesktopServices::openUrl(QUrl(HELP_URL));
 }

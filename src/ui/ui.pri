@@ -1,6 +1,5 @@
 SOURCES += \
     $$PWD/ui.c \
-    $$PWD/uihelp.c \
     $$PWD/param.c \
     $$PWD/fparams.c \
     $$PWD/filesel.c \

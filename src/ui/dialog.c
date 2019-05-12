@@ -144,7 +144,7 @@ ui_drawbutton (const char *text, int pressed, int selected, int x1, int x2, int 
 static void
 ui_yesnopos (struct uih_context *c, int *x, int *y, int *w, int *h, void *data)
 {
-    if (filevisible || helpvisible) {
+    if (filevisible) {
         *x = *y = *w = *h = 0;
         return;
     }
@@ -322,8 +322,6 @@ ui_keyok (struct dialogitem *item, int key)
         case '\n':
             if (ok->selected <= 1)
                 ui_closedialog (!ok->selected);
-            else
-                ui_help (dialog.item->shortname);
             return 1;
     }
     return 0;
@@ -355,8 +353,6 @@ ui_mouseok (struct dialogitem *item, int x, int y, int buttons, int flags)
     if (flags & MOUSE_RELEASE) {
         if (mouseat < 2)
             ui_closedialog (!mouseat);
-        else
-            ui_help (dialog.item->shortname);
     }
 }
 
@@ -1027,7 +1023,7 @@ static void
 ui_choicemenupos (struct uih_context *uih, int *x, int *y, int *width, int *height, void *data)
 {
     struct ui_choicedata *choice = (struct ui_choicedata *) data;
-    if (filevisible || helpvisible) {
+    if (filevisible) {
         *x = *y = *width = *height = 0;
         return;
     }
@@ -1218,7 +1214,7 @@ ui_dialogpos (struct uih_context *c, int *x, int *y, int *width, int *height, vo
 {
     *x = dialog.x;
     *y = dialog.y;
-    if (filevisible || helpvisible) {
+    if (filevisible) {
         *x = *y = *width = *height = 0;
         return;
     }
@@ -1410,7 +1406,6 @@ ui_dialogkeys (int key)
     if (!dialog.items[dialog.current].type->key (dialog.items + dialog.current, key)) {
         switch (key) {
             case 'h':
-                ui_help (dialog.item->shortname);
                 return 1;
             case UIKEY_TAB:
             case UIKEY_DOWN:

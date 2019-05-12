@@ -421,9 +421,9 @@ ui_menukey (int key)
                     const menuitem *item = menu->items[menu->selected].item;
                     ui_closemenus ();
                     if (menu->selected >= 0) {
-                        ui_help (item->shortname);
+                        //ui_help (item->shortname);
                     } else
-                        ui_help (menu->name);
+                        //ui_help (menu->name);
                     return 1;
                 }
             case UIKEY_LEFT:

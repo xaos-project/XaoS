@@ -219,7 +219,7 @@ ui_updatemenus (uih_context * c, const char *name)
 static void
 mousetype (int m)
 {
-    if (ui_nmenus || helpvisible || filevisible || dialogvisible || yesnodialogvisible)
+    if (ui_nmenus || filevisible || dialogvisible || yesnodialogvisible)
         m = NORMALMOUSE;
     if (mouse != m) {
         mouse = m;
@@ -611,10 +611,6 @@ ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange)
     lastbuttons = mousebuttons;
     tl_update_time ();
     CHECKPROCESSEVENTS (mousebuttons, iterchange);
-    if (ui_helpmouse (mousex, mousey, mousebuttons, flags)) {
-        uih_update (uih, mousex, mousey, 0);
-        return;
-    }
     if (ui_mousefilesel (mousex, mousey, mousebuttons, flags)) {
         uih_update (uih, mousex, mousey, 0);
         return;
@@ -811,7 +807,7 @@ ui_key (int key)
     int sym;
     char mkey[2];
     const menuitem *item;
-    if (!ui_helpkeys (key) && !ui_keyfilesel (key) && !ui_dialogkeys (key) && !ui_menukey (key))
+    if (!ui_keyfilesel (key) && !ui_dialogkeys (key) && !ui_menukey (key))
         switch (sym = tolower (key)) {
             case ' ':
                 ui_closemenus ();
@@ -870,7 +866,7 @@ int EF_PROTECT_FREE = 1;
 static void
 ui_helpwr (struct uih_context *c)
 {
-    ui_help ("main");
+    ui_help (c, "main");
 }
 
 char *
@@ -1402,7 +1398,6 @@ ui_resize (void)
     }
     ui_closemenus ();
     ui_closedialog (0);
-    ui_close_help ();
     uih_clearwindows (uih);
     uih_stoptimers (uih);
     uih_cycling_stop (uih);
@@ -1439,7 +1434,6 @@ ui_driver (int d)
     int width, height;
     ui_closemenus ();
     ui_closedialog (0);
-    ui_close_help ();
     if (d < 0)
         d = 0;
     if (d >= ndrivers)

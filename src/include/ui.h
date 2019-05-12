@@ -135,7 +135,7 @@ extern "C"
     int ui_key (int);
     void ui_loadstr (const char *data);
     xio_path ui_getfile (const char *basename, const char *extension);
-    void ui_help (const char *name);
+    void ui_help (struct uih_context *c, const char *name);
     char *ui_getpos (void);
     int MAIN_FUNCTION (int argc, char **argv);
 
