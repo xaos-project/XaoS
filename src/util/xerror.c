@@ -4,8 +4,6 @@
 #include "config.h"
 #include "xerror.h"
 #include "aconfig.h"
-/*BeOS driver have its own routines in the C++ code */
-#ifndef BEOS_DRIVER
 /*On windows we use message boxes done in the ui_win32.c code*/
 #ifndef WIN32_DRIVER
 void
@@ -38,5 +36,4 @@ x_fatalerror (const char *text, ...)
     va_end (ap);
     exit (1);
 }
-#endif
 #endif

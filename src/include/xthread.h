@@ -28,18 +28,12 @@ extern "C"
 #ifdef USE_PTHREAD
 #include <pthread.h>
 #endif
-#ifdef __BEOS__
-#include <OS.h>
-#endif
 
     struct taskinfo
     {
         int n;
 #ifdef USE_PTHREAD
         pthread_t id;
-#endif
-#ifdef __BEOS__
-        thread_id id;
 #endif
     };
 
@@ -88,64 +82,6 @@ extern "C"
 #define xth_wakefirst(n) if(ethreads) pthread_cond_signal(conds+(n))
 #define API_MAPPED
 #endif                          /*USE_PTHREAD */
-
-#ifdef __BEOS__
-    typedef struct
-    {
-        int32 cnt;
-        sem_id sem;
-    } benaphore;
-
-    void acquire_benaphore (benaphore * p);
-    void release_benaphore (benaphore * p);
-#ifdef __GNUC__
-    extern
-#endif
-    inline void acquire_benaphore (benaphore * p)
-    {
-        if (atomic_add (&(p->cnt), 1) >= 1) {
-            /* Someone was faster. */
-            while (acquire_sem (p->sem) == B_INTERRUPTED);
-        }
-    }
-#ifdef __GNUC__
-    extern
-#endif
-    inline void release_benaphore (benaphore * p)
-    {
-        if (atomic_add (&(p->cnt), -1) > 1) {
-            /* Someone was slower. */
-            release_sem (p->sem);
-        }
-    }
-
-    extern benaphore mutexes[MAXSEMAPHORS];
-    extern benaphore condvars[MAXCONDS];
-
-    void be_thread_init (int num_threads);
-    void be_thread_uninit (void);
-    void be_thread_function (xfunction f, void *d, int r);
-    void be_thread_synchronize (void);
-    void be_thread_bgjob (xfunction f, void *d);
-    void be_thread_sleep (benaphore * pCondition, benaphore * pMutex);
-    void be_thread_wakeup (benaphore * pCondition);
-    void be_thread_wakefirst (benaphore * pCondition);
-
-/* Map BeOS API to XaoS thread API. */
-
-#define xth_init(nthreads) be_thread_init(nthreads)
-#define xth_uninit() be_thread_uninit()
-#define xth_function(f,d,r) if(ethreads) be_thread_function(f,d,r); else nothread_function(f,d,r)
-#define xth_nthread(ts) (ethreads?ts->n:0)
-#define xth_sync() if(ethreads) be_thread_synchronize();
-#define xth_bgjob(f,d) if(ethreads) be_thread_bgjob(f,d); else f(d,&definfo,0,0);
-#define xth_lock(n) if(ethreads) acquire_benaphore(mutexes+(n))
-#define xth_unlock(n) if(ethreads) release_benaphore(mutexes+(n))
-#define xth_sleep(n,l) if(ethreads) be_thread_sleep(condvars+(n),mutexes+(l))
-#define xth_wakeup(n) if(ethreads) be_thread_wakeup(condvars+(n))
-#define xth_wakefirst(n) if(ethreads) be_thread_wakefirst(condvars+(n))
-#define API_MAPPED
-#endif /* __BEOS__ */
 
 #ifndef API_MAPPED
 /*

@@ -1,7 +1,6 @@
 #include <signal.h>
 #include <stdio.h>
 #include <xthread.h>
-#ifndef __BEOS__
 struct taskinfo definfo = {
     0,
 };
@@ -221,4 +220,3 @@ pth_uninit ()
 }
 #endif /*POSIX threads */
 #endif /*nthreads */
-#endif /*__BEOS__*/

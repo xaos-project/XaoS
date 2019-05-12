@@ -333,12 +333,10 @@ make_fractalc (const int formula, float wi, float he)
 {
     fractal_context *new_ctxt;
 
-#ifndef __BEOS__
 #ifdef __GNUC__
 #ifdef __i386__
 #ifndef NOASSEMBLY
     _control87 (PC_64 | MCW_EM | MCW_RC, MCW_PC | MCW_EM | MCW_RC);
-#endif
 #endif
 #endif
 #endif

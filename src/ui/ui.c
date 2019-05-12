@@ -1119,9 +1119,7 @@ ui_init (int argc, char **argv)
 #ifdef DEBUG
     printf ("Initializing driver\n");
 #endif
-#ifndef __BEOS__
     signal (SIGFPE, SIG_IGN);
-#endif
     if (printconfig) {
 #define tostring(s) #s
         x_message ("XaoS configuration\n" "Version:   %s\n" "Type size: %i\n" "integer size: %i\n" "configfile: %s\n"

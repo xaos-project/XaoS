@@ -5,16 +5,6 @@
 #define HELP_URL "https://github.com/xaos-project/XaoS/wiki"
 #define WEB_URL "http://xaos.sourceforge.net/"
 
-#ifdef __BEOS__
-#define MAIN_FUNCTION be_main
-#ifdef __POWERPC__
-#  define SLOWCACHESYNC
-#  ifdef __MWERKS__
-#    define INLINEFABS(x) __fabs(x)
-#  endif
-#endif
-#endif
-
 #ifdef _WIN32
 #define CONFIGFILE "XaoS.cfg"
 #else
@@ -45,13 +35,6 @@ before #include <ddraw.h>*/
 #define INLINE __inline
 #else
 #define INLINE inline
-#endif
-
-/* BeOS have broken long double IO routines on i386. Use our replacements */
-#ifdef __BEOS__
-#ifdef __i386__
-#define USE_XLDIO
-#endif
 #endif
 
 /* Win32 don't support long double IO. Use our replacements if possible */
@@ -100,28 +83,6 @@ before #include <ddraw.h>*/
 #define STRUECOLOR16
 #define STRUECOLOR24
 #define SMBITMAPS
-#define SLBITMAPS
-#endif
-#ifdef BEOS_DRIVER
-#ifdef __cplusplus
-extern "C" {
-#endif
-#ifdef __GNUC__
-void be_exit_xaos(int i) __attribute__ ((__noreturn__));
-#else
-void be_exit_xaos(int i);
-#endif
-#ifdef __cplusplus
-}
-#endif
-#define exit_xaos(i) be_exit_xaos(i)
-#undef STRUECOLOR16
-#define STRUECOLOR16
-#undef SFIXEDCOLOR
-#define SFIXEDCOLOR
-#undef SMBITMAPS
-#define SMBITMAPS
-#undef SLBITMAPS
 #define SLBITMAPS
 #endif
 #ifdef WIN32_DRIVER

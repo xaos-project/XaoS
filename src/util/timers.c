@@ -45,9 +45,6 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#ifdef __BEOS__
-#include <OS.h>
-#endif
 #ifdef USE_ALLEGRO
 #include <allegro.h>
 #endif
@@ -85,9 +82,6 @@ struct timeemulator
 
 struct timer
 {
-#ifdef __BEOS__
-    bigtime_t lastactivated;
-#else
 #ifdef _WIN32
     LARGE_INTEGER lastactivated;
 #else
@@ -111,7 +105,6 @@ struct timer
 #endif
 #endif
 #endif
-#endif
     unsigned long lastemulated;
     struct timeemulator *emulator;
     void (*handler) (void *);
@@ -125,9 +118,6 @@ struct timer
 };
 
                                   /*Variable for saving current time */
-#ifdef __BEOS__
-bigtime_t currenttime;
-#else
 #ifdef _WIN32
 LARGE_INTEGER currenttime, frequency;
 #else
@@ -159,7 +149,6 @@ static struct timeb currenttime;
 #endif
 #endif
 #endif
-#endif
 
 #ifdef HAVE_SETITIMER
 static int registered = 0, reghandler = 0;
@@ -172,12 +161,10 @@ tl_group *syncgroup = &group1,
 #else
     *asyncgroup = &group1;
 #endif
-#ifndef __BEOS__
 #ifndef _WIN32
 #ifndef HAVE_GETTIMEOFDAY
 #ifndef HAVE_FTIME
 #error I am unable to get time in milisecond. Please edit timers.c and make tl_update_time and tl_lookup_timer to work for your architecture and send me then back(to hubicka@paru.cas.cz). You will need also define timers.h and change type of lasttime.
-#endif
 #endif
 #endif
 #endif
@@ -196,9 +183,6 @@ END_OF_FUNCTION (timer);
 void
 tl_update_time (void)
 {
-#ifdef __BEOS__
-    currenttime = system_time ();
-#else
 #ifdef _WIN32
     QueryPerformanceCounter (&currenttime);
 #else
@@ -234,15 +218,11 @@ tl_update_time (void)
 #endif
 #endif
 #endif
-#endif
 }
 
 static INLINE int
 __lookup_timer (tl_timer * t)
 {
-#ifdef __BEOS__
-    return (currenttime - t->lastactivated);
-#else
 #ifdef _WIN32
     return ((QuadPart (currenttime) - QuadPart (t->lastactivated)) * 1000000LL) / QuadPart (frequency);
 #else
@@ -262,7 +242,6 @@ __lookup_timer (tl_timer * t)
 #ifdef HAVE_FTIME
     return ((1000000 * (-t->lastactivated.time + currenttime.time) + 1000 * (-t->lastactivated.millitm + currenttime.millitm)));
 #else
-#endif
 #endif
 #endif
 #endif
@@ -318,9 +297,6 @@ tl_sleep (int time)
 #ifdef HAVE_USLEEP
     usleep (time);
 #else
-#ifdef __BEOS__
-    snooze (time);
-#else
 #ifdef HAVE_SELECT
     {
         struct timeval tv;
@@ -334,7 +310,6 @@ tl_sleep (int time)
    #warning xaos will work correctly. But on miltitasked enviroments it is
    #warning HIGHLY recomended to implement this.
  */
-#endif
 #endif
 #endif
 #endif
