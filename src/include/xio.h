@@ -53,15 +53,9 @@ the main I/O routines are in the xstdio file
 #define XIO_PATHSEPSTR "\\"
 #define XIO_EMPTYPATH ".\\"     /*Should be also call to currentdir function */
 #else
-#ifdef DJGPP
-#define XIO_PATHSEP '\\'
-#define XIO_PATHSEPSTR "\\"
-#define XIO_EMPTYPATH ".\\"     /*Should be also call to currentdir function */
-#else
 #define XIO_PATHSEP '/'
 #define XIO_PATHSEPSTR "/"
 #define XIO_EMPTYPATH "./"      /*Should be also call to currentdir function */
-#endif
 #endif
 #define XIO_EOF EOF
 

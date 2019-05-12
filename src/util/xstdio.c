@@ -15,9 +15,6 @@
 #ifdef _WIN32
 #define strcmp stricmp
 #endif
-#ifdef DJGPP
-#define strcmp stricmp
-#endif
 
 /* We reserve character 01 to application directory so we can easily refer to data files */
 char *xio_appdir;
@@ -386,9 +383,6 @@ xio_wopen (const char *name)
     return f;
 }
 
-#ifdef DJGPP
-#define DRIVES
-#endif
 #ifdef _WIN32
 #define DRIVES
 #endif

@@ -241,9 +241,6 @@ setname (int name)
 #ifdef _WIN32
 #define DRIVES
 #endif
-#ifdef DJGPP
-#define DRIVES
-#endif
 static void
 setdir (int name)
 {
