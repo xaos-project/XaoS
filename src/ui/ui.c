@@ -928,9 +928,7 @@ static void
 ui_registermenus_i18n (void)
 {
     int no_menuitems_i18n = ui_no_menuitems_i18n;       /* This variable must be local. */
-#ifndef MACOSX
     MENUINT_I ("file", NULL, gettext ("Quit"), "quit", MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quitwr, 1);
-#endif
     MENUNOP_I ("helpmenu", "h", gettext ("Help"), "help", MENUFLAG_INCALC, ui_helpwr);
     MENUNOPCB_I ("ui", NULL, gettext ("Disable XaoS's builtin GUI"), "nogui", MENUFLAG_INCALC | MENUFLAG_ATSTARTUP | MENUFLAG_NOMENU, ui_noguisw, ui_noguienabled);
     MENUSEPARATOR_I ("ui");

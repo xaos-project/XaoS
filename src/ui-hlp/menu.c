@@ -1000,9 +1000,6 @@ uih_registermenus_i18n (void)
     SUBMENU_I ("root", "e", gettext ("Filters"), "mfilter");
     SUBMENU_I ("root", NULL, gettext ("Misc"), "misc");
     SUBMENU_I ("root", NULL, gettext ("View"), "ui");
-#ifdef MACOSX
-    SUBMENU_I ("root", NULL, gettext ("Window"), "window");
-#endif
     SUBMENU_I ("root", NULL, gettext ("Help"), "helpmenu");
     SUBMENU_I ("helpmenu", NULL, gettext ("Tutorials"), "tutor") SUBMENUNOOPT_I ("animroot", "f", gettext ("File"), "file");
     // You cannot have menu items directly on the root menu in some OS
@@ -1045,9 +1042,7 @@ uih_registermenus_i18n (void)
     MENUSEPARATOR_I ("file");
     MENUNOP_I ("file", NULL, gettext ("Load random example"), "loadexample", MENUFLAG_INTERRUPT, uih_loadexample);
     MENUNOP_I ("file", NULL, gettext ("Save configuration"), "savecfg", 0, uih_savecfg);
-#ifndef MACOSX
     MENUSEPARATOR_I ("file");
-#endif
     MENUNOP_I ("edit", "u", gettext ("Undo"), "undo", MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_undo);
     MENUNOP_I ("edit", NULL, gettext ("Redo"), "redo", MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_redo);
     SUBMENU_I ("fractal", NULL, gettext ("Formulae"), "mformula");
