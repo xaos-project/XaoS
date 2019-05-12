@@ -1,3 +1,15 @@
+RELEASE NOTES FOR XAOS VERSION 4.0
+----------------------------------
+
+o All drivers are removed except Qt
+
+o Animation rendering fixed
+
+o Standardized menu entries
+
+o Several bug fixes
+
+
 RELEASE NOTES FOR XAOS VERSION 3.6
 ----------------------------------
 
@@ -25,7 +37,7 @@ Cross-platform changes
 
 o New Portuguese translation courtesy of Lucio Henrique de Arujo and
   Zelia Maria Horta Garcia
-  
+
 o Fixed crash bug when using -render command line option with user formulas
   (Mateusz Malczak)
 
