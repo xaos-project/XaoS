@@ -45,9 +45,6 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#ifdef USE_ALLEGRO
-#include <allegro.h>
-#endif
 #ifdef HAVE_SETITIMER
 #include <signal.h>
 #endif
@@ -85,9 +82,6 @@ struct timer
 #ifdef _WIN32
     LARGE_INTEGER lastactivated;
 #else
-#ifdef USE_ALLEGRO
-    uclock_t lastactivated;
-#else
 #ifdef HAVE_UCLOCK
     uclock_t lastactivated;
 #else
@@ -99,7 +93,6 @@ struct timer
 #else
 #ifdef HAVE_FTIME
     struct timeb lastactivated;
-#endif
 #endif
 #endif
 #endif
@@ -121,12 +114,6 @@ struct timer
 #ifdef _WIN32
 LARGE_INTEGER currenttime, frequency;
 #else
-#ifdef USE_ALLEGRO
-int allegromode;
-#define TICKSPERSEC 100         /*must be divisor of 1000000 */
-volatile static int counter = -1;
-static int ainstalled;
-#endif
 #ifdef HAVE_UCLOCK
 static uclock_t currenttime;
 #else
@@ -170,15 +157,6 @@ tl_group *syncgroup = &group1,
 #endif
 
 
-#ifdef USE_ALLEGRO
-static void
-timer (void)
-{
-    counter++;
-}
-
-END_OF_FUNCTION (timer);
-#endif
 /*following functions are architecture dependent */
 void
 tl_update_time (void)
@@ -186,19 +164,6 @@ tl_update_time (void)
 #ifdef _WIN32
     QueryPerformanceCounter (&currenttime);
 #else
-#ifdef USE_ALLEGRO
-    if (allegromode) {
-        if (counter == -1) {
-            LOCK_VARIABLE (counter);
-            LOCK_FUNCTION (timer);
-            install_int (timer, 1000 / TICKSPERSEC);
-            ainstalled = 1;
-            counter = 0;
-        }
-        currenttime = counter;
-        return;
-    }
-#endif
 #ifdef HAVE_UCLOCK
     currenttime = uclock ();
 #else
@@ -226,10 +191,6 @@ __lookup_timer (tl_timer * t)
 #ifdef _WIN32
     return ((QuadPart (currenttime) - QuadPart (t->lastactivated)) * 1000000LL) / QuadPart (frequency);
 #else
-#ifdef USE_ALLEGRO
-    if (allegromode)
-        return (((currenttime - t->lastactivated) * (1000000LL / TICKSPERSEC)));
-#endif
 #ifdef HAVE_UCLOCK
     return (((currenttime - t->lastactivated) * 1000000LL) / UCLOCKS_PER_SEC);
 #else
@@ -587,16 +548,3 @@ tl_unemulate_timer (struct timer *t)
     t->emulator = NULL;
     tl_slowdown_timer (t, tl_lookup_timer (t) - time);
 }
-
-#ifdef USE_ALLEGRO
-void
-tl_allegromode (int mode)
-{
-    allegromode = mode;
-    if (!allegromode && ainstalled) {
-        remove_int (timer);
-        ainstalled = 0;
-        counter = -1;
-    }
-}
-#endif
