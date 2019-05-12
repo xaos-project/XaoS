@@ -100,7 +100,6 @@ extern "C"
 #define FREEDATA 2
 #define AAIMAGE 4
 #define PROTECTBUFFERS 8
-#define DRIVERFREE 16
 /*palette types supported by most of engine*/
 #define C256 1
 #define GRAYSCALE 2
