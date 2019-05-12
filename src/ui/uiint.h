@@ -47,7 +47,4 @@ int ui_dorender_params (void);
 void ui_updatestarts (void);
 
 void ui_pipe_init (const char *name);
-int ui_helpkeys (int key);
-int ui_helpmouse (int x, int y, int buttons, int flags);
-
 #endif

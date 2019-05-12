@@ -368,7 +368,7 @@ ui_menuactivate (const menuitem * item, dialogparam * d)
         return;
     } else {
         if (menu_havedialog (item, uih) && d == NULL) {
-            ui_builddialog (uih, item->name);
+            ui_builddialog (uih, item->shortname);
             return;
         }
         if (uih->incalculation && !(item->flags & MENUFLAG_INCALC)) {
