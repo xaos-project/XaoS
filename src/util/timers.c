@@ -122,12 +122,7 @@ static int currenttime;
 #else
 #ifdef HAVE_GETTIMEOFDAY
 static struct timeval currenttime;
-#ifdef AMIGA
-extern long __timezone;
-#define tzp __timezone
-#else
 static struct timezone tzp;
-#endif
 #else
 #ifdef HAVE_FTIME
 static struct timeb currenttime;
