@@ -8,64 +8,6 @@
 #include <fractal.h>
 #include <ui_helper.h>
 #include <grlib.h>
-
-#define WIDTH(ch) (currentfont->width)
-#define RWIDTH(ch) (currentfont->realwidth)
-#define HEIGHT (currentfont->height)
-#define DATA currentfont->data
-
-extern const unsigned char xfont8[];
-extern const unsigned char xfont16[];
-extern const unsigned char xfont32[];
-extern const unsigned char xfont48[];
-extern const unsigned char xfont14[];
-extern const unsigned char xfont8il1[];
-extern const unsigned char xfont16il1[];
-extern const unsigned char xfont14il1[];
-unsigned char *aa_chardata;
-unsigned char *aa_colordata;
-int aa_cursorx, aa_cursory;
-static const struct xfont *currentfont;
-const struct xfont xaafont = {
-    NULL,
-    2, 1, 2, 2
-};
-
-const struct xfont xsmallfont = {
-    xfont14,
-    8, 14, 8, 2
-};
-
-const struct xfont xbigfont = {
-    xfont16,
-    9, 16, 8, 2
-};
-
-const struct xfont xbigfont2 = {
-    xfont32,
-    18, 32, 16, 2
-};
-
-const struct xfont xbigfont3 = {
-    xfont48,
-    18, 48, 16, 2
-};
-
-const struct xfont xsmallfontil1 = {
-    xfont8il1,
-    8, 8, 8, 1
-};
-
-const struct xfont xmedfontil1 = {
-    xfont14il1,
-    8, 14, 8, 1
-};
-
-const struct xfont xbigfontil1 = {
-    xfont16il1,
-    9, 16, 8, 1
-};
-
 #include <c256.h>
 #define drawchar drawchar8
 #define hline hline8
@@ -111,48 +53,6 @@ const struct xfont xbigfontil1 = {
 #define restoreline restoreline32
 #include "grlibd.c"
 #ifdef SBITMAPS
-static INLINE void
-drawchar1 (struct image *img, int x, int y, int fgcolor, unsigned char letter)
-{
-    int fontwidth = (RWIDTH (letter) + 7) / 8;
-    const unsigned char *bitmap = &DATA[letter * HEIGHT * fontwidth];
-    unsigned char *current;
-    int yend = y + HEIGHT;
-    if (y < 0)
-        bitmap -= y, y = 0;
-    if (yend > img->height)
-        yend = img->height;
-    for (; y < yend; y++) {
-        unsigned int b = *(bitmap++);
-        if (fontwidth == 2) {
-            b <<= 8;
-            b |= *bitmap++;
-        }
-        current = img->currlines[y] + x / 8;
-        b = b << (8 - ((x) & 7));
-#ifdef SLBITMAPS
-        if (img->palette->type & (LBITMAP | LIBITMAP)) {
-            /*Reverse order... */
-            b = ((b >> 1) & 0x5555) | ((b << 1) & 0xaaaa);
-            b = ((b >> 2) & 0x3333) | ((b << 2) & 0xcccc);
-            b = ((b >> 4) & 0x0f0f) | ((b << 4) & 0xf0f0);
-        }
-#endif
-        if (fgcolor) {
-            if (x & 7) {
-                current[1] |= b;
-                current[0] |= b >> 8;
-            } else
-                current[0] |= b >> 8;
-        } else {
-            if (x & 7) {
-                current[1] &= ~b;
-                current[0] &= ~(b >> 8);
-            } else
-                *current &= ~(b >> 8);
-        }
-    }
-}
 
 static void
 hline1 (struct image *img, int x, int y, int l, int color)
@@ -347,117 +247,15 @@ skip (const char *text)
 int
 xprint (struct image *image, const struct xfont *current, int x, int y, const char *text, int fgcolor, int bgcolor, int mode)
 {
-    int i = 0;
-    int aacolor = 0;
-    char intext[BUFSIZ];
-    strncpy (intext, text, BUFSIZ);
-
     if (image->driver && image->driver->print)
         return image->driver->print (image, x, y, text, fgcolor, bgcolor, mode);
-
-    if (!text[0])
-        return 0;
-    /*Do some clipping */
-    currentfont = current;
-    if (x + WIDTH (*text) > image->width)
-        return skip (text);
-    if (y + HEIGHT <= 0)
-        return skip (text);
-    if (y >= image->height)
-        return skip (text);
-    while (x < 0 && *text && *text != '\n')
-        text++, x += WIDTH (*text), i++;
-    if (x < 0)
-        return (skip (text) + i);
-
-    if (image->flags & AAIMAGE) {
-        aacolor = 0;            /*normal */
-        if ((unsigned int) fgcolor == image->palette->index[2])
-            aacolor = 2;
-        if ((unsigned int) fgcolor == image->palette->index[0])
-            aacolor = 5;        /*special */
-    }
-    /*Draw text visible letters */
-    while (x + WIDTH (*text) < image->width && *text && *text != '\n') {
-        if (image->flags & AAIMAGE) {
-            aa_colordata[x / 2 + y / 2 * (image->width / 2)] = aacolor;
-            aa_chardata[x / 2 + y / 2 * (image->width / 2)] = *text;
-        } else
-            switch (image->bytesperpixel) {
-#ifdef SBITMAPS
-                case 0:
-                    if (mode == TEXT_PRESSED) {
-                        drawchar1 (image, x + 1, y + 1, fgcolor, *text);
-                    } else {
-                        drawchar1 (image, x + 1, y + 1, bgcolor, *text);
-                        drawchar1 (image, x, y, fgcolor, *text);
-                    }
-                    break;
-#endif
-                case 1:
-                    if (mode == TEXT_PRESSED) {
-                        drawchar8 (image, x + 1, y + 1, fgcolor, *text);
-                    } else {
-                        drawchar8 (image, x + 1, y + 1, bgcolor, *text);
-                        drawchar8 (image, x, y, fgcolor, *text);
-                    }
-                    break;
-#ifdef SUPPORT16
-                case 2:
-                    if (mode == TEXT_PRESSED) {
-                        drawchar16 (image, x + 1, y + 1, fgcolor, *text);
-                    } else {
-                        drawchar16 (image, x + 1, y + 1, bgcolor, *text);
-                        drawchar16 (image, x, y, fgcolor, *text);
-                    }
-                    break;
-#endif
-#ifdef STRUECOLOR24
-                case 3:
-                    if (mode == TEXT_PRESSED) {
-                        drawchar24 (image, x + 1, y + 1, fgcolor, *text);
-                    } else {
-                        drawchar24 (image, x + 1, y + 1, bgcolor, *text);
-                        drawchar24 (image, x, y, fgcolor, *text);
-                    }
-                    break;
-#endif
-                case 4:
-                    if (mode == TEXT_PRESSED) {
-                        drawchar32 (image, x + 1, y + 1, fgcolor, *text);
-                    } else {
-                        drawchar32 (image, x + 1, y + 1, bgcolor, *text);
-                        drawchar32 (image, x, y, fgcolor, *text);
-                    }
-                    break;
-            }
-        x += WIDTH (*text);
-        text++;
-        i++;
-    }
-    /*
-     * We need to return the number of bytes used from the string that is 
-     * passed into the function; not the number of characters displayed.  The
-     * number of bytes and the number of characters is not always the same in
-     * UTF-8 encoding.  So I changed this to count the number of bytes to 
-     * the next newline or nul in the original string that was passed in.
-     */
-    /* return i + skip(text); */
-    return skip (intext);
 }
 
 int
 xtextwidth (struct image *image, const struct xfont *font, const char *text)
 {
-    int i;
-
     if (image->driver && image->driver->textwidth)
         return image->driver->textwidth (image, text);
-
-    for (i = 0; text[i] && text[i] != '\n'; i++);
-    if (font->width == 2)
-        return (i * font->width);
-    return (i * font->width + 1);
 }
 
 int
@@ -465,8 +263,6 @@ xtextheight (struct image *image, const struct xfont *font)
 {
     if (image->driver && image->driver->textheight)
         return image->driver->textheight (image);
-
-    return font->height + 1;
 }
 
 int
@@ -474,8 +270,6 @@ xtextcharw (struct image *image, const struct xfont *font, const char c)
 {
     if (image->driver && image->driver->charwidth)
         return image->driver->charwidth (image, c);
-
-    return font->width;
 }
 
 //#endif /* PLATFORM_TEXT_RENDERING */
@@ -572,12 +366,6 @@ xrectangle (struct image *image, int x, int y, int width, int height, int fgcolo
         height += y, y = 0;
     if (height < 0)
         return;
-    if (image->flags & AAIMAGE) {
-        int x1, y1;
-        for (x1 = x / 2; x1 < (x + width) / 2; x1++)
-            for (y1 = y / 2; y1 < (y + height) / 2; y1++)
-                aa_colordata[x1 + y1 * image->width / 2] = 255;
-    }
     switch (image->bytesperpixel) {
 #ifdef SBITMAPS
         case 0:
@@ -840,26 +628,16 @@ xsaveline (struct image *img, int x1, int y1, int x2, int y2)
 void
 xprepareimage (struct image *img)
 {
-    if (img->flags & AAIMAGE) {
-        memset (aa_colordata, (char) 255, img->width * img->height / 4);
-    }
-    aa_cursorx = -1;
-    aa_cursory = -1;
 }
 
 void
 xdrawcursor (struct image *img, int x, int y, int color, int height)
 {
-    if (img->flags & AAIMAGE) {
-        aa_cursorx = x / 2;
-        aa_cursory = y / 2;
-    } else {
-        xvline (img, x, y, height, color);
-        xhline (img, x - 1, y - 1, 1, color);
-        xhline (img, x + 1, y - 1, 1, color);
-        xhline (img, x - 1, y + height, 1, color);
-        xhline (img, x + 1, y + height, 1, color);
-    }
+    xvline (img, x, y, height, color);
+    xhline (img, x - 1, y - 1, 1, color);
+    xhline (img, x + 1, y - 1, 1, color);
+    xhline (img, x - 1, y + height, 1, color);
+    xhline (img, x + 1, y + height, 1, color);
 }
 
 void

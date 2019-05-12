@@ -1,33 +1,4 @@
 #ifndef UNSUPPORTED
-static INLINE void
-drawchar (struct image *img, int x, int y, int fgcolor, unsigned char letter)
-{
-    int fontwidth = (RWIDTH (letter) + 7) / 8;
-    const unsigned char *bitmap = &DATA[letter * HEIGHT * fontwidth];
-    cpixel_t *current;
-    int yend = y + HEIGHT;
-    if (y < 0)
-        bitmap -= y, y = 0;
-    if (yend > img->height)
-        yend = img->height;
-    for (; y < yend; y++) {
-        int b = *(bitmap++);
-        int i = (1 << (RWIDTH (letter) - 1));
-        if (fontwidth == 2) {
-            b <<= 8;
-            b |= *bitmap++;
-        }
-        current = (cpixel_t *) img->currlines[y];
-        p_inc (current, x);
-        while (i) {
-            if (i & b) {
-                p_set (current, fgcolor);
-            }
-            i >>= 1;
-            p_inc (current, 1);
-        }
-    }
-}
 
 static INLINE void
 hline (struct image *img, int x, int y, int length, int fgcolor)

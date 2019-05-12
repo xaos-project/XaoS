@@ -283,36 +283,6 @@ uih_freecatalog (uih_context * c)
 void
 uih_setfont (struct uih_context *uih)
 {
-    if (catalog != NULL && find_text (catalog, "encoding") && find_text (catalog, "encoding")[0] == '2')
-        uih->encoding = 2;
-    else
-        uih->encoding = 1;
-    if (uih->image->flags & AAIMAGE)
-        uih->font = &xaafont;
-    else {
-        if (uih->encoding == 2) {
-            // A better heuristics would be used later.
-            if (uih->image->width > 1000 && uih->image->height > 720)
-                uih->font = &xbigfont3;
-            else {
-                if (uih->image->width > 800 && uih->image->height > 600)
-                    uih->font = &xbigfont2;
-                else {
-                    if (uih->image->pixelheight < 0.07)
-                        uih->font = &xbigfont;
-                    else
-                        uih->font = &xsmallfont;
-                }
-            }
-        } else {
-            if (uih->image->pixelheight < 0.04)
-                uih->font = &xbigfontil1;
-            else if (uih->image->pixelheight < 0.07)
-                uih->font = &xmedfontil1;
-            else
-                uih->font = &xsmallfontil1;
-        }
-    }
 }
 
 int
