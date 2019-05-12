@@ -999,39 +999,6 @@ ui_init (int argc, char **argv)
     char welcome[MAX_WELCOME], language[20];
     char *locale = NULL;
 
-#ifdef HAVE_GETTEXT
-    /* Setting all locales for XaoS: */
-    locale = setlocale (LC_MESSAGES, "");
-    if (locale == NULL) {
-        printf ("An error occured in your setlocale/gettext installation.\n");
-        printf ("I18n menus will not be available.\n");
-    }
-#ifdef _WIN32
-    /* Convert from windows language name to ISO 639-1 language code */
-    if (locale != NULL) {
-        if (strncmp (locale, "Hungarian", 9) == 0)
-            strcpy (language, "hu");
-        if (strncmp (locale, "Czech", 5) == 0)
-            strcpy (language, "cs");
-        if (strncmp (locale, "German", 6) == 0)
-            strcpy (language, "de");
-        if (strncmp (locale, "Spanish", 7) == 0)
-            strcpy (language, "es");
-        if (strncmp (locale, "French", 6) == 0)
-            strcpy (language, "fr");
-        if (strncmp (locale, "Romanian", 8) == 0)
-            strcpy (language, "ro");
-        if (strncmp (locale, "Russian", 7) == 0)
-            strcpy (language, "ru");
-        if (strncmp (locale, "Italian", 7) == 0)
-            strcpy (language, "it");
-        if (strncmp (locale, "Portuguese", 10) == 0)
-            strcpy (language, "pt");
-    }
-#else
-    bind_textdomain_codeset ("xaos", "UTF-8");
-#endif
-#endif
 #ifdef QT_GETTEXT
     locale = qt_locale();
 #endif
@@ -1041,33 +1008,11 @@ ui_init (int argc, char **argv)
     } else {
         strcpy (language, "en");
     }
-        
-
-
 
 #ifdef DEBUG
     printf ("Trying to use locale settings for %s.\n", locale);
     printf ("Using catalog file for %s language.\n", language);
-    printf ("Text domain will be bound to directory %s.\n",
 #endif
-            bindtextdomain ("xaos",
-#ifdef _WIN32
-                            "..\\locale")
-#ifdef DEBUG
-        )
-#endif
-#else
-#ifdef USE_LOCALEPATH
-                            localepath)
-#else
-                            "/usr/share/locale")
-#endif
-#ifdef DEBUG
-        )
-#endif
-#endif
-        ;
-    textdomain ("xaos");
     /* Done setting locales. */
     xio_init (argv[0]);
     params_register (global_params);

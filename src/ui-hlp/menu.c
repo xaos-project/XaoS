@@ -1133,25 +1133,12 @@ uih_registermenus_i18n (void)
     MENUSEPARATOR_I ("ui");
     MENUNOPCB_I ("ui", "v", gettext ("VJ mode"), "inhibittextoutput", 0, uih_inhibittextsw, uih_inhibittextselected);
     /* Language selection is not sensible anymore if i18n is used: */
-#ifndef HAVE_GETTEXT
-    SUBMENU_I ("tutor", NULL, gettext ("Language"), "lang");
-    MENUSEPARATOR_I ("tutor");
-#endif
     SUBMENU_I ("tutor", NULL, gettext ("An introduction to fractals"), "intro");
     SUBMENU_I ("tutor", NULL, gettext ("XaoS features overview"), "features");
     SUBMENU_I ("tutor", NULL, gettext ("Math behind fractals"), "fmath");
     SUBMENU_I ("tutor", NULL, gettext ("Other fractal types in XaoS"), "otherf");
     SUBMENU_I ("tutor", NULL, gettext ("What's new?"), "new");
     /* Language selection is not sensible anymore if i18n is used: */
-#ifndef HAVE_GETTEXT
-    LANG_I ("Cesky", "cesky");
-    LANG_I ("Deutsch", "deutsch");
-    LANG_I ("English", "english");
-    LANG_I ("Espanhol", "espanhol");
-    LANG_I ("Francais", "francais");
-    LANG_I ("Magyar", "magyar");
-    LANG_I ("Russian", "russian");
-#endif
     TUTOR_I ("intro", gettext ("Whole story"), "fractal.xaf");
     MENUSEPARATOR_I ("intro");
     TUTOR_I ("intro", gettext ("Introduction"), "intro.xaf");

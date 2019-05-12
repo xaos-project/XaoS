@@ -1,9 +1,6 @@
 #include <config.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef HAVE_GETTEXT
-#include <iconv.h>
-#endif
 #include <archaccel.h>
 
 #include <fconfig.h>
@@ -347,55 +344,6 @@ skip (const char *text)
     return (i);
 }
 
-#ifdef HAVE_GETTEXT
-static int
-xiconv (int encoding, char *out, int *outlen, const char *in, int *inlen)
-{
-    /* 
-     * Since the built-in text system only supports Latin-1 and Lqtin-2
-     * encodings, we must convert strings from the user's native encoding to
-     * either Latin-1 or Latin-2 encoding as appropriate for the selected 
-     * language before passing them into the built-in text system.  This
-     * function wraps the gnu iconv library for this purpose.
-     */
-
-    iconv_t cd;
-    char tocode[16];
-    size_t icv_inlen = *inlen, icv_outlen = *outlen;
-    char *icv_in = (char *) in;
-    char *icv_out = (char *) out;
-    int ret;
-
-    sprintf (tocode, "ISO-8859-%d", encoding);
-    cd = iconv_open (tocode, "UTF-8");
-    if (cd == (iconv_t) (-1))
-        return -1;
-
-    ret = iconv (cd, &icv_in, &icv_inlen, &icv_out, &icv_outlen);
-
-    if (in != NULL) {
-        *inlen -= icv_inlen;
-        *outlen -= icv_outlen;
-        out[*outlen] = '\0';
-    } else {
-        *inlen = 0;
-        *outlen = 0;
-    }
-
-    if (icv_inlen != 0 || ret == (size_t) - 1)
-        return -1;
-
-    ret = iconv_close (cd);
-
-    if (ret == -1)
-        return -1;
-
-    return 0;
-}
-#endif
-
-//#ifndef PLATFORM_TEXT_RENDERING
-
 int
 xprint (struct image *image, const struct xfont *current, int x, int y, const char *text, int fgcolor, int bgcolor, int mode)
 {
@@ -407,15 +355,6 @@ xprint (struct image *image, const struct xfont *current, int x, int y, const ch
     if (image->driver && image->driver->print)
         return image->driver->print (image, x, y, text, fgcolor, bgcolor, mode);
 
-#ifdef HAVE_GETTEXT
-    {
-        int inlen = strlen (text);
-        char outtext[BUFSIZ];
-        int outlen = BUFSIZ;
-        if (current->encoding && xiconv (current->encoding, outtext, &outlen, intext, &inlen) == 0)
-            text = outtext;
-    }
-#endif
     if (!text[0])
         return 0;
     /*Do some clipping */
@@ -515,16 +454,6 @@ xtextwidth (struct image *image, const struct xfont *font, const char *text)
     if (image->driver && image->driver->textwidth)
         return image->driver->textwidth (image, text);
 
-#ifdef HAVE_GETTEXT
-    char intext[BUFSIZ];
-    int inlen = strlen (text);
-    char outtext[BUFSIZ];
-    int outlen = BUFSIZ;
-
-    strncpy (intext, text, BUFSIZ);
-    if (font->encoding && xiconv (font->encoding, outtext, &outlen, intext, &inlen) == 0)
-        text = outtext;
-#endif
     for (i = 0; text[i] && text[i] != '\n'; i++);
     if (font->width == 2)
         return (i * font->width);
