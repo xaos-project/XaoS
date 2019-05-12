@@ -90,7 +90,7 @@ ui_dorender_params (void)
         }
         if (framerate <= 0)
             framerate = 30;
-        uih_renderanimation (NULL, rbasename, defrender, width, height, ui_get_windowwidth (width) / width, ui_get_windowheight (height) / height, (int) (1000000 / framerate), imagetype, alias, slowmode, letterspersec, NULL);
+        uih_renderanimation (NULL, rbasename, defrender, width, height, qt_driver.width, qt_driver.height, (int) (1000000 / framerate), imagetype, alias, slowmode, letterspersec, NULL);
         return 1;
     }
     return 0;

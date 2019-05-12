@@ -55,6 +55,8 @@ void ui_pipe_init (const char *name);
 void ui_init (int argc, char **argv);
 void ui_mainloop (int loop);
 
+extern struct ui_driver qt_driver;
+
 void qt_menu (struct uih_context *c, const char *text);
 void qt_builddialog(struct uih_context *c, const char *name);
 void qt_setrootmenu(struct uih_context *uih, const char *name);

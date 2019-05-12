@@ -4,7 +4,7 @@
 TEMPLATE = app
 
 QT += opengl
-
+LIBS += -lopengl32
 macx {
     TARGET = XaoS
 } else {

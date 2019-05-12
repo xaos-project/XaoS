@@ -107,8 +107,6 @@ static int defthreads = 0;
 static int maxframerate = 80;
 static float defscreenwidth = 0.0, defscreenheight = 0.0, defpixelwidth = 0.0, defpixelheight = 0.0;
 
-extern const struct ui_driver qt_driver;
-
 #ifdef SFFE_USING
 char *sffeform = NULL;
 char *sffeinit = NULL;
@@ -211,60 +209,6 @@ ui_display (void)
         uih_drawwindows (uih);
     qt_display();
     uih_cycling_continue (uih);
-}
-
-float
-ui_get_windowwidth (int width)
-{
-    if (defscreenwidth > 0.0 && qt_driver.flags & RESOLUTION)
-        return (defscreenwidth * width / qt_driver.maxwidth);
-    if (defscreenwidth > 0.0)
-        return (defscreenwidth);
-    if (defpixelwidth > 0.0)
-        return (defpixelwidth * width);
-    return (0);
-}
-
-static float
-get_windowwidth (int width)
-{
-    float w = ui_get_windowwidth (width);
-    if (w)
-        return w;
-    if (qt_driver.flags & PIXELSIZE)
-        return (qt_driver.width * width);
-    if (qt_driver.flags & SCREENSIZE)
-        return (qt_driver.width);
-    if (qt_driver.flags & RESOLUTION)
-        return (29.0 / qt_driver.maxwidth * width);
-    return (29.0);
-}
-
-float
-ui_get_windowheight (int height)
-{
-    if (defscreenheight > 0.0 && qt_driver.flags & RESOLUTION)
-        return (defscreenheight * height / qt_driver.maxheight);
-    if (defscreenheight > 0.0)
-        return (defscreenheight);
-    if (defpixelheight > 0.0)
-        return (defpixelheight * height);
-    return 0;
-}
-
-static float
-get_windowheight (int height)
-{
-    float h = ui_get_windowheight (height);
-    if (h)
-        return h;
-    if (qt_driver.flags & PIXELSIZE)
-        return (qt_driver.height * height);
-    if (qt_driver.flags & SCREENSIZE)
-        return (qt_driver.height);
-    if (qt_driver.flags & RESOLUTION)
-        return (21.0 / qt_driver.maxheight * height);
-    return (21.5);
 }
 
 extern int dynsize;
@@ -1052,7 +996,7 @@ ui_init (int argc, char **argv)
     loopt = tl_create_timer ();
     qt_print(0, textheight1 * 3, "Loading message catalog");
     uih_loadcatalog (uih, language);
-    qt_print(0, textheight1 * 4, "Initializing timming system");
+    qt_print(0, textheight1 * 4, "Initializing timing system");
     uih_newimage (uih);
     tl_update_time ();
     /*tl_process_group (syncgroup, NULL); */
@@ -1157,7 +1101,7 @@ ui_mkimages (int w, int h)
         ui_outofmem ();
         exit_xaos (-1);
     }
-    image = create_image_cont (width, height, scanline, 2, (unsigned char *) b1, (unsigned char *) b2, palette, ui_flip, 0, get_windowwidth (width) / width, get_windowheight (height) / height);
+    image = create_image_cont (width, height, scanline, 2, (unsigned char *) b1, (unsigned char *) b2, palette, ui_flip, 0, qt_driver.width, qt_driver.height);
     if (!image) {
         qt_uninit();
         x_error (gettext ("Can not create image"));
