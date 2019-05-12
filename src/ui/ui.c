@@ -198,21 +198,17 @@ ui_updatemenus (uih_context * c, const char *name)
                 printf ("radio \"%s\"\n", name);
         }
     }
-    if (driver != NULL && driver->gui_driver) {
-        if (name == NULL) {
-            if (driver->gui_driver->setrootmenu)
-                driver->gui_driver->setrootmenu (c, uih->menuroot);
-            return;
-        }
-        item = menu_findcommand (name);
-        if (item == NULL) {
-            /*fprintf (stderr, "Internall error:unknown command %s\n", name); */
-            return;
-        }
-        if (item->flags & (MENUFLAG_CHECKBOX | MENUFLAG_RADIO)) {
-            if (driver->gui_driver->enabledisable)
-                driver->gui_driver->enabledisable (uih, name);
-        }
+    if (name == NULL) {
+        ui_setrootmenu (c, uih->menuroot);
+        return;
+    }
+    item = menu_findcommand (name);
+    if (item == NULL) {
+        /*fprintf (stderr, "Internall error:unknown command %s\n", name); */
+        return;
+    }
+    if (item->flags & (MENUFLAG_CHECKBOX | MENUFLAG_RADIO)) {
+        ui_enabledisable (uih, name);
     }
 }
 
@@ -1121,8 +1117,7 @@ ui_init (int argc, char **argv)
     /* gloabuih initialization moved into uih_mkcontext function : malczak */
     uih = uih_mkcontext (driver->flags, image, ui_passfunc, ui_message, ui_updatemenus);
 
-    if (driver->gui_driver && driver->gui_driver->setrootmenu)
-        driver->gui_driver->setrootmenu (uih, uih->menuroot);
+    ui_setrootmenu (uih, uih->menuroot);
     ui_flush ();
 #ifdef HOMEDIR
     if (getenv ("HOME") != NULL) {
@@ -1443,8 +1438,7 @@ ui_driver (int d)
         ui_outofmem ();
         exit_xaos (-1);
     }
-    if (driver->gui_driver && driver->gui_driver->setrootmenu)
-        driver->gui_driver->setrootmenu (uih, uih->menuroot);
+    ui_setrootmenu (uih, uih->menuroot);
     tl_process_group (syncgroup, NULL);
     tl_reset_timer (maintimer);
     tl_reset_timer (arrowtimer);

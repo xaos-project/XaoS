@@ -73,14 +73,6 @@ extern "C"
     typedef unsigned char ui_rgb[4];
     typedef ui_rgb *ui_palette;
     struct uih_context;
-    struct gui_driver
-    {
-        void (*setrootmenu) (struct uih_context * c, const char *name);
-        void (*enabledisable) (struct uih_context * c, const char *name);
-        void (*menu) (struct uih_context * c, const char *name);
-        void (*dialog) (struct uih_context * c, const char *name);
-        void (*help) (struct uih_context * c, const char *name);
-    };
     struct ui_driver
     {
         const char *name;
@@ -116,7 +108,6 @@ extern "C"
         int imagetype;
         int palettestart, paletteend, maxentries;
         int rmask, gmask, bmask;
-        const struct gui_driver *gui_driver;
         const struct image_driver *image_driver;
     };
 
@@ -132,6 +123,8 @@ extern "C"
     void ui_quit (void) NORETURN;
     void ui_menu (struct uih_context *c, const char *text);
     void ui_builddialog(struct uih_context *c, const char *name);
+    void ui_setrootmenu(struct uih_context *uih, const char *name);
+    void ui_enabledisable(struct uih_context *uih, const char *name);
     void ui_menuactivate (const menuitem * item, dialogparam * d);
     int ui_key (int);
     void ui_loadstr (const char *data);

@@ -12,18 +12,6 @@
 #include "ui_helper.h"
 #include "version.h"
 
-static void buildMenu(struct uih_context *uih, const char *name);
-static void toggleMenu(struct uih_context *uih, const char *name);
-static void popupMenu(struct uih_context *uih, const char *name);
-
-struct gui_driver gui_driver = {
-    /* setrootmenu */   buildMenu,
-    /* enabledisable */ toggleMenu,
-    /* menu */          NULL,
-    /* dialog */        NULL,
-    /* help */          NULL
-};
-
 static int imagePrint(struct image *image, int x, int y, const char *text, int fgcolor, int bgcolor, int mode);
 static int imageTextWidth(struct image *image, const char *text);
 static int imageTextHeight(struct image *image);
@@ -88,7 +76,6 @@ struct ui_driver qt_driver = {
     /* rmask */         0xff0000,
     /* gmask */         0x00ff00,
     /* bmask */         0x0000ff,
-    /* gui_driver */    &gui_driver,
     /* image_driver */  &image_driver
 };
 
@@ -201,18 +188,6 @@ setCursorType(int type)
     widget->setCursorType(type);
 }
 
-static void
-buildMenu(struct uih_context *uih, const char *name)
-{
-    window->buildMenu(uih, name);
-}
-
-static void
-toggleMenu(struct uih_context *uih, const char *name)
-{
-    window->toggleMenu(uih, name);
-}
-
 static QFont
 getFont() {
     return QFont(QApplication::font().family(), 12);
@@ -290,6 +265,18 @@ freeImage(struct image *img)
 }
 
 extern "C" {
+
+void
+ui_setrootmenu(struct uih_context *uih, const char *name)
+{
+    window->buildMenu(uih, name);
+}
+
+void
+ui_enabledisable(struct uih_context *uih, const char *name)
+{
+    window->toggleMenu(uih, name);
+}
 
 void
 ui_menu(struct uih_context *uih, const char *name)
