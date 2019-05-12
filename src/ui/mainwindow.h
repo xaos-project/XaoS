@@ -8,17 +8,17 @@ class MainWindow:public QMainWindow  {
     Q_OBJECT
 private:
     FractalWidget * m_fractalWidget;
-    void readSettings ();
-    void writeSettings ();
-    static QKeySequence::StandardKey keyForItem (const QString & name);
+    void readSettings();
+    void writeSettings();
+    static QKeySequence::StandardKey keyForItem(const QString & name);
 protected:
-    void closeEvent (QCloseEvent *);
+    void closeEvent(QCloseEvent *);
 private slots:
-    void activateMenuItem ();
+    void activateMenuItem();
     void updateMenuCheckmarks();
 public:
-    MainWindow (QWidget *parent = 0);
-    ~MainWindow ();
+    MainWindow(QWidget *parent = 0);
+    ~MainWindow();
     FractalWidget *fractalWidget();
     void buildMenu(struct uih_context *uih, const char *name);
     void buildMenu(struct uih_context *uih, const char *name, QMenu *parent);
@@ -27,6 +27,5 @@ public:
     void toggleMenu(struct uih_context *uih, const char *name);
     void showDialog(struct uih_context *uih, const char *name);
 };
-
 
 #endif // MAINWINDOW_H

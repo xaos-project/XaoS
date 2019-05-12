@@ -57,7 +57,6 @@
 
 #ifdef DEBUG
 #ifdef __linux__
-#include <malloc.h>
 #define MEMCHECK
 #endif
 #endif
@@ -77,7 +76,6 @@ static void ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange);
 xio_pathdata configfile;
 static void ui_unregistermenus (void);
 static void ui_mkimages (int, int);
-static void ui_mainloop (int loop);
 
 int prog_argc;
 int err;
@@ -1307,18 +1305,6 @@ ui_init (int argc, char **argv)
     ui_flush ();
 }
 
-#ifndef MAIN_FUNCTION
-#define MAIN_FUNCTION main
-#endif
-int
-MAIN_FUNCTION (int argc, char **argv)
-{
-    ui_init (argc, argv);
-    ui_mainloop (1);
-    ui_quit ();
-
-    return 0;
-}
 
 static void
 ui_mkimages (int w, int h)
@@ -1455,7 +1441,7 @@ ui_driver (int d)
     uih_updatemenus (uih, driver->name);
 }
 
-static void
+void
 ui_mainloop (int loop)
 {
     int inmovement = 1;

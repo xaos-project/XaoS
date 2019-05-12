@@ -8,6 +8,7 @@
 #include "fractalwidget.h"
 
 #include "ui.h"
+#include "uiint.h"
 #include "filter.h"
 #include "grlib.h"
 #include "ui_helper.h"
@@ -82,7 +83,9 @@ main(int argc, char *argv[])
     QTranslator xaosTranslator;
     xaosTranslator.load("XaoS_" + QLocale::system().name());
     app.installTranslator(&xaosTranslator);
-    return MAIN_FUNCTION(argc, argv);
+
+    ui_init(argc, argv);
+    ui_mainloop(1);
 }
 
 int
