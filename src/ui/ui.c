@@ -720,6 +720,12 @@ ui_helpwr (struct uih_context *c)
     qt_help (c, "main");
 }
 
+static void
+ui_about (struct uih_context *c)
+{
+    qt_about (c, "main");
+}
+
 char *
 ui_getpos (void)
 {
@@ -777,6 +783,7 @@ ui_registermenus_i18n (void)
     int no_menuitems_i18n = ui_no_menuitems_i18n;       /* This variable must be local. */
     MENUINT_I ("file", NULL, gettext ("Quit"), "quit", MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quitwr, 1);
     MENUNOP_I ("helpmenu", "h", gettext ("Help"), "help", MENUFLAG_INCALC, ui_helpwr);
+    MENUNOP_I ("helpmenu", NULL, gettext ("About"), "about", NULL, ui_about);
     MENUNOPCB_I ("ui", NULL, gettext ("Disable XaoS's builtin GUI"), "nogui", MENUFLAG_INCALC | MENUFLAG_ATSTARTUP | MENUFLAG_NOMENU, ui_noguisw, ui_noguienabled);
     MENUSEPARATOR_I ("ui");
     MENUNOPCB_I ("ui", "/", gettext ("Status"), "status", MENUFLAG_INCALC, ui_status, ui_statusenabled);        /*FIXME: add also ? as key */

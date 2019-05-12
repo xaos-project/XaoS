@@ -62,6 +62,7 @@ void qt_builddialog(struct uih_context *c, const char *name);
 void qt_setrootmenu(struct uih_context *uih, const char *name);
 void qt_enabledisable(struct uih_context *uih, const char *name);
 void qt_help (struct uih_context *c, const char *name);
+void qt_about (struct uih_context *c, const char *name);
 
 int qt_init();
 void qt_getsize(int *w, int *h);

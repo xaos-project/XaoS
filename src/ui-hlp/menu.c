@@ -1001,7 +1001,8 @@ uih_registermenus_i18n (void)
     SUBMENU_I ("root", NULL, gettext ("Misc"), "misc");
     SUBMENU_I ("root", NULL, gettext ("View"), "ui");
     SUBMENU_I ("root", NULL, gettext ("Help"), "helpmenu");
-    SUBMENU_I ("helpmenu", NULL, gettext ("Tutorials"), "tutor") SUBMENUNOOPT_I ("animroot", "f", gettext ("File"), "file");
+    SUBMENU_I ("helpmenu", NULL, gettext ("Tutorials"), "tutor");
+    SUBMENUNOOPT_I ("animroot", "f", gettext ("File"), "file");
     // You cannot have menu items directly on the root menu in some OS
     // So we put the "Stop Replay" item in the UI menu instead
     MENUSEPARATOR_I ("uia");
