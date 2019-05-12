@@ -16,33 +16,33 @@ static struct params params[] = {
 {NULL, 0, NULL, NULL}
 };
 
-static int initDriver();
-static void getImageSize(int *w, int *h);
-static void processEvents(int wait, int *mx, int *my, int *mb, int *k);
-static void getMouse(int *x, int *y, int *b);
-static void uninitDriver();
-static void printText(int x, int y, const char *text);
-static void redrawImage();
-static int allocBuffers (char **b1, char **b2, void **data);
-static void freeBuffers(char *b1, char *b2);
-static void flipBuffers();
-static void setCursorType(int type);
+static int qt_init();
+static void qt_getsize(int *w, int *h);
+static void qt_processevents(int wait, int *mx, int *my, int *mb, int *k);
+static void qt_getmouse(int *x, int *y, int *b);
+static void qt_uninit();
+static void qt_print(int x, int y, const char *text);
+static void qt_display();
+static int qt_alloc_buffers (char **b1, char **b2, void **data);
+static void qt_free_buffers(char *b1, char *b2);
+static void qt_flip_buffers();
+static void qt_mousetype(int type);
 
 struct ui_driver qt_driver = {
     /* name */          "Qt Driver",
-    /* init */          initDriver,
-    /* getsize */       getImageSize,
-    /* processevents */ processEvents,
-    /* getmouse */      getMouse,
-    /* uninit */        uninitDriver,
+    /* init */          qt_init,
+    /* getsize */       qt_getsize,
+    /* processevents */ qt_processevents,
+    /* getmouse */      qt_getmouse,
+    /* uninit */        qt_uninit,
     /* set_color */     NULL,
     /* set_range */     NULL,
-    /* print */         printText,
-    /* display */       redrawImage,
-    /* alloc_buffers */ allocBuffers,
-    /* free_buffers */  freeBuffers,
-    /* filp_buffers */  flipBuffers,
-    /* mousetype */     setCursorType,
+    /* print */         qt_print,
+    /* display */       qt_display,
+    /* alloc_buffers */ qt_alloc_buffers,
+    /* free_buffers */  qt_free_buffers,
+    /* filp_buffers */  qt_flip_buffers,
+    /* mousetype */     qt_mousetype,
     /* flush */         NULL,
     /* textwidth */     12,
     /* textheight */    12,
@@ -84,8 +84,8 @@ main(int argc, char *argv[])
     return MAIN_FUNCTION(argc, argv);
 }
 
-static int
-initDriver()
+int
+qt_init()
 {
     window = new MainWindow();
     widget = window->fractalWidget();
@@ -99,14 +99,14 @@ initDriver()
     return 1;
 }
 
-static void
-uninitDriver()
+void
+qt_uninit()
 {
     delete window;
 }
 
-static int
-allocBuffers (char **b1, char **b2, void **data)
+int
+qt_alloc_buffers (char **b1, char **b2, void **data)
 {
     widget->createImages();
     *b1 = widget->imageBuffer1();
@@ -115,33 +115,33 @@ allocBuffers (char **b1, char **b2, void **data)
     return widget->imageBytesPerLine();
 }
 
-static void
-freeBuffers(char *b1, char *b2)
+void
+qt_free_buffers(char *b1, char *b2)
 {
     widget->destroyImages();
 }
 
-static void
-getImageSize(int *w, int *h)
+void
+qt_getsize(int *w, int *h)
 {
     *w = widget->size().width();
     *h = widget->size().height();
 }
 
-static void
-flipBuffers()
+void
+qt_flip_buffers()
 {
     widget->switchActiveImage();
 }
 
-static void
-redrawImage()
+void
+qt_display()
 {
     widget->repaint();
 }
 
-static void
-processEvents(int wait, int *mx, int *my, int *mb, int *k)
+void
+qt_processevents(int wait, int *mx, int *my, int *mb, int *k)
 {
     QCoreApplication::processEvents(wait ? QEventLoop::WaitForMoreEvents : QEventLoop::AllEvents);
 
@@ -151,21 +151,21 @@ processEvents(int wait, int *mx, int *my, int *mb, int *k)
     *k = widget->keyCombination();
 }
 
-static void
-getMouse(int *x, int *y, int *b)
+void
+qt_getmouse(int *x, int *y, int *b)
 {
     *x = widget->mousePosition().x();
     *y = widget->mousePosition().y();
     *b = widget->mouseButtons();
 }
 
-static void
-printText(int x, int y, const char *text)
+void
+qt_print(int x, int y, const char *text)
 {
 }
 
-static void
-setCursorType(int type)
+void
+qt_mousetype(int type)
 {
     widget->setCursorType(type);
 }
@@ -173,31 +173,31 @@ setCursorType(int type)
 extern "C" {
 
 void
-ui_setrootmenu(struct uih_context *uih, const char *name)
+qt_setrootmenu(struct uih_context *uih, const char *name)
 {
     window->buildMenu(uih, name);
 }
 
 void
-ui_enabledisable(struct uih_context *uih, const char *name)
+qt_enabledisable(struct uih_context *uih, const char *name)
 {
     window->toggleMenu(uih, name);
 }
 
 void
-ui_menu(struct uih_context *uih, const char *name)
+qt_menu(struct uih_context *uih, const char *name)
 {
     window->popupMenu(uih, name);
 }
 
 void
-ui_builddialog(struct uih_context *c, const char *name)
+qt_builddialog(struct uih_context *c, const char *name)
 {
     window->showDialog(c, name);
 }
 
 void
-ui_help(struct uih_context *c, const char *name)
+qt_help(struct uih_context *c, const char *name)
 {
     QDesktopServices::openUrl(QUrl(HELP_URL));
 }

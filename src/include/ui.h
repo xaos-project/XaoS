@@ -120,15 +120,10 @@ extern "C"
     void ui_resize (void);
     void ui_call_resize (void);
     void ui_quit (void) NORETURN;
-    void ui_menu (struct uih_context *c, const char *text);
-    void ui_builddialog(struct uih_context *c, const char *name);
-    void ui_setrootmenu(struct uih_context *uih, const char *name);
-    void ui_enabledisable(struct uih_context *uih, const char *name);
     void ui_menuactivate (const menuitem * item, dialogparam * d);
     int ui_key (int);
     void ui_loadstr (const char *data);
     xio_path ui_getfile (const char *basename, const char *extension);
-    void ui_help (struct uih_context *c, const char *name);
     char *ui_getpos (void);
     int MAIN_FUNCTION (int argc, char **argv);
 

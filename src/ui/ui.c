@@ -199,7 +199,7 @@ ui_updatemenus (uih_context * c, const char *name)
         }
     }
     if (name == NULL) {
-        ui_setrootmenu (c, uih->menuroot);
+        qt_setrootmenu (c, uih->menuroot);
         return;
     }
     item = menu_findcommand (name);
@@ -208,7 +208,7 @@ ui_updatemenus (uih_context * c, const char *name)
         return;
     }
     if (item->flags & (MENUFLAG_CHECKBOX | MENUFLAG_RADIO)) {
-        ui_enabledisable (uih, name);
+        qt_enabledisable (uih, name);
     }
 }
 
@@ -360,11 +360,11 @@ ui_menuactivate (const menuitem * item, dialogparam * d)
     if (item == NULL)
         return;
     if (item->type == MENU_SUBMENU) {
-        ui_menu (uih, item->shortname);
+        qt_menu (uih, item->shortname);
         return;
     } else {
         if (menu_havedialog (item, uih) && d == NULL) {
-            ui_builddialog (uih, item->shortname);
+            qt_builddialog (uih, item->shortname);
             return;
         }
         if (uih->incalculation && !(item->flags & MENUFLAG_INCALC)) {
@@ -844,7 +844,7 @@ int EF_PROTECT_FREE = 1;
 static void
 ui_helpwr (struct uih_context *c)
 {
-    ui_help (c, "main");
+    qt_help (c, "main");
 }
 
 char *
@@ -1117,7 +1117,7 @@ ui_init (int argc, char **argv)
     /* gloabuih initialization moved into uih_mkcontext function : malczak */
     uih = uih_mkcontext (driver->flags, image, ui_passfunc, ui_message, ui_updatemenus);
 
-    ui_setrootmenu (uih, uih->menuroot);
+    qt_setrootmenu (uih, uih->menuroot);
     ui_flush ();
 #ifdef HOMEDIR
     if (getenv ("HOME") != NULL) {
@@ -1437,7 +1437,7 @@ ui_driver (int d)
         ui_outofmem ();
         exit_xaos (-1);
     }
-    ui_setrootmenu (uih, uih->menuroot);
+    qt_setrootmenu (uih, uih->menuroot);
     tl_process_group (syncgroup, NULL);
     tl_reset_timer (maintimer);
     tl_reset_timer (arrowtimer);

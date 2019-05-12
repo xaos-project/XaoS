@@ -32,6 +32,10 @@ extern int ui_helpsize;
 extern const struct params ui_fractal_params[];
 extern int ui_nogui;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 float ui_get_windowwidth (int width);
 float ui_get_windowheight (int height);
 
@@ -47,4 +51,15 @@ int ui_dorender_params (void);
 void ui_updatestarts (void);
 
 void ui_pipe_init (const char *name);
+
+void qt_menu (struct uih_context *c, const char *text);
+void qt_builddialog(struct uih_context *c, const char *name);
+void qt_setrootmenu(struct uih_context *uih, const char *name);
+void qt_enabledisable(struct uih_context *uih, const char *name);
+void qt_help (struct uih_context *c, const char *name);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif
