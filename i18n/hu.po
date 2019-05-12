@@ -1471,7 +1471,7 @@ msgstr "Bezár"
 
 #: ../ui/ui-drv/cocoa/AppController.m:373
 msgid "Videator Output"
-msgstr ""
+msgstr "Videator kimenet"
 
 #: ../ui/ui-drv/cocoa/CustomDialog.m:142
 msgid "Choose"
@@ -1479,3 +1479,6 @@ msgstr "Kiválaszt"
 
 msgid "Open"
 msgstr "Megnyitás"
+
+msgid "New"
+msgstr "Új"
