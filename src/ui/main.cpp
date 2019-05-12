@@ -19,7 +19,7 @@ static void popupMenu(struct uih_context *uih, const char *name);
 struct gui_driver gui_driver = {
     /* setrootmenu */   buildMenu,
     /* enabledisable */ toggleMenu,
-    /* menu */          popupMenu,
+    /* menu */          NULL,
     /* dialog */        NULL,
     /* help */          NULL
 };
@@ -208,12 +208,6 @@ buildMenu(struct uih_context *uih, const char *name)
 }
 
 static void
-popupMenu(struct uih_context *uih, const char *name)
-{
-    window->popupMenu(uih, name);
-}
-
-static void
 toggleMenu(struct uih_context *uih, const char *name)
 {
     window->toggleMenu(uih, name);
@@ -296,6 +290,13 @@ freeImage(struct image *img)
 }
 
 extern "C" {
+
+void
+ui_menu(struct uih_context *uih, const char *name)
+{
+    window->popupMenu(uih, name);
+}
+
 void
 ui_builddialog(struct uih_context *c, const char *name)
 {

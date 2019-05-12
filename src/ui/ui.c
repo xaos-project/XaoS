@@ -219,8 +219,6 @@ ui_updatemenus (uih_context * c, const char *name)
 static void
 mousetype (int m)
 {
-    if (ui_nmenus)
-        m = NORMALMOUSE;
     if (mouse != m) {
         mouse = m;
         if (driver->mousetype != NULL)
@@ -351,7 +349,6 @@ void
 ui_updatestarts (void)
 {
     int y = 0;
-    y += ui_menuwidth ();
     ministatusstart = y;
     if (ministatuswindow != NULL)
         y += xtextheight (uih->image, uih->font);
@@ -366,9 +363,8 @@ ui_menuactivate (const menuitem * item, dialogparam * d)
 {
     if (item == NULL)
         return;
-    ui_closemenus ();
     if (item->type == MENU_SUBMENU) {
-        ui_menu (item->shortname);
+        ui_menu (uih, item->shortname);
         return;
     } else {
         if (menu_havedialog (item, uih) && d == NULL) {
@@ -611,10 +607,6 @@ ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange)
     lastbuttons = mousebuttons;
     tl_update_time ();
     CHECKPROCESSEVENTS (mousebuttons, iterchange);
-    if (ui_menumouse (mousex, mousey, mousebuttons, flags)) {
-        uih_update (uih, mousex, mousey, 0);
-        return;
-    }
     uih_update (uih, mousex, mousey, mousebuttons);
     if (uih->play) {
         procescounter (&uih->letterspersec, gettext ("Letters per second %i  "), 2, iterchange, lastiter, 1, 2, 0, 1, INT_MAX);
@@ -799,53 +791,51 @@ ui_key (int key)
     int sym;
     char mkey[2];
     const menuitem *item;
-    if (!ui_menukey (key))
-        switch (sym = tolower (key)) {
-            case ' ':
-                ui_closemenus ();
-                uih->display = 1;
-                if (uih->play) {
-                    if (uih->incalculation)
-                        ui_updatestatus ();
-                    else {
-                        uih_skipframe (uih);
-                        driver->print (0, 0, gettext ("Skipping, please wait..."));
-                    }
+    switch (sym = tolower (key)) {
+        case ' ':
+            uih->display = 1;
+            if (uih->play) {
+                if (uih->incalculation)
+                    ui_updatestatus ();
+                else {
+                    uih_skipframe (uih);
+                    driver->print (0, 0, gettext ("Skipping, please wait..."));
                 }
-                break;
-            default:
-                {
-                    int number;
-                    if (sym >= '0' && sym <= '9') {
-                        number = sym - '1';
-                        if (number < 0)
-                            number = 9;
-                        if (number == -1)
-                            break;
-                    }
+            }
+            break;
+        default:
+            {
+                int number;
+                if (sym >= '0' && sym <= '9') {
+                    number = sym - '1';
+                    if (number < 0)
+                        number = 9;
+                    if (number == -1)
+                        break;
                 }
-                mkey[0] = key;
-                mkey[1] = 0;
+            }
+            mkey[0] = key;
+            mkey[1] = 0;
+            item = menu_findkey (mkey, uih->menuroot);
+            if (item == NULL) {
+                mkey[0] = sym;
                 item = menu_findkey (mkey, uih->menuroot);
-                if (item == NULL) {
-                    mkey[0] = sym;
-                    item = menu_findkey (mkey, uih->menuroot);
-                }
-                if (item != NULL) {
-                    dialogparam *p = NULL;
-                    if (menu_havedialog (item, uih)) {
-                        const menudialog *d = menu_getdialog (uih, item);
-                        int mousex, mousey, buttons;
-                        driver->getmouse (&mousex, &mousey, &buttons);
-                        if (d[0].question != NULL && d[1].question == NULL && d[0].type == DIALOG_COORD) {
-                            p = (dialogparam *) malloc (sizeof (dialogparam));
-                            uih_screentofractalcoord (uih, mousex, mousey, p->dcoord, p->dcoord + 1);
-                        }
+            }
+            if (item != NULL) {
+                dialogparam *p = NULL;
+                if (menu_havedialog (item, uih)) {
+                    const menudialog *d = menu_getdialog (uih, item);
+                    int mousex, mousey, buttons;
+                    driver->getmouse (&mousex, &mousey, &buttons);
+                    if (d[0].question != NULL && d[1].question == NULL && d[0].type == DIALOG_COORD) {
+                        p = (dialogparam *) malloc (sizeof (dialogparam));
+                        uih_screentofractalcoord (uih, mousex, mousey, p->dcoord, p->dcoord + 1);
                     }
-                    ui_menuactivate (item, p);
                 }
-                break;
-        }
+                ui_menuactivate (item, p);
+            }
+            break;
+    }
     processbuffer ();
     return 0;
 }
@@ -1388,7 +1378,6 @@ ui_resize (void)
         uih_interrupt (uih);
         return;
     }
-    ui_closemenus ();
     uih_clearwindows (uih);
     uih_stoptimers (uih);
     uih_cycling_stop (uih);
@@ -1423,7 +1412,6 @@ ui_driver (int d)
 {
     const struct ui_driver *driver1;
     int width, height;
-    ui_closemenus ();
     if (d < 0)
         d = 0;
     if (d >= ndrivers)

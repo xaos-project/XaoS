@@ -130,7 +130,7 @@ extern "C"
     void ui_resize (void);
     void ui_call_resize (void);
     void ui_quit (void) NORETURN;
-    void ui_menu (const char *text);
+    void ui_menu (struct uih_context *c, const char *text);
     void ui_menuactivate (const menuitem * item, dialogparam * d);
     int ui_key (int);
     void ui_loadstr (const char *data);

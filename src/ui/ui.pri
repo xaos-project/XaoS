@@ -2,7 +2,6 @@ SOURCES += \
     $$PWD/ui.c \
     $$PWD/param.c \
     $$PWD/fparams.c \
-    $$PWD/uimenu.c \
     $$PWD/pipecmd.c \
     $$PWD/main.cpp \
     $$PWD/mainwindow.cpp \
