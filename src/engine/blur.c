@@ -1,8 +1,5 @@
 #include <config.h>
 #ifndef _plan9_
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
 #include <string.h>
 #include <math.h>
 #include <stdio.h>

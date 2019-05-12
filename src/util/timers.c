@@ -46,15 +46,9 @@
 #endif
    /*HAVE_TIME_H */
 #include <aconfig.h>
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
 #include <stdio.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
-#endif
-#ifndef NO_MALLOC_H
-#include <malloc.h>
 #endif
 #ifdef __BEOS__
 #include <OS.h>

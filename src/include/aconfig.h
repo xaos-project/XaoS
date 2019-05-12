@@ -21,6 +21,5 @@
 #define SIZEOF_INT 4
 #define SIZEOF_LONG 4
 #define QT_GETTEXT
-#define NO_MALLOC_H 1
 #define MAIN_FUNCTION ui_main
 #endif

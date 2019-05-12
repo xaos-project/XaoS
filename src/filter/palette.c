@@ -10,9 +10,6 @@
 #include <config.h>
 #include <assert.h>
 #include <stdio.h>
-#ifndef NO_MALLOC_H
-#include <malloc.h>
-#endif
 #include <limits.h>
 #endif
 #include <fconfig.h>

@@ -1,10 +1,6 @@
 #ifndef _plan9_
 #include <config.h>
-#ifdef NO_MALLOC_H
 #include <stdlib.h>
-#else
-#include <malloc.h>
-#endif
 #include <stdio.h>              /*for NULL */
 #include <string.h>             /*for memcpy */
 #else
