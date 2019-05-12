@@ -941,7 +941,7 @@ ui_registermenus_i18n (void)
 
     MENUNOPCB_I ("uia", "l", gettext ("Ministatus"), "animministatus", UI | MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
     MENUSEPARATOR_I ("uia");
-    SUBMENU_I ("ui", NULL, gettext ("Driver"), "drivers");
+    // SUBMENU_I ("ui", NULL, gettext ("Driver"), "drivers");
     SUBMENU_I ("uia", NULL, gettext ("Driver"), "drivers");
     no_menuitems_i18n -= ui_no_menuitems_i18n;
     menu_add (&(menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
