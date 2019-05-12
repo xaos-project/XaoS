@@ -108,7 +108,6 @@ extern "C"
         int imagetype;
         int palettestart, paletteend, maxentries;
         int rmask, gmask, bmask;
-        const struct image_driver *image_driver;
     };
 
     extern struct uih_context *globaluih;

@@ -235,45 +235,6 @@ line1 (struct image *img, int x, int y, int x2, int y2, int color)
 }
 #endif
 
-static int
-skip (const char *text)
-{
-    int i = 0;
-    while (*text && *text != '\n')
-        i++, text++;
-    return (i);
-}
-
-int
-xprint (struct image *image, const struct xfont *current, int x, int y, const char *text, int fgcolor, int bgcolor, int mode)
-{
-    if (image->driver && image->driver->print)
-        return image->driver->print (image, x, y, text, fgcolor, bgcolor, mode);
-}
-
-int
-xtextwidth (struct image *image, const struct xfont *font, const char *text)
-{
-    if (image->driver && image->driver->textwidth)
-        return image->driver->textwidth (image, text);
-}
-
-int
-xtextheight (struct image *image, const struct xfont *font)
-{
-    if (image->driver && image->driver->textheight)
-        return image->driver->textheight (image);
-}
-
-int
-xtextcharw (struct image *image, const struct xfont *font, const char c)
-{
-    if (image->driver && image->driver->charwidth)
-        return image->driver->charwidth (image, c);
-}
-
-//#endif /* PLATFORM_TEXT_RENDERING */
-
 void
 xhline (struct image *image, int x, int y, int width, int fgcolor)
 {

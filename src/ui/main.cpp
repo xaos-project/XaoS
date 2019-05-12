@@ -12,23 +12,6 @@
 #include "ui_helper.h"
 #include "version.h"
 
-static int imagePrint(struct image *image, int x, int y, const char *text, int fgcolor, int bgcolor, int mode);
-static int imageTextWidth(struct image *image, const char *text);
-static int imageTextHeight(struct image *image);
-static int imageCharWidth(struct image *image, const char c);
-static const char *saveImage(struct image *image, const char *filename);
-static void freeImage(struct image *img);
-
-struct image_driver image_driver =
-{
-    /* print */         imagePrint,
-    /* textwidth */     imageTextWidth,
-    /* textheight */    imageTextHeight,
-    /* charwidth */     imageCharWidth,
-    /* saveimage */     saveImage,
-    /* freeimage */     freeImage
-};
-
 static struct params params[] = {
 {NULL, 0, NULL, NULL}
 };
@@ -75,8 +58,7 @@ struct ui_driver qt_driver = {
     /* maxentries */    255,
     /* rmask */         0xff0000,
     /* gmask */         0x00ff00,
-    /* bmask */         0x0000ff,
-    /* image_driver */  &image_driver
+    /* bmask */         0x0000ff
 };
 
 MainWindow *window;
@@ -188,82 +170,6 @@ setCursorType(int type)
     widget->setCursorType(type);
 }
 
-static QFont
-getFont() {
-    return QFont(QApplication::font().family(), 12);
-}
-
-static int
-imagePrint(struct image *image, int x, int y,
-               const char *text, int fgcolor, int bgcolor, int mode)
-{
-    char line[BUFSIZ];
-    int pos = strcspn(text, "\n");
-    strncpy(line, text, pos);
-    line[pos] = '\0';
-
-    QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
-    QFontMetrics metrics(getFont(), qimage);
-    QPainter painter(qimage);
-    painter.setFont(getFont());
-
-    if (mode == TEXT_PRESSED) {
-        painter.setPen(fgcolor);
-        painter.drawText(x + 1, y + 1 + metrics.ascent(), line);
-    } else {
-        painter.setPen(bgcolor);
-        painter.drawText(x + 1, y + 1 + metrics.ascent(), line);
-        painter.setPen(fgcolor);
-        painter.drawText(x, y + metrics.ascent(), line);
-    }
-
-    return strlen(line);
-}
-
-static int
-imageTextWidth(struct image *image, const char *text)
-{
-    char line[BUFSIZ];
-    int pos = strcspn(text, "\n");
-    strncpy(line, text, pos);
-    line[pos] = '\0';
-
-    QFontMetrics metrics(getFont());
-    return metrics.width(line) + 1;
-}
-
-static int
-imageTextHeight(struct image *image)
-{
-    QFontMetrics metrics(getFont());
-    return metrics.height() + 1;
-}
-
-static int
-imageCharWidth(struct image *image, const char c)
-{
-    QFontMetrics metrics(getFont());
-    return metrics.width(c);
-}
-
-static const char *
-saveImage(struct image *image, const char *filename)
-{
-    QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
-    qimage->save(filename);
-    return NULL;
-}
-
-static void
-freeImage(struct image *img)
-{
-    QImage **data = (QImage **)(img->data);
-    delete data[0];
-    delete data[1];
-    delete data;
-    free(img);
-}
-
 extern "C" {
 
 void
@@ -294,24 +200,6 @@ void
 ui_help(struct uih_context *c, const char *name)
 {
     QDesktopServices::openUrl(QUrl(HELP_URL));
-}
-
-const struct image *
-qt_create_image(int width, int height, struct palette* palette, float pixelwidth, float pixelheight)
-{
-    QImage **data = new QImage*[2];
-    data[0] = new QImage(width, height, QImage::Format_RGB32);
-    data[1] = new QImage(width, height, QImage::Format_RGB32);
-    struct image* img = create_image_cont(width, height, data[0]->bytesPerLine(), 2, data[0]->bits(), data[1]->bits(), palette, NULL, DRIVERFREE, pixelwidth, pixelheight);
-    if (!img) {
-        delete data[0];
-        delete data[1];
-        delete data;
-        return NULL;
-    }
-    img->data = data;
-    img->driver = &image_driver;
-    return img;
 }
 
 const char *

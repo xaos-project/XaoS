@@ -1357,7 +1357,6 @@ ui_mkimages (int w, int h)
         exit_xaos (-1);
     }
     image->data = data;
-    image->driver = driver->image_driver;
 }
 
 void

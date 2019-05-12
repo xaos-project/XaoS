@@ -47,8 +47,6 @@ extern "C"
         union paletteinfo info;
     };
 
-    struct image_driver;
-
     struct image
     {
         float pixelwidth, pixelheight;
@@ -63,17 +61,7 @@ extern "C"
         int version;
         struct palette *palette;
         void *data;             /*userdata */
-        const struct image_driver *driver;
-    };
-
-    struct image_driver
-    {
-        int (*print) (struct image * image, int x, int y, const char *text, int fgcolor, int bgcolor, int mode);
-        int (*textwidth) (struct image * image, const char *text);
-        int (*textheight) (struct image * image);
-        int (*charwidth) (struct image * image, const char c);
-        const char *(*saveimage) (struct image * image, const char *filename);
-        void (*freeimage) (struct image* img);
+        void (*free) (struct image* img);
     };
 
 #define interpol1(i1,i2,n,mask) ((((i1)&(mask))*(n)+((i2)&(mask))*(256-(n)))&((mask)<<8))
@@ -233,13 +221,11 @@ extern "C"
 /*image actions */
 
     void flipgeneric (struct image *img);
+    struct image *create_image_qt(int width, int height, struct palette* palette, float pixelwidth, float pixelheight);
     struct image *create_image_lines (int width, int height, int nimages, pixel_t ** lines1, pixel_t ** lines2, struct palette *palette, void (*flip) (struct image * img), int flags, float pixelwidth, float pixelheight);
     struct image *create_image_cont (int width, int height, int scanlinesize, int nimages, pixel_t * buf1, pixel_t * buf2, struct palette *palette, void (*flip) (struct image * img), int flags, float pixelwidth, float pixelheight);
     struct image *create_image_mem (int width, int height, int nimages, struct palette *palette, float pixelwidth, float pixelheight);
     struct image *create_subimage (struct image *simg, int width, int height, int nimages, struct palette *palette, float pixelwidth, float pixelheight);
-#ifdef QT_DRIVER
-    const struct image *qt_create_image(int width, int height, struct palette* palette, float pixelwidth, float pixelheight);
-#endif
 
     void destroy_image (struct image *img);
     void clear_image (struct image *img);

@@ -120,7 +120,7 @@ create_image_cont (int width, int height, int scanlinesize, int nimages, pixel_t
     img->flags |= FREELINES;
     img->scanline = scanlinesize;
     img->data = NULL;
-    img->driver = NULL;
+    img->free = NULL;
     return (img);
 }
 
@@ -197,8 +197,8 @@ create_subimage (struct image *simg, int width, int height, int nimages, struct 
 void
 destroy_image (struct image *img)
 {
-    if ((img->flags & DRIVERFREE) && img->driver && img->driver->freeimage) {
-        img->driver->freeimage(img);
+    if (img->free) {
+        img->free(img);
         return;
     }
     if (img->flags & FREEDATA) {
