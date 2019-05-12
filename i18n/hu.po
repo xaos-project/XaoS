@@ -773,7 +773,7 @@ msgstr "Beállítások mentése"
 
 #: ../ui-hlp/menu.c:1064
 msgid "Undo"
-msgstr "Mégse"
+msgstr "Visszavonás"
 
 #: ../ui-hlp/menu.c:1065
 msgid "Redo"
@@ -1476,3 +1476,6 @@ msgstr ""
 #: ../ui/ui-drv/cocoa/CustomDialog.m:142
 msgid "Choose"
 msgstr "Kiválaszt"
+
+msgid "Open"
+msgstr "Megnyitás"
