@@ -131,6 +131,7 @@ int
 uih_error (uih_context * c, const char *error)
 {
     char str[256];
+    // sprintf (str, gettext("Error: %s"), error);
     sprintf (str, "Error: %s", error);
     c->errstring = error;
     return (uih_message1 (c, str, 1));
