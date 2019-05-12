@@ -1062,12 +1062,6 @@ ui_init (int argc, char **argv)
     printf ("Text domain will be bound to directory %s.\n",
 #endif
             bindtextdomain ("xaos",
-#ifdef DOG_DRIVER
-                            "..\\locale")
-#ifdef DEBUG
-        )
-#endif
-#else
 #ifdef _WIN32
                             "..\\locale")
 #ifdef DEBUG
@@ -1081,7 +1075,6 @@ ui_init (int argc, char **argv)
 #endif
 #ifdef DEBUG
         )
-#endif
 #endif
 #endif
         ;

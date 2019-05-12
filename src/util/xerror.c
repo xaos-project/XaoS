@@ -5,7 +5,6 @@
 #include "xerror.h"
 #include "aconfig.h"
 /*On windows we use message boxes done in the ui_win32.c code*/
-#ifndef WIN32_DRIVER
 void
 x_message (const char *text, ...)
 {
@@ -36,4 +35,3 @@ x_fatalerror (const char *text, ...)
     va_end (ap);
     exit (1);
 }
-#endif

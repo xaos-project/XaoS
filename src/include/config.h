@@ -53,22 +53,6 @@ before #include <ddraw.h>*/
 #ifdef HAVE_MOUSEMASK
 #define NCURSESMOUSE
 #endif
-#ifdef COCOA_DRIVER
-#define SFIXEDCOLOR
-#define STRUECOLOR
-#define STRUECOLOR16
-#define STRUECOLOR24
-#define SMBITMAPS
-#define SLBITMAPS
-#endif
-#ifdef GTK_DRIVER
-#define SFIXEDCOLOR
-#define STRUECOLOR
-#define STRUECOLOR16
-#define STRUECOLOR24
-#define SMBITMAPS
-#define SLBITMAPS
-#endif
 #ifdef QT_DRIVER
 #define SFIXEDCOLOR
 #define STRUECOLOR
@@ -76,21 +60,6 @@ before #include <ddraw.h>*/
 #define STRUECOLOR24
 #define SMBITMAPS
 #define SLBITMAPS
-#endif
-#ifdef X11_DRIVER
-#define SFIXEDCOLOR
-#define STRUECOLOR
-#define STRUECOLOR16
-#define STRUECOLOR24
-#define SMBITMAPS
-#define SLBITMAPS
-#endif
-#ifdef WIN32_DRIVER
-#define MAIN_FUNCTION XaoS_main
-#undef STRUECOLOR16
-#define STRUECOLOR16
-#undef STRUECOLOR24
-#define STRUECOLOR24
 #endif
 #ifdef HAVE_SELECT
 #define COMPILE_PIPE
