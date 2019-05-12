@@ -9,7 +9,6 @@
 #define HAVE_LONG_DOUBLE 1
 #endif
 #define HAVE_GETTIMEOFDAY 1
-#define HAVE_LIMITS_H 1
 #ifndef _MSC_VER
 #define HAVE_SYS_TIME_H 1
 #endif

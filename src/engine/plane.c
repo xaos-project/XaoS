@@ -29,9 +29,7 @@
 #include <stdio.h>
 #include <aconfig.h>
 #include <math.h>
-#ifdef HAVE_LIMITS_H
 #include <limits.h>
-#endif
 #include <config.h>
 #endif
 #include <fconfig.h>

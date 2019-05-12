@@ -30,9 +30,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <aconfig.h>
-#ifdef HAVE_LIMITS_H
 #include <limits.h>
-#endif
 #include <math.h>
 #include <string.h>
 #ifndef _plan9_

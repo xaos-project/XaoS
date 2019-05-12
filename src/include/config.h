@@ -70,9 +70,6 @@ before #include <ddraw.h>*/
 #ifdef HAVE_MOUSEMASK
 #define NCURSESMOUSE
 #endif
-#ifndef HAVE_LIMITS_H
-#define INT_MAX 2127423647
-#endif
 #ifdef COCOA_DRIVER
 #define SFIXEDCOLOR
 #define STRUECOLOR
