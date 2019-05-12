@@ -243,7 +243,7 @@ void FractalWidget::setCursorType(int type)
     if (type == WAITMOUSE || type == REPLAYMOUSE)
         setCursor(Qt::WaitCursor);
     else
-        setCursor(Qt::ArrowCursor);
+        setCursor(Qt::CrossCursor);
 }
 
 QSize FractalWidget::sizeHint() const
