@@ -5,9 +5,7 @@
 #include <unistd.h>
 #endif
 #include <fcntl.h>
-#ifndef _MAC
 #include <sys/types.h>
-#endif
 #include <fconfig.h>
 #include <filter.h>
 #include <fractal.h>

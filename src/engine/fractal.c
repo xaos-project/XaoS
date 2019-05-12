@@ -30,9 +30,7 @@
 #include <stdio.h>
 #else
 #include <stdio.h>
-#ifndef _MAC
 #include <stdlib.h>
-#endif
 #ifndef _plan9_
 #include <limits.h>
 #include <assert.h>

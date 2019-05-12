@@ -33,9 +33,7 @@
 #include <string.h>
 #include <errno.h>
 #include <math.h>
-#ifndef _MAC
 #include <sys/stat.h>
-#endif
 #include <time.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -806,9 +804,7 @@ ui_doquit (int i)
 void
 ui_quit (void)
 {
-#ifndef _MAC
     printf (gettext ("Thank you for using XaoS\n"));
-#endif
     ui_doquit (0);
 }
 

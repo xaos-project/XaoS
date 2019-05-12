@@ -1308,10 +1308,8 @@ uih_registermenus (void)
             keys[i][0] = '1' + i;
         else if (i == 9)
             keys[i][0] = '0';
-#ifndef _MAC
         else
             keys[i][0] = '7' + i;
-#endif
         keys[i][1] = 0;
         item[i].type = MENU_INT;
         item[i].flags = MENUFLAG_RADIO | MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY;

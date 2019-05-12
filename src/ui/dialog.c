@@ -32,9 +32,7 @@
 #include <string.h>
 #include <errno.h>
 #include <math.h>
-#ifndef _MAC
 #include <sys/stat.h>
-#endif
 #endif
 #include <fconfig.h>
 #ifndef _plan9_

@@ -38,10 +38,7 @@
 // Some help can be read below about line 700. :-)
 
 
-#ifndef _MAC
 #include <aconfig.h>
-#endif
-
 #ifdef HAVE_LIMITS_H
 #include <limits.h>
 #endif

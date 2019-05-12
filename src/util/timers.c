@@ -53,10 +53,8 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#ifndef _MAC
 #ifndef NO_MALLOC_H
 #include <malloc.h>
-#endif
 #endif
 #ifdef __BEOS__
 #include <OS.h>
@@ -223,9 +221,7 @@ plan9_msec (void)
 #ifndef HAVE_GETTIMEOFDAY
 #ifndef HAVE_FTIME
 #ifndef _plan9_
-#ifndef _MAC
 #error I am unable to get time in milisecond. Please edit timers.c and make tl_update_time and tl_lookup_timer to work for your architecture and send me then back(to hubicka@paru.cas.cz). You will need also define timers.h and change type of lasttime.
-#endif
 #endif
 #endif
 #endif
