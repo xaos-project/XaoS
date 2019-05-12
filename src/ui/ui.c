@@ -60,9 +60,8 @@
 #define MEMCHECK
 #endif
 #endif
-#define textheight1 (driver->textheight)
-#define textwidth1 (driver->textwidth)
-#define ui_flush() (driver->flush?driver->flush(),1:0)
+#define textheight1 (qt_driver.textheight)
+#define textwidth1 (qt_driver.textwidth)
 #ifdef MEMCHECK
 #define STATUSLINES 13
 #else
@@ -82,7 +81,6 @@ int err;
 char **prog_argv;
 /*UI state */
 uih_context *uih;
-const struct ui_driver *driver;
 char statustext[256];
 int ui_nogui;
 static struct image *image;
@@ -100,13 +98,9 @@ static int callresize = 0;
 static tl_timer *maintimer;
 static tl_timer *arrowtimer;
 static tl_timer *loopt;
-static int todriver = 0;
 
 /* Command line variables */
 static char *defpipe;
-static char *defdriver = NULL;
-static int deflist;
-static int printconfig;
 static int printspeed;
 static int delaytime = 0;
 static int defthreads = 0;
@@ -114,12 +108,6 @@ static int maxframerate = 80;
 static float defscreenwidth = 0.0, defscreenheight = 0.0, defpixelwidth = 0.0, defpixelheight = 0.0;
 
 extern const struct ui_driver qt_driver;
-const struct ui_driver *const drivers[] = {
-    &qt_driver,
-    NULL
-};
-
-const int ndrivers = (sizeof (drivers) / sizeof (*drivers) - 1);
 
 #ifdef SFFE_USING
 char *sffeform = NULL;
@@ -129,9 +117,6 @@ char *sffeinit = NULL;
 const struct params global_params[] = {
     {"-delay", P_NUMBER, &delaytime,
      "Delay screen updates (milliseconds)"},
-    {"-driver", P_STRING, &defdriver, "Select driver"},
-    {"-list", P_SWITCH, &deflist, "List available drivers. Then exit"},
-    {"-config", P_SWITCH, &printconfig, "Print configuration. Then exit"},
     {"-speedtest", P_SWITCH, &printspeed,
      "Test speed of calculation loop. Then exit"},
 #ifndef nthreads
@@ -215,8 +200,7 @@ mousetype (int m)
 {
     if (mouse != m) {
         mouse = m;
-        if (driver->mousetype != NULL)
-            driver->mousetype (m);
+        qt_mousetype (m);
     }
 }
 
@@ -225,17 +209,15 @@ ui_display (void)
 {
     if (nthreads == 1)
         uih_drawwindows (uih);
-    driver->display ();
+    qt_display();
     uih_cycling_continue (uih);
-    if (!(driver->flags & NOFLUSHDISPLAY))
-        ui_flush ();
 }
 
 float
 ui_get_windowwidth (int width)
 {
-    if (defscreenwidth > 0.0 && driver->flags & RESOLUTION)
-        return (defscreenwidth * width / driver->maxwidth);
+    if (defscreenwidth > 0.0 && qt_driver.flags & RESOLUTION)
+        return (defscreenwidth * width / qt_driver.maxwidth);
     if (defscreenwidth > 0.0)
         return (defscreenwidth);
     if (defpixelwidth > 0.0)
@@ -249,20 +231,20 @@ get_windowwidth (int width)
     float w = ui_get_windowwidth (width);
     if (w)
         return w;
-    if (driver->flags & PIXELSIZE)
-        return (driver->width * width);
-    if (driver->flags & SCREENSIZE)
-        return (driver->width);
-    if (driver->flags & RESOLUTION)
-        return (29.0 / driver->maxwidth * width);
+    if (qt_driver.flags & PIXELSIZE)
+        return (qt_driver.width * width);
+    if (qt_driver.flags & SCREENSIZE)
+        return (qt_driver.width);
+    if (qt_driver.flags & RESOLUTION)
+        return (29.0 / qt_driver.maxwidth * width);
     return (29.0);
 }
 
 float
 ui_get_windowheight (int height)
 {
-    if (defscreenheight > 0.0 && driver->flags & RESOLUTION)
-        return (defscreenheight * height / driver->maxheight);
+    if (defscreenheight > 0.0 && qt_driver.flags & RESOLUTION)
+        return (defscreenheight * height / qt_driver.maxheight);
     if (defscreenheight > 0.0)
         return (defscreenheight);
     if (defpixelheight > 0.0)
@@ -276,12 +258,12 @@ get_windowheight (int height)
     float h = ui_get_windowheight (height);
     if (h)
         return h;
-    if (driver->flags & PIXELSIZE)
-        return (driver->height * height);
-    if (driver->flags & SCREENSIZE)
-        return (driver->height);
-    if (driver->flags & RESOLUTION)
-        return (21.0 / driver->maxheight * height);
+    if (qt_driver.flags & PIXELSIZE)
+        return (qt_driver.height * height);
+    if (qt_driver.flags & SCREENSIZE)
+        return (qt_driver.height);
+    if (qt_driver.flags & RESOLUTION)
+        return (21.0 / qt_driver.maxheight * height);
     return (21.5);
 }
 
@@ -298,7 +280,7 @@ ui_passfunc (struct uih_context *c, int display, const char *text, float percent
 {
     char str[80];
     int x = 0, y = 0, b = 0, k = 0;
-    driver->processevents (0, &x, &y, &b, &k);
+    qt_processevents(0, &x, &y, &b, &k);
     ui_mouse (x, y, b, k);
     CHECKPROCESSEVENTS (b, k);
     if (!uih->play) {
@@ -310,12 +292,8 @@ ui_passfunc (struct uih_context *c, int display, const char *text, float percent
                     sprintf (str, "%s %3.2f%%        ", text, (double) percent);
                 else
                     sprintf (str, "%s          ", text);
-                driver->print (0, uih->image->height - textheight1, str);
-                ui_flush ();
+                qt_print(0, uih->image->height - textheight1, str);
             }
-        } else {
-            if (!(driver->flags & NOFLUSHDISPLAY))
-                ui_flush ();
         }
     }
     return (0);
@@ -328,15 +306,13 @@ ui_updatestatus (void)
     double timesnop = log (times) / log (10.0);
     double speed;
     uih_drawwindows (uih);
-    driver->display ();
+    qt_display();
     uih_cycling_continue (uih);
     speed = uih_displayed (uih);
     sprintf (statustext, gettext ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "), times < 1 ? gettext ("unzoomed") : gettext ("zoomed"), times < 1 ? 1.0 / times : times, timesnop, speed, uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1, uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1, uih->fcontext->maxiter);
 
-    if (!(driver->flags & NOFLUSHDISPLAY))
-        ui_flush ();
     STAT (printf (gettext ("framerate:%f\n"), speed));
-    driver->print (0, 0, "");
+    qt_print(0, 0, "");
 }
 
 void
@@ -379,7 +355,6 @@ ui_menuactivate (const menuitem * item, dialogparam * d)
             else
                 sprintf (s, gettext ("Disabling: %s. "), item->name);
             uih_message (uih, s);
-            ui_flush ();
         } else
             uih_message (uih, item->name);
         uih_saveundo (uih);
@@ -448,7 +423,6 @@ ui_drawstatus (uih_context * uih, void *data)
         xprint (uih->image, uih->font, 0, statusstart + 12 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     }
 #endif
-    ui_flush ();
 }
 
 static void
@@ -527,7 +501,7 @@ ui_message (struct uih_context *u)
         return;
     mousetype (WAITMOUSE);
     sprintf (s, gettext ("Please wait while calculating %s"), uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
-    driver->print (0, 0, s);
+    qt_print(0, 0, s);
 }
 
 #define ROTATESPEEDUP 30
@@ -576,7 +550,6 @@ procescounter (int *counter, const char *text, int speed, int keys, int lastkeys
         sprintf (str, text, *counter);
         uih_rmmessage (uih, pid);
         pid = uih_message (uih, str);
-        ui_flush ();
     }
     return changed;
 }
@@ -614,14 +587,12 @@ ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange)
                 uih_rmmessage (uih, rpid);
                 sprintf (str, gettext ("Rotation speed:%2.2f degrees per second "), (float) uih->rotationspeed);
                 rpid = uih_message (uih, str);
-                ui_flush ();
             }
             if (iterchange == 1) {
                 uih->rotationspeed -= ROTATESPEEDUP * tl_lookup_timer (maintimer) / 1000000.0;
                 uih_rmmessage (uih, rpid);
                 sprintf (str, gettext ("Rotation speed:%2.2f degrees per second "), (float) uih->rotationspeed);
                 rpid = uih_message (uih, str);
-                ui_flush ();
             }
             tl_reset_timer (maintimer);
         } else {
@@ -655,7 +626,6 @@ ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange)
         sprintf (str, gettext ("speed:%2.2f "), (double) uih->speedup * (1.0 / STEP));
         uih_rmmessage (uih, spid);
         spid = uih_message (uih, str);
-        ui_flush ();
     }
     if (iterchange & 8 && (tl_lookup_timer (maintimer) > FRAMETIME || mousebuttons)) {
         double mul1 = tl_lookup_timer (maintimer) / FRAMETIME;
@@ -667,7 +637,6 @@ ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange)
         sprintf (str, gettext ("speed:%2.2f "), (double) uih->speedup * (1 / STEP));
         uih_rmmessage (uih, spid);
         spid = uih_message (uih, str);
-        ui_flush ();
     }
     lastiter = iterchange;
     return;
@@ -680,49 +649,11 @@ ui_call_resize (void)
     uih_interrupt (uih);
 }
 
-static int
-ui_alloccolor (struct palette *pal, int init, int r, int g, int b)
-{
-    int i;
-    i = driver->set_color (r, g, b, init);
-    if (i == -1)
-        return (-1);
-    if (init)
-        pal->size = 0;
-    pal->pixels[pal->size] = i;
-    pal->rgb[i][0] = r;
-    pal->rgb[i][1] = g;
-    pal->rgb[i][2] = b;
-    pal->size++;
-    if (driver->flags & UPDATE_AFTER_PALETTE) {
-        uih->display = 1;
-    }
-    return (i);
-}
-
-static void
-ui_setpalette (struct palette *pal, int start, int end, rgb_t * rgb1)
-{
-    driver->set_range ((ui_palette) rgb1, start, end);
-}
-
 static void
 ui_flip (struct image *image)
 {
     flipgeneric (image);
-    driver->flip_buffers ();
-}
-
-static int
-ui_driverselected (uih_context * c, int d)
-{
-    return (driver == drivers[d]);
-}
-
-static void
-ui_setdriver (uih_context * c, int d)
-{
-    todriver = d + 1;
+    qt_flip_buffers();
 }
 
 static void
@@ -748,8 +679,8 @@ ui_doquit (int i)
     tl_free_timer (maintimer);
     tl_free_timer (arrowtimer);
     tl_free_timer (loopt);
-    driver->free_buffers (NULL, NULL);
-    driver->uninit ();
+    qt_free_buffers (NULL, NULL);
+    qt_uninit();
     destroypalette (image->palette);
     destroy_image (image);
     xth_uninit ();
@@ -793,7 +724,7 @@ ui_key (int key)
                     ui_updatestatus ();
                 else {
                     uih_skipframe (uih);
-                    driver->print (0, 0, gettext ("Skipping, please wait..."));
+                    qt_print(0, 0, gettext ("Skipping, please wait..."));
                 }
             }
             break;
@@ -820,7 +751,7 @@ ui_key (int key)
                 if (menu_havedialog (item, uih)) {
                     const menudialog *d = menu_getdialog (uih, item);
                     int mousex, mousey, buttons;
-                    driver->getmouse (&mousex, &mousey, &buttons);
+                    qt_getmouse (&mousex, &mousey, &buttons);
                     if (d[0].question != NULL && d[1].question == NULL && d[0].type == DIALOG_COORD) {
                         p = (dialogparam *) malloc (sizeof (dialogparam));
                         uih_screentofractalcoord (uih, mousex, mousey, p->dcoord, p->dcoord + 1);
@@ -921,35 +852,16 @@ ui_registermenus_i18n (void)
 }
 
 /* Registering driver items: */
-static menuitem *driveritems;
 static void
 ui_registermenus (void)
 {
-    int i;
-    menuitem *item;
-    menu_add (menuitems, NITEMS (menuitems));
-    driveritems = item = (menuitem *) malloc (sizeof (menuitem) * ndrivers);
-    for (i = 0; i < ndrivers; i++) {
-        item[i].menuname = "drivers";
-        item[i].shortname = drivers[i]->name;
-        item[i].key = NULL;
-        item[i].type = MENU_INT;
-        item[i].flags = MENUFLAG_RADIO | UI;
-        item[i].iparam = i;
-        item[i].name = drivers[i]->name;
-        item[i].function = (void (*)(void)) ui_setdriver;
-        item[i].control = (int (*)(void)) ui_driverselected;
-    }
-    menu_add (item, ndrivers);
 }
 
 static void
 ui_unregistermenus (void)
 {
     menu_delete (menuitems, NITEMS (menuitems));
-    menu_delete (driveritems, ndrivers);
     menu_delete (menuitems_i18n, ui_no_menuitems_i18n);
-    free (driveritems);
 }
 
 int number_six = 6;
@@ -962,16 +874,102 @@ cmplx Z, C, pZ;
 #define MAX_WELCOME 80
 
 void
+ui_printspeed()
+{
+    int c = 0;
+    int x, y, b, k;
+    int linesize = uih->image->bytesperpixel * uih->image->height;
+    int size = linesize * uih->image->height;
+    qt_print(0, textheight1 * 8, "Preparing for speedtest");
+    uih->passfunc = NULL;
+    tl_sleep (1000000);
+    for (c = 0; c < 5; c++)
+        qt_display();
+    qt_processevents(0, &x, &y, &b, &k);
+    qt_print(0, textheight1 * 9, "Measuring dislay speed");
+    tl_sleep (1000000);
+    tl_update_time ();
+    tl_reset_timer (maintimer);
+    c = 0;
+    while (tl_lookup_timer (maintimer) < 5000000) {
+        qt_display();
+        qt_processevents(0, &x, &y, &b, &k);
+        tl_update_time();
+        c++;
+    }
+    x_message ("Driver speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
+
+    qt_print(0, textheight1 * 10, "Measuring memcpy speed");
+    for (c = 0; c < 5; c++) {
+        for (x = 0; x < uih->image->height; x++)
+            memcpy (uih->image->currlines[y], uih->image->oldlines[y], linesize);
+    }
+    tl_update_time ();
+    tl_reset_timer (maintimer);
+    c = 0;
+    while (tl_lookup_timer (maintimer) < 5000000) {
+        for (x = 0; x < uih->image->height; x++)
+            memcpy (uih->image->currlines[y], uih->image->oldlines[y], linesize);
+        tl_update_time (), c++;
+    }
+    x_message ("Memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
+
+    qt_print(0, textheight1 * 10, "Measuring missaligned memcpy speed");
+    tl_update_time ();
+    tl_reset_timer (maintimer);
+    c = 0;
+    while (tl_lookup_timer (maintimer) < 5000000) {
+        for (x = 0; x < uih->image->height; x++)
+            memcpy (uih->image->currlines[y] + 1, uih->image->oldlines[y] + 2, linesize - 2);
+        tl_update_time (), c++;
+    }
+    x_message ("Missaligned memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
+
+    qt_print(0, textheight1 * 10, "Measuring size6 memcpy speed");
+    tl_update_time ();
+    tl_reset_timer (maintimer);
+    c = 0;
+    while (tl_lookup_timer (maintimer) < 5000000) {
+        int x, y;
+        for (y = 0; y < uih->image->height; y++)
+            for (x = 0; x < linesize - 6; x += 6) {
+                memcpy (uih->image->currlines[y] + x, uih->image->oldlines[y] + x, number_six);
+            }
+        tl_update_time (), c++;
+    }
+    x_message ("Size 6 memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
+
+    qt_display();
+    qt_print(0, textheight1 * 11, "Measuring calculation speed");
+    speed_test (uih->fcontext, image);
+    qt_print(0, textheight1 * 12, "Measuring new image calculation loop");
+    uih_prepare_image (uih);
+    tl_update_time ();
+    tl_reset_timer (maintimer);
+    for (c = 0; c < 5; c++)
+        uih_newimage (uih), uih->fcontext->version++, uih_prepare_image (uih);
+    qt_display();
+    x_message ("New image caluclation took %g seconds (%.2g fps)", tl_lookup_timer (maintimer) / 5.0 / 1000000.0, 5000000.0 / tl_lookup_timer (maintimer));
+    tl_update_time ();
+    for (c = 0; c < 5; c++)
+        uih_animate_image (uih), uih_prepare_image (uih), c++;
+    c = 0;
+    tl_update_time ();
+    tl_reset_timer (maintimer);
+    qt_print(0, textheight1 * 13, "Measuring zooming algorithm loop");
+    while (tl_lookup_timer (maintimer) < 5000000)
+        uih_animate_image (uih), uih_prepare_image (uih), tl_update_time (), c++;
+    x_message ("Approximation loop speed: %g FPS", c / 5.0);
+    ui_doquit (0);
+}
+
+void
 ui_init (int argc, char **argv)
 {
-    int i;
     int width, height;
     char welcome[MAX_WELCOME], language[20];
-    char *locale = NULL;
 
-#ifdef QT_GETTEXT
-    locale = qt_locale();
-#endif
+    const char *locale = qt_locale();
     if (locale != NULL && strcmp (locale, "C") != 0) {
         strcpy(language, locale);
         language[2] = '\0';
@@ -994,8 +992,6 @@ ui_init (int argc, char **argv)
     uih_registermenus ();
     ui_registermenus ();
     ui_registermenus_i18n ();   /* Internationalized menus. */
-    for (i = 0; i < ndrivers; i++)
-        params_register (drivers[i]->params);
     prog_argc = argc;
     prog_argv = argv;
     if (!params_parser (argc, argv)) {
@@ -1010,59 +1006,8 @@ ui_init (int argc, char **argv)
 #ifdef DEBUG
     printf ("Initializing driver\n");
 #endif
+    qt_init();
     signal (SIGFPE, SIG_IGN);
-    if (printconfig) {
-#define tostring(s) #s
-        x_message ("XaoS configuration\n" "Version:   %s\n" "Type size: %i\n" "integer size: %i\n" "configfile: %s\n"
-#ifdef HAVE_LONG_DOUBLE
-                   "using long double\n"
-#ifdef const
-                   "const disabled\n"
-#endif
-#ifdef inline
-                   "inline disabled\n"
-#endif
-#ifdef HAVE_GETTIMEOFDAY
-                   "using gettimeofday\n"
-#endif
-#ifdef HAVE_FTIME
-                   "using ftime\n"
-#endif
-#ifdef MITSHM
-                   "using mitshm\n"
-#endif
-#ifdef HAVE_MOUSEMASK
-                   "using ncurses mouse\n"
-#endif
-#ifdef DEBUG
-                   "debug enabled\n"
-#endif
-#ifdef NDEBUG
-                   "assertions disabled\n"
-#endif
-#ifdef STATISTICS
-                   "statistics enabled\n"
-#endif
-#ifdef SFFE_USING
-                   "user formula evaluation\n"
-#endif
-#endif
-                   , XaoS_VERSION, (int) sizeof (FPOINT_TYPE), (int) sizeof (int), CONFIGFILE);
-    }
-    if (deflist || printconfig) {
-        char s[256];
-        strcpy (s, "Available drivers: ");
-        for (i = 0; i < ndrivers; i++) {
-            strcat (s, drivers[i]->name);
-            if (i < ndrivers - 1)
-                strcat (s, ", ");
-        }
-        x_message (s);
-        ui_unregistermenus ();
-        uih_unregistermenus ();
-        xio_uninit ();
-        exit_xaos (0);
-    }
     xth_init (defthreads);
     {
         int i = ui_dorender_params ();
@@ -1073,50 +1018,21 @@ ui_init (int argc, char **argv)
             exit_xaos (i - 1);
         }
     }
-    if (defdriver != NULL) {
-        for (i = 0; i < ndrivers; i++) {
-            int y;
-            for (y = 0; tolower (drivers[i]->name[y]) == tolower (defdriver[y]) && drivers[i]->name[y] != 0; y++);
-            if (drivers[i]->name[y] == 0) {
-                driver = drivers[i];
-                if (driver->init ())
-                    break;
-                else {
-                    x_fatalerror ("Can not initialize %s driver", defdriver);
-                }
-            }
-        }
-        if (i == ndrivers) {
-            x_fatalerror ("Unknown driver %s", defdriver);
-        }
-    } else {
-        for (i = 0; i < ndrivers; i++) {
-            driver = drivers[i];
-            if (driver->init ())
-                break;
-        }
-        if (i == ndrivers) {
-            x_fatalerror ("Can not initialize driver");
-        }
-    }
 #ifdef DEBUG
     printf ("Getting size\n");
 #endif
-    driver->getsize (&width, &height);
-    mousetype (WAITMOUSE);
-    driver->print (0, 0, "Initializing. Please wait");
-    driver->print (0, textheight1, "Creating framebuffer");
-    ui_flush ();
+    qt_getsize(&width, &height);
+    mousetype(WAITMOUSE);
+    qt_print(0, 0, "Initializing. Please wait");
+    qt_print(0, textheight1, "Creating framebuffer");
     ui_mkimages (width, height);
 
-    driver->print (0, textheight1 * 2, "Initializing fractal engine");
-    ui_flush ();
+    qt_print(0, textheight1 * 2, "Initializing fractal engine");
 
     /* gloabuih initialization moved into uih_mkcontext function : malczak */
-    uih = uih_mkcontext (driver->flags, image, ui_passfunc, ui_message, ui_updatemenus);
+    uih = uih_mkcontext (qt_driver.flags, image, ui_passfunc, ui_message, ui_updatemenus);
 
     qt_setrootmenu (uih, uih->menuroot);
-    ui_flush ();
 #ifdef HOMEDIR
     if (getenv ("HOME") != NULL) {
         char home[256], *env = getenv ("HOME");
@@ -1129,17 +1045,14 @@ ui_init (int argc, char **argv)
     } else
 #endif
         xio_addfname (configfile, XIO_EMPTYPATH, CONFIGFILE);
-    ui_flush ();
     srand (time (NULL));
     uih->fcontext->version++;
     maintimer = tl_create_timer ();
     arrowtimer = tl_create_timer ();
     loopt = tl_create_timer ();
-    driver->print (0, textheight1 * 3, "Loading message catalog");
-    ui_flush ();
+    qt_print(0, textheight1 * 3, "Loading message catalog");
     uih_loadcatalog (uih, language);
-    driver->print (0, textheight1 * 4, "Initializing timming system");
-    ui_flush ();
+    qt_print(0, textheight1 * 4, "Initializing timming system");
     uih_newimage (uih);
     tl_update_time ();
     /*tl_process_group (syncgroup, NULL); */
@@ -1147,8 +1060,7 @@ ui_init (int argc, char **argv)
     tl_reset_timer (arrowtimer);
 #ifdef COMPILE_PIPE
     if (defpipe != NULL) {
-        driver->print (0, textheight1 * 5, "Initializing pipe");
-        ui_flush ();
+        qt_print(0, textheight1 * 5, "Initializing pipe");
         ui_pipe_init (defpipe);
     }
 #else
@@ -1157,7 +1069,7 @@ ui_init (int argc, char **argv)
     }
 #endif
     /*uih_constantframetime(uih,1000000/20); */
-    driver->print (0, textheight1 * 6, "Reading configuration file");
+    qt_print(0, textheight1 * 6, "Reading configuration file");
     {
         xio_file f = xio_ropen (configfile);    /*load the configuration file */
         if (f != XIO_FAILED) {
@@ -1170,8 +1082,7 @@ ui_init (int argc, char **argv)
             }
         }
     }
-    driver->print (0, textheight1 * 7, "Processing command line parameters");
-    ui_flush ();
+    qt_print(0, textheight1 * 7, "Processing command line parameters");
     {
         const menuitem *item;
         dialogparam *d;
@@ -1182,96 +1093,8 @@ ui_init (int argc, char **argv)
     }
     sprintf (welcome, gettext ("Welcome to XaoS version %s"), XaoS_VERSION);
      /*TYPE*/ uih_message (uih, welcome);
-    uih_updatemenus (uih, driver->name);
     if (printspeed) {
-        int c = 0;
-        int x, y, b, k;
-        int linesize = uih->image->bytesperpixel * uih->image->height;
-        int size = linesize * uih->image->height;
-        driver->print (0, textheight1 * 8, "Preparing for speedtest");
-        ui_flush ();
-        uih->passfunc = NULL;
-        tl_sleep (1000000);
-        for (c = 0; c < 5; c++)
-            driver->display (), ui_flush ();
-        driver->processevents (0, &x, &y, &b, &k);
-        driver->print (0, textheight1 * 9, "Measuring dislay speed");
-        ui_flush ();
-        tl_sleep (1000000);
-        tl_update_time ();
-        tl_reset_timer (maintimer);
-        c = 0;
-        while (tl_lookup_timer (maintimer) < 5000000)
-            driver->display (), ui_flush (), driver->processevents (0, &x, &y, &b, &k), tl_update_time (), c++;
-        x_message ("Driver speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
-
-        driver->print (0, textheight1 * 10, "Measuring memcpy speed");
-        ui_flush ();
-        for (c = 0; c < 5; c++) {
-            for (x = 0; x < uih->image->height; x++)
-                memcpy (uih->image->currlines[y], uih->image->oldlines[y], linesize);
-        }
-        tl_update_time ();
-        tl_reset_timer (maintimer);
-        c = 0;
-        while (tl_lookup_timer (maintimer) < 5000000) {
-            for (x = 0; x < uih->image->height; x++)
-                memcpy (uih->image->currlines[y], uih->image->oldlines[y], linesize);
-            tl_update_time (), c++;
-        }
-        x_message ("Memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
-
-        driver->print (0, textheight1 * 10, "Measuring missaligned memcpy speed");
-        tl_update_time ();
-        tl_reset_timer (maintimer);
-        c = 0;
-        while (tl_lookup_timer (maintimer) < 5000000) {
-            for (x = 0; x < uih->image->height; x++)
-                memcpy (uih->image->currlines[y] + 1, uih->image->oldlines[y] + 2, linesize - 2);
-            tl_update_time (), c++;
-        }
-        x_message ("Missaligned memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
-
-        driver->print (0, textheight1 * 10, "Measuring size6 memcpy speed");
-        tl_update_time ();
-        tl_reset_timer (maintimer);
-        c = 0;
-        while (tl_lookup_timer (maintimer) < 5000000) {
-            int x, y;
-            for (y = 0; y < uih->image->height; y++)
-                for (x = 0; x < linesize - 6; x += 6) {
-                    memcpy (uih->image->currlines[y] + x, uih->image->oldlines[y] + x, number_six);
-                }
-            tl_update_time (), c++;
-        }
-        x_message ("Size 6 memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
-
-        driver->display ();
-        driver->print (0, textheight1 * 11, "Measuring calculation speed");
-        ui_flush ();
-        speed_test (uih->fcontext, image);
-        driver->print (0, textheight1 * 12, "Measuring new image calculation loop");
-        ui_flush ();
-        uih_prepare_image (uih);
-        tl_update_time ();
-        tl_reset_timer (maintimer);
-        for (c = 0; c < 5; c++)
-            uih_newimage (uih), uih->fcontext->version++, uih_prepare_image (uih);
-        driver->display ();
-        ui_flush ();
-        x_message ("New image caluclation took %g seconds (%.2g fps)", tl_lookup_timer (maintimer) / 5.0 / 1000000.0, 5000000.0 / tl_lookup_timer (maintimer));
-        tl_update_time ();
-        for (c = 0; c < 5; c++)
-            uih_animate_image (uih), uih_prepare_image (uih), c++;
-        c = 0;
-        tl_update_time ();
-        tl_reset_timer (maintimer);
-        driver->print (0, textheight1 * 13, "Measuring zooming algorithm loop");
-        ui_flush ();
-        while (tl_lookup_timer (maintimer) < 5000000)
-            uih_animate_image (uih), uih_prepare_image (uih), tl_update_time (), c++;
-        x_message ("Approximation loop speed: %g FPS", c / 5.0);
-        ui_doquit (0);
+        ui_printspeed();
     }
 #ifdef SFFE_USING
     /*SFFE : malczak */
@@ -1294,8 +1117,7 @@ ui_init (int argc, char **argv)
         sffe_parse (&uih->parser, "z^2+c");
      /*SFFE*/
 #endif
-        driver->print (0, textheight1 * 8, "Entering main loop");
-    ui_flush ();
+        qt_print(0, textheight1 * 8, "Entering main loop");
 }
 
 
@@ -1310,34 +1132,34 @@ ui_mkimages (int w, int h)
     void *data;
     width = w;
     height = h;
-    if (resizeregistered && !(driver->flags & RESIZE_COMMAND)) {
+    if (resizeregistered && !(qt_driver.flags & RESIZE_COMMAND)) {
         menu_delete (resizeitems, ui_no_resizeitems);
         resizeregistered = 0;
     } else {
-        if (!resizeregistered && (driver->flags & RESIZE_COMMAND)) {
+        if (!resizeregistered && (qt_driver.flags & RESIZE_COMMAND)) {
             add_resizeitems ();
             resizeregistered = 1;
         }
     }
-    if (!(scanline = driver->alloc_buffers (&b1, &b2, &data))) {
-        driver->uninit ();
+    if (!(scanline = qt_alloc_buffers(&b1, &b2, &data))) {
+        qt_uninit();
         x_error (gettext ("Can not allocate buffers"));
         ui_outofmem ();
         exit_xaos (-1);
     }
-    info.truec.rmask = driver->rmask;
-    info.truec.gmask = driver->gmask;
-    info.truec.bmask = driver->bmask;
-    palette = createpalette (driver->palettestart, driver->paletteend, driver->imagetype, (driver->flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0, driver->maxentries, driver->set_color != NULL ? ui_alloccolor : NULL, driver->set_range != NULL ? ui_setpalette : NULL, NULL, NULL, &info);
+    info.truec.rmask = qt_driver.rmask;
+    info.truec.gmask = qt_driver.gmask;
+    info.truec.bmask = qt_driver.bmask;
+    palette = createpalette (qt_driver.palettestart, qt_driver.paletteend, qt_driver.imagetype, (qt_driver.flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0, qt_driver.maxentries, NULL, NULL, NULL, NULL, &info);
     if (!palette) {
-        driver->uninit ();
+        qt_uninit();
         x_error (gettext ("Can not create palette"));
         ui_outofmem ();
         exit_xaos (-1);
     }
-    image = create_image_cont (width, height, scanline, 2, (unsigned char *) b1, (unsigned char *) b2, palette, ui_flip, (driver->flags & AALIB) ? AAIMAGE : 0, get_windowwidth (width) / width, get_windowheight (height) / height);
+    image = create_image_cont (width, height, scanline, 2, (unsigned char *) b1, (unsigned char *) b2, palette, ui_flip, 0, get_windowwidth (width) / width, get_windowheight (height) / height);
     if (!image) {
-        driver->uninit ();
+        qt_uninit();
         x_error (gettext ("Can not create image"));
         ui_outofmem ();
         exit_xaos (-1);
@@ -1362,15 +1184,15 @@ ui_resize (void)
     uih_stoptimers (uih);
     uih_cycling_stop (uih);
     uih_savepalette (uih);
-    driver->getsize (&w, &h);
+    qt_getsize(&w, &h);
     assert (w > 0 && w < 65000 && h > 0 && h < 65000);
-    if (w != uih->image->width || h != uih->image->height || (driver->flags & UPDATE_AFTER_RESIZE) || uih->palette->type != driver->imagetype) {
-        driver->free_buffers (NULL, NULL);
+    if (w != uih->image->width || h != uih->image->height || (qt_driver.flags & UPDATE_AFTER_RESIZE) || uih->palette->type != qt_driver.imagetype) {
+        qt_free_buffers (NULL, NULL);
         destroy_image (uih->image);
         destroypalette (uih->palette);
         ui_mkimages (w, h);
         if (!uih_updateimage (uih, image)) {
-            driver->uninit ();
+            qt_uninit();
             x_error (gettext ("Can not allocate tables"));
             ui_outofmem ();
             exit_xaos (-1);
@@ -1387,60 +1209,13 @@ ui_resize (void)
     uih_cycling_continue (uih);
 }
 
-static void
-ui_driver (int d)
-{
-    const struct ui_driver *driver1;
-    int width, height;
-    if (d < 0)
-        d = 0;
-    if (d >= ndrivers)
-        d = ndrivers - 1;
-    uih_stoptimers (uih);
-    driver1 = driver;
-    uih_clearwindows (uih);
-    uih_cycling_off (uih);
-    uih_savepalette (uih);
-    driver->free_buffers (NULL, NULL);
-    driver->uninit ();
-    driver = drivers[d];
-    if (!driver->init ()) {
-        driver = driver1;
-        uih_error (uih, gettext ("Can not initialize driver"));
-        if (!driver1->init ()) {
-            x_fatalerror (gettext ("Can not return back to previous driver"));
-        } else
-            driver = driver1;
-    }
-    driver->getsize (&width, &height);
-    destroy_image (uih->image);
-    destroypalette (uih->palette);
-    uih->flags = driver->flags;
-    ui_mkimages (width, height);
-    if (!uih_updateimage (uih, image)) {
-        driver->uninit ();
-        x_error (gettext ("Can not allocate tables"));
-        ui_outofmem ();
-        exit_xaos (-1);
-    }
-    qt_setrootmenu (uih, uih->menuroot);
-    tl_process_group (syncgroup, NULL);
-    tl_reset_timer (maintimer);
-    tl_reset_timer (arrowtimer);
-    uih->display = 1;
-    uih_newimage (uih);
-    uih_restorepalette (uih);
-    ui_updatestatus ();
-    uih_updatemenus (uih, driver->name);
-}
-
 void
 ui_mainloop (int loop)
 {
     int inmovement = 1;
     int x, y, b, k;
     int time;
-    driver->processevents ((!inmovement && !uih->inanimation), &x, &y, &b, &k);
+    qt_processevents((!inmovement && !uih->inanimation), &x, &y, &b, &k);
     do {
         mousetype (uih->play ? REPLAYMOUSE : uih->inhibittextoutput ? VJMOUSE : NORMALMOUSE);
         if (uih->display) {
@@ -1471,12 +1246,10 @@ ui_mainloop (int loop)
             }
         }
         processbuffer ();
-        driver->processevents ((!inmovement && !uih->inanimation), &x, &y, &b, &k);
+        qt_processevents((!inmovement && !uih->inanimation), &x, &y, &b, &k);
 
         inmovement = 0;
         ui_mouse (x, y, b, k);
-        if (todriver)
-            ui_driver (todriver - 1), todriver = 0;
         if (callresize)
             ui_resize (), callresize = 0;
     }

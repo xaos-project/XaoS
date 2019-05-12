@@ -61,6 +61,18 @@ void qt_setrootmenu(struct uih_context *uih, const char *name);
 void qt_enabledisable(struct uih_context *uih, const char *name);
 void qt_help (struct uih_context *c, const char *name);
 
+int qt_init();
+void qt_getsize(int *w, int *h);
+void qt_processevents(int wait, int *mx, int *my, int *mb, int *k);
+void qt_getmouse(int *x, int *y, int *b);
+void qt_uninit();
+void qt_print(int x, int y, const char *text);
+void qt_display();
+int qt_alloc_buffers (char **b1, char **b2, void **data);
+void qt_free_buffers(char *b1, char *b2);
+void qt_flip_buffers();
+void qt_mousetype(int type);
+
 #ifdef __cplusplus
 }
 #endif

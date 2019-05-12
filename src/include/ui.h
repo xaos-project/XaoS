@@ -76,28 +76,6 @@ extern "C"
     struct ui_driver
     {
         const char *name;
-        int (*init) (void);     /*initializing function. recturns 0 if fail */
-        void (*getsize) (int *, int *); /*get current size..in fullscreen versions
-                                           i.e svga and dos asks user for it */
-        void (*processevents) (int, int *, int *, int *, int *);
-        /*processevents..calls ui_resize,ui_key
-           laso returns positions of mouse..
-           waits for event if first parameter is
-           1 */
-        void (*getmouse) (int *, int *, int *);
-        /*returns current mouse positions */
-        void (*uninit) (void);
-        /*called before exit */
-        int (*set_color) (int, int, int, int);
-        void (*set_range) (ui_palette palette, int, int);
-        /*sets palette color and returns number */
-        void (*print) (int, int, const char *); /*prints text */
-        void (*display) (void); /*displays bitmap */
-        int (*alloc_buffers) (char **buffer1, char **buffer2, void **data);     /*makes buffers */
-        void (*free_buffers) (char *buffer1, char *buffer2);    /*frees buffers */
-        void (*flip_buffers) (void);    /*prints text */
-        void (*mousetype) (int type);
-        void (*flush) (void);
         int textwidth;
         int textheight;         /*width of text */
         /*int helpsize; */

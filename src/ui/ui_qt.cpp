@@ -17,34 +17,8 @@ static struct params params[] = {
 {NULL, 0, NULL, NULL}
 };
 
-static int qt_init();
-static void qt_getsize(int *w, int *h);
-static void qt_processevents(int wait, int *mx, int *my, int *mb, int *k);
-static void qt_getmouse(int *x, int *y, int *b);
-static void qt_uninit();
-static void qt_print(int x, int y, const char *text);
-static void qt_display();
-static int qt_alloc_buffers (char **b1, char **b2, void **data);
-static void qt_free_buffers(char *b1, char *b2);
-static void qt_flip_buffers();
-static void qt_mousetype(int type);
-
 struct ui_driver qt_driver = {
     /* name */          "Qt Driver",
-    /* init */          qt_init,
-    /* getsize */       qt_getsize,
-    /* processevents */ qt_processevents,
-    /* getmouse */      qt_getmouse,
-    /* uninit */        qt_uninit,
-    /* set_color */     NULL,
-    /* set_range */     NULL,
-    /* print */         qt_print,
-    /* display */       qt_display,
-    /* alloc_buffers */ qt_alloc_buffers,
-    /* free_buffers */  qt_free_buffers,
-    /* filp_buffers */  qt_flip_buffers,
-    /* mousetype */     qt_mousetype,
-    /* flush */         NULL,
     /* textwidth */     12,
     /* textheight */    12,
     /* params */        params,
@@ -86,6 +60,8 @@ main(int argc, char *argv[])
     ui_init(argc, argv);
     ui_mainloop(1);
 }
+
+extern "C" {
 
 int
 qt_init()
@@ -172,8 +148,6 @@ qt_mousetype(int type)
 {
     widget->setCursorType(type);
 }
-
-extern "C" {
 
 void
 qt_setrootmenu(struct uih_context *uih, const char *name)
