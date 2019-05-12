@@ -52,6 +52,9 @@ void ui_updatestarts (void);
 
 void ui_pipe_init (const char *name);
 
+void ui_init (int argc, char **argv);
+void ui_mainloop (int loop);
+
 void qt_menu (struct uih_context *c, const char *text);
 void qt_builddialog(struct uih_context *c, const char *name);
 void qt_setrootmenu(struct uih_context *uih, const char *name);
