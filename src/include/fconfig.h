@@ -27,7 +27,7 @@
 #ifndef DEBUG
 #define NDEBUG
 #endif
-#ifndef FRAMERATE               /*plan9 seems to require this */
+#ifndef FRAMERATE
 #define FRAMERATE	20
 #define LOOKSIZE 2
 /*size explored by autopilot */
@@ -46,12 +46,7 @@
 #endif
 /*#define SLOWFUNCPTR*/
 
-#ifdef _plan9_
-#undef number_t
-#define number_t double
-#else
 typedef FPOINT_TYPE number_t;
-#endif
 
 #undef STAT
 #ifdef STATISTICS

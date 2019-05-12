@@ -1,11 +1,6 @@
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#else
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#endif
 #include <fconfig.h>
 #include <filter.h>
 #include <ui_helper.h>

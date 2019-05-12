@@ -1,15 +1,8 @@
-#ifndef _plan9_
 #include <string.h>
 #include <fconfig.h>
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#include <fconfig.h>
-#endif
 #include <filter.h>
 void
 flipgeneric (struct image *img)

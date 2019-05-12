@@ -20,10 +20,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#else
 #if defined(__MINGW32__) || defined (_MSC_VER)
 #include <float.h>
 #define isnan _isnan
@@ -33,7 +29,6 @@
 #include <config.h>
 #include <assert.h>
 #include <limits.h>
-#endif
 #include <fconfig.h>
 #define SLARGEITER
 #include <filter.h>

@@ -3,14 +3,8 @@
  * does an simple edge detection algo on it.
  */
 #include <config.h>
-#ifndef _plan9_
 #include <stdlib.h>
 #include <stdio.h>              /*for NULL */
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
 #define SLARGEITER
 #include <xthread.h>
 #include <filter.h>

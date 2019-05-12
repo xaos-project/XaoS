@@ -1,10 +1,5 @@
-#ifndef _plan9_
 #include <string.h>
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#endif
 
 #include <xio.h>
 #include <misc-f.h>

@@ -1,14 +1,8 @@
-#ifdef _plan9_
-#include <u.h>
-#include <stdio.h>
-#include <libc.h>
-#else
 #include <math.h>
 #include <string.h>
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
-#endif
 #include <filter.h>
 #include "julia.h"
 #include <config.h>

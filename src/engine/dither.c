@@ -14,15 +14,9 @@
  * fixedcolor displays.
  */
 #include <config.h>
-#ifndef _plan9_
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
 #include <fconfig.h>
 #include <filter.h>
 #include <xerror.h>

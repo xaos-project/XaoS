@@ -1,10 +1,5 @@
 #include <config.h>
-#ifndef _plan9_
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#endif
 #include <stdio.h>
 #include <filter.h>
 /*#define DEBUG */

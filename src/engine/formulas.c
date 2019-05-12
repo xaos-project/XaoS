@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#else
 /* Hello reader!
  * code you are looking at is dangerous for both you and your hardware! PLEASE
  * CLOSE THIS FILE UNLESS YOU REALY KNOW WHAT YOU ARE DOING.
@@ -45,7 +40,6 @@
 #include <math.h>
 #include <float.h>
 #include <stdio.h>
-#endif /*plan9 */
 #include <archaccel.h>
 #include <config.h>
 #include <complex.h>
@@ -863,8 +857,6 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.c"
 
-/* formulas from here to the next comment are not tested under plan9 compiler */
-
 #define VARIABLES
 #define BTEST less_than_4(rp+ip)
 #define FORMULA \
@@ -1110,8 +1102,6 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RANGE 2
 #define RPIP
 #include "docalc.c"
-
-/* plan9 compiler has problem with rest of formulas files. Hope that will be fixed later */
 
 #define VARIABLES
 #define BTEST less_than_4(rp+ip)

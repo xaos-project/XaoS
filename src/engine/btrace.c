@@ -1,15 +1,9 @@
 #include <config.h>
-#ifndef _plan9_
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <limits.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
 #define SLARGEITER
 #include <filter.h>
 #include <fractal.h>

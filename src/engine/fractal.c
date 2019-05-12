@@ -24,19 +24,11 @@
 #include <string.h>
 #include <config.h>
 #include <fconfig.h>
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#else
 #include <stdio.h>
 #include <stdlib.h>
-#ifndef _plan9_
 #include <limits.h>
 #include <assert.h>
 #include <math.h>
-#endif
-#endif
 #include <filter.h>
 #include <complex.h>
 #include <plane.h>
@@ -356,14 +348,6 @@ make_fractalc (const int formula, float wi, float he)
     /* ieee_set_fp_control(IEEE_TRAP_ENABLE_INV); */
     ieee_set_fp_control (0UL);  /* ignore everything possible */
 #endif
-#endif
-#ifdef _plan9_
-    {
-        unsigned long fcr = 0;  /*getfcr(); */
-        fcr |= FPRNR | FPPEXT;
-        /*fcr &= ~(FPINEX | FPOVFL | FPUNFL | FPZDIV); */
-        setfcr (fcr);
-    }
 #endif
     new_ctxt = (fractal_context *) calloc (1, sizeof (fractal_context));
     if (new_ctxt == NULL)

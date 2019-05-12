@@ -1,5 +1,4 @@
 #include <aconfig.h>
-#ifndef _plan9_
 #include <stdlib.h>
 #include <string.h>
 #ifdef HAVE_UNISTD_H
@@ -620,4 +619,3 @@ ui_buildfilesel (const char *f, const char *m, void (*c) (const char *, int))
     ui_buildnames (LISTWIDTH);
     filew = uih_registerw (uih, filepos, drawfile, 0, DRAWBORDER);
 }
-#endif

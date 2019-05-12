@@ -21,16 +21,11 @@
  */
 
 #include <config.h>
-#ifndef _plan9_
 #include <fconfig.h>
 #include <string.h>
 #include <stdlib.h>
 #ifdef DESTICKY
 #include <unistd.h>
-#endif
-#else
-#include <u.h>
-#include <libc.h>
 #endif
 #include <filter.h>
 #include <ui_helper.h>

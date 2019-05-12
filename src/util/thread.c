@@ -1,7 +1,5 @@
-#ifndef _plan9_
 #include <signal.h>
 #include <stdio.h>
-#endif
 #include <xthread.h>
 #ifndef __BEOS__
 struct taskinfo definfo = {

@@ -22,22 +22,14 @@
 /*#define DRAW */
 #include <config.h>
 #include <fconfig.h>
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#else
 #include <stdlib.h>
 #include <stdio.h>
 #include <aconfig.h>
 #include <limits.h>
 #include <math.h>
 #include <string.h>
-#ifndef _plan9_
 /*#undef NDEBUG */
 #include <assert.h>
-#endif
-#endif
 #define SLARGEITER
 #include <filter.h>
 #include <zoom.h>

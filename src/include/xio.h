@@ -39,10 +39,6 @@ the main I/O routines are in the xstdio file
 */
 
 #ifdef USE_STDIO
-/* Ugly hack because of unknown problems w/ va_list in v*print* in plan9 */
-#ifdef _plan9_
-#define va_list char *
-#endif
 #include <stdio.h>
 
     typedef char *xio_path;
@@ -73,11 +69,7 @@ the main I/O routines are in the xstdio file
 {strcpy(destination,dirrectory);if (strlen(dirrectory)&&destination[strlen(destination)-1]!=XIO_PATHSEP) strcat(destination,XIO_PATHSEPSTR);strcat(destination,filename);}
 #define xio_addextension(destination,extension) strcat(destination,extension)
 
-#ifdef _plan9_
-#define xio_errorstring() errstr
-#else
 #define xio_errorstring() strerror(errno)
-#endif                          /*plan9 */
 
     char *xio_fixpath (const char *name);
 #endif                          /*USE_STDIO */

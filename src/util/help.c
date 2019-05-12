@@ -1,9 +1,4 @@
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#else
 #include <stdlib.h>
-#endif
 #include <ctype.h>
 #include <config.h>
 #include <xio.h>

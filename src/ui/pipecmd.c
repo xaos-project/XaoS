@@ -1,9 +1,7 @@
 #include <config.h>
-#ifndef _plan9
 #include <stdlib.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
-#endif
 #include <fcntl.h>
 #include <sys/types.h>
 #include <fconfig.h>

@@ -1,11 +1,5 @@
-#ifndef _plan9_
 #include <config.h>
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
 #include <xthread.h>
 #include <filter.h>
 

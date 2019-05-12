@@ -20,20 +20,12 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 #undef _EFENCE_
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#include <ctype.h>
-#else
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#endif
 #include <config.h>
 #include <fconfig.h>
-#ifndef _plan9_
 #include <assert.h>
-#endif
 #include <filter.h>
 #include <ui_helper.h>
 #include <ui.h>

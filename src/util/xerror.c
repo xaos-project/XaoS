@@ -1,7 +1,3 @@
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#endif
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,10 +1,5 @@
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#else
 #include <stdlib.h>
 #include <string.h>
-#endif
 #include <filter.h>
 #include <fractal.h>
 #include <timers.h>

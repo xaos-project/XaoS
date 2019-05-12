@@ -38,9 +38,6 @@ extern "C"
 #ifdef USE_PTHREAD
         pthread_t id;
 #endif
-#ifdef _plan9_
-        int id;
-#endif
 #ifdef __BEOS__
         thread_id id;
 #endif
@@ -89,44 +86,6 @@ extern "C"
 #define xth_sleep(n,l) if(ethreads) pthread_cond_wait(conds+(n),semaphors+(l))
 #define xth_wakeup(n) if(ethreads) pthread_cond_broadcast(conds+(n))
 #define xth_wakefirst(n) if(ethreads) pthread_cond_signal(conds+(n))
-#define API_MAPPED
-#endif                          /*USE_PTHREAD */
-
-#ifdef _plan9_
-
-    struct Stack
-    {
-        int nwaiting;
-        int tags[MAXTHREADS];
-    };
-#ifdef _plan9v2_
-#include <lock.h>               /* in plan9v3 part of libc */
-#endif
-/* A plan9 thread API maps */
-    void p9wait (struct Stack *s, Lock * l);
-    void p9wakeup (struct Stack *s);
-    void p9wakeall (struct Stack *s);
-    void p9init (int nthreads);
-    void p9uninit (void);
-    void p9function (xfunction f, void *d, int r);
-    void p9synchronize (void);
-    void p9bgjob (xfunction f, void *d);
-    extern Lock semaphors[MAXSEMAPHORS];
-    extern struct Stack conds[MAXCONDS];
-
-/*Map pthread API to XaoS thread API */
-
-#define xth_init(nthreads) p9init(nthreads)
-#define xth_uninit() p9uninit()
-#define xth_lock(n) if(ethreads) lock(semaphors+(n))
-#define xth_unlock(n) if(ethreads) unlock(semaphors+(n))
-#define xth_function(f,d,r) if(ethreads) p9function(f,d,r); else nothread_function(f,d,r)
-#define xth_nthread(ts) (ethreads?ts->n:0)
-#define xth_sync() if(ethreads) p9synchronize();
-#define xth_bgjob(f,d) if(ethreads) p9bgjob(f,d); else f(d,&definfo,0,0);
-#define xth_sleep(n,l) if(ethreads) p9wait(conds+(n), semaphors+(l))
-#define xth_wakeup(n) if(ethreads) p9wakeall(conds+(n))
-#define xth_wakefirst(n) if(ethreads) p9wakeup(conds+(n))
 #define API_MAPPED
 #endif                          /*USE_PTHREAD */
 

@@ -21,11 +21,6 @@
  *
  * All ugly architecture depended timing code is separated into this file..
  */
-#ifdef _plan9_
-#include <u.h>
-#include <stdio.h>
-#include <libc.h>
-#else
 #include <config.h>
 #ifdef HAVE_GETTIMEOFDAY
 #ifdef HAVE_UNISTD_H
@@ -60,10 +55,7 @@
 #include <signal.h>
 #endif
 #include <limits.h>
-#endif
-#ifndef _plan9_
 #include <assert.h>
-#endif
 #include "../include/timers.h"
 #ifdef _WIN32
 #include <windows.h>
@@ -111,12 +103,8 @@ struct timer
 #ifdef HAVE_GETTIMEOFDAY
     struct timeval lastactivated;
 #else
-#ifdef _plan9_
-    int lastactivated;
-#else
 #ifdef HAVE_FTIME
     struct timeb lastactivated;
-#endif
 #endif
 #endif
 #endif
@@ -170,9 +158,6 @@ static struct timeb currenttime;
 #endif
 #endif
 #endif
-#ifdef _plan9_
-static int currenttime;
-#endif
 #endif
 #endif
 
@@ -187,36 +172,11 @@ tl_group *syncgroup = &group1,
 #else
     *asyncgroup = &group1;
 #endif
-#ifdef _plan9_
-#ifdef _plan9v2_
-static int
-plan9_msec (void)
-{                               /*this function was sent by Nigel Roles */
-    static int fd = -1;
-    char buf[20];               /* ish */
-    if (fd < 0)
-        fd = open ("/dev/msec", OREAD);
-    else
-        seek (fd, 0, 0);
-    read (fd, buf, sizeof (buf));
-    return atoi (buf);
-}
-#else
-static int
-plan9_msec (void)
-{
-    return (int) (nsec () / 1000000);
-}
-#endif
-#endif
-
 #ifndef __BEOS__
 #ifndef _WIN32
 #ifndef HAVE_GETTIMEOFDAY
 #ifndef HAVE_FTIME
-#ifndef _plan9_
 #error I am unable to get time in milisecond. Please edit timers.c and make tl_update_time and tl_lookup_timer to work for your architecture and send me then back(to hubicka@paru.cas.cz). You will need also define timers.h and change type of lasttime.
-#endif
 #endif
 #endif
 #endif
@@ -275,9 +235,6 @@ tl_update_time (void)
 #endif
 #endif
 #endif
-#ifdef _plan9_
-    currenttime = plan9_msec ();
-#endif
 }
 
 static INLINE int
@@ -305,9 +262,6 @@ __lookup_timer (tl_timer * t)
 #ifdef HAVE_FTIME
     return ((1000000 * (-t->lastactivated.time + currenttime.time) + 1000 * (-t->lastactivated.millitm + currenttime.millitm)));
 #else
-#ifdef _plan9_
-    return ((currenttime - t->lastactivated) * 1000);
-#endif
 #endif
 #endif
 #endif
@@ -375,15 +329,11 @@ tl_sleep (int time)
         (void) select (0, (void *) 0, (void *) 0, (void *) 0, &tv);
     }
 #else
-#ifdef _plan9_
-    sleep (time / 1000);
-#else
 /*
    #warning tl_sleep function not implemented. You may ignore this warning.
    #warning xaos will work correctly. But on miltitasked enviroments it is
    #warning HIGHLY recomended to implement this.
  */
-#endif
 #endif
 #endif
 #endif

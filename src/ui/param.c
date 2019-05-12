@@ -19,14 +19,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#else
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#endif
 #include <config.h>
 #include <param.h>
 #include <xmenu.h>
@@ -132,10 +127,8 @@ params_parser (int argc, char **argv)
             "string",
             "f.point"
         };
-#ifndef _plan9_
         printf ("                 XaoS" XaoS_VERSION " help text\n");
         printf (" (This help is genereated automagically. I am sorry for all inconvencies)\n\n");
-#endif
         printf ("option string   param   description\n\n");
         for (d = 0; d < nparams; d++) {
             par = params[d];

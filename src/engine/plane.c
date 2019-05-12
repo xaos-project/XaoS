@@ -19,19 +19,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#ifndef NULL
-#define NULL (void *)0
-#endif
-#else
 #include <stdio.h>
 #include <aconfig.h>
 #include <math.h>
 #include <limits.h>
 #include <config.h>
-#endif
 #include <fconfig.h>
 #include <plane.h>
 #include <complex.h>

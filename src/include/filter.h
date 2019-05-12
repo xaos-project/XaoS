@@ -156,25 +156,7 @@ extern "C"
 #define SHAREDDATA 2
 
 #define PALGORITHMS 3
-#ifdef _plan9_
-#undef pixel32_t
-#undef pixel8_t
-#undef pixel16_t
-#define pixel32_t unsigned int
-#define pixel16_t unsigned short
-#define pixel8_t unsigned char
-#undef ppixel8_t
-#undef ppixel16_t
-#undef ppixel24_t
-#undef ppixel32_t
-#define ppixel8_t pixel8_t *
-#define ppixel16_t pixel16_t *
-#define ppixel24_t unsigned char *
-#define ppixel32_t pixel32_t *
-#else
-#include <pixel_t.h>            /*avoid problems with plan9-it ignores #if
-                                   So code must be separated into another file */
-#endif
+#include <pixel_t.h>
 #define imgetpixel(image,x,y) ((image)->bytesperpixel==1?(image)->currlines[y][x]:((image)->bytesperpixel==4?((pixel32_t*)(image)->currlines[y])[x]:(image)->bytesperpixel==3?(((pixel16_t *)(image)->currlines[y])[x]+((image)->currlines[y][3*(x)+2]<<16)):(((pixel16_t*)(image)->currlines[y])[x])))
     struct requirements
     {

@@ -1,11 +1,6 @@
-#ifndef _plan9_
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#endif
 
 #include <aconfig.h>
 #include <filter.h>

@@ -1,12 +1,6 @@
 #include <config.h>
-#ifndef _plan9_
 #include <config.h>
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
 #define SLARGEITER
 #include <filter.h>
 #include <xthread.h>

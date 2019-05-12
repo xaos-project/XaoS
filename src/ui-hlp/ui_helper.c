@@ -1,16 +1,10 @@
 #include <config.h>
-#ifndef _plan9_
 #include <ctype.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <math.h>
 #include <string.h>
 #include <errno.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <ctype.h>
-#endif
 #include <fconfig.h>
 #include <filter.h>
 #include <ui_helper.h>
@@ -571,11 +565,7 @@ uih_loadfile (struct uih_context *c, xio_constpath d)
     xio_file f;
     f = xio_ropen (d);
     if (f == NULL) {
-#ifdef _plan9_
-        uih_error (c, (char *) errstr);
-#else
         uih_error (c, strerror (errno));
-#endif
         return;
     }
     uih_load (c, f, d);
@@ -615,11 +605,7 @@ uih_playfile (struct uih_context *c, xio_constpath d)
         uih_replaydisable (c);
     f = xio_ropen (d);
     if (f == NULL) {
-#ifdef _plan9_
-        uih_error (c, (char *) errstr);
-#else
         uih_error (c, strerror (errno));
-#endif
         return;
     }
     uih_replayenable (c, f, d, 1);

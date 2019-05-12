@@ -1,5 +1,4 @@
 #include <config.h>
-#ifndef _plan9_
 #include <aconfig.h>
 #ifdef USE_PNG
 #include <zlib.h>
@@ -9,11 +8,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
 #include <filter.h>
 #include <version.h>
 #include <misc-f.h>

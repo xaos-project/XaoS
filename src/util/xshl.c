@@ -1,13 +1,7 @@
-#ifndef _plan9_
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
 #include <config.h>
 #include <misc-f.h>
 #include "xshl.h"

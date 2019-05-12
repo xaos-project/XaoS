@@ -1,12 +1,7 @@
 #include <config.h>
-#ifndef _plan9_
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
-#else
-#include <u.h>
-#include <libc.h>
-#endif
 #include <fconfig.h>
 #include <filter.h>
 #include <fractal.h>

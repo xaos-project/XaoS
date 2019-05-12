@@ -28,11 +28,6 @@
  * It was reworked for the GNU C Library by Roland McGrath.
  */
 
-/* Ugly hack because of unknown problems w/ wa_list in v*print* in plan9 */
-#ifdef _plan9_
-#define va_list char *
-#endif
-
 #include <stdio.h>
 #include <config.h>
 #include <misc-f.h>

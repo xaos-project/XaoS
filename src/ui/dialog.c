@@ -21,11 +21,6 @@
  */
 #undef _EFENCE_
 #include <config.h>
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#include <ctype.h>
-#else
 #include <aconfig.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -33,11 +28,8 @@
 #include <errno.h>
 #include <math.h>
 #include <sys/stat.h>
-#endif
 #include <fconfig.h>
-#ifndef _plan9_
 #include <assert.h>
-#endif
 #include <filter.h>
 #include <fractal.h>
 #include <ui_helper.h>
@@ -152,9 +144,6 @@ ui_drawbutton (const char *text, int pressed, int selected, int x1, int x2, int 
 static void
 ui_yesnopos (struct uih_context *c, int *x, int *y, int *w, int *h, void *data)
 {
-#ifdef _plan9_
-#define filevisible 0
-#endif
     if (filevisible || helpvisible) {
         *x = *y = *w = *h = 0;
         return;
@@ -751,22 +740,18 @@ ui_buildfile (struct dialogitem *item, const menudialog * entry)
         data->text = ui_opentext (0, 0, 2043, item->dialog->defstr);
     data->active = 0;
     data->pressed = 0;
-#ifndef _plan9_
     if (dialog.nitems == 2) {
         curritem = item;
         ui_buildfilesel (data->text->text, "", filecallback);
     }
-#endif
 }
 
 static void
 ui_destroyfile (struct dialogitem *item, dialogparam * param)
 {
     struct ui_filedata *text = (struct ui_filedata *) item->data;
-#ifndef _plan9_
     if (filevisible)
         ui_closefilesel (0);
-#endif
     param->dpath = mystrdup (text->text->text);
     ui_closetext (text->text);
     free (text);
@@ -813,13 +798,11 @@ ui_keyfile (struct dialogitem *item, int key)
             }
             return 1;
         }
-#ifndef _plan9_
         if ((key == 13 || key == '\n') && text->active) {
             curritem = item;
             ui_buildfilesel (text->text->text, "", filecallback);
             return 1;
         }
-#endif
     }
     return (i);
 }
@@ -837,7 +820,6 @@ ui_mousefile (struct dialogitem *item, int x, int y, int buttons, int flags)
         if (text->active != i)
             text->active = i, uih->display = 1;
     }
-#ifndef _plan9_
     if ((flags & MOUSE_RELEASE) && text->pressed) {
         text->pressed = 0;
         uih->display = 1;
@@ -845,7 +827,6 @@ ui_mousefile (struct dialogitem *item, int x, int y, int buttons, int flags)
         ui_buildfilesel (text->text->text, "", filecallback);
         return;
     }
-#endif
     if (flags & MOUSE_DRAG) {
         if (x < dialog.x + dialog.width - BORDERWIDTH - BROWSEWIDTH) {
             text->active = 0, ui_textmouse (text->text, x, y);

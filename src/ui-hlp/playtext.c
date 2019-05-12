@@ -1,9 +1,4 @@
-#ifndef _plan9_
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#endif
 #include <fconfig.h>
 #include <filter.h>
 #include <fractal.h>

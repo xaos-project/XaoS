@@ -1,8 +1,3 @@
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#else
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -11,7 +6,6 @@
 #include <assert.h>
 #include <stdio.h>
 #include <limits.h>
-#endif
 #include <fconfig.h>
 #include <filter.h>
 #include <misc-f.h>

@@ -1,5 +1,4 @@
 #include <config.h>
-#ifndef _plan9_
 #include <string.h>
 #ifdef HAVE_DIRENT_H
 #include <dirent.h>
@@ -8,10 +7,6 @@
 #include <stdlib.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
-#endif
-#else
-#include <u.h>
-#include <libc.h>
 #endif
 #include <filter.h>
 #include <fractal.h>
@@ -125,29 +120,12 @@ xio_getfilename (const char *basename, const char *extension)
 {
     static char name[40];
     int nimage = 0;
-#ifdef _plan9_
-#ifdef _plan9v4_
-#define DIRLEN 116
-    uchar edir[DIRLEN];
-#else
-    char edir[DIRLEN];
-#endif
-#else
     struct stat sb;
-#endif
     char *base = xio_fixpath (basename);
     do {
         sprintf (name, "%s%i%s", base, nimage++, extension);
     }
-#ifndef _plan9_
     while (stat (name, &sb) != -1);
-#else
-#ifdef _plan9v4_
-    while (stat (name, edir, DIRLEN) != -1);
-#else
-    while (stat (name, edir) != -1);
-#endif
-#endif
     free (base);
     return (name);
 }
@@ -250,19 +228,12 @@ xio_getcatalog (const char *name)
 {
     static const xio_constpath paths[] = {      /*Where catalogs should be located? */
         CATALOGSPATH,           /*Data path when XaoS is propertly installed */
-#ifndef _plan9_
         "\01" XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         "." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         /*XaoS was started from root of source tree */
         ".." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         /*XaoS was started from bin directory in source tree */
-#else
-        "./catalogs/",
-        /*XaoS was started from root of source tree */
-        "../catalogs/",
-        /*XaoS was started from bin directory in source tree */
-#endif
         XIO_EMPTYPATH,          /*Oops...it's not. Try curent directory */
     };
     int i;
@@ -286,7 +257,6 @@ xio_gethelp (void)
 {
     static const xio_constpath paths[] = {      /*Where help should be located? */
         HELPPATH,               /*Data path when XaoS is propertly installed */
-#ifndef _plan9_
         "\01" XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
         "." XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
@@ -294,13 +264,6 @@ xio_gethelp (void)
         ".." XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
         /*XaoS was started from bin directory in source tree */
         "." XIO_PATHSEPSTR "xaos.hlp",
-#else
-        "./help/xaos.hlp",
-        /*XaoS was started from root of source tree */
-        "../help/xaos.hlp",
-        /*XaoS was started from bin directory in source tree */
-        "./xaos.hlp",
-#endif
         /*Oops...it's not. Try curent directory */
     };
     int i;
@@ -320,15 +283,10 @@ xio_gettutorial (const char *name, xio_path tmp)
     xio_file f = XIO_FAILED;
     static const xio_constpath paths[] = {      /*Where tutorials should be located? */
         TUTORIALPATH,           /*Data path when XaoS is propertly installed */
-#ifndef _plan9_
         "\01" XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,
         "." XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,   /*XaoS was started from root of source tree */
         ".." XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,  /*XaoS was started from bin directory in source tree */
-#else
-        "./tutorial/",          /*XaoS was started from root of source tree */
-        "../tutorial/",         /*XaoS was started from bin directory in source tree */
-#endif
         XIO_EMPTYPATH,          /*Oops...it's not. Try curent directory */
     };
 
@@ -344,12 +302,8 @@ xio_gettutorial (const char *name, xio_path tmp)
 int
 xio_exist (xio_constpath name)
 {
-#ifdef _plan9_
-    return (0);
-#else
     struct stat buf;
     return (!stat (name, &buf));
-#endif
 }
 
 static int
@@ -463,10 +417,8 @@ xio_init (const char *name)
         char buf[4096];
         buf[0] = '.';
         buf[1] = 0;
-#ifndef _plan9_
         if (getcwd (buf, sizeof (buf)) == NULL)
             buf[0] = 0;
-#endif
         xio_appdir = mystrdup (buf);
         {
             char *c = mystrdup (name), *c1;

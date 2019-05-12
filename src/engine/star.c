@@ -1,13 +1,7 @@
 #include <config.h>
-#ifndef _plan9_
 #include <config.h>
 #include <limits.h>
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
 #include <filter.h>
 #include <xthread.h>
 

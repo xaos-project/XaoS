@@ -1,14 +1,8 @@
 #include <config.h>
-#ifndef _plan9_
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
 #include <filter.h>
 #include <fractal.h>
 #include <xthread.h>

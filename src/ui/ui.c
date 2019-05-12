@@ -21,11 +21,6 @@
  */
 #include <config.h>
 #undef _EFENCE_
-#ifdef _plan9_
-#include <u.h>
-#include <libc.h>
-#include <ctype.h>
-#else
 #include <limits.h>
 #include <aconfig.h>
 #include <ctype.h>
@@ -39,11 +34,8 @@
 #include <unistd.h>
 #endif
 #include <signal.h>
-#endif
 #include <fconfig.h>
-#ifndef _plan9_
 #include <assert.h>
-#endif
 #include <filter.h>
 #include <ui_helper.h>
 #include <ui.h>
@@ -230,9 +222,6 @@ ui_updatemenus (uih_context * c, const char *name)
 static void
 mousetype (int m)
 {
-#ifdef _plan9_
-#define filevisible 0
-#endif
     if (ui_nmenus || helpvisible || filevisible || dialogvisible || yesnodialogvisible)
         m = NORMALMOUSE;
     if (mouse != m) {
@@ -629,12 +618,10 @@ ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange)
         uih_update (uih, mousex, mousey, 0);
         return;
     }
-#ifndef _plan9_
     if (ui_mousefilesel (mousex, mousey, mousebuttons, flags)) {
         uih_update (uih, mousex, mousey, 0);
         return;
     }
-#endif
     if (ui_dialogmouse (mousex, mousey, mousebuttons, flags)) {
         uih_update (uih, mousex, mousey, 0);
         return;
@@ -827,9 +814,6 @@ ui_key (int key)
     int sym;
     char mkey[2];
     const menuitem *item;
-#ifdef _plan9_
-#define ui_keyfilesel(k) 0
-#endif
     if (!ui_helpkeys (key) && !ui_keyfilesel (key) && !ui_dialogkeys (key) && !ui_menukey (key))
         switch (sym = tolower (key)) {
             case ' ':
@@ -1136,17 +1120,13 @@ ui_init (int argc, char **argv)
     printf ("Initializing driver\n");
 #endif
 #ifndef __BEOS__
-#ifndef _plan9_
     signal (SIGFPE, SIG_IGN);
-#endif
 #endif
     if (printconfig) {
 #define tostring(s) #s
         x_message ("XaoS configuration\n" "Version:   %s\n" "Type size: %i\n" "integer size: %i\n" "configfile: %s\n"
-#ifndef _plan9_
 #ifdef HAVE_LONG_DOUBLE
                    "using long double\n"
-#endif
 #ifdef const
                    "const disabled\n"
 #endif
@@ -1194,9 +1174,7 @@ ui_init (int argc, char **argv)
         xio_uninit ();
         exit_xaos (0);
     }
-#ifndef _plan9_
     xth_init (defthreads);
-#endif
     {
         int i = ui_dorender_params ();
         if (i) {
@@ -1236,9 +1214,6 @@ ui_init (int argc, char **argv)
     printf ("Getting size\n");
 #endif
     driver->getsize (&width, &height);
-#ifdef _plan9_
-    xth_init (defthreads);      /*plan0 requires to initialize tasks after graphics */
-#endif
     mousetype (WAITMOUSE);
     driver->print (0, 0, "Initializing. Please wait");
     driver->print (0, textheight1, "Creating framebuffer");
@@ -1317,10 +1292,8 @@ ui_init (int argc, char **argv)
             menu_activate (item, uih, d);
         }
     }
-#ifndef _plan9_
     sprintf (welcome, gettext ("Welcome to XaoS version %s"), XaoS_VERSION);
      /*TYPE*/ uih_message (uih, welcome);
-#endif
     uih_updatemenus (uih, driver->name);
     if (printspeed) {
         int c = 0;

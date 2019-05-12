@@ -5,7 +5,6 @@
  * It is used to implement fast rotation mode
  */
 #include <config.h>
-#ifndef _plan9_
 #include <string.h>
 #include <limits.h>
 #include <archaccel.h>
@@ -13,11 +12,6 @@
 #include <math.h>
 #endif
 #include <stdlib.h>
-#else
-#include <u.h>
-#include <libc.h>
-#include <stdio.h>
-#endif
 #define SLARGEITER
 #include <xthread.h>
 #include <filter.h>
