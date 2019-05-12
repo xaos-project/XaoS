@@ -2,10 +2,8 @@ SOURCES += \
     $$PWD/ui.c \
     $$PWD/param.c \
     $$PWD/fparams.c \
-    $$PWD/filesel.c \
     $$PWD/uimenu.c \
     $$PWD/pipecmd.c \
-    $$PWD/dialog.c \
     $$PWD/main.cpp \
     $$PWD/mainwindow.cpp \
     $$PWD/fractalwidget.cpp \

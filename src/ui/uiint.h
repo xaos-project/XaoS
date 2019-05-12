@@ -52,7 +52,7 @@ int ui_dorender_params (void);
 
 void ui_updatestarts (void);
 
-void ui_builddialog (const menuitem * d);
+void ui_builddialog (struct uih_context *c, const char *name);
 void ui_close_help (void);
 void ui_closedialog (int call);
 int ui_dialogmouse (int x, int y, int mousebuttons, int flags);

@@ -15,13 +15,12 @@
 static void buildMenu(struct uih_context *uih, const char *name);
 static void toggleMenu(struct uih_context *uih, const char *name);
 static void popupMenu(struct uih_context *uih, const char *name);
-static void showDialog(struct uih_context *c, const char *name);
 
 struct gui_driver gui_driver = {
     /* setrootmenu */   buildMenu,
     /* enabledisable */ toggleMenu,
     /* menu */          popupMenu,
-    /* dialog */        showDialog,
+    /* dialog */        NULL,
     /* help */          NULL
 };
 
@@ -220,18 +219,6 @@ toggleMenu(struct uih_context *uih, const char *name)
     window->toggleMenu(uih, name);
 }
 
-static void
-showDialog(struct uih_context *c, const char *name)
-{
-    window->showDialog(c, name);
-}
-
-void
-ui_help(struct uih_context *c, const char *name)
-{
-    QDesktopServices::openUrl(QUrl(HELP_URL));
-}
-
 static QFont
 getFont() {
     return QFont(QApplication::font().family(), 12);
@@ -309,6 +296,17 @@ freeImage(struct image *img)
 }
 
 extern "C" {
+void
+ui_builddialog(struct uih_context *c, const char *name)
+{
+    window->showDialog(c, name);
+}
+
+void
+ui_help(struct uih_context *c, const char *name)
+{
+    QDesktopServices::openUrl(QUrl(HELP_URL));
+}
 
 const struct image *
 qt_create_image(int width, int height, struct palette* palette, float pixelwidth, float pixelheight)

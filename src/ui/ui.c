@@ -219,7 +219,7 @@ ui_updatemenus (uih_context * c, const char *name)
 static void
 mousetype (int m)
 {
-    if (ui_nmenus || filevisible || dialogvisible || yesnodialogvisible)
+    if (ui_nmenus)
         m = NORMALMOUSE;
     if (mouse != m) {
         mouse = m;
@@ -372,7 +372,7 @@ ui_menuactivate (const menuitem * item, dialogparam * d)
         return;
     } else {
         if (menu_havedialog (item, uih) && d == NULL) {
-            ui_builddialog (item);
+            ui_builddialog (uih, item->name);
             return;
         }
         if (uih->incalculation && !(item->flags & MENUFLAG_INCALC)) {
@@ -611,14 +611,6 @@ ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange)
     lastbuttons = mousebuttons;
     tl_update_time ();
     CHECKPROCESSEVENTS (mousebuttons, iterchange);
-    if (ui_mousefilesel (mousex, mousey, mousebuttons, flags)) {
-        uih_update (uih, mousex, mousey, 0);
-        return;
-    }
-    if (ui_dialogmouse (mousex, mousey, mousebuttons, flags)) {
-        uih_update (uih, mousex, mousey, 0);
-        return;
-    }
     if (ui_menumouse (mousex, mousey, mousebuttons, flags)) {
         uih_update (uih, mousex, mousey, 0);
         return;
@@ -807,7 +799,7 @@ ui_key (int key)
     int sym;
     char mkey[2];
     const menuitem *item;
-    if (!ui_keyfilesel (key) && !ui_dialogkeys (key) && !ui_menukey (key))
+    if (!ui_menukey (key))
         switch (sym = tolower (key)) {
             case ' ':
                 ui_closemenus ();
@@ -1397,7 +1389,6 @@ ui_resize (void)
         return;
     }
     ui_closemenus ();
-    ui_closedialog (0);
     uih_clearwindows (uih);
     uih_stoptimers (uih);
     uih_cycling_stop (uih);
@@ -1433,7 +1424,6 @@ ui_driver (int d)
     const struct ui_driver *driver1;
     int width, height;
     ui_closemenus ();
-    ui_closedialog (0);
     if (d < 0)
         d = 0;
     if (d >= ndrivers)
