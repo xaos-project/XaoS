@@ -346,15 +346,6 @@ ui_drawstatus (uih_context * uih, void *data)
     else
         sprintf (str, gettext ("Parameter:[%f,%f]"), (float) uih->fcontext->pre, (float) uih->fcontext->pim);
     xprint (uih->image, uih->font, 0, statusstart + 10 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-#ifdef MEMCHECK
-    {
-        struct mallinfo i = mallinfo ();
-        sprintf (str, "Allocated arena:%i Wasted:%i %i", i.arena, i.ordblks, i.fordblks);
-        xprint (uih->image, uih->font, 0, statusstart + 11 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-        sprintf (str, "Mmaped blocks%i Mmaped area:%i keep:%i", i.hblks, i.hblkhd, i.keepcost);
-        xprint (uih->image, uih->font, 0, statusstart + 12 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    }
-#endif
 }
 
 static void
