@@ -1,5 +1,4 @@
 SOURCES += \
-    $$PWD/ui.c \
     $$PWD/param.c \
     $$PWD/fparams.c \
     $$PWD/pipecmd.c \
