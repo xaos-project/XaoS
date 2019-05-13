@@ -100,7 +100,6 @@ extern "C"
     void ui_quit (void) NORETURN;
     void ui_menuactivate (const menuitem * item, dialogparam * d);
     int ui_key (int);
-    void ui_loadstr (const char *data);
     xio_path ui_getfile (const char *basename, const char *extension);
     char *ui_getpos (void);
     int MAIN_FUNCTION (int argc, char **argv);

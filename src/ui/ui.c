@@ -76,9 +76,7 @@ xio_pathdata configfile;
 static void ui_unregistermenus (void);
 static void ui_mkimages (int, int);
 
-int prog_argc;
 int err;
-char **prog_argv;
 /*UI state */
 uih_context *uih;
 char statustext[256];
@@ -88,7 +86,6 @@ static int statusstart;
 static struct uih_window *statuswindow = NULL;
 static int ministatusstart;
 static struct uih_window *ministatuswindow = NULL;
-static int mouse;
 /* Used by ui_mouse */
 static int dirty = 0;
 static int lastiter;
@@ -190,15 +187,6 @@ ui_updatemenus (uih_context * c, const char *name)
     }
     if (item->flags & (MENUFLAG_CHECKBOX | MENUFLAG_RADIO)) {
         qt_enabledisable (uih, name);
-    }
-}
-
-static void
-mousetype (int m)
-{
-    if (mouse != m) {
-        mouse = m;
-        qt_mousetype (m);
     }
 }
 
@@ -443,7 +431,7 @@ ui_message (struct uih_context *u)
     char s[100];
     if (uih->play)
         return;
-    mousetype (WAITMOUSE);
+    qt_mousetype(WAITMOUSE);
     sprintf (s, gettext ("Please wait while calculating %s"), uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
     qt_print(0, 0, s);
 }
@@ -732,12 +720,6 @@ ui_getpos (void)
     return (uih_savepostostr (uih));
 }
 
-void
-ui_loadstr (const char *n)
-{
-    uih_loadstr (uih, n);
-}
-
 static menuitem *menuitems;
 /* This structure is now empty. All static definitions have been moved
    to ui_registermenus_i18n() which fills up its own static array. */
@@ -800,12 +782,6 @@ ui_registermenus_i18n (void)
     no_menuitems_i18n -= ui_no_menuitems_i18n;
     menu_add (&(menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
     ui_no_menuitems_i18n += no_menuitems_i18n;
-}
-
-/* Registering driver items: */
-static void
-ui_registermenus (void)
-{
 }
 
 static void
@@ -941,10 +917,7 @@ ui_init (int argc, char **argv)
        link to dialog pointers. */
     uih_registermenus_i18n ();  /* Internationalized menus. */
     uih_registermenus ();
-    ui_registermenus ();
     ui_registermenus_i18n ();   /* Internationalized menus. */
-    prog_argc = argc;
-    prog_argv = argv;
     if (!params_parser (argc, argv)) {
         ui_unregistermenus ();
         uih_unregistermenus ();
@@ -973,7 +946,7 @@ ui_init (int argc, char **argv)
     printf ("Getting size\n");
 #endif
     qt_getsize(&width, &height);
-    mousetype(WAITMOUSE);
+    qt_mousetype(WAITMOUSE);
     qt_print(0, 0, "Initializing. Please wait");
     qt_print(0, textheight1, "Creating framebuffer");
     ui_mkimages (width, height);
@@ -1168,7 +1141,7 @@ ui_mainloop (int loop)
     int time;
     qt_processevents((!inmovement && !uih->inanimation), &x, &y, &b, &k);
     do {
-        mousetype (uih->play ? REPLAYMOUSE : uih->inhibittextoutput ? VJMOUSE : NORMALMOUSE);
+        qt_mousetype(uih->play ? REPLAYMOUSE : uih->inhibittextoutput ? VJMOUSE : NORMALMOUSE);
         if (uih->display) {
             uih_prepare_image (uih);
             ui_updatestatus ();
