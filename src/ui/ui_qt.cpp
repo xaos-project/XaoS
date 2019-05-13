@@ -77,7 +77,7 @@
 #else
 #define STATUSLINES 11
 #endif
-static void ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange);
+static void ui_mouse(bool wait);
 #ifndef exit_xaos
 #define exit_xaos(i) exit(i)
 #endif
@@ -96,11 +96,6 @@ static int statusstart;
 static struct uih_window *statuswindow = NULL;
 static int ministatusstart;
 static struct uih_window *ministatuswindow = NULL;
-/* Used by ui_mouse */
-static int dirty = 0;
-static int lastiter;
-static int maxiter;
-static int lastbuttons, lastx, lasty;
 static int callresize = 0;
 static tl_timer *maintimer;
 static tl_timer *arrowtimer;
@@ -217,127 +212,6 @@ main(int argc, char *argv[])
     ui_mainloop(1);
 }
 
-int
-qt_init()
-{
-    window = new MainWindow();
-    widget = window->fractalWidget();
-    window->show();
-
-    QScreen *screen = window->windowHandle()->screen();
-    qt_driver.width = 2.54 / screen->physicalDotsPerInchX();
-    qt_driver.height = 2.54 / screen->physicalDotsPerInchY();
-
-    return 1;
-}
-
-void
-qt_uninit()
-{
-    delete window;
-}
-
-int
-qt_alloc_buffers (char **b1, char **b2, void **data)
-{
-    widget->createImages();
-    *b1 = widget->imageBuffer1();
-    *b2 = widget->imageBuffer2();
-    *data = widget->imagePointer();
-    return widget->imageBytesPerLine();
-}
-
-void
-qt_free_buffers(char *b1, char *b2)
-{
-    widget->destroyImages();
-}
-
-void
-qt_getsize(int *w, int *h)
-{
-    *w = widget->size().width();
-    *h = widget->size().height();
-}
-
-void
-qt_flip_buffers()
-{
-    widget->switchActiveImage();
-}
-
-void
-qt_display()
-{
-    widget->repaint();
-}
-
-void
-qt_processevents(int wait, int *mx, int *my, int *mb, int *k)
-{
-    QCoreApplication::processEvents(wait ? QEventLoop::WaitForMoreEvents : QEventLoop::AllEvents);
-
-    *mx = widget->mousePosition().x();
-    *my = widget->mousePosition().y();
-    *mb = widget->mouseButtons();
-    *k = widget->keyCombination();
-}
-
-void
-qt_getmouse(int *x, int *y, int *b)
-{
-    *x = widget->mousePosition().x();
-    *y = widget->mousePosition().y();
-    *b = widget->mouseButtons();
-}
-
-void
-qt_print(int x, int y, const char *text)
-{
-}
-
-void
-qt_mousetype(int type)
-{
-    widget->setCursorType(type);
-}
-
-void
-qt_setrootmenu(struct uih_context *uih, const char *name)
-{
-    window->buildMenu(uih, name);
-}
-
-void
-qt_enabledisable(struct uih_context *uih, const char *name)
-{
-    window->toggleMenu(uih, name);
-}
-
-void
-qt_menu(struct uih_context *uih, const char *name)
-{
-    window->popupMenu(uih, name);
-}
-
-void
-qt_builddialog(struct uih_context *c, const char *name)
-{
-    window->showDialog(c, name);
-}
-
-void
-qt_help(struct uih_context *c, const char *name)
-{
-    QDesktopServices::openUrl(QUrl(HELP_URL));
-}
-
-const char *
-qt_locale()
-{
-    return QLocale::system().name().toStdString().c_str();
-}
-
 extern "C" {
 
 const char *
@@ -352,37 +226,6 @@ qt_gettext(const char *text)
     return trans;
 }
 
-}
-
-void
-qt_about(struct uih_context *c, const char *name)
-{
-    QMessageBox::about(NULL, qt_gettext("About"),
-                       QCoreApplication::applicationName() + " " +
-                       QCoreApplication::applicationVersion() +
-                       " (" + QSysInfo::kernelType() + " " +
-                       // QSysInfo::kernelVersion() + " "
-                       // QSysInfo::buildAbi() + " " +
-                       QSysInfo::buildCpuArchitecture() + ")"
-                       "\n" +
-                       "Original Authors: Jan Hubička and Thomas Marsh\n"
-                       "Copyright © 1996-2019 XaoS Contributors\n" +
-                       "\n" +
-                       "This program is free software; you can redistribute it and/or modify " +
-                       "it under the terms of the GNU General Public License as published by " +
-                       "the Free Software Foundation; either version 2 of the License, or " +
-                       "(at your option) any later version.\n\n" +
-
-                       "This program is distributed in the hope that it will be useful, " +
-                       "but WITHOUT ANY WARRANTY; without even the implied warranty of " +
-                       "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the " +
-                       "GNU General Public License for more details.\n\n"
-
-                       "You should have received a copy of the GNU General Public License " +
-                       "along with this program; if not, write to the Free Software " +
-                       "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
-
-                       );
 }
 
 static int resizeregistered = 0;
@@ -411,7 +254,7 @@ ui_updatemenus (uih_context * c, const char *name)
         }
     }
     if (name == NULL) {
-        qt_setrootmenu (c, uih->menuroot);
+        window->buildMenu (c, uih->menuroot);
         return;
     }
     item = menu_findcommand (name);
@@ -420,7 +263,7 @@ ui_updatemenus (uih_context * c, const char *name)
         return;
     }
     if (item->flags & (MENUFLAG_CHECKBOX | MENUFLAG_RADIO)) {
-        qt_enabledisable (uih, name);
+        window->toggleMenu (uih, name);
     }
 }
 
@@ -429,7 +272,7 @@ ui_display (void)
 {
     if (nthreads == 1)
         uih_drawwindows (uih);
-    qt_display();
+    widget->repaint();
     uih_cycling_continue (uih);
 }
 
@@ -446,9 +289,7 @@ ui_passfunc (struct uih_context *c, int display, const char *text, float percent
 {
     char str[80];
     int x = 0, y = 0, b = 0, k = 0;
-    qt_processevents(0, &x, &y, &b, &k);
-    ui_mouse (x, y, b, k);
-    CHECKPROCESSEVENTS (b, k);
+    ui_mouse(false);
     if (!uih->play) {
         if (uih->display)
             ui_display (), display = 1;
@@ -458,7 +299,7 @@ ui_passfunc (struct uih_context *c, int display, const char *text, float percent
                     sprintf (str, "%s %3.2f%%        ", text, (double) percent);
                 else
                     sprintf (str, "%s          ", text);
-                qt_print(0, uih->image->height - textheight1, str);
+                window->showStatus(0, uih->image->height - textheight1, str);
             }
         }
     }
@@ -472,13 +313,13 @@ ui_updatestatus (void)
     double timesnop = log (times) / log (10.0);
     double speed;
     uih_drawwindows (uih);
-    qt_display();
+    widget->repaint();
     uih_cycling_continue (uih);
     speed = uih_displayed (uih);
     sprintf (statustext, gettext ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "), times < 1 ? gettext ("unzoomed") : gettext ("zoomed"), times < 1 ? 1.0 / times : times, timesnop, speed, uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1, uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1, uih->fcontext->maxiter);
 
     STAT (printf (gettext ("framerate:%f\n"), speed));
-    qt_print(0, 0, "");
+    window->showStatus(0, 0, "");
 }
 
 void
@@ -500,11 +341,11 @@ ui_menuactivate (const menuitem * item, dialogparam * d)
     if (item == NULL)
         return;
     if (item->type == MENU_SUBMENU) {
-        qt_menu (uih, item->shortname);
+        window->popupMenu (uih, item->shortname);
         return;
     } else {
         if (menu_havedialog (item, uih) && d == NULL) {
-            qt_builddialog (uih, item->shortname);
+            window->showDialog (uih, item->shortname);
             return;
         }
         if (uih->incalculation && !(item->flags & MENUFLAG_INCALC)) {
@@ -665,9 +506,9 @@ ui_message (struct uih_context *u)
     char s[100];
     if (uih->play)
         return;
-    qt_mousetype(WAITMOUSE);
+    widget->setCursorType(WAITMOUSE);
     sprintf (s, gettext ("Please wait while calculating %s"), uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
-    qt_print(0, 0, s);
+    window->showStatus(0, 0, s);
 }
 
 #define ROTATESPEEDUP 30
@@ -721,11 +562,21 @@ procescounter (int *counter, const char *text, int speed, int keys, int lastkeys
 }
 
 static void
-ui_mouse (int mousex, int mousey, int mousebuttons, int iterchange)
+ui_mouse(bool wait)
 {
     int flags;
     char str[80];
     static int spid;
+    QCoreApplication::processEvents(wait ? QEventLoop::WaitForMoreEvents : QEventLoop::AllEvents);
+    static int dirty = 0;
+    static int lastiter;
+    static int maxiter;
+    static int lastbuttons, lastx, lasty;
+
+    int mousex = widget->mousePosition().x();
+    int mousey = widget->mousePosition().y();
+    int mousebuttons = widget->mouseButtons();
+    int iterchange = widget->keyCombination();
     flags = 0;
     if (mousex != lastx || mousey != lasty)
         flags |= MOUSE_MOVE;
@@ -819,7 +670,7 @@ static void
 ui_flip (struct image *image)
 {
     flipgeneric (image);
-    qt_flip_buffers();
+    widget->switchActiveImage();
 }
 
 static void
@@ -845,8 +696,8 @@ ui_doquit (int i)
     tl_free_timer (maintimer);
     tl_free_timer (arrowtimer);
     tl_free_timer (loopt);
-    qt_free_buffers (NULL, NULL);
-    qt_uninit();
+    widget->destroyImages();
+    delete window;
     destroypalette (image->palette);
     destroy_image (image);
     xth_uninit ();
@@ -890,7 +741,7 @@ ui_key (int key)
                     ui_updatestatus ();
                 else {
                     uih_skipframe (uih);
-                    qt_print(0, 0, gettext ("Skipping, please wait..."));
+                    window->showStatus(0, 0, gettext ("Skipping, please wait..."));
                 }
             }
             break;
@@ -917,7 +768,9 @@ ui_key (int key)
                 if (menu_havedialog (item, uih)) {
                     const menudialog *d = menu_getdialog (uih, item);
                     int mousex, mousey, buttons;
-                    qt_getmouse (&mousex, &mousey, &buttons);
+                    mousex = widget->mousePosition().x();
+                    mousey = widget->mousePosition().y();
+                    buttons = widget->mouseButtons();
                     if (d[0].question != NULL && d[1].question == NULL && d[0].type == DIALOG_COORD) {
                         p = (dialogparam *) malloc (sizeof (dialogparam));
                         uih_screentofractalcoord (uih, mousex, mousey, p->dcoord, p->dcoord + 1);
@@ -939,13 +792,38 @@ int EF_PROTECT_FREE = 1;
 static void
 ui_helpwr (struct uih_context *c)
 {
-    qt_help (c, "main");
+    QDesktopServices::openUrl(QUrl(HELP_URL));
 }
 
 static void
 ui_about (struct uih_context *c)
 {
-    qt_about (c, "main");
+    QMessageBox::about(NULL, qt_gettext("About"),
+                       QCoreApplication::applicationName() + " " +
+                       QCoreApplication::applicationVersion() +
+                       " (" + QSysInfo::kernelType() + " " +
+                       // QSysInfo::kernelVersion() + " "
+                       // QSysInfo::buildAbi() + " " +
+                       QSysInfo::buildCpuArchitecture() + ")"
+                       "\n" +
+                       "Original Authors: Jan Hubička and Thomas Marsh\n"
+                       "Copyright © 1996-2019 XaoS Contributors\n" +
+                       "\n" +
+                       "This program is free software; you can redistribute it and/or modify " +
+                       "it under the terms of the GNU General Public License as published by " +
+                       "the Free Software Foundation; either version 2 of the License, or " +
+                       "(at your option) any later version.\n\n" +
+
+                       "This program is distributed in the hope that it will be useful, " +
+                       "but WITHOUT ANY WARRANTY; without even the implied warranty of " +
+                       "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the " +
+                       "GNU General Public License for more details.\n\n"
+
+                       "You should have received a copy of the GNU General Public License " +
+                       "along with this program; if not, write to the Free Software " +
+                       "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+
+                       );
 }
 
 char *
@@ -1041,26 +919,26 @@ ui_printspeed()
     int x, y, b, k;
     int linesize = uih->image->bytesperpixel * uih->image->height;
     int size = linesize * uih->image->height;
-    qt_print(0, textheight1 * 8, "Preparing for speedtest");
+    window->showStatus(0, textheight1 * 8, "Preparing for speedtest");
     uih->passfunc = NULL;
     tl_sleep (1000000);
     for (c = 0; c < 5; c++)
-        qt_display();
-    qt_processevents(0, &x, &y, &b, &k);
-    qt_print(0, textheight1 * 9, "Measuring dislay speed");
+        widget->repaint();
+    QCoreApplication::processEvents(QEventLoop::AllEvents);
+    window->showStatus(0, textheight1 * 9, "Measuring dislay speed");
     tl_sleep (1000000);
     tl_update_time ();
     tl_reset_timer (maintimer);
     c = 0;
     while (tl_lookup_timer (maintimer) < 5000000) {
-        qt_display();
-        qt_processevents(0, &x, &y, &b, &k);
+        widget->repaint();
+        QCoreApplication::processEvents(QEventLoop::AllEvents);
         tl_update_time();
         c++;
     }
     x_message ("Driver speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
 
-    qt_print(0, textheight1 * 10, "Measuring memcpy speed");
+    window->showStatus(0, textheight1 * 10, "Measuring memcpy speed");
     for (c = 0; c < 5; c++) {
         for (x = 0; x < uih->image->height; x++)
             memcpy (uih->image->currlines[y], uih->image->oldlines[y], linesize);
@@ -1075,7 +953,7 @@ ui_printspeed()
     }
     x_message ("Memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
 
-    qt_print(0, textheight1 * 10, "Measuring missaligned memcpy speed");
+    window->showStatus(0, textheight1 * 10, "Measuring missaligned memcpy speed");
     tl_update_time ();
     tl_reset_timer (maintimer);
     c = 0;
@@ -1086,7 +964,7 @@ ui_printspeed()
     }
     x_message ("Missaligned memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
 
-    qt_print(0, textheight1 * 10, "Measuring size6 memcpy speed");
+    window->showStatus(0, textheight1 * 10, "Measuring size6 memcpy speed");
     tl_update_time ();
     tl_reset_timer (maintimer);
     c = 0;
@@ -1100,16 +978,16 @@ ui_printspeed()
     }
     x_message ("Size 6 memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
 
-    qt_display();
-    qt_print(0, textheight1 * 11, "Measuring calculation speed");
+    widget->repaint();
+    window->showStatus(0, textheight1 * 11, "Measuring calculation speed");
     speed_test (uih->fcontext, image);
-    qt_print(0, textheight1 * 12, "Measuring new image calculation loop");
+    window->showStatus(0, textheight1 * 12, "Measuring new image calculation loop");
     uih_prepare_image (uih);
     tl_update_time ();
     tl_reset_timer (maintimer);
     for (c = 0; c < 5; c++)
         uih_newimage (uih), uih->fcontext->version++, uih_prepare_image (uih);
-    qt_display();
+    widget->repaint();
     x_message ("New image caluclation took %g seconds (%.2g fps)", tl_lookup_timer (maintimer) / 5.0 / 1000000.0, 5000000.0 / tl_lookup_timer (maintimer));
     tl_update_time ();
     for (c = 0; c < 5; c++)
@@ -1117,7 +995,7 @@ ui_printspeed()
     c = 0;
     tl_update_time ();
     tl_reset_timer (maintimer);
-    qt_print(0, textheight1 * 13, "Measuring zooming algorithm loop");
+    window->showStatus(0, textheight1 * 13, "Measuring zooming algorithm loop");
     while (tl_lookup_timer (maintimer) < 5000000)
         uih_animate_image (uih), uih_prepare_image (uih), tl_update_time (), c++;
     x_message ("Approximation loop speed: %g FPS", c / 5.0);
@@ -1128,21 +1006,8 @@ void
 ui_init (int argc, char **argv)
 {
     int width, height;
-    char welcome[MAX_WELCOME], language[20];
+    char welcome[MAX_WELCOME];
 
-    const char *locale = qt_locale();
-    if (locale != NULL && strcmp (locale, "C") != 0) {
-        strcpy(language, locale);
-        language[2] = '\0';
-    } else {
-        strcpy (language, "en");
-    }
-
-#ifdef DEBUG
-    printf ("Trying to use locale settings for %s.\n", locale);
-    printf ("Using catalog file for %s language.\n", language);
-#endif
-    /* Done setting locales. */
     xio_init (argv[0]);
     params_register (global_params);
     params_register (ui_fractal_params);
@@ -1164,7 +1029,13 @@ ui_init (int argc, char **argv)
 #ifdef DEBUG
     printf ("Initializing driver\n");
 #endif
-    qt_init();
+    window = new MainWindow();
+    widget = window->fractalWidget();
+    window->show();
+
+    QScreen *screen = window->windowHandle()->screen();
+    qt_driver.width = 2.54 / screen->physicalDotsPerInchX();
+    qt_driver.height = 2.54 / screen->physicalDotsPerInchY();
     signal (SIGFPE, SIG_IGN);
     xth_init (defthreads);
     {
@@ -1179,18 +1050,19 @@ ui_init (int argc, char **argv)
 #ifdef DEBUG
     printf ("Getting size\n");
 #endif
-    qt_getsize(&width, &height);
-    qt_mousetype(WAITMOUSE);
-    qt_print(0, 0, "Initializing. Please wait");
-    qt_print(0, textheight1, "Creating framebuffer");
+    width = widget->size().width();
+    height = widget->size().height();
+    widget->setCursorType(WAITMOUSE);
+    window->showStatus(0, 0, "Initializing. Please wait");
+    window->showStatus(0, textheight1, "Creating framebuffer");
     ui_mkimages (width, height);
 
-    qt_print(0, textheight1 * 2, "Initializing fractal engine");
+    window->showStatus(0, textheight1 * 2, "Initializing fractal engine");
 
     /* gloabuih initialization moved into uih_mkcontext function : malczak */
     uih = uih_mkcontext (qt_driver.flags, image, ui_passfunc, ui_message, ui_updatemenus);
 
-    qt_setrootmenu (uih, uih->menuroot);
+    window->buildMenu (uih, uih->menuroot);
 #ifdef HOMEDIR
     if (getenv ("HOME") != NULL) {
         char home[256], *env = getenv ("HOME");
@@ -1208,9 +1080,12 @@ ui_init (int argc, char **argv)
     maintimer = tl_create_timer ();
     arrowtimer = tl_create_timer ();
     loopt = tl_create_timer ();
-    qt_print(0, textheight1 * 3, "Loading message catalog");
+    window->showStatus(0, textheight1 * 3, "Loading message catalog");
+    char language[10];
+    strcpy(language, QLocale::system().name().toStdString().c_str());
+    language[2] = '\0';
     uih_loadcatalog (uih, language);
-    qt_print(0, textheight1 * 4, "Initializing timing system");
+    window->showStatus(0, textheight1 * 4, "Initializing timing system");
     uih_newimage (uih);
     tl_update_time ();
     /*tl_process_group (syncgroup, NULL); */
@@ -1218,7 +1093,7 @@ ui_init (int argc, char **argv)
     tl_reset_timer (arrowtimer);
 #ifdef COMPILE_PIPE
     if (defpipe != NULL) {
-        qt_print(0, textheight1 * 5, "Initializing pipe");
+        window->showStatus(0, textheight1 * 5, "Initializing pipe");
         ui_pipe_init (defpipe);
     }
 #else
@@ -1227,7 +1102,7 @@ ui_init (int argc, char **argv)
     }
 #endif
     /*uih_constantframetime(uih,1000000/20); */
-    qt_print(0, textheight1 * 6, "Reading configuration file");
+    window->showStatus(0, textheight1 * 6, "Reading configuration file");
     {
         xio_file f = xio_ropen (configfile);    /*load the configuration file */
         if (f != XIO_FAILED) {
@@ -1240,7 +1115,7 @@ ui_init (int argc, char **argv)
             }
         }
     }
-    qt_print(0, textheight1 * 7, "Processing command line parameters");
+    window->showStatus(0, textheight1 * 7, "Processing command line parameters");
     {
         const menuitem *item;
         dialogparam *d;
@@ -1275,7 +1150,7 @@ ui_init (int argc, char **argv)
         sffe_parse (&uih->parser, "z^2+c");
      /*SFFE*/
 #endif
-        qt_print(0, textheight1 * 8, "Entering main loop");
+        window->showStatus(0, textheight1 * 8, "Entering main loop");
 }
 
 
@@ -1299,8 +1174,13 @@ ui_mkimages (int w, int h)
             resizeregistered = 1;
         }
     }
-    if (!(scanline = qt_alloc_buffers(&b1, &b2, &data))) {
-        qt_uninit();
+    widget->createImages();
+    b1 = widget->imageBuffer1();
+    b2 = widget->imageBuffer2();
+    data = widget->imagePointer();
+    scanline = widget->imageBytesPerLine();
+    if (!scanline) {
+        delete window;
         x_error (gettext ("Can not allocate buffers"));
         ui_outofmem ();
         exit_xaos (-1);
@@ -1310,14 +1190,14 @@ ui_mkimages (int w, int h)
     info.truec.bmask = qt_driver.bmask;
     palette = createpalette (qt_driver.palettestart, qt_driver.paletteend, qt_driver.imagetype, (qt_driver.flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0, qt_driver.maxentries, NULL, NULL, NULL, NULL, &info);
     if (!palette) {
-        qt_uninit();
+        delete window;
         x_error (gettext ("Can not create palette"));
         ui_outofmem ();
         exit_xaos (-1);
     }
     image = create_image_cont (width, height, scanline, 2, (unsigned char *) b1, (unsigned char *) b2, palette, ui_flip, 0, qt_driver.width, qt_driver.height);
     if (!image) {
-        qt_uninit();
+        delete window;
         x_error (gettext ("Can not create image"));
         ui_outofmem ();
         exit_xaos (-1);
@@ -1342,15 +1222,16 @@ ui_resize (void)
     uih_stoptimers (uih);
     uih_cycling_stop (uih);
     uih_savepalette (uih);
-    qt_getsize(&w, &h);
+    w = widget->size().width();
+    h = widget->size().height();
     assert (w > 0 && w < 65000 && h > 0 && h < 65000);
     if (w != uih->image->width || h != uih->image->height || (qt_driver.flags & UPDATE_AFTER_RESIZE) || uih->palette->type != qt_driver.imagetype) {
-        qt_free_buffers (NULL, NULL);
+        widget->destroyImages();
         destroy_image (uih->image);
         destroypalette (uih->palette);
         ui_mkimages (w, h);
         if (!uih_updateimage (uih, image)) {
-            qt_uninit();
+            delete window;
             x_error (gettext ("Can not allocate tables"));
             ui_outofmem ();
             exit_xaos (-1);
@@ -1373,9 +1254,9 @@ ui_mainloop (int loop)
     int inmovement = 1;
     int x, y, b, k;
     int time;
-    qt_processevents((!inmovement && !uih->inanimation), &x, &y, &b, &k);
+    QCoreApplication::processEvents(QEventLoop::AllEvents);
     do {
-        qt_mousetype(uih->play ? REPLAYMOUSE : uih->inhibittextoutput ? VJMOUSE : NORMALMOUSE);
+        widget->setCursorType(uih->play ? REPLAYMOUSE : uih->inhibittextoutput ? VJMOUSE : NORMALMOUSE);
         if (uih->display) {
             uih_prepare_image (uih);
             ui_updatestatus ();
@@ -1404,10 +1285,8 @@ ui_mainloop (int loop)
             }
         }
         processbuffer ();
-        qt_processevents((!inmovement && !uih->inanimation), &x, &y, &b, &k);
-
+        ui_mouse(!inmovement && !uih->inanimation);
         inmovement = 0;
-        ui_mouse (x, y, b, k);
         if (callresize)
             ui_resize (), callresize = 0;
     }
