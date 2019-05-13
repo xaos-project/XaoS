@@ -34,7 +34,6 @@ HEADERS += \
     $$PWD/xio.h \
     $$PWD/xldio.h \
     $$PWD/xmenu.h \
-    $$PWD/xshl.h \
     $$PWD/xthread.h \
     $$PWD/zoom.h \
     $$PWD/i386/ctrl87.h \
