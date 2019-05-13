@@ -43,6 +43,14 @@ FractalWidget *widget;
 int
 main(int argc, char *argv[])
 {
+#ifdef _WIN32
+    // On Windows, attach to parent console to allow command-line output
+    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+        freopen("CONOUT$", "w", stdout);
+        freopen("CONOUT$", "w", stderr);
+    }
+#endif
+
     QCoreApplication::setApplicationName("XaoS");
     QCoreApplication::setApplicationVersion(XaoS_VERSION);
     QCoreApplication::setOrganizationName("XaoS Project");
@@ -74,7 +82,6 @@ qt_init()
     QScreen *screen = window->windowHandle()->screen();
     qt_driver.width = 2.54 / screen->physicalDotsPerInchX();
     qt_driver.height = 2.54 / screen->physicalDotsPerInchY();
-    printf("pixelsize: %fx%f\n", qt_driver.width, qt_driver.height);
 
     return 1;
 }
@@ -215,12 +222,12 @@ qt_about(struct uih_context *c, const char *name)
                        "This program is free software; you can redistribute it and/or modify " +
                        "it under the terms of the GNU General Public License as published by " +
                        "the Free Software Foundation; either version 2 of the License, or " +
-                       "(at your option) any later version.\n" +
+                       "(at your option) any later version.\n\n" +
 
                        "This program is distributed in the hope that it will be useful, " +
                        "but WITHOUT ANY WARRANTY; without even the implied warranty of " +
                        "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the " +
-                       "GNU General Public License for more details.\n"
+                       "GNU General Public License for more details.\n\n"
 
                        "You should have received a copy of the GNU General Public License " +
                        "along with this program; if not, write to the Free Software " +
