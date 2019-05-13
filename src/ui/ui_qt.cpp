@@ -68,6 +68,7 @@
 #ifdef DEBUG
 #ifdef __linux__
 #define MEMCHECK
+#import <malloc.h>
 #endif
 #endif
 #define textheight1 (qt_driver.textheight)
@@ -84,14 +85,13 @@ static void ui_mouse(bool wait);
 
 xio_pathdata configfile;
 static void ui_unregistermenus (void);
-static void ui_mkimages (int, int);
+static struct image *ui_mkimages (int, int);
 
 int err;
 /*UI state */
 uih_context *uih;
 char statustext[256];
 int ui_nogui;
-static struct image *image;
 static int statusstart;
 static struct uih_window *statuswindow = NULL;
 static int ministatusstart;
@@ -698,8 +698,8 @@ ui_doquit (int i)
     tl_free_timer (loopt);
     widget->destroyImages();
     delete window;
-    destroypalette (image->palette);
-    destroy_image (image);
+    destroypalette (uih->image->palette);
+    destroy_image (uih->image);
     xth_uninit ();
     xio_uninit ();
     ui_unregistermenus ();
@@ -982,7 +982,7 @@ ui_printspeed()
 
     widget->repaint();
     window->showStatus(0, textheight1 * 11, "Measuring calculation speed");
-    speed_test (uih->fcontext, image);
+    speed_test (uih->fcontext, uih->image);
     window->showStatus(0, textheight1 * 12, "Measuring new image calculation loop");
     uih_prepare_image (uih);
     tl_update_time ();
@@ -1057,7 +1057,7 @@ ui_init (int argc, char **argv)
     widget->setCursorType(WAITMOUSE);
     window->showStatus(0, 0, "Initializing. Please wait");
     window->showStatus(0, textheight1, "Creating framebuffer");
-    ui_mkimages (width, height);
+    struct image *image = ui_mkimages (width, height);
 
     window->showStatus(0, textheight1 * 2, "Initializing fractal engine");
 
@@ -1156,7 +1156,7 @@ ui_init (int argc, char **argv)
 }
 
 
-static void
+static struct image *
 ui_mkimages (int w, int h)
 {
     struct palette *palette;
@@ -1197,7 +1197,7 @@ ui_mkimages (int w, int h)
         ui_outofmem ();
         exit_xaos (-1);
     }
-    image = create_image_cont (width, height, scanline, 2, (unsigned char *) b1, (unsigned char *) b2, palette, ui_flip, 0, qt_driver.width, qt_driver.height);
+    struct image *image = create_image_cont (width, height, scanline, 2, (unsigned char *) b1, (unsigned char *) b2, palette, ui_flip, 0, qt_driver.width, qt_driver.height);
     if (!image) {
         delete window;
         x_error (gettext ("Can not create image"));
@@ -1231,7 +1231,7 @@ ui_resize (void)
         widget->destroyImages();
         destroy_image (uih->image);
         destroypalette (uih->palette);
-        ui_mkimages (w, h);
+        static struct image *image = ui_mkimages (w, h);
         if (!uih_updateimage (uih, image)) {
             delete window;
             x_error (gettext ("Can not allocate tables"));
