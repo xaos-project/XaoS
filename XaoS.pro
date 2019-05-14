@@ -1,6 +1,10 @@
 # -------------------------------------------------
 # Project created by QtCreator 2009-10-29T19:21:55
 # -------------------------------------------------
+
+lessThan(QT_MAJOR_VERSION, 5): error("requires Qt >= 5")
+lessThan(QT_MINOR_VERSION, 9): error("requires Qt >= 5.6")
+
 TEMPLATE = app
 
 QT += opengl
