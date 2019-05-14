@@ -1,18 +1,16 @@
-#include "fractalwidget.h"
-
-#include "ui.h"
-
 #include <QtGui>
 #include <QtOpenGL>
 
+#include "fractalwidget.h"
+
+#include "ui.h"
+#include "filter.h"
+#include "uiint.h"
+#include "i18n.h"
+#include "xerror.h"
+
 FractalWidget::FractalWidget()
 {
-    m_mouseButtons = 0;
-    m_mousePosition = QPoint(0, 0);
-    m_keyCombination = 0;
-    m_activeImage = 0;
-    m_image[0] = m_image[1] = 0;
-
     setAutoFillBackground(false);
     setAttribute(Qt::WA_OpaquePaintEvent, true);
 
@@ -120,15 +118,15 @@ void FractalWidget::keyReleaseEvent(QKeyEvent *event)
 
 void FractalWidget::resizeEvent(QResizeEvent *event)
 {
-    if (m_image[0] && m_image[1])
+    if (m_qimage[0] && m_qimage[1])
         ui_call_resize();
 }
 
 #ifdef USE_OPENGL
 void FractalWidget::paintGL()
 {
-    if (m_image[m_activeImage]) {
-        QImage glimage = QGLWidget::convertToGLFormat(*m_image[m_activeImage]);
+    if (m_image) {
+        QImage glimage = QGLWidget::convertToGLFormat(*m_qimage[m_image->currimage]);
         glDrawPixels(glimage.width(), glimage.height(), GL_RGBA, GL_UNSIGNED_BYTE, glimage.bits());
     }
 }
@@ -144,50 +142,42 @@ void FractalWidget::resizeGL(int w, int h)
 #else
 void FractalWidget::paintEvent (QPaintEvent *event)
 {
-    if (m_image[m_activeImage]) {
+    if (m_image) {
         QPainter painter(this);
         painter.setCompositionMode(QPainter::CompositionMode_Source);
-        painter.drawImage(0, 0, *m_image[m_activeImage]);
+        painter.drawImage(0, 0, *m_qimage[m_image->currimage]);
     }
 }
 #endif
 
-void FractalWidget::createImages()
+struct image *
+FractalWidget::createImages()
 {
-    m_image[0] = new QImage(width(), height(), QImage::Format_RGB32);
-    m_image[1] = new QImage(width(), height(), QImage::Format_RGB32);
-    m_activeImage = 0;
+    m_qimage[0] = new QImage(width(), height(), QImage::Format_RGB32);
+    m_qimage[1] = new QImage(width(), height(), QImage::Format_RGB32);
+    union paletteinfo info;
+    info.truec.rmask = 0xff0000;
+    info.truec.gmask = 0x00ff00;
+    info.truec.bmask = 0x0000ff;
+    struct palette *palette = createpalette (0, 0, UI_TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, &info);
+    if (!palette) {
+        x_error (gettext ("Can not create palette"));
+        exit(-1);
+    }
+    m_image = create_image_cont(width(), height(), m_qimage[0]->bytesPerLine(), 2, m_qimage[0]->bits(), m_qimage[1]->bits(), palette, NULL, 0, pixelwidth, pixelheight);
+    if (!m_image) {
+        x_error (gettext ("Can not create image"));
+        exit(-1);
+    }
+    m_image->data = m_qimage;
+    return m_image;
 }
 
 void FractalWidget::destroyImages()
 {
-    delete m_image[0];
-    delete m_image[1];
-}
-
-char *FractalWidget::imageBuffer1()
-{
-    return (char *)m_image[0]->bits();
-}
-
-char *FractalWidget::imageBuffer2()
-{
-    return (char *)m_image[1]->bits();
-}
-
-void *FractalWidget::imagePointer()
-{
-    return m_image;
-}
-
-int FractalWidget::imageBytesPerLine()
-{
-    return m_image[0]->bytesPerLine();
-}
-
-void FractalWidget::switchActiveImage()
-{
-    m_activeImage ^= 1;
+    delete m_qimage[0];
+    delete m_qimage[1];
+    m_image = NULL;
 }
 
 QPoint FractalWidget::mousePosition()

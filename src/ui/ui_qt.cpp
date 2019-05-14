@@ -637,13 +637,6 @@ ui_call_resize (void)
 }
 
 static void
-ui_flip (struct image *image)
-{
-    flipgeneric (image);
-    widget->switchActiveImage();
-}
-
-static void
 processbuffer (void)
 {
     const menuitem *item;
@@ -1012,7 +1005,7 @@ ui_init (int argc, char **argv)
     widget->setCursorType(WAITMOUSE);
     window->showStatus("Initializing. Please wait");
     window->showStatus("Creating framebuffer");
-    struct image *image = ui_mkimages (width, height);
+    struct image *image = widget->createImages();
 
     window->showStatus("Initializing fractal engine");
 
@@ -1111,49 +1104,6 @@ ui_init (int argc, char **argv)
 }
 
 
-static struct image *
-ui_mkimages (int w, int h)
-{
-    struct palette *palette;
-    int scanline;
-    int width, height;
-    union paletteinfo info;
-    char *b1, *b2;
-    void *data;
-    width = w;
-    height = h;
-    widget->createImages();
-    b1 = widget->imageBuffer1();
-    b2 = widget->imageBuffer2();
-    data = widget->imagePointer();
-    scanline = widget->imageBytesPerLine();
-    if (!scanline) {
-        delete window;
-        x_error (gettext ("Can not allocate buffers"));
-        ui_outofmem ();
-        exit_xaos (-1);
-    }
-    info.truec.rmask = 0xff0000;
-    info.truec.gmask = 0x00ff00;
-    info.truec.bmask = 0x0000ff;
-    palette = createpalette (0, 0, UI_TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, &info);
-    if (!palette) {
-        delete window;
-        x_error (gettext ("Can not create palette"));
-        ui_outofmem ();
-        exit_xaos (-1);
-    }
-    struct image *image = create_image_cont (width, height, scanline, 2, (unsigned char *) b1, (unsigned char *) b2, palette, ui_flip, 0, pixelwidth, pixelheight);
-    if (!image) {
-        delete window;
-        x_error (gettext ("Can not create image"));
-        ui_outofmem ();
-        exit_xaos (-1);
-    }
-    image->data = data;
-    return image;
-}
-
 void
 ui_resize (void)
 {
@@ -1178,7 +1128,7 @@ ui_resize (void)
         widget->destroyImages();
         destroy_image (uih->image);
         destroypalette (uih->palette);
-        struct image *image = ui_mkimages (w, h);
+        struct image *image = widget->createImages();
         if (!uih_updateimage (uih, image)) {
             delete window;
             x_error (gettext ("Can not allocate tables"));

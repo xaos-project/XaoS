@@ -2,6 +2,8 @@
 #define FRACTALWIDGET_H
 
 #include <QGLWidget>
+
+struct image;
 class QImage;
 class QPoint;
 #define USE_OPENGL
@@ -13,12 +15,12 @@ class FractalWidget: public QWidget
 {
     Q_OBJECT
 private:
-    QImage * m_image[2];
-    int m_activeImage;
-    QPoint m_mousePosition;
-    Qt::MouseButtons m_mouseButtons;
-    Qt::KeyboardModifiers m_keyboardModifiers;
-    int m_keyCombination;
+    struct image *m_image = NULL;
+    QImage *m_qimage[2];
+    QPoint m_mousePosition = QPoint(0, 0);
+    Qt::MouseButtons m_mouseButtons = 0;
+    Qt::KeyboardModifiers m_keyboardModifiers = 0;
+    int m_keyCombination = 0;
     QSize m_sizeHint;
     void updateMouse(QMouseEvent * event);
 protected:
@@ -41,14 +43,8 @@ public:
     void paintGL();
     void resizeGL (int w, int h);
 #endif
-    void createImages();
+    struct image *createImages();
     void destroyImages();
-    char *imageBuffer1();
-    char *imageBuffer2();
-    void *imagePointer();
-    int imageBytesPerLine();
-    QSize imageSize();
-    void switchActiveImage();
     QPoint mousePosition();
     int mouseButtons();
     int keyCombination();
