@@ -24,7 +24,6 @@
 #include <fconfig.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <aconfig.h>
 #include <limits.h>
 #include <math.h>
 #include <string.h>

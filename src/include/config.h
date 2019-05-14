@@ -1,9 +1,29 @@
 #ifndef CONFIG_H
 #define CONFIG_H
-#define HOMEDIR
 
+#define XaoS_VERSION "4.0"
 #define HELP_URL "https://github.com/xaos-project/XaoS/wiki"
 #define WEB_URL "http://xaos.sourceforge.net/"
+
+#define HOMEDIR
+#define DATAPATH "/usr/local/share/XaoS"
+/* #undef USE_PTHREAD */
+#define HAVE_FABSL 1
+#define HAVE_FTIME 1
+#ifndef _MSC_VER
+#define HAVE_LONG_DOUBLE 1
+#endif
+#define HAVE_GETTIMEOFDAY 1
+#ifndef _MSC_VER
+#define HAVE_SYS_TIME_H 1
+#endif
+#ifndef _MSC_VER
+#define HAVE_UNISTD_H 1
+#endif
+
+#define SIZEOF_SHORT 2
+#define SIZEOF_INT 4
+#define SIZEOF_LONG 4
 
 #ifdef _WIN32
 #define CONFIGFILE "XaoS.cfg"
@@ -18,13 +38,10 @@ before #include <ddraw.h>*/
 #define NONAMELESSUNION
 #endif
 
-/*#define I_WAS_HERE */      /*uncoment this to disable changing of parameters by atoconf */
-
 #define FPOINT_TYPE  long double
 				       /*floating point math type on computers
 				          with medium speed floating point math should   
 				          use float instead */
-#include <aconfig.h>
 #define USE_STDIO
 #if !defined(HAVE_LONG_DOUBLE)&&!defined(I_WAS_HERE)
 #undef FPOINT_TYPE
@@ -53,14 +70,12 @@ before #include <ddraw.h>*/
 #ifdef HAVE_MOUSEMASK
 #define NCURSESMOUSE
 #endif
-#ifdef QT_DRIVER
 #define SFIXEDCOLOR
 #define STRUECOLOR
 #define STRUECOLOR16
 #define STRUECOLOR24
 #define SMBITMAPS
 #define SLBITMAPS
-#endif
 #ifdef HAVE_SELECT
 #define COMPILE_PIPE
 #endif

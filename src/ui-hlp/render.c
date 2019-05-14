@@ -102,9 +102,6 @@ extern struct filteraction antialias_filter;
 int
 uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpath animation, int width, int height, float pixelwidth, float pixelheight, int frametime, int type, int antialias, int slowmode, int letterspersec, const char *catalog)
 {
-#ifdef QT_DRIVER
-    type = TRUECOLOR;
-#endif
     struct palette *pal = createpalette (0, 0, type, 0, 0, NULL, NULL, NULL, NULL, NULL);
     struct image *img;
     xio_file af;
@@ -118,6 +115,7 @@ uih_renderanimation (struct uih_context *gc1, const char *basename, xio_constpat
     struct frame_info curframe;
     int framenum = 0;
 
+    type = TRUECOLOR; // Qt only supports truecolor
 
     noiselevel = ALL;
     gc = gc1;

@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "config.h"
 #include "xerror.h"
-#include "aconfig.h"
 /*On windows we use message boxes done in the ui_win32.c code*/
 void
 x_message (const char *text, ...)

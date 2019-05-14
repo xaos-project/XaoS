@@ -38,6 +38,4 @@ HEADERS += \
     $$PWD/zoom.h \
     $$PWD/i386/ctrl87.h \
     $$PWD/i386/sstring.h \
-    $$PWD/i386/__math.h \
-    $$PWD/aconfig.h \
-    $$PWD/version.h
+    $$PWD/i386/__math.h

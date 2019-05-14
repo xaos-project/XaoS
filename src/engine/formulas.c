@@ -33,7 +33,6 @@
 // Some help can be read below about line 700. :-)
 
 
-#include <aconfig.h>
 #include <limits.h>
 #include <string.h>
 #include <stdlib.h>

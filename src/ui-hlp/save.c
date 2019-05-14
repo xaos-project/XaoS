@@ -1,4 +1,3 @@
-#include <config.h>
 #include <limits.h>
 #include <string.h>
 #include <errno.h>
@@ -7,7 +6,6 @@
 #include <fractal.h>
 #include <ui_helper.h>
 #include <config.h>
-#include <version.h>
 #include <xmenu.h>
 #include <xldio.h>
 #include "play.h"

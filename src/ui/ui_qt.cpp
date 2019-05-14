@@ -22,7 +22,6 @@
 #include <config.h>
 #undef _EFENCE_
 #include <limits.h>
-#include <aconfig.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
@@ -50,7 +49,6 @@
 #include <ui_helper.h>
 #include <ui.h>
 #include <param.h>
-#include <version.h>
 #include <timers.h>
 #include <plane.h>
 #include <xthread.h>

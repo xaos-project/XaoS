@@ -40,7 +40,6 @@
 #include <time.h>
 #endif
    /*HAVE_TIME_H */
-#include <aconfig.h>
 #include <stdio.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>

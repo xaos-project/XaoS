@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <aconfig.h>
 #include <filter.h>
 #include <fconfig.h>
 #include <formulas.h>

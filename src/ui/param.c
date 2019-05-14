@@ -25,7 +25,6 @@
 #include <config.h>
 #include <param.h>
 #include <xmenu.h>
-#include <version.h>
 #include <xerror.h>
 #define MAXPARAMS 40
 static const struct params *params[40];

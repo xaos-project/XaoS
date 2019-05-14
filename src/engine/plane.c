@@ -20,7 +20,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 #include <stdio.h>
-#include <aconfig.h>
 #include <math.h>
 #include <limits.h>
 #include <config.h>

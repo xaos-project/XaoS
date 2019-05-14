@@ -27,8 +27,7 @@
 #define cos(x) __builtin_cos(x)
 #endif
 
-
-#include "aconfig.h"
+#include "config.h"
 
 #ifndef __HAVE_FABSL
 #ifdef HAVE_FABSL
