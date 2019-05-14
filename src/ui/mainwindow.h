@@ -26,7 +26,7 @@ public:
     void popupMenu(struct uih_context *uih, const char *name);
     void toggleMenu(struct uih_context *uih, const char *name);
     void showDialog(struct uih_context *uih, const char *name);
-    void showStatus(int x, int y, const char *text);
+    void showStatus(const char *text);
 };
 
 #endif // MAINWINDOW_H

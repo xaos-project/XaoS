@@ -197,7 +197,7 @@ void MainWindow::showDialog(struct uih_context *uih, const char *name)
     }
 }
 
-void MainWindow::showStatus(int x, int y, const char *text)
+void MainWindow::showStatus(const char *text)
 {
     printf("%s\n", text);
 }

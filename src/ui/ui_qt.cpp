@@ -299,7 +299,7 @@ ui_passfunc (struct uih_context *c, int display, const char *text, float percent
                     sprintf (str, "%s %3.2f%%        ", text, (double) percent);
                 else
                     sprintf (str, "%s          ", text);
-                window->showStatus(0, uih->image->height - textheight1, str);
+                window->showStatus(str);
             }
         }
     }
@@ -319,7 +319,7 @@ ui_updatestatus (void)
     sprintf (statustext, gettext ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "), times < 1 ? gettext ("unzoomed") : gettext ("zoomed"), times < 1 ? 1.0 / times : times, timesnop, speed, uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1, uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1, uih->fcontext->maxiter);
 
     STAT (printf (gettext ("framerate:%f\n"), speed));
-    window->showStatus(0, 0, "");
+    window->showStatus("");
 }
 
 void
@@ -508,7 +508,7 @@ ui_message (struct uih_context *u)
         return;
     widget->setCursorType(WAITMOUSE);
     sprintf (s, gettext ("Please wait while calculating %s"), uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
-    window->showStatus(0, 0, s);
+    window->showStatus(s);
 }
 
 #define ROTATESPEEDUP 30
@@ -741,7 +741,7 @@ ui_key (int key)
                     ui_updatestatus ();
                 else {
                     uih_skipframe (uih);
-                    window->showStatus(0, 0, gettext ("Skipping, please wait..."));
+                    window->showStatus(gettext("Skipping, please wait..."));
                 }
             }
             break;
@@ -921,13 +921,13 @@ ui_printspeed()
     int x, y, b, k;
     int linesize = uih->image->bytesperpixel * uih->image->height;
     int size = linesize * uih->image->height;
-    window->showStatus(0, textheight1 * 8, "Preparing for speedtest");
+    window->showStatus("Preparing for speedtest");
     uih->passfunc = NULL;
     tl_sleep (1000000);
     for (c = 0; c < 5; c++)
         widget->repaint();
     QCoreApplication::processEvents(QEventLoop::AllEvents);
-    window->showStatus(0, textheight1 * 9, "Measuring dislay speed");
+    window->showStatus("Measuring dislay speed");
     tl_sleep (1000000);
     tl_update_time ();
     tl_reset_timer (maintimer);
@@ -940,7 +940,7 @@ ui_printspeed()
     }
     x_message ("Driver speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
 
-    window->showStatus(0, textheight1 * 10, "Measuring memcpy speed");
+    window->showStatus("Measuring memcpy speed");
     for (c = 0; c < 5; c++) {
         for (x = 0; x < uih->image->height; x++)
             memcpy (uih->image->currlines[y], uih->image->oldlines[y], linesize);
@@ -955,7 +955,7 @@ ui_printspeed()
     }
     x_message ("Memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
 
-    window->showStatus(0, textheight1 * 10, "Measuring missaligned memcpy speed");
+    window->showStatus("Measuring missaligned memcpy speed");
     tl_update_time ();
     tl_reset_timer (maintimer);
     c = 0;
@@ -966,7 +966,7 @@ ui_printspeed()
     }
     x_message ("Missaligned memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
 
-    window->showStatus(0, textheight1 * 10, "Measuring size6 memcpy speed");
+    window->showStatus("Measuring size6 memcpy speed");
     tl_update_time ();
     tl_reset_timer (maintimer);
     c = 0;
@@ -981,9 +981,9 @@ ui_printspeed()
     x_message ("Size 6 memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
 
     widget->repaint();
-    window->showStatus(0, textheight1 * 11, "Measuring calculation speed");
+    window->showStatus("Measuring calculation speed");
     speed_test (uih->fcontext, uih->image);
-    window->showStatus(0, textheight1 * 12, "Measuring new image calculation loop");
+    window->showStatus("Measuring new image calculation loop");
     uih_prepare_image (uih);
     tl_update_time ();
     tl_reset_timer (maintimer);
@@ -997,7 +997,7 @@ ui_printspeed()
     c = 0;
     tl_update_time ();
     tl_reset_timer (maintimer);
-    window->showStatus(0, textheight1 * 13, "Measuring zooming algorithm loop");
+    window->showStatus("Measuring zooming algorithm loop");
     while (tl_lookup_timer (maintimer) < 5000000)
         uih_animate_image (uih), uih_prepare_image (uih), tl_update_time (), c++;
     x_message ("Approximation loop speed: %g FPS", c / 5.0);
@@ -1055,11 +1055,11 @@ ui_init (int argc, char **argv)
     width = widget->size().width();
     height = widget->size().height();
     widget->setCursorType(WAITMOUSE);
-    window->showStatus(0, 0, "Initializing. Please wait");
-    window->showStatus(0, textheight1, "Creating framebuffer");
+    window->showStatus("Initializing. Please wait");
+    window->showStatus("Creating framebuffer");
     struct image *image = ui_mkimages (width, height);
 
-    window->showStatus(0, textheight1 * 2, "Initializing fractal engine");
+    window->showStatus("Initializing fractal engine");
 
     /* gloabuih initialization moved into uih_mkcontext function : malczak */
     uih = uih_mkcontext (qt_driver.flags, image, ui_passfunc, ui_message, ui_updatemenus);
@@ -1082,12 +1082,12 @@ ui_init (int argc, char **argv)
     maintimer = tl_create_timer ();
     arrowtimer = tl_create_timer ();
     loopt = tl_create_timer ();
-    window->showStatus(0, textheight1 * 3, "Loading message catalog");
+    window->showStatus("Loading message catalog");
     char language[10];
     strcpy(language, QLocale::system().name().toStdString().c_str());
     language[2] = '\0';
     uih_loadcatalog (uih, language);
-    window->showStatus(0, textheight1 * 4, "Initializing timing system");
+    window->showStatus("Initializing timing system");
     uih_newimage (uih);
     tl_update_time ();
     /*tl_process_group (syncgroup, NULL); */
@@ -1095,7 +1095,7 @@ ui_init (int argc, char **argv)
     tl_reset_timer (arrowtimer);
 #ifdef COMPILE_PIPE
     if (defpipe != NULL) {
-        window->showStatus(0, textheight1 * 5, "Initializing pipe");
+        window->showStatus("Initializing pipe");
         ui_pipe_init (defpipe);
     }
 #else
@@ -1104,7 +1104,7 @@ ui_init (int argc, char **argv)
     }
 #endif
     /*uih_constantframetime(uih,1000000/20); */
-    window->showStatus(0, textheight1 * 6, "Reading configuration file");
+    window->showStatus("Reading configuration file");
     {
         xio_file f = xio_ropen (configfile);    /*load the configuration file */
         if (f != XIO_FAILED) {
@@ -1117,7 +1117,7 @@ ui_init (int argc, char **argv)
             }
         }
     }
-    window->showStatus(0, textheight1 * 7, "Processing command line parameters");
+    window->showStatus("Processing command line parameters");
     {
         const menuitem *item;
         dialogparam *d;
@@ -1152,7 +1152,7 @@ ui_init (int argc, char **argv)
         sffe_parse (&uih->parser, "z^2+c");
      /*SFFE*/
 #endif
-        window->showStatus(0, textheight1 * 8, "Entering main loop");
+        window->showStatus("Entering main loop");
 }
 
 
@@ -1205,6 +1205,7 @@ ui_mkimages (int w, int h)
         exit_xaos (-1);
     }
     image->data = data;
+    return image;
 }
 
 void
@@ -1231,7 +1232,7 @@ ui_resize (void)
         widget->destroyImages();
         destroy_image (uih->image);
         destroypalette (uih->palette);
-        static struct image *image = ui_mkimages (w, h);
+        struct image *image = ui_mkimages (w, h);
         if (!uih_updateimage (uih, image)) {
             delete window;
             x_error (gettext ("Can not allocate tables"));
