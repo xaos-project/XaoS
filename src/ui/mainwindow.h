@@ -7,6 +7,7 @@ class FractalWidget;
 class MainWindow:public QMainWindow  {
     Q_OBJECT
 private:
+    struct uih_context *m_context;
     FractalWidget * m_fractalWidget;
     void readSettings();
     void writeSettings();
@@ -20,12 +21,13 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
     FractalWidget *fractalWidget();
-    void buildMenu(struct uih_context *uih, const char *name);
-    void buildMenu(struct uih_context *uih, const char *name, QMenu *parent);
-    void buildMenu(struct uih_context *uih, const char *name, QMenu *parent, bool numbered);
-    void popupMenu(struct uih_context *uih, const char *name);
-    void toggleMenu(struct uih_context *uih, const char *name);
-    void showDialog(struct uih_context *uih, const char *name);
+    struct uih_context *createContext();
+    void buildMenu(const char *name);
+    void buildMenu(const char *name, QMenu *parent);
+    void buildMenu(const char *name, QMenu *parent, bool numbered);
+    void popupMenu(const char *name);
+    void toggleMenu(const char *name);
+    void showDialog(const char *name);
     void showStatus(const char *text);
 };
 

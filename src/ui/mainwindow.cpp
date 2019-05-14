@@ -66,7 +66,7 @@
 #ifdef DEBUG
 #ifdef __linux__
 #define MEMCHECK
-#import <malloc.h>
+#include <malloc.h>
 #endif
 #endif
 #ifdef MEMCHECK
@@ -220,7 +220,7 @@ ui_updatemenus (uih_context * c, const char *name)
         }
     }
     if (name == NULL) {
-        window->buildMenu (c, uih->menuroot);
+        window->buildMenu(uih->menuroot);
         return;
     }
     item = menu_findcommand (name);
@@ -229,7 +229,7 @@ ui_updatemenus (uih_context * c, const char *name)
         return;
     }
     if (item->flags & (MENUFLAG_CHECKBOX | MENUFLAG_RADIO)) {
-        window->toggleMenu (uih, name);
+        window->toggleMenu(name);
     }
 }
 
@@ -254,7 +254,6 @@ static int
 ui_passfunc (struct uih_context *c, int display, const char *text, float percent)
 {
     char str[80];
-    int x = 0, y = 0, b = 0, k = 0;
     ui_mouse(false);
     if (!uih->play) {
         if (uih->display)
@@ -307,11 +306,11 @@ ui_menuactivate (const menuitem * item, dialogparam * d)
     if (item == NULL)
         return;
     if (item->type == MENU_SUBMENU) {
-        window->popupMenu (uih, item->shortname);
+        window->popupMenu(item->shortname);
         return;
     } else {
         if (menu_havedialog (item, uih) && d == NULL) {
-            window->showDialog (uih, item->shortname);
+            window->showDialog(item->shortname);
             return;
         }
         if (uih->incalculation && !(item->flags & MENUFLAG_INCALC)) {
@@ -645,9 +644,10 @@ processbuffer (void)
 }
 
 static void
+ui_doquit (int i) NORETURN;
+
+static void
 ui_doquit (int i)
-    NORETURN;
-     static void ui_doquit (int i)
 {
     uih_cycling_off (uih);
     uih_freecatalog (uih);
@@ -757,7 +757,7 @@ ui_helpwr (struct uih_context *c)
 static void
 ui_about (struct uih_context *c)
 {
-    QMessageBox::about(NULL, qt_gettext("About"),
+    QMessageBox::about(NULL, gettext("About"),
                        "<a href=\"http://xaos.sf.net\">" +
                        QCoreApplication::applicationName() + "</a> " +
                        QCoreApplication::applicationVersion() +
@@ -785,12 +785,6 @@ ui_about (struct uih_context *c)
                        "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
 
                        );
-}
-
-char *
-ui_getpos (void)
-{
-    return (uih_savepostostr (uih));
 }
 
 static menuitem *menuitems;
@@ -855,7 +849,7 @@ cmplx Z, C, pZ;
 #endif
 
 void
-ui_printspeed()
+ui_printspeed(struct uih_context *uih)
 {
     int c = 0;
     int x, y, b, k;
@@ -968,6 +962,7 @@ ui_init (int argc, char **argv)
 #ifdef DEBUG
     printf ("Initializing driver\n");
 #endif
+
     window = new MainWindow();
     widget = window->fractalWidget();
     window->show();
@@ -1023,74 +1018,11 @@ ui_init (int argc, char **argv)
     }
 #endif
 
-    widget->setCursorType(WAITMOUSE);
-    window->showStatus("Initializing. Please wait");
-    window->showStatus("Creating framebuffer");
-    struct image *image = widget->createImages();
-    window->showStatus("Initializing fractal engine");
-    uih = uih_mkcontext (PIXELSIZE, image, ui_passfunc, ui_message, ui_updatemenus);
-    uih->fcontext->version++;
-    window->buildMenu (uih, uih->menuroot);
-    window->showStatus("Loading message catalog");
-    char language[10];
-    strcpy(language, QLocale::system().name().toStdString().c_str());
-    language[2] = '\0';
-    uih_loadcatalog (uih, language);
-    window->showStatus("Initializing timing system");
-    uih_newimage (uih);
-    /*uih_constantframetime(uih,1000000/20); */
-    window->showStatus("Reading configuration file");
-    {
-        xio_file f = xio_ropen (configfile);    /*load the configuration file */
-        if (f != XIO_FAILED) {
-            uih_load (uih, f, configfile);
-            if (uih->errstring) {
-                x_error ("Configuration file %s load failed", configfile);
-                uih_printmessages (uih);
-                x_error ("Hint:try to remove it :)");
-                ui_doquit (1);
-            }
-        }
-    }
-    window->showStatus("Processing command line parameters");
-    {
-        const menuitem *item;
-        dialogparam *d;
-        while ((item = menu_delqueue (&d)) != NULL) {
-            uih_saveundo (uih);
-            menu_activate (item, uih, d);
-        }
-    }
-    
-    char welcome[80];
-    sprintf (welcome, gettext ("Welcome to XaoS version %s"), XaoS_VERSION);
-     /*TYPE*/ uih_message (uih, welcome);
-#ifdef SFFE_USING
-    /*SFFE : malczak */
-    if (uih->parser->expression == NULL) {
-        if (sffeform)
-            err = sffe_parse (&uih->parser, (char *) sffeform);
-        else
-            sffe_parse (&uih->parser, "z^2+c");
-    }
+    uih = window->createContext();
 
-    if (sffeinit) {
-        uih->pinit = sffe_alloc ();
-        sffe_regvar (&uih->pinit, &pZ, "p");
-        sffe_regvar (&uih->pinit, &C, "c");
-        if (sffe_parse (&uih->pinit, (char *) sffeinit) > 0)
-            sffe_free (&uih->pinit);
-    };
-
-    if (err > 0)
-        sffe_parse (&uih->parser, "z^2+c");
-     /*SFFE*/
-#endif
     if (printspeed) {
-        ui_printspeed();
+        ui_printspeed(uih);
     }
-
-        window->showStatus("Entering main loop");
 }
 
 
@@ -1141,7 +1073,6 @@ void
 ui_mainloop (int loop)
 {
     int inmovement = 1;
-    int x, y, b, k;
     int time;
     QCoreApplication::processEvents(QEventLoop::AllEvents);
     do {
@@ -1197,6 +1128,76 @@ MainWindow::~MainWindow()
 {
 }
 
+struct uih_context *
+MainWindow::createContext()
+{
+    m_fractalWidget->setCursorType(WAITMOUSE);
+    showStatus("Initializing. Please wait");
+    showStatus("Creating framebuffer");
+    struct image *image = m_fractalWidget->createImages();
+    showStatus("Initializing fractal engine");
+    m_context = uih_mkcontext (PIXELSIZE, image, ui_passfunc, ui_message, ui_updatemenus);
+    m_context->fcontext->version++;
+    buildMenu(m_context->menuroot);
+    showStatus("Loading message catalog");
+    char language[10];
+    strcpy(language, QLocale::system().name().toStdString().c_str());
+    language[2] = '\0';
+    uih_loadcatalog (m_context, language);
+    showStatus("Initializing timing system");
+    uih_newimage (m_context);
+    /*uih_constantframetime(m_context,1000000/20); */
+    showStatus("Reading configuration file");
+    {
+        xio_file f = xio_ropen (configfile);    /*load the configuration file */
+        if (f != XIO_FAILED) {
+            uih_load (m_context, f, configfile);
+            if (m_context->errstring) {
+                x_error ("Configuration file %s load failed", configfile);
+                uih_printmessages (m_context);
+                x_error ("Hint:try to remove it :)");
+                ui_doquit (1);
+            }
+        }
+    }
+    showStatus("Processing command line parameters");
+    {
+        const menuitem *item;
+        dialogparam *d;
+        while ((item = menu_delqueue (&d)) != NULL) {
+            uih_saveundo (m_context);
+            menu_activate (item, m_context, d);
+        }
+    }
+
+    char welcome[80];
+    sprintf (welcome, gettext ("Welcome to XaoS version %s"), XaoS_VERSION);
+     /*TYPE*/ uih_message (m_context, welcome);
+#ifdef SFFE_USING
+    /*SFFE : malczak */
+    if (m_context->parser->expression == NULL) {
+        if (sffeform)
+            err = sffe_parse (&m_context->parser, (char *) sffeform);
+        else
+            sffe_parse (&m_context->parser, "z^2+c");
+    }
+
+    if (sffeinit) {
+        m_context->pinit = sffe_alloc ();
+        sffe_regvar (&m_context->pinit, &pZ, "p");
+        sffe_regvar (&m_context->pinit, &C, "c");
+        if (sffe_parse (&m_context->pinit, (char *) sffeinit) > 0)
+            sffe_free (&m_context->pinit);
+    };
+
+    if (err > 0)
+        sffe_parse (&m_context->parser, "z^2+c");
+     /*SFFE*/
+#endif
+
+    return m_context;
+}
+
 FractalWidget *MainWindow::fractalWidget()
 {
     return m_fractalWidget;
@@ -1239,7 +1240,7 @@ QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
     return QKeySequence::UnknownKey;
 }
 
-void MainWindow::buildMenu(struct uih_context *uih, const char *name)
+void MainWindow::buildMenu(const char *name)
 {
     menuBar()->clear();
 
@@ -1247,12 +1248,12 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name)
     for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
         if (item->type == MENU_SUBMENU) {
             QMenu *menu = menuBar()->addMenu(QString(item->name));
-            buildMenu(uih, item->shortname, menu, false);
+            buildMenu(item->shortname, menu, false);
         }
     }
 }
 
-void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *parent, bool numbered)
+void MainWindow::buildMenu(const char *name, QMenu *parent, bool numbered)
 {
     QActionGroup *group = 0;
 
@@ -1283,14 +1284,14 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
             parent->addSeparator();
         } else if (item->type == MENU_SUBMENU) {
             QMenu *menu = parent->addMenu(itemName);
-            buildMenu(uih, item->shortname, menu, numbered);
+            buildMenu(item->shortname, menu, numbered);
         } else {
             QAction *action = new QAction(itemName, parent);
             action->setShortcuts(keyForItem(item->shortname));
             action->setObjectName(item->shortname);
             if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX)) {
                 action->setCheckable(true);
-                action->setChecked(menu_enabled(item, uih));
+                action->setChecked(menu_enabled(item, m_context));
                 if (item->flags & MENUFLAG_RADIO) {
                     if (!group)
                         group = new QActionGroup(parent);
@@ -1303,20 +1304,20 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
     }
 }
 
-void MainWindow::popupMenu(struct uih_context *uih, const char *name)
+void MainWindow::popupMenu(const char *name)
 {
     QMenu *menu = new QMenu(this);
-    buildMenu(uih, name, menu, true);
+    buildMenu(name, menu, true);
     menu->exec(QCursor::pos());
     delete menu;
 }
 
-void MainWindow::toggleMenu(struct uih_context *uih, const char *name)
+void MainWindow::toggleMenu(const char *name)
 {
     const menuitem *item = menu_findcommand(name);
     QAction *action = menuBar()->findChild<QAction *>(name);
     if (action)
-        action->setChecked(menu_enabled(item, uih));
+        action->setChecked(menu_enabled(item, m_context));
 }
 
 void MainWindow::activateMenuItem()
@@ -1338,12 +1339,12 @@ void MainWindow::updateMenuCheckmarks()
 
 }
 
-void MainWindow::showDialog(struct uih_context *uih, const char *name)
+void MainWindow::showDialog(const char *name)
 {
     const menuitem *item = menu_findcommand(name);
     if (!item) return;
 
-    const menudialog *dialog = menu_getdialog(uih, item);
+    const menudialog *dialog = menu_getdialog(m_context, item);
     if (!dialog) return;
 
     int nitems;
@@ -1366,7 +1367,7 @@ void MainWindow::showDialog(struct uih_context *uih, const char *name)
             ui_menuactivate(item, param);
         }
     } else {
-        CustomDialog customDialog(uih, item, dialog, this);
+        CustomDialog customDialog(m_context, item, dialog, this);
         if (customDialog.exec() == QDialog::Accepted)
             ui_menuactivate(item, customDialog.parameters());
     }
