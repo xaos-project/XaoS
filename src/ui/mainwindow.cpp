@@ -19,7 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#include <config.h>
 #undef _EFENCE_
 #include <limits.h>
 #include <ctype.h>
@@ -33,16 +32,7 @@
 #include <unistd.h>
 #endif
 #include <signal.h>
-#include <fconfig.h>
 #include <assert.h>
-
-
-#include "mainwindow.h"
-#include "fractalwidget.h"
-
-#include "ui.h"
-
-#include <QtWidgets>
 
 #include <QtWidgets>
 #include <cstring>
@@ -53,17 +43,19 @@
 #include "fractalwidget.h"
 #include "customdialog.h"
 
-#include <filter.h>
-#include <ui_helper.h>
-#include <ui.h>
-#include <param.h>
-#include <timers.h>
-#include <plane.h>
-#include <xthread.h>
-#include <xerror.h>
-#include <xmenu.h>
-#include <grlib.h>
-#include <archaccel.h>
+#include "config.h"
+#include "fconfig.h"
+#include "filter.h"
+#include "ui_helper.h"
+#include "ui.h"
+#include "param.h"
+#include "timers.h"
+#include "plane.h"
+#include "xthread.h"
+#include "xerror.h"
+#include "xmenu.h"
+#include "grlib.h"
+#include "archaccel.h"
 #include "uiint.h"
 #include "i18n.h"
 
@@ -152,10 +144,6 @@ const struct params global_params[] = {
      "z0 for user formula"},
 #endif
     {NULL, 0, NULL, NULL}
-};
-
-static struct params params[] = {
-{NULL, 0, NULL, NULL}
 };
 
 MainWindow *window;
@@ -866,8 +854,6 @@ int number_six = 6;
 cmplx Z, C, pZ;
 #endif
 
-#define MAX_WELCOME 80
-
 void
 ui_printspeed()
 {
@@ -961,9 +947,6 @@ ui_printspeed()
 void
 ui_init (int argc, char **argv)
 {
-    int width, height;
-    char welcome[MAX_WELCOME];
-
     xio_init (argv[0]);
     params_register (global_params);
     params_register (ui_fractal_params);
@@ -994,33 +977,19 @@ ui_init (int argc, char **argv)
         pixelwidth = 2.54 / screen->physicalDotsPerInchX();
     if (!pixelheight)
         pixelheight = 2.54 / screen->physicalDotsPerInchY();
+
     signal (SIGFPE, SIG_IGN);
+    srand (time (NULL));
     xth_init (defthreads);
-    {
-        int i = ui_dorender_params ();
-        if (i) {
-            ui_unregistermenus ();
-            uih_unregistermenus ();
-            xio_uninit ();
-            exit_xaos (i - 1);
-        }
+
+    int i = ui_dorender_params ();
+    if (i) {
+        ui_unregistermenus ();
+        uih_unregistermenus ();
+        xio_uninit ();
+        exit_xaos (i - 1);
     }
-#ifdef DEBUG
-    printf ("Getting size\n");
-#endif
-    width = widget->size().width();
-    height = widget->size().height();
-    widget->setCursorType(WAITMOUSE);
-    window->showStatus("Initializing. Please wait");
-    window->showStatus("Creating framebuffer");
-    struct image *image = widget->createImages();
 
-    window->showStatus("Initializing fractal engine");
-
-    /* gloabuih initialization moved into uih_mkcontext function : malczak */
-    uih = uih_mkcontext (PIXELSIZE, image, ui_passfunc, ui_message, ui_updatemenus);
-
-    window->buildMenu (uih, uih->menuroot);
 #ifdef HOMEDIR
     if (getenv ("HOME") != NULL) {
         char home[256], *env = getenv ("HOME");
@@ -1033,22 +1002,16 @@ ui_init (int argc, char **argv)
     } else
 #endif
         xio_addfname (configfile, XIO_EMPTYPATH, CONFIGFILE);
-    srand (time (NULL));
-    uih->fcontext->version++;
+
     maintimer = tl_create_timer ();
     arrowtimer = tl_create_timer ();
     loopt = tl_create_timer ();
-    window->showStatus("Loading message catalog");
-    char language[10];
-    strcpy(language, QLocale::system().name().toStdString().c_str());
-    language[2] = '\0';
-    uih_loadcatalog (uih, language);
-    window->showStatus("Initializing timing system");
-    uih_newimage (uih);
+
     tl_update_time ();
     /*tl_process_group (syncgroup, NULL); */
     tl_reset_timer (maintimer);
     tl_reset_timer (arrowtimer);
+
 #ifdef COMPILE_PIPE
     if (defpipe != NULL) {
         window->showStatus("Initializing pipe");
@@ -1059,6 +1022,22 @@ ui_init (int argc, char **argv)
         x_fatalerror ("Pipe input not supported!");
     }
 #endif
+
+    widget->setCursorType(WAITMOUSE);
+    window->showStatus("Initializing. Please wait");
+    window->showStatus("Creating framebuffer");
+    struct image *image = widget->createImages();
+    window->showStatus("Initializing fractal engine");
+    uih = uih_mkcontext (PIXELSIZE, image, ui_passfunc, ui_message, ui_updatemenus);
+    uih->fcontext->version++;
+    window->buildMenu (uih, uih->menuroot);
+    window->showStatus("Loading message catalog");
+    char language[10];
+    strcpy(language, QLocale::system().name().toStdString().c_str());
+    language[2] = '\0';
+    uih_loadcatalog (uih, language);
+    window->showStatus("Initializing timing system");
+    uih_newimage (uih);
     /*uih_constantframetime(uih,1000000/20); */
     window->showStatus("Reading configuration file");
     {
@@ -1082,11 +1061,10 @@ ui_init (int argc, char **argv)
             menu_activate (item, uih, d);
         }
     }
+    
+    char welcome[80];
     sprintf (welcome, gettext ("Welcome to XaoS version %s"), XaoS_VERSION);
      /*TYPE*/ uih_message (uih, welcome);
-    if (printspeed) {
-        ui_printspeed();
-    }
 #ifdef SFFE_USING
     /*SFFE : malczak */
     if (uih->parser->expression == NULL) {
@@ -1108,6 +1086,10 @@ ui_init (int argc, char **argv)
         sffe_parse (&uih->parser, "z^2+c");
      /*SFFE*/
 #endif
+    if (printspeed) {
+        ui_printspeed();
+    }
+
         window->showStatus("Entering main loop");
 }
 
