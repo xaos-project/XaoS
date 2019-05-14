@@ -6,7 +6,6 @@
 
 #include <QtWidgets>
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -200,4 +199,104 @@ void MainWindow::showDialog(struct uih_context *uih, const char *name)
 void MainWindow::showStatus(const char *text)
 {
     printf("%s\n", text);
+}
+
+int MainWindow::mouseButtons()
+{
+
+    // Qt::MetaModifier maps to control key on Macs
+#ifdef Q_WS_MAC
+    Qt::KeyboardModifier controlModifier = Qt::MetaModifier;
+#else
+    Qt::KeyboardModifier controlModifier = Qt::ControlModifier;
+#endif
+
+    int mouseButtons = 0;
+
+    // Modifier keys change behavior of left and right mouse buttons
+    if (m_keyboardModifiers & controlModifier) {
+        // Control key swaps left and right buttons
+        if (m_mouseButtons & Qt::LeftButton)
+            mouseButtons |= BUTTON3;
+        if (m_mouseButtons & Qt::RightButton)
+            mouseButtons |= BUTTON1;
+    } else if (m_keyboardModifiers & Qt::ShiftModifier) {
+        // Shift key makes left and right buttons emulate middle button
+        if (m_mouseButtons & (Qt::LeftButton | Qt::RightButton))
+            mouseButtons |= BUTTON2;
+    } else {
+        // Otherwise, mouse buttons map normally
+        if (m_mouseButtons & Qt::LeftButton)
+            mouseButtons |= BUTTON1;
+        if (m_mouseButtons & Qt::RightButton)
+            mouseButtons |= BUTTON3;
+    }
+
+    // Middle button is unaffected by modifier keys
+    if (m_mouseButtons & Qt::MidButton)
+        mouseButtons |= BUTTON2;
+
+    return mouseButtons;
+}
+
+int MainWindow::keyCombination()
+{
+    return m_keyCombination;
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    m_mouseButtons = event->buttons();
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    m_mouseButtons = event->buttons();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    m_keyboardModifiers = event->modifiers();
+
+    switch (event->key()) {
+    case Qt::Key_Left:
+        m_keyCombination |= 1;
+        break;
+    case Qt::Key_Right:
+        m_keyCombination |= 2;
+        break;
+    case Qt::Key_Up:
+        m_keyCombination |= 4;
+        break;
+    case Qt::Key_Down:
+        m_keyCombination |= 8;
+        break;
+    default:
+        if (!event->text().isEmpty())
+            ui_key(event->text().toUtf8()[0]);
+        else
+            event->ignore();
+    }
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    m_keyboardModifiers = event->modifiers();
+
+    switch (event->key()) {
+    case Qt::Key_Left:
+        m_keyCombination &= ~1;
+        break;
+    case Qt::Key_Right:
+        m_keyCombination &= ~2;
+        break;
+    case Qt::Key_Up:
+        m_keyCombination &= ~4;
+        break;
+    case Qt::Key_Down:
+        m_keyCombination &= ~8;
+        break;
+    default:
+        event->ignore();
+    }
 }

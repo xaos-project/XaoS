@@ -476,7 +476,7 @@ ui_message (struct uih_context *u)
     char s[100];
     if (uih->play)
         return;
-    widget->setCursorType(WAITMOUSE);
+    widget->setCursor(Qt::WaitCursor);
     sprintf (s, gettext ("Please wait while calculating %s"), uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
     window->showStatus(s);
 }
@@ -545,8 +545,8 @@ ui_mouse(bool wait)
 
     int mousex = widget->mousePosition().x();
     int mousey = widget->mousePosition().y();
-    int mousebuttons = widget->mouseButtons();
-    int iterchange = widget->keyCombination();
+    int mousebuttons = window->mouseButtons();
+    int iterchange = window->keyCombination();
     flags = 0;
     if (mousex != lastx || mousey != lasty)
         flags |= MOUSE_MOVE;
@@ -637,13 +637,6 @@ ui_call_resize (void)
 }
 
 static void
-ui_flip (struct image *image)
-{
-    flipgeneric (image);
-    widget->switchActiveImage();
-}
-
-static void
 processbuffer (void)
 {
     const menuitem *item;
@@ -666,7 +659,6 @@ ui_doquit (int i)
     tl_free_timer (maintimer);
     tl_free_timer (arrowtimer);
     tl_free_timer (loopt);
-    widget->destroyImages();
     delete window;
     destroypalette (uih->image->palette);
     destroy_image (uih->image);
@@ -740,7 +732,7 @@ ui_key (int key)
                     int mousex, mousey, buttons;
                     mousex = widget->mousePosition().x();
                     mousey = widget->mousePosition().y();
-                    buttons = widget->mouseButtons();
+                    buttons = window->mouseButtons();
                     if (d[0].question != NULL && d[1].question == NULL && d[0].type == DIALOG_COORD) {
                         p = (dialogparam *) malloc (sizeof (dialogparam));
                         uih_screentofractalcoord (uih, mousex, mousey, p->dcoord, p->dcoord + 1);
@@ -1009,7 +1001,7 @@ ui_init (int argc, char **argv)
 #endif
     width = widget->size().width();
     height = widget->size().height();
-    widget->setCursorType(WAITMOUSE);
+    widget->setCursor(Qt::WaitCursor);
     window->showStatus("Initializing. Please wait");
     window->showStatus("Creating framebuffer");
     struct image *image = ui_mkimages (width, height);
@@ -1112,27 +1104,10 @@ ui_init (int argc, char **argv)
 
 
 static struct image *
-ui_mkimages (int w, int h)
+ui_mkimages (int width, int height)
 {
     struct palette *palette;
-    int scanline;
-    int width, height;
     union paletteinfo info;
-    char *b1, *b2;
-    void *data;
-    width = w;
-    height = h;
-    widget->createImages();
-    b1 = widget->imageBuffer1();
-    b2 = widget->imageBuffer2();
-    data = widget->imagePointer();
-    scanline = widget->imageBytesPerLine();
-    if (!scanline) {
-        delete window;
-        x_error (gettext ("Can not allocate buffers"));
-        ui_outofmem ();
-        exit_xaos (-1);
-    }
     info.truec.rmask = 0xff0000;
     info.truec.gmask = 0x00ff00;
     info.truec.bmask = 0x0000ff;
@@ -1143,14 +1118,14 @@ ui_mkimages (int w, int h)
         ui_outofmem ();
         exit_xaos (-1);
     }
-    struct image *image = create_image_cont (width, height, scanline, 2, (unsigned char *) b1, (unsigned char *) b2, palette, ui_flip, 0, pixelwidth, pixelheight);
+    struct image *image = create_image_qt(width, height, palette, pixelwidth, pixelheight);
     if (!image) {
         delete window;
         x_error (gettext ("Can not create image"));
         ui_outofmem ();
         exit_xaos (-1);
     }
-    image->data = data;
+    widget->setImage(image);
     return image;
 }
 
@@ -1175,7 +1150,6 @@ ui_resize (void)
     h = widget->size().height();
     assert (w > 0 && w < 65000 && h > 0 && h < 65000);
     if (w != uih->image->width || h != uih->image->height) {
-        widget->destroyImages();
         destroy_image (uih->image);
         destroypalette (uih->palette);
         struct image *image = ui_mkimages (w, h);
@@ -1205,7 +1179,7 @@ ui_mainloop (int loop)
     int time;
     QCoreApplication::processEvents(QEventLoop::AllEvents);
     do {
-        widget->setCursorType(uih->play ? REPLAYMOUSE : uih->inhibittextoutput ? VJMOUSE : NORMALMOUSE);
+        widget->setCursor(uih->play ? Qt::CrossCursor : uih->inhibittextoutput ? Qt::CrossCursor: Qt::CrossCursor);
         if (uih->display) {
             uih_prepare_image (uih);
             ui_updatestatus ();
