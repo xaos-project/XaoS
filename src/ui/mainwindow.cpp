@@ -471,7 +471,7 @@ ui_message (struct uih_context *u)
     char s[100];
     if (uih->play)
         return;
-    widget->setCursorType(WAITMOUSE);
+    widget->setCursor(Qt::WaitCursor);
     sprintf (s, gettext ("Please wait while calculating %s"), uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
     window->showStatus(s);
 }
@@ -540,8 +540,8 @@ ui_mouse(bool wait)
 
     int mousex = widget->mousePosition().x();
     int mousey = widget->mousePosition().y();
-    int mousebuttons = widget->mouseButtons();
-    int iterchange = widget->keyCombination();
+    int mousebuttons = window->mouseButtons();
+    int iterchange = window->keyCombination();
     flags = 0;
     if (mousex != lastx || mousey != lasty)
         flags |= MOUSE_MOVE;
@@ -655,7 +655,7 @@ ui_doquit (int i)
     tl_free_timer (maintimer);
     tl_free_timer (arrowtimer);
     tl_free_timer (loopt);
-    widget->destroyImages();
+    widget->setImage(NULL);
     delete window;
     destroypalette (uih->image->palette);
     destroy_image (uih->image);
@@ -729,7 +729,7 @@ ui_key (int key)
                     int mousex, mousey, buttons;
                     mousex = widget->mousePosition().x();
                     mousey = widget->mousePosition().y();
-                    buttons = widget->mouseButtons();
+                    buttons = window->mouseButtons();
                     if (d[0].question != NULL && d[1].question == NULL && d[0].type == DIALOG_COORD) {
                         p = (dialogparam *) malloc (sizeof (dialogparam));
                         uih_screentofractalcoord (uih, mousex, mousey, p->dcoord, p->dcoord + 1);
@@ -1047,10 +1047,10 @@ ui_resize (void)
     h = widget->size().height();
     assert (w > 0 && w < 65000 && h > 0 && h < 65000);
     if (w != uih->image->width || h != uih->image->height) {
-        widget->destroyImages();
+        widget->setImage(NULL);
         destroy_image (uih->image);
         destroypalette (uih->palette);
-        struct image *image = widget->createImages();
+        struct image *image = window->createImage();
         if (!uih_updateimage (uih, image)) {
             delete window;
             x_error (gettext ("Can not allocate tables"));
@@ -1076,7 +1076,7 @@ ui_mainloop (int loop)
     int time;
     QCoreApplication::processEvents(QEventLoop::AllEvents);
     do {
-        widget->setCursorType(uih->play ? REPLAYMOUSE : uih->inhibittextoutput ? VJMOUSE : NORMALMOUSE);
+        widget->setCursor(uih->play ? Qt::WaitCursor : uih->inhibittextoutput ? Qt::CrossCursor: Qt::CrossCursor);
         if (uih->display) {
             uih_prepare_image (uih);
             ui_updatestatus ();
@@ -1131,10 +1131,10 @@ MainWindow::~MainWindow()
 struct uih_context *
 MainWindow::createContext()
 {
-    m_fractalWidget->setCursorType(WAITMOUSE);
+    m_fractalWidget->setCursor(Qt::WaitCursor);
     showStatus("Initializing. Please wait");
     showStatus("Creating framebuffer");
-    struct image *image = m_fractalWidget->createImages();
+    struct image *image = createImage();
     showStatus("Initializing fractal engine");
     m_context = uih_mkcontext (PIXELSIZE, image, ui_passfunc, ui_message, ui_updatemenus);
     m_context->fcontext->version++;
@@ -1376,4 +1376,125 @@ void MainWindow::showDialog(const char *name)
 void MainWindow::showStatus(const char *text)
 {
     printf("%s\n", text);
+}
+
+int MainWindow::mouseButtons()
+{
+
+    // Qt::MetaModifier maps to control key on Macs
+#ifdef Q_WS_MAC
+    Qt::KeyboardModifier controlModifier = Qt::MetaModifier;
+#else
+    Qt::KeyboardModifier controlModifier = Qt::ControlModifier;
+#endif
+
+    int mouseButtons = 0;
+
+    // Modifier keys change behavior of left and right mouse buttons
+    if (m_keyboardModifiers & controlModifier) {
+        // Control key swaps left and right buttons
+        if (m_mouseButtons & Qt::LeftButton)
+            mouseButtons |= BUTTON3;
+        if (m_mouseButtons & Qt::RightButton)
+            mouseButtons |= BUTTON1;
+    } else if (m_keyboardModifiers & Qt::ShiftModifier) {
+        // Shift key makes left and right buttons emulate middle button
+        if (m_mouseButtons & (Qt::LeftButton | Qt::RightButton))
+            mouseButtons |= BUTTON2;
+    } else {
+        // Otherwise, mouse buttons map normally
+        if (m_mouseButtons & Qt::LeftButton)
+            mouseButtons |= BUTTON1;
+        if (m_mouseButtons & Qt::RightButton)
+            mouseButtons |= BUTTON3;
+    }
+
+    // Middle button is unaffected by modifier keys
+    if (m_mouseButtons & Qt::MidButton)
+        mouseButtons |= BUTTON2;
+
+    return mouseButtons;
+}
+
+int MainWindow::keyCombination()
+{
+    return m_keyCombination;
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    m_mouseButtons = event->buttons();
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    m_mouseButtons = event->buttons();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    m_keyboardModifiers = event->modifiers();
+
+    switch (event->key()) {
+    case Qt::Key_Left:
+        m_keyCombination |= 1;
+        break;
+    case Qt::Key_Right:
+        m_keyCombination |= 2;
+        break;
+    case Qt::Key_Up:
+        m_keyCombination |= 4;
+        break;
+    case Qt::Key_Down:
+        m_keyCombination |= 8;
+        break;
+    default:
+        if (!event->text().isEmpty())
+            ui_key(event->text().toUtf8()[0]);
+        else
+            event->ignore();
+    }
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    m_keyboardModifiers = event->modifiers();
+
+    switch (event->key()) {
+    case Qt::Key_Left:
+        m_keyCombination &= ~1;
+        break;
+    case Qt::Key_Right:
+        m_keyCombination &= ~2;
+        break;
+    case Qt::Key_Up:
+        m_keyCombination &= ~4;
+        break;
+    case Qt::Key_Down:
+        m_keyCombination &= ~8;
+        break;
+    default:
+        event->ignore();
+    }
+}
+
+struct image *
+MainWindow::createImage()
+{
+    union paletteinfo info;
+    info.truec.rmask = 0xff0000;
+    info.truec.gmask = 0x00ff00;
+    info.truec.bmask = 0x0000ff;
+    struct palette *palette = createpalette (0, 0, UI_TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, &info);
+    if (!palette) {
+        x_error (gettext ("Can not create palette"));
+        exit(-1);
+    }
+    struct image *image = create_image_qt(widget->width(), widget->height(), palette, pixelwidth, pixelheight);
+    if (!image) {
+        x_error (gettext ("Can not create image"));
+        exit(-1);
+    }
+    widget->setImage(image);
+    return image;
 }
