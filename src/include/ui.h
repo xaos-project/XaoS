@@ -73,21 +73,6 @@ extern "C"
     typedef unsigned char ui_rgb[4];
     typedef ui_rgb *ui_palette;
     struct uih_context;
-    struct ui_driver
-    {
-        const char *name;
-        int textwidth;
-        int textheight;         /*width of text */
-        /*int helpsize; */
-        const struct params *params;
-        int flags;
-        float width, height;
-        int maxwidth, maxheight;
-        int imagetype;
-        int palettestart, paletteend, maxentries;
-        int rmask, gmask, bmask;
-    };
-
     extern struct uih_context *globaluih;
 
 #ifdef USE_LOCALEPATH

@@ -71,8 +71,6 @@
 #import <malloc.h>
 #endif
 #endif
-#define textheight1 (qt_driver.textheight)
-#define textwidth1 (qt_driver.textwidth)
 #ifdef MEMCHECK
 #define STATUSLINES 13
 #else
@@ -107,7 +105,7 @@ static int printspeed;
 static int delaytime = 0;
 static int defthreads = 0;
 static int maxframerate = 80;
-static float defscreenwidth = 0.0, defscreenheight = 0.0, defpixelwidth = 0.0, defpixelheight = 0.0;
+float pixelwidth = 0.0, pixelheight = 0.0;
 
 #ifdef SFFE_USING
 char *sffeform = NULL;
@@ -136,16 +134,10 @@ const struct params global_params[] = {
     {"-maxframerate", P_NUMBER, &maxframerate,
      "Maximal framerate (0 for unlimited - default)"},
     {"", P_HELP, NULL,
-     "Screen size options: \n\n  Knowledge of exact screen size makes random dot stereogram look better. \n  Also is used for choosing correct view area"},
-    {"-screenwidth", P_FLOAT, &defscreenwidth,
-     "exact size of screen in centimeters"},
-    {"-screenheight", P_FLOAT, &defscreenheight,
-     "exact size of screen in centimeters"},
-    {"", P_HELP, NULL,
-     "  Use this option in case you use some kind of virtual screen\n  or something similar that confuses previous options"},
-    {"-pixelwidth", P_FLOAT, &defpixelwidth,
+     "Pixel size options: \n\n  Knowledge of exact pixel size makes random dot stereogram look better. \n  Also is used for choosing correct view area"},
+    {"-pixelwidth", P_FLOAT, &pixelwidth,
      "exact size of one pixel in centimeters"},
-    {"-pixelheight", P_FLOAT, &defpixelheight,
+    {"-pixelheight", P_FLOAT, &pixelheight,
      "exact size of one pixel in centimeters"},
 #ifdef SFFE_USING
     {"-formula", P_STRING, &sffeform,
@@ -158,25 +150,6 @@ const struct params global_params[] = {
 
 static struct params params[] = {
 {NULL, 0, NULL, NULL}
-};
-
-struct ui_driver qt_driver = {
-    /* name */          "Qt Driver",
-    /* textwidth */     12,
-    /* textheight */    12,
-    /* params */        params,
-    /* flags */         PIXELSIZE,
-    /* width */         0.025,
-    /* height */        0.025,
-    /* maxwidth */      0,
-    /* maxheight */     0,
-    /* imagetype */     UI_TRUECOLOR,
-    /* palettestart */  0,
-    /* paletteend */    256,
-    /* maxentries */    255,
-    /* rmask */         0xff0000,
-    /* gmask */         0x00ff00,
-    /* bmask */         0x0000ff
 };
 
 MainWindow *window;
@@ -228,7 +201,6 @@ qt_gettext(const char *text)
 
 }
 
-static int resizeregistered = 0;
 static void
 ui_updatemenus (uih_context * c, const char *name)
 {
@@ -846,8 +818,7 @@ static menuitem *menuitems;
  *
  * There are static menuitems_i18n[] arrays for several *.c files.
  * In these files this array is common for all functions.
- * Here, e.g. add_resizeitems() and ui_registermenus_i18n()
- * use the same array and ui_no_menuitems_i18n is the counter
+ * ui_no_menuitems_i18n is the counter
  * that counts the number of items. The local variables
  * count the local items.
  */
@@ -855,23 +826,9 @@ static menuitem *menuitems;
 #define MAX_MENUITEMS_I18N 20
 /* These variables must be global: */
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
-int ui_no_menuitems_i18n = 0, ui_no_resizeitems;
-static menuitem *resizeitems;
+int ui_no_menuitems_i18n = 0;
 
 #define UI (MENUFLAG_NOPLAY|MENUFLAG_NOOPTION)
-static void
-add_resizeitems ()
-{
-    // General version, it's needed now:
-    int no_menuitems_i18n = ui_no_menuitems_i18n;       /* This variable must be local. */
-    MENUNOP_I ("ui", "=", gettext ("Resize"), "resize", UI | MENUFLAG_INTERRUPT, ui_call_resize);
-    MENUNOP_I ("uia", "=", gettext ("Resize"), "animresize", UI | MENUFLAG_INTERRUPT, ui_call_resize);
-    no_menuitems_i18n -= ui_no_menuitems_i18n;
-    resizeitems = &menuitems_i18n[ui_no_menuitems_i18n];
-    menu_add (resizeitems, no_menuitems_i18n);
-    ui_no_resizeitems = no_menuitems_i18n;
-    ui_no_menuitems_i18n += no_menuitems_i18n;
-}
 
 static void
 ui_registermenus_i18n (void)
@@ -891,8 +848,6 @@ ui_registermenus_i18n (void)
 
     MENUNOPCB_I ("uia", "l", gettext ("Ministatus"), "animministatus", UI | MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
     MENUSEPARATOR_I ("uia");
-    // SUBMENU_I ("ui", NULL, gettext ("Driver"), "drivers");
-    SUBMENU_I ("uia", NULL, gettext ("Driver"), "drivers");
     no_menuitems_i18n -= ui_no_menuitems_i18n;
     menu_add (&(menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
     ui_no_menuitems_i18n += no_menuitems_i18n;
@@ -1036,8 +991,10 @@ ui_init (int argc, char **argv)
     window->show();
 
     QScreen *screen = window->windowHandle()->screen();
-    qt_driver.width = 2.54 / screen->physicalDotsPerInchX();
-    qt_driver.height = 2.54 / screen->physicalDotsPerInchY();
+    if (!pixelwidth)
+        pixelwidth = 2.54 / screen->physicalDotsPerInchX();
+    if (!pixelheight)
+        pixelheight = 2.54 / screen->physicalDotsPerInchY();
     signal (SIGFPE, SIG_IGN);
     xth_init (defthreads);
     {
@@ -1062,7 +1019,7 @@ ui_init (int argc, char **argv)
     window->showStatus("Initializing fractal engine");
 
     /* gloabuih initialization moved into uih_mkcontext function : malczak */
-    uih = uih_mkcontext (qt_driver.flags, image, ui_passfunc, ui_message, ui_updatemenus);
+    uih = uih_mkcontext (PIXELSIZE, image, ui_passfunc, ui_message, ui_updatemenus);
 
     window->buildMenu (uih, uih->menuroot);
 #ifdef HOMEDIR
@@ -1167,15 +1124,6 @@ ui_mkimages (int w, int h)
     void *data;
     width = w;
     height = h;
-    if (resizeregistered && !(qt_driver.flags & RESIZE_COMMAND)) {
-        menu_delete (resizeitems, ui_no_resizeitems);
-        resizeregistered = 0;
-    } else {
-        if (!resizeregistered && (qt_driver.flags & RESIZE_COMMAND)) {
-            add_resizeitems ();
-            resizeregistered = 1;
-        }
-    }
     widget->createImages();
     b1 = widget->imageBuffer1();
     b2 = widget->imageBuffer2();
@@ -1187,17 +1135,17 @@ ui_mkimages (int w, int h)
         ui_outofmem ();
         exit_xaos (-1);
     }
-    info.truec.rmask = qt_driver.rmask;
-    info.truec.gmask = qt_driver.gmask;
-    info.truec.bmask = qt_driver.bmask;
-    palette = createpalette (qt_driver.palettestart, qt_driver.paletteend, qt_driver.imagetype, (qt_driver.flags & RANDOM_PALETTE_SIZE) ? UNKNOWNENTRIES : 0, qt_driver.maxentries, NULL, NULL, NULL, NULL, &info);
+    info.truec.rmask = 0xff0000;
+    info.truec.gmask = 0x00ff00;
+    info.truec.bmask = 0x0000ff;
+    palette = createpalette (0, 0, UI_TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, &info);
     if (!palette) {
         delete window;
         x_error (gettext ("Can not create palette"));
         ui_outofmem ();
         exit_xaos (-1);
     }
-    struct image *image = create_image_cont (width, height, scanline, 2, (unsigned char *) b1, (unsigned char *) b2, palette, ui_flip, 0, qt_driver.width, qt_driver.height);
+    struct image *image = create_image_cont (width, height, scanline, 2, (unsigned char *) b1, (unsigned char *) b2, palette, ui_flip, 0, pixelwidth, pixelheight);
     if (!image) {
         delete window;
         x_error (gettext ("Can not create image"));
@@ -1228,7 +1176,7 @@ ui_resize (void)
     w = widget->size().width();
     h = widget->size().height();
     assert (w > 0 && w < 65000 && h > 0 && h < 65000);
-    if (w != uih->image->width || h != uih->image->height || (qt_driver.flags & UPDATE_AFTER_RESIZE) || uih->palette->type != qt_driver.imagetype) {
+    if (w != uih->image->width || h != uih->image->height) {
         widget->destroyImages();
         destroy_image (uih->image);
         destroypalette (uih->palette);

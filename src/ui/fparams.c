@@ -69,7 +69,7 @@ int
 ui_dorender_params (void)
 {
     if (defrender != NULL) {
-        int imagetype = TRUECOLOR24;
+        int imagetype = TRUECOLOR;
         int width = 640, height = 480;
 #ifndef STRUECOLOR24
         if (imagetype == TRUECOLOR24)
@@ -82,15 +82,12 @@ ui_dorender_params (void)
                 x_fatalerror ("Unknown image type:%s", imgtype);
             }
         }
-#ifdef QT_DRIVER
-        imagetype = TRUECOLOR;
-#endif
         if (defsize != NULL && !sscanf (defsize, "%ix%i", &width, &height) && (width <= 0 || height <= 0)) {
             x_fatalerror ("Invalid size (use for example 320x200");
         }
         if (framerate <= 0)
             framerate = 30;
-        uih_renderanimation (NULL, rbasename, defrender, width, height, qt_driver.width, qt_driver.height, (int) (1000000 / framerate), imagetype, alias, slowmode, letterspersec, NULL);
+        uih_renderanimation (NULL, rbasename, defrender, width, height, pixelwidth, pixelheight, (int) (1000000 / framerate), imagetype, alias, slowmode, letterspersec, NULL);
         return 1;
     }
     return 0;

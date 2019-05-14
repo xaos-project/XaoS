@@ -23,14 +23,12 @@ struct ui_textdata
     int clear;
 };
 extern uih_context *uih;
-extern const struct ui_driver *driver;
-extern const int ndrivers;
-extern const struct ui_driver *const drivers[];
 extern int ui_nmenus;
 extern char *ui_helptext[];
 extern int ui_helpsize;
 extern const struct params ui_fractal_params[];
 extern int ui_nogui;
+extern float pixelwidth, pixelheight;
 
 #ifdef __cplusplus
 extern "C" {
@@ -54,8 +52,6 @@ void ui_pipe_init (const char *name);
 
 void ui_init (int argc, char **argv);
 void ui_mainloop (int loop);
-
-extern struct ui_driver qt_driver;
 
 #ifdef __cplusplus
 }
