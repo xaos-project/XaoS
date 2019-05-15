@@ -159,8 +159,6 @@ ui_doquit (int i)
     uih_cycling_off (uih);
     uih_freecatalog (uih);
     uih_freecontext (uih);
-    tl_free_timer (maintimer);
-    tl_free_timer (arrowtimer);
     tl_free_timer (loopt);
     widget->setImage(NULL);
     delete window;
@@ -270,9 +268,9 @@ ui_printspeed(struct uih_context *uih)
     window->showStatus("Measuring dislay speed");
     tl_sleep (1000000);
     tl_update_time ();
-    tl_reset_timer (maintimer);
+    tl_reset_timer (uih->speedtimer);
     c = 0;
-    while (tl_lookup_timer (maintimer) < 5000000) {
+    while (tl_lookup_timer (uih->speedtimer) < 5000000) {
         widget->repaint();
         QCoreApplication::processEvents(QEventLoop::AllEvents);
         tl_update_time();
@@ -286,9 +284,9 @@ ui_printspeed(struct uih_context *uih)
             memcpy (uih->image->currlines[y], uih->image->oldlines[y], linesize);
     }
     tl_update_time ();
-    tl_reset_timer (maintimer);
+    tl_reset_timer (uih->speedtimer);
     c = 0;
-    while (tl_lookup_timer (maintimer) < 5000000) {
+    while (tl_lookup_timer (uih->speedtimer) < 5000000) {
         for (x = 0; x < uih->image->height; x++)
             memcpy (uih->image->currlines[y], uih->image->oldlines[y], linesize);
         tl_update_time (), c++;
@@ -297,9 +295,9 @@ ui_printspeed(struct uih_context *uih)
 
     window->showStatus("Measuring missaligned memcpy speed");
     tl_update_time ();
-    tl_reset_timer (maintimer);
+    tl_reset_timer (uih->speedtimer);
     c = 0;
-    while (tl_lookup_timer (maintimer) < 5000000) {
+    while (tl_lookup_timer (uih->speedtimer) < 5000000) {
         for (x = 0; x < uih->image->height; x++)
             memcpy (uih->image->currlines[y] + 1, uih->image->oldlines[y] + 2, linesize - 2);
         tl_update_time (), c++;
@@ -308,9 +306,9 @@ ui_printspeed(struct uih_context *uih)
 
     window->showStatus("Measuring size6 memcpy speed");
     tl_update_time ();
-    tl_reset_timer (maintimer);
+    tl_reset_timer (uih->speedtimer);
     c = 0;
-    while (tl_lookup_timer (maintimer) < 5000000) {
+    while (tl_lookup_timer (uih->speedtimer) < 5000000) {
         int x, y;
         for (y = 0; y < uih->image->height; y++)
             for (x = 0; x < linesize - 6; x += 6) {
@@ -326,19 +324,19 @@ ui_printspeed(struct uih_context *uih)
     window->showStatus("Measuring new image calculation loop");
     uih_prepare_image (uih);
     tl_update_time ();
-    tl_reset_timer (maintimer);
+    tl_reset_timer (uih->speedtimer);
     for (c = 0; c < 5; c++)
         uih_newimage (uih), uih->fcontext->version++, uih_prepare_image (uih);
     widget->repaint();
-    x_message ("New image caluclation took %g seconds (%.2g fps)", tl_lookup_timer (maintimer) / 5.0 / 1000000.0, 5000000.0 / tl_lookup_timer (maintimer));
+    x_message ("New image caluclation took %g seconds (%.2g fps)", tl_lookup_timer (uih->speedtimer) / 5.0 / 1000000.0, 5000000.0 / tl_lookup_timer (uih->speedtimer));
     tl_update_time ();
     for (c = 0; c < 5; c++)
         uih_animate_image (uih), uih_prepare_image (uih), c++;
     c = 0;
     tl_update_time ();
-    tl_reset_timer (maintimer);
+    tl_reset_timer (uih->speedtimer);
     window->showStatus("Measuring zooming algorithm loop");
-    while (tl_lookup_timer (maintimer) < 5000000)
+    while (tl_lookup_timer (uih->speedtimer) < 5000000)
         uih_animate_image (uih), uih_prepare_image (uih), tl_update_time (), c++;
     x_message ("Approximation loop speed: %g FPS", c / 5.0);
     ui_doquit (0);
@@ -401,14 +399,10 @@ ui_init (int argc, char **argv)
 #endif
         xio_addfname (configfile, XIO_EMPTYPATH, CONFIGFILE);
 
-    maintimer = tl_create_timer ();
-    arrowtimer = tl_create_timer ();
     loopt = tl_create_timer ();
 
     tl_update_time ();
     /*tl_process_group (syncgroup, NULL); */
-    tl_reset_timer (maintimer);
-    tl_reset_timer (arrowtimer);
 
 #ifdef COMPILE_PIPE
     if (defpipe != NULL) {
@@ -568,8 +562,8 @@ ui_resize (void)
             exit(-1);
         }
         tl_process_group (syncgroup, NULL);
-        tl_reset_timer (maintimer);
-        tl_reset_timer (arrowtimer);
+        tl_reset_timer (uih->speedtimer);
+        tl_reset_timer (uih->arrowtimer);
         uih_newimage (uih);
     }
     uih_newimage (uih);
@@ -624,7 +618,7 @@ ui_mainloop (int loop)
         processbuffer ();
         QCoreApplication::processEvents(!inmovement && !uih->inanimation ? QEventLoop::WaitForMoreEvents : QEventLoop::AllEvents);
         uih_update(uih, widget->mousePosition().x(), widget->mousePosition().y(), window->mouseButtons());
-        uih_iterchange(uih, window->keyCombination(), window->mouseButtons());
+        uih_arrowkeys(uih, window->keyCombination(), window->mouseButtons());
         inmovement = 0;
         if (callresize) {
             ui_resize();
@@ -640,7 +634,7 @@ ui_passfunc (struct uih_context *c, int display, const char *text, float percent
     char str[80];
     QCoreApplication::processEvents(QEventLoop::AllEvents);
     uih_update(c, widget->mousePosition().x(), widget->mousePosition().y(), window->mouseButtons());
-    uih_iterchange(c, window->keyCombination(), window->mouseButtons());
+    uih_arrowkeys(c, window->keyCombination(), window->mouseButtons());
     if (!c->play) {
         if (c->display) {
             if (nthreads == 1)
@@ -1015,16 +1009,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
     switch (event->key()) {
     case Qt::Key_Left:
-        m_keyCombination |= 1;
+        m_keyCombination |= ARROW_LEFT;
         break;
     case Qt::Key_Right:
-        m_keyCombination |= 2;
+        m_keyCombination |= ARROW_RIGHT;
         break;
     case Qt::Key_Up:
-        m_keyCombination |= 4;
+        m_keyCombination |= ARROW_UP;
         break;
     case Qt::Key_Down:
-        m_keyCombination |= 8;
+        m_keyCombination |= ARROW_DOWN;
         break;
     default:
         if (!event->text().isEmpty())
@@ -1040,16 +1034,16 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 
     switch (event->key()) {
     case Qt::Key_Left:
-        m_keyCombination &= ~1;
+        m_keyCombination &= ~ARROW_LEFT;
         break;
     case Qt::Key_Right:
-        m_keyCombination &= ~2;
+        m_keyCombination &= ~ARROW_RIGHT;
         break;
     case Qt::Key_Up:
-        m_keyCombination &= ~4;
+        m_keyCombination &= ~ARROW_UP;
         break;
     case Qt::Key_Down:
-        m_keyCombination &= ~8;
+        m_keyCombination &= ~ARROW_DOWN;
         break;
     default:
         event->ignore();

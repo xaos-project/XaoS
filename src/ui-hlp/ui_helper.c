@@ -2039,6 +2039,8 @@ uih_mkcontext (int flags, struct image *image, int (*passfunc) (struct uih_conte
     uih->nletters = 0;
     uih->letterspersec = 15;
     uih->maintimer = tl_create_timer ();
+    uih->speedtimer = tl_create_timer();
+    uih->arrowtimer = tl_create_timer();
     uih->calculatetimer = tl_create_timer ();
     uih->doittimer = tl_create_timer ();
 #ifdef SFFE_USING
@@ -2057,6 +2059,8 @@ uih_mkcontext (int flags, struct image *image, int (*passfunc) (struct uih_conte
 
     tl_update_time ();
     tl_reset_timer (uih->maintimer);
+    tl_reset_timer (uih->arrowtimer);
+    tl_reset_timer (uih->speedtimer);
     tl_reset_timer (uih->calculatetimer);
     tl_stop_timer (uih->doittimer);
     tl_reset_timer (uih->doittimer);
@@ -2223,6 +2227,8 @@ uih_destroyinstance (struct filter *f)
     if (c->cycling)
         uih_cycling_off (c);
     tl_free_timer (c->maintimer);
+    tl_free_timer (c->speedtimer);
+    tl_free_timer (c->arrowtimer);
     tl_free_timer (c->calculatetimer);
     tl_free_timer (c->doittimer);
     if (c->save)
@@ -2293,20 +2299,15 @@ uih_inhibittextselected (uih_context * c)
     return c->inhibittextoutput;
 }
 
-static int statusstart;
-static struct uih_window *statuswindow = NULL;
-static int ministatusstart;
-static struct uih_window *ministatuswindow = NULL;
-
 static void
-uih_updatestarts (void)
+uih_updatestarts (uih_context *uih)
 {
     int y = 0;
-    ministatusstart = y;
-    if (ministatuswindow != NULL)
+    uih->ministatusstart = y;
+    if (uih->ministatuswindow != NULL)
         y += xtextheight (uih->image, uih->font);
-    statusstart = y;
-    if (statuswindow != NULL)
+    uih->statusstart = y;
+    if (uih->statuswindow != NULL)
         y += xtextheight (uih->image, uih->font) * STATUSLINES;
     uih->messg.messagestart = y;
 }
@@ -2315,7 +2316,7 @@ static void
 uih_statuspos (uih_context * uih, int *x, int *y, int *w, int *h, void *data)
 {
     *x = 0;
-    *y = statusstart;
+    *y = uih->statusstart;
     *w = uih->image->width;
     *h = xtextheight (uih->image, uih->font) * STATUSLINES;
 }
@@ -2326,42 +2327,42 @@ uih_drawstatus (uih_context * uih, void *data)
     char str[6000];
     int h = xtextheight (uih->image, uih->font);
     sprintf (str, gettext ("Fractal name:%s"), uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
-    xprint (uih->image, uih->font, 0, statusstart, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->statusstart, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, gettext ("Fractal type:%s"), uih->fcontext->mandelbrot ? gettext ("Mandelbrot") : gettext ("Julia"));
 #ifdef SFFE_USING
     if (uih->fcontext->currentformula->flags & SFFE_FRACTAL) {
         sprintf (str, gettext ("Formula:%s"), uih->parser->expression);
     };
 #endif
-    xprint (uih->image, uih->font, 0, statusstart + h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->statusstart + h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, gettext ("View:[%1.12f,%1.12f]"), (double) uih->fcontext->s.cr, (double) uih->fcontext->s.ci);
-    xprint (uih->image, uih->font, 0, statusstart + 2 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->statusstart + 2 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, gettext ("size:[%1.12f,%1.12f]"), (double) uih->fcontext->s.rr, (double) uih->fcontext->s.ri);
-    xprint (uih->image, uih->font, 0, statusstart + 3 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->statusstart + 3 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, gettext ("Rotation:%4.2f   Screen size:%i:%i"), (double) uih->fcontext->angle, uih->image->width, uih->image->height);
-    xprint (uih->image, uih->font, 0, statusstart + 4 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->statusstart + 4 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, gettext ("Iterations:%-4u Palette size:%i"), uih->fcontext->maxiter, uih->image->palette->size);
-    xprint (uih->image, uih->font, 0, statusstart + 5 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->statusstart + 5 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, "Bailout:%4.2f", (double) uih->fcontext->bailout);
-    xprint (uih->image, uih->font, 0, statusstart + 6 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->statusstart + 6 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, gettext ("Autopilot:%-4s  Plane:%s"), uih->autopilot ? gettext ("On") : gettext ("Off"), planename[uih->fcontext->plane]);
-    xprint (uih->image, uih->font, 0, statusstart + 7 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->statusstart + 7 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, gettext ("incoloring:%s    outcoloring:%s"), incolorname[uih->fcontext->incoloringmode], outcolorname[uih->fcontext->coloringmode]);
-    xprint (uih->image, uih->font, 0, statusstart + 8 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->statusstart + 8 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     sprintf (str, gettext ("zoomspeed:%f"), (float) uih->maxstep * 1000);
-    xprint (uih->image, uih->font, 0, statusstart + 9 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->statusstart + 9 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     if (uih->fcontext->mandelbrot)
         strcpy (str, gettext ("Parameter:none"));
     else
         sprintf (str, gettext ("Parameter:[%f,%f]"), (float) uih->fcontext->pre, (float) uih->fcontext->pim);
-    xprint (uih->image, uih->font, 0, statusstart + 10 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->statusstart + 10 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
 #ifdef MEMCHECK
     {
         struct mallinfo i = mallinfo ();
         sprintf (str, "Allocated arena:%i Wasted:%i %i", i.arena, i.ordblks, i.fordblks);
-        xprint (uih->image, uih->font, 0, statusstart + 11 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+        xprint (uih->image, uih->font, 0, uih->statusstart + 11 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
         sprintf (str, "Mmaped blocks%i Mmaped area:%i keep:%i", i.hblks, i.hblkhd, i.keepcost);
-        xprint (uih->image, uih->font, 0, statusstart + 12 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+        xprint (uih->image, uih->font, 0, uih->statusstart + 12 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
     }
 #endif
 }
@@ -2369,38 +2370,36 @@ uih_drawstatus (uih_context * uih, void *data)
 void
 uih_status (uih_context * uih)
 {
-    if (statuswindow == NULL) {
-        statuswindow = uih_registerw (uih, uih_statuspos, uih_drawstatus, NULL, 0);
+    if (uih->statuswindow == NULL) {
+        uih->statuswindow = uih_registerw (uih, uih_statuspos, uih_drawstatus, NULL, 0);
     } else {
-        uih_removew (uih, statuswindow);
-        statuswindow = NULL;
+        uih_removew (uih, uih->statuswindow);
+        uih->statuswindow = NULL;
     }
     //ui_updatemenus (uih, "status");
     //ui_updatemenus (uih, "animministatus");
-    uih_updatestarts ();
+    uih_updatestarts (uih);
 }
 
 int
 uih_statusenabled (uih_context * uih)
 {
-    return (statuswindow != NULL);
+    return (uih->statuswindow != NULL);
 }
 
 static void
 uih_ministatuspos (uih_context * uih, int *x, int *y, int *w, int *h, void *data)
 {
     *x = 0;
-    *y = ministatusstart;
+    *y = uih->ministatusstart;
     *w = uih->image->width;
     *h = xtextheight (uih->image, uih->font);
 }
 
-static char statustext[256];
-
 static void
 uih_drawministatus (uih_context * uih, void *data)
 {
-    xprint (uih->image, uih->font, 0, ministatusstart, statustext, FGCOLOR (uih), BGCOLOR (uih), 0);
+    xprint (uih->image, uih->font, 0, uih->ministatusstart, uih->statustext, FGCOLOR (uih), BGCOLOR (uih), 0);
 }
 
 void
@@ -2412,7 +2411,7 @@ uih_updateministatus (uih_context *uih)
     uih_drawwindows (uih);
     uih_cycling_continue (uih);
     speed = uih_displayed (uih);
-    sprintf (statustext, gettext ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "), times < 1 ? gettext ("unzoomed") : gettext ("zoomed"), times < 1 ? 1.0 / times : times, timesnop, speed, uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1, uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1, uih->fcontext->maxiter);
+    sprintf (uih->statustext, gettext ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "), times < 1 ? gettext ("unzoomed") : gettext ("zoomed"), times < 1 ? 1.0 / times : times, timesnop, speed, uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1, uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1, uih->fcontext->maxiter);
 
     STAT (printf (gettext ("framerate:%f\n"), speed));
 }
@@ -2420,13 +2419,13 @@ uih_updateministatus (uih_context *uih)
 void
 uih_ministatus (uih_context * uih)
 {
-    if (ministatuswindow == NULL) {
-        ministatuswindow = uih_registerw (uih, uih_ministatuspos, uih_drawministatus, NULL, 0);
+    if (uih->ministatuswindow == NULL) {
+        uih->ministatuswindow = uih_registerw (uih, uih_ministatuspos, uih_drawministatus, NULL, 0);
     } else {
-        uih_removew (uih, ministatuswindow);
-        ministatuswindow = NULL;
+        uih_removew (uih, uih->ministatuswindow);
+        uih->ministatuswindow = NULL;
     }
-    uih_updatestarts ();
+    uih_updatestarts (uih);
     //ui_updatemenus (uih, "ministatus");
     //ui_updatemenus (uih, "animministatus");
 }
@@ -2434,31 +2433,30 @@ uih_ministatus (uih_context * uih)
 int
 uih_ministatusenabled (uih_context * uih)
 {
-    return (ministatuswindow != NULL);
+    return (uih->ministatuswindow != NULL);
 }
 
 static int
 processcounter (uih_context *uih, int *counter, const char *text, int speed, int keys, int lastkeys, int down, int up, int tenskip, int min, int max)
 {
-    static int pid = -1;
     int changed = 0;
     char str[80];
-    if (tl_lookup_timer (arrowtimer) > 1000000)
-        tl_reset_timer (arrowtimer);
+    if (tl_lookup_timer (uih->arrowtimer) > 1000000)
+        tl_reset_timer (uih->arrowtimer);
     if ((keys & up) && !(lastkeys & up)) {
         (*counter)++;
         tenskip = 0;
         changed = 1;
-        tl_reset_timer (arrowtimer);
+        tl_reset_timer (uih->arrowtimer);
     }
     if ((keys & down) && !(lastkeys & down)) {
         (*counter)--;
         tenskip = 0;
         changed = 1;
-        tl_reset_timer (arrowtimer);
+        tl_reset_timer (uih->arrowtimer);
     }
-    while (tl_lookup_timer (arrowtimer) > speed * FRAMETIME) {
-        tl_slowdown_timer (arrowtimer, speed * FRAMETIME);
+    while (tl_lookup_timer (uih->arrowtimer) > speed * FRAMETIME) {
+        tl_slowdown_timer (uih->arrowtimer, speed * FRAMETIME);
         if (keys & up) {
             if (tenskip && !(*counter % 10))
                 (*counter) += 10;
@@ -2480,87 +2478,82 @@ processcounter (uih_context *uih, int *counter, const char *text, int speed, int
         if (*counter < min)
             *counter = min;
         sprintf (str, text, *counter);
-        uih_rmmessage (uih, pid);
-        pid = uih_message (uih, str);
+        uih_rmmessage (uih, uih->pid);
+        uih->pid = uih_message (uih, str);
     }
     return changed;
 }
 
-tl_timer *maintimer;
-tl_timer *arrowtimer;
 #define ROTATESPEEDUP 30
 void
-uih_iterchange(uih_context *uih, int keys, int mousebuttons)
+uih_arrowkeys(uih_context *uih, int keys, int mousebuttons)
 {
     char str[80];
-    static int spid;
-    static int dirty = 0;
-    static int lastiter;
-    static int maxiter;
-    assert(!((keys)&~15));
+    assert(!((keys)&~(ARROW_DOWN|ARROW_LEFT|ARROW_RIGHT|ARROW_UP)));
     tl_update_time ();
     if (uih->play) {
-        processcounter (uih, &uih->letterspersec, gettext ("Letters per second %i  "), 2, keys, lastiter, 1, 2, 0, 1, INT_MAX);
+        processcounter (uih, &uih->letterspersec, gettext ("Letters per second %i  "), 2, keys, uih->lastkeys, ARROW_LEFT, ARROW_RIGHT, 0, 1, INT_MAX);
         return;
     }
     if (!uih->cycling) {
         if (uih->rotatemode == ROTATE_CONTINUOUS) {
-            static int rpid;
-            if (keys == 2) {
-                uih->rotationspeed += ROTATESPEEDUP * tl_lookup_timer (maintimer) / 1000000.0;
-                uih_rmmessage (uih, rpid);
+            if (keys == ARROW_RIGHT) {
+                uih->rotationspeed += ROTATESPEEDUP * tl_lookup_timer (uih->speedtimer) / 1000000.0;
+                uih_rmmessage (uih, uih->rpid);
                 sprintf (str, gettext ("Rotation speed:%2.2f degrees per second "), (float) uih->rotationspeed);
-                rpid = uih_message (uih, str);
+                uih->rpid = uih_message (uih, str);
             }
-            if (keys == 1) {
-                uih->rotationspeed -= ROTATESPEEDUP * tl_lookup_timer (maintimer) / 1000000.0;
-                uih_rmmessage (uih, rpid);
+            if (keys == ARROW_LEFT) {
+                uih->rotationspeed -= ROTATESPEEDUP * tl_lookup_timer (uih->speedtimer) / 1000000.0;
+                uih_rmmessage (uih, uih->rpid);
                 sprintf (str, gettext ("Rotation speed:%2.2f degrees per second "), (float) uih->rotationspeed);
-                rpid = uih_message (uih, str);
+                uih->rpid = uih_message (uih, str);
             }
-            tl_reset_timer (maintimer);
+            tl_reset_timer (uih->speedtimer);
         } else {
-            if (!dirty)
-                maxiter = uih->fcontext->maxiter;
-            if (processcounter (uih, &maxiter, gettext ("Iterations: %i   "), 1, keys, lastiter, 1, 2, 1, 1, INT_MAX) || (keys & 3)) {
-                dirty = 1;
-                lastiter = keys;
+            if (!uih->iterdirty)
+                uih->lastiter = uih->fcontext->maxiter;
+            if (processcounter (uih, &uih->lastiter, gettext ("Iterations: %i   "), 1, keys, uih->lastkeys, ARROW_LEFT, ARROW_RIGHT, 1, 1, INT_MAX) || (keys & 3)) {
+                uih->iterdirty = 1;
+                uih->lastkeys = keys;
                 return;
             }
         }
     }
-    if (dirty) {
+    if (uih->iterdirty) {
         if (uih->incalculation)
             uih_interrupt (uih);
-        else
-            uih_setmaxiter (uih, maxiter), dirty = 0;
+        else {
+            uih_setmaxiter (uih, uih->lastiter);
+            uih->iterdirty = 0;
+        }
     }
     if (uih->cycling) {
-        if (processcounter (uih, &uih->cyclingspeed, gettext ("Cycling speed: %i   "), 1, keys, lastiter, 1, 2, 0, -1000000, INT_MAX)) {
+        if (processcounter (uih, &uih->cyclingspeed, gettext ("Cycling speed: %i   "), 1, keys, uih->lastkeys, ARROW_LEFT, ARROW_RIGHT, 0, -1000000, INT_MAX)) {
             uih_setcycling (uih, uih->cyclingspeed);
         }
     }
-    if (keys & 4 && (tl_lookup_timer (maintimer) > FRAMETIME || mousebuttons)) {
-        double mul1 = tl_lookup_timer (maintimer) / FRAMETIME;
+    if (keys & ARROW_UP && (tl_lookup_timer (uih->speedtimer) > FRAMETIME || mousebuttons)) {
+        double mul1 = tl_lookup_timer (uih->speedtimer) / FRAMETIME;
         double su = 1 + (SPEEDUP - 1) * mul1;
         if (su > 2 * SPEEDUP)
             su = SPEEDUP;
-        tl_reset_timer (maintimer);
+        tl_reset_timer (uih->speedtimer);
         uih->speedup *= su, uih->maxstep *= su;
         sprintf (str, gettext ("speed:%2.2f "), (double) uih->speedup * (1.0 / STEP));
-        uih_rmmessage (uih, spid);
-        spid = uih_message (uih, str);
+        uih_rmmessage (uih, uih->spid);
+        uih->spid = uih_message (uih, str);
     }
-    if (keys & 8 && (tl_lookup_timer (maintimer) > FRAMETIME || mousebuttons)) {
-        double mul1 = tl_lookup_timer (maintimer) / FRAMETIME;
+    if (keys & ARROW_DOWN && (tl_lookup_timer (uih->speedtimer) > FRAMETIME || mousebuttons)) {
+        double mul1 = tl_lookup_timer (uih->speedtimer) / FRAMETIME;
         double su = 1 + (SPEEDUP - 1) * mul1;
         if (su > 2 * SPEEDUP)
             su = SPEEDUP;
-        tl_reset_timer (maintimer);
+        tl_reset_timer (uih->speedtimer);
         uih->speedup /= su, uih->maxstep /= su;
         sprintf (str, gettext ("speed:%2.2f "), (double) uih->speedup * (1 / STEP));
-        uih_rmmessage (uih, spid);
-        spid = uih_message (uih, str);
+        uih_rmmessage (uih, uih->spid);
+        uih->spid = uih_message (uih, str);
     }
-    lastiter = keys;
+    uih->lastkeys = keys;
 }

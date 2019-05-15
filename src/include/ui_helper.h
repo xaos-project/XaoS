@@ -245,7 +245,7 @@ extern "C"
         double lastspeed, lasttime;
 
         /*number_t xsize, ysize; */
-        tl_timer *maintimer, *cyclingtimer, *autopilottimer, *calculatetimer, *doittimer;
+        tl_timer *maintimer, *speedtimer, *arrowtimer, *cyclingtimer, *autopilottimer, *calculatetimer, *doittimer;
         tl_group *autopilotgroup;
 
         /*color cycling values */
@@ -278,6 +278,19 @@ extern "C"
 
         /* performers really don't want text echoed to the screen */
         int inhibittextoutput;
+
+        /* status windows */
+        int statusstart;
+        struct uih_window *statuswindow;
+        int ministatusstart;
+        struct uih_window *ministatuswindow;
+        char statustext[256];
+
+        /* Speed/iteration arrow stuff */
+        int pid, spid, rpid;
+        int lastiter;
+        int iterdirty;
+        int lastkeys;
 
         /* user data */
         void *data;
@@ -341,6 +354,11 @@ extern "C"
 #define BUTTON1 256
 #define BUTTON2 512
 #define BUTTON3 1024
+
+#define ARROW_LEFT 1
+#define ARROW_RIGHT 2
+#define ARROW_UP 4
+#define ARROW_DOWN 8
 
 #define ROTATE_NONE 0
 #define ROTATE_MOUSE 1
@@ -529,10 +547,7 @@ extern "C"
     void uih_ministatus (uih_context * uih);
     int uih_ministatusenabled (uih_context * uih);
 
-    extern tl_timer *maintimer;
-    extern tl_timer *arrowtimer;
-
-    void uih_iterchange (uih_context *uih, int keys, int mousebuttons);
+    void uih_arrowkeys (uih_context *uih, int keys, int mousebuttons);
 
     void ui_help (struct uih_context *c);
     void ui_about (struct uih_context *c);
