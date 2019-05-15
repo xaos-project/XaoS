@@ -1007,6 +1007,9 @@ uih_registermenus_i18n (void)
     MENUSEPARATOR_I ("uia");
     MENUNOP_I ("uia", "s", gettext ("Stop replay"), "stopreplay", UI | MENUFLAG_INTERRUPT, uih_replaydisable);
     SUBMENUNOOPT_I ("animroot", NULL, gettext ("View"), "uia");
+    MENUSEPARATOR_I ("uia");
+    MENUNOPCB_I ("uia", "/", gettext ("Status"), "animstatus", UI | MENUFLAG_INCALC, uih_status, uih_statusenabled);      /*FIXME: add also ? as key */
+    MENUNOPCB_I ("uia", "l", gettext ("Ministatus"), "animministatus", UI | MENUFLAG_INCALC, uih_ministatus, uih_ministatusenabled);
     SUBMENUNOOPT_I ("animroot", NULL, gettext ("Help"), "helpmenu");
     MENUDIALOG_I ("misc", "!", gettext ("Command"), "command", UI, uih_command, dcommand);
     MENUDIALOG_I ("misc", NULL, gettext ("Play string"), "playstr", MENUFLAG_NOMENU, uih_playstr, dcommand);
@@ -1127,6 +1130,11 @@ uih_registermenus_i18n (void)
     MENUNOPCB_I ("ui", "a", gettext ("Autopilot"), "autopilot", 0, uih_autopilotsw, uih_autopilotselected);
     MENUSEPARATOR_I ("ui");
     MENUNOPCB_I ("ui", "v", gettext ("VJ mode"), "inhibittextoutput", 0, uih_inhibittextsw, uih_inhibittextselected);
+    MENUSEPARATOR_I ("ui");
+    MENUNOPCB_I ("ui", "/", gettext ("Status"), "status", MENUFLAG_INCALC, uih_status, uih_statusenabled);        /*FIXME: add also ? as key */
+
+    MENUNOPCB_I ("ui", "l", gettext ("Ministatus"), "ministatus", MENUFLAG_INCALC, uih_ministatus, uih_ministatusenabled);
+    MENUSEPARATOR_I ("ui");
     /* Language selection is not sensible anymore if i18n is used: */
     SUBMENU_I ("tutor", NULL, gettext ("An introduction to fractals"), "intro");
     SUBMENU_I ("tutor", NULL, gettext ("XaoS features overview"), "features");

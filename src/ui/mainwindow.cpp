@@ -63,17 +63,6 @@
 #include "sffe.h"
 #endif
 
-#ifdef DEBUG
-#ifdef __linux__
-#define MEMCHECK
-#include <malloc.h>
-#endif
-#endif
-#ifdef MEMCHECK
-#define STATUSLINES 13
-#else
-#define STATUSLINES 11
-#endif
 static void ui_mouse(bool wait);
 #ifndef exit_xaos
 #define exit_xaos(i) exit(i)
@@ -86,12 +75,7 @@ static struct image *ui_mkimages (int, int);
 int err;
 /*UI state */
 uih_context *uih;
-char statustext[256];
 int ui_nogui;
-static int statusstart;
-static struct uih_window *statuswindow = NULL;
-static int ministatusstart;
-static struct uih_window *ministatuswindow = NULL;
 static int callresize = 0;
 static tl_timer *maintimer;
 static tl_timer *arrowtimer;
@@ -271,35 +255,6 @@ ui_passfunc (struct uih_context *c, int display, const char *text, float percent
     return (0);
 }
 
-static void
-ui_updatestatus (void)
-{
-    double times = (uih->fcontext->currentformula->v.rr) / (uih->fcontext->s.rr);
-    double timesnop = log (times) / log (10.0);
-    double speed;
-    uih_drawwindows (uih);
-    widget->repaint();
-    uih_cycling_continue (uih);
-    speed = uih_displayed (uih);
-    sprintf (statustext, gettext ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "), times < 1 ? gettext ("unzoomed") : gettext ("zoomed"), times < 1 ? 1.0 / times : times, timesnop, speed, uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1, uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1, uih->fcontext->maxiter);
-
-    STAT (printf (gettext ("framerate:%f\n"), speed));
-    window->showStatus("");
-}
-
-void
-ui_updatestarts (void)
-{
-    int y = 0;
-    ministatusstart = y;
-    if (ministatuswindow != NULL)
-        y += xtextheight (uih->image, uih->font);
-    statusstart = y;
-    if (statuswindow != NULL)
-        y += xtextheight (uih->image, uih->font) * STATUSLINES;
-    uih->messg.messagestart = y;
-}
-
 void
 ui_menuactivate (const menuitem * item, dialogparam * d)
 {
@@ -321,7 +276,8 @@ ui_menuactivate (const menuitem * item, dialogparam * d)
         }
         if (item->flags & MENUFLAG_CHECKBOX) {
             char s[256];
-            ui_updatestatus ();
+            uih_updateministatus(uih);
+            widget->repaint();
             if (!menu_enabled (item, uih))
                 sprintf (s, gettext ("Enabling: %s. "), item->name);
             else
@@ -336,101 +292,6 @@ ui_menuactivate (const menuitem * item, dialogparam * d)
     }
 }
 
-xio_path
-ui_getfile (const char *basename, const char *extension)
-{
-    return (xio_getfilename (basename, extension));
-}
-
-static void
-ui_statuspos (uih_context * uih, int *x, int *y, int *w, int *h, void *data)
-{
-    *x = 0;
-    *y = statusstart;
-    *w = uih->image->width;
-    *h = xtextheight (uih->image, uih->font) * STATUSLINES;
-}
-
-static void
-ui_drawstatus (uih_context * uih, void *data)
-{
-    char str[6000];
-    int h = xtextheight (uih->image, uih->font);
-    sprintf (str, gettext ("Fractal name:%s"), uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
-    xprint (uih->image, uih->font, 0, statusstart, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    sprintf (str, gettext ("Fractal type:%s"), uih->fcontext->mandelbrot ? gettext ("Mandelbrot") : gettext ("Julia"));
-#ifdef SFFE_USING
-    if (uih->fcontext->currentformula->flags & SFFE_FRACTAL) {
-        sprintf (str, gettext ("Formula:%s"), uih->parser->expression);
-    };
-#endif
-    xprint (uih->image, uih->font, 0, statusstart + h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    sprintf (str, gettext ("View:[%1.12f,%1.12f]"), (double) uih->fcontext->s.cr, (double) uih->fcontext->s.ci);
-    xprint (uih->image, uih->font, 0, statusstart + 2 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    sprintf (str, gettext ("size:[%1.12f,%1.12f]"), (double) uih->fcontext->s.rr, (double) uih->fcontext->s.ri);
-    xprint (uih->image, uih->font, 0, statusstart + 3 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    sprintf (str, gettext ("Rotation:%4.2f   Screen size:%i:%i"), (double) uih->fcontext->angle, uih->image->width, uih->image->height);
-    xprint (uih->image, uih->font, 0, statusstart + 4 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    sprintf (str, gettext ("Iterations:%-4u Palette size:%i"), uih->fcontext->maxiter, uih->image->palette->size);
-    xprint (uih->image, uih->font, 0, statusstart + 5 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    sprintf (str, "Bailout:%4.2f", (double) uih->fcontext->bailout);
-    xprint (uih->image, uih->font, 0, statusstart + 6 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    sprintf (str, gettext ("Autopilot:%-4s  Plane:%s"), uih->autopilot ? gettext ("On") : gettext ("Off"), planename[uih->fcontext->plane]);
-    xprint (uih->image, uih->font, 0, statusstart + 7 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    sprintf (str, gettext ("incoloring:%s    outcoloring:%s"), incolorname[uih->fcontext->incoloringmode], outcolorname[uih->fcontext->coloringmode]);
-    xprint (uih->image, uih->font, 0, statusstart + 8 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    sprintf (str, gettext ("zoomspeed:%f"), (float) uih->maxstep * 1000);
-    xprint (uih->image, uih->font, 0, statusstart + 9 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    if (uih->fcontext->mandelbrot)
-        strcpy (str, gettext ("Parameter:none"));
-    else
-        sprintf (str, gettext ("Parameter:[%f,%f]"), (float) uih->fcontext->pre, (float) uih->fcontext->pim);
-    xprint (uih->image, uih->font, 0, statusstart + 10 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-#ifdef MEMCHECK
-    {
-        struct mallinfo i = mallinfo ();
-        sprintf (str, "Allocated arena:%i Wasted:%i %i", i.arena, i.ordblks, i.fordblks);
-        xprint (uih->image, uih->font, 0, statusstart + 11 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-        sprintf (str, "Mmaped blocks%i Mmaped area:%i keep:%i", i.hblks, i.hblkhd, i.keepcost);
-        xprint (uih->image, uih->font, 0, statusstart + 12 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
-    }
-#endif
-}
-
-static void
-ui_status (uih_context * uih)
-{
-    if (statuswindow == NULL) {
-        statuswindow = uih_registerw (uih, ui_statuspos, ui_drawstatus, NULL, 0);
-    } else {
-        uih_removew (uih, statuswindow);
-        statuswindow = NULL;
-    }
-    ui_updatemenus (uih, "status");
-    ui_updatemenus (uih, "animministatus");
-    ui_updatestarts ();
-}
-
-static int
-ui_statusenabled (uih_context * uih)
-{
-    return (statuswindow != NULL);
-}
-
-static void
-ui_ministatuspos (uih_context * uih, int *x, int *y, int *w, int *h, void *data)
-{
-    *x = 0;
-    *y = ministatusstart;
-    *w = uih->image->width;
-    *h = xtextheight (uih->image, uih->font);
-}
-
-static void
-ui_drawministatus (uih_context * uih, void *data)
-{
-    xprint (uih->image, uih->font, 0, ministatusstart, statustext, FGCOLOR (uih), BGCOLOR (uih), 0);
-}
 
 static void
 ui_noguisw (uih_context * uih)
@@ -443,26 +304,6 @@ static int
 ui_noguienabled (uih_context * uih)
 {
     return (ui_nogui);
-}
-
-static void
-ui_ministatus (uih_context * uih)
-{
-    if (ministatuswindow == NULL) {
-        ministatuswindow = uih_registerw (uih, ui_ministatuspos, ui_drawministatus, NULL, 0);
-    } else {
-        uih_removew (uih, ministatuswindow);
-        ministatuswindow = NULL;
-    }
-    ui_updatestarts ();
-    ui_updatemenus (uih, "ministatus");
-    ui_updatemenus (uih, "animministatus");
-}
-
-static int
-ui_ministatusenabled (uih_context * uih)
-{
-    return (ministatuswindow != NULL);
 }
 
 static void
@@ -696,8 +537,10 @@ ui_key (int key)
         case ' ':
             uih->display = 1;
             if (uih->play) {
-                if (uih->incalculation)
-                    ui_updatestatus ();
+                if (uih->incalculation) {
+                    uih_updateministatus(uih);
+                    widget->repaint();
+                }
                 else {
                     uih_skipframe (uih);
                     window->showStatus(gettext("Skipping, please wait..."));
@@ -819,16 +662,6 @@ ui_registermenus_i18n (void)
     MENUNOP_I ("helpmenu", "h", gettext ("Help"), "help", MENUFLAG_INCALC, ui_helpwr);
     MENUNOP_I ("helpmenu", NULL, gettext ("About"), "about", NULL, ui_about);
     MENUNOPCB_I ("ui", NULL, gettext ("Disable XaoS's builtin GUI"), "nogui", MENUFLAG_INCALC | MENUFLAG_ATSTARTUP | MENUFLAG_NOMENU, ui_noguisw, ui_noguienabled);
-    MENUSEPARATOR_I ("ui");
-    MENUNOPCB_I ("ui", "/", gettext ("Status"), "status", MENUFLAG_INCALC, ui_status, ui_statusenabled);        /*FIXME: add also ? as key */
-
-    MENUNOPCB_I ("ui", "l", gettext ("Ministatus"), "ministatus", MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
-    MENUSEPARATOR_I ("ui");
-    MENUSEPARATOR_I ("uia");
-    MENUNOPCB_I ("uia", "/", gettext ("Status"), "animstatus", UI | MENUFLAG_INCALC, ui_status, ui_statusenabled);      /*FIXME: add also ? as key */
-
-    MENUNOPCB_I ("uia", "l", gettext ("Ministatus"), "animministatus", UI | MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
-    MENUSEPARATOR_I ("uia");
     no_menuitems_i18n -= ui_no_menuitems_i18n;
     menu_add (&(menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
     ui_no_menuitems_i18n += no_menuitems_i18n;
@@ -1079,7 +912,8 @@ ui_mainloop (int loop)
         widget->setCursor(uih->play ? Qt::WaitCursor : uih->inhibittextoutput ? Qt::CrossCursor: Qt::CrossCursor);
         if (uih->display) {
             uih_prepare_image (uih);
-            ui_updatestatus ();
+            uih_updateministatus(uih);
+            widget->repaint();
         }
         if ((time = tl_process_group (syncgroup, NULL)) != -1) {
             if (!inmovement && !uih->inanimation) {

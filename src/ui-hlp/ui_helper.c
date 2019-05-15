@@ -20,6 +20,17 @@
 #ifdef HAVE_LIBGEN_H
 #include <libgen.h>
 #endif
+#ifdef DEBUG
+#ifdef __linux__
+#define MEMCHECK
+#include <malloc.h>
+#endif
+#endif
+#ifdef MEMCHECK
+#define STATUSLINES 13
+#else
+#define STATUSLINES 11
+#endif
 
 #ifdef SFFE_USING
 #include "sffe.h"
@@ -2279,4 +2290,148 @@ uih_inhibittextselected (uih_context * c)
     if (c == NULL)
         return 0;
     return c->inhibittextoutput;
+}
+
+static int statusstart;
+static struct uih_window *statuswindow = NULL;
+static int ministatusstart;
+static struct uih_window *ministatuswindow = NULL;
+
+static void
+uih_updatestarts (void)
+{
+    int y = 0;
+    ministatusstart = y;
+    if (ministatuswindow != NULL)
+        y += xtextheight (uih->image, uih->font);
+    statusstart = y;
+    if (statuswindow != NULL)
+        y += xtextheight (uih->image, uih->font) * STATUSLINES;
+    uih->messg.messagestart = y;
+}
+
+static void
+uih_statuspos (uih_context * uih, int *x, int *y, int *w, int *h, void *data)
+{
+    *x = 0;
+    *y = statusstart;
+    *w = uih->image->width;
+    *h = xtextheight (uih->image, uih->font) * STATUSLINES;
+}
+
+static void
+uih_drawstatus (uih_context * uih, void *data)
+{
+    char str[6000];
+    int h = xtextheight (uih->image, uih->font);
+    sprintf (str, gettext ("Fractal name:%s"), uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
+    xprint (uih->image, uih->font, 0, statusstart, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    sprintf (str, gettext ("Fractal type:%s"), uih->fcontext->mandelbrot ? gettext ("Mandelbrot") : gettext ("Julia"));
+#ifdef SFFE_USING
+    if (uih->fcontext->currentformula->flags & SFFE_FRACTAL) {
+        sprintf (str, gettext ("Formula:%s"), uih->parser->expression);
+    };
+#endif
+    xprint (uih->image, uih->font, 0, statusstart + h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    sprintf (str, gettext ("View:[%1.12f,%1.12f]"), (double) uih->fcontext->s.cr, (double) uih->fcontext->s.ci);
+    xprint (uih->image, uih->font, 0, statusstart + 2 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    sprintf (str, gettext ("size:[%1.12f,%1.12f]"), (double) uih->fcontext->s.rr, (double) uih->fcontext->s.ri);
+    xprint (uih->image, uih->font, 0, statusstart + 3 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    sprintf (str, gettext ("Rotation:%4.2f   Screen size:%i:%i"), (double) uih->fcontext->angle, uih->image->width, uih->image->height);
+    xprint (uih->image, uih->font, 0, statusstart + 4 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    sprintf (str, gettext ("Iterations:%-4u Palette size:%i"), uih->fcontext->maxiter, uih->image->palette->size);
+    xprint (uih->image, uih->font, 0, statusstart + 5 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    sprintf (str, "Bailout:%4.2f", (double) uih->fcontext->bailout);
+    xprint (uih->image, uih->font, 0, statusstart + 6 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    sprintf (str, gettext ("Autopilot:%-4s  Plane:%s"), uih->autopilot ? gettext ("On") : gettext ("Off"), planename[uih->fcontext->plane]);
+    xprint (uih->image, uih->font, 0, statusstart + 7 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    sprintf (str, gettext ("incoloring:%s    outcoloring:%s"), incolorname[uih->fcontext->incoloringmode], outcolorname[uih->fcontext->coloringmode]);
+    xprint (uih->image, uih->font, 0, statusstart + 8 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    sprintf (str, gettext ("zoomspeed:%f"), (float) uih->maxstep * 1000);
+    xprint (uih->image, uih->font, 0, statusstart + 9 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    if (uih->fcontext->mandelbrot)
+        strcpy (str, gettext ("Parameter:none"));
+    else
+        sprintf (str, gettext ("Parameter:[%f,%f]"), (float) uih->fcontext->pre, (float) uih->fcontext->pim);
+    xprint (uih->image, uih->font, 0, statusstart + 10 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+#ifdef MEMCHECK
+    {
+        struct mallinfo i = mallinfo ();
+        sprintf (str, "Allocated arena:%i Wasted:%i %i", i.arena, i.ordblks, i.fordblks);
+        xprint (uih->image, uih->font, 0, statusstart + 11 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+        sprintf (str, "Mmaped blocks%i Mmaped area:%i keep:%i", i.hblks, i.hblkhd, i.keepcost);
+        xprint (uih->image, uih->font, 0, statusstart + 12 * h, str, FGCOLOR (uih), BGCOLOR (uih), 0);
+    }
+#endif
+}
+
+void
+uih_status (uih_context * uih)
+{
+    if (statuswindow == NULL) {
+        statuswindow = uih_registerw (uih, uih_statuspos, uih_drawstatus, NULL, 0);
+    } else {
+        uih_removew (uih, statuswindow);
+        statuswindow = NULL;
+    }
+    //ui_updatemenus (uih, "status");
+    //ui_updatemenus (uih, "animministatus");
+    uih_updatestarts ();
+}
+
+int
+uih_statusenabled (uih_context * uih)
+{
+    return (statuswindow != NULL);
+}
+
+static void
+uih_ministatuspos (uih_context * uih, int *x, int *y, int *w, int *h, void *data)
+{
+    *x = 0;
+    *y = ministatusstart;
+    *w = uih->image->width;
+    *h = xtextheight (uih->image, uih->font);
+}
+
+static char statustext[256];
+
+static void
+uih_drawministatus (uih_context * uih, void *data)
+{
+    xprint (uih->image, uih->font, 0, ministatusstart, statustext, FGCOLOR (uih), BGCOLOR (uih), 0);
+}
+
+void
+uih_updateministatus (uih_context *uih)
+{
+    double times = (uih->fcontext->currentformula->v.rr) / (uih->fcontext->s.rr);
+    double timesnop = log (times) / log (10.0);
+    double speed;
+    uih_drawwindows (uih);
+    uih_cycling_continue (uih);
+    speed = uih_displayed (uih);
+    sprintf (statustext, gettext ("%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "), times < 1 ? gettext ("unzoomed") : gettext ("zoomed"), times < 1 ? 1.0 / times : times, timesnop, speed, uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1, uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1, uih->fcontext->maxiter);
+
+    STAT (printf (gettext ("framerate:%f\n"), speed));
+}
+
+void
+uih_ministatus (uih_context * uih)
+{
+    if (ministatuswindow == NULL) {
+        ministatuswindow = uih_registerw (uih, uih_ministatuspos, uih_drawministatus, NULL, 0);
+    } else {
+        uih_removew (uih, ministatuswindow);
+        ministatuswindow = NULL;
+    }
+    uih_updatestarts ();
+    //ui_updatemenus (uih, "ministatus");
+    //ui_updatemenus (uih, "animministatus");
+}
+
+int
+uih_ministatusenabled (uih_context * uih)
+{
+    return (ministatuswindow != NULL);
 }

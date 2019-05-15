@@ -46,8 +46,6 @@ int ui_textkey (struct ui_textdata *d, int key);
 
 int ui_dorender_params (void);
 
-void ui_updatestarts (void);
-
 void ui_pipe_init (const char *name);
 
 void ui_init (int argc, char **argv);
