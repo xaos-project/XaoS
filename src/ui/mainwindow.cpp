@@ -63,7 +63,6 @@
 #include "sffe.h"
 #endif
 
-static void ui_mouse(bool wait);
 #ifndef exit_xaos
 #define exit_xaos(i) exit(i)
 #endif
@@ -77,8 +76,6 @@ int err;
 uih_context *uih;
 int ui_nogui;
 static int callresize = 0;
-static tl_timer *maintimer;
-static tl_timer *arrowtimer;
 static tl_timer *loopt;
 
 /* Command line variables */
@@ -233,16 +230,20 @@ ui_outofmem (void)
     x_error (gettext ("XaoS is out of memory."));
 }
 
-#define CHECKPROCESSEVENTS(b,k) assert(!((k)&~15)&&!((b)&~(BUTTON1|BUTTON2|BUTTON3)))
+
 static int
 ui_passfunc (struct uih_context *c, int display, const char *text, float percent)
 {
     char str[80];
-    ui_mouse(false);
-    if (!uih->play) {
-        if (uih->display)
-            ui_display (), display = 1;
-        if (!c->interruptiblemode && !uih->play) {
+    QCoreApplication::processEvents(QEventLoop::AllEvents);
+    uih_update(c, widget->mousePosition().x(), widget->mousePosition().y(), window->mouseButtons());
+    uih_iterchange(c, window->keyCombination(), window->mouseButtons());
+    if (!c->play) {
+        if (c->display) {
+            ui_display ();
+            display = 1;
+        }
+        if (!c->interruptiblemode && !c->play) {
             if (display) {
                 if (percent)
                     sprintf (str, "%s %3.2f%%        ", text, (double) percent);
@@ -315,154 +316,6 @@ ui_message (struct uih_context *u)
     widget->setCursor(Qt::WaitCursor);
     sprintf (s, gettext ("Please wait while calculating %s"), uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
     window->showStatus(s);
-}
-
-#define ROTATESPEEDUP 30
-static int
-procescounter (int *counter, const char *text, int speed, int keys, int lastkeys, int down, int up, int tenskip, int min, int max)
-{
-    static int pid = -1;
-    int changed = 0;
-    char str[80];
-    if (tl_lookup_timer (arrowtimer) > 1000000)
-        tl_reset_timer (arrowtimer);
-    if ((keys & up) && !(lastkeys & up)) {
-        (*counter)++;
-        tenskip = 0;
-        changed = 1;
-        tl_reset_timer (arrowtimer);
-    }
-    if ((keys & down) && !(lastkeys & down)) {
-        (*counter)--;
-        tenskip = 0;
-        changed = 1;
-        tl_reset_timer (arrowtimer);
-    }
-    while (tl_lookup_timer (arrowtimer) > speed * FRAMETIME) {
-        tl_slowdown_timer (arrowtimer, speed * FRAMETIME);
-        if (keys & up) {
-            if (tenskip && !(*counter % 10))
-                (*counter) += 10;
-            else
-                (*counter)++;
-            changed = 1;
-        }
-        if (keys & down) {
-            if (tenskip && !(*counter % 10))
-                (*counter) -= 10;
-            else
-                (*counter)--;
-            changed = 1;
-        }
-    }
-    if (changed) {
-        if (*counter > max)
-            *counter = max;
-        if (*counter < min)
-            *counter = min;
-        sprintf (str, text, *counter);
-        uih_rmmessage (uih, pid);
-        pid = uih_message (uih, str);
-    }
-    return changed;
-}
-
-static void
-ui_mouse(bool wait)
-{
-    int flags;
-    char str[80];
-    static int spid;
-    QCoreApplication::processEvents(wait ? QEventLoop::WaitForMoreEvents : QEventLoop::AllEvents);
-    static int dirty = 0;
-    static int lastiter;
-    static int maxiter;
-    static int lastbuttons, lastx, lasty;
-
-    int mousex = widget->mousePosition().x();
-    int mousey = widget->mousePosition().y();
-    int mousebuttons = window->mouseButtons();
-    int iterchange = window->keyCombination();
-    flags = 0;
-    if (mousex != lastx || mousey != lasty)
-        flags |= MOUSE_MOVE;
-    if ((mousebuttons & BUTTON1) && !(lastbuttons & BUTTON1))
-        flags |= MOUSE_PRESS;
-    if (!(mousebuttons & BUTTON1) && (lastbuttons & BUTTON1))
-        flags |= MOUSE_RELEASE;
-    if (mousebuttons & BUTTON1)
-        flags |= MOUSE_DRAG;
-    lastx = mousex;
-    lasty = mousey;
-    lastbuttons = mousebuttons;
-    tl_update_time ();
-    CHECKPROCESSEVENTS (mousebuttons, iterchange);
-    uih_update (uih, mousex, mousey, mousebuttons);
-    if (uih->play) {
-        procescounter (&uih->letterspersec, gettext ("Letters per second %i  "), 2, iterchange, lastiter, 1, 2, 0, 1, INT_MAX);
-        return;
-    }
-    if (!uih->cycling) {
-        if (uih->rotatemode == ROTATE_CONTINUOUS) {
-            static int rpid;
-            if (iterchange == 2) {
-                uih->rotationspeed += ROTATESPEEDUP * tl_lookup_timer (maintimer) / 1000000.0;
-                uih_rmmessage (uih, rpid);
-                sprintf (str, gettext ("Rotation speed:%2.2f degrees per second "), (float) uih->rotationspeed);
-                rpid = uih_message (uih, str);
-            }
-            if (iterchange == 1) {
-                uih->rotationspeed -= ROTATESPEEDUP * tl_lookup_timer (maintimer) / 1000000.0;
-                uih_rmmessage (uih, rpid);
-                sprintf (str, gettext ("Rotation speed:%2.2f degrees per second "), (float) uih->rotationspeed);
-                rpid = uih_message (uih, str);
-            }
-            tl_reset_timer (maintimer);
-        } else {
-            if (!dirty)
-                maxiter = uih->fcontext->maxiter;
-            if (procescounter (&maxiter, gettext ("Iterations: %i   "), 1, iterchange, lastiter, 1, 2, 1, 1, INT_MAX) || (iterchange & 3)) {
-                dirty = 1;
-                lastiter = iterchange;
-                return;
-            }
-        }
-    }
-    if (dirty) {
-        if (uih->incalculation)
-            uih_interrupt (uih);
-        else
-            uih_setmaxiter (uih, maxiter), dirty = 0;
-    }
-    if (uih->cycling) {
-        if (procescounter (&uih->cyclingspeed, gettext ("Cycling speed: %i   "), 1, iterchange, lastiter, 1, 2, 0, -1000000, INT_MAX)) {
-            uih_setcycling (uih, uih->cyclingspeed);
-        }
-    }
-    if (iterchange & 4 && (tl_lookup_timer (maintimer) > FRAMETIME || mousebuttons)) {
-        double mul1 = tl_lookup_timer (maintimer) / FRAMETIME;
-        double su = 1 + (SPEEDUP - 1) * mul1;
-        if (su > 2 * SPEEDUP)
-            su = SPEEDUP;
-        tl_reset_timer (maintimer);
-        uih->speedup *= su, uih->maxstep *= su;
-        sprintf (str, gettext ("speed:%2.2f "), (double) uih->speedup * (1.0 / STEP));
-        uih_rmmessage (uih, spid);
-        spid = uih_message (uih, str);
-    }
-    if (iterchange & 8 && (tl_lookup_timer (maintimer) > FRAMETIME || mousebuttons)) {
-        double mul1 = tl_lookup_timer (maintimer) / FRAMETIME;
-        double su = 1 + (SPEEDUP - 1) * mul1;
-        if (su > 2 * SPEEDUP)
-            su = SPEEDUP;
-        tl_reset_timer (maintimer);
-        uih->speedup /= su, uih->maxstep /= su;
-        sprintf (str, gettext ("speed:%2.2f "), (double) uih->speedup * (1 / STEP));
-        uih_rmmessage (uih, spid);
-        spid = uih_message (uih, str);
-    }
-    lastiter = iterchange;
-    return;
 }
 
 void
@@ -939,7 +792,9 @@ ui_mainloop (int loop)
             }
         }
         processbuffer ();
-        ui_mouse(!inmovement && !uih->inanimation);
+        QCoreApplication::processEvents(!inmovement && !uih->inanimation ? QEventLoop::WaitForMoreEvents : QEventLoop::AllEvents);
+        uih_update(uih, widget->mousePosition().x(), widget->mousePosition().y(), window->mouseButtons());
+        uih_iterchange(uih, window->keyCombination(), window->mouseButtons());
         inmovement = 0;
         if (callresize)
             ui_resize (), callresize = 0;

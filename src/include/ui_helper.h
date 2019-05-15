@@ -529,6 +529,11 @@ extern "C"
     void uih_ministatus (uih_context * uih);
     int uih_ministatusenabled (uih_context * uih);
 
+    extern tl_timer *maintimer;
+    extern tl_timer *arrowtimer;
+
+    void uih_iterchange (uih_context *uih, int keys, int mousebuttons);
+
 #ifdef __cplusplus
 }
 #endif

@@ -1,4 +1,5 @@
 #include <config.h>
+#include <assert.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -2434,4 +2435,132 @@ int
 uih_ministatusenabled (uih_context * uih)
 {
     return (ministatuswindow != NULL);
+}
+
+static int
+processcounter (uih_context *uih, int *counter, const char *text, int speed, int keys, int lastkeys, int down, int up, int tenskip, int min, int max)
+{
+    static int pid = -1;
+    int changed = 0;
+    char str[80];
+    if (tl_lookup_timer (arrowtimer) > 1000000)
+        tl_reset_timer (arrowtimer);
+    if ((keys & up) && !(lastkeys & up)) {
+        (*counter)++;
+        tenskip = 0;
+        changed = 1;
+        tl_reset_timer (arrowtimer);
+    }
+    if ((keys & down) && !(lastkeys & down)) {
+        (*counter)--;
+        tenskip = 0;
+        changed = 1;
+        tl_reset_timer (arrowtimer);
+    }
+    while (tl_lookup_timer (arrowtimer) > speed * FRAMETIME) {
+        tl_slowdown_timer (arrowtimer, speed * FRAMETIME);
+        if (keys & up) {
+            if (tenskip && !(*counter % 10))
+                (*counter) += 10;
+            else
+                (*counter)++;
+            changed = 1;
+        }
+        if (keys & down) {
+            if (tenskip && !(*counter % 10))
+                (*counter) -= 10;
+            else
+                (*counter)--;
+            changed = 1;
+        }
+    }
+    if (changed) {
+        if (*counter > max)
+            *counter = max;
+        if (*counter < min)
+            *counter = min;
+        sprintf (str, text, *counter);
+        uih_rmmessage (uih, pid);
+        pid = uih_message (uih, str);
+    }
+    return changed;
+}
+
+tl_timer *maintimer;
+tl_timer *arrowtimer;
+#define ROTATESPEEDUP 30
+void
+uih_iterchange(uih_context *uih, int keys, int mousebuttons)
+{
+    char str[80];
+    static int spid;
+    static int dirty = 0;
+    static int lastiter;
+    static int maxiter;
+    assert(!((keys)&~15));
+    tl_update_time ();
+    if (uih->play) {
+        processcounter (uih, &uih->letterspersec, gettext ("Letters per second %i  "), 2, keys, lastiter, 1, 2, 0, 1, INT_MAX);
+        return;
+    }
+    if (!uih->cycling) {
+        if (uih->rotatemode == ROTATE_CONTINUOUS) {
+            static int rpid;
+            if (keys == 2) {
+                uih->rotationspeed += ROTATESPEEDUP * tl_lookup_timer (maintimer) / 1000000.0;
+                uih_rmmessage (uih, rpid);
+                sprintf (str, gettext ("Rotation speed:%2.2f degrees per second "), (float) uih->rotationspeed);
+                rpid = uih_message (uih, str);
+            }
+            if (keys == 1) {
+                uih->rotationspeed -= ROTATESPEEDUP * tl_lookup_timer (maintimer) / 1000000.0;
+                uih_rmmessage (uih, rpid);
+                sprintf (str, gettext ("Rotation speed:%2.2f degrees per second "), (float) uih->rotationspeed);
+                rpid = uih_message (uih, str);
+            }
+            tl_reset_timer (maintimer);
+        } else {
+            if (!dirty)
+                maxiter = uih->fcontext->maxiter;
+            if (processcounter (uih, &maxiter, gettext ("Iterations: %i   "), 1, keys, lastiter, 1, 2, 1, 1, INT_MAX) || (keys & 3)) {
+                dirty = 1;
+                lastiter = keys;
+                return;
+            }
+        }
+    }
+    if (dirty) {
+        if (uih->incalculation)
+            uih_interrupt (uih);
+        else
+            uih_setmaxiter (uih, maxiter), dirty = 0;
+    }
+    if (uih->cycling) {
+        if (processcounter (uih, &uih->cyclingspeed, gettext ("Cycling speed: %i   "), 1, keys, lastiter, 1, 2, 0, -1000000, INT_MAX)) {
+            uih_setcycling (uih, uih->cyclingspeed);
+        }
+    }
+    if (keys & 4 && (tl_lookup_timer (maintimer) > FRAMETIME || mousebuttons)) {
+        double mul1 = tl_lookup_timer (maintimer) / FRAMETIME;
+        double su = 1 + (SPEEDUP - 1) * mul1;
+        if (su > 2 * SPEEDUP)
+            su = SPEEDUP;
+        tl_reset_timer (maintimer);
+        uih->speedup *= su, uih->maxstep *= su;
+        sprintf (str, gettext ("speed:%2.2f "), (double) uih->speedup * (1.0 / STEP));
+        uih_rmmessage (uih, spid);
+        spid = uih_message (uih, str);
+    }
+    if (keys & 8 && (tl_lookup_timer (maintimer) > FRAMETIME || mousebuttons)) {
+        double mul1 = tl_lookup_timer (maintimer) / FRAMETIME;
+        double su = 1 + (SPEEDUP - 1) * mul1;
+        if (su > 2 * SPEEDUP)
+            su = SPEEDUP;
+        tl_reset_timer (maintimer);
+        uih->speedup /= su, uih->maxstep /= su;
+        sprintf (str, gettext ("speed:%2.2f "), (double) uih->speedup * (1 / STEP));
+        uih_rmmessage (uih, spid);
+        spid = uih_message (uih, str);
+    }
+    lastiter = keys;
 }

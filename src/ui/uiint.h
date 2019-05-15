@@ -1,11 +1,6 @@
 #ifndef UI_INT_H
 #define UI_INT_H
 
-#define MOUSE_PRESS 1
-#define MOUSE_RELEASE 2
-#define MOUSE_DRAG 4
-#define MOUSE_MOVE 8
-
 #define BORDERWIDTH 2
 #define BORDERHEIGHT 2
 
