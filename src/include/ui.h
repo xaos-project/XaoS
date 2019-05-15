@@ -79,17 +79,7 @@ extern "C"
     extern char *localepath;
 #endif
 
-    number_t ui_getfloat (const char *text);
-    void ui_resize (void);
     void ui_call_resize (void);
-    void ui_quit (void) NORETURN;
-    void ui_menuactivate (const menuitem * item, dialogparam * d);
-    int ui_key (int);
-    xio_path ui_getfile (const char *basename, const char *extension);
-    char *ui_getpos (void);
-    int MAIN_FUNCTION (int argc, char **argv);
-
-
 
 #ifndef RANDOM_PALETTE_SIZE
 #define RANDOM_PALETTE_SIZE 1   /*FIXME currently ignored */

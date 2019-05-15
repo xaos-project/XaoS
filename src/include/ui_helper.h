@@ -534,6 +534,10 @@ extern "C"
 
     void uih_iterchange (uih_context *uih, int keys, int mousebuttons);
 
+    void ui_help (struct uih_context *c);
+    void ui_about (struct uih_context *c);
+    void ui_quit (uih_context * c);
+
 #ifdef __cplusplus
 }
 #endif

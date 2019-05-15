@@ -1000,6 +1000,8 @@ uih_registermenus_i18n (void)
     SUBMENU_I ("root", NULL, gettext ("Misc"), "misc");
     SUBMENU_I ("root", NULL, gettext ("View"), "ui");
     SUBMENU_I ("root", NULL, gettext ("Help"), "helpmenu");
+    MENUNOP_I ("helpmenu", NULL, gettext ("About"), "about", NULL, ui_about);
+    MENUNOP_I ("helpmenu", "h", gettext ("Help"), "help", MENUFLAG_INCALC, ui_help);
     SUBMENU_I ("helpmenu", NULL, gettext ("Tutorials"), "tutor");
     SUBMENUNOOPT_I ("animroot", "f", gettext ("File"), "file");
     // You cannot have menu items directly on the root menu in some OS
@@ -1034,6 +1036,7 @@ uih_registermenus_i18n (void)
     MENUINTRB_I ("xtextpos", NULL, "Left", "xtextleft", UI, uih_setxtextpos, UIH_TEXTLEFT, uih_xtextselected);
     MENUINTRB_I ("xtextpos", NULL, "Center", "xtextcenter", UI, uih_setxtextpos, UIH_TEXTCENTER, uih_xtextselected);
     MENUINTRB_I ("xtextpos", NULL, "Right", "xtexteight", UI, uih_setxtextpos, UIH_TEXTRIGHT, uih_xtextselected);
+
     MENUNOP_I ("file", NULL, gettext ("New"), "initstate", 0, uih_initstate);
     MENUDIALOG_I ("file", NULL, gettext ("Open"), "loadpos", MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY, uih_loadfile, loaddialog);
     MENUDIALOG_I ("file", NULL, gettext ("Save"), "savepos", 0, uih_saveposfile, saveposdialog);
@@ -1046,6 +1049,8 @@ uih_registermenus_i18n (void)
     MENUNOP_I ("file", NULL, gettext ("Load random example"), "loadexample", MENUFLAG_INTERRUPT, uih_loadexample);
     MENUNOP_I ("file", NULL, gettext ("Save configuration"), "savecfg", 0, uih_savecfg);
     MENUSEPARATOR_I ("file");
+    MENUNOP_I ("file", NULL, gettext ("Quit"), "quit", MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quit);
+
     MENUNOP_I ("edit", "u", gettext ("Undo"), "undo", MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_undo);
     MENUNOP_I ("edit", NULL, gettext ("Redo"), "redo", MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_redo);
     SUBMENU_I ("fractal", NULL, gettext ("Formulae"), "mformula");
