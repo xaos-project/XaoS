@@ -113,7 +113,7 @@ allocgenerictruecolor (struct palette *palette, int init, int r, int g, int b)
         case TRUECOLOR16:
         case TRUECOLOR24:
         default:
-            n = ((r >> palette->info.truec.rprec) << palette->info.truec.rshift) | ((g >> palette->info.truec.gprec) << palette->info.truec.gshift) | ((b >> palette->info.truec.bprec) << palette->info.truec.bshift);
+            n = ((r >> palette->info.truec.rprec) << palette->info.truec.rshift) | ((g >> palette->info.truec.gprec) << palette->info.truec.gshift) | ((b >> palette->info.truec.bprec) << palette->info.truec.bshift) | palette->info.truec.alpha;
             break;
     }
     if (init)
@@ -385,6 +385,11 @@ createpalette (int start, int end, int type, int flags, int maxentries, int (*al
         if (type == TRUECOLOR16)
             genertruecolorinfo (&palette->info.truec, (255 >> 3) << 11, (255 >> 2) << 5, (255 >> 3));
     }
+    if (type == TRUECOLOR)
+        palette->info.truec.alpha = ~palette->info.truec.allmask;
+    else
+        palette->info.truec.alpha = 0;
+
     return (palette);
 }
 

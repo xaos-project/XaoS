@@ -18,6 +18,7 @@ extern "C"
         int byteexact;          /*When every colors is at one byte */
         int missingbyte;        /*for 32bit truecolor and exact byte places one byte is
                                    unused... */
+        int alpha;
     };
     union paletteinfo
     {
