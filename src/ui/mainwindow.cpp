@@ -952,24 +952,8 @@ void MainWindow::showStatus(const char *text)
 
 int MainWindow::mouseButtons()
 {
-
-    // Qt::MetaModifier maps to control key on Macs
-#ifdef Q_WS_MAC
-    Qt::KeyboardModifier controlModifier = Qt::MetaModifier;
-#else
-    Qt::KeyboardModifier controlModifier = Qt::ControlModifier;
-#endif
-
     int mouseButtons = 0;
-
-    // Modifier keys change behavior of left and right mouse buttons
-    if (m_keyboardModifiers & controlModifier) {
-        // Control key swaps left and right buttons
-        if (m_mouseButtons & Qt::LeftButton)
-            mouseButtons |= BUTTON3;
-        if (m_mouseButtons & Qt::RightButton)
-            mouseButtons |= BUTTON1;
-    } else if (m_keyboardModifiers & Qt::ShiftModifier) {
+    if (m_keyboardModifiers & Qt::ShiftModifier) {
         // Shift key makes left and right buttons emulate middle button
         if (m_mouseButtons & (Qt::LeftButton | Qt::RightButton))
             mouseButtons |= BUTTON2;
@@ -977,14 +961,11 @@ int MainWindow::mouseButtons()
         // Otherwise, mouse buttons map normally
         if (m_mouseButtons & Qt::LeftButton)
             mouseButtons |= BUTTON1;
+        if (m_mouseButtons & Qt::MidButton)
+            mouseButtons |= BUTTON2;
         if (m_mouseButtons & Qt::RightButton)
             mouseButtons |= BUTTON3;
     }
-
-    // Middle button is unaffected by modifier keys
-    if (m_mouseButtons & Qt::MidButton)
-        mouseButtons |= BUTTON2;
-
     return mouseButtons;
 }
 
