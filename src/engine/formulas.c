@@ -404,7 +404,7 @@ REGISTERS (3)
             r >>= cpalette.info.truec.bprec;
             g >>= cpalette.info.truec.gprec;
             b >>= cpalette.info.truec.rprec;
-            return ((r << cpalette.info.truec.bshift) + (g << cpalette.info.truec.gshift) + (b << cpalette.info.truec.rshift));
+            return ((r << cpalette.info.truec.bshift) + (g << cpalette.info.truec.gshift) + (b << cpalette.info.truec.rshift) + cpalette.info.truec.alpha);
     }
 
     return cpalette.pixels[inset];
