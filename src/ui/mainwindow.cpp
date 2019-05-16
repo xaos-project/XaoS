@@ -263,7 +263,7 @@ ui_printspeed(struct uih_context *uih)
     uih->passfunc = NULL;
     tl_sleep (1000000);
     for (c = 0; c < 5; c++)
-        widget->repaint();
+        widget->update();
     QCoreApplication::processEvents(QEventLoop::AllEvents);
     window->showStatus("Measuring dislay speed");
     tl_sleep (1000000);
@@ -271,7 +271,7 @@ ui_printspeed(struct uih_context *uih)
     tl_reset_timer (uih->speedtimer);
     c = 0;
     while (tl_lookup_timer (uih->speedtimer) < 5000000) {
-        widget->repaint();
+        widget->update();
         QCoreApplication::processEvents(QEventLoop::AllEvents);
         tl_update_time();
         c++;
@@ -318,7 +318,7 @@ ui_printspeed(struct uih_context *uih)
     }
     x_message ("Size 6 memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
 
-    widget->repaint();
+    widget->update();
     window->showStatus("Measuring calculation speed");
     speed_test (uih->fcontext, uih->image);
     window->showStatus("Measuring new image calculation loop");
@@ -327,7 +327,7 @@ ui_printspeed(struct uih_context *uih)
     tl_reset_timer (uih->speedtimer);
     for (c = 0; c < 5; c++)
         uih_newimage (uih), uih->fcontext->version++, uih_prepare_image (uih);
-    widget->repaint();
+    widget->update();
     x_message ("New image caluclation took %g seconds (%.2g fps)", tl_lookup_timer (uih->speedtimer) / 5.0 / 1000000.0, 5000000.0 / tl_lookup_timer (uih->speedtimer));
     tl_update_time ();
     for (c = 0; c < 5; c++)
@@ -444,7 +444,7 @@ ui_menuactivate (const menuitem * item, dialogparam * d)
         if (item->flags & MENUFLAG_CHECKBOX) {
             char s[256];
             uih_updateministatus(uih);
-            widget->repaint();
+            widget->update();
             if (!menu_enabled (item, uih))
                 sprintf (s, gettext ("Enabling: %s. "), item->name);
             else
@@ -484,7 +484,7 @@ ui_key (int key)
             if (uih->play) {
                 if (uih->incalculation) {
                     uih_updateministatus(uih);
-                    widget->repaint();
+                    widget->update();
                 }
                 else {
                     uih_skipframe (uih);
@@ -590,7 +590,7 @@ ui_mainloop (int loop)
         if (uih->display) {
             uih_prepare_image (uih);
             uih_updateministatus(uih);
-            widget->repaint();
+            widget->update();
         }
         if ((time = tl_process_group (syncgroup, NULL)) != -1) {
             if (!inmovement && !uih->inanimation) {
@@ -639,7 +639,7 @@ ui_passfunc (struct uih_context *c, int display, const char *text, float percent
         if (c->display) {
             if (nthreads == 1)
                 uih_drawwindows (uih);
-            widget->repaint();
+            widget->update();
             uih_cycling_continue (uih);
             display = 1;
         }

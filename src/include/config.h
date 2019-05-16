@@ -20,7 +20,7 @@
 #ifndef _MSC_VER
 #define HAVE_UNISTD_H 1
 #endif
-#define USE_OPENGL
+//#define USE_OPENGL
 
 #define SIZEOF_SHORT 2
 #define SIZEOF_INT 4
