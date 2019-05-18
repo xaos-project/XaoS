@@ -38,4 +38,14 @@ HEADERS += \
     $$PWD/zoom.h \
     $$PWD/i386/ctrl87.h \
     $$PWD/i386/sstring.h \
-    $$PWD/i386/__math.h
+    $$PWD/i386/__math.h \
+    $$PWD/gsl/gsl_math.h \
+    $$PWD/gsl/gsl_complex.h \
+    $$PWD/gsl/gsl_complex_math.h \
+    $$PWD/gsl/gsl_minmax.h \
+    $$PWD/gsl/gsl_pow_int.h \
+    $$PWD/gsl/gsl_nan.h \
+    $$PWD/gsl/gsl_precision.h \
+    $$PWD/gsl/gsl_machine.h \
+    $$PWD/gsl/gsl_types.h \
+    $$PWD/gsl/gsl_inline.h
