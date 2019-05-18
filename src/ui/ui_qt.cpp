@@ -179,6 +179,13 @@ main(int argc, char *argv[])
     xaosTranslator.load("XaoS_" + QLocale::system().name());
     app.installTranslator(&xaosTranslator);
 
+    QLocale::system().setNumberOptions(QLocale::DefaultNumberOptions);
+
+    /* Without this some locales (e.g. the Hungarian) replaces "." to ","
+       in numerical format and this will cause an automatic truncation
+       at each parameter at certain places, e.g. drawing a new fractal. */
+    setlocale (LC_NUMERIC, "C");
+
     ui_init(argc, argv);
     ui_mainloop(1);
 }
@@ -1030,10 +1037,7 @@ ui_init (int argc, char **argv)
     arrowtimer = tl_create_timer ();
     loopt = tl_create_timer ();
     window->showStatus("Loading message catalog");
-    char language[10];
-    strcpy(language, QLocale::system().name().toStdString().c_str());
-    language[2] = '\0';
-    uih_loadcatalog (uih, language);
+    uih_loadcatalog (uih, QLocale::system().name().left(2).toUtf8());
     window->showStatus("Initializing timing system");
     uih_newimage (uih);
     tl_update_time ();
