@@ -132,7 +132,7 @@ xio_getrandomexample (xio_path name)
 {
 #ifdef HAVE_DIRENT_H
     static const char *const paths[] = {        /*Where examples should be located? */
-        EXAMPLESPATH,           /*Data path when XaoS is propertly installed */
+        EXAMPLESPATH,           /*Data path when XaoS is properly installed */
         "\01" XIO_PATHSEPSTR "examples",
         /*XaoS was started from root of source tree */
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "examples",
@@ -140,7 +140,7 @@ xio_getrandomexample (xio_path name)
         /*XaoS was started from root of source tree */
         ".." XIO_PATHSEPSTR "examples",
         /*XaoS was started from bin directory in source tree */
-        XIO_EMPTYPATH,          /*Oops...it's not. Try curent directory */
+        XIO_EMPTYPATH,          /*Oops...it's not. Try current directory */
     };
     int i = -1, p;
     DIR *d = NULL;
@@ -224,14 +224,14 @@ xio_file
 xio_getcatalog (const char *name)
 {
     static const xio_constpath paths[] = {      /*Where catalogs should be located? */
-        CATALOGSPATH,           /*Data path when XaoS is propertly installed */
+        CATALOGSPATH,           /*Data path when XaoS is properly installed */
         "\01" XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         "." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         /*XaoS was started from root of source tree */
         ".." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         /*XaoS was started from bin directory in source tree */
-        XIO_EMPTYPATH,          /*Oops...it's not. Try curent directory */
+        XIO_EMPTYPATH,          /*Oops...it's not. Try current directory */
     };
     int i;
     xio_file f = XIO_FAILED;
@@ -253,7 +253,7 @@ xio_file
 xio_gethelp (void)
 {
     static const xio_constpath paths[] = {      /*Where help should be located? */
-        HELPPATH,               /*Data path when XaoS is propertly installed */
+        HELPPATH,               /*Data path when XaoS is properly installed */
         "\01" XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
         "." XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
@@ -261,7 +261,7 @@ xio_gethelp (void)
         ".." XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
         /*XaoS was started from bin directory in source tree */
         "." XIO_PATHSEPSTR "xaos.hlp",
-        /*Oops...it's not. Try curent directory */
+        /*Oops...it's not. Try current directory */
     };
     int i;
     xio_file f = XIO_FAILED;
@@ -279,12 +279,12 @@ xio_gettutorial (const char *name, xio_path tmp)
     int i;
     xio_file f = XIO_FAILED;
     static const xio_constpath paths[] = {      /*Where tutorials should be located? */
-        TUTORIALPATH,           /*Data path when XaoS is propertly installed */
+        TUTORIALPATH,           /*Data path when XaoS is properly installed */
         "\01" XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,
         "." XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,   /*XaoS was started from root of source tree */
         ".." XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,  /*XaoS was started from bin directory in source tree */
-        XIO_EMPTYPATH,          /*Oops...it's not. Try curent directory */
+        XIO_EMPTYPATH,          /*Oops...it's not. Try current directory */
     };
 
     for (i = 0; i < (int) (sizeof (paths) / sizeof (char *)) && f == XIO_FAILED; i++) {

@@ -15,9 +15,9 @@ int nthreads = 1;
 
 #ifdef USE_PTHREAD
 
-/* Well conde follows is probably very ugly, since this is
+/* Well code follows is probably very ugly, since this is
  * my absolutely first application for threads. Please let
- * me know how to improvie it
+ * me know how to improve it
  */
 
 static pthread_cond_t synccond, startcond;
@@ -30,10 +30,10 @@ pthread_cond_t conds[MAXCONDS];
    Its function is following:
    1) wait for message
    2) call function from message
-   3) syncronize
+   3) synchronize
    4) again
 
-   To invoke this mechanizm main thread(#1) should call
+   To invoke this mechanism main thread(#1) should call
    xth_function
    xth_synchronize forces forces thread to wait for others
  */
@@ -61,12 +61,12 @@ control_routine (void *i)
          * newbie in threads. Please rewrite my code and
          * send me better and faster version. 
          * 
-         * This function comunicates with pth_function from main loop
+         * This function communicates with pth_function from main loop
          * as follows: it uses startcond to wait for order start function!
          * Counter is used to ensure that main function did not give
-         * order whie control_routine was busy
+         * order while control_routine was busy
          *
-         * after order is received, function adress is readed from global
+         * after order is received, function address is read from global
          * variables and started. Pth_function then executes its
          * own part of calculation. After that it waits counter
          * nfinished to reach number of thasks-1. This is done
@@ -167,7 +167,7 @@ pth_bgjob (xfunction f, void *d)
 {
     pthread_mutex_lock (&startcondmutex);
     if (npending) {
-        printf ("Collision!\n");        /*FIXME:remove this..I just want to know how often this happends */
+        printf ("Collision!\n");        /*FIXME:remove this..I just want to know how often this happens */
         pthread_mutex_unlock (&startcondmutex);
         f (d, infos, 0, 0);
     }

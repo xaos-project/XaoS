@@ -10,7 +10,7 @@
 /* This is quite simple and ugly implementation of windows.
  * it redraws all windows every frame and removes them before calculation
  * it should be OK for small windows (like texts) used by ui_helper
- * I plan to abuse it in ugly interface too, in case it will be fast enought
+ * I plan to abuse it in ugly interface too, in case it will be fast enough
  */
 
 static void
@@ -204,7 +204,7 @@ uih_removew (struct uih_context *uih, struct uih_window *w)
     free (w);
 }
 
-/*Remove all drawed windows from screen */
+/*Remove all drawn windows from screen */
 void
 uih_clearwindows (struct uih_context *uih)
 {

@@ -2,9 +2,9 @@
 /* Hello reader!
 
  * Are you sure you want read this? Its very cryptic and strange code. YOU
- * HAVE BEEN WARNED! Its purpose is to genereate as fast as possible
+ * HAVE BEEN WARNED! Its purpose is to generate as fast as possible
  * calculation loops for various formulas/algorithms. It uses lots of
- * coprocesor magic. It is included from formulas.c
+ * coprocessor magic. It is included from formulas.c
  */
 
 #ifndef VARIABLES               /*supply defaultd values */
@@ -295,7 +295,7 @@ REGISTERS (3)
 #endif
 
 
-/*F. : Periodicity checking rountines.          (16-02-97)
+/*F. : Periodicity checking routines.          (16-02-97)
    All comments preceded by F. are mine (Fabrice Premel premelfa@etu.utc.fr).
    Tried to make code as efficient as possible.
    Next to do is convert lim in a variable that would be updated sometimes
@@ -303,21 +303,21 @@ REGISTERS (3)
    first, we'll define 2 variables : whentosave and whenincsave, which are, respectively,
    a measure of when we have to update saved values to be checked, and when to increase
    interval between 2 updates, as if they're too close, we'll miss large periods.
-   We save Z at the beginning, and then we compare each new iteration with this Z, and if naerly
+   We save Z at the beginning, and then we compare each new iteration with this Z, and if nearly
    equal, we declare the suite to be periodic.
    When ( iter mod whentosave ) == 0, we store a new value, and we repeat.
 
    UNCOMPRESSed form is just an extension, with careful that if we only check whentosave
-   all 8 iterations, number of iterations must be well set at the begining.This is
-   done by adding a (iter&7) in the while statement preceeding then uncompressed
+   all 8 iterations, number of iterations must be well set at the beginning.This is
+   done by adding a (iter&7) in the while statement preceding then uncompressed
    calculation. */
 
-/*F. : This is from then lim factor that depends all periodicity check spped : the bigger it is, the faster we
+/*F. : This is from then lim factor that depends all periodicity check speed : the bigger it is, the faster we
    can detect periodicity, but the bigger it is, the more we can introduce errors.
    I suggest a value of (maxx-minx)/(double)getmaxx for a classic Mandelbrot Set,
    and maybe a lesser value for an extra power Mandelbrot.
-   But this should be calculated outter from here (ie each frame, for example), to avoid
-   new calculs */
+   But this should be calculated outter from here (i.e. each frame, for example), to avoid
+   new calculations */
 #ifdef PERI
 #define PCHECK (abs_less_than(r1 - zre, cfractalc.periodicity_limit) && abs_less_than(s1 - zim, cfractalc.periodicity_limit))
 
@@ -382,11 +382,11 @@ REGISTERS (3)
             iter -= 8;
             r1 = zre;
             s1 = zim;
-            whensavenew = 3;    /*You should adapt theese values */
+            whensavenew = 3;    /*You should adapt these values */
             /*F. : We should always define whensavenew as 2^N-1, so we could use a AND instead of % */
 
             whenincsave = 10;
-            /*F. : problem is that after deep zooming, peiodicity is never detected early, cause is is
+            /*F. : problem is that after deep zooming, periodicity is never detected early, cause is is
                quite slow before going in a periodic loop.
                So, we should start checking periodicity only after some times */
             while (BTEST && iter) {
@@ -478,7 +478,7 @@ REGISTERS (3)
                iter--;
                } */
         } else {
-            whensavenew = 7;    /*You should adapt theese values */
+            whensavenew = 7;    /*You should adapt these values */
             /*F. : We should always define whensavenew as 2^N-1, so we could use a AND instead of % */
 
             whenincsave = 10;
@@ -486,7 +486,7 @@ REGISTERS (3)
             rp = zre * zre;
             ip = zim * zim;
 #endif
-            /*F. : problem is that after deep zooming, peiodicity is never detected early, cause is is
+            /*F. : problem is that after deep zooming, periodicity is never detected early, cause is is
                quite slow before going in a periodic loop.
                So, we should start checking periodicity only after some times */
             I386HACK1;
@@ -496,7 +496,7 @@ REGISTERS (3)
                 SAVEZMAG FORMULA;
                 iter--;
             }
-            if (BTEST) {        /*F. : BTEST is calculed two times here, isn't it ? */
+            if (BTEST) {        /*F. : BTEST is calculated two times here, isn't it ? */
                 /*H. : No gcc is clever and adds test to the end :) */
                 iter = (cfractalc.maxiter - 8) & (~7);
                 do {

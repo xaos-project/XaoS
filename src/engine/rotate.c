@@ -1,4 +1,4 @@
-/* An rotation filter. Uses bressemham algorithm combined with dda to rotate
+/* An rotation filter. Uses Bresenham algorithm combined with dda to rotate
  * image around center
  * This filter is used internally by XaoS and is unvisible to normal user in
  * 'E' menu.

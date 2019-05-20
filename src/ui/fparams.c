@@ -48,7 +48,7 @@ const struct params ui_fractal_params[] = {
 
     {"", P_HELP, NULL, "Animation rendering:"},
     {"-render", P_STRING, &defrender,
-     "Render animation into seqence of .png files"},
+     "Render animation into sequence of .png files"},
     {"-basename", P_STRING, &rbasename,
      "Name for .png files (XaoS will add 4 digit number and extension"},
     {"-size", P_STRING, &defsize, "widthxheight"},
@@ -57,7 +57,7 @@ const struct params ui_fractal_params[] = {
     {"-antialiasing", P_SWITCH, &alias,
      "Perform antialiasing (slow, requires quite lot of memory)"},
     {"-alwaysrecalc", P_SWITCH, &slowmode,
-     "Always recalculate whole image (slowes down rendering, increases quality)"},
+     "Always recalculate whole image (slows down rendering, increases quality)"},
     {"-rendervectors", P_SWITCH, &defvectors,
      "Render motion vectors (should be used for MPEG encoding)"},
     {"-iframedist", P_NUMBER, &iframedist,

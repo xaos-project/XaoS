@@ -38,7 +38,7 @@
 #include <btrace.h>
 #include <xthread.h>
 #include <xerror.h>
-#include "calculate.h"          /*an inlined calulate function */
+#include "calculate.h"          /*an inlined calculate function */
 
 #include "i18n.h"
 
@@ -212,13 +212,13 @@ static int multable[RANGE * FPMUL * 2];
 static int *mulmid;
 #endif
 
-/*Functions looks trought rows/columns marked for calculation and tries to use
- *some symetrical one instead
+/*Functions looks trough rows/columns marked for calculation and tries to use
+ *some symmetrical one instead
  */
 
 /*FIXME should be threaded...but thread overhead should take more work than
  *do it in one, since it is quite simple and executes just in case fractal
- *on the screen is symetrical and it is quite rare case...who knows
+ *on the screen is symmetrical and it is quite rare case...who knows
  */
 
 static void 
@@ -400,7 +400,7 @@ newpositions (realloc_t * realloc, unsigned int size, number_t begin1, number_t 
 }
 
 /* This is the main reallocation algorithm described in xaos.info
- * It is quite complex since many loops are unrooled and uses custom
+ * It is quite complex since many loops are unrolled and uses custom
  * fixedpoint
  *
  * Takes approx 30% of time so looking for way to do it threaded.
@@ -441,9 +441,9 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
     for (counter = (int) size - 1; counter >= 0; counter--) {
         pos[counter] = (int) ((fpos[counter] - begin) * tofix); /*first convert everything into fixedpoint */
         if (counter < (int) size - 1 && pos[counter] > pos[counter + 1])
-            /*Avoid processing of missordered rows.
-               They should happend because of limited
-               precisity of FP numbers */
+            /*Avoid processing of misordered rows.
+               They should happened because of limited
+               precision of FP numbers */
             pos[counter] = pos[counter + 1];
     }
     pos[size] = INT_MAX;
@@ -516,7 +516,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
         if (yend > end + FPMUL) /*check bounds */
             yend = end + FPMUL;
 #endif
-        data = adddata (p, i);  /*calcualte all lines good for this y */
+        data = adddata (p, i);  /*calculate all lines good for this y */
 
         /* Now try all acceptable connection and calculate best possibility
          * with this connection
@@ -531,7 +531,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
                     previous = getbest (i - 1);
                     myprice = previous->price;
                     myprice += PRICE (pos[p], y);       /*store data */
-                    if (myprice < bestprice) {  /*calcualte best */
+                    if (myprice < bestprice) {  /*calculate best */
                         bestprice = myprice, bestdata = data;
                         data->price = myprice;
                         data->previous = previous;
@@ -555,7 +555,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
                         price1 = myprice = previous->price;
 
                         /*In case we found revolutional point, we should think
-                         *about changing our gusesses in last point too - don't
+                         *about changing our guesses in last point too - don't
                          *connect it at all, but use this way instead*/
                         if (myprice + NEWPRICE < bestprice) {   /*true in approx 2/3 of cases */
                             bestprice = myprice + NEWPRICE, bestdata = data - DSIZE;
@@ -592,13 +592,13 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
 #ifdef DEBUG
                 if (pos[p] != pos[p + 1]) {
                     if (previous != best[p - 1]) {
-                        x_fatalerror ("Missoptimization found!");
+                        x_fatalerror ("Mis-optimization found!");
                     }
                 }
 #endif
 #ifdef _UNDEFINED_
                 /* Experimental results show, that probability for better approximation
-                 * in this area is extremly low. Maybe it never happends. 
+                 * in this area is extremely low. Maybe it never happens. 
                  * I will have to think about it a bit more... It seems to have
                  * to do something with meaning of universe and god... no idea
                  * why it is true.
@@ -614,7 +614,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
                         myprice = previous->price;
 
                         /*In case we found revolutional point, we should think
-                         *about changing our gusesses in last point too - don't
+                         *about changing our guesses in last point too - don't
                          *connect it at all, but use this way instead*/
                         if (myprice + NEWPRICE < bestprice) {   /*true in approx 2/3 of cases */
                             bestprice = myprice + NEWPRICE, bestdata = data - DSIZE;
@@ -641,7 +641,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
 
             /* OK...we passed crossed area. All next areas have same previous
              * situation so our job is easier
-             * So find the best solution once for all od them
+             * So find the best solution once for all of them
              */
             if (p > ps) {
                 previous = best[p - 1]; /*find best one in previous */
@@ -652,7 +652,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
                 price1 = previous->price;
             }
 
-            /* Since guesses for "revolutional point" was allways one
+            /* Since guesses for "revolutional point" was always one
              * step back, we need to do last one*/
             if (price1 + NEWPRICE < bestprice && p > ps1) {
                 myprice = price1 + NEWPRICE;
@@ -667,7 +667,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
                 if (pos[p] != pos[p + 1]) {
                     myprice = price1;
                     myprice += PRICE (pos[p], y);       /*store data */
-                    if (myprice < bestprice) {  /*calcualte best */
+                    if (myprice < bestprice) {  /*calculate best */
                         bestprice = myprice, bestdata = data;
                         data->price = myprice;
                         data->previous = previous;
@@ -688,7 +688,7 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
             }
         } else {
             /* This is second case - previous y was not mapped at all.
-             * Situation is simplier now, since we know that behind us is
+             * Situation is simpler now, since we know that behind us is
              * large hole and our decisions don't affect best solution for
              * previous problem. Se we have just one answer
              * Situation is similar to latest loop in previous case
@@ -1064,14 +1064,14 @@ calculatenew (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
         cfilter.pos = 0;
     }
 
-    /* We don't need to wory about race conditions here, since only
-     * problem that should happend is incorrectly counted number
+    /* We don't need to worry about race conditions here, since only
+     * problem that should happen is incorrectly counted number
      * of lines to do...
      *
      * I will fix that problem later, but I think that this information
      * should be quite useless at multithreaded systems so it should
      * be a bit inaccurate. Just need to take care in percentage
-     * displayers that thinks like -100% or 150% should happend
+     * displayers that thinks like -100% or 150% should happen
      */
     if (!xth_nthread (task)) {
         for (ry = czoomc.reallocy, rend = ry + cimage.height; ry < rend; ry++) {
@@ -1125,7 +1125,7 @@ calculatenew (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
             }
         }
     }
-    STAT (printf ("Avoided caluclating of %i points from %i and %2.2f%% %2.2f%%\n", avoided, tocalculate, 100.0 * (avoided) / tocalculate, 100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
+    STAT (printf ("Avoided calculating of %i points from %i and %2.2f%% %2.2f%%\n", avoided, tocalculate, 100.0 * (avoided) / tocalculate, 100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
     STAT (avoided2 += avoided; tocalculate2 += tocalculate; frames2 += 1);
 }
 
@@ -1146,8 +1146,8 @@ REGISTERS (3)
     }
 }
 
-/* We can't do both symmetryies (x and y) in one loop at multithreaded
- * systems,since we need to take care to points at the cross of symmetrized
+/* We can't do both symmetries (x and y) in one loop at multithreaded
+ * systems, since we need to take care of points at the cross of symmetrized
  * point/column
  */
 static void
@@ -1171,7 +1171,7 @@ dosymmetry (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
     }
 }
 
-/*Well, clasical simple quicksort. Should be faster than library one
+/*Well, classical simple quicksort. Should be faster than library one
  *because of reduced number of function calls :)
  */
 static INLINE void
@@ -1181,11 +1181,11 @@ myqsort (realloc_t ** start, realloc_t ** end)
     realloc_t **left = start, **right = end - 1;
     while (1) {
 
-        /*Quite strange caluclation of median, but should be
+        /*Quite strange calculation of median, but should be
          *as good as Sedgewick middle of three method and is faster*/
         med = ((*start)->price + (*(end - 1))->price) * 0.5;
 
-        /*Avoid one comparsion */
+        /*Avoid one comparison */
         if (med > (*start)->price) {
             realloc_t *tmp;
             tmp = *left;
@@ -1262,7 +1262,7 @@ processqueue (void *data, struct taskinfo /*@unused@ */ *task,
  * so why to worry about? :)
  *
  * This code looks for columns/lines to calculate, adds them into queue,
- * sorts it in order of significancy and then calls parrel processqueue,
+ * sorts it in order of significance and then calls parrel process queue,
  * that does the job.
  */
 static void
@@ -1331,7 +1331,7 @@ calculatenewinterruptible (void)
 
     cfilter.pos = 0;
     cfilter.max = 0;
-    cfilter.pass = "Procesing symmetries";
+    cfilter.pass = "Processing symmetries";
     cfilter.incalculation = 0;
     callwait ();
 
@@ -1349,7 +1349,7 @@ calculatenewinterruptible (void)
     }
     xth_sync ();
 
-    STAT (printf ("Avoided caluclating of %i points from %i and %2.2f%% %2.2f%%\n", avoided, tocalculate, 100.0 * (avoided) / tocalculate, 100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
+    STAT (printf ("Avoided calculating of %i points from %i and %2.2f%% %2.2f%%\n", avoided, tocalculate, 100.0 * (avoided) / tocalculate, 100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
     STAT (avoided2 += avoided; tocalculate2 += tocalculate; frames2 += 1);
 }
 
@@ -1548,7 +1548,7 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
         }
         cfilter.pos = 0;
         cfilter.max = 0;
-        cfilter.pass = "Procesing symmetries";
+        cfilter.pass = "Processing symmetries";
         callwait ();
         xth_sync ();
         if (nsymmetrized) {

@@ -92,7 +92,7 @@ reqimage (struct filter *f, struct requirements *req, int supportedmask, int fla
 }
 
 /* An function helping to filter create new image.
- * It should be called by filter in inicialization. Filter passes
+ * It should be called by filter in initialization. Filter passes
  * width,height,pixelwidth, pixelheight
  * and palette he wants to pass to his child and flags defining how it works
  * with image(IMAGEDATA if it requires data from previous frames (like blur
@@ -102,11 +102,11 @@ reqimage (struct filter *f, struct requirements *req, int supportedmask, int fla
  * As palette he should pass NULL to keep parents palette. Same as
  * (pixel)width/height should be passed 0;
  *
- * Function then aplies some heruistic in order to minimize memory
+ * Function then applies some heuristic in order to minimize memory
  * requirements. So it should share image, create image that shares image data
  * or create new image)
  *
- * fills f->image, f->childimage and returns 1 if sucess and 0 if fail(usually
+ * fills f->image, f->childimage and returns 1 if success and 0 if fail(usually
  * out of memory or it is unable to fit child's requirements)
  * and prepares data for child call.
  */
@@ -134,7 +134,7 @@ inherimage (struct filter *f, struct initdata *data, int flags, int width, int h
         palette = data->image->palette;
     if (!(palette->type & f->req.supportedmask)) {
 #ifdef DEBUG
-        printf ("Initalization of filter %s failed due to unsupported type by child %s-%i,%i\n", f->name, f->previous->name, f->req.supportedmask, palette->type);
+        printf ("Initialization of filter %s failed due to unsupported type by child %s-%i,%i\n", f->name, f->previous->name, f->req.supportedmask, palette->type);
 #endif
         f->image = data->image;
         return 0;
@@ -152,11 +152,11 @@ inherimage (struct filter *f, struct initdata *data, int flags, int width, int h
         newimage = 1, sharedimage = 0;
 
     if (f->childimage != NULL && (f->flags & ALLOCEDIMAGE)) {
-        /*is an old child image still useable for us purposes? if not burn it it! */
+        /*is an old child image still usable for us purposes? if not burn it it! */
         /*We should share image? Why alloc new?? */
         if (!newimage && (f->flags & ALLOCEDIMAGE))
             destroyinheredimage (f), ddatalost = 1;
-        /*We should share data? but child image dont do that! */
+        /*We should share data? but child image don't do that! */
         if (subimage && !(f->flags & SHAREDDATA))
             destroyinheredimage (f), ddatalost = 1;
         /*We can't share data but child image does that? */

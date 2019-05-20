@@ -1,5 +1,5 @@
 /*/////////////////////////////////////////////////////////////////////////////////////
-// project : sFFe ( SegFault (or Segmentation Fault :) ) formula evalutaor )
+// project : sFFe ( SegFault (or Segmentation Fault :) ) formula evaluator )
 // author  : Mateusz Malczak ( mateusz@malczak.info )
 // wpage   :
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -8,7 +8,7 @@
 //	SFFE_DOUBLE - real math parser
 //	SFFE_COMPLEX - complex math parser
 //	SFFE_DEVEL - print extra info to stdout
-//	SFFE_DIRECT_FPTR - use direct function pointers (!!!) ommits payload
+//	SFFE_DIRECT_FPTR - use direct function pointers (!!!) omits payload
 //	SFFE_DLL - Windows DLL
 //	
 //   complex numbers (for SFFE_COMPLEX)
@@ -60,7 +60,7 @@ typedef struct sfargument__
 /* sffe function prototype, parameters order is right-to-left (cdecl) */
 typedef sfarg *(*sffptr)(sfarg * const a, void *payload);
 
-/* constats eval functions */
+/* constants eval functions */
 typedef void (*cfptr) (sfNumber * cnst);
 
 /* function type structure */
@@ -149,10 +149,10 @@ sffe *sffe_alloc(void);
 /* free fe structure */
 void sffe_free(sffe ** parser);
     
-/* parse expression 'expression' and strore result in 'parser' struct, error (if any) returned */
+/* parse expression 'expression' and store result in 'parser' struct, error (if any) returned */
 int sffe_parse(sffe ** parser, const char *expression);
     
-/* evaulate function and return evaluation result */
+/* evaluate function and return evaluation result */
 sfNumber sffe_eval(sffe * const parser);
     
 /* register user function with name 'vname', with 'parcnt' parameters and defined with function pointed by 'funptr'*/

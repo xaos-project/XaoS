@@ -1,5 +1,5 @@
 /* BUGS:
- * bellow gcc 2.7.2 builtins are not supported
+ * below gcc 2.7.2 builtins are not supported
  * gcc 2.7.2.x don't inline long doubles
  * egcc 1.0.1 crash in constant propagation when certain builtins are enabled
  */

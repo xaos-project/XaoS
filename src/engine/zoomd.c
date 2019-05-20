@@ -1,9 +1,9 @@
 #ifndef UNSUPPORTED
 
 /*  this two routines implements solid guessing. They are almost same. One
- *  caluclates lines, second rows.
+ *  calculates lines, second rows.
  *
- *  The heruistic is as follows:
+ *  The heuristic is as follows:
  *
  *  ---1------6------5-------  (vbuffu)
  *     |      |      |
@@ -16,11 +16,11 @@
  *  them. Note that naming is quite confusing, because it is same in lines and
  *  rows.
  *
- *  we do solid guessing as folows: 
+ *  we do solid guessing as follows: 
  *  |distl-vbuff1| < range
  *  |distr-vbuff1| < range
  *  the distance of distup and distdown is not limited, because we already
- *  have exact enought guesses 3 and 6
+ *  have exact enough guesses 3 and 6
  *
  *  points 1 2 3 4 5 6 8 must be the same (point 8 is not yet calculated)
  *
@@ -217,7 +217,7 @@ dosymmetry2 (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
  * This function is called, when calculation was interrupted because of
  * timeout. It fills uncalculated rows by nearest one
  *
- * This function is very time critical in higher resultions I am shooting
+ * This function is very time critical in higher resolutions I am shooting
  * for.
  */
 #ifndef __GNUC__

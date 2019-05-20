@@ -106,7 +106,7 @@ markup into image files that get included in the HTML output.
 The documentation still needs a lot of work before it is ready, and we 
 have to make some modifications to Sphinx itself in order to integrate 
 the documentation it produces with XaoS's help system.  However, it is 
-far enough along that we would welcome volunteers who are familar with 
+far enough along that we would welcome volunteers who are familiar with 
 reStructuredText to submit improvements to the documentation.
 
 The new documentation is located in the help/rest directory, and it can

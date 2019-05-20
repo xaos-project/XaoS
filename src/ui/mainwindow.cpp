@@ -265,7 +265,7 @@ ui_printspeed(struct uih_context *uih)
     for (c = 0; c < 5; c++)
         widget->update();
     QCoreApplication::processEvents(QEventLoop::AllEvents);
-    window->showStatus("Measuring dislay speed");
+    window->showStatus("Measuring display speed");
     tl_sleep (1000000);
     tl_update_time ();
     tl_reset_timer (uih->speedtimer);
@@ -293,7 +293,7 @@ ui_printspeed(struct uih_context *uih)
     }
     x_message ("Memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
 
-    window->showStatus("Measuring missaligned memcpy speed");
+    window->showStatus("Measuring misaligned memcpy speed");
     tl_update_time ();
     tl_reset_timer (uih->speedtimer);
     c = 0;
@@ -302,7 +302,7 @@ ui_printspeed(struct uih_context *uih)
             memcpy (uih->image->currlines[y] + 1, uih->image->oldlines[y] + 2, linesize - 2);
         tl_update_time (), c++;
     }
-    x_message ("Missaligned memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
+    x_message ("Misaligned memcpy speed: %g FPS (%.4f MBPS)", c / 5.0, c * (double) size / 5.0 / 1024 / 1024);
 
     window->showStatus("Measuring size6 memcpy speed");
     tl_update_time ();
@@ -328,7 +328,7 @@ ui_printspeed(struct uih_context *uih)
     for (c = 0; c < 5; c++)
         uih_newimage (uih), uih->fcontext->version++, uih_prepare_image (uih);
     widget->update();
-    x_message ("New image caluclation took %g seconds (%.2g fps)", tl_lookup_timer (uih->speedtimer) / 5.0 / 1000000.0, 5000000.0 / tl_lookup_timer (uih->speedtimer));
+    x_message ("New image calculation took %g seconds (%.2g fps)", tl_lookup_timer (uih->speedtimer) / 5.0 / 1000000.0, 5000000.0 / tl_lookup_timer (uih->speedtimer));
     tl_update_time ();
     for (c = 0; c < 5; c++)
         uih_animate_image (uih), uih_prepare_image (uih), c++;
@@ -389,7 +389,7 @@ ui_init (int argc, char **argv)
 #ifdef HOMEDIR
     if (getenv ("HOME") != NULL) {
         char home[256], *env = getenv ("HOME");
-        int maxsize = 255 - (int) strlen (CONFIGFILE) - 1;      /*Avoid buffer owerflow */
+        int maxsize = 255 - (int) strlen (CONFIGFILE) - 1;      /*Avoid buffer overflow */
         int i;
         for (i = 0; i < maxsize && env[i]; i++)
             home[i] = env[i];
@@ -677,7 +677,7 @@ ui_updatemenus (uih_context * c, const char *name)
     }
     item = menu_findcommand (name);
     if (item == NULL) {
-        /*fprintf (stderr, "Internall error:unknown command %s\n", name); */
+        /*fprintf (stderr, "Internal error:unknown command %s\n", name); */
         return;
     }
     if (item->flags & (MENUFLAG_CHECKBOX | MENUFLAG_RADIO)) {

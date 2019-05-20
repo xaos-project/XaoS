@@ -85,7 +85,7 @@ void sffe_print_error(enum sffe_error err, char *ptr)
       printf(" NUMBER FORMAT!! : %s\n", ptr);
       break;
     case UNKNOWNCONST:
-      printf(" UNKOWN CONST or VAR NAME!! : %s\n", ptr);
+      printf(" UNKNOWN CONST or VAR NAME!! : %s\n", ptr);
       break;
     case OPERATOR:
       printf(" UNKNOWN OPERATOR!! : %s\n", ptr);
@@ -130,7 +130,7 @@ void sffe_setup_error(sffe *parser, enum sffe_error err, char *ptr)
         break;
       case UNKNOWNCONST:
         sprintf(parser->errormsg,
-                "Formula error ! UNKOWN CONST or VAR NAME!! : %s", ptr);
+                "Formula error ! UNKNOWN CONST or VAR NAME!! : %s", ptr);
         break;
       case OPERATOR:
         sprintf(parser->errormsg,
@@ -1028,7 +1028,7 @@ _argument += 1;\
             opstck->c = *ech;
 #endif
             
-            /* store operator prority */
+            /* store operator priority */
             _expression->stck[_expression->size].type = type;
             
             /* get function pointer */

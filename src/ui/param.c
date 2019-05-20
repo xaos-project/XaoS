@@ -127,7 +127,7 @@ params_parser (int argc, char **argv)
             "f.point"
         };
         printf ("                 XaoS" XaoS_VERSION " help text\n");
-        printf (" (This help is genereated automagically. I am sorry for all inconvencies)\n\n");
+        printf (" (This help is generated automagically. I am sorry for all inconveniences)\n\n");
         printf ("option string   param   description\n\n");
         for (d = 0; d < nparams; d++) {
             par = params[d];

@@ -21,11 +21,11 @@
  */
 /* Hello reader!
  * code you are looking at is dangerous for both you and your hardware! PLEASE
- * CLOSE THIS FILE UNLESS YOU REALY KNOW WHAT YOU ARE DOING.
+ * CLOSE THIS FILE UNLESS YOU REALLY KNOW WHAT YOU ARE DOING.
  *
- * Main purpose of this file is to generate optimal caluclation loops for
+ * Main purpose of this file is to generate optimal calculation loops for
  * various formulas/algorithms. It heavily includes docalc.c - set of
- * caluclation loops, that then uses macros instad of formulas. This lets me
+ * calculation loops, that then uses macros instead of formulas. This lets me
  * to change calculation loops easily. At the other hand it looks very ugly.
  * You have been warned :)
  */
@@ -114,7 +114,7 @@ const char *const tcolorname[] = {
 #define SMUL 256
 
 #define __GNUC__EGCS
-/* i386 fp comparsions are incredibly slow. We get much better results when we
+/* i386 fp comparisons are incredibly slow. We get much better results when we
    do it in integer unit.  This trick works well for numbers>0*/
 #ifdef __GNUC__EGCS
 #ifdef __i386__121

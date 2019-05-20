@@ -67,7 +67,7 @@ const char *const uih_colornames[] = {
  *
  * Note that in the first version there are only 2
  * internationalized text, the rest will be "converted"
- * continously (as I have enough time :-).
+ * continuously (as I have enough time :-).
  *
  * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
  */
@@ -1422,7 +1422,7 @@ uih_sffeinitin (uih_context * c, const char *text)
             sffe_free (&c->pinit);
             c->pinit = NULL;
         } else {
-            uih_sffeinitdialog->defstr = c->pinit->expression;  /*FIXME shouldnt this be done by str copy */
+            uih_sffeinitdialog->defstr = c->pinit->expression;  /*FIXME shouldn't this be done by str copy */
             uih_message (c, c->pinit->expression);
             if (!(c->fcontext->currentformula->flags & SFFE_FRACTAL)) {
                 uih_play_formula (c, "user");

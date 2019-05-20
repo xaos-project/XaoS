@@ -10,10 +10,10 @@ extern "C"
     typedef unsigned char rgb_t[4];     /*4 is better than 3 - makes multiplying easier */
     struct truec
     {
-        int rshift, gshift, bshift;     /*the shift ammounts */
-        int rprec, gprec, bprec;        /*precisity - 0=8bit, 1=7bit, -1=9bit etc... */
+        int rshift, gshift, bshift;     /*the shift amounts */
+        int rprec, gprec, bprec;        /*precision - 0=8bit, 1=7bit, -1=9bit etc... */
         unsigned int rmask, gmask, bmask;       /*masks */
-        unsigned int mask1, mask2, allmask;     /*Mask1 and mask2 are distinc color masks
+        unsigned int mask1, mask2, allmask;     /*Mask1 and mask2 are distinct color masks
                                                    allmask are mask for all colors */
         int byteexact;          /*When every colors is at one byte */
         int missingbyte;        /*for 32bit truecolor and exact byte places one byte is
@@ -82,8 +82,8 @@ extern "C"
  * back 1 byte to the left when it is done.
  *
  * I also created the safeinterpol macro which detects if the most
- * signficant byte in the mask is on, and uses the shiftinterpol macro if
- * so, or the orignal interpol macro if not.
+ * significant byte in the mask is on, and uses the shiftinterpol macro if
+ * so, or the original interpol macro if not.
  *
  * I then modified the interpoltype macro to use the safeinterpol macro
  * instead of the interpol macro directly.
@@ -107,7 +107,7 @@ extern "C"
 #define TRUECOLOR16 4
 #define TRUECOLOR24 8
 #define TRUECOLOR 16
-/*special mage types used internaly by XaoS */
+/*special image types used internally by XaoS */
 #define LARGEITER 32
 #define SMALLITER 64
 
@@ -140,7 +140,7 @@ extern "C"
 #define ANIMATION 4
 #define INCOMPLETE (1<<29)
 /*flags for filters */
-#define ALLOCEDIMAGE 1          /*used by inherimage mechanizm */
+#define ALLOCEDIMAGE 1          /*used by inherimage mechanism */
 #define SHAREDDATA 2
 
 #define PALGORITHMS 3

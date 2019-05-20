@@ -158,7 +158,7 @@ extern "C"
         struct filter *rotatef; /* Special filters handler by ui_helper: */
         struct filter *zengine;
         struct filter *fixedcolor;
-        /*Julia/filter mechanizm */
+        /*Julia/filter mechanism */
         struct filter *subwindow, *julia, *smalliter;
         struct filter *filter[MAXFILTERS];
 
@@ -169,13 +169,13 @@ extern "C"
         int fastmode;           /*when draw in fast mode */
         int juliamode;
         int fastrotate;
-        int incomplete;        /*1 if image is not complettly caluclated or in animation */
+        int incomplete;        /*1 if image is not completely calculated or in animation */
         int dirty;              /*1 if image is inexact */
         int inanimation;        /*1 if uih_update wants to be called soon */
         int fastanimation;      /*1 if animation needs to be fast */
         int palettetype, paletteseed;   /*0 for default palette,1,2 for random */
         int clearscreen;        /*1 when ui want to clear screen */
-        int indofractal;        /*1 when caluclation is in the process */
+        int indofractal;        /*1 when calculation is in the process */
         int xtextpos, ytextpos; /*positioning of text */
         int color;              /*Color of text */
         int recalculatemode;    /*informations for user interface */
@@ -200,7 +200,7 @@ extern "C"
         int displaytext;        /*When text was displayed in this frame */
         int nonfractalscreen;
         /*waiting variables */
-        void (*complettehandler) (void *);      /*Handler to be activated when calculation is complette */
+        void (*complettehandler) (void *);      /*Handler to be activated when calculation is complete */
         void *handlerdata;
         /*replay variables */
         struct uih_playcontext *playc;

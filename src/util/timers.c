@@ -145,7 +145,7 @@ tl_group *syncgroup = &group1,
 #ifndef _WIN32
 #ifndef HAVE_GETTIMEOFDAY
 #ifndef HAVE_FTIME
-#error I am unable to get time in milisecond. Please edit timers.c and make tl_update_time and tl_lookup_timer to work for your architecture and send me then back(to hubicka@paru.cas.cz). You will need also define timers.h and change type of lasttime.
+#error I am unable to get time in millisecond. Please edit timers.c and make tl_update_time and tl_lookup_timer to work for your architecture and send me then back(to hubicka@paru.cas.cz). You will need also define timers.h and change type of lasttime.
 #endif
 #endif
 #endif
@@ -262,8 +262,8 @@ tl_sleep (int time)
 #else
 /*
    #warning tl_sleep function not implemented. You may ignore this warning.
-   #warning xaos will work correctly. But on miltitasked enviroments it is
-   #warning HIGHLY recomended to implement this.
+   #warning xaos will work correctly. But on multitasked environments it is
+   #warning HIGHLY recommended to implement this.
  */
 #endif
 #endif

@@ -69,7 +69,7 @@ recalc_view (fractal_context * c)
     /*assert(c->s.rr >= 0);
        assert(c->s.ri >= 0); */
 
-    xs = myabs (xs);            /*do not crash in owerflowing cases */
+    xs = myabs (xs);            /*do not crash in overflowing cases */
     ys = myabs (ys);
     if (xs > ys)
         size = xs;
@@ -92,7 +92,7 @@ set_view (fractal_context * c, const vinfo * s)
     recalc_view (c);
 }
 
-/*FIXME most of this code is obsolette */
+/*FIXME most of this code is obsolete */
 static void                     /*INLINE */
 combine_methods (void)
 {
@@ -195,7 +195,7 @@ set_fractalc (fractal_context * context, struct image *img)
 {
     update_view (context);
     precalculate_rotation (context);
-    cfractalc = *context;       /*its better to copy often accesed data into fixed memory locations */
+    cfractalc = *context;       /*its better to copy often accessed data into fixed memory locations */
     cpalette = *img->palette;
     cimage = *img;
     cformula = *context->currentformula;

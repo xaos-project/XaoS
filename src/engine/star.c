@@ -18,7 +18,7 @@ mysrandom (unsigned int x)
     state = x;
 }
 
-#define MYLONG_MAX 0xffffff     /*this is enought for me. */
+#define MYLONG_MAX 0xffffff     /*this is enough for me. */
 static INLINE unsigned int
 myrandom (void)
 {

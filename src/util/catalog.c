@@ -9,7 +9,7 @@
  * This function is used for both-lookups and adds into table (since most of
  * code is the same, depends whether newvalue is NULL. If newvalue is nonNULL,
  * new variable is added into table, if name is not present here or value is
- * changed othewise.
+ * changed otherwise.
  */
 static char *
 find_variable (catalog_t * context, const char *name, const char *newvalue)
@@ -125,7 +125,7 @@ load_catalog (xio_file f, const char **error)
     /* Just very simple parsing loop of format 
      * [blanks]name[blanks]"value"[blanks]
      * Blanks should be comments using # or space, newline, \r and tabulator
-     * Value shoud contain and \ seqences where \\ means \ and
+     * Value should contain and \ sequences where \\ means \ and
      * \[something] means something. Should be used for character "
      */
     while (!xio_feof (f)) {

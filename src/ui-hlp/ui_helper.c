@@ -1168,7 +1168,7 @@ uih_settextpos (uih_context * c, int x, int y)
 }
 
 
-/*timming routines */
+/*timing routines */
 
 void
 uih_tbreak (uih_context * c)
@@ -1391,7 +1391,7 @@ uih_update (uih_context * c, int mousex, int mousey, int mousebuttons)
 
     if (mousebuttons == (BUTTON1 | BUTTON3))
         mousebuttons = BUTTON2;
-    tl_process_group (syncgroup, NULL); /*First we need to update timming */
+    tl_process_group (syncgroup, NULL); /*First we need to update timing */
     tl_update_time ();
     time = tl_lookup_timer (c->maintimer);
     if (c->autopilot) {         /*now handle autopilot */
@@ -1669,7 +1669,7 @@ uih_mkpalette (uih_context * c)
     uih_cycling_continue (c);
 }
 
-/*Basic inicialization routines */
+/*Basic initialization routines */
 
 static void
 uih_alloctables (uih_context * c)
@@ -2053,7 +2053,7 @@ uih_mkcontext (int flags, struct image *image, int (*passfunc) (struct uih_conte
     /* sffe_regvar( &uih->cparser, &C, */
 #endif
     /* 25.I.2009, Bugfix #2507911, malczak
-     * initilize globaluih here, not in 'ui.c'
+     * initialize globaluih here, not in 'ui.c'
      */
     globaluih = uih;
 

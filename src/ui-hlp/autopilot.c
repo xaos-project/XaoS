@@ -89,9 +89,9 @@ do_autopilot (uih_context * context, int *x, int *y, int *controls, void (*chang
     volatile number_t ystep = (context->fcontext->rs.mi - context->fcontext->rs.ni) / context->zengine->image->height / 10;
     volatile number_t ypos = context->fcontext->rs.mi;
     volatile number_t ypos1 = context->fcontext->rs.mi;
-    pos += step;                /*out of precisity check */
+    pos += step;                /*out of precision check */
     ypos += ystep;
-    pos1 -= step;               /*out of precisity check */
+    pos1 -= step;               /*out of precision check */
     ypos1 -= ystep;
     *x = context->x1;
     *y = context->y1;
@@ -101,7 +101,7 @@ do_autopilot (uih_context * context, int *x, int *y, int *controls, void (*chang
         again (context);
         changed ();
     }
-    /*Are we waiting for better qualitty? */
+    /*Are we waiting for better quality? */
     if (!context->c1 && context->zengine->flags & INCOMPLETE) {
         return;
     }
@@ -111,7 +111,7 @@ do_autopilot (uih_context * context, int *x, int *y, int *controls, void (*chang
     if (context->fcontext->rs.mc - context->fcontext->rs.nc < context->minsize) {
         context->minsize = context->fcontext->rs.mc - context->fcontext->rs.nc;
         context->minlong = 0;
-    }                           /*Oscilating prevention */
+    }                           /*Oscillation prevention */
     if (context->fcontext->rs.mc - context->fcontext->rs.nc > context->maxsize) {
         context->minsize = context->fcontext->rs.mc - context->fcontext->rs.nc;
         context->maxsize = context->fcontext->rs.mc - context->fcontext->rs.nc;

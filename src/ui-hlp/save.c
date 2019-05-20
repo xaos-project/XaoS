@@ -14,7 +14,7 @@
 static int first;
 static int changed;
 static int last;
-const char *const save_fastmode[] = { "zero", "never", "animation", "new", "allways", NULL };
+const char *const save_fastmode[] = { "zero", "never", "animation", "new", "always", NULL };
 const char *const xtextposnames[] = { "left", "center", "right", NULL };
 const char *const ytextposnames[] = { "top", "middle", "bottom", NULL };
 
@@ -81,7 +81,7 @@ REGISTERS (3)
     else
         first = 0;
 #ifdef HAVE_LONG_DOUBLE
-    /*20 should be enought to specify 64digit number :) */
+    /*20 should be enough to specify 64digit number :) */
 #ifdef USE_XLDIO
     x_ldout ((long double) number, 20, uih->savec->file);
 #else

@@ -80,7 +80,7 @@ the main I/O routines are in the xstdio file
     xio_file xio_gethelp (void);
     xio_file xio_gettutorial (const char *name, xio_path result);
 
-/*look trought directory with examples, choose one file, open it (and return
+/*look trough directory with examples, choose one file, open it (and return
  *descriptor+put name into name parameter*/
     int xio_exist (xio_constpath name);
     int xio_getfiles (xio_constpath path, char ***names, char ***dirs, int *nnames, int *ndirs);

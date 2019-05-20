@@ -367,7 +367,7 @@ queue (void *data, struct taskinfo *task, int r1, int r2)
             nwaiting++;         /*We are not latest task. */
             xth_sleep (0, 0);   /*Wait until other task will push some data */
             nwaiting--;
-            if (exitnow) {      /*Evrything is done now? */
+            if (exitnow) {      /*Everything is done now? */
                 xth_unlock (0);
                 return;
             }

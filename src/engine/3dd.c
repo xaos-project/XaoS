@@ -127,7 +127,7 @@ do_3d (void *dataptr, struct taskinfo *task, int r1, int r2)
             else
                 inpdata[x].max = maxinp - 32;
 
-            /* caluclate top of mountain.  */
+            /* calculate top of mountain.  */
             d = inp / 16;
             d = y - (d > height ? height : d);
 

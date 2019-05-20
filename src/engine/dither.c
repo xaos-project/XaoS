@@ -84,11 +84,11 @@ requirement (struct filter *f, struct requirements *r)
  *
  *  Uses alg. similar to foodfill - it adds one seed per every color in 
  *  palette to its best position. Then areas around seed are filled by 
- *  same color because it is best aproximation for them, and then areas 
+ *  same color because it is best approximation for them, and then areas 
  *  about them etc...
  *
  *  It does just about 80000 tests for distances and this is about 100
- *  times better than normal 256*32000 tests so the caluclation time
+ *  times better than normal 256*32000 tests so the calculation time
  *  is now less than one second at all computers I tested.
  */
 #define UNUSED 65535
@@ -769,7 +769,7 @@ getinstancefixed (const struct filteraction *a)
     i->palette = createpalette (0, 256, C256, 0, 256, NULL, mysetcolor, NULL, NULL, NULL);
     i->active = -1;
     f->data = i;
-    f->name = "Palete emulator";
+    f->name = "Palette emulator";
     return (f);
 }
 
@@ -932,7 +932,7 @@ getinstancebitmap (const struct filteraction *a)
     i->palette = createpalette (0, 256, C256, 0, 256, NULL, mysetcolor, NULL, NULL, NULL);
     i->active = -1;
     f->data = i;
-    f->name = "Palete emulator";
+    f->name = "Palette emulator";
     return (f);
 }
 

@@ -40,8 +40,8 @@
  * mkrealloctables. It is expected to work well for both small and large
  * sizes.
  *
- * Small (1-10) and meduim (300) sizes seems to be important for XaoS. 
- * So implementation is not super fast for large sizes, but my experiemnts
+ * Small (1-10) and medium (300) sizes seems to be important for XaoS. 
+ * So implementation is not super fast for large sizes, but my experiments
  * don't show large improvements in speed anyway.
  *
  * We use rep movsX operations (they works well on PPro and don't seems to be
@@ -225,7 +225,7 @@ __memset_cc (void *s, unsigned long pattern, size_t count)
 {
     pattern = ((unsigned char) pattern) * 0x01010101UL;
     if (count < 24) {
-        /*Handle small values manualy since they are incredibly slow */
+        /*Handle small values manually since they are incredibly slow */
 
         if (count >= 4)
             *(unsigned long *) s = pattern;
@@ -292,7 +292,7 @@ __memset_gc (void *s, unsigned long pattern, size_t count)
   __asm__ ("movb %b0,%h0\n\t" "pushw %w0\n\t" "shll $16,%k0\n\t" "popw %w0\n": "=q" (pattern):"0" ((unsigned) pattern));
 
     if (count < 24) {
-        /*Handle small values manualy since they are incredibly slow */
+        /*Handle small values manually since they are incredibly slow */
 
         *(unsigned long *) s = pattern;
         if (count >= 8)
