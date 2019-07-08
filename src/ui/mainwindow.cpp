@@ -217,6 +217,18 @@ int MainWindow::mouseButtons()
         if (m_mouseButtons & Qt::RightButton)
             mouseButtons |= BUTTON3;
     }
+    // handle mouse wheel operations
+    if (m_mouseWheel > 0)
+        mouseButtons |= BUTTON1;
+    if (m_mouseWheel < 0)
+        mouseButtons |= BUTTON3;
+    if (m_mouseWheel != 0) {
+        timespec timenow;
+        clock_gettime(CLOCK_REALTIME, &timenow);
+        long elapsed = timenow.tv_sec * 1.0e9 + timenow.tv_nsec - wheeltimer.tv_sec * 1.0e9 - wheeltimer.tv_nsec;
+        if (elapsed > 1.0e9) // timing is hardcoded here
+            m_mouseWheel = 0;
+    }
     return mouseButtons;
 }
 
@@ -233,6 +245,12 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
     m_mouseButtons = event->buttons();
+}
+
+void MainWindow::wheelEvent(QWheelEvent *event)
+{
+    m_mouseWheel = event->delta();
+    clock_gettime(CLOCK_REALTIME, &wheeltimer);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)

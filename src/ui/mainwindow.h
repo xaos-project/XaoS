@@ -8,6 +8,8 @@ class MainWindow:public QMainWindow  {
     Q_OBJECT
 private:
     Qt::MouseButtons m_mouseButtons = 0;
+    int m_mouseWheel = 0;
+    timespec wheeltimer;
     Qt::KeyboardModifiers m_keyboardModifiers = 0;
     int m_keyCombination = 0;
     FractalWidget * m_fractalWidget;
@@ -18,6 +20,7 @@ protected:
     void closeEvent(QCloseEvent *);
     void mousePressEvent(QMouseEvent * event);
     void mouseReleaseEvent(QMouseEvent * event);
+    void wheelEvent(QWheelEvent *event);
     void keyPressEvent(QKeyEvent * event);
     void keyReleaseEvent(QKeyEvent * event);
 private slots:

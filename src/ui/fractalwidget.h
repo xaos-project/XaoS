@@ -23,6 +23,7 @@ protected:
     void mousePressEvent(QMouseEvent * event);
     void mouseReleaseEvent(QMouseEvent * event);
     void resizeEvent(QResizeEvent * event);
+    void wheelEvent(QWheelEvent *event);
 #ifdef USE_OPENGL
     void paintGL();
     void resizeGL (int w, int h);

@@ -87,3 +87,9 @@ void FractalWidget::mouseMoveEvent(QMouseEvent *event)
     m_mousePosition = event->pos();
     event->ignore();
 }
+
+void FractalWidget::wheelEvent(QWheelEvent *event)
+{
+    m_mousePosition = event->pos();
+    event->ignore();
+}
