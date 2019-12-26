@@ -1,8 +1,6 @@
 #include <config.h>
 #include <string.h>
-#ifdef HAVE_DIRENT_H
 #include <dirent.h>
-#endif
 #include <sys/stat.h>
 #include <stdlib.h>
 #ifdef HAVE_UNISTD_H
@@ -39,7 +37,6 @@ xio_fixpath (const char *c)
 int
 xio_getfiles (xio_constpath path1, char ***names, char ***dirs, int *nnames2, int *ndirs2)
 {
-#ifdef HAVE_DIRENT_H
     char *path = xio_fixpath (path1);
     int maxnames = 200, maxdirs = 200;
     int nnames = 0, ndirs = 0;
@@ -91,10 +88,6 @@ xio_getfiles (xio_constpath path1, char ***names, char ***dirs, int *nnames2, in
     *ndirs2 = ndirs;
     closedir (dir);
     return 1;
-#else
-    *nnames2 = *ndirs2 = 0;
-    return 0;
-#endif
 }
 
 xio_path
@@ -130,7 +123,6 @@ xio_getfilename (const char *basename, const char *extension)
 xio_file
 xio_getrandomexample (xio_path name)
 {
-#ifdef HAVE_DIRENT_H
     static const char *const paths[] = {        /*Where examples should be located? */
         EXAMPLESPATH,           /*Data path when XaoS is propertly installed */
         "\01" XIO_PATHSEPSTR "examples",
@@ -215,9 +207,6 @@ xio_getrandomexample (xio_path name)
     f = xio_ropen (name);
     free (realpath);
     return (f);
-#else
-    return NULL;
-#endif
 }
 
 xio_file

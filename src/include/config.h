@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define XaoS_VERSION "4.0"
+#define XaoS_VERSION "4.0pre2"
 #define HELP_URL "https://github.com/xaos-project/XaoS/wiki"
 #define WEB_URL "http://xaos.sourceforge.net/"
 
