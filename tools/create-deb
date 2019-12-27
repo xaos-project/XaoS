@@ -1,0 +1,82 @@
+#!/bin/sh -x
+
+# This script creates a .deb package of XaoS 4.0.
+# Make sure you build the program first.
+# In case you are building on Debian 10,
+# set DEBIAN_VERSION=deb10 first.
+
+set -e
+ARCH=`dpkg --print-architecture`
+
+
+if [ "$DEBIAN_VERSION" = "" ]; then
+ DEBIAN_VERSION=deb9
+ QT5=5.9.5
+ GL1=1.0.0
+ C6=2.27
+ ICU=60
+ ICUv=60.2
+ HARFBUZZ=1.7.2
+ DOUBLECONV=2.0.1
+ GLIB2=2.56.4
+ FREETYPE=2.8.1
+ BSD0=0.8.7
+ fi
+
+if [ "$DEBIAN_VERSION" = "deb10" ]; then
+ DEBIAN_VERSION=deb9
+ QT5=5.11.3
+ GL1=1.1.0
+ C6=2.28
+ ICU=63
+ ICUv=63.1
+ HARFBUZZ=2.3.1
+ DOUBLECONV=3.1.0
+ GLIB2=2.58.3
+ FREETYPE=2.9.1
+ BSD0=0.9.1
+ fi
+
+
+MAINDIR=`cd ..; pwd`
+XAOS_VERSION=`cat $MAINDIR/src/include/config.h | grep XaoS_VERSION | awk '{print $3}' | sed s/\"//g`
+
+FSDIR=xaos_${XAOS_VERSION}-${DEBIAN_VERSION}_$ARCH
+rm -fr $FSDIR
+mkdir -p $FSDIR/usr/bin
+cp $MAINDIR/bin/xaos $FSDIR/usr/bin
+mkdir -p $FSDIR/usr/share/XaoS/catalogs
+cp $MAINDIR/catalogs/*.cat $FSDIR/usr/share/XaoS/catalogs
+mkdir -p $FSDIR/usr/share/XaoS/tutorial
+cp $MAINDIR/tutorial/*.xaf $FSDIR/usr/share/XaoS/tutorial
+cp $MAINDIR/tutorial/*.xhf $FSDIR/usr/share/XaoS/tutorial
+mkdir -p $FSDIR/usr/share/XaoS/examples
+find $MAINDIR/examples -name '*.xpf' -exec cp {} $FSDIR/usr/share/XaoS/examples \; # flattening folders
+mkdir -p $FSDIR/usr/share/qt5/translations
+cp $MAINDIR/bin/*.qm $FSDIR/usr/share/qt5/translations
+mkdir -p $FSDIR/DEBIAN
+echo "Package: xaos
+Version: $XAOS_VERSION
+Section: universe/graphics
+Priority: optional
+Architecture: $ARCH
+Depends: libqt5opengl5 (>= $QT5), libqt5widgets5 (>= $QT5), libqt5gui5 (>= $QT5), 
+ libqt5core5a (>= $QT5), libgl1 (>= $GL1), libc6 (>= $C6), libstdc++6 (>= 8.3.0),
+ libgcc1 (>= 1:8.3.0), libpng16-16 (>= 1.6.34), libharfbuzz0b (>= $HARFBUZZ), zlib1g (>= 1:1.2.11), 
+ libicu$ICU (>= $ICUv), libdouble-conversion1 (>= $DOUBLECONV), libglib2.0-0 (>= 2.56.4),
+ libglx0 (>= $GL1), libglvnd0 (>= $GL1), libfreetype6 (>= $FREETYPE), libgraphite2-3 (>= 1.3.11),
+ libpcre3 (>= 2:8.39), libx11-6 (>= 2:1.6.4), libxcb1 (>= 1.13), libxau6 (>= 1:1.0.8), libxdmcp6 (>= 1:1.1.2), libbsd0 (>= $BSD0)
+Maintainer: Zoltan Kovacs <zoltan@geogebra.org>
+Description:
+ XaoS allows you to zoom and pan around a fractal in
+ real time. It can display the animated fractals.
+ It displays the Mandelbrot set or many other fractals and
+ allows you to zoom smoothly into the fractal. Various coloring
+ modes are provided for both the points inside and outside the
+ selected set. In addition, switching between Mandelbrot and Julia
+ fractal types is provided.
+ Other features include autopilot mode, palette changing,
+ image saving, fractal inversion, filters, and a built in fractal
+ tutorial.
+" > $FSDIR/DEBIAN/control
+dpkg-deb --build $FSDIR
