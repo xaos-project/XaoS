@@ -6,7 +6,7 @@
 #define WEB_URL "http://xaos.sourceforge.net/"
 
 #define HOMEDIR
-#define DATAPATH "/usr/local/share/XaoS"
+#define DATAPATH "/usr/share/XaoS"
 /* #undef USE_PTHREAD */
 #define HAVE_FABSL 1
 #define HAVE_FTIME 1
