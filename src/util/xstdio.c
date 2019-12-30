@@ -128,6 +128,7 @@ xio_getrandomexample (xio_path name)
         "\01" XIO_PATHSEPSTR "examples",
         /*XaoS was started from root of source tree */
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "examples",
+        "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "Resources" XIO_PATHSEPSTR "examples",
         "." XIO_PATHSEPSTR "examples",
         /*XaoS was started from root of source tree */
         ".." XIO_PATHSEPSTR "examples",
@@ -216,6 +217,7 @@ xio_getcatalog (const char *name)
         CATALOGSPATH,           /*Data path when XaoS is propertly installed */
         "\01" XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
+        "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "Resources" XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         "." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         /*XaoS was started from root of source tree */
         ".." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
@@ -271,6 +273,7 @@ xio_gettutorial (const char *name, xio_path tmp)
         TUTORIALPATH,           /*Data path when XaoS is propertly installed */
         "\01" XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,
+        "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "Resources" XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,
         "." XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,   /*XaoS was started from root of source tree */
         ".." XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,  /*XaoS was started from bin directory in source tree */
         XIO_EMPTYPATH,          /*Oops...it's not. Try curent directory */

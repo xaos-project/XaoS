@@ -26,10 +26,11 @@ CONFIG(debug, debug|release) {
 
 TRANSLATIONS = $$files($$PWD/i18n/*.po)
 updateqm.input = TRANSLATIONS
-updateqm.output = $$PWD/bin/XaoS_${QMAKE_FILE_BASE}.qm
+updateqm.output = $$PWD/i18n/XaoS_${QMAKE_FILE_BASE}.qm
 updateqm.commands = lrelease ${QMAKE_FILE_NAME} -qm ${QMAKE_FILE_OUT}
 updateqm.CONFIG += no_link target_predeps
 QMAKE_EXTRA_COMPILERS += updateqm
+RESOURCES += XaoS.qrc
 
 DESTDIR = $$PWD/bin
 

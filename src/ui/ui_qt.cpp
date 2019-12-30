@@ -176,8 +176,7 @@ main(int argc, char *argv[])
             QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     app.installTranslator(&qtTranslator);
     QTranslator xaosTranslator;
-    xaosTranslator.load("XaoS_" + QLocale::system().name(),
-            QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    xaosTranslator.load("XaoS_" + QLocale::system().name(), ":/i18n");
     app.installTranslator(&xaosTranslator);
 
     QLocale::system().setNumberOptions(QLocale::DefaultNumberOptions);
