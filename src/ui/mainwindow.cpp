@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "fractalwidget.h"
 #include "customdialog.h"
 
@@ -198,7 +198,10 @@ void MainWindow::showDialog(struct uih_context *uih, const char *name)
 
 void MainWindow::showStatus(const char *text)
 {
-    printf("%s\n", text);
+    if (strlen(text))
+        setWindowTitle(QCoreApplication::applicationName().append(" - ").append(text));
+    else
+        setWindowTitle(QCoreApplication::applicationName());
 }
 
 int MainWindow::mouseButtons()
