@@ -8,22 +8,20 @@
 #include <config.h>
 #include <filter.h>
 
-
-
 /*most of code was moved to docalc.c */
 
 #ifdef STATISTICS
 int iters2, guessed2, unguessed2, total2;
 #endif
-void
-init_julia (struct image *img, number_t rangep, number_t range, number_t xdelta, number_t ystep)
+void init_julia(struct image *img, number_t rangep, number_t range,
+                number_t xdelta, number_t ystep)
 {
     int i, j, x, y;
     register number_t im;
     unsigned char *addr, **addr1 = img->currlines;
     for (i = 0; i < img->height; i++) {
         im = IMIN + (i + 0.5) * ystep;
-        x = (int) (sqrt (rangep - im * im) * xdelta + 0.5);
+        x = (int)(sqrt(rangep - im * im) * xdelta + 0.5);
         if (!i || i == img->height - 1)
             x = 0;
         addr = addr1[i];
@@ -43,52 +41,45 @@ init_julia (struct image *img, number_t rangep, number_t range, number_t xdelta,
     }
     for (i = 0; i < img->height; i++) {
         addr = addr1[i];
-        memset((char *) addr, NOT_CALCULATED, img->width);
+        memset((char *)addr, NOT_CALCULATED, img->width);
     }
 }
 
-
-static int
-requirement (struct filter *f, struct requirements *r)
+static int requirement(struct filter *f, struct requirements *r)
 {
     r->nimages = 1;
     r->flags = 0;
     r->supportedmask = SMALLITER;
-    return (f->next->action->requirement (f->next, r));
+    return (f->next->action->requirement(f->next, r));
 }
 
-static int
-initialize (struct filter *f, struct initdata *i)
+static int initialize(struct filter *f, struct initdata *i)
 {
-    inhermisc (f, i);
+    inhermisc(f, i);
     f->image = i->image;
     return (1);
 }
 
-static struct filter *
-getinstance (const struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
-    struct filter *f = createfilter (a);
+    struct filter *f = createfilter(a);
     f->name = "Julia generator";
     return (f);
 }
 
-static void
-destroyinstance (struct filter *f)
-{
-    free (f);
-}
+static void destroyinstance(struct filter *f) { free(f); }
 
-static int
-doit (struct filter *f, int flags, int time)
+static int doit(struct filter *f, int flags, int time)
 {
     /*if(f->image->nimages==2) f->image->flip(f->image); */
     if (f->fractalc->currentformula->calculate_julia != NULL) {
-        f->fractalc->currentformula->calculate_julia (f->image, f->fractalc->pre, f->fractalc->pim);
+        f->fractalc->currentformula->calculate_julia(f->image, f->fractalc->pre,
+                                                     f->fractalc->pim);
         return (CHANGED);
     }
 #ifdef STATISTICS
-    printf ("Total guessed %i, unguessed %i, iterations %i\n", guessed2, unguessed2, iters2);
+    printf("Total guessed %i, unguessed %i, iterations %i\n", guessed2,
+           unguessed2, iters2);
 #endif
 
     return 0;

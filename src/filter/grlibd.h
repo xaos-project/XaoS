@@ -1,166 +1,165 @@
-#ifndef UNSUPPORTED
+﻿#ifndef UNSUPPORTED
 
-static INLINE void
-hline (struct image *img, int x, int y, int length, int fgcolor)
+static INLINE void hline(struct image *img, int x, int y, int length,
+                         int fgcolor)
 {
-    cpixel_t *current = (cpixel_t *) img->currlines[y], *end = (cpixel_t *) img->currlines[y];
-    p_inc (current, x);
-    p_inc (end, x + length);
+    cpixel_t *current = (cpixel_t *)img->currlines[y],
+             *end = (cpixel_t *)img->currlines[y];
+    p_inc(current, x);
+    p_inc(end, x + length);
 #ifdef bpp1
-    memset (current, fgcolor, end - current + 1);
+    memset(current, fgcolor, end - current + 1);
 #else
     while (current <= end) {
-        p_set (current, fgcolor);
-        p_inc (current, 1);
+        p_set(current, fgcolor);
+        p_inc(current, 1);
     }
 #endif
 }
 
-static INLINE void
-vline (struct image *img, int x, int y, int length, int fgcolor)
+static INLINE void vline(struct image *img, int x, int y, int length,
+                         int fgcolor)
 {
     length += y;
     while (y <= length) {
-        cpixel_t *current = (cpixel_t *) img->currlines[y];
-        p_inc (current, x);
-        p_set (current, fgcolor);
+        cpixel_t *current = (cpixel_t *)img->currlines[y];
+        p_inc(current, x);
+        p_set(current, fgcolor);
         y++;
     }
 }
 
-static INLINE void
-rectangle (struct image *img, int x, int y, int width, int height, int fgcolor)
+static INLINE void rectangle(struct image *img, int x, int y, int width,
+                             int height, int fgcolor)
 {
     height += y;
     while (y < height)
-        hline (img, x, y, width - 1, fgcolor), y++;
+        hline(img, x, y, width - 1, fgcolor), y++;
 }
 
-static INLINE char *
-savevline (struct image *img, int x, int y, int length)
+static INLINE char *savevline(struct image *img, int x, int y, int length)
 {
-    cpixel_t *saved = (cpixel_t *) malloc (length * bpp + bpp), *s = saved;
+    cpixel_t *saved = (cpixel_t *)malloc(length * bpp + bpp), *s = saved;
     length += y;
     while (y <= length) {
-        cpixel_t *current = (cpixel_t *) img->currlines[y];
-        p_copy (s, 0, current, x);
-        p_inc (s, 1);
+        cpixel_t *current = (cpixel_t *)img->currlines[y];
+        p_copy(s, 0, current, x);
+        p_inc(s, 1);
         y++;
     }
-    return (char *) saved;
+    return (char *)saved;
 }
 
-static INLINE void
-restorevline (struct image *img, char *saved, int x, int y, int length)
+static INLINE void restorevline(struct image *img, char *saved, int x, int y,
+                                int length)
 {
-    cpixel_t *s = (cpixel_t *) saved;
+    cpixel_t *s = (cpixel_t *)saved;
     length += y;
     while (y <= length) {
-        cpixel_t *current = (cpixel_t *) img->currlines[y];
-        p_copy (current, x, s, 0);
-        p_inc (s, 1);
+        cpixel_t *current = (cpixel_t *)img->currlines[y];
+        p_copy(current, x, s, 0);
+        p_inc(s, 1);
         y++;
     }
 }
 
-static INLINE char *
-saveline (struct image *img, int x, int y, int x2, int y2)
+static INLINE char *saveline(struct image *img, int x, int y, int x2, int y2)
 {
     int dx = x2 - x;
     int dy = y2 - y;
-    int ady = abs (dy);
+    int ady = abs(dy);
     if (dx < ady) {
-        cpixel_t *saved = (cpixel_t *) malloc ((ady + 1) * bpp * 2), *s = saved;
+        cpixel_t *saved = (cpixel_t *)malloc((ady + 1) * bpp * 2), *s = saved;
         int plus = (dx << 16) / ady;
         if (dy < 0) {
-            int dy = (x << 16) /*| (65536 / 2) */ ;
+            int dy = (x << 16) /*| (65536 / 2) */;
             ady = y;
             while (ady >= y2) {
-                cpixel_t *current = (cpixel_t *) img->currlines[ady];
-                p_inc (current, (dy >> 16));
-                p_copy (s, 0, current, 0);
-                p_copy (s, 1, current, 1);
-                p_inc (s, 2);
+                cpixel_t *current = (cpixel_t *)img->currlines[ady];
+                p_inc(current, (dy >> 16));
+                p_copy(s, 0, current, 0);
+                p_copy(s, 1, current, 1);
+                p_inc(s, 2);
                 dy += plus;
                 ady--;
             }
         } else {
-            int dy = (x << 16) /*| (65536 / 2) */ ;
+            int dy = (x << 16) /*| (65536 / 2) */;
             ady = y;
             while (ady <= y2) {
-                cpixel_t *current = (cpixel_t *) img->currlines[ady];
-                p_inc (current, (dy >> 16));
-                p_copy (s, 0, current, 0);
-                p_copy (s, 1, current, 1);
-                p_inc (s, 2);
+                cpixel_t *current = (cpixel_t *)img->currlines[ady];
+                p_inc(current, (dy >> 16));
+                p_copy(s, 0, current, 0);
+                p_copy(s, 1, current, 1);
+                p_inc(s, 2);
                 dy += plus;
                 ady++;
             }
         }
-        return ((char *) saved);
+        return ((char *)saved);
     } else {
-        cpixel_t *saved = (cpixel_t *) malloc ((dx + 1) * bpp * 2), *s = saved;
+        cpixel_t *saved = (cpixel_t *)malloc((dx + 1) * bpp * 2), *s = saved;
         int plus = (dy << 16) / dx;
         ady = x;
         dy = (y << 16);
         while (ady <= x2) {
-            cpixel_t *current = (cpixel_t *) img->currlines[dy >> 16];
-            p_copy (s, 0, current, ady);
-            current = (cpixel_t *) img->currlines[(dy >> 16) + 1];
-            p_copy (s, 1, current, ady);
-            p_inc (s, 2);
+            cpixel_t *current = (cpixel_t *)img->currlines[dy >> 16];
+            p_copy(s, 0, current, ady);
+            current = (cpixel_t *)img->currlines[(dy >> 16) + 1];
+            p_copy(s, 1, current, ady);
+            p_inc(s, 2);
             dy += plus;
             ady++;
         }
-        return ((char *) saved);
+        return ((char *)saved);
     }
 }
 
-static INLINE void
-restoreline (struct image *img, char *saved, int x, int y, int x2, int y2)
+static INLINE void restoreline(struct image *img, char *saved, int x, int y,
+                               int x2, int y2)
 {
     int dx = x2 - x;
     int dy = y2 - y;
-    int ady = abs (dy);
+    int ady = abs(dy);
     if (dx < ady) {
-        cpixel_t *s = (cpixel_t *) saved;
+        cpixel_t *s = (cpixel_t *)saved;
         int plus = (dx << 16) / ady;
         if (dy < 0) {
-            int dy = (x << 16) /*| (65536 / 2) */ ;
+            int dy = (x << 16) /*| (65536 / 2) */;
             ady = y;
             while (ady >= y2) {
-                cpixel_t *current = (cpixel_t *) img->currlines[ady];
-                p_inc (current, (dy >> 16));
-                p_copy (current, 0, s, 0);
-                p_copy (current, 1, s, 1);
-                p_inc (s, 2);
+                cpixel_t *current = (cpixel_t *)img->currlines[ady];
+                p_inc(current, (dy >> 16));
+                p_copy(current, 0, s, 0);
+                p_copy(current, 1, s, 1);
+                p_inc(s, 2);
                 dy += plus;
                 ady--;
             }
         } else {
-            int dy = (x << 16) /*| (65536 / 2) */ ;
+            int dy = (x << 16) /*| (65536 / 2) */;
             ady = y;
             while (ady <= y2) {
-                cpixel_t *current = (cpixel_t *) img->currlines[ady];
-                p_inc (current, (dy >> 16));
-                p_copy (current, 0, s, 0);
-                p_copy (current, 1, s, 1);
-                p_inc (s, 2);
+                cpixel_t *current = (cpixel_t *)img->currlines[ady];
+                p_inc(current, (dy >> 16));
+                p_copy(current, 0, s, 0);
+                p_copy(current, 1, s, 1);
+                p_inc(s, 2);
                 dy += plus;
                 ady++;
             }
         }
     } else {
-        cpixel_t *s = (cpixel_t *) saved;
+        cpixel_t *s = (cpixel_t *)saved;
         int plus = (dy << 16) / dx;
         ady = x;
         dy = (y << 16);
         while (ady <= x2) {
-            cpixel_t *current = (cpixel_t *) img->currlines[dy >> 16];
-            p_copy (current, ady, s, 0);
-            current = (cpixel_t *) img->currlines[(dy >> 16) + 1];
-            p_copy (current, ady, s, 1);
-            p_inc (s, 2);
+            cpixel_t *current = (cpixel_t *)img->currlines[dy >> 16];
+            p_copy(current, ady, s, 0);
+            current = (cpixel_t *)img->currlines[(dy >> 16) + 1];
+            p_copy(current, ady, s, 1);
+            p_inc(s, 2);
             dy += plus;
             ady++;
         }
@@ -168,16 +167,16 @@ restoreline (struct image *img, char *saved, int x, int y, int x2, int y2)
 }
 
 #ifdef bpp1
-#define myinterpol(a,b,n) intergray(a,b,n)
+#define myinterpol(a, b, n) intergray(a, b, n)
 #else
-#define myinterpol(a,b,n) interpol(a,b,n,rmask,gmask,bmask)
+#define myinterpol(a, b, n) interpol(a, b, n, rmask, gmask, bmask)
 #endif
-static INLINE void
-line (struct image *img, int x, int y, int x2, int y2, int color)
+static INLINE void line(struct image *img, int x, int y, int x2, int y2,
+                        int color)
 {
     int dx = x2 - x;
     int dy = y2 - y;
-    int ady = abs (dy);
+    int ady = abs(dy);
 #ifndef bpp1
     int rmask = img->palette->info.truec.rmask;
     int gmask = img->palette->info.truec.gmask;
@@ -191,9 +190,9 @@ line (struct image *img, int x, int y, int x2, int y2, int color)
                 int dy = (x << 16) | (65536 / 2);
                 ady = y;
                 while (ady >= y2) {
-                    cpixel_t *current = (cpixel_t *) img->currlines[ady];
-                    p_inc (current, (dy >> 16));
-                    p_set (current, color);
+                    cpixel_t *current = (cpixel_t *)img->currlines[ady];
+                    p_inc(current, (dy >> 16));
+                    p_set(current, color);
                     dy += plus;
                     ady--;
                 }
@@ -201,9 +200,9 @@ line (struct image *img, int x, int y, int x2, int y2, int color)
                 int dy = (x << 16) | (65536 / 2);
                 ady = y;
                 while (ady <= y2) {
-                    cpixel_t *current = (cpixel_t *) img->currlines[ady];
-                    p_inc (current, (dy >> 16));
-                    p_set (current, color);
+                    cpixel_t *current = (cpixel_t *)img->currlines[ady];
+                    p_inc(current, (dy >> 16));
+                    p_set(current, color);
                     dy += plus;
                     ady++;
                 }
@@ -213,8 +212,8 @@ line (struct image *img, int x, int y, int x2, int y2, int color)
             ady = x;
             dy = (y << 16) | (65536 / 2);
             while (ady <= x2) {
-                cpixel_t *current = (cpixel_t *) img->currlines[dy >> 16];
-                p_setp (current, ady, color);
+                cpixel_t *current = (cpixel_t *)img->currlines[dy >> 16];
+                p_setp(current, ady, color);
                 dy += plus;
                 ady++;
             }
@@ -229,10 +228,13 @@ line (struct image *img, int x, int y, int x2, int y2, int color)
             int dy = (x << 16);
             ady = y;
             while (ady >= y2) {
-                cpixel_t *current = (cpixel_t *) img->currlines[ady];
-                p_inc (current, (dy >> 16));
-                p_set (current, myinterpol (p_get (current), color, ((dy & 65535) >> 8)));
-                p_setp (current, 1, myinterpol (color, p_getp (current, 1), ((dy & 65535) >> 8)));
+                cpixel_t *current = (cpixel_t *)img->currlines[ady];
+                p_inc(current, (dy >> 16));
+                p_set(current,
+                      myinterpol(p_get(current), color, ((dy & 65535) >> 8)));
+                p_setp(
+                    current, 1,
+                    myinterpol(color, p_getp(current, 1), ((dy & 65535) >> 8)));
                 dy += plus;
                 ady--;
             }
@@ -240,10 +242,13 @@ line (struct image *img, int x, int y, int x2, int y2, int color)
             int dy = (x << 16);
             ady = y;
             while (ady <= y2) {
-                cpixel_t *current = (cpixel_t *) img->currlines[ady];
-                p_inc (current, (dy >> 16));
-                p_set (current, myinterpol (p_get (current), color, ((dy & 65535) >> 8)));
-                p_setp (current, 1, myinterpol (color, p_getp (current, 1), ((dy & 65535) >> 8)));
+                cpixel_t *current = (cpixel_t *)img->currlines[ady];
+                p_inc(current, (dy >> 16));
+                p_set(current,
+                      myinterpol(p_get(current), color, ((dy & 65535) >> 8)));
+                p_setp(
+                    current, 1,
+                    myinterpol(color, p_getp(current, 1), ((dy & 65535) >> 8)));
                 dy += plus;
                 ady++;
             }
@@ -253,10 +258,14 @@ line (struct image *img, int x, int y, int x2, int y2, int color)
         ady = x;
         dy = (y << 16);
         while (ady <= x2) {
-            cpixel_t *current = (cpixel_t *) img->currlines[dy >> 16];
-            p_setp (current, ady, myinterpol (p_getp (current, ady), color, ((dy & 65535) >> 8)));
-            current = (cpixel_t *) img->currlines[(dy >> 16) + 1];
-            p_setp (current, ady, myinterpol (color, p_getp (current, ady), ((dy & 65535) >> 8)));
+            cpixel_t *current = (cpixel_t *)img->currlines[dy >> 16];
+            p_setp(
+                current, ady,
+                myinterpol(p_getp(current, ady), color, ((dy & 65535) >> 8)));
+            current = (cpixel_t *)img->currlines[(dy >> 16) + 1];
+            p_setp(
+                current, ady,
+                myinterpol(color, p_getp(current, ady), ((dy & 65535) >> 8)));
             dy += plus;
             ady++;
         }

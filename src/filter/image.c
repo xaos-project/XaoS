@@ -1,22 +1,20 @@
-#include <string.h>
+﻿#include <string.h>
 #include <fconfig.h>
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <filter.h>
-void
-flipgeneric (struct image *img)
+void flipgeneric(struct image *img)
 {
     pixel_t **line;
-    assert (img->nimages == 2);
+    assert(img->nimages == 2);
     img->currimage ^= 1;
     line = img->currlines;
     img->currlines = img->oldlines;
     img->oldlines = line;
 }
 
-int
-bytesperpixel (int type)
+int bytesperpixel(int type)
 {
     switch (type) {
         case MBITMAP:
@@ -37,17 +35,20 @@ bytesperpixel (int type)
         case TRUECOLOR:
             return 4;
         default:
-            assert (0);
+            assert(0);
             return 0;
     }
 }
 
-struct image *
-create_image_lines (int width, int height, int nimages, pixel_t ** lines1, pixel_t ** lines2, struct palette *palette, void (*flip) (struct image * img), int flags, float pixelwidth, float pixelheight)
+struct image *create_image_lines(int width, int height, int nimages,
+                                 pixel_t **lines1, pixel_t **lines2,
+                                 struct palette *palette,
+                                 void (*flip)(struct image *img), int flags,
+                                 float pixelwidth, float pixelheight)
 {
     int i;
     static int version = 1;
-    struct image *img = (struct image *) calloc (1, sizeof (*img));
+    struct image *img = (struct image *)calloc(1, sizeof(*img));
     if (img == NULL)
         return NULL;
     if (flip == NULL)
@@ -55,7 +56,7 @@ create_image_lines (int width, int height, int nimages, pixel_t ** lines1, pixel
     img->width = width;
     img->height = height;
     img->nimages = nimages;
-    img->bytesperpixel = bytesperpixel (palette->type);
+    img->bytesperpixel = bytesperpixel(palette->type);
     img->palette = palette;
     img->currimage = 0;
     img->flip = flip;
@@ -67,7 +68,7 @@ create_image_lines (int width, int height, int nimages, pixel_t ** lines1, pixel
     img->pixelwidth = pixelwidth;
     img->pixelheight = pixelheight;
     if (lines1 != NULL && (nimages != 2 || lines2 != NULL)) {
-        img->scanline = (int) (lines1[1] - lines1[0]);
+        img->scanline = (int)(lines1[1] - lines1[0]);
         if (img->scanline < 0)
             img->scanline = -1;
         else {
@@ -76,7 +77,8 @@ create_image_lines (int width, int height, int nimages, pixel_t ** lines1, pixel
                     img->scanline = -1;
                     break;
                 }
-                if (nimages == 2 && lines2[0] - lines2[i] != img->scanline * i) {
+                if (nimages == 2 &&
+                    lines2[0] - lines2[i] != img->scanline * i) {
                     img->scanline = -1;
                     break;
                 }
@@ -87,24 +89,29 @@ create_image_lines (int width, int height, int nimages, pixel_t ** lines1, pixel
     return (img);
 }
 
-struct image *
-create_image_cont (int width, int height, int scanlinesize, int nimages, pixel_t * buf1, pixel_t * buf2, struct palette *palette, void (*flip) (struct image * img), int flags, float pixelwidth, float pixelheight)
+struct image *create_image_cont(int width, int height, int scanlinesize,
+                                int nimages, pixel_t *buf1, pixel_t *buf2,
+                                struct palette *palette,
+                                void (*flip)(struct image *img), int flags,
+                                float pixelwidth, float pixelheight)
 {
-    struct image *img = create_image_lines (width, height, nimages, NULL, NULL, palette,
-                                            flip,
-                                            flags, pixelwidth, pixelheight);
+    struct image *img =
+        create_image_lines(width, height, nimages, NULL, NULL, palette, flip,
+                           flags, pixelwidth, pixelheight);
     int i;
     if (img == NULL) {
         return NULL;
     }
-    if ((img->currlines = (pixel_t **) malloc (sizeof (*img->currlines) * height)) == NULL) {
-        free (img);
+    if ((img->currlines =
+             (pixel_t **)malloc(sizeof(*img->currlines) * height)) == NULL) {
+        free(img);
         return NULL;
     }
     if (nimages == 2) {
-        if ((img->oldlines = (pixel_t **) malloc (sizeof (*img->oldlines) * height)) == NULL) {
-            free (img->currlines);
-            free (img);
+        if ((img->oldlines =
+                 (pixel_t **)malloc(sizeof(*img->oldlines) * height)) == NULL) {
+            free(img->currlines);
+            free(img);
             return NULL;
         }
     }
@@ -124,64 +131,76 @@ create_image_cont (int width, int height, int scanlinesize, int nimages, pixel_t
     return (img);
 }
 
-struct image *
-create_image_mem (int width, int height, int nimages, struct palette *palette, float pixelwidth, float pixelheight)
+struct image *create_image_mem(int width, int height, int nimages,
+                               struct palette *palette, float pixelwidth,
+                               float pixelheight)
 {
-    unsigned char *data = (unsigned char *) calloc (((width + 3) & ~3) * height,
-                                                    bytesperpixel (palette->type));
-    unsigned char *data1 = (unsigned char *) (nimages == 2 ? calloc (((width + 3) & ~3) * height,
-                                                                     bytesperpixel (palette->type)) : NULL);
+    unsigned char *data = (unsigned char *)calloc(((width + 3) & ~3) * height,
+                                                  bytesperpixel(palette->type));
+    unsigned char *data1 =
+        (unsigned char *)(nimages == 2 ? calloc(((width + 3) & ~3) * height,
+                                                bytesperpixel(palette->type))
+                                       : NULL);
     struct image *img;
     if (data == NULL) {
 #ifdef DEBUG
-        printf ("Image:out of memory\n");
+        printf("Image:out of memory\n");
 #endif
         return (NULL);
     }
     if (nimages == 2 && data1 == NULL) {
-        free (data);
+        free(data);
 #ifdef DEBUG
-        printf ("Image:out of memory2\n");
+        printf("Image:out of memory2\n");
 #endif
         return NULL;
     }
-    img = create_image_cont (width, height, ((width + 3) & ~3) * bytesperpixel (palette->type), nimages, data, data1, palette, NULL, 0, pixelwidth, pixelheight);
+    img = create_image_cont(
+        width, height, ((width + 3) & ~3) * bytesperpixel(palette->type),
+        nimages, data, data1, palette, NULL, 0, pixelwidth, pixelheight);
     if (img == NULL) {
-        free (data);
+        free(data);
         if (data1 != NULL)
-            free (data1);
+            free(data1);
         return NULL;
     }
     img->flags |= FREEDATA;
     return (img);
 }
 
-struct image *
-create_subimage (struct image *simg, int width, int height, int nimages, struct palette *palette, float pixelwidth, float pixelheight)
+struct image *create_subimage(struct image *simg, int width, int height,
+                              int nimages, struct palette *palette,
+                              float pixelwidth, float pixelheight)
 {
-    int size = height * bytesperpixel (palette->type);
+    int size = height * bytesperpixel(palette->type);
     int i;
     int shift1 = 0, shift2 = 0;
     struct image *img;
-    if (size > simg->height * simg->bytesperpixel || height > simg->height || (nimages == 2 && simg->nimages == 1))
-        return (create_image_mem (width, height, nimages, palette, pixelwidth, pixelheight));
+    if (size > simg->height * simg->bytesperpixel || height > simg->height ||
+        (nimages == 2 && simg->nimages == 1))
+        return (create_image_mem(width, height, nimages, palette, pixelwidth,
+                                 pixelheight));
     nimages = simg->nimages;
-    img = create_image_lines (width, height, nimages, NULL, NULL, palette, NULL, 0, pixelwidth, pixelheight);
+    img = create_image_lines(width, height, nimages, NULL, NULL, palette, NULL,
+                             0, pixelwidth, pixelheight);
     if (img == NULL)
         return NULL;
-    if ((img->currlines = (pixel_t **) malloc (sizeof (*img->currlines) * height)) == NULL) {
-        free (img);
+    if ((img->currlines =
+             (pixel_t **)malloc(sizeof(*img->currlines) * height)) == NULL) {
+        free(img);
         return NULL;
     }
     if (nimages == 2) {
-        if ((img->oldlines = (pixel_t **) malloc (sizeof (*img->oldlines) * height)) == NULL) {
-            free (img->currlines);
-            free (img);
+        if ((img->oldlines =
+                 (pixel_t **)malloc(sizeof(*img->oldlines) * height)) == NULL) {
+            free(img->currlines);
+            free(img);
             return NULL;
         }
     }
     shift1 = simg->height - img->height;
-    shift2 = simg->width * simg->bytesperpixel - img->width * img->bytesperpixel;
+    shift2 =
+        simg->width * simg->bytesperpixel - img->width * img->bytesperpixel;
     for (i = 0; i < img->height; i++) {
         img->currlines[i] = simg->currlines[i + shift1] + shift2;
     }
@@ -194,28 +213,26 @@ create_subimage (struct image *simg, int width, int height, int nimages, struct 
     return (img);
 }
 
-void
-destroy_image (struct image *img)
+void destroy_image(struct image *img)
 {
     if (img->free) {
         img->free(img);
         return;
     }
     if (img->flags & FREEDATA) {
-        free (*img->currlines);
+        free(*img->currlines);
         if (img->nimages == 2)
-            free (*img->oldlines);
+            free(*img->oldlines);
     }
     if (img->flags & FREELINES) {
-        free (img->currlines);
+        free(img->currlines);
         if (img->nimages == 2)
-            free (img->oldlines);
+            free(img->oldlines);
     }
-    free (img);
+    free(img);
 }
 
-void
-clear_image (struct image *img)
+void clear_image(struct image *img)
 {
     int i;
     int color = img->palette->pixels[0];
@@ -228,5 +245,5 @@ clear_image (struct image *img)
             color = 255;
     }
     for (i = 0; i < img->height; i++)
-        memset (img->currlines[i], color, width);
+        memset(img->currlines[i], color, width);
 }

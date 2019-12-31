@@ -6,8 +6,7 @@
 
 #include <QtWidgets>
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setWindowTitle(QCoreApplication::applicationName());
 
@@ -17,14 +16,9 @@ MainWindow::MainWindow(QWidget *parent)
     readSettings();
 }
 
-MainWindow::~MainWindow()
-{
-}
+MainWindow::~MainWindow() {}
 
-FractalWidget *MainWindow::fractalWidget()
-{
-    return m_fractalWidget;
-}
+FractalWidget *MainWindow::fractalWidget() { return m_fractalWidget; }
 
 void MainWindow::readSettings()
 {
@@ -50,15 +44,24 @@ void MainWindow::closeEvent(QCloseEvent *)
 
 QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
 {
-    if (name == "initstate") return QKeySequence::New;
-    if (name == "loadpos") return QKeySequence::Open;
-    if (name == "savepos") return QKeySequence::Save;
-    if (name == "quit") return QKeySequence::Quit;
-    if (name == "undo") return QKeySequence::Undo;
-    if (name == "redo") return QKeySequence::Redo;
-    if (name == "interrupt") return QKeySequence::Cancel;
-    if (name == "recalculate") return QKeySequence::Refresh;
-    if (name == "help") return QKeySequence::HelpContents;
+    if (name == "initstate")
+        return QKeySequence::New;
+    if (name == "loadpos")
+        return QKeySequence::Open;
+    if (name == "savepos")
+        return QKeySequence::Save;
+    if (name == "quit")
+        return QKeySequence::Quit;
+    if (name == "undo")
+        return QKeySequence::Undo;
+    if (name == "redo")
+        return QKeySequence::Redo;
+    if (name == "interrupt")
+        return QKeySequence::Cancel;
+    if (name == "recalculate")
+        return QKeySequence::Refresh;
+    if (name == "help")
+        return QKeySequence::HelpContents;
 
     return QKeySequence::UnknownKey;
 }
@@ -76,7 +79,8 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name)
     }
 }
 
-void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *parent, bool numbered)
+void MainWindow::buildMenu(struct uih_context *uih, const char *name,
+                           QMenu *parent, bool numbered)
 {
     QActionGroup *group = 0;
 
@@ -121,7 +125,8 @@ void MainWindow::buildMenu(struct uih_context *uih, const char *name, QMenu *par
                     action->setActionGroup(group);
                 }
             }
-            connect(action, SIGNAL(triggered()), this, SLOT(activateMenuItem()));
+            connect(action, SIGNAL(triggered()), this,
+                    SLOT(activateMenuItem()));
             parent->addAction(action);
         }
     }
@@ -153,36 +158,44 @@ void MainWindow::activateMenuItem()
 void MainWindow::updateMenuCheckmarks()
 {
     QMenu *menu = qobject_cast<QMenu *>(sender());
-    foreach(QAction *action, menu->actions()) {
+    foreach (QAction *action, menu->actions()) {
         if (action->isCheckable()) {
-            const menuitem *item = menu_findcommand(action->objectName().toUtf8());
+            const menuitem *item =
+                menu_findcommand(action->objectName().toUtf8());
             action->setChecked(menu_enabled(item, globaluih));
         }
     }
-
 }
 
 void MainWindow::showDialog(struct uih_context *uih, const char *name)
 {
     const menuitem *item = menu_findcommand(name);
-    if (!item) return;
+    if (!item)
+        return;
 
     const menudialog *dialog = menu_getdialog(uih, item);
-    if (!dialog) return;
+    if (!dialog)
+        return;
 
     int nitems;
-    for (nitems = 0; dialog[nitems].question; nitems++);
+    for (nitems = 0; dialog[nitems].question; nitems++)
+        ;
 
-    if (nitems == 1 && (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE)) {
-        QString filter = QString("*.%1").arg(QFileInfo(dialog[0].defstr).completeSuffix());
-        QString directory;// = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+    if (nitems == 1 &&
+        (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE)) {
+        QString filter =
+            QString("*.%1").arg(QFileInfo(dialog[0].defstr).completeSuffix());
+        QString
+            directory; // =
+                       // QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
 
         QString fileName;
         if (dialog[0].type == DIALOG_IFILE)
-            fileName = QFileDialog::getOpenFileName(this, item->name, directory, filter);
+            fileName = QFileDialog::getOpenFileName(this, item->name, directory,
+                                                    filter);
         else if (dialog[0].type == DIALOG_OFILE)
-            fileName = QFileDialog::getSaveFileName(this, item->name, directory, filter);
-
+            fileName = QFileDialog::getSaveFileName(this, item->name, directory,
+                                                    filter);
 
         if (!fileName.isNull()) {
             dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
@@ -199,7 +212,8 @@ void MainWindow::showDialog(struct uih_context *uih, const char *name)
 void MainWindow::showStatus(const char *text)
 {
     if (strlen(text))
-        setWindowTitle(QCoreApplication::applicationName().append(" - ").append(text));
+        setWindowTitle(
+            QCoreApplication::applicationName().append(" - ").append(text));
     else
         setWindowTitle(QCoreApplication::applicationName());
 }
@@ -228,17 +242,15 @@ int MainWindow::mouseButtons()
     if (m_mouseWheel != 0) {
         timespec timenow;
         clock_gettime(CLOCK_REALTIME, &timenow);
-        long elapsed = timenow.tv_sec * 1.0e9 + timenow.tv_nsec - wheeltimer.tv_sec * 1.0e9 - wheeltimer.tv_nsec;
+        long elapsed = timenow.tv_sec * 1.0e9 + timenow.tv_nsec -
+                       wheeltimer.tv_sec * 1.0e9 - wheeltimer.tv_nsec;
         if (elapsed > 1.0e9) // timing is hardcoded here
             m_mouseWheel = 0;
     }
     return mouseButtons;
 }
 
-int MainWindow::keyCombination()
-{
-    return m_keyCombination;
-}
+int MainWindow::keyCombination() { return m_keyCombination; }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
@@ -261,23 +273,23 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     m_keyboardModifiers = event->modifiers();
 
     switch (event->key()) {
-    case Qt::Key_Left:
-        m_keyCombination |= 1;
-        break;
-    case Qt::Key_Right:
-        m_keyCombination |= 2;
-        break;
-    case Qt::Key_Up:
-        m_keyCombination |= 4;
-        break;
-    case Qt::Key_Down:
-        m_keyCombination |= 8;
-        break;
-    default:
-        if (!event->text().isEmpty())
-            ui_key(event->text().toUtf8()[0]);
-        else
-            event->ignore();
+        case Qt::Key_Left:
+            m_keyCombination |= 1;
+            break;
+        case Qt::Key_Right:
+            m_keyCombination |= 2;
+            break;
+        case Qt::Key_Up:
+            m_keyCombination |= 4;
+            break;
+        case Qt::Key_Down:
+            m_keyCombination |= 8;
+            break;
+        default:
+            if (!event->text().isEmpty())
+                ui_key(event->text().toUtf8()[0]);
+            else
+                event->ignore();
     }
 }
 
@@ -286,19 +298,19 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     m_keyboardModifiers = event->modifiers();
 
     switch (event->key()) {
-    case Qt::Key_Left:
-        m_keyCombination &= ~1;
-        break;
-    case Qt::Key_Right:
-        m_keyCombination &= ~2;
-        break;
-    case Qt::Key_Up:
-        m_keyCombination &= ~4;
-        break;
-    case Qt::Key_Down:
-        m_keyCombination &= ~8;
-        break;
-    default:
-        event->ignore();
+        case Qt::Key_Left:
+            m_keyCombination &= ~1;
+            break;
+        case Qt::Key_Right:
+            m_keyCombination &= ~2;
+            break;
+        case Qt::Key_Up:
+            m_keyCombination &= ~4;
+            break;
+        case Qt::Key_Down:
+            m_keyCombination &= ~8;
+            break;
+        default:
+            event->ignore();
     }
 }

@@ -1,13 +1,13 @@
-#if SIZEOF_INT==4
+﻿#if SIZEOF_INT == 4
 typedef unsigned int pixel32_t;
-#elif SIZEOF_LONG==4
+#elif SIZEOF_LONG == 4
 typedef unsigned long pixel32_t;
 #else
 #error define size for pixel32 please
 #endif
-#if SIZEOF_SHORT==2
+#if SIZEOF_SHORT == 2
 typedef unsigned short pixel16_t;
-#elif SIZEOF_INT==2
+#elif SIZEOF_INT == 2
 typedef unsigned int pixel16_t;
 #else
 #error define size for pixel16 please

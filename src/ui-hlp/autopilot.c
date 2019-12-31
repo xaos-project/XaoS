@@ -1,6 +1,6 @@
-
-/* 
- *     XaoS, a fast portable realtime fractal zoomer 
+﻿
+/*
+ *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
  *      Jan Hubicka          (hubicka@paru.cas.cz)
@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#if defined(__MINGW32__) || defined (_MSC_VER)
+#if defined(__MINGW32__) || defined(_MSC_VER)
 #include <float.h>
 #define isnan _isnan
 #endif /* __MINGW32__ */
@@ -36,7 +36,7 @@
 #include "autopilot.h"
 #include <ui_helper.h>
 #define MINCOUNT 5
-#define InSet(i) (i==context->image->palette->pixels[0])
+#define InSet(i) (i == context->image->palette->pixels[0])
 /*Include bitmap depended part first */
 
 #include <c256.h>
@@ -59,8 +59,7 @@
 #define look2 look232
 #include "autod.h"
 
-void
-clean_autopilot (uih_context * context)
+void clean_autopilot(uih_context *context)
 {
     context->minsize = 1000;
     context->maxsize = 0;
@@ -71,106 +70,122 @@ clean_autopilot (uih_context * context)
     context->autopilotversion = context->fcontext->version;
 }
 
-static void
-again (uih_context * context)
+static void again(uih_context *context)
 {
     context->fcontext->s = context->fcontext->currentformula->v;
     context->fcontext->version++;
-    clean_autopilot (context);
+    clean_autopilot(context);
 }
 
-void
-do_autopilot (uih_context * context, int *x, int *y, int *controls, void (*changed) (void), int times)
+void do_autopilot(uih_context *context, int *x, int *y, int *controls,
+                  void (*changed)(void), int times)
 {
     int c = 0;
-    volatile number_t step = (context->fcontext->rs.mc - context->fcontext->rs.nc) / context->zengine->image->width / 10;
+    volatile number_t step =
+        (context->fcontext->rs.mc - context->fcontext->rs.nc) /
+        context->zengine->image->width / 10;
     volatile number_t pos = context->fcontext->rs.mc;
     volatile number_t pos1 = context->fcontext->rs.mc;
-    volatile number_t ystep = (context->fcontext->rs.mi - context->fcontext->rs.ni) / context->zengine->image->height / 10;
+    volatile number_t ystep =
+        (context->fcontext->rs.mi - context->fcontext->rs.ni) /
+        context->zengine->image->height / 10;
     volatile number_t ypos = context->fcontext->rs.mi;
     volatile number_t ypos1 = context->fcontext->rs.mi;
-    pos += step;                /*out of precisity check */
+    pos += step; /*out of precisity check */
     ypos += ystep;
-    pos1 -= step;               /*out of precisity check */
+    pos1 -= step; /*out of precisity check */
     ypos1 -= ystep;
     *x = context->x1;
     *y = context->y1;
-    uih_clearwindows (context);
-    context->zengine->action->convertup (context->zengine, x, y);
-    if ((context->minlong > MINCOUNT && context->c1 == BUTTON3) || !(pos > context->fcontext->rs.mc) || !(ypos > context->fcontext->rs.mi) || (pos1 >= context->fcontext->rs.mc) || (ypos1 >= context->fcontext->rs.mi) || context->fcontext->rs.mc - context->fcontext->rs.nc > 100.0 || isnan (pos) || isnan (ypos) || isnan (context->fcontext->s.cr) || isnan (context->fcontext->s.ci) || isnan (context->fcontext->s.rr - context->fcontext->s.ri) || context->fcontext->s.rr == 0 || context->fcontext->s.ri == 0 || isnan (context->fcontext->rs.mc - context->fcontext->rs.mi) || isnan (context->fcontext->rs.nc - context->fcontext->rs.ni)) {
-        again (context);
-        changed ();
+    uih_clearwindows(context);
+    context->zengine->action->convertup(context->zengine, x, y);
+    if ((context->minlong > MINCOUNT && context->c1 == BUTTON3) ||
+        !(pos > context->fcontext->rs.mc) ||
+        !(ypos > context->fcontext->rs.mi) ||
+        (pos1 >= context->fcontext->rs.mc) ||
+        (ypos1 >= context->fcontext->rs.mi) ||
+        context->fcontext->rs.mc - context->fcontext->rs.nc > 100.0 ||
+        isnan(pos) || isnan(ypos) || isnan(context->fcontext->s.cr) ||
+        isnan(context->fcontext->s.ci) ||
+        isnan(context->fcontext->s.rr - context->fcontext->s.ri) ||
+        context->fcontext->s.rr == 0 || context->fcontext->s.ri == 0 ||
+        isnan(context->fcontext->rs.mc - context->fcontext->rs.mi) ||
+        isnan(context->fcontext->rs.nc - context->fcontext->rs.ni)) {
+        again(context);
+        changed();
     }
     /*Are we waiting for better qualitty? */
     if (!context->c1 && context->zengine->flags & INCOMPLETE) {
         return;
     }
-    assert (changed != NULL);
+    assert(changed != NULL);
     if (context->fcontext->version != context->autopilotversion)
-        clean_autopilot (context);
-    if (context->fcontext->rs.mc - context->fcontext->rs.nc < context->minsize) {
+        clean_autopilot(context);
+    if (context->fcontext->rs.mc - context->fcontext->rs.nc <
+        context->minsize) {
         context->minsize = context->fcontext->rs.mc - context->fcontext->rs.nc;
         context->minlong = 0;
-    }                           /*Oscilating prevention */
-    if (context->fcontext->rs.mc - context->fcontext->rs.nc > context->maxsize) {
+    } /*Oscilating prevention */
+    if (context->fcontext->rs.mc - context->fcontext->rs.nc >
+        context->maxsize) {
         context->minsize = context->fcontext->rs.mc - context->fcontext->rs.nc;
         context->maxsize = context->fcontext->rs.mc - context->fcontext->rs.nc;
         context->minlong = 0;
     }
     if (context->autime <= 0) {
         context->minlong++;
-        context->autime = rand () % MAXTIME;
+        context->autime = rand() % MAXTIME;
         if (context->zengine->flags & LOWQUALITY) {
             context->c1 = 0;
         } else {
             switch (context->zengine->image->bytesperpixel) {
                 case 1:
-                    c = look18 (context, *x, *y, RANGE1, NGUESSES);
+                    c = look18(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look28 (context, *x, *y, RANGE1, NGUESSES);
-                    if (!(rand () % 30))
+                        c = look28(context, *x, *y, RANGE1, NGUESSES);
+                    if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look18 (context, *x, *y, 10000, NGUESSES1);
+                        c = look18(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look18 (context, *x, *y, 10000, NGUESSES2);
+                        c = look18(context, *x, *y, 10000, NGUESSES2);
                     break;
 #ifdef SUPPORT16
                 case 2:
-                    c = look116 (context, *x, *y, RANGE1, NGUESSES);
+                    c = look116(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look216 (context, *x, *y, RANGE1, NGUESSES);
-                    if (!(rand () % 30))
+                        c = look216(context, *x, *y, RANGE1, NGUESSES);
+                    if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look116 (context, *x, *y, 10000, NGUESSES1);
+                        c = look116(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look216 (context, *x, *y, 10000, NGUESSES1);
+                        c = look216(context, *x, *y, 10000, NGUESSES1);
                     break;
 #endif
 #ifdef STRUECOLOR24
                 case 3:
-                    c = look124 (context, *x, *y, RANGE1, NGUESSES);
+                    c = look124(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look224 (context, *x, *y, RANGE1, NGUESSES);
-                    if (!(rand () % 30))
+                        c = look224(context, *x, *y, RANGE1, NGUESSES);
+                    if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look124 (context, *x, *y, 10000, NGUESSES1);
+                        c = look124(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look224 (context, *x, *y, 10000, NGUESSES1);
+                        c = look224(context, *x, *y, 10000, NGUESSES1);
                     break;
 #endif
                 case 4:
-                    c = look132 (context, *x, *y, RANGE1, NGUESSES);
+                    c = look132(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look232 (context, *x, *y, RANGE1, NGUESSES);
-                    if (!(rand () % 30))
+                        c = look232(context, *x, *y, RANGE1, NGUESSES);
+                    if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look132 (context, *x, *y, 10000, NGUESSES1);
+                        c = look132(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look232 (context, *x, *y, 10000, NGUESSES1);
+                        c = look232(context, *x, *y, 10000, NGUESSES1);
             }
             if (!c) {
                 if ((context->zengine->flags & INCOMPLETE)) {
@@ -183,7 +198,7 @@ do_autopilot (uih_context * context, int *x, int *y, int *controls, void (*chang
     context->autime -= times;
     *x = context->x1;
     *y = context->y1;
-    context->zengine->action->convertup (context->zengine, x, y);
-/*    printf("%i %i\n",*x,*y); */
+    context->zengine->action->convertup(context->zengine, x, y);
+    /*    printf("%i %i\n",*x,*y); */
     *controls = context->c1;
 }

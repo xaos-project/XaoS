@@ -1,5 +1,5 @@
-/* 
- *     XaoS, a fast portable realtime fractal zoomer 
+﻿/*
+ *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996 by
  *
  *      Jan Hubicka          (hubicka@paru.cas.cz)
@@ -33,7 +33,6 @@
 #include <xerror.h>
 #include "uiint.h"
 
-
 static char *defrender = NULL;
 static const char *rbasename = "anim";
 static int alias = 0;
@@ -62,11 +61,9 @@ const struct params ui_fractal_params[] = {
      "Render motion vectors (should be used for MPEG encoding)"},
     {"-iframedist", P_NUMBER, &iframedist,
      "Recommended distance between I frames in pat file (should be used for MPEG encoding)"},
-    {NULL, 0, NULL, NULL}
-};
+    {NULL, 0, NULL, NULL}};
 
-int
-ui_dorender_params (void)
+int ui_dorender_params(void)
 {
     if (defrender != NULL) {
         int imagetype = TRUECOLOR;
@@ -76,18 +73,21 @@ ui_dorender_params (void)
             imagetype = TRUECOLOR;
 #endif
         if (imgtype != NULL) {
-            if (!strcmp ("256", imgtype))
+            if (!strcmp("256", imgtype))
                 imagetype = C256;
-            else if (!strcmp ("truecolor", imgtype)) {
-                x_fatalerror ("Unknown image type:%s", imgtype);
+            else if (!strcmp("truecolor", imgtype)) {
+                x_fatalerror("Unknown image type:%s", imgtype);
             }
         }
-        if (defsize != NULL && !sscanf (defsize, "%ix%i", &width, &height) && (width <= 0 || height <= 0)) {
-            x_fatalerror ("Invalid size (use for example 320x200");
+        if (defsize != NULL && !sscanf(defsize, "%ix%i", &width, &height) &&
+            (width <= 0 || height <= 0)) {
+            x_fatalerror("Invalid size (use for example 320x200");
         }
         if (framerate <= 0)
             framerate = 30;
-        uih_renderanimation (NULL, rbasename, defrender, width, height, pixelwidth, pixelheight, (int) (1000000 / framerate), imagetype, alias, slowmode, letterspersec, NULL);
+        uih_renderanimation(NULL, rbasename, defrender, width, height,
+                            pixelwidth, pixelheight, (int)(1000000 / framerate),
+                            imagetype, alias, slowmode, letterspersec, NULL);
         return 1;
     }
     return 0;

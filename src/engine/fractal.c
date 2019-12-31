@@ -1,5 +1,5 @@
-﻿/* 
- *     XaoS, a fast portable realtime fractal zoomer 
+﻿/*
+ *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
  *      Jan Hubicka          (hubicka@paru.cas.cz)
@@ -45,25 +45,23 @@ struct formula cformula;
 
 static symmetry2 sym_lines[100];
 
-
-static void
-precalculate_rotation (fractal_context * c)
+static void precalculate_rotation(fractal_context *c)
 {
-    c->sin = sin ((c->angle) * M_PI / 180);
-    c->cos = cos ((c->angle) * M_PI / 180);
+    c->sin = sin((c->angle) * M_PI / 180);
+    c->cos = cos((c->angle) * M_PI / 180);
 }
 
-static void
-recalc_view (fractal_context * c)
+static void recalc_view(fractal_context *c)
 {
-    number_t xs = c->s.rr, ys = c->s.ri * c->windowwidth / c->windowheight, xc = c->s.cr, yc = c->s.ci, size;
-    precalculate_rotation (c);
-    rotate (*c, xc, yc);
+    number_t xs = c->s.rr, ys = c->s.ri * c->windowwidth / c->windowheight,
+             xc = c->s.cr, yc = c->s.ci, size;
+    precalculate_rotation(c);
+    rotate(*c, xc, yc);
     /*assert(c->s.rr >= 0);
        assert(c->s.ri >= 0); */
 
-    xs = myabs (xs);            /*do not crash in owerflowing cases */
-    ys = myabs (ys);
+    xs = myabs(xs); /*do not crash in owerflowing cases */
+    ys = myabs(ys);
     if (xs > ys)
         size = xs;
     else
@@ -78,29 +76,32 @@ recalc_view (fractal_context * c)
         xc = c->rs.ni, c->rs.ni = c->rs.mi, c->rs.mi = xc;
 }
 
-static void
-set_view (fractal_context * c, const vinfo * s)
+static void set_view(fractal_context *c, const vinfo *s)
 {
     c->s = *s;
-    recalc_view (c);
+    recalc_view(c);
 }
 
 /*FIXME most of this code is obsolette */
-static void                     /*INLINE */
-combine_methods (void)
+static void /*INLINE */
+combine_methods(void)
 {
 #ifdef __UNDEFINED__
     int i, j;
 #endif
-    int angle = (int) cfractalc.angle;
-    const struct symmetryinfo *s1 = cfractalc.currentformula->out + cfractalc.coloringmode, *s2 = cfractalc.currentformula->in + cfractalc.incoloringmode;
+    int angle = (int)cfractalc.angle;
+    const struct symmetryinfo *s1 = cfractalc.currentformula->out +
+                                    cfractalc.coloringmode,
+                              *s2 = cfractalc.currentformula->in +
+                                    cfractalc.incoloringmode;
     if (angle < 0) {
         angle = 360 - ((-angle) % 360);
     } else
         angle %= 360;
-    if (cfractalc.mandelbrot != cfractalc.currentformula->mandelbrot || cfractalc.bre || cfractalc.bim) {
-        cursymmetry.xsym = (number_t) INT_MAX;
-        cursymmetry.ysym = (number_t) INT_MAX;
+    if (cfractalc.mandelbrot != cfractalc.currentformula->mandelbrot ||
+        cfractalc.bre || cfractalc.bim) {
+        cursymmetry.xsym = (number_t)INT_MAX;
+        cursymmetry.ysym = (number_t)INT_MAX;
         cursymmetry.nsymmetries = 0;
         return;
     }
@@ -113,35 +114,35 @@ combine_methods (void)
     if (s1->xsym == s2->xsym)
         cursymmetry.xsym = s1->xsym;
     else
-        cursymmetry.xsym = (number_t) INT_MAX;
+        cursymmetry.xsym = (number_t)INT_MAX;
     if (s1->ysym == s2->ysym)
         cursymmetry.ysym = s1->ysym;
     else
-        cursymmetry.ysym = (number_t) INT_MAX;
+        cursymmetry.ysym = (number_t)INT_MAX;
     switch (cfractalc.plane) {
         case P_PARABOL:
-            cursymmetry.xsym = (number_t) INT_MAX;
+            cursymmetry.xsym = (number_t)INT_MAX;
             break;
         case P_LAMBDA:
             if (cursymmetry.xsym == 0 && cursymmetry.ysym == 0)
-                cursymmetry.xsym = (number_t) 1;
+                cursymmetry.xsym = (number_t)1;
             else
-                cursymmetry.xsym = (number_t) INT_MAX;
+                cursymmetry.xsym = (number_t)INT_MAX;
             break;
         case P_INVLAMBDA:
-            cursymmetry.xsym = (number_t) INT_MAX;
+            cursymmetry.xsym = (number_t)INT_MAX;
             break;
         case P_TRANLAMBDA:
             if (cursymmetry.xsym != 0 || cursymmetry.ysym != 0)
-                cursymmetry.xsym = (number_t) INT_MAX;
+                cursymmetry.xsym = (number_t)INT_MAX;
             break;
         case P_MEREBERG:
-            cursymmetry.xsym = (number_t) INT_MAX;
+            cursymmetry.xsym = (number_t)INT_MAX;
             break;
     }
     cursymmetry.symmetry = sym_lines;
     cursymmetry.nsymmetries = 0;
-    if ((number_t) angle == cfractalc.angle) {
+    if ((number_t)angle == cfractalc.angle) {
         switch (angle) {
             case 0:
                 break;
@@ -149,46 +150,38 @@ combine_methods (void)
                 cursymmetry.xsym = -cursymmetry.xsym;
                 cursymmetry.ysym = -cursymmetry.ysym;
                 break;
-            case 90:
-                {
-                    number_t tmp = cursymmetry.xsym;
-                    cursymmetry.xsym = -cursymmetry.ysym;
-                    cursymmetry.ysym = tmp;
-                }
-                break;
-            case 210:
-                {
-                    number_t tmp = cursymmetry.xsym;
-                    cursymmetry.xsym = cursymmetry.ysym;
-                    cursymmetry.ysym = -tmp;
-                }
-                break;
+            case 90: {
+                number_t tmp = cursymmetry.xsym;
+                cursymmetry.xsym = -cursymmetry.ysym;
+                cursymmetry.ysym = tmp;
+            } break;
+            case 210: {
+                number_t tmp = cursymmetry.xsym;
+                cursymmetry.xsym = cursymmetry.ysym;
+                cursymmetry.ysym = -tmp;
+            } break;
             default:
-                cursymmetry.xsym = (number_t) INT_MAX;
-                cursymmetry.ysym = (number_t) INT_MAX;
+                cursymmetry.xsym = (number_t)INT_MAX;
+                cursymmetry.ysym = (number_t)INT_MAX;
         }
     } else {
-        cursymmetry.xsym = (number_t) INT_MAX;
-        cursymmetry.ysym = (number_t) INT_MAX;
+        cursymmetry.xsym = (number_t)INT_MAX;
+        cursymmetry.ysym = (number_t)INT_MAX;
     }
-    if (cursymmetry.xsym == -(number_t) INT_MAX)
-        cursymmetry.xsym = (number_t) INT_MAX;
-    if (cursymmetry.ysym == -(number_t) INT_MAX)
-        cursymmetry.ysym = (number_t) INT_MAX;
+    if (cursymmetry.xsym == -(number_t)INT_MAX)
+        cursymmetry.xsym = (number_t)INT_MAX;
+    if (cursymmetry.ysym == -(number_t)INT_MAX)
+        cursymmetry.ysym = (number_t)INT_MAX;
 }
 
-void
-update_view (fractal_context * context)
-{
-    set_view (context, &context->s);
-}
+void update_view(fractal_context *context) { set_view(context, &context->s); }
 
-void
-set_fractalc (fractal_context * context, struct image *img)
+void set_fractalc(fractal_context *context, struct image *img)
 {
-    update_view (context);
-    precalculate_rotation (context);
-    cfractalc = *context;       /*its better to copy often accesed data into fixed memory locations */
+    update_view(context);
+    precalculate_rotation(context);
+    cfractalc = *context; /*its better to copy often accesed data into fixed
+                             memory locations */
     cpalette = *img->palette;
     cimage = *img;
     cformula = *context->currentformula;
@@ -200,14 +193,18 @@ set_fractalc (fractal_context * context, struct image *img)
         cfractalc.bailout = 0;
 
     if (cfractalc.periodicity) {
-        if (!cformula.hasperiodicity || cfractalc.incoloringmode || !cfractalc.mandelbrot)
+        if (!cformula.hasperiodicity || cfractalc.incoloringmode ||
+            !cfractalc.mandelbrot)
             cfractalc.periodicity = 0;
         else if (!cfractalc.plane)
-            cfractalc.periodicity_limit = (context->rs.mc - context->rs.nc) / (double) img->width;
+            cfractalc.periodicity_limit =
+                (context->rs.mc - context->rs.nc) / (double)img->width;
         else {
             int x, y;
-            number_t xstep = ((context->rs.mc - context->rs.nc) / (double) img->width);
-            number_t ystep = ((context->rs.mc - context->rs.nc) / (double) img->height);
+            number_t xstep =
+                ((context->rs.mc - context->rs.nc) / (double)img->width);
+            number_t ystep =
+                ((context->rs.mc - context->rs.nc) / (double)img->height);
             number_t xstep2 = ((context->rs.mc - context->rs.nc) / 5);
             number_t ystep2 = ((context->rs.mc - context->rs.nc) / 5);
 
@@ -218,11 +215,11 @@ set_fractalc (fractal_context * context, struct image *img)
                     number_t x2 = context->rs.mc + xstep2 * x + xstep;
                     number_t y2 = context->rs.mi + ystep2 * y + ystep;
 
-                    recalculate (cfractalc.plane, &x1, &y1);
-                    recalculate (cfractalc.plane, &x2, &y2);
+                    recalculate(cfractalc.plane, &x1, &y1);
+                    recalculate(cfractalc.plane, &x2, &y2);
 
-                    x1 = myabs (x2 - x1);
-                    y1 = myabs (y2 - y1);
+                    x1 = myabs(x2 - x1);
+                    y1 = myabs(y2 - y1);
 
                     if (x == y && x == 0)
                         cfractalc.periodicity_limit = x1;
@@ -234,16 +231,18 @@ set_fractalc (fractal_context * context, struct image *img)
         }
     }
 
-    combine_methods ();
+    combine_methods();
 
-    if (cursymmetry.xsym == (number_t) INT_MAX)
+    if (cursymmetry.xsym == (number_t)INT_MAX)
         cursymmetry.xsym = cfractalc.rs.mc + INT_MAX;
 
-    if (cursymmetry.ysym == (number_t) INT_MAX)
+    if (cursymmetry.ysym == (number_t)INT_MAX)
         cursymmetry.ysym = cfractalc.rs.mi + INT_MAX;
 
 #ifndef SLOWFUNCPTR
-    if (cfractalc.coloringmode == 9 && cformula.smooth_calculate != NULL && (cpalette.type & (TRUECOLOR | TRUECOLOR16 | TRUECOLOR24 | GRAYSCALE | LARGEITER))) {
+    if (cfractalc.coloringmode == 9 && cformula.smooth_calculate != NULL &&
+        (cpalette.type &
+         (TRUECOLOR | TRUECOLOR16 | TRUECOLOR24 | GRAYSCALE | LARGEITER))) {
         cfractalc.calculate[0] = cformula.smooth_calculate;
         if (cformula.smooth_calculate_periodicity && cfractalc.periodicity)
             cfractalc.calculate[1] = cformula.smooth_calculate_periodicity;
@@ -257,17 +256,12 @@ set_fractalc (fractal_context * context, struct image *img)
             cfractalc.calculate[1] = cformula.calculate;
     }
 #endif
-
 }
 
-
-
-
-void
-set_formula (fractal_context * c, int num)
+void set_formula(fractal_context *c, int num)
 {
-    assert (num < nformulas);
-    assert (num >= 0);
+    assert(num < nformulas);
+    assert(num >= 0);
     if (num >= nformulas)
         num = 0;
     if (c->currentformula != formulas + num) {
@@ -292,7 +286,10 @@ set_formula (fractal_context * c, int num)
         c->angle = 0;
         c->version++;
     }
-    if (c->s.cr != c->currentformula->v.cr || c->s.ci != c->currentformula->v.ci || c->s.rr != c->currentformula->v.rr || c->s.ri != c->currentformula->v.ri) {
+    if (c->s.cr != c->currentformula->v.cr ||
+        c->s.ci != c->currentformula->v.ci ||
+        c->s.rr != c->currentformula->v.rr ||
+        c->s.ri != c->currentformula->v.ri) {
         c->s = c->currentformula->v;
         c->version++;
     }
@@ -303,23 +300,18 @@ set_formula (fractal_context * c, int num)
     }
 }
 
-
-void
-fractalc_resize_to (fractal_context * c, float wi, float he)
+void fractalc_resize_to(fractal_context *c, float wi, float he)
 {
     c->windowwidth = wi;
     c->windowheight = he;
-    recalc_view (c);
+    recalc_view(c);
     return;
 }
 
-
-
-fractal_context *
-make_fractalc (const int formula, float wi, float he)
+fractal_context *make_fractalc(const int formula, float wi, float he)
 {
     fractal_context *new_ctxt;
-    new_ctxt = (fractal_context *) calloc (1, sizeof (fractal_context));
+    new_ctxt = (fractal_context *)calloc(1, sizeof(fractal_context));
     if (new_ctxt == NULL)
         return 0;
     new_ctxt->windowwidth = wi;
@@ -333,71 +325,76 @@ make_fractalc (const int formula, float wi, float he)
     new_ctxt->slowmode = 0;
     new_ctxt->range = 3;
     new_ctxt->angle = 0;
-    set_formula (new_ctxt, formula);
+    set_formula(new_ctxt, formula);
     return (new_ctxt);
 }
 
-void
-free_fractalc (fractal_context * c)
-{
-    free (c);
-}
+void free_fractalc(fractal_context *c) { free(c); }
 
 #ifdef NOASSEMBLY
 #define rdtsc() 0
 #else
-#define rdtsc() ({unsigned long time; asm __volatile__ ("rdtsc":"=a"(time)); time; })
+#define rdtsc()                                                                \
+    ({                                                                         \
+        unsigned long time;                                                    \
+        asm __volatile__("rdtsc" : "=a"(time));                                \
+        time;                                                                  \
+    })
 #endif
 
-void
-speed_test (fractal_context * c, struct image *img)
+void speed_test(fractal_context *c, struct image *img)
 {
-    //unsigned int sum;
+    // unsigned int sum;
     tl_timer *t;
     int time;
     unsigned int i;
-    set_fractalc (c, img);
-    t = tl_create_timer ();
+    set_fractalc(c, img);
+    t = tl_create_timer();
     cfractalc.maxiter = 100;
 #ifdef SLOWFUNCPTR
-    i = calculateswitch (0.0, 0.0, 0.0, 0.0, 0);
+    i = calculateswitch(0.0, 0.0, 0.0, 0.0, 0);
 #else
-    (void) cfractalc.currentformula->calculate (0.0, 0.0, 0.0, 0.0);
+    (void)cfractalc.currentformula->calculate(0.0, 0.0, 0.0, 0.0);
     if (cfractalc.currentformula->calculate_periodicity != NULL)
-        (void) cfractalc.currentformula->calculate_periodicity (0.0, 0.0, 0.0, 0.0);
+        (void)cfractalc.currentformula->calculate_periodicity(0.0, 0.0, 0.0,
+                                                              0.0);
     if (cfractalc.currentformula->smooth_calculate != NULL)
-        (void) cfractalc.currentformula->smooth_calculate (0.0, 0.0, 0.0, 0.0);
+        (void)cfractalc.currentformula->smooth_calculate(0.0, 0.0, 0.0, 0.0);
     if (cfractalc.currentformula->smooth_calculate_periodicity != NULL)
-        (void) cfractalc.currentformula->smooth_calculate_periodicity (0.0, 0.0, 0.0, 0.0);
+        (void)cfractalc.currentformula->smooth_calculate_periodicity(0.0, 0.0,
+                                                                     0.0, 0.0);
 #endif
     cfractalc.maxiter = 20000000;
 
-    tl_update_time ();
-    tl_reset_timer (t);
+    tl_update_time();
+    tl_reset_timer(t);
     /*sum = rdtsc (); */
 #ifdef SLOWFUNCPTR
-    i = calculateswitch (0.0, 0.0, 0.0, 0.0, 0);
+    i = calculateswitch(0.0, 0.0, 0.0, 0.0, 0);
 #else
-    i = cfractalc.currentformula->calculate (0.0, 0.0, 0.0, 0.0);
+    i = cfractalc.currentformula->calculate(0.0, 0.0, 0.0, 0.0);
 #endif
     /*sum -= rdtsc ();
        printf ("%f\n", (double) (-sum) / cfractalc.maxiter); */
-    tl_update_time ();
-    time = tl_lookup_timer (t);
-    x_message ("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f", (int) i, cfractalc.currentformula->name[0], time, cfractalc.maxiter / (double) time);
+    tl_update_time();
+    time = tl_lookup_timer(t);
+    x_message("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f", (int)i,
+              cfractalc.currentformula->name[0], time,
+              cfractalc.maxiter / (double)time);
 
 #ifndef SLOWFUNCPTR
 
-
     if (cfractalc.currentformula->smooth_calculate != NULL) {
-        tl_update_time ();
-        tl_reset_timer (t);
-        i = cfractalc.currentformula->smooth_calculate (0.0, 0.0, 0.0, 0.0);
-        tl_update_time ();
-        time = tl_lookup_timer (t);
-        x_message ("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f", (int) i, cfractalc.currentformula->name[0], time, cfractalc.maxiter / (double) time);
+        tl_update_time();
+        tl_reset_timer(t);
+        i = cfractalc.currentformula->smooth_calculate(0.0, 0.0, 0.0, 0.0);
+        tl_update_time();
+        time = tl_lookup_timer(t);
+        x_message("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f",
+                  (int)i, cfractalc.currentformula->name[0], time,
+                  cfractalc.maxiter / (double)time);
     }
 #endif
 
-    tl_free_timer (t);
+    tl_free_timer(t);
 }

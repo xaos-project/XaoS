@@ -1,8 +1,7 @@
-/* This file contain long double I/O routines for Windows (because Windows API
+﻿/* This file contain long double I/O routines for Windows (because Windows API
    don't support long double at all.
 
    They don't work on other architectures. So be curefull. */
-
 
 /* This source comes from the DJGPP runtime library. It has been hacked
    to work with XaoS */
@@ -23,17 +22,15 @@
 #include <xldio.h>
 #ifdef USE_XLDIO
 
-static long double powten[] = {
-    1e1L, 1e2L, 1e4L, 1e8L, 1e16L, 1e32L, 1e64L, 1e128L, 1e256L,
-    1e512L, 1e1024L, 1e2048L, 1e4096L
-};
+static long double powten[] = {1e1L,    1e2L,    1e4L,   1e8L,   1e16L,
+                               1e32L,   1e64L,   1e128L, 1e256L, 1e512L,
+                               1e1024L, 1e2048L, 1e4096L};
 
-long double
-x_strtold (const char *s, const char **sret)
+long double x_strtold(const char *s, const char **sret)
 {
-    long double r;              /* result */
-    int e, ne;                  /* exponent */
-    int sign;                   /* +- 1.0 */
+    long double r; /* result */
+    int e, ne;     /* exponent */
+    int sign;      /* +- 1.0 */
     int esign;
     int flags = 0;
     int l2powm1;
@@ -43,7 +40,7 @@ x_strtold (const char *s, const char **sret)
     e = ne = 0;
     esign = 1;
 
-    while (*s && isspace (*s))
+    while (*s && isspace(*s))
         s++;
 
     if (*s == '+')
@@ -132,22 +129,18 @@ main ()
 }
 #endif
 
-
-#define MAXEXPLD        4952    /* this includes subnormal numbers */
+#define MAXEXPLD 4952 /* this includes subnormal numbers */
 static int is_nan = 0;
 static char decimal = '.';
-static long double pten[] = {
-    1e1L, 1e2L, 1e4L, 1e8L, 1e16L, 1e32L, 1e64L, 1e128L, 1e256L,
-    1e512L, 1e1024L, 1e2048L, 1e4096L
-};
+static long double pten[] = {1e1L,    1e2L,    1e4L,   1e8L,   1e16L,
+                             1e32L,   1e64L,   1e128L, 1e256L, 1e512L,
+                             1e1024L, 1e2048L, 1e4096L};
 
-static long double ptenneg[] = {
-    1e-1L, 1e-2L, 1e-4L, 1e-8L, 1e-16L, 1e-32L, 1e-64L, 1e-128L, 1e-256L,
-    1e-512L, 1e-1024L, 1e-2048L, 1e-4096L
-};
+static long double ptenneg[] = {1e-1L,    1e-2L,    1e-4L,   1e-8L,   1e-16L,
+                                1e-32L,   1e-64L,   1e-128L, 1e-256L, 1e-512L,
+                                1e-1024L, 1e-2048L, 1e-4096L};
 
-static INLINE char
-tochar (int n)
+static INLINE char tochar(int n)
 {
     if (n >= 9)
         return '9';
@@ -156,8 +149,7 @@ tochar (int n)
     return n + '0';
 }
 
-static INLINE int
-todigit (char c)
+static INLINE int todigit(char c)
 {
     if (c <= '0')
         return 0;
@@ -166,17 +158,17 @@ todigit (char c)
     return c - '0';
 }
 
-#define	LONGINT		0x01    /* long integer */
-#define	LONGDBL		0x02    /* long double */
-#define	SHORTINT	0x04    /* short integer */
-#define	ALT		0x08    /* alternate form */
-#define	LADJUST		0x10    /* left adjustment */
-#define	ZEROPAD		0x20    /* zero (as opposed to blank) pad */
-#define	HEXPREFIX	0x40    /* add 0x or 0X prefix */
+#define LONGINT 0x01   /* long integer */
+#define LONGDBL 0x02   /* long double */
+#define SHORTINT 0x04  /* short integer */
+#define ALT 0x08       /* alternate form */
+#define LADJUST 0x10   /* left adjustment */
+#define ZEROPAD 0x20   /* zero (as opposed to blank) pad */
+#define HEXPREFIX 0x40 /* add 0x or 0X prefix */
 
 #define MAXP 4096
-#define NP   12
-#define P    (4294967296.0L * 4294967296.0L * 2.0L)     /* 2^65 */
+#define NP 12
+#define P (4294967296.0L * 4294967296.0L * 2.0L) /* 2^65 */
 static long double INVPREC = P;
 static long double PREC = 1.0L / P;
 #undef P
@@ -188,27 +180,24 @@ static long double PREC = 1.0L / P;
 /* #define FAST_LDOUBLE_CONVERSION */
 #if 1
 #define modfl mymodfl
-static INLINE long double
-m_floor (long double x)
+static INLINE long double m_floor(long double x)
 {
     register long double __value;
     volatile unsigned short int __cw, __cwtmp;
 
-    asm volatile ("fnstcw %0":"=m" (__cw));
+    asm volatile("fnstcw %0" : "=m"(__cw));
     __cwtmp = (__cw & 0xf3ff) | 0x0400; /* rounding down */
-    asm volatile ("fldcw %0"::"m" (__cwtmp));
-    asm volatile ("frndint":"=t" (__value):"0" (x));
-    asm volatile ("fldcw %0"::"m" (__cw));
+    asm volatile("fldcw %0" ::"m"(__cwtmp));
+    asm volatile("frndint" : "=t"(__value) : "0"(x));
+    asm volatile("fldcw %0" ::"m"(__cw));
 
     return __value;
-
 }
 
-static INLINE long double
-mymodfl (long double x, long double *pint)
+static INLINE long double mymodfl(long double x, long double *pint)
 {
     /*int p=(int) x; */
-    long double p = m_floor (x);
+    long double p = m_floor(x);
     long double frac = x - p;
     if (x < 0)
         p = p + 1, frac = frac - 1;
@@ -216,8 +205,7 @@ mymodfl (long double x, long double *pint)
     return frac;
 }
 #endif
-static char *
-exponentl (char *p, int expv, unsigned char fmtch)
+static char *exponentl(char *p, int expv, unsigned char fmtch)
 {
     char *t;
     char expbuf[MAXEXPLD];
@@ -231,43 +219,41 @@ exponentl (char *p, int expv, unsigned char fmtch)
     t = expbuf + MAXEXPLD;
     if (expv > 9) {
         do {
-            *--t = tochar (expv % 10);
-        }
-        while ((expv /= 10) > 9);
-        *--t = tochar (expv);
-        for (; t < expbuf + MAXEXPLD; *p++ = *t++);
+            *--t = tochar(expv % 10);
+        } while ((expv /= 10) > 9);
+        *--t = tochar(expv);
+        for (; t < expbuf + MAXEXPLD; *p++ = *t++)
+            ;
     } else {
         *p++ = '0';
-        *p++ = tochar (expv);
+        *p++ = tochar(expv);
     }
     return p;
 }
 
-static int
-isspeciall (long double d, char *bufp)
+static int isspeciall(long double d, char *bufp)
 {
-    struct IEEExp
-    {
-        unsigned manl:32;
-        unsigned manh:32;
-        unsigned exp:15;
-        unsigned sign:1;
-    } *ip = (struct IEEExp *) &d;
+    struct IEEExp {
+        unsigned manl : 32;
+        unsigned manh : 32;
+        unsigned exp : 15;
+        unsigned sign : 1;
+    } *ip = (struct IEEExp *)&d;
 
-    is_nan = 0;                 /* don't assume the static is 0 (emacs) */
+    is_nan = 0; /* don't assume the static is 0 (emacs) */
     if (ip->exp != 0x7fff)
         return (0);
     if ((ip->manh & 0x7fffffff) || ip->manl) {
-        strcpy (bufp, "NaN");
-        is_nan = ip->sign ? -1 : 1;     /* kludge: we don't need the sign,  it's not nice
-                                           but it should work */
+        strcpy(bufp, "NaN");
+        is_nan = ip->sign ? -1 : 1; /* kludge: we don't need the sign,  it's not
+                                       nice but it should work */
     } else
-        (void) strcpy (bufp, "Inf");
+        (void)strcpy(bufp, "Inf");
     return (3);
 }
 
-static char *
-my_roundl (long double fract, int *expv, char *start, char *end, char ch, char *signp)
+static char *my_roundl(long double fract, int *expv, char *start, char *end,
+                       char ch, char *signp)
 {
     long double tmp;
 
@@ -281,10 +267,10 @@ my_roundl (long double fract, int *expv, char *start, char *end, char ch, char *
                 goto start;
             }
         }
-        (void) modfl (fract * 10.0L, &tmp);
+        (void)modfl(fract * 10.0L, &tmp);
     } else
-        tmp = todigit (ch);
-  start:
+        tmp = todigit(ch);
+start:
     if (tmp > 4)
         for (;; --end) {
             if (*end == decimal)
@@ -293,10 +279,10 @@ my_roundl (long double fract, int *expv, char *start, char *end, char ch, char *
                 break;
             *end = '0';
             if (end == start) {
-                if (expv) {     /* e/E; increment exponent */
+                if (expv) { /* e/E; increment exponent */
                     *end = '1';
                     ++*expv;
-                } else {        /* f; add extra digit */
+                } else { /* f; add extra digit */
                     *--end = '1';
                     --start;
                 }
@@ -316,18 +302,17 @@ my_roundl (long double fract, int *expv, char *start, char *end, char ch, char *
     return start;
 }
 
-
-static int
-cvtl (long double number, int prec, int flags, char *signp, unsigned char fmtch, char *startp, char *endp)
+static int cvtl(long double number, int prec, int flags, char *signp,
+                unsigned char fmtch, char *startp, char *endp)
 {
     char *p, *t;
     long double fract = 0;
     int dotrim, expcnt, gformat;
-    int doextradps = 0;         /* Do extra decimal places if the precision needs it */
-    int doingzero = 0;          /* We're displaying 0.0 */
+    int doextradps = 0; /* Do extra decimal places if the precision needs it */
+    int doingzero = 0;  /* We're displaying 0.0 */
     long double integer, tmp;
 
-    if ((expcnt = isspeciall (number, startp)))
+    if ((expcnt = isspeciall(number, startp)))
         return (expcnt);
 
     dotrim = expcnt = gformat = 0;
@@ -369,7 +354,7 @@ cvtl (long double number, int prec, int flags, char *signp, unsigned char fmtch,
             *p-- = '0';
     }
     number = integer;
-    fract = modfl (number, &integer);
+    fract = modfl(number, &integer);
     /* If integer is zero then we need to look at where the sig figs are */
     if (integer < 1) {
         /* If fract is zero the zero before the decimal point is a sig fig */
@@ -384,14 +369,15 @@ cvtl (long double number, int prec, int flags, char *signp, unsigned char fmtch,
      * .01 is added for modf(356.0 / 10, &integer) returning .59999999...
      */
     for (; integer; ++expcnt) {
-        tmp = modfl (integer * 0.1L, &integer);
-        *p-- = tochar ((int) ((tmp + .01L) * 10));
+        tmp = modfl(integer * 0.1L, &integer);
+        *p-- = tochar((int)((tmp + .01L) * 10));
     }
     switch (fmtch) {
         case 'f':
             /* reverse integer into beginning of buffer */
             if (expcnt)
-                for (; ++p < endp; *t++ = *p);
+                for (; ++p < endp; *t++ = *p)
+                    ;
             else
                 *t++ = '0';
             /*
@@ -404,18 +390,19 @@ cvtl (long double number, int prec, int flags, char *signp, unsigned char fmtch,
             if (fract) {
                 if (prec)
                     do {
-                        fract = modfl (fract * 10.0L, &tmp);
-                        *t++ = tochar ((int) tmp);
-                    }
-                    while (--prec && fract);
+                        fract = modfl(fract * 10.0L, &tmp);
+                        *t++ = tochar((int)tmp);
+                    } while (--prec && fract);
                 if (fract)
-                    startp = my_roundl (fract, (int *) NULL, startp, t - 1, (char) 0, signp);
+                    startp = my_roundl(fract, (int *)NULL, startp, t - 1,
+                                       (char)0, signp);
             }
-            for (; prec--; *t++ = '0');
+            for (; prec--; *t++ = '0')
+                ;
             break;
         case 'e':
         case 'E':
-          eformat:
+        eformat:
             if (expcnt) {
                 *t++ = *++p;
                 if (prec || flags & ALT)
@@ -430,7 +417,8 @@ cvtl (long double number, int prec, int flags, char *signp, unsigned char fmtch,
                  */
                 if (!prec && ++p < endp) {
                     fract = 0;
-                    startp = my_roundl ((long double) 0.0L, &expcnt, startp, t - 1, *p, signp);
+                    startp = my_roundl((long double)0.0L, &expcnt, startp,
+                                       t - 1, *p, signp);
                 }
                 /* adjust expcnt for digit in front of decimal */
                 --expcnt;
@@ -462,12 +450,12 @@ cvtl (long double number, int prec, int flags, char *signp, unsigned char fmtch,
 #endif
                 }
                 /* adjust expcnt for digit in front of decimal */
-                for ( /* expcnt = -1 */ ;; --expcnt) {
-                    fract = modfl (fract * 10.0L, &tmp);
+                for (/* expcnt = -1 */;; --expcnt) {
+                    fract = modfl(fract * 10.0L, &tmp);
                     if (tmp)
                         break;
                 }
-                *t++ = tochar ((int) tmp);
+                *t++ = tochar((int)tmp);
                 if (prec || flags & ALT)
                     *t++ = decimal;
             } else {
@@ -479,24 +467,26 @@ cvtl (long double number, int prec, int flags, char *signp, unsigned char fmtch,
             if (fract) {
                 if (prec)
                     do {
-                        fract = modfl (fract * 10.0L, &tmp);
-                        *t++ = tochar ((int) tmp);
-                    }
-                    while (--prec && fract);
+                        fract = modfl(fract * 10.0L, &tmp);
+                        *t++ = tochar((int)tmp);
+                    } while (--prec && fract);
                 if (fract)
-                    startp = my_roundl (fract, &expcnt, startp, t - 1, (char) 0, signp);
+                    startp = my_roundl(fract, &expcnt, startp, t - 1, (char)0,
+                                       signp);
             }
             /* if requires more precision */
-            for (; prec--; *t++ = '0');
+            for (; prec--; *t++ = '0')
+                ;
 
             /* unless alternate flag, trim any g/G format trailing 0's */
             if (gformat && !(flags & ALT)) {
-                while (t > startp && *--t == '0');
+                while (t > startp && *--t == '0')
+                    ;
                 if (*t == decimal)
                     --t;
                 ++t;
             }
-            t = exponentl (t, expcnt, fmtch);
+            t = exponentl(t, expcnt, fmtch);
             break;
         case 'g':
         case 'G':
@@ -506,7 +496,8 @@ cvtl (long double number, int prec, int flags, char *signp, unsigned char fmtch,
                 if (doingzero)
                     --prec;
             } else {
-                /* a precision of 0 is treated as precision of 1 unless doing zero */
+                /* a precision of 0 is treated as precision of 1 unless doing
+                 * zero */
                 if (!doingzero)
                     ++prec;
             }
@@ -525,7 +516,7 @@ cvtl (long double number, int prec, int flags, char *signp, unsigned char fmtch,
                  * count it as precision.
                  */
                 --prec;
-                fmtch -= 2;     /* G->E, g->e */
+                fmtch -= 2; /* G->E, g->e */
                 gformat = 1;
                 goto eformat;
             }
@@ -534,7 +525,8 @@ cvtl (long double number, int prec, int flags, char *signp, unsigned char fmtch,
              * note, decrement precision
              */
             if (expcnt)
-                for (; ++p < endp; *t++ = *p, --prec);
+                for (; ++p < endp; *t++ = *p, --prec)
+                    ;
             else
                 *t++ = '0';
             /*
@@ -548,23 +540,26 @@ cvtl (long double number, int prec, int flags, char *signp, unsigned char fmtch,
                 dotrim = 0;
             /* if requires more precision and some fraction left */
             while (prec && fract) {
-                fract = modfl (fract * 10.0L, &tmp);
-                *t++ = tochar ((int) tmp);
+                fract = modfl(fract * 10.0L, &tmp);
+                *t++ = tochar((int)tmp);
                 /* If we're not adding 0s
                  * or we are but they're sig figs:
                  * decrement the precision */
-                if ((doextradps != 1) || ((int) tmp != 0)) {
+                if ((doextradps != 1) || ((int)tmp != 0)) {
                     doextradps = 0;
                     prec--;
                 }
             }
             if (fract)
-                startp = my_roundl (fract, (int *) NULL, startp, t - 1, (char) 0, signp);
+                startp = my_roundl(fract, (int *)NULL, startp, t - 1, (char)0,
+                                   signp);
             /* alternate format, adds 0's for precision, else trim 0's */
             if (flags & ALT)
-                for (; prec--; *t++ = '0');
+                for (; prec--; *t++ = '0')
+                    ;
             else if (dotrim) {
-                while (t > startp && *--t == '0');
+                while (t > startp && *--t == '0')
+                    ;
                 if (*t != decimal)
                     ++t;
             }
@@ -583,21 +578,20 @@ main ()
 }
 
 #endif
-void
-x_ldout (long double param, int prec, xio_file stream)
+void x_ldout(long double param, int prec, xio_file stream)
 {
     static char buf[4095];
     char softsign = 0;
     int l;
     if (param < 0)
-        xio_putc ('-', stream), param = -param;
-    l = cvtl (param, prec, 0, &softsign, 'G', buf, buf + sizeof (buf));
+        xio_putc('-', stream), param = -param;
+    l = cvtl(param, prec, 0, &softsign, 'G', buf, buf + sizeof(buf));
     /*printf("a:%s %i\n",buf+1, prec); */
     buf[l + 2] = 0;
-    l = strlen (buf + 1);
+    l = strlen(buf + 1);
     if (buf[l] == '.')
         buf[l] = 0;
     /*printf("b:%s %i\n",buf+1, prec); */
-    xio_puts (buf + 1, stream);
+    xio_puts(buf + 1, stream);
 }
 #endif

@@ -1,4 +1,4 @@
-#include "fractalwidget.h"
+﻿#include "fractalwidget.h"
 
 #include <QtGui>
 #include <QtOpenGL>
@@ -14,25 +14,13 @@ FractalWidget::FractalWidget()
     setAttribute(Qt::WA_OpaquePaintEvent, true);
 }
 
-QPoint FractalWidget::mousePosition()
-{
-    return m_mousePosition;
-}
+QPoint FractalWidget::mousePosition() { return m_mousePosition; }
 
-void FractalWidget::setImage(struct image *image)
-{
-    m_image = image;
-}
+void FractalWidget::setImage(struct image *image) { m_image = image; }
 
-QSize FractalWidget::sizeHint() const
-{
-    return m_sizeHint;
-}
+QSize FractalWidget::sizeHint() const { return m_sizeHint; }
 
-void FractalWidget::setSizeHint(const QSize &size)
-{
-    m_sizeHint = size;
-}
+void FractalWidget::setSizeHint(const QSize &size) { m_sizeHint = size; }
 
 void FractalWidget::resizeEvent(QResizeEvent *event)
 {
@@ -44,26 +32,29 @@ void FractalWidget::resizeEvent(QResizeEvent *event)
 void FractalWidget::paintGL()
 {
     if (m_image) {
-        QImage *qimage = reinterpret_cast<QImage **>(m_image->data)[m_image->currimage];
+        QImage *qimage =
+            reinterpret_cast<QImage **>(m_image->data)[m_image->currimage];
         QImage glimage = QGLWidget::convertToGLFormat(*qimage);
-        glDrawPixels(glimage.width(), glimage.height(), GL_RGBA, GL_UNSIGNED_BYTE, glimage.bits());
+        glDrawPixels(glimage.width(), glimage.height(), GL_RGBA,
+                     GL_UNSIGNED_BYTE, glimage.bits());
     }
 }
 
 void FractalWidget::resizeGL(int w, int h)
 {
-    glViewport (0, 0, w, h);
-    glMatrixMode (GL_PROJECTION);
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, w,0,h,-1,1);
-    glMatrixMode (GL_MODELVIEW);
+    glOrtho(0, w, 0, h, -1, 1);
+    glMatrixMode(GL_MODELVIEW);
 }
 #else
-void FractalWidget::paintEvent (QPaintEvent *event)
+void FractalWidget::paintEvent(QPaintEvent *event)
 {
     if (m_image) {
         QPainter painter(this);
-        QImage *qimage = reinterpret_cast<QImage **>(m_image->data)[m_image->currimage];
+        QImage *qimage =
+            reinterpret_cast<QImage **>(m_image->data)[m_image->currimage];
         painter.setCompositionMode(QPainter::CompositionMode_Source);
         painter.drawImage(0, 0, *qimage);
     }

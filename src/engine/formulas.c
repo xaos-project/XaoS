@@ -1,5 +1,5 @@
-/* 
- *     XaoS, a fast portable realtime fractal zoomer  
+﻿/*
+ *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
  *      Jan Hubicka          (hubicka@paru.cas.cz)
@@ -32,7 +32,6 @@
 
 // Some help can be read below about line 700. :-)
 
-
 #include <limits.h>
 #include <string.h>
 #include <stdlib.h>
@@ -59,38 +58,34 @@
 #ifdef SFFE_USING
 #include "sffe.h"
 
-extern struct uih_context *globaluih;   // to be able to use sffe parser
+extern struct uih_context *globaluih; // to be able to use sffe parser
 #endif
 
-const char *const incolorname[] = {
-    "0",
-    "zmag",
-    "Decomposition-like",
-    "real/imag",
-    "abs(abs(c)-abs(r))",
-    "cos(mag)",
-    "mag*cos(real^2)",
-    "sin(real^2-imag^2)",
-    "atan(real*imag*creal*cimag)",
-    "squares",
-    "True-color",
-    NULL
-};
+const char *const incolorname[] = {"0",
+                                   "zmag",
+                                   "Decomposition-like",
+                                   "real/imag",
+                                   "abs(abs(c)-abs(r))",
+                                   "cos(mag)",
+                                   "mag*cos(real^2)",
+                                   "sin(real^2-imag^2)",
+                                   "atan(real*imag*creal*cimag)",
+                                   "squares",
+                                   "True-color",
+                                   NULL};
 
-const char *const outcolorname[] = {
-    "iter",
-    "iter+real",
-    "iter+imag",
-    "iter+real/imag",
-    "iter+real+imag+real/imag",
-    "binary decomposition",
-    "biomorphs",
-    "potential",
-    "color decomposition",
-    "smooth",
-    "True-color",
-    NULL
-};
+const char *const outcolorname[] = {"iter",
+                                    "iter+real",
+                                    "iter+imag",
+                                    "iter+real/imag",
+                                    "iter+real+imag+real/imag",
+                                    "binary decomposition",
+                                    "biomorphs",
+                                    "potential",
+                                    "color decomposition",
+                                    "smooth",
+                                    "True-color",
+                                    NULL};
 
 const char *const tcolorname[] = {
     "black",
@@ -107,8 +102,7 @@ const char *const tcolorname[] = {
     "Disable truecolor colouring",
     "simple red (for education purposes)",
     "simple blue (for education purposes)",
-    NULL
-};
+    NULL};
 
 #define SHIFT 8
 #define SMUL 256
@@ -120,78 +114,130 @@ const char *const tcolorname[] = {
 #ifdef __i386__121
 
 /* Use union to be alias-analysis correct.  */
-typedef union
-{
+typedef union {
     unsigned int *i;
     float *f;
 } fpint;
-#define less_than_4(x) ({float tmp=(x); fpint ptr; ptr.f=&tmp;*ptr.i<0x40800000U;})
-#define less_than_0(x) ({float tmp=(x); fpint ptr; ptr.f=&tmp;*ptr.i&0x80000000U;})
-#define greater_then_1Em6(x) ({float tmp=(x); fpint ptr; ptr.f=&tmp;*ptr.i>(unsigned int)0x358637bdU;})
-#define abs_less_than(x,y) ({float tmp=(x), tmp2=(y); fpint ptr, ptr2; ptr.f=&tmp; ptr2.f=&tmp2;(*ptr.i&~0x80000000U)<*ptr2.i;})
-#define greater_than(x,y) ({float tmp=(x), tmp2=(y); fpint ptr, ptr2; ptr.f=&tmp; ; ptr2.f=&tmp2;*ptr.i>*ptr2.i;})
+#define less_than_4(x)                                                         \
+    ({                                                                         \
+        float tmp = (x);                                                       \
+        fpint ptr;                                                             \
+        ptr.f = &tmp;                                                          \
+        *ptr.i < 0x40800000U;                                                  \
+    })
+#define less_than_0(x)                                                         \
+    ({                                                                         \
+        float tmp = (x);                                                       \
+        fpint ptr;                                                             \
+        ptr.f = &tmp;                                                          \
+        *ptr.i & 0x80000000U;                                                  \
+    })
+#define greater_then_1Em6(x)                                                   \
+    ({                                                                         \
+        float tmp = (x);                                                       \
+        fpint ptr;                                                             \
+        ptr.f = &tmp;                                                          \
+        *ptr.i > (unsigned int)0x358637bdU;                                    \
+    })
+#define abs_less_than(x, y)                                                    \
+    ({                                                                         \
+        float tmp = (x), tmp2 = (y);                                           \
+        fpint ptr, ptr2;                                                       \
+        ptr.f = &tmp;                                                          \
+        ptr2.f = &tmp2;                                                        \
+        (*ptr.i & ~0x80000000U) < *ptr2.i;                                     \
+    })
+#define greater_than(x, y)                                                     \
+    ({                                                                         \
+        float tmp = (x), tmp2 = (y);                                           \
+        fpint ptr, ptr2;                                                       \
+        ptr.f = &tmp;                                                          \
+        ;                                                                      \
+        ptr2.f = &tmp2;                                                        \
+        *ptr.i > *ptr2.i;                                                      \
+    })
 #endif
 #endif
 #ifndef less_than_4
-#define less_than_0(x) ((x)<0)
-#define less_than_4(x) ((x)<cfractalc.bailout)
-#define greater_then_1Em6(n) ((n)>1E-6)
-#define abs_less_than(x,y) (myabs(x)<y)
-#define greater_than(x,y) ((x)>(y))
+#define less_than_0(x) ((x) < 0)
+#define less_than_4(x) ((x) < cfractalc.bailout)
+#define greater_then_1Em6(n) ((n) > 1E-6)
+#define abs_less_than(x, y) (myabs(x) < y)
+#define greater_than(x, y) ((x) > (y))
 #endif
 
+#define PERIINOUTPUT()                                                         \
+    STAT(nperi++; ninside2++);                                                 \
+    return (cpalette.pixels[0])
 
+#define OUTOUTPUT()                                                            \
+    STAT(niter2 += iter);                                                      \
+    return (!cfractalc.coloringmode                                            \
+                ? cpalette.pixels[(iter % (cpalette.size - 1)) + 1]            \
+                : color_output(zre, zim, iter))
+#define INOUTPUT()                                                             \
+    STAT(niter1 += iter; ninside2++);                                          \
+    return (cfractalc.incoloringmode                                           \
+                ? incolor_output(zre, zim, pre, pim, iter)                     \
+                : cpalette.pixels[0])
 
-#define PERIINOUTPUT() STAT(nperi++;ninside2++);return(cpalette.pixels[0])
+#define OUTPUT()                                                               \
+    if (iter >= (unsigned int)cfractalc.maxiter) {                             \
+        if (cfractalc.incoloringmode == 10)                                    \
+            return (                                                           \
+                truecolor_output(zre, zim, pre, pim, cfractalc.intcolor, 1));  \
+        INOUTPUT();                                                            \
+    } else {                                                                   \
+        if (cfractalc.coloringmode == 10)                                      \
+            return (                                                           \
+                truecolor_output(zre, zim, pre, pim, cfractalc.outtcolor, 0)); \
+        OUTOUTPUT();                                                           \
+    }
 
-#define OUTOUTPUT() STAT(niter2+=iter);return(!cfractalc.coloringmode?cpalette.pixels[(iter%(cpalette.size-1))+1]:color_output(zre,zim,iter))
-#define INOUTPUT() STAT(niter1+=iter;ninside2++);return(cfractalc.incoloringmode?incolor_output(zre,zim,pre,pim,iter):cpalette.pixels[0])
-
-#define OUTPUT() if(iter>=(unsigned int)cfractalc.maxiter)\
-                { \
-                  if(cfractalc.incoloringmode==10) return(truecolor_output(zre,zim,pre,pim,cfractalc.intcolor,1)); \
-		  INOUTPUT();  \
-                } \
-		else  { \
-                  if(cfractalc.coloringmode==10) return(truecolor_output(zre,zim,pre,pim,cfractalc.outtcolor,0)); \
-		  OUTOUTPUT(); \
-		}
-
-#define SMOOTHOUTPUT() {PRESMOOTH;zre+=0.000001;szmag+=0.000001; \
-                        iter=(int)(((cfractalc.maxiter-iter)*256+log((double)(cfractalc.bailout/(szmag)))/log((double)((zre)/(szmag)))*256)); \
-                        if (iter < 0) {\
-                          iter = (((unsigned int)(cpalette.size - 1)) << 8) - ((-iter) % (((unsigned int)(cpalette.size - 1)) << 8))-1; \
-                          if (iter < 0) iter=0; \
-			} \
-                        iter %= ((unsigned int)(cpalette.size - 1)) << 8; \
- \
-                        if ((cpalette.type & (C256 | SMALLITER)) || !(iter & 255)) \
-                          return (cpalette.pixels[1 + (iter >> 8)]); \
-                        { \
-                          unsigned int i1, i2; \
-                          i1 = cpalette.pixels[1 + (iter >> 8)]; \
-                          if ((iter >> 8) == (unsigned int)(cpalette.size - 2)) \
-                            i2 = cpalette.pixels[1]; \
-                          else \
-                            i2 = cpalette.pixels[2 + (iter >> 8)]; \
-                          iter &= 255; \
-                          return (interpoltype (cpalette, i2, i1, iter)); \
-                        } \
-                      }
+#define SMOOTHOUTPUT()                                                         \
+    {                                                                          \
+        PRESMOOTH;                                                             \
+        zre += 0.000001;                                                       \
+        szmag += 0.000001;                                                     \
+        iter = (int)(((cfractalc.maxiter - iter) * 256 +                       \
+                      log((double)(cfractalc.bailout / (szmag))) /             \
+                          log((double)((zre) / (szmag))) * 256));              \
+        if (iter < 0) {                                                        \
+            iter = (((unsigned int)(cpalette.size - 1)) << 8) -                \
+                   ((-iter) % (((unsigned int)(cpalette.size - 1)) << 8)) - 1; \
+            if (iter < 0)                                                      \
+                iter = 0;                                                      \
+        }                                                                      \
+        iter %= ((unsigned int)(cpalette.size - 1)) << 8;                      \
+                                                                               \
+        if ((cpalette.type & (C256 | SMALLITER)) || !(iter & 255))             \
+            return (cpalette.pixels[1 + (iter >> 8)]);                         \
+        {                                                                      \
+            unsigned int i1, i2;                                               \
+            i1 = cpalette.pixels[1 + (iter >> 8)];                             \
+            if ((iter >> 8) == (unsigned int)(cpalette.size - 2))              \
+                i2 = cpalette.pixels[1];                                       \
+            else                                                               \
+                i2 = cpalette.pixels[2 + (iter >> 8)];                         \
+            iter &= 255;                                                       \
+            return (interpoltype(cpalette, i2, i1, iter));                     \
+        }                                                                      \
+    }
 /* 2009-07-30 JB Langston:
  * Fixing bug #3: HSV modes are completely black when compiled with GCC 4...
- * Removed  qualifier from hsv_to_rgb declaration.  macro is 
- * defined to __attribute__((__const__)), on which I found some more details 
+ * Removed  qualifier from hsv_to_rgb declaration.  macro is
+ * defined to __attribute__((__const__)), on which I found some more details
  * here: http://unixwiz.net/techtips/gnu-c-attributes.html#const.  Apparently
  * this should never be used with a function that takes a pointer or relies on
- * side-effects, and hsv_to_rgb does both.  Therefore, it should never have 
+ * side-effects, and hsv_to_rgb does both.  Therefore, it should never have
  * been declared this way in the first place.
  */
 
-static INLINE void
-hsv_to_rgb (int h, int s, int v, int *red, int *green, int *blue)
+static INLINE void hsv_to_rgb(int h, int s, int v, int *red, int *green,
+                              int *blue)
     /**/;
-     static INLINE void hsv_to_rgb (int h, int s, int v, int *red, int *green, int *blue)
+static INLINE void hsv_to_rgb(int h, int s, int v, int *red, int *green,
+                              int *blue)
 {
     int hue;
     int f, p, q, t;
@@ -211,7 +257,7 @@ hsv_to_rgb (int h, int s, int v, int *red, int *green, int *blue)
         q = v * (256 - (s * f) / 256) >> 8;
         t = v * (256 * 256 - (s * (256 - f))) >> 16;
 
-        switch ((int) (hue / 256)) {
+        switch ((int)(hue / 256)) {
             case 0:
                 *red = v;
                 *green = t;
@@ -246,11 +292,11 @@ hsv_to_rgb (int h, int s, int v, int *red, int *green, int *blue)
     }
 }
 
-static unsigned int
-truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim, int mode, int inset)
-      ;
+static unsigned int truecolor_output(number_t zre, number_t zim, number_t pre,
+                                     number_t pim, int mode, int inset);
 
-     static unsigned int truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim, int mode, int inset)
+static unsigned int truecolor_output(number_t zre, number_t zim, number_t pre,
+                                     number_t pim, int mode, int inset)
 {
     /* WARNING: r and b fields are swapped for HISTORICAL REASONS (BUG :),
      * in other words: use r for blue and b for red. */
@@ -260,123 +306,128 @@ truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim, int mo
         case 0:
             break;
         case 1:
-            b = (int) ((sin ((double) atan2 ((double) zre, (double) zim) * 20) + 1) * 127);
-            w = (int) ((sin ((double) zim / zre)) * 127);
-            r = (int) ((int) (zre * zim));
-            g = (int) ((sin ((double) (zre * zre) / 2) + 1) * 127);
+            b = (int)((sin((double)atan2((double)zre, (double)zim) * 20) + 1) *
+                      127);
+            w = (int)((sin((double)zim / zre)) * 127);
+            r = (int)((int)(zre * zim));
+            g = (int)((sin((double)(zre * zre) / 2) + 1) * 127);
             break;
         case 2:
             if (!inset) {
-                r = (int) ((sin ((double) zre * 2) + 1) * 127);
-                g = (int) ((sin ((double) zim * 2) + 1) * 127);
-                b = (int) ((sin ((double) (zim * zim + zre * zre) / 2) + 1) * 127);
+                r = (int)((sin((double)zre * 2) + 1) * 127);
+                g = (int)((sin((double)zim * 2) + 1) * 127);
+                b = (int)((sin((double)(zim * zim + zre * zre) / 2) + 1) * 127);
             } else {
-                r = (int) ((sin ((double) zre * 50) + 1) * 127);
-                g = (int) ((sin ((double) zim * 50) + 1) * 127);
-                b = (int) ((sin ((double) (zim * zim + zre * zre) * 50) + 1) * 127);
+                r = (int)((sin((double)zre * 50) + 1) * 127);
+                g = (int)((sin((double)zim * 50) + 1) * 127);
+                b = (int)((sin((double)(zim * zim + zre * zre) * 50) + 1) *
+                          127);
             }
-            w = (int) ((sin ((double) zim / zre)) * 127);
+            w = (int)((sin((double)zim / zre)) * 127);
             break;
         case 3:
             if (inset)
-                hsv_to_rgb ((int) (atan2 ((double) zre, (double) zim) * 256 / M_PI), (int) ((sin ((double) (zre * 50)) + 1) * 128), (int) ((sin ((double) (zim * 50)) + 1) * 128), &r, &g, &b);
+                hsv_to_rgb((int)(atan2((double)zre, (double)zim) * 256 / M_PI),
+                           (int)((sin((double)(zre * 50)) + 1) * 128),
+                           (int)((sin((double)(zim * 50)) + 1) * 128), &r, &g,
+                           &b);
             else
-                hsv_to_rgb ((int) (atan2 ((double) zre, (double) zim) * 256 / M_PI), (int) ((sin ((double) zre) + 1) * 128), (int) ((sin ((double) zim) + 1) * 128), &r, &g, &b);
+                hsv_to_rgb((int)(atan2((double)zre, (double)zim) * 256 / M_PI),
+                           (int)((sin((double)zre) + 1) * 128),
+                           (int)((sin((double)zim) + 1) * 128), &r, &g, &b);
             break;
         case 4:
             if (inset)
-                hsv_to_rgb ((int) (sin ((double) (zre * zre + zim * zim) * 0.1) * 256), (int) (sin (atan2 ((double) zre, (double) zim) * 10) * 128 + 128), (int) ((sin ((double) (zre + zim) * 10)) * 65 + 128), &r, &g, &b);
+                hsv_to_rgb(
+                    (int)(sin((double)(zre * zre + zim * zim) * 0.1) * 256),
+                    (int)(sin(atan2((double)zre, (double)zim) * 10) * 128 +
+                          128),
+                    (int)((sin((double)(zre + zim) * 10)) * 65 + 128), &r, &g,
+                    &b);
             else
-                hsv_to_rgb ((int) (sin ((double) (zre * zre + zim * zim) * 0.01) * 256), (int) (sin (atan2 ((double) zre, (double) zim) * 10) * 128 + 128), (int) ((sin ((double) (zre + zim) * 0.3)) * 65 + 128), &r, &g, &b);
+                hsv_to_rgb(
+                    (int)(sin((double)(zre * zre + zim * zim) * 0.01) * 256),
+                    (int)(sin(atan2((double)zre, (double)zim) * 10) * 128 +
+                          128),
+                    (int)((sin((double)(zre + zim) * 0.3)) * 65 + 128), &r, &g,
+                    &b);
             break;
-        case 5:
-            {
-                if (!inset) {
-                    r = (int) (cos ((double) myabs (zre * zre)) * 128) + 128;
-                    g = (int) (cos ((double) myabs (zre * zim)) * 128) + 128;
-                    b = (int) (cos ((double) myabs (zim * zim + zre * zre)) * 128) + 128;
-                } else {
-                    r = (int) (cos ((double) myabs (zre * zre) * 10) * 128) + 128;
-                    g = (int) (cos ((double) myabs (zre * zim) * 10) * 128) + 128;
-                    b = (int) (cos ((double) myabs (zim * zim + zre * zre) * 10) * 128) + 128;
-                }
+        case 5: {
+            if (!inset) {
+                r = (int)(cos((double)myabs(zre * zre)) * 128) + 128;
+                g = (int)(cos((double)myabs(zre * zim)) * 128) + 128;
+                b = (int)(cos((double)myabs(zim * zim + zre * zre)) * 128) +
+                    128;
+            } else {
+                r = (int)(cos((double)myabs(zre * zre) * 10) * 128) + 128;
+                g = (int)(cos((double)myabs(zre * zim) * 10) * 128) + 128;
+                b = (int)(cos((double)myabs(zim * zim + zre * zre) * 10) *
+                          128) +
+                    128;
             }
-            break;
-        case 6:
-            {
-                if (!inset) {
-                    r = (int) (zre * zim * 64);
-                    g = (int) (zre * zre * 64);
-                    b = (int) (zim * zim * 64);
-                } else
-                    r = (int) (zre * zim * 256);
-                g = (int) (zre * zre * 256);
-                b = (int) (zim * zim * 256);
+        } break;
+        case 6: {
+            if (!inset) {
+                r = (int)(zre * zim * 64);
+                g = (int)(zre * zre * 64);
+                b = (int)(zim * zim * 64);
+            } else
+                r = (int)(zre * zim * 256);
+            g = (int)(zre * zre * 256);
+            b = (int)(zim * zim * 256);
+        } break;
+        case 7: {
+            if (!inset) {
+                r = (int)((zre * zre + zim * zim - pre * pre - pim * pim) * 16);
+                g = (int)((zre * zre * 2 - pre * pre - pim * pim) * 16);
+                b = (int)((zim * zim * 2 - pre * pre - pim * pim) * 16);
+            } else {
+                r = (int)((zre * zre + zim * zim - pre * pre - pim * pim) *
+                          256);
+                g = (int)((zre * zre * 2 - pre * pre - pim * pim) * 256);
+                b = (int)((zim * zim * 2 - pre * pre - pim * pim) * 256);
             }
-            break;
-        case 7:
-            {
-                if (!inset) {
-                    r = (int) ((zre * zre + zim * zim - pre * pre - pim * pim) * 16);
-                    g = (int) ((zre * zre * 2 - pre * pre - pim * pim) * 16);
-                    b = (int) ((zim * zim * 2 - pre * pre - pim * pim) * 16);
-                } else {
-                    r = (int) ((zre * zre + zim * zim - pre * pre - pim * pim) * 256);
-                    g = (int) ((zre * zre * 2 - pre * pre - pim * pim) * 256);
-                    b = (int) ((zim * zim * 2 - pre * pre - pim * pim) * 256);
-                }
+        } break;
+        case 8: {
+            if (!inset) {
+                r = (int)((myabs(zim * pim)) * 64);
+                g = (int)((myabs(zre * pre)) * 64);
+                b = (int)((myabs(zre * pim)) * 64);
+            } else {
+                r = (int)((myabs(zim * pim)) * 256);
+                g = (int)((myabs(zre * pre)) * 256);
+                b = (int)((myabs(zre * pim)) * 256);
             }
-            break;
-        case 8:
-            {
-                if (!inset) {
-                    r = (int) ((myabs (zim * pim)) * 64);
-                    g = (int) ((myabs (zre * pre)) * 64);
-                    b = (int) ((myabs (zre * pim)) * 64);
-                } else {
-                    r = (int) ((myabs (zim * pim)) * 256);
-                    g = (int) ((myabs (zre * pre)) * 256);
-                    b = (int) ((myabs (zre * pim)) * 256);
-                }
+        } break;
+        case 9: {
+            if (!inset) {
+                r = (int)((myabs(zre * zim - pre * pre - pim * pim)) * 64);
+                g = (int)((myabs(zre * zre - pre * pre - pim * pim)) * 64);
+                b = (int)((myabs(zim * zim - pre * pre - pim * pim)) * 64);
+            } else {
+                r = (int)((myabs(zre * zim - pre * pre - pim * pim)) * 256);
+                g = (int)((myabs(zre * zre - pre * pre - pim * pim)) * 256);
+                b = (int)((myabs(zim * zim - pre * pre - pim * pim)) * 256);
             }
-            break;
-        case 9:
-            {
-                if (!inset) {
-                    r = (int) ((myabs (zre * zim - pre * pre - pim * pim)) * 64);
-                    g = (int) ((myabs (zre * zre - pre * pre - pim * pim)) * 64);
-                    b = (int) ((myabs (zim * zim - pre * pre - pim * pim)) * 64);
-                } else {
-                    r = (int) ((myabs (zre * zim - pre * pre - pim * pim)) * 256);
-                    g = (int) ((myabs (zre * zre - pre * pre - pim * pim)) * 256);
-                    b = (int) ((myabs (zim * zim - pre * pre - pim * pim)) * 256);
-                }
-            }
-            break;
-        case 10:
-            {
-                r = (int) (atan2 ((double) zre, (double) zim) * 128 / M_PI) + 128;
-                g = (int) (atan2 ((double) zre, (double) zim) * 128 / M_PI) + 128;
-                b = (int) (atan2 ((double) zim, (double) zre) * 128 / M_PI) + 128;
-            }
-            break;
+        } break;
+        case 10: {
+            r = (int)(atan2((double)zre, (double)zim) * 128 / M_PI) + 128;
+            g = (int)(atan2((double)zre, (double)zim) * 128 / M_PI) + 128;
+            b = (int)(atan2((double)zim, (double)zre) * 128 / M_PI) + 128;
+        } break;
             // case 11 is for disabling truecolor mode
-        case 12:
-            {
-                b = 255;
-                g = 0;
-                r = 0;
-                w = 50;
-            }
-            break;
-        case 13:
-            {
-                r = 255;
-                g = 0;
-                b = 0;
-                w = 0;
-            }
-            break;
+        case 12: {
+            b = 255;
+            g = 0;
+            r = 0;
+            w = 50;
+        } break;
+        case 13: {
+            r = 255;
+            g = 0;
+            b = 0;
+            w = 0;
+        } break;
     }
 
     r += w;
@@ -397,23 +448,27 @@ truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim, int mo
 
     switch (cpalette.type) {
         case GRAYSCALE:
-            return ((unsigned int) (r * 76 + g * 151 + b * 29) * (cpalette.end - cpalette.start) >> 16) + cpalette.start;
+            return ((unsigned int)(r * 76 + g * 151 + b * 29) *
+                        (cpalette.end - cpalette.start) >>
+                    16) +
+                   cpalette.start;
         case TRUECOLOR:
         case TRUECOLOR24:
         case TRUECOLOR16:
             r >>= cpalette.info.truec.bprec;
             g >>= cpalette.info.truec.gprec;
             b >>= cpalette.info.truec.rprec;
-            return ((r << cpalette.info.truec.bshift) + (g << cpalette.info.truec.gshift) + (b << cpalette.info.truec.rshift) + cpalette.info.truec.alpha);
+            return ((r << cpalette.info.truec.bshift) +
+                    (g << cpalette.info.truec.gshift) +
+                    (b << cpalette.info.truec.rshift) +
+                    cpalette.info.truec.alpha);
     }
 
     return cpalette.pixels[inset];
 }
 
-static unsigned int
-color_output (number_t zre, number_t zim, unsigned int iter)
-      ;
-     static unsigned int  color_output (number_t zre, number_t zim, unsigned int iter)
+static unsigned int color_output(number_t zre, number_t zim, unsigned int iter);
+static unsigned int color_output(number_t zre, number_t zim, unsigned int iter)
 {
     int i;
     iter <<= SHIFT;
@@ -422,30 +477,30 @@ color_output (number_t zre, number_t zim, unsigned int iter)
     switch (cfractalc.coloringmode) {
         case 9:
             break;
-        case 1:                /* real */
-            i = (int) (iter + zre * SMUL);
+        case 1: /* real */
+            i = (int)(iter + zre * SMUL);
             break;
-        case 2:                /* imag */
-            i = (int) (iter + zim * SMUL);
+        case 2: /* imag */
+            i = (int)(iter + zim * SMUL);
             break;
-        case 3:                /* real / imag */
+        case 3: /* real / imag */
 #ifdef __TEST__
             if (zim != 0)
 #endif
-                i = (int) (iter + (zre / zim) * SMUL);
+                i = (int)(iter + (zre / zim) * SMUL);
             break;
-        case 4:                /* all of the above */
+        case 4: /* all of the above */
 #ifdef __TEST__
             if (zim != 0)
 #endif
-                i = (int) (iter + (zre + zim + zre / zim) * SMUL);
+                i = (int)(iter + (zre + zim + zre / zim) * SMUL);
             break;
         case 5:
             if (zim > 0)
                 i = ((cfractalc.maxiter << SHIFT) - iter);
             break;
         case 6:
-            if (myabs (zim) < 2.0 || myabs (zre) < 2.0)
+            if (myabs(zim) < 2.0 || myabs(zre) < 2.0)
                 i = ((cfractalc.maxiter << SHIFT) - iter);
             break;
         case 7:
@@ -455,20 +510,22 @@ color_output (number_t zre, number_t zim, unsigned int iter)
                 i = 0;
             else
 #endif
-                i = (int) (sqrt (log ((double) zre) / i) * 256 * 256);
+                i = (int)(sqrt(log((double)zre) / i) * 256 * 256);
             break;
         default:
         case 8:
-            i = (int) ((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75) * 20000);
+            i = (int)((atan2((double)zre, (double)zim) / (M_PI + M_PI) + 0.75) *
+                      20000);
             break;
     }
 
     if (i < 0) {
-        i = (((unsigned int) (cpalette.size - 1)) << 8) - ((-i) % (((unsigned int) (cpalette.size - 1) << 8))) - 1;
+        i = (((unsigned int)(cpalette.size - 1)) << 8) -
+            ((-i) % (((unsigned int)(cpalette.size - 1) << 8))) - 1;
         if (i < 0)
             i = 0;
     }
-    iter = ((unsigned int) i) % ((cpalette.size - 1) << 8);
+    iter = ((unsigned int)i) % ((cpalette.size - 1) << 8);
     if ((cpalette.type & (C256 | SMALLITER)) || !(iter & 255))
         return (cpalette.pixels[1 + (iter >> 8)]);
     {
@@ -476,87 +533,95 @@ color_output (number_t zre, number_t zim, unsigned int iter)
 
         i1 = cpalette.pixels[1 + (iter >> 8)];
 
-        if ((int) (iter >> 8) == cpalette.size - 2)
+        if ((int)(iter >> 8) == cpalette.size - 2)
             i2 = cpalette.pixels[1];
         else
             i2 = cpalette.pixels[2 + (iter >> 8)];
 
         iter &= 255;
-        return (interpoltype (cpalette, i2, i1, iter));
+        return (interpoltype(cpalette, i2, i1, iter));
     }
-
 }
 
-static unsigned int
-incolor_output (number_t zre, number_t zim, number_t pre, number_t pim, unsigned int iter)
-      ;
+static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
+                                   number_t pim, unsigned int iter);
 
-     static unsigned int incolor_output (number_t zre, number_t zim, number_t pre, number_t pim, unsigned int iter)
+static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
+                                   number_t pim, unsigned int iter)
 {
     int i = iter;
     switch (cfractalc.incoloringmode) {
-        case 1:                /* zmag */
-            i = (int) (((zre * zre + zim * zim) * (number_t) (cfractalc.maxiter >> 1) * SMUL + SMUL));
+        case 1: /* zmag */
+            i = (int)(((zre * zre + zim * zim) *
+                           (number_t)(cfractalc.maxiter >> 1) * SMUL +
+                       SMUL));
             break;
-        case 2:                /* real */
-            i = (int) (((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75) * 20000));
+        case 2: /* real */
+            i = (int)((
+                (atan2((double)zre, (double)zim) / (M_PI + M_PI) + 0.75) *
+                20000));
             break;
         default:
             break;
-        case 3:                /* real / imag */
-            i = (int) (100 + (zre / zim) * SMUL * 10);
+        case 3: /* real / imag */
+            i = (int)(100 + (zre / zim) * SMUL * 10);
             break;
         case 4:
-            zre = myabs (zre);
-            zim = myabs (zim);
-            pre = myabs (pre);
-            pre = myabs (pim);
-            i += (int) (myabs (pre - zre) * 256 * 64);
-            i += (int) (myabs (pim - zim) * 256 * 64);
+            zre = myabs(zre);
+            zim = myabs(zim);
+            pre = myabs(pre);
+            pre = myabs(pim);
+            i += (int)(myabs(pre - zre) * 256 * 64);
+            i += (int)(myabs(pim - zim) * 256 * 64);
             break;
         case 5:
-            if (((int) ((zre * zre + zim * zim) * 10)) % 2)
-                i = (int) (cos ((double) (zre * zim * pre * pim)) * 256 * 256);
+            if (((int)((zre * zre + zim * zim) * 10)) % 2)
+                i = (int)(cos((double)(zre * zim * pre * pim)) * 256 * 256);
             else
-                i = (int) (sin ((double) (zre * zim * pre * pim)) * 256 * 256);
+                i = (int)(sin((double)(zre * zim * pre * pim)) * 256 * 256);
             break;
         case 6:
-            i = (int) ((zre * zre + zim * zim) * cos ((double) (zre * zre)) * 256 * 256);
+            i = (int)((zre * zre + zim * zim) * cos((double)(zre * zre)) * 256 *
+                      256);
             break;
         case 7:
-            i = (int) (sin ((double) (zre * zre - zim * zim)) * 256 * 256);
+            i = (int)(sin((double)(zre * zre - zim * zim)) * 256 * 256);
             break;
         case 8:
-            i = (int) (atan ((double) (zre * zim * pre * pim)) * 256 * 64);
+            i = (int)(atan((double)(zre * zim * pre * pim)) * 256 * 64);
             break;
         case 9:
-            if ((abs ((int) (zre * 40)) % 2) ^ (abs ((int) (zim * 40)) % 2))
-                i = (int) (((atan2 ((double) zre, (double) zim) / (M_PI + M_PI) + 0.75) * 20000));
+            if ((abs((int)(zre * 40)) % 2) ^ (abs((int)(zim * 40)) % 2))
+                i = (int)((
+                    (atan2((double)zre, (double)zim) / (M_PI + M_PI) + 0.75) *
+                    20000));
             else
-                i = (int) (((atan2 ((double) zim, (double) zre) / (M_PI + M_PI) + 0.75) * 20000));
+                i = (int)((
+                    (atan2((double)zim, (double)zre) / (M_PI + M_PI) + 0.75) *
+                    20000));
             break;
     };
 
     if (i < 0) {
-        i = (((unsigned int) (cpalette.size - 1)) << 8) - ((-i) % (((unsigned int) (cpalette.size - 1) << 8))) - 1;
+        i = (((unsigned int)(cpalette.size - 1)) << 8) -
+            ((-i) % (((unsigned int)(cpalette.size - 1) << 8))) - 1;
         if (i < 0)
             i = 0;
     }
-    iter = ((unsigned int) i) % ((cpalette.size - 1) << 8);
+    iter = ((unsigned int)i) % ((cpalette.size - 1) << 8);
 
     if ((cpalette.type & (C256 | SMALLITER)) || !(iter & 255))
-        return (cpalette.pixels[1 + ((unsigned int) iter >> 8)]);
+        return (cpalette.pixels[1 + ((unsigned int)iter >> 8)]);
     {
         unsigned int i1, i2;
-        i1 = cpalette.pixels[1 + ((unsigned int) iter >> 8)];
-        if (((unsigned int) iter >> 8) == (unsigned int) (cpalette.size - 2))
+        i1 = cpalette.pixels[1 + ((unsigned int)iter >> 8)];
+        if (((unsigned int)iter >> 8) == (unsigned int)(cpalette.size - 2))
             i2 = cpalette.pixels[1];
         else
-            i2 = cpalette.pixels[2 + ((unsigned int) iter >> 8)];
+            i2 = cpalette.pixels[2 + ((unsigned int)iter >> 8)];
         iter &= 255;
-        return (interpoltype (cpalette, i2, i1, iter));
+        return (interpoltype(cpalette, i2, i1, iter));
     }
-
 }
 
 #define VARIABLES
@@ -564,11 +629,11 @@ incolor_output (number_t zre, number_t zim, number_t pre, number_t pim, unsigned
 #define UNCOMPRESS
 #define USEHACKS
 #define PRETEST 0
-#define FORMULA  \
-	    zim=(zim*zre)*2+pim; \
-	    zre = rp - ip + pre; \
-            ip=zim*zim; \
-            rp=zre*zre;
+#define FORMULA                                                                \
+    zim = (zim * zre) * 2 + pim;                                               \
+    zre = rp - ip + pre;                                                       \
+    ip = zim * zim;                                                            \
+    rp = zre * zre;
 #ifdef _NEVER_
 #ifdef __GNUC__
 #ifdef __i386__
@@ -578,54 +643,63 @@ incolor_output (number_t zre, number_t zim, number_t pre, number_t pim, unsigned
 
 /* GCC has ugly support for asm statements with fp input/output, so we use
  * memory.  */
-#define NSFORMULALOOP(iter) \
-{ int tmp; \
-asm( \
-"movl %%edx, %1\n\t" \
-"fldt	%9\n\t" \
-"fxch	%%st(2)\n\t" \
-"fldt	%8\n\t" \
-"fxch	%%st(2)\n\t" \
-"fld	%%st(0)\n\t" \
-".align 16\n\t" \
-"1:\n\t"  \
-"fld	%%st(0)\n\t" 		/* zre  zre  zim  pre pim */  \
-"fxch	%%st(2)\n\t" 		/* zim  zre  zre ... */  \
-"fmul	%%st(0),%%st(2)\n\t" 	/* zim  zre  zim*zre */  \
-"movl	%1,%%eax\n\t" \
-"fmul	%%st(0),%%st(0)\n\t" 	/* zim*zim  zre  zim*zre */  \
-"fxch	%%st(2)\n\t" 		/* zim*zre  zre  zim*zim */  \
-"fadd	%%st(0),%%st(0)\n\t" 	/* 2*zre*zim  zre  zim*zim */  \
-"fxch	%%st(1)\n\t" 		/* zre  2*zre*zim  zim*zim */  \
-"fmul	%%st(0),%%st(0)\n\t" 	/* zre*zre  2*zre*zim  zim*zim */  \
-"fxch	%%st(1)\n\t" 		/* 2*zre*zim  zre*zre  zim*zim */  \
-"fld	%%st(2)\n\t" 		/* zim*zim  2*zre*zim  zre*zre  zim*zim */  \
-"fsub	%%st(4),%%st(0)\n\t" 	/* zim*zim-pre  2*zre*zim  zre*zre  zim*zim */  \
-"fxch	%%st(3)\n\t" 		/* zim*zim  2*zre*zim  zre*zre  zim*zim-pre */  \
-"fadd	%%st(2),%%st(0)\n\t" 	/* zim*zim+zre*zre  2*zre*zim  zre*zre  zim*zim-pre */ \
-"fxch	%%st(1)\n\t" 		/* 2*zre*zim  zim*zim+zre*zre  zre*zre  zim*zim-pre    */  \
-"fadd	%%st(5),%%st(0)\n\t" 	/* 2*zre*zim*pim  zim*zim+zre*zre  zre*zre  zim*zim-pre*/ \
-"fxch	%%st(3)\n\t" 		/* zim*zim-pre  zim*zim+zre*zre  zre*zre  2*zre*zim+pim */ \
-"fsubp	%%st(0),%%st(2)\n\t" 	/* zim*zim+zre*zre  zre*zre-zim*zim+pre  2*zre*zim+pim  */  \
-"cmpl	%%edx,%%eax\n\t"  \
-"ja	2f\n\t" /* cond branch               */  \
-"fstps	%1\n\t" /* aa-bb+r 2ab+i r i         */  \
-"decl	%%ecx\n\t" /*                           */  \
-"jnz	1b\n\t" /*                           */  \
-"fld	%%st(0)\n\t"  \
-"2:\n\t"  \
-"fstp	%%st(0)\n\t"  \
-"fstp	%%st(2)\n\t"  \
-"fstp	%%st(2)\n\t"  \
-:"=c"(iter),"=m"(tmp),"=&t"(zim),"=&u"(zre) \
-:"d"(0x40800000),"0"(iter),"2"(zre),"3"(zim),"m"(pre),"m"(pim) \
-:"eax","st(2)","st(3)","st(4)","st(5)"); \
-}
+#define NSFORMULALOOP(iter)                                                    \
+    {                                                                          \
+        int tmp;                                                               \
+        asm("movl %%edx, %1\n\t"                                               \
+            "fldt	%9\n\t"                                                      \
+            "fxch	%%st(2)\n\t"                                                 \
+            "fldt	%8\n\t"                                                      \
+            "fxch	%%st(2)\n\t"                                                 \
+            "fld	%%st(0)\n\t"                                                  \
+            ".align 16\n\t"                                                    \
+            "1:\n\t"                                                           \
+            "fld	%%st(0)\n\t"         /* zre  zre  zim  pre pim */          \
+            "fxch	%%st(2)\n\t"         /* zim  zre  zre ... */               \
+            "fmul	%%st(0),%%st(2)\n\t" /* zim  zre  zim*zre */               \
+            "movl	%1,%%eax\n\t"                                                \
+            "fmul	%%st(0),%%st(0)\n\t" /* zim*zim  zre  zim*zre */           \
+            "fxch	%%st(2)\n\t"         /* zim*zre  zre  zim*zim */           \
+            "fadd	%%st(0),%%st(0)\n\t" /* 2*zre*zim  zre  zim*zim */         \
+            "fxch	%%st(1)\n\t"         /* zre  2*zre*zim  zim*zim */         \
+            "fmul	%%st(0),%%st(0)\n\t" /* zre*zre  2*zre*zim  zim*zim */     \
+            "fxch	%%st(1)\n\t"         /* 2*zre*zim  zre*zre  zim*zim */     \
+            "fld	%%st(2)\n\t" /* zim*zim  2*zre*zim  zre*zre  zim*zim */    \
+            "fsub	%%st(4),%%st(0)\n\t" /* zim*zim-pre  2*zre*zim  zre*zre    \
+                                            zim*zim */                         \
+            "fxch	%%st(3)\n\t" /* zim*zim  2*zre*zim  zre*zre  zim*zim-pre   \
+                                  */                                           \
+            "fadd	%%st(2),%%st(0)\n\t" /* zim*zim+zre*zre  2*zre*zim         \
+                                            zre*zre  zim*zim-pre */            \
+            "fxch	%%st(1)\n\t" /* 2*zre*zim  zim*zim+zre*zre  zre*zre        \
+                                    zim*zim-pre    */                          \
+            "fadd	%%st(5),%%st(0)\n\t" /* 2*zre*zim*pim  zim*zim+zre*zre     \
+                                            zre*zre  zim*zim-pre*/             \
+            "fxch	%%st(3)\n\t" /* zim*zim-pre  zim*zim+zre*zre  zre*zre      \
+                                    2*zre*zim+pim */                           \
+            "fsubp	%%st(0),%%st(2)\n\t" /* zim*zim+zre*zre                    \
+                                            zre*zre-zim*zim+pre  2*zre*zim+pim \
+                                          */                                   \
+            "cmpl	%%edx,%%eax\n\t"                                             \
+            "ja	2f\n\t"    /* cond branch               */                 \
+            "fstps	%1\n\t"    /* aa-bb+r 2ab+i r i         */                 \
+            "decl	%%ecx\n\t" /*                           */                 \
+            "jnz	1b\n\t"    /*                           */                 \
+            "fld	%%st(0)\n\t"                                                  \
+            "2:\n\t"                                                           \
+            "fstp	%%st(0)\n\t"                                                 \
+            "fstp	%%st(2)\n\t"                                                 \
+            "fstp	%%st(2)\n\t"                                                 \
+            : "=c"(iter), "=m"(tmp), "=&t"(zim), "=&u"(zre)                    \
+            : "d"(0x40800000), "0"(iter), "2"(zre), "3"(zim), "m"(pre),        \
+              "m"(pim)                                                         \
+            : "eax", "st(2)", "st(3)", "st(4)", "st(5)");                      \
+    }
 
-pacalc (long double zre, long double zim, long double pre, long double pim)
+pacalc(long double zre, long double zim, long double pre, long double pim)
 {
     int iter = 1000000;
-    NSFORMULALOOP (iter);
+    NSFORMULALOOP(iter);
     return iter;
 }
 #endif
@@ -647,7 +721,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
  *
  * Both basic operations and some other functions (c_mul, c_pow3, ...) can
  * be used. For a "detailed" description refer to ../include/complex.h.
- * 
+ *
  * If you add/modify fractals, please note that struct formula_formulas
  * (at line cca. 1300) should be also edited for proper initialization
  * and for menu entries. However it is not self-explanatory, just copy-paste
@@ -659,8 +733,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
  * -- Zoltan, 2009-07-30
  */
 
-
-#define BTEST less_than_4(rp+ip)
+#define BTEST less_than_4(rp + ip)
 #define SMOOTH
 #define SCALC smand_calc
 #define SPERI smand_peri
@@ -676,13 +749,13 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #endif
 #define USEHACKS
 #define PRETEST 0
-#define FORMULA \
-	rp = zre * (rp - 3 * ip); \
-	zim = zim * (3 * zre * zre - ip) + pim; \
-	zre = rp + pre; \
-	rp = zre * zre; \
-	ip = zim * zim;
-#define BTEST less_than_4(rp+ip)
+#define FORMULA                                                                \
+    rp = zre * (rp - 3 * ip);                                                  \
+    zim = zim * (3 * zre * zre - ip) + pim;                                    \
+    zre = rp + pre;                                                            \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
+#define BTEST less_than_4(rp + ip)
 #define SMOOTH
 #define SCALC smand3_calc
 #define SPERI smand3_peri
@@ -693,82 +766,91 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.h"
 
-
 #define UNCOMPRESS
-#define VARIABLES number_t br,tmp;
-#define FORMULA \
-	br = zre + zre + pre - 2; \
-	tmp = zre * zim; \
-	zre = rp - ip + pre - 1; \
-	ip = zim + zim + pim; \
-	zim = tmp + tmp + pim; \
-	tmp = 1 / (br * br + ip * ip); \
-	rp = (zre * br + zim * ip) * tmp; \
-	ip = (zim * br - zre * ip) * tmp; \
-	zre = (rp + ip) * (rp - ip); \
-	zim = rp * ip; \
-	zim += zim; \
-	rp = zre - 1; \
-	ip = zim * zim; \
-	rp = zre * zre;
-#define BTEST (rp+ip<(number_t)100*100&&(rp-2*zre+ip)>0.04/cfractalc.bailout-1)
-#define POSTCALC \
-	if(rp-2*zre+ip>0.04/cfractalc.bailout-1){ \
-		zre *= 0.08/cfractalc.bailout, zim *= 0.08/cfractalc.bailout; \
-		if(iter) \
-			iter = cfractalc.maxiter - iter + 1; \
-	}
+#define VARIABLES number_t br, tmp;
+#define FORMULA                                                                \
+    br = zre + zre + pre - 2;                                                  \
+    tmp = zre * zim;                                                           \
+    zre = rp - ip + pre - 1;                                                   \
+    ip = zim + zim + pim;                                                      \
+    zim = tmp + tmp + pim;                                                     \
+    tmp = 1 / (br * br + ip * ip);                                             \
+    rp = (zre * br + zim * ip) * tmp;                                          \
+    ip = (zim * br - zre * ip) * tmp;                                          \
+    zre = (rp + ip) * (rp - ip);                                               \
+    zim = rp * ip;                                                             \
+    zim += zim;                                                                \
+    rp = zre - 1;                                                              \
+    ip = zim * zim;                                                            \
+    rp = zre * zre;
+#define BTEST                                                                  \
+    (rp + ip < (number_t)100 * 100 &&                                          \
+     (rp - 2 * zre + ip) > 0.04 / cfractalc.bailout - 1)
+#define POSTCALC                                                               \
+    if (rp - 2 * zre + ip > 0.04 / cfractalc.bailout - 1) {                    \
+        zre *= 0.08 / cfractalc.bailout, zim *= 0.08 / cfractalc.bailout;      \
+        if (iter)                                                              \
+            iter = cfractalc.maxiter - iter + 1;                               \
+    }
 #define CALC magnet_calc
 #define PERI magnet_peri
 #define SCALC smagnet_calc
 #define SPERI smagnet_peri
 #define SMOOTH
-#define PRESMOOTH szmag/=100*100/4;zre=(rp+ip)/(100*100*4);
+#define PRESMOOTH                                                              \
+    szmag /= 100 * 100 / 4;                                                    \
+    zre = (rp + ip) / (100 * 100 * 4);
 #define JULIA magnet_julia
 #define RANGE 4
 #define RPIP
 #include "docalc.h"
 
 #define UNCOMPRESS
-#define VARIABLES number_t inre,inim,tmp1,tmp2,dnre,nmre,dnim;
-#define INIT \
-	inre = pre*pre - pim*pim - pre - pre - pre; \
-	inim = pre*pim; \
-	inim = inim + inim - pim - pim - pim;
-#define FORMULA \
-	tmp1 = rp - ip; \
-	tmp2 = zre*pre - zim*pim - zre; \
-	dnre = tmp1 + tmp1 + tmp1 + tmp2 + tmp2 + tmp2 - zre - zre - zre + inre + 3; \
-	tmp1 = zre*ip;\
-	nmre = zre*rp - tmp1 - tmp1 - tmp1 + tmp2 + tmp2 + tmp2 + inre + 2; \
-	tmp1 = zre*zim; \
-	tmp2 = zre*pim + zim*pre - zim; \
-	dnim = tmp1 + tmp1 + tmp1 + tmp1 + tmp1 + tmp1 + tmp2 + tmp2 + tmp2 - zim - zim - zim + inim; \
-	tmp1 = zim*rp; \
-	zim = tmp1 + tmp1 + tmp1 - zim*ip + tmp2 + tmp2 + tmp2 + inim; \
-	zre = nmre; \
-	ip = dnim; \
-	tmp1 = 1 / (dnre * dnre + ip * ip); \
-	rp = (zre * dnre + zim * ip) * tmp1; \
-	ip = (zim * dnre - zre * ip) * tmp1; \
-	zre = (rp + ip) * (rp - ip); \
-	zim = rp * ip; \
-	zim += zim; \
-	ip = zim * zim; \
-	rp = zre * zre;
-#define BTEST (rp+ip<(number_t)100*100&&(rp-2*zre+ip)>0.04/cfractalc.bailout-1)
-#define POSTCALC \
-	if(rp-2*zre+ip>0.04/cfractalc.bailout-1){ \
-		zre *= 0.08/cfractalc.bailout, zim *= 0.08/cfractalc.bailout; \
-		if(iter) \
-			iter = cfractalc.maxiter - iter + 1; \
-	}
+#define VARIABLES number_t inre, inim, tmp1, tmp2, dnre, nmre, dnim;
+#define INIT                                                                   \
+    inre = pre * pre - pim * pim - pre - pre - pre;                            \
+    inim = pre * pim;                                                          \
+    inim = inim + inim - pim - pim - pim;
+#define FORMULA                                                                \
+    tmp1 = rp - ip;                                                            \
+    tmp2 = zre * pre - zim * pim - zre;                                        \
+    dnre =                                                                     \
+        tmp1 + tmp1 + tmp1 + tmp2 + tmp2 + tmp2 - zre - zre - zre + inre + 3;  \
+    tmp1 = zre * ip;                                                           \
+    nmre = zre * rp - tmp1 - tmp1 - tmp1 + tmp2 + tmp2 + tmp2 + inre + 2;      \
+    tmp1 = zre * zim;                                                          \
+    tmp2 = zre * pim + zim * pre - zim;                                        \
+    dnim = tmp1 + tmp1 + tmp1 + tmp1 + tmp1 + tmp1 + tmp2 + tmp2 + tmp2 -      \
+           zim - zim - zim + inim;                                             \
+    tmp1 = zim * rp;                                                           \
+    zim = tmp1 + tmp1 + tmp1 - zim * ip + tmp2 + tmp2 + tmp2 + inim;           \
+    zre = nmre;                                                                \
+    ip = dnim;                                                                 \
+    tmp1 = 1 / (dnre * dnre + ip * ip);                                        \
+    rp = (zre * dnre + zim * ip) * tmp1;                                       \
+    ip = (zim * dnre - zre * ip) * tmp1;                                       \
+    zre = (rp + ip) * (rp - ip);                                               \
+    zim = rp * ip;                                                             \
+    zim += zim;                                                                \
+    ip = zim * zim;                                                            \
+    rp = zre * zre;
+#define BTEST                                                                  \
+    (rp + ip < (number_t)100 * 100 &&                                          \
+     (rp - 2 * zre + ip) > 0.04 / cfractalc.bailout - 1)
+#define POSTCALC                                                               \
+    if (rp - 2 * zre + ip > 0.04 / cfractalc.bailout - 1) {                    \
+        zre *= 0.08 / cfractalc.bailout, zim *= 0.08 / cfractalc.bailout;      \
+        if (iter)                                                              \
+            iter = cfractalc.maxiter - iter + 1;                               \
+    }
 #define CALC magnet2_calc
 #define PERI magnet2_peri
 #define SCALC smagnet2_calc
 #define SPERI smagnet2_peri
 #define SMOOTH
-#define PRESMOOTH szmag/=100*100/4;zre=(rp+ip)/(100*100*4);
+#define PRESMOOTH                                                              \
+    szmag /= 100 * 100 / 4;                                                    \
+    zre = (rp + ip) / (100 * 100 * 4);
 #define JULIA magnet2_julia
 #define RANGE 2
 #define RPIP
@@ -777,13 +859,13 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #ifdef __i386__
 #define UNCOMPRESS
 #endif
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	rp = rp * rp - 6 * rp * ip + ip * ip + pre; \
-	zim = 4 * zre * zre * zre * zim - 4 * zre * ip * zim + pim; \
-	zre = rp; \
-	rp = zre * zre; \
-	ip = zim * zim;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    rp = rp * rp - 6 * rp * ip + ip * ip + pre;                                \
+    zim = 4 * zre * zre * zre * zim - 4 * zre * ip * zim + pim;                \
+    zre = rp;                                                                  \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define SMOOTH
 #define SCALC smand4_calc
 #define SPERI smand4_peri
@@ -795,14 +877,14 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #include "docalc.h"
 
 #define VARIABLES register number_t t;
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	c_pow4(zre, zim, rp, ip); \
-	c_mul(zre, zim, rp, ip, t, zim); \
-	zre = t + pre; \
-	zim += pim; \
-	rp = zre * zre; \
-	ip = zim * zim;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    c_pow4(zre, zim, rp, ip);                                                  \
+    c_mul(zre, zim, rp, ip, t, zim);                                           \
+    zre = t + pre;                                                             \
+    zim += pim;                                                                \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define SMOOTH
 #define SCALC smand5_calc
 #define SPERI smand5_peri
@@ -813,16 +895,15 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.h"
 
-
 #define VARIABLES register number_t t;
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	c_pow3(zre, zim, rp, ip); \
-	c_mul(rp, ip, rp, ip, t, zim); \
-	zre = t + pre; \
-	zim += pim; \
-	rp = zre * zre; \
-	ip = zim * zim;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    c_pow3(zre, zim, rp, ip);                                                  \
+    c_mul(rp, ip, rp, ip, t, zim);                                             \
+    zre = t + pre;                                                             \
+    zim += pim;                                                                \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define SMOOTH
 #define SCALC smand6_calc
 #define SPERI smand6_peri
@@ -833,16 +914,15 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.h"
 
-
 #define VARIABLES register number_t t;
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	c_pow3(zre, zim, rp, ip); \
-	c_pow3(rp, ip, t, zim); \
-	zre = t + pre; \
-	zim += pim; \
-	rp = zre * zre; \
-	ip = zim * zim;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    c_pow3(zre, zim, rp, ip);                                                  \
+    c_pow3(rp, ip, t, zim);                                                    \
+    zre = t + pre;                                                             \
+    zim += pim;                                                                \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define SMOOTH
 #define SCALC smand9_calc
 #define SPERI smand9_peri
@@ -854,12 +934,12 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #include "docalc.h"
 
 #define VARIABLES
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	zim=zre*zim+zim/2+pim; \
-	zre=(rp-ip+zre)/2+pre; \
-	rp=zre*zre; \
-	ip=zim*zim;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    zim = zre * zim + zim / 2 + pim;                                           \
+    zre = (rp - ip + zre) / 2 + pre;                                           \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define SMOOTH
 #define SCALC strice_calc
 #define SPERI strice_peri
@@ -869,24 +949,24 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t zor,zoi;
+#define VARIABLES register number_t zor, zoi;
 /* 2009-08-01 JB Langston
  * On Mac OS X, for some reason Cat's Eye renders as an empty circle unless
  * the bailout is slightly more than 4.  This doesn't appear to happen on any
  * other operating systems, and it's not processor specific.  It's probably
  * a compiler bug, but I haven't been able to figure out exactly what's
- * happening.  I can work around it by subtracting LDBL_MIN from the amount 
+ * happening.  I can work around it by subtracting LDBL_MIN from the amount
  * before performing the bailout test.
  */
 // #define LDBL_MIN 0.00000001
-#define BTEST less_than_4(rp+ip-LDBL_MIN)
-#define FORMULA \
-	c_div(pre,pim,zre,zim,rp,ip); \
-	c_div(zre,zim,pre,pim,zor,zoi); \
-	zre=zor+rp; \
-	zim=zoi+ip; \
-	rp=zre*zre; \
-	ip=zim*zim;
+#define BTEST less_than_4(rp + ip - LDBL_MIN)
+#define FORMULA                                                                \
+    c_div(pre, pim, zre, zim, rp, ip);                                         \
+    c_div(zre, zim, pre, pim, zor, zoi);                                       \
+    zre = zor + rp;                                                            \
+    zim = zoi + ip;                                                            \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define SMOOTH
 #define SCALC scatseye_calc
 #define SPERI scatseye_peri
@@ -897,12 +977,12 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #include "docalc.h"
 
 #define VARIABLES
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	    zim=(zim*zre)*(-2.0)+pim; \
-	    zre=rp-ip+pre; \
-            ip=zim*zim; \
-            rp=zre*zre;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    zim = (zim * zre) * (-2.0) + pim;                                          \
+    zre = rp - ip + pre;                                                       \
+    ip = zim * zim;                                                            \
+    rp = zre * zre;
 #define SMOOTH
 #define SCALC smbar_calc
 #define SPERI smbar_peri
@@ -914,16 +994,20 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #include "docalc.h"
 
 #define VARIABLES
-#define INIT \
-	rp=zre;zre=pre;pre=rp; \
-        ip=zim;zim=pim;pim=ip;
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	rp=ip-rp+zre; \
-	ip=zim-2*zre*zim; \
-	c_mul(rp,ip,pre,pim,zre,zim); \
-	rp=zre*zre; \
-	ip=zim*zim;
+#define INIT                                                                   \
+    rp = zre;                                                                  \
+    zre = pre;                                                                 \
+    pre = rp;                                                                  \
+    ip = zim;                                                                  \
+    zim = pim;                                                                 \
+    pim = ip;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    rp = ip - rp + zre;                                                        \
+    ip = zim - 2 * zre * zim;                                                  \
+    c_mul(rp, ip, pre, pim, zre, zim);                                         \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define SMOOTH
 #define SCALC smlambda_calc
 #define SPERI smlambda_peri
@@ -933,17 +1017,20 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t zre1,zim1,zre2,zim2;
-#define INIT zre1=zre;zim1=zim;
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	zre2=zre;zim2=zim; \
-	zim=(zim*zre)*2+pim+zim1; \
-	zre=rp-ip+pre+zre1; \
-	zre1=zre2; \
-	zim1=zim2; \
-	ip=zim*zim; \
-	rp=zre*zre;
+#define VARIABLES register number_t zre1, zim1, zre2, zim2;
+#define INIT                                                                   \
+    zre1 = zre;                                                                \
+    zim1 = zim;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    zre2 = zre;                                                                \
+    zim2 = zim;                                                                \
+    zim = (zim * zre) * 2 + pim + zim1;                                        \
+    zre = rp - ip + pre + zre1;                                                \
+    zre1 = zre2;                                                               \
+    zim1 = zim2;                                                               \
+    ip = zim * zim;                                                            \
+    rp = zre * zre;
 #define SMOOTH
 #define SCALC smanowar_calc
 #define CALC manowar_calc
@@ -951,16 +1038,18 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t zre1,zim1;
-#define INIT zre1=pre;zim1=pim;
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	zim=(zim*zre)*2+zim1; \
-	zre=rp-ip+zre1; \
-	zre1=zre1/2+zre; \
-	zim1=zim1/2+zim; \
-	ip=zim*zim; \
-	rp=zre*zre;
+#define VARIABLES register number_t zre1, zim1;
+#define INIT                                                                   \
+    zre1 = pre;                                                                \
+    zim1 = pim;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    zim = (zim * zre) * 2 + zim1;                                              \
+    zre = rp - ip + zre1;                                                      \
+    zre1 = zre1 / 2 + zre;                                                     \
+    zim1 = zim1 / 2 + zim;                                                     \
+    ip = zim * zim;                                                            \
+    rp = zre * zre;
 #define SMOOTH
 #define SCALC sspider_calc
 #define CALC spider_calc
@@ -969,30 +1058,54 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #include "docalc.h"
 
 #define VARIABLES
-#define INIT \
-	if((zre==pre)&&(zim==pim)){pre=0.5;pim=0.8660254;} \
-	if(pim<0)pim=(-pim); \
-	if(((pim*zre-pre*zim)<0)||(zim<0)){zre=2*pre+2;zim=2*pim;}
-#define BTEST ((pim*zre+(1-pre)*zim)<pim)
-#define FORMULA \
-	zre=2*zre;zim=2*zim; \
-	if((pim*zre-pre*zim)>pim)zre=zre-1; \
-	if(zim>pim){zim=zim-pim;zre=zre-pre;}
+#define INIT                                                                   \
+    if ((zre == pre) && (zim == pim)) {                                        \
+        pre = 0.5;                                                             \
+        pim = 0.8660254;                                                       \
+    }                                                                          \
+    if (pim < 0)                                                               \
+        pim = (-pim);                                                          \
+    if (((pim * zre - pre * zim) < 0) || (zim < 0)) {                          \
+        zre = 2 * pre + 2;                                                     \
+        zim = 2 * pim;                                                         \
+    }
+#define BTEST ((pim * zre + (1 - pre) * zim) < pim)
+#define FORMULA                                                                \
+    zre = 2 * zre;                                                             \
+    zim = 2 * zim;                                                             \
+    if ((pim * zre - pre * zim) > pim)                                         \
+        zre = zre - 1;                                                         \
+    if (zim > pim) {                                                           \
+        zim = zim - pim;                                                       \
+        zre = zre - pre;                                                       \
+    }
 #define CALC sier_calc
 #define RANGE 2
 #define RPIP
 #include "docalc.h"
 
 #define VARIABLES
-#define INIT \
-	if((zre==pre)&&(zim==pim)){pre=0.5;pim=0.8660254;} \
-	if(pim<0)pim=(-pim); \
-	if(((pim*zre-pre*zim)<0)||(zim<0)){zre=2*pre+2;zim=2*pim;}
-#define BTEST ((pim*zre+(1-pre)*zim)<pim)
-#define FORMULA \
-	zre=1.6180339*zre;zim=1.6180339*zim; \
-	if((pim*zre-pre*zim)>pim*0.6180339)zre=zre-0.6180339; \
-	if(zim>pim*0.6180339){zim=zim-pim*0.6180339;zre=zre-pre*0.6180339;}
+#define INIT                                                                   \
+    if ((zre == pre) && (zim == pim)) {                                        \
+        pre = 0.5;                                                             \
+        pim = 0.8660254;                                                       \
+    }                                                                          \
+    if (pim < 0)                                                               \
+        pim = (-pim);                                                          \
+    if (((pim * zre - pre * zim) < 0) || (zim < 0)) {                          \
+        zre = 2 * pre + 2;                                                     \
+        zim = 2 * pim;                                                         \
+    }
+#define BTEST ((pim * zre + (1 - pre) * zim) < pim)
+#define FORMULA                                                                \
+    zre = 1.6180339 * zre;                                                     \
+    zim = 1.6180339 * zim;                                                     \
+    if ((pim * zre - pre * zim) > pim * 0.6180339)                             \
+        zre = zre - 0.6180339;                                                 \
+    if (zim > pim * 0.6180339) {                                               \
+        zim = zim - pim * 0.6180339;                                           \
+        zre = zre - pre * 0.6180339;                                           \
+    }
 #define CALC goldsier_calc
 #define RANGE 2
 #define RPIP
@@ -1000,15 +1113,30 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 
 #define VARIABLES
 #define INIT
-#define BTEST (zre*zre+zim*zim<1)
-#define FORMULA \
-	zre=3*zre;zim=3*zim; \
-	if((zim-2)*(zim-2)+zre*zre<1)zim=zim-2; \
-	if((zim+2)*(zim+2)+zre*zre<1)zim=zim+2; \
-	if((zim-1)*(zim-1)+(zre-1.7320508)*(zre-1.7320508)<1){zim=zim-1;zre=zre-1.7320508;} \
-	if((zim+1)*(zim+1)+(zre-1.7320508)*(zre-1.7320508)<1){zim=zim+1;zre=zre-1.7320508;} \
-	if((zim-1)*(zim-1)+(zre+1.7320508)*(zre+1.7320508)<1){zim=zim-1;zre=zre+1.7320508;} \
-	if((zim+1)*(zim+1)+(zre+1.7320508)*(zre+1.7320508)<1){zim=zim+1;zre=zre+1.7320508;}
+#define BTEST (zre * zre + zim * zim < 1)
+#define FORMULA                                                                \
+    zre = 3 * zre;                                                             \
+    zim = 3 * zim;                                                             \
+    if ((zim - 2) * (zim - 2) + zre * zre < 1)                                 \
+        zim = zim - 2;                                                         \
+    if ((zim + 2) * (zim + 2) + zre * zre < 1)                                 \
+        zim = zim + 2;                                                         \
+    if ((zim - 1) * (zim - 1) + (zre - 1.7320508) * (zre - 1.7320508) < 1) {   \
+        zim = zim - 1;                                                         \
+        zre = zre - 1.7320508;                                                 \
+    }                                                                          \
+    if ((zim + 1) * (zim + 1) + (zre - 1.7320508) * (zre - 1.7320508) < 1) {   \
+        zim = zim + 1;                                                         \
+        zre = zre - 1.7320508;                                                 \
+    }                                                                          \
+    if ((zim - 1) * (zim - 1) + (zre + 1.7320508) * (zre + 1.7320508) < 1) {   \
+        zim = zim - 1;                                                         \
+        zre = zre + 1.7320508;                                                 \
+    }                                                                          \
+    if ((zim + 1) * (zim + 1) + (zre + 1.7320508) * (zre + 1.7320508) < 1) {   \
+        zim = zim + 1;                                                         \
+        zre = zre + 1.7320508;                                                 \
+    }
 #define CALC circle7_calc
 #define RANGE 2
 #define RPIP
@@ -1016,21 +1144,21 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 
 #define VARIABLES
 #define INIT
-#define BTEST less_than_4((rp+ip)/4.0)
-#define FORMULA \
-	if (less_than_0 (zre)) { \
-	    rp = zre + 1; \
-	} else { \
-	    rp = zre - 1; \
-	} \
-	if (less_than_0 (zim)) { \
-	    ip = zim + 1; \
-	} else { \
-	    ip = zim - 1; \
-	} \
-	c_mul(rp, ip, pre, pim, zre, zim); \
-	rp = zre * zre; \
-	ip = zim * zim;
+#define BTEST less_than_4((rp + ip) / 4.0)
+#define FORMULA                                                                \
+    if (less_than_0(zre)) {                                                    \
+        rp = zre + 1;                                                          \
+    } else {                                                                   \
+        rp = zre - 1;                                                          \
+    }                                                                          \
+    if (less_than_0(zim)) {                                                    \
+        ip = zim + 1;                                                          \
+    } else {                                                                   \
+        ip = zim - 1;                                                          \
+    }                                                                          \
+    c_mul(rp, ip, pre, pim, zre, zim);                                         \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define CALC symbarn_calc
 #define JULIA symbarn_julia
 #define RANGE 2
@@ -1038,78 +1166,110 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #include "docalc.h"
 
 #define VARIABLES
-#define INIT \
-	if((zre==pre)&&(zim==pim)){pre=1;pim=1;} \
-	if(pre<0)pre=(-pre);if(pim<0)pim=(-pim); \
-	if((zre<0)||(zre>pre)){zre=pre/2;zim=pim/2;} \
-	if((zim<0)||(zim>pim)){zre=pre/2;zim=pim/2;}
-#define BTEST \
-	((zre<pre/3)||(zre>2*pre/3)|| \
-	(zim<pim/3)||(zim>2*pim/3))
-#define FORMULA \
-	zre=3*zre;zim=3*zim; \
-	if(zre>2*pre)zre=zre-2*pre;else if(zre>pre)zre=zre-pre; \
-	if(zim>2*pim)zim=zim-2*pim;else if(zim>pim)zim=zim-pim;
+#define INIT                                                                   \
+    if ((zre == pre) && (zim == pim)) {                                        \
+        pre = 1;                                                               \
+        pim = 1;                                                               \
+    }                                                                          \
+    if (pre < 0)                                                               \
+        pre = (-pre);                                                          \
+    if (pim < 0)                                                               \
+        pim = (-pim);                                                          \
+    if ((zre < 0) || (zre > pre)) {                                            \
+        zre = pre / 2;                                                         \
+        zim = pim / 2;                                                         \
+    }                                                                          \
+    if ((zim < 0) || (zim > pim)) {                                            \
+        zre = pre / 2;                                                         \
+        zim = pim / 2;                                                         \
+    }
+#define BTEST                                                                  \
+    ((zre < pre / 3) || (zre > 2 * pre / 3) || (zim < pim / 3) ||              \
+     (zim > 2 * pim / 3))
+#define FORMULA                                                                \
+    zre = 3 * zre;                                                             \
+    zim = 3 * zim;                                                             \
+    if (zre > 2 * pre)                                                         \
+        zre = zre - 2 * pre;                                                   \
+    else if (zre > pre)                                                        \
+        zre = zre - pre;                                                       \
+    if (zim > 2 * pim)                                                         \
+        zim = zim - 2 * pim;                                                   \
+    else if (zim > pim)                                                        \
+        zim = zim - pim;
 #define CALC carpet_calc
 #define RANGE 2
 #define RPIP
 #include "docalc.h"
 
-
 #define VARIABLES
-#define BTEST \
-	((((1.5*zre+0.8660254038*zim)>0.8660254038)|| \
-	((0.8660254038*zim-1.5*zre)>0.8660254038)|| \
-	(zim<(-0.5)))&& \
-	(((1.5*zre+0.8660254038*zim)<-0.8660254038)|| \
-	((0.8660254038*zim-1.5*zre)<-0.8660254038)|| \
-	(zim>0.5)))
-#define FORMULA \
-	zre=3*zre;zim=3*zim; \
-	if((0.2886751346*zim-0.5*zre)>0.0){ \
-		if((0.2886751346*zim+0.5*zre)>0.0){ \
-			zim=zim-2.0;\
-		}else{ \
-			if(zim>0){zre=zre+1.732050808;zim=zim-1.0;} \
-	    		else{zre=zre+1.732050808;zim=zim+1.0;} \
-	    } \
-	}else{ \
-		if((0.2886751346*zim+0.5*zre)<0.0){ \
-			zim=zim+2.0;\
-		}else{ \
-			if(zim>0){zre=zre-1.732050808;zim=zim-1.0;} \
-			else{zre=zre-1.732050808;zim=zim+1.0;} \
-		} \
-	}
+#define BTEST                                                                  \
+    ((((1.5 * zre + 0.8660254038 * zim) > 0.8660254038) ||                     \
+      ((0.8660254038 * zim - 1.5 * zre) > 0.8660254038) || (zim < (-0.5))) &&  \
+     (((1.5 * zre + 0.8660254038 * zim) < -0.8660254038) ||                    \
+      ((0.8660254038 * zim - 1.5 * zre) < -0.8660254038) || (zim > 0.5)))
+#define FORMULA                                                                \
+    zre = 3 * zre;                                                             \
+    zim = 3 * zim;                                                             \
+    if ((0.2886751346 * zim - 0.5 * zre) > 0.0) {                              \
+        if ((0.2886751346 * zim + 0.5 * zre) > 0.0) {                          \
+            zim = zim - 2.0;                                                   \
+        } else {                                                               \
+            if (zim > 0) {                                                     \
+                zre = zre + 1.732050808;                                       \
+                zim = zim - 1.0;                                               \
+            } else {                                                           \
+                zre = zre + 1.732050808;                                       \
+                zim = zim + 1.0;                                               \
+            }                                                                  \
+        }                                                                      \
+    } else {                                                                   \
+        if ((0.2886751346 * zim + 0.5 * zre) < 0.0) {                          \
+            zim = zim + 2.0;                                                   \
+        } else {                                                               \
+            if (zim > 0) {                                                     \
+                zre = zre - 1.732050808;                                       \
+                zim = zim - 1.0;                                               \
+            } else {                                                           \
+                zre = zre - 1.732050808;                                       \
+                zim = zim + 1.0;                                               \
+            }                                                                  \
+        }                                                                      \
+    }
 #define CALC koch_calc
 #define RANGE 2
 #define RPIP
 #include "docalc.h"
 
 #define VARIABLES register number_t zre1, zim1;
-#define INIT pim=fabs(pim); zre=pre; zim=pim;
-#define BTEST \
-	(!((zre<0)&&(zim>0)&&(-1.0*zre+1.732050808*zim<1.732050808)))
-#define FORMULA \
-	zre1=1.5*zre-0.866+0.866*zim; \
-	zim1=-1.5+1.5*zim-0.866*zre; \
-	zre=zre1; zim=zim1;
+#define INIT                                                                   \
+    pim = fabs(pim);                                                           \
+    zre = pre;                                                                 \
+    zim = pim;
+#define BTEST                                                                  \
+    (!((zre < 0) && (zim > 0) &&                                               \
+       (-1.0 * zre + 1.732050808 * zim < 1.732050808)))
+#define FORMULA                                                                \
+    zre1 = 1.5 * zre - 0.866 + 0.866 * zim;                                    \
+    zim1 = -1.5 + 1.5 * zim - 0.866 * zre;                                     \
+    zre = zre1;                                                                \
+    zim = zim1;
 #define CALC hornflake_calc
 #define RANGE 2
 #define RPIP
 #include "docalc.h"
 
 #define VARIABLES
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	if (less_than_0 (zre)) { \
-	    rp = zre + 1; \
-	} else { \
-	    rp = zre - 1; \
-	} \
-	c_mul(rp, zim, pre, pim, zre, zim); \
-	rp = zre * zre; \
-	ip = zim * zim;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    if (less_than_0(zre)) {                                                    \
+        rp = zre + 1;                                                          \
+    } else {                                                                   \
+        rp = zre - 1;                                                          \
+    }                                                                          \
+    c_mul(rp, zim, pre, pim, zre, zim);                                        \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define SMOOTH
 #define SCALC sbarnsley1_calc
 #define CALC barnsley1_calc
@@ -1118,18 +1278,17 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.h"
 
-
 #define VARIABLES
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	if (less_than_0 (zre*pim + zim*pre)) { \
-	    rp = zre + 1; \
-	} else { \
-	    rp = zre - 1; \
-	} \
-	c_mul(rp, zim, pre, pim, zre, zim); \
-	rp = zre * zre; \
-	ip = zim * zim;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    if (less_than_0(zre * pim + zim * pre)) {                                  \
+        rp = zre + 1;                                                          \
+    } else {                                                                   \
+        rp = zre - 1;                                                          \
+    }                                                                          \
+    c_mul(rp, zim, pre, pim, zre, zim);                                        \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define SMOOTH
 #define SCALC sbarnsley2_calc
 #define CALC barnsley2_calc
@@ -1139,17 +1298,17 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #include "docalc.h"
 
 #define VARIABLES
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	if (!less_than_0 (-zre)) { \
-		zim = 2*zre*zim + pim*zre; \
-		zre = rp - ip - 1 + pre*zre; \
-	} else { \
-		zim = 2*zre*zim; \
-		zre = rp - ip - 1; \
-	} \
-	rp = zre * zre; \
-	ip = zim * zim;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    if (!less_than_0(-zre)) {                                                  \
+        zim = 2 * zre * zim + pim * zre;                                       \
+        zre = rp - ip - 1 + pre * zre;                                         \
+    } else {                                                                   \
+        zim = 2 * zre * zim;                                                   \
+        zre = rp - ip - 1;                                                     \
+    }                                                                          \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define SMOOTH
 #define SCALC sbarnsley3_calc
 #define CALC barnsley3_calc
@@ -1158,59 +1317,60 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.h"
 
-
-#define VARIABLES register number_t n,sqrr,sqri,zre1,zim1;
-#define INIT sqri=zim*zim,n=zre,zre=pre,pre=n,n=zim,zim=pim,pim=n,n=(number_t)1;
+#define VARIABLES register number_t n, sqrr, sqri, zre1, zim1;
+#define INIT                                                                   \
+    sqri = zim * zim, n = zre, zre = pre, pre = n, n = zim, zim = pim,         \
+    pim = n, n = (number_t)1;
 #define BTEST greater_then_1Em6(n)
-#define FORMULA \
-	zre1 = zre; \
-	zim1 = zim; \
-	n = zim * zim; \
-	sqri = zre * zre; \
-	sqrr = sqri - n; \
-	sqri = n + sqri; \
-	n = 0.3333333333 / ((sqri * sqri)); \
-	zim = (0.66666666) * zim - (zre + zre) * zim * n + pim; \
-	zre = (0.66666666) * zre + (sqrr) * n + pre; \
-	zre1 -= zre; \
-	zim1 -= zim; \
-	n = zre1 * zre1 + zim1 * zim1;
+#define FORMULA                                                                \
+    zre1 = zre;                                                                \
+    zim1 = zim;                                                                \
+    n = zim * zim;                                                             \
+    sqri = zre * zre;                                                          \
+    sqrr = sqri - n;                                                           \
+    sqri = n + sqri;                                                           \
+    n = 0.3333333333 / ((sqri * sqri));                                        \
+    zim = (0.66666666) * zim - (zre + zre) * zim * n + pim;                    \
+    zre = (0.66666666) * zre + (sqrr)*n + pre;                                 \
+    zre1 -= zre;                                                               \
+    zim1 -= zim;                                                               \
+    n = zre1 * zre1 + zim1 * zim1;
 #define CALC newton_calc
 #include "docalc.h"
 
-
-#define VARIABLES register number_t n,sqrr,sqri,zre1,zim1;
-#define INIT sqri=zim*zim,n=zre,zre=pre,pre=n,n=zim,zim=pim,pim=n,n=(number_t)1;
+#define VARIABLES register number_t n, sqrr, sqri, zre1, zim1;
+#define INIT                                                                   \
+    sqri = zim * zim, n = zre, zre = pre, pre = n, n = zim, zim = pim,         \
+    pim = n, n = (number_t)1;
 #define BTEST greater_then_1Em6(n)
-#define FORMULA \
-    zre1 = zre; \
-    zim1 = zim; \
-    sqrr = zre * zre; \
-    sqri = zim * zim; \
-    n = sqri + sqrr; \
-    n = 1 / ((n * n * n)); \
-    zim = (0.25) * zim * (3 + (sqri - 3 * sqrr) * n) + pim; \
-    zre = (0.25) * zre * (3 + (sqrr - 3 * sqri) * n) + pre; \
-    zre1 -= zre; \
-    zim1 -= zim; \
+#define FORMULA                                                                \
+    zre1 = zre;                                                                \
+    zim1 = zim;                                                                \
+    sqrr = zre * zre;                                                          \
+    sqri = zim * zim;                                                          \
+    n = sqri + sqrr;                                                           \
+    n = 1 / ((n * n * n));                                                     \
+    zim = (0.25) * zim * (3 + (sqri - 3 * sqrr) * n) + pim;                    \
+    zre = (0.25) * zre * (3 + (sqrr - 3 * sqri) * n) + pre;                    \
+    zre1 -= zre;                                                               \
+    zim1 -= zim;                                                               \
     n = zre1 * zre1 + zim1 * zim1;
 #define CALC newton4_calc
 #include "docalc.h"
 
-
-#define VARIABLES register number_t zpr,zip;
-#define SAVEVARIABLES register number_t szpr,szip;
-#define SAVE szpr=zpr,szip=zip;
-#define RESTORE zpr=szpr,zip=szip;
-#define INIT zpr=zip=(number_t)0;
-#define BTEST less_than_4(rp+ip)
-#define FORMULA \
-	rp = rp - ip + pre + pim * zpr; \
-	ip = 2 * zre * zim + pim * zip; \
-	zpr = zre, zip = zim; \
-	zre = rp; \
-	zim = ip; \
-	rp = zre * zre, ip = zim * zim;
+#define VARIABLES register number_t zpr, zip;
+#define SAVEVARIABLES register number_t szpr, szip;
+#define SAVE szpr = zpr, szip = zip;
+#define RESTORE zpr = szpr, zip = szip;
+#define INIT zpr = zip = (number_t)0;
+#define BTEST less_than_4(rp + ip)
+#define FORMULA                                                                \
+    rp = rp - ip + pre + pim * zpr;                                            \
+    ip = 2 * zre * zim + pim * zip;                                            \
+    zpr = zre, zip = zim;                                                      \
+    zre = rp;                                                                  \
+    zim = ip;                                                                  \
+    rp = zre * zre, ip = zim * zim;
 #define SMOOTH
 #define SCALC sphoenix_calc
 #define SPERI sphoenix_peri
@@ -1219,60 +1379,65 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define RPIP
 #include "docalc.h"
 
-
-#define VARIABLES register number_t tr,ti,zpr,zpm,rp1,ip1;
-#define INIT zpr=zpm=0,tr=zre,zre=pre,pre=tr,tr=zim,zim=pim,pim=tr,tr=1;
-#define BTEST less_than_4(zpr*zpr+zpm*zpm)
-#define FORMULA \
-	rp1 = zre; \
-	ip1 = zim; \
-	c_pow3(zre, zim, tr, ti); \
-	c_add(tr, ti, zpr, zpm, zre, zim); \
-	zpr = rp1 + pre; \
-	zpm = ip1 + pim;
+#define VARIABLES register number_t tr, ti, zpr, zpm, rp1, ip1;
+#define INIT                                                                   \
+    zpr = zpm = 0, tr = zre, zre = pre, pre = tr, tr = zim, zim = pim,         \
+    pim = tr, tr = 1;
+#define BTEST less_than_4(zpr *zpr + zpm * zpm)
+#define FORMULA                                                                \
+    rp1 = zre;                                                                 \
+    ip1 = zim;                                                                 \
+    c_pow3(zre, zim, tr, ti);                                                  \
+    c_add(tr, ti, zpr, zpm, zre, zim);                                         \
+    zpr = rp1 + pre;                                                           \
+    zpm = ip1 + pim;
 #define CALC octo_calc
 #define SCALC socto_calc
 #define SMOOTH
-#define CUSTOMSAVEZMAG szmag=zpr*zpr+zpm*zpm
-#define PRESMOOTH zre=zpr*zpr+zpm*zpm
+#define CUSTOMSAVEZMAG szmag = zpr * zpr + zpm * zpm
+#define PRESMOOTH zre = zpr * zpr + zpm * zpm
 #include "docalc.h"
 
-
 #define VARIABLES register number_t yre, yim, re1tmp, re2tmp, im1tmp;
-#define BTEST (rp+ip<9||(yre*yre+yim*yim)<4*(rp+ip))
-#define INIT yre=pre; yim=pim;
-#define FORMULA \
-        re1tmp=zre; \
-      	re2tmp=yre; \
-	im1tmp=zim; \
-        zre=re1tmp+yre; \
-	zim=im1tmp+yim; \
-	yre=(re1tmp*re2tmp-im1tmp*yim   ); \
-	yim=(re1tmp*yim   +re2tmp*im1tmp); \
-	rp=zre*zre; \
-	ip=zim*zim;
+#define BTEST (rp + ip < 9 || (yre * yre + yim * yim) < 4 * (rp + ip))
+#define INIT                                                                   \
+    yre = pre;                                                                 \
+    yim = pim;
+#define FORMULA                                                                \
+    re1tmp = zre;                                                              \
+    re2tmp = yre;                                                              \
+    im1tmp = zim;                                                              \
+    zre = re1tmp + yre;                                                        \
+    zim = im1tmp + yim;                                                        \
+    yre = (re1tmp * re2tmp - im1tmp * yim);                                    \
+    yim = (re1tmp * yim + re2tmp * im1tmp);                                    \
+    rp = zre * zre;                                                            \
+    ip = zim * zim;
 #define CALC beryl_calc
 #define PERI beryl_peri
 #define RANGE 2
 #define RPIP
 #include "docalc.h"
 
-
-
 #ifdef SFFE_USING
- /* SFFE - malczak */
- //#define VARIABLES sffe *p = globaluih->parser; 
-#define INIT cmplxset(pZ,0,0); cmplxset(C,pre,pim); \
-		if (globaluih->pinit) Z=sffe_eval(globaluih->pinit); else cmplxset(Z,zre,zim);
- //#define SAVE cmplxset(pZ,real(Z),imag(Z));
- //#define PRETEST 0
-#define FORMULA \
-	 Z = sffe_eval(globaluih->parser);\
-	 cmplxset(pZ,zre,zim); \
-	 zre = real( Z ); \
-	 zim = imag( Z );
-#define BTEST less_than_4(zre*zre+zim*zim)
- //less_than_4(rp+ip)
+/* SFFE - malczak */
+//#define VARIABLES sffe *p = globaluih->parser;
+#define INIT                                                                   \
+    cmplxset(pZ, 0, 0);                                                        \
+    cmplxset(C, pre, pim);                                                     \
+    if (globaluih->pinit)                                                      \
+        Z = sffe_eval(globaluih->pinit);                                       \
+    else                                                                       \
+        cmplxset(Z, zre, zim);
+//#define SAVE cmplxset(pZ,real(Z),imag(Z));
+//#define PRETEST 0
+#define FORMULA                                                                \
+    Z = sffe_eval(globaluih->parser);                                          \
+    cmplxset(pZ, zre, zim);                                                    \
+    zre = real(Z);                                                             \
+    zim = imag(Z);
+#define BTEST less_than_4(zre *zre + zim * zim)
+// less_than_4(rp+ip)
 #define CALC sffe_calc
 #define JULIA sffe_julia
 //#define SCALC ssffe_calc
@@ -1280,24 +1445,13 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #include "docalc.h"
 #endif
 
-static const symmetrytype sym6[] = {
-    {0, 1.73205080758},
-    {0, -1.73205080758}
-};
+static const symmetrytype sym6[] = {{0, 1.73205080758}, {0, -1.73205080758}};
 
-static const symmetrytype sym8[] = {
-    {0, 1},
-    {0, -1}
-};
+static const symmetrytype sym8[] = {{0, 1}, {0, -1}};
 
-static const symmetrytype sym16[] = {
-    {0, 1},
-    {0, -1},
-    {0, 0.414214},
-    {0, -0.414214},
-    {0, 2.414214},
-    {0, -2.414214}
-};
+static const symmetrytype sym16[] = {{0, 1},        {0, -1},
+                                     {0, 0.414214}, {0, -0.414214},
+                                     {0, 2.414214}, {0, -2.414214}};
 
 const struct formula formulas[] = {
     {                           /* 0 */
@@ -2561,388 +2715,397 @@ const struct formula formulas[] = {
 };
 
 #ifdef SLOWFUNCPTR
-unsigned int
-calculateswitch (register number_t x1, register number_t y1, register number_t x2, register number_t y2, int periodicity)
+unsigned int calculateswitch(register number_t x1, register number_t y1,
+                             register number_t x2, register number_t y2,
+                             int periodicity)
 {
     if (periodicity && cfractalc.periodicity)
         if (cfractalc.coloringmode == 9)
-            switch (cfractalc.currentformula - formulas) {      /* periodicity checking and smoothmode SPERI */
+            switch (cfractalc.currentformula -
+                    formulas) { /* periodicity checking and smoothmode SPERI */
                 case 0:
-                    return (smand_peri (x1, y1, x2, y2));
+                    return (smand_peri(x1, y1, x2, y2));
                     break;
                 case 1:
-                    return (smand3_peri (x1, y1, x2, y2));
+                    return (smand3_peri(x1, y1, x2, y2));
                     break;
                 case 2:
-                    return (smand4_peri (x1, y1, x2, y2));
+                    return (smand4_peri(x1, y1, x2, y2));
                     break;
                 case 3:
-                    return (smand5_peri (x1, y1, x2, y2));
+                    return (smand5_peri(x1, y1, x2, y2));
                     break;
                 case 4:
-                    return (smand6_peri (x1, y1, x2, y2));
+                    return (smand6_peri(x1, y1, x2, y2));
                     break;
                 case 5:
-                    return (newton_calc (x1, y1, x2, y2));
+                    return (newton_calc(x1, y1, x2, y2));
                     break;
                 case 6:
-                    return (newton4_calc (x1, y1, x2, y2));
+                    return (newton4_calc(x1, y1, x2, y2));
                     break;
                 case 7:
-                    return (sbarnsley1_calc (x1, y1, x2, y2));
+                    return (sbarnsley1_calc(x1, y1, x2, y2));
                     break;
                 case 8:
-                    return (sbarnsley2_calc (x1, y1, x2, y2));
+                    return (sbarnsley2_calc(x1, y1, x2, y2));
                     break;
                 case 9:
-                    return (sbarnsley3_calc (x1, y1, x2, y2));
+                    return (sbarnsley3_calc(x1, y1, x2, y2));
                     break;
                 case 10:
-                    return (octo_calc (x1, y1, x2, y2));
+                    return (octo_calc(x1, y1, x2, y2));
                     break;
                 case 11:
-                    return (sphoenix_peri (x1, y1, x2, y2));
+                    return (sphoenix_peri(x1, y1, x2, y2));
                     break;
                 case 12:
-                    return (smagnet_peri (x1, y1, x2, y2));
+                    return (smagnet_peri(x1, y1, x2, y2));
                     break;
                 case 13:
-                    return (smagnet2_peri (x1, y1, x2, y2));
+                    return (smagnet2_peri(x1, y1, x2, y2));
                     break;
                 case 14:
-                    return (strice_peri (x1, y1, x2, y2));
+                    return (strice_peri(x1, y1, x2, y2));
                     break;
                 case 15:
-                    return (scatseye_peri (x1, y1, x2, y2));
+                    return (scatseye_peri(x1, y1, x2, y2));
                     break;
                 case 16:
-                    return (smbar_peri (x1, y1, x2, y2));
+                    return (smbar_peri(x1, y1, x2, y2));
                     break;
                 case 17:
-                    return (smlambda_peri (x1, y1, x2, y2));
+                    return (smlambda_peri(x1, y1, x2, y2));
                     break;
                 case 18:
-                    return (smanowar_calc (x1, y1, x2, y2));
+                    return (smanowar_calc(x1, y1, x2, y2));
                     break;
                 case 19:
-                    return (sspider_calc (x1, y1, x2, y2));
+                    return (sspider_calc(x1, y1, x2, y2));
                     break;
                 case 20:
-                    return (sier_calc (x1, y1, x2, y2));
+                    return (sier_calc(x1, y1, x2, y2));
                     break;
                 case 21:
-                    return (carpet_calc (x1, y1, x2, y2));
+                    return (carpet_calc(x1, y1, x2, y2));
                     break;
                 case 22:
-                    return (koch_calc (x1, y1, x2, y2));
+                    return (koch_calc(x1, y1, x2, y2));
                     break;
                 case 23:
-                    return (hornflake_calc (x1, y1, x2, y2));
+                    return (hornflake_calc(x1, y1, x2, y2));
                     break;
                 case 24:
-                    return (smand9_peri (x1, y1, x2, y2));
+                    return (smand9_peri(x1, y1, x2, y2));
                     break;
                 case 25:
-                    return (beryl_calc (x1, y1, x2, y2));
+                    return (beryl_calc(x1, y1, x2, y2));
                     break;
                 case 26:
-                    return (goldsier_calc (x1, y1, x2, y2));
+                    return (goldsier_calc(x1, y1, x2, y2));
                     break;
                 case 27:
-                    return (circle7_calc (x1, y1, x2, y2));
+                    return (circle7_calc(x1, y1, x2, y2));
                     break;
                 case 28:
-                    return (symbarn_calc (x1, y1, x2, y2));
+                    return (symbarn_calc(x1, y1, x2, y2));
                     break;
 
 #ifdef SFFE_USING
                 case 29:
-                    return (sffe_calc (x1, y1, x2, y2));
+                    return (sffe_calc(x1, y1, x2, y2));
                     break;
 #endif
-        } else
-            switch (cfractalc.currentformula - formulas) {      /* periodicity checking and no smoothmode PERI */
+            }
+        else
+            switch (
+                cfractalc.currentformula -
+                formulas) { /* periodicity checking and no smoothmode PERI */
                 case 0:
-                    return (mand_peri (x1, y1, x2, y2));
+                    return (mand_peri(x1, y1, x2, y2));
                     break;
                 case 1:
-                    return (mand3_peri (x1, y1, x2, y2));
+                    return (mand3_peri(x1, y1, x2, y2));
                     break;
                 case 2:
-                    return (mand4_peri (x1, y1, x2, y2));
+                    return (mand4_peri(x1, y1, x2, y2));
                     break;
                 case 3:
-                    return (mand5_peri (x1, y1, x2, y2));
+                    return (mand5_peri(x1, y1, x2, y2));
                     break;
                 case 4:
-                    return (mand6_peri (x1, y1, x2, y2));
+                    return (mand6_peri(x1, y1, x2, y2));
                     break;
                 case 5:
-                    return (newton_calc (x1, y1, x2, y2));
+                    return (newton_calc(x1, y1, x2, y2));
                     break;
                 case 6:
-                    return (newton4_calc (x1, y1, x2, y2));
+                    return (newton4_calc(x1, y1, x2, y2));
                     break;
                 case 7:
-                    return (barnsley1_calc (x1, y1, x2, y2));
+                    return (barnsley1_calc(x1, y1, x2, y2));
                     break;
                 case 8:
-                    return (barnsley2_calc (x1, y1, x2, y2));
+                    return (barnsley2_calc(x1, y1, x2, y2));
                     break;
                 case 9:
-                    return (barnsley3_calc (x1, y1, x2, y2));
+                    return (barnsley3_calc(x1, y1, x2, y2));
                     break;
                 case 10:
-                    return (octo_calc (x1, y1, x2, y2));
+                    return (octo_calc(x1, y1, x2, y2));
                     break;
                 case 11:
-                    return (phoenix_peri (x1, y1, x2, y2));
+                    return (phoenix_peri(x1, y1, x2, y2));
                     break;
                 case 12:
-                    return (magnet_peri (x1, y1, x2, y2));
+                    return (magnet_peri(x1, y1, x2, y2));
                     break;
                 case 13:
-                    return (magnet2_peri (x1, y1, x2, y2));
+                    return (magnet2_peri(x1, y1, x2, y2));
                     break;
                 case 14:
-                    return (trice_peri (x1, y1, x2, y2));
+                    return (trice_peri(x1, y1, x2, y2));
                     break;
                 case 15:
-                    return (catseye_peri (x1, y1, x2, y2));
+                    return (catseye_peri(x1, y1, x2, y2));
                     break;
                 case 16:
-                    return (mbar_peri (x1, y1, x2, y2));
+                    return (mbar_peri(x1, y1, x2, y2));
                     break;
                 case 17:
-                    return (mlambda_peri (x1, y1, x2, y2));
+                    return (mlambda_peri(x1, y1, x2, y2));
                     break;
                 case 18:
-                    return (manowar_calc (x1, y1, x2, y2));
+                    return (manowar_calc(x1, y1, x2, y2));
                     break;
                 case 19:
-                    return (spider_calc (x1, y1, x2, y2));
+                    return (spider_calc(x1, y1, x2, y2));
                     break;
                 case 20:
-                    return (sier_calc (x1, y1, x2, y2));
+                    return (sier_calc(x1, y1, x2, y2));
                     break;
                 case 21:
-                    return (carpet_calc (x1, y1, x2, y2));
+                    return (carpet_calc(x1, y1, x2, y2));
                     break;
                 case 22:
-                    return (koch_calc (x1, y1, x2, y2));
+                    return (koch_calc(x1, y1, x2, y2));
                     break;
                 case 23:
-                    return (hornflake_calc (x1, y1, x2, y2));
+                    return (hornflake_calc(x1, y1, x2, y2));
                     break;
                 case 24:
-                    return (mand9_peri (x1, y1, x2, y2));
+                    return (mand9_peri(x1, y1, x2, y2));
                     break;
                 case 25:
-                    return (beryl_peri (x1, y1, x2, y2));
+                    return (beryl_peri(x1, y1, x2, y2));
                     break;
                 case 26:
-                    return (goldsier_calc (x1, y1, x2, y2));
+                    return (goldsier_calc(x1, y1, x2, y2));
                     break;
                 case 27:
-                    return (circle7_calc (x1, y1, x2, y2));
+                    return (circle7_calc(x1, y1, x2, y2));
                     break;
                 case 28:
-                    return (symbarn_calc (x1, y1, x2, y2));
+                    return (symbarn_calc(x1, y1, x2, y2));
                     break;
 
 #ifdef SFFE_USING
                 case 29:
-                    return (sffe_calc (x1, y1, x2, y2));
+                    return (sffe_calc(x1, y1, x2, y2));
                     break;
 #endif
-    } else if (cfractalc.coloringmode == 9)
-        switch (cfractalc.currentformula - formulas) {  /* no periodicity checking and smoothmode SCALC */
+            }
+    else if (cfractalc.coloringmode == 9)
+        switch (cfractalc.currentformula -
+                formulas) { /* no periodicity checking and smoothmode SCALC */
             case 0:
-                return (smand_calc (x1, y1, x2, y2));
+                return (smand_calc(x1, y1, x2, y2));
                 break;
             case 1:
-                return (smand3_calc (x1, y1, x2, y2));
+                return (smand3_calc(x1, y1, x2, y2));
                 break;
             case 2:
-                return (smand4_calc (x1, y1, x2, y2));
+                return (smand4_calc(x1, y1, x2, y2));
                 break;
             case 3:
-                return (smand5_calc (x1, y1, x2, y2));
+                return (smand5_calc(x1, y1, x2, y2));
                 break;
             case 4:
-                return (smand6_calc (x1, y1, x2, y2));
+                return (smand6_calc(x1, y1, x2, y2));
                 break;
             case 5:
-                return (newton_calc (x1, y1, x2, y2));
+                return (newton_calc(x1, y1, x2, y2));
                 break;
             case 6:
-                return (newton4_calc (x1, y1, x2, y2));
+                return (newton4_calc(x1, y1, x2, y2));
                 break;
             case 7:
-                return (sbarnsley1_calc (x1, y1, x2, y2));
+                return (sbarnsley1_calc(x1, y1, x2, y2));
                 break;
             case 8:
-                return (sbarnsley2_calc (x1, y1, x2, y2));
+                return (sbarnsley2_calc(x1, y1, x2, y2));
                 break;
             case 9:
-                return (sbarnsley3_calc (x1, y1, x2, y2));
+                return (sbarnsley3_calc(x1, y1, x2, y2));
                 break;
             case 10:
-                return (socto_calc (x1, y1, x2, y2));
+                return (socto_calc(x1, y1, x2, y2));
                 break;
             case 11:
-                return (sphoenix_calc (x1, y1, x2, y2));
+                return (sphoenix_calc(x1, y1, x2, y2));
                 break;
             case 12:
-                return (smagnet_calc (x1, y1, x2, y2));
+                return (smagnet_calc(x1, y1, x2, y2));
                 break;
             case 13:
-                return (smagnet2_calc (x1, y1, x2, y2));
+                return (smagnet2_calc(x1, y1, x2, y2));
                 break;
             case 14:
-                return (strice_calc (x1, y1, x2, y2));
+                return (strice_calc(x1, y1, x2, y2));
                 break;
             case 15:
-                return (scatseye_calc (x1, y1, x2, y2));
+                return (scatseye_calc(x1, y1, x2, y2));
                 break;
             case 16:
-                return (smbar_calc (x1, y1, x2, y2));
+                return (smbar_calc(x1, y1, x2, y2));
                 break;
             case 17:
-                return (smlambda_calc (x1, y1, x2, y2));
+                return (smlambda_calc(x1, y1, x2, y2));
                 break;
             case 18:
-                return (smanowar_calc (x1, y1, x2, y2));
+                return (smanowar_calc(x1, y1, x2, y2));
                 break;
             case 19:
-                return (sspider_calc (x1, y1, x2, y2));
+                return (sspider_calc(x1, y1, x2, y2));
                 break;
             case 20:
-                return (sier_calc (x1, y1, x2, y2));
+                return (sier_calc(x1, y1, x2, y2));
                 break;
             case 21:
-                return (carpet_calc (x1, y1, x2, y2));
+                return (carpet_calc(x1, y1, x2, y2));
                 break;
             case 22:
-                return (koch_calc (x1, y1, x2, y2));
+                return (koch_calc(x1, y1, x2, y2));
                 break;
             case 23:
-                return (hornflake_calc (x1, y1, x2, y2));
+                return (hornflake_calc(x1, y1, x2, y2));
                 break;
             case 24:
-                return (smand6_calc (x1, y1, x2, y2));
+                return (smand6_calc(x1, y1, x2, y2));
                 break;
             case 25:
-                return (beryl_calc (x1, y1, x2, y2));
+                return (beryl_calc(x1, y1, x2, y2));
                 break;
             case 26:
-                return (goldsier_calc (x1, y1, x2, y2));
+                return (goldsier_calc(x1, y1, x2, y2));
                 break;
             case 27:
-                return (circle7_calc (x1, y1, x2, y2));
+                return (circle7_calc(x1, y1, x2, y2));
                 break;
             case 28:
-                return (symbarn_calc (x1, y1, x2, y2));
+                return (symbarn_calc(x1, y1, x2, y2));
                 break;
 
 #ifdef SFFE_USING
             case 29:
-                return (sffe_calc (x1, y1, x2, y2));
+                return (sffe_calc(x1, y1, x2, y2));
                 break;
 #endif
-    } else
-        switch (cfractalc.currentformula - formulas) {  /* no periodicity checking and no smoothmode CALC */
+        }
+    else
+        switch (cfractalc.currentformula -
+                formulas) { /* no periodicity checking and no smoothmode CALC */
             case 0:
-                return (mand_calc (x1, y1, x2, y2));
+                return (mand_calc(x1, y1, x2, y2));
                 break;
             case 1:
-                return (mand3_calc (x1, y1, x2, y2));
+                return (mand3_calc(x1, y1, x2, y2));
                 break;
             case 2:
-                return (mand4_calc (x1, y1, x2, y2));
+                return (mand4_calc(x1, y1, x2, y2));
                 break;
             case 3:
-                return (mand5_calc (x1, y1, x2, y2));
+                return (mand5_calc(x1, y1, x2, y2));
                 break;
             case 4:
-                return (mand6_calc (x1, y1, x2, y2));
+                return (mand6_calc(x1, y1, x2, y2));
                 break;
             case 5:
-                return (newton_calc (x1, y1, x2, y2));
+                return (newton_calc(x1, y1, x2, y2));
                 break;
             case 6:
-                return (newton4_calc (x1, y1, x2, y2));
+                return (newton4_calc(x1, y1, x2, y2));
                 break;
             case 7:
-                return (barnsley1_calc (x1, y1, x2, y2));
+                return (barnsley1_calc(x1, y1, x2, y2));
                 break;
             case 8:
-                return (barnsley2_calc (x1, y1, x2, y2));
+                return (barnsley2_calc(x1, y1, x2, y2));
                 break;
             case 9:
-                return (barnsley3_calc (x1, y1, x2, y2));
+                return (barnsley3_calc(x1, y1, x2, y2));
                 break;
             case 10:
-                return (octo_calc (x1, y1, x2, y2));
+                return (octo_calc(x1, y1, x2, y2));
                 break;
             case 11:
-                return (phoenix_calc (x1, y1, x2, y2));
+                return (phoenix_calc(x1, y1, x2, y2));
                 break;
             case 12:
-                return (magnet_calc (x1, y1, x2, y2));
+                return (magnet_calc(x1, y1, x2, y2));
                 break;
             case 13:
-                return (magnet2_calc (x1, y1, x2, y2));
+                return (magnet2_calc(x1, y1, x2, y2));
                 break;
             case 14:
-                return (trice_calc (x1, y1, x2, y2));
+                return (trice_calc(x1, y1, x2, y2));
                 break;
             case 15:
-                return (catseye_calc (x1, y1, x2, y2));
+                return (catseye_calc(x1, y1, x2, y2));
                 break;
             case 16:
-                return (mbar_calc (x1, y1, x2, y2));
+                return (mbar_calc(x1, y1, x2, y2));
                 break;
             case 17:
-                return (mlambda_calc (x1, y1, x2, y2));
+                return (mlambda_calc(x1, y1, x2, y2));
                 break;
             case 18:
-                return (manowar_calc (x1, y1, x2, y2));
+                return (manowar_calc(x1, y1, x2, y2));
                 break;
             case 19:
-                return (spider_calc (x1, y1, x2, y2));
+                return (spider_calc(x1, y1, x2, y2));
                 break;
             case 20:
-                return (sier_calc (x1, y1, x2, y2));
+                return (sier_calc(x1, y1, x2, y2));
                 break;
             case 21:
-                return (carpet_calc (x1, y1, x2, y2));
+                return (carpet_calc(x1, y1, x2, y2));
                 break;
             case 22:
-                return (koch_calc (x1, y1, x2, y2));
+                return (koch_calc(x1, y1, x2, y2));
                 break;
             case 23:
-                return (hornflake_calc (x1, y1, x2, y2));
+                return (hornflake_calc(x1, y1, x2, y2));
                 break;
             case 24:
-                return (mand9_calc (x1, y1, x2, y2));
+                return (mand9_calc(x1, y1, x2, y2));
                 break;
             case 25:
-                return (beryl_peri (x1, y1, x2, y2));
+                return (beryl_peri(x1, y1, x2, y2));
                 break;
             case 26:
-                return (goldsier_calc (x1, y1, x2, y2));
+                return (goldsier_calc(x1, y1, x2, y2));
                 break;
             case 27:
-                return (circle7_calc (x1, y1, x2, y2));
+                return (circle7_calc(x1, y1, x2, y2));
                 break;
             case 28:
-                return (symbarn_calc (x1, y1, x2, y2));
+                return (symbarn_calc(x1, y1, x2, y2));
                 break;
 
 #ifdef SFFE_USING
             case 29:
-                return (sffe_calc (x1, y1, x2, y2));
+                return (sffe_calc(x1, y1, x2, y2));
                 break;
 #endif
         }
@@ -2951,5 +3114,5 @@ calculateswitch (register number_t x1, register number_t y1, register number_t x
 #endif
 
 const struct formula *currentformula;
-const int nformulas = sizeof (formulas) / sizeof (struct formula);
-const int nmformulas = 16;      // Is this correct here? -- Zoltan, 2009-07-30
+const int nformulas = sizeof(formulas) / sizeof(struct formula);
+const int nmformulas = 16; // Is this correct here? -- Zoltan, 2009-07-30

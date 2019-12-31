@@ -1,5 +1,5 @@
-/* 
- *     XaoS, a fast portable realtime fractal zoomer 
+﻿/*
+ *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
  *      Jan Hubicka          (hubicka@paru.cas.cz)
@@ -33,22 +33,20 @@
 #include <filter.h>
 #include <zoom.h>
 
-#include <complex.h>            /*for myabs */
+#include <complex.h> /*for myabs */
 #include <plane.h>
 #include <btrace.h>
 #include <xthread.h>
 #include <xerror.h>
-#include "calculate.h"          /*an inlined calulate function */
+#include "calculate.h" /*an inlined calulate function */
 
 #include "i18n.h"
 
-
 #define ASIZE 16
-#define ALIGN(x) (((x)+ASIZE-1)&(~(ASIZE-1)))
+#define ALIGN(x) (((x) + ASIZE - 1) & (~(ASIZE - 1)))
 static int nsymmetrized;
 unsigned char *tmpdata, *tmpdata1;
-struct realloc_s
-{
+struct realloc_s {
     number_t position;
     number_t price;
     unsigned int plus;
@@ -58,14 +56,12 @@ struct realloc_s
     int dirty;
 }
 #ifdef __GNUC__
-__attribute__ ((aligned (32)))
+__attribute__((aligned(32)))
 #endif
-    ;
+;
 typedef struct realloc_s realloc_t;
 
-
-typedef struct zoom_context
-{
+typedef struct zoom_context {
     number_t *xpos, *ypos;
     int newcalc;
     int forversion;
@@ -75,8 +71,7 @@ typedef struct zoom_context
     int changed;
 } zoom_context;
 
-struct filltable
-{
+struct filltable {
     int from;
     int to;
     int length;
@@ -85,12 +80,15 @@ struct filltable
 #define getzcontext(f) ((zoom_context *)((f)->data))
 #define getfcontext(f) ((f)->fractalc)
 
-#define callwait() if(cfilter.wait_function!=NULL) cfilter.wait_function(&cfilter);
-#define tcallwait() if(!xth_nthread(task)&&cfilter.wait_function!=NULL) cfilter.wait_function(&cfilter);
-#define setincomplete(i) (getzcontext(&cfilter)->incomplete=i)
+#define callwait()                                                             \
+    if (cfilter.wait_function != NULL)                                         \
+        cfilter.wait_function(&cfilter);
+#define tcallwait()                                                            \
+    if (!xth_nthread(task) && cfilter.wait_function != NULL)                   \
+        cfilter.wait_function(&cfilter);
+#define setincomplete(i) (getzcontext(&cfilter)->incomplete = i)
 #define incincomplete() (getzcontext(&cfilter)->incomplete++)
-#define setchanged(i) (getzcontext(&cfilter)->changed=i)
-
+#define setchanged(i) (getzcontext(&cfilter)->changed = i)
 
 zoom_context czoomc;
 struct filter cfilter;
@@ -101,11 +99,26 @@ int nperi = 0;
 #endif
 
 #ifdef _NEVER_
-#define rdtsc() ({unsigned long long time; asm __volatile__ ("rdtsc":"=A"(time)); time; })
-#define startagi() ({asm __volatile__ ("rdmsr ; andw 0xfe00,%%ax ; orw 0x1f, %%ax ; wrmsr; "::"c"(22):"ax","dx"); })
-#define countagi() ({unsigned long long count; asm __volatile__ ("rdmsr":"=A"(count):"c"(12)); count;})
-#define cli() ({asm __volatile__ ("cli");})
-#define sti() ({asm __volatile__ ("sti");})
+#define rdtsc()                                                                \
+    ({                                                                         \
+        unsigned long long time;                                               \
+        asm __volatile__("rdtsc" : "=A"(time));                                \
+        time;                                                                  \
+    })
+#define startagi()                                                             \
+    ({                                                                         \
+        asm __volatile__(                                                      \
+            "rdmsr ; andw 0xfe00,%%ax ; orw 0x1f, %%ax ; wrmsr; " ::"c"(22)    \
+            : "ax", "dx");                                                     \
+    })
+#define countagi()                                                             \
+    ({                                                                         \
+        unsigned long long count;                                              \
+        asm __volatile__("rdmsr" : "=A"(count) : "c"(12));                     \
+        count;                                                                 \
+    })
+#define cli() ({ asm __volatile__("cli"); })
+#define sti() ({ asm __volatile__("sti"); })
 #else
 #define rdtsc() 0
 #define cli() 0
@@ -115,13 +128,11 @@ int nperi = 0;
 #endif
 
 #ifndef USE_i386ASM
-static void
-moveoldpoints (void *data1, struct taskinfo *task, int r1, int r2)
-;
-static void fillline_8 (int line) ;
-static void fillline_16 (int line) ;
-static void fillline_24 (int line) ;
-static void fillline_32 (int line) ;
+static void moveoldpoints(void *data1, struct taskinfo *task, int r1, int r2);
+static void fillline_8(int line);
+static void fillline_16(int line);
+static void fillline_24(int line);
+static void fillline_32(int line);
 #endif
 
 /*first of all inline driver section */
@@ -157,32 +168,35 @@ static void fillline_32 (int line) ;
 #define calccolumn calccolumn_16
 #include "zoomd.h"
 
-#define calcline(a) drivercall(cimage,calcline_8(a),calcline_16(a),calcline_24(a),calcline_32(a));
-#define calccolumn(a) drivercall(cimage,calccolumn_8(a),calccolumn_16(a),calccolumn_24(a),calccolumn_32(a));
+#define calcline(a)                                                            \
+    drivercall(cimage, calcline_8(a), calcline_16(a), calcline_24(a),          \
+               calcline_32(a));
+#define calccolumn(a)                                                          \
+    drivercall(cimage, calccolumn_8(a), calccolumn_16(a), calccolumn_24(a),    \
+               calccolumn_32(a));
 
-
-struct dyn_data
-{
+struct dyn_data {
     int price;
     struct dyn_data *previous;
 };
 
-#define FPMUL 64                /*Let multable fit into pentium cache */
-#define RANGES 2                /*shift equal to x*RANGE */
+#define FPMUL 64 /*Let multable fit into pentium cache */
+#define RANGES 2 /*shift equal to x*RANGE */
 #define RANGE 4
 
-#define DSIZEHMASK (0x7)        /*mask equal to x%(DSIZE) */
-#define DSIZE (2*RANGE)
-#define DSIZES (RANGES+1)       /*shift equal to x*DSIZE */
+#define DSIZEHMASK (0x7) /*mask equal to x%(DSIZE) */
+#define DSIZE (2 * RANGE)
+#define DSIZES (RANGES + 1) /*shift equal to x*DSIZE */
 
-
-#define adddata(n,i) (dyndata+(((n)<<DSIZES)+(((i)&(DSIZEHMASK)))))
-#define getbest(i) (dyndata+((size)<<DSIZES)+(i))
-#define nosetadd ((size*2)<<DSIZES)
+#define adddata(n, i) (dyndata + (((n) << DSIZES) + (((i) & (DSIZEHMASK)))))
+#define getbest(i) (dyndata + ((size) << DSIZES) + (i))
+#define nosetadd ((size * 2) << DSIZES)
 #ifndef DEBUG
 #define CHECKPOS(pos)
 #else
-#define CHECKPOS(pos) (assert((pos)>=dyndata),assert((pos)<dyndata+(size)+((size)<<DSIZES)))
+#define CHECKPOS(pos)                                                          \
+    (assert((pos) >= dyndata),                                                 \
+     assert((pos) < dyndata + (size) + ((size) << DSIZES)))
 #endif
 
 #ifdef __POWERPC__
@@ -192,20 +206,20 @@ struct dyn_data
 #endif
 
 #ifdef USE_MULTABLE
-#define PRICE(i,i1) mulmid[(i)-(i1)]
+#define PRICE(i, i1) mulmid[(i) - (i1)]
 #else
-#define PRICE(i,i1) (((i)-(i1)) * ((i)-(i1)))
+#define PRICE(i, i1) (((i) - (i1)) * ((i) - (i1)))
 #endif
-#define NEWPRICE (FPMUL*FPMUL*(RANGE)*(RANGE))
+#define NEWPRICE (FPMUL * FPMUL * (RANGE) * (RANGE))
 
 #define NOSETMASK ((unsigned int)0x80000000)
 #define END NULL
 #define MAXPRICE INT_MAX
 /*static int dynsize = (int)sizeof (struct dyn_data);*/
 #ifndef INT_MIN
-#define INT_MIN (- INT_MAX - 1)
+#define INT_MIN (-INT_MAX - 1)
 #endif
-#define IRANGE FPMUL*RANGE
+#define IRANGE FPMUL *RANGE
 
 #ifdef USE_MULTABLE
 static int multable[RANGE * FPMUL * 2];
@@ -221,8 +235,8 @@ static int *mulmid;
  *on the screen is symetrical and it is quite rare case...who knows
  */
 
-static void 
-preparesymmetries (register realloc_t * realloc, const int size, register int symi, number_t sym, number_t step)
+static void preparesymmetries(register realloc_t *realloc, const int size,
+                              register int symi, number_t sym, number_t step)
 {
     register int i;
     register int istart = 0;
@@ -252,18 +266,20 @@ preparesymmetries (register realloc_t * realloc, const int size, register int sy
         min = RANGE;
 #ifndef NDEBUG
         if (realloc->symto < 0 || realloc->symto >= size) {
-            x_fatalerror ("Internal error #22-1 %i", realloc->symto);
-            assert (0);
+            x_fatalerror("Internal error #22-1 %i", realloc->symto);
+            assert(0);
         }
 #endif
         reallocs = &r[realloc->symto];
-        j = (realloc->symto - istart > RANGE) ? -RANGE : (-realloc->symto + istart);
+        j = (realloc->symto - istart > RANGE) ? -RANGE
+                                              : (-realloc->symto + istart);
 
         if (realloc->recalculate) {
             for (; j < RANGE && realloc->symto + j < size - 1; j++) {
                 ftmp = sym - (reallocs + j)->position;
-                if ((tmp1 = myabs (ftmp - fy)) < dist) {
-                    if ((realloc == r || ftmp > (realloc - 1)->position) && (ftmp < (realloc + 1)->position)) {
+                if ((tmp1 = myabs(ftmp - fy)) < dist) {
+                    if ((realloc == r || ftmp > (realloc - 1)->position) &&
+                        (ftmp < (realloc + 1)->position)) {
                         dist = tmp1;
                         min = j;
                     }
@@ -276,8 +292,9 @@ preparesymmetries (register realloc_t * realloc, const int size, register int sy
                 if (!realloc->recalculate)
                     continue;
                 ftmp = sym - (reallocs + j)->position;
-                if ((tmp1 = myabs (ftmp - fy)) < dist) {
-                    if ((realloc == r || ftmp > (realloc - 1)->position) && (ftmp < (realloc + 1)->position)) {
+                if ((tmp1 = myabs(ftmp - fy)) < dist) {
+                    if ((realloc == r || ftmp > (realloc - 1)->position) &&
+                        (ftmp < (realloc + 1)->position)) {
                         dist = tmp1;
                         min = j;
                     }
@@ -287,7 +304,9 @@ preparesymmetries (register realloc_t * realloc, const int size, register int sy
         }
         realloc->symto += min;
 
-        if (min == RANGE || realloc->symto <= symi || (reallocs = reallocs + min)->symto != -1 || reallocs->symref != -1) {
+        if (min == RANGE || realloc->symto <= symi ||
+            (reallocs = reallocs + min)->symto != -1 ||
+            reallocs->symref != -1) {
             realloc->symto = -1;
             continue;
         }
@@ -301,8 +320,8 @@ preparesymmetries (register realloc_t * realloc, const int size, register int sy
             nsymmetrized++;
             istart = realloc->symto - 1;
             reallocs->dirty = 1;
-            realloc->symref = (int) (reallocs - r);
-            STAT (nadded -= reallocs->recalculate);
+            realloc->symref = (int)(reallocs - r);
+            STAT(nadded -= reallocs->recalculate);
             reallocs->recalculate = 0;
             reallocs->position = sym - realloc->position;
         } else {
@@ -311,7 +330,7 @@ preparesymmetries (register realloc_t * realloc, const int size, register int sy
                 continue;
             }
             istart = realloc->symto - 1;
-            STAT (nadded -= realloc->recalculate);
+            STAT(nadded -= realloc->recalculate);
             nsymmetrized++;
             realloc->dirty = 1;
             realloc->plus = reallocs->plus;
@@ -319,24 +338,23 @@ preparesymmetries (register realloc_t * realloc, const int size, register int sy
             reallocs->symref = i;
             realloc->position = sym - reallocs->position;
         }
-        STAT (nsymmetry++);
+        STAT(nsymmetry++);
 
 #ifndef NDEBUG
         if (realloc->symto < -1 || realloc->symto >= size) {
-            x_fatalerror ("Internal error #22 %i", realloc->symto);
-            assert (0);
+            x_fatalerror("Internal error #22 %i", realloc->symto);
+            assert(0);
         }
         if (reallocs->symto < -1 || reallocs->symto >= size) {
-            x_fatalerror ("Internal error #22-2 %i", reallocs->symto);
-            assert (0);
+            x_fatalerror("Internal error #22-2 %i", reallocs->symto);
+            assert(0);
         }
 #endif
     }
-
 }
 
-static void
-newpositions (realloc_t * realloc, unsigned int size, number_t begin1, number_t end1, const number_t * fpos, int yend)
+static void newpositions(realloc_t *realloc, unsigned int size, number_t begin1,
+                         number_t end1, const number_t *fpos, int yend)
 {
     realloc_t *rs, *re, *rend;
     number_t step = size / (end1 - begin1);
@@ -369,20 +387,20 @@ newpositions (realloc_t * realloc, unsigned int size, number_t begin1, number_t 
             if (re - rs == 2)
                 end = (end - start) * 0.5;
             else
-                end = ((number_t) (end - start)) / (re - rs);
-
+                end = ((number_t)(end - start)) / (re - rs);
 
             switch (yend) {
                 case 1:
                     for (rs++; rs < re; rs++) {
                         start += end, rs->position = start;
-                        rs->price = 1 / (1 + myabs (fpos[rs - realloc] - start) * step);
+                        rs->price =
+                            1 / (1 + myabs(fpos[rs - realloc] - start) * step);
                     }
                     break;
                 case 2:
                     for (rs++; rs < re; rs++) {
                         start += end, rs->position = start;
-                        rs->price = (myabs (fpos[rs - realloc] - start) * step);
+                        rs->price = (myabs(fpos[rs - realloc] - start) * step);
                         if (rs == realloc || rs == rend - 1)
                             rs->price *= 500;
                     }
@@ -390,7 +408,7 @@ newpositions (realloc_t * realloc, unsigned int size, number_t begin1, number_t 
                 default:
                     for (rs++; rs < re; rs++) {
                         start += end, rs->position = start;
-                        rs->price = (number_t) 1;
+                        rs->price = (number_t)1;
                     }
                     break;
             }
@@ -406,8 +424,10 @@ newpositions (realloc_t * realloc, unsigned int size, number_t begin1, number_t 
  * Takes approx 30% of time so looking for way to do it threaded.
  * Let me know :)
  */
-static void
-mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned int size, const number_t begin, const number_t end, number_t sym, unsigned char *tmpdata)
+static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
+                            const unsigned int size, const number_t begin,
+                            const number_t end, number_t sym,
+                            unsigned char *tmpdata)
 {
     unsigned int i;
     int counter;
@@ -415,44 +435,47 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
     register unsigned int p;
     int bestprice = MAXPRICE;
     realloc_t *r = realloc;
-    struct dyn_data * dyndata;
+    struct dyn_data *dyndata;
     int yend, y;
-    register struct dyn_data ** best;
-    struct dyn_data ** best1, **tmp;
-    register int * pos;
+    register struct dyn_data **best;
+    struct dyn_data **best1, **tmp;
+    register int *pos;
     number_t step, tofix;
     int symi = -1;
     unsigned int lastplus = 0;
-    struct dyn_data * data;
+    struct dyn_data *data;
     register struct dyn_data *previous = NULL, *bestdata = NULL;
     register int myprice;
 #ifdef STATISTICS
     nadded = 0, nsymmetry = 0, nskipped = 0;
 #endif
 
-    pos = (int *) tmpdata;
-    best = (struct dyn_data **) (tmpdata + ALIGN ((size + 2) * sizeof (int)));
-    best1 = (struct dyn_data **) (tmpdata + ALIGN ((size + 2) * sizeof (int)) + ALIGN (size * sizeof (struct dyn_data **)));
-    dyndata = (struct dyn_data *) (tmpdata + ALIGN ((size + 2) * sizeof (int)) + 2 * ALIGN (size * sizeof (struct dyn_data **)));
+    pos = (int *)tmpdata;
+    best = (struct dyn_data **)(tmpdata + ALIGN((size + 2) * sizeof(int)));
+    best1 = (struct dyn_data **)(tmpdata + ALIGN((size + 2) * sizeof(int)) +
+                                 ALIGN(size * sizeof(struct dyn_data **)));
+    dyndata = (struct dyn_data *)(tmpdata + ALIGN((size + 2) * sizeof(int)) +
+                                  2 * ALIGN(size * sizeof(struct dyn_data **)));
 
     tofix = size * FPMUL / (end - begin);
     pos[0] = INT_MIN;
     pos++;
-    for (counter = (int) size - 1; counter >= 0; counter--) {
-        pos[counter] = (int) ((fpos[counter] - begin) * tofix); /*first convert everything into fixedpoint */
-        if (counter < (int) size - 1 && pos[counter] > pos[counter + 1])
+    for (counter = (int)size - 1; counter >= 0; counter--) {
+        pos[counter] =
+            (int)((fpos[counter] - begin) *
+                  tofix); /*first convert everything into fixedpoint */
+        if (counter < (int)size - 1 && pos[counter] > pos[counter + 1])
             /*Avoid processing of missordered rows.
                They should happend because of limited
                precisity of FP numbers */
             pos[counter] = pos[counter + 1];
     }
     pos[size] = INT_MAX;
-    step = (end - begin) / (number_t) size;
-    if (begin > sym || sym > end)       /*calculate symmetry point */
+    step = (end - begin) / (number_t)size;
+    if (begin > sym || sym > end) /*calculate symmetry point */
         symi = -2;
     else {
-        symi = (int) ((sym - begin) / step);
-
+        symi = (int)((sym - begin) / step);
     }
 
     ps = 0;
@@ -466,21 +489,21 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
 
     for (i = 0; i < size; i++, y += FPMUL) {
         bestprice = MAXPRICE;
-        p = ps;                 /*just inicialize parameters */
+        p = ps; /*just inicialize parameters */
 
         tmp = best1;
         best1 = best;
         best = tmp;
 
         yend = y - IRANGE;
-        if (yend < -FPMUL)      /*do no allow lines outside screen */
+        if (yend < -FPMUL) /*do no allow lines outside screen */
             yend = -FPMUL;
 
-        while (pos[p] <= yend)  /*skip lines out of range */
+        while (pos[p] <= yend) /*skip lines out of range */
             p++;
 #ifdef _UNDEFINED_
-        if (pos[p - 1] > yend)  /*warning...maybe this is the bug :) */
-            p--, assert (0);
+        if (pos[p - 1] > yend) /*warning...maybe this is the bug :) */
+            p--, assert(0);
 #endif
         ps1 = p;
         yend = y + IRANGE;
@@ -488,57 +511,57 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
         /*First try case that current line will be newly calculated */
 
         /*Look for best way how to connect previous lines */
-        if (ps != pe && p > ps) {       /*previous point had lines */
-            assert (p >= ps);
+        if (ps != pe && p > ps) { /*previous point had lines */
+            assert(p >= ps);
             if (p < pe) {
                 previous = best[p - 1];
-                CHECKPOS (previous);
+                CHECKPOS(previous);
             } else
                 previous = best[pe - 1];
-            CHECKPOS (previous);
-            myprice = previous->price;  /*find best one */
+            CHECKPOS(previous);
+            myprice = previous->price; /*find best one */
         } else {
-            if (i > 0) {        /*previous line had no lines */
-                previous = getbest (i - 1);
+            if (i > 0) { /*previous line had no lines */
+                previous = getbest(i - 1);
                 myprice = previous->price;
             } else
                 previous = END, myprice = 0;
         }
 
-        data = getbest (i);     /*find store position */
+        data = getbest(i); /*find store position */
         myprice += NEWPRICE;
         bestdata = data;
         data->previous = previous;
         bestprice = myprice;    /*calculate best available price */
         data->price = myprice;  /*store data */
-        assert (bestprice >= 0);        /*FIXME:tenhle assert muze FAILIT! */
+        assert(bestprice >= 0); /*FIXME:tenhle assert muze FAILIT! */
 #ifdef _UNDEFINED_
         if (yend > end + FPMUL) /*check bounds */
             yend = end + FPMUL;
 #endif
-        data = adddata (p, i);  /*calcualte all lines good for this y */
+        data = adddata(p, i); /*calcualte all lines good for this y */
 
         /* Now try all acceptable connection and calculate best possibility
          * with this connection
          */
-        if (ps != pe) {         /*in case that previous had also positions */
+        if (ps != pe) { /*in case that previous had also positions */
             int price1 = INT_MAX;
             /*At first line of previous interval we have only one possibility
              *don't connect previous line at all.
              */
-            if (p == ps) {      /*here we must skip previous point */
+            if (p == ps) { /*here we must skip previous point */
                 if (pos[p] != pos[p + 1]) {
-                    previous = getbest (i - 1);
+                    previous = getbest(i - 1);
                     myprice = previous->price;
-                    myprice += PRICE (pos[p], y);       /*store data */
-                    if (myprice < bestprice) {  /*calcualte best */
+                    myprice += PRICE(pos[p], y); /*store data */
+                    if (myprice < bestprice) {   /*calcualte best */
                         bestprice = myprice, bestdata = data;
                         data->price = myprice;
                         data->previous = previous;
                     }
                 }
-                assert (bestprice >= 0);
-                assert (myprice >= 0);
+                assert(bestprice >= 0);
+                assert(myprice >= 0);
                 best1[p] = bestdata;
                 data += DSIZE;
                 p++;
@@ -546,19 +569,22 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
 
             previous = NULL;
             price1 = myprice;
-            while (p < pe) {    /*this is area where intervals of current point and previous one are crossed */
+            while (p < pe) { /*this is area where intervals of current point and
+                                previous one are crossed */
                 if (pos[p] != pos[p + 1]) {
                     if (previous != best[p - 1]) {
 
                         previous = best[p - 1];
-                        CHECKPOS (previous);
+                        CHECKPOS(previous);
                         price1 = myprice = previous->price;
 
                         /*In case we found revolutional point, we should think
                          *about changing our gusesses in last point too - don't
                          *connect it at all, but use this way instead*/
-                        if (myprice + NEWPRICE < bestprice) {   /*true in approx 2/3 of cases */
-                            bestprice = myprice + NEWPRICE, bestdata = data - DSIZE;
+                        if (myprice + NEWPRICE <
+                            bestprice) { /*true in approx 2/3 of cases */
+                            bestprice = myprice + NEWPRICE,
+                            bestdata = data - DSIZE;
                             (bestdata)->price = bestprice;
                             (bestdata)->previous = previous + nosetadd;
                             best1[p - 1] = bestdata;
@@ -566,9 +592,12 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
                     } else
                         myprice = price1;
 
-                    myprice += PRICE (pos[p], y);       /*calculate price of new connection */
+                    myprice +=
+                        PRICE(pos[p], y); /*calculate price of new connection */
 
-                    if (myprice < bestprice) {  /*2/3 of cases *//*if it is better than previous, store it */
+                    if (myprice <
+                        bestprice) { /*2/3 of cases */ /*if it is better than
+                                                          previous, store it */
                         bestprice = myprice, bestdata = data;
                         data->price = myprice;
                         data->previous = previous;
@@ -578,30 +607,30 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
                         p++;
                         break;
                     }
-
                 }
 
-                assert (myprice >= 0);
-                assert (bestprice >= 0);        /*FIXME:tenhle assert FAILI! */
+                assert(myprice >= 0);
+                assert(bestprice >= 0); /*FIXME:tenhle assert FAILI! */
 
                 best1[p] = bestdata;
                 data += DSIZE;
                 p++;
             }
-            while (p < pe) {    /*this is area where intervals of current point and previous one are crossed */
+            while (p < pe) { /*this is area where intervals of current point and
+                                previous one are crossed */
 #ifdef DEBUG
                 if (pos[p] != pos[p + 1]) {
                     if (previous != best[p - 1]) {
-                        x_fatalerror ("Missoptimization found!");
+                        x_fatalerror("Missoptimization found!");
                     }
                 }
 #endif
 #ifdef _UNDEFINED_
-                /* Experimental results show, that probability for better approximation
-                 * in this area is extremly low. Maybe it never happends. 
-                 * I will have to think about it a bit more... It seems to have
-                 * to do something with meaning of universe and god... no idea
-                 * why it is true.
+                /* Experimental results show, that probability for better
+                 * approximation in this area is extremly low. Maybe it never
+                 * happends. I will have to think about it a bit more... It
+                 * seems to have to do something with meaning of universe and
+                 * god... no idea why it is true.
                  *
                  * Anyway it don't seems to worth include the expensive tests
                  * here.
@@ -610,20 +639,24 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
                     if (previous != best[p - 1]) {
 
                         previous = best[p - 1];
-                        CHECKPOS (previous);
+                        CHECKPOS(previous);
                         myprice = previous->price;
 
                         /*In case we found revolutional point, we should think
                          *about changing our gusesses in last point too - don't
                          *connect it at all, but use this way instead*/
-                        if (myprice + NEWPRICE < bestprice) {   /*true in approx 2/3 of cases */
-                            bestprice = myprice + NEWPRICE, bestdata = data - DSIZE;
+                        if (myprice + NEWPRICE <
+                            bestprice) { /*true in approx 2/3 of cases */
+                            bestprice = myprice + NEWPRICE,
+                            bestdata = data - DSIZE;
                             (bestdata)->price = bestprice;
                             (bestdata)->previous = previous + nosetadd;
                             best1[p - 1] = bestdata;
                         }
-                        myprice += PRICE (pos[p], y);   /*calculate price of new connection */
-                        if (myprice < bestprice) {      /*if it is better than previous, store it */
+                        myprice += PRICE(
+                            pos[p], y); /*calculate price of new connection */
+                        if (myprice < bestprice) { /*if it is better than
+                                                      previous, store it */
                             bestprice = myprice, bestdata = data;
                             data->price = myprice;
                             data->previous = previous;
@@ -631,8 +664,8 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
                     }
                 }
 #endif
-                assert (myprice >= 0);
-                assert (bestprice >= 0);        /*FIXME:tenhle assert FAILI! */
+                assert(myprice >= 0);
+                assert(bestprice >= 0); /*FIXME:tenhle assert FAILI! */
 
                 best1[p] = bestdata;
                 data += DSIZE;
@@ -645,10 +678,10 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
              */
             if (p > ps) {
                 previous = best[p - 1]; /*find best one in previous */
-                CHECKPOS (previous);
+                CHECKPOS(previous);
                 price1 = previous->price;
             } else {
-                previous = getbest (i - 1);
+                previous = getbest(i - 1);
                 price1 = previous->price;
             }
 
@@ -666,8 +699,8 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
             while (pos[p] < yend) {
                 if (pos[p] != pos[p + 1]) {
                     myprice = price1;
-                    myprice += PRICE (pos[p], y);       /*store data */
-                    if (myprice < bestprice) {  /*calcualte best */
+                    myprice += PRICE(pos[p], y); /*store data */
+                    if (myprice < bestprice) {   /*calcualte best */
                         bestprice = myprice, bestdata = data;
                         data->price = myprice;
                         data->previous = previous;
@@ -675,8 +708,8 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
                         break;
                 }
 
-                assert (bestprice >= 0);
-                assert (myprice >= 0);
+                assert(bestprice >= 0);
+                assert(myprice >= 0);
 
                 best1[p] = bestdata;
                 data += DSIZE;
@@ -693,17 +726,17 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
              * previous problem. Se we have just one answer
              * Situation is similar to latest loop in previous case
              */
-            int myprice1;       /*simplified loop for case that previous
-                                   y had no lines */
+            int myprice1; /*simplified loop for case that previous
+                             y had no lines */
             if (pos[p] < yend) {
                 if (i > 0) {
-                    previous = getbest (i - 1);
+                    previous = getbest(i - 1);
                     myprice1 = previous->price;
                 } else
                     previous = END, myprice1 = 0;
                 while (pos[p] < yend) {
                     if (pos[p] != pos[p + 1]) {
-                        myprice = myprice1 + PRICE (pos[p], y);
+                        myprice = myprice1 + PRICE(pos[p], y);
                         if (myprice < bestprice) {
                             data->price = myprice;
                             data->previous = previous;
@@ -711,8 +744,8 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
                         } else if (pos[p] > y)
                             break;
                     }
-                    assert (bestprice >= 0);
-                    assert (myprice >= 0);
+                    assert(bestprice >= 0);
+                    assert(myprice >= 0);
                     best1[p] = bestdata;
                     p++;
                     data += DSIZE;
@@ -723,27 +756,24 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
                 }
             }
         }
-        /*previous = ps; *//*store positions for next loop */
+        /*previous = ps; */ /*store positions for next loop */
         ps = ps1;
         ps1 = pe;
         pe = p;
     }
 
-
-    assert (bestprice >= 0);
+    assert(bestprice >= 0);
 
     realloc = realloc + size;
-    yend = (int) ((begin > fpos[0]) && (end < fpos[size - 1]));
+    yend = (int)((begin > fpos[0]) && (end < fpos[size - 1]));
 
-    if (pos[0] > 0 && pos[size - 1] < (int) size * FPMUL)
+    if (pos[0] > 0 && pos[size - 1] < (int)size * FPMUL)
         yend = 2;
-
-
 
     /*This part should be made threaded quite easily...but does it worth
      *since it is quite simple loop 0...xmax
      */
-    for (i = size; i > 0;) {    /*and finally traces the path */
+    for (i = size; i > 0;) { /*and finally traces the path */
         struct dyn_data *bestdata1;
         realloc--;
         i--;
@@ -751,12 +781,13 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
         realloc->symref = -1;
         bestdata1 = bestdata->previous;
 
-        if (bestdata1 >= dyndata + nosetadd || bestdata >= dyndata + ((size) << DSIZES)) {
+        if (bestdata1 >= dyndata + nosetadd ||
+            bestdata >= dyndata + ((size) << DSIZES)) {
             if (bestdata1 >= dyndata + nosetadd)
                 bestdata1 -= nosetadd;
 
             realloc->recalculate = 1;
-            STAT (nadded++);
+            STAT(nadded++);
             realloc->dirty = 1;
             lastplus++;
 
@@ -766,8 +797,8 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
             realloc->plus = lastplus;
 
         } else {
-            p = ((unsigned int) (bestdata - dyndata)) >> DSIZES;
-            assert (p >= 0 && p < size);
+            p = ((unsigned int)(bestdata - dyndata)) >> DSIZES;
+            assert(p >= 0 && p < size);
             realloc->position = fpos[p];
             realloc->plus = p;
             realloc->dirty = 0;
@@ -777,40 +808,36 @@ mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned in
         bestdata = bestdata1;
     }
 
-
-
-    newpositions (realloc, size, begin, end, fpos, yend);
+    newpositions(realloc, size, begin, end, fpos, yend);
     realloc = r;
-    if (symi <= (int) size && symi >= 0) {
-        preparesymmetries (r, (int) size, symi, sym, step);
+    if (symi <= (int)size && symi >= 0) {
+        preparesymmetries(r, (int)size, symi, sym, step);
     }
 
-
-    STAT (printf ("%i added %i skipped %i mirrored\n", nadded, nskipped, nsymmetry));
-    STAT (nadded2 += nadded; nskipped2 += nskipped; nsymmetry2 += nsymmetry);
+    STAT(printf("%i added %i skipped %i mirrored\n", nadded, nskipped,
+                nsymmetry));
+    STAT(nadded2 += nadded; nskipped2 += nskipped; nsymmetry2 += nsymmetry);
 }
 
-struct movedata
-{
+struct movedata {
     unsigned int size;
     unsigned int start;
     unsigned int plus;
 };
 int avgsize;
-/* 
+/*
  * this function prepares fast moving table for moveoldpoints
  * see xaos.info for details. It is not threaded since it is quite
  * fast.
  */
-static void
-preparemoveoldpoints (void)
+static void preparemoveoldpoints(void)
 {
     struct movedata *data, *sizend;
     realloc_t *rx, *rx1, *rend1;
     int sum = 0, num = 0;
     int plus1 = 0;
 
-    data = (struct movedata *) tmpdata;
+    data = (struct movedata *)tmpdata;
     for (rx = czoomc.reallocx, rend1 = rx + cimage.width; rx < rend1; rx++)
         if ((rx->dirty) && plus1 < cimage.width + 1)
             plus1++;
@@ -835,7 +862,8 @@ preparemoveoldpoints (void)
                 rx1 = rx - 1;
                 while (rx1 > czoomc.reallocx && rx1->dirty)
                     plus1++, data->size--, rx1--;
-                if (!(data->start + data->size < (unsigned int) cimage.width) && !rx->dirty) {
+                if (!(data->start + data->size < (unsigned int)cimage.width) &&
+                    !rx->dirty) {
                     int i;
                     if (rx == rend1)
                         break;
@@ -843,7 +871,7 @@ preparemoveoldpoints (void)
                         i++;
                     data++;
                     data->plus = plus1;
-                    data->size = (unsigned int) i;
+                    data->size = (unsigned int)i;
                     data->start = rx->plus - i;
                 } else {
                     sum += data->size;
@@ -854,10 +882,9 @@ preparemoveoldpoints (void)
                 }
             } else
                 data->start = rx->plus;
-            assert (rx->plus >= 0 && rx->plus < (unsigned int) cimage.width);
+            assert(rx->plus >= 0 && rx->plus < (unsigned int)cimage.width);
             data->size = 1;
         }
-
     }
     if (data->size) {
         sizend = data + 1;
@@ -871,7 +898,7 @@ preparemoveoldpoints (void)
     sizend->size = 0;
     if (cimage.bytesperpixel != 1) {
         sum *= cimage.bytesperpixel;
-        for (data = (struct movedata *) tmpdata; data < sizend; data++) {
+        for (data = (struct movedata *)tmpdata; data < sizend; data++) {
             data->plus *= cimage.bytesperpixel;
             data->size *= cimage.bytesperpixel;
             data->start *= cimage.bytesperpixel;
@@ -883,38 +910,40 @@ preparemoveoldpoints (void)
 
 #ifndef USE_i386ASM
 
-     static void moveoldpoints (void /*@unused@ */ *data1,
-                                struct taskinfo /*@unused@ */
-                                *task, int r1, int r2)
+static void moveoldpoints(void /*@unused@ */ *data1,
+                          struct taskinfo /*@unused@ */
+                              *task,
+                          int r1, int r2)
 {
     struct movedata *data;
     register unsigned char *vline, *vbuff;
     realloc_t *ry, *rend;
     int i = r1;
 
-    for (ry = czoomc.reallocy + r1, rend = czoomc.reallocy + r2; ry < rend; ry++, i++) {
+    for (ry = czoomc.reallocy + r1, rend = czoomc.reallocy + r2; ry < rend;
+         ry++, i++) {
         if (!ry->dirty) {
-            assert (ry->plus >= 0 && ry->plus < (unsigned int) cimage.height);
+            assert(ry->plus >= 0 && ry->plus < (unsigned int)cimage.height);
             vbuff = cimage.currlines[i];
             vline = cimage.oldlines[ry->plus];
-            for (data = (struct movedata *) tmpdata; data->size; data++) {
+            for (data = (struct movedata *)tmpdata; data->size; data++) {
                 vbuff += data->plus;
-                memcpy (vbuff, vline + data->start, (size_t) data->size), vbuff += data->size;
+                memcpy(vbuff, vline + data->start, (size_t)data->size),
+                    vbuff += data->size;
             }
         }
     }
 }
 #endif
 /* This function prepares fast filling tables for fillline */
-static int
-mkfilltable (void)
+static int mkfilltable(void)
 {
     int vsrc;
     int pos;
     realloc_t *rx, *r1, *r2, *rend, *rend2;
     int n = 0;
     int num = 0;
-    struct filltable *tbl = (struct filltable *) tmpdata;
+    struct filltable *tbl = (struct filltable *)tmpdata;
 
     pos = 0;
     vsrc = 0;
@@ -922,29 +951,36 @@ mkfilltable (void)
     rx = czoomc.reallocx;
     while (rx > czoomc.reallocx && rx->dirty)
         rx--;
-    for (rend = czoomc.reallocx + cimage.width, rend2 = czoomc.reallocx + cimage.width; rx < rend; rx++) {
+    for (rend = czoomc.reallocx + cimage.width,
+        rend2 = czoomc.reallocx + cimage.width;
+         rx < rend; rx++) {
         if (rx->dirty) {
             r1 = rx - 1;
-            for (r2 = rx + 1; r2 < rend2 && r2->dirty; r2++);
+            for (r2 = rx + 1; r2 < rend2 && r2->dirty; r2++)
+                ;
             while (rx < rend2 && rx->dirty) {
-                n = (int) (r2 - rx);
-                assert (n > 0);
-                if (r2 < rend2 && (r1 < czoomc.reallocx || rx->position - r1->position > r2->position - rx->position))
-                    vsrc = (int) (r2 - czoomc.reallocx), r1 = r2;
+                n = (int)(r2 - rx);
+                assert(n > 0);
+                if (r2 < rend2 &&
+                    (r1 < czoomc.reallocx ||
+                     rx->position - r1->position > r2->position - rx->position))
+                    vsrc = (int)(r2 - czoomc.reallocx), r1 = r2;
                 else {
-                    vsrc = (int) (r1 - czoomc.reallocx);
+                    vsrc = (int)(r1 - czoomc.reallocx);
                     if (vsrc < 0)
                         goto end;
                 }
-                pos = (int) (rx - czoomc.reallocx);
-                assert (pos >= 0 && pos < cimage.width);
-                assert (vsrc >= 0 && vsrc < cimage.width);
+                pos = (int)(rx - czoomc.reallocx);
+                assert(pos >= 0 && pos < cimage.width);
+                assert(vsrc >= 0 && vsrc < cimage.width);
 
                 tbl[num].length = n;
                 tbl[num].to = pos * cimage.bytesperpixel;
                 tbl[num].from = vsrc * cimage.bytesperpixel;
-                tbl[num].end = tbl[num].length * cimage.bytesperpixel + tbl[num].to;
-                /*printf("%i %i %i %i\n",num,tbl[num].length, tbl[num].to, tbl[num].from); */
+                tbl[num].end =
+                    tbl[num].length * cimage.bytesperpixel + tbl[num].to;
+                /*printf("%i %i %i %i\n",num,tbl[num].length, tbl[num].to,
+                 * tbl[num].from); */
                 while (n) {
                     rx->position = czoomc.reallocx[vsrc].position;
                     rx->dirty = 0;
@@ -952,22 +988,21 @@ mkfilltable (void)
                     n--;
                 }
                 num++;
-            }                   /*while rx->dirty */
-        }                       /*if rx->dirty */
-    }                           /*for czoomc */
-  end:
+            } /*while rx->dirty */
+        }     /*if rx->dirty */
+    }         /*for czoomc */
+end:
     tbl[num].length = 0;
     tbl[num].to = pos;
     tbl[num].from = vsrc;
     return num;
 }
 
-static void
-filly (void
-       /*@unused@ */
-       /*@null@ */
-       *data, struct taskinfo /*@unused@ */ *task, int rr1,
-       int rr2)
+static void filly(void
+                      /*@unused@ */
+                      /*@null@ */
+                      *data,
+                  struct taskinfo /*@unused@ */ *task, int rr1, int rr2)
 {
     register unsigned char **vbuff = cimage.currlines;
     realloc_t *ry, *r1, *r2, *rend, *rend2, *rs = NULL;
@@ -978,11 +1013,13 @@ filly (void
     ry = czoomc.reallocy + rr1;
     while (ry > czoomc.reallocy && ry->dirty > 0)
         ry--;
-    for (rend = czoomc.reallocy + rr2, rend2 = czoomc.reallocy + cimage.height; ry < rend; ry++) {
+    for (rend = czoomc.reallocy + rr2, rend2 = czoomc.reallocy + cimage.height;
+         ry < rend; ry++) {
         if (ry->dirty > 0) {
-            incincomplete ();
+            incincomplete();
             r1 = ry - 1;
-            for (r2 = ry + 1; r2 < rend2 && r2->dirty > 0; r2++);
+            for (r2 = ry + 1; r2 < rend2 && r2->dirty > 0; r2++)
+                ;
 #ifdef _UNDEFINED_
             if (r2 >= rend && (rr2 != cimage.height || ry == 0))
 #else
@@ -996,41 +1033,48 @@ filly (void
                         return;
                 } else if (r2 >= rend2)
                     rs = r1;
-                else if (ry->position - r1->position < r2->position - ry->position)
+                else if (ry->position - r1->position <
+                         r2->position - ry->position)
                     rs = r1;
                 else
                     rs = r2;
                 if (!rs->dirty) {
-                    drivercall (cimage, fillline_8 (rs - czoomc.reallocy), fillline_16 (rs - czoomc.reallocy), fillline_24 (rs - czoomc.reallocy), fillline_32 (rs - czoomc.reallocy));
+                    drivercall(cimage, fillline_8(rs - czoomc.reallocy),
+                               fillline_16(rs - czoomc.reallocy),
+                               fillline_24(rs - czoomc.reallocy),
+                               fillline_32(rs - czoomc.reallocy));
                     ry->dirty = -1;
                 }
-                memcpy (vbuff[ry - czoomc.reallocy], vbuff[rs - czoomc.reallocy], (size_t) linesize);
+                memcpy(vbuff[ry - czoomc.reallocy], vbuff[rs - czoomc.reallocy],
+                       (size_t)linesize);
                 ry->position = rs->position;
                 ry->dirty = -1;
                 ry++;
             }
         }
         if (ry < rend && !ry->dirty) {
-            drivercall (cimage, fillline_8 (ry - czoomc.reallocy), fillline_16 (ry - czoomc.reallocy), fillline_24 (ry - czoomc.reallocy), fillline_32 (ry - czoomc.reallocy));
+            drivercall(cimage, fillline_8(ry - czoomc.reallocy),
+                       fillline_16(ry - czoomc.reallocy),
+                       fillline_24(ry - czoomc.reallocy),
+                       fillline_32(ry - czoomc.reallocy));
             ry->dirty = -1;
         }
     }
 }
 
-static void
-fill (void)
+static void fill(void)
 {
     if (cfilter.interrupt) {
         cfilter.pass = "reducing resolution";
-        mkfilltable ();
-        xth_function (filly, NULL, cimage.height);
+        mkfilltable();
+        xth_function(filly, NULL, cimage.height);
     }
-    xth_sync ();
+    xth_sync();
 }
 
-static void
-calculatenew (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
-              int /*@unused@ */ r1, int /*@unused@ */ r2)
+static void calculatenew(void /*@unused@ */ *data,
+                         struct taskinfo /*@unused@ */ *task,
+                         int /*@unused@ */ r1, int /*@unused@ */ r2)
 {
     int s;
     int i, y;
@@ -1043,23 +1087,24 @@ calculatenew (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
         range = 1;
     if (range > 16)
         range = 16;
-    memset (positions, 0, sizeof (positions));
+    memset(positions, 0, sizeof(positions));
     calcpositions[0] = 0;
     positions[0] = 1;
     for (s = 1; s < range;) {
         for (i = 0; i < range; i++) {
             if (!positions[i]) {
-                for (y = i; y < range && !positions[y]; y++);
+                for (y = i; y < range && !positions[y]; y++)
+                    ;
                 positions[(y + i) / 2] = 1;
                 calcpositions[s++] = (y + i) / 2;
             }
         }
     }
 
-    if (!xth_nthread (task)) {
-        STAT (tocalculate = 0);
-        STAT (avoided = 0);
-        cfilter.pass = gettext ("Solid guessing 1");
+    if (!xth_nthread(task)) {
+        STAT(tocalculate = 0);
+        STAT(avoided = 0);
+        cfilter.pass = gettext("Solid guessing 1");
         cfilter.max = 0;
         cfilter.pos = 0;
     }
@@ -1073,7 +1118,7 @@ calculatenew (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
      * be a bit inaccurate. Just need to take care in percentage
      * displayers that thinks like -100% or 150% should happend
      */
-    if (!xth_nthread (task)) {
+    if (!xth_nthread(task)) {
         for (ry = czoomc.reallocy, rend = ry + cimage.height; ry < rend; ry++) {
             if (ry->recalculate)
                 cfilter.max++;
@@ -1084,64 +1129,69 @@ calculatenew (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
             }
         }
     }
-    tcallwait ();
+    tcallwait();
     for (s = 0; s < range; s++) {
-        for (ry = czoomc.reallocy + calcpositions[s], rend = czoomc.reallocy + cimage.height; ry < rend; ry += range) {
-            xth_lock (0);
+        for (ry = czoomc.reallocy + calcpositions[s],
+            rend = czoomc.reallocy + cimage.height;
+             ry < rend; ry += range) {
+            xth_lock(0);
             if (ry->recalculate == 1) {
                 ry->recalculate = 2;
-                xth_unlock (0);
-                setchanged (1);
+                xth_unlock(0);
+                setchanged(1);
                 ry->dirty = 0;
-                calcline (ry);
+                calcline(ry);
                 cfilter.pos++;
 #ifndef DRAW
-                tcallwait ();
+                tcallwait();
 #endif
                 if (cfilter.interrupt) {
                     break;
                 }
             } else {
-                xth_unlock (0);
+                xth_unlock(0);
             }
-        }                       /*for ry */
-        for (rx = czoomc.reallocx + calcpositions[s], rend = czoomc.reallocx + cimage.width; rx < rend; rx += range) {
-            xth_lock (1);
+        } /*for ry */
+        for (rx = czoomc.reallocx + calcpositions[s],
+            rend = czoomc.reallocx + cimage.width;
+             rx < rend; rx += range) {
+            xth_lock(1);
             if (rx->recalculate == 1) {
                 rx->recalculate = 2;
-                xth_unlock (1);
-                setchanged (1);
+                xth_unlock(1);
+                setchanged(1);
                 rx->dirty = 0;
-                calccolumn (rx);
+                calccolumn(rx);
                 cfilter.pos++;
 #ifndef DRAW
-                tcallwait ();
+                tcallwait();
 #endif
                 if (cfilter.interrupt) {
                     return;
                 }
             } else {
-                xth_unlock (1);
+                xth_unlock(1);
             }
         }
     }
-    STAT (printf ("Avoided caluclating of %i points from %i and %2.2f%% %2.2f%%\n", avoided, tocalculate, 100.0 * (avoided) / tocalculate, 100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
-    STAT (avoided2 += avoided; tocalculate2 += tocalculate; frames2 += 1);
+    STAT(
+        printf("Avoided caluclating of %i points from %i and %2.2f%% %2.2f%%\n",
+               avoided, tocalculate, 100.0 * (avoided) / tocalculate,
+               100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
+    STAT(avoided2 += avoided; tocalculate2 += tocalculate; frames2 += 1);
 }
 
-static void
-addprices (realloc_t * r, realloc_t * r2)
-;
+static void addprices(realloc_t *r, realloc_t *r2);
 
-     static void addprices (realloc_t * r, realloc_t * r2)
+static void addprices(realloc_t *r, realloc_t *r2)
 {
     realloc_t *r3;
     while (r < r2) {
-        r3 = r + (((unsigned int) (r2 - r)) >> 1);
+        r3 = r + (((unsigned int)(r2 - r)) >> 1);
         r3->price = (r2->position - r3->position) * (r3->price);
         if (r3->symref != -1)
             r3->price = r3->price / 2;
-        addprices (r, r3);
+        addprices(r, r3);
         r = r3 + 1;
     }
 }
@@ -1150,20 +1200,20 @@ addprices (realloc_t * r, realloc_t * r2)
  * systems,since we need to take care to points at the cross of symmetrized
  * point/column
  */
-static void
-dosymmetry (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
-           int r1, int r2)
+static void dosymmetry(void /*@unused@ */ *data,
+                       struct taskinfo /*@unused@ */ *task, int r1, int r2)
 {
     unsigned char **vbuff = cimage.currlines + r1;
     realloc_t *ry, *rend;
     int linesize = cimage.width * cimage.bytesperpixel;
 
-    for (ry = czoomc.reallocy + r1, rend = czoomc.reallocy + r2; ry < rend; ry++) {
-        assert (ry->symto >= 0 || ry->symto == -1);
+    for (ry = czoomc.reallocy + r1, rend = czoomc.reallocy + r2; ry < rend;
+         ry++) {
+        assert(ry->symto >= 0 || ry->symto == -1);
         if (ry->symto >= 0) {
-            assert (ry->symto < cimage.height);
+            assert(ry->symto < cimage.height);
             if (!czoomc.reallocy[ry->symto].dirty) {
-                memcpy (*vbuff, cimage.currlines[ry->symto], (size_t) linesize);
+                memcpy(*vbuff, cimage.currlines[ry->symto], (size_t)linesize);
                 ry->dirty = 0;
             }
         }
@@ -1174,8 +1224,7 @@ dosymmetry (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
 /*Well, clasical simple quicksort. Should be faster than library one
  *because of reduced number of function calls :)
  */
-static INLINE void
-myqsort (realloc_t ** start, realloc_t ** end)
+static INLINE void myqsort(realloc_t **start, realloc_t **end)
 {
     number_t med;
     realloc_t **left = start, **right = end - 1;
@@ -1213,7 +1262,7 @@ myqsort (realloc_t ** start, realloc_t ** end)
                 break;
         }
         if (left - start > 1)
-            myqsort (start, left);
+            myqsort(start, left);
         if (end - right <= 2)
             return;
         left = start = right;
@@ -1222,35 +1271,35 @@ myqsort (realloc_t ** start, realloc_t ** end)
 }
 
 static int tocalcx, tocalcy;
-static void
-processqueue (void *data, struct taskinfo /*@unused@ */ *task,
-              int /*@unused@ */ r1, int /*@unused@ */ r2)
+static void processqueue(void *data, struct taskinfo /*@unused@ */ *task,
+                         int /*@unused@ */ r1, int /*@unused@ */ r2)
 {
-    realloc_t **tptr = (realloc_t **) data, **tptr1 = (realloc_t **) tmpdata;
+    realloc_t **tptr = (realloc_t **)data, **tptr1 = (realloc_t **)tmpdata;
     realloc_t *r, *end;
     end = czoomc.reallocx + cimage.width;
 
-    while (tptr1 < tptr && (!cfilter.interrupt || tocalcx == cimage.width || tocalcy == cimage.height)) {
-        xth_lock (0);
+    while (tptr1 < tptr && (!cfilter.interrupt || tocalcx == cimage.width ||
+                            tocalcy == cimage.height)) {
+        xth_lock(0);
         r = *tptr1;
         if (r != NULL) {
             *tptr1 = NULL;
-            xth_unlock (0);
+            xth_unlock(0);
             cfilter.pos++;
             if (tocalcx < cimage.width - 2 && tocalcy < cimage.height - 2)
                 cfilter.readyforinterrupt = 1;
-            tcallwait ();
+            tcallwait();
             if (r >= czoomc.reallocx && r < end) {
                 r->dirty = 0;
                 tocalcx--;
-                calccolumn (r);
+                calccolumn(r);
             } else {
                 r->dirty = 0;
                 tocalcy--;
-                calcline (r);
+                calcline(r);
             }
         } else {
-            xth_unlock (0);
+            xth_unlock(0);
         }
         tptr1++;
     }
@@ -1265,25 +1314,25 @@ processqueue (void *data, struct taskinfo /*@unused@ */ *task,
  * sorts it in order of significancy and then calls parrel processqueue,
  * that does the job.
  */
-static void
-calculatenewinterruptible (void)
+static void calculatenewinterruptible(void)
 {
     realloc_t *r, *r2, *end, *end1;
     realloc_t **table, **tptr;
 
-    /*tptr = table = (realloc_t **) malloc (sizeof (*table) * (cimage.width + cimage.height)); */
-    tptr = table = (realloc_t **) tmpdata;
+    /*tptr = table = (realloc_t **) malloc (sizeof (*table) * (cimage.width +
+     * cimage.height)); */
+    tptr = table = (realloc_t **)tmpdata;
     end = czoomc.reallocx + cimage.width;
     tocalcx = 0, tocalcy = 0;
 
-    STAT (tocalculate = 0);
-    STAT (avoided = 0);
+    STAT(tocalculate = 0);
+    STAT(avoided = 0);
 
-    cfilter.pass = gettext ("Solid guessing");
+    cfilter.pass = gettext("Solid guessing");
 
     for (r = czoomc.reallocx; r < end; r++)
         if (r->dirty)
-            tocalcx++, setchanged (1);
+            tocalcx++, setchanged(1);
 
     for (r = czoomc.reallocx; r < end; r++) {
         if (r->recalculate) {
@@ -1292,7 +1341,7 @@ calculatenewinterruptible (void)
             if (r2 == end)
                 /*(r2 - 1)->price = 0, */
                 r2--;
-            addprices (r, r2);
+            addprices(r, r2);
             r = r2;
         }
     }
@@ -1301,7 +1350,7 @@ calculatenewinterruptible (void)
 
     for (r = czoomc.reallocy; r < end1; r++)
         if (r->dirty)
-            tocalcy++, setchanged (1);
+            tocalcy++, setchanged(1);
 
     for (r = czoomc.reallocy; r < end1; r++) {
         if (r->recalculate) {
@@ -1310,121 +1359,125 @@ calculatenewinterruptible (void)
             if (r2 == end1)
                 /*(r2 - 1)->price = 0, */
                 r2--;
-            addprices (r, r2);
+            addprices(r, r2);
             r = r2;
         }
     }
     if (table != tptr) {
 
         if (tptr - table > 1)
-            myqsort (table, tptr);
+            myqsort(table, tptr);
 
         cfilter.pos = 0;
-        cfilter.max = (int) (tptr - table);
+        cfilter.max = (int)(tptr - table);
         cfilter.incalculation = 1;
-        callwait ();
+        callwait();
 
-        xth_function (processqueue, tptr, 1);
+        xth_function(processqueue, tptr, 1);
 
-        callwait ();
+        callwait();
     }
 
     cfilter.pos = 0;
     cfilter.max = 0;
     cfilter.pass = "Procesing symmetries";
     cfilter.incalculation = 0;
-    callwait ();
+    callwait();
 
-    xth_sync ();
+    xth_sync();
     if (nsymmetrized) {
-        xth_function (dosymmetry, NULL, cimage.height);
-        xth_sync ();
-        drivercall (cimage, xth_function (dosymmetry2_8, NULL, cimage.width), xth_function (dosymmetry2_16, NULL, cimage.width), xth_function (dosymmetry2_24, NULL, cimage.width), xth_function (dosymmetry2_32, NULL, cimage.width));
-        xth_sync ();
+        xth_function(dosymmetry, NULL, cimage.height);
+        xth_sync();
+        drivercall(cimage, xth_function(dosymmetry2_8, NULL, cimage.width),
+                   xth_function(dosymmetry2_16, NULL, cimage.width),
+                   xth_function(dosymmetry2_24, NULL, cimage.width),
+                   xth_function(dosymmetry2_32, NULL, cimage.width));
+        xth_sync();
     }
     if (cfilter.interrupt) {
         cfilter.pass = "reducing resolution";
-        mkfilltable ();
-        xth_function (filly, NULL, cimage.height);
+        mkfilltable();
+        xth_function(filly, NULL, cimage.height);
     }
-    xth_sync ();
+    xth_sync();
 
-    STAT (printf ("Avoided caluclating of %i points from %i and %2.2f%% %2.2f%%\n", avoided, tocalculate, 100.0 * (avoided) / tocalculate, 100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
-    STAT (avoided2 += avoided; tocalculate2 += tocalculate; frames2 += 1);
+    STAT(
+        printf("Avoided caluclating of %i points from %i and %2.2f%% %2.2f%%\n",
+               avoided, tocalculate, 100.0 * (avoided) / tocalculate,
+               100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
+    STAT(avoided2 += avoided; tocalculate2 += tocalculate; frames2 += 1);
 }
 
-static void
-init_tables (struct filter *f)
+static void init_tables(struct filter *f)
 {
     int i;
-    zoom_context *c = getzcontext (f);
+    zoom_context *c = getzcontext(f);
 
     /*c->dirty = 2; */
     for (i = 0; i < f->image->width + 1; i++)
-        c->xpos[i] = (-f->fractalc->rs.nc + f->fractalc->rs.mc) + f->fractalc->rs.mc;
+        c->xpos[i] =
+            (-f->fractalc->rs.nc + f->fractalc->rs.mc) + f->fractalc->rs.mc;
     for (i = 0; i < f->image->height + 1; i++)
-        c->ypos[i] = (-f->fractalc->rs.ni + f->fractalc->rs.mi) + f->fractalc->rs.mi;
+        c->ypos[i] =
+            (-f->fractalc->rs.ni + f->fractalc->rs.mi) + f->fractalc->rs.mi;
 }
 
-
-static int
-alloc_tables (struct filter *f)
+static int alloc_tables(struct filter *f)
 {
-    zoom_context *c = getzcontext (f);
-    c->xpos = (number_t *) malloc ((f->image->width + 8) * sizeof (*c->xpos));
+    zoom_context *c = getzcontext(f);
+    c->xpos = (number_t *)malloc((f->image->width + 8) * sizeof(*c->xpos));
     if (c->xpos == NULL)
         return 0;
-    c->ypos = (number_t *) malloc ((f->image->height + 8) * sizeof (*c->ypos));
+    c->ypos = (number_t *)malloc((f->image->height + 8) * sizeof(*c->ypos));
     if (c->ypos == NULL) {
-        free ((void *) c->xpos);
+        free((void *)c->xpos);
         return 0;
     }
-    c->reallocx = (realloc_t *) malloc (sizeof (realloc_t) * (f->image->width + 8));
+    c->reallocx =
+        (realloc_t *)malloc(sizeof(realloc_t) * (f->image->width + 8));
     if (c->reallocx == NULL) {
-        free ((void *) c->xpos);
-        free ((void *) c->ypos);
+        free((void *)c->xpos);
+        free((void *)c->ypos);
         return 0;
     }
-    c->reallocy = (realloc_t *) malloc (sizeof (realloc_t) * (f->image->height + 8));
+    c->reallocy =
+        (realloc_t *)malloc(sizeof(realloc_t) * (f->image->height + 8));
     if (c->reallocy == NULL) {
-        free ((void *) c->xpos);
-        free ((void *) c->ypos);
-        free ((void *) c->reallocx);
+        free((void *)c->xpos);
+        free((void *)c->ypos);
+        free((void *)c->reallocx);
         return 0;
     }
     return 1;
 }
 
-static void
-free_tables (struct filter *f)
+static void free_tables(struct filter *f)
 {
-    zoom_context *c = getzcontext (f);
+    zoom_context *c = getzcontext(f);
     if (c->xpos != NULL)
-        free ((void *) c->xpos), c->xpos = NULL;
+        free((void *)c->xpos), c->xpos = NULL;
     if (c->ypos != NULL)
-        free ((void *) c->ypos), c->ypos = NULL;
+        free((void *)c->ypos), c->ypos = NULL;
     if (c->reallocx != NULL)
-        free ((void *) c->reallocx), c->reallocx = NULL;
+        free((void *)c->reallocx), c->reallocx = NULL;
     if (c->reallocy != NULL)
-        free ((void *) c->reallocy), c->reallocy = NULL;
+        free((void *)c->reallocy), c->reallocy = NULL;
 }
 
-static void
-free_context (struct filter *f)
+static void free_context(struct filter *f)
 {
     zoom_context *c;
-    c = getzcontext (f);
-    free_tables (f);
-    free ((void *) c);
+    c = getzcontext(f);
+    free_tables(f);
+    free((void *)c);
     f->data = NULL;
 }
 
-static zoom_context *
-make_context (void)
+static zoom_context *make_context(void)
 {
     zoom_context *new_ctxt;
 
-    new_ctxt = (zoom_context *) calloc (1, sizeof (zoom_context));
+    new_ctxt = (zoom_context *)calloc(1, sizeof(zoom_context));
     if (new_ctxt == NULL)
         return NULL;
     new_ctxt->forversion = -1;
@@ -1437,17 +1490,16 @@ make_context (void)
     return (new_ctxt);
 }
 
-static void
-startbgmkrealloc (void /*@unused@ */ *data,
-                  struct taskinfo /*@unused@ */ *task,
-                  int /*@unused@ */ r1,
-                  int /*@unused@ */ r2)
+static void startbgmkrealloc(void /*@unused@ */ *data,
+                             struct taskinfo /*@unused@ */ *task,
+                             int /*@unused@ */ r1, int /*@unused@ */ r2)
 {
-    mkrealloc_table (czoomc.ypos, czoomc.reallocy, (unsigned int) cimage.height, cfractalc.rs.ni, cfractalc.rs.mi, cursymmetry.ysym, tmpdata1);
+    mkrealloc_table(czoomc.ypos, czoomc.reallocy, (unsigned int)cimage.height,
+                    cfractalc.rs.ni, cfractalc.rs.mi, cursymmetry.ysym,
+                    tmpdata1);
 }
 
-static int
-do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
+static int do_fractal(struct filter *f, int flags, int /*@unused@ */ time)
 {
     number_t *posptr;
     int maxres;
@@ -1455,46 +1507,56 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
     int rflags = 0;
     realloc_t *r, *rend;
 
-    f->image->flip (f->image);
+    f->image->flip(f->image);
     cfilter = *f;
-    set_fractalc (f->fractalc, f->image);
+    set_fractalc(f->fractalc, f->image);
 
-    if (getzcontext (f)->forversion != f->fractalc->version || getzcontext (f)->newcalc || getzcontext (f)->forpversion != f->image->palette->version) {
-        clear_image (f->image);
-        free_tables (f);
-        if (!alloc_tables (f))
+    if (getzcontext(f)->forversion != f->fractalc->version ||
+        getzcontext(f)->newcalc ||
+        getzcontext(f)->forpversion != f->image->palette->version) {
+        clear_image(f->image);
+        free_tables(f);
+        if (!alloc_tables(f))
             return 0;
-        init_tables (f);
-        getzcontext (f)->newcalc = 0;
-        getzcontext (f)->forversion = getfcontext (f)->version;
-        getzcontext (f)->forpversion = f->image->palette->version;
-        czoomc = *getzcontext (f);
+        init_tables(f);
+        getzcontext(f)->newcalc = 0;
+        getzcontext(f)->forversion = getfcontext(f)->version;
+        getzcontext(f)->forpversion = f->image->palette->version;
+        czoomc = *getzcontext(f);
         if (BTRACEOK && !(flags & INTERRUPTIBLE)) {
-            boundarytraceall (czoomc.xpos, czoomc.ypos);
+            boundarytraceall(czoomc.xpos, czoomc.ypos);
             f->flags &= ~ZOOMMASK;
             return CHANGED | (cfilter.interrupt ? INCOMPLETE : 0);
         }
     } else
         rflags |= INEXACT;
 
-    czoomc = *getzcontext (f);
+    czoomc = *getzcontext(f);
 
-    setincomplete (0);
-    setchanged (0);
+    setincomplete(0);
+    setchanged(0);
 
     maxres = cimage.width;
     if (maxres < cimage.height)
         maxres = cimage.height;
-    size = ALIGN ((maxres) * (DSIZE + 1) * (int) sizeof (struct dyn_data)) + 2 * ALIGN (maxres * (int) sizeof (struct dyn_data **)) + ALIGN ((maxres + 2) * (int) sizeof (int));
-    tmpdata = (unsigned char *) malloc (size);
+    size = ALIGN((maxres) * (DSIZE + 1) * (int)sizeof(struct dyn_data)) +
+           2 * ALIGN(maxres * (int)sizeof(struct dyn_data **)) +
+           ALIGN((maxres + 2) * (int)sizeof(int));
+    tmpdata = (unsigned char *)malloc(size);
     if (tmpdata == NULL) {
-        x_error ("XaoS fatal error:Could not allocate memory for temporary data of size %i. " "I am unable to handle this problem so please resize to smaller window.", size);
+        x_error(
+            "XaoS fatal error:Could not allocate memory for temporary data of size %i. "
+            "I am unable to handle this problem so please resize to smaller window.",
+            size);
         return 0;
     }
     if (nthreads != 1) {
-        tmpdata1 = (unsigned char *) malloc (size);
+        tmpdata1 = (unsigned char *)malloc(size);
         if (tmpdata1 == NULL) {
-            x_error ("XaoS fatal error:Could not allocate memory for temporary data of size %i. " "I am unable to handle this problem so please resize to smaller window", size);
+            x_error(
+                "XaoS fatal error:Could not allocate memory for temporary data of size %i. "
+                "I am unable to handle this problem so please resize to smaller window",
+                size);
             return 0;
         }
     } else
@@ -1508,109 +1570,120 @@ do_fractal (struct filter *f, int flags, int /*@unused@ */ time)
     cfilter.max = 0;
     cfilter.pos = 0;
     cfilter.pass = "Making y realloc table";
-    xth_bgjob (startbgmkrealloc, NULL);
+    xth_bgjob(startbgmkrealloc, NULL);
 
     cfilter.pass = "Making x realloc table";
-    mkrealloc_table (czoomc.xpos, czoomc.reallocx, (unsigned int) cimage.width, cfractalc.rs.nc, cfractalc.rs.mc, cursymmetry.xsym, tmpdata);
+    mkrealloc_table(czoomc.xpos, czoomc.reallocx, (unsigned int)cimage.width,
+                    cfractalc.rs.nc, cfractalc.rs.mc, cursymmetry.xsym,
+                    tmpdata);
 
-    callwait ();
+    callwait();
 
     cfilter.pass = "Moving old points";
-    callwait ();
-    preparemoveoldpoints ();
-    xth_sync ();
+    callwait();
+    preparemoveoldpoints();
+    xth_sync();
 #ifdef _NEVER_
     {
         static long long sum2, sum;
-        cli ();
-        startagi ();
-        sum -= rdtsc ();
-        sum2 -= countagi ();
-        xth_function (moveoldpoints, NULL, cimage.height);
-        sum += rdtsc ();
-        sum2 += countagi ();
-        sti ();
-        printf ("%i %i\n", (int) sum, (int) sum2);
+        cli();
+        startagi();
+        sum -= rdtsc();
+        sum2 -= countagi();
+        xth_function(moveoldpoints, NULL, cimage.height);
+        sum += rdtsc();
+        sum2 += countagi();
+        sti();
+        printf("%i %i\n", (int)sum, (int)sum2);
     }
 #else
-    xth_function (moveoldpoints, NULL, cimage.height);
+    xth_function(moveoldpoints, NULL, cimage.height);
 #endif
 
     cfilter.pass = "Starting calculation";
-    callwait ();
-    xth_sync ();
+    callwait();
+    xth_sync();
     if (flags & INTERRUPTIBLE)
-        calculatenewinterruptible ();
+        calculatenewinterruptible();
     else {
-        xth_function (calculatenew, NULL, 1);
+        xth_function(calculatenew, NULL, 1);
         if (cfilter.interrupt) {
-            getzcontext (f)->incomplete = 1;
+            getzcontext(f)->incomplete = 1;
         }
         cfilter.pos = 0;
         cfilter.max = 0;
         cfilter.pass = "Procesing symmetries";
-        callwait ();
-        xth_sync ();
+        callwait();
+        xth_sync();
         if (nsymmetrized) {
-            xth_function (dosymmetry, NULL, cimage.height);
-            xth_sync ();
-            drivercall (cimage, xth_function (dosymmetry2_8, NULL, cimage.width), xth_function (dosymmetry2_16, NULL, cimage.width), xth_function (dosymmetry2_24, NULL, cimage.width), xth_function (dosymmetry2_32, NULL, cimage.width));
-            xth_sync ();
+            xth_function(dosymmetry, NULL, cimage.height);
+            xth_sync();
+            drivercall(cimage, xth_function(dosymmetry2_8, NULL, cimage.width),
+                       xth_function(dosymmetry2_16, NULL, cimage.width),
+                       xth_function(dosymmetry2_24, NULL, cimage.width),
+                       xth_function(dosymmetry2_32, NULL, cimage.width));
+            xth_sync();
         }
-        if (getzcontext (f)->incomplete) {
-            fill ();
+        if (getzcontext(f)->incomplete) {
+            fill();
         }
     }
-    for (r = czoomc.reallocx, posptr = czoomc.xpos, rend = czoomc.reallocx + cimage.width; r < rend; r++, posptr++) {
+    for (r = czoomc.reallocx, posptr = czoomc.xpos,
+        rend = czoomc.reallocx + cimage.width;
+         r < rend; r++, posptr++) {
         *posptr = r->position;
     }
-    for (r = czoomc.reallocy, posptr = czoomc.ypos, rend = czoomc.reallocy + cimage.height; r < rend; r++, posptr++) {
+    for (r = czoomc.reallocy, posptr = czoomc.ypos,
+        rend = czoomc.reallocy + cimage.height;
+         r < rend; r++, posptr++) {
         *posptr = r->position;
     }
 #ifdef STATISTICS
-    STAT (printf ("Statistics: frames %i\n" "mkrealloctable: added %i, symmetry %i\n" "calculate loop: tocalculate %i avoided %i\n" "calculate:calculated %i inside %i\n" "iters inside:%i iters outside:%i periodicty:%i\n", frames2, nadded2, nsymmetry2, tocalculate2, avoided2, ncalculated2, ninside2, niter2, niter1, nperi));
+    STAT(printf("Statistics: frames %i\n"
+                "mkrealloctable: added %i, symmetry %i\n"
+                "calculate loop: tocalculate %i avoided %i\n"
+                "calculate:calculated %i inside %i\n"
+                "iters inside:%i iters outside:%i periodicty:%i\n",
+                frames2, nadded2, nsymmetry2, tocalculate2, avoided2,
+                ncalculated2, ninside2, niter2, niter1, nperi));
 #endif
     f->flags &= ~ZOOMMASK;
-    if (getzcontext (f)->incomplete)
+    if (getzcontext(f)->incomplete)
         rflags |= INCOMPLETE, f->flags |= INCOMPLETE;
-    if (getzcontext (f)->incomplete > (cimage.width + cimage.height) / 2)
+    if (getzcontext(f)->incomplete > (cimage.width + cimage.height) / 2)
         f->flags |= LOWQUALITY;
-    if (getzcontext (f)->changed)
+    if (getzcontext(f)->changed)
         rflags |= CHANGED;
-    free (tmpdata);
+    free(tmpdata);
     if (nthreads != 1)
-        free (tmpdata1);
+        free(tmpdata1);
     return rflags;
 }
 
-
-static struct filter *
-getinstance (const struct filteraction *a)
+static struct filter *getinstance(const struct filteraction *a)
 {
-    struct filter *f = createfilter (a);
-    f->data = make_context ();
+    struct filter *f = createfilter(a);
+    f->data = make_context();
     f->name = "Zooming engine";
     return (f);
 }
 
-static void
-destroyinstance (struct filter *f)
+static void destroyinstance(struct filter *f)
 {
-    free_context (f);
-    free (f);
+    free_context(f);
+    free(f);
 }
 
-static int
-requirement (struct filter *f, struct requirements *r)
+static int requirement(struct filter *f, struct requirements *r)
 {
     r->nimages = 2;
-    r->supportedmask = C256 | TRUECOLOR | TRUECOLOR24 | TRUECOLOR16 | LARGEITER | SMALLITER | GRAYSCALE;
+    r->supportedmask = C256 | TRUECOLOR | TRUECOLOR24 | TRUECOLOR16 |
+                       LARGEITER | SMALLITER | GRAYSCALE;
     r->flags = IMAGEDATA | TOUCHIMAGE;
-    return (f->next->action->requirement (f->next, r));
+    return (f->next->action->requirement(f->next, r));
 }
 
-static int
-initialize (struct filter *f, struct initdata *i)
+static int initialize(struct filter *f, struct initdata *i)
 {
 #ifdef USE_MULTABLE
     if (!multable[0]) {
@@ -1620,9 +1693,9 @@ initialize (struct filter *f, struct initdata *i)
             mulmid[i] = i * i;
     }
 #endif
-    inhermisc (f, i);
-    if (i->image != f->image || datalost (f, i))
-        getzcontext (f)->forversion = -1, f->image = i->image;
+    inhermisc(f, i);
+    if (i->image != f->image || datalost(f, i))
+        getzcontext(f)->forversion = -1, f->image = i->image;
     f->imageversion = i->image->version;
     return (1);
 }

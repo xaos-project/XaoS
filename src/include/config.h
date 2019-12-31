@@ -39,12 +39,12 @@ before #include <ddraw.h>*/
 #define NONAMELESSUNION
 #endif
 
-#define FPOINT_TYPE  long double
-				       /*floating point math type on computers
-				          with medium speed floating point math should   
-				          use float instead */
+#define FPOINT_TYPE long double
+/*floating point math type on computers
+   with medium speed floating point math should
+   use float instead */
 #define USE_STDIO
-#if !defined(HAVE_LONG_DOUBLE)&&!defined(I_WAS_HERE)
+#if !defined(HAVE_LONG_DOUBLE) && !defined(I_WAS_HERE)
 #undef FPOINT_TYPE
 #define FPOINT_TYPE double
 #endif
@@ -79,4 +79,4 @@ before #include <ddraw.h>*/
 #ifdef HAVE_SELECT
 #define COMPILE_PIPE
 #endif
-#endif				/*CONFIG_H */
+#endif /*CONFIG_H */

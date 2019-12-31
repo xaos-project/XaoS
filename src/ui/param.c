@@ -1,5 +1,5 @@
-/* 
- *     XaoS, a fast portable realtime fractal zoomer 
+﻿/*
+ *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
  *      Jan Hubicka          (hubicka@paru.cas.cz)
@@ -30,8 +30,7 @@
 static const struct params *params[40];
 int nparams;
 
-int
-params_parser (int argc, char **argv)
+int params_parser(int argc, char **argv)
 {
     int i, p = 0, d;
     int ie = 0;
@@ -42,67 +41,69 @@ params_parser (int argc, char **argv)
     for (i = 1; i < argc && !error; i++) {
         found = 0;
 #ifdef MACOSX
-        if (strncmp ("-psn", argv[i], 4) == 0)
+        if (strncmp("-psn", argv[i], 4) == 0)
             continue;
 #endif
-        if (!strcmp ("-help", argv[i])) {
+        if (!strcmp("-help", argv[i])) {
             error = 1;
             break;
         }
         for (d = 0; d < nparams; d++) {
             par = params[d];
             for (p = 0; par[p].name != NULL && !error; p++) {
-                if (!strcmp (par[p].name, argv[i])) {
+                if (!strcmp(par[p].name, argv[i])) {
                     found = 1;
                     is = i;
                     switch (par[p].type) {
                         case P_SWITCH:
-                            *((int *) par[p].value) = 1;
+                            *((int *)par[p].value) = 1;
                             break;
-                        case P_NUMBER:
-                            {
-                                int n;
-                                if (i == argc - 1) {
-                                    x_error ("parameter %s requires numeric value.", argv[i]);
-                                    error = 1;
-                                    break;
-                                }
-                                if (sscanf (argv[i + 1], "%i", &n) != 1) {
-                                    x_error ("parameter for %s is not number.", argv[i]);
-                                    error = 1;
-                                    break;
-                                }
-                                *((int *) par[p].value) = n;
-                                i++;
+                        case P_NUMBER: {
+                            int n;
+                            if (i == argc - 1) {
+                                x_error("parameter %s requires numeric value.",
+                                        argv[i]);
+                                error = 1;
+                                break;
                             }
-                            break;
-                        case P_FLOAT:
-                            {
-                                float n;
-                                if (i == argc - 1) {
-                                    x_error ("parameter %s requires floating point numeric value.", argv[i]);
-                                    error = 1;
-                                    break;
-                                }
-                                if (sscanf (argv[i + 1], "%f", &n) != 1) {
-                                    x_error ("parameter for %s is not floating point number.", argv[i]);
-                                    error = 1;
-                                    break;
-                                }
-                                *((float *) par[p].value) = n;
-                                i++;
+                            if (sscanf(argv[i + 1], "%i", &n) != 1) {
+                                x_error("parameter for %s is not number.",
+                                        argv[i]);
+                                error = 1;
+                                break;
                             }
-                            break;
-                        case P_STRING:
-                            {
-                                if (i == argc - 1) {
-                                    x_error ("parameter %s requires string value.", argv[i]);
-                                    error = 1;
-                                    break;
-                                }
-                                i++;
-                                *((char **) par[p].value) = *(argv + i);
+                            *((int *)par[p].value) = n;
+                            i++;
+                        } break;
+                        case P_FLOAT: {
+                            float n;
+                            if (i == argc - 1) {
+                                x_error(
+                                    "parameter %s requires floating point numeric value.",
+                                    argv[i]);
+                                error = 1;
+                                break;
                             }
+                            if (sscanf(argv[i + 1], "%f", &n) != 1) {
+                                x_error(
+                                    "parameter for %s is not floating point number.",
+                                    argv[i]);
+                                error = 1;
+                                break;
+                            }
+                            *((float *)par[p].value) = n;
+                            i++;
+                        } break;
+                        case P_STRING: {
+                            if (i == argc - 1) {
+                                x_error("parameter %s requires string value.",
+                                        argv[i]);
+                                error = 1;
+                                break;
+                            }
+                            i++;
+                            *((char **)par[p].value) = *(argv + i);
+                        }
                     }
                     ie = i;
                     i = is;
@@ -110,7 +111,7 @@ params_parser (int argc, char **argv)
             }
         }
         if (d == nparams && !found) {
-            i = menu_processargs (i, argc, argv);
+            i = menu_processargs(i, argc, argv);
             if (i < 0) {
                 error = 1;
                 break;
@@ -120,36 +121,29 @@ params_parser (int argc, char **argv)
             i = ie;
     }
     if (error) {
-        const char *name[] = {
-            "",
-            "number",
-            "string",
-            "f.point"
-        };
-        printf ("                 XaoS" XaoS_VERSION " help text\n");
-        printf (" (This help is genereated automagically. I am sorry for all inconvencies)\n\n");
-        printf ("option string   param   description\n\n");
+        const char *name[] = {"", "number", "string", "f.point"};
+        printf("                 XaoS" XaoS_VERSION " help text\n");
+        printf(
+            " (This help is genereated automagically. I am sorry for all inconvencies)\n\n");
+        printf("option string   param   description\n\n");
         for (d = 0; d < nparams; d++) {
             par = params[d];
             for (p = 0; par[p].name != NULL; p++) {
                 if (par[p].type == P_HELP)
-                    printf ("\n%s\n\n", par[p].help);
+                    printf("\n%s\n\n", par[p].help);
                 else if (!par[p].type)
-                    printf (" %-14s   %s\n", par[p].name, par[p].help);
+                    printf(" %-14s   %s\n", par[p].name, par[p].help);
                 else
-                    printf (" %-14s  %s\n%14s    %s\n", par[p].name, name[par[p].type], "", par[p].help);
+                    printf(" %-14s  %s\n%14s    %s\n", par[p].name,
+                           name[par[p].type], "", par[p].help);
             }
             if (p == 0)
-                printf (" No options available for now\n");
+                printf(" No options available for now\n");
         }
-        menu_printhelp ();
+        menu_printhelp();
         return 0;
     }
     return (1);
 }
 
-void
-params_register (const struct params *par)
-{
-    params[nparams++] = par;
-}
+void params_register(const struct params *par) { params[nparams++] = par; }

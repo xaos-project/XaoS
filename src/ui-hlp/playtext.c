@@ -1,4 +1,4 @@
-#include <stdlib.h>
+﻿#include <stdlib.h>
 #include <fconfig.h>
 #include <filter.h>
 #include <fractal.h>
@@ -6,8 +6,8 @@
 #include <xerror.h>
 #include <grlib.h>
 
-static INLINE void
-prepare (struct uih_context *c, char *string, int *xmax, int *nr)
+static INLINE void prepare(struct uih_context *c, char *string, int *xmax,
+                           int *nr)
 {
     int xm = 0;
     int n = 1;
@@ -24,7 +24,7 @@ prepare (struct uih_context *c, char *string, int *xmax, int *nr)
                 *nr = n;
                 return;
             } else
-                tmp += xtextcharw (c->image, c->font, *string);
+                tmp += xtextcharw(c->image, c->font, *string);
             if (pos > 255)
                 break;
             string++;
@@ -45,17 +45,16 @@ prepare (struct uih_context *c, char *string, int *xmax, int *nr)
     }
 }
 
-static void
-getpos (uih_context * c, int *x, int *y, int *w, int *h, void *data)
+static void getpos(uih_context *c, int *x, int *y, int *w, int *h, void *data)
 {
-    long num = (long) data;
+    long num = (long)data;
     int xmax, nr;
     if (c->text[num] == NULL) {
         *x = *y = *h = *w;
         return;
     }
-    prepare (c, c->text[num], &xmax, &nr);
-    nr *= xtextheight (c->image, c->font);
+    prepare(c, c->text[num], &xmax, &nr);
+    nr *= xtextheight(c->image, c->font);
     switch (num) {
         case 0:
             *y = 0;
@@ -82,10 +81,9 @@ getpos (uih_context * c, int *x, int *y, int *w, int *h, void *data)
     *w = xmax;
 }
 
-static void
-draw (uih_context * c, void *data)
+static void draw(uih_context *c, void *data)
 {
-    long num = (long) data;
+    long num = (long)data;
     int flags = 0;
     int xmax, n, nr, i;
     int x = 0, y = 0;
@@ -93,27 +91,27 @@ draw (uih_context * c, void *data)
     int fgcolor = 0, bgcolor = 0;
     if (c->text[num] == NULL)
         return;
-    prepare (c, c->text[num], &xmax, &n);
-    nr = n * xtextheight (c->image, c->font);
+    prepare(c, c->text[num], &xmax, &n);
+    nr = n * xtextheight(c->image, c->font);
     switch (c->textcolor[num]) {
         case 0:
-            fgcolor = FGCOLOR (c);
-            bgcolor = BGCOLOR (c);
+            fgcolor = FGCOLOR(c);
+            bgcolor = BGCOLOR(c);
             break;
         case 1:
-            fgcolor = BGCOLOR (c);
-            bgcolor = BGCOLOR (c);
+            fgcolor = BGCOLOR(c);
+            bgcolor = BGCOLOR(c);
             flags = TEXT_PRESSED;
             break;
         case 2:
-            fgcolor = SELCOLOR (c);
-            bgcolor = BGCOLOR (c);
+            fgcolor = SELCOLOR(c);
+            bgcolor = BGCOLOR(c);
             break;
         default:
-            x_fatalerror ("playtext:unknown color\n");
+            x_fatalerror("playtext:unknown color\n");
     }
     if (c->image->flags & AAIMAGE)
-        fgcolor = BGCOLOR (c);
+        fgcolor = BGCOLOR(c);
     switch (num) {
         case 0:
             y = 0;
@@ -127,7 +125,7 @@ draw (uih_context * c, void *data)
     }
     string = c->text[num];
     for (i = 0; i < n; i++) {
-        xmax = xtextwidth (c->image, c->font, string);
+        xmax = xtextwidth(c->image, c->font, string);
         switch (c->textpos[num]) {
             case 0:
                 x = 0;
@@ -139,31 +137,31 @@ draw (uih_context * c, void *data)
                 x = c->image->width - xmax;
                 break;
         }
-        string += xprint (c->image, c->font, x, y, string, fgcolor, bgcolor, flags) + 1;
-        y += xtextheight (c->image, c->font);
+        string +=
+            xprint(c->image, c->font, x, y, string, fgcolor, bgcolor, flags) +
+            1;
+        y += xtextheight(c->image, c->font);
     }
 }
 
-void
-uih_inittext (uih_context * c)
+void uih_inittext(uih_context *c)
 {
     c->text[0] = c->text[1] = c->text[2] = NULL;
     c->textpos[0] = c->textpos[1] = c->textpos[2] = 0;
-    c->textwindow[0] = uih_registerw (c, getpos, draw, (void *) 0, 0);
-    c->textwindow[1] = uih_registerw (c, getpos, draw, (void *) 1, 0);
-    c->textwindow[2] = uih_registerw (c, getpos, draw, (void *) 2, 0);
+    c->textwindow[0] = uih_registerw(c, getpos, draw, (void *)0, 0);
+    c->textwindow[1] = uih_registerw(c, getpos, draw, (void *)1, 0);
+    c->textwindow[2] = uih_registerw(c, getpos, draw, (void *)2, 0);
 }
 
-void
-uih_destroytext (uih_context * c)
+void uih_destroytext(uih_context *c)
 {
     if (c->text[0] != NULL)
-        free (c->text[0]), c->text[0] = NULL;
+        free(c->text[0]), c->text[0] = NULL;
     if (c->text[1] != NULL)
-        free (c->text[1]), c->text[1] = NULL;
+        free(c->text[1]), c->text[1] = NULL;
     if (c->text[2] != NULL)
-        free (c->text[2]), c->text[2] = NULL;
-    uih_removew (c, c->textwindow[0]);
-    uih_removew (c, c->textwindow[1]);
-    uih_removew (c, c->textwindow[2]);
+        free(c->text[2]), c->text[2] = NULL;
+    uih_removew(c, c->textwindow[0]);
+    uih_removew(c, c->textwindow[1]);
+    uih_removew(c, c->textwindow[2]);
 }

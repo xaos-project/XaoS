@@ -1,24 +1,24 @@
-/*
-*     XaoS, a fast portable realtime fractal zoomer
-*                  Copyright (C) 1996,1997 by
-*
-*      Jan Hubicka          (hubicka@paru.cas.cz)
-*      Thomas Marsh         (tmarsh@austin.ibm.com)
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-*/
+﻿/*
+ *     XaoS, a fast portable realtime fractal zoomer
+ *                  Copyright (C) 1996,1997 by
+ *
+ *      Jan Hubicka          (hubicka@paru.cas.cz)
+ *      Thomas Marsh         (tmarsh@austin.ibm.com)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
 #ifndef UI_H
 #define UI_H
 /*
@@ -29,10 +29,8 @@
 #include "param.h"
 #include "xmenu.h"
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
-
 
 #undef BUTTON1
 #undef BUTTON2
@@ -52,7 +50,6 @@ extern "C"
 #define UI_MIBITMAP 2048
 #define UI_FIXEDCOLOR 4096
 
-
 #define NORMALMOUSE 0
 #define WAITMOUSE 1
 #define REPLAYMOUSE 2
@@ -70,29 +67,27 @@ extern "C"
 #define UIKEY_PGUP 264
 #define UIKEY_PGDOWN 265
 
-    typedef unsigned char ui_rgb[4];
-    typedef ui_rgb *ui_palette;
-    struct uih_context;
-    extern struct uih_context *globaluih;
+typedef unsigned char ui_rgb[4];
+typedef ui_rgb *ui_palette;
+struct uih_context;
+extern struct uih_context *globaluih;
 
 #ifdef USE_LOCALEPATH
-    extern char *localepath;
+extern char *localepath;
 #endif
 
-    number_t ui_getfloat (const char *text);
-    void ui_resize (void);
-    void ui_call_resize (void);
-    void ui_quit (void) ;
-    void ui_menuactivate (const menuitem * item, dialogparam * d);
-    int ui_key (int);
-    xio_path ui_getfile (const char *basename, const char *extension);
-    char *ui_getpos (void);
-    int MAIN_FUNCTION (int argc, char **argv);
-
-
+number_t ui_getfloat(const char *text);
+void ui_resize(void);
+void ui_call_resize(void);
+void ui_quit(void);
+void ui_menuactivate(const menuitem *item, dialogparam *d);
+int ui_key(int);
+xio_path ui_getfile(const char *basename, const char *extension);
+char *ui_getpos(void);
+int MAIN_FUNCTION(int argc, char **argv);
 
 #ifndef RANDOM_PALETTE_SIZE
-#define RANDOM_PALETTE_SIZE 1   /*FIXME currently ignored */
+#define RANDOM_PALETTE_SIZE 1 /*FIXME currently ignored */
 #define FULLSCREEN 2
 #define UPDATE_AFTER_PALETTE 4
 #define UPDATE_AFTER_RESIZE 8
@@ -105,10 +100,10 @@ extern "C"
 #define RESOLUTION 1024
 #endif
 #define NOFLUSHDISPLAY 2048
-#define AALIB	(4096*2)
-#define RESIZE_COMMAND (4096*4)
+#define AALIB (4096 * 2)
+#define RESIZE_COMMAND (4096 * 4)
 
 #ifdef __cplusplus
 }
 #endif
-#endif                          /* UI_H */
+#endif /* UI_H */

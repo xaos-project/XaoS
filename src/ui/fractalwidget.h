@@ -1,4 +1,4 @@
-#ifndef FRACTALWIDGET_H
+﻿#ifndef FRACTALWIDGET_H
 #define FRACTALWIDGET_H
 
 #include <QGLWidget>
@@ -8,35 +8,35 @@ class QPoint;
 #include "config.h"
 
 #ifdef USE_OPENGL
-class FractalWidget: public QGLWidget
+class FractalWidget : public QGLWidget
 #else
-class FractalWidget: public QWidget
+class FractalWidget : public QWidget
 #endif
 {
     Q_OBJECT
-private:
+  private:
     struct image *m_image = NULL;
     QSize m_sizeHint;
     QPoint m_mousePosition = QPoint(0, 0);
-protected:
-    void mouseMoveEvent(QMouseEvent * event);
-    void mousePressEvent(QMouseEvent * event);
-    void mouseReleaseEvent(QMouseEvent * event);
-    void resizeEvent(QResizeEvent * event);
+
+  protected:
+    void mouseMoveEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void resizeEvent(QResizeEvent *event);
     void wheelEvent(QWheelEvent *event);
 #ifdef USE_OPENGL
     void paintGL();
-    void resizeGL (int w, int h);
+    void resizeGL(int w, int h);
 #else
-    void paintEvent(QPaintEvent * event);
+    void paintEvent(QPaintEvent *event);
 #endif
-public:
+  public:
     FractalWidget();
-    QSize sizeHint()const;
-    void setSizeHint(const QSize & size);
+    QSize sizeHint() const;
+    void setSizeHint(const QSize &size);
     QPoint mousePosition();
     void setImage(struct image *image);
 };
-
 
 #endif // FRACTALWIDGET_H

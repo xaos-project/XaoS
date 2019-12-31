@@ -1,5 +1,5 @@
-/* 
- *     XaoS, a fast portable realtime fractal zoomer 
+﻿/*
+ *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
  *      Jan Hubicka          (hubicka@paru.cas.cz)
@@ -26,20 +26,20 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-   /*HAVE_UNISTD */
+/*HAVE_UNISTD */
 #else
 #ifdef HAVE_FTIME
 #include <sys/timeb.h>
 #endif
-   /*HAVE_FTIME */
+/*HAVE_FTIME */
 #endif
-   /*HAVE_GETTIMEOFDAY */
+/*HAVE_GETTIMEOFDAY */
 #ifdef HAVE_SYS_TIME_H
 #include <sys/time.h>
 #else
 #include <time.h>
 #endif
-   /*HAVE_TIME_H */
+/*HAVE_TIME_H */
 #include <stdio.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -63,21 +63,18 @@
 #endif
 
 #define EMULDIV 1024
-struct timeemulator
-{
+struct timeemulator {
     unsigned long int time;
     unsigned long exact;
 };
 
-  /* Definition of structure timer. There is lots of various formats for time
-   * at variious platforms. So there is quite lots of ifdefs... same is for
-   * saving current time and function comparing them. Rest of timer lib
-   * is platform independent
-   */
+/* Definition of structure timer. There is lots of various formats for time
+ * at variious platforms. So there is quite lots of ifdefs... same is for
+ * saving current time and function comparing them. Rest of timer lib
+ * is platform independent
+ */
 
-
-struct timer
-{
+struct timer {
 #ifdef _WIN32
     LARGE_INTEGER lastactivated;
 #else
@@ -99,8 +96,8 @@ struct timer
 #endif
     unsigned long lastemulated;
     struct timeemulator *emulator;
-    void (*handler) (void *);
-    void (*multihandler) (void *, int);
+    void (*handler)(void *);
+    void (*multihandler)(void *, int);
     void *userdata;
     struct timer *next, *previous, *group;
     int interval;
@@ -109,7 +106,7 @@ struct timer
     int slowdown;
 };
 
-                                  /*Variable for saving current time */
+/*Variable for saving current time */
 #ifdef _WIN32
 LARGE_INTEGER currenttime, frequency;
 #else
@@ -138,9 +135,9 @@ static tl_group group2;
 static tl_group group1;
 tl_group *syncgroup = &group1,
 #ifdef HAVE_SETITIMER
-    *asyncgroup = &group2;
+         *asyncgroup = &group2;
 #else
-    *asyncgroup = &group1;
+         *asyncgroup = &group1;
 #endif
 #ifndef _WIN32
 #ifndef HAVE_GETTIMEOFDAY
@@ -150,28 +147,25 @@ tl_group *syncgroup = &group1,
 #endif
 #endif
 
-
 /*following functions are architecture dependent */
-void
-tl_update_time (void)
+void tl_update_time(void)
 {
 #ifdef _WIN32
-    QueryPerformanceCounter (&currenttime);
+    QueryPerformanceCounter(&currenttime);
 #else
 #ifdef HAVE_UCLOCK
-    currenttime = uclock ();
+    currenttime = uclock();
 #else
 #ifdef USE_CLOCK
-    currenttime = clock ();
+    currenttime = clock();
 #else
 #ifdef HAVE_GETTIMEOFDAY
     do {
-        gettimeofday (&currenttime, &tzp);
-    }
-    while (currenttime.tv_usec > 999999);
+        gettimeofday(&currenttime, &tzp);
+    } while (currenttime.tv_usec > 999999);
 #else
 #ifdef HAVE_FTIME
-    ftime (&currenttime);
+    ftime(&currenttime);
 #endif
 #endif
 #endif
@@ -179,11 +173,11 @@ tl_update_time (void)
 #endif
 }
 
-static INLINE int
-__lookup_timer (tl_timer * t)
+static INLINE int __lookup_timer(tl_timer *t)
 {
 #ifdef _WIN32
-    return ((QuadPart (currenttime) - QuadPart (t->lastactivated)) * 1000000LL) / QuadPart (frequency);
+    return ((QuadPart(currenttime) - QuadPart(t->lastactivated)) * 1000000LL) /
+           QuadPart(frequency);
 #else
 #ifdef HAVE_UCLOCK
     return (((currenttime - t->lastactivated) * 1000000LL) / UCLOCKS_PER_SEC);
@@ -192,10 +186,13 @@ __lookup_timer (tl_timer * t)
     return ((currenttime - t->lastactivated) * (1000000.0 / CLOCKS_PER_SEC));
 #else
 #ifdef HAVE_GETTIMEOFDAY
-    return ((1000000 * (-(int) t->lastactivated.tv_sec + (int) currenttime.tv_sec) + (-(int) t->lastactivated.tv_usec + (int) currenttime.tv_usec)));
+    return (
+        (1000000 * (-(int)t->lastactivated.tv_sec + (int)currenttime.tv_sec) +
+         (-(int)t->lastactivated.tv_usec + (int)currenttime.tv_usec)));
 #else
 #ifdef HAVE_FTIME
-    return ((1000000 * (-t->lastactivated.time + currenttime.time) + 1000 * (-t->lastactivated.millitm + currenttime.millitm)));
+    return ((1000000 * (-t->lastactivated.time + currenttime.time) +
+             1000 * (-t->lastactivated.millitm + currenttime.millitm)));
 #else
 #endif
 #endif
@@ -204,29 +201,26 @@ __lookup_timer (tl_timer * t)
 #endif
 }
 
-
-     int tl_lookup_timer (tl_timer * t)
+int tl_lookup_timer(tl_timer *t)
 {
     if (t->stopped) {
         return (t->stoppedtime);
     }
     if (t->emulator != NULL) {
-        return ((int) (t->emulator->time - t->lastemulated) * EMULDIV);
+        return ((int)(t->emulator->time - t->lastemulated) * EMULDIV);
     }
-    return (__lookup_timer (t) - t->slowdown);
+    return (__lookup_timer(t) - t->slowdown);
 }
 
-void
-tl_stop_timer (tl_timer * t)
+void tl_stop_timer(tl_timer *t)
 {
     if (!t->stopped) {
-        t->stoppedtime = tl_lookup_timer (t);
+        t->stoppedtime = tl_lookup_timer(t);
         t->stopped = 1;
     }
 }
 
-void
-tl_slowdown_timer (tl_timer * t, int time)
+void tl_slowdown_timer(tl_timer *t, int time)
 {
     if (!t->stopped) {
         t->slowdown += time;
@@ -234,30 +228,28 @@ tl_slowdown_timer (tl_timer * t, int time)
         t->stoppedtime -= time;
 }
 
-void
-tl_resume_timer (tl_timer * t)
+void tl_resume_timer(tl_timer *t)
 {
     if (t->stopped) {
         t->stopped = 0;
-        t->slowdown = tl_lookup_timer (t) - t->stoppedtime;
+        t->slowdown = tl_lookup_timer(t) - t->stoppedtime;
     }
 }
 
-void
-tl_sleep (int time)
+void tl_sleep(int time)
 {
 #ifdef _WIN32
-    Sleep (time / 1000);
+    Sleep(time / 1000);
 #else
 #ifdef HAVE_USLEEP
-    usleep (time);
+    usleep(time);
 #else
 #ifdef HAVE_SELECT
     {
         struct timeval tv;
         tv.tv_sec = time / 1000000L;
         tv.tv_usec = time % 1000000L;
-        (void) select (0, (void *) 0, (void *) 0, (void *) 0, &tv);
+        (void)select(0, (void *)0, (void *)0, (void *)0, &tv);
     }
 #else
 /*
@@ -270,8 +262,7 @@ tl_sleep (int time)
 #endif
 }
 
-
-     void tl_reset_timer (tl_timer * t)
+void tl_reset_timer(tl_timer *t)
 {
     if (t->stopped)
         t->stoppedtime = 0;
@@ -283,11 +274,10 @@ tl_sleep (int time)
     }
 }
 
-tl_timer *
-tl_create_timer (void)
+tl_timer *tl_create_timer(void)
 {
     tl_timer *timer;
-    timer = (tl_timer *) calloc (1, sizeof (tl_timer));
+    timer = (tl_timer *)calloc(1, sizeof(tl_timer));
     if (timer == NULL)
         return NULL;
     timer->interval = -1;
@@ -301,18 +291,17 @@ tl_create_timer (void)
     timer->stoppedtime = 0;
     timer->slowdown = 0;
     timer->emulator = NULL;
-    tl_reset_timer (timer);
+    tl_reset_timer(timer);
 #ifdef _WIN32
-    QueryPerformanceFrequency (&frequency);
+    QueryPerformanceFrequency(&frequency);
 #endif
     return (timer);
 }
 
-tl_group *
-tl_create_group (void)
+tl_group *tl_create_group(void)
 {
     tl_group *timer;
-    timer = (tl_group *) calloc (1, sizeof (tl_group));
+    timer = (tl_group *)calloc(1, sizeof(tl_group));
     if (timer == NULL)
         return NULL;
     timer->interval = -1;
@@ -322,37 +311,32 @@ tl_create_group (void)
     timer->next = NULL;
     timer->previous = NULL;
     timer->group = timer;
-    tl_reset_timer (timer);
+    tl_reset_timer(timer);
     return (timer);
 }
 
-
-void
-tl_free_timer (tl_timer * timer)
+void tl_free_timer(tl_timer *timer)
 {
     if (timer->group)
-        tl_remove_timer (timer);
-    free ((void *) timer);
+        tl_remove_timer(timer);
+    free((void *)timer);
 }
 
-void
-tl_free_group (tl_group * timer)
+void tl_free_group(tl_group *timer)
 {
     tl_timer *next;
     do {
         next = timer->next;
-        free ((void *) timer);
-    }
-    while (next != NULL);
+        free((void *)timer);
+    } while (next != NULL);
 }
 
-int
-tl_process_group (tl_group * group, int *activated)
+int tl_process_group(tl_group *group, int *activated)
 {
     int again = 1;
     tl_timer *timer, *timer1;
     int minwait = INT_MAX;
-    tl_update_time ();
+    tl_update_time();
     if (activated != NULL)
         *activated = 0;
     while (again) {
@@ -363,35 +347,36 @@ tl_process_group (tl_group * group, int *activated)
         while (timer != NULL) {
             timer1 = timer->next;
             if (timer->handler && timer->interval >= 0) {
-                int time = timer->interval - tl_lookup_timer (timer);
+                int time = timer->interval - tl_lookup_timer(timer);
                 if (time < 500) {
                     if (activated != NULL)
                         (*activated)++;
                     again = 1;
-                    tl_reset_timer (timer);
+                    tl_reset_timer(timer);
                     if (time < -200 * 1000000)
-                        time = 0;       /*underflow? */
-                    tl_slowdown_timer (timer, time);
+                        time = 0; /*underflow? */
+                    tl_slowdown_timer(timer, time);
                     time = timer->interval + time;
-                    timer->handler (timer->userdata);
-                    tl_update_time ();
+                    timer->handler(timer->userdata);
+                    tl_update_time();
                 }
                 if (time < minwait)
                     minwait = time;
             } else if (timer->multihandler && timer->interval > 0) {
-                int time = timer->interval - tl_lookup_timer (timer);
+                int time = timer->interval - tl_lookup_timer(timer);
                 if (time < 500) {
                     int n;
                     if (activated != NULL)
                         (*activated)++;
-                    tl_reset_timer (timer);
+                    tl_reset_timer(timer);
                     if (time < -200 * 1000000)
-                        time = 0;       /*underflow? */
+                        time = 0; /*underflow? */
                     n = -(time + 500) / timer->interval + 1;
                     time = timer->interval * n + time;
-                    tl_slowdown_timer (timer, time - timer->interval + n * timer->interval);
-                    timer->multihandler (timer->userdata, n);
-                    tl_update_time ();
+                    tl_slowdown_timer(timer, time - timer->interval +
+                                                 n * timer->interval);
+                    timer->multihandler(timer->userdata, n);
+                    tl_update_time();
                 }
                 if (time < minwait)
                     minwait = time;
@@ -412,18 +397,16 @@ tl_process_group (tl_group * group, int *activated)
 }
 
 #ifdef HAVE_SETITIMER
-static void update_async (void);
-static void
-alarmhandler (int a)
+static void update_async(void);
+static void alarmhandler(int a)
 {
-    update_async ();
-    signal (SIGALRM, alarmhandler);
+    update_async();
+    signal(SIGALRM, alarmhandler);
 }
 
-static void
-update_async (void)
+static void update_async(void)
 {
-    int time = tl_process_group (asyncgroup, NULL);
+    int time = tl_process_group(asyncgroup, NULL);
     if (time != -1) {
         struct itimerval t;
         t.it_interval.tv_sec = 0;
@@ -431,9 +414,9 @@ update_async (void)
         t.it_value.tv_sec = time / 1000000;
         t.it_value.tv_usec = time % 1000000;
         if (!reghandler) {
-            signal (SIGALRM, alarmhandler), reghandler = 1;
+            signal(SIGALRM, alarmhandler), reghandler = 1;
         }
-        setitimer (ITIMER_REAL, &t, &t);
+        setitimer(ITIMER_REAL, &t, &t);
         registered = 1;
     } else if (registered) {
         struct itimerval t;
@@ -441,7 +424,7 @@ update_async (void)
         t.it_interval.tv_usec = 0;
         t.it_value.tv_sec = 0;
         t.it_value.tv_usec = 0;
-        setitimer (ITIMER_REAL, &t, &t);
+        setitimer(ITIMER_REAL, &t, &t);
         registered = 0;
     }
 }
@@ -449,11 +432,10 @@ update_async (void)
 #else
 #define update_async()
 #endif
-void
-tl_add_timer (tl_group * group, tl_timer * timer)
+void tl_add_timer(tl_group *group, tl_timer *timer)
 {
     if (timer->group)
-        tl_remove_timer (timer);
+        tl_remove_timer(timer);
     timer->previous = group;
     timer->next = group->next;
     timer->group = group;
@@ -461,40 +443,37 @@ tl_add_timer (tl_group * group, tl_timer * timer)
     if (timer->next != NULL)
         timer->next->previous = timer;
     if (timer->group == asyncgroup)
-        update_async ();
+        update_async();
 }
 
-void
-tl_set_interval (tl_timer * timer, int interval)
+void tl_set_interval(tl_timer *timer, int interval)
 {
     if (timer->interval <= 0) {
-        tl_reset_timer (timer);
+        tl_reset_timer(timer);
     }
     timer->interval = interval;
     if (timer->group == asyncgroup)
-        update_async ();
+        update_async();
 }
 
-void
-tl_set_handler (tl_timer * timer, void (*handler) (void *), void *ud)
+void tl_set_handler(tl_timer *timer, void (*handler)(void *), void *ud)
 {
     timer->handler = handler;
     timer->userdata = ud;
     if (timer->group == asyncgroup)
-        update_async ();
+        update_async();
 }
 
-void
-tl_set_multihandler (tl_timer * timer, void (*handler) (void *, int), void *ud)
+void tl_set_multihandler(tl_timer *timer, void (*handler)(void *, int),
+                         void *ud)
 {
     timer->multihandler = handler;
     timer->userdata = ud;
     if (timer->group == asyncgroup)
-        update_async ();
+        update_async();
 }
 
-void
-tl_remove_timer (tl_timer * timer)
+void tl_remove_timer(tl_timer *timer)
 {
     tl_group *g = timer->group;
     timer->group->slowdown = 1;
@@ -503,42 +482,34 @@ tl_remove_timer (tl_timer * timer)
         timer->next->previous = timer->previous;
     timer->group = NULL;
     if (g == asyncgroup)
-        update_async ();
+        update_async();
 }
 
-struct timeemulator *
-tl_create_emulator (void)
+struct timeemulator *tl_create_emulator(void)
 {
-    return ((struct timeemulator *) calloc (1, sizeof (struct timeemulator)));
+    return ((struct timeemulator *)calloc(1, sizeof(struct timeemulator)));
 }
 
-void
-tl_free_emulator (struct timeemulator *t)
-{
-    free (t);
-}
+void tl_free_emulator(struct timeemulator *t) { free(t); }
 
-void
-tl_elpased (struct timeemulator *t, int elpased)
+void tl_elpased(struct timeemulator *t, int elpased)
 {
     t->exact += elpased;
     t->time += t->exact / EMULDIV;
     t->exact &= (EMULDIV - 1);
 }
 
-void
-tl_emulate_timer (struct timer *t, struct timeemulator *e)
+void tl_emulate_timer(struct timer *t, struct timeemulator *e)
 {
-    int time = tl_lookup_timer (t);
+    int time = tl_lookup_timer(t);
     t->emulator = e;
     t->lastemulated = e->time;
-    tl_slowdown_timer (t, -time);
+    tl_slowdown_timer(t, -time);
 }
 
-void
-tl_unemulate_timer (struct timer *t)
+void tl_unemulate_timer(struct timer *t)
 {
-    int time = tl_lookup_timer (t);
+    int time = tl_lookup_timer(t);
     t->emulator = NULL;
-    tl_slowdown_timer (t, tl_lookup_timer (t) - time);
+    tl_slowdown_timer(t, tl_lookup_timer(t) - time);
 }

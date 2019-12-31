@@ -1,4 +1,4 @@
-#ifndef UI_INT_H
+﻿#ifndef UI_INT_H
 #define UI_INT_H
 
 #define MOUSE_PRESS 1
@@ -9,10 +9,9 @@
 #define BORDERWIDTH 2
 #define BORDERHEIGHT 2
 
-#define BUTTONHEIGHT (xtextheight(uih->image, uih->font)+2*BORDERWIDTH)
+#define BUTTONHEIGHT (xtextheight(uih->image, uih->font) + 2 * BORDERWIDTH)
 
-struct ui_textdata
-{
+struct ui_textdata {
     int x, y, width;
     char *text;
     int size;
@@ -34,24 +33,24 @@ extern float pixelwidth, pixelheight;
 extern "C" {
 #endif
 
-float ui_get_windowwidth (int width);
-float ui_get_windowheight (int height);
+float ui_get_windowwidth(int width);
+float ui_get_windowheight(int height);
 
-void ui_updatetext (struct ui_textdata *d);
-struct ui_textdata *ui_opentext (int x, int y, int width, const char *def);
-void ui_drawtext (struct ui_textdata *d, int active);
-void ui_textmouse (struct ui_textdata *d, int x, int y);
-void ui_closetext (struct ui_textdata *d);
-int ui_textkey (struct ui_textdata *d, int key);
+void ui_updatetext(struct ui_textdata *d);
+struct ui_textdata *ui_opentext(int x, int y, int width, const char *def);
+void ui_drawtext(struct ui_textdata *d, int active);
+void ui_textmouse(struct ui_textdata *d, int x, int y);
+void ui_closetext(struct ui_textdata *d);
+int ui_textkey(struct ui_textdata *d, int key);
 
-int ui_dorender_params (void);
+int ui_dorender_params(void);
 
-void ui_updatestarts (void);
+void ui_updatestarts(void);
 
-void ui_pipe_init (const char *name);
+void ui_pipe_init(const char *name);
 
-void ui_init (int argc, char **argv);
-void ui_mainloop (int loop);
+void ui_init(int argc, char **argv);
+void ui_mainloop(int loop);
 
 #ifdef __cplusplus
 }
