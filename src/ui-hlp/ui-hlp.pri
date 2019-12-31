@@ -8,7 +8,5 @@ SOURCES += $$PWD/autopilot.c \
     $$PWD/messg.c \
     $$PWD/wstack.c
 
-OTHER_FILES += \
-    $$PWD/autod.c
-
-HEADERS += $$PWD/play.h
+HEADERS += $$PWD/play.h \
+    $$PWD/autod.h

@@ -12,21 +12,21 @@
 #define spixel_t pixel8_t
 #include <c256.h>
 #define do_edge do_edge8
-#include "edge2d.c"
+#include "edge2d.h"
 
 #undef spixel_t
 #define spixel_t pixel16_t
 #include <truecolor.h>
 #define do_edge do_edge32
-#include "edge2d.c"
+#include "edge2d.h"
 
 #include <true24.h>
 #define do_edge do_edge24
-#include "edge2d.c"
+#include "edge2d.h"
 
 #include <hicolor.h>
 #define do_edge do_edge16
-#include "edge2d.c"
+#include "edge2d.h"
 
 static int
 requirement (struct filter *f, struct requirements *r)

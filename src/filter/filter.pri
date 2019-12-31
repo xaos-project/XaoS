@@ -6,5 +6,5 @@ SOURCES += \
     $$PWD/grlib.c \
     $$PWD/filter.c \
 
-OTHER_FILES += \
-    $$PWD/grlibd.c
+HEADERS += \
+    $$PWD/grlibd.h

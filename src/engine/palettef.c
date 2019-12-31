@@ -12,19 +12,19 @@ struct palettedata
 };
 #include <c256.h>
 #define cpalette palette8
-#include "paletted.c"
+#include "paletted.h"
 
 #include <truecolor.h>
 #define cpalette palette32
-#include "paletted.c"
+#include "paletted.h"
 
 #include <true24.h>
 #define cpalette palette24
-#include "paletted.c"
+#include "paletted.h"
 
 #include <hicolor.h>
 #define cpalette palette16
-#include "paletted.c"
+#include "paletted.h"
 
 static void
 mysetcolor (struct palette *p, int start, int end, rgb_t * rgb)

@@ -1,4 +1,4 @@
-
+﻿
 /* Hello reader!
 
  * Are you sure you want read this? Its very cryptic and strange code. YOU
@@ -717,7 +717,7 @@ JULIA (struct image *image, register number_t pre, register number_t pim)
 #ifndef SMOOTHMODE
 #ifdef SMOOTH
 #define SMOOTHMODE
-#include "docalc.c"
+#include "docalc.h"
 #endif
 #endif
 

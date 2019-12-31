@@ -244,28 +244,28 @@ static number_t *xcoord, *ycoord;
 #define dosymmetries dosymmetries8
 #define queue queue8
 #define bfill bfill8
-#include "btraced.c"
+#include "btraced.h"
 #include <hicolor.h>
 #define tracecolor tracecolor16
 #define tracepoint tracepoint16
 #define dosymmetries dosymmetries16
 #define queue queue16
 #define bfill bfill16
-#include "btraced.c"
+#include "btraced.h"
 #include <true24.h>
 #define tracecolor tracecolor24
 #define tracepoint tracepoint24
 #define dosymmetries dosymmetries24
 #define queue queue24
 #define bfill bfill24
-#include "btraced.c"
+#include "btraced.h"
 #include <truecolor.h>
 #define tracecolor tracecolor32
 #define tracepoint tracepoint32
 #define dosymmetries dosymmetries32
 #define queue queue32
 #define bfill bfill32
-#include "btraced.c"
+#include "btraced.h"
 #include "i18n.h"
 
 #ifndef SLOWCACHESYNC

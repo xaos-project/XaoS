@@ -21,18 +21,15 @@ SOURCES += \
     $$PWD/julia.c
 
 HEADERS += \
+    $$PWD/3dd.h \
+    $$PWD/btraced.h \
     $$PWD/calculate.h \
-    $$PWD/julia.h
-
-OTHER_FILES += \
-    $$PWD/3dd.c \
-    $$PWD/btraced.c \
-    $$PWD/docalc.c \
-    $$PWD/edged.c \
-    $$PWD/edge2d.c \
-    $$PWD/docalc.c \
-    $$PWD/paletted.c \
-    $$PWD/rotated.c \
-    $$PWD/stard.c \
-    $$PWD/stereod.c \
-    $$PWD/zoomd.c
+    $$PWD/docalc.h \
+    $$PWD/edge2d.h \
+    $$PWD/edged.h \
+    $$PWD/julia.h \
+    $$PWD/paletted.h \
+    $$PWD/rotated.h \
+    $$PWD/stard.h \
+    $$PWD/stereod.h \
+    $$PWD/zoomd.h

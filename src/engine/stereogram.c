@@ -25,19 +25,19 @@ struct stereogramdata
 
 #include <c256.h>
 #define do_stereogram do_stereogram8
-#include "stereod.c"
+#include "stereod.h"
 
 #include <hicolor.h>
 #define do_stereogram do_stereogram16
-#include "stereod.c"
+#include "stereod.h"
 
 #include <true24.h>
 #define do_stereogram do_stereogram24
-#include "stereod.c"
+#include "stereod.h"
 
 #include <truecolor.h>
 #define do_stereogram do_stereogram32
-#include "stereod.c"
+#include "stereod.h"
 
 static int
 requirement (struct filter *f, struct requirements *r)

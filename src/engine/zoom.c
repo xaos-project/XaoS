@@ -134,28 +134,28 @@ static void fillline_32 (int line) ;
 #define dosymmetry2 dosymmetry2_8
 #define calcline calcline_8
 #define calccolumn calccolumn_8
-#include "zoomd.c"
+#include "zoomd.h"
 
 #include <truecolor.h>
 #define fillline fillline_32
 #define dosymmetry2 dosymmetry2_32
 #define calcline calcline_32
 #define calccolumn calccolumn_32
-#include "zoomd.c"
+#include "zoomd.h"
 
 #include <true24.h>
 #define fillline fillline_24
 #define dosymmetry2 dosymmetry2_24
 #define calcline calcline_24
 #define calccolumn calccolumn_24
-#include "zoomd.c"
+#include "zoomd.h"
 
 #include <hicolor.h>
 #define fillline fillline_16
 #define dosymmetry2 dosymmetry2_16
 #define calcline calcline_16
 #define calccolumn calccolumn_16
-#include "zoomd.c"
+#include "zoomd.h"
 
 #define calcline(a) drivercall(cimage,calcline_8(a),calcline_16(a),calcline_24(a),calcline_32(a));
 #define calccolumn(a) drivercall(cimage,calccolumn_8(a),calccolumn_16(a),calccolumn_24(a),calccolumn_32(a));

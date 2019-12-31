@@ -24,25 +24,25 @@ struct threeddata
 #define do_3d do_3d8
 #define convert_3d convert_3d8
 #define convertup_3d convertup_3d8
-#include "3dd.c"
+#include "3dd.h"
 
 #include <truecolor.h>
 #define do_3d do_3d32
 #define convert_3d convert_3d32
 #define convertup_3d convertup_3d32
-#include "3dd.c"
+#include "3dd.h"
 
 #include <true24.h>
 #define do_3d do_3d24
 #define convert_3d convert_3d24
 #define convertup_3d convertup_3d24
-#include "3dd.c"
+#include "3dd.h"
 
 #include <hicolor.h>
 #define do_3d do_3d16
 #define convert_3d convert_3d16
 #define convertup_3d convertup_3d16
-#include "3dd.c"
+#include "3dd.h"
 
 static int
 requirement (struct filter *f, struct requirements *r)

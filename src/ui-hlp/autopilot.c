@@ -42,22 +42,22 @@
 #include <c256.h>
 #define look1 look18
 #define look2 look28
-#include "autod.c"
+#include "autod.h"
 
 #include <hicolor.h>
 #define look1 look116
 #define look2 look216
-#include "autod.c"
+#include "autod.h"
 
 #include <true24.h>
 #define look1 look124
 #define look2 look224
-#include "autod.c"
+#include "autod.h"
 
 #include <truecolor.h>
 #define look1 look132
 #define look2 look232
-#include "autod.c"
+#include "autod.h"
 
 void
 clean_autopilot (uih_context * context)

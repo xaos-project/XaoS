@@ -24,19 +24,19 @@ struct rotatedata
 
 #include <c256.h>
 #define do_rotate do_rotate8
-#include "rotated.c"
+#include "rotated.h"
 
 #include <truecolor.h>
 #define do_rotate do_rotate32
-#include "rotated.c"
+#include "rotated.h"
 
 #include <true24.h>
 #define do_rotate do_rotate24
-#include "rotated.c"
+#include "rotated.h"
 
 #include <hicolor.h>
 #define do_rotate do_rotate16
-#include "rotated.c"
+#include "rotated.h"
 
 
 static int

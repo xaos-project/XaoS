@@ -669,7 +669,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA mand_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #ifdef __i386__
 #define UNCOMPRESS
@@ -691,7 +691,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA mand3_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 
 #define UNCOMPRESS
@@ -727,7 +727,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA magnet_julia
 #define RANGE 4
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define UNCOMPRESS
 #define VARIABLES number_t inre,inim,tmp1,tmp2,dnre,nmre,dnim;
@@ -772,7 +772,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA magnet2_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #ifdef __i386__
 #define UNCOMPRESS
@@ -792,7 +792,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA mand4_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES register number_t t;
 #define BTEST less_than_4(rp+ip)
@@ -811,7 +811,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA mand5_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 
 #define VARIABLES register number_t t;
@@ -831,7 +831,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA mand6_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 
 #define VARIABLES register number_t t;
@@ -851,7 +851,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA mand9_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES
 #define BTEST less_than_4(rp+ip)
@@ -867,7 +867,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define PERI trice_peri
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES register number_t zor,zoi;
 /* 2009-08-01 JB Langston
@@ -894,7 +894,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define PERI catseye_peri
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES
 #define BTEST less_than_4(rp+ip)
@@ -911,7 +911,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA mbar_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES
 #define INIT \
@@ -931,7 +931,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define PERI mlambda_peri
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES register number_t zre1,zim1,zre2,zim2;
 #define INIT zre1=zre;zim1=zim;
@@ -949,7 +949,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define CALC manowar_calc
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES register number_t zre1,zim1;
 #define INIT zre1=pre;zim1=pim;
@@ -966,7 +966,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define CALC spider_calc
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES
 #define INIT \
@@ -981,7 +981,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define CALC sier_calc
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES
 #define INIT \
@@ -996,7 +996,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define CALC goldsier_calc
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES
 #define INIT
@@ -1012,7 +1012,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define CALC circle7_calc
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES
 #define INIT
@@ -1035,7 +1035,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA symbarn_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES
 #define INIT \
@@ -1053,7 +1053,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define CALC carpet_calc
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 
 #define VARIABLES
@@ -1084,7 +1084,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define CALC koch_calc
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES register number_t zre1, zim1;
 #define INIT pim=fabs(pim); zre=pre; zim=pim;
@@ -1097,7 +1097,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define CALC hornflake_calc
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES
 #define BTEST less_than_4(rp+ip)
@@ -1116,7 +1116,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA barnsley1_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 
 #define VARIABLES
@@ -1136,7 +1136,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA barnsley2_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 #define VARIABLES
 #define BTEST less_than_4(rp+ip)
@@ -1156,7 +1156,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA barnsley3_julia
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 
 #define VARIABLES register number_t n,sqrr,sqri,zre1,zim1;
@@ -1176,7 +1176,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 	zim1 -= zim; \
 	n = zre1 * zre1 + zim1 * zim1;
 #define CALC newton_calc
-#include "docalc.c"
+#include "docalc.h"
 
 
 #define VARIABLES register number_t n,sqrr,sqri,zre1,zim1;
@@ -1195,7 +1195,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
     zim1 -= zim; \
     n = zre1 * zre1 + zim1 * zim1;
 #define CALC newton4_calc
-#include "docalc.c"
+#include "docalc.h"
 
 
 #define VARIABLES register number_t zpr,zip;
@@ -1217,7 +1217,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define CALC phoenix_calc
 #define PERI phoenix_peri
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 
 #define VARIABLES register number_t tr,ti,zpr,zpm,rp1,ip1;
@@ -1235,7 +1235,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define SMOOTH
 #define CUSTOMSAVEZMAG szmag=zpr*zpr+zpm*zpm
 #define PRESMOOTH zre=zpr*zpr+zpm*zpm
-#include "docalc.c"
+#include "docalc.h"
 
 
 #define VARIABLES register number_t yre, yim, re1tmp, re2tmp, im1tmp;
@@ -1255,7 +1255,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define PERI beryl_peri
 #define RANGE 2
 #define RPIP
-#include "docalc.c"
+#include "docalc.h"
 
 
 
@@ -1277,7 +1277,7 @@ pacalc (long double zre, long double zim, long double pre, long double pim)
 #define JULIA sffe_julia
 //#define SCALC ssffe_calc
 //#define SMOOTH
-#include "docalc.c"
+#include "docalc.h"
 #endif
 
 static const symmetrytype sym6[] = {

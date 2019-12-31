@@ -18,7 +18,7 @@
 #define line line8
 #define saveline saveline8
 #define restoreline restoreline8
-#include "grlibd.c"
+#include "grlibd.h"
 #include <hicolor.h>
 #define drawchar drawchar16
 #define hline hline16
@@ -29,7 +29,7 @@
 #define line line16
 #define saveline saveline16
 #define restoreline restoreline16
-#include "grlibd.c"
+#include "grlibd.h"
 #include <true24.h>
 #define drawchar drawchar24
 #define hline hline24
@@ -40,7 +40,7 @@
 #define line line24
 #define saveline saveline24
 #define restoreline restoreline24
-#include "grlibd.c"
+#include "grlibd.h"
 #include <truecolor.h>
 #define drawchar drawchar32
 #define hline hline32
@@ -51,7 +51,7 @@
 #define line line32
 #define saveline saveline32
 #define restoreline restoreline32
-#include "grlibd.c"
+#include "grlibd.h"
 #ifdef SBITMAPS
 
 static void
