@@ -16,7 +16,7 @@
 #include "autopilot.h"
 #include "grlib.h"
 #include "play.h"
-#include <archaccel.h>
+
 #ifdef HAVE_LIBGEN_H
 #include <libgen.h>
 #endif

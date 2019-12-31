@@ -1,4 +1,4 @@
-#include <math.h>
+﻿#include <math.h>
 #include <string.h>
 #include <config.h>
 #include <stdio.h>
@@ -7,7 +7,7 @@
 #include "julia.h"
 #include <config.h>
 #include <filter.h>
-#include <archaccel.h>
+
 
 
 /*most of code was moved to docalc.c */
@@ -43,7 +43,7 @@ init_julia (struct image *img, number_t rangep, number_t range, number_t xdelta,
     }
     for (i = 0; i < img->height; i++) {
         addr = addr1[i];
-        memset_long ((char *) addr, NOT_CALCULATED, img->width);
+        memset((char *) addr, NOT_CALCULATED, img->width);
     }
 }
 

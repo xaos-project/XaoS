@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file contains code of three conversion filters based at dithering:
  * truecolor conversion filter - it should convert 8bpp, fixedcolor and
  *    bitmaps to truecolor
@@ -22,7 +22,7 @@
 #include <xerror.h>
 #include <fractal.h>
 #include <xthread.h>
-#include <archaccel.h>
+
 #define MSIZE 8
 static const unsigned char matrix[MSIZE][MSIZE] = {
     {0, 192, 48, 240, 12, 204, 60, 252,},
@@ -159,8 +159,8 @@ create_rgb_table (unsigned char table[32][32][32], struct palette *palette)
     if (col_diff[0][1] == 0)
         bestfit_init ();
 
-    memset_long (next, 255, sizeof (short) * 32 * 32 * 32);
-    memset_long (table, palette->start, sizeof (char) * 32 * 32 * 32);
+    memset(next, 255, sizeof (short) * 32 * 32 * 32);
+    memset(table, palette->start, sizeof (char) * 32 * 32 * 32);
     depos (32 * 32 * 32 - 1, r, g, b);
 
     data = (unsigned char *) table;

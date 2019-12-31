@@ -1,4 +1,4 @@
-#include <config.h>
+﻿#include <config.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
@@ -132,7 +132,7 @@
  * using one thread. When two threads enabled (at my one processor linux
  * box) lock/unlock overhead eats next 8%, three threads eats next 1% :)
  */
-#include <archaccel.h>
+
 
 #include <filter.h>
 #include <btrace.h>
@@ -290,7 +290,7 @@ tracerectangle2 (int x1, int y1, int x2, int y2)
     exitnow = 0;
     inset = cpalette.pixels[0];
     for (y = y1; y <= y2; y++) {
-        memset_long (calculated + x1 + y * CALCWIDTH, 0, x2 - x1 + 1);
+        memset(calculated + x1 + y * CALCWIDTH, 0, x2 - x1 + 1);
     }
     for (x = x1; x <= x2; x += 4) {
         addstack1 (x, y1, LEFT, INT_MAX);
@@ -360,7 +360,7 @@ tracerectangle (int x1, int y1, int x2, int y2)
     cfilter.pass = gettext ("Boundary trace");
     cfilter.pos = 0;
     for (y = y1; y <= y2; y++) {
-        memset_long (calculated + x1 + y * CALCWIDTH, 0, (size_t) (x2 - x1 + 1));
+        memset(calculated + x1 + y * CALCWIDTH, 0, (size_t) (x2 - x1 + 1));
     }
     switch (cimage.bytesperpixel) {
         case 1:

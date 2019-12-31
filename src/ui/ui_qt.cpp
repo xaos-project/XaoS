@@ -55,7 +55,7 @@
 #include <xerror.h>
 #include <xmenu.h>
 #include <grlib.h>
-#include <archaccel.h>
+
 #include "uiint.h"
 #include "i18n.h"
 

@@ -32,7 +32,7 @@
 #define SLARGEITER
 #include <filter.h>
 #include <zoom.h>
-#include <archaccel.h>
+
 #include <complex.h>            /*for myabs */
 #include <plane.h>
 #include <btrace.h>

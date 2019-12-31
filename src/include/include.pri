@@ -2,7 +2,6 @@ INCLUDEPATH += $$PWD
 
 HEADERS += \
     $$PWD/config.h \
-    $$PWD/archaccel.h \
     $$PWD/btrace.h \
     $$PWD/c256.h \
     $$PWD/catalog.h \
@@ -12,7 +11,6 @@ HEADERS += \
     $$PWD/filter.h \
     $$PWD/formulas.h \
     $$PWD/fractal.h \
-    $$PWD/gccbuild.h \
     $$PWD/generic.h \
     $$PWD/grlib.h \
     $$PWD/hicolor.h \
@@ -35,9 +33,6 @@ HEADERS += \
     $$PWD/xmenu.h \
     $$PWD/xthread.h \
     $$PWD/zoom.h \
-    $$PWD/i386/ctrl87.h \
-    $$PWD/i386/sstring.h \
-    $$PWD/i386/__math.h \
     $$PWD/gsl/gsl_math.h \
     $$PWD/gsl/gsl_complex.h \
     $$PWD/gsl/gsl_complex_math.h \

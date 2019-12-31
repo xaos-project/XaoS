@@ -1,4 +1,4 @@
-/* 
+﻿/* 
  *     XaoS, a fast portable realtime fractal zoomer 
  *                  Copyright (C) 1996,1997 by
  *
@@ -32,13 +32,6 @@
 #include <complex.h>
 #include <plane.h>
 #include "../include/timers.h"
-#ifdef __GNUC__
-#ifdef __i386__
-#ifndef PC_64
-#include <i386/ctrl87.h>
-#endif
-#endif
-#endif
 #ifndef M_PI
 #define M_PI 3.1415
 #endif
@@ -326,14 +319,6 @@ fractal_context *
 make_fractalc (const int formula, float wi, float he)
 {
     fractal_context *new_ctxt;
-
-#ifdef __GNUC__
-#ifdef __i386__
-#ifndef NOASSEMBLY
-    _control87 (PC_64 | MCW_EM | MCW_RC, MCW_PC | MCW_EM | MCW_RC);
-#endif
-#endif
-#endif
     new_ctxt = (fractal_context *) calloc (1, sizeof (fractal_context));
     if (new_ctxt == NULL)
         return 0;

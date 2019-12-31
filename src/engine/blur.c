@@ -1,4 +1,4 @@
-#include <config.h>
+﻿#include <config.h>
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
@@ -7,7 +7,7 @@
 #include <fractal.h>
 #include <xthread.h>
 #include <xerror.h>
-#include <archaccel.h>
+
 #define SIZE 64
 #define SIZE2 8
 #define AMOUNT 0.005
@@ -88,7 +88,7 @@ clear_image2 (struct image *img)
     if (!width)
         width = (img->width + 7) / 8;
     for (i = 0; i < img->height; i++)
-        memset_long (img->currlines[i], color, (size_t) width);
+        memset(img->currlines[i], color, (size_t) width);
 }
 
 

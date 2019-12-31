@@ -4,7 +4,7 @@
 #include <fconfig.h>
 #include <filter.h>
 #include <ui_helper.h>
-#include <archaccel.h>
+
 #include "grlib.h"
 
 /* This is quite simple and ugly implementation of windows.

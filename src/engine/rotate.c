@@ -7,7 +7,7 @@
 #include <config.h>
 #include <string.h>
 #include <limits.h>
-#include <archaccel.h>
+
 #ifndef __cplusplus
 #include <math.h>
 #endif

@@ -1,4 +1,4 @@
-/* 
+﻿/* 
  *     XaoS, a fast portable realtime fractal zoomer 
  *                  Copyright (C) 1996,1997 by
  *
@@ -50,14 +50,5 @@
 #define c_pow4(ar,ai,or,oi) ((or)=c_pow4_rp(ar,ai),(oi)=c_pow4_ip(ar,ai))
 
 
-#ifndef __GNUC__
-#ifdef INLINEFABS
-#define myabs(x) INLINEFABS(x)
-#else
 #define myabs(x) ((x)>0?(x):-(x))
-#endif
-#else
-#include <gccbuild.h>
-#endif
-
 #endif /* COMPLEX_H */

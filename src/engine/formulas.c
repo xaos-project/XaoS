@@ -39,7 +39,7 @@
 #include <math.h>
 #include <float.h>
 #include <stdio.h>
-#include <archaccel.h>
+
 #include <config.h>
 #include <complex.h>
 #include <filter.h>
