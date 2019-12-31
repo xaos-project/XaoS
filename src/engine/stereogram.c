@@ -1,7 +1,7 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <stdlib.h>
-#include <xthread.h>
-#include <filter.h>
+#include "xthread.h"
+#include "filter.h"
 
 #define PIXELWIDTH (f->image->pixelwidth) /*all distances in cm */
 #define PIXELHEIGHT (f->image->pixelheight)
@@ -22,19 +22,19 @@ struct stereogramdata {
     struct palette *savedpalette;
 };
 
-#include <c256.h>
+#include "c256.h"
 #define do_stereogram do_stereogram8
 #include "stereod.h"
 
-#include <hicolor.h>
+#include "hicolor.h"
 #define do_stereogram do_stereogram16
 #include "stereod.h"
 
-#include <true24.h>
+#include "true24.h"
 #define do_stereogram do_stereogram24
 #include "stereod.h"
 
-#include <truecolor.h>
+#include "truecolor.h"
 #define do_stereogram do_stereogram32
 #include "stereod.h"
 

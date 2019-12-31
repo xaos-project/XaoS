@@ -1,9 +1,9 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <stdlib.h>
 #include <stdio.h>  /*for NULL */
 #include <string.h> /*for memcpy */
-#include <filter.h>
-#include <zoom.h>
+#include "filter.h"
+#include "zoom.h"
 struct subdata {
     struct filter *second;
     struct image *image;

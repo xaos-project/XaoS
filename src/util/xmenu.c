@@ -1,13 +1,13 @@
 ﻿#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <config.h>
-#include <filter.h>
-#include <fractal.h>
-#include <ui_helper.h>
-#include <xerror.h>
-#include <xldio.h>
-#include <misc-f.h>
+#include "config.h"
+#include "filter.h"
+#include "fractal.h"
+#include "ui_helper.h"
+#include "xerror.h"
+#include "xldio.h"
+#include "misc-f.h"
 #include "config.h"
 #include "xmenu.h"
 

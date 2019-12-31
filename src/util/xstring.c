@@ -1,8 +1,8 @@
 ﻿#include <string.h>
 #include <stdlib.h>
 
-#include <xio.h>
-#include <misc-f.h>
+#include "xio.h"
+#include "misc-f.h"
 struct fr {
     char *string;
     int pos;

@@ -1,17 +1,17 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <stdlib.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/types.h>
-#include <fconfig.h>
-#include <filter.h>
-#include <fractal.h>
+#include "fconfig.h"
+#include "filter.h"
+#include "fractal.h"
 #include <string.h>
-#include <ui_helper.h>
-#include <ui.h>
-#include <timers.h>
-#include <xmenu.h>
+#include "ui_helper.h"
+#include "ui.h"
+#include "timers.h"
+#include "xmenu.h"
 #include "uiint.h"
 #ifdef COMPILE_PIPE
 static int pipefd = -1;

@@ -22,8 +22,8 @@
 #ifndef PLANE_H
 #define PLANE_H
 
-#include <config.h>
-#include <zoom.h>
+#include "config.h"
+#include "zoom.h"
 
 #ifdef SFFE_USING
 #include "sffe.h"

@@ -1,10 +1,10 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <stdlib.h>
 #include <stdio.h> /*for NULL */
 #include <math.h>
 #define SLARGEITER
-#include <xthread.h>
-#include <filter.h>
+#include "xthread.h"
+#include "filter.h"
 
 struct threeddata {
     struct palette *pal;
@@ -19,25 +19,25 @@ struct threeddata {
 };
 
 #define spixel_t pixel16_t
-#include <c256.h>
+#include "c256.h"
 #define do_3d do_3d8
 #define convert_3d convert_3d8
 #define convertup_3d convertup_3d8
 #include "3dd.h"
 
-#include <truecolor.h>
+#include "truecolor.h"
 #define do_3d do_3d32
 #define convert_3d convert_3d32
 #define convertup_3d convertup_3d32
 #include "3dd.h"
 
-#include <true24.h>
+#include "true24.h"
 #define do_3d do_3d24
 #define convert_3d convert_3d24
 #define convertup_3d convertup_3d24
 #include "3dd.h"
 
-#include <hicolor.h>
+#include "hicolor.h"
 #define do_3d do_3d16
 #define convert_3d convert_3d16
 #define convertup_3d convertup_3d16

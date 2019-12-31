@@ -1,11 +1,11 @@
 ﻿#include <stdlib.h>
 #include <string.h>
-#include <filter.h>
-#include <fractal.h>
-#include <timers.h>
-#include <ui_helper.h>
-#include <xerror.h>
-#include <misc-f.h>
+#include "filter.h"
+#include "fractal.h"
+#include "timers.h"
+#include "ui_helper.h"
+#include "xerror.h"
+#include "misc-f.h"
 #include "grlib.h"
 #define EXPIRETIME 4000000
 static void getpos(uih_context *c, int *x, int *y, int *w, int *h, void *data)

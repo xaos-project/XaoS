@@ -154,7 +154,7 @@ struct image {
 #define SHAREDDATA 2
 
 #define PALGORITHMS 3
-#include <pixel_t.h>
+#include "pixel_t.h"
 #define imgetpixel(image, x, y)                                                \
     ((image)->bytesperpixel == 1                                               \
          ? (image)->currlines[y][x]                                            \

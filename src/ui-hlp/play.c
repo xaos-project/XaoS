@@ -1,14 +1,14 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
-#include <fconfig.h>
-#include <filter.h>
-#include <fractal.h>
-#include <ui_helper.h>
-#include <catalog.h>
-#include <xmenu.h>
-#include <grlib.h>
+#include "fconfig.h"
+#include "filter.h"
+#include "fractal.h"
+#include "ui_helper.h"
+#include "catalog.h"
+#include "xmenu.h"
+#include "grlib.h"
 #include "play.h"
 #include "i18n.h"
 

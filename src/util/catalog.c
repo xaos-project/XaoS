@@ -1,8 +1,8 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <string.h>
 #include <stdlib.h>
-#include <catalog.h>
-#include <misc-f.h>
+#include "catalog.h"
+#include "misc-f.h"
 /* Well, just simple implementation of unbalanced trees in combination
  * of small hash table. I am lazy :) but should be OK for my purposes
  *

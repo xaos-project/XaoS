@@ -1,12 +1,12 @@
 ﻿#include <math.h>
 #include <string.h>
-#include <config.h>
+#include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <filter.h>
+#include "filter.h"
 #include "julia.h"
-#include <config.h>
-#include <filter.h>
+#include "config.h"
+#include "filter.h"
 
 /*most of code was moved to docalc.c */
 

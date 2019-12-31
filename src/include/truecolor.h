@@ -10,4 +10,4 @@
 #define cpixeldata_t pixel32_t
 #define cppixel_t ppixel32_t
 #define bpp 4
-#include <generic.h>
+#include "generic.h"

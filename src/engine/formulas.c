@@ -39,12 +39,12 @@
 #include <float.h>
 #include <stdio.h>
 
-#include <config.h>
-#include <complex.h>
-#include <filter.h>
-#include <fractal.h>
+#include "config.h"
+#include "complex.h"
+#include "filter.h"
+#include "fractal.h"
 #include "julia.h"
-#include <ui_helper.h>
+#include "ui_helper.h"
 #ifndef M_PI
 #define M_PI 3.1415
 #endif

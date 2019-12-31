@@ -1,6 +1,6 @@
 ﻿#include <signal.h>
 #include <stdio.h>
-#include <xthread.h>
+#include "xthread.h"
 struct taskinfo definfo = {
     0,
 };

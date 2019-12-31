@@ -1,27 +1,27 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <filter.h>
-#include <fractal.h>
-#include <xthread.h>
+#include "filter.h"
+#include "fractal.h"
+#include "xthread.h"
 struct palettedata {
     struct palette *palette;
     int active;
     unsigned int table[256];
 };
-#include <c256.h>
+#include "c256.h"
 #define cpalette palette8
 #include "paletted.h"
 
-#include <truecolor.h>
+#include "truecolor.h"
 #define cpalette palette32
 #include "paletted.h"
 
-#include <true24.h>
+#include "true24.h"
 #define cpalette palette24
 #include "paletted.h"
 
-#include <hicolor.h>
+#include "hicolor.h"
 #define cpalette palette16
 #include "paletted.h"
 

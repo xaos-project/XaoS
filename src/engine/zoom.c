@@ -20,8 +20,8 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 /*#define DRAW */
-#include <config.h>
-#include <fconfig.h>
+#include "config.h"
+#include "fconfig.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
@@ -30,14 +30,14 @@
 /*#undef NDEBUG */
 #include <assert.h>
 #define SLARGEITER
-#include <filter.h>
-#include <zoom.h>
+#include "filter.h"
+#include "zoom.h"
 
-#include <complex.h> /*for myabs */
-#include <plane.h>
-#include <btrace.h>
-#include <xthread.h>
-#include <xerror.h>
+#include "complex.h" /*for myabs */
+#include "plane.h"
+#include "btrace.h"
+#include "xthread.h"
+#include "xerror.h"
 #include "calculate.h" /*an inlined calulate function */
 
 #include "i18n.h"
@@ -140,28 +140,28 @@ static void fillline_32(int line);
  *about better one that allows to generate custom code for 8,16,24,32
  *bpp modes and use of static variables
  */
-#include <c256.h>
+#include "c256.h"
 #define fillline fillline_8
 #define dosymmetry2 dosymmetry2_8
 #define calcline calcline_8
 #define calccolumn calccolumn_8
 #include "zoomd.h"
 
-#include <truecolor.h>
+#include "truecolor.h"
 #define fillline fillline_32
 #define dosymmetry2 dosymmetry2_32
 #define calcline calcline_32
 #define calccolumn calccolumn_32
 #include "zoomd.h"
 
-#include <true24.h>
+#include "true24.h"
 #define fillline fillline_24
 #define dosymmetry2 dosymmetry2_24
 #define calcline calcline_24
 #define calccolumn calccolumn_24
 #include "zoomd.h"
 
-#include <hicolor.h>
+#include "hicolor.h"
 #define fillline fillline_16
 #define dosymmetry2 dosymmetry2_16
 #define calcline calcline_16

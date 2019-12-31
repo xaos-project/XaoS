@@ -22,8 +22,8 @@
 #ifndef FORMULAS_H
 #define FORMULAS_H
 
-#include <config.h>
-#include <fractal.h>
+#include "config.h"
+#include "fractal.h"
 
 #ifdef SFFE_USING
 #include "sffe.h"

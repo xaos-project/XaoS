@@ -22,10 +22,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <config.h>
-#include <param.h>
-#include <xmenu.h>
-#include <xerror.h>
+#include "config.h"
+#include "param.h"
+#include "xmenu.h"
+#include "xerror.h"
 #define MAXPARAMS 40
 static const struct params *params[40];
 int nparams;

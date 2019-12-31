@@ -1,9 +1,9 @@
 ﻿#include <string.h>
-#include <fconfig.h>
+#include "fconfig.h"
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <filter.h>
+#include "filter.h"
 void flipgeneric(struct image *img)
 {
     pixel_t **line;

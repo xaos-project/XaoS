@@ -1,9 +1,9 @@
-﻿#include <config.h>
-#include <config.h>
+﻿#include "config.h"
+#include "config.h"
 #include <limits.h>
 #include <stdlib.h>
-#include <filter.h>
-#include <xthread.h>
+#include "filter.h"
+#include "xthread.h"
 
 struct starfielddata {
     struct palette *palette;
@@ -21,16 +21,16 @@ static INLINE unsigned int myrandom(void)
 }
 
 #define IMAGETYPE SMALLITER
-#include <c256.h>
+#include "c256.h"
 #define do_starfield do_starfield8
 #include "stard.h"
-#include <hicolor.h>
+#include "hicolor.h"
 #define do_starfield do_starfield16
 #include "stard.h"
-#include <true24.h>
+#include "true24.h"
 #define do_starfield do_starfield24
 #include "stard.h"
-#include <truecolor.h>
+#include "truecolor.h"
 #define do_starfield do_starfield32
 #include "stard.h"
 static int requirement(struct filter *f, struct requirements *r)

@@ -3,7 +3,7 @@
 #ifndef CATALOG_H
 #define CATALOG_H
 #define CHASHMAX 31 /*Just small hash table. Should be OK */
-#include <xio.h>
+#include "xio.h"
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -1,9 +1,9 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <filter.h>
-#include <fractal.h>
-#include <xthread.h>
+#include "filter.h"
+#include "fractal.h"
+#include "xthread.h"
 struct embossdata {
     struct palette *savedpalette, *palette;
     int xdist, ydist;

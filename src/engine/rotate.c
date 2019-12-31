@@ -4,7 +4,7 @@
  * 'E' menu.
  * It is used to implement fast rotation mode
  */
-#include <config.h>
+#include "config.h"
 #include <string.h>
 #include <limits.h>
 
@@ -13,27 +13,27 @@
 #endif
 #include <stdlib.h>
 #define SLARGEITER
-#include <xthread.h>
-#include <filter.h>
+#include "xthread.h"
+#include "filter.h"
 
 struct rotatedata {
     number_t angle;
     number_t x1, y1, x2, y2, xx1, yy1, xx2, yy2;
 };
 
-#include <c256.h>
+#include "c256.h"
 #define do_rotate do_rotate8
 #include "rotated.h"
 
-#include <truecolor.h>
+#include "truecolor.h"
 #define do_rotate do_rotate32
 #include "rotated.h"
 
-#include <true24.h>
+#include "true24.h"
 #define do_rotate do_rotate24
 #include "rotated.h"
 
-#include <hicolor.h>
+#include "hicolor.h"
 #define do_rotate do_rotate16
 #include "rotated.h"
 

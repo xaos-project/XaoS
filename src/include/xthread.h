@@ -11,7 +11,7 @@
  */
 #ifndef THREAD_H
 #define THREAD_H 1
-#include <fconfig.h>
+#include "fconfig.h"
 #ifdef __cplusplus
 extern "C" {
 #endif

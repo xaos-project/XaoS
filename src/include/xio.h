@@ -3,7 +3,7 @@ purpose of this library is to hide differences between OSes (Mac OS don't
 have stdio!) and allow general streams to strings etc. */
 #ifndef XIO1_H
 #define XIO1_H 1
-#include <config.h>
+#include "config.h"
 #ifdef __cplusplus
 extern "C" {
 #endif

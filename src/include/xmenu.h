@@ -1,7 +1,7 @@
 ﻿#ifndef XMENU_H
 #define XMENU_H
-#include <xio.h>
-#include <fconfig.h>
+#include "xio.h"
+#include "fconfig.h"
 #ifdef __cplusplus
 extern "C" {
 #endif

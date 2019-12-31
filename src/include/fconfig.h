@@ -1,6 +1,6 @@
 ﻿#ifndef FCONFIG_H
 #define FCONFIG_H
-#include <config.h>
+#include "config.h"
 #define TUTORIALPATH DATAPATH "/tutorial/"
 #define EXAMPLESPATH DATAPATH "/examples/"
 #define CATALOGSPATH DATAPATH "/catalogs/"

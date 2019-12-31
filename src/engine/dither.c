@@ -13,15 +13,15 @@
  * Note that quite interesting alg. is for preparing dithering table at
  * fixedcolor displays.
  */
-#include <config.h>
+#include "config.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <fconfig.h>
-#include <filter.h>
-#include <xerror.h>
-#include <fractal.h>
-#include <xthread.h>
+#include "fconfig.h"
+#include "filter.h"
+#include "xerror.h"
+#include "fractal.h"
+#include "xthread.h"
 
 #define MSIZE 8
 static const unsigned char matrix[MSIZE][MSIZE] = {

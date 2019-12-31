@@ -8,14 +8,14 @@
 #include <unistd.h>
 #endif
 
-#include <ui.h>
-#include <fconfig.h>
-#include <filter.h>
-#include <fractal.h>
-#include <ui_helper.h>
-#include <misc-f.h>
-#include <xmenu.h>
-#include <xerror.h>
+#include "ui.h"
+#include "fconfig.h"
+#include "filter.h"
+#include "fractal.h"
+#include "ui_helper.h"
+#include "misc-f.h"
+#include "xmenu.h"
+#include "xerror.h"
 #include "i18n.h"
 
 #define SILENT 0

@@ -25,7 +25,7 @@
  */
 #ifndef COMPLEX_H
 #define COMPLEX_H
-#include <config.h>
+#include "config.h"
 
 #define c_add(ar, ai, br, bi, or, oi) ((or) = (ar) + (br), (oi) = (ai) + (bi))
 #define c_mul(ar, ai, br, bi, or, oi)                                          \

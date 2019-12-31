@@ -21,21 +21,21 @@
  */
 /*#define STATISTICS */
 #include <string.h>
-#include <config.h>
-#include <fconfig.h>
+#include "config.h"
+#include "fconfig.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <assert.h>
 #include <math.h>
-#include <filter.h>
-#include <complex.h>
-#include <plane.h>
-#include "../include/timers.h"
+#include "filter.h"
+#include "complex.h"
+#include "plane.h"
+#include "timers.h"
 #ifndef M_PI
 #define M_PI 3.1415
 #endif
-#include <xerror.h>
+#include "xerror.h"
 
 struct symmetryinfo2 cursymmetry;
 struct palette cpalette;

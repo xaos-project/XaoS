@@ -22,10 +22,10 @@
 #include <stdio.h>
 #include <math.h>
 #include <limits.h>
-#include <config.h>
-#include <fconfig.h>
-#include <plane.h>
-#include <complex.h>
+#include "config.h"
+#include "fconfig.h"
+#include "plane.h"
+#include "complex.h"
 const char *const planename[] = {
     "mu",       "1/mu",         "1/(mu+0.25)",    "lambda",
     "1/lambda", "1/(lambda-1)", "1/(mu-1.40115)", NULL};

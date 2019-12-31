@@ -1,18 +1,18 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <ctype.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <math.h>
 #include <string.h>
 #include <errno.h>
-#include <fconfig.h>
-#include <filter.h>
-#include <ui_helper.h>
-#include <plane.h>
-#include "../include/timers.h"
-#include <zoom.h>
-#include <xmenu.h>
-#include <xerror.h>
+#include "fconfig.h"
+#include "filter.h"
+#include "ui_helper.h"
+#include "plane.h"
+#include "timers.h"
+#include "zoom.h"
+#include "xmenu.h"
+#include "xerror.h"
 #include "autopilot.h"
 #include "grlib.h"
 #include "play.h"
@@ -36,7 +36,7 @@
 #define uih_palettechg(uih)                                                    \
     if (!uih->recalculatemode && uih->queue->palettechg != NULL)               \
     uih->recalculatemode = UIH_PALETTEDRAW, uih->display = 1
-#include <misc-f.h>
+#include "misc-f.h"
 
 static struct filter *uih_getinstance(const struct filteraction *a);
 static void uih_destroyinstance(struct filter *f);

@@ -1,13 +1,13 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <stdlib.h>
 #include <string.h>
 
-#include <fconfig.h>
-#include <filter.h>
-#include <fractal.h>
-#include <ui_helper.h>
-#include <grlib.h>
-#include <c256.h>
+#include "fconfig.h"
+#include "filter.h"
+#include "fractal.h"
+#include "ui_helper.h"
+#include "grlib.h"
+#include "c256.h"
 #define drawchar drawchar8
 #define hline hline8
 #define vline vline8
@@ -18,7 +18,7 @@
 #define saveline saveline8
 #define restoreline restoreline8
 #include "grlibd.h"
-#include <hicolor.h>
+#include "hicolor.h"
 #define drawchar drawchar16
 #define hline hline16
 #define vline vline16
@@ -29,7 +29,7 @@
 #define saveline saveline16
 #define restoreline restoreline16
 #include "grlibd.h"
-#include <true24.h>
+#include "true24.h"
 #define drawchar drawchar24
 #define hline hline24
 #define vline vline24
@@ -40,7 +40,7 @@
 #define saveline saveline24
 #define restoreline restoreline24
 #include "grlibd.h"
-#include <truecolor.h>
+#include "truecolor.h"
 #define drawchar drawchar32
 #define hline hline32
 #define vline vline32

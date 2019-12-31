@@ -1,12 +1,12 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <filter.h>
-#include <fractal.h>
-#include <xthread.h>
-#include <xerror.h>
+#include "filter.h"
+#include "fractal.h"
+#include "xthread.h"
+#include "xerror.h"
 
 #define SIZE 64
 #define SIZE2 8

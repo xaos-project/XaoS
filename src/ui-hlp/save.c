@@ -2,12 +2,12 @@
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
-#include <filter.h>
-#include <fractal.h>
-#include <ui_helper.h>
-#include <config.h>
-#include <xmenu.h>
-#include <xldio.h>
+#include "filter.h"
+#include "fractal.h"
+#include "ui_helper.h"
+#include "config.h"
+#include "xmenu.h"
+#include "xldio.h"
 #include "play.h"
 #define myputs(s)                                                              \
     ((xio_puts(s, uih->savec->file) == XIO_EOF) ? outputerror(uih), 1 : 0)

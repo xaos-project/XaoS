@@ -1,8 +1,8 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <stdlib.h>
 #include <stdio.h>  /*for NULL */
 #include <string.h> /*for memcpy */
-#include <filter.h>
+#include "filter.h"
 struct intdata {
     unsigned char *lastent;
     int changed;

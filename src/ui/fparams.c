@@ -20,17 +20,17 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <config.h>
-#include <fconfig.h>
+#include "config.h"
+#include "fconfig.h"
 #include <string.h>
 #include <stdlib.h>
-#include <filter.h>
-#include <ui_helper.h>
-#include <ui.h>
-#include <param.h>
-#include <xmenu.h>
-#include <plane.h>
-#include <xerror.h>
+#include "filter.h"
+#include "ui_helper.h"
+#include "ui.h"
+#include "param.h"
+#include "xmenu.h"
+#include "plane.h"
+#include "xerror.h"
 #include "uiint.h"
 
 static char *defrender = NULL;

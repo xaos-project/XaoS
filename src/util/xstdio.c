@@ -1,4 +1,4 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #include <string.h>
 #include <dirent.h>
 #include <sys/stat.h>
@@ -6,10 +6,10 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#include <filter.h>
-#include <fractal.h>
-#include <ui_helper.h>
-#include <misc-f.h>
+#include "filter.h"
+#include "fractal.h"
+#include "ui_helper.h"
+#include "misc-f.h"
 #ifdef _WIN32
 #define strcmp stricmp
 #endif

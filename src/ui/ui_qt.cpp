@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#include <config.h>
+#include "config.h"
 #undef _EFENCE_
 #include <limits.h>
 #include <ctype.h>
@@ -33,7 +33,7 @@
 #include <unistd.h>
 #endif
 #include <signal.h>
-#include <fconfig.h>
+#include "fconfig.h"
 #include <assert.h>
 
 #include <QtWidgets>
@@ -45,16 +45,16 @@
 #include "mainwindow.h"
 #include "fractalwidget.h"
 
-#include <filter.h>
-#include <ui_helper.h>
-#include <ui.h>
-#include <param.h>
-#include <timers.h>
-#include <plane.h>
-#include <xthread.h>
-#include <xerror.h>
-#include <xmenu.h>
-#include <grlib.h>
+#include "filter.h"
+#include "ui_helper.h"
+#include "ui.h"
+#include "param.h"
+#include "timers.h"
+#include "plane.h"
+#include "xthread.h"
+#include "xerror.h"
+#include "xmenu.h"
+#include "grlib.h"
 
 #include "uiint.h"
 #include "i18n.h"

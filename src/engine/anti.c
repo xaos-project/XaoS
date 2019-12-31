@@ -1,15 +1,15 @@
-﻿#include <config.h>
+﻿#include "config.h"
 #ifndef __cplusplus
 #include <math.h>
 #endif
 #include <string.h>
-#include <config.h>
+#include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <xerror.h>
-#include <filter.h>
-#include <fractal.h>
-#include <xthread.h>
+#include "xerror.h"
+#include "filter.h"
+#include "fractal.h"
+#include "xthread.h"
 struct antidata {
     int shift;
 };

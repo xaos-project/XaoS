@@ -13,4 +13,4 @@
 #define cpixeldata_t pixel16_t
 #define cppixel_t ppixel16_t
 #define bpp 4
-#include <generic.h>
+#include "generic.h"

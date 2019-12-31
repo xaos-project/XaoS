@@ -9,4 +9,5 @@ SOURCES += $$PWD/autopilot.c \
     $$PWD/wstack.c
 
 HEADERS += $$PWD/play.h \
-    $$PWD/autod.h
+    $$PWD/autod.h \
+    $$PWD/autopilot.h

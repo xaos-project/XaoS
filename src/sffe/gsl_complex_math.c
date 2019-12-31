@@ -43,7 +43,7 @@
  *   4.4.37, 4.4.38, 4.4.39
  */
 
-#include <config.h>
+#include "config.h"
 #include <math.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_complex.h>

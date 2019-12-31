@@ -162,7 +162,7 @@ unsigned int calculateswitch(register number_t x1, register number_t y1,
                              int periodicity);
 
 /* needs struct formula */
-#include <formulas.h>
+#include "formulas.h"
 
 #ifdef __cplusplus
 }

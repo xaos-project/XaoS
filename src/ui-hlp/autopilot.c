@@ -26,35 +26,35 @@
 #endif /* __MINGW32__ */
 #include <stdlib.h>
 #include <math.h>
-#include <config.h>
+#include "config.h"
 #include <assert.h>
 #include <limits.h>
-#include <fconfig.h>
+#include "fconfig.h"
 #define SLARGEITER
-#include <filter.h>
-#include <zoom.h>
+#include "filter.h"
+#include "zoom.h"
 #include "autopilot.h"
-#include <ui_helper.h>
+#include "ui_helper.h"
 #define MINCOUNT 5
 #define InSet(i) (i == context->image->palette->pixels[0])
 /*Include bitmap depended part first */
 
-#include <c256.h>
+#include "c256.h"
 #define look1 look18
 #define look2 look28
 #include "autod.h"
 
-#include <hicolor.h>
+#include "hicolor.h"
 #define look1 look116
 #define look2 look216
 #include "autod.h"
 
-#include <true24.h>
+#include "true24.h"
 #define look1 look124
 #define look2 look224
 #include "autod.h"
 
-#include <truecolor.h>
+#include "truecolor.h"
 #define look1 look132
 #define look2 look232
 #include "autod.h"

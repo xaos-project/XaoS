@@ -21,7 +21,7 @@
  *
  * All ugly architecture depended timing code is separated into this file..
  */
-#include <config.h>
+#include "config.h"
 #ifdef HAVE_GETTIMEOFDAY
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -49,7 +49,7 @@
 #endif
 #include <limits.h>
 #include <assert.h>
-#include "../include/timers.h"
+#include "timers.h"
 #ifdef _WIN32
 #include <windows.h>
 #endif

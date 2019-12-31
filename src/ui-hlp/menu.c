@@ -2,12 +2,12 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <filter.h>
-#include <fconfig.h>
-#include <formulas.h>
-#include <ui_helper.h>
-#include <plane.h>
-#include <xmenu.h>
+#include "filter.h"
+#include "fconfig.h"
+#include "formulas.h"
+#include "ui_helper.h"
+#include "plane.h"
+#include "xmenu.h"
 #include "play.h"
 #include "i18n.h"
 

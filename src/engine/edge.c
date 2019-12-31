@@ -2,29 +2,29 @@
  * This is very simple filter - it initializes smalliter image and then
  * does an simple edge detection algo on it.
  */
-#include <config.h>
+#include "config.h"
 #include <stdlib.h>
 #include <stdio.h> /*for NULL */
 #define SLARGEITER
-#include <xthread.h>
-#include <filter.h>
+#include "xthread.h"
+#include "filter.h"
 
 #define spixel_t pixel8_t
-#include <c256.h>
+#include "c256.h"
 #define do_edge do_edge8
 #include "edged.h"
 
 #undef spixel_t
 #define spixel_t pixel16_t
-#include <truecolor.h>
+#include "truecolor.h"
 #define do_edge do_edge32
 #include "edged.h"
 
-#include <true24.h>
+#include "true24.h"
 #define do_edge do_edge24
 #include "edged.h"
 
-#include <hicolor.h>
+#include "hicolor.h"
 #define do_edge do_edge16
 #include "edged.h"
 

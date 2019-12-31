@@ -9,17 +9,17 @@
 /* Copyright (C) 1997 DJ Delorie, see COPYING.DJ for details */
 /* Copyright (C) 1996 DJ Delorie, see COPYING.DJ for details */
 /* Copyright (C) 1994 DJ Delorie, see COPYING.DJ for details */
-#include <config.h>
+#include "config.h"
 #include <stdlib.h>
 #include <ctype.h>
-#include <xio.h>
+#include "xio.h"
 /*#include <libc/unconst.h>*/
 #include <sys/types.h>
 #include <ctype.h>
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
-#include <xldio.h>
+#include "xldio.h"
 #ifdef USE_XLDIO
 
 static long double powten[] = {1e1L,    1e2L,    1e4L,   1e8L,   1e16L,
