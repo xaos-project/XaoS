@@ -26,17 +26,17 @@
  *
  */
 static void
-calcline (realloc_t * RESTRICT ry)
-REGISTERS (3);
+calcline (realloc_t *  ry)
+;
 
-REGISTERS (3)
-     static void calcline (realloc_t * RESTRICT ry)
+
+     static void calcline (realloc_t *  ry)
 {
     number_t y;
     int range = cfractalc.range;
-    realloc_t *RESTRICT rx, *rend, *rend1, *ryl, *ryr;
+    realloc_t * rx, *rend, *rend1, *ryl, *ryr;
     int distl, distr, distup, distdown;
-    cpixel_t *RESTRICT vbuff, *RESTRICT vbuffu, *RESTRICT vbuffd;
+    cpixel_t * vbuff, * vbuffu, * vbuffd;
     cpixeldata_t inset = (cpixeldata_t) cpalette.pixels[0];
     cpixeldata_t c;
     cppixel_t *vbuff1 = (cpixel_t **) cimage.currlines + (ry - czoomc.reallocy);
@@ -107,18 +107,18 @@ REGISTERS (3)
 }
 
 static void
-calccolumn (realloc_t * RESTRICT rx)
-REGISTERS (3);
-REGISTERS (3)
-     static void calccolumn (realloc_t * RESTRICT rx)
+calccolumn (realloc_t *  rx)
+;
+
+     static void calccolumn (realloc_t *  rx)
 {
     number_t x;
     int range = cfractalc.range;
-    realloc_t *RESTRICT ry, *rend, *rend1, *rxl, *rxr;
+    realloc_t * ry, *rend, *rend1, *rxl, *rxr;
     int pos, distl, distr, distup, distdown;
     cpixeldata_t c;
     cpixeldata_t inset = (cpixeldata_t) cpalette.pixels[0];
-    cppixel_t *RESTRICT vbuff;
+    cppixel_t * vbuff;
     pos = (int) (rx - czoomc.reallocx);
     assert (pos >= 0);
     assert (pos < cimage.width);
@@ -228,11 +228,11 @@ dosymmetry2 (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
 #endif
 #undef bpp1
 
-REGISTERS (0)
+
 static INLINE void fillline (int line)
 {
-    register unsigned char *RESTRICT vbuff = cimage.currlines[line];
-    const struct filltable *RESTRICT table = (struct filltable *) tmpdata;
+    register unsigned char * vbuff = cimage.currlines[line];
+    const struct filltable * table = (struct filltable *) tmpdata;
     while (table->length) {
         register cpixeldata_t s = p_get ((cpixel_t *) (vbuff + table->from));
         register cpixel_t *vcurr = (cpixel_t *) (vbuff + table->to);

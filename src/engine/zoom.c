@@ -117,11 +117,11 @@ int nperi = 0;
 #ifndef USE_i386ASM
 static void
 moveoldpoints (void *data1, struct taskinfo *task, int r1, int r2)
-REGISTERS (0);
-static void fillline_8 (int line) REGISTERS (0);
-static void fillline_16 (int line) REGISTERS (0);
-static void fillline_24 (int line) REGISTERS (0);
-static void fillline_32 (int line) REGISTERS (0);
+;
+static void fillline_8 (int line) ;
+static void fillline_16 (int line) ;
+static void fillline_24 (int line) ;
+static void fillline_32 (int line) ;
 #endif
 
 /*first of all inline driver section */
@@ -407,7 +407,7 @@ newpositions (realloc_t * realloc, unsigned int size, number_t begin1, number_t 
  * Let me know :)
  */
 static void
-mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, const unsigned int size, const number_t begin, const number_t end, number_t sym, unsigned char *tmpdata)
+mkrealloc_table (const number_t *  fpos, realloc_t *  realloc, const unsigned int size, const number_t begin, const number_t end, number_t sym, unsigned char *tmpdata)
 {
     unsigned int i;
     int counter;
@@ -415,15 +415,15 @@ mkrealloc_table (const number_t * RESTRICT fpos, realloc_t * RESTRICT realloc, c
     register unsigned int p;
     int bestprice = MAXPRICE;
     realloc_t *r = realloc;
-    struct dyn_data *RESTRICT dyndata;
+    struct dyn_data * dyndata;
     int yend, y;
-    register struct dyn_data **RESTRICT best;
-    struct dyn_data **RESTRICT best1, **tmp;
-    register int *RESTRICT pos;
+    register struct dyn_data ** best;
+    struct dyn_data ** best1, **tmp;
+    register int * pos;
     number_t step, tofix;
     int symi = -1;
     unsigned int lastplus = 0;
-    struct dyn_data *RESTRICT data;
+    struct dyn_data * data;
     register struct dyn_data *previous = NULL, *bestdata = NULL;
     register int myprice;
 #ifdef STATISTICS
@@ -882,7 +882,7 @@ preparemoveoldpoints (void)
 }
 
 #ifndef USE_i386ASM
-REGISTERS (0)
+
      static void moveoldpoints (void /*@unused@ */ *data1,
                                 struct taskinfo /*@unused@ */
                                 *task, int r1, int r2)
@@ -1131,8 +1131,8 @@ calculatenew (void /*@unused@ */ *data, struct taskinfo /*@unused@ */ *task,
 
 static void
 addprices (realloc_t * r, realloc_t * r2)
-REGISTERS (3);
-REGISTERS (3)
+;
+
      static void addprices (realloc_t * r, realloc_t * r2)
 {
     realloc_t *r3;

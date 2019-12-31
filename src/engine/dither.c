@@ -251,7 +251,7 @@ create_rgb_table (unsigned char table[32][32][32], struct palette *palette)
 }
 
 static void
-checksizes (unsigned char table[32][32][32], int *RESTRICT red, int *RESTRICT green, int *RESTRICT blue)
+checksizes (unsigned char table[32][32][32], int * red, int * green, int * blue)
 {
     int r, g, b;
     int color;
@@ -391,13 +391,13 @@ getinstance (const struct filteraction *a)
 static void
 convert (void *data, struct taskinfo *task, int r1, int r2)
 {
-    struct filter *RESTRICT f = (struct filter *) data;
-    struct image *RESTRICT img1 = f->childimage;
-    struct image *RESTRICT img2 = f->image;
-    const struct ditherdata *RESTRICT s = (struct ditherdata *) f->data;
-    const pixel32_t *RESTRICT src, *srcend;
+    struct filter * f = (struct filter *) data;
+    struct image * img1 = f->childimage;
+    struct image * img2 = f->image;
+    const struct ditherdata * s = (struct ditherdata *) f->data;
+    const pixel32_t * src, *srcend;
     int r, g, b;
-    pixel8_t *RESTRICT dest;
+    pixel8_t * dest;
     int i;
     int x = 0;
 

@@ -1,5 +1,5 @@
 #ifndef UNSUPPORTED
-REGISTERS (3)
+
      static void tracecolor (int xstart, int ystart, int xend, int yend, register int x, register int y)
 {
     int dir = RIGHT, fill = 0;
@@ -258,7 +258,7 @@ REGISTERS (3)
 #ifndef SLOWCACHESYNC
 #ifndef nthreads
 #define ethreads 1
-REGISTERS (3)
+
      static INLINE void tracepoint (int xp, int yp, int dir, unsigned int color, int xstart, int xend, int ystart, int yend)
 {
     unsigned char *calc;

@@ -657,7 +657,7 @@ processbuffer (void)
 
 static void
 ui_doquit (int i)
-    NORETURN;
+    ;
      static void ui_doquit (int i)
 {
     uih_cycling_off (uih);

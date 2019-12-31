@@ -18,7 +18,7 @@ const char *const save_fastmode[] = { "zero", "never", "animation", "new", "allw
 const char *const xtextposnames[] = { "left", "center", "right", NULL };
 const char *const ytextposnames[] = { "top", "middle", "bottom", NULL };
 
-REGISTERS (3)
+
      static void outputerror (struct uih_context *uih)
 {
     static char error[245];
@@ -29,7 +29,7 @@ REGISTERS (3)
     uih->savec->writefailed = 1;
 }
 
-REGISTERS (3)
+
      static void start_save (struct uih_context *uih, const char *name)
 {
     if (!changed && !uih->savec->firsttime) {
@@ -44,7 +44,7 @@ REGISTERS (3)
     first = 0;
 }
 
-REGISTERS (3)
+
      static void stop_save (struct uih_context *uih)
 {
     myputc (')');
@@ -52,7 +52,7 @@ REGISTERS (3)
 }
 
 #ifdef SAVEKEYWORDUSED
-REGISTERS (3)
+
      static void save_keyword (struct uih_context *uih, const char *name)
 {
     if (!first)
@@ -62,7 +62,7 @@ REGISTERS (3)
     myputs (name);
 }
 #endif
-REGISTERS (3)
+
      static void save_keystring (struct uih_context *uih, const char *name)
 {
     if (!first)
@@ -73,7 +73,7 @@ REGISTERS (3)
     myputs (name);
 }
 
-REGISTERS (3)
+
      static void save_float (struct uih_context *uih, number_t number)
 {
     if (!first)
@@ -100,7 +100,7 @@ REGISTERS (3)
 #endif
 }
 
-REGISTERS (3)
+
      static void save_float2 (struct uih_context *uih, number_t number, int places)
 {
     char fs[10];
@@ -134,7 +134,7 @@ REGISTERS (3)
 #endif
 }
 
-REGISTERS (3)
+
      static void save_int (struct uih_context *uih, int number)
 {
     char s[256];
@@ -146,7 +146,7 @@ REGISTERS (3)
     myputs (s);
 }
 
-REGISTERS (3)
+
      static void save_onoff (struct uih_context *uih, int number)
 {
     if (!first)
@@ -156,7 +156,7 @@ REGISTERS (3)
     myputs (number ? "#t" : "#f");
 }
 
-REGISTERS (3)
+
      static void save_string (struct uih_context *uih, const char *text)
 {
     int i = 0;
@@ -174,7 +174,7 @@ REGISTERS (3)
     myputc ('"');
 }
 
-REGISTERS (3)
+
      static void save_intc (struct uih_context *uih, const char *name, int number)
 {
     start_save (uih, name);
@@ -182,7 +182,7 @@ REGISTERS (3)
     stop_save (uih);
 }
 
-REGISTERS (3)
+
      static void save_onoffc (struct uih_context *uih, const char *name, int number)
 {
     start_save (uih, name);
@@ -190,7 +190,7 @@ REGISTERS (3)
     stop_save (uih);
 }
 
-REGISTERS (3)
+
      static void save_floatc (struct uih_context *uih, const char *name, number_t number)
 {
     start_save (uih, name);
@@ -198,7 +198,7 @@ REGISTERS (3)
     stop_save (uih);
 }
 
-REGISTERS (3)
+
      static void save_float2c (struct uih_context *uih, const char *name, number_t number, int places)
 {
     start_save (uih, name);
@@ -206,7 +206,7 @@ REGISTERS (3)
     stop_save (uih);
 }
 
-REGISTERS (3)
+
      static void save_coordc (struct uih_context *uih, const char *name, number_t number, number_t number2)
 {
     start_save (uih, name);
@@ -215,7 +215,7 @@ REGISTERS (3)
     stop_save (uih);
 }
 
-REGISTERS (3)
+
      static void save_keystringc (struct uih_context *uih, const char *name, const char *param)
 {
     start_save (uih, name);
@@ -223,7 +223,7 @@ REGISTERS (3)
     stop_save (uih);
 }
 
-REGISTERS (3)
+
      static void save_stringc (struct uih_context *uih, const char *name, const char *param)
 {
     start_save (uih, name);
@@ -231,20 +231,20 @@ REGISTERS (3)
     stop_save (uih);
 }
 
-REGISTERS (3)
+
      static void save_noparam (struct uih_context *uih, const char *name)
 {
     start_save (uih, name);
     stop_save (uih);
 }
 
-REGISTERS (3)
+
      static void save_nstring (struct uih_context *uih, int number, const char *const *const texts)
 {
     save_keystring (uih, texts[number]);
 }
 
-REGISTERS (3)
+
      static void save_nstringc (struct uih_context *uih, const char *name, int number, const char *const *const texts)
 {
     save_keystringc (uih, name, texts[number]);
@@ -266,8 +266,8 @@ ndecimals (struct uih_context *uih)
 
 static void
 savepos (struct uih_context *uih)
-REGISTERS (3);
-REGISTERS (3)
+;
+
      static void savepos (struct uih_context *uih)
 {
     int n = ndecimals (uih);
@@ -282,8 +282,8 @@ REGISTERS (3)
 
 static void
 savepos2 (struct uih_context *uih)
-REGISTERS (3);
-REGISTERS (3)
+;
+
      static void savepos2 (struct uih_context *uih)
 {
     int n = ndecimals (uih);
@@ -298,8 +298,8 @@ REGISTERS (3)
 
 static void
 savepos3 (struct uih_context *uih)
-REGISTERS (3);
-REGISTERS (3)
+;
+
      static void savepos3 (struct uih_context *uih)
 {
     int n = ndecimals (uih);

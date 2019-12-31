@@ -63,16 +63,16 @@ convertup_3d (struct filter *f, int *x1, int *y1)
 static void
 do_3d (void *dataptr, struct taskinfo *task, int r1, int r2)
 {
-    struct filter *RESTRICT f = (struct filter *) dataptr;
+    struct filter * f = (struct filter *) dataptr;
     unsigned int y;
     int maxinp = 0;
     unsigned int x;
     unsigned int end;
     unsigned int sum;
-    spixel_t const *RESTRICT input;
-    unsigned int *RESTRICT lengths;
-    unsigned int *RESTRICT sums;
-    unsigned int *RESTRICT relsums;
+    spixel_t const * input;
+    unsigned int * lengths;
+    unsigned int * sums;
+    unsigned int * relsums;
     struct threeddata *data = (struct threeddata *) f->data;
 
 
@@ -82,8 +82,8 @@ do_3d (void *dataptr, struct taskinfo *task, int r1, int r2)
     unsigned int colheight = data->colheight;
     unsigned int midcolor = data->midcolor;
     unsigned int darkcolor = data->darkcolor;
-    const unsigned int *RESTRICT pixels = data->pixels;
-    cpixel_t *RESTRICT * RESTRICT currlines = (cpixel_t * RESTRICT * RESTRICT) f->image->currlines;
+    const unsigned int * pixels = data->pixels;
+    cpixel_t * *  currlines = (cpixel_t *  * ) f->image->currlines;
     struct inp
     {
         int max;

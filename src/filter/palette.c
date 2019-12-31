@@ -540,7 +540,7 @@ static const unsigned char colors1[DEFNSEGMENTS][3] = {
     {31, 32, 16}
 };
 
-REGISTERS (3)
+
      static int allocate (int r, int g, int b, int init)
 {
     unsigned int n;

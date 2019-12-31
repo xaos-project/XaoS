@@ -1,7 +1,7 @@
 
 static pixel32_t INLINE
 calculate (number_t x, number_t y, int periodicity)
-    CONSTF;
+    ;
      static pixel32_t INLINE calculate (number_t x, number_t y, int periodicity)
 {
     pixel32_t i;

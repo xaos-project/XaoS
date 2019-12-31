@@ -82,7 +82,7 @@ extern "C"
     number_t ui_getfloat (const char *text);
     void ui_resize (void);
     void ui_call_resize (void);
-    void ui_quit (void) NORETURN;
+    void ui_quit (void) ;
     void ui_menuactivate (const menuitem * item, dialogparam * d);
     int ui_key (int);
     xio_path ui_getfile (const char *basename, const char *extension);

@@ -180,7 +180,7 @@ typedef union
                       }
 /* 2009-07-30 JB Langston:
  * Fixing bug #3: HSV modes are completely black when compiled with GCC 4...
- * Removed CONSTF qualifier from hsv_to_rgb declaration. CONSTF macro is 
+ * Removed  qualifier from hsv_to_rgb declaration.  macro is 
  * defined to __attribute__((__const__)), on which I found some more details 
  * here: http://unixwiz.net/techtips/gnu-c-attributes.html#const.  Apparently
  * this should never be used with a function that takes a pointer or relies on
@@ -190,7 +190,7 @@ typedef union
 
 static INLINE void
 hsv_to_rgb (int h, int s, int v, int *red, int *green, int *blue)
-    /*CONSTF*/;
+    /**/;
      static INLINE void hsv_to_rgb (int h, int s, int v, int *red, int *green, int *blue)
 {
     int hue;
@@ -248,8 +248,8 @@ hsv_to_rgb (int h, int s, int v, int *red, int *green, int *blue)
 
 static unsigned int
 truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim, int mode, int inset)
-     CONSTF REGISTERS (3);
-REGISTERS (3)
+      ;
+
      static unsigned int truecolor_output (number_t zre, number_t zim, number_t pre, number_t pim, int mode, int inset)
 {
     /* WARNING: r and b fields are swapped for HISTORICAL REASONS (BUG :),
@@ -412,8 +412,8 @@ REGISTERS (3)
 
 static unsigned int
 color_output (number_t zre, number_t zim, unsigned int iter)
-     CONSTF REGISTERS (3);
-     static unsigned int REGISTERS (3) color_output (number_t zre, number_t zim, unsigned int iter)
+      ;
+     static unsigned int  color_output (number_t zre, number_t zim, unsigned int iter)
 {
     int i;
     iter <<= SHIFT;
@@ -489,8 +489,8 @@ color_output (number_t zre, number_t zim, unsigned int iter)
 
 static unsigned int
 incolor_output (number_t zre, number_t zim, number_t pre, number_t pim, unsigned int iter)
-     CONSTF REGISTERS (3);
-REGISTERS (3)
+      ;
+
      static unsigned int incolor_output (number_t zre, number_t zim, number_t pre, number_t pim, unsigned int iter)
 {
     int i = iter;

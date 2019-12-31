@@ -6,7 +6,7 @@ extern "C"
 #endif
     void x_message (const char *text, ...);
     void x_error (const char *text, ...);
-    void x_fatalerror (const char *text, ...) NORETURN;
+    void x_fatalerror (const char *text, ...) ;
 #ifdef __cplusplus
 }
 #endif

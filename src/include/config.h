@@ -1,4 +1,4 @@
-#ifndef CONFIG_H
+﻿#ifndef CONFIG_H
 #define CONFIG_H
 
 #define XaoS_VERSION "4.0pre2"
@@ -67,7 +67,6 @@ before #include <ddraw.h>*/
 #endif
 #endif
 
-#include "gccaccel.h"
 #ifdef HAVE_MOUSEMASK
 #define NCURSESMOUSE
 #endif

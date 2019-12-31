@@ -54,7 +54,7 @@ extern "C"
         number_t cr, ci;
         number_t rr, ri;
     } vinfo;
-    typedef unsigned int (*iterationfunc) (number_t, number_t, number_t, number_t) CONSTF REGISTERS (3);
+    typedef unsigned int (*iterationfunc) (number_t, number_t, number_t, number_t)  ;
     struct formula
     {
         int magic;
@@ -161,7 +161,7 @@ number_t tmp; \
     void free_fractalc (fractal_context *);
     fractal_context *make_fractalc (const int, float, float);
     void speed_test (fractal_context *, struct image *img);
-    unsigned int calculateswitch (register number_t x1, register number_t y1, register number_t x2, register number_t y2, int periodicity) REGISTERS (3);
+    unsigned int calculateswitch (register number_t x1, register number_t y1, register number_t x2, register number_t y2, int periodicity) ;
 
 /* needs struct formula */
 #include <formulas.h>

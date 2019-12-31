@@ -44,7 +44,7 @@ extern "C"
 #define P_TRANLAMBDA 5
 #define P_MEREBERG 6
 #define P_USER 7
-    extern void recalculate (int plane, number_t *, number_t *) REGISTERS (3);
+    extern void recalculate (int plane, number_t *, number_t *) ;
 
     extern const char *const planename[];
 

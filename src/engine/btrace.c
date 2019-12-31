@@ -228,8 +228,8 @@ static unsigned char *calculated;
 
 static number_t *xcoord, *ycoord;
 #ifndef inline
-REGISTERS (3)
-     CONSTF static pixel32_t calculatepixel (int x, int y, int peri)
+
+      static pixel32_t calculatepixel (int x, int y, int peri)
 {
     return (calculate (xcoord[x], ycoord[y], peri));
 }

@@ -232,7 +232,7 @@ extern "C"
 
 /*palette */
 
-    int bytesperpixel (int type) CONSTF;
+    int bytesperpixel (int type) ;
     void bestfit_init (void);
     struct palette *createpalette (int start, int end, int type, int flags, int maxentries, int (*alloccolor) (struct palette * pal, int init, int r, int g, int b), void (*setcolor) (struct palette * pal, int start, int end, rgb_t * rgb), void (*allocfinished) (struct palette * pal), void (*cyclecolors) (struct palette * pal, int direction), union paletteinfo *info);
     void destroypalette (struct palette *palette);
@@ -249,7 +249,7 @@ extern "C"
     void restorepalette (struct palette *dest, struct palette *src);
     void convertupgeneric (struct filter *f, int *x, int *y);
     void convertdowngeneric (struct filter *f, int *x, int *y);
-    int fixedalloccolor (struct palette *palette, int init, int r, int g, int b) CONSTF;
+    int fixedalloccolor (struct palette *palette, int init, int r, int g, int b) ;
 
 #define setfractalpalette(f,p) if((f)->fractalc->palette==(f)->image->palette) (f)->fractalc->palette=(p)
 

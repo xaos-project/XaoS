@@ -12,7 +12,6 @@ HEADERS += \
     $$PWD/filter.h \
     $$PWD/formulas.h \
     $$PWD/fractal.h \
-    $$PWD/gccaccel.h \
     $$PWD/gccbuild.h \
     $$PWD/generic.h \
     $$PWD/grlib.h \
