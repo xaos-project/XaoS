@@ -1,7 +1,0 @@
-#!/bin/sh
-# This script indents one file.
-# See do-indent for details.
-cp $1 .indent1.tmp
-./wintounix .indent1.tmp > $1
-rm .indent1.tmp
-indent -kr $1
