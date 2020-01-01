@@ -32,10 +32,18 @@
 extern "C" {
 #endif
 
-void ui_call_resize(void);
 void ui_quit(int);
-void ui_menuactivate(const menuitem *item, dialogparam *d);
-int ui_key(int);
+
+extern int printspeed;
+extern int delaytime;
+extern int defthreads;
+extern int maxframerate;
+extern float pixelwidth, pixelheight;
+
+#ifdef SFFE_USING
+extern char *sffeform;
+extern char *sffeinit;
+#endif
 
 #ifdef __cplusplus
 }

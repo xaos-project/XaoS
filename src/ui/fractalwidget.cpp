@@ -22,12 +22,6 @@ QSize FractalWidget::sizeHint() const { return m_sizeHint; }
 
 void FractalWidget::setSizeHint(const QSize &size) { m_sizeHint = size; }
 
-void FractalWidget::resizeEvent(QResizeEvent *event)
-{
-    if (m_image)
-        ui_call_resize();
-}
-
 #ifdef USE_OPENGL
 void FractalWidget::paintGL()
 {

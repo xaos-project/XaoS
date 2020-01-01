@@ -23,7 +23,6 @@ class FractalWidget : public QWidget
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
-    void resizeEvent(QResizeEvent *event);
     void wheelEvent(QWheelEvent *event);
 #ifdef USE_OPENGL
     void paintGL();
