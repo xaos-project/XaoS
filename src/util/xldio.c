@@ -122,13 +122,6 @@ long double x_strtold(const char *s, const char **sret)
     return r * sign;
 }
 
-#if 0
-main ()
-{
-    printf ("%E", (float) x_strtold ("1.4E15", NULL));
-}
-#endif
-
 #define MAXEXPLD 4952 /* this includes subnormal numbers */
 static int is_nan = 0;
 static char decimal = '.';
@@ -567,17 +560,6 @@ static int cvtl(long double number, int prec, int flags, char *signp,
     return t - startp;
 }
 
-#if 0
-main ()
-{
-    static char buf[4096];
-    int i;
-    cvtl (0.00000000000000000005, 4, 0, &softsign, 'G', buf, buf + sizeof (buf) - 1);
-    printf ("%s\n", buf + 1);
-    printf ("%.30LG\n", (long double) 234236723234234231235324.47239L);
-}
-
-#endif
 void x_ldout(long double param, int prec, xio_file stream)
 {
     static char buf[4095];

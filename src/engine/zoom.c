@@ -94,42 +94,11 @@ static int nadded = 0, nsymmetry = 0, nskipped = 0;
 int nperi = 0;
 #endif
 
-#ifdef _NEVER_
-#define rdtsc()                                                                \
-    ({                                                                         \
-        unsigned long long time;                                               \
-        asm __volatile__("rdtsc" : "=A"(time));                                \
-        time;                                                                  \
-    })
-#define startagi()                                                             \
-    ({                                                                         \
-        asm __volatile__(                                                      \
-            "rdmsr ; andw 0xfe00,%%ax ; orw 0x1f, %%ax ; wrmsr; " ::"c"(22)    \
-            : "ax", "dx");                                                     \
-    })
-#define countagi()                                                             \
-    ({                                                                         \
-        unsigned long long count;                                              \
-        asm __volatile__("rdmsr" : "=A"(count) : "c"(12));                     \
-        count;                                                                 \
-    })
-#define cli() ({ asm __volatile__("cli"); })
-#define sti() ({ asm __volatile__("sti"); })
-#else
-#define rdtsc() 0
-#define cli() 0
-#define sti() 0
-#define startagi() 0
-#define countagi() 0
-#endif
-
-#ifndef USE_i386ASM
 static void moveoldpoints(void *data1, struct taskinfo *task, int r1, int r2);
 static void fillline_8(int line);
 static void fillline_16(int line);
 static void fillline_24(int line);
 static void fillline_32(int line);
-#endif
 
 /*first of all inline driver section */
 /*If you think this way is ugly, I must agree. Please let me know
@@ -497,10 +466,6 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
 
         while (pos[p] <= yend) /*skip lines out of range */
             p++;
-#ifdef _UNDEFINED_
-        if (pos[p - 1] > yend) /*warning...maybe this is the bug :) */
-            p--, assert(0);
-#endif
         ps1 = p;
         yend = y + IRANGE;
 
@@ -531,10 +496,6 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
         bestprice = myprice;    /*calculate best available price */
         data->price = myprice;  /*store data */
         assert(bestprice >= 0); /*FIXME:tenhle assert muze FAILIT! */
-#ifdef _UNDEFINED_
-        if (yend > end + FPMUL) /*check bounds */
-            yend = end + FPMUL;
-#endif
         data = adddata(p, i); /*calcualte all lines good for this y */
 
         /* Now try all acceptable connection and calculate best possibility
@@ -618,45 +579,6 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
                 if (pos[p] != pos[p + 1]) {
                     if (previous != best[p - 1]) {
                         x_fatalerror("Missoptimization found!");
-                    }
-                }
-#endif
-#ifdef _UNDEFINED_
-                /* Experimental results show, that probability for better
-                 * approximation in this area is extremly low. Maybe it never
-                 * happends. I will have to think about it a bit more... It
-                 * seems to have to do something with meaning of universe and
-                 * god... no idea why it is true.
-                 *
-                 * Anyway it don't seems to worth include the expensive tests
-                 * here.
-                 */
-                if (pos[p] != pos[p + 1]) {
-                    if (previous != best[p - 1]) {
-
-                        previous = best[p - 1];
-                        CHECKPOS(previous);
-                        myprice = previous->price;
-
-                        /*In case we found revolutional point, we should think
-                         *about changing our gusesses in last point too - don't
-                         *connect it at all, but use this way instead*/
-                        if (myprice + NEWPRICE <
-                            bestprice) { /*true in approx 2/3 of cases */
-                            bestprice = myprice + NEWPRICE,
-                            bestdata = data - DSIZE;
-                            (bestdata)->price = bestprice;
-                            (bestdata)->previous = previous + nosetadd;
-                            best1[p - 1] = bestdata;
-                        }
-                        myprice += PRICE(
-                            pos[p], y); /*calculate price of new connection */
-                        if (myprice < bestprice) { /*if it is better than
-                                                      previous, store it */
-                            bestprice = myprice, bestdata = data;
-                            data->price = myprice;
-                            data->previous = previous;
-                        }
                     }
                 }
 #endif
@@ -904,8 +826,6 @@ static void preparemoveoldpoints(void)
         avgsize = sum / num;
 }
 
-#ifndef USE_i386ASM
-
 static void moveoldpoints(void /*@unused@ */ *data1,
                           struct taskinfo /*@unused@ */
                               *task,
@@ -930,7 +850,7 @@ static void moveoldpoints(void /*@unused@ */ *data1,
         }
     }
 }
-#endif
+
 /* This function prepares fast filling tables for fillline */
 static int mkfilltable(void)
 {
@@ -1016,11 +936,7 @@ static void filly(void
             r1 = ry - 1;
             for (r2 = ry + 1; r2 < rend2 && r2->dirty > 0; r2++)
                 ;
-#ifdef _UNDEFINED_
-            if (r2 >= rend && (rr2 != cimage.height || ry == 0))
-#else
             if (r2 >= rend2 && (rr2 != cimage.height || ry == 0))
-#endif
                 return;
             while (ry < rend2 && ry->dirty > 0) {
                 if (r1 < czoomc.reallocy) {
@@ -1579,22 +1495,7 @@ static int do_fractal(struct filter *f, int flags, int /*@unused@ */ time)
     callwait();
     preparemoveoldpoints();
     xth_sync();
-#ifdef _NEVER_
-    {
-        static long long sum2, sum;
-        cli();
-        startagi();
-        sum -= rdtsc();
-        sum2 -= countagi();
-        xth_function(moveoldpoints, NULL, cimage.height);
-        sum += rdtsc();
-        sum2 += countagi();
-        sti();
-        printf("%i %i\n", (int)sum, (int)sum2);
-    }
-#else
     xth_function(moveoldpoints, NULL, cimage.height);
-#endif
 
     cfilter.pass = "Starting calculation";
     callwait();

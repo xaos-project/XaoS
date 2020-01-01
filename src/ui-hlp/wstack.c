@@ -453,16 +453,6 @@ void uih_drawwindows(struct uih_context *uih)
     w = uih->wtop;
     while (w) {
         if (w->getpos == NULL) {
-// This code unfortunately won't work for the Julia show, so
-// deactivated:
-#if 0
-            int lw = 0, lwi = 0, lwj = 0;
-            if (uih->image->width > 800 && uih->image->height > 600)
-                lw = 3;
-
-            for (; lwi <= lw; ++lwi)
-                for (; lwj <= lw; ++lwj)
-#endif
 #define lwi 0
 #define lwj 0
             xline(uih->image, w->x + lwi, w->y + lwj, w->width + w->x + lwi,

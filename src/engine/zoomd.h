@@ -62,10 +62,6 @@ static void calcline(realloc_t *ry)
                 STAT(tocalculate++);
                 p_set(vbuff, (cpixeldata_t)calculate(rx->position, y,
                                                      cfractalc.periodicity));
-#ifdef DRAW
-                vga_setcolor(0xff0000);
-                vga_drawpixel(rx - czoomc.reallocx, ry - czoomc.reallocy);
-#endif
             }
             p_inc(vbuff, 1);
         }
@@ -110,10 +106,6 @@ static void calcline(realloc_t *ry)
                         p_set(vbuff,
                               (cpixeldata_t)calculate(rx->position, y,
                                                       cfractalc.periodicity));
-#ifdef DRAW
-                    vga_setcolor(0xffffff);
-                    vga_drawpixel(rx - czoomc.reallocx, ry - czoomc.reallocy);
-#endif
                 }
                 distup = 0;
             }
@@ -166,10 +158,6 @@ static void calccolumn(realloc_t *rx)
                 p_setp((*vbuff), pos,
                        (cpixeldata_t)calculate(x, ry->position,
                                                cfractalc.periodicity));
-#ifdef DRAW
-                vga_setcolor(0xff0000);
-                vga_drawpixel(rx - czoomc.reallocx, ry - czoomc.reallocy);
-#endif
             }
         }
     } else {
@@ -258,7 +246,6 @@ static /*inline */ void dosymmetry2(void /*@unused@ */ *data,
     }
 }
 
-#ifndef USE_i386ASM
 /*
  * Fill - bitmap depended part.
  *
@@ -268,13 +255,6 @@ static /*inline */ void dosymmetry2(void /*@unused@ */ *data,
  * This function is very time critical in higher resultions I am shooting
  * for.
  */
-#ifndef __GNUC__
-#undef bpp1
-#endif
-#ifndef __i386__
-#undef bpp1
-#endif
-#undef bpp1
 
 static inline void fillline(int line)
 {
@@ -283,19 +263,14 @@ static inline void fillline(int line)
     while (table->length) {
         register cpixeldata_t s = p_get((cpixel_t *)(vbuff + table->from));
         register cpixel_t *vcurr = (cpixel_t *)(vbuff + table->to);
-#ifdef bpp1
-        memset(vcurr, s, table->length);
-#else
         register cpixel_t *vend = (cpixel_t *)(vbuff + table->end);
         while (vcurr < vend) {
             p_set(vcurr, s);
             p_inc(vcurr, 1);
         }
-#endif
         table++;
     }
 }
-#endif
 #endif
 #undef dosymmetry2
 #undef calcline

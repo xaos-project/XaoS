@@ -286,7 +286,6 @@ static pixel32_t calculatepixel(int x, int y, int peri)
 #include "btraced.h"
 #include "i18n.h"
 
-#ifndef SLOWCACHESYNC
 #ifndef nthreads
 static int tracerectangle2(int x1, int y1, int x2, int y2)
 {
@@ -353,7 +352,6 @@ static int tracerectangle2(int x1, int y1, int x2, int y2)
             free(starts[y][x]); /*free memory allocated for stack */
     return 1;
 }
-#endif
 #endif
 static void skip(int x1, int y1, int x2, int y2)
 {
@@ -501,7 +499,6 @@ int boundarytrace(int x1, int y1, int x2, int y2, number_t *xpos,
                     i * (cfractalc.rs.mi - cfractalc.rs.ni) / cimage.height;
     }
     i = 1;
-#ifndef SLOWCACHESYNC
 #ifndef nthreads
     if (nthreads != 1) {
         if (ydiv > cy1 && ydiv < cy2) {
@@ -510,7 +507,6 @@ int boundarytrace(int x1, int y1, int x2, int y2, number_t *xpos,
         } else
             i |= tracerectangle2(cx1, cy1, cx2, cy2);
     } else
-#endif
 #endif
     {
         if (ydiv > cy1 && ydiv < cy2) {

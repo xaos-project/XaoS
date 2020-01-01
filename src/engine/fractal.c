@@ -85,9 +85,6 @@ static void set_view(fractal_context *c, const vinfo *s)
 static void /*inline */
 combine_methods(void)
 {
-#ifdef __UNDEFINED__
-    int i, j;
-#endif
     int angle = (int)cfractalc.angle;
     const struct symmetryinfo *s1 = cfractalc.currentformula->out +
                                     cfractalc.coloringmode,
@@ -104,12 +101,6 @@ combine_methods(void)
         cursymmetry.nsymmetries = 0;
         return;
     }
-#ifdef __UNDEFINED__
-    cursymmetry.xmul = cimage.width / (cfractalc.rs.mc - cfractalc.rs.nc);
-    cursymmetry.ymul = cimage.height / (cfractalc.rs.mi - cfractalc.rs.ni);
-    cursymmetry.xdist = (cfractalc.rs.mc - cfractalc.rs.nc) / cimage.width / 6;
-    cursymmetry.ydist = (cfractalc.rs.mi - cfractalc.rs.ni) / cimage.height / 6;
-#endif
     if (s1->xsym == s2->xsym)
         cursymmetry.xsym = s1->xsym;
     else
@@ -238,7 +229,6 @@ void set_fractalc(fractal_context *context, struct image *img)
     if (cursymmetry.ysym == (number_t)INT_MAX)
         cursymmetry.ysym = cfractalc.rs.mi + INT_MAX;
 
-#ifndef SLOWFUNCPTR
     if (cfractalc.coloringmode == 9 && cformula.smooth_calculate != NULL &&
         (cpalette.type &
          (TRUECOLOR | TRUECOLOR16 | TRUECOLOR24 | GRAYSCALE | LARGEITER))) {
@@ -254,7 +244,6 @@ void set_fractalc(fractal_context *context, struct image *img)
         else
             cfractalc.calculate[1] = cformula.calculate;
     }
-#endif
 }
 
 void set_formula(fractal_context *c, int num)
@@ -330,17 +319,6 @@ fractal_context *make_fractalc(const int formula, float wi, float he)
 
 void free_fractalc(fractal_context *c) { free(c); }
 
-#ifdef NOASSEMBLY
-#define rdtsc() 0
-#else
-#define rdtsc()                                                                \
-    ({                                                                         \
-        unsigned long time;                                                    \
-        asm __volatile__("rdtsc" : "=a"(time));                                \
-        time;                                                                  \
-    })
-#endif
-
 void speed_test(fractal_context *c, struct image *img)
 {
     // unsigned int sum;
@@ -350,9 +328,6 @@ void speed_test(fractal_context *c, struct image *img)
     set_fractalc(c, img);
     t = tl_create_timer();
     cfractalc.maxiter = 100;
-#ifdef SLOWFUNCPTR
-    i = calculateswitch(0.0, 0.0, 0.0, 0.0, 0);
-#else
     (void)cfractalc.currentformula->calculate(0.0, 0.0, 0.0, 0.0);
     if (cfractalc.currentformula->calculate_periodicity != NULL)
         (void)cfractalc.currentformula->calculate_periodicity(0.0, 0.0, 0.0,
@@ -362,17 +337,12 @@ void speed_test(fractal_context *c, struct image *img)
     if (cfractalc.currentformula->smooth_calculate_periodicity != NULL)
         (void)cfractalc.currentformula->smooth_calculate_periodicity(0.0, 0.0,
                                                                      0.0, 0.0);
-#endif
     cfractalc.maxiter = 20000000;
 
     tl_update_time();
     tl_reset_timer(t);
     /*sum = rdtsc (); */
-#ifdef SLOWFUNCPTR
-    i = calculateswitch(0.0, 0.0, 0.0, 0.0, 0);
-#else
     i = cfractalc.currentformula->calculate(0.0, 0.0, 0.0, 0.0);
-#endif
     /*sum -= rdtsc ();
        printf ("%f\n", (double) (-sum) / cfractalc.maxiter); */
     tl_update_time();
@@ -380,8 +350,6 @@ void speed_test(fractal_context *c, struct image *img)
     x_message("Result:%i Formulaname:%s Time:%i Mloops per sec:%.2f", (int)i,
               cfractalc.currentformula->name[0], time,
               cfractalc.maxiter / (double)time);
-
-#ifndef SLOWFUNCPTR
 
     if (cfractalc.currentformula->smooth_calculate != NULL) {
         tl_update_time();
@@ -393,7 +361,5 @@ void speed_test(fractal_context *c, struct image *img)
                   (int)i, cfractalc.currentformula->name[0], time,
                   cfractalc.maxiter / (double)time);
     }
-#endif
-
     tl_free_timer(t);
 }

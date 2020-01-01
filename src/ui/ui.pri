@@ -1,7 +1,6 @@
 SOURCES += \
     $$PWD/param.c \
     $$PWD/fparams.c \
-    $$PWD/pipecmd.c \
     $$PWD/ui_qt.cpp \
     $$PWD/mainwindow.cpp \
     $$PWD/fractalwidget.cpp \

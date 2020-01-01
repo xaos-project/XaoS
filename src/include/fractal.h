@@ -51,10 +51,8 @@ typedef struct {
 typedef unsigned int (*iterationfunc)(number_t, number_t, number_t, number_t);
 struct formula {
     int magic;
-#ifndef SLOWFUNCPTR
     iterationfunc calculate, calculate_periodicity, smooth_calculate,
         smooth_calculate_periodicity;
-#endif
     void (*calculate_julia)(struct image *img, register number_t pre,
                             register number_t pim);
     const char *name[2];

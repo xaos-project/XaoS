@@ -886,11 +886,6 @@ void uih_do_fractal(uih_context *c)
     waitcount = tl_lookup_timer(c->calculatetimer) / WAITTIME + 2;
     waitcount1 = tl_lookup_timer(c->calculatetimer) / WAITTIME1 + 1;
     waitcount2 = tl_lookup_timer(c->calculatetimer) / WAITTIME2 + 1;
-#ifdef _UNDEFINED_
-    waitcount = 2;
-    waitcount1 = 1;
-    waitcount2 = 1;
-#endif
     c->incalculation = 1;
 
     if (!(c->flags & ROTATE_INSIDE_CALCULATION))

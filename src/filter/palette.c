@@ -115,12 +115,6 @@ static int allocgenerictruecolor(struct palette *palette, int init, int r,
     switch (palette->type) {
         case LARGEITER:
         case SMALLITER:
-#ifdef _UNDEFINED_
-            if (init)
-                n = 0;
-            else
-                n = palette->size;
-#endif
             return 1;
         case TRUECOLOR:
         case TRUECOLOR16:

@@ -118,9 +118,6 @@ struct uih_playcontext {
                           : ((time) - (starttime) / 2) /                       \
                                 ((double)(len) - (starttime) / 2 -             \
                                  (endtime) / 2)
-#ifdef _NEVER_
-#define MORPHVALUE(time, len, starttime, endtime) (((time)) / ((double)(len)))
-#endif
 #define DOMORPH(time, len, starttime, endtime, startval, endval)               \
     ((startval) +                                                              \
      ((endval) - (startval)) * MORPHVALUE(time, len, starttime, endtime))

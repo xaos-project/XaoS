@@ -40,15 +40,6 @@
 #ifndef RANGE
 #define RANGE 2
 #endif
-#ifndef __GNUC__
-#undef USEHACKS
-#endif
-#ifndef __i386__
-#undef USEHACKS
-#endif
-#ifdef NOASSEMBLY
-#undef USEHACKS
-#endif
 
 /* Prepare main loop */
 #ifndef NSFORMULALOOP
@@ -74,18 +65,6 @@
 #endif
 #endif
 
-#ifdef USEHACKS
-#ifdef RPIP
-#define I386HACK1 __asm__("#HACK1" : : "m"(szre), "m"(szim));
-#define I386HACK __asm__("#HACK" : : "f"(zre), "f"(zim));
-#else
-#define I386HACK __asm__("#HACK" : : "f"(zre), "f"(zim));
-#endif
-#else
-#define I386HACK
-#define I386HACK1
-#endif
-
 #ifdef SMOOTHMODE
 #ifdef CUSTOMSAVEZMAG
 #define SAVEZMAG CUSTOMSAVEZMAG;
@@ -99,14 +78,14 @@
 #ifdef UNCOMPRESS
 /*uncompressed version of loop */
 #ifdef SMOOTHMODE
-static unsigned int FUNCTYPE SCALC(register number_t zre, register number_t zim,
+static unsigned int SCALC(register number_t zre, register number_t zim,
                                    register number_t pre,
                                    register number_t pim);
 
-static unsigned int FUNCTYPE SCALC(register number_t zre, register number_t zim,
+static unsigned int SCALC(register number_t zre, register number_t zim,
                                    register number_t pre, register number_t pim)
 #else
-static unsigned int FUNCTYPE CALC(register number_t zre, register number_t zim,
+static unsigned int CALC(register number_t zre, register number_t zim,
                                   register number_t pre, register number_t pim);
 
 static unsigned CALC(register number_t zre, register number_t zim,
@@ -131,8 +110,6 @@ static unsigned CALC(register number_t zre, register number_t zim,
         ip = zim * zim;
 #endif
         if (iter < 16) {
-            I386HACK1;
-            I386HACK;
 
             /*try first 8 iterations */
             if (BTEST && iter) {
@@ -147,8 +124,6 @@ static unsigned CALC(register number_t zre, register number_t zim,
                } */
         } else {
             iter = 8 + (cfractalc.maxiter & 7);
-            I386HACK1;
-            I386HACK;
 
             /*try first 8 iterations */
             if (BTEST && iter) {
@@ -164,8 +139,7 @@ static unsigned CALC(register number_t zre, register number_t zim,
             if (BTEST) {
                 iter = (cfractalc.maxiter - 8) & (~7);
                 iter >>= 3;
-                I386HACK1;
-                I386HACK; /*do next 8 iteration w/o out of bounds checking */
+                /*do next 8 iteration w/o out of bounds checking */
                 do {
                     /*hmm..we are probably in some deep area. */
                     szre = zre; /*save current position */
@@ -192,8 +166,6 @@ static unsigned CALC(register number_t zre, register number_t zim,
                     rp = zre * zre;
                     ip = zim * zim;
 #endif
-                    I386HACK1;
-                    I386HACK;
                     FORMULALOOP(iter);
                     /*
                        do
@@ -222,17 +194,17 @@ static unsigned CALC(register number_t zre, register number_t zim,
 }
 #else
 #ifdef SMOOTHMODE
-static unsigned int FUNCTYPE SCALC(register number_t zre, register number_t zim,
+static unsigned int SCALC(register number_t zre, register number_t zim,
                                    register number_t pre,
                                    register number_t pim);
 
-static unsigned int FUNCTYPE SCALC(register number_t zre, register number_t zim,
+static unsigned int SCALC(register number_t zre, register number_t zim,
                                    register number_t pre, register number_t pim)
 #else
-static unsigned int FUNCTYPE CALC(register number_t zre, register number_t zim,
+static unsigned int CALC(register number_t zre, register number_t zim,
                                   register number_t pre, register number_t pim);
 
-static unsigned int FUNCTYPE CALC(register number_t zre, register number_t zim,
+static unsigned int CALC(register number_t zre, register number_t zim,
                                   register number_t pre, register number_t pim)
 #endif
 {
@@ -258,7 +230,6 @@ static unsigned int FUNCTYPE CALC(register number_t zre, register number_t zim,
         /*
            while (BTEST && iter)
            {
-           I386HACK;
            SAVEZMAG
            FORMULA;
            iter--;
@@ -311,17 +282,17 @@ static unsigned int FUNCTYPE CALC(register number_t zre, register number_t zim,
 #ifndef UNCOMPRESS
 
 #ifdef SMOOTHMODE
-static unsigned int FUNCTYPE SPERI(register number_t zre, register number_t zim,
+static unsigned int SPERI(register number_t zre, register number_t zim,
                                    register number_t pre,
                                    register number_t pim);
 
-static unsigned int FUNCTYPE SPERI(register number_t zre, register number_t zim,
+static unsigned int SPERI(register number_t zre, register number_t zim,
                                    register number_t pre, register number_t pim)
 #else
-static unsigned int FUNCTYPE PERI(register number_t zre, register number_t zim,
+static unsigned int PERI(register number_t zre, register number_t zim,
                                   register number_t pre, register number_t pim);
 
-static unsigned int FUNCTYPE PERI(register number_t zre, register number_t zim,
+static unsigned int PERI(register number_t zre, register number_t zim,
                                   register number_t pre, register number_t pim)
 #endif
 {
@@ -343,7 +314,6 @@ static unsigned int FUNCTYPE PERI(register number_t zre, register number_t zim,
         rp = zre * zre;
         ip = zim * zim;
 #endif
-        I386HACK;
         if (iter < iter1)
             iter1 = iter, iter = 8;
 
@@ -422,17 +392,17 @@ end:
  */
 
 #ifdef SMOOTHMODE
-static unsigned int FUNCTYPE SPERI(register number_t zre, register number_t zim,
+static unsigned int SPERI(register number_t zre, register number_t zim,
                                    register number_t pre,
                                    register number_t pim);
 
-static unsigned int FUNCTYPE SPERI(register number_t zre, register number_t zim,
+static unsigned int SPERI(register number_t zre, register number_t zim,
                                    register number_t pre, register number_t pim)
 #else
-static unsigned int FUNCTYPE PERI(register number_t zre, register number_t zim,
+static unsigned int PERI(register number_t zre, register number_t zim,
                                   register number_t pre, register number_t pim);
 
-static unsigned int FUNCTYPE PERI(register number_t zre, register number_t zim,
+static unsigned int PERI(register number_t zre, register number_t zim,
                                   register number_t pre, register number_t pim)
 #endif
 {
@@ -454,8 +424,6 @@ static unsigned int FUNCTYPE PERI(register number_t zre, register number_t zim,
         iter = 0;
     else {
         if (cfractalc.maxiter <= 16) {
-            I386HACK1;
-            /*I386HACK; */
 #ifdef RPIP
             rp = zre * zre;
             ip = zim * zim;
@@ -485,8 +453,6 @@ static unsigned int FUNCTYPE PERI(register number_t zre, register number_t zim,
                detected early, cause is is quite slow before going in a periodic
                loop. So, we should start checking periodicity only after some
                times */
-            I386HACK1;
-            /*I386HACK; */
             iter = 8 + (cfractalc.maxiter & 7);
             while (BTEST && iter) { /*F. : Added iter&7 to be sure we'll be on a
                                        8 multiple */
@@ -500,8 +466,6 @@ static unsigned int FUNCTYPE PERI(register number_t zre, register number_t zim,
                     szre = zre, szim = zim;
                     SAVE;
                     SAVEZMAG
-                    /*I386HACK; */
-                    I386HACK1;
                     FORMULA; /*F. : Calculate one time */
                     if (PCHECK)
                         goto periodicity;
@@ -548,8 +512,6 @@ static unsigned int FUNCTYPE PERI(register number_t zre, register number_t zim,
                     rp = zre * zre;
                     ip = zim * zim;
 #endif
-                    I386HACK1;
-                    /*I386HACK; */
                     FORMULALOOP(iter);
                     /*
                        do
@@ -723,8 +685,6 @@ static void JULIA(struct image *image, register number_t pre,
 
 #undef FORMULALOOP
 #undef PCHECK
-#undef I386HACK
-#undef I386HACK1
 #undef SAVEZMAG
 #ifndef SMOOTHMODE
 #ifdef SMOOTH
@@ -756,6 +716,5 @@ static void JULIA(struct image *image, register number_t pre,
 #undef SAVE
 #undef SAVEVARIABLES
 #undef RESTORE
-#undef USEHACKS
 #undef UFORMULA
 #undef UEND

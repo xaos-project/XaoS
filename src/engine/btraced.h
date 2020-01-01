@@ -254,7 +254,6 @@ static void tracecolor(int xstart, int ystart, int xend, int yend,
     } while (1);
 }
 
-#ifndef SLOWCACHESYNC
 #ifndef nthreads
 #define ethreads 1
 
@@ -419,7 +418,6 @@ static void bfill(void *dat, struct taskinfo *task, int r1, int r2)
 }
 
 #undef ethreads
-#endif
 #endif
 static void dosymmetries(int x1, int x2, int y1, int y2, int xsym, int cx1,
                          int cx2)
