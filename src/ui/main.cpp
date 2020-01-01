@@ -29,21 +29,15 @@
 #include <math.h>
 #include <sys/stat.h>
 #include <time.h>
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
 #include <signal.h>
 #include <assert.h>
 
 #include <QtWidgets>
 #include <QMessageBox>
 #include <cstring>
-#include <iostream>
-#include <set>
 
 #include "mainwindow.h"
 #include "fractalwidget.h"
-
 #include "filter.h"
 #include "ui_helper.h"
 #include "ui.h"
@@ -54,8 +48,6 @@
 #include "xerror.h"
 #include "xmenu.h"
 #include "grlib.h"
-
-#include "uiint.h"
 #include "i18n.h"
 
 #ifdef SFFE_USING
@@ -97,7 +89,6 @@ static tl_timer *arrowtimer;
 static tl_timer *loopt;
 
 /* Command line variables */
-static char *defpipe;
 static int printspeed;
 static int delaytime = 0;
 static int defthreads = 0;
@@ -109,70 +100,79 @@ char *sffeform = NULL;
 char *sffeinit = NULL;
 #endif
 
+
+#define MOUSE_PRESS 1
+#define MOUSE_RELEASE 2
+#define MOUSE_DRAG 4
+#define MOUSE_MOVE 8
+
+#define BORDERWIDTH 2
+#define BORDERHEIGHT 2
+
+#define BUTTONHEIGHT (xtextheight(uih->image, uih->font) + 2 * BORDERWIDTH)
+
+struct ui_textdata {
+    int x, y, width;
+    char *text;
+    int size;
+    int cursor;
+    int cursorpos;
+    int start;
+    int ndisplayed;
+    int clear;
+};
+
 const struct params global_params[] = {
-    {"-delay", P_NUMBER, &delaytime, "Delay screen updates (milliseconds)"},
-    {"-speedtest", P_SWITCH, &printspeed,
-     "Test speed of calculation loop. Then exit"},
+{"-delay", P_NUMBER, &delaytime, "Delay screen updates (milliseconds)"},
+{"-speedtest", P_SWITCH, &printspeed,
+    "Test speed of calculation loop. Then exit"},
 #ifndef nthreads
-    {"-threads", P_NUMBER, &defthreads, "Set number of threads (CPUs) to use"},
-#else
-    {"-threads", P_NUMBER, &defthreads,
-     "Multiple CPUs unsupported - please recompile XaoS with threads enabled"},
+{"-threads", P_NUMBER, &defthreads, "Set number of threads (CPUs) to use"},
 #endif
-    {"-maxframerate", P_NUMBER, &maxframerate,
-     "Maximal framerate (0 for unlimited - default)"},
-    {"", P_HELP, NULL,
-     "Pixel size options: \n\n  Knowledge of exact pixel size makes random dot stereogram look better. \n  Also is used for choosing correct view area"},
-    {"-pixelwidth", P_FLOAT, &pixelwidth,
-     "exact size of one pixel in centimeters"},
-    {"-pixelheight", P_FLOAT, &pixelheight,
-     "exact size of one pixel in centimeters"},
+{"-maxframerate", P_NUMBER, &maxframerate,
+    "Maximal framerate (0 for unlimited - default)"},
+{"", P_HELP, NULL,
+    "Pixel size options: \n\n  Knowledge of exact pixel size makes random dot stereogram look better. \n  Also is used for choosing correct view area"},
+{"-pixelwidth", P_FLOAT, &pixelwidth,
+    "exact size of one pixel in centimeters"},
+{"-pixelheight", P_FLOAT, &pixelheight,
+    "exact size of one pixel in centimeters"},
 #ifdef SFFE_USING
-    {"-formula", P_STRING, &sffeform, "user formula"},
-    {"-forminit", P_STRING, &sffeinit, "z0 for user formula"},
+{"-formula", P_STRING, &sffeform, "user formula"},
+{"-forminit", P_STRING, &sffeinit, "z0 for user formula"},
 #endif
-    {NULL, 0, NULL, NULL}};
+{NULL, 0, NULL, NULL}};
 
-static struct params params[] = {{NULL, 0, NULL, NULL}};
+static char *defrender = NULL;
+static const char *rbasename = "anim";
+static int alias = 0;
+static int slowmode = 0;
+static char *imgtype;
+static char *defsize;
+static float framerate;
+static int letterspersec = 20;
+static int defvectors;
+static int iframedist;
 
-MainWindow *window;
-FractalWidget *widget;
+const struct params ui_fractal_params[] = {
 
-int main(int argc, char *argv[])
-{
-#ifdef _WIN32
-    // On Windows, attach to parent console to allow command-line output
-    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
-        freopen("CONOUT$", "w", stdout);
-        freopen("CONOUT$", "w", stderr);
-    }
-#endif
-
-    QCoreApplication::setApplicationName("XaoS");
-    QCoreApplication::setApplicationVersion(XaoS_VERSION);
-    QCoreApplication::setOrganizationName("XaoS Project");
-    QCoreApplication::setOrganizationDomain("xaos.sourceforge.net");
-
-    QApplication app(argc, argv);
-
-    QTranslator qtTranslator;
-    qtTranslator.load("qt_" + QLocale::system().name(),
-                      QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    app.installTranslator(&qtTranslator);
-    QTranslator xaosTranslator;
-    xaosTranslator.load("XaoS_" + QLocale::system().name(), ":/i18n");
-    app.installTranslator(&xaosTranslator);
-
-    QLocale::system().setNumberOptions(QLocale::DefaultNumberOptions);
-
-    /* Without this some locales (e.g. the Hungarian) replaces "." to ","
-       in numerical format and this will cause an automatic truncation
-       at each parameter at certain places, e.g. drawing a new fractal. */
-    setlocale(LC_NUMERIC, "C");
-
-    ui_init(argc, argv);
-    ui_mainloop(1);
-}
+{"", P_HELP, NULL, "Animation rendering:"},
+{"-render", P_STRING, &defrender,
+    "Render animation into seqence of .png files"},
+{"-basename", P_STRING, &rbasename,
+    "Name for .png files (XaoS will add 4 digit number and extension"},
+{"-size", P_STRING, &defsize, "widthxheight"},
+{"-renderimage", P_STRING, &imgtype, "256 or truecolor"},
+{"-renderframerate", P_FLOAT, &framerate, "framerate"},
+{"-antialiasing", P_SWITCH, &alias,
+    "Perform antialiasing (slow, requires quite lot of memory)"},
+{"-alwaysrecalc", P_SWITCH, &slowmode,
+    "Always recalculate whole image (slowes down rendering, increases quality)"},
+{"-rendervectors", P_SWITCH, &defvectors,
+    "Render motion vectors (should be used for MPEG encoding)"},
+{"-iframedist", P_NUMBER, &iframedist,
+    "Recommended distance between I frames in pat file (should be used for MPEG encoding)"},
+{NULL, 0, NULL, NULL}};
 
 extern "C" {
 
@@ -182,12 +182,171 @@ const char *qt_gettext(const char *text)
     const char *trans = strings[text];
     if (trans == NULL) {
         trans =
-            strdup(QCoreApplication::translate("", text).toStdString().c_str());
+                strdup(QCoreApplication::translate("", text).toStdString().c_str());
         strings[text] = trans;
     }
     return trans;
 }
+
 }
+
+int ui_dorender_params(void)
+{
+    if (defrender != NULL) {
+        int imagetype = TRUECOLOR;
+        int width = 640, height = 480;
+#ifndef STRUECOLOR24
+        if (imagetype == TRUECOLOR24)
+            imagetype = TRUECOLOR;
+#endif
+        if (imgtype != NULL) {
+            if (!strcmp("256", imgtype))
+                imagetype = C256;
+            else if (!strcmp("truecolor", imgtype)) {
+                x_fatalerror("Unknown image type:%s", imgtype);
+            }
+        }
+        if (defsize != NULL && !sscanf(defsize, "%ix%i", &width, &height) &&
+                (width <= 0 || height <= 0)) {
+            x_fatalerror("Invalid size (use for example 320x200");
+        }
+        if (framerate <= 0)
+            framerate = 30;
+        uih_renderanimation(NULL, rbasename, defrender, width, height,
+                            pixelwidth, pixelheight, (int)(1000000 / framerate),
+                            imagetype, alias, slowmode, letterspersec, NULL);
+        return 1;
+    }
+    return 0;
+}
+
+#define MAXPARAMS 40
+static const struct params *params[MAXPARAMS];
+int nparams;
+
+int ui_params_parser(int argc, char **argv)
+{
+    int i, p = 0, d;
+    int ie = 0;
+    int is;
+    const struct params *par = NULL;
+    int error = 0;
+    int found;
+    for (i = 1; i < argc && !error; i++) {
+        found = 0;
+#ifdef MACOSX
+        if (strncmp("-psn", argv[i], 4) == 0)
+            continue;
+#endif
+        if (!strcmp("-help", argv[i])) {
+            error = 1;
+            break;
+        }
+        for (d = 0; d < nparams; d++) {
+            par = params[d];
+            for (p = 0; par[p].name != NULL && !error; p++) {
+                if (!strcmp(par[p].name, argv[i])) {
+                    found = 1;
+                    is = i;
+                    switch (par[p].type) {
+                    case P_SWITCH:
+                        *((int *)par[p].value) = 1;
+                        break;
+                    case P_NUMBER: {
+                        int n;
+                        if (i == argc - 1) {
+                            x_error("parameter %s requires numeric value.",
+                                    argv[i]);
+                            error = 1;
+                            break;
+                        }
+                        if (sscanf(argv[i + 1], "%i", &n) != 1) {
+                            x_error("parameter for %s is not number.",
+                                    argv[i]);
+                            error = 1;
+                            break;
+                        }
+                        *((int *)par[p].value) = n;
+                        i++;
+                    } break;
+                    case P_FLOAT: {
+                        float n;
+                        if (i == argc - 1) {
+                            x_error(
+                                        "parameter %s requires floating point numeric value.",
+                                        argv[i]);
+                            error = 1;
+                            break;
+                        }
+                        if (sscanf(argv[i + 1], "%f", &n) != 1) {
+                            x_error(
+                                        "parameter for %s is not floating point number.",
+                                        argv[i]);
+                            error = 1;
+                            break;
+                        }
+                        *((float *)par[p].value) = n;
+                        i++;
+                    } break;
+                    case P_STRING: {
+                        if (i == argc - 1) {
+                            x_error("parameter %s requires string value.",
+                                    argv[i]);
+                            error = 1;
+                            break;
+                        }
+                        i++;
+                        *((char **)par[p].value) = *(argv + i);
+                    }
+                    }
+                    ie = i;
+                    i = is;
+                }
+            }
+        }
+        if (d == nparams && !found) {
+            i = menu_processargs(i, argc, argv);
+            if (i < 0) {
+                error = 1;
+                break;
+            } else
+                i++;
+        } else
+            i = ie;
+    }
+    if (error) {
+        const char *name[] = {"", "number", "string", "f.point"};
+        printf("                 XaoS" XaoS_VERSION " help text\n");
+        printf(
+                    " (This help is genereated automagically. I am sorry for all inconvencies)\n\n");
+        printf("option string   param   description\n\n");
+        for (d = 0; d < nparams; d++) {
+            par = params[d];
+            for (p = 0; par[p].name != NULL; p++) {
+                if (par[p].type == P_HELP)
+                    printf("\n%s\n\n", par[p].help);
+                else if (!par[p].type)
+                    printf(" %-14s   %s\n", par[p].name, par[p].help);
+                else
+                    printf(" %-14s  %s\n%14s    %s\n", par[p].name,
+                           name[par[p].type], "", par[p].help);
+            }
+            if (p == 0)
+                printf(" No options available for now\n");
+        }
+        menu_printhelp();
+        return 0;
+    }
+    return (1);
+}
+
+void params_register(const struct params *par)
+{
+    params[nparams++] = par;
+}
+
+MainWindow *window;
+FractalWidget *widget;
 
 static void ui_updatemenus(uih_context *c, const char *name)
 {
@@ -243,7 +402,6 @@ static int ui_passfunc(struct uih_context *c, int display, const char *text,
                        float percent)
 {
     char str[80];
-    int x = 0, y = 0, b = 0, k = 0;
     ui_mouse(false);
     if (!uih->play) {
         if (uih->display)
@@ -264,7 +422,7 @@ static int ui_passfunc(struct uih_context *c, int display, const char *text,
 static void ui_updatestatus(void)
 {
     double times =
-        (uih->fcontext->currentformula->v.rr) / (uih->fcontext->s.rr);
+            (uih->fcontext->currentformula->v.rr) / (uih->fcontext->s.rr);
     double timesnop = log(times) / log(10.0);
     double speed;
     uih_drawwindows(uih);
@@ -272,14 +430,14 @@ static void ui_updatestatus(void)
     uih_cycling_continue(uih);
     speed = uih_displayed(uih);
     sprintf(
-        statustext,
-        gettext(
-            "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "),
-        times < 1 ? gettext("unzoomed") : gettext("zoomed"),
-        times < 1 ? 1.0 / times : times, timesnop, speed,
-        uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1,
-        uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1,
-        uih->fcontext->maxiter);
+                statustext,
+                gettext(
+                    "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "),
+                times < 1 ? gettext("unzoomed") : gettext("zoomed"),
+                times < 1 ? 1.0 / times : times, timesnop, speed,
+                uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1,
+                uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1,
+                uih->fcontext->maxiter);
 
     STAT(printf(gettext("framerate:%f\n"), speed));
     window->showStatus("");
@@ -461,7 +619,7 @@ static void ui_ministatus(uih_context *uih)
 {
     if (ministatuswindow == NULL) {
         ministatuswindow =
-            uih_registerw(uih, ui_ministatuspos, ui_drawministatus, NULL, 0);
+                uih_registerw(uih, ui_ministatuspos, ui_drawministatus, NULL, 0);
     } else {
         uih_removew(uih, ministatuswindow);
         ministatuswindow = NULL;
@@ -579,7 +737,7 @@ static void ui_mouse(bool wait)
             static int rpid;
             if (iterchange == 2) {
                 uih->rotationspeed +=
-                    ROTATESPEEDUP * tl_lookup_timer(maintimer) / 1000000.0;
+                        ROTATESPEEDUP * tl_lookup_timer(maintimer) / 1000000.0;
                 uih_rmmessage(uih, rpid);
                 sprintf(str,
                         gettext("Rotation speed:%2.2f degrees per second "),
@@ -588,7 +746,7 @@ static void ui_mouse(bool wait)
             }
             if (iterchange == 1) {
                 uih->rotationspeed -=
-                    ROTATESPEEDUP * tl_lookup_timer(maintimer) / 1000000.0;
+                        ROTATESPEEDUP * tl_lookup_timer(maintimer) / 1000000.0;
                 uih_rmmessage(uih, rpid);
                 sprintf(str,
                         gettext("Rotation speed:%2.2f degrees per second "),
@@ -601,7 +759,7 @@ static void ui_mouse(bool wait)
                 maxiter = uih->fcontext->maxiter;
             if (procescounter(&maxiter, gettext("Iterations: %i   "), 1,
                               iterchange, lastiter, 1, 2, 1, 1, INT_MAX) ||
-                (iterchange & 3)) {
+                    (iterchange & 3)) {
                 dirty = 1;
                 lastiter = iterchange;
                 return;
@@ -622,7 +780,7 @@ static void ui_mouse(bool wait)
         }
     }
     if (iterchange & 4 &&
-        (tl_lookup_timer(maintimer) > FRAMETIME || mousebuttons)) {
+            (tl_lookup_timer(maintimer) > FRAMETIME || mousebuttons)) {
         double mul1 = tl_lookup_timer(maintimer) / FRAMETIME;
         double su = 1 + (SPEEDUP - 1) * mul1;
         if (su > 2 * SPEEDUP)
@@ -635,7 +793,7 @@ static void ui_mouse(bool wait)
         spid = uih_message(uih, str);
     }
     if (iterchange & 8 &&
-        (tl_lookup_timer(maintimer) > FRAMETIME || mousebuttons)) {
+            (tl_lookup_timer(maintimer) > FRAMETIME || mousebuttons)) {
         double mul1 = tl_lookup_timer(maintimer) / FRAMETIME;
         double su = 1 + (SPEEDUP - 1) * mul1;
         if (su > 2 * SPEEDUP)
@@ -711,52 +869,51 @@ int ui_key(int key)
     char mkey[2];
     const menuitem *item;
     switch (sym = tolower(key)) {
-        case ' ':
-            uih->display = 1;
-            if (uih->play) {
-                if (uih->incalculation)
-                    ui_updatestatus();
-                else {
-                    uih_skipframe(uih);
-                    window->showStatus(gettext("Skipping, please wait..."));
-                }
-            }
-            break;
-        default: {
-            int number;
-            if (sym >= '0' && sym <= '9') {
-                number = sym - '1';
-                if (number < 0)
-                    number = 9;
-                if (number == -1)
-                    break;
+    case ' ':
+        uih->display = 1;
+        if (uih->play) {
+            if (uih->incalculation)
+                ui_updatestatus();
+            else {
+                uih_skipframe(uih);
+                window->showStatus(gettext("Skipping, please wait..."));
             }
         }
-            mkey[0] = key;
-            mkey[1] = 0;
+        break;
+    default: {
+        int number;
+        if (sym >= '0' && sym <= '9') {
+            number = sym - '1';
+            if (number < 0)
+                number = 9;
+            if (number == -1)
+                break;
+        }
+    }
+        mkey[0] = key;
+        mkey[1] = 0;
+        item = menu_findkey(mkey, uih->menuroot);
+        if (item == NULL) {
+            mkey[0] = sym;
             item = menu_findkey(mkey, uih->menuroot);
-            if (item == NULL) {
-                mkey[0] = sym;
-                item = menu_findkey(mkey, uih->menuroot);
-            }
-            if (item != NULL) {
-                dialogparam *p = NULL;
-                if (menu_havedialog(item, uih)) {
-                    const menudialog *d = menu_getdialog(uih, item);
-                    int mousex, mousey, buttons;
-                    mousex = widget->mousePosition().x();
-                    mousey = widget->mousePosition().y();
-                    buttons = window->mouseButtons();
-                    if (d[0].question != NULL && d[1].question == NULL &&
+        }
+        if (item != NULL) {
+            dialogparam *p = NULL;
+            if (menu_havedialog(item, uih)) {
+                const menudialog *d = menu_getdialog(uih, item);
+                int mousex, mousey;
+                mousex = widget->mousePosition().x();
+                mousey = widget->mousePosition().y();
+                if (d[0].question != NULL && d[1].question == NULL &&
                         d[0].type == DIALOG_COORD) {
-                        p = (dialogparam *)malloc(sizeof(dialogparam));
-                        uih_screentofractalcoord(uih, mousex, mousey, p->dcoord,
-                                                 p->dcoord + 1);
-                    }
+                    p = (dialogparam *)malloc(sizeof(dialogparam));
+                    uih_screentofractalcoord(uih, mousex, mousey, p->dcoord,
+                                             p->dcoord + 1);
                 }
-                ui_menuactivate(item, p);
             }
-            break;
+            ui_menuactivate(item, p);
+        }
+        break;
     }
     processbuffer();
     return 0;
@@ -775,35 +932,35 @@ static void ui_helpwr(struct uih_context *c)
 static void ui_about(struct uih_context *c)
 {
     QMessageBox::about(
-        NULL, qt_gettext("About"),
-        "<a href=\"http://xaos.sf.net\">" +
-            QCoreApplication::applicationName() + "</a> " +
-            QCoreApplication::applicationVersion() + " (" +
-            QSysInfo::kernelType() + " " +
-            // QSysInfo::kernelVersion() + " "
-            // QSysInfo::buildAbi() + " " +
-            QSysInfo::buildCpuArchitecture() +
-            ")"
-            "<br>"
-            "Fast interactive real-time fractal zoomer/morpher<br><br>"
-            "Original Authors: Jan Hubička and Thomas Marsh<br>"
-            "Copyright © 1996-2019 XaoS Contributors<br>"
-            "<br>"
-            "This program is free software; you can redistribute it and/or modify "
-            "it under the terms of the GNU General Public License as published by "
-            "the Free Software Foundation; either version 2 of the License, or "
-            "(at your option) any later version.<br><br>"
+                NULL, qt_gettext("About"),
+                "<a href=\"http://xaos.sf.net\">" +
+                QCoreApplication::applicationName() + "</a> " +
+                QCoreApplication::applicationVersion() + " (" +
+                QSysInfo::kernelType() + " " +
+                // QSysInfo::kernelVersion() + " "
+                // QSysInfo::buildAbi() + " " +
+                QSysInfo::buildCpuArchitecture() +
+                ")"
+                "<br>"
+                "Fast interactive real-time fractal zoomer/morpher<br><br>"
+                "Original Authors: Jan Hubička and Thomas Marsh<br>"
+                "Copyright © 1996-2019 XaoS Contributors<br>"
+                "<br>"
+                "This program is free software; you can redistribute it and/or modify "
+                "it under the terms of the GNU General Public License as published by "
+                "the Free Software Foundation; either version 2 of the License, or "
+                "(at your option) any later version.<br><br>"
 
-            "This program is distributed in the hope that it will be useful, "
-            "but WITHOUT ANY WARRANTY; without even the implied warranty of "
-            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
-            "GNU General Public License for more details.<br><br>"
+                "This program is distributed in the hope that it will be useful, "
+                "but WITHOUT ANY WARRANTY; without even the implied warranty of "
+                "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
+                "GNU General Public License for more details.<br><br>"
 
-            "You should have received a copy of the GNU General Public License "
-            "along with this program; if not, write to the Free Software "
-            "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+                "You should have received a copy of the GNU General Public License "
+                "along with this program; if not, write to the Free Software "
+                "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
 
-    );
+                );
 }
 
 char *ui_getpos(void) { return (uih_savepostostr(uih)); }
@@ -835,7 +992,7 @@ int ui_no_menuitems_i18n = 0;
 static void ui_registermenus_i18n(void)
 {
     int no_menuitems_i18n =
-        ui_no_menuitems_i18n; /* This variable must be local. */
+            ui_no_menuitems_i18n; /* This variable must be local. */
     MENUINT_I("file", NULL, gettext("Quit"), "quit",
               MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quitwr, 1);
     MENUNOP_I("helpmenu", "h", gettext("Help"), "help", MENUFLAG_INCALC,
@@ -882,7 +1039,7 @@ cmplx Z, C, pZ;
 void ui_printspeed()
 {
     int c = 0;
-    int x, y, b, k;
+    int x, y;
     int linesize = uih->image->bytesperpixel * uih->image->height;
     int size = linesize * uih->image->height;
     window->showStatus("Preparing for speedtest");
@@ -976,6 +1133,119 @@ void ui_printspeed()
     ui_doquit(0);
 }
 
+static struct image *ui_mkimages(int width, int height)
+{
+    struct palette *palette;
+    union paletteinfo info;
+    info.truec.rmask = 0xff0000;
+    info.truec.gmask = 0x00ff00;
+    info.truec.bmask = 0x0000ff;
+    palette =
+            createpalette(0, 0, UI_TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, &info);
+    if (!palette) {
+        delete window;
+        x_error(gettext("Can not create palette"));
+        ui_outofmem();
+        exit_xaos(-1);
+    }
+    struct image *image =
+            create_image_qt(width, height, palette, pixelwidth, pixelheight);
+    if (!image) {
+        delete window;
+        x_error(gettext("Can not create image"));
+        ui_outofmem();
+        exit_xaos(-1);
+    }
+    widget->setImage(image);
+    return image;
+}
+
+void ui_resize(void)
+{
+    int w, h;
+
+    /* Prevent crash on startup for Mac OS X */
+    if (!uih)
+        return;
+
+    if (uih->incalculation) {
+        uih_interrupt(uih);
+        return;
+    }
+    uih_clearwindows(uih);
+    uih_stoptimers(uih);
+    uih_cycling_stop(uih);
+    uih_savepalette(uih);
+    w = widget->size().width();
+    h = widget->size().height();
+    assert(w > 0 && w < 65000 && h > 0 && h < 65000);
+    if (w != uih->image->width || h != uih->image->height) {
+        destroy_image(uih->image);
+        destroypalette(uih->palette);
+        struct image *image = ui_mkimages(w, h);
+        if (!uih_updateimage(uih, image)) {
+            delete window;
+            x_error(gettext("Can not allocate tables"));
+            ui_outofmem();
+            exit_xaos(-1);
+        }
+        tl_process_group(syncgroup, NULL);
+        tl_reset_timer(maintimer);
+        tl_reset_timer(arrowtimer);
+        uih_newimage(uih);
+    }
+    uih_newimage(uih);
+    uih_restorepalette(uih);
+    /*uih_mkdefaultpalette(uih); */
+    uih->display = 1;
+    ;
+    uih_cycling_continue(uih);
+}
+
+void ui_mainloop(int loop)
+{
+    int inmovement = 1;
+    int time;
+    QCoreApplication::processEvents(QEventLoop::AllEvents);
+    do {
+        widget->setCursor(uih->play ? Qt::CrossCursor
+                                    : uih->inhibittextoutput ? Qt::CrossCursor
+                                                             : Qt::CrossCursor);
+        if (uih->display) {
+            uih_prepare_image(uih);
+            ui_updatestatus();
+        }
+        if ((time = tl_process_group(syncgroup, NULL)) != -1) {
+            if (!inmovement && !uih->inanimation) {
+                if (time > 1000000 / 50)
+                    time = 1000000 / 50;
+                if (time > delaytime) {
+                    tl_sleep(time - delaytime);
+                    tl_update_time();
+                }
+            }
+            inmovement = 1;
+        }
+        if (delaytime || maxframerate) {
+            tl_update_time();
+            time = tl_lookup_timer(loopt);
+            tl_reset_timer(loopt);
+            time = 1000000 / maxframerate - time;
+            if (time < delaytime)
+                time = delaytime;
+            if (time) {
+                tl_sleep(time);
+                tl_update_time();
+            }
+        }
+        processbuffer();
+        ui_mouse(!inmovement && !uih->inanimation);
+        inmovement = 0;
+        if (callresize)
+            ui_resize(), callresize = 0;
+    } while (loop);
+}
+
 void ui_init(int argc, char **argv)
 {
     int width, height;
@@ -990,7 +1260,7 @@ void ui_init(int argc, char **argv)
     uih_registermenus_i18n(); /* Internationalized menus. */
     uih_registermenus();
     ui_registermenus_i18n(); /* Internationalized menus. */
-    if (!params_parser(argc, argv)) {
+    if (!ui_params_parser(argc, argv)) {
         ui_unregistermenus();
         uih_unregistermenus();
         xio_uninit();
@@ -1042,7 +1312,7 @@ void ui_init(int argc, char **argv)
     if (getenv("HOME") != NULL) {
         char home[256], *env = getenv("HOME");
         int maxsize =
-            255 - (int)strlen(CONFIGFILE) - 1; /*Avoid buffer owerflow */
+                255 - (int)strlen(CONFIGFILE) - 1; /*Avoid buffer owerflow */
         int i;
         for (i = 0; i < maxsize && env[i]; i++)
             home[i] = env[i];
@@ -1110,121 +1380,43 @@ void ui_init(int argc, char **argv)
 
     if (err > 0)
         sffe_parse(&uih->parser, "z^2+c");
-        /*SFFE*/
+    /*SFFE*/
 #endif
     window->showStatus("Entering main loop");
 }
 
-static struct image *ui_mkimages(int width, int height)
+int main(int argc, char *argv[])
 {
-    struct palette *palette;
-    union paletteinfo info;
-    info.truec.rmask = 0xff0000;
-    info.truec.gmask = 0x00ff00;
-    info.truec.bmask = 0x0000ff;
-    palette =
-        createpalette(0, 0, UI_TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, &info);
-    if (!palette) {
-        delete window;
-        x_error(gettext("Can not create palette"));
-        ui_outofmem();
-        exit_xaos(-1);
+#ifdef _WIN32
+    // On Windows, attach to parent console to allow command-line output
+    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+        freopen("CONOUT$", "w", stdout);
+        freopen("CONOUT$", "w", stderr);
     }
-    struct image *image =
-        create_image_qt(width, height, palette, pixelwidth, pixelheight);
-    if (!image) {
-        delete window;
-        x_error(gettext("Can not create image"));
-        ui_outofmem();
-        exit_xaos(-1);
-    }
-    widget->setImage(image);
-    return image;
-}
+#endif
 
-void ui_resize(void)
-{
-    int w, h;
+    QCoreApplication::setApplicationName("XaoS");
+    QCoreApplication::setApplicationVersion(XaoS_VERSION);
+    QCoreApplication::setOrganizationName("XaoS Project");
+    QCoreApplication::setOrganizationDomain("xaos.sourceforge.net");
 
-    /* Prevent crash on startup for Mac OS X */
-    if (!uih)
-        return;
+    QApplication app(argc, argv);
 
-    if (uih->incalculation) {
-        uih_interrupt(uih);
-        return;
-    }
-    uih_clearwindows(uih);
-    uih_stoptimers(uih);
-    uih_cycling_stop(uih);
-    uih_savepalette(uih);
-    w = widget->size().width();
-    h = widget->size().height();
-    assert(w > 0 && w < 65000 && h > 0 && h < 65000);
-    if (w != uih->image->width || h != uih->image->height) {
-        destroy_image(uih->image);
-        destroypalette(uih->palette);
-        struct image *image = ui_mkimages(w, h);
-        if (!uih_updateimage(uih, image)) {
-            delete window;
-            x_error(gettext("Can not allocate tables"));
-            ui_outofmem();
-            exit_xaos(-1);
-        }
-        tl_process_group(syncgroup, NULL);
-        tl_reset_timer(maintimer);
-        tl_reset_timer(arrowtimer);
-        uih_newimage(uih);
-    }
-    uih_newimage(uih);
-    uih_restorepalette(uih);
-    /*uih_mkdefaultpalette(uih); */
-    uih->display = 1;
-    ;
-    uih_cycling_continue(uih);
-}
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_" + QLocale::system().name(),
+                      QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    app.installTranslator(&qtTranslator);
+    QTranslator xaosTranslator;
+    xaosTranslator.load("XaoS_" + QLocale::system().name(), ":/i18n");
+    app.installTranslator(&xaosTranslator);
 
-void ui_mainloop(int loop)
-{
-    int inmovement = 1;
-    int x, y, b, k;
-    int time;
-    QCoreApplication::processEvents(QEventLoop::AllEvents);
-    do {
-        widget->setCursor(uih->play ? Qt::CrossCursor
-                                    : uih->inhibittextoutput ? Qt::CrossCursor
-                                                             : Qt::CrossCursor);
-        if (uih->display) {
-            uih_prepare_image(uih);
-            ui_updatestatus();
-        }
-        if ((time = tl_process_group(syncgroup, NULL)) != -1) {
-            if (!inmovement && !uih->inanimation) {
-                if (time > 1000000 / 50)
-                    time = 1000000 / 50;
-                if (time > delaytime) {
-                    tl_sleep(time - delaytime);
-                    tl_update_time();
-                }
-            }
-            inmovement = 1;
-        }
-        if (delaytime || maxframerate) {
-            tl_update_time();
-            time = tl_lookup_timer(loopt);
-            tl_reset_timer(loopt);
-            time = 1000000 / maxframerate - time;
-            if (time < delaytime)
-                time = delaytime;
-            if (time) {
-                tl_sleep(time);
-                tl_update_time();
-            }
-        }
-        processbuffer();
-        ui_mouse(!inmovement && !uih->inanimation);
-        inmovement = 0;
-        if (callresize)
-            ui_resize(), callresize = 0;
-    } while (loop);
+    QLocale::system().setNumberOptions(QLocale::DefaultNumberOptions);
+
+    /* Without this some locales (e.g. the Hungarian) replaces "." to ","
+       in numerical format and this will cause an automatic truncation
+       at each parameter at certain places, e.g. drawing a new fractal. */
+    setlocale(LC_NUMERIC, "C");
+
+    ui_init(argc, argv);
+    ui_mainloop(1);
 }

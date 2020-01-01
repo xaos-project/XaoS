@@ -1,13 +1,10 @@
 SOURCES += \
-    $$PWD/param.c \
-    $$PWD/fparams.c \
-    $$PWD/ui_qt.cpp \
     $$PWD/mainwindow.cpp \
     $$PWD/fractalwidget.cpp \
-    $$PWD/customdialog.cpp
+    $$PWD/customdialog.cpp \
+    $$PWD/main.cpp
 
 HEADERS += \
-    $$PWD/uiint.h \
     $$PWD/mainwindow.h \
     $$PWD/fractalwidget.h \
     $$PWD/customdialog.h
