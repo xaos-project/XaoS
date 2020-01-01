@@ -50,7 +50,7 @@
 #endif
 
 #ifdef SLOWFUNCPTR
-#define FUNCTYPE INLINE
+#define FUNCTYPE inline
 #else
 #define FUNCTYPE
 #endif
@@ -233,10 +233,10 @@ typedef union {
  * been declared this way in the first place.
  */
 
-static INLINE void hsv_to_rgb(int h, int s, int v, int *red, int *green,
+static inline void hsv_to_rgb(int h, int s, int v, int *red, int *green,
                               int *blue)
     /**/;
-static INLINE void hsv_to_rgb(int h, int s, int v, int *red, int *green,
+static inline void hsv_to_rgb(int h, int s, int v, int *red, int *green,
                               int *blue)
 {
     int hue;

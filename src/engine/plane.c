@@ -23,7 +23,6 @@
 #include <math.h>
 #include <limits.h>
 #include "config.h"
-#include "fconfig.h"
 #include "plane.h"
 #include "complex.h"
 const char *const planename[] = {

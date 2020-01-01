@@ -1,5 +1,5 @@
 ﻿#ifndef UNSUPPORTED
-static INLINE int look1(uih_context *context, int x, int y, int range, int max)
+static inline int look1(uih_context *context, int x, int y, int range, int max)
 {
     register cpixel_t *vbuff;
     register int i, j, c = 0;
@@ -43,7 +43,7 @@ static INLINE int look1(uih_context *context, int x, int y, int range, int max)
     return (0);
 }
 
-static INLINE int look2(uih_context *context, int x, int y, int range, int max)
+static inline int look2(uih_context *context, int x, int y, int range, int max)
 {
     register cpixel_t *vbuff, *vbuff2;
     register int i, j, i1, j1, c = 0;

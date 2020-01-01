@@ -1,6 +1,6 @@
 ﻿#ifndef IMAGE_H
 #define IMAGE_H
-#include "fconfig.h"
+#include "config.h"
 #ifdef __cplusplus
 extern "C" {
 #endif

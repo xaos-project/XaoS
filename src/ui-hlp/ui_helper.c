@@ -1,11 +1,11 @@
-﻿#include "config.h"
-#include <ctype.h>
+﻿#include <ctype.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <math.h>
 #include <string.h>
 #include <errno.h>
-#include "fconfig.h"
+
+#include "config.h"
 #include "filter.h"
 #include "ui_helper.h"
 #include "plane.h"
@@ -1242,7 +1242,7 @@ static void uih_autopilothandler(void *uih1, int n)
                  &uih->autopilotbuttons, uih_changed, n);
 }
 
-static INLINE void uih_zoom(uih_context *uih)
+static inline void uih_zoom(uih_context *uih)
 {
     uih->step += uih->speedup * 2 * uih->mul;
     if (uih->step > uih->maxstep)
@@ -1251,7 +1251,7 @@ static INLINE void uih_zoom(uih_context *uih)
         uih->step = -uih->maxstep;
 }
 
-static INLINE void uih_unzoom(uih_context *uih)
+static inline void uih_unzoom(uih_context *uih)
 {
     uih->step -= uih->speedup * 2 * uih->mul;
     if (uih->step > uih->maxstep)
@@ -1260,7 +1260,7 @@ static INLINE void uih_unzoom(uih_context *uih)
         uih->step = -uih->maxstep;
 }
 
-static INLINE void uih_slowdown(uih_context *uih)
+static inline void uih_slowdown(uih_context *uih)
 {
     if (uih->step > 0) {
         if (uih->step < uih->speedup * uih->mul)
@@ -1275,7 +1275,7 @@ static INLINE void uih_slowdown(uih_context *uih)
     }
 }
 
-static INLINE void uih_zoomupdate(uih_context *uih)
+static inline void uih_zoomupdate(uih_context *uih)
 {
     number_t x;
     number_t y;

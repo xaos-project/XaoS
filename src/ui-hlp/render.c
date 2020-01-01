@@ -9,7 +9,7 @@
 #endif
 
 #include "ui.h"
-#include "fconfig.h"
+#include "config.h"
 #include "filter.h"
 #include "fractal.h"
 #include "ui_helper.h"

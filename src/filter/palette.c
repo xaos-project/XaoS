@@ -1,12 +1,10 @@
 ﻿#include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "fconfig.h"
-#include "config.h"
 #include <assert.h>
 #include <stdio.h>
 #include <limits.h>
-#include "fconfig.h"
+#include "config.h"
 #include "filter.h"
 #include "misc-f.h"
 #include "xerror.h"
@@ -609,7 +607,7 @@ static int mksmooth(int nsegments, int setsegments)
     return 1;
 }
 
-static INLINE void hsv_to_rgb(int h, int s, int v, unsigned char *red,
+static inline void hsv_to_rgb(int h, int s, int v, unsigned char *red,
                               unsigned char *green, unsigned char *blue)
 {
     int hue;

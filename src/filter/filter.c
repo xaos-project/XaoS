@@ -1,6 +1,7 @@
-﻿#include "config.h"
-#include <stdlib.h>
+﻿#include <stdlib.h>
 #include <stdio.h>
+
+#include "config.h"
 #include "filter.h"
 /*#define DEBUG */
 struct queue *create_queue(struct filter *f)

@@ -1,12 +1,13 @@
 ﻿#include <stdlib.h>
-#include "fconfig.h"
+
+#include "config.h"
 #include "filter.h"
 #include "fractal.h"
 #include "ui_helper.h"
 #include "xerror.h"
 #include "grlib.h"
 
-static INLINE void prepare(struct uih_context *c, char *string, int *xmax,
+static inline void prepare(struct uih_context *c, char *string, int *xmax,
                            int *nr)
 {
     int xm = 0;

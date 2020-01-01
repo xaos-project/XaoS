@@ -258,7 +258,7 @@ static void tracecolor(int xstart, int ystart, int xend, int yend,
 #ifndef nthreads
 #define ethreads 1
 
-static INLINE void tracepoint(int xp, int yp, int dir, unsigned int color,
+static inline void tracepoint(int xp, int yp, int dir, unsigned int color,
                               int xstart, int xend, int ystart, int yend)
 {
     unsigned char *calc;

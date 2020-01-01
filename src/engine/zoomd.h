@@ -234,7 +234,7 @@ static void calccolumn(realloc_t *rx)
     rx->dirty = 0;
 }
 
-static /*INLINE */ void dosymmetry2(void /*@unused@ */ *data,
+static /*inline */ void dosymmetry2(void /*@unused@ */ *data,
                                     struct taskinfo /*@unused@ */ *task, int r1,
                                     int r2)
 {
@@ -276,7 +276,7 @@ static /*INLINE */ void dosymmetry2(void /*@unused@ */ *data,
 #endif
 #undef bpp1
 
-static INLINE void fillline(int line)
+static inline void fillline(int line)
 {
     register unsigned char *vbuff = cimage.currlines[line];
     const struct filltable *table = (struct filltable *)tmpdata;

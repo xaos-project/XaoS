@@ -1,10 +1,10 @@
 ﻿#include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "fconfig.h"
+
+#include "config.h"
 #include "filter.h"
 #include "ui_helper.h"
-
 #include "grlib.h"
 
 /* This is quite simple and ugly implementation of windows.

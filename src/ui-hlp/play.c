@@ -1,8 +1,7 @@
-﻿#include "config.h"
-#include <limits.h>
+﻿#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
-#include "fconfig.h"
+#include "config.h"
 #include "filter.h"
 #include "fractal.h"
 #include "ui_helper.h"
@@ -35,7 +34,7 @@ static int parsenext;
 
 static const char *const animroot = "animroot";
 
-static INLINE struct uih_line *uih_findkey(uih_context *c, int key)
+static inline struct uih_line *uih_findkey(uih_context *c, int key)
 {
     struct uih_line *l = c->playc->lines.first;
     while (l != NULL) {
@@ -46,7 +45,7 @@ static INLINE struct uih_line *uih_findkey(uih_context *c, int key)
     return NULL;
 }
 
-static INLINE void uih_removeline(uih_context *c, struct uih_line *l)
+static inline void uih_removeline(uih_context *c, struct uih_line *l)
 {
     if (l == NULL)
         return;

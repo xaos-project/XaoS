@@ -1,82 +1,71 @@
 ﻿#ifndef CONFIG_H
 #define CONFIG_H
 
+// XaoS release
 #define XaoS_VERSION "4.0pre2"
+
+// URLs
 #define HELP_URL "https://github.com/xaos-project/XaoS/wiki"
 #define WEB_URL "http://xaos.sourceforge.net/"
 
-#define HOMEDIR
+// File locations
 #define DATAPATH "/usr/share/XaoS"
-/* #undef USE_PTHREAD */
-#define HAVE_FABSL 1
-#define HAVE_FTIME 1
-#ifndef _MSC_VER
-#define HAVE_LONG_DOUBLE 1
-#endif
-#define HAVE_GETTIMEOFDAY 1
-#ifndef _MSC_VER
-#define HAVE_SYS_TIME_H 1
-#endif
-#ifndef _MSC_VER
-#define HAVE_UNISTD_H 1
-#endif
-#define USE_OPENGL
+#define TUTORIALPATH DATAPATH "/tutorial/"
+#define EXAMPLESPATH DATAPATH "/examples/"
+#define CATALOGSPATH DATAPATH "/catalogs/"
+#define HELPPATH DATAPATH "/help/xaos.hlp"
 
-#define SIZEOF_SHORT 2
-#define SIZEOF_INT 4
-#define SIZEOF_LONG 4
-
+// Config file name
 #ifdef _WIN32
 #define CONFIGFILE "XaoS.cfg"
 #else
 #define CONFIGFILE ".XaoSrc"
 #endif
 
-/*For compilers that don't support nameless unions, do a
-#define NONAMELESSUNION
-before #include <ddraw.h>*/
-#ifdef _WIN32
-#define NONAMELESSUNION
-#endif
+// Optional features
+#define USE_PTHREAD
+#define USE_OPENGL
 
-#define FPOINT_TYPE long double
-/*floating point math type on computers
-   with medium speed floating point math should
-   use float instead */
-#define USE_STDIO
-#if !defined(HAVE_LONG_DOUBLE) && !defined(I_WAS_HERE)
-#undef FPOINT_TYPE
-#define FPOINT_TYPE double
-#endif
-#define CONST const
-#ifdef _MSC_VER
-#define INLINE __inline
-#else
-#define INLINE inline
-#endif
+#define HAVE_FTIME
+#define HAVE_GETTIMEOFDAY
+#define HAVE_SYS_TIME_H
+#define HAVE_UNISTD_H
 
-/* Win32 don't support long double IO. Use our replacements if possible */
-#ifdef HAVE_LONG_DOUBLE
+// Numeric type
+typedef long double number_t;
 #ifdef _WIN32
-#ifndef __GNUC__
-1
-/* You need to solve long double IO problems to compile XaoS on non-gcc
- * compiler */
-#endif
 #define USE_XLDIO
 #endif
+
+// Supported color depths
+#define STRUECOLOR
+#define STRUECOLOR16 // required for edge detection and pseudo 3d
+
+// Fractal defaults
+#define DEFAULT_MAX_ITER 170
+#define DEFAULT_BAILOUT 4
+#define MAXSTEP (0.008 * 3)
+#define STEP (0.0006 * 3)
+#define ROTATIONSPEED 30
+#define FRAMERATE 20
+#define SPEEDUP 1.05
+
+// Autopilot configuration
+#define LOOKSIZE 2      // size explored by autopilot
+#define RANGE1 30
+#define NGUESSES (RANGE1 * RANGE1 / 2)
+#define MAXTIME 10      // maximum zooming time to one direction
+#define NGUESSES1 10    // maximum number of guesses using first method
+#define NGUESSES2 1000  // maximum number of guesses using second method
+
+// Disable optional statistics collection and reporting
+//#define STATISTICS
+#undef STAT
+#ifdef STATISTICS
+#define STAT(x) x
+#else
+#define STAT(x)
 #endif
 
-#ifdef HAVE_MOUSEMASK
-#define NCURSESMOUSE
-#endif
-#define SFIXEDCOLOR
-#define STRUECOLOR
-#define STRUECOLOR16
-#define STRUECOLOR24
-#define SMBITMAPS
-#define SLBITMAPS
-#ifdef HAVE_SELECT
-#define COMPILE_PIPE
-#endif
-#endif /*CONFIG_H */
+#define NUMBER_BIG ((number_t)INT_MAX)
+#endif // CONFIG_H

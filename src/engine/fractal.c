@@ -21,13 +21,12 @@
  */
 /*#define STATISTICS */
 #include <string.h>
-#include "config.h"
-#include "fconfig.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <assert.h>
 #include <math.h>
+#include "config.h"
 #include "filter.h"
 #include "complex.h"
 #include "plane.h"
@@ -83,7 +82,7 @@ static void set_view(fractal_context *c, const vinfo *s)
 }
 
 /*FIXME most of this code is obsolette */
-static void /*INLINE */
+static void /*inline */
 combine_methods(void)
 {
 #ifdef __UNDEFINED__

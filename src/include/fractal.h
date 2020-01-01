@@ -27,7 +27,6 @@ extern "C" {
 #endif
 
 #include "config.h"
-#include "fconfig.h"
 #define INCOLORING 11
 #define OUTCOLORING 11
 #define TCOLOR 15

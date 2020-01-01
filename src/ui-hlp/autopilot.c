@@ -20,16 +20,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#if defined(__MINGW32__) || defined(_MSC_VER)
 #include <float.h>
-#define isnan _isnan
-#endif /* __MINGW32__ */
 #include <stdlib.h>
 #include <math.h>
-#include "config.h"
 #include <assert.h>
 #include <limits.h>
-#include "fconfig.h"
+#include "config.h"
 #define SLARGEITER
 #include "filter.h"
 #include "zoom.h"

@@ -1,8 +1,7 @@
-﻿#include "config.h"
-#include <stdlib.h>
+﻿#include <stdlib.h>
 #include <string.h>
 
-#include "fconfig.h"
+#include "config.h"
 #include "filter.h"
 #include "fractal.h"
 #include "ui_helper.h"
@@ -111,7 +110,7 @@ static void vline1(struct image *img, int x, int y, int l, int color)
     }
 }
 
-static INLINE void rectangle1(struct image *img, int x, int y, int width,
+static inline void rectangle1(struct image *img, int x, int y, int width,
                               int height, int fgcolor)
 {
     height += y;
@@ -119,7 +118,7 @@ static INLINE void rectangle1(struct image *img, int x, int y, int width,
         hline1(img, x, y, width - 1, fgcolor), y++;
 }
 
-static INLINE void line1(struct image *img, int x, int y, int x2, int y2,
+static inline void line1(struct image *img, int x, int y, int x2, int y2,
                          int color)
 {
     int dx = x2 - x;
@@ -364,7 +363,7 @@ void xrectangle(struct image *image, int x, int y, int width, int height,
     }
 }
 
-static INLINE char *savehline(struct image *i, int x1, int y, int x2)
+static inline char *savehline(struct image *i, int x1, int y, int x2)
 {
     int start, end;
     char *c;
@@ -379,7 +378,7 @@ static INLINE char *savehline(struct image *i, int x1, int y, int x2)
     return c;
 }
 
-static INLINE void restorehline(struct image *i, char *c, int x1, int y, int x2)
+static inline void restorehline(struct image *i, char *c, int x1, int y, int x2)
 {
     int start, end;
     if (!i->bytesperpixel)
@@ -393,7 +392,7 @@ static INLINE void restorehline(struct image *i, char *c, int x1, int y, int x2)
 #define __clipy1 0
 #define __clipx2 (img->width - 2)
 #define __clipy2 (img->height - 2)
-static INLINE int regioncode(struct image *img, const int x, const int y)
+static inline int regioncode(struct image *img, const int x, const int y)
 {
     int dx1, dx2, dy1, dy2;
     int result;

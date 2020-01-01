@@ -17,7 +17,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "fconfig.h"
 #include "filter.h"
 #include "xerror.h"
 #include "fractal.h"

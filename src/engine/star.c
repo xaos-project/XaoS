@@ -11,10 +11,10 @@ struct starfielddata {
 };
 
 static unsigned int state;
-static INLINE void mysrandom(unsigned int x) { state = x; }
+static inline void mysrandom(unsigned int x) { state = x; }
 
 #define MYLONG_MAX 0xffffff /*this is enought for me. */
-static INLINE unsigned int myrandom(void)
+static inline unsigned int myrandom(void)
 {
     state = ((state * 1103515245) + 12345) & MYLONG_MAX;
     return state;

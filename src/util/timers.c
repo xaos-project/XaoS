@@ -173,7 +173,7 @@ void tl_update_time(void)
 #endif
 }
 
-static INLINE int __lookup_timer(tl_timer *t)
+static inline int __lookup_timer(tl_timer *t)
 {
 #ifdef _WIN32
     return ((QuadPart(currenttime) - QuadPart(t->lastactivated)) * 1000000LL) /

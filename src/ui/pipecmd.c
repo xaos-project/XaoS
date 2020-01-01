@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/types.h>
-#include "fconfig.h"
 #include "filter.h"
 #include "fractal.h"
 #include <string.h>

@@ -37,7 +37,6 @@ path is separated by slash or backslash (windoze, dog)
 the main I/O routines are in the xstdio file
 */
 
-#ifdef USE_STDIO
 #include <stdio.h>
 
 typedef char *xio_path;
@@ -70,8 +69,6 @@ extern char *xio_homedir;
 #define xio_errorstring() strerror(errno)
 
 char *xio_fixpath(const char *name);
-#endif /*USE_STDIO */
-
 xio_file xio_ropen(xio_constpath name);
 xio_file xio_wopen(xio_constpath name);
 xio_file xio_strropen(const char *c);

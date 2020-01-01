@@ -1,6 +1,6 @@
 ﻿#ifndef UNSUPPORTED
 
-static INLINE void hline(struct image *img, int x, int y, int length,
+static inline void hline(struct image *img, int x, int y, int length,
                          int fgcolor)
 {
     cpixel_t *current = (cpixel_t *)img->currlines[y],
@@ -17,7 +17,7 @@ static INLINE void hline(struct image *img, int x, int y, int length,
 #endif
 }
 
-static INLINE void vline(struct image *img, int x, int y, int length,
+static inline void vline(struct image *img, int x, int y, int length,
                          int fgcolor)
 {
     length += y;
@@ -29,7 +29,7 @@ static INLINE void vline(struct image *img, int x, int y, int length,
     }
 }
 
-static INLINE void rectangle(struct image *img, int x, int y, int width,
+static inline void rectangle(struct image *img, int x, int y, int width,
                              int height, int fgcolor)
 {
     height += y;
@@ -37,7 +37,7 @@ static INLINE void rectangle(struct image *img, int x, int y, int width,
         hline(img, x, y, width - 1, fgcolor), y++;
 }
 
-static INLINE char *savevline(struct image *img, int x, int y, int length)
+static inline char *savevline(struct image *img, int x, int y, int length)
 {
     cpixel_t *saved = (cpixel_t *)malloc(length * bpp + bpp), *s = saved;
     length += y;
@@ -50,7 +50,7 @@ static INLINE char *savevline(struct image *img, int x, int y, int length)
     return (char *)saved;
 }
 
-static INLINE void restorevline(struct image *img, char *saved, int x, int y,
+static inline void restorevline(struct image *img, char *saved, int x, int y,
                                 int length)
 {
     cpixel_t *s = (cpixel_t *)saved;
@@ -63,7 +63,7 @@ static INLINE void restorevline(struct image *img, char *saved, int x, int y,
     }
 }
 
-static INLINE char *saveline(struct image *img, int x, int y, int x2, int y2)
+static inline char *saveline(struct image *img, int x, int y, int x2, int y2)
 {
     int dx = x2 - x;
     int dy = y2 - y;
@@ -115,7 +115,7 @@ static INLINE char *saveline(struct image *img, int x, int y, int x2, int y2)
     }
 }
 
-static INLINE void restoreline(struct image *img, char *saved, int x, int y,
+static inline void restoreline(struct image *img, char *saved, int x, int y,
                                int x2, int y2)
 {
     int dx = x2 - x;
@@ -171,7 +171,7 @@ static INLINE void restoreline(struct image *img, char *saved, int x, int y,
 #else
 #define myinterpol(a, b, n) interpol(a, b, n, rmask, gmask, bmask)
 #endif
-static INLINE void line(struct image *img, int x, int y, int x2, int y2,
+static inline void line(struct image *img, int x, int y, int x2, int y2,
                         int color)
 {
     int dx = x2 - x;

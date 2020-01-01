@@ -1,8 +1,9 @@
 ﻿#include <string.h>
-#include "fconfig.h"
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+#include "config.h"
 #include "filter.h"
 void flipgeneric(struct image *img)
 {

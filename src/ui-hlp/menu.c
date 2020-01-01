@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 #include "filter.h"
-#include "fconfig.h"
+#include "config.h"
 #include "formulas.h"
 #include "ui_helper.h"
 #include "plane.h"

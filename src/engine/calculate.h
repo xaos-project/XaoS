@@ -1,6 +1,6 @@
 ﻿
-static pixel32_t INLINE calculate(number_t x, number_t y, int periodicity);
-static pixel32_t INLINE calculate(number_t x, number_t y, int periodicity)
+static pixel32_t inline calculate(number_t x, number_t y, int periodicity);
+static pixel32_t inline calculate(number_t x, number_t y, int periodicity)
 {
     pixel32_t i;
 

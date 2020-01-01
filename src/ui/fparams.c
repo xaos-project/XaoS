@@ -20,10 +20,9 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "config.h"
-#include "fconfig.h"
 #include <string.h>
 #include <stdlib.h>
+#include "config.h"
 #include "filter.h"
 #include "ui_helper.h"
 #include "ui.h"

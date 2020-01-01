@@ -33,7 +33,6 @@
 #include <unistd.h>
 #endif
 #include <signal.h>
-#include "fconfig.h"
 #include <assert.h>
 
 #include <QtWidgets>
@@ -119,12 +118,6 @@ const struct params global_params[] = {
 #else
     {"-threads", P_NUMBER, &defthreads,
      "Multiple CPUs unsupported - please recompile XaoS with threads enabled"},
-#endif
-#ifdef COMPILE_PIPE
-    {"-pipe", P_STRING, &defpipe,
-     "Accept commands from pipe (use \"-\" for stdin)"},
-#else
-    {"-pipe", P_STRING, &defpipe, "Pipe input unavailable (recompile XaoS)"},
 #endif
     {"-maxframerate", P_NUMBER, &maxframerate,
      "Maximal framerate (0 for unlimited - default)"},
@@ -1046,7 +1039,6 @@ void ui_init(int argc, char **argv)
                         ui_updatemenus);
 
     window->buildMenu(uih, uih->menuroot);
-#ifdef HOMEDIR
     if (getenv("HOME") != NULL) {
         char home[256], *env = getenv("HOME");
         int maxsize =
@@ -1057,7 +1049,6 @@ void ui_init(int argc, char **argv)
         home[i] = 0;
         xio_addfname(configfile, home, CONFIGFILE);
     } else
-#endif
         xio_addfname(configfile, XIO_EMPTYPATH, CONFIGFILE);
     srand(time(NULL));
     uih->fcontext->version++;
@@ -1072,16 +1063,6 @@ void ui_init(int argc, char **argv)
     /*tl_process_group (syncgroup, NULL); */
     tl_reset_timer(maintimer);
     tl_reset_timer(arrowtimer);
-#ifdef COMPILE_PIPE
-    if (defpipe != NULL) {
-        window->showStatus("Initializing pipe");
-        ui_pipe_init(defpipe);
-    }
-#else
-    if (defpipe != NULL) {
-        x_fatalerror("Pipe input not supported!");
-    }
-#endif
     /*uih_constantframetime(uih,1000000/20); */
     window->showStatus("Reading configuration file");
     {

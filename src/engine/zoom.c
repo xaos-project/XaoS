@@ -19,27 +19,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-/*#define DRAW */
-#include "config.h"
-#include "fconfig.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
 #include <math.h>
 #include <string.h>
-/*#undef NDEBUG */
 #include <assert.h>
+
+#include "config.h"
 #define SLARGEITER
 #include "filter.h"
 #include "zoom.h"
-
 #include "complex.h" /*for myabs */
 #include "plane.h"
 #include "btrace.h"
 #include "xthread.h"
 #include "xerror.h"
 #include "calculate.h" /*an inlined calulate function */
-
 #include "i18n.h"
 
 #define ASIZE 16
@@ -264,7 +260,7 @@ static void preparesymmetries(register realloc_t *realloc, const int size,
 
         dist = RANGE * step;
         min = RANGE;
-#ifndef NDEBUG
+#ifdef DEBUG
         if (realloc->symto < 0 || realloc->symto >= size) {
             x_fatalerror("Internal error #22-1 %i", realloc->symto);
             assert(0);
@@ -340,7 +336,7 @@ static void preparesymmetries(register realloc_t *realloc, const int size,
         }
         STAT(nsymmetry++);
 
-#ifndef NDEBUG
+#ifdef DEBUG
         if (realloc->symto < -1 || realloc->symto >= size) {
             x_fatalerror("Internal error #22 %i", realloc->symto);
             assert(0);
@@ -1224,7 +1220,7 @@ static void dosymmetry(void /*@unused@ */ *data,
 /*Well, clasical simple quicksort. Should be faster than library one
  *because of reduced number of function calls :)
  */
-static INLINE void myqsort(realloc_t **start, realloc_t **end)
+static inline void myqsort(realloc_t **start, realloc_t **end)
 {
     number_t med;
     realloc_t **left = start, **right = end - 1;

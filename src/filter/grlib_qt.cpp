@@ -1,4 +1,5 @@
 ﻿#include <QtWidgets>
+
 #include "grlib.h"
 #include "filter.h"
 #include "xio.h"
