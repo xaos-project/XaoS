@@ -543,6 +543,12 @@ void uih_destroytext(uih_context *c);
 void uih_inhibittextsw(uih_context *c);
 int uih_inhibittextselected(uih_context *c);
 
+void uih_updatestatus(uih_context *uih);
+void uih_status(uih_context *uih);
+int uih_statusenabled(uih_context *uih);
+int uih_ministatusenabled(uih_context *uih);
+void uih_ministatus(uih_context *uih);
+
 #ifdef __cplusplus
 }
 #endif

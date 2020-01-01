@@ -19,13 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#ifdef DEBUG
-#ifdef __linux__
-#define MEMCHECK
-#import <malloc.h>
-#endif
-#endif
-
 #include <cassert>
 #include <cctype>
 #include <cerrno>
@@ -240,344 +233,6 @@ int ui_params_parser(int argc, char **argv)
 
 void params_register(const struct params *par) { params[nparams++] = par; }
 
-extern "C" {
-
-const char *qt_gettext(const char *text)
-{
-    static std::map<const char *, const char *> strings;
-    const char *trans = strings[text];
-    if (trans == NULL) {
-        trans =
-            strdup(QCoreApplication::translate("", text).toStdString().c_str());
-        strings[text] = trans;
-    }
-    return trans;
-}
-}
-
-static MainWindow *window;
-static FractalWidget *widget;
-static uih_context *uih;
-
-static void ui_updatemenus(uih_context *c, const char *name)
-{
-    const struct menuitem *item;
-    if (name == NULL) {
-        window->buildMenu(c, uih->menuroot);
-        return;
-    }
-    item = menu_findcommand(name);
-    if (item == NULL) {
-        /*fprintf (stderr, "Internall error:unknown command %s\n", name); */
-        return;
-    }
-    if (item->flags & (MENUFLAG_CHECKBOX | MENUFLAG_RADIO)) {
-        window->toggleMenu(uih, name);
-    }
-}
-
-static void ui_unregistermenus(void);
-
-static tl_timer *maintimer;
-static tl_timer *loopt;
-static tl_timer *arrowtimer;
-
-void ui_quit(int i)
-{
-    uih_cycling_off(uih);
-    uih_freecatalog(uih);
-    uih_freecontext(uih);
-    tl_free_timer(maintimer);
-    tl_free_timer(arrowtimer);
-    tl_free_timer(loopt);
-    delete window;
-    destroypalette(uih->image->palette);
-    destroy_image(uih->image);
-    xth_uninit();
-    xio_uninit();
-    ui_unregistermenus();
-    uih_unregistermenus();
-    printf(gettext("Thank you for using XaoS\n"));
-    exit(i);
-}
-
-static void ui_help(struct uih_context *c)
-{
-    QDesktopServices::openUrl(QUrl(HELP_URL));
-}
-
-static void ui_about(struct uih_context *c)
-{
-    QMessageBox::about(
-        NULL, qt_gettext("About"),
-        "<a href=\"http://xaos.sf.net\">" +
-            QCoreApplication::applicationName() + "</a> " +
-            QCoreApplication::applicationVersion() + " (" +
-            QSysInfo::kernelType() + " " +
-            // QSysInfo::kernelVersion() + " "
-            // QSysInfo::buildAbi() + " " +
-            QSysInfo::buildCpuArchitecture() +
-            ")"
-            "<br>"
-            "Fast interactive real-time fractal zoomer/morpher<br><br>"
-            "Original Authors: Jan Hubička and Thomas Marsh<br>"
-            "Copyright © 1996-2019 XaoS Contributors<br>"
-            "<br>"
-            "This program is free software; you can redistribute it and/or modify "
-            "it under the terms of the GNU General Public License as published by "
-            "the Free Software Foundation; either version 2 of the License, or "
-            "(at your option) any later version.<br><br>"
-
-            "This program is distributed in the hope that it will be useful, "
-            "but WITHOUT ANY WARRANTY; without even the implied warranty of "
-            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
-            "GNU General Public License for more details.<br><br>"
-
-            "You should have received a copy of the GNU General Public License "
-            "along with this program; if not, write to the Free Software "
-            "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
-
-    );
-}
-
-static char statustext[256];
-static int statusstart;
-static struct uih_window *statuswindow = NULL;
-static int ministatusstart;
-static struct uih_window *ministatuswindow = NULL;
-
-static void ui_updatestatus(void)
-{
-    double times =
-        (uih->fcontext->currentformula->v.rr) / (uih->fcontext->s.rr);
-    double timesnop = log(times) / log(10.0);
-    double speed;
-    uih_drawwindows(uih);
-    widget->repaint();
-    uih_cycling_continue(uih);
-    speed = uih_displayed(uih);
-    sprintf(
-        statustext,
-        gettext(
-            "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "),
-        times < 1 ? gettext("unzoomed") : gettext("zoomed"),
-        times < 1 ? 1.0 / times : times, timesnop, speed,
-        uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1,
-        uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1,
-        uih->fcontext->maxiter);
-
-    STAT(printf(gettext("framerate:%f\n"), speed));
-    window->showStatus("");
-}
-
-#ifdef MEMCHECK
-#define STATUSLINES 13
-#else
-#define STATUSLINES 11
-#endif
-
-void ui_updatestarts(uih_context *uih)
-{
-    int y = 0;
-    ministatusstart = y;
-    if (ministatuswindow != NULL)
-        y += xtextheight(uih->image, uih->font);
-    statusstart = y;
-    if (statuswindow != NULL)
-        y += xtextheight(uih->image, uih->font) * STATUSLINES;
-    uih->messg.messagestart = y;
-}
-
-static void ui_statuspos(uih_context *uih, int *x, int *y, int *w, int *h,
-                         void *data)
-{
-    *x = 0;
-    *y = statusstart;
-    *w = uih->image->width;
-    *h = xtextheight(uih->image, uih->font) * STATUSLINES;
-}
-
-static void ui_drawstatus(uih_context *uih, void *data)
-{
-    char str[6000];
-    int h = xtextheight(uih->image, uih->font);
-    sprintf(str, gettext("Fractal name:%s"),
-            uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
-    xprint(uih->image, uih->font, 0, statusstart, str, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-    sprintf(str, gettext("Fractal type:%s"),
-            uih->fcontext->mandelbrot ? gettext("Mandelbrot")
-                                      : gettext("Julia"));
-#ifdef SFFE_USING
-    if (uih->fcontext->currentformula->flags & SFFE_FRACTAL) {
-        sprintf(str, gettext("Formula:%s"), uih->parser->expression);
-    };
-#endif
-    xprint(uih->image, uih->font, 0, statusstart + h, str, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-    sprintf(str, gettext("View:[%1.12f,%1.12f]"), (double)uih->fcontext->s.cr,
-            (double)uih->fcontext->s.ci);
-    xprint(uih->image, uih->font, 0, statusstart + 2 * h, str, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-    sprintf(str, gettext("size:[%1.12f,%1.12f]"), (double)uih->fcontext->s.rr,
-            (double)uih->fcontext->s.ri);
-    xprint(uih->image, uih->font, 0, statusstart + 3 * h, str, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-    sprintf(str, gettext("Rotation:%4.2f   Screen size:%i:%i"),
-            (double)uih->fcontext->angle, uih->image->width,
-            uih->image->height);
-    xprint(uih->image, uih->font, 0, statusstart + 4 * h, str, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-    sprintf(str, gettext("Iterations:%-4u Palette size:%i"),
-            uih->fcontext->maxiter, uih->image->palette->size);
-    xprint(uih->image, uih->font, 0, statusstart + 5 * h, str, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-    sprintf(str, "Bailout:%4.2f", (double)uih->fcontext->bailout);
-    xprint(uih->image, uih->font, 0, statusstart + 6 * h, str, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-    sprintf(str, gettext("Autopilot:%-4s  Plane:%s"),
-            uih->autopilot ? gettext("On") : gettext("Off"),
-            planename[uih->fcontext->plane]);
-    xprint(uih->image, uih->font, 0, statusstart + 7 * h, str, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-    sprintf(str, gettext("incoloring:%s    outcoloring:%s"),
-            incolorname[uih->fcontext->incoloringmode],
-            outcolorname[uih->fcontext->coloringmode]);
-    xprint(uih->image, uih->font, 0, statusstart + 8 * h, str, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-    sprintf(str, gettext("zoomspeed:%f"), (float)uih->maxstep * 1000);
-    xprint(uih->image, uih->font, 0, statusstart + 9 * h, str, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-    if (uih->fcontext->mandelbrot)
-        strcpy(str, gettext("Parameter:none"));
-    else
-        sprintf(str, gettext("Parameter:[%f,%f]"), (float)uih->fcontext->pre,
-                (float)uih->fcontext->pim);
-    xprint(uih->image, uih->font, 0, statusstart + 10 * h, str, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-#ifdef MEMCHECK
-    {
-        struct mallinfo i = mallinfo();
-        sprintf(str, "Allocated arena:%i Wasted:%i %i", i.arena, i.ordblks,
-                i.fordblks);
-        xprint(uih->image, uih->font, 0, statusstart + 11 * h, str,
-               FGCOLOR(uih), BGCOLOR(uih), 0);
-        sprintf(str, "Mmaped blocks%i Mmaped area:%i keep:%i", i.hblks,
-                i.hblkhd, i.keepcost);
-        xprint(uih->image, uih->font, 0, statusstart + 12 * h, str,
-               FGCOLOR(uih), BGCOLOR(uih), 0);
-    }
-#endif
-}
-
-static void ui_status(uih_context *uih)
-{
-    if (statuswindow == NULL) {
-        statuswindow = uih_registerw(uih, ui_statuspos, ui_drawstatus, NULL, 0);
-    } else {
-        uih_removew(uih, statuswindow);
-        statuswindow = NULL;
-    }
-    ui_updatemenus(uih, "status");
-    ui_updatemenus(uih, "animministatus");
-    ui_updatestarts(uih);
-}
-
-static int ui_statusenabled(uih_context *uih) { return (statuswindow != NULL); }
-
-static void ui_ministatuspos(uih_context *uih, int *x, int *y, int *w, int *h,
-                             void *data)
-{
-    *x = 0;
-    *y = ministatusstart;
-    *w = uih->image->width;
-    *h = xtextheight(uih->image, uih->font);
-}
-
-static void ui_drawministatus(uih_context *uih, void *data)
-{
-    xprint(uih->image, uih->font, 0, ministatusstart, statustext, FGCOLOR(uih),
-           BGCOLOR(uih), 0);
-}
-
-static void ui_ministatus(uih_context *uih)
-{
-    if (ministatuswindow == NULL) {
-        ministatuswindow =
-            uih_registerw(uih, ui_ministatuspos, ui_drawministatus, NULL, 0);
-    } else {
-        uih_removew(uih, ministatuswindow);
-        ministatuswindow = NULL;
-    }
-    ui_updatestarts(uih);
-    ui_updatemenus(uih, "ministatus");
-    ui_updatemenus(uih, "animministatus");
-}
-
-static int ui_ministatusenabled(uih_context *uih)
-{
-    return (ministatuswindow != NULL);
-}
-
-/* This structure is now empty. All static definitions have been moved
-   to ui_registermenus_i18n() which fills up its own static array. */
-
-/* Registering internationalized menus. See also include/xmenu.h
-   for details. Note that MAX_MENUITEMS_I18N may be increased
-   if more items will be added in future. */
-
-/* Details of implementation:
- *
- * There are static menuitems_i18n[] arrays for several *.c files.
- * In these files this array is common for all functions.
- * ui_no_menuitems_i18n is the counter
- * that counts the number of items. The local variables
- * count the local items.
- */
-
-#define MAX_MENUITEMS_I18N 20
-/* These variables must be global: */
-static menuitem *menuitems;
-static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
-int ui_no_menuitems_i18n = 0;
-
-#define UI (MENUFLAG_NOPLAY | MENUFLAG_NOOPTION)
-
-static void ui_registermenus_i18n(void)
-{
-    int no_menuitems_i18n =
-        ui_no_menuitems_i18n; /* This variable must be local. */
-    MENUINT_I("file", NULL, gettext("Quit"), "quit",
-              MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quit, 0);
-    MENUNOP_I("helpmenu", "h", gettext("Help"), "help", MENUFLAG_INCALC,
-              ui_help);
-    MENUNOP_I("helpmenu", NULL, gettext("About"), "about", NULL, ui_about);
-    MENUSEPARATOR_I("ui");
-    MENUNOPCB_I("ui", "/", gettext("Status"), "status", MENUFLAG_INCALC,
-                ui_status, ui_statusenabled); /*FIXME: add also ? as key */
-
-    MENUNOPCB_I("ui", "l", gettext("Ministatus"), "ministatus", MENUFLAG_INCALC,
-                ui_ministatus, ui_ministatusenabled);
-    MENUSEPARATOR_I("ui");
-    MENUSEPARATOR_I("uia");
-    MENUNOPCB_I("uia", "/", gettext("Status"), "animstatus",
-                UI | MENUFLAG_INCALC, ui_status,
-                ui_statusenabled); /*FIXME: add also ? as key */
-
-    MENUNOPCB_I("uia", "l", gettext("Ministatus"), "animministatus",
-                UI | MENUFLAG_INCALC, ui_ministatus, ui_ministatusenabled);
-    MENUSEPARATOR_I("uia");
-    no_menuitems_i18n -= ui_no_menuitems_i18n;
-    menu_add(&(menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
-    ui_no_menuitems_i18n += no_menuitems_i18n;
-}
-
-static void ui_unregistermenus(void)
-{
-    menu_delete(menuitems, NITEMS(menuitems));
-    menu_delete(menuitems_i18n, ui_no_menuitems_i18n);
-}
-
 int ui_render(void)
 {
     if (defrender != NULL) {
@@ -607,6 +262,29 @@ int ui_render(void)
     }
     return 0;
 }
+
+extern "C" {
+
+const char *qt_gettext(const char *text)
+{
+    static std::map<const char *, const char *> strings;
+    const char *trans = strings[text];
+    if (trans == NULL) {
+        trans =
+            strdup(QCoreApplication::translate("", text).toStdString().c_str());
+        strings[text] = trans;
+    }
+    return trans;
+}
+}
+
+static MainWindow *window;
+static FractalWidget *widget;
+static uih_context *uih;
+
+static tl_timer *maintimer;
+static tl_timer *loopt;
+static tl_timer *arrowtimer;
 
 void ui_printspeed()
 {
@@ -705,83 +383,107 @@ void ui_printspeed()
     ui_quit(0);
 }
 
-static void ui_outofmem(void) { x_error(gettext("XaoS is out of memory.")); }
+static void ui_unregistermenus(void);
 
-static struct image *ui_mkimages(int width, int height)
+void ui_quit(int i)
 {
-    struct palette *palette;
-    union paletteinfo info;
-    info.truec.rmask = 0xff0000;
-    info.truec.gmask = 0x00ff00;
-    info.truec.bmask = 0x0000ff;
-    palette =
-        createpalette(0, 0, TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, &info);
-    if (!palette) {
-        delete window;
-        x_error(gettext("Can not create palette"));
-        ui_outofmem();
-        exit(-1);
-    }
-    struct image *image =
-        create_image_qt(width, height, palette, pixelwidth, pixelheight);
-    if (!image) {
-        delete window;
-        x_error(gettext("Can not create image"));
-        ui_outofmem();
-        exit(-1);
-    }
-    widget->setImage(image);
-    return image;
+    uih_cycling_off(uih);
+    uih_freecatalog(uih);
+    uih_freecontext(uih);
+    tl_free_timer(maintimer);
+    tl_free_timer(arrowtimer);
+    tl_free_timer(loopt);
+    delete window;
+    destroypalette(uih->image->palette);
+    destroy_image(uih->image);
+    xth_uninit();
+    xio_uninit();
+    ui_unregistermenus();
+    uih_unregistermenus();
+    printf(gettext("Thank you for using XaoS\n"));
+    exit(i);
 }
 
-static int callresize = 0;
-
-void ui_call_resize(void)
+static void ui_help(struct uih_context *c)
 {
-    callresize = 1;
-    uih_interrupt(uih);
+    QDesktopServices::openUrl(QUrl(HELP_URL));
 }
 
-void ui_resize(void)
+static void ui_about(struct uih_context *c)
 {
-    int w, h;
+    QMessageBox::about(
+        NULL, qt_gettext("About"),
+        "<a href=\"http://xaos.sf.net\">" +
+            QCoreApplication::applicationName() + "</a> " +
+            QCoreApplication::applicationVersion() + " (" +
+            QSysInfo::kernelType() + " " +
+            // QSysInfo::kernelVersion() + " "
+            // QSysInfo::buildAbi() + " " +
+            QSysInfo::buildCpuArchitecture() +
+            ")"
+            "<br>"
+            "Fast interactive real-time fractal zoomer/morpher<br><br>"
+            "Original Authors: Jan Hubička and Thomas Marsh<br>"
+            "Copyright © 1996-2019 XaoS Contributors<br>"
+            "<br>"
+            "This program is free software; you can redistribute it and/or modify "
+            "it under the terms of the GNU General Public License as published by "
+            "the Free Software Foundation; either version 2 of the License, or "
+            "(at your option) any later version.<br><br>"
 
-    /* Prevent crash on startup for Mac OS X */
-    if (!uih)
-        return;
+            "This program is distributed in the hope that it will be useful, "
+            "but WITHOUT ANY WARRANTY; without even the implied warranty of "
+            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
+            "GNU General Public License for more details.<br><br>"
 
-    if (uih->incalculation) {
-        uih_interrupt(uih);
+            "You should have received a copy of the GNU General Public License "
+            "along with this program; if not, write to the Free Software "
+            "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+
+    );
+}
+
+#define MAX_MENUITEMS_I18N 20
+/* These variables must be global: */
+static menuitem *menuitems;
+static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
+int ui_no_menuitems_i18n = 0;
+
+#define UI (MENUFLAG_NOPLAY | MENUFLAG_NOOPTION)
+
+static void ui_registermenus_i18n(void)
+{
+    int no_menuitems_i18n =
+        ui_no_menuitems_i18n; /* This variable must be local. */
+    MENUINT_I("file", NULL, gettext("Quit"), "quit",
+              MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quit, 0);
+    MENUNOP_I("helpmenu", "h", gettext("Help"), "help", MENUFLAG_INCALC,
+              ui_help);
+    MENUNOP_I("helpmenu", NULL, gettext("About"), "about", NULL, ui_about);
+    no_menuitems_i18n -= ui_no_menuitems_i18n;
+    menu_add(&(menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
+    ui_no_menuitems_i18n += no_menuitems_i18n;
+}
+
+static void ui_unregistermenus(void)
+{
+    menu_delete(menuitems, NITEMS(menuitems));
+    menu_delete(menuitems_i18n, ui_no_menuitems_i18n);
+}
+
+static void ui_updatemenus(uih_context *c, const char *name)
+{
+    const struct menuitem *item;
+    if (name == NULL) {
+        window->buildMenu(c, uih->menuroot);
         return;
     }
-    uih_clearwindows(uih);
-    uih_stoptimers(uih);
-    uih_cycling_stop(uih);
-    uih_savepalette(uih);
-    w = widget->size().width();
-    h = widget->size().height();
-    assert(w > 0 && w < 65000 && h > 0 && h < 65000);
-    if (w != uih->image->width || h != uih->image->height) {
-        destroy_image(uih->image);
-        destroypalette(uih->palette);
-        struct image *image = ui_mkimages(w, h);
-        if (!uih_updateimage(uih, image)) {
-            delete window;
-            x_error(gettext("Can not allocate tables"));
-            ui_outofmem();
-            exit(-1);
-        }
-        tl_process_group(syncgroup, NULL);
-        tl_reset_timer(maintimer);
-        tl_reset_timer(arrowtimer);
-        uih_newimage(uih);
+    item = menu_findcommand(name);
+    if (item == NULL)
+        return;
+    if (item->flags & (MENUFLAG_CHECKBOX | MENUFLAG_RADIO)) {
+        window->toggleMenu(uih, name);
     }
-    uih_newimage(uih);
-    uih_restorepalette(uih);
-    /*uih_mkdefaultpalette(uih); */
-    uih->display = 1;
-    ;
-    uih_cycling_continue(uih);
 }
 
 void ui_menuactivate(const menuitem *item, dialogparam *d)
@@ -804,7 +506,8 @@ void ui_menuactivate(const menuitem *item, dialogparam *d)
         }
         if (item->flags & MENUFLAG_CHECKBOX) {
             char s[256];
-            ui_updatestatus();
+            uih_updatestatus(uih);
+            widget->repaint();
             if (!menu_enabled(item, uih))
                 sprintf(s, gettext("Enabling: %s. "), item->name);
             else
@@ -839,9 +542,10 @@ int ui_key(int key)
         case ' ':
             uih->display = 1;
             if (uih->play) {
-                if (uih->incalculation)
-                    ui_updatestatus();
-                else {
+                if (uih->incalculation) {
+                    uih_updatestatus(uih);
+                    widget->repaint();
+                } else {
                     uih_skipframe(uih);
                     window->showStatus(gettext("Skipping, please wait..."));
                 }
@@ -1065,7 +769,7 @@ static int ui_passfunc(struct uih_context *c, int display, const char *text,
     return (0);
 }
 
-static void ui_message(struct uih_context *u)
+static void ui_message(struct uih_context *uih)
 {
     char s[100];
     if (uih->play)
@@ -1074,6 +778,85 @@ static void ui_message(struct uih_context *u)
     sprintf(s, gettext("Please wait while calculating %s"),
             uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
     window->showStatus(s);
+}
+
+static void ui_outofmem(void) { x_error(gettext("XaoS is out of memory.")); }
+
+static struct image *ui_mkimages(int width, int height)
+{
+    struct palette *palette;
+    union paletteinfo info;
+    info.truec.rmask = 0xff0000;
+    info.truec.gmask = 0x00ff00;
+    info.truec.bmask = 0x0000ff;
+    palette =
+        createpalette(0, 0, TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, &info);
+    if (!palette) {
+        delete window;
+        x_error(gettext("Can not create palette"));
+        ui_outofmem();
+        exit(-1);
+    }
+    struct image *image =
+        create_image_qt(width, height, palette, pixelwidth, pixelheight);
+    if (!image) {
+        delete window;
+        x_error(gettext("Can not create image"));
+        ui_outofmem();
+        exit(-1);
+    }
+    widget->setImage(image);
+    return image;
+}
+
+static int callresize = 0;
+
+void ui_call_resize(void)
+{
+    callresize = 1;
+    uih_interrupt(uih);
+}
+
+void ui_resize(void)
+{
+    int w, h;
+
+    /* Prevent crash on startup for Mac OS X */
+    if (!uih)
+        return;
+
+    if (uih->incalculation) {
+        uih_interrupt(uih);
+        return;
+    }
+    uih_clearwindows(uih);
+    uih_stoptimers(uih);
+    uih_cycling_stop(uih);
+    uih_savepalette(uih);
+    w = widget->size().width();
+    h = widget->size().height();
+    assert(w > 0 && w < 65000 && h > 0 && h < 65000);
+    if (w != uih->image->width || h != uih->image->height) {
+        destroy_image(uih->image);
+        destroypalette(uih->palette);
+        struct image *image = ui_mkimages(w, h);
+        if (!uih_updateimage(uih, image)) {
+            delete window;
+            x_error(gettext("Can not allocate tables"));
+            ui_outofmem();
+            exit(-1);
+        }
+        tl_process_group(syncgroup, NULL);
+        tl_reset_timer(maintimer);
+        tl_reset_timer(arrowtimer);
+        uih_newimage(uih);
+    }
+    uih_newimage(uih);
+    uih_restorepalette(uih);
+    /*uih_mkdefaultpalette(uih); */
+    uih->display = 1;
+    ;
+    uih_cycling_continue(uih);
 }
 
 #ifdef SFFE_USING
@@ -1211,7 +994,7 @@ int main(int argc, char *argv[])
     }
 
 #ifdef SFFE_USING
-    int err;
+    int err = 0;
     if (uih->parser->expression == NULL) {
         if (sffeform)
             err = sffe_parse(&uih->parser, (char *)sffeform);
@@ -1238,7 +1021,9 @@ int main(int argc, char *argv[])
         widget->setCursor(uih->play ? Qt::ForbiddenCursor : Qt::CrossCursor);
         if (uih->display) {
             uih_prepare_image(uih);
-            ui_updatestatus();
+            uih_updatestatus(uih);
+            widget->repaint();
+            window->showStatus("");
         }
         if ((time = tl_process_group(syncgroup, NULL)) != -1) {
             if (!inmovement && !uih->inanimation) {

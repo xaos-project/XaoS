@@ -974,6 +974,21 @@ void uih_registermenus_i18n(void)
                   uih_letterspersec, uih_getlettersdialog);
     MENUNOP_I("uia", "z", gettext("Interrupt"), "animinterrupt",
               MENUFLAG_INTERRUPT | MENUFLAG_INCALC, uih_interrupt);
+    MENUSEPARATOR_I("ui");
+    MENUNOPCB_I("ui", "/", gettext("Status"), "status", MENUFLAG_INCALC,
+                uih_status, uih_statusenabled); /*FIXME: add also ? as key */
+
+    MENUNOPCB_I("ui", "l", gettext("Ministatus"), "ministatus", MENUFLAG_INCALC,
+                uih_ministatus, uih_ministatusenabled);
+    MENUSEPARATOR_I("ui");
+    MENUSEPARATOR_I("uia");
+    MENUNOPCB_I("uia", "/", gettext("Status"), "animstatus",
+                UI | MENUFLAG_INCALC, uih_status,
+                uih_statusenabled); /*FIXME: add also ? as key */
+
+    MENUNOPCB_I("uia", "l", gettext("Ministatus"), "animministatus",
+                UI | MENUFLAG_INCALC, uih_ministatus, uih_ministatusenabled);
+    MENUSEPARATOR_I("uia");
     SUBMENU_I("root", "s", gettext("File"), "file");
     SUBMENU_I("root", NULL, gettext("Edit"), "edit");
     SUBMENU_I("root", NULL, gettext("Fractal"), "fractal");
