@@ -71,14 +71,11 @@ static void ui_mouse(bool wait);
 #endif
 
 xio_pathdata configfile;
-static void ui_unregistermenus(void);
-static struct image *ui_mkimages(int, int);
 
 int err;
 /*UI state */
 uih_context *uih;
 char statustext[256];
-int ui_nogui;
 static int statusstart;
 static struct uih_window *statuswindow = NULL;
 static int ministatusstart;
@@ -99,28 +96,6 @@ float pixelwidth = 0.0, pixelheight = 0.0;
 char *sffeform = NULL;
 char *sffeinit = NULL;
 #endif
-
-
-#define MOUSE_PRESS 1
-#define MOUSE_RELEASE 2
-#define MOUSE_DRAG 4
-#define MOUSE_MOVE 8
-
-#define BORDERWIDTH 2
-#define BORDERHEIGHT 2
-
-#define BUTTONHEIGHT (xtextheight(uih->image, uih->font) + 2 * BORDERWIDTH)
-
-struct ui_textdata {
-    int x, y, width;
-    char *text;
-    int size;
-    int cursor;
-    int cursorpos;
-    int start;
-    int ndisplayed;
-    int clear;
-};
 
 const struct params global_params[] = {
 {"-delay", P_NUMBER, &delaytime, "Delay screen updates (milliseconds)"},
@@ -351,26 +326,6 @@ FractalWidget *widget;
 static void ui_updatemenus(uih_context *c, const char *name)
 {
     const struct menuitem *item;
-    if (ui_nogui) {
-        if (name == NULL) {
-            printf("Root \"%s\"", uih->menuroot);
-        }
-        item = menu_findcommand(name);
-        if (item == NULL) {
-            /*x_fatalerror ("Internall error:unknown command %s", name); */
-            return;
-        }
-        if (item->flags & MENUFLAG_CHECKBOX) {
-            if (menu_enabled(item, c))
-                printf("checkbox \"%s\" on\n", name);
-            else
-                printf("checkbox \"%s\" off\n", name);
-        }
-        if (item->flags & MENUFLAG_RADIO) {
-            if (menu_enabled(item, c))
-                printf("radio \"%s\"\n", name);
-        }
-    }
     if (name == NULL) {
         window->buildMenu(c, uih->menuroot);
         return;
@@ -490,11 +445,6 @@ void ui_menuactivate(const menuitem *item, dialogparam *d)
     }
 }
 
-xio_path ui_getfile(const char *basename, const char *extension)
-{
-    return (xio_getfilename(basename, extension));
-}
-
 static void ui_statuspos(uih_context *uih, int *x, int *y, int *w, int *h,
                          void *data)
 {
@@ -607,14 +557,6 @@ static void ui_drawministatus(uih_context *uih, void *data)
            BGCOLOR(uih), 0);
 }
 
-static void ui_noguisw(uih_context *uih)
-{
-    ui_nogui ^= 1;
-    ui_updatemenus(uih, "nogui");
-}
-
-static int ui_noguienabled(uih_context *uih) { return (ui_nogui); }
-
 static void ui_ministatus(uih_context *uih)
 {
     if (ministatuswindow == NULL) {
@@ -698,7 +640,6 @@ static int procescounter(int *counter, const char *text, int speed, int keys,
 
 static void ui_mouse(bool wait)
 {
-    int flags;
     char str[80];
     static int spid;
     QCoreApplication::processEvents(wait ? QEventLoop::WaitForMoreEvents
@@ -706,24 +647,11 @@ static void ui_mouse(bool wait)
     static int dirty = 0;
     static int lastiter;
     static int maxiter;
-    static int lastbuttons, lastx, lasty;
 
     int mousex = widget->mousePosition().x();
     int mousey = widget->mousePosition().y();
     int mousebuttons = window->mouseButtons();
     int iterchange = window->keyCombination();
-    flags = 0;
-    if (mousex != lastx || mousey != lasty)
-        flags |= MOUSE_MOVE;
-    if ((mousebuttons & BUTTON1) && !(lastbuttons & BUTTON1))
-        flags |= MOUSE_PRESS;
-    if (!(mousebuttons & BUTTON1) && (lastbuttons & BUTTON1))
-        flags |= MOUSE_RELEASE;
-    if (mousebuttons & BUTTON1)
-        flags |= MOUSE_DRAG;
-    lastx = mousex;
-    lasty = mousey;
-    lastbuttons = mousebuttons;
     tl_update_time();
     CHECKPROCESSEVENTS(mousebuttons, iterchange);
     uih_update(uih, mousex, mousey, mousebuttons);
@@ -826,8 +754,9 @@ static void processbuffer(void)
     }
 }
 
-static void ui_doquit(int i);
-static void ui_doquit(int i)
+static void ui_unregistermenus(void);
+
+void ui_quit(int i)
 {
     uih_cycling_off(uih);
     uih_freecatalog(uih);
@@ -842,25 +771,8 @@ static void ui_doquit(int i)
     xio_uninit();
     ui_unregistermenus();
     uih_unregistermenus();
-    exit_xaos(i);
-}
-
-void ui_quit(void)
-{
     printf(gettext("Thank you for using XaoS\n"));
-    ui_doquit(0);
-}
-
-static void ui_quitwr(uih_context *c, int quit)
-{
-    if (c == NULL) {
-        ui_unregistermenus();
-        uih_unregistermenus();
-        xio_uninit();
-        exit_xaos(0);
-    }
-    if (quit)
-        ui_quit();
+    exit_xaos(i);
 }
 
 int ui_key(int key)
@@ -963,8 +875,6 @@ static void ui_about(struct uih_context *c)
                 );
 }
 
-char *ui_getpos(void) { return (uih_savepostostr(uih)); }
-
 static menuitem *menuitems;
 /* This structure is now empty. All static definitions have been moved
    to ui_registermenus_i18n() which fills up its own static array. */
@@ -994,13 +904,10 @@ static void ui_registermenus_i18n(void)
     int no_menuitems_i18n =
             ui_no_menuitems_i18n; /* This variable must be local. */
     MENUINT_I("file", NULL, gettext("Quit"), "quit",
-              MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quitwr, 1);
+              MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quit, 0);
     MENUNOP_I("helpmenu", "h", gettext("Help"), "help", MENUFLAG_INCALC,
               ui_helpwr);
     MENUNOP_I("helpmenu", NULL, gettext("About"), "about", NULL, ui_about);
-    MENUNOPCB_I("ui", NULL, gettext("Disable XaoS's builtin GUI"), "nogui",
-                MENUFLAG_INCALC | MENUFLAG_ATSTARTUP | MENUFLAG_NOMENU,
-                ui_noguisw, ui_noguienabled);
     MENUSEPARATOR_I("ui");
     MENUNOPCB_I("ui", "/", gettext("Status"), "status", MENUFLAG_INCALC,
                 ui_status, ui_statusenabled); /*FIXME: add also ? as key */
@@ -1130,7 +1037,7 @@ void ui_printspeed()
     while (tl_lookup_timer(maintimer) < 5000000)
         uih_animate_image(uih), uih_prepare_image(uih), tl_update_time(), c++;
     x_message("Approximation loop speed: %g FPS", c / 5.0);
-    ui_doquit(0);
+    ui_quit(0);
 }
 
 static struct image *ui_mkimages(int width, int height)
@@ -1141,7 +1048,7 @@ static struct image *ui_mkimages(int width, int height)
     info.truec.gmask = 0x00ff00;
     info.truec.bmask = 0x0000ff;
     palette =
-            createpalette(0, 0, UI_TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, &info);
+            createpalette(0, 0, TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, &info);
     if (!palette) {
         delete window;
         x_error(gettext("Can not create palette"));
@@ -1343,7 +1250,7 @@ void ui_init(int argc, char **argv)
                 x_error("Configuration file %s load failed", configfile);
                 uih_printmessages(uih);
                 x_error("Hint:try to remove it :)");
-                ui_doquit(1);
+                ui_quit(1);
             }
         }
     }

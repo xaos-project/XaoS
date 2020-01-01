@@ -2,7 +2,7 @@
 #define UI_HELPER_H
 #include "timers.h"
 #include "xio.h"
-
+#include "fractal.h"
 #ifdef SFFE_USING
 #include "sffe.h"
 #endif
@@ -362,6 +362,8 @@ typedef struct uih_context uih_context;
 
 extern const struct filteraction *const uih_filters[MAXFILTERS];
 extern const int uih_nfilters;
+
+extern struct uih_context *globaluih;
 
 struct uih_context *
 uih_mkcontext(int flags, struct image *image,

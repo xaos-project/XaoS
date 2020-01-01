@@ -23,7 +23,6 @@ void xrestoreline(struct image *img, char *data, int x1, int y1, int x2,
                   int y2);
 void xline(struct image *img, int x1, int y1, int x2, int y2, int color);
 void xprepareimage(struct image *img);
-void xdrawcursor(struct image *img, int x, int y, int color, int height);
 
 #ifdef __cplusplus
 }
