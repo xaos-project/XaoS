@@ -6,7 +6,6 @@ HEADERS += \
     $$PWD/c256.h \
     $$PWD/catalog.h \
     $$PWD/complex.h \
-    $$PWD/cursor.h \
     $$PWD/fconfig.h \
     $$PWD/filter.h \
     $$PWD/formulas.h \
@@ -25,7 +24,6 @@ HEADERS += \
     $$PWD/timers.h \
     $$PWD/true24.h \
     $$PWD/truecolor.h \
-    $$PWD/ui.h \
     $$PWD/ui_helper.h \
     $$PWD/xerror.h \
     $$PWD/xio.h \

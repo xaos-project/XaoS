@@ -9,7 +9,8 @@ HEADERS += \
     $$PWD/mainwindow.h \
     $$PWD/fractalwidget.h \
     $$PWD/customdialog.h \
-    $$PWD/grlibd.h
+    $$PWD/grlibd.h \
+    $$PWD/ui.h
 
 INCLUDEPATH += $$PWD
 

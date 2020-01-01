@@ -8,7 +8,6 @@
 #include <unistd.h>
 #endif
 
-#include "ui.h"
 #include "config.h"
 #include "filter.h"
 #include "fractal.h"

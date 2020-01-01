@@ -1,10 +1,12 @@
-﻿#include "mainwindow.h"
+﻿#include <QtWidgets>
+
+#include "mainwindow.h"
 #include "fractalwidget.h"
 #include "customdialog.h"
 
 #include "ui.h"
+#include "ui_helper.h"
 
-#include <QtWidgets>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -39,7 +41,7 @@ void MainWindow::writeSettings()
 void MainWindow::closeEvent(QCloseEvent *)
 {
     writeSettings();
-    ui_quit();
+    ui_quit(0);
 }
 
 QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)

@@ -646,15 +646,6 @@ char *xsaveline(struct image *img, int x1, int y1, int x2, int y2)
 
 void xprepareimage(struct image *img) {}
 
-void xdrawcursor(struct image *img, int x, int y, int color, int height)
-{
-    xvline(img, x, y, height, color);
-    xhline(img, x - 1, y - 1, 1, color);
-    xhline(img, x + 1, y - 1, 1, color);
-    xhline(img, x - 1, y + height, 1, color);
-    xhline(img, x + 1, y + height, 1, color);
-}
-
 void xrestoreline(struct image *img, char *data, int x1, int y1, int x2, int y2)
 {
     doclip(return );
