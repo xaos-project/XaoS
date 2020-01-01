@@ -28,10 +28,6 @@
 #
 # Bármiféle megjegyzést örömmel fogadok.
 #
-# A szövegnek el kell férnie a 320x200-as képernyőn, emiatt minden
-# feliratnak 40 karakternél rövidebbnek kell lennie. Ez itt pont 40 karakter:
-#234567890123456789012345678901234567890
-# Vigyázat, ez nem sok! Légy óvatos!
 # A kész fordítást próbáld ki ,,élesben'' is!
 #########################################################
 encoding "2"
@@ -665,11 +661,9 @@ theme8 "szép képek hozhatók létre."
 
 keys "Irányítás (billentyűzetről):
 
-q        - az animáció leállítása  
-Szóköz   - egy képkocka kihagyása  
-           (lehet, hogy várni kell)
-Bal/Jobb - a feliratok megjelenési 
-           időtartamának beállítása"
+S - az animáció leállítása
+Szóköz - egy képkocka kihagyása (lehet, hogy várni kell)
+Bal/Jobb - a feliratok megjelenési időtartamának beállítása"
 
 #########################################################
 #magnet.xaf

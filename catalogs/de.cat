@@ -14,12 +14,7 @@
 # direkt eingeben (nicht mit \n).
 #
 # Sie können die Texte verkürzen oder verlängern; XaoS passt die
-# Darstellungszeit automatisch an. Beachten Sie, dass der Text auf einen
-# 320x200 Pixel grossen Bildschirm passen sollte; dazu sollte keine Zeile
-# länger als 40 Zeichen sein. Das ist nicht viel:
-#234567890123456789012345678901234567890
-# Bitte kontrollieren Sie, ob sich die Tutorials bei einer Auflösung von
-# 320x200 noch darstellen lassen.
+# Darstellungszeit automatisch an.
 #
 # Wenn Sie Fehler in dieser Datei finden, lassen Sie es mich bitte wissen.
 #########################################################
@@ -595,9 +590,8 @@ theme8 "schöne Bilder."
 
 keys "Tasten:
 
-q          - Wiedergabe abbrechen    
-Space      - Bild überspringen       
-             (kann etwas dauern)     
+S - Wiedergabe abbrechen
+Space - Bild überspringen (kann etwas dauern)
 Left/Right - Geschwindigkeit anpassen"
 
 #########################################################

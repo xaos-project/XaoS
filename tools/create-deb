@@ -49,8 +49,6 @@ cp $MAINDIR/tutorial/*.xaf $FSDIR/usr/share/XaoS/tutorial
 cp $MAINDIR/tutorial/*.xhf $FSDIR/usr/share/XaoS/tutorial
 mkdir -p $FSDIR/usr/share/XaoS/examples
 find $MAINDIR/examples -name '*.xpf' -exec cp {} $FSDIR/usr/share/XaoS/examples \; # flattening folders
-mkdir -p $FSDIR/usr/share/qt5/translations
-cp $MAINDIR/bin/*.qm $FSDIR/usr/share/qt5/translations
 mkdir -p $FSDIR/DEBIAN
 echo "Package: xaos
 Version: $XAOS_VERSION

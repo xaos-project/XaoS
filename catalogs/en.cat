@@ -28,12 +28,6 @@
 # Also, please let me have any suggestions for improving this text and
 # the tutorials.
 #
-# Tutorial text needs to fit into a 320x200 screen. So all lines must be
-# shorter than 40 characters.  This is 40 characters:
-#234567890123456789012345678901234567890
-# And thats not much! Be careful!
-# Please check that your updated tutorials work in 320x200 to ensure
-# that everything is OK.
 #########################################################
 #For file dimension.xaf
 
@@ -597,9 +591,8 @@ theme8 "beautiful images."
 
 keys "Keys:
 
-q          - stop replay              
-Space      - skip frame               
-             (can take a while)       
+S - stop replay
+Space - skip frame (can take a while)
 Left/Right - adjust speed of subtitles"
 
 #########################################################
