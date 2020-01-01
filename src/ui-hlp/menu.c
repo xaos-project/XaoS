@@ -1208,7 +1208,7 @@ void uih_registermenus_i18n(void)
     MENUNOPCB_I("ui", "a", gettext("Autopilot"), "autopilot", 0,
                 uih_autopilotsw, uih_autopilotselected);
     MENUSEPARATOR_I("ui");
-    MENUNOPCB_I("ui", "v", gettext("VJ mode"), "inhibittextoutput", 0,
+    MENUNOPCB_I("ui", "v", gettext("Hide Messages"), "inhibittextoutput", 0,
                 uih_inhibittextsw, uih_inhibittextselected);
     /* Language selection is not sensible anymore if i18n is used: */
     SUBMENU_I("tutor", NULL, gettext("An introduction to fractals"), "intro");
