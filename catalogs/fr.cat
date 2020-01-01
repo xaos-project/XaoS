@@ -27,10 +27,6 @@
 # et la présentation. Si quelqu'un veut participer à la correction
 # de l'orthographe il est le bienvenu !
 #
-# En changeant ce fichier prenez garde à ne pas dépasser
-# 40 caractères par ligne de texte pour tenir dans un écran
-# de résolution 320x200 
-#
 #########################################################
 #For file dimension.xaf
 
@@ -613,12 +609,9 @@ de belles surprises peuvent arriver."
 
 keys "Touches:
 
-S             - Stopper l'animation    
-Espace        - passer à l'image       
-                suivante               
-                (peut prendre du temps)
-gauche/droite - règle la vitesse       
-                du texte               "
+S - Stopper l'animation
+Espace - passer à l'image suivante (peut prendre du temps)
+gauche/droite - règle la vitesse du texte"
 
 #########################################################
 #For file magnet.xaf

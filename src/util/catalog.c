@@ -214,9 +214,6 @@ catalog_t *load_catalog(xio_file f, const char **error)
             c = xio_getc(f);
             if (c == '\n')
                 line++, size = 0;
-            if (size == 40 && c != '"') {
-                fprintf(stderr, "Warning - too long text at line %i\n", line);
-            }
             size++;
             if (i == 1024) {
                 seterror("Value is too long (>=1024 characters)");

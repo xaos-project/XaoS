@@ -25,12 +25,6 @@
 # Hazme saber, tambie'n, cualquier sugerencia para mejorar el texto y los
 # tutoriales.
 #
-# El texto del Tutorial ha de caber en una pantalla 320x200. Luego las líneas
-# deben estar por debajo de 40 caracteres. Esto son 40 caracteres:
-#234567890123456789012345678901234567890
-# Y, ¿No es mucho! ¿Ten cuidado!
-# Por favor, comprueba que el nuevo tutorial funciona en 320x200
-
 #########################################################
 #For file dimension.xaf
 
@@ -598,11 +592,9 @@ theme8 "preciosas imagenes."
 
 keys "Teclas:
 
-q          - detiene la animación      
-Espacio    - saltar frame              
-             (puede demorar un poco)   
-Izq/Der    - ajuste de la velocidad    
-             de los subtítulos."
+S - detiene la animación
+Espacio - saltar frame (puede demorar un poco)
+Izq/Der - ajuste de la velocidad de los subtítulos."
 
 #########################################################
 #Para el fichero magnet.xaf

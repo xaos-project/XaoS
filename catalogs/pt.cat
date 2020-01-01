@@ -42,12 +42,6 @@
 # Por favor,envie para mim quaisquer sugestões para melhorar este texto e
 # os tutoriais.
 #
-# O texto do tutorial precisa caber numa tela de 320x200. Então as linhas precisam ter
-# menos de 40 caracteres.  Isto são 40 caracteres:
-#234567890123456789012345678901234567890
-# E não é muito! Tome cuidado!
-# Por favor verifique suas atualizações dos tutoriais  em 320x200 para assegurar
-# que está tudo OK.
 #########################################################
 #For file dimension.xaf
 
@@ -617,9 +611,8 @@ theme8 "lindas imagens."
 
 keys "chaves:
 
-q          - pausa              
-Space      - pula               
-             (demora um pouco)  
+S - pausa
+Space - pula (demora um pouco)
 Left/Right - ajusta a velocidade"
 
 #########################################################
