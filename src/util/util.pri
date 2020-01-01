@@ -6,4 +6,5 @@ SOURCES += \
     $$PWD/xldio.c \
     $$PWD/xstdio.c \
     $$PWD/xmenu.c \
+    $$PWD/random.c \
     $$PWD/timers.c
