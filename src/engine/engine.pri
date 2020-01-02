@@ -1,5 +1,4 @@
 SOURCES += \
-    $$PWD/palette.c \
     $$PWD/filter.c \
     $$PWD/formulas.c \
     $$PWD/fractal.c \

@@ -1,15 +1,14 @@
 SOURCES += \
+    $$PWD/image_qt.cpp \
     $$PWD/mainwindow.cpp \
     $$PWD/fractalwidget.cpp \
     $$PWD/customdialog.cpp \
-    $$PWD/main.cpp \
-    $$PWD/image.cpp
+    $$PWD/main.cpp
 
 HEADERS += \
     $$PWD/mainwindow.h \
     $$PWD/fractalwidget.h \
     $$PWD/customdialog.h \
-    $$PWD/grlibd.h \
     $$PWD/ui.h
 
 INCLUDEPATH += $$PWD
