@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/bash -x
 
 # This script creates a .deb package of XaoS 4.0.
 # Make sure you build the program first.
@@ -40,18 +40,44 @@ XAOS_VERSION=`cat $MAINDIR/src/include/config.h | grep XaoS_VERSION | awk '{prin
 
 FSDIR=xaos_${XAOS_VERSION}-${DEBIAN_VERSION}_$ARCH
 rm -fr $FSDIR
-mkdir -p $FSDIR/usr/bin
-cp $MAINDIR/bin/xaos $FSDIR/usr/bin
-mkdir -p $FSDIR/usr/share/XaoS/catalogs
-cp $MAINDIR/catalogs/*.cat $FSDIR/usr/share/XaoS/catalogs
-mkdir -p $FSDIR/usr/share/XaoS/tutorial
-cp $MAINDIR/tutorial/*.xaf $FSDIR/usr/share/XaoS/tutorial
-cp $MAINDIR/tutorial/*.xhf $FSDIR/usr/share/XaoS/tutorial
-mkdir -p $FSDIR/usr/share/XaoS/examples
-find $MAINDIR/examples -name '*.xpf' -exec cp {} $FSDIR/usr/share/XaoS/examples \; # flattening folders
-mkdir -p $FSDIR/usr/share/man/man6
-cp $MAINDIR/doc/xaos.6 $FSDIR/usr/share/man/man6
-gzip $FSDIR/usr/share/man/man6/xaos.6
+
+BINDIR=$FSDIR/usr/bin
+mkdir -p $BINDIR
+cp $MAINDIR/bin/xaos $BINDIR
+
+CATDIR=$FSDIR/usr/share/XaoS/catalogs
+mkdir -p $CATDIR
+cp $MAINDIR/catalogs/*.cat $CATDIR
+
+TUTDIR=$FSDIR/usr/share/XaoS/tutorials
+mkdir -p $TUTDIR
+cp $MAINDIR/tutorial/*.{xaf,xhf} $TUTDIR
+
+EXDIR=$FSDIR/usr/share/XaoS/examples
+mkdir -p $EXDIR
+find $MAINDIR/examples -name '*.xpf' -exec cp {} $EXDIR \; # flattening folders
+
+MANDIR=$FSDIR/usr/share/man/man6
+mkdir -p $MANDIR
+cp $MAINDIR/doc/xaos.6 $MANDIR
+gzip $MANDIR/xaos.6
+
+DOCDIR=$FSDIR/usr/share/doc/xaos
+mkdir -p $DOCDIR
+cp $MAINDIR/COPYING $MAINDIR/NEWS $DOCDIR
+for i in CREDITS README; do
+ pandoc $MAINDIR/$i.md | lynx -stdin -dump -nolist > $DOCDIR/$i
+ done
+gzip $DOCDIR/NEWS
+
+PIXDIR=$FSDIR/usr/share/pixmaps
+mkdir -p $PIXDIR
+cp $MAINDIR/xdg/xaos.png $PIXDIR
+
+APPDIR=$FSDIR/usr/share/applications
+mkdir -p $APPDIR
+cp $MAINDIR/xdg/xaos.desktop $APPDIR
+
 mkdir -p $FSDIR/DEBIAN
 echo "Package: xaos
 Version: $XAOS_VERSION

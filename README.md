@@ -58,7 +58,7 @@ XaoS is based on Qt, and supports Linux, Mac, and Windows.
 License
 -------
 
-Copyright (C) 1996-2019 XaoS Contributors
+Copyright (C) 1996-2020 XaoS Contributors
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
