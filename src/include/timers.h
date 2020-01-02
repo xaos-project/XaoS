@@ -23,9 +23,6 @@
 #ifndef TIMERS_H
 #define TIMERS_H
 #include "config.h"
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 struct timer;
 struct timeemulator;
@@ -59,7 +56,4 @@ void tl_elpased(struct timeemulator *t, int elpased);
 void tl_emulate_timer(struct timer *t, struct timeemulator *e);
 void tl_unemulate_timer(struct timer *t);
 
-#ifdef __cplusplus
-}
-#endif
 #endif /* TIMER_H */

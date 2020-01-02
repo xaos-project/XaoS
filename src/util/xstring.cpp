@@ -13,7 +13,7 @@ struct fr {
 char *mystrdup(const char *c)
 {
     int l = strlen(c);
-    char *d = malloc(l + 1);
+    char *d = (char *)malloc(l + 1);
     if (!d)
         return NULL;
     memcpy(d, c, l + 1);

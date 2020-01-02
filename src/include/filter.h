@@ -1,9 +1,6 @@
 ﻿#ifndef IMAGE_H
 #define IMAGE_H
 #include "config.h"
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 typedef unsigned char pixel_t;
 typedef unsigned char
@@ -216,6 +213,12 @@ struct queue {
      ((f)->imageversion && (f)->imageversion != (i)->image->version))
 /*filter actions */
 
+extern const struct filteraction interlace_filter, stereogram_filter,
+    subwindow_filter, smalliter_filter, julia_filter, blur_filter, edge_filter,
+    edge2_filter, rotate_filter, starfield_filter, truecolor_filter,
+    fixedcolor_filter, bitmap_filter, emboss_filter, palette_filter,
+    antialias_filter, threed_filter;
+
 extern unsigned int col_diff[3][512];
 struct filter *createfilter(const struct filteraction *fa);
 struct queue *create_queue(struct filter *f);
@@ -338,8 +341,5 @@ int fixedalloccolor(struct palette *palette, int init, int r, int g, int b);
 #endif
 #endif
 
-#ifdef __cplusplus
-}
-#endif
 #include "formulas.h"
 #endif

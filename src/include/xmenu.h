@@ -2,9 +2,6 @@
 #define XMENU_H
 #include "xio.h"
 #include "config.h"
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 struct uih_context;
 typedef union {
@@ -335,7 +332,7 @@ See ui/ui.c, ui_registermenus_i18n() for further details. */
     menuitems_i18n[no_menuitems_i18n].flags = _flags;                          \
     menuitems_i18n[no_menuitems_i18n].iparam = 0;                              \
     menuitems_i18n[no_menuitems_i18n].name = _name;                            \
-    menuitems_i18n[no_menuitems_i18n].pparam = _param;                         \
+    menuitems_i18n[no_menuitems_i18n].pparam = (const void *)_param;           \
     menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;    \
     ++no_menuitems_i18n;
 
@@ -348,7 +345,7 @@ See ui/ui.c, ui_registermenus_i18n() for further details. */
     menuitems_i18n[no_menuitems_i18n].flags = (_flags) | MENUFLAG_CHECKBOX;    \
     menuitems_i18n[no_menuitems_i18n].iparam = 0;                              \
     menuitems_i18n[no_menuitems_i18n].name = _name;                            \
-    menuitems_i18n[no_menuitems_i18n].pparam = _param;                         \
+    menuitems_i18n[no_menuitems_i18n].pparam = (const void *)_param;           \
     menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;    \
     menuitems_i18n[no_menuitems_i18n].control = (int (*)(void))_check;         \
     ++no_menuitems_i18n;
@@ -378,7 +375,7 @@ See ui/ui.c, ui_registermenus_i18n() for further details. */
     menuitems_i18n[no_menuitems_i18n].flags = (_flags) | MENUFLAG_CHECKBOX;    \
     menuitems_i18n[no_menuitems_i18n].iparam = 0;                              \
     menuitems_i18n[no_menuitems_i18n].name = _name;                            \
-    menuitems_i18n[no_menuitems_i18n].pparam = _param;                         \
+    menuitems_i18n[no_menuitems_i18n].pparam = (const void *)_param;           \
     menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;    \
     menuitems_i18n[no_menuitems_i18n].control = (int (*)(void))_check;         \
     menuitems_i18n[no_menuitems_i18n].dialog =                                 \
@@ -418,7 +415,7 @@ See ui/ui.c, ui_registermenus_i18n() for further details. */
     menuitems_i18n[no_menuitems_i18n].flags = _flags;                          \
     menuitems_i18n[no_menuitems_i18n].iparam = 0;                              \
     menuitems_i18n[no_menuitems_i18n].name = _name;                            \
-    menuitems_i18n[no_menuitems_i18n].pparam = _param;                         \
+    menuitems_i18n[no_menuitems_i18n].pparam = (const void *)_param;           \
     menuitems_i18n[no_menuitems_i18n].function = (void (*)(void))_function;    \
     ++no_menuitems_i18n;
 
@@ -474,7 +471,4 @@ void uih_xshlprintmenus(struct uih_context *c);
 void menu_forall(struct uih_context *c,
                  void (*callback)(struct uih_context *c, const menuitem *item));
 
-#ifdef __cplusplus
-}
-#endif
 #endif

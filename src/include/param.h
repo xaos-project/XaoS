@@ -22,10 +22,6 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 struct params {
     const char *name;
     int type;
@@ -42,7 +38,4 @@ struct params {
 int params_parser(int, char **);
 void params_register(const struct params *par);
 
-#ifdef __cplusplus
-}
-#endif
 #endif

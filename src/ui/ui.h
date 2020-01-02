@@ -28,10 +28,6 @@
 #include "config.h"
 #include "param.h"
 #include "xmenu.h"
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 void ui_quit(int);
 
 extern int printspeed;
@@ -43,9 +39,5 @@ extern float pixelwidth, pixelheight;
 #ifdef SFFE_USING
 extern char *sffeform;
 extern char *sffeinit;
-#endif
-
-#ifdef __cplusplus
-}
 #endif
 #endif /* UI_H */

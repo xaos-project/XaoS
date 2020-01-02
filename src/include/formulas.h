@@ -34,10 +34,6 @@
 #endif
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #ifdef SFFE_USING
 /*extern sffe* parser;
    extern sffe* pinit; */
@@ -57,7 +53,4 @@ extern const char *const tcolorname[];
 extern const int nformulas;
 extern const int nmformulas;
 
-#ifdef __cplusplus
-}
-#endif
 #endif /* FORMULAS_H */

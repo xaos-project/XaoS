@@ -8,9 +8,7 @@
 #include <string.h>
 #include <limits.h>
 
-#ifndef __cplusplus
 #include <math.h>
-#endif
 #include <stdlib.h>
 #define SLARGEITER
 #include "xthread.h"

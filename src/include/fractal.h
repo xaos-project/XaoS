@@ -22,10 +22,6 @@
 #ifndef FRACTAL1_H
 #define FRACTAL1_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "config.h"
 #define INCOLORING 11
 #define OUTCOLORING 11
@@ -161,7 +157,4 @@ unsigned int calculateswitch(register number_t x1, register number_t y1,
 /* needs struct formula */
 #include "formulas.h"
 
-#ifdef __cplusplus
-}
-#endif
 #endif /* FRACTAL_H */

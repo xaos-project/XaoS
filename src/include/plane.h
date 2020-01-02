@@ -29,10 +29,6 @@
 #include "sffe.h"
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /*#define PLANES 7*/
 #define P_MU 0
 #define P_INVERSE 1
@@ -50,7 +46,4 @@ extern const char *const planename[];
 extern const sffe *planec;
 #endif
 
-#ifdef __cplusplus
-}
-#endif
 #endif /* PLANE_H */

@@ -71,12 +71,6 @@ static const struct filteraction uih_filter = {"XaoS's user interface layer",
 static uih_context *uih;
 static int waitcount, waitcount1, waitcount2;
 
-extern const struct filteraction interlace_filter, stereogram_filter,
-    subwindow_filter, smalliter_filter, julia_filter, blur_filter, edge_filter,
-    edge2_filter, rotate_filter, starfield_filter, truecolor_filter,
-    fixedcolor_filter, bitmap_filter, emboss_filter, palette_filter,
-    antialias_filter, threed_filter;
-
 const struct filteraction *const uih_filters[MAXFILTERS] = {
     &edge_filter,       &edge2_filter,     &threed_filter,    &starfield_filter,
     &stereogram_filter, &interlace_filter, &blur_filter,      &emboss_filter,

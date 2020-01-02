@@ -686,8 +686,6 @@ void uih_zoomcenter(struct uih_context *uih, number_t x, number_t y)
     uih->ycenterm = INT_MAX;
 }
 
-extern char *xtextposnames[];
-extern char *ytextposnames[];
 void uih_playtextpos(struct uih_context *uih, dialogparam *p)
 {
     int x, y;

@@ -48,7 +48,7 @@ static inline void prepare(struct uih_context *c, char *string, int *xmax,
 
 static void getpos(uih_context *c, int *x, int *y, int *w, int *h, void *data)
 {
-    long num = (long)data;
+    long num = (long)(size_t)data;
     int xmax, nr;
     if (c->text[num] == NULL) {
         *x = *y = *h = *w;
@@ -84,7 +84,7 @@ static void getpos(uih_context *c, int *x, int *y, int *w, int *h, void *data)
 
 static void draw(uih_context *c, void *data)
 {
-    long num = (long)data;
+    long num = (long)(size_t)data;
     int flags = 0;
     int xmax, n, nr, i;
     int x = 0, y = 0;

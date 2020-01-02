@@ -33,8 +33,6 @@ static int requirement(struct filter *f, struct requirements *r)
     return (f->next->action->requirement(f->next, r));
 }
 
-extern const struct filteraction threed_filter;
-
 static int initialize(struct filter *f, struct initdata *i)
 {
     struct subdata *s = (struct subdata *)f->data;

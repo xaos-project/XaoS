@@ -93,7 +93,6 @@ struct frame_info {
     int newimage;
 };
 
-extern struct filteraction antialias_filter;
 int uih_renderanimation(struct uih_context *gc1, const char *basename,
                         xio_constpath animation, int width, int height,
                         float pixelwidth, float pixelheight, int frametime,

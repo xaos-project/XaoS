@@ -4,9 +4,6 @@ have stdio!) and allow general streams to strings etc. */
 #ifndef XIO1_H
 #define XIO1_H 1
 #include "config.h"
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #define XIO_FAILED NULL
 struct xio_filestruct {
@@ -89,7 +86,4 @@ int xio_getfiles(xio_constpath path, char ***names, char ***dirs, int *nnames,
 void xio_init(const char *c);
 void xio_uninit(void);
 
-#ifdef __cplusplus
-}
-#endif
 #endif

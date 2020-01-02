@@ -21,10 +21,6 @@
  */
 #ifndef ZOOM_H
 #define ZOOM_H
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #define LOWQUALITY (1 << 30)
 #define ZOOMMASK (LOWQUALITY | INCOMPLETE)
 
@@ -32,8 +28,4 @@ extern const struct filteraction zoom_filter;
 extern struct filter cfilter;
 extern const struct filteraction subwindow_filter;
 void subwindow_setsecond(struct filter *f, struct filter *f1);
-
-#ifdef __cplusplus
-}
-#endif
 #endif /* ZOOM_H */

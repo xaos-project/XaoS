@@ -5,8 +5,6 @@
 #include "grlib.h"
 #include "xio.h"
 
-extern "C" {
-
 static QFont getFont() { return QFont(QApplication::font().family(), 12); }
 
 int xprint(struct image *image, const struct xfont *current, int x, int y,
@@ -92,6 +90,4 @@ struct image *create_image_qt(int width, int height, struct palette *palette,
     img->data = data;
     img->free = freeImage;
     return img;
-}
-
 }

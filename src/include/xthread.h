@@ -12,9 +12,6 @@
 #ifndef THREAD_H
 #define THREAD_H 1
 #include "config.h"
-#ifdef __cplusplus
-extern "C" {
-#endif
 #define MAXTHREADS 32
 /*You might increase this constant if needed
    (xaos on connection machine? :) */
@@ -125,9 +122,5 @@ extern pthread_cond_t conds[MAXCONDS];
 #define xth_wakeup(n) nothreads_wakeup(n)
 #define xth_wakefirst(n) nothreads_wakefirst(n)
 #define xth_sleep(n, l) nothreads_sleep(n, l)
-#endif
-
-#ifdef __cplusplus
-}
 #endif
 #endif

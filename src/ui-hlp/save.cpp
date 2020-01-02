@@ -19,6 +19,7 @@ static int changed;
 static int last;
 const char *const save_fastmode[] = {"zero", "never",   "animation",
                                      "new",  "allways", NULL};
+
 const char *const xtextposnames[] = {"left", "center", "right", NULL};
 const char *const ytextposnames[] = {"top", "middle", "bottom", NULL};
 

@@ -80,9 +80,6 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
 #endif
     ;
 
-extern char *xtextposnames[];
-extern char *ytextposnames[];
-
 void uih_registermenudialogs_i18n(void)
 {
     int no_menudialogs_i18n = 0;
@@ -1351,9 +1348,9 @@ static void uih_filtersw(struct uih_context *c, int n)
 
 static menuitem *formulaitems;
 static menuitem *filteritems;
-static char (*keys)[2];
 void uih_registermenus(void)
 {
+    char keys[2];
     menuitem *item;
     int i;
     menu_add(menuitems, NITEMS(menuitems));
@@ -1361,21 +1358,20 @@ void uih_registermenus(void)
 
     /* This code automatically generates code for fractal, incoloring and other
      * menus*/
-    keys = malloc(sizeof(*keys) * nformulas);
     for (i = 0; i < nformulas; i++) {
         if (i < nmformulas) {
             item[i].menuname = "mformula";
         } else {
             item[i].menuname = "oformula";
         }
-        item[i].key = keys[i];
         if (i < 9)
-            keys[i][0] = '1' + i;
+            keys[0] = '1' + i;
         else if (i == 9)
-            keys[i][0] = '0';
+            keys[0] = '0';
         else
-            keys[i][0] = '7' + i;
-        keys[i][1] = 0;
+            keys[0] = '7' + i;
+        keys[1] = 0;
+        item[i].key = strdup(keys);
         item[i].type = MENU_INT;
         item[i].flags = MENUFLAG_RADIO | MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY;
         item[i].iparam = i;
@@ -1439,7 +1435,6 @@ void uih_unregistermenus(void)
     menu_delete(menuitems, NITEMS(menuitems));
     menu_delete(menuitems_i18n, uih_no_menuitems_i18n);
 
-    free(keys);
     menu_delete(formulaitems, nformulas);
     free(formulaitems);
 

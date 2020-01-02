@@ -48,7 +48,7 @@ static void *data;
 static xfunction function;
 static void *control_routine(void *i)
 {
-    struct taskinfo *info = i;
+    struct taskinfo *info = (struct taskinfo *)i;
     int mycounter = 0;
     int r;
     void *d;

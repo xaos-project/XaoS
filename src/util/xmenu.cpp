@@ -464,7 +464,7 @@ menu_genernumbered(int n, const char *menuname, const char *const *const names,
     for (i = 0; i < n; i++) {
         item[i].menuname = menuname;
         if (i < l) {
-            char *key = malloc(2);
+            char *key = (char *)malloc(2);
             item[i].key = key;
             key[0] = keys[i];
             key[1] = 0;

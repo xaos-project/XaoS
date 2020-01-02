@@ -10,7 +10,7 @@
 #define EXPIRETIME 4000000
 static void getpos(uih_context *c, int *x, int *y, int *w, int *h, void *data)
 {
-    long n = (long)data;
+    long n = (long)(size_t)data;
     if (c->messg.message[n] != NULL) {
         int he = xtextheight(c->image, c->font);
         *y = c->messg.messagestart + he * n;
@@ -25,7 +25,7 @@ static void getpos(uih_context *c, int *x, int *y, int *w, int *h, void *data)
 static void draw(uih_context *c, void *data)
 {
     int x, y, w;
-    long n = (long)data;
+    long n = (long)(size_t)data;
     if (c->messg.message[n] != NULL) {
         int h = xtextheight(c->image, c->font);
         y = c->messg.messagestart + h * n;

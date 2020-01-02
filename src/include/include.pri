@@ -18,6 +18,7 @@ HEADERS += \
     $$PWD/pixel_t.h \
     $$PWD/plane.h \
     $$PWD/sffe.h \
+    $$PWD/sffe_real.h \
     $$PWD/sffe_cmplx_gsl.h \
     $$PWD/timers.h \
     $$PWD/true24.h \
@@ -37,4 +38,5 @@ HEADERS += \
     $$PWD/gsl/gsl_precision.h \
     $$PWD/gsl/gsl_machine.h \
     $$PWD/gsl/gsl_types.h \
+    $$PWD/gsl/gsl_sys.h \
     $$PWD/gsl/gsl_inline.h

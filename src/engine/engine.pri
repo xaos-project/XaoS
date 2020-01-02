@@ -1,25 +1,25 @@
 SOURCES += \
-    $$PWD/filter.c \
-    $$PWD/formulas.c \
-    $$PWD/fractal.c \
-    $$PWD/btrace.c \
-    $$PWD/palettef.c \
-    $$PWD/emboss.c \
-    $$PWD/star.c \
-    $$PWD/anti.c \
-    $$PWD/dither.c \
-    $$PWD/edge.c \
-    $$PWD/edge2.c \
-    $$PWD/rotate.c \
-    $$PWD/zoom.c \
-    $$PWD/blur.c \
-    $$PWD/interlace.c \
-    $$PWD/itersmall.c \
-    $$PWD/stereogram.c \
-    $$PWD/3d.c \
-    $$PWD/subwindow.c \
-    $$PWD/plane.c \
-    $$PWD/julia.c
+    $$PWD/filter.cpp \
+    $$PWD/formulas.cpp \
+    $$PWD/fractal.cpp \
+    $$PWD/btrace.cpp \
+    $$PWD/palettef.cpp \
+    $$PWD/emboss.cpp \
+    $$PWD/star.cpp \
+    $$PWD/anti.cpp \
+    $$PWD/dither.cpp \
+    $$PWD/edge.cpp \
+    $$PWD/edge2.cpp \
+    $$PWD/rotate.cpp \
+    $$PWD/zoom.cpp \
+    $$PWD/blur.cpp \
+    $$PWD/interlace.cpp \
+    $$PWD/itersmall.cpp \
+    $$PWD/stereogram.cpp \
+    $$PWD/3d.cpp \
+    $$PWD/subwindow.cpp \
+    $$PWD/plane.cpp \
+    $$PWD/julia.cpp
 
 HEADERS += \
     $$PWD/3dd.h \

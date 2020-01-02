@@ -1,12 +1,12 @@
-SOURCES += $$PWD/autopilot.c \
-    $$PWD/ui_helper.c \
-    $$PWD/menu.c \
-    $$PWD/play.c \
-    $$PWD/render.c \
-    $$PWD/playtext.c \
-    $$PWD/save.c \
-    $$PWD/messg.c \
-    $$PWD/wstack.c
+SOURCES += $$PWD/autopilot.cpp \
+    $$PWD/menu.cpp \
+    $$PWD/ui_helper.cpp \
+    $$PWD/play.cpp \
+    $$PWD/render.cpp \
+    $$PWD/playtext.cpp \
+    $$PWD/save.cpp \
+    $$PWD/messg.cpp \
+    $$PWD/wstack.cpp
 
 HEADERS += $$PWD/play.h \
     $$PWD/autod.h \

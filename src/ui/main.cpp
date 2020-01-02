@@ -262,8 +262,6 @@ int ui_render(void)
     return 0;
 }
 
-extern "C" {
-
 const char *qt_gettext(const char *text)
 {
     static std::map<const char *, const char *> strings;
@@ -274,7 +272,6 @@ const char *qt_gettext(const char *text)
         strings[text] = trans;
     }
     return trans;
-}
 }
 
 static MainWindow *window;

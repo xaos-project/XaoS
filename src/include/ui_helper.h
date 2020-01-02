@@ -7,9 +7,6 @@
 #include "sffe.h"
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #define MAXFILTERS 20
 #define AVRGSIZE 50
 #define NMESSAGES 5
@@ -364,6 +361,8 @@ extern const struct filteraction *const uih_filters[MAXFILTERS];
 extern const int uih_nfilters;
 
 extern struct uih_context *globaluih;
+extern const char *const xtextposnames[];
+extern const char *const ytextposnames[];
 
 struct uih_context *
 uih_mkcontext(int flags, struct image *image,
@@ -549,7 +548,4 @@ int uih_statusenabled(uih_context *uih);
 int uih_ministatusenabled(uih_context *uih);
 void uih_ministatus(uih_context *uih);
 
-#ifdef __cplusplus
-}
-#endif
 #endif

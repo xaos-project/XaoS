@@ -1,8 +1,5 @@
 ﻿#ifndef _TEXT_H
 #define _TEXT_H
-#ifdef __cplusplus
-extern "C" {
-#endif
 extern const struct xfont {
     const unsigned char *data;
     int width, height, realwidth, encoding;
@@ -24,7 +21,4 @@ void xrestoreline(struct image *img, char *data, int x1, int y1, int x2,
 void xline(struct image *img, int x1, int y1, int x2, int y2, int color);
 void xprepareimage(struct image *img);
 
-#ifdef __cplusplus
-}
-#endif
 #endif

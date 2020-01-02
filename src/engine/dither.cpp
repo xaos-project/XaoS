@@ -430,9 +430,9 @@ static void convert(void *data, struct taskinfo *task, int r1, int r2)
             g = (b >> 8) & 0xff;
             r = (b >> 16);
             b &= 0xff;
-            r += s->rmat[x][(unsigned long)dest & (MSIZE - 1)];
-            g += s->gmat[x][(unsigned long)dest & (MSIZE - 1)];
-            b += s->bmat[x][(unsigned long)dest & (MSIZE - 1)];
+            r += s->rmat[x][(unsigned long)(size_t)dest & (MSIZE - 1)];
+            g += s->gmat[x][(unsigned long)(size_t)dest & (MSIZE - 1)];
+            b += s->bmat[x][(unsigned long)(size_t)dest & (MSIZE - 1)];
             if (r & (~255)) {
                 if (r < 0)
                     r = 0;
