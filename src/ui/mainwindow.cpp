@@ -146,7 +146,7 @@ void MainWindow::menuActivate(const menuitem *item, dialogparam *d)
     }
 }
 
-void MainWindow::processBuffer(void)
+void MainWindow::processQueue()
 {
     const menuitem *item;
     dialogparam *d;
@@ -159,80 +159,72 @@ void MainWindow::processBuffer(void)
 
 int MainWindow::processKey(int key)
 {
-    int sym;
-    char mkey[2];
-    const menuitem *item;
-    switch (sym = tolower(key)) {
-        case ' ':
-            uih->display = 1;
-            if (uih->play) {
-                if (uih->incalculation) {
-                    uih_updatestatus(uih);
-                    widget->repaint();
-                } else {
-                    uih_skipframe(uih);
-                    showStatus(gettext("Skipping, please wait..."));
-                }
-            }
-            break;
-        default: {
-            int number;
-            if (sym >= '0' && sym <= '9') {
-                number = sym - '1';
-                if (number < 0)
-                    number = 9;
-                if (number == -1)
-                    break;
+    int sym = tolower(key);
+    if (sym == ' ') {
+        uih->display = 1;
+        if (uih->play) {
+            if (uih->incalculation) {
+                uih_updatestatus(uih);
+                widget->repaint();
+            } else {
+                uih_skipframe(uih);
+                showStatus(gettext("Skipping, please wait..."));
             }
         }
-            mkey[0] = key;
-            mkey[1] = 0;
+    } else {
+        char mkey[2];
+        mkey[0] = key;
+        mkey[1] = 0;
+        const menuitem *item;
+        item = menu_findkey(mkey, uih->menuroot);
+        if (item == NULL) {
+            mkey[0] = sym;
             item = menu_findkey(mkey, uih->menuroot);
-            if (item == NULL) {
-                mkey[0] = sym;
-                item = menu_findkey(mkey, uih->menuroot);
-            }
-            if (item != NULL) {
-                dialogparam *p = NULL;
-                if (menu_havedialog(item, uih)) {
-                    const menudialog *d = menu_getdialog(uih, item);
-                    int mousex, mousey;
-                    mousex = widget->mousePosition().x();
-                    mousey = widget->mousePosition().y();
-                    if (d[0].question != NULL && d[1].question == NULL &&
-                        d[0].type == DIALOG_COORD) {
-                        p = (dialogparam *)malloc(sizeof(dialogparam));
-                        uih_screentofractalcoord(uih, mousex, mousey, p->dcoord,
-                                                 p->dcoord + 1);
-                    }
+        }
+        if (item != NULL) {
+            dialogparam *p = NULL;
+            if (menu_havedialog(item, uih)) {
+                const menudialog *d = menu_getdialog(uih, item);
+                int mousex, mousey;
+                mousex = widget->mousePosition().x();
+                mousey = widget->mousePosition().y();
+                if (d[0].question != NULL && d[1].question == NULL &&
+                    d[0].type == DIALOG_COORD) {
+                    p = (dialogparam *)malloc(sizeof(dialogparam));
+                    uih_screentofractalcoord(uih, mousex, mousey, p->dcoord,
+                                             p->dcoord + 1);
                 }
-                menuActivate(item, p);
             }
-            break;
+            menuActivate(item, p);
+        }
     }
-    processBuffer();
+    processQueue();
     return 0;
 }
 
-int MainWindow::processCounter(int *counter, const char *text, int speed, int keys,
-                          int lastkeys, int down, int up, int tenskip, int min,
-                          int max)
+#define KEYLEFT 1
+#define KEYRIGHT 2
+#define KEYUP 4
+#define KEYDOWN 8
+
+bool MainWindow::processArrows(int *counter, const char *text, int speed,
+                               int keys, int lastkeys, int down, int up,
+                               bool tenskip, int min, int max)
 {
     static int pid = -1;
-    int changed = 0;
-    char str[80];
+    bool changed = false;
     if (tl_lookup_timer(arrowtimer) > 1000000)
         tl_reset_timer(arrowtimer);
     if ((keys & up) && !(lastkeys & up)) {
         (*counter)++;
-        tenskip = 0;
-        changed = 1;
+        tenskip = false;
+        changed = true;
         tl_reset_timer(arrowtimer);
     }
     if ((keys & down) && !(lastkeys & down)) {
         (*counter)--;
-        tenskip = 0;
-        changed = 1;
+        tenskip = false;
+        changed = true;
         tl_reset_timer(arrowtimer);
     }
     while (tl_lookup_timer(arrowtimer) > speed * FRAMETIME) {
@@ -242,14 +234,14 @@ int MainWindow::processCounter(int *counter, const char *text, int speed, int ke
                 (*counter) += 10;
             else
                 (*counter)++;
-            changed = 1;
+            changed = true;
         }
         if (keys & down) {
             if (tenskip && !(*counter % 10))
                 (*counter) -= 10;
             else
                 (*counter)--;
-            changed = 1;
+            changed = true;
         }
     }
     if (changed) {
@@ -257,6 +249,7 @@ int MainWindow::processCounter(int *counter, const char *text, int speed, int ke
             *counter = max;
         if (*counter < min)
             *counter = min;
+        char str[80];
         sprintf(str, text, *counter);
         uih_rmmessage(uih, pid);
         pid = uih_message(uih, str);
@@ -265,8 +258,6 @@ int MainWindow::processCounter(int *counter, const char *text, int speed, int ke
 }
 
 #define ROTATESPEEDUP 30
-#define CHECKPROCESSEVENTS(b, k)                                               \
-    assert(!((k) & ~15) && !((b) & ~(BUTTON1 | BUTTON2 | BUTTON3)))
 
 void MainWindow::processEvents(bool wait)
 {
@@ -274,37 +265,33 @@ void MainWindow::processEvents(bool wait)
     static int spid;
     QCoreApplication::processEvents(wait ? QEventLoop::WaitForMoreEvents
                                          : QEventLoop::AllEvents);
-    static int dirty = 0;
-    static int lastiter;
+    static bool dirty = false;
+    static int lastkey;
     static int maxiter;
 
     int mousex = widget->mousePosition().x();
     int mousey = widget->mousePosition().y();
-    int mousebuttons = mouseButtons();
-    int iterchange = keyCombination();
+    int buttons = mouseButtons();
+    int key = keyCombination();
     tl_update_time();
-    CHECKPROCESSEVENTS(mousebuttons, iterchange);
-    uih_update(uih, mousex, mousey, mousebuttons);
+    assert(!((key) & ~(KEYLEFT | KEYRIGHT | KEYUP | KEYDOWN)) &&
+           !((buttons) & ~(BUTTON1 | BUTTON2 | BUTTON3)));
+    uih_update(uih, mousex, mousey, buttons);
     if (uih->play) {
-        processCounter(&uih->letterspersec, gettext("Letters per second %i  "),
-                       2, iterchange, lastiter, 1, 2, 0, 1, INT_MAX);
+        processArrows(&uih->letterspersec, gettext("Letters per second %i  "),
+                      2, key, lastkey, KEYLEFT, KEYRIGHT, false, 1, INT_MAX);
         return;
     }
     if (!uih->cycling) {
         if (uih->rotatemode == ROTATE_CONTINUOUS) {
             static int rpid;
-            if (iterchange == 2) {
+            if (key == KEYRIGHT)
                 uih->rotationspeed +=
                     ROTATESPEEDUP * tl_lookup_timer(maintimer) / 1000000.0;
-                uih_rmmessage(uih, rpid);
-                sprintf(str,
-                        gettext("Rotation speed:%2.2f degrees per second "),
-                        (float)uih->rotationspeed);
-                rpid = uih_message(uih, str);
-            }
-            if (iterchange == 1) {
+            else if (key == KEYLEFT)
                 uih->rotationspeed -=
                     ROTATESPEEDUP * tl_lookup_timer(maintimer) / 1000000.0;
+            if (key & (KEYLEFT | KEYRIGHT)) {
                 uih_rmmessage(uih, rpid);
                 sprintf(str,
                         gettext("Rotation speed:%2.2f degrees per second "),
@@ -315,11 +302,11 @@ void MainWindow::processEvents(bool wait)
         } else {
             if (!dirty)
                 maxiter = uih->fcontext->maxiter;
-            if (processCounter(&maxiter, gettext("Iterations: %i   "), 1,
-                               iterchange, lastiter, 1, 2, 1, 1, INT_MAX) ||
-                (iterchange & 3)) {
-                dirty = 1;
-                lastiter = iterchange;
+            if (processArrows(&maxiter, gettext("Iterations: %i   "), 1, key,
+                              lastkey, KEYLEFT, KEYRIGHT, false, 1, INT_MAX) ||
+                (key & (KEYLEFT | KEYRIGHT))) {
+                dirty = true;
+                lastkey = key;
                 return;
             }
         }
@@ -327,47 +314,40 @@ void MainWindow::processEvents(bool wait)
     if (dirty) {
         if (uih->incalculation)
             uih_interrupt(uih);
-        else
-            uih_setmaxiter(uih, maxiter), dirty = 0;
+        else {
+            uih_setmaxiter(uih, maxiter);
+            dirty = false;
+        }
     }
     if (uih->cycling) {
-        if (processCounter(&uih->cyclingspeed, gettext("Cycling speed: %i   "),
-                           1, iterchange, lastiter, 1, 2, 0, -1000000,
-                           INT_MAX)) {
+        if (processArrows(&uih->cyclingspeed, gettext("Cycling speed: %i   "),
+                          1, key, lastkey, KEYLEFT, KEYRIGHT, 0, -1000000,
+                          INT_MAX)) {
             uih_setcycling(uih, uih->cyclingspeed);
         }
     }
-    if (iterchange & 4 &&
-        (tl_lookup_timer(maintimer) > FRAMETIME || mousebuttons)) {
+    if (tl_lookup_timer(maintimer) > FRAMETIME || buttons) {
         double mul1 = tl_lookup_timer(maintimer) / FRAMETIME;
         double su = 1 + (SPEEDUP - 1) * mul1;
         if (su > 2 * SPEEDUP)
             su = SPEEDUP;
         tl_reset_timer(maintimer);
-        uih->speedup *= su, uih->maxstep *= su;
-        sprintf(str, gettext("speed:%2.2f "),
-                (double)uih->speedup * (1.0 / STEP));
-        uih_rmmessage(uih, spid);
-        spid = uih_message(uih, str);
+        if (key & KEYUP)
+            uih->speedup *= su, uih->maxstep *= su;
+        else if (key & KEYDOWN)
+            uih->speedup /= su, uih->maxstep /= su;
+        if (key & (KEYUP | KEYDOWN)) {
+            sprintf(str, gettext("speed:%2.2f "),
+                    (double)uih->speedup * (1.0 / STEP));
+            uih_rmmessage(uih, spid);
+            spid = uih_message(uih, str);
+        }
     }
-    if (iterchange & 8 &&
-        (tl_lookup_timer(maintimer) > FRAMETIME || mousebuttons)) {
-        double mul1 = tl_lookup_timer(maintimer) / FRAMETIME;
-        double su = 1 + (SPEEDUP - 1) * mul1;
-        if (su > 2 * SPEEDUP)
-            su = SPEEDUP;
-        tl_reset_timer(maintimer);
-        uih->speedup /= su, uih->maxstep /= su;
-        sprintf(str, gettext("speed:%2.2f "),
-                (double)uih->speedup * (1 / STEP));
-        uih_rmmessage(uih, spid);
-        spid = uih_message(uih, str);
-    }
-    lastiter = iterchange;
+    lastkey = key;
     return;
 }
 
-struct image *MainWindow::makeImages(int width, int height)
+struct image *MainWindow::makeImage(int width, int height)
 {
     struct palette *palette;
     union paletteinfo info;
@@ -392,10 +372,8 @@ struct image *MainWindow::makeImages(int width, int height)
     return image;
 }
 
-void MainWindow::doResize(void)
+void MainWindow::resizeImage(int width, int height)
 {
-    int w, h;
-
     /* Prevent crash on startup for Mac OS X */
     if (!uih)
         return;
@@ -408,13 +386,11 @@ void MainWindow::doResize(void)
     uih_stoptimers(uih);
     uih_cycling_stop(uih);
     uih_savepalette(uih);
-    w = widget->size().width();
-    h = widget->size().height();
-    assert(w > 0 && w < 65000 && h > 0 && h < 65000);
-    if (w != uih->image->width || h != uih->image->height) {
+    assert(width > 0 && width < 65000 && height > 0 && height < 65000);
+    if (width != uih->image->width || height != uih->image->height) {
         destroy_image(uih->image);
         destroypalette(uih->palette);
-        struct image *image = makeImages(w, h);
+        struct image *image = makeImage(width, height);
         if (!uih_updateimage(uih, image)) {
             x_error(gettext("Can not allocate tables"));
             x_error(gettext("XaoS is out of memory."));
@@ -427,9 +403,7 @@ void MainWindow::doResize(void)
     }
     uih_newimage(uih);
     uih_restorepalette(uih);
-    /*uih_mkdefaultpalette(uih); */
     uih->display = 1;
-    ;
     uih_cycling_continue(uih);
 }
 
@@ -443,7 +417,6 @@ void MainWindow::eventLoop()
 {
     int inmovement = 1;
     int time;
-    // QCoreApplication::processEvents(QEventLoop::AllEvents);
     for (;;) {
         widget->setCursor(uih->play ? Qt::ForbiddenCursor : Qt::CrossCursor);
         if (uih->display) {
@@ -475,11 +448,11 @@ void MainWindow::eventLoop()
                 tl_update_time();
             }
         }
-        processBuffer();
+        processQueue();
         processEvents(!inmovement && !uih->inanimation);
         inmovement = 0;
         if (shouldResize) {
-            doResize();
+            resizeImage(widget->size().width(), widget->size().height());
             shouldResize = false;
         }
     }
@@ -530,7 +503,7 @@ int MainWindow::showProgress(int display, const char *text, float percent)
             }
         }
     }
-    return (0);
+    return 0;
 }
 
 static int ui_passfunc(struct uih_context *uih, int display, const char *text,
@@ -538,8 +511,9 @@ static int ui_passfunc(struct uih_context *uih, int display, const char *text,
 {
     if (uih->data) {
         MainWindow *window = reinterpret_cast<MainWindow *>(uih->data);
-        window->showProgress(display, text, percent);
+        return window->showProgress(display, text, percent);
     }
+    return 0;
 }
 
 void MainWindow::pleaseWait()
@@ -582,10 +556,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     int width = widget->size().width();
     int height = widget->size().height();
-    struct image *image = makeImages(width, height);
+    struct image *image = makeImage(width, height);
 
     /* globaluih initialization moved into uih_mkcontext function : malczak */
-    uih = uih_mkcontext(PIXELSIZE, image, ui_passfunc, ui_message, ui_updatemenus);
+    uih = uih_mkcontext(PIXELSIZE, image, ui_passfunc, ui_message,
+                        ui_updatemenus);
     uih->data = this;
     buildMenu(uih->menuroot);
     uih->fcontext->version++;
@@ -922,16 +897,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
     switch (event->key()) {
         case Qt::Key_Left:
-            m_keyCombination |= 1;
+            m_keyCombination |= KEYLEFT;
             break;
         case Qt::Key_Right:
-            m_keyCombination |= 2;
+            m_keyCombination |= KEYRIGHT;
             break;
         case Qt::Key_Up:
-            m_keyCombination |= 4;
+            m_keyCombination |= KEYUP;
             break;
         case Qt::Key_Down:
-            m_keyCombination |= 8;
+            m_keyCombination |= KEYDOWN;
             break;
         default:
             if (!event->text().isEmpty())
@@ -947,23 +922,20 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 
     switch (event->key()) {
         case Qt::Key_Left:
-            m_keyCombination &= ~1;
+            m_keyCombination &= ~KEYLEFT;
             break;
         case Qt::Key_Right:
-            m_keyCombination &= ~2;
+            m_keyCombination &= ~KEYRIGHT;
             break;
         case Qt::Key_Up:
-            m_keyCombination &= ~4;
+            m_keyCombination &= ~KEYUP;
             break;
         case Qt::Key_Down:
-            m_keyCombination &= ~8;
+            m_keyCombination &= ~KEYDOWN;
             break;
         default:
             event->ignore();
     }
 }
 
-void MainWindow::resizeEvent(QResizeEvent *event)
-{
-    shouldResize = true;
-}
+void MainWindow::resizeEvent(QResizeEvent *event) { shouldResize = true; }
