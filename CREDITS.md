@@ -79,3 +79,7 @@ Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
   * Linus Torvalds (for the best kernel)
   * Tim Wegner & Bert Tyler (for Fractint)
   * Darryl House (for making code of Fractint readable)
+
+## No thanks to
+
+  * Bill Gates
