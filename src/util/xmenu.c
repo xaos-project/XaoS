@@ -1,4 +1,5 @@
-﻿#include <stdio.h>
+﻿#define __USE_MINGW_ANSI_STDIO 1  // for long double support on Windows
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "config.h"
@@ -6,7 +7,6 @@
 #include "fractal.h"
 #include "ui_helper.h"
 #include "xerror.h"
-#include "xldio.h"
 #include "misc-f.h"
 #include "config.h"
 #include "xmenu.h"
@@ -496,12 +496,7 @@ number_t menu_getfloat(const char *s, const char **error)
 #endif
 #ifdef HAVE_LONG_DOUBLE
 #ifndef USE_ATOLD
-#ifdef USE_XLDIO
-    param = x_strtold(s, NULL);
-    if (0)
-#else
     if (sscanf(s, "%LG", &param) == 0)
-#endif
 #else
     param = _atold(s);
     if (0)

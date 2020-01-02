@@ -3,7 +3,6 @@ SOURCES += \
     $$PWD/thread.c \
     $$PWD/xstring.c \
     $$PWD/xerror.c \
-    $$PWD/xldio.c \
     $$PWD/xstdio.c \
     $$PWD/xmenu.c \
     $$PWD/random.c \

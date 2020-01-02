@@ -1,4 +1,6 @@
-﻿#include <limits.h>
+﻿#define __USE_MINGW_ANSI_STDIO 1  // for long double support on Windows
+#include <stdio.h>
+#include <limits.h>
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
@@ -7,7 +9,6 @@
 #include "ui_helper.h"
 #include "config.h"
 #include "xmenu.h"
-#include "xldio.h"
 #include "play.h"
 #define myputs(s)                                                              \
     ((xio_puts(s, uih->savec->file) == XIO_EOF) ? outputerror(uih), 1 : 0)
@@ -81,15 +82,11 @@ static void save_float(struct uih_context *uih, number_t number)
         first = 0;
 #ifdef HAVE_LONG_DOUBLE
         /*20 should be enought to specify 64digit number :) */
-#ifdef USE_XLDIO
-    x_ldout((long double)number, 20, uih->savec->file);
-#else
     {
         char s[256];
         sprintf(s, "%.20LG", (long double)number);
         myputs(s);
     }
-#endif
 #else
     {
         char s[256];
@@ -111,17 +108,12 @@ static void save_float2(struct uih_context *uih, number_t number, int places)
     if (places > 20)
         places = 20;
 #ifdef HAVE_LONG_DOUBLE
-#ifdef USE_XLDIO
-    fs[0] = 0; /* Avoid warning */
-    x_ldout((long double)number, places, uih->savec->file);
-#else
     {
         char s[256];
         sprintf(fs, "%%.%iLG", places);
         sprintf(s, fs, (long double)number);
         myputs(s);
     }
-#endif
 #else
     {
         char s[256];

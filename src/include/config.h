@@ -30,11 +30,13 @@
 #define HAVE_GETTIMEOFDAY
 #define HAVE_SYS_TIME_H
 #define HAVE_UNISTD_H
+#define HAVE_LONG_DOUBLE
 
 // Numeric type
+#ifdef HAVE_LONG_DOUBLE
 typedef long double number_t;
-#ifdef _WIN32
-#define USE_XLDIO
+#else
+typedef double number_t;
 #endif
 
 // Supported color depths

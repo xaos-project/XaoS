@@ -27,7 +27,6 @@ HEADERS += \
     $$PWD/ui_helper.h \
     $$PWD/xerror.h \
     $$PWD/xio.h \
-    $$PWD/xldio.h \
     $$PWD/xmenu.h \
     $$PWD/xthread.h \
     $$PWD/zoom.h \
