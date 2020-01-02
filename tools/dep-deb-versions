@@ -1,0 +1,4 @@
+#!/bin/sh
+# Prints the versions of the installed .deb packages that are required to run the xaos executable.
+(ldd ../bin/xaos | awk '{if ($3=="") print $1; else print $3}' | while read LIB; do dpkg -S $LIB \
+ | awk '{print $1}' | cut -d: -f1 ; done) | sort | uniq | xargs dpkg -l
