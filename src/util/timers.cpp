@@ -26,6 +26,7 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
+#include <stdlib.h>
 /*HAVE_UNISTD */
 #else
 #ifdef HAVE_FTIME
