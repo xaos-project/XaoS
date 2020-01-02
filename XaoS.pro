@@ -11,12 +11,21 @@ QT += opengl
 
 win32 {
     LIBS += -lopengl32
+    DEFINES += USE_OPENGL
 }
 
 macx {
     TARGET = XaoS
+    DEFINES += USE_OPENGL
 } else {
     TARGET = xaos
+}
+
+linux {
+    contains(QMAKE_HOST.arch, arm.*): { }
+    else {
+        DEFINES += USE_OPENGL
+    }
 }
 
 CONFIG(debug, debug|release) {

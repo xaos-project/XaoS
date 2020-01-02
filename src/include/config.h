@@ -24,7 +24,7 @@
 
 // Optional features
 #define USE_PTHREAD
-#define USE_OPENGL
+// #define USE_OPENGL
 
 #define HAVE_FTIME
 #define HAVE_GETTIMEOFDAY
