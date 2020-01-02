@@ -1,11 +1,11 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
+    $$PWD/cmplx.h \
     $$PWD/config.h \
     $$PWD/btrace.h \
     $$PWD/c256.h \
     $$PWD/catalog.h \
-    $$PWD/complex.h \
     $$PWD/fconfig.h \
     $$PWD/filter.h \
     $$PWD/formulas.h \

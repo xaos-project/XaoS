@@ -40,7 +40,7 @@
 #include <stdio.h>
 
 #include "config.h"
-#include "complex.h"
+#include "cmplx.h"
 #include "filter.h"
 #include "fractal.h"
 #include "julia.h"

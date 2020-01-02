@@ -28,7 +28,7 @@
 #include <math.h>
 #include "config.h"
 #include "filter.h"
-#include "complex.h"
+#include "cmplx.h"
 #include "plane.h"
 #include "timers.h"
 #ifndef M_PI

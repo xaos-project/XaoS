@@ -24,7 +24,7 @@
 #include <limits.h>
 #include "config.h"
 #include "plane.h"
-#include "complex.h"
+#include "cmplx.h"
 const char *const planename[] = {
     "mu",       "1/mu",         "1/(mu+0.25)",    "lambda",
     "1/lambda", "1/(lambda-1)", "1/(mu-1.40115)", NULL};

@@ -30,7 +30,7 @@
 #define SLARGEITER
 #include "filter.h"
 #include "zoom.h"
-#include "complex.h" /*for myabs */
+#include "cmplx.h" /*for myabs */
 #include "plane.h"
 #include "btrace.h"
 #include "xthread.h"
