@@ -25,9 +25,10 @@ class MainWindow : public QMainWindow
     tl_timer *loopt;
     tl_timer *arrowtimer;
 
-    void buildMenu(const char *name);
-    void buildMenu(const char *name, QMenu *parent);
+    static QKeySequence::StandardKey keyForItem(const QString &name);
     void buildMenu(const char *name, QMenu *parent, bool numbered);
+    void buildMenu(const char *name, QMenu *parent);
+    void buildMenu(const char *name);
     void popupMenu(const char *name);
     void toggleMenu(const char *name);
     void showDialog(const char *name);
@@ -37,16 +38,15 @@ class MainWindow : public QMainWindow
     void readSettings();
     void writeSettings();
     void menuActivate(const menuitem *item, dialogparam *d);
-    void processBuffer();
+    void processQueue();
     int processKey(int key);
-    int processCounter(int *counter, const char *text, int speed, int keys,
-                       int lastkeys, int down, int up, int tenskip, int min,
-                       int max);
+    bool processArrows(int *counter, const char *text, int speed, int keys,
+                      int lastkeys, int down, int up, bool tenskip, int min,
+                      int max);
     void processEvents(bool wait);
-    void doResize();
+    struct image *makeImage(int width, int height);
+    void resizeImage(int width, int height);
     void printSpeed();
-    struct image *makeImages(int width, int height);
-    static QKeySequence::StandardKey keyForItem(const QString &name);
 
   protected:
     void closeEvent(QCloseEvent *);
