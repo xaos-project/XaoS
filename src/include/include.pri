@@ -6,7 +6,6 @@ HEADERS += \
     $$PWD/btrace.h \
     $$PWD/c256.h \
     $$PWD/catalog.h \
-    $$PWD/fconfig.h \
     $$PWD/filter.h \
     $$PWD/formulas.h \
     $$PWD/fractal.h \
@@ -19,7 +18,6 @@ HEADERS += \
     $$PWD/pixel_t.h \
     $$PWD/plane.h \
     $$PWD/sffe.h \
-    $$PWD/sffe_cmplx_asm.h \
     $$PWD/sffe_cmplx_gsl.h \
     $$PWD/timers.h \
     $$PWD/true24.h \
