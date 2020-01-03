@@ -60,6 +60,10 @@ typedef double number_t;
 #define NGUESSES1 10    // maximum number of guesses using first method
 #define NGUESSES2 1000  // maximum number of guesses using second method
 
+// Default user formula
+// #define USER_FORMULA "z^log(c)*p"
+#define USER_FORMULA "c^z+im(p)*{0;1}"
+
 // Disable optional statistics collection and reporting
 //#define STATISTICS
 #undef STAT

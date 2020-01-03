@@ -266,7 +266,7 @@ void uih_registermenudialogs_i18n(void)
 
 #ifdef SFFE_USING
     Register(uih_sffedialog);
-    DIALOGSTR_I(gettext("Formula:"), "z^2+c");
+    DIALOGSTR_I(gettext("Formula:"), USER_FORMULA);
     NULL_I();
 
     Register(uih_sffeinitdialog);
@@ -1463,11 +1463,16 @@ void uih_sffein(uih_context *c, const char *text)
 {
     char str[200];
     int err;
+    // make a copy of the previous (working) content
+    char *prev_expr = (char*)malloc(strlen(uih_sffedialog->defstr)+1);
+    strncpy(prev_expr, uih_sffedialog->defstr, strlen(uih_sffedialog->defstr));
+    prev_expr[strlen(uih_sffedialog->defstr)]='\0';
+
     if (strlen(text)) {
         c->parser->errormsg = (char *)str;
         if ((err = sffe_parse(&c->parser, (char *)text)) > 0) {
             uih_message(c, str);
-            sffe_parse(&c->parser, "z^2+c");
+            sffe_parse(&c->parser, prev_expr);
             uih_sffedialog->defstr = c->parser->expression;
         } else {
             uih_sffedialog->defstr = c->parser->expression;

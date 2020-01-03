@@ -616,7 +616,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         if (sffeform)
             err = sffe_parse(&uih->parser, (char *)sffeform);
         else
-            sffe_parse(&uih->parser, "z^2+c");
+            sffe_parse(&uih->parser, USER_FORMULA);
     }
 
     if (sffeinit) {
@@ -628,7 +628,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     };
 
     if (err > 0)
-        sffe_parse(&uih->parser, "z^2+c");
+        sffe_parse(&uih->parser, USER_FORMULA);
 #endif
 }
 
