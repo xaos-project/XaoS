@@ -90,6 +90,11 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
                 field->setValidator(new QDoubleValidator(field));
             } else {
                 field->setText(dialog[i].defstr);
+                // Some heuristics to find the optimal width for the text.
+                // For entering user formulas this seems to be helpful.
+                // TODO: See https://stackoverflow.com/questions/8633433/qt-how-to-get-the-pixel-length-of-a-string-in-a-qlabel
+                // for some better ideas.
+                field->setMinimumWidth(strlen(dialog[i].defstr)*10);
             }
 
             formLayout->addRow(label, field);
