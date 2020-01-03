@@ -126,10 +126,6 @@ int ui_params_parser(int argc, char **argv)
     int found;
     for (i = 1; i < argc && !error; i++) {
         found = 0;
-#ifdef MACOSX
-        if (strncmp("-psn", argv[i], 4) == 0)
-            continue;
-#endif
         if (!strcmp("-help", argv[i])) {
             error = 1;
             break;
@@ -364,8 +360,10 @@ static void ui_registermenus_i18n(void)
     MENUNOP_I("helpmenu", "h", gettext("Help"), "help", MENUFLAG_INCALC,
               ui_help);
     MENUNOP_I("helpmenu", NULL, gettext("About"), "about", NULL, ui_about);
+#ifndef Q_OS_MACOS
     MENUNOPCB_I("ui", "v", gettext("Fullscreen"), "fullscreen", 0,
                 ui_fullscreensw, ui_fullscreenselected);
+#endif
     no_menuitems_i18n -= ui_no_menuitems_i18n;
     menu_add(&(menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
     ui_no_menuitems_i18n += no_menuitems_i18n;
