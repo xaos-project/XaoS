@@ -991,7 +991,7 @@ void uih_registermenus_i18n(void)
     SUBMENU_I("root", NULL, gettext("Fractal"), "fractal");
     SUBMENU_I("root", NULL, gettext("Calculation"), "calc");
     SUBMENU_I("root", "e", gettext("Filters"), "mfilter");
-    SUBMENU_I("root", NULL, gettext("Misc"), "misc");
+    SUBMENU_I("root", NULL, gettext("Action"), "action");
     SUBMENU_I("root", NULL, gettext("View"), "ui");
     SUBMENU_I("root", NULL, gettext("Help"), "helpmenu");
     SUBMENU_I("helpmenu", NULL, gettext("Tutorials"), "tutor");
@@ -1003,27 +1003,27 @@ void uih_registermenus_i18n(void)
               UI | MENUFLAG_INTERRUPT, uih_replaydisable);
     SUBMENUNOOPT_I("animroot", NULL, gettext("View"), "uia");
     SUBMENUNOOPT_I("animroot", NULL, gettext("Help"), "helpmenu");
-    MENUDIALOG_I("misc", "!", gettext("Command"), "command", UI, uih_command,
+    MENUDIALOG_I("action", "!", gettext("Command"), "command", UI, uih_command,
                  dcommand);
-    MENUDIALOG_I("misc", NULL, gettext("Play string"), "playstr",
+    MENUDIALOG_I("action", NULL, gettext("Play string"), "playstr",
                  MENUFLAG_NOMENU, uih_playstr, dcommand);
-    MENUSEPARATOR_I("misc");
-    MENUNOP_I("misc", NULL, gettext("Clear screen"), "clearscreen",
+    MENUSEPARATOR_I("action");
+    MENUNOP_I("action", NULL, gettext("Clear screen"), "clearscreen",
               MENUFLAG_NOOPTION, uih_clearscreen);
-    MENUNOP_I("misc", NULL, gettext("Display fractal"), "display",
+    MENUNOP_I("action", NULL, gettext("Display fractal"), "display",
               MENUFLAG_NOOPTION, uih_display);
-    MENUSEPARATOR_I("misc");
-    MENUDIALOG_I("misc", NULL, gettext("Display text"), "text", 0, uih_text,
+    MENUSEPARATOR_I("action");
+    MENUDIALOG_I("action", NULL, gettext("Display text"), "text", 0, uih_text,
                  dtextparam); /*FIXME: Should allow multiline */
 
-    MENUCDIALOG_I("misc", NULL, gettext("Text color"), "color", 0, uih_setcolor,
+    MENUCDIALOG_I("action", NULL, gettext("Text color"), "color", 0, uih_setcolor,
                   uih_getcolordialog);
-    SUBMENU_I("misc", NULL, gettext("Horizontal text position"), "xtextpos");
-    SUBMENU_I("misc", NULL, gettext("Vertical text position"), "ytextpos");
-    MENUDIALOG_I("misc", NULL, gettext("Text position"), "textposition",
+    SUBMENU_I("action", NULL, gettext("Horizontal text position"), "xtextpos");
+    SUBMENU_I("action", NULL, gettext("Vertical text position"), "ytextpos");
+    MENUDIALOG_I("action", NULL, gettext("Text position"), "textposition",
                  MENUFLAG_NOMENU | MENUFLAG_INCALC, uih_playtextpos,
                  uih_textposdialog);
-    MENUDIALOG_I("misc", NULL, gettext("Message"), "message", MENUFLAG_NOMENU,
+    MENUDIALOG_I("action", NULL, gettext("Message"), "message", MENUFLAG_NOMENU,
                  uih_playmessage, dtextparam);
     /* The following 6 menu options should not be translated. The example
        files heavily use these constants and lots of examples will not work
