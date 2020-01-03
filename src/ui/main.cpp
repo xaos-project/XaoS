@@ -288,12 +288,12 @@ void ui_quit(int i)
     exit(i);
 }
 
-static void ui_help(struct uih_context *c)
+static void ui_help(struct uih_context *uih)
 {
     QDesktopServices::openUrl(QUrl(HELP_URL));
 }
 
-static void ui_about(struct uih_context *c)
+static void ui_about(struct uih_context *uih)
 {
     QMessageBox::about(
         NULL, qt_gettext("About"),
@@ -327,6 +327,26 @@ static void ui_about(struct uih_context *c)
     );
 }
 
+static void ui_fullscreensw(struct uih_context *uih)
+{
+    if (uih->data) {
+        MainWindow *window = reinterpret_cast<MainWindow *>(uih->data);
+        if (window->isFullScreen())
+            window->showNormal();
+        else
+            window->showFullScreen();
+    }
+}
+
+static int ui_fullscreenselected(struct uih_context *uih)
+{
+    if (uih->data) {
+        MainWindow *window = reinterpret_cast<MainWindow *>(uih->data);
+        return window->isFullScreen();
+    }
+    return 0;
+}
+
 #define MAX_MENUITEMS_I18N 20
 /* These variables must be global: */
 static menuitem *menuitems;
@@ -344,6 +364,8 @@ static void ui_registermenus_i18n(void)
     MENUNOP_I("helpmenu", "h", gettext("Help"), "help", MENUFLAG_INCALC,
               ui_help);
     MENUNOP_I("helpmenu", NULL, gettext("About"), "about", NULL, ui_about);
+    MENUNOPCB_I("ui", "v", gettext("Fullscreen"), "fullscreen", 0,
+                ui_fullscreensw, ui_fullscreenselected);
     no_menuitems_i18n -= ui_no_menuitems_i18n;
     menu_add(&(menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
     ui_no_menuitems_i18n += no_menuitems_i18n;
