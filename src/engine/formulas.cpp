@@ -802,16 +802,14 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #include "docalc.h"
 
 #define VARIABLES register number_t zor, zoi;
-/* 2009-08-01 JB Langston
- * On Mac OS X, for some reason Cat's Eye renders as an empty circle unless
- * the bailout is slightly more than 4.  This doesn't appear to happen on any
- * other operating systems, and it's not processor specific.  It's probably
+/* For some reason Cat's Eye renders as an empty circle unless the bailout
+ * is slightly more than 4.  It was first observed in 2009 on Mac OS X but
+ * more recently started happening on other operating systems. I suspect
  * a compiler bug, but I haven't been able to figure out exactly what's
- * happening.  I can work around it by subtracting LDBL_MIN from the amount
- * before performing the bailout test.
+ * happening.  I can work around it by subtracting a small amount from the
+ * magnitude before performing the bailout test.
  */
-// #define LDBL_MIN 0.00000001
-#define BTEST less_than_4(rp + ip - LDBL_MIN)
+#define BTEST less_than_4(rp + ip - 0.00000001)
 #define FORMULA                                                                \
     c_div(pre, pim, zre, zim, rp, ip);                                         \
     c_div(zre, zim, pre, pim, zor, zoi);                                       \
