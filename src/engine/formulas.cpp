@@ -1275,18 +1275,21 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define INIT                                                                   \
     cmplxset(pZ, 0, 0);                                                        \
     cmplxset(C, pre, pim);                                                     \
-    cmplxset(N, (unsigned int)cfractalc.maxiter-iter+1, 0);                    \
     if (globaluih->pinit)                                                      \
         Z = sffe_eval(globaluih->pinit);                                       \
-    else                                                                       \
-        cmplxset(Z, zre, zim);
+    else {                                                                     \
+        cmplxset(Z, zre, zim);                                                 \
+        cmplxset(N, 1, 0);                                                     \
+        }
 //#define SAVE cmplxset(pZ,real(Z),imag(Z));
 //#define PRETEST 0
 #define FORMULA                                                                \
     Z = sffe_eval(globaluih->parser);                                          \
     cmplxset(pZ, zre, zim);                                                    \
     zre = real(Z);                                                             \
-    zim = imag(Z);
+    zim = imag(Z);                                                             \
+    cmplxset(N, (unsigned int)cfractalc.maxiter-iter+1, 0);
+
 #define BTEST less_than_4(zre *zre + zim * zim)
 // less_than_4(rp+ip)
 #define CALC sffe_calc
