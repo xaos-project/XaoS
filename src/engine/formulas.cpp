@@ -1275,6 +1275,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define INIT                                                                   \
     cmplxset(pZ, 0, 0);                                                        \
     cmplxset(C, pre, pim);                                                     \
+    cmplxset(N, (unsigned int)cfractalc.maxiter-iter+1, 0);                    \
     if (globaluih->pinit)                                                      \
         Z = sffe_eval(globaluih->pinit);                                       \
     else                                                                       \

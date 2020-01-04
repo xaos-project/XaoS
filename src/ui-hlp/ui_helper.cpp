@@ -1890,7 +1890,7 @@ static void uih_drawcscreen(struct uih_context *uih, void *data)
 }
 
 #ifdef SFFE_USING
-extern cmplx C, Z, pZ;
+extern cmplx C, Z, pZ, N;
 #endif
 struct uih_context *globaluih;
 
@@ -1953,6 +1953,7 @@ uih_mkcontext(int flags, struct image *image,
     sffe_regvar(&uih->parser, &pZ, "p");
     sffe_regvar(&uih->parser, &Z, "z");
     sffe_regvar(&uih->parser, &C, "c");
+    sffe_regvar(&uih->parser, &N, "n");
     /* sffe_regvar( &uih->cparser, &C, */
 #endif
     /* 25.I.2009, Bugfix #2507911, malczak

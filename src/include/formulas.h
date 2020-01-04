@@ -40,6 +40,7 @@
 extern cmplx Z;
 extern cmplx pZ;
 extern cmplx C;
+extern cmplx N;
 #endif
 
 #define MAX_LAMBDA 2

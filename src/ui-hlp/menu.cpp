@@ -1491,6 +1491,7 @@ void uih_sffeinitin(uih_context *c, const char *text)
 {
     extern cmplx pZ;
     extern cmplx C;
+    extern cmplx N;
     char str[200];
     int err;
     uih_sffeinitdialog->defstr = "";
@@ -1499,6 +1500,7 @@ void uih_sffeinitin(uih_context *c, const char *text)
             c->pinit = sffe_alloc();
             sffe_regvar(&c->pinit, &pZ, "p");
             sffe_regvar(&c->pinit, &C, "c");
+            sffe_regvar(&c->pinit, &N, "n");
         };
 
         c->pinit->errormsg = (char *)str;
