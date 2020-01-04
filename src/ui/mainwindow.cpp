@@ -408,7 +408,7 @@ void MainWindow::resizeImage(int width, int height)
 }
 
 #ifdef SFFE_USING
-cmplx Z, C, pZ;
+cmplx Z, C, pZ, N;
 #endif
 
 xio_pathdata configfile;
@@ -623,6 +623,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         uih->pinit = sffe_alloc();
         sffe_regvar(&uih->pinit, &pZ, "p");
         sffe_regvar(&uih->pinit, &C, "c");
+        sffe_regvar(&uih->pinit, &N, "n");
         if (sffe_parse(&uih->pinit, (char *)sffeinit) > 0)
             sffe_free(&uih->pinit);
     };
