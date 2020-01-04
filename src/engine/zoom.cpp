@@ -1016,7 +1016,7 @@ static void calculatenew(void /*@unused@ */ *data,
     if (!xth_nthread(task)) {
         STAT(tocalculate = 0);
         STAT(avoided = 0);
-        cfilter.pass = gettext("Solid guessing 1");
+        cfilter.pass = TR("Message", "Solid guessing 1");
         cfilter.max = 0;
         cfilter.pos = 0;
     }
@@ -1240,7 +1240,7 @@ static void calculatenewinterruptible(void)
     STAT(tocalculate = 0);
     STAT(avoided = 0);
 
-    cfilter.pass = gettext("Solid guessing");
+    cfilter.pass = TR("Message", "Solid guessing");
 
     for (r = czoomc.reallocx; r < end; r++)
         if (r->dirty)

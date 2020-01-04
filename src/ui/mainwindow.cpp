@@ -133,9 +133,9 @@ void MainWindow::menuActivate(const menuitem *item, dialogparam *d)
             uih_updatestatus(uih);
             widget->repaint();
             if (!menu_enabled(item, uih))
-                sprintf(s, gettext("Enabling: %s. "), item->name);
+                sprintf(s, TR("Message", "Enabling: %s. "), item->name);
             else
-                sprintf(s, gettext("Disabling: %s. "), item->name);
+                sprintf(s, TR("Message", "Disabling: %s. "), item->name);
             uih_message(uih, s);
         } else
             uih_message(uih, item->name);
@@ -168,7 +168,7 @@ int MainWindow::processKey(int key)
                 widget->repaint();
             } else {
                 uih_skipframe(uih);
-                showStatus(gettext("Skipping, please wait..."));
+                showStatus(TR("Message", "Skipping, please wait..."));
             }
         }
     } else {
@@ -278,7 +278,7 @@ void MainWindow::processEvents(bool wait)
            !((buttons) & ~(BUTTON1 | BUTTON2 | BUTTON3)));
     uih_update(uih, mousex, mousey, buttons);
     if (uih->play) {
-        processArrows(&uih->letterspersec, gettext("Letters per second %i  "),
+        processArrows(&uih->letterspersec, TR("Message", "Letters per second %i  "),
                       2, key, lastkey, KEYLEFT, KEYRIGHT, false, 1, INT_MAX);
         return;
     }
@@ -294,7 +294,7 @@ void MainWindow::processEvents(bool wait)
             if (key & (KEYLEFT | KEYRIGHT)) {
                 uih_rmmessage(uih, rpid);
                 sprintf(str,
-                        gettext("Rotation speed:%2.2f degrees per second "),
+                        TR("Message", "Rotation speed:%2.2f degrees per second "),
                         (float)uih->rotationspeed);
                 rpid = uih_message(uih, str);
             }
@@ -302,7 +302,7 @@ void MainWindow::processEvents(bool wait)
         } else {
             if (!dirty)
                 maxiter = uih->fcontext->maxiter;
-            if (processArrows(&maxiter, gettext("Iterations: %i   "), 1, key,
+            if (processArrows(&maxiter, TR("Message", "Iterations: %i   "), 1, key,
                               lastkey, KEYLEFT, KEYRIGHT, false, 1, INT_MAX) ||
                 (key & (KEYLEFT | KEYRIGHT))) {
                 dirty = true;
@@ -320,7 +320,7 @@ void MainWindow::processEvents(bool wait)
         }
     }
     if (uih->cycling) {
-        if (processArrows(&uih->cyclingspeed, gettext("Cycling speed: %i   "),
+        if (processArrows(&uih->cyclingspeed, TR("Message", "Cycling speed: %i   "),
                           1, key, lastkey, KEYLEFT, KEYRIGHT, 0, -1000000,
                           INT_MAX)) {
             uih_setcycling(uih, uih->cyclingspeed);
@@ -337,7 +337,7 @@ void MainWindow::processEvents(bool wait)
         else if (key & KEYDOWN)
             uih->speedup /= su, uih->maxstep /= su;
         if (key & (KEYUP | KEYDOWN)) {
-            sprintf(str, gettext("speed:%2.2f "),
+            sprintf(str, TR("Message", "speed:%2.2f "),
                     (double)uih->speedup * (1.0 / STEP));
             uih_rmmessage(uih, spid);
             spid = uih_message(uih, str);
@@ -357,15 +357,15 @@ struct image *MainWindow::makeImage(int width, int height)
     palette =
         createpalette(0, 0, TRUECOLOR, 0, 0, NULL, NULL, NULL, NULL, &info);
     if (!palette) {
-        x_error(gettext("Can not create palette"));
-        x_error(gettext("XaoS is out of memory."));
+        x_error(TR("Error", "Can not create palette"));
+        x_error(TR("Error", "XaoS is out of memory."));
         ui_quit(-1);
     }
     struct image *image =
         create_image_qt(width, height, palette, pixelwidth, pixelheight);
     if (!image) {
-        x_error(gettext("Can not create image"));
-        x_error(gettext("XaoS is out of memory."));
+        x_error(TR("Error", "Can not create image"));
+        x_error(TR("Error", "XaoS is out of memory."));
         ui_quit(-1);
     }
     widget->setImage(image);
@@ -392,8 +392,8 @@ void MainWindow::resizeImage(int width, int height)
         destroypalette(uih->palette);
         struct image *image = makeImage(width, height);
         if (!uih_updateimage(uih, image)) {
-            x_error(gettext("Can not allocate tables"));
-            x_error(gettext("XaoS is out of memory."));
+            x_error(TR("Error", "Can not allocate tables"));
+            x_error(TR("Error", "XaoS is out of memory."));
             ui_quit(-1);
         }
         tl_process_group(syncgroup, NULL);
@@ -522,7 +522,7 @@ void MainWindow::pleaseWait()
     if (uih->play)
         return;
     widget->setCursor(Qt::WaitCursor);
-    sprintf(s, gettext("Please wait while calculating %s"),
+    sprintf(s, TR("Message", "Please wait while calculating %s"),
             uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
     showStatus(s);
 }
@@ -605,7 +605,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     }
 
     char welcome[80];
-    sprintf(welcome, gettext("Welcome to XaoS version %s"), XaoS_VERSION);
+    sprintf(welcome, TR("Message", "Welcome to XaoS version %s"), XaoS_VERSION);
     uih_message(uih, welcome);
     if (printspeed)
         printSpeed();

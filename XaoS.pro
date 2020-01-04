@@ -33,16 +33,11 @@ CONFIG(debug, debug|release) {
     win32:CONFIG += console
 }
 
-TRANSLATIONS = $$files($$PWD/i18n/*.po)
-updateqm.input = TRANSLATIONS
-updateqm.output = $$PWD/i18n/XaoS_${QMAKE_FILE_BASE}.qm
-updateqm.commands = lrelease ${QMAKE_FILE_NAME} -qm ${QMAKE_FILE_OUT}
-updateqm.CONFIG += no_link target_predeps
-QMAKE_EXTRA_COMPILERS += updateqm
 RESOURCES += XaoS.qrc
 
 DESTDIR = $$PWD/bin
 
+include($$PWD/i18n/i18n.pri)
 include($$PWD/src/include/include.pri)
 include($$PWD/src/ui/ui.pri)
 include($$PWD/src/engine/engine.pri)

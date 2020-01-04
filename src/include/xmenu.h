@@ -252,7 +252,7 @@ All of these definitions will become obsolete soon: */
     }
 
 /* Definitions for internationalized menus. All of them must be defined
-dynamically because gettext() cannot be used within a static
+dynamically because TR() cannot be used within a static
 variable. Usage (example):
 
 SUBMENU_I("file", "q", "Quit", "quitmenu")

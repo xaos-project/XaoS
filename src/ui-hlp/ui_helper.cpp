@@ -586,12 +586,12 @@ void uih_playtutorial(struct uih_context *c, const char *name)
 
     f = xio_gettutorial(name, tmp);
     if (f == NULL) {
-        uih_error(c, gettext("Tutorial files not found. Reinstall XaoS"));
+        uih_error(c, TR("Error", "Tutorial files not found. Reinstall XaoS"));
         return;
     }
     uih_replayenable(c, f, tmp, 1);
     if (c->passfunc != NULL) {
-        c->passfunc(c, 1, gettext("Preparing first image"), 0);
+        c->passfunc(c, 1, TR("Message", "Preparing first image"), 0);
     }
 }
 
@@ -601,16 +601,16 @@ void uih_loadexample(struct uih_context *c)
     xio_file f = xio_getrandomexample(name);
     c->errstring = NULL;
     if (f == NULL) {
-        uih_error(c, gettext("Could not open examples"));
+        uih_error(c, TR("Error", "Could not open examples"));
         return;
     }
     uih_load(c, f, name);
     if (c->errstring == NULL) {
         char s[256];
 #ifdef HAVE_LIBGEN_H
-        sprintf(s, gettext("File %s loaded."), basename(name));
+        sprintf(s, TR("Message", "File %s loaded."), basename(name));
 #else
-        sprintf(s, gettext("File %s loaded."), name);
+        sprintf(s, TR("Message", "File %s loaded."), name);
 #endif
         uih_message(c, s);
     }
@@ -620,7 +620,7 @@ void uih_savepngfile(struct uih_context *c, xio_constpath d)
 {
     const char *s;
     if (c->passfunc != NULL) {
-        c->passfunc(c, 1, gettext("Saving image..."), 0);
+        c->passfunc(c, 1, TR("Message", "Saving image..."), 0);
     }
     if (c->recalculatemode) {
         uih_newimage(c);
@@ -628,7 +628,7 @@ void uih_savepngfile(struct uih_context *c, xio_constpath d)
         uih_do_fractal(c);
     }
     if (c->interrupt) {
-        uih_message(c, gettext("Save interrupted"));
+        uih_message(c, TR("Message", "Save interrupted"));
         return;
     }
     c->errstring = NULL;
@@ -637,7 +637,7 @@ void uih_savepngfile(struct uih_context *c, xio_constpath d)
         uih_error(c, s);
     if (c->errstring == NULL) {
         char s[256];
-        sprintf(s, gettext("File %s saved."), d);
+        sprintf(s, TR("Message", "File %s saved."), d);
         uih_message(c, s);
     }
 }
@@ -648,13 +648,13 @@ void uih_saveposfile(struct uih_context *c, xio_constpath d)
     c->errstring = NULL;
     f = xio_wopen(d);
     if (f == XIO_FAILED) {
-        uih_error(c, gettext("Can not open file"));
+        uih_error(c, TR("Message", "Can not open file"));
         return;
     }
     uih_save_position(c, f, UIH_SAVEPOS);
     if (c->errstring == NULL) {
         char s[256];
-        sprintf(s, gettext("File %s saved."), d);
+        sprintf(s, TR("Message", "File %s saved."), d);
         uih_message(c, s);
     }
 }
@@ -721,7 +721,7 @@ void uih_savecfg(struct uih_context *c)
     uih_save_position(c, f, UIH_SAVEALL);
     if (c->errstring == NULL) {
         char s[256];
-        sprintf(s, gettext("File %s saved."), configfile);
+        sprintf(s, TR("Message", "File %s saved."), configfile);
         uih_message(c, s);
     }
 }
@@ -743,7 +743,7 @@ void uih_saveanimfile(struct uih_context *c, xio_constpath d)
     uih_save_enable(c, f, UIH_SAVEANIMATION);
     if (c->errstring == NULL) {
         char s[256];
-        sprintf(s, gettext("Recording to file %s enabled."), d);
+        sprintf(s, TR("Message", "Recording to file %s enabled."), d);
         uih_message(c, s);
     }
     uih_updatemenus(c, "record");
@@ -2203,15 +2203,15 @@ void uih_updatestatus(uih_context *uih)
     speed = uih_displayed(uih);
     sprintf(
         statustext,
-        gettext(
+        TR("Message",
             "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "),
-        times < 1 ? gettext("unzoomed") : gettext("zoomed"),
+        times < 1 ? TR("Message", "unzoomed") : TR("Message", "zoomed"),
         times < 1 ? 1.0 / times : times, timesnop, speed,
         uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1,
         uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1,
         uih->fcontext->maxiter);
 
-    STAT(printf(gettext("framerate:%f\n"), speed));
+    STAT(printf(TR("Message", "framerate:%f\n"), speed));
 }
 
 #ifdef MEMCHECK
@@ -2245,57 +2245,57 @@ static void uih_drawstatus(uih_context *uih, void *data)
 {
     char str[6000];
     int h = xtextheight(uih->image, uih->font);
-    sprintf(str, gettext("Fractal name:%s"),
+    sprintf(str, TR("Message", "Fractal name:%s"),
             uih->fcontext->currentformula->name[!uih->fcontext->mandelbrot]);
     xprint(uih->image, uih->font, 0, statusstart, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
-    sprintf(str, gettext("Fractal type:%s"),
-            uih->fcontext->mandelbrot ? gettext("Mandelbrot")
-                                      : gettext("Julia"));
+    sprintf(str, TR("Message", "Fractal type:%s"),
+            uih->fcontext->mandelbrot ? TR("Message", "Mandelbrot")
+                                      : TR("Message", "Julia"));
 #ifdef SFFE_USING
     if (uih->fcontext->currentformula->flags & SFFE_FRACTAL) {
-        sprintf(str, gettext("Formula:%s"), uih->parser->expression);
+        sprintf(str, TR("Message", "Formula:%s"), uih->parser->expression);
     };
 #endif
     xprint(uih->image, uih->font, 0, statusstart + h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
-    sprintf(str, gettext("View:[%1.12f,%1.12f]"), (double)uih->fcontext->s.cr,
+    sprintf(str, TR("Message", "View:[%1.12f,%1.12f]"), (double)uih->fcontext->s.cr,
             (double)uih->fcontext->s.ci);
     xprint(uih->image, uih->font, 0, statusstart + 2 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
-    sprintf(str, gettext("size:[%1.12f,%1.12f]"), (double)uih->fcontext->s.rr,
+    sprintf(str, TR("Message", "size:[%1.12f,%1.12f]"), (double)uih->fcontext->s.rr,
             (double)uih->fcontext->s.ri);
     xprint(uih->image, uih->font, 0, statusstart + 3 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
-    sprintf(str, gettext("Rotation:%4.2f   Screen size:%i:%i"),
+    sprintf(str, TR("Message", "Rotation:%4.2f   Screen size:%i:%i"),
             (double)uih->fcontext->angle, uih->image->width,
             uih->image->height);
     xprint(uih->image, uih->font, 0, statusstart + 4 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
-    sprintf(str, gettext("Iterations:%-4u Palette size:%i"),
+    sprintf(str, TR("Message", "Iterations:%-4u Palette size:%i"),
             uih->fcontext->maxiter, uih->image->palette->size);
     xprint(uih->image, uih->font, 0, statusstart + 5 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
     sprintf(str, "Bailout:%4.2f", (double)uih->fcontext->bailout);
     xprint(uih->image, uih->font, 0, statusstart + 6 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
-    sprintf(str, gettext("Autopilot:%-4s  Plane:%s"),
-            uih->autopilot ? gettext("On") : gettext("Off"),
+    sprintf(str, TR("Message", "Autopilot:%-4s  Plane:%s"),
+            uih->autopilot ? TR("Message", "On") : TR("Message", "Off"),
             planename[uih->fcontext->plane]);
     xprint(uih->image, uih->font, 0, statusstart + 7 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
-    sprintf(str, gettext("incoloring:%s    outcoloring:%s"),
+    sprintf(str, TR("Message", "incoloring:%s    outcoloring:%s"),
             incolorname[uih->fcontext->incoloringmode],
             outcolorname[uih->fcontext->coloringmode]);
     xprint(uih->image, uih->font, 0, statusstart + 8 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
-    sprintf(str, gettext("zoomspeed:%f"), (float)uih->maxstep * 1000);
+    sprintf(str, TR("Message", "zoomspeed:%f"), (float)uih->maxstep * 1000);
     xprint(uih->image, uih->font, 0, statusstart + 9 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
     if (uih->fcontext->mandelbrot)
-        strcpy(str, gettext("Parameter:none"));
+        strcpy(str, TR("Message", "Parameter:none"));
     else
-        sprintf(str, gettext("Parameter:[%f,%f]"), (float)uih->fcontext->pre,
+        sprintf(str, TR("Message", "Parameter:[%f,%f]"), (float)uih->fcontext->pre,
                 (float)uih->fcontext->pim);
     xprint(uih->image, uih->font, 0, statusstart + 10 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);

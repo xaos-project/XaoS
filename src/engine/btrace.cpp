@@ -291,7 +291,7 @@ static int tracerectangle2(int x1, int y1, int x2, int y2)
 {
     int x, y;
     cfilter.max = y2 - y1;
-    cfilter.pass = gettext("Boundary trace");
+    cfilter.pass = TR("Message", "Boundary trace");
     cfilter.pos = 0;
     maxsize = MAXPAGES / nthreads;
     for (y = 0; y < nthreads; y++) {
@@ -371,7 +371,7 @@ static int tracerectangle(int x1, int y1, int x2, int y2)
     int x, y;
     unsigned char *calc;
     cfilter.max = y2 - y1;
-    cfilter.pass = gettext("Boundary trace");
+    cfilter.pass = TR("Message", "Boundary trace");
     cfilter.pos = 0;
     for (y = y1; y <= y2; y++) {
         memset(calculated + x1 + y * CALCWIDTH, 0, (size_t)(x2 - x1 + 1));

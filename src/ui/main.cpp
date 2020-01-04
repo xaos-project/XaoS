@@ -258,14 +258,14 @@ int ui_render(void)
     return 0;
 }
 
-const char *qt_gettext(const char *text)
+const char *qt_gettext(const char *context, const char *text)
 {
-    static std::map<const char *, const char *> strings;
-    const char *trans = strings[text];
+    static std::map<std::pair<const char *, const char *>, const char *> strings;
+    const char *trans = strings[std::make_pair(context, text)];
     if (trans == NULL) {
         trans =
-            strdup(QCoreApplication::translate("", text).toStdString().c_str());
-        strings[text] = trans;
+            strdup(QCoreApplication::translate(context, text).toStdString().c_str());
+        strings[std::make_pair(context, text)] = trans;
     }
     return trans;
 }
@@ -280,7 +280,7 @@ void ui_quit(int i)
     xio_uninit();
     ui_unregistermenus();
     uih_unregistermenus();
-    printf(gettext("Thank you for using XaoS\n"));
+    printf(TR("Message", "Thank you for using XaoS\n"));
     exit(i);
 }
 
@@ -292,7 +292,7 @@ static void ui_help(struct uih_context *uih)
 static void ui_about(struct uih_context *uih)
 {
     QMessageBox::about(
-        NULL, qt_gettext("About"),
+        NULL, qt_gettext("Dialog", "About"),
         "<a href=\"http://xaos.sf.net\">" +
             QCoreApplication::applicationName() + "</a> " +
             QCoreApplication::applicationVersion() + " (" +
@@ -355,13 +355,13 @@ static void ui_registermenus_i18n(void)
 {
     int no_menuitems_i18n =
         ui_no_menuitems_i18n; /* This variable must be local. */
-    MENUINT_I("file", NULL, gettext("Quit"), "quit",
+    MENUINT_I("file", NULL, TR("Menu", "Quit"), "quit",
               MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quit, 0);
-    MENUNOP_I("helpmenu", "h", gettext("Help"), "help", MENUFLAG_INCALC,
+    MENUNOP_I("helpmenu", "h", TR("Menu", "Help"), "help", MENUFLAG_INCALC,
               ui_help);
-    MENUNOP_I("helpmenu", NULL, gettext("About"), "about", NULL, ui_about);
+    MENUNOP_I("helpmenu", NULL, TR("Menu", "About"), "about", NULL, ui_about);
 #ifndef Q_OS_MACOS
-    MENUNOPCB_I("ui", "v", gettext("Fullscreen"), "fullscreen", 0,
+    MENUNOPCB_I("ui", "v", TR("Menu", "Fullscreen"), "fullscreen", 0,
                 ui_fullscreensw, ui_fullscreenselected);
 #endif
     no_menuitems_i18n -= ui_no_menuitems_i18n;
