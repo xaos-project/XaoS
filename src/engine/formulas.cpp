@@ -2254,7 +2254,7 @@ const struct formula formulas[] = {
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
       },
-     MANDEL_BTRACE,
+     0,
      },
     {                           /* formula added by Z. Kovacs, originally mand6 but it was mand9 by accident *//* 24 */
      FORMULAMAGIC,

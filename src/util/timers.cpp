@@ -22,46 +22,10 @@
  * All ugly architecture depended timing code is separated into this file..
  */
 #include "config.h"
-#ifdef HAVE_GETTIMEOFDAY
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-#include <stdlib.h>
-/*HAVE_UNISTD */
-#else
-#ifdef HAVE_FTIME
-#include <sys/timeb.h>
-#endif
-/*HAVE_FTIME */
-#endif
-/*HAVE_GETTIMEOFDAY */
-#ifdef HAVE_SYS_TIME_H
-#include <sys/time.h>
-#else
-#include <time.h>
-#endif
-/*HAVE_TIME_H */
-#include <stdio.h>
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-#ifdef HAVE_SETITIMER
-#include <signal.h>
-#endif
-#include <limits.h>
-#include <assert.h>
 #include "timers.h"
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-#ifdef _WIN32
-#define QuadPart(x) x.QuadPart
-#endif
-
-#ifndef SIGALRM
-#undef HAVE_SETITIMER
-#endif
+#include <climits>
+#include <chrono>
+#include <thread>
 
 #define EMULDIV 1024
 struct timeemulator {
@@ -69,32 +33,8 @@ struct timeemulator {
     unsigned long exact;
 };
 
-/* Definition of structure timer. There is lots of various formats for time
- * at variious platforms. So there is quite lots of ifdefs... same is for
- * saving current time and function comparing them. Rest of timer lib
- * is platform independent
- */
-
 struct timer {
-#ifdef _WIN32
-    LARGE_INTEGER lastactivated;
-#else
-#ifdef HAVE_UCLOCK
-    uclock_t lastactivated;
-#else
-#ifdef USE_CLOCK
-    int lastactivated;
-#else
-#ifdef HAVE_GETTIMEOFDAY
-    struct timeval lastactivated;
-#else
-#ifdef HAVE_FTIME
-    struct timeb lastactivated;
-#endif
-#endif
-#endif
-#endif
-#endif
+    std::chrono::time_point<std::chrono::steady_clock> lastactivated;
     unsigned long lastemulated;
     struct timeemulator *emulator;
     void (*handler)(void *);
@@ -108,98 +48,20 @@ struct timer {
 };
 
 /*Variable for saving current time */
-#ifdef _WIN32
-LARGE_INTEGER currenttime, frequency;
-#else
-#ifdef HAVE_UCLOCK
-static uclock_t currenttime;
-#else
-#ifdef USE_CLOCK
-static int currenttime;
-#else
-#ifdef HAVE_GETTIMEOFDAY
-static struct timeval currenttime;
-static struct timezone tzp;
-#else
-#ifdef HAVE_FTIME
-static struct timeb currenttime;
-#endif
-#endif
-#endif
-#endif
-#endif
+std::chrono::time_point<std::chrono::steady_clock> currenttime;
 
-#ifdef HAVE_SETITIMER
-static int registered = 0, reghandler = 0;
-static tl_group group2;
-#endif
 static tl_group group1;
-tl_group *syncgroup = &group1,
-#ifdef HAVE_SETITIMER
-         *asyncgroup = &group2;
-#else
-         *asyncgroup = &group1;
-#endif
-#ifndef _WIN32
-#ifndef HAVE_GETTIMEOFDAY
-#ifndef HAVE_FTIME
-#error I am unable to get time in milisecond. Please edit timers.c and make tl_update_time and tl_lookup_timer to work for your architecture and send me then back(to hubicka@paru.cas.cz). You will need also define timers.h and change type of lasttime.
-#endif
-#endif
-#endif
+tl_group *syncgroup = &group1;
 
 /*following functions are architecture dependent */
 void tl_update_time(void)
 {
-#ifdef _WIN32
-    QueryPerformanceCounter(&currenttime);
-#else
-#ifdef HAVE_UCLOCK
-    currenttime = uclock();
-#else
-#ifdef USE_CLOCK
-    currenttime = clock();
-#else
-#ifdef HAVE_GETTIMEOFDAY
-    do {
-        gettimeofday(&currenttime, &tzp);
-    } while (currenttime.tv_usec > 999999);
-#else
-#ifdef HAVE_FTIME
-    ftime(&currenttime);
-#endif
-#endif
-#endif
-#endif
-#endif
+    currenttime = std::chrono::steady_clock::now();
 }
 
 static inline int __lookup_timer(tl_timer *t)
 {
-#ifdef _WIN32
-    return ((QuadPart(currenttime) - QuadPart(t->lastactivated)) * 1000000LL) /
-           QuadPart(frequency);
-#else
-#ifdef HAVE_UCLOCK
-    return (((currenttime - t->lastactivated) * 1000000LL) / UCLOCKS_PER_SEC);
-#else
-#ifdef USE_CLOCK
-    return ((currenttime - t->lastactivated) * (1000000.0 / CLOCKS_PER_SEC));
-#else
-#ifdef HAVE_GETTIMEOFDAY
-    return (
-        (1000000 * (-(int)t->lastactivated.tv_sec + (int)currenttime.tv_sec) +
-         (-(int)t->lastactivated.tv_usec + (int)currenttime.tv_usec)));
-#else
-#ifdef HAVE_FTIME
-    return ((1000000 * (-t->lastactivated.time + currenttime.time) +
-             1000 * (-t->lastactivated.millitm + currenttime.millitm)));
-#else
-#endif
-#endif
-#endif
-#endif
-#endif
+    return std::chrono::duration_cast<std::chrono::microseconds>(currenttime - t->lastactivated).count();
 }
 
 int tl_lookup_timer(tl_timer *t)
@@ -239,28 +101,7 @@ void tl_resume_timer(tl_timer *t)
 
 void tl_sleep(int time)
 {
-#ifdef _WIN32
-    Sleep(time / 1000);
-#else
-#ifdef HAVE_USLEEP
-    usleep(time);
-#else
-#ifdef HAVE_SELECT
-    {
-        struct timeval tv;
-        tv.tv_sec = time / 1000000L;
-        tv.tv_usec = time % 1000000L;
-        (void)select(0, (void *)0, (void *)0, (void *)0, &tv);
-    }
-#else
-/*
-   #warning tl_sleep function not implemented. You may ignore this warning.
-   #warning xaos will work correctly. But on miltitasked enviroments it is
-   #warning HIGHLY recomended to implement this.
- */
-#endif
-#endif
-#endif
+    std::this_thread::sleep_for(std::chrono::microseconds(time));
 }
 
 void tl_reset_timer(tl_timer *t)
@@ -293,9 +134,6 @@ tl_timer *tl_create_timer(void)
     timer->slowdown = 0;
     timer->emulator = NULL;
     tl_reset_timer(timer);
-#ifdef _WIN32
-    QueryPerformanceFrequency(&frequency);
-#endif
     return (timer);
 }
 
@@ -397,42 +235,6 @@ int tl_process_group(tl_group *group, int *activated)
     return (-1);
 }
 
-#ifdef HAVE_SETITIMER
-static void update_async(void);
-static void alarmhandler(int a)
-{
-    update_async();
-    signal(SIGALRM, alarmhandler);
-}
-
-static void update_async(void)
-{
-    int time = tl_process_group(asyncgroup, NULL);
-    if (time != -1) {
-        struct itimerval t;
-        t.it_interval.tv_sec = 0;
-        t.it_interval.tv_usec = 0;
-        t.it_value.tv_sec = time / 1000000;
-        t.it_value.tv_usec = time % 1000000;
-        if (!reghandler) {
-            signal(SIGALRM, alarmhandler), reghandler = 1;
-        }
-        setitimer(ITIMER_REAL, &t, &t);
-        registered = 1;
-    } else if (registered) {
-        struct itimerval t;
-        t.it_interval.tv_sec = 0;
-        t.it_interval.tv_usec = 0;
-        t.it_value.tv_sec = 0;
-        t.it_value.tv_usec = 0;
-        setitimer(ITIMER_REAL, &t, &t);
-        registered = 0;
-    }
-}
-
-#else
-#define update_async()
-#endif
 void tl_add_timer(tl_group *group, tl_timer *timer)
 {
     if (timer->group)
@@ -443,8 +245,6 @@ void tl_add_timer(tl_group *group, tl_timer *timer)
     group->next = timer;
     if (timer->next != NULL)
         timer->next->previous = timer;
-    if (timer->group == asyncgroup)
-        update_async();
 }
 
 void tl_set_interval(tl_timer *timer, int interval)
@@ -453,16 +253,12 @@ void tl_set_interval(tl_timer *timer, int interval)
         tl_reset_timer(timer);
     }
     timer->interval = interval;
-    if (timer->group == asyncgroup)
-        update_async();
 }
 
 void tl_set_handler(tl_timer *timer, void (*handler)(void *), void *ud)
 {
     timer->handler = handler;
     timer->userdata = ud;
-    if (timer->group == asyncgroup)
-        update_async();
 }
 
 void tl_set_multihandler(tl_timer *timer, void (*handler)(void *, int),
@@ -470,8 +266,6 @@ void tl_set_multihandler(tl_timer *timer, void (*handler)(void *, int),
 {
     timer->multihandler = handler;
     timer->userdata = ud;
-    if (timer->group == asyncgroup)
-        update_async();
 }
 
 void tl_remove_timer(tl_timer *timer)
@@ -482,8 +276,6 @@ void tl_remove_timer(tl_timer *timer)
     if (timer->next != NULL)
         timer->next->previous = timer->previous;
     timer->group = NULL;
-    if (g == asyncgroup)
-        update_async();
 }
 
 struct timeemulator *tl_create_emulator(void)
