@@ -19,1461 +19,1461 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: ../ui/ui.c:319
+#: ../src/ui/ui.cpp:319
 msgid "XaoS is out of memory."
 msgstr "XaoS не хватает памяти."
 
-#: ../ui/ui.c:361
+#: ../src/ui/ui.cpp:361
 #, c-format
 msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
 msgstr "%s %.2f раз (%.1fE) %2.2f кадров/сек %c %i %i %i %i "
 
-#: ../ui/ui.c:361
+#: ../src/ui/ui.cpp:361
 msgid "unzoomed"
 msgstr "не масштабировано"
 
-#: ../ui/ui.c:361
+#: ../src/ui/ui.cpp:361
 msgid "zoomed"
 msgstr "масштабировано"
 
-#: ../ui/ui.c:365
+#: ../src/ui/ui.cpp:365
 #, c-format
 msgid "framerate:%f\n"
 msgstr "частота кадров: %f\n"
 
-#: ../ui/ui.c:407
+#: ../src/ui/ui.cpp:407
 #, c-format
 msgid "Enabling: %s. "
 msgstr "Включение: %s. "
 
-#: ../ui/ui.c:409
+#: ../src/ui/ui.cpp:409
 #, c-format
 msgid "Disabling: %s. "
 msgstr "Отключение: %s. "
 
-#: ../ui/ui.c:441
+#: ../src/ui/ui.cpp:441
 #, c-format
 msgid "Fractal name:%s"
 msgstr "Имя фрактала:%s"
 
-#: ../ui/ui.c:443
+#: ../src/ui/ui.cpp:443
 #, c-format
 msgid "Fractal type:%s"
 msgstr "Тип фрактала:%s"
 
-#: ../ui/ui.c:443
+#: ../src/ui/ui.cpp:443
 msgid "Mandelbrot"
 msgstr "Мандельброт"
 
-#: ../ui/ui.c:443
+#: ../src/ui/ui.cpp:443
 msgid "Julia"
 msgstr "Жюлиа"
 
-#: ../ui/ui.c:446
+#: ../src/ui/ui.cpp:446
 #, c-format
 msgid "Formula:%s"
 msgstr "Формула:%s"
 
-#: ../ui/ui.c:450
+#: ../src/ui/ui.cpp:450
 #, c-format
 msgid "View:[%1.12f,%1.12f]"
 msgstr "Вид:[%1.12f,%1.12f]"
 
-#: ../ui/ui.c:452
+#: ../src/ui/ui.cpp:452
 #, c-format
 msgid "size:[%1.12f,%1.12f]"
 msgstr "размер:[%1.12f,%1.12f]"
 
-#: ../ui/ui.c:454
+#: ../src/ui/ui.cpp:454
 #, c-format
 msgid "Rotation:%4.2f   Screen size:%i:%i"
 msgstr "Поворот:%4.2f   Размер экрана:%i:%i"
 
-#: ../ui/ui.c:456
+#: ../src/ui/ui.cpp:456
 #, c-format
 msgid "Iterations:%-4i Palette size:%i"
 msgstr "Итерации:%-4i Размер палитры:%i"
 
-#: ../ui/ui.c:460
+#: ../src/ui/ui.cpp:460
 #, c-format
 msgid "Autopilot:%-4s  Plane:%s"
 msgstr "Автопилот:%-4s  Плоскость:%s"
 
-#: ../ui/ui.c:460
+#: ../src/ui/ui.cpp:460
 msgid "On"
 msgstr "Вкл"
 
-#: ../ui/ui.c:460
+#: ../src/ui/ui.cpp:460
 msgid "Off"
 msgstr "Выкл"
 
-#: ../ui/ui.c:462
+#: ../src/ui/ui.cpp:462
 #, c-format
 msgid "incoloring:%s    outcoloring:%s"
 msgstr "окрашивание внутри:%s    окрашивание снаружи:%s"
 
-#: ../ui/ui.c:464
+#: ../src/ui/ui.cpp:464
 #, c-format
 msgid "zoomspeed:%f"
 msgstr "скорость масштабирования:%f"
 
-#: ../ui/ui.c:467
+#: ../src/ui/ui.cpp:467
 msgid "Parameter:none"
 msgstr "Параметр:пусто"
 
-#: ../ui/ui.c:469
+#: ../src/ui/ui.cpp:469
 #, c-format
 msgid "Parameter:[%f,%f]"
 msgstr "Параметр:[%f,%f]"
 
-#: ../ui/ui.c:558
+#: ../src/ui/ui.cpp:558
 #, c-format
 msgid "Please wait while calculating %s"
 msgstr "Пожалуйста, подождите пока идёт расчёт %s"
 
-#: ../ui/ui.c:653
+#: ../src/ui/ui.cpp:653
 #, c-format
 msgid "Letters per second %i  "
 msgstr "Букв в секунду %i"
 
-#: ../ui/ui.c:662 ../ui/ui.c:669
+#: ../src/ui/ui.cpp:662 ../src/ui/ui.cpp:669
 #, c-format
 msgid "Rotation speed:%2.2f degrees per second "
 msgstr "Скорость вращения: %2.2f градусов в секунду"
 
-#: ../ui/ui.c:677
+#: ../src/ui/ui.cpp:677
 #, c-format
 msgid "Iterations: %i   "
 msgstr "Итерации: %i"
 
-#: ../ui/ui.c:691
+#: ../src/ui/ui.cpp:691
 #, c-format
 msgid "Cycling speed: %i   "
 msgstr "Скорость зацикливания: %i"
 
-#: ../ui/ui.c:702 ../ui/ui.c:714
+#: ../src/ui/ui.cpp:702 ../src/ui/ui.cpp:714
 #, c-format
 msgid "speed:%2.2f "
 msgstr "скорость:%2.2f "
 
-#: ../ui/ui.c:813
+#: ../src/ui/ui.cpp:813
 #, c-format
 msgid "Thank you for using XaoS\n"
 msgstr "Спасибо за использование XaoS\n"
 
-#: ../ui/ui.c:850
+#: ../src/ui/ui.cpp:850
 msgid "Skipping, please wait..."
 msgstr "Пропускание, пожалуйста, подождите..."
 
-#: ../ui/ui.c:944 ../ui/ui.c:945 ../ui/ui-drv/win32/ui_win32.c:1409
+#: ../src/ui/ui.cpp:944 ../src/ui/ui.cpp:945 ../src/ui/ui-drv/win32/ui_win32.cpp:1409
 msgid "Resize"
 msgstr "Изменение размера"
 
-#: ../ui/ui.c:958
+#: ../src/ui/ui.cpp:958
 msgid "Quit"
 msgstr "Выход"
 
-#: ../ui/ui.c:959
+#: ../src/ui/ui.cpp:959
 msgid "Exit now"
 msgstr "Выйти сейчас"
 
-#: ../ui/ui.c:960
+#: ../src/ui/ui.cpp:960
 msgid "Not yet"
 msgstr "Ещё нет"
 
-#: ../ui/ui.c:962 ../ui-hlp/menu.c:1021 ../ui-hlp/menu.c:1028
-#: ../ui/dialog.c:387 ../ui/dialog.c:1326
+#: ../src/ui/ui.cpp:962 ../src/ui-hlp/menu.cpp:1021 ../src/ui-hlp/menu.cpp:1028
+#: ../src/ui/dialog.cpp:387 ../src/ui/dialog.cpp:1326
 msgid "Help"
 msgstr "Справка"
 
-#: ../ui/ui.c:963
+#: ../src/ui/ui.cpp:963
 msgid "Disable XaoS's builtin GUI"
 msgstr "Отключить встроенный графический интерфейс XaoS"
 
-#: ../ui/ui.c:965 ../ui/ui.c:970
+#: ../src/ui/ui.cpp:965 ../src/ui/ui.cpp:970
 msgid "Status"
 msgstr "Cостояние"
 
-#: ../ui/ui.c:967 ../ui/ui.c:972
+#: ../src/ui/ui.cpp:967 ../src/ui/ui.cpp:972
 msgid "Ministatus"
 msgstr "Мини-статус"
 
-#: ../ui/ui.c:974 ../ui/ui.c:975
+#: ../src/ui/ui.cpp:974 ../src/ui/ui.cpp:975
 msgid "Driver"
 msgstr "Драйвер"
 
-#: ../ui/ui.c:1359
+#: ../src/ui/ui.cpp:1359
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Добро пожаловать в XaoS версии %s"
 
-#: ../ui/ui.c:1513
+#: ../src/ui/ui.cpp:1513
 msgid "Can not allocate buffers"
 msgstr "Невозможно выделить буферы"
 
-#: ../ui/ui.c:1523
+#: ../src/ui/ui.cpp:1523
 msgid "Can not create palette"
 msgstr "Невозможно создать палитру"
 
-#: ../ui/ui.c:1530
+#: ../src/ui/ui.cpp:1530
 msgid "Can not create image"
 msgstr "Невозможно создать изображение"
 
-#: ../ui/ui.c:1567 ../ui/ui.c:1618
+#: ../src/ui/ui.cpp:1567 ../src/ui/ui.cpp:1618
 msgid "Can not allocate tables"
 msgstr "Невозможно выделить таблицы"
 
-#: ../ui/ui.c:1605
+#: ../src/ui/ui.cpp:1605
 msgid "Can not initialize driver"
 msgstr "Невозможно инициализировать драйвер"
 
-#: ../ui/ui.c:1607
+#: ../src/ui/ui.cpp:1607
 msgid "Can not return back to previous driver"
 msgstr "Невозможно вернуться к предыдущему драйверу"
 
-#: ../ui-hlp/menu.c:120
+#: ../src/ui-hlp/menu.cpp:120
 msgid "Perturbation:"
 msgstr "Возмущение:"
 
-#: ../ui-hlp/menu.c:124
+#: ../src/ui-hlp/menu.cpp:124
 msgid "Julia-seed:"
 msgstr "Зерно Жюлиа:"
 
-#: ../ui-hlp/menu.c:128
+#: ../src/ui-hlp/menu.cpp:128
 msgid "Morphing type:"
 msgstr "Тип морфинга:"
 
-#: ../ui-hlp/menu.c:129
+#: ../src/ui-hlp/menu.cpp:129
 msgid "Startuptime:"
 msgstr "Время запуска:"
 
-#: ../ui-hlp/menu.c:130
+#: ../src/ui-hlp/menu.cpp:130
 msgid "Stoptime:"
 msgstr "Время остановки:"
 
-#: ../ui-hlp/menu.c:134
+#: ../src/ui-hlp/menu.cpp:134
 msgid "File to render:"
 msgstr "Файл для рендеринга:"
 
-#: ../ui-hlp/menu.c:135
+#: ../src/ui-hlp/menu.cpp:135
 msgid "Basename:"
 msgstr "Базовое имя:"
 
-#: ../ui-hlp/menu.c:136
+#: ../src/ui-hlp/menu.cpp:136
 msgid "Width:"
 msgstr "Ширина:"
 
-#: ../ui-hlp/menu.c:137
+#: ../src/ui-hlp/menu.cpp:137
 msgid "Height:"
 msgstr "Высота:"
 
-#: ../ui-hlp/menu.c:138
+#: ../src/ui-hlp/menu.cpp:138
 msgid "Real width (cm):"
 msgstr "Реальная ширина (см):"
 
-#: ../ui-hlp/menu.c:139
+#: ../src/ui-hlp/menu.cpp:139
 msgid "Real height (cm):"
 msgstr "Реальная высота (см):"
 
-#: ../ui-hlp/menu.c:140
+#: ../src/ui-hlp/menu.cpp:140
 msgid "Framerate:"
 msgstr "Частота кадров:"
 
-#: ../ui-hlp/menu.c:141
+#: ../src/ui-hlp/menu.cpp:141
 msgid "Image type:"
 msgstr "Тип изображения:"
 
-#: ../ui-hlp/menu.c:142
+#: ../src/ui-hlp/menu.cpp:142
 msgid "Antialiasing:"
 msgstr "Сглаживание:"
 
-#: ../ui-hlp/menu.c:143
+#: ../src/ui-hlp/menu.cpp:143
 msgid "Always recalculate:"
 msgstr "Всегда пересчитывать:"
 
-#: ../ui-hlp/menu.c:144
+#: ../src/ui-hlp/menu.cpp:144
 msgid "Calculate MPEG motion vectors:"
 msgstr "Рассчитать векторы движения MPEG:"
 
-#: ../ui-hlp/menu.c:145
+#: ../src/ui-hlp/menu.cpp:145
 msgid "Recommended I frame distance:"
 msgstr "Рекомендуемое расстояние между кадрами:"
 
-#: ../ui-hlp/menu.c:149
+#: ../src/ui-hlp/menu.cpp:149
 msgid "Center:"
 msgstr "Центр:"
 
-#: ../ui-hlp/menu.c:150
+#: ../src/ui-hlp/menu.cpp:150
 msgid "Radius:"
 msgstr "Радиус:"
 
-#: ../ui-hlp/menu.c:151 ../ui-hlp/menu.c:216
+#: ../src/ui-hlp/menu.cpp:151 ../src/ui-hlp/menu.cpp:216
 msgid "Angle:"
 msgstr "Угол:"
 
-#: ../ui-hlp/menu.c:155
+#: ../src/ui-hlp/menu.cpp:155
 msgid "Mode:"
 msgstr "Режим:"
 
-#: ../ui-hlp/menu.c:156
+#: ../src/ui-hlp/menu.cpp:156
 msgid "Start:"
 msgstr "Начало:"
 
-#: ../ui-hlp/menu.c:157
+#: ../src/ui-hlp/menu.cpp:157
 msgid "End:"
 msgstr "Конец:"
 
-#: ../ui-hlp/menu.c:161
+#: ../src/ui-hlp/menu.cpp:161
 msgid "Color:"
 msgstr "Цвет:"
 
-#: ../ui-hlp/menu.c:165
+#: ../src/ui-hlp/menu.cpp:165
 msgid "Rotations per second:"
 msgstr "Оборотов в секунду:"
 
-#: ../ui-hlp/menu.c:169
+#: ../src/ui-hlp/menu.cpp:169
 msgid "Letters per second:"
 msgstr "Букв в секунду:"
 
-#: ../ui-hlp/menu.c:173
+#: ../src/ui-hlp/menu.cpp:173
 msgid "Iterations:"
 msgstr "Итерации:"
 
-#: ../ui-hlp/menu.c:177
+#: ../src/ui-hlp/menu.cpp:177
 msgid "Text:"
 msgstr "Текст:"
 
-#: ../ui-hlp/menu.c:181
+#: ../src/ui-hlp/menu.cpp:181
 msgid "Your command:"
 msgstr "Ваша команда:"
 
-#: ../ui-hlp/menu.c:185 ../ui-hlp/menu.c:189 ../ui-hlp/menu.c:193
-#: ../ui-hlp/menu.c:197 ../ui-hlp/menu.c:249
+#: ../src/ui-hlp/menu.cpp:185 ../src/ui-hlp/menu.cpp:189 ../src/ui-hlp/menu.cpp:193
+#: ../src/ui-hlp/menu.cpp:197 ../src/ui-hlp/menu.cpp:249
 msgid "Filename:"
 msgstr "Имя файла:"
 
-#: ../ui-hlp/menu.c:201 ../ui-hlp/menu.c:289
+#: ../src/ui-hlp/menu.cpp:201 ../src/ui-hlp/menu.cpp:289
 msgid "Formula:"
 msgstr "Формула:"
 
-#: ../ui-hlp/menu.c:205
+#: ../src/ui-hlp/menu.cpp:205
 msgid "X center:"
 msgstr "Центр X:"
 
-#: ../ui-hlp/menu.c:206
+#: ../src/ui-hlp/menu.cpp:206
 msgid "Y center:"
 msgstr "Центр Y:"
 
-#: ../ui-hlp/menu.c:207
+#: ../src/ui-hlp/menu.cpp:207
 msgid "X Radius:"
 msgstr "Радиус X:"
 
-#: ../ui-hlp/menu.c:208
+#: ../src/ui-hlp/menu.cpp:208
 msgid "Y Radius:"
 msgstr "Радиус Y:"
 
-#: ../ui-hlp/menu.c:212
+#: ../src/ui-hlp/menu.cpp:212
 msgid "Coordinates:"
 msgstr "Координаты:"
 
-#: ../ui-hlp/menu.c:220
+#: ../src/ui-hlp/menu.cpp:220
 msgid "continuous rotation"
 msgstr "непрерывное вращение"
 
-#: ../ui-hlp/menu.c:224
+#: ../src/ui-hlp/menu.cpp:224
 msgid "Fast rotation"
 msgstr "Быстрое вращение"
 
-#: ../ui-hlp/menu.c:228
+#: ../src/ui-hlp/menu.cpp:228
 msgid "filter"
 msgstr "фильтр"
 
-#: ../ui-hlp/menu.c:229
+#: ../src/ui-hlp/menu.cpp:229
 msgid "enable"
 msgstr "включить"
 
-#: ../ui-hlp/menu.c:233
+#: ../src/ui-hlp/menu.cpp:233
 msgid "Amount:"
 msgstr "Количество:"
 
-#: ../ui-hlp/menu.c:237
+#: ../src/ui-hlp/menu.cpp:237
 msgid "Zooming speed:"
 msgstr "Скорость масштабирования:"
 
-#: ../ui-hlp/menu.c:241
+#: ../src/ui-hlp/menu.cpp:241
 msgid "Name:"
 msgstr "Имя:"
 
-#: ../ui-hlp/menu.c:245
+#: ../src/ui-hlp/menu.cpp:245
 msgid "Bailout:"
 msgstr "Спасение:"
 
-#: ../ui-hlp/menu.c:253
+#: ../src/ui-hlp/menu.cpp:253
 msgid "Julia mode:"
 msgstr "Режим Жюлиа:"
 
-#: ../ui-hlp/menu.c:257
+#: ../src/ui-hlp/menu.cpp:257
 msgid "Horizontal position:"
 msgstr "Позиция по горизонтали:"
 
-#: ../ui-hlp/menu.c:258
+#: ../src/ui-hlp/menu.cpp:258
 msgid "Vertical position:"
 msgstr "Позиция по вертикали:"
 
-#: ../ui-hlp/menu.c:262
+#: ../src/ui-hlp/menu.cpp:262
 msgid "Dynamic resolution:"
 msgstr "Динамическое разрешение:"
 
-#: ../ui-hlp/menu.c:266
+#: ../src/ui-hlp/menu.cpp:266
 msgid "Time:"
 msgstr "Время:"
 
-#: ../ui-hlp/menu.c:270 ../ui-hlp/menu.c:274
+#: ../src/ui-hlp/menu.cpp:270 ../src/ui-hlp/menu.cpp:274
 msgid "Number:"
 msgstr "Число:"
 
-#: ../ui-hlp/menu.c:278
+#: ../src/ui-hlp/menu.cpp:278
 msgid "Algorithm number:"
 msgstr "Номер алгоритма:"
 
-#: ../ui-hlp/menu.c:279
+#: ../src/ui-hlp/menu.cpp:279
 msgid "Seed:"
 msgstr "Зерно:"
 
-#: ../ui-hlp/menu.c:280
+#: ../src/ui-hlp/menu.cpp:280
 msgid "Shift:"
 msgstr "Сдвиг:"
 
-#: ../ui-hlp/menu.c:284
+#: ../src/ui-hlp/menu.cpp:284
 msgid "Frames per second:"
 msgstr "Кадров в секунду:"
 
-#: ../ui-hlp/menu.c:293
+#: ../src/ui-hlp/menu.cpp:293
 msgid "Initialization:"
 msgstr "Инициализация:"
 
-#: ../ui-hlp/menu.c:347
+#: ../src/ui-hlp/menu.cpp:347
 msgid "renderanim: Must specify a valid absolute path for basename"
 msgstr "renderanim: Необходимо указать правильный абсолютный путь для базового имени"
 
-#: ../ui-hlp/menu.c:352
+#: ../src/ui-hlp/menu.cpp:352
 msgid ""
 "renderanim: Width parameter must be positive integer in the range 0..4096"
 msgstr "renderanim: Параметр ширины должен быть положительным целым числом в диапазоне 0..4096"
 
-#: ../ui-hlp/menu.c:356
+#: ../src/ui-hlp/menu.cpp:356
 msgid ""
 "renderanim: Height parameter must be positive integer in the range 0..4096"
 msgstr "renderanim: Параметр высоты должен быть положительным целым числом в диапазоне 0..4096"
 
-#: ../ui-hlp/menu.c:360
+#: ../src/ui-hlp/menu.cpp:360
 msgid "renderanim: Invalid real width and height dimensions"
 msgstr "renderanim: неверные реальные размеры по ширине и высоте"
 
-#: ../ui-hlp/menu.c:364
+#: ../src/ui-hlp/menu.cpp:364
 msgid "renderanim: invalid framerate"
 msgstr "renderanim: неверная частота кадров"
 
-#: ../ui-hlp/menu.c:368
+#: ../src/ui-hlp/menu.cpp:368
 msgid "renderanim: antialiasing not supported in 256 color mode"
 msgstr "renderanim: сглаживание не поддерживается в режиме 256 цветов"
 
-#: ../ui-hlp/menu.c:372
+#: ../src/ui-hlp/menu.cpp:372
 msgid "renderanim: incorrect I frame distance"
 msgstr "renderanim: неверное расстояние между кадрами"
 
-#: ../ui-hlp/menu.c:424 ../ui-hlp/menu.c:438
+#: ../src/ui-hlp/menu.cpp:424 ../src/ui-hlp/menu.cpp:438
 msgid "animateview: Invalid viewpoint"
 msgstr "animateview: Неверная точка зрения"
 
-#: ../ui-hlp/menu.c:452
+#: ../src/ui-hlp/menu.cpp:452
 msgid "Invalid viewpoint"
 msgstr "Неверная точка зрения"
 
-#: ../ui-hlp/menu.c:691
+#: ../src/ui-hlp/menu.cpp:691
 msgid "Unknown palette type"
 msgstr "Неизвестный тип палитры"
 
-#: ../ui-hlp/menu.c:774 ../ui-hlp/menu.c:787
+#: ../src/ui-hlp/menu.cpp:774 ../src/ui-hlp/menu.cpp:787
 msgid "Initialization of color cycling failed."
 msgstr "Ошибка инициализации цвета зацикливания."
 
-#: ../ui-hlp/menu.c:774 ../ui-hlp/menu.c:787
+#: ../src/ui-hlp/menu.cpp:774 ../src/ui-hlp/menu.cpp:787
 msgid "Try to enable palette emulation filter"
 msgstr "Попробуйте включить фильтр эмуляции палитры"
 
-#: ../ui-hlp/menu.c:911
+#: ../src/ui-hlp/menu.cpp:911
 #, c-format
 msgid "Algorithm:%i seed:%i size:%i"
 msgstr "Алгоритм:%i зерно:%i размер:%i"
 
-#: ../ui-hlp/menu.c:965
+#: ../src/ui-hlp/menu.cpp:965
 msgid "Root menu"
 msgstr "Корневое меню"
 
-#: ../ui-hlp/menu.c:966
+#: ../src/ui-hlp/menu.cpp:966
 msgid "Animation root menu"
 msgstr "Корневое меню анимации"
 
-#: ../ui-hlp/menu.c:967
+#: ../src/ui-hlp/menu.cpp:967
 msgid "Replay only commands"
 msgstr "Воспроизведение только команд"
 
-#: ../ui-hlp/menu.c:968
+#: ../src/ui-hlp/menu.cpp:968
 msgid "Command line options only"
 msgstr "Только параметры командной строки"
 
-#: ../ui-hlp/menu.c:970
+#: ../src/ui-hlp/menu.cpp:970
 msgid "print menus specifications of all menus"
 msgstr "печать спецификаций меню всех меню"
 
-#: ../ui-hlp/menu.c:971
+#: ../src/ui-hlp/menu.cpp:971
 msgid "print menu specification"
 msgstr "печать спецификации меню"
 
-#: ../ui-hlp/menu.c:972
+#: ../src/ui-hlp/menu.cpp:972
 msgid "print menu specification in xshl format"
 msgstr "печать спецификации меню в формате xshl"
 
-#: ../ui-hlp/menu.c:973
+#: ../src/ui-hlp/menu.cpp:973
 msgid "print all menu specifications in xshl format"
 msgstr "печать всех спецификаций меню в формате xshl"
 
-#: ../ui-hlp/menu.c:974
+#: ../src/ui-hlp/menu.cpp:974
 msgid "print dialog specification"
 msgstr "печать спецификации диалога"
 
-#: ../ui-hlp/menu.c:978
+#: ../src/ui-hlp/menu.cpp:978
 msgid "Line drawing functions"
 msgstr "Функции рисования линий"
 
-#: ../ui-hlp/menu.c:979
+#: ../src/ui-hlp/menu.cpp:979
 msgid "Line"
 msgstr "Линия"
 
-#: ../ui-hlp/menu.c:980
+#: ../src/ui-hlp/menu.cpp:980
 msgid "Morph line"
 msgstr "Морф-линия"
 
-#: ../ui-hlp/menu.c:981
+#: ../src/ui-hlp/menu.cpp:981
 msgid "Morph last line"
 msgstr "Последняя морф-линия"
 
-#: ../ui-hlp/menu.c:982
+#: ../src/ui-hlp/menu.cpp:982
 msgid "Set line key"
 msgstr "Установить ключ линии"
 
-#: ../ui-hlp/menu.c:983
+#: ../src/ui-hlp/menu.cpp:983
 msgid "Clear line"
 msgstr "Очистить линию"
 
-#: ../ui-hlp/menu.c:984
+#: ../src/ui-hlp/menu.cpp:984
 msgid "Clear all lines"
 msgstr "Очистить все линии"
 
-#: ../ui-hlp/menu.c:985
+#: ../src/ui-hlp/menu.cpp:985
 msgid "Animation functions"
 msgstr "Функции анимации"
 
-#: ../ui-hlp/menu.c:986 ../ui-hlp/menu.c:1086 ../ui-hlp/menu.c:1090
+#: ../src/ui-hlp/menu.cpp:986 ../src/ui-hlp/menu.cpp:1086 ../src/ui-hlp/menu.cpp:1090
 msgid "View"
 msgstr "Вид"
 
-#: ../ui-hlp/menu.c:987
+#: ../src/ui-hlp/menu.cpp:987
 msgid "Morph view"
 msgstr "Морф-вид"
 
-#: ../ui-hlp/menu.c:988
+#: ../src/ui-hlp/menu.cpp:988
 msgid "Morph julia"
 msgstr "Морф-Жюлиа"
 
-#: ../ui-hlp/menu.c:989
+#: ../src/ui-hlp/menu.cpp:989
 msgid "Move view"
 msgstr "Переместить вид"
 
-#: ../ui-hlp/menu.c:990
+#: ../src/ui-hlp/menu.cpp:990
 msgid "Morph angle"
 msgstr "Морф-угол"
 
-#: ../ui-hlp/menu.c:991
+#: ../src/ui-hlp/menu.cpp:991
 msgid "Zoom center"
 msgstr "Центр масштабирования"
 
-#: ../ui-hlp/menu.c:992 ../ui/ui-drv/cocoa/AppController.m:343
+#: ../src/ui-hlp/menu.cpp:992 ../src/ui/ui-drv/cocoa/AppController.m:343
 msgid "Zoom"
 msgstr "Масштаб"
 
-#: ../ui-hlp/menu.c:993
+#: ../src/ui-hlp/menu.cpp:993
 msgid "Un-zoom"
 msgstr "Снять масштабирование"
 
-#: ../ui-hlp/menu.c:994
+#: ../src/ui-hlp/menu.cpp:994
 msgid "Stop zooming"
 msgstr "Остановить масштабирование"
 
-#: ../ui-hlp/menu.c:995
+#: ../src/ui-hlp/menu.cpp:995
 msgid "Smooth morphing parameters"
 msgstr "Параметры плавного морфинга"
 
-#: ../ui-hlp/menu.c:996
+#: ../src/ui-hlp/menu.cpp:996
 msgid "Timing functions"
 msgstr "Функции тайминга"
 
-#: ../ui-hlp/menu.c:997
+#: ../src/ui-hlp/menu.cpp:997
 msgid "Usleep"
 msgstr "Разбудить"
 
-#: ../ui-hlp/menu.c:998
+#: ../src/ui-hlp/menu.cpp:998
 msgid "Wait for text"
 msgstr "Ожидание текста"
 
-#: ../ui-hlp/menu.c:999
+#: ../src/ui-hlp/menu.cpp:999
 msgid "Wait for complete image"
 msgstr "Ожидание полного изображения"
 
-#: ../ui-hlp/menu.c:1000
+#: ../src/ui-hlp/menu.cpp:1000
 msgid "Include file"
 msgstr "Включить файл"
 
-#: ../ui-hlp/menu.c:1001 ../ui-hlp/menu.c:1098
+#: ../src/ui-hlp/menu.cpp:1001 ../src/ui-hlp/menu.cpp:1098
 msgid "Default palette"
 msgstr "Палитра по умолчанию"
 
-#: ../ui-hlp/menu.c:1002
+#: ../src/ui-hlp/menu.cpp:1002
 msgid "Formula"
 msgstr "Формула"
 
-#: ../ui-hlp/menu.c:1003
+#: ../src/ui-hlp/menu.cpp:1003
 msgid "Maximal zooming step"
 msgstr "Максимальный шаг масштабирования"
 
-#: ../ui-hlp/menu.c:1004
+#: ../src/ui-hlp/menu.cpp:1004
 msgid "Zooming speedup"
 msgstr "Ускорение масштабирования"
 
-#: ../ui-hlp/menu.c:1005
+#: ../src/ui-hlp/menu.cpp:1005
 msgid "Filter"
 msgstr "Фильтр"
 
-#: ../ui-hlp/menu.c:1008 ../ui-hlp/menu.c:1009
+#: ../src/ui-hlp/menu.cpp:1008 ../src/ui-hlp/menu.cpp:1009
 msgid "Letters per second"
 msgstr "Букв в секунду"
 
-#: ../ui-hlp/menu.c:1010 ../ui-hlp/menu.c:1135
+#: ../src/ui-hlp/menu.cpp:1010 ../src/ui-hlp/menu.cpp:1135
 msgid "Interrupt"
 msgstr "Прервать"
 
-#: ../ui-hlp/menu.c:1011 ../ui-hlp/menu.c:1022
+#: ../src/ui-hlp/menu.cpp:1011 ../src/ui-hlp/menu.cpp:1022
 msgid "File"
 msgstr "Файл"
 
-#: ../ui-hlp/menu.c:1012
+#: ../src/ui-hlp/menu.cpp:1012
 msgid "Edit"
 msgstr "Изменить"
 
-#: ../ui-hlp/menu.c:1013
+#: ../src/ui-hlp/menu.cpp:1013
 msgid "Fractal"
 msgstr "Фрактал"
 
-#: ../ui-hlp/menu.c:1014
+#: ../src/ui-hlp/menu.cpp:1014
 msgid "Calculation"
 msgstr "Калькуляция"
 
-#: ../ui-hlp/menu.c:1015 ../ui-hlp/menu.c:1184
+#: ../src/ui-hlp/menu.cpp:1015 ../src/ui-hlp/menu.cpp:1184
 msgid "Filters"
 msgstr "Фильтры"
 
-#: ../ui-hlp/menu.c:1016 ../ui-hlp/menu.c:1027
+#: ../src/ui-hlp/menu.cpp:1016 ../src/ui-hlp/menu.cpp:1027
 msgid "UI"
 msgstr "Интерфейс пользователя"
 
-#: ../ui-hlp/menu.c:1017
+#: ../src/ui-hlp/menu.cpp:1017
 msgid "Misc"
 msgstr "Прочее"
 
-#: ../ui-hlp/menu.c:1019
+#: ../src/ui-hlp/menu.cpp:1019
 msgid "Window"
 msgstr "Окно"
 
-#: ../ui-hlp/menu.c:1022
+#: ../src/ui-hlp/menu.cpp:1022
 msgid "Tutorials"
 msgstr "Учебники"
 
-#: ../ui-hlp/menu.c:1026
+#: ../src/ui-hlp/menu.cpp:1026
 msgid "Stop replay"
 msgstr "Остановить воспроизведение"
 
-#: ../ui-hlp/menu.c:1029
+#: ../src/ui-hlp/menu.cpp:1029
 msgid "Command"
 msgstr "Команда"
 
-#: ../ui-hlp/menu.c:1030
+#: ../src/ui-hlp/menu.cpp:1030
 msgid "Play string"
 msgstr "Воспроизвести строку"
 
-#: ../ui-hlp/menu.c:1031
+#: ../src/ui-hlp/menu.cpp:1031
 msgid "Render animation"
 msgstr "Анимация рендеринга"
 
-#: ../ui-hlp/menu.c:1033
+#: ../src/ui-hlp/menu.cpp:1033
 msgid "Clear screen"
 msgstr "Очистить экран"
 
-#: ../ui-hlp/menu.c:1034
+#: ../src/ui-hlp/menu.cpp:1034
 msgid "Display fractal"
 msgstr "Отобразить фрактал"
 
-#: ../ui-hlp/menu.c:1036
+#: ../src/ui-hlp/menu.cpp:1036
 msgid "Display text"
 msgstr "Показать текст"
 
-#: ../ui-hlp/menu.c:1038
+#: ../src/ui-hlp/menu.cpp:1038
 msgid "Color"
 msgstr "Цвет"
 
-#: ../ui-hlp/menu.c:1039
+#: ../src/ui-hlp/menu.cpp:1039
 msgid "Horizontal text position"
 msgstr "Позиция горизонтального текста"
 
-#: ../ui-hlp/menu.c:1040
+#: ../src/ui-hlp/menu.cpp:1040
 msgid "Vertical text position"
 msgstr "Позиция вертикального текста"
 
-#: ../ui-hlp/menu.c:1041
+#: ../src/ui-hlp/menu.cpp:1041
 msgid "Text position"
 msgstr "Позиция текста"
 
-#: ../ui-hlp/menu.c:1042
+#: ../src/ui-hlp/menu.cpp:1042
 msgid "Message"
 msgstr "Сообщение"
 
-#: ../ui-hlp/menu.c:1053
+#: ../src/ui-hlp/menu.cpp:1053
 msgid "Load"
 msgstr "Загрузить"
 
-#: ../ui-hlp/menu.c:1054
+#: ../src/ui-hlp/menu.cpp:1054
 msgid "Save"
 msgstr "Сохранить"
 
-#: ../ui-hlp/menu.c:1055
+#: ../src/ui-hlp/menu.cpp:1055
 msgid "Record"
 msgstr "Записать"
 
-#: ../ui-hlp/menu.c:1056
+#: ../src/ui-hlp/menu.cpp:1056
 msgid "Replay"
 msgstr "Воспроизведение"
 
-#: ../ui-hlp/menu.c:1058
+#: ../src/ui-hlp/menu.cpp:1058
 msgid "Save image"
 msgstr "Сохранить изображение"
 
-#: ../ui-hlp/menu.c:1059
+#: ../src/ui-hlp/menu.cpp:1059
 msgid "Load random example"
 msgstr "Загрузить случайный пример"
 
-#: ../ui-hlp/menu.c:1060
+#: ../src/ui-hlp/menu.cpp:1060
 msgid "Save configuration"
 msgstr "Сохранить конфигурацию"
 
-#: ../ui-hlp/menu.c:1064
+#: ../src/ui-hlp/menu.cpp:1064
 msgid "Undo"
 msgstr "Вернуть"
 
-#: ../ui-hlp/menu.c:1065
+#: ../src/ui-hlp/menu.cpp:1065
 msgid "Redo"
 msgstr "Повторить"
 
-#: ../ui-hlp/menu.c:1066
+#: ../src/ui-hlp/menu.cpp:1066
 msgid "Formulae"
 msgstr "Формулы"
 
-#: ../ui-hlp/menu.c:1067
+#: ../src/ui-hlp/menu.cpp:1067
 msgid "More formulae"
 msgstr "Больше формул"
 
-#: ../ui-hlp/menu.c:1072
+#: ../src/ui-hlp/menu.cpp:1072
 msgid "User formula"
 msgstr "Пользовательская формула"
 
-#: ../ui-hlp/menu.c:1073
+#: ../src/ui-hlp/menu.cpp:1073
 msgid "User initialization"
 msgstr "Пользовательская инициализация:"
 
-#: ../ui-hlp/menu.c:1077
+#: ../src/ui-hlp/menu.cpp:1077
 msgid "Incoloring mode"
 msgstr "Режим окрашивания внутри"
 
-#: ../ui-hlp/menu.c:1078
+#: ../src/ui-hlp/menu.cpp:1078
 msgid "Outcoloring mode"
 msgstr "Режим окрашивания снаружи"
 
-#: ../ui-hlp/menu.c:1079
+#: ../src/ui-hlp/menu.cpp:1079
 msgid "Plane"
 msgstr "Плоскость"
 
-#: ../ui-hlp/menu.c:1080
+#: ../src/ui-hlp/menu.cpp:1080
 msgid "Palette"
 msgstr "Палитра"
 
-#: ../ui-hlp/menu.c:1082
+#: ../src/ui-hlp/menu.cpp:1082
 msgid "Mandelbrot mode"
 msgstr "Режим Мандельброта"
 
-#: ../ui-hlp/menu.c:1083 ../ui-hlp/menu.c:1084 ../ui-hlp/menu.c:1187
+#: ../src/ui-hlp/menu.cpp:1083 ../src/ui-hlp/menu.cpp:1084 ../src/ui-hlp/menu.cpp:1187
 msgid "Perturbation"
 msgstr "Возмущение"
 
-#: ../ui-hlp/menu.c:1088
+#: ../src/ui-hlp/menu.cpp:1088
 msgid "Reset to defaults"
 msgstr "Сбросить на умолчания"
 
-#: ../ui-hlp/menu.c:1089
+#: ../src/ui-hlp/menu.cpp:1089
 msgid "Julia mode"
 msgstr "Режим Жюлиа"
 
-#: ../ui-hlp/menu.c:1091
+#: ../src/ui-hlp/menu.cpp:1091
 msgid "Set angle"
 msgstr "Установить угол"
 
-#: ../ui-hlp/menu.c:1092
+#: ../src/ui-hlp/menu.cpp:1092
 msgid "Set plane"
 msgstr "Установить плоскость"
 
-#: ../ui-hlp/menu.c:1093
+#: ../src/ui-hlp/menu.cpp:1093
 msgid "Inside coloring mode"
 msgstr "Режим окрашивания внутри"
 
-#: ../ui-hlp/menu.c:1094
+#: ../src/ui-hlp/menu.cpp:1094
 msgid "Outside coloring mode"
 msgstr "Режим окрашивания снаружи"
 
-#: ../ui-hlp/menu.c:1095
+#: ../src/ui-hlp/menu.cpp:1095
 msgid "Inside truecolor coloring mode"
 msgstr "Режим окрашивания внутри в истинный цвет"
 
-#: ../ui-hlp/menu.c:1096
+#: ../src/ui-hlp/menu.cpp:1096
 msgid "Outside truecolor coloring mode"
 msgstr "Режим окрашивания снаружи в истинный цвет"
 
-#: ../ui-hlp/menu.c:1097
+#: ../src/ui-hlp/menu.cpp:1097
 msgid "Julia seed"
 msgstr "Зерно Жюлиа"
 
-#: ../ui-hlp/menu.c:1099
+#: ../src/ui-hlp/menu.cpp:1099
 msgid "Random palette"
 msgstr "Случайная палитра"
 
-#: ../ui-hlp/menu.c:1100
+#: ../src/ui-hlp/menu.cpp:1100
 msgid "Custom palette"
 msgstr "Пользовательская палитра"
 
-#: ../ui-hlp/menu.c:1102
+#: ../src/ui-hlp/menu.cpp:1102
 msgid "Color cycling"
 msgstr "Цвет зацикливания"
 
-#: ../ui-hlp/menu.c:1103
+#: ../src/ui-hlp/menu.cpp:1103
 msgid "Reversed color cycling"
 msgstr "Резервный цвет зацикливания"
 
-#: ../ui-hlp/menu.c:1104
+#: ../src/ui-hlp/menu.cpp:1104
 msgid "Color cycling speed"
 msgstr "Цвет скорости зацикливания"
 
-#: ../ui-hlp/menu.c:1106
+#: ../src/ui-hlp/menu.cpp:1106
 msgid "Shift palette"
 msgstr "Сдвиг палитры"
 
-#: ../ui-hlp/menu.c:1107
+#: ../src/ui-hlp/menu.cpp:1107
 msgid "Shift one forward"
 msgstr "Сдвиг вперёд"
 
-#: ../ui-hlp/menu.c:1108
+#: ../src/ui-hlp/menu.cpp:1108
 msgid "Shift one backward"
 msgstr "Сдвиг назад"
 
-#: ../ui-hlp/menu.c:1109 ../engine/zoom.c:1308
+#: ../src/ui-hlp/menu.cpp:1109 ../src/engine/zoom.cpp:1308
 msgid "Solid guessing"
 msgstr "Угадывание сплошного"
 
-#: ../ui-hlp/menu.c:1110
+#: ../src/ui-hlp/menu.cpp:1110
 msgid "Dynamic resolution"
 msgstr "Динамическое разрешение"
 
-#: ../ui-hlp/menu.c:1111
+#: ../src/ui-hlp/menu.cpp:1111
 msgid "Periodicity checking"
 msgstr "Периодическая проверка"
 
-#: ../ui-hlp/menu.c:1112
+#: ../src/ui-hlp/menu.cpp:1112
 msgid "Iterations"
 msgstr "Итерации"
 
-#: ../ui-hlp/menu.c:1113
+#: ../src/ui-hlp/menu.cpp:1113
 msgid "Bailout"
 msgstr "Спасение"
 
-#: ../ui-hlp/menu.c:1115
+#: ../src/ui-hlp/menu.cpp:1115
 msgid "Fast julia mode"
 msgstr "Быстрый режим Жюлиа"
 
-#: ../ui-hlp/menu.c:1116
+#: ../src/ui-hlp/menu.cpp:1116
 msgid "Rotation"
 msgstr "Поворот"
 
-#: ../ui-hlp/menu.c:1117
+#: ../src/ui-hlp/menu.cpp:1117
 msgid "Solid guessing range"
 msgstr "Диапазон угадывания сплошного"
 
-#: ../ui-hlp/menu.c:1118
+#: ../src/ui-hlp/menu.cpp:1118
 msgid "Disable rotation"
 msgstr "Отключить вращение"
 
-#: ../ui-hlp/menu.c:1120
+#: ../src/ui-hlp/menu.cpp:1120
 msgid "Continuous rotation"
 msgstr "Непрерывное вращение"
 
-#: ../ui-hlp/menu.c:1121
+#: ../src/ui-hlp/menu.cpp:1121
 msgid "Rotate by mouse"
 msgstr "Вращение мышью"
 
-#: ../ui-hlp/menu.c:1122
+#: ../src/ui-hlp/menu.cpp:1122
 msgid "Rotation speed"
 msgstr "Скорость вращения"
 
-#: ../ui-hlp/menu.c:1123
+#: ../src/ui-hlp/menu.cpp:1123
 msgid "Automatic rotation"
 msgstr "Автоматическое вращение"
 
-#: ../ui-hlp/menu.c:1124
+#: ../src/ui-hlp/menu.cpp:1124
 msgid "Fast rotation mode"
 msgstr "Режим быстрого вращения"
 
-#: ../ui-hlp/menu.c:1125
+#: ../src/ui-hlp/menu.cpp:1125
 msgid "Disable dynamic resolution"
 msgstr "Отключить динамическое разрешение"
 
-#: ../ui-hlp/menu.c:1127
+#: ../src/ui-hlp/menu.cpp:1127
 msgid "Use only during animation"
 msgstr "Использовать только при анимации"
 
-#: ../ui-hlp/menu.c:1128
+#: ../src/ui-hlp/menu.cpp:1128
 msgid "Use also for new images"
 msgstr "Использовать также для новых изображений"
 
-#: ../ui-hlp/menu.c:1129
+#: ../src/ui-hlp/menu.cpp:1129
 msgid "Dynamic resolution mode"
 msgstr "Режим динамического разрешения"
 
-#: ../ui-hlp/menu.c:1130
+#: ../src/ui-hlp/menu.cpp:1130
 msgid "Autopilot"
 msgstr "Автопилот"
 
-#: ../ui-hlp/menu.c:1132
+#: ../src/ui-hlp/menu.cpp:1132
 msgid "VJ mode"
 msgstr "Режим VJ"
 
-#: ../ui-hlp/menu.c:1134
+#: ../src/ui-hlp/menu.cpp:1134
 msgid "Recalculate"
 msgstr "Пересчитать"
 
-#: ../ui-hlp/menu.c:1137
+#: ../src/ui-hlp/menu.cpp:1137
 msgid "Zooming speed"
 msgstr "Скорость масштабирования"
 
-#: ../ui-hlp/menu.c:1138
+#: ../src/ui-hlp/menu.cpp:1138
 msgid "Fixed step"
 msgstr "Фиксированный шаг"
 
-#: ../ui-hlp/menu.c:1139
+#: ../src/ui-hlp/menu.cpp:1139
 msgid "Disable solid guessing"
 msgstr "Отключить угадывание сплошного"
 
-#: ../ui-hlp/menu.c:1141
+#: ../src/ui-hlp/menu.cpp:1141
 msgid "Guess 2x2 rectangles"
 msgstr "Угадать 2x2 прямоугольника"
 
-#: ../ui-hlp/menu.c:1142
+#: ../src/ui-hlp/menu.cpp:1142
 msgid "Guess 3x3 rectangles"
 msgstr "Угадать 3x3 прямоугольника"
 
-#: ../ui-hlp/menu.c:1143
+#: ../src/ui-hlp/menu.cpp:1143
 msgid "Guess 4x4 rectangles"
 msgstr "Угадать 4x4 прямоугольника"
 
-#: ../ui-hlp/menu.c:1144
+#: ../src/ui-hlp/menu.cpp:1144
 msgid "Guess 5x5 rectangles"
 msgstr "Угадать 5x5 прямоугольников"
 
-#: ../ui-hlp/menu.c:1145
+#: ../src/ui-hlp/menu.cpp:1145
 msgid "Guess 6x6 rectangles"
 msgstr "Угадать 6x6 прямоугольников"
 
-#: ../ui-hlp/menu.c:1146
+#: ../src/ui-hlp/menu.cpp:1146
 msgid "Guess 7x7 rectangles"
 msgstr "Угадать 7x7 прямоугольников"
 
-#: ../ui-hlp/menu.c:1147
+#: ../src/ui-hlp/menu.cpp:1147
 msgid "Guess 8x8 rectangles"
 msgstr "Угадать 8x8 прямоугольников"
 
-#: ../ui-hlp/menu.c:1148
+#: ../src/ui-hlp/menu.cpp:1148
 msgid "Guess unlimited rectangles"
 msgstr "Угадать безлимитные прямоугольники"
 
-#: ../ui-hlp/menu.c:1151
+#: ../src/ui-hlp/menu.cpp:1151
 msgid "Language"
 msgstr "Язык"
 
-#: ../ui-hlp/menu.c:1154
+#: ../src/ui-hlp/menu.cpp:1154
 msgid "An introduction to fractals"
 msgstr "Введение в фракталы"
 
-#: ../ui-hlp/menu.c:1155
+#: ../src/ui-hlp/menu.cpp:1155
 msgid "XaoS features overview"
 msgstr "Обзор возможностей XaoS"
 
-#: ../ui-hlp/menu.c:1156
+#: ../src/ui-hlp/menu.cpp:1156
 msgid "Math behind fractals"
 msgstr "Математика позади фракталов"
 
-#: ../ui-hlp/menu.c:1157 ../ui-hlp/menu.c:1194
+#: ../src/ui-hlp/menu.cpp:1157 ../src/ui-hlp/menu.cpp:1194
 msgid "Other fractal types in XaoS"
 msgstr "Другие типы фракталов в XaoS"
 
-#: ../ui-hlp/menu.c:1158
+#: ../src/ui-hlp/menu.cpp:1158
 msgid "What's new?"
 msgstr "Что нового?"
 
-#: ../ui-hlp/menu.c:1168 ../ui-hlp/menu.c:1190
+#: ../src/ui-hlp/menu.cpp:1168 ../src/ui-hlp/menu.cpp:1190
 msgid "Whole story"
 msgstr "Вся история"
 
-#: ../ui-hlp/menu.c:1170
+#: ../src/ui-hlp/menu.cpp:1170
 msgid "Introduction"
 msgstr "Введение"
 
-#: ../ui-hlp/menu.c:1171
+#: ../src/ui-hlp/menu.cpp:1171
 msgid "Mandelbrot set"
 msgstr "Множество Мандельброта"
 
-#: ../ui-hlp/menu.c:1172
+#: ../src/ui-hlp/menu.cpp:1172
 msgid "Julia set"
 msgstr "Множество Жюлиа"
 
-#: ../ui-hlp/menu.c:1173
+#: ../src/ui-hlp/menu.cpp:1173
 msgid "Higher power Mandelbrots"
 msgstr "Мандельброты высшей силы"
 
-#: ../ui-hlp/menu.c:1174
+#: ../src/ui-hlp/menu.cpp:1174
 msgid "Newton's method"
 msgstr "Метод Ньютона"
 
-#: ../ui-hlp/menu.c:1175
+#: ../src/ui-hlp/menu.cpp:1175
 msgid "Barnsley's formula"
 msgstr "Формула Барнсли"
 
-#: ../ui-hlp/menu.c:1176
+#: ../src/ui-hlp/menu.cpp:1176
 msgid "Phoenix"
 msgstr "Феникс"
 
-#: ../ui-hlp/menu.c:1177
+#: ../src/ui-hlp/menu.cpp:1177
 msgid "Octo"
 msgstr "Окто"
 
-#: ../ui-hlp/menu.c:1178
+#: ../src/ui-hlp/menu.cpp:1178
 msgid "Magnet"
 msgstr "Магнит"
 
-#: ../ui-hlp/menu.c:1179
+#: ../src/ui-hlp/menu.cpp:1179
 msgid "All features"
 msgstr "Все возможности"
 
-#: ../ui-hlp/menu.c:1181
+#: ../src/ui-hlp/menu.cpp:1181
 msgid "Outcoloring modes"
 msgstr "Режимы окрашивания снаружи"
 
-#: ../ui-hlp/menu.c:1182
+#: ../src/ui-hlp/menu.cpp:1182
 msgid "Incoloring modes"
 msgstr "Режимы окрашивания внутри"
 
-#: ../ui-hlp/menu.c:1183
+#: ../src/ui-hlp/menu.cpp:1183
 msgid "True-color coloring modes"
 msgstr "Режимы окрашивания в истинный цвет"
 
-#: ../ui-hlp/menu.c:1185
+#: ../src/ui-hlp/menu.cpp:1185
 msgid "Planes"
 msgstr "Плоскости"
 
-#: ../ui-hlp/menu.c:1186
+#: ../src/ui-hlp/menu.cpp:1186
 msgid "Animations and position files"
 msgstr "Файлы анимаций и позиций"
 
-#: ../ui-hlp/menu.c:1188
+#: ../src/ui-hlp/menu.cpp:1188
 msgid "Random palettes"
 msgstr "Случайные палитры"
 
-#: ../ui-hlp/menu.c:1189
+#: ../src/ui-hlp/menu.cpp:1189
 msgid "Other noteworthy features"
 msgstr "Другие заслуживающие внимания возможности"
 
-#: ../ui-hlp/menu.c:1192
+#: ../src/ui-hlp/menu.cpp:1192
 msgid "The definition and fractal dimension"
 msgstr "Размер определений и фракталов"
 
-#: ../ui-hlp/menu.c:1193
+#: ../src/ui-hlp/menu.cpp:1193
 msgid "Escape time fractals"
 msgstr "Фракталы побега времени"
 
-#: ../ui-hlp/menu.c:1196
+#: ../src/ui-hlp/menu.cpp:1196
 msgid "Triceratops and Catseye fractals"
 msgstr "Фракталы Трицератопс и Кэтси"
 
-#: ../ui-hlp/menu.c:1197
+#: ../src/ui-hlp/menu.cpp:1197
 msgid "Mandelbar, Lambda, Manowar and Spider"
 msgstr "Мандельбар, Лямбда, Мановар и Спайдер"
 
-#: ../ui-hlp/menu.c:1198
+#: ../src/ui-hlp/menu.cpp:1198
 msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
 msgstr "Уплотнение Серпинского, Ковёр Серпинского, Снежинка Коха"
 
-#: ../ui-hlp/menu.c:1199
+#: ../src/ui-hlp/menu.cpp:1199
 msgid "What's new in 3.0?"
 msgstr "Что нового в 3.0?"
 
-#: ../ui-hlp/play.c:77
+#: ../src/ui-hlp/play.cpp:77
 msgid "line available only in animation replay"
 msgstr "линия доступна только в анимационном воспроизведении"
 
-#: ../ui-hlp/play.c:103
+#: ../src/ui-hlp/play.cpp:103
 msgid "Morphing non existing line!"
 msgstr "Морфинг несуществующей линии!"
 
-#: ../ui-hlp/play.c:127
+#: ../src/ui-hlp/play.cpp:127
 msgid "linekey not available in this context!"
 msgstr "Ключ линии недоступен в этом контексте!"
 
-#: ../ui-hlp/play.c:272
+#: ../src/ui-hlp/play.cpp:272
 msgid "clear_line available only in animation replay"
 msgstr "очистить_линию доступно только в анимационном воспроизведении"
 
-#: ../ui-hlp/play.c:282
+#: ../src/ui-hlp/play.cpp:282
 msgid "clear_lines available only in animation replay"
 msgstr "очистить_линии доступно только в анимационном воспроизведении"
 
-#: ../ui-hlp/play.c:343
+#: ../src/ui-hlp/play.cpp:343
 msgid "Catalog file not found"
 msgstr "Файл каталога не найден"
 
-#: ../ui-hlp/play.c:391
+#: ../src/ui-hlp/play.cpp:391
 msgid "Replay is already active"
 msgstr "Воспроизведение уже активно"
 
-#: ../ui-hlp/play.c:395
+#: ../src/ui-hlp/play.cpp:395
 msgid "File open failed"
 msgstr "Ошибка открытия файла"
 
-#: ../ui-hlp/play.c:400
+#: ../src/ui-hlp/play.cpp:400
 msgid "Out of memory"
 msgstr "Не хватает памяти"
 
-#: ../ui-hlp/play.c:511 ../ui-hlp/play.c:527 ../ui-hlp/play.c:551
-#: ../ui-hlp/play.c:578
+#: ../src/ui-hlp/play.cpp:511 ../src/ui-hlp/play.cpp:527 ../src/ui-hlp/play.cpp:551
+#: ../src/ui-hlp/play.cpp:578
 msgid "Missing parameter"
 msgstr "Отсутствует параметр"
 
-#: ../ui-hlp/play.c:513 ../ui-hlp/play.c:529 ../ui-hlp/play.c:553
-#: ../ui-hlp/play.c:580
+#: ../src/ui-hlp/play.cpp:513 ../src/ui-hlp/play.cpp:529 ../src/ui-hlp/play.cpp:553
+#: ../src/ui-hlp/play.cpp:580
 msgid "Unexpected end of file"
 msgstr "Неожиданный конец файла"
 
-#: ../ui-hlp/play.c:540 ../ui-hlp/play.c:559
+#: ../src/ui-hlp/play.cpp:540 ../src/ui-hlp/play.cpp:559
 msgid "Token is too long"
 msgstr "Токен слишком длинный"
 
-#: ../ui-hlp/play.c:614
+#: ../src/ui-hlp/play.cpp:614
 msgid "Unknown formula type"
 msgstr "Неизвестный тип формулы"
 
-#: ../ui-hlp/play.c:621
+#: ../src/ui-hlp/play.cpp:621
 msgid "morph available only in animation replay"
 msgstr "морф доступен только в анимационном воспроизведении"
 
-#: ../ui-hlp/play.c:625
+#: ../src/ui-hlp/play.cpp:625
 msgid "morphview: Invalid viewpoint"
 msgstr "morphview: Неверная точка зрения"
 
-#: ../ui-hlp/play.c:640
+#: ../src/ui-hlp/play.cpp:640
 msgid "move available only in animation replay"
 msgstr "перемещение доступно только в анимационном воспроизведении"
 
-#: ../ui-hlp/play.c:655
+#: ../src/ui-hlp/play.cpp:655
 msgid "morphjulia available only in animation replay"
 msgstr "морф-Жюлиа доступен только в анимационном воспроизведении"
 
-#: ../ui-hlp/play.c:669
+#: ../src/ui-hlp/play.cpp:669
 msgid "morphangle available only in animation replay"
 msgstr "морф-угол доступен только в анимационном воспроизведении"
 
-#: ../ui-hlp/play.c:703
+#: ../src/ui-hlp/play.cpp:703
 msgid "Unknown filter"
 msgstr "Неизвестный фильтр"
 
-#: ../ui-hlp/play.c:748
+#: ../src/ui-hlp/play.cpp:748
 msgid "sleep available only in animation replay"
 msgstr "сон доступен только в анимационном воспроизведении"
 
-#: ../ui-hlp/play.c:762
+#: ../src/ui-hlp/play.cpp:762
 #, c-format
 msgid "Internal program error #12 %i\n"
 msgstr "Внутренняя ошибка программы #12 %i\n"
 
-#: ../ui-hlp/play.c:781
+#: ../src/ui-hlp/play.cpp:781
 msgid "wait available only in animation replay"
 msgstr "ожидание доступно только в анимационном воспроизведении"
 
-#: ../ui-hlp/play.c:832
+#: ../src/ui-hlp/play.cpp:832
 msgid "No catalog file loaded"
 msgstr "Файл каталога не загружен"
 
-#: ../ui-hlp/play.c:837
+#: ../src/ui-hlp/play.cpp:837
 msgid "Message not found in catalog file"
 msgstr "Сообщение не найдено в файле каталога"
 
-#: ../ui-hlp/play.c:849
+#: ../src/ui-hlp/play.cpp:849
 msgid "load available only in animation replay"
 msgstr "загрузка доступна только в анимационном воспроизведении"
 
-#: ../ui-hlp/play.c:853
+#: ../src/ui-hlp/play.cpp:853
 msgid "Include level overflow"
 msgstr "Включить переполнение уровня"
 
-#: ../ui-hlp/play.c:862
+#: ../src/ui-hlp/play.cpp:862
 msgid "File not found"
 msgstr "Файл не найден"
 
-#: ../ui-hlp/play.c:881
+#: ../src/ui-hlp/play.cpp:881
 msgid "Too many parameters"
 msgstr "Слишком много параметров"
 
-#: ../ui-hlp/play.c:917
+#: ../src/ui-hlp/play.cpp:917
 #, c-format
 msgid "Replay disabled at line %i"
 msgstr "Воспроизведение отключено на линии %i"
 
-#: ../ui-hlp/ui_helper.c:653
+#: ../src/ui-hlp/ui_helper.cpp:653
 msgid "Tutorial files not found. Reinstall XaoS"
 msgstr "Файлы учебников не найдены. Переустановите XaoS"
 
-#: ../ui-hlp/ui_helper.c:658
+#: ../src/ui-hlp/ui_helper.cpp:658
 msgid "Preparing first image"
 msgstr "Подготовка первого изображения"
 
-#: ../ui-hlp/ui_helper.c:669
+#: ../src/ui-hlp/ui_helper.cpp:669
 msgid "Could not open examples"
 msgstr "Не удалось открыть примеры"
 
-#: ../ui-hlp/ui_helper.c:676 ../ui-hlp/ui_helper.c:678
+#: ../src/ui-hlp/ui_helper.cpp:676 ../src/ui-hlp/ui_helper.cpp:678
 #, c-format
 msgid "File %s loaded."
 msgstr "Файл %s загружен."
 
-#: ../ui-hlp/ui_helper.c:689
+#: ../src/ui-hlp/ui_helper.cpp:689
 msgid "Saving image..."
 msgstr "Сохранение изображения..."
 
-#: ../ui-hlp/ui_helper.c:697
+#: ../src/ui-hlp/ui_helper.cpp:697
 msgid "Save interrupted"
 msgstr "Сохранение прервано"
 
-#: ../ui-hlp/ui_helper.c:706 ../ui-hlp/ui_helper.c:724
-#: ../ui-hlp/ui_helper.c:796
+#: ../src/ui-hlp/ui_helper.cpp:706 ../src/ui-hlp/ui_helper.cpp:724
+#: ../src/ui-hlp/ui_helper.cpp:796
 #, c-format
 msgid "File %s saved."
 msgstr "Файл %s сохранён."
 
-#: ../ui-hlp/ui_helper.c:718
+#: ../src/ui-hlp/ui_helper.cpp:718
 msgid "Can not open file"
 msgstr "Невозможно открыть файл"
 
-#: ../ui-hlp/ui_helper.c:819
+#: ../src/ui-hlp/ui_helper.cpp:819
 #, c-format
 msgid "Recording to file %s enabled."
 msgstr "Запись в файл %s включена."
 
-#: ../engine/zoom.c:1088
+#: ../src/engine/zoom.cpp:1088
 msgid "Solid guessing 1"
 msgstr "Угадывание сплошного 1"
 
-#: ../engine/btrace.c:292 ../engine/btrace.c:374
+#: ../src/engine/btrace.cpp:292 ../src/engine/btrace.cpp:374
 msgid "Boundary trace"
 msgstr "След границы"
 
-#: ../ui/dialog.c:296 ../ui/dialog.c:385 ../ui/dialog.c:1326
-#: ../ui/ui-drv/cocoa/CustomDialog.m:302
+#: ../src/ui/dialog.cpp:296 ../src/ui/dialog.cpp:385 ../src/ui/dialog.cpp:1326
+#: ../src/ui/ui-drv/cocoa/CustomDialog.m:302
 msgid "OK"
 msgstr "OK"
 
-#: ../ui/dialog.c:297 ../ui/dialog.c:386 ../ui/dialog.c:1326
-#: ../ui/filesel.c:188 ../ui/ui-drv/cocoa/CustomDialog.m:312
+#: ../src/ui/dialog.cpp:297 ../src/ui/dialog.cpp:386 ../src/ui/dialog.cpp:1326
+#: ../src/ui/filesel.cpp:188 ../src/ui/ui-drv/cocoa/CustomDialog.m:312
 msgid "Cancel"
 msgstr "Отменить"
 
-#: ../ui-hlp/render.c:47
+#: ../src/ui-hlp/render.cpp:47
 #, c-format
 msgid "Error: %s"
 msgstr "Ошибка: %s"
 
-#: ../ui-hlp/render.c:122
+#: ../src/ui-hlp/render.cpp:122
 msgid "Cannot open motion vector file!"
 msgstr "Невозможно открыть файл вектора движения!"
 
-#: ../ui-hlp/render.c:254
+#: ../src/ui-hlp/render.cpp:254
 #, c-format
 msgid "Vectors: %i"
 msgstr "Векторы: %i"
 
-#: ../ui-hlp/render.c:260
+#: ../src/ui-hlp/render.cpp:260
 msgid "Initializing"
 msgstr "Инициализация"
 
-#: ../ui-hlp/render.c:268
+#: ../src/ui-hlp/render.cpp:268
 msgid "Cannot create palette"
 msgstr "Невозможно создать палитру"
 
-#: ../ui-hlp/render.c:279
+#: ../src/ui-hlp/render.cpp:279
 msgid "Cannot create image\n"
 msgstr "Невозможно создать изображение\n"
 
-#: ../ui-hlp/render.c:287
+#: ../src/ui-hlp/render.cpp:287
 msgid "Cannot create checking buffer!"
 msgstr "Невозможно создать контрольный буфер!"
 
-#: ../ui-hlp/render.c:296 ../ui-hlp/render.c:572
+#: ../src/ui-hlp/render.cpp:296 ../src/ui-hlp/render.cpp:572
 msgid "Cannot create context\n"
 msgstr "Невозможно создать контекст\n"
 
-#: ../ui-hlp/render.c:308
+#: ../src/ui-hlp/render.cpp:308
 msgid "Cannot open animation file\n"
 msgstr "Невозможно открыть файл анимации\n"
 
-#: ../ui-hlp/render.c:319 ../ui-hlp/render.c:581
+#: ../src/ui-hlp/render.cpp:319 ../src/ui-hlp/render.cpp:581
 msgid "Loading catalogs"
 msgstr "Загрузка каталогов"
 
-#: ../ui-hlp/render.c:349
+#: ../src/ui-hlp/render.cpp:349
 msgid "Processing command line options"
 msgstr "Обработка параметров командной строки"
 
-#: ../ui-hlp/render.c:372
+#: ../src/ui-hlp/render.cpp:372
 msgid "Enabling animation replay\n"
 msgstr "Включение анимационного воспроизведения\n"
 
-#: ../ui-hlp/render.c:379
+#: ../src/ui-hlp/render.cpp:379
 msgid "Cannot open image file"
 msgstr "Невозможно открыть файл изображения"
 
-#: ../ui-hlp/render.c:393
+#: ../src/ui-hlp/render.cpp:393
 msgid "Cannot open pattern file"
 msgstr "Невозможно открыть файл узора"
 
-#: ../ui-hlp/render.c:410 ../ui-hlp/render.c:412 ../ui-hlp/render.c:614
+#: ../src/ui-hlp/render.cpp:410 ../src/ui-hlp/render.cpp:412 ../src/ui-hlp/render.cpp:614
 msgid "Entering calculation loop!"
 msgstr "Вход в цикл расчёта!"
 
-#: ../ui-hlp/render.c:438
+#: ../src/ui-hlp/render.cpp:438
 #, c-format
 msgid "Frame %i skipped."
 msgstr "Кадр %i пропущен."
 
-#: ../ui-hlp/render.c:440
+#: ../src/ui-hlp/render.cpp:440
 #, c-format
 msgid "Frames %i - %i skipped."
 msgstr "Кадры %i - %i пропущены."
 
-#: ../ui-hlp/render.c:443
+#: ../src/ui-hlp/render.cpp:443
 #, c-format
 msgid "Frame %4i: "
 msgstr "Кадр %4i: "
 
-#: ../ui-hlp/render.c:506
+#: ../src/ui-hlp/render.cpp:506
 msgid " done."
 msgstr "готово."
 
-#: ../ui-hlp/render.c:510
+#: ../src/ui-hlp/render.cpp:510
 msgid " skipping..."
 msgstr " пропускание..."
 
-#: ../ui-hlp/render.c:543 ../ui-hlp/render.c:633
+#: ../src/ui-hlp/render.cpp:543 ../src/ui-hlp/render.cpp:633
 msgid "Calculation interrupted"
 msgstr "Расчёт прерван"
 
-#: ../ui-hlp/render.c:546 ../ui-hlp/render.c:548 ../ui-hlp/render.c:635
+#: ../src/ui-hlp/render.cpp:546 ../src/ui-hlp/render.cpp:548 ../src/ui-hlp/render.cpp:635
 msgid "Calculation finished"
 msgstr "Расчёт закончен"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1240 ../ui/ui-drv/cocoa/AppController.m:321
+#: ../src/ui/ui-drv/win32/ui_win32.cpp:1240 ../src/ui/ui-drv/cocoa/AppController.m:321
 msgid "Copy"
 msgstr "Копировать"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1241 ../ui/ui-drv/cocoa/AppController.m:324
+#: ../src/ui/ui-drv/win32/ui_win32.cpp:1241 ../src/ui/ui-drv/cocoa/AppController.m:324
 msgid "Paste"
 msgstr "Вставить"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1244
+#: ../src/ui/ui-drv/win32/ui_win32.cpp:1244
 msgid "About"
 msgstr "О программе"
 
-#: ../ui/ui-drv/cocoa/AppController.m:197
+#: ../src/ui/ui-drv/cocoa/AppController.m:197
 msgid "About XaoS"
 msgstr "О программе XaoS"
 
-#: ../ui/ui-drv/cocoa/AppController.m:200
+#: ../src/ui/ui-drv/cocoa/AppController.m:200
 msgid "Services"
 msgstr "Сервисы"
 
-#: ../ui/ui-drv/cocoa/AppController.m:203
+#: ../src/ui/ui-drv/cocoa/AppController.m:203
 msgid "Hide XaoS"
 msgstr "Скрыть XaoS"
 
-#: ../ui/ui-drv/cocoa/AppController.m:206
+#: ../src/ui/ui-drv/cocoa/AppController.m:206
 msgid "Hide Others"
 msgstr "Скрыть прочее"
 
-#: ../ui/ui-drv/cocoa/AppController.m:209
+#: ../src/ui/ui-drv/cocoa/AppController.m:209
 msgid "Show All"
 msgstr "Показать все"
 
-#: ../ui/ui-drv/cocoa/AppController.m:212
+#: ../src/ui/ui-drv/cocoa/AppController.m:212
 msgid "Quit XaoS"
 msgstr "Выйти из XaoS"
 
-#: ../ui/ui-drv/cocoa/AppController.m:318
+#: ../src/ui/ui-drv/cocoa/AppController.m:318
 msgid "Cut"
 msgstr "Вырезать"
 
-#: ../ui/ui-drv/cocoa/AppController.m:327
+#: ../src/ui/ui-drv/cocoa/AppController.m:327
 msgid "Delete"
 msgstr "Удалить"
 
-#: ../ui/ui-drv/cocoa/AppController.m:330
+#: ../src/ui/ui-drv/cocoa/AppController.m:330
 msgid "Select All"
 msgstr "Выбрать все"
 
-#: ../ui/ui-drv/cocoa/AppController.m:340
+#: ../src/ui/ui-drv/cocoa/AppController.m:340
 msgid "Minimize"
 msgstr "Минимизировать"
 
-#: ../ui/ui-drv/cocoa/AppController.m:348
+#: ../src/ui/ui-drv/cocoa/AppController.m:348
 msgid "Bring All to Front"
 msgstr "Переместить все на передний план"
 
-#: ../ui/ui-drv/cocoa/AppController.m:359
+#: ../src/ui/ui-drv/cocoa/AppController.m:359
 msgid "Close"
 msgstr "Закрыть"
 
-#: ../ui/ui-drv/cocoa/AppController.m:373
+#: ../src/ui/ui-drv/cocoa/AppController.m:373
 msgid "Videator Output"
 msgstr " Вывод Videator"
 
-#: ../ui/ui-drv/cocoa/CustomDialog.m:142
+#: ../src/ui/ui-drv/cocoa/CustomDialog.m:142
 msgid "Choose"
 msgstr "Выбрать"

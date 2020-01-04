@@ -15,1542 +15,1542 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../ui/ui.c:319
+#: ../src/ui/ui.cpp:319
 msgid "XaoS is out of memory."
 msgstr "XaoS se quedó sin memoria"
 
-#: ../ui/ui.c:361
+#: ../src/ui/ui.cpp:361
 #, c-format
 msgid "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %i            "
 msgstr "%s %.2f X (%.1fE) %2.2f imágenes/seg %c %i %i %i %i            "
 
-#: ../ui/ui.c:361
+#: ../src/ui/ui.cpp:361
 msgid "unzoomed"
 msgstr "alejado"
 
-#: ../ui/ui.c:361
+#: ../src/ui/ui.cpp:361
 msgid "zoomed"
 msgstr "acercado"
 
-#: ../ui/ui.c:365
+#: ../src/ui/ui.cpp:365
 #, c-format
 msgid "framerate:%f\n"
 msgstr "velocidad:%f\n"
 
-#: ../ui/ui.c:407
+#: ../src/ui/ui.cpp:407
 #, c-format
 msgid "Enabling: %s. "
 msgstr "Habilitando: %s. "
 
-#: ../ui/ui.c:409
+#: ../src/ui/ui.cpp:409
 #, c-format
 msgid "Disabling: %s. "
 msgstr "Deshabilitando: %s"
 
-#: ../ui/ui.c:441
+#: ../src/ui/ui.cpp:441
 #, c-format
 msgid "Fractal name:%s"
 msgstr "Nombre del fractal: %s"
 
-#: ../ui/ui.c:443
+#: ../src/ui/ui.cpp:443
 #, c-format
 msgid "Fractal type:%s"
 msgstr "Tipo de fractal: %s"
 
-#: ../ui/ui.c:443
+#: ../src/ui/ui.cpp:443
 msgid "Mandelbrot"
 msgstr "Mandelbrot"
 
-#: ../ui/ui.c:443
+#: ../src/ui/ui.cpp:443
 msgid "Julia"
 msgstr "Julia"
 
-#: ../ui/ui.c:446
+#: ../src/ui/ui.cpp:446
 #, fuzzy, c-format
 msgid "Formula:%s"
 msgstr "Fórmula"
 
-#: ../ui/ui.c:450
+#: ../src/ui/ui.cpp:450
 #, c-format
 msgid "View:[%1.12f,%1.12f]"
 msgstr "Vista:[%1.12f,%1.12f]"
 
-#: ../ui/ui.c:452
+#: ../src/ui/ui.cpp:452
 #, c-format
 msgid "size:[%1.12f,%1.12f]"
 msgstr "Tamaño:[%1.12f,%1.12f]"
 
-#: ../ui/ui.c:454
+#: ../src/ui/ui.cpp:454
 #, c-format
 msgid "Rotation:%4.2f   Screen size:%i:%i"
 msgstr "Rotación:%4.2f   Tamaño de la pantalla:%i:%i"
 
-#: ../ui/ui.c:456
+#: ../src/ui/ui.cpp:456
 #, c-format
 msgid "Iterations:%-4i Palette size:%i"
 msgstr "Iteraciones:%-4i Tamaño de la paleta:%i"
 
-#: ../ui/ui.c:460
+#: ../src/ui/ui.cpp:460
 #, c-format
 msgid "Autopilot:%-4s  Plane:%s"
 msgstr "Piloto automático:%-4s  Plano:%s"
 
-#: ../ui/ui.c:460
+#: ../src/ui/ui.cpp:460
 msgid "On"
 msgstr "On"
 
-#: ../ui/ui.c:460
+#: ../src/ui/ui.cpp:460
 msgid "Off"
 msgstr "Off"
 
-#: ../ui/ui.c:462
+#: ../src/ui/ui.cpp:462
 #, c-format
 msgid "incoloring:%s    outcoloring:%s"
 msgstr "Color interior:%s    Color exterior:%s"
 
-#: ../ui/ui.c:464
+#: ../src/ui/ui.cpp:464
 #, c-format
 msgid "zoomspeed:%f"
 msgstr "Velocidad zoom:%f"
 
-#: ../ui/ui.c:467
+#: ../src/ui/ui.cpp:467
 msgid "Parameter:none"
 msgstr "Parámetro:ninguno"
 
-#: ../ui/ui.c:469
+#: ../src/ui/ui.cpp:469
 #, c-format
 msgid "Parameter:[%f,%f]"
 msgstr "Parámetro:[%f,%f]"
 
-#: ../ui/ui.c:558
+#: ../src/ui/ui.cpp:558
 #, c-format
 msgid "Please wait while calculating %s"
 msgstr "Por favor espere mientras se calcula %s"
 
-#: ../ui/ui.c:653
+#: ../src/ui/ui.cpp:653
 #, c-format
 msgid "Letters per second %i  "
 msgstr "Letras por segundo %i  "
 
-#: ../ui/ui.c:662 ../ui/ui.c:669
+#: ../src/ui/ui.cpp:662 ../src/ui/ui.cpp:669
 #, c-format
 msgid "Rotation speed:%2.2f degrees per second "
 msgstr "Velocidad de rotación:%2.2f grados por segundo "
 
-#: ../ui/ui.c:677
+#: ../src/ui/ui.cpp:677
 #, fuzzy, c-format
 msgid "Iterations: %i   "
 msgstr "Iteraciones: %i   "
 
-#: ../ui/ui.c:691
+#: ../src/ui/ui.cpp:691
 #, c-format
 msgid "Cycling speed: %i   "
 msgstr "Velocidad de cambio de color: %i   "
 
-#: ../ui/ui.c:702 ../ui/ui.c:714
+#: ../src/ui/ui.cpp:702 ../src/ui/ui.cpp:714
 #, c-format
 msgid "speed:%2.2f "
 msgstr "velocidad: %2.2f "
 
-#: ../ui/ui.c:813
+#: ../src/ui/ui.cpp:813
 #, c-format
 msgid "Thank you for using XaoS\n"
 msgstr "Gracias por usar XaoS\n"
 
-#: ../ui/ui.c:850
+#: ../src/ui/ui.cpp:850
 msgid "Skipping, please wait..."
 msgstr "Saltando, por favor espere..."
 
-#: ../ui/ui.c:944 ../ui/ui.c:945 ../ui/ui-drv/win32/ui_win32.c:1409
+#: ../src/ui/ui.cpp:944 ../src/ui/ui.cpp:945 ../src/ui/ui-drv/win32/ui_win32.cpp:1409
 msgid "Resize"
 msgstr ""
 
-#: ../ui/ui.c:958
+#: ../src/ui/ui.cpp:958
 #, fuzzy
 msgid "Quit"
 msgstr "Salir"
 
-#: ../ui/ui.c:959
+#: ../src/ui/ui.cpp:959
 msgid "Exit now"
 msgstr "Salir ahora"
 
-#: ../ui/ui.c:960
+#: ../src/ui/ui.cpp:960
 msgid "Not yet"
 msgstr "Todavía no"
 
-#: ../ui/ui.c:962 ../ui-hlp/menu.c:1021 ../ui-hlp/menu.c:1028
-#: ../ui/dialog.c:387 ../ui/dialog.c:1326
+#: ../src/ui/ui.cpp:962 ../src/ui-hlp/menu.cpp:1021 ../src/ui-hlp/menu.cpp:1028
+#: ../src/ui/dialog.cpp:387 ../src/ui/dialog.cpp:1326
 msgid "Help"
 msgstr "Ayuda"
 
-#: ../ui/ui.c:963
+#: ../src/ui/ui.cpp:963
 msgid "Disable XaoS's builtin GUI"
 msgstr "Deshabilitar GUI incorporado en XaoS"
 
-#: ../ui/ui.c:965 ../ui/ui.c:970
+#: ../src/ui/ui.cpp:965 ../src/ui/ui.cpp:970
 msgid "Status"
 msgstr "Estado"
 
-#: ../ui/ui.c:967 ../ui/ui.c:972
+#: ../src/ui/ui.cpp:967 ../src/ui/ui.cpp:972
 msgid "Ministatus"
 msgstr "Miniestado"
 
-#: ../ui/ui.c:974 ../ui/ui.c:975
+#: ../src/ui/ui.cpp:974 ../src/ui/ui.cpp:975
 msgid "Driver"
 msgstr "Driver"
 
-#: ../ui/ui.c:1359
+#: ../src/ui/ui.cpp:1359
 #, c-format
 msgid "Welcome to XaoS version %s"
 msgstr "Bienvenido a XaoS versión %s"
 
-#: ../ui/ui.c:1513
+#: ../src/ui/ui.cpp:1513
 msgid "Can not allocate buffers"
 msgstr "No se puede asignar búfer"
 
-#: ../ui/ui.c:1523
+#: ../src/ui/ui.cpp:1523
 msgid "Can not create palette"
 msgstr "No se puede crear la paleta"
 
-#: ../ui/ui.c:1530
+#: ../src/ui/ui.cpp:1530
 msgid "Can not create image"
 msgstr "No se puede crear la imagen"
 
-#: ../ui/ui.c:1567 ../ui/ui.c:1618
+#: ../src/ui/ui.cpp:1567 ../src/ui/ui.cpp:1618
 msgid "Can not allocate tables"
 msgstr "No se asignar tablas"
 
-#: ../ui/ui.c:1605
+#: ../src/ui/ui.cpp:1605
 msgid "Can not initialize driver"
 msgstr "No se puede inicializar el driver"
 
-#: ../ui/ui.c:1607
+#: ../src/ui/ui.cpp:1607
 msgid "Can not return back to previous driver"
 msgstr "No se puede volver al driver anterior"
 
-#: ../ui-hlp/menu.c:120
+#: ../src/ui-hlp/menu.cpp:120
 #, fuzzy
 msgid "Perturbation:"
 msgstr "Perturbación"
 
-#: ../ui-hlp/menu.c:124
+#: ../src/ui-hlp/menu.cpp:124
 #, fuzzy
 msgid "Julia-seed:"
 msgstr "Semilla del Julia"
 
-#: ../ui-hlp/menu.c:128
+#: ../src/ui-hlp/menu.cpp:128
 msgid "Morphing type:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:129
+#: ../src/ui-hlp/menu.cpp:129
 #, fuzzy
 msgid "Startuptime:"
 msgstr "Estado"
 
-#: ../ui-hlp/menu.c:130
+#: ../src/ui-hlp/menu.cpp:130
 #, fuzzy
 msgid "Stoptime:"
 msgstr "Estado"
 
-#: ../ui-hlp/menu.c:134
+#: ../src/ui-hlp/menu.cpp:134
 msgid "File to render:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:135
+#: ../src/ui-hlp/menu.cpp:135
 #, fuzzy
 msgid "Basename:"
 msgstr "Fichero"
 
-#: ../ui-hlp/menu.c:136
+#: ../src/ui-hlp/menu.cpp:136
 msgid "Width:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:137
+#: ../src/ui-hlp/menu.cpp:137
 msgid "Height:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:138
+#: ../src/ui-hlp/menu.cpp:138
 msgid "Real width (cm):"
 msgstr ""
 
-#: ../ui-hlp/menu.c:139
+#: ../src/ui-hlp/menu.cpp:139
 msgid "Real height (cm):"
 msgstr ""
 
-#: ../ui-hlp/menu.c:140
+#: ../src/ui-hlp/menu.cpp:140
 #, fuzzy
 msgid "Framerate:"
 msgstr "velocidad:%f\n"
 
-#: ../ui-hlp/menu.c:141
+#: ../src/ui-hlp/menu.cpp:141
 msgid "Image type:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:142
+#: ../src/ui-hlp/menu.cpp:142
 #, fuzzy
 msgid "Antialiasing:"
 msgstr "Iteraciones"
 
-#: ../ui-hlp/menu.c:143
+#: ../src/ui-hlp/menu.cpp:143
 #, fuzzy
 msgid "Always recalculate:"
 msgstr "Recalcular"
 
-#: ../ui-hlp/menu.c:144
+#: ../src/ui-hlp/menu.cpp:144
 msgid "Calculate MPEG motion vectors:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:145
+#: ../src/ui-hlp/menu.cpp:145
 msgid "Recommended I frame distance:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:149
+#: ../src/ui-hlp/menu.cpp:149
 #, fuzzy
 msgid "Center:"
 msgstr "Centro del zoom"
 
-#: ../ui-hlp/menu.c:150
+#: ../src/ui-hlp/menu.cpp:150
 msgid "Radius:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:151 ../ui-hlp/menu.c:216
+#: ../src/ui-hlp/menu.cpp:151 ../src/ui-hlp/menu.cpp:216
 msgid "Angle:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:155
+#: ../src/ui-hlp/menu.cpp:155
 msgid "Mode:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:156
+#: ../src/ui-hlp/menu.cpp:156
 #, fuzzy
 msgid "Start:"
 msgstr "Estado"
 
-#: ../ui-hlp/menu.c:157
+#: ../src/ui-hlp/menu.cpp:157
 msgid "End:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:161
+#: ../src/ui-hlp/menu.cpp:161
 #, fuzzy
 msgid "Color:"
 msgstr "Color"
 
-#: ../ui-hlp/menu.c:165
+#: ../src/ui-hlp/menu.cpp:165
 #, fuzzy
 msgid "Rotations per second:"
 msgstr "Velocidad de rotación"
 
-#: ../ui-hlp/menu.c:169
+#: ../src/ui-hlp/menu.cpp:169
 #, fuzzy
 msgid "Letters per second:"
 msgstr "Letras por segundo"
 
-#: ../ui-hlp/menu.c:173
+#: ../src/ui-hlp/menu.cpp:173
 #, fuzzy
 msgid "Iterations:"
 msgstr "Iteraciones"
 
-#: ../ui-hlp/menu.c:177
+#: ../src/ui-hlp/menu.cpp:177
 msgid "Text:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:181
+#: ../src/ui-hlp/menu.cpp:181
 #, fuzzy
 msgid "Your command:"
 msgstr "Instrucción"
 
-#: ../ui-hlp/menu.c:185 ../ui-hlp/menu.c:189 ../ui-hlp/menu.c:193
-#: ../ui-hlp/menu.c:197 ../ui-hlp/menu.c:249
+#: ../src/ui-hlp/menu.cpp:185 ../src/ui-hlp/menu.cpp:189 ../src/ui-hlp/menu.cpp:193
+#: ../src/ui-hlp/menu.cpp:197 ../src/ui-hlp/menu.cpp:249
 #, fuzzy
 msgid "Filename:"
 msgstr "Fichero"
 
-#: ../ui-hlp/menu.c:201 ../ui-hlp/menu.c:289
+#: ../src/ui-hlp/menu.cpp:201 ../src/ui-hlp/menu.cpp:289
 #, fuzzy
 msgid "Formula:"
 msgstr "Fórmula"
 
-#: ../ui-hlp/menu.c:205
+#: ../src/ui-hlp/menu.cpp:205
 #, fuzzy
 msgid "X center:"
 msgstr "Centro del zoom"
 
-#: ../ui-hlp/menu.c:206
+#: ../src/ui-hlp/menu.cpp:206
 #, fuzzy
 msgid "Y center:"
 msgstr "Centro del zoom"
 
-#: ../ui-hlp/menu.c:207
+#: ../src/ui-hlp/menu.cpp:207
 msgid "X Radius:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:208
+#: ../src/ui-hlp/menu.cpp:208
 msgid "Y Radius:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:212
+#: ../src/ui-hlp/menu.cpp:212
 msgid "Coordinates:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:220
+#: ../src/ui-hlp/menu.cpp:220
 #, fuzzy
 msgid "continuous rotation"
 msgstr "Rotación continua"
 
-#: ../ui-hlp/menu.c:224
+#: ../src/ui-hlp/menu.cpp:224
 #, fuzzy
 msgid "Fast rotation"
 msgstr "Modo de rotación rápido"
 
-#: ../ui-hlp/menu.c:228
+#: ../src/ui-hlp/menu.cpp:228
 #, fuzzy
 msgid "filter"
 msgstr "Filtro"
 
-#: ../ui-hlp/menu.c:229
+#: ../src/ui-hlp/menu.cpp:229
 msgid "enable"
 msgstr ""
 
-#: ../ui-hlp/menu.c:233
+#: ../src/ui-hlp/menu.cpp:233
 msgid "Amount:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:237
+#: ../src/ui-hlp/menu.cpp:237
 #, fuzzy
 msgid "Zooming speed:"
 msgstr "Velocidad del zoom"
 
-#: ../ui-hlp/menu.c:241
+#: ../src/ui-hlp/menu.cpp:241
 msgid "Name:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:245
+#: ../src/ui-hlp/menu.cpp:245
 msgid "Bailout:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:253
+#: ../src/ui-hlp/menu.cpp:253
 #, fuzzy
 msgid "Julia mode:"
 msgstr "Modo Julia"
 
-#: ../ui-hlp/menu.c:257
+#: ../src/ui-hlp/menu.cpp:257
 #, fuzzy
 msgid "Horizontal position:"
 msgstr "Posición horizontal del texto"
 
-#: ../ui-hlp/menu.c:258
+#: ../src/ui-hlp/menu.cpp:258
 #, fuzzy
 msgid "Vertical position:"
 msgstr "Posición vertical del texto"
 
-#: ../ui-hlp/menu.c:262
+#: ../src/ui-hlp/menu.cpp:262
 #, fuzzy
 msgid "Dynamic resolution:"
 msgstr "Resolución dinámica"
 
-#: ../ui-hlp/menu.c:266
+#: ../src/ui-hlp/menu.cpp:266
 msgid "Time:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:270 ../ui-hlp/menu.c:274
+#: ../src/ui-hlp/menu.cpp:270 ../src/ui-hlp/menu.cpp:274
 msgid "Number:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:278
+#: ../src/ui-hlp/menu.cpp:278
 msgid "Algorithm number:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:279
+#: ../src/ui-hlp/menu.cpp:279
 msgid "Seed:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:280
+#: ../src/ui-hlp/menu.cpp:280
 msgid "Shift:"
 msgstr ""
 
-#: ../ui-hlp/menu.c:284
+#: ../src/ui-hlp/menu.cpp:284
 #, fuzzy
 msgid "Frames per second:"
 msgstr "Letras por segundo"
 
-#: ../ui-hlp/menu.c:293
+#: ../src/ui-hlp/menu.cpp:293
 #, fuzzy
 msgid "Initialization:"
 msgstr "Iteraciones"
 
-#: ../ui-hlp/menu.c:347
+#: ../src/ui-hlp/menu.cpp:347
 msgid "renderanim: Must specify a valid absolute path for basename"
 msgstr ""
 
-#: ../ui-hlp/menu.c:352
+#: ../src/ui-hlp/menu.cpp:352
 msgid ""
 "renderanim: Width parameter must be positive integer in the range 0..4096"
 msgstr ""
 
-#: ../ui-hlp/menu.c:356
+#: ../src/ui-hlp/menu.cpp:356
 msgid ""
 "renderanim: Height parameter must be positive integer in the range 0..4096"
 msgstr ""
 
-#: ../ui-hlp/menu.c:360
+#: ../src/ui-hlp/menu.cpp:360
 msgid "renderanim: Invalid real width and height dimensions"
 msgstr ""
 
-#: ../ui-hlp/menu.c:364
+#: ../src/ui-hlp/menu.cpp:364
 msgid "renderanim: invalid framerate"
 msgstr ""
 
-#: ../ui-hlp/menu.c:368
+#: ../src/ui-hlp/menu.cpp:368
 msgid "renderanim: antialiasing not supported in 256 color mode"
 msgstr ""
 
-#: ../ui-hlp/menu.c:372
+#: ../src/ui-hlp/menu.cpp:372
 msgid "renderanim: incorrect I frame distance"
 msgstr ""
 
-#: ../ui-hlp/menu.c:424 ../ui-hlp/menu.c:438
+#: ../src/ui-hlp/menu.cpp:424 ../src/ui-hlp/menu.cpp:438
 msgid "animateview: Invalid viewpoint"
 msgstr ""
 
-#: ../ui-hlp/menu.c:452
+#: ../src/ui-hlp/menu.cpp:452
 msgid "Invalid viewpoint"
 msgstr ""
 
-#: ../ui-hlp/menu.c:691
+#: ../src/ui-hlp/menu.cpp:691
 #, fuzzy
 msgid "Unknown palette type"
 msgstr "Filtro"
 
-#: ../ui-hlp/menu.c:774 ../ui-hlp/menu.c:787
+#: ../src/ui-hlp/menu.cpp:774 ../src/ui-hlp/menu.cpp:787
 msgid "Initialization of color cycling failed."
 msgstr ""
 
-#: ../ui-hlp/menu.c:774 ../ui-hlp/menu.c:787
+#: ../src/ui-hlp/menu.cpp:774 ../src/ui-hlp/menu.cpp:787
 msgid "Try to enable palette emulation filter"
 msgstr ""
 
-#: ../ui-hlp/menu.c:911
+#: ../src/ui-hlp/menu.cpp:911
 #, c-format
 msgid "Algorithm:%i seed:%i size:%i"
 msgstr ""
 
-#: ../ui-hlp/menu.c:965
+#: ../src/ui-hlp/menu.cpp:965
 msgid "Root menu"
 msgstr "Menú principal"
 
-#: ../ui-hlp/menu.c:966
+#: ../src/ui-hlp/menu.cpp:966
 msgid "Animation root menu"
 msgstr "Animación menú principal"
 
-#: ../ui-hlp/menu.c:967
+#: ../src/ui-hlp/menu.cpp:967
 msgid "Replay only commands"
 msgstr "Repetir sólo instrucciones"
 
-#: ../ui-hlp/menu.c:968
+#: ../src/ui-hlp/menu.cpp:968
 msgid "Command line options only"
 msgstr "Sólo pciones de la línea de instrucciones"
 
-#: ../ui-hlp/menu.c:970
+#: ../src/ui-hlp/menu.cpp:970
 msgid "print menus specifications of all menus"
 msgstr ""
 
-#: ../ui-hlp/menu.c:971
+#: ../src/ui-hlp/menu.cpp:971
 msgid "print menu specification"
 msgstr ""
 
-#: ../ui-hlp/menu.c:972
+#: ../src/ui-hlp/menu.cpp:972
 msgid "print menu specification in xshl format"
 msgstr ""
 
-#: ../ui-hlp/menu.c:973
+#: ../src/ui-hlp/menu.cpp:973
 msgid "print all menu specifications in xshl format"
 msgstr ""
 
-#: ../ui-hlp/menu.c:974
+#: ../src/ui-hlp/menu.cpp:974
 msgid "print dialog specification"
 msgstr ""
 
-#: ../ui-hlp/menu.c:978
+#: ../src/ui-hlp/menu.cpp:978
 msgid "Line drawing functions"
 msgstr "Funciones para dibujar líneas"
 
-#: ../ui-hlp/menu.c:979
+#: ../src/ui-hlp/menu.cpp:979
 msgid "Line"
 msgstr "Línea"
 
-#: ../ui-hlp/menu.c:980
+#: ../src/ui-hlp/menu.cpp:980
 #, fuzzy
 msgid "Morph line"
 msgstr "Despejar línea"
 
-#: ../ui-hlp/menu.c:981
+#: ../src/ui-hlp/menu.cpp:981
 msgid "Morph last line"
 msgstr ""
 
-#: ../ui-hlp/menu.c:982
+#: ../src/ui-hlp/menu.cpp:982
 #, fuzzy
 msgid "Set line key"
 msgstr "Poner plano"
 
-#: ../ui-hlp/menu.c:983
+#: ../src/ui-hlp/menu.cpp:983
 msgid "Clear line"
 msgstr "Despejar línea"
 
-#: ../ui-hlp/menu.c:984
+#: ../src/ui-hlp/menu.cpp:984
 msgid "Clear all lines"
 msgstr "Despejar todas las líneas"
 
-#: ../ui-hlp/menu.c:985
+#: ../src/ui-hlp/menu.cpp:985
 msgid "Animation functions"
 msgstr "Funciones de animación"
 
-#: ../ui-hlp/menu.c:986 ../ui-hlp/menu.c:1086 ../ui-hlp/menu.c:1090
+#: ../src/ui-hlp/menu.cpp:986 ../src/ui-hlp/menu.cpp:1086 ../src/ui-hlp/menu.cpp:1090
 msgid "View"
 msgstr "Vista"
 
-#: ../ui-hlp/menu.c:987
+#: ../src/ui-hlp/menu.cpp:987
 msgid "Morph view"
 msgstr ""
 
-#: ../ui-hlp/menu.c:988
+#: ../src/ui-hlp/menu.cpp:988
 msgid "Morph julia"
 msgstr ""
 
-#: ../ui-hlp/menu.c:989
+#: ../src/ui-hlp/menu.cpp:989
 msgid "Move view"
 msgstr "Vista de movimiento"
 
-#: ../ui-hlp/menu.c:990
+#: ../src/ui-hlp/menu.cpp:990
 #, fuzzy
 msgid "Morph angle"
 msgstr "Poner ángulo"
 
-#: ../ui-hlp/menu.c:991
+#: ../src/ui-hlp/menu.cpp:991
 msgid "Zoom center"
 msgstr "Centro del zoom"
 
-#: ../ui-hlp/menu.c:992 ../ui/ui-drv/cocoa/AppController.m:343
+#: ../src/ui-hlp/menu.cpp:992 ../src/ui/ui-drv/cocoa/AppController.m:343
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../ui-hlp/menu.c:993
+#: ../src/ui-hlp/menu.cpp:993
 msgid "Un-zoom"
 msgstr "Alejar"
 
-#: ../ui-hlp/menu.c:994
+#: ../src/ui-hlp/menu.cpp:994
 msgid "Stop zooming"
 msgstr "Parar zoom"
 
-#: ../ui-hlp/menu.c:995
+#: ../src/ui-hlp/menu.cpp:995
 msgid "Smooth morphing parameters"
 msgstr ""
 
-#: ../ui-hlp/menu.c:996
+#: ../src/ui-hlp/menu.cpp:996
 msgid "Timing functions"
 msgstr "Funciones de tiempo"
 
-#: ../ui-hlp/menu.c:997
+#: ../src/ui-hlp/menu.cpp:997
 msgid "Usleep"
 msgstr "Usleep"
 
-#: ../ui-hlp/menu.c:998
+#: ../src/ui-hlp/menu.cpp:998
 msgid "Wait for text"
 msgstr "Esperar por el texto"
 
-#: ../ui-hlp/menu.c:999
+#: ../src/ui-hlp/menu.cpp:999
 msgid "Wait for complete image"
 msgstr "Esperar para completar la imagen"
 
-#: ../ui-hlp/menu.c:1000
+#: ../src/ui-hlp/menu.cpp:1000
 msgid "Include file"
 msgstr "Fichero incluido"
 
-#: ../ui-hlp/menu.c:1001 ../ui-hlp/menu.c:1098
+#: ../src/ui-hlp/menu.cpp:1001 ../src/ui-hlp/menu.cpp:1098
 msgid "Default palette"
 msgstr "Paleta por defecto"
 
-#: ../ui-hlp/menu.c:1002
+#: ../src/ui-hlp/menu.cpp:1002
 msgid "Formula"
 msgstr "Fórmula"
 
-#: ../ui-hlp/menu.c:1003
+#: ../src/ui-hlp/menu.cpp:1003
 msgid "Maximal zooming step"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1004
+#: ../src/ui-hlp/menu.cpp:1004
 msgid "Zooming speedup"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1005
+#: ../src/ui-hlp/menu.cpp:1005
 msgid "Filter"
 msgstr "Filtro"
 
-#: ../ui-hlp/menu.c:1008 ../ui-hlp/menu.c:1009
+#: ../src/ui-hlp/menu.cpp:1008 ../src/ui-hlp/menu.cpp:1009
 msgid "Letters per second"
 msgstr "Letras por segundo"
 
-#: ../ui-hlp/menu.c:1010 ../ui-hlp/menu.c:1135
+#: ../src/ui-hlp/menu.cpp:1010 ../src/ui-hlp/menu.cpp:1135
 msgid "Interrupt"
 msgstr "Interrumpir"
 
-#: ../ui-hlp/menu.c:1011 ../ui-hlp/menu.c:1022
+#: ../src/ui-hlp/menu.cpp:1011 ../src/ui-hlp/menu.cpp:1022
 msgid "File"
 msgstr "Fichero"
 
-#: ../ui-hlp/menu.c:1012
+#: ../src/ui-hlp/menu.cpp:1012
 msgid "Edit"
 msgstr "Editar"
 
-#: ../ui-hlp/menu.c:1013
+#: ../src/ui-hlp/menu.cpp:1013
 msgid "Fractal"
 msgstr "Fractal"
 
-#: ../ui-hlp/menu.c:1014
+#: ../src/ui-hlp/menu.cpp:1014
 msgid "Calculation"
 msgstr "Cálculo"
 
-#: ../ui-hlp/menu.c:1015 ../ui-hlp/menu.c:1184
+#: ../src/ui-hlp/menu.cpp:1015 ../src/ui-hlp/menu.cpp:1184
 msgid "Filters"
 msgstr "Filtros"
 
-#: ../ui-hlp/menu.c:1016 ../ui-hlp/menu.c:1027
+#: ../src/ui-hlp/menu.cpp:1016 ../src/ui-hlp/menu.cpp:1027
 msgid "UI"
 msgstr "UI"
 
-#: ../ui-hlp/menu.c:1017
+#: ../src/ui-hlp/menu.cpp:1017
 msgid "Misc"
 msgstr "Misc"
 
-#: ../ui-hlp/menu.c:1019
+#: ../src/ui-hlp/menu.cpp:1019
 #, fuzzy
 msgid "Window"
 msgstr "Deshacer"
 
-#: ../ui-hlp/menu.c:1022
+#: ../src/ui-hlp/menu.cpp:1022
 msgid "Tutorials"
 msgstr "Tutoriales"
 
-#: ../ui-hlp/menu.c:1026
+#: ../src/ui-hlp/menu.cpp:1026
 msgid "Stop replay"
 msgstr "Parar repetición"
 
-#: ../ui-hlp/menu.c:1029
+#: ../src/ui-hlp/menu.cpp:1029
 msgid "Command"
 msgstr "Instrucción"
 
-#: ../ui-hlp/menu.c:1030
+#: ../src/ui-hlp/menu.cpp:1030
 msgid "Play string"
 msgstr "Mostrar cadena"
 
-#: ../ui-hlp/menu.c:1031
+#: ../src/ui-hlp/menu.cpp:1031
 msgid "Render animation"
 msgstr "Renderizar animación"
 
-#: ../ui-hlp/menu.c:1033
+#: ../src/ui-hlp/menu.cpp:1033
 msgid "Clear screen"
 msgstr "Limpiar pantalla"
 
-#: ../ui-hlp/menu.c:1034
+#: ../src/ui-hlp/menu.cpp:1034
 msgid "Display fractal"
 msgstr "Mostrar fractal"
 
-#: ../ui-hlp/menu.c:1036
+#: ../src/ui-hlp/menu.cpp:1036
 msgid "Display text"
 msgstr "Mostrar texto"
 
-#: ../ui-hlp/menu.c:1038
+#: ../src/ui-hlp/menu.cpp:1038
 #, fuzzy
 msgid "Color"
 msgstr "Color"
 
-#: ../ui-hlp/menu.c:1039
+#: ../src/ui-hlp/menu.cpp:1039
 msgid "Horizontal text position"
 msgstr "Posición horizontal del texto"
 
-#: ../ui-hlp/menu.c:1040
+#: ../src/ui-hlp/menu.cpp:1040
 msgid "Vertical text position"
 msgstr "Posición vertical del texto"
 
-#: ../ui-hlp/menu.c:1041
+#: ../src/ui-hlp/menu.cpp:1041
 msgid "Text position"
 msgstr "Posición del texto"
 
-#: ../ui-hlp/menu.c:1042
+#: ../src/ui-hlp/menu.cpp:1042
 msgid "Message"
 msgstr "Mensaje"
 
-#: ../ui-hlp/menu.c:1053
+#: ../src/ui-hlp/menu.cpp:1053
 msgid "Load"
 msgstr "Cargar"
 
-#: ../ui-hlp/menu.c:1054
+#: ../src/ui-hlp/menu.cpp:1054
 msgid "Save"
 msgstr "Guardar"
 
-#: ../ui-hlp/menu.c:1055
+#: ../src/ui-hlp/menu.cpp:1055
 msgid "Record"
 msgstr "Grabar"
 
-#: ../ui-hlp/menu.c:1056
+#: ../src/ui-hlp/menu.cpp:1056
 msgid "Replay"
 msgstr "Repetir"
 
-#: ../ui-hlp/menu.c:1058
+#: ../src/ui-hlp/menu.cpp:1058
 msgid "Save image"
 msgstr "Guardar imagen"
 
-#: ../ui-hlp/menu.c:1059
+#: ../src/ui-hlp/menu.cpp:1059
 msgid "Load random example"
 msgstr "Cargar ejemplo aleatorio"
 
-#: ../ui-hlp/menu.c:1060
+#: ../src/ui-hlp/menu.cpp:1060
 msgid "Save configuration"
 msgstr "Guardar configuración"
 
-#: ../ui-hlp/menu.c:1064
+#: ../src/ui-hlp/menu.cpp:1064
 msgid "Undo"
 msgstr "Deshacer"
 
-#: ../ui-hlp/menu.c:1065
+#: ../src/ui-hlp/menu.cpp:1065
 msgid "Redo"
 msgstr "Rehacer"
 
-#: ../ui-hlp/menu.c:1066
+#: ../src/ui-hlp/menu.cpp:1066
 msgid "Formulae"
 msgstr "Formulae"
 
-#: ../ui-hlp/menu.c:1067
+#: ../src/ui-hlp/menu.cpp:1067
 #, fuzzy
 msgid "More formulae"
 msgstr "formulae"
 
-#: ../ui-hlp/menu.c:1072
+#: ../src/ui-hlp/menu.cpp:1072
 #, fuzzy
 msgid "User formula"
 msgstr "formulae"
 
-#: ../ui-hlp/menu.c:1073
+#: ../src/ui-hlp/menu.cpp:1073
 #, fuzzy
 msgid "User initialization"
 msgstr "Funciones para dibujar líneas"
 
-#: ../ui-hlp/menu.c:1077
+#: ../src/ui-hlp/menu.cpp:1077
 msgid "Incoloring mode"
 msgstr "Modo de color interior"
 
-#: ../ui-hlp/menu.c:1078
+#: ../src/ui-hlp/menu.cpp:1078
 msgid "Outcoloring mode"
 msgstr "Modo de color exterior"
 
-#: ../ui-hlp/menu.c:1079
+#: ../src/ui-hlp/menu.cpp:1079
 msgid "Plane"
 msgstr "Plano"
 
-#: ../ui-hlp/menu.c:1080
+#: ../src/ui-hlp/menu.cpp:1080
 #, fuzzy
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../ui-hlp/menu.c:1082
+#: ../src/ui-hlp/menu.cpp:1082
 msgid "Mandelbrot mode"
 msgstr "Modo Mandelbrot"
 
-#: ../ui-hlp/menu.c:1083 ../ui-hlp/menu.c:1084 ../ui-hlp/menu.c:1187
+#: ../src/ui-hlp/menu.cpp:1083 ../src/ui-hlp/menu.cpp:1084 ../src/ui-hlp/menu.cpp:1187
 msgid "Perturbation"
 msgstr "Perturbación"
 
-#: ../ui-hlp/menu.c:1088
+#: ../src/ui-hlp/menu.cpp:1088
 msgid "Reset to defaults"
 msgstr "Valores por defecto"
 
-#: ../ui-hlp/menu.c:1089
+#: ../src/ui-hlp/menu.cpp:1089
 msgid "Julia mode"
 msgstr "Modo Julia"
 
-#: ../ui-hlp/menu.c:1091
+#: ../src/ui-hlp/menu.cpp:1091
 msgid "Set angle"
 msgstr "Poner ángulo"
 
-#: ../ui-hlp/menu.c:1092
+#: ../src/ui-hlp/menu.cpp:1092
 msgid "Set plane"
 msgstr "Poner plano"
 
-#: ../ui-hlp/menu.c:1093
+#: ../src/ui-hlp/menu.cpp:1093
 msgid "Inside coloring mode"
 msgstr "Modo de coloración interior"
 
-#: ../ui-hlp/menu.c:1094
+#: ../src/ui-hlp/menu.cpp:1094
 msgid "Outside coloring mode"
 msgstr "Modo de coloración exterior"
 
-#: ../ui-hlp/menu.c:1095
+#: ../src/ui-hlp/menu.cpp:1095
 msgid "Inside truecolor coloring mode"
 msgstr "Modo de coloración interior color verdadero"
 
-#: ../ui-hlp/menu.c:1096
+#: ../src/ui-hlp/menu.cpp:1096
 msgid "Outside truecolor coloring mode"
 msgstr "Modo de coloración exterior color verdadero"
 
-#: ../ui-hlp/menu.c:1097
+#: ../src/ui-hlp/menu.cpp:1097
 msgid "Julia seed"
 msgstr "Semilla del Julia"
 
-#: ../ui-hlp/menu.c:1099
+#: ../src/ui-hlp/menu.cpp:1099
 msgid "Random palette"
 msgstr "Paleta aleatoria"
 
-#: ../ui-hlp/menu.c:1100
+#: ../src/ui-hlp/menu.cpp:1100
 msgid "Custom palette"
 msgstr "Paleta de usuario"
 
-#: ../ui-hlp/menu.c:1102
+#: ../src/ui-hlp/menu.cpp:1102
 msgid "Color cycling"
 msgstr "Cambio del color:"
 
-#: ../ui-hlp/menu.c:1103
+#: ../src/ui-hlp/menu.cpp:1103
 msgid "Reversed color cycling"
 msgstr "Cambio del color (inverso):"
 
-#: ../ui-hlp/menu.c:1104
+#: ../src/ui-hlp/menu.cpp:1104
 msgid "Color cycling speed"
 msgstr "Velocidad del cambio de color"
 
-#: ../ui-hlp/menu.c:1106
+#: ../src/ui-hlp/menu.cpp:1106
 msgid "Shift palette"
 msgstr "Cambiar paleta"
 
-#: ../ui-hlp/menu.c:1107
+#: ../src/ui-hlp/menu.cpp:1107
 msgid "Shift one forward"
 msgstr "Uno hacia deltante"
 
-#: ../ui-hlp/menu.c:1108
+#: ../src/ui-hlp/menu.cpp:1108
 msgid "Shift one backward"
 msgstr "Uno hacia atrás"
 
-#: ../ui-hlp/menu.c:1109 ../engine/zoom.c:1308
+#: ../src/ui-hlp/menu.cpp:1109 ../src/engine/zoom.cpp:1308
 msgid "Solid guessing"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1110
+#: ../src/ui-hlp/menu.cpp:1110
 msgid "Dynamic resolution"
 msgstr "Resolución dinámica"
 
-#: ../ui-hlp/menu.c:1111
+#: ../src/ui-hlp/menu.cpp:1111
 msgid "Periodicity checking"
 msgstr "Chequeo de periodicidad"
 
-#: ../ui-hlp/menu.c:1112
+#: ../src/ui-hlp/menu.cpp:1112
 msgid "Iterations"
 msgstr "Iteraciones"
 
-#: ../ui-hlp/menu.c:1113
+#: ../src/ui-hlp/menu.cpp:1113
 msgid "Bailout"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1115
+#: ../src/ui-hlp/menu.cpp:1115
 msgid "Fast julia mode"
 msgstr "Modo de Julia rápido"
 
-#: ../ui-hlp/menu.c:1116
+#: ../src/ui-hlp/menu.cpp:1116
 msgid "Rotation"
 msgstr "Rotación"
 
-#: ../ui-hlp/menu.c:1117
+#: ../src/ui-hlp/menu.cpp:1117
 msgid "Solid guessing range"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1118
+#: ../src/ui-hlp/menu.cpp:1118
 msgid "Disable rotation"
 msgstr "Deshabilitar rotación"
 
-#: ../ui-hlp/menu.c:1120
+#: ../src/ui-hlp/menu.cpp:1120
 msgid "Continuous rotation"
 msgstr "Rotación continua"
 
-#: ../ui-hlp/menu.c:1121
+#: ../src/ui-hlp/menu.cpp:1121
 msgid "Rotate by mouse"
 msgstr "Rotación con el ratón"
 
-#: ../ui-hlp/menu.c:1122
+#: ../src/ui-hlp/menu.cpp:1122
 msgid "Rotation speed"
 msgstr "Velocidad de rotación"
 
-#: ../ui-hlp/menu.c:1123
+#: ../src/ui-hlp/menu.cpp:1123
 msgid "Automatic rotation"
 msgstr "Rotación automática"
 
-#: ../ui-hlp/menu.c:1124
+#: ../src/ui-hlp/menu.cpp:1124
 msgid "Fast rotation mode"
 msgstr "Modo de rotación rápido"
 
-#: ../ui-hlp/menu.c:1125
+#: ../src/ui-hlp/menu.cpp:1125
 msgid "Disable dynamic resolution"
 msgstr "Deshabilitar resolución dinámica"
 
-#: ../ui-hlp/menu.c:1127
+#: ../src/ui-hlp/menu.cpp:1127
 msgid "Use only during animation"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/menu.c:1128
+#: ../src/ui-hlp/menu.cpp:1128
 msgid "Use also for new images"
 msgstr "Usar también para imágenes nuevas"
 
-#: ../ui-hlp/menu.c:1129
+#: ../src/ui-hlp/menu.cpp:1129
 msgid "Dynamic resolution mode"
 msgstr "Mode de resolución dinámica"
 
-#: ../ui-hlp/menu.c:1130
+#: ../src/ui-hlp/menu.cpp:1130
 msgid "Autopilot"
 msgstr "Piloto automático"
 
-#: ../ui-hlp/menu.c:1132
+#: ../src/ui-hlp/menu.cpp:1132
 #, fuzzy
 msgid "VJ mode"
 msgstr "Modo Julia"
 
-#: ../ui-hlp/menu.c:1134
+#: ../src/ui-hlp/menu.cpp:1134
 msgid "Recalculate"
 msgstr "Recalcular"
 
-#: ../ui-hlp/menu.c:1137
+#: ../src/ui-hlp/menu.cpp:1137
 msgid "Zooming speed"
 msgstr "Velocidad del zoom"
 
-#: ../ui-hlp/menu.c:1138
+#: ../src/ui-hlp/menu.cpp:1138
 msgid "Fixed step"
 msgstr "Paso fijo"
 
-#: ../ui-hlp/menu.c:1139
+#: ../src/ui-hlp/menu.cpp:1139
 msgid "Disable solid guessing"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1141
+#: ../src/ui-hlp/menu.cpp:1141
 msgid "Guess 2x2 rectangles"
 msgstr "Adivinar rectángulos 2x2"
 
-#: ../ui-hlp/menu.c:1142
+#: ../src/ui-hlp/menu.cpp:1142
 msgid "Guess 3x3 rectangles"
 msgstr "Adivinar rectángulos 3x3"
 
-#: ../ui-hlp/menu.c:1143
+#: ../src/ui-hlp/menu.cpp:1143
 msgid "Guess 4x4 rectangles"
 msgstr "Adivinar rectángulos 4x4"
 
-#: ../ui-hlp/menu.c:1144
+#: ../src/ui-hlp/menu.cpp:1144
 msgid "Guess 5x5 rectangles"
 msgstr "Adivinar rectángulos 5x5"
 
-#: ../ui-hlp/menu.c:1145
+#: ../src/ui-hlp/menu.cpp:1145
 msgid "Guess 6x6 rectangles"
 msgstr "Adivinar rectángulos 6x6"
 
-#: ../ui-hlp/menu.c:1146
+#: ../src/ui-hlp/menu.cpp:1146
 msgid "Guess 7x7 rectangles"
 msgstr "Adivinar rectángulos 7x7"
 
-#: ../ui-hlp/menu.c:1147
+#: ../src/ui-hlp/menu.cpp:1147
 msgid "Guess 8x8 rectangles"
 msgstr "Adivinar rectángulos 8x8"
 
-#: ../ui-hlp/menu.c:1148
+#: ../src/ui-hlp/menu.cpp:1148
 msgid "Guess unlimited rectangles"
 msgstr "Adivinar rectángulos ilimitados"
 
-#: ../ui-hlp/menu.c:1151
+#: ../src/ui-hlp/menu.cpp:1151
 msgid "Language"
 msgstr "Idioma"
 
-#: ../ui-hlp/menu.c:1154
+#: ../src/ui-hlp/menu.cpp:1154
 msgid "An introduction to fractals"
 msgstr "Una introducción a los fractales"
 
-#: ../ui-hlp/menu.c:1155
+#: ../src/ui-hlp/menu.cpp:1155
 msgid "XaoS features overview"
 msgstr "Perspectiva general de las características de XaoS"
 
-#: ../ui-hlp/menu.c:1156
+#: ../src/ui-hlp/menu.cpp:1156
 msgid "Math behind fractals"
 msgstr "Matemáticas tras los fractales"
 
-#: ../ui-hlp/menu.c:1157 ../ui-hlp/menu.c:1194
+#: ../src/ui-hlp/menu.cpp:1157 ../src/ui-hlp/menu.cpp:1194
 msgid "Other fractal types in XaoS"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1158
+#: ../src/ui-hlp/menu.cpp:1158
 msgid "What's new?"
 msgstr "¿Qué hay nuevo?"
 
-#: ../ui-hlp/menu.c:1168 ../ui-hlp/menu.c:1190
+#: ../src/ui-hlp/menu.cpp:1168 ../src/ui-hlp/menu.cpp:1190
 msgid "Whole story"
 msgstr "La historia completa"
 
-#: ../ui-hlp/menu.c:1170
+#: ../src/ui-hlp/menu.cpp:1170
 msgid "Introduction"
 msgstr "Introducción"
 
-#: ../ui-hlp/menu.c:1171
+#: ../src/ui-hlp/menu.cpp:1171
 msgid "Mandelbrot set"
 msgstr "Conjunto Mandelbrot"
 
-#: ../ui-hlp/menu.c:1172
+#: ../src/ui-hlp/menu.cpp:1172
 msgid "Julia set"
 msgstr "Conjunto Julia"
 
-#: ../ui-hlp/menu.c:1173
+#: ../src/ui-hlp/menu.cpp:1173
 msgid "Higher power Mandelbrots"
 msgstr "Mandelbrots de potencias superiores"
 
-#: ../ui-hlp/menu.c:1174
+#: ../src/ui-hlp/menu.cpp:1174
 msgid "Newton's method"
 msgstr "Método de Newton"
 
-#: ../ui-hlp/menu.c:1175
+#: ../src/ui-hlp/menu.cpp:1175
 msgid "Barnsley's formula"
 msgstr "Fórmula de Barnsley"
 
-#: ../ui-hlp/menu.c:1176
+#: ../src/ui-hlp/menu.cpp:1176
 msgid "Phoenix"
 msgstr "Fénix"
 
-#: ../ui-hlp/menu.c:1177
+#: ../src/ui-hlp/menu.cpp:1177
 msgid "Octo"
 msgstr "Octo"
 
-#: ../ui-hlp/menu.c:1178
+#: ../src/ui-hlp/menu.cpp:1178
 msgid "Magnet"
 msgstr "Magnet"
 
-#: ../ui-hlp/menu.c:1179
+#: ../src/ui-hlp/menu.cpp:1179
 msgid "All features"
 msgstr "Todas las características"
 
-#: ../ui-hlp/menu.c:1181
+#: ../src/ui-hlp/menu.cpp:1181
 #, fuzzy
 msgid "Outcoloring modes"
 msgstr "Modo de color exterior"
 
-#: ../ui-hlp/menu.c:1182
+#: ../src/ui-hlp/menu.cpp:1182
 #, fuzzy
 msgid "Incoloring modes"
 msgstr "Modo de color interior"
 
-#: ../ui-hlp/menu.c:1183
+#: ../src/ui-hlp/menu.cpp:1183
 #, fuzzy
 msgid "True-color coloring modes"
 msgstr "Modo de coloración interior color verdadero"
 
-#: ../ui-hlp/menu.c:1185
+#: ../src/ui-hlp/menu.cpp:1185
 msgid "Planes"
 msgstr "Planos"
 
-#: ../ui-hlp/menu.c:1186
+#: ../src/ui-hlp/menu.cpp:1186
 msgid "Animations and position files"
 msgstr "Ficheros de animaciones y posición"
 
-#: ../ui-hlp/menu.c:1188
+#: ../src/ui-hlp/menu.cpp:1188
 msgid "Random palettes"
 msgstr "Paletas aleatorias"
 
-#: ../ui-hlp/menu.c:1189
+#: ../src/ui-hlp/menu.cpp:1189
 msgid "Other noteworthy features"
 msgstr "Otras características destacables"
 
-#: ../ui-hlp/menu.c:1192
+#: ../src/ui-hlp/menu.cpp:1192
 msgid "The definition and fractal dimension"
 msgstr "La definición y dimensión fractal"
 
-#: ../ui-hlp/menu.c:1193
+#: ../src/ui-hlp/menu.cpp:1193
 #, fuzzy
 msgid "Escape time fractals"
 msgstr "Matemáticas tras los fractales"
 
-#: ../ui-hlp/menu.c:1196
+#: ../src/ui-hlp/menu.cpp:1196
 msgid "Triceratops and Catseye fractals"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1197
+#: ../src/ui-hlp/menu.cpp:1197
 msgid "Mandelbar, Lambda, Manowar and Spider"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1198
+#: ../src/ui-hlp/menu.cpp:1198
 msgid "Sierpinski Gasket, S.Carpet, Koch Snowflake"
 msgstr ""
 
-#: ../ui-hlp/menu.c:1199
+#: ../src/ui-hlp/menu.cpp:1199
 msgid "What's new in 3.0?"
 msgstr "¿Qué hay nuevo en 3.0?"
 
-#: ../ui-hlp/play.c:77
+#: ../src/ui-hlp/play.cpp:77
 #, fuzzy
 msgid "line available only in animation replay"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/play.c:103
+#: ../src/ui-hlp/play.cpp:103
 msgid "Morphing non existing line!"
 msgstr ""
 
-#: ../ui-hlp/play.c:127
+#: ../src/ui-hlp/play.cpp:127
 msgid "linekey not available in this context!"
 msgstr ""
 
-#: ../ui-hlp/play.c:272
+#: ../src/ui-hlp/play.cpp:272
 #, fuzzy
 msgid "clear_line available only in animation replay"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/play.c:282
+#: ../src/ui-hlp/play.cpp:282
 #, fuzzy
 msgid "clear_lines available only in animation replay"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/play.c:343
+#: ../src/ui-hlp/play.cpp:343
 msgid "Catalog file not found"
 msgstr ""
 
-#: ../ui-hlp/play.c:391
+#: ../src/ui-hlp/play.cpp:391
 msgid "Replay is already active"
 msgstr ""
 
-#: ../ui-hlp/play.c:395
+#: ../src/ui-hlp/play.cpp:395
 #, fuzzy
 msgid "File open failed"
 msgstr "No se asignar tablas"
 
-#: ../ui-hlp/play.c:400
+#: ../src/ui-hlp/play.cpp:400
 #, fuzzy
 msgid "Out of memory"
 msgstr "XaoS se quedó sin memoria"
 
-#: ../ui-hlp/play.c:511 ../ui-hlp/play.c:527 ../ui-hlp/play.c:551
-#: ../ui-hlp/play.c:578
+#: ../src/ui-hlp/play.cpp:511 ../src/ui-hlp/play.cpp:527 ../src/ui-hlp/play.cpp:551
+#: ../src/ui-hlp/play.cpp:578
 msgid "Missing parameter"
 msgstr ""
 
-#: ../ui-hlp/play.c:513 ../ui-hlp/play.c:529 ../ui-hlp/play.c:553
-#: ../ui-hlp/play.c:580
+#: ../src/ui-hlp/play.cpp:513 ../src/ui-hlp/play.cpp:529 ../src/ui-hlp/play.cpp:553
+#: ../src/ui-hlp/play.cpp:580
 msgid "Unexpected end of file"
 msgstr ""
 
-#: ../ui-hlp/play.c:540 ../ui-hlp/play.c:559
+#: ../src/ui-hlp/play.cpp:540 ../src/ui-hlp/play.cpp:559
 msgid "Token is too long"
 msgstr ""
 
-#: ../ui-hlp/play.c:614
+#: ../src/ui-hlp/play.cpp:614
 #, fuzzy
 msgid "Unknown formula type"
 msgstr "Filtro"
 
-#: ../ui-hlp/play.c:621
+#: ../src/ui-hlp/play.cpp:621
 #, fuzzy
 msgid "morph available only in animation replay"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/play.c:625
+#: ../src/ui-hlp/play.cpp:625
 msgid "morphview: Invalid viewpoint"
 msgstr ""
 
-#: ../ui-hlp/play.c:640
+#: ../src/ui-hlp/play.cpp:640
 #, fuzzy
 msgid "move available only in animation replay"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/play.c:655
+#: ../src/ui-hlp/play.cpp:655
 #, fuzzy
 msgid "morphjulia available only in animation replay"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/play.c:669
+#: ../src/ui-hlp/play.cpp:669
 #, fuzzy
 msgid "morphangle available only in animation replay"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/play.c:703
+#: ../src/ui-hlp/play.cpp:703
 #, fuzzy
 msgid "Unknown filter"
 msgstr "Filtro"
 
-#: ../ui-hlp/play.c:748
+#: ../src/ui-hlp/play.cpp:748
 #, fuzzy
 msgid "sleep available only in animation replay"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/play.c:762
+#: ../src/ui-hlp/play.cpp:762
 #, c-format
 msgid "Internal program error #12 %i\n"
 msgstr ""
 
-#: ../ui-hlp/play.c:781
+#: ../src/ui-hlp/play.cpp:781
 #, fuzzy
 msgid "wait available only in animation replay"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/play.c:832
+#: ../src/ui-hlp/play.cpp:832
 msgid "No catalog file loaded"
 msgstr ""
 
-#: ../ui-hlp/play.c:837
+#: ../src/ui-hlp/play.cpp:837
 msgid "Message not found in catalog file"
 msgstr ""
 
-#: ../ui-hlp/play.c:849
+#: ../src/ui-hlp/play.cpp:849
 #, fuzzy
 msgid "load available only in animation replay"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/play.c:853
+#: ../src/ui-hlp/play.cpp:853
 msgid "Include level overflow"
 msgstr ""
 
-#: ../ui-hlp/play.c:862
+#: ../src/ui-hlp/play.cpp:862
 msgid "File not found"
 msgstr ""
 
-#: ../ui-hlp/play.c:881
+#: ../src/ui-hlp/play.cpp:881
 msgid "Too many parameters"
 msgstr ""
 
-#: ../ui-hlp/play.c:917
+#: ../src/ui-hlp/play.cpp:917
 #, c-format
 msgid "Replay disabled at line %i"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:653
+#: ../src/ui-hlp/ui_helper.cpp:653
 msgid "Tutorial files not found. Reinstall XaoS"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:658
+#: ../src/ui-hlp/ui_helper.cpp:658
 msgid "Preparing first image"
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:669
+#: ../src/ui-hlp/ui_helper.cpp:669
 #, fuzzy
 msgid "Could not open examples"
 msgstr "Cargar ejemplo aleatorio"
 
-#: ../ui-hlp/ui_helper.c:676 ../ui-hlp/ui_helper.c:678
+#: ../src/ui-hlp/ui_helper.cpp:676 ../src/ui-hlp/ui_helper.cpp:678
 #, c-format
 msgid "File %s loaded."
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:689
+#: ../src/ui-hlp/ui_helper.cpp:689
 #, fuzzy
 msgid "Saving image..."
 msgstr "Guardar imagen"
 
-#: ../ui-hlp/ui_helper.c:697
+#: ../src/ui-hlp/ui_helper.cpp:697
 #, fuzzy
 msgid "Save interrupted"
 msgstr "Interrumpir"
 
-#: ../ui-hlp/ui_helper.c:706 ../ui-hlp/ui_helper.c:724
-#: ../ui-hlp/ui_helper.c:796
+#: ../src/ui-hlp/ui_helper.cpp:706 ../src/ui-hlp/ui_helper.cpp:724
+#: ../src/ui-hlp/ui_helper.cpp:796
 #, c-format
 msgid "File %s saved."
 msgstr ""
 
-#: ../ui-hlp/ui_helper.c:718
+#: ../src/ui-hlp/ui_helper.cpp:718
 #, fuzzy
 msgid "Can not open file"
 msgstr "No se asignar tablas"
 
-#: ../ui-hlp/ui_helper.c:819
+#: ../src/ui-hlp/ui_helper.cpp:819
 #, c-format
 msgid "Recording to file %s enabled."
 msgstr ""
 
-#: ../engine/zoom.c:1088
+#: ../src/engine/zoom.cpp:1088
 msgid "Solid guessing 1"
 msgstr ""
 
-#: ../engine/btrace.c:292 ../engine/btrace.c:374
+#: ../src/engine/btrace.cpp:292 ../src/engine/btrace.cpp:374
 msgid "Boundary trace"
 msgstr ""
 
-#: ../ui/dialog.c:296 ../ui/dialog.c:385 ../ui/dialog.c:1326
-#: ../ui/ui-drv/cocoa/CustomDialog.m:302
+#: ../src/ui/dialog.cpp:296 ../src/ui/dialog.cpp:385 ../src/ui/dialog.cpp:1326
+#: ../src/ui/ui-drv/cocoa/CustomDialog.m:302
 msgid "OK"
 msgstr ""
 
-#: ../ui/dialog.c:297 ../ui/dialog.c:386 ../ui/dialog.c:1326
-#: ../ui/filesel.c:188 ../ui/ui-drv/cocoa/CustomDialog.m:312
+#: ../src/ui/dialog.cpp:297 ../src/ui/dialog.cpp:386 ../src/ui/dialog.cpp:1326
+#: ../src/ui/filesel.cpp:188 ../src/ui/ui-drv/cocoa/CustomDialog.m:312
 msgid "Cancel"
 msgstr ""
 
-#: ../ui-hlp/render.c:47
+#: ../src/ui-hlp/render.cpp:47
 #, c-format
 msgid "Error: %s"
 msgstr ""
 
-#: ../ui-hlp/render.c:122
+#: ../src/ui-hlp/render.cpp:122
 #, fuzzy
 msgid "Cannot open motion vector file!"
 msgstr "No se asignar tablas"
 
-#: ../ui-hlp/render.c:254
+#: ../src/ui-hlp/render.cpp:254
 #, c-format
 msgid "Vectors: %i"
 msgstr ""
 
-#: ../ui-hlp/render.c:260
+#: ../src/ui-hlp/render.cpp:260
 #, fuzzy
 msgid "Initializing"
 msgstr "Iteraciones"
 
-#: ../ui-hlp/render.c:268
+#: ../src/ui-hlp/render.cpp:268
 #, fuzzy
 msgid "Cannot create palette"
 msgstr "No se puede crear la paleta"
 
-#: ../ui-hlp/render.c:279
+#: ../src/ui-hlp/render.cpp:279
 #, fuzzy
 msgid "Cannot create image\n"
 msgstr "No se puede crear la imagen"
 
-#: ../ui-hlp/render.c:287
+#: ../src/ui-hlp/render.cpp:287
 #, fuzzy
 msgid "Cannot create checking buffer!"
 msgstr "No se puede crear la imagen"
 
-#: ../ui-hlp/render.c:296 ../ui-hlp/render.c:572
+#: ../src/ui-hlp/render.cpp:296 ../src/ui-hlp/render.cpp:572
 #, fuzzy
 msgid "Cannot create context\n"
 msgstr "No se puede crear la paleta"
 
-#: ../ui-hlp/render.c:308
+#: ../src/ui-hlp/render.cpp:308
 #, fuzzy
 msgid "Cannot open animation file\n"
 msgstr "No se asignar tablas"
 
-#: ../ui-hlp/render.c:319 ../ui-hlp/render.c:581
+#: ../src/ui-hlp/render.cpp:319 ../src/ui-hlp/render.cpp:581
 msgid "Loading catalogs"
 msgstr ""
 
-#: ../ui-hlp/render.c:349
+#: ../src/ui-hlp/render.cpp:349
 #, fuzzy
 msgid "Processing command line options"
 msgstr "Sólo pciones de la línea de instrucciones"
 
-#: ../ui-hlp/render.c:372
+#: ../src/ui-hlp/render.cpp:372
 #, fuzzy
 msgid "Enabling animation replay\n"
 msgstr "Usar sólo durante la animación"
 
-#: ../ui-hlp/render.c:379
+#: ../src/ui-hlp/render.cpp:379
 #, fuzzy
 msgid "Cannot open image file"
 msgstr "No se asignar tablas"
 
-#: ../ui-hlp/render.c:393
+#: ../src/ui-hlp/render.cpp:393
 #, fuzzy
 msgid "Cannot open pattern file"
 msgstr "No se asignar tablas"
 
-#: ../ui-hlp/render.c:410 ../ui-hlp/render.c:412 ../ui-hlp/render.c:614
+#: ../src/ui-hlp/render.cpp:410 ../src/ui-hlp/render.cpp:412 ../src/ui-hlp/render.cpp:614
 msgid "Entering calculation loop!"
 msgstr ""
 
-#: ../ui-hlp/render.c:438
+#: ../src/ui-hlp/render.cpp:438
 #, c-format
 msgid "Frame %i skipped."
 msgstr ""
 
-#: ../ui-hlp/render.c:440
+#: ../src/ui-hlp/render.cpp:440
 #, c-format
 msgid "Frames %i - %i skipped."
 msgstr ""
 
-#: ../ui-hlp/render.c:443
+#: ../src/ui-hlp/render.cpp:443
 #, c-format
 msgid "Frame %4i: "
 msgstr ""
 
-#: ../ui-hlp/render.c:506
+#: ../src/ui-hlp/render.cpp:506
 msgid " done."
 msgstr ""
 
-#: ../ui-hlp/render.c:510
+#: ../src/ui-hlp/render.cpp:510
 msgid " skipping..."
 msgstr ""
 
-#: ../ui-hlp/render.c:543 ../ui-hlp/render.c:633
+#: ../src/ui-hlp/render.cpp:543 ../src/ui-hlp/render.cpp:633
 #, fuzzy
 msgid "Calculation interrupted"
 msgstr "Interrumpir"
 
-#: ../ui-hlp/render.c:546 ../ui-hlp/render.c:548 ../ui-hlp/render.c:635
+#: ../src/ui-hlp/render.cpp:546 ../src/ui-hlp/render.cpp:548 ../src/ui-hlp/render.cpp:635
 #, fuzzy
 msgid "Calculation finished"
 msgstr "Cálculo"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1240 ../ui/ui-drv/cocoa/AppController.m:321
+#: ../src/ui/ui-drv/win32/ui_win32.cpp:1240 ../src/ui/ui-drv/cocoa/AppController.m:321
 msgid "Copy"
 msgstr ""
 
-#: ../ui/ui-drv/win32/ui_win32.c:1241 ../ui/ui-drv/cocoa/AppController.m:324
+#: ../src/ui/ui-drv/win32/ui_win32.cpp:1241 ../src/ui/ui-drv/cocoa/AppController.m:324
 #, fuzzy
 msgid "Paste"
 msgstr "Paleta"
 
-#: ../ui/ui-drv/win32/ui_win32.c:1244
+#: ../src/ui/ui-drv/win32/ui_win32.cpp:1244
 msgid "About"
 msgstr ""
 
-#: ../ui/ui-drv/cocoa/AppController.m:197
+#: ../src/ui/ui-drv/cocoa/AppController.m:197
 msgid "About XaoS"
 msgstr ""
 
-#: ../ui/ui-drv/cocoa/AppController.m:200
+#: ../src/ui/ui-drv/cocoa/AppController.m:200
 msgid "Services"
 msgstr ""
 
-#: ../ui/ui-drv/cocoa/AppController.m:203
+#: ../src/ui/ui-drv/cocoa/AppController.m:203
 msgid "Hide XaoS"
 msgstr ""
 
-#: ../ui/ui-drv/cocoa/AppController.m:206
+#: ../src/ui/ui-drv/cocoa/AppController.m:206
 msgid "Hide Others"
 msgstr ""
 
-#: ../ui/ui-drv/cocoa/AppController.m:209
+#: ../src/ui/ui-drv/cocoa/AppController.m:209
 msgid "Show All"
 msgstr ""
 
-#: ../ui/ui-drv/cocoa/AppController.m:212
+#: ../src/ui/ui-drv/cocoa/AppController.m:212
 #, fuzzy
 msgid "Quit XaoS"
 msgstr "Salir"
 
-#: ../ui/ui-drv/cocoa/AppController.m:318
+#: ../src/ui/ui-drv/cocoa/AppController.m:318
 msgid "Cut"
 msgstr ""
 
-#: ../ui/ui-drv/cocoa/AppController.m:327
+#: ../src/ui/ui-drv/cocoa/AppController.m:327
 #, fuzzy
 msgid "Delete"
 msgstr "Paleta"
 
-#: ../ui/ui-drv/cocoa/AppController.m:330
+#: ../src/ui/ui-drv/cocoa/AppController.m:330
 msgid "Select All"
 msgstr ""
 
-#: ../ui/ui-drv/cocoa/AppController.m:340
+#: ../src/ui/ui-drv/cocoa/AppController.m:340
 msgid "Minimize"
 msgstr ""
 
-#: ../ui/ui-drv/cocoa/AppController.m:348
+#: ../src/ui/ui-drv/cocoa/AppController.m:348
 msgid "Bring All to Front"
 msgstr ""
 
-#: ../ui/ui-drv/cocoa/AppController.m:359
+#: ../src/ui/ui-drv/cocoa/AppController.m:359
 #, fuzzy
 msgid "Close"
 msgstr "Color"
 
-#: ../ui/ui-drv/cocoa/AppController.m:373
+#: ../src/ui/ui-drv/cocoa/AppController.m:373
 msgid "Videator Output"
 msgstr ""
 
-#: ../ui/ui-drv/cocoa/CustomDialog.m:142
+#: ../src/ui/ui-drv/cocoa/CustomDialog.m:142
 msgid "Choose"
 msgstr ""
 
