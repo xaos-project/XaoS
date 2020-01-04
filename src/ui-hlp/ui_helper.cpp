@@ -74,9 +74,9 @@ static int waitcount, waitcount1, waitcount2;
 const struct filteraction *const uih_filters[MAXFILTERS] = {
     &edge_filter,       &edge2_filter,     &threed_filter,    &starfield_filter,
     &stereogram_filter, &interlace_filter, &blur_filter,      &emboss_filter,
-    &palette_filter,    &antialias_filter, &truecolor_filter, NULL};
+    &palette_filter,    &antialias_filter, NULL};
 
-const int uih_nfilters = 11;
+const int uih_nfilters = 10;
 
 static void uih_invalidatepos(uih_context *uih)
 {

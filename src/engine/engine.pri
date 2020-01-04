@@ -7,7 +7,6 @@ SOURCES += \
     $$PWD/emboss.cpp \
     $$PWD/star.cpp \
     $$PWD/anti.cpp \
-    $$PWD/dither.cpp \
     $$PWD/edge.cpp \
     $$PWD/edge2.cpp \
     $$PWD/rotate.cpp \
