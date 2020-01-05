@@ -110,7 +110,7 @@
  Thanks
  Honza
  * This way is implemented in tracerectangle2/tracepoint. It is enabled
- * just when threads are compiled in. Also when nthreads=1, old faster
+ * just when threads are compiled in. Also when bthreads=1, old faster
  * algorithm is used.
  *
  * Implementation notes:
@@ -138,6 +138,11 @@
 #include "plane.h"
 #include "calculate.h"
 
+// Multithreaded boundary trace suffers from deadlocks so I am temporarily
+// disabling it until it can be debugged. To re-enable, remove the #define
+// below and search and replace bthreads to nthreads here and in btraced.h.
+#define bthreads 1
+
 #define UP 0
 #define RIGHT 1
 #define DOWN 2
@@ -149,7 +154,7 @@
     if (cfilter.wait_function != NULL)                                         \
         cfilter.wait_function(&cfilter);
 
-#ifndef nthreads
+#ifndef bthreads
 static int size;
 static unsigned int inset;
 static int nwaiting;
@@ -179,13 +184,13 @@ static const signed char dirrections[][2] = {
 #define addstack(sx, sy, d, c, periodicity)                                    \
     {                                                                          \
         int page;                                                              \
-        int nstack = (((sy)-ystart) * nthreads) / (yend - ystart + 1);         \
+        int nstack = (((sy)-ystart) * bthreads) / (yend - ystart + 1);         \
         struct stack *ptr;                                                     \
         calculated[sx + sy * CALCWIDTH] |= 1 << d;                             \
         xth_lock(0);                                                           \
         if (size < maxsize2) {                                                 \
             while (sizes[nstack] >= maxsize)                                   \
-                if (nstack >= nthreads - 1)                                    \
+                if (nstack >= bthreads - 1)                                    \
                     nstack = 0;                                                \
                 else                                                           \
                     nstack++;                                                  \
@@ -214,11 +219,11 @@ static const signed char dirrections[][2] = {
     {                                                                          \
         int page;                                                              \
         struct stack *ptr;                                                     \
-        int nstack = (((sy)-y1) * nthreads) / (y2 - y1 + 1);                   \
+        int nstack = (((sy)-y1) * bthreads) / (y2 - y1 + 1);                   \
         calculated[sx + sy * CALCWIDTH] |= 1 << d;                             \
         if (size < maxsize2) {                                                 \
             while (sizes[nstack] >= maxsize)                                   \
-                if (nstack == nthreads - 1)                                    \
+                if (nstack == bthreads - 1)                                    \
                     nstack = 0;                                                \
                 else                                                           \
                     nstack++;                                                  \
@@ -286,21 +291,21 @@ static pixel32_t calculatepixel(int x, int y, int peri)
 #include "btraced.h"
 #include "i18n.h"
 
-#ifndef nthreads
+#ifndef bthreads
 static int tracerectangle2(int x1, int y1, int x2, int y2)
 {
     int x, y;
     cfilter.max = y2 - y1;
     cfilter.pass = TR("Message", "Boundary trace");
     cfilter.pos = 0;
-    maxsize = MAXPAGES / nthreads;
-    for (y = 0; y < nthreads; y++) {
+    maxsize = MAXPAGES / bthreads;
+    for (y = 0; y < bthreads; y++) {
         npages[y] = 0; /*stack is empty */
         sizes[y] = 0;
         starts[y] = pages + y * maxsize;
     }
     maxsize *= PAGESIZE;
-    maxsize2 = maxsize * nthreads;
+    maxsize2 = maxsize * bthreads;
     size = 0;
     nwaiting = 0;
     exitnow = 0;
@@ -347,7 +352,7 @@ static int tracerectangle2(int x1, int y1, int x2, int y2)
             break;
     }
     xth_sync();
-    for (y = 0; y < nthreads; y++)
+    for (y = 0; y < bthreads; y++)
         for (x = 0; x < npages[y]; x++)
             free(starts[y][x]); /*free memory allocated for stack */
     return 1;
@@ -499,8 +504,8 @@ int boundarytrace(int x1, int y1, int x2, int y2, number_t *xpos,
                     i * (cfractalc.rs.mi - cfractalc.rs.ni) / cimage.height;
     }
     i = 1;
-#ifndef nthreads
-    if (nthreads != 1) {
+#ifndef bthreads
+    if (bthreads != 1) {
         if (ydiv > cy1 && ydiv < cy2) {
             i |= tracerectangle2(cx1, cy1, cx2, ydiv),
                 i |= tracerectangle2(cx1, ydiv, cx2, cy2);

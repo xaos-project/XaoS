@@ -254,7 +254,7 @@ static void tracecolor(int xstart, int ystart, int xend, int yend,
     } while (1);
 }
 
-#ifndef nthreads
+#ifndef bthreads
 #define ethreads 1
 
 static inline void tracepoint(int xp, int yp, int dir, unsigned int color,
@@ -356,7 +356,7 @@ static void queue(void *data, struct taskinfo *task, int r1, int r2)
                 xth_unlock(0);
                 return;
             }
-            if (nwaiting == nthreads - 1) { /*We are last working CPU */
+            if (nwaiting == bthreads - 1) { /*We are last working CPU */
                 exitnow = 1;                /*So we should exit now */
                 xth_wakeup(0);              /*Wake up all waiting tasks */
                 xth_unlock(0);
@@ -372,7 +372,7 @@ static void queue(void *data, struct taskinfo *task, int r1, int r2)
         }
         nstack = xth_nthread(task);
         while (!sizes[nstack])
-            if (nstack != nthreads - 1)
+            if (nstack != bthreads - 1)
                 nstack++;
             else
                 nstack = 0;
