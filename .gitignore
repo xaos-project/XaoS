@@ -43,16 +43,9 @@ bin/*
 *.idb
 *.pdb
 
-# Autoconf
-Makefile
-autom4te.cache
-config.log
-config.status
-*.mo
-*.pot
-aconfig.h
-config.h
-version.h
-src/i18n/Makefile.in
+# Project files
 XaoS.pro.user
 .vscode
+
+# Binary Translations
+*.qm
