@@ -538,6 +538,7 @@ static void ui_message(struct uih_context *uih)
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setWindowTitle(QCoreApplication::applicationName());
+    setMouseTracking(true);
 
     widget = new FractalWidget();
     setCentralWidget(widget);
@@ -939,6 +940,18 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         default:
             event->ignore();
     }
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+#ifndef Q_OS_MACOS
+    if (isFullScreen()) {
+        if (event->pos().y() < menuBar()->sizeHint().height())
+            menuBar()->show();
+        else
+            menuBar()->hide();
+    }
+#endif
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event) { shouldResize = true; }

@@ -9,7 +9,7 @@
 FractalWidget::FractalWidget()
 {
     m_image = NULL;
-
+    setMouseTracking(true);
     setAutoFillBackground(false);
     setAttribute(Qt::WA_OpaquePaintEvent, true);
 }

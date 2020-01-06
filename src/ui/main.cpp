@@ -327,10 +327,13 @@ static void ui_fullscreensw(struct uih_context *uih)
 {
     if (uih->data) {
         MainWindow *window = reinterpret_cast<MainWindow *>(uih->data);
-        if (window->isFullScreen())
+        if (window->isFullScreen()) {
+            window->menuBar()->show();
             window->showNormal();
-        else
+        } else {
+            window->menuBar()->hide();
             window->showFullScreen();
+        }
     }
 }
 

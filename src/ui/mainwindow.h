@@ -56,6 +56,7 @@ class MainWindow : public QMainWindow
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     void resizeEvent(QResizeEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
   private slots:
     void activateMenuItem();
     void updateMenuCheckmarks();
