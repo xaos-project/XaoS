@@ -649,6 +649,9 @@ void uih_playfilter(struct uih_context *uih, dialogparam *p)
     const char *fname = p[0].dstring;
     int mode;
     int i;
+    // ignore removed truecolor filter in old xpf/xaf files that used it.
+    if (!strcmp("truecolor", fname))
+        return;
     for (i = 0; i < uih_nfilters; i++) {
         if (!strcmp(uih_filters[i]->shortname, fname)) {
             mode = p[1].dint;
