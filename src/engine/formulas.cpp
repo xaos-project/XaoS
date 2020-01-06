@@ -1995,7 +1995,7 @@ const struct formula formulas[] = {
      NULL,
      {"Lambda Mandelbrot", "Lambda"},
      "mlambda",
-     {0.5, 0.0, 2.5, 5.5},
+     {0.0, 0.0, 2.5, 5.5},
      0, 0, 0.5, 0.0,
      {
       {INT_MAX, INT_MAX, 0, NULL},
@@ -2475,7 +2475,10 @@ const struct formula formulas[] = {
        /* 2009-08-01 JB Langston
         * Changed default zoom level to match Mandelbrot
         */
-       {-0.75, 0.0, 2.5, 2.5},
+       //{-0.75, 0.0, 2.5, 2.5},
+       //0, 1, 0.0, 0.0,
+       // Changed default view to match Burning Ship
+       {0.0, 0.0, 5, 5},
        0, 1, 0.0, 0.0,
        {
         {INT_MAX, INT_MAX, 0, NULL},
