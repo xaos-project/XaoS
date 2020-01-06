@@ -7,12 +7,7 @@ lessThan(QT_MINOR_VERSION, 6): error("requires Qt >= 5.6")
 
 TEMPLATE = app
 
-QT += opengl
-
-win32 {
-    LIBS += -lopengl32
-    DEFINES += USE_OPENGL
-}
+QT += widgets
 
 macx {
     TARGET = XaoS
@@ -21,11 +16,9 @@ macx {
     TARGET = xaos
 }
 
-linux {
-    contains(QMAKE_HOST.arch, arm.*): { }
-    else {
-        DEFINES += USE_OPENGL
-    }
+contains(DEFINES, USE_OPENGL) {
+    QT += opengl
+    win32:LIBS += -lopengl32
 }
 
 CONFIG(debug, debug|release) {

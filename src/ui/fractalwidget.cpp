@@ -1,7 +1,9 @@
 ﻿#include "fractalwidget.h"
 
 #include <QtGui>
+#ifdef USE_OPENGL
 #include <QtOpenGL>
+#endif
 
 #include "ui.h"
 #include "filter.h"
