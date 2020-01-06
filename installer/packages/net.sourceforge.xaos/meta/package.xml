@@ -2,8 +2,8 @@
 <Package>
     <DisplayName>XaoS</DisplayName>
     <Description>Realtime fractal zoomer.</Description>
-    <Version>4.0pre2</Version>
-    <ReleaseDate>2019-12-30</ReleaseDate>
+    <Version>4.0pre3</Version>
+    <ReleaseDate>2020-01-06</ReleaseDate>
     <Licenses>
         <License name="GNU General Public License v2.0" file="license.txt" />
     </Licenses>

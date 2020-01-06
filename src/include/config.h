@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 // XaoS release
-#define XaoS_VERSION "4.0pre2"
+#define XaoS_VERSION "4.0pre3"
 
 // URLs
 #define HELP_URL "https://github.com/xaos-project/XaoS/wiki"
