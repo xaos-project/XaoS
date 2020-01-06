@@ -359,12 +359,14 @@ static void ui_registermenus_i18n(void)
     int no_menuitems_i18n =
         ui_no_menuitems_i18n; /* This variable must be local. */
     MENUINT_I("file", NULL, TR("Menu", "Quit"), "quit",
-              MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quit, 0);
+              MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quit, UI);
     MENUNOP_I("helpmenu", "h", TR("Menu", "Help"), "help", MENUFLAG_INCALC,
               ui_help);
-    MENUNOP_I("helpmenu", NULL, TR("Menu", "About"), "about", NULL, ui_about);
+    MENUNOP_I("helpmenu", NULL, TR("Menu", "About"), "about", UI, ui_about);
 #ifndef Q_OS_MACOS
-    MENUNOPCB_I("ui", "v", TR("Menu", "Fullscreen"), "fullscreen", 0,
+    MENUNOPCB_I("ui", NULL, TR("Menu", "Fullscreen"), "fullscreen", UI,
+                ui_fullscreensw, ui_fullscreenselected);
+    MENUNOPCB_I("uia", NULL, TR("Menu", "Fullscreen"), "fullscreena", UI,
                 ui_fullscreensw, ui_fullscreenselected);
 #endif
     no_menuitems_i18n -= ui_no_menuitems_i18n;

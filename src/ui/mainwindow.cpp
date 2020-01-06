@@ -682,7 +682,7 @@ QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
         return QKeySequence::Undo;
     if (name == "redo")
         return QKeySequence::Redo;
-    if (name == "fullscreen")
+    if (name == "fullscreen" || name == "fullscreena")
         return QKeySequence::FullScreen;
     if (name == "interrupt")
         return QKeySequence::Cancel;
