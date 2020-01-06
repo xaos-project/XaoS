@@ -11,7 +11,6 @@ QT += widgets
 
 macx {
     TARGET = XaoS
-    DEFINES += USE_OPENGL
 } else {
     TARGET = xaos
 }
