@@ -697,6 +697,8 @@ QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
 void MainWindow::buildMenu(const char *name)
 {
     menuBar()->clear();
+    foreach(QAction *action, actions())
+        removeAction(action);
 
     const menuitem *item;
     for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
@@ -755,6 +757,8 @@ void MainWindow::buildMenu(const char *name, QMenu *parent, bool numbered)
             connect(action, SIGNAL(triggered()), this,
                     SLOT(activateMenuItem()));
             parent->addAction(action);
+            if (action->shortcut() != QKeySequence::UnknownKey)
+                addAction(action);  // so that shortcuts work when menubar is hidden
         }
     }
 }
