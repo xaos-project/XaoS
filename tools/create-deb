@@ -7,32 +7,26 @@
 
 set -e
 ARCH=`dpkg --print-architecture`
+LINUX_VARIANT=`lsb_release -i | cut -f2`
+LINUX_VERSION=`lsb_release -r | cut -f2`
 
-if [ "$DEBIAN_VERSION" = "" ]; then
- DEBIAN_VERSION=deb9
- QT5=5.9.5
- GL1=1.0.0
- C6=2.27
- ICU=60
- ICUv=60.2
- HARFBUZZ=1.7.2
- DOUBLECONV=2.0.1
- GLIB2=2.56.4
- FREETYPE=2.8.1
- BSD0=0.8.7
+
+if [ "$LINUX_VARIANT" = "Ubuntu" ]; then
+ if [ "$LINUX_VERSION" = "18.04" ]; then
+  DEBIAN_VERSION=deb9
+  fi
+ if [ "$LINUX_VERSION" = "19.04" -o "$LINUX_VERSION" = "19.10" ]; then
+  DEBIAN_VERSION=deb10
+  fi
  fi
 
-if [ "$DEBIAN_VERSION" = "deb10" ]; then
- QT5=5.11.3
- GL1=1.1.0
- C6=2.28
- ICU=63
- ICUv=63.1
- HARFBUZZ=2.3.1
- DOUBLECONV=3.1.0
- GLIB2=2.58.3
- FREETYPE=2.9.1
- BSD0=0.9.1
+if [ "$LINUX_VARIANT" = "Raspbian" -o "$LINUX_VARIANT" = "Debian" ]; then
+ DEBIAN_VERSION=deb${LINUX_VERSION}
+ fi
+
+if [ "$DEBIAN_VERSION" = "" ]; then
+ echo "Please specify DEBIAN_VERSION first"
+ exit 1
  fi
 
 MAINDIR=`cd ..; pwd`
@@ -85,12 +79,6 @@ Section: universe/graphics
 Priority: optional
 Architecture: $ARCH
 Depends: " > $FSDIR/DEBIAN/control
-# libqt5opengl5 (>= $QT5), libqt5widgets5 (>= $QT5), libqt5gui5 (>= $QT5), 
-# libqt5core5a (>= $QT5), libgl1 (>= $GL1), libc6 (>= $C6), libstdc++6 (>= 8.3.0),
-# libgcc1 (>= 1:8.3.0), libpng16-16 (>= 1.6.34), libharfbuzz0b (>= $HARFBUZZ), zlib1g (>= 1:1.2.11), 
-# libicu$ICU (>= $ICUv), libdouble-conversion1 (>= $DOUBLECONV), libglib2.0-0 (>= 2.56.4),
-# libglx0 (>= $GL1), libglvnd0 (>= $GL1), libfreetype6 (>= $FREETYPE), libgraphite2-3 (>= 1.3.11),
-# libpcre3 (>= 2:8.39), libx11-6 (>= 2:1.6.4), libxcb1 (>= 1.13), libxau6 (>= 1:1.0.8), libxdmcp6 (>= 1:1.1.2), libbsd0 (>= $BSD0)
 ./dep-deb-versions >> $FSDIR/DEBIAN/control
 echo "
 Maintainer: Zoltan Kovacs <zoltan@geogebra.org>
