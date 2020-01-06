@@ -79,17 +79,20 @@ mkdir -p $APPDIR
 cp $MAINDIR/xdg/xaos.desktop $APPDIR
 
 mkdir -p $FSDIR/DEBIAN
-echo "Package: xaos
+echo -n "Package: xaos
 Version: $XAOS_VERSION
 Section: universe/graphics
 Priority: optional
 Architecture: $ARCH
-Depends: libqt5opengl5 (>= $QT5), libqt5widgets5 (>= $QT5), libqt5gui5 (>= $QT5), 
- libqt5core5a (>= $QT5), libgl1 (>= $GL1), libc6 (>= $C6), libstdc++6 (>= 8.3.0),
- libgcc1 (>= 1:8.3.0), libpng16-16 (>= 1.6.34), libharfbuzz0b (>= $HARFBUZZ), zlib1g (>= 1:1.2.11), 
- libicu$ICU (>= $ICUv), libdouble-conversion1 (>= $DOUBLECONV), libglib2.0-0 (>= 2.56.4),
- libglx0 (>= $GL1), libglvnd0 (>= $GL1), libfreetype6 (>= $FREETYPE), libgraphite2-3 (>= 1.3.11),
- libpcre3 (>= 2:8.39), libx11-6 (>= 2:1.6.4), libxcb1 (>= 1.13), libxau6 (>= 1:1.0.8), libxdmcp6 (>= 1:1.1.2), libbsd0 (>= $BSD0)
+Depends: " > $FSDIR/DEBIAN/control
+# libqt5opengl5 (>= $QT5), libqt5widgets5 (>= $QT5), libqt5gui5 (>= $QT5), 
+# libqt5core5a (>= $QT5), libgl1 (>= $GL1), libc6 (>= $C6), libstdc++6 (>= 8.3.0),
+# libgcc1 (>= 1:8.3.0), libpng16-16 (>= 1.6.34), libharfbuzz0b (>= $HARFBUZZ), zlib1g (>= 1:1.2.11), 
+# libicu$ICU (>= $ICUv), libdouble-conversion1 (>= $DOUBLECONV), libglib2.0-0 (>= 2.56.4),
+# libglx0 (>= $GL1), libglvnd0 (>= $GL1), libfreetype6 (>= $FREETYPE), libgraphite2-3 (>= 1.3.11),
+# libpcre3 (>= 2:8.39), libx11-6 (>= 2:1.6.4), libxcb1 (>= 1.13), libxau6 (>= 1:1.0.8), libxdmcp6 (>= 1:1.1.2), libbsd0 (>= $BSD0)
+./dep-deb-versions >> $FSDIR/DEBIAN/control
+echo "
 Maintainer: Zoltan Kovacs <zoltan@geogebra.org>
 Description:
  XaoS allows you to zoom and pan around a fractal in
@@ -102,5 +105,5 @@ Description:
  Other features include autopilot mode, palette changing,
  image saving, fractal inversion, filters, and a built in fractal
  tutorial.
-" > $FSDIR/DEBIAN/control
+" >> $FSDIR/DEBIAN/control
 dpkg-deb --build $FSDIR

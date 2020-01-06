@@ -1,4 +1,8 @@
 #!/bin/sh
 # Prints the versions of the installed .deb packages that are required to run the xaos executable.
+export ARCH=`dpkg --print-architecture`
 (ldd ../bin/xaos | awk '{if ($3=="") print $1; else print $3}' | while read LIB; do dpkg -S $LIB \
- | awk '{print $1}' | cut -d: -f1 ; done) | sort | uniq | xargs dpkg -l
+ | awk '{print $1}' | cut -d: -f1 ; done) | sort | uniq | xargs dpkg -l | grep :$ARCH \
+ | sed s/:$ARCH// | sed s/+dfsg// | awk '{if (nonfirst==1) printf ", ";
+nonfirst=1; mp=index($3,"-"); ver=substr($3,1,mp-1); verpp=index(ver ".",".");
+ver2=substr(ver,verpp+1); ver2pp=index(ver2 ".","."); ver3=substr(ver,1,verpp+ver2pp-1); printf $2 " (>= " ver3 ")"}'
