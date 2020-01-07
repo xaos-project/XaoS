@@ -1,4 +1,4 @@
-﻿#define __USE_MINGW_ANSI_STDIO 1  // for long double support on Windows
+﻿#define __USE_MINGW_ANSI_STDIO 1 // for long double support on Windows
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
@@ -356,8 +356,17 @@ void menu_activate(const menuitem *item, struct uih_context *c, dialogparam *d)
         case MENU_DIALOG:
         case MENU_CUSTOMDIALOG:
             if (!menu_havedialog(item, c)) {
-                ((void (*)(struct uih_context * c, dialogparam *))
-                     item->function)(c, (dialogparam *)NULL);
+                // This code caused a crash when switching from julia
+                // back to Mandelbrot on 64-bit windows because NULL cannot
+                // be cast to a valid float parameter which the function
+                // expects. For now I will just special case it because
+                // uimandelbrot is the only menu that does this.
+                if (!strcmp(item->shortname, "uimandelbrot"))
+                    ((void (*)(struct uih_context * c, number_t, number_t))
+                         item->function)(c, 0, 0);
+                else
+                    ((void (*)(struct uih_context * c, dialogparam *))
+                         item->function)(c, (dialogparam *)NULL);
             } else {
                 const menudialog *di = menu_getdialog(c, item);
                 if (di[0].question == NULL) {
