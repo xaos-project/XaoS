@@ -500,7 +500,7 @@ number_t menu_getfloat(const char *s, const char **error)
 {
     char *sp;
     number_t param = xstrtonum(s, &sp);
-    if (param == 0) {
+    if (sp != s + strlen(s)) {
         *error = "Floating point number expected";
         return 0;
     }
