@@ -829,7 +829,7 @@ void MainWindow::showDialog(const char *name)
         else if (dialog[0].type == DIALOG_OFILE) {
             char defname[256];
             strcpy(defname,
-                   QDir::home().filePath(dialog[0].defstr).toUtf8().data());
+                   QDir::home().filePath(dialog[0].defstr).toUtf8());
             char *split = strchr(defname, '*');
             *split = 0;
             strcpy(defname, xio_getfilename(defname, split + 1));
@@ -838,6 +838,9 @@ void MainWindow::showDialog(const char *name)
         }
 
         if (!fileName.isNull()) {
+            QString ext = "." + QFileInfo(dialog[0].defstr).suffix();
+            if (!fileName.endsWith(ext))
+                fileName += ext;
             dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
             param->dstring = strdup(fileName.toUtf8());
             menuActivate(item, param);
