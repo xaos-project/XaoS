@@ -44,7 +44,7 @@ void tl_stop_timer(tl_timer *t);
 void tl_resume_timer(tl_timer *t);
 void tl_slowdown_timer(tl_timer *t, int time);
 int tl_process_group(tl_group *group, int *activated);
-extern tl_group *syncgroup, *asyncgroup;
+extern tl_group *syncgroup;
 void tl_sleep(int);
 void tl_allegromode(int mode); /*Just for djgpp */
 int tl_lookup_timer(tl_timer *t);

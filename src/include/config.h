@@ -24,12 +24,7 @@
 
 // Optional features
 #define USE_PTHREAD
-// #define USE_OPENGL
 
-#define HAVE_FTIME
-#define HAVE_GETTIMEOFDAY
-#define HAVE_SYS_TIME_H
-#define HAVE_UNISTD_H
 #define HAVE_LONG_DOUBLE
 
 // Numeric type
