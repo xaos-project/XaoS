@@ -3,9 +3,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <cstdlib>
-#ifdef HAVE_UNISTD_H
 #include <unistd.h>
-#endif
 #include "filter.h"
 #include "fractal.h"
 #include "ui_helper.h"
