@@ -1,9 +1,9 @@
 ﻿#define __USE_MINGW_ANSI_STDIO 1  // for long double support on Windows
-#include <stdio.h>
-#include <limits.h>
-#include <string.h>
-#include <errno.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <climits>
+#include <cstring>
+#include <cerrno>
+#include <cstdlib>
 #include "filter.h"
 #include "fractal.h"
 #include "ui_helper.h"
@@ -81,7 +81,7 @@ static void save_float(struct uih_context *uih, number_t number)
         myputc(' ');
     else
         first = 0;
-#ifdef HAVE_LONG_DOUBLE
+#ifdef USE_LONG_DOUBLE
         /*20 should be enought to specify 64digit number :) */
     {
         char s[256];
@@ -108,7 +108,7 @@ static void save_float2(struct uih_context *uih, number_t number, int places)
         places = 0;
     if (places > 20)
         places = 20;
-#ifdef HAVE_LONG_DOUBLE
+#ifdef USE_LONG_DOUBLE
     {
         char s[256];
         sprintf(fs, "%%.%iLG", places);

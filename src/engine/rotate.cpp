@@ -5,11 +5,11 @@
  * It is used to implement fast rotation mode
  */
 #include "config.h"
-#include <string.h>
-#include <limits.h>
+#include <cstring>
+#include <climits>
 
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 #define SLARGEITER
 #include "xthread.h"
 #include "filter.h"

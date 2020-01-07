@@ -34,7 +34,7 @@ path is separated by slash or backslash (windoze, dog)
 the main I/O routines are in the xstdio file
 */
 
-#include <stdio.h>
+#include <cstdio>
 
 typedef char *xio_path;
 typedef const char *xio_constpath;

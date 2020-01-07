@@ -1,7 +1,7 @@
-﻿#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-#include <stdio.h>
+﻿#include <cstdlib>
+#include <cstring>
+#include <cassert>
+#include <cstdio>
 
 #include "config.h"
 #include "filter.h"

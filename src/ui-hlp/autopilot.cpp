@@ -20,11 +20,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#include <float.h>
-#include <stdlib.h>
-#include <math.h>
-#include <assert.h>
-#include <limits.h>
+#include <cfloat>
+#include <cstdlib>
+#include <cmath>
+#include <cassert>
+#include <climits>
 #include "config.h"
 #define SLARGEITER
 #include "filter.h"
@@ -54,6 +54,13 @@
 #define look1 look132
 #define look2 look232
 #include "autod.h"
+
+#ifdef USE_FLOAT128
+#include <quadmath.h>
+#define isnan isnanq
+#else
+#define isnan std::isnan
+#endif
 
 void clean_autopilot(uih_context *context)
 {

@@ -23,6 +23,12 @@ contains(DEFINES, USE_OPENGL) {
     win32:LIBS += -lopengl32
 }
 
+contains(DEFINES, USE_FLOAT128) {
+    LIBS += -lquadmath
+} else {
+    DEFINES += USE_LONG_DOUBLE
+}
+
 CONFIG(debug, debug|release) {
     DEFINES += DEBUG
     win32:CONFIG += console

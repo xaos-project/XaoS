@@ -1,6 +1,6 @@
 ﻿#include "config.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include "filter.h"
 #include "fractal.h"
 #include "xthread.h"

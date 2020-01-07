@@ -19,9 +19,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-#include <stdio.h>
-#include <math.h>
-#include <limits.h>
+#include <cstdio>
+#include <cmath>
+#include <climits>
 #include "config.h"
 #include "plane.h"
 #include "cmplx.h"

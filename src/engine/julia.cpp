@@ -1,8 +1,8 @@
-﻿#include <math.h>
-#include <string.h>
+﻿#include <cmath>
+#include <cstring>
 #include "config.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include "filter.h"
 #include "julia.h"
 #include "config.h"

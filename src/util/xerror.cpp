@@ -1,6 +1,6 @@
-﻿#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
+﻿#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
 #include "config.h"
 #include "xerror.h"
 /*On windows we use message boxes done in the ui_win32.c code*/

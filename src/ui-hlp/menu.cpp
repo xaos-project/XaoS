@@ -1,6 +1,6 @@
-﻿#include <errno.h>
-#include <string.h>
-#include <stdlib.h>
+﻿#include <cerrno>
+#include <cstring>
+#include <cstdlib>
 
 #include "filter.h"
 #include "config.h"

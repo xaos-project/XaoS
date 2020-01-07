@@ -28,7 +28,7 @@
  * It was reworked for the GNU C Library by Roland McGrath.
  */
 
-#include <stdio.h>
+#include <cstdio>
 #include "config.h"
 #include "misc-f.h"
 static unsigned int state;

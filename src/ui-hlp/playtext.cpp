@@ -1,4 +1,4 @@
-﻿#include <stdlib.h>
+﻿#include <cstdlib>
 
 #include "config.h"
 #include "filter.h"

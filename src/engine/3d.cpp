@@ -1,7 +1,7 @@
 ﻿#include "config.h"
-#include <stdlib.h>
-#include <stdio.h> /*for NULL */
-#include <math.h>
+#include <cstdlib>
+#include <cstdio> /*for NULL */
+#include <cmath>
 #define SLARGEITER
 #include "xthread.h"
 #include "filter.h"

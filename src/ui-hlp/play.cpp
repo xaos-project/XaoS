@@ -1,6 +1,6 @@
-﻿#include <limits.h>
-#include <stdlib.h>
-#include <string.h>
+﻿#include <climits>
+#include <cstdlib>
+#include <cstring>
 #include "config.h"
 #include "filter.h"
 #include "fractal.h"

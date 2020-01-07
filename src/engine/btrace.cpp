@@ -1,9 +1,9 @@
 ﻿#include "config.h"
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
-#include <string.h>
-#include <limits.h>
+#include <cstdlib>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <climits>
 #define SLARGEITER
 #include "filter.h"
 #include "fractal.h"

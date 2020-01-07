@@ -3,8 +3,8 @@
  * does an simple edge detection algo on it.
  */
 #include "config.h"
-#include <stdlib.h>
-#include <stdio.h> /*for NULL */
+#include <cstdlib>
+#include <cstdio> /*for NULL */
 #define SLARGEITER
 #include "xthread.h"
 #include "filter.h"

@@ -1,7 +1,7 @@
 ﻿#define __USE_MINGW_ANSI_STDIO 1  // for long double support on Windows
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
 #include "config.h"
 #include "filter.h"
 #include "fractal.h"
@@ -489,12 +489,12 @@ menu_genernumbered(int n, const char *menuname, const char *const *const names,
 
 number_t menu_getfloat(const char *s, const char **error)
 {
-#ifdef HAVE_LONG_DOUBLE
+#ifdef USE_LONG_DOUBLE
     long double param = 0;
 #else
     double param = 0;
 #endif
-#ifdef HAVE_LONG_DOUBLE
+#ifdef USE_LONG_DOUBLE
 #ifndef USE_ATOLD
     if (sscanf(s, "%LG", &param) == 0)
 #else

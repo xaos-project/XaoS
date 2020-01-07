@@ -32,12 +32,12 @@
 
 // Some help can be read below about line 700. :-)
 
-#include <limits.h>
-#include <string.h>
-#include <stdlib.h>
-#include <math.h>
-#include <float.h>
-#include <stdio.h>
+#include <climits>
+#include <cstring>
+#include <cstdlib>
+#include <cmath>
+#include <cfloat>
+#include <cstdio>
 
 #include "config.h"
 #include "cmplx.h"

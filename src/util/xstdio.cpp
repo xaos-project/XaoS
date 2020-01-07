@@ -1,8 +1,8 @@
 ﻿#include "config.h"
-#include <string.h>
+#include <cstring>
 #include <dirent.h>
 #include <sys/stat.h>
-#include <stdlib.h>
+#include <cstdlib>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif

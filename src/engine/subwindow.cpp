@@ -1,7 +1,7 @@
 ﻿#include "config.h"
-#include <stdlib.h>
-#include <stdio.h>  /*for NULL */
-#include <string.h> /*for memcpy */
+#include <cstdlib>
+#include <cstdio>  /*for NULL */
+#include <cstring> /*for memcpy */
 #include "filter.h"
 #include "zoom.h"
 struct subdata {

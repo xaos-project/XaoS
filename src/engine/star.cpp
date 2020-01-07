@@ -1,7 +1,7 @@
 ﻿#include "config.h"
 #include "config.h"
-#include <limits.h>
-#include <stdlib.h>
+#include <climits>
+#include <cstdlib>
 #include "filter.h"
 #include "xthread.h"
 

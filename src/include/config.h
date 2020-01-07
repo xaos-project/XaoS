@@ -25,13 +25,15 @@
 // Optional features
 #define USE_PTHREAD
 
-#define HAVE_LONG_DOUBLE
-
 // Numeric type
-#ifdef HAVE_LONG_DOUBLE
+#ifdef USE_FLOAT128
+typedef __float128 number_t;
+#else
+#ifdef USE_LONG_DOUBLE
 typedef long double number_t;
 #else
 typedef double number_t;
+#endif
 #endif
 
 // Supported color depths

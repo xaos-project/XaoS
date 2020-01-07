@@ -1,8 +1,8 @@
 ﻿#include "config.h"
-#include <string.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstring>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
 #include "filter.h"
 #include "fractal.h"
 #include "xthread.h"

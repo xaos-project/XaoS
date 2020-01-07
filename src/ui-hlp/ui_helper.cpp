@@ -1,9 +1,9 @@
-﻿#include <ctype.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <math.h>
-#include <string.h>
-#include <errno.h>
+﻿#include <cctype>
+#include <cstdlib>
+#include <climits>
+#include <cmath>
+#include <cstring>
+#include <cerrno>
 #ifdef DEBUG
 #ifdef __linux__
 #define MEMCHECK

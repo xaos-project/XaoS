@@ -1,6 +1,6 @@
 ﻿#ifndef PIXEL_T_H
 #define PIXEL_T_H
-#include <stdint.h>
+#include <cstdint>
 typedef uint8_t pixel8_t;
 typedef uint8_t ppixel24_t[3];
 typedef pixel8_t *ppixel8_t;

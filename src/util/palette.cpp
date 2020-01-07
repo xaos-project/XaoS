@@ -1,9 +1,9 @@
-﻿#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <assert.h>
-#include <stdio.h>
-#include <limits.h>
+﻿#include <cstdlib>
+#include <cstring>
+#include <cmath>
+#include <cassert>
+#include <cstdio>
+#include <climits>
 #include "config.h"
 #include "filter.h"
 #include "misc-f.h"

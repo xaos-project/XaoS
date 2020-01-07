@@ -1,6 +1,6 @@
 ﻿#include "config.h"
-#include <string.h>
-#include <stdlib.h>
+#include <cstring>
+#include <cstdlib>
 #include "catalog.h"
 #include "misc-f.h"
 /* Well, just simple implementation of unbalanced trees in combination

@@ -1,11 +1,11 @@
 ﻿#include "config.h"
 #ifndef __cplusplus
-#include <math.h>
+#include <cmath>
 #endif
-#include <string.h>
+#include <cstring>
 #include "config.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include "xerror.h"
 #include "filter.h"
 #include "fractal.h"
