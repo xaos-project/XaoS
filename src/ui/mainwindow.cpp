@@ -646,8 +646,13 @@ MainWindow::~MainWindow()
     tl_free_timer(maintimer);
     tl_free_timer(arrowtimer);
     tl_free_timer(loopt);
-    destroypalette(uih->image->palette);
-    destroy_image(uih->image);
+    // Sometimes the image pointer is set to to 0xFEEEFEEEFEEEFEEE when we get
+    // here and it crashes without this guard. Not sure why. Possibly
+    // related to https://sourceforge.net/p/mingw-w64/bugs/727/
+    if (uih->image != (image *)0xFEEEFEEEFEEEFEEE) {
+        destroypalette(uih->image->palette);
+        destroy_image(uih->image);
+    }
 }
 
 void MainWindow::readSettings()
@@ -828,8 +833,7 @@ void MainWindow::showDialog(const char *name)
                                                     QDir::homePath(), filter);
         else if (dialog[0].type == DIALOG_OFILE) {
             char defname[256];
-            strcpy(defname,
-                   QDir::home().filePath(dialog[0].defstr).toUtf8());
+            strcpy(defname, QDir::home().filePath(dialog[0].defstr).toUtf8());
             char *split = strchr(defname, '*');
             *split = 0;
             strcpy(defname, xio_getfilename(defname, split + 1));
