@@ -821,17 +821,21 @@ void MainWindow::showDialog(const char *name)
         (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE)) {
         QString filter =
             QString("*.%1").arg(QFileInfo(dialog[0].defstr).completeSuffix());
-        QString
-            directory; // =
-                       // QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
 
         QString fileName;
         if (dialog[0].type == DIALOG_IFILE)
-            fileName = QFileDialog::getOpenFileName(this, item->name, directory,
-                                                    filter);
-        else if (dialog[0].type == DIALOG_OFILE)
-            fileName = QFileDialog::getSaveFileName(this, item->name, directory,
-                                                    filter);
+            fileName = QFileDialog::getOpenFileName(this, item->name,
+                                                    QDir::homePath(), filter);
+        else if (dialog[0].type == DIALOG_OFILE) {
+            char defname[256];
+            strcpy(defname,
+                   QDir::home().filePath(dialog[0].defstr).toUtf8().data());
+            char *split = strchr(defname, '*');
+            *split = 0;
+            strcpy(defname, xio_getfilename(defname, split + 1));
+            fileName =
+                QFileDialog::getSaveFileName(this, item->name, defname, filter);
+        }
 
         if (!fileName.isNull()) {
             dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));

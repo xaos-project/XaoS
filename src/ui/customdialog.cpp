@@ -92,9 +92,10 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
                 field->setText(dialog[i].defstr);
                 // Some heuristics to find the optimal width for the text.
                 // For entering user formulas this seems to be helpful.
-                // TODO: See https://stackoverflow.com/questions/8633433/qt-how-to-get-the-pixel-length-of-a-string-in-a-qlabel
+                // TODO: See
+                // https://stackoverflow.com/questions/8633433/qt-how-to-get-the-pixel-length-of-a-string-in-a-qlabel
                 // for some better ideas.
-                field->setMinimumWidth(strlen(dialog[i].defstr)*10);
+                field->setMinimumWidth(strlen(dialog[i].defstr) * 10);
             }
 
             formLayout->addRow(label, field);
@@ -158,12 +159,8 @@ void CustomDialog::chooseInputFile()
 {
     QLineEdit *field = findChild<QLineEdit *>(sender()->objectName());
 
-    QString filter = "XaoS Files (*.xpf *.xaf)";
-    QString directory =
-        QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-
     QString fileName = QFileDialog::getOpenFileName(
-        this, sender()->objectName(), directory, filter);
+        this, sender()->objectName(), QDir::homePath(), "*.xpf *.xaf");
     if (!fileName.isNull()) {
         field->setText(fileName);
     }
@@ -172,11 +169,8 @@ void CustomDialog::chooseInputFile()
 void CustomDialog::chooseOutputFile()
 {
     QLineEdit *field = findChild<QLineEdit *>(sender()->objectName());
-    QString directory =
-        QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-
-    QString fileName =
-        QFileDialog::getSaveFileName(this, sender()->objectName(), directory);
+    QString fileName = QFileDialog::getSaveFileName(
+        this, sender()->objectName(), QDir::homePath());
     if (!fileName.isNull())
         field->setText(fileName);
 }
