@@ -278,8 +278,9 @@ void MainWindow::processEvents(bool wait)
            !((buttons) & ~(BUTTON1 | BUTTON2 | BUTTON3)));
     uih_update(uih, mousex, mousey, buttons);
     if (uih->play) {
-        processArrows(&uih->letterspersec, TR("Message", "Letters per second %i  "),
-                      2, key, lastkey, KEYLEFT, KEYRIGHT, false, 1, INT_MAX);
+        processArrows(&uih->letterspersec,
+                      TR("Message", "Letters per second %i  "), 2, key, lastkey,
+                      KEYLEFT, KEYRIGHT, false, 1, INT_MAX);
         return;
     }
     if (!uih->cycling) {
@@ -293,17 +294,19 @@ void MainWindow::processEvents(bool wait)
                     ROTATESPEEDUP * tl_lookup_timer(maintimer) / 1000000.0;
             if (key & (KEYLEFT | KEYRIGHT)) {
                 uih_rmmessage(uih, rpid);
-                sprintf(str,
-                        TR("Message", "Rotation speed:%2.2f degrees per second "),
-                        (float)uih->rotationspeed);
+                sprintf(
+                    str,
+                    TR("Message", "Rotation speed:%2.2f degrees per second "),
+                    (float)uih->rotationspeed);
                 rpid = uih_message(uih, str);
             }
             tl_reset_timer(maintimer);
         } else {
             if (!dirty)
                 maxiter = uih->fcontext->maxiter;
-            if (processArrows(&maxiter, TR("Message", "Iterations: %i   "), 1, key,
-                              lastkey, KEYLEFT, KEYRIGHT, false, 1, INT_MAX) ||
+            if (processArrows(&maxiter, TR("Message", "Iterations: %i   "), 1,
+                              key, lastkey, KEYLEFT, KEYRIGHT, false, 1,
+                              INT_MAX) ||
                 (key & (KEYLEFT | KEYRIGHT))) {
                 dirty = true;
                 lastkey = key;
@@ -320,9 +323,9 @@ void MainWindow::processEvents(bool wait)
         }
     }
     if (uih->cycling) {
-        if (processArrows(&uih->cyclingspeed, TR("Message", "Cycling speed: %i   "),
-                          1, key, lastkey, KEYLEFT, KEYRIGHT, 0, -1000000,
-                          INT_MAX)) {
+        if (processArrows(&uih->cyclingspeed,
+                          TR("Message", "Cycling speed: %i   "), 1, key,
+                          lastkey, KEYLEFT, KEYRIGHT, 0, -1000000, INT_MAX)) {
             uih_setcycling(uih, uih->cyclingspeed);
         }
     }
@@ -537,6 +540,7 @@ static void ui_message(struct uih_context *uih)
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+    menuBarRef = menuBar();
     setWindowTitle(QCoreApplication::applicationName());
     setMouseTracking(true);
 
@@ -696,14 +700,14 @@ QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
 
 void MainWindow::buildMenu(const char *name)
 {
-    menuBar()->clear();
-    foreach(QAction *action, actions())
+    menuBarRef->clear();
+    foreach (QAction *action, actions())
         removeAction(action);
 
     const menuitem *item;
     for (int i = 0; (item = menu_item(name, i)) != NULL; i++) {
         if (item->type == MENU_SUBMENU) {
-            QMenu *menu = menuBar()->addMenu(QString(item->name));
+            QMenu *menu = menuBarRef->addMenu(QString(item->name));
             buildMenu(item->shortname, menu, false);
         }
     }
@@ -758,7 +762,8 @@ void MainWindow::buildMenu(const char *name, QMenu *parent, bool numbered)
                     SLOT(activateMenuItem()));
             parent->addAction(action);
             if (action->shortcut() != QKeySequence::UnknownKey)
-                addAction(action);  // so that shortcuts work when menubar is hidden
+                addAction(
+                    action); // so that shortcuts work when menubar is hidden
         }
     }
 }
@@ -774,7 +779,7 @@ void MainWindow::popupMenu(const char *name)
 void MainWindow::toggleMenu(const char *name)
 {
     const menuitem *item = menu_findcommand(name);
-    QAction *action = menuBar()->findChild<QAction *>(name);
+    QAction *action = menuBarRef->findChild<QAction *>(name);
     if (action)
         action->setChecked(menu_enabled(item, uih));
 }
@@ -946,16 +951,40 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+void MainWindow::showFullScreen()
+{
+#ifndef Q_OS_MACOS
+#ifndef USE_OPENGL
+    menuBarRef->setParent(centralWidget());
+#endif
+#endif
+    QMainWindow::showFullScreen();
+}
+
+void MainWindow::showNormal()
+{
+    setMenuBar(menuBarRef);
+    menuBarRef->show();
+    QMainWindow::showNormal();
+}
+
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
 #ifndef Q_OS_MACOS
+#ifndef USE_OPENGL
     if (isFullScreen()) {
-        if (event->pos().y() < menuBar()->sizeHint().height())
-            menuBar()->show();
+        if (event->pos().y() < menuBarRef->sizeHint().height())
+            menuBarRef->show();
         else
-            menuBar()->hide();
+            menuBarRef->hide();
     }
+#endif
 #endif
 }
 
-void MainWindow::resizeEvent(QResizeEvent *event) { shouldResize = true; }
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    if (isFullScreen())
+        menuBarRef->resize(size().width(), menuBarRef->sizeHint().height());
+    shouldResize = true;
+}

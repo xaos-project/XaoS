@@ -24,6 +24,7 @@ class MainWindow : public QMainWindow
     tl_timer *maintimer;
     tl_timer *loopt;
     tl_timer *arrowtimer;
+    QMenuBar *menuBarRef;
 
     static QKeySequence::StandardKey keyForItem(const QString &name);
     void buildMenu(const char *name, QMenu *parent, bool numbered);
@@ -64,6 +65,8 @@ class MainWindow : public QMainWindow
   public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void showFullScreen();
+    void showNormal();
     void pleaseWait();
     int showProgress(int display, const char *text, float percent);
     void updateMenus(const char *name);
