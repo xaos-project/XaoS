@@ -10,6 +10,11 @@
 #include "config.h"
 #include "xmenu.h"
 #include "play.h"
+
+#ifdef USE_FLOAT128
+#include <quadmath.h>
+#endif
+
 #define myputs(s)                                                              \
     ((xio_puts(s, uih->savec->file) == XIO_EOF) ? outputerror(uih), 1 : 0)
 #define myputc(s)                                                              \
@@ -81,20 +86,17 @@ static void save_float(struct uih_context *uih, number_t number)
         myputc(' ');
     else
         first = 0;
-#ifdef USE_LONG_DOUBLE
-        /*20 should be enought to specify 64digit number :) */
-    {
-        char s[256];
-        sprintf(s, "%.20LG", (long double)number);
-        myputs(s);
-    }
+    char s[256];
+#ifdef USE_FLOAT128
+    quadmath_snprintf(s, 256, "%.20QG", (__float128)number);
 #else
-    {
-        char s[256];
-        sprintf(s, "%.20G", (double)number);
-        myputs(s);
-    }
+#ifdef USE_LONG_DOUBLE
+    snprintf(s, 256, "%.20LG", (long double)number);
+#else
+    snprintf(s, 256, "%.20G", (double)number);
 #endif
+#endif
+    myputs(s);
 }
 
 static void save_float2(struct uih_context *uih, number_t number, int places)
@@ -108,21 +110,20 @@ static void save_float2(struct uih_context *uih, number_t number, int places)
         places = 0;
     if (places > 20)
         places = 20;
-#ifdef USE_LONG_DOUBLE
-    {
-        char s[256];
-        sprintf(fs, "%%.%iLG", places);
-        sprintf(s, fs, (long double)number);
-        myputs(s);
-    }
+    char s[256];
+#ifdef USE_FLOAT128
+    snprintf(fs, 10, "%%.%iQG", places);
+    quadmath_snprintf(s, 256, "%.20QG", (__float128)number);
 #else
-    {
-        char s[256];
-        sprintf(fs, "%%.%iG", places);
-        sprintf(s, fs, (double)number);
-        myputs(s);
-    }
+#ifdef USE_LONG_DOUBLE
+    snprintf(fs, 10, "%%.%iLG", places);
+    snprintf(s, 256, fs, (long double)number);
+#else
+    sprintf(fs, 10, "%%.%iG", places);
+    sprintf(s, 256, fs, (double)number);
 #endif
+#endif
+    myputs(s);
 }
 
 static void save_int(struct uih_context *uih, int number)

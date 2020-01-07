@@ -1,8 +1,31 @@
 ﻿#include <QtWidgets>
+#define __USE_MINGW_ANSI_STDIO 1  // for long double support on Windows
+#include <cstdio>
 
 #include "customdialog.h"
 
+#include "config.h"
 #include "ui.h"
+#include "misc-f.h"
+
+#ifdef USE_FLOAT128
+#include <quadmath.h>
+#endif
+
+QString format(number_t number)
+{
+    char buf[256];
+#ifdef USE_FLOAT128
+    quadmath_snprintf(buf, 256, "%.20Qg", (__float128)number);
+#else
+#ifdef USE_LONG_DOUBLE
+    snprintf(buf, 256, "%.20Lg", (long double)number);
+#else
+    snprintf(buf, 256, "%.20g", (double)number);
+#endif
+#endif
+    return QString(buf);
+}
 
 CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
                            const menudialog *dialog, QWidget *parent)
@@ -21,16 +44,20 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
 
         QString label(dialog[i].question);
         if (dialog[i].type == DIALOG_COORD) {
+            char *number;
 
             QLineEdit *real =
-                new QLineEdit(QString::number(dialog[i].deffloat, 'g'), this);
+                new QLineEdit(format(dialog[i].deffloat), this);
+            QFontMetrics metric(real->font());
+            real->setMinimumWidth(metric.width(real->text())*1.1);
             real->setObjectName(label + "real");
-            real->setValidator(new QDoubleValidator(real));
+            //real->setValidator(new QDoubleValidator(real));
 
             QLineEdit *imag =
-                new QLineEdit(QString::number(dialog[i].deffloat2, 'g'), this);
+                new QLineEdit(format(dialog[i].deffloat2), this);
             imag->setObjectName(label + "imag");
-            imag->setValidator(new QDoubleValidator(imag));
+            imag->setMinimumWidth(metric.width(imag->text())*1.1);
+            //imag->setValidator(new QDoubleValidator(imag));
 
             QBoxLayout *layout = new QBoxLayout(QBoxLayout::LeftToRight);
             layout->setContentsMargins(0, 0, 0, 0);
@@ -45,6 +72,8 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
                    dialog[i].type == DIALOG_OFILE) {
 
             QLineEdit *filename = new QLineEdit(dialog[i].defstr, this);
+            QFontMetrics metric(filename->font());
+            filename->setMinimumWidth(metric.width(filename->text())*1.1);
             filename->setObjectName(label);
 
             QToolButton *chooser = new QToolButton(this);
@@ -86,18 +115,13 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
                 field->setText(QString::number(dialog[i].defint));
                 field->setValidator(new QIntValidator(field));
             } else if (dialog[i].type == DIALOG_FLOAT) {
-                field->setText(QString::number(dialog[i].deffloat, 'g'));
-                field->setValidator(new QDoubleValidator(field));
+                field->setText(format(dialog[i].deffloat));
+                //field->setValidator(new QDoubleValidator(field));
             } else {
                 field->setText(dialog[i].defstr);
-                // Some heuristics to find the optimal width for the text.
-                // For entering user formulas this seems to be helpful.
-                // TODO: See
-                // https://stackoverflow.com/questions/8633433/qt-how-to-get-the-pixel-length-of-a-string-in-a-qlabel
-                // for some better ideas.
-                field->setMinimumWidth(strlen(dialog[i].defstr) * 10);
             }
-
+            QFontMetrics metric(field->font());
+            field->setMinimumWidth(metric.width(field->text())*1.1);
             formLayout->addRow(label, field);
         }
     }
@@ -117,6 +141,7 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
 void CustomDialog::accept()
 {
     int nitems;
+    char *ps;
     for (nitems = 0; m_dialog[nitems].question; nitems++)
         ;
     m_parameters = (dialogparam *)malloc(sizeof(*m_parameters) * nitems);
@@ -129,8 +154,8 @@ void CustomDialog::accept()
             QLineEdit *real = findChild<QLineEdit *>(label + "real");
             QLineEdit *imag = findChild<QLineEdit *>(label + "imag");
 
-            m_parameters[i].dcoord[0] = real->text().toFloat();
-            m_parameters[i].dcoord[1] = imag->text().toFloat();
+            m_parameters[i].dcoord[0] = xstrtonum(real->text().toUtf8(), &ps);
+            m_parameters[i].dcoord[1] = xstrtonum(imag->text().toUtf8(), &ps);
 
         } else if (m_dialog[i].type == DIALOG_CHOICE) {
 
@@ -144,7 +169,7 @@ void CustomDialog::accept()
             if (m_dialog[i].type == DIALOG_INT)
                 m_parameters[i].dint = field->text().toInt();
             else if (m_dialog[i].type == DIALOG_FLOAT)
-                m_parameters[i].number = field->text().toFloat();
+                m_parameters[i].number = xstrtonum(field->text().toUtf8(), &ps);
             else
                 m_parameters[i].dstring = strdup(field->text().toUtf8());
         }

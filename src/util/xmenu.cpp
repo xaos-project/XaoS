@@ -489,22 +489,9 @@ menu_genernumbered(int n, const char *menuname, const char *const *const names,
 
 number_t menu_getfloat(const char *s, const char **error)
 {
-#ifdef USE_LONG_DOUBLE
-    long double param = 0;
-#else
-    double param = 0;
-#endif
-#ifdef USE_LONG_DOUBLE
-#ifndef USE_ATOLD
-    if (sscanf(s, "%LG", &param) == 0)
-#else
-    param = _atold(s);
-    if (0)
-#endif
-    {
-#else
-    if (sscanf(s, "%lG", &param) == 0) {
-#endif
+    char *sp;
+    number_t param = xstrtonum(s, &sp);
+    if (param == 0) {
         *error = "Floating point number expected";
         return 0;
     }
