@@ -43,9 +43,15 @@ bin/*
 *.idb
 *.pdb
 
-# Project files
-XaoS.pro.user
+# Visual Studio Code
 .vscode
 
-# Binary Translations
+# Qt Stuff
 *.qm
+XaoS.pro.user
+.qmake.stash
+Makefile
+Makefile.Debug
+Makefile.Release
+object_script.xaos.Debug
+object_script.xaos.Release
