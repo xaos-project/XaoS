@@ -57,3 +57,4 @@ object_script.xaos.Debug
 object_script.xaos.Release
 debug
 release
+installer/packages/net.sourceforge.xaos/data
