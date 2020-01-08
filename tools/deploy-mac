@@ -3,6 +3,7 @@
 MACDEPLOYQT=$(which macdeployqt)
 if [ ! -x "$MACDEPLOYQT" ]; then
     echo "macdeployqt is not in path."
+    exit
 fi
 
 cd $(dirname $0)/..
