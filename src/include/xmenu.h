@@ -466,8 +466,6 @@ number_t menu_getfloat(const char *s, const char **error);
 const char *menu_fillparam(struct uih_context *uih, tokenfunc f,
                            const menudialog *d, dialogparam *p);
 int menu_processargs(int n, int argc, char **argv);
-void uih_xshlprintmenu(struct uih_context *c, const char *name);
-void uih_xshlprintmenus(struct uih_context *c);
 void menu_forall(struct uih_context *c,
                  void (*callback)(struct uih_context *c, const menuitem *item));
 
