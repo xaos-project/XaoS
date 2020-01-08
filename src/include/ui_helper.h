@@ -13,14 +13,7 @@
 #define BGCOLOR(uih) uih->palette->index[0]
 #define FGCOLOR(uih) uih->palette->index[1]
 #define SELCOLOR(uih) uih->palette->index[2]
-#define DARKGRAYCOLOR(uih) uih->palette->index[3]
-#define LIGHTGRAYCOLOR(uih) uih->palette->index[4]
-#define LIGHTGRAYCOLOR2(uih) uih->palette->index[5]
 #define NONTRANSPARENTW 1
-#define DRAWBORDER 2
-#define BORDER_PRESSED 4
-#define BORDER_TRANSPARENT 8
-#define BORDER_LIGHT 16
 
 struct uih_message {
     char *message[NMESSAGES];
@@ -497,8 +490,6 @@ struct uih_window *uih_registerw(struct uih_context *uih, uih_getposfunc getpos,
 void uih_removew(struct uih_context *uih, struct uih_window *w);
 void uih_clearwindows(struct uih_context *uih);
 void uih_drawwindows(struct uih_context *uih);
-void uih_drawborder(struct uih_context *uih, int x, int y, int width,
-                    int height, int flags);
 void uih_setline(struct uih_context *uih, struct uih_window *w, int color,
                  int x1, int y1, int x2, int y2);
 struct uih_window *uih_registerline(struct uih_context *uih, int color, int x1,

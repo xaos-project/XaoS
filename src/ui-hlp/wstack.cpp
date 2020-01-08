@@ -7,120 +7,12 @@
 #include "ui_helper.h"
 #include "grlib.h"
 
-/* This is quite simple and ugly implementation of windows.
- * it redraws all windows every frame and removes them before calculation
- * it should be OK for small windows (like texts) used by ui_helper
- * I plan to abuse it in ugly interface too, in case it will be fast enought
+/* The "windows" implemented here are just regions of the image, not user
+ * interface windows.  They are used to save the pixels that are going to
+ * be drawn over (e.g., with a text message) so they can be restored when the
+ * overlay should disappear. Windows are redrawn every frame and removed before
+ * calculation.
  */
-
-static void uih_darkrectangle(struct image *image, int x, int y, int width,
-                              int height)
-{
-
-    int mask = 0;
-    unsigned int *current, *end;
-    if (x + width < 0 || y + height < 0 || y >= image->height ||
-        x >= image->width)
-        return;
-    if (x + width >= image->width)
-        width = image->width - x;
-    if (x < 0)
-        width += x, x = 0;
-    if (width <= 0)
-        return;
-    if (y + height >= image->height)
-        height = image->height - y;
-    if (y < 0)
-        height += y, y = 0;
-    if (height <= 0)
-        return;
-    assert(x >= 0 && y >= 00 && width > 0 && height > 0 &&
-           x + width <= image->width && y + height <= image->height);
-    if (image->bytesperpixel == 2) {
-        int x1 = x / 2;
-        width = (x + width + 1) / 2 - x1;
-        x = x1;
-    }
-    if (image->bytesperpixel == 3) {
-        int x1 = x * 3 / 4;
-        width = (x + width + 2) * 3 / 4 - x1;
-        x = x1;
-    }
-    switch (image->palette->type) {
-        case TRUECOLOR:
-        case TRUECOLOR24:
-            mask = ~((1 << (image->palette->info.truec.rshift + 7 -
-                            image->palette->info.truec.rprec)) |
-                     (1 << (image->palette->info.truec.gshift + 7 -
-                            image->palette->info.truec.gprec)) |
-                     (1 << (image->palette->info.truec.bshift + 7 -
-                            image->palette->info.truec.bprec)));
-            break;
-        case TRUECOLOR16:
-            mask = ((1 << (image->palette->info.truec.rshift + 7 -
-                           image->palette->info.truec.rprec)) |
-                    (1 << (image->palette->info.truec.gshift + 7 -
-                           image->palette->info.truec.gprec)) |
-                    (1 << (image->palette->info.truec.bshift + 7 -
-                           image->palette->info.truec.bprec)));
-            mask = ~(mask | (mask << 16));
-            break;
-    }
-    height += y;
-    while (y < height) {
-        current = ((unsigned int *)image->currlines[y]) + x;
-        end = current + width;
-        while (current < end)
-            *current = (*current >> 1) & mask, current++;
-        y++;
-    }
-}
-
-void uih_drawborder(struct uih_context *uih, int x, int y, int width,
-                    int height, int flags)
-{
-    int leftcolor;
-    int rightcolor;
-    int bgcolor;
-    if (uih->palette->type & BITMAPS) {
-        if (flags & BORDER_PRESSED) {
-            bgcolor = FGCOLOR(uih);
-            rightcolor = BGCOLOR(uih);
-            leftcolor = BGCOLOR(uih);
-        } else {
-            bgcolor = BGCOLOR(uih);
-            rightcolor = FGCOLOR(uih);
-            leftcolor = FGCOLOR(uih);
-        }
-    } else {
-        if (flags & BORDER_LIGHT) {
-            bgcolor = LIGHTGRAYCOLOR(uih);
-            rightcolor = BGCOLOR(uih);
-            leftcolor = LIGHTGRAYCOLOR2(uih);
-        } else {
-            bgcolor = DARKGRAYCOLOR(uih);
-            rightcolor = BGCOLOR(uih);
-            leftcolor = LIGHTGRAYCOLOR(uih);
-        }
-        if (flags & BORDER_PRESSED) {
-            int i = leftcolor;
-            leftcolor = rightcolor;
-            rightcolor = i;
-        }
-        if (uih->image->flags & AAIMAGE)
-            bgcolor = BGCOLOR(uih);
-    }
-    if (uih->image->bytesperpixel > 1 && (flags & BORDER_TRANSPARENT))
-        uih_darkrectangle(uih->image, x + 1, y + 1, width - 2,
-                          height - 2) /*, leftcolor = GRAYCOLOR (uih) */;
-    else {
-        xrectangle(uih->image, x + 1, y + 1, width - 2, height - 2, bgcolor);
-    }
-    xhline(uih->image, x, y, width - 1, leftcolor);
-    xhline(uih->image, x, y + height - 1, width - 1, rightcolor);
-    xvline(uih->image, x, y, height - 1, leftcolor);
-    xvline(uih->image, x + width - 1, y, height - 1, rightcolor);
-}
 
 struct uih_window *uih_registerw(struct uih_context *uih, uih_getposfunc getpos,
                                  uih_drawfunc draw, void *data, int flags)
@@ -139,7 +31,6 @@ struct uih_window *uih_registerw(struct uih_context *uih, uih_getposfunc getpos,
     w->flags = flags;
     w->savedline = -1;
     w->saveddata = NULL;
-    w->flags |= BORDER_TRANSPARENT | BORDER_PRESSED | BORDER_LIGHT;
     w->next = NULL;
     if (w1 == NULL) {
         uih->wtop = w;
@@ -313,7 +204,6 @@ void uih_drawwindows(struct uih_context *uih)
     uih->wdisplayed = 1;
     while (w) {
         if (w->getpos != NULL) {
-            int test = w->x == -65536;
             w->getpos(uih, &w->x, &w->y, &w->width, &w->height, w->data);
             if (w->x < 0)
                 w->width -= w->x, w->x = 0;
@@ -331,30 +221,6 @@ void uih_drawwindows(struct uih_context *uih)
                 w->width = 0;
             if (w->height < 0)
                 w->height = 0;
-            if (test) {
-                struct uih_window *w1 = uih->wtop;
-                while (w1) {
-                    if (w != w1 && (w1->flags & DRAWBORDER) &&
-                        ((((w1->x > w->x + 5 && w1->x + 5 < w->x + w->width) ||
-                           (w->x > w1->x + 5 &&
-                            w->x + 5 < w1->x + w1->width)) &&
-                          ((w1->y > w->y + 5 && w1->y + 5 < w->y + w->height) ||
-                           (w->y > w1->y + 5 &&
-                            w->y + 5 < w1->y + w1->height))) ||
-                         (((w1->x + w1->width > w->x + 5 &&
-                            w1->x + w1->width + 5 < w->x + w->width) ||
-                           (w->x + w->width > w1->x + 5 &&
-                            w->x + w->width + 5 < w1->x + w1->width)) &&
-                          ((w1->y + w1->height > w->y + 5 &&
-                            w1->y + w1->height + 5 < w->y + w->height) ||
-                           (w->y + w->height > w1->y + 5 &&
-                            w->y + w->height + 5 < w1->y + w1->height))))) {
-                        w->flags &= ~BORDER_TRANSPARENT;
-                        break;
-                    }
-                    w1 = w1->next;
-                }
-            }
             size += w->width * w->height;
             if (w->x == 0 && w->y == 0 && w->width == img->width &&
                 w->height == img->height)
@@ -414,7 +280,7 @@ void uih_drawwindows(struct uih_context *uih)
                         xskip = w->x / 8;
                         width = (w->x + w->width + 7) / 8 - xskip;
                     }
-                    if (uih->image->flags & PROTECTBUFFERS || 1) {
+                    if (uih->image->flags & PROTECTBUFFERS) {
                         w->saveddata = (char *)malloc(width * w->height + 1);
                         if (w->saveddata != NULL)
                             for (i = w->y; i < w->y + w->height; i++) {
@@ -458,9 +324,6 @@ void uih_drawwindows(struct uih_context *uih)
             xline(uih->image, w->x + lwi, w->y + lwj, w->width + w->x + lwi,
                   w->height + w->y + lwj, w->savedline);
         } else if (w->width && w->height) {
-            if (w->flags & DRAWBORDER)
-                uih_drawborder(uih, w->x, w->y, w->width, w->height,
-                               (BORDER_TRANSPARENT)&w->flags);
             w->draw(uih, w->data);
         }
         w = w->next;
