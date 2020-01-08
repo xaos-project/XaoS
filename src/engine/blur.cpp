@@ -249,6 +249,7 @@ static void blur32(void *data, struct taskinfo *task, int r1, int r2)
                     dest[0] = table[src[0]][dest[0]];
                     dest[1] = table[src[1]][dest[1]];
                     dest[2] = table[src[2]][dest[2]];
+                    dest[3] = 0xff;
                 }
                 break;
             case 2:
@@ -256,6 +257,7 @@ static void blur32(void *data, struct taskinfo *task, int r1, int r2)
                     dest[0] = table[src[0]][dest[0]];
                     dest[1] = table[src[1]][dest[1]];
                     dest[3] = table[src[2]][dest[2]];
+                    dest[2] = 0xff;
                 }
                 break;
             case 1:
@@ -263,6 +265,7 @@ static void blur32(void *data, struct taskinfo *task, int r1, int r2)
                     dest[0] = table[src[0]][dest[0]];
                     dest[2] = table[src[1]][dest[1]];
                     dest[3] = table[src[2]][dest[2]];
+                    dest[1] = 0xff;
                 }
                 break;
             case 0:
@@ -270,6 +273,7 @@ static void blur32(void *data, struct taskinfo *task, int r1, int r2)
                     dest[1] = table[src[1]][dest[1]];
                     dest[2] = table[src[2]][dest[2]];
                     dest[3] = table[src[3]][dest[3]];
+                    dest[0] = 0xff;
                 }
                 break;
             default:

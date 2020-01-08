@@ -85,6 +85,12 @@ struct image {
  *
  * I then modified the interpoltype macro to use the safeinterpol macro
  * instead of the interpol macro directly.
+ *
+ * J.B. Langston 1/7/2020
+ *
+ * And another bug on Mac. Now macOS won't display the image properly unless
+ * the alpha channel is set to 0xFF, so we force it to 0xFF here using
+ * ~(palette).info.truec.allmask, which gives the bit not used by RGB.
  */
 #define shiftinterpol(i1, i2, n, mr, mg, mb)                                   \
     (interpol((i1) >> 8, (i2) >> 8, n, (mr) >> 8, (mg) >> 8, (mb) >> 8) << 8)
@@ -97,7 +103,7 @@ struct image {
          ? intergray(i1, i2, n)                                                \
          : safeinterpol(i1, i2, n, (palette).info.truec.rmask,                 \
                         (palette).info.truec.gmask,                            \
-                        (palette).info.truec.bmask))
+                        (palette).info.truec.bmask) | ~(palette).info.truec.allmask)
 /*palette flags */
 #define UNKNOWNENTRIES 1
 #define DONOTCHANGE 2

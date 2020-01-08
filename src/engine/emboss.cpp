@@ -185,7 +185,7 @@ static void emboss32(void *data, struct taskinfo *task, int r1, int r2)
         srcend = src + f->image->width;
         dest = (pixel32_t *)f->image->currlines[i];
         while (src < srcend) {
-            *dest = table[((int)*src2 - (int)*src) & 511];
+            *dest = table[((int)*src2 - (int)*src) & 511] | ~(f->image->palette->info.truec.allmask);
             src++;
             src2++;
             dest++;
