@@ -2,37 +2,20 @@
 
 # This script creates a .deb package of XaoS 4.0.
 # Make sure you build the program first.
-# In case you are building on Debian 10,
-# set DEBIAN_VERSION=deb10 first.
 
 set -e
+test -x ../bin/xaos
+
 ARCH=`dpkg --print-architecture`
 LINUX_VARIANT=`lsb_release -i | cut -f2`
 LINUX_VERSION=`lsb_release -r | cut -f2`
 
-
-if [ "$LINUX_VARIANT" = "Ubuntu" ]; then
- if [ "$LINUX_VERSION" = "18.04" ]; then
-  DEBIAN_VERSION=deb9
-  fi
- if [ "$LINUX_VERSION" = "19.04" -o "$LINUX_VERSION" = "19.10" ]; then
-  DEBIAN_VERSION=deb10
-  fi
- fi
-
-if [ "$LINUX_VARIANT" = "Raspbian" -o "$LINUX_VARIANT" = "Debian" ]; then
- DEBIAN_VERSION=deb${LINUX_VERSION}
- fi
-
-if [ "$DEBIAN_VERSION" = "" ]; then
- echo "Please specify DEBIAN_VERSION first"
- exit 1
- fi
+PLATFORMCODE=$LINUX_VARIANT-$LINUX_VERSION
 
 MAINDIR=`cd ..; pwd`
 XAOS_VERSION=`cat $MAINDIR/src/include/config.h | grep XaoS_VERSION | awk '{print $3}' | sed s/\"//g`
 
-FSDIR=xaos_${XAOS_VERSION}-${DEBIAN_VERSION}_$ARCH
+FSDIR=xaos_${XAOS_VERSION}-${PLATFORMCODE}_$ARCH
 rm -fr $FSDIR
 
 BINDIR=$FSDIR/usr/bin
