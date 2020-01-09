@@ -281,7 +281,7 @@ void ui_quit(int i)
     xio_uninit();
     ui_unregistermenus();
     uih_unregistermenus();
-    printf(TR("Message", "Thank you for using XaoS\n"));
+    puts(TR("Message", "Thank you for using XaoS\n"));
     exit(i);
 }
 
