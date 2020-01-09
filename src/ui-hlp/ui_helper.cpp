@@ -7,7 +7,7 @@
 #ifdef DEBUG
 #ifdef __linux__
 #define MEMCHECK
-#import <malloc.h>
+#include <malloc.h>
 #endif
 #endif
 
