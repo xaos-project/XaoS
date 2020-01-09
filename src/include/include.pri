@@ -18,7 +18,6 @@ HEADERS += \
     $$PWD/pixel_t.h \
     $$PWD/plane.h \
     $$PWD/sffe.h \
-    $$PWD/sffe_real.h \
     $$PWD/sffe_cmplx_gsl.h \
     $$PWD/timers.h \
     $$PWD/true24.h \
