@@ -75,7 +75,7 @@ void sfcRND(sfNumber *cnst);
 /* all available function (function pointer, number of parameters, name )*/
 extern const sffunction sfcmplxfunc[sffnctscount];
 /* all available buildin variables */
-extern const char sfcnames[sfvarscount][5];
+extern const char sfcnames[sfvarscount][6];
 /* available variables function pointers */
 extern const cfptr sfcvals[sfvarscount];
 

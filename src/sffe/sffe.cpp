@@ -146,7 +146,7 @@ void sffe_setup_error(sffe *parser, enum sffe_error err, char *ptr)
 void sf_strdup(char **out, const char *in)
 {
     size_t name_len = strlen(in);
-    char *dup = malloc(name_len + 1);
+    char *dup = (char *)malloc(name_len + 1);
     if (dup) {
         for (size_t i = 0; i < name_len; i += 1) {
             dup[i] = (char)toupper((int)in[i]);
@@ -329,7 +329,7 @@ sfvariable *sffe_regvar(sffe **parser, sfNumber *vptrs, const char *name)
 
     int vars_cnt = parser_->varCount + 1;
     parser_->variables =
-        realloc(parser_->variables, vars_cnt * sizeof(sfvariable));
+        (sfvariable *)realloc(parser_->variables, vars_cnt * sizeof(sfvariable));
     if (!parser_->variables) {
         return NULL;
     }
@@ -617,7 +617,7 @@ int sffe_parse(sffe **parser, const char *expression)
     _functions = NULL;
     ech = (char *)expression;
     tokens = (char *)malloc(1);
-    err = 0;
+    err = MEMERROR;
     // parser
     _parser = *parser;
 

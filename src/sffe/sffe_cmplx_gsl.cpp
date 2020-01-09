@@ -15,10 +15,6 @@
 #include <gsl/gsl_complex_math.h>
 #include <math.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 const sffunction sfcmplxfunc[sffnctscount] = {
     /* operators */
     {sfpow, 2, "^\0"},
@@ -69,7 +65,7 @@ const sffunction sfcmplxfunc[sffnctscount] = {
     {NULL, 1, "TRUNC\0"},
     {sfrand, 1, "RAND\0"}};
 
-const char sfcnames[sfvarscount][5] = {"PI\0", "PI_2\0", "PI2\0",
+const char sfcnames[sfvarscount][6] = {"PI\0", "PI_2\0", "PI2\0",
                                        "E\0",  "I\0",    "RND\0"};
 
 const cfptr sfcvals[sfvarscount] = {sfcPI, sfcPI2, sfc2PI, sfcE, sfcI, sfcRND};
@@ -313,9 +309,5 @@ void sfcE(sfNumber *cnst) { GSL_SET_COMPLEX(cnst, exp(1), 0); };
 void sfcI(sfNumber *cnst) { GSL_SET_COMPLEX(cnst, 0, 1); };
 
 void sfcRND(sfNumber *cnst) { GSL_SET_COMPLEX(cnst, rand(), 0); };
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
