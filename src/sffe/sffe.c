@@ -373,7 +373,7 @@ sfNumber *sffe_setvar(sffe **parser, sfNumber vptrs, const char *name)
 }
 
 void *sffe_regfunc(sffe **parser, const char *vname, unsigned int parcnt,
-                   sffptr funptr, void *payload)
+                   sffptr funptr)
 {
     sffe *parser_ = *parser;
     sffunction *sff;

@@ -153,7 +153,7 @@ sfNumber sffe_eval(sffe *const parser);
 /* register user function with name 'vname', with 'parcnt' parameters and
  * defined with function pointed by 'funptr'*/
 void *sffe_regfunc(sffe **parser, const char *vname, unsigned int parcnt,
-                   sffptr funptr, void *payload);
+                   sffptr funptr);
 
 /* get already registered variable pointer, NULL if variable was not registered
  */
