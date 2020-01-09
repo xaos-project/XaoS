@@ -57,16 +57,25 @@ class MainWindow : public QMainWindow
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     void resizeEvent(QResizeEvent *event);
+#ifndef Q_OS_MACOS
+#ifndef USE_OPENGL
     void mouseMoveEvent(QMouseEvent *event);
-  private slots:
+#endif
+#endif
+private slots:
     void activateMenuItem();
     void updateMenuCheckmarks();
 
   public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+#ifndef Q_OS_MACOS
+#ifndef USE_OPENGL
     void showFullScreen();
     void showNormal();
+#endif
+#endif
     void pleaseWait();
     int showProgress(int display, const char *text, float percent);
     void updateMenus(const char *name);

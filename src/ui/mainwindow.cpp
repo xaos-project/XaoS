@@ -962,13 +962,12 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-void MainWindow::showFullScreen()
-{
 #ifndef Q_OS_MACOS
 #ifndef USE_OPENGL
+
+void MainWindow::showFullScreen()
+{
     menuBarRef->setParent(centralWidget());
-#endif
-#endif
     QMainWindow::showFullScreen();
 }
 
@@ -981,21 +980,23 @@ void MainWindow::showNormal()
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
-#ifndef Q_OS_MACOS
-#ifndef USE_OPENGL
     if (isFullScreen()) {
         if (event->pos().y() < menuBarRef->sizeHint().height())
             menuBarRef->show();
         else
             menuBarRef->hide();
     }
-#endif
-#endif
 }
+#endif
+#endif
 
 void MainWindow::resizeEvent(QResizeEvent */*event*/)
 {
+#ifndef Q_OS_MACOS
+#ifndef USE_OPENGL
     if (isFullScreen())
         menuBarRef->resize(size().width(), menuBarRef->sizeHint().height());
+#endif
+#endif
     shouldResize = true;
 }

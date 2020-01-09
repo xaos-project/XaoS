@@ -324,6 +324,7 @@ static void ui_about(struct uih_context */*uih*/)
     );
 }
 
+#ifndef Q_OS_MAC
 static void ui_fullscreensw(struct uih_context *uih)
 {
     if (uih->data) {
@@ -343,6 +344,7 @@ static int ui_fullscreenselected(struct uih_context *uih)
     }
     return 0;
 }
+#endif
 
 #define MAX_MENUITEMS_I18N 20
 /* These variables must be global: */

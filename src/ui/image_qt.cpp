@@ -84,7 +84,7 @@ struct image *create_image_qt(int width, int height, struct palette *palette,
     if (!img) {
         delete data[0];
         delete data[1];
-        delete data;
+        delete[] data;
         return NULL;
     }
     img->data = data;
