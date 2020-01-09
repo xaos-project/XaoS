@@ -207,7 +207,7 @@ All of these definitions will become obsolete soon: */
     }
 #define SUBMENU(menuname, key, name, param)                                    \
     {                                                                          \
-        menuname, key, name, param, MENU_SUBMENU, 0, NULL, 0, NULL             \
+        menuname, key, name, param, MENU_SUBMENU, 0, NULL, 0, NULL, NULL, NULL \
     }
 
 #define MENUSEPARATOR(menuname)                                                \
