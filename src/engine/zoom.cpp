@@ -97,7 +97,7 @@ int nperi = 0;
 static void moveoldpoints(void *data1, struct taskinfo *task, int r1, int r2);
 static void fillline_8(int line);
 static void fillline_16(int line);
-static void fillline_24(int line);
+// static void fillline_24(int line);
 static void fillline_32(int line);
 
 /*first of all inline driver section */
@@ -496,7 +496,7 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
         bestprice = myprice;    /*calculate best available price */
         data->price = myprice;  /*store data */
         assert(bestprice >= 0); /*FIXME:tenhle assert muze FAILIT! */
-        data = adddata(p, i); /*calcualte all lines good for this y */
+        data = adddata(p, i);   /*calcualte all lines good for this y */
 
         /* Now try all acceptable connection and calculate best possibility
          * with this connection
@@ -826,10 +826,8 @@ static void preparemoveoldpoints(void)
         avgsize = sum / num;
 }
 
-static void moveoldpoints(void /*@unused@ */ *data1,
-                          struct taskinfo /*@unused@ */
-                              *task,
-                          int r1, int r2)
+static void moveoldpoints(void * /*data1*/, struct taskinfo * /*task*/, int r1,
+                          int r2)
 {
     struct movedata *data;
     register unsigned char *vline, *vbuff;
@@ -914,11 +912,7 @@ end:
     return num;
 }
 
-static void filly(void
-                      /*@unused@ */
-                      /*@null@ */
-                      *data,
-                  struct taskinfo /*@unused@ */ *task, int rr1, int rr2)
+static void filly(void * /*data*/, struct taskinfo * /*task*/, int rr1, int rr2)
 {
     register unsigned char **vbuff = cimage.currlines;
     realloc_t *ry, *r1, *r2, *rend, *rend2, *rs = NULL;
@@ -984,9 +978,8 @@ static void fill(void)
     xth_sync();
 }
 
-static void calculatenew(void /*@unused@ */ *data,
-                         struct taskinfo /*@unused@ */ *task,
-                         int /*@unused@ */ r1, int /*@unused@ */ r2)
+static void calculatenew(void * /*data*/, struct taskinfo *task, int /*r1*/,
+                         int /*r2*/)
 {
     int s;
     int i, y;
@@ -1112,8 +1105,8 @@ static void addprices(realloc_t *r, realloc_t *r2)
  * systems,since we need to take care to points at the cross of symmetrized
  * point/column
  */
-static void dosymmetry(void /*@unused@ */ *data,
-                       struct taskinfo /*@unused@ */ *task, int r1, int r2)
+static void dosymmetry(void * /*data*/, struct taskinfo * /*task*/, int r1,
+                       int r2)
 {
     unsigned char **vbuff = cimage.currlines + r1;
     realloc_t *ry, *rend;
@@ -1183,8 +1176,8 @@ static inline void myqsort(realloc_t **start, realloc_t **end)
 }
 
 static int tocalcx, tocalcy;
-static void processqueue(void *data, struct taskinfo /*@unused@ */ *task,
-                         int /*@unused@ */ r1, int /*@unused@ */ r2)
+static void processqueue(void *data, struct taskinfo *task, int /*r1*/,
+                         int /*r2*/)
 {
     realloc_t **tptr = (realloc_t **)data, **tptr1 = (realloc_t **)tmpdata;
     realloc_t *r, *end;
@@ -1402,16 +1395,15 @@ static zoom_context *make_context(void)
     return (new_ctxt);
 }
 
-static void startbgmkrealloc(void /*@unused@ */ *data,
-                             struct taskinfo /*@unused@ */ *task,
-                             int /*@unused@ */ r1, int /*@unused@ */ r2)
+static void startbgmkrealloc(void * /*data*/, struct taskinfo * /*task*/,
+                             int /*r1*/, int /*r2*/)
 {
     mkrealloc_table(czoomc.ypos, czoomc.reallocy, (unsigned int)cimage.height,
                     cfractalc.rs.ni, cfractalc.rs.mi, cursymmetry.ysym,
                     tmpdata1);
 }
 
-static int do_fractal(struct filter *f, int flags, int /*@unused@ */ time)
+static int do_fractal(struct filter *f, int flags, int /*time*/)
 {
     number_t *posptr;
     int maxres;
