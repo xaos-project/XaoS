@@ -36,7 +36,7 @@ extern int defthreads;
 extern int maxframerate;
 extern float pixelwidth, pixelheight;
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 extern char *sffeform;
 extern char *sffeinit;
 #endif

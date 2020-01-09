@@ -3,7 +3,7 @@
 #include "timers.h"
 #include "xio.h"
 #include "fractal.h"
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 #include "sffe.h"
 #endif
 
@@ -272,7 +272,7 @@ struct uih_context {
     /* user data */
     void *data;
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
     /*User formulas (used in sffe parser) */
     /*sffe *cparser;  user define c evaluation formula, not used now, not used
      * yet */

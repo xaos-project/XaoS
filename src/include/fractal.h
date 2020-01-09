@@ -100,7 +100,7 @@ struct symmetryinfo2 {
 #define JULIA_BTRACE 2
 #define MANDEL_BTRACE 4
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 #define SFFE_FRACTAL 8
 #endif
 

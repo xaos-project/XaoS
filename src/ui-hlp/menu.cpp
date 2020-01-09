@@ -74,7 +74,7 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
     *uih_bailoutdialog, *saveanimdialog, *uih_juliamodedialog,
     *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog, *uih_numdialog,
     *uih_fpdialog, *palettedialog, *uih_cyclingdialog
-#ifdef SFFE_USING
+#ifdef USE_SFFE
     ,
     *uih_sffedialog, *uih_sffeinitdialog
 #endif
@@ -264,7 +264,7 @@ void uih_registermenudialogs_i18n(void)
     DIALOGINT_I(TR("Dialog", "Frames per second:"), 0);
     NULL_I();
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
     Register(uih_sffedialog);
     DIALOGSTR_I(TR("Dialog", "Formula:"), USER_FORMULA);
     NULL_I();
@@ -286,7 +286,7 @@ void uih_registermenudialogs_i18n(void)
  * End of registering internationalized dialogs.
  */
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 void uih_sffein(uih_context *c, const char *text);
 void uih_sffeinitin(uih_context *c, const char *text);
 #endif
@@ -934,7 +934,7 @@ void uih_registermenus_i18n(void)
     SUBMENU_I("fractal", NULL, TR("Menu", "Formulae"), "mformula");
     SUBMENU_I("fractal", NULL, TR("Menu", "More formulae"), "oformula");
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
     /*FIXME: Should allow multiline */
     MENUSEPARATOR_I("fractal");
     MENUDIALOG_I("fractal", NULL, TR("Menu", "User formula"), "usrform", 0,
@@ -1323,7 +1323,7 @@ void uih_unregistermenus(void)
     menu_delete(menuitems2, NITEMS(menuitems2));
 }
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 void uih_sffein(uih_context *c, const char *text)
 {
     char str[200];

@@ -344,7 +344,7 @@ void uih_saveframe(struct uih_context *uih)
             save_keystringc(uih, "formula",
                             uih->fcontext->currentformula->shortname),
                 s->fcontext->currentformula = uih->fcontext->currentformula;
-#ifdef SFFE_USING
+#ifdef USE_SFFE
             /*SFFE : malczak */
             if ((int)(uih->fcontext->currentformula - formulas) ==
                 24) // user formula

@@ -27,7 +27,7 @@
 #include <libgen.h>
 #endif
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 #include "sffe.h"
 #endif
 #include "i18n.h"
@@ -1896,7 +1896,7 @@ static void uih_drawcscreen(struct uih_context *uih, void */*data*/)
         clear_image(uih->image);
 }
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 extern cmplx C, Z, pZ, N;
 #endif
 struct uih_context *globaluih;
@@ -1953,7 +1953,7 @@ uih_mkcontext(int flags, struct image *image,
     uih->maintimer = tl_create_timer();
     uih->calculatetimer = tl_create_timer();
     uih->doittimer = tl_create_timer();
-#ifdef SFFE_USING
+#ifdef USE_SFFE
     uih->pinit = NULL;
     uih->parser = sffe_alloc();
     /* uih->cparser = sffe_alloc(); */
@@ -2088,7 +2088,7 @@ void uih_freecontext(uih_context *c)
 {
     struct filter *f;
     int i;
-#ifdef SFFE_USING
+#ifdef USE_SFFE
     /* sffe_free(&c->cparser); */
     sffe_free(&c->parser);
     if (c->pinit)
@@ -2260,7 +2260,7 @@ static void uih_drawstatus(uih_context *uih, void */*data*/)
     sprintf(str, TR("Message", "Fractal type:%s"),
             uih->fcontext->mandelbrot ? TR("Message", "Mandelbrot")
                                       : TR("Message", "Julia"));
-#ifdef SFFE_USING
+#ifdef USE_SFFE
     if (uih->fcontext->currentformula->flags & SFFE_FRACTAL) {
         sprintf(str, TR("Message", "Formula:%s"), uih->parser->expression);
     };

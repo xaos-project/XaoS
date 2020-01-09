@@ -25,7 +25,7 @@
 #include "config.h"
 #include "zoom.h"
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 #include "sffe.h"
 #endif
 
@@ -42,7 +42,7 @@ extern void recalculate(int plane, number_t *, number_t *);
 
 extern const char *const planename[];
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 extern const sffe *planec;
 #endif
 

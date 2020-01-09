@@ -46,7 +46,7 @@
 #include "grlib.h"
 #include "i18n.h"
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 #include "sffe.h"
 #endif
 
@@ -57,7 +57,7 @@ int defthreads = 0;
 int maxframerate = 80;
 float pixelwidth = 0.0, pixelheight = 0.0;
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 char *sffeform = NULL;
 char *sffeinit = NULL;
 #endif
@@ -88,7 +88,7 @@ const struct params global_params[] = {
      "exact size of one pixel in centimeters"},
     {"-pixelheight", P_FLOAT, &pixelheight,
      "exact size of one pixel in centimeters"},
-#ifdef SFFE_USING
+#ifdef USE_SFFE
     {"-formula", P_STRING, &sffeform, "user formula"},
     {"-forminit", P_STRING, &sffeinit, "z0 for user formula"},
 #endif

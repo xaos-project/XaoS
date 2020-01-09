@@ -25,7 +25,7 @@
 #include "config.h"
 #include "fractal.h"
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 #include "sffe.h"
 #ifdef SFFE_CMPLX_ASM
 #include "sffe_cmplx_asm.h"
@@ -34,7 +34,7 @@
 #endif
 #endif
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 /*extern sffe* parser;
    extern sffe* pinit; */
 extern cmplx Z;

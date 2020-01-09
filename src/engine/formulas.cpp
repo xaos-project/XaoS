@@ -49,7 +49,7 @@
 #define M_PI 3.1415
 #endif
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 #include "sffe.h"
 
 extern struct uih_context *globaluih; // to be able to use sffe parser
@@ -1257,7 +1257,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define RPIP
 #include "docalc.h"
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 /* SFFE - malczak */
 //#define VARIABLES sffe *p = globaluih->parser;
 #define INIT                                                                   \
@@ -2447,7 +2447,7 @@ const struct formula formulas[] = {
      MANDEL_BTRACE,
      }
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
     , {                         /* formula added by M. Malczak - SFFE *//* 29 */
        FORMULAMAGIC,
        sffe_calc,

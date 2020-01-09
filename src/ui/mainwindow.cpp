@@ -410,7 +410,7 @@ void MainWindow::resizeImage(int width, int height)
     uih_cycling_continue(uih);
 }
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
 cmplx Z, C, pZ, N;
 #endif
 
@@ -615,7 +615,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     if (printspeed)
         printSpeed();
 
-#ifdef SFFE_USING
+#ifdef USE_SFFE
     int err = 0;
     if (uih->parser->expression == NULL) {
         if (sffeform)
