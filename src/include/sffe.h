@@ -62,9 +62,7 @@ typedef void (*cfptr)(sfNumber *cnst);
 typedef struct {
     sffptr fptr;
     unsigned char parcnt;
-    /*FIXME changed from char* to char[20] to get rid of warnings during
-     * compilation */
-    char *name;
+    char name[20];
 } sffunction;
 
 /* basic sffe 'stack' operation ( function + result slot ) */

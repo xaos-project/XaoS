@@ -387,11 +387,9 @@ void *sffe_regfunc(sffe **parser, const char *vname, unsigned int parcnt,
 
     sff = parser_->userf + parser_->userfCount;
 
-    sf_strdup(&sff->name, vname);
-
-    for (i = 0; i < strlen(vname); i += 1) {
-        sff->name[i] = (char)toupper((int)vname[i]);
-    }
+    for (i = 0; i < strlen(vname); i++)
+        sff->name[i] = toupper(vname[i]);
+    sff->name[i] = 0;
 
     sff->parcnt = parcnt;
     sff->fptr = funptr;
