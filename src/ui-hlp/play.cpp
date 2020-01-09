@@ -566,7 +566,7 @@ static char *gettokenwr(struct uih_context *c)
     return (token);
 }
 
-void uih_play_formula(struct uih_context *uih, char *fname)
+void uih_play_formula(struct uih_context *uih, const char *fname)
 {
     int i;
     for (i = 0; i < nformulas; i++) {
