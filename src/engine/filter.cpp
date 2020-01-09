@@ -57,7 +57,7 @@ void removefilter(struct filter *f)
 int initqueue(struct queue *q)
 {
     struct requirements noreq = {0, ALLMASK, 0};
-    struct initdata init = {NULL, 0};
+    struct initdata init = {NULL, NULL, NULL, 0};
 #ifdef DEBUG
     printf("\n\nInitializing queue\n");
 #endif
