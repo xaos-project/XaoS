@@ -716,7 +716,7 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
 
         } else {
             p = ((unsigned int)(bestdata - dyndata)) >> DSIZES;
-            assert(p >= 0 && p < size);
+            assert(p < size);
             realloc->position = fpos[p];
             realloc->plus = p;
             realloc->dirty = 0;
@@ -800,7 +800,7 @@ static void preparemoveoldpoints(void)
                 }
             } else
                 data->start = rx->plus;
-            assert(rx->plus >= 0 && rx->plus < (unsigned int)cimage.width);
+            assert(rx->plus < (unsigned int)cimage.width);
             data->size = 1;
         }
     }
@@ -839,7 +839,7 @@ static void moveoldpoints(void /*@unused@ */ *data1,
     for (ry = czoomc.reallocy + r1, rend = czoomc.reallocy + r2; ry < rend;
          ry++, i++) {
         if (!ry->dirty) {
-            assert(ry->plus >= 0 && ry->plus < (unsigned int)cimage.height);
+            assert(ry->plus < (unsigned int)cimage.height);
             vbuff = cimage.currlines[i];
             vline = cimage.oldlines[ry->plus];
             for (data = (struct movedata *)tmpdata; data->size; data++) {
