@@ -295,9 +295,9 @@ sfNumber sffe_eval(sffe *const parser)
         optro->arg->parg = optro->arg - 1;
         sfarg *arg = optr->arg;
 #ifdef SFFE_DIRECT_FPTR
-        arg->parg = optr->fnc(arg, NULL)->parg;
+        arg->parg = optr->fnc(arg)->parg;
 #else
-        arg->parg = optr->fnc->fptr(arg, optr->fnc->payload)->parg;
+        arg->parg = optr->fnc->fptr(arg)->parg;
 #endif
     };
     return *(parser->result);

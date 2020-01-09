@@ -53,7 +53,7 @@ typedef struct sfargument__ {
 } sfarg;
 
 /* sffe function prototype, parameters order is right-to-left (cdecl) */
-typedef sfarg *(*sffptr)(sfarg *const a, void *payload);
+typedef sfarg *(*sffptr)(sfarg *const a);
 
 /* constats eval functions */
 typedef void (*cfptr)(sfNumber *cnst);
