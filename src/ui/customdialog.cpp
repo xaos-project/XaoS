@@ -27,7 +27,7 @@ QString format(number_t number)
     return QString(buf);
 }
 
-CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
+CustomDialog::CustomDialog(struct uih_context */*uih*/, const menuitem *item,
                            const menudialog *dialog, QWidget *parent)
     : QDialog(parent)
 {
@@ -44,7 +44,6 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
 
         QString label(dialog[i].question);
         if (dialog[i].type == DIALOG_COORD) {
-            char *number;
 
             QLineEdit *real = new QLineEdit(format(dialog[i].deffloat), this);
             QFontMetrics metric(real->font());

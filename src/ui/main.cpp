@@ -285,12 +285,12 @@ void ui_quit(int i)
     exit(i);
 }
 
-static void ui_help(struct uih_context *uih)
+static void ui_help(struct uih_context */*uih*/)
 {
     QDesktopServices::openUrl(QUrl(HELP_URL));
 }
 
-static void ui_about(struct uih_context *uih)
+static void ui_about(struct uih_context */*uih*/)
 {
     QMessageBox::about(
         NULL, qt_gettext("Dialog", "About"),
@@ -439,4 +439,6 @@ int main(int argc, char *argv[])
 
     window = new MainWindow();
     window->eventLoop();
+
+    return 0;
 }

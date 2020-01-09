@@ -69,7 +69,7 @@ static struct filter *getinstance(const struct filteraction *a)
 
 static void destroyinstance(struct filter *f) { free(f); }
 
-static int doit(struct filter *f, int flags, int time)
+static int doit(struct filter *f, int /*flags*/, int /*time*/)
 {
     /*if(f->image->nimages==2) f->image->flip(f->image); */
     if (f->fractalc->currentformula->calculate_julia != NULL) {

@@ -73,7 +73,7 @@ static int sputs(const char *c, xio_file s)
     return 0;
 }
 
-static int sungetc(int c, xio_file s)
+static int sungetc(int /*c*/, xio_file s)
 {
     struct fr *f = (struct fr *)s->data;
     f->pos--;

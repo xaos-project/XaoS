@@ -25,7 +25,7 @@ struct palettedata {
 #define cpalette palette16
 #include "paletted.h"
 
-static void mysetcolor(struct palette *p, int start, int end, rgb_t *rgb)
+static void mysetcolor(struct palette *p, int /*start*/, int /*end*/, rgb_t */*rgb*/)
 {
     p->data = &p;
 }

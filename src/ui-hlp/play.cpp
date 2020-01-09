@@ -293,13 +293,13 @@ void uih_clear_lines(uih_context *c)
     c->playc->lines.currkey = 0;
 }
 
-void uih_freecatalog(uih_context *c)
+void uih_freecatalog(uih_context */*c*/)
 {
     if (catalog != NULL)
         free_catalog(catalog), catalog = NULL;
 }
 
-void uih_setfont(struct uih_context *uih) {}
+void uih_setfont(struct uih_context */*uih*/) {}
 
 int uih_loadcatalog(uih_context *c, const char *name)
 {

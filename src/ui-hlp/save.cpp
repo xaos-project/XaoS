@@ -642,7 +642,6 @@ void uih_save_position(struct uih_context *uih, xio_file f, int mode)
     int save = uih->save;
     int vc = uih->viewchanged;
     int pc = uih->palettechanged;
-    int mov = uih->moved = 0;
     uih->moved = 0;
     uih->save = 0;
     uih->savec = NULL;
@@ -652,5 +651,4 @@ void uih_save_position(struct uih_context *uih, xio_file f, int mode)
     uih->save = save;
     uih->viewchanged = vc;
     uih->palettechanged = pc;
-    mov = uih->moved;
 }

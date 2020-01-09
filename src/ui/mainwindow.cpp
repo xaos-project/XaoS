@@ -993,7 +993,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 #endif
 }
 
-void MainWindow::resizeEvent(QResizeEvent *event)
+void MainWindow::resizeEvent(QResizeEvent */*event*/)
 {
     if (isFullScreen())
         menuBarRef->resize(size().width(), menuBarRef->sizeHint().height());

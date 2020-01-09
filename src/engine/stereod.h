@@ -1,5 +1,5 @@
 ﻿#ifndef UNSUPPORTED
-static void do_stereogram(void *data, struct taskinfo *task, int r1, int r2)
+static void do_stereogram(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     struct filter *f = (struct filter *)data;
     int i, y, lc;

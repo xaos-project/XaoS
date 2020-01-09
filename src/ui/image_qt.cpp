@@ -7,7 +7,7 @@
 
 static QFont getFont() { return QFont(QApplication::font().family(), 12); }
 
-int xprint(struct image *image, const struct xfont *current, int x, int y,
+int xprint(struct image *image, const struct xfont */*current*/, int x, int y,
            const char *text, int fgcolor, int bgcolor, int mode)
 {
     char line[BUFSIZ];
@@ -33,7 +33,7 @@ int xprint(struct image *image, const struct xfont *current, int x, int y,
     return strlen(line);
 }
 
-int xtextwidth(struct image *image, const struct xfont *font, const char *text)
+int xtextwidth(struct image */*image*/, const struct xfont */*font*/, const char *text)
 {
     char line[BUFSIZ];
     int pos = strcspn(text, "\n");
@@ -44,13 +44,13 @@ int xtextwidth(struct image *image, const struct xfont *font, const char *text)
     return metrics.width(line) + 1;
 }
 
-int xtextheight(struct image *image, const struct xfont *font)
+int xtextheight(struct image */*image*/, const struct xfont */*font*/)
 {
     QFontMetrics metrics(getFont());
     return metrics.height() + 1;
 }
 
-int xtextcharw(struct image *image, const struct xfont *font, const char c)
+int xtextcharw(struct image */*image*/, const struct xfont */*font*/, const char c)
 {
     QFontMetrics metrics(getFont());
     return metrics.width(c);

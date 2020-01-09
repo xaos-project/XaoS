@@ -222,9 +222,8 @@ static void calccolumn(realloc_t *rx)
     rx->dirty = 0;
 }
 
-static /*inline */ void dosymmetry2(void /*@unused@ */ *data,
-                                    struct taskinfo /*@unused@ */ *task, int r1,
-                                    int r2)
+static inline void dosymmetry2(void * /*data*/, struct taskinfo * /*task*/,
+                                    int r1, int r2)
 {
     cpixel_t **vbuff = (cpixel_t **)cimage.currlines;
     realloc_t *rx, *rend;

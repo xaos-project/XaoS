@@ -64,7 +64,7 @@ static void convertup_3d(struct filter *f, int *x1, int *y1)
     *y1 = y - (inp / 16 > height ? height : inp / 16);
 }
 
-static void do_3d(void *dataptr, struct taskinfo *task, int r1, int r2)
+static void do_3d(void *dataptr, struct taskinfo */*task*/, int r1, int r2)
 {
     struct filter *f = (struct filter *)dataptr;
     unsigned int y;

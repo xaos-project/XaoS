@@ -188,8 +188,8 @@ int fixedalloccolor(struct palette *palette, int init, int r, int g, int b)
     return (palette->size - 1);
 }
 
-static void setcolorgeneric(struct palette *palette, int start, int end,
-                            rgb_t *rgb)
+static void setcolorgeneric(struct palette * /*palette*/, int /*start*/,
+                            int /*end*/, rgb_t * /*rgb*/)
 {
 }
 
@@ -659,7 +659,7 @@ static inline void hsv_to_rgb(int h, int s, int v, unsigned char *red,
     }
 }
 
-static void randomize_segments3(int whitemode, int nsegments)
+static void randomize_segments3(int /*whitemode*/, int nsegments)
 {
     int i = 0;
     int h, s, v;
@@ -986,7 +986,7 @@ int shiftpalette(struct palette *c, int shift)
     return 1;
 }
 
-static int allocrgb(struct palette *c, int r1, int g1, int b1)
+static int allocrgb(struct palette */*c*/, int r1, int g1, int b1)
 {
     int r, g, b;
     int f = 1;

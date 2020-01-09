@@ -639,7 +639,7 @@ char *xsaveline(struct image *img, int x1, int y1, int x2, int y2)
     return NULL;
 }
 
-void xprepareimage(struct image *img) {}
+void xprepareimage(struct image */*img*/) {}
 
 void xrestoreline(struct image *img, char *data, int x1, int y1, int x2, int y2)
 {

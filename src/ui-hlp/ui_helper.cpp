@@ -256,7 +256,7 @@ void uih_rotate(struct uih_context *c, int n)
     }
 }
 
-static void uih_fixedcolordisable(uih_context *c)
+static void uih_fixedcolordisable(uih_context */*c*/)
 {
 #ifdef SCONVERTORS
     if (c->fixedcolor != NULL) {
@@ -275,7 +275,7 @@ static void uih_fixedcolordisable(uih_context *c)
 #endif
 }
 
-static int uih_fixedcolorenable(uih_context *c)
+static int uih_fixedcolorenable(uih_context */*c*/)
 {
 #ifdef SCONVERTORS
     const struct filteraction *fa = NULL;
@@ -1880,7 +1880,7 @@ int uih_updateimage(uih_context *c, struct image *image)
 }
 
 static void uih_getcscreensizes(struct uih_context *uih, int *x, int *y, int *w,
-                                int *h, void *data)
+                                int *h, void */*data*/)
 {
     *x = 0;
     *y = 0;
@@ -1890,7 +1890,7 @@ static void uih_getcscreensizes(struct uih_context *uih, int *x, int *y, int *w,
         *w = *h = 0;
 }
 
-static void uih_drawcscreen(struct uih_context *uih, void *data)
+static void uih_drawcscreen(struct uih_context *uih, void */*data*/)
 {
     if (uih->clearscreen)
         clear_image(uih->image);
@@ -2241,7 +2241,7 @@ void uih_updatestarts(uih_context *uih)
 }
 
 static void uih_statuspos(uih_context *uih, int *x, int *y, int *w, int *h,
-                          void *data)
+                          void */*data*/)
 {
     *x = 0;
     *y = statusstart;
@@ -2249,7 +2249,7 @@ static void uih_statuspos(uih_context *uih, int *x, int *y, int *w, int *h,
     *h = xtextheight(uih->image, uih->font) * STATUSLINES;
 }
 
-static void uih_drawstatus(uih_context *uih, void *data)
+static void uih_drawstatus(uih_context *uih, void */*data*/)
 {
     char str[6000];
     int h = xtextheight(uih->image, uih->font);
@@ -2336,10 +2336,10 @@ void uih_status(uih_context *uih)
     uih_updatestarts(uih);
 }
 
-int uih_statusenabled(uih_context *uih) { return (statuswindow != NULL); }
+int uih_statusenabled(uih_context */*uih*/) { return (statuswindow != NULL); }
 
 static void uih_ministatuspos(uih_context *uih, int *x, int *y, int *w, int *h,
-                              void *data)
+                              void */*data*/)
 {
     *x = 0;
     *y = ministatusstart;
@@ -2347,7 +2347,7 @@ static void uih_ministatuspos(uih_context *uih, int *x, int *y, int *w, int *h,
     *h = xtextheight(uih->image, uih->font);
 }
 
-static void uih_drawministatus(uih_context *uih, void *data)
+static void uih_drawministatus(uih_context *uih, void */*data*/)
 {
     xprint(uih->image, uih->font, 0, ministatusstart, statustext, FGCOLOR(uih),
            BGCOLOR(uih), 0);
@@ -2367,7 +2367,7 @@ void uih_ministatus(uih_context *uih)
     uih_updatemenus(uih, "animministatus");
 }
 
-int uih_ministatusenabled(uih_context *uih)
+int uih_ministatusenabled(uih_context */*uih*/)
 {
     return (ministatuswindow != NULL);
 }

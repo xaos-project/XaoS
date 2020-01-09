@@ -45,7 +45,7 @@ void FractalWidget::resizeGL(int w, int h)
     glMatrixMode(GL_MODELVIEW);
 }
 #else
-void FractalWidget::paintEvent(QPaintEvent *event)
+void FractalWidget::paintEvent(QPaintEvent */*event*/)
 {
     if (m_image) {
         QPainter painter(this);

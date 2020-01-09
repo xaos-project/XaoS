@@ -59,7 +59,7 @@ static void destroyinstance(struct filter *f)
     free(f);
 }
 
-static void antigray(void *data, struct taskinfo *task, int r1, int r2)
+static void antigray(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     struct filter *f = (struct filter *)data;
     struct image *srci = f->childimage, *desti = f->image;
@@ -161,7 +161,7 @@ static void anti24(void *data, struct taskinfo *task, int r1, int r2)
 
 #define MASKRH1 (31 + 31744)
 #define MASKRH2 (31 * 32)
-static void anti16(void *data, struct taskinfo *task, int r1, int r2)
+static void anti16(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     struct filter *f = (struct filter *)data;
     struct image *srci = f->childimage, *desti = f->image;
@@ -214,7 +214,7 @@ static void anti16(void *data, struct taskinfo *task, int r1, int r2)
 #endif
 
 #define MASK1 0x00ff00ff
-static void anti32(void *data, struct taskinfo *task, int r1, int r2)
+static void anti32(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     struct filter *f = (struct filter *)data;
     struct image *srci = f->childimage, *desti = f->image;

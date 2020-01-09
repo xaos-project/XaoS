@@ -102,7 +102,7 @@ static struct filter *getinstance(const struct filteraction *a)
     return (f);
 }
 
-static void emboss8(void *data, struct taskinfo *task, int r1, int r2)
+static void emboss8(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     pixel8_t *src, *srcend, *src2;
     pixel8_t *dest;
@@ -125,7 +125,7 @@ static void emboss8(void *data, struct taskinfo *task, int r1, int r2)
 }
 
 #ifdef SUPPORT16
-static void emboss16(void *data, struct taskinfo *task, int r1, int r2)
+static void emboss16(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     pixel8_t *src, *srcend, *src2;
     pixel16_t *dest;
@@ -171,7 +171,7 @@ static void emboss24(void *data, struct taskinfo *task, int r1, int r2)
     }
 }
 #endif
-static void emboss32(void *data, struct taskinfo *task, int r1, int r2)
+static void emboss32(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     pixel8_t *src, *srcend, *src2;
     pixel32_t *dest;

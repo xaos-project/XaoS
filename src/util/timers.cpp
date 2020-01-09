@@ -269,7 +269,6 @@ void tl_set_multihandler(tl_timer *timer, void (*handler)(void *, int),
 
 void tl_remove_timer(tl_timer *timer)
 {
-    tl_group *g = timer->group;
     timer->group->slowdown = 1;
     timer->previous->next = timer->next;
     if (timer->next != NULL)

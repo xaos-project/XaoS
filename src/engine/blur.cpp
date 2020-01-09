@@ -156,7 +156,7 @@ static void destroyinstance(struct filter *f)
 }
 
 /* An part of blur function that should be done paraely */
-static void blur82(void *data, struct taskinfo *task, int r1, int r2)
+static void blur82(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     struct filter *f = (struct filter *)data;
     struct image *srci = f->childimage, *desti = f->image;
@@ -178,7 +178,7 @@ static void blur82(void *data, struct taskinfo *task, int r1, int r2)
 }
 
 #ifdef SUPPORT16
-static void blur16(void *data, struct taskinfo *task, int r1, int r2)
+static void blur16(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     struct filter *f = (struct filter *)data;
     struct image *srci = f->childimage, *desti = f->image;
@@ -226,7 +226,7 @@ static void blur24(void *data, struct taskinfo *task, int r1, int r2)
     }
 }
 #endif
-static void blur32(void *data, struct taskinfo *task, int r1, int r2)
+static void blur32(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     struct filter *f = (struct filter *)data;
     struct image *srci = f->childimage, *desti = f->image;

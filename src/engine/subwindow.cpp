@@ -192,7 +192,7 @@ static int doit(struct filter *f, int flags, int time)
     return val;
 }
 
-static void myremove(struct filter *f)
+static void myremove(struct filter */*f*/)
 {
     /*fractalc_resize_to(f->fractalc,f->queue->last->image->width*f->queue->last->image->pixelwidth,f->queue->last->image->height*f->queue->last->image->pixelheight);
      */

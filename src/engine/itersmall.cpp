@@ -39,7 +39,7 @@ static struct filter *getinstance(const struct filteraction *a)
     return (f);
 }
 
-static void convert8(void *data, struct taskinfo *task, int r1, int r2)
+static void convert8(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     struct filter *f = (struct filter *)data;
     struct image *img1 = f->childimage, *img2 = f->image;
@@ -56,7 +56,7 @@ static void convert8(void *data, struct taskinfo *task, int r1, int r2)
     }
 }
 
-static void convert16(void *data, struct taskinfo *task, int r1, int r2)
+static void convert16(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     struct filter *f = (struct filter *)data;
     struct image *img1 = f->childimage, *img2 = f->image;
@@ -93,7 +93,7 @@ static void convert24(void *data, struct taskinfo *task, int r1, int r2)
     }
 }
 #endif
-static void convert32(void *data, struct taskinfo *task, int r1, int r2)
+static void convert32(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     struct filter *f = (struct filter *)data;
     struct image *img1 = f->childimage, *img2 = f->image;

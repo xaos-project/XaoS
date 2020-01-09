@@ -64,7 +64,7 @@ static void printmsg(const char *text, ...)
     }
 }
 
-static int passfunc(struct uih_context *c, int display, const char *text,
+static int passfunc(struct uih_context */*c*/, int display, const char *text,
                     float percent)
 {
     if (noiselevel < ALL)
@@ -365,7 +365,6 @@ int uih_renderimage(struct uih_context *gc1, xio_file af, xio_constpath path,
                     int noise)
 {
     int aliasnum = 0;
-    int ok = 1;
     noiselevel = noise;
     gc = gc1;
     if (gc)
@@ -429,11 +428,7 @@ int uih_renderimage(struct uih_context *gc1, xio_file af, xio_constpath path,
         uih_enablefilter(uih, aliasnum);
     }
     uih_prepare_image(uih);
-    if (uih->errstring)
-        ok = 0;
     uih_drawwindows(uih);
-    if (uih->errstring)
-        ok = 0;
     uih_freecontext(uih);
     uih_freecatalog(uih);
     if (interrupt)
