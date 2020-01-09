@@ -925,7 +925,6 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
     }
 #define CALC sier_calc
 #define RANGE 2
-#define RPIP
 #include "docalc.h"
 
 #define VARIABLES
@@ -952,7 +951,6 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
     }
 #define CALC goldsier_calc
 #define RANGE 2
-#define RPIP
 #include "docalc.h"
 
 #define VARIABLES
@@ -983,7 +981,6 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
     }
 #define CALC circle7_calc
 #define RANGE 2
-#define RPIP
 #include "docalc.h"
 
 #define VARIABLES
@@ -1043,7 +1040,6 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
         zim = zim - pim;
 #define CALC carpet_calc
 #define RANGE 2
-#define RPIP
 #include "docalc.h"
 
 #define VARIABLES
@@ -1082,7 +1078,6 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
     }
 #define CALC koch_calc
 #define RANGE 2
-#define RPIP
 #include "docalc.h"
 
 #define VARIABLES number_t zre1, zim1;
@@ -1100,7 +1095,6 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
     zim = zim1;
 #define CALC hornflake_calc
 #define RANGE 2
-#define RPIP
 #include "docalc.h"
 
 #define VARIABLES
