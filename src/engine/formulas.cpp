@@ -145,12 +145,6 @@ const char *const tcolorname[] = {
         iter = (int)(((cfractalc.maxiter - iter) * 256 +                       \
                       log((double)(cfractalc.bailout / (szmag))) /             \
                           log((double)((zre) / (szmag))) * 256));              \
-        if (iter < 0) {                                                        \
-            iter = (((unsigned int)(cpalette.size - 1)) << 8) -                \
-                   ((-iter) % (((unsigned int)(cpalette.size - 1)) << 8)) - 1; \
-            if (iter < 0)                                                      \
-                iter = 0;                                                      \
-        }                                                                      \
         iter %= ((unsigned int)(cpalette.size - 1)) << 8;                      \
                                                                                \
         if ((cpalette.type & (C256 | SMALLITER)) || !(iter & 255))             \
