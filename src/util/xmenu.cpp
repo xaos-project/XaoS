@@ -51,14 +51,7 @@ static void x_menu_insert(const menuitem *item, struct entry *iitem, int n)
             {
                 struct entry *e = list->nextname;
                 while (e != NULL) {
-                    if (e->item->type != MENU_SUBMENU &&
-                        e->item->type != MENU_SEPARATOR &&
-                        item->type != MENU_SEPARATOR)
-                        ;
-                    if (!strcmp(e->item->shortname, item->shortname)
-                        /*&& e->item->type != MENU_SUBMENU && item->type !=
-                           MENU_SUBMENU */
-                    ) {
+                    if (!strcmp(e->item->shortname, item->shortname)) {
                         x_error(
                             "Menu error:Name collision %s:'%s'(%s) and '%s'(%s)",
                             item->shortname, item->name, item->menuname,
