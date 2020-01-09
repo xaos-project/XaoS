@@ -421,10 +421,10 @@ static unsigned int color_output(number_t zre, number_t zim, unsigned int iter)
             i = (int)(iter + zim * SMUL);
             break;
         case 3: /* real / imag */
-                i = (int)(iter + (zre / zim) * SMUL);
+            i = (int)(iter + (zre / zim) * SMUL);
             break;
         case 4: /* all of the above */
-                i = (int)(iter + (zre + zim + zre / zim) * SMUL);
+            i = (int)(iter + (zre + zim + zre / zim) * SMUL);
             break;
         case 5:
             if (zim > 0)
@@ -722,7 +722,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t t;
+#define VARIABLES number_t t;
 #define BTEST less_than_4(rp + ip)
 #define FORMULA                                                                \
     c_pow4(zre, zim, rp, ip);                                                  \
@@ -741,7 +741,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t t;
+#define VARIABLES number_t t;
 #define BTEST less_than_4(rp + ip)
 #define FORMULA                                                                \
     c_pow3(zre, zim, rp, ip);                                                  \
@@ -760,7 +760,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t t;
+#define VARIABLES number_t t;
 #define BTEST less_than_4(rp + ip)
 #define FORMULA                                                                \
     c_pow3(zre, zim, rp, ip);                                                  \
@@ -795,7 +795,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t zor, zoi;
+#define VARIABLES number_t zor, zoi;
 /* For some reason Cat's Eye renders as an empty circle unless the bailout
  * is slightly more than 4.  It was first observed in 2009 on Mac OS X but
  * more recently started happening on other operating systems. I suspect
@@ -861,7 +861,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t zre1, zim1, zre2, zim2;
+#define VARIABLES number_t zre1, zim1, zre2, zim2;
 #define INIT                                                                   \
     zre1 = zre;                                                                \
     zim1 = zim;
@@ -882,7 +882,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t zre1, zim1;
+#define VARIABLES number_t zre1, zim1;
 #define INIT                                                                   \
     zre1 = pre;                                                                \
     zim1 = pim;
@@ -1085,7 +1085,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t zre1, zim1;
+#define VARIABLES number_t zre1, zim1;
 #define INIT                                                                   \
     pim = fabs(pim);                                                           \
     zre = pre;                                                                 \
@@ -1161,7 +1161,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t n, sqrr, sqri, zre1, zim1;
+#define VARIABLES number_t n, sqrr, sqri, zre1, zim1;
 #define INIT                                                                   \
     sqri = zim * zim, n = zre, zre = pre, pre = n, n = zim, zim = pim,         \
     pim = n, n = (number_t)1;
@@ -1182,7 +1182,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define CALC newton_calc
 #include "docalc.h"
 
-#define VARIABLES register number_t n, sqrr, sqri, zre1, zim1;
+#define VARIABLES number_t n, sqrr, sqri, zre1, zim1;
 #define INIT                                                                   \
     sqri = zim * zim, n = zre, zre = pre, pre = n, n = zim, zim = pim,         \
     pim = n, n = (number_t)1;
@@ -1202,8 +1202,8 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define CALC newton4_calc
 #include "docalc.h"
 
-#define VARIABLES register number_t zpr, zip;
-#define SAVEVARIABLES register number_t szpr, szip;
+#define VARIABLES number_t zpr, zip;
+#define SAVEVARIABLES number_t szpr, szip;
 #define SAVE szpr = zpr, szip = zip;
 #define RESTORE zpr = szpr, zip = szip;
 #define INIT zpr = zip = (number_t)0;
@@ -1223,7 +1223,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define RPIP
 #include "docalc.h"
 
-#define VARIABLES register number_t tr, ti, zpr, zpm, rp1, ip1;
+#define VARIABLES number_t tr, ti, zpr, zpm, rp1, ip1;
 #define INIT                                                                   \
     zpr = zpm = 0, tr = zre, zre = pre, pre = tr, tr = zim, zim = pim,         \
     pim = tr, tr = 1;
@@ -1242,7 +1242,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #define PRESMOOTH zre = zpr * zpr + zpm * zpm
 #include "docalc.h"
 
-#define VARIABLES register number_t yre, yim, re1tmp, re2tmp, im1tmp;
+#define VARIABLES number_t yre, yim, re1tmp, re2tmp, im1tmp;
 #define BTEST (rp + ip < 9 || (yre * yre + yim * yim) < 4 * (rp + ip))
 #define INIT                                                                   \
     yre = pre;                                                                 \
@@ -1274,7 +1274,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
     else {                                                                     \
         cmplxset(Z, zre, zim);                                                 \
         cmplxset(N, 1, 0);                                                     \
-        }
+    }
 //#define SAVE cmplxset(pZ,real(Z),imag(Z));
 //#define PRETEST 0
 #define FORMULA                                                                \
@@ -1282,7 +1282,7 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
     cmplxset(pZ, zre, zim);                                                    \
     zre = real(Z);                                                             \
     zim = imag(Z);                                                             \
-    cmplxset(N, (unsigned int)cfractalc.maxiter-iter+1, 0);
+    cmplxset(N, (unsigned int)cfractalc.maxiter - iter + 1, 0);
 
 #define BTEST less_than_4(zre *zre + zim * zim)
 // less_than_4(rp+ip)

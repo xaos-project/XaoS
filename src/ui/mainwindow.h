@@ -42,8 +42,8 @@ class MainWindow : public QMainWindow
     void processQueue();
     int processKey(int key);
     bool processArrows(int *counter, const char *text, int speed, int keys,
-                      int lastkeys, int down, int up, bool tenskip, int min,
-                      int max);
+                       int lastkeys, int down, int up, bool tenskip, int min,
+                       int max);
     void processEvents(bool wait);
     struct image *makeImage(int width, int height);
     void resizeImage(int width, int height);

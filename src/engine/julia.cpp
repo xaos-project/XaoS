@@ -17,7 +17,7 @@ void init_julia(struct image *img, number_t rangep, number_t range,
                 number_t xdelta, number_t ystep)
 {
     int i, j, x, y;
-    register number_t im;
+    number_t im;
     unsigned char *addr, **addr1 = img->currlines;
     for (i = 0; i < img->height; i++) {
         im = IMIN + (i + 0.5) * ystep;

@@ -103,7 +103,8 @@ struct image {
          ? intergray(i1, i2, n)                                                \
          : safeinterpol(i1, i2, n, (palette).info.truec.rmask,                 \
                         (palette).info.truec.gmask,                            \
-                        (palette).info.truec.bmask) | ~(palette).info.truec.allmask)
+                        (palette).info.truec.bmask) |                          \
+               ~(palette).info.truec.allmask)
 /*palette flags */
 #define UNKNOWNENTRIES 1
 #define DONOTCHANGE 2

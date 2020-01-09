@@ -79,8 +79,8 @@ struct image *create_image_qt(int width, int height, struct palette *palette,
     data[0] = new QImage(width, height, QImage::Format_RGB32);
     data[1] = new QImage(width, height, QImage::Format_RGB32);
     struct image *img = create_image_cont(
-                width, height, data[0]->bytesPerLine(), 2, data[0]->bits(),
-            data[1]->bits(), palette, NULL, 0, pixelwidth, pixelheight);
+        width, height, data[0]->bytesPerLine(), 2, data[0]->bits(),
+        data[1]->bits(), palette, NULL, 0, pixelwidth, pixelheight);
     if (!img) {
         delete data[0];
         delete data[1];

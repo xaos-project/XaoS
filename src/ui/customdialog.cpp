@@ -1,5 +1,5 @@
 ﻿#include <QtWidgets>
-#define __USE_MINGW_ANSI_STDIO 1  // for long double support on Windows
+#define __USE_MINGW_ANSI_STDIO 1 // for long double support on Windows
 #include <cstdio>
 
 #include "customdialog.h"
@@ -46,18 +46,16 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
         if (dialog[i].type == DIALOG_COORD) {
             char *number;
 
-            QLineEdit *real =
-                new QLineEdit(format(dialog[i].deffloat), this);
+            QLineEdit *real = new QLineEdit(format(dialog[i].deffloat), this);
             QFontMetrics metric(real->font());
-            real->setMinimumWidth(metric.width(real->text())*1.1);
+            real->setMinimumWidth(metric.width(real->text()) * 1.1);
             real->setObjectName(label + "real");
-            //real->setValidator(new QDoubleValidator(real));
+            // real->setValidator(new QDoubleValidator(real));
 
-            QLineEdit *imag =
-                new QLineEdit(format(dialog[i].deffloat2), this);
+            QLineEdit *imag = new QLineEdit(format(dialog[i].deffloat2), this);
             imag->setObjectName(label + "imag");
-            imag->setMinimumWidth(metric.width(imag->text())*1.1);
-            //imag->setValidator(new QDoubleValidator(imag));
+            imag->setMinimumWidth(metric.width(imag->text()) * 1.1);
+            // imag->setValidator(new QDoubleValidator(imag));
 
             QBoxLayout *layout = new QBoxLayout(QBoxLayout::LeftToRight);
             layout->setContentsMargins(0, 0, 0, 0);
@@ -73,7 +71,7 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
 
             QLineEdit *filename = new QLineEdit(dialog[i].defstr, this);
             QFontMetrics metric(filename->font());
-            filename->setMinimumWidth(metric.width(filename->text())*1.1);
+            filename->setMinimumWidth(metric.width(filename->text()) * 1.1);
             filename->setObjectName(label);
 
             QToolButton *chooser = new QToolButton(this);
@@ -116,12 +114,12 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
                 field->setValidator(new QIntValidator(field));
             } else if (dialog[i].type == DIALOG_FLOAT) {
                 field->setText(format(dialog[i].deffloat));
-                //field->setValidator(new QDoubleValidator(field));
+                // field->setValidator(new QDoubleValidator(field));
             } else {
                 field->setText(dialog[i].defstr);
             }
             QFontMetrics metric(field->font());
-            field->setMinimumWidth(metric.width(field->text())*1.1);
+            field->setMinimumWidth(metric.width(field->text()) * 1.1);
             formLayout->addRow(label, field);
         }
     }

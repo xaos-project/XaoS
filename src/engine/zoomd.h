@@ -258,12 +258,12 @@ static /*inline */ void dosymmetry2(void /*@unused@ */ *data,
 
 static inline void fillline(int line)
 {
-    register unsigned char *vbuff = cimage.currlines[line];
+    unsigned char *vbuff = cimage.currlines[line];
     const struct filltable *table = (struct filltable *)tmpdata;
     while (table->length) {
-        register cpixeldata_t s = p_get((cpixel_t *)(vbuff + table->from));
-        register cpixel_t *vcurr = (cpixel_t *)(vbuff + table->to);
-        register cpixel_t *vend = (cpixel_t *)(vbuff + table->end);
+        cpixeldata_t s = p_get((cpixel_t *)(vbuff + table->from));
+        cpixel_t *vcurr = (cpixel_t *)(vbuff + table->to);
+        cpixel_t *vend = (cpixel_t *)(vbuff + table->end);
         while (vcurr < vend) {
             p_set(vcurr, s);
             p_inc(vcurr, 1);

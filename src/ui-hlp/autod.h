@@ -1,8 +1,8 @@
 ﻿#ifndef UNSUPPORTED
 static inline int look1(uih_context *context, int x, int y, int range, int max)
 {
-    register cpixel_t *vbuff;
-    register int i, j, c = 0;
+    cpixel_t *vbuff;
+    int i, j, c = 0;
     if (range < context->zengine->image->width / 2)
         if (x < 0 || x > context->zengine->image->width || y < 0 ||
             y > context->zengine->image->height)
@@ -45,8 +45,8 @@ static inline int look1(uih_context *context, int x, int y, int range, int max)
 
 static inline int look2(uih_context *context, int x, int y, int range, int max)
 {
-    register cpixel_t *vbuff, *vbuff2;
-    register int i, j, i1, j1, c = 0;
+    cpixel_t *vbuff, *vbuff2;
+    int i, j, i1, j1, c = 0;
     if (range < context->zengine->image->width / 2)
         if (x < 0 || x > context->zengine->image->width || y < 0 ||
             y > context->zengine->image->height)

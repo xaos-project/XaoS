@@ -50,12 +50,12 @@ typedef double number_t;
 #define SPEEDUP 1.05
 
 // Autopilot configuration
-#define LOOKSIZE 2      // size explored by autopilot
+#define LOOKSIZE 2 // size explored by autopilot
 #define RANGE1 30
 #define NGUESSES (RANGE1 * RANGE1 / 2)
-#define MAXTIME 10      // maximum zooming time to one direction
-#define NGUESSES1 10    // maximum number of guesses using first method
-#define NGUESSES2 1000  // maximum number of guesses using second method
+#define MAXTIME 10     // maximum zooming time to one direction
+#define NGUESSES1 10   // maximum number of guesses using first method
+#define NGUESSES2 1000 // maximum number of guesses using second method
 
 // Default user formula
 // #define USER_FORMULA "Z^LOG(C)*P"

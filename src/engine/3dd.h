@@ -6,7 +6,7 @@ static void convert_3d(struct filter *f, int *x1, int *y1)
     int x = *x1;
     unsigned int inp;
     unsigned int height = data->height;
-    register const spixel_t *input;
+    const spixel_t *input;
     if (x >= f->childimage->width - 5 || x < 0 || *y1 > f->childimage->height) {
         *x1 += *y1 / 2;
         return;
@@ -42,7 +42,7 @@ static void convertup_3d(struct filter *f, int *x1, int *y1)
     int x = *x1;
     unsigned int inp;
     unsigned int height = data->height;
-    register const spixel_t *input;
+    const spixel_t *input;
     if (x >= f->childimage->width - 5)
         x = f->childimage->width - 6;
     if (y >= f->childimage->height - 3)

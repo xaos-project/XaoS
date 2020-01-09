@@ -1,10 +1,9 @@
 ﻿#ifndef UNSUPPORTED
 
-static void tracecolor(int xstart, int ystart, int xend, int yend,
-                       register int x, register int y)
+static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 {
     int dir = RIGHT, fill = 0;
-    register unsigned char *calc;
+    unsigned char *calc;
     int peri = 0;
     cpixeldata_t c = (cpixeldata_t)calculatepixel(x, y, 0);
     cpixeldata_t w = (cpixeldata_t)0;
@@ -423,8 +422,8 @@ static void dosymmetries(int x1, int x2, int y1, int y2, int xsym, int cx1,
                          int cx2)
 {
     if (cx1 != x1) {
-        register int y;
-        register cpixel_t *xx1, *xx2;
+        int y;
+        cpixel_t *xx1, *xx2;
         for (y = y1; y <= y2; y++) {
             xx1 = p_add((cpixel_t *)cimage.currlines[y], x1);
             xx2 = p_add((cpixel_t *)cimage.currlines[y], 2 * xsym - x1);
@@ -436,8 +435,8 @@ static void dosymmetries(int x1, int x2, int y1, int y2, int xsym, int cx1,
         }
     }
     if (cx2 != x2) {
-        register int y;
-        register cpixel_t *xx1, *xx2;
+        int y;
+        cpixel_t *xx1, *xx2;
         for (y = y1; y <= y2; y++) {
             xx1 = p_add((cpixel_t *)cimage.currlines[y], x2);
             xx2 = p_add((cpixel_t *)cimage.currlines[y], 2 * xsym - x2);

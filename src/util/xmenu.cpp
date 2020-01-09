@@ -706,7 +706,7 @@ const char *menu_processcommand(struct uih_context *uih, tokenfunc f,
 static int argpos, margc;
 static char **margv;
 static int argposs;
-static char *gettoken(struct uih_context */*c*/)
+static char *gettoken(struct uih_context * /*c*/)
 {
     if (argpos == margc)
         return NULL;

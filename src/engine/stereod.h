@@ -4,8 +4,8 @@ static void do_stereogram(void *data, struct taskinfo *task, int r1, int r2)
     struct filter *f = (struct filter *)data;
     int i, y, lc;
     struct stereogramdata *s = (struct stereogramdata *)f->data;
-    register cpixel_t *cs, *c, *src, *src1, *ce;
-    register spixel_t *c1;
+    cpixel_t *cs, *c, *src, *src1, *ce;
+    spixel_t *c1;
     unsigned int *pixels = f->image->palette->pixels;
     s->minc = NCOLORS;
     for (i = r1; i < r2; i++) {

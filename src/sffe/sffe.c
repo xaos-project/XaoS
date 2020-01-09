@@ -288,9 +288,9 @@ void sffe_free(sffe **parser)
 
 sfNumber sffe_eval(sffe *const parser)
 {
-    register sfopr *optr = parser->oprs;
-    register sfopr *optro = optr;
-    register sfopr *optrl = optr + parser->oprCount;
+    sfopr *optr = parser->oprs;
+    sfopr *optro = optr;
+    sfopr *optrl = optr + parser->oprCount;
     for (; optr != optrl; optr += 1, optro += 1) {
         optro->arg->parg = optro->arg - 1;
         sfarg *arg = optr->arg;

@@ -49,8 +49,7 @@ struct formula {
     int magic;
     iterationfunc calculate, calculate_periodicity, smooth_calculate,
         smooth_calculate_periodicity;
-    void (*calculate_julia)(struct image *img, register number_t pre,
-                            register number_t pim);
+    void (*calculate_julia)(struct image *img, number_t pre, number_t pim);
     const char *name[2];
     const char *shortname;
     vinfo v;
@@ -150,8 +149,7 @@ void update_view(fractal_context *);
 void free_fractalc(fractal_context *);
 fractal_context *make_fractalc(const int, float, float);
 void speed_test(fractal_context *, struct image *img);
-unsigned int calculateswitch(register number_t x1, register number_t y1,
-                             register number_t x2, register number_t y2,
+unsigned int calculateswitch(number_t x1, number_t y1, number_t x2, number_t y2,
                              int periodicity);
 
 /* needs struct formula */

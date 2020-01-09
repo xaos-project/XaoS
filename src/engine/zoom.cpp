@@ -200,11 +200,11 @@ static int *mulmid;
  *on the screen is symetrical and it is quite rare case...who knows
  */
 
-static void preparesymmetries(register realloc_t *realloc, const int size,
-                              register int symi, number_t sym, number_t step)
+static void preparesymmetries(realloc_t *realloc, const int size, int symi,
+                              number_t sym, number_t step)
 {
-    register int i;
-    register int istart = 0;
+    int i;
+    int istart = 0;
     number_t fy, ftmp;
     realloc_t *r = realloc, *reallocs;
 
@@ -397,20 +397,20 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
     unsigned int i;
     int counter;
     unsigned int ps, ps1 = 0, pe;
-    register unsigned int p;
+    unsigned int p;
     int bestprice = MAXPRICE;
     realloc_t *r = realloc;
     struct dyn_data *dyndata;
     int yend, y;
-    register struct dyn_data **best;
+    struct dyn_data **best;
     struct dyn_data **best1, **tmp;
-    register int *pos;
+    int *pos;
     number_t step, tofix;
     int symi = -1;
     unsigned int lastplus = 0;
     struct dyn_data *data;
-    register struct dyn_data *previous = NULL, *bestdata = NULL;
-    register int myprice;
+    struct dyn_data *previous = NULL, *bestdata = NULL;
+    int myprice;
 #ifdef STATISTICS
     nadded = 0, nsymmetry = 0, nskipped = 0;
 #endif
@@ -830,7 +830,7 @@ static void moveoldpoints(void * /*data1*/, struct taskinfo * /*task*/, int r1,
                           int r2)
 {
     struct movedata *data;
-    register unsigned char *vline, *vbuff;
+    unsigned char *vline, *vbuff;
     realloc_t *ry, *rend;
     int i = r1;
 
@@ -914,7 +914,7 @@ end:
 
 static void filly(void * /*data*/, struct taskinfo * /*task*/, int rr1, int rr2)
 {
-    register unsigned char **vbuff = cimage.currlines;
+    unsigned char **vbuff = cimage.currlines;
     realloc_t *ry, *r1, *r2, *rend, *rend2, *rs = NULL;
     int linesize = cimage.width * cimage.bytesperpixel;
 

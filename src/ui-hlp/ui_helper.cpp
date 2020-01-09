@@ -71,10 +71,17 @@ static const struct filteraction uih_filter = {"XaoS's user interface layer",
 static uih_context *uih;
 static int waitcount, waitcount1, waitcount2;
 
-const struct filteraction *const uih_filters[MAXFILTERS] = {
-    &edge_filter,       &edge2_filter,     &threed_filter,    &starfield_filter,
-    &stereogram_filter, &interlace_filter, &blur_filter,      &emboss_filter,
-    &palette_filter,    &antialias_filter, NULL};
+const struct filteraction *const uih_filters[MAXFILTERS] = {&edge_filter,
+                                                            &edge2_filter,
+                                                            &threed_filter,
+                                                            &starfield_filter,
+                                                            &stereogram_filter,
+                                                            &interlace_filter,
+                                                            &blur_filter,
+                                                            &emboss_filter,
+                                                            &palette_filter,
+                                                            &antialias_filter,
+                                                            NULL};
 
 const int uih_nfilters = 10;
 
@@ -2205,7 +2212,7 @@ void uih_updatestatus(uih_context *uih)
     sprintf(
         statustext,
         TR("Message",
-            "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "),
+           "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "),
         times < 1 ? TR("Message", "unzoomed") : TR("Message", "zoomed"),
         times < 1 ? 1.0 / times : times, timesnop, speed,
         uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1,
@@ -2260,12 +2267,12 @@ static void uih_drawstatus(uih_context *uih, void *data)
 #endif
     xprint(uih->image, uih->font, 0, statusstart + h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
-    sprintf(str, TR("Message", "View:[%1.12f,%1.12f]"), (double)uih->fcontext->s.cr,
-            (double)uih->fcontext->s.ci);
+    sprintf(str, TR("Message", "View:[%1.12f,%1.12f]"),
+            (double)uih->fcontext->s.cr, (double)uih->fcontext->s.ci);
     xprint(uih->image, uih->font, 0, statusstart + 2 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
-    sprintf(str, TR("Message", "size:[%1.12f,%1.12f]"), (double)uih->fcontext->s.rr,
-            (double)uih->fcontext->s.ri);
+    sprintf(str, TR("Message", "size:[%1.12f,%1.12f]"),
+            (double)uih->fcontext->s.rr, (double)uih->fcontext->s.ri);
     xprint(uih->image, uih->font, 0, statusstart + 3 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
     sprintf(str, TR("Message", "Rotation:%4.2f   Screen size:%i:%i"),
@@ -2296,8 +2303,8 @@ static void uih_drawstatus(uih_context *uih, void *data)
     if (uih->fcontext->mandelbrot)
         strcpy(str, TR("Message", "Parameter:none"));
     else
-        sprintf(str, TR("Message", "Parameter:[%f,%f]"), (float)uih->fcontext->pre,
-                (float)uih->fcontext->pim);
+        sprintf(str, TR("Message", "Parameter:[%f,%f]"),
+                (float)uih->fcontext->pre, (float)uih->fcontext->pim);
     xprint(uih->image, uih->font, 0, statusstart + 10 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
 #ifdef MEMCHECK
@@ -2318,7 +2325,8 @@ static void uih_drawstatus(uih_context *uih, void *data)
 void uih_status(uih_context *uih)
 {
     if (statuswindow == NULL) {
-        statuswindow = uih_registerw(uih, uih_statuspos, uih_drawstatus, NULL, 0);
+        statuswindow =
+            uih_registerw(uih, uih_statuspos, uih_drawstatus, NULL, 0);
     } else {
         uih_removew(uih, statuswindow);
         statuswindow = NULL;

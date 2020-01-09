@@ -4,9 +4,9 @@ static void do_edge(void *data, struct taskinfo *task, int r1, int r2)
     struct filter *f = (struct filter *)data;
     int y;
     unsigned int *pixels = f->image->palette->pixels;
-    register unsigned int black = f->image->palette->pixels[0];
-    register cpixel_t *output, *end;
-    register spixel_t *up, *down, *input;
+    unsigned int black = f->image->palette->pixels[0];
+    cpixel_t *output, *end;
+    spixel_t *up, *down, *input;
 
     for (y = r1; y < r2; y++) {
         output = p_add(((cpixel_t *)f->image->currlines[y]), 1);

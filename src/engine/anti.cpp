@@ -64,11 +64,11 @@ static void antigray(void *data, struct taskinfo *task, int r1, int r2)
     struct filter *f = (struct filter *)data;
     struct image *srci = f->childimage, *desti = f->image;
     struct antidata *s = (struct antidata *)f->data;
-    register unsigned char *src;
+    unsigned char *src;
     unsigned char *destend, *dest;
     unsigned int ystart, y;
     unsigned int xstart;
-    register unsigned int sum;
+    unsigned int sum;
     unsigned int xstep = (1U << (s->shift));
     int i;
     for (i = r1; i < r2; i++) {
@@ -108,11 +108,11 @@ static void anti24(void *data, struct taskinfo *task, int r1, int r2)
     struct filter *f = (struct filter *)data;
     struct image *srci = f->childimage, *desti = f->image;
     struct antidata *s = (struct antidata *)f->data;
-    register unsigned char *src;
+    unsigned char *src;
     unsigned char *destend, *dest;
     unsigned int ystart, y;
     unsigned int xstart;
-    register unsigned int sum;
+    unsigned int sum;
     unsigned int xstep = ((1U << s->shift) - 1) * 3;
     int c = 0;
     int i;
@@ -166,11 +166,11 @@ static void anti16(void *data, struct taskinfo *task, int r1, int r2)
     struct filter *f = (struct filter *)data;
     struct image *srci = f->childimage, *desti = f->image;
     struct antidata *s = (struct antidata *)f->data;
-    register unsigned int *src;
+    unsigned int *src;
     unsigned short *destend, *dest;
     int ystart, y;
     int xstart;
-    register unsigned int sum1 = 0, sum2 = 0, sum;
+    unsigned int sum1 = 0, sum2 = 0, sum;
     unsigned int xstep = 1U << (s->shift - 1);
     int i;
     unsigned int mask1 = (srci->palette->info.truec.mask2 |
@@ -219,11 +219,11 @@ static void anti32(void *data, struct taskinfo *task, int r1, int r2)
     struct filter *f = (struct filter *)data;
     struct image *srci = f->childimage, *desti = f->image;
     struct antidata *s = (struct antidata *)f->data;
-    register unsigned int *src;
+    unsigned int *src;
     unsigned int *destend, *dest;
     unsigned int ystart, y;
     unsigned int xstart;
-    register unsigned int sum1 = 0, sum2 = 0;
+    unsigned int sum1 = 0, sum2 = 0;
     unsigned int xstep = 1U << s->shift;
     int i;
     if (!srci->palette->info.truec.byteexact) {

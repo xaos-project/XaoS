@@ -467,42 +467,42 @@ static inline int regioncode(struct image *img, const int x, const int y)
 }
 
 #define swap(x, y)                                                             \
-{                                                                          \
-    int temp = x;                                                          \
-    x = y;                                                                 \
-    y = temp;                                                              \
-}
+    {                                                                          \
+        int temp = x;                                                          \
+        x = y;                                                                 \
+        y = temp;                                                              \
+    }
 #define doclip(ret)                                                            \
     for (;;) {                                                                 \
-    int r1 = regioncode(img, x1, y1);                                      \
-    int r2 = regioncode(img, x2, y2);                                      \
-    if (!(r1 | r2))                                                        \
-    break; /* completely inside */                                     \
-    if (r1 & r2)                                                           \
-    ret; /* completely outside */                                      \
-    if (r1 == 0) {                                                         \
-    swap(x1, x2); /* make sure first */                                \
-    swap(y1, y2); /* point is outside */                               \
-    r1 = r2;                                                           \
-}                                                                      \
-    if (r1 & 1) { /* left */                                               \
-    y1 += (long)(__clipx1 - x1) * (long)(y2 - y1) / (long)(x2 - x1);   \
-    x1 = __clipx1;                                                     \
-} else if (r1 & 2) { /* right */                                       \
-    y1 += (long)(__clipx2 - x1) * (long)(y2 - y1) / (long)(x2 - x1);   \
-    x1 = __clipx2;                                                     \
-} else if (r1 & 4) { /* top */                                         \
-    x1 += (long)(__clipy1 - y1) * (long)(x2 - x1) / (long)(y2 - y1);   \
-    y1 = __clipy1;                                                     \
-} else if (r1 & 8) { /* bottom */                                      \
-    x1 += (long)(__clipy2 - y1) * (long)(x2 - x1) / (long)(y2 - y1);   \
-    y1 = __clipy2;                                                     \
-}                                                                      \
-}                                                                          \
+        int r1 = regioncode(img, x1, y1);                                      \
+        int r2 = regioncode(img, x2, y2);                                      \
+        if (!(r1 | r2))                                                        \
+            break; /* completely inside */                                     \
+        if (r1 & r2)                                                           \
+            ret; /* completely outside */                                      \
+        if (r1 == 0) {                                                         \
+            swap(x1, x2); /* make sure first */                                \
+            swap(y1, y2); /* point is outside */                               \
+            r1 = r2;                                                           \
+        }                                                                      \
+        if (r1 & 1) { /* left */                                               \
+            y1 += (long)(__clipx1 - x1) * (long)(y2 - y1) / (long)(x2 - x1);   \
+            x1 = __clipx1;                                                     \
+        } else if (r1 & 2) { /* right */                                       \
+            y1 += (long)(__clipx2 - x1) * (long)(y2 - y1) / (long)(x2 - x1);   \
+            x1 = __clipx2;                                                     \
+        } else if (r1 & 4) { /* top */                                         \
+            x1 += (long)(__clipy1 - y1) * (long)(x2 - x1) / (long)(y2 - y1);   \
+            y1 = __clipy1;                                                     \
+        } else if (r1 & 8) { /* bottom */                                      \
+            x1 += (long)(__clipy2 - y1) * (long)(x2 - x1) / (long)(y2 - y1);   \
+            y1 = __clipy2;                                                     \
+        }                                                                      \
+    }                                                                          \
     if (x2 < x1) {                                                             \
-    swap(x1, x2);                                                          \
-    swap(y1, y2);                                                          \
-}
+        swap(x1, x2);                                                          \
+        swap(y1, y2);                                                          \
+    }
 
 void xline(struct image *img, int x1, int y1, int x2, int y2, int color)
 {

@@ -1,6 +1,6 @@
 ﻿
-/* 
- *     XaoS, a fast portable realtime fractal zoomer 
+/*
+ *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
  *      Jan Hubicka          (hubicka@paru.cas.cz)
@@ -26,7 +26,8 @@
 #include "config.h"
 #include "ui_helper.h"
 
-void do_autopilot (uih_context *, int *, int *, int *, void (*)(void), int times);
-void clean_autopilot (uih_context *);
+void do_autopilot(uih_context *, int *, int *, int *, void (*)(void),
+                  int times);
+void clean_autopilot(uih_context *);
 
 #endif

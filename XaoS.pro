@@ -9,9 +9,6 @@ TEMPLATE = app
 
 QT += widgets
 
-QMAKE_CFLAGS_WARN_ON -= -Wall
-QMAKE_CXXFLAGS_WARN_ON -= -Wall
-
 macx {
     TARGET = XaoS
 } else {

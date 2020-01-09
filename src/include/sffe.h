@@ -149,7 +149,7 @@ int sffe_parse(sffe **parser, const char *expression);
 /* evaulate function and return evaluation result */
 sfNumber sffe_eval(sffe *const parser);
 
-/* register user function with name 'vname', with 'parcnt' parameters and
+/* user function with name 'vname', with 'parcnt' parameters and
  * defined with function pointed by 'funptr'*/
 void *sffe_regfunc(sffe **parser, const char *vname, unsigned int parcnt,
                    sffptr funptr);
@@ -158,11 +158,11 @@ void *sffe_regfunc(sffe **parser, const char *vname, unsigned int parcnt,
  */
 sfvariable *sffe_var(sffe *const parser, const char *name);
 
-/* register single variable 'vptrs' identified by name 'vchars' */
+/* single variable 'vptrs' identified by name 'vchars' */
 // void *sffe_regvar(sffe ** parser, sfNumber * vptrs, char vchars);
 sfvariable *sffe_regvar(sffe **parser, sfNumber *vptrs, const char *name);
 
-/* register multiple variables */
+/* multiple variables */
 void sffe_regvars(sffe **parser, unsigned int cN, sfNumber **vptrs,
                   char *const *names);
 

@@ -155,13 +155,15 @@ static int doit(struct filter *f, int flags, int time)
             free(d->pixels);
         i = 0;
         if (d->stereogrammode) {
-            d->pixels = (unsigned int *)malloc((f->childimage->height) * sizeof(*d->pixels));
+            d->pixels = (unsigned int *)malloc((f->childimage->height) *
+                                               sizeof(*d->pixels));
             for (i = 0; i < (unsigned int)f->childimage->height; i++) {
                 d->pixels[i] =
                     (f->childimage->height - i) * 255 / f->childimage->height;
             }
         } else {
-            d->pixels = (unsigned int *)malloc((d->colheight + 5) * sizeof(*d->pixels));
+            d->pixels =
+                (unsigned int *)malloc((d->colheight + 5) * sizeof(*d->pixels));
             for (; i < d->colheight; i++) {
                 int c = i * (f->image->palette->size) / d->colheight;
                 if (c > f->image->palette->size - 1)

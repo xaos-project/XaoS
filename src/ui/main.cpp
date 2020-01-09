@@ -260,11 +260,12 @@ int ui_render(void)
 
 const char *qt_gettext(const char *context, const char *text)
 {
-    static std::map<std::pair<const char *, const char *>, const char *> strings;
+    static std::map<std::pair<const char *, const char *>, const char *>
+        strings;
     const char *trans = strings[std::make_pair(context, text)];
     if (trans == NULL) {
-        trans =
-            strdup(QCoreApplication::translate(context, text).toStdString().c_str());
+        trans = strdup(
+            QCoreApplication::translate(context, text).toStdString().c_str());
         strings[std::make_pair(context, text)] = trans;
     }
     return trans;

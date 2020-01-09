@@ -28,13 +28,13 @@ static void do_rotate(void *data, struct taskinfo *task, int r1, int r2)
     for (i = r1; i < r2; i++) {
 
         {
-            register int ix = (int)x;
-            register int iy = (int)y;
-            register cpixel_t **vbuff = (cpixel_t **)f->childimage->currlines;
-            register cpixel_t *end = p_add((cpixel_t *)f->image->currlines[i],
-                                           f->image->width),
-                              *dest = (cpixel_t *)f->image->currlines[i];
-            register int iixstep = ixstep, iiystep = iystep;
+            int ix = (int)x;
+            int iy = (int)y;
+            cpixel_t **vbuff = (cpixel_t **)f->childimage->currlines;
+            cpixel_t *end = p_add((cpixel_t *)f->image->currlines[i],
+                                  f->image->width),
+                     *dest = (cpixel_t *)f->image->currlines[i];
+            int iixstep = ixstep, iiystep = iystep;
 
             while (dest < end) {
                 p_copy(dest, 0, (cpixel_t *)(vbuff[iy >> 16]), (ix >> 16));

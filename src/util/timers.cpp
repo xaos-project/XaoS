@@ -54,14 +54,13 @@ static tl_group group1;
 tl_group *syncgroup = &group1;
 
 /*following functions are architecture dependent */
-void tl_update_time(void)
-{
-    currenttime = std::chrono::steady_clock::now();
-}
+void tl_update_time(void) { currenttime = std::chrono::steady_clock::now(); }
 
 static inline int __lookup_timer(tl_timer *t)
 {
-    return std::chrono::duration_cast<std::chrono::microseconds>(currenttime - t->lastactivated).count();
+    return std::chrono::duration_cast<std::chrono::microseconds>(
+               currenttime - t->lastactivated)
+        .count();
 }
 
 int tl_lookup_timer(tl_timer *t)

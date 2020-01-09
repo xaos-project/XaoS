@@ -544,7 +544,7 @@ int boundarytrace(int x1, int y1, int x2, int y2, number_t *xpos,
         }
     }
     if (cy1 != y1) {
-        register int yy1, yy2;
+        int yy1, yy2;
         int xstart = x1 * cimage.bytesperpixel;
         int xsize = (x2 - x1 + 1) * cimage.bytesperpixel;
         yy1 = y1;
@@ -557,7 +557,7 @@ int boundarytrace(int x1, int y1, int x2, int y2, number_t *xpos,
         }
     }
     if (cy2 != y2) {
-        register int yy1, yy2;
+        int yy1, yy2;
         int xstart = x1 * cimage.bytesperpixel;
         int xsize = (x2 - x1 + 1) * cimage.bytesperpixel;
         yy1 = y2;
