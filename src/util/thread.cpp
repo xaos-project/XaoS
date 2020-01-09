@@ -4,6 +4,9 @@
 #include "xthread.h"
 struct taskinfo definfo = {
     0,
+#ifdef USE_PTHREAD
+    0
+#endif
 };
 
 #ifndef nthreads
