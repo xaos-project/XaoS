@@ -65,7 +65,6 @@ typedef struct {
     /*FIXME changed from char* to char[20] to get rid of warnings during
      * compilation */
     char *name;
-    void *payload; // unmanaged opaque memory pointer
 } sffunction;
 
 /* basic sffe 'stack' operation ( function + result slot ) */
