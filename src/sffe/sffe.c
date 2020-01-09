@@ -986,9 +986,9 @@ int sffe_parse(sffe **parser, const char *expression)
 
                     sffunction *function = *_function;
 
+#ifdef SFFE_DEVEL
                     struct _operator *opstck =
                         &_expression->stck[_expression->size];
-#ifdef SFFE_DEVEL
                     opstck->c = *ech;
 #endif
 
