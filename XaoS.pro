@@ -31,6 +31,10 @@ CONFIG(debug, debug|release) {
     win32:CONFIG += console
 }
 
+CONFIG += optimize_full
+QMAKE_CXXFLAGS += -ffast-math
+QMAKE_CFLAGS += -ffast-math
+
 RESOURCES += XaoS.qrc
 
 DESTDIR = $$PWD/bin
