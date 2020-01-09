@@ -658,11 +658,13 @@ int sffe_parse(sffe **parser, const char *expression)
         switch (*ech) {
             case '[':
                 *ech = '(';
+                /* FALLTHROUGH */
             case '(':
                 ui1 += 1;
                 break;
             case ']':
                 *ech = ')';
+                /* FALLTHROUGH */
             case ')':
                 ui1 -= 1;
                 break;
