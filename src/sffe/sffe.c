@@ -7,12 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <setjmp.h>
-
-#ifdef __APPLE__
 #include <ctype.h>
-#elif __linux
-#include <ctype.h>
-#endif
 
 #include <string.h>
 
