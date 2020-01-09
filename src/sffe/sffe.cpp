@@ -4,12 +4,11 @@
 // wpage   : malczak.info
 /////////////////////////////////////////////////////////////////////////////////////*/
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <setjmp.h>
-#include <ctype.h>
-
-#include <string.h>
+#include <cstdlib>
+#include <cstdio>
+#include <csetjmp>
+#include <cctype>
+#include <cstring>
 
 #ifdef SFFE_DEVEL
 #include <time.h>
