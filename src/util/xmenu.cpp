@@ -604,6 +604,7 @@ const char *menu_fillparam(struct uih_context *uih, tokenfunc f,
                     return NULL;
                 }
             }
+            break;
         default:
             x_error("Unknown dialog parameter type!");
     } /*switch */
