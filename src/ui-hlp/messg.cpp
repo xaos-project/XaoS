@@ -78,7 +78,7 @@ void uih_initmessages(uih_context *c)
     long i;
     for (i = 0; i < NMESSAGES; i++) {
         c->messg.message[i] = NULL;
-        c->messg.w[i] = uih_registerw(c, getpos, draw, (void *)i, 0);
+        c->messg.w[i] = uih_registerw(c, getpos, draw, (void *)(size_t)i, 0);
     }
     c->messg.messagestart = 0;
 }
