@@ -274,20 +274,6 @@ const menuitem *menu_item(const char *menu, int n)
     return NULL;
 }
 
-static const menuitem *menu_item2(const char *menu, int n)
-{
-    struct entry *item = firstitem;
-    while (item != NULL) {
-        if (!strcmp(menu, item->item->menuname)) {
-            n--;
-            if (n < 0)
-                return (item->item);
-        }
-        item = item->next;
-    }
-    return NULL;
-}
-
 int menu_havedialog(const menuitem *item, struct uih_context *c)
 {
     if (item->type != MENU_DIALOG && item->type != MENU_CUSTOMDIALOG)
@@ -720,7 +706,7 @@ const char *menu_processcommand(struct uih_context *uih, tokenfunc f,
 static int argpos, margc;
 static char **margv;
 static int argposs;
-static char *gettoken(struct uih_context *c)
+static char *gettoken(struct uih_context */*c*/)
 {
     if (argpos == margc)
         return NULL;
