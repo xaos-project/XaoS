@@ -19,10 +19,6 @@
 #define real(c) GSL_REAL((c))
 #define imag(c) GSL_IMAG((c))
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 sfarg *sfadd(sfarg *const p);   /*  +  */
 sfarg *sfsub(sfarg *const p);   /*  -  */
 sfarg *sfmul(sfarg *const p);   /*  *  */
@@ -67,10 +63,6 @@ void sfc2PI(sfNumber *cnst);
 void sfcE(sfNumber *cnst);
 void sfcI(sfNumber *cnst);
 void sfcRND(sfNumber *cnst);
-
-#ifdef __cplusplus
-}
-#endif
 
 /* all available function (function pointer, number of parameters, name )*/
 extern const sffunction sfcmplxfunc[sffnctscount];

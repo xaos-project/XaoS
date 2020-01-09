@@ -131,10 +131,6 @@ typedef struct {
     return r;
 /* and so on */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /* create formula evaluator structure */
 sffe *sffe_alloc(void);
 /* free fe structure */
@@ -171,10 +167,6 @@ void sffe_regvars(sffe **parser, unsigned int cN, sfNumber **vptrs,
 
 /* set 'vptrs' as 'vchars' variable  */
 sfNumber *sffe_setvar(sffe **parser, sfNumber vptrs, const char *name);
-
-#ifdef __cplusplus
-}
-#endif
 
 #ifdef SFFE_CMPLX_ASM
 #include "sffe_cmplx_asm.h"
