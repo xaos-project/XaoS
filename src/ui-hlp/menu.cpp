@@ -917,7 +917,7 @@ void uih_registermenus_i18n(void)
     MENUSEPARATOR_I("file");
     MENUDIALOG_I("file", NULL, TR("Menu", "Save image"), "saveimg", 0,
                  uih_savepngfile, saveimgdialog);
-    MENUDIALOG_I("file", NULL, TR("Menu", "Render animation"), "renderanim", UI,
+    MENUDIALOG_I("file", NULL, TR("Menu", "Render"), "renderanim", UI,
                  uih_render, uih_renderdialog);
     MENUSEPARATOR_I("file");
     MENUNOP_I("file", NULL, TR("Menu", "Load random example"), "loadexample",
