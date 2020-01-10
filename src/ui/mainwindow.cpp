@@ -658,18 +658,15 @@ MainWindow::~MainWindow()
 void MainWindow::readSettings()
 {
     QSettings settings;
-    QPoint pos = settings.value("windowPosition", QPoint(200, 200)).toPoint();
-    QSize size = settings.value("imageSize", QSize(640, 480)).toSize();
-    widget->setSizeHint(size);
-    move(pos);
+    restoreGeometry(settings.value("MainWindow/geometry").toByteArray());
+    restoreState(settings.value("MainWindow/windowState").toByteArray());
 }
 
 void MainWindow::writeSettings()
 {
     QSettings settings;
-    settings.setValue("windowPosition", pos());
-    settings.setValue("imageSize", size());
-}
+    settings.setValue("MainWindow/geometry", saveGeometry());
+    settings.setValue("MainWindow/windowState", saveState());}
 
 void MainWindow::closeEvent(QCloseEvent *)
 {

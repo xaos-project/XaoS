@@ -35,7 +35,6 @@ class FractalWidget : public QWidget
   public:
     FractalWidget();
     QSize sizeHint() const;
-    void setSizeHint(const QSize &size);
     QPoint mousePosition();
     void setImage(struct image *image);
 };

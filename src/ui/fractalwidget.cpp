@@ -20,9 +20,7 @@ QPoint FractalWidget::mousePosition() { return m_mousePosition; }
 
 void FractalWidget::setImage(struct image *image) { m_image = image; }
 
-QSize FractalWidget::sizeHint() const { return m_sizeHint; }
-
-void FractalWidget::setSizeHint(const QSize &size) { m_sizeHint = size; }
+QSize FractalWidget::sizeHint() const { return QSize(800, 600); }
 
 #ifdef USE_OPENGL
 void FractalWidget::paintGL()
