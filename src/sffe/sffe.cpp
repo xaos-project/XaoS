@@ -15,6 +15,7 @@
 #endif
 
 #include "sffe.h"
+#include "i18n.h"
 
 #ifdef SFFE_CMPLX_ASM
 #include "sffe_cmplx_asm.h"
@@ -103,40 +104,40 @@ void sffe_setup_error(sffe *parser, enum sffe_error err, char *ptr)
     if (parser->errormsg) {
         switch (err) {
             case MEMERROR:
-                sprintf(parser->errormsg, "Formula error ! MEMORY ERROR!!");
+                sprintf(parser->errormsg, TR("Message", "Formula error: out of memory."));
                 break;
             case UNBALANCEDBRACKES:
                 sprintf(parser->errormsg,
-                        "Formula error ! UNBALANCED BRACKETS!! : %s", ptr);
+                        TR("Message", "Formula error: unbalanced brackets: %s"), ptr);
                 break;
             case INVALIDFUNCTION:
                 sprintf(parser->errormsg,
-                        "Formula error ! UNKNOWN FUNCTION!! : %s", ptr);
+                        TR("Message", "Formula error: unknown function: %s"), ptr);
                 break;
             case INAVLIDNUMBER:
                 sprintf(parser->errormsg,
-                        "Formula error ! NUMBER FORMAT!! : %s", ptr);
+                        TR("Message", "Formula error: invalid number format: %s"), ptr);
                 break;
             case UNKNOWNCONST:
                 sprintf(parser->errormsg,
-                        "Formula error ! UNKOWN CONST or VAR NAME!! : %s", ptr);
+                        TR("Message", "Formula error: unknown constant or variable: %s"), ptr);
                 break;
             case OPERATOR:
                 sprintf(parser->errormsg,
-                        "Formula error ! UNKNOWN OPERATOR!! : %s", ptr);
+                        TR("Message", "Formula error: unknown operator: %s"), ptr);
                 break;
             case STACKERROR:
                 sprintf(parser->errormsg,
-                        "Formula error ! INTERNAL STACK CORRUPTED!! : %s", ptr);
+                        TR("Message", "Formula error: stack corrupted: %s"), ptr);
                 break;
             case PARCNTERROR:
                 sprintf(parser->errormsg,
-                        "Formula error ! FUNCTION PARAMETERS ERROR!! : %s",
+                        TR("Message", "Formula error: incorrect parameters for function: %s"),
                         ptr);
                 break;
             case NO_FUNCTIONS:
                 sprintf(parser->errormsg,
-                        "Formula error ! ARE YOU KIDDING ME ?!? : %s", ptr);
+                        TR("Message", "Formula error: internal error: %s"), ptr);
                 break;
         };
     }
