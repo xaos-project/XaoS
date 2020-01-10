@@ -783,7 +783,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="854"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ação</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="856"/>
@@ -855,12 +855,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="905"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Novo</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="906"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Abrir</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="909"/>
@@ -1197,7 +1197,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1084"/>
         <source>Hide Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Esconder Mensagens</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1087"/>
@@ -1360,7 +1360,7 @@
         <location filename="../src/ui/main.cpp" line="367"/>
         <location filename="../src/ui/main.cpp" line="369"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tela cheia</translation>
     </message>
 </context>
 <context>
