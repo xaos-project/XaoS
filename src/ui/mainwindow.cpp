@@ -666,7 +666,8 @@ void MainWindow::writeSettings()
 {
     QSettings settings;
     settings.setValue("MainWindow/geometry", saveGeometry());
-    settings.setValue("MainWindow/windowState", saveState());}
+    settings.setValue("MainWindow/windowState", saveState());
+}
 
 void MainWindow::closeEvent(QCloseEvent *)
 {
@@ -824,13 +825,15 @@ void MainWindow::showDialog(const char *name)
         QString filter =
             QString("*.%1").arg(QFileInfo(dialog[0].defstr).completeSuffix());
 
+        QSettings settings;
+        QString fileLocation = settings.value("MainWindow/lastFileLocation", QDir::homePath()).toString();
         QString fileName;
         if (dialog[0].type == DIALOG_IFILE)
             fileName = QFileDialog::getOpenFileName(this, item->name,
-                                                    QDir::homePath(), filter);
+                                                    fileLocation, filter);
         else if (dialog[0].type == DIALOG_OFILE) {
             char defname[256];
-            strcpy(defname, QDir::home().filePath(dialog[0].defstr).toUtf8());
+            strcpy(defname, QDir(fileLocation).filePath(dialog[0].defstr).toUtf8());
             char *split = strchr(defname, '*');
             *split = 0;
             strcpy(defname, xio_getfilename(defname, split + 1));
@@ -845,6 +848,7 @@ void MainWindow::showDialog(const char *name)
             dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
             param->dstring = strdup(fileName.toUtf8());
             menuActivate(item, param);
+            settings.setValue("MainWindow/lastFileLocation", QFileInfo(fileName).absolutePath());
         }
     } else {
         CustomDialog customDialog(uih, item, dialog, this);

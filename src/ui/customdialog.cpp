@@ -181,18 +181,25 @@ void CustomDialog::chooseInputFile()
 {
     QLineEdit *field = findChild<QLineEdit *>(sender()->objectName());
 
+    QSettings settings;
+    QString fileLocation = settings.value("MainWindow/lastFileLocation", QDir::homePath()).toString();
     QString fileName = QFileDialog::getOpenFileName(
-        this, sender()->objectName(), QDir::homePath(), "*.xpf *.xaf");
+        this, sender()->objectName(), fileLocation, "*.xpf *.xaf");
     if (!fileName.isNull()) {
         field->setText(fileName);
+        settings.setValue("MainWindow/lastFileLocation", QFileInfo(fileName).absolutePath());
     }
 }
 
 void CustomDialog::chooseOutputFile()
 {
     QLineEdit *field = findChild<QLineEdit *>(sender()->objectName());
+    QSettings settings;
+    QString fileLocation = settings.value("MainWindow/lastFileLocation", QDir::homePath()).toString();
     QString fileName = QFileDialog::getSaveFileName(
-        this, sender()->objectName(), QDir::homePath());
-    if (!fileName.isNull())
+        this, sender()->objectName(), fileLocation);
+    if (!fileName.isNull()) {
         field->setText(fileName);
+        settings.setValue("MainWindow/lastFileLocation", QFileInfo(fileName).absolutePath());
+    }
 }
