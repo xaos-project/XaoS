@@ -346,14 +346,13 @@ void uih_saveframe(struct uih_context *uih)
                 s->fcontext->currentformula = uih->fcontext->currentformula;
 #ifdef USE_SFFE
             /*SFFE : malczak */
-            if ((int)(uih->fcontext->currentformula - formulas) ==
-                24) // user formula
-            {
-                save_stringc(uih, "usrform", uih->parser->expression);
-                if (uih->pinit)
-                    save_stringc(uih, "usrformInit", uih->pinit->expression);
-                else
-                    save_stringc(uih, "usrformInit", "");
+            if (uih->fcontext->currentformula->flags & SFFE_FRACTAL) {
+                if (uih->fcontext->userformula->expression)
+                    save_stringc(uih, "usrform",
+                                 uih->fcontext->userformula->expression);
+                if (uih->fcontext->userinitial->expression)
+                    save_stringc(uih, "usrformInit",
+                                 uih->fcontext->userinitial->expression);
             };
 /*SFFE : malczak */
 #endif

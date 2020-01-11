@@ -35,9 +35,4 @@ extern int delaytime;
 extern int defthreads;
 extern int maxframerate;
 extern float pixelwidth, pixelheight;
-
-#ifdef USE_SFFE
-extern char *sffeform;
-extern char *sffeinit;
-#endif
 #endif /* UI_H */

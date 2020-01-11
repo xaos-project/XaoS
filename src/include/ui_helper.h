@@ -3,9 +3,6 @@
 #include "timers.h"
 #include "xio.h"
 #include "fractal.h"
-#ifdef USE_SFFE
-#include "sffe.h"
-#endif
 
 #define MAXFILTERS 20
 #define AVRGSIZE 50
@@ -271,15 +268,8 @@ struct uih_context {
 
     /* user data */
     void *data;
-
-#ifdef USE_SFFE
-    /*User formulas (used in sffe parser) */
-    /*sffe *cparser;  user define c evaluation formula, not used now, not used
-     * yet */
-    sffe *parser; /* fractal formula */
-    sffe *pinit;
-#endif
 };
+
 typedef void (*uih_getposfunc)(struct uih_context *c, int *x, int *y,
                                int *width, int *height, void *data);
 typedef void (*uih_drawfunc)(struct uih_context *c, void *data);
@@ -353,7 +343,6 @@ typedef struct uih_context uih_context;
 extern const struct filteraction *const uih_filters[MAXFILTERS];
 extern const int uih_nfilters;
 
-extern struct uih_context *globaluih;
 extern const char *const xtextposnames[];
 extern const char *const ytextposnames[];
 
@@ -538,5 +527,6 @@ void uih_status(uih_context *uih);
 int uih_statusenabled(uih_context *uih);
 int uih_ministatusenabled(uih_context *uih);
 void uih_ministatus(uih_context *uih);
+void uih_sffeset(uih_context *c, sffe *parser, const char *formula);
 
 #endif

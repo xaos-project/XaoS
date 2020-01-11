@@ -25,10 +25,6 @@
 #include "config.h"
 #include "zoom.h"
 
-#ifdef USE_SFFE
-#include "sffe.h"
-#endif
-
 /*#define PLANES 7*/
 #define P_MU 0
 #define P_INVERSE 1
@@ -41,9 +37,5 @@
 extern void recalculate(int plane, number_t *, number_t *);
 
 extern const char *const planename[];
-
-#ifdef USE_SFFE
-extern const sffe *planec;
-#endif
 
 #endif /* PLANE_H */

@@ -23,6 +23,10 @@
 #define FRACTAL1_H
 
 #include "config.h"
+#ifdef USE_SFFE
+#include "sffe.h"
+#endif
+
 #define INCOLORING 11
 #define OUTCOLORING 11
 #define TCOLOR 15
@@ -65,6 +69,10 @@ struct fractal_context {
     number_t pre, pim;
     number_t bre, bim;
     const struct formula *currentformula;
+#ifdef USE_SFFE
+    sffe *userformula;
+    sffe *userinitial;
+#endif
     number_t angle;
     int periodicity;
     unsigned int maxiter;
@@ -99,7 +107,6 @@ struct symmetryinfo2 {
 #define STARTZERO 1
 #define JULIA_BTRACE 2
 #define MANDEL_BTRACE 4
-
 #ifdef USE_SFFE
 #define SFFE_FRACTAL 8
 #endif
@@ -121,6 +128,10 @@ struct symmetryinfo2 {
         y = -(x) * (f).sin + (y) * (f).cos;                                    \
         x = tmp;                                                               \
     }
+
+#ifdef USE_SFFE
+void sffe_setlocal(fractal_context *c);
+#endif
 
 extern struct symmetryinfo2 cursymmetry;
 extern struct fractal_context cfractalc;

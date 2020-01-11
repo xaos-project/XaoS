@@ -27,9 +27,6 @@
 #include <libgen.h>
 #endif
 
-#ifdef USE_SFFE
-#include "sffe.h"
-#endif
 #include "i18n.h"
 
 #ifndef M_PI
@@ -256,7 +253,7 @@ void uih_rotate(struct uih_context *c, int n)
     }
 }
 
-static void uih_fixedcolordisable(uih_context */*c*/)
+static void uih_fixedcolordisable(uih_context * /*c*/)
 {
 #ifdef SCONVERTORS
     if (c->fixedcolor != NULL) {
@@ -275,7 +272,7 @@ static void uih_fixedcolordisable(uih_context */*c*/)
 #endif
 }
 
-static int uih_fixedcolorenable(uih_context */*c*/)
+static int uih_fixedcolorenable(uih_context * /*c*/)
 {
 #ifdef SCONVERTORS
     const struct filteraction *fa = NULL;
@@ -1880,7 +1877,7 @@ int uih_updateimage(uih_context *c, struct image *image)
 }
 
 static void uih_getcscreensizes(struct uih_context *uih, int *x, int *y, int *w,
-                                int *h, void */*data*/)
+                                int *h, void * /*data*/)
 {
     *x = 0;
     *y = 0;
@@ -1890,16 +1887,11 @@ static void uih_getcscreensizes(struct uih_context *uih, int *x, int *y, int *w,
         *w = *h = 0;
 }
 
-static void uih_drawcscreen(struct uih_context *uih, void */*data*/)
+static void uih_drawcscreen(struct uih_context *uih, void * /*data*/)
 {
     if (uih->clearscreen)
         clear_image(uih->image);
 }
-
-#ifdef USE_SFFE
-extern cmplx C, Z, pZ, N;
-#endif
-struct uih_context *globaluih;
 
 struct uih_context *
 uih_mkcontext(int flags, struct image *image,
@@ -1953,21 +1945,6 @@ uih_mkcontext(int flags, struct image *image,
     uih->maintimer = tl_create_timer();
     uih->calculatetimer = tl_create_timer();
     uih->doittimer = tl_create_timer();
-#ifdef USE_SFFE
-    uih->pinit = NULL;
-    uih->parser = sffe_alloc();
-    /* uih->cparser = sffe_alloc(); */
-    sffe_regvar(&uih->parser, &pZ, "p");
-    sffe_regvar(&uih->parser, &Z, "z");
-    sffe_regvar(&uih->parser, &C, "c");
-    sffe_regvar(&uih->parser, &N, "n");
-    /* sffe_regvar( &uih->cparser, &C, */
-#endif
-    /* 25.I.2009, Bugfix #2507911, malczak
-     * initilize globaluih here, not in 'ui.c'
-     */
-    globaluih = uih;
-
     tl_update_time();
     tl_reset_timer(uih->maintimer);
     tl_reset_timer(uih->calculatetimer);
@@ -1986,6 +1963,10 @@ uih_mkcontext(int flags, struct image *image,
     uih_initmessages(uih);
     uih_inittext(uih);
     uih_emulatetimers(uih);
+#ifdef USE_SFFE
+    sffe_parse(&uih->fcontext->userformula, USER_FORMULA);
+    sffe_parse(&uih->fcontext->userinitial, "");
+#endif
     uih_setformula(uih, 0);
     uih_saveundo(uih);
     return (uih);
@@ -2036,6 +2017,31 @@ void uih_setformula(uih_context *c, int num)
     uih_updatemenus(c, c->fcontext->currentformula->shortname);
 }
 
+void uih_sffeset(uih_context *c, sffe *parser, const char *formula)
+{
+    char error[200];
+    char previous[200];
+    if (c->fcontext->userformula->expression)
+        strcpy(previous, c->fcontext->userformula->expression);
+    else
+        strcpy(previous, USER_FORMULA);
+    parser->errormsg = error;
+    if (sffe_parse(&parser, formula) > 0) {
+        uih_error(c, error);
+        sffe_parse(&parser, previous);
+    } else {
+        if (parser->expression)
+            uih_message(c, parser->expression);
+        sffe_setlocal(c->fcontext);
+        if (!(c->fcontext->currentformula->flags & SFFE_FRACTAL)) {
+            uih_play_formula(c, "user");
+        } else {
+            uih_recalculate(c);
+        }
+    }
+    parser->errormsg = NULL;
+}
+
 void uih_initstate(struct uih_context *uih)
 {
     int i;
@@ -2051,6 +2057,10 @@ void uih_initstate(struct uih_context *uih)
         uih_disablefilter(uih, i);
     uih_setperbutation(uih, 0, 0);
     set_formula(uih->fcontext, 0);
+#ifdef USE_SFFE
+    sffe_parse(&uih->fcontext->userformula, USER_FORMULA);
+    sffe_parse(&uih->fcontext->userinitial, "");
+#endif
     uih_setperiodicity(uih, 1);
     uih_setmaxiter(uih, 170);
     uih_setbailout(uih, 4);
@@ -2088,12 +2098,6 @@ void uih_freecontext(uih_context *c)
 {
     struct filter *f;
     int i;
-#ifdef USE_SFFE
-    /* sffe_free(&c->cparser); */
-    sffe_free(&c->parser);
-    if (c->pinit)
-        sffe_free(&c->pinit);
-#endif
     if (c->emulator != NULL)
         uih_noconstantframetime(c);
     for (i = 0; i < UNDOLEVEL; i++)
@@ -2241,7 +2245,7 @@ void uih_updatestarts(uih_context *uih)
 }
 
 static void uih_statuspos(uih_context *uih, int *x, int *y, int *w, int *h,
-                          void */*data*/)
+                          void * /*data*/)
 {
     *x = 0;
     *y = statusstart;
@@ -2249,7 +2253,7 @@ static void uih_statuspos(uih_context *uih, int *x, int *y, int *w, int *h,
     *h = xtextheight(uih->image, uih->font) * STATUSLINES;
 }
 
-static void uih_drawstatus(uih_context *uih, void */*data*/)
+static void uih_drawstatus(uih_context *uih, void * /*data*/)
 {
     char str[6000];
     int h = xtextheight(uih->image, uih->font);
@@ -2261,8 +2265,10 @@ static void uih_drawstatus(uih_context *uih, void */*data*/)
             uih->fcontext->mandelbrot ? TR("Message", "Mandelbrot")
                                       : TR("Message", "Julia"));
 #ifdef USE_SFFE
-    if (uih->fcontext->currentformula->flags & SFFE_FRACTAL) {
-        sprintf(str, TR("Message", "Formula:%s"), uih->parser->expression);
+    if (uih->fcontext->currentformula->flags & SFFE_FRACTAL &&
+        uih->fcontext->userformula->expression) {
+        sprintf(str, TR("Message", "Formula:%s"),
+                uih->fcontext->userformula->expression);
     };
 #endif
     xprint(uih->image, uih->font, 0, statusstart + h, str, FGCOLOR(uih),
@@ -2336,10 +2342,10 @@ void uih_status(uih_context *uih)
     uih_updatestarts(uih);
 }
 
-int uih_statusenabled(uih_context */*uih*/) { return (statuswindow != NULL); }
+int uih_statusenabled(uih_context * /*uih*/) { return (statuswindow != NULL); }
 
 static void uih_ministatuspos(uih_context *uih, int *x, int *y, int *w, int *h,
-                              void */*data*/)
+                              void * /*data*/)
 {
     *x = 0;
     *y = ministatusstart;
@@ -2347,7 +2353,7 @@ static void uih_ministatuspos(uih_context *uih, int *x, int *y, int *w, int *h,
     *h = xtextheight(uih->image, uih->font);
 }
 
-static void uih_drawministatus(uih_context *uih, void */*data*/)
+static void uih_drawministatus(uih_context *uih, void * /*data*/)
 {
     xprint(uih->image, uih->font, 0, ministatusstart, statustext, FGCOLOR(uih),
            BGCOLOR(uih), 0);
@@ -2367,7 +2373,7 @@ void uih_ministatus(uih_context *uih)
     uih_updatemenus(uih, "animministatus");
 }
 
-int uih_ministatusenabled(uih_context */*uih*/)
+int uih_ministatusenabled(uih_context * /*uih*/)
 {
     return (ministatuswindow != NULL);
 }

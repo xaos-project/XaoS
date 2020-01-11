@@ -104,40 +104,52 @@ void sffe_setup_error(sffe *parser, enum sffe_error err, char *ptr)
     if (parser->errormsg) {
         switch (err) {
             case MEMERROR:
-                sprintf(parser->errormsg, TR("Message", "Formula error: out of memory."));
+                sprintf(parser->errormsg,
+                        TR("Message", "Formula error: out of memory."));
                 break;
             case UNBALANCEDBRACKES:
                 sprintf(parser->errormsg,
-                        TR("Message", "Formula error: unbalanced brackets: %s"), ptr);
+                        TR("Message", "Formula error: unbalanced brackets: %s"),
+                        ptr);
                 break;
             case INVALIDFUNCTION:
                 sprintf(parser->errormsg,
-                        TR("Message", "Formula error: unknown function: %s"), ptr);
+                        TR("Message", "Formula error: unknown function: %s"),
+                        ptr);
                 break;
             case INAVLIDNUMBER:
-                sprintf(parser->errormsg,
-                        TR("Message", "Formula error: invalid number format: %s"), ptr);
+                sprintf(
+                    parser->errormsg,
+                    TR("Message", "Formula error: invalid number format: %s"),
+                    ptr);
                 break;
             case UNKNOWNCONST:
                 sprintf(parser->errormsg,
-                        TR("Message", "Formula error: unknown constant or variable: %s"), ptr);
+                        TR("Message",
+                           "Formula error: unknown constant or variable: %s"),
+                        ptr);
                 break;
             case OPERATOR:
                 sprintf(parser->errormsg,
-                        TR("Message", "Formula error: unknown operator: %s"), ptr);
+                        TR("Message", "Formula error: unknown operator: %s"),
+                        ptr);
                 break;
             case STACKERROR:
                 sprintf(parser->errormsg,
-                        TR("Message", "Formula error: stack corrupted: %s"), ptr);
+                        TR("Message", "Formula error: stack corrupted: %s"),
+                        ptr);
                 break;
             case PARCNTERROR:
-                sprintf(parser->errormsg,
-                        TR("Message", "Formula error: incorrect parameters for function: %s"),
-                        ptr);
+                sprintf(
+                    parser->errormsg,
+                    TR("Message",
+                       "Formula error: incorrect parameters for function: %s"),
+                    ptr);
                 break;
             case NO_FUNCTIONS:
                 sprintf(parser->errormsg,
-                        TR("Message", "Formula error: internal error: %s"), ptr);
+                        TR("Message", "Formula error: internal error: %s"),
+                        ptr);
                 break;
         };
     }
@@ -252,7 +264,6 @@ void sffe_clear(sffe **parser)
     if (p->oprs) {
         free(p->oprs);
     }
-
     p->expression = NULL;
     p->args = NULL;
     p->oprs = NULL;
@@ -328,8 +339,8 @@ sfvariable *sffe_regvar(sffe **parser, sfNumber *vptrs, const char *name)
     }
 
     int vars_cnt = parser_->varCount + 1;
-    parser_->variables =
-        (sfvariable *)realloc(parser_->variables, vars_cnt * sizeof(sfvariable));
+    parser_->variables = (sfvariable *)realloc(parser_->variables,
+                                               vars_cnt * sizeof(sfvariable));
     if (!parser_->variables) {
         return NULL;
     }
@@ -622,6 +633,11 @@ int sffe_parse(sffe **parser, const char *expression)
     /* clear all internal structures */
     if (_parser->expression) {
         sffe_clear(parser);
+    }
+
+    /* just quit early if no expression given */
+    if (expression[0] == 0) {
+        return err;
     }
 
     _parser->oprCount = 0;
@@ -1259,9 +1275,9 @@ int sffe_parse(sffe **parser, const char *expression)
 #endif
         sffe_setup_error(_parser, err, ch1);
         sffe_clear(&_parser);
-    };
+    }
 
-        /*undefine defines */
+    /*undefine defines */
 #undef priority
 #undef sfpopstack
 #undef insertfnc

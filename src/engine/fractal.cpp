@@ -313,11 +313,36 @@ fractal_context *make_fractalc(const int formula, float wi, float he)
     new_ctxt->slowmode = 0;
     new_ctxt->range = 3;
     new_ctxt->angle = 0;
+#ifdef USE_SFFE
+    // These parsers don't actually calculate anything; they're just
+    // here to validate the formula before it's sent to the thread
+    // local parsers, so the variables are just set to a dummy location
+    // to make them legal for the parser
+    static cmplx sffe_dummy;
+    new_ctxt->userformula = sffe_alloc();
+    sffe_regvar(&new_ctxt->userformula, &sffe_dummy, "p");
+    sffe_regvar(&new_ctxt->userformula, &sffe_dummy, "z");
+    sffe_regvar(&new_ctxt->userformula, &sffe_dummy, "c");
+    sffe_regvar(&new_ctxt->userformula, &sffe_dummy, "n");
+
+    new_ctxt->userinitial = sffe_alloc();
+    sffe_regvar(&new_ctxt->userinitial, &sffe_dummy, "p");
+    sffe_regvar(&new_ctxt->userinitial, &sffe_dummy, "z");
+    sffe_regvar(&new_ctxt->userinitial, &sffe_dummy, "c");
+    sffe_regvar(&new_ctxt->userinitial, &sffe_dummy, "n");
+#endif
     set_formula(new_ctxt, formula);
     return (new_ctxt);
 }
 
-void free_fractalc(fractal_context *c) { free(c); }
+void free_fractalc(fractal_context *c)
+{
+#ifdef USE_SFFE
+    sffe_free(&c->userformula);
+    sffe_free(&c->userinitial);
+#endif
+    free(c);
+}
 
 void speed_test(fractal_context *c, struct image *img)
 {

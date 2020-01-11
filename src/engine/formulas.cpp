@@ -45,14 +45,13 @@
 #include "fractal.h"
 #include "julia.h"
 #include "ui_helper.h"
+#include "xthread.h"
 #ifndef M_PI
 #define M_PI 3.1415
 #endif
 
 #ifdef USE_SFFE
 #include "sffe.h"
-
-extern struct uih_context *globaluih; // to be able to use sffe parser
 #endif
 
 const char *const incolorname[] = {"0",
@@ -1258,25 +1257,73 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #include "docalc.h"
 
 #ifdef USE_SFFE
-/* SFFE - malczak */
-//#define VARIABLES sffe *p = globaluih->parser;
+
+// Parser is not thread safe so each thread needs its own instance
+thread_local bool sffe_formula_valid = false;
+thread_local sffe *sffe_formula_local = NULL;
+thread_local bool sffe_initial_valid = false;
+thread_local sffe *sffe_initial_local = NULL;
+thread_local cmplx sffe_z, sffe_c, sffe_p, sffe_n;
+
+// Copy the formula from the main parser to this thread's local parser
+// Possibly initializing the parser if this is the first time
+void sffe_setmine(void *data, struct taskinfo * /*task*/, int /*r1*/,
+                  int /*r2*/)
+{
+    fractal_context *c = (fractal_context *)data;
+    if (!sffe_formula_local) {
+        sffe_formula_local = sffe_alloc();
+        sffe_regvar(&sffe_formula_local, &sffe_p, "p");
+        sffe_regvar(&sffe_formula_local, &sffe_z, "z");
+        sffe_regvar(&sffe_formula_local, &sffe_c, "c");
+        sffe_regvar(&sffe_formula_local, &sffe_n, "n");
+    }
+    if (c->userformula->expression) {
+        if (sffe_parse(&sffe_formula_local, c->userformula->expression) == 0)
+            sffe_formula_valid = true;
+        else
+            sffe_formula_valid = false;
+    }
+
+    if (!sffe_initial_local) {
+        sffe_initial_local = sffe_alloc();
+        sffe_regvar(&sffe_initial_local, &sffe_p, "p");
+        sffe_regvar(&sffe_initial_local, &sffe_c, "c");
+        sffe_regvar(&sffe_initial_local, &sffe_n, "n");
+    }
+    if (c->userinitial->expression) {
+        if (sffe_parse(&sffe_initial_local, c->userinitial->expression) == 0)
+            sffe_initial_valid = true;
+        else
+            sffe_initial_valid = false;
+    }
+}
+
+// Tell all threads copy the formula into their local parser
+void sffe_setlocal(fractal_context *c)
+{
+    xth_function(sffe_setmine, c, nthreads);
+    xth_sync();
+}
+
 #define INIT                                                                   \
-    cmplxset(pZ, 0, 0);                                                        \
-    cmplxset(C, pre, pim);                                                     \
-    if (globaluih->pinit)                                                      \
-        Z = sffe_eval(globaluih->pinit);                                       \
+    cmplxset(sffe_p, 0, 0);                                                    \
+    cmplxset(sffe_c, pre, pim);                                                \
+    if (sffe_initial_valid)                                                    \
+        sffe_z = sffe_eval(sffe_initial_local);                                \
     else {                                                                     \
-        cmplxset(Z, zre, zim);                                                 \
-        cmplxset(N, 1, 0);                                                     \
+        cmplxset(sffe_z, zre, zim);                                            \
+        cmplxset(sffe_n, 1, 0);                                                \
     }
 //#define SAVE cmplxset(pZ,real(Z),imag(Z));
 //#define PRETEST 0
 #define FORMULA                                                                \
-    Z = sffe_eval(globaluih->parser);                                          \
-    cmplxset(pZ, zre, zim);                                                    \
-    zre = real(Z);                                                             \
-    zim = imag(Z);                                                             \
-    cmplxset(N, (unsigned int)cfractalc.maxiter - iter + 1, 0);
+    if (sffe_formula_valid)                                                    \
+        sffe_z = sffe_eval(sffe_formula_local);                                \
+    cmplxset(sffe_p, zre, zim);                                                \
+    zre = real(sffe_z);                                                        \
+    zim = imag(sffe_z);                                                        \
+    cmplxset(sffe_n, (unsigned int)cfractalc.maxiter - iter + 1, 0);
 
 #define BTEST less_than_4(zre *zre + zim * zim)
 // less_than_4(rp+ip)

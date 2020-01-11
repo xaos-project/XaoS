@@ -479,6 +479,26 @@ static menudialog *uih_getrotationdialog(struct uih_context *c)
     return (uih_rotationdialog);
 }
 
+#ifdef USE_SFFE
+static menudialog *uih_getsffedialog(struct uih_context *c)
+{
+    if (c->fcontext->userformula->expression)
+        uih_sffedialog[0].defstr = c->fcontext->userformula->expression;
+    else
+        uih_sffedialog[0].defstr = USER_FORMULA;
+    return (uih_sffedialog);
+}
+
+static menudialog *uih_getsffeinitdialog(struct uih_context *c)
+{
+    if (c->fcontext->userinitial->expression)
+        uih_sffeinitdialog[0].defstr = c->fcontext->userinitial->expression;
+    else
+        uih_sffeinitdialog[0].defstr = "";
+    return (uih_sffeinitdialog);
+}
+#endif
+
 static menudialog *uih_getpalettedialog(struct uih_context *uih)
 {
     if (uih != NULL) {
@@ -937,10 +957,10 @@ void uih_registermenus_i18n(void)
 #ifdef USE_SFFE
     /*FIXME: Should allow multiline */
     MENUSEPARATOR_I("fractal");
-    MENUDIALOG_I("fractal", NULL, TR("Menu", "User formula"), "usrform", 0,
-                 uih_sffein, uih_sffedialog);
-    MENUDIALOG_I("fractal", NULL, TR("Menu", "User initialization"),
-                 "usrformInit", 0, uih_sffeinitin, uih_sffeinitdialog);
+    MENUCDIALOG_I("fractal", NULL, TR("Menu", "User formula"), "usrform", 0,
+                  uih_sffein, uih_getsffedialog);
+    MENUCDIALOG_I("fractal", NULL, TR("Menu", "User initialization"),
+                  "usrformInit", 0, uih_sffeinitin, uih_getsffeinitdialog);
 #endif
 
     MENUSEPARATOR_I("fractal");
@@ -1326,69 +1346,11 @@ void uih_unregistermenus(void)
 #ifdef USE_SFFE
 void uih_sffein(uih_context *c, const char *text)
 {
-    char str[200];
-    int err;
-    // make a copy of the previous (working) content
-    char *prev_expr = (char *)malloc(strlen(uih_sffedialog->defstr) + 1);
-    strncpy(prev_expr, uih_sffedialog->defstr, strlen(uih_sffedialog->defstr));
-    prev_expr[strlen(uih_sffedialog->defstr)] = '\0';
-
-    if (strlen(text)) {
-        c->parser->errormsg = (char *)str;
-        if ((err = sffe_parse(&c->parser, (char *)text)) > 0) {
-            uih_message(c, str);
-            sffe_parse(&c->parser, prev_expr);
-            uih_sffedialog->defstr = c->parser->expression;
-        } else {
-            uih_sffedialog->defstr = c->parser->expression;
-            uih_message(c, c->parser->expression);
-            if (!(c->fcontext->currentformula->flags & SFFE_FRACTAL)) {
-                uih_play_formula(c, "user");
-            } else
-                uih_recalculate(c);
-        };
-
-        c->parser->errormsg = NULL;
-    };
-};
+    uih_sffeset(c, c->fcontext->userformula, text);
+}
 
 void uih_sffeinitin(uih_context *c, const char *text)
 {
-    extern cmplx pZ;
-    extern cmplx C;
-    extern cmplx N;
-    char str[200];
-    int err;
-    uih_sffeinitdialog->defstr = "";
-    if (strlen(text)) {
-        if (!c->pinit) {
-            c->pinit = sffe_alloc();
-            sffe_regvar(&c->pinit, &pZ, "p");
-            sffe_regvar(&c->pinit, &C, "c");
-            sffe_regvar(&c->pinit, &N, "n");
-        };
-
-        c->pinit->errormsg = (char *)str;
-        if ((err = sffe_parse(&c->pinit, (char *)text)) > 0) {
-            uih_message(c, str);
-            sffe_free(&c->pinit);
-            c->pinit = NULL;
-        } else {
-            uih_sffeinitdialog->defstr =
-                c->pinit
-                    ->expression; /*FIXME shouldnt this be done by str copy */
-            uih_message(c, c->pinit->expression);
-            if (!(c->fcontext->currentformula->flags & SFFE_FRACTAL)) {
-                uih_play_formula(c, "user");
-            } else
-                uih_recalculate(c);
-            c->pinit->errormsg = NULL;
-        };
-
-    } else if (c->pinit) {
-        sffe_free(&c->pinit);
-        c->pinit = NULL;
-        uih_recalculate(c);
-    };
-};
+    uih_sffeset(c, c->fcontext->userinitial, text);
+}
 #endif

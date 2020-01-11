@@ -410,10 +410,6 @@ void MainWindow::resizeImage(int width, int height)
     uih_cycling_continue(uih);
 }
 
-#ifdef USE_SFFE
-cmplx Z, C, pZ, N;
-#endif
-
 xio_pathdata configfile;
 
 void MainWindow::eventLoop()
@@ -562,8 +558,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     int width = widget->size().width();
     int height = widget->size().height();
     struct image *image = makeImage(width, height);
-
-    /* globaluih initialization moved into uih_mkcontext function : malczak */
     uih = uih_mkcontext(PIXELSIZE, image, ui_passfunc, ui_message,
                         ui_updatemenus);
     uih->data = this;
@@ -614,28 +608,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     uih_message(uih, welcome);
     if (printspeed)
         printSpeed();
-
-#ifdef USE_SFFE
-    int err = 0;
-    if (uih->parser->expression == NULL) {
-        if (sffeform)
-            err = sffe_parse(&uih->parser, (char *)sffeform);
-        else
-            sffe_parse(&uih->parser, USER_FORMULA);
-    }
-
-    if (sffeinit) {
-        uih->pinit = sffe_alloc();
-        sffe_regvar(&uih->pinit, &pZ, "p");
-        sffe_regvar(&uih->pinit, &C, "c");
-        sffe_regvar(&uih->pinit, &N, "n");
-        if (sffe_parse(&uih->pinit, (char *)sffeinit) > 0)
-            sffe_free(&uih->pinit);
-    };
-
-    if (err > 0)
-        sffe_parse(&uih->parser, USER_FORMULA);
-#endif
 }
 
 MainWindow::~MainWindow()
@@ -801,7 +773,7 @@ void MainWindow::updateMenuCheckmarks()
         if (action->isCheckable()) {
             const menuitem *item =
                 menu_findcommand(action->objectName().toUtf8());
-            action->setChecked(menu_enabled(item, globaluih));
+            action->setChecked(menu_enabled(item, uih));
         }
     }
 }
@@ -826,14 +798,17 @@ void MainWindow::showDialog(const char *name)
             QString("*.%1").arg(QFileInfo(dialog[0].defstr).completeSuffix());
 
         QSettings settings;
-        QString fileLocation = settings.value("MainWindow/lastFileLocation", QDir::homePath()).toString();
+        QString fileLocation =
+            settings.value("MainWindow/lastFileLocation", QDir::homePath())
+                .toString();
         QString fileName;
         if (dialog[0].type == DIALOG_IFILE)
             fileName = QFileDialog::getOpenFileName(this, item->name,
                                                     fileLocation, filter);
         else if (dialog[0].type == DIALOG_OFILE) {
             char defname[256];
-            strcpy(defname, QDir(fileLocation).filePath(dialog[0].defstr).toUtf8());
+            strcpy(defname,
+                   QDir(fileLocation).filePath(dialog[0].defstr).toUtf8());
             char *split = strchr(defname, '*');
             *split = 0;
             strcpy(defname, xio_getfilename(defname, split + 1));
@@ -848,7 +823,8 @@ void MainWindow::showDialog(const char *name)
             dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
             param->dstring = strdup(fileName.toUtf8());
             menuActivate(item, param);
-            settings.setValue("MainWindow/lastFileLocation", QFileInfo(fileName).absolutePath());
+            settings.setValue("MainWindow/lastFileLocation",
+                              QFileInfo(fileName).absolutePath());
         }
     } else {
         CustomDialog customDialog(uih, item, dialog, this);
@@ -991,7 +967,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 #endif
 #endif
 
-void MainWindow::resizeEvent(QResizeEvent */*event*/)
+void MainWindow::resizeEvent(QResizeEvent * /*event*/)
 {
 #ifndef Q_OS_MACOS
 #ifndef USE_OPENGL
