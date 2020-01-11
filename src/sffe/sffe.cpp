@@ -510,7 +510,7 @@ char sffe_docmplx(char **str, sfarg **arg)
     chr = *str;
     if (sffe_donum(str) > 1)
         return 1;
-    if (*(*str)++ != ';')
+    if (*(*str)++ != ',')
         return 2;
     chi = *str;
     if (sffe_donum(str) > 1)
@@ -667,23 +667,23 @@ int sffe_parse(sffe **parser, const char *expression)
         ech += 1;
     }
 
-    /*handle brackets and change ','->'.', '['->'(', ']'->')' */
+    /*handle brackets and change ';'->',', '['->'{', ']'->'}' */
     while (*ech) {
         switch (*ech) {
             case '[':
-                *ech = '(';
-                /* FALLTHROUGH */
+                *ech = '{';
+                break;
             case '(':
                 ui1 += 1;
                 break;
             case ']':
-                *ech = ')';
-                /* FALLTHROUGH */
+                *ech = '}';
+                break;
             case ')':
                 ui1 -= 1;
                 break;
-            case ',':
-                *ech = '.';
+            case ';':
+                *ech = ',';
                 break;
         };
 
@@ -1078,7 +1078,7 @@ int sffe_parse(sffe **parser, const char *expression)
                     token = 0;
                 } break;
                     /*  ; */
-                case ';': {
+                case ',': {
                     /* check if anything has been read !!! */
                     if (ch1) {
 #ifdef SFFE_DEVEL
