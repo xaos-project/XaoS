@@ -3,26 +3,28 @@ XaoS
 
 XaoS (pronounced Chaos) is a realtime interactive fractal zoomer. This 
 means that it lets you zoom smoothly into any place in the fractal you
-choose without the long calculation required by most other fractal 
-generators. It has many other features too, like different fractal 
-types, autopilot, special coloring modes, random palette generation, 
-color cycling, etc.
+choose without the long calculation required by other fractal generators.
+It has many other features too, like different fractal types, autopilot,
+special coloring modes, random palette generation, color cycling, etc.
+
+You can try the XaoS zooming algorithm online using [XaoS.js](http://xaos-project.github.io/XaoSjs/).
 
 - Original Authors: [Jan Hubicka](http://www.ucw.cz/~hubicka/) and [Thomas Marsh](https://www.linkedin.com/in/thomasmarsh).
 - Current Maintainers: [J.B. Langston](https://www.linkedin.com/in/jblangston/) and [Zoltan Kovacs](https://sites.google.com/site/kovzol/)
 - See [CREDITS](CREDITS.md) for a complete list of contributors.
 
-XaoS is based on Qt, and supports Linux, Mac, and Windows.
+XaoS is based on Qt, and has been tested on Linux, Mac, and Windows.  It 
+should also work on any other platform supporting Qt Widgets, such as BSDs.
 
-Project Hosting
----------------
+Project Resources
+-----------------
 
 - [GitHub Repo](https://github.com/xaos-project/XaoS)
-- [Binary Releases](https://github.com/xaos-project/XaoS/releases) on GitHub
-- [Documentation](https://github.com/xaos-project/XaoS/wiki) on GitHub
-- [Issue Tracker](https://github.com/xaos-project/XaoS/issues) on GitHub
-- [XaoS website](http://xaos.sourceforge.net/) for the latest news
-- [Users' Google Group](http://groups.google.com/group/xaos-users) for user support
+- [Binary Releases](https://github.com/xaos-project/XaoS/releases)
+- [Documentation](https://github.com/xaos-project/XaoS/wiki)
+- [Issue Tracker](https://github.com/xaos-project/XaoS/issues)
+- [XaoS website](http://xaos.sourceforge.net/)
+- [Users' Google Group](http://groups.google.com/group/xaos-users)
 
 Bugs and Support
 ----------------
@@ -30,19 +32,16 @@ Bugs and Support
 XaoS is a community-supported free software project. The Google Group provides
 a place for XaoS users to help each other get the most out of XaoS. XaoS 
 developers also monitor this discussion and answer questions from time to time.
-
 You can browse the archives freely but to prevent spam, you must join the group 
 in order to post. Google Groups provides options for participation from a 
 traditional mailing list to a completely web-based forum, so you don’t have to 
 get emails if you don’t want to.
 
 If you think you have found a bug in XaoS or have an idea for a new feature, 
-please let us know about it. 
-
-XaoS is developed on a volunteer basis and the developers work on it in their
-spare time.  Therefore, we can’t guarantee that issues will be addressed in a
-certain timeframe. If you are able to fix a bug or implement a new feature 
-yourself, pull requests are very welcome.
+please let us know about it.  XaoS is developed on a volunteer basis and the
+developers work on it in their spare time.  Therefore, we can’t guarantee that
+issues will be addressed in a certain timeframe. If you are able to fix a bug
+or implement a new feature yourself, pull requests are very welcome.
 
 License
 -------
