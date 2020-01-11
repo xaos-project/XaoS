@@ -2027,6 +2027,7 @@ void uih_sffeset(uih_context *c, sffe *parser, const char *formula)
         strcpy(previous, USER_FORMULA);
     parser->errormsg = error;
     if (sffe_parse(&parser, formula) > 0) {
+        tl_update_time(); // otherwise error doesn't display long enough
         uih_error(c, error);
         sffe_parse(&parser, previous);
     } else {
