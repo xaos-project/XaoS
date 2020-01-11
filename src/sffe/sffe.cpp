@@ -10,6 +10,10 @@
 #include <cctype>
 #include <cstring>
 
+#ifdef DEBUG
+#define SFFE_DEVEL
+#endif
+
 #ifdef SFFE_DEVEL
 #include <time.h>
 #endif
@@ -1231,13 +1235,13 @@ int sffe_parse(sffe **parser, const char *expression)
 
             printf("\n| functions fnctbl:");
             for (ui1 = 0; ui1 < _parser->oprCount; ui1 += 1) {
-                printf(" 0x%.6X [%s]", (int)_functions[ui1]->fptr,
+                printf(" 0x%.6X [%s]", (int)(size_t)_functions[ui1]->fptr,
                        _functions[ui1]->name);
             }
 
             printf("\n| functions used ptrs:");
             for (ui1 = 0; ui1 < _parser->oprCount; ui1 += 1) {
-                printf(" 0x%.6X", (int)_parser->oprs[ui1].fnc);
+                printf(" 0x%.6X", (int)(size_t)_parser->oprs[ui1].fnc);
             }
 
             double time_spent = (double)(clock() - begin) / CLOCKS_PER_SEC;
