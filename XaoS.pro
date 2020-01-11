@@ -35,6 +35,8 @@ CONFIG += optimize_full
 QMAKE_CXXFLAGS += -ffast-math
 QMAKE_CFLAGS += -ffast-math
 
+RESOURCES += XaoS.qrc
+
 DESTDIR = $$PWD/bin
 
 include($$PWD/i18n/i18n.pri)
