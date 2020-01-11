@@ -104,7 +104,7 @@ void sffe_setup_error(sffe *parser, enum sffe_error err, char *ptr)
     if (parser->errormsg) {
         switch (err) {
             case MEMERROR:
-                sprintf(parser->errormsg,
+                sprintf(parser->errormsg, "%s",
                         TR("Message", "Formula error: out of memory."));
                 break;
             case UNBALANCEDBRACKES:
@@ -161,7 +161,7 @@ void sf_strdup(char **out, const char *in)
     char *dup = (char *)malloc(name_len + 1);
     if (dup) {
         for (size_t i = 0; i < name_len; i += 1) {
-            dup[i] = (char)toupper((int)in[i]);
+            dup[i] = (char)tolower((int)in[i]);
         }
         dup[name_len] = '\0';
     }
@@ -399,7 +399,7 @@ void *sffe_regfunc(sffe **parser, const char *vname, unsigned int parcnt,
     sff = parser_->userf + parser_->userfCount;
 
     for (i = 0; i < strlen(vname); i++)
-        sff->name[i] = toupper(vname[i]);
+        sff->name[i] = tolower(vname[i]);
     sff->name[i] = 0;
 
     sff->parcnt = parcnt;
@@ -687,7 +687,7 @@ int sffe_parse(sffe **parser, const char *expression)
                 break;
         };
 
-        *ch2 = (char)toupper((int)*ech);
+        *ch2 = (char)tolower((int)*ech);
 
         /*fix multiple arithm operators */
         if (ch1 && strchr("+-/*^", (int)*ech) && strchr("+-/*^", (int)*ch1)) {
