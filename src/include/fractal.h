@@ -60,8 +60,8 @@ struct formula {
     int hasperiodicity;
     int mandelbrot;
     number_t pre, pim;
-    struct symmetryinfo(out[OUTCOLORING + 1]);
-    struct symmetryinfo(in[INCOLORING + 1]);
+    struct symmetryinfo out[OUTCOLORING + 1];
+    struct symmetryinfo in[INCOLORING + 1];
     int flags;
 };
 
