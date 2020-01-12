@@ -1,5 +1,5 @@
 ﻿/*/////////////////////////////////////////////////////////////////////////////////////
-// project : sFFe ( SegFault (or Segmentation Fault :) ) formula evalutaor )
+// project : sFFe ( SegFault (or Segmentation Fault :) ) formula evalutor )
 // author  : Mateusz Malczak ( mateusz@malczak.info )
 // wpage   : malczak.info
 /////////////////////////////////////////////////////////////////////////////////////*/
@@ -30,15 +30,15 @@
 #endif
 
 enum sffe_error {
-    MEMERROR,
-    UNBALANCEDBRACKES,
-    INVALIDFUNCTION,
-    INAVLIDNUMBER,
-    UNKNOWNCONST,
-    OPERATOR,
-    STACKERROR,
-    PARCNTERROR,
-    NO_FUNCTIONS,
+    MemoryError,
+    UnbalancedBrackets,
+    UnknownFunction,
+    InvalidNumber,
+    UnknownVariable,
+    InvalidOperators,
+    StackError,
+    InvalidParameters,
+    EmptyExpression,
 };
 
 #ifdef SFFE_COMPLEX
@@ -57,105 +57,65 @@ enum sffe_error {
     }
 #endif
 
-/** debug functions
- */
+/** utils */
 
-#ifdef SFFE_DEVEL
-
-void sffe_print_error(enum sffe_error err, char *ptr)
+void sffe_error_message(int errorcode, char *context, char *errormessage)
 {
-    /* in debug mode report errors on stdout */
-    printf("Parser error : ");
-
-    switch (err) {
-        case MEMERROR:
-            printf(" MEMORY ERROR!!");
+    switch (errorcode) {
+        case MemoryError:
+            sprintf(errormessage, "%s",
+                    TR("Message", "Formula error: out of memory."));
             break;
-        case UNBALANCEDBRACKES:
-            printf(" UNBALANCED BRACKETS!! : %s\n", ptr);
+        case UnbalancedBrackets:
+            sprintf(errormessage,
+                    TR("Message", "Formula error: unbalanced brackets: %s"),
+                    context);
             break;
-        case INVALIDFUNCTION:
-            printf(" UNKNOWN FUNCTION!! : %s\n", ptr);
+        case UnknownFunction:
+            sprintf(errormessage,
+                    TR("Message", "Formula error: unknown function: %s"),
+                    context);
             break;
-        case INAVLIDNUMBER:
-            printf(" NUMBER FORMAT!! : %s\n", ptr);
+        case InvalidNumber:
+            sprintf(errormessage,
+                    TR("Message", "Formula error: invalid number format: %s"),
+                    context);
             break;
-        case UNKNOWNCONST:
-            printf(" UNKOWN CONST or VAR NAME!! : %s\n", ptr);
+        case UnknownVariable:
+            sprintf(errormessage,
+                    TR("Message",
+                       "Formula error: unknown constant or variable: %s"),
+                    context);
             break;
-        case OPERATOR:
-            printf(" UNKNOWN OPERATOR!! : %s\n", ptr);
+        case InvalidOperators:
+            sprintf(errormessage,
+                    TR("Message", "Formula error: invalid operator: %s"),
+                    context);
             break;
-        case STACKERROR:
-            printf(" INTERNAL STACK CORRUPTED!! : %s\n", ptr);
+        case StackError:
+            sprintf(errormessage,
+                    TR("Message", "Formula error: stack corrupted: %s"),
+                    context);
             break;
-        case PARCNTERROR:
-            printf(" FUNCTION PARAMETERS ERROR!! : %s\n", ptr);
+        case InvalidParameters:
+            sprintf(errormessage,
+                    TR("Message",
+                       "Formula error: incorrect parameters for function: %s"),
+                    context);
             break;
-        case NO_FUNCTIONS:
-            printf("Formula error ! ARE YOU KIDDING ME ?!? : %s", ptr);
+        case EmptyExpression:
+            sprintf(errormessage,
+                    TR("Message", "Formula error: internal error: %s"),
+                    context);
             break;
-    };
+    }
 }
-#endif
 
-/** utils
- */
-
-void sffe_setup_error(sffe *parser, enum sffe_error err, char *ptr)
+void sffe_setup_error(sffe *parser, enum sffe_error errorcode, char *context)
 {
     /* try to store error message */
     if (parser->errormsg) {
-        switch (err) {
-            case MEMERROR:
-                sprintf(parser->errormsg, "%s",
-                        TR("Message", "Formula error: out of memory."));
-                break;
-            case UNBALANCEDBRACKES:
-                sprintf(parser->errormsg,
-                        TR("Message", "Formula error: unbalanced brackets: %s"),
-                        ptr);
-                break;
-            case INVALIDFUNCTION:
-                sprintf(parser->errormsg,
-                        TR("Message", "Formula error: unknown function: %s"),
-                        ptr);
-                break;
-            case INAVLIDNUMBER:
-                sprintf(
-                    parser->errormsg,
-                    TR("Message", "Formula error: invalid number format: %s"),
-                    ptr);
-                break;
-            case UNKNOWNCONST:
-                sprintf(parser->errormsg,
-                        TR("Message",
-                           "Formula error: unknown constant or variable: %s"),
-                        ptr);
-                break;
-            case OPERATOR:
-                sprintf(parser->errormsg,
-                        TR("Message", "Formula error: unknown operator: %s"),
-                        ptr);
-                break;
-            case STACKERROR:
-                sprintf(parser->errormsg,
-                        TR("Message", "Formula error: stack corrupted: %s"),
-                        ptr);
-                break;
-            case PARCNTERROR:
-                sprintf(
-                    parser->errormsg,
-                    TR("Message",
-                       "Formula error: incorrect parameters for function: %s"),
-                    ptr);
-                break;
-            case NO_FUNCTIONS:
-                sprintf(parser->errormsg,
-                        TR("Message", "Formula error: internal error: %s"),
-                        ptr);
-                break;
-        };
+        sffe_error_message(errorcode, context, parser->errormsg);
     }
 }
 
@@ -190,8 +150,20 @@ unsigned char sf_priority(char *chr)
     }
 }
 
-/************************* custom function */
-/* all used in this section variables are defined depanding on complex number
+/** debug functions */
+
+#ifdef SFFE_DEVEL
+/* in debug mode report errors on stdout */
+void sffe_print_error(enum sffe_error errorcode, char *context)
+{
+    char errormessage[256];
+    sffe_error_message(errorcode, context, errormessage);
+    printf("Parser error : %s", errormessage);
+}
+#endif
+
+/************************* custom functions */
+/* all variables used in this section are defined depanding on complex number
  * implementation */
 sffunction *sffe_function(char *fn, size_t len)
 {
@@ -229,7 +201,7 @@ void *sffe_const(char *fn, size_t len, void *ptr)
         if (!strncmp(fn, sfcnames[idx], len)) {
             sfcvals[idx]((sfNumber *)ptr);
             return ptr;
-        };
+        }
     }
     return NULL;
 }
@@ -289,7 +261,7 @@ void sffe_free(sffe **parser)
             if (p->variables[i].type == sfvar_type_managed_ptr) {
                 free(p->variables[i].value);
             }
-        };
+        }
 
         free(p->variables);
     }
@@ -314,7 +286,7 @@ sfNumber sffe_eval(sffe *const parser)
 #else
         arg->parg = optr->fnc->fptr(arg)->parg;
 #endif
-    };
+    }
     return *(parser->result);
 }
 
@@ -437,11 +409,11 @@ sffunction *userfunction(const sffe *const p, char *fname, size_t len)
     return NULL;
 }
 
+/* parse number in format [-+]ddd[.dddd[e[+-]ddd]]  */
 char sffe_donum(char **str)
 {
-    /* parse number in format [-+]ddd[.dddd[e[+-]ddd]]  */
-    unsigned char flag =
-        0; /*bit 1 - dot, bit 2 - dec, bits 3,4 - stan, bits 5..8 - error */
+    /*bit 1 - dot, bit 2 - dec, bits 3,4 - stan, bits 5..8 - error */
+    unsigned char flag = 0;
     if (**str == '-') {
         flag = 0x80;
         *str += 1;
@@ -467,7 +439,7 @@ char sffe_donum(char **str)
                         break;
                     default:
                         flag = 0x10;
-                };
+                }
                 break;
             case 1: /*.  */
                 if (flag & 0x03) {
@@ -496,8 +468,8 @@ char sffe_donum(char **str)
 
                 flag = (flag & 0xf1) | 0x02;
                 break;
-        };
-    };
+        }
+    }
 
     if (flag & 0x80) {
         flag ^= 0x80;
@@ -507,9 +479,11 @@ char sffe_donum(char **str)
 }
 
 #ifdef SFFE_COMPLEX
+/* parse complex number in format
+ * { [-+]ddd[.dddd[e[+-]ddd]] ; [-+]ddd[.dddd[e[+-]ddd]] }  */
 char sffe_docmplx(char **str, sfarg **arg)
-{ /* parse complex number in format { [-+]ddd[.dddd[e[+-]ddd]] ;
-     [-+]ddd[.dddd[e[+-]ddd]] }  */
+{
+
     char *chr, *chi;
     chr = *str;
     if (sffe_donum(str) > 1)
@@ -534,15 +508,15 @@ char sffe_doname(char **str)
     } while (isalnum(**str) || **str == '_');
 
     if (strchr("+-*/^~!@#$%&<>?\\:\"|", (int)**str)) {
-        return 1; /*punctator  */
+        return 1; /* punctuation */
     }
 
     if (**str == '(') {
-        return 2; /* ( - funkcja  */
+        return 2; /* ( start of parameters  */
     }
 
     if (**str == '.') {
-        return 3; /*error :( this means something like X. COS. PI. */
+        return 3; /*error: function ends with period */
     }
 
     return 1;
@@ -550,9 +524,9 @@ char sffe_doname(char **str)
 
 int sffe_parse(sffe **parser, const char *expression)
 {
-    sffe *_parser;
+    /**************variables */
 
-    /**************var area */
+    sffe *_parser;
     struct _operator { // @todo replace with stack/list
 #ifdef SFFE_DEVEL
         char c; /* used in debug build to store operator character */
@@ -582,7 +556,7 @@ int sffe_parse(sffe **parser, const char *expression)
     char *ech;
     char *ch1, *ch2;
 
-    unsigned int ui1; //, ui2;
+    unsigned int ui1;
     unsigned char token;
 
     enum sffe_error err;
@@ -606,7 +580,7 @@ int sffe_parse(sffe **parser, const char *expression)
     for (_arg_itr = _parser->args + _parser->argCount - 1;                     \
          _arg_itr > _argument; _arg_itr -= 1) {                                \
         *_arg_itr = *(_arg_itr - 1);                                           \
-    };                                                                         \
+    }                                                                          \
     sfset(_arg_itr, -1.0);
 
 #define pop_expression()                                                       \
@@ -617,7 +591,7 @@ int sffe_parse(sffe **parser, const char *expression)
         _parser->oprs[ui1].fnc = _expression->stck[_expression->size].fnc;     \
         ui1 += 1;                                                              \
         _argument += 1;                                                        \
-    };
+    }
 
 #define max(a, b) ((a > b) ? a : b)
 
@@ -626,12 +600,11 @@ int sffe_parse(sffe **parser, const char *expression)
     printf("parse - BEGIN\n");
 #endif
 
-    /**************** CODE */
+    /**************** code */
     _functions = NULL;
     ech = (char *)expression;
     tokens = (char *)malloc(1);
-    err = MEMERROR;
-    // parser
+    err = MemoryError;
     _parser = *parser;
 
     /* clear all internal structures */
@@ -639,7 +612,7 @@ int sffe_parse(sffe **parser, const char *expression)
         sffe_clear(parser);
     }
 
-    /* just quit early if no expression given */
+    /* J.B. - just quit early if no expression given */
     if (expression[0] == 0) {
         return err;
     }
@@ -689,7 +662,7 @@ int sffe_parse(sffe **parser, const char *expression)
             case ';':
                 *ech = ',';
                 break;
-        };
+        }
 
         *ch2 = (char)tolower((int)*ech);
 
@@ -706,19 +679,19 @@ int sffe_parse(sffe **parser, const char *expression)
             } else if (*ech == '-') {
                 ch1 = ++ch2;
             } else if (*ch1 != *ech) {
-                err = OPERATOR;
+                err = InvalidOperators;
                 break;
-            };
+            }
         } else {
             ch1 = ch2;
             ch2 += 1;
-        };
+        }
 
         /*skip spaces */
         do {
             ech += 1;
         } while (isspace(*ech));
-    };
+    }
 
     *ch2 = '\0';
 
@@ -726,7 +699,7 @@ int sffe_parse(sffe **parser, const char *expression)
                                           strlen(_parser->expression) + 1);
 
     if (ui1 && !err) {
-        err = UNBALANCEDBRACKES;
+        err = UnbalancedBrackets;
     }
 
 #ifdef SFFE_DEVEL
@@ -753,7 +726,7 @@ int sffe_parse(sffe **parser, const char *expression)
                         _parser->args, (_parser->argCount + 1) * sizeof(sfarg));
 
                     if (!_parser->args) {
-                        set_error(MEMERROR);
+                        set_error(MemoryError);
                     }
 
                     _argument = _parser->args + (_parser->argCount++);
@@ -766,10 +739,10 @@ int sffe_parse(sffe **parser, const char *expression)
                         if (_argument->value) {
                             if (!sffe_const(ch1, (size_t)(ech - ch1),
                                             _argument->value)) {
-                                set_error(UNKNOWNCONST);
+                                set_error(UnknownVariable);
                             }
                         } else {
-                            set_error(MEMERROR);
+                            set_error(MemoryError);
                         }
                     }
 
@@ -782,7 +755,7 @@ int sffe_parse(sffe **parser, const char *expression)
                         (_parser->oprCount + 1) * sizeof(sffunction *));
 
                     if (!_functions) {
-                        set_error(MEMERROR);
+                        set_error(MemoryError);
                     }
 
                     _function = _functions + (_parser->oprCount++);
@@ -802,15 +775,15 @@ int sffe_parse(sffe **parser, const char *expression)
 
                     /* if not -> ERROR */
                     if (!*_function) {
-                        set_error(INVALIDFUNCTION);
+                        set_error(UnknownFunction);
                     }
 
                     token = 'f';
                     break;
 
                 case 3: /* what ? */
-                    set_error(OPERATOR);
-            };
+                    set_error(InvalidOperators);
+            }
         } else
             /* numbers (this part can be optimized) */
             /* is it a real number */
@@ -819,7 +792,7 @@ int sffe_parse(sffe **parser, const char *expression)
             ch1 = ech; /* st = 1;  */
 
             if (sffe_donum(&ech) > 1) {
-                set_error(INAVLIDNUMBER);
+                set_error(InvalidNumber);
             }
 
             /*epx */
@@ -827,7 +800,7 @@ int sffe_parse(sffe **parser, const char *expression)
                 _parser->args, (++_parser->argCount) * sizeof(sfarg));
 
             if (!_parser->args) {
-                set_error(MEMERROR);
+                set_error(MemoryError);
             }
 
             _argument = _parser->args + _parser->argCount - 1;
@@ -849,14 +822,14 @@ int sffe_parse(sffe **parser, const char *expression)
                 _parser->args, (++_parser->argCount) * sizeof(sfarg));
 
             if (!_parser->args) {
-                set_error(MEMERROR);
+                set_error(MemoryError);
             }
 
             _argument = _parser->args + _parser->argCount - 1;
             sfset(_argument, 0);
 
             if (sffe_docmplx(&ech, &_argument)) {
-                set_error(INAVLIDNUMBER);
+                set_error(InvalidNumber);
             }
 
             token = 'n';
@@ -871,16 +844,16 @@ int sffe_parse(sffe **parser, const char *expression)
                     _functions, (++_parser->oprCount) * sizeof(sffunction *));
 
                 if (!_functions) {
-                    set_error(MEMERROR);
+                    set_error(MemoryError);
                 }
 
                 _functions[_parser->oprCount - 1] = function;
-            };
+            }
 
             ch1 = ech;
             token = *ech;
             ech += 1;
-        };
+        }
 
         /* no error and already has any opcodes - check for skipped
          * multiplication. Handle nf, n(, )(, )f, )n, fn */
@@ -895,7 +868,7 @@ int sffe_parse(sffe **parser, const char *expression)
                         (++_parser->oprCount) * sizeof(sffunction *));
 
                     if (!_functions) {
-                        set_error(MEMERROR);
+                        set_error(MemoryError);
                     }
 
                     /* if last token was function inject multiplication before
@@ -914,12 +887,12 @@ int sffe_parse(sffe **parser, const char *expression)
                     unsigned char tmp = token;
                     append_token('*');
                     token = tmp;
-                };
+                }
             }
         }
 
         append_token(token);
-    };
+    }
 
     ech = tokens;
 
@@ -977,7 +950,7 @@ int sffe_parse(sffe **parser, const char *expression)
                         printf("%c", *ch1);
 #endif
                         _argument += 1;
-                    };
+                    }
 
                     unsigned char type = sf_priority(ech);
                     /* there is an operator on stack */
@@ -995,12 +968,12 @@ int sffe_parse(sffe **parser, const char *expression)
                             if (_expression->size == 0) {
                                 break;
                             }
-                        };
+                        }
 
                         _expression->stck = (struct _operator *)realloc(
                             _expression->stck,
                             (_expression->size + 1) * sizeof(struct _operator));
-                    };
+                    }
 
                     sffunction *function = *_function;
 
@@ -1090,7 +1063,7 @@ int sffe_parse(sffe **parser, const char *expression)
 #endif
                         _argument += 1;
                         ch1 = NULL;
-                    };
+                    }
 
                     /* if there is something on stack, flush if we need to read
                      * next parameter */
@@ -1109,7 +1082,7 @@ int sffe_parse(sffe **parser, const char *expression)
 
                     /* wrong number of parameters */
                     if ((opstck->type & 0x1f) == 1) {
-                        set_error(PARCNTERROR);
+                        set_error(InvalidParameters);
                     }
 
                     /* reduce a number of allowed parameters */
@@ -1136,7 +1109,7 @@ int sffe_parse(sffe **parser, const char *expression)
 
                     /* no stack available = stack overrelesed */
                     if (!_expression->prev) {
-                        set_error(STACKERROR);
+                        set_error(StackError);
                     }
 
                     _tmp_exp = _expression;
@@ -1158,7 +1131,7 @@ int sffe_parse(sffe **parser, const char *expression)
 
                             /* wrong number of parameters */
                             if ((opstck->type & 0x1f) > 1) {
-                                set_error(PARCNTERROR);
+                                set_error(InvalidParameters);
                             }
 
                             if (!err) {
@@ -1174,8 +1147,8 @@ int sffe_parse(sffe **parser, const char *expression)
                                             (_expression->size) *
                                                 sizeof(struct _operator));
                                 }
-                            };
-                        };
+                            }
+                        }
                     }
 
                 } break;
@@ -1183,9 +1156,9 @@ int sffe_parse(sffe **parser, const char *expression)
                 case 'n':
                     ch1 = ech;
                     break;
-            };
+            }
             ech += 1;
-        };
+        }
 
         if (!err) {
 
@@ -1203,13 +1176,13 @@ int sffe_parse(sffe **parser, const char *expression)
 #ifdef SFFE_DEVEL
                     printf("%c", _expression->stck[_expression->size].c);
 #endif
-                };
+                }
 
                 free(_expression->stck);
                 _tmp_exp = _expression->prev;
                 free(_expression);
                 _expression = _tmp_exp;
-            };
+            }
 
             /* set up formula call stack */
             (_parser->args)->parg = NULL;
@@ -1231,7 +1204,7 @@ int sffe_parse(sffe **parser, const char *expression)
                 } else {
                     printf(" [_]");
                 }
-            };
+            }
 
             printf("\n| functions fnctbl:");
             for (ui1 = 0; ui1 < _parser->oprCount; ui1 += 1) {
@@ -1261,8 +1234,8 @@ int sffe_parse(sffe **parser, const char *expression)
                 _tmp_exp = _expression->prev;
                 free(_expression);
                 _expression = _tmp_exp;
-            };
-        };
+            }
+        }
 
         /* set up evaluation result pointer (result is stored in last operation
          * return) */
@@ -1270,8 +1243,8 @@ int sffe_parse(sffe **parser, const char *expression)
             (sfNumber *)(_parser->oprs + _parser->oprCount - 1)->arg->value;
 
         if (!_parser->result)
-            err = MEMERROR;
-    };
+            err = MemoryError;
+    }
 
     if (err) {
 #ifdef SFFE_DEVEL
