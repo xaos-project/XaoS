@@ -9,6 +9,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: prerequisites  
+      run: sudo apt-get install build-essential qttools5-dev-tools qt5-default
     - name: qmake
       run: qmake
     - name: make
