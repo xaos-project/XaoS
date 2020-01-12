@@ -43,6 +43,18 @@ typedef gsl_complex cmplx;
 #define sfNumber double
 #endif
 
+enum sffe_error {
+    MemoryError,
+    UnbalancedBrackets,
+    UnknownFunction,
+    InvalidNumber,
+    UnknownVariable,
+    InvalidOperators,
+    StackError,
+    InvalidParameters,
+    EmptyFormula,
+};
+
 typedef enum { sfvar_type_ptr, sfvar_type_managed_ptr } sfvartype;
 
 /* basic sffe argument 'stack' */

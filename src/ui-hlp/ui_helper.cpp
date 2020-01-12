@@ -2026,10 +2026,13 @@ void uih_sffeset(uih_context *c, sffe *parser, const char *formula)
     else
         strcpy(previous, USER_FORMULA);
     parser->errormsg = error;
-    if (sffe_parse(&parser, formula) > 0) {
-        tl_update_time(); // otherwise error doesn't display long enough
-        uih_error(c, error);
-        sffe_parse(&parser, previous);
+    int errorcode = sffe_parse(&parser, formula);
+    if (errorcode > 0) {
+        if (errorcode != EmptyFormula || parser != c->fcontext->userinitial) {
+            tl_update_time(); // otherwise error doesn't display long enough
+            uih_error(c, error);
+            sffe_parse(&parser, previous);
+        }
     } else {
         if (parser->expression)
             uih_message(c, parser->expression);

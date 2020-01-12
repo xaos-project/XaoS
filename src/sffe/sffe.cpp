@@ -29,18 +29,6 @@
 #include "sffe_real.h"
 #endif
 
-enum sffe_error {
-    MemoryError,
-    UnbalancedBrackets,
-    UnknownFunction,
-    InvalidNumber,
-    UnknownVariable,
-    InvalidOperators,
-    StackError,
-    InvalidParameters,
-    EmptyExpression,
-};
-
 #ifdef SFFE_COMPLEX
 #define sfset(arg, val)                                                        \
     (arg)->value = (sfNumber *)malloc(sizeof(sfNumber));                       \
@@ -64,48 +52,48 @@ void sffe_error_message(int errorcode, char *context, char *errormessage)
     switch (errorcode) {
         case MemoryError:
             sprintf(errormessage, "%s",
-                    TR("Message", "Formula error: out of memory."));
+                    TR("Message", "Out of memory"));
             break;
         case UnbalancedBrackets:
             sprintf(errormessage,
-                    TR("Message", "Formula error: unbalanced brackets: %s"),
+                    TR("Message", "Unbalanced parentheses"),
                     context);
             break;
         case UnknownFunction:
             sprintf(errormessage,
-                    TR("Message", "Formula error: unknown function: %s"),
+                    TR("Message", "Unknown function: %s"),
                     context);
             break;
         case InvalidNumber:
             sprintf(errormessage,
-                    TR("Message", "Formula error: invalid number format: %s"),
+                    TR("Message", "Invalid number: %s"),
                     context);
             break;
         case UnknownVariable:
             sprintf(errormessage,
                     TR("Message",
-                       "Formula error: unknown constant or variable: %s"),
+                       "Unknown variable: %s"),
                     context);
             break;
         case InvalidOperators:
             sprintf(errormessage,
-                    TR("Message", "Formula error: invalid operator: %s"),
+                    TR("Message", "Invalid operator: %s"),
                     context);
             break;
         case StackError:
             sprintf(errormessage,
-                    TR("Message", "Formula error: stack corrupted: %s"),
+                    TR("Message", "Internal error occurred in formula: %s"),
                     context);
             break;
         case InvalidParameters:
             sprintf(errormessage,
                     TR("Message",
-                       "Formula error: incorrect parameters for function: %s"),
+                       "Function has incorrect parameter count: %s"),
                     context);
             break;
-        case EmptyExpression:
+        case EmptyFormula:
             sprintf(errormessage,
-                    TR("Message", "Formula error: internal error: %s"),
+                    TR("Message", "Empty formula"),
                     context);
             break;
     }
@@ -169,7 +157,7 @@ sffunction *sffe_function(char *fn, size_t len)
 {
     /* sffnctscount - defined in sffe_cmplx_* file */
     for (unsigned char idx = 5; idx < sffnctscount; idx += 1) {
-        if (!strncmp(fn, sfcmplxfunc[idx].name, len)) {
+        if (!strncmp(fn, sfcmplxfunc[idx].name, len) && strlen(sfcmplxfunc[idx].name) == len) {
             return (sffunction *)(sfcmplxfunc + idx);
         }
     }
@@ -198,7 +186,7 @@ sffunction *sffe_operator(char op)
 void *sffe_const(char *fn, size_t len, void *ptr)
 {
     for (unsigned char idx = 0; idx < sfvarscount; idx += 1) {
-        if (!strncmp(fn, sfcnames[idx], len)) {
+        if (!strncmp(fn, sfcnames[idx], len) && strlen(sfcnames[idx]) == len) {
             sfcvals[idx]((sfNumber *)ptr);
             return ptr;
         }
@@ -507,16 +495,8 @@ char sffe_doname(char **str)
         *str += 1;
     } while (isalnum(**str) || **str == '_');
 
-    if (strchr("+-*/^~!@#$%&<>?\\:\"|", (int)**str)) {
-        return 1; /* punctuation */
-    }
-
     if (**str == '(') {
         return 2; /* ( start of parameters  */
-    }
-
-    if (**str == '.') {
-        return 3; /*error: function ends with period */
     }
 
     return 1;
@@ -612,11 +592,6 @@ int sffe_parse(sffe **parser, const char *expression)
         sffe_clear(parser);
     }
 
-    /* J.B. - just quit early if no expression given */
-    if (expression[0] == 0) {
-        return err;
-    }
-
     _parser->oprCount = 0;
     _parser->argCount = 0;
 
@@ -707,6 +682,9 @@ int sffe_parse(sffe **parser, const char *expression)
            _parser->expression);
 #endif
 
+    if (strlen(_parser->expression) == 0)
+        err = EmptyFormula;
+
     /*! PHASE 2 !!!!!!!! tokenize expression, lexical analysis (need
      * optimizations) */
     *tokens = '\0';
@@ -739,6 +717,7 @@ int sffe_parse(sffe **parser, const char *expression)
                         if (_argument->value) {
                             if (!sffe_const(ch1, (size_t)(ech - ch1),
                                             _argument->value)) {
+                                *ech = 0;   // terminate string after this symbol
                                 set_error(UnknownVariable);
                             }
                         } else {
@@ -775,14 +754,12 @@ int sffe_parse(sffe **parser, const char *expression)
 
                     /* if not -> ERROR */
                     if (!*_function) {
+                        *ech = 0; // terminate string after function name
                         set_error(UnknownFunction);
                     }
 
                     token = 'f';
                     break;
-
-                case 3: /* what ? */
-                    set_error(InvalidOperators);
             }
         } else
             /* numbers (this part can be optimized) */
@@ -848,6 +825,10 @@ int sffe_parse(sffe **parser, const char *expression)
                 }
 
                 _functions[_parser->oprCount - 1] = function;
+            } else if (*ech != '(' && *ech != ')' && *ech != ','){
+                // Not a known operator and not parentheses, so throw an error
+                *(ech+1) = 0;    // terminate string after variable name
+                set_error(InvalidOperators);
             }
 
             ch1 = ech;
