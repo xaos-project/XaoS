@@ -13,8 +13,8 @@ You can try the XaoS zooming algorithm online using
 XaoS is based on Qt, and has been tested on Linux, Mac, and Windows.  It 
 should also work on any other platform supporting Qt Widgets, like the BSDs.
 
-- Original Authors: [Jan Hubicka](http://www.ucw.cz/~hubicka/) and [Thomas Marsh](https://www.linkedin.com/in/thomasmarsh).
-- Current Maintainers: [J.B. Langston](https://www.linkedin.com/in/jblangston/) and [Zoltan Kovacs](https://sites.google.com/site/kovzol/)
+- Original Authors: [Jan Hubička](http://www.ucw.cz/~hubicka/) and [Thomas Marsh](https://www.linkedin.com/in/thomasmarsh).
+- Current Maintainers: [J.B. Langston](https://www.linkedin.com/in/jblangston/) and [Zoltán Kovács](https://sites.google.com/site/kovzol/)
 - See [CREDITS](CREDITS.md) for a complete list of contributors.
 
 Project Resources
