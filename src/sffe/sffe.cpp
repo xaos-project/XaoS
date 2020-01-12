@@ -19,6 +19,7 @@
 #endif
 
 #include "sffe.h"
+#include "misc-f.h"
 #include "i18n.h"
 
 #ifdef SFFE_CMPLX_ASM
@@ -51,33 +52,25 @@ void sffe_error_message(int errorcode, char *context, char *errormessage)
 {
     switch (errorcode) {
         case MemoryError:
-            sprintf(errormessage, "%s",
-                    TR("Message", "Out of memory"));
+            sprintf(errormessage, "%s", TR("Message", "Out of memory"));
             break;
         case UnbalancedBrackets:
-            sprintf(errormessage,
-                    TR("Message", "Unbalanced parentheses"),
+            sprintf(errormessage, TR("Message", "Unbalanced parentheses"),
                     context);
             break;
         case UnknownFunction:
-            sprintf(errormessage,
-                    TR("Message", "Unknown function: %s"),
+            sprintf(errormessage, TR("Message", "Unknown function: %s"),
                     context);
             break;
         case InvalidNumber:
-            sprintf(errormessage,
-                    TR("Message", "Invalid number: %s"),
-                    context);
+            sprintf(errormessage, TR("Message", "Invalid number: %s"), context);
             break;
         case UnknownVariable:
-            sprintf(errormessage,
-                    TR("Message",
-                       "Unknown variable: %s"),
+            sprintf(errormessage, TR("Message", "Unknown variable: %s"),
                     context);
             break;
         case InvalidOperators:
-            sprintf(errormessage,
-                    TR("Message", "Invalid operator: %s"),
+            sprintf(errormessage, TR("Message", "Invalid operator: %s"),
                     context);
             break;
         case StackError:
@@ -87,14 +80,11 @@ void sffe_error_message(int errorcode, char *context, char *errormessage)
             break;
         case InvalidParameters:
             sprintf(errormessage,
-                    TR("Message",
-                       "Function has incorrect parameter count: %s"),
+                    TR("Message", "Function has incorrect parameter count: %s"),
                     context);
             break;
         case EmptyFormula:
-            sprintf(errormessage,
-                    TR("Message", "Empty formula"),
-                    context);
+            sprintf(errormessage, TR("Message", "Empty formula"), context);
             break;
     }
 }
@@ -157,7 +147,8 @@ sffunction *sffe_function(char *fn, size_t len)
 {
     /* sffnctscount - defined in sffe_cmplx_* file */
     for (unsigned char idx = 5; idx < sffnctscount; idx += 1) {
-        if (!strncmp(fn, sfcmplxfunc[idx].name, len) && strlen(sfcmplxfunc[idx].name) == len) {
+        if (!strncmp(fn, sfcmplxfunc[idx].name, len) &&
+            strlen(sfcmplxfunc[idx].name) == len) {
             return (sffunction *)(sfcmplxfunc + idx);
         }
     }
@@ -397,94 +388,27 @@ sffunction *userfunction(const sffe *const p, char *fname, size_t len)
     return NULL;
 }
 
-/* parse number in format [-+]ddd[.dddd[e[+-]ddd]]  */
-char sffe_donum(char **str)
-{
-    /*bit 1 - dot, bit 2 - dec, bits 3,4 - stan, bits 5..8 - error */
-    unsigned char flag = 0;
-    if (**str == '-') {
-        flag = 0x80;
-        *str += 1;
-    }
-
-    if (**str == '+') {
-        *str += 1;
-    }
-
-    while (!((flag >> 4) & 0x07)) {
-        switch ((flag & 0x0f) >> 2) {
-            case 0: /*0..9 */
-                while (isdigit(**str)) {
-                    *str += 1;
-                }
-
-                switch (**str) { /*only '.' or 'E' allowed */
-                    case '.':
-                        flag = (flag & 0xf3) | 4;
-                        break;
-                    case 'E':
-                        flag = (flag & 0xf3) | 8;
-                        break;
-                    default:
-                        flag = 0x10;
-                }
-                break;
-            case 1: /*.  */
-                if (flag & 0x03) {
-                    flag = 0x20;
-                } else {
-                    *str += 1; /*no 2nd dot, no dot after E  */
-                }
-
-                flag = (flag & 0xf2) | 0x01;
-                break;
-            case 2: /*e  */
-                if (flag & 0x02) {
-                    flag = 0x30;
-                } else {
-                    *str += 1; /*no 2nd E */
-                }
-
-                if (!isdigit(**str)) /*after E noly [+-] allowed */
-                {
-                    if (**str != '-' && **str != '+') {
-                        flag = 0x40;
-                    } else {
-                        *str += 1;
-                    }
-                }
-
-                flag = (flag & 0xf1) | 0x02;
-                break;
-        }
-    }
-
-    if (flag & 0x80) {
-        flag ^= 0x80;
-    }
-
-    return flag >> 4;
-}
-
 #ifdef SFFE_COMPLEX
 /* parse complex number in format
  * { [-+]ddd[.dddd[e[+-]ddd]] ; [-+]ddd[.dddd[e[+-]ddd]] }  */
 char sffe_docmplx(char **str, sfarg **arg)
 {
 
-    char *chr, *chi;
-    chr = *str;
-    if (sffe_donum(str) > 1)
+    char *ch1;
+    ch1 = *str;
+    number_t re = xstrtonum(ch1, str);
+    if (ch1 == *str)
         return 1;
     if (*(*str)++ != ',')
         return 2;
-    chi = *str;
-    if (sffe_donum(str) > 1)
+    ch1 = *str;
+    number_t im = xstrtonum(ch1, str);
+    if (ch1 == *str)
         return 1;
     if (*(*str)++ != '}')
         return 2;
 
-    cmplxset(*(*arg)->value, atof(chr), atof(chi));
+    cmplxset(*(*arg)->value, re, im);
     return 0;
 }
 #endif
@@ -717,7 +641,7 @@ int sffe_parse(sffe **parser, const char *expression)
                         if (_argument->value) {
                             if (!sffe_const(ch1, (size_t)(ech - ch1),
                                             _argument->value)) {
-                                *ech = 0;   // terminate string after this symbol
+                                *ech = 0; // terminate string after this symbol
                                 set_error(UnknownVariable);
                             }
                         } else {
@@ -761,14 +685,15 @@ int sffe_parse(sffe **parser, const char *expression)
                     token = 'f';
                     break;
             }
-        } else
+            /* is it a real number? */
+        } else if (isdigit(*ech) ||
+                   (strchr("/*^(", (int)token) && strchr("+-", *ech))) {
+
             /* numbers (this part can be optimized) */
-            /* is it a real number */
-            if (isdigit(*ech) ||
-                (strchr("/*^(", (int)token) && strchr("+-", *ech))) {
             ch1 = ech; /* st = 1;  */
 
-            if (sffe_donum(&ech) > 1) {
+            number_t value = xstrtonum(ch1, &ech);
+            if (ch1 == ech) {
                 set_error(InvalidNumber);
             }
 
@@ -781,19 +706,14 @@ int sffe_parse(sffe **parser, const char *expression)
             }
 
             _argument = _parser->args + _parser->argCount - 1;
-            /* '-n'/'+n', which was parsed as 0*n */
-            if ((ech - ch1) == 1 && (*ch1 == '-')) {
-                sfset(_argument, -1)
-            } else {
-                sfset(_argument, atof(ch1));
-            }
+            sfset(_argument, value);
 
             /*epx */
             token = 'n';
-        } else
-        /* if not, it can be complex number */
+        }
 #ifdef SFFE_COMPLEX
-            if (*ech == '{') {
+        /* if not, it can be complex number */
+        else if (*ech == '{') {
             ech += 1;
             _parser->args = (sfarg *)realloc(
                 _parser->args, (++_parser->argCount) * sizeof(sfarg));
@@ -810,25 +730,27 @@ int sffe_parse(sffe **parser, const char *expression)
             }
 
             token = 'n';
-        } else
+        }
 #endif
         /* if not, we have operator */
-        {
-            sffunction *function = sffe_operator(*ech);
+        else {
+            if (*ech != '(' && *ech != ')' && *ech != ',') {
+                sffunction *function = sffe_operator(*ech);
 
-            if (function) {
-                _functions = (sffunction **)realloc(
-                    _functions, (++_parser->oprCount) * sizeof(sffunction *));
+                if (function) {
+                    _functions = (sffunction **)realloc(
+                        _functions,
+                        (++_parser->oprCount) * sizeof(sffunction *));
 
-                if (!_functions) {
-                    set_error(MemoryError);
+                    if (!_functions) {
+                        set_error(MemoryError);
+                    }
+
+                    _functions[_parser->oprCount - 1] = function;
+                } else {
+                    *(ech + 1) = 0; // terminate string after operator
+                    set_error(InvalidOperators);
                 }
-
-                _functions[_parser->oprCount - 1] = function;
-            } else if (*ech != '(' && *ech != ')' && *ech != ','){
-                // Not a known operator and not parentheses, so throw an error
-                *(ech+1) = 0;    // terminate string after variable name
-                set_error(InvalidOperators);
             }
 
             ch1 = ech;
