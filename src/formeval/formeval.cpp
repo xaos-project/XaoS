@@ -106,9 +106,6 @@ Node::Node(Value val)
 Node::Node(string identifier)
 {
     name = identifier;
-    type = NodeType::Invalid;
-    parameters = nullptr;
-
     auto c = constants.find(identifier);
     if (c != constants.end()) {
         type = NodeType::Constant;
@@ -124,7 +121,6 @@ Node::Node(string identifier)
                 type = NodeType::Function;
                 arity = f->second.first;
                 function = f->second.second;
-                parameters = new Variable[arity];
             }
         }
     }
@@ -134,6 +130,8 @@ Node::Node() { type = NodeType::Invalid; }
 
 Node::~Node()
 {
+    if (parameters)
+        delete parameters;
 }
 
 void Node::addChild(Node child) { children.push_back(child); }
@@ -145,6 +143,9 @@ Variable Node::compile()
     } else if (type == NodeType::Variable) {
         return variable;
     } else if (type == NodeType::Function) {
+        if (parameters)
+            delete parameters;
+        parameters = new Variable[arity];
         for (int i = 0; i < arity; i++) {
             parameters[i] = children[i].compile();
         }
@@ -288,7 +289,7 @@ Node Parser::function(Node ret)
                         setError(Error::MissingComma);
                     } else if (i > ret.getArity() - 1) {
                         setError(Error::TooManyParameters);
-                    } else {
+                    } else{
                         setError(Error::MissingParen);
                     }
                 } else if (i < ret.getArity() - 1) {

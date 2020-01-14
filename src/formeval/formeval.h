@@ -50,12 +50,13 @@ class Node
 {
   private:
     string name;
-    NodeType type;
-    Value value;
-    Variable variable;
-    Function function;
-    int arity;
+    NodeType type = NodeType::Invalid;
+    Value value = 0;
+    Variable variable = nullptr;
+    Function function = nullptr;
+    int arity = 0;
     vector<Node> children;
+    Parameters parameters = nullptr;
 
   public:
     Node(Value value);
@@ -67,7 +68,6 @@ class Node
     bool isValid() { return type != NodeType::Invalid; }
     bool isFunction() { return type == NodeType::Function; }
     int getArity() { return arity; }
-    Parameters parameters;
     string getName() { return name; }
     Variable compile();
     Value eval();
