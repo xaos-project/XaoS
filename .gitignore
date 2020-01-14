@@ -58,6 +58,12 @@ object_script.xaos.Release
 debug
 release
 installer/packages/net.sourceforge.xaos/data
+moc_customdialog.cpp
+moc_fractalwidget.cpp
+moc_mainwindow.cpp
+moc_predefs.h
+qrc_XaoS.cpp
 
 #mac crap
 .DS_Store
+
