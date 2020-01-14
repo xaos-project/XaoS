@@ -27,16 +27,10 @@
  */
 
 #include "formeval.h"
-#include <cstdlib>
-#include <cstring>
-#include <cstdio>
-#include <climits>
-#include <variant>
 #include <complex>
 #include <vector>
 #include <string>
 #include <map>
-#include <cmath>
 #include <iostream>
 
 #ifndef NAN
@@ -84,7 +78,7 @@ map<string, std::pair<int, Function>> functions = {
     {"log10", {1, [](Parameters p) { return log10(*p[0]); }}},
 
     // Power functions
-    {"pow", {1, [](Parameters p) { return pow(*p[0], *p[1]); }}},
+    {"pow", {2, [](Parameters p) { return pow(*p[0], *p[1]); }}},
     {"sqrt", {1, [](Parameters p) { return sqrt(*p[0]); }}},
 
     // Trig Functions
@@ -165,7 +159,8 @@ Value Node::eval()
         value = *variable;
     } else if (type == NodeType::Function) {
         for (size_t i = 0; i < children.size(); i++) {
-            children[i].eval();
+            if (children[i].isFunction())
+                children[i].eval();
         }
         value = function(parameters);
     }
@@ -280,25 +275,26 @@ Node Parser::function(Node ret)
             if (token != Token::OpenParen) {
                 setError(Error::MissingParen);
             } else {
-                for (int i = 0; i < ret.getArity(); i++) {
+                int i;
+                for (i = 0; i < ret.getArity(); i++) {
                     nextToken();
                     ret.addChild(expr());
                     if (token != Token::Comma) {
                         break;
                     }
-                    if (token != Token::CloseParen) {
-                        if (token != Token::Comma) {
-                            setError(Error::MissingComma);
-                        } else {
-                            setError(Error::MissingParen);
-                        }
-                    } else if (i < ret.getArity() - 1) {
-                        setError(Error::TooFewParameters);
+                }
+                if (token != Token::CloseParen) {
+                    if (token != Token::Comma && token != Token::End) {
+                        setError(Error::MissingComma);
                     } else if (i > ret.getArity() - 1) {
                         setError(Error::TooManyParameters);
                     } else {
-                        nextToken();
+                        setError(Error::MissingParen);
                     }
+                } else if (i < ret.getArity() - 1) {
+                    setError(Error::TooFewParameters);
+                } else {
+                    nextToken();
                 }
             }
     }
@@ -311,8 +307,8 @@ Node Parser::base()
     Node ret;
     switch (token) {
         case Token::Number:
-            nextToken();
             ret = Node(number);
+            nextToken();
             break;
         case Token::Identifier: {
             Node identifier = Node(name);
@@ -323,6 +319,7 @@ Node Parser::base()
             } else {
                 // Variable or constant
                 ret = identifier;
+                nextToken();
             }
             break;
         }
