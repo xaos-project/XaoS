@@ -289,7 +289,7 @@ Node Parser::function(Node ret)
                         setError(Error::MissingComma);
                     } else if (i > ret.getArity() - 1) {
                         setError(Error::TooManyParameters);
-                    } else{
+                    } else {
                         setError(Error::MissingParen);
                     }
                 } else if (i < ret.getArity() - 1) {
@@ -325,14 +325,14 @@ Node Parser::base()
             break;
         }
         case Token::OpenParen:
-             nextToken();
-             ret = expr();
-             if (token != Token::CloseParen) {
-                 setError(Error::MissingParen);
-             } else {
-                 nextToken();
-             }
-             break;
+            nextToken();
+            ret = expr();
+            if (token != Token::CloseParen) {
+                setError(Error::MissingParen);
+            } else {
+                nextToken();
+            }
+            break;
         case Token::CloseParen:
             setError(Error::UnexpectedParen);
             break;
@@ -436,43 +436,19 @@ Value Parser::eval()
 
 string Parser::errorMessage()
 {
-    switch (error) {
-        case Error::None:
-            return "No error";
-            break;
-        case Error::InvalidCharacter:
-            return "Invalid character";
-            break;
-        case Error::UnknownIdentifier:
-            return "Unknown identifier";
-            break;
-        case Error::MissingParen:
-            return "Missing parenthesis";
-            break;
-        case Error::MissingComma:
-            return "Missing comma";
-            break;
-        case Error::TooFewParameters:
-            return "Too few parameters";
-            break;
-        case Error::TooManyParameters:
-            return "Too many parameters";
-            break;
-        case Error::UnexpectedComma:
-            return "Unexpected comma";
-            break;
-        case Error::UnexpectedParen:
-            return "Unexpected parenthesis";
-            break;
-        case Error::MissingOperand:
-            return "Missing operand";
-            break;
-        case Error::UnexpectedToken:
-            return "Unexpected token";
-            break;
-        default:
-            return "Unknown error";
-    }
+    static map<Error, string> errors = {
+        {Error::None, "No error"},
+        {Error::InvalidCharacter, "Invalid character"},
+        {Error::UnknownIdentifier, "Unknown identifier"},
+        {Error::MissingParen, "Missing parenthesis"},
+        {Error::MissingComma, "Missing comma"},
+        {Error::TooFewParameters, "Too few parameters"},
+        {Error::TooManyParameters, "Too many parameters"},
+        {Error::UnexpectedComma, "Unexpected comma"},
+        {Error::UnexpectedParen, "Unexpected parenthesis"},
+        {Error::MissingOperand, "Missing operand"},
+        {Error::UnexpectedToken, "Unexpected token"}};
+    return errors[error];
 }
 
 } // namespace FormEval
