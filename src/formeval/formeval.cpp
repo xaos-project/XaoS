@@ -1,4 +1,4 @@
-/*
+﻿/*
  * XaoS Formula Evaluator
  * Copyright (c) 2020 J.B. Langston
  *
@@ -47,12 +47,24 @@ using namespace std;
 namespace FormEval
 {
 
+/**
+ * @brief constants Table of symbolic constants accessible from within the
+ * expression. See Parser::addConstant for details.
+ */
 map<string, Value> constants = {{"pi", 3.14159265358979323846},
                                 {"e", 2.71828182845904523536},
                                 {"i", {0, 1}}};
 
+/**
+ * @brief variables Table of variables accessible from within the expression.
+ * See Parser::addVariable for details.
+ */
 map<string, Variable> variables;
 
+/**
+ * @brief functions Table of functions accessible from with the
+ * expression. See Parser::addFunction for details.
+ */
 map<string, std::pair<int, Function>> functions = {
     // Operators
     {"+", {2, [](Parameters p) { *p[0] = *p[1] + *p[2]; }}},
@@ -98,13 +110,23 @@ map<string, std::pair<int, Function>> functions = {
     {"acosh", {1, [](Parameters p) { *p[0] = acosh(*p[1]); }}},
     {"atanh", {1, [](Parameters p) { *p[0] = atanh(*p[1]); }}}};
 
-
+/**
+ * @brief Node::Node Constructs a node for a numeric constant.
+ * @param val The value of the numeric constant the node is to contain.
+ */
 Node::Node(Value val)
 {
     type = NodeType::Constant;
     value = val;
 }
 
+/**
+ * @brief Node::Node Constructs a node for a symbolic constant, variable, or
+ * function. Initialized with the address or value from the appropriate symbol
+ * table.
+ * @param identifier The string identifier of the constant, variable or
+ * function.
+ */
 Node::Node(string identifier)
 {
     name = identifier;
@@ -130,14 +152,35 @@ Node::Node(string identifier)
 
 Node::Node() { type = NodeType::Invalid; }
 
+/**
+ * @brief Node::~Node Destructor frees any parameter pointers that have been
+ * allocated.
+ */
 Node::~Node()
 {
     if (parameters)
         delete parameters;
 }
 
+/**
+ * @brief Node::addChild Adds a child (parameter) Node to a function node). Only
+ * function nodes have children.
+ * @param child The parameter/operand to add to this function.
+ */
 void Node::addChild(Node child) { children.push_back(child); }
 
+/**
+ * @brief Node::compile Converts the parsed AST into a stack of
+ * operations to evaluate iteratively using depth first search. Stack notation
+ * allows functions to be called iteratively removing the overhead of recursive
+ * function calls.  Called recursively from the root node.  For each function
+ * node, allocates and initializes an array pointers within directly to the
+ * return value and any child parameters.  Should be called on the root node
+ * before evaluation.
+ * @param stack The vector of Node pointers onto which the nodes should be
+ * pushed.
+ * @return The pointer to the return value of the root node.
+ */
 Variable Node::compile(vector<Node *> &stack)
 {
     if (type == NodeType::Constant) {
@@ -147,10 +190,10 @@ Variable Node::compile(vector<Node *> &stack)
     } else if (type == NodeType::Function) {
         if (parameters)
             delete parameters;
-        parameters = new Variable[arity+1];
+        parameters = new Variable[arity + 1];
         parameters[0] = &value;
         for (int i = 0; i < arity; i++) {
-            parameters[i+1] = children[i].compile(stack);
+            parameters[i + 1] = children[i].compile(stack);
         }
         stack.push_back(this);
         return &value;
@@ -158,18 +201,47 @@ Variable Node::compile(vector<Node *> &stack)
     return nullptr;
 }
 
+/**
+ * @brief Parser::addConstant Registers a symbolic constant to be accessible
+ * within an expression.
+ * @param name The name of the constant.
+ * @param value The value of the constant of type Value (usually complex<long
+ * double>)
+ */
 void Parser::addConstant(string name, Value value) { constants[name] = value; }
 
+/**
+ * @brief Parser::addVariable registers a variable to be accessible within
+ * an expression.
+ * @param name The name of the variable accessible within the expression.
+ * @param address  The address of the variable taken using &.
+ */
 void Parser::addVariable(string name, Variable address)
 {
     variables[name] = address;
 }
 
+/**
+ * @brief Parser::addFunction registers a function to be used within an
+ * expression.  The function returns void and takes a single Parameters
+ * argument, which is array of pointers with the address of return
+ * value and the addresses of any parameters.  The function will most likely
+ * be a generalized wrapper for another function, which passes paremeters to
+ * the main function and assigns the return value as follows:
+ * *p[0] = op(*p[1], *p[2]);
+ * @param name Name of the function to be used within an expression
+ * @param address Pointer of type Function to a compatible wrapper function.
+ * @param arity Number of parameters the function takes.
+ */
 void Parser::addFunction(string name, Function address, int arity)
 {
     functions[name] = pair<int, Function>(arity, address);
 }
 
+/**
+ * @brief Parser::nextToken lexes the next available token (number, identifier,
+ * or operator).  Whitespace between tokens is skipped.
+ */
 void Parser::nextToken()
 {
     if (token == Token::Error)
@@ -194,148 +266,172 @@ void Parser::nextToken()
             // Single character tokens and whitespace
             name = string(next, 1);
             switch (*next) {
-            case '+':
-                token = Token::Plus;
-                break;
-            case '-':
-                token = Token::Minus;
-                break;
-            case '*':
-                token = Token::Times;
-                break;
-            case '/':
-                token = Token::Divide;
-                break;
-            case '^':
-                token = Token::Power;
-                break;
-            case '(':
-                token = Token::OpenParen;
-                break;
-            case ')':
-                token = Token::CloseParen;
-                break;
-            case ',':
-                token = Token::Comma;
-                break;
-            case ' ':
-            case '\t':
-            case '\n':
-            case '\r':
-                // Ignore whitespace
-                break;
-            default:
-                setError(Error::InvalidCharacter);
-                break;
+                case '+':
+                    token = Token::Plus;
+                    break;
+                case '-':
+                    token = Token::Minus;
+                    break;
+                case '*':
+                    token = Token::Times;
+                    break;
+                case '/':
+                    token = Token::Divide;
+                    break;
+                case '^':
+                    token = Token::Power;
+                    break;
+                case '(':
+                    token = Token::OpenParen;
+                    break;
+                case ')':
+                    token = Token::CloseParen;
+                    break;
+                case ',':
+                    token = Token::Comma;
+                    break;
+                case ' ':
+                case '\t':
+                case '\n':
+                case '\r':
+                    // Ignore whitespace
+                    break;
+                default:
+                    setError(Error::InvalidCharacter);
+                    break;
             }
             next++;
         }
     }
 }
 
-// <function> = <function-0> {"(" ")"} | <function-1> <power> | <function-X> "("
-// <expr> {"," <expr>} ")"
+/**
+ * @brief Parser::function parses a function call. Functions with zero or one
+ * parameters can optionally take parentheses. Functions with two or more
+ * parameters require them.  Each parameter to the function can be a complete
+ * expression.
+ * // <function> = <function-0> {"(" ")"} | <function-1> <power> |
+ * <function-X> "(" <expr> {"," <expr>} ")"
+ * @param ret The Node containing the function call, to which child parameters
+ * are added.
+ * @return The function node with the child parameters added.
+ */
 Node Parser::function(Node ret)
 {
     switch (ret.getArity()) {
-    case 0:
-        nextToken();
-        if (token == Token::OpenParen) {
+        case 0:
             nextToken();
+            if (token == Token::OpenParen) {
+                nextToken();
+                if (token != Token::CloseParen) {
+                    setError(Error::MissingParen);
+                } else {
+                    nextToken();
+                }
+            }
+            break;
+        case 1:
+            nextToken();
+            ret.addChild(power());
+            break;
+        default:
+            nextToken();
+            if (token != Token::OpenParen) {
+                setError(Error::MissingParen);
+            } else {
+                int i;
+                for (i = 0; i < ret.getArity(); i++) {
+                    nextToken();
+                    ret.addChild(expr());
+                    if (token != Token::Comma) {
+                        break;
+                    }
+                }
+                if (token != Token::CloseParen) {
+                    if (token != Token::Comma && token != Token::End) {
+                        setError(Error::MissingComma);
+                    } else if (i > ret.getArity() - 1) {
+                        setError(Error::TooManyParameters);
+                    } else {
+                        setError(Error::MissingParen);
+                    }
+                } else if (i < ret.getArity() - 1) {
+                    setError(Error::TooFewParameters);
+                } else {
+                    nextToken();
+                }
+            }
+    }
+    return ret;
+}
+
+/**
+ * @brief Parser::base parses a base token, which can be a real or complex
+ * number, identifier, function, or expression surrounded by parentheses.
+ * <base> = <constant> | <variable> | <function> | "(" <complex> ")"
+ * @return The node consisting of the base token.
+ */
+Node Parser::base()
+{
+    Node ret;
+    switch (token) {
+        case Token::Number:
+            ret = Node(number);
+            nextToken();
+            break;
+        case Token::Identifier: {
+            Node identifier = Node(name);
+            if (!identifier.isValid()) {
+                setError(Error::UnknownIdentifier);
+            } else if (identifier.isFunction()) {
+                ret = function(identifier);
+            } else {
+                // Variable or constant
+                ret = identifier;
+                nextToken();
+            }
+            break;
+        }
+        case Token::OpenParen:
+            nextToken();
+            ret = expr();
             if (token != Token::CloseParen) {
                 setError(Error::MissingParen);
             } else {
                 nextToken();
             }
-        }
-        break;
-    case 1:
-        nextToken();
-        ret.addChild(power());
-        break;
-    default:
-        nextToken();
-        if (token != Token::OpenParen) {
-            setError(Error::MissingParen);
-        } else {
-            int i;
-            for (i = 0; i < ret.getArity(); i++) {
-                nextToken();
-                ret.addChild(expr());
-                if (token != Token::Comma) {
-                    break;
-                }
-            }
-            if (token != Token::CloseParen) {
-                if (token != Token::Comma && token != Token::End) {
-                    setError(Error::MissingComma);
-                } else if (i > ret.getArity() - 1) {
-                    setError(Error::TooManyParameters);
-                } else {
-                    setError(Error::MissingParen);
-                }
-            } else if (i < ret.getArity() - 1) {
-                setError(Error::TooFewParameters);
-            } else {
-                nextToken();
-            }
-        }
+            break;
+        case Token::CloseParen:
+            setError(Error::UnexpectedParen);
+            break;
+        case Token::Comma:
+            setError(Error::UnexpectedComma);
+            break;
+        case Token::Plus:
+        case Token::Minus:
+        case Token::Times:
+        case Token::Divide:
+        case Token::Power:
+            setError(Error::MissingOperand);
+            break;
+        case Token::End:
+            setError(Error::UnexpectedEnd);
+            break;
+        default:
+            setError(Error::UnexpectedToken);
+            break;
     }
     return ret;
 }
 
-// <base> = <constant> | <variable> | <function> | "(" <complex> ")"
-Node Parser::base()
-{
-    Node ret;
-    switch (token) {
-    case Token::Number:
-        ret = Node(number);
-        nextToken();
-        break;
-    case Token::Identifier: {
-        Node identifier = Node(name);
-        if (!identifier.isValid()) {
-            setError(Error::UnknownIdentifier);
-        } else if (identifier.isFunction()) {
-            ret = function(identifier);
-        } else {
-            // Variable or constant
-            ret = identifier;
-            nextToken();
-        }
-        break;
-    }
-    case Token::OpenParen:
-        nextToken();
-        ret = expr();
-        if (token != Token::CloseParen) {
-            setError(Error::MissingParen);
-        } else {
-            nextToken();
-        }
-        break;
-    case Token::CloseParen:
-        setError(Error::UnexpectedParen);
-        break;
-    case Token::Comma:
-        setError(Error::UnexpectedComma);
-        break;
-    case Token::Plus:
-    case Token::Minus:
-    case Token::Times:
-    case Token::Divide:
-    case Token::Power:
-        setError(Error::MissingOperand);
-        break;
-    default:
-        setError(Error::UnexpectedToken);
-        break;
-    }
-    return ret;
-}
-
-// <power> = {("-" | "+")} <base>
+/**
+ * @brief Parser::power parses a unary negation operator, the operand
+ * to an exponentiation.
+ * <power> = {("-" | "+")} <base>
+ * @return If there is an odd number of negation operators, returns a negation
+ * operation with a child node.  If no negation or an even number of negations,
+ * returns the child node by itself.
+ */
 Node Parser::power()
 {
     int sign = 1;
@@ -354,7 +450,11 @@ Node Parser::power()
     return ret;
 }
 
-// <factor> = <power> {"^" <power>}
+/**
+ * @brief Parser::factor Parses a factor (the operand to multiplcation or
+ * division), consisting of a exponentiation.
+ * @return The exponentiation operator with its two surrounding operands.
+ */
 Node Parser::factor()
 {
     Node ret = power();
@@ -368,7 +468,13 @@ Node Parser::factor()
     return ret;
 }
 
-// <term> = <factor> {("*" | "/" | "%") <factor>}
+/**
+ * @brief Parser::term Parses a term (the operand to addition or subtraction,
+ * consisting of a multiplication or division.
+ * <term> = <factor> {("*" | "/") <factor>}
+ * @return Node containing the multiplication or division operator with its
+ * two surrounding factors.
+ */
 Node Parser::term()
 {
     Node ret = factor();
@@ -382,7 +488,13 @@ Node Parser::term()
     return ret;
 }
 
-// <expr> = <term> {("+" | "-") <term>}
+/**
+ * @brief Parser::expr Parses an expression (the outermost production),
+ * consisting of two terms to be added or subtracted.
+ * <expr> = <term> {("+" | "-") <term>}
+ * @return Node containing the addition or subtraction operator with its two
+ * surrounding terms.
+ */
 Node Parser::expr()
 {
     Node ret = term();
@@ -396,6 +508,13 @@ Node Parser::expr()
     return ret;
 }
 
+/**
+ * @brief Parser::parse Parses the provided expression and compiles it to
+ * bytecode for evaluation.
+ * @param exp Mathematical expression to parse
+ * @return Error code for the first error encountered during parsing.
+ * Error::None (0) is returned on success.
+ */
 Error Parser::parse(string exp)
 {
     error = Error::None;
@@ -409,7 +528,11 @@ Error Parser::parse(string exp)
     }
     return error;
 }
-
+/**
+ * @brief Parser::setError Sets the error code and location only if no other
+ * error has previously been encountered.
+ * @param err The error to set.
+ */
 void Parser::setError(Error err)
 {
     if (token != Token::Error) {
@@ -420,11 +543,17 @@ void Parser::setError(Error err)
     }
 }
 
-string Parser::getExpression()
-{
-    return expression;
-}
-
+/**
+ * @brief Parser::getExpression returns the last expression passed to
+ * Parser::parse.
+ * @return String containing expression.
+ */
+string Parser::getExpression() { return expression; }
+/**
+ * @brief Parser::errorMessage Returns human-readable error message
+ * corresponding to current error status.
+ * @return String describing error corresponding to enum value.
+ */
 string Parser::errorMessage()
 {
     static map<Error, string> errors = {
@@ -433,24 +562,28 @@ string Parser::errorMessage()
         {Error::UnknownIdentifier, "Unknown identifier"},
         {Error::MissingParen, "Missing parenthesis"},
         {Error::MissingComma, "Missing comma"},
+        {Error::MissingOperand, "Missing operand"},
         {Error::TooFewParameters, "Too few parameters"},
         {Error::TooManyParameters, "Too many parameters"},
         {Error::UnexpectedComma, "Unexpected comma"},
         {Error::UnexpectedParen, "Unexpected parenthesis"},
-        {Error::MissingOperand, "Missing operand"},
+        {Error::UnexpectedEnd, "Unexpected end of formula"},
         {Error::UnexpectedToken, "Unexpected token"}};
     return errors[error];
 }
 
-pair<int, int> Parser::errorLocation()
-{
-    return errorloc;
-}
+/**
+ * @brief Parser::errorLocation Returns the position where the first error
+ * occurred during the last call to Parser::parse.
+ * @return Pair of ints with the position of the first character of the token
+ * that failed to parse and the first character after the token that failed to
+ * parse.
+ */
+pair<int, int> Parser::errorLocation() { return errorloc; }
 
 } // namespace FormEval
 
 using namespace FormEval;
-
 
 int main(int argc, char *argv[])
 {
@@ -498,9 +631,8 @@ int main()
     for (unsigned int iy = 0; iy < iysize; ++iy)
     {
         for (unsigned int ix = 0; ix < ixsize; ++ix) {
-            c = {cxmin + ix/(ixsize-1.0)*(cxmax-cxmin), cymin + iy/(iysize-1.0)*(cymax-cymin)};
-            z = {0,0};
-            unsigned int iter;
+            c = {cxmin + ix/(ixsize-1.0)*(cxmax-cxmin), cymin +
+iy/(iysize-1.0)*(cymax-cymin)}; z = {0,0}; unsigned int iter;
 
             for (iter = 0; iter < maxit && abs(z) < 2.0L; ++iter) {
                 z = p.eval();

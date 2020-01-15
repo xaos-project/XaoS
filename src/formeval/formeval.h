@@ -1,4 +1,4 @@
-/*
+﻿/*
  * XaoS Formula Evaluator
  * Copyright (c) 2020 J.B. Langston
  *
@@ -32,21 +32,53 @@
 #include <complex>
 #include <vector>
 #include <string>
-#include <iostream>
 
 namespace FormEval
 {
 
 using namespace std;
 
+/**
+ * @brief number_t The base type for real numbers.
+ */
 typedef long double number_t;
+
+/**
+ * @brief Value a complex number value, used for constants, variables, and all
+ * function parameters and return values.
+ */
 typedef complex<number_t> Value;
+
+/**
+ * @brief Variable Pointer to a value, used for variables within the expression,
+ * as well as function return values and parameters.
+ */
 typedef Value *Variable;
+
+/**
+ * @brief Parameters Array of pointers used to store function return and
+ * parameter locations.
+ */
 typedef Value **Parameters;
+
+/**
+ * @brief Function pointer to wrapper functions accessible from within the
+ * expression.  Must return void and take a single Parameters argument.  Does
+ * not return a value; instead assigns the return value to the zeroth element of
+ * the Parameters array.  Arguments start at element 1.
+ */
 typedef void (*Function)(Parameters);
 
+/**
+ * @brief The NodeType enum identifies the different types of AST node.
+ */
 enum class NodeType { Invalid, Constant, Variable, Function };
 
+/**
+ * @brief The Node class represents a node in the abstract syntax tree built by
+ * the parser.  Transforms into a stack of function calls to be executed during
+ * expression evaluation.
+ */
 class Node
 {
   private:
@@ -72,9 +104,17 @@ class Node
     string getName() { return name; }
     Value getValue() { return value; }
     Variable compile(vector<Node *> &stack);
-    inline void eval() { function(parameters); asm (""); }
+    inline void eval()
+    {
+        function(parameters);
+        asm("");
+    }
 };
 
+/**
+ * @brief The Error enum identifies different error states encountered by the
+ * lexer or parser.
+ */
 enum class Error {
     None,
     InvalidCharacter,
@@ -86,9 +126,14 @@ enum class Error {
     UnexpectedComma,
     UnexpectedParen,
     MissingOperand,
+    UnexpectedEnd,
     UnexpectedToken
 };
 
+/**
+ * @brief The Token enum identifies the different token types that have been
+ * lexed for the parser to consume.
+ */
 enum class Token {
     Whitespace,
     Error,
@@ -105,26 +150,33 @@ enum class Token {
     Power
 };
 
+/**
+ * @brief The Parser class contains state during a parsing operation and holds
+ * the AST built from the expression, as well as the stack of function calls
+ * that the AST is transformed into.  Not re-entrant; the Parser and any
+ * variables registered to it must be thread_local.
+ */
 class Parser
 {
   private:
     Token token = Token::Whitespace;
     Error error = Error::None;
+    number_t number = 0;
+    string name;
+
     string expression;
     const char *first = nullptr;
     const char *start = nullptr;
     const char *next = nullptr;
     pair<int, int> errorloc;
+
     Node root;
     vector<Node *> stack;
-    number_t number = 0;
-    string name;
     Variable result = nullptr;
 
     void setError(Error err);
     void nextToken();
     Node function(Node function);
-    //Node list();
     Node expr();
     Node power();
     Node base();
@@ -140,10 +192,10 @@ class Parser
     string errorMessage();
     pair<int, int> errorLocation();
     Error parse(string expression);
-    inline Value eval() {
-        for (Node *node : stack) {
+    inline Value eval()
+    {
+        for (Node *node : stack)
             node->eval();
-        }
         return *result;
     }
 };
