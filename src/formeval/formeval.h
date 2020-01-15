@@ -1,4 +1,4 @@
-﻿/*
+/*
  * XaoS Formula Evaluator
  * Copyright (c) 2020 J.B. Langston
  *
@@ -32,6 +32,7 @@
 #include <complex>
 #include <vector>
 #include <string>
+#include <iostream>
 
 namespace FormEval
 {
@@ -42,7 +43,7 @@ typedef long double number_t;
 typedef complex<number_t> Value;
 typedef Value *Variable;
 typedef Value **Parameters;
-typedef Value (*Function)(Parameters);
+typedef void (*Function)(Parameters);
 
 enum class NodeType { Invalid, Constant, Variable, Function };
 
@@ -69,8 +70,9 @@ class Node
     bool isFunction() { return type == NodeType::Function; }
     int getArity() { return arity; }
     string getName() { return name; }
-    Variable compile();
-    Value eval();
+    Value getValue() { return value; }
+    Variable compile(vector<Node *> &stack);
+    inline void eval() { function(parameters); asm (""); }
 };
 
 enum class Error {
@@ -106,13 +108,18 @@ enum class Token {
 class Parser
 {
   private:
-    Token token;
-    Error error;
-    const char *start;
-    const char *next;
+    Token token = Token::Whitespace;
+    Error error = Error::None;
+    string expression;
+    const char *first = nullptr;
+    const char *start = nullptr;
+    const char *next = nullptr;
+    pair<int, int> errorloc;
     Node root;
-    number_t number;
+    vector<Node *> stack;
+    number_t number = 0;
     string name;
+    Variable result = nullptr;
 
     void setError(Error err);
     void nextToken();
@@ -129,9 +136,16 @@ class Parser
     static void addVariable(string name, Variable address);
     static void addFunction(string name, Function address, int arity);
 
-    Error parse(string expression);
-    Value eval();
+    string getExpression();
     string errorMessage();
+    pair<int, int> errorLocation();
+    Error parse(string expression);
+    inline Value eval() {
+        for (Node *node : stack) {
+            node->eval();
+        }
+        return *result;
+    }
 };
 
 } // namespace FormEval

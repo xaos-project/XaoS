@@ -1,4 +1,4 @@
-﻿/*
+/*
  * XaoS Formula Evaluator
  * Copyright (c) 2020 J.B. Langston
  *
@@ -32,6 +32,7 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <cctype>
 
 #ifndef NAN
 #define NAN (0.0 / 0.0)
@@ -54,48 +55,49 @@ map<string, Variable> variables;
 
 map<string, std::pair<int, Function>> functions = {
     // Operators
-    {"+", {2, [](Parameters p) { return *p[0] + *p[1]; }}},
-    {"-", {2, [](Parameters p) { return *p[0] - *p[1]; }}},
-    {"*", {2, [](Parameters p) { return *p[0] * *p[1]; }}},
-    {"/", {2, [](Parameters p) { return *p[0] / *p[1]; }}},
-    {"^", {2, [](Parameters p) { return pow(*p[0], *p[1]); }}},
-    {"negate", {1, [](Parameters p) { return *p[0] * Value(-1); }}},
+    {"+", {2, [](Parameters p) { *p[0] = *p[1] + *p[2]; }}},
+    {"-", {2, [](Parameters p) { *p[0] = *p[1] - *p[2]; }}},
+    {"*", {2, [](Parameters p) { *p[0] = *p[1] * *p[2]; }}},
+    {"/", {2, [](Parameters p) { *p[0] = *p[1] / *p[2]; }}},
+    {"^", {2, [](Parameters p) { *p[0] = pow(*p[1], *p[2]); }}},
+    {"negate", {1, [](Parameters p) { *p[0] = *p[1] * Value(-1); }}},
 
     // Complex-specific functions
-    {"re", {1, [](Parameters p) { return Value(real(*p[0]), 0); }}},
-    {"real", {1, [](Parameters p) { return Value(real(*p[0]), 0); }}},
-    {"im", {1, [](Parameters p) { return Value(0, imag(*p[0])); }}},
-    {"imag", {1, [](Parameters p) { return Value(0, imag(*p[0])); }}},
-    {"abs", {1, [](Parameters p) { return Value(abs(*p[0]), 0); }}},
-    {"arg", {1, [](Parameters p) { return Value(arg(*p[0]), 0); }}},
-    {"norm", {1, [](Parameters p) { return Value(norm(*p[0]), 0); }}},
-    {"conj", {1, [](Parameters p) { return conj(*p[0]); }}},
-    {"proj", {1, [](Parameters p) { return proj(*p[0]); }}},
+    {"re", {1, [](Parameters p) { *p[0] = Value(real(*p[1]), 0); }}},
+    {"real", {1, [](Parameters p) { *p[0] = Value(real(*p[1]), 0); }}},
+    {"im", {1, [](Parameters p) { *p[0] = Value(0, imag(*p[1])); }}},
+    {"imag", {1, [](Parameters p) { *p[0] = Value(0, imag(*p[1])); }}},
+    {"abs", {1, [](Parameters p) { *p[0] = Value(abs(*p[1])); }}},
+    {"arg", {1, [](Parameters p) { *p[0] = Value(arg(*p[1])); }}},
+    {"norm", {1, [](Parameters p) { *p[0] = Value(norm(*p[1])); }}},
+    {"conj", {1, [](Parameters p) { *p[0] = conj(*p[1]); }}},
+    {"proj", {1, [](Parameters p) { *p[0] = proj(*p[1]); }}},
 
     // Exponential functions
-    {"exp", {1, [](Parameters p) { return exp(*p[0]); }}},
-    {"log", {1, [](Parameters p) { return log(*p[0]); }}},
-    {"log10", {1, [](Parameters p) { return log10(*p[0]); }}},
+    {"exp", {1, [](Parameters p) { *p[0] = exp(*p[1]); }}},
+    {"log", {1, [](Parameters p) { *p[0] = log(*p[1]); }}},
+    {"log10", {1, [](Parameters p) { *p[0] = log10(*p[1]); }}},
 
     // Power functions
-    {"pow", {2, [](Parameters p) { return pow(*p[0], *p[1]); }}},
-    {"sqrt", {1, [](Parameters p) { return sqrt(*p[0]); }}},
+    {"pow", {2, [](Parameters p) { *p[0] = pow(*p[1], *p[2]); }}},
+    {"sqrt", {1, [](Parameters p) { *p[0] = sqrt(*p[1]); }}},
 
     // Trig Functions
-    {"sin", {1, [](Parameters p) { return sin(*p[0]); }}},
-    {"cos", {1, [](Parameters p) { return cos(*p[0]); }}},
-    {"tan", {1, [](Parameters p) { return tan(*p[0]); }}},
-    {"asin", {1, [](Parameters p) { return asin(*p[0]); }}},
-    {"acos", {1, [](Parameters p) { return acos(*p[0]); }}},
-    {"atan", {1, [](Parameters p) { return atan(*p[0]); }}},
+    {"sin", {1, [](Parameters p) { *p[0] = sin(*p[1]); }}},
+    {"cos", {1, [](Parameters p) { *p[0] = cos(*p[1]); }}},
+    {"tan", {1, [](Parameters p) { *p[0] = tan(*p[1]); }}},
+    {"asin", {1, [](Parameters p) { *p[0] = asin(*p[1]); }}},
+    {"acos", {1, [](Parameters p) { *p[0] = acos(*p[1]); }}},
+    {"atan", {1, [](Parameters p) { *p[0] = atan(*p[1]); }}},
 
     // Hyperbolic trig functions
-    {"sinh", {1, [](Parameters p) { return sinh(*p[0]); }}},
-    {"cosh", {1, [](Parameters p) { return cosh(*p[0]); }}},
-    {"tanh", {1, [](Parameters p) { return cosh(*p[0]); }}},
-    {"asinh", {1, [](Parameters p) { return asinh(*p[0]); }}},
-    {"acosh", {1, [](Parameters p) { return acosh(*p[0]); }}},
-    {"atanh", {1, [](Parameters p) { return atanh(*p[0]); }}}};
+    {"sinh", {1, [](Parameters p) { *p[0] = sinh(*p[1]); }}},
+    {"cosh", {1, [](Parameters p) { *p[0] = cosh(*p[1]); }}},
+    {"tanh", {1, [](Parameters p) { *p[0] = cosh(*p[1]); }}},
+    {"asinh", {1, [](Parameters p) { *p[0] = asinh(*p[1]); }}},
+    {"acosh", {1, [](Parameters p) { *p[0] = acosh(*p[1]); }}},
+    {"atanh", {1, [](Parameters p) { *p[0] = atanh(*p[1]); }}}};
+
 
 Node::Node(Value val)
 {
@@ -136,7 +138,7 @@ Node::~Node()
 
 void Node::addChild(Node child) { children.push_back(child); }
 
-Variable Node::compile()
+Variable Node::compile(vector<Node *> &stack)
 {
     if (type == NodeType::Constant) {
         return &value;
@@ -145,27 +147,15 @@ Variable Node::compile()
     } else if (type == NodeType::Function) {
         if (parameters)
             delete parameters;
-        parameters = new Variable[arity];
+        parameters = new Variable[arity+1];
+        parameters[0] = &value;
         for (int i = 0; i < arity; i++) {
-            parameters[i] = children[i].compile();
+            parameters[i+1] = children[i].compile(stack);
         }
+        stack.push_back(this);
         return &value;
     }
     return nullptr;
-}
-
-Value Node::eval()
-{
-    if (type == NodeType::Variable) {
-        value = *variable;
-    } else if (type == NodeType::Function) {
-        for (size_t i = 0; i < children.size(); i++) {
-            if (children[i].isFunction())
-                children[i].eval();
-        }
-        value = function(parameters);
-    }
-    return value;
 }
 
 void Parser::addConstant(string name, Value value) { constants[name] = value; }
@@ -204,50 +194,42 @@ void Parser::nextToken()
             // Single character tokens and whitespace
             name = string(next, 1);
             switch (*next) {
-                case '+':
-                    token = Token::Plus;
-                    break;
-                case '-':
-                    token = Token::Minus;
-                    break;
-                case '*':
-                    token = Token::Times;
-                    break;
-                case '/':
-                    token = Token::Divide;
-                    break;
-                case '^':
-                    token = Token::Power;
-                    break;
-                case '(':
-                    token = Token::OpenParen;
-                    break;
-                case ')':
-                    token = Token::CloseParen;
-                    break;
-                case ',':
-                    token = Token::Comma;
-                    break;
-                case ' ':
-                case '\t':
-                case '\n':
-                case '\r':
-                    // Ignore whitespace
-                    break;
-                default:
-                    setError(Error::InvalidCharacter);
-                    break;
+            case '+':
+                token = Token::Plus;
+                break;
+            case '-':
+                token = Token::Minus;
+                break;
+            case '*':
+                token = Token::Times;
+                break;
+            case '/':
+                token = Token::Divide;
+                break;
+            case '^':
+                token = Token::Power;
+                break;
+            case '(':
+                token = Token::OpenParen;
+                break;
+            case ')':
+                token = Token::CloseParen;
+                break;
+            case ',':
+                token = Token::Comma;
+                break;
+            case ' ':
+            case '\t':
+            case '\n':
+            case '\r':
+                // Ignore whitespace
+                break;
+            default:
+                setError(Error::InvalidCharacter);
+                break;
             }
             next++;
         }
-    }
-}
-
-void Parser::setError(Error err)
-{
-    if (token != Token::Error) {
-        token = Token::Error;
-        error = err;
     }
 }
 
@@ -256,48 +238,48 @@ void Parser::setError(Error err)
 Node Parser::function(Node ret)
 {
     switch (ret.getArity()) {
-        case 0:
+    case 0:
+        nextToken();
+        if (token == Token::OpenParen) {
             nextToken();
-            if (token == Token::OpenParen) {
-                nextToken();
-                if (token != Token::CloseParen) {
-                    setError(Error::MissingParen);
-                } else {
-                    nextToken();
-                }
-            }
-            break;
-        case 1:
-            nextToken();
-            ret.addChild(power());
-            break;
-        default:
-            nextToken();
-            if (token != Token::OpenParen) {
+            if (token != Token::CloseParen) {
                 setError(Error::MissingParen);
             } else {
-                int i;
-                for (i = 0; i < ret.getArity(); i++) {
-                    nextToken();
-                    ret.addChild(expr());
-                    if (token != Token::Comma) {
-                        break;
-                    }
-                }
-                if (token != Token::CloseParen) {
-                    if (token != Token::Comma && token != Token::End) {
-                        setError(Error::MissingComma);
-                    } else if (i > ret.getArity() - 1) {
-                        setError(Error::TooManyParameters);
-                    } else {
-                        setError(Error::MissingParen);
-                    }
-                } else if (i < ret.getArity() - 1) {
-                    setError(Error::TooFewParameters);
-                } else {
-                    nextToken();
+                nextToken();
+            }
+        }
+        break;
+    case 1:
+        nextToken();
+        ret.addChild(power());
+        break;
+    default:
+        nextToken();
+        if (token != Token::OpenParen) {
+            setError(Error::MissingParen);
+        } else {
+            int i;
+            for (i = 0; i < ret.getArity(); i++) {
+                nextToken();
+                ret.addChild(expr());
+                if (token != Token::Comma) {
+                    break;
                 }
             }
+            if (token != Token::CloseParen) {
+                if (token != Token::Comma && token != Token::End) {
+                    setError(Error::MissingComma);
+                } else if (i > ret.getArity() - 1) {
+                    setError(Error::TooManyParameters);
+                } else {
+                    setError(Error::MissingParen);
+                }
+            } else if (i < ret.getArity() - 1) {
+                setError(Error::TooFewParameters);
+            } else {
+                nextToken();
+            }
+        }
     }
     return ret;
 }
@@ -307,48 +289,48 @@ Node Parser::base()
 {
     Node ret;
     switch (token) {
-        case Token::Number:
-            ret = Node(number);
+    case Token::Number:
+        ret = Node(number);
+        nextToken();
+        break;
+    case Token::Identifier: {
+        Node identifier = Node(name);
+        if (!identifier.isValid()) {
+            setError(Error::UnknownIdentifier);
+        } else if (identifier.isFunction()) {
+            ret = function(identifier);
+        } else {
+            // Variable or constant
+            ret = identifier;
             nextToken();
-            break;
-        case Token::Identifier: {
-            Node identifier = Node(name);
-            if (!identifier.isValid()) {
-                setError(Error::UnknownIdentifier);
-            } else if (identifier.isFunction()) {
-                ret = function(identifier);
-            } else {
-                // Variable or constant
-                ret = identifier;
-                nextToken();
-            }
-            break;
         }
-        case Token::OpenParen:
+        break;
+    }
+    case Token::OpenParen:
+        nextToken();
+        ret = expr();
+        if (token != Token::CloseParen) {
+            setError(Error::MissingParen);
+        } else {
             nextToken();
-            ret = expr();
-            if (token != Token::CloseParen) {
-                setError(Error::MissingParen);
-            } else {
-                nextToken();
-            }
-            break;
-        case Token::CloseParen:
-            setError(Error::UnexpectedParen);
-            break;
-        case Token::Comma:
-            setError(Error::UnexpectedComma);
-            break;
-        case Token::Plus:
-        case Token::Minus:
-        case Token::Times:
-        case Token::Divide:
-        case Token::Power:
-            setError(Error::MissingOperand);
-            break;
-        default:
-            setError(Error::UnexpectedToken);
-            break;
+        }
+        break;
+    case Token::CloseParen:
+        setError(Error::UnexpectedParen);
+        break;
+    case Token::Comma:
+        setError(Error::UnexpectedComma);
+        break;
+    case Token::Plus:
+    case Token::Minus:
+    case Token::Times:
+    case Token::Divide:
+    case Token::Power:
+        setError(Error::MissingOperand);
+        break;
+    default:
+        setError(Error::UnexpectedToken);
+        break;
     }
     return ret;
 }
@@ -414,24 +396,33 @@ Node Parser::expr()
     return ret;
 }
 
-Error Parser::parse(string expression)
+Error Parser::parse(string exp)
 {
     error = Error::None;
-    start = next = expression.c_str();
+    expression = exp;
+    first = start = next = expression.c_str();
     nextToken();
     root = expr();
     if (token == Token::End) {
-        root.compile();
+        stack.clear();
+        result = root.compile(stack);
     }
     return error;
 }
 
-Value Parser::eval()
+void Parser::setError(Error err)
 {
-    if (error != Error::None)
-        return NAN;
-    else
-        return root.eval();
+    if (token != Token::Error) {
+        token = Token::Error;
+        error = err;
+        errorloc.first = start - first;
+        errorloc.second = next - first;
+    }
+}
+
+string Parser::getExpression()
+{
+    return expression;
 }
 
 string Parser::errorMessage()
@@ -451,19 +442,80 @@ string Parser::errorMessage()
     return errors[error];
 }
 
+pair<int, int> Parser::errorLocation()
+{
+    return errorloc;
+}
+
 } // namespace FormEval
+
+using namespace FormEval;
+
 
 int main(int argc, char *argv[])
 {
     if (argc < 2) {
-        cout << "Usage: formeval expression" << std::endl;
+        cout << "Usage: formeval expression" << endl;
         return -1;
     }
-    FormEval::Parser p;
-    FormEval::Error error = p.parse(argv[1]);
-    if (error != FormEval::Error::None)
-        cout << p.errorMessage() << std::endl;
-    else
-        cout << p.eval() << std::endl;
+    Parser p;
+    Error error = p.parse(argv[1]);
+    if (error != Error::None) {
+        pair<int, int> loc = p.errorLocation();
+        int len = loc.second - loc.first - 1;
+        if (len < 0)
+            len = 0;
+        cout << p.errorMessage() << ':' << endl;
+        cout << p.getExpression() << endl;
+        cout << string(loc.first, ' ');
+        cout << '^' << string(len, '~') << endl;
+    } else {
+        cout << p.eval() << endl;
+    }
     return 0;
 }
+
+/*
+int main()
+{
+    Parser p;
+    Value c;
+    Value z;
+    Value t;
+
+    Parser::addVariable("c", &c);
+    Parser::addVariable("z", &c);
+    p.parse("z^2+c");
+
+    const int ixsize = 160;
+    const int iysize = 50;
+    const number_t cxmin = -1.5;
+    const number_t cxmax = 2;
+    const number_t cymin = -1;
+    const number_t cymax = 1;
+    const number_t maxit = 100;
+
+    for (unsigned int iy = 0; iy < iysize; ++iy)
+    {
+        for (unsigned int ix = 0; ix < ixsize; ++ix) {
+            c = {cxmin + ix/(ixsize-1.0)*(cxmax-cxmin), cymin + iy/(iysize-1.0)*(cymax-cymin)};
+            z = {0,0};
+            unsigned int iter;
+
+            for (iter = 0; iter < maxit && abs(z) < 2.0L; ++iter) {
+                z = p.eval();
+                //z = z*z+c;
+                cout << z << endl;
+            }
+            cout << endl;
+
+            //if (iter == maxit)
+            //    cout << ' ';
+            //else
+            //    cout << '*';
+
+        }
+        //cout << endl;
+    }
+}
+*/
