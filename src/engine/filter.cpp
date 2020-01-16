@@ -88,17 +88,18 @@ int reqimage(struct filter *f, struct requirements *req, int supportedmask,
 }
 
 /* An function helping to filter create new image.
- * It should be called by filter in inicialization. Filter passes
- * width,height,pixelwidth, pixelheight
- * and palette he wants to pass to his child and flags defining how it works
- * with image(IMAGEDATA if it requires data from previous frames (like blur
- * filter, TOUCHIMAGE if it changes data in image(like blur or stereogram
+ * It should be called by filter in initialization. Filter passes
+ * width, height, pixelwidth, pixelheight
+ * and palette it wants to pass to its child and flags defining how it works
+ * with the image (IMAGEDATA if it requires data from previous frames (like blur
+ * filter, TOUCHIMAGE if it changes data in image (like blur or stereogram
  * filter but unlike interlace and NEWIMAGE if it strictly requires to create
  * new image)
- * As palette he should pass NULL to keep parents palette. Same as
+ *
+ * As palette it should pass NULL to keep parents palette. Same as
  * (pixel)width/height should be passed 0;
  *
- * Function then aplies some heruistic in order to minimize memory
+ * Function then applies some heruistic in order to minimize memory
  * requirements. So it should share image, create image that shares image data
  * or create new image)
  *
@@ -195,6 +196,10 @@ int inherimage(struct filter *f, struct initdata *data, int flags, int width,
                 f->flags |= ALLOCEDIMAGE;
                 ddatalost = 1;
             }
+            // Fix crash when saving png because inherited images
+            // didn't inherit the data field (which now contains a pointer to
+            // the QImage used to save the png.
+            i->data = data->image->data;
         }
     }
 #ifdef DEBUG
