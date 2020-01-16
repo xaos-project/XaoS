@@ -565,7 +565,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     uih->fcontext->version++;
     uih_newimage(uih);
 
-    uih_loadcatalog(uih, QLocale::system().name().left(2).toUtf8());
+    // Try to load a catalog for the current language and if it doesn't exist,
+    // default to english. Fixes "No catalog loaded" messages on tutorials
+    // when using a language XaoS doesn't support
+    if (!uih_loadcatalog(uih, QLocale::system().name().left(2).toUtf8()))
+        uih_loadcatalog(uih, "en");
 
     tl_update_time();
     maintimer = tl_create_timer();
