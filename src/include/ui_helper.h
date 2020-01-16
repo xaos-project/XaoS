@@ -172,7 +172,7 @@ struct uih_context {
     int textpos[3], textcolor[3];
     const char *errstring; /*String of last unprocessed error */
 
-    const struct xfont *font; /*Font used by UI */
+    void *font; /*Font used by UI */
     struct uih_window *wtop;
     int wflipped;
     int wdisplayed;

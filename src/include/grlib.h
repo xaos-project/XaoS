@@ -1,16 +1,11 @@
 ﻿#ifndef _TEXT_H
 #define _TEXT_H
-extern const struct xfont {
-    const unsigned char *data;
-    int width, height, realwidth, encoding;
-} xsmallfont, xbigfont, xbigfont2, xaafont, xsmallfontil1, xbigfontil1,
-    xmedfontil1, xbigfont3;
 #define TEXT_PRESSED 1
-int xprint(struct image *image, const struct xfont *current, int x, int y,
+int xprint(struct image *image, void *font, int x, int y,
            const char *text, int fgcolor, int bgcolor, int mode);
-int xtextwidth(struct image *image, const struct xfont *font, const char *text);
-int xtextheight(struct image *image, const struct xfont *font);
-int xtextcharw(struct image *image, const struct xfont *font, const char c);
+int xtextwidth(struct image *image, void *font, const char *text);
+int xtextheight(struct image *image, void *font);
+int xtextcharw(struct image *image, void *font, const char c);
 void xrectangle(struct image *image, int x, int y, int width, int height,
                 int fgcolor);
 void xvline(struct image *image, int x, int y, int height, int fgcolor);

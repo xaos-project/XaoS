@@ -5,9 +5,14 @@
 #include "grlib.h"
 #include "xio.h"
 
-static QFont getFont() { return QFont(QApplication::font().family(), 12); }
+static QFont getFont(void *font) {
+    if (font)
+        return *reinterpret_cast<QFont *>(font);
+    else
+        return QFont(QApplication::font().family(), 12);
+}
 
-int xprint(struct image *image, const struct xfont */*current*/, int x, int y,
+int xprint(struct image *image, void *font, int x, int y,
            const char *text, int fgcolor, int bgcolor, int mode)
 {
     char line[BUFSIZ];
@@ -16,9 +21,9 @@ int xprint(struct image *image, const struct xfont */*current*/, int x, int y,
     line[pos] = '\0';
 
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
-    QFontMetrics metrics(getFont(), qimage);
+    QFontMetrics metrics(getFont(font), qimage);
     QPainter painter(qimage);
-    painter.setFont(getFont());
+    painter.setFont(getFont(font));
 
     if (mode == TEXT_PRESSED) {
         painter.setPen(fgcolor);
@@ -33,26 +38,26 @@ int xprint(struct image *image, const struct xfont */*current*/, int x, int y,
     return strlen(line);
 }
 
-int xtextwidth(struct image */*image*/, const struct xfont */*font*/, const char *text)
+int xtextwidth(struct image */*image*/, void *font, const char *text)
 {
     char line[BUFSIZ];
     int pos = strcspn(text, "\n");
     strncpy(line, text, pos);
     line[pos] = '\0';
 
-    QFontMetrics metrics(getFont());
+    QFontMetrics metrics(getFont(font));
     return metrics.width(line) + 1;
 }
 
-int xtextheight(struct image */*image*/, const struct xfont */*font*/)
+int xtextheight(struct image */*image*/, void *font)
 {
-    QFontMetrics metrics(getFont());
+    QFontMetrics metrics(getFont(font));
     return metrics.height() + 1;
 }
 
-int xtextcharw(struct image */*image*/, const struct xfont */*font*/, const char c)
+int xtextcharw(struct image */*image*/, void *font, const char c)
 {
-    QFontMetrics metrics(getFont());
+    QFontMetrics metrics(getFont(font));
     return metrics.width(c);
 }
 
