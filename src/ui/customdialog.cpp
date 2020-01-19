@@ -16,7 +16,7 @@ QString format(number_t number)
 {
     char buf[256];
 #ifdef USE_FLOAT128
-    quadmath_snprintf(buf, 256, "%.20Qg", (__float128)number);
+    quadmath_snprintf(buf, 256, "%.34Qg", (__float128)number);
 #else
 #ifdef USE_LONG_DOUBLE
     snprintf(buf, 256, "%.20Lg", (long double)number);

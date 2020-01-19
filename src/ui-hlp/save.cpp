@@ -88,7 +88,7 @@ static void save_float(struct uih_context *uih, number_t number)
         first = 0;
     char s[256];
 #ifdef USE_FLOAT128
-    quadmath_snprintf(s, 256, "%.20QG", (__float128)number);
+    quadmath_snprintf(s, 256, "%.34QG", (__float128)number);
 #else
 #ifdef USE_LONG_DOUBLE
     snprintf(s, 256, "%.20LG", (long double)number);
@@ -113,7 +113,7 @@ static void save_float2(struct uih_context *uih, number_t number, int places)
     char s[256];
 #ifdef USE_FLOAT128
     snprintf(fs, 10, "%%.%iQG", places);
-    quadmath_snprintf(s, 256, "%.20QG", (__float128)number);
+    quadmath_snprintf(s, 256, "%.34QG", (__float128)number);
 #else
 #ifdef USE_LONG_DOUBLE
     snprintf(fs, 10, "%%.%iLG", places);
