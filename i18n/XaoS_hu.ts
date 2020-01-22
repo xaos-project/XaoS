@@ -315,24 +315,24 @@
         <translation>Érvénytelen nézőpont</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="526"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="546"/>
         <source>Unknown palette type</source>
         <translation>Ismeretlen paletta típus</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="602"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="617"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="622"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="637"/>
         <source>Initialization of color cycling failed.</source>
         <translation>A színforgatás nem inicializálható.</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="604"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="619"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="624"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="639"/>
         <source>Try to enable palette emulation filter</source>
         <translation>Próbáld bekapcsolni a paletta emulációs szűrőt</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="725"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="745"/>
         <source>Algorithm:%i seed:%i size:%i</source>
         <translation>Algoritmus:%i mag:%i méret:%i</translation>
     </message>
@@ -535,12 +535,12 @@
         <translation>A számítás véget ért</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="596"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="593"/>
         <source>Tutorial files not found. Reinstall XaoS</source>
         <translation>A tankönyv fájlok nem találhatók. A XaoS programot újra kell telepíteni</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="611"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="608"/>
         <source>Could not open examples</source>
         <translation>A példák nem nyithatók meg</translation>
     </message>
@@ -570,795 +570,799 @@
 <context>
     <name>Menu</name>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="769"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="789"/>
         <source>Root menu</source>
         <translation>Főmenü</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="770"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="790"/>
         <source>Animation root menu</source>
         <translation>Animáció főmenü</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="771"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="791"/>
         <source>Replay only commands</source>
         <translation>Csak visszajátszó parancsok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="774"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="794"/>
         <source>Line drawing functions</source>
         <translation>Vonalrajzoló függvények</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="775"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="795"/>
         <source>Line</source>
         <translation>Vonal</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="777"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="797"/>
         <source>Morph line</source>
         <translation>Átalakuló vonal</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="779"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="799"/>
         <source>Morph last line</source>
         <translation>Az utolsó vonal átalakítása</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="781"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="801"/>
         <source>Set line key</source>
         <translation>Vonalkulcs beállítása</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="783"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="803"/>
         <source>Clear line</source>
         <translation>Vonal törlése</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="785"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="805"/>
         <source>Clear all lines</source>
         <translation>Minden vonal törlése</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="787"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="807"/>
         <source>Animation functions</source>
         <translation>Animációs függvények</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="788"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="855"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="864"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="962"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="964"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="808"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="875"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="884"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="982"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="984"/>
         <source>View</source>
         <translation>Nézet</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="790"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="810"/>
         <source>Morph view</source>
         <translation>Átalakítás nézet</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="792"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="812"/>
         <source>Morph julia</source>
         <translation>Átalakítás Julia</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="794"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="814"/>
         <source>Move view</source>
         <translation>Mozgatás nézet</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="796"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="816"/>
         <source>Morph angle</source>
         <translation>Átalakítás szög</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="798"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="818"/>
         <source>Zoom center</source>
         <translation>Nagyítási centrum</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="800"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="820"/>
         <source>Zoom</source>
         <translation>Nagyítás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="801"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="821"/>
         <source>Un-zoom</source>
         <translation>Kicsinyítés</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="803"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="823"/>
         <source>Stop zooming</source>
         <translation>Belenagyítás leállítása</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="805"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="825"/>
         <source>Smooth morphing parameters</source>
         <translation>Simítási paraméterek</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="807"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="827"/>
         <source>Timing functions</source>
         <translation>Időzítő függvények</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="808"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="828"/>
         <source>Usleep</source>
         <translation>Várakozás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="810"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="830"/>
         <source>Wait for text</source>
         <translation>Szövegre várakozás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="812"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="832"/>
         <source>Wait for complete image</source>
         <translation>A kép kirajzolása folyamatban</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="814"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="834"/>
         <source>Include file</source>
         <translation>Fájl csatolása</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="816"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="989"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="836"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1009"/>
         <source>Default palette</source>
         <translation>Alapértelmezett színek</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="818"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="838"/>
         <source>Formula</source>
         <translation>Képlet</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="820"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="840"/>
         <source>Maximal zooming step</source>
         <translation>Maximális nagyítási lépték</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="822"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="842"/>
         <source>Zooming speedup</source>
         <translation>Belenagyítás gyorsasága</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="824"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="844"/>
         <source>Filter</source>
         <translation>Szűrő</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="828"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="830"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="848"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="850"/>
         <source>Letters per second</source>
         <translation>Másodpercenkénti betűszám</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="832"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1069"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="852"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1089"/>
         <source>Interrupt</source>
         <translation>Megszakítás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="835"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="842"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="855"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="862"/>
         <source>Status</source>
         <translation>Jellemzők</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="838"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="846"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="858"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="866"/>
         <source>Ministatus</source>
         <translation>Főbb jellemzők</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="849"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="858"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="869"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="878"/>
         <source>File</source>
         <translation>Fájl</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="850"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="870"/>
         <source>Edit</source>
         <translation>Szerkesztés</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="851"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="871"/>
         <source>Fractal</source>
         <translation>Fraktál</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="852"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="872"/>
         <source>Calculation</source>
         <translation>Számítás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="853"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1111"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="873"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1131"/>
         <source>Filters</source>
         <translation>Szűrők</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="854"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="874"/>
         <source>Action</source>
         <translation>Művelet</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="856"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="865"/>
-        <location filename="../src/ui/main.cpp" line="363"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="876"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="885"/>
+        <location filename="../src/ui/main.cpp" line="349"/>
         <source>Help</source>
         <translation>Segítség</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="857"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="877"/>
         <source>Tutorials</source>
         <translation>Útmutatók</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="862"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="882"/>
         <source>Stop replay</source>
         <translation>Visszajátszás leállítása</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="866"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="886"/>
         <source>Command</source>
         <translation>Parancs</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="868"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="888"/>
         <source>Play string</source>
         <translation>Karakterlánc lejátszása</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="871"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="891"/>
         <source>Clear screen</source>
         <translation>Képernyőtörlés</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="873"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="893"/>
         <source>Display fractal</source>
         <translation>Fraktál megjelenítése</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="876"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="896"/>
         <source>Display text</source>
         <translation>Szöveg megjelenítése</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="879"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="899"/>
         <source>Text color</source>
         <translation>Szöveg színe</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="881"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="901"/>
         <source>Horizontal text position</source>
         <translation>Szöveg vízszintes pozíciója</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="883"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="903"/>
         <source>Vertical text position</source>
         <translation>Szöveg függőleges pozíciója</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="884"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="904"/>
         <source>Text position</source>
         <translation>Szöveg pozíciója</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="887"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="907"/>
         <source>Message</source>
         <translation>Felirat</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="905"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="925"/>
         <source>New</source>
         <translation>Új</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="906"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="926"/>
         <source>Open</source>
         <translation>Megnyitás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="909"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="929"/>
         <source>Save</source>
         <translation>Mentés</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="912"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="932"/>
         <source>Record</source>
         <translation>Felvétel</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="914"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="934"/>
         <source>Replay</source>
         <translation>Visszajátszás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="918"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="938"/>
         <source>Save image</source>
         <translation>Kép mentése</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="920"/>
         <source>Render animation</source>
-        <translation>Film készítése</translation>
+        <translation type="vanished">Film készítése</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="923"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="940"/>
+        <source>Render</source>
+        <translation>Film legyártása</translation>
+    </message>
+    <message>
+        <location filename="../src/ui-hlp/menu.cpp" line="943"/>
         <source>Load random example</source>
         <translation>Egy mintapélda betöltése</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="925"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="945"/>
         <source>Save configuration</source>
         <translation>Beállítások mentése</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="928"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="948"/>
         <source>Undo</source>
         <translation>Visszavonás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="931"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="951"/>
         <source>Redo</source>
         <translation>Mégis</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="934"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="954"/>
         <source>Formulae</source>
         <translation>Képletek</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="935"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="955"/>
         <source>More formulae</source>
         <translation>További képletek</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="940"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="960"/>
         <source>User formula</source>
         <translation>Egyedi képlet</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="942"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="962"/>
         <source>User initialization</source>
         <translation>Egyedi képlet alapérték</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="947"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="967"/>
         <source>Incoloring mode</source>
         <translation>Belső színezési mód</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="948"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="968"/>
         <source>Outcoloring mode</source>
         <translation>Külső színezési mód</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="949"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="969"/>
         <source>Plane</source>
         <translation>Sík</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="950"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="970"/>
         <source>Palette</source>
         <translation>Színpaletta</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="953"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="973"/>
         <source>Mandelbrot mode</source>
         <translation>Mandelbrot-mód</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="956"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="976"/>
         <source>Julia mode</source>
         <translation>Julia-mód</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="959"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="979"/>
         <source>Fast julia mode</source>
         <translation>Gyors Julia-mód</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="967"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="987"/>
         <source>Rotation</source>
         <translation>Forgatás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="968"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="988"/>
         <source>Set angle</source>
         <translation>Szög beállítása</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="971"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="991"/>
         <source>Set plane</source>
         <translation>Sík beállítása</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="974"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="994"/>
         <source>Inside coloring mode</source>
         <translation>Belső színezési módok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="977"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="997"/>
         <source>Outside coloring mode</source>
         <translation>Külső színezési módok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="980"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1000"/>
         <source>Inside truecolor coloring mode</source>
         <translation>Belső truecolor színezési mód</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="983"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1003"/>
         <source>Outside truecolor coloring mode</source>
         <translation>Külső truecolor színezési mód</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="986"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1006"/>
         <source>Julia seed</source>
         <translation>Julia-sebesség</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="991"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1011"/>
         <source>Random palette</source>
         <translation>Véletlen színek</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="993"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1013"/>
         <source>Custom palette</source>
         <translation>Felhasználói színek</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="996"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1016"/>
         <source>Color cycling</source>
         <translation>Színforgatás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="998"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1018"/>
         <source>Reversed color cycling</source>
         <translation>Színforgatás visszafelé</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1001"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1021"/>
         <source>Color cycling speed</source>
         <translation>Színforgatási sebesség</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1004"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1024"/>
         <source>Shift palette</source>
         <translation>Színpaletta eltolása</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1006"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1026"/>
         <source>Shift one forward</source>
         <translation>Eggyel előreléptetés</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1008"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1028"/>
         <source>Shift one backward</source>
         <translation>Eggyel visszaléptetés</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1010"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1030"/>
         <source>Solid guessing</source>
         <translation>Egyszerű találgatás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1011"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1031"/>
         <source>Disable solid guessing</source>
         <translation>Egyszerű találgatás kikapcsolva</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1014"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1034"/>
         <source>Guess 2x2 rectangles</source>
         <translation>2x2 téglalap</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1016"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1036"/>
         <source>Guess 3x3 rectangles</source>
         <translation>3x3 téglalap</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1018"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1038"/>
         <source>Guess 4x4 rectangles</source>
         <translation>4x4 téglalap</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1020"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1040"/>
         <source>Guess 5x5 rectangles</source>
         <translation>5x5 téglalap</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1022"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1042"/>
         <source>Guess 6x6 rectangles</source>
         <translation>6x6 téglalap</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1024"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1044"/>
         <source>Guess 7x7 rectangles</source>
         <translation>7x7 téglalap</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1026"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1046"/>
         <source>Guess 8x8 rectangles</source>
         <translation>8x8 téglalap</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1028"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1048"/>
         <source>Guess unlimited rectangles</source>
         <translation>Korlátlan téglalapszám</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1030"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1050"/>
         <source>Dynamic resolution</source>
         <translation>Dinamikus felbontás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1031"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1051"/>
         <source>Periodicity checking</source>
         <translation>Periodicitás vizsgálata</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1034"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1054"/>
         <source>Iterations</source>
         <translation>Iterációk</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1036"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1056"/>
         <source>Bailout</source>
         <translation>Szökés</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1038"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1041"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1115"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1058"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1061"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1135"/>
         <source>Perturbation</source>
         <translation>Perturbáció</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1045"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1065"/>
         <source>Zooming speed</source>
         <translation>Belenagyítás gyorsasága</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1047"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1067"/>
         <source>Fixed step</source>
         <translation>Rögzített lépték</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1050"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1070"/>
         <source>Solid guessing range</source>
         <translation>Találgatási intervallum</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1052"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1072"/>
         <source>Disable rotation</source>
         <translation>Forgatás kikapcsolva</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1055"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1075"/>
         <source>Continuous rotation</source>
         <translation>Folyamatos forgatás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1057"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1077"/>
         <source>Rotate by mouse</source>
         <translation>Forgatás egérrel</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1059"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1079"/>
         <source>Rotation speed</source>
         <translation>Forgatás gyorsasága</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1061"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1081"/>
         <source>Automatic rotation</source>
         <translation>Automatikus forgatás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1063"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1083"/>
         <source>Fast rotation mode</source>
         <translation>Gyors forgatási mód</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1067"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1087"/>
         <source>Recalculate</source>
         <translation>Újraszámolás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1071"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1091"/>
         <source>Disable dynamic resolution</source>
         <translation>Dinamikus felbontás kikapcsolva</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1074"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1094"/>
         <source>Use only during animation</source>
         <translation>Csak az animáció alatt</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1076"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1096"/>
         <source>Use also for new images</source>
         <translation>Új képeknél is így legyen</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1078"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1098"/>
         <source>Dynamic resolution mode</source>
         <translation>Dinamikus felbontási mód</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1081"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1101"/>
         <source>Autopilot</source>
         <translation>Robotpilóta</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1084"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1104"/>
         <source>Hide Messages</source>
         <translation>Üzenetek némítása</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1087"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1107"/>
         <source>An introduction to fractals</source>
         <translation>Bevezetés a fraktálok világába</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1089"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1109"/>
         <source>XaoS features overview</source>
         <translation>Tippek és trükkök</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1090"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1110"/>
         <source>Math behind fractals</source>
         <translation>A fraktálok matematikája</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1091"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1123"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1111"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1143"/>
         <source>Other fractal types in XaoS</source>
         <translation>A XaoS további fraktáltípusai</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1093"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1113"/>
         <source>What&apos;s new?</source>
         <translation>Újdonságok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1095"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1118"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1115"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1138"/>
         <source>Whole story</source>
         <translation>Minden fejezet</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1097"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1117"/>
         <source>Introduction</source>
         <translation>Bevezetés</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1098"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1118"/>
         <source>Mandelbrot set</source>
         <translation>Mandelbrot-halmaz</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1099"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1119"/>
         <source>Julia set</source>
         <translation>Julia-halmaz</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1100"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1120"/>
         <source>Higher power Mandelbrots</source>
         <translation>Magasabb rendű Mandelbrotok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1101"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1121"/>
         <source>Newton&apos;s method</source>
         <translation>Newton eljárása</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1102"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1122"/>
         <source>Barnsley&apos;s formula</source>
         <translation>A Barnsley-formula</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1103"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1123"/>
         <source>Phoenix</source>
         <translation>Phoenix</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1104"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1124"/>
         <source>Octo</source>
         <translation>Octo</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1105"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1125"/>
         <source>Magnet</source>
         <translation>Mágnes</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1106"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1126"/>
         <source>All features</source>
         <translation>Az összes jellemző</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1108"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1128"/>
         <source>Outcoloring modes</source>
         <translation>Külső színezési módok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1109"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1129"/>
         <source>Incoloring modes</source>
         <translation>Belső színezési módok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1110"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1130"/>
         <source>True-color coloring modes</source>
         <translation>Truecolor színezési módok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1112"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1132"/>
         <source>Planes</source>
         <translation>Síkok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1113"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1133"/>
         <source>Animations and position files</source>
         <translation>Animációk és pozíciófájlok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1116"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1136"/>
         <source>Random palettes</source>
         <translation>Véletlen színpaletták</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1117"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1137"/>
         <source>Other noteworthy features</source>
         <translation>További apróságok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1120"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1140"/>
         <source>The definition and fractal dimension</source>
         <translation>Definíció és fraktáldimenzió</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1122"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1142"/>
         <source>Escape time fractals</source>
         <translation>Szökési időn alapuló fraktálok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1125"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1145"/>
         <source>Triceratops and Catseye fractals</source>
         <translation>A Triceratops és a Catseye fraktálok</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1127"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1147"/>
         <source>Mandelbar, Lambda, Manowar and Spider</source>
         <translation>Mandelbar, Lambda, Manowar és Spider</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1129"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1149"/>
         <source>Sierpinski Gasket, S.Carpet, Koch Snowflake</source>
         <translation>Sierpinski-háromszög, -szőnyeg, Koch-hópehely</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1131"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1151"/>
         <source>What&apos;s new in 3.0?</source>
         <translation>Újdonságok a 3.0-s verzióban</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="361"/>
+        <location filename="../src/ui/main.cpp" line="347"/>
         <source>Quit</source>
         <translation>Kilépés</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="365"/>
+        <location filename="../src/ui/main.cpp" line="351"/>
         <source>About</source>
         <translation>Névjegy</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="367"/>
-        <location filename="../src/ui/main.cpp" line="369"/>
+        <location filename="../src/ui/main.cpp" line="353"/>
+        <location filename="../src/ui/main.cpp" line="355"/>
         <source>Fullscreen</source>
         <translation>Teljes képernyő</translation>
     </message>
@@ -1432,147 +1436,147 @@
         <translation>A számítás véget ért</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="601"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="598"/>
         <source>Preparing first image</source>
         <translation>Az első kép előkészítése</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="618"/>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="620"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="615"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="617"/>
         <source>File %s loaded.</source>
         <translation>A(z) %s fájl betöltődött.</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="630"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="627"/>
         <source>Saving image...</source>
         <translation>Kép mentése...</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="638"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="635"/>
         <source>Save interrupted</source>
         <translation>A mentés félbeszakadt</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="647"/>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="664"/>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="731"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="644"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="661"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="728"/>
         <source>File %s saved.</source>
         <translation>A(z) %s fájl elmentve.</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="658"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="655"/>
         <source>Can not open file</source>
         <translation>A fájl nem nyitható meg</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="753"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="750"/>
         <source>Recording to file %s enabled.</source>
         <translation>A(z) %s fájlba történő felvétel elindítva.</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2214"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2222"/>
         <source>%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            </source>
         <translation>%s %.2f-szoros (%.1fE) %2.2f kép/mp %c %i %i %i %u            </translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2216"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2224"/>
         <source>unzoomed</source>
         <translation>kicsinyítés</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2216"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2224"/>
         <source>zoomed</source>
         <translation>nagyítás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2222"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2230"/>
         <source>framerate:%f
 </source>
         <translation>képfrissítés:%f
 </translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2256"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2264"/>
         <source>Fractal name:%s</source>
         <translation>Fraktál neve:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2260"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2268"/>
         <source>Fractal type:%s</source>
         <translation>Fraktál típusa:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2261"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2269"/>
         <source>Mandelbrot</source>
         <translation>Mandelbrot</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2262"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2270"/>
         <source>Julia</source>
         <translation>Julia</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2265"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2274"/>
         <source>Formula:%s</source>
         <translation>Képlet:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2270"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2280"/>
         <source>View:[%1.12f,%1.12f]</source>
         <translation>Nézet:[%1.12f,%1.12f]</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2274"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2284"/>
         <source>size:[%1.12f,%1.12f]</source>
         <translation>Méret:[%1.12fx%1.12f]</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2278"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2288"/>
         <source>Rotation:%4.2f   Screen size:%i:%i</source>
         <translation>Forgatás:%4.2f   Képernyőméret:%i:%i</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2283"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2293"/>
         <source>Iterations:%-4u Palette size:%i</source>
         <translation>Iterációk száma:%-4u Színpaletta-méret:%i</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2290"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2300"/>
         <source>Autopilot:%-4s  Plane:%s</source>
         <translation>Robotpilóta:%-4s  Sík:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2291"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
         <source>On</source>
         <translation>Be</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2291"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
         <source>Off</source>
         <translation>Ki</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2295"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2305"/>
         <source>incoloring:%s    outcoloring:%s</source>
         <translation>belső színezés:%s    külső színezés:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2300"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2310"/>
         <source>zoomspeed:%f</source>
         <translation>belenagyítási sebesség:%f</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2304"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2314"/>
         <source>Parameter:none</source>
         <translation>Paraméter:nincs</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2306"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2316"/>
         <source>Parameter:[%f,%f]</source>
         <translation>Paraméter:[%f,%f]</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="284"/>
+        <location filename="../src/ui/main.cpp" line="270"/>
         <source>Thank you for using XaoS
 </source>
         <translation>Köszönjük, hogy a XaoS programot használta
@@ -1619,59 +1623,59 @@
         <translation>sebesség:%2.2f </translation>
     </message>
     <message>
-        <location filename="../src/ui/mainwindow.cpp" line="528"/>
+        <location filename="../src/ui/mainwindow.cpp" line="524"/>
         <source>Please wait while calculating %s</source>
         <translation>Kérem várjon, a %s fraktál előállítása folyamatban...</translation>
     </message>
     <message>
-        <location filename="../src/ui/mainwindow.cpp" line="613"/>
+        <location filename="../src/ui/mainwindow.cpp" line="611"/>
         <source>Welcome to XaoS version %s</source>
-        <translation type="unfinished">Köszöntjük a XaoS %s verziójában!</translation>
+        <translation>Köszöntjük a XaoS %s verziójában!</translation>
     </message>
     <message>
-        <location filename="../src/sffe/sffe.cpp" line="107"/>
-        <source>Formula error: out of memory.</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/sffe/sffe.cpp" line="55"/>
+        <source>Out of memory</source>
+        <translation>Elfogyott a memória</translation>
     </message>
     <message>
-        <location filename="../src/sffe/sffe.cpp" line="111"/>
-        <source>Formula error: unbalanced brackets: %s</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/sffe/sffe.cpp" line="58"/>
+        <source>Unbalanced parentheses</source>
+        <translation>Hibás zárójelezés</translation>
     </message>
     <message>
-        <location filename="../src/sffe/sffe.cpp" line="115"/>
-        <source>Formula error: unknown function: %s</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/sffe/sffe.cpp" line="62"/>
+        <source>Unknown function: %s</source>
+        <translation>Ismeretlen függvény: %s</translation>
     </message>
     <message>
-        <location filename="../src/sffe/sffe.cpp" line="119"/>
-        <source>Formula error: invalid number format: %s</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/sffe/sffe.cpp" line="66"/>
+        <source>Invalid number: %s</source>
+        <translation>Érvénytelen szám: %s</translation>
     </message>
     <message>
-        <location filename="../src/sffe/sffe.cpp" line="123"/>
-        <source>Formula error: unknown constant or variable: %s</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/sffe/sffe.cpp" line="69"/>
+        <source>Unknown variable: %s</source>
+        <translation>Ismeretlen változó: %s</translation>
     </message>
     <message>
-        <location filename="../src/sffe/sffe.cpp" line="127"/>
-        <source>Formula error: unknown operator: %s</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/sffe/sffe.cpp" line="73"/>
+        <source>Invalid operator: %s</source>
+        <translation>Érvénytelen művelet: %s</translation>
     </message>
     <message>
-        <location filename="../src/sffe/sffe.cpp" line="131"/>
-        <source>Formula error: stack corrupted: %s</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/sffe/sffe.cpp" line="78"/>
+        <source>Internal error occurred in formula: %s</source>
+        <translation>Belső hiba a képletben: %s</translation>
     </message>
     <message>
-        <location filename="../src/sffe/sffe.cpp" line="135"/>
-        <source>Formula error: incorrect parameters for function: %s</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/sffe/sffe.cpp" line="83"/>
+        <source>Function has incorrect parameter count: %s</source>
+        <translation>Nem megfelelő számú paraméter: %s</translation>
     </message>
     <message>
-        <location filename="../src/sffe/sffe.cpp" line="140"/>
-        <source>Formula error: internal error: %s</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/sffe/sffe.cpp" line="87"/>
+        <source>Empty formula</source>
+        <translation>Üres képlet</translation>
     </message>
 </context>
 </TS>

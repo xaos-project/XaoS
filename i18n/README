@@ -10,7 +10,7 @@ Run the following command from the XaoS top level directory to update the
 .ts files with changes from the source code:
 
 ```
-lupdate -tr-function-alias QT_TRANSLATE_NOOP=TR xaos.pro
+lupdate -tr-function-alias QT_TRANSLATE_NOOP=TR XaoS.pro
 ```
 
 The function alias is very important so XaoS can find the TR macros used
@@ -27,5 +27,5 @@ also be manually updated by running the following command from the top
 level directory:
 
 ```
-lrelease xaos.pro
+lrelease XaoS.pro
 ```
