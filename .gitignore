@@ -47,23 +47,17 @@ bin/*
 .vscode
 
 # Qt Stuff
-*.qm
 XaoS.pro.user
 .qmake.stash
-Makefile
-Makefile.Debug
-Makefile.Release
-object_script.xaos.Debug
-object_script.xaos.Release
 debug
 release
 installer/packages/net.sourceforge.xaos/data
-moc_customdialog.cpp
-moc_fractalwidget.cpp
-moc_mainwindow.cpp
-moc_predefs.h
-qrc_XaoS.cpp
+Makefile*
+object_script.*
+moc_*
+qrc_*
+*.qm
 
-#mac crap
+# Mac stuff
 .DS_Store
 
