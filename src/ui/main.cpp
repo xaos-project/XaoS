@@ -270,10 +270,13 @@ static void ui_help(struct uih_context */*uih*/)
     QDesktopServices::openUrl(QUrl(HELP_URL));
 }
 
-static void ui_about(struct uih_context */*uih*/)
+static void ui_about(struct uih_context *uih)
 {
+    MainWindow *window = nullptr;
+    if (uih->data)
+        window = reinterpret_cast<MainWindow *>(uih->data);
     QMessageBox::about(
-        NULL, qt_gettext("Dialog", "About"),
+        window, qt_gettext("Dialog", "About"),
         "<a href=\"http://xaos.sf.net\">" +
             QCoreApplication::applicationName() + "</a> " +
             QCoreApplication::applicationVersion() + " (" +
