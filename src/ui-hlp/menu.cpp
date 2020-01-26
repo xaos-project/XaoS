@@ -482,19 +482,23 @@ static menudialog *uih_getrotationdialog(struct uih_context *c)
 #ifdef USE_SFFE
 static menudialog *uih_getsffedialog(struct uih_context *c)
 {
-    if (c->fcontext->userformula->expression)
-        uih_sffedialog[0].defstr = c->fcontext->userformula->expression;
-    else
-        uih_sffedialog[0].defstr = USER_FORMULA;
+    if (c != NULL) {
+        if (c->fcontext->userformula->expression)
+            uih_sffedialog[0].defstr = c->fcontext->userformula->expression;
+        else
+            uih_sffedialog[0].defstr = USER_FORMULA;
+    }
     return (uih_sffedialog);
 }
 
 static menudialog *uih_getsffeinitdialog(struct uih_context *c)
 {
-    if (c->fcontext->userinitial->expression)
-        uih_sffeinitdialog[0].defstr = c->fcontext->userinitial->expression;
-    else
-        uih_sffeinitdialog[0].defstr = "";
+    if (c != NULL) {
+        if (c->fcontext->userinitial->expression)
+            uih_sffeinitdialog[0].defstr = c->fcontext->userinitial->expression;
+        else
+            uih_sffeinitdialog[0].defstr = "";
+    }
     return (uih_sffeinitdialog);
 }
 #endif
