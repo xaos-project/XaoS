@@ -61,8 +61,6 @@ static char *imgtype;
 static char *defsize;
 static float framerate;
 static int letterspersec = 20;
-static int defvectors;
-static int iframedist;
 
 const struct params global_params[] = {
     {"-delay", P_NUMBER, &delaytime, "Delay screen updates (milliseconds)"},
@@ -91,10 +89,6 @@ const struct params global_params[] = {
      "Perform antialiasing (slow, requires quite lot of memory)"},
     {"-alwaysrecalc", P_SWITCH, &slowmode,
      "Always recalculate whole image (slowes down rendering, increases quality)"},
-    {"-rendervectors", P_SWITCH, &defvectors,
-     "Render motion vectors (should be used for MPEG encoding)"},
-    {"-iframedist", P_NUMBER, &iframedist,
-     "Recommended distance between I frames in pat file (should be used for MPEG encoding)"},
 
     {NULL, 0, NULL, NULL}};
 
