@@ -61,7 +61,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="123"/>
         <source>Framerate:</source>
-        <translation type="unfinished">Bildfrequenz:</translation>
+        <translation>Bildfrequenz:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="124"/>
@@ -222,7 +222,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="230"/>
         <source>Threads:</source>
-        <translation type="unfinished"></translation>
+        <translation>Threads:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="238"/>
@@ -894,7 +894,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="969"/>
         <source>Render</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendern</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="972"/>
@@ -1114,7 +1114,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1083"/>
         <source>Threads</source>
-        <translation type="unfinished"></translation>
+        <translation>Threads</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1085"/>
@@ -1368,22 +1368,22 @@
     <message>
         <location filename="../src/ui/main.cpp" line="369"/>
         <source>Message Font...</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftart für Nachrichten...</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="380"/>
         <source>Send Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Rückmeldung senden</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="382"/>
         <source>Get Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuellste Version</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="384"/>
         <source>User Forum</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerforum</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="387"/>
@@ -1665,47 +1665,47 @@
     <message>
         <location filename="../src/sffe/sffe.cpp" line="55"/>
         <source>Out of memory</source>
-        <translation type="unfinished">Zu wenig Speicher</translation>
+        <translation>Zu wenig Speicher</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="58"/>
         <source>Unbalanced parentheses</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler bei der Klammerung</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="62"/>
         <source>Unknown function: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekannte Funktion: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="66"/>
         <source>Invalid number: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Falsche Zahl: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="69"/>
         <source>Unknown variable: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekannte Variable: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="73"/>
         <source>Invalid operator: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Falsche Operation: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="78"/>
         <source>Internal error occurred in formula: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Interner Programmfehler in Formel: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="83"/>
         <source>Function has incorrect parameter count: %s</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktion hat falsche Parameteranzahl: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="87"/>
         <source>Empty formula</source>
-        <translation type="unfinished"></translation>
+        <translation>Leere Formel</translation>
     </message>
 </context>
 </TS>
