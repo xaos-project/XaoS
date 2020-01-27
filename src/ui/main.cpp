@@ -269,6 +269,21 @@ static void ui_help(struct uih_context */*uih*/)
     QDesktopServices::openUrl(QUrl(HELP_URL));
 }
 
+static void ui_download(struct uih_context */*uih*/)
+{
+    QDesktopServices::openUrl(QUrl(DOWNLOAD_URL));
+}
+
+static void ui_feedback(struct uih_context */*uih*/)
+{
+    QDesktopServices::openUrl(QUrl(FEEDBACK_URL));
+}
+
+static void ui_forum(struct uih_context */*uih*/)
+{
+    QDesktopServices::openUrl(QUrl(FORUM_URL));
+}
+
 static void ui_about(struct uih_context *uih)
 {
     MainWindow *window = nullptr;
@@ -362,6 +377,13 @@ static void ui_registermenus_i18n(void)
 
     MENUNOP_I("helpmenu", "h", TR("Menu", "Help"), "help", MENUFLAG_INCALC,
               ui_help);
+    MENUNOP_I("helpmenu", NULL, TR("Menu", "Send Feedback"), "feedback", MENUFLAG_INCALC,
+              ui_feedback);
+    MENUNOP_I("helpmenu", NULL, TR("Menu", "Get Updates"), "updates", MENUFLAG_INCALC,
+              ui_download);
+    MENUNOP_I("helpmenu", NULL, TR("Menu", "User Forum"), "forum", MENUFLAG_INCALC,
+              ui_forum);
+    MENUSEPARATOR_I("helpmenu");
     MENUNOP_I("helpmenu", NULL, TR("Menu", "About"), "about", UI, ui_about);
 
     no_menuitems_i18n -= ui_no_menuitems_i18n;

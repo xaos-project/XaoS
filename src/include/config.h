@@ -7,6 +7,9 @@
 // URLs
 #define HELP_URL "https://github.com/xaos-project/XaoS/wiki"
 #define WEB_URL "http://xaos.sourceforge.net/"
+#define DOWNLOAD_URL "https://github.com/xaos-project/XaoS/releases"
+#define FEEDBACK_URL "https://github.com/xaos-project/XaoS/issues"
+#define FORUM_URL "https://groups.google.com/d/forum/xaos-users"
 
 // File locations
 #define DATAPATH "/usr/share/XaoS"
