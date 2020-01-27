@@ -307,6 +307,14 @@ static void ui_about(struct uih_context *uih)
     );
 }
 
+static void ui_font(struct uih_context *uih)
+{
+    MainWindow *window = nullptr;
+    if (uih->data)
+        window = reinterpret_cast<MainWindow *>(uih->data);
+    window->chooseFont();
+}
+
 #ifndef Q_OS_MAC
 static void ui_fullscreensw(struct uih_context *uih)
 {
@@ -343,15 +351,20 @@ static void ui_registermenus_i18n(void)
         ui_no_menuitems_i18n; /* This variable must be local. */
     MENUINT_I("file", NULL, TR("Menu", "Quit"), "quit",
               MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quit, UI);
-    MENUNOP_I("helpmenu", "h", TR("Menu", "Help"), "help", MENUFLAG_INCALC,
-              ui_help);
-    MENUNOP_I("helpmenu", NULL, TR("Menu", "About"), "about", UI, ui_about);
+
+    MENUNOP_I("ui", NULL, TR("Menu", "Message Font..."), "font", UI, ui_font);
+    MENUSEPARATOR_I("ui");
 #ifndef Q_OS_MACOS
     MENUNOPCB_I("ui", NULL, TR("Menu", "Fullscreen"), "fullscreen", UI,
                 ui_fullscreensw, ui_fullscreenselected);
     MENUNOPCB_I("uia", NULL, TR("Menu", "Fullscreen"), "fullscreena", UI,
                 ui_fullscreensw, ui_fullscreenselected);
 #endif
+
+    MENUNOP_I("helpmenu", "h", TR("Menu", "Help"), "help", MENUFLAG_INCALC,
+              ui_help);
+    MENUNOP_I("helpmenu", NULL, TR("Menu", "About"), "about", UI, ui_about);
+
     no_menuitems_i18n -= ui_no_menuitems_i18n;
     menu_add(&(menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
     ui_no_menuitems_i18n += no_menuitems_i18n;

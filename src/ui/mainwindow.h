@@ -25,6 +25,7 @@ class MainWindow : public QMainWindow
     tl_timer *loopt;
     tl_timer *arrowtimer;
     QMenuBar *menuBarRef;
+    QFont messageFont;
 
     static QKeySequence::StandardKey keyForItem(const QString &name);
     void buildMenu(const char *name, QMenu *parent, bool numbered);
@@ -81,6 +82,7 @@ private slots:
     void updateMenus(const char *name);
     void init();
     void eventLoop();
+    void chooseFont();
 };
 
 #endif // MAINWINDOW_H

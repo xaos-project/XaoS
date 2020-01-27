@@ -534,6 +534,19 @@ static void ui_message(struct uih_context *uih)
     }
 }
 
+void MainWindow::chooseFont()
+{
+    bool ok;
+    messageFont = QFontDialog::getFont(&ok, messageFont, this);
+    if (ok) {
+        QSettings settings;
+        settings.setValue("MainWindow/messageFontFamily", messageFont.family());
+        settings.setValue("MainWindow/messageFontSize",
+                          messageFont.pointSize());
+        uih->font = &messageFont;
+    }
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     menuBarRef = menuBar();
@@ -561,9 +574,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     uih = uih_mkcontext(PIXELSIZE, image, ui_passfunc, ui_message,
                         ui_updatemenus);
     uih->data = this;
+    uih->font = &messageFont;
     buildMenu(uih->menuroot);
     uih->fcontext->version++;
     uih_newimage(uih);
+    QSettings settings;
 
     // Try to load a catalog for the current language and if it doesn't exist,
     // default to english. Fixes "No catalog loaded" messages on tutorials
@@ -636,6 +651,16 @@ void MainWindow::readSettings()
     QSettings settings;
     restoreGeometry(settings.value("MainWindow/geometry").toByteArray());
     restoreState(settings.value("MainWindow/windowState").toByteArray());
+    QString fontFamily = settings
+                             .value("MainWindow/messageFontFamily",
+                                    QApplication::font().family())
+                             .toString();
+    int fontSize = settings
+                       .value("MainWindow/messageFontSize",
+                              12)
+                       .toInt();
+    messageFont = QFont(fontFamily, fontSize);
+
 }
 
 void MainWindow::writeSettings()

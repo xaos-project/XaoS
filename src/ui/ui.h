@@ -21,10 +21,7 @@
  */
 #ifndef UI_H
 #define UI_H
-/*
-#include "xio.h"
-#include "zoom.h"
-*/
+#include <QFont>
 #include "config.h"
 #include "param.h"
 #include "xmenu.h"
