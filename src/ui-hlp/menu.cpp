@@ -485,6 +485,7 @@ void uih_setthreads(uih_context */*c*/, number_t threads)
         threads = 1;
     if (threads > MAXTHREADS)
         threads = MAXTHREADS;
+    defthreads = threads;
     xth_uninit();
     xth_init(threads);
 }
