@@ -10,6 +10,7 @@
 #include "xmenu.h"
 #include "play.h"
 #include "i18n.h"
+#include "xthread.h"
 
 #define LANG(name, name2)                                                      \
     MENUSTRING("lang", NULL, name, name2, 0,                                   \
@@ -71,7 +72,7 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
     *saveposdialog, *uih_formuladialog, *uih_plviewdialog, *uih_coorddialog,
     *uih_angledialog, *uih_autorotatedialog, *uih_fastrotatedialog,
     *uih_filterdialog, *uih_shiftdialog, *uih_speeddialog, *printdialog,
-    *uih_bailoutdialog, *saveanimdialog, *uih_juliamodedialog,
+    *uih_bailoutdialog, *uih_threaddialog, *saveanimdialog, *uih_juliamodedialog,
     *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog, *uih_numdialog,
     *uih_fpdialog, *palettedialog, *uih_cyclingdialog
 #ifdef USE_SFFE
@@ -223,6 +224,10 @@ void uih_registermenudialogs_i18n(void)
 
     Register(uih_bailoutdialog);
     DIALOGFLOAT_I(TR("Dialog", "Bailout:"), 0);
+    NULL_I();
+
+    Register(uih_threaddialog);
+    DIALOGFLOAT_I(TR("Dialog", "Threads:"), 0);
     NULL_I();
 
     Register(saveanimdialog);
@@ -463,6 +468,25 @@ static menudialog *uih_getbailoutdialog(struct uih_context *c)
     if (c != NULL)
         uih_bailoutdialog[0].deffloat = c->fcontext->bailout;
     return (uih_bailoutdialog);
+}
+
+int defthreads = 1;
+
+static menudialog *uih_getthreaddialog(struct uih_context *c)
+{
+    if (c != NULL)
+        uih_threaddialog[0].deffloat = defthreads;
+    return (uih_threaddialog);
+}
+
+void uih_setthreads(uih_context */*c*/, number_t threads)
+{
+    if (threads < 1)
+        threads = 1;
+    if (threads > MAXTHREADS)
+        threads = MAXTHREADS;
+    xth_uninit();
+    xth_init(threads);
 }
 
 static int uih_saveanimenabled(struct uih_context *c)
@@ -1055,6 +1079,8 @@ void uih_registermenus_i18n(void)
     MENUNOPCB_I("calc", "k", TR("Menu", "Periodicity checking"), "periodicity",
                 0, uih_periodicitysw, uih_periodicityselected);
     MENUSEPARATOR_I("calc");
+    MENUCDIALOG_I("calc", NULL, TR("Menu", "Threads"), "threads",
+                  MENUFLAG_INTERRUPT, uih_setthreads, uih_getthreaddialog);
     MENUCDIALOG_I("calc", NULL, TR("Menu", "Iterations"), "maxiter",
                   MENUFLAG_INTERRUPT, uih_setmaxiter, uih_getiterdialog);
     MENUCDIALOG_I("calc", NULL, TR("Menu", "Bailout"), "bailout",

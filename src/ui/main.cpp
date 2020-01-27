@@ -49,7 +49,6 @@
 /* Command line variables */
 int printspeed;
 int delaytime = 0;
-int defthreads = 0;
 int maxframerate = 80;
 float pixelwidth = 0.0, pixelheight = 0.0;
 

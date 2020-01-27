@@ -346,6 +346,8 @@ extern const int uih_nfilters;
 extern const char *const xtextposnames[];
 extern const char *const ytextposnames[];
 
+extern int defthreads;
+
 struct uih_context *
 uih_mkcontext(int flags, struct image *image,
               int (*passfunc)(struct uih_context *, int, const char *, float),
