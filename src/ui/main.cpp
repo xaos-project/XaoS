@@ -368,6 +368,10 @@ static void ui_registermenus_i18n(void)
 
     MENUNOP_I("ui", NULL, TR("Menu", "Message Font..."), "font", UI, ui_font);
     MENUSEPARATOR_I("ui");
+
+    MENUSEPARATOR_I("uia");
+    MENUNOP_I("uia", NULL, TR("Menu", "Message Font..."), "font", UI, ui_font);
+    MENUSEPARATOR_I("uia");
 #ifndef Q_OS_MACOS
     MENUNOPCB_I("ui", NULL, TR("Menu", "Fullscreen"), "fullscreen", UI,
                 ui_fullscreensw, ui_fullscreenselected);
