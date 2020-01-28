@@ -479,15 +479,22 @@ static menudialog *uih_getthreaddialog(struct uih_context *c)
     return (uih_threaddialog);
 }
 
-void uih_setthreads(uih_context */*c*/, number_t threads)
+void uih_setthreads(uih_context *c, number_t threads)
 {
     if (threads < 1)
         threads = 1;
     if (threads > MAXTHREADS)
         threads = MAXTHREADS;
-    defthreads = threads;
-    xth_uninit();
-    xth_init(threads);
+    if (threads < defthreads) {
+        uih_error(
+            c,
+            TR("Message",
+               "XaoS must be restarted in order to reduce the number of threads."));
+    } else {
+        defthreads = threads;
+        xth_uninit();
+        xth_init(threads);
+    }
 }
 
 static int uih_saveanimenabled(struct uih_context *c)
