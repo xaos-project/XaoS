@@ -450,6 +450,15 @@ int main(int argc, char *argv[])
         exit(-1);
     }
 
+    QSettings settings;
+    if (defthreads == 0) {
+        // defthreads will be 0 if -threads command line option was not given
+        // so load it from saved settings instead
+        defthreads = settings.value("MainWindow/threadCount", 1).toInt();
+    } else {
+        // -threads command line option was given, so save it to settings
+        settings.setValue("MainWindow/threadCount", defthreads);
+    }
     xth_init(defthreads);
 
     int i = ui_render();

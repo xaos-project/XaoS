@@ -1,6 +1,8 @@
 ﻿#include <cerrno>
 #include <cstring>
 #include <cstdlib>
+#include <QMessageBox>
+#include <QSettings>
 
 #include "filter.h"
 #include "config.h"
@@ -227,7 +229,7 @@ void uih_registermenudialogs_i18n(void)
     NULL_I();
 
     Register(uih_threaddialog);
-    DIALOGFLOAT_I(TR("Dialog", "Threads:"), 0);
+    DIALOGINT_I(TR("Dialog", "Threads:"), 0);
     NULL_I();
 
     Register(saveanimdialog);
@@ -470,32 +472,33 @@ static menudialog *uih_getbailoutdialog(struct uih_context *c)
     return (uih_bailoutdialog);
 }
 
-int defthreads = 1;
-bool threadschanged = false;
+int defthreads = 0;
 
 static menudialog *uih_getthreaddialog(struct uih_context *c)
 {
     if (c != NULL)
-        uih_threaddialog[0].deffloat = defthreads;
+        uih_threaddialog[0].defint = defthreads;
     return (uih_threaddialog);
 }
 
-void uih_setthreads(uih_context *c, number_t threads)
+void uih_setthreads(uih_context */*c*/, int threads)
 {
     if (threads < 1)
         threads = 1;
     if (threads > MAXTHREADS)
         threads = MAXTHREADS;
-    if (threadschanged && threads != defthreads) {
-        uih_error(
-            c,
-            TR("Message",
-               "XaoS must be restarted in order to change the number of threads."));
-    } else {
-        defthreads = threads;
-        threadschanged = true;
-        xth_uninit();
-        xth_init(threads);
+    if (threads != defthreads) {
+        QSettings settings;
+        settings.setValue("MainWindow/threadCount", threads);
+        QMessageBox msgBox;
+        msgBox.setText(
+            TR("Message", "XaoS must restart to change the thread count."));
+        msgBox.setInformativeText(TR("Message", "Do you want to quit now?"));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        int ret = msgBox.exec();
+        if (ret == QMessageBox::Yes) {
+            exit(0);
+        }
     }
 }
 
