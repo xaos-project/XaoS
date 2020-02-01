@@ -240,7 +240,6 @@ void destroy_image(struct image *img)
 
 void clear_image(struct image *img)
 {
-    int i;
     int color = img->palette->pixels[0];
     int width = img->width * img->bytesperpixel;
     if (img->palette->npreallocated)
@@ -250,8 +249,13 @@ void clear_image(struct image *img)
         if (color)
             color = 255;
     }
-    for (i = 0; i < img->height; i++)
-        memset(img->currlines[i], color, width);
+    for (int i = 0; i < img->height; i++)
+        for (int j = 0; j < width; j++) {
+            if (j % img->bytesperpixel == img->palette->info.truec.missingbyte)
+                img->currlines[i][j] = 0xff;
+            else
+                img->currlines[i][j] = color;
+        }
 }
 
 #define drawchar drawchar8
