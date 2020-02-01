@@ -471,6 +471,7 @@ static menudialog *uih_getbailoutdialog(struct uih_context *c)
 }
 
 int defthreads = 1;
+bool threadschanged = false;
 
 static menudialog *uih_getthreaddialog(struct uih_context *c)
 {
@@ -485,13 +486,14 @@ void uih_setthreads(uih_context *c, number_t threads)
         threads = 1;
     if (threads > MAXTHREADS)
         threads = MAXTHREADS;
-    if (threads < defthreads) {
+    if (threadschanged && threads != defthreads) {
         uih_error(
             c,
             TR("Message",
-               "XaoS must be restarted in order to reduce the number of threads."));
+               "XaoS must be restarted in order to change the number of threads."));
     } else {
         defthreads = threads;
+        threadschanged = true;
         xth_uninit();
         xth_init(threads);
     }
