@@ -26,7 +26,7 @@ CATDIR=$FSDIR/usr/share/XaoS/catalogs
 mkdir -p $CATDIR
 cp $MAINDIR/catalogs/*.cat $CATDIR
 
-TUTDIR=$FSDIR/usr/share/XaoS/tutorials
+TUTDIR=$FSDIR/usr/share/XaoS/tutorial
 mkdir -p $TUTDIR
 cp $MAINDIR/tutorial/*.{xaf,xhf} $TUTDIR
 
