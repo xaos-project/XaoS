@@ -1,7 +1,6 @@
 # I18N Instructions
 
-XaoS has transitioned from gettext to Qt for i18n. The .po files will be
-removed once we confirm the converted translations look correct.
+XaoS has transitioned from gettext to Qt for i18n.
 
 The .ts files can be edited using Qt Linguist. See the Qt Linguist manual
 for more information: https://doc.qt.io/qt-5/qtlinguist-index.html
