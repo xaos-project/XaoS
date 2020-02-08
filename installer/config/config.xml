@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
     <Name>XaoS</Name>
-    <Version>4.0pre4</Version>
+    <Version>4.0</Version>
     <Title>XaoS</Title>
     <Publisher>XaoS Project</Publisher>
     <StartMenuDir>XaoS</StartMenuDir>
     <TargetDir>@ApplicationsDirX86@/XaoS</TargetDir>
+    <Banner>banner.jpg</Banner>
+    <WizardStyle>Modern</WizardStyle>
+    <ProductUrl>https://github.com/xaos-project/XaoS</ProductUrl>
+    <InstallerApplicationIcon>..\..\src\ui\xaos</InstallerApplicationIcon>
 </Installer>
