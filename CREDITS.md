@@ -6,13 +6,14 @@
 - [Jean-Pierre Demailly](mailto:Jean-Pierre.Demailly@ujf-grenoble.fr): Updates for French translation
 - [Radek Doulik](mailto:rodo@atrey.karlin.mff.cuni.cz): TK interface, windowid patches
 - [Martin Dozsa](mailto:madsoft@centrum.cz): cs.po (Czech translation of menus)
-- [Arpad Fekete](mailto:Fekete.Arpad.2@stud.u-szeged.hu): some new fractals, and the 'More formulae' menu
+- Arpad Fekete: some new fractals, and the 'More formulae' menu
 - [Tim Goodwin](mailto:tgoodwin@cygnus.co.uk): english.cat corrections
+- Jonas Hall: Swedish translation
 - Ben Hines: autoconf suggestions, Mac OS X port
 - [Jan Hubicka](mailto:jh@ucw.cz): Zooming routines, ugly interface, palettes, drivers, autopilot, filters, documentation, tutorials etc.
 - [Jens Kilian](mailto:jjk@acm.org): BeOS driver, deutsch.cat
 - [Thomas A. K. Kjaer](mailto:takjaer@imv.aau.dk): OS/2 ports (320x200 graphics and AA-lib)
-- [Zoltan Kovacs](mailto:kovzol@math.u-szeged.hu): Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
+- [Zoltan Kovacs](mailto:zoltan@geogebra.org): Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
 - [Zsigmond Kovacs](mailto:kovzsi@gmail.com): Fractal examples
 - [J.B. Langston III](mailto:jb-langston@austin.rr.com): Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
 - [Andreas Madritsch](mailto:amadritsch@datacomm.ch): New fractal types, bailout, many fixes

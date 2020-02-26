@@ -1,9 +1,9 @@
-# I18N Instructions
+# Instructions on internationalization
 
 XaoS has transitioned from gettext to Qt for i18n.
 
-The .ts files can be edited using Qt Linguist. See the Qt Linguist manual
-for more information: https://doc.qt.io/qt-5/qtlinguist-index.html
+The .ts files can be edited using Qt Linguist. See the
+[Qt Linguist manual](https://doc.qt.io/qt-5/qtlinguist-index.html) for more information.
 
 Run the following command from the XaoS top level directory to update the
 .ts files with changes from the source code:
@@ -28,3 +28,17 @@ level directory:
 ```
 lrelease XaoS.pro
 ```
+
+Finally, add an entry for the new language in the file XaoS.qrc
+in the top level directory. This makes sure that the .qm file will be
+used by the executable (actually, the .qm file is linked against
+the executable).
+
+After compilation you can try out a translation by setting the shell variable LANGUAGE
+to the two letter language code. For example, on a Linux system
+
+```
+qmake && make && LANGUAGE=sv bin/xaos
+```
+
+will start the application in Swedish.
