@@ -290,7 +290,7 @@ static void ui_about(struct uih_context *uih)
     if (uih->data)
         window = reinterpret_cast<MainWindow *>(uih->data);
     QMessageBox::about(
-        window, qt_gettext("Dialog", "About"),
+        window, TR("Menu", "About"),
         "<a href=\"http://xaos.sf.net\">" +
             QCoreApplication::applicationName() + "</a> " +
             QCoreApplication::applicationVersion() + " (" +
