@@ -329,6 +329,24 @@ static void ui_font(struct uih_context *uih)
     window->chooseFont();
 }
 
+void uih_setlanguage(uih_context *c, int l)
+{
+    const char* menu = lang1(l);
+    uih_updatemenus(c, menu);
+    setLanguage(lang2(l));
+
+    QSettings settings;
+    settings.setValue("MainWindow/language", lang2(l));
+    QMessageBox msgBox;
+    msgBox.setText(TR("Message", "XaoS must restart to change the language."));
+    msgBox.setInformativeText(TR("Message", "Do you want to quit now?"));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    int ret = msgBox.exec();
+    if (ret == QMessageBox::Yes) {
+        exit(0);
+    }
+}
+
 #ifndef Q_OS_MAC
 static void ui_fullscreensw(struct uih_context *uih)
 {
@@ -351,13 +369,71 @@ static int ui_fullscreenselected(struct uih_context *uih)
 }
 #endif
 
-#define MAX_MENUITEMS_I18N 20
+/* WARNING: Increase this number in case there are new menu items added. */
+#define MAX_MENUITEMS_I18N 30
 /* These variables must be global: */
 static menuitem *menuitems;
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
 int ui_no_menuitems_i18n = 0;
 
 #define UI (MENUFLAG_NOPLAY | MENUFLAG_NOOPTION)
+
+static void ui_unregistermenus(void)
+{
+    menu_delete(menuitems, NITEMS(menuitems));
+    menu_delete(menuitems_i18n, ui_no_menuitems_i18n);
+}
+
+QTranslator qtTranslator;
+QTranslator xaosTranslator;
+char languageSetting[6] = "";
+const char *languages1[] = {
+    "en", "cs", "de", "es", "fr", "hu", "it", "pt", "ro", "ru", "sv"
+    // "English", "Czech", "German", "French", "Hungarian", "Italian", "Portuguese", "Romanian", "Russian", "Spanish", "Swedish"
+};
+const char *languages2[] = {
+    "en_US", "cs_CZ", "de_DE", "es_ES", "fr_FR", "hu_HU", "it_IT", "pt_PT", "ro_RO", "ru_RU", "sv_SV"
+};
+
+const char *lang1(int i) {
+    return languages1[i];
+}
+const char *lang2(int i) {
+    return languages2[i];
+}
+const char* getLanguage() {
+    return languageSetting;
+}
+
+static int ui_languageselected(uih_context *c, int p)
+{
+    if (c == NULL)
+        return 0;
+    return (strcmp(languageSetting, languages2[p]) == 0);
+}
+
+void setLanguage(const char *lang) {
+    qApp->removeTranslator(&qtTranslator);
+    qApp->removeTranslator(&xaosTranslator);
+    QString language = QString(lang);
+    if (language.isNull()) {
+        language = QLocale::system().name();
+    }
+    strcpy(languageSetting, language.toStdString().c_str());
+    qtTranslator.load("qt_" + language,
+                      QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    qApp->installTranslator(&qtTranslator);
+    xaosTranslator.load("XaoS_" + language, ":/i18n");
+    qApp->installTranslator(&xaosTranslator);
+
+    /* Without this some locales (e.g. the Hungarian) replaces "." to ","
+       in numerical format and this will cause an automatic truncation
+       at each parameter at certain places, e.g. drawing a new fractal. */
+    QLocale::system().setNumberOptions(QLocale::DefaultNumberOptions);
+    setlocale(LC_NUMERIC, "C");
+    // printf("Language set to %s\n", languageSetting);
+    // fflush(stdout);
+}
 
 static void ui_registermenus_i18n(void)
 {
@@ -367,10 +443,31 @@ static void ui_registermenus_i18n(void)
               MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quit, UI);
 
     MENUNOP_I("ui", NULL, TR("Menu", "Message Font..."), "font", UI, ui_font);
-    MENUSEPARATOR_I("ui");
-
-    MENUSEPARATOR_I("uia");
     MENUNOP_I("uia", NULL, TR("Menu", "Message Font..."), "font", UI, ui_font);
+
+    SUBMENU_I("ui", NULL, TR("Menu", "Set Language"), "setlang");
+    MENUINTRB_I("setlang", NULL, "Czech", "cs", UI, uih_setlanguage,
+                UIH_LANG_CS, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "English", "en", UI, uih_setlanguage,
+                UIH_LANG_EN, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "French", "fr", UI, uih_setlanguage,
+                UIH_LANG_FR, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "German", "de", UI, uih_setlanguage,
+                UIH_LANG_DE, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "Hungarian", "hu", UI, uih_setlanguage,
+                UIH_LANG_HU, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "Portuguese", "pt", UI, uih_setlanguage,
+                UIH_LANG_PT, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "Romanian", "ro", UI, uih_setlanguage,
+                UIH_LANG_RO, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "Russian", "ru", UI, uih_setlanguage,
+                UIH_LANG_RU, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "Spanish", "es", UI, uih_setlanguage,
+                UIH_LANG_ES, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "Swedish", "sv", UI, uih_setlanguage,
+                UIH_LANG_SV, ui_languageselected);
+
+    MENUSEPARATOR_I("ui");
     MENUSEPARATOR_I("uia");
 #ifndef Q_OS_MACOS
     MENUNOPCB_I("ui", NULL, TR("Menu", "Fullscreen"), "fullscreen", UI,
@@ -393,12 +490,15 @@ static void ui_registermenus_i18n(void)
     no_menuitems_i18n -= ui_no_menuitems_i18n;
     menu_add(&(menuitems_i18n[ui_no_menuitems_i18n]), no_menuitems_i18n);
     ui_no_menuitems_i18n += no_menuitems_i18n;
-}
-
-static void ui_unregistermenus(void)
-{
-    menu_delete(menuitems, NITEMS(menuitems));
-    menu_delete(menuitems_i18n, ui_no_menuitems_i18n);
+    if (ui_no_menuitems_i18n > MAX_MENUITEMS_I18N) {
+        fprintf(stderr, "MAX_MENUITEMS_I18N is set to an insufficiently low number, please increase it to %d\n", ui_no_menuitems_i18n);
+        fflush(stderr);
+        exit(1);
+    }
+#ifdef DEBUG
+    printf("Filled %d ui menu items out of %d.\n", ui_no_menuitems_i18n,
+           MAX_MENUITEMS_I18N);
+#endif
 }
 
 int main(int argc, char *argv[])
@@ -422,19 +522,18 @@ int main(int argc, char *argv[])
     signal(SIGFPE, SIG_IGN);
     srand(time(NULL));
 
-    QTranslator qtTranslator;
-    qtTranslator.load("qt_" + QLocale::system().name(),
-                      QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    app.installTranslator(&qtTranslator);
-    QTranslator xaosTranslator;
-    xaosTranslator.load("XaoS_" + QLocale::system().name(), ":/i18n");
-    app.installTranslator(&xaosTranslator);
+    QSettings settings;
+    if (defthreads == 0) {
+        // defthreads will be 0 if -threads command line option was not given
+        // so load it from saved settings instead
+        defthreads = settings.value("MainWindow/threadCount", 1).toInt();
+    } else {
+        // -threads command line option was given, so save it to settings
+        settings.setValue("MainWindow/threadCount", defthreads);
+    }
+    xth_init(defthreads);
 
-    /* Without this some locales (e.g. the Hungarian) replaces "." to ","
-       in numerical format and this will cause an automatic truncation
-       at each parameter at certain places, e.g. drawing a new fractal. */
-    QLocale::system().setNumberOptions(QLocale::DefaultNumberOptions);
-    setlocale(LC_NUMERIC, "C");
+    setLanguage(settings.value("MainWindow/language").toString().toStdString().c_str());
 
     params_register(global_params);
     uih_registermenudialogs_i18n(); /* Internationalized dialogs. */
@@ -450,17 +549,6 @@ int main(int argc, char *argv[])
         exit(-1);
     }
 
-    QSettings settings;
-    if (defthreads == 0) {
-        // defthreads will be 0 if -threads command line option was not given
-        // so load it from saved settings instead
-        defthreads = settings.value("MainWindow/threadCount", 1).toInt();
-    } else {
-        // -threads command line option was given, so save it to settings
-        settings.setValue("MainWindow/threadCount", defthreads);
-    }
-    xth_init(defthreads);
-
     int i = ui_render();
     if (i) {
         ui_unregistermenus();
@@ -474,3 +562,5 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
+

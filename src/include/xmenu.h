@@ -468,5 +468,4 @@ const char *menu_fillparam(struct uih_context *uih, tokenfunc f,
 int menu_processargs(int n, int argc, char **argv);
 void menu_forall(struct uih_context *c,
                  void (*callback)(struct uih_context *c, const menuitem *item));
-
 #endif
