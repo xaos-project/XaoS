@@ -345,7 +345,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="67"/>
         <source>line available only in animation replay</source>
-        <translation>raden bara tillgänglig i animeringsrepetition</translation>
+        <translation>raden bara tillgänglig under uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="92"/>
@@ -360,12 +360,12 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="279"/>
         <source>clear_line available only in animation replay</source>
-        <translation>Rensa rad bara tillgänglig i animeringsrepetition</translation>
+        <translation>Rensa rad bara tillgänglig under uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="288"/>
         <source>clear_lines available only in animation replay</source>
-        <translation>Rensa alla rader bara tillgänglig i animeringsrepetition</translation>
+        <translation>Rensa alla rader bara tillgänglig under uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="314"/>
@@ -417,7 +417,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="585"/>
         <source>morph available only in animation replay</source>
-        <translation>morph tillgänglig endast i animeringsrepetition</translation>
+        <translation>morph tillgänglig endast under uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="589"/>
@@ -427,17 +427,17 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="603"/>
         <source>move available only in animation replay</source>
-        <translation>Det går bara att flytta i animeringsrepetition</translation>
+        <translation>Det går bara att flytta under uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="617"/>
         <source>morphjulia available only in animation replay</source>
-        <translation>morphjulia tillgänglig bara i animeringsrepetition</translation>
+        <translation>morphjulia tillgänglig bara under uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="630"/>
         <source>morphangle available only in animation replay</source>
-        <translation>morphangle tillgänglig bara i animeringsrepetition</translation>
+        <translation>morphangle tillgänglig bara under uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="665"/>
@@ -447,7 +447,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="704"/>
         <source>sleep available only in animation replay</source>
-        <translation>viloläge tillgänglig bara i animeringsrepetition</translation>
+        <translation>viloläge tillgänglig bara under uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="719"/>
@@ -459,7 +459,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="738"/>
         <source>wait available only in animation replay</source>
-        <translation>vänteläge tillgänglig bara i animeringsrepetition</translation>
+        <translation>vänteläge tillgänglig bara under uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="772"/>
@@ -474,7 +474,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="788"/>
         <source>load available only in animation replay</source>
-        <translation>ladda tillgänglig bara i animeringsrepetition</translation>
+        <translation>ladda tillgänglig bara under uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="792"/>
@@ -589,7 +589,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="832"/>
         <source>Replay only commands</source>
-        <translation>Kommandon giltiga för repetition</translation>
+        <translation>Kommandon giltiga för uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="835"/>
@@ -882,7 +882,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="975"/>
         <source>Replay</source>
-        <translation>Repetition</translation>
+        <translation>Uppspelning</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="979"/>
@@ -1473,7 +1473,7 @@ Obalanserade parametrar</translation>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="853"/>
         <source>Replay disabled at line %i</source>
-        <translation>Repetera avbrutet vid rad %i</translation>
+        <translation>Uppspelning avbruten vid rad %i</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="121"/>
@@ -1495,7 +1495,7 @@ Obalanserade parametrar</translation>
         <location filename="../src/ui-hlp/render.cpp" line="237"/>
         <source>Enabling animation replay
 </source>
-        <translation>Aktiverar repetition av animering
+        <translation>Spelar upp
 </translation>
     </message>
     <message>

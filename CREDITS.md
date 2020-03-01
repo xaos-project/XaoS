@@ -8,7 +8,7 @@
 - [Martin Dozsa](mailto:madsoft@centrum.cz): cs.po (Czech translation of menus)
 - Arpad Fekete: some new fractals, and the 'More formulae' menu
 - [Tim Goodwin](mailto:tgoodwin@cygnus.co.uk): english.cat corrections
-- Jonas Hall: Swedish translation
+- [Jonas Hall](mailto:jonas.hall@norrtalje.se): Swedish translation
 - Ben Hines: autoconf suggestions, Mac OS X port
 - [Jan Hubicka](mailto:jh@ucw.cz): Zooming routines, ugly interface, palettes, drivers, autopilot, filters, documentation, tutorials etc.
 - [Jens Kilian](mailto:jjk@acm.org): BeOS driver, deutsch.cat
