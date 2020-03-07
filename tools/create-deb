@@ -37,7 +37,7 @@ find $MAINDIR/examples -name '*.xpf' -exec cp {} $EXDIR \; # flattening folders
 MANDIR=$FSDIR/usr/share/man/man6
 mkdir -p $MANDIR
 cp $MAINDIR/doc/xaos.6 $MANDIR
-gzip $MANDIR/xaos.6
+gzip -9n $MANDIR/xaos.6
 
 DOCDIR=$FSDIR/usr/share/doc/xaos
 mkdir -p $DOCDIR
@@ -45,7 +45,18 @@ cp $MAINDIR/COPYING $MAINDIR/NEWS $DOCDIR
 for i in CREDITS README; do
  pandoc $MAINDIR/$i.md | lynx -stdin -dump -nolist > $DOCDIR/$i
  done
-gzip $DOCDIR/NEWS
+gzip -n $DOCDIR/NEWS
+
+echo "Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: xaos
+Source: https://github.com/xaos-project/XaoS
+
+Files: *
+Copyright: 2020 The XaoS Project
+License: GPL-1" > $DOCDIR/copyright
+
+git-changelog -x > $DOCDIR/changelog
+gzip -9n $DOCDIR/changelog
 
 PIXDIR=$FSDIR/usr/share/pixmaps
 mkdir -p $PIXDIR
@@ -58,15 +69,14 @@ cp $MAINDIR/xdg/xaos.desktop $APPDIR
 mkdir -p $FSDIR/DEBIAN
 echo -n "Package: xaos
 Version: $XAOS_VERSION
-Section: universe/graphics
+Section: graphics
 Priority: optional
 Architecture: $ARCH
 Depends: " > $FSDIR/DEBIAN/control
 ./dep-deb-versions >> $FSDIR/DEBIAN/control
 echo "
 Maintainer: Zoltan Kovacs <zoltan@geogebra.org>
-Description:
- XaoS allows you to zoom and pan around a fractal in
+Description: zoom and pan around a fractal in
  real time. It can display the animated fractals.
  It displays the Mandelbrot set or many other fractals and
  allows you to zoom smoothly into the fractal. Various coloring
@@ -77,4 +87,4 @@ Description:
  image saving, fractal inversion, filters, and a built in fractal
  tutorial.
 " >> $FSDIR/DEBIAN/control
-dpkg-deb --build $FSDIR
+fakeroot dpkg-deb --build $FSDIR

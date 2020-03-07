@@ -46,3 +46,5 @@ include($$PWD/src/engine/engine.pri)
 include($$PWD/src/ui-hlp/ui-hlp.pri)
 include($$PWD/src/util/util.pri)
 include($$PWD/src/sffe/sffe.pri)
+
+QMAKE_POST_LINK=$(STRIP) $(TARGET)
