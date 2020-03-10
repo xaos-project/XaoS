@@ -3,23 +3,23 @@
 #
 # Copyright (C) 1997 by Jan Hubicka
 #
-# Hay algunas pocas cosas que deberías saber si quieres cambiar
+# Hay algunas pocas cosas queue deberías saber si quieres cambiar
 # o traducir este fichero.
 #
 # El formato de este catálogo es identificador[espacios en blanco]
 # "valor"[espacios en blanco]
 #
 # Identifiador es una clave usada por el programa. No la traduzcas. 
-# Traduce sólo el campo valor. Si quires entrecomillar un caracter
+# Traduce sólo el campo valor. Si quires entrecomillar un character
 # '"'en el texto, usa '\". Para '\' pon '\\'. No uses '\n'para enter;
 # usa el literal nueva_linea.
 #
 # Si quieres traducir este archivo a otro idioma, por favor, hazmelo
 # saber. Debes traducirlo libremente: no es necesario usar exactamente
-# las mismas frases que aquí, si tienes alguna idea para hacerlo
+# las mismas frases queue aquí, si tienes alguna idea para hacerlo
 # más divertido, interesante o añadir alguna información, hazlo.
 #
-# Puedes usar frases más cortas o más largas, ya que, XaoS calculará
+# Puedes usar frases más cortas o más largas, ya queue, XaoS calculará
 # automáticamente el tiempo para cada subtitulo.
 #
 # Hazme saber, tambie'n, cualquier sugerencia para mejorar el texto y los
@@ -30,7 +30,7 @@
 
 fmath "La matemática detrás de los fractales"
 fmath1 "Los Fractales son un campo muy nuevo
-de las matemáticas, así que aún existen
+de las matemáticas, así queue aún existen
 muchas preguntas sin resolver."
 fmath2 "Incluso las definiciones no están 
 claras."
@@ -75,18 +75,18 @@ hb8 "para un cuadrado con zoom 2,
 el tamaño del cambio es 4.
 log 4 / log 2 = 2"
 hb9 "Así, esta definición da los mismos
-resultados para formas normales"
+resultados para formas normals"
 hb10 "Las cosas se tornan más interesantes
 con los fractales..."
 
 hb11 "Considera una curva de un copo de nieve"
-hb12 "Que se crea cambiando repetidamente
+hb12 "Queue se crea cambiando repetidamente
 una línea por cuatro líneas."
 hb13 "Las nuevas líneas son 1/3 del tamaño
 de la línea original"
 hb14 "Después de acercar (zoom) 3 veces,
 estas líneas serán exactamente del 
-mismo tamaño que las líneas originales."
+mismo tamaño queue las líneas originales."
 hb15 "Esto ocurre por la auto-similitud
 creada por la repetición infinita de 
 esta metamorfosis,"
@@ -97,21 +97,21 @@ hb16 "El tamaño del fractal crece 4 veces
 porque hay cuatro copias del mismo."
 hb17 "Después de colocar estos valores en
 las ecuaciones: log 4 / log 3 = 1.261" 
-hb18 "Obtenemos un valor mayor que uno!
+hb18 "Obtenemos un valor mayor queue uno!
 (La dimensión topológica de la curva)"
 hb19 "La dimensión Hausdorff Besicovich 
-(1.261) es mayor que la dimensión 
+(1.261) es mayor queue la dimensión 
 topológica."
 hb20 "De acuerdo con esta definición,
-se concluye que nuestro copo de nieve 
+se concluye queue nuestro copo de nieve 
 es un fractal."
 
 defe1 "Esta definición, sin embargo, no es
-perfecta ya que excluye muchas figuras
-que son fractales."
+perfecta ya queue excluye muchas figuras
+queue son fractales."
 defe2 "Pero demuestra una de las propiedades
 interesantes de los fractales,"
-defe3 "y que es muy popular."
+defe3 "y queue es muy popular."
 defe4 "La dimensión Hausdorff Besicovich 
 también se conoce como la 
 \"dimensión fractal\"."
@@ -137,13 +137,13 @@ escape5 "El eje real es colocado horizontalmente"
 escape6 "y el eje imaginario es colocado 
 verticalmente."
 escape7 "Cada punto tiene su propia órbita."
-escape8 "La trayectoria sobre la que se calcula
+escape8 "La trayectoria sobre la queue se calcula
 utilizando la función iterativa, f(z,c)
 donde z es la posición previa y c es 
 la nueva posición en la pantalla."
 escape9 "Por ejemplo, en el conjunto Mandelbrot,
 la función iterativa es z=z^2+c"
-orbit1 "En caso de que queramos examinar
+orbit1 "En caso de queue queramos examinar
 el punto 0 - 0.6i,"
 orbit2 "asignamos este parámetro a c"
 orbit3 "la iteración de la órbita comienza
@@ -152,40 +152,40 @@ orbit3b "Luego, repetidamente calculamos la
 función iterativa, y repetidamente 
 obtenemos un nuevo valor para z para la
 siguiente iteración."
-orbit4 "Revisamos si el punto que pertenece al
+orbit4 "Revisamos si el punto queue pertenece al
 conjunto, es decir, si la órbita 
 permanece finita."
 orbit5 "En este caso, sí lo está..."
-orbit6 "Así que el punto está dentro del 
+orbit6 "Así queue el punto está dentro del 
 conjunto."
 orbit7 "En otros casos, irá rápidamente hacia 
 el infinito."
 orbit8 "(por ejemplo, el valor 10+0i cuya
 primera iteración es 110, la segunda es
 12110, etc...)"
-orbit9 "Así que estos puntos están fuera
+orbit9 "Así queue estos puntos están fuera
 del conjunto."
 bail1 "Aún estamos hablando de números
 infinitos y de iteraciones de números
 infinitos..."
 bail2 "... pero los computadores son finitos,
-así que no pueden calcular fractales de
+así queue no pueden calcular fractales de
 forma exacta."
-bail3 "Se puede probar que, en caso de que
+bail3 "Se puede probar queue, en caso de queue
 la distancia de la órbita desde cero es
-mayor que 2, siempre se irá al infinito."
+mayor queue 2, siempre se irá al infinito."
 bail4 "Entonces podemos interrumpir los
-cálculos para órbitas que fallan este 
+cálculos para órbitas queue fallan este 
 test. (Esto se conoce como el test de 
 borde)"
 bail5 "En los casos de estar calculando puntos 
-que están fuera del conjunto, 
+queue están fuera del conjunto, 
 necesitamos sólo un cantidad finita de 
 iteraciones."
-bail6 "Esto es lo que crea las líneas
+bail6 "Esto es lo queue crea las líneas
 coloridas alrededor del conjunto."
 bail7 "Son coloreadas de acuerdo con el 
-número de iteraciones que necesita la
+número de iteraciones queue necesita la
 órbita para fallar el test de borde."
 iter1 "Dentro del conjunto aún necesitamos
 una cantidad infinita de cálculos"
@@ -218,8 +218,8 @@ ofracts1 "Otros fractales en XaoS son
 calculados usando diferentes formulas
 y pruebas de borde, pero el método es 
 básicamente el mismo."
-ofracts2 "Se requiere mucho cálculo para
-que XaoS realice muchas optimizaciones.
+ofracts2 "Se require mucho cálculo para
+queue XaoS realice muchas optimizaciones.
 
 Puedes leer más sobre esto, en la 
 documentación."
@@ -237,18 +237,18 @@ anim2 "Como probablemente has notado, XaoS
 es capaz de repetir animaciones y
 tutoriales."
 
-anim3 "Deben ser grabados directamente
+anim3 "Deben set grabados directamente
 desde Xaos,"
 
-languag1 "ya que, los ficheros de posición
+languag1 "ya queue, los ficheros de posición
 y animación son guardados en un simple
-lenguaje de comandos"
+lenguaje de commandos"
 
 languag2 "(los ficheros de posición 
 son animaciones de un sólo frame)."
 
 languag3 "Las animaciones pueden
-ser editadas a mano posteriormente
+set editadas a mano posteriormente
 para conseguir unos resultados más
 profesionales."
 
@@ -259,14 +259,14 @@ archivo de posición."
 
 modif1 "Una simple modificación"
 
-modif2 "genera una película que retrocede,"
-modif3 "y este modificación una que se acerca."
+modif2 "genera una película queue retrocede,"
+modif3 "y este modificación una queue se acerca."
 
 newanim "También puedes escribir nuevas 
 animaciones y efectos"
 
 examples "XaoS también tiene muchos
-ficheros de ejemplo, que pueden ser
+ficheros de ejemplo, queue pueden set
 cargados aleatoriamente desde el menú
 salvar / guardar."
 
@@ -276,7 +276,7 @@ coordenadas con otros programas."
 
 examples3 "Los únicos límites son
 tu imaginación y el lenguage de
-comandos descrito en la
+commandos descrito en la
 documentación."
 
 #########################################################
@@ -299,7 +299,7 @@ barnsley4 "pero tiene maravillosos julias"
 barnsley5 "Es interesante por su estructura
 cristalina,"
 
-barnsley6 "Mejor que la estructura orgánica
+barnsley6 "Mejor queue la estructura orgánica
 encontrada en otros muchos fractales."
 
 #########################################################
@@ -312,7 +312,7 @@ filtros"
 #########################################################
 #Para el fichero filter.xhf
 
-filter1 "Filtro es un efecto que
+filter1 "Filtro es un efecto queue
 se aplica a cada frame tras el
 cálculo del fractal."
 
@@ -323,10 +323,10 @@ motblur "motion blur,"
 
 edge "2 filtros detectores de bordes"
 
-edge2 "(el primero hace líneas gruesas
+edge2 "(el primero have líneas gruesas
 y es útil a resoluciones altas, ..."
 
-edge3 " ... el segundo hace líneas
+edge3 " ... el segundo have líneas
 más delgadas);"
 
 star "filtro star-field,"
@@ -338,7 +338,7 @@ motion blur en resoluciones altas);"
 stereo "filtro RDS (genera estereogramas)"
 
 stereo2 "(si no puedes ver nada en las
-siguientes imagenes y sueles ser capaz
+siguientes imagenes y sueles set capaz
 de ver estereogramas, probablemente 
 tengas un tamaño de pantalla mal 
 configurado--pon 'xaos -help'para más
@@ -347,7 +347,7 @@ información),
 
 emboss1 "filtro emboss (de repujado)"  #NEW
 
-palettef1 "filtro que emula la paleta
+palettef1 "filtro queue emula la paleta
 (permite rotación del color en
 dispositivos truecolor)" #NEW
 
@@ -381,8 +381,8 @@ incolor1 "Normalmente, los puntos dentro
 del conjunto se ponen usando un único
 color solido."
 
-incolor2 "Esto hace los límites del
-conjunto muy visibles, pero las áreas
+incolor2 "Esto have los límites del
+conjunto muy visible, pero las áreas
 dentro del conjunto son muy aburridas."
 
 incolor3 "Para hacerlas un poco más
@@ -427,7 +427,7 @@ fractal "...Fractales..."
 fractal1 "¿Qué es un fractal?"
 
 fractal2 "Definición de Benoit Mandelbrot:
-un fractal es un conjunto en el que
+un fractal es un conjunto en el queue
 su dimensión Hausdorff Besicovich
 excede extrictamente la dimensión
 topológica."
@@ -441,7 +441,7 @@ si eres un matemático."
 fractal5 "Un fractal es, simplemente,
 una figura"
 
-fractal6 "que es construida a partir de 
+fractal6 "queue es construida a partir de 
 piezas"
 
 fractal7 "cada una de las cuales es
@@ -459,9 +459,9 @@ en la naturaleza"
 fact4 "como nubes, montañas,
 o costas."
 fact5 "Hay muchas estructuras 
-matemáticas que son
+matemáticas queue son
 fractales,"
-fact6 "como el que ves en la pantalla."
+fact6 "como el queue ves en la pantalla."
 
 fmath4 "Muchos fractales son creados por 
 un proceso iterativo"
@@ -479,17 +479,17 @@ fmath13 "y luego de una cantidad infinita
 de iteraciones, obtenemos un fractal."
 fmath14 "Su forma se parece a la tercera
 parte de un copo de nieve."
-tree1 "Muchas otras figuras pueden ser
+tree1 "Muchas otras figuras pueden set
 construídas por métodos similares."
 tree2 "Por ejemplo, cambiando una línea
 de manera distinta"
 tree3 "Obtenemos un árbol."
-nstr "Las iteraciones pueden ser introducir
+nstr "Las iteraciones pueden set introducir
 posiblemente algo de ruido aletario en 
 un fractal"
 nstr2 "dividiendo una línea en dos líneas"
 nstr3 "y agregando un poco de error"
-nstr4 "puedes obtener fractales que se 
+nstr4 "puedes obtener fractales queue se 
 parezcan a una costa de playa."
 nstr5 "Un proceso similar podría crear
 nubes, montañas, y muchas otras formas
@@ -505,20 +505,20 @@ mset1 "Es generado por una fórmula
 muy simple,"
 mset2 "pero es uno de los fractales
 más hermosos."
-mset3 "Puesto que el conjunto Mandelbrot
+mset3 "Puesto queue el conjunto Mandelbrot
 es un fractal,"
 mset4 "sus límites contienen"
 mset5 "pequeñas copias del conjunto
 completo."
 mset6 "Esta es la más grande, aprox.
-50 veces más pequeña que el
+50 veces más pequeña queue el
 conjunto original."
 mset7 "El conjunto Mandelbrot no es
 completamente autosimilar,"
 mset8 "luego cada copia pequeña es
 diferente."
 mset9 "Este es 76000 veces más pequeño
-que el completo."
+queue el completo."
 mset10 "Otras copias en las distintas 
 partes del conjunto difieren más."
 
@@ -553,7 +553,7 @@ julia4 "sino una variedad infinita
 de ellos."
 julia5 "Cada uno es construido a partir
 de una \"semilla\","
-julia6 "que es un punto elegido del
+julia6 "queue es un punto elegido del
 conjunto Mandelbrot."
 julia7 "El conjunto Mandelbrot puede
 considerarse como un mapa de varios
@@ -561,7 +561,7 @@ conjuntos Julia."
 julia8 "Puntos dentro del conjunto
 Mandelbrot corresponden a Julias con grandes
 áreas negras conexas,"
-julia9 "mientras que los puntos fuera
+julia9 "mientras queue los puntos fuera
 del conjunto Mandelbrot corresponden
 a Julias inconexos."
 julia10 "Los Julias más interesantes
@@ -570,17 +570,17 @@ conjunto Mandelbrot."
 
 theme "El tema de un conjunto Julia
 también depende fuertemente de
-la semilla que escojas."
+la semilla queue escojas."
 theme1 "Cuando te aproximas al
 conjunto Mandelbrot, obtendras
 un fractal temáticamente muy similar"
 theme2 "cuando cambias a su correspondiente
 Julia."
 theme3 "aléjate denuevo, y descubres"
-theme4 "que estas en un fractal completamete
+theme4 "queue estas en un fractal completamete
 diferente."
 theme5 "Los conjuntos Julia pueden parecer
-aburridos puesto que no cambian de tema"
+aburridos puesto queue no cambian de tema"
 theme6 "y permanecen fieles a la
 semilla elegida del conjunto Mandelbrot."
 theme7 "Pero si eliges cuidadosamente
@@ -605,14 +605,14 @@ Capítulo 8 - Magnet"
 
 magnet "Este no es el conjunto Mandelbrot."
 magnet1 "Este fractal se llama \"magnet\"
-ya que su fórmula viene de la
+ya queue su fórmula viene de la
 física teórica."
 magnet2 "Es derivado del estudio
 de rejillas teóricas en el contexto
 de transformaciones magnéticas."
 
-similiar "Su similitud con el conjunto
-Mandelbrot es interesante debido a que
+similar "Su similitud con el conjunto
+Mandelbrot es interesante debido a queue
 es una fórmula del mundo real."
 
 magjulia "Sus conjuntos Julia son
@@ -638,9 +638,9 @@ conjunto Mandelbrot en
 speed5 "calculando..."
 speed6 "Terminado."
 speed7 "XaoS tiene una heurística
-que inhabilita automáticamente las
+queue inhabilita automáticamente las
 chequeos periódicos cuando no
-espera que el punto esté dentro del
+espera queue el punto esté dentro del
 conjunto (cuando todos alrededor no
 lo están)."
 speed8 "También las principales
@@ -686,7 +686,7 @@ newton6 "Pero XaoS puede generar conjuntos
 similares a los Julias,"
 newton7 "donde el error en la aproximación
 es la semilla."
-newton8 "Esto hace al fractal Newton más
+newton8 "Esto have al fractal Newton más
 interesante."
 
 #########################################################
@@ -728,7 +728,7 @@ iterreal1 "Puedes usarlo para hacer imágenes
 bastante aburridas más interesantes."
 
 iterimag "iter+imag es similar a iter+real."
-iterimag2 "La única diferencia es que
+iterimag2 "La única diferencia es queue
 usa la parte imaginaria de la última 
 órbita."
 
@@ -741,12 +741,12 @@ dividiendolo por la parte imaginaria."
 
 sum "iter+real+imag+real/imag
 
-es la suma de todos los modos previos."
+es la suma de todos los modos previous."
 
 decomp "descomposición binaria
 
 Cuando la parte imaginaria es mayor
-que cero, este modo utiliza el número
+queue cero, este modo utilize el número
 de iteraciones; en otro caso usa el
 máximo número de iteraciones menos
 la descomposición binaria del número
@@ -754,14 +754,14 @@ de iteraciones."
 
 bio "biomorphs
 
-Este modo se llama así ya que
-hace parecer a los fractales
+Este modo se llama así ya queue
+have parecer a los fractales
 animales celulares."
 
 #########################################################
 #Para el fichero outnew.xhf
 
-potential "potencial
+potential "potential
 
 Este modo da buenos
 resultados en true-color
@@ -776,8 +776,8 @@ descomposición binaria pero
 interpola los colores más
 suavemente."
 cdecom4 "Para el tipo Newton, puede
-ser usado para pintar el conjunto
-basandose en que raíz es encontrada,
+set usado para pintar el conjunto
+basandose en queue raíz es encontrada,
 en vez de en el número de iteraciones."
 
 smooth "smooth
@@ -786,7 +786,7 @@ El modo Smooth pretende quitar las
 líneas causadas por iteraciones y
 hacer grados más suaves."
 smooth1 "No funciona en el Newton y
-Magnet ya que tienen atractores finitos."
+Magnet ya queue tienen atractores finitos."
 smooth2 "Y sólo funciona para true-color y
 displays de muchos colores. Luego, si tienes
 8bpp, necesitarás habilitar el filtro
@@ -830,7 +830,7 @@ plane3 "1/mu
 
 Esta es una inversión - áreas desde
 el infinito pasan a 0 y de 0 al infinito.
-Esto te permite ver que le pasa al fractal
+Esto te permite ver queue le pasa al fractal
 cuando nos alejamos de él infinitamente."
 plane4 "Este el el Mandelbrot normal..."
 plane5 "y este el invertido."
@@ -848,12 +848,12 @@ plane8 "1/mu+0.25
 Este es otro método invertido,
 pero con un centro de inversión
 diferente."
-plane9 "Ya que el centro de inversión 
+plane9 "Ya queue el centro de inversión 
 está en el límite del conjunto
 Mandelbrot, puedes ver infinitos límites
 parabólicos."
 plane10 "Tiene un interesante efecto en otros
-fractales, ya que suele romper su simetría."
+fractales, ya queue suele romper su simetría."
 
 lambda "El plano lambda procura una vista
 completamente diferente."
@@ -889,13 +889,13 @@ Capítulo 3 - Conjuntos Mandelbrot
 de potencias superiores"
 
 power "z^2+c no es la única
-fórmula que genera fractales."
+fórmula queue genera fractales."
 power2 "Sólo una pequeña modificación: x^3+c
 genera un fractal similar."
 power3 "Y hay copias completas del conjunto
 principal."
 
-power4 "Fractales similares pueden ser generados
+power4 "Fractales similares pueden set generados
 cambiando ligeramente las fórmulas"
 
 pjulia "y cada uno tiene sus correspondientes
@@ -908,11 +908,11 @@ truecolor "Modos de coloreamiento True-color"
 truecolor1 "Normalmente los fractales son
 coloreados usando una paleta. En el modo true-color,
 la paleta es emulada."
-truecolor2 "La única diferencia es que la paleta
+truecolor2 "La única diferencia es queue la paleta
 es mayor y los colores son interpolados suavemente
 en los modos de coloreamiento."
 
-truecolor3 "El modo True-color utiliza
+truecolor3 "El modo True-color utilize
 una técnica completamente diferente.
 Usa varios parámetros para el cálculo"
 truecolor4 "para generar el color exacto - 
@@ -920,7 +920,7 @@ no solo un índice en la paleta."
 
 truecolor5 "Esto posibilita tener 4 valores
 para cada pixel."
-truecolor6 "El modo True color requiere, 
+truecolor6 "El modo True color require, 
 evidentemente, true color. Luego en dispositivos
 8bpp, necesitarás habilitar el filtro
 true-color."
@@ -937,7 +937,7 @@ para los conjuntos Mandelbrot."
 pert3 "Esto cambia la posición de inicio
 de la órbita desde el valor por defecto, 0."
 pert4 "Su valor no afecta al resultado
-del fractal tanto como la semilla lo hace
+del fractal tanto como la semilla lo have
 en los Julias, pero es útil cuando quieres
 hacer el fractal más aleatorio."
 
@@ -949,12 +949,12 @@ pal0 "XaoS no tiene una gran biblioteca
 de paletas predefinidas como otros
 programas, pero genera paletas aleatorias."
 pal1 "Luego puedes mantener pulsada
-'P'hasta que XaoS genere una paleta que te
+'P'hasta queue XaoS genere una paleta queue te
 guste para tu fractal."
-pal2 "Se utiliza tres algoritmos diferentes:"
-pal3 "el primero hace líneas que van de
+pal2 "Se utilize tres algoritmos diferentes:"
+pal3 "el primero have líneas queue van de
 algún color a negro,"
-pal4 "el segundo hace líneas que van de
+pal4 "el segundo have líneas queue van de
 algún color a blanco,"
 pal5 "el tercero esta inspirado en pinturas
 cubistas."
@@ -965,7 +965,7 @@ cubistas."
 auto1 "Piloto automático"
 auto2 "Si eres un vago, puedes utilizar
 el piloto automático para permitir
-que XaoS explore un fractal automáticamente."
+queue XaoS explore un fractal automáticamente."
 fastjulia1 "Modo de visionamiento de Julias
 más veloz"
 fastjulia2 "Este modo te permite varias la
@@ -973,7 +973,7 @@ semilla del Julia."
 fastjulia3 "También es útil como una
 visión previa antes de ampliarlo - debido a 
 la correspondencia temática entre el Julia
-y el punto que elijas,  puedes ver el tema
+y el punto queue elijas,  puedes ver el tema
 aproximado alrededor del punto antes de
 ampliarlo."
 rotation "Rotación de la imagen"

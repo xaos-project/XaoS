@@ -2,7 +2,7 @@
  *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
- *      Jan Hubicka          (hubicka@paru.cas.cz)
+ *      Jan Hubicka          (hubicka@paru.case.cz)
  *      Thomas Marsh         (tmarsh@austin.ibm.com)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -170,7 +170,7 @@ void set_fractalc(fractal_context *context, struct image *img)
 {
     update_view(context);
     precalculate_rotation(context);
-    cfractalc = *context; /*its better to copy often accesed data into fixed
+    cfractalc = *context; /*its better to copy often accessed data into fixed
                              memory locations */
     cpalette = *img->palette;
     cimage = *img;

@@ -34,7 +34,7 @@
 (outcoloring 0)
 (plane 0)
 (view 1.847209822 -1.339254931 7.031666521E-06 1.03131109E-05)
-(message "similiar")
+(message "similar")
 (textsleep)
 
 (display)

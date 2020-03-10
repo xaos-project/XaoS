@@ -2,7 +2,7 @@
  *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
- *      Jan Hubicka          (hubicka@paru.cas.cz)
+ *      Jan Hubicka          (hubicka@paru.case.cz)
  *      Thomas Marsh         (tmarsh@austin.ibm.com)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -35,7 +35,7 @@
 #include "btrace.h"
 #include "xthread.h"
 #include "xerror.h"
-#include "calculate.h" /*an inlined calulate function */
+#include "calculate.h" /*an inlined calculate function */
 #include "i18n.h"
 
 #define ASIZE 16
@@ -191,13 +191,13 @@ static int multable[RANGE * FPMUL * 2];
 static int *mulmid;
 #endif
 
-/*Functions looks trought rows/columns marked for calculation and tries to use
- *some symetrical one instead
+/*Functions looks through rows/columns marked for calculation and tries to use
+ *some symmetrical one instead
  */
 
 /*FIXME should be threaded...but thread overhead should take more work than
  *do it in one, since it is quite simple and executes just in case fractal
- *on the screen is symetrical and it is quite rare case...who knows
+ *on the screen is symmetrical and it is quite rare case...who knows
  */
 
 static void preparesymmetries(realloc_t *realloc, const int size, int symi,
@@ -496,7 +496,7 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
         bestprice = myprice;    /*calculate best available price */
         data->price = myprice;  /*store data */
         assert(bestprice >= 0); /*FIXME:tenhle assert muze FAILIT! */
-        data = adddata(p, i);   /*calcualte all lines good for this y */
+        data = adddata(p, i);   /*calculate all lines good for this y */
 
         /* Now try all acceptable connection and calculate best possibility
          * with this connection
@@ -511,7 +511,7 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
                     previous = getbest(i - 1);
                     myprice = previous->price;
                     myprice += PRICE(pos[p], y); /*store data */
-                    if (myprice < bestprice) {   /*calcualte best */
+                    if (myprice < bestprice) {   /*calculate best */
                         bestprice = myprice, bestdata = data;
                         data->price = myprice;
                         data->previous = previous;
@@ -592,7 +592,7 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
 
             /* OK...we passed crossed area. All next areas have same previous
              * situation so our job is easier
-             * So find the best solution once for all od them
+             * So find the best solution once for all of them
              */
             if (p > ps) {
                 previous = best[p - 1]; /*find best one in previous */
@@ -603,7 +603,7 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
                 price1 = previous->price;
             }
 
-            /* Since guesses for "revolutional point" was allways one
+            /* Since guesses for "revolutional point" was always one
              * step back, we need to do last one*/
             if (price1 + NEWPRICE < bestprice && p > ps1) {
                 myprice = price1 + NEWPRICE;
@@ -618,7 +618,7 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
                 if (pos[p] != pos[p + 1]) {
                     myprice = price1;
                     myprice += PRICE(pos[p], y); /*store data */
-                    if (myprice < bestprice) {   /*calcualte best */
+                    if (myprice < bestprice) {   /*calculate best */
                         bestprice = myprice, bestdata = data;
                         data->price = myprice;
                         data->previous = previous;
@@ -639,7 +639,7 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
             }
         } else {
             /* This is second case - previous y was not mapped at all.
-             * Situation is simplier now, since we know that behind us is
+             * Situation is simpler now, since we know that behind us is
              * large hole and our decisions don't affect best solution for
              * previous problem. Se we have just one answer
              * Situation is similar to latest loop in previous case
@@ -1126,7 +1126,7 @@ static void dosymmetry(void * /*data*/, struct taskinfo * /*task*/, int r1,
     }
 }
 
-/*Well, clasical simple quicksort. Should be faster than library one
+/*Well, classical simple quicksort. Should be faster than library one
  *because of reduced number of function calls :)
  */
 static inline void myqsort(realloc_t **start, realloc_t **end)
@@ -1139,7 +1139,7 @@ static inline void myqsort(realloc_t **start, realloc_t **end)
          *as good as Sedgewick middle of three method and is faster*/
         med = ((*start)->price + (*(end - 1))->price) * 0.5;
 
-        /*Avoid one comparsion */
+        /*Avoid one comparison */
         if (med > (*start)->price) {
             realloc_t *tmp;
             tmp = *left;
@@ -1285,7 +1285,7 @@ static void calculatenewinterruptible(void)
 
     cfilter.pos = 0;
     cfilter.max = 0;
-    cfilter.pass = "Procesing symmetries";
+    cfilter.pass = "Processing symmetries";
     cfilter.incalculation = 0;
     callwait();
 
@@ -1501,7 +1501,7 @@ static int do_fractal(struct filter *f, int flags, int /*time*/)
         }
         cfilter.pos = 0;
         cfilter.max = 0;
-        cfilter.pass = "Procesing symmetries";
+        cfilter.pass = "Processing symmetries";
         callwait();
         xth_sync();
         if (nsymmetrized) {

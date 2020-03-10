@@ -2,7 +2,7 @@
  *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996 by
  *
- *      Jan Hubicka          (hubicka@paru.cas.cz)
+ *      Jan Hubicka          (hubicka@paru.case.cz)
  *      Thomas Marsh         (tmarsh@austin.ibm.com)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -78,7 +78,7 @@ const struct params global_params[] = {
      "exact size of one pixel in centimeters"},
     {"", P_HELP, NULL, "Animation rendering:"},
     {"-render", P_STRING, &defrender,
-     "Render animation into seqence of .png files"},
+     "Render animation into sequence of .png files"},
     {"-basename", P_STRING, &rbasename,
      "Name for .png files (XaoS will add 4 digit number and extension"},
     {"-size", P_STRING, &defsize, "widthxheight"},

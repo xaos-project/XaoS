@@ -3,7 +3,7 @@
  *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
- *      Jan Hubicka          (hubicka@paru.cas.cz)
+ *      Jan Hubicka          (hubicka@paru.case.cz)
  *      Thomas Marsh         (tmarsh@austin.ibm.com)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -128,7 +128,7 @@ void do_autopilot(uih_context *context, int *x, int *y, int *controls,
         context->minsize) {
         context->minsize = context->fcontext->rs.mc - context->fcontext->rs.nc;
         context->minlong = 0;
-    } /*Oscilating prevention */
+    } /*Oscillating prevention */
     if (context->fcontext->rs.mc - context->fcontext->rs.nc >
         context->maxsize) {
         context->minsize = context->fcontext->rs.mc - context->fcontext->rs.nc;

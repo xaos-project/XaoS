@@ -177,7 +177,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="195"/>
         <source>Coordinates:</source>
-        <translation type="unfinished">Coordonate:</translation>
+        <translation type="unfinished">Coordinate:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="203"/>
@@ -312,12 +312,12 @@
         <location filename="../src/ui-hlp/menu.cpp" line="399"/>
         <location filename="../src/ui-hlp/menu.cpp" line="412"/>
         <source>animateview: Invalid viewpoint</source>
-        <translation type="unfinished">vederea animatiei: punct de vedere incorect</translation>
+        <translation type="unfinished">vederea animatiei: punct de vedere incorrect</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="425"/>
         <source>Invalid viewpoint</source>
-        <translation type="unfinished">Punct de vedere incorect</translation>
+        <translation type="unfinished">Punct de vedere incorrect</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="587"/>
@@ -339,7 +339,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="786"/>
         <source>Algorithm:%i seed:%i size:%i</source>
-        <translation type="unfinished">Algoritm:%i Valoare initiala:%i dimensiune:%i</translation>
+        <translation type="unfinished">Algorithm:%i Valoare initiala:%i dimensiune:%i</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="67"/>
@@ -374,7 +374,7 @@
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="359"/>
         <source>Replay is already active</source>
-        <translation type="unfinished">Replay este deja activ</translation>
+        <translation type="unfinished">Replay este deja active</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="363"/>
@@ -959,17 +959,17 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1014"/>
         <source>Mandelbrot mode</source>
-        <translation type="unfinished">Modul Mandelbrot</translation>
+        <translation type="unfinished">Module Mandelbrot</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1017"/>
         <source>Julia mode</source>
-        <translation type="unfinished">Modul Julia</translation>
+        <translation type="unfinished">Module Julia</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1020"/>
         <source>Fast julia mode</source>
-        <translation type="unfinished">Modul Julia rapid</translation>
+        <translation type="unfinished">Module Julia rapid</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1028"/>
@@ -989,22 +989,22 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1035"/>
         <source>Inside coloring mode</source>
-        <translation type="unfinished">Modul de colorare interioara</translation>
+        <translation type="unfinished">Module de colorare interioara</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1038"/>
         <source>Outside coloring mode</source>
-        <translation type="unfinished">Modul de colorare exterioara</translation>
+        <translation type="unfinished">Module de colorare exterioara</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1041"/>
         <source>Inside truecolor coloring mode</source>
-        <translation type="unfinished">Modul de colorare interioara true-color</translation>
+        <translation type="unfinished">Module de colorare interioara true-color</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1044"/>
         <source>Outside truecolor coloring mode</source>
-        <translation type="unfinished">Modul de colorare exterioara true-color</translation>
+        <translation type="unfinished">Module de colorare exterioara true-color</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1047"/>
@@ -1176,7 +1176,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1126"/>
         <source>Fast rotation mode</source>
-        <translation type="unfinished">Modul rapid de rotatie</translation>
+        <translation type="unfinished">Module rapid de rotatie</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1130"/>
@@ -1201,7 +1201,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1141"/>
         <source>Dynamic resolution mode</source>
-        <translation type="unfinished">Modul de rezolutie dinamica</translation>
+        <translation type="unfinished">Module de rezolutie dinamica</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1144"/>
@@ -1323,7 +1323,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1179"/>
         <source>Random palettes</source>
-        <translation type="unfinished">Palete aleatoare</translation>
+        <translation type="unfinished">Palette aleatoare</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1180"/>

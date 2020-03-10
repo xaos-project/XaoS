@@ -226,7 +226,7 @@ void Parser::addVariable(string name, Variable address)
  * expression.  The function returns void and takes a single Parameters
  * argument, which is array of pointers with the address of return
  * value and the addresses of any parameters.  The function will most likely
- * be a generalized wrapper for another function, which passes paremeters to
+ * be a generalized wrapper for another function, which passes parameters to
  * the main function and assigns the return value as follows:
  * *p[0] = op(*p[1], *p[2]);
  * @param name Name of the function to be used within an expression

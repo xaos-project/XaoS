@@ -136,7 +136,7 @@ xio_file xio_getrandomexample(xio_path name)
         /*XaoS was started from root of source tree */
         ".." XIO_PATHSEPSTR "examples",
         /*XaoS was started from bin directory in source tree */
-        XIO_EMPTYPATH, /*Oops...it's not. Try curent directory */
+        XIO_EMPTYPATH, /*Oops...it's not. Try current directory */
     };
     int i = -1, p;
     DIR *d = NULL;
@@ -223,7 +223,7 @@ xio_file xio_getcatalog(const char *name)
         /*XaoS was started from root of source tree */
         ".." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         /*XaoS was started from bin directory in source tree */
-        XIO_EMPTYPATH, /*Oops...it's not. Try curent directory */
+        XIO_EMPTYPATH, /*Oops...it's not. Try current directory */
     };
     int i;
     xio_file f = XIO_FAILED;
@@ -255,7 +255,7 @@ xio_file xio_gethelp(void)
         ".." XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
         /*XaoS was started from bin directory in source tree */
         "." XIO_PATHSEPSTR "xaos.hlp",
-        /*Oops...it's not. Try curent directory */
+        /*Oops...it's not. Try current directory */
     };
     int i;
     xio_file f = XIO_FAILED;
@@ -284,7 +284,7 @@ xio_file xio_gettutorial(const char *name, xio_path tmp)
         ".." XIO_PATHSEPSTR
         "tutorial" XIO_PATHSEPSTR, /*XaoS was started from bin directory in
                                       source tree */
-        XIO_EMPTYPATH,             /*Oops...it's not. Try curent directory */
+        XIO_EMPTYPATH,             /*Oops...it's not. Try current directory */
     };
 
     for (i = 0; i < (int)(sizeof(paths) / sizeof(char *)) && f == XIO_FAILED;

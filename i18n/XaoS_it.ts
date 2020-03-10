@@ -137,7 +137,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="164"/>
         <source>Your command:</source>
-        <translation type="unfinished">Comando:</translation>
+        <translation type="unfinished">Commando:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="168"/>
@@ -552,7 +552,7 @@
     <message>
         <location filename="../src/ui/mainwindow.cpp" line="363"/>
         <source>Can not create palette</source>
-        <translation type="unfinished">Non è possibile creare la tavolozza</translation>
+        <translation type="unfinished">Non è possible creare la tavolozza</translation>
     </message>
     <message>
         <location filename="../src/ui/mainwindow.cpp" line="364"/>
@@ -564,12 +564,12 @@
     <message>
         <location filename="../src/ui/mainwindow.cpp" line="370"/>
         <source>Can not create image</source>
-        <translation type="unfinished">Non è possibile creare l&apos;immagine</translation>
+        <translation type="unfinished">Non è possible creare l&apos;immagine</translation>
     </message>
     <message>
         <location filename="../src/ui/mainwindow.cpp" line="398"/>
         <source>Can not allocate tables</source>
-        <translation type="unfinished">Non è possibile allocare le tabelle</translation>
+        <translation type="unfinished">Non è possible allocare le tabelle</translation>
     </message>
 </context>
 <context>
@@ -810,7 +810,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="927"/>
         <source>Command</source>
-        <translation type="unfinished">Comando</translation>
+        <translation type="unfinished">Commando</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="929"/>
@@ -1435,7 +1435,7 @@
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="214"/>
         <source>Processing command line options</source>
-        <translation type="unfinished">Elaborazione delle opzioni da linea di comando</translation>
+        <translation type="unfinished">Elaborazione delle opzioni da linea di commando</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="237"/>

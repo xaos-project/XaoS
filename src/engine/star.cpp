@@ -13,7 +13,7 @@ struct starfielddata {
 static unsigned int state;
 static inline void mysrandom(unsigned int x) { state = x; }
 
-#define MYLONG_MAX 0xffffff /*this is enought for me. */
+#define MYLONG_MAX 0xffffff /*this is enough for me. */
 static inline unsigned int myrandom(void)
 {
     state = ((state * 1103515245) + 12345) & MYLONG_MAX;
@@ -23,16 +23,16 @@ static inline unsigned int myrandom(void)
 #define IMAGETYPE SMALLITER
 #include "c256.h"
 #define do_starfield do_starfield8
-#include "stard.h"
+#include "start.h"
 #include "hicolor.h"
 #define do_starfield do_starfield16
-#include "stard.h"
+#include "start.h"
 #include "true24.h"
 #define do_starfield do_starfield24
-#include "stard.h"
+#include "start.h"
 #include "truecolor.h"
 #define do_starfield do_starfield32
-#include "stard.h"
+#include "start.h"
 static int requirement(struct filter *f, struct requirements *r)
 {
     f->req = *r;

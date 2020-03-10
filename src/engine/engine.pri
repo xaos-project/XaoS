@@ -30,6 +30,6 @@ HEADERS += \
     $$PWD/julia.h \
     $$PWD/paletted.h \
     $$PWD/rotated.h \
-    $$PWD/stard.h \
+    $$PWD/start.h \
     $$PWD/stereod.h \
     $$PWD/zoomd.h

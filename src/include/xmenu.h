@@ -15,7 +15,7 @@ typedef union {
 typedef struct dialog {
     const char *question;
     int type;
-    int defint;
+    int definite;
     const char *defstr;
     number_t deffloat;
     number_t deffloat2;
@@ -72,7 +72,7 @@ typedef char *(*tokenfunc)(struct uih_context *c);
 #define DIALOGIFILE_I(_question, _filename)                                    \
     menudialogs_i18n[no_menudialogs_i18n].question = _question;                \
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_IFILE;                 \
-    menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
+    menudialogs_i18n[no_menudialogs_i18n].definite = 0;                          \
     menudialogs_i18n[no_menudialogs_i18n].defstr = _filename;                  \
     menudialogs_i18n[no_menudialogs_i18n].deffloat = 0;                        \
     menudialogs_i18n[no_menudialogs_i18n].deffloat2 = 0;                       \
@@ -81,40 +81,40 @@ typedef char *(*tokenfunc)(struct uih_context *c);
 #define DIALOGOFILE_I(_question, _filename)                                    \
     menudialogs_i18n[no_menudialogs_i18n].question = _question;                \
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_OFILE;                 \
-    menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
+    menudialogs_i18n[no_menudialogs_i18n].definite = 0;                          \
     menudialogs_i18n[no_menudialogs_i18n].defstr = _filename;                  \
     ++no_menudialogs_i18n;
 
 #define DIALOGKEYSTR_I(_question, _default)                                    \
     menudialogs_i18n[no_menudialogs_i18n].question = _question;                \
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_KEYSTRING;             \
-    menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
+    menudialogs_i18n[no_menudialogs_i18n].definite = 0;                          \
     menudialogs_i18n[no_menudialogs_i18n].defstr = _default;                   \
     ++no_menudialogs_i18n;
 
 #define DIALOGSTR_I(_question, _default)                                       \
     menudialogs_i18n[no_menudialogs_i18n].question = _question;                \
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_STRING;                \
-    menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
+    menudialogs_i18n[no_menudialogs_i18n].definite = 0;                          \
     menudialogs_i18n[no_menudialogs_i18n].defstr = _default;                   \
     ++no_menudialogs_i18n;
 
 #define DIALOGINT_I(_question, _default)                                       \
     menudialogs_i18n[no_menudialogs_i18n].question = _question;                \
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_INT;                   \
-    menudialogs_i18n[no_menudialogs_i18n].defint = _default;                   \
+    menudialogs_i18n[no_menudialogs_i18n].definite = _default;                   \
     ++no_menudialogs_i18n;
 
 #define DIALOGONOFF_I(_question, _default)                                     \
     menudialogs_i18n[no_menudialogs_i18n].question = _question;                \
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_ONOFF;                 \
-    menudialogs_i18n[no_menudialogs_i18n].defint = _default;                   \
+    menudialogs_i18n[no_menudialogs_i18n].definite = _default;                   \
     ++no_menudialogs_i18n;
 
 #define DIALOGFLOAT_I(_question, _default)                                     \
     menudialogs_i18n[no_menudialogs_i18n].question = _question;                \
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_FLOAT;                 \
-    menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
+    menudialogs_i18n[no_menudialogs_i18n].definite = 0;                          \
     menudialogs_i18n[no_menudialogs_i18n].defstr = NULL;                       \
     menudialogs_i18n[no_menudialogs_i18n].deffloat = _default;                 \
     ++no_menudialogs_i18n;
@@ -122,14 +122,14 @@ typedef char *(*tokenfunc)(struct uih_context *c);
 #define DIALOGCHOICE_I(_question, _table, _default)                            \
     menudialogs_i18n[no_menudialogs_i18n].question = _question;                \
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_CHOICE;                \
-    menudialogs_i18n[no_menudialogs_i18n].defint = _default;                   \
+    menudialogs_i18n[no_menudialogs_i18n].definite = _default;                   \
     menudialogs_i18n[no_menudialogs_i18n].defstr = (const char *)_table;       \
     ++no_menudialogs_i18n;
 
 #define DIALOGCOORD_I(_question, _default1, _default2)                         \
     menudialogs_i18n[no_menudialogs_i18n].question = _question;                \
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_COORD;                 \
-    menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
+    menudialogs_i18n[no_menudialogs_i18n].definite = 0;                          \
     menudialogs_i18n[no_menudialogs_i18n].defstr = NULL;                       \
     menudialogs_i18n[no_menudialogs_i18n].deffloat = _default1;                \
     menudialogs_i18n[no_menudialogs_i18n].deffloat2 = _default2;               \
@@ -138,7 +138,7 @@ typedef char *(*tokenfunc)(struct uih_context *c);
 #define NULL_I()                                                               \
     menudialogs_i18n[no_menudialogs_i18n].question = NULL;                     \
     menudialogs_i18n[no_menudialogs_i18n].type = 0;                            \
-    menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
+    menudialogs_i18n[no_menudialogs_i18n].definite = 0;                          \
     menudialogs_i18n[no_menudialogs_i18n].defstr = NULL;                       \
     menudialogs_i18n[no_menudialogs_i18n].deffloat = 0;                        \
     menudialogs_i18n[no_menudialogs_i18n].deffloat2 = 0;                       \

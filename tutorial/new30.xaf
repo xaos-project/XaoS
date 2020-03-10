@@ -1,4 +1,4 @@
-; Whats new in versuib 3.0 by Jan Hubicka
+; What's new in versuib 3.0 by Jan Hubicka
 ; Version 1.0 done for XaoS 3.0 in July 1997
 ; Use xaos -play to see it :)
 (load "head.xhf")

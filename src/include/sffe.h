@@ -8,7 +8,7 @@
 //	SFFE_DOUBLE - real math parser
 //	SFFE_COMPLEX - complex math parser
 //	SFFE_DEVEL - print extra info to stdout
-//	SFFE_DIRECT_FPTR - use direct function pointers (!!!) ommits payload
+//	SFFE_DIRECT_FPTR - use direct function pointers (!!!) omits payload
 //	SFFE_DLL - Windows DLL
 //
 //   complex numbers (for SFFE_COMPLEX)
@@ -148,11 +148,11 @@ sffe *sffe_alloc(void);
 /* free fe structure */
 void sffe_free(sffe **parser);
 
-/* parse expression 'expression' and strore result in 'parser' struct, error (if
+/* parse expression 'expression' and store result in 'parser' struct, error (if
  * any) returned */
 int sffe_parse(sffe **parser, const char *expression);
 
-/* evaulate function and return evaluation result */
+/* evaluate function and return evaluation result */
 sfNumber sffe_eval(sffe *const parser);
 
 /* user function with name 'vname', with 'parcnt' parameters and

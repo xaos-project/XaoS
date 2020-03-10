@@ -12,7 +12,7 @@
  * This is an implementation of famous boundary trace algorithm.
  * See fractint documentation if you don't know what this means :)
  *
- * Here is two different implentation of this algorithm - one is faster
+ * Here is two different implementation of this algorithm - one is faster
  * and second is threadable.
  *
  * An faster one is quite usual implementation - get first uncalculated pixel,
@@ -36,7 +36,7 @@
  > its left" designated as if they were in a "logical" ring. Each processor
  > pushes new pixels on the processor to its left's substack, and pops from
  > its own. This way, busy parts of the image wind up spread among all
- > processors. By adding substacks, this can be expanded to accomodate more
+ > processors. By adding substacks, this can be expanded to accommodate more
  > processors. Some amount is optimal, after which a point of diminishing
  > returns is reached when most processors only do a few pixels and spend
  > most of their time waiting for new stuff from the processor to its right.
@@ -46,13 +46,13 @@
  > image anyways.) Also, the end is only reached when NO processors have
  > anything in their stacks.
  This method looks very interesting but has few serious problems.
- Most significant probably is that it always caluclates pixels up
+ Most significant probably is that it always calculates pixels up
  to distance 3 from boundary. Simple modification should lower it
- to distance 2. But "right hand rule" based algorithm should actualy
+ to distance 2. But "right hand rule" based algorithm should actually
  calculate points just to distance 1. So I want to implement such alrogithm,
- since number of caluclated points is still significant.
+ since number of calculated points is still significant.
 
- So I think I have to extend stack for two informations:
+ So I think I have to extend stack for two information:
  1) direction
  2) color of boundary I am tracking(not color I am at)
  and main algorithm should look like:
@@ -61,7 +61,7 @@
  yes:add point at the right to stack and exit
  is there boundary color?
  no:we are meeting boundary with different color - so we need
- to track this boundary too. add point at right to stack with oposite
+ to track this boundary too. add point at right to stack with opposite
  direction and boundary color set to current color
  3) look forward: similar scheme as to look right
  4) look left: again similar
@@ -69,8 +69,8 @@
 
  This hould trace boundaries to distance 1 (I hope) and do not miss anything.
  Problem is that this algorithm never ends, since boundaries will be rescaned
- again and again. So I need to add an caluclated array wich should looks like:
- for every point has mask for all directions that were scaned+calculated mask
+ again and again. So I need to add an calculated array which should looks like:
+ for every point has mask for all directions that were scanned+calculated mask
  (set to 1 if pixel is already calculated)+inprocess mask(set to 1 if some
  other processor is currently calculating it)
 
@@ -81,8 +81,8 @@
  some point)
 
  I was also thinking about perCPU queues. I think that one queue is OK,
- it is simplier and should not take much more time(except it will be locked
- more often but time spend in locked queue in comparsion to time spent
+ it is simpler and should not take much more time(except it will be locked
+ more often but time spend in locked queue in comparison to time spent
  in rest should be so small so this should not be drastical for less than 10
  procesors)
 
@@ -90,7 +90,7 @@
  cpu should own part of image and points from its part will be added to
  this cpu. This should avoid procesor cache conflict and speed up process.
  At the other hand, when cpu's queue is empty, cpu will have to browse
- others queues too and steal some points from other CPU, wich should introduce
+ others queues too and steal some points from other CPU, which should introduce
  some slowdown and I am not sure if this way will bring any improvement.
 
  Other think that should vote for perCPU queue is fact, that in one CPU
@@ -100,12 +100,12 @@
  cross broders, so they should be added to queue at the initialization, so
  this should be OK.
 
- I am beginer to threds, SMP etc. So I looking for ideas, and suggestions
+ I am beginer to threads, SMP etc. So I looking for ideas, and suggestions
  to improve this alg. (or design different one).
  Also someone with SMP box, who should test me code is welcomed.
- BTW whats is the average/maximal number of CPU in todays SMP boxes?
+ BTW what's is the average/maximal number of CPU in todays SMP boxes?
 
- Please reply directly to my email:hubicka@paru.cas.cz
+ Please reply directly to my email:hubicka@paru.case.cz
 
  Thanks
  Honza
@@ -119,13 +119,13 @@
  *    This will make queue bigger and reduce probability of situation, where
  *    queue is empty and other processors has to wait for one, that is
  *    calculating and should add something there (maybe :)
- * 2) Stack (queue :) is used just when neccesary - in situations where queue
+ * 2) Stack (queue :) is used just when necessary - in situations where queue
  *    is quite full (there is more items than 10) procesor just continues in
  *    tracing path it started. This reduces number of slow stack operations,
  *    locks/unlocks, cache conflicts and other bad thinks.
  * 3) Just each fourth pixel should be added into queue
  * 4) Foodfill algorithm should be avoided since colors at the boundaries
- *    are always correct, we should simply go trought each scanline and when
+ *    are always correct, we should simply go through each scanline and when
  *    pixel is uncalcualted, copy value from its left neighbor
  *
  * Current implementation has about 6% lower results than "fast" algorithm
@@ -162,7 +162,7 @@ static int exitnow;
 #define PAGESHIFT 14
 #define PAGESIZE (1 << PAGESHIFT)
 #define MAXPAGES                                                               \
-    200 /*Well limit is about 6MB of stack..Hope it will never owerflow */
+    200 /*Well limit is about 6MB of stack..Hope it will never overflow */
 #define MAXSIZE (MAXPAGES * PAGESIZE - 1)
 struct stack {
     int color;

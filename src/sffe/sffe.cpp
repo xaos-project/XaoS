@@ -886,7 +886,7 @@ int sffe_parse(sffe **parser, const char *expression)
                     opstck->c = *ech;
 #endif
 
-                    /* store operator prority */
+                    /* store operator priority */
                     _expression->stck[_expression->size].type = type;
 
                     /* get function pointer */

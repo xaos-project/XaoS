@@ -2,7 +2,7 @@
 /* Hello reader!
 
  * Are you sure you want read this? Its very cryptic and strange code. YOU
- * HAVE BEEN WARNED! Its purpose is to genereate as fast as possible
+ * HAVE BEEN WARNED! Its purpose is to generate as fast as possible
  * calculation loops for various formulas/algorithms. It uses lots of
  * coprocesor magic. It is included from formulas.c
  */
@@ -246,7 +246,7 @@ static unsigned int CALC(number_t zre, number_t zim, number_t pre, number_t pim)
 }
 #endif
 
-/*F. : Periodicity checking rountines.          (16-02-97)
+/*F. : Periodicity checking routines.          (16-02-97)
    All comments preceded by F. are mine (Fabrice Premel premelfa@etu.utc.fr).
    Tried to make code as efficient as possible.
    Next to do is convert lim in a variable that would be updated sometimes
@@ -261,15 +261,15 @@ static unsigned int CALC(number_t zre, number_t zim, number_t pre, number_t pim)
 
    UNCOMPRESSed form is just an extension, with careful that if we only check
    whentosave all 8 iterations, number of iterations must be well set at the
-   begining.This is done by adding a (iter&7) in the while statement preceeding
+   beginning.This is done by adding a (iter&7) in the while statement preceding
    then uncompressed calculation. */
 
 /*F. : This is from then lim factor that depends all periodicity check spped :
    the bigger it is, the faster we can detect periodicity, but the bigger it is,
    the more we can introduce errors. I suggest a value of
    (maxx-minx)/(double)getmaxx for a classic Mandelbrot Set, and maybe a lesser
-   value for an extra power Mandelbrot. But this should be calculated outter
-   from here (ie each frame, for example), to avoid new calculs */
+   value for an extra power Mandelbrot. But this should be calculated outer
+   from here (ie each frame, for example), to avoid new calculus */
 #ifdef PERI
 #define PCHECK                                                                 \
     (abs_less_than(r1 - zre, cfractalc.periodicity_limit) &&                   \
@@ -333,7 +333,7 @@ static unsigned int PERI(number_t zre, number_t zim, number_t pre, number_t pim)
             iter -= 8;
             r1 = zre;
             s1 = zim;
-            whensavenew = 3; /*You should adapt theese values */
+            whensavenew = 3; /*You should adapt these values */
             /*F. : We should always define whensavenew as 2^N-1, so we could use
              * a AND instead of % */
 
@@ -432,7 +432,7 @@ static unsigned int PERI(number_t zre, number_t zim, number_t pre, number_t pim)
                iter--;
                } */
         } else {
-            whensavenew = 7; /*You should adapt theese values */
+            whensavenew = 7; /*You should adapt these values */
             /*F. : We should always define whensavenew as 2^N-1, so we could use
              * a AND instead of % */
 

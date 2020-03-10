@@ -43,7 +43,7 @@ fmath3 "Мы обычно называем что-то фракталом,
 
 def1 "Одно из возможных определений..."
 #Definition from the intro.xaf is displayed here.
-#If it is a problem in your langage catalog, let me
+#If it is a problem in your language catalog, let me
 #know and I will create a special key
 def2 "Что это значит?"
 def3 "Чтобы объяснить это, мы сначала
@@ -618,7 +618,7 @@ magnet2 "Он получен из исследования
 контексте магнитных
 преобразований перенормировки."
 
-similiar "Его сходство с множеством
+similar "Его сходство с множеством
 Мандельброта интересно,
 поскольку это формула реального мира."
 

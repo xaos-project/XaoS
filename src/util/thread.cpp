@@ -33,7 +33,7 @@ pthread_cond_t conds[MAXCONDS];
    Its function is following:
    1) wait for message
    2) call function from message
-   3) syncronize
+   3) synchronize
    4) again
 
    To invoke this mechanizm main thread(#1) should call
@@ -68,7 +68,7 @@ static void *control_routine(void *i)
          * Counter is used to ensure that main function did not give
          * order whie control_routine was busy
          *
-         * after order is received, function adress is readed from global
+         * after order is received, function address is readed from global
          * variables and started. Pth_function then executes its
          * own part of calculation. After that it waits counter
          * nfinished to reach number of thasks-1. This is done

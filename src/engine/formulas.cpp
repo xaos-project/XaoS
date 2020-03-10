@@ -2,7 +2,7 @@
  *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
- *      Jan Hubicka          (hubicka@paru.cas.cz)
+ *      Jan Hubicka          (hubicka@paru.case.cz)
  *      Thomas Marsh         (tmarsh@austin.ibm.com)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -21,11 +21,11 @@
  */
 /* Hello reader!
  * code you are looking at is dangerous for both you and your hardware! PLEASE
- * CLOSE THIS FILE UNLESS YOU REALY KNOW WHAT YOU ARE DOING.
+ * CLOSE THIS FILE UNLESS YOU REALLY KNOW WHAT YOU ARE DOING.
  *
  * Main purpose of this file is to generate optimal caluclation loops for
  * various formulas/algorithms. It heavily includes docalc.c - set of
- * caluclation loops, that then uses macros instad of formulas. This lets me
+ * caluclation loops, that then uses macros instead of formulas. This lets me
  * to change calculation loops easily. At the other hand it looks very ugly.
  * You have been warned :)
  */

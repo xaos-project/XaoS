@@ -103,7 +103,7 @@ int reqimage(struct filter *f, struct requirements *req, int supportedmask,
  * requirements. So it should share image, create image that shares image data
  * or create new image)
  *
- * fills f->image, f->childimage and returns 1 if sucess and 0 if fail(usually
+ * fills f->image, f->childimage and returns 1 if success and 0 if fail(usually
  * out of memory or it is unable to fit child's requirements)
  * and prepares data for child call.
  */
@@ -134,7 +134,7 @@ int inherimage(struct filter *f, struct initdata *data, int flags, int width,
     if (!(palette->type & f->req.supportedmask)) {
 #ifdef DEBUG
         printf(
-            "Initalization of filter %s failed due to unsupported type by child %s-%i,%i\n",
+            "Initialization of filter %s failed due to unsupported type by child %s-%i,%i\n",
             f->name, f->previous->name, f->req.supportedmask, palette->type);
 #endif
         f->image = data->image;
@@ -155,12 +155,12 @@ int inherimage(struct filter *f, struct initdata *data, int flags, int width,
         newimage = 1, sharedimage = 0;
 
     if (f->childimage != NULL && (f->flags & ALLOCEDIMAGE)) {
-        /*is an old child image still useable for us purposes? if not burn it
+        /*is an old child image still usable for us purposes? if not burn it
          * it! */
         /*We should share image? Why alloc new?? */
         if (!newimage && (f->flags & ALLOCEDIMAGE))
             destroyinheredimage(f), ddatalost = 1;
-        /*We should share data? but child image dont do that! */
+        /*We should share data? but child image don't do that! */
         if (subimage && !(f->flags & SHAREDDATA))
             destroyinheredimage(f), ddatalost = 1;
         /*We can't share data but child image does that? */

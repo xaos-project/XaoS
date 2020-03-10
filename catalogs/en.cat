@@ -42,7 +42,7 @@ if some self-similarity can be found"
 
 def1 "One of the possible definitions is..."
 #Definition from the intro.xaf is displayed here.
-#If it is a problem in your langage catalog, let me
+#If it is a problem in your language catalog, let me
 #know and I will create a special key
 def2 "What does this mean?"
 def3 "To explain it we first need
@@ -611,7 +611,7 @@ of theoretical lattices in the
 context of magnetic renormalization
 transformations."
 
-similiar "Its similarity to the Mandelbrot set
+similar "Its similarity to the Mandelbrot set
 is interesting since this is a real
 world formula."
 
