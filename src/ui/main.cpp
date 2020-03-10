@@ -533,7 +533,13 @@ int main(int argc, char *argv[])
     }
     xth_init(defthreads);
 
-    setLanguage(settings.value("MainWindow/language").toString().toStdString().c_str());
+    char *l = new char[6];
+    strcpy(l, settings.value("MainWindow/language").toString().toStdString().c_str());
+    if (strlen(l) >= 2) {
+        setLanguage(l);
+    } else {
+        setLanguage(NULL);
+    }
 
     params_register(global_params);
     uih_registermenudialogs_i18n(); /* Internationalized dialogs. */
