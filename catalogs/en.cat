@@ -1055,7 +1055,7 @@ the escape-time variant of it."
 classic4 "You can change its shape by selecting"
 classic5 "another 'Julia seed'"
 classic6 "This fractal is the Sierpinski Carpet."
-classic7 "And here is it's escape-time variant."
+classic7 "And here is its escape-time variant."
 classic8 "This is famous, too."
 classic9 "And finally, this is
 the escape-time variant"
@@ -1065,3 +1065,20 @@ classic10 "of the Koch Snowflake."
 #for file otherfr.xaf
 
 otherfr1 "Other fractal types in XaoS"
+
+##############################################
+#For file new4.xaf
+
+new_4 "What's new in version 4.0?"
+new_4_1 "XaoS version 4.0 does not have so many
+new features like the previous releases.
+It focuses mainly on bug fixing and
+introduction of the Qt driver
+that provides a modern look
+on all platforms."
+new_4_2 "Nevertheless, some new types of formulas
+can be created by inserting
+the current iteration number n
+in the user formula."
+new_4_3 "One example is the formula z=z±1/z.
+It can be entered by typing z+(1/z)*(-1)^n."

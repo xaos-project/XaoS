@@ -1174,3 +1174,18 @@ classic10 "szökési idejű változata."
 ##############################################
 #for file otherfr.xaf
 otherfr1 "További fraktáltípusok a XaoS programban"
+
+##############################################
+#for file new4.xaf
+
+new_4 "Mi új a 4.0-s verzióban?"
+new_4_1 "A XaoS 4.0-s verziójában nincs annyi újdonság,
+mint a korábbi változatokban.
+Ez a verzió főként hibajavításokra és
+az új Qt grafikus meghajtóra koncentrál,
+mely minden rendszeren korszerű megjelenést biztosít."
+new_4_2 "Ezen kívül néhány új fajta fraktál
+jeleníthető meg, mivel a felhasználói képleteknél
+az iterációk száma (n) is megadható."
+new_4_3 "Például a z=z±1/z formulát a
+a z+(1/z)*(-1)^n képlet beírásával lehet előállítani."

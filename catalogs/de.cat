@@ -1059,3 +1059,16 @@ classic10 "der Kochschen Schneeflocken."
 #for file otherfr.xaf
 
 otherfr1 "Andere Fraktale in XaoS"
+
+##############################################
+#for file new4.xaf
+
+new_4 "Was gibt's Neues in Version 4.0?"
+new_4_1 "Die Version 4.0 hat weniger neue Features
+als die vorherige Versionen.
+Im Fokus sind Fehlerbehebungen und der neue grafische Qt-Treiber,
+der für alle Betriebssysteme eine moderne Oberfläche anbietet."
+new_4_2 "Allerdings, einige neue Fraktaltypen können
+mithilfe der Iteration n angegeben werden."
+new_4_3 "Ein Beispiel ist die Formel z=z±1/z.
+Dies kann mit dem Input z+(1/z)*(-1)^n eingetippt werden."

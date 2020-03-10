@@ -1199,6 +1199,7 @@ void uih_registermenus_i18n(void)
     TUTOR_I("otherf", TR("Menu", "Sierpinski Gasket, S.Carpet, Koch Snowflake"),
             "classic.xaf");
     TUTOR_I("new", TR("Menu", "What's new in 3.0?"), "new30.xaf");
+    TUTOR_I("new", TR("Menu", "What's new in 4.0?"), "new40.xaf");
     if (no_menuitems_i18n > MAX_MENUITEMS_I18N) {
         fprintf(stderr, "MAX_MENUITEMS_I18N is set to an insufficiently low number, please increase it to %d\n", no_menuitems_i18n);
         fflush(stderr);

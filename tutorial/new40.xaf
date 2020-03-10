@@ -1,0 +1,18 @@
+; What's new in version 4.0 by Zoltan Kovacs
+; Use xaos -play to see it :)
+(load "head.xhf")
+
+(clearscreen)
+(textposition 'center 'middle)
+(message "new_4")
+(usleep 5000000)
+(clearscreen)
+(message "new_4_1")
+(textsleep)
+(clearscreen)
+(message "new_4_2")
+(textsleep)
+(clearscreen)
+(message "new_4_3")
+(usleep 5000000)
+(load "iter.xaf")
