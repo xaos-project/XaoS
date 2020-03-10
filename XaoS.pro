@@ -31,6 +31,10 @@ CONFIG(debug, debug|release) {
     win32:CONFIG += console
 }
 
+CONFIG(release, debug|release) {
+    QMAKE_POST_LINK=$(STRIP) $(TARGET)
+}
+
 CONFIG += optimize_full
 QMAKE_CXXFLAGS += -ffast-math
 QMAKE_CFLAGS += -ffast-math
@@ -47,4 +51,3 @@ include($$PWD/src/ui-hlp/ui-hlp.pri)
 include($$PWD/src/util/util.pri)
 include($$PWD/src/sffe/sffe.pri)
 
-QMAKE_POST_LINK=$(STRIP) $(TARGET)
