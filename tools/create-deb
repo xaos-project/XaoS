@@ -2,6 +2,8 @@
 
 # This script creates a .deb package of XaoS 4.0.
 # Make sure you build the program first.
+# Required packages before running this script:
+# lynx pandoc git-extras lintian
 
 set -e
 test -x ../bin/xaos
@@ -88,3 +90,4 @@ Description: zoom and pan around a fractal in
  tutorial.
 " >> $FSDIR/DEBIAN/control
 fakeroot dpkg-deb --build $FSDIR
+lintian $FSDIR.deb
