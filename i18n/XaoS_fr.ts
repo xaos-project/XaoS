@@ -157,7 +157,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="188"/>
         <source>X center:</source>
-        <translation type="unfinished">Position horizontal centre :</translation>
+        <translation type="unfinished">Position horizontale centre :</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="189"/>
@@ -232,7 +232,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="244"/>
         <source>Horizontal position:</source>
-        <translation type="unfinished">Position horizontal :</translation>
+        <translation type="unfinished">Position horizontale :</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="245"/>
@@ -592,7 +592,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="835"/>
         <source>Line drawing functions</source>
-        <translation type="unfinished">Functions de traçage de lignes</translation>
+        <translation type="unfinished">Fonctions de traçage de lignes</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="836"/>
@@ -627,7 +627,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="848"/>
         <source>Animation functions</source>
-        <translation type="unfinished">Functions d&apos;animation</translation>
+        <translation type="unfinished">Fonctions d&apos;animation</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="849"/>
@@ -686,7 +686,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="868"/>
         <source>Timing functions</source>
-        <translation type="unfinished">Functions de temps</translation>
+        <translation type="unfinished">Fonctions de temps</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="869"/>
@@ -840,7 +840,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="942"/>
         <source>Horizontal text position</source>
-        <translation type="unfinished">Position horizontal du texte</translation>
+        <translation type="unfinished">Position horizontale du texte</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="944"/>
@@ -899,7 +899,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="984"/>
         <source>Load random example</source>
-        <translation type="unfinished">Ouvrir un example aléatoire</translation>
+        <translation type="unfinished">Ouvrir un exemple aléatoire</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="986"/>
@@ -924,12 +924,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="996"/>
         <source>More formulae</source>
-        <translation type="unfinished">Autres formulas</translation>
+        <translation type="unfinished">Autres formules</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1001"/>
         <source>User formula</source>
-        <translation type="unfinished">Autres formulas</translation>
+        <translation type="unfinished">Autres formules</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1003"/>

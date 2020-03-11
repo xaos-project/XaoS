@@ -1595,12 +1595,12 @@
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2314"/>
         <source>Parameter:none</source>
-        <translation type="unfinished">Parameter:není</translation>
+        <translation type="unfinished">Parametr:není</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2316"/>
         <source>Parameter:[%f,%f]</source>
-        <translation type="unfinished">Parameter:[%f,%f]</translation>
+        <translation type="unfinished">Parametr:[%f,%f]</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="263"/>

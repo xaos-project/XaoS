@@ -23,16 +23,16 @@ static inline unsigned int myrandom(void)
 #define IMAGETYPE SMALLITER
 #include "c256.h"
 #define do_starfield do_starfield8
-#include "start.h"
+#include "stard.h"
 #include "hicolor.h"
 #define do_starfield do_starfield16
-#include "start.h"
+#include "stard.h"
 #include "true24.h"
 #define do_starfield do_starfield24
-#include "start.h"
+#include "stard.h"
 #include "truecolor.h"
 #define do_starfield do_starfield32
-#include "start.h"
+#include "stard.h"
 static int requirement(struct filter *f, struct requirements *r)
 {
     f->req = *r;

@@ -138,7 +138,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="164"/>
         <source>Your command:</source>
-        <translation type="unfinished">Seu commando</translation>
+        <translation type="unfinished">Seu comando</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="168"/>
@@ -287,12 +287,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="330"/>
         <source>renderanim: Width parameter must be positive integer in the range 0..4096</source>
-        <translation type="unfinished">Processar animação: o valor da extensão deve set um número inteiro positivo no intervalo 0 .. 4096</translation>
+        <translation type="unfinished">Processar animação: o valor da extensão deve ser um número inteiro positivo no intervalo 0 .. 4096</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="337"/>
         <source>renderanim: Height parameter must be positive integer in the range 0..4096</source>
-        <translation type="unfinished">Processar animação: o valor da altura deve set um número inteiro positivo no intervalo 0 .. 4096</translation>
+        <translation type="unfinished">Processar animação: o valor da altura deve ser um número inteiro positivo no intervalo 0 .. 4096</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="343"/>
@@ -453,7 +453,7 @@
         <location filename="../src/ui-hlp/play.cpp" line="719"/>
         <source>Internal program error #12 %i
 </source>
-        <translation type="unfinished">Error de programa interno #12 %i
+        <translation type="unfinished">Erro de programa interno #12 %i
 </translation>
     </message>
     <message>
@@ -494,7 +494,7 @@
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="35"/>
         <source>Error: %s</source>
-        <translation type="unfinished">Error: %s</translation>
+        <translation type="unfinished">Erro: %s</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="129"/>

@@ -67,7 +67,7 @@
  4) look left: again similar
  5) exit
 
- This hould trace boundaries to distance 1 (I hope) and do not miss anything.
+ This should trace boundaries to distance 1 (I hope) and do not miss anything.
  Problem is that this algorithm never ends, since boundaries will be rescaned
  again and again. So I need to add an calculated array which should looks like:
  for every point has mask for all directions that were scanned+calculated mask
@@ -103,9 +103,9 @@
  I am beginer to threads, SMP etc. So I looking for ideas, and suggestions
  to improve this alg. (or design different one).
  Also someone with SMP box, who should test me code is welcomed.
- BTW what's is the average/maximal number of CPU in todays SMP boxes?
+ BTW what's is the average/maximal number of CPU in today's SMP boxes?
 
- Please reply directly to my email:hubicka@paru.case.cz
+ Please reply directly to my email:hubicka@paru.cas.cz
 
  Thanks
  Honza

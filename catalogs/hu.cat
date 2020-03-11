@@ -54,7 +54,7 @@ dimenzió fogalma között."
 
 topo1 "A topologikus dimenzió
 a \"normális\" dimenziószám."
-topo2 "A point 0 dimenziós,"
+topo2 "A pont 0 dimenziós,"
 topo3 "az egyenes szakasz 1 dimenziós alakzat."
 topo4 "A felületek 2 dimenziósak,
 és így tovább..."
@@ -174,7 +174,7 @@ Ez a Mandelbrot-halmaz definíciója."
 orbit5 "Esetünkben ez történt."
 orbit6 "Világosan látszik, hogy
 definíciónk alapján
-a c számot reprezentáló point
+a c számot reprezentáló pont
 a halmaz belsejében van."
 orbit7 "Más esetekben gyakran
 a végtelenbe tart az iteráció,
@@ -200,7 +200,7 @@ biztosan a végtelenbe tart."
 bail4 "Ezért minden esetben abbahagyjuk
 a számolást, amint a pálya az előző,
 ún. kilépési teszten elbukik."
-bail5 "Ha tehát egy point a halmazon
+bail5 "Ha tehát egy pont a halmazon
 kívül esik, egészen biztos,
 hogy csak véges sok lépésnyi
 számítást kell elvégeznünk."
@@ -530,7 +530,7 @@ fmath5 "Ilyen például a Koch-görbe
 néven ismert fraktál,"
 fmath6 "melyet egyetlen vonal
 átalakításával kapunk
-only módon,"
+oly módon,"
 fmath7 "hogy négy másikkal
 helyettesítjük."
 fmath8 "Ez az iteráció első lépése."
@@ -689,7 +689,7 @@ fedezték fel."
 #Kérném, hogy egy fizikus ellenőrizze! KZ
 #The translation should be verified by a physician! KZ
 
-similar "Azért is érdekes a
+similiar "Azért is érdekes a
 Mandelbrot-halmazhoz való hasonlósága,
 mert a fraktált előállító formula
 a valóságban is előfordul."
@@ -718,7 +718,7 @@ speed6 "kész!"
 speed7 "A XaoS program tartalmaz
 egy olyan heurisztikát is, mellyel a 
 periodicitás-ellenőrzés automatikusan
-kikapcsol, ha a számított point
+kikapcsol, ha a számított pont
 valószínűleg a halmazon kívülre esik
 (amennyiben a szomszédos pontok közül
 mind a halmazon kívül van)."
@@ -831,7 +831,7 @@ iprdi "iter+real/imag
 
 Ezzel a módszerrel a határhoz közel
 lévő pontok színezésénél az iterációk
-számához hozzáadjuk az utolsó point
+számához hozzáadjuk az utolsó pont
 valós és képzetes részének hányadosát."
 
 sum "iter+real+imag+real/imag
@@ -924,7 +924,7 @@ Mandelbrot-szerű megfelelőik."
 #########################################################
 #plane.xaf
 
-plane1 "A komplex síkon vizsgálódva egy point
+plane1 "A komplex síkon vizsgálódva egy pont
 valós részét rendszerint a képernyő
 x-koordinátájához, míg képzetes részét
 az y-koordinátához rendeljük."

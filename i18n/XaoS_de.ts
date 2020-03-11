@@ -107,7 +107,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="140"/>
         <source>End:</source>
-        <translation>End:</translation>
+        <translation>Ende:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="144"/>
@@ -232,7 +232,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="244"/>
         <source>Horizontal position:</source>
-        <translation>Horizontal Position:</translation>
+        <translation>Horizontale Position:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="245"/>
@@ -622,7 +622,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="846"/>
         <source>Clear all lines</source>
-        <translation>Lösche all Linien</translation>
+        <translation>Lösche alle Linien</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="848"/>
@@ -840,7 +840,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="942"/>
         <source>Horizontal text position</source>
-        <translation>Horizontal Textposition</translation>
+        <translation>Horizontale Textposition</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="944"/>
@@ -1293,7 +1293,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1169"/>
         <source>All features</source>
-        <translation>All Features</translation>
+        <translation>Alle Features</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1171"/>
@@ -1676,7 +1676,7 @@
     <message>
         <location filename="../src/sffe/sffe.cpp" line="62"/>
         <source>Unknown function: %s</source>
-        <translation>Unbekannte Function: %s</translation>
+        <translation>Unbekannte Funktion: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="66"/>
@@ -1701,7 +1701,7 @@
     <message>
         <location filename="../src/sffe/sffe.cpp" line="83"/>
         <source>Function has incorrect parameter count: %s</source>
-        <translation>Function hat falsche Parameteranzahl: %s</translation>
+        <translation>Funktion hat falsche Parameteranzahl: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="87"/>
@@ -1720,7 +1720,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="496"/>
         <source>Do you want to quit now?</source>
-        <translation>Möchten Sie das Program jetzt beenden?</translation>
+        <translation>Möchten Sie das Programm jetzt beenden?</translation>
     </message>
 </context>
 </TS>

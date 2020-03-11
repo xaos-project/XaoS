@@ -238,7 +238,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="245"/>
         <source>Vertical position:</source>
-        <translation>Vertical position:</translation>
+        <translation>Vertikal position:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="249"/>
@@ -340,7 +340,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="786"/>
         <source>Algorithm:%i seed:%i size:%i</source>
-        <translation>Algorithm: %i seed: %i storlek: %i</translation>
+        <translation>Algoritm: %i seed: %i storlek: %i</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="67"/>
@@ -847,7 +847,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="944"/>
         <source>Vertical text position</source>
-        <translation>Vertical textposition</translation>
+        <translation>Vertikal textposition</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="945"/>
@@ -1129,7 +1129,7 @@ Sluttid:</translation>
         <location filename="../src/ui-hlp/menu.cpp" line="1104"/>
         <location filename="../src/ui-hlp/menu.cpp" line="1178"/>
         <source>Perturbation</source>
-        <translation>Störning (perturbation)</translation>
+        <translation>Störning (pertubation)</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1108"/>
@@ -1266,7 +1266,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1164"/>
         <source>Newton&apos;s method</source>
-        <translation>Newtons method</translation>
+        <translation>Newtons metod</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1165"/>
@@ -1428,7 +1428,7 @@ Obalanserade parametrar</translation>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="62"/>
         <source>Unknown function: %s</source>
-        <translation>Okänd function: %s</translation>
+        <translation>Okänd funktion: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="66"/>
@@ -1438,7 +1438,7 @@ Obalanserade parametrar</translation>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="69"/>
         <source>Unknown variable: %s</source>
-        <translation>Okänd variable: %s</translation>
+        <translation>Okänd variabel: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="73"/>
@@ -1468,7 +1468,7 @@ Obalanserade parametrar</translation>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="496"/>
         <source>Do you want to quit now?</source>
-        <translation>Will du avsluta nu?</translation>
+        <translation>Vill du avsluta nu?</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="853"/>

@@ -375,7 +375,7 @@ static void uih_render(struct uih_context *c, dialogparam *d)
 static menudialog *uih_getcolordialog(struct uih_context *c)
 {
     if (c != NULL) {
-        uih_colordialog[0].definite = c->color;
+        uih_colordialog[0].defint = c->color;
     }
     return (uih_colordialog);
 }
@@ -461,14 +461,14 @@ static menudialog *uih_getviewdialog(struct uih_context *c)
 static menudialog *uih_getlettersdialog(struct uih_context *c)
 {
     if (c != NULL)
-        uih_lettersdialog[0].definite = c->letterspersec;
+        uih_lettersdialog[0].defint = c->letterspersec;
     return (uih_lettersdialog);
 }
 
 static menudialog *uih_getiterdialog(struct uih_context *c)
 {
     if (c != NULL)
-        uih_iterdialog[0].definite = c->fcontext->maxiter;
+        uih_iterdialog[0].defint = c->fcontext->maxiter;
     return (uih_iterdialog);
 }
 
@@ -484,7 +484,7 @@ int defthreads = 0;
 static menudialog *uih_getthreaddialog(struct uih_context *c)
 {
     if (c != NULL)
-        uih_threaddialog[0].definite = defthreads;
+        uih_threaddialog[0].defint = defthreads;
     return (uih_threaddialog);
 }
 
@@ -550,9 +550,9 @@ static menudialog *uih_getsffeinitdialog(struct uih_context *c)
 static menudialog *uih_getpalettedialog(struct uih_context *uih)
 {
     if (uih != NULL) {
-        palettedialog[0].definite = uih->palettetype;
-        palettedialog[1].definite = uih->paletteseed;
-        palettedialog[2].definite = uih->paletteshift + uih->manualpaletteshift;
+        palettedialog[0].defint = uih->palettetype;
+        palettedialog[1].defint = uih->paletteseed;
+        palettedialog[2].defint = uih->paletteshift + uih->manualpaletteshift;
     }
     return (palettedialog);
 }
@@ -560,7 +560,7 @@ static menudialog *uih_getpalettedialog(struct uih_context *uih)
 static menudialog *uih_getcyclingdialog(struct uih_context *uih)
 {
     if (uih != NULL)
-        uih_cyclingdialog[0].definite = uih->cyclingspeed * uih->direction;
+        uih_cyclingdialog[0].defint = uih->cyclingspeed * uih->direction;
     return (uih_cyclingdialog);
 }
 

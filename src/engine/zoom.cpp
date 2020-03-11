@@ -2,7 +2,7 @@
  *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996,1997 by
  *
- *      Jan Hubicka          (hubicka@paru.case.cz)
+ *      Jan Hubicka          (hubicka@paru.cas.cz)
  *      Thomas Marsh         (tmarsh@austin.ibm.com)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -431,7 +431,7 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
                   tofix); /*first convert everything into fixedpoint */
         if (counter < (int)size - 1 && pos[counter] > pos[counter + 1])
             /*Avoid processing of missordered rows.
-               They should happend because of limited
+               They should happen because of limited
                precisity of FP numbers */
             pos[counter] = pos[counter + 1];
     }
@@ -1015,13 +1015,13 @@ static void calculatenew(void * /*data*/, struct taskinfo *task, int /*r1*/,
     }
 
     /* We don't need to wory about race conditions here, since only
-     * problem that should happend is incorrectly counted number
+     * problem that should happen is incorrectly counted number
      * of lines to do...
      *
      * I will fix that problem later, but I think that this information
      * should be quite useless at multithreaded systems so it should
      * be a bit inaccurate. Just need to take care in percentage
-     * displayers that thinks like -100% or 150% should happend
+     * displayers that thinks like -100% or 150% should happen
      */
     if (!xth_nthread(task)) {
         for (ry = czoomc.reallocy, rend = ry + cimage.height; ry < rend; ry++) {

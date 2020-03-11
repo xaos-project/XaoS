@@ -99,7 +99,7 @@ CustomDialog::CustomDialog(struct uih_context */*uih*/, const menuitem *item,
             const char **str = (const char **)dialog[i].defstr;
             for (int j = 0; str[j] != NULL; j++)
                 combo->addItem(str[j]);
-            combo->setCurrentIndex(dialog[i].definite);
+            combo->setCurrentIndex(dialog[i].defint);
 
             formLayout->addRow(label, combo);
 
@@ -109,7 +109,7 @@ CustomDialog::CustomDialog(struct uih_context */*uih*/, const menuitem *item,
             field->setObjectName(label);
 
             if (dialog[i].type == DIALOG_INT) {
-                field->setText(QString::number(dialog[i].definite));
+                field->setText(QString::number(dialog[i].defint));
                 field->setValidator(new QIntValidator(field));
             } else if (dialog[i].type == DIALOG_FLOAT) {
                 field->setText(format(dialog[i].deffloat));

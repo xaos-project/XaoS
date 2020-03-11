@@ -84,7 +84,7 @@ schimbarea dimensiunii este 4
 (dimensiunea creste de 4 ori).
 log 4 / log 2 = 2"
 hb9 "Deci aceasta definitie da aceleasi
-rezultate pentru forme normal"
+rezultate pentru forme normale"
 hb10 "Lucrurile devin mai interesante
 la fractali..."
 
@@ -164,7 +164,7 @@ in cazul in care orbita ramane finita."
 orbit5 "In acest caz ramane..."
 orbit6 "Asa ca acest punct apartine multimii."
 orbit7 "In alte cazuri ar tinde repede
-la infinite."
+la infinit."
 orbit8 "(de exemplu, valoarea 10+0i
 Prima iteratie este 110,
 a doua 12110 etc..)"
@@ -198,7 +198,7 @@ pentru a cadea in multimea de salvare
 (bailout)."
 iter1 "In interiorul multimii avem
 in continuare nevoie de un numar
-infinite de calcule"
+infinit de calcule"
 iter2 "Singura metoda de a face acest lucru
 este sa intrerupem calculele dupa un
 numar dat de iteratii si sa folosim
@@ -265,7 +265,7 @@ manual mai tarziu pentru a obtine
 rezultate si mai profesioniste."
 
 languag4 "Majoritatea animatiilor din aceste
-tutoriale au fost scrise complete manual,
+tutoriale au fost scrise complet manual,
 incepand de la un singur fisier de
 pozitie."
 
@@ -277,17 +277,17 @@ modif3 "si aceasta modificare, un film de
 marire (\"zoom\")."
 
 newanim "De asemenea, se pot scrie animatii
-si efecte complete noi."
+si efecte complet noi."
 
 examples "XaoS vine si cu multe fisiere cu
-example, care pot fi incarcate aleator
+exemple, care pot fi incarcate aleator
 din meniul salveaza/incarca."
 
 examples2 "De asemenea, poti folosi fisierele
 de pozitie pentru a schimba date cu
 alte programe."
 
-examples3 "Singurele limit sunt propria
+examples3 "Singurele limite sunt propria
 imaginatie, si limbajul de comenzi
 descris in documentație."
 
@@ -332,7 +332,7 @@ filtre"
 #########################################################
 #For file filter.xhf
 
-filter1 "Un filtru este un effect aplicat
+filter1 "Un filtru este un efect aplicat
 fiecarui cadru, dupa ce se calculeaza
 fractalul."
 
@@ -354,7 +354,7 @@ star "a filtru simplu \"star-field\","
 interlace "un filtru de intretesere
 (\"interlace\"), (acesta
 mareste viteaza de calcul si da un
-effect de estompare a miscarii la
+efect de estompare a miscarii la
 rezolutii mai mari),"
 
 stereo "un filtru de stereograma (random dot
@@ -477,9 +477,9 @@ fractal7 "si fiecare dintre aceste bucati
 este o copie aproximativa la scara
 redusa a intregului fractal."
 
-fractal8 "Acest process se repeta"
+fractal8 "Acest proces se repeta"
 
-fractal9 "pentru a construi fractalul complete."
+fractal9 "pentru a construi fractalul complet."
 
 facts "Exista multe lucruri surprinzatoare
 despre fractali:"
@@ -496,7 +496,7 @@ fact5 "Exista si multe structuri
 matematice care definesc fractalii,"
 fact6 "ca cele pe care le vezi pe ecran."
 fmath4 "Cei mai multi fractali sunt creati
-printr-un process iterativ"
+printr-un proces iterativ"
 fmath5 "de exemplu, fractalul conoscut
 drept curba lui von Koch"
 fmath6 "se creeaza prin schimbarea unei linii"
@@ -507,7 +507,7 @@ fmath9 "Apoi repetam aceasta schimbare"
 fmath10 "dupa 2 iteratii..."
 fmath11 "dupa 3 iteratii..."
 fmath12 "dupa 4 iteratii.."
-fmath13 "si dupa un numar infinite de
+fmath13 "si dupa un numar infinit de
 iteratii obtinem un fractal."
 fmath14 "Forma lui arata ca o treime
 dintr-un fulg de zapada."
@@ -523,7 +523,7 @@ linii"
 nstr3 "si adaugand o mica eroare"
 nstr4 "poti obtine fractali care arata ca
 o linie de coasta."
-nstr5 "Un process asemanator ar putea crea
+nstr5 "Un proces asemanator ar putea crea
 nori, munti, si multe atle forme din
 natura"
 
@@ -546,7 +546,7 @@ multimi."
 mset6 "Aceasta este cea mai mare, cam de
 50 de ori mai mica decat intreaga
 multime."
-mset7 "Multimea Mandelbrot nu este complete
+mset7 "Multimea Mandelbrot nu este complet
 auto-similara,"
 mset8 "astfel incat fiecare copie in
 miniatura este diferita."
@@ -566,7 +566,7 @@ nat4 "rauri cu lacuri,"
 nat5 "galaxii,"
 nat6 "si cascade."
 nat7 "Multimea Mandelbrot contine si multe forme
-complete noi."
+complet noi."
 
 ###############################################################################
 ############
@@ -611,7 +611,7 @@ Julia corespunzatoare."
 theme3 "Dar daca micsorezi inapoi, dupa marire,
 descoperi"
 theme4 "ca te afli intr-un fractal
-complete diferit."
+complet diferit."
 theme5 "Multimile Julia pot parea destul
 de plictisitoare, deoarece nu-si
 schimba tema"
@@ -647,7 +647,7 @@ laticelor teoretice in contextul
 transformarilor renormalizatoare
 magnetice."
 
-similar "Asemanarea sa cu multimea Mandelbrot
+similiar "Asemanarea sa cu multimea Mandelbrot
 este interesanta deoarece este o
 formula din lumea reala."
 
@@ -704,7 +704,7 @@ intro3 "Fractali - O introducere
 
 Capitolul 4-Metoda lui Newton"
 newton "Acest fractal se genereaza printr-o
-formula complete diferita:"
+formula complet diferita:"
 newton1 "Metoda numerica a lui Newton pentru
 gasirea radacinilor ecuatiei polnomiale
 x^3=1."
@@ -770,7 +770,7 @@ iterreal "iter+real
 Acest mod coloreaza granitele prin
 adunarea partii reale a ultimei orbite
 la numarul de iteratii."
-iterreal1 "Il poti utilize pentru a transforma
+iterreal1 "Il poti utiliza pentru a transforma
 imaginile plictisitoare in imagini mult
 mai interesante."
 
@@ -827,7 +827,7 @@ numarul de iteratii."
 
 smooth "neted
 
-Module de colorare neteda incearca
+Modul de colorare neteda incearca
 sa elimine dungile cauzate de iteratii
 si sa faca gradatii netede."
 smooth1 "Nu functioneaza pentru multimea
@@ -876,22 +876,22 @@ de reprezentare"
 plane3 "1/mu
 
 Aceasta este o inversiune - zone de la
-infinite sunt aduse la 0 si 0 se reprezinta
-la infinite. Prin aceasta se poate
+infinit sunt aduse la 0 si 0 se reprezinta
+la infinit. Prin aceasta se poate
 vedea ce se intampla cu un fractal
 cand acesta este de-marit (unzoomed)
-de un numar infinite de ori."
+de un numar infinit de ori."
 plane4 "Aceasta este o multime Mandelbrot
 normala..."
 plane5 "si aceasta este una inversata."
 plane6 "Dupa cum poti observa, multimea
 a fost in mijloc si acum este peste tot.
-Zona albastra infinite de mare din
+Zona albastra infinit de mare din
 jurul multimii se mapeaza pe cercul mic
 din jurul punctului 0."
 plane7 "Urmatoarele cateva imagini vor fi
-aratate in module normal, si dupa aceea
-in module inversat pentru ca sa
+aratate in modul normal, si dupa aceea
+in modul inversat pentru ca sa
 vezi ce se intampla"
 
 plane8 "1/mu+0.25
@@ -903,12 +903,12 @@ plane9 "Fiindca centrul inversiunii se afla
 pe granita multimii Mandelbrot,
 poti vedea acum granite parabolice
 infinite."
-plane10 "Are un effect interesant si asupra
+plane10 "Are un efect interesant si asupra
 altor fractali, deoarece de obicei le strica
 simetria."
 
 lambda "Planul lambda ofera o vedere
-complete diferita."
+complet diferita."
 
 ilambda "1/lambda
 
@@ -957,21 +957,21 @@ corespunzator de multimi Julia."
 
 truecolor "Moduri de colorare true-color"
 truecolor1 "De obicei fractalii se coloreaza
-utilizand o paleta de culori. In module
+utilizand o paleta de culori. In modul
 true-color, paleta se emuleaza."
 truecolor2 "Singura diferenta este ca
 paleta este mai vasta si colurile sunt
 interpolate neted in modurile de
 colorare."
-truecolor3 "Module de colorare true-color
-utilizeaza o tehnica complete diferita.
+truecolor3 "Modul de colorare true-color
+utilizeaza o tehnica complet diferita.
 Foloseste diversi parametri din calcule"
 truecolor4 "pentru a genera o culoare
 anume - nu doar un index la
 paleta."
 truecolor5 "Acest lucru face posibila prezentarea
 a pana la patru valori in fiecare pixel."
-truecolor6 "Module de colorare true-color
+truecolor6 "Modul de colorare true-color
 are desigur nevoie de true color. Asa ca pe
 ecrane 8bpp, trebuie sa setezi filtrul
 de true-color."
@@ -998,11 +998,11 @@ mai aleator."
 ##########################################################
 #for file palette.xaf
 
-pal "Palette aleatoare"
+pal "Palete aleatoare"
 pal0 "XaoS nu vine cu biblioteci mari
-de palette predefinite ca multe alte
+de palete predefinite ca multe alte
 programe, dar genereaza
-palette aleatoare."
+palete aleatoare."
 pal1 "Asa ca poti pur si simplu sa
 apesi tasta 'P' pana cand XaoS
 genereaza paleta pe care o doresti
@@ -1025,7 +1025,7 @@ auto2 "Daca esti lenes, poti seta pilotul
 automat pentru a lasa XaoS
 sa exploreze un fractal in mod
 automat."
-fastjulia1 "Module de parcurgere rapida
+fastjulia1 "Modul de parcurgere rapida
 a unei multimi Julia"
 fastjulia2 "Acest mod iti da voie sa \"morph\"
 multimea Julia in concordanta cu
@@ -1040,7 +1040,7 @@ rotation "Rotirea imaginilor"
 cycling "Ciclarea culorilor"
 bailout "Salvare (bailout)"
 bailout1 "Aceasta este multimea Mandelbrot
-cu module de colorare exterioara 'neted.'"
+cu modul de colorare exterioara 'neted.'"
 bailout2 "Prin marirea valorii de salvare
 (bailout) la 64, obtii
 tranzitii mai echilibrate de culoare."
@@ -1092,7 +1092,7 @@ fourfr8 "Este ca multimea Mandelbrot
 in planul lambda."
 fourfr9 "Dar Lambda este o multime Julia,
 aici este MandelLambda."
-fourfr10 "...module rapid Julia..."
+fourfr10 "...modul rapid Julia..."
 fourfr11 "Acesta este fractalul Manowar."
 fourfr12 "A fost gasit de catre un utilizator
 al Fractint."

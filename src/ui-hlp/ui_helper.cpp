@@ -2324,7 +2324,7 @@ static void uih_drawstatus(uih_context *uih, void * /*data*/)
                 i.fordblks);
         xprint(uih->image, uih->font, 0, statusstart + 11 * h, str,
                FGCOLOR(uih), BGCOLOR(uih), 0);
-        sprintf(str, "Mapped blocks%i Mapped area:%i keep:%i", i.hblks,
+        sprintf(str, "Mmaped blocks%i Mmaped area:%i keep:%i", i.hblks,
                 i.hblkhd, i.keepcost);
         xprint(uih->image, uih->font, 0, statusstart + 12 * h, str,
                FGCOLOR(uih), BGCOLOR(uih), 0);

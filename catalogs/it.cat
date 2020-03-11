@@ -51,7 +51,7 @@ sono le dimensioni topologiche e le
 dimensioni di Hausdorff Besicovich."
 
 topo1 "La dimensione topologica
-è la \"normal\" dimensione."
+è la \"normale\" dimensione."
 topo2 "Un punto ha 0 dimensioni."
 topo3 "Una linea ha 1 dimensione."
 topo4 "Una superficie ha 2 dimensioni, ecc..."
@@ -61,7 +61,7 @@ dimensione di Hausdorff Besicovich
 deriva dal semplice fatto che:"
 hb2 "Un segmento ingrandito due volte risulta
 lungo il doppio della misura iniziale."
-hb3 "Per control, la dimensione di un
+hb3 "Per contro, la dimensione di un
 quadrato ingrandito allo stesso modo
 aumenta di quattro volte."
 hb4 "Regole simili funzionano anche per
@@ -206,9 +206,9 @@ approssimazioni migliori, ma necessita
 di tempi di calcolo più lunghi."
 limit1 "XaoS, in maniera predefinita, calcola
 170 iterazioni."
-limit2 "In alcune aree è possible effettuare
+limit2 "In alcune aree è possibile effettuare
 molti ingrandimenti senza mai
-raggiungere questo limit."
+raggiungere questo limite."
 limit3 "In altre zone risultati inesatti sono
 raggiunti abbastanza presto."
 limit4 "Le immagini, in questo caso,
@@ -243,7 +243,7 @@ e animazioni."
 anim3 "Possono essere registrati
 direttamente da XaoS,"
 
-languag1 "dal memento che le animazioni e
+languag1 "dal momento che le animazioni e
 i file di posizione sono memorizzati
 in un semplice linguaggio a comandi."
 
@@ -265,7 +265,7 @@ di \"rimpicciolimento\","
 modif3 "mentre quest'altra un filmato
 di \"ingrandimento\"."
 
-newanim "È anche possible creare animazioni
+newanim "È anche possibile creare animazioni
 ed effetti completamente nuovi."
 
 examples "XaoS contiene inoltre molti
@@ -273,11 +273,11 @@ file di esempio, che possono essere
 caricati in maniera casuale dal
 menù salva / carica."
 
-examples2 "È anche possible usare i file di
+examples2 "È anche possibile usare i file di
 posizione per scambiare informazioni
 con altri programmi."
 
-examples3 "L'unico limit è la propria
+examples3 "L'unico limite è la propria
 immaginazione e il linguaggio a
 comandi descritto in la documentazione."
 
@@ -406,7 +406,7 @@ all'insieme stesso risultano
 piuttosto soporifere."
 
 incolor3 "Per rendere il tutto un po' più
-interessante, è possible utilizzare il
+interessante, è possibile utilizzare il
 valore dell'ultima orbita per assegnare
 un colore ai punti interni all'insieme."
 
@@ -482,7 +482,7 @@ che si trovano in natura."
 #fact4 "come nuvole, montagne,
 #o linee costiere."
 fact5 "Esistono anche molte
-structure matematiche
+strutture matematiche
 che definiscono i frattali,"
 fact6 "come quello visualizzato sullo schermo."
 fmath4 "La maggior parte dei frattali
@@ -502,7 +502,7 @@ fmath13 "...e dopo un infinito numero
 di iterazioni otteniamo un frattale."
 fmath14 "La sua forma è simile a quella
 di un terzo di un fiocco di neve."
-tree1 "Utilizzando metodi simili è possible
+tree1 "Utilizzando metodi simili è possibile
 costruire molte altre forme."
 tree2 "Ad esempio modificando un segmento
 in un altro modo"
@@ -511,7 +511,7 @@ nstr "Può darsi che le iterazioni introducano
 disturbi casuali all'interno del frattale."
 nstr2 "Passando da un segmento a due segmenti"
 nstr3 "e aggiungendo qualche piccolo errore,"
-nstr4 "è possible ottenere frattali che
+nstr4 "è possibile ottenere frattali che
 ricordano una linea costiera."
 nstr5 "Un processo simile potrebbe creare
 nuvole, montagne e molte altre forme
@@ -631,7 +631,7 @@ magnet2 "Deriva dallo studio di reticoli teorici
 nel contesto delle trasformazioni di
 rinormalizzazione magnetica."
 
-similar "La sua somiglianza con l'insieme di
+similiar "La sua somiglianza con l'insieme di
 Mandelbrot è interessante, visto che
 è una formula del mondo reale."
 
@@ -692,10 +692,10 @@ trovare le radici di un polinomio x^3=1."
 newton2 "Vengono contate le iterazioni richieste
 per ottenere la radice approssimata."
 newton3 "I cerchi blu corrispondono
-all tree radici."
+alle tre radici."
 newton4 "Le parti più interessanti sono nelle
 zone in cui il punto di partenza è
-quasi equidistante a due o a tree radici."
+quasi equidistante a due o a tre radici."
 newton5 "Questo frattale è molto autosomigliante
 e non è molto interessante da esplorare."
 newton6 "Ma XaoS è capace di
@@ -709,7 +709,7 @@ un altro frattale di Newton."
 newton10 "Metodo numerico di Newton per
 trovare le radici di un polinomio x^4=1."
 newton11 "I cerchi blu corrispondono
-all quattro radici."
+alle quattro radici."
 
 #########################################################
 #For file octo.xaf
@@ -808,7 +808,7 @@ Il modo di colorazione uniforme cerca
 di eliminare le righe prodotte dalle
 iterazioni creando sfumature uniformi."
 smooth1 "Non può essere applicato all'insieme
-di Newton e all formule magnet,
+di Newton e alle formule magnet,
 dato che possiedono attrattori finiti."
 smooth2 "Funziona solo con modi di
 visualizzazione truecolor e highcolor.
@@ -826,7 +826,7 @@ phoenix "Questo è l'insieme di Mandelbrot
 di una formula conosciuta come Phoenix."
 
 phoenix1 "Sembra diverso dagli altri frattali
-di XaoS, ma è possible trovare alcune
+di XaoS, ma è possibile trovare alcune
 somiglianze con l'insieme di Mandelbrot:"
 
 phoenix2 "L'insieme di Phoenix
@@ -857,7 +857,7 @@ all'infinito vanno a 0 e 0 è mappato
 all'infinito. In questo modo si vede ciò
 che accade a un frattale quando viene
 rimpicciolito infinitamente."
-plane4 "Questo è un Mandelbrot normal..."
+plane4 "Questo è un Mandelbrot normale..."
 plane5 "...e questo è un Mandelbrot invertito."
 plane6 "Come si può vedere,
 prima l'insieme era al centro
@@ -866,7 +866,7 @@ L'area blu infinitamente grande intorno
 all'insieme è mappata all'interno del
 piccolo cerchio intorno a 0."
 plane7 "Le prossime immagini verranno
-prima mostrate in modalità normal
+prima mostrate in modalità normale
 e poi in modalità invertita
 per mostrare ciò che accade."
 
@@ -925,7 +925,7 @@ di copie dell'insieme principale."
 power4 "Frattali simili possono essere generati
 usando formule leggermente modificate"
 
-pjulia "e ognuno di essi possiede una series
+pjulia "e ognuno di essi possiede una serie
 di insiemi di Julia corrispondenti."
 
 #########################################################
@@ -982,7 +982,7 @@ di generare tavolozze casuali."
 pal1 "Ad ogni pressione del tasto \"P\"
 XaoS genera una nuova tavolozza da
 usare a piacere nel proprio frattale."
-pal2 "Sono utilizzati tree
+pal2 "Sono utilizzati tre
 differenti algoritmi:"
 pal3 "Il primo crea strisce che vanno da
 alcuni colori al nero."
@@ -995,7 +995,7 @@ cubisti."
 #for file other.xaf
 
 auto1 "Pilota automatico"
-auto2 "Per le persone pigre è possible
+auto2 "Per le persone pigre è possibile
 abilitare il pilota automatico,
 per lasciare che XaoS esplori
 un frattale in maniera automatica."
@@ -1007,7 +1007,7 @@ fastjulia3 "È anche utile come anteprima di
 un'area prima dell'ingrandimento: a
 causa della corrispondenza tematica tra
 l'insieme di Julia e il punto scelto,
-è possible vedere il tema approssimato
+è possibile vedere il tema approssimato
 intorno ad un punto prima di ingrandire."
 rotation "Rotazione dell'immagine"
 cycling "Ciclo dei colori"

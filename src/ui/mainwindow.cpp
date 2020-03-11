@@ -597,7 +597,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     if (getenv("HOME") != NULL) {
         char home[256], *env = getenv("HOME");
         int maxsize =
-            255 - (int)strlen(CONFIGFILE) - 1; /*Avoid buffer overflow */
+            255 - (int)strlen(CONFIGFILE) - 1; /*Avoid buffer owerflow */
         int i;
         for (i = 0; i < maxsize && env[i]; i++)
             home[i] = env[i];

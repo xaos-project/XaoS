@@ -110,13 +110,13 @@ escape7 "Každý bod má svůj orbit"
 escape8 "Jehož trajektorie se vypočte
 pomocí iterační funkce f(z,c),
 kde z je hodnota z předchozí iterace
-a c je parameter (bod na obrazovce)"
+a c je parametr (bod na obrazovce)"
 escape9 "Například u Mandelbrotovy
 množiny iterační funkce je z = z^2 + c"
 orbit1 "například pokud se budeme
 zajímat o bod 0 - 0.6i"
 orbit2 "použijeme ho jako hodnotu pro
-parameter c"
+parametr c"
 orbit3 "Orbit vždy začíná na pozici
 z = 0 + 0i"
 orbit3b "potom budeme opakovaně
@@ -140,7 +140,7 @@ bail2 "Protože jsou ale počítače
 konečné, není možné provédst výpočet
 přesně"
 bail3 "Lze ale dokázat, že pokud
-vzdálenost orbitu of nuly větší, než 2,
+vzdálenost orbitu od nuly větší, než 2,
 orbit pokaždé uteče do nekonečna"
 bail4 "Proto můžeme přerušit výpočet,
 pokud bod opusti okolí nuly
@@ -260,7 +260,7 @@ vypadají mnohem lépe."
 
 barnsley5 "Jejich struktura připomíná krystaly,"
 
-barnsley6 "narozdíl of většiny ostatních 
+barnsley6 "narozdíl od většiny ostatních 
 fraktálů v XaoSovi, které 
 vypadají spíše organicky"
 #########################################################
@@ -353,7 +353,7 @@ zmag "zmag
 
 Barva se počítá podle
 vzdálenosti posledního
-orbitu of počátku"
+orbitu od počátku"
 
 #########################################################
 #For file innew.xaf
@@ -546,7 +546,7 @@ magnet2 "Vychází ze studie
 magnetických renormalizačních
 transformací"
 
-similar "Podobnost s Mandelbrotovou
+similiar "Podobnost s Mandelbrotovou
 množinou je zajímavá, protože to
 už není pouze matematická hřička."
 
@@ -669,7 +669,7 @@ decomp "binarry decomposition
 
 Pokud je imaginární část
 menší než nula, odečte se
-počet iterací of maximálního
+počet iterací od maximálního
 počtu iterací, jinak se používa
 počet iterací"
 
@@ -741,7 +741,7 @@ plane1 "Normálně realná souřadnice
 bodu odpovídá x-ové souradnici na
 obrazovce a imaginární y-ové"
 
-plane2 "XaoS má ale i 6 dalších method"
+plane2 "XaoS má ale i 6 dalších metod"
 plane3 "1/mu
 
 Kruhová inverse - části z nekonečna
@@ -838,15 +838,15 @@ truecolor filtr"
 
 pert0 "Perturbation"
 pert1 "Podobně jako u Juliovy
-množiny můžete měnit parameter
+množiny můžete měnit parametr
 pro generování"
 pert2 "Je možné v Mandelbrotově
-množině měnit parameter jménem
+množině měnit parametr jménem
 \"perturbation\""
 pert3 "Ovlivní se tím startovní
 pozice orbitu, která je obvykle [0,0]"
 pert4 "Nedělá tak zajímavé změny
-jako parameter Juliovy Množiny,
+jako parametr Juliovy Množiny,
 ale je tím možné fraktál udělat
 náhodnější."
 
@@ -879,7 +879,7 @@ zapnout autopilota a nechat
 XaoS zkoumat fraktál automaticky"
 fastjulia1 "Režim pro výběr Juliovy množiny"
 fastjulia2 "V tomto režimu můžete měnit
-parameter Juliovy množiny plynule"
+parametr Juliovy množiny plynule"
 fastjulia3 "Díky podobnosti s okolím
 bodu v Mandelbrotově množině je také
 jej možné použít jako preview bodu

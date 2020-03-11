@@ -126,7 +126,7 @@ xio_file xio_getrandomexample(xio_path name)
 {
     static const char *const paths[] = {
         /*Where examples should be located? */
-        EXAMPLESPATH, /*Data path when XaoS is propertly installed */
+        EXAMPLESPATH, /*Data path when XaoS is properly installed */
         "\01" XIO_PATHSEPSTR "examples",
         /*XaoS was started from root of source tree */
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "examples",
@@ -214,7 +214,7 @@ xio_file xio_getcatalog(const char *name)
 {
     static const xio_constpath paths[] = {
         /*Where catalogs should be located? */
-        CATALOGSPATH, /*Data path when XaoS is propertly installed */
+        CATALOGSPATH, /*Data path when XaoS is properly installed */
         "\01" XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "catalogs" XIO_PATHSEPSTR,
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "Resources" XIO_PATHSEPSTR
@@ -246,7 +246,7 @@ xio_file xio_gethelp(void)
 {
     static const xio_constpath paths[] = {
         /*Where help should be located? */
-        HELPPATH, /*Data path when XaoS is propertly installed */
+        HELPPATH, /*Data path when XaoS is properly installed */
         "\01" XIO_PATHSEPSTR "help" XIO_PATHSEPSTR "xaos.hlp",
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "help" XIO_PATHSEPSTR
         "xaos.hlp",
@@ -274,7 +274,7 @@ xio_file xio_gettutorial(const char *name, xio_path tmp)
     xio_file f = XIO_FAILED;
     static const xio_constpath paths[] = {
         /*Where tutorials should be located? */
-        TUTORIALPATH, /*Data path when XaoS is propertly installed */
+        TUTORIALPATH, /*Data path when XaoS is properly installed */
         "\01" XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "tutorial" XIO_PATHSEPSTR,
         "\01" XIO_PATHSEPSTR ".." XIO_PATHSEPSTR "Resources" XIO_PATHSEPSTR
