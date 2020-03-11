@@ -15,6 +15,7 @@
 - [Thomas A. K. Kjaer](mailto:takjaer@imv.aau.dk): OS/2 ports (320x200 graphics and AA-lib)
 - [Zoltan Kovacs](mailto:zoltan@geogebra.org): Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
 - [Zsigmond Kovacs](mailto:kovzsi@gmail.com): Fractal examples
+- Bjarnheiður Kristinsdóttir: Icelandic translation
 - [J.B. Langston III](mailto:jb-langston@austin.rr.com): Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
 - [Andreas Madritsch](mailto:amadritsch@datacomm.ch): New fractal types, bailout, many fixes
 - [Mateusz Malczak](mailto:xaos@malczak.info): User formula evaluation library

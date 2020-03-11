@@ -1,19 +1,34 @@
 RELEASE NOTES FOR XAOS VERSION 4.0
 ----------------------------------
 
-o All drivers are removed except Qt
+o The user interface is based on Qt, so XaoS has a modern look and feel.
 
-o Animation rendering fixed
+o Works on macOS Catalina, which broke older versions.
 
-o Standardized menu entries
+o Animation rendering has been fixed.
 
-o Several bug fixes
+o Menu entries are now standardized.
 
-o Updated translations for German and Hungarian
+o TrueType text rendering so fonts look nicer and non-Latin alphabets are
+supported.
 
-o Iteration number N can be used in user formulas
+o Icelandic, Russian, Swedish translations.
 
-o New Swedish translation courtesy of Jonas Hall
+o Several minor updates for the other languages.
+
+o The language can be set in the View menu now.
+
+o Lots of bug fixes.
+
+o Zooming is possible also with the mouse wheel.
+
+o Mouse cursor has been changed to cross.
+
+o Iteration number N can be used in user formulas.
+
+o Lots of source code cleanup and refactoring. It may not be obvious to
+end users but this will allow us to make better features and more
+frequent releases in the future.
 
 
 RELEASE NOTES FOR XAOS VERSION 3.6
