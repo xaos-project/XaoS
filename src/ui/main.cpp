@@ -387,12 +387,12 @@ static void ui_unregistermenus(void)
 QTranslator qtTranslator;
 QTranslator xaosTranslator;
 char languageSetting[6] = "";
+// please keep the languages in the same order
 const char *languages1[] = {
-    "en", "cs", "de", "es", "fr", "hu", "it", "pt", "ro", "ru", "sv"
-    // "English", "Czech", "German", "French", "Hungarian", "Italian", "Portuguese", "Romanian", "Russian", "Spanish", "Swedish"
+    "cs", "en", "fr", "de", "hu", "is", "it", "pt", "ro", "ru", "es", "sv"
 };
 const char *languages2[] = {
-    "en_US", "cs_CZ", "de_DE", "es_ES", "fr_FR", "hu_HU", "it_IT", "pt_PT", "ro_RO", "ru_RU", "sv_SV"
+    "cs_CZ", "en_US", "fr_FR", "de_DE", "hu_HU", "is_IS", "it_IT", "pt_PT", "ro_RO", "ru_RU", "es_ES", "sv_SV"
 };
 
 const char *lang1(int i) {
@@ -446,6 +446,7 @@ static void ui_registermenus_i18n(void)
     MENUNOP_I("uia", NULL, TR("Menu", "Message Font..."), "font", UI, ui_font);
 
     SUBMENU_I("ui", NULL, TR("Menu", "Set Language"), "setlang");
+    // please keep the languages alphabetically ordered
     MENUINTRB_I("setlang", NULL, "Czech", "cs", UI, uih_setlanguage,
                 UIH_LANG_CS, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "English", "en", UI, uih_setlanguage,
@@ -456,6 +457,10 @@ static void ui_registermenus_i18n(void)
                 UIH_LANG_DE, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Hungarian", "hu", UI, uih_setlanguage,
                 UIH_LANG_HU, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "Icelandic", "is", UI, uih_setlanguage,
+                UIH_LANG_IS, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "Italian", "it", UI, uih_setlanguage,
+                UIH_LANG_IT, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Portuguese", "pt", UI, uih_setlanguage,
                 UIH_LANG_PT, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Romanian", "ro", UI, uih_setlanguage,

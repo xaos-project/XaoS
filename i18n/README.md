@@ -48,8 +48,8 @@ by defining the new language with a line
 #define UIH_LANG_LL XX
 ```
 
-where LL is the two letter ISO 639-1 code for the new language and XX
-is the next number in the list. 
+where LL is the two letter ISO 639-1 code for the new language and the numbers XX
+are consecutive in the list. You probably need to renumber the list or a part of it.
 
 5. In src/ui/main.cpp increase the number of internationalized menu items at line
 
@@ -72,14 +72,9 @@ MENUINTRB_I("setlang", NULL, "Swedish", "sv", UI, uih_setlanguage, UIH_LANG_SV, 
 Here the English name "Swedish" and the two letter code "sv" must be changed, and also
 UIH_LANG_SV to UIH_LANG_LL, accordingly (as defined in step 4).
 
+**Important: The languages must follow the same order in steps 4, 6 and 7.**
+
 ## Testing your changes
 
-After compilation you can try a translation out by setting the shell variable LANG
-to the two letter language code before startup. For example, on a Linux system
-
-```
-qmake && make && LANG=sv bin/xaos
-```
-
-will start the application in Swedish. Alternatively, the newest versions of XaoS
-give you the opportunity to do the same in the View menu as well.
+After compilation you can try a translation out by starting XaoS
+in the bin folder and change the language in the View menu.

@@ -44,7 +44,7 @@ typedef double number_t;
 #define STRUECOLOR16 // required for edge detection and pseudo 3d
 
 // Fractal defaults
-#define DEFAULT_MAX_ITER 170
+#define DEFAULT_MAX_ITER 1000
 #define DEFAULT_BAILOUT 4
 #define MAXSTEP (0.008 * 3)
 #define STEP (0.0006 * 3)
