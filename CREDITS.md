@@ -15,7 +15,7 @@
 - [Thomas A. K. Kjaer](mailto:takjaer@imv.aau.dk): OS/2 ports (320x200 graphics and AA-lib)
 - [Zoltan Kovacs](mailto:zoltan@geogebra.org): Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
 - [Zsigmond Kovacs](mailto:kovzsi@gmail.com): Fractal examples
-- Bjarnheiður Kristinsdóttir: Icelandic translation
+- [Bjarnheiður Kristinsdóttir](mailto:bjarnhek@hi.is): Icelandic translation
 - [J.B. Langston III](mailto:jb-langston@austin.rr.com): Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
 - [Andreas Madritsch](mailto:amadritsch@datacomm.ch): New fractal types, bailout, many fixes
 - [Mateusz Malczak](mailto:xaos@malczak.info): User formula evaluation library
@@ -46,16 +46,13 @@
 XaoS uses the following libraries. These libraries may be included with some
 binary distributions of XaoS.
 
-### [gettext](http://www.gnu.org/software/gettext/)
-Copyright (C) 1995-1997, 2000-2007 Free Software Foundation, Inc. 
+### [Qt](https://www.qt.io/)
+Copyright © 2020 The Qt Company
 
-License GPLv3+: [GNU GPL version 3 or later](http://gnu.org/licenses/gpl.html)
-
-This is free software: you are free to change and redistribute it. 
-There is NO WARRANTY, to the extent permitted by law.
+License GPLv2+: [GNU GPL version 2 or later](http://gnu.org/licenses/gpl.html)
 
 ### [GNU Scientific Library](http://www.gnu.org/software/gsl/)
-Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007 The GSL Team.
+Copyright © 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007 The GSL Team
 
 License GPLv3+: [GNU GPL version 3 or later](http://gnu.org/licenses/gpl.html)
 
@@ -64,11 +61,11 @@ There is NO WARRANTY, to the extent permitted by law.
 
 ### [libpng](http://www.libpng.org/pub/png/libpng.html)
 
-Copyright (c) 1998-2008 Glenn Randers-Pehrson 
+Copyright © 1998-2008 Glenn Randers-Pehrson
 
-Copyright (c) 1996-1997 Andreas Dilger
+Copyright © 1996-1997 Andreas Dilger
 
-Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
+Copyright © 1995-1996 Guy Eric Schalnat, Group 42, Inc.
 
 ## Thanks
 
