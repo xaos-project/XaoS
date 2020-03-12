@@ -307,18 +307,19 @@ typedef struct uih_context uih_context;
 #define UIH_TEXTRIGHT 2
 
 // use the same order here as for language1 and language2
-#define UIH_LANG_CS 0
-#define UIH_LANG_EN 1
-#define UIH_LANG_FR 2
-#define UIH_LANG_DE 3
-#define UIH_LANG_HU 4
-#define UIH_LANG_IS 5
-#define UIH_LANG_IT 6
-#define UIH_LANG_PT 7
-#define UIH_LANG_RO 8
-#define UIH_LANG_RU 9
-#define UIH_LANG_ES 10
-#define UIH_LANG_SV 11
+#define UIH_LANG_SYS_DEFAULT 0
+#define UIH_LANG_CS 1
+#define UIH_LANG_EN 2
+#define UIH_LANG_FR 3
+#define UIH_LANG_DE 4
+#define UIH_LANG_HU 5
+#define UIH_LANG_IS 6
+#define UIH_LANG_IT 7
+#define UIH_LANG_PT 8
+#define UIH_LANG_RO 9
+#define UIH_LANG_RU 10
+#define UIH_LANG_ES 11
+#define UIH_LANG_SV 12
 
 #define RANDOM_PALETTE_SIZE 1
 #define FULLSCREEN 2

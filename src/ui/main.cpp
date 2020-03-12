@@ -387,12 +387,13 @@ static void ui_unregistermenus(void)
 QTranslator qtTranslator;
 QTranslator xaosTranslator;
 char languageSetting[6] = "";
+bool languageSysDefault = true;
 // please keep the languages in the same order
 const char *languages1[] = {
-    "cs", "en", "fr", "de", "hu", "is", "it", "pt", "ro", "ru", "es", "sv"
+    "__", "cs", "en", "fr", "de", "hu", "is", "it", "pt", "ro", "ru", "es", "sv"
 };
 const char *languages2[] = {
-    "cs_CZ", "en_US", "fr_FR", "de_DE", "hu_HU", "is_IS", "it_IT", "pt_PT", "ro_RO", "ru_RU", "es_ES", "sv_SV"
+    "_____", "cs_CZ", "en_US", "fr_FR", "de_DE", "hu_HU", "is_IS", "it_IT", "pt_PT", "ro_RO", "ru_RU", "es_ES", "sv_SV"
 };
 
 const char *lang1(int i) {
@@ -409,14 +410,22 @@ static int ui_languageselected(uih_context *c, int p)
 {
     if (c == NULL)
         return 0;
+    if (languageSysDefault) {
+        return (strcmp(languages2[UIH_LANG_SYS_DEFAULT], languages2[p]) == 0);
+    }
     return (strcmp(languageSetting, languages2[p]) == 0);
 }
 
 void setLanguage(const char *lang) {
+    if (lang == NULL || strcmp(languages2[UIH_LANG_SYS_DEFAULT], lang) == 0) {
+        languageSysDefault = true;
+    } else {
+        languageSysDefault = false;
+    }
     qApp->removeTranslator(&qtTranslator);
     qApp->removeTranslator(&xaosTranslator);
     QString language = QString(lang);
-    if (language.isNull()) {
+    if (language.isNull() || languageSysDefault) {
         language = QLocale::system().name();
     }
     strcpy(languageSetting, language.toStdString().c_str());
@@ -447,6 +456,9 @@ static void ui_registermenus_i18n(void)
 
     SUBMENU_I("ui", NULL, TR("Menu", "Set Language"), "setlang");
     // please keep the languages alphabetically ordered
+
+    MENUINTRB_I("setlang", NULL, TR("Menu", "System default"), "", UI, uih_setlanguage,
+                UIH_LANG_SYS_DEFAULT, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Czech", "cs", UI, uih_setlanguage,
                 UIH_LANG_CS, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "English", "en", UI, uih_setlanguage,
