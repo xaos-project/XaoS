@@ -78,3 +78,12 @@ UIH_LANG_SV to UIH_LANG_LL, accordingly (as defined in step 4).
 
 After compilation you can try a translation out by starting XaoS
 in the bin folder and change the language in the View menu.
+
+Alternatively, if the option View > Set Language > System default is set, the following command
+can set the language directly (on Linux or Mac):
+
+```
+LANG=LL bin/xaos
+```
+
+Here LL is the two letter ISO 639-1 code.
