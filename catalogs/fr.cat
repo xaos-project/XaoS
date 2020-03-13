@@ -42,7 +42,7 @@ d'auto-similarité."
 
 def1 "Une des définitions est la suivante..."
 #Definition from the intro.xaf is displayed here.
-#If it is a problem in your langage catalog, let me
+#If it is a problem in your language catalog, let me
 #know and I will create a special key
 def2 "Qu'est-ce que ça veut bien dire?"
 def3 "Pour expliquer ça, il faut d'abord

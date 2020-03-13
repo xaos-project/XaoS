@@ -57,7 +57,7 @@ const char *const uih_colornames[] = {"white", "black", "red", NULL};
  *
  * Note that in the first version there are only 2
  * internationalized text, the rest will be "converted"
- * continously (as I have enough time :-).
+ * continuously (as I have enough time :-).
  *
  * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
  */

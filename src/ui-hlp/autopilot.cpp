@@ -128,7 +128,7 @@ void do_autopilot(uih_context *context, int *x, int *y, int *controls,
         context->minsize) {
         context->minsize = context->fcontext->rs.mc - context->fcontext->rs.nc;
         context->minlong = 0;
-    } /*Oscilating prevention */
+    } /*Oscillating prevention */
     if (context->fcontext->rs.mc - context->fcontext->rs.nc >
         context->maxsize) {
         context->minsize = context->fcontext->rs.mc - context->fcontext->rs.nc;

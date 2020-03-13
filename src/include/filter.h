@@ -80,8 +80,8 @@ struct image {
  * back 1 byte to the left when it is done.
  *
  * I also created the safeinterpol macro which detects if the most
- * signficant byte in the mask is on, and uses the shiftinterpol macro if
- * so, or the orignal interpol macro if not.
+ * significant byte in the mask is on, and uses the shiftinterpol macro if
+ * so, or the original interpol macro if not.
  *
  * I then modified the interpoltype macro to use the safeinterpol macro
  * instead of the interpol macro directly.
@@ -121,7 +121,7 @@ struct image {
 #define TRUECOLOR16 4
 #define TRUECOLOR24 8
 #define TRUECOLOR 16
-/*special mage types used internaly by XaoS */
+/*special mage types used internally by XaoS */
 #define LARGEITER 32
 #define SMALLITER 64
 

@@ -379,7 +379,7 @@ gsl_complex gsl_complex_sin(gsl_complex a)
     gsl_complex z;
 
     if (I == 0.0) {
-        /* avoid returing negative zero (-0.0) for the imaginary part  */
+        /* avoid returning negative zero (-0.0) for the imaginary part  */
 
         GSL_SET_COMPLEX(&z, sin(R), 0.0);
     } else {
@@ -396,7 +396,7 @@ gsl_complex gsl_complex_cos(gsl_complex a)
     gsl_complex z;
 
     if (I == 0.0) {
-        /* avoid returing negative zero (-0.0) for the imaginary part  */
+        /* avoid returning negative zero (-0.0) for the imaginary part  */
 
         GSL_SET_COMPLEX(&z, cos(R), 0.0);
     } else {

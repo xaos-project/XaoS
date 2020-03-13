@@ -127,7 +127,7 @@ markup into image files that get included in the HTML output.
 The documentation still needs a lot of work before it is ready, and we 
 have to make some modifications to Sphinx itself in order to integrate 
 the documentation it produces with XaoS's help system.  However, it is 
-far enough along that we would welcome volunteers who are familar with 
+far enough along that we would welcome volunteers who are familiar with 
 reStructuredText to submit improvements to the documentation.
 
 The new documentation is located in the help/rest directory, and it can
@@ -250,7 +250,7 @@ audience now.
 Mateusz has been working on the underlying SFFE (SegFault Formula
 Evaluator) library for several months. XaoS-3.3 can be compiled using
 both NASM (Netwide Assembler) or GSL (GNU Scientific Library) for the
-underlying complex arithmetics used by SFFE. For more information about
+underlying complex arithmetic used by SFFE. For more information about
 the available user functions please read the enclosed documentation 
 (see online help, "Other things to read", last entry), or visit
 Mateusz's info page on http://www.segfaultlabs.com/sfXaoS.

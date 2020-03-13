@@ -1112,7 +1112,7 @@ void uih_settextpos(uih_context *c, int x, int y)
     uih_updatemenus(c, names2[x]);
 }
 
-/*timming routines */
+/*timing routines */
 
 void uih_tbreak(uih_context *c) { c->tbreak = 1; }
 
@@ -1314,7 +1314,7 @@ int uih_update(uih_context *c, int mousex, int mousey, int mousebuttons)
 
     if (mousebuttons == (BUTTON1 | BUTTON3))
         mousebuttons = BUTTON2;
-    tl_process_group(syncgroup, NULL); /*First we need to update timming */
+    tl_process_group(syncgroup, NULL); /*First we need to update timing */
     tl_update_time();
     time = tl_lookup_timer(c->maintimer);
     if (c->autopilot) { /*now handle autopilot */

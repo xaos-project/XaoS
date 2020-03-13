@@ -170,7 +170,7 @@ void set_fractalc(fractal_context *context, struct image *img)
 {
     update_view(context);
     precalculate_rotation(context);
-    cfractalc = *context; /*its better to copy often accesed data into fixed
+    cfractalc = *context; /*its better to copy often accessed data into fixed
                              memory locations */
     cpalette = *img->palette;
     cimage = *img;

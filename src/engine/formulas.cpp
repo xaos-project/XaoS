@@ -21,11 +21,11 @@
  */
 /* Hello reader!
  * code you are looking at is dangerous for both you and your hardware! PLEASE
- * CLOSE THIS FILE UNLESS YOU REALY KNOW WHAT YOU ARE DOING.
+ * CLOSE THIS FILE UNLESS YOU REALLY KNOW WHAT YOU ARE DOING.
  *
  * Main purpose of this file is to generate optimal caluclation loops for
  * various formulas/algorithms. It heavily includes docalc.c - set of
- * caluclation loops, that then uses macros instad of formulas. This lets me
+ * caluclation loops, that then uses macros instead of formulas. This lets me
  * to change calculation loops easily. At the other hand it looks very ugly.
  * You have been warned :)
  */

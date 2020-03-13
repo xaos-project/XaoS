@@ -13,7 +13,7 @@ struct starfielddata {
 static unsigned int state;
 static inline void mysrandom(unsigned int x) { state = x; }
 
-#define MYLONG_MAX 0xffffff /*this is enought for me. */
+#define MYLONG_MAX 0xffffff /*this is enough for me. */
 static inline unsigned int myrandom(void)
 {
     state = ((state * 1103515245) + 12345) & MYLONG_MAX;

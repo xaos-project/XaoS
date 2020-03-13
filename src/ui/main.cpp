@@ -78,7 +78,7 @@ const struct params global_params[] = {
      "exact size of one pixel in centimeters"},
     {"", P_HELP, NULL, "Animation rendering:"},
     {"-render", P_STRING, &defrender,
-     "Render animation into seqence of .png files"},
+     "Render animation into sequence of .png files"},
     {"-basename", P_STRING, &rbasename,
      "Name for .png files (XaoS will add 4 digit number and extension"},
     {"-size", P_STRING, &defsize, "widthxheight"},

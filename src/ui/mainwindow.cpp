@@ -25,7 +25,7 @@ void MainWindow::printSpeed()
     for (c = 0; c < 5; c++)
         widget->repaint();
     QCoreApplication::processEvents(QEventLoop::AllEvents);
-    showStatus("Measuring dislay speed");
+    showStatus("Measuring display speed");
     tl_sleep(1000000);
     tl_update_time();
     tl_reset_timer(maintimer);

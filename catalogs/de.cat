@@ -31,7 +31,7 @@ gefunden werden kann.  "
 
 def1 "Eine der möglichen Definitionen ist:"
 #Definition from the intro.xaf is displayed here.
-#If it is a problem in your langage catalog, let me
+#If it is a problem in your language catalog, let me
 #know and I will create a special key
 def2 "Was heisst das?"
 def3 "Um dies zu erklären, müssen wir zuerst

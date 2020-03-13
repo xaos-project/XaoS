@@ -119,7 +119,7 @@ struct uih_context {
     /*stuff that should be visible from outside */
     number_t speedup, maxstep; /*zooming speed */
 
-    /* Informations provided to the user interface: */
+    /* Information provided to the user interface: */
     const char *menuroot;
     int display;       /*1 when ui wants to display something */
     int save;          /*1 if save animation is enabled */
@@ -137,7 +137,7 @@ struct uih_context {
     /*Filter system state */
     struct image *image;
     struct palette *palette;
-    struct fractal_context *fcontext; /*fractal informations */
+    struct fractal_context *fcontext; /*fractal information */
     struct queue *queue;
     struct filter *uifilter; /*user interface layer */
     struct filter *rotatef;  /* Special filters handler by ui_helper: */
@@ -154,7 +154,7 @@ struct uih_context {
     int fastmode;           /*when draw in fast mode */
     int juliamode;
     int fastrotate;
-    int incomplete; /*1 if image is not complettly caluclated or in animation */
+    int incomplete; /*1 if image is not completely calculated or in animation */
     int dirty;      /*1 if image is inexact */
     int inanimation;              /*1 if uih_update wants to be called soon */
     int fastanimation;            /*1 if animation needs to be fast */
@@ -163,11 +163,11 @@ struct uih_context {
     int indofractal;              /*1 when caluclation is in the process */
     int xtextpos, ytextpos;       /*positioning of text */
     int color;                    /*Color of text */
-    int recalculatemode;          /*informations for user interface */
+    int recalculatemode;          /*information for user interface */
     int stoppedtimers;            /*1 when timers are stopped */
     int nletters;                 /*Number of letters displayed at screen */
     int letterspersec; /*Number of letters per second user should read */
-    char *text[3];     /*Currently displayed text informations: */
+    char *text[3];     /*Currently displayed text information: */
     struct uih_window *textwindow[3], *cscreenwindow;
     int textpos[3], textcolor[3];
     const char *errstring; /*String of last unprocessed error */
@@ -186,7 +186,7 @@ struct uih_context {
     int nonfractalscreen;
     /*waiting variables */
     void (*complettehandler)(
-        void *); /*Handler to be activated when calculation is complette */
+        void *); /*Handler to be activated when calculation is complete */
     void *handlerdata;
     /*replay variables */
     struct uih_playcontext *playc;
