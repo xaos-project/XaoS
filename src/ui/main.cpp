@@ -390,10 +390,10 @@ char languageSetting[6] = "";
 bool languageSysDefault = true;
 // please keep the languages in the same order
 const char *languages1[] = {
-    "__", "cs", "en", "fr", "de", "hu", "is", "it", "pt", "ro", "ru", "es", "sv"
+    "__", "cs", "en", "fr", "de", "hu", "is", "it", "pt", "ro", "ru", "rs", "es", "sv"
 };
 const char *languages2[] = {
-    "_____", "cs_CZ", "en_US", "fr_FR", "de_DE", "hu_HU", "is_IS", "it_IT", "pt_PT", "ro_RO", "ru_RU", "es_ES", "sv_SV"
+    "_____", "cs_CZ", "en_US", "fr_FR", "de_DE", "hu_HU", "is_IS", "it_IT", "pt_PT", "ro_RO", "ru_RU", "rs_RS", "es_ES", "sv_SV"
 };
 
 const char *lang1(int i) {
@@ -479,6 +479,8 @@ static void ui_registermenus_i18n(void)
                 UIH_LANG_RO, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Russian", "ru", UI, uih_setlanguage,
                 UIH_LANG_RU, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "Serbian", "rs", UI, uih_setlanguage,
+                UIH_LANG_RS, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Spanish", "es", UI, uih_setlanguage,
                 UIH_LANG_ES, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Swedish", "sv", UI, uih_setlanguage,

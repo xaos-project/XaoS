@@ -2,19 +2,20 @@
 
 (alphabetically)
 
+- [Natalija Budinski](mailto:nbudinski@yahoo.com): Serbian translation
 - [Eric Courteau](mailto:ecourteau@cplus.fr): francais.cat (translation of tutorials)
 - [Jean-Pierre Demailly](mailto:Jean-Pierre.Demailly@ujf-grenoble.fr): Updates for French translation
 - [Radek Doulik](mailto:rodo@atrey.karlin.mff.cuni.cz): TK interface, windowid patches
-- [Martin Dozsa](mailto:madsoft@centrum.cz): cs.po (Czech translation of menus)
-- Arpad Fekete: some new fractals, and the 'More formulae' menu
+- [Martin Dózsa](mailto:madsoft@centrum.cz): cs.po (Czech translation of menus)
+- Árpád Fekete: some new fractals, and the 'More formulae' menu
 - [Tim Goodwin](mailto:tgoodwin@cygnus.co.uk): english.cat corrections
 - [Jonas Hall](mailto:jonas.hall@norrtalje.se): Swedish translation
 - Ben Hines: autoconf suggestions, Mac OS X port
-- [Jan Hubicka](mailto:jh@ucw.cz): Zooming routines, ugly interface, palettes, drivers, autopilot, filters, documentation, tutorials etc.
+- [Jan Hubička](mailto:jh@ucw.cz): Zooming routines, ugly interface, palettes, drivers, autopilot, filters, documentation, tutorials etc.
 - [Jens Kilian](mailto:jjk@acm.org): BeOS driver, deutsch.cat
 - [Thomas A. K. Kjaer](mailto:takjaer@imv.aau.dk): OS/2 ports (320x200 graphics and AA-lib)
-- [Zoltan Kovacs](mailto:zoltan@geogebra.org): Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
-- [Zsigmond Kovacs](mailto:kovzsi@gmail.com): Fractal examples
+- [Zoltán Kovács](mailto:zoltan@geogebra.org): Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
+- [Zsigmond Kovács](mailto:kovzsi@gmail.com): Fractal examples
 - [Bjarnheiður Kristinsdóttir](mailto:bjarnhek@hi.is): Icelandic translation
 - [J.B. Langston III](mailto:jb-langston@austin.rr.com): Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
 - [Andreas Madritsch](mailto:amadritsch@datacomm.ch): New fractal types, bailout, many fixes
@@ -26,13 +27,13 @@
 - [Paul Nasca](mailto:zynaddsubfx@yahoo.com): Ministatus improvement
 - [Nix](mailto:nix@esperi.demon.co.uk): Grammatical and spelling fixed version of xaos.hlp and other files
 - [Terje Pedersen](mailto:terjepe@login.eunet.no): Amiga port
-- [Cesar Perez](mailto:oroz@users.sourceforge.net): Spanish translations
+- [César Pérez](mailto:oroz@users.sourceforge.net): Spanish translations
 - [Fabrice Premel](mailto:premelfa@etu.utc.fr): Periodicity checking
 - [Jan Olderdissen](mailto:jan@olderdissen.com): Win32 port
 - [Ilinca Sitaru](mailto:ilinca.sitaru@gmail.com): Romanian translation
 - Daniel Skarda: Fractal examples
 - Andrew Stone ([Stone Design](www.stone.com)): Videator Support, Cocoa improvements, performance mode, bug fixes
-- [Marton Torok](mailto:marton.torok@gmail.com): Small fixes for pipes
+- [Márton Török](mailto:marton.torok@gmail.com): Small fixes for pipes
 - [Pavel Tzekov](mailto:paveltz@csoft.bg): Win32 support
 - Charles Vidal: Tcl/Tk interface
 - [Tapio K. Vocaldo](mailto:taps@rmx.com): Macintosh port

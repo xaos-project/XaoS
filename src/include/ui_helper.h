@@ -318,8 +318,9 @@ typedef struct uih_context uih_context;
 #define UIH_LANG_PT 8
 #define UIH_LANG_RO 9
 #define UIH_LANG_RU 10
-#define UIH_LANG_ES 11
-#define UIH_LANG_SV 12
+#define UIH_LANG_RS 11
+#define UIH_LANG_ES 12
+#define UIH_LANG_SV 13
 
 #define RANDOM_PALETTE_SIZE 1
 #define FULLSCREEN 2
