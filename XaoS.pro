@@ -33,6 +33,12 @@ CONFIG(debug, debug|release) {
 
 CONFIG(release, debug|release) {
     QMAKE_POST_LINK=$(STRIP) $(TARGET)
+    linux: {
+        # This may help in debugging some odd issues under Debian:
+        # QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
+        # QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
+        # QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
+    }
 }
 
 CONFIG += optimize_full
@@ -50,4 +56,3 @@ include($$PWD/src/engine/engine.pri)
 include($$PWD/src/ui-hlp/ui-hlp.pri)
 include($$PWD/src/util/util.pri)
 include($$PWD/src/sffe/sffe.pri)
-

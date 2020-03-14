@@ -457,7 +457,7 @@ static void ui_registermenus_i18n(void)
     SUBMENU_I("ui", NULL, TR("Menu", "Set Language"), "setlang");
     // please keep the languages alphabetically ordered
 
-    MENUINTRB_I("setlang", NULL, TR("Menu", "System default"), "", UI, uih_setlanguage,
+    MENUINTRB_I("setlang", NULL, TR("Menu", "System default"), "__", UI, uih_setlanguage,
                 UIH_LANG_SYS_DEFAULT, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Czech", "cs", UI, uih_setlanguage,
                 UIH_LANG_CS, ui_languageselected);
