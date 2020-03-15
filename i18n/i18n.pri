@@ -3,6 +3,7 @@ TRANSLATIONS = \
     $$PWD/XaoS_de.ts \
     $$PWD/XaoS_es.ts \
     $$PWD/XaoS_fr.ts \
+    $$PWD/XaoS_hi.ts \
     $$PWD/XaoS_hu.ts \
     $$PWD/XaoS_is.ts \
     $$PWD/XaoS_it.ts \
