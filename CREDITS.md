@@ -2,6 +2,7 @@
 
 (alphabetically)
 
+- [Anurag Aggarwal](mailto:kanurag94@gmail.com): Hindi translation
 - [Natalija Budinski](mailto:nbudinski@yahoo.com): Serbian translation
 - [Eric Courteau](mailto:ecourteau@cplus.fr): francais.cat (translation of tutorials)
 - [Jean-Pierre Demailly](mailto:Jean-Pierre.Demailly@ujf-grenoble.fr): Updates for French translation
