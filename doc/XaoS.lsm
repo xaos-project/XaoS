@@ -20,7 +20,7 @@ Author:         jh@ucw.cz (Jan Hubicka)
 		thomas@tivoli.com (Thomas Marsh)
 Maintained-by:  zoltan@geogebra.org (Zoltan Kovacs)
 		jblangston@jblangston.com (J.B. Langston)
-Primary-site:   xaos.sf.net
+Primary-site:   https://xaos-project.github.io
 Platform:       GNU/Linux or any UNIX with X11 and ANSI C compiler,
 		Microsoft Windows (95, 98, XP), Mac OS X
 Copying-policy: GNU GENERAL PUBLIC LICENSE

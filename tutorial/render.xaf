@@ -7,14 +7,14 @@
 animated tutorial
 \"An introduction to fractals\"
 
-See http://xaos.sf.net
-for next 8 chapters.")
+See https://xaos-project.github.io/
+for the 8 chapters.")
 (textsleep)
 (text "Rendered by
 XaoS - a real-time fractal zoomer
 
 XaoS is free software. Download it from:
-http://xaos.sf.net
+https://xaos-project.github.io/
 to see the whole tutorial calculated in
 realtime at much higher quality.")
 (textsleep)

@@ -291,7 +291,7 @@ static void ui_about(struct uih_context *uih)
         window = reinterpret_cast<MainWindow *>(uih->data);
     QMessageBox::about(
         window, TR("Menu", "About"),
-        "<a href=\"http://xaos.sf.net\">" +
+        "<a href=\"https://xaos-project.github.io/\">" +
             QCoreApplication::applicationName() + "</a> " +
             QCoreApplication::applicationVersion() + " (" +
             QSysInfo::kernelType() + " " +
