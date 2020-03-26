@@ -286,12 +286,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="337"/>
         <source>renderanim: Width parameter must be positive integer in the range 0..4096</source>
-        <translation type="unfinished">animation : le paramètre de largeur doit être un entier positif allant de 0 à 4096</translation>
+        <translation type="unfinished">animation : le paramètre de largeur doit être un entier positif allant de 0 à&#xa0;4096</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="344"/>
         <source>renderanim: Height parameter must be positive integer in the range 0..4096</source>
-        <translation type="unfinished">animation : le paramètre de hauteur doit être un entier positif allant de 0 à 4096</translation>
+        <translation type="unfinished">animation : le paramètre de hauteur doit être un entier positif allant de 0 à&#xa0;4096</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="350"/>
@@ -772,7 +772,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="919"/>
         <source>Fractal</source>
-        <translation type="unfinished">Fractal</translation>
+        <translation type="unfinished">Fractale</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="920"/>
@@ -860,12 +860,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="973"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nouveau</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="974"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ouvrir</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="977"/>
@@ -954,7 +954,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1018"/>
         <source>Palette</source>
-        <translation type="unfinished">Coller</translation>
+        <translation type="unfinished">Couleurs</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1021"/>
@@ -1161,7 +1161,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1127"/>
         <source>Rotate by mouse</source>
-        <translation type="unfinished">Rotation à la souris</translation>
+        <translation type="unfinished">Rotation à&#xa0;la souris</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1129"/>
@@ -1211,7 +1211,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1154"/>
         <source>Hide Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cacher les messages</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1157"/>
@@ -1338,7 +1338,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1192"/>
         <source>Escape time fractals</source>
-        <translation type="unfinished">Fractals à temps d&apos;échappement</translation>
+        <translation type="unfinished">Fractals à&#xa0;temps d&apos;échappement</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1195"/>
@@ -1374,12 +1374,12 @@
         <location filename="../src/ui/main.cpp" line="445"/>
         <location filename="../src/ui/main.cpp" line="446"/>
         <source>Message Font...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Police des messages</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="448"/>
         <source>Set Language</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Choisir la langue</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="481"/>
@@ -1389,7 +1389,7 @@
     <message>
         <location filename="../src/ui/main.cpp" line="483"/>
         <source>Get Updates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Récuperer les mises à jour</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="485"/>
@@ -1406,7 +1406,7 @@
         <location filename="../src/ui/main.cpp" line="473"/>
         <location filename="../src/ui/main.cpp" line="475"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Plein écran</translation>
     </message>
 </context>
 <context>
@@ -1430,7 +1430,7 @@
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="853"/>
         <source>Replay disabled at line %i</source>
-        <translation type="unfinished">Répétition désactivée à la ligne %i</translation>
+        <translation type="unfinished">Répétition désactivée à&#xa0;la ligne %i</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="121"/>
@@ -1702,12 +1702,12 @@
     <message>
         <location filename="../src/sffe/sffe.cpp" line="69"/>
         <source>Unknown variable: %s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Variable inconnue : %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="73"/>
         <source>Invalid operator: %s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Opérateur invalide : %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="78"/>
@@ -1722,18 +1722,18 @@
     <message>
         <location filename="../src/sffe/sffe.cpp" line="87"/>
         <source>Empty formula</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formule vide.</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="502"/>
         <source>XaoS must restart to change the thread count.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">XaoS doit redémarrer pour prendre en compte le changement de nombre de threads.</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="503"/>
         <location filename="../src/ui/main.cpp" line="342"/>
         <source>Do you want to quit now?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Voulez vous quitter maintenant ?</translation>
     </message>
 </context>
 </TS>
