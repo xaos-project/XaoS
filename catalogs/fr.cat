@@ -528,7 +528,7 @@ formes présentes dans la nature."
 fact7 "Sans aucun doute, la plus fameuse est..."
 
 mset "l'ensemble de Mandelbrot"
-mset1 "créé par une formule
+mset1 "créée par une formule
 très simple."
 mset2 "Mais l'une des plus
 belles des fractales"
@@ -638,7 +638,7 @@ magjulia "Les Julias qui en dépendent sont
 #########################################################
 #For file new.xaf
 
-new "Les nouveauté de la version 3.0"
+new "Les nouveautés de la version 3.0"
 speed "1. accélération"
 speed1 "La boucle de calcul est
 améliorée et fait des test
