@@ -51,12 +51,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="123"/>
         <source>Pixel width (cm):</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Largeur du pixel (cm) :</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="124"/>
         <source>Pixel height (cm):</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hauteur du pixel (cm) :</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="125"/>
@@ -222,7 +222,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="232"/>
         <source>Threads:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Threads :</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="240"/>
@@ -273,12 +273,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="271"/>
         <source>Frames per second:</source>
-        <translation type="unfinished">Images par seconde</translation>
+        <translation type="unfinished">Images par seconde :</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="280"/>
         <source>Initialization:</source>
-        <translation type="unfinished">Initialisation</translation>
+        <translation type="unfinished">Initialisation :</translation>
     </message>
 </context>
 <context>
@@ -286,12 +286,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="337"/>
         <source>renderanim: Width parameter must be positive integer in the range 0..4096</source>
-        <translation type="unfinished">animation : le paramètre de largeur doit être un entier positif allant de 0 à&#xa0;4096</translation>
+        <translation type="unfinished">animation : le paramètre de largeur doit être un entier positif allant de 0 à 4096</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="344"/>
         <source>renderanim: Height parameter must be positive integer in the range 0..4096</source>
-        <translation type="unfinished">animation : le paramètre de hauteur doit être un entier positif allant de 0 à&#xa0;4096</translation>
+        <translation type="unfinished">animation : le paramètre de hauteur doit être un entier positif allant de 0 à 4096</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="350"/>
@@ -510,7 +510,7 @@
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="151"/>
         <source>Cannot create checking buffer!</source>
-        <translation type="unfinished">Echec création tampon de vérification!</translation>
+        <translation type="unfinished">Echec création tampon de vérification !</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="160"/>
@@ -744,7 +744,7 @@
         <location filename="../src/ui-hlp/menu.cpp" line="900"/>
         <location filename="../src/ui-hlp/menu.cpp" line="1139"/>
         <source>Interrupt</source>
-        <translation type="unfinished">Interrompt</translation>
+        <translation type="unfinished">Interrompre</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="903"/>
@@ -788,7 +788,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="922"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Action</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="924"/>
@@ -820,22 +820,22 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="939"/>
         <source>Clear screen</source>
-        <translation type="unfinished">Effacer écran</translation>
+        <translation type="unfinished">Effacer l&apos;écran</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="941"/>
         <source>Display fractal</source>
-        <translation type="unfinished">Afficher fractal</translation>
+        <translation type="unfinished">Afficher fractale</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="944"/>
         <source>Display text</source>
-        <translation type="unfinished">Afficher texte</translation>
+        <translation type="unfinished">Afficher le texte</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="947"/>
         <source>Text color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Couleur du texte</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="949"/>
@@ -880,7 +880,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="982"/>
         <source>Replay</source>
-        <translation type="unfinished">Rejouer animation</translation>
+        <translation type="unfinished">Rejouer l&apos;animation</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="986"/>
@@ -894,7 +894,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="988"/>
         <source>Render</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rendre</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="991"/>
@@ -914,7 +914,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="999"/>
         <source>Redo</source>
-        <translation type="unfinished">Refaire</translation>
+        <translation type="unfinished">Rétablir</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1002"/>
@@ -929,12 +929,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1008"/>
         <source>User formula</source>
-        <translation type="unfinished">Autres formules</translation>
+        <translation type="unfinished">Formule utilisateur</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1010"/>
         <source>User initialization</source>
-        <translation type="unfinished">Initialisation</translation>
+        <translation type="unfinished">Initialisation utilisateur</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1015"/>
@@ -1161,7 +1161,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1127"/>
         <source>Rotate by mouse</source>
-        <translation type="unfinished">Rotation à&#xa0;la souris</translation>
+        <translation type="unfinished">Rotation à la souris</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1129"/>
@@ -1216,23 +1216,23 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1157"/>
         <source>An introduction to fractals</source>
-        <translation type="unfinished">Une introduction aux fractals</translation>
+        <translation type="unfinished">Une introduction aux fractales</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1159"/>
         <source>XaoS features overview</source>
-        <translation type="unfinished">Revue des caractéristiques de XaoS</translation>
+        <translation type="unfinished">Aperçu des caractéristiques de XaoS</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1160"/>
         <source>Math behind fractals</source>
-        <translation type="unfinished">Les maths derrière les fractals</translation>
+        <translation type="unfinished">Les maths derrière les fractales</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1161"/>
         <location filename="../src/ui-hlp/menu.cpp" line="1193"/>
         <source>Other fractal types in XaoS</source>
-        <translation type="unfinished">Autres types de fractals dans XaoS</translation>
+        <translation type="unfinished">Autres types de fractales dans XaoS</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1163"/>
@@ -1338,12 +1338,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1192"/>
         <source>Escape time fractals</source>
-        <translation type="unfinished">Fractals à&#xa0;temps d&apos;échappement</translation>
+        <translation type="unfinished">Fractales à temps d&apos;échappement</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1195"/>
         <source>Triceratops and Catseye fractals</source>
-        <translation type="unfinished">Fractals Triceratops et Oeil de chat</translation>
+        <translation type="unfinished">Fractales Triceratops et Oeil de chat</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1197"/>
@@ -1384,7 +1384,7 @@
     <message>
         <location filename="../src/ui/main.cpp" line="481"/>
         <source>Send Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reporter un problème</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="483"/>
@@ -1394,13 +1394,13 @@
     <message>
         <location filename="../src/ui/main.cpp" line="485"/>
         <source>User Forum</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Forum des utilisateurs</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="293"/>
         <location filename="../src/ui/main.cpp" line="488"/>
         <source>About</source>
-        <translation type="unfinished">A propos</translation>
+        <translation type="unfinished">À propos</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="473"/>
@@ -1460,12 +1460,12 @@
         <location filename="../src/ui-hlp/render.cpp" line="246"/>
         <location filename="../src/ui-hlp/render.cpp" line="421"/>
         <source>Entering calculation loop!</source>
-        <translation type="unfinished">Commençant boucle de calcul!</translation>
+        <translation type="unfinished">Entrée dans la boucle de calcul !</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="266"/>
         <source>Rendering frame %i...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rendu de la frame %i...</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="320"/>
@@ -1540,12 +1540,12 @@
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2264"/>
         <source>Fractal name:%s</source>
-        <translation type="unfinished">Nom du fractal :  %s</translation>
+        <translation type="unfinished">Nom de la fractale : %s</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2268"/>
         <source>Fractal type:%s</source>
-        <translation type="unfinished">Type de fractal : %s</translation>
+        <translation type="unfinished">Type de fractale : %s</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2269"/>
@@ -1560,7 +1560,7 @@
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2274"/>
         <source>Formula:%s</source>
-        <translation type="unfinished">Formule: %s</translation>
+        <translation type="unfinished">Formule : %s</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2280"/>
@@ -1590,12 +1590,12 @@
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
         <source>On</source>
-        <translation type="unfinished">Oui</translation>
+        <translation type="unfinished">Allumé</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
         <source>Off</source>
-        <translation type="unfinished">Non</translation>
+        <translation type="unfinished">Éteint</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2305"/>
@@ -1627,7 +1627,7 @@
     <message>
         <location filename="../src/ui/main.cpp" line="341"/>
         <source>XaoS must restart to change the language.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">XaoS doit redémarrer pour changer la langue.</translation>
     </message>
     <message>
         <location filename="../src/ui/mainwindow.cpp" line="136"/>
@@ -1687,17 +1687,17 @@
     <message>
         <location filename="../src/sffe/sffe.cpp" line="58"/>
         <source>Unbalanced parentheses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Parenthèses manquantes</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="62"/>
         <source>Unknown function: %s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fonction inconnue : %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="66"/>
         <source>Invalid number: %s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre invalide : %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="69"/>
@@ -1712,17 +1712,17 @@
     <message>
         <location filename="../src/sffe/sffe.cpp" line="78"/>
         <source>Internal error occurred in formula: %s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Une erreur interne est survenue dans la formule : %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="83"/>
         <source>Function has incorrect parameter count: %s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">La fonction a un nombre incorrect de paramètres : %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="87"/>
         <source>Empty formula</source>
-        <translation type="unfinished">Formule vide.</translation>
+        <translation type="unfinished">Formule vide</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="502"/>
