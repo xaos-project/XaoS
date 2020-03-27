@@ -885,7 +885,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="986"/>
         <source>Save image</source>
-        <translation type="unfinished">Entregistrer image</translation>
+        <translation type="unfinished">Enregistrer l&apos;image</translation>
     </message>
     <message>
         <source>Render animation</source>
