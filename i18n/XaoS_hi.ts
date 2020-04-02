@@ -1625,7 +1625,7 @@
     <message>
         <location filename="../src/ui/main.cpp" line="341"/>
         <source>XaoS must restart to change the language.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">भाषा बदलने के लिए XaoS को पुनः आरंभ करना होगा</translation>
     </message>
     <message>
         <location filename="../src/ui/mainwindow.cpp" line="136"/>
