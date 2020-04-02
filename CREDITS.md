@@ -39,6 +39,7 @@
 - Charles Vidal: Tcl/Tk interface
 - [Tapio K. Vocaldo](mailto:taps@rmx.com): Macintosh port
 - Tormod Volden: Fixes for X11 driver to improve compatibility with Xorg, XScreenSaver, Beryl and Compiz
+- [Clément Vermot](https://github.com/cvermot): Updates for French translation
 - [Philippe Wautelet](mailto:p.wautelet@fractalzone.be): Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
 - Sergio Zanchetta: Italian translation
 - Alexey Loginov: Russian translation
