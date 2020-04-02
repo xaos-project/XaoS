@@ -208,7 +208,7 @@ nécessaires pour tomber dans la
 \"zone d'abandon\" (extérieur du cercle 
 de rayon 2)."
 
-iter1 "A l'intérieur du cercle, on peut
+iter1 "À l'intérieur du cercle, on peut
 événtuellement avoir besoin de faire
 un nombre infini d'itérations."
 iter2 "La seule façon de s'en sortir est
@@ -293,7 +293,7 @@ ou effets complètement nouveaux"
 
 examples "XaoS est fourni avec
 de nombreux fichiers exemples,
-à charger avec le menu save/load"
+à charger avec le menu Fichier -> Enregistrer/Ouvrir"
 
 examples2 "Utilisez les fichiers de position
 pour échanger des coordonnées avec
@@ -531,7 +531,7 @@ mset "l'ensemble de Mandelbrot"
 mset1 "créée par une formule
 très simple."
 mset2 "Mais l'une des plus
-belle des fractales"
+belles des fractales"
 mset3 "Comme l'ensemble de Mandelbrot
 est une fractale"
 mset4 "ses frontières recèlent des"
@@ -542,7 +542,7 @@ mset6 "celui-ci est le plus grand,
 mset7 "Comme l'ensemble de Mandelbrot
 n'est pas strictement auto-similaire"
 mset8 "chaque copie est subtilement
-différente de l'original"
+différente de l'originale"
 mset9 "Celle-ci est 76000 fois plus petite."
 mset10 "Des copies situées ailleurs peuvent
 différer encore plus"
@@ -638,7 +638,7 @@ magjulia "Les Julias qui en dépendent sont
 #########################################################
 #For file new.xaf
 
-new "Les nouveauté de la version 3.0"
+new "Les nouveautés de la version 3.0"
 speed "1. accélération"
 speed1 "La boucle de calcul est
 améliorée et fait des test
@@ -786,7 +786,7 @@ potential "Potentiel
 Cette technique de colorisation
 fonctionne particulièrement
 bien sur les images
-non zoomée."
+non zoomées."
 
 cdecom "Decomposition des couleurs"
 cdecom2 "la couleur est calculée à
@@ -853,16 +853,16 @@ et inversement."
 plane4 "Mandelbrot classique"
 plane5 "Mandelbrot inversé"
 plane6 "L'ensemble est maintenant à la
-périphérie alors qu'il ètait
-au centre de l'écran avant."
+périphérie alors qu'il était
+au centre de l'écran précédemment."
 plane7 "les images suivantes vont être
-affichée successivement en mode
+affichées successivement en mode
 normal puis inversé"
 plane8 "1/mu+0.25
 
 
 Le centre d'inversion est déplacé"
-plane9 "Comme le centre est situé a la
+plane9 "Comme le centre est situé à la
 frontière de l'ensemble, vous voyez une
 infinité de frontières paraboliques."
 plane10 "L'effet est intéressant sur les
@@ -870,7 +870,7 @@ autres fractales, mais en général elles
 perdent leur symétrie."
 
 lambda "les plans lambda forment une vue
-Complètement differente"
+complètement differente"
 
 ilambda "1/lambda
 
@@ -920,7 +920,7 @@ d'ensemble de Julia correspondants."
 #For file truecolor.xaf
 
 truecolor "couleurs réelles (24 bit)"
-truecolor1 "habituellement les fractales
+truecolor1 "Habituellement, les fractales
 sont colorées à l'aide d'une palette.
 En mode 24 bit la palette est émulée."
 truecolor2 "la seule différence
@@ -967,12 +967,12 @@ plus aléatoires."
 pal "Palettes aléatoires"
 pal0 "XaoS ne possède pas une vaste
 librairie de palettes prédéfinies
-comme beaucoup d'autres programs,
+comme beaucoup d'autres programmes,
 mais génère des palettes aléatoires."
 pal1 "Ainsi vous pouvez simplement 
 presser 'P' jusqu'à ce que XaoS 
 génère une palette agréable à 
-l'oeil pour votre fractale."
+l'œil pour votre fractale."
 pal2 "Trois différents algorithmes
 sont utilisés:"
 pal3 "le premier produit des bandes depuis 
@@ -988,7 +988,7 @@ certains tableaux cubistes."
 
 auto1 "Autopilote"
 auto2 "Si vous êtes paresseux, vous
-pouvez activer l'autopilote pour
+pouvez activer le pilote automatique pour
 que XaoS explore les fractales
 automatiquement."
 fastjulia1 "Mode d'exploration rapide Julia"
