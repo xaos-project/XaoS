@@ -1529,7 +1529,7 @@
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2224"/>
         <source>zoomed</source>
-        <translation>Aggrandi</translation>
+        <translation>Agrandi</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2230"/>
