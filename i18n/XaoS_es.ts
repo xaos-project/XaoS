@@ -790,7 +790,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="924"/>
         <location filename="../src/ui-hlp/menu.cpp" line="933"/>
-        <location filename="../src/ui/main.cpp" line="479"/>
+        <location filename="../src/ui/main.cpp" line="505"/>
         <source>Help</source>
         <translation type="unfinished">Ayuda</translation>
     </message>
@@ -883,10 +883,6 @@
         <location filename="../src/ui-hlp/menu.cpp" line="986"/>
         <source>Save image</source>
         <translation type="unfinished">Guardar imagen</translation>
-    </message>
-    <message>
-        <source>Render animation</source>
-        <translation type="obsolete">Renderizar animación</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="988"/>
@@ -1121,7 +1117,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1106"/>
         <source>Bailout</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1108"/>
@@ -1363,45 +1359,50 @@
         <translation type="unfinished">¿Qué hay nuevo en 4.0?</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="442"/>
+        <location filename="../src/ui/main.cpp" line="456"/>
         <source>Quit</source>
         <translation type="unfinished">Salir</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="445"/>
-        <location filename="../src/ui/main.cpp" line="446"/>
+        <location filename="../src/ui/main.cpp" line="459"/>
+        <location filename="../src/ui/main.cpp" line="460"/>
         <source>Message Font...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="448"/>
+        <location filename="../src/ui/main.cpp" line="462"/>
         <source>Set Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="481"/>
+        <location filename="../src/ui/main.cpp" line="465"/>
+        <source>System default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/main.cpp" line="507"/>
         <source>Send Feedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="483"/>
+        <location filename="../src/ui/main.cpp" line="509"/>
         <source>Get Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="485"/>
+        <location filename="../src/ui/main.cpp" line="511"/>
         <source>User Forum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="293"/>
-        <location filename="../src/ui/main.cpp" line="488"/>
+        <location filename="../src/ui/main.cpp" line="514"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="473"/>
-        <location filename="../src/ui/main.cpp" line="475"/>
+        <location filename="../src/ui/main.cpp" line="499"/>
+        <location filename="../src/ui/main.cpp" line="501"/>
         <source>Fullscreen</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1579,37 +1580,42 @@
         <translation type="unfinished">Iteraciones:%-4i Tamaño de la paleta:%i {4u?}</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2300"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2297"/>
+        <source>Bailout:%4.2f</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
         <source>Autopilot:%-4s  Plane:%s</source>
         <translation type="unfinished">Piloto automático:%-4s  Plano:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2302"/>
         <source>On</source>
         <translation type="unfinished">On</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2302"/>
         <source>Off</source>
         <translation type="unfinished">Off</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2305"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2306"/>
         <source>incoloring:%s    outcoloring:%s</source>
         <translation type="unfinished">Color interior:%s    Color exterior:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2310"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2311"/>
         <source>zoomspeed:%f</source>
         <translation type="unfinished">Velocidad zoom:%f</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2314"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2315"/>
         <source>Parameter:none</source>
         <translation type="unfinished">Parámetro:ninguno</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2316"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2317"/>
         <source>Parameter:[%f,%f]</source>
         <translation type="unfinished">Parámetro:[%f,%f]</translation>
     </message>
