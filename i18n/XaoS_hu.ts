@@ -793,7 +793,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="924"/>
         <location filename="../src/ui-hlp/menu.cpp" line="933"/>
-        <location filename="../src/ui/main.cpp" line="479"/>
+        <location filename="../src/ui/main.cpp" line="505"/>
         <source>Help</source>
         <translation>Segítség</translation>
     </message>
@@ -886,10 +886,6 @@
         <location filename="../src/ui-hlp/menu.cpp" line="986"/>
         <source>Save image</source>
         <translation>Kép mentése</translation>
-    </message>
-    <message>
-        <source>Render animation</source>
-        <translation type="vanished">Film készítése</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="988"/>
@@ -1366,45 +1362,50 @@
         <translation>Újdonságok a 4.0-s verzióban</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="442"/>
+        <location filename="../src/ui/main.cpp" line="456"/>
         <source>Quit</source>
         <translation>Kilépés</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="445"/>
-        <location filename="../src/ui/main.cpp" line="446"/>
+        <location filename="../src/ui/main.cpp" line="459"/>
+        <location filename="../src/ui/main.cpp" line="460"/>
         <source>Message Font...</source>
         <translation>Feliratok betűtípusa...</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="448"/>
+        <location filename="../src/ui/main.cpp" line="462"/>
         <source>Set Language</source>
         <translation>Nyelv beállítása</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="481"/>
+        <location filename="../src/ui/main.cpp" line="465"/>
+        <source>System default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/main.cpp" line="507"/>
         <source>Send Feedback</source>
         <translation>Visszajelzés küldése</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="483"/>
+        <location filename="../src/ui/main.cpp" line="509"/>
         <source>Get Updates</source>
         <translation>Új verzió letöltése</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="485"/>
+        <location filename="../src/ui/main.cpp" line="511"/>
         <source>User Forum</source>
         <translation>Felhasználói fórum</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="293"/>
-        <location filename="../src/ui/main.cpp" line="488"/>
+        <location filename="../src/ui/main.cpp" line="514"/>
         <source>About</source>
         <translation>Névjegy</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="473"/>
-        <location filename="../src/ui/main.cpp" line="475"/>
+        <location filename="../src/ui/main.cpp" line="499"/>
+        <location filename="../src/ui/main.cpp" line="501"/>
         <source>Fullscreen</source>
         <translation>Teljes képernyő</translation>
     </message>
@@ -1583,37 +1584,42 @@
         <translation>Iterációk száma:%-4u Színpaletta-méret:%i</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2300"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2297"/>
+        <source>Bailout:%4.2f</source>
+        <translation type="unfinished">Szökés</translation>
+    </message>
+    <message>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
         <source>Autopilot:%-4s  Plane:%s</source>
         <translation>Robotpilóta:%-4s  Sík:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2302"/>
         <source>On</source>
         <translation>Be</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2302"/>
         <source>Off</source>
         <translation>Ki</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2305"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2306"/>
         <source>incoloring:%s    outcoloring:%s</source>
         <translation>belső színezés:%s    külső színezés:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2310"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2311"/>
         <source>zoomspeed:%f</source>
         <translation>belenagyítási sebesség:%f</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2314"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2315"/>
         <source>Parameter:none</source>
         <translation>Paraméter:nincs</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2316"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2317"/>
         <source>Parameter:[%f,%f]</source>
         <translation>Paraméter:[%f,%f]</translation>
     </message>
@@ -1723,14 +1729,6 @@
         <location filename="../src/sffe/sffe.cpp" line="87"/>
         <source>Empty formula</source>
         <translation>Üres képlet</translation>
-    </message>
-    <message>
-        <source>XaoS must be restarted in order to reduce the number of threads.</source>
-        <translation type="vanished">Indítsa újra a programot a tevékenységi szálak csökkentéséhez.</translation>
-    </message>
-    <message>
-        <source>XaoS must be restarted in order to change the number of threads.</source>
-        <translation type="vanished">Indítsa újra a programot a tevékenységi szálak módosításához.</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="502"/>

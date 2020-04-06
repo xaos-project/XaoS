@@ -795,7 +795,7 @@ Sluttid:</translation>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="924"/>
         <location filename="../src/ui-hlp/menu.cpp" line="933"/>
-        <location filename="../src/ui/main.cpp" line="479"/>
+        <location filename="../src/ui/main.cpp" line="505"/>
         <source>Help</source>
         <translation>Hjälp</translation>
     </message>
@@ -1364,45 +1364,50 @@ Sluttid:</translation>
         <translation>Vad är nytt i version 4.0?</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="442"/>
+        <location filename="../src/ui/main.cpp" line="456"/>
         <source>Quit</source>
         <translation>Avsluta</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="445"/>
-        <location filename="../src/ui/main.cpp" line="446"/>
+        <location filename="../src/ui/main.cpp" line="459"/>
+        <location filename="../src/ui/main.cpp" line="460"/>
         <source>Message Font...</source>
         <translation>Typsnitt för meddelanden...</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="448"/>
+        <location filename="../src/ui/main.cpp" line="462"/>
         <source>Set Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="473"/>
-        <location filename="../src/ui/main.cpp" line="475"/>
+        <location filename="../src/ui/main.cpp" line="465"/>
+        <source>System default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/main.cpp" line="499"/>
+        <location filename="../src/ui/main.cpp" line="501"/>
         <source>Fullscreen</source>
         <translation>Helskärmsläge</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="481"/>
+        <location filename="../src/ui/main.cpp" line="507"/>
         <source>Send Feedback</source>
         <translation>Skicka feedback</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="483"/>
+        <location filename="../src/ui/main.cpp" line="509"/>
         <source>Get Updates</source>
         <translation>Leta efter uppdateringar</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="485"/>
+        <location filename="../src/ui/main.cpp" line="511"/>
         <source>User Forum</source>
         <translation>Användarforum</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="293"/>
-        <location filename="../src/ui/main.cpp" line="488"/>
+        <location filename="../src/ui/main.cpp" line="514"/>
         <source>About</source>
         <translation>Om</translation>
     </message>
@@ -1639,37 +1644,42 @@ Mandelbrot</translation>
         <translation>Itereringar:%-4u Palette storlekar:%i</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2300"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2297"/>
+        <source>Bailout:%4.2f</source>
+        <translation type="unfinished">Maxgräns (bailout)</translation>
+    </message>
+    <message>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
         <source>Autopilot:%-4s  Plane:%s</source>
         <translation>Autopilot:%-4s  Plan:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2302"/>
         <source>On</source>
         <translation>På</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2301"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2302"/>
         <source>Off</source>
         <translation>Av</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2305"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2306"/>
         <source>incoloring:%s    outcoloring:%s</source>
         <translation>infärgning: %s    utfärgning: %s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2310"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2311"/>
         <source>zoomspeed:%f</source>
         <translation>zoomhastighet: %f</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2314"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2315"/>
         <source>Parameter:none</source>
         <translation>Parameter: ingen</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2316"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2317"/>
         <source>Parameter:[%f,%f]</source>
         <translation>Parameter: [%f, %f]</translation>
     </message>
