@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>xaos</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <name>XaoS</name>
+  <summary>Fast interactive real-time fractal zoomer/morpher</summary>
+
+  <description>
+    <p>
+       Zoom and pan around a fractal in
+       real time. It can display the animated fractals.
+       It displays the Mandelbrot set or many other fractals and
+       allows you to zoom smoothly into the fractal. Various coloring
+       modes are provided for both the points inside and outside the
+       selected set. In addition, switching between Mandelbrot and Julia
+       fractal types is provided.
+       Other features include autopilot mode, palette changing,
+       image saving, fractal inversion, filters, and a built in fractal
+       tutorial.
+    </p>
+  </description>
+
+  <launchable type="desktop-id">xaos.desktop</launchable>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>The Mandelbrot Set</caption>
+      <image>https://raw.githubusercontent.com/xaos-project/XaoS/master/xdg/default.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/xaos-project/XaoS/master/xdg/example1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/xaos-project/XaoS/master/xdg/example2.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/xaos-project/XaoS/master/xdg/example3.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/xaos-project/XaoS/master/xdg/example4.png</image>
+    </screenshot>
+  </screenshots>
+
+  <url type="homepage">https://xaos-project.github.io/</url>
+
+  <provides>
+    <binary>xaos</binary>
+  </provides>
+
+  <releases>
+    <release version="4.0" date="2020-04-01">
+      <description>
+        <p>The user interface is based on Qt, so XaoS has a modern look and feel.</p>
+        <p>Animation rendering has been fixed.</p>
+        <p>Menu entries are now standardized.</p>
+        <p>TrueType text rendering so fonts look nicer and non-Latin alphabets are supported.</p>
+        <p>Hindi, Icelandic, Russian, Serbian and Swedish translations.</p>
+        <p>Several minor updates for the other languages.</p>
+        <p>The language can be set in the View menu now.</p>
+        <p>Lots of bug fixes.</p>
+        <p>Zooming is possible also with the mouse wheel.</p>
+        <p>Mouse cursor has been changed to cross.</p>
+        <p>Iteration number N can be used in user formulas.</p>
+      </description>
+      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.0</url>
+    </release>
+  </releases>
+</component>
