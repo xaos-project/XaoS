@@ -2294,7 +2294,8 @@ static void uih_drawstatus(uih_context *uih, void * /*data*/)
             uih->fcontext->maxiter, uih->image->palette->size);
     xprint(uih->image, uih->font, 0, statusstart + 5 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
-    sprintf(str, "Bailout:%4.2f", (double)uih->fcontext->bailout);
+    sprintf(str, TR("Message", "Bailout:%4.2f"),
+            (double)uih->fcontext->bailout);
     xprint(uih->image, uih->font, 0, statusstart + 6 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
     sprintf(str, TR("Message", "Autopilot:%-4s  Plane:%s"),

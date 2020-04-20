@@ -41,6 +41,19 @@ CONFIG(release, debug|release) {
     }
 }
 
+isEmpty(QMAKE_LRELEASE) {
+    win32 {
+        QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
+    } else {
+        QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
+    }
+    unix {
+        !exists($$QMAKE_LRELEASE) { QMAKE_LRELEASE = lrelease-qt5 }
+    } else {
+        !exists($$QMAKE_LRELEASE) { QMAKE_LRELEASE = lrelease }
+    }
+}
+
 CONFIG += optimize_full
 QMAKE_CXXFLAGS += -ffast-math
 QMAKE_CFLAGS += -ffast-math

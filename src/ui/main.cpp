@@ -385,6 +385,7 @@ static void ui_unregistermenus(void)
 }
 
 QTranslator qtTranslator;
+QTranslator qtBaseTranslator;
 QTranslator xaosTranslator;
 char languageSetting[6] = "";
 bool languageSysDefault = true;
@@ -432,7 +433,11 @@ void setLanguage(const char *lang) {
     qtTranslator.load("qt_" + language,
                       QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     qApp->installTranslator(&qtTranslator);
-    xaosTranslator.load("XaoS_" + language, ":/i18n");
+    qtBaseTranslator.load(QLocale::system(),
+                          QStringLiteral("qtbase_"));
+    qApp->installTranslator(&qtBaseTranslator);
+    xaosTranslator.load("XaoS_" + language,
+                        ":/i18n");
     qApp->installTranslator(&xaosTranslator);
 
     /* Without this some locales (e.g. the Hungarian) replaces "." to ","
