@@ -23,6 +23,7 @@
  */
 #include "config.h"
 #include "timers.h"
+#include <cstdlib>
 #include <climits>
 #include <chrono>
 #include <thread>
