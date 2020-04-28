@@ -27,13 +27,13 @@ noch viele Fragen ungelöst sind."
 fmath2 "Sogar die Definitionen sind unklar."
 fmath3 "Normalerweise nennen wir etwas fraktal,
 wenn eine gewisse Selbstähnlichkeit
-gefunden werden kann.  "
+gefunden werden kann."
 
 def1 "Eine der möglichen Definitionen ist:"
 #Definition from the intro.xaf is displayed here.
 #If it is a problem in your language catalog, let me
 #know and I will create a special key
-def2 "Was heisst das?"
+def2 "Was heißt das?"
 def3 "Um dies zu erklären, müssen wir zuerst
 verstehen, was die topologische- und
 die Hausdorff-Besicovich-Dimension
@@ -50,7 +50,7 @@ Hausdorff-Besicovich-Dimension
 kommt von der einfachen Tatsache, dass"
 hb2 "eine Linie die so gezoomt wird,
 dass sich ihre Länge verdoppelt,
-danach zwei mal so lang ist,
+danach zwei Mal so lang ist,
 wie sie vorher war."
 hb3 "Andererseits wächst die Ausdehnung
 eines Quadrates, das in gleicher Weise
@@ -76,14 +76,14 @@ hb9 "Diese Definition führt zu den
 erwarteten Resultaten für normale
 Formen."
 hb10 "Interessanter wird es bei Fraktalen."
-hb11 "Sehen Sie sich die so genannte kochsche
+hb11 "Sehen Sie sich die so genannte Koch'sche
 Schneeflockenkurve an,"
 hb12 "welche entsteht, wenn man eine Linie in
 drei gleiche Abschnitte teilt und den
 Mittleren durch zwei ebenso lange
 Abschnitte ersetzt und diesen Vorgang
 beliebig oft wiederholt."
-hb13 "Die neuen Linien haben 1/3 der Grösse
+hb13 "Die neuen Linien haben 1/3 der Größe
 der ursprünglichen Linie."
 hb14 "Nach dem Zoomen um den Faktor 3,
 sind diese Linien exakt gleich lang
@@ -98,18 +98,18 @@ Fraktals um den Faktor 4."
 hb17 "Nun setzen wir diesen Wert in unsere
 Gleichung ein:
 log 4 / log 3 = 1.261"
-hb18 "Wir erhalten einen Wert der grösser als
+hb18 "Wir erhalten einen Wert der größer als
 1 (die topologische Dimension der
 Kurve) ist."
 hb19 "Die Hausdorff-Besicovich-Dimension
-(1.261) ist grösser als die
+(1.261) ist größer als die
 topologische Dimension."
-hb20 "Gemäss dieser Definition 
+hb20 "Gemäß dieser Definition 
 ist die Schneeflockenkurve ein Fraktal."
 
 defe1 "Diese Definition ist jedoch nicht
 perfekt, da sie eine Menge Formen
-ausschliesst, die auch Fraktale sind."
+ausschließt, die auch Fraktale sind."
 defe2 "Aber sie zeigt eine der interessanten
 Eigenschaften von Fraktalen"
 defe3 "und sie ist sehr populär."
@@ -128,7 +128,7 @@ escape1 "Gewisse Fraktale
 werden durch sich wiederholende 
 Aufteilung erzeugt."
 escape2 "XaoS kann Fraktale erzeugen,
-die einer andere Kategorie angehören
+die einer anderen Kategorie angehören
 und Fliehzeit-Fraktale genannt werden."
 escape3 "Die Methode diese zu erzeugen,
 unterscheidet sich von der im
@@ -179,7 +179,7 @@ orbit9 "Solche Punkte gehören nicht der
 Mandelbrotmenge an."
 
 bail1 "Bis jetzt sprechen wir immer noch von
-unendlich grossen Zahlen."
+unendlich großen Zahlen."
 bail2 "Da Computer nur endliche Zahlen
 darstellen können, sind sie nicht in
 der Lage Fraktale exakt zu berechnen."
@@ -221,13 +221,13 @@ iter5 "Je höher die maximale Anzahl
 Iterationen, um so exakter die
 Annäherung und um so mehr Zeit wird für
 die Berechnung benötigt."
-limit1 "XaoS verwendet standardmässig
+limit1 "XaoS verwendet standardmäßig
 170 Iterationen."
 limit2 "In gewisse Bereiche können Sie
-weit hinein zoomen, ohne unexakte
+weit hineinzoomen, ohne inexakte
 Resultate zu erhalten."
 limit3 "In anderen Bereichen erhalten Sie
-relativ schnell unexakte Resultate."
+relativ schnell inexakte Resultate."
 limit4 "Die Bilder werden ziemlich langweilig,
 wenn dies geschieht."
 limit5 "Nach erhöhen der maximalen Anzahl
@@ -482,7 +482,7 @@ fact7 "Die vielleicht bekannteste ist..."
 fmath4 "Die meisten Fraktale entstehen durch
 einen iterativen Prozess."
 fmath5 "So wird zum Beispiel das Fraktal, das
-unter dem Name kochsche Schneeflocken Kurve
+unter dem Name Koch'sche Schneeflocken Kurve
 bekannt ist,"
 fmath6 "durch iteratives Ändern einer Linie"
 fmath7 "in vier Linien erzeugt."
@@ -551,7 +551,7 @@ einzige Fraktal, das durch die Formel
 z=z^2+c erzeugt wird."
 julia1 "Ebenfalls berühmt sind die"
 julia2 "Juliamengen."
-julia3 "Interessant an ihnen ist, daß es
+julia3 "Interessant an ihnen ist, dass es
 nicht nur eine einzige Juliamenge gibt,"
 julia4 "sondern unendlich viele Variationen."
 julia5 "Sie alle unterscheiden sich nur
@@ -574,7 +574,7 @@ sehr ähnlich aussehendes Fraktal,"
 theme2 "nachdem man auf die Julia-
 Darstellung umschaltet."
 theme3 "Aber beim Herausfahren werden Sie sehen,"
-theme4 "daß Sie sich in einem völlig
+theme4 "dass Sie sich in einem völlig
 anderen Fraktal befinden."
 theme5 "Juliamengen scheinen recht
 langweilig zu sein, weil sich
@@ -642,15 +642,13 @@ die Periodizitätsprüfung ab, wenn der
 berechnete Punkt vermutlich nicht ins
 Innere der Mandelbrotmenge fällt."
 speed8 "Auch die Zoom-Funktionen wurden
-beschleunigt, so daß sie jetzt
+beschleunigt, so dass sie jetzt
 ca. doppelt so schnell sind."
 speed9 "Auf einem 130MHz-Pentium
 erreicht XaoS jetzt 130FPS."
-# Arrgh. Auf meiner 2x133MHz BeBox nicht.
-# Aber wir werden ja noch sehen...
 
 new2 "2. Filter"
-new3 "3. Neun \"Äussere Färbungs Modi\""
+new3 "3. Neun \"Äußere Färbungs Modi\""
 new4 "4. Neue \"Innere Färbungs Modi\""
 new5 "5. Truecolor-Modi"
 new6 "6. Speichern/Wiedergabe von Animationen"
@@ -705,7 +703,7 @@ erzeugen, ähnlich wie bei \"Newton\"."
 #########################################################
 # Datei: outcolor.xaf
 
-outcolor "Äussere Färbungs Modi"
+outcolor "Äußere Färbungs Modi"
 outcolor1 "Die Mandelbrotmenge ist der langweilige
 schwarze Teich in der Bildschirmmitte."
 outcolor2 "Die farbigen Streifen rundherum
@@ -715,7 +713,7 @@ Iterationen gezählt, bis der Wert der
 Formel z^2+c einen Grenzwert erreicht."
 outcolor4 "Aber es gibt auch andere Methoden,
 die Menge zu visualisieren."
-outcolor5 "In XaoS heißen sie \"Äussere Färbungs Modi\"."
+outcolor5 "In XaoS heißen sie \"Äußere Färbungs Modi\"."
 
 iterreal "iter+real
 
@@ -729,7 +727,7 @@ zu machen."
 iterimag "Der zweite Modus - iter+imag -
 ergibt ähnliche Resultate."
 iterimag2 "Der einzige Unterschied dabei ist,
-daß der Imaginärteil des Orbits
+dass der Imaginärteil des Orbits
 verwendet wird."
 
 iprdi "iter+real/imag
@@ -785,7 +783,7 @@ smooth1 "Er funktioniert nicht bei den Fraktalen
 endliche Attraktoren besitzen."
 smooth2 "Er benötigt außerdem einen Truecolor-,
 Hi-Color- oder Real-Color-Modus.
-Bei 8bpp-Darstellung muß dazu der
+Bei 8bpp-Darstellung muss dazu der
 Truecolor-Filter eingeschaltet werden."
 
 #########################################################
@@ -818,7 +816,7 @@ sind sehr verschieden."
 
 plane1 "Normalerweise wird der Realteil eines
 Bildpunktes auf die X-Achse des Bild-
-schirms abgebildet, der Imanginärteil
+schirms abgebildet, der Imaginärteil
 auf die Y-Achse."
 
 plane2 "XaoS bietet 6 alternative
@@ -827,8 +825,8 @@ plane3 "1/mu
 
 Dies ist eine Inversion. Der unendlich
 ferne Punkt wird auf 0 abgebildet und
-umgekehrt.  Auf diese Art können Sie
-festellen, was mit dem Fraktal bei
+umgekehrt. Auf diese Art können Sie
+feststellen, was mit dem Fraktal bei
 unendlichem Herauszoomen passiert."
 plane4 "Dies ist eine normal Mandelbrotmenge."
 plane5 "Diese ist invertiert."
@@ -874,7 +872,7 @@ Verformung der Mandelbrotmenge."
 mick "1/(mu-1.40115)
 
 Dies ist wiederum eine Inversion mit
-verschobenem Zentrum.  Der Mittelpunkt
+verschobenem Zentrum. Der Mittelpunkt
 ist nun der Feigenbaum-Punkt, an dem
 die Menge selbstähnlich ist. Details
 rund um diesen Punkt werden stark
@@ -910,7 +908,7 @@ truecolor1 "Normalerweise werden die Fraktale
 mit Hilfe einer Palette eingefärbt.
 Bei Truecolor-Darstellung wird die
 Palette emuliert."
-truecolor2 "Der einzige Unterschied ist, daß
+truecolor2 "Der einzige Unterschied ist, dass
 die Palette größer ist und die
 Farbverläufe glatter sind."
 truecolor3 "Der Truecolor-Farbmodus arbeitet
@@ -978,7 +976,7 @@ fastjulia2 "In diesem Modus können Sie den
 Anfangswert einer Juliamenge
 durch eine Animation finden."
 fastjulia3 "Er ist auch nützlich als eine Vorschau
-der Juliamenge, bevor Sie hereinzoomen.
+der Juliamenge, bevor Sie hineinzoomen.
 Wegen des thematischen Zusammenhangs
 zwischen Juliamenge und der Umgebung
 des gewählten Punktes können Sie das
@@ -987,8 +985,8 @@ rotation "Bildrotation"
 cycling "Palettenrotation"
 bailout "Fluchtradius"
 bailout1 "Das ist die Mandelbrotmenge unter
-Verwendung der äusseren Färbung Smooth."
-bailout2 "Vergrössert man den Fluchtradius auf 64,
+Verwendung der äußeren Färbung Smooth."
+bailout2 "Vergrößert man den Fluchtradius auf 64,
 erhält man ausgeglichenere
 Farbübergänge."
 bailout3 "Bei den meisten Fraktaltypen ergeben
@@ -1003,7 +1001,7 @@ bailout4 "Dies gilt nicht für Barnsley Fraktale."
 #for file trice.xaf
 
 trice1 "Triceratops und Katzenaugen Fraktale"
-trice2 "Wenn Sie den Fuchtradius"
+trice2 "Wenn Sie den Fluchtradius"
 trice3 "eines Fliehzeit-Fraktals"
 trice4 "auf einen kleineren Wert ändern,"
 trice5 "erhalten Sie ein anderes Fraktal."
@@ -1016,7 +1014,7 @@ trice11 "Viele ähnliche Bilder"
 trice12 "können mit Triceratops erzeugt werden."
 trice13 "Das Katzenaugen Fraktal"
 trice14 "sieht wie ein Katzenauge aus."
-trice15 "Wenn wie den Fluchtradius vergrössern..."
+trice15 "Wenn wie den Fluchtradius vergrößern..."
 trice16 "...erhalten wir ein interessanteres Fraktal..."
 trice17 "...mit Blasen..."
 trice18 "...und schönen Juliamengen."
@@ -1037,14 +1035,14 @@ fourfr10 "...schneller Julia Modus..."
 fourfr11 "Das ist das Manowar Fraktal."
 fourfr12 "Es wurde von einem Fractint Benutzer gefunden."
 fourfr13 "Es hat Juliamengen, die ihm ähneln."
-fourfr14 "Dieses Fraktal heisst Spider."
+fourfr14 "Dieses Fraktal heißt Spider."
 fourfr15 "Es wurde auch von einem Fractint Benutzer gefunden."
 fourfr16 "Es hat auch Juliamengen, die ihm ähneln."
 
 ##############################################
 #for file classic.xaf
 
-classic1 "Sierpinski Dichtung, S.Teppich, Kochsche Schneeflocke"
+classic1 "Sierpinski Dichtung, S.Teppich, Koch'sche Schneeflocke"
 classic2 "Das ist das berühmte Sierpinski Dichtungs Fraktal."
 classic3 "Und das ist die Fliehzeit Variante davon."
 classic4 "Sie können seine Form ändern indem Sie"
@@ -1052,8 +1050,8 @@ classic5 "einen anderen Julia Wert wählen"
 classic6 "Dieses Fraktal ist der Sierpinski Teppich."
 classic7 "Und das ist die Fliehzeit Variante davon."
 classic8 "Das ist ebenfalls berühmt."
-classic9 "Und das ist schliesslich die Fliehzeit Variante"
-classic10 "der Kochschen Schneeflocken."
+classic9 "Und das ist schließlich die Fliehzeit Variante"
+classic10 "der Koch'schen Schneeflocken."
 
 ##############################################
 #for file otherfr.xaf
