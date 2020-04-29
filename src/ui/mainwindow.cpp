@@ -581,7 +581,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     QSettings settings;
 
     // Try to load a catalog for the current language and if it doesn't exist,
-    // default to english. Fixes "No catalog loaded" messages on tutorials
+    // default to English. Fixes "No catalog loaded" messages on tutorials
     // when using a language XaoS doesn't support
     //if (!uih_loadcatalog(uih, QLocale::system().name().left(2).toUtf8()))
     if (!uih_loadcatalog(uih, QString(getLanguage()).left(2).toUtf8()))
@@ -597,7 +597,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     if (getenv("HOME") != NULL) {
         char home[256], *env = getenv("HOME");
         int maxsize =
-            255 - (int)strlen(CONFIGFILE) - 1; /*Avoid buffer owerflow */
+            255 - (int)strlen(CONFIGFILE) - 1; /*Avoid buffer overflow */
         int i;
         for (i = 0; i < maxsize && env[i]; i++)
             home[i] = env[i];
