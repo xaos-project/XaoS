@@ -109,7 +109,7 @@ void uih_removew(struct uih_context *uih, struct uih_window *w)
     free(w);
 }
 
-/*Remove all drawed windows from screen */
+/*Remove all drawn windows from screen */
 void uih_clearwindows(struct uih_context *uih)
 {
     struct uih_window *w = uih->wtop;

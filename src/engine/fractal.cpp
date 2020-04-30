@@ -59,7 +59,7 @@ static void recalc_view(fractal_context *c)
     /*assert(c->s.rr >= 0);
        assert(c->s.ri >= 0); */
 
-    xs = myabs(xs); /*do not crash in owerflowing cases */
+    xs = myabs(xs); /*do not crash in overflowing cases */
     ys = myabs(ys);
     if (xs > ys)
         size = xs;
@@ -81,7 +81,7 @@ static void set_view(fractal_context *c, const vinfo *s)
     recalc_view(c);
 }
 
-/*FIXME most of this code is obsolette */
+/*FIXME most of this code is obsolete */
 static void /*inline */
 combine_methods(void)
 {

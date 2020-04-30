@@ -409,7 +409,7 @@ restrictions:
      Compiles OK, runs properly.
      
    I tried to run the executables, mostly I got "Cannot initialize
-   driver", except where I wrote "runs propery" above. I'm almost sure
+   driver", except where I wrote "runs properly" above. I'm almost sure
    that those platforms I wrote "seems to be build properly" for, XaoS
    will work without any problems, because there should be only "Can't
    open display"-related configuration errors on cf.sf.net and/or at my

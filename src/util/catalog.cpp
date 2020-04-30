@@ -123,7 +123,7 @@ catalog_t *load_catalog(xio_file f, const char **error)
     /* Just very simple parsing loop of format
      * [blanks]name[blanks]"value"[blanks]
      * Blanks should be comments using # or space, newline, \r and tabulator
-     * Value should contain and \ seqences where \\ means \ and
+     * Value should contain and \ sequences where \\ means \ and
      * \[something] means something. Should be used for character "
      */
     while (!xio_feof(f)) {
