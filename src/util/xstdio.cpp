@@ -111,7 +111,9 @@ xio_path xio_getdirectory(xio_constpath filename)
 
 xio_path xio_getfilename(const char *basename, const char *extension)
 {
-    static char name[40];
+    int pathlength = sizeof(basename) + sizeof(extension);
+    static char* name;
+    name = (char* )malloc(pathlength * sizeof (char));
     int nimage = 0;
     struct stat sb;
     char *base = xio_fixpath(basename);
