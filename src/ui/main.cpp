@@ -102,11 +102,12 @@ int ui_params_parser(int argc, char **argv)
     int is;
     const struct params *par = NULL;
     int error = 0;
+    int show_help = 0;
     int found;
     for (i = 1; i < argc && !error; i++) {
         found = 0;
         if (!strcmp("-help", argv[i])) {
-            error = 1;
+            show_help = 1;
             break;
         }
         for (d = 0; d < nparams; d++) {
@@ -182,6 +183,9 @@ int ui_params_parser(int argc, char **argv)
             i = ie;
     }
     if (error) {
+        return 0;
+    }
+    if (show_help) {
         const char *name[] = {"", "number", "string", "f.point"};
         printf("                 XaoS" XaoS_VERSION " help text\n\n");
         printf("option string   param   description\n\n");

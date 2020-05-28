@@ -720,7 +720,7 @@ int menu_processargs(int n, int argc, char **argv)
     margv = argv;
     error = menu_processcommand(NULL, gettoken, 0, MENUFLAG_NOOPTION, "root");
     if (error) {
-        x_error("%s", error);
+        x_error("%s\nPlease enter `xaos -help` to learn more on command line options", error);
         return -1;
     }
     return (argpos - 2);
