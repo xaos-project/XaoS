@@ -165,7 +165,8 @@ int uih_renderanimation(struct uih_context *gc1, const char *basename,
         free(saveddata);
         return 0;
     }
-    uih->font = gc1->font;
+    if(gc1)
+        uih->font = gc1->font;
     uih->fcontext->slowmode = 1;
     uih_constantframetime(uih, frametime);
     af = xio_ropen(animation);
