@@ -620,6 +620,28 @@ void uih_loadexample(struct uih_context *c)
     }
 }
 
+void uih_loadpngfile(struct uih_context *c, xio_constpath d)
+{
+    xio_file f;
+    f = xio_ropen(d);
+    if (f == NULL) {
+        uih_error(c, strerror(errno));
+        return;
+    }
+    const char *s = readpng(d);
+    if(s != NULL) {
+        uih_error(c, TR("Error", "Could not open Image"));
+        return;
+    }
+    uih_loadfile(c, "xaos_temp.xpf");
+    if(c->errstring == NULL) {
+        char s[256];
+        sprintf(s, TR("Message", "File %s loaded."), d);
+        uih_message(c, s);
+    }
+    return;
+}
+
 void uih_savepngfile(struct uih_context *c, xio_constpath d)
 {
     const char *s;
@@ -636,6 +658,7 @@ void uih_savepngfile(struct uih_context *c, xio_constpath d)
         return;
     }
     c->errstring = NULL;
+    uih_saveposfile(c, "xaos_temp.xpf");
     s = uih_save(c, d);
     if (s != NULL)
         uih_error(c, s);

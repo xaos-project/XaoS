@@ -61,10 +61,40 @@ int xtextcharw(struct image */*image*/, void *font, const char c)
     return metrics.width(c);
 }
 
+// Saves image as png with xpf chunk data
 const char *writepng(xio_constpath filename, const struct image *image)
 {
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
+    QFile f("xaos_temp.xpf");
+    if(!f.open(QFile::ReadOnly |
+                  QFile::Text))
+    {
+        qDebug()<<"Could not open the file for reading";
+    }
+    QTextStream in(&f);
+    QString xpf_chunk = in.readAll();
+    f.close();
+    f.remove();
+    qimage->setText("Metadata", xpf_chunk);
     qimage->save(filename);
+    return NULL;
+}
+
+// Reads png image and xpf associated data
+const char *readpng(xio_constpath filename)
+{
+    QImageReader reader(filename);
+    const QImage xaos_image = reader.read();
+    QString xpf_chunk = xaos_image.text("Metadata");
+    QFile f("xaos_temp.xpf");
+    if(!f.open(QFile::WriteOnly |
+                  QFile::Text))
+    {
+        qDebug() << " Could not open the file for writing";
+    }
+    QTextStream in(&f);
+    in<<xpf_chunk;
+    f.close();
     return NULL;
 }
 
