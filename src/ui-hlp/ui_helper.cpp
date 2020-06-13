@@ -630,7 +630,7 @@ void uih_loadpngfile(struct uih_context *c, xio_constpath d)
     }
     const char *s = readpng(d);
     if(s != NULL) {
-        uih_error(c, TR("Error", "Could not open Image"));
+        uih_error(c, TR("Error", "Could not open image"));
         return;
     }
     uih_loadfile(c, ".xaos_temp.xpf");
