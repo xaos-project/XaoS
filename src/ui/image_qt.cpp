@@ -70,6 +70,7 @@ const char *writepng(xio_constpath filename, const struct image *image)
                   QFile::Text))
     {
         qDebug()<<"Could not open the file for reading";
+        qDebug()<<"Image will be created without xpf data";
     }
     QTextStream in(&f);
     QString xpf_chunk = in.readAll();
@@ -86,11 +87,15 @@ const char *readpng(xio_constpath filename)
     QImageReader reader(filename);
     const QImage xaos_image = reader.read();
     QString xpf_chunk = xaos_image.text("Metadata");
+    if(xpf_chunk.isNull() || xpf_chunk.isEmpty()) {
+        return "Not valid image";
+    }
     QFile f(".xaos_temp.xpf");
     if(!f.open(QFile::WriteOnly |
                   QFile::Text))
     {
         qDebug() << " Could not open the file for writing";
+        return "No file or permission";
     }
     QTextStream in(&f);
     in<<xpf_chunk;
