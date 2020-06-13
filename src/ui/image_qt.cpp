@@ -65,7 +65,7 @@ int xtextcharw(struct image */*image*/, void *font, const char c)
 const char *writepng(xio_constpath filename, const struct image *image)
 {
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
-    QFile f("xaos_temp.xpf");
+    QFile f(".xaos_temp.xpf");
     if(!f.open(QFile::ReadOnly |
                   QFile::Text))
     {
@@ -86,7 +86,7 @@ const char *readpng(xio_constpath filename)
     QImageReader reader(filename);
     const QImage xaos_image = reader.read();
     QString xpf_chunk = xaos_image.text("Metadata");
-    QFile f("xaos_temp.xpf");
+    QFile f(".xaos_temp.xpf");
     if(!f.open(QFile::WriteOnly |
                   QFile::Text))
     {
