@@ -693,7 +693,8 @@ static void randomize_segments2(int whitemode, int nsegments)
 
     for (i = 0; i < nsegments; i++) {
         if (i % 3 == 2)
-            colors[i][0] = whitemode * 255, colors[i][1] = whitemode * 255,
+            colors[i][0] = whitemode * 255,
+            colors[i][1] = whitemode * 255,
             colors[i][2] = whitemode * 255;
         else if (i % 3 == 0)
             colors[i][0] = (!whitemode) * 255,
