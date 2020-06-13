@@ -456,6 +456,7 @@ void uih_playtutorial(struct uih_context *c, const char *name);
 void uih_loadfile(struct uih_context *uih, xio_constpath d);
 void uih_playfile(struct uih_context *c, xio_constpath d);
 void uih_loadexample(struct uih_context *c);
+void uih_loadpngfile(struct uih_context *c, xio_constpath d);
 void uih_savepngfile(struct uih_context *c, xio_constpath d);
 void uih_saveposfile(struct uih_context *c, xio_constpath d);
 char *uih_savepostostr(struct uih_context *c);

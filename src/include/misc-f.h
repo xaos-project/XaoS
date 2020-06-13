@@ -5,6 +5,7 @@
 struct image;
 
 const char *writepng(xio_constpath filename, const struct image *image);
+const char *readpng(xio_constpath filename);
 void XaoS_srandom(unsigned int x);
 long int XaoS_random(void);
 char *mystrdup(const char *);

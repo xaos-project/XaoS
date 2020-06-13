@@ -62,7 +62,7 @@ const char *const uih_colornames[] = {"white", "black", "red", NULL};
  * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
  */
 
-#define MAX_MENUDIALOGS_I18N 100
+#define MAX_MENUDIALOGS_I18N 102
 #define Register(variable) variable = &menudialogs_i18n[no_menudialogs_i18n]
 static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
 // static int no_menudialogs_i18n;
@@ -76,7 +76,7 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
     *uih_filterdialog, *uih_shiftdialog, *uih_speeddialog, *printdialog,
     *uih_bailoutdialog, *uih_threaddialog, *saveanimdialog, *uih_juliamodedialog,
     *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog, *uih_numdialog,
-    *uih_fpdialog, *palettedialog, *uih_cyclingdialog
+    *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *loadimgdialog
 #ifdef USE_SFFE
     ,
     *uih_sffedialog, *uih_sffeinitdialog
@@ -170,6 +170,10 @@ void uih_registermenudialogs_i18n(void)
 
     Register(playdialog);
     DIALOGIFILE_I(TR("Dialog", "Filename:"), "anim*.xaf");
+    NULL_I();
+
+    Register(loadimgdialog);
+    DIALOGIFILE_I(TR("Dialog", "Filename:"), "fract*.png");
     NULL_I();
 
     Register(saveimgdialog);
@@ -983,6 +987,8 @@ void uih_registermenus_i18n(void)
                  MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY, uih_playfile,
                  playdialog);
     MENUSEPARATOR_I("file");
+    MENUDIALOG_I("file", NULL, TR("Menu", "Open image"), "loadimg",
+                MENUFLAG_INTERRUPT, uih_loadpngfile, loadimgdialog);
     MENUDIALOG_I("file", NULL, TR("Menu", "Save image"), "saveimg", 0,
                  uih_savepngfile, saveimgdialog);
     MENUDIALOG_I("file", NULL, TR("Menu", "Render"), "renderanim", UI,
