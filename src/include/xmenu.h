@@ -69,7 +69,7 @@ typedef char *(*tokenfunc)(struct uih_context *c);
     {                                                                          \
         question, DIALOG_COORD, 0, NULL, default1, default2                    \
     }
-#define DIALOGPALSLIDER(question, default)                                        \
+#define DIALOGPALSLIDER(question, default)                                     \
     {                                                                          \
         question, DIALOG_SLIDER, default                                       \
     }

@@ -11,6 +11,8 @@ class CustomDialog : public QDialog
 {
     Q_OBJECT
   private:
+    struct palette *gradientpal;
+    uih_context *palcontext;
     const menuitem *m_menuitem;
     const menudialog *m_dialog;
     dialogparam *m_parameters;
