@@ -119,7 +119,7 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
             // Algo Slider
             algoslider = new QSlider(Qt::Horizontal, this);
             algoslider->setObjectName(label);
-            algoslider->setRange(1, 3);
+            algoslider->setRange(1, PALGORITHMS);
             algoslider->setValue(algono->value());
             algoslider->setMinimumWidth(this->width()*2);
 
