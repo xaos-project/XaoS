@@ -1055,3 +1055,48 @@ int mkrgb(struct palette *c)
 
     return red * 256 * 256 + green * 256 + blue;
 }
+
+void getPaletteColor(struct palette *src, int seed, int algorithm, int shift, int newColors[101][3]) {
+    mkpalette(src, seed, algorithm);
+    shiftpalette(src, shift);
+    for (int i = 0; i < 101; i++) {
+        int r = 0, g = 0, b = 0;
+        switch (src->type) {
+            case SMALLITER:
+                r = g = b = i;
+                break;
+            case LARGEITER:
+                r = g = b = i / 256;
+                break;
+            case GRAYSCALE:
+                r = g = b = src->pixels[i];
+                break;
+            case C256:
+            case FIXEDCOLOR:
+            case MBITMAP:
+            case LBITMAP:
+            case MIBITMAP:
+            case LIBITMAP:
+                r = src->rgb[src->pixels[i]][0];
+                g = src->rgb[src->pixels[i]][1];
+                b = src->rgb[src->pixels[i]][2];
+                break;
+            case TRUECOLOR:
+            case TRUECOLOR16:
+            case TRUECOLOR24:
+                r = (((src->pixels[i] & src->info.truec.rmask) >>
+                      src->info.truec.rshift))
+                    << src->info.truec.rprec;
+                g = (((src->pixels[i] & src->info.truec.gmask) >>
+                      src->info.truec.gshift))
+                    << src->info.truec.gprec;
+                b = (((src->pixels[i] & src->info.truec.bmask) >>
+                      src->info.truec.bshift))
+                    << src->info.truec.bprec;
+                break;
+        }
+        newColors[i][0]=r;
+        newColors[i][1]=g;
+        newColors[i][2]=b;
+    }
+}

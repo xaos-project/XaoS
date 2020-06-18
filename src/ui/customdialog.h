@@ -2,6 +2,9 @@
 #define CUSTOMDIALOG_H
 
 #include <QDialog>
+#include <QLabel>
+#include <QSpinBox>
+#include <QSlider>
 
 #include "ui.h"
 class CustomDialog : public QDialog
@@ -11,9 +14,13 @@ class CustomDialog : public QDialog
     const menuitem *m_menuitem;
     const menudialog *m_dialog;
     dialogparam *m_parameters;
+    QSpinBox *algono, *seedno, *shiftno;
+    QLabel *img;
+    QSlider *seedslider, *algoslider, *shiftslider;
   private slots:
     void chooseInputFile();
     void chooseOutputFile();
+    void updateVisualiser();
 
   public:
     CustomDialog(struct uih_context *uih, const menuitem *item,

@@ -296,6 +296,7 @@ void restorepalette(struct palette *dest, struct palette *src);
 void convertupgeneric(struct filter *f, int *x, int *y);
 void convertdowngeneric(struct filter *f, int *x, int *y);
 int fixedalloccolor(struct palette *palette, int init, int r, int g, int b);
+void getPaletteColor(struct palette *palette, int seed, int algorithm, int shift, int newColors[101][3]);
 
 #define setfractalpalette(f, p)                                                \
     if ((f)->fractalc->palette == (f)->image->palette)                         \

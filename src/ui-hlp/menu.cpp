@@ -62,7 +62,7 @@ const char *const uih_colornames[] = {"white", "black", "red", NULL};
  * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
  */
 
-#define MAX_MENUDIALOGS_I18N 102
+#define MAX_MENUDIALOGS_I18N 103
 #define Register(variable) variable = &menudialogs_i18n[no_menudialogs_i18n]
 static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
 // static int no_menudialogs_i18n;
@@ -266,9 +266,10 @@ void uih_registermenudialogs_i18n(void)
     NULL_I();
 
     Register(palettedialog);
-    DIALOGINT_I(TR("Dialog", "Algorithm number:"), 0);
-    DIALOGINT_I(TR("Dialog", "Seed:"), 0);
-    DIALOGINT_I(TR("Dialog", "Shift:"), 0);
+    DIALOGINT_I(TR("Dialog", "Current Algorithm:"), 0);
+    DIALOGINT_I(TR("Dialog", "Current Seed:"), 0);
+    DIALOGINT_I(TR("Dialog", "Current Shift:"), 0);
+    DIALOGPALSLIDER_I(TR("Dialog", "Visualiser:"), 0);
     NULL_I();
 
     Register(uih_cyclingdialog);
@@ -557,6 +558,7 @@ static menudialog *uih_getpalettedialog(struct uih_context *uih)
         palettedialog[0].defint = uih->palettetype;
         palettedialog[1].defint = uih->paletteseed;
         palettedialog[2].defint = uih->paletteshift + uih->manualpaletteshift;
+        palettedialog[3].defint = 0;
     }
     return (palettedialog);
 }
@@ -590,6 +592,7 @@ static void uih_palette(struct uih_context *uih, dialogparam *p)
     int n1 = p[0].dint;
     int n2 = p[1].dint;
     int shift = p[2].dint;
+
     if (!n1) {
         uih_playdefpalette(uih, shift);
         return;
