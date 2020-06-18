@@ -7,10 +7,14 @@
 #include "config.h"
 #include "ui.h"
 #include "misc-f.h"
+#include "filter.h"
+#include "ui_helper.h"
 
 #ifdef USE_FLOAT128
 #include <quadmath.h>
 #endif
+
+struct palette *gradientpal;
 
 QString format(number_t number)
 {
@@ -27,7 +31,7 @@ QString format(number_t number)
     return QString(buf);
 }
 
-CustomDialog::CustomDialog(struct uih_context */*uih*/, const menuitem *item,
+CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
                            const menudialog *dialog, QWidget *parent)
     : QDialog(parent)
 {
@@ -103,6 +107,79 @@ CustomDialog::CustomDialog(struct uih_context */*uih*/, const menuitem *item,
 
             formLayout->addRow(label, combo);
 
+        } else if(dialog[i].type == DIALOG_PALSLIDER) {
+
+            gradientpal = clonepalette(uih->image->palette);
+            //Separator Line
+            QFrame *line = new QFrame(this);
+            line->setGeometry(QRect(320, 150, 118, 3));
+            line->setFrameShape(QFrame::HLine);
+            line->setFrameShadow(QFrame::Sunken);
+            line->setContentsMargins(0,5,0,5);
+            formLayout->addRow(line);
+
+            // 3 inputs decide color, Algorithm Number, Seed and shift
+            // For Algorithm number
+            algono = new QSpinBox(this);
+            algono->setObjectName(label + "algono");
+            algono->setValue(m_dialog[0].defint);
+            algono->setRange(1, 3);
+
+            // Algo Slider
+            algoslider = new QSlider(Qt::Horizontal, this);
+            algoslider->setObjectName(label);
+            algoslider->setRange(1, 3);
+            algoslider->setValue(algono->value());
+
+            // For Seed Number
+            seedno = new QSpinBox(this);
+            seedno->setObjectName(label + "seedno");
+            seedno->setValue(m_dialog[1].defint);
+            seedno->setRange(0, gradientpal->size);
+
+            // Seed Slider
+            seedslider = new QSlider(Qt::Horizontal, this);
+            seedslider->setObjectName(label);
+            seedslider->setRange(0, gradientpal->size);
+            seedslider->setValue(seedno->value());
+
+            // For Shift Number
+            shiftno = new QSpinBox(this);
+            shiftno->setObjectName(label + "shiftno");
+            shiftno->setValue(m_dialog[2].defint);
+            shiftno->setRange(0, gradientpal->size);
+
+            // Shift Slider
+            shiftslider = new QSlider(Qt::Horizontal, this);
+            shiftslider->setObjectName(label);
+            shiftslider->setRange(0, gradientpal->size);
+            shiftslider->setValue(shiftno->value());
+
+            // Add them to Layout
+            QLabel *visualClue = new QLabel(this);
+            visualClue->setText("New Values");
+            visualClue->setToolTip("Set these values to get palette");
+            formLayout->addRow(visualClue);
+            formLayout->addRow("Algorithm", algono);
+            formLayout->addWidget(algoslider);
+            formLayout->addRow("Seed", seedno);
+            formLayout->addWidget(seedslider);
+            formLayout->addRow("Shift", shiftno);
+            formLayout->addWidget(shiftslider);
+
+            img = new QLabel(this);
+            img->setScaledContents(true);
+            formLayout->addRow(img);
+            updateVisualiser();
+            connect(algono,SIGNAL(valueChanged(int)), algoslider, SLOT(setValue(int)));
+            connect(algoslider, SIGNAL(valueChanged(int)), algono, SLOT(setValue(int)));
+            connect(algono, SIGNAL(valueChanged(int)), this, SLOT(updateVisualiser()));
+            connect(seedno,SIGNAL(valueChanged(int)), seedslider, SLOT(setValue(int)));
+            connect(seedslider, SIGNAL(valueChanged(int)), seedno, SLOT(setValue(int)));
+            connect(seedno, SIGNAL(valueChanged(int)), this, SLOT(updateVisualiser()));
+            connect(shiftno,SIGNAL(valueChanged(int)), shiftslider, SLOT(setValue(int)));
+            connect(shiftslider, SIGNAL(valueChanged(int)), shiftno, SLOT(setValue(int)));
+            connect(shiftno, SIGNAL(valueChanged(int)), this, SLOT(updateVisualiser()));
         } else {
 
             QLineEdit *field = new QLineEdit(this);
@@ -167,6 +244,13 @@ void CustomDialog::accept()
                 m_parameters[i].dint = field->text().toInt();
             else if (m_dialog[i].type == DIALOG_FLOAT)
                 m_parameters[i].number = xstrtonum(field->text().toUtf8(), &ps);
+            else if (m_dialog[i].type == DIALOG_PALSLIDER) {
+                m_parameters[0].dint = algono->value();
+                m_parameters[1].dint = seedno->value();
+                m_parameters[2].dint = shiftno->value();
+                m_parameters[i].dint = 0;
+                destroypalette(gradientpal);
+            }
             else
                 m_parameters[i].dstring = strdup(field->text().toUtf8());
         }
@@ -202,4 +286,25 @@ void CustomDialog::chooseOutputFile()
         field->setText(fileName);
         settings.setValue("MainWindow/lastFileLocation", QFileInfo(fileName).absolutePath());
     }
+}
+
+void CustomDialog::updateVisualiser()
+{
+    // Get updated Colors
+    int colors[101][3];
+    getPaletteColor(gradientpal, seedno->value(),
+                    algono->value()-1 < 0? 0:algono->value()-1, shiftno->value(), colors);
+
+    // Load Curve
+    QImage editImage(100, 1, QImage::Format_RGB32);
+
+    // Fill Curve
+    for(int i=0;i<100;i++) {
+        QRgb value = qRgb(colors[i][0], colors[i][1], colors[i][2]);
+        editImage.setPixelColor(i, 0, value);
+    }
+
+    // Save Result
+    QPixmap newImage = QPixmap::fromImage(editImage.scaled(this->algono->width(), this->algono->height()));
+    img->setPixmap(newImage);
 }
