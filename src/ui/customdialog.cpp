@@ -121,7 +121,7 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
             algoslider->setObjectName(label);
             algoslider->setRange(1, PALGORITHMS);
             algoslider->setValue(algono->value());
-            algoslider->setMinimumWidth(this->width()*2);
+            // algoslider->setMinimumWidth(this->width()*2);
 
             // For Seed Number
             seedno = new QSpinBox(this);
