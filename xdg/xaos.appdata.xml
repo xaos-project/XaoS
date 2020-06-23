@@ -49,21 +49,13 @@
   </provides>
 
   <releases>
-    <release version="4.0" date="2020-04-01">
+    <release version="4.1" date="2020-07-01">
       <description>
-        <p>The user interface is based on Qt, so XaoS has a modern look and feel.</p>
-        <p>Animation rendering has been fixed.</p>
-        <p>Menu entries are now standardized.</p>
-        <p>TrueType text rendering so fonts look nicer and non-Latin alphabets are supported.</p>
-        <p>Hindi, Icelandic, Russian, Serbian and Swedish translations.</p>
-        <p>Several minor updates for the other languages.</p>
-        <p>The language can be set in the View menu now.</p>
-        <p>Lots of bug fixes.</p>
-        <p>Zooming is possible also with the mouse wheel.</p>
-        <p>Mouse cursor has been changed to cross.</p>
-        <p>Iteration number N can be used in user formulas.</p>
+        <p>Custom palette helps visualizing palette before applying changes through slider selectable values now.</p>
+        <p>PNGs exported using 'Save Image' option can be imported back and users can continue zooming on it.</p>
+        <p>Several bug fixes.</p>
       </description>
-      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.0</url>
+      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.1</url>
     </release>
   </releases>
 </component>

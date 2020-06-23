@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-# This script creates a .deb package of XaoS 4.0.
+# This script creates a .deb package of XaoS 4.0 and above.
 # Make sure you build the program first.
 # Required packages before running this script:
 # lynx pandoc git-extras lintian
