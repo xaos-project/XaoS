@@ -1,22 +1,28 @@
 RELEASE NOTES FOR XAOS VERSION 4.1
 ----------------------------------
 
-New Feaures
-===========
+New Features
+============
 
-o Custom palette now helps visualise palette before applying changes
-through slider selectable values.
+o Custom palette helps visualizing palette before applying changes
+  through slider selectable values now.
 
-o PNGs exported using ```Save Image``` option can be imported back
-and users can continue zooming on it.
+o PNGs exported using 'Save Image' option can be imported back
+  and users can continue zooming on it.
 
 Bug Fixes
 =========
+
 o Fixed crash on recording XaoS animations.
+
 o Fixed crash on recording default palette.
+
 o Fixed crash on rendering using command line.
-o Only error messages are shown on wrong commands.
-& other small bug fixes.
+
+o Only error messages are shown on incorrect commands.
+
+o Some other small bug fixes.
+
 
 RELEASE NOTES FOR XAOS VERSION 4.0
 ----------------------------------
