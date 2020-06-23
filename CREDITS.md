@@ -2,7 +2,7 @@
 
 (alphabetically)
 
-- [Anurag Aggarwal](mailto:kanurag94@gmail.com): Hindi translation
+- [Anurag Aggarwal](mailto:kanurag94@gmail.com): Palette visualiser, png metadata, bug fixes, Hindi translation
 - [Natalija Budinski](mailto:nbudinski@yahoo.com): Serbian translation
 - [Eric Courteau](mailto:ecourteau@cplus.fr): francais.cat (translation of tutorials)
 - [Jean-Pierre Demailly](mailto:Jean-Pierre.Demailly@ujf-grenoble.fr): Updates for French translation
@@ -25,6 +25,7 @@
 - [Thomas Marsh](mailto:thomas.marsh2@gmail.com): First zoomer, formulae, planes, X11 driver, inversions, many ideas
 - [Dominic Mazzoni](mailto:dmazzoni@cs.cmu.edu): Macintosh port (version 2.0)
 - David Meleedy: Grammatical and spelling fixed version of xaos.6
+- [Armin Müller](https://github.com/arm-in): Codespell fixes, translation fixes
 - [Paul Nasca](mailto:zynaddsubfx@yahoo.com): Ministatus improvement
 - [Nix](mailto:nix@esperi.demon.co.uk): Grammatical and spelling fixed version of xaos.hlp and other files
 - [Terje Pedersen](mailto:terjepe@login.eunet.no): Amiga port
