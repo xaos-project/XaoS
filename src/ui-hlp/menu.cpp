@@ -272,7 +272,7 @@ void uih_registermenudialogs_i18n(void)
     NULL_I();
 
     Register(palettegradientdialog);
-    DIALOGPALSLIDER_I(TR("Dialog", "Visualiser:"), 0);
+    DIALOGPALSLIDER_I("Visualiser:", 0);
     NULL_I();
 
     Register(uih_cyclingdialog);
@@ -961,7 +961,7 @@ void uih_registermenus_i18n(void)
 
     MENUNOPCB_I("uia", "l", TR("Menu", "Ministatus"), "animministatus",
                 UI | MENUFLAG_INCALC, uih_ministatus, uih_ministatusenabled);
-    MENUNOPCB_I("uia", "g", TR("Menu", "Show Grid"), "animcartesiangrid",
+    MENUNOPCB_I("uia", "g", TR("Menu", "Cartesian Grid"), "animcartesiangrid",
                 MENUFLAG_INCALC, uih_cartesiangrid, uih_cartesiangridenabled);
     MENUSEPARATOR_I("uia");
     SUBMENU_I("root", "s", TR("Menu", "File"), "file");

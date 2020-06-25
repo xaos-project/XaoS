@@ -151,7 +151,7 @@
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="188"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="280"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="284"/>
         <source>Formula:</source>
         <translation>Formúla:</translation>
     </message>
@@ -272,12 +272,12 @@
         <translation>Hliðrun:</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="275"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="279"/>
         <source>Frames per second:</source>
         <translation>Rammar á sekúndu:</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="284"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="288"/>
         <source>Initialization:</source>
         <translation>Frumstilling:</translation>
     </message>
@@ -285,60 +285,61 @@
 <context>
     <name>Error</name>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="341"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="345"/>
         <source>renderanim: Width parameter must be positive integer in the range 0..4096</source>
         <translation>renderanim: Breiddar-gildi verður að vera jákvæð heiltala á bilinu 0..4096</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="348"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="352"/>
         <source>renderanim: Height parameter must be positive integer in the range 0..4096</source>
         <translation>renderanim: Hæðar-gildi verður að vera jákvæð heiltala á bilinu 0..4096</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="354"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="358"/>
         <source>renderanim: Invalid real width and height dimensions</source>
         <translation>renderanim: Ógild raungildi breiddar og hæðar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="359"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="363"/>
         <source>renderanim: invalid framerate</source>
         <translation>renderanim: ógildur fjöldi ramma á tímaeiningu</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="364"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="368"/>
         <source>renderanim: antialiasing not supported in 256 color mode</source>
         <translation>renderanim: afstöllun ekki studd í 256 lita ham</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="410"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="423"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="414"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="427"/>
         <source>animateview: Invalid viewpoint</source>
         <translation>animateview: Ógildur sjónarhóll</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="436"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="440"/>
         <source>Invalid viewpoint</source>
         <translation>Ógildur sjónarhóll</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="598"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="611"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="640"/>
         <source>Unknown palette type</source>
         <translation>Óþekkt gerð litavals</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="674"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="689"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="716"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="731"/>
         <source>Initialization of color cycling failed.</source>
         <translation>Frumstilling litahringjar mistókst.</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="676"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="691"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="718"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="733"/>
         <source>Try to enable palette emulation filter</source>
         <translation>Reyni að leyfa hermunarsíu litavals</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="797"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="839"/>
         <source>Algorithm:%i seed:%i size:%i</source>
         <translation>Algrím:%i fræ:%i stærð:%i</translation>
     </message>
@@ -581,794 +582,801 @@
 <context>
     <name>Menu</name>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="841"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="883"/>
         <source>Root menu</source>
         <translation>Rótarvalmynd</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="842"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="884"/>
         <source>Animation root menu</source>
         <translation>Rótarvalmynd hreyfimyndar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="843"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="885"/>
         <source>Replay only commands</source>
         <translation>Endurspila skipanir eingöngu</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="846"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="888"/>
         <source>Line drawing functions</source>
         <translation>Línuteikningarföll</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="847"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="889"/>
         <source>Line</source>
         <translation>Lína</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="849"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="891"/>
         <source>Morph line</source>
         <translation>Bræðingsmynd línu</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="851"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="893"/>
         <source>Morph last line</source>
         <translation>Bræðingsmynd síðustu línu</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="853"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="895"/>
         <source>Set line key</source>
         <translation>Skilgreina lykil línu</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="855"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="897"/>
         <source>Clear line</source>
         <translation>Eyða línu</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="857"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="899"/>
         <source>Clear all lines</source>
         <translation>Eyða öllum línum</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="859"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="901"/>
         <source>Animation functions</source>
         <translation>Aðgerðir hreyfimyndar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="860"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="927"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="936"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1036"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1038"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="902"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="973"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="982"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1082"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1084"/>
         <source>View</source>
         <translation>Notandasýn</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="862"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="904"/>
         <source>Morph view</source>
         <translation>Sýn bræðingsmyndar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="864"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="906"/>
         <source>Morph julia</source>
         <translation>Bræðingsmynd Júlíu</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="866"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="908"/>
         <source>Move view</source>
         <translation>Sýn hreyfingar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="868"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="910"/>
         <source>Morph angle</source>
         <translation>Bræðingsmynd horns</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="870"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="912"/>
         <source>Zoom center</source>
         <translation>Þysjunarmiðja</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="872"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="914"/>
         <source>Zoom</source>
         <translation>Þysja inn</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="873"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="915"/>
         <source>Un-zoom</source>
         <translation>Þysja út</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="875"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="917"/>
         <source>Stop zooming</source>
         <translation>Stöðva þysjun</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="877"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="919"/>
         <source>Smooth morphing parameters</source>
         <translation>Samfelldir stikar bræðingsmyndar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="879"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="921"/>
         <source>Timing functions</source>
         <translation>Tímasetningarföll</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="880"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="922"/>
         <source>Usleep</source>
         <translation>Usleep</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="882"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="924"/>
         <source>Wait for text</source>
         <translation>Bið eftir texta</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="884"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="926"/>
         <source>Wait for complete image</source>
         <translation>Bið eftir tilbúinni mynd</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="886"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="928"/>
         <source>Include file</source>
         <translation>Fella inn skrá</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="888"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1063"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="930"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1109"/>
         <source>Default palette</source>
         <translation>Sjálfgefið litaval</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="890"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="932"/>
         <source>Formula</source>
         <translation>Formúla</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="892"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="934"/>
         <source>Maximal zooming step</source>
         <translation>Stærsta þysjunarskref</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="894"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="936"/>
         <source>Zooming speedup</source>
         <translation>Þysjunarhraði</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="896"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="938"/>
         <source>Filter</source>
         <translation>Sía</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="900"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="902"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="942"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="944"/>
         <source>Letters per second</source>
         <translation>Stafir á sekúndu</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="904"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1145"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="946"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1193"/>
         <source>Interrupt</source>
         <translation>Trufla</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="907"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="914"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="949"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="958"/>
         <source>Status</source>
         <translation>Staða</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="910"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="918"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="952"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="962"/>
         <source>Ministatus</source>
         <translation>Örstaða</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="921"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="930"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="954"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="964"/>
+        <source>Cartesian Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui-hlp/menu.cpp" line="967"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="976"/>
         <source>File</source>
         <translation>Skrá</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="922"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="968"/>
         <source>Edit</source>
         <translation>Breyta</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="923"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="969"/>
         <source>Fractal</source>
         <translation>Broti</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="924"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="970"/>
         <source>Calculation</source>
         <translation>Útreikningar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="925"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1187"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="971"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1235"/>
         <source>Filters</source>
         <translation>Síur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="926"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="972"/>
         <source>Action</source>
         <translation>Aðgerð</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="928"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="937"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="974"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="983"/>
         <location filename="../src/ui/main.cpp" line="509"/>
         <source>Help</source>
         <translation>Aðstoð</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="929"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="975"/>
         <source>Tutorials</source>
         <translation>Leiðbeiningar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="934"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="980"/>
         <source>Stop replay</source>
         <translation>Stöðva endurspilun</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="938"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="984"/>
         <source>Command</source>
         <translation>Skipun</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="940"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="986"/>
         <source>Play string</source>
         <translation>Spila streng</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="943"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="989"/>
         <source>Clear screen</source>
         <translation>Hreinsa skjá</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="945"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="991"/>
         <source>Display fractal</source>
         <translation>Sýna brota</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="948"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="994"/>
         <source>Display text</source>
         <translation>Sýna texta</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="951"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="997"/>
         <source>Text color</source>
         <translation>Litur texta</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="953"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="999"/>
         <source>Horizontal text position</source>
         <translation>Lárétt staða texta</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="955"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1001"/>
         <source>Vertical text position</source>
         <translation>Lóðrétt staða texta</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="956"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1002"/>
         <source>Text position</source>
         <translation>Staða texta</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="959"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1005"/>
         <source>Message</source>
         <translation>Skilaboð</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="977"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1023"/>
         <source>New</source>
         <translation>Nýtt</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="978"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1024"/>
         <source>Open</source>
         <translation>Opna</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="981"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1027"/>
         <source>Save</source>
         <translation>Vista</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="984"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1030"/>
         <source>Record</source>
         <translation>Upptaka</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="986"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1032"/>
         <source>Replay</source>
         <translation>Endurspila</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="990"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1036"/>
         <source>Open image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="992"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1038"/>
         <source>Save image</source>
         <translation>Vista mynd</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="994"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1040"/>
         <source>Render</source>
         <translation>Ganga frá</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="997"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1043"/>
         <source>Load random example</source>
         <translation>Hlaða slembivöldu dæmi</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="999"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1045"/>
         <source>Save configuration</source>
         <translation>Vista stöðu</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1002"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1048"/>
         <source>Undo</source>
         <translation>Til baka</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1005"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1051"/>
         <source>Redo</source>
         <translation>Endurgera</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1008"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1054"/>
         <source>Formulae</source>
         <translation>Formúlur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1009"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1055"/>
         <source>More formulae</source>
         <translation>Fleiri formúlur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1014"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1060"/>
         <source>User formula</source>
         <translation>Notendaformúla</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1016"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1062"/>
         <source>User initialization</source>
         <translation>Frumstilling notanda</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1021"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1067"/>
         <source>Incoloring mode</source>
         <translation>Innlitahamur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1022"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1068"/>
         <source>Outcoloring mode</source>
         <translation>Útlitahamur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1023"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1069"/>
         <source>Plane</source>
         <translation>Slétta</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1024"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1070"/>
         <source>Palette</source>
         <translation>Litaval</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1027"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1073"/>
         <source>Mandelbrot mode</source>
         <translation>Mandelbrot hamur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1030"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1076"/>
         <source>Julia mode</source>
         <translation>Júlíu hamur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1033"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1079"/>
         <source>Fast julia mode</source>
         <translation>Hrað júlíu hamur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1041"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1087"/>
         <source>Rotation</source>
         <translation>Snúningur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1042"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1088"/>
         <source>Set angle</source>
         <translation>Stilla horn</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1045"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1091"/>
         <source>Set plane</source>
         <translation>Stilla sléttu</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1048"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1094"/>
         <source>Inside coloring mode</source>
         <translation>Innra litaspjald</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1051"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1097"/>
         <source>Outside coloring mode</source>
         <translation>Ytra litaspjald</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1054"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1100"/>
         <source>Inside truecolor coloring mode</source>
         <translation>Innra sannlita litaspjald</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1057"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1103"/>
         <source>Outside truecolor coloring mode</source>
         <translation>Ytra sannlita litaspjald</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1060"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1106"/>
         <source>Julia seed</source>
         <translation>Júlíu fræ</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1065"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1111"/>
         <source>Random palette</source>
         <translation>Slembival lita</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1067"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1113"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1115"/>
         <source>Custom palette</source>
         <translation>Sérval lita</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1070"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1118"/>
         <source>Color cycling</source>
         <translation>Litarás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1072"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1120"/>
         <source>Reversed color cycling</source>
         <translation>Öfug litarás</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1075"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1123"/>
         <source>Color cycling speed</source>
         <translation>Hraði litarásar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1078"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1126"/>
         <source>Shift palette</source>
         <translation>Hliðra litavali</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1080"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1128"/>
         <source>Shift one forward</source>
         <translation>Hliðra einn áfram</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1082"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1130"/>
         <source>Shift one backward</source>
         <translation>Hliðra einn afturábak</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1084"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1132"/>
         <source>Solid guessing</source>
         <translation>Gisk fyrir rúmskika</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1085"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1133"/>
         <source>Disable solid guessing</source>
         <translation>Afnema gisk fyrir rúmskika</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1088"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1136"/>
         <source>Guess 2x2 rectangles</source>
         <translation>Giska 2x2 ferhyrningar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1090"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1138"/>
         <source>Guess 3x3 rectangles</source>
         <translation>Giska 3x3 ferhyrningar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1092"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1140"/>
         <source>Guess 4x4 rectangles</source>
         <translation>Giska 4x4 ferhyrningar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1094"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1142"/>
         <source>Guess 5x5 rectangles</source>
         <translation>Giska 5x5 ferhyrningar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1096"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1144"/>
         <source>Guess 6x6 rectangles</source>
         <translation>Giska 6x6 ferhyrningar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1098"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1146"/>
         <source>Guess 7x7 rectangles</source>
         <translation>Giska 7x7 ferhyrningar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1100"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1148"/>
         <source>Guess 8x8 rectangles</source>
         <translation>Giska 8x8 ferhyrningar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1102"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1150"/>
         <source>Guess unlimited rectangles</source>
         <translation>Giska ótakmarkaða ferhyrninga</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1104"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1152"/>
         <source>Dynamic resolution</source>
         <translation>Kvik upplausn</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1105"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1153"/>
         <source>Periodicity checking</source>
         <translation>Tímaspannsprufun</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1108"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1156"/>
         <source>Threads</source>
         <translation>Þræðir</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1110"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1158"/>
         <source>Iterations</source>
         <translation>Ítranir</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1112"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1160"/>
         <source>Bailout</source>
         <translation>Stöðvunargildi</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1114"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1117"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1191"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1162"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1165"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1239"/>
         <source>Perturbation</source>
         <translation>Truflun (perturbation)</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1121"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1169"/>
         <source>Zooming speed</source>
         <translation>Þysjunarhraði</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1123"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1171"/>
         <source>Fixed step</source>
         <translation>Föst skref</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1126"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1174"/>
         <source>Solid guessing range</source>
         <translation>Mörk giskunar rúmskika</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1128"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1176"/>
         <source>Disable rotation</source>
         <translation>Gera snúning óvirkan</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1131"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1179"/>
         <source>Continuous rotation</source>
         <translation>Samfelldur snúningur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1133"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1181"/>
         <source>Rotate by mouse</source>
         <translation>Snúa með mús</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1135"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1183"/>
         <source>Rotation speed</source>
         <translation>Snúningshraði</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1137"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1185"/>
         <source>Automatic rotation</source>
         <translation>Sjálfvirkur snúningur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1139"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1187"/>
         <source>Fast rotation mode</source>
         <translation>Hraður snúningshamur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1143"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1191"/>
         <source>Recalculate</source>
         <translation>Endurreikna</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1147"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1195"/>
         <source>Disable dynamic resolution</source>
         <translation>Gera kvika upplausn óvirka</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1150"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1198"/>
         <source>Use only during animation</source>
         <translation>Nota eingöngu meðan á hreyfimynd stendur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1152"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1200"/>
         <source>Use also for new images</source>
         <translation>Nota einnig fyrir nýjar myndir</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1154"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1202"/>
         <source>Dynamic resolution mode</source>
         <translation>Hamur kvikrar upplausnar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1157"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1205"/>
         <source>Autopilot</source>
         <translation>Sjálfvirk stilling (autopilot)</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1160"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1208"/>
         <source>Hide Messages</source>
         <translation>Fela skilaboð</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1163"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1211"/>
         <source>An introduction to fractals</source>
         <translation>Inngangur að brotum (fractals)</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1165"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1213"/>
         <source>XaoS features overview</source>
         <translation>Yfirlit XaoS möguleika</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1166"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1214"/>
         <source>Math behind fractals</source>
         <translation>Stærðfræði að baki brotum (fractals)</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1167"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1199"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1215"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1247"/>
         <source>Other fractal types in XaoS</source>
         <translation>Aðrar gerðir brota (fractals) í XaoS</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1169"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1217"/>
         <source>What&apos;s new?</source>
         <translation>Hvað er nýtt?</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1171"/>
-        <location filename="../src/ui-hlp/menu.cpp" line="1194"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1219"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1242"/>
         <source>Whole story</source>
         <translation>Sagan öll</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1173"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1221"/>
         <source>Introduction</source>
         <translation>Inngangur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1174"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1222"/>
         <source>Mandelbrot set</source>
         <translation>Mandelbrot mengið</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1175"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1223"/>
         <source>Julia set</source>
         <translation>Júlíu mengið</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1176"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1224"/>
         <source>Higher power Mandelbrots</source>
         <translation>Æðri velda Mandelbrot</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1177"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1225"/>
         <source>Newton&apos;s method</source>
         <translation>Aðferð Newtons</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1178"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1226"/>
         <source>Barnsley&apos;s formula</source>
         <translation>Formúla Barnsleys</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1179"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1227"/>
         <source>Phoenix</source>
         <translation>Fönix (Phoenix)</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1180"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1228"/>
         <source>Octo</source>
         <translation>Áttu (octo)</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1181"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1229"/>
         <source>Magnet</source>
         <translation>Segull</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1182"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1230"/>
         <source>All features</source>
         <translation>Öll sérkenni</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1184"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1232"/>
         <source>Outcoloring modes</source>
         <translation>Útlitar-hamar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1185"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1233"/>
         <source>Incoloring modes</source>
         <translation>Innlitar-hamar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1186"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1234"/>
         <source>True-color coloring modes</source>
         <translation>Sannlitar litavals hamur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1188"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1236"/>
         <source>Planes</source>
         <translation>Sléttur</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1189"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1237"/>
         <source>Animations and position files</source>
         <translation>Hreyfimyndir og stöðu-skjöl</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1192"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1240"/>
         <source>Random palettes</source>
         <translation>Slembið litaval</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1193"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1241"/>
         <source>Other noteworthy features</source>
         <translation>Önnur mikilvæg sérkenni</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1196"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1244"/>
         <source>The definition and fractal dimension</source>
         <translation>Skilgreining og rúmvídd brota</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1198"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1246"/>
         <source>Escape time fractals</source>
         <translation>Flóttatíma brotar (escape time fractals)</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1201"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1249"/>
         <source>Triceratops and Catseye fractals</source>
         <translation>Triceratop og Kattarauga brotar</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1203"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1251"/>
         <source>Mandelbar, Lambda, Manowar and Spider</source>
         <translation>Mandelbar, Lambda, Manowar og Könguló</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1205"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1253"/>
         <source>Sierpinski Gasket, S.Carpet, Koch Snowflake</source>
         <translation>Sierpinski þríhyrningur, S.Teppi, Koch snjókornið</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1207"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1255"/>
         <source>What&apos;s new in 3.0?</source>
         <translation>Hvað er nýtt í 3.0?</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="1208"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="1256"/>
         <source>What&apos;s new in 4.0?</source>
         <translation type="unfinished">Hvað er nýtt í 3.0? {4.0??}</translation>
     </message>
@@ -1485,12 +1493,12 @@
         <translation>Tóm formúla</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="506"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="510"/>
         <source>XaoS must restart to change the thread count.</source>
         <translation>Endurræsa þarf XaoS til að breyta talningu þráða.</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/menu.cpp" line="507"/>
+        <location filename="../src/ui-hlp/menu.cpp" line="511"/>
         <location filename="../src/ui/main.cpp" line="346"/>
         <source>Do you want to quit now?</source>
         <translation>Viltu hætta?</translation>
@@ -1585,109 +1593,109 @@
         <translation>Skráning í skjal %s óvirk.</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2245"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2246"/>
         <source>%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            </source>
         <translation>%s %.2f sinnum (%.1fE) %2.2f rammar/sek %c %i %i %i %u            </translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2247"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2248"/>
         <source>unzoomed</source>
         <translation>óþysjað</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2247"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2248"/>
         <source>zoomed</source>
         <translation>þysjað</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2253"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2254"/>
         <source>framerate:%f
 </source>
         <translation>rammatíðni: %f
 </translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2287"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2288"/>
         <source>Fractal name:%s</source>
         <translation>Nafn brota: %s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2291"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2292"/>
         <source>Fractal type:%s</source>
         <translation>Gerð brota: %s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2292"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2293"/>
         <source>Mandelbrot</source>
         <translation>Mandelbrot</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2293"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2294"/>
         <source>Julia</source>
         <translation>Júlía</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2297"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2298"/>
         <source>Formula:%s</source>
         <translation>Formúla: %s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2303"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2304"/>
         <source>View:[%1.12f,%1.12f]</source>
         <translation>Sýn:[%1.12f,%1.12f]</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2307"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2308"/>
         <source>size:[%1.12f,%1.12f]</source>
         <translation>stærð:[%1.12f,%1.12f]</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2311"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2312"/>
         <source>Rotation:%4.2f   Screen size:%i:%i</source>
         <translation>Snúningur:%4.2f   Stærð skjás:%i:%i</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2316"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2317"/>
         <source>Iterations:%-4u Palette size:%i</source>
         <translation>Ítranir:%-4u Stærð litavals:%i</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2320"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2321"/>
         <source>Bailout:%4.2f</source>
         <translation type="unfinished">Stöðvunargildi</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2324"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2325"/>
         <source>Autopilot:%-4s  Plane:%s</source>
         <translation>Sjálfvirk stilling:%-4s  Slétta:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2325"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2326"/>
         <source>On</source>
         <translation>Virkja</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2325"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2326"/>
         <source>Off</source>
         <translation>Afvirkja</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2329"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2330"/>
         <source>incoloring:%s    outcoloring:%s</source>
         <translation>innlitun:%s    útlitun:%s</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2334"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2335"/>
         <source>zoomspeed:%f</source>
         <translation>þysjunarhraði:%f</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2338"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2339"/>
         <source>Parameter:none</source>
         <translation>Stiki:enginn</translation>
     </message>
     <message>
-        <location filename="../src/ui-hlp/ui_helper.cpp" line="2340"/>
+        <location filename="../src/ui-hlp/ui_helper.cpp" line="2341"/>
         <source>Parameter:[%f,%f]</source>
         <translation>Stiki:[%f,%f]</translation>
     </message>
