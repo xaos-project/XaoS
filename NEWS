@@ -4,6 +4,8 @@ RELEASE NOTES FOR XAOS VERSION 4.1
 New Features
 ============
 
+o Added option to show Cartesian coordinate grid.
+
 o Custom palette helps visualizing palette before applying changes
   through slider selectable values now.
 
@@ -14,8 +16,6 @@ Bug Fixes
 =========
 
 o Fixed crash on recording XaoS animations.
-
-o Fixed crash on recording default palette.
 
 o Fixed crash on rendering using command line.
 
