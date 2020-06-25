@@ -131,3 +131,91 @@ struct image *create_image_qt(int width, int height, struct palette *palette,
     img->free = freeImage;
     return img;
 }
+
+void overlayGrid(uih_context *c, int fgcolor)
+{
+    struct image* image = c->image;
+    QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
+    QPainter painter(qimage);
+    QPen pen;
+    pen.setColor(fgcolor);
+    pen.setWidth(2);
+    painter.setPen(pen);
+
+    //Find fractal origin (0,0)
+    long long int x1 = (0 - c->fcontext->rs.nc) /
+        (c->fcontext->rs.mc - c->fcontext->rs.nc) *
+        c->zengine->image->width;
+    long long int y1 = (0 - c->fcontext->rs.ni) /
+        (c->fcontext->rs.mi - c->fcontext->rs.ni) *
+        c->zengine->image->height;
+
+    /* FIXME Support greater zoom*/
+    double currzoom =
+        (c->fcontext->currentformula->v.rr) / (c->fcontext->s.rr);
+    if(currzoom > 100000){
+        uih_error(c, "Cartesian Grid not supported on zoom > 100000x");
+        uih_message(c, "Re-enable after zooming out");
+        uih_cartesiangrid(c);
+    }
+
+    // Find next coordinate (1,1)
+    long long int x2 = (1 - c->fcontext->rs.nc) /
+        (c->fcontext->rs.mc - c->fcontext->rs.nc) *
+        c->zengine->image->width;
+    long long int y2 = (1 - c->fcontext->rs.ni) /
+        (c->fcontext->rs.mi - c->fcontext->rs.ni) *
+        c->zengine->image->height;
+
+    // Find current zoom level
+    long double rr = c->fcontext->s.rr/10.0;
+    long double counter=0;
+    while(rr<1){
+        rr*=10;
+        counter++;
+    }
+
+    // Set step size
+    long double xinterval = x2-x1;
+    long double yinterval = y2-y1;
+    long double xstep = xinterval/pow(10.0, counter - 1);
+    long double ystep = yinterval/pow(10.0, counter - 1);
+
+    // Do Not draw smaller coordinates if step size is too low
+    // Draw Boundary Boxes
+    if(xstep > 1 and ystep > 1){
+        for(long double i=x1; i<=image->width; i+=xstep*10){
+            painter.drawLine(i, 0, i, image->height);
+        }
+        for(long double i=x1; i>=0; i-=xstep*10){
+            painter.drawLine(i, 0, i, image->height);
+        }
+        for(long double i=y1; i<=image->height; i+=ystep*10){
+            painter.drawLine(0, i, image->width, i);
+        }
+        for(long double i=y1; i>=0; i-=ystep*10){
+            painter.drawLine(0, i, image->width, i);
+        }
+    }
+
+    pen.setWidth(1);
+    pen.setStyle(Qt::DashLine);
+    painter.setPen(pen);
+
+    // Draw grid boxes
+    if(xstep > 1 and ystep > 1){
+        for(long double i=x1; i<=image->width; i+=xstep){
+            painter.drawLine(i, 0, i, image->height);
+        }
+        for(long double i=x1; i>=0; i-=xstep){
+            painter.drawLine(i, 0, i, image->height);
+        }
+        for(long double i=y1; i<=image->height; i+=ystep){
+            painter.drawLine(0, i, image->width, i);
+        }
+        for(long double i=y1; i>=0; i-=ystep){
+            painter.drawLine(0, i, image->width, i);
+        }
+    }
+    return;
+}

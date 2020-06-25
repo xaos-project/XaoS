@@ -2230,6 +2230,8 @@ static int statusstart;
 static struct uih_window *statuswindow = NULL;
 static int ministatusstart;
 static struct uih_window *ministatuswindow = NULL;
+int cartesiangridstart;
+static struct uih_window *cartesiangridwindow = NULL;
 
 void uih_updatestatus(uih_context *uih)
 {
@@ -2265,6 +2267,9 @@ void uih_updatestarts(uih_context *uih)
     ministatusstart = y;
     if (ministatuswindow != NULL)
         y += xtextheight(uih->image, uih->font);
+    cartesiangridstart = y;
+    if (cartesiangridwindow != NULL)
+        y += xtextheight(uih->image, uih->font) * 2;
     statusstart = y;
     if (statuswindow != NULL)
         y += xtextheight(uih->image, uih->font) * STATUSLINES;
@@ -2404,4 +2409,60 @@ void uih_ministatus(uih_context *uih)
 int uih_ministatusenabled(uih_context * /*uih*/)
 {
     return (ministatuswindow != NULL);
+}
+
+static void uih_cartesiangridpos(uih_context *uih, int *x, int *y, int *w, int *h,
+                              void * /*data*/)
+{
+    *x = 0;
+    *y = 0;
+    *w = uih->image->width;
+    *h = uih->image->height-30; // Leave some padding, FIXME
+    fflush(stdout);
+}
+
+static void uih_drawcartesiangrid(uih_context *uih, void * /*data*/)
+{
+    char statustext[256];
+    int h = xtextheight(uih->image, uih->font);
+    long double rr = uih->fcontext->s.rr/10.0;
+    long double counter=0;
+    while(rr < 1){
+        rr *= 10;
+        counter++;
+    }
+    sprintf(statustext, "X-axis: 1 grid = %f", pow(10.0, -counter+1));
+    xprint(uih->image, uih->font, 0, cartesiangridstart, statustext, FGCOLOR(uih),
+           BGCOLOR(uih), 0);
+    sprintf(statustext, "Y-axis: 1 grid = %f", pow(10.0, -counter+1));
+    xprint(uih->image, uih->font, 0, cartesiangridstart + h, statustext, FGCOLOR(uih),
+           BGCOLOR(uih), 0);
+    overlayGrid(uih, FGCOLOR(uih));
+}
+
+void uih_cartesiangrid(uih_context *uih)
+{
+    double currzoom =
+        (uih->fcontext->currentformula->v.rr) / (uih->fcontext->s.rr);
+
+    if (cartesiangridwindow == NULL and currzoom < 100000) {
+        cartesiangridwindow =
+            uih_registerw(uih, uih_cartesiangridpos, uih_drawcartesiangrid, NULL, 0);
+    } else {
+        if(cartesiangridwindow) {
+            uih_removew(uih, cartesiangridwindow);
+            cartesiangridwindow = NULL;
+        } else {
+            uih_error(uih, "Cartesian Grid not supported on zoom > 100000x");
+        }
+    }
+
+    uih_updatestarts(uih);
+    uih_updatemenus(uih, "cartesiangrid");
+    uih_updatemenus(uih, "animcartesiangrid");
+}
+
+int uih_cartesiangridenabled(uih_context * /*uih*/)
+{
+    return (cartesiangridwindow != NULL);
 }
