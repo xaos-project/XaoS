@@ -51,6 +51,7 @@
   <releases>
     <release version="4.1" date="2020-07-01">
       <description>
+        <p>Added option to show Cartesian coordinate grid.</p>
         <p>Custom palette helps visualizing palette before applying changes through slider selectable values now.</p>
         <p>PNGs exported using 'Save Image' option can be imported back and users can continue zooming on it.</p>
         <p>Several bug fixes.</p>
