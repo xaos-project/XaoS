@@ -62,7 +62,7 @@ const char *const uih_colornames[] = {"white", "black", "red", NULL};
  * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
  */
 
-#define MAX_MENUDIALOGS_I18N 103
+#define MAX_MENUDIALOGS_I18N 104
 #define Register(variable) variable = &menudialogs_i18n[no_menudialogs_i18n]
 static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
 // static int no_menudialogs_i18n;
@@ -76,7 +76,7 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
     *uih_filterdialog, *uih_shiftdialog, *uih_speeddialog, *printdialog,
     *uih_bailoutdialog, *uih_threaddialog, *saveanimdialog, *uih_juliamodedialog,
     *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog, *uih_numdialog,
-    *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *loadimgdialog
+    *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *loadimgdialog, *palettegradientdialog
 #ifdef USE_SFFE
     ,
     *uih_sffedialog, *uih_sffeinitdialog
@@ -266,6 +266,12 @@ void uih_registermenudialogs_i18n(void)
     NULL_I();
 
     Register(palettedialog);
+    DIALOGINT_I(TR("Dialog", "Algorithm number:"), 0);
+    DIALOGINT_I(TR("Dialog", "Seed:"), 0);
+    DIALOGINT_I(TR("Dialog", "Shift:"), 0);
+    NULL_I();
+
+    Register(palettegradientdialog);
     DIALOGPALSLIDER_I(TR("Dialog", "Visualiser:"), 0);
     NULL_I();
 
@@ -552,9 +558,19 @@ static menudialog *uih_getsffeinitdialog(struct uih_context *c)
 static menudialog *uih_getpalettedialog(struct uih_context *uih)
 {
     if (uih != NULL) {
-        palettedialog[0].defint = 0;
+        palettedialog[0].defint = uih->palettetype;
+        palettedialog[1].defint = uih->paletteseed;
+        palettedialog[2].defint = uih->paletteshift + uih->manualpaletteshift;
     }
     return (palettedialog);
+}
+
+static menudialog *uih_getpalettegradientdialog(struct uih_context *uih)
+{
+    if (uih != NULL) {
+        palettegradientdialog[0].defint = 0;
+    }
+    return (palettegradientdialog);
 }
 
 static menudialog *uih_getcyclingdialog(struct uih_context *uih)
@@ -583,6 +599,35 @@ static void uih_setspeed(uih_context *c, number_t p)
 
 static void uih_palette(struct uih_context *uih, dialogparam *p)
 {
+    int n1 = p[0].dint;
+    int n2 = p[1].dint;
+    int shift = p[2].dint;
+
+    if (!n1) {
+        uih_playdefpalette(uih, shift);
+        return;
+    }
+    if (n1 < 1 || n1 > PALGORITHMS) {
+        uih_error(uih, TR("Error", "Unknown palette type"));
+    }
+    if (uih->zengine->fractalc->palette == NULL)
+        return;
+    if (mkpalette(uih->zengine->fractalc->palette, n2, n1 - 1) != 0) {
+        uih_newimage(uih);
+    }
+    uih->manualpaletteshift = 0;
+    uih->palettetype = n1;
+    uih->palettechanged = 1;
+    uih->paletteseed = n2;
+    if (shiftpalette(uih->zengine->fractalc->palette, shift)) {
+        uih_newimage(uih);
+    }
+    uih->paletteshift = shift;
+}
+
+static void uih_palettegradient(struct uih_context *uih, dialogparam *p)
+{
+    fflush(stdout);
     int n1 = uih->palettetype;
     int n2 = uih->paletteseed;
     int shift = uih->paletteshift;
@@ -906,6 +951,8 @@ void uih_registermenus_i18n(void)
 
     MENUNOPCB_I("ui", "l", TR("Menu", "Ministatus"), "ministatus",
                 MENUFLAG_INCALC, uih_ministatus, uih_ministatusenabled);
+    MENUNOPCB_I("ui", "g", TR("Menu", "Cartesian Grid"), "cartesiangrid",
+                MENUFLAG_INCALC, uih_cartesiangrid, uih_cartesiangridenabled);
     MENUSEPARATOR_I("ui");
     MENUSEPARATOR_I("uia");
     MENUNOPCB_I("uia", "/", TR("Menu", "Status"), "animstatus",
@@ -914,6 +961,8 @@ void uih_registermenus_i18n(void)
 
     MENUNOPCB_I("uia", "l", TR("Menu", "Ministatus"), "animministatus",
                 UI | MENUFLAG_INCALC, uih_ministatus, uih_ministatusenabled);
+    MENUNOPCB_I("uia", "g", TR("Menu", "Show Grid"), "animcartesiangrid",
+                MENUFLAG_INCALC, uih_cartesiangrid, uih_cartesiangridenabled);
     MENUSEPARATOR_I("uia");
     SUBMENU_I("root", "s", TR("Menu", "File"), "file");
     SUBMENU_I("root", NULL, TR("Menu", "Edit"), "edit");
@@ -1061,8 +1110,10 @@ void uih_registermenus_i18n(void)
               0, uih_mkdefaultpalette);
     MENUNOP_I("palettemenu", "p", TR("Menu", "Random palette"), "randompalette",
               0, uih_menumkpalette);
-    MENUCDIALOG_I("palettemenu", NULL, TR("Menu", "Custom palette"), "palette",
-                  0, uih_palette, uih_getpalettedialog);
+    MENUCDIALOG_I("", NULL, TR("Menu", "Custom palette"), "palette",
+                  0, uih_palette, uih_getpalettedialog); //This is a placeholder menu
+    MENUCDIALOG_I("palettemenu", NULL, TR("Menu", "Custom palette"), "palettegradient",
+                  0, uih_palettegradient, uih_getpalettegradientdialog);
     MENUSEPARATOR_I("palettemenu");
     MENUNOPCB_I("palettemenu", "y", TR("Menu", "Color cycling"), "cycling", 0,
                 uih_cyclingsw, uih_cyclingselected);
