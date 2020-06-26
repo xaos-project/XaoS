@@ -10,18 +10,24 @@ We assume that you are already familiar with the
 Debian Linux and variants
 -------------------------
 
-Simply run the script `create-deb`. See the comments in the script
-in the first few rows to learn which packages must be installed
-in advance.
+Simply run the script `create-deb` from command line. See the comments in
+the script in the first few rows to learn which packages must be
+installed in advance.
 
 Microsoft Windows
 -----------------
 
-Before running the script from command line `deploy-win.bat` you
-need to add the path of tools `windeployqt.exe` and `binarycreator.exe`
-to the environmental system variable PATH.
+Before running the script `deploy-win.bat` from command line you need to
+add the path of tools `windeployqt.exe` and `binarycreator.exe` to the
+environmental system variable PATH.
 
-To avoid problems with finding certain files, you should make sure
-that there is no special character in the full path of the `XaoS` folder.
-Otherwise some files may be missing from the installation bundle
-(for example, the .cat files).
+To avoid problems with finding certain files, you should make sure that
+there is no special character in the full path of the `XaoS` folder.
+Otherwise some files may be missing from the installation bundle (for
+example, the .cat files).
+
+MacOS
+-----
+
+Before running the script `deploy-mac` from command line you need to add
+the path of tool `macdeployqt` to the environmental system variable PATH.
