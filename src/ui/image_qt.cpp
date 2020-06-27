@@ -66,8 +66,7 @@ const char *writepng(xio_constpath filename, const struct image *image)
 {
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
     char filepath[4096];
-    strcpy(filepath, xio_appdir);
-    strcat(filepath, XIO_PATHSEPSTR);
+    strcpy(filepath, xio_getdirectory(filename));
     strcat(filepath, ".xaos_temp.xpf");
     QFile f(filepath);
     if(!f.open(QFile::ReadOnly |
@@ -95,8 +94,7 @@ const char *readpng(xio_constpath filename)
         return "Not valid image";
     }
     char filepath[4096];
-    strcpy(filepath, xio_appdir);
-    strcat(filepath, XIO_PATHSEPSTR);
+    strcpy(filepath, xio_getdirectory(filename));
     strcat(filepath, ".xaos_temp.xpf");
     QFile f(filepath);
     if(!f.open(QFile::WriteOnly |

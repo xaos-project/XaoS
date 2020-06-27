@@ -634,8 +634,7 @@ void uih_loadpngfile(struct uih_context *c, xio_constpath d)
         return;
     }
     char filepath[4096];
-    strcpy(filepath, xio_appdir);
-    strcat(filepath, XIO_PATHSEPSTR);
+    strcpy(filepath, xio_getdirectory(d));
     strcat(filepath, ".xaos_temp.xpf");
     uih_loadfile(c, filepath);
     if(c->errstring == NULL) {
@@ -662,11 +661,8 @@ void uih_savepngfile(struct uih_context *c, xio_constpath d)
         return;
     }
     c->errstring = NULL;
-    printf("%lu", sizeof (xio_appdir));
-    fflush(stdout);
     char filepath[4096];
-    strcpy(filepath, xio_appdir);
-    strcat(filepath, XIO_PATHSEPSTR);
+    strcpy(filepath, xio_getdirectory(d));
     strcat(filepath, ".xaos_temp.xpf");
     uih_saveposfile(c, filepath);
     s = uih_save(c, d);
