@@ -65,7 +65,10 @@ int xtextcharw(struct image */*image*/, void *font, const char c)
 const char *writepng(xio_constpath filename, const struct image *image)
 {
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
-    QFile f(".xaos_temp.xpf");
+    char filepath[4096];
+    strcpy(filepath, xio_getdirectory(filename));
+    strcat(filepath, ".xaos_temp.xpf");
+    QFile f(filepath);
     if(!f.open(QFile::ReadOnly |
                   QFile::Text))
     {
@@ -90,7 +93,10 @@ const char *readpng(xio_constpath filename)
     if(xpf_chunk.isNull() || xpf_chunk.isEmpty()) {
         return "Not valid image";
     }
-    QFile f(".xaos_temp.xpf");
+    char filepath[4096];
+    strcpy(filepath, xio_getdirectory(filename));
+    strcat(filepath, ".xaos_temp.xpf");
+    QFile f(filepath);
     if(!f.open(QFile::WriteOnly |
                   QFile::Text))
     {

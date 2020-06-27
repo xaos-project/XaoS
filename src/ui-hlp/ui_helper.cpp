@@ -633,7 +633,10 @@ void uih_loadpngfile(struct uih_context *c, xio_constpath d)
         uih_error(c, TR("Error", "Could not open image"));
         return;
     }
-    uih_loadfile(c, ".xaos_temp.xpf");
+    char filepath[4096];
+    strcpy(filepath, xio_getdirectory(d));
+    strcat(filepath, ".xaos_temp.xpf");
+    uih_loadfile(c, filepath);
     if(c->errstring == NULL) {
         char s[256];
         sprintf(s, TR("Message", "File %s loaded."), d);
@@ -658,7 +661,10 @@ void uih_savepngfile(struct uih_context *c, xio_constpath d)
         return;
     }
     c->errstring = NULL;
-    uih_saveposfile(c, ".xaos_temp.xpf");
+    char filepath[4096];
+    strcpy(filepath, xio_getdirectory(d));
+    strcat(filepath, ".xaos_temp.xpf");
+    uih_saveposfile(c, filepath);
     s = uih_save(c, d);
     if (s != NULL)
         uih_error(c, s);
