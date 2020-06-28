@@ -633,7 +633,9 @@ void uih_loadpngfile(struct uih_context *c, xio_constpath d)
         uih_error(c, TR("Error", "Could not open image"));
         return;
     }
-    char filepath[4096];
+    int pathlength = strlen(d) + 16;
+    static char* filepath;
+    filepath = (char* )malloc(pathlength * sizeof (char));
     strcpy(filepath, xio_getdirectory(d));
     strcat(filepath, ".xaos_temp.xpf");
     uih_loadfile(c, filepath);
@@ -661,7 +663,9 @@ void uih_savepngfile(struct uih_context *c, xio_constpath d)
         return;
     }
     c->errstring = NULL;
-    char filepath[4096];
+    int pathlength = strlen(d) + 16;
+    static char* filepath;
+    filepath = (char* )malloc(pathlength * sizeof (char));
     strcpy(filepath, xio_getdirectory(d));
     strcat(filepath, ".xaos_temp.xpf");
     uih_saveposfile(c, filepath);
