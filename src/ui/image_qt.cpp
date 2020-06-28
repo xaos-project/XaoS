@@ -70,8 +70,6 @@ const char *writepng(xio_constpath filename, const struct image *image)
     filepath = (char* )malloc(pathlength * sizeof (char));
     strcpy(filepath, xio_getdirectory(filename));
     strcat(filepath, ".xaos_temp.xpf");
-    printf("%s\n", filepath);
-    fflush(stdout);
     QFile f(filepath);
     if(!f.open(QFile::ReadOnly |
                   QFile::Text))
