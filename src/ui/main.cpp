@@ -187,7 +187,7 @@ int ui_params_parser(int argc, char **argv)
     }
     if (show_help) {
         const char *name[] = {"", "number", "string", "f.point"};
-        printf("                 XaoS" XaoS_VERSION " help text\n\n");
+        printf("                 XaoS " XaoS_VERSION " help text\n\n");
         printf("option string   param   description\n\n");
         for (d = 0; d < nparams; d++) {
             par = params[d];
