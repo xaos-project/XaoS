@@ -7,7 +7,7 @@
 #include "xerror.h"
 #include "misc-f.h"
 #include "grlib.h"
-#define EXPIRETIME 4000000
+#define EXPIRETIME 5000000
 static void getpos(uih_context *c, int *x, int *y, int *w, int *h, void *data)
 {
     long n = (long)(size_t)data;
