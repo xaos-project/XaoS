@@ -21,6 +21,8 @@ o Fixed crash on rendering using command line.
 
 o Only error messages are shown on incorrect commands.
 
+o Fix handling non-ASCII paths on Windows.
+
 o Some other small bug fixes.
 
 
