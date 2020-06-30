@@ -10,6 +10,8 @@
 #include "misc-f.h"
 #ifdef _WIN32
 #define strcmp stricmp
+#include <string>
+#include "windows.h"
 #endif
 
 /* We reserve character 01 to application directory so we can easily refer to
@@ -331,7 +333,18 @@ xio_file xio_ropen(const char *name)
 {
     xio_file f = (xio_file)calloc(1, sizeof(*f));
     name = xio_fixpath(name);
+#ifndef _WIN32
     f->data = (void *)fopen(name, "rt");
+#else
+    // TODO: unify this with xio_ropen
+    std::string filePath = name;
+    std::wstring filePathW;
+    filePathW.resize(filePath.size());
+    int newSize = MultiByteToWideChar(CP_UTF8, 0, filePath.c_str(), filePath.length(),
+                                      const_cast<wchar_t *>(filePathW.c_str()), filePath.length());
+    filePathW.resize(newSize);
+    f->data = _wfopen(filePathW.c_str(), L"rt");
+#endif
     /*free (name); */
     if (!f->data) {
         free(f);
@@ -348,7 +361,17 @@ xio_file xio_wopen(const char *name)
 {
     xio_file f = (xio_file)calloc(1, sizeof(*f));
     name = xio_fixpath(name);
+#ifndef _WIN32
     f->data = (void *)fopen(name, "wt");
+#else
+    std::string filePath = name;
+    std::wstring filePathW;
+    filePathW.resize(filePath.size());
+    int newSize = MultiByteToWideChar(CP_UTF8, 0, filePath.c_str(), filePath.length(),
+                                      const_cast<wchar_t *>(filePathW.c_str()), filePath.length());
+    filePathW.resize(newSize);
+    f->data = _wfopen(filePathW.c_str(), L"wt");
+#endif
     /*free (name); */
     if (!f->data) {
         free(f);
