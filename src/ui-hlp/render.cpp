@@ -315,7 +315,7 @@ int uih_renderanimation(struct uih_context *gc1, const char *basename,
             sprintf(t, "%s%06i.png", basename, framenum);
 #ifdef _WIN32
             // No symlinks on windows, so just save another copy
-            writepng(t, uih->image);
+            writepng(t, uih->image, NULL);
 #else
             // On Unix, save a symlink.
             printmsg(TR("Message", "Linking frame %i to %i..."), framenum,
