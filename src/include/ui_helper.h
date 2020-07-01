@@ -387,7 +387,7 @@ void uih_autopilot_off(uih_context *c);
 
 /*misc functions */
 int uih_update(uih_context *c, int mousex, int mousey, int mousebuttons);
-const char *uih_save(struct uih_context *c, xio_constpath filename);
+const char *uih_save(struct uih_context *c, xio_constpath filename, xio_file xpf_data);
 void uih_tbreak(uih_context *c);
 double uih_displayed(uih_context *c);
 void uih_do_fractal(uih_context *c);

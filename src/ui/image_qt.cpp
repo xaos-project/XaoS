@@ -4,6 +4,7 @@
 #include "filter.h"
 #include "grlib.h"
 #include "xio.h"
+#include "misc-f.h"
 
 static QFont getFont(void *font) {
     if (font)
@@ -62,55 +63,27 @@ int xtextcharw(struct image */*image*/, void *font, const char c)
 }
 
 // Saves image as png with xpf chunk data
-const char *writepng(xio_constpath filename, const struct image *image)
+const char *writepng(xio_constpath filename, const struct image *image, xio_file xpf_data)
 {
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
-    int pathlength = strlen(filename) + 16;
-    static char* filepath;
-    filepath = (char* )malloc(pathlength * sizeof (char));
-    strcpy(filepath, xio_getdirectory(filename));
-    strcat(filepath, ".xaos_temp.xpf");
-    QFile f(filepath);
-    if(!f.open(QFile::ReadOnly |
-                  QFile::Text))
-    {
-        qDebug()<<"Could not open the file for reading";
-        qDebug()<<"Image will be created without xpf data";
+    if(xpf_data != NULL){
+        QString xpf_chunk = xio_getstring(xpf_data);
+        qimage->setText("Metadata", xpf_chunk);
     }
-    QTextStream in(&f);
-    QString xpf_chunk = in.readAll();
-    f.close();
-    f.remove();
-    qimage->setText("Metadata", xpf_chunk);
     qimage->save(filename);
     return NULL;
 }
 
 // Reads png image and xpf associated data
-const char *readpng(xio_constpath filename)
+const char* readpng(xio_constpath filename)
 {
     QImageReader reader(filename);
     const QImage xaos_image = reader.read();
     QString xpf_chunk = xaos_image.text("Metadata");
-    if(xpf_chunk.isNull() || xpf_chunk.isEmpty()) {
-        return "Not valid image";
-    }
-    int pathlength = strlen(filename) + 16;
-    static char* filepath;
-    filepath = (char* )malloc(pathlength * sizeof (char));
-    strcpy(filepath, xio_getdirectory(filename));
-    strcat(filepath, ".xaos_temp.xpf");
-    QFile f(filepath);
-    if(!f.open(QFile::WriteOnly |
-                  QFile::Text))
-    {
-        qDebug() << " Could not open the file for writing";
-        return "No file or permission";
-    }
-    QTextStream in(&f);
-    in<<xpf_chunk;
-    f.close();
-    return NULL;
+    const char *xpf_data = NULL;
+    if(xpf_chunk != NULL or !xpf_chunk.isEmpty())
+        xpf_data = mystrdup(xpf_chunk.toStdString().c_str());
+    return xpf_data;
 }
 
 static void freeImage(struct image *img)

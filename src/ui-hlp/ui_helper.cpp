@@ -628,17 +628,13 @@ void uih_loadpngfile(struct uih_context *c, xio_constpath d)
         uih_error(c, strerror(errno));
         return;
     }
-    const char *s = readpng(d);
-    if(s != NULL) {
+    const char* xpf_chunk = readpng(d);
+    if(xpf_chunk == NULL) {
         uih_error(c, TR("Error", "Could not open image"));
         return;
     }
-    int pathlength = strlen(d) + 16;
-    static char* filepath;
-    filepath = (char* )malloc(pathlength * sizeof (char));
-    strcpy(filepath, xio_getdirectory(d));
-    strcat(filepath, ".xaos_temp.xpf");
-    uih_loadfile(c, filepath);
+    xio_file xpf_data = xio_strropen(xpf_chunk);
+    uih_load(c, xpf_data, d);
     if(c->errstring == NULL) {
         char s[256];
         sprintf(s, TR("Message", "File %s loaded."), d);
@@ -663,13 +659,9 @@ void uih_savepngfile(struct uih_context *c, xio_constpath d)
         return;
     }
     c->errstring = NULL;
-    int pathlength = strlen(d) + 16;
-    static char* filepath;
-    filepath = (char* )malloc(pathlength * sizeof (char));
-    strcpy(filepath, xio_getdirectory(d));
-    strcat(filepath, ".xaos_temp.xpf");
-    uih_saveposfile(c, filepath);
-    s = uih_save(c, d);
+    xio_file xpf_data = xio_strwopen();
+    uih_save_position(c, xpf_data, UIH_SAVEPOS);
+    s = uih_save(c, d, xpf_data);
     if (s != NULL)
         uih_error(c, s);
     if (c->errstring == NULL) {
@@ -786,13 +778,13 @@ void uih_saveanimfile(struct uih_context *c, xio_constpath d)
     uih_updatemenus(c, "record");
 }
 
-const char *uih_save(struct uih_context *c, xio_constpath filename)
+const char *uih_save(struct uih_context *c, xio_constpath filename, xio_file xpf_data)
 {
     const char *r;
     uih_cycling_stop(c);
     uih_stoptimers(c);
     uih_clearwindows(c);
-    r = writepng(filename, c->queue->saveimage);
+    r = writepng(filename, c->queue->saveimage, xpf_data);
     uih_cycling_continue(c);
     uih_resumetimers(c);
     return (r);
