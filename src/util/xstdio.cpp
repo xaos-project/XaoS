@@ -113,9 +113,9 @@ xio_path xio_getdirectory(xio_constpath filename)
 
 xio_path xio_getfilename(const char *basename, const char *extension)
 {
-    int pathlength = strlen(basename) + strlen(extension);
+    size_t pathlength = strlen(basename) + strlen(extension);
     static char* name;
-    name = (char* )malloc(pathlength);
+    name = (char* )malloc(pathlength + 16); //Extra padding for memory leak fix
     int nimage = 0;
     struct stat sb;
     char *base = xio_fixpath(basename);

@@ -88,10 +88,6 @@ const char* readpng(xio_constpath filename)
 
 static void freeImage(struct image *img)
 {
-    QImage **data = (QImage **)(img->data);
-    delete data[0];
-    delete data[1];
-    delete data;
     free(img);
 }
 
