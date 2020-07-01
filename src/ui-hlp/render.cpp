@@ -301,7 +301,7 @@ int uih_renderanimation(struct uih_context *gc1, const char *basename,
                 curframe.angle = uih->fcontext->angle;
                 curframe.name = s;
                 curframe.newimage = newimage;
-                writepng(s, uih->image);
+                writepng(s, uih->image, NULL);
                 uih_displayed(uih);
                 lastframenum = framenum;
             } else {
