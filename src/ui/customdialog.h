@@ -1,4 +1,4 @@
-﻿#ifndef CUSTOMDIALOG_H
+#ifndef CUSTOMDIALOG_H
 #define CUSTOMDIALOG_H
 
 #include <QDialog>
@@ -7,6 +7,9 @@
 #include <QSlider>
 
 #include "ui.h"
+
+extern QStringList fnames;
+
 class CustomDialog : public QDialog
 {
     Q_OBJECT
@@ -21,6 +24,7 @@ class CustomDialog : public QDialog
     QSlider *seedslider, *algoslider, *shiftslider;
   private slots:
     void chooseInputFile();
+    void chooseInputFiles();
     void chooseOutputFile();
     void updateVisualiser();
 
