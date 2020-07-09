@@ -436,9 +436,12 @@ static void uih_batchrender(struct uih_context *c, dialogparam *d)
                 QString::number(fnames.size()) + ") " + fnames[i];
         uih_message(c, hlpmsg.toStdString().c_str());
         char* curr_file = strdup(fnames[i].toStdString().c_str());
-        char* base_name = strdup(d[1].dstring);
+                strdup(d[1].dstring);
         QString file_number = "_" + QString::number(i) + "_";
-        strcat(base_name, file_number.toStdString().c_str());
+        char* file_suffix = strdup(file_number.toStdString().c_str());
+        char* base_name = (char *)malloc(strlen(d[1].dstring) + strlen(file_suffix) + 2);
+        strcpy(base_name, d[1].dstring);
+        strcat(base_name, file_suffix);
 
         uih_renderanimation(c, base_name, (xio_path)curr_file, d[2].dint,
                                 d[3].dint, d[4].number, d[5].number,
@@ -449,6 +452,7 @@ static void uih_batchrender(struct uih_context *c, dialogparam *d)
                                 d[7].dint ? C256 : TRUECOLOR,
         #endif
                                 d[8].dint, d[9].dint, c->letterspersec, NULL);
+        free(base_name);
     }
 }
 
