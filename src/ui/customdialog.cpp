@@ -14,8 +14,6 @@
 #include <quadmath.h>
 #endif
 
-QStringList fnames = {};
-
 QString format(number_t number)
 {
     char buf[256];
@@ -87,27 +85,6 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
             else
                 connect(chooser, SIGNAL(clicked()), this,
                         SLOT(chooseOutputFile()));
-
-            QBoxLayout *layout = new QBoxLayout(QBoxLayout::LeftToRight);
-            layout->setContentsMargins(0, 0, 0, 0);
-            layout->addWidget(filename);
-            layout->addWidget(chooser);
-
-            formLayout->addRow(label, layout);
-
-        } else if (dialog[i].type == DIALOG_IFILES) {
-
-            QLineEdit *filename = new QLineEdit(dialog[i].defstr, this);
-            QFontMetrics metric(filename->font());
-            filename->setMinimumWidth(metric.width(filename->text()) * 1.1);
-            filename->setObjectName(label);
-
-
-            QToolButton *chooser = new QToolButton(this);
-            chooser->setObjectName(label);
-            chooser->setText("...");
-            connect(chooser, SIGNAL(clicked()), this,
-                    SLOT(chooseInputFiles()));
 
             QBoxLayout *layout = new QBoxLayout(QBoxLayout::LeftToRight);
             layout->setContentsMargins(0, 0, 0, 0);
@@ -247,9 +224,6 @@ void CustomDialog::accept()
             QComboBox *field = findChild<QComboBox *>(label);
             m_parameters[i].dint = field->currentIndex();
 
-        }
-        else if (m_dialog[i].type == DIALOG_IFILES){
-                    m_parameters[i].dstring = (char* )malloc(sizeof(char)); // FIXME Prevents mem leak
         } else {
 
             QLineEdit *field = findChild<QLineEdit *>(label);
@@ -301,19 +275,6 @@ void CustomDialog::chooseOutputFile()
     if (!fileName.isNull()) {
         field->setText(fileName);
         settings.setValue("MainWindow/lastFileLocation", QFileInfo(fileName).absolutePath());
-    }
-}
-
-void CustomDialog::chooseInputFiles()
-{
-    QLineEdit *field = findChild<QLineEdit *>(sender()->objectName());
-    QSettings settings;
-    QString fileLocation = settings.value("MainWindow/lastFileLocation", QDir::homePath()).toString();
-    fnames = QFileDialog::getOpenFileNames(
-        this, sender()->objectName(), fileLocation, "*.xpf *.xaf");
-    if(!fnames.isEmpty()) {
-        field->setText(QString::number(fnames.size()));
-        settings.setValue("MainWindow/lastFileLocation", QFileInfo(fnames[0]).absolutePath());
     }
 }
 
