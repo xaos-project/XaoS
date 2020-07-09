@@ -1,4 +1,4 @@
-﻿#include <QtWidgets>
+#include <QtWidgets>
 #define __USE_MINGW_ANSI_STDIO 1 // for long double support on Windows
 #include <cstdio>
 
@@ -13,6 +13,8 @@
 #ifdef USE_FLOAT128
 #include <quadmath.h>
 #endif
+
+QStringList fnames = {};
 
 QString format(number_t number)
 {
@@ -243,7 +245,8 @@ void CustomDialog::accept()
             QComboBox *field = findChild<QComboBox *>(label);
             m_parameters[i].dint = field->currentIndex();
 
-        } else if (m_dialog[i].type == DIALOG_IFILES){
+        }
+        else if (m_dialog[i].type == DIALOG_IFILES){
 
             QTextEdit *field = findChild<QTextEdit *>(label);
             QString raw_fnames = field->toPlainText();
