@@ -1,4 +1,4 @@
-﻿#include <cerrno>
+#include <cerrno>
 #include <cstring>
 #include <cstdlib>
 #include <QMessageBox>
@@ -13,6 +13,7 @@
 #include "play.h"
 #include "i18n.h"
 #include "xthread.h"
+#include "customdialog.h"
 
 #define LANG(name, name2)                                                      \
     MENUSTRING("lang", NULL, name, name2, 0,                                   \
@@ -62,7 +63,7 @@ const char *const uih_colornames[] = {"white", "black", "red", NULL};
  * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
  */
 
-#define MAX_MENUDIALOGS_I18N 104
+#define MAX_MENUDIALOGS_I18N 115
 #define Register(variable) variable = &menudialogs_i18n[no_menudialogs_i18n]
 static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
 // static int no_menudialogs_i18n;
@@ -116,7 +117,7 @@ void uih_registermenudialogs_i18n(void)
     NULL_I();
 
     Register(uih_renderdialog);
-    DIALOGIFILE_I(TR("Dialog", "File to render:"), "fract*.xaf");
+    DIALOGIFILES_I(TR("Dialog", "Files to render:"), 0);
     DIALOGOFILE_I(TR("Dialog", "Basename:"), "anim");
     DIALOGINT_I(TR("Dialog", "Width:"), 640);
     DIALOGINT_I(TR("Dialog", "Height:"), 480);
@@ -339,6 +340,11 @@ static void uih_smoothmorph(struct uih_context *c, dialogparam *p)
 
 static void uih_render(struct uih_context *c, dialogparam *d)
 {
+
+    if(fnames.size() == 0) {
+        uih_error(c, "No file Selected");
+        return;
+    }
     if (d[2].dint <= 0 || d[2].dint > 4096) {
         uih_error(
             c,
@@ -369,15 +375,31 @@ static void uih_render(struct uih_context *c, dialogparam *d)
                   "renderanim: antialiasing not supported in 256 color mode"));
         return;
     }
-    uih_renderanimation(c, d[1].dstring, (xio_path)d[0].dstring, d[2].dint,
-                        d[3].dint, d[4].number, d[5].number,
-                        (int)(1000000 / d[6].number),
-#ifdef STRUECOLOR24
-                        d[7].dint ? C256 : TRUECOLOR24,
-#else
-                        d[7].dint ? C256 : TRUECOLOR,
-#endif
-                        d[8].dint, d[9].dint, c->letterspersec, NULL);
+    for(int i=0; i < (int)fnames.size(); i++) {
+
+        QString hlpmsg = "Rendering (" + QString::number(i) + "/" +
+                QString::number(fnames.size()) + ") " + fnames[i];
+        uih_message(c, hlpmsg.toStdString().c_str());
+
+        char* curr_file = strdup(fnames[i].toStdString().c_str());
+
+        QString file_number = "_" + fnames[i].split("/").back().split(".").front() + "_";
+        char* file_suffix = strdup(file_number.toStdString().c_str());
+        char* base_name = (char *)malloc(strlen(d[1].dstring) + strlen(file_suffix) + 2);
+        strcpy(base_name, d[1].dstring);
+        strcat(base_name, file_suffix);
+
+        uih_renderanimation(c, base_name, (xio_path)curr_file, d[2].dint,
+                                d[3].dint, d[4].number, d[5].number,
+                                (int)(1000000 / d[6].number),
+        #ifdef STRUECOLOR24
+                                d[7].dint ? C256 : TRUECOLOR24,
+        #else
+                                d[7].dint ? C256 : TRUECOLOR,
+        #endif
+                                d[8].dint, d[9].dint, c->letterspersec, NULL);
+        free(base_name);
+    }
 }
 
 static menudialog *uih_getcolordialog(struct uih_context *c)
@@ -1037,6 +1059,7 @@ void uih_registermenus_i18n(void)
                 MENUFLAG_INTERRUPT, uih_loadpngfile, loadimgdialog);
     MENUDIALOG_I("file", NULL, TR("Menu", "Save image"), "saveimg", 0,
                  uih_savepngfile, saveimgdialog);
+    MENUSEPARATOR_I("file");
     MENUDIALOG_I("file", NULL, TR("Menu", "Render"), "renderanim", UI,
                  uih_render, uih_renderdialog);
     MENUSEPARATOR_I("file");

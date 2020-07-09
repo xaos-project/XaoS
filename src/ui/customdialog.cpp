@@ -1,4 +1,4 @@
-﻿#include <QtWidgets>
+#include <QtWidgets>
 #define __USE_MINGW_ANSI_STDIO 1 // for long double support on Windows
 #include <cstdio>
 
@@ -13,6 +13,8 @@
 #ifdef USE_FLOAT128
 #include <quadmath.h>
 #endif
+
+QStringList fnames = {};
 
 QString format(number_t number)
 {
@@ -89,6 +91,25 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
             QBoxLayout *layout = new QBoxLayout(QBoxLayout::LeftToRight);
             layout->setContentsMargins(0, 0, 0, 0);
             layout->addWidget(filename);
+            layout->addWidget(chooser);
+
+            formLayout->addRow(label, layout);
+
+        } else if (dialog[i].type == DIALOG_IFILES) {
+
+            QTextEdit *filenames = new QTextEdit(this);
+            filenames->setMaximumHeight(filenames->height() * 2);
+            filenames->setObjectName(label);
+
+            QToolButton *chooser = new QToolButton(this);
+            chooser->setObjectName(label);
+            chooser->setText("...");
+            connect(chooser, SIGNAL(clicked()), this,
+                    SLOT(chooseInputFiles()));
+
+            QBoxLayout *layout = new QBoxLayout(QBoxLayout::LeftToRight);
+            layout->setContentsMargins(0, 0, 0, 0);
+            layout->addWidget(filenames);
             layout->addWidget(chooser);
 
             formLayout->addRow(label, layout);
@@ -224,6 +245,13 @@ void CustomDialog::accept()
             QComboBox *field = findChild<QComboBox *>(label);
             m_parameters[i].dint = field->currentIndex();
 
+        }
+        else if (m_dialog[i].type == DIALOG_IFILES){
+
+            QTextEdit *field = findChild<QTextEdit *>(label);
+            QString raw_fnames = field->toPlainText();
+            fnames = raw_fnames.split("\n");
+
         } else {
 
             QLineEdit *field = findChild<QLineEdit *>(label);
@@ -275,6 +303,21 @@ void CustomDialog::chooseOutputFile()
     if (!fileName.isNull()) {
         field->setText(fileName);
         settings.setValue("MainWindow/lastFileLocation", QFileInfo(fileName).absolutePath());
+    }
+}
+
+void CustomDialog::chooseInputFiles()
+{
+    QTextEdit *field = findChild<QTextEdit *>(sender()->objectName());
+    QSettings settings;
+    QString fileLocation = settings.value("MainWindow/lastFileLocation", QDir::homePath()).toString();
+    QStringList fileNames = QFileDialog::getOpenFileNames(
+        this, sender()->objectName(), fileLocation, "*.xpf *.xaf");
+    if(!fileNames.isEmpty()) {
+        for(auto file: fileNames) {
+            field->append(file);
+        }
+        settings.setValue("MainWindow/lastFileLocation", QFileInfo(fileNames[0]).absolutePath());
     }
 }
 
