@@ -156,8 +156,6 @@ typedef char *(*tokenfunc)(struct uih_context *c);
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_IFILES;                \
     menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
     menudialogs_i18n[no_menudialogs_i18n].defstr = _filenames;                 \
-    menudialogs_i18n[no_menudialogs_i18n].deffloat = 0;                        \
-    menudialogs_i18n[no_menudialogs_i18n].deffloat2 = 0;                       \
     ++no_menudialogs_i18n;
 
 #define NULL_I()                                                               \

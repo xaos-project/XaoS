@@ -77,8 +77,7 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
     *uih_filterdialog, *uih_shiftdialog, *uih_speeddialog, *printdialog,
     *uih_bailoutdialog, *uih_threaddialog, *saveanimdialog, *uih_juliamodedialog,
     *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog, *uih_numdialog,
-    *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *loadimgdialog, *palettegradientdialog,
-    *uih_batchrenderdialog
+    *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *loadimgdialog, *palettegradientdialog
 #ifdef USE_SFFE
     ,
     *uih_sffedialog, *uih_sffeinitdialog
@@ -118,20 +117,7 @@ void uih_registermenudialogs_i18n(void)
     NULL_I();
 
     Register(uih_renderdialog);
-    DIALOGIFILE_I(TR("Dialog", "File to render:"), "fract*.xaf");
-    DIALOGOFILE_I(TR("Dialog", "Basename:"), "anim");
-    DIALOGINT_I(TR("Dialog", "Width:"), 640);
-    DIALOGINT_I(TR("Dialog", "Height:"), 480);
-    DIALOGFLOAT_I(TR("Dialog", "Pixel width (cm):"), 0.025);
-    DIALOGFLOAT_I(TR("Dialog", "Pixel height (cm):"), 0.025);
-    DIALOGFLOAT_I(TR("Dialog", "Framerate:"), 30);
-    DIALOGCHOICE_I(TR("Dialog", "Image type:"), imgtypes, 0);
-    DIALOGCHOICE_I(TR("Dialog", "Antialiasing:"), yesno, 0);
-    DIALOGCHOICE_I(TR("Dialog", "Always recalculate:"), yesno, 0);
-    NULL_I();
-
-    Register(uih_batchrenderdialog);
-    DIALOGIFILES_I(TR("Dialog", "Files to render:"), NULL);
+    DIALOGIFILES_I(TR("Dialog", "Files to render:"), 0);
     DIALOGOFILE_I(TR("Dialog", "Basename:"), "anim");
     DIALOGINT_I(TR("Dialog", "Width:"), 640);
     DIALOGINT_I(TR("Dialog", "Height:"), 480);
@@ -354,50 +340,8 @@ static void uih_smoothmorph(struct uih_context *c, dialogparam *p)
 
 static void uih_render(struct uih_context *c, dialogparam *d)
 {
-    if (d[2].dint <= 0 || d[2].dint > 4096) {
-        uih_error(
-            c,
-            TR("Error",
-               "renderanim: Width parameter must be positive integer in the range 0..4096"));
-        return;
-    }
-    if (d[3].dint <= 0 || d[3].dint > 4096) {
-        uih_error(
-            c,
-            TR("Error",
-               "renderanim: Height parameter must be positive integer in the range 0..4096"));
-        return;
-    }
-    if (d[4].number <= 0 || d[5].number <= 0) {
-        uih_error(c,
-                  TR("Error",
-                     "renderanim: Invalid real width and height dimensions"));
-        return;
-    }
-    if (d[6].number <= 0 || d[6].number >= 1000000) {
-        uih_error(c, TR("Error", "renderanim: invalid framerate"));
-        return;
-    }
-    if (d[7].dint && d[8].dint) {
-        uih_error(
-            c, TR("Error",
-                  "renderanim: antialiasing not supported in 256 color mode"));
-        return;
-    }
-    uih_renderanimation(c, d[1].dstring, (xio_path)d[0].dstring, d[2].dint,
-                        d[3].dint, d[4].number, d[5].number,
-                        (int)(1000000 / d[6].number),
-#ifdef STRUECOLOR24
-                        d[7].dint ? C256 : TRUECOLOR24,
-#else
-                        d[7].dint ? C256 : TRUECOLOR,
-#endif
-                        d[8].dint, d[9].dint, c->letterspersec, NULL);
-}
 
-static void uih_batchrender(struct uih_context *c, dialogparam *d)
-{
-    if(fnames.isEmpty()) {
+    if(fnames.size() == 0) {
         uih_error(c, "No file Selected");
         return;
     }
@@ -432,12 +376,14 @@ static void uih_batchrender(struct uih_context *c, dialogparam *d)
         return;
     }
     for(int i=0; i < (int)fnames.size(); i++) {
+
         QString hlpmsg = "Rendering (" + QString::number(i) + "/" +
                 QString::number(fnames.size()) + ") " + fnames[i];
         uih_message(c, hlpmsg.toStdString().c_str());
+
         char* curr_file = strdup(fnames[i].toStdString().c_str());
-                strdup(d[1].dstring);
-        QString file_number = "_" + QString::number(i) + "_";
+
+        QString file_number = "_" + fnames[i].split("/").back().split(".").front() + "_";
         char* file_suffix = strdup(file_number.toStdString().c_str());
         char* base_name = (char *)malloc(strlen(d[1].dstring) + strlen(file_suffix) + 2);
         strcpy(base_name, d[1].dstring);
@@ -455,8 +401,6 @@ static void uih_batchrender(struct uih_context *c, dialogparam *d)
         free(base_name);
     }
 }
-
-
 
 static menudialog *uih_getcolordialog(struct uih_context *c)
 {
@@ -1118,8 +1062,6 @@ void uih_registermenus_i18n(void)
     MENUSEPARATOR_I("file");
     MENUDIALOG_I("file", NULL, TR("Menu", "Render"), "renderanim", UI,
                  uih_render, uih_renderdialog);
-    MENUDIALOG_I("file", NULL, TR("Menu", "Batch Render"), "batchrender", UI,
-                 uih_batchrender, uih_batchrenderdialog);
     MENUSEPARATOR_I("file");
     MENUNOP_I("file", NULL, TR("Menu", "Load random example"), "loadexample",
               MENUFLAG_INTERRUPT, uih_loadexample);

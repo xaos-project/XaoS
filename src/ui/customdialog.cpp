@@ -97,11 +97,9 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
 
         } else if (dialog[i].type == DIALOG_IFILES) {
 
-            QLineEdit *filename = new QLineEdit(dialog[i].defstr, this);
-            QFontMetrics metric(filename->font());
-            filename->setMinimumWidth(metric.width(filename->text()) * 1.1);
-            filename->setObjectName(label);
-
+            QTextEdit *filenames = new QTextEdit(this);
+            filenames->setMaximumHeight(filenames->height() * 2);
+            filenames->setObjectName(label);
 
             QToolButton *chooser = new QToolButton(this);
             chooser->setObjectName(label);
@@ -111,7 +109,7 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
 
             QBoxLayout *layout = new QBoxLayout(QBoxLayout::LeftToRight);
             layout->setContentsMargins(0, 0, 0, 0);
-            layout->addWidget(filename);
+            layout->addWidget(filenames);
             layout->addWidget(chooser);
 
             formLayout->addRow(label, layout);
@@ -249,7 +247,11 @@ void CustomDialog::accept()
 
         }
         else if (m_dialog[i].type == DIALOG_IFILES){
-                    m_parameters[i].dstring = (char* )malloc(sizeof(char)); // FIXME Prevents mem leak
+
+            QTextEdit *field = findChild<QTextEdit *>(label);
+            QString raw_fnames = field->toPlainText();
+            fnames = raw_fnames.split("\n");
+
         } else {
 
             QLineEdit *field = findChild<QLineEdit *>(label);
@@ -306,14 +308,16 @@ void CustomDialog::chooseOutputFile()
 
 void CustomDialog::chooseInputFiles()
 {
-    QLineEdit *field = findChild<QLineEdit *>(sender()->objectName());
+    QTextEdit *field = findChild<QTextEdit *>(sender()->objectName());
     QSettings settings;
     QString fileLocation = settings.value("MainWindow/lastFileLocation", QDir::homePath()).toString();
-    fnames = QFileDialog::getOpenFileNames(
+    QStringList fileNames = QFileDialog::getOpenFileNames(
         this, sender()->objectName(), fileLocation, "*.xpf *.xaf");
-    if(!fnames.isEmpty()) {
-        field->setText(QString::number(fnames.size()));
-        settings.setValue("MainWindow/lastFileLocation", QFileInfo(fnames[0]).absolutePath());
+    if(!fileNames.isEmpty()) {
+        for(auto file: fileNames) {
+            field->append(file);
+        }
+        settings.setValue("MainWindow/lastFileLocation", QFileInfo(fileNames[0]).absolutePath());
     }
 }
 
