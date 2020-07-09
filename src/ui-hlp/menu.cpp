@@ -13,7 +13,6 @@
 #include "play.h"
 #include "i18n.h"
 #include "xthread.h"
-#include "customdialog.h"
 
 #define LANG(name, name2)                                                      \
     MENUSTRING("lang", NULL, name, name2, 0,                                   \
@@ -63,7 +62,7 @@ const char *const uih_colornames[] = {"white", "black", "red", NULL};
  * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
  */
 
-#define MAX_MENUDIALOGS_I18N 115
+#define MAX_MENUDIALOGS_I18N 104
 #define Register(variable) variable = &menudialogs_i18n[no_menudialogs_i18n]
 static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
 // static int no_menudialogs_i18n;
@@ -1059,7 +1058,6 @@ void uih_registermenus_i18n(void)
                 MENUFLAG_INTERRUPT, uih_loadpngfile, loadimgdialog);
     MENUDIALOG_I("file", NULL, TR("Menu", "Save image"), "saveimg", 0,
                  uih_savepngfile, saveimgdialog);
-    MENUSEPARATOR_I("file");
     MENUDIALOG_I("file", NULL, TR("Menu", "Render"), "renderanim", UI,
                  uih_render, uih_renderdialog);
     MENUSEPARATOR_I("file");

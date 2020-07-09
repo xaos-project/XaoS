@@ -14,8 +14,6 @@
 #include <quadmath.h>
 #endif
 
-QStringList fnames = {};
-
 QString format(number_t number)
 {
     char buf[256];
@@ -245,8 +243,7 @@ void CustomDialog::accept()
             QComboBox *field = findChild<QComboBox *>(label);
             m_parameters[i].dint = field->currentIndex();
 
-        }
-        else if (m_dialog[i].type == DIALOG_IFILES){
+        } else if (m_dialog[i].type == DIALOG_IFILES){
 
             QTextEdit *field = findChild<QTextEdit *>(label);
             QString raw_fnames = field->toPlainText();

@@ -32,7 +32,6 @@ typedef char *(*tokenfunc)(struct uih_context *c);
 #define DIALOG_ONOFF 8
 #define DIALOG_COORD 9
 #define DIALOG_PALSLIDER 10
-#define DIALOG_IFILES 11
 
 #define DIALOGIFILE(question, filename)                                        \
     {                                                                          \
@@ -73,10 +72,6 @@ typedef char *(*tokenfunc)(struct uih_context *c);
 #define DIALOGPALSLIDER(question, default)                                     \
     {                                                                          \
         question, DIALOG_SLIDER, default                                       \
-    }
-#define DIALOGIFILES(question, filenames)                                      \
-    {                                                                          \
-        question, DIALOG_IFILES, 0, filenames                                  \
     }
 
 #define DIALOGIFILE_I(_question, _filename)                                    \
@@ -156,15 +151,6 @@ typedef char *(*tokenfunc)(struct uih_context *c);
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_IFILES;                \
     menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
     menudialogs_i18n[no_menudialogs_i18n].defstr = _filenames;                 \
-    ++no_menudialogs_i18n;
-
-#define NULL_I()                                                               \
-    menudialogs_i18n[no_menudialogs_i18n].question = NULL;                     \
-    menudialogs_i18n[no_menudialogs_i18n].type = 0;                            \
-    menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
-    menudialogs_i18n[no_menudialogs_i18n].defstr = NULL;                       \
-    menudialogs_i18n[no_menudialogs_i18n].deffloat = 0;                        \
-    menudialogs_i18n[no_menudialogs_i18n].deffloat2 = 0;                       \
     ++no_menudialogs_i18n;
 
 typedef struct menuitem {

@@ -7,9 +7,6 @@
 #include <QSlider>
 
 #include "ui.h"
-
-extern QStringList fnames;
-
 class CustomDialog : public QDialog
 {
     Q_OBJECT
@@ -24,7 +21,6 @@ class CustomDialog : public QDialog
     QSlider *seedslider, *algoslider, *shiftslider;
   private slots:
     void chooseInputFile();
-    void chooseInputFiles();
     void chooseOutputFile();
     void updateVisualiser();
 
