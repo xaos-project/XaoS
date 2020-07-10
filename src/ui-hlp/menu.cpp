@@ -136,10 +136,8 @@ void uih_registermenudialogs_i18n(void)
     DIALOGINT_I(TR("Dialog", "Height:"), 480);
     DIALOGFLOAT_I(TR("Dialog", "Pixel width (cm):"), 0.025);
     DIALOGFLOAT_I(TR("Dialog", "Pixel height (cm):"), 0.025);
-    DIALOGFLOAT_I(TR("Dialog", "Framerate:"), 30);
     DIALOGCHOICE_I(TR("Dialog", "Image type:"), imgtypes, 0);
     DIALOGCHOICE_I(TR("Dialog", "Antialiasing:"), yesno, 0);
-    DIALOGCHOICE_I(TR("Dialog", "Always recalculate:"), yesno, 0);
     NULL_I();
 
     Register(uih_viewdialog);
@@ -446,11 +444,7 @@ static void uih_renderimg(struct uih_context *c, dialogparam *d)
                      "renderanim: Invalid real width and height dimensions"));
         return;
     }
-    if (d[5].number <= 0 || d[5].number >= 1000000) {
-        uih_error(c, TR("Error", "renderanim: invalid framerate"));
-        return;
-    }
-    if (d[6].dint && d[7].dint) {
+    if (d[5].dint && d[6].dint) {
         uih_error(
             c, TR("Error",
                   "renderanim: antialiasing not supported in 256 color mode"));
@@ -459,13 +453,13 @@ static void uih_renderimg(struct uih_context *c, dialogparam *d)
 
     uih_renderanimation(c, d[0].dstring, (xio_path)path, d[1].dint,
                             d[2].dint, d[3].number, d[4].number,
-                            (int)(1000000 / d[5].number),
+                            (int)(1000000 / 30),
     #ifdef STRUECOLOR24
-                            d[6].dint ? C256 : TRUECOLOR24,
+                            d[5].dint ? C256 : TRUECOLOR24,
     #else
-                            d[6].dint ? C256 : TRUECOLOR,
+                            d[5].dint ? C256 : TRUECOLOR,
     #endif
-                            d[7].dint, d[8].dint, c->letterspersec, NULL);
+                            d[6].dint, 0, c->letterspersec, NULL);
 
     remove(".xaos_temp.xpf");
 }
