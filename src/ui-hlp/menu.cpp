@@ -417,14 +417,14 @@ static void uih_render(struct uih_context *c, dialogparam *d)
 
 static void uih_renderimg(struct uih_context *c, dialogparam *d)
 {
-    xio_file f = xio_wopen("raw_render.xpf");
+    xio_file f = xio_wopen(".xaos_temp.xpf");
     if(!f) {
-        uih_error(c, "Can't Render Image");
+        uih_error(c, "Could not Render Image");
         return;
     }
 
     uih_save_position(c, f, 0);
-    xio_constpath path = "raw_render.xpf";
+    xio_constpath path = ".xaos_temp.xpf";
 
     if (d[1].dint <= 0 || d[1].dint > 4096) {
         uih_error(
@@ -466,6 +466,8 @@ static void uih_renderimg(struct uih_context *c, dialogparam *d)
                             d[6].dint ? C256 : TRUECOLOR,
     #endif
                             d[7].dint, d[8].dint, c->letterspersec, NULL);
+
+    remove(".xaos_temp.xpf");
 }
 
 static menudialog *uih_getcolordialog(struct uih_context *c)
