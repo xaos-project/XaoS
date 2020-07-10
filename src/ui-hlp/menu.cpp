@@ -77,7 +77,8 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
     *uih_filterdialog, *uih_shiftdialog, *uih_speeddialog, *printdialog,
     *uih_bailoutdialog, *uih_threaddialog, *saveanimdialog, *uih_juliamodedialog,
     *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog, *uih_numdialog,
-    *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *loadimgdialog, *palettegradientdialog
+    *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *loadimgdialog, *palettegradientdialog,
+    *uih_renderimgdialog
 #ifdef USE_SFFE
     ,
     *uih_sffedialog, *uih_sffeinitdialog
@@ -118,6 +119,18 @@ void uih_registermenudialogs_i18n(void)
 
     Register(uih_renderdialog);
     DIALOGIFILES_I(TR("Dialog", "Files to render:"), 0);
+    DIALOGOFILE_I(TR("Dialog", "Basename:"), "anim");
+    DIALOGINT_I(TR("Dialog", "Width:"), 640);
+    DIALOGINT_I(TR("Dialog", "Height:"), 480);
+    DIALOGFLOAT_I(TR("Dialog", "Pixel width (cm):"), 0.025);
+    DIALOGFLOAT_I(TR("Dialog", "Pixel height (cm):"), 0.025);
+    DIALOGFLOAT_I(TR("Dialog", "Framerate:"), 30);
+    DIALOGCHOICE_I(TR("Dialog", "Image type:"), imgtypes, 0);
+    DIALOGCHOICE_I(TR("Dialog", "Antialiasing:"), yesno, 0);
+    DIALOGCHOICE_I(TR("Dialog", "Always recalculate:"), yesno, 0);
+    NULL_I();
+
+    Register(uih_renderimgdialog);
     DIALOGOFILE_I(TR("Dialog", "Basename:"), "anim");
     DIALOGINT_I(TR("Dialog", "Width:"), 640);
     DIALOGINT_I(TR("Dialog", "Height:"), 480);
@@ -400,6 +413,59 @@ static void uih_render(struct uih_context *c, dialogparam *d)
                                 d[8].dint, d[9].dint, c->letterspersec, NULL);
         free(base_name);
     }
+}
+
+static void uih_renderimg(struct uih_context *c, dialogparam *d)
+{
+    xio_file f = xio_wopen("raw_render.xpf");
+    if(!f) {
+        uih_error(c, "Can't Render Image");
+        return;
+    }
+
+    uih_save_position(c, f, 0);
+    xio_constpath path = "raw_render.xpf";
+
+    if (d[1].dint <= 0 || d[1].dint > 4096) {
+        uih_error(
+            c,
+            TR("Error",
+               "renderanim: Width parameter must be positive integer in the range 0..4096"));
+        return;
+    }
+    if (d[2].dint <= 0 || d[2].dint > 4096) {
+        uih_error(
+            c,
+            TR("Error",
+               "renderanim: Height parameter must be positive integer in the range 0..4096"));
+        return;
+    }
+    if (d[3].number <= 0 || d[4].number <= 0) {
+        uih_error(c,
+                  TR("Error",
+                     "renderanim: Invalid real width and height dimensions"));
+        return;
+    }
+    if (d[5].number <= 0 || d[5].number >= 1000000) {
+        uih_error(c, TR("Error", "renderanim: invalid framerate"));
+        return;
+    }
+    if (d[6].dint && d[7].dint) {
+        uih_error(
+            c, TR("Error",
+                  "renderanim: antialiasing not supported in 256 color mode"));
+        return;
+    }
+
+    uih_renderanimation(c, d[0].dstring, (xio_path)path, d[1].dint,
+                            d[2].dint, d[3].number, d[4].number,
+                            (int)(1000000 / d[5].number),
+    #ifdef STRUECOLOR24
+                            d[6].dint ? C256 : TRUECOLOR24,
+    #else
+                            d[6].dint ? C256 : TRUECOLOR,
+    #endif
+                            d[7].dint, d[8].dint, c->letterspersec, NULL);
 }
 
 static menudialog *uih_getcolordialog(struct uih_context *c)
@@ -1062,6 +1128,8 @@ void uih_registermenus_i18n(void)
     MENUSEPARATOR_I("file");
     MENUDIALOG_I("file", NULL, TR("Menu", "Render"), "renderanim", UI,
                  uih_render, uih_renderdialog);
+    MENUDIALOG_I("file", NULL, TR("Menu", "Render Image"), "renderimg", UI,
+                 uih_renderimg, uih_renderimgdialog);
     MENUSEPARATOR_I("file");
     MENUNOP_I("file", NULL, TR("Menu", "Load random example"), "loadexample",
               MENUFLAG_INTERRUPT, uih_loadexample);
