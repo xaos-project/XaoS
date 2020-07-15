@@ -1,4 +1,4 @@
-﻿#include <cctype>
+#include <cctype>
 #include <cstdlib>
 #include <climits>
 #include <cmath>
@@ -1528,6 +1528,25 @@ int uih_update(uih_context *c, int mousex, int mousey, int mousebuttons)
                     }
                     c->rotatepressed = 1;
                     c->oldangle = angle;
+                } else if (mousebuttons & BUTTON2) {
+                    number_t x, y;
+                    uih_getcoord(uih, mousex, mousey, &x, &y);
+                    if (c->pressed && (c->oldx != x || c->oldy != y)) {
+                        c->fcontext->s.cr -= x - c->oldx;
+                        c->fcontext->s.ci -= y - c->oldy;
+                        uih_animate_image(c);
+                        c->moved = 1;
+                    }
+                    c->speed = 0;
+
+                    /* issue 115 - disable rotation to update panning */
+                    if(c->pressed == 0) {
+                        int old_mode = c->rotatemode;
+                        uih_rotate(c, 0);
+                        uih_getcoord(uih, mousex, mousey, &c->oldx, &c->oldy);
+                        uih_rotate(c, old_mode);
+                    }
+                    c->pressed = 1;
                 } else
                     c->rotatepressed = 0;
             }
