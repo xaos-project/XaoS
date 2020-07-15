@@ -1493,7 +1493,7 @@ int uih_update(uih_context *c, int mousex, int mousey, int mousebuttons)
                     case BUTTON3:
                         uih_unzoom(c), slowdown = 0;
                         break;
-                    case BUTTON2: {
+                    case BUTTON2: { /* handles panning */
                         number_t x, y;
                         uih_getcoord(uih, mousex, mousey, &x, &y);
                         if (c->pressed && (c->oldx != x || c->oldy != y)) {
@@ -1502,10 +1502,16 @@ int uih_update(uih_context *c, int mousex, int mousey, int mousebuttons)
                             uih_animate_image(c);
                             c->moved = 1;
                         }
-                        c->pressed = 1;
                         c->speed = 0;
-                        update_view(c->fcontext);
-                        uih_getcoord(uih, mousex, mousey, &c->oldx, &c->oldy);
+
+                        /* issue 115 - disable rotation to update panning */
+                        if(c->pressed == 0) {
+                            int old_mode = c->rotatemode;
+                            uih_rotate(c, 0);
+                            uih_getcoord(uih, mousex, mousey, &c->oldx, &c->oldy);
+                            uih_rotate(c, old_mode);
+                        }
+                        c->pressed = 1;
                     } break;
                 }
             } else {
