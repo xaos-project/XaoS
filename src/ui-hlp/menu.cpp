@@ -77,7 +77,7 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
     *uih_filterdialog, *uih_shiftdialog, *uih_speeddialog, *printdialog,
     *uih_bailoutdialog, *uih_threaddialog, *saveanimdialog, *uih_juliamodedialog,
     *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog, *uih_numdialog,
-    *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *loadimgdialog, *palettegradientdialog,
+    *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *palettegradientdialog,
     *uih_renderimgdialog
 #ifdef USE_SFFE
     ,
@@ -177,15 +177,11 @@ void uih_registermenudialogs_i18n(void)
     NULL_I();
 
     Register(loaddialog);
-    DIALOGIFILE_I(TR("Dialog", "Filename:"), "fract*.xpf");
+    DIALOGIFILE_I(TR("Dialog", "Filename:"), "*.png *.xpf");
     NULL_I();
 
     Register(playdialog);
     DIALOGIFILE_I(TR("Dialog", "Filename:"), "anim*.xaf");
-    NULL_I();
-
-    Register(loadimgdialog);
-    DIALOGIFILE_I(TR("Dialog", "Filename:"), "fract*.png");
     NULL_I();
 
     Register(saveimgdialog);
@@ -1110,17 +1106,15 @@ void uih_registermenus_i18n(void)
                  loaddialog);
     MENUDIALOG_I("file", NULL, TR("Menu", "Save"), "savepos", 0,
                  uih_saveposfile, saveposdialog);
+    SUBMENU_I("file", NULL, TR("Menu", "Save as"), "saveas");
+    MENUDIALOG_I("saveas", NULL, TR("Menu", "PNG"), "saveimg", 0,
+                 uih_savepngfile, saveimgdialog);
     MENUSEPARATOR_I("file")
     MENUDIALOGCB_I("file", NULL, TR("Menu", "Record"), "record", 0,
                    uih_saveanimfile, saveanimdialog, uih_saveanimenabled);
     MENUDIALOG_I("file", NULL, TR("Menu", "Replay"), "play",
                  MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY, uih_playfile,
                  playdialog);
-    MENUSEPARATOR_I("file");
-    MENUDIALOG_I("file", NULL, TR("Menu", "Open image"), "loadimg",
-                MENUFLAG_INTERRUPT, uih_loadpngfile, loadimgdialog);
-    MENUDIALOG_I("file", NULL, TR("Menu", "Save image"), "saveimg", 0,
-                 uih_savepngfile, saveimgdialog);
     MENUSEPARATOR_I("file");
     MENUDIALOG_I("file", NULL, TR("Menu", "Render"), "renderanim", UI,
                  uih_render, uih_renderdialog);

@@ -826,7 +826,6 @@ void MainWindow::showDialog(const char *name)
         (dialog[0].type == DIALOG_IFILE || dialog[0].type == DIALOG_OFILE)) {
         QString filter =
             QString("*.%1").arg(QFileInfo(dialog[0].defstr).completeSuffix());
-
         QSettings settings;
         QString fileLocation =
             settings.value("MainWindow/lastFileLocation", QDir::homePath())
@@ -848,8 +847,11 @@ void MainWindow::showDialog(const char *name)
 
         if (!fileName.isNull()) {
             QString ext = "." + QFileInfo(dialog[0].defstr).suffix();
-            if (!fileName.endsWith(ext))
+
+            if (!fileName.endsWith(".xpf") and !fileName.endsWith(".png")
+                    and !fileName.endsWith(ext))
                 fileName += ext;
+
             dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
             param->dstring = strdup(fileName.toUtf8());
             menuActivate(item, param);

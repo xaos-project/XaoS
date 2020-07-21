@@ -70,7 +70,8 @@ const char *writepng(xio_constpath filename, const struct image *image, xio_file
         QString xpf_chunk = xio_getstring(xpf_data);
         qimage->setText("Metadata", xpf_chunk);
     }
-    qimage->save(filename);
+    if(!qimage->save(filename))
+        return "Invalid file extension";
     return NULL;
 }
 
