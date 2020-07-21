@@ -537,6 +537,16 @@ void uih_cycling_continue(struct uih_context *c)
 
 void uih_loadfile(struct uih_context *c, xio_constpath d)
 {
+    int los = strlen(d);
+    char ext[4];
+    if(los < 3)
+        return;
+    memcpy(ext, &d[los-3], 3);
+    if(strcmp(ext, "png") == 0) {
+        uih_loadpngfile(c, d);
+        return;
+    }
+
     xio_file f;
     f = xio_ropen(d);
     if (f == NULL) {
