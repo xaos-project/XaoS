@@ -5,7 +5,6 @@
 #include <QLabel>
 #include <QSpinBox>
 #include <QSlider>
-#include <QMouseEvent>
 
 #include "ui.h"
 
