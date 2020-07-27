@@ -1100,3 +1100,37 @@ void getPaletteColor(struct palette *src, int seed, int algorithm, int shift, in
         newColors[i][2]=b;
     }
 }
+
+void getDEFSEGMENTColor(unsigned char newColors[][3]) {
+    memcpy(newColors, colors, sizeof(colors1));
+}
+
+int mkcustompalette(struct palette *c, unsigned char newColors[31][3])
+{
+    int i, ncolors = c->size;
+    context = c;
+    needupdate = 0;
+    segmentsize = 8;
+
+    if (c->flags & DONOTCHANGE)
+        return 0;
+    memcpy(colors, newColors, sizeof(colors1));
+    maxentries = context->maxentries - nprecells;
+    if (c->flags & UNKNOWNENTRIES)
+        i = 128 / 8;
+    else
+        i = (maxentries + 3) / 8;
+    if (i < 0)
+        i = 1;
+    mksmooth(255 / 8, i);
+    if (!(c->flags & FINISHLATER)) {
+        if (c->allocfinished != NULL)
+            c->allocfinished(c);
+    } else
+        c->flags |= UNFINISHED;
+    if (context->size != ncolors || needupdate) {
+        context->version++;
+        return 1;
+    }
+    return 0;
+}

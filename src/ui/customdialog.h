@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QSpinBox>
 #include <QSlider>
+#include <QMouseEvent>
 
 #include "ui.h"
 
@@ -22,11 +23,13 @@ class CustomDialog : public QDialog
     QSpinBox *algono, *seedno, *shiftno;
     QLabel *img;
     QSlider *seedslider, *algoslider, *shiftslider;
+    unsigned char newColors[][3];
   private slots:
     void chooseInputFile();
     void chooseInputFiles();
     void chooseOutputFile();
     void updateVisualiser();
+    void colorPicker();
 
   public:
     CustomDialog(struct uih_context *uih, const menuitem *item,
