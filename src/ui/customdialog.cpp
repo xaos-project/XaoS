@@ -218,9 +218,9 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
 
                 connect(button, SIGNAL(clicked()), this, SLOT(colorPicker()));
             }
-            formLayout->addRow("Outer", layout1);
-            formLayout->addRow("Mid", layout2);
-            formLayout->addRow("Inner", layout3);
+            formLayout->addRow(layout1);
+            formLayout->addRow(layout2);
+            formLayout->addRow(layout3);
 
         } else {
 
