@@ -189,6 +189,39 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
             connect(shiftno,SIGNAL(valueChanged(int)), shiftslider, SLOT(setValue(int)));
             connect(shiftslider, SIGNAL(valueChanged(int)), shiftno, SLOT(setValue(int)));
             connect(shiftno, SIGNAL(valueChanged(int)), this, SLOT(updateVisualiser()));
+
+        } else if(dialog[i].type == DIALOG_PALPICKER) {
+
+            palcontext = uih;
+            getDEFSEGMENTColor(newColors);
+
+            QList< QPushButton* > buttons;
+            QBoxLayout *layout1 = new QBoxLayout(QBoxLayout::LeftToRight);
+            QBoxLayout *layout2 = new QBoxLayout(QBoxLayout::LeftToRight);
+            QBoxLayout *layout3 = new QBoxLayout(QBoxLayout::LeftToRight);
+            for(auto bidx = 0; bidx < 31; ++bidx ) {
+                auto button = new QPushButton{ QString::number(bidx) };
+                button->setObjectName(QString::number(bidx));
+                QColor color(newColors[bidx][0], newColors[bidx][1], newColors[bidx][2]);
+                QPalette pal = button->palette();
+                button->setAutoFillBackground(true);
+                pal.setColor(QPalette::Button, color);
+                button->setPalette(pal);
+                button->update();
+                buttons << button;
+                if(bidx <= 10)
+                    layout1->addWidget(button);
+                else if(bidx>10 and bidx <= 20)
+                    layout2->addWidget(button);
+                else
+                    layout3->addWidget(button);
+
+                connect(button, SIGNAL(clicked()), this, SLOT(colorPicker()));
+            }
+            formLayout->addRow("Outer", layout1);
+            formLayout->addRow("Mid", layout2);
+            formLayout->addRow("Inner", layout3);
+
         } else {
 
             QLineEdit *field = new QLineEdit(this);
@@ -268,6 +301,8 @@ void CustomDialog::accept()
                 palcontext->paletteshift = shiftno->value();
                 m_parameters[i].dint = 1;
                 destroypalette(gradientpal);
+            } else if (m_dialog[i].type == DIALOG_PALPICKER) {
+                mkcustompalette(palcontext->image->palette, newColors);
             }
             else
                 m_parameters[i].dstring = strdup(field->text().toUtf8());
@@ -340,4 +375,19 @@ void CustomDialog::updateVisualiser()
     // Save Result
     QPixmap newImage = QPixmap::fromImage(palImage.scaled(this->algono->width(), this->algono->height()));
     img->setPixmap(newImage);
+}
+
+void CustomDialog::colorPicker()
+{
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    int idx = button->objectName().toInt();
+    QColor color = QColorDialog::getColor(Qt::yellow, this );
+    QPalette pal = button->palette();
+    button->setAutoFillBackground(true);
+    pal.setColor(QPalette::Button, color);
+    button->setPalette(pal);
+    button->update();
+    newColors[idx][0] = color.red();
+    newColors[idx][1] = color.green();
+    newColors[idx][2] = color.blue();
 }

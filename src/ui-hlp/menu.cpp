@@ -78,7 +78,7 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
     *uih_bailoutdialog, *uih_threaddialog, *saveanimdialog, *uih_juliamodedialog,
     *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog, *uih_numdialog,
     *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *palettegradientdialog,
-    *uih_renderimgdialog
+    *uih_renderimgdialog, *palettepickerdialog
 #ifdef USE_SFFE
     ,
     *uih_sffedialog, *uih_sffeinitdialog
@@ -281,6 +281,10 @@ void uih_registermenudialogs_i18n(void)
 
     Register(palettegradientdialog);
     DIALOGPALSLIDER_I("Visualiser:", 0);
+    NULL_I();
+
+    Register(palettepickerdialog);
+    DIALOGPALPICKER_I("Palette:", 0);
     NULL_I();
 
     Register(uih_cyclingdialog);
@@ -653,6 +657,11 @@ static menudialog *uih_getpalettegradientdialog(struct uih_context *uih)
     return (palettegradientdialog);
 }
 
+static menudialog *uih_palettepickerdialog(struct uih_context /* *uih */)
+{
+    return (palettepickerdialog);
+}
+
 static menudialog *uih_getcyclingdialog(struct uih_context *uih)
 {
     if (uih != NULL)
@@ -707,7 +716,6 @@ static void uih_palette(struct uih_context *uih, dialogparam *p)
 
 static void uih_palettegradient(struct uih_context *uih, dialogparam *p)
 {
-    fflush(stdout);
     int n1 = uih->palettetype;
     int n2 = uih->paletteseed;
     int shift = uih->paletteshift;
@@ -732,6 +740,11 @@ static void uih_palettegradient(struct uih_context *uih, dialogparam *p)
         uih_newimage(uih);
     }
     uih->paletteshift = shift;
+}
+
+static void uih_palettepicker(struct uih_context *uih, dialogparam *p)
+{
+    uih_newimage(uih);
 }
 
 static int uih_rotateselected(struct uih_context *c, int n)
@@ -1195,6 +1208,8 @@ void uih_registermenus_i18n(void)
                   0, uih_palette, uih_getpalettedialog); //This is a placeholder menu
     MENUCDIALOG_I("palettemenu", NULL, TR("Menu", "Custom palette"), "palettegradient",
                   0, uih_palettegradient, uih_getpalettegradientdialog);
+    MENUCDIALOG_I("palettemenu", NULL, TR("Menu", "Palette Picker"), "palettepicker",
+                  0, uih_palettepicker, uih_palettepickerdialog);
     MENUSEPARATOR_I("palettemenu");
     MENUNOPCB_I("palettemenu", "y", TR("Menu", "Color cycling"), "cycling", 0,
                 uih_cyclingsw, uih_cyclingselected);
