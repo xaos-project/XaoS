@@ -373,7 +373,8 @@ void CustomDialog::updateVisualiser()
     }
 
     // Save Result
-    QPixmap newImage = QPixmap::fromImage(palImage.scaled(this->algono->width(), this->algono->height()));
+    QPixmap newImage = QPixmap::fromImage(palImage.scaled(this->algono->width(),
+                                                          this->algono->height()));
     img->setPixmap(newImage);
 }
 
@@ -381,7 +382,8 @@ void CustomDialog::colorPicker()
 {
     QPushButton* button = qobject_cast<QPushButton*>(sender());
     int idx = button->objectName().toInt();
-    QColor color = QColorDialog::getColor(Qt::yellow, this );
+    QColor color = QColorDialog::getColor(QColor(newColors[idx][0], newColors[idx][1],
+            newColors[idx][2]), this);
     QPalette pal = button->palette();
     button->setAutoFillBackground(true);
     pal.setColor(QPalette::Button, color);
