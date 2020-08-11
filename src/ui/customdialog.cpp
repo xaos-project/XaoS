@@ -320,15 +320,8 @@ void CustomDialog::chooseInputFile()
 
     QSettings settings;
     QString fileLocation = settings.value("MainWindow/lastFileLocation", QDir::homePath()).toString();
-    QString fileName;
-
-    if(sender()->objectName() == "Load Palette File:") {
-        fileName = QFileDialog::getOpenFileName(
-            this, sender()->objectName(), fileLocation, "*.gpl");
-    } else {
-        fileName = QFileDialog::getOpenFileName(
+    QString fileName = QFileDialog::getOpenFileName(
             this, sender()->objectName(), fileLocation, "*.xpf *.png *.xaf");
-    }
     if (!fileName.isNull()) {
         field->setText(fileName);
         settings.setValue("MainWindow/lastFileLocation", QFileInfo(fileName).absolutePath());
