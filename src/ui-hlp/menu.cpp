@@ -1,8 +1,11 @@
 #include <cerrno>
 #include <cstring>
 #include <cstdlib>
+#include <QFile>
+#include <QTextStream>
 #include <QMessageBox>
 #include <QSettings>
+#include <algorithm>
 
 #include "filter.h"
 #include "config.h"
@@ -285,6 +288,8 @@ void uih_registermenudialogs_i18n(void)
 
     Register(palettepickerdialog);
     DIALOGPALPICKER_I("Palette:", 0);
+    DIALOGIFILE_I(TR("Dialog", "Load Palette File:"), "file*.gpl");
+    DIALOGOFILE_I(TR("Dialog", "Save Palette File:"), 0);
     NULL_I();
 
     Register(uih_cyclingdialog);
@@ -744,6 +749,38 @@ static void uih_palettegradient(struct uih_context *uih, dialogparam *p)
 
 static void uih_palettepicker(struct uih_context *uih, dialogparam *p)
 {
+    QFile *loadfile = new QFile(p[1].dstring);
+    QFile *savefile = NULL;
+    if (strlen(p[2].dstring) > 1)
+        savefile = new QFile(p[2].dstring);
+
+    unsigned char colors[31][3];
+    memset(colors, 0, sizeof (colors));
+
+    if (loadfile->open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(loadfile);
+        QStringList colorvals= in.readAll().split("\n");
+        for(int i=0; i < std::min(31, (int)colorvals.size()); i++) {
+            QStringList currcolors = colorvals[i].split(QRegExp("\\s+"));
+            if(currcolors.size() != 3) {
+                uih_error(uih, "Corrupted Color File");
+                return;
+            }
+            colors[i][0] = std::min(currcolors[0].toInt(), 255);
+            colors[i][1] = std::min(currcolors[1].toInt(), 255);
+            colors[i][2] = std::min(currcolors[2].toInt(), 255);
+        }
+        mkcustompalette(uih->palette, colors);
+        loadfile->close();
+
+    } else if(savefile && savefile->open(QIODevice::WriteOnly | QIODevice::Text)) {
+        getDEFSEGMENTColor(colors);
+        QTextStream stream(savefile);
+        for(int i=0; i < 31; i++){
+            stream << (int)colors[i][0] << " " << (int)colors[i][1] << " " << (int)colors[i][2] << "\n";
+        }
+        savefile->close();
+    }
     uih_newimage(uih);
 }
 
@@ -1208,7 +1245,7 @@ void uih_registermenus_i18n(void)
                   0, uih_palette, uih_getpalettedialog); //This is a placeholder menu
     MENUCDIALOG_I("palettemenu", NULL, TR("Menu", "Custom palette"), "palettegradient",
                   0, uih_palettegradient, uih_getpalettegradientdialog);
-    MENUCDIALOG_I("palettemenu", NULL, TR("Menu", "Palette Picker"), "palettepicker",
+    MENUCDIALOG_I("palettemenu", "x", TR("Menu", "Palette Picker"), "palettepicker",
                   0, uih_palettepicker, uih_palettepickerdialog);
     MENUSEPARATOR_I("palettemenu");
     MENUNOPCB_I("palettemenu", "y", TR("Menu", "Color cycling"), "cycling", 0,
