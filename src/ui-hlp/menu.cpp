@@ -766,19 +766,14 @@ static void uih_loadgpl(struct uih_context *uih, xio_constpath d)
     if (loadfile->open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(loadfile);
         QStringList colorvals= in.readAll().split("\n");
-        if((int)colorvals.size() != 33) {
+        if((int)colorvals.size() != 36) {
             uih_error(uih, "Corrupted palette File");
             loadfile->close();
             return;
         }
 
-        for(int i=1; i < 32; i++) {
+        for(int i = 4; i < 35; i++) {
             QStringList currcolors = colorvals[i].split(QRegExp("\\s+"));
-            if(currcolors.size() != 3) {
-                uih_error(uih, "Corrupted Color File");
-                loadfile->close();
-                return;
-            }
             int r = currcolors[0].toInt();
             int g = currcolors[1].toInt();
             int b = currcolors[2].toInt();
@@ -791,9 +786,9 @@ static void uih_loadgpl(struct uih_context *uih, xio_constpath d)
                 return;
             }
 
-            colors[i-1][0] = r;
-            colors[i-1][1] = g;
-            colors[i-1][2] = b;
+            colors[i-4][0] = r;
+            colors[i-4][1] = g;
+            colors[i-4][2] = b;
         }
         mkcustompalette(uih->palette, colors);
         loadfile->close();
@@ -817,6 +812,8 @@ static void uih_savegpl(struct uih_context *uih, xio_constpath d) {
             getDEFSEGMENTColor(colors);
             QTextStream stream(savefile);
             stream << "GIMP Palette" << "\n";
+            stream << "Name: XaoS_Palette" << "\n";
+            stream << "Columns: 16" << "\n" << "#" << "\n";
             for(int i=0; i < 31; i++){
                 stream << (int)colors[i][0] << " " << (int)colors[i][1] << " " << (int)colors[i][2] << "\n";
             }
