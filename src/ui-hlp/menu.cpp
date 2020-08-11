@@ -5,7 +5,6 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QSettings>
-#include <algorithm>
 
 #include "filter.h"
 #include "config.h"
@@ -66,7 +65,7 @@ const char *const uih_colornames[] = {"white", "black", "red", NULL};
  * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
  */
 
-#define MAX_MENUDIALOGS_I18N 115
+#define MAX_MENUDIALOGS_I18N 118
 #define Register(variable) variable = &menudialogs_i18n[no_menudialogs_i18n]
 static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
 // static int no_menudialogs_i18n;
@@ -81,7 +80,7 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
     *uih_bailoutdialog, *uih_threaddialog, *saveanimdialog, *uih_juliamodedialog,
     *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog, *uih_numdialog,
     *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *palettegradientdialog,
-    *uih_renderimgdialog, *palettepickerdialog
+    *uih_renderimgdialog, *palettepickerdialog, *loadgpldialog, *savegpldialog
 #ifdef USE_SFFE
     ,
     *uih_sffedialog, *uih_sffeinitdialog
@@ -288,8 +287,14 @@ void uih_registermenudialogs_i18n(void)
 
     Register(palettepickerdialog);
     DIALOGPALPICKER_I("Palette:", 0);
-    DIALOGIFILE_I(TR("Dialog", "Load Palette File:"), "file*.gpl");
-    DIALOGOFILE_I(TR("Dialog", "Save Palette File:"), 0);
+    NULL_I();
+
+    Register(loadgpldialog);
+    DIALOGIFILE_I(TR("Dialog", "Load Palette Config"), "file*.gpl");
+    NULL_I();
+
+    Register(savegpldialog);
+    DIALOGOFILE_I(TR("Dialog", "Save Palette Config"), "file*.gpl");
     NULL_I();
 
     Register(uih_cyclingdialog);
@@ -654,17 +659,17 @@ static menudialog *uih_getpalettedialog(struct uih_context *uih)
     return (palettedialog);
 }
 
+static menudialog *uih_palettepickerdialog(struct uih_context *uih)
+{
+    return (palettepickerdialog);
+}
+
 static menudialog *uih_getpalettegradientdialog(struct uih_context *uih)
 {
     if (uih != NULL) {
         palettegradientdialog[0].defint = 0;
     }
     return (palettegradientdialog);
-}
-
-static menudialog *uih_palettepickerdialog(struct uih_context /* *uih */)
-{
-    return (palettepickerdialog);
 }
 
 static menudialog *uih_getcyclingdialog(struct uih_context *uih)
@@ -749,39 +754,81 @@ static void uih_palettegradient(struct uih_context *uih, dialogparam *p)
 
 static void uih_palettepicker(struct uih_context *uih, dialogparam *p)
 {
-    QFile *loadfile = new QFile(p[1].dstring);
-    QFile *savefile = NULL;
-    if (strlen(p[2].dstring) > 1)
-        savefile = new QFile(p[2].dstring);
+    uih_newimage(uih);
+}
 
+static void uih_loadgpl(struct uih_context *uih, xio_constpath d)
+{
+    QFile *loadfile = new QFile(d);
     unsigned char colors[31][3];
     memset(colors, 0, sizeof (colors));
 
     if (loadfile->open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(loadfile);
         QStringList colorvals= in.readAll().split("\n");
-        for(int i=0; i < std::min(31, (int)colorvals.size()); i++) {
+        if((int)colorvals.size() != 33) {
+            uih_error(uih, "Corrupted palette File");
+            loadfile->close();
+            return;
+        }
+
+        for(int i=1; i < 32; i++) {
             QStringList currcolors = colorvals[i].split(QRegExp("\\s+"));
             if(currcolors.size() != 3) {
                 uih_error(uih, "Corrupted Color File");
+                loadfile->close();
                 return;
             }
-            colors[i][0] = std::min(currcolors[0].toInt(), 255);
-            colors[i][1] = std::min(currcolors[1].toInt(), 255);
-            colors[i][2] = std::min(currcolors[2].toInt(), 255);
+            int r = currcolors[0].toInt();
+            int g = currcolors[1].toInt();
+            int b = currcolors[2].toInt();
+
+            if (r < 0 || r > 255 ||
+                g < 0 || g > 255 ||
+                b < 0 || b > 255) {
+                uih_error(uih, "RGB out of range. Failed to load palette.");
+                loadfile->close();
+                return;
+            }
+
+            colors[i-1][0] = r;
+            colors[i-1][1] = g;
+            colors[i-1][2] = b;
         }
         mkcustompalette(uih->palette, colors);
         loadfile->close();
+        char s[256];
+        sprintf(s, TR("Message", "File %s opened."), d);
+        uih_message(uih, s);
 
-    } else if(savefile && savefile->open(QIODevice::WriteOnly | QIODevice::Text)) {
-        getDEFSEGMENTColor(colors);
-        QTextStream stream(savefile);
-        for(int i=0; i < 31; i++){
-            stream << (int)colors[i][0] << " " << (int)colors[i][1] << " " << (int)colors[i][2] << "\n";
-        }
-        savefile->close();
+    } else {
+        uih_error(uih, "Failed to open palette configuration");
+        return;
     }
+
     uih_newimage(uih);
+}
+
+static void uih_savegpl(struct uih_context *uih, xio_constpath d) {
+    QFile *savefile = new QFile(d);
+    unsigned char colors[31][3];
+
+    if(savefile->open(QIODevice::WriteOnly | QIODevice::Text)) {
+            getDEFSEGMENTColor(colors);
+            QTextStream stream(savefile);
+            stream << "GIMP Palette" << "\n";
+            for(int i=0; i < 31; i++){
+                stream << (int)colors[i][0] << " " << (int)colors[i][1] << " " << (int)colors[i][2] << "\n";
+            }
+            savefile->close();
+            char s[256];
+            sprintf(s, TR("Message", "File %s saved."), d);
+            uih_message(uih, s);
+
+        } else {
+        uih_error(uih, "Failed to save palette Configuration");
+    }
+    return;
 }
 
 static int uih_rotateselected(struct uih_context *c, int n)
@@ -1245,8 +1292,13 @@ void uih_registermenus_i18n(void)
                   0, uih_palette, uih_getpalettedialog); //This is a placeholder menu
     MENUCDIALOG_I("palettemenu", NULL, TR("Menu", "Custom palette"), "palettegradient",
                   0, uih_palettegradient, uih_getpalettegradientdialog);
+    MENUSEPARATOR_I("palettemenu");
     MENUCDIALOG_I("palettemenu", "x", TR("Menu", "Palette Picker"), "palettepicker",
                   0, uih_palettepicker, uih_palettepickerdialog);
+    MENUDIALOG_I("palettemenu", NULL, TR("Menu", "Load Palette Config"), "loadgpl",
+                 0, uih_loadgpl, loadgpldialog);
+    MENUDIALOG_I("palettemenu", NULL, TR("Menu", "Save Palette Config"), "savegpl",
+                 0, uih_savegpl, savegpldialog);
     MENUSEPARATOR_I("palettemenu");
     MENUNOPCB_I("palettemenu", "y", TR("Menu", "Color cycling"), "cycling", 0,
                 uih_cyclingsw, uih_cyclingselected);
