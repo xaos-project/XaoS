@@ -1,6 +1,7 @@
 #include <cerrno>
 #include <cstring>
 #include <cstdlib>
+#include <iomanip>
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
@@ -815,7 +816,9 @@ static void uih_savegpl(struct uih_context *uih, xio_constpath d) {
             stream << "Name: XaoS_Palette" << "\n";
             stream << "Columns: 16" << "\n" << "#" << "\n";
             for(int i=0; i < 31; i++){
-                stream << (int)colors[i][0] << " " << (int)colors[i][1] << " " << (int)colors[i][2] << "\n";
+                char s[256];
+                sprintf(s, "%3d %3d %3d", colors[i][0], colors[i][1], colors[i][2]);
+                stream << s << "\t color_" << QString::number(i) << "\n";
             }
             savefile->close();
             char s[256];
