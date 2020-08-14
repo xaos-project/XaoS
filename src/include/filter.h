@@ -299,6 +299,8 @@ int fixedalloccolor(struct palette *palette, int init, int r, int g, int b);
 void getPaletteColor(struct palette *palette, int seed, int algorithm, int shift, int newColors[101][3]);
 void getDEFSEGMENTColor(unsigned char newColors[][3]);
 int mkcustompalette(struct palette *c, unsigned char newColors[27][3]);
+void rgbtohex (int r, int g, int b, char color[6]);
+void hextorgb (char *hexcolor, rgb_t color);
 
 #define setfractalpalette(f, p)                                                \
     if ((f)->fractalc->palette == (f)->image->palette)                         \
