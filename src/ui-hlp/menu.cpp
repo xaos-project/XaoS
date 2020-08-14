@@ -66,7 +66,7 @@ const char *const uih_colornames[] = {"white", "black", "red", NULL};
  * Zoltan Kovacs <kovzol@math.u-szeged.hu>, 2003-01-05
  */
 
-#define MAX_MENUDIALOGS_I18N 118
+#define MAX_MENUDIALOGS_I18N 148
 #define Register(variable) variable = &menudialogs_i18n[no_menudialogs_i18n]
 static menudialog menudialogs_i18n[MAX_MENUDIALOGS_I18N];
 // static int no_menudialogs_i18n;
@@ -81,7 +81,8 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
     *uih_bailoutdialog, *uih_threaddialog, *saveanimdialog, *uih_juliamodedialog,
     *uih_textposdialog, *uih_fastmodedialog, *uih_timedialog, *uih_numdialog,
     *uih_fpdialog, *palettedialog, *uih_cyclingdialog, *palettegradientdialog,
-    *uih_renderimgdialog, *palettepickerdialog, *loadgpldialog, *savegpldialog
+    *uih_renderimgdialog, *palettepickerdialog, *loadgpldialog, *savegpldialog,
+    *uih_palettecolorsdialog
 #ifdef USE_SFFE
     ,
     *uih_sffedialog, *uih_sffeinitdialog
@@ -284,6 +285,12 @@ void uih_registermenudialogs_i18n(void)
 
     Register(palettegradientdialog);
     DIALOGPALSLIDER_I("Visualiser:", 0);
+    NULL_I();
+
+    Register(uih_palettecolorsdialog);
+    for (int colidx = 0; colidx < 31; colidx++) {
+        DIALOGSTR_I(TR("Dialog", "Color:"), "000000");
+    }
     NULL_I();
 
     Register(palettepickerdialog);
@@ -723,6 +730,7 @@ static void uih_palette(struct uih_context *uih, dialogparam *p)
         uih_newimage(uih);
     }
     uih->paletteshift = shift;
+    uih->palettepickerenabled = 0;
 }
 
 static void uih_palettegradient(struct uih_context *uih, dialogparam *p)
@@ -751,11 +759,30 @@ static void uih_palettegradient(struct uih_context *uih, dialogparam *p)
         uih_newimage(uih);
     }
     uih->paletteshift = shift;
+    uih->palettepickerenabled = 0;
+}
+
+static void uih_palettecolors(struct uih_context *uih, dialogparam *p){
+    unsigned char colors[31][3];
+    for(int i=0; i < 31; i++) {
+        rgb_t color;
+        hextorgb(p[i].dstring, color);
+        colors[i][0] = color[0];
+        colors[i][1] = color[1];
+        colors[i][2] = color[2];
+    }
+    int c = mkcustompalette(uih->palette, colors);
+    if (c) {
+        uih_message(uih, "Failed to apply palette");
+    }
+    uih_newimage(uih);
+    uih->palettepickerenabled = 1;
 }
 
 static void uih_palettepicker(struct uih_context *uih, dialogparam *p)
 {
     uih_newimage(uih);
+    uih->palettepickerenabled = 1;
 }
 
 static void uih_loadgpl(struct uih_context *uih, xio_constpath d)
@@ -791,7 +818,10 @@ static void uih_loadgpl(struct uih_context *uih, xio_constpath d)
             colors[i-4][1] = g;
             colors[i-4][2] = b;
         }
-        mkcustompalette(uih->palette, colors);
+        int c = mkcustompalette(uih->palette, colors);
+        if (c) {
+            uih_message(uih, "Failed to apply palette");
+        }
         loadfile->close();
         char s[256];
         sprintf(s, TR("Message", "File %s opened."), d);
@@ -803,6 +833,7 @@ static void uih_loadgpl(struct uih_context *uih, xio_constpath d)
     }
 
     uih_newimage(uih);
+    uih->palettepickerenabled = 1;
 }
 
 static void uih_savegpl(struct uih_context *uih, xio_constpath d) {
@@ -828,7 +859,7 @@ static void uih_savegpl(struct uih_context *uih, xio_constpath d) {
         } else {
         uih_error(uih, "Failed to save palette Configuration");
     }
-    return;
+    uih->palettepickerenabled = 1;
 }
 
 static int uih_rotateselected(struct uih_context *c, int n)
@@ -1293,6 +1324,9 @@ void uih_registermenus_i18n(void)
     MENUCDIALOG_I("palettemenu", NULL, TR("Menu", "Custom palette"), "palettegradient",
                   0, uih_palettegradient, uih_getpalettegradientdialog);
     MENUSEPARATOR_I("palettemenu");
+    MENUDIALOG_I("fractal", NULL, TR("Menu", "Palette Colors"), "palettecolors",
+                 MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_palettecolors,
+                 uih_palettecolorsdialog);
     MENUCDIALOG_I("palettemenu", "x", TR("Menu", "Palette Picker"), "palettepicker",
                   0, uih_palettepicker, uih_palettepickerdialog);
     MENUDIALOG_I("palettemenu", NULL, TR("Menu", "Load Palette Config"), "loadgpl",

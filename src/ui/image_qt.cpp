@@ -1,10 +1,26 @@
 ﻿#include <QtWidgets>
-
 #include "config.h"
 #include "filter.h"
 #include "grlib.h"
 #include "xio.h"
 #include "misc-f.h"
+
+void rgbtohex (int r, int g, int b, char color[6]) {
+    QColor rgb(r, g, b);
+    QString hex = rgb.name();
+    hex.remove(0, 1);
+    strcpy(color, hex.toStdString().c_str());
+}
+
+void hextorgb (char *hexcolor, rgb_t color) {
+    QString hexa = hexcolor;
+    hexa.push_front('#');
+    QColor hex(hexa);
+    QColor rgb = hex.toRgb();
+    color[0] = rgb.red();
+    color[1] = rgb.green();
+    color[2] = rgb.blue();
+}
 
 static QFont getFont(void *font) {
     if (font)

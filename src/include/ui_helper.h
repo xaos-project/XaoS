@@ -183,6 +183,7 @@ struct uih_context {
     int viewchanged;    /*When to generate setview commands */
     int palettechanged; /*When to generate setpalette commands */
     int displaytext;    /*When text was displayed in this frame */
+    int palettepickerenabled; /*If palette picker is used */
     int nonfractalscreen;
     /*waiting variables */
     void (*complettehandler)(

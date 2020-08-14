@@ -336,6 +336,18 @@ void uih_saveframe(struct uih_context *uih)
             uih->palettechanged = 0;
             s->manualpaletteshift = 0;
         }
+        if (uih->palettepickerenabled) {
+            start_save(uih, "palettecolors");
+            unsigned char colors[31][3];
+            getDEFSEGMENTColor(colors);
+            for (int i=0; i<31; i++) {
+                char currcolor[6];
+                rgbtohex(colors[i][0], colors[i][1],
+                         colors[i][2], currcolor);
+                save_string(uih, currcolor);
+            }
+            stop_save(uih);
+        }
         if (s->manualpaletteshift != uih->manualpaletteshift)
             save_intc(uih, "shiftpalette",
                       uih->manualpaletteshift - s->manualpaletteshift),
