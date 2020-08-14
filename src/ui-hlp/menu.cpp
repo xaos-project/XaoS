@@ -764,6 +764,7 @@ static void uih_palettegradient(struct uih_context *uih, dialogparam *p)
 
 static void uih_palettecolors(struct uih_context *uih, dialogparam *p){
     unsigned char colors[31][3];
+    memset(colors, 0, sizeof (colors));
     for(int i=0; i < 31; i++) {
         rgb_t color;
         hextorgb(p[i].dstring, color);
@@ -771,10 +772,7 @@ static void uih_palettecolors(struct uih_context *uih, dialogparam *p){
         colors[i][1] = color[1];
         colors[i][2] = color[2];
     }
-    int c = mkcustompalette(uih->palette, colors);
-    if (c) {
-        uih_message(uih, "Failed to apply palette");
-    }
+    mkcustompalette(uih->palette, colors);
     uih_newimage(uih);
     uih->palettepickerenabled = 1;
 }
@@ -818,10 +816,7 @@ static void uih_loadgpl(struct uih_context *uih, xio_constpath d)
             colors[i-4][1] = g;
             colors[i-4][2] = b;
         }
-        int c = mkcustompalette(uih->palette, colors);
-        if (c) {
-            uih_message(uih, "Failed to apply palette");
-        }
+        mkcustompalette(uih->palette, colors);
         loadfile->close();
         char s[256];
         sprintf(s, TR("Message", "File %s opened."), d);
