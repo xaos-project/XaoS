@@ -280,17 +280,19 @@ static void ui_download(struct uih_context */*uih*/)
 
 static void ui_fractalinfo(struct uih_context *uih)
 {
-    printf("%s", uih->fcontext->currentformula->shortname);
     QString fractalname = uih->fcontext->currentformula->shortname;
+    bool higherpower = false;
     for (auto c : fractalname) {
         if(c >= '0' and c <= '9') {
             fractalname.remove(c);
+            higherpower = true;
         }
     }
     QMap<QString, QString> map;
 
     // Dictionary of fractaltype and corresponding wiki hypertext link
-    map["mandel"] = "mandelbrot";
+    map["mandel"] = higherpower ? "higher-power-mandelbrots" : "mandelbrot";
+    map["octal"] = "octo";
     fractalname = map.find(fractalname) != map.end() ? map[fractalname] : fractalname;
 
     QDesktopServices::openUrl(QUrl(FRACTALINFO_URL + fractalname));
