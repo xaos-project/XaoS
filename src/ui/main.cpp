@@ -278,6 +278,24 @@ static void ui_download(struct uih_context */*uih*/)
     QDesktopServices::openUrl(QUrl(DOWNLOAD_URL));
 }
 
+static void ui_fractalinfo(struct uih_context *uih)
+{
+    printf("%s", uih->fcontext->currentformula->shortname);
+    QString fractalname = uih->fcontext->currentformula->shortname;
+    for (auto c : fractalname) {
+        if(c >= '0' and c <= '9') {
+            fractalname.remove(c);
+        }
+    }
+    QMap<QString, QString> map;
+
+    // Dictionary of fractaltype and corresponding wiki hypertext link
+    map["mandel"] = "mandelbrot";
+    fractalname = map.find(fractalname) != map.end() ? map[fractalname] : fractalname;
+
+    QDesktopServices::openUrl(QUrl(FRACTALINFO_URL + fractalname));
+}
+
 static void ui_feedback(struct uih_context */*uih*/)
 {
     QDesktopServices::openUrl(QUrl(FEEDBACK_URL));
@@ -508,6 +526,8 @@ static void ui_registermenus_i18n(void)
 
     MENUNOP_I("helpmenu", "h", TR("Menu", "Help"), "help", MENUFLAG_INCALC,
               ui_help);
+    MENUNOP_I("helpmenu", NULL, TR("Menu", "Info on current fractal"), "fractalinfo",
+              MENUFLAG_INCALC, ui_fractalinfo);
     MENUNOP_I("helpmenu", NULL, TR("Menu", "Send Feedback"), "feedback", MENUFLAG_INCALC,
               ui_feedback);
     MENUNOP_I("helpmenu", NULL, TR("Menu", "Get Updates"), "updates", MENUFLAG_INCALC,
