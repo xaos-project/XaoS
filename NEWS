@@ -1,3 +1,16 @@
+RELEASE NOTES FOR XAOS VERSION 4.2
+----------------------------------
+
+New Features
+============
+
+o Palette picker, save/load palettes, storing user palettes in the .xpf file
+
+o Fractal info in the Help menu
+
+o Batch rendering
+
+
 RELEASE NOTES FOR XAOS VERSION 4.1
 ----------------------------------
 

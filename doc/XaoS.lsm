@@ -1,7 +1,7 @@
 Begin3
 Title:          XaoS - a fast portable real-time interactive fractal zoomer/morpher
-Version:        4.1
-Entered-date:   June 23 2020
+Version:        4.2
+Entered-date:   August 17 2020
 
 Description:    XaoS is a fast portable real-time interactive fractal zoomer.
 		It displays the Mandelbrot set (among other escape
@@ -22,7 +22,7 @@ Maintained-by:  zoltan@geogebra.org (Zoltan Kovacs)
 		jblangston@jblangston.com (J.B. Langston)
 Primary-site:   https://xaos-project.github.io
 Platform:       GNU/Linux or any UNIX with X11 and ANSI C compiler,
-		Microsoft Windows (95, 98, XP), Mac OS X
+		Microsoft Windows (95, 98, XP, and others), Mac OS X
 Copying-policy: GNU GENERAL PUBLIC LICENSE
 		All rights reserved by the author
 End
