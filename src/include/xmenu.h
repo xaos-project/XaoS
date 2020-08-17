@@ -34,6 +34,7 @@ typedef char *(*tokenfunc)(struct uih_context *c);
 #define DIALOG_PALSLIDER 10
 #define DIALOG_PALPICKER 11
 #define DIALOG_IFILES 12
+#define DIALOG_ILIST 13
 
 #define DIALOGIFILE(question, filename)                                        \
     {                                                                          \
@@ -163,6 +164,13 @@ typedef char *(*tokenfunc)(struct uih_context *c);
     menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_IFILES;                \
     menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
     menudialogs_i18n[no_menudialogs_i18n].defstr = _filenames;                 \
+    ++no_menudialogs_i18n;
+
+#define DIALOGILIST_I(_question, _default)                                     \
+    menudialogs_i18n[no_menudialogs_i18n].question = _question;                \
+    menudialogs_i18n[no_menudialogs_i18n].type = DIALOG_ILIST;                 \
+    menudialogs_i18n[no_menudialogs_i18n].defint = 0;                          \
+    menudialogs_i18n[no_menudialogs_i18n].defstr = _default;                   \
     ++no_menudialogs_i18n;
 
 #define NULL_I()                                                               \
