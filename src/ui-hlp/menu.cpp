@@ -85,7 +85,7 @@ static menudialog *uih_perturbationdialog, *uih_juliadialog,
     *uih_palettecolorsdialog
 #ifdef USE_SFFE
     ,
-    *uih_sffedialog, *uih_sffeinitdialog, *uih_userformlistdialog
+    *uih_sffedialog, *uih_sffeinitdialog
 #endif
     ;
 
@@ -311,15 +311,11 @@ void uih_registermenudialogs_i18n(void)
 
 #ifdef USE_SFFE
     Register(uih_sffedialog);
-    DIALOGSTR_I(TR("Dialog", "Formula:"), USER_FORMULA);
+    DIALOGILIST_I(TR("Dialog", "Formula"), USER_FORMULA);
     NULL_I();
 
     Register(uih_sffeinitdialog);
     DIALOGSTR_I(TR("Dialog", "Initialization:"), "");
-    NULL_I();
-
-    Register(uih_userformlistdialog);
-    DIALOGILIST_I(TR("Dialog", "Select Formula"), USER_FORMULA);
     NULL_I();
 #endif
 
@@ -659,16 +655,6 @@ static menudialog *uih_getsffeinitdialog(struct uih_context *c)
             uih_sffeinitdialog[0].defstr = "";
     }
     return (uih_sffeinitdialog);
-}
-
-static menudialog *uih_getuserformlistdialog(struct uih_context *c){
-    if (c != NULL) {
-        if (c->fcontext->userformula->expression)
-            uih_userformlistdialog[0].defstr = c->fcontext->userformula->expression;
-        else
-            uih_userformlistdialog[0].defstr = USER_FORMULA;
-    }
-    return (uih_userformlistdialog);
 }
 #endif
 
@@ -1280,8 +1266,6 @@ void uih_registermenus_i18n(void)
                   uih_sffein, uih_getsffedialog);
     MENUCDIALOG_I("fractal", NULL, TR("Menu", "User initialization"),
                   "usrformInit", 0, uih_sffeinitin, uih_getsffeinitdialog);
-    MENUCDIALOG_I("fractal", NULL, TR("Menu", "Saved user formulas"), "userformlist", 0,
-                  uih_userformlist, uih_getuserformlistdialog);
 #endif
 
     MENUSEPARATOR_I("fractal");
@@ -1693,11 +1677,5 @@ void uih_sffein(uih_context *c, const char *text)
 void uih_sffeinitin(uih_context *c, const char *text)
 {
     uih_sffeset(c, c->fcontext->userinitial, text);
-}
-
-void uih_userformlist(struct uih_context *c, char *text) {
-    if(strlen(text) != 0) {
-        uih_sffeset(c, c->fcontext->userformula, text);
-    }
 }
 #endif

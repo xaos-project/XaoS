@@ -29,8 +29,6 @@ class CustomDialog : public QDialog
     void chooseOutputFile();
     void updateVisualiser();
     void colorPicker();
-    void addToList();
-    void deleteFromList();
   public:
     CustomDialog(struct uih_context *uih, const menuitem *item,
                  const menudialog *dialog, QWidget *parent = 0);

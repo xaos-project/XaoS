@@ -224,42 +224,16 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
 
         } else if (dialog[i].type == DIALOG_ILIST) {
 
-            QListWidget *list = new QListWidget(this);
+            QComboBox *list = new QComboBox(this);
             list->setObjectName(label);
-
-            QLineEdit *newitem = new QLineEdit(dialog[i].defstr, this);
-            QFontMetrics metric(newitem->font());
-            newitem->setObjectName(label);
-
-            QToolButton *saver = new QToolButton(this);
-            saver->setObjectName(label);
-            saver->setText("Add");
-
-            QToolButton *deleter = new QToolButton(this);
-            deleter->setObjectName(label);
-            deleter->setText("Delete");
-
-            QBoxLayout *layout1 = new QBoxLayout(QBoxLayout::LeftToRight);
-            layout1->setContentsMargins(0, 0, 0, 0);
-            layout1->addWidget(newitem);
-            layout1->addWidget(saver);
-
-            QBoxLayout *layout2 = new QBoxLayout(QBoxLayout::LeftToRight);
-            layout2->setContentsMargins(0, 0, 0, 0);
-            layout2->addWidget(list);
-            layout2->addWidget(deleter);
+            list->setEditable(true);
+            list->addItem(dialog[i].defstr);
 
             QSettings settings;
             QStringList formulas = settings.value("Formulas/UserFormulas").toStringList();
             list->addItems(formulas);
 
-            connect(saver, SIGNAL(clicked()), this,
-                    SLOT(addToList()));
-            connect(deleter, SIGNAL(clicked()), this,
-                    SLOT(deleteFromList()));
-
-            formLayout->addRow("New Formula", layout1);
-            formLayout->addRow(label, layout2);
+            formLayout->addRow(label, list);
 
         } else {
 
@@ -343,9 +317,15 @@ void CustomDialog::accept()
             } else if (m_dialog[i].type == DIALOG_PALPICKER) {
                 mkcustompalette(palcontext->image->palette, newColors);
             } else if (m_dialog[i].type == DIALOG_ILIST) {
-                QListWidget *list = findChild<QListWidget *>(label);
-                if (list->count() > 0)
-                    m_parameters[i].dstring = strdup(list->currentItem()->text().toUtf8());
+                QComboBox *list = findChild<QComboBox *>(label);
+                if (list->count() > 0) {
+                    m_parameters[i].dstring = strdup(list->currentText().toUtf8());
+                    QSettings settings;
+                    QStringList values = settings.value("Formulas/UserFormulas").toStringList();
+                    values.push_front(list->currentText());
+                    while (values.size() > 10) values.pop_back();
+                    settings.setValue("Formulas/UserFormulas", values);
+                }
             }
             else
                 m_parameters[i].dstring = strdup(field->text().toUtf8());
@@ -435,29 +415,4 @@ void CustomDialog::colorPicker()
     newColors[idx][0] = color.red();
     newColors[idx][1] = color.green();
     newColors[idx][2] = color.blue();
-}
-
-void CustomDialog::addToList()
-{
-    QListWidget *list = findChild<QListWidget *>(sender()->objectName());
-    QLineEdit *newitem = findChild<QLineEdit *>(sender()->objectName());
-    QSettings settings;
-    QStringList oldlist = settings.value("Formulas/UserFormulas").toStringList();
-    oldlist.push_back(newitem->text());
-    list->addItem(newitem->text());
-    list->setCurrentItem(list->item(list->count()-1));
-    settings.setValue("Formulas/UserFormulas", oldlist);
-}
-
-void CustomDialog::deleteFromList()
-{
-    QListWidget *list = findChild<QListWidget *>(sender()->objectName());
-    qDeleteAll(list->selectedItems());
-    QStringList newList;
-    for (int i = 0; i < list->count(); ++i) {
-        QListWidgetItem* item = list->item(i);
-        newList.push_back(item->text());
-    }
-    QSettings settings;
-    settings.setValue("Formulas/UserFormulas", newList);
 }
