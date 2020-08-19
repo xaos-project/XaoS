@@ -1670,6 +1670,13 @@ void uih_unregistermenus(void)
 #ifdef USE_SFFE
 void uih_sffein(uih_context *c, const char *text)
 {
+    // Keep only top 10 entries
+    QSettings settings;
+    QStringList values = settings.value("Formulas/UserFormulas").toStringList();
+    values.push_back(text);
+    while (values.size() > 10) values.pop_back();
+    settings.setValue("Formulas/UserFormulas", values);
+
     uih_sffeset(c, c->fcontext->userformula, text);
 }
 

@@ -318,14 +318,7 @@ void CustomDialog::accept()
                 mkcustompalette(palcontext->image->palette, newColors);
             } else if (m_dialog[i].type == DIALOG_ILIST) {
                 QComboBox *list = findChild<QComboBox *>(label);
-                if (list->count() > 0) {
-                    m_parameters[i].dstring = strdup(list->currentText().toUtf8());
-                    QSettings settings;
-                    QStringList values = settings.value("Formulas/UserFormulas").toStringList();
-                    values.push_front(list->currentText());
-                    while (values.size() > 10) values.pop_back();
-                    settings.setValue("Formulas/UserFormulas", values);
-                }
+                m_parameters[i].dstring = strdup(list->currentText().toUtf8());
             }
             else
                 m_parameters[i].dstring = strdup(field->text().toUtf8());
