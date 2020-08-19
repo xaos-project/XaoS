@@ -341,7 +341,6 @@ void uih_registermenudialogs_i18n(void)
 #ifdef USE_SFFE
 void uih_sffein(uih_context *c, const char *text);
 void uih_sffeinitin(uih_context *c, const char *text);
-void uih_userformlist(struct uih_context *c, char *text);
 #endif
 
 static void uih_smoothmorph(struct uih_context *c, dialogparam *p)
