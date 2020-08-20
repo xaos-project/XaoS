@@ -6,11 +6,13 @@ New Features
 
 o Palette picker, save/load palettes, storing user palettes in the .xpf file
 
-o Option to add and select formula from a list of user formulas
+o User formulas maintains a history of recently used formulas.
 
 o Fractal info in the Help menu
 
 o Batch rendering
+
+o Enabled panning in rotate mode
 
 o Unified Open and Open Image option. Save Image option moved to `Save as`
 
