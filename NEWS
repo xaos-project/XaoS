@@ -4,17 +4,17 @@ RELEASE NOTES FOR XAOS VERSION 4.2
 New Features
 ============
 
-o Palette picker, save/load palettes, storing user palettes in the .xpf file
+o Palette editor, save/load palettes, storing user palettes in the .xpf file.
 
-o User formulas maintains a history of recently used formulas.
+o The option 'User formulas' maintains a history of recently used formulas.
 
-o Fractal info in the Help menu
+o Fractal info in the Help menu.
 
-o Batch rendering
+o Batch rendering.
 
-o Enabled panning in rotate mode
+o Enabled panning in rotate mode.
 
-o Unified Open and Open Image option. Save Image option moved to `Save as`
+o Unified Open and Open Image option. Save Image option moved to `Save as`.
 
 
 RELEASE NOTES FOR XAOS VERSION 4.1

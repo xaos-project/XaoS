@@ -1322,7 +1322,7 @@ void uih_registermenus_i18n(void)
     MENUDIALOG_I("fractal", NULL, TR("Menu", "Palette Colors"), "palettecolors",
                  MENUFLAG_NOMENU | MENUFLAG_INTERRUPT, uih_palettecolors,
                  uih_palettecolorsdialog);
-    MENUCDIALOG_I("palettemenu", "x", TR("Menu", "Palette Picker"), "palettepicker",
+    MENUCDIALOG_I("palettemenu", "x", TR("Menu", "Palette Editor"), "palettepicker",
                   0, uih_palettepicker, uih_palettepickerdialog);
     MENUDIALOG_I("palettemenu", NULL, TR("Menu", "Load Palette Config"), "loadgpl",
                  0, uih_loadgpl, loadgpldialog);
