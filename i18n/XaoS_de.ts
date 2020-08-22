@@ -35,7 +35,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="125"/>
         <source>Files to render:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateien zum berechnen:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="126"/>
@@ -284,12 +284,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="301"/>
         <source>Load Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation>Palettekonfiguration öffnen</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="305"/>
         <source>Save Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation>Palettekonfiguration speichern</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="309"/>
@@ -299,7 +299,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="314"/>
         <source>Formula</source>
-        <translation type="unfinished">Formel</translation>
+        <translation>Formel</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="318"/>
@@ -917,12 +917,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1232"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichern unter</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1233"/>
         <source>PNG</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1236"/>
@@ -950,7 +950,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1244"/>
         <source>Render Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild berechnen</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1247"/>
@@ -1081,22 +1081,22 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1322"/>
         <source>Palette Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Palettefarben</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1325"/>
         <source>Palette Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Palette Editor</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1327"/>
         <source>Load Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation>Palettekonfiguration öffnen</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1329"/>
         <source>Save Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation>Palettekonfiguration speichern</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1332"/>
@@ -1466,7 +1466,7 @@
     <message>
         <location filename="../src/ui/main.cpp" line="531"/>
         <source>Info on current fractal</source>
-        <translation type="unfinished"></translation>
+        <translation>Info über aktuelles Fraktal</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="533"/>
@@ -1832,7 +1832,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="822"/>
         <source>File %s opened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei %s geöffnet.</translation>
     </message>
 </context>
 </TS>
