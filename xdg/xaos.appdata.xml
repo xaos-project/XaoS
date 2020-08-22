@@ -49,14 +49,16 @@
   </provides>
 
   <releases>
-    <release version="4.1" date="2020-07-01">
+    <release version="4.2" date="2020-09-01">
       <description>
-        <p>Added option to show Cartesian coordinate grid.</p>
-        <p>Custom palette helps visualizing palette before applying changes through slider selectable values now.</p>
-        <p>PNGs exported using 'Save Image' option can be imported back and users can continue zooming on it.</p>
-        <p>Several bug fixes.</p>
+        <p>Palette editor, save/load palettes, storing user palettes in the .xpf file.</p>
+        <p>The option 'User formulas' maintains a history of recently used formulas.</p>
+        <p>Fractal info in the Help menu.</p>
+        <p>Batch rendering.</p>
+        <p>Enabled panning in rotate mode.</p>
+        <p>Unified Open and Open Image option. Save Image option moved to `Save as`.</p>
       </description>
-      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.1</url>
+      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.2</url>
     </release>
   </releases>
 </component>
