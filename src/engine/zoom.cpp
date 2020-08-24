@@ -141,7 +141,7 @@ static void fillline_32(int line);
                calccolumn_32(a));
 
 struct dyn_data {
-    int price;
+    long price;
     struct dyn_data *previous;
 };
 
@@ -179,7 +179,7 @@ struct dyn_data {
 
 #define NOSETMASK ((unsigned int)0x80000000)
 #define END NULL
-#define MAXPRICE INT_MAX
+#define MAXPRICE LONG_MAX
 /*static int dynsize = (int)sizeof (struct dyn_data);*/
 #ifndef INT_MIN
 #define INT_MIN (-INT_MAX - 1)
@@ -398,7 +398,7 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
     int counter;
     unsigned int ps, ps1 = 0, pe;
     unsigned int p;
-    int bestprice = MAXPRICE;
+    long int bestprice = MAXPRICE;
     realloc_t *r = realloc;
     struct dyn_data *dyndata;
     int yend, y;

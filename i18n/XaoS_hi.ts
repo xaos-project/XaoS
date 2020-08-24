@@ -35,7 +35,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="125"/>
         <source>Files to render:</source>
-        <translation type="unfinished"></translation>
+        <translation>फ़ाइल रेंडर के लिए:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="126"/>
@@ -284,12 +284,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="301"/>
         <source>Load Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation>पैलेट कॉन्फ़िगरेशन.खोले</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="305"/>
         <source>Save Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation>पैलेट कॉन्फ़िगरेशन सहेजें</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="309"/>
@@ -299,7 +299,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="314"/>
         <source>Formula</source>
-        <translation type="unfinished">फार्मूला</translation>
+        <translation>फार्मूला</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="318"/>
