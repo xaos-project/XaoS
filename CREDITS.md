@@ -2,7 +2,7 @@
 
 (alphabetically)
 
-- [Anurag Aggarwal](mailto:kanurag94@gmail.com): Palette editor, palette saver, palette visualiser, cartesian grid, batch rendering, user formulas history, powerful pngs, bug fixes, Hindi translation & [GSoC 2020 student](https://github.com/xaos-project/XaoS/wiki/GSoC-2020)
+- [Anurag Aggarwal](mailto:kanurag94@gmail.com): Palette editor, palette saver, palette visualiser, Cartesian grid, batch rendering, user formulas history, powerful PNGs, bug fixes, Hindi translation, [contributions for GSoC 2020](https://github.com/xaos-project/XaoS/wiki/GSoC-2020)
 - [Natalija Budinski](mailto:nbudinski@yahoo.com): Serbian translation
 - [Eric Courteau](mailto:ecourteau@cplus.fr): francais.cat (translation of tutorials)
 - [Jean-Pierre Demailly](mailto:Jean-Pierre.Demailly@ujf-grenoble.fr): Updates for French translation
