@@ -11,7 +11,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="115"/>
         <source>Julia-seed:</source>
-        <translation type="unfinished">Julia jádro:</translation>
+        <translation type="unfinished">Parametr Juliovy množiny:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="119"/>
@@ -35,7 +35,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="125"/>
         <source>Files to render:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Soubory k vykreslení:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="126"/>
@@ -228,7 +228,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="244"/>
         <source>Bailout:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bailout:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="248"/>
@@ -274,7 +274,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="282"/>
         <source>Seed:</source>
-        <translation type="unfinished">Jádro:</translation>
+        <translation type="unfinished">Parameter:</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="283"/>
@@ -284,12 +284,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="301"/>
         <source>Load Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Načíst konfiguraci palety</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="305"/>
         <source>Save Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uložit konfiguraci palety</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="309"/>
@@ -359,18 +359,18 @@
         <location filename="../src/ui-hlp/menu.cpp" line="919"/>
         <location filename="../src/ui-hlp/menu.cpp" line="934"/>
         <source>Initialization of color cycling failed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inicializace cyklu barev selhala.</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="921"/>
         <location filename="../src/ui-hlp/menu.cpp" line="936"/>
         <source>Try to enable palette emulation filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zkuste zapnout filter pro emulaci palety</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1042"/>
         <source>Algorithm:%i seed:%i size:%i</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Algoritmus:%i parametr:%i velikost:%i</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="67"/>
@@ -385,17 +385,17 @@
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="114"/>
         <source>linekey not available in this context!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&apos;linekey&apos; není v tomto kontextu dostupná!</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="279"/>
         <source>clear_line available only in animation replay</source>
-        <translation type="unfinished">clear_line dostupná pouze během opakování animace</translation>
+        <translation type="unfinished">&apos;clear_line&apos; dostupná pouze během opakování animace</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="288"/>
         <source>clear_lines available only in animation replay</source>
-        <translation type="unfinished">clear_lines dostupná pouze během opakování animace</translation>
+        <translation type="unfinished">&apos;clear_lines&apos; dostupná pouze během opakování animace</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="314"/>
@@ -580,7 +580,7 @@
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="643"/>
         <source>Could not open image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Obrázek nelze otevřít</translation>
     </message>
     <message>
         <location filename="../src/ui/mainwindow.cpp" line="363"/>
@@ -620,7 +620,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1088"/>
         <source>Replay only commands</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Znovu přehrát pouze příkazy</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1091"/>
@@ -674,7 +674,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1107"/>
         <source>Morph view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Morfovat zobrazení</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1109"/>
@@ -684,7 +684,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1111"/>
         <source>Move view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posunout zobrazení</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1113"/>
@@ -795,7 +795,7 @@
         <location filename="../src/ui-hlp/menu.cpp" line="1157"/>
         <location filename="../src/ui-hlp/menu.cpp" line="1167"/>
         <source>Cartesian Grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kartézská mřížka</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1170"/>
@@ -874,7 +874,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1200"/>
         <source>Text color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barva textu</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1202"/>
@@ -914,12 +914,12 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1232"/>
         <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uložit jako</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1233"/>
         <source>PNG</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PNG</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1236"/>
@@ -943,7 +943,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1244"/>
         <source>Render Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vykreslit obrázek</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1247"/>
@@ -1058,7 +1058,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1310"/>
         <source>Julia seed</source>
-        <translation type="unfinished">Jádro Julia</translation>
+        <translation type="unfinished">Parametr Juliovy množiny</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1315"/>
@@ -1074,22 +1074,22 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1322"/>
         <source>Palette Colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barvy z palety</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1325"/>
         <source>Palette Editor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Upravit paletu</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1327"/>
         <source>Load Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Načíst konfiguraci palety</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1329"/>
         <source>Save Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uložit konfiguraci palety</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1332"/>
@@ -1194,7 +1194,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1374"/>
         <source>Bailout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bailout</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1376"/>
@@ -1281,7 +1281,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1422"/>
         <source>Hide Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skrýt zprávy</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1425"/>
@@ -1302,7 +1302,7 @@
         <location filename="../src/ui-hlp/menu.cpp" line="1429"/>
         <location filename="../src/ui-hlp/menu.cpp" line="1461"/>
         <source>Other fractal types in XaoS</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Další typy fraktálů v XaoSu</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1431"/>
@@ -1423,7 +1423,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1467"/>
         <source>Sierpinski Gasket, S.Carpet, Koch Snowflake</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sierpinského trojúhelník, S. koberec, vločka Kochové</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1469"/>
@@ -1444,22 +1444,22 @@
         <location filename="../src/ui/main.cpp" line="483"/>
         <location filename="../src/ui/main.cpp" line="484"/>
         <source>Message Font...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Písmo pro zprávy...</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="486"/>
         <source>Set Language</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nastavit jazyk</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="489"/>
         <source>System default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Výchozí</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="531"/>
         <source>Info on current fractal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Informace o tomto fraktálu</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="533"/>
@@ -1495,12 +1495,12 @@
         <location filename="../src/engine/btrace.cpp" line="299"/>
         <location filename="../src/engine/btrace.cpp" line="379"/>
         <source>Boundary trace</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Trasování hranice</translation>
     </message>
     <message>
         <location filename="../src/engine/zoom.cpp" line="1012"/>
         <source>Solid guessing 1</source>
-        <translation type="unfinished">Solidní hádání</translation>
+        <translation type="unfinished">Solidní hádání 1</translation>
     </message>
     <message>
         <location filename="../src/engine/zoom.cpp" line="1236"/>
@@ -1510,7 +1510,7 @@
     <message>
         <location filename="../src/ui-hlp/play.cpp" line="853"/>
         <source>Replay disabled at line %i</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přehrání přerušeno na řádku %i</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="121"/>
@@ -1526,7 +1526,7 @@
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="215"/>
         <source>Processing command line options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zpracování možností z příkazové řádky</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="238"/>
@@ -1539,17 +1539,17 @@
         <location filename="../src/ui-hlp/render.cpp" line="247"/>
         <location filename="../src/ui-hlp/render.cpp" line="422"/>
         <source>Entering calculation loop!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vstup do výpočetní smyčky!</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="267"/>
         <source>Rendering frame %i...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vykreslování snímku %i...</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="321"/>
         <source>Linking frame %i to %i...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Propojování snímků %i a %i...</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/render.cpp" line="439"/>
@@ -1559,14 +1559,14 @@
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="608"/>
         <source>Preparing first image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Příprava prvního obrázku</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="625"/>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="627"/>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="650"/>
         <source>File %s loaded.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Soubor %s načten.</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="660"/>
@@ -1599,7 +1599,7 @@
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2283"/>
         <source>%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%s %.2f krát (%.1fE) %2.2f snímků/s %c %i %i %i %u</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2285"/>
@@ -1773,7 +1773,7 @@
     <message>
         <location filename="../src/sffe/sffe.cpp" line="58"/>
         <source>Unbalanced parentheses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Neplatné uzávorkování</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="62"/>
@@ -1793,7 +1793,7 @@
     <message>
         <location filename="../src/sffe/sffe.cpp" line="73"/>
         <source>Invalid operator: %s</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepatný operátor: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="78"/>
@@ -1824,7 +1824,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="822"/>
         <source>File %s opened.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Soubor %s otevřen.</translation>
     </message>
 </context>
 </TS>
