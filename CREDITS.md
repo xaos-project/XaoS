@@ -15,10 +15,12 @@
 - [Jan Hubička](mailto:jh@ucw.cz): Zooming routines, ugly interface, palettes, drivers, autopilot, filters, documentation, tutorials etc.
 - [Jens Kilian](mailto:jjk@acm.org): BeOS driver, deutsch.cat
 - [Thomas A. K. Kjaer](mailto:takjaer@imv.aau.dk): OS/2 ports (320x200 graphics and AA-lib)
+- [Zbyněk Konečný](mailto:zbynek@geogebra.org): Czech translation
 - [Zoltán Kovács](mailto:zoltan@geogebra.org): Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
 - [Zsigmond Kovács](mailto:kovzsi@gmail.com): Fractal examples
 - [Bjarnheiður Kristinsdóttir](mailto:bjarnhek@hi.is): Icelandic translation
 - [J.B. Langston III](mailto:jb-langston@austin.rr.com): Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
+- Alexey Loginov: Russian translation
 - [Andreas Madritsch](mailto:amadritsch@datacomm.ch): New fractal types, bailout, many fixes
 - [Mateusz Malczak](mailto:xaos@malczak.info): User formula evaluation library
 - [Giorgio Marazzi](mailto:gmarazzi@vtr.net): Improvements and fixes for espanhol.cat
@@ -43,7 +45,6 @@
 - [Clément Vermot](https://github.com/cvermot): Updates for French translation
 - [Philippe Wautelet](mailto:p.wautelet@fractalzone.be): Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
 - Sergio Zanchetta: Italian translation
-- Alexey Loginov: Russian translation
 
 ## Included Software
 
