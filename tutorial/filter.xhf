@@ -145,7 +145,7 @@
 (view 0.21077 0.67294 0.10309 0.10309)
 (usleep 2000000)
 
-(formula 'octal)
+(formula 'octo)
 (angle -269.59)
 (outcoloring 8)
 (plane 6)

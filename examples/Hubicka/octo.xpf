@@ -3,7 +3,7 @@
 ;Use xaos -loadpos <filename> to display it
 (initstate)
 (palette 3 1626860739 0)
-(formula 'octal)
+(formula 'octo)
 (perturbation 0 0.02499999999999999987)
 (maxiter 400)
 (view 0.0086889 0.22339 0.71627 0.71627)

@@ -39,7 +39,7 @@
 (usleep 2000000)
 
 
-(formula 'octal)
+(formula 'octo)
 (angle -272)
 (maxiter 25)
 (outcoloring 10)

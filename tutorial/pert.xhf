@@ -36,7 +36,7 @@
 
 (initstate)
 (palette 2 661894305 0)
-(formula 'octal)
+(formula 'octo)
 (perturbation 0 -0.025000000000000001605)
 (plane 1)
 (view 0.452 -0.086 14 14)

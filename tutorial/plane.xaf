@@ -74,7 +74,7 @@
 
 
 (palette 1 212885046 0)
-(formula 'octal)
+(formula 'octo)
 (plane 0)
 (view 0.05694 -0.02316 1.966 1.966)
 (usleep 2000000)
@@ -132,7 +132,7 @@
 (display)
 
 (palette 1 665365024 0)
-(formula 'octal)
+(formula 'octo)
 (plane 0)
 (usleep 2000000)
 
@@ -300,7 +300,7 @@
 
 ;(periodicity #f)
 (palette 1 1623798698 0)
-(formula 'octal)
+(formula 'octo)
 (angle -93.6)
 (plane 0)
 (view 0.05057 -0.04221 2.323 2.323)
@@ -334,7 +334,7 @@
 (usleep 2000000)
 
 (palette 1 21687438 0)
-(formula 'octal)
+(formula 'octo)
 (plane 0)
 (view 0.05963 0.01683 2.246 2.246)
 (usleep 2000000)
@@ -421,7 +421,7 @@
 (wait)
 
 (palette 1 13426138 0)
-(formula 'octal)
+(formula 'octo)
 (angle 269)
 (plane 0)
 (view -0.01687 -0.03823 1.773 1.773)

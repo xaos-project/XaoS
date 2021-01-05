@@ -114,7 +114,7 @@
 (usleep 3000000)
 
 (palette 1 1158293466 0)
-(formula 'octal)
+(formula 'octo)
 (juliaseed -0.61556665985505426477 0)
 (angle 90.5)
 (julia #t)

@@ -36,7 +36,7 @@
 
 
 (palette 1 908613446 0)
-(formula 'octal)
+(formula 'octo)
 (fastjulia #f)
 (cycling #f)
 (periodicity #t)

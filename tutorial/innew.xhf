@@ -320,7 +320,7 @@
 
 (usleep 3000000)
 (palette 3 253325190 0)
-(formula 'octal)
+(formula 'octo)
 (angle -89.5)
 (maxiter 16)
 (outcoloring 0)

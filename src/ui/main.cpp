@@ -292,7 +292,6 @@ static void ui_fractalinfo(struct uih_context *uih)
 
     // Dictionary of fractaltype and corresponding wiki hypertext link
     map["mandel"] = higherpower ? "higher-power-mandelbrots" : "mandelbrot";
-    map["octal"] = "octo";
     fractalname = map.find(fractalname) != map.end() ? map[fractalname] : fractalname;
 
     QDesktopServices::openUrl(QUrl(FRACTALINFO_URL + fractalname));

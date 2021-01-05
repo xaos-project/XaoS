@@ -4,7 +4,7 @@
 (initstate)
 (filter 'threed #t)
 (defaultpalette 0)
-(formula 'octal)
+(formula 'octo)
 (angle 262.68)
 (plane 6)
 (view 1.201 -0.03054 2.5 2.5)
