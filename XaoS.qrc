@@ -4,7 +4,7 @@
         <file>i18n/XaoS_de.qm</file>
         <file>i18n/XaoS_es.qm</file>
         <file>i18n/XaoS_fr.qm</file>
-	<file>i18n/XaoS_hi.qm</file>
+        <file>i18n/XaoS_hi.qm</file>
         <file>i18n/XaoS_hu.qm</file>
         <file>i18n/XaoS_it.qm</file>
         <file>i18n/XaoS_is.qm</file>
@@ -14,5 +14,6 @@
         <file>i18n/XaoS_rs.qm</file>
         <file>i18n/XaoS_sk.qm</file>
         <file>i18n/XaoS_sv.qm</file>
+        <file>i18n/XaoS_vi.qm</file>
     </qresource>
 </RCC>
