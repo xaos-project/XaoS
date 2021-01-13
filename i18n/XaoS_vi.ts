@@ -1,1021 +1,1037 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr_FR">
+<TS version="2.1" language="vi_VN">
 <context>
     <name>Dialog</name>
     <message>
         <source>Perturbation:</source>
-        <translation>Perturbation :</translation>
+        <translation>Độ nhiễu loạn:</translation>
     </message>
     <message>
         <source>Julia-seed:</source>
-        <translation>Initialisation de l&apos;ensemble de Julia :</translation>
+        <translation>Hạt giống Julia:</translation>
     </message>
     <message>
         <source>Morphing type:</source>
-        <translation>Type de morphing :</translation>
+        <translation>Loại biến hình:</translation>
     </message>
     <message>
         <source>Startuptime:</source>
-        <translation>Instant de démarrage :</translation>
+        <translation>Thời gian bắt đầu:</translation>
     </message>
     <message>
         <source>Stoptime:</source>
-        <translation>Instant d&apos;arrêt :</translation>
-    </message>
-    <message>
-        <source>File to render:</source>
-        <translation type="vanished">Fichier à traiter :</translation>
-    </message>
-    <message>
-        <source>Basename:</source>
-        <translation>Nom de base :</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation>Largeur :</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation>Hauteur :</translation>
-    </message>
-    <message>
-        <source>Pixel width (cm):</source>
-        <translation>Largeur du pixel (cm) :</translation>
-    </message>
-    <message>
-        <source>Pixel height (cm):</source>
-        <translation>Hauteur du pixel (cm) :</translation>
-    </message>
-    <message>
-        <source>Framerate:</source>
-        <translation>Taux de rafraîchissement :</translation>
-    </message>
-    <message>
-        <source>Image type:</source>
-        <translation>Type d&apos;image :</translation>
-    </message>
-    <message>
-        <source>Antialiasing:</source>
-        <translation>Anti-crénelage :</translation>
-    </message>
-    <message>
-        <source>Always recalculate:</source>
-        <translation>Toujours recalculer :</translation>
-    </message>
-    <message>
-        <source>Center:</source>
-        <translation>Centre :</translation>
-    </message>
-    <message>
-        <source>Radius:</source>
-        <translation>Rayon :</translation>
-    </message>
-    <message>
-        <source>Angle:</source>
-        <translation>Angle :</translation>
-    </message>
-    <message>
-        <source>Mode:</source>
-        <translation>Mode :</translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation>Début :</translation>
-    </message>
-    <message>
-        <source>End:</source>
-        <translation>Fin :</translation>
-    </message>
-    <message>
-        <source>Color:</source>
-        <translation>Couleur :</translation>
-    </message>
-    <message>
-        <source>Rotations per second:</source>
-        <translation>Rotations par seconde :</translation>
-    </message>
-    <message>
-        <source>Letters per second:</source>
-        <translation>Lettres par seconde :</translation>
-    </message>
-    <message>
-        <source>Iterations:</source>
-        <translation>Itérations :</translation>
-    </message>
-    <message>
-        <source>Text:</source>
-        <translation>Texte :</translation>
-    </message>
-    <message>
-        <source>Your command:</source>
-        <translation>Votre commande :</translation>
-    </message>
-    <message>
-        <source>Filename:</source>
-        <translation>Nom de fichier :</translation>
-    </message>
-    <message>
-        <source>Formula:</source>
-        <translation>Formule :</translation>
-    </message>
-    <message>
-        <source>X center:</source>
-        <translation>Position horizontale centre :</translation>
-    </message>
-    <message>
-        <source>Y center:</source>
-        <translation>Position verticale centre :</translation>
-    </message>
-    <message>
-        <source>X Radius:</source>
-        <translation>Rayon horizontal :</translation>
-    </message>
-    <message>
-        <source>Y Radius:</source>
-        <translation>Rayon vertical :</translation>
-    </message>
-    <message>
-        <source>Coordinates:</source>
-        <translation>Coordonnées :</translation>
-    </message>
-    <message>
-        <source>continuous rotation</source>
-        <translation>rotation continue</translation>
-    </message>
-    <message>
-        <source>Fast rotation</source>
-        <translation>Rotation rapide</translation>
-    </message>
-    <message>
-        <source>filter</source>
-        <translation>filtre</translation>
-    </message>
-    <message>
-        <source>enable</source>
-        <translation>activer</translation>
-    </message>
-    <message>
-        <source>Amount:</source>
-        <translation>Quantité :</translation>
-    </message>
-    <message>
-        <source>Zooming speed:</source>
-        <translation>Vitesse de zoom :</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>Nom :</translation>
-    </message>
-    <message>
-        <source>Bailout:</source>
-        <translation>Valeur d&apos;échappement :</translation>
-    </message>
-    <message>
-        <source>Threads:</source>
-        <translation>Threads :</translation>
-    </message>
-    <message>
-        <source>Julia mode:</source>
-        <translation>Mode Julia :</translation>
-    </message>
-    <message>
-        <source>Horizontal position:</source>
-        <translation>Position horizontale :</translation>
-    </message>
-    <message>
-        <source>Vertical position:</source>
-        <translation>Position verticale :</translation>
-    </message>
-    <message>
-        <source>Dynamic resolution:</source>
-        <translation>Résolution dynamique :</translation>
-    </message>
-    <message>
-        <source>Time:</source>
-        <translation>Heure :</translation>
-    </message>
-    <message>
-        <source>Number:</source>
-        <translation>Nombre :</translation>
-    </message>
-    <message>
-        <source>Algorithm number:</source>
-        <translation>Numéro d&apos;algorithme :</translation>
-    </message>
-    <message>
-        <source>Seed:</source>
-        <translation>Valeur initiale :</translation>
-    </message>
-    <message>
-        <source>Shift:</source>
-        <translation>Décalage :</translation>
-    </message>
-    <message>
-        <source>Frames per second:</source>
-        <translation>Images par seconde :</translation>
-    </message>
-    <message>
-        <source>Formula</source>
-        <translation type="unfinished">Formule</translation>
-    </message>
-    <message>
-        <source>Initialization:</source>
-        <translation>Initialisation :</translation>
+        <translation>Thời gian kết thúc:</translation>
     </message>
     <message>
         <source>Files to render:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tệp để kết xuất:</translation>
+    </message>
+    <message>
+        <source>Basename:</source>
+        <translation>Tên cở sở:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Chiều dài:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation>Chiều cao:</translation>
+    </message>
+    <message>
+        <source>Pixel width (cm):</source>
+        <translation>Chiều dài điểm ảnh (cm):</translation>
+    </message>
+    <message>
+        <source>Pixel height (cm):</source>
+        <translation>Chiều cao điểm ảnh (cm):</translation>
+    </message>
+    <message>
+        <source>Framerate:</source>
+        <translation>Tốc độ khung hình:</translation>
+    </message>
+    <message>
+        <source>Image type:</source>
+        <translation>Loại ảnh:</translation>
+    </message>
+    <message>
+        <source>Antialiasing:</source>
+        <translation>Khử răng cưa:</translation>
+    </message>
+    <message>
+        <source>Always recalculate:</source>
+        <translation>Luôn tính toán lại:</translation>
+    </message>
+    <message>
+        <source>Center:</source>
+        <translation>Tâm:</translation>
+    </message>
+    <message>
+        <source>Radius:</source>
+        <translation>Bán kính:</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation>Góc:</translation>
+    </message>
+    <message>
+        <source>Mode:</source>
+        <translation>Chế độ:</translation>
+    </message>
+    <message>
+        <source>Start:</source>
+        <translation>Bắt đầu:</translation>
+    </message>
+    <message>
+        <source>End:</source>
+        <translation>Kết thúc:</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>Màu:</translation>
+    </message>
+    <message>
+        <source>Rotations per second:</source>
+        <translation>Độ xoay mỗi giây:</translation>
+    </message>
+    <message>
+        <source>Letters per second:</source>
+        <translation>Số chữ cái mỗi giây:</translation>
+    </message>
+    <message>
+        <source>Iterations:</source>
+        <translation>Số lần lặp:</translation>
+    </message>
+    <message>
+        <source>Text:</source>
+        <translation>Văn bản:</translation>
+    </message>
+    <message>
+        <source>Your command:</source>
+        <translation>Câu lệnh của bạn</translation>
+    </message>
+    <message>
+        <source>Filename:</source>
+        <translation>Tên tệp:</translation>
+    </message>
+    <message>
+        <source>Formula:</source>
+        <translation>Công thức:</translation>
+    </message>
+    <message>
+        <source>X center:</source>
+        <translation>X tâm:</translation>
+    </message>
+    <message>
+        <source>Y center:</source>
+        <translation>Y tâm:</translation>
+    </message>
+    <message>
+        <source>X Radius:</source>
+        <translation>X bán kính:</translation>
+    </message>
+    <message>
+        <source>Y Radius:</source>
+        <translation>Y bán kính:</translation>
+    </message>
+    <message>
+        <source>Coordinates:</source>
+        <translation>Toạ độ:</translation>
+    </message>
+    <message>
+        <source>continuous rotation</source>
+        <translation>Xoay liền tục</translation>
+    </message>
+    <message>
+        <source>Fast rotation</source>
+        <translation>Xoay nhanh</translation>
+    </message>
+    <message>
+        <source>filter</source>
+        <translation>Bộ lọc</translation>
+    </message>
+    <message>
+        <source>enable</source>
+        <translation>Bật</translation>
+    </message>
+    <message>
+        <source>Amount:</source>
+        <translation>Số lượng:</translation>
+    </message>
+    <message>
+        <source>Zooming speed:</source>
+        <translation>Tốc độ thu phóng:</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Tên:</translation>
+    </message>
+    <message>
+        <source>Bailout:</source>
+        <translation>Cứu trợ:</translation>
+    </message>
+    <message>
+        <source>Threads:</source>
+        <translation>Số mạch:</translation>
+    </message>
+    <message>
+        <source>Julia mode:</source>
+        <translation>Chế độ Julia:</translation>
+    </message>
+    <message>
+        <source>Horizontal position:</source>
+        <translation>Vị trí ngang:</translation>
+    </message>
+    <message>
+        <source>Vertical position:</source>
+        <translation>Vị trí dọc:</translation>
+    </message>
+    <message>
+        <source>Dynamic resolution:</source>
+        <translation>Phân giải động:</translation>
+    </message>
+    <message>
+        <source>Time:</source>
+        <translation>Thời gian:</translation>
+    </message>
+    <message>
+        <source>Number:</source>
+        <translation>Số:</translation>
+    </message>
+    <message>
+        <source>Algorithm number:</source>
+        <translation>Số thuật toán:</translation>
+    </message>
+    <message>
+        <source>Seed:</source>
+        <translation>Hạt giống:</translation>
+    </message>
+    <message>
+        <source>Shift:</source>
+        <translation>Chuyển dịch:</translation>
     </message>
     <message>
         <source>Load Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation>Lưu cấu hình bảng phối màu</translation>
     </message>
     <message>
         <source>Save Palette Config</source>
-        <translation type="unfinished"></translation>
+        <translation>Lưu cấu hình bảng phối màu</translation>
+    </message>
+    <message>
+        <source>Frames per second:</source>
+        <translation>Số khung hình trên giây:</translation>
+    </message>
+    <message>
+        <source>Formula</source>
+        <translation>Công thức</translation>
+    </message>
+    <message>
+        <source>Initialization:</source>
+        <translation>Khởi tạo:</translation>
     </message>
 </context>
 <context>
     <name>Error</name>
     <message>
         <source>renderanim: Width parameter must be positive integer in the range 0..4096</source>
-        <translation>animation : le paramètre de largeur doit être un entier positif allant de 0 à 4096</translation>
+        <translation>renderanim: Tham số chiều dài phải là một số nguyên dương trong khoảng từ 0..4096</translation>
     </message>
     <message>
         <source>renderanim: Height parameter must be positive integer in the range 0..4096</source>
-        <translation>animation : le paramètre de hauteur doit être un entier positif allant de 0 à 4096</translation>
+        <translation>renderanim: Tham số chiều cao phải là một số nguyên dương trong khoảng từ 0..4096</translation>
     </message>
     <message>
         <source>renderanim: Invalid real width and height dimensions</source>
-        <translation>animation : dimension de hauteur ou de largeur réelle incorrecte</translation>
+        <translation>renderanim: Kích thước chiều dài và chiều cao không hợp lệ</translation>
     </message>
     <message>
         <source>renderanim: invalid framerate</source>
-        <translation>animation : taux de rafraîchissement incorrect</translation>
+        <translation>renderanim: tốc độ khung hình không hợp lệ</translation>
     </message>
     <message>
         <source>renderanim: antialiasing not supported in 256 color mode</source>
-        <translation>animation : anti-crénelage non supporté en mode 256 couleurs</translation>
+        <translation>renderanim: khử răng cưa không được hỗ trợ trong chế độ 256 màu</translation>
     </message>
     <message>
         <source>animateview: Invalid viewpoint</source>
-        <translation>animation : point de vue incorrect</translation>
+        <translation>animateview: Điểm nhìn không hợp lệ</translation>
     </message>
     <message>
         <source>Invalid viewpoint</source>
-        <translation>Point de vue incorrect</translation>
+        <translation>Điểm nhìn không hợp lệ</translation>
     </message>
     <message>
         <source>Unknown palette type</source>
-        <translation>Type de palette inconnu</translation>
+        <translation>Loại bảng phối màu không xác định</translation>
     </message>
     <message>
         <source>Initialization of color cycling failed.</source>
-        <translation>Echec de l&apos;initialisation de la circulation des couleurs.</translation>
+        <translation>Khởi tạo xoay vòng màu thất bại</translation>
     </message>
     <message>
         <source>Try to enable palette emulation filter</source>
-        <translation>Essayez d&apos;activer le filtre d&apos;émulation de palette</translation>
+        <translation>Hãy thử bật bộ lọc giả lập bảng phối màu</translation>
     </message>
     <message>
         <source>Algorithm:%i seed:%i size:%i</source>
-        <translation>Algorithme : %i  valeur initiale : %i  taille : %i</translation>
+        <translation>Thuật toán:%i hạt giống:%i kích cỡ:%i</translation>
     </message>
     <message>
         <source>line available only in animation replay</source>
-        <translation>ligne disponible seulement lors de répétition d&apos;animation</translation>
+        <translation>line chỉ khả dụng trong khi phát lại hoạt hình</translation>
     </message>
     <message>
         <source>Morphing non existing line!</source>
-        <translation>Ligne de morphing non existante!</translation>
+        <translation>Biến hình đường không tồn tại!</translation>
     </message>
     <message>
         <source>linekey not available in this context!</source>
-        <translation>ligne clé non disponible dans ce contexte!</translation>
+        <translation>linekey không có sẵn trong ngữ cảnh này!</translation>
     </message>
     <message>
         <source>clear_line available only in animation replay</source>
-        <translation>effaçage de ligne disponible seulement lors de répétition d&apos;animation</translation>
+        <translation>clear_line chỉ khả dụng trong khi phát lại hoạt hình</translation>
     </message>
     <message>
         <source>clear_lines available only in animation replay</source>
-        <translation>effaçage de lignes disponible seulement lors de répétition d&apos;animation</translation>
+        <translation>clear_lines chỉ khả dụng trong khi phát lại hoạt hình</translation>
     </message>
     <message>
         <source>Catalog file not found</source>
-        <translation>Fichier catalogue non trouvé</translation>
+        <translation>Không tìm thấy tệp danh mục</translation>
     </message>
     <message>
         <source>Replay is already active</source>
-        <translation>Répétition déja active</translation>
+        <translation>Phát lại đã được bật rồi</translation>
     </message>
     <message>
         <source>File open failed</source>
-        <translation>Echec d&apos;ouverture du fichier</translation>
+        <translation>Mở tệp thất bại</translation>
     </message>
     <message>
         <source>Out of memory</source>
-        <translation>Pas assez de mémoire</translation>
+        <translation>Đầy bộ nhớ</translation>
     </message>
     <message>
         <source>Missing parameter</source>
-        <translation>Paramètre manquant</translation>
+        <translation>Thiếu tham số</translation>
     </message>
     <message>
         <source>Unexpected end of file</source>
-        <translation>Fin inattendue de fichier</translation>
+        <translation>Cuối tệp không mong đợi</translation>
     </message>
     <message>
         <source>Token is too long</source>
-        <translation>Le &quot;token&quot; est trop long</translation>
+        <translation>Dấu hiệu quá dài</translation>
     </message>
     <message>
         <source>Unknown formula type</source>
-        <translation>Type de formule inconnu</translation>
+        <translation>Loại công thức không xác định</translation>
     </message>
     <message>
         <source>morph available only in animation replay</source>
-        <translation>Morphing disponible seulement lors de répétition d&apos;animation</translation>
+        <translation>morph chỉ khả dụng trong khi phát lại hoạt hình</translation>
     </message>
     <message>
         <source>morphview: Invalid viewpoint</source>
-        <translation>Vue morphing : point de vue incorrect</translation>
+        <translation>morphview: Điểm nhìn không hợp lệ</translation>
     </message>
     <message>
         <source>move available only in animation replay</source>
-        <translation>déplacement disponible seulement lors de répétition d&apos;animation</translation>
+        <translation>move chỉ khả dụng trong khi phát lại hoạt hình</translation>
     </message>
     <message>
         <source>morphjulia available only in animation replay</source>
-        <translation>Morphjulia disponible seulement lors de répétition d&apos;animation</translation>
+        <translation>morphjulia chỉ khả dụng trong khi phát lại hoạt hình</translation>
     </message>
     <message>
         <source>morphangle available only in animation replay</source>
-        <translation>Morphangle disponible seulement lors de répétition d&apos;animation</translation>
+        <translation>morphangle chỉ khả dụng trong khi phát lại hoạt hình</translation>
     </message>
     <message>
         <source>Unknown filter</source>
-        <translation>Filtre inconnu</translation>
+        <translation>Bộ lọc không xác định</translation>
     </message>
     <message>
         <source>sleep available only in animation replay</source>
-        <translation>pause disponible seulement lors de répétition d&apos;animation</translation>
+        <translation>sleep chỉ khả dụng trong khi phát lại hoạt hình</translation>
     </message>
     <message>
         <source>Internal program error #12 %i
 </source>
-        <translation>Erreur interne #12 %i
+        <translation>Lỗi bên trong chương trình #12 %i
 </translation>
     </message>
     <message>
         <source>wait available only in animation replay</source>
-        <translation>wait disponible seulement lors de répétition d&apos;animation</translation>
+        <translation>wait chỉ khả dụng trong khi phát lại hoạt hình</translation>
     </message>
     <message>
         <source>No catalog file loaded</source>
-        <translation>Pas de fichier catalogue chargé</translation>
+        <translation>Chưa tải tệp danh mục nào cả</translation>
     </message>
     <message>
         <source>Message not found in catalog file</source>
-        <translation>Message non trouvé dans fichier catalogue</translation>
+        <translation>Không tìm thấy thông điệp trong tệp danh mục</translation>
     </message>
     <message>
         <source>load available only in animation replay</source>
-        <translation>Load disponible seulement lors de répétition d&apos;animation</translation>
+        <translation>load chỉ khả dụng trong khi phát lại hoạt hình</translation>
     </message>
     <message>
         <source>Include level overflow</source>
-        <translation>Dépassement de niveau d&apos;inclusion</translation>
+        <translation>Bao gồm tràn cấp</translation>
     </message>
     <message>
         <source>File not found</source>
-        <translation>Fichier non trouvé</translation>
+        <translation>Không tìm thấy tệp</translation>
     </message>
     <message>
         <source>Too many parameters</source>
-        <translation>Trop de paramètres</translation>
+        <translation>Quá nhiều tham số</translation>
     </message>
     <message>
         <source>Error: %s</source>
-        <translation>Erreur : %s</translation>
+        <translation>Lỗi: %s</translation>
     </message>
     <message>
         <source>Cannot create palette</source>
-        <translation>Echec création palette</translation>
+        <translation>Không thể tạo bảng phối màu</translation>
     </message>
     <message>
         <source>Cannot create image
 </source>
-        <translation>Echec création image
+        <translation>Không thể tạo ảnh
 </translation>
     </message>
     <message>
         <source>Cannot create checking buffer!</source>
-        <translation>Echec création tampon de vérification !</translation>
+        <translation>Không thể tạo vùng đệm kiểm tra!</translation>
     </message>
     <message>
         <source>Cannot create context
 </source>
-        <translation>Echec création contexte
+        <translation>Không thể tạo ngữ cảnh
 </translation>
     </message>
     <message>
         <source>Cannot open animation file
 </source>
-        <translation>Echec ouverture fichier d&apos;animation
+        <translation>Không thể mở tệp hoạt hình
 </translation>
     </message>
     <message>
         <source>Calculation interrupted</source>
-        <translation>Calcul interrompu</translation>
+        <translation>Đã ngắt tính toán</translation>
     </message>
     <message>
         <source>Calculation finished</source>
-        <translation>Calcul terminé</translation>
+        <translation>Đã hoàn tất việc tính toán</translation>
     </message>
     <message>
         <source>Tutorial files not found. Reinstall XaoS</source>
-        <translation>Fichiers didacticiels introuvables. Réinstallez XaoS</translation>
+        <translation>Không tìm thấy các tệp dướng dẫn. Hãy tải lại XaoS</translation>
     </message>
     <message>
         <source>Could not open examples</source>
-        <translation>Echec ouverture exemples</translation>
+        <translation>Không thể mở ví dụ</translation>
     </message>
     <message>
         <source>Could not open image</source>
-        <translation>Echec ouverture l&apos;image</translation>
+        <translation>Không thể mở hình ảnh</translation>
     </message>
     <message>
         <source>Can not create palette</source>
-        <translation>Ne peut pas créer la palette</translation>
+        <translation>Không thể tạo bảng phối màu</translation>
     </message>
     <message>
         <source>XaoS is out of memory.</source>
-        <translation>Pas assez de mémoire.</translation>
+        <translation>XaoS bị đầy bộ nhớ</translation>
     </message>
     <message>
         <source>Can not create image</source>
-        <translation>Ne peut pas créer l&apos;image</translation>
+        <translation>Không thể tạo ảnh</translation>
     </message>
     <message>
         <source>Can not allocate tables</source>
-        <translation>Ne peut pas allouer les tables</translation>
+        <translation>Không thể cấp phát các bảng</translation>
     </message>
 </context>
 <context>
     <name>Menu</name>
     <message>
         <source>Root menu</source>
-        <translation>Menu principal</translation>
+        <translation>Trình đơn gốc</translation>
     </message>
     <message>
         <source>Animation root menu</source>
-        <translation>Menu principal d&apos;animation</translation>
+        <translation>Trình đơn gốc hoạt hình</translation>
     </message>
     <message>
         <source>Replay only commands</source>
-        <translation>Commandes de répétition uniquement</translation>
+        <translation>Chỉ phát lại bình luận</translation>
     </message>
     <message>
         <source>Line drawing functions</source>
-        <translation>Fonctions de traçage de lignes</translation>
+        <translation>Các hàm vẽ đường</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Ligne</translation>
+        <translation>Đường</translation>
     </message>
     <message>
         <source>Morph line</source>
-        <translation>Ligne de morphing</translation>
+        <translation>Biến hình đường</translation>
     </message>
     <message>
         <source>Morph last line</source>
-        <translation>Dernière ligne de morphing</translation>
+        <translation>Biến hình đường cuối cùng</translation>
     </message>
     <message>
         <source>Set line key</source>
-        <translation>Choisir ligne clé</translation>
+        <translation>Đặt khoá đường</translation>
     </message>
     <message>
         <source>Clear line</source>
-        <translation>Effacer ligne</translation>
+        <translation>Xoá đường</translation>
     </message>
     <message>
         <source>Clear all lines</source>
-        <translation>Effacer toutes les lignes</translation>
+        <translation>Xoá hết đường</translation>
     </message>
     <message>
         <source>Animation functions</source>
-        <translation>Fonctions d&apos;animation</translation>
+        <translation>Các hàm hoạt hình</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Vue</translation>
+        <translation>Xem</translation>
     </message>
     <message>
         <source>Morph view</source>
-        <translation>Vue de morphing</translation>
+        <translation>Biến hình khung nhìn</translation>
     </message>
     <message>
         <source>Morph julia</source>
-        <translation>Morphing de Julia</translation>
+        <translation>Biến hình julia</translation>
     </message>
     <message>
         <source>Move view</source>
-        <translation>Déplacer vue</translation>
+        <translation>Di chuyển khung nhìn</translation>
     </message>
     <message>
         <source>Morph angle</source>
-        <translation>Angle de morphing</translation>
+        <translation>Biến hình góc</translation>
     </message>
     <message>
         <source>Zoom center</source>
-        <translation>Centrer le zoom</translation>
+        <translation>Thu phóng tâm</translation>
     </message>
     <message>
         <source>Zoom</source>
-        <translation>Zoomer</translation>
+        <translation>Thu phóng</translation>
     </message>
     <message>
         <source>Un-zoom</source>
-        <translation>Dézoomer</translation>
+        <translation>Bỏ thu phóng</translation>
     </message>
     <message>
         <source>Stop zooming</source>
-        <translation>Arrêter de zoomer</translation>
+        <translation>Dừng thu phóng</translation>
     </message>
     <message>
         <source>Smooth morphing parameters</source>
-        <translation>Lisser les paramètres de morphing</translation>
+        <translation>Các tham số biến hình mượt</translation>
     </message>
     <message>
         <source>Timing functions</source>
-        <translation>Fonctions de temps</translation>
+        <translation>Hàm thời gian</translation>
     </message>
     <message>
         <source>Usleep</source>
-        <translation>Pause</translation>
+        <translation>Tạm ngủ</translation>
     </message>
     <message>
         <source>Wait for text</source>
-        <translation>Attendre le texte</translation>
+        <translation>Chờ văn bản</translation>
     </message>
     <message>
         <source>Wait for complete image</source>
-        <translation>Attendre l&apos;image complète</translation>
+        <translation>Chờ cho hình ảnh hoàn thiện</translation>
     </message>
     <message>
         <source>Include file</source>
-        <translation>Inclure fichier</translation>
+        <translation>Bao gồm tệp</translation>
     </message>
     <message>
         <source>Default palette</source>
-        <translation>Palette par défaut</translation>
+        <translation>Bảng phối màu mặc định</translation>
     </message>
     <message>
         <source>Formula</source>
-        <translation>Formule</translation>
+        <translation>Công thức</translation>
     </message>
     <message>
         <source>Maximal zooming step</source>
-        <translation>Pas maximum pour le zoom</translation>
+        <translation>Số bước thu phóng tối đa</translation>
     </message>
     <message>
         <source>Zooming speedup</source>
-        <translation>Accélération du zoom</translation>
+        <translation>Thu phong nhanh hơn</translation>
     </message>
     <message>
         <source>Filter</source>
-        <translation>Filtre</translation>
+        <translation>Bộ lọc</translation>
     </message>
     <message>
         <source>Letters per second</source>
-        <translation>Lettres par seconde</translation>
+        <translation>Số chữ cái mỗi giây</translation>
     </message>
     <message>
         <source>Interrupt</source>
-        <translation>Interrompre</translation>
+        <translation>Ngừng lại</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Affichage état</translation>
+        <translation>Trạng thái</translation>
     </message>
     <message>
         <source>Ministatus</source>
-        <translation>Affichage mini-état</translation>
+        <translation>Trạng thái nhỏ</translation>
     </message>
     <message>
         <source>Cartesian Grid</source>
-        <translation>Système de coordonnées cartésiennes</translation>
+        <translation>Lưới Đề-các</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Fichier</translation>
+        <translation>Tệp</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Edition</translation>
+        <translation>Chỉnh sửa</translation>
     </message>
     <message>
         <source>Fractal</source>
-        <translation>Fractale</translation>
+        <translation>Phân dạng</translation>
     </message>
     <message>
         <source>Calculation</source>
-        <translation>Calcul</translation>
+        <translation>Tính toán</translation>
     </message>
     <message>
         <source>Filters</source>
-        <translation>Filtres</translation>
+        <translation>Bộ lọc</translation>
     </message>
     <message>
         <source>Action</source>
-        <translation>Action</translation>
+        <translation>Hành động</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Aide</translation>
+        <translation>Trợ giúp</translation>
     </message>
     <message>
         <source>Tutorials</source>
-        <translation>Didacticiels</translation>
+        <translation>Hướng dẫn</translation>
     </message>
     <message>
         <source>Stop replay</source>
-        <translation>Arrêter la répétition</translation>
+        <translation>Dừng phát lại</translation>
     </message>
     <message>
         <source>Command</source>
-        <translation>Commande</translation>
+        <translation>Câu lệnh</translation>
     </message>
     <message>
         <source>Play string</source>
-        <translation>Joue texte</translation>
+        <translation>Phát xâu</translation>
     </message>
     <message>
         <source>Clear screen</source>
-        <translation>Effacer l&apos;écran</translation>
+        <translation>Dọn màn hình</translation>
     </message>
     <message>
         <source>Display fractal</source>
-        <translation>Afficher fractale</translation>
+        <translation>Hiển thị phân dạng</translation>
     </message>
     <message>
         <source>Display text</source>
-        <translation>Afficher le texte</translation>
+        <translation>Hiển thị văn bản</translation>
     </message>
     <message>
         <source>Text color</source>
-        <translation>Couleur du texte</translation>
+        <translation>Màu văn bản</translation>
     </message>
     <message>
         <source>Horizontal text position</source>
-        <translation>Position horizontale du texte</translation>
+        <translation>Vị trí văn bản ngang</translation>
     </message>
     <message>
         <source>Vertical text position</source>
-        <translation>Position verticale du texte</translation>
+        <translation>Vị trí văn bản dọc</translation>
     </message>
     <message>
         <source>Text position</source>
-        <translation>Position du texte</translation>
+        <translation>Vị trí văn bản</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation>Message</translation>
+        <translation>Thông điệp</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Nouveau</translation>
+        <translation>Mới</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Ouvrir</translation>
+        <translation>Mở</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Enregistrer</translation>
+        <translation>Lưu</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Lưu như</translation>
+    </message>
+    <message>
+        <source>PNG</source>
+        <translation>PNG</translation>
     </message>
     <message>
         <source>Record</source>
-        <translation>Enregistrer animation</translation>
+        <translation>Bản ghi</translation>
     </message>
     <message>
         <source>Replay</source>
-        <translation>Rejouer l&apos;animation</translation>
-    </message>
-    <message>
-        <source>Open image</source>
-        <translation type="vanished">Ouvrir l&apos;image</translation>
-    </message>
-    <message>
-        <source>Save image</source>
-        <translation type="vanished">Enregistrer l&apos;image</translation>
+        <translation>Phát lại</translation>
     </message>
     <message>
         <source>Render</source>
-        <translation>Rendre</translation>
+        <translation>Kết xuất</translation>
+    </message>
+    <message>
+        <source>Render Image</source>
+        <translation>Kết xuất ảnh</translation>
     </message>
     <message>
         <source>Load random example</source>
-        <translation>Ouvrir un exemple aléatoire</translation>
+        <translation>Tải ví dụ ngẫu nhiên</translation>
     </message>
     <message>
         <source>Save configuration</source>
-        <translation>Enregistrer la configuration</translation>
+        <translation>Lưu các cấu hình</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Annuler</translation>
+        <translation>Hoàn tác</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Rétablir</translation>
+        <translation>Làm lại</translation>
     </message>
     <message>
         <source>Formulae</source>
-        <translation>Formule</translation>
+        <translation>Công thức</translation>
     </message>
     <message>
         <source>More formulae</source>
-        <translation>Autres formules</translation>
+        <translation>Thêm công thức</translation>
     </message>
     <message>
         <source>User formula</source>
-        <translation>Formule utilisateur</translation>
+        <translation>Công thức người dùng</translation>
     </message>
     <message>
         <source>User initialization</source>
-        <translation>Initialisation utilisateur</translation>
+        <translation>Khởi tạo của người dùng</translation>
     </message>
     <message>
         <source>Incoloring mode</source>
-        <translation>Coloriage intérieur</translation>
+        <translation>Chế độ màu đầu vào</translation>
     </message>
     <message>
         <source>Outcoloring mode</source>
-        <translation>Coloriage extérieur</translation>
+        <translation>Chế độ màu đầu ra</translation>
     </message>
     <message>
         <source>Plane</source>
-        <translation>Plan</translation>
+        <translation>Mặt phẳng</translation>
     </message>
     <message>
         <source>Palette</source>
-        <translation>Couleurs</translation>
+        <translation>Bảng phối màu</translation>
     </message>
     <message>
         <source>Mandelbrot mode</source>
-        <translation>Mode Mandelbrot</translation>
+        <translation>Chế dộ Mandelbrot</translation>
     </message>
     <message>
         <source>Julia mode</source>
-        <translation>Mode Julia</translation>
+        <translation>Chế độ Julia</translation>
     </message>
     <message>
         <source>Fast julia mode</source>
-        <translation>Mode Julia rapide</translation>
+        <translation>Chế độ Julia nhanh</translation>
     </message>
     <message>
         <source>Rotation</source>
-        <translation>Rotation</translation>
+        <translation>Xoay</translation>
     </message>
     <message>
         <source>Set angle</source>
-        <translation>Choisir l&apos;angle</translation>
+        <translation>Đặt góc</translation>
     </message>
     <message>
         <source>Set plane</source>
-        <translation>Choisir le plan</translation>
+        <translation>Đặt mặt phẳng</translation>
     </message>
     <message>
         <source>Inside coloring mode</source>
-        <translation>Coloriage intérieur</translation>
+        <translation>Chế độ màu bên trong</translation>
     </message>
     <message>
         <source>Outside coloring mode</source>
-        <translation>Coloriage extérieur</translation>
+        <translation>Chế độ màu bên ngoài</translation>
     </message>
     <message>
         <source>Inside truecolor coloring mode</source>
-        <translation>Coloriage intérieur en vraies couleurs</translation>
+        <translation>Chế độ tô màu chuẩn bên trong</translation>
     </message>
     <message>
         <source>Outside truecolor coloring mode</source>
-        <translation>Coloriage extérieur en vraies couleurs</translation>
+        <translation>Chế độ tô màu chuẩn bên ngoài</translation>
     </message>
     <message>
         <source>Julia seed</source>
-        <translation>Initialisation de Julia</translation>
+        <translation>Hạt giống Julia</translation>
     </message>
     <message>
         <source>Random palette</source>
-        <translation>Palette aléatoire</translation>
+        <translation>Bảng phối màu ngẫu nhiên</translation>
     </message>
     <message>
         <source>Custom palette</source>
-        <translation>Palette personnelle</translation>
+        <translation>Bảng phối màu tuỳ chỉnh</translation>
+    </message>
+    <message>
+        <source>Palette Colors</source>
+        <translation>Các màu bảng phối màu</translation>
+    </message>
+    <message>
+        <source>Palette Editor</source>
+        <translation>Trình sửa bảng phối màu</translation>
+    </message>
+    <message>
+        <source>Load Palette Config</source>
+        <translation>Tải cấu hình bảng phối màu</translation>
+    </message>
+    <message>
+        <source>Save Palette Config</source>
+        <translation>Lưu cấu hình bảng phối màu</translation>
     </message>
     <message>
         <source>Color cycling</source>
-        <translation>Circulation des couleurs</translation>
+        <translation>Xoay vòng màu</translation>
     </message>
     <message>
         <source>Reversed color cycling</source>
-        <translation>Circulation des couleurs inversée</translation>
+        <translation>Xoay vòng màu ngược lại</translation>
     </message>
     <message>
         <source>Color cycling speed</source>
-        <translation>Vitesse de circulation des couleurs</translation>
+        <translation>Tốc độ xoay vòng màu</translation>
     </message>
     <message>
         <source>Shift palette</source>
-        <translation>Décaler palette</translation>
+        <translation>Xê dịch bảng phối màu</translation>
     </message>
     <message>
         <source>Shift one forward</source>
-        <translation>Avancer d&apos;une unité</translation>
+        <translation>Xê dịch lên một</translation>
     </message>
     <message>
         <source>Shift one backward</source>
-        <translation>Reculer d&apos;une unité</translation>
+        <translation>Xê dịch xuống một</translation>
     </message>
     <message>
         <source>Solid guessing</source>
-        <translation>Estimation solide</translation>
+        <translation>Đoán cứng</translation>
     </message>
     <message>
         <source>Disable solid guessing</source>
-        <translation>Désactiver l&apos;estimation solide</translation>
+        <translation>Tắt đoán cứng</translation>
     </message>
     <message>
         <source>Guess 2x2 rectangles</source>
-        <translation>Estimation en rectangles 2x2</translation>
+        <translation>Đoán các hình chữ nhật 2x2</translation>
     </message>
     <message>
         <source>Guess 3x3 rectangles</source>
-        <translation>Estimation en rectangles 3x3</translation>
+        <translation>Đoán các hình chữ nhật 3x3</translation>
     </message>
     <message>
         <source>Guess 4x4 rectangles</source>
-        <translation>Estimation en rectangles 4x4</translation>
+        <translation>Đoán các hình chữ nhật 4x4</translation>
     </message>
     <message>
         <source>Guess 5x5 rectangles</source>
-        <translation>Estimation en rectangles 5x5</translation>
+        <translation>Đoán các hình chữ nhật 5x5</translation>
     </message>
     <message>
         <source>Guess 6x6 rectangles</source>
-        <translation>Estimation en rectangles 6x6</translation>
+        <translation>Đoán các hình chữ nhật 6x6</translation>
     </message>
     <message>
         <source>Guess 7x7 rectangles</source>
-        <translation>Estimation en rectangles 7x7</translation>
+        <translation>Đoán các hình chữ nhật 7x7</translation>
     </message>
     <message>
         <source>Guess 8x8 rectangles</source>
-        <translation>Estimation en rectangles 8x8</translation>
+        <translation>Đoán các hình chữ nhật 8x8</translation>
     </message>
     <message>
         <source>Guess unlimited rectangles</source>
-        <translation>Estimation en rectangles illimités</translation>
+        <translation>Đoán vô số hình chữ nhật</translation>
     </message>
     <message>
         <source>Dynamic resolution</source>
-        <translation>Résolution dynamique</translation>
+        <translation>Phân giải động</translation>
     </message>
     <message>
         <source>Periodicity checking</source>
-        <translation>Vérification périodicité</translation>
+        <translation>Kiểm tra định kì</translation>
     </message>
     <message>
         <source>Threads</source>
-        <translation>Threads</translation>
+        <translation>Số mạch</translation>
     </message>
     <message>
         <source>Iterations</source>
-        <translation>Itérations</translation>
+        <translation>Số lần lặp</translation>
     </message>
     <message>
         <source>Bailout</source>
-        <translation>Valeur d&apos;échappement</translation>
+        <translation>Cứu trợ</translation>
     </message>
     <message>
         <source>Perturbation</source>
-        <translation>Perturbation</translation>
+        <translation>Độ nhiễu loạn</translation>
     </message>
     <message>
         <source>Zooming speed</source>
-        <translation>Vitesse de zoom</translation>
+        <translation>Tốc độ thu phóng</translation>
     </message>
     <message>
         <source>Fixed step</source>
-        <translation>Pas fixé</translation>
+        <translation>Bước cố định</translation>
     </message>
     <message>
         <source>Solid guessing range</source>
-        <translation>Portée de l&apos;estimation solide</translation>
+        <translation>Khoảng đoán cứng</translation>
     </message>
     <message>
         <source>Disable rotation</source>
-        <translation>Désactiver rotation</translation>
+        <translation>Tắt xoay</translation>
     </message>
     <message>
         <source>Continuous rotation</source>
-        <translation>Rotation continue</translation>
+        <translation>Xoay liền tục</translation>
     </message>
     <message>
         <source>Rotate by mouse</source>
-        <translation>Rotation à la souris</translation>
+        <translation>Xoay bằng chuôt</translation>
     </message>
     <message>
         <source>Rotation speed</source>
-        <translation>Vitesse de rotation</translation>
+        <translation>Tốc độ xoay</translation>
     </message>
     <message>
         <source>Automatic rotation</source>
-        <translation>Rotation automatique</translation>
+        <translation>Tự động xoay</translation>
     </message>
     <message>
         <source>Fast rotation mode</source>
-        <translation>Mode de rotation rapide</translation>
+        <translation>Chế độ xoay nhanh</translation>
     </message>
     <message>
         <source>Recalculate</source>
-        <translation>Recalculer</translation>
+        <translation>Tính toán lại</translation>
     </message>
     <message>
         <source>Disable dynamic resolution</source>
-        <translation>Désactiver la résolution dynamique</translation>
+        <translation>Tắt phân giải động</translation>
     </message>
     <message>
         <source>Use only during animation</source>
-        <translation>Utiliser seulement pendant l&apos;animation</translation>
+        <translation>Chỉ dùng trong khi chạy hoạt hình</translation>
     </message>
     <message>
         <source>Use also for new images</source>
-        <translation>Utiliser aussi pour les nouvelles images</translation>
+        <translation>Cũng dùng cho các ảnh mới</translation>
     </message>
     <message>
         <source>Dynamic resolution mode</source>
-        <translation>Mode de résolution dynamique</translation>
+        <translation>Chế độ phân giải động</translation>
     </message>
     <message>
         <source>Autopilot</source>
-        <translation>Pilote automatique</translation>
+        <translation>Tự lái</translation>
     </message>
     <message>
         <source>Hide Messages</source>
-        <translation>Cacher les messages</translation>
+        <translation>Ẩn thông điệp</translation>
     </message>
     <message>
         <source>An introduction to fractals</source>
-        <translation>Une introduction aux fractales</translation>
+        <translation>Giới thiệu về phân dạng</translation>
     </message>
     <message>
         <source>XaoS features overview</source>
-        <translation>Aperçu des caractéristiques de XaoS</translation>
+        <translation>Tổng quan về tính năng của XaoS</translation>
     </message>
     <message>
         <source>Math behind fractals</source>
-        <translation>Les maths derrière les fractales</translation>
+        <translation>Toán học đằng sau các phân dạng</translation>
     </message>
     <message>
         <source>Other fractal types in XaoS</source>
-        <translation>Autres types de fractales dans XaoS</translation>
+        <translation>Các loại phân dạng khác trong XaoS</translation>
     </message>
     <message>
         <source>What&apos;s new?</source>
-        <translation>Nouveautés</translation>
+        <translation>Có gì mới?</translation>
     </message>
     <message>
         <source>Whole story</source>
-        <translation>Tous les détails</translation>
+        <translation>Đầu đuôi câu truyện</translation>
     </message>
     <message>
         <source>Introduction</source>
-        <translation>Introduction</translation>
+        <translation>Giới thiệu</translation>
     </message>
     <message>
         <source>Mandelbrot set</source>
-        <translation>Ensemble de Mandelbrot</translation>
+        <translation>Tập hợp Mandelbrot</translation>
     </message>
     <message>
         <source>Julia set</source>
-        <translation>Ensemble de Julia</translation>
+        <translation>Tập hợp Julia</translation>
     </message>
     <message>
         <source>Higher power Mandelbrots</source>
-        <translation>Puissances de Mandlebrot</translation>
+        <translation>Mandelbrot mũ cao hơn</translation>
     </message>
     <message>
         <source>Newton&apos;s method</source>
-        <translation>Méthode de Newton</translation>
+        <translation>Phương pháp của Newton</translation>
     </message>
     <message>
         <source>Barnsley&apos;s formula</source>
-        <translation>Formule de Barnsley</translation>
+        <translation>Công thức của Barnsley</translation>
     </message>
     <message>
         <source>Phoenix</source>
@@ -1031,238 +1047,257 @@
     </message>
     <message>
         <source>All features</source>
-        <translation>Toutes les caractéristiques</translation>
+        <translation>Tất cả tính năng</translation>
     </message>
     <message>
         <source>Outcoloring modes</source>
-        <translation>Coloration extérieure</translation>
+        <translation>Các chế độ màu ra</translation>
     </message>
     <message>
         <source>Incoloring modes</source>
-        <translation>Coloration intérieure</translation>
+        <translation>Các chế độ màu vào</translation>
     </message>
     <message>
         <source>True-color coloring modes</source>
-        <translation>Coloration en vraies couleurs</translation>
+        <translation>Các chế độ tô màu chuẩn</translation>
     </message>
     <message>
         <source>Planes</source>
-        <translation>Plans</translation>
+        <translation>Các mặt phẳng</translation>
     </message>
     <message>
         <source>Animations and position files</source>
-        <translation>Fichiers d&apos;animation et de position</translation>
+        <translation>Các tệp vị trí và hoạt hình</translation>
     </message>
     <message>
         <source>Random palettes</source>
-        <translation>Palettes aléatoires</translation>
+        <translation>Các bảng phối màu ngẫu nhiên</translation>
     </message>
     <message>
         <source>Other noteworthy features</source>
-        <translation>Autres caractéristiques utiles</translation>
+        <translation>Các tính năng đáng chú ý khác</translation>
     </message>
     <message>
         <source>The definition and fractal dimension</source>
-        <translation>Définition et dimension fractale</translation>
+        <translation>Định nghĩa và kích thước phân dạng</translation>
     </message>
     <message>
         <source>Escape time fractals</source>
-        <translation>Fractales à temps d&apos;échappement</translation>
+        <translation>Những phân dạng thoát khỏi thời gian</translation>
     </message>
     <message>
         <source>Triceratops and Catseye fractals</source>
-        <translation>Fractales Triceratops et Oeil de chat</translation>
+        <translation>Phân dạng Triceratops và Catseye</translation>
     </message>
     <message>
         <source>Mandelbar, Lambda, Manowar and Spider</source>
-        <translation>Mandelbar, Lambda, Manowar et Araignée</translation>
+        <translation>Mandelbar, Lambda, Manowar và Spider</translation>
     </message>
     <message>
         <source>Sierpinski Gasket, S.Carpet, Koch Snowflake</source>
-        <translation>Triangle de Sierpinski , Tapis de S., Flocon de Koch</translation>
+        <translation>Sierpinski Gasket, S.Carpet, bông tuyết Koch</translation>
     </message>
     <message>
         <source>What&apos;s new in 3.0?</source>
-        <translation>Nouveautés dans la version 3.0</translation>
+        <translation>Có gì mởi ở bản 3.0?</translation>
     </message>
     <message>
         <source>What&apos;s new in 4.0?</source>
-        <translation>Nouveautés dans la version 4.0</translation>
-    </message>
-    <message>
-        <source>Quit</source>
-        <translation>Quitter</translation>
-    </message>
-    <message>
-        <source>Message Font...</source>
-        <translation>Police des messages</translation>
-    </message>
-    <message>
-        <source>Set Language</source>
-        <translation>Choisir la langue</translation>
-    </message>
-    <message>
-        <source>Send Feedback</source>
-        <translation>Reporter un problème</translation>
-    </message>
-    <message>
-        <source>Get Updates</source>
-        <translation>Récuperer les mises à jour</translation>
-    </message>
-    <message>
-        <source>User Forum</source>
-        <translation>Forum des utilisateurs</translation>
+        <translation>Có gì mởi ở bản 4.0?</translation>
     </message>
     <message>
         <source>About</source>
-        <translation>À propos</translation>
+        <translation>Giới thiệu</translation>
     </message>
     <message>
-        <source>Fullscreen</source>
-        <translation>Plein écran</translation>
+        <source>Quit</source>
+        <translation>Thoát</translation>
     </message>
     <message>
-        <source>Save as</source>
-        <translation type="unfinished"></translation>
+        <source>Message Font...</source>
+        <translation>Phông thông điệp...</translation>
     </message>
     <message>
-        <source>PNG</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Render Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Palette Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Palette Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Load Palette Config</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save Palette Config</source>
-        <translation type="unfinished"></translation>
+        <source>Set Language</source>
+        <translation>Đặt ngôn ngữ</translation>
     </message>
     <message>
         <source>System default</source>
-        <translation type="unfinished"></translation>
+        <translation>Mặc định của hệ thống</translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation>Toàn màn hình</translation>
     </message>
     <message>
         <source>Info on current fractal</source>
-        <translation type="unfinished"></translation>
+        <translation>Thông tin về phân dạng hiện tại</translation>
+    </message>
+    <message>
+        <source>Send Feedback</source>
+        <translation>Gửi phản hồi</translation>
+    </message>
+    <message>
+        <source>Get Updates</source>
+        <translation>Cập nhật</translation>
+    </message>
+    <message>
+        <source>User Forum</source>
+        <translation>Diễn đàn người dùng</translation>
     </message>
 </context>
 <context>
     <name>Message</name>
     <message>
         <source>Boundary trace</source>
-        <translation>Détection de frontière</translation>
+        <translation>Truy vết ranh giới</translation>
     </message>
     <message>
         <source>Solid guessing 1</source>
-        <translation>Estimation solide 1</translation>
+        <translation>Đoán cứng 1</translation>
     </message>
     <message>
         <source>Solid guessing</source>
-        <translation>Estimation solide</translation>
+        <translation>Đoán cứng</translation>
+    </message>
+    <message>
+        <source>Out of memory</source>
+        <translation>Đầy bộ nhớ</translation>
+    </message>
+    <message>
+        <source>Unbalanced parentheses</source>
+        <translation>Dấu ngoặc không cân xứng</translation>
+    </message>
+    <message>
+        <source>Unknown function: %s</source>
+        <translation>Hàm không xác định: %s</translation>
+    </message>
+    <message>
+        <source>Invalid number: %s</source>
+        <translation>Số không hợp lệ: %s</translation>
+    </message>
+    <message>
+        <source>Unknown variable: %s</source>
+        <translation>Biến không xác định: %s</translation>
+    </message>
+    <message>
+        <source>Invalid operator: %s</source>
+        <translation>Toán tử không hợp lệ: %s</translation>
+    </message>
+    <message>
+        <source>Internal error occurred in formula: %s</source>
+        <translation>Lỗi nội bộ đã xảy ra trong công thức: %s</translation>
+    </message>
+    <message>
+        <source>Function has incorrect parameter count: %s</source>
+        <translation>Hàm có số tham số không chính xác: %s</translation>
+    </message>
+    <message>
+        <source>Empty formula</source>
+        <translation>Công thức rỗng</translation>
+    </message>
+    <message>
+        <source>XaoS must restart to change the thread count.</source>
+        <translation>XaoS phải khởi động lại đẻ thay đổi số lượng mạch.</translation>
+    </message>
+    <message>
+        <source>Do you want to quit now?</source>
+        <translation>Bạn có muốn thoát luôn không?</translation>
+    </message>
+    <message>
+        <source>File %s opened.</source>
+        <translation>Đã mở tệp %s.</translation>
+    </message>
+    <message>
+        <source>File %s saved.</source>
+        <translation>Đã lưu tệp %s.</translation>
     </message>
     <message>
         <source>Replay disabled at line %i</source>
-        <translation>Répétition désactivée à&#xa0;la ligne %i</translation>
+        <translation>Phát lại đã bị vô hiệu hoá ở dòng %i</translation>
     </message>
     <message>
         <source>Initializing</source>
-        <translation>Initialisation</translation>
+        <translation>Đang khởi tạo</translation>
     </message>
     <message>
         <source>Loading catalogs</source>
-        <translation>Chargement catalogues</translation>
+        <translation>Đang tải các danh mục</translation>
     </message>
     <message>
         <source>Processing command line options</source>
-        <translation>Traitement options ligne de commande</translation>
+        <translation>Đang xử lý các tuỳ chọn dòng lệnh</translation>
     </message>
     <message>
         <source>Enabling animation replay
 </source>
-        <translation>Activation de la répétition d&apos;animation
-</translation>
+        <translation>Đang bất hoạt hình phát lại</translation>
     </message>
     <message>
         <source>Entering calculation loop!</source>
-        <translation>Entrée dans la boucle de calcul !</translation>
+        <translation>Đang bước vào vòng lặp tính toán!</translation>
     </message>
     <message>
         <source>Rendering frame %i...</source>
-        <translation>Rendu de la frame %i...</translation>
+        <translation>Đang kết xuất khung %i...</translation>
     </message>
     <message>
         <source>Linking frame %i to %i...</source>
-        <translation>Lie l&apos;image %i à l&apos;image %i...</translation>
+        <translation>Đang liên kết khung %i vào khung %i...</translation>
     </message>
     <message>
         <source>Calculation finished</source>
-        <translation>Calcul terminé</translation>
+        <translation>Đã hoàn tất việc tính toán</translation>
     </message>
     <message>
         <source>Preparing first image</source>
-        <translation>Préparation première image</translation>
+        <translation>Đang chuẩn bị hình ảnh đầu tiên</translation>
     </message>
     <message>
         <source>File %s loaded.</source>
-        <translation>Fichier %s chargé.</translation>
+        <translation>Đã tải tệp %s.</translation>
     </message>
     <message>
         <source>Saving image...</source>
-        <translation>Enregistrement image...</translation>
+        <translation>Đang lưu ảnh...</translation>
     </message>
     <message>
         <source>Save interrupted</source>
-        <translation>Enregistrement interrompu</translation>
-    </message>
-    <message>
-        <source>File %s saved.</source>
-        <translation>Fichier %s enregistré</translation>
+        <translation>Đã ngừng việc lưu</translation>
     </message>
     <message>
         <source>Can not open file</source>
-        <translation>Echec ouverture fichier</translation>
+        <translation>Không thể mở tệp</translation>
     </message>
     <message>
         <source>Recording to file %s enabled.</source>
-        <translation>Enregistrement vers le fichier %s activé.</translation>
+        <translation>Đã bật ghi vào tệp %s.</translation>
     </message>
     <message>
         <source>%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            </source>
-        <translation>%s %.2f fois (%.1fE) %2.2f images/sec %c %i %i %i %u            </translation>
+        <translation>%s %.2f lần (%.1fE) %2.2f khung/giây %c %i %i %i %u            </translation>
     </message>
     <message>
         <source>unzoomed</source>
-        <translation>Réduit</translation>
+        <translation>chưa phóng to</translation>
     </message>
     <message>
         <source>zoomed</source>
-        <translation>Agrandi</translation>
+        <translation>đã phóng to</translation>
     </message>
     <message>
         <source>framerate:%f
 </source>
-        <translation>taux de rafraîchissement : %f
+        <translation>tốc độ khung hình: %f
 </translation>
     </message>
     <message>
         <source>Fractal name:%s</source>
-        <translation>Nom de la fractale : %s</translation>
+        <translation>Tên phân dạng:%s</translation>
     </message>
     <message>
         <source>Fractal type:%s</source>
-        <translation>Type de fractale : %s</translation>
+        <translation>Loại phân dạng:%s</translation>
     </message>
     <message>
         <source>Mandelbrot</source>
@@ -1274,153 +1309,105 @@
     </message>
     <message>
         <source>Formula:%s</source>
-        <translation>Formule : %s</translation>
+        <translation>Công thức:%s</translation>
     </message>
     <message>
         <source>View:[%1.12f,%1.12f]</source>
-        <translation>Vue : [%1.12f,%1.12f]</translation>
+        <translation>Xem:[%1.12f,%1.12f]</translation>
     </message>
     <message>
         <source>size:[%1.12f,%1.12f]</source>
-        <translation>Taille : [%1.12f,%1.12f]</translation>
+        <translation>kích cỡ:[%1.12f,%1.12f]</translation>
     </message>
     <message>
         <source>Rotation:%4.2f   Screen size:%i:%i</source>
-        <translation>Rotation : %4.2f   Taille d&apos;écran : %i:%i</translation>
+        <translation>Độ xoay:%4.2f   kích cỡ màn hình:%i:%i</translation>
     </message>
     <message>
         <source>Iterations:%-4u Palette size:%i</source>
-        <translation>Itérations : %-4i Taille palette : %i {4u?}</translation>
+        <translation>Số lần lặp:%-4u Kích cỡ bảng phối màu:%i</translation>
     </message>
     <message>
         <source>Bailout:%4.2f</source>
-        <translation>Valeur d&apos;échappement : %4.2f</translation>
+        <translation>Cứu trợ:%4.2f</translation>
     </message>
     <message>
         <source>Autopilot:%-4s  Plane:%s</source>
-        <translation>Pilote automatique : %-4s  Plan : %s</translation>
+        <translation>Tự lái:%-4s  Mặt phẳng:%s</translation>
     </message>
     <message>
         <source>On</source>
-        <translation>Allumé</translation>
+        <translation>Bật</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation>Éteint</translation>
+        <translation>Tắt</translation>
     </message>
     <message>
         <source>incoloring:%s    outcoloring:%s</source>
-        <translation>Coloration intérieure : %s  extérieure : %s</translation>
+        <translation>tô màu đầu vào:%s    tô màu đầu ra:%s</translation>
     </message>
     <message>
         <source>zoomspeed:%f</source>
-        <translation>Vitesse de zoom : %f</translation>
+        <translation>tốc độ thu phóng:%f</translation>
     </message>
     <message>
         <source>Parameter:none</source>
-        <translation>Paramètre : aucun</translation>
+        <translation>Tham số:không có</translation>
     </message>
     <message>
         <source>Parameter:[%f,%f]</source>
-        <translation>Paramètre : [%f,%f]</translation>
+        <translation>Tham số:[%f,%f]</translation>
     </message>
     <message>
         <source>Thank you for using XaoS
 </source>
-        <translation>Merci d&apos;avoir utilisé XaoS
+        <translation>Cảm ơn bạn đã sử dụng XaoS
 </translation>
     </message>
     <message>
         <source>XaoS must restart to change the language.</source>
-        <translation>XaoS doit redémarrer pour changer la langue.</translation>
+        <translation>XaoS phải khởi động lại đẻ thay đổi ngôn ngữ.</translation>
     </message>
     <message>
         <source>Enabling: %s. </source>
-        <translation>Activation : %s. </translation>
+        <translation>Đang hiệu lực hoá: %s. </translation>
     </message>
     <message>
         <source>Disabling: %s. </source>
-        <translation>Désactivation : %s. </translation>
+        <translation>Đang vô hiệu hoá: %s. </translation>
     </message>
     <message>
         <source>Skipping, please wait...</source>
-        <translation>Saute image, patientez...</translation>
+        <translation>Đang nhảy qua, xin chờ...</translation>
     </message>
     <message>
         <source>Letters per second %i  </source>
-        <translation>Lettres par seconde %i  </translation>
+        <translation>Số chữ cái mỗi giây:  %i  </translation>
     </message>
     <message>
         <source>Rotation speed:%2.2f degrees per second </source>
-        <translation>Vitesse de rotation : %2.2f degrés par seconde</translation>
+        <translation>Tốc độ xoay:%2.2f độ trên giây </translation>
     </message>
     <message>
         <source>Iterations: %i   </source>
-        <translation>Itérations: %i   </translation>
+        <translation>Số lần lặp: %i   </translation>
     </message>
     <message>
         <source>Cycling speed: %i   </source>
-        <translation>Vitesse de circulation : %i   </translation>
+        <translation>Tốc độ xoay vòng: %i   </translation>
     </message>
     <message>
         <source>speed:%2.2f </source>
-        <translation>vitesse : %2.2f</translation>
+        <translation>tốc độ:%2.2f </translation>
     </message>
     <message>
         <source>Please wait while calculating %s</source>
-        <translation>Patientez pendant le calcul de %s</translation>
+        <translation>Xin chờ trong khi đang tính toán %s</translation>
     </message>
     <message>
         <source>Welcome to XaoS version %s</source>
-        <translation>Bienvenue sur XaoS version %s</translation>
-    </message>
-    <message>
-        <source>Out of memory</source>
-        <translation>Pas assez de mémoire</translation>
-    </message>
-    <message>
-        <source>Unbalanced parentheses</source>
-        <translation>Parenthèses manquantes</translation>
-    </message>
-    <message>
-        <source>Unknown function: %s</source>
-        <translation>Fonction inconnue : %s</translation>
-    </message>
-    <message>
-        <source>Invalid number: %s</source>
-        <translation>Nombre invalide : %s</translation>
-    </message>
-    <message>
-        <source>Unknown variable: %s</source>
-        <translation>Variable inconnue : %s</translation>
-    </message>
-    <message>
-        <source>Invalid operator: %s</source>
-        <translation>Opérateur invalide : %s</translation>
-    </message>
-    <message>
-        <source>Internal error occurred in formula: %s</source>
-        <translation>Une erreur interne est survenue dans la formule : %s</translation>
-    </message>
-    <message>
-        <source>Function has incorrect parameter count: %s</source>
-        <translation>La fonction a un nombre incorrect de paramètres : %s</translation>
-    </message>
-    <message>
-        <source>Empty formula</source>
-        <translation>Formule vide</translation>
-    </message>
-    <message>
-        <source>XaoS must restart to change the thread count.</source>
-        <translation>XaoS doit redémarrer pour prendre en compte le changement de nombre de threads.</translation>
-    </message>
-    <message>
-        <source>Do you want to quit now?</source>
-        <translation>Voulez vous quitter maintenant ?</translation>
-    </message>
-    <message>
-        <source>File %s opened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chào mừng đến với XaoS phiên bản %s</translation>
     </message>
 </context>
 </TS>

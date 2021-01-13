@@ -393,7 +393,7 @@ static int ui_fullscreenselected(struct uih_context *uih)
 #endif
 
 /* WARNING: Increase this number in case there are new menu items added. */
-#define MAX_MENUITEMS_I18N 32
+#define MAX_MENUITEMS_I18N 33
 /* These variables must be global: */
 static menuitem *menuitems;
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
@@ -414,10 +414,10 @@ char languageSetting[6] = "";
 bool languageSysDefault = true;
 // please keep the languages in the same order
 const char *languages1[] = {
-    "__", "cs", "en", "fr", "de", "hi", "hu", "is", "it", "pt", "ro", "ru", "rs", "es", "sv"
+    "__", "cs", "en", "fr", "de", "hi", "hu", "is", "it", "pt", "ro", "ru", "rs", "es", "sv", "vi"
 };
 const char *languages2[] = {
-    "_____", "cs_CZ", "en_US", "fr_FR", "de_DE", "hi_HI", "hu_HU", "is_IS", "it_IT", "pt_PT", "ro_RO", "ru_RU", "rs_RS", "es_ES", "sv_SV"
+    "_____", "cs_CZ", "en_US", "fr_FR", "de_DE", "hi_HI", "hu_HU", "is_IS", "it_IT", "pt_PT", "ro_RO", "ru_RU", "rs_RS", "es_ES", "sv_SV", "vi_VN"
 };
 
 const char *lang1(int i) {
@@ -515,6 +515,9 @@ static void ui_registermenus_i18n(void)
                 UIH_LANG_ES, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Swedish", "sv", UI, uih_setlanguage,
                 UIH_LANG_SV, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "Vietnamese", "vi", UI, uih_setlanguage,
+                UIH_LANG_VI, ui_languageselected);
+
 
     MENUSEPARATOR_I("ui");
     MENUSEPARATOR_I("uia");
