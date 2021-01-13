@@ -4,6 +4,7 @@
 
 - [Anurag Aggarwal](mailto:kanurag94@gmail.com): Palette editor, palette saver, palette visualiser, Cartesian grid, batch rendering, user formulas history, powerful PNGs, bug fixes, Hindi translation, [contributions for GSoC 2020](https://github.com/xaos-project/XaoS/wiki/GSoC-2020)
 - [Natalija Budinski](mailto:nbudinski@yahoo.com): Serbian translation
+- [IoeCmcomc](https://github.com/IoeCmcomc): Vietnamese translation
 - [Eric Courteau](mailto:ecourteau@cplus.fr): francais.cat (translation of tutorials)
 - [Jean-Pierre Demailly](mailto:Jean-Pierre.Demailly@ujf-grenoble.fr): Updates for French translation
 - [Radek Doulik](mailto:rodo@atrey.karlin.mff.cuni.cz): TK interface, windowid patches

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
     <Name>XaoS</Name>
-    <Version>4.2</Version>
+    <Version>4.2.1</Version>
     <Title>XaoS</Title>
     <Publisher>XaoS Project</Publisher>
     <StartMenuDir>XaoS</StartMenuDir>
