@@ -11,6 +11,8 @@ Bug Fixes
 
 o Example files fixed that use the 'Octo' fractal.
 
+o Fix crash for playing tutorials.
+
 
 RELEASE NOTES FOR XAOS VERSION 4.2
 ----------------------------------

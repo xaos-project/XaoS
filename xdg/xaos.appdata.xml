@@ -64,6 +64,7 @@
       <description>
         <p>Vietnamese translation.</p>
         <p>Example files are fixed that use the 'Octo' fractal.</p>
+        <p>Crash fixed on playing tutorials.</p>
       </description>
       <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.2-1</url>
     </release>
