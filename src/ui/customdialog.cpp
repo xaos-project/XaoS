@@ -222,7 +222,7 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
             formLayout->addRow(layout2);
             formLayout->addRow(layout3);
 
-        } else if (dialog[i].type == DIALOG_ILIST) {
+        } else if (dialog[i].type == DIALOG_LIST) {
 
             QComboBox *list = new QComboBox(this);
             list->setObjectName(label);
@@ -316,7 +316,7 @@ void CustomDialog::accept()
                 destroypalette(gradientpal);
             } else if (m_dialog[i].type == DIALOG_PALPICKER) {
                 mkcustompalette(palcontext->image->palette, newColors);
-            } else if (m_dialog[i].type == DIALOG_ILIST) {
+            } else if (m_dialog[i].type == DIALOG_LIST) {
                 QComboBox *list = findChild<QComboBox *>(label);
                 m_parameters[i].dstring = strdup(list->currentText().toUtf8());
             }

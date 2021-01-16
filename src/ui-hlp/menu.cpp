@@ -311,7 +311,7 @@ void uih_registermenudialogs_i18n(void)
 
 #ifdef USE_SFFE
     Register(uih_sffedialog);
-    DIALOGILIST_I(TR("Dialog", "Formula"), USER_FORMULA);
+    DIALOGLIST_I(TR("Dialog", "Formula"), USER_FORMULA);
     NULL_I();
 
     Register(uih_sffeinitdialog);

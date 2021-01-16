@@ -375,7 +375,7 @@ void menu_activate(const menuitem *item, struct uih_context *c, dialogparam *d)
                             break;
                         case DIALOG_STRING:
                         case DIALOG_KEYSTRING:
-                        case DIALOG_ILIST:
+                        case DIALOG_LIST:
                             ((void (*)(struct uih_context * c, char *))
                                  item->function)(c, d[0].dstring);
                             break;
@@ -528,6 +528,7 @@ const char *menu_fillparam(struct uih_context *uih, tokenfunc f,
                 p->dstring = mystrdup(c);
             break;
         case DIALOG_STRING:
+        case DIALOG_LIST:
             if (menuparse_scheme) {
                 int l = strlen(c);
                 if (l < 2 || c[0] != '"' || c[l - 1] != '"')
