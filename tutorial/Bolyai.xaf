@@ -13,40 +13,40 @@
 (view 0.959 0.19 47.6 47.6)
 (zoomcenter 0.63 0.33)
 (zoom)
-(text "Kedves Vendégeink!")
+(text "Kedves VendÃ©geink!")
 (textsleep)
-(text "Önök most a
+(text "Ã–nÃ¶k most a
 
-Bevezetés a fraktálok világába
+BevezetÃ©s a fraktÃ¡lok vilÃ¡gÃ¡ba
 
-címû fraktálbemutatóból
-látnak részleteket.")
+cÃ­mÅ± fraktÃ¡lbemutatÃ³bÃ³l
+lÃ¡tnak rÃ©szleteket.")
 (textsleep)
 ; (formula 'sier)
 ; (zoomcenter 0.37 0.21)
 ; (zoom)
-(text "Ezt a bemutatót
-Jan Hubièka
-cseh matematikus diák készítette
-1997-ben, 19 évesen.")
+(text "Ezt a bemutatÃ³t
+Jan HubiÄka
+cseh matematikus diÃ¡k kÃ©szÃ­tette
+1997-ben, 19 Ã©vesen.")
 (textsleep)
-(text "A Bolyai Intézet 2002 óta
-maga is részt a program
-továbbfejlesztésében.")
+(text "A Bolyai IntÃ©zet 2002 Ã³ta
+maga is rÃ©szt a program
+tovÃ¡bbfejlesztÃ©sÃ©ben.")
 (textsleep)
 (text "A program, mely
 
-XaoS ('kháosz')
-névre hallgat,
+XaoS ('khÃ¡osz')
+nÃ©vre hallgat,
 
-akár felhasználóként,
-akár fejlesztõként, bárki
-számára nyitva áll...")
+akÃ¡r felhasznÃ¡lÃ³kÃ©nt,
+akÃ¡r fejlesztÅ‘kÃ©nt, bÃ¡rki
+szÃ¡mÃ¡ra nyitva Ã¡ll...")
 (textsleep)
 ; (formula 'koch)
 ; (zoomcenter 0.288 0.512)
-(text "...és ingyenesen letölthetõ a
-Bolyai Intézet weboldaláról.")
+(text "...Ã©s ingyenesen letÃ¶lthetÅ‘ a
+Bolyai IntÃ©zet weboldalÃ¡rÃ³l.")
 (textsleep)
 (usleep 3000000)
 (stop)

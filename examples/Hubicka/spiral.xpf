@@ -4,6 +4,7 @@
 (initstate)
 (defaultpalette 34)
 (formula 'mandel3)
+(filter 'palette #t)
 (cycling #t)
 (cyclingspeed 45)
 (juliaseed 0.062415825408122496282 -0.77685069099231027928)

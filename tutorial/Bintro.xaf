@@ -8,7 +8,7 @@
 (view -0.3369840037 -0.3762948312 3.907769588E-06 5.73139605E-06)
 
 (text "EGYETEMI TAVASZ
-a Bolyai IntÈzetben
+a Bolyai Int√©zetben
 
 2006")
 
@@ -1415,15 +1415,15 @@ a Bolyai IntÈzetben
 (clearscreen)
 (message "fractal")
 (usleep 5000000)
-(text " Frakt·lok....")
+(text " Frakt√°lok....")
 (usleep 5000000)
-(text "  Frakt·lok.....")
+(text "  Frakt√°lok.....")
 (usleep 5000000)
-(text "   Frakt·lok......")
+(text "   Frakt√°lok......")
 (usleep 5000000)
-(text "    Frakt·lok.......")
+(text "    Frakt√°lok.......")
 (usleep 5000000)
-(text "     Frakt·lok........")
+(text "     Frakt√°lok........")
 (usleep 5000000)
 
 (clearscreen)
@@ -1438,12 +1438,12 @@ a Bolyai IntÈzetben
 (clearscreen)
 (text "Semmi baj!
 
-Ez csup·n sz·munkra,
-matematikusok sz·m·ra fontos.")
+Ez csup√°n sz√°munkra,
+matematikusok sz√°m√°ra fontos.")
 (textsleep)
-(text "Van azonban rˆvidebb,
-kˆzÈrthetıbb, szemlÈletesebb
-definÌciÛ is.")
+(text "Van azonban r√∂videbb,
+k√∂z√©rthet≈ëbb, szeml√©letesebb
+defin√≠ci√≥ is.")
 (textsleep)
 (clearscreen)
 
