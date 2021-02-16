@@ -89,5 +89,9 @@ Description: zoom and pan around a fractal in
  image saving, fractal inversion, filters, and a built in fractal
  tutorial.
 " >> $FSDIR/DEBIAN/control
+
+# Fix permissions
+chmod -R g-w $FSDIR
+
 fakeroot dpkg-deb --build $FSDIR
 lintian $FSDIR.deb
