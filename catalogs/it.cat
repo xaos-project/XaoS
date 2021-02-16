@@ -144,7 +144,7 @@ usando la funzione iterativa f(z,c),
 dove z è la posizione precedente
 e c è la nuova posizione sullo schermo."
 escape9 "Nell'insieme di Mandelbrot, ad esempio,
-la funzione iterativa è z=z^c+c"
+la funzione iterativa è z=z^2+c"
 orbit1 "Nel caso volessimo esaminare
 il punto 0 - 0.6i,"
 orbit2 "assegniamo il valore stesso a c."

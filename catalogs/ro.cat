@@ -149,7 +149,7 @@ folosind functia iterativa, f(z,c)
 unde z este pozitia anterioara si c
 este noua pozitie de pe ecran."
 escape9 "De exemplu pentru multimea Mandelbrot,
-functia iterativa este z=z^c+c"
+functia iterativa este z=z^2+c"
 orbit1 "In cazul in care dorim sa studiem
 punctul 0 - 0.6i"
 orbit2 "Atribuim acest parametru la c"

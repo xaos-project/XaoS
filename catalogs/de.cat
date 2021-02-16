@@ -150,7 +150,7 @@ und c der Punkt ist, dem das Orbital
 angehört."
 escape9 "Die iterative Funktion
 für die Mandelbrotmenge lautet
-z=z^c+c."
+z=z^2+c."
 
 orbit1 "Um das Orbital, das dem Punkt
 0 - 0.6i angehört, zu untersuchen,"

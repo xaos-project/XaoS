@@ -157,7 +157,7 @@ utizando a função iterativa, f(z,c)
 onde z é a posição anterior e c
 é a nova posição na tela."
 escape9 "Por exemplo no conjunto Mandelbrot,
-a função iterativa é z=z^c+c"
+a função iterativa é z=z^2+c"
 orbit1 "No caso de querermos examinar
 o ponto 0 - 0.6i"
 orbit2 "Nós atribuímos o parâmetro para c"
