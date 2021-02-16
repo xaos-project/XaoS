@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>xaos</id>
+  <id>io.github.xaos-project</id>
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>XaoS</name>
@@ -21,7 +21,7 @@
     </p>
   </description>
 
-  <launchable type="desktop-id">xaos.desktop</launchable>
+  <launchable type="desktop-id">io.github.xaos-project.desktop</launchable>
 
   <screenshots>
     <screenshot type="default">
