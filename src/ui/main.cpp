@@ -23,6 +23,7 @@
 #include <cctype>
 #include <cerrno>
 #include <climits>
+#include <clocale>
 #include <cmath>
 #include <csignal>
 #include <cstdlib>
