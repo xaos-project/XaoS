@@ -3,7 +3,7 @@ name: build
 on: [push]
 
 jobs:
-  build:
+  linux:
 
     runs-on: ubuntu-latest
 
@@ -11,6 +11,19 @@ jobs:
     - uses: actions/checkout@v1
     - name: prerequisites
       run: sudo apt update && sudo apt install build-essential qttools5-dev-tools qt5-default
+    - name: qmake
+      run: qmake
+    - name: make
+      run: make
+
+  mac:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: install-qt
+      uses: jurplel/install-qt-action@v2
     - name: qmake
       run: qmake
     - name: make
