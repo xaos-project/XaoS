@@ -318,9 +318,19 @@ int uih_renderanimation(struct uih_context *gc1, const char *basename,
             writepng(t, uih->image, NULL);
 #else
             // On Unix, save a symlink.
+            const char *link_target;
+
             printmsg(TR("Message", "Linking frame %i to %i..."), framenum,
                      lastframenum);
-            if (symlink(s, t) != 0) {
+
+            // Symlink to the basename of s because the linked file is
+            // relative to the directory the symlink is in.
+            link_target = strrchr(s, '/');
+            if (link_target && *link_target)
+              link_target++;
+            if (!link_target || !*link_target)
+              link_target = s;
+            if (symlink(link_target, t) != 0) {
                 if (gc)
                     uih_error(gc, "Error creating symlink.");
                 else
