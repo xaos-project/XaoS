@@ -13,7 +13,9 @@
 #define FRACTALINFO_URL "https://github.com/xaos-project/XaoS/wiki/Fractal-Types#"
 
 // File locations
+#ifndef DATAPATH
 #define DATAPATH "/usr/share/XaoS"
+#endif
 #define TUTORIALPATH DATAPATH "/tutorial/"
 #define EXAMPLESPATH DATAPATH "/examples/"
 #define CATALOGSPATH DATAPATH "/catalogs/"

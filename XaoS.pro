@@ -69,3 +69,18 @@ include($$PWD/src/engine/engine.pri)
 include($$PWD/src/ui-hlp/ui-hlp.pri)
 include($$PWD/src/util/util.pri)
 include($$PWD/src/sffe/sffe.pri)
+
+# Support "make install"
+isEmpty(PREFIX) {
+    PREFIX = /usr/local
+    }
+DEFINES += DATAPATH=\\\"$$PREFIX/share/XaoS\\\"
+executable.files = bin/xaos
+executable.path = $$PREFIX/bin
+examples.path = $$PREFIX/share/XaoS/examples
+examples.extra = find examples -name \'*.xpf\' -exec cp {} $$PREFIX/share/XaoS/examples \;
+catalogs.files = catalogs/*.cat
+catalogs.path = $$PREFIX/share/XaoS/catalogs
+tutorial.files = tutorial/*.x?f
+tutorial.path = $$PREFIX/share/XaoS/tutorial
+INSTALLS += executable examples catalogs tutorial
