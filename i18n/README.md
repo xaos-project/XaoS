@@ -22,7 +22,7 @@ by XaoS.
 
 To add a new translation, do the following:
 
-1. Edit i18n.pri and add a file named $$PWD/XaoS_LL.ts to the TRANSLATIONS list. 
+1. Edit i18n.pri and add a file named $$PWD/XaoS_LL.ts to the TRANSLATIONS list.
 Replace LL with the two
 letter ISO 639-1 code for the new language. Save the pri file and
 rerun the lupdate command above to create the .ts file.

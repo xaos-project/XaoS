@@ -1,53 +1,54 @@
-#!/bin/bash -x
+#!/usr/bin/env bash
 
 # This script creates a .deb package of XaoS 4.0 and above.
 # Make sure you build the program first ("qmake PREFIX=/usr && make -j4").
 # Required packages before running this script:
 # lynx pandoc git-extras lintian
 
+set -x
 set -e
 test -x ../bin/xaos
 
-ARCH=`dpkg --print-architecture`
-LINUX_VARIANT=`lsb_release -i | cut -f2`
-LINUX_VERSION=`lsb_release -r | cut -f2`
+ARCH=$(dpkg --print-architecture)
+LINUX_VARIANT=$(lsb_release -s -i)
+LINUX_VERSION=$(lsb_release -s -r)
 
 PLATFORMCODE=$LINUX_VARIANT-$LINUX_VERSION
 
-MAINDIR=`cd ..; pwd`
-XAOS_VERSION=`cat $MAINDIR/src/include/config.h | grep XaoS_VERSION | awk '{print $3}' | sed s/\"//g`
+MAINDIR=$(cd ..; pwd)
+XAOS_VERSION=$(cat "$MAINDIR/src/include/config.h" | grep XaoS_VERSION | awk '{print $3}' | sed s/\"//g)
 
 FSDIR=xaos_${XAOS_VERSION}-${PLATFORMCODE}_$ARCH
-rm -fr $FSDIR
+rm -rf "$FSDIR"
 
 BINDIR=$FSDIR/usr/bin
-mkdir -p $BINDIR
-cp $MAINDIR/bin/xaos $BINDIR
+mkdir -p "$BINDIR"
+cp "$MAINDIR/bin/xaos" "$BINDIR"
 
 CATDIR=$FSDIR/usr/share/XaoS/catalogs
-mkdir -p $CATDIR
-cp $MAINDIR/catalogs/*.cat $CATDIR
+mkdir -p "$CATDIR"
+cp "$MAINDIR"/catalogs/*.cat "$CATDIR"
 
 TUTDIR=$FSDIR/usr/share/XaoS/tutorial
-mkdir -p $TUTDIR
-cp $MAINDIR/tutorial/*.{xaf,xhf} $TUTDIR
+mkdir -p "$TUTDIR"
+cp "$MAINDIR"/tutorial/*.{xaf,xhf} "$TUTDIR"
 
 EXDIR=$FSDIR/usr/share/XaoS/examples
-mkdir -p $EXDIR
-find $MAINDIR/examples -name '*.xpf' -exec cp {} $EXDIR \; # flattening folders
+mkdir -p "$EXDIR"
+find "$MAINDIR/examples" -name '*.xpf' -exec cp {} "$EXDIR" \; # flattening folders
 
 MANDIR=$FSDIR/usr/share/man/man6
-mkdir -p $MANDIR
-cp $MAINDIR/doc/xaos.6 $MANDIR
-gzip -9n $MANDIR/xaos.6
+mkdir -p "$MANDIR"
+cp "$MAINDIR/doc/xaos.6" "$MANDIR"
+gzip -9n "$MANDIR/xaos.6"
 
 DOCDIR=$FSDIR/usr/share/doc/xaos
-mkdir -p $DOCDIR
-cp $MAINDIR/COPYING $MAINDIR/NEWS $DOCDIR
+mkdir -p "$DOCDIR"
+cp "$MAINDIR/COPYING" "$MAINDIR/NEWS" "$DOCDIR"
 for i in CREDITS README; do
- pandoc $MAINDIR/$i.md | lynx -stdin -dump -nolist > $DOCDIR/$i
- done
-gzip -n $DOCDIR/NEWS
+    pandoc "$MAINDIR/$i.md" | lynx -stdin -dump -nolist > "$DOCDIR/$i"
+done
+gzip -n "$DOCDIR/NEWS"
 
 echo "Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: xaos
@@ -55,27 +56,27 @@ Source: https://github.com/xaos-project/XaoS
 
 Files: *
 Copyright: 2020 The XaoS Project
-License: GPL-1" > $DOCDIR/copyright
+License: GPL-1" > "$DOCDIR/copyright"
 
-git-changelog -x > $DOCDIR/changelog
-gzip -9n $DOCDIR/changelog
+git-changelog -x > "$DOCDIR/changelog"
+gzip -9n "$DOCDIR/changelog"
 
 PIXDIR=$FSDIR/usr/share/pixmaps
-mkdir -p $PIXDIR
-cp $MAINDIR/xdg/xaos.png $PIXDIR
+mkdir -p "$PIXDIR"
+cp "$MAINDIR/xdg/xaos.png" "$PIXDIR"
 
 APPDIR=$FSDIR/usr/share/applications
-mkdir -p $APPDIR
-cp $MAINDIR/xdg/io.github.xaos-project.desktop $APPDIR
+mkdir -p "$APPDIR"
+cp "$MAINDIR/xdg/io.github.xaos-project.desktop" "$APPDIR"
 
-mkdir -p $FSDIR/DEBIAN
+mkdir -p "$FSDIR/DEBIAN"
 echo -n "Package: xaos
 Version: $XAOS_VERSION
 Section: graphics
 Priority: optional
 Architecture: $ARCH
-Depends: " > $FSDIR/DEBIAN/control
-./dep-deb-versions >> $FSDIR/DEBIAN/control
+Depends: " > "$FSDIR/DEBIAN/control"
+./dep-deb-versions >> "$FSDIR/DEBIAN/control"
 echo "
 Maintainer: Zoltan Kovacs <zoltan@geogebra.org>
 Description: zoom and pan around a fractal in
@@ -88,10 +89,10 @@ Description: zoom and pan around a fractal in
  Other features include autopilot mode, palette changing,
  image saving, fractal inversion, filters, and a built in fractal
  tutorial.
-" >> $FSDIR/DEBIAN/control
+" >> "$FSDIR/DEBIAN/control"
 
 # Fix permissions
-chmod -R g-w $FSDIR
+chmod -R g-w "$FSDIR"
 
-fakeroot dpkg-deb --build $FSDIR
-lintian $FSDIR.deb
+fakeroot dpkg-deb --build "$FSDIR"
+lintian "$FSDIR.deb"
