@@ -1,10 +1,11 @@
-#!/bin/bash -x
+#!/usr/bin/env bash
 
 # This script creates a .deb package of XaoS 4.0 and above.
 # Make sure you build the program first ("qmake PREFIX=/usr && make -j4").
 # Required packages before running this script:
 # lynx pandoc git-extras lintian
 
+set -x
 set -e
 test -x ../bin/xaos
 
