@@ -19,39 +19,39 @@ if [ "$1" = "-h" ]; then
  exit 1
  fi    
 
-test -r $1 || {
+test -r "$1" || {
     echo "$1 is missing"
     exit 1
     }
-export BASENAME=`basename $1 .xaf`
-cp $1 $1.orig
+export BASENAME=$(basename "$1" .xaf)
+cp -- "$1" "$1.orig"
 echo "$1.orig file as backup was created."
 OUTPUTFILE=$BASENAME.cat
 
 echo "
 ##############################################
 #for file $1
-" > $OUTPUTFILE
+" > "$OUTPUTFILE"
 
-cat $1 | grep "text " | sed s/"(text "/""/g | sed s/"\")"/"\""/g |\
+cat "$1" | grep "text " | sed s/"(text "/""/g | sed s/"\")"/"\""/g | \
  sed s/" \"$"/"\""/g | awk '{x++; print ENVIRON["BASENAME"] x " " $0}' \
- >> $OUTPUTFILE
+ >> "$OUTPUTFILE"
  
-cat $OUTPUTFILE
-echo -n "^- This is the output. Do you want to append it to ../catalogs/*.cat? [Y/n] "
-read A
+cat "$OUTPUTFILE"
+printf '%s' "^- This is the output. Do you want to append it to ../catalogs/*.cat? [Y/n] "
+read -r A
 if [ "$A" != "n" ]; then
  for i in ../catalogs/*.cat; do
-  cat $OUTPUTFILE >> $i
-  echo -n "$i, "
+  cat "$OUTPUTFILE" >> "$i"
+  printf '%s' "$i, "
   done
  echo "done."
- fi
+fi
 
-echo -n "Shall I create 'message' commands instead of 'text's in $1? [Y/n] "
-read A
+printf '%s' "Shall I create 'message' commands instead of 'text's in $1? [Y/n] "
+read -r A
 if [ "$A" != "n" ]; then
- cat $1 | sed s/"(text "/"(message "/g |\
+ cat "$1" | sed s/"(text "/"(message "/g | \
   sed s/" \"$"/"\""/g | awk '
   {
    if (index($0,"(message ")==1)
@@ -62,21 +62,21 @@ if [ "$A" != "n" ]; then
     }
    else print $0
   }' | sed s/"~"/"\""/g \
-  > $1.work
+  > "$1.work"
  
- cat $1.work
- echo -n "^- This is the new $1 file. Do you want to save it? [Y/n] "
- read A
+ cat "$1.work"
+ printf '%s' "^- This is the new $1 file. Do you want to save it? [Y/n] "
+ read -r A
  if [ "$A" != "n" ]; then
-  cp $1.work $1
+  cp -- "$1.work" "$1"
   echo "Done."
   fi
- fi
+fi
 
-echo -n "Cleanup? [Y/n] "
-read A
+printf '%s' "Cleanup? [Y/n] "
+read -r A
 if [ "$A" != "n" ]; then
- rm -f $1.work $1.orig $OUTPUTFILE
+ rm -f "$1.work" "$1.orig" "$OUTPUTFILE"
  echo "Cleanup done."
  fi
 

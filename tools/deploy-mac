@@ -1,12 +1,12 @@
 #!/bin/sh
 
-MACDEPLOYQT=$(which macdeployqt)
+MACDEPLOYQT=$(command -v macdeployqt)
 if [ ! -x "$MACDEPLOYQT" ]; then
     echo "macdeployqt is not in path."
     exit
 fi
 
-cd $(dirname $0)/..
+cd "$(dirname "$0")/.."
 
 mkdir bin/XaoS.app/Contents/Resources/examples/
 cp examples/*/* bin/XaoS.app/Contents/Resources/examples/
