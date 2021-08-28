@@ -56,12 +56,12 @@ binary distributions of XaoS.
 ### [Qt](https://www.qt.io/)
 Copyright © 2020 The Qt Company
 
-License GPLv2+: [GNU GPL version 2 or later](http://gnu.org/licenses/gpl.html)
+License GPLv2+: [GNU GPL version 2 or later](https://gnu.org/licenses/gpl.html)
 
-### [GNU Scientific Library](http://www.gnu.org/software/gsl/)
+### [GNU Scientific Library](https://www.gnu.org/software/gsl/)
 Copyright © 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007 The GSL Team
 
-License GPLv3+: [GNU GPL version 3 or later](http://gnu.org/licenses/gpl.html)
+License GPLv3+: [GNU GPL version 3 or later](https://gnu.org/licenses/gpl.html)
 
 This is free software: you are free to change and redistribute it. 
 There is NO WARRANTY, to the extent permitted by law.
