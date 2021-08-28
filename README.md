@@ -1,16 +1,16 @@
 XaoS
 ====
 
-XaoS (pronounced *chaos*) is a realtime interactive fractal zoomer. This 
+XaoS (pronounced *chaos*) is a realtime interactive fractal zoomer. This
 means that it lets you zoom smoothly into any place in the fractal you
 choose without the long calculation required by other fractal generators.
 It has many other features too, like different fractal types, autopilot,
 special coloring modes, random palette generation, color cycling, etc.
 
-You can try the XaoS zooming algorithm online using 
+You can try the XaoS zooming algorithm online using
 [XaoS.js](http://xaos-project.github.io/XaoSjs/).
 
-XaoS is based on [Qt](http://www.qt.io), and has been tested on Linux, Mac, and Windows.  It 
+XaoS is based on [Qt](http://www.qt.io), and has been tested on Linux, Mac, and Windows. It
 should also work on any other platform supporting Qt Widgets, like the BSDs.
 
 - Original authors: [Jan Hubička](http://www.ucw.cz/~hubicka/) and [Thomas Marsh](https://www.linkedin.com/in/thomasmarsh).
@@ -32,16 +32,16 @@ Bugs and Support
 ----------------
 
 XaoS is a community-supported free software project. The Google Group provides
-a place for XaoS users to help each other get the most out of XaoS. XaoS 
+a place for XaoS users to help each other get the most out of XaoS. XaoS
 developers also monitor this discussion and answer questions from time to time.
-You can browse the archives freely but to prevent spam, you must join the group 
-in order to post. Google Groups provides options for participation from a 
-traditional mailing list to a completely web-based forum, so you don’t have to 
+You can browse the archives freely but to prevent spam, you must join the group
+in order to post. Google Groups provides options for participation from a
+traditional mailing list to a completely web-based forum, so you don’t have to
 get emails if you don’t want to.
 
-If you think you have found a bug in XaoS or have an idea for a new feature, 
-please let us know about it.  XaoS is developed on a volunteer basis and the
-developers work on it in their spare time.  Therefore, we can’t guarantee that
+If you think you have found a bug in XaoS or have an idea for a new feature,
+please let us know about it. XaoS is developed on a volunteer basis and the
+developers work on it in their spare time. Therefore, we can’t guarantee that
 issues will be addressed in a certain timeframe. If you are able to fix a bug
 or implement a new feature yourself, pull requests are very welcome.
 

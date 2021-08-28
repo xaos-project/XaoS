@@ -63,7 +63,7 @@ Copyright © 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2
 
 License GPLv3+: [GNU GPL version 3 or later](https://gnu.org/licenses/gpl.html)
 
-This is free software: you are free to change and redistribute it. 
+This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 
 ### [libpng](http://www.libpng.org/pub/png/libpng.html)

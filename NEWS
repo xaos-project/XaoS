@@ -149,18 +149,18 @@ o Simplified and improved build instructions for Windows developers
 GTK+ User Interface (Beta)
 ==========================
 
-The GTK+ user interface is approaching beta quality.  We welcome beta 
-testers to try out this version and let us know what issues you encounter. 
+The GTK+ user interface is approaching beta quality.  We welcome beta
+testers to try out this version and let us know what issues you encounter.
 Please share your feedback with us on the developer's discussion group at:
 http://groups.google.com/group/xaos-devel.
 
 We ask that beta testers be advanced users who are comfortable compiling
 software from source and submitting useful bug reports including backtraces.
 If you are not comfortable with this, then please wait for the final version
-to be released.  We would also really appreciate it if any experienced GTK+ 
-developers can review our code and make suggestions for improvement. 
+to be released.  We would also really appreciate it if any experienced GTK+
+developers can review our code and make suggestions for improvement.
 
-Since the GTK+ UI is still not ready for everyday use, it will not be 
+Since the GTK+ UI is still not ready for everyday use, it will not be
 compiled by default. You must explicitly enable it using the following
 configure switch:
 
@@ -176,21 +176,21 @@ New Documentation Format (Beta)
 ===============================
 
 We are in the process of migrating the XaoS help system to Sphinx and
-reStructuredText.  Our  user manual was previously in a crippled subset 
-of HTML that we dubbed XSHL, which was missing many features necessary 
-for maintaining modern, attractive documentation.  
+reStructuredText.  Our  user manual was previously in a crippled subset
+of HTML that we dubbed XSHL, which was missing many features necessary
+for maintaining modern, attractive documentation.
 
-Sphinx was developed by the Python project for their documentation, and 
-it is very similar to a Wiki in the way you mark  up the text.  It can 
+Sphinx was developed by the Python project for their documentation, and
+it is very similar to a Wiki in the way you mark  up the text.  It can
 output the results as HTML, PDF, and Windows Help.  It supports all the
 important things that are missing from the current help format, such as
-tables, images, and internet hyperlinks.  It can even convert LaTeX math 
+tables, images, and internet hyperlinks.  It can even convert LaTeX math
 markup into image files that get included in the HTML output.
 
-The documentation still needs a lot of work before it is ready, and we 
-have to make some modifications to Sphinx itself in order to integrate 
-the documentation it produces with XaoS's help system.  However, it is 
-far enough along that we would welcome volunteers who are familiar with 
+The documentation still needs a lot of work before it is ready, and we
+have to make some modifications to Sphinx itself in order to integrate
+the documentation it produces with XaoS's help system.  However, it is
+far enough along that we would welcome volunteers who are familiar with
 reStructuredText to submit improvements to the documentation.
 
 The new documentation is located in the help/rest directory, and it can
@@ -199,7 +199,7 @@ generate the output, you will need to install Sphinx.  Visit the Sphinx
 homepage at http://sphinx.pocoo.org/ for installation instructions and
 more information on the new documentation format.
 
-If you would like to help with the documentation, please contact us on 
+If you would like to help with the documentation, please contact us on
 the discussion group at: http://groups.google.com/group/xaos-devel.
 We will be happy to help you get started.
 
@@ -314,11 +314,11 @@ Mateusz has been working on the underlying SFFE (SegFault Formula
 Evaluator) library for several months. XaoS-3.3 can be compiled using
 both NASM (Netwide Assembler) or GSL (GNU Scientific Library) for the
 underlying complex arithmetic used by SFFE. For more information about
-the available user functions please read the enclosed documentation 
+the available user functions please read the enclosed documentation
 (see online help, "Other things to read", last entry), or visit
 Mateusz's info page on http://www.segfaultlabs.com/sfXaoS.
 
-User formula support has been tested on Linux, Windows, and Mac OS X 
+User formula support has been tested on Linux, Windows, and Mac OS X
 systems. Recent Ubuntu versions should work without any problems.
 
 You may also notice that internationalization can be broken on modern
@@ -329,13 +329,13 @@ of a Linux distribution, you may consider to add extra codepages for
 standard locales to the dependency list of XaoS (or create a package
 which installs an extra locale if needed).
 
-In addition, this version includes several fixes to the X11 driver 
-contributed by Tormod Volden. These improve compatibility with recent 
-versions of Xorg (-fullscreen and -root options), XScreenSaver 
+In addition, this version includes several fixes to the X11 driver
+contributed by Tormod Volden. These improve compatibility with recent
+versions of Xorg (-fullscreen and -root options), XScreenSaver
 (-window-id), and Beryl and Compiz (extreme transparency).
 
-Other improvements include a bug fix for color cycling and a performance 
-mode, which inhibits text output when using XaoS for public exhibition 
+Other improvements include a bug fix for color cycling and a performance
+mode, which inhibits text output when using XaoS for public exhibition
 (VJing). These changes were contributed by Andrew Stone.
 
 Finally, this version includes several build improvements for Mac OS X
@@ -436,94 +436,94 @@ restrictions:
    SuSE 7.3 and SuSE 8.0 should be good enough to compile
    it. The latest source has been also tested on the Compile
    Farm of SourceForge.net with the next results:
-   
+
    * [x86] Linux 2.4 (Debian 2.2)
      Compiles OK. Seems to be build properly.
-     
+
    * [x86] Linux 2.4 (Red Hat 7.3)
      Compiles OK, runs properly. It is suggested to
      configure it with --with-mitshm=no to avoid immediate
      exit after startup. Runs correctly in an X11 window
      on cf.sf.net.
-     
+
    * [x86] FreeBSD (4.7-STABLE)
      ./configure exits properly, make stops with an error.
-     
+
    * [Alpha] Linux 2.2 (Debian 3.0)
      ./configure exits properly, make stops with an error
      during compiling ui.c.
-     
+
    * [PPC - G4] MacOS X 10.1 SERVER Edition
      Compiles OK, the executable gave MIT/SHM problem
      with "./configure". It should work with --with-mithsm=no,
      but currently I have no access to any Mac OS X
      systems to test this.
-     
+
    * [Sparc - Ultra60] Linux 2.4 (Debian 3.0)
      Compiles OK, seems to be build properly.
-     
+
    * [Sparc - R220] Sun Solaris (8)
      ./configure stops with an error.
-     
+
    * [CerfCube SA 1110] Linux 2.4 (Debian 3.0)
      Compiles OK, seems to be build properly.
-     
+
    * [J2EE] IBM WebSphere
      Compiles OK, runs properly.
-     
+
    I tried to run the executables, mostly I got "Cannot initialize
    driver", except where I wrote "runs properly" above. I'm almost sure
    that those platforms I wrote "seems to be build properly" for, XaoS
    will work without any problems, because there should be only "Can't
    open display"-related configuration errors on cf.sf.net and/or at my
    place.
-   
+
    You can also realize that internationalization (i18n) will only work
    if you install XaoS as the system administrator with "make install".
    Future releases may solve this problem.
-   
+
    Tcl/Tk interface now works, but it is not updated since a rather long
    time. You can run it entering "wish ./xaosmenu.tcl &" in a Unix shell
    in the bin/ directory. This interface is experimental.
-   
+
    Under SVGAlib latin2 fonts will not work for some internationalized
    messages.
-   
+
    For compilation with Aalib, you need version 1.4 which can be
    downloaded from http://aa-project.sf.net.
-   
+
 2. Microsoft DOS users will enjoy i18n if their system supports it.
    Unfortunately some systems have to have plain DOS to make i18n
    available. Many Windows systems also support running batch
    files from native Windows, however not all (my Windows NT 4
    does not). DOS users should run xaos-??.bat in the bin\
    directory.
-   
+
    Note that some messages in latin2 fonts will not be displayed
    correctly.
-   
+
    Aalib may not work 100% correctly. It may depend on your DPMI
-   settings. You should download the latest csdpmi*.zip package.   
-   
+   settings. You should download the latest csdpmi*.zip package.
+
    If you want to compile XaoS from scratch, you should download
    the following software:
-   
+
    aalib-1.4rc5.tar.gz, all402.zip, bnu213b.zip, djdev203.zip,
    fil41b.zip, gcc2952b.zip, gtxt040b.zip, licv17b.zip, mak3791.zip,
    png1012b.zip, txi42b.zip, zlib114b.zip.
-   
+
    Aalib must be patched to compile it (I sent a patch to the
    SourceForge Tracker) and libvga and libtext (needed for Aalib) must
    be also installed. Note that libtext will not compile under the
    newest DJGPP, if someone know why DJGPP fails to compile the
    appropriate assembly code, please write to us.
-   
+
 3. XaoS has i18n support under Microsoft Windows now. You are not
    suggested changing the drivers many times because XaoS will
    crash.
-   
+
 4. Here is a list about recent bugs and problems:
-     
+
    * Fixing Macintosh version (load/save works incorrectly).
    * Checking why Bailout item is duplicated in Windows help.
    * Displaying latin2 fonts correctly.
@@ -565,4 +565,4 @@ J.B. Langston contributed the Mac OS X native driver, the new XaoS web
 design, and has helped maintain the software from 3.2.2 onward.
 
 Many others helped as well. The full list of them can be seen in file
-AUTHORS. 
+AUTHORS.
