@@ -46,8 +46,8 @@ DOCDIR=$FSDIR/usr/share/doc/xaos
 mkdir -p "$DOCDIR"
 cp "$MAINDIR/COPYING" "$MAINDIR/NEWS" "$DOCDIR"
 for i in CREDITS README; do
- pandoc "$MAINDIR/$i.md" | lynx -stdin -dump -nolist > "$DOCDIR/$i"
- done
+    pandoc "$MAINDIR/$i.md" | lynx -stdin -dump -nolist > "$DOCDIR/$i"
+done
 gzip -n "$DOCDIR/NEWS"
 
 echo "Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/

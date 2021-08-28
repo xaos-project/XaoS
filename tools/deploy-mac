@@ -13,7 +13,7 @@ cp examples/*/* bin/XaoS.app/Contents/Resources/examples/
 cp -R catalogs bin/XaoS.app/Contents/Resources/
 cp -R tutorial bin/XaoS.app/Contents/Resources/
 if [ -z "$1" ]; then
-	$MACDEPLOYQT bin/XaoS.app -dmg
+    $MACDEPLOYQT bin/XaoS.app -dmg
 else
-	$MACDEPLOYQT bin/XaoS.app -dmg -codesign="$1"
+    $MACDEPLOYQT bin/XaoS.app -dmg -codesign="$1"
 fi
