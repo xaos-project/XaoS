@@ -578,15 +578,6 @@ int main(int argc, char *argv[])
     srand(time(NULL));
 
     QSettings settings;
-    if (defthreads == 0) {
-        // defthreads will be 0 if -threads command line option was not given
-        // so load it from saved settings instead
-        defthreads = settings.value("MainWindow/threadCount", 1).toInt();
-    } else {
-        // -threads command line option was given, so save it to settings
-        settings.setValue("MainWindow/threadCount", defthreads);
-    }
-    xth_init(defthreads);
 
     char *l = new char[6];
     strcpy(l, settings.value("MainWindow/language").toString().toStdString().c_str());
@@ -609,6 +600,16 @@ int main(int argc, char *argv[])
         xio_uninit();
         exit(-1);
     }
+
+    if (defthreads == 0) {
+        // defthreads will be 0 if -threads command line option was not given
+        // so load it from saved settings instead
+        defthreads = settings.value("MainWindow/threadCount", 1).toInt();
+    } else {
+        // -threads command line option was given, so save it to settings
+        settings.setValue("MainWindow/threadCount", defthreads);
+    }
+    xth_init(defthreads);
 
     int i = ui_render();
     if (i) {
