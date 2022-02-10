@@ -1524,7 +1524,7 @@ static int uih_selectedoutcoloring(struct uih_context *c, int n)
 {
     if (c == NULL)
         return 0;
-    return (c->fcontext->coloringmode == n);
+    return (c->fcontext->coloringmode.AsInt() == n);
 }
 
 static int uih_selectedplane(struct uih_context *c, int n)

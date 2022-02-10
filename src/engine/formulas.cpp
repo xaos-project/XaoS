@@ -114,7 +114,7 @@ const char *const tcolorname[] = {
 
 #define OUTOUTPUT()                                                            \
     STAT(niter2 += iter);                                                      \
-    return (!cfractalc.coloringmode                                            \
+    return (cfractalc.coloringmode == OutColormodeType::ColOut_iter                                           \
                 ? cpalette.pixels[(iter % (cpalette.size - 1)) + 1]            \
                 : color_output(zre, zim, iter))
 #define INOUTPUT()                                                             \
@@ -130,7 +130,7 @@ const char *const tcolorname[] = {
                 truecolor_output(zre, zim, pre, pim, cfractalc.intcolor, 1));  \
         INOUTPUT();                                                            \
     } else {                                                                   \
-        if (cfractalc.coloringmode == 10)                                      \
+        if (cfractalc.coloringmode == OutColormodeClass::ColOut_True_color)                                      \
             return (                                                           \
                 truecolor_output(zre, zim, pre, pim, cfractalc.outtcolor, 0)); \
         OUTOUTPUT();                                                           \
@@ -144,6 +144,7 @@ const char *const tcolorname[] = {
         iter = (int)(((cfractalc.maxiter - iter) * 256 +                       \
                       log((double)(cfractalc.bailout / (szmag))) /             \
                           log((double)((zre) / (szmag))) * 256));              \
+        iter = log(iter) * ((cpalette.size - 1))/log(cfractalc.maxiter * 256) + 1;  \
         iter %= ((unsigned int)(cpalette.size - 1)) << 8;                      \
                                                                                \
         if ((cpalette.type & (C256 | SMALLITER)) || !(iter & 255))             \
@@ -410,35 +411,35 @@ static unsigned int color_output(number_t zre, number_t zim, unsigned int iter)
     iter <<= SHIFT;
     i = iter;
 
-    switch (cfractalc.coloringmode) {
-        case 9:
+    switch (cfractalc.coloringmode.ColorMode) {
+        case OutColormodeType::ColOut_smooth:
             break;
-        case 1: /* real */
+        case OutColormodeType::ColOut_iter_plus_real: /* real */
             i = (int)(iter + zre * SMUL);
             break;
-        case 2: /* imag */
+        case OutColormodeType::ColOut_iter_plus_imag: /* imag */
             i = (int)(iter + zim * SMUL);
             break;
-        case 3: /* real / imag */
+        case OutColormodeType::ColOut_iter_plus_real_div_imag: /* real / imag */
             i = (int)(iter + (zre / zim) * SMUL);
             break;
-        case 4: /* all of the above */
+        case OutColormodeType::ColOut_iter_plus_real_plus_imag_plus_real_div_imag: /* all of the above */
             i = (int)(iter + (zre + zim + zre / zim) * SMUL);
             break;
-        case 5:
+        case OutColormodeType::ColOut_binary_decomposition:
             if (zim > 0)
                 i = ((cfractalc.maxiter << SHIFT) - iter);
             break;
-        case 6:
+        case OutColormodeType::ColOut_biomorphs:
             if (myabs(zim) < 2.0 || myabs(zre) < 2.0)
                 i = ((cfractalc.maxiter << SHIFT) - iter);
             break;
-        case 7:
+        case OutColormodeType::ColOut_potential:
             zre = zre * zre + zim * zim;
             i = (int)(sqrt(log((double)zre) / i) * 256 * 256);
             break;
         default:
-        case 8:
+        case OutColormodeType::ColOut_color_decomposition:
             i = (int)((atan2((double)zre, (double)zim) / (M_PI + M_PI) + 0.75) *
                       20000);
             break;

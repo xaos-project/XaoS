@@ -1789,7 +1789,7 @@ void uih_setouttcolor(uih_context *c, int mode)
     if (c->fcontext->outtcolor != mode) {
         char str[10];
         c->fcontext->outtcolor = mode;
-        if (c->fcontext->coloringmode == 10) {
+        if (c->fcontext->coloringmode == OutColormodeType::ColOut_True_color) {
             c->fcontext->version++;
             uih_newimage(c);
         }
@@ -1849,13 +1849,15 @@ void uih_setfastmode(uih_context *c, int mode)
 
 void uih_setoutcoloringmode(uih_context *c, int mode)
 {
+    // Not sure where negative values might come from
+    // so stayed in the int space and not converted to enum
     if (mode < 0)
         mode = rand() % OUTCOLORING;
     if (mode > OUTCOLORING)
         mode = OUTCOLORING - 1;
-    if (c->fcontext->coloringmode != mode) {
+    if (c->fcontext->coloringmode != (OutColormodeType::OutColormode)mode) {
         char str[10];
-        c->fcontext->coloringmode = mode;
+        c->fcontext->coloringmode = (OutColormodeType::OutColormode)mode;
         c->fcontext->version++;
         uih_newimage(c);
         sprintf(str, "out%i", mode);
@@ -2316,7 +2318,7 @@ void uih_updatestatus(uih_context *uih)
            "%s %.2f times (%.1fE) %2.2f frames/sec %c %i %i %i %u            "),
         times < 1 ? TR("Message", "unzoomed") : TR("Message", "zoomed"),
         times < 1 ? 1.0 / times : times, timesnop, speed,
-        uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode + 1,
+        uih->autopilot ? 'A' : ' ', uih->fcontext->coloringmode.AsInt() + 1,
         uih->fcontext->incoloringmode + 1, uih->fcontext->plane + 1,
         uih->fcontext->maxiter);
 
@@ -2398,7 +2400,7 @@ static void uih_drawstatus(uih_context *uih, void * /*data*/)
            BGCOLOR(uih), 0);
     sprintf(str, TR("Message", "incoloring:%s    outcoloring:%s"),
             incolorname[uih->fcontext->incoloringmode],
-            outcolorname[uih->fcontext->coloringmode]);
+            outcolorname[uih->fcontext->coloringmode.AsInt()]);
     xprint(uih->image, uih->font, 0, statusstart + 8 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
     sprintf(str, TR("Message", "zoomspeed:%f"), (float)uih->maxstep * 1000);
