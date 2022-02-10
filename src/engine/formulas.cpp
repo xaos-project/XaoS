@@ -77,6 +77,7 @@ const char *const outcolorname[] = {"iter",
                                     "potential",
                                     "color decomposition",
                                     "smooth",
+                                    "smooth log",
                                     "True-color",
                                     NULL};
 
@@ -144,7 +145,9 @@ const char *const tcolorname[] = {
         iter = (int)(((cfractalc.maxiter - iter) * 256 +                       \
                       log((double)(cfractalc.bailout / (szmag))) /             \
                           log((double)((zre) / (szmag))) * 256));              \
-        iter = log(iter) * ((cpalette.size - 1))/log(cfractalc.maxiter * 256) + 1;  \
+        if (cfractalc.coloringmode == OutColormodeClass::ColOut_smooth_log) { \
+           iter = log(iter) * ((cpalette.size - 1))/log(cfractalc.maxiter * 256) + 1;  \
+        }\
         iter %= ((unsigned int)(cpalette.size - 1)) << 8;                      \
                                                                                \
         if ((cpalette.type & (C256 | SMALLITER)) || !(iter & 255))             \
@@ -413,6 +416,7 @@ static unsigned int color_output(number_t zre, number_t zim, unsigned int iter)
 
     switch (cfractalc.coloringmode.ColorMode) {
         case OutColormodeType::ColOut_smooth:
+        case OutColormodeType::ColOut_smooth_log:
             break;
         case OutColormodeType::ColOut_iter_plus_real: /* real */
             i = (int)(iter + zre * SMUL);

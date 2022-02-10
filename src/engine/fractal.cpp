@@ -229,7 +229,7 @@ void set_fractalc(fractal_context *context, struct image *img)
     if (cursymmetry.ysym == (number_t)INT_MAX)
         cursymmetry.ysym = cfractalc.rs.mi + INT_MAX;
 
-    if (cfractalc.coloringmode == OutColormodeType::ColOut_smooth && cformula.smooth_calculate != NULL &&
+    if ((cfractalc.coloringmode == OutColormodeType::ColOut_smooth || cfractalc.coloringmode == OutColormodeType::ColOut_smooth_log) && cformula.smooth_calculate != NULL &&
         (cpalette.type &
          (TRUECOLOR | TRUECOLOR16 | TRUECOLOR24 | GRAYSCALE | LARGEITER))) {
         cfractalc.calculate[0] = cformula.smooth_calculate;

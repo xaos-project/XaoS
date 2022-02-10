@@ -44,6 +44,7 @@ enum OutColormode {
                     ColOut_potential,
                     ColOut_color_decomposition,
                     ColOut_smooth,
+                    ColOut_smooth_log,
                     ColOut_True_color,
                     ColOut_MAXMode = ColOut_True_color
                   };
