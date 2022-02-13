@@ -1442,6 +1442,7 @@ const struct formula formulas[] = {
       {INT_MAX, 0, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, 0, 0, NULL},
+      {INT_MAX, 0, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
       },
      {
@@ -1481,6 +1482,7 @@ const struct formula formulas[] = {
       {0, 0, 0, NULL},
       {0, 0, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
+      {0, 0, 0, NULL},
       {0, 0, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
       },
@@ -1522,6 +1524,7 @@ const struct formula formulas[] = {
       {INT_MAX, 0, 2, sym6},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, 0, 2, sym6},
+      {INT_MAX, 0, 2, sym6},
       {INT_MAX, INT_MAX, 0, NULL},
       },
      {
@@ -1561,6 +1564,7 @@ const struct formula formulas[] = {
       {0, 0, 2, sym8},
       {0, 0, 2, sym8},
       {INT_MAX, INT_MAX, 0, NULL},
+      {0, 0, 2, sym8},
       {0, 0, 2, sym8},
       {INT_MAX, INT_MAX, 0, NULL},
       },
@@ -1602,6 +1606,7 @@ const struct formula formulas[] = {
       {INT_MAX, 0, 2, sym6},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, 0, 2, sym6},
+      {INT_MAX, 0, 2, sym6},
       {INT_MAX, INT_MAX, 0, NULL},
       },
      {
@@ -1642,6 +1647,7 @@ const struct formula formulas[] = {
       {INT_MAX, 0, 2, sym6},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, 0, 2, sym6},
+      {INT_MAX, 0, 2, sym6},
       {INT_MAX, INT_MAX, 0, NULL},
       },
      {
@@ -1681,6 +1687,7 @@ const struct formula formulas[] = {
       {INT_MAX, 0, 2, sym6},
       {INT_MAX, 0, 2, sym6},
       {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, 0, 2, sym6},
       {INT_MAX, 0, 2, sym6},
       {INT_MAX, INT_MAX, 0, NULL},
       },
@@ -2434,6 +2441,7 @@ const struct formula formulas[] = {
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
       },
      {
       {INT_MAX, INT_MAX, 0, NULL},
@@ -2473,6 +2481,7 @@ const struct formula formulas[] = {
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
       },
      {
       {INT_MAX, INT_MAX, 0, NULL},
@@ -2501,6 +2510,7 @@ const struct formula formulas[] = {
      {0.0, 0.0, 2.5, 2.5},
      0, 0, 0.0, 0.0,
      {
+      {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
@@ -2592,6 +2602,7 @@ const struct formula formulas[] = {
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
       {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
       },
      {
       {INT_MAX, INT_MAX, 0, NULL},
@@ -2631,6 +2642,7 @@ const struct formula formulas[] = {
        {0.0, 0.0, 5, 5},
        0, 1, 0.0, 0.0,
        {
+        {INT_MAX, INT_MAX, 0, NULL},
         {INT_MAX, INT_MAX, 0, NULL},
         {INT_MAX, INT_MAX, 0, NULL},
         {INT_MAX, INT_MAX, 0, NULL},
