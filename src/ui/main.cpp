@@ -1,4 +1,4 @@
-﻿/*
+/*
  *     XaoS, a fast portable realtime fractal zoomer
  *                  Copyright (C) 1996 by
  *
@@ -394,7 +394,7 @@ static int ui_fullscreenselected(struct uih_context *uih)
 #endif
 
 /* WARNING: Increase this number in case there are new menu items added. */
-#define MAX_MENUITEMS_I18N 33
+#define MAX_MENUITEMS_I18N 34
 /* These variables must be global: */
 static menuitem *menuitems;
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
@@ -415,10 +415,10 @@ char languageSetting[6] = "";
 bool languageSysDefault = true;
 // please keep the languages in the same order
 const char *languages1[] = {
-    "__", "cs", "en", "fr", "de", "hi", "hu", "is", "it", "pt", "ro", "ru", "rs", "es", "sv", "vi"
+    "__", "cs", "en", "fr", "de", "he", "hi", "hu", "is", "it", "pt", "ro", "ru", "rs", "es", "sv", "vi"
 };
 const char *languages2[] = {
-    "_____", "cs_CZ", "en_US", "fr_FR", "de_DE", "hi_HI", "hu_HU", "is_IS", "it_IT", "pt_PT", "ro_RO", "ru_RU", "rs_RS", "es_ES", "sv_SV", "vi_VN"
+    "_____", "cs_CZ", "en_US", "fr_FR", "de_DE", "he_IL", "hi_HI", "hu_HU", "is_IS", "it_IT", "pt_PT", "ro_RO", "ru_RU", "rs_RS", "es_ES", "sv_SV", "vi_VN"
 };
 
 const char *lang1(int i) {
@@ -496,6 +496,8 @@ static void ui_registermenus_i18n(void)
                 UIH_LANG_FR, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "German", "de", UI, uih_setlanguage,
                 UIH_LANG_DE, ui_languageselected);
+    MENUINTRB_I("setlang", NULL, "Hebrew", "he", UI, uih_setlanguage,
+                UIH_LANG_HE, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Hindi", "hi", UI, uih_setlanguage,
                 UIH_LANG_HI, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Hungarian", "hu", UI, uih_setlanguage,
