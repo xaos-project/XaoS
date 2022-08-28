@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>io.github.xaos-project</id>
+  <id>io.github.xaos_project.XaoS</id>
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>XaoS</name>
@@ -21,7 +21,6 @@
     </p>
   </description>
 
-  <launchable type="desktop-id">io.github.xaos-project.desktop</launchable>
 
   <screenshots>
     <screenshot type="default">
@@ -47,6 +46,8 @@
   <provides>
     <binary>xaos</binary>
   </provides>
+
+  <launchable type="desktop-id">io.github.xaos_project.XaoS.desktop</launchable>
 
   <releases>
     <release version="4.2.1" date="2021-02-01">

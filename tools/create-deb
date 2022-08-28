@@ -67,7 +67,7 @@ cp "$MAINDIR/xdg/xaos.png" "$PIXDIR"
 
 APPDIR=$FSDIR/usr/share/applications
 mkdir -p "$APPDIR"
-cp "$MAINDIR/xdg/io.github.xaos-project.desktop" "$APPDIR"
+cp "$MAINDIR/xdg/io.github.xaos_project.XaoS.desktop" "$APPDIR"
 
 mkdir -p "$FSDIR/DEBIAN"
 echo -n "Package: xaos
