@@ -24,7 +24,7 @@ Project Resources
 - [Binary Releases](https://github.com/xaos-project/XaoS/releases)
 - [Documentation](https://github.com/xaos-project/XaoS/wiki)
 - [Issue Tracker](https://github.com/xaos-project/XaoS/issues)
-- [XaoS website](http://xaos.sourceforge.net/)
+- [XaoS website](http://xaos-project.github.com/)
 - [Users' Google Group](http://groups.google.com/group/xaos-users)
 - [Developer's Guide](https://github.com/xaos-project/XaoS/wiki/Developer's-Guide)
 
