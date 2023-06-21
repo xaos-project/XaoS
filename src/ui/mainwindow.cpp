@@ -1,5 +1,6 @@
 ﻿#include <QtWidgets>
 #include <cassert>
+#include <QTimer>
 
 #include "mainwindow.h"
 #include "fractalwidget.h"
@@ -414,27 +415,34 @@ xio_pathdata configfile;
 
 void MainWindow::eventLoop()
 {
-    int inmovement = 1;
-    int time;
-    for (;;) {
+    QTimer eventTimer;
+    eventTimer.setTimerType(Qt::PreciseTimer);
+
+    connect(&eventTimer, &QTimer::timeout, this, [=]() {
+        int inmovement = 1;
+
         widget->setCursor(uih->play ? Qt::ForbiddenCursor : Qt::CrossCursor);
+
         if (uih->display) {
             uih_prepare_image(uih);
             uih_updatestatus(uih);
             widget->repaint();
             showStatus("");
         }
-        if ((time = tl_process_group(syncgroup, NULL)) != -1) {
+
+        int time = tl_process_group(syncgroup, nullptr);
+        if (time != -1) {
             if (!inmovement && !uih->inanimation) {
                 if (time > 1000000 / 50)
                     time = 1000000 / 50;
                 if (time > delaytime) {
-                    tl_sleep(time - delaytime);
+                    QThread::usleep(time - delaytime);
                     tl_update_time();
                 }
             }
             inmovement = 1;
         }
+
         if (delaytime || maxframerate) {
             tl_update_time();
             time = tl_lookup_timer(loopt);
@@ -443,18 +451,26 @@ void MainWindow::eventLoop()
             if (time < delaytime)
                 time = delaytime;
             if (time) {
-                tl_sleep(time);
+                QThread::usleep(time);
                 tl_update_time();
             }
         }
+
         processQueue();
         processEvents(!inmovement && !uih->inanimation);
         inmovement = 0;
+
         if (shouldResize) {
             resizeImage(widget->size().width(), widget->size().height());
             shouldResize = false;
         }
-    }
+    });
+
+    // Start the event timer
+    eventTimer.start(0);
+
+    // Enter the Qt event loop
+    QCoreApplication::exec();
 }
 
 void MainWindow::updateMenus(const char *name)

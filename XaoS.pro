@@ -55,9 +55,12 @@ isEmpty(QMAKE_LRELEASE) {
 }
 
 CONFIG += optimize_full
+CONFIG += c++11
+
 QMAKE_CXXFLAGS += -ffast-math
 QMAKE_CFLAGS += -ffast-math
 
+QMAKE_CXXFLAGS += -fpermissive
 RESOURCES += XaoS.qrc
 
 DESTDIR = $$PWD/bin
