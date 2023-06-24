@@ -78,6 +78,11 @@ isEmpty(PREFIX) {
     PREFIX = /usr/local
     }
 DEFINES += DATAPATH=\\\"$$PREFIX/share/XaoS\\\"
+wasm{
+    QMAKE_LFLAGS += --preload-file $$PWD/examples@$$DATAPATH/example
+    QMAKE_LFLAGS += --preload-file $$PWD/catalogs@$$DATAPATH/catalogs
+    QMAKE_LFLAGS += --preload-file $$PWD/tutorial@$$DATAPATH/tutorial
+}
 executable.files = bin/xaos
 executable.path = $$PREFIX/bin
 examples.path = $$PREFIX/share/XaoS/examples
