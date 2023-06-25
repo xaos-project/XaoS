@@ -79,7 +79,7 @@ isEmpty(PREFIX) {
     }
 DEFINES += DATAPATH=\\\"$$PREFIX/share/XaoS\\\"
 wasm{
-    QMAKE_LFLAGS += --preload-file $$PWD/examples@$$DATAPATH/example
+    QMAKE_LFLAGS += --preload-file $$PWD/examples@$$DATAPATH/examples
     QMAKE_LFLAGS += --preload-file $$PWD/catalogs@$$DATAPATH/catalogs
     QMAKE_LFLAGS += --preload-file $$PWD/tutorial@$$DATAPATH/tutorial
 }
