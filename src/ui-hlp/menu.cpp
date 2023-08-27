@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QSettings>
+#include <QRegularExpression>
 
 #include "filter.h"
 #include "config.h"
@@ -799,7 +800,7 @@ static void uih_loadgpl(struct uih_context *uih, xio_constpath d)
         }
 
         for(int i = 4; i < 35; i++) {
-            QStringList currcolors = colorvals[i].split(QRegExp("\\s+"));
+            QStringList currcolors = colorvals[i].split(QRegularExpression("\\s+"));
             int r = currcolors[0].toInt();
             int g = currcolors[1].toInt();
             int b = currcolors[2].toInt();

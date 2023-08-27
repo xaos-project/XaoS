@@ -875,9 +875,57 @@ void MainWindow::showDialog(const char *name)
                               QFileInfo(fileName).absolutePath());
         }
     } else {
-        CustomDialog customDialog(uih, item, dialog, this);
-        if (customDialog.exec() == QDialog::Accepted)
-            menuActivate(item, customDialog.parameters());
+        QInputDialog *customDialog = new QInputDialog(this);
+        customDialog->setLabelText(dialog->question);
+        dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
+        bool fallback = false;
+
+        switch (dialog->type) {
+        case DIALOG_INT:
+            customDialog->setIntMaximum(1000000);
+            customDialog->setIntValue(dialog->defint);
+
+            connect(customDialog, &QInputDialog::intValueSelected,
+                    [=](const unsigned long int &value) {
+                        param->dint = value;
+                        menuActivate(item, param);
+                    });
+            break;
+        case DIALOG_FLOAT:
+            customDialog->setDoubleMaximum(1000000);
+            customDialog->setDoubleValue(dialog->deffloat);
+            connect(customDialog, &QInputDialog::doubleValueSelected,
+                    [=](const double &value) {
+                        param->number = value;
+                        menuActivate(item, param);
+                    });
+            break;
+        case DIALOG_STRING:
+            customDialog->setTextValue(dialog->defstr);
+            connect(customDialog, &QInputDialog::textValueSelected,
+                    [=](const QString &text) {
+                        param->dstring = (char *) text.toStdString().c_str();
+                        menuActivate(item, param);
+                    });
+            break;
+        case DIALOG_KEYSTRING:
+            customDialog->setTextValue(dialog->defstr);
+            connect(customDialog, &QInputDialog::textValueSelected,
+                    [=](const QString &text) {
+                        param->dstring = (char *) text.toStdString().c_str();
+                        menuActivate(item, param);
+                    });
+            break;
+        default:
+            CustomDialog customDialog(uih, item, dialog, this);
+            if (customDialog.exec() == QDialog::Accepted)
+                menuActivate(item, customDialog.parameters());
+            fallback = true;
+            break;
+        }
+        if (!fallback)
+            customDialog->open();
+
     }
 }
 
@@ -901,7 +949,7 @@ int MainWindow::mouseButtons()
         // Otherwise, mouse buttons map normally
         if (m_mouseButtons & Qt::LeftButton)
             mouseButtons |= BUTTON1;
-        if (m_mouseButtons & Qt::MidButton)
+        if (m_mouseButtons & Qt::MiddleButton)
             mouseButtons |= BUTTON2;
         if (m_mouseButtons & Qt::RightButton)
             mouseButtons |= BUTTON3;
@@ -936,7 +984,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void MainWindow::wheelEvent(QWheelEvent *event)
 {
-    m_mouseWheel = event->delta();
+    m_mouseWheel = event->angleDelta().y();
     clock_gettime(CLOCK_REALTIME, &wheeltimer);
 }
 
