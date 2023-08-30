@@ -846,7 +846,6 @@ void MainWindow::showDialog(const char *name)
         QString fileLocation =
             settings.value("MainWindow/lastFileLocation", QDir::homePath())
                 .toString();
-        QString fileName;
         if (dialog[0].type == DIALOG_IFILE) {
             // fileName = QFileDialog::getOpenFileName(this, item->name, fileLocation, filter);
             QFileDialog *qFileDialog = new QFileDialog(this);
@@ -881,22 +880,31 @@ void MainWindow::showDialog(const char *name)
             char *split = strchr(defname, '*');
             *split = 0;
             strcpy(defname, xio_getfilename(defname, split + 1));
-            fileName =
-                QFileDialog::getSaveFileName(this, item->name, defname, filter);
-        }
+            // fileName = QFileDialog::getSaveFileName(this, item->name, defname, filter);
+            QFileDialog *qFileDialog = new QFileDialog(this);
+            qFileDialog->setWindowTitle(item->name);
+            qFileDialog->setDirectory(fileLocation);
+            qFileDialog->setNameFilter(filter);
+            qFileDialog->setAcceptMode(QFileDialog::AcceptSave);
+            connect(qFileDialog, &QFileDialog::fileSelected,
+                    [=](const QString &value) {
+                        QString fileName = value;
+                        if (!fileName.isNull()) {
+                            QString ext = "." + QFileInfo(dialog[0].defstr).suffix();
 
-        if (!fileName.isNull()) {
-            QString ext = "." + QFileInfo(dialog[0].defstr).suffix();
+                            if (!fileName.endsWith(".xpf") and !fileName.endsWith(".png")
+                                and !fileName.endsWith(ext))
+                                fileName += ext;
 
-            if (!fileName.endsWith(".xpf") and !fileName.endsWith(".png")
-                    and !fileName.endsWith(ext))
-                fileName += ext;
-
-            dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
-            param->dstring = strdup(fileName.toUtf8());
-            menuActivate(item, param);
-            settings.setValue("MainWindow/lastFileLocation",
+                        dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
+                        param->dstring = strdup(fileName.toUtf8());
+                        menuActivate(item, param);
+                        QSettings settings;
+                        settings.setValue("MainWindow/lastFileLocation",
                               QFileInfo(fileName).absolutePath());
+                        }
+            });
+            qFileDialog->open();
         }
     } else {
         QInputDialog *customDialog = new QInputDialog(this);
