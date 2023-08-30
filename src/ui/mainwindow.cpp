@@ -847,9 +847,33 @@ void MainWindow::showDialog(const char *name)
             settings.value("MainWindow/lastFileLocation", QDir::homePath())
                 .toString();
         QString fileName;
-        if (dialog[0].type == DIALOG_IFILE)
-            fileName = QFileDialog::getOpenFileName(this, item->name,
-                                                    fileLocation, filter);
+        if (dialog[0].type == DIALOG_IFILE) {
+            // fileName = QFileDialog::getOpenFileName(this, item->name, fileLocation, filter);
+            QFileDialog *qFileDialog = new QFileDialog(this);
+            // qFileDialog->setWindowTitle(dialog->question);
+            qFileDialog->setWindowTitle(item->name);
+            qFileDialog->setDirectory(fileLocation);
+            qFileDialog->setNameFilter(filter);
+            connect(qFileDialog, &QFileDialog::fileSelected,
+                    [=](const QString &value) {
+                        QString fileName = value;
+                        if (!fileName.isNull()) {
+                            QString ext = "." + QFileInfo(dialog[0].defstr).suffix();
+
+                            if (!fileName.endsWith(".xpf") and !fileName.endsWith(".png")
+                                and !fileName.endsWith(ext))
+                                fileName += ext;
+
+                            dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
+                            param->dstring = strdup(fileName.toUtf8());
+                            menuActivate(item, param);
+                            QSettings settings;
+                            settings.setValue("MainWindow/lastFileLocation",
+                                QFileInfo(fileName).absolutePath());
+                        }
+            });
+            qFileDialog->open();
+        }
         else if (dialog[0].type == DIALOG_OFILE) {
             char defname[256];
             strcpy(defname,
