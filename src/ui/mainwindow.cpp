@@ -552,15 +552,20 @@ static void ui_message(struct uih_context *uih)
 
 void MainWindow::chooseFont()
 {
-    bool ok;
-    messageFont = QFontDialog::getFont(&ok, messageFont, this);
-    if (ok) {
-        QSettings settings;
-        settings.setValue("MainWindow/messageFontFamily", messageFont.family());
-        settings.setValue("MainWindow/messageFontSize",
-                          messageFont.pointSize());
-        uih->font = &messageFont;
-    }
+    QFontDialog *fontDialog = new QFontDialog(this);
+    QSettings settings;
+    QFont qfont(settings.value("MainWindow/messageFontFamily").toString(),
+        settings.value("MainWindow/messageFontSize").toInt());
+    fontDialog->setCurrentFont(qfont);
+    connect(fontDialog, &QFontDialog::fontSelected,
+            [=](const QFont &messageFont) {
+                QSettings settings;
+                settings.setValue("MainWindow/messageFontFamily", messageFont.family());
+                settings.setValue("MainWindow/messageFontSize",
+                                  messageFont.pointSize());
+                uih->font = (void *) &messageFont;
+            });
+    fontDialog->open();
 }
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
