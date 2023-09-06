@@ -912,57 +912,113 @@ void MainWindow::showDialog(const char *name)
             qFileDialog->open();
         }
     } else {
-        QInputDialog *customDialog = new QInputDialog(this);
-        customDialog->setLabelText(dialog->question);
+
         dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
-        bool fallback = false;
 
         switch (dialog->type) {
-        case DIALOG_INT:
-            customDialog->setIntMaximum(1000000);
-            customDialog->setIntValue(dialog->defint);
-
-            connect(customDialog, &QInputDialog::intValueSelected,
-                    [=](const unsigned long int &value) {
-                        param->dint = value;
-                        menuActivate(item, param);
-                    });
-            break;
-        case DIALOG_FLOAT:
-            customDialog->setDoubleMaximum(1000000);
-            customDialog->setDoubleValue(dialog->deffloat);
-            connect(customDialog, &QInputDialog::doubleValueSelected,
-                    [=](const double &value) {
-                        param->number = value;
-                        menuActivate(item, param);
-                    });
-            break;
-        case DIALOG_STRING:
-            customDialog->setTextValue(dialog->defstr);
-            connect(customDialog, &QInputDialog::textValueSelected,
-                    [=](const QString &text) {
-                        param->dstring = (char *) text.toStdString().c_str();
-                        menuActivate(item, param);
-                    });
-            break;
-        case DIALOG_KEYSTRING:
-            customDialog->setTextValue(dialog->defstr);
-            connect(customDialog, &QInputDialog::textValueSelected,
-                    [=](const QString &text) {
-                        param->dstring = (char *) text.toStdString().c_str();
-                        menuActivate(item, param);
-                    });
-            break;
-        default:
-            CustomDialog customDialog(uih, item, dialog, this);
-            if (customDialog.exec() == QDialog::Accepted)
-                menuActivate(item, customDialog.parameters());
-            fallback = true;
-            break;
+            case DIALOG_INT:
+            case DIALOG_FLOAT:
+            case DIALOG_STRING:
+            case DIALOG_KEYSTRING:
+            {
+                QInputDialog *qInputDialog = new QInputDialog(this);
+                qInputDialog->setLabelText(dialog->question);
+                switch (dialog->type) {
+                    case DIALOG_INT:
+                    {
+                        qInputDialog->setIntMaximum(1000000);
+                        qInputDialog->setIntValue(dialog->defint);
+                        connect(qInputDialog, &QInputDialog::intValueSelected, qInputDialog,
+                            [=](const unsigned long int &value) {
+                                param->dint = value;
+                                menuActivate(item, param);
+                            });
+                        break;
+                    }
+                    case DIALOG_FLOAT:
+                    {
+                        qInputDialog->setDoubleMaximum(1000000);
+                        qInputDialog->setDoubleValue(dialog->deffloat);
+                        connect(qInputDialog, &QInputDialog::doubleValueSelected, qInputDialog,
+                            [=](const double &value) {
+                                param->number = value;
+                                menuActivate(item, param);
+                            });
+                        break;
+                    }
+                    case DIALOG_STRING:
+                    {
+                        qInputDialog->setTextValue(dialog->defstr);
+                        connect(qInputDialog, &QInputDialog::textValueSelected, qInputDialog,
+                            [=](const QString &text) {
+                                    param->dstring = strdup((char *) text.toStdString().c_str());
+                                menuActivate(item, param);
+                            });
+                        break;
+                    }
+                    case DIALOG_KEYSTRING:
+                    {
+                        qInputDialog->setTextValue(dialog->defstr);
+                        connect(qInputDialog, &QInputDialog::textValueSelected, qInputDialog,
+                            [=](const QString &text) {
+                                    param->dstring = strdup((char *) text.toStdString().c_str());
+                                menuActivate(item, param);
+                            });
+                        break;
+                    }
+                }
+                qInputDialog->open();
+                break;
+            }
+            case DIALOG_COORD:
+            {
+                QDialog *qDialog = new QDialog(this);
+                qDialog->setWindowTitle(dialog->question);
+                QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
+                QFormLayout *formLayout = new QFormLayout();
+                QString label(dialog->question);
+                QLineEdit *real = new QLineEdit(CustomDialog::format(dialog->deffloat), qDialog);
+                QFontMetrics metric(real->font());
+                real->setMinimumWidth(metric.horizontalAdvance(real->text()) * 1.1);
+                real->setObjectName("real");
+                QLineEdit *imag = new QLineEdit(CustomDialog::format(dialog->deffloat2), qDialog);
+                imag->setObjectName("imag");
+                imag->setMinimumWidth(metric.horizontalAdvance(imag->text()) * 1.1);
+                // imag->setValidator(new QDoubleValidator(imag));
+                QBoxLayout *layout = new QBoxLayout(QBoxLayout::LeftToRight);
+                layout->setContentsMargins(0, 0, 0, 0);
+                layout->addWidget(real);
+                layout->addWidget(new QLabel("+", qDialog));
+                layout->addWidget(imag);
+                layout->addWidget(new QLabel("i", qDialog));
+                formLayout->addRow(label, layout);
+                dialogLayout->addLayout(formLayout);
+                QDialogButtonBox *buttonBox =
+                    new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                         Qt::Horizontal, qDialog);
+                connect(buttonBox, SIGNAL(accepted()), qDialog, SLOT(accept()));
+                connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
+                connect(real, SIGNAL(textEdited(QString)), qDialog, SLOT(update()));
+                dialogLayout->addWidget(buttonBox);
+                qDialog->setLayout(dialogLayout);
+                connect(qDialog, &QDialog::accepted, qDialog,
+                        [=](void){
+                            QLineEdit *real = qDialog->findChild<QLineEdit *>("real");
+                            param->dcoord[0] = real->text().toDouble();
+                            QLineEdit *imag = qDialog->findChild<QLineEdit *>("imag");
+                            param->dcoord[1] = imag->text().toDouble();
+                            menuActivate(item, param);
+                        });
+                qDialog->open();
+                break;
+            }
+            default:
+            {
+                CustomDialog customDialog(uih, item, dialog, this);
+                if (customDialog.exec() == QDialog::Accepted)
+                    menuActivate(item, customDialog.parameters());
+            }
         }
-        if (!fallback)
-            customDialog->open();
-
     }
 }
 
