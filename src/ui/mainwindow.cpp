@@ -829,6 +829,30 @@ void MainWindow::updateMenuCheckmarks()
     }
 }
 
+struct palette *gradientpal; QSpinBox *seedno, *algono, *shiftno; QLabel *img;
+
+void MainWindow::updateVisualiser()
+{
+    // Get updated Colors
+    int colors[101][3];
+    getPaletteColor(gradientpal, seedno->value(),
+                    algono->value()-1 < 0? 0:algono->value()-1, shiftno->value(), colors);
+
+    // Load Curve
+    QImage palImage(100, 1, QImage::Format_RGB32);
+
+    // Fill Curve
+    for(int i=0;i<100;i++) {
+        QRgb value = qRgb(colors[i][0], colors[i][1], colors[i][2]);
+        palImage.setPixelColor(i, 0, value);
+    }
+
+    // Save Result
+    QPixmap newImage = QPixmap::fromImage(palImage.scaled(algono->width(),
+                                                          algono->height()));
+    img->setPixmap(newImage);
+}
+
 void MainWindow::showDialog(const char *name)
 {
     const menuitem *item = menu_findcommand(name);
@@ -1008,6 +1032,105 @@ void MainWindow::showDialog(const char *name)
                             QLineEdit *imag = qDialog->findChild<QLineEdit *>("imag");
                             param->dcoord[1] = imag->text().toDouble();
                             menuActivate(item, param);
+                        });
+                qDialog->open();
+                break;
+            }
+            case DIALOG_PALSLIDER:
+            {
+                QDialog *qDialog = new QDialog(this);
+                qDialog->setWindowTitle(dialog->question);
+                QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
+                gradientpal = clonepalette(uih->image->palette);
+                uih_context *palcontext;
+                palcontext = uih;
+                // 3 inputs decide color, Algorithm Number, Seed and shift
+                // For Algorithm number
+                QSlider *seedslider, *algoslider, *shiftslider;
+                algono = new QSpinBox(this);
+                QString label(dialog->question);
+                algono->setObjectName(label + "algono");
+                algono->setValue(palcontext->palettetype);
+                algono->setRange(1, 3);
+
+                // Algo Slider
+                algoslider = new QSlider(Qt::Horizontal, qDialog);
+                algoslider->setObjectName(label + "-algono");
+                algoslider->setRange(1, PALGORITHMS);
+                algoslider->setValue(algono->value());
+                // algoslider->setMinimumWidth(this->width()*2);
+
+                // For Seed Number
+                seedno = new QSpinBox(qDialog);
+                seedno->setObjectName(label + "seedno");
+                seedno->setRange(0, gradientpal->size);
+                seedno->setValue(palcontext->paletteseed);
+
+                // Seed Slider
+                seedslider = new QSlider(Qt::Horizontal, qDialog);
+                seedslider->setObjectName(label + "-seedno");
+                seedslider->setRange(0, gradientpal->size);
+                seedslider->setValue(seedno->value());
+
+                // For Shift Number
+                shiftno = new QSpinBox(this);
+                shiftno->setObjectName(label + "shiftno");
+                shiftno->setRange(0, gradientpal->size);
+                shiftno->setValue(palcontext->paletteshift + palcontext->manualpaletteshift);
+
+                // Shift Slider
+                shiftslider = new QSlider(Qt::Horizontal, qDialog);
+                shiftslider->setObjectName(label + "-shiftno");
+                shiftslider->setRange(0, gradientpal->size);
+                shiftslider->setValue(shiftno->value());
+
+                // Add them to Layout
+                QFormLayout *formLayout = new QFormLayout();
+                formLayout->addRow("Algorithm", algono);
+                formLayout->addWidget(algoslider);
+                formLayout->addRow("Seed", seedno);
+                formLayout->addWidget(seedslider);
+                formLayout->addRow("Shift", shiftno);
+                formLayout->addWidget(shiftslider);
+
+                img = new QLabel(qDialog);
+                img->setScaledContents(true);
+                formLayout->addRow(img);
+                updateVisualiser();
+
+                connect(algono,SIGNAL(valueChanged(int)), algoslider, SLOT(setValue(int)));
+                connect(algoslider, SIGNAL(valueChanged(int)), algono, SLOT(setValue(int)));
+                connect(algono, SIGNAL(valueChanged(int)), this, SLOT(updateVisualiser()));
+                connect(seedno,SIGNAL(valueChanged(int)), seedslider, SLOT(setValue(int)));
+                connect(seedslider, SIGNAL(valueChanged(int)), seedno, SLOT(setValue(int)));
+                connect(seedno, SIGNAL(valueChanged(int)), this, SLOT(updateVisualiser()));
+                connect(shiftno,SIGNAL(valueChanged(int)), shiftslider, SLOT(setValue(int)));
+                connect(shiftslider, SIGNAL(valueChanged(int)), shiftno, SLOT(setValue(int)));
+                connect(shiftno, SIGNAL(valueChanged(int)), this, SLOT(updateVisualiser()));
+
+                dialogLayout->addLayout(formLayout);
+                QDialogButtonBox *buttonBox =
+                    new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                         Qt::Horizontal, qDialog);
+
+                connect(buttonBox, SIGNAL(accepted()), qDialog, SLOT(accept()));
+                connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
+
+                dialogLayout->addWidget(buttonBox);
+                qDialog->setLayout(dialogLayout);
+
+                connect(qDialog, &QDialog::accepted, qDialog,
+                        [=](void){
+                            QSlider *algo = qDialog->findChild<QSlider *>(label + "-algono");
+                            palcontext->palettetype = algo->sliderPosition();
+                            palcontext->manualpaletteshift = 0;
+                            QSlider *seed = qDialog->findChild<QSlider *>(label + "-seedno");
+                            palcontext->paletteseed = seed->sliderPosition();
+                            QSlider *shift = qDialog->findChild<QSlider *>(label + "-shiftno");
+                            palcontext->paletteshift = shift->sliderPosition();
+                            param->dint = 1;
+                            menuActivate(item, param);
+                            destroypalette(gradientpal);
                         });
                 qDialog->open();
                 break;

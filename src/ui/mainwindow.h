@@ -66,6 +66,7 @@ class MainWindow : public QMainWindow
 private slots:
     void activateMenuItem();
     void updateMenuCheckmarks();
+    void updateVisualiser();
 
   public:
     MainWindow(QWidget *parent = 0);
