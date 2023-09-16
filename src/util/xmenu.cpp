@@ -3,8 +3,6 @@
 #include <cstring>
 #include <cstdlib>
 #include "config.h"
-#include "filter.h"
-#include "fractal.h"
 #include "ui_helper.h"
 #include "xerror.h"
 #include "misc-f.h"
@@ -340,12 +338,25 @@ void menu_activate(const menuitem *item, struct uih_context *c, dialogparam *d)
                 // be cast to a valid float parameter which the function
                 // expects. For now I will just special case it because
                 // uimandelbrot is the only menu that does this.
-                if (!strcmp(item->shortname, "uimandelbrot"))
+
+                // Also, similar problems occur when compiling for WebAssembly,
+                // but also for uiperturbation. So we handle these cases differently.
+
+                if (!strcmp(item->shortname, "uimandelbrot") &&
+                    !strcmp(item->shortname, "uiperturbation"))
                     ((void (*)(struct uih_context * c, number_t, number_t))
                          item->function)(c, 0, 0);
-                else
+                else {
+#ifndef __wasm
                     ((void (*)(struct uih_context * c, dialogparam *))
-                         item->function)(c, (dialogparam *)NULL);
+                     item->function)(c, (dialogparam *)NULL);
+#else
+                    if (strcmp(item->shortname, "uimandelbrot") == 0)
+                        uih_setmandelbrot(c, 1, 0, 0);
+                    if (strcmp(item->shortname, "uiperturbation") == 0)
+                        uih_setperbutation(c, 0, 0);
+#endif
+                }
             } else {
                 const menudialog *di = menu_getdialog(c, item);
                 if (di[0].question == NULL) {
