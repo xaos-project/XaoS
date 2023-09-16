@@ -67,6 +67,7 @@ private slots:
     void activateMenuItem();
     void updateMenuCheckmarks();
     void updateVisualiser();
+    void colorPicker();
 
   public:
     MainWindow(QWidget *parent = 0);

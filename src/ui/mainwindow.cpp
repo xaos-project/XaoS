@@ -853,6 +853,30 @@ void MainWindow::updateVisualiser()
     img->setPixmap(newImage);
 }
 
+unsigned char newColors[32][3];
+
+void MainWindow::colorPicker()
+{
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    int idx = button->objectName().toInt();
+    QColorDialog* qColorDialog = new QColorDialog(this);
+    QColor currentColor(newColors[idx][0], newColors[idx][1], newColors[idx][2]);
+    qColorDialog->setCurrentColor(currentColor);
+    qColorDialog->setModal(false);
+    connect(qColorDialog, &QColorDialog::colorSelected, qColorDialog,
+            [=](const QColor &color) {
+                QPalette pal = button->palette();
+                button->setAutoFillBackground(true);
+                pal.setColor(QPalette::Button, color);
+                button->setPalette(pal);
+                button->update();
+                newColors[idx][0] = color.red();
+                newColors[idx][1] = color.green();
+                newColors[idx][2] = color.blue();
+            });
+    qColorDialog->open();
+}
+
 void MainWindow::showDialog(const char *name)
 {
     const menuitem *item = menu_findcommand(name);
@@ -1131,6 +1155,62 @@ void MainWindow::showDialog(const char *name)
                             param->dint = 1;
                             menuActivate(item, param);
                             destroypalette(gradientpal);
+                        });
+                qDialog->open();
+                break;
+            }
+            case DIALOG_PALPICKER:
+            {
+                QDialog *qDialog = new QDialog(this);
+                qDialog->setWindowTitle(dialog->question);
+                QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
+
+                uih_context *palcontext;
+                palcontext = uih;
+                getDEFSEGMENTColor(newColors);
+
+                QList< QPushButton* > buttons;
+                QBoxLayout *layout1 = new QBoxLayout(QBoxLayout::LeftToRight);
+                QBoxLayout *layout2 = new QBoxLayout(QBoxLayout::LeftToRight);
+                QBoxLayout *layout3 = new QBoxLayout(QBoxLayout::LeftToRight);
+                for(auto bidx = 0; bidx < 31; ++bidx ) {
+                        auto button = new QPushButton{ QString::number(bidx) };
+                        button->setObjectName(QString::number(bidx));
+                        QColor color(newColors[bidx][0], newColors[bidx][1], newColors[bidx][2]);
+                        QPalette pal = button->palette();
+                        button->setAutoFillBackground(true);
+                        pal.setColor(QPalette::Button, color);
+                        button->setPalette(pal);
+                        button->update();
+                        buttons << button;
+                        if(bidx <= 10)
+                    layout1->addWidget(button);
+                        else if(bidx>10 and bidx <= 20)
+                    layout2->addWidget(button);
+                        else
+                    layout3->addWidget(button);
+
+                    connect(button, SIGNAL(clicked()), this, SLOT(colorPicker()));
+                }
+                QFormLayout *formLayout = new QFormLayout();
+                formLayout->addRow(layout1);
+                formLayout->addRow(layout2);
+                formLayout->addRow(layout3);
+                dialogLayout->addLayout(formLayout);
+                QDialogButtonBox *buttonBox =
+                    new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                         Qt::Horizontal, qDialog);
+
+                connect(buttonBox, SIGNAL(accepted()), qDialog, SLOT(accept()));
+                connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
+
+                dialogLayout->addWidget(buttonBox);
+                qDialog->setLayout(dialogLayout);
+
+                connect(qDialog, &QDialog::accepted, qDialog,
+                        [=](void){
+                            mkcustompalette(palcontext->image->palette, newColors);
+                            menuActivate(item, param);
                         });
                 qDialog->open();
                 break;
