@@ -1215,6 +1215,57 @@ void MainWindow::showDialog(const char *name)
                 qDialog->open();
                 break;
             }
+            case DIALOG_LIST: // This is used only in Formulas/UserFormulas
+            {
+                QDialog *qDialog = new QDialog(this);
+                qDialog->setWindowTitle(dialog->question);
+                QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
+
+                QComboBox *list = new QComboBox(this);
+                QString label(dialog->question);
+                list->setObjectName(label);
+                list->setEditable(true);
+                list->addItem(dialog->defstr);
+                list->setObjectName(label + "-data");
+
+                QSettings settings;
+                QStringList formulas = settings.value("Formulas/UserFormulas").toStringList();
+
+                for (int j = 0; j < formulas.count(); j++) {
+                    bool found = false;
+                    for (int i = 0; i < list->count(); i++) {
+                        if (QString::compare(list->itemText(i), formulas[j], Qt::CaseSensitive) == 0) {
+                            found = true;
+                        }
+                    }
+                    if (!found)
+                        list->addItem(formulas[j]);
+                }
+
+                // list->addItems(formulas);
+
+                QFormLayout *formLayout = new QFormLayout();
+                formLayout->addRow(label, list);
+                dialogLayout->addLayout(formLayout);
+
+                QDialogButtonBox *buttonBox =
+                    new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                         Qt::Horizontal, qDialog);
+
+                connect(buttonBox, SIGNAL(accepted()), qDialog, SLOT(accept()));
+                connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
+                dialogLayout->addWidget(buttonBox);
+                qDialog->setLayout(dialogLayout);
+
+                connect(qDialog, &QDialog::accepted, qDialog,
+                        [=](void){
+                            QComboBox *selected = qDialog->findChild<QComboBox *>(label + "-data");
+                            param->dstring = strdup(selected->currentText().toUtf8());
+                            menuActivate(item, param);
+                        });
+                qDialog->open();
+                break;
+            }
             default:
             {
                 CustomDialog customDialog(uih, item, dialog, this);
