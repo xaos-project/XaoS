@@ -971,6 +971,7 @@ void MainWindow::showDialog(const char *name)
             {
                 QInputDialog *qInputDialog = new QInputDialog(this);
                 qInputDialog->setLabelText(dialog->question);
+                qInputDialog->setWindowTitle(item->name);
                 switch (dialog->type) {
                     case DIALOG_INT:
                     {
@@ -1021,7 +1022,7 @@ void MainWindow::showDialog(const char *name)
             case DIALOG_COORD:
             {
                 QDialog *qDialog = new QDialog(this);
-                qDialog->setWindowTitle(dialog->question);
+                qDialog->setWindowTitle(item->name);
                 QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
                 QFormLayout *formLayout = new QFormLayout();
                 QString label(dialog->question);
@@ -1057,13 +1058,14 @@ void MainWindow::showDialog(const char *name)
                             param->dcoord[1] = imag->text().toDouble();
                             menuActivate(item, param);
                         });
+                qDialog->adjustSize(); // this is sometimes too high in WASM, FIXME, maybe Qt6 bug?
                 qDialog->open();
                 break;
             }
             case DIALOG_PALSLIDER:
             {
                 QDialog *qDialog = new QDialog(this);
-                qDialog->setWindowTitle(dialog->question);
+                qDialog->setWindowTitle(item->name);
                 QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
                 gradientpal = clonepalette(uih->image->palette);
                 uih_context *palcontext;
@@ -1162,7 +1164,7 @@ void MainWindow::showDialog(const char *name)
             case DIALOG_PALPICKER:
             {
                 QDialog *qDialog = new QDialog(this);
-                qDialog->setWindowTitle(dialog->question);
+                qDialog->setWindowTitle(item->name);
                 QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
 
                 uih_context *palcontext;
@@ -1218,7 +1220,7 @@ void MainWindow::showDialog(const char *name)
             case DIALOG_LIST: // This is used only in Formulas/UserFormulas
             {
                 QDialog *qDialog = new QDialog(this);
-                qDialog->setWindowTitle(dialog->question);
+                qDialog->setWindowTitle(item->name);
                 QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
 
                 QComboBox *list = new QComboBox(this);
@@ -1256,6 +1258,7 @@ void MainWindow::showDialog(const char *name)
                 connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
                 dialogLayout->addWidget(buttonBox);
                 qDialog->setLayout(dialogLayout);
+                qDialog->adjustSize(); // this is sometimes too high in WASM, FIXME, maybe Qt6 bug?
 
                 connect(qDialog, &QDialog::accepted, qDialog,
                         [=](void){
