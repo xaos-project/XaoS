@@ -16,7 +16,7 @@
 
 QStringList fnames = {};
 
-QString format(number_t number)
+QString CustomDialog::format(number_t number)
 {
     char buf[256];
 #ifdef USE_FLOAT128
@@ -51,13 +51,13 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
 
             QLineEdit *real = new QLineEdit(format(dialog[i].deffloat), this);
             QFontMetrics metric(real->font());
-            real->setMinimumWidth(metric.width(real->text()) * 1.1);
+            real->setMinimumWidth(metric.horizontalAdvance(real->text()) * 1.1);
             real->setObjectName(label + "real");
             // real->setValidator(new QDoubleValidator(real));
 
             QLineEdit *imag = new QLineEdit(format(dialog[i].deffloat2), this);
             imag->setObjectName(label + "imag");
-            imag->setMinimumWidth(metric.width(imag->text()) * 1.1);
+            imag->setMinimumWidth(metric.horizontalAdvance(imag->text()) * 1.1);
             // imag->setValidator(new QDoubleValidator(imag));
 
             QBoxLayout *layout = new QBoxLayout(QBoxLayout::LeftToRight);
@@ -74,7 +74,7 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
 
             QLineEdit *filename = new QLineEdit(dialog[i].defstr, this);
             QFontMetrics metric(filename->font());
-            filename->setMinimumWidth(metric.width(filename->text()) * 1.1);
+            filename->setMinimumWidth(metric.horizontalAdvance(filename->text()) * 1.1);
             filename->setObjectName(label);
 
             QToolButton *chooser = new QToolButton(this);
@@ -250,7 +250,7 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
                 field->setText(dialog[i].defstr);
             }
             QFontMetrics metric(field->font());
-            field->setMinimumWidth(metric.width(field->text()) * 1.1);
+            field->setMinimumWidth(metric.horizontalAdvance(field->text()) * 1.1);
             formLayout->addRow(label, field);
         }
     }

@@ -1,5 +1,7 @@
 ﻿#include <QtWidgets>
 #include <cassert>
+#include <QTimer>
+#include <iostream>
 
 #include "mainwindow.h"
 #include "fractalwidget.h"
@@ -414,27 +416,34 @@ xio_pathdata configfile;
 
 void MainWindow::eventLoop()
 {
-    int inmovement = 1;
-    int time;
-    for (;;) {
+    QTimer eventTimer;
+    eventTimer.setTimerType(Qt::PreciseTimer);
+
+    connect(&eventTimer, &QTimer::timeout, this, [=]() {
+        int inmovement = 1;
+
         widget->setCursor(uih->play ? Qt::ForbiddenCursor : Qt::CrossCursor);
+
         if (uih->display) {
             uih_prepare_image(uih);
             uih_updatestatus(uih);
             widget->repaint();
             showStatus("");
         }
-        if ((time = tl_process_group(syncgroup, NULL)) != -1) {
+
+        int time = tl_process_group(syncgroup, nullptr);
+        if (time != -1) {
             if (!inmovement && !uih->inanimation) {
                 if (time > 1000000 / 50)
                     time = 1000000 / 50;
                 if (time > delaytime) {
-                    tl_sleep(time - delaytime);
+                    QThread::usleep(time - delaytime);
                     tl_update_time();
                 }
             }
             inmovement = 1;
         }
+
         if (delaytime || maxframerate) {
             tl_update_time();
             time = tl_lookup_timer(loopt);
@@ -443,18 +452,26 @@ void MainWindow::eventLoop()
             if (time < delaytime)
                 time = delaytime;
             if (time) {
-                tl_sleep(time);
+                QThread::usleep(time);
                 tl_update_time();
             }
         }
+
         processQueue();
         processEvents(!inmovement && !uih->inanimation);
         inmovement = 0;
+
         if (shouldResize) {
             resizeImage(widget->size().width(), widget->size().height());
             shouldResize = false;
         }
-    }
+    });
+
+    // Start the event timer
+    eventTimer.start(0);
+
+    // Enter the Qt event loop
+    QCoreApplication::exec();
 }
 
 void MainWindow::updateMenus(const char *name)
@@ -536,15 +553,20 @@ static void ui_message(struct uih_context *uih)
 
 void MainWindow::chooseFont()
 {
-    bool ok;
-    messageFont = QFontDialog::getFont(&ok, messageFont, this);
-    if (ok) {
-        QSettings settings;
-        settings.setValue("MainWindow/messageFontFamily", messageFont.family());
-        settings.setValue("MainWindow/messageFontSize",
-                          messageFont.pointSize());
-        uih->font = &messageFont;
-    }
+    QFontDialog *fontDialog = new QFontDialog(this);
+    QSettings settings;
+    QFont qfont(settings.value("MainWindow/messageFontFamily").toString(),
+        settings.value("MainWindow/messageFontSize").toInt());
+    fontDialog->setCurrentFont(qfont);
+    connect(fontDialog, &QFontDialog::fontSelected,
+            [=](const QFont &messageFont) {
+                QSettings settings;
+                settings.setValue("MainWindow/messageFontFamily", messageFont.family());
+                settings.setValue("MainWindow/messageFontSize",
+                                  messageFont.pointSize());
+                uih->font = (void *) &messageFont;
+            });
+    fontDialog->open();
 }
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
@@ -808,6 +830,54 @@ void MainWindow::updateMenuCheckmarks()
     }
 }
 
+struct palette *gradientpal; QSpinBox *seedno, *algono, *shiftno; QLabel *img;
+
+void MainWindow::updateVisualiser()
+{
+    // Get updated Colors
+    int colors[101][3];
+    getPaletteColor(gradientpal, seedno->value(),
+                    algono->value()-1 < 0? 0:algono->value()-1, shiftno->value(), colors);
+
+    // Load Curve
+    QImage palImage(100, 1, QImage::Format_RGB32);
+
+    // Fill Curve
+    for(int i=0;i<100;i++) {
+        QRgb value = qRgb(colors[i][0], colors[i][1], colors[i][2]);
+        palImage.setPixelColor(i, 0, value);
+    }
+
+    // Save Result
+    QPixmap newImage = QPixmap::fromImage(palImage.scaled(algono->width(),
+                                                          algono->height()));
+    img->setPixmap(newImage);
+}
+
+unsigned char newColors[32][3];
+
+void MainWindow::colorPicker()
+{
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    int idx = button->objectName().toInt();
+    QColorDialog* qColorDialog = new QColorDialog(this);
+    QColor currentColor(newColors[idx][0], newColors[idx][1], newColors[idx][2]);
+    qColorDialog->setCurrentColor(currentColor);
+    qColorDialog->setModal(false);
+    connect(qColorDialog, &QColorDialog::colorSelected, qColorDialog,
+            [=](const QColor &color) {
+                QPalette pal = button->palette();
+                button->setAutoFillBackground(true);
+                pal.setColor(QPalette::Button, color);
+                button->setPalette(pal);
+                button->update();
+                newColors[idx][0] = color.red();
+                newColors[idx][1] = color.green();
+                newColors[idx][2] = color.blue();
+            });
+    qColorDialog->open();
+}
+
 void MainWindow::showDialog(const char *name)
 {
     const menuitem *item = menu_findcommand(name);
@@ -830,10 +900,33 @@ void MainWindow::showDialog(const char *name)
         QString fileLocation =
             settings.value("MainWindow/lastFileLocation", QDir::homePath())
                 .toString();
-        QString fileName;
-        if (dialog[0].type == DIALOG_IFILE)
-            fileName = QFileDialog::getOpenFileName(this, item->name,
-                                                    fileLocation, filter);
+        if (dialog[0].type == DIALOG_IFILE) {
+            // fileName = QFileDialog::getOpenFileName(this, item->name, fileLocation, filter);
+            QFileDialog *qFileDialog = new QFileDialog(this);
+            // qFileDialog->setWindowTitle(dialog->question);
+            qFileDialog->setWindowTitle(item->name);
+            qFileDialog->setDirectory(fileLocation);
+            qFileDialog->setNameFilter(filter);
+            connect(qFileDialog, &QFileDialog::fileSelected,
+                    [=](const QString &value) {
+                        QString fileName = value;
+                        if (!fileName.isNull()) {
+                            QString ext = "." + QFileInfo(dialog[0].defstr).suffix();
+
+                            if (!fileName.endsWith(".xpf") and !fileName.endsWith(".png")
+                                and !fileName.endsWith(ext))
+                                fileName += ext;
+
+                            dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
+                            param->dstring = strdup(fileName.toUtf8());
+                            menuActivate(item, param);
+                            QSettings settings;
+                            settings.setValue("MainWindow/lastFileLocation",
+                                QFileInfo(fileName).absolutePath());
+                        }
+            });
+            qFileDialog->open();
+        }
         else if (dialog[0].type == DIALOG_OFILE) {
             char defname[256];
             strcpy(defname,
@@ -841,37 +934,458 @@ void MainWindow::showDialog(const char *name)
             char *split = strchr(defname, '*');
             *split = 0;
             strcpy(defname, xio_getfilename(defname, split + 1));
-            fileName =
-                QFileDialog::getSaveFileName(this, item->name, defname, filter);
-        }
+            // fileName = QFileDialog::getSaveFileName(this, item->name, defname, filter);
+            QFileDialog *qFileDialog = new QFileDialog(this);
+            qFileDialog->setWindowTitle(item->name);
+            qFileDialog->setDirectory(fileLocation);
+            qFileDialog->setNameFilter(filter);
+            qFileDialog->setAcceptMode(QFileDialog::AcceptSave);
+            connect(qFileDialog, &QFileDialog::fileSelected,
+                    [=](const QString &value) {
+                        QString fileName = value;
+                        if (!fileName.isNull()) {
+                            QString ext = "." + QFileInfo(dialog[0].defstr).suffix();
 
-        if (!fileName.isNull()) {
-            QString ext = "." + QFileInfo(dialog[0].defstr).suffix();
+                            if (!fileName.endsWith(".xpf") and !fileName.endsWith(".png")
+                                and !fileName.endsWith(ext))
+                                fileName += ext;
 
-            if (!fileName.endsWith(".xpf") and !fileName.endsWith(".png")
-                    and !fileName.endsWith(ext))
-                fileName += ext;
-
-            dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
-            param->dstring = strdup(fileName.toUtf8());
-            menuActivate(item, param);
-            settings.setValue("MainWindow/lastFileLocation",
+                        dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
+                        param->dstring = strdup(fileName.toUtf8());
+                        menuActivate(item, param);
+                        QSettings settings;
+                        settings.setValue("MainWindow/lastFileLocation",
                               QFileInfo(fileName).absolutePath());
+                        }
+            });
+            qFileDialog->open();
         }
     } else {
-        CustomDialog customDialog(uih, item, dialog, this);
-        if (customDialog.exec() == QDialog::Accepted)
-            menuActivate(item, customDialog.parameters());
+
+        dialogparam *param = (dialogparam *)malloc(sizeof(dialogparam));
+
+        switch (dialog->type) {
+            case DIALOG_INT:
+            case DIALOG_FLOAT:
+            case DIALOG_STRING:
+            case DIALOG_KEYSTRING:
+            {
+                QInputDialog *qInputDialog = new QInputDialog(this);
+                qInputDialog->setLabelText(dialog->question);
+                qInputDialog->setWindowTitle(item->name);
+                switch (dialog->type) {
+                    case DIALOG_INT:
+                    {
+                        qInputDialog->setIntMaximum(1000000);
+                        qInputDialog->setIntValue(dialog->defint);
+                        connect(qInputDialog, &QInputDialog::intValueSelected, qInputDialog,
+                            [=](const unsigned long int &value) {
+                                param->dint = value;
+                                menuActivate(item, param);
+                            });
+                        break;
+                    }
+                    case DIALOG_FLOAT:
+                    {
+                        qInputDialog->setDoubleMaximum(1000000);
+                        qInputDialog->setDoubleValue(dialog->deffloat);
+                        connect(qInputDialog, &QInputDialog::doubleValueSelected, qInputDialog,
+                            [=](const double &value) {
+                                param->number = value;
+                                menuActivate(item, param);
+                            });
+                        break;
+                    }
+                    case DIALOG_STRING:
+                    {
+                        qInputDialog->setTextValue(dialog->defstr);
+                        connect(qInputDialog, &QInputDialog::textValueSelected, qInputDialog,
+                            [=](const QString &text) {
+                                    param->dstring = strdup((char *) text.toStdString().c_str());
+                                menuActivate(item, param);
+                            });
+                        break;
+                    }
+                    case DIALOG_KEYSTRING:
+                    {
+                        qInputDialog->setTextValue(dialog->defstr);
+                        connect(qInputDialog, &QInputDialog::textValueSelected, qInputDialog,
+                            [=](const QString &text) {
+                                    param->dstring = strdup((char *) text.toStdString().c_str());
+                                menuActivate(item, param);
+                            });
+                        break;
+                    }
+                }
+                qInputDialog->open();
+                break;
+            }
+            case DIALOG_COORD:
+            {
+                QDialog *qDialog = new QDialog(this);
+                qDialog->setWindowTitle(item->name);
+                QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
+                QFormLayout *formLayout = new QFormLayout();
+                QString label(dialog->question);
+                QLineEdit *real = new QLineEdit(CustomDialog::format(dialog->deffloat), qDialog);
+                QFontMetrics metric(real->font());
+                real->setMinimumWidth(metric.horizontalAdvance(real->text()) * 1.1);
+                real->setObjectName("real");
+                QLineEdit *imag = new QLineEdit(CustomDialog::format(dialog->deffloat2), qDialog);
+                imag->setObjectName("imag");
+                imag->setMinimumWidth(metric.horizontalAdvance(imag->text()) * 1.1);
+                // imag->setValidator(new QDoubleValidator(imag));
+                QBoxLayout *layout = new QBoxLayout(QBoxLayout::LeftToRight);
+                layout->setContentsMargins(0, 0, 0, 0);
+                layout->addWidget(real);
+                layout->addWidget(new QLabel("+", qDialog));
+                layout->addWidget(imag);
+                layout->addWidget(new QLabel("i", qDialog));
+                formLayout->addRow(label, layout);
+                dialogLayout->addLayout(formLayout);
+                QDialogButtonBox *buttonBox =
+                    new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                         Qt::Horizontal, qDialog);
+                connect(buttonBox, SIGNAL(accepted()), qDialog, SLOT(accept()));
+                connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
+                connect(real, SIGNAL(textEdited(QString)), qDialog, SLOT(update()));
+                dialogLayout->addWidget(buttonBox);
+                qDialog->setLayout(dialogLayout);
+                connect(qDialog, &QDialog::accepted, qDialog,
+                        [=](void){
+                            QLineEdit *real = qDialog->findChild<QLineEdit *>("real");
+                            param->dcoord[0] = real->text().toDouble();
+                            QLineEdit *imag = qDialog->findChild<QLineEdit *>("imag");
+                            param->dcoord[1] = imag->text().toDouble();
+                            menuActivate(item, param);
+                        });
+                qDialog->adjustSize(); // this is sometimes too high in WASM, FIXME, maybe Qt6 bug?
+                qDialog->open();
+                break;
+            }
+            case DIALOG_PALSLIDER:
+            {
+                QDialog *qDialog = new QDialog(this);
+                qDialog->setWindowTitle(item->name);
+                QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
+                gradientpal = clonepalette(uih->image->palette);
+                uih_context *palcontext;
+                palcontext = uih;
+                // 3 inputs decide color, Algorithm Number, Seed and shift
+                // For Algorithm number
+                QSlider *seedslider, *algoslider, *shiftslider;
+                algono = new QSpinBox(this);
+                QString label(dialog->question);
+                algono->setObjectName(label + "algono");
+                algono->setValue(palcontext->palettetype);
+                algono->setRange(1, 3);
+
+                // Algo Slider
+                algoslider = new QSlider(Qt::Horizontal, qDialog);
+                algoslider->setObjectName(label + "-algono");
+                algoslider->setRange(1, PALGORITHMS);
+                algoslider->setValue(algono->value());
+                // algoslider->setMinimumWidth(this->width()*2);
+
+                // For Seed Number
+                seedno = new QSpinBox(qDialog);
+                seedno->setObjectName(label + "seedno");
+                seedno->setRange(0, gradientpal->size);
+                seedno->setValue(palcontext->paletteseed);
+
+                // Seed Slider
+                seedslider = new QSlider(Qt::Horizontal, qDialog);
+                seedslider->setObjectName(label + "-seedno");
+                seedslider->setRange(0, gradientpal->size);
+                seedslider->setValue(seedno->value());
+
+                // For Shift Number
+                shiftno = new QSpinBox(this);
+                shiftno->setObjectName(label + "shiftno");
+                shiftno->setRange(0, gradientpal->size);
+                shiftno->setValue(palcontext->paletteshift + palcontext->manualpaletteshift);
+
+                // Shift Slider
+                shiftslider = new QSlider(Qt::Horizontal, qDialog);
+                shiftslider->setObjectName(label + "-shiftno");
+                shiftslider->setRange(0, gradientpal->size);
+                shiftslider->setValue(shiftno->value());
+
+                // Add them to Layout
+                QFormLayout *formLayout = new QFormLayout();
+                formLayout->addRow("Algorithm", algono);
+                formLayout->addWidget(algoslider);
+                formLayout->addRow("Seed", seedno);
+                formLayout->addWidget(seedslider);
+                formLayout->addRow("Shift", shiftno);
+                formLayout->addWidget(shiftslider);
+
+                img = new QLabel(qDialog);
+                img->setScaledContents(true);
+                formLayout->addRow(img);
+                updateVisualiser();
+
+                connect(algono,SIGNAL(valueChanged(int)), algoslider, SLOT(setValue(int)));
+                connect(algoslider, SIGNAL(valueChanged(int)), algono, SLOT(setValue(int)));
+                connect(algono, SIGNAL(valueChanged(int)), this, SLOT(updateVisualiser()));
+                connect(seedno,SIGNAL(valueChanged(int)), seedslider, SLOT(setValue(int)));
+                connect(seedslider, SIGNAL(valueChanged(int)), seedno, SLOT(setValue(int)));
+                connect(seedno, SIGNAL(valueChanged(int)), this, SLOT(updateVisualiser()));
+                connect(shiftno,SIGNAL(valueChanged(int)), shiftslider, SLOT(setValue(int)));
+                connect(shiftslider, SIGNAL(valueChanged(int)), shiftno, SLOT(setValue(int)));
+                connect(shiftno, SIGNAL(valueChanged(int)), this, SLOT(updateVisualiser()));
+
+                dialogLayout->addLayout(formLayout);
+                QDialogButtonBox *buttonBox =
+                    new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                         Qt::Horizontal, qDialog);
+
+                connect(buttonBox, SIGNAL(accepted()), qDialog, SLOT(accept()));
+                connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
+
+                dialogLayout->addWidget(buttonBox);
+                qDialog->setLayout(dialogLayout);
+
+                connect(qDialog, &QDialog::accepted, qDialog,
+                        [=](void){
+                            QSlider *algo = qDialog->findChild<QSlider *>(label + "-algono");
+                            palcontext->palettetype = algo->sliderPosition();
+                            palcontext->manualpaletteshift = 0;
+                            QSlider *seed = qDialog->findChild<QSlider *>(label + "-seedno");
+                            palcontext->paletteseed = seed->sliderPosition();
+                            QSlider *shift = qDialog->findChild<QSlider *>(label + "-shiftno");
+                            palcontext->paletteshift = shift->sliderPosition();
+                            param->dint = 1;
+                            menuActivate(item, param);
+                            destroypalette(gradientpal);
+                        });
+                qDialog->open();
+                break;
+            }
+            case DIALOG_PALPICKER:
+            {
+                QDialog *qDialog = new QDialog(this);
+                qDialog->setWindowTitle(item->name);
+                QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
+
+                uih_context *palcontext;
+                palcontext = uih;
+                getDEFSEGMENTColor(newColors);
+
+                QList< QPushButton* > buttons;
+                QBoxLayout *layout1 = new QBoxLayout(QBoxLayout::LeftToRight);
+                QBoxLayout *layout2 = new QBoxLayout(QBoxLayout::LeftToRight);
+                QBoxLayout *layout3 = new QBoxLayout(QBoxLayout::LeftToRight);
+                for(auto bidx = 0; bidx < 31; ++bidx ) {
+                        auto button = new QPushButton{ QString::number(bidx) };
+                        button->setObjectName(QString::number(bidx));
+                        QColor color(newColors[bidx][0], newColors[bidx][1], newColors[bidx][2]);
+                        QPalette pal = button->palette();
+                        button->setAutoFillBackground(true);
+                        pal.setColor(QPalette::Button, color);
+                        button->setPalette(pal);
+                        button->update();
+                        buttons << button;
+                        if(bidx <= 10)
+                    layout1->addWidget(button);
+                        else if(bidx>10 and bidx <= 20)
+                    layout2->addWidget(button);
+                        else
+                    layout3->addWidget(button);
+
+                    connect(button, SIGNAL(clicked()), this, SLOT(colorPicker()));
+                }
+                QFormLayout *formLayout = new QFormLayout();
+                formLayout->addRow(layout1);
+                formLayout->addRow(layout2);
+                formLayout->addRow(layout3);
+                dialogLayout->addLayout(formLayout);
+                QDialogButtonBox *buttonBox =
+                    new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                         Qt::Horizontal, qDialog);
+
+                connect(buttonBox, SIGNAL(accepted()), qDialog, SLOT(accept()));
+                connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
+
+                dialogLayout->addWidget(buttonBox);
+                qDialog->setLayout(dialogLayout);
+
+                connect(qDialog, &QDialog::accepted, qDialog,
+                        [=](void){
+                            mkcustompalette(palcontext->image->palette, newColors);
+                            menuActivate(item, param);
+                        });
+                qDialog->open();
+                break;
+            }
+            case DIALOG_LIST: // This is used only in Formulas/UserFormulas
+            {
+                QDialog *qDialog = new QDialog(this);
+                qDialog->setWindowTitle(item->name);
+                QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
+
+                QComboBox *list = new QComboBox(this);
+                QString label(dialog->question);
+                list->setObjectName(label);
+                list->setEditable(true);
+                list->addItem(dialog->defstr);
+                list->setObjectName(label + "-data");
+
+                QSettings settings;
+                QStringList formulas = settings.value("Formulas/UserFormulas").toStringList();
+
+                for (int j = 0; j < formulas.count(); j++) {
+                    bool found = false;
+                    for (int i = 0; i < list->count(); i++) {
+                        if (QString::compare(list->itemText(i), formulas[j], Qt::CaseSensitive) == 0) {
+                            found = true;
+                        }
+                    }
+                    if (!found)
+                        list->addItem(formulas[j]);
+                }
+
+                // list->addItems(formulas);
+
+                QFormLayout *formLayout = new QFormLayout();
+                formLayout->addRow(label, list);
+                dialogLayout->addLayout(formLayout);
+
+                QDialogButtonBox *buttonBox =
+                    new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                         Qt::Horizontal, qDialog);
+
+                connect(buttonBox, SIGNAL(accepted()), qDialog, SLOT(accept()));
+                connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
+                dialogLayout->addWidget(buttonBox);
+                qDialog->setLayout(dialogLayout);
+                qDialog->adjustSize(); // this is sometimes too high in WASM, FIXME, maybe Qt6 bug?
+
+                connect(qDialog, &QDialog::accepted, qDialog,
+                        [=](void){
+                            QComboBox *selected = qDialog->findChild<QComboBox *>(label + "-data");
+                            param->dstring = strdup(selected->currentText().toUtf8());
+                            menuActivate(item, param);
+                        });
+                qDialog->open();
+                break;
+            }
+            case DIALOG_CHOICE:
+            {
+                QDialog *qDialog = new QDialog(this);
+                qDialog->setWindowTitle(item->name);
+                QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
+
+                QComboBox *combo = new QComboBox(this);
+                QString label(dialog->question);
+                combo->setObjectName(label);
+
+                const char **str = (const char **)dialog->defstr;
+                for (int j = 0; str[j] != NULL; j++)
+                    combo->addItem(str[j]);
+                combo->setCurrentIndex(dialog->defint);
+                QFormLayout *formLayout = new QFormLayout();
+                formLayout->addRow(label, combo);
+                dialogLayout->addLayout(formLayout);
+
+                QDialogButtonBox *buttonBox =
+                    new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                         Qt::Horizontal, qDialog);
+
+                connect(buttonBox, SIGNAL(accepted()), qDialog, SLOT(accept()));
+                connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
+                dialogLayout->addWidget(buttonBox);
+                qDialog->setLayout(dialogLayout);
+                qDialog->adjustSize(); // this is sometimes too high in WASM, FIXME, maybe Qt6 bug?
+
+                connect(qDialog, &QDialog::accepted, qDialog,
+                        [=](void){
+                            QComboBox *selected = qDialog->findChild<QComboBox *>(label);
+                            param->dint = selected->currentIndex();
+                            menuActivate(item, param);
+                        });
+                qDialog->open();
+                break;
+            }
+            default:
+            {
+                CustomDialog customDialog(uih, item, dialog, this);
+                if (customDialog.exec() == QDialog::Accepted)
+                    menuActivate(item, customDialog.parameters());
+            }
+        }
     }
 }
 
+#ifdef __wasm
+#define STATUS_VIA_STDOUT
+//#define STATUS_VIA_PROGRESSBAR
+#else
+#define STATUS_VIA_PROGRESSBAR
+// #define STATUS_VIA_WINDOWTITLE
+#endif
+
+QProgressDialog *qProgressDialog;
+int progress = 0;
 void MainWindow::showStatus(const char *text)
 {
+// This is not working properly, maybe because of a missing QTimer event/setting.
+#ifdef STATUS_VIA_UIH_MESSAGE
+    if (uih != NULL) {
+        uih_message(uih, text);
+        uih_updatestatus(uih);
+    }
+#endif
+
+#ifdef STATUS_VIA_WINDOWTITLE
     if (strlen(text))
         setWindowTitle(
             QCoreApplication::applicationName().append(" - ").append(text));
     else
         setWindowTitle(QCoreApplication::applicationName());
+#endif
+
+#ifdef STATUS_VIA_STDOUT
+    std::cout << "STATUS: " << text << "\n";
+#endif
+
+// This feature is experimental. It works natively but not in WASM.
+#ifdef STATUS_VIA_PROGRESSBAR
+    bool newProgress = (qProgressDialog == NULL);
+    if (QString(text) == "") {
+            if (!newProgress) {
+                qProgressDialog->close();
+                progress = 0;
+                return;
+            }
+    }
+
+    if (newProgress) {
+        qProgressDialog = new QProgressDialog(this);
+    } else {
+        qProgressDialog->setValue(progress);
+        qProgressDialog->setMinimumDuration(0);
+        QString t = QString(text).trimmed();
+        if (t.endsWith("%")) {
+                progress = t.right(6).left(5).toDouble(); // save the percentage
+                // std::cout << "t=" << t.toStdString() << " progress=" << progress << "\n";
+                t = t.left(t.length()-6); // remove the percentage
+        }
+
+        qProgressDialog->setCancelButton(NULL);
+        qProgressDialog->setWindowTitle(t);
+        if (progress < 100) {
+                progress++;
+        }
+        else {
+                progress=0;
+        }
+    }
+
+    if (newProgress) {
+        qProgressDialog->show();
+    }
+#endif
 }
 
 int MainWindow::mouseButtons()
@@ -885,7 +1399,7 @@ int MainWindow::mouseButtons()
         // Otherwise, mouse buttons map normally
         if (m_mouseButtons & Qt::LeftButton)
             mouseButtons |= BUTTON1;
-        if (m_mouseButtons & Qt::MidButton)
+        if (m_mouseButtons & Qt::MiddleButton)
             mouseButtons |= BUTTON2;
         if (m_mouseButtons & Qt::RightButton)
             mouseButtons |= BUTTON3;
@@ -920,7 +1434,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void MainWindow::wheelEvent(QWheelEvent *event)
 {
-    m_mouseWheel = event->delta();
+    m_mouseWheel = event->angleDelta().y();
     clock_gettime(CLOCK_REALTIME, &wheeltimer);
 }
 

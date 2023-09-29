@@ -8,6 +8,12 @@
 #include "fractal.h"
 #include "ui_helper.h"
 #include "misc-f.h"
+#include <iostream>
+#include <QString>
+#include <QStringList>
+#include <QDir>
+#include <QFileInfoList>
+#include <QRandomGenerator>
 #ifdef _WIN32
 #define strcmp stricmp
 #include <string>
@@ -126,9 +132,30 @@ xio_path xio_getfilename(const char *basename, const char *extension)
     return (name);
 }
 
+// Function to get the names of immediate subdirectories under a path
+QStringList get_immediate_subdirectory_names(const QString& path) {
+    QDir directory(path);
+    QStringList subdirectoryNames;
+
+    QFileInfoList entries = directory.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
+    for (int i = 0; i < entries.size(); ++i) {
+        subdirectoryNames.append(entries.at(i).fileName());
+    }
+
+    return subdirectoryNames;
+}
+
+// Function to convert QStringList to char *array
+void convertQStringListToArray(const QStringList& stringList, char *array[]) {
+    for (int i = 0; i < stringList.size(); ++i) {
+        QByteArray byteArray = stringList.at(i).toLocal8Bit();
+        array[i] = strdup(byteArray.constData());
+    }
+}
+
 xio_file xio_getrandomexample(xio_path name)
 {
-    static const char *const paths[] = {
+    QStringList example_paths_taken = {
         /*Where examples should be located? */
         EXAMPLESPATH, /*Data path when XaoS is properly installed */
         "\01" XIO_PATHSEPSTR "examples",
@@ -142,6 +169,15 @@ xio_file xio_getrandomexample(xio_path name)
         /*XaoS was started from bin directory in source tree */
         XIO_EMPTYPATH, /*Oops...it's not. Try current directory */
     };
+
+    // Select a random sub dir and then random example to fix load random example issue
+    QStringList sub_names = get_immediate_subdirectory_names(".." XIO_PATHSEPSTR "examples");
+    int randomIndex = QRandomGenerator::global()->bounded(sub_names.length());
+    QString randomElement = sub_names.at(randomIndex);
+    example_paths_taken.append(".." XIO_PATHSEPSTR "examples/"+randomElement);
+    char *paths[example_paths_taken.size()];
+    convertQStringListToArray(example_paths_taken, paths);
+
     int i = -1, p;
     DIR *d = NULL;
     xio_file f;

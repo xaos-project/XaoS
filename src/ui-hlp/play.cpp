@@ -173,7 +173,7 @@ void uih_update_lines(uih_context *c)
             case 2:
                 x = l->x1;
                 y = l->y1;
-                rotate(*(c->fcontext), x, y);
+                my_rotate(*(c->fcontext), x, y);
                 x = (x - c->fcontext->rs.nc) /
                     (c->fcontext->rs.mc - c->fcontext->rs.nc) *
                     c->zengine->image->width;
@@ -185,7 +185,7 @@ void uih_update_lines(uih_context *c)
                 c->zengine->action->convertup(c->zengine, &x1, &y1);
                 x = l->x2;
                 y = l->y2;
-                rotate(*(c->fcontext), x, y);
+                my_rotate(*(c->fcontext), x, y);
                 x = (x - c->fcontext->rs.nc) /
                     (c->fcontext->rs.mc - c->fcontext->rs.nc) *
                     c->zengine->image->width;
@@ -224,7 +224,7 @@ void uih_update_lines(uih_context *c)
                 default:
                     x = l->mx1;
                     y = l->my1;
-                    rotate(*(c->fcontext), x, y);
+                    my_rotate(*(c->fcontext), x, y);
                     x = (x - c->fcontext->rs.nc) /
                         (c->fcontext->rs.mc - c->fcontext->rs.nc) *
                         c->zengine->image->width;
@@ -236,7 +236,7 @@ void uih_update_lines(uih_context *c)
                     c->zengine->action->convertup(c->zengine, &mx1, &my1);
                     x = l->mx2;
                     y = l->my2;
-                    rotate(*(c->fcontext), x, y);
+                    my_rotate(*(c->fcontext), x, y);
                     x = (x - c->fcontext->rs.nc) /
                         (c->fcontext->rs.mc - c->fcontext->rs.nc) *
                         c->zengine->image->width;

@@ -34,6 +34,7 @@ class CustomDialog : public QDialog
                  const menudialog *dialog, QWidget *parent = 0);
     void accept();
     dialogparam *parameters();
+    static QString format(number_t number);
 };
 
 #endif // CUSTOMDIALOG_H

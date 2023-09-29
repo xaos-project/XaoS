@@ -13,10 +13,10 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
   private:
-    Qt::MouseButtons m_mouseButtons = 0;
+    Qt::MouseButtons m_mouseButtons = Qt::NoButton;
     int m_mouseWheel = 0;
     timespec wheeltimer;
-    Qt::KeyboardModifiers m_keyboardModifiers = 0;
+    Qt::KeyboardModifiers m_keyboardModifiers = Qt::NoModifier;
     int m_keyCombination = 0;
     bool shouldResize = false;
     FractalWidget *widget;
@@ -66,6 +66,8 @@ class MainWindow : public QMainWindow
 private slots:
     void activateMenuItem();
     void updateMenuCheckmarks();
+    void updateVisualiser();
+    void colorPicker();
 
   public:
     MainWindow(QWidget *parent = 0);

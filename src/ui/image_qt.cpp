@@ -63,7 +63,7 @@ int xtextwidth(struct image */*image*/, void *font, const char *text)
     line[pos] = '\0';
 
     QFontMetrics metrics(getFont(font));
-    return metrics.width(line) + 1;
+    return metrics.horizontalAdvance(line) + 1;
 }
 
 int xtextheight(struct image */*image*/, void *font)
@@ -75,7 +75,7 @@ int xtextheight(struct image */*image*/, void *font)
 int xtextcharw(struct image */*image*/, void *font, const char c)
 {
     QFontMetrics metrics(getFont(font));
-    return metrics.width(c);
+    return metrics.horizontalAdvance(c);
 }
 
 // Saves image as png with xpf chunk data
@@ -98,7 +98,7 @@ const char* readpng(xio_constpath filename)
     const QImage xaos_image = reader.read();
     QString xpf_chunk = xaos_image.text("Metadata");
     const char *xpf_data = NULL;
-    if(xpf_chunk != NULL or !xpf_chunk.isEmpty())
+    if(xpf_chunk != QString() or !xpf_chunk.isEmpty())
         xpf_data = mystrdup(xpf_chunk.toStdString().c_str());
     return xpf_data;
 }
