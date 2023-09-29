@@ -23,7 +23,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: install-qt
-      uses: jurplel/install-qt-action@v2
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '6.2.4'
     - name: qmake
       run: qmake
     - name: make
