@@ -55,7 +55,7 @@ Upstream-Name: xaos
 Source: https://github.com/xaos-project/XaoS
 
 Files: *
-Copyright: 2020 The XaoS Project
+Copyright: 2023 The XaoS Project
 License: GPL-1" > "$DOCDIR/copyright"
 
 git-changelog -x > "$DOCDIR/changelog"
