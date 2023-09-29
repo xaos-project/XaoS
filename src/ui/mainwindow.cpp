@@ -1,6 +1,7 @@
 ﻿#include <QtWidgets>
 #include <cassert>
 #include <QTimer>
+#include <iostream>
 
 #include "mainwindow.h"
 #include "fractalwidget.h"
@@ -1316,13 +1317,75 @@ void MainWindow::showDialog(const char *name)
     }
 }
 
+#ifdef __wasm
+#define STATUS_VIA_STDOUT
+//#define STATUS_VIA_PROGRESSBAR
+#else
+#define STATUS_VIA_PROGRESSBAR
+// #define STATUS_VIA_WINDOWTITLE
+#endif
+
+QProgressDialog *qProgressDialog;
+int progress = 0;
 void MainWindow::showStatus(const char *text)
 {
+// This is not working properly, maybe because of a missing QTimer event/setting.
+#ifdef STATUS_VIA_UIH_MESSAGE
+    if (uih != NULL) {
+        uih_message(uih, text);
+        uih_updatestatus(uih);
+    }
+#endif
+
+#ifdef STATUS_VIA_WINDOWTITLE
     if (strlen(text))
         setWindowTitle(
             QCoreApplication::applicationName().append(" - ").append(text));
     else
         setWindowTitle(QCoreApplication::applicationName());
+#endif
+
+#ifdef STATUS_VIA_STDOUT
+    std::cout << "STATUS: " << text << "\n";
+#endif
+
+// This feature is experimental. It works natively but not in WASM.
+#ifdef STATUS_VIA_PROGRESSBAR
+    bool newProgress = (qProgressDialog == NULL);
+    if (QString(text) == "") {
+            if (!newProgress) {
+                qProgressDialog->close();
+                progress = 0;
+                return;
+            }
+    }
+
+    if (newProgress) {
+        qProgressDialog = new QProgressDialog(this);
+    } else {
+        qProgressDialog->setValue(progress);
+        qProgressDialog->setMinimumDuration(0);
+        QString t = QString(text).trimmed();
+        if (t.endsWith("%")) {
+                progress = t.right(6).left(5).toDouble(); // save the percentage
+                // std::cout << "t=" << t.toStdString() << " progress=" << progress << "\n";
+                t = t.left(t.length()-6); // remove the percentage
+        }
+
+        qProgressDialog->setCancelButton(NULL);
+        qProgressDialog->setWindowTitle(t);
+        if (progress < 100) {
+                progress++;
+        }
+        else {
+                progress=0;
+        }
+    }
+
+    if (newProgress) {
+        qProgressDialog->show();
+    }
+#endif
 }
 
 int MainWindow::mouseButtons()
