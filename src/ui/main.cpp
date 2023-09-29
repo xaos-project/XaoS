@@ -321,12 +321,12 @@ static void ui_about(struct uih_context *uih)
             QSysInfo::kernelType() + " " +
             // QSysInfo::kernelVersion() + " "
             // QSysInfo::buildAbi() + " " +
-            QSysInfo::buildCpuArchitecture() +
+            QSysInfo::buildCpuArchitecture() + ", Qt " + QT_VERSION_STR +
             ")"
             "<br>"
             "Fast interactive real-time fractal zoomer/morpher<br><br>"
             "Original Authors: Jan Hubička and Thomas Marsh<br>"
-            "Copyright © 1996-2020 XaoS Contributors<br>"
+            "Copyright © 1996-2023 XaoS Contributors<br>"
             "<br>"
             "This program is free software; you can redistribute it and/or modify "
             "it under the terms of the GNU General Public License as published by "
