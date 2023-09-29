@@ -12,7 +12,7 @@ jobs:
     - name: prerequisites
       run: sudo apt update && sudo apt install build-essential qttools5-dev-tools qt6-base-dev libgl1-mesa-dev
     - name: qmake
-      run: qmake
+      run: qmake6
     - name: make
       run: make
 
