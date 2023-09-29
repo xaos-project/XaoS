@@ -1269,6 +1269,43 @@ void MainWindow::showDialog(const char *name)
                 qDialog->open();
                 break;
             }
+            case DIALOG_CHOICE:
+            {
+                QDialog *qDialog = new QDialog(this);
+                qDialog->setWindowTitle(item->name);
+                QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
+
+                QComboBox *combo = new QComboBox(this);
+                QString label(dialog->question);
+                combo->setObjectName(label);
+
+                const char **str = (const char **)dialog->defstr;
+                for (int j = 0; str[j] != NULL; j++)
+                    combo->addItem(str[j]);
+                combo->setCurrentIndex(dialog->defint);
+                QFormLayout *formLayout = new QFormLayout();
+                formLayout->addRow(label, combo);
+                dialogLayout->addLayout(formLayout);
+
+                QDialogButtonBox *buttonBox =
+                    new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                         Qt::Horizontal, qDialog);
+
+                connect(buttonBox, SIGNAL(accepted()), qDialog, SLOT(accept()));
+                connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
+                dialogLayout->addWidget(buttonBox);
+                qDialog->setLayout(dialogLayout);
+                qDialog->adjustSize(); // this is sometimes too high in WASM, FIXME, maybe Qt6 bug?
+
+                connect(qDialog, &QDialog::accepted, qDialog,
+                        [=](void){
+                            QComboBox *selected = qDialog->findChild<QComboBox *>(label);
+                            param->dint = selected->currentIndex();
+                            menuActivate(item, param);
+                        });
+                qDialog->open();
+                break;
+            }
             default:
             {
                 CustomDialog customDialog(uih, item, dialog, this);
