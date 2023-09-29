@@ -3,7 +3,9 @@
 # -------------------------------------------------
 
 lessThan(QT_MAJOR_VERSION, 6): error("requires Qt >= 6")
+wasm {
 lessThan(QT_MINOR_VERSION, 5): error("requires Qt >= 6.5.2")
+}
 
 TEMPLATE = app
 
@@ -49,6 +51,7 @@ isEmpty(QMAKE_LRELEASE) {
     }
     unix {
         !exists($$QMAKE_LRELEASE) { QMAKE_LRELEASE = lrelease-qt5 }
+        !exists($$QMAKE_LRELEASE) { QMAKE_LRELEASE = lrelease }
     } else {
         !exists($$QMAKE_LRELEASE) { QMAKE_LRELEASE = lrelease }
     }

@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: prerequisites
-      run: sudo apt update && sudo apt install build-essential qttools5-dev-tools qt5-default
+      run: sudo apt update && sudo apt install build-essential qttools5-dev-tools qt6-base-dev libgl1-mesa-dev
     - name: qmake
       run: qmake
     - name: make
