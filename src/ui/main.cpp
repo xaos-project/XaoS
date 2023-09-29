@@ -363,12 +363,16 @@ void uih_setlanguage(uih_context *c, int l)
     settings.setValue("MainWindow/language", lang2(l));
     QMessageBox msgBox;
     msgBox.setText(TR("Message", "XaoS must restart to change the language."));
+#ifndef __wasm
     msgBox.setInformativeText(TR("Message", "Do you want to quit now?"));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+#endif
     int ret = msgBox.exec();
+#ifndef __wasm
     if (ret == QMessageBox::Yes) {
         exit(0);
     }
+#endif
 }
 
 #ifndef Q_OS_MAC
