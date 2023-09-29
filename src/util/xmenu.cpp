@@ -340,10 +340,11 @@ void menu_activate(const menuitem *item, struct uih_context *c, dialogparam *d)
                 // uimandelbrot is the only menu that does this.
 
                 // Also, similar problems occur when compiling for WebAssembly,
-                // but also for uiperturbation. So we handle these cases differently.
+                // but also for uiperturbation and record. So we handle these cases differently.
 
                 if (!strcmp(item->shortname, "uimandelbrot") &&
-                    !strcmp(item->shortname, "uiperturbation"))
+                    !strcmp(item->shortname, "uiperturbation") &&
+                    !strcmp(item->shortname, "record"))
                     ((void (*)(struct uih_context * c, number_t, number_t))
                          item->function)(c, 0, 0);
                 else {
@@ -355,6 +356,8 @@ void menu_activate(const menuitem *item, struct uih_context *c, dialogparam *d)
                         uih_setmandelbrot(c, 1, 0, 0);
                     if (strcmp(item->shortname, "uiperturbation") == 0)
                         uih_setperbutation(c, 0, 0);
+                    if (strcmp(item->shortname, "record") == 0)
+                        uih_save_disable(c);
 #endif
                 }
             } else {
