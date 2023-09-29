@@ -7,14 +7,16 @@ choose without the long calculation required by other fractal generators.
 It has many other features too, like different fractal types, autopilot,
 special coloring modes, random palette generation, color cycling, etc.
 
-You can try the XaoS zooming algorithm online using
-[XaoS.js](http://xaos-project.github.io/XaoSjs/).
+XaoS (since version 4.3, September 2023) is available as a full-featured web application as well.
+You can try it at its [current webpage](https://matek.hu/zoltan/xaos).
+Also, you can try a simplified version of the XaoS zooming algorithm online using
+[XaoS.js](https://xaos-project.github.io/XaoSjs/).
 
-XaoS is based on [Qt](http://www.qt.io), and has been tested on Linux, Mac, and Windows. It
+XaoS is based on [Qt](http://www.qt.io), and has been tested on Windows, Mac and Linux. It
 should also work on any other platform supporting Qt Widgets, like the BSDs.
 
-- Original authors: [Jan Hubička](http://www.ucw.cz/~hubicka/) and [Thomas Marsh](https://www.linkedin.com/in/thomasmarsh).
-- Current maintainers: [J.B. Langston](https://www.linkedin.com/in/jblangston/) and [Zoltán Kovács](https://sites.google.com/site/kovzol/).
+- Original authors: [Jan Hubička](https://www.ucw.cz/~hubicka/) and [Thomas Marsh](https://www.linkedin.com/in/thomasmarsh).
+- Current maintainers: [J.B. Langston](https://www.linkedin.com/in/jblangston/) and [Zoltán Kovács](https://matek.hu/zoltan).
 - See [CREDITS](CREDITS.md) for a complete list of contributors.
 
 Project Resources
@@ -48,7 +50,7 @@ or implement a new feature yourself, pull requests are very welcome.
 License
 -------
 
-Copyright © 1996-2020 XaoS Contributors
+Copyright © 1996-2023 XaoS Contributors
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
