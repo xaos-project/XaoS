@@ -477,8 +477,10 @@ static void ui_registermenus_i18n(void)
 {
     int no_menuitems_i18n =
         ui_no_menuitems_i18n; /* This variable must be local. */
+#ifndef __wasm
     MENUINT_I("file", NULL, TR("Menu", "Quit"), "quit",
               MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quit, UI);
+#endif
 
     MENUNOP_I("ui", NULL, TR("Menu", "Message Font..."), "font", UI, ui_font);
     MENUNOP_I("uia", NULL, TR("Menu", "Message Font..."), "font", UI, ui_font);
