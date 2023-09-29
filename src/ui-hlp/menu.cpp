@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QSettings>
+#include <QRegularExpression>
 
 #include "filter.h"
 #include "config.h"
@@ -799,7 +800,7 @@ static void uih_loadgpl(struct uih_context *uih, xio_constpath d)
         }
 
         for(int i = 4; i < 35; i++) {
-            QStringList currcolors = colorvals[i].split(QRegExp("\\s+"));
+            QStringList currcolors = colorvals[i].split(QRegularExpression("\\s+"));
             int r = currcolors[0].toInt();
             int g = currcolors[1].toInt();
             int b = currcolors[2].toInt();
@@ -1239,10 +1240,14 @@ void uih_registermenus_i18n(void)
                  MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY, uih_playfile,
                  playdialog);
     MENUSEPARATOR_I("file");
+
+    // Rendering activities in the WebAssembly version make little sense, and therefore not supported at the moment:
+#ifndef __wasm
     MENUDIALOG_I("file", NULL, TR("Menu", "Render"), "renderanim", UI,
                  uih_render, uih_renderdialog);
     MENUDIALOG_I("file", NULL, TR("Menu", "Render Image"), "renderimg", UI,
                  uih_renderimg, uih_renderimgdialog);
+#endif
     MENUSEPARATOR_I("file");
     MENUNOP_I("file", NULL, TR("Menu", "Load random example"), "loadexample",
               MENUFLAG_INTERRUPT, uih_loadexample);

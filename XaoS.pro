@@ -2,8 +2,8 @@
 # Project created by QtCreator 2009-10-29T19:21:55
 # -------------------------------------------------
 
-lessThan(QT_MAJOR_VERSION, 5): error("requires Qt >= 5")
-lessThan(QT_MINOR_VERSION, 7): error("requires Qt >= 5.7")
+lessThan(QT_MAJOR_VERSION, 6): error("requires Qt >= 6")
+lessThan(QT_MINOR_VERSION, 5): error("requires Qt >= 6.5.2")
 
 TEMPLATE = app
 
@@ -55,9 +55,12 @@ isEmpty(QMAKE_LRELEASE) {
 }
 
 CONFIG += optimize_full
+CONFIG += c++11
+
 QMAKE_CXXFLAGS += -ffast-math
 QMAKE_CFLAGS += -ffast-math
 
+QMAKE_CXXFLAGS += -fpermissive
 RESOURCES += XaoS.qrc
 
 DESTDIR = $$PWD/bin
@@ -75,6 +78,11 @@ isEmpty(PREFIX) {
     PREFIX = /usr/local
     }
 DEFINES += DATAPATH=\\\"$$PREFIX/share/XaoS\\\"
+wasm{
+    QMAKE_LFLAGS += --preload-file $$PWD/examples@$$DATAPATH/examples
+    QMAKE_LFLAGS += --preload-file $$PWD/catalogs@$$DATAPATH/catalogs
+    QMAKE_LFLAGS += --preload-file $$PWD/tutorial@$$DATAPATH/tutorial
+}
 executable.files = bin/xaos
 executable.path = $$PREFIX/bin
 examples.path = $$PREFIX/share/XaoS/examples

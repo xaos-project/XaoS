@@ -114,7 +114,7 @@ struct symmetryinfo2 {
 #define BTRACEOK                                                               \
     ((cformula.flags & (2 << cfractalc.mandelbrot)) &&                         \
      !cfractalc.incoloringmode && cfractalc.coloringmode != 7)
-#define rotate(f, x, y)                                                        \
+#define my_rotate(f, x, y)                                                        \
     {                                                                          \
         number_t tmp;                                                          \
         tmp = (x) * (f).cos - (y) * (f).sin;                                   \

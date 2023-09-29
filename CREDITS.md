@@ -18,7 +18,7 @@
 - [Jens Kilian](mailto:jjk@acm.org): BeOS driver, deutsch.cat
 - [Thomas A. K. Kjaer](mailto:takjaer@imv.aau.dk): OS/2 ports (320x200 graphics and AA-lib)
 - [Zbyněk Konečný](mailto:zbynek@geogebra.org): Czech translation
-- [Zoltán Kovács](mailto:zoltan@geogebra.org): Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, current maintainer
+- [Zoltán Kovács](mailto:zoltan@geogebra.org): Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, WebAssembly version, current maintainer
 - [Zsigmond Kovács](mailto:kovzsi@gmail.com): Fractal examples
 - [Bjarnheiður Kristinsdóttir](mailto:bjarnhek@hi.is): Icelandic translation
 - [J.B. Langston III](mailto:jb-langston@austin.rr.com): Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
@@ -39,6 +39,7 @@
 - [Ilinca Sitaru](mailto:ilinca.sitaru@gmail.com): Romanian translation
 - Daniel Skarda: Fractal examples
 - Andrew Stone ([Stone Design](www.stone.com)): Videator Support, Cocoa improvements, performance mode, bug fixes
+- [Abhishek Tiwari](mailto:tabhishek432@gmail.com): WebAssembly version, [contributions for GSoC 2023](https://github.com/tabhishek432/GSoC-2023-xaos)
 - [Márton Török](mailto:marton.torok@gmail.com): Small fixes for pipes
 - [Pavel Tzekov](mailto:paveltz@csoft.bg): Win32 support
 - Charles Vidal: Tcl/Tk interface
@@ -54,7 +55,7 @@ XaoS uses the following libraries. These libraries may be included with some
 binary distributions of XaoS.
 
 ### [Qt](https://www.qt.io/)
-Copyright © 2020 The Qt Company
+Copyright © 2023 The Qt Company
 
 License GPLv2+: [GNU GPL version 2 or later](https://gnu.org/licenses/gpl.html)
 

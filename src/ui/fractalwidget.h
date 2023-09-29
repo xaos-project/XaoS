@@ -19,7 +19,7 @@ class FractalWidget : public QWidget
   private:
     struct image *m_image = NULL;
     QSize m_sizeHint;
-    QPoint m_mousePosition = QPoint(0, 0);
+    QPointF m_mousePosition = QPointF(0.0, 0.0);
 
   protected:
     void mouseMoveEvent(QMouseEvent *event);
@@ -35,7 +35,7 @@ class FractalWidget : public QWidget
   public:
     FractalWidget();
     QSize sizeHint() const;
-    QPoint mousePosition();
+    QPointF mousePosition();
     void setImage(struct image *image);
 };
 

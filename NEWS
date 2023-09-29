@@ -1,3 +1,23 @@
+RELEASE NOTES FOR XAOS VERSION 4.3
+----------------------------------
+
+New Features
+============
+
+o Migration to Qt 6.
+
+o WebAssembly port, that is, a full-featured web version is available. Tested with Qt >= 6.5.2.
+
+o Progress bar for time consuming operations (only on native platforms).
+
+Bug Fixes
+=========
+
+o Example files are loaded properly even if XaoS is not installed (that is, the examples are not flattened).
+
+o User formulas are not duplicated in the history.
+
+
 RELEASE NOTES FOR XAOS VERSION 4.2.1
 ------------------------------------
 

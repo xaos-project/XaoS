@@ -321,12 +321,12 @@ static void ui_about(struct uih_context *uih)
             QSysInfo::kernelType() + " " +
             // QSysInfo::kernelVersion() + " "
             // QSysInfo::buildAbi() + " " +
-            QSysInfo::buildCpuArchitecture() +
+            QSysInfo::buildCpuArchitecture() + ", Qt " + QT_VERSION_STR +
             ")"
             "<br>"
             "Fast interactive real-time fractal zoomer/morpher<br><br>"
             "Original Authors: Jan Hubička and Thomas Marsh<br>"
-            "Copyright © 1996-2020 XaoS Contributors<br>"
+            "Copyright © 1996-2023 XaoS Contributors<br>"
             "<br>"
             "This program is free software; you can redistribute it and/or modify "
             "it under the terms of the GNU General Public License as published by "
@@ -363,12 +363,16 @@ void uih_setlanguage(uih_context *c, int l)
     settings.setValue("MainWindow/language", lang2(l));
     QMessageBox msgBox;
     msgBox.setText(TR("Message", "XaoS must restart to change the language."));
+#ifndef __wasm
     msgBox.setInformativeText(TR("Message", "Do you want to quit now?"));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+#endif
     int ret = msgBox.exec();
+#ifndef __wasm
     if (ret == QMessageBox::Yes) {
         exit(0);
     }
+#endif
 }
 
 #ifndef Q_OS_MAC
@@ -477,8 +481,10 @@ static void ui_registermenus_i18n(void)
 {
     int no_menuitems_i18n =
         ui_no_menuitems_i18n; /* This variable must be local. */
+#ifndef __wasm
     MENUINT_I("file", NULL, TR("Menu", "Quit"), "quit",
               MENUFLAG_INTERRUPT | MENUFLAG_ATSTARTUP, ui_quit, UI);
+#endif
 
     MENUNOP_I("ui", NULL, TR("Menu", "Message Font..."), "font", UI, ui_font);
     MENUNOP_I("uia", NULL, TR("Menu", "Message Font..."), "font", UI, ui_font);

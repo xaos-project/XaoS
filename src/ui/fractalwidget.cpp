@@ -16,7 +16,7 @@ FractalWidget::FractalWidget()
     setAttribute(Qt::WA_OpaquePaintEvent, true);
 }
 
-QPoint FractalWidget::mousePosition() { return m_mousePosition; }
+QPointF FractalWidget::mousePosition() { return m_mousePosition; }
 
 void FractalWidget::setImage(struct image *image) { m_image = image; }
 
@@ -75,6 +75,6 @@ void FractalWidget::mouseMoveEvent(QMouseEvent *event)
 
 void FractalWidget::wheelEvent(QWheelEvent *event)
 {
-    m_mousePosition = event->pos();
+    m_mousePosition = event->position();
     event->ignore();
 }

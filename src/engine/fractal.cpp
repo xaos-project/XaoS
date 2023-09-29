@@ -55,7 +55,7 @@ static void recalc_view(fractal_context *c)
     number_t xs = c->s.rr, ys = c->s.ri * c->windowwidth / c->windowheight,
              xc = c->s.cr, yc = c->s.ci, size;
     precalculate_rotation(c);
-    rotate(*c, xc, yc);
+    my_rotate(*c, xc, yc);
     /*assert(c->s.rr >= 0);
        assert(c->s.ri >= 0); */
 
