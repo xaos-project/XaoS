@@ -11,6 +11,8 @@ PARALLEL=4
 
 QT6_HOST_PATH=`pwd`/qt6-host-install
 
+set -e
+
 # Get emscripten:
 test -x emsdk || git clone https://github.com/emscripten-core/emsdk.git
 cd emsdk

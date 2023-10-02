@@ -2,6 +2,8 @@
 
 # This script compiles XaoS for WebAssembly.
 
+set -e
+
 QT6_WASM_BUILD=`pwd`/qt6-wasm-build
 test -x $QT6_WASM_BUILD || {
  echo "Run compile-qt-web first."
