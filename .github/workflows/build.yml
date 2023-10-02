@@ -38,7 +38,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: prerequisites
-      run: sudo apt update && sudo apt install build-essential libclang-13-dev cmake ninja-build
+      run: sudo apt update && sudo apt install build-essential libclang-13-dev cmake ninja-build libgl-dev libegl-dev libfontconfig-dev
     - name: compile-qt-web
       run: cd tools && ./compile-qt-web
     - name: compile-xaos-web
