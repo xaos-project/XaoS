@@ -30,3 +30,16 @@ jobs:
       run: qmake
     - name: make
       run: make
+
+  wasm:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: prerequisites
+      run: sudo apt update && sudo apt install build-essential libclang-dev cmake ninja-build
+    - name: compile-qt-web
+      run: cd tools && ./compile-qt-web
+    - name: compile-xaos-web
+      run: cd tools && ./compile-xaos-web
