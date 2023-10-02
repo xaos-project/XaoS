@@ -42,5 +42,5 @@ cd qt6-wasm-build
 . ../emsdk/emsdk_env.sh
 ../qt6/configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase \
  -opensource -confirm-license -qt-host-path $QT6_HOST_PATH -device-option QT_EMSCRIPTEN_ASYNCIFY=1
-cmake --build . --parallel $PARALLEL -t qtbase -t qtdeclarative -t qtimageformats
+cmake --build . --parallel $PARALLEL -t qtbase -t qtdeclarative -t qtimageformats -t qsvgicon -t qsvg
 cd ..
