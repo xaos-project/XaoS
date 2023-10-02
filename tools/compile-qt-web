@@ -24,7 +24,7 @@ cd ..
 # Get Qt:
 git clone git://code.qt.io/qt/qt5.git qt6
 cd qt6
-git switch v$QT6_VERSION
+git switch $QT6_VERSION
 perl init-repository
 
 # Compile Qt for the Linux host
