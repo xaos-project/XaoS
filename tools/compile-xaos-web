@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# This script compiles XaoS for WebAssembly.
+
+QT6_WASM_BUILD=`pwd`/qt6-wasm-build
+test -x $QT6_WASM_BUILD || {
+ echo "Run compile-qt-web first."
+ exit 1
+ }
+
+. emsdk/emsdk_env.sh
+cd ..
+$QT6_WASM_BUILD/qtbase/bin/qmake
+make || true
