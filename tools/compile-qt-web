@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# This script compiles Qt6 to be able to build XaoS for WebAssembly.
+# Make sure that you have enough disk space. At least 45 GB is recommended.
+
+# See also https://doc.qt.io/qt-6.5/wasm.html and https://wiki.qt.io/Building_Qt_6_from_Git.
+
+QT6_VERSION=6.5.3
+EMSDK_VERSION=3.1.25
+PARALLEL=4
+
+QT6_HOST_PATH=`pwd`/qt6-host-install
+
+set -e
+
+# Get emscripten:
+test -x emsdk || git clone https://github.com/emscripten-core/emsdk.git
+cd emsdk
+git pull
+./emsdk install $EMSDK_VERSION
+./emsdk activate --embedded $EMSDK_VERSION
+cd ..
+
+# Get Qt:
+git clone git://code.qt.io/qt/qt5.git qt6
+cd qt6
+git switch $QT6_VERSION
+perl init-repository
+
+# Compile Qt for the Linux host
+cd ..
+mkdir qt6-host-build
+cd qt6-host-build
+../qt6/configure -prefix $QT6_HOST_PATH
+cmake --build . --parallel $PARALLEL
+cmake --install .
+
+# Compile Qt for WebAssembly
+cd ..
+mkdir qt6-wasm-build
+cd qt6-wasm-build
+. ../emsdk/emsdk_env.sh
+../qt6/configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase \
+ -opensource -confirm-license -qt-host-path $QT6_HOST_PATH -device-option QT_EMSCRIPTEN_ASYNCIFY=1
+cmake --build . --parallel $PARALLEL -t qtbase -t qtdeclarative -t qtimageformats -t qsvgicon -t qsvg
+cd ..

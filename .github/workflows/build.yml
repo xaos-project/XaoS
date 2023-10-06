@@ -30,3 +30,18 @@ jobs:
       run: qmake
     - name: make
       run: make
+
+# This requires too much disk space (more than 40 GB), so it is disabled for now:
+
+#   wasm:
+#
+#     runs-on: ubuntu-latest
+#
+#     steps:
+#     - uses: actions/checkout@v1
+#     - name: prerequisites
+#       run: sudo apt update && sudo apt install build-essential libclang-13-dev cmake ninja-build libgl-dev libegl-dev libfontconfig-dev
+#     - name: compile-qt-web
+#       run: cd tools && ./compile-qt-web
+#     - name: compile-xaos-web
+#       run: cd tools && ./compile-xaos-web

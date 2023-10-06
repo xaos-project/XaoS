@@ -21,10 +21,20 @@ Before running the script `deploy-win.bat` from command line you need to
 add the path of tools `windeployqt.exe` and `binarycreator.exe` to the
 environmental system variable PATH.
 
+Important: `windeployqt.exe` will use the first C++ compiler from the path.
+To avoid getting the wrong DLLs (because of availability of multiple compilers
+on your system) make sure that the used compiler is found as first one.
+If you use the wrong DLLs, XaoS will not start.
+
+See also https://stackoverflow.com/questions/43397609/qt-deployment-for-windows-copies-incorrect-dll-for-mingw
+
 To avoid problems with finding certain files, you should make sure that
 there is no special character in the full path of the `XaoS` folder.
 Otherwise some files may be missing from the installation bundle (for
 example, the .cat files).
+
+To create the .zip file, simply copy the bin folder in it and also the
+folders catalog/, examples/ and tutorial/.
 
 MacOS
 -----
