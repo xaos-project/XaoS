@@ -1,3 +1,17 @@
+RELEASE NOTES FOR XAOS VERSION 4.3.1
+------------------------------------
+
+New Features
+============
+
+o Two new examples by Adam Majewski.
+
+Bug Fixes
+=========
+
+o Example files are loaded properly now.
+
+
 RELEASE NOTES FOR XAOS VERSION 4.3
 ----------------------------------
 
