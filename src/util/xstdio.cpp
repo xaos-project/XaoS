@@ -171,10 +171,14 @@ xio_file xio_getrandomexample(xio_path name)
     };
 
     // Select a random sub dir and then random example to fix load random example issue
+
+    // if ../examples exists, add its subdirectories to example_path_taken, otherwise do nothing:
     QStringList sub_names = get_immediate_subdirectory_names(".." XIO_PATHSEPSTR "examples");
-    int randomIndex = QRandomGenerator::global()->bounded(sub_names.length());
-    QString randomElement = sub_names.at(randomIndex);
-    example_paths_taken.append(".." XIO_PATHSEPSTR "examples/"+randomElement);
+    if (sub_names.length() > 0) {
+        int randomIndex = QRandomGenerator::global()->bounded(sub_names.length());
+        QString randomElement = sub_names.at(randomIndex);
+        example_paths_taken.append(".." XIO_PATHSEPSTR "examples/"+randomElement);
+    }
     char *paths[example_paths_taken.size()];
     convertQStringListToArray(example_paths_taken, paths);
 
