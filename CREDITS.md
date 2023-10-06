@@ -24,6 +24,7 @@
 - [J.B. Langston III](mailto:jb-langston@austin.rr.com): Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
 - Alexey Loginov: Russian translation
 - [Andreas Madritsch](mailto:amadritsch@datacomm.ch): New fractal types, bailout, many fixes
+- [Adam Majewski](mailto:adammaj1@o2.pl): Fractal examples
 - [Mateusz Malczak](mailto:xaos@malczak.info): User formula evaluation library
 - [Giorgio Marazzi](mailto:gmarazzi@vtr.net): Improvements and fixes for espanhol.cat
 - [Thomas Marsh](mailto:thomas.marsh2@gmail.com): First zoomer, formulae, planes, X11 driver, inversions, many ideas
