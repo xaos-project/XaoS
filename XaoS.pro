@@ -89,7 +89,7 @@ wasm{
 executable.files = bin/xaos
 executable.path = $$PREFIX/bin
 examples.path = $$PREFIX/share/XaoS/examples
-examples.extra = find examples -name \'*.xpf\' -exec cp {} $$PREFIX/share/XaoS/examples \;
+examples.extra = find examples -name \'*.xpf\' -exec cp {} $(INSTALL_ROOT)$$PREFIX/share/XaoS/examples \;
 catalogs.files = catalogs/*.cat
 catalogs.path = $$PREFIX/share/XaoS/catalogs
 tutorial.files = tutorial/*.x?f
