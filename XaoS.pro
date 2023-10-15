@@ -85,6 +85,7 @@ wasm{
     QMAKE_LFLAGS += --preload-file $$PWD/examples@$$DATAPATH/examples
     QMAKE_LFLAGS += --preload-file $$PWD/catalogs@$$DATAPATH/catalogs
     QMAKE_LFLAGS += --preload-file $$PWD/tutorial@$$DATAPATH/tutorial
+    QMAKE_LFLAGS += -sASYNCIFY -Os # This can help avoiding to get the web application hang when the user presses "s".
 }
 executable.files = bin/xaos
 executable.path = $$PREFIX/bin
