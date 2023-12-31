@@ -15,6 +15,13 @@
 #include "filter.h"
 #include "xthread.h"
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/val.h>
+#include <iostream>
+#include <stdlib.h>
+#include <ctype.h>
+#endif
+
 void MainWindow::printSpeed()
 {
     int c = 0;
@@ -650,6 +657,57 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     uih_message(uih, welcome);
     if (printspeed)
         printSpeed();
+
+#ifdef __EMSCRIPTEN__
+    // Obtain a command via URL:
+    emscripten::val location = emscripten::val::global("location");
+    auto href = location["href"].as<std::string>();
+    int q = href.find("?");
+    if (q == std::string::npos) {
+        return; // No command was started with "?", stop and return.
+    }
+    auto command = href.substr(q + 1);
+    if (command.length() == 0) {
+        return; // No command was given, stop and return.
+    }
+    // std::cerr << "command = " << command << "\n";
+
+    // Manual url_decode:
+    const char *src = command.c_str();
+    char *dst = new char[command.length() + 1];
+    char *com = dst;
+    // Taken from https://stackoverflow.com/questions/2673207/c-c-url-decode-library
+    char a, b;
+    while (*src) {
+        if ((*src == '%') &&
+            ((a = src[1]) && (b = src[2])) &&
+            (isxdigit(a) && isxdigit(b))) {
+            if (a >= 'a')
+                a -= 'a'-'A';
+            if (a >= 'A')
+                a -= ('A' - 10);
+            else
+                a -= '0';
+            if (b >= 'a')
+                b -= 'a'-'A';
+            if (b >= 'A')
+                b -= ('A' - 10);
+            else
+                b -= '0';
+            *dst++ = 16*a+b;
+            src+=3;
+        } else if (*src == '+') {
+            *dst++ = ' ';
+            src++;
+        } else {
+            *dst++ = *src++;
+        }
+    }
+    *dst++ = '\0';
+    // printf("command = %s\n", com);
+    uih_loadstr(uih, com);
+#endif
+
 }
 
 MainWindow::~MainWindow()
