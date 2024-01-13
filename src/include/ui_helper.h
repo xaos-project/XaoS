@@ -462,6 +462,7 @@ void uih_loadexample(struct uih_context *c);
 void uih_loadpngfile(struct uih_context *c, xio_constpath d);
 void uih_savepngfile(struct uih_context *c, xio_constpath d);
 void uih_saveposfile(struct uih_context *c, xio_constpath d);
+void uih_copyposurl(struct uih_context *c);
 char *uih_savepostostr(struct uih_context *c);
 void uih_savecfg(struct uih_context *c);
 void uih_saveanimfile(struct uih_context *c, xio_constpath d);

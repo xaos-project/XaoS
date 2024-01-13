@@ -779,6 +779,14 @@ QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
         return QKeySequence::Refresh;
     if (name == "help")
         return QKeySequence::HelpContents;
+    if (name == "copyurl")
+        return QKeySequence::Copy;
+    if (name == "saveimg")
+        return QKeySequence::SaveAs;
+    if (name == "fractalinfo")
+        return QKeySequence::WhatsThis;
+    if (name == "autopilot")
+        return QKeySequence::ZoomIn;
 
     return QKeySequence::UnknownKey;
 }

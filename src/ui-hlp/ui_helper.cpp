@@ -10,6 +10,9 @@
 #include <malloc.h>
 #endif
 #endif
+#include <qclipboard.h>
+#include <QApplication>
+#include <stdio.h>
 
 #include "config.h"
 #include "filter.h"
@@ -694,6 +697,34 @@ void uih_saveposfile(struct uih_context *c, xio_constpath d)
     if (c->errstring == NULL) {
         char s[256];
         sprintf(s, TR("Message", "File %s saved."), d);
+        uih_message(c, s);
+    }
+}
+
+/* Copy the position URL in the clipboard. */
+/* For some reason, the messages are shown twice in the web version. FIXME. */
+void uih_copyposurl(struct uih_context *c)
+{
+    c->errstring = NULL;
+    char *pos = uih_savepostostr(c);
+    QString qPos = QString(pos);
+    QStringList qPosCommands = qPos.split("\n");
+    QString url = "https://xaos.app?";
+    for (QString c: qPosCommands) {
+        if (!c.startsWith(";") && c != "(initstate)" && c != "(formula 'mandel)"
+            && c != "(defaultpalette 0)" && c != "(maxiter 1000)") {
+            // Comments and defaults are removed.
+            url += c;
+        }
+    }
+    QClipboard* clipboard = QApplication::clipboard();
+    clipboard->setText(QString(url));
+    if (c->errstring == NULL) {
+        char s[256];
+        if (url.length() > 200) {
+            url = url.left(200) + "...";
+        }
+        sprintf(s, TR("Message", "Clipboard set to %s."), url.toStdString().c_str());
         uih_message(c, s);
     }
 }

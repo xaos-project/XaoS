@@ -1260,6 +1260,8 @@ void uih_registermenus_i18n(void)
     MENUNOP_I("edit", NULL, TR("Menu", "Redo"), "redo",
               MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION,
               uih_redo);
+    MENUNOP_I("edit", NULL, TR("Menu", "Copy position URL"), "copyurl",
+              MENUFLAG_INTERRUPT | MENUFLAG_NOPLAY | MENUFLAG_NOOPTION, uih_copyposurl);
     SUBMENU_I("fractal", NULL, TR("Menu", "Formulae"), "mformula");
     SUBMENU_I("fractal", NULL, TR("Menu", "More formulae"), "oformula");
 
