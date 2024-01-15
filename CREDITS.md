@@ -10,6 +10,7 @@
 - [Radek Doulik](mailto:rodo@atrey.karlin.mff.cuni.cz): TK interface, windowid patches
 - [Martin Dózsa](mailto:madsoft@centrum.cz): cs.po (Czech translation of menus)
 - Árpád Fekete: some new fractals, and the 'More formulae' menu
+- Selen Galiç: Turkish translation
 - [Tim Goodwin](mailto:tgoodwin@cygnus.co.uk): english.cat corrections
 - [Asher Gordon](mailto:AsDaGo@posteo.net): Bugfix for rendering files in a subdirectory
 - [Jonas Hall](mailto:jonas.hall@norrtalje.se): Swedish translation

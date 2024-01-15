@@ -1,3 +1,14 @@
+RELEASE NOTES FOR XAOS VERSION 4.3.2
+------------------------------------
+
+New Features
+============
+
+o Turkish translation.
+
+o Ctrl-C copies the current position to the clipboard as an URL at xaos.app.
+
+
 RELEASE NOTES FOR XAOS VERSION 4.3.1
 ------------------------------------
 
