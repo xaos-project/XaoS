@@ -1515,32 +1515,32 @@
     <message>
         <location filename="../src/sffe/sffe.cpp" line="62"/>
         <source>Unknown function: %s</source>
-        <translation type="unfinished">Bilinmeyen fonksiyon: %sler</translation>
+        <translation type="unfinished">Bilinmeyen fonksiyon: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="66"/>
         <source>Invalid number: %s</source>
-        <translation type="unfinished">Geçersiz sayı: %sler</translation>
+        <translation type="unfinished">Geçersiz sayı: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="69"/>
         <source>Unknown variable: %s</source>
-        <translation type="unfinished">Bilinmeyen değişken: %sler</translation>
+        <translation type="unfinished">Bilinmeyen değişken: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="73"/>
         <source>Invalid operator: %s</source>
-        <translation type="unfinished">Geçersiz işlem: %sler</translation>
+        <translation type="unfinished">Geçersiz işlem: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="78"/>
         <source>Internal error occurred in formula: %s</source>
-        <translation type="unfinished">Formül içinde hata oluştur: %sler</translation>
+        <translation type="unfinished">Formül içinde hata oluştur: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="83"/>
         <source>Function has incorrect parameter count: %s</source>
-        <translation type="unfinished">Fonksiyonda geçersiz parametre sayısı var: %sler</translation>
+        <translation type="unfinished">Fonksiyonda geçersiz parametre sayısı var: %s</translation>
     </message>
     <message>
         <location filename="../src/sffe/sffe.cpp" line="87"/>
@@ -1631,7 +1631,7 @@
         <location filename="../src/ui-hlp/ui_helper.cpp" line="627"/>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="650"/>
         <source>File %s loaded.</source>
-        <translation type="unfinished">%sler dosyası yüklendi.</translation>
+        <translation type="unfinished">%s dosyası yüklendi.</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="660"/>
@@ -1651,7 +1651,7 @@
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="785"/>
         <source>Recording to file %s enabled.</source>
-        <translation type="unfinished">%sler dosyasına kayıt etkinleştirildi.</translation>
+        <translation type="unfinished">%s dosyasına kayıt etkinleştirildi.</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2283"/>
@@ -1678,12 +1678,12 @@
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2325"/>
         <source>Fractal name:%s</source>
-        <translation type="unfinished">Fraktal ismi:%sler</translation>
+        <translation type="unfinished">Fraktal ismi:%s</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2329"/>
         <source>Fractal type:%s</source>
-        <translation type="unfinished">Fraktal türü:%sler</translation>
+        <translation type="unfinished">Fraktal türü:%s</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2330"/>
@@ -1698,7 +1698,7 @@
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2335"/>
         <source>Formula:%s</source>
-        <translation type="unfinished">Formül:%sler</translation>
+        <translation type="unfinished">Formül:%s</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/ui_helper.cpp" line="2341"/>
@@ -1815,7 +1815,7 @@
     <message>
         <location filename="../src/ui/mainwindow.cpp" line="541"/>
         <source>Please wait while calculating %s</source>
-        <translation type="unfinished">%sler (yüzdeler) hesaplanırken lütfen bekleyiniz</translation>
+        <translation type="unfinished">%s (yüzdeler) hesaplanırken lütfen bekleyiniz</translation>
     </message>
     <message>
         <location filename="../src/ui/mainwindow.cpp" line="649"/>

@@ -3,6 +3,7 @@
 (alphabetically)
 
 - [Anurag Aggarwal](mailto:kanurag94@gmail.com): Palette editor, palette saver, palette visualiser, Cartesian grid, batch rendering, user formulas history, powerful PNGs, bug fixes, Hindi translation, [contributions for GSoC 2020](https://github.com/xaos-project/XaoS/wiki/GSoC-2020)
+- [Emine Nur Ünveren Bilgiç](mailto:eminenurbilgic@duzce.edu.tr): Turkish translation
 - [Natalija Budinski](mailto:nbudinski@yahoo.com): Serbian translation
 - [IoeCmcomc](https://github.com/IoeCmcomc): Vietnamese translation
 - [Eric Courteau](mailto:ecourteau@cplus.fr): francais.cat (translation of tutorials)
@@ -10,7 +11,7 @@
 - [Radek Doulik](mailto:rodo@atrey.karlin.mff.cuni.cz): TK interface, windowid patches
 - [Martin Dózsa](mailto:madsoft@centrum.cz): cs.po (Czech translation of menus)
 - Árpád Fekete: some new fractals, and the 'More formulae' menu
-- Selen Galiç: Turkish translation
+- [Selen Galiç](mailto:selengalic@gmail.com): Turkish translation
 - [Tim Goodwin](mailto:tgoodwin@cygnus.co.uk): english.cat corrections
 - [Asher Gordon](mailto:AsDaGo@posteo.net): Bugfix for rendering files in a subdirectory
 - [Jonas Hall](mailto:jonas.hall@norrtalje.se): Swedish translation
@@ -44,11 +45,13 @@
 - [Abhishek Tiwari](mailto:tabhishek432@gmail.com): WebAssembly version, [contributions for GSoC 2023](https://github.com/tabhishek432/GSoC-2023-xaos)
 - [Márton Török](mailto:marton.torok@gmail.com): Small fixes for pipes
 - [Pavel Tzekov](mailto:paveltz@csoft.bg): Win32 support
+- [Zuhal Ünan](mailto:zuhalu@omu.edu.tr): Turkish translation
 - Charles Vidal: Tcl/Tk interface
 - [Tapio K. Vocaldo](mailto:taps@rmx.com): Macintosh port
 - Tormod Volden: Fixes for X11 driver to improve compatibility with Xorg, XScreenSaver, Beryl and Compiz
 - [Clément Vermot](https://github.com/cvermot): Updates for French translation
 - [Philippe Wautelet](mailto:p.wautelet@fractalzone.be): Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
+- [Veysel Yıldız](mailto:veyselyildiz11@gmail.com): Turkish translation
 - Sergio Zanchetta: Italian translation
 
 ## Included Software
