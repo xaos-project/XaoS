@@ -13,6 +13,7 @@
 #include <qclipboard.h>
 #include <QApplication>
 #include <stdio.h>
+#include <qwidget.h>
 
 #include "config.h"
 #include "filter.h"
@@ -2323,9 +2324,9 @@ void uih_updatestatus(uih_context *uih)
 }
 
 #ifdef MEMCHECK
-#define STATUSLINES 13
+#define STATUSLINES 14
 #else
-#define STATUSLINES 11
+#define STATUSLINES 12
 #endif
 
 void uih_updatestarts(uih_context *uih)
@@ -2410,16 +2411,37 @@ static void uih_drawstatus(uih_context *uih, void * /*data*/)
                 (float)uih->fcontext->pre, (float)uih->fcontext->pim);
     xprint(uih->image, uih->font, 0, statusstart + 10 * h, str, FGCOLOR(uih),
            BGCOLOR(uih), 0);
+
+    /* Compute exact mouse position. */
+    QPoint globalCursorPos = QCursor::pos();
+    QPoint windowCursorPos = qApp->widgetAt(globalCursorPos)->mapFromGlobal(QCursor::pos());
+    int cursorposx = windowCursorPos.x();
+    int cursorposy = windowCursorPos.y();
+    double realwidth = (double)uih->fcontext->rs.mc - (double)uih->fcontext->rs.nc;
+    double realheight = (double)uih->fcontext->rs.mi - (double)uih->fcontext->rs.ni;
+    double pixelwidth = realwidth/ uih->image->width;
+    double pixelheight = realheight / uih->image->height;
+    double realrelposx = pixelwidth * cursorposx;
+    double realrelposy = pixelheight * cursorposy;
+    double windowleftabspos = (double)uih->fcontext->rs.nc;
+    double windowtopabspos = (double)uih->fcontext->rs.ni;
+    double cursorabsposx = windowleftabspos + realrelposx;
+    double cursorabsposy = windowtopabspos + realrelposy;
+    sprintf(str, TR("Message", "Mouse:[%1.12f,%1.12f]"),
+            (double)cursorabsposx, (double)cursorabsposy);
+    xprint(uih->image, uih->font, 0, statusstart + 11 * h, str, FGCOLOR(uih),
+           BGCOLOR(uih), 0);
+
 #ifdef MEMCHECK
     {
         struct mallinfo i = mallinfo();
         sprintf(str, "Allocated arena:%i Wasted:%i %i", i.arena, i.ordblks,
                 i.fordblks);
-        xprint(uih->image, uih->font, 0, statusstart + 11 * h, str,
+        xprint(uih->image, uih->font, 0, statusstart + 12 * h, str,
                FGCOLOR(uih), BGCOLOR(uih), 0);
         sprintf(str, "Mmaped blocks%i Mmaped area:%i keep:%i", i.hblks,
                 i.hblkhd, i.keepcost);
-        xprint(uih->image, uih->font, 0, statusstart + 12 * h, str,
+        xprint(uih->image, uih->font, 0, statusstart + 13 * h, str,
                FGCOLOR(uih), BGCOLOR(uih), 0);
     }
 #endif
