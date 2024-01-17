@@ -4,9 +4,16 @@ RELEASE NOTES FOR XAOS VERSION 4.3.2
 New Features
 ============
 
-o Turkish translation.
+o Turkish translation, contributed by Selen Galiç, Zuhal Ünan,
+  Veysel Yıldız and Emine Nur Ünveren Bilgiç.
 
 o Ctrl-C copies the current position to the clipboard as an URL at xaos.app.
+
+o Some new keyboard shortcuts: Shift-F1 for Info on current fractal and Ctrl-+ for Autopilot.
+
+o "Mathematical" coordinates of the mouse are shown in the status.
+
+o Contributor's list is linked in Help -> About.
 
 
 RELEASE NOTES FOR XAOS VERSION 4.3.1
@@ -118,7 +125,7 @@ o Animation rendering has been fixed.
 o Menu entries are now standardized.
 
 o TrueType text rendering so fonts look nicer and non-Latin alphabets are
-supported.
+  supported.
 
 o Hindi, Icelandic, Russian, Serbian, Swedish translations.
 
@@ -135,8 +142,8 @@ o Mouse cursor has been changed to cross.
 o Iteration number N can be used in user formulas.
 
 o Lots of source code cleanup and refactoring. It may not be obvious to
-end users but this will allow us to make better features and more
-frequent releases in the future.
+  end users but this will allow us to make better features and more
+  frequent releases in the future.
 
 
 RELEASE NOTES FOR XAOS VERSION 3.6

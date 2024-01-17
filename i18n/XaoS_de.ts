@@ -1157,6 +1157,10 @@
         <source>Fullscreen</source>
         <translation>Vollbildmodus</translation>
     </message>
+    <message>
+        <source>Copy position URL</source>
+        <translation>Position-URL kopieren</translation>
+    </message>
 </context>
 <context>
     <name>Message</name>
@@ -1421,6 +1425,14 @@
     <message>
         <source>File %s opened.</source>
         <translation>Datei %s geöffnet.</translation>
+    </message>
+    <message>
+        <source>Clipboard set to %s.</source>
+        <translation>Inhalt der Zwischenablage: %s.</translation>
+    </message>
+    <message>
+        <source>Mouse:[%1.12f,%1.12f]</source>
+        <translation>Maus:[%1.12f,%1.12f]</translation>
     </message>
 </context>
 </TS>

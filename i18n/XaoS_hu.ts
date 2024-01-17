@@ -1157,6 +1157,10 @@
         <source>Fullscreen</source>
         <translation>Teljes képernyő</translation>
     </message>
+    <message>
+        <source>Copy position URL</source>
+        <translation>Pozíció-URL másolása</translation>
+    </message>
 </context>
 <context>
     <name>Message</name>
@@ -1421,6 +1425,14 @@
     <message>
         <source>File %s opened.</source>
         <translation>A(z) %s fájl megnyitva.</translation>
+    </message>
+    <message>
+        <source>Clipboard set to %s.</source>
+        <translation>A vágólap tartalma: %s.</translation>
+    </message>
+    <message>
+        <source>Mouse:[%1.12f,%1.12f]</source>
+        <translation>Egér:[%1.12f,%1.12f]</translation>
     </message>
 </context>
 </TS>

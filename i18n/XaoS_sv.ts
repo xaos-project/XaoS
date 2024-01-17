@@ -1155,6 +1155,10 @@ Sluttid:</translation>
         <source>Info on current fractal</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Copy position URL</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Message</name>
@@ -1420,6 +1424,14 @@ Mandelbrot</translation>
     </message>
     <message>
         <source>XaoS must restart to change the language.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clipboard set to %s.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mouse:[%1.12f,%1.12f]</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -326,7 +326,7 @@ static void ui_about(struct uih_context *uih)
             "<br>"
             "Fast interactive real-time fractal zoomer/morpher<br><br>"
             "Original Authors: Jan Hubička and Thomas Marsh<br>"
-            "Copyright © 1996-2023 XaoS Contributors<br>"
+            "Copyright © 1996-2024 <a href=\"https://github.com/xaos-project/XaoS/blob/master/CREDITS.md\">XaoS Contributors</a><br>"
             "<br>"
             "This program is free software; you can redistribute it and/or modify "
             "it under the terms of the GNU General Public License as published by "
