@@ -19,7 +19,9 @@ Microsoft Windows
 
 Before running the script `deploy-win.bat` from command line you need to
 add the path of tools `windeployqt.exe` and `binarycreator.exe` to the
-environmental system variable PATH.
+system environment variable PATH. These tools are usually located in
+Qt's `Tools\QtInstallerFramework\<VERSION>\bin` and
+`Tools\QtDesignStudio\qt6_design_studio_reduced_version\bin`.
 
 Important: `windeployqt.exe` will use the first C++ compiler from the path.
 To avoid getting the wrong DLLs (because of availability of multiple compilers
