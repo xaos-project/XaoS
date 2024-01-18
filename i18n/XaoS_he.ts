@@ -811,7 +811,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1174"/>
         <source>Calculation</source>
-        <translation type="unfinished">תַחשִׁיב</translation>
+        <translation type="unfinished">חישובים</translation>
     </message>
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1175"/>
