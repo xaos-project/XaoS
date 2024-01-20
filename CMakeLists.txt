@@ -47,20 +47,32 @@
 # * To run XaoS from your installation path, type:
 #
 #   cd <INSTALLATION_PATH>; ./XaoS
+#
+# * To try the deep zoom feature out (it results in slower animations), add
+#
+#   -DDEEPZOOM=ON
+#
+#   on the cmake command line.
 
+###########################################################################
 
 # because of CMAKE_FIND_PACKAGE_RESOLVE_SYMLINKS
 cmake_minimum_required(VERSION 3.14.0)
-
-project(XaoS)
 
 # WARNING: by setting gcc-13.2 and g++-13.2 it is possible to use quadmath support on Mac:
 # set(CMAKE_C_COMPILER gcc-13.2)
 # set(CMAKE_CXX_COMPILER g++-13.2)
 
-# WARNING: add -DUSE_FLOAT128 instead of -DUSE_LONG_DOUBLE
-# if you want to enable deep zoom via quadmath (this may be unsupported on Mac)
-add_definitions(-DUSE_LONG_DOUBLE -DUSE_SFFE -DSFFE_CMPLX_GSL)
+project(XaoS)
+
+option(DEEPZOOM "Use 128-bit float for deep zoom" OFF)
+if(DEEPZOOM)
+   add_definitions(-DUSE_FLOAT128) # may be unsupported on Mac, unless gcc/g++ is used
+else(DEEPZOOM)
+   add_definitions(-DUSE_LONG_DOUBLE)
+endif(DEEPZOOM)
+
+add_definitions(-DUSE_SFFE -DSFFE_CMPLX_GSL)
 
 # resolve symbolic links
 set(CMAKE_FIND_PACKAGE_RESOLVE_SYMLINKS TRUE)
@@ -83,10 +95,10 @@ find_package(Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
 
 # OS specific stuff
 # on macOS the QT libraries are usually not installed into the system library folders
-IF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-   # list(APPEND CMAKE_INSTALL_RPATH ${Qt${QT_VERSION_MAJOR}_DIR}/../..)
-ENDIF()
+   # list(APPEND CMAKE_INSTALL_RPATH ${Qt6_DIR}/../..)
+endif()
 
 # set c++ flags
 set(CMAKE_CXX_STANDARD 17)
@@ -107,7 +119,7 @@ set(XaoS_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/ui/XaoS.icns)
 set_source_files_properties(${XaoS_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
 # Multilingual support: *.ts -> *.qm
-FIND_PACKAGE(Qt6LinguistTools)
+find_package(Qt6LinguistTools)
 file(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_SOURCE_DIR}/i18n/*.ts)
 
 # qt_add_translation
@@ -128,12 +140,10 @@ add_executable(XaoS MACOSX_BUNDLE
 )
 
 # Link
-target_link_libraries(XaoS
-   Qt6::Widgets
-   Qt6::PrintSupport
-# WARNING: uncomment the next line if you want to enable deep zoom:
-#   quadmath
-)
+target_link_libraries(XaoS Qt6::Widgets Qt6::PrintSupport)
+if(DEEPZOOM)
+target_link_libraries(XaoS quadmath)
+endif(DEEPZOOM)
 
 # install bundle
 install(TARGETS XaoS DESTINATION bin)
