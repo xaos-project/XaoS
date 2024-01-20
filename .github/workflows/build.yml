@@ -31,6 +31,21 @@ jobs:
     - name: make
       run: make
 
+  mac-cmake:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: install-qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '6.2.4'
+    - name: cmake
+      run: mkdir cbuild; cd cbuild; cmake ..
+    - name: make
+      run: cd build; make
+
 # This requires too much disk space (more than 40 GB), so it is disabled for now:
 
 #   wasm:
