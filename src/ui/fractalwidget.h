@@ -1,16 +1,16 @@
-﻿#ifndef FRACTALWIDGET_H
+#ifndef FRACTALWIDGET_H
 #define FRACTALWIDGET_H
 
 #include "config.h"
 #include <QWidget>
 #ifdef USE_OPENGL
-#include <QGLWidget>
+#include <QOpenGLWidget>
 #endif
 class QImage;
 class QPoint;
 
 #ifdef USE_OPENGL
-class FractalWidget : public QGLWidget
+class FractalWidget : public QOpenGLWidget
 #else
 class FractalWidget : public QWidget
 #endif

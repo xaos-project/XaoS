@@ -1,4 +1,4 @@
-﻿#include "config.h"
+#include "config.h"
 #include <cstdlib>
 #include <cstdio> /*for NULL */
 #include <cmath>

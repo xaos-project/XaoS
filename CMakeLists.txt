@@ -53,6 +53,18 @@
 #   -DDEEPZOOM=ON
 #
 #   on the cmake command line.
+#
+# * Alternatively, it is possible to build XaoS with the OpenGL driver. For this, you may need
+#   additional libraries:
+#
+#   - freeglut3-dev
+#
+#   Add
+#
+#   -DOPENGL=ON
+#
+#   on the cmake command line to enable the driver.
+
 
 ###########################################################################
 
@@ -66,17 +78,25 @@ cmake_minimum_required(VERSION 3.14.0)
 project(XaoS)
 
 option(DEEPZOOM "Use 128-bit float for deep zoom" OFF)
+option(OPENGL "Use OpenGL" OFF)
+
 if(DEEPZOOM)
    add_definitions(-DUSE_FLOAT128) # may be unsupported on Mac, unless gcc/g++ is used
 else(DEEPZOOM)
    add_definitions(-DUSE_LONG_DOUBLE)
 endif(DEEPZOOM)
 
+if(OPENGL)
+   add_definitions(-DUSE_OPENGL)
+endif(OPENGL)
+
+# general definitions
 add_definitions(-DUSE_SFFE -DSFFE_CMPLX_GSL)
 
 # resolve symbolic links
 set(CMAKE_FIND_PACKAGE_RESOLVE_SYMLINKS TRUE)
 
+# by default, build a release (a non-debug executable)
 if(NOT CMAKE_BUILD_TYPE)
    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE Release)
 endif(NOT CMAKE_BUILD_TYPE)
@@ -92,6 +112,13 @@ set(CMAKE_AUTORCC ON)
 # look for Qt6
 find_package(QT NAMES Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
 find_package(Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
+
+if(OPENGL)
+   find_package(QT NAMES Qt6 COMPONENTS OpenGL OpenGLWidgets REQUIRED)
+   find_package(Qt6 COMPONENTS OpenGL OpenGLWidgets REQUIRED)
+   find_package(GLUT REQUIRED)
+   find_package(OpenGL REQUIRED)
+endif(OPENGL)
 
 # OS specific stuff
 # on macOS the QT libraries are usually not installed into the system library folders
@@ -139,11 +166,14 @@ add_executable(XaoS MACOSX_BUNDLE
    XaoS.qrc
 )
 
-# Link
+# link libraries
 target_link_libraries(XaoS Qt6::Widgets Qt6::PrintSupport)
 if(DEEPZOOM)
-target_link_libraries(XaoS quadmath)
+   target_link_libraries(XaoS quadmath)
 endif(DEEPZOOM)
+if(OPENGL)
+   target_link_libraries(XaoS Qt6::OpenGL Qt6::OpenGLWidgets)
+endif(OPENGL)
 
 # install bundle
 install(TARGETS XaoS DESTINATION bin)

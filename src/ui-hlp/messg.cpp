@@ -1,4 +1,4 @@
-﻿#include <cstdlib>
+#include <cstdlib>
 #include <cstring>
 #include "filter.h"
 #include "fractal.h"

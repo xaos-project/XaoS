@@ -1,4 +1,4 @@
-﻿#include <QtWidgets>
+#include <QtWidgets>
 #include <cassert>
 #include <QTimer>
 #include <iostream>

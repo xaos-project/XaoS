@@ -1,4 +1,4 @@
-﻿#include <QtWidgets>
+#include <QtWidgets>
 #include "config.h"
 #include "filter.h"
 #include "grlib.h"

@@ -3,10 +3,8 @@ name: build
 on: [push]
 
 jobs:
-  linux:
-
+  linux-qmake:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: prerequisites
@@ -17,9 +15,7 @@ jobs:
       run: make
 
   linux-cmake-deepzoom:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: prerequisites
@@ -29,10 +25,19 @@ jobs:
     - name: make
       run: cd cbuild; make
 
-  mac:
+  linux-cmake-opengl:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: prerequisites
+      run: sudo apt update && sudo apt install build-essential qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-l10n-tools linguist-qt6 libgl1-mesa-dev freeglut3-dev
+    - name: cmake
+      run: mkdir cbuild; cd cbuild; cmake -DOPENGL=ON ..
+    - name: make
+      run: cd cbuild; make
 
+  mac-qmake:
     runs-on: macos-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: install-qt
@@ -45,9 +50,7 @@ jobs:
       run: make
 
   mac-cmake:
-
     runs-on: macos-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: install-qt

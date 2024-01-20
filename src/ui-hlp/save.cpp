@@ -1,4 +1,4 @@
-﻿#define __USE_MINGW_ANSI_STDIO 1 // for long double support on Windows
+#define __USE_MINGW_ANSI_STDIO 1 // for long double support on Windows
 #include <cstdio>
 #include <climits>
 #include <cstring>

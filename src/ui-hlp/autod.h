@@ -1,4 +1,4 @@
-﻿#ifndef UNSUPPORTED
+#ifndef UNSUPPORTED
 static inline int look1(uih_context *context, int x, int y, int range, int max)
 {
     cpixel_t *vbuff;

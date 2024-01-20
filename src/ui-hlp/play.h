@@ -1,4 +1,4 @@
-﻿#ifndef PLAY_H
+#ifndef PLAY_H
 #define PLAY_H
 struct keyword {
     char *name;

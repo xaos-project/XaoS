@@ -1,4 +1,4 @@
-﻿#include "fractalwidget.h"
+#include "fractalwidget.h"
 
 #include <QtGui>
 #ifdef USE_OPENGL
@@ -28,9 +28,14 @@ void FractalWidget::paintGL()
     if (m_image) {
         QImage *qimage =
             reinterpret_cast<QImage **>(m_image->data)[m_image->currimage];
-        QImage glimage = QGLWidget::convertToGLFormat(*qimage);
-        glDrawPixels(glimage.width(), glimage.height(), GL_RGBA,
-                     GL_UNSIGNED_BYTE, glimage.bits());
+        // QImage glimage = QGLWidget::convertToOpenGLFormat(*qimage);
+        // glDrawPixels(glimage.width(), glimage.height(), GL_RGBA,
+        //              GL_UNSIGNED_BYTE, glimage.bits());
+        // For some reason, Qt 6 requires mirroring the image and using another color space.
+        // The old convertToOpenGLFormat is no longer supported in Qt 6.
+        QImage mirrored = qimage->mirrored(false, true);
+        glDrawPixels(qimage->width(), qimage->height(), GL_BGRA_EXT,
+                  GL_UNSIGNED_BYTE, mirrored.bits());
     }
 }
 
