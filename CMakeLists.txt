@@ -54,12 +54,12 @@ cmake_minimum_required(VERSION 3.14.0)
 
 project(XaoS)
 
-# use gcc also Mac because Apple clang lacks quadmath support
-set(CMAKE_C_COMPILER gcc)
-set(CMAKE_CXX_COMPILER g++)
+# WARNING: by setting gcc-13.2 and g++-13.2 it is possible to use quadmath support on Mac:
+# set(CMAKE_C_COMPILER gcc-13.2)
+# set(CMAKE_CXX_COMPILER g++-13.2)
 
-# add definitions (remove -DUSE_FLOAT128 if you have a slow machine)
-add_definitions(-DUSE_FLOAT128 -DUSE_SFFE -DSFFE_CMPLX_GSL)
+# WARNING: add -DUSE_FLOAT128 if you want to enable deep zoom via quadmath (may be unsupported on Mac)
+add_definitions(-DUSE_SFFE -DSFFE_CMPLX_GSL)
 
 # resolve symbolic links
 set(CMAKE_FIND_PACKAGE_RESOLVE_SYMLINKS TRUE)
@@ -105,7 +105,7 @@ set(MACOSX_BUNDLE_ICON_FILE XaoS.icns)
 set(XaoS_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/ui/XaoS.icns)
 set_source_files_properties(${XaoS_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
-# Multilingual support: *.ts -> build/*.qm
+# Multilingual support: *.ts -> *.qm
 FIND_PACKAGE(Qt6LinguistTools)
 file(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_SOURCE_DIR}/i18n/*.ts)
 
@@ -130,7 +130,8 @@ add_executable(XaoS MACOSX_BUNDLE
 target_link_libraries(XaoS
    Qt6::Widgets
    Qt6::PrintSupport
-   quadmath
+# WARNING: uncomment the next line if you want to enable deep zoom:
+   # quadmath
 )
 
 # install bundle

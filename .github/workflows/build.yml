@@ -55,7 +55,7 @@ jobs:
       with:
         version: '6.2.4'
     - name: cmake
-      run: mkdir cbuild; cd cbuild; cmake -DCMAKE_C_COMPILER=gcc-12 -DCMAKE_CXX_COMPILER=g++-13 ..
+      run: mkdir cbuild; cd cbuild; cmake ..
     - name: make
       run: cd cbuild; make
 
