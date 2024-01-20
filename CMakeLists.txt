@@ -16,9 +16,21 @@
 #   where
 #   - PATH_TO_QT_SDK is the path of your Qt SDK installation (typically $HOME/Qt),
 #   - INSTALLATION_PATH is the planned installation folder of the executable and the supplementary files
-#     (typically $HOME/install/xaos),
+#     (say, $HOME/install/xaos, or, if you have root privileges, /usr),
 #   - N_PROCS is the number of processors you want to use for the compilation (if you have 8 cores,
 #     you may want to use 6).
+#
+#   You do not have to set CMAKE_PREFIX_PATH if you have the following packages installed
+#   (under Ubuntu Linux 22.04):
+#
+#   - qt6-base-dev
+#   - qt6-tools-dev
+#   - qt6-tools-dev-tools
+#   - qt6-l10n-tools
+#   - linguist-qt6
+#
+#   Also, you do not have to set INSTALLATION_PATH if you do not want to install XaoS system-wide,
+#   or you want to use the default setting (/usr/local).
 #
 # * If the compilation succeeds, you can directly type:
 #
@@ -27,6 +39,10 @@
 # * To install XaoS in your INSTALLATION_PATH, type:
 #
 #   make install
+#
+#   or, if you want to install it system-wide:
+#
+#   sudo make install
 #
 # * To run XaoS from your installation path, type:
 #

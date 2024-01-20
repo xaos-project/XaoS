@@ -16,6 +16,19 @@ jobs:
     - name: make
       run: make
 
+  linux-cmake:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: prerequisites
+      run: sudo apt update && sudo apt install build-essential qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-l10n-tools linguist-qt6 libgl1-mesa-dev
+    - name: cmake
+      run: mkdir cbuild; cmake ..
+    - name: make
+      run: cd cbuild; make
+
   mac:
 
     runs-on: macos-latest
@@ -31,20 +44,22 @@ jobs:
     - name: make
       run: make
 
-  mac-cmake:
+# Temporarily disabled (GitHub Actions stops with "make[2]: *** No rule to make target `/Users/runner/work/XaoS/XaoS/i18n/XaoS_fr.qm', needed by `XaoS_autogen/EWIEGA46WW/qrc_XaoS.cpp'.  Stop."):
 
-    runs-on: macos-latest
-
-    steps:
-    - uses: actions/checkout@v1
-    - name: install-qt
-      uses: jurplel/install-qt-action@v3
-      with:
-        version: '6.2.4'
-    - name: cmake
-      run: mkdir cbuild; cd cbuild; cmake ..
-    - name: make
-      run: cd cbuild; make
+#  mac-cmake:
+#
+#    runs-on: macos-latest
+#
+#    steps:
+#    - uses: actions/checkout@v1
+#    - name: install-qt
+#      uses: jurplel/install-qt-action@v3
+#      with:
+#        version: '6.2.4'
+#    - name: cmake
+#      run: mkdir cbuild; cd cbuild; cmake ..
+#    - name: make
+#      run: cd cbuild; make
 
 # This requires too much disk space (more than 40 GB), so it is disabled for now:
 

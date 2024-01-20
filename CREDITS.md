@@ -46,10 +46,11 @@
 - [Márton Török](mailto:marton.torok@gmail.com): Small fixes for pipes
 - [Pavel Tzekov](mailto:paveltz@csoft.bg): Win32 support
 - [Zuhal Ünan](mailto:zuhalu@omu.edu.tr): Turkish translation
+- [Clément Vermot](https://github.com/cvermot): Updates for French translation
 - Charles Vidal: Tcl/Tk interface
 - [Tapio K. Vocaldo](mailto:taps@rmx.com): Macintosh port
 - Tormod Volden: Fixes for X11 driver to improve compatibility with Xorg, XScreenSaver, Beryl and Compiz
-- [Clément Vermot](https://github.com/cvermot): Updates for French translation
+- [Werner Volken](werner.volken@vsw.ch): Support for cmake, quad precision support for MacOS
 - [Philippe Wautelet](mailto:p.wautelet@fractalzone.be): Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
 - [Veysel Yıldız](mailto:veyselyildiz11@gmail.com): Turkish translation
 - Sergio Zanchetta: Italian translation
