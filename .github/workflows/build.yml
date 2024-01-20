@@ -44,22 +44,20 @@ jobs:
     - name: make
       run: make
 
-# Temporarily disabled (GitHub Actions stops with "make[2]: *** No rule to make target `/Users/runner/work/XaoS/XaoS/i18n/XaoS_fr.qm', needed by `XaoS_autogen/EWIEGA46WW/qrc_XaoS.cpp'.  Stop."):
+  mac-cmake:
 
-#  mac-cmake:
-#
-#    runs-on: macos-latest
-#
-#    steps:
-#    - uses: actions/checkout@v1
-#    - name: install-qt
-#      uses: jurplel/install-qt-action@v3
-#      with:
-#        version: '6.2.4'
-#    - name: cmake
-#      run: mkdir cbuild; cd cbuild; cmake ..
-#    - name: make
-#      run: cd cbuild; make
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: install-qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '6.2.4'
+    - name: cmake
+      run: mkdir cbuild; cd cbuild; cmake ..
+    - name: make
+      run: cd cbuild; make
 
 # This requires too much disk space (more than 40 GB), so it is disabled for now:
 

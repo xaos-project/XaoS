@@ -106,11 +106,13 @@ set(XaoS_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/ui/XaoS.icns)
 set_source_files_properties(${XaoS_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
 # Multilingual support: *.ts -> build/*.qm
-FIND_PACKAGE(Qt${QT_VERSION_MAJOR}LinguistTools)
+FIND_PACKAGE(Qt6LinguistTools)
 file(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_SOURCE_DIR}/i18n/*.ts)
 
 # qt_add_translation
-qt_add_translation(QM_FILES ${TRANSLATION_FILES})
+set_source_files_properties(${TRANSLATION_FILES}
+    PROPERTIES OUTPUT_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/i18n")
+qt6_add_translation(QM_FILES ${TRANSLATION_FILES})
 
 # grab all sources for executable
 file(GLOB CXX_FILES src/ui/*.cpp src/ui-hlp/*.cpp src/util/*.cpp src/engine/*.cpp src/sffe/*.cpp)
@@ -126,8 +128,8 @@ add_executable(XaoS MACOSX_BUNDLE
 
 # Link
 target_link_libraries(XaoS
-   Qt${QT_VERSION_MAJOR}::Widgets
-   Qt${QT_VERSION_MAJOR}::PrintSupport
+   Qt6::Widgets
+   Qt6::PrintSupport
    quadmath
 )
 
