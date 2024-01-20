@@ -1,4 +1,4 @@
-﻿#ifndef UNSUPPORTED
+#ifndef UNSUPPORTED
 
 /*  this two routines implements solid guessing. They are almost same. One
  *  calculates lines, second rows.

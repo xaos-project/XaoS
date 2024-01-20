@@ -1,4 +1,4 @@
-﻿#undef p_set
+#undef p_set
 #undef p_get
 #undef p_setp
 #undef bpp1

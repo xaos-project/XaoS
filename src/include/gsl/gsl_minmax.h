@@ -1,4 +1,4 @@
-﻿/* gsl_minmax.h
+/* gsl_minmax.h
  *
  * Copyright (C) 2008 Gerard Jungman, Brian Gough
  *

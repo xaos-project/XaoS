@@ -1,4 +1,4 @@
-﻿/* Small library to handle catalog files
+/* Small library to handle catalog files
  */
 #ifndef CATALOG_H
 #define CATALOG_H

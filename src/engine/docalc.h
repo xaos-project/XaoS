@@ -1,4 +1,4 @@
-﻿
+
 /* Hello reader!
 
  * Are you sure you want read this? Its very cryptic and strange code. YOU

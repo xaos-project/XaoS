@@ -1,4 +1,4 @@
-﻿/* Author:  B. Gough and G. Jungman */
+/* Author:  B. Gough and G. Jungman */
 #ifndef __GSL_MACHINE_H__
 #define __GSL_MACHINE_H__
 

@@ -1,4 +1,4 @@
-﻿/* complex/gsl_complex.h
+/* complex/gsl_complex.h
  *
  * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Gerard Jungman, Brian Gough
  *

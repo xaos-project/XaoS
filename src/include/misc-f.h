@@ -1,4 +1,4 @@
-﻿#ifndef IUTIL_H
+#ifndef IUTIL_H
 #define IUTIL_H
 #include "xio.h"
 #include "config.h"

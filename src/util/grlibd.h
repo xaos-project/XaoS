@@ -1,4 +1,4 @@
-﻿#ifndef UNSUPPORTED
+#ifndef UNSUPPORTED
 
 static inline void hline(struct image *img, int x, int y, int length,
                          int fgcolor)

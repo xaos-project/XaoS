@@ -1,4 +1,4 @@
-﻿/* gsl_math.h
+/* gsl_math.h
  *
  * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2004, 2007 Gerard Jungman, Brian
  * Gough

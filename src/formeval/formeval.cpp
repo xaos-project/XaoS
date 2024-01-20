@@ -1,4 +1,4 @@
-﻿/*
+/*
  * XaoS Formula Evaluator
  * Copyright (c) 2020 J.B. Langston
  *

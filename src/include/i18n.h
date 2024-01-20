@@ -1,4 +1,4 @@
-﻿#ifndef I18N_H
+#ifndef I18N_H
 #define I18N_H
 
 const char *qt_gettext(const char *context, const char *text);

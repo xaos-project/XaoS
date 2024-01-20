@@ -1,4 +1,4 @@
-﻿/* gsl_nan.h
+/* gsl_nan.h
  *
  * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Gerard Jungman, Brian Gough
  *

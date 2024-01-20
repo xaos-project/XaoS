@@ -1,4 +1,4 @@
-﻿/* gsl_inline.h
+/* gsl_inline.h
  *
  * Copyright (C) 2008, 2009 Brian Gough
  *

@@ -1,4 +1,4 @@
-﻿#include <csignal>
+#include <csignal>
 #include <cstdio>
 #include <cstdlib>
 #include "xthread.h"

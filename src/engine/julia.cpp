@@ -1,4 +1,4 @@
-﻿#include <cmath>
+#include <cmath>
 #include <cstring>
 #include "config.h"
 #include <cstdio>

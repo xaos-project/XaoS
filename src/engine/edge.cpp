@@ -1,4 +1,4 @@
-﻿/* An edge detection filter.
+/* An edge detection filter.
  * This is very simple filter - it initializes smalliter image and then
  * does an simple edge detection algo on it.
  */

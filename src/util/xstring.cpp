@@ -1,4 +1,4 @@
-﻿#include <cstring>
+#include <cstring>
 #include <cstdlib>
 
 #include "config.h"

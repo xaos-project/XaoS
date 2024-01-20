@@ -1,4 +1,4 @@
-﻿/*
+/*
  * An XaoS thread API implementation
  * Many functions are implemented as macros that maps simple
  * XaoS thread API into architecture depended API.

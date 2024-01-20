@@ -1,4 +1,4 @@
-﻿#ifndef XERROR_H
+#ifndef XERROR_H
 #define XERROR_H
 void x_message(const char *text, ...);
 void x_error(const char *text, ...);

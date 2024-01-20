@@ -1,4 +1,4 @@
-﻿#include <cstdarg>
+#include <cstdarg>
 #include <cstdio>
 #include <cstdlib>
 #include "config.h"

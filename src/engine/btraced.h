@@ -1,4 +1,4 @@
-﻿#ifndef UNSUPPORTED
+#ifndef UNSUPPORTED
 
 static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 {

@@ -1,4 +1,4 @@
-﻿#include <cstdlib>
+#include <cstdlib>
 #include <cstring>
 #include <cassert>
 #include <cstdio>

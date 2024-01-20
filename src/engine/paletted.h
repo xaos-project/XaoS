@@ -1,4 +1,4 @@
-﻿#ifndef UNSUPPORTED
+#ifndef UNSUPPORTED
 static void cpalette(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
     pixel8_t *src, *srcend;

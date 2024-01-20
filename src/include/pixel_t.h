@@ -1,4 +1,4 @@
-﻿#ifndef PIXEL_T_H
+#ifndef PIXEL_T_H
 #define PIXEL_T_H
 #include <cstdint>
 typedef uint8_t pixel8_t;

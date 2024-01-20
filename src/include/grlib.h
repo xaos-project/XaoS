@@ -1,4 +1,4 @@
-﻿#ifndef _TEXT_H
+#ifndef _TEXT_H
 #define _TEXT_H
 #define TEXT_PRESSED 1
 #include "ui_helper.h"

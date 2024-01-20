@@ -1,4 +1,4 @@
-﻿/* gsl_types.h
+/* gsl_types.h
  *
  * Copyright (C) 2001, 2007 Brian Gough
  *

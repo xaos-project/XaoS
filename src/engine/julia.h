@@ -1,4 +1,4 @@
-﻿#ifndef JULIA_H
+#ifndef JULIA_H
 #define JULIA_H
 void init_julia(struct image *img, number_t rangep, number_t range,
                 number_t xdelta, number_t ystep);

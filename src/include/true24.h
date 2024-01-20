@@ -1,4 +1,4 @@
-﻿#ifdef cpixel_t
+#ifdef cpixel_t
 #undef cpixel_t
 #undef cpixeldata_t
 #undef cppixel_t

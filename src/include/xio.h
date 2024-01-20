@@ -1,4 +1,4 @@
-﻿/* This is implementation of input/output routines similar to stdio.
+/* This is implementation of input/output routines similar to stdio.
 purpose of this library is to hide differences between OSes (Mac OS don't
 have stdio!) and allow general streams to strings etc. */
 #ifndef XIO1_H

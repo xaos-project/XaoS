@@ -1,4 +1,4 @@
-﻿#ifndef UNSUPPORTED
+#ifndef UNSUPPORTED
 static void convert_3d(struct filter *f, int *x1, int *y1)
 {
     struct threeddata *data = (struct threeddata *)f->data;
