@@ -58,8 +58,9 @@ project(XaoS)
 # set(CMAKE_C_COMPILER gcc-13.2)
 # set(CMAKE_CXX_COMPILER g++-13.2)
 
-# WARNING: add -DUSE_FLOAT128 if you want to enable deep zoom via quadmath (may be unsupported on Mac)
-add_definitions(-DUSE_SFFE -DSFFE_CMPLX_GSL)
+# WARNING: add -DUSE_FLOAT128 instead of -DUSE_LONG_DOUBLE
+# if you want to enable deep zoom via quadmath (this may be unsupported on Mac)
+add_definitions(-DUSE_LONG_DOUBLE -DUSE_SFFE -DSFFE_CMPLX_GSL)
 
 # resolve symbolic links
 set(CMAKE_FIND_PACKAGE_RESOLVE_SYMLINKS TRUE)
@@ -131,7 +132,7 @@ target_link_libraries(XaoS
    Qt6::Widgets
    Qt6::PrintSupport
 # WARNING: uncomment the next line if you want to enable deep zoom:
-   # quadmath
+#   quadmath
 )
 
 # install bundle
