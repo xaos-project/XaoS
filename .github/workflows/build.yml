@@ -54,6 +54,8 @@ jobs:
       uses: jurplel/install-qt-action@v3
       with:
         version: '6.2.4'
+    - name: install-gcc-12
+      run: brew install gcc-12
     - name: cmake
       run: mkdir cbuild; cd cbuild; cmake ..
     - name: make
