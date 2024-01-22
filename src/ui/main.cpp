@@ -322,6 +322,14 @@ static void ui_about(struct uih_context *uih)
             // QSysInfo::kernelVersion() + " "
             // QSysInfo::buildAbi() + " " +
             QSysInfo::buildCpuArchitecture() + ", Qt " + QT_VERSION_STR +
+#ifdef USE_FLOAT128
+            + ", deep zoom"
+#endif
+
+#ifdef USE_OPENGL
+            + ", OpenGL"
+#endif
+
             ")"
             "<br>"
             "Fast interactive real-time fractal zoomer/morpher<br><br>"
