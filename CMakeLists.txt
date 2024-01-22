@@ -178,12 +178,9 @@ endif(OPENGL)
 # install bundle
 install(TARGETS XaoS DESTINATION bin)
 
-# install translations
-install(FILES DESTINATION bin/XaoS.app/Contents/Resources/translations)
-
 # install catalogs and tutorial
-install(DIRECTORY catalogs tutorial DESTINATION bin/XaoS.app/Contents/Resources)
+install(DIRECTORY catalogs tutorial DESTINATION .)
 
 # install example files
-file(GLOB EXAMPLE_FILES ${PROJECT_DIR}/examples/*/*.xpf)
-install(FILES ${EXAMPLE_FILES} DESTINATION bin/XaoS.app/Contents/Resources/examples)
+file(GLOB EXAMPLE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/examples/*/*.xpf)
+install(FILES ${EXAMPLE_FILES} DESTINATION examples)
