@@ -446,6 +446,7 @@ static int ui_languageselected(uih_context *c, int p)
 }
 
 void setLanguage(const char *lang) {
+    bool success;
     if (lang == NULL || strcmp(languages2[UIH_LANG_SYS_DEFAULT], lang) == 0) {
         languageSysDefault = true;
     } else {
@@ -458,14 +459,13 @@ void setLanguage(const char *lang) {
         language = QLocale::system().name();
     }
     strcpy(languageSetting, language.toStdString().c_str());
-    qtTranslator.load("qt_" + language,
-                      QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    success = qtTranslator.load("qt_" + language,
+                      QLibraryInfo::path(QLibraryInfo::TranslationsPath));
     qApp->installTranslator(&qtTranslator);
-    qtBaseTranslator.load(QLocale::system(),
+    success = qtBaseTranslator.load(QLocale::system(),
                           QStringLiteral("qtbase_"));
     qApp->installTranslator(&qtBaseTranslator);
-    xaosTranslator.load("XaoS_" + language,
-                        ":/i18n");
+    success = xaosTranslator.load("XaoS_" + language, ":/i18n");
     qApp->installTranslator(&xaosTranslator);
 
     /* Without this some locales (e.g. the Hungarian) replaces "." to ","
@@ -475,6 +475,7 @@ void setLanguage(const char *lang) {
     setlocale(LC_NUMERIC, "C");
     // printf("Language set to %s\n", languageSetting);
     // fflush(stdout);
+
 }
 
 static void ui_registermenus_i18n(void)
