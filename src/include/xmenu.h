@@ -208,89 +208,11 @@ typedef struct menuitem {
 #define MENU_CUSTOMDIALOG 7
 #define MENU_SEPARATOR 8
 
-/* Definitions for static menuitems. These items cannot be internationalized.
-All of these definitions will become obsolete soon: */
+/* Definitions for static menuitems. These items cannot be internationalized. */
 
-#define MENUNOP(menuname, key, name, shortname, flags, function)               \
-    {                                                                          \
-        menuname, key, name, shortname, MENU_NOPARAM, flags,                   \
-            (void (*)(void))function                                           \
-    }
-#define MENUNOPCB(menuname, key, name, shortname, flags, function,             \
-                  checkbutton)                                                 \
-    {                                                                          \
-        menuname, key, name, shortname, MENU_NOPARAM,                          \
-            (flags) | MENUFLAG_CHECKBOX, (void (*)(void))function, 0, NULL,    \
-            (int (*)(void))checkbutton                                         \
-    }
-#define MENUCOORDCB(menuname, key, name, shortname, flags, function,           \
-                    checkbutton)                                               \
-    {                                                                          \
-        menuname, key, name, shortname, MENU_COORD,                            \
-            (flags) | MENUFLAG_CHECKBOX, (void (*)(void))function, 0, NULL,    \
-            (int (*)(void))checkbutton                                         \
-    }
-#define MENUCOORD(menuname, key, name, shortname, flags, function)             \
-    {                                                                          \
-        menuname, key, name, shortname, MENU_COORD, flags,                     \
-            (void (*)(void))function                                           \
-    }
-
-#define MENUINT(menuname, key, name, shortname, flags, function, param)        \
-    {                                                                          \
-        menuname, key, name, shortname, MENU_INT, flags,                       \
-            (void (*)(void))function, param                                    \
-    }
-#define MENUINTRB(menuname, key, name, shortname, flags, function, param,      \
-                  checkbutton)                                                 \
-    {                                                                          \
-        menuname, key, name, shortname, MENU_INT, (flags) | MENUFLAG_RADIO,    \
-            (void (*)(void))function, param, NULL, (int (*)(void))checkbutton  \
-    }
 #define SUBMENU(menuname, key, name, param)                                    \
     {                                                                          \
         menuname, key, name, param, MENU_SUBMENU, 0, NULL, 0, NULL, NULL, NULL \
-    }
-
-#define MENUSEPARATOR(menuname)                                                \
-    {                                                                          \
-        menuname, 0, "", NULL, MENU_SEPARATOR, 0, NULL, 0, NULL                \
-    }
-#define SUBMENUNOOPT(menuname, key, name, param)                               \
-    {                                                                          \
-        menuname, key, name, param, MENU_SUBMENU, MENUFLAG_NOOPTION, NULL, 0,  \
-            NULL                                                               \
-    }
-#define MENUDIALOG(menuname, key, name, shortname, flags, function, param)     \
-    {                                                                          \
-        menuname, key, name, shortname, MENU_DIALOG, flags,                    \
-            (void (*)(void))function, 0, param                                 \
-    }
-#define MENUDIALOGCB(menuname, key, name, shortname, flags, function, param,   \
-                     check)                                                    \
-    {                                                                          \
-        menuname, key, name, shortname, MENU_DIALOG,                           \
-            flags | MENUFLAG_CHECKBOX, (void (*)(void))function, 0, param,     \
-            (int (*)(void))check                                               \
-    }
-#define MENUCDIALOG(menuname, key, name, shortname, flags, function, param)    \
-    {                                                                          \
-        menuname, key, name, shortname, MENU_CUSTOMDIALOG, flags,              \
-            (void (*)(void))function, 0, NULL, NULL,                           \
-            (const menudialog *(*)(struct uih_context *))param                 \
-    }
-#define MENUCDIALOGCB(menuname, key, name, shortname, flags, function, param,  \
-                      check)                                                   \
-    {                                                                          \
-        menuname, key, name, shortname, MENU_CUSTOMDIALOG,                     \
-            flags | MENUFLAG_CHECKBOX, (void (*)(void))function, 0, NULL,      \
-            (int (*)(void))check,                                              \
-            (const menudialog *(*)(struct uih_context *))param                 \
-    }
-#define MENUSTRING(menuname, key, name, shortname, flags, function, param)     \
-    {                                                                          \
-        menuname, key, name, shortname, MENU_STRING, flags,                    \
-            (void (*)(void))function, 0, param                                 \
     }
 
 /* Definitions for internationalized menus. All of them must be defined
