@@ -4,7 +4,11 @@
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>XaoS</name>
-  <summary>Fast interactive real-time fractal zoomer/morpher</summary>
+  <summary>Fast real-time fractal zoomer</summary>
+
+  <developer id="io.github.xaos_project">
+    <name>XaoS Contributors</name>
+  </developer>
 
   <description>
     <p>
@@ -29,20 +33,29 @@
       <image>https://raw.githubusercontent.com/xaos-project/XaoS/master/xdg/default.png</image>
     </screenshot>
     <screenshot>
+      <caption>A spiral part of the Mandelbrot Set (example spiral4.xpf)</caption>
       <image>https://raw.githubusercontent.com/xaos-project/XaoS/master/xdg/example1.png</image>
     </screenshot>
     <screenshot>
+      <caption>Another spiral part of the Mandelbrot Set (example spiral3.xpf)</caption>
       <image>https://raw.githubusercontent.com/xaos-project/XaoS/master/xdg/example2.png</image>
     </screenshot>
     <screenshot>
+      <caption>Yet another spiral part of the Mandelbrot Set (example spiral.xpf)</caption>
       <image>https://raw.githubusercontent.com/xaos-project/XaoS/master/xdg/example3.png</image>
     </screenshot>
     <screenshot>
+      <caption>A part of the Newton fractal (example perb3.xpf)</caption>
       <image>https://raw.githubusercontent.com/xaos-project/XaoS/master/xdg/example4.png</image>
     </screenshot>
   </screenshots>
 
   <url type="homepage">https://xaos-project.github.io/</url>
+
+  <branding>
+    <color type="primary" scheme_preference="light">#a0a4ee</color>
+    <color type="primary" scheme_preference="dark">#220222</color>
+  </branding>
 
   <provides>
     <binary>xaos</binary>
@@ -51,13 +64,40 @@
   <launchable type="desktop-id">io.github.xaos_project.XaoS.desktop</launchable>
 
   <releases>
+    <release version="4.3.2" date="2024-01-07">
+      <description>
+        <p>Turkish translation, contributed by Selen Galiç, Zuhal Ünan, Veysel Yıldız and Emine Nur Ünveren Bilgiç.</p>
+        <p>Ctrl-C copies the current position to the clipboard as an URL at xaos.app.</p>
+        <p>Some new keyboard shortcuts: Shift-F1 for Info on current fractal and Ctrl-+ for Autopilot.</p>
+        <p>"Mathematical" coordinates of the mouse are shown in the status.</p>
+        <p>Contributor's list is linked in Help &gt; About.</p>
+      </description>
+      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.3.2</url>
+    </release>
+    <release version="4.3.1" date="2023-10-06">
+      <description>
+        <p>Two new examples by Adam Majewski.</p>
+        <p>Bugfix: Example files are loaded properly now.</p>
+      </description>
+      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.3.1</url>
+    </release>
+    <release version="4.3" date="2023-09-29">
+      <description>
+        <p>Migration to Qt 6.</p>
+        <p>WebAssembly port, that is, a full-featured web version is available. Tested with Qt >= 6.5.2.</p>
+        <p>Progress bar for time consuming operations (only on native platforms).</p>
+        <p>Bugfix: Example files are loaded properly even if XaoS is not installed (that is, the examples are not flattened).</p>
+        <p>Bugfix: User formulas are not duplicated in the history.</p>
+      </description>
+      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.3</url>
+    </release>
     <release version="4.2.1" date="2021-02-01">
       <description>
         <p>Vietnamese translation.</p>
         <p>Example files are fixed that use the 'Octo' fractal.</p>
         <p>Crash fixed on playing tutorials.</p>
       </description>
-      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.2-1</url>
+      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.2.1</url>
     </release>
     <release version="4.2" date="2020-09-01">
       <description>
