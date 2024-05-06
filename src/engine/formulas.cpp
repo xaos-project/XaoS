@@ -984,6 +984,77 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 
 #define VARIABLES
 #define INIT
+#define BTEST (zre * zre + zim * zim < 0.6944444444444445)
+#define FORMULA                                                                \
+  const double rd = 0.25;                                       \
+  zre = 3 * zre;                                                               \
+  zim = 3 * zim;                                                               \
+  if ((zim + 2) * (zim + 2) + zre * zre < rd) {                                \
+    zim = zim + 2;                                                             \
+  }                                                                            \
+  if ((zim + 1.7320508075688772) * (zim + 1.7320508075688772) +                \
+          (zre + 1) * (zre + 1) <                                              \
+      rd) {                                                                    \
+    zim = zim + 1.7320508075688772;                                            \
+    zre = zre + 1;                                                             \
+  }                                                                            \
+  if ((zim + 1) * (zim + 1) +                                                  \
+          (zre + 1.7320508075688772) * (zre + 1.7320508075688772) <            \
+      rd) {                                                                    \
+    zim = zim + 1;                                                             \
+    zre = zre + 1.7320508075688772;                                            \
+  }                                                                            \
+  if ((zre + 2) * (zre + 2) + zim * zim < rd) {                                \
+    zre = zre + 2;                                                             \
+  }                                                                            \
+  if ((zim - 1) * (zim - 1) +                                                  \
+          (zre + 1.7320508075688772) * (zre + 1.7320508075688772) <            \
+      rd) {                                                                    \
+    zim = zim - 1;                                                             \
+    zre = zre + 1.7320508075688772;                                            \
+  }                                                                            \
+  if ((zim - 1.7320508075688772) * (zim - 1.7320508075688772) +                \
+          (zre + 1) * (zre + 1) <                                              \
+      rd) {                                                                    \
+    zim = zim - 1.7320508075688772;                                            \
+    zre = zre + 1;                                                             \
+  }                                                                            \
+  if ((zim - 2) * (zim - 2) + zre * zre < rd) {                                \
+    zim = zim - 2;                                                             \
+  }                                                                            \
+  if ((zim - 1.7320508075688772) * (zim - 1.7320508075688772) +                \
+          (zre - 1) * (zre - 1) <                                              \
+      rd) {                                                                    \
+    zim = zim - 1.7320508075688772;                                            \
+    zre = zre - 1;                                                             \
+  }                                                                            \
+  if ((zim - 1) * (zim - 1) +                                                  \
+          (zre - 1.7320508075688772) * (zre - 1.7320508075688772) <            \
+      rd) {                                                                    \
+    zim = zim - 1;                                                             \
+    zre = zre - 1.7320508075688772;                                            \
+  }                                                                            \
+  if ((zre - 2) * (zre - 2) + zim * zim < rd) {                                \
+    zre = zre - 2;                                                             \
+  }                                                                            \
+  if ((zim + 1) * (zim + 1) +                                                  \
+          (zre - 1.7320508075688772) * (zre - 1.7320508075688772) <            \
+      rd) {                                                                    \
+    zim = zim + 1;                                                             \
+    zre = zre - 1.7320508075688772;                                            \
+  }                                                                            \
+  if ((zim + 1.7320508075688772) * (zim + 1.7320508075688772) +                \
+          (zre - 1) * (zre - 1) <                                              \
+      rd) {                                                                    \
+    zim = zim + 1.7320508075688772;                                            \
+    zre = zre - 1;                                                             \
+  }
+#define CALC clock_calc
+#define RANGE 2
+#include "docalc.h"
+
+#define VARIABLES
+#define INIT
 #define BTEST less_than_4((rp + ip) / 4.0)
 #define FORMULA                                                                \
     if (less_than_0(zre)) {                                                    \
@@ -2422,6 +2493,45 @@ const struct formula formulas[] = {
      NULL,
      {"Circle 7", "Circle 7"},
      "circle7",
+     {0.0, 0.0, 2.5, 2.5},
+     0, 0, 0.0, 0.0,
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     MANDEL_BTRACE,
+     },
+    {
+     FORMULAMAGIC,
+     clock_calc,
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     {"Clock", "Clock"},
+     "clock",
      {0.0, 0.0, 2.5, 2.5},
      0, 0, 0.0, 0.0,
      {
