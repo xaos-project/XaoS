@@ -786,6 +786,35 @@ Hi-Color- oder Real-Color-Modus.
 Bei 8bpp-Darstellung muss dazu der
 Truecolor-Filter eingeschaltet werden."
 
+smoothlog "Farbverlauf logarithmisch
+
+Der logarithmische Farbverlauf ist grundsätzlich
+gleich wie der normale Farbverlauf, es wird einfach
+der logarithmus der interpolierten Iterationen
+zur Bestimmung des Farbwertes verwendet.
+
+Dadurch wird das Bild in chaotischen
+Bereichen viel ruhiger."
+
+smoothlog0 "Dadurch werden mehr Details sichtbar
+und die Bilder wirken filigraner."
+
+smoothlog1 "Es gelten dieselben Einschränkungen wie beim
+normalen Farbverlauf (Funktioniert nicht bei \"Newton\" und \"Magnet\"
+und benötigt Truecolor)."
+
+smoothlog2 "Als Beispiel dreimal derselbe Ausschnitt, einmal
+ohne Farbverlauf, einmal mit normalem Farbverlauf und anschliessend
+mit logarithmischem Farbverlauf."
+
+smoothlog_nosmooth "Ohne Farbverlauf."
+
+smoothlog_smooth "Mit normalem Farbverlauf."
+
+
+smoothlog_smoothlog "Mit logarithmischem Farbverlauf."
+
+
 #########################################################
 # Datei: outnew.xhf
 
