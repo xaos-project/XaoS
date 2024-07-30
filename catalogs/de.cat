@@ -800,7 +800,7 @@ smoothlog0 "Es werden mehr Details sichtbar
 und die Bilder wirken filigraner."
 
 smoothlog1 "Dabei gelten dieselben Einschränkungen wie beim
-normalen Farbverlauf (Funktioniert nicht bei \"Newton\" und \"Magnet\"
+normalen Farbverlauf (Funktioniert nicht bei newton und magnet
 und benötigt Truecolor)."
 
 smoothlog2 "Als Beispiel dreimal derselbe Ausschnitt, einmal
@@ -811,9 +811,7 @@ smoothlog_nosmooth "Ohne Farbverlauf."
 
 smoothlog_smooth "Mit normalem Farbverlauf."
 
-
 smoothlog_smoothlog "Mit logarithmischem Farbverlauf."
-
 
 #########################################################
 # Datei: outnew.xhf

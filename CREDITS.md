@@ -17,6 +17,7 @@
 - [Jonas Hall](mailto:jonas.hall@norrtalje.se): Swedish translation
 - Ben Hines: autoconf suggestions, Mac OS X port
 - [Jan Hubička](mailto:jh@ucw.cz): Zooming routines, ugly interface, palettes, drivers, autopilot, filters, documentation, tutorials etc.
+- [iaoesch](https://github.com/iaoesch): Outcoloring mode smoothlog
 - [Jens Kilian](mailto:jjk@acm.org): BeOS driver, deutsch.cat
 - [Thomas A. K. Kjaer](mailto:takjaer@imv.aau.dk): OS/2 ports (320x200 graphics and AA-lib)
 - [Zbyněk Konečný](mailto:zbynek@geogebra.org): Czech translation

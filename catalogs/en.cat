@@ -799,20 +799,19 @@ but takes the logarithm of the interpolated
 itervalue, so the coloring gets much
 quieter in chaotic places."
 
-smoothlog0 " Thus more
+smoothlog0 "Thus more
 details are visible.
-Also the images look finer"
+Also the images look finer."
 
 smoothlog1 "It has the same restrictions as
-smooth (No Newton, no magnet and only works for true color."
+smooth (no newton, no magnet and only works for true color)."
 
 smoothlog2 "For example the same image without using smooth,
 with smooth and with smooth log."
 
-smoothlog_nosmooth "without using smooth."
+smoothlog_nosmooth "Without using smooth..."
 
-smoothlog_smooth "just using smooth."
-
+smoothlog_smooth "Just using smooth..."
 
 smoothlog_smoothlog "The same image using smooth log."
 
