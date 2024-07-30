@@ -87,7 +87,7 @@ combine_methods(void)
 {
     int angle = (int)cfractalc.angle;
     const struct symmetryinfo *s1 = cfractalc.currentformula->out +
-                                    cfractalc.coloringmode,
+                                    cfractalc.coloringmode.AsInt(),
                               *s2 = cfractalc.currentformula->in +
                                     cfractalc.incoloringmode;
     if (angle < 0) {
@@ -229,7 +229,7 @@ void set_fractalc(fractal_context *context, struct image *img)
     if (cursymmetry.ysym == (number_t)INT_MAX)
         cursymmetry.ysym = cfractalc.rs.mi + INT_MAX;
 
-    if (cfractalc.coloringmode == 9 && cformula.smooth_calculate != NULL &&
+    if ((cfractalc.coloringmode == OutColormodeType::ColOut_smooth || cfractalc.coloringmode == OutColormodeType::ColOut_smooth_log) && cformula.smooth_calculate != NULL &&
         (cpalette.type &
          (TRUECOLOR | TRUECOLOR16 | TRUECOLOR24 | GRAYSCALE | LARGEITER))) {
         cfractalc.calculate[0] = cformula.smooth_calculate;
@@ -307,7 +307,7 @@ fractal_context *make_fractalc(const int formula, float wi, float he)
     new_ctxt->windowheight = he;
     new_ctxt->maxiter = DEFAULT_MAX_ITER;
     new_ctxt->bailout = DEFAULT_BAILOUT;
-    new_ctxt->coloringmode = 0;
+    new_ctxt->coloringmode = OutColormodeType::ColOut_iter;
     new_ctxt->intcolor = 0;
     new_ctxt->outtcolor = 0;
     new_ctxt->slowmode = 0;

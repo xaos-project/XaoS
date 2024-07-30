@@ -456,7 +456,7 @@ void uih_saveframe(struct uih_context *uih)
             save_floatc(uih, "bailout", uih->fcontext->bailout),
                 s->fcontext->bailout = uih->fcontext->bailout;
         if (s->fcontext->coloringmode != uih->fcontext->coloringmode)
-            save_intc(uih, "outcoloring", uih->fcontext->coloringmode),
+            save_intc(uih, "outcoloring", uih->fcontext->coloringmode.AsInt()),
                 s->fcontext->coloringmode = uih->fcontext->coloringmode;
         if (s->fcontext->incoloringmode != uih->fcontext->incoloringmode)
             save_intc(uih, "incoloring", uih->fcontext->incoloringmode),
@@ -468,7 +468,7 @@ void uih_saveframe(struct uih_context *uih)
             s->fcontext->intcolor != uih->fcontext->intcolor)
             save_intc(uih, "intcoloring", uih->fcontext->intcolor),
                 s->fcontext->intcolor = uih->fcontext->intcolor;
-        if ((s->fcontext->coloringmode == 10 || s->mode >= UIH_SAVEALL) &&
+        if ((s->fcontext->coloringmode == OutColormodeType::ColOut_True_color || s->mode >= UIH_SAVEALL) &&
             s->fcontext->outtcolor != uih->fcontext->outtcolor)
             save_intc(uih, "outtcoloring", uih->fcontext->outtcolor),
                 s->fcontext->outtcolor = uih->fcontext->outtcolor;
@@ -589,7 +589,7 @@ int uih_save_enable(struct uih_context *uih, xio_file f, int mode)
     s->fcontext->periodicity = 1;
     s->fcontext->maxiter = 170;
     s->fcontext->bailout = 4;
-    s->fcontext->coloringmode = 0;
+    s->fcontext->coloringmode = OutColormodeType::ColOut_iter;
     s->fcontext->incoloringmode = 0;
     s->fcontext->outtcolor = 0;
     s->fcontext->intcolor = 0;

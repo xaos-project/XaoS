@@ -135,7 +135,7 @@ CustomDialog::CustomDialog(struct uih_context *uih, const menuitem *item,
             algono = new QSpinBox(this);
             algono->setObjectName(label + "algono");
             algono->setValue(palcontext->palettetype);
-            algono->setRange(1, 3);
+            algono->setRange(1, PALGORITHMS);
 
             // Algo Slider
             algoslider = new QSlider(Qt::Horizontal, this);

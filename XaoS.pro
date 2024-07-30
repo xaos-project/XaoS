@@ -7,6 +7,8 @@ wasm {
 lessThan(QT_MINOR_VERSION, 5): error("requires Qt >= 6.5.2")
 }
 
+QMAKE_CXXFLAGS += -Wall -Wextra -Wpedantic
+
 TEMPLATE = app
 
 QT += widgets

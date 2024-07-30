@@ -28,8 +28,36 @@
 #endif
 
 #define INCOLORING 11
-#define OUTCOLORING 11
+#define OUTCOLORING (OutColormodeClass::ColOut_MAXMode + 1)
 #define TCOLOR 15
+
+class OutColormodeClass {
+public:
+enum OutColormode {
+                    ColOut_iter,
+                    ColOut_iter_plus_real,
+                    ColOut_iter_plus_imag,
+                    ColOut_iter_plus_real_div_imag,
+                    ColOut_iter_plus_real_plus_imag_plus_real_div_imag,
+                    ColOut_binary_decomposition,
+                    ColOut_biomorphs,
+                    ColOut_potential,
+                    ColOut_color_decomposition,
+                    ColOut_smooth,
+                    ColOut_smooth_log,
+                    ColOut_True_color,
+                    ColOut_MAXMode = ColOut_True_color
+                  };
+   enum OutColormode ColorMode;
+   int AsInt() {return ColorMode; }
+   OutColormodeClass &operator=(enum OutColormode Color) {ColorMode = Color; return *this;}
+
+   bool operator==(enum OutColormode Color) {return ColorMode == Color;}
+   bool operator!=(enum OutColormode Color) {return ColorMode != Color;}
+   bool operator!=(const OutColormodeClass &Color) {return ColorMode == Color.ColorMode;}
+};
+
+typedef OutColormodeClass OutColormodeType;
 
 typedef struct {
     number_t y0, k;
@@ -65,6 +93,8 @@ struct formula {
     int flags;
 };
 
+
+
 struct fractal_context {
     number_t pre, pim;
     number_t bre, bim;
@@ -77,7 +107,8 @@ struct fractal_context {
     int periodicity;
     unsigned int maxiter;
     number_t bailout;
-    int coloringmode, incoloringmode;
+    OutColormodeType coloringmode;
+    int incoloringmode;
     int intcolor, outtcolor;
     int mandelbrot;
     int plane;
@@ -113,7 +144,7 @@ struct symmetryinfo2 {
 
 #define BTRACEOK                                                               \
     ((cformula.flags & (2 << cfractalc.mandelbrot)) &&                         \
-     !cfractalc.incoloringmode && cfractalc.coloringmode != 7)
+     !cfractalc.incoloringmode && cfractalc.coloringmode != OutColormodeType::ColOut_potential)
 #define my_rotate(f, x, y)                                                        \
     {                                                                          \
         number_t tmp;                                                          \

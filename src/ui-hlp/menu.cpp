@@ -11,6 +11,7 @@
 #include "filter.h"
 #include "config.h"
 #include "formulas.h"
+#include "fractal.h" // For OutColormodeType osi1 20220213
 #include "ui_helper.h"
 #include "plane.h"
 #include "xmenu.h"
@@ -1524,7 +1525,7 @@ static int uih_selectedoutcoloring(struct uih_context *c, int n)
 {
     if (c == NULL)
         return 0;
-    return (c->fcontext->coloringmode == n);
+    return (c->fcontext->coloringmode.AsInt() == n);
 }
 
 static int uih_selectedplane(struct uih_context *c, int n)
@@ -1536,7 +1537,7 @@ static int uih_selectedplane(struct uih_context *c, int n)
 
 static void uih_setouttruecolor(struct uih_context *c, int n)
 {
-    uih_setoutcoloringmode(c, 10);
+    uih_setoutcoloringmode(c, OutColormodeType::ColOut_True_color);
     uih_setouttcolor(c, n);
 }
 
