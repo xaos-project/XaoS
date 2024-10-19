@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# This script sets the document title for the WebAssembly version in xaos.js.
+
+set -e
+
+if [ "$1" = "" ]; then
+ echo "Usage: $0 [bin-folder]"
+ exit 1
+ fi
+
+test "$1/xaos.js" || {
+ echo "The file $1/xaos.js is missing."
+ exit 2
+ }
+
+# This will not work on macOS, FIXME:
+sed -i 's/Module\["print"\]/\
+ function mymessage(t) {\
+  let statustext = "STATUS: ";\
+  if (t.startsWith(statustext)) document.title = t.substring(statustext.length);\
+  }\
+/' "$1/xaos.js"
+# For a workaround on macOS, see https://stackoverflow.com/questions/12696125/sed-edit-file-in-place
