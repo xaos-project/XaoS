@@ -39,6 +39,7 @@
 - [Terje Pedersen](mailto:terjepe@login.eunet.no): Amiga port
 - [César Pérez](mailto:oroz@users.sourceforge.net): Spanish translations
 - [Fabrice Premel](mailto:premelfa@etu.utc.fr): Periodicity checking
+- [prrt714](https://github.com/prrt714): New fractal type "clock"
 - [Jan Olderdissen](mailto:jan@olderdissen.com): Win32 port
 - [Ilinca Sitaru](mailto:ilinca.sitaru@gmail.com): Romanian translation
 - Daniel Skarda: Fractal examples
