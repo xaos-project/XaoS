@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# This script sets the document title for the WebAssembly version in xaos.js.
+# This script sets the document title for the WebAssembly version in xaos.js,
+# and it copies the correct qtlogo.svg to the same folder.
 
 set -e
 
@@ -22,3 +23,5 @@ sed -i 's/Module\["print"\]/\
   }\
 /' "$1/xaos.js"
 # For a workaround on macOS, see https://stackoverflow.com/questions/12696125/sed-edit-file-in-place
+
+cp "$1/../src/ui/images/qtlogo.svg" "$1"

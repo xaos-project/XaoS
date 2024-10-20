@@ -88,7 +88,7 @@ wasm{
     QMAKE_LFLAGS += --preload-file $$PWD/catalogs@$$DATAPATH/catalogs
     QMAKE_LFLAGS += --preload-file $$PWD/tutorial@$$DATAPATH/tutorial
     QMAKE_LFLAGS += -sASYNCIFY -Os # This can help avoiding to get the web application hang when the user presses "s".
-    QMAKE_POST_LINK = $$PWD/tools/set-document-title $$PWD/bin
+    QMAKE_POST_LINK = $$PWD/tools/postprocess-web $$PWD/bin
 }
 executable.files = bin/xaos
 executable.path = $$PREFIX/bin
