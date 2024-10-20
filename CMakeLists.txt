@@ -1,6 +1,6 @@
 # This cmake configuration file is based on the work by Werner Volken <werner.volken@vsw.ch>
 
-# To create a native build of XaoS on Linux:
+# To create a native build of XaoS on Linux (no WebAssembly build is currently supported via cmake yet):
 #
 # * download a recent Qt SDK (at least Qt 6.2.4 is recommended),
 #
@@ -65,6 +65,12 @@
 #
 #   on the cmake command line to enable the driver.
 
+# Notes if you use Qt Creator to build XaoS via cmake:
+#
+# * You may get an error like 'No CMake configuration for build type "Debug" found.'
+#   This is not the real error. Instead, you need to have a look at the Issues window
+#   and learn what the problem is. Maybe some package is not found by cmake.
+#   In particular, you may need to have libcups2-dev on your system already installed.
 
 ###########################################################################
 
