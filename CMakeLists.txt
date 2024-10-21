@@ -170,7 +170,7 @@ file(GLOB CXX_FILES src/ui/*.cpp src/ui-hlp/*.cpp src/util/*.cpp src/engine/*.cp
 file(GLOB C_FILES src/sffe/*.c)
 
 if(EMSCRIPTEN)
-    qt_add_executable(XaoS
+    qt_add_executable(xaos
        ${CXX_FILES}
        ${C_FILES}
        ${QM_FILES}
@@ -178,8 +178,8 @@ if(EMSCRIPTEN)
        src/ui/XaoS.qrc
        XaoS.qrc
     )
-    target_link_libraries(XaoS PUBLIC Qt6::Widgets)
-    target_link_options(XaoS PUBLIC -sASYNCIFY -O3 -flto)
+    target_link_libraries(xaos PUBLIC Qt6::Widgets)
+    target_link_options(xaos PUBLIC -sASYNCIFY -O3 -flto)
 else()
     add_executable(XaoS MACOSX_BUNDLE
        ${CXX_FILES}
@@ -199,6 +199,16 @@ if(OPENGL)
    target_link_libraries(XaoS Qt6::OpenGL Qt6::OpenGLWidgets)
 endif(OPENGL)
 
+if (EMSCRIPTEN)
+    target_link_options(xaos PUBLIC "SHELL:
+        --preload-file '${CMAKE_SOURCE_DIR}/catalogs@/catalogs'
+        --preload-file '${CMAKE_SOURCE_DIR}/examples@/examples'
+        --preload-file '${CMAKE_SOURCE_DIR}/tutorial@/tutorial'")
+    add_custom_command(TARGET xaos POST_BUILD
+        COMMAND "${CMAKE_SOURCE_DIR}/tools/postprocess-web" "${CMAKE_SOURCE_DIR}" "${CMAKE_BINARY_DIR}"
+        COMMENT "Running postprocess-web..."
+    )
+else()
 # install bundle
 install(TARGETS XaoS DESTINATION bin)
 
@@ -208,3 +218,4 @@ install(DIRECTORY catalogs tutorial DESTINATION .)
 # install example files
 file(GLOB EXAMPLE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/examples/*/*.xpf)
 install(FILES ${EXAMPLE_FILES} DESTINATION examples)
+endif(EMSCRIPTEN)
