@@ -1,6 +1,6 @@
 # This cmake configuration file is based on the work by Werner Volken <werner.volken@vsw.ch>
 
-# To create a native build of XaoS on Linux (no WebAssembly build is currently supported via cmake yet):
+# To create a native build of XaoS on Linux:
 #
 # * download a recent Qt SDK (at least Qt 6.2.4 is recommended),
 #
@@ -71,6 +71,9 @@
 #   This is not the real error. Instead, you need to have a look at the Issues window
 #   and learn what the problem is. Maybe some package is not found by cmake.
 #   In particular, you may need to have libcups2-dev on your system already installed.
+#
+# * A WebAssembly build is now possible. Extra files (e.g. catalogs, tutorials)
+#   are missing in the generated bundle yet.
 
 ###########################################################################
 
@@ -151,29 +154,44 @@ set(MACOSX_BUNDLE_ICON_FILE XaoS.icns)
 set(XaoS_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/ui/XaoS.icns)
 set_source_files_properties(${XaoS_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
+if (EMSCRIPTEN)
+else()
 # Multilingual support: *.ts -> *.qm
 find_package(Qt6LinguistTools)
 file(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_SOURCE_DIR}/i18n/*.ts)
-
 # qt_add_translation
 set_source_files_properties(${TRANSLATION_FILES}
     PROPERTIES OUTPUT_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/i18n")
 qt6_add_translation(QM_FILES ${TRANSLATION_FILES})
+endif (EMSCRIPTEN)
 
 # grab all sources for executable
 file(GLOB CXX_FILES src/ui/*.cpp src/ui-hlp/*.cpp src/util/*.cpp src/engine/*.cpp src/sffe/*.cpp)
 file(GLOB C_FILES src/sffe/*.c)
-add_executable(XaoS MACOSX_BUNDLE
-   ${CXX_FILES}
-   ${C_FILES}
-   ${QM_FILES}
-   ${XaoS_ICON}
-   src/ui/XaoS.qrc
-   XaoS.qrc
-)
 
-# link libraries
-target_link_libraries(XaoS Qt6::Widgets Qt6::PrintSupport)
+if(EMSCRIPTEN)
+    qt_add_executable(XaoS
+       ${CXX_FILES}
+       ${C_FILES}
+       ${QM_FILES}
+       ${XaoS_ICON}
+       src/ui/XaoS.qrc
+       XaoS.qrc
+    )
+    target_link_libraries(XaoS PUBLIC Qt6::Widgets)
+    target_link_options(XaoS PUBLIC -sASYNCIFY -O3 -flto)
+else()
+    add_executable(XaoS MACOSX_BUNDLE
+       ${CXX_FILES}
+       ${C_FILES}
+       ${QM_FILES}
+       ${XaoS_ICON}
+       src/ui/XaoS.qrc
+       XaoS.qrc
+    )
+    target_link_libraries(XaoS Qt6::Widgets Qt6::PrintSupport)
+endif(EMSCRIPTEN)
+
 if(DEEPZOOM)
    target_link_libraries(XaoS quadmath)
 endif(DEEPZOOM)
