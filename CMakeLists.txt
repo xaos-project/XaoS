@@ -72,8 +72,7 @@
 #   and learn what the problem is. Maybe some package is not found by cmake.
 #   In particular, you may need to have libcups2-dev on your system already installed.
 #
-# * A WebAssembly build is now possible. Extra files (e.g. catalogs, tutorials)
-#   are missing in the generated bundle yet.
+# * Also, a WebAssembly build is now fully possible.
 
 ###########################################################################
 
