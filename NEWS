@@ -1,5 +1,5 @@
-RELEASE NOTES FOR XAOS VERSION 4.3.3 (yet unreleased)
------------------------------------------------------
+RELEASE NOTES FOR XAOS VERSION 4.3.3
+------------------------------------
 
 New Features
 ============
@@ -7,6 +7,8 @@ New Features
 o New fractal type (clock) by prrt714.
 
 o New outcoloring mode smoothlog by iaoesch.
+
+o Official debut of build via cmake.
 
 
 RELEASE NOTES FOR XAOS VERSION 4.3.2
