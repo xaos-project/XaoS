@@ -1,0 +1,67 @@
+#!/bin/bash
+
+set -e
+
+# This script creates or updates a folder for the Windows version.
+# Usage: ./create-windows-bin-folder <build-dir>
+# where build-dir is the folder where the executable has already been built.
+# The qmake process already creates that folder ("../bin/"), but the cmake process
+# usually uses another folder which does not contain the DLL prerequisites.
+# This tool can be used to finalize that folder ("../bin/").
+
+# Mandatory checks...
+
+if [ "$MSYSTEM" != "MINGW64" ]; then
+ echo "Please run this script in a MSYS2/MINGW64 environment"
+ exit 1
+ fi
+
+which unzip >/dev/null || {
+ echo "Please install unzip first"
+ exit 2
+ }
+
+which ntldd >/dev/null || {
+ echo "Please install ntldd before running this tool"
+ exit 3
+ }
+
+if [ "$1" = "" ]; then
+ echo "Usage: $0 <build-dir>"
+ exit 4
+ fi
+
+test -x $1/XaoS.exe || {
+ echo "Build $1/XaoS.exe first."
+ exit 5
+ }
+
+test -r ../src/include/config.h || {
+ echo "Please run this script from the \"tools/\" folder."
+ exit 6
+ }
+
+# XAOS_VERSION=`cat ../src/include/config.h | grep XaoS_VERSION | awk '{print $3}' | tr -d \"`
+
+test -d ../bin && {
+ echo "Folder \"../bin/\" exists. Maybe you want to remove it first (on cmake builds)."
+ echo "Press CTRL-C to stop this script or press ENTER to continue."
+ read ANSWER
+ }
+
+echo "Create the output folder, put the .exe and .ico files there..."
+
+mkdir -p ../bin
+test -x ../bin/XaoS.exe || cp $1/XaoS.exe ../bin
+
+echo "Copy the DLLs..."
+
+ntldd -R $1/XaoS.exe | grep mingw64 | awk '{print "/mingw64/bin/" $1}' | xargs cp -t ../bin
+
+echo "Put additional Qt related things in the folder..."
+
+for d in styles platforms; do
+ cp -a $MSYSTEM_PREFIX/share/qt6/plugins/$d ../bin
+ done
+
+echo "Finished!"
