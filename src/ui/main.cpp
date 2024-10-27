@@ -47,6 +47,10 @@
 #include "grlib.h"
 #include "i18n.h"
 
+#ifdef _WIN32
+#include "windows.h"
+#endif
+
 /* Command line variables */
 int printspeed;
 int delaytime = 0;
