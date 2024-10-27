@@ -6,8 +6,9 @@
     <Publisher>XaoS Project</Publisher>
     <StartMenuDir>XaoS</StartMenuDir>
     <TargetDir>@ApplicationsDirX86@/XaoS</TargetDir>
-    <Banner>banner.png</Banner>
+    <!--Banner>banner.png</Banner-->
     <WizardStyle>Modern</WizardStyle>
+    <WizardMinimumWidth>880</WizardMinimumWidth>
     <ProductUrl>https://github.com/xaos-project/XaoS</ProductUrl>
     <InstallerApplicationIcon>..\..\src\ui\xaos</InstallerApplicationIcon>
 </Installer>
