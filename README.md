@@ -8,7 +8,7 @@ It has many other features too, like different fractal types, autopilot,
 special coloring modes, random palette generation, color cycling, etc.
 
 XaoS (since version 4.3, September 2023) is available as a full-featured web application as well.
-You can try it at its [current webpage](https://matek.hu/zoltan/xaos).
+You can try it at [xaos.app](https://xaos.app).
 Also, you can try a simplified version of the XaoS zooming algorithm online using
 [XaoS.js](https://xaos-project.github.io/XaoSjs/).
 
@@ -50,7 +50,7 @@ or implement a new feature yourself, pull requests are very welcome.
 License
 -------
 
-Copyright © 1996-2023 XaoS Contributors
+Copyright © 1996-2024 XaoS Contributors
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
