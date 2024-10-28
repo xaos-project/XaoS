@@ -8,10 +8,10 @@
 #
 # * type:
 #
-#   mkdir build; cd build \
+#   mkdir build; cd build; \
 #   CMAKE_PREFIX_PATH=<PATH_TO_QT_SDK>/Qt/6.6.1/gcc_64/lib/cmake/Qt6LinguistTools \
 #     cmake -DCMAKE_INSTALL_PREFIX=<INSTALLATION_PATH> .. && \
-#   make -j<N_PROCS>
+#   make -j`nprocs`
 #
 #   where
 #   - PATH_TO_QT_SDK is the path of your Qt SDK installation (typically $HOME/Qt),
@@ -64,7 +64,7 @@
 #   -DOPENGL=ON
 #
 #   on the cmake command line to enable the driver.
-
+#
 # Notes if you use Qt Creator to build XaoS via cmake:
 #
 # * You may get an error like 'No CMake configuration for build type "Debug" found.'
@@ -72,7 +72,16 @@
 #   and learn what the problem is. Maybe some package is not found by cmake.
 #   In particular, you may need to have libcups2-dev on your system already installed.
 #
-# * Also, a WebAssembly build is now fully possible.
+# * Also, a WebAssembly build is now fully possible, either in Qt Creator,
+#   or, via command line:
+#
+#   mkdir build; cd build; \
+#   EMSDK=<PATH_TO_EMSDK> \
+#     cmake -DQT_CHAINLOAD_TOOLCHAIN_FILE=<PATH_TO_EMSDK>/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake \
+#     -DCMAKE_TOOLCHAIN_FILE=<PATH_TO_QT_SDK>/Qt/6.8.0/wasm_multithread/lib/cmake/Qt6/qt.toolchain.cmake .. &&
+#   make -j`nprocs`
+#
+# If you have an old cmake on your system, use <PATH_TO_QT_SDK>/Tools/CMake/bin/cmake instead of it.
 
 ###########################################################################
 
