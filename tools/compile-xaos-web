@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script compiles XaoS for WebAssembly.
+# This script compiles XaoS for WebAssembly via qmake.
 
 set -e
 
