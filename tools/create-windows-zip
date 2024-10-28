@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+# This script creates a zip bundle for the Windows version.
+# It is assumed that the script deploy-win.bat has already been run.
+
+which zip >/dev/null || {
+ echo "Please install zip first"
+ exit 1
+ }
+
+test -x ../installer/packages/net.sourceforge.xaos/data || {
+ echo "Run deploy-win.bat first."
+ exit 2
+
+test -r ../src/include/config.h || {
+ echo "Please run this script from the \"tools/\" folder."
+ exit 3
+ }
+
+XAOS_VERSION=`cat ../src/include/config.h | grep XaoS_VERSION | awk '{print $3}' | tr -d \"`
+
+mkdir xaos-$XAOS_VERSION
+
+cp -a ../installer/packages/net.sourceforge.xaos/data/* xaos-$XAOS_VERSION
+
+zip -9r xaos-$XAOS_VERSION.zip xaos-$XAOS_VERSION
