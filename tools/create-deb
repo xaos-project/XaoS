@@ -1,13 +1,35 @@
 #!/usr/bin/env bash
 
+# Usage: ./create-deb [build-dir]
+# where build-dir points to the build folder (on qmake builds, ../bin, this is the default).
+
 # This script creates a .deb package of XaoS 4.3 and above.
-# Make sure you build the program first ("qmake6 PREFIX=/usr && make -j4").
+# Make sure you build the program first ("qmake6 PREFIX=/usr && make -j`nproc`"
+# or "mkdir build && cd build && cmake .. -DCMAKE_INSTALL_PREFIX=/usr && make -j`nproc`").
 # Required packages before running this script:
 # lynx pandoc git-extras lintian
 
 set -x
 set -e
+
+BUILD_DIR="$1"
+
+if [ "$BUILD_DIR" = "" ]; then
+ BUILD_DIR="../bin/"
+ fi
+
+test -x "$BUILD_DIR/XaoS" || {
+    echo "Missing $BUILD_DIR/XaoS. Build XaoS first."
+    exit 1
+    }
+
+test -d ../bin || {
+    mkdir ../bin
+    cp -R $BUILD_DIR/XaoS ../bin/xaos
+    }
+
 test -x ../bin/xaos
+strip ../bin/xaos
 
 ARCH=$(dpkg --print-architecture)
 LINUX_VARIANT=$(lsb_release -s -i)
@@ -55,7 +77,7 @@ Upstream-Name: xaos
 Source: https://github.com/xaos-project/XaoS
 
 Files: *
-Copyright: 2023 The XaoS Project
+Copyright: 1996-2024 XaoS Contributors
 License: GPL-1" > "$DOCDIR/copyright"
 
 git-changelog -x > "$DOCDIR/changelog"

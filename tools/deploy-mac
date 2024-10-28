@@ -1,19 +1,39 @@
 #!/bin/sh
 
+# Usage: ./deploy-mac [build-dir] [codesign]
+# where build-dir is the folder where the executable has already been built (by default, "../bin/")
+# and codesign is the input for performing an optional code signing.
+# The qmake process already creates the bin folder ("../bin/"), but the cmake process
+# usually uses another directory.
+
+BUILD_DIR="$1"
+
+if [ "$BUILD_DIR" = "" ]; then
+ BUILD_DIR="../bin/"
+ fi
+
 MACDEPLOYQT=$(command -v macdeployqt)
 if [ ! -x "$MACDEPLOYQT" ]; then
     echo "macdeployqt is not in path."
-    exit
+    exit 1
 fi
 
-cd "$(dirname "$0")/.."
+test -d "$BUILD_DIR/XaoS.app/" || {
+    echo "Missing $BUILD_DIR/XaoS.app/. Build XaoS first."
+    exit 2
+    }
 
-mkdir bin/XaoS.app/Contents/Resources/examples/
-cp examples/*/* bin/XaoS.app/Contents/Resources/examples/
-cp -R catalogs bin/XaoS.app/Contents/Resources/
-cp -R tutorial bin/XaoS.app/Contents/Resources/
-if [ -z "$1" ]; then
-    $MACDEPLOYQT bin/XaoS.app -dmg
+test -d ../bin || {
+    mkdir ../bin
+    cp -R $BUILD_DIR/XaoS.app ../bin
+    }
+
+mkdir -p "../bin/XaoS.app/Contents/Resources/examples/"
+cp ../examples/*/* ../bin/XaoS.app/Contents/Resources/examples/
+cp -R ../catalogs ../bin/XaoS.app/Contents/Resources/
+cp -R ../tutorial ../bin/XaoS.app/Contents/Resources/
+if [ -z "$2" ]; then
+    $MACDEPLOYQT ../bin/XaoS.app -dmg
 else
-    $MACDEPLOYQT bin/XaoS.app -dmg -codesign="$1"
+    $MACDEPLOYQT ../bin/XaoS.app -dmg -codesign="$2"
 fi
