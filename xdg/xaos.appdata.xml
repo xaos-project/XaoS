@@ -70,6 +70,7 @@
         <p>New outcoloring mode smoothlog by iaoesch.</p>
       </description>
       <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.3.2</url>
+    </release>
     <release version="4.3.2" date="2024-01-07">
       <description>
         <p>Turkish translation, contributed by Selen Galiç, Zuhal Ünan, Veysel Yıldız and Emine Nur Ünveren Bilgiç.</p>
