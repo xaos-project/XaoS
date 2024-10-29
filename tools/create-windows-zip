@@ -13,6 +13,7 @@ which zip >/dev/null || {
 test -x ../installer/packages/net.sourceforge.xaos/data || {
  echo "Run deploy-win.bat first."
  exit 2
+ }
 
 test -r ../src/include/config.h || {
  echo "Please run this script from the \"tools/\" folder."
