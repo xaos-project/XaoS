@@ -12,6 +12,7 @@
 #endif
 #include <qclipboard.h>
 #include <QApplication>
+#include <QUrl>
 #include <stdio.h>
 #include <qwidget.h>
 
@@ -715,6 +716,9 @@ void uih_copyposurl(struct uih_context *c)
         if (!c.startsWith(";") && c != "(initstate)" && c != "(formula 'mandel)"
             && c != "(defaultpalette 0)" && c != "(maxiter 1000)") {
             // Comments and defaults are removed.
+            // url += QUrl::toPercentEncoding(c); // simple way, but ugly and long result in output
+            c = c.replace("+", "%2b");
+            // maybe other replacements are required? TODO
             url += c;
         }
     }
