@@ -843,6 +843,7 @@ void MainWindow::buildMenu(const char *name, QMenu *parent, bool numbered)
             action->setShortcuts(keyForItem(item->shortname));
             action->setObjectName(item->shortname);
 
+#if QT_VERSION >= 0x060700
             /* TODO: Do this more elegantly. */
             if (strcmp(item->shortname, "loadpos") == 0) {
                 action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
@@ -932,6 +933,7 @@ void MainWindow::buildMenu(const char *name, QMenu *parent, bool numbered)
                 action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::InputTablet));
             }
             // std::cout << item->shortname << std::endl;
+#endif
 
             if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX)) {
                 action->setCheckable(true);
