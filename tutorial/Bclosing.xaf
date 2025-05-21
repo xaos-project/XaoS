@@ -12,59 +12,59 @@
 (usleep 10000000)
 (zoomcenter 0.18669458707165150385 -0.38868516453635421515)
 
-(text "Kedves Vendégeink!")
+(text "Kedves VendÃ©geink!")
 (textsleep)
-(text "Önök most a
+(text "Ã–nÃ¶k most a
 
-Bevezetés a fraktálok világába
+BevezetÃ©s a fraktÃ¡lok vilÃ¡gÃ¡ba
 
-címû fraktálbemutatóból
-láttak részleteket.")
+cÃ­mÅ± fraktÃ¡lbemutatÃ³bÃ³l
+lÃ¡ttak rÃ©szleteket.")
 (textsleep)
 (usleep 1000000)
-(text "A program ingyenesen letölthetõ
-a Bolyai Intézet weboldaláról.")
+(text "A program ingyenesen letÃ¶lthetÅ‘
+a Bolyai IntÃ©zet weboldalÃ¡rÃ³l.")
 (textsleep)
 (usleep 10000000)
 
 (textsleep)
 (color 'black)
-(text "Szeretettel köszöntjük
-kedves vendégeinket az
+(text "Szeretettel kÃ¶szÃ¶ntjÃ¼k
+kedves vendÃ©geinket az
 
 EGYETEMI TAVASZ
-a Bolyai Intézetben
+a Bolyai IntÃ©zetben
 
-rendezvényünkön!")
+rendezvÃ©nyÃ¼nkÃ¶n!")
 (usleep 50000000)
 
 (color 'black)
-(text "A háttérben jelenleg
-a Sierpinski-szõnyeg
-geometriai inverzióval
-transzformált változatát láthatjuk.")
+(text "A hÃ¡ttÃ©rben jelenleg
+a Sierpinski-szÅ‘nyeg
+geometriai inverziÃ³val
+transzformÃ¡lt vÃ¡ltozatÃ¡t lÃ¡thatjuk.")
 (textsleep)
 (usleep 5000000)
-(text "Jól megfigyelhetõ, ahogyan
-az egyenes szakaszok körívekké
-válnak az inverzív síkon.")
+(text "JÃ³l megfigyelhetÅ‘, ahogyan
+az egyenes szakaszok kÃ¶rÃ­vekkÃ©
+vÃ¡lnak az inverzÃ­v sÃ­kon.")
 (textsleep)
-(text "Az is jól látszik, hogy
-a véges területû Sierpinski-szõnyeg
-az inverzió után
-végtelen területûvé változik,
-mivel az alapkör középpontját
-a Sierpinski-szõnyeg
-belsejében vettük fel.")
+(text "Az is jÃ³l lÃ¡tszik, hogy
+a vÃ©ges terÃ¼letÅ± Sierpinski-szÅ‘nyeg
+az inverziÃ³ utÃ¡n
+vÃ©gtelen terÃ¼letÅ±vÃ© vÃ¡ltozik,
+mivel az alapkÃ¶r kÃ¶zÃ©ppontjÃ¡t
+a Sierpinski-szÅ‘nyeg
+belsejÃ©ben vettÃ¼k fel.")
 (textsleep)
 (color 'white)
-(text "Szeretettel köszöntjük
-kedves vendégeinket az
+(text "Szeretettel kÃ¶szÃ¶ntjÃ¼k
+kedves vendÃ©geinket az
 
 EGYETEMI TAVASZ
-a Bolyai Intézetben
+a Bolyai IntÃ©zetben
 
-rendezvényünkön!")
+rendezvÃ©nyÃ¼nkÃ¶n!")
 
 
 (usleep 300000000)
