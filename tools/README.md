@@ -21,6 +21,8 @@ in the script in the first few rows to learn which packages must be
 installed in advance. Also, if you built XaoS via cmake, you need to
 set the build path given as an argument.
 
+When rerunning, remove the output folder first to avoid duplicate logs.
+
 Microsoft Windows
 -----------------
 
