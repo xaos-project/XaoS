@@ -295,8 +295,19 @@ static void ui_fractalinfo(struct uih_context *uih)
     }
     QMap<QString, QString> map;
 
-    // Dictionary of fractaltype and corresponding wiki hypertext link
+    // Dictionary of fractaltype and corresponding wiki hypertext link.
+    // Check https://github.com/xaos-project/XaoS/wiki/Fractal-Types before updating this!
     map["mandel"] = higherpower ? "higher-power-mandelbrots" : "mandelbrot";
+    map["carpet"] = "sierpinski-carpet";
+    map["trice"] = "triceratops";
+    map["koch"] = "koch-snowflake";
+    map["hornflake"] = "spidron-snowflake";
+    map["goldsier"] = "golden-sierpinski";
+    map["circle"] = "circle-7";
+    map["symbarn"] = "symmetric-barnsley";
+    map["mbar"] = "mandelbar";
+    map["mlambda"] = "lambda";
+    map["sier"] = "sierpinski";
     fractalname = map.find(fractalname) != map.end() ? map[fractalname] : fractalname;
 
     QDesktopServices::openUrl(QUrl(FRACTALINFO_URL + fractalname));
