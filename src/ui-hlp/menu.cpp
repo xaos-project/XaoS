@@ -317,7 +317,7 @@ void uih_registermenudialogs_i18n(void)
     NULL_I();
 
     Register(uih_sffeinitdialog);
-    DIALOGSTR_I(TR("Dialog", "Initialization:"), "");
+    DIALOGSTR_I(TR("Dialog", "Initialization:"), "0");
     NULL_I();
 #endif
 
@@ -653,7 +653,7 @@ static menudialog *uih_getsffeinitdialog(struct uih_context *c)
         if (c->fcontext->userinitial->expression)
             uih_sffeinitdialog[0].defstr = c->fcontext->userinitial->expression;
         else
-            uih_sffeinitdialog[0].defstr = "";
+            uih_sffeinitdialog[0].defstr = "0";
     }
     return (uih_sffeinitdialog);
 }

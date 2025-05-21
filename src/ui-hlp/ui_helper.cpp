@@ -2063,7 +2063,8 @@ uih_mkcontext(int flags, struct image *image,
     uih_emulatetimers(uih);
 #ifdef USE_SFFE
     sffe_parse(&uih->fcontext->userformula, USER_FORMULA);
-    sffe_parse(&uih->fcontext->userinitial, "");
+    sffe_parse(&uih->fcontext->userinitial, "0");
+    uih_sffeset(uih, uih->fcontext->userinitial, "0");
 #endif
     uih_setformula(uih, 0);
     uih_saveundo(uih);
@@ -2132,8 +2133,13 @@ void uih_sffeset(uih_context *c, sffe *parser, const char *formula)
             sffe_parse(&parser, previous);
         }
     } else {
+        /*
         if (parser->expression)
             uih_message(c, parser->expression);
+        */
+        // Don't print this. It would make more sense to print
+        // c->fcontext->userformula->expression, but not really necessary.
+
         sffe_setlocal(c->fcontext);
         if (!(c->fcontext->currentformula->flags & SFFE_FRACTAL)) {
             uih_play_formula(c, "user");
@@ -2161,7 +2167,7 @@ void uih_initstate(struct uih_context *uih)
     set_formula(uih->fcontext, 0);
 #ifdef USE_SFFE
     sffe_parse(&uih->fcontext->userformula, USER_FORMULA);
-    sffe_parse(&uih->fcontext->userinitial, "");
+    sffe_parse(&uih->fcontext->userinitial, "0");
 #endif
     uih_setperiodicity(uih, 1);
     uih_setmaxiter(uih, 170);
