@@ -64,6 +64,14 @@
   <launchable type="desktop-id">io.github.xaos_project.XaoS.desktop</launchable>
 
   <releases>
+    <release version="4.3.4" date="2025-05-21">
+      <description>
+        <p>New fractal type (carpet4).</p>
+        <p>Some icons appear in the menus.</p>
+        <p>Several bug fixes.</p>
+      </description>
+      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.3.4</url>
+    </release>
     <release version="4.3.3" date="2024-10-28">
       <description>
         <p>New fractal type (clock) by prrt714.</p>

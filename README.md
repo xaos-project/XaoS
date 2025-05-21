@@ -50,7 +50,7 @@ or implement a new feature yourself, pull requests are very welcome.
 License
 -------
 
-Copyright © 1996-2024 XaoS Contributors
+Copyright © 1996-2025 XaoS Contributors
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

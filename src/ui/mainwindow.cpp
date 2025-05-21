@@ -842,6 +842,97 @@ void MainWindow::buildMenu(const char *name, QMenu *parent, bool numbered)
             QAction *action = new QAction(itemName, parent);
             action->setShortcuts(keyForItem(item->shortname));
             action->setObjectName(item->shortname);
+
+            /* TODO: Do this more elegantly. */
+            if (strcmp(item->shortname, "loadpos") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
+            }
+            if (strcmp(item->shortname, "savepos") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentSave));
+            }
+            if (strcmp(item->shortname, "initstate") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentNew));
+            }
+            if (strcmp(item->shortname, "undo") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditUndo));
+            }
+            if (strcmp(item->shortname, "redo") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditRedo));
+            }
+            if (strcmp(item->shortname, "quit") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ApplicationExit));
+            }
+            if (strcmp(item->shortname, "record") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::MediaRecord));
+            }
+            if (strcmp(item->shortname, "play") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::MediaPlaybackStart));
+            }
+            if (strcmp(item->shortname, "copyurl") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy));
+            }
+            if (strcmp(item->shortname, "about") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout));
+            }
+            if (strcmp(item->shortname, "saveimg") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::InsertImage));
+            }
+            if (strcmp(item->shortname, "updates") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::SoftwareUpdateAvailable));
+            }
+            if (strcmp(item->shortname, "autopilot") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ZoomIn));
+            }
+            if (strcmp(item->shortname, "fullscreen") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ViewFullscreen));
+            }
+            if (strcmp(item->shortname, "command") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::InputKeyboard));
+            }
+            if (strcmp(item->shortname, "feedback") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::MailSend));
+            }
+            if (strcmp(item->shortname, "help") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout)); // HelpFaq would be better, but it does not work
+            }
+            if (strcmp(item->shortname, "xtextcenter") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::FormatJustifyCenter));
+            }
+            if (strcmp(item->shortname, "xtextright") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::FormatJustifyRight));
+            }
+            if (strcmp(item->shortname, "xtextleft") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::FormatJustifyLeft));
+            }
+            if (strcmp(item->shortname, "clearscreen") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditClear));
+            }
+            if (strcmp(item->shortname, "status") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DialogInformation));
+            }
+            if (strcmp(item->shortname, "interrupt") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ProcessStop));
+            }
+            if (strcmp(item->shortname, "mouserotate") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::InputMouse));
+            }
+            if (strcmp(item->shortname, "display") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ViewRestore));
+            }
+            if (strcmp(item->shortname, "uiview") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentProperties));
+            }
+            if (strcmp(item->shortname, "font") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::FormatTextBold));
+            }
+            if (strcmp(item->shortname, "text") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::InsertText));
+            }
+            if (strcmp(item->shortname, "usrform") == 0) {
+                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::InputTablet));
+            }
+            // std::cout << item->shortname << std::endl;
+
             if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX)) {
                 action->setCheckable(true);
                 action->setChecked(menu_enabled(item, uih));

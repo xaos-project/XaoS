@@ -1223,7 +1223,7 @@ void uih_registermenus_i18n(void)
                 UIH_TEXTLEFT, uih_xtextselected);
     MENUINTRB_I("xtextpos", NULL, "Center", "xtextcenter", UI, uih_setxtextpos,
                 UIH_TEXTCENTER, uih_xtextselected);
-    MENUINTRB_I("xtextpos", NULL, "Right", "xtexteight", UI, uih_setxtextpos,
+    MENUINTRB_I("xtextpos", NULL, "Right", "xtextright", UI, uih_setxtextpos,
                 UIH_TEXTRIGHT, uih_xtextselected);
     MENUNOP_I("file", NULL, TR("Menu", "New"), "initstate", 0, uih_initstate);
     MENUDIALOG_I("file", NULL, TR("Menu", "Open"), "loadpos",

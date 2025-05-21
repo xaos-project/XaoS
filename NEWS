@@ -1,3 +1,20 @@
+RELEASE NOTES FOR XAOS VERSION 4.3.4
+------------------------------------
+
+New Features
+============
+
+o New fractal type (carpet4).
+
+o Some icons appear in the menus.
+
+o Fix links for help on current fractal.
+
+o Fix initialization of user formula.
+
+o Fix exported URL for user formula containing additions.
+
+
 RELEASE NOTES FOR XAOS VERSION 4.3.3
 ------------------------------------
 
