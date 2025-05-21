@@ -41,9 +41,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: install-qt
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4
       with:
-        version: '6.2.4'
+        version: '6.8.3'
     - name: qmake
       run: qmake
     - name: make
@@ -54,9 +54,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: install-qt
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4
       with:
-        version: '6.2.4'
+        version: '6.8.3'
     - name: cmake
       run: mkdir cbuild; cd cbuild; cmake ..
     - name: make
