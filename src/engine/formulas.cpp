@@ -1118,6 +1118,46 @@ static unsigned int incolor_output(number_t zre, number_t zim, number_t pre,
 #include "docalc.h"
 
 #define VARIABLES
+#define INIT                                                                   \
+    if ((zre == pre) && (zim == pim)) {                                            \
+        pre = 1;                                                               \
+        pim = 1;                                                               \
+    }                                                                              \
+    if (pre < 0)                                                               \
+        pre = (-pre);                                                          \
+    if (pim < 0)                                                               \
+        pim = (-pim);                                                          \
+    if ((zre < 0) || (zre > pre)) {                                            \
+        zre = pre / 4;                                                         \
+        zim = pim / 4;                                                         \
+    }                                                                          \
+    if ((zim < 0) || (zim > pim)) {                                            \
+        zre = pre / 4;                                                         \
+        zim = pim / 4;                                                         \
+    }
+#define BTEST                                                                  \
+    ((zre < pre / 4) || (zre > 3 * pre / 4) || (zim < pim / 4) ||              \
+     (zim > 3 * pim / 4))
+#define FORMULA                                                                \
+    zre = 4 * zre;                                                             \
+    zim = 4 * zim;                                                             \
+    if (zre > 3 * pre)                                                         \
+        zre = zre - 3 * pre;                                                   \
+    else if (zre > 2 * pre)                                                    \
+    zre = zre - 2 * pre;                                                       \
+    else if (zre > pre)                                                        \
+        zre = zre - pre;                                                       \
+    if (zim > 3 * pim)                                                         \
+        zim = zim - 3 * pim;                                                   \
+    else if (zim > 2 * pim)                                                    \
+        zim = zim - 2 * pim;                                                   \
+    else if (zim > pim)                                                        \
+        zim = zim - pim;
+#define CALC carpet4_calc
+#define RANGE 2
+#include "docalc.h"
+
+#define VARIABLES
 #define BTEST                                                                  \
     ((((1.5 * zre + 0.8660254038 * zim) > 0.8660254038) ||                     \
       ((0.8660254038 * zim - 1.5 * zre) > 0.8660254038) || (zim < (-0.5))) &&  \
@@ -2538,7 +2578,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {
+    { /* formula added by prrt714 *//* 28 */
      FORMULAMAGIC,
      clock_calc,
      NULL,
@@ -2577,7 +2617,7 @@ const struct formula formulas[] = {
       },
      MANDEL_BTRACE,
      },
-    {                           /* formula added by Arpad Fekete *//* 28 */
+    {                           /* formula added by Arpad Fekete *//* 29 */
      FORMULAMAGIC,
      symbarn_calc,
      NULL,
@@ -2618,10 +2658,48 @@ const struct formula formulas[] = {
       {INT_MAX, INT_MAX, 0, NULL},
       },
      MANDEL_BTRACE,
+     },
+    {                           /* formula added by Z. Kovacs, making minor changes on carpet_calc *//* 30 */
+     FORMULAMAGIC,
+     carpet4_calc,
+     NULL,
+     NULL,
+     NULL,
+     NULL,
+     {"Sierpinski Carpet 4", "Sierpinski Carpet 4"},
+     "carpet4",
+     {0.5, 0.5, 1.5, 1.5},
+     0, 0, 1, 1,
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     {
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      {INT_MAX, INT_MAX, 0, NULL},
+      },
+     MANDEL_BTRACE,
      }
-
 #ifdef USE_SFFE
-    , {                         /* formula added by M. Malczak - SFFE *//* 29 */
+    , {                         /* formula added by M. Malczak - SFFE *//* 31 */
        FORMULAMAGIC,
        sffe_calc,
        NULL,
@@ -2674,4 +2752,6 @@ const struct formula formulas[] = {
 
 const struct formula *currentformula;
 const int nformulas = sizeof(formulas) / sizeof(struct formula);
-const int nmformulas = 16; // Is this correct here? -- Zoltan, 2009-07-30
+const int nmformulas = 16; // This is the number of formulas in the main "Formulae" menu.
+// The first formulas go into that menu.
+// The rest will appear in the "More formulae" menu.
