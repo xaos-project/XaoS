@@ -301,7 +301,7 @@ static void ui_fractalinfo(struct uih_context *uih)
     map["carpet"] = "sierpinski-carpet";
     map["trice"] = "triceratops";
     map["koch"] = "koch-snowflake";
-    map["hornflake"] = "spidron-snowflake";
+    map["hornflake"] = "spidron-hornflake";
     map["goldsier"] = "golden-sierpinski";
     map["circle"] = "circle-7";
     map["symbarn"] = "symmetric-barnsley";
