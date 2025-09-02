@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>i18n/XaoS_hy.qm</file>
         <file>i18n/XaoS_cs.qm</file>
         <file>i18n/XaoS_de.qm</file>
         <file>i18n/XaoS_es.qm</file>
@@ -17,6 +18,5 @@
         <file>i18n/XaoS_sv.qm</file>
         <file>i18n/XaoS_tr.qm</file>
         <file>i18n/XaoS_vi.qm</file>
-        <file>i18n/XaoS_hy.qm</file>
     </qresource>
 </RCC>
