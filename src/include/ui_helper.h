@@ -309,23 +309,24 @@ typedef struct uih_context uih_context;
 
 // use the same order here as for language1 and language2
 #define UIH_LANG_SYS_DEFAULT 0
-#define UIH_LANG_CS 1
-#define UIH_LANG_EN 2
-#define UIH_LANG_FR 3
-#define UIH_LANG_DE 4
-#define UIH_LANG_HE 5
-#define UIH_LANG_HI 6
-#define UIH_LANG_HU 7
-#define UIH_LANG_IS 8
-#define UIH_LANG_IT 9
-#define UIH_LANG_PT 10
-#define UIH_LANG_RO 11
-#define UIH_LANG_RU 12
-#define UIH_LANG_RS 13
-#define UIH_LANG_ES 14
-#define UIH_LANG_SV 15
-#define UIH_LANG_TR 16
-#define UIH_LANG_VI 17
+#define UIH_LANG_HY 1
+#define UIH_LANG_CS 2
+#define UIH_LANG_EN 3
+#define UIH_LANG_FR 4
+#define UIH_LANG_DE 5
+#define UIH_LANG_HE 6
+#define UIH_LANG_HI 7
+#define UIH_LANG_HU 8
+#define UIH_LANG_IS 9
+#define UIH_LANG_IT 10
+#define UIH_LANG_PT 11
+#define UIH_LANG_RO 12
+#define UIH_LANG_RU 13
+#define UIH_LANG_RS 14
+#define UIH_LANG_ES 15
+#define UIH_LANG_SV 16
+#define UIH_LANG_TR 17
+#define UIH_LANG_VI 18
 
 #define RANDOM_PALETTE_SIZE 1
 #define FULLSCREEN 2
