@@ -15,6 +15,7 @@
 - [Tim Goodwin](mailto:tgoodwin@cygnus.co.uk): english.cat corrections
 - [Asher Gordon](mailto:AsDaGo@posteo.net): Bugfix for rendering files in a subdirectory
 - [Jonas Hall](mailto:jonas.hall@norrtalje.se): Swedish translation
+- [Davit Harutyunyan](mailto:rezocrypt@gmail.com): Armenian translation
 - Ben Hines: autoconf suggestions, Mac OS X port
 - [Jan Hubička](mailto:jh@ucw.cz): Zooming routines, ugly interface, palettes, drivers, autopilot, filters, documentation, tutorials etc.
 - [iaoesch](https://github.com/iaoesch): Outcoloring mode smoothlog

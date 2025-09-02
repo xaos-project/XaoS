@@ -421,7 +421,7 @@ static int ui_fullscreenselected(struct uih_context *uih)
 #endif
 
 /* WARNING: Increase this number in case there are new menu items added. */
-#define MAX_MENUITEMS_I18N 37  
+#define MAX_MENUITEMS_I18N 37
 /* These variables must be global: */
 static menuitem *menuitems;
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
@@ -554,7 +554,6 @@ static void ui_registermenus_i18n(void)
                 UIH_LANG_TR, ui_languageselected);
     MENUINTRB_I("setlang", NULL, "Vietnamese", "vi", UI, uih_setlanguage,
                 UIH_LANG_VI, ui_languageselected);
-    
 
     MENUSEPARATOR_I("ui");
     MENUSEPARATOR_I("uia");
