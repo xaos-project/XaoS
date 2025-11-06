@@ -64,6 +64,12 @@
   <launchable type="desktop-id">io.github.xaos_project.XaoS.desktop</launchable>
 
   <releases>
+    <release version="4.3.5" date="2025-11-06">
+      <description>
+        <p>Armenian translation.</p>
+      </description>
+      <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.3.5</url>
+    </release>
     <release version="4.3.4" date="2025-05-21">
       <description>
         <p>New fractal type (carpet4).</p>
