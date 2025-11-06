@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# This script sets the document title for the WebAssembly version in xaos.js,
+# This script sets the document title for the WebAssembly version in xaos.js
+# if a message is sent to stdout (starting with "STATUS: "),
 # and it copies the correct qtlogo.svg to the same folder.
 
 set -e
@@ -16,12 +17,21 @@ test "$2/xaos.js" || {
  }
 
 # This will not work on macOS, FIXME:
+grep --silent "if (Module\[\"print\"\]) out" $2/xaos.js && (
+# Since 6.10:
+sed -i 's/if (Module\["print"\]) out = Module\["print"\]/out = function mymessage(t) {\
+  let statustext = "STATUS: ";\
+  if (t.startsWith(statustext)) document.title = t.substring(statustext.length);\
+  }\
+/' "$2/xaos.js" ) || (
+# For earlier Qt versions (prior to 6.10):
 sed -i 's/Module\["print"\]/\
  function mymessage(t) {\
   let statustext = "STATUS: ";\
   if (t.startsWith(statustext)) document.title = t.substring(statustext.length);\
   }\
 /' "$2/xaos.js"
+)
 # For a workaround on macOS, see https://stackoverflow.com/questions/12696125/sed-edit-file-in-place
 
 cp "$1/src/ui/images/qtlogo.svg" "$2"
