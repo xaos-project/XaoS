@@ -23,10 +23,16 @@ void hextorgb (char *hexcolor, rgb_t color) {
 }
 
 static QFont getFont(void *font) {
+    QFont qfont;
     if (font)
-        return *reinterpret_cast<QFont *>(font);
+        qfont = *reinterpret_cast<QFont *>(font);
     else
-        return QFont(QApplication::font().family(), 12);
+        qfont = QFont(QApplication::font().family(), 12);
+
+    // Scale font size for high-DPI rendering
+    qreal dpr = qApp->devicePixelRatio();
+    qfont.setPointSizeF(qfont.pointSizeF() * dpr);
+    return qfont;
 }
 
 int xprint(struct image *image, void *font, int x, int y,
@@ -40,6 +46,8 @@ int xprint(struct image *image, void *font, int x, int y,
     QImage *qimage = reinterpret_cast<QImage **>(image->data)[image->currimage];
     QFontMetrics metrics(getFont(font), qimage);
     QPainter painter(qimage);
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.setRenderHint(QPainter::TextAntialiasing, true);
     painter.setFont(getFont(font));
 
     if (mode == TEXT_PRESSED) {
@@ -111,11 +119,15 @@ static void freeImage(struct image *img)
 struct image *create_image_qt(int width, int height, struct palette *palette,
                               float pixelwidth, float pixelheight)
 {
+    qreal dpr = qApp->devicePixelRatio();
+    int physicalWidth = width * dpr;
+    int physicalHeight = height * dpr;
+
     QImage **data = new QImage *[2];
-    data[0] = new QImage(width, height, QImage::Format_RGB32);
-    data[1] = new QImage(width, height, QImage::Format_RGB32);
+    data[0] = new QImage(physicalWidth, physicalHeight, QImage::Format_RGB32);
+    data[1] = new QImage(physicalWidth, physicalHeight, QImage::Format_RGB32);
     struct image *img = create_image_cont(
-        width, height, data[0]->bytesPerLine(), 2, data[0]->bits(),
+        physicalWidth, physicalHeight, data[0]->bytesPerLine(), 2, data[0]->bits(),
         data[1]->bits(), palette, NULL, 0, pixelwidth, pixelheight);
     if (!img) {
         delete data[0];
