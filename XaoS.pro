@@ -15,6 +15,7 @@ QT += widgets
 
 macx {
     TARGET = XaoS
+    QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
 } else {
     TARGET = xaos
 }
