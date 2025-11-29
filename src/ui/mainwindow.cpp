@@ -843,7 +843,7 @@ void MainWindow::buildMenu(const char *name, QMenu *parent, bool numbered)
             action->setShortcuts(keyForItem(item->shortname));
             action->setObjectName(item->shortname);
 
-#if QT_VERSION >= 0x060700
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
             /* TODO: Do this more elegantly. */
             if (strcmp(item->shortname, "loadpos") == 0) {
                 action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
@@ -1476,7 +1476,7 @@ void MainWindow::showDialog(const char *name)
     }
 }
 
-#ifdef __wasm
+#if defined(__wasm) && QT_VERSION < QT_VERSION_CHECK(6, 10, 0)
 #define STATUS_VIA_STDOUT
 //#define STATUS_VIA_PROGRESSBAR
 #else
