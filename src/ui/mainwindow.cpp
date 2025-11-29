@@ -1522,6 +1522,7 @@ void MainWindow::showStatus(const char *text)
     if (newProgress) {
         qProgressDialog = new QProgressDialog(this);
     } else {
+        qProgressDialog->setMinimumWidth(400);
         qProgressDialog->setValue(progress);
         qProgressDialog->setMinimumDuration(0);
         QString t = QString(text).trimmed();
