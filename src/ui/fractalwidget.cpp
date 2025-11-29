@@ -16,7 +16,10 @@ FractalWidget::FractalWidget()
     setAttribute(Qt::WA_OpaquePaintEvent, true);
 }
 
-QPointF FractalWidget::mousePosition() { return m_mousePosition; }
+QPointF FractalWidget::mousePosition() {
+    qreal dpr = devicePixelRatio();
+    return QPointF(m_mousePosition.x() * dpr, m_mousePosition.y() * dpr);
+}
 
 void FractalWidget::setImage(struct image *image) { m_image = image; }
 
@@ -55,7 +58,10 @@ void FractalWidget::paintEvent(QPaintEvent */*event*/)
         QImage *qimage =
             reinterpret_cast<QImage **>(m_image->data)[m_image->currimage];
         painter.setCompositionMode(QPainter::CompositionMode_Source);
-        painter.drawImage(0, 0, *qimage);
+
+        // Scale the high-DPI image to fit the logical widget size
+        QRect targetRect(0, 0, width(), height());
+        painter.drawImage(targetRect, *qimage);
     }
 }
 #endif
