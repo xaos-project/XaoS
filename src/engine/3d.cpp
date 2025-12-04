@@ -18,29 +18,8 @@ struct threeddata {
     unsigned int stereogrammode;
 };
 
-#define spixel_t pixel16_t
-#include "c256.h"
-#define do_3d do_3d8
-#define convert_3d convert_3d8
-#define convertup_3d convertup_3d8
-#include "3dd.h"
-
-#include "truecolor.h"
-#define do_3d do_3d32
-#define convert_3d convert_3d32
-#define convertup_3d convertup_3d32
-#include "3dd.h"
-
-#include "true24.h"
-#define do_3d do_3d24
-#define convert_3d convert_3d24
-#define convertup_3d convertup_3d24
-#include "3dd.h"
-
-#include "hicolor.h"
-#define do_3d do_3d16
-#define convert_3d convert_3d16
-#define convertup_3d convertup_3d16
+/* Repeated inclusions of 3dd.h replaced with C++ templates */
+#include "pixel_traits.h"
 #include "3dd.h"
 
 static int requirement(struct filter *f, struct requirements *r)
@@ -175,10 +154,10 @@ static int doit(struct filter *f, int flags, int time)
     }
     updateinheredimage(f);
     val = f->previous->action->doit(f->previous, flags, time);
-    drivercall(*f->image, xth_function(do_3d8, f, f->image->width),
-               xth_function(do_3d16, f, f->image->width),
-               xth_function(do_3d24, f, f->image->width),
-               xth_function(do_3d32, f, f->image->width));
+    drivercall(*f->image, xth_function(tpl::do_3d<Pixel8Traits>, f, f->image->width),
+               xth_function(tpl::do_3d<Pixel16Traits>, f, f->image->width),
+               xth_function(tpl::do_3d<Pixel24Traits>, f, f->image->width),
+               xth_function(tpl::do_3d<Pixel32Traits>, f, f->image->width));
     xth_sync();
     return val;
 }
@@ -197,15 +176,19 @@ static void myremove(struct filter *f)
 
 static void convertup(struct filter *f, int *x, int *y)
 {
-    drivercall(*f->image, convertup_3d8(f, x, y), convertup_3d16(f, x, y),
-               convertup_3d24(f, x, y), convertup_3d32(f, x, y));
+    drivercall(*f->image, tpl::convertup_3d<Pixel8Traits>(f, x, y),
+               tpl::convertup_3d<Pixel16Traits>(f, x, y),
+               tpl::convertup_3d<Pixel24Traits>(f, x, y),
+               tpl::convertup_3d<Pixel32Traits>(f, x, y));
     f->next->action->convertup(f->next, x, y);
 }
 
 static void convertdown(struct filter *f, int *x, int *y)
 {
-    drivercall(*f->image, convert_3d8(f, x, y), convert_3d16(f, x, y),
-               convert_3d24(f, x, y), convert_3d32(f, x, y));
+    drivercall(*f->image, tpl::convert_3d<Pixel8Traits>(f, x, y),
+               tpl::convert_3d<Pixel16Traits>(f, x, y),
+               tpl::convert_3d<Pixel24Traits>(f, x, y),
+               tpl::convert_3d<Pixel32Traits>(f, x, y));
     if (f->previous != NULL)
         f->previous->action->convertdown(f->previous, x, y);
 }

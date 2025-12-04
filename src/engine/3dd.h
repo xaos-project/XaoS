@@ -1,12 +1,23 @@
-#ifndef UNSUPPORTED
+/*
+ * Templated versions of 3D conversion and rendering functions for different pixel depths.
+ * Replaces the old preprocessor-based approach with type-safe templates.
+ */
+#include "pixel_traits.h"
+
+namespace tpl {
+
+template <typename PixelTraits>
 static void convert_3d(struct filter *f, int *x1, int *y1)
 {
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+
     struct threeddata *data = (struct threeddata *)f->data;
     int y;
     int x = *x1;
     unsigned int inp;
     unsigned int height = data->height;
-    const spixel_t *input;
+    const pixel16_t *input;
     if (x >= f->childimage->width - 5 || x < 0 || *y1 > f->childimage->height) {
         *x1 += *y1 / 2;
         return;
@@ -15,13 +26,13 @@ static void convert_3d(struct filter *f, int *x1, int *y1)
         x = 0;
     for (y = f->childimage->height - 3; y >= 0; y--) {
         int d;
-        input = ((spixel_t *)f->childimage->currlines[y] + y / 2);
+        input = ((pixel16_t *)f->childimage->currlines[y] + y / 2);
         inp = (input[x] + input[x + 1] + input[x + 2] + input[x + 3] +
                input[x + 4] + input[x + 5]);
-        input = ((spixel_t *)f->childimage->currlines[y + 1] + y / 2);
+        input = ((pixel16_t *)f->childimage->currlines[y + 1] + y / 2);
         inp += (input[x] + input[x + 1] + input[x + 2] + input[x + 3] +
                 input[x + 4] + input[x + 5]);
-        input = ((spixel_t *)f->childimage->currlines[y + 2] + y / 2);
+        input = ((pixel16_t *)f->childimage->currlines[y + 2] + y / 2);
         inp += (input[x] + input[x + 1] + input[x + 2] + input[x + 3] +
                 input[x + 4] + input[x + 5]);
         d = y - (inp / 16 > height ? height : inp / 16);
@@ -35,14 +46,18 @@ static void convert_3d(struct filter *f, int *x1, int *y1)
     return;
 }
 
+template <typename PixelTraits>
 static void convertup_3d(struct filter *f, int *x1, int *y1)
 {
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+
     struct threeddata *data = (struct threeddata *)f->data;
     int y = *y1;
     int x = *x1;
     unsigned int inp;
     unsigned int height = data->height;
-    const spixel_t *input;
+    const pixel16_t *input;
     if (x >= f->childimage->width - 5)
         x = f->childimage->width - 6;
     if (y >= f->childimage->height - 3)
@@ -51,28 +66,34 @@ static void convertup_3d(struct filter *f, int *x1, int *y1)
         x = 0;
     if (y < 0)
         y = 0;
-    input = ((spixel_t *)f->childimage->currlines[y] + y / 2);
+    input = ((pixel16_t *)f->childimage->currlines[y] + y / 2);
     inp = (input[x] + input[x + 1] + input[x + 2] + input[x + 3] +
            input[x + 4] + input[x + 5]);
-    input = ((spixel_t *)f->childimage->currlines[y + 1] + y / 2);
+    input = ((pixel16_t *)f->childimage->currlines[y + 1] + y / 2);
     inp += (input[x] + input[x + 1] + input[x + 2] + input[x + 3] +
             input[x + 4] + input[x + 5]);
-    input = ((spixel_t *)f->childimage->currlines[y + 2] + y / 2);
+    input = ((pixel16_t *)f->childimage->currlines[y + 2] + y / 2);
     inp += (input[x] + input[x + 1] + input[x + 2] + input[x + 3] +
             input[x + 4] + input[x + 5]);
     *x1 -= *y1 / 2;
     *y1 = y - (inp / 16 > height ? height : inp / 16);
 }
 
+template <typename PixelTraits>
 static void do_3d(void *dataptr, struct taskinfo */*task*/, int r1, int r2)
 {
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+    using ppixel_t = typename p::ppixel_t;
+    using pixeldata_t = typename p::pixeldata_t;
+
     struct filter *f = (struct filter *)dataptr;
     unsigned int y;
     int maxinp = 0;
     unsigned int x;
     unsigned int end;
     unsigned int sum;
-    spixel_t const *input;
+    pixel16_t const *input;
     unsigned int *lengths;
     unsigned int *sums;
     unsigned int *relsums;
@@ -85,7 +106,7 @@ static void do_3d(void *dataptr, struct taskinfo */*task*/, int r1, int r2)
     unsigned int midcolor = data->midcolor;
     unsigned int darkcolor = data->darkcolor;
     const unsigned int *pixels = data->pixels;
-    cpixel_t **currlines = (cpixel_t **)f->image->currlines;
+    ppixel_t *currlines = (ppixel_t *)f->image->currlines;
     struct inp {
         int max;
         unsigned int down;
@@ -103,7 +124,7 @@ static void do_3d(void *dataptr, struct taskinfo */*task*/, int r1, int r2)
     end = r2;
     for (y = f->childimage->height - 2; y > 0;) {
         y--;
-        input = ((spixel_t *)f->childimage->currlines[y] + y / 2);
+        input = ((pixel16_t *)f->childimage->currlines[y] + y / 2);
         x = r1;
         relsums = sums + (y & 1);
 
@@ -161,7 +182,7 @@ static void do_3d(void *dataptr, struct taskinfo */*task*/, int r1, int r2)
                                              : 0];
                 }
                 for (y1 = lengths[x]; y1 >= (int)d; y1--) {
-                    p_setp(currlines[y1], x, color);
+                    p::setp(currlines[y1], x, color);
                 }
                 lengths[x] = d;
             }
@@ -172,7 +193,5 @@ static void do_3d(void *dataptr, struct taskinfo */*task*/, int r1, int r2)
     free(inpdata);
     free(sums);
 }
-#endif
-#undef do_3d
-#undef convert_3d
-#undef convertup_3d
+
+} // namespace tpl
