@@ -21,17 +21,8 @@ static inline unsigned int myrandom(void)
 }
 
 #define IMAGETYPE SMALLITER
-#include "c256.h"
-#define do_starfield do_starfield8
-#include "stard.h"
-#include "hicolor.h"
-#define do_starfield do_starfield16
-#include "stard.h"
-#include "true24.h"
-#define do_starfield do_starfield24
-#include "stard.h"
-#include "truecolor.h"
-#define do_starfield do_starfield32
+/* Repeated inclusions of stard.h replaced with C++ templates */
+#include "pixel_traits.h"
 #include "stard.h"
 static int requirement(struct filter *f, struct requirements *r)
 {
@@ -83,10 +74,10 @@ static int doit(struct filter *f, int flags, int time)
 {
     int val;
     val = f->previous->action->doit(f->previous, flags, time);
-    drivercall(*f->image, xth_function(do_starfield8, f, f->image->height),
-               xth_function(do_starfield16, f, f->image->height),
-               xth_function(do_starfield24, f, f->image->height),
-               xth_function(do_starfield32, f, f->image->height));
+    drivercall(*f->image, xth_function(tpl::do_starfield<Pixel8Traits>, f, f->image->height),
+               xth_function(tpl::do_starfield<Pixel16Traits>, f, f->image->height),
+               xth_function(tpl::do_starfield<Pixel24Traits>, f, f->image->height),
+               xth_function(tpl::do_starfield<Pixel32Traits>, f, f->image->height));
     xth_sync();
     return val | CHANGED;
 }
