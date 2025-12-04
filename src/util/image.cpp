@@ -258,49 +258,111 @@ void clear_image(struct image *img)
         }
 }
 
-#define drawchar drawchar8
-#define hline hline8
-#define vline vline8
-#define rectangle rectangle8
-#define savevline savevline8
-#define restorevline restorevline8
-#define line line8
-#define saveline saveline8
-#define restoreline restoreline8
+/* Repeated inclusions of grlibd.h replaced with C++ templates */
+#undef bpp  /* Avoid conflict with pixel_traits.h */
+#include "pixel_traits.h"
 #include "grlibd.h"
-#include "hicolor.h"
-#define drawchar drawchar16
-#define hline hline16
-#define vline vline16
-#define rectangle rectangle16
-#define savevline savevline16
-#define restorevline restorevline16
-#define line line16
-#define saveline saveline16
-#define restoreline restoreline16
-#include "grlibd.h"
-#include "true24.h"
-#define drawchar drawchar24
-#define hline hline24
-#define vline vline24
-#define rectangle rectangle24
-#define savevline savevline24
-#define restorevline restorevline24
-#define line line24
-#define saveline saveline24
-#define restoreline restoreline24
-#include "grlibd.h"
-#include "truecolor.h"
-#define drawchar drawchar32
-#define hline hline32
-#define vline vline32
-#define rectangle rectangle32
-#define savevline savevline32
-#define restorevline restorevline32
-#define line line32
-#define saveline saveline32
-#define restoreline restoreline32
-#include "grlibd.h"
+
+/* Instantiate template functions for each pixel depth */
+static inline void hline8(struct image *img, int x, int y, int length, int fgcolor) {
+    tpl::hline<Pixel8Traits>(img, x, y, length, fgcolor);
+}
+static inline void vline8(struct image *img, int x, int y, int length, int fgcolor) {
+    tpl::vline<Pixel8Traits>(img, x, y, length, fgcolor);
+}
+static inline void rectangle8(struct image *img, int x, int y, int width, int height, int fgcolor) {
+    tpl::rectangle<Pixel8Traits>(img, x, y, width, height, fgcolor);
+}
+static inline char *savevline8(struct image *img, int x, int y, int length) {
+    return tpl::savevline<Pixel8Traits>(img, x, y, length);
+}
+static inline void restorevline8(struct image *img, char *saved, int x, int y, int length) {
+    tpl::restorevline<Pixel8Traits>(img, saved, x, y, length);
+}
+static inline void line8(struct image *img, int x, int y, int x2, int y2, int color) {
+    tpl::line<Pixel8Traits>(img, x, y, x2, y2, color);
+}
+static inline char *saveline8(struct image *img, int x, int y, int x2, int y2) {
+    return tpl::saveline<Pixel8Traits>(img, x, y, x2, y2);
+}
+static inline void restoreline8(struct image *img, char *saved, int x, int y, int x2, int y2) {
+    tpl::restoreline<Pixel8Traits>(img, saved, x, y, x2, y2);
+}
+
+static inline void hline16(struct image *img, int x, int y, int length, int fgcolor) {
+    tpl::hline<Pixel16Traits>(img, x, y, length, fgcolor);
+}
+static inline void vline16(struct image *img, int x, int y, int length, int fgcolor) {
+    tpl::vline<Pixel16Traits>(img, x, y, length, fgcolor);
+}
+static inline void rectangle16(struct image *img, int x, int y, int width, int height, int fgcolor) {
+    tpl::rectangle<Pixel16Traits>(img, x, y, width, height, fgcolor);
+}
+static inline char *savevline16(struct image *img, int x, int y, int length) {
+    return tpl::savevline<Pixel16Traits>(img, x, y, length);
+}
+static inline void restorevline16(struct image *img, char *saved, int x, int y, int length) {
+    tpl::restorevline<Pixel16Traits>(img, saved, x, y, length);
+}
+static inline void line16(struct image *img, int x, int y, int x2, int y2, int color) {
+    tpl::line<Pixel16Traits>(img, x, y, x2, y2, color);
+}
+static inline char *saveline16(struct image *img, int x, int y, int x2, int y2) {
+    return tpl::saveline<Pixel16Traits>(img, x, y, x2, y2);
+}
+static inline void restoreline16(struct image *img, char *saved, int x, int y, int x2, int y2) {
+    tpl::restoreline<Pixel16Traits>(img, saved, x, y, x2, y2);
+}
+
+static inline void hline24(struct image *img, int x, int y, int length, int fgcolor) {
+    tpl::hline<Pixel24Traits>(img, x, y, length, fgcolor);
+}
+static inline void vline24(struct image *img, int x, int y, int length, int fgcolor) {
+    tpl::vline<Pixel24Traits>(img, x, y, length, fgcolor);
+}
+static inline void rectangle24(struct image *img, int x, int y, int width, int height, int fgcolor) {
+    tpl::rectangle<Pixel24Traits>(img, x, y, width, height, fgcolor);
+}
+static inline char *savevline24(struct image *img, int x, int y, int length) {
+    return tpl::savevline<Pixel24Traits>(img, x, y, length);
+}
+static inline void restorevline24(struct image *img, char *saved, int x, int y, int length) {
+    tpl::restorevline<Pixel24Traits>(img, saved, x, y, length);
+}
+static inline void line24(struct image *img, int x, int y, int x2, int y2, int color) {
+    tpl::line<Pixel24Traits>(img, x, y, x2, y2, color);
+}
+static inline char *saveline24(struct image *img, int x, int y, int x2, int y2) {
+    return tpl::saveline<Pixel24Traits>(img, x, y, x2, y2);
+}
+static inline void restoreline24(struct image *img, char *saved, int x, int y, int x2, int y2) {
+    tpl::restoreline<Pixel24Traits>(img, saved, x, y, x2, y2);
+}
+
+static inline void hline32(struct image *img, int x, int y, int length, int fgcolor) {
+    tpl::hline<Pixel32Traits>(img, x, y, length, fgcolor);
+}
+static inline void vline32(struct image *img, int x, int y, int length, int fgcolor) {
+    tpl::vline<Pixel32Traits>(img, x, y, length, fgcolor);
+}
+static inline void rectangle32(struct image *img, int x, int y, int width, int height, int fgcolor) {
+    tpl::rectangle<Pixel32Traits>(img, x, y, width, height, fgcolor);
+}
+static inline char *savevline32(struct image *img, int x, int y, int length) {
+    return tpl::savevline<Pixel32Traits>(img, x, y, length);
+}
+static inline void restorevline32(struct image *img, char *saved, int x, int y, int length) {
+    tpl::restorevline<Pixel32Traits>(img, saved, x, y, length);
+}
+static inline void line32(struct image *img, int x, int y, int x2, int y2, int color) {
+    tpl::line<Pixel32Traits>(img, x, y, x2, y2, color);
+}
+static inline char *saveline32(struct image *img, int x, int y, int x2, int y2) {
+    return tpl::saveline<Pixel32Traits>(img, x, y, x2, y2);
+}
+static inline void restoreline32(struct image *img, char *saved, int x, int y, int x2, int y2) {
+    tpl::restoreline<Pixel32Traits>(img, saved, x, y, x2, y2);
+}
 
 void xhline(struct image *image, int x, int y, int width, int fgcolor)
 {
