@@ -9,23 +9,8 @@
 #include "xthread.h"
 #include "filter.h"
 
-#define spixel_t pixel8_t
-#include "c256.h"
-#define do_edge do_edge8
-#include "edge2d.h"
-
-#undef spixel_t
-#define spixel_t pixel16_t
-#include "truecolor.h"
-#define do_edge do_edge32
-#include "edge2d.h"
-
-#include "true24.h"
-#define do_edge do_edge24
-#include "edge2d.h"
-
-#include "hicolor.h"
-#define do_edge do_edge16
+/* Repeated inclusions of edge2d.h replaced with C++ templates */
+#include "pixel_traits.h"
 #include "edge2d.h"
 
 static int requirement(struct filter *f, struct requirements *r)
@@ -79,10 +64,10 @@ static int doit(struct filter *f, int flags, int time)
                          ((struct palette *)f->data)->version++;
     updateinheredimage(f);
     val = f->previous->action->doit(f->previous, flags, time);
-    drivercall(*f->image, xth_function(do_edge8, f, f->image->height),
-               xth_function(do_edge16, f, f->image->height),
-               xth_function(do_edge24, f, f->image->height),
-               xth_function(do_edge32, f, f->image->height));
+    drivercall(*f->image, xth_function(tpl::do_edge2<Pixel8Traits>, f, f->image->height),
+               xth_function(tpl::do_edge2<Pixel16Traits>, f, f->image->height),
+               xth_function(tpl::do_edge2<Pixel24Traits>, f, f->image->height),
+               xth_function(tpl::do_edge2<Pixel32Traits>, f, f->image->height));
     xth_sync();
     return val;
 }
