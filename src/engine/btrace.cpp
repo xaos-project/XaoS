@@ -259,35 +259,8 @@ static pixel32_t calculatepixel(int x, int y, int peri)
 #else
 #define calculatepixel(x, y, peri) (calculate(xcoord[x], ycoord[y], peri))
 #endif
-#define putpixel(x, y, c) p_setp((cpixel_t *)cimage.currlines[y], x, c)
-#define getpixel(x, y) p_getp((cpixel_t *)cimage.currlines[y], x)
-#include "c256.h"
-#define tracecolor tracecolor8
-#define tracepoint tracepoint8
-#define dosymmetries dosymmetries8
-#define queue queue8
-#define bfill bfill8
-#include "btraced.h"
-#include "hicolor.h"
-#define tracecolor tracecolor16
-#define tracepoint tracepoint16
-#define dosymmetries dosymmetries16
-#define queue queue16
-#define bfill bfill16
-#include "btraced.h"
-#include "true24.h"
-#define tracecolor tracecolor24
-#define tracepoint tracepoint24
-#define dosymmetries dosymmetries24
-#define queue queue24
-#define bfill bfill24
-#include "btraced.h"
-#include "truecolor.h"
-#define tracecolor tracecolor32
-#define tracepoint tracepoint32
-#define dosymmetries dosymmetries32
-#define queue queue32
-#define bfill bfill32
+/* Repeated inclusions of btraced.h replaced with C++ templates */
+#include "pixel_traits.h"
 #include "btraced.h"
 #include "i18n.h"
 
@@ -327,28 +300,28 @@ static int tracerectangle2(int x1, int y1, int x2, int y2)
     yend = y2;
     switch (cimage.bytesperpixel) {
         case 1:
-            xth_function(queue8, NULL, 1);
+            xth_function(tpl::queue<Pixel8Traits>, NULL, 1);
             xth_sync();
-            xth_function(bfill8, NULL, yend - ystart - 1);
+            xth_function(tpl::bfill<Pixel8Traits>, NULL, yend - ystart - 1);
             break;
 #ifdef SUPPORT16
         case 2:
-            xth_function(queue16, NULL, 1);
+            xth_function(tpl::queue<Pixel16Traits>, NULL, 1);
             xth_sync();
-            xth_function(bfill16, NULL, yend - ystart - 1);
+            xth_function(tpl::bfill<Pixel16Traits>, NULL, yend - ystart - 1);
             break;
 #endif
 #ifdef STRUECOLOR24
         case 3:
-            xth_function(queue24, NULL, 1);
+            xth_function(tpl::queue<Pixel24Traits>, NULL, 1);
             xth_sync();
-            xth_function(bfill24, NULL, yend - ystart - 1);
+            xth_function(tpl::bfill<Pixel24Traits>, NULL, yend - ystart - 1);
             break;
 #endif
         case 4:
-            xth_function(queue32, NULL, 1);
+            xth_function(tpl::queue<Pixel32Traits>, NULL, 1);
             xth_sync();
-            xth_function(bfill32, NULL, yend - ystart - 1);
+            xth_function(tpl::bfill<Pixel32Traits>, NULL, yend - ystart - 1);
             break;
     }
     xth_sync();
@@ -387,7 +360,7 @@ static int tracerectangle(int x1, int y1, int x2, int y2)
                 calc = calculated + y * CALCWIDTH;
                 for (x = x1; x <= x2; x++)
                     if (!calc[x]) {
-                        tracecolor8(x1, y1, x2, y2, x, y);
+                        tpl::tracecolor<Pixel8Traits>(x1, y1, x2, y2, x, y);
                     }
                 cfilter.pos = y - y1;
                 callwait();
@@ -403,7 +376,7 @@ static int tracerectangle(int x1, int y1, int x2, int y2)
                 calc = calculated + y * CALCWIDTH;
                 for (x = x1; x <= x2; x++)
                     if (!calc[x]) {
-                        tracecolor16(x1, y1, x2, y2, x, y);
+                        tpl::tracecolor<Pixel16Traits>(x1, y1, x2, y2, x, y);
                     }
                 cfilter.pos = y - y1;
                 callwait();
@@ -420,7 +393,7 @@ static int tracerectangle(int x1, int y1, int x2, int y2)
                 calc = calculated + y * CALCWIDTH;
                 for (x = x1; x <= x2; x++)
                     if (!calc[x]) {
-                        tracecolor24(x1, y1, x2, y2, x, y);
+                        tpl::tracecolor<Pixel24Traits>(x1, y1, x2, y2, x, y);
                     }
                 cfilter.pos = y - y1;
                 callwait();
@@ -435,7 +408,7 @@ static int tracerectangle(int x1, int y1, int x2, int y2)
                 calc = calculated + y * CALCWIDTH;
                 for (x = x1; x <= x2; x++)
                     if (!calc[x]) {
-                        tracecolor32(x1, y1, x2, y2, x, y);
+                        tpl::tracecolor<Pixel32Traits>(x1, y1, x2, y2, x, y);
                     }
                 cfilter.pos = y - y1;
                 callwait();
@@ -525,10 +498,10 @@ int boundarytrace(int x1, int y1, int x2, int y2, number_t *xpos,
         return 0;
     }
     free(calculated);
-    drivercall(cimage, dosymmetries8(x1, x2, y1, y2, xsym, cx1, cx2),
-               dosymmetries16(x1, x2, y1, y2, xsym, cx1, cx2),
-               dosymmetries24(x1, x2, y1, y2, xsym, cx1, cx2),
-               dosymmetries32(x1, x2, y1, y2, xsym, cx1, cx2));
+    drivercall(cimage, tpl::dosymmetries<Pixel8Traits>(x1, x2, y1, y2, xsym, cx1, cx2),
+               tpl::dosymmetries<Pixel16Traits>(x1, x2, y1, y2, xsym, cx1, cx2),
+               tpl::dosymmetries<Pixel24Traits>(x1, x2, y1, y2, xsym, cx1, cx2),
+               tpl::dosymmetries<Pixel32Traits>(x1, x2, y1, y2, xsym, cx1, cx2));
     for (i = cx1; i <= cx2; i++) {
         if (xsym != -1) {
             i1 = 2 * xsym - i;

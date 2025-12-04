@@ -1,17 +1,29 @@
-#ifndef UNSUPPORTED
+/*
+ * Templated versions of boundary trace functions for different pixel depths.
+ * Replaces the old preprocessor-based approach with type-safe templates.
+ */
+#include "pixel_traits.h"
 
+namespace tpl {
+
+template <typename PixelTraits>
 static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 {
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+    using ppixel_t = typename p::ppixel_t;
+    using pixeldata_t = typename p::pixeldata_t;
+
     int dir = RIGHT, fill = 0;
     unsigned char *calc;
     int peri = 0;
-    cpixeldata_t c = (cpixeldata_t)calculatepixel(x, y, 0);
-    cpixeldata_t w = (cpixeldata_t)0;
-    cpixeldata_t inset = (cpixeldata_t)cpalette.pixels[0];
-    putpixel(x, y, c);
+    pixeldata_t c = (pixeldata_t)calculatepixel(x, y, 0);
+    pixeldata_t w = (pixeldata_t)0;
+    pixeldata_t inset = (pixeldata_t)cpalette.pixels[0];
+    p::setp((ppixel_t)cimage.currlines[y], x, c);
     calc = calculated + x + y * CALCWIDTH;
     *calc = (unsigned char)1;
-    while (x > xstart && getpixel(x - 1, y) == c)
+    while (x > xstart && p::getp((ppixel_t)cimage.currlines[y], x - 1) == c)
         x--, calc--;
     *calc = (unsigned char)2;
     if (c == inset)
@@ -19,17 +31,17 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
     do {
         if (!fill && !*calc) {
             *calc = (unsigned char)1;
-            putpixel(x, y, c);
+            p::setp((ppixel_t)cimage.currlines[y], x, c);
         }
         switch (dir) {
             case RIGHT:
                 if (y > ystart) {
                     if (!*(calc - CALCWIDTH)) {
-                        w = (cpixeldata_t)calculatepixel(x, y - 1, peri);
-                        putpixel(x, y - 1, w);
+                        w = (pixeldata_t)calculatepixel(x, y - 1, peri);
+                        p::setp((ppixel_t)cimage.currlines[y - 1], x, w);
                         *(calc - CALCWIDTH) = (unsigned char)1;
                     } else
-                        w = getpixel(x, y - 1);
+                        w = p::getp((ppixel_t)cimage.currlines[y - 1], x);
                     if (w == c) {
                         dir = UP;
                         calc -= CALCWIDTH;
@@ -40,11 +52,11 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 
                 if (x < xend) {
                     if (!*(calc + 1)) {
-                        w = (cpixeldata_t)calculatepixel(x + 1, y, peri);
-                        putpixel(x + 1, y, w);
+                        w = (pixeldata_t)calculatepixel(x + 1, y, peri);
+                        p::setp((ppixel_t)cimage.currlines[y], x + 1, w);
                         *(calc + 1) = (unsigned char)1;
                     } else
-                        w = getpixel(x + 1, y);
+                        w = p::getp((ppixel_t)cimage.currlines[y], x + 1);
                     if (w == c) {
                         calc++;
                         x++;
@@ -54,11 +66,11 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 
                 if (y < yend) {
                     if (!*(calc + CALCWIDTH)) {
-                        w = (cpixeldata_t)calculatepixel(x, y + 1, peri);
-                        putpixel(x, y + 1, w);
+                        w = (pixeldata_t)calculatepixel(x, y + 1, peri);
+                        p::setp((ppixel_t)cimage.currlines[y + 1], x, w);
                         *(calc + CALCWIDTH) = (unsigned char)1;
                     } else
-                        w = getpixel(x, y + 1);
+                        w = p::getp((ppixel_t)cimage.currlines[y + 1], x);
                     if (w == c) {
                         dir = DOWN;
                         calc += CALCWIDTH;
@@ -80,11 +92,11 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
             case LEFT:
                 if (y < yend) {
                     if (!*(calc + CALCWIDTH)) {
-                        w = (cpixeldata_t)calculatepixel(x, y + 1, peri);
-                        putpixel(x, y + 1, w);
+                        w = (pixeldata_t)calculatepixel(x, y + 1, peri);
+                        p::setp((ppixel_t)cimage.currlines[y + 1], x, w);
                         *(calc + CALCWIDTH) = (unsigned char)1;
                     } else
-                        w = getpixel(x, y + 1);
+                        w = p::getp((ppixel_t)cimage.currlines[y + 1], x);
                     if (w == c) {
                         dir = DOWN;
                         calc += CALCWIDTH;
@@ -95,11 +107,11 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 
                 if (x > xstart) {
                     if (!*(calc - 1)) {
-                        w = (cpixeldata_t)calculatepixel(x - 1, y, peri);
-                        putpixel(x - 1, y, w);
+                        w = (pixeldata_t)calculatepixel(x - 1, y, peri);
+                        p::setp((ppixel_t)cimage.currlines[y], x - 1, w);
                         *(calc - 1) = (unsigned char)1;
                     } else
-                        w = getpixel(x - 1, y);
+                        w = p::getp((ppixel_t)cimage.currlines[y], x - 1);
                     if (w == c) {
                         calc--;
                         x--;
@@ -109,11 +121,11 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 
                 if (y > ystart) {
                     if (!*(calc - CALCWIDTH)) {
-                        w = (cpixeldata_t)calculatepixel(x, y - 1, peri);
-                        putpixel(x, y - 1, w);
+                        w = (pixeldata_t)calculatepixel(x, y - 1, peri);
+                        p::setp((ppixel_t)cimage.currlines[y - 1], x, w);
                         *(calc - CALCWIDTH) = (unsigned char)1;
                     } else
-                        w = getpixel(x, y - 1);
+                        w = p::getp((ppixel_t)cimage.currlines[y - 1], x);
                     if (w == c) {
                         dir = UP;
                         calc -= CALCWIDTH;
@@ -130,26 +142,26 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
             case UP:
                 if (fill) {
                     unsigned char *calc1;
-                    cpixel_t *pixel1;
+                    pixel_t *pixel1;
                     calc1 = calc + 1;
-                    pixel1 = p_add((cpixel_t *)cimage.currlines[y], x + 1);
+                    pixel1 = p::add((pixel_t *)cimage.currlines[y], x + 1);
                     while (pixel1 <=
-                           p_add((cpixel_t *)cimage.currlines[y], xend)) {
+                           p::add((pixel_t *)cimage.currlines[y], xend)) {
                         if (!*calc1)
-                            *calc1 = (unsigned char)1, p_set(pixel1, c);
-                        else if (p_get(pixel1) != c)
+                            *calc1 = (unsigned char)1, p::set(pixel1, c);
+                        else if (p::get(pixel1) != c)
                             break;
-                        p_inc(pixel1, 1);
+                        p::inc(pixel1, 1);
                         calc1++;
                     }
                 }
                 if (x > xstart) {
                     if (!*(calc - 1)) {
-                        w = (cpixeldata_t)calculatepixel(x - 1, y, peri);
-                        putpixel(x - 1, y, w);
+                        w = (pixeldata_t)calculatepixel(x - 1, y, peri);
+                        p::setp((ppixel_t)cimage.currlines[y], x - 1, w);
                         *(calc - 1) = (unsigned char)1;
                     }
-                    w = getpixel(x - 1, y);
+                    w = p::getp((ppixel_t)cimage.currlines[y], x - 1);
                     if (w == c) {
                         dir = LEFT;
                         calc--;
@@ -160,11 +172,11 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 
                 if (y > ystart) {
                     if (!*(calc - CALCWIDTH)) {
-                        w = (cpixeldata_t)calculatepixel(x, y - 1, peri);
-                        putpixel(x, y - 1, w);
+                        w = (pixeldata_t)calculatepixel(x, y - 1, peri);
+                        p::setp((ppixel_t)cimage.currlines[y - 1], x, w);
                         *(calc - CALCWIDTH) = (unsigned char)1;
                     }
-                    w = getpixel(x, y - 1);
+                    w = p::getp((ppixel_t)cimage.currlines[y - 1], x);
                     if (w == c) {
                         calc -= CALCWIDTH;
                         y--;
@@ -174,11 +186,11 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 
                 if (x < xend) {
                     if (!*(calc + 1)) {
-                        w = (cpixeldata_t)calculatepixel(x + 1, y, peri);
-                        putpixel(x + 1, y, w);
+                        w = (pixeldata_t)calculatepixel(x + 1, y, peri);
+                        p::setp((ppixel_t)cimage.currlines[y], x + 1, w);
                         *(calc + 1) = (unsigned char)1;
                     } else
-                        w = getpixel(x + 1, y);
+                        w = p::getp((ppixel_t)cimage.currlines[y], x + 1);
                     if (w == c) {
                         dir = RIGHT;
                         calc++;
@@ -194,11 +206,11 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
             case DOWN:
                 if (x < xend) {
                     if (!*(calc + 1)) {
-                        w = (cpixeldata_t)calculatepixel(x + 1, y, peri);
-                        putpixel(x + 1, y, w);
+                        w = (pixeldata_t)calculatepixel(x + 1, y, peri);
+                        p::setp((ppixel_t)cimage.currlines[y], x + 1, w);
                         *(calc + 1) = (unsigned char)1;
                     } else
-                        w = getpixel(x + 1, y);
+                        w = p::getp((ppixel_t)cimage.currlines[y], x + 1);
                     if (w == c) {
                         dir = RIGHT;
                         calc++;
@@ -209,11 +221,11 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 
                 if (y < yend) {
                     if (!*(calc + CALCWIDTH)) {
-                        w = (cpixeldata_t)calculatepixel(x, y + 1, peri);
-                        putpixel(x, y + 1, w);
+                        w = (pixeldata_t)calculatepixel(x, y + 1, peri);
+                        p::setp((ppixel_t)cimage.currlines[y + 1], x, w);
                         *(calc + CALCWIDTH) = (unsigned char)1;
                     } else
-                        w = getpixel(x, y + 1);
+                        w = p::getp((ppixel_t)cimage.currlines[y + 1], x);
                     if (w == c) {
                         dir = DOWN;
                         calc += CALCWIDTH;
@@ -224,11 +236,11 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 
                 if (x > xstart) {
                     if (!*(calc - 1)) {
-                        w = (cpixeldata_t)calculatepixel(x - 1, y, peri);
-                        putpixel(x - 1, y, w);
+                        w = (pixeldata_t)calculatepixel(x - 1, y, peri);
+                        p::setp((ppixel_t)cimage.currlines[y], x - 1, w);
                         *(calc - 1) = (unsigned char)1;
                     } else
-                        w = getpixel(x - 1, y);
+                        w = p::getp((ppixel_t)cimage.currlines[y], x - 1);
                     if (w == c) {
                         dir = LEFT;
                         calc--;
@@ -256,11 +268,17 @@ static void tracecolor(int xstart, int ystart, int xend, int yend, int x, int y)
 #ifndef bthreads
 #define ethreads 1
 
+template <typename PixelTraits>
 static inline void tracepoint(int xp, int yp, int dir, unsigned int color,
                               int xstart, int xend, int ystart, int yend)
 {
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+    using ppixel_t = typename p::ppixel_t;
+    using pixeldata_t = typename p::pixeldata_t;
+
     unsigned char *calc;
-    cpixeldata_t mycolor;
+    pixeldata_t mycolor;
     int i, lookdir;
     unsigned int c;
     int x, y;
@@ -270,8 +288,8 @@ static inline void tracepoint(int xp, int yp, int dir, unsigned int color,
 
     if (!(*calc & (CALCULATED | CALCULATING))) {
         *calc |= CALCULATING;
-        mycolor = (cpixeldata_t)calculatepixel(xp, yp, periodicity);
-        putpixel(xp, yp, mycolor);
+        mycolor = (pixeldata_t)calculatepixel(xp, yp, periodicity);
+        p::setp((ppixel_t)cimage.currlines[yp], xp, mycolor);
         *calc |= CALCULATED;
         *calc &= ~CALCULATING;
     } else {
@@ -281,7 +299,7 @@ static inline void tracepoint(int xp, int yp, int dir, unsigned int color,
             addstack(xp, yp, dir, color, periodicity);
             return;
         }
-        mycolor = getpixel(xp, yp);
+        mycolor = p::getp((ppixel_t)cimage.currlines[yp], xp);
     }
 
     while (1) {
@@ -295,7 +313,7 @@ static inline void tracepoint(int xp, int yp, int dir, unsigned int color,
                 if (!(*calc & (CALCULATED | CALCULATING))) {
                     *calc |= CALCULATING;
                     c = calculatepixel(x, y, periodicity);
-                    putpixel(x, y, c);
+                    p::setp((ppixel_t)cimage.currlines[y], x, c);
                     *calc |= CALCULATED;
                     *calc &= ~CALCULATING;
                 } else {
@@ -305,7 +323,7 @@ static inline void tracepoint(int xp, int yp, int dir, unsigned int color,
                         addstack(xp, yp, dir, color, periodicity);
                         return;
                     }
-                    c = getpixel(x, y);
+                    c = p::getp((ppixel_t)cimage.currlines[y], x);
                 }
                 if (c == mycolor)
                     break;
@@ -342,8 +360,11 @@ static inline void tracepoint(int xp, int yp, int dir, unsigned int color,
     }
 }
 
+template <typename PixelTraits>
 static void queue(void *data, struct taskinfo *task, int r1, int r2)
 {
+    using p = PixelTraits;
+
     int x, y, d, c;
     int pos = 0;
 
@@ -394,64 +415,68 @@ static void queue(void *data, struct taskinfo *task, int r1, int r2)
             starts[nstack][sizes[nstack] >> PAGESHIFT]
                   [sizes[nstack] & (PAGESIZE - 1)];
         xth_unlock(0);
-        tracepoint(x, y, d, c, xstart, xend, ystart, yend);
+        tpl::tracepoint<PixelTraits>(x, y, d, c, xstart, xend, ystart, yend);
     }
 }
 
+template <typename PixelTraits>
 static void bfill(void *dat, struct taskinfo *task, int r1, int r2)
 {
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+
     int y;
-    cpixel_t *pos, *end;
+    pixel_t *pos, *end;
     unsigned char *data;
     r1 += ystart + 1;
     r2 += ystart + 1;
     for (y = r1; y < r2; y++) {
-        pos = p_add((cpixel_t *)cimage.currlines[y], xstart + 1);
-        end = p_add((cpixel_t *)cimage.currlines[y], xend);
+        pos = p::add((pixel_t *)cimage.currlines[y], xstart + 1);
+        end = p::add((pixel_t *)cimage.currlines[y], xend);
         data = calculated + xstart + y * CALCWIDTH + 1;
-        for (; pos < end; p_inc(pos, 1), data++) {
+        for (; pos < end; p::inc(pos, 1), data++) {
             if (!*data)
-                p_copy(pos, 0, pos, -1);
+                p::copy(pos, 0, pos, -1);
         }
     }
 }
 
 #undef ethreads
 #endif
+
+template <typename PixelTraits>
 static void dosymmetries(int x1, int x2, int y1, int y2, int xsym, int cx1,
                          int cx2)
 {
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+
     if (cx1 != x1) {
         int y;
-        cpixel_t *xx1, *xx2;
+        pixel_t *xx1, *xx2;
         for (y = y1; y <= y2; y++) {
-            xx1 = p_add((cpixel_t *)cimage.currlines[y], x1);
-            xx2 = p_add((cpixel_t *)cimage.currlines[y], 2 * xsym - x1);
+            xx1 = p::add((pixel_t *)cimage.currlines[y], x1);
+            xx2 = p::add((pixel_t *)cimage.currlines[y], 2 * xsym - x1);
             while (xx1 < xx2) {
-                p_copy(xx1, 0, xx2, 0);
-                p_inc(xx1, 1);
-                p_inc(xx2, -1);
+                p::copy(xx1, 0, xx2, 0);
+                p::inc(xx1, 1);
+                p::inc(xx2, -1);
             }
         }
     }
     if (cx2 != x2) {
         int y;
-        cpixel_t *xx1, *xx2;
+        pixel_t *xx1, *xx2;
         for (y = y1; y <= y2; y++) {
-            xx1 = p_add((cpixel_t *)cimage.currlines[y], x2);
-            xx2 = p_add((cpixel_t *)cimage.currlines[y], 2 * xsym - x2);
+            xx1 = p::add((pixel_t *)cimage.currlines[y], x2);
+            xx2 = p::add((pixel_t *)cimage.currlines[y], 2 * xsym - x2);
             while (xx1 > xx2) {
-                p_copy(xx1, 0, xx2, 0);
-                p_inc(xx1, -1);
-                p_inc(xx2, 1);
+                p::copy(xx1, 0, xx2, 0);
+                p::inc(xx1, -1);
+                p::inc(xx2, 1);
             }
         }
     }
 }
-#endif
 
-#undef dosymmetries
-#undef tracepoint
-#undef tracecolor
-#undef queue
-#undef bfill
+} // namespace tpl
