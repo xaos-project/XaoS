@@ -1,6 +1,12 @@
-#ifndef UNSUPPORTED
+/*
+ * Templated versions of zoom functions for different pixel depths.
+ * Replaces the old preprocessor-based approach with type-safe templates.
+ */
+#include "pixel_traits.h"
 
-/*  this two routines implements solid guessing. They are almost same. One
+namespace tpl {
+
+/*  These two routines implements solid guessing. They are almost same. One
  *  calculates lines, second rows.
  *
  *  The heruistic is as follows:
@@ -25,18 +31,22 @@
  *  points 1 2 3 4 5 6 8 must be the same (point 8 is not yet calculated)
  *
  */
-static void calcline(realloc_t *ry);
-
+template <typename PixelTraits>
 static void calcline(realloc_t *ry)
 {
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+    using ppixel_t = typename p::ppixel_t;
+    using pixeldata_t = typename p::pixeldata_t;
+
     number_t y;
     int range = cfractalc.range;
     realloc_t *rx, *rend, *rend1, *ryl, *ryr;
     int distl, distr, distup, distdown;
-    cpixel_t *vbuff, *vbuffu, *vbuffd;
-    cpixeldata_t inset = (cpixeldata_t)cpalette.pixels[0];
-    cpixeldata_t c;
-    cppixel_t *vbuff1 = (cpixel_t **)cimage.currlines + (ry - czoomc.reallocy);
+    pixel_t *vbuff, *vbuffu, *vbuffd;
+    pixeldata_t inset = (pixeldata_t)cpalette.pixels[0];
+    pixeldata_t c;
+    ppixel_t *vbuff1 = (ppixel_t *)cimage.currlines + (ry - czoomc.reallocy);
     assert(ry >= czoomc.reallocy);
     assert(ry < czoomc.reallocy + cimage.height);
     y = ry->position;
@@ -60,10 +70,10 @@ static void calcline(realloc_t *ry)
              rx < rend1; rx++) {
             if (!rx->dirty) {
                 STAT(tocalculate++);
-                p_set(vbuff, (cpixeldata_t)calculate(rx->position, y,
+                p::set(vbuff, (pixeldata_t)calculate(rx->position, y,
                                                      cfractalc.periodicity));
             }
-            p_inc(vbuff, 1);
+            p::inc(vbuff, 1);
         }
     } else {
         distup = INT_MAX / 2;
@@ -83,35 +93,35 @@ static void calcline(realloc_t *ry)
                         distdown = INT_MAX / 2;
                 }
                 if (distdown < INT_MAX / 4 && distup < INT_MAX / 4 &&
-                    (p_get(vbuffu) == (c = p_get(vbuffd)) &&
-                     c == p_getp(vbuff, -distup) &&
-                     c == p_getp(vbuffu, -distup) &&
-                     c == p_getp(vbuffu, distdown) &&
-                     c == p_getp(vbuffd, distdown) &&
-                     c == p_getp(vbuffd, -distup))) {
-                    p_set(vbuff, c);
+                    (p::get(vbuffu) == (c = p::get(vbuffd)) &&
+                     c == p::getp(vbuff, -distup) &&
+                     c == p::getp(vbuffu, -distup) &&
+                     c == p::getp(vbuffu, distdown) &&
+                     c == p::getp(vbuffd, distdown) &&
+                     c == p::getp(vbuffd, -distup))) {
+                    p::set(vbuff, c);
                     STAT(avoided++);
                 } else {
                     if (cfractalc.periodicity && distdown < INT_MAX / 4 &&
                         distup < INT_MAX / 4 &&
-                        (p_get(vbuffu) != inset && p_get(vbuffd) != inset &&
-                         p_getp(vbuff, -distup) != inset &&
-                         p_getp(vbuffu, -distup) != inset &&
-                         p_getp(vbuffu, +distdown) != inset &&
-                         p_getp(vbuffd, -distup) != inset &&
-                         p_getp(vbuffd, +distdown) != inset))
-                        p_set(vbuff,
-                              (cpixeldata_t)calculate(rx->position, y, 0));
+                        (p::get(vbuffu) != inset && p::get(vbuffd) != inset &&
+                         p::getp(vbuff, -distup) != inset &&
+                         p::getp(vbuffu, -distup) != inset &&
+                         p::getp(vbuffu, +distdown) != inset &&
+                         p::getp(vbuffd, -distup) != inset &&
+                         p::getp(vbuffd, +distdown) != inset))
+                        p::set(vbuff,
+                              (pixeldata_t)calculate(rx->position, y, 0));
                     else
-                        p_set(vbuff,
-                              (cpixeldata_t)calculate(rx->position, y,
+                        p::set(vbuff,
+                              (pixeldata_t)calculate(rx->position, y,
                                                       cfractalc.periodicity));
                 }
                 distup = 0;
             }
-            p_inc(vbuff, 1);
-            p_inc(vbuffu, 1);
-            p_inc(vbuffd, 1);
+            p::inc(vbuff, 1);
+            p::inc(vbuffu, 1);
+            p::inc(vbuffd, 1);
             distdown--;
             distup++;
         }
@@ -120,17 +130,21 @@ static void calcline(realloc_t *ry)
     ry->dirty = 0;
 }
 
-static void calccolumn(realloc_t *rx);
-
+template <typename PixelTraits>
 static void calccolumn(realloc_t *rx)
 {
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+    using ppixel_t = typename p::ppixel_t;
+    using pixeldata_t = typename p::pixeldata_t;
+
     number_t x;
     int range = cfractalc.range;
     realloc_t *ry, *rend, *rend1, *rxl, *rxr;
     int pos, distl, distr, distup, distdown;
-    cpixeldata_t c;
-    cpixeldata_t inset = (cpixeldata_t)cpalette.pixels[0];
-    cppixel_t *vbuff;
+    pixeldata_t c;
+    pixeldata_t inset = (pixeldata_t)cpalette.pixels[0];
+    ppixel_t *vbuff;
     pos = (int)(rx - czoomc.reallocx);
     assert(pos >= 0);
     assert(pos < cimage.width);
@@ -150,13 +164,13 @@ static void calccolumn(realloc_t *rx)
     rend = czoomc.reallocx + cimage.width;
     if (rxr >= czoomc.reallocx + cimage.width || rxl < czoomc.reallocx ||
         rxr->dirty || rxl->dirty) {
-        for (ry = czoomc.reallocy, vbuff = (cppixel_t *)cimage.currlines,
+        for (ry = czoomc.reallocy, vbuff = (ppixel_t *)cimage.currlines,
             rend1 = czoomc.reallocy + cimage.height;
              ry < rend1; ry++, vbuff++) {
             if (!ry->dirty) {
                 STAT(tocalculate++);
-                p_setp((*vbuff), pos,
-                       (cpixeldata_t)calculate(x, ry->position,
+                p::setp((*vbuff), pos,
+                       (pixeldata_t)calculate(x, ry->position,
                                                cfractalc.periodicity));
             }
         }
@@ -167,7 +181,7 @@ static void calccolumn(realloc_t *rx)
         assert(distr < cimage.width);
         distup = INT_MAX / 2;
         distdown = 0;
-        for (ry = czoomc.reallocy, vbuff = (cppixel_t *)cimage.currlines,
+        for (ry = czoomc.reallocy, vbuff = (ppixel_t *)cimage.currlines,
             rend1 = czoomc.reallocy + cimage.height;
              ry < rend1; ry++) {
             /*if (ry->symto == -1) { */
@@ -182,29 +196,29 @@ static void calccolumn(realloc_t *rx)
                         distdown = INT_MAX / 2;
                 }
                 if (distdown < INT_MAX / 4 && distup < INT_MAX / 4 &&
-                    (p_getp(vbuff[0], distl) == (c = p_getp(vbuff[0], distr)) &&
-                     p_getp(vbuff[-distup], distl) == c &&
-                     p_getp(vbuff[-distup], distr) == c &&
-                     p_getp(vbuff[-distup], pos) == c &&
-                     p_getp(vbuff[distdown], distr) == c &&
-                     p_getp(vbuff[distdown], distl) == c)) {
+                    (p::getp(vbuff[0], distl) == (c = p::getp(vbuff[0], distr)) &&
+                     p::getp(vbuff[-distup], distl) == c &&
+                     p::getp(vbuff[-distup], distr) == c &&
+                     p::getp(vbuff[-distup], pos) == c &&
+                     p::getp(vbuff[distdown], distr) == c &&
+                     p::getp(vbuff[distdown], distl) == c)) {
                     STAT(avoided++);
-                    p_setp(vbuff[0], pos, c);
+                    p::setp(vbuff[0], pos, c);
                 } else {
                     if (cfractalc.periodicity && distdown < INT_MAX / 4 &&
                         distup < INT_MAX / 4 &&
-                        (p_getp(vbuff[0], distl) != inset &&
-                         p_getp(vbuff[0], distr) != inset &&
-                         p_getp(vbuff[distdown], distr) != inset &&
-                         p_getp(vbuff[distdown], distl) != inset &&
-                         p_getp(vbuff[-distup], distl) != inset &&
-                         p_getp(vbuff[-distup], pos) != inset &&
-                         p_getp(vbuff[-distup], distr) != inset))
-                        p_setp(vbuff[0], pos,
-                               (cpixeldata_t)calculate(x, ry->position, 0));
+                        (p::getp(vbuff[0], distl) != inset &&
+                         p::getp(vbuff[0], distr) != inset &&
+                         p::getp(vbuff[distdown], distr) != inset &&
+                         p::getp(vbuff[distdown], distl) != inset &&
+                         p::getp(vbuff[-distup], distl) != inset &&
+                         p::getp(vbuff[-distup], pos) != inset &&
+                         p::getp(vbuff[-distup], distr) != inset))
+                        p::setp(vbuff[0], pos,
+                               (pixeldata_t)calculate(x, ry->position, 0));
                     else
-                        p_setp(vbuff[0], pos,
-                               (cpixeldata_t)calculate(x, ry->position,
+                        p::setp(vbuff[0], pos,
+                               (pixeldata_t)calculate(x, ry->position,
                                                        cfractalc.periodicity));
 #ifdef DRAW
                     vga_setcolor(0xffffff);
@@ -222,12 +236,16 @@ static void calccolumn(realloc_t *rx)
     rx->dirty = 0;
 }
 
+template <typename PixelTraits>
 static inline void dosymmetry2(void * /*data*/, struct taskinfo * /*task*/,
-                                    int r1, int r2)
+                               int r1, int r2)
 {
-    cpixel_t **vbuff = (cpixel_t **)cimage.currlines;
+    using p = PixelTraits;
+    using ppixel_t = typename p::ppixel_t;
+
+    ppixel_t *vbuff = (ppixel_t *)cimage.currlines;
     realloc_t *rx, *rend;
-    cpixel_t **vend = (cpixel_t **)cimage.currlines + cimage.height;
+    ppixel_t *vend = (ppixel_t *)cimage.currlines + cimage.height;
     for (rx = czoomc.reallocx + r1, rend = czoomc.reallocx + r2; rx < rend;
          rx++) {
         assert(rx->symto >= 0 || rx->symto == -1);
@@ -236,43 +254,34 @@ static inline void dosymmetry2(void * /*data*/, struct taskinfo * /*task*/,
             if (!czoomc.reallocx[rx->symto].dirty) {
                 int pos = (int)(rx - czoomc.reallocx);
                 int pos1 = rx->symto;
-                vbuff = (cpixel_t **)cimage.currlines;
+                vbuff = (ppixel_t *)cimage.currlines;
                 for (; vbuff < vend; vbuff++)
-                    p_copy(vbuff[0], pos, vbuff[0], pos1);
+                    p::copy(vbuff[0], pos, vbuff[0], pos1);
                 rx->dirty = 0;
             }
         }
     }
 }
 
-/*
- * Fill - bitmap depended part.
- *
- * This function is called, when calculation was interrupted because of
- * timeout. It fills uncalculated rows by nearest one
- *
- * This function is very time critical in higher resolutions I am shooting
- * for.
- */
-
+template <typename PixelTraits>
 static inline void fillline(int line)
 {
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+    using pixeldata_t = typename p::pixeldata_t;
+
     unsigned char *vbuff = cimage.currlines[line];
     const struct filltable *table = (struct filltable *)tmpdata;
     while (table->length) {
-        cpixeldata_t s = p_get((cpixel_t *)(vbuff + table->from));
-        cpixel_t *vcurr = (cpixel_t *)(vbuff + table->to);
-        cpixel_t *vend = (cpixel_t *)(vbuff + table->end);
+        pixeldata_t s = p::get((pixel_t *)(vbuff + table->from));
+        pixel_t *vcurr = (pixel_t *)(vbuff + table->to);
+        pixel_t *vend = (pixel_t *)(vbuff + table->end);
         while (vcurr < vend) {
-            p_set(vcurr, s);
-            p_inc(vcurr, 1);
+            p::set(vcurr, s);
+            p::inc(vcurr, 1);
         }
         table++;
     }
 }
-#endif
-#undef dosymmetry2
-#undef calcline
-#undef calccolumn
-#undef fillline
-#undef rend
+
+} // namespace tpl

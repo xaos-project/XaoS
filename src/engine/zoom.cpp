@@ -95,50 +95,20 @@ int nperi = 0;
 #endif
 
 static void moveoldpoints(void *data1, struct taskinfo *task, int r1, int r2);
-static void fillline_8(int line);
-static void fillline_16(int line);
-// static void fillline_24(int line);
-static void fillline_32(int line);
 
-/*First of all, inline driver section */
-/*This approach uses preprocessor includes to generate custom code for
- *8, 16, 24, and 32 bpp modes with static variables. If you know of a
- *better approach, please let us know.
- */
-#include "c256.h"
-#define fillline fillline_8
-#define dosymmetry2 dosymmetry2_8
-#define calcline calcline_8
-#define calccolumn calccolumn_8
-#include "zoomd.h"
-
-#include "truecolor.h"
-#define fillline fillline_32
-#define dosymmetry2 dosymmetry2_32
-#define calcline calcline_32
-#define calccolumn calccolumn_32
-#include "zoomd.h"
-
-#include "true24.h"
-#define fillline fillline_24
-#define dosymmetry2 dosymmetry2_24
-#define calcline calcline_24
-#define calccolumn calccolumn_24
-#include "zoomd.h"
-
-#include "hicolor.h"
-#define fillline fillline_16
-#define dosymmetry2 dosymmetry2_16
-#define calcline calcline_16
-#define calccolumn calccolumn_16
+/* Repeated inclusions of zoomd.h replaced with C++ templates */
 #include "zoomd.h"
 
 #define calcline(a)                                                            \
-    drivercall(cimage, calcline_8(a), calcline_16(a), calcline_24(a),          \
-               calcline_32(a));
+    drivercall(cimage, tpl::calcline<Pixel8Traits>(a),                         \
+                       tpl::calcline<Pixel16Traits>(a),                        \
+                       tpl::calcline<Pixel24Traits>(a),                        \
+                       tpl::calcline<Pixel32Traits>(a));
 #define calccolumn(a)                                                          \
-    drivercall(cimage, calccolumn_8(a), calccolumn_16(a), calccolumn_24(a),    \
-               calccolumn_32(a));
+    drivercall(cimage, tpl::calccolumn<Pixel8Traits>(a),                       \
+                       tpl::calccolumn<Pixel16Traits>(a),                      \
+                       tpl::calccolumn<Pixel24Traits>(a),                      \
+                       tpl::calccolumn<Pixel32Traits>(a));
 
 struct dyn_data {
     long price;
@@ -1075,10 +1045,10 @@ static void filly(void * /*data*/, struct taskinfo * /*task*/, int rr1, int rr2)
                 else
                     rs = r2;
                 if (!rs->dirty) {
-                    drivercall(cimage, fillline_8(rs - czoomc.reallocy),
-                               fillline_16(rs - czoomc.reallocy),
-                               fillline_24(rs - czoomc.reallocy),
-                               fillline_32(rs - czoomc.reallocy));
+                    drivercall(cimage, tpl::fillline<Pixel8Traits>(rs - czoomc.reallocy),
+                               tpl::fillline<Pixel16Traits>(rs - czoomc.reallocy),
+                               tpl::fillline<Pixel24Traits>(rs - czoomc.reallocy),
+                               tpl::fillline<Pixel32Traits>(rs - czoomc.reallocy));
                     ry->dirty = -1;
                 }
                 memcpy(vbuff[ry - czoomc.reallocy], vbuff[rs - czoomc.reallocy],
@@ -1089,10 +1059,10 @@ static void filly(void * /*data*/, struct taskinfo * /*task*/, int rr1, int rr2)
             }
         }
         if (ry < rend && !ry->dirty) {
-            drivercall(cimage, fillline_8(ry - czoomc.reallocy),
-                       fillline_16(ry - czoomc.reallocy),
-                       fillline_24(ry - czoomc.reallocy),
-                       fillline_32(ry - czoomc.reallocy));
+            drivercall(cimage, tpl::fillline<Pixel8Traits>(ry - czoomc.reallocy),
+                       tpl::fillline<Pixel16Traits>(ry - czoomc.reallocy),
+                       tpl::fillline<Pixel24Traits>(ry - czoomc.reallocy),
+                       tpl::fillline<Pixel32Traits>(ry - czoomc.reallocy));
             ry->dirty = -1;
         }
     }
@@ -1423,10 +1393,10 @@ static void calculatenewinterruptible(void)
     if (nsymmetrized) {
         xth_function(dosymmetry, NULL, cimage.height);
         xth_sync();
-        drivercall(cimage, xth_function(dosymmetry2_8, NULL, cimage.width),
-                   xth_function(dosymmetry2_16, NULL, cimage.width),
-                   xth_function(dosymmetry2_24, NULL, cimage.width),
-                   xth_function(dosymmetry2_32, NULL, cimage.width));
+        drivercall(cimage, xth_function(tpl::dosymmetry2<Pixel8Traits>, NULL, cimage.width),
+                   xth_function(tpl::dosymmetry2<Pixel16Traits>, NULL, cimage.width),
+                   xth_function(tpl::dosymmetry2<Pixel24Traits>, NULL, cimage.width),
+                   xth_function(tpl::dosymmetry2<Pixel32Traits>, NULL, cimage.width));
         xth_sync();
     }
     if (cfilter.interrupt) {
@@ -1637,10 +1607,10 @@ static int do_fractal(struct filter *f, int flags, int /*time*/)
         if (nsymmetrized) {
             xth_function(dosymmetry, NULL, cimage.height);
             xth_sync();
-            drivercall(cimage, xth_function(dosymmetry2_8, NULL, cimage.width),
-                       xth_function(dosymmetry2_16, NULL, cimage.width),
-                       xth_function(dosymmetry2_24, NULL, cimage.width),
-                       xth_function(dosymmetry2_32, NULL, cimage.width));
+            drivercall(cimage, xth_function(tpl::dosymmetry2<Pixel8Traits>, NULL, cimage.width),
+                       xth_function(tpl::dosymmetry2<Pixel16Traits>, NULL, cimage.width),
+                       xth_function(tpl::dosymmetry2<Pixel24Traits>, NULL, cimage.width),
+                       xth_function(tpl::dosymmetry2<Pixel32Traits>, NULL, cimage.width));
             xth_sync();
         }
         if (getzcontext(f)->incomplete) {
