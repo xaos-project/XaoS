@@ -22,20 +22,8 @@ struct stereogramdata {
     struct palette *savedpalette;
 };
 
-#include "c256.h"
-#define do_stereogram do_stereogram8
-#include "stereod.h"
-
-#include "hicolor.h"
-#define do_stereogram do_stereogram16
-#include "stereod.h"
-
-#include "true24.h"
-#define do_stereogram do_stereogram24
-#include "stereod.h"
-
-#include "truecolor.h"
-#define do_stereogram do_stereogram32
+/* Repeated inclusions of stereod.h replaced with C++ templates */
+#include "pixel_traits.h"
 #include "stereod.h"
 
 static int requirement(struct filter *f, struct requirements *r)
@@ -121,10 +109,10 @@ static int doit(struct filter *f, int flags, int time)
         table[i] = (int)(EYE_DIST * dist / (dist + USER_DIST) / PIXELWIDTH);
     }
     drivercall(*f->image,
-               xth_function(do_stereogram8, f, f->childimage->height),
-               xth_function(do_stereogram16, f, f->childimage->height),
-               xth_function(do_stereogram24, f, f->childimage->height),
-               xth_function(do_stereogram32, f, f->childimage->height));
+               xth_function(tpl::do_stereogram<Pixel8Traits>, f, f->childimage->height),
+               xth_function(tpl::do_stereogram<Pixel16Traits>, f, f->childimage->height),
+               xth_function(tpl::do_stereogram<Pixel24Traits>, f, f->childimage->height),
+               xth_function(tpl::do_stereogram<Pixel32Traits>, f, f->childimage->height));
     xth_sync();
     free(table);
     return val;
