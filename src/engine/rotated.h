@@ -1,6 +1,17 @@
-#ifndef UNSUPPORTED
+/*
+ * Templated version of image rotation for different pixel depths.
+ * Replaces the old preprocessor-based approach with type-safe templates.
+ */
+#include "pixel_traits.h"
+
+namespace tpl {
+
+template <typename PixelTraits>
 static void do_rotate(void *data, struct taskinfo */*task*/, int r1, int r2)
 {
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+
     struct filter *f = (struct filter *)data;
     struct rotatedata *s = (struct rotatedata *)f->data;
     double xstep = (s->x2 - s->x1) * 65536 / f->image->height;
@@ -30,15 +41,15 @@ static void do_rotate(void *data, struct taskinfo */*task*/, int r1, int r2)
         {
             int ix = (int)x;
             int iy = (int)y;
-            cpixel_t **vbuff = (cpixel_t **)f->childimage->currlines;
-            cpixel_t *end = p_add((cpixel_t *)f->image->currlines[i],
+            pixel_t **vbuff = (pixel_t **)f->childimage->currlines;
+            pixel_t *end = p::add((pixel_t *)f->image->currlines[i],
                                   f->image->width),
-                     *dest = (cpixel_t *)f->image->currlines[i];
+                    *dest = (pixel_t *)f->image->currlines[i];
             int iixstep = ixstep, iiystep = iystep;
 
             while (dest < end) {
-                p_copy(dest, 0, (cpixel_t *)(vbuff[iy >> 16]), (ix >> 16));
-                p_inc(dest, 1);
+                p::copy(dest, 0, (pixel_t *)(vbuff[iy >> 16]), (ix >> 16));
+                p::inc(dest, 1);
                 ix += iixstep;
                 iy += iiystep;
             }
@@ -48,5 +59,5 @@ static void do_rotate(void *data, struct taskinfo */*task*/, int r1, int r2)
         y += ystep;
     }
 }
-#endif
-#undef do_rotate
+
+} // namespace tpl

@@ -19,20 +19,8 @@ struct rotatedata {
     number_t x1, y1, x2, y2, xx1, yy1, xx2, yy2;
 };
 
-#include "c256.h"
-#define do_rotate do_rotate8
-#include "rotated.h"
-
-#include "truecolor.h"
-#define do_rotate do_rotate32
-#include "rotated.h"
-
-#include "true24.h"
-#define do_rotate do_rotate24
-#include "rotated.h"
-
-#include "hicolor.h"
-#define do_rotate do_rotate16
+/* Repeated inclusions of rotated.h replaced with C++ templates */
+#include "pixel_traits.h"
 #include "rotated.h"
 
 static int requirement(struct filter *f, struct requirements *r)
@@ -134,10 +122,10 @@ static int doit(struct filter *f, int flags, int time)
         s->yy2 /= f->childimage->pixelwidth;
         s->yy2 += f->childimage->width / 2;
 
-        drivercall(*f->image, xth_function(do_rotate8, f, f->image->height),
-                   xth_function(do_rotate16, f, f->image->height),
-                   xth_function(do_rotate24, f, f->image->height),
-                   xth_function(do_rotate32, f, f->image->height));
+        drivercall(*f->image, xth_function(tpl::do_rotate<Pixel8Traits>, f, f->image->height),
+                   xth_function(tpl::do_rotate<Pixel16Traits>, f, f->image->height),
+                   xth_function(tpl::do_rotate<Pixel24Traits>, f, f->image->height),
+                   xth_function(tpl::do_rotate<Pixel32Traits>, f, f->image->height));
         xth_sync();
         val |= CHANGED;
     }
