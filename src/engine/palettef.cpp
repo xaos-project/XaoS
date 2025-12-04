@@ -9,20 +9,8 @@ struct palettedata {
     int active;
     unsigned int table[256];
 };
-#include "c256.h"
-#define cpalette palette8
-#include "paletted.h"
-
-#include "truecolor.h"
-#define cpalette palette32
-#include "paletted.h"
-
-#include "true24.h"
-#define cpalette palette24
-#include "paletted.h"
-
-#include "hicolor.h"
-#define cpalette palette16
+/* Repeated inclusions of paletted.h replaced with C++ templates */
+#include "pixel_traits.h"
 #include "paletted.h"
 
 static void mysetcolor(struct palette *p, int /*start*/, int /*end*/, rgb_t */*rgb*/)
@@ -120,10 +108,10 @@ static int doit(struct filter *f, int flags, int time1)
             }
             s->palette->data = NULL;
         }
-        drivercall(*f->image, xth_function(palette8, f, f->image->height),
-                   xth_function(palette16, f, f->image->height),
-                   xth_function(palette24, f, f->image->height),
-                   xth_function(palette32, f, f->image->height));
+        drivercall(*f->image, xth_function(tpl::cpalette<Pixel8Traits>, f, f->image->height),
+                   xth_function(tpl::cpalette<Pixel16Traits>, f, f->image->height),
+                   xth_function(tpl::cpalette<Pixel24Traits>, f, f->image->height),
+                   xth_function(tpl::cpalette<Pixel32Traits>, f, f->image->height));
         xth_sync();
     }
     return val;
