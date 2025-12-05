@@ -32,26 +32,8 @@
 #include "ui_helper.h"
 #define MINCOUNT 5
 #define InSet(i) (i == context->image->palette->pixels[0])
-/*Include bitmap depended part first */
-
-#include "c256.h"
-#define look1 look18
-#define look2 look28
-#include "autod.h"
-
-#include "hicolor.h"
-#define look1 look116
-#define look2 look216
-#include "autod.h"
-
-#include "true24.h"
-#define look1 look124
-#define look2 look224
-#include "autod.h"
-
-#include "truecolor.h"
-#define look1 look132
-#define look2 look232
+/* Repeated inclusions of autod.h replaced with C++ templates */
+#include "pixel_traits.h"
 #include "autod.h"
 
 #ifdef USE_FLOAT128
@@ -142,52 +124,52 @@ void do_autopilot(uih_context *context, int *x, int *y, int *controls,
         } else {
             switch (context->zengine->image->bytesperpixel) {
                 case 1:
-                    c = look18(context, *x, *y, RANGE1, NGUESSES);
+                    c = tpl::look1<Pixel8Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look28(context, *x, *y, RANGE1, NGUESSES);
+                        c = tpl::look2<Pixel8Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look18(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look1<Pixel8Traits>(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look18(context, *x, *y, 10000, NGUESSES2);
+                        c = tpl::look1<Pixel8Traits>(context, *x, *y, 10000, NGUESSES2);
                     break;
 #ifdef SUPPORT16
                 case 2:
-                    c = look116(context, *x, *y, RANGE1, NGUESSES);
+                    c = tpl::look1<Pixel16Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look216(context, *x, *y, RANGE1, NGUESSES);
+                        c = tpl::look2<Pixel16Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look116(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look1<Pixel16Traits>(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look216(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look2<Pixel16Traits>(context, *x, *y, 10000, NGUESSES1);
                     break;
 #endif
 #ifdef STRUECOLOR24
                 case 3:
-                    c = look124(context, *x, *y, RANGE1, NGUESSES);
+                    c = tpl::look1<Pixel24Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look224(context, *x, *y, RANGE1, NGUESSES);
+                        c = tpl::look2<Pixel24Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look124(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look1<Pixel24Traits>(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look224(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look2<Pixel24Traits>(context, *x, *y, 10000, NGUESSES1);
                     break;
 #endif
                 case 4:
-                    c = look132(context, *x, *y, RANGE1, NGUESSES);
+                    c = tpl::look1<Pixel32Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look232(context, *x, *y, RANGE1, NGUESSES);
+                        c = tpl::look2<Pixel32Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look132(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look1<Pixel32Traits>(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look232(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look2<Pixel32Traits>(context, *x, *y, 10000, NGUESSES1);
             }
             if (!c) {
                 if ((context->zengine->flags & INCOMPLETE)) {
