@@ -33,86 +33,73 @@ flowchart TD
     Post1 --> Post2[Apply symmetry optimizations<br/>preparesymmetries]
     Post2 --> End([End])
 
-    style Forward fill:#e1f5ff
-    style Backward fill:#fff4e1
-    style Post fill:#f0ffe1
+    style Forward stroke:#4a9eff,stroke-width:3px
+    style Backward stroke:#ff9a4a,stroke-width:3px
+    style Post stroke:#4aff9a,stroke-width:3px
 ```
 
 ## 2. Cost Model & Decision Process
 
 ```mermaid
-graph TB
-    subgraph "For Each New Position i"
-        NewPos[New Position i at coordinate y]
+flowchart TD
+    NewPos[New Position i at coordinate y]
+    NewPos --> Decision{Evaluate Options}
 
-        NewPos --> Decision{Evaluate Options}
+    Decision --> Opt1[Option 1: Calculate Fresh]
+    Opt1 --> Cost1[Cost = previous_cost + NEWPRICE<br/>NEWPRICE = 4*step²]
+    Cost1 --> Compare[Compare All Costs]
 
-        Decision --> Opt1[Option 1: Calculate Fresh]
-        Decision --> Opt2[Option 2: Reuse Old Position p]
+    Decision --> Opt2[Option 2: Reuse Old Position p]
+    Opt2 --> Range{Is old position p<br/>within range?}
+    Range -->|No: Too far away| Skip1[Skip - too expensive]
+    Range -->|Yes: y - IRANGE ≤ pos<br/>≤ y + IRANGE| InRange[Position in Range]
 
-        Opt1 --> Cost1[Cost = previous_cost + NEWPRICE<br/>NEWPRICE = 4*step²]
+    InRange --> NoDbl{Would this cause<br/>doubling?}
+    NoDbl -->|Yes: Already used p| Skip2[Skip - already used]
+    NoDbl -->|No: p > last_used| Cost2[Cost = previous_cost + distance²<br/>distance = pos - y]
 
-        Opt2 --> Range{Is old position p<br/>within range?}
-        Range -->|Yes: y - IRANGE ≤ pos ≤ y + IRANGE| InRange
-        Range -->|No: Too far away| Skip[Skip - too expensive]
+    Cost2 --> Compare
+    Compare --> Best[Choose minimum cost<br/>Store in dyndata table]
 
-        InRange --> NoDbl{Would this cause<br/>doubling?}
-        NoDbl -->|No: p > last_used| Cost2[Cost = previous_cost + distance²<br/>distance = pos - y]
-        NoDbl -->|Yes: Already used p| Skip
+    Skip1 --> Compare
+    Skip2 --> Compare
 
-        Cost1 --> Compare[Compare All Costs]
-        Cost2 --> Compare
-
-        Compare --> Best[Choose minimum cost<br/>Store in dyndata table]
-    end
-
-    style Opt1 fill:#ffe6e6
-    style Opt2 fill:#e6f3ff
-    style Best fill:#e6ffe6
+    style Opt1 stroke:#ff4a4a,stroke-width:2px
+    style Opt2 stroke:#4a9aff,stroke-width:2px
+    style Best stroke:#4aff4a,stroke-width:3px
 ```
 
 ## 3. Forward Pass: State Transitions
 
 ```mermaid
-stateDiagram-v2
-    direction LR
+flowchart TD
+    Start([Start]) --> Pos0[Position 0]
+    Pos0 --> Fresh0[Calculate fresh<br/>cost = NEWPRICE]
+    Fresh0 --> Store0[Store in dyndata]
+    Store0 --> PosI[Position i]
 
-    [*] --> Pos_0: Start
+    PosI --> GetPrev[Get best solution<br/>from position i-1]
+    GetPrev --> Decision{Evaluate Options}
 
-    state "Position 0" as Pos_0 {
-        [*] --> Fresh0: Calculate fresh<br/>cost = NEWPRICE
-        Fresh0 --> Store0: Store in dyndata
-    }
+    Decision --> EvalFresh[Option 1: Fresh<br/>cost += NEWPRICE]
+    EvalFresh --> StoreBest
 
-    state "Position i" as Pos_i {
-        [*] --> GetPrev: Get best solution<br/>from position i-1
+    Decision --> EvalReuse[Option 2: Reuse]
+    EvalReuse --> CheckRange[Find old positions<br/>in range ±IRANGE]
+    CheckRange --> TryLoop[Try each old pos p]
+    TryLoop --> CalcCost[cost = prev + distance²]
+    CalcCost --> CheckBest{Is this < best?}
+    CheckBest -->|Yes| UpdateBest[Update best]
+    CheckBest -->|No| TryLoop
+    UpdateBest --> StoreBest
 
-        GetPrev --> EvalFresh: Option 1: Fresh<br/>cost += NEWPRICE
-        GetPrev --> EvalReuse: Option 2: Reuse
+    StoreBest[Store best solution] --> UpdateArrays[Update best arrays]
+    UpdateArrays --> MorePos{More positions?}
+    MorePos -->|Yes: i++| PosI
+    MorePos -->|No: Done| Done([Complete])
 
-        EvalReuse --> CheckRange: Find old positions<br/>in range ±IRANGE
-
-        CheckRange --> TryOld: For each old pos p
-        TryOld --> CalcCost: cost = prev + distance²
-        CalcCost --> CheckBest: Is this < best?
-        CheckBest --> UpdateBest: Yes - update best
-        CheckBest --> TryOld: No - try next
-
-        EvalFresh --> StoreBest
-        UpdateBest --> StoreBest: Store best solution
-        StoreBest --> UpdateArrays: Update best arrays<br/>for position i
-    }
-
-    state "Position size-1" as Pos_n {
-        [*] --> Final: Calculate final position
-        Final --> FinalBest: Store best overall
-        FinalBest --> [*]
-    }
-
-    Pos_0 --> Pos_i: i++
-    Pos_i --> Pos_i: i++
-    Pos_i --> Pos_n: i = size-1
-    Pos_n --> [*]: Forward pass complete
+    style Start stroke:#4a9aff,stroke-width:3px
+    style Done stroke:#4aff4a,stroke-width:3px
 ```
 
 ## 4. Data Structures & Storage Layout
@@ -144,10 +131,10 @@ graph TD
         PrevDecode -->|< nosetadd| Reuse[Reuse old position<br/>p = entry - dyndata >> DSIZES]
     end
 
-    style PosArray fill:#ffe6cc
-    style Best fill:#e6ccff
-    style Best1 fill:#cce6ff
-    style DynData fill:#ffffcc
+    style PosArray stroke:#ff9a4a,stroke-width:2px
+    style Best stroke:#9a4aff,stroke-width:2px
+    style Best1 stroke:#4a9aff,stroke-width:2px
+    style DynData stroke:#ffff4a,stroke-width:2px
 ```
 
 ## 5. Backward Pass: Backtracking
@@ -181,9 +168,9 @@ flowchart TD
     N2 --> N3[realloc--]
     N3 --> Loop
 
-    style Fresh fill:#ffcccc
-    style Reuse fill:#ccffcc
-    style Done fill:#ccccff
+    style Fresh stroke:#ff4a4a,stroke-width:3px
+    style Reuse stroke:#4aff4a,stroke-width:3px
+    style Done stroke:#4a9aff,stroke-width:3px
 ```
 
 ## 6. Range Processing: Three Phases
@@ -196,58 +183,70 @@ sequenceDiagram
 
     Note over Old: Range for i-1: [ps, pe)<br/>Range for i: [ps1, p)
 
-    rect rgb(255, 230, 230)
-        Note over i,Old: Phase 1: First Position (p == ps)
-        Old->>i: Can only connect to i-1's "fresh" solution
-        i->>i: Calculate cost = fresh_i-1 + distance²
+    Note over i,Old: Phase 1: First Position (p == ps)
+    Old->>i: Can only connect to i-1's "fresh" solution
+    i->>i: Calculate cost = fresh_i-1 + distance²
+
+    Note over i-1,Old: Phase 2: Overlapping Range (ps < p < pe)
+    i-1->>i: Can connect to i-1's best[p-1]
+    loop For each p in overlap
+        i->>i: cost = best[p-1] + distance²
+        Note over i: Retroactive optimization:<br/>Check if p-1 should recalculate fresh
     end
 
-    rect rgb(230, 230, 255)
-        Note over i-1,Old: Phase 2: Overlapping Range (ps < p < pe)
-        i-1->>i: Can connect to i-1's best[p-1]
-        loop For each p in overlap
-            i->>i: cost = best[p-1] + distance²
-            Note over i: Retroactive optimization:<br/>Check if p-1 should recalculate fresh
-        end
-    end
-
-    rect rgb(230, 255, 230)
-        Note over i,Old: Phase 3: Beyond i-1's Range (p >= pe)
-        i-1->>i: Base cost is stable (doesn't change with p)
-        loop For each remaining p
-            i->>i: cost = stable_base + distance²
-        end
+    Note over i,Old: Phase 3: Beyond i-1's Range (p >= pe)
+    i-1->>i: Base cost is stable (doesn't change with p)
+    loop For each remaining p
+        i->>i: cost = stable_base + distance²
     end
 ```
 
-## 7. Example Walkthrough
+## 7. Example Walkthrough: Zooming Out
 
-Consider a simple example with 5 positions:
+Consider zooming out - the old frame shows a small region, the new frame shows a larger region:
 
 ```mermaid
-graph LR
-    subgraph "Old Frame"
-        O0[Pos 0<br/>coord: 0.0]
-        O1[Pos 1<br/>coord: 0.25]
-        O2[Pos 2<br/>coord: 0.5]
-        O3[Pos 3<br/>coord: 0.75]
-        O4[Pos 4<br/>coord: 1.0]
+flowchart TD
+    subgraph Old["Old Frame: 5 rows at coords [0.2, 0.4, 0.5, 0.6, 0.8]"]
+        O0["Row 0 @ 0.2"]
+        O1["Row 1 @ 0.4"]
+        O2["Row 2 @ 0.5"]
+        O3["Row 3 @ 0.6"]
+        O4["Row 4 @ 0.8"]
     end
 
-    subgraph "New Frame (zoomed/panned)"
-        N0[Pos 0<br/>coord: 0.1]
-        N1[Pos 1<br/>coord: 0.3]
-        N2[Pos 2<br/>coord: 0.5]
-        N3[Pos 3<br/>coord: 0.7]
-        N4[Pos 4<br/>coord: 0.9]
+    subgraph New["New Frame: 5 rows at coords [0.0, 0.25, 0.5, 0.75, 1.0]"]
+        N0["Row 0 @ 0.0<br/>❌ CALCULATE FRESH<br/>No old row nearby"]
+        N1["Row 1 @ 0.25<br/>✓ Reuse O0<br/>distance=0.05"]
+        N2["Row 2 @ 0.5<br/>✓ Reuse O2<br/>distance=0.0 EXACT!"]
+        N3["Row 3 @ 0.75<br/>✓ Reuse O4<br/>distance=0.05"]
+        N4["Row 4 @ 1.0<br/>❌ CALCULATE FRESH<br/>No old row nearby"]
     end
 
-    O2 -.->|Reuse!<br/>distance=0| N2
-    O1 -.->|Reuse<br/>small distance| N1
-    O3 -.->|Reuse<br/>small distance| N3
-    N0 -.->|Calculate fresh<br/>no close match| N0
-    N4 -.->|Calculate fresh<br/>no close match| N4
+    O0 -.->|distance²=0.0025<br/>cheaper than NEWPRICE| N1
+    O2 -.->|distance²=0<br/>perfect reuse!| N2
+    O4 -.->|distance²=0.0025<br/>cheaper than NEWPRICE| N3
+
+    style N0 stroke:#ff4a4a,stroke-width:2px
+    style N4 stroke:#ff4a4a,stroke-width:2px
+    style N1 stroke:#4aff4a,stroke-width:2px
+    style N2 stroke:#4aff4a,stroke-width:2px
+    style N3 stroke:#4aff4a,stroke-width:2px
 ```
+
+**Why these decisions?**
+
+1. **Row 0 @ 0.0**: Nearest old row is O0 @ 0.2 (distance = 0.2). Cost to reuse = 0.04, but NEWPRICE ≈ (4×step)² = (4×0.25)² = 1.0. Reuse would be cheaper! But O0 is needed for N1, so we calculate fresh.
+
+2. **Row 1 @ 0.25**: Can reuse O0 @ 0.2 (distance = 0.05, cost = 0.0025). Much cheaper than NEWPRICE = 1.0. **Reuse!**
+
+3. **Row 2 @ 0.5**: Exact match with O2 @ 0.5 (distance = 0, cost = 0). **Perfect reuse!**
+
+4. **Row 3 @ 0.75**: Could reuse O3 @ 0.6 or O4 @ 0.8. O4 is closer (distance = 0.05). But O3 is not reused elsewhere, so we could use either. Algorithm picks O4. **Reuse O4!**
+
+5. **Row 4 @ 1.0**: Nearest is O4 @ 0.8 (distance = 0.2), but O4 is already used by N3. **No doubling allowed!** Must calculate fresh.
+
+**Key insight**: The algorithm prevents "doubling" (reusing the same old row twice) to avoid visual artifacts. Each old row can only be reused once.
 
 ## Key Insights
 
