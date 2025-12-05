@@ -32,27 +32,116 @@
 #include "ui_helper.h"
 #define MINCOUNT 5
 #define InSet(i) (i == context->image->palette->pixels[0])
-/*Include bitmap depended part first */
 
-#include "c256.h"
-#define look1 look18
-#define look2 look28
-#include "autod.h"
+/* Template functions for autopilot (moved from autod.h) */
+#include "pixel_traits.h"
 
-#include "hicolor.h"
-#define look1 look116
-#define look2 look216
-#include "autod.h"
+namespace tpl {
 
-#include "true24.h"
-#define look1 look124
-#define look2 look224
-#include "autod.h"
+template <typename PixelTraits>
+static inline int look1(uih_context *context, int x, int y, int range, int max)
+{
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
 
-#include "truecolor.h"
-#define look1 look132
-#define look2 look232
-#include "autod.h"
+    pixel_t *vbuff;
+    int i, j, c = 0;
+    if (range < context->zengine->image->width / 2)
+        if (x < 0 || x > context->zengine->image->width || y < 0 ||
+            y > context->zengine->image->height)
+            return 0;
+    do {
+        max--;
+        c = 0;
+        if (range > context->zengine->image->width / 2)
+            context->x1 =
+                rand() % (context->zengine->image->width - 2 * LOOKSIZE - 1) +
+                LOOKSIZE,
+            context->y1 =
+                rand() % (context->zengine->image->height - 2 * LOOKSIZE - 1) +
+                LOOKSIZE;
+        else {
+            context->x1 = rand() % range - (range >> 1) + x;
+            context->y1 = rand() % range - (range >> 1) + y;
+            if (context->x1 < LOOKSIZE)
+                context->x1 = LOOKSIZE;
+            if (context->y1 < LOOKSIZE)
+                context->y1 = LOOKSIZE;
+            if (context->x1 > context->zengine->image->width - 2 - LOOKSIZE)
+                context->x1 = context->zengine->image->width - 2 - LOOKSIZE;
+            if (context->y1 > context->zengine->image->height - 2 - LOOKSIZE)
+                context->y1 = context->zengine->image->height - 2 - LOOKSIZE;
+        }
+        for (j = context->y1 - LOOKSIZE; j <= context->y1 + LOOKSIZE; j++) {
+            vbuff = (pixel_t *)context->zengine->image->currlines[j];
+            for (i = context->x1 - LOOKSIZE; i <= context->x1 + LOOKSIZE; i++)
+                if (InSet(p::getp(vbuff, i)))
+                    c++;
+        }
+    } while ((c == 0 || c > LOOKSIZE * LOOKSIZE) && max > 0);
+    if (max > 0) {
+        context->c1 = BUTTON1, context->interlevel = 1;
+        return 1;
+    }
+    return (0);
+}
+
+template <typename PixelTraits>
+static inline int look2(uih_context *context, int x, int y, int range, int max)
+{
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+
+    pixel_t *vbuff, *vbuff2;
+    int i, j, i1, j1, c = 0;
+    if (range < context->zengine->image->width / 2)
+        if (x < 0 || x > context->zengine->image->width || y < 0 ||
+            y > context->zengine->image->height)
+            return 0;
+    do {
+        max--;
+        c = 0;
+
+        if (range > context->zengine->image->width / 2)
+            context->x1 =
+                rand() % (context->zengine->image->width - 2 * LOOKSIZE - 1) +
+                LOOKSIZE,
+            context->y1 =
+                rand() % (context->zengine->image->height - 2 * LOOKSIZE - 1) +
+                LOOKSIZE;
+        else {
+            context->x1 = rand() % range - (range >> 1) + x;
+            context->y1 = rand() % range - (range >> 1) + y;
+            if (context->x1 < LOOKSIZE)
+                context->x1 = LOOKSIZE;
+            if (context->y1 < LOOKSIZE)
+                context->y1 = LOOKSIZE;
+            if (context->x1 > context->zengine->image->width - 2 - LOOKSIZE)
+                context->x1 = context->zengine->image->width - 2 - LOOKSIZE;
+            if (context->y1 > context->zengine->image->height - 2 - LOOKSIZE)
+                context->y1 = context->zengine->image->height - 2 - LOOKSIZE;
+        }
+
+        for (j = context->y1 - LOOKSIZE; j < context->y1 + LOOKSIZE; j++) {
+            vbuff = (pixel_t *)context->zengine->image->currlines[j];
+            for (i = context->x1 - LOOKSIZE; i <= context->x1 + LOOKSIZE; i++)
+                for (j1 = j + 1; j1 < context->y1 + LOOKSIZE; j1++) {
+                    vbuff2 = (pixel_t *)context->zengine->image->currlines[j1];
+                    for (i1 = i + 1; i1 < context->x1 + LOOKSIZE; i1++)
+                        if (p::getp(vbuff, i) == p::getp(vbuff2, i1))
+                            c++;
+                }
+        }
+
+    } while ((c > LOOKSIZE * LOOKSIZE / 2) && max > 0);
+    if (max > 0) {
+        context->c1 = BUTTON1, context->interlevel = 2;
+        return 1;
+    }
+    return 0;
+}
+
+} // namespace tpl
 
 #ifdef USE_FLOAT128
 #include <quadmath.h>
@@ -142,52 +231,52 @@ void do_autopilot(uih_context *context, int *x, int *y, int *controls,
         } else {
             switch (context->zengine->image->bytesperpixel) {
                 case 1:
-                    c = look18(context, *x, *y, RANGE1, NGUESSES);
+                    c = tpl::look1<Pixel8Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look28(context, *x, *y, RANGE1, NGUESSES);
+                        c = tpl::look2<Pixel8Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look18(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look1<Pixel8Traits>(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look18(context, *x, *y, 10000, NGUESSES2);
+                        c = tpl::look1<Pixel8Traits>(context, *x, *y, 10000, NGUESSES2);
                     break;
 #ifdef SUPPORT16
                 case 2:
-                    c = look116(context, *x, *y, RANGE1, NGUESSES);
+                    c = tpl::look1<Pixel16Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look216(context, *x, *y, RANGE1, NGUESSES);
+                        c = tpl::look2<Pixel16Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look116(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look1<Pixel16Traits>(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look216(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look2<Pixel16Traits>(context, *x, *y, 10000, NGUESSES1);
                     break;
 #endif
 #ifdef STRUECOLOR24
                 case 3:
-                    c = look124(context, *x, *y, RANGE1, NGUESSES);
+                    c = tpl::look1<Pixel24Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look224(context, *x, *y, RANGE1, NGUESSES);
+                        c = tpl::look2<Pixel24Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look124(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look1<Pixel24Traits>(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look224(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look2<Pixel24Traits>(context, *x, *y, 10000, NGUESSES1);
                     break;
 #endif
                 case 4:
-                    c = look132(context, *x, *y, RANGE1, NGUESSES);
+                    c = tpl::look1<Pixel32Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!c)
-                        c = look232(context, *x, *y, RANGE1, NGUESSES);
+                        c = tpl::look2<Pixel32Traits>(context, *x, *y, RANGE1, NGUESSES);
                     if (!(rand() % 30))
                         c = 0;
                     if (!c)
-                        c = look132(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look1<Pixel32Traits>(context, *x, *y, 10000, NGUESSES1);
                     if (!c)
-                        c = look232(context, *x, *y, 10000, NGUESSES1);
+                        c = tpl::look2<Pixel32Traits>(context, *x, *y, 10000, NGUESSES1);
             }
             if (!c) {
                 if ((context->zengine->flags & INCOMPLETE)) {

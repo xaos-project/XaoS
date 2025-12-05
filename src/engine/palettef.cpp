@@ -9,21 +9,36 @@ struct palettedata {
     int active;
     unsigned int table[256];
 };
-#include "c256.h"
-#define cpalette palette8
-#include "paletted.h"
+/* Template functions for palette conversion (moved from paletted.h) */
+#include "pixel_traits.h"
 
-#include "truecolor.h"
-#define cpalette palette32
-#include "paletted.h"
+namespace tpl {
 
-#include "true24.h"
-#define cpalette palette24
-#include "paletted.h"
+template <typename PixelTraits>
+static void cpalette(void *data, struct taskinfo */*task*/, int r1, int r2)
+{
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
 
-#include "hicolor.h"
-#define cpalette palette16
-#include "paletted.h"
+    pixel8_t *src, *srcend;
+    pixel_t *dest;
+    struct filter *f = (struct filter *)data;
+    struct palettedata *s = (struct palettedata *)f->data;
+    int i;
+    unsigned int *table = s->table;
+    for (i = r1; i < r2; i++) {
+        src = f->childimage->currlines[i];
+        srcend = src + f->image->width;
+        dest = (pixel_t *)f->image->currlines[i];
+        while (src < srcend) {
+            p::set(dest, table[*src]);
+            src++;
+            p::inc(dest, 1);
+        }
+    }
+}
+
+} // namespace tpl
 
 static void mysetcolor(struct palette *p, int /*start*/, int /*end*/, rgb_t */*rgb*/)
 {
@@ -120,10 +135,10 @@ static int doit(struct filter *f, int flags, int time1)
             }
             s->palette->data = NULL;
         }
-        drivercall(*f->image, xth_function(palette8, f, f->image->height),
-                   xth_function(palette16, f, f->image->height),
-                   xth_function(palette24, f, f->image->height),
-                   xth_function(palette32, f, f->image->height));
+        drivercall(*f->image, xth_function(tpl::cpalette<Pixel8Traits>, f, f->image->height),
+                   xth_function(tpl::cpalette<Pixel16Traits>, f, f->image->height),
+                   xth_function(tpl::cpalette<Pixel24Traits>, f, f->image->height),
+                   xth_function(tpl::cpalette<Pixel32Traits>, f, f->image->height));
         xth_sync();
     }
     return val;

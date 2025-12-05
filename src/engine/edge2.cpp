@@ -9,24 +9,65 @@
 #include "xthread.h"
 #include "filter.h"
 
-#define spixel_t pixel8_t
-#include "c256.h"
-#define do_edge do_edge8
-#include "edge2d.h"
+/* Template functions for edge detection (algorithm 2) (moved from edge2d.h) */
+#include "pixel_traits.h"
 
-#undef spixel_t
-#define spixel_t pixel16_t
-#include "truecolor.h"
-#define do_edge do_edge32
-#include "edge2d.h"
+namespace tpl {
 
-#include "true24.h"
-#define do_edge do_edge24
-#include "edge2d.h"
+template <typename PixelTraits>
+static void do_edge2(void *data, struct taskinfo */*task*/, int r1, int r2)
+{
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
 
-#include "hicolor.h"
-#define do_edge do_edge16
-#include "edge2d.h"
+    struct filter *f = (struct filter *)data;
+    int y;
+    unsigned int *pixels = f->image->palette->pixels;
+    unsigned int black = f->image->palette->pixels[0];
+    pixel_t *output, *end;
+    pixel16_t *up, *down, *input;
+
+    for (y = r1; y < r2; y++) {
+        output = p::add((pixel_t *)f->image->currlines[y], 1);
+        input = ((pixel16_t *)f->childimage->currlines[y]) + 1;
+
+        if (y != 0)
+            up = ((pixel16_t *)f->childimage->currlines[y - 1]) + 1;
+        else
+            up = ((pixel16_t *)f->childimage->currlines[y]) + 1;
+
+        if (y != f->image->height - 1)
+            down = ((pixel16_t *)f->childimage->currlines[y + 1]) + 1;
+        else
+            down = ((pixel16_t *)f->childimage->currlines[y]) + 1;
+
+        end = p::add((pixel_t *)f->image->currlines[y], f->image->width - 1);
+        p::setp(output, -1, 0);
+        p::setp(output, f->image->width - 2, 0);
+
+        while (output < end) {
+            if (input[0] > up[0] || input[0] > down[0]) {
+                p::set(output, pixels[input[0]]);
+            } else if (input[0] != input[1]) {
+                if (input[0] < input[1]) {
+                    p::set(output, black);
+                    p::inc(output, 1);
+                    input++;
+                    up++;
+                    down++;
+                }
+                p::set(output, pixels[input[0]]);
+            } else
+                p::set(output, black);
+            p::inc(output, 1);
+            input++;
+            up++;
+            down++;
+        }
+    }
+}
+
+} // namespace tpl
 
 static int requirement(struct filter *f, struct requirements *r)
 {
@@ -79,10 +120,10 @@ static int doit(struct filter *f, int flags, int time)
                          ((struct palette *)f->data)->version++;
     updateinheredimage(f);
     val = f->previous->action->doit(f->previous, flags, time);
-    drivercall(*f->image, xth_function(do_edge8, f, f->image->height),
-               xth_function(do_edge16, f, f->image->height),
-               xth_function(do_edge24, f, f->image->height),
-               xth_function(do_edge32, f, f->image->height));
+    drivercall(*f->image, xth_function(tpl::do_edge2<Pixel8Traits>, f, f->image->height),
+               xth_function(tpl::do_edge2<Pixel16Traits>, f, f->image->height),
+               xth_function(tpl::do_edge2<Pixel24Traits>, f, f->image->height),
+               xth_function(tpl::do_edge2<Pixel32Traits>, f, f->image->height));
     xth_sync();
     return val;
 }

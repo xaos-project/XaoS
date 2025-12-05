@@ -21,18 +21,44 @@ static inline unsigned int myrandom(void)
 }
 
 #define IMAGETYPE SMALLITER
-#include "c256.h"
-#define do_starfield do_starfield8
-#include "stard.h"
-#include "hicolor.h"
-#define do_starfield do_starfield16
-#include "stard.h"
-#include "true24.h"
-#define do_starfield do_starfield24
-#include "stard.h"
-#include "truecolor.h"
-#define do_starfield do_starfield32
-#include "stard.h"
+/* Template functions for starfield effect (moved from stard.h) */
+#include "pixel_traits.h"
+
+namespace tpl {
+
+template <typename PixelTraits>
+static void do_starfield(void *data, struct taskinfo */*task*/, int r1, int r2)
+{
+    using p = PixelTraits;
+    using pixel_t = typename p::pixel_t;
+    using pixeldata_t = typename p::pixeldata_t;
+
+    struct filter *f = (struct filter *)data;
+    pixel_t *dest;
+    pixel8_t *src, *srcend;
+    unsigned int color;
+    int y;
+    pixeldata_t black = (pixeldata_t)f->image->palette->pixels[0];
+    mysrandom((unsigned int)rand());
+    for (y = r1; y < r2; y++) {
+        src = f->childimage->currlines[y];
+        srcend = f->childimage->currlines[y] + f->childimage->width;
+        dest = (pixel_t *)f->image->currlines[y];
+        while (src < srcend) {
+            color = ((unsigned int)myrandom() >> 7) & 15;
+            if (!*src ||
+                (unsigned int)*src * (unsigned int)*src * (unsigned int)*src >
+                    (unsigned int)((unsigned int)myrandom() & (0xffffff))) {
+                p::set(dest, (pixeldata_t)f->image->palette->pixels[color]);
+            } else
+                p::set(dest, black);
+            p::inc(dest, 1);
+            src++;
+        }
+    }
+}
+
+} // namespace tpl
 static int requirement(struct filter *f, struct requirements *r)
 {
     f->req = *r;
@@ -83,10 +109,10 @@ static int doit(struct filter *f, int flags, int time)
 {
     int val;
     val = f->previous->action->doit(f->previous, flags, time);
-    drivercall(*f->image, xth_function(do_starfield8, f, f->image->height),
-               xth_function(do_starfield16, f, f->image->height),
-               xth_function(do_starfield24, f, f->image->height),
-               xth_function(do_starfield32, f, f->image->height));
+    drivercall(*f->image, xth_function(tpl::do_starfield<Pixel8Traits>, f, f->image->height),
+               xth_function(tpl::do_starfield<Pixel16Traits>, f, f->image->height),
+               xth_function(tpl::do_starfield<Pixel24Traits>, f, f->image->height),
+               xth_function(tpl::do_starfield<Pixel32Traits>, f, f->image->height));
     xth_sync();
     return val | CHANGED;
 }
