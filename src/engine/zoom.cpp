@@ -35,7 +35,7 @@
 #include "btrace.h"
 #include "xthread.h"
 #include "xerror.h"
-#include "calculate.h" /*an inlined calculate function */
+#include "calculate.h" /*An inlined calculate function */
 #include "i18n.h"
 
 #define ASIZE 16
@@ -100,10 +100,10 @@ static void fillline_16(int line);
 // static void fillline_24(int line);
 static void fillline_32(int line);
 
-/*first of all inline driver section */
-/*If you think this way is ugly, I must agree. Please let me know
- *about better one that allows to generate custom code for 8,16,24,32
- *bpp modes and use of static variables
+/*First of all, inline driver section */
+/*This approach uses preprocessor includes to generate custom code for
+ *8, 16, 24, and 32 bpp modes with static variables. If you know of a
+ *better approach, please let us know.
  */
 #include "c256.h"
 #define fillline fillline_8
@@ -145,13 +145,13 @@ struct dyn_data {
     struct dyn_data *previous;
 };
 
-#define FPMUL 64 /*Let multable fit into pentium cache */
-#define RANGES 2 /*shift equal to x*RANGE */
+#define FPMUL 64 /*Let multiplication table fit into Pentium cache */
+#define RANGES 2 /*Bit shift count for x*RANGE */
 #define RANGE 4
 
-#define DSIZEHMASK (0x7) /*mask equal to x%(DSIZE) */
+#define DSIZEHMASK (0x7) /*Bit mask for x % DSIZE */
 #define DSIZE (2 * RANGE)
-#define DSIZES (RANGES + 1) /*shift equal to x*DSIZE */
+#define DSIZES (RANGES + 1) /*Bit shift count for x*DSIZE */
 
 #define adddata(n, i) (dyndata + (((n) << DSIZES) + (((i) & (DSIZEHMASK)))))
 #define getbest(i) (dyndata + ((size) << DSIZES) + (i))
@@ -195,9 +195,9 @@ static int *mulmid;
  *some symmetrical one instead
  */
 
-/*FIXME should be threaded...but thread overhead should take more work than
- *do it in one, since it is quite simple and executes just in case fractal
- *on the screen is symmetrical and it is quite rare case...who knows
+/*FIXME should be threaded...but thread overhead would take more work than
+ *doing it in one thread, since this is quite simple and only executes when
+ *the fractal on the screen is symmetrical, which is a rare case...who knows
  */
 
 static void preparesymmetries(realloc_t *realloc, const int size, int symi,
@@ -382,12 +382,26 @@ static void newpositions(realloc_t *realloc, unsigned int size, number_t begin1,
     }
 }
 
-/* This is the main reallocation algorithm described in xaos.info
- * It is quite complex since many loops are unrooled and uses custom
- * fixedpoint
+/*
+ * mkrealloc_table - Dynamic programming algorithm for optimal row/column approximation
  *
- * Takes approx 30% of time so looking for way to do it threaded.
- * Let me know :)
+ * This is the core of XaoS's zooming optimization. Instead of recalculating every pixel,
+ * it determines which old rows/columns can be reused for new positions, and which must
+ * be freshly calculated. See algorithms.md "Approximation Algorithm" section.
+ *
+ * The algorithm uses dynamic programming to find the lowest-cost mapping between old
+ * and new positions, where:
+ *   - Reusing an old row/column costs: (distance)^2
+ *   - Calculating a new row/column costs: (4 * step)^2 = NEWPRICE
+ *
+ * Parameters:
+ *   fpos     - Array of old row/column coordinates (floating-point)
+ *   realloc  - Output table describing how to build the new frame
+ *   size     - Number of rows or columns
+ *   begin    - Starting coordinate of new viewport
+ *   end      - Ending coordinate of new viewport
+ *   sym      - Symmetry axis (if applicable)
+ *   tmpdata  - Temporary buffer for dynamic programming tables
  */
 static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
                             const unsigned int size, const number_t begin,
@@ -396,25 +410,27 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
 {
     unsigned int i;
     int counter;
-    unsigned int ps, ps1 = 0, pe;
-    unsigned int p;
+    unsigned int ps, ps1 = 0, pe;  /* Previous start, previous start1, previous end */
+    unsigned int p;                 /* Current position index */
     long int bestprice = MAXPRICE;
-    realloc_t *r = realloc;
-    struct dyn_data *dyndata;
-    int yend, y;
-    struct dyn_data **best;
-    struct dyn_data **best1, **tmp;
-    int *pos;
-    number_t step, tofix;
-    int symi = -1;
-    unsigned int lastplus = 0;
-    struct dyn_data *data;
+    realloc_t *r = realloc;        /* Save original realloc pointer */
+    struct dyn_data *dyndata;      /* Dynamic programming state table */
+    int yend, y;                   /* Range boundaries in fixed-point */
+    struct dyn_data **best;        /* Best solution for previous row at each old position */
+    struct dyn_data **best1, **tmp; /* Double buffering for best arrays */
+    int *pos;                      /* Old positions converted to fixed-point */
+    number_t step, tofix;          /* Step size and conversion factor */
+    int symi = -1;                 /* Symmetry index */
+    unsigned int lastplus = 0;     /* Last used old position */
+    struct dyn_data *data;         /* Current state being evaluated */
     struct dyn_data *previous = NULL, *bestdata = NULL;
-    int myprice;
+    int myprice;                   /* Price of current solution being evaluated */
 #ifdef STATISTICS
     nadded = 0, nsymmetry = 0, nskipped = 0;
 #endif
 
+    /* Partition temporary buffer into arrays needed for dynamic programming.
+     * Layout: [pos array] [best array] [best1 array] [dyndata array] */
     pos = (int *)tmpdata;
     best = (struct dyn_data **)(tmpdata + ALIGN((size + 2) * sizeof(int)));
     best1 = (struct dyn_data **)(tmpdata + ALIGN((size + 2) * sizeof(int)) +
@@ -422,143 +438,206 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
     dyndata = (struct dyn_data *)(tmpdata + ALIGN((size + 2) * sizeof(int)) +
                                   2 * ALIGN(size * sizeof(struct dyn_data **)));
 
-    tofix = size * FPMUL / (end - begin);
-    pos[0] = INT_MIN;
-    pos++;
+    /* === INITIALIZATION PHASE ===
+     * Convert floating-point old positions to fixed-point for fast integer arithmetic.
+     * Fixed-point representation: 0 = begin, size*FPMUL = end */
+
+    tofix = size * FPMUL / (end - begin);  /* Conversion factor to fixed-point */
+    pos[0] = INT_MIN;  /* Guard value before first position */
+    pos++;             /* Adjust pointer so pos[0] corresponds to fpos[0] */
+
     for (counter = (int)size - 1; counter >= 0; counter--) {
-        pos[counter] =
-            (int)((fpos[counter] - begin) *
-                  tofix); /*first convert everything into fixedpoint */
+        /* Convert old position to fixed-point coordinate relative to new viewport */
+        pos[counter] = (int)((fpos[counter] - begin) * tofix);
+
+        /* Ensure positions remain sorted (fix floating-point rounding errors).
+         * If a position is greater than the next, it would cause incorrect ordering. */
         if (counter < (int)size - 1 && pos[counter] > pos[counter + 1])
-            /*Avoid processing of missordered rows.
-               They should happen because of limited
-               precisity of FP numbers */
             pos[counter] = pos[counter + 1];
     }
-    pos[size] = INT_MAX;
-    step = (end - begin) / (number_t)size;
-    if (begin > sym || sym > end) /*calculate symmetry point */
-        symi = -2;
-    else {
-        symi = (int)((sym - begin) / step);
-    }
+    pos[size] = INT_MAX;  /* Guard value after last position */
 
-    ps = 0;
-    pe = 0;
-    y = 0;
+    step = (end - begin) / (number_t)size;  /* Distance between adjacent new positions */
 
-    /* This is first pass that fills table dyndata, that holds information
-     * about all ways algorithm thinks about. Correct way is discovered at
-     * end by looking backward and determining witch way algorithm used to
-     * calculate minimal value*/
+    /* Calculate symmetry axis position for optimization (if applicable) */
+    if (begin > sym || sym > end)
+        symi = -2;  /* Symmetry axis outside viewport */
+    else
+        symi = (int)((sym - begin) / step);  /* Index of symmetry axis */
+
+    /* Initialize range tracking variables for dynamic programming.
+     * ps/pe track which old positions fall within acceptable range of current new position. */
+    ps = 0;   /* Previous range start */
+    pe = 0;   /* Previous range end */
+    y = 0;    /* Current new position in fixed-point */
+
+    /* === DYNAMIC PROGRAMMING FORWARD PASS ===
+     * This is the core algorithm. For each new position i, we evaluate all possible
+     * ways to build an optimal solution:
+     *   1. Calculate this position fresh (cost = NEWPRICE)
+     *   2. Reuse an old position p within acceptable range (cost = distance^2)
+     *
+     * We build upon solutions for previous positions (i-1, i-2, ...) to find the
+     * minimum total cost. The dyndata table stores all possibilities; best[] tracks
+     * the optimal choice at each old position for the previous new position.
+     *
+     * Key constraint: We cannot reuse the same old position twice (no doubling).
+     * This is enforced by only considering old positions >= the one used previously.
+     */
 
     for (i = 0; i < size; i++, y += FPMUL) {
-        bestprice = MAXPRICE;
-        p = ps; /*just inicialize parameters */
+        bestprice = MAXPRICE;  /* Will track best solution found for position i */
+        p = ps;                /* Start scanning old positions from previous range start */
 
+        /* Swap best arrays for double buffering.
+         * best1[] becomes the new best[] for position i-1
+         * best[] will be filled with best solutions for position i */
         tmp = best1;
         best1 = best;
         best = tmp;
 
+        /* Calculate acceptable range for old positions.
+         * Only old positions within ±IRANGE of y can be used (beyond that, NEWPRICE is cheaper).
+         * IRANGE is chosen so that PRICE(IRANGE, 0) ≈ NEWPRICE */
         yend = y - IRANGE;
-        if (yend < -FPMUL) /*do no allow lines outside screen */
+        if (yend < -FPMUL)     /* Clamp to screen boundaries */
             yend = -FPMUL;
 
-        while (pos[p] <= yend) /*skip lines out of range */
+        while (pos[p] <= yend) /* Skip old positions below acceptable range */
             p++;
-        ps1 = p;
-        yend = y + IRANGE;
+        ps1 = p;               /* Remember first old position in range */
+        yend = y + IRANGE;     /* Upper bound of acceptable range */
 
-        /*First try case that current line will be newly calculated */
+        /* === OPTION 1: Calculate this position fresh ===
+         * This option doesn't reuse any old position, so we just need to connect
+         * optimally to the best solution from position i-1. */
 
-        /*Look for best way how to connect previous lines */
-        if (ps != pe && p > ps) { /*previous point had lines */
+        /* Find the best solution from position i-1 to base this decision on.
+         * We need to connect to the best solution that doesn't use old positions >= p,
+         * since we want to reserve those for position i. */
+        if (ps != pe && p > ps) {
+            /* Position i-1 had old positions in range. Find the best one before position p. */
             assert(p >= ps);
             if (p < pe) {
-                previous = best[p - 1];
+                previous = best[p - 1];  /* Best solution using old positions < p */
                 CHECKPOS(previous);
-            } else
-                previous = best[pe - 1];
+            } else {
+                previous = best[pe - 1]; /* All positions were < p, use the last one */
+            }
             CHECKPOS(previous);
-            myprice = previous->price; /*find best one */
+            myprice = previous->price;
         } else {
-            if (i > 0) { /*previous line had no lines */
-                previous = getbest(i - 1);
+            /* Position i-1 had no old positions in range (was freshly calculated).
+             * Connect to its solution directly. */
+            if (i > 0) {
+                previous = getbest(i - 1);  /* Solution for i-1 (no old position used) */
                 myprice = previous->price;
-            } else
-                previous = END, myprice = 0;
+            } else {
+                previous = END;  /* Special marker: no previous solution (first position) */
+                myprice = 0;
+            }
         }
 
-        data = getbest(i); /*find store position */
-        myprice += NEWPRICE;
-        bestdata = data;
-        data->previous = previous;
-        bestprice = myprice;    /*calculate best available price */
-        data->price = myprice;  /*store data */
-        assert(bestprice >= 0); /*FIXME:tenhle assert muze FAILIT! */
-        data = adddata(p, i);   /*calculate all lines good for this y */
+        /* Store the "calculate fresh" option in the dyndata table.
+         * This solution has cost = previous cost + NEWPRICE */
+        data = getbest(i);      /* Storage location for "no old position used" option */
+        myprice += NEWPRICE;    /* Add cost of calculating this position */
+        bestdata = data;        /* Currently this is the best option we've found */
+        data->previous = previous;  /* Remember how we got here */
+        bestprice = myprice;    /* Track best total cost so far */
+        data->price = myprice;  /* Store this option's cost */
+        assert(bestprice >= 0);
+        data = adddata(p, i);   /* Move to storage for "reuse old position p" options */
 
-        /* Now try all acceptable connection and calculate best possibility
-         * with this connection
-         */
-        if (ps != pe) { /*in case that previous had also positions */
-            int price1 = INT_MAX;
-            /*At first line of previous interval we have only one possibility
-             *don't connect previous line at all.
-             */
-            if (p == ps) { /*here we must skip previous point */
-                if (pos[p] != pos[p + 1]) {
-                    previous = getbest(i - 1);
+        /* === OPTION 2: Reuse old positions ===
+         * Now try reusing each old position p within acceptable range.
+         * For each old position p, we calculate: previous_cost + PRICE(pos[p], y)
+         * We can only use old position p if the previous solution used old position < p
+         * (to prevent doubling). */
+        if (ps != pe) {
+            /* === CASE A: Previous position had old positions in range ===
+             * Position i-1 had old positions in range, so we can potentially reuse them.
+             * This is more complex because ranges overlap - we must ensure no doubling.
+             * We process old positions in three phases:
+             *   Phase 1: First position in range (special case - can't connect to i-1's solution)
+             *   Phase 2: Overlapping positions (where both i-1 and i can use them)
+             *   Phase 3: Remaining positions in range for i only */
+
+            int price1 = INT_MAX;  /* Cost of best solution from i-1 at current p */
+
+            /* --- Phase 1: First old position in range ---
+             * At p == ps, we're at the first old position that i-1 could use.
+             * If we use it for i, then i-1 couldn't have used it (no doubling).
+             * So we can only connect to i-1's "calculate fresh" solution. */
+            if (p == ps) {
+                if (pos[p] != pos[p + 1]) {  /* Skip duplicate positions */
+                    previous = getbest(i - 1);       /* i-1's "calculate fresh" solution */
                     myprice = previous->price;
-                    myprice += PRICE(pos[p], y); /*store data */
-                    if (myprice < bestprice) {   /*calculate best */
-                        bestprice = myprice, bestdata = data;
+                    myprice += PRICE(pos[p], y);     /* Add cost of using old position p */
+                    if (myprice < bestprice) {       /* Is this better than calculating fresh? */
+                        bestprice = myprice;
+                        bestdata = data;
                         data->price = myprice;
                         data->previous = previous;
                     }
                 }
                 assert(bestprice >= 0);
                 assert(myprice >= 0);
-                best1[p] = bestdata;
-                data += DSIZE;
+                best1[p] = bestdata;  /* Record best solution when using old position p */
+                data += DSIZE;        /* Advance to next old position's storage */
                 p++;
             }
 
+            /* --- Phase 2: Overlapping range ---
+             * For ps < p < pe, both i-1 and i have this old position in range.
+             * We can connect to i-1's best solution using old position p-1.
+             * This ensures no doubling and maintains sorted order. */
             previous = NULL;
             price1 = myprice;
-            while (p < pe) { /*this is area where intervals of current point and
-                                previous one are crossed */
-                if (pos[p] != pos[p + 1]) {
+            while (p < pe) {  /* Process all old positions that were in range for i-1 */
+                if (pos[p] != pos[p + 1]) {  /* Skip duplicates */
+                    /* Check if we need to update our base cost from i-1.
+                     * We reuse the previous value when possible for efficiency. */
                     if (previous != best[p - 1]) {
-
+                        /* i-1's best solution changed, update our base cost */
                         previous = best[p - 1];
                         CHECKPOS(previous);
                         price1 = myprice = previous->price;
 
-                        /*In case we found revolutional point, we should think
-                         *about changing our gusesses in last point too - don't
-                         *connect it at all, but use this way instead*/
-                        if (myprice + NEWPRICE <
-                            bestprice) { /*true in approx 2/3 of cases */
-                            bestprice = myprice + NEWPRICE,
-                            bestdata = data - DSIZE;
+                        /* Retroactive optimization (backward correction):
+                         * We just discovered that best[p-1] has a much better cost than before.
+                         * This means position p-1 (which we already processed) might have made
+                         * a suboptimal choice. Go back and check: would p-1 be better off
+                         * calculating FRESH and connecting to this cheaper best[p-1], rather
+                         * than reusing an old position? If so, retroactively change p-1's decision.
+                         *
+                         * Example: p-1 chose to reuse old position with cost=1000, but if it
+                         * calculated fresh and connected to best[p-1], cost would be 100+NEWPRICE=500.
+                         * So we go back and change p-1's decision to "calculate fresh". */
+                        if (myprice + NEWPRICE < bestprice) {  /* Common case (≈2/3 of time) */
+                            bestprice = myprice + NEWPRICE;
+                            bestdata = data - DSIZE;  /* Go back to p-1's storage */
                             (bestdata)->price = bestprice;
-                            (bestdata)->previous = previous + nosetadd;
-                            best1[p - 1] = bestdata;
+                            (bestdata)->previous = previous + nosetadd;  /* Special marker: "calculate fresh" */
+                            best1[p - 1] = bestdata;  /* Update best solution for p-1 */
                         }
-                    } else
+                    } else {
+                        /* Same base cost as before, reuse it */
                         myprice = price1;
+                    }
 
-                    myprice +=
-                        PRICE(pos[p], y); /*calculate price of new connection */
+                    /* Calculate cost of using old position p for new position i */
+                    myprice += PRICE(pos[p], y);
 
-                    if (myprice <
-                        bestprice) { /*2/3 of cases */ /*if it is better than
-                                                          previous, store it */
-                        bestprice = myprice, bestdata = data;
+                    /* Is this better than our current best? */
+                    if (myprice < bestprice) {  /* Common case (≈2/3 of time) */
+                        bestprice = myprice;
+                        bestdata = data;
                         data->price = myprice;
                         data->previous = previous;
                     } else if (pos[p] > y) {
+                        /* Old position is past new position y, no point continuing.
+                         * Future positions will be even farther away. */
                         best1[p] = bestdata;
                         data += DSIZE;
                         p++;
@@ -567,63 +646,77 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
                 }
 
                 assert(myprice >= 0);
-                assert(bestprice >= 0); /*FIXME:tenhle assert FAILI! */
+                assert(bestprice >= 0);
 
-                best1[p] = bestdata;
+                best1[p] = bestdata;  /* Record best solution at this old position */
                 data += DSIZE;
                 p++;
             }
-            while (p < pe) { /*this is area where intervals of current point and
-                                previous one are crossed */
+            /* Continue filling best1[] for remaining positions in i-1's range.
+             * These positions were already optimized in the loop above, just need
+             * to record the best solutions. */
+            while (p < pe) {
 #ifdef DEBUG
+                /* Sanity check: previous should be stable in this region */
                 if (pos[p] != pos[p + 1]) {
                     if (previous != best[p - 1]) {
-                        x_fatalerror("Missoptimization found!");
+                        x_fatalerror("Misoptimization found!");
                     }
                 }
 #endif
                 assert(myprice >= 0);
-                assert(bestprice >= 0); /*FIXME:tenhle assert FAILI! */
+                assert(bestprice >= 0);
 
                 best1[p] = bestdata;
                 data += DSIZE;
                 p++;
             }
 
-            /* OK...we passed crossed area. All next areas have same previous
-             * situation so our job is easier
-             * So find the best solution once for all of them
-             */
+            /* --- Phase 3: Positions in range for i but not i-1 ---
+             * Now p >= pe, so these old positions are only in range for i.
+             * The base cost from i-1 is stable (doesn't depend on p anymore),
+             * so we can compute it once and reuse it. */
+
             if (p > ps) {
-                previous = best[p - 1]; /*find best one in previous */
+                /* Use i-1's best solution at the last old position it considered */
+                previous = best[p - 1];
                 CHECKPOS(previous);
                 price1 = previous->price;
             } else {
+                /* i-1 didn't use any old positions */
                 previous = getbest(i - 1);
                 price1 = previous->price;
             }
 
-            /* Since guesses for "revolutional point" was always one
-             * step back, we need to do last one*/
+            /* Final retroactive optimization:
+             * Now that we have the final base cost from i-1, do one last check:
+             * should position p-1 recalculate fresh instead of reusing an old position?
+             * This is the same backward correction as above, but done once we know
+             * the base cost won't change anymore. */
             if (price1 + NEWPRICE < bestprice && p > ps1) {
                 myprice = price1 + NEWPRICE;
-                bestprice = myprice, bestdata = data - DSIZE;
+                bestprice = myprice;
+                bestdata = data - DSIZE;  /* Go back to p-1 */
                 (bestdata)->price = myprice;
-                (bestdata)->previous = previous + nosetadd;
+                (bestdata)->previous = previous + nosetadd;  /* Mark as "calculate fresh" */
                 best1[p - 1] = bestdata;
-                myprice -= NEWPRICE;
+                myprice -= NEWPRICE;  /* Restore for reuse below */
             }
 
+            /* Process remaining old positions in range for i */
             while (pos[p] < yend) {
                 if (pos[p] != pos[p + 1]) {
                     myprice = price1;
-                    myprice += PRICE(pos[p], y); /*store data */
-                    if (myprice < bestprice) {   /*calculate best */
-                        bestprice = myprice, bestdata = data;
+                    myprice += PRICE(pos[p], y);
+                    if (myprice < bestprice) {
+                        bestprice = myprice;
+                        bestdata = data;
                         data->price = myprice;
                         data->previous = previous;
-                    } else if (pos[p] > y)
+                    } else if (pos[p] > y) {
+                        /* Past the target, stop */
                         break;
+                    }
                 }
 
                 assert(bestprice >= 0);
@@ -633,34 +726,44 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
                 data += DSIZE;
                 p++;
             }
+
+            /* Fill in remaining positions with the best solution found */
             while (pos[p] < yend) {
                 best1[p] = bestdata;
                 p++;
             }
+
         } else {
-            /* This is second case - previous y was not mapped at all.
-             * Situation is simpler now, since we know that behind us is
-             * large hole and our decisions don't affect best solution for
-             * previous problem. Se we have just one answer
-             * Situation is similar to latest loop in previous case
-             */
-            int myprice1; /*simplified loop for case that previous
-                             y had no lines */
+            /* === CASE B: Previous position had no old positions in range ===
+             * Position i-1 was calculated fresh (no old positions were in acceptable range).
+             * This simplifies things: there's no overlap to worry about, and our decisions
+             * don't affect i-1's solution. We just connect to i-1's solution and try
+             * each old position in range. This is similar to Phase 3 above. */
+
+            int myprice1;  /* Base cost from i-1 (constant for all old positions) */
+
             if (pos[p] < yend) {
+                /* Get base cost from i-1 */
                 if (i > 0) {
                     previous = getbest(i - 1);
                     myprice1 = previous->price;
-                } else
-                    previous = END, myprice1 = 0;
+                } else {
+                    previous = END;
+                    myprice1 = 0;
+                }
+
+                /* Try each old position in range */
                 while (pos[p] < yend) {
                     if (pos[p] != pos[p + 1]) {
                         myprice = myprice1 + PRICE(pos[p], y);
                         if (myprice < bestprice) {
                             data->price = myprice;
                             data->previous = previous;
-                            bestprice = myprice, bestdata = data;
-                        } else if (pos[p] > y)
-                            break;
+                            bestprice = myprice;
+                            bestdata = data;
+                        } else if (pos[p] > y) {
+                            break;  /* Past target, stop */
+                        }
                     }
                     assert(bestprice >= 0);
                     assert(myprice >= 0);
@@ -668,66 +771,93 @@ static void mkrealloc_table(const number_t *fpos, realloc_t *realloc,
                     p++;
                     data += DSIZE;
                 }
+
+                /* Fill remaining positions with best solution */
                 while (pos[p] < yend) {
                     best1[p] = bestdata;
                     p++;
                 }
             }
         }
-        /*previous = ps; */ /*store positions for next loop */
-        ps = ps1;
-        ps1 = pe;
-        pe = p;
+
+        /* Update range tracking for next iteration.
+         * ps, pe track the range of old positions that were in range for the previous
+         * new position. This helps us efficiently process the overlapping regions. */
+        ps = ps1;   /* Start of range for current position becomes previous start */
+        ps1 = pe;   /* End of previous range becomes ps1 for next iteration */
+        pe = p;     /* Current end becomes previous end for next iteration */
     }
 
     assert(bestprice >= 0);
 
-    realloc = realloc + size;
-    yend = (int)((begin > fpos[0]) && (end < fpos[size - 1]));
+    /* === DYNAMIC PROGRAMMING BACKWARD PASS (Backtracking) ===
+     * The forward pass filled the dyndata table with all possible solutions.
+     * Now we trace backward from the last position to reconstruct the optimal path.
+     * bestdata points to the best solution for position size-1; we follow the
+     * "previous" pointers to recover the complete solution. */
 
+    realloc = realloc + size;  /* Point to end of realloc table */
+
+    /* Determine if we need special handling for positions at viewport boundaries.
+     * yend encodes boundary conditions for newpositions() function. */
+    yend = (int)((begin > fpos[0]) && (end < fpos[size - 1]));
     if (pos[0] > 0 && pos[size - 1] < (int)size * FPMUL)
         yend = 2;
 
-    /*This part should be made threaded quite easily...but does it worth
-     *since it is quite simple loop 0...xmax
-     */
-    for (i = size; i > 0;) { /*and finally traces the path */
+    /* Backtrack through the optimal solution to fill the realloc table.
+     * We go backward from position size-1 to 0, following the chain of
+     * "previous" pointers that represent the optimal decisions. */
+    for (i = size; i > 0;) {
         struct dyn_data *bestdata1;
-        realloc--;
+        realloc--;  /* Move backward in realloc table */
         i--;
-        realloc->symto = -1;
+        realloc->symto = -1;   /* Initialize symmetry fields */
         realloc->symref = -1;
-        bestdata1 = bestdata->previous;
+        bestdata1 = bestdata->previous;  /* Follow the optimal path backward */
+
+        /* Decode what action was taken for this position.
+         * The encoding uses pointer arithmetic tricks:
+         *   - Pointers >= (dyndata + nosetadd) mean "calculate fresh"
+         *   - Pointers >= (dyndata + size<<DSIZES) mean "calculate fresh"
+         *   - Other pointers encode which old position was reused */
 
         if (bestdata1 >= dyndata + nosetadd ||
             bestdata >= dyndata + ((size) << DSIZES)) {
+            /* This position should be calculated fresh (new row/column) */
             if (bestdata1 >= dyndata + nosetadd)
-                bestdata1 -= nosetadd;
+                bestdata1 -= nosetadd;  /* Remove the special marker */
 
-            realloc->recalculate = 1;
+            realloc->recalculate = 1;  /* Mark for fresh calculation */
             STAT(nadded++);
-            realloc->dirty = 1;
-            lastplus++;
+            realloc->dirty = 1;        /* Needs calculation */
+            lastplus++;                /* Assign a calculation slot */
 
             if (lastplus >= size)
                 lastplus = 0;
 
-            realloc->plus = lastplus;
+            realloc->plus = lastplus;  /* Store which slot to use */
 
         } else {
+            /* This position reuses an old row/column.
+             * Decode which old position from the pointer value. */
             p = ((unsigned int)(bestdata - dyndata)) >> DSIZES;
             assert(p < size);
-            realloc->position = fpos[p];
-            realloc->plus = p;
-            realloc->dirty = 0;
-            realloc->recalculate = 0;
+            realloc->position = fpos[p];   /* Use old position p */
+            realloc->plus = p;             /* Index of old position */
+            realloc->dirty = 0;            /* Already calculated */
+            realloc->recalculate = 0;      /* Don't recalculate */
             lastplus = p;
         }
-        bestdata = bestdata1;
+        bestdata = bestdata1;  /* Continue backtracking */
     }
 
-    newpositions(realloc, size, begin, end, fpos, yend);
-    realloc = r;
+    /* === POST-PROCESSING ===
+     * Refine the positions and apply optimizations */
+
+    newpositions(realloc, size, begin, end, fpos, yend);  /* Adjust positions for smoothness */
+    realloc = r;  /* Restore original pointer */
+
+    /* Apply symmetry optimizations if symmetry axis is within viewport */
     if (symi <= (int)size && symi >= 0) {
         preparesymmetries(r, (int)size, symi, sym, step);
     }
@@ -1080,7 +1210,7 @@ static void calculatenew(void * /*data*/, struct taskinfo *task, int /*r1*/,
         }
     }
     STAT(
-        printf("Avoided caluclating of %i points from %i and %2.2f%% %2.2f%%\n",
+        printf("Avoided calculating %i points from %i and %2.2f%% %2.2f%%\n",
                avoided, tocalculate, 100.0 * (avoided) / tocalculate,
                100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
     STAT(avoided2 += avoided; tocalculate2 += tocalculate; frames2 += 1);
@@ -1126,8 +1256,8 @@ static void dosymmetry(void * /*data*/, struct taskinfo * /*task*/, int r1,
     }
 }
 
-/*Well, classical simple quicksort. Should be faster than library one
- *because of reduced number of function calls :)
+/*Well, classical simple quicksort. Should be faster than the library one
+ *because of the reduced number of function calls :)
  */
 static inline void myqsort(realloc_t **start, realloc_t **end)
 {
@@ -1135,8 +1265,8 @@ static inline void myqsort(realloc_t **start, realloc_t **end)
     realloc_t **left = start, **right = end - 1;
     while (1) {
 
-        /*Quite strange caluclation of median, but should be
-         *as good as Sedgewick middle of three method and is faster*/
+        /*Quite strange calculation of median, but should be
+         *as good as Sedgewick's middle-of-three method and is faster*/
         med = ((*start)->price + (*(end - 1))->price) * 0.5;
 
         /*Avoid one comparison */
@@ -1212,12 +1342,12 @@ static void processqueue(void *data, struct taskinfo *task, int /*r1*/,
 
 /*
  * Another long unthreaded code. It seems to be really long and
- * ugly, but believe or not it takes just about 4% of calculation time,
- * so why to worry about? :)
+ * ugly, but believe it or not it takes just about 4% of calculation time,
+ * so why worry about it? :)
  *
- * This code looks for columns/lines to calculate, adds them into queue,
- * sorts it in order of significancy and then calls parrel processqueue,
- * that does the job.
+ * This code looks for columns/lines to calculate, adds them into a queue,
+ * sorts it in order of significance and then calls parallel processqueue,
+ * which does the job.
  */
 static void calculatenewinterruptible(void)
 {
@@ -1307,7 +1437,7 @@ static void calculatenewinterruptible(void)
     xth_sync();
 
     STAT(
-        printf("Avoided caluclating of %i points from %i and %2.2f%% %2.2f%%\n",
+        printf("Avoided calculating %i points from %i and %2.2f%% %2.2f%%\n",
                avoided, tocalculate, 100.0 * (avoided) / tocalculate,
                100.0 * (tocalculate - avoided) / cimage.width / cimage.height));
     STAT(avoided2 += avoided; tocalculate2 += tocalculate; frames2 += 1);
