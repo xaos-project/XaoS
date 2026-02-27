@@ -96,6 +96,7 @@ project(XaoS)
 
 option(DEEPZOOM "Use 128-bit float for deep zoom" OFF)
 option(OPENGL "Use OpenGL" OFF)
+option(MOBILE_UI "Build with QML-based mobile UI instead of Qt Widgets" OFF)
 
 if(DEEPZOOM)
    add_definitions(-DUSE_FLOAT128) # may be unsupported on Mac, unless gcc/g++ is used
@@ -126,9 +127,15 @@ get_filename_component(PROJECT_DIR ${CMAKE_SOURCE_DIR} PATH)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-# look for Qt6
-find_package(QT NAMES Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
-find_package(Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
+if(MOBILE_UI)
+   # Mobile UI: Qt Quick/QML based
+   find_package(QT NAMES Qt6 COMPONENTS Widgets Quick QuickControls2 REQUIRED)
+   find_package(Qt6 COMPONENTS Widgets Quick QuickControls2 REQUIRED)
+else()
+   # Desktop UI: Qt Widgets based
+   find_package(QT NAMES Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
+   find_package(Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
+endif()
 
 if(OPENGL)
    find_package(QT NAMES Qt6 COMPONENTS OpenGL OpenGLWidgets REQUIRED)
@@ -157,6 +164,10 @@ include_directories(
    ${CMAKE_CURRENT_SOURCE_DIR}/src/ui-hlp
 )
 
+if(MOBILE_UI)
+   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/ui-mobile)
+endif()
+
 # set the Application icon, the first line is the property added to Info.plist
 set(MACOSX_BUNDLE_ICON_FILE XaoS.icns)
 set(XaoS_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/ui/XaoS.icns)
@@ -173,9 +184,22 @@ set_source_files_properties(${TRANSLATION_FILES}
 qt6_add_translation(QM_FILES ${TRANSLATION_FILES})
 endif (EMSCRIPTEN)
 
-# grab all sources for executable
-file(GLOB CXX_FILES src/ui/*.cpp src/ui-hlp/*.cpp src/util/*.cpp src/engine/*.cpp src/sffe/*.cpp)
+# grab sources: engine, ui-helper, util, sffe are always included
+file(GLOB ENGINE_FILES src/engine/*.cpp)
+file(GLOB UIHLP_FILES src/ui-hlp/*.cpp)
+file(GLOB UTIL_FILES src/util/*.cpp)
+file(GLOB SFFE_CXX_FILES src/sffe/*.cpp)
 file(GLOB C_FILES src/sffe/*.c)
+
+if(MOBILE_UI)
+   # Mobile UI: use ui-mobile sources (no desktop ui/*.cpp)
+   file(GLOB UI_FILES src/ui-mobile/*.cpp src/ui/image_qt.cpp)
+   set(CXX_FILES ${ENGINE_FILES} ${UIHLP_FILES} ${UTIL_FILES} ${SFFE_CXX_FILES} ${UI_FILES})
+else()
+   # Desktop UI: use traditional ui/*.cpp
+   file(GLOB UI_FILES src/ui/*.cpp)
+   set(CXX_FILES ${ENGINE_FILES} ${UIHLP_FILES} ${UTIL_FILES} ${SFFE_CXX_FILES} ${UI_FILES})
+endif()
 
 if(EMSCRIPTEN)
     qt_add_executable(xaos
@@ -188,6 +212,17 @@ if(EMSCRIPTEN)
     )
     target_link_libraries(xaos PUBLIC Qt6::Widgets)
     target_link_options(xaos PUBLIC -sASYNCIFY -O3 -flto)
+elseif(MOBILE_UI)
+    # Mobile UI executable
+    add_executable(XaoSMobile
+       ${CXX_FILES}
+       ${C_FILES}
+       ${QM_FILES}
+       ${XaoS_ICON}
+       src/ui-mobile/ui-mobile.qrc
+       XaoS.qrc
+    )
+    target_link_libraries(XaoSMobile Qt6::Widgets Qt6::Quick Qt6::QuickControls2)
 else()
     add_executable(XaoS MACOSX_BUNDLE
        ${CXX_FILES}
@@ -198,13 +233,21 @@ else()
        XaoS.qrc
     )
     target_link_libraries(XaoS Qt6::Widgets Qt6::PrintSupport)
-endif(EMSCRIPTEN)
+endif()
 
 if(DEEPZOOM)
-   target_link_libraries(XaoS quadmath)
+   if(MOBILE_UI)
+      target_link_libraries(XaoSMobile quadmath)
+   else()
+      target_link_libraries(XaoS quadmath)
+   endif()
 endif(DEEPZOOM)
 if(OPENGL)
-   target_link_libraries(XaoS Qt6::OpenGL Qt6::OpenGLWidgets)
+   if(MOBILE_UI)
+      target_link_libraries(XaoSMobile Qt6::OpenGL Qt6::OpenGLWidgets)
+   else()
+      target_link_libraries(XaoS Qt6::OpenGL Qt6::OpenGLWidgets)
+   endif()
 endif(OPENGL)
 
 if (EMSCRIPTEN)
@@ -218,7 +261,11 @@ if (EMSCRIPTEN)
     )
 else()
 # install bundle
-install(TARGETS XaoS DESTINATION bin)
+if(MOBILE_UI)
+    install(TARGETS XaoSMobile DESTINATION bin)
+else()
+    install(TARGETS XaoS DESTINATION bin)
+endif()
 
 # install catalogs and tutorial
 install(DIRECTORY catalogs tutorial DESTINATION .)
@@ -227,3 +274,5 @@ install(DIRECTORY catalogs tutorial DESTINATION .)
 file(GLOB EXAMPLE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/examples/*/*.xpf)
 install(FILES ${EXAMPLE_FILES} DESTINATION examples)
 endif(EMSCRIPTEN)
+
+

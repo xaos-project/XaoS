@@ -1,0 +1,8 @@
+build*/
+build-mobile/
+build-win/
+build-desktop/
+.git/
+*.exe
+*.obj
+*.o

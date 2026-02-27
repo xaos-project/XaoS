@@ -1,0 +1,65 @@
+# Dockerfile.mobile — Reproducible build for XaoS Mobile UI
+#
+# Builds XaoSMobile (QML/Qt Quick mobile interface) on Ubuntu 24.04.
+#
+# Usage:
+#   docker build -f Dockerfile.mobile -t xaos-mobile .
+#   docker run --rm xaos-mobile ls -la /opt/xaos/XaoSMobile
+#
+# To extract the binary:
+#   docker create --name xaos-tmp xaos-mobile
+#   docker cp xaos-tmp:/opt/xaos/XaoSMobile ./XaoSMobile
+#   docker rm xaos-tmp
+#
+# To run with GUI (Linux with X11):
+#   docker run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+#     xaos-mobile /opt/xaos/XaoSMobile
+
+FROM ubuntu:24.04
+
+LABEL maintainer="Avinash Sharma <avinash.sharma.works@gmail.com>"
+LABEL description="Reproducible build environment for XaoS Mobile UI (Qt Quick/QML)"
+
+# Avoid interactive prompts during package install
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install build tools + Qt 6 packages for mobile (QML) build
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    # Qt 6 base
+    qt6-base-dev \
+    qt6-base-dev-tools \
+    # Qt 6 tools (needed for qt6_add_translation in CMakeLists.txt)
+    qt6-tools-dev \
+    qt6-tools-dev-tools \
+    qt6-l10n-tools \
+    linguist-qt6 \
+    # Qt 6 Quick / QML (for mobile UI)
+    qt6-declarative-dev \
+    libqt6quick6 \
+    libqt6quickcontrols2-6 \
+    qml6-module-qtquick \
+    qml6-module-qtquick-controls \
+    qml6-module-qtquick-templates \
+    qml6-module-qtquick-layouts \
+    qml6-module-qtquick-window \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy source tree
+WORKDIR /src/XaoS
+COPY . .
+
+# Build XaoSMobile
+RUN mkdir -p build-mobile && cd build-mobile && \
+    cmake -DMOBILE_UI=ON -DCMAKE_BUILD_TYPE=Release .. && \
+    make -j$(nproc) && \
+    echo "=== XaoSMobile build succeeded ==="
+
+# Install binary + resources to /opt/xaos
+RUN mkdir -p /opt/xaos && \
+    cp build-mobile/XaoSMobile /opt/xaos/ && \
+    cp -r catalogs examples /opt/xaos/ 2>/dev/null || true
+
+WORKDIR /opt/xaos
+CMD ["./XaoSMobile"]
