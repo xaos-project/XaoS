@@ -227,7 +227,7 @@ ApplicationWindow {
             // Fractal Type button
             Button {
                 Layout.fillWidth: true
-                text: "🔢  Change Fractal"
+                text: "Change Fractal"
                 onClicked: {
                     formulaPopup.open()
                     drawer.close()
@@ -268,7 +268,7 @@ ApplicationWindow {
             Button {
                 Layout.fillWidth: true
                 text: engine && engine.autopilotActive ?
-                          "🛑  Stop Autopilot" : "🚀  Autopilot"
+                          "Stop Autopilot" : "Autopilot"
                 onClicked: {
                     if (engine) engine.toggleAutopilot()
                 }
@@ -287,7 +287,7 @@ ApplicationWindow {
             Button {
                 Layout.fillWidth: true
                 text: engine && engine.juliaMode ?
-                          "📐  Back to Mandelbrot" : "📐  Julia Mode"
+                          "Back to Mandelbrot" : "Julia Mode"
                 onClicked: {
                     if (engine) engine.toggleJulia()
                 }
@@ -305,7 +305,7 @@ ApplicationWindow {
 
             Button {
                 Layout.fillWidth: true
-                text: "🎨  Random Palette"
+                text: "Random Palette"
                 onClicked: {
                     if (engine) engine.randomizePalette()
                 }
@@ -322,7 +322,7 @@ ApplicationWindow {
 
             Button {
                 Layout.fillWidth: true
-                text: "🎲  Random Example"
+                text: "Random Example"
                 onClicked: {
                     if (engine) engine.loadRandomExample()
                     drawer.close()
@@ -340,7 +340,7 @@ ApplicationWindow {
 
             Button {
                 Layout.fillWidth: true
-                text: "🏠  Reset View"
+                text: "Reset View"
                 onClicked: {
                     if (engine) engine.resetView()
                     drawer.close()
