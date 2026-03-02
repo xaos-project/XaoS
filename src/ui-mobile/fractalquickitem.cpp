@@ -83,16 +83,19 @@ void FractalQuickItem::onFrameTick() {
   // Feed current mouse/touch state to the engine
   m_engine->updateEngine(m_mouseX, m_mouseY, m_buttons);
 
-  // Let the engine do fractal computation
+  // Check if we need a display update BEFORE prepareImage clears the flag
+  bool needsUpdate = m_engine->needsDisplay();
+
+  // Let the engine finalize the image if the display flag is set
   m_engine->prepareImage();
 
-  // Only trigger a repaint if the engine produced a new frame
-  if (m_engine->needsDisplay()) {
+  // Trigger a Qt repaint
+  if (needsUpdate) {
     update();
   }
 
   // Adaptive frame rate: fast when interacting, slow when idle
-  bool interacting = (m_buttons != 0) || m_engine->needsDisplay();
+  bool interacting = (m_buttons != 0) || needsUpdate;
   int targetInterval = interacting ? FRAME_INTERVAL_MS : IDLE_INTERVAL_MS;
   if (m_frameTimer->interval() != targetInterval) {
     m_frameTimer->setInterval(targetInterval);

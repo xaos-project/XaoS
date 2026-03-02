@@ -483,30 +483,32 @@ ApplicationWindow {
 
         Repeater {
             model: [
-                { icon: "🚀", label: "Autopilot", action: "autopilot" },
-                { icon: "🎨", label: "Palette", action: "palette" },
-                { icon: "📐", label: "Julia", action: "julia" },
-                { icon: "🎲", label: "Random", action: "random" }
+                { icon: "Auto", label: "Autopilot", action: "autopilot" },
+                { icon: "Color", label: "Palette", action: "palette" },
+                { icon: "Julia", label: "Julia Mode", action: "julia" },
+                { icon: "Rand", label: "Random", action: "random" }
             ]
 
-            RoundButton {
+            Button {
                 required property var modelData
-                width: 52
-                height: 52
-                radius: 26
-
+                height: 44
+                
                 background: Rectangle {
                     color: pressed ? "#cc333333" : "#99222222"
-                    radius: parent.radius
+                    radius: 22
                     border.color: "#55ffffff"
                     border.width: 1
                 }
 
                 contentItem: Text {
                     text: modelData.icon
-                    font.pixelSize: 22
+                    font.pixelSize: 14
+                    font.bold: true
+                    color: "white"
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
+                    leftPadding: 16
+                    rightPadding: 16
                 }
 
                 ToolTip.visible: hovered
