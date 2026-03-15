@@ -608,6 +608,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     uih->fcontext->version++;
     uih_newimage(uih);
     QSettings settings;
+    createMobileOverlay();
+    createTopHeader();
 
     // Try to load a catalog for the current language and if it doesn't exist,
     // default to English. Fixes "No catalog loaded" messages on tutorials
@@ -755,6 +757,71 @@ void MainWindow::closeEvent(QCloseEvent *)
 {
     writeSettings();
     ui_quit(0);
+}
+
+
+void MainWindow::createMobileOverlay()
+{
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+    bool showOverlay = true;
+#else
+    bool showOverlay = false; // Set to true for testing on desktop
+#endif
+    qDebug() << "createMobileOverlay - showOverlay:" << showOverlay;
+    if (!showOverlay) return;
+
+    m_mobileOverlay = new QWidget(this);
+    m_mobileOverlay->setObjectName("mobileOverlay");
+    m_mobileOverlay->setAutoFillBackground(false);
+    m_mobileOverlay->setAttribute(Qt::WA_NoSystemBackground);
+    m_mobileOverlay->setWindowFlags(Qt::SubWindow); // Ensure it floats above
+    
+    QHBoxLayout *layout = new QHBoxLayout(m_mobileOverlay);
+    layout->setContentsMargins(5, 5, 5, 5);
+    layout->setSpacing(10);
+
+    auto addButton = [&](const QString &text, const char *command) {
+        QPushButton *btn = new QPushButton(text, m_mobileOverlay);
+        btn->setMinimumSize(50, 50);
+        btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        btn->setStyleSheet(
+            "QPushButton {"
+            "  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(70, 70, 70, 220), stop:1 rgba(40, 40, 40, 220));"
+            "  color: white;"
+            "  border: 1px solid rgba(255, 255, 255, 40);"
+            "  border-radius: 12px;"
+            "  font-weight: bold;"
+            "  font-size: 14px;"
+            "}"
+            "QPushButton:pressed {"
+            "  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(100, 100, 100, 240), stop:1 rgba(60, 60, 60, 240));"
+            "}"
+        );
+        connect(btn, &QPushButton::clicked, this, [=]() {
+            if (command) {
+                const menuitem *item = menu_findcommand(command);
+                if (item) menuActivate(item, nullptr);
+            } else {
+                popupMenu("root");
+            }
+        });
+        layout->addWidget(btn);
+    };
+
+    addButton("Menu", nullptr);
+    addButton("Auto", "autopilot");
+    addButton("In", "zoom");
+    addButton("Out", "unzoom");
+    addButton("Stop", "stop");
+    addButton("Reset", "initstate");
+
+    m_mobileOverlay->setLayout(layout);
+    m_mobileOverlay->show();
+    m_mobileOverlay->raise();
+    
+    // Trigger geometry update immediately
+    QResizeEvent re(size(), size());
+    resizeEvent(&re);
 }
 
 QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
@@ -1673,13 +1740,91 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 #endif
 #endif
 
-void MainWindow::resizeEvent(QResizeEvent * /*event*/)
+void MainWindow::resizeEvent(QResizeEvent *event)
 {
+    QMainWindow::resizeEvent(event);
 #ifndef Q_OS_MACOS
 #ifndef USE_OPENGL
-    if (isFullScreen())
+    if (menuBarRef && isFullScreen())
         menuBarRef->resize(size().width(), menuBarRef->sizeHint().height());
 #endif
 #endif
+
+    if (m_mobileOverlay) {
+        int overlayHeight = 85;
+        int bottomMargin = 40;
+        m_mobileOverlay->setGeometry(10, height() - overlayHeight - bottomMargin, width() - 20, overlayHeight);
+        m_mobileOverlay->setStyleSheet(
+            "QWidget#mobileOverlay {"
+            "  background-color: rgba(30, 30, 30, 150);"
+            "  border: 1px solid rgba(255, 255, 255, 40);"
+            "  border-radius: 20px;"
+            "}"
+        );
+        m_mobileOverlay->raise();
+    }
+    if (m_topHeader) {
+        int headerHeight = 60;
+        int topMargin = 45; // More space from top
+        int leftMargin = 10; // Less space from left
+        m_topHeader->setGeometry(leftMargin, topMargin, 160, headerHeight); // Compact chip
+        m_topHeader->raise();
+    }
     shouldResize = true;
 }
+
+void MainWindow::createTopHeader()
+{
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+    bool showHeader = true;
+#else
+    bool showHeader = false; // Set to true for testing
+#endif
+    qDebug() << "createTopHeader - showHeader:" << showHeader;
+    if (!showHeader) return;
+
+    m_topHeader = new QWidget(this);
+    m_topHeader->setObjectName("topHeader");
+    m_topHeader->setAutoFillBackground(false);
+    m_topHeader->setAttribute(Qt::WA_NoSystemBackground);
+    m_topHeader->setWindowFlags(Qt::SubWindow);
+
+    QHBoxLayout *layout = new QHBoxLayout(m_topHeader);
+    layout->setContentsMargins(15, 5, 15, 5);
+    layout->setSpacing(15);
+
+    // Qt Logo (Left)
+    QLabel *logoLabel = new QLabel(m_topHeader);
+    QPixmap logoPixmap(":/images/qtlogo.svg");
+    if (!logoPixmap.isNull()) {
+        logoLabel->setPixmap(logoPixmap.scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    } else {
+        logoLabel->setText("Qt");
+        logoLabel->setStyleSheet("color: #41CD52; font-weight: bold; font-size: 20px;");
+    }
+    logoLabel->setFixedSize(40, 40);
+    layout->addWidget(logoLabel);
+
+    // App Name (Grouped with logo)
+    QLabel *nameLabel = new QLabel("XaoS", m_topHeader);
+    nameLabel->setStyleSheet("color: white; font-weight: bold; font-size: 24px;");
+    layout->addWidget(nameLabel);
+
+    layout->addStretch(); // Push group to the left
+
+    m_topHeader->setLayout(layout);
+    m_topHeader->setStyleSheet(
+        "QWidget#topHeader {"
+        "  background-color: rgba(60, 60, 60, 180);"
+        "  border: 1px solid rgba(255, 255, 255, 40);"
+        "  border-radius: 30px;" // Fully rounded edges
+        "}"
+    );
+    m_topHeader->show();
+    m_topHeader->raise();
+
+    // Trigger geometry update immediately
+    QResizeEvent re(size(), size());
+    resizeEvent(&re);
+}
+

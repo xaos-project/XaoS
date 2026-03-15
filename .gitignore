@@ -60,3 +60,10 @@ qrc_*
 
 # Mac stuff
 .DS_Store
+
+
+build/
+android/
+
+
+CMakeLists.txt.user

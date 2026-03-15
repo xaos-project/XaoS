@@ -398,7 +398,7 @@ void uih_setlanguage(uih_context *c, int l)
 #endif
 }
 
-#ifndef Q_OS_MAC
+#if !defined(Q_OS_MACOS) && !defined(Q_OS_IOS)
 static void ui_fullscreensw(struct uih_context *uih)
 {
     if (uih->data) {
@@ -423,7 +423,6 @@ static int ui_fullscreenselected(struct uih_context *uih)
 /* WARNING: Increase this number in case there are new menu items added. */
 #define MAX_MENUITEMS_I18N 37
 /* These variables must be global: */
-static menuitem *menuitems;
 static menuitem menuitems_i18n[MAX_MENUITEMS_I18N];
 int ui_no_menuitems_i18n = 0;
 
@@ -431,7 +430,6 @@ int ui_no_menuitems_i18n = 0;
 
 static void ui_unregistermenus(void)
 {
-    menu_delete(menuitems, NITEMS(menuitems));
     menu_delete(menuitems_i18n, ui_no_menuitems_i18n);
 }
 
@@ -557,7 +555,7 @@ static void ui_registermenus_i18n(void)
 
     MENUSEPARATOR_I("ui");
     MENUSEPARATOR_I("uia");
-#ifndef Q_OS_MACOS
+#if !defined(Q_OS_MACOS) && !defined(Q_OS_IOS)
     MENUNOPCB_I("ui", NULL, TR("Menu", "Fullscreen"), "fullscreen", UI,
                 ui_fullscreensw, ui_fullscreenselected);
     MENUNOPCB_I("uia", NULL, TR("Menu", "Fullscreen"), "fullscreena", UI,

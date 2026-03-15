@@ -93,6 +93,18 @@ cmake_minimum_required(VERSION 3.14.0)
 # set(CMAKE_CXX_COMPILER g++-13.2)
 
 project(XaoS)
+# Fix simulator architecture on Apple Silicon Macs
+if(APPLE AND CMAKE_SYSTEM_NAME STREQUAL "iOS")
+    if(CMAKE_OSX_SYSROOT MATCHES "iphonesimulator")
+        # On Apple Silicon, CMake may default to arm64 for the simulator.
+        # However, standard Qt installations often only provide x86_64 for the simulator.
+        # This default targets both to support universal or custom Qt builds (like yours).
+        # You can override this in Qt Creator's CMake settings if needed.
+        if(NOT CMAKE_OSX_ARCHITECTURES)
+            set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "Build architectures for iOS Simulator")
+        endif()
+    endif()
+endif()
 
 option(DEEPZOOM "Use 128-bit float for deep zoom" OFF)
 option(OPENGL "Use OpenGL" OFF)
@@ -114,9 +126,13 @@ add_definitions(-DUSE_SFFE -DSFFE_CMPLX_GSL)
 set(CMAKE_FIND_PACKAGE_RESOLVE_SYMLINKS TRUE)
 
 # by default, build a release (a non-debug executable)
-if(NOT CMAKE_BUILD_TYPE)
-   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE Release)
-endif(NOT CMAKE_BUILD_TYPE)
+# if(NOT CMAKE_BUILD_TYPE)
+#    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE Release)
+# endif(NOT CMAKE_BUILD_TYPE)
+# by default, build a release (a non-debug executable)
+if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+   set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
 
 # set the project directory
 get_filename_component(PROJECT_DIR ${CMAKE_SOURCE_DIR} PATH)
@@ -165,12 +181,15 @@ set_source_files_properties(${XaoS_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Res
 if (EMSCRIPTEN)
 else()
 # Multilingual support: *.ts -> *.qm
-find_package(Qt6LinguistTools)
-file(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_SOURCE_DIR}/i18n/*.ts)
-# qt_add_translation
-set_source_files_properties(${TRANSLATION_FILES}
-    PROPERTIES OUTPUT_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/i18n")
-qt6_add_translation(QM_FILES ${TRANSLATION_FILES})
+#..
+# find_package(Qt6LinguistTools)
+# file(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_SOURCE_DIR}/i18n/*.ts)
+# # qt_add_translation
+# set_source_files_properties(${TRANSLATION_FILES}
+#     PROPERTIES OUTPUT_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/i18n")
+# qt6_add_translation(QM_FILES ${TRANSLATION_FILES})
+#..
+set(QM_FILES "")
 endif (EMSCRIPTEN)
 
 # grab all sources for executable
@@ -189,7 +208,7 @@ if(EMSCRIPTEN)
     target_link_libraries(xaos PUBLIC Qt6::Widgets)
     target_link_options(xaos PUBLIC -sASYNCIFY -O3 -flto)
 else()
-    add_executable(XaoS MACOSX_BUNDLE
+    qt_add_executable(XaoS
        ${CXX_FILES}
        ${C_FILES}
        ${QM_FILES}
@@ -197,7 +216,39 @@ else()
        src/ui/XaoS.qrc
        XaoS.qrc
     )
-    target_link_libraries(XaoS Qt6::Widgets Qt6::PrintSupport)
+
+    if(APPLE)
+        set_target_properties(XaoS PROPERTIES MACOSX_BUNDLE TRUE)
+    endif()
+
+    target_link_libraries(XaoS PRIVATE Qt6::Widgets Qt6::PrintSupport)
+
+    # if(ANDROID)
+    #     # Bundle data files as resources for Android
+    #     file(GLOB_RECURSE ANDROID_DATA_FILES
+    #         "catalogs/*"
+    #         "tutorial/*"
+    #         "examples/*"
+    #     )
+    #     qt_add_resources(XaoS "android_data"
+    #         PREFIX "/android"
+    #         FILES ${ANDROID_DATA_FILES}
+    #     )
+    #     set_target_properties(XaoS PROPERTIES
+    #         QT_ANDROID_PACKAGE_NAME "com.xaos.XaoS"
+    #         QT_ANDROID_VERSION_NAME ${PROJECT_VERSION}
+    #         QT_ANDROID_VERSION_CODE 1
+    #     )
+    # endif()
+
+    if(APPLE AND CMAKE_SYSTEM_NAME STREQUAL "iOS")
+        set_target_properties(XaoS PROPERTIES
+            MACOSX_BUNDLE_GUI_IDENTIFIER "com.xaos.XaoS"
+            MACOSX_BUNDLE_BUNDLE_NAME "XaoS"
+            MACOSX_BUNDLE_BUNDLE_VERSION "4.2.1"
+            MACOSX_BUNDLE_SHORT_VERSION_STRING "4.2.1"
+        )
+    endif()
 endif(EMSCRIPTEN)
 
 if(DEEPZOOM)
