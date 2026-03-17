@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QDebug>
 
+class QQuickWidget;
+class FractalBridge;
+
 #include "ui_helper.h"
 #include "timers.h"
 #include "xmenu.h"
@@ -22,13 +25,16 @@ class MainWindow : public QMainWindow
     bool shouldResize = false;
     FractalWidget *widget;
     uih_context *uih;
+    int m_syntheticButtons = 0;  // Synthetic button state from QML zoom buttons
     tl_timer *maintimer;
     tl_timer *loopt;
     tl_timer *arrowtimer;
     QMenuBar *menuBarRef;
     QFont messageFont;
-    QWidget *m_mobileOverlay = nullptr;
-    QWidget *m_topHeader = nullptr;
+#ifdef USE_QML_OVERLAY
+    QQuickWidget *m_qmlOverlay = nullptr;
+    FractalBridge *m_fractalBridge = nullptr;
+#endif
 
     static QKeySequence::StandardKey keyForItem(const QString &name);
     void buildMenu(const char *name, QMenu *parent, bool numbered);
@@ -88,8 +94,12 @@ private slots:
     void init();
     void eventLoop();
     void chooseFont();
-    void createMobileOverlay();
-    void createTopHeader();
+    void createMobileUI();
+
+    // Called by FractalBridge to execute menu commands
+    void menuActivateFromBridge(const menuitem *item, dialogparam *d);
+    void popupMenuFromBridge(const char *name);
+    void setSyntheticButtons(int buttons) { m_syntheticButtons = buttons; }
 };
 
 #endif // MAINWINDOW_H

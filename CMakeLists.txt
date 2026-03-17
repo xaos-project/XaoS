@@ -153,6 +153,12 @@ if(OPENGL)
    find_package(OpenGL REQUIRED)
 endif(OPENGL)
 
+# Qt Quick/QML for mobile UI overlay (Android and iOS)
+if(ANDROID OR (APPLE AND CMAKE_SYSTEM_NAME STREQUAL "iOS"))
+   find_package(Qt6 COMPONENTS Quick Qml QuickWidgets QuickControls2 REQUIRED)
+   add_definitions(-DUSE_QML_OVERLAY)
+endif()
+
 # OS specific stuff
 # on macOS the QT libraries are usually not installed into the system library folders
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -222,6 +228,11 @@ else()
     endif()
 
     target_link_libraries(XaoS PRIVATE Qt6::Widgets Qt6::PrintSupport)
+
+    # Link Qt Quick/QML for mobile builds
+    if(ANDROID OR (APPLE AND CMAKE_SYSTEM_NAME STREQUAL "iOS"))
+        target_link_libraries(XaoS PRIVATE Qt6::Quick Qt6::Qml Qt6::QuickWidgets Qt6::QuickControls2)
+    endif()
 
     # if(ANDROID)
     #     # Bundle data files as resources for Android

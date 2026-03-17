@@ -3,6 +3,13 @@
 #include <QTimer>
 #include <iostream>
 
+#ifdef USE_QML_OVERLAY
+#include <QQuickWidget>
+#include <QQmlContext>
+#include <QQmlEngine>
+#include "fractalbridge.h"
+#endif
+
 #include "mainwindow.h"
 #include "fractalwidget.h"
 #include "customdialog.h"
@@ -431,6 +438,12 @@ void MainWindow::eventLoop()
 
         widget->setCursor(uih->play ? Qt::ForbiddenCursor : Qt::CrossCursor);
 
+        // Update bridge state for QML
+#ifdef USE_QML_OVERLAY
+        if (m_fractalBridge)
+            m_fractalBridge->refreshState();
+#endif
+
         if (uih->display) {
             uih_prepare_image(uih);
             uih_updatestatus(uih);
@@ -608,8 +621,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     uih->fcontext->version++;
     uih_newimage(uih);
     QSettings settings;
-    createMobileOverlay();
-    createTopHeader();
+    createMobileUI();
 
     // Try to load a catalog for the current language and if it doesn't exist,
     // default to English. Fixes "No catalog loaded" messages on tutorials
@@ -760,68 +772,59 @@ void MainWindow::closeEvent(QCloseEvent *)
 }
 
 
-void MainWindow::createMobileOverlay()
+void MainWindow::createMobileUI()
 {
 #if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
     bool showOverlay = true;
 #else
     bool showOverlay = false; // Set to true for testing on desktop
 #endif
-    qDebug() << "createMobileOverlay - showOverlay:" << showOverlay;
+    qDebug() << "createMobileUI - showOverlay:" << showOverlay;
     if (!showOverlay) return;
 
-    m_mobileOverlay = new QWidget(this);
-    m_mobileOverlay->setObjectName("mobileOverlay");
-    m_mobileOverlay->setAutoFillBackground(false);
-    m_mobileOverlay->setAttribute(Qt::WA_NoSystemBackground);
-    m_mobileOverlay->setWindowFlags(Qt::SubWindow); // Ensure it floats above
-    
-    QHBoxLayout *layout = new QHBoxLayout(m_mobileOverlay);
-    layout->setContentsMargins(5, 5, 5, 5);
-    layout->setSpacing(10);
+#ifdef USE_QML_OVERLAY
 
-    auto addButton = [&](const QString &text, const char *command) {
-        QPushButton *btn = new QPushButton(text, m_mobileOverlay);
-        btn->setMinimumSize(50, 50);
-        btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        btn->setStyleSheet(
-            "QPushButton {"
-            "  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(70, 70, 70, 220), stop:1 rgba(40, 40, 40, 220));"
-            "  color: white;"
-            "  border: 1px solid rgba(255, 255, 255, 40);"
-            "  border-radius: 12px;"
-            "  font-weight: bold;"
-            "  font-size: 14px;"
-            "}"
-            "QPushButton:pressed {"
-            "  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(100, 100, 100, 240), stop:1 rgba(60, 60, 60, 240));"
-            "}"
-        );
-        connect(btn, &QPushButton::clicked, this, [=]() {
-            if (command) {
-                const menuitem *item = menu_findcommand(command);
-                if (item) menuActivate(item, nullptr);
-            } else {
-                popupMenu("root");
-            }
-        });
-        layout->addWidget(btn);
-    };
+    // Hide the desktop menu bar on mobile
+    menuBarRef->setVisible(false);
 
-    addButton("Menu", nullptr);
-    addButton("Auto", "autopilot");
-    addButton("In", "zoom");
-    addButton("Out", "unzoom");
-    addButton("Stop", "stop");
-    addButton("Reset", "initstate");
+    // Enter full screen to hide the system status bar and home indicator
+    showFullScreen();
 
-    m_mobileOverlay->setLayout(layout);
-    m_mobileOverlay->show();
-    m_mobileOverlay->raise();
-    
-    // Trigger geometry update immediately
+    // Create the C++ <-> QML bridge
+    m_fractalBridge = new FractalBridge(this, this);
+    m_fractalBridge->setUih(uih);
+    m_fractalBridge->updateSafeAreaInsets();
+
+    // Create QQuickWidget overlay
+    m_qmlOverlay = new QQuickWidget(this);
+    m_qmlOverlay->setResizeMode(QQuickWidget::SizeRootObjectToView);
+    m_qmlOverlay->setClearColor(Qt::transparent);
+    m_qmlOverlay->setAttribute(Qt::WA_AlwaysStackOnTop);
+    m_qmlOverlay->setAttribute(Qt::WA_TranslucentBackground);
+    m_qmlOverlay->setAttribute(Qt::WA_TransparentForMouseEvents, false);
+
+    // Expose bridge to QML
+    m_qmlOverlay->rootContext()->setContextProperty("bridge", m_fractalBridge);
+
+    // Add import path for local QML components
+    m_qmlOverlay->engine()->addImportPath("qrc:/");
+
+    // Load the overlay
+    m_qmlOverlay->setSource(QUrl("qrc:/qml/MobileOverlay.qml"));
+
+    if (m_qmlOverlay->status() == QQuickWidget::Error) {
+        qWarning() << "QML errors:";
+        for (const auto &error : m_qmlOverlay->errors())
+            qWarning() << " " << error.toString();
+    }
+
+    m_qmlOverlay->show();
+    m_qmlOverlay->raise();
+
+    // Trigger geometry update
     QResizeEvent re(size(), size());
     resizeEvent(&re);
+#endif // USE_QML_OVERLAY
 }
 
 QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
@@ -1631,6 +1634,10 @@ int MainWindow::mouseButtons()
         if (m_mouseButtons & Qt::RightButton)
             mouseButtons |= BUTTON3;
     }
+
+    // Merge in synthetic buttons from QML (e.g. for zoom/unzoom)
+    mouseButtons |= m_syntheticButtons;
+
     // handle mouse wheel operations
     if (m_mouseWheel > 0)
         mouseButtons |= BUTTON1;
@@ -1750,81 +1757,21 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 #endif
 #endif
 
-    if (m_mobileOverlay) {
-        int overlayHeight = 85;
-        int bottomMargin = 40;
-        m_mobileOverlay->setGeometry(10, height() - overlayHeight - bottomMargin, width() - 20, overlayHeight);
-        m_mobileOverlay->setStyleSheet(
-            "QWidget#mobileOverlay {"
-            "  background-color: rgba(30, 30, 30, 150);"
-            "  border: 1px solid rgba(255, 255, 255, 40);"
-            "  border-radius: 20px;"
-            "}"
-        );
-        m_mobileOverlay->raise();
+#ifdef USE_QML_OVERLAY
+    if (m_qmlOverlay) {
+        m_qmlOverlay->setGeometry(0, 0, width(), height());
+        m_qmlOverlay->raise();
     }
-    if (m_topHeader) {
-        int headerHeight = 60;
-        int topMargin = 45; // More space from top
-        int leftMargin = 10; // Less space from left
-        m_topHeader->setGeometry(leftMargin, topMargin, 160, headerHeight); // Compact chip
-        m_topHeader->raise();
-    }
+#endif
     shouldResize = true;
 }
 
-void MainWindow::createTopHeader()
+void MainWindow::menuActivateFromBridge(const menuitem *item, dialogparam *d)
 {
-#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
-    bool showHeader = true;
-#else
-    bool showHeader = false; // Set to true for testing
-#endif
-    qDebug() << "createTopHeader - showHeader:" << showHeader;
-    if (!showHeader) return;
-
-    m_topHeader = new QWidget(this);
-    m_topHeader->setObjectName("topHeader");
-    m_topHeader->setAutoFillBackground(false);
-    m_topHeader->setAttribute(Qt::WA_NoSystemBackground);
-    m_topHeader->setWindowFlags(Qt::SubWindow);
-
-    QHBoxLayout *layout = new QHBoxLayout(m_topHeader);
-    layout->setContentsMargins(15, 5, 15, 5);
-    layout->setSpacing(15);
-
-    // Qt Logo (Left)
-    QLabel *logoLabel = new QLabel(m_topHeader);
-    QPixmap logoPixmap(":/images/qtlogo.svg");
-    if (!logoPixmap.isNull()) {
-        logoLabel->setPixmap(logoPixmap.scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    } else {
-        logoLabel->setText("Qt");
-        logoLabel->setStyleSheet("color: #41CD52; font-weight: bold; font-size: 20px;");
-    }
-    logoLabel->setFixedSize(40, 40);
-    layout->addWidget(logoLabel);
-
-    // App Name (Grouped with logo)
-    QLabel *nameLabel = new QLabel("XaoS", m_topHeader);
-    nameLabel->setStyleSheet("color: white; font-weight: bold; font-size: 24px;");
-    layout->addWidget(nameLabel);
-
-    layout->addStretch(); // Push group to the left
-
-    m_topHeader->setLayout(layout);
-    m_topHeader->setStyleSheet(
-        "QWidget#topHeader {"
-        "  background-color: rgba(60, 60, 60, 180);"
-        "  border: 1px solid rgba(255, 255, 255, 40);"
-        "  border-radius: 30px;" // Fully rounded edges
-        "}"
-    );
-    m_topHeader->show();
-    m_topHeader->raise();
-
-    // Trigger geometry update immediately
-    QResizeEvent re(size(), size());
-    resizeEvent(&re);
+    menuActivate(item, d);
 }
 
+void MainWindow::popupMenuFromBridge(const char *name)
+{
+    popupMenu(name);
+}
