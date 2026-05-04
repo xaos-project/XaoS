@@ -827,7 +827,7 @@
     <message>
         <location filename="../src/ui-hlp/menu.cpp" line="1179"/>
         <location filename="../src/ui-hlp/menu.cpp" line="1188"/>
-        <location filename="../src/ui/main.cpp" line="568"/>
+        <location filename="../src/ui/main.cpp" line="567"/>
         <source>Help</source>
         <translation>Օգնություն</translation>
     </message>
@@ -1433,7 +1433,7 @@
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="332"/>
-        <location filename="../src/ui/main.cpp" line="579"/>
+        <location filename="../src/ui/main.cpp" line="578"/>
         <source>About</source>
         <translation>Մասին</translation>
     </message>
@@ -1459,28 +1459,28 @@
         <translation>Համակարգի լռելյայն</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="562"/>
-        <location filename="../src/ui/main.cpp" line="564"/>
+        <location filename="../src/ui/main.cpp" line="561"/>
+        <location filename="../src/ui/main.cpp" line="563"/>
         <source>Fullscreen</source>
         <translation>Լրիվ էկրան</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="570"/>
+        <location filename="../src/ui/main.cpp" line="569"/>
         <source>Info on current fractal</source>
         <translation>Տվյալ ֆրակտալի մասին տեղեկություն</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="572"/>
+        <location filename="../src/ui/main.cpp" line="571"/>
         <source>Send Feedback</source>
         <translation>Ուղարկել կարծիք</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="574"/>
+        <location filename="../src/ui/main.cpp" line="573"/>
         <source>Get Updates</source>
         <translation>Ստանալ թարմացումներ</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="576"/>
+        <location filename="../src/ui/main.cpp" line="575"/>
         <source>User Forum</source>
         <translation>Օգտագործողների ֆորում</translation>
     </message>
@@ -1494,12 +1494,12 @@
         <translation>Սահմանագծի հետք</translation>
     </message>
     <message>
-        <location filename="../src/engine/zoom.cpp" line="1012"/>
+        <location filename="../src/engine/zoom.cpp" line="1142"/>
         <source>Solid guessing 1</source>
         <translation>Հստակ գուշակություն 1</translation>
     </message>
     <message>
-        <location filename="../src/engine/zoom.cpp" line="1236"/>
+        <location filename="../src/engine/zoom.cpp" line="1366"/>
         <source>Solid guessing</source>
         <translation>Հստակ գուշակություն</translation>
     </message>
