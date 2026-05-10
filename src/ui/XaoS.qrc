@@ -1,5 +1,12 @@
 <RCC>
     <qresource prefix="/" >
         <file>images/xaosbig.png</file>
+        <file>images/qtlogo.svg</file>
+        <file>fonts/MaterialSymbolsOutlined.ttf</file>
+        <file>qml/MobileOverlay.qml</file>
+        <file>qml/SettingsSheet.qml</file>
+        <file>qml/GlassButton.qml</file>
+        <file>qml/GlassPill.qml</file>
+        <file>qml/BottomNavBar.qml</file>
     </qresource>
 </RCC>

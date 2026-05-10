@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/android">
+        <file alias="catalogs">catalogs</file>
+        <file alias="tutorial">tutorial</file>
+        <file alias="examples">examples</file>
+        <file alias="qtlogo.svg">src/ui/images/qtlogo.svg</file>
+    </qresource>
+</RCC>

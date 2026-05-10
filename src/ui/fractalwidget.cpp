@@ -4,6 +4,9 @@
 #ifdef USE_OPENGL
 #include <QtOpenGL>
 #endif
+#include <QGestureEvent>
+#include <QPinchGesture>
+#include <QPanGesture>
 
 #include "ui.h"
 #include "filter.h"
@@ -14,6 +17,9 @@ FractalWidget::FractalWidget()
     setMouseTracking(true);
     setAutoFillBackground(false);
     setAttribute(Qt::WA_OpaquePaintEvent, true);
+    grabGesture(Qt::PinchGesture);
+    grabGesture(Qt::PanGesture);
+    grabGesture(Qt::TapGesture);
 }
 
 QPointF FractalWidget::mousePosition() {
@@ -88,4 +94,59 @@ void FractalWidget::wheelEvent(QWheelEvent *event)
 {
     m_mousePosition = event->position();
     event->ignore();
+}
+
+bool FractalWidget::event(QEvent *event)
+{
+    if (event->type() == QEvent::Gesture) {
+        QGestureEvent *gestureEvent = static_cast<QGestureEvent *>(event);
+        if (QGesture *pinch = gestureEvent->gesture(Qt::PinchGesture)) {
+            QPinchGesture *p = static_cast<QPinchGesture *>(pinch);
+            if (p->state() == Qt::GestureStarted) {
+                m_lastScale = 1.0;
+            }
+            if (p->state() == Qt::GestureUpdated) {
+                // Qt's totalScaleFactor() is cumulative since the start of the gesture.
+                // We compare it against our last recorded scale to detect changes.
+                qreal totalScale = p->totalScaleFactor();
+                qreal delta = totalScale / m_lastScale;
+
+                // Threshold to avoid extreme jitter and capture intentional movement
+                if (delta > 1.05 || delta < 0.95) {
+                    m_mousePosition = p->centerPoint();
+                    // Simulate mouse wheel for zooming
+                    // 120/-120 are standard QWheelEvent ticks
+                    int ticks = (delta > 1.0) ? 120 : -120;
+                    
+                    QWheelEvent wheel(p->centerPoint(), p->centerPoint(),
+                                      QPoint(0, 0), QPoint(0, ticks),
+                                      Qt::NoButton, Qt::NoModifier, Qt::ScrollUpdate, false);
+                    QCoreApplication::sendEvent(parent(), &wheel);
+                    m_lastScale = totalScale;
+                }
+            }
+        } else if (QGesture *pan = gestureEvent->gesture(Qt::PanGesture)) {
+            QPanGesture *p = static_cast<QPanGesture *>(pan);
+            if (p->state() == Qt::GestureStarted) {
+                m_lastPan = p->lastOffset();
+                QMouseEvent press(QEvent::MouseButtonPress, p->lastOffset(), p->lastOffset(), p->lastOffset(),
+                                  Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+                QCoreApplication::sendEvent(parent(), &press);
+            }
+            if (p->state() == Qt::GestureUpdated) {
+                m_lastPan = p->offset();
+                m_mousePosition = p->lastOffset();
+                QMouseEvent move(QEvent::MouseMove, p->lastOffset(), p->lastOffset(), p->lastOffset(),
+                                 Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+                QCoreApplication::sendEvent(parent(), &move);
+            }
+            if (p->state() == Qt::GestureFinished || p->state() == Qt::GestureCanceled) {
+                QMouseEvent release(QEvent::MouseButtonRelease, p->lastOffset(), p->lastOffset(), p->lastOffset(),
+                                    Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
+                QCoreApplication::sendEvent(parent(), &release);
+            }
+        }
+        return true;
+    }
+    return QWidget::event(event);
 }

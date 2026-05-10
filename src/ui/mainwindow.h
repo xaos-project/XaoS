@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDebug>
+
+class QQuickWidget;
+class FractalBridge;
 
 #include "ui_helper.h"
 #include "timers.h"
@@ -21,11 +25,16 @@ class MainWindow : public QMainWindow
     bool shouldResize = false;
     FractalWidget *widget;
     uih_context *uih;
+    int m_syntheticButtons = 0;  // Synthetic button state from QML zoom buttons
     tl_timer *maintimer;
     tl_timer *loopt;
     tl_timer *arrowtimer;
     QMenuBar *menuBarRef;
     QFont messageFont;
+#ifdef USE_QML_OVERLAY
+    QQuickWidget *m_qmlOverlay = nullptr;
+    FractalBridge *m_fractalBridge = nullptr;
+#endif
 
     static QKeySequence::StandardKey keyForItem(const QString &name);
     void buildMenu(const char *name, QMenu *parent, bool numbered);
@@ -51,16 +60,16 @@ class MainWindow : public QMainWindow
     void printSpeed();
 
   protected:
-    void closeEvent(QCloseEvent *);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void wheelEvent(QWheelEvent *event);
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event);
-    void resizeEvent(QResizeEvent *event);
+    void closeEvent(QCloseEvent *) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
 #ifndef Q_OS_MACOS
 #ifndef USE_OPENGL
-    void mouseMoveEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event) override;
 #endif
 #endif
 private slots:
@@ -85,6 +94,12 @@ private slots:
     void init();
     void eventLoop();
     void chooseFont();
+    void createMobileUI();
+
+    // Called by FractalBridge to execute menu commands
+    void menuActivateFromBridge(const menuitem *item, dialogparam *d);
+    void popupMenuFromBridge(const char *name);
+    void setSyntheticButtons(int buttons) { m_syntheticButtons = buttons; }
 };
 
 #endif // MAINWINDOW_H

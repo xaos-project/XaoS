@@ -37,6 +37,14 @@ char *xio_fixpath(const char *c)
         sprintf(c1, "%s%s", xio_appdir, c + 1);
         return c1;
     }
+#ifdef Q_OS_ANDROID
+    // Support relative paths from resource root on Android
+    if (c[0] != '/' && c[0] != ':' && c[0] != '~') {
+        char *c1 = (char *)malloc(strlen(c) + strlen(xio_appdir) + 5);
+        sprintf(c1, "%s/%s", xio_appdir, c);
+        return c1;
+    }
+#endif
     return mystrdup(c);
 }
 
@@ -44,6 +52,35 @@ int xio_getfiles(xio_constpath path1, char ***names, char ***dirs, int *nnames2,
                  int *ndirs2)
 {
     char *path = xio_fixpath(path1);
+    
+    // Support Qt resources using QDir
+    if (path[0] == ':') {
+        QDir directory(path);
+        if (!directory.exists()) {
+            free(path);
+            return 0;
+        }
+        
+        QFileInfoList fileList = directory.entryInfoList(QDir::Files | QDir::NoDotAndDotDot);
+        QFileInfoList dirList = directory.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
+        
+        *nnames2 = fileList.size();
+        *ndirs2 = dirList.size();
+        
+        *names = (char **)malloc(fileList.size() * sizeof(**names));
+        *dirs = (char **)malloc(dirList.size() * sizeof(**dirs));
+        
+        for (int i = 0; i < fileList.size(); ++i) {
+            (*names)[i] = mystrdup(fileList.at(i).fileName().toLocal8Bit().constData());
+        }
+        for (int i = 0; i < dirList.size(); ++i) {
+            (*dirs)[i] = mystrdup(dirList.at(i).fileName().toLocal8Bit().constData());
+        }
+        
+        free(path);
+        return 1;
+    }
+
     int maxnames = 200, maxdirs = 200;
     int nnames = 0, ndirs = 0;
     DIR *dir = opendir(path);
@@ -369,15 +406,62 @@ static int ssclose(xio_file f)
     return r;
 }
 
+// QFile based wrappers for resources
+static int qsclose(xio_file f)
+{
+    ((QFile *)f->data)->close();
+    delete (QFile *)f->data;
+    free(f);
+    return 0;
+}
+
+static int qgetc(xio_file f)
+{
+    char c;
+    if (((QFile *)f->data)->getChar(&c))
+        return (unsigned char)c;
+    return EOF;
+}
+
+static int qungetc(int c, xio_file f)
+{
+    ((QFile *)f->data)->ungetChar((char)c);
+    return c;
+}
+
+static int qeof(xio_file f)
+{
+    return ((QFile *)f->data)->atEnd();
+}
+
 xio_file xio_ropen(const char *name)
 {
     xio_file f = (xio_file)calloc(1, sizeof(*f));
-    name = xio_fixpath(name);
+    char *fixed_name = xio_fixpath(name);
+    
+    // Check if it's a Qt resource
+    if (fixed_name[0] == ':') {
+        QFile *qfile = new QFile(fixed_name);
+        if (!qfile->open(QIODevice::ReadOnly | QIODevice::Text)) {
+            delete qfile;
+            free(fixed_name);
+            free(f);
+            return 0;
+        }
+        f->data = (void *)qfile;
+        f->fclose = qsclose;
+        f->xeof = qeof;
+        f->fgetc = qgetc;
+        f->fungetc = qungetc;
+        free(fixed_name);
+        return f;
+    }
+
 #ifndef _WIN32
-    f->data = (void *)fopen(name, "rt");
+    f->data = (void *)fopen(fixed_name, "rt");
 #else
     // TODO: unify this with xio_ropen
-    std::string filePath = name;
+    std::string filePath = fixed_name;
     std::wstring filePathW;
     filePathW.resize(filePath.size());
     int newSize = MultiByteToWideChar(CP_UTF8, 0, filePath.c_str(), filePath.length(),
@@ -385,7 +469,7 @@ xio_file xio_ropen(const char *name)
     filePathW.resize(newSize);
     f->data = _wfopen(filePathW.c_str(), L"rt");
 #endif
-    /*free (name); */
+    free(fixed_name);
     if (!f->data) {
         free(f);
         return 0;
@@ -429,6 +513,11 @@ xio_file xio_wopen(const char *name)
 #endif
 void xio_init(const char *name)
 {
+#ifdef Q_OS_ANDROID
+    xio_homedir = mystrdup("./"); // Android homedir handling can be refined if needed
+    xio_appdir = mystrdup(":/android");
+    return;
+#endif
     if (getenv("HOME"))
         xio_homedir = mystrdup(getenv("HOME"));
     else

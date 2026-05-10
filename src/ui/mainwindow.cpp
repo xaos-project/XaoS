@@ -3,6 +3,13 @@
 #include <QTimer>
 #include <iostream>
 
+#ifdef USE_QML_OVERLAY
+#include <QQuickWidget>
+#include <QQmlContext>
+#include <QQmlEngine>
+#include "fractalbridge.h"
+#endif
+
 #include "mainwindow.h"
 #include "fractalwidget.h"
 #include "customdialog.h"
@@ -431,6 +438,12 @@ void MainWindow::eventLoop()
 
         widget->setCursor(uih->play ? Qt::ForbiddenCursor : Qt::CrossCursor);
 
+        // Update bridge state for QML
+#ifdef USE_QML_OVERLAY
+        if (m_fractalBridge)
+            m_fractalBridge->refreshState();
+#endif
+
         if (uih->display) {
             uih_prepare_image(uih);
             uih_updatestatus(uih);
@@ -608,6 +621,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     uih->fcontext->version++;
     uih_newimage(uih);
     QSettings settings;
+    createMobileUI();
 
     // Try to load a catalog for the current language and if it doesn't exist,
     // default to English. Fixes "No catalog loaded" messages on tutorials
@@ -755,6 +769,62 @@ void MainWindow::closeEvent(QCloseEvent *)
 {
     writeSettings();
     ui_quit(0);
+}
+
+
+void MainWindow::createMobileUI()
+{
+#if defined(Q_OS_ANDROID) || defined(Q_OS_IOS)
+    bool showOverlay = true;
+#else
+    bool showOverlay = false; // Set to true for testing on desktop
+#endif
+    qDebug() << "createMobileUI - showOverlay:" << showOverlay;
+    if (!showOverlay) return;
+
+#ifdef USE_QML_OVERLAY
+
+    // Hide the desktop menu bar on mobile
+    menuBarRef->setVisible(false);
+
+    // Enter full screen to hide the system status bar and home indicator
+    showFullScreen();
+
+    // Create the C++ <-> QML bridge
+    m_fractalBridge = new FractalBridge(this, this);
+    m_fractalBridge->setUih(uih);
+    m_fractalBridge->updateSafeAreaInsets();
+
+    // Create QQuickWidget overlay
+    m_qmlOverlay = new QQuickWidget(this);
+    m_qmlOverlay->setResizeMode(QQuickWidget::SizeRootObjectToView);
+    m_qmlOverlay->setClearColor(Qt::transparent);
+    m_qmlOverlay->setAttribute(Qt::WA_AlwaysStackOnTop);
+    m_qmlOverlay->setAttribute(Qt::WA_TranslucentBackground);
+    m_qmlOverlay->setAttribute(Qt::WA_TransparentForMouseEvents, false);
+
+    // Expose bridge to QML
+    m_qmlOverlay->rootContext()->setContextProperty("bridge", m_fractalBridge);
+
+    // Add import path for local QML components
+    m_qmlOverlay->engine()->addImportPath("qrc:/");
+
+    // Load the overlay
+    m_qmlOverlay->setSource(QUrl("qrc:/qml/MobileOverlay.qml"));
+
+    if (m_qmlOverlay->status() == QQuickWidget::Error) {
+        qWarning() << "QML errors:";
+        for (const auto &error : m_qmlOverlay->errors())
+            qWarning() << " " << error.toString();
+    }
+
+    m_qmlOverlay->show();
+    m_qmlOverlay->raise();
+
+    // Trigger geometry update
+    QResizeEvent re(size(), size());
+    resizeEvent(&re);
+#endif // USE_QML_OVERLAY
 }
 
 QKeySequence::StandardKey MainWindow::keyForItem(const QString &name)
@@ -1564,6 +1634,10 @@ int MainWindow::mouseButtons()
         if (m_mouseButtons & Qt::RightButton)
             mouseButtons |= BUTTON3;
     }
+
+    // Merge in synthetic buttons from QML (e.g. for zoom/unzoom)
+    mouseButtons |= m_syntheticButtons;
+
     // handle mouse wheel operations
     if (m_mouseWheel > 0)
         mouseButtons |= BUTTON1;
@@ -1673,13 +1747,31 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 #endif
 #endif
 
-void MainWindow::resizeEvent(QResizeEvent * /*event*/)
+void MainWindow::resizeEvent(QResizeEvent *event)
 {
+    QMainWindow::resizeEvent(event);
 #ifndef Q_OS_MACOS
 #ifndef USE_OPENGL
-    if (isFullScreen())
+    if (menuBarRef && isFullScreen())
         menuBarRef->resize(size().width(), menuBarRef->sizeHint().height());
 #endif
 #endif
+
+#ifdef USE_QML_OVERLAY
+    if (m_qmlOverlay) {
+        m_qmlOverlay->setGeometry(0, 0, width(), height());
+        m_qmlOverlay->raise();
+    }
+#endif
     shouldResize = true;
+}
+
+void MainWindow::menuActivateFromBridge(const menuitem *item, dialogparam *d)
+{
+    menuActivate(item, d);
+}
+
+void MainWindow::popupMenuFromBridge(const char *name)
+{
+    popupMenu(name);
 }
