@@ -10,10 +10,10 @@
 #    where ID stands for the obtained image ID in step 2.
 #    You will get a container identifier CID as output.
 # 4. Open your favorite web browser and open the page **http://localhost:8080/xaos.html**. This starts the program.
-#    Note that the current Docker version does not provide a https connection and therefore
+#    Note that the current Docker version does not provide an https connection and therefore
 #    this link works only with localhost.
 # 5. If you want to get the created files for a deployment in FOLDER, use
-#    `sudo docker cp CID:/XaoS/build-wasm/html-output FOLDER`
+#    `sudo docker cp CID:/var/www/html FOLDER`
 #    where CID stands for the obtained container identifier in step 3.
 # 6. When finished, stop the web server by using the command `sudo docker kill CID`.
 # 7. If no longer used, you can remove the Docker container and image by entering
@@ -21,7 +21,7 @@
 
 # Known issues:
 # * On Qt 6.10+, zooming does not work unless you move the mouse continuously.
-#   Change it to 6.9 below as a workaround. (Qt 6.9 requires emscripten 3.1.70
+#   Change it to 6.9 below as a workaround. (Qt 6.9 requires emscripten 3.1.70.)
 # * Chinese characters are unavailable, they should be loaded in the application directly (programmatically).
 # * CMake is not yet supported. Instead, QMake is used.
 
