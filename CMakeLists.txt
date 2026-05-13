@@ -214,7 +214,7 @@ if(EMSCRIPTEN)
     target_link_options(xaos PUBLIC -sASYNCIFY -O3 -flto)
 elseif(MOBILE_UI)
     # Mobile UI executable
-    add_executable(XaoSMobile
+    qt_add_executable(XaoSMobile
        ${CXX_FILES}
        ${C_FILES}
        ${QM_FILES}
@@ -222,7 +222,13 @@ elseif(MOBILE_UI)
        src/ui-mobile/ui-mobile.qrc
        XaoS.qrc
     )
-    target_link_libraries(XaoSMobile Qt6::Widgets Qt6::Quick Qt6::QuickControls2)
+    target_link_libraries(XaoSMobile PRIVATE Qt6::Widgets Qt6::Quick Qt6::QuickControls2)
+    # Android-specific properties
+    if(ANDROID)
+        set_target_properties(XaoSMobile PROPERTIES
+            QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/android"
+        )
+    endif()
 else()
     add_executable(XaoS MACOSX_BUNDLE
        ${CXX_FILES}
@@ -237,14 +243,14 @@ endif()
 
 if(DEEPZOOM)
    if(MOBILE_UI)
-      target_link_libraries(XaoSMobile quadmath)
+      target_link_libraries(XaoSMobile PRIVATE quadmath)
    else()
       target_link_libraries(XaoS quadmath)
    endif()
 endif(DEEPZOOM)
 if(OPENGL)
    if(MOBILE_UI)
-      target_link_libraries(XaoSMobile Qt6::OpenGL Qt6::OpenGLWidgets)
+      target_link_libraries(XaoSMobile PRIVATE Qt6::OpenGL Qt6::OpenGLWidgets)
    else()
       target_link_libraries(XaoS Qt6::OpenGL Qt6::OpenGLWidgets)
    endif()
