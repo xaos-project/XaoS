@@ -182,9 +182,11 @@ if(Qt6LinguistTools_FOUND)
    set_source_files_properties(${TRANSLATION_FILES}
        PROPERTIES OUTPUT_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/i18n")
    qt6_add_translation(QM_FILES ${TRANSLATION_FILES})
+   set(TRANSLATIONS_QRC XaoS.qrc)
 else()
    message(STATUS "Qt6LinguistTools not found - skipping translations")
    set(QM_FILES "")
+   set(TRANSLATIONS_QRC "")
 endif()
 endif ()
 
@@ -212,7 +214,7 @@ if(EMSCRIPTEN)
        ${QM_FILES}
        ${XaoS_ICON}
        src/ui/XaoS.qrc
-       XaoS.qrc
+       ${TRANSLATIONS_QRC}
     )
     target_link_libraries(xaos PUBLIC Qt6::Widgets)
     target_link_options(xaos PUBLIC -sASYNCIFY -O3 -flto)
@@ -224,7 +226,7 @@ elseif(MOBILE_UI)
        ${QM_FILES}
        ${XaoS_ICON}
        src/ui-mobile/ui-mobile.qrc
-       XaoS.qrc
+       ${TRANSLATIONS_QRC}
     )
     target_link_libraries(XaoSMobile PRIVATE Qt6::Widgets Qt6::Quick Qt6::QuickControls2)
     # Android-specific properties
@@ -240,7 +242,7 @@ else()
        ${QM_FILES}
        ${XaoS_ICON}
        src/ui/XaoS.qrc
-       XaoS.qrc
+       ${TRANSLATIONS_QRC}
     )
     target_link_libraries(XaoS Qt6::Widgets Qt6::PrintSupport)
 endif()
