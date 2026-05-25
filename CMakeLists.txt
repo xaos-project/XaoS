@@ -115,9 +115,9 @@ add_definitions(-DUSE_SFFE -DSFFE_CMPLX_GSL)
 set(CMAKE_FIND_PACKAGE_RESOLVE_SYMLINKS TRUE)
 
 # by default, build a release (a non-debug executable)
-if(NOT CMAKE_BUILD_TYPE)
-   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY VALUE Release)
-endif(NOT CMAKE_BUILD_TYPE)
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+   set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
 
 # set the project directory
 get_filename_component(PROJECT_DIR ${CMAKE_SOURCE_DIR} PATH)
@@ -173,16 +173,20 @@ set(MACOSX_BUNDLE_ICON_FILE XaoS.icns)
 set(XaoS_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/ui/XaoS.icns)
 set_source_files_properties(${XaoS_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
-if (EMSCRIPTEN)
-else()
+if (NOT EMSCRIPTEN)
 # Multilingual support: *.ts -> *.qm
-find_package(Qt6LinguistTools)
-file(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_SOURCE_DIR}/i18n/*.ts)
-# qt_add_translation
-set_source_files_properties(${TRANSLATION_FILES}
-    PROPERTIES OUTPUT_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/i18n")
-qt6_add_translation(QM_FILES ${TRANSLATION_FILES})
-endif (EMSCRIPTEN)
+find_package(Qt6LinguistTools QUIET)
+if(Qt6LinguistTools_FOUND)
+   file(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_SOURCE_DIR}/i18n/*.ts)
+   # qt_add_translation
+   set_source_files_properties(${TRANSLATION_FILES}
+       PROPERTIES OUTPUT_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/i18n")
+   qt6_add_translation(QM_FILES ${TRANSLATION_FILES})
+else()
+   message(STATUS "Qt6LinguistTools not found - skipping translations")
+   set(QM_FILES "")
+endif()
+endif ()
 
 # grab sources: engine, ui-helper, util, sffe are always included
 file(GLOB ENGINE_FILES src/engine/*.cpp)
