@@ -20,10 +20,8 @@
 #    `sudo docker rm CID` and `sudo docker rmi ID`.
 
 # Known issues:
-# * On Qt 6.10+, zooming does not work unless you move the mouse continuously.
-#   Change it to 6.9 below as a workaround. (Qt 6.9 requires emscripten 3.1.70.)
-# * Chinese characters are unavailable, they should be loaded in the application directly (programmatically).
-# * CMake is not yet supported. Instead, QMake is used.
+# * On Qt 6.10+, zooming does not work unless you move the mouse continuously. So we use Qt 6.9 instead.
+# * Chinese and Hindi characters are unavailable, they should be loaded in the application directly (programmatically).
 
 
 # Install prerequisites:
@@ -37,23 +35,22 @@ RUN apt-get update && \
         libgl-dev libegl-dev libfontconfig-dev
 RUN git clone https://github.com/emscripten-core/emsdk.git
 WORKDIR emsdk
-ARG EMSDK_VER=4.0.7
+ARG EMSDK_VER=3.1.70
 RUN ./emsdk install $EMSDK_VER
 RUN ./emsdk activate $EMSDK_VER
 WORKDIR ..
 
 # Build Qt without Asyncify, with WASM-exceptions and threads:
 ## Download recent Qt...
-ENV QT6_VERSION=6.11.0
+ENV QT6_VERSION=6.9.0
 RUN git clone git://code.qt.io/qt/qt5.git qt6
 WORKDIR qt6
 RUN git switch $QT6_VERSION
-RUN perl init-repository
+RUN perl init-repository --module-subset=qtbase,qtdeclarative,qtsvg,qtimageformats,qtshadertools,qttools
 ## Compile Qt for the Linux host...
 WORKDIR ..
 RUN mkdir qt6-host-build
 WORKDIR qt6-host-build
-
 RUN ../qt6/configure -prefix `pwd`/../qt6-host-install
 RUN cmake --build . -j$(nproc)
 RUN cmake --install .
@@ -62,24 +59,23 @@ WORKDIR ..
 RUN mkdir qt6-wasm-build
 WORKDIR qt6-wasm-build
 RUN . ../emsdk/emsdk_env.sh && \
-    ../qt6/configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase \
-        -opensource -confirm-license -qt-host-path `pwd`/../qt6-host-install -device-option QT_EMSCRIPTEN_ASYNCIFY=1
-RUN cmake --build . -j$(nproc) -t qtbase -t qtdeclarative -t qtimageformats -t qsvgicon -t qsvg
+    ../qt6/configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qt6-wasm-install \
+        -skip qtlanguageserver -skip qtgrpc -skip qthttpserver -skip qtremoteobjects -skip qtserialbus \
+        -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwayland -skip qt3d \
+        -opensource -confirm-license -qt-host-path `pwd`/../qt6-host-install -device-option QT_EMSCRIPTEN_ASYNCIFY=1 -cmake-generator Ninja
+RUN cmake --build . -j$(nproc)
+RUN cmake --install .
 WORKDIR ..
-
-# Download XaoS:
-ARG GIT_COMMIT=
-RUN git clone https://github.com/xaos-project/XaoS && \
-    if [ -n "$GIT_COMMIT" ]; then cd XaoS; git checkout $GIT_COMMIT; fi
 
 # Build XaoS (qt-web):
 WORKDIR XaoS
+COPY . .
+RUN mkdir build
+WORKDIR build
 RUN . ../../../emsdk/emsdk_env.sh && \
-    ../../../qt6-wasm-build/qtbase/bin/qmake
-## The lrelease tool must be on path:
-RUN . ../../../emsdk/emsdk_env.sh && \
-    export PATH=$PATH:/qt6-host-install/bin/ && make -j$(nproc) || true
-WORKDIR bin
+    ../../qt6-wasm-build/qt6-wasm-install/bin/qt-cmake -DQT_HOST_PATH=/qt6-host-install ..
+RUN yes | make -j$(nproc)
+#RUN make install
 
 # Set up web server:
 EXPOSE 80

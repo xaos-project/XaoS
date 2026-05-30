@@ -173,9 +173,9 @@ set(MACOSX_BUNDLE_ICON_FILE XaoS.icns)
 set(XaoS_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/ui/XaoS.icns)
 set_source_files_properties(${XaoS_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
-if (NOT EMSCRIPTEN)
 # Multilingual support: *.ts -> *.qm
-find_package(Qt6LinguistTools QUIET)
+find_package(Qt6 REQUIRED COMPONENTS LinguistTools PATHS ${QT_HOST_PATH} NO_DEFAULT_PATH)
+
 if(Qt6LinguistTools_FOUND)
    file(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_SOURCE_DIR}/i18n/*.ts)
    # qt_add_translation
@@ -188,7 +188,6 @@ else()
    set(QM_FILES "")
    set(TRANSLATIONS_QRC "")
 endif()
-endif ()
 
 # grab sources: engine, ui-helper, util, sffe are always included
 file(GLOB ENGINE_FILES src/engine/*.cpp)
