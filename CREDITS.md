@@ -55,6 +55,7 @@
 - Tormod Volden: Fixes for X11 driver to improve compatibility with Xorg, XScreenSaver, Beryl and Compiz
 - [Werner Volken](werner.volken@vsw.ch): Support for cmake, quad precision support for MacOS
 - [Philippe Wautelet](mailto:p.wautelet@fractalzone.be): Bug fixes for version 3.1.1, French translation, gcc 4.0 fixes
+- [xydcheng](https://github.com/xydcheng): Chinese translation
 - [Veysel Yıldız](mailto:veyselyildiz11@gmail.com): Turkish translation
 - Sergio Zanchetta: Italian translation
 

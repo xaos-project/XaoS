@@ -1,5 +1,6 @@
 TRANSLATIONS = \
     $$PWD/XaoS_hy.ts \
+    $$PWD/XaoS_zh.ts \
     $$PWD/XaoS_cs.ts \
     $$PWD/XaoS_de.ts \
     $$PWD/XaoS_es.ts \
@@ -16,7 +17,7 @@ TRANSLATIONS = \
     $$PWD/XaoS_sv.ts \
     $$PWD/XaoS_sk.ts \
     $$PWD/XaoS_tr.ts \
-    $$PWD/XaoS_vi.ts 
+    $$PWD/XaoS_vi.ts
 
 OTHER_FILES = TRANSLATIONS
 

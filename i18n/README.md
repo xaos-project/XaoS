@@ -54,7 +54,7 @@ are consecutive in the list. Add new language definition in alphabetical order. 
 5. In src/ui/main.cpp increase the number of internationalized menu items at line
 
 ```
-#define MAX_MENUITEMS_I18N 37
+#define MAX_MENUITEMS_I18N 38
 ```
 
 Increase it by one for each additional language. If you compile XaoS in debug mode, you can find the required minimal number here
