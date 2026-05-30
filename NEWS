@@ -4,6 +4,8 @@ RELEASE NOTES FOR XAOS VERSION 4.3.5
 New Features
 ============
 
+o Full cmake support (also for WebAssembly).
+
 o Armenian translation (by Davit Harutyunyan).
 
 o Chinese version (by xydcheng).

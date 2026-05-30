@@ -620,6 +620,13 @@ int main(int argc, char *argv[])
     strcpy(l, settings.value("MainWindow/language").toString().toStdString().c_str());
     if (strlen(l) >= 2) {
         setLanguage(l);
+        if (strncmp(l, "zh", 2) == 0) {
+            int chineseFont = QFontDatabase::addApplicationFont(":/i18n/NotoSansCJKtc-Regular.ttf");
+            if (chineseFont != -1) {
+                printf("Chinese font loaded\n");
+                QApplication::setFont(QFont("NotoSansCJKtc-Regular"));
+                }
+            }
     } else {
         setLanguage(NULL);
     }
