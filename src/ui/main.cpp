@@ -385,10 +385,12 @@ void uih_setlanguage(uih_context *c, int l)
     QSettings settings;
     settings.setValue("MainWindow/language", lang2(l));
     QMessageBox msgBox;
-    msgBox.setText(TR("Message", "XaoS must restart to change the language."));
 #ifndef __wasm
+    msgBox.setText(TR("Message", "XaoS must restart to change the language."));
     msgBox.setInformativeText(TR("Message", "Do you want to quit now?"));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+#else
+    msgBox.setText("XaoS must restart to change the language."); // no translation on wasm: the internationalized font may be missing
 #endif
     int ret = msgBox.exec();
 #ifndef __wasm
@@ -623,8 +625,13 @@ int main(int argc, char *argv[])
         if (strncmp(l, "zh", 2) == 0) {
             int chineseFont = QFontDatabase::addApplicationFont(":/i18n/NotoSansCJKtc-Regular.ttf");
             if (chineseFont != -1) {
-                printf("Chinese font loaded\n");
                 QApplication::setFont(QFont("NotoSansCJKtc-Regular"));
+                }
+            }
+        if (strncmp(l, "hi", 2) == 0) {
+            int chineseFont = QFontDatabase::addApplicationFont(":/i18n/NotoSansDevanagari-Regular.ttf");
+            if (chineseFont != -1) {
+                QApplication::setFont(QFont("NotoSansDevanagari-Regular.ttf"));
                 }
             }
     } else {
