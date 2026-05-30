@@ -58,5 +58,27 @@ moc_*
 qrc_*
 *.qm
 
+# Build directories
+build/
+build-*/
+build_*/
+
+# Qt Creator
+.qtcreator/
+
+# Android build artifacts
+*.apk
+*.aab
+*.keystore
+local.properties
+android/.gradle/
+
+# Build logs
+*.log
+build_*.txt
+
+# Docker
+.docker/
+
 # Mac stuff
 .DS_Store
