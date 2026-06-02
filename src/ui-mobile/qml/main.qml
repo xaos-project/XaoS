@@ -19,109 +19,86 @@ ApplicationWindow {
         anchors.fill: parent
         engine: root.engine
 
-        // ─── Gesture Handling ───
-        // Left press+hold = zoom in at point
-        // Left press+drag = pan
-        // Right press = zoom out
-        MouseArea {
-            id: gestureArea
-            anchors.fill: parent
-            acceptedButtons: Qt.LeftButton | Qt.RightButton
-            hoverEnabled: false
+        // ── TAP: Single tap zooms in at that point ──
+        TapHandler {
+            id: tapHandler
+            gesturePolicy: TapHandler.ReleaseWithinBounds
 
-            property point pressPos: Qt.point(0, 0)
-            property bool isDragging: false
-            property real dragThreshold: 10  // pixels before drag becomes pan
-
-            onPressed: function(mouse) {
-                pressPos = Qt.point(mouse.x, mouse.y)
-                isDragging = false
-
-                if (mouse.button === Qt.RightButton) {
-                    // Right click = zoom out
-                    fractalView.startZoomOut(mouse.x, mouse.y)
-                } else {
-                    // Left click = start zoom in at this point
-                    fractalView.startZoomIn(mouse.x, mouse.y)
-                }
+            onTapped: function(eventPoint, button) {
+                fractalView.startZoomIn(eventPoint.position.x,
+                                        eventPoint.position.y)
+                zoomPulseTimer.restart()
             }
+        }
 
-            onPositionChanged: function(mouse) {
-                var dx = mouse.x - pressPos.x
-                var dy = mouse.y - pressPos.y
-                var dist = Math.sqrt(dx * dx + dy * dy)
+        // ── DRAG: Single finger drag to pan ──
+        DragHandler {
+            id: dragHandler
+            target: null
+            dragThreshold: 8
 
-                if (!isDragging && dist > dragThreshold) {
-                    // Transition from zoom to pan
-                    isDragging = true
+            onActiveChanged: {
+                if (active) {
                     fractalView.stopZoom()
-                    fractalView.startPan(pressPos.x, pressPos.y)
-                }
-
-                if (isDragging) {
-                    // Update pan position
-                    fractalView.updatePan(mouse.x, mouse.y)
+                    fractalView.startPan(centroid.position.x,
+                                         centroid.position.y)
                 } else {
-                    // Still zooming — update zoom center
-                    fractalView.updateMousePosition(mouse.x, mouse.y)
-                }
-            }
-
-            onReleased: {
-                if (isDragging) {
                     fractalView.stopPan()
-                } else {
-                    fractalView.stopZoom()
                 }
-                isDragging = false
             }
 
-            // Scroll wheel = zoom in/out
-            onWheel: function(wheel) {
-                var cx = wheel.x
-                var cy = wheel.y
-                if (wheel.angleDelta.y > 0) {
-                    fractalView.startZoomIn(cx, cy)
-                    // Brief zoom pulse
-                    zoomPulseTimer.start()
-                } else if (wheel.angleDelta.y < 0) {
-                    fractalView.startZoomOut(cx, cy)
-                    zoomPulseTimer.start()
+            onTranslationChanged: {
+                if (active) {
+                    fractalView.updatePan(centroid.position.x,
+                                          centroid.position.y)
                 }
             }
         }
 
-        // Timer to stop zoom after scroll wheel pulse
+        // ── PINCH: Two fingers to zoom in/out ──
+        PinchHandler {
+            id: pinchHandler
+            target: null
+            minimumPointCount: 2
+            maximumPointCount: 2
+
+            property real prevScale: 1.0
+
+            onActiveChanged: {
+                if (active) {
+                    prevScale = 1.0
+                    fractalView.stopPan()
+                    fractalView.stopZoom()
+                } else {
+                    fractalView.stopZoom()
+                }
+            }
+
+            onActiveScaleChanged: {
+                if (!active) return
+
+                var cx = centroid.position.x
+                var cy = centroid.position.y
+
+                var delta = activeScale / prevScale
+
+                if (delta > 1.02) {
+                    fractalView.startZoomIn(cx, cy)
+                    prevScale = activeScale
+                } else if (delta < 0.98) {
+                    fractalView.startZoomOut(cx, cy)
+                    prevScale = activeScale
+                }
+
+                fractalView.updateMousePosition(cx, cy)
+            }
+        }
+
+        // Timer: stops zoom after a tap
         Timer {
             id: zoomPulseTimer
-            interval: 150
+            interval: 200
             onTriggered: fractalView.stopZoom()
-        }
-
-        // Pinch to zoom (for touch screens)
-        PinchArea {
-            anchors.fill: parent
-            enabled: true
-            property real lastScale: 1.0
-
-            onPinchStarted: function(pinch) {
-                lastScale = 1.0
-                fractalView.updateMousePosition(pinch.center.x, pinch.center.y)
-            }
-
-            onPinchUpdated: function(pinch) {
-                fractalView.updateMousePosition(pinch.center.x, pinch.center.y)
-                if (pinch.scale > lastScale) {
-                    fractalView.startZoomIn(pinch.center.x, pinch.center.y)
-                } else if (pinch.scale < lastScale) {
-                    fractalView.startZoomOut(pinch.center.x, pinch.center.y)
-                }
-                lastScale = pinch.scale
-            }
-
-            onPinchFinished: {
-                fractalView.stopZoom()
-            }
         }
     }
 
