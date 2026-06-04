@@ -10,6 +10,7 @@
 #define DOWNLOAD_URL "https://github.com/xaos-project/XaoS/releases"
 #define FEEDBACK_URL "https://github.com/xaos-project/XaoS/issues"
 #define FORUM_URL "https://groups.google.com/d/forum/xaos-users"
+#define XAOS_30_YEARS_URL "https://xaos.app/30"
 #define FRACTALINFO_URL "https://github.com/xaos-project/XaoS/wiki/Fractal-Types#"
 
 // File locations

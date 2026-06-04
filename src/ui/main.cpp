@@ -323,6 +323,11 @@ static void ui_forum(struct uih_context */*uih*/)
     QDesktopServices::openUrl(QUrl(FORUM_URL));
 }
 
+static void ui_30_years(struct uih_context */*uih*/)
+{
+    QDesktopServices::openUrl(QUrl(XAOS_30_YEARS_URL));
+}
+
 static void ui_about(struct uih_context *uih)
 {
     MainWindow *window = nullptr;
@@ -578,6 +583,8 @@ static void ui_registermenus_i18n(void)
               ui_download);
     MENUNOP_I("helpmenu", NULL, TR("Menu", "User Forum"), "forum", MENUFLAG_INCALC,
               ui_forum);
+    MENUNOP_I("helpmenu", NULL, TR("Menu", "30 Years of XaoS"), "xaos_30_years", MENUFLAG_INCALC,
+              ui_30_years);
     MENUSEPARATOR_I("helpmenu");
     MENUNOP_I("helpmenu", NULL, TR("Menu", "About"), "about", UI, ui_about);
 
