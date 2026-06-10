@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
   // QApplication — required for QWidget support
   QApplication app(argc, argv);
   app.setApplicationName("XaoS");
-  app.setApplicationVersion("4.3");
+  app.setApplicationVersion("4.3.5");
   app.setOrganizationName("GNU");
 
   // Multi-threading: auto-detect cores, cap at 4 for mobile
