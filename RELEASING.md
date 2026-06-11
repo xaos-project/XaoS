@@ -2,7 +2,7 @@
 
 ## Version bump
 
-* Change XaoS_VERSION in src/include/config.h
+* Change XaoS_VERSION in src/include/config.h and in tools/xaos.iss
 * Change version number in doc/XaoS.lsm and installer/config/config.xml
 * Change Version and ReleaseDate in installer/packages/net.sourceforge.xaos/meta/package.xml
 * Add release information in NEWS and xdg/xaos.appdata.xml

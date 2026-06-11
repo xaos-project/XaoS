@@ -49,6 +49,8 @@ Alternatively, we provide a .zip file as well. To create it, use the
 script `create-windows-zip`. It assumes that the Qt-based installer
 has already been created.
 
+Since 4.3.5 there is a Dockerfile.win that automatizes this process.
+
 MacOS
 -----
 
@@ -68,3 +70,5 @@ After a successful build, you need the files qtloader.js, qtlogo.svg,
 xaos.data, xaos.html, xaos.js, xaos.wasm and xaos.worker.js. Please
 follow the steps in the wiki if you want to install them on your web
 server, similarly to the publicly available website, https://xaos.app.
+
+Since 4.3.5 there is a Dockerfile.wasm that automatizes this process.

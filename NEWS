@@ -12,6 +12,8 @@ o Chinese and Hindi fonts are available also in the WebAssembly version.
 
 o Full cmake support (also for WebAssembly).
 
+o Docker support for building XaoS and creating the installers.
+
 
 RELEASE NOTES FOR XAOS VERSION 4.3.4
 ------------------------------------

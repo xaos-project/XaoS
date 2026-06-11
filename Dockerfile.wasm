@@ -21,7 +21,6 @@
 
 # Known issues:
 # * On Qt 6.10+, zooming does not work unless you move the mouse continuously. So we use Qt 6.9 instead.
-# * Chinese and Hindi characters are unavailable, they should be loaded in the application directly (programmatically).
 
 
 # Install prerequisites:
