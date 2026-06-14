@@ -1,7 +1,7 @@
 XaoS
 ====
 
-XaoS (pronounced *chaos*) is a realtime interactive fractal zoomer. This
+XaoS (pronounced *chaos*, also known as [GNU](https://www.gnu.org) XaoS) is a realtime interactive fractal zoomer. This
 means that it lets you zoom smoothly into any place in the fractal you
 choose without the long calculation required by other fractal generators.
 It has many other features too, like different fractal types, autopilot,
@@ -50,7 +50,7 @@ or implement a new feature yourself, pull requests are very welcome.
 License
 -------
 
-Copyright © 1996-2025 XaoS Contributors
+Copyright © 1996-2026 XaoS Contributors
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
