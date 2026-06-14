@@ -1,122 +1,104 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import XaoS 1.0
 
-ApplicationWindow {
+/*
+ * Mobile Overlay UI — sits as a transparent QQuickWidget on top of
+ * the FractalWidget. All fractal rendering happens in the QWidget
+ * underneath. This QML layer only handles touch gestures and UI controls.
+ */
+Item {
     id: root
-    visible: true
-    visibility: Window.FullScreen
-    title: "XaoS"
-    color: "#000000"
+    anchors.fill: parent
 
-    // Engine bridge (created in C++ main and set as context property)
-    property var engine: engineBridge
-
-    // ─── Fractal Rendering Surface ───
-    FractalQuickItem {
-        id: fractalView
+    // ─── Touch Gesture Area (full screen, behind UI controls) ───
+    // Captures pinch-to-zoom, drag-to-pan, and tap-to-zoom
+    MultiPointTouchArea {
+        id: touchArea
         anchors.fill: parent
-        engine: root.engine
+        z: 0  // behind UI buttons
+        mouseEnabled: true
+        minimumTouchPoints: 1
+        maximumTouchPoints: 2
+        touchPoints: [
+            TouchPoint { id: tp1 },
+            TouchPoint { id: tp2 }
+        ]
 
-        // ── TAP: Single tap zooms in at that point ──
-        TapHandler {
-            id: tapHandler
-            gesturePolicy: TapHandler.ReleaseWithinBounds
+        property bool isPinching: false
+        property real initialDistance: 0.0
+        property real lastDistance: 0.0
 
-            onTapped: function(eventPoint, button) {
-                fractalView.startZoomIn(eventPoint.position.x,
-                                        eventPoint.position.y)
-                zoomPulseTimer.restart()
+        onPressed: function(touchPoints) {
+            if (touchPoints.length === 2) {
+                // Two fingers: start pinch
+                isPinching = true
+                initialDistance = distance(tp1, tp2)
+                lastDistance = initialDistance
+                bridge.gesturePinchStarted()
+            } else if (touchPoints.length === 1) {
+                // One finger: prepare for drag or tap
+                isPinching = false
+                dragStartX = touchPoints[0].x
+                dragStartY = touchPoints[0].y
+                isDragging = false
             }
         }
 
-        // ── DRAG: Single finger drag to pan ──
-        DragHandler {
-            id: dragHandler
-            target: null
-            dragThreshold: 8
+        property real dragStartX: 0
+        property real dragStartY: 0
+        property bool isDragging: false
 
-            onActiveChanged: {
-                if (active) {
-                    fractalView.stopZoom()
-                    fractalView.startPan(centroid.position.x,
-                                         centroid.position.y)
-                } else {
-                    fractalView.stopPan()
+        onUpdated: function(touchPoints) {
+            if (isPinching && tp1.pressed && tp2.pressed) {
+                // Pinch gesture: zoom in/out
+                var d = distance(tp1, tp2)
+                var scale = d / initialDistance
+                var cx = (tp1.x + tp2.x) / 2
+                var cy = (tp1.y + tp2.y) / 2
+                bridge.gesturePinch(scale, cx, cy)
+                lastDistance = d
+            } else if (touchPoints.length === 1 && !isPinching) {
+                // Single finger drag: pan
+                var dx = touchPoints[0].x - dragStartX
+                var dy = touchPoints[0].y - dragStartY
+                if (!isDragging && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+                    isDragging = true
                 }
-            }
-
-            onTranslationChanged: {
-                if (active) {
-                    fractalView.updatePan(centroid.position.x,
-                                          centroid.position.y)
+                if (isDragging) {
+                    bridge.gesturePan(dx, dy, touchPoints[0].x, touchPoints[0].y)
                 }
             }
         }
 
-        // ── PINCH: Two fingers to zoom in/out ──
-        PinchHandler {
-            id: pinchHandler
-            target: null
-            minimumPointCount: 2
-            maximumPointCount: 2
-
-            property real prevScale: 1.0
-
-            onActiveChanged: {
-                if (active) {
-                    prevScale = 1.0
-                    fractalView.stopPan()
-                    fractalView.stopZoom()
-                } else {
-                    fractalView.stopZoom()
+        onReleased: function(touchPoints) {
+            if (isPinching) {
+                isPinching = false
+                bridge.stopZoom()
+            } else if (isDragging) {
+                isDragging = false
+                bridge.gesturePanFinished()
+            } else {
+                // Tap: zoom in briefly at the tap position
+                if (touchPoints.length >= 1) {
+                    bridge.startZoomIn()
+                    zoomPulseTimer.restart()
                 }
-            }
-
-            onActiveScaleChanged: {
-                if (!active) return
-
-                var cx = centroid.position.x
-                var cy = centroid.position.y
-
-                var delta = activeScale / prevScale
-
-                if (delta > 1.02) {
-                    fractalView.startZoomIn(cx, cy)
-                    prevScale = activeScale
-                } else if (delta < 0.98) {
-                    fractalView.startZoomOut(cx, cy)
-                    prevScale = activeScale
-                }
-
-                fractalView.updateMousePosition(cx, cy)
             }
         }
 
-        // Timer: stops zoom after a tap
-        Timer {
-            id: zoomPulseTimer
-            interval: 200
-            onTriggered: fractalView.stopZoom()
+        function distance(p1, p2) {
+            var dx = p2.x - p1.x
+            var dy = p2.y - p1.y
+            return Math.sqrt(dx*dx + dy*dy)
         }
     }
 
-    // ─── Status Message Overlay ───
-    Label {
-        id: statusLabel
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: 50
-        text: engine ? engine.statusMessage : ""
-        color: "#ffffff"
-        font.pixelSize: 14
-        visible: text.length > 0
-        background: Rectangle {
-            color: "#80000000"
-            radius: 8
-        }
-        padding: 8
+    // Timer: stops zoom after a single tap
+    Timer {
+        id: zoomPulseTimer
+        interval: 200
+        onTriggered: bridge.stopZoom()
     }
 
     // ─── Hamburger Menu Button ───
@@ -194,7 +176,7 @@ ApplicationWindow {
 
                 Label {
                     anchors.centerIn: parent
-                    text: engine ? engine.formulaName : "Mandelbrot"
+                    text: bridge ? bridge.formulaName : "Mandelbrot"
                     color: "#e94560"
                     font.pixelSize: 16
                     font.bold: true
@@ -222,7 +204,7 @@ ApplicationWindow {
 
             // Iterations slider
             Label {
-                text: "Iterations: " + (engine ? engine.iterations : 170)
+                text: "Iterations: " + (bridge ? bridge.maxIterations : 170)
                 color: "#cccccc"
                 font.pixelSize: 13
                 Layout.topMargin: 8
@@ -233,24 +215,24 @@ ApplicationWindow {
                 from: 10
                 to: 5000
                 stepSize: 10
-                value: engine ? engine.iterations : 170
+                value: bridge ? bridge.maxIterations : 170
 
                 onMoved: {
-                    if (engine)
-                        engine.setIterations(Math.round(value))
+                    if (bridge)
+                        bridge.setIterations(Math.round(value))
                 }
             }
 
             // Action buttons
             Button {
                 Layout.fillWidth: true
-                text: engine && engine.autopilotActive ?
+                text: bridge && bridge.autopilotActive ?
                           "Stop Autopilot" : "Autopilot"
                 onClicked: {
-                    if (engine) engine.toggleAutopilot()
+                    if (bridge) bridge.toggleAutopilot()
                 }
                 background: Rectangle {
-                    color: engine && engine.autopilotActive ? "#e94560" :
+                    color: bridge && bridge.autopilotActive ? "#e94560" :
                            parent.pressed ? "#0f3460" : "#16213e"
                     radius: 8
                 }
@@ -263,14 +245,12 @@ ApplicationWindow {
 
             Button {
                 Layout.fillWidth: true
-                text: engine && engine.juliaMode ?
-                          "Back to Mandelbrot" : "Julia Mode"
+                text: "Julia Mode"
                 onClicked: {
-                    if (engine) engine.toggleJulia()
+                    if (bridge) bridge.toggleJulia()
                 }
                 background: Rectangle {
-                    color: engine && engine.juliaMode ? "#533483" :
-                           parent.pressed ? "#0f3460" : "#16213e"
+                    color: parent.pressed ? "#0f3460" : "#16213e"
                     radius: 8
                 }
                 contentItem: Text {
@@ -284,7 +264,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 text: "Random Palette"
                 onClicked: {
-                    if (engine) engine.randomizePalette()
+                    if (bridge) bridge.randomizePalette()
                 }
                 background: Rectangle {
                     color: parent.pressed ? "#0f3460" : "#16213e"
@@ -301,7 +281,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 text: "Random Example"
                 onClicked: {
-                    if (engine) engine.loadRandomExample()
+                    if (bridge) bridge.loadRandomExample()
                     drawer.close()
                 }
                 background: Rectangle {
@@ -319,7 +299,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 text: "Reset View"
                 onClicked: {
-                    if (engine) engine.resetView()
+                    if (bridge) bridge.resetView()
                     drawer.close()
                 }
                 background: Rectangle {
@@ -344,7 +324,7 @@ ApplicationWindow {
                 Button {
                     Layout.fillWidth: true
                     text: "↩ Undo"
-                    onClicked: { if (engine) engine.undo() }
+                    onClicked: { if (bridge) bridge.undo() }
                     background: Rectangle {
                         color: parent.pressed ? "#0f3460" : "#16213e"
                         radius: 8
@@ -359,7 +339,7 @@ ApplicationWindow {
                 Button {
                     Layout.fillWidth: true
                     text: "↪ Redo"
-                    onClicked: { if (engine) engine.redo() }
+                    onClicked: { if (bridge) bridge.redo() }
                     background: Rectangle {
                         color: parent.pressed ? "#0f3460" : "#16213e"
                         radius: 8
@@ -417,7 +397,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 clip: true
-                model: engine ? engine.formulaCount : 0
+                model: bridge ? bridge.formulaCount : 0
                 spacing: 4
 
                 delegate: Rectangle {
@@ -430,7 +410,7 @@ ApplicationWindow {
                         anchors.left: parent.left
                         anchors.leftMargin: 16
                         anchors.verticalCenter: parent.verticalCenter
-                        text: engine ? engine.getFormulaName(index) : ""
+                        text: bridge ? bridge.getFormulaName(index) : ""
                         color: "#ffffff"
                         font.pixelSize: 14
                     }
@@ -439,9 +419,8 @@ ApplicationWindow {
                         id: mouseArea2
                         anchors.fill: parent
                         onClicked: {
-                            if (engine) {
-                                engine.setFormula(index)
-                            }
+                            if (bridge)
+                                bridge.setFormula(index)
                             formulaPopup.close()
                         }
                     }
@@ -469,7 +448,7 @@ ApplicationWindow {
             Button {
                 required property var modelData
                 height: 44
-                
+
                 background: Rectangle {
                     color: pressed ? "#cc333333" : "#99222222"
                     radius: 22
@@ -494,16 +473,16 @@ ApplicationWindow {
                 onClicked: {
                     switch(modelData.action) {
                     case "autopilot":
-                        if (engine) engine.toggleAutopilot()
+                        if (bridge) bridge.toggleAutopilot()
                         break
                     case "palette":
-                        if (engine) engine.randomizePalette()
+                        if (bridge) bridge.randomizePalette()
                         break
                     case "julia":
-                        if (engine) engine.toggleJulia()
+                        if (bridge) bridge.toggleJulia()
                         break
                     case "random":
-                        if (engine) engine.loadRandomExample()
+                        if (bridge) bridge.loadRandomExample()
                         break
                     }
                 }

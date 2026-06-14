@@ -1,18 +1,17 @@
 /*
  *     XaoS Mobile UI - Entry point
- *     Uses Qt Quick/QML instead of Qt Widgets
+ *
+ *     Uses QApplication + QWidget (FractalWidget) for fractal rendering
+ *     with a transparent QQuickWidget overlay for mobile touch controls.
  */
 
-#include <QFont>
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
+#include <QApplication>
 #include <QScreen>
+#include <QThread>
 
-#include "enginebridge.h"
-#include "fractalquickitem.h"
+#include "mobilemainwindow.h"
 
-// Engine globals needed by the fractal engine
+// Engine headers
 #include "config.h"
 #include "filter.h"
 #include "fractal.h"
@@ -22,94 +21,66 @@
 #include "xmenu.h"
 #include "xthread.h"
 
-// Required global variables (same as desktop main.cpp)
+// Required global variables
 int printspeed = 0;
 int delaytime = 0;
 int maxframerate = 80;
 float pixelwidth = 0.0, pixelheight = 0.0;
-extern tl_group *syncgroup; // defined in timers.cpp
-extern int nthreads;        // defined in xthread.cpp
+extern tl_group *syncgroup;
+extern int nthreads;
+extern int defthreads;
 
-// Globals from desktop UI that engine code references
 #include "xio.h"
 #include <QStringList>
-
 xio_pathdata configfile;
 QStringList fnames = {};
 
-// Params for engine
-static const struct params params[] = {{NULL, 0, NULL, NULL}};
-
+// Minimal stubs required by the engine
 int nparams = 0;
+void params_register(const struct params * /*par*/) {}
 
-void params_register(const struct params * /*par*/) {
-  // Minimal implementation for mobile
-}
-
-// Required by engine but simplified for mobile
-char *qt_gettext(const char * /*context*/, const char *text) {
+char *qt_gettext(const char * /*ctx*/, const char *text) {
   return const_cast<char *>(text);
 }
 
-void ui_unregistermenus(void) {
-  // No-op for mobile
-}
-
+void ui_unregistermenus(void) {}
 void ui_quit(int i) { QCoreApplication::exit(i); }
-
-void ui_help(struct uih_context * /*uih*/) {}
-void ui_download(struct uih_context * /*uih*/) {}
-void ui_feedback(struct uih_context * /*uih*/) {}
-void ui_forum(struct uih_context * /*uih*/) {}
-
-void ui_about(struct uih_context * /*uih*/) {
-  // TODO: Show About dialog via QML signal
-}
-
-void ui_font(struct uih_context * /*uih*/) {}
-
-void uih_setlanguage(uih_context * /*c*/, int /*l*/) {}
-
-void ui_fractalinfo(struct uih_context * /*uih*/) {}
-
-// Menu system stubs - mobile uses QML UI instead
-extern void uih_registermenus(void);
+void ui_help(struct uih_context *) {}
+void ui_download(struct uih_context *) {}
+void ui_feedback(struct uih_context *) {}
+void ui_forum(struct uih_context *) {}
+void ui_about(struct uih_context *) {}
+void ui_font(struct uih_context *) {}
+void uih_setlanguage(uih_context *, int) {}
+void ui_fractalinfo(struct uih_context *) {}
 void ui_registermenus_i18n(void) {}
 
+extern void uih_registermenus(void);
+
 int main(int argc, char *argv[]) {
-  QGuiApplication app(argc, argv);
+  // QApplication — required for QWidget support
+  QApplication app(argc, argv);
   app.setApplicationName("XaoS");
-  app.setApplicationVersion("4.3");
+  app.setApplicationVersion("4.3.5");
   app.setOrganizationName("GNU");
 
-  // Initialize threading
-  nthreads = 1; // Start with single thread on mobile
-
-  // syncgroup is already statically initialized in timers.cpp
+  // Multi-threading: auto-detect cores, cap at 4 for mobile
+  int idealThreads = QThread::idealThreadCount();
+  if (idealThreads <= 0)
+    idealThreads = 1;
+  defthreads = qMin(idealThreads, 4);
+  xth_init(defthreads);
 
   // Register engine menus
   uih_registermenus();
 
-  // Register QML types
-  qmlRegisterType<FractalQuickItem>("XaoS", 1, 0, "FractalQuickItem");
+  // Create the mobile window and initialize
+  MobileMainWindow window;
+  window.init();
 
-  // Create engine bridge and initialize with safe default size
-  EngineBridge engineBridge;
-  engineBridge.init(640, 480);
+  // Enter the event loop — this drives the fractal rendering
+  // at maximum frame rate using QTimer(0)
+  window.eventLoop();
 
-  // Set up QML engine
-  QQmlApplicationEngine engine;
-
-  // Expose engine bridge to QML
-  engine.rootContext()->setContextProperty("engineBridge", &engineBridge);
-
-  // Load main QML
-  engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
-
-  if (engine.rootObjects().isEmpty()) {
-    qCritical("Failed to load QML");
-    return -1;
-  }
-
-  return app.exec();
+  return 0;
 }

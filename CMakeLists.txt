@@ -128,9 +128,9 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 if(MOBILE_UI)
-   # Mobile UI: Qt Quick/QML based
-   find_package(QT NAMES Qt6 COMPONENTS Widgets Quick QuickControls2 REQUIRED)
-   find_package(Qt6 COMPONENTS Widgets Quick QuickControls2 REQUIRED)
+   # Mobile UI: QWidget + QML overlay
+   find_package(QT NAMES Qt6 COMPONENTS Widgets Quick QuickControls2 QuickWidgets Qml REQUIRED)
+   find_package(Qt6 COMPONENTS Widgets Quick QuickControls2 QuickWidgets Qml REQUIRED)
 else()
    # Desktop UI: Qt Widgets based
    find_package(QT NAMES Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
@@ -197,8 +197,15 @@ file(GLOB SFFE_CXX_FILES src/sffe/*.cpp)
 file(GLOB C_FILES src/sffe/*.c)
 
 if(MOBILE_UI)
-   # Mobile UI: use ui-mobile sources (no desktop ui/*.cpp)
-   file(GLOB UI_FILES src/ui-mobile/*.cpp src/ui/image_qt.cpp)
+   # Mobile UI: QWidget rendering + QML overlay for touch controls
+   # Explicitly list sources — exclude old fractalquickitem/enginebridge
+   set(UI_FILES
+       src/ui-mobile/main_mobile.cpp
+       src/ui-mobile/mobilemainwindow.cpp
+       src/ui-mobile/mobilebridge.cpp
+       src/ui/fractalwidget.cpp
+       src/ui/image_qt.cpp
+   )
    set(CXX_FILES ${ENGINE_FILES} ${UIHLP_FILES} ${UTIL_FILES} ${SFFE_CXX_FILES} ${UI_FILES})
 else()
    # Desktop UI: use traditional ui/*.cpp
@@ -227,7 +234,7 @@ elseif(MOBILE_UI)
        src/ui-mobile/ui-mobile.qrc
        ${TRANSLATIONS_QRC}
     )
-    target_link_libraries(XaoSMobile PRIVATE Qt6::Widgets Qt6::Quick Qt6::QuickControls2)
+    target_link_libraries(XaoSMobile PRIVATE Qt6::Widgets Qt6::Quick Qt6::QuickControls2 Qt6::QuickWidgets Qt6::Qml)
     # Android-specific properties
     if(ANDROID)
         set_target_properties(XaoSMobile PROPERTIES
