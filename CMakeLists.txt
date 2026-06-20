@@ -250,6 +250,7 @@ else()
        src/ui/XaoS.qrc
        ${TRANSLATIONS_QRC}
     )
+    set_target_properties(XaoS PROPERTIES WIN32_EXECUTABLE TRUE MACOSX_BUNDLE TRUE) # disable console logging
     target_link_libraries(XaoS Qt6::Widgets Qt6::PrintSupport)
 endif()
 
