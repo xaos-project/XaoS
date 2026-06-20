@@ -64,9 +64,10 @@
   <launchable type="desktop-id">io.github.xaos_project.XaoS.desktop</launchable>
 
   <releases>
-    <release version="4.3.5" date="2025-11-06">
+    <release version="4.3.5" date="2026-06-14">
       <description>
         <p>Armenian translation.</p>
+        <p>Chinese version.</p>
       </description>
       <url>https://github.com/xaos-project/XaoS/releases/tag/release-4.3.5</url>
     </release>
