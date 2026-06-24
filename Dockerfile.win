@@ -205,8 +205,13 @@ RUN cp /build/XaoS/src/ui/xaos.ico $DIST
 RUN for d in styles platforms imageformats; do \
         cp -a /build/qt6-mingw-build/qtbase/plugins/$d $DIST; \
     done
-# 7/6. Copy executable...
+# 7/6. Copy executable, catalogs, tutorial, CREDITS, README, NEWS...
 RUN cp /build/XaoS/build/XaoS.exe $DIST
+RUN mkdir $DIST/catalogs $DIST/tutorial $DIST/examples
+RUN cp -a /build/XaoS/catalogs/*.cat $DIST/catalogs
+RUN cp -a /build/XaoS/tutorial/*.x?f $DIST/tutorial
+RUN find /build/XaoS/examples -name '*.xpf' -exec cp '{}' $DIST/examples \;
+RUN cp /build/XaoS/CREDITS.md /build/XaoS/README.md /build/XaoS/NEWS $DIST
 # 7/7. Get version number...
 RUN cat /build/XaoS/src/include/config.h | grep XaoS_VERSION | awk '{print $3}' | tr -d \" > /build/version
 WORKDIR /build/dist
