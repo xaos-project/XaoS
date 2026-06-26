@@ -342,13 +342,13 @@ void menu_activate(const menuitem *item, struct uih_context *c, dialogparam *d)
                 // Also, similar problems occur when compiling for WebAssembly,
                 // but also for uiperturbation and record. So we handle these cases differently.
 
-                if (!strcmp(item->shortname, "uimandelbrot") &&
-                    !strcmp(item->shortname, "uiperturbation") &&
-                    !strcmp(item->shortname, "record"))
+                if (strcmp(item->shortname, "uimandelbrot") &&
+                    strcmp(item->shortname, "uiperturbation") &&
+                    strcmp(item->shortname, "record"))
                     ((void (*)(struct uih_context * c, number_t, number_t))
                          item->function)(c, 0, 0);
                 else {
-#ifndef __wasm
+#if !defined __wasm && !defined __MINGW32__
                     ((void (*)(struct uih_context * c, dialogparam *))
                      item->function)(c, (dialogparam *)NULL);
 #else
