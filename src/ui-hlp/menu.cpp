@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QRegularExpression>
+#include <QCoreApplication>
 
 #include "filter.h"
 #include "config.h"
@@ -612,12 +613,16 @@ void uih_setthreads(uih_context */*c*/, int threads)
         QMessageBox msgBox;
         msgBox.setText(
             TR("Message", "XaoS must restart to change the thread count."));
+#ifndef __wasm
         msgBox.setInformativeText(TR("Message", "Do you want to quit now?"));
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+#endif
         int ret = msgBox.exec();
+#ifndef __wasm
         if (ret == QMessageBox::Yes) {
-            exit(0);
+            QCoreApplication::quit();
         }
+#endif
     }
 }
 

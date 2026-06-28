@@ -400,7 +400,7 @@ void uih_setlanguage(uih_context *c, int l)
     int ret = msgBox.exec();
 #ifndef __wasm
     if (ret == QMessageBox::Yes) {
-        exit(0);
+        QCoreApplication::quit();
     }
 #endif
 }
@@ -629,6 +629,8 @@ int main(int argc, char *argv[])
     strcpy(l, settings.value("MainWindow/language").toString().toStdString().c_str());
     if (strlen(l) >= 2) {
         setLanguage(l);
+#ifdef __wasm
+// On WebAssembly, we need to include external fonts to ensure that the Chinese and the Hindi texts are shown properly.
         if (strncmp(l, "zh", 2) == 0) {
             int chineseFont = QFontDatabase::addApplicationFont(":/i18n/NotoSansCJKtc-Regular.ttf");
             if (chineseFont != -1) {
@@ -641,6 +643,7 @@ int main(int argc, char *argv[])
                 QApplication::setFont(QFont("NotoSansDevanagari-Regular.ttf"));
                 }
             }
+#endif
     } else {
         setLanguage(NULL);
     }
