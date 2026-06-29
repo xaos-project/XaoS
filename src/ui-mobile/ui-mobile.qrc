@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file alias="qml/main.qml">qml/main.qml</file>
+        <file>fonts/MaterialIcons-Regular.ttf</file>
     </qresource>
 </RCC>
