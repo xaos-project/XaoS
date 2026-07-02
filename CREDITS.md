@@ -47,6 +47,7 @@
 - Andrew Stone ([Stone Design](www.stone.com)): Videator Support, Cocoa improvements, performance mode, bug fixes
 - [Abhishek Tiwari](mailto:tabhishek432@gmail.com): WebAssembly version, [contributions for GSoC 2023](https://github.com/tabhishek432/GSoC-2023-xaos)
 - [Márton Török](mailto:marton.torok@gmail.com): Small fixes for pipes
+- [Daniel Tsirkin](mailto:academictsirkin@gmail.com): Hebrew translation
 - [Pavel Tzekov](mailto:paveltz@csoft.bg): Win32 support
 - [Zuhal Ünan](mailto:zuhalu@omu.edu.tr): Turkish translation
 - [Clément Vermot](https://github.com/cvermot): Updates for French translation
