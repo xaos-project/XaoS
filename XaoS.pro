@@ -2,6 +2,8 @@
 # Project created by QtCreator 2009-10-29T19:21:55
 # -------------------------------------------------
 
+# This file will be soon obsolete. We officially use cmake from version 4.3.6.
+
 lessThan(QT_MAJOR_VERSION, 6): error("requires Qt >= 6")
 wasm {
 lessThan(QT_MINOR_VERSION, 5): error("requires Qt >= 6.5.2")
@@ -67,7 +69,7 @@ QMAKE_CXXFLAGS += -ffast-math
 QMAKE_CFLAGS += -ffast-math
 
 QMAKE_CXXFLAGS += -fpermissive
-RESOURCES += XaoS.qrc
+RESOURCES += $$PWD/i18n.qrc $$PWD/src/ui/images.qrc $$PWD/src/ui/icons.qrc
 
 DESTDIR = $$PWD/bin
 
@@ -90,6 +92,7 @@ wasm{
     QMAKE_LFLAGS += --preload-file $$PWD/tutorial@$$DATAPATH/tutorial
     QMAKE_LFLAGS += -sASYNCIFY -Os # -sASYNCIFY can help avoiding to get the web application hang when the user presses "s".
     QMAKE_POST_LINK = $$PWD/tools/postprocess-web $$PWD $$PWD/bin
+    RESOURCES += $$PWD/fonts.qrc 
 }
 executable.files = bin/xaos
 executable.path = $$PREFIX/bin

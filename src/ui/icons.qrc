@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/help-about.svg</file>
+        <file>icons/format-justify-center.svg</file>
+        <file>icons/zoom-in.svg</file>
+        <file>icons/format-text-bold.svg</file>
+        <file>icons/view-fullscreen.svg</file>
+        <file>icons/process-stop.svg</file>
+        <file>icons/insert-image.svg</file>
+        <file>icons/edit-copy.svg</file>
+        <file>icons/edit-redo.svg</file>
+        <file>icons/mail-send.svg</file>
+        <file>icons/document-new.svg</file>
+        <file>icons/insert-text.svg</file>
+        <file>icons/input-mouse.svg</file>
+        <file>icons/document-open.svg</file>
+        <file>icons/input-keyboard.svg</file>
+        <file>icons/document-save.svg</file>
+        <file>icons/application-exit.svg</file>
+        <file>icons/view-restore.svg</file>
+        <file>icons/dialog-information.svg</file>
+        <file>icons/format-justify-right.svg</file>
+        <file>icons/system-software-update.svg</file>
+        <file>icons/input-tablet.svg</file>
+        <file>icons/document-properties.svg</file>
+        <file>icons/edit-undo.svg</file>
+        <file>icons/media-record.svg</file>
+        <file>icons/edit-clear.svg</file>
+        <file>icons/format-justify-left.svg</file>
+        <file>icons/media-playback-start.svg</file>
+    </qresource>
+</RCC>

@@ -2,8 +2,6 @@
     <qresource prefix="/">
         <file>i18n/XaoS_hy.qm</file>
         <file>i18n/XaoS_zh.qm</file>
-        <file>i18n/NotoSansCJKtc-Regular.ttf</file>
-        <file>i18n/NotoSansDevanagari-Regular.ttf</file>
         <file>i18n/XaoS_cs.qm</file>
         <file>i18n/XaoS_de.qm</file>
         <file>i18n/XaoS_es.qm</file>

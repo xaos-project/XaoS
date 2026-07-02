@@ -182,7 +182,7 @@ if(Qt6LinguistTools_FOUND)
    set_source_files_properties(${TRANSLATION_FILES}
        PROPERTIES OUTPUT_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/i18n")
    qt6_add_translation(QM_FILES ${TRANSLATION_FILES})
-   set(TRANSLATIONS_QRC XaoS.qrc)
+   set(TRANSLATIONS_QRC i18n.qrc)
 else()
    message(STATUS "Qt6LinguistTools not found - skipping translations")
    set(QM_FILES "")
@@ -219,7 +219,9 @@ if(EMSCRIPTEN)
        ${C_FILES}
        ${QM_FILES}
        ${XaoS_ICON}
-       src/ui/XaoS.qrc
+       src/ui/images.qrc
+       src/ui/icons.qrc
+       fonts.qrc # for the Chinese and Hindi translations
        ${TRANSLATIONS_QRC}
     )
     target_link_libraries(xaos PUBLIC Qt6::Widgets)
@@ -247,7 +249,8 @@ else()
        ${C_FILES}
        ${QM_FILES}
        ${XaoS_ICON}
-       src/ui/XaoS.qrc
+       src/ui/images.qrc
+       src/ui/icons.qrc
        ${TRANSLATIONS_QRC}
     )
     set_target_properties(XaoS PROPERTIES WIN32_EXECUTABLE TRUE MACOSX_BUNDLE TRUE) # disable console logging
