@@ -223,7 +223,7 @@ RUN VERSION=`cat /build/version` && zip -9r XaoS-$VERSION.zip XaoS-$VERSION
 # 8. Create Inno Setup installer:
 WORKDIR /build/XaoS
 RUN VERSION=`cat /build/version` && ln -s /build/dist/XaoS-`cat /build/version` XaoS-`cat /build/version`
-RUN VERSION=`cat /build/version` && cat tools/xaos.iss | sed s/2026-06-10/$VERSION/ > /build/dist/xaos-current.iss
+RUN VERSION=`cat /build/version` && cat tools/xaos.iss | sed s/4.3.6/$VERSION/ > /build/dist/xaos-current.iss
 WORKDIR /build/dist
 RUN wine "C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe" xaos-current.iss
 RUN mv Output/xaos-setup.exe /build/dist

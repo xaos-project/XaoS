@@ -843,97 +843,95 @@ void MainWindow::buildMenu(const char *name, QMenu *parent, bool numbered)
             action->setShortcuts(keyForItem(item->shortname));
             action->setObjectName(item->shortname);
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
             /* TODO: Do this more elegantly. */
             if (strcmp(item->shortname, "loadpos") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen));
+                action->setIcon(QIcon(":/icons/document-open.svg"));
             }
             if (strcmp(item->shortname, "savepos") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentSave));
+                action->setIcon(QIcon(":/icons/document-save.svg"));
             }
             if (strcmp(item->shortname, "initstate") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentNew));
+                action->setIcon(QIcon(":/icons/document-new.svg"));
             }
             if (strcmp(item->shortname, "undo") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditUndo));
+                action->setIcon(QIcon(":/icons/edit-undo.svg"));
             }
             if (strcmp(item->shortname, "redo") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditRedo));
+                action->setIcon(QIcon(":/icons/edit-redo.svg"));
             }
             if (strcmp(item->shortname, "quit") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ApplicationExit));
+                action->setIcon(QIcon(":/icons/application-exit.svg"));
             }
             if (strcmp(item->shortname, "record") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::MediaRecord));
+                action->setIcon(QIcon(":/icons/media-record.svg"));
             }
             if (strcmp(item->shortname, "play") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::MediaPlaybackStart));
+                action->setIcon(QIcon(":/icons/media-playback-start.svg"));
             }
             if (strcmp(item->shortname, "copyurl") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy));
+                action->setIcon(QIcon(":/icons/edit-copy.svg"));
             }
             if (strcmp(item->shortname, "about") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout));
+                action->setIcon(QIcon(":/icons/help-about.svg"));
             }
             if (strcmp(item->shortname, "saveimg") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::InsertImage));
+                action->setIcon(QIcon(":/icons/insert-image.svg"));
             }
             if (strcmp(item->shortname, "updates") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::SoftwareUpdateAvailable));
+                action->setIcon(QIcon(":/icons/system-software-update.svg"));
             }
             if (strcmp(item->shortname, "autopilot") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ZoomIn));
+                action->setIcon(QIcon(":/icons/zoom-in.svg"));
             }
             if (strcmp(item->shortname, "fullscreen") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ViewFullscreen));
+                action->setIcon(QIcon(":/icons/view-fullscreen.svg"));
             }
             if (strcmp(item->shortname, "command") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::InputKeyboard));
+                action->setIcon(QIcon(":/icons/input-keyboard.svg"));
             }
             if (strcmp(item->shortname, "feedback") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::MailSend));
+                action->setIcon(QIcon(":/icons/mail-send.svg"));
             }
             if (strcmp(item->shortname, "help") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout)); // HelpFaq would be better, but it does not work
+                action->setIcon(QIcon(":/icons/help-about.svg")); // HelpFaq would be better, but it does not work
             }
             if (strcmp(item->shortname, "xtextcenter") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::FormatJustifyCenter));
+                action->setIcon(QIcon(":/icons/format-justify-center.svg"));
             }
             if (strcmp(item->shortname, "xtextright") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::FormatJustifyRight));
+                action->setIcon(QIcon(":/icons/format-justify-right.svg"));
             }
             if (strcmp(item->shortname, "xtextleft") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::FormatJustifyLeft));
+                action->setIcon(QIcon(":/icons/format-justify-left.svg"));
             }
             if (strcmp(item->shortname, "clearscreen") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditClear));
+                action->setIcon(QIcon(":/icons/edit-clear.svg"));
             }
             if (strcmp(item->shortname, "status") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DialogInformation));
+                action->setIcon(QIcon(":/icons/dialog-information.svg"));
             }
             if (strcmp(item->shortname, "interrupt") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ProcessStop));
+                action->setIcon(QIcon(":/icons/process-stop.svg"));
             }
             if (strcmp(item->shortname, "mouserotate") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::InputMouse));
+                action->setIcon(QIcon(":/icons/input-mouse.svg"));
             }
             if (strcmp(item->shortname, "display") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ViewRestore));
+                action->setIcon(QIcon(":/icons/view-restore.svg"));
             }
             if (strcmp(item->shortname, "uiview") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentProperties));
+                action->setIcon(QIcon(":/icons/document-properties.svg"));
             }
             if (strcmp(item->shortname, "font") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::FormatTextBold));
+                action->setIcon(QIcon(":/icons/format-text-bold.svg"));
             }
             if (strcmp(item->shortname, "text") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::InsertText));
+                action->setIcon(QIcon(":/icons/insert-text.svg"));
             }
             if (strcmp(item->shortname, "usrform") == 0) {
-                action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::InputTablet));
+                action->setIcon(QIcon(":/icons/input-tablet.svg"));
             }
             // std::cout << item->shortname << std::endl;
-#endif
 
             if (item->flags & (MENUFLAG_RADIO | MENUFLAG_CHECKBOX)) {
                 action->setCheckable(true);

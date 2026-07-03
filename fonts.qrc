@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>i18n/NotoSansCJKtc-Regular.ttf</file>
+        <file>i18n/NotoSansDevanagari-Regular.ttf</file>
+    </qresource>
+</RCC>

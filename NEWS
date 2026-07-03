@@ -1,3 +1,20 @@
+RELEASE NOTES FOR XAOS VERSION 4.3.6
+------------------------------------
+
+New Features
+============
+
+o Hebrew translation (by Daniel Tsirkin).
+
+o Icons appear in the menus on all platforms.
+
+Bug Fixes
+=========
+
+o Fix Windows crashes on exit and on mode settings.
+
+
+
 RELEASE NOTES FOR XAOS VERSION 4.3.5
 ------------------------------------
 
