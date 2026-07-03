@@ -20,6 +20,10 @@ class MobileBridge : public QObject {
   Q_PROPERTY(int maxIterations READ maxIterations NOTIFY stateChanged)
   Q_PROPERTY(bool autopilotActive READ autopilotActive NOTIFY stateChanged)
   Q_PROPERTY(int formulaCount READ formulaCount CONSTANT)
+  Q_PROPERTY(int paletteAlgorithm READ paletteAlgorithm NOTIFY stateChanged)
+  Q_PROPERTY(int paletteSeed READ paletteSeed NOTIFY stateChanged)
+  Q_PROPERTY(int paletteShift READ paletteShift NOTIFY stateChanged)
+  Q_PROPERTY(QString zoomLevel READ zoomLevel NOTIFY stateChanged)
 
 public:
   explicit MobileBridge(MobileMainWindow *window, QObject *parent = nullptr);
@@ -34,6 +38,10 @@ public:
   int maxIterations() const;
   bool autopilotActive() const;
   int formulaCount() const;
+  int paletteAlgorithm() const;
+  int paletteSeed() const;
+  int paletteShift() const;
+  QString zoomLevel() const;
 
 public slots:
   /// Execute a named XaoS command (e.g. "initstate", "autopilot")
@@ -47,6 +55,7 @@ public slots:
   Q_INVOKABLE void toggleJulia();
   Q_INVOKABLE void resetView();
   Q_INVOKABLE void randomizePalette();
+  Q_INVOKABLE void setCustomPalette(int algorithm, int seed, int shift);
   Q_INVOKABLE void loadRandomExample();
   Q_INVOKABLE void undo();
   Q_INVOKABLE void redo();
@@ -74,6 +83,10 @@ private:
   QString m_formulaName;
   int m_maxIter = 0;
   bool m_autopilot = false;
+  int m_palAlg = 0;
+  int m_palSeed = 0;
+  int m_palShift = 0;
+  double m_zoomMag = 1.0;
 
   double m_lastPinchScale = 1.0;
 };
