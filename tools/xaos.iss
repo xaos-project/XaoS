@@ -1,4 +1,4 @@
-#define XaoS_VERSION "4.3.5"
+#define XaoS_VERSION "4.3.6"
 
 [Setup]
 AppName=XaoS
