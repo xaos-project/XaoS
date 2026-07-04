@@ -4,6 +4,8 @@
 AppName=XaoS
 AppVersion={#XaoS_VERSION}
 WizardStyle=modern
+WizardImageFile=installer_left.bmp
+WizardSmallImageFile=installer_small.bmp
 DefaultDirName={commonpf32}\XaoS
 DefaultGroupName=XaoS
 UninstallDisplayIcon={app}\xaos.ico
