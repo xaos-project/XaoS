@@ -20,7 +20,10 @@
 #    `sudo docker rm CID` and `sudo docker rmi ID`.
 
 # Known issues:
-# * On Qt 6.10+, zooming does not work unless you move the mouse continuously. So we use Qt 6.9 instead.
+# * On Qt 6.10+, zooming does not work unless you move the mouse continuously.
+# * On Qt 6.9, pressing hotkeys like '1', '2', ..., 's', does not work at all.
+# * On Qt 6.8, pressing hotkeys like '1', '2', ..., 's', sometimes does not work.
+# So we use Qt 6.7 at the moment.
 
 
 # Install prerequisites:
@@ -34,14 +37,14 @@ RUN apt-get update && \
         libgl-dev libegl-dev libfontconfig-dev
 RUN git clone https://github.com/emscripten-core/emsdk.git
 WORKDIR emsdk
-ARG EMSDK_VER=3.1.70
+ARG EMSDK_VER=3.1.50
 RUN ./emsdk install $EMSDK_VER
 RUN ./emsdk activate $EMSDK_VER
 WORKDIR ..
 
 # Build Qt without Asyncify, with WASM-exceptions and threads:
 ## Download recent Qt...
-ENV QT6_VERSION=6.9.0
+ENV QT6_VERSION=6.7.0
 RUN git clone git://code.qt.io/qt/qt5.git qt6
 WORKDIR qt6
 RUN git switch $QT6_VERSION
