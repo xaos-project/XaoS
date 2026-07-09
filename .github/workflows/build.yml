@@ -45,7 +45,7 @@ jobs:
       with:
         version: '6.8.3'
     - name: qmake
-      run: qmake
+      run: CXXFLAGS="-Wno-implicit-function-declaration" qmake
     - name: make
       run: CXXFLAGS="-Wno-implicit-function-declaration" make
 
@@ -58,7 +58,7 @@ jobs:
       with:
         version: '6.8.3'
     - name: cmake
-      run: mkdir cbuild; cd cbuild; cmake ..
+      run: mkdir cbuild; cd cbuild; CXXFLAGS="-Wno-implicit-function-declaration" cmake ..
     - name: make
       run: cd cbuild; CXXFLAGS="-Wno-implicit-function-declaration" make
 
