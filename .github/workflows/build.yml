@@ -58,9 +58,9 @@ jobs:
       with:
         version: '6.8.3'
     - name: cmake
-      run: mkdir cbuild; cd cbuild; CXXFLAGS="-Wno-implicit-function-declaration" cmake .. -DOPENGL=ON
+      run: mkdir cbuild; cd cbuild; CXXFLAGS="-Wno-implicit-function-declaration" cmake ..
     - name: make
-      run: cd cbuild; CXXFLAGS="-Wno-implicit-function-declaration" make
+      run: cd cbuild; CXXFLAGS="-Wno-implicit-function-declaration" make VERBOSE=1
 
 # This requires too much disk space (more than 40 GB), so it is disabled for now:
 
