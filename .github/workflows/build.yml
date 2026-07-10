@@ -58,7 +58,7 @@ jobs:
       with:
         version: '6.8.3'
     - name: cmake
-      run: mkdir cbuild; cd cbuild; CXXFLAGS="-Wno-implicit-function-declaration" cmake ..
+      run: mkdir cbuild; cd cbuild; CXXFLAGS="-Wno-implicit-function-declaration" cmake .. -DOPENGL=ON
     - name: make
       run: cd cbuild; CXXFLAGS="-Wno-implicit-function-declaration" make
 
