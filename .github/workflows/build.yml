@@ -37,7 +37,7 @@ jobs:
       run: cd cbuild; make
 
   mac-qmake:
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
     - uses: actions/checkout@v1
     - name: install-qt
@@ -50,7 +50,7 @@ jobs:
       run: CXXFLAGS="-Wno-implicit-function-declaration" make
 
   mac-cmake:
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
     - uses: actions/checkout@v1
     - name: install-qt
