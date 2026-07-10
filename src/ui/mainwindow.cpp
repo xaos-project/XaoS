@@ -1036,6 +1036,7 @@ void MainWindow::colorPicker()
 }
 
 void MainWindow::showDialog(const char *name)
+// TODO: This is messy and needs a complete rewrite.
 {
     const menuitem *item = menu_findcommand(name);
     if (!item)
@@ -1116,6 +1117,80 @@ void MainWindow::showDialog(const char *name)
                         }
             });
             qFileDialog->open();
+        }
+    } else if (nitems == 3) {
+        if (dialog[0].type == DIALOG_COORD && dialog[1].type == DIALOG_FLOAT && dialog[2].type == DIALOG_FLOAT) {
+            // This is written to handle  the 'uiview' dialog. It is an ugly hardcoded way
+            // of creating the required layout. It would be better to write
+            // a layout manager that creates the layout flexibly.
+
+            dialogparam *param = (dialogparam *)malloc(3 * sizeof(dialogparam)); // 3 rows of data
+            // The first row is a verbatim copy of DIALOG_COORD (see below):
+            QDialog *qDialog = new QDialog(this);
+            qDialog->setWindowTitle(item->name);
+            QBoxLayout *dialogLayout = new QBoxLayout(QBoxLayout::TopToBottom, qDialog);
+            QFormLayout *formLayout = new QFormLayout();
+            QString label(dialog->question);
+            QLineEdit *real = new QLineEdit(CustomDialog::format(dialog->deffloat), qDialog);
+            QFontMetrics metric(real->font());
+            real->setMinimumWidth(metric.horizontalAdvance(real->text()) * 1.1);
+            real->setObjectName("real");
+            QLineEdit *imag = new QLineEdit(CustomDialog::format(dialog->deffloat2), qDialog);
+            imag->setObjectName("imag");
+            imag->setMinimumWidth(metric.horizontalAdvance(imag->text()) * 1.1);
+            // imag->setValidator(new QDoubleValidator(imag));
+            QBoxLayout *layout = new QBoxLayout(QBoxLayout::LeftToRight);
+            layout->setContentsMargins(0, 0, 0, 0);
+            layout->addWidget(real);
+            layout->addWidget(new QLabel("+", qDialog));
+            layout->addWidget(imag);
+            layout->addWidget(new QLabel("i", qDialog));
+            formLayout->addRow(label, layout);
+            // Second row:
+            QLineEdit *radius = new QLineEdit(CustomDialog::format(dialog[1].deffloat), qDialog);
+            radius->setMinimumWidth(metric.horizontalAdvance(radius->text()) * 1.1);
+            radius->setObjectName("radius");
+            QBoxLayout *layoutRadius = new QBoxLayout(QBoxLayout::LeftToRight);
+            layoutRadius->setContentsMargins(0, 0, 0, 0);
+            layoutRadius->addWidget(radius);
+            QString labelRadius(dialog[1].question);
+            formLayout->addRow(labelRadius, layoutRadius);
+            // Third row:
+            QLineEdit *angle = new QLineEdit(CustomDialog::format(dialog[2].deffloat), qDialog);
+            angle->setMinimumWidth(metric.horizontalAdvance(radius->text()) * 1.1);
+            angle->setObjectName("angle");
+            QBoxLayout *layoutAngle = new QBoxLayout(QBoxLayout::LeftToRight);
+            layoutAngle->setContentsMargins(0, 0, 0, 0);
+            layoutAngle->addWidget(angle);
+            QString labelAngle(dialog[2].question);
+            formLayout->addRow(labelAngle, layoutAngle);
+            // Putting the rows together on the layout:
+            dialogLayout->addLayout(formLayout);
+            QDialogButtonBox *buttonBox =
+                new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                     Qt::Horizontal, qDialog);
+            connect(buttonBox, SIGNAL(accepted()), qDialog, SLOT(accept()));
+            connect(buttonBox, SIGNAL(rejected()), qDialog, SLOT(reject()));
+            connect(real, SIGNAL(textEdited(QString)), qDialog, SLOT(update()));
+            connect(imag, SIGNAL(textEdited(QString)), qDialog, SLOT(update()));
+            connect(radius, SIGNAL(textEdited(QString)), qDialog, SLOT(update()));
+            connect(angle, SIGNAL(textEdited(QString)), qDialog, SLOT(update()));
+            dialogLayout->addWidget(buttonBox);
+            qDialog->setLayout(dialogLayout);
+            connect(qDialog, &QDialog::accepted, qDialog,
+                    [=](void){
+                        QLineEdit *real = qDialog->findChild<QLineEdit *>("real");
+                        param->dcoord[0] = real->text().toDouble();
+                        QLineEdit *imag = qDialog->findChild<QLineEdit *>("imag");
+                        param->dcoord[1] = imag->text().toDouble();
+                        QLineEdit *radius = qDialog->findChild<QLineEdit *>("radius");
+                        param[1].number = radius->text().toDouble();
+                        QLineEdit *angle = qDialog->findChild<QLineEdit *>("angle");
+                        param[2].number = angle->text().toDouble();
+                        menuActivate(item, param);
+                    });
+            qDialog->adjustSize(); // this is sometimes too high in WASM, FIXME, maybe Qt6 bug?
+            qDialog->open();
         }
     } else {
 
