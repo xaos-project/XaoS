@@ -24,7 +24,8 @@ class MobileBridge : public QObject {
   Q_PROPERTY(int paletteSeed READ paletteSeed NOTIFY stateChanged)
   Q_PROPERTY(int paletteShift READ paletteShift NOTIFY stateChanged)
   Q_PROPERTY(QString zoomLevel READ zoomLevel NOTIFY stateChanged)
-
+  Q_PROPERTY(QString userFormulaText READ userFormulaText NOTIFY stateChanged)
+  Q_PROPERTY(QString userInitialText READ userInitialText NOTIFY stateChanged)
 public:
   explicit MobileBridge(MobileMainWindow *window, QObject *parent = nullptr);
 
@@ -42,6 +43,8 @@ public:
   int paletteSeed() const;
   int paletteShift() const;
   QString zoomLevel() const;
+  QString userFormulaText() const;
+  QString userInitialText() const;
 
 public slots:
   /// Execute a named XaoS command (e.g. "initstate", "autopilot")
@@ -60,6 +63,10 @@ public slots:
   Q_INVOKABLE void undo();
   Q_INVOKABLE void redo();
 
+    /// User formula (SFFE)
+  Q_INVOKABLE void setUserFormula(const QString &expr);
+  Q_INVOKABLE void setUserInitial(const QString &expr);
+  
   /// Zoom buttons — set synthetic mouse button state
   Q_INVOKABLE void startZoomIn();
   Q_INVOKABLE void startZoomOut();
@@ -71,6 +78,12 @@ public slots:
   Q_INVOKABLE void gesturePan(double dx, double dy, double centerX,
                                double centerY);
   Q_INVOKABLE void gesturePanFinished();
+
+  /// Community sharing support
+  Q_INVOKABLE QString getCurrentXpf();             // serialize current position
+  Q_INVOKABLE void loadFromXpf(const QString &xpfData);  // load a position
+  Q_INVOKABLE bool saveThumbnail(const QString &path);    // save view as PNG
+  Q_INVOKABLE QString getTempPath(const QString &filename); // temp dir helper
 
 signals:
   void stateChanged();
@@ -87,7 +100,9 @@ private:
   int m_palSeed = 0;
   int m_palShift = 0;
   double m_zoomMag = 1.0;
-
+  QString m_userFormula;
+  QString m_userInitial;
+  
   double m_lastPinchScale = 1.0;
 };
 
