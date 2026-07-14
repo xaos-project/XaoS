@@ -6,6 +6,7 @@
 (formula 'user)
 (view 0 0 5 5)
 (usrform "z+(1/z)*(-1)^n")
+(usrformInit "z")
 
 (usleep 2958892)
 (zoomcenter -0.036363020650572499106 0.15609214017496222341)
