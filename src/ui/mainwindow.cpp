@@ -893,7 +893,7 @@ void MainWindow::buildMenu(const char *name, QMenu *parent, bool numbered)
                 action->setIcon(QIcon(":/icons/mail-send.svg"));
             }
             if (strcmp(item->shortname, "help") == 0) {
-                action->setIcon(QIcon(":/icons/help-about.svg")); // HelpFaq would be better, but it does not work
+                action->setIcon(QIcon(":/icons/system-help.svg"));
             }
             if (strcmp(item->shortname, "xtextcenter") == 0) {
                 action->setIcon(QIcon(":/icons/format-justify-center.svg"));
