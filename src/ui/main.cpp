@@ -270,7 +270,8 @@ void ui_quit(int i)
     ui_unregistermenus();
     uih_unregistermenus();
     puts(TR("Message", "Thank you for using XaoS\n"));
-    exit(i);
+    QApplication::exit(i);
+    // exit(i);
 }
 
 static void ui_help(struct uih_context */*uih*/)
@@ -677,10 +678,12 @@ int main(int argc, char *argv[])
         ui_unregistermenus();
         uih_unregistermenus();
         xio_uninit();
-        exit(i - 1);
+        QApplication::exit(i - 1);
     }
 
     window = new MainWindow();
+    window->setWindowIcon(QIcon(":images/xaosbig.png"));
+
     window->eventLoop();
 
     return 0;
