@@ -86,6 +86,10 @@ Copyright © 1996-1997 Andreas Dilger
 
 Copyright © 1995-1996 Guy Eric Schalnat, Group 42, Inc.
 
+### [Breeze icons](https://develop.kde.org/frameworks/breeze-icons/)
+
+Copyright KDE and licenced under the GNU LGPL version 3 or later.
+
 ## Thanks
 
   * Unknown Samurai from Brazil (for $20 --- your email doesn't work)

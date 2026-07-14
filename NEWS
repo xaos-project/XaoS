@@ -1,3 +1,19 @@
+RELEASE NOTES FOR XAOS VERSION 4.3.7
+------------------------------------
+
+New Features
+============
+
+o Improved icon for Help.
+
+Bug Fixes
+=========
+
+o Fix Fractal > View.
+
+o Fix tutorial on 4.0.
+
+
 RELEASE NOTES FOR XAOS VERSION 4.3.6
 ------------------------------------
 
@@ -12,7 +28,6 @@ Bug Fixes
 =========
 
 o Fix Windows crashes on exit and on mode settings.
-
 
 
 RELEASE NOTES FOR XAOS VERSION 4.3.5
