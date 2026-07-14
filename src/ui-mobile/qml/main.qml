@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Basic as Basic
 import QtQuick.Layouts
 
 Item {
@@ -21,12 +22,15 @@ Item {
     readonly property color borderSubtle:  "#1e293b"
     readonly property color borderBright:  "#2a3a50"
 
+    readonly property bool isWide: width >= 700
+    readonly property real panelWidth: Math.min(width * 0.94, 400)
+
     // App state
     property int  currentTab:           0      // 0=Explore 1=Palette 2=Settings
     property bool juliaActive:          false
     property bool formulasPopupVisible: false  // Formulas is now a popup/bottom-sheet over Explore
 
-    //Palette preview helpers 
+    //Palette preview helpers
     function hsvToColor(h, s, v) {
         var i = Math.floor(h * 6)
         var f = h * 6 - i
@@ -73,7 +77,7 @@ Item {
 
 
 
-    // TOUCH GESTURE AREA  
+    // TOUCH GESTURE AREA
     MultiPointTouchArea {
         id: touchArea
         anchors.fill: parent
@@ -81,7 +85,10 @@ Item {
         mouseEnabled: true
         minimumTouchPoints: 1
         maximumTouchPoints: 2
-        visible: currentTab === 0
+        // Stay interactive on the Palette tab too — the palette is now a
+        // panel, so the visible fractal area can still be panned / zoomed
+        // while colours update in real time.
+        visible: currentTab === 0 || currentTab === 1
         touchPoints: [
             TouchPoint { id: tp1 },
             TouchPoint { id: tp2 }
@@ -145,7 +152,7 @@ Item {
         interval: 200
         onTriggered: bridge.stopZoom()
     }
-    
+
     // SCREEN STACK
     Item {
         id: screenStack
@@ -155,7 +162,7 @@ Item {
         anchors.bottom: bottomNav.top
         z: 5
 
-        //EXPLORE 
+        //EXPLORE
         Item {
             id: exploreScreen
             anchors.fill: parent
@@ -188,15 +195,35 @@ Item {
                     font.letterSpacing: 5
                     color: textPrimary
                 }
+
+                // Community + Share buttons — right side of top bar
+                Row {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 12
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: 8
+
+                    IconButton {
+                        icon: "group"
+                        accent: accentPurple
+                        onClicked: communityGallery.open()
+                    }
+
+                    IconButton {
+                        icon: "share"
+                        accent: accentGreen
+                        onClicked: shareDialog.open()
+                    }
+                }
             }
 
-            //Stats overlay — left side, three pills
+            //Stats overlay — bottom-right, three pills
             Column {
                 id: statsOverlay
-                anchors.top: topBar.bottom
-                anchors.left: parent.left
-                anchors.leftMargin: 12
-                anchors.topMargin: 6
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                anchors.rightMargin: 12
+                anchors.bottomMargin: 10
                 spacing: 4
                 z: 15
 
@@ -290,12 +317,18 @@ Item {
             }
         }
 
-        //1: PALETTE 
+        //1: PALETTE
         Rectangle {
             id: paletteScreen
-            anchors.fill: parent
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.top: root.isWide ? parent.top : undefined
+            width: root.isWide ? root.panelWidth : parent.width
+            height: root.isWide ? parent.height
+                                : Math.min(parent.height * 0.62, 540)
             visible: currentTab === 1
             color: bgDark
+            border.color: borderBright; border.width: 1
 
             // Palette preset data (algorithm, seed combos that produce good palettes)
             ListModel {
@@ -326,11 +359,14 @@ Item {
                 Flickable {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    contentHeight: palCol.height + 20
+                    // implicitHeight is reliable for a ColumnLayout even
+                    // before the first layout pass — height can briefly be 0
+                    // on desktop, which made lower cards unreachable.
+                    contentHeight: palCol.implicitHeight + 20
                     clip: true
                     boundsBehavior: Flickable.StopAtBounds
 
-                    ScrollBar.vertical: ScrollBar {
+                    ScrollBar.vertical: Basic.ScrollBar {
                         policy: ScrollBar.AsNeeded
                         contentItem: Rectangle {
                             implicitWidth: 3; radius: 1.5
@@ -637,12 +673,16 @@ Item {
             }
         }
 
-        //2: SETTINGS 
+        //2: SETTINGS
         Rectangle {
             id: settingsScreen
-            anchors.fill: parent
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            width: root.isWide ? root.panelWidth : parent.width
             visible: currentTab === 2
             color: bgDark
+            border.color: borderBright; border.width: 1
 
             ColumnLayout {
                 anchors.fill: parent
@@ -698,11 +738,11 @@ Item {
                 Flickable {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    contentHeight: settingsCol.height + 30
+                    contentHeight: settingsCol.implicitHeight + 30
                     clip: true
                     boundsBehavior: Flickable.StopAtBounds
 
-                    ScrollBar.vertical: ScrollBar {
+                    ScrollBar.vertical: Basic.ScrollBar {
                         policy: ScrollBar.AsNeeded
                         contentItem: Rectangle {
                             implicitWidth: 3; radius: 1.5
@@ -757,7 +797,7 @@ Item {
                             }
                         }
 
-                        // RENDERING 
+                        // RENDERING
                         SectionLabel { text: "RENDERING & COMPUTE" }
 
                         // Iteration depth
@@ -798,7 +838,7 @@ Item {
 
 
 
-                        //  NAVIGATION 
+                        //  NAVIGATION
                         SectionLabel { text: "NAVIGATION" }
 
                         SettingsCard {
@@ -834,7 +874,7 @@ Item {
                             }
                         }
 
-                        // ABOUT 
+                        // ABOUT
                         SectionLabel { text: "ABOUT" }
 
                         SettingsCard {
@@ -880,11 +920,25 @@ Item {
         id: formulasPopup
         anchors.fill: parent
         z: 40
-        visible: formulasPopupVisible
+        opacity: formulasPopupVisible ? 1 : 0
+        visible: opacity > 0
+        Behavior on opacity { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
 
-        // Indices into the bridge's formula list that match the current
-        // search text. Recomputed whenever the search text or the popup's
-        // visibility changes.
+        Connections {
+            target: root
+            function onFormulasPopupVisibleChanged() {
+                if (!formulasPopupVisible) {
+                    userFormulaInput.deselect()
+                    userInitialInput.deselect()
+                    formulaSearch.focus = false
+                    userFormulaInput.focus = false
+                    userInitialInput.focus = false
+                    root.forceActiveFocus()
+                    Qt.inputMethod.hide()
+                }
+            }
+        }
+
         property var filteredFormulaIndices: []
 
         function updateFormulaFilter() {
@@ -918,30 +972,47 @@ Item {
             }
         }
 
-        // Bottom-sheet card
+        readonly property real kbOffset: {
+            if (!Qt.inputMethod.visible) return 0
+            var h = Qt.inputMethod.keyboardRectangle.height
+            if (h > root.height) h = h / Screen.devicePixelRatio
+            return Math.min(h, root.height * 0.55)
+        }
+
         Rectangle {
             id: formulasSheet
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            height: Math.min(parent.height * 0.72, 540)
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: root.isWide ? undefined : parent.bottom
+            anchors.bottomMargin: root.isWide ? 0 : formulasPopup.kbOffset
+            anchors.verticalCenter: root.isWide ? parent.verticalCenter : undefined
+            width: root.isWide ? Math.min(parent.width * 0.86, 480) : parent.width
+            height: root.isWide ? Math.min(parent.height * 0.80, 600)
+                                : Math.min(Math.min(parent.height * 0.72, 540),
+                                           parent.height - formulasPopup.kbOffset - 8)
+
+            Behavior on anchors.bottomMargin {
+                NumberAnimation { duration: 160; easing.type: Easing.OutCubic }
+            }
             radius: 20
             color: bgDark
             border.color: borderBright; border.width: 1
 
-            // Swallow clicks so they don't fall through to the backdrop
+            transform: Translate {
+                y: formulasPopupVisible ? 0 : 36
+                Behavior on y { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
+            }
             MouseArea { anchors.fill: parent; onClicked: {} }
 
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 0
 
-                // Grab handle
                 Item {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 20
+                    Layout.preferredHeight: root.isWide ? 10 : 20
 
                     Rectangle {
+                        visible: !root.isWide
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.top: parent.top; anchors.topMargin: 8
                         width: 36; height: 4; radius: 2
@@ -1002,6 +1073,260 @@ Item {
                     }
                 }
 
+                // User Formula Card 
+                Rectangle {
+                    id: userFormulaCard
+                    Layout.fillWidth: true
+                    Layout.leftMargin: 16; Layout.rightMargin: 16
+                    Layout.topMargin: 6
+                    // Collapse to just the header when closed
+                    Layout.preferredHeight: userFormulaExpanded
+                                            ? userFormulaCol.implicitHeight + 16
+                                            : 40
+                    Behavior on Layout.preferredHeight {
+                        NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
+                    }
+                    clip: true
+                    radius: 12
+                    color: bgCard
+                    border.color: userFormulaExpanded ? accentCyan : borderSubtle
+                    border.width: 1
+
+                    property bool userFormulaExpanded: false
+
+                    function applyUserFormula() {
+                        if (!bridge) return
+                        var userIdx = bridge.formulaCount - 1
+                        bridge.setFormula(userIdx)
+                        bridge.setUserFormula(userFormulaInput.text)
+                        if (userInitialInput.text.length > 0)
+                            bridge.setUserInitial(userInitialInput.text)
+                        userFormulaInput.deselect()
+                        userInitialInput.deselect()
+                        userFormulaInput.focus = false
+                        userInitialInput.focus = false
+                        root.forceActiveFocus()
+                        Qt.inputMethod.hide()
+                    }
+
+                    Column {
+                        id: userFormulaCol
+                        anchors.left: parent.left; anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.margins: 0
+                        spacing: 0
+
+                        // Header row — always visible, acts as toggle
+                        Rectangle {
+                            width: parent.width; height: 40
+                            color: "transparent"
+
+                            Row {
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left; anchors.leftMargin: 12
+                                spacing: 8
+
+                                Text {
+                                    text: "functions"
+                                    font.family: materialFont.name; font.pixelSize: 18
+                                    color: accentCyan
+                                    anchors.verticalCenter: parent.verticalCenter
+                                }
+                                Text {
+                                    text: "User Formula"
+                                    font.pixelSize: 13; font.weight: Font.Medium
+                                    color: textPrimary
+                                    anchors.verticalCenter: parent.verticalCenter
+                                }
+                            }
+
+                            Text {
+                                anchors.right: parent.right; anchors.rightMargin: 14
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: userFormulaCard.userFormulaExpanded
+                                      ? "expand_less" : "expand_more"
+                                font.family: materialFont.name; font.pixelSize: 20
+                                color: textSecondary
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: userFormulaCard.userFormulaExpanded =
+                                           !userFormulaCard.userFormulaExpanded
+                            }
+                        }
+
+                        // ── Current formula display ──
+                        Rectangle {
+                            width: parent.width - 24; height: 32
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            radius: 8; color: Qt.rgba(0, 0.82, 1, 0.06)
+                            border.color: Qt.rgba(0, 0.82, 1, 0.15); border.width: 1
+
+                            Text {
+                                anchors.centerIn: parent
+                                text: bridge ? (bridge.userFormulaText || "z^2+c") : "z^2+c"
+                                font.pixelSize: 13; font.family: "monospace"
+                                font.weight: Font.DemiBold
+                                color: accentCyan
+                                elide: Text.ElideMiddle
+                                width: parent.width - 16
+                                horizontalAlignment: Text.AlignHCenter
+                            }
+                        }
+
+                        Item { width: 1; height: 8 }
+
+                        // ── Formula input ──
+                        Text {
+                            anchors.left: parent.left; anchors.leftMargin: 14
+                            text: "FORMULA  f(z, c, p, n)"
+                            font.pixelSize: 9; font.bold: true
+                            font.letterSpacing: 2
+                            color: textDim
+                        }
+                        Item { width: 1; height: 4 }
+
+                        Rectangle {
+                            width: parent.width - 24; height: 36
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            radius: 9; color: bgSurface
+                            border.color: userFormulaInput.activeFocus
+                                          ? accentCyan : borderSubtle
+                            border.width: 1
+
+                            TextInput {
+                                id: userFormulaInput
+                                anchors.fill: parent
+                                anchors.leftMargin: 10; anchors.rightMargin: 10
+                                verticalAlignment: Text.AlignVCenter
+                                color: textPrimary
+                                font.pixelSize: 13; font.family: "monospace"
+                                clip: true
+                                inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase
+                                Keys.onReturnPressed: userFormulaCard.applyUserFormula()
+                                Keys.onEnterPressed: userFormulaCard.applyUserFormula()
+
+                                // Pre-fill with current expression when popup opens
+                                Component.onCompleted: {
+                                    text = bridge ? (bridge.userFormulaText || "") : ""
+                                }
+                                Connections {
+                                    target: formulasPopup
+                                    function onVisibleChanged() {
+                                        if (formulasPopup.visible)
+                                            userFormulaInput.text = bridge
+                                                ? (bridge.userFormulaText || "") : ""
+                                    }
+                                }
+
+                                Text {
+                                    anchors.fill: parent
+                                    verticalAlignment: Text.AlignVCenter
+                                    text: "e.g. z^2+c"
+                                    font.pixelSize: 13; font.family: "monospace"
+                                    color: textDim
+                                    visible: userFormulaInput.text.length === 0
+                                }
+                            }
+                        }
+
+                        Item { width: 1; height: 8 }
+
+                        // Initial value input
+                        Text {
+                            anchors.left: parent.left; anchors.leftMargin: 14
+                            text: "INITIAL VALUE  z₀"
+                            font.pixelSize: 9; font.bold: true
+                            font.letterSpacing: 2
+                            color: textDim
+                        }
+                        Item { width: 1; height: 4 }
+
+                        Rectangle {
+                            width: parent.width - 24; height: 36
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            radius: 9; color: bgSurface
+                            border.color: userInitialInput.activeFocus
+                                          ? accentCyan : borderSubtle
+                            border.width: 1
+
+                            TextInput {
+                                id: userInitialInput
+                                anchors.fill: parent
+                                anchors.leftMargin: 10; anchors.rightMargin: 10
+                                verticalAlignment: Text.AlignVCenter
+                                color: textPrimary
+                                font.pixelSize: 13; font.family: "monospace"
+                                clip: true
+                                inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase
+                                Keys.onReturnPressed: userFormulaCard.applyUserFormula()
+                                Keys.onEnterPressed: userFormulaCard.applyUserFormula()
+
+                                Component.onCompleted: {
+                                    text = bridge ? (bridge.userInitialText || "0") : "0"
+                                }
+                                Connections {
+                                    target: formulasPopup
+                                    function onVisibleChanged() {
+                                        if (formulasPopup.visible)
+                                            userInitialInput.text = bridge
+                                                ? (bridge.userInitialText || "0") : "0"
+                                    }
+                                }
+
+                                Text {
+                                    anchors.fill: parent
+                                    verticalAlignment: Text.AlignVCenter
+                                    text: "0"
+                                    font.pixelSize: 13; font.family: "monospace"
+                                    color: textDim
+                                    visible: userInitialInput.text.length === 0
+                                }
+                            }
+                        }
+
+                        Item { width: 1; height: 10 }
+
+                        // ── Apply button ──
+                        Rectangle {
+                            width: parent.width - 24; height: 38
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            radius: 10
+                            color: applyArea.pressed
+                                   ? Qt.rgba(0, 0.82, 1, 0.25)
+                                   : Qt.rgba(0, 0.82, 1, 0.12)
+                            border.color: accentCyan; border.width: 1
+
+                            Row {
+                                anchors.centerIn: parent; spacing: 6
+                                Text {
+                                    text: "play_arrow"
+                                    font.family: materialFont.name; font.pixelSize: 18
+                                    color: accentCyan
+                                    anchors.verticalCenter: parent.verticalCenter
+                                }
+                                Text {
+                                    text: "Apply Formula"
+                                    font.pixelSize: 13; font.weight: Font.DemiBold
+                                    color: accentCyan
+                                    anchors.verticalCenter: parent.verticalCenter
+                                }
+                            }
+
+                            MouseArea {
+                                id: applyArea
+                                anchors.fill: parent
+                                onClicked: userFormulaCard.applyUserFormula()
+                            }
+
+                            Behavior on color { ColorAnimation { duration: 120 } }
+                        }
+
+                        Item { width: 1; height: 8 }
+                    }
+                }
+
                 // Formula list
                 ListView {
                     id: formulaList
@@ -1013,7 +1338,7 @@ Item {
                     spacing: 5
                     model: formulasPopup.filteredFormulaIndices
 
-                    ScrollBar.vertical: ScrollBar {
+                    ScrollBar.vertical: Basic.ScrollBar {
                         policy: ScrollBar.AsNeeded
                         contentItem: Rectangle {
                             implicitWidth: 3; radius: 1.5
@@ -1174,7 +1499,7 @@ Item {
 
     // REUSABLE COMPONENTS
 
-    // Icon button (top bar) 
+    // Icon button (top bar)
     component IconButton: Rectangle {
         property string icon: ""
         property color  accent: accentCyan
@@ -1203,7 +1528,7 @@ Item {
         Behavior on border.color { ColorAnimation { duration: 130 } }
     }
 
-    // Stat pill (Explore overlay) 
+    // Stat pill (Explore overlay)
     component StatPill: Rectangle {
         property string label: ""
         property string value: "—"
@@ -1234,7 +1559,7 @@ Item {
         }
     }
 
-    // Zoom FAB 
+    // Zoom FAB
     component ZoomFab: Rectangle {
         property string icon: ""
         property bool   holdable: false
@@ -1274,7 +1599,7 @@ Item {
         Behavior on border.color { ColorAnimation { duration: 110 } }
     }
 
-    // Status badge (Autopilot / Julia) 
+    // Status badge (Autopilot / Julia)
     component StatusBadge: Rectangle {
         property color  dotColor:    accentCyan
         property string labelText:   ""
@@ -1316,7 +1641,7 @@ Item {
         }
     }
 
-    // Nav tab 
+    // Nav tab
     component NavTab: Item {
         property int    tabIndex: 0
         property string icon:     ""
@@ -1365,7 +1690,7 @@ Item {
         }
     }
 
-    //  Screen header (Formulas / Palette / Julia) 
+    //  Screen header (Formulas / Palette / Julia)
     component ScreenHeader: Item {
         property string subtitle: ""
         property string title: ""
@@ -1429,7 +1754,7 @@ Item {
         }
     }
 
-    //  Section label (inside Settings / Julia) 
+    //  Section label (inside Settings / Julia)
     component SectionLabel: Item {
         property string text: ""
         Layout.fillWidth: true
@@ -1453,7 +1778,7 @@ Item {
         }
     }
 
-    // Settings card wrapper 
+    // Settings card wrapper
     component SettingsCard: Rectangle {
         Layout.preferredHeight: innerPad.childrenRect.height + 28
         radius: 13
@@ -1470,7 +1795,7 @@ Item {
         }
     }
 
-    // Icon badge 
+    // Icon badge
     component IconBadge: Rectangle {
         property string icon:        ""
         property color  iconColor:   accentCyan
@@ -1491,7 +1816,7 @@ Item {
         }
     }
 
-    // Styled toggle 
+    // Styled toggle
     component StyledToggle: Rectangle {
         property bool checked: false
         signal toggled()
@@ -1521,8 +1846,12 @@ Item {
         Behavior on border.color { ColorAnimation { duration: 160 } }
     }
 
-    // Styled slider 
-    component StyledSlider: Slider {
+    // Styled slider — based on Basic.Slider so the custom track & handle
+    // render on desktop too (native styles ignore these customisations).
+    component StyledSlider: Basic.Slider {
+        implicitWidth: 180
+        implicitHeight: 28
+
         background: Rectangle {
             x: parent.leftPadding
             y: parent.topPadding + parent.availableHeight / 2 - height / 2
@@ -1551,7 +1880,7 @@ Item {
         }
     }
 
-    // Settings toggle row 
+    // Settings toggle row
     component SettingsToggleRow: Item {
         property string icon:          ""
         property string label:         ""
@@ -1614,7 +1943,7 @@ Item {
         }
     }
 
-    // Settings action row 
+    // Settings action row
     component SettingsActionRow: Item {
         property string icon:        ""
         property string label:       ""
