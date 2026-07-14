@@ -261,14 +261,12 @@ const char *qt_gettext(const char *context, const char *text)
 
 static MainWindow *window;
 static void ui_unregistermenus(void);
+static bool quitting = false;
 
 void ui_quit(int i)
 {
-    delete window;
-    xth_uninit();
-    xio_uninit();
-    ui_unregistermenus();
-    uih_unregistermenus();
+    if (quitting) return;
+    quitting = true;
     puts(TR("Message", "Thank you for using XaoS\n"));
     QApplication::exit(i);
     // exit(i);
@@ -595,7 +593,7 @@ static void ui_registermenus_i18n(void)
     if (ui_no_menuitems_i18n > MAX_MENUITEMS_I18N) {
         fprintf(stderr, "MAX_MENUITEMS_I18N is set to an insufficiently low number, please increase it to %d\n", ui_no_menuitems_i18n);
         fflush(stderr);
-        exit(1);
+        QApplication::exit(1);
     }
 #ifdef DEBUG
     printf("Filled %d ui menu items out of %d.\n", ui_no_menuitems_i18n,
@@ -678,13 +676,21 @@ int main(int argc, char *argv[])
         ui_unregistermenus();
         uih_unregistermenus();
         xio_uninit();
-        QApplication::exit(i - 1);
+        exit(i - 1);
     }
 
     window = new MainWindow();
     window->setWindowIcon(QIcon(":images/xaosbig.png"));
 
     window->eventLoop();
+
+    delete window;
+    window = nullptr;
+
+    xth_uninit();
+    xio_uninit();
+    ui_unregistermenus();
+    uih_unregistermenus();
 
     return 0;
 }
