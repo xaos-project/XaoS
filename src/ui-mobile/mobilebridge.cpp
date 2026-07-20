@@ -247,6 +247,14 @@ void MobileBridge::startZoomOut() {
 }
 void MobileBridge::stopZoom() { m_window->setSyntheticButtons(0); }
 
+void MobileBridge::updatePointerPosition(double x, double y) {
+  QPointF pos(x, y);
+  // Send the mouse position with a dummy button press so Qt doesn't drop the move event
+  QMouseEvent move(QEvent::MouseMove, pos, pos, pos, Qt::MiddleButton,
+                   Qt::MiddleButton, Qt::NoModifier);
+  QCoreApplication::sendEvent(m_window->fractalWidget(), &move);
+}
+
 // Touch gesture translation → synthetic Qt events
 void MobileBridge::gesturePinchStarted() { m_lastPinchScale = 1.0; }
 void MobileBridge::gesturePinch(double scale, double centerX,
@@ -264,8 +272,13 @@ void MobileBridge::gesturePinch(double scale, double centerX,
 }
 void MobileBridge::gesturePan(double /*dx*/, double /*dy*/, double centerX,
                               double centerY) {
-    // Pan: simulate middle mouse drag
-    m_window->setSyntheticButtons(BUTTON2);
+  // If we are in Julia mode, dragging should update the Julia seed (Left Click)
+  // Otherwise, dragging pans the fractal (Middle Click)
+  if (m_uih && m_uih->juliamode) {
+      m_window->setSyntheticButtons(BUTTON1);
+  } else {
+      m_window->setSyntheticButtons(BUTTON2);
+  }
     QPointF pos(centerX, centerY);
     QMouseEvent move(QEvent::MouseMove, pos, pos, pos, Qt::MiddleButton,
                      Qt::MiddleButton, Qt::NoModifier);
