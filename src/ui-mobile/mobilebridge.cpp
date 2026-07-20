@@ -7,6 +7,7 @@
 #include "xmenu.h"
 #include "formulas.h"
 #include "sffe.h"
+#include "config.h"
 #include <QRandomGenerator>
 #include <QCoreApplication>
 #include <QImage>
@@ -93,6 +94,7 @@ int MobileBridge::formulaCount() const { return nformulas; }
 int MobileBridge::paletteAlgorithm() const { return m_palAlg; }
 int MobileBridge::paletteSeed() const { return m_palSeed; }
 int MobileBridge::paletteShift() const { return m_palShift; }
+QString MobileBridge::version() const { return QStringLiteral(XaoS_VERSION); }
 
 QString MobileBridge::userFormulaText() const { return m_userFormula; }
 QString MobileBridge::userInitialText() const { return m_userInitial; }

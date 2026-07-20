@@ -813,7 +813,7 @@ Item {
                                     anchors.right: parent.right
                                 }
                                 Text {
-                                    text: "v4.3.6"
+                                    text: bridge ? ("v" + bridge.version) : "v?"
                                     font.pixelSize: 15; font.bold: true; color: textPrimary
                                     anchors.right: parent.right
                                 }
@@ -1476,6 +1476,7 @@ Item {
             }
         }
     }
+
 
     // REUSABLE COMPONENTS
 
