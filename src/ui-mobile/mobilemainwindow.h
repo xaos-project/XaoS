@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QFont>
+#include <QElapsedTimer>
 
 #include "ui_helper.h"
 #include "timers.h"
@@ -10,6 +11,7 @@
 class FractalWidget;
 class QQuickWidget;
 class MobileBridge;
+class CommunityClient;
 
 /**
  * @brief Mobile main window using QWidget for fractal rendering
@@ -44,8 +46,6 @@ public:
 
 protected:
   void resizeEvent(QResizeEvent *event) override;
-  void mousePressEvent(QMouseEvent *event) override;
-  void mouseReleaseEvent(QMouseEvent *event) override;
   void wheelEvent(QWheelEvent *event) override;
   void closeEvent(QCloseEvent *event) override;
 
@@ -66,8 +66,8 @@ private:
   tl_timer *m_loopTimer = nullptr;
 
   // Input state
-  Qt::MouseButtons m_mouseButtons = Qt::NoButton;
   int m_mouseWheel = 0;
+  QElapsedTimer m_wheelTimer;
   int m_syntheticButtons = 0;
   bool m_shouldResize = false;
 
@@ -75,6 +75,7 @@ private:
   QFont m_messageFont;
   QQuickWidget *m_overlay = nullptr;
   MobileBridge *m_bridge = nullptr;
+  CommunityClient *m_community = nullptr;
 };
 
 #endif // MOBILEMAINWINDOW_H
