@@ -1477,17 +1477,6 @@ Item {
         }
     }
 
-    // ─── COMMUNITY POPUPS ───
-
-    CommunityGallery {
-        id: communityGallery
-        parent: Overlay.overlay
-    }
-
-    ShareDialog {
-        id: shareDialog
-        parent: Overlay.overlay
-    }
 
     // REUSABLE COMPONENTS
 
