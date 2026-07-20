@@ -813,7 +813,7 @@ Item {
                                     anchors.right: parent.right
                                 }
                                 Text {
-                                    text: "v4.3.5"
+                                    text: "v4.3.6"
                                     font.pixelSize: 15; font.bold: true; color: textPrimary
                                     anchors.right: parent.right
                                 }
