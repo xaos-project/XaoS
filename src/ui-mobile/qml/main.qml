@@ -319,7 +319,7 @@ Item {
             }
         }
 
-        //1: PALETTE
+
         Rectangle {
             id: paletteScreen
             anchors.right: parent.right
@@ -361,9 +361,6 @@ Item {
                 Flickable {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    // implicitHeight is reliable for a ColumnLayout even
-                    // before the first layout pass — height can briefly be 0
-                    // on desktop, which made lower cards unreachable.
                     contentHeight: palCol.implicitHeight + 20
                     clip: true
                     boundsBehavior: Flickable.StopAtBounds
@@ -381,7 +378,7 @@ Item {
                         width: parent.width
                         spacing: 0
 
-                        // ── PRESET PALETTES ──
+                        // PRESET PALETTES
                         SectionLabel { text: "PRESETS" }
 
                         // 2-column grid
@@ -397,6 +394,9 @@ Item {
                             model: palettePresets
 
                             delegate: Item {
+                                id: presetDelegate
+                                property int presetAlg: model.alg
+                                property int presetSeed: model.seed
                                 width: palGrid.cellWidth
                                 height: palGrid.cellHeight
 
@@ -414,12 +414,23 @@ Item {
                                         anchors.top: parent.top
                                         anchors.left: parent.left; anchors.right: parent.right
                                         height: 64; radius: 13
-                                        gradient: Gradient {
-                                            orientation: Gradient.Horizontal
-                                            GradientStop { position: 0.0;  color: model.c0 }
-                                            GradientStop { position: 0.33; color: model.c1 }
-                                            GradientStop { position: 0.66; color: model.c2 }
-                                            GradientStop { position: 1.0;  color: model.c3 }
+                                        clip: true
+                                        
+                                        Row {
+                                            anchors.fill: parent
+                                            spacing: 0
+                                            Repeater {
+                                                model: 32
+                                                Rectangle {
+                                                    width: parent.width / 32
+                                                    height: parent.height
+                                                    color: root.generatePaletteColor(
+                                                        presetDelegate.presetAlg,
+                                                        presetDelegate.presetSeed,
+                                                        0,
+                                                        index, 32)
+                                                }
+                                            }
                                         }
                                     }
 
@@ -456,6 +467,21 @@ Item {
                                     }
 
                                     Behavior on border.color { ColorAnimation { duration: 180 } }
+                                }
+                            }
+                        }
+
+                        // Sync sliders when engine palette changes (e.g. Randomise)
+                        Connections {
+                            target: bridge
+                            function onStateChanged() {
+                                if (algSlider && seedSlider && shiftSlider) {
+                                    if (algSlider.value !== bridge.paletteAlgorithm)
+                                        algSlider.value = bridge.paletteAlgorithm;
+                                    if (seedSlider.value !== bridge.paletteSeed)
+                                        seedSlider.value = bridge.paletteSeed;
+                                    if (shiftSlider.value !== bridge.paletteShift)
+                                        shiftSlider.value = bridge.paletteShift;
                                 }
                             }
                         }
@@ -756,48 +782,52 @@ Item {
                         id: settingsCol
                         width: parent.width
                         spacing: 0
-
-                        // ── Current fractal info card ──
-                        Item { Layout.preferredHeight: 14 }
-
-                        Rectangle {
+                        Item { Layout.preferredHeight: 14 }                        
+                        RowLayout {
                             Layout.fillWidth: true
-                            Layout.leftMargin: 16; Layout.rightMargin: 16
-                            height: 64; radius: 14
-                            color: bgCard
-                            border.color: borderSubtle; border.width: 1
-
-                            Row {
-                                anchors.fill: parent
-                                anchors.leftMargin: 14; anchors.rightMargin: 14
-                                spacing: 12
-
-                                IconBadge {
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    icon: "all_inclusive"
-                                    iconColor: accentCyan
-                                    bgColor: Qt.rgba(0, 0.82, 1, 0.08)
-                                    borderColor: Qt.rgba(0, 0.82, 1, 0.2)
-                                    size: 40
+                            Layout.leftMargin: 20; Layout.rightMargin: 20
+                        
+                            // Left: Current Fractal
+                            Column {
+                                Layout.fillWidth: true
+                                spacing: 3
+                                Text {
+                                    text: "CURRENT FRACTAL"
+                                    font.pixelSize: 9; font.letterSpacing: 2
+                                    font.weight: Font.Medium; color: textDim
                                 }
-
-                                Column {
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    spacing: 2
-                                    Text {
-                                        text: "CURRENT FRACTAL"
-                                        font.pixelSize: 9; font.letterSpacing: 2
-                                        font.weight: Font.Medium
-                                        color: textDim
-                                    }
-                                    Text {
-                                        text: bridge ? bridge.formulaName : "Mandelbrot"
-                                        font.pixelSize: 16; font.bold: true
-                                        color: accentCyan
-                                    }
+                                Text {
+                                    text: bridge ? bridge.formulaName : "Mandelbrot"
+                                    font.pixelSize: 15; font.bold: true; color: accentCyan
+                                }
+                            }
+                            
+                            // Right: About / Version
+                            Column {
+                                Layout.alignment: Qt.AlignRight
+                                spacing: 3
+                                Text {
+                                    text: "ABOUT XAOS"
+                                    font.pixelSize: 9; font.letterSpacing: 2
+                                    font.weight: Font.Medium; color: textDim
+                                    anchors.right: parent.right
+                                }
+                                Text {
+                                    text: "v4.3.5"
+                                    font.pixelSize: 15; font.bold: true; color: textPrimary
+                                    anchors.right: parent.right
                                 }
                             }
                         }
+                        
+                        Item { Layout.preferredHeight: 6 }
+                        Rectangle {
+                            Layout.fillWidth: true
+                            Layout.leftMargin: 16; Layout.rightMargin: 16
+                            height: 1
+                            color: borderSubtle
+                        }
+                        Item { Layout.preferredHeight: 2 }
 
                         // RENDERING
                         SectionLabel { text: "RENDERING & COMPUTE" }
@@ -876,39 +906,7 @@ Item {
                             }
                         }
 
-                        // ABOUT
-                        SectionLabel { text: "ABOUT" }
 
-                        SettingsCard {
-                            Layout.fillWidth: true
-                            Layout.leftMargin: 16; Layout.rightMargin: 16
-
-                            RowLayout {
-                                width: parent.width; height: 50
-
-                                IconBadge {
-                                    icon: "info"
-                                    iconColor: accentCyan
-                                    bgColor: Qt.rgba(0, 0.82, 1, 0.08)
-                                    borderColor: Qt.rgba(0, 0.82, 1, 0.18)
-                                }
-
-                                Column {
-                                    Layout.fillWidth: true
-                                    spacing: 2
-                                    Text {
-                                        text: "Version"
-                                        font.pixelSize: 13; font.weight: Font.Medium
-                                        color: textPrimary
-                                    }
-                                    Text {
-                                        text: "XaoS v4.3.5"
-                                        font.pixelSize: 10
-                                        color: textDim
-                                    }
-                                }
-                            }
-                        }
 
                         Item { Layout.preferredHeight: 16 }
                     }
@@ -925,22 +923,6 @@ Item {
         opacity: formulasPopupVisible ? 1 : 0
         visible: opacity > 0
         Behavior on opacity { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
-
-        Connections {
-            target: root
-            function onFormulasPopupVisibleChanged() {
-                if (!formulasPopupVisible) {
-                    userFormulaInput.deselect()
-                    userInitialInput.deselect()
-                    formulaSearch.focus = false
-                    userFormulaInput.focus = false
-                    userInitialInput.focus = false
-                    root.forceActiveFocus()
-                    Qt.inputMethod.hide()
-                }
-            }
-        }
-
         property var filteredFormulaIndices: []
 
         function updateFormulaFilter() {
@@ -1103,11 +1085,7 @@ Item {
                         bridge.setUserFormula(userFormulaInput.text)
                         if (userInitialInput.text.length > 0)
                             bridge.setUserInitial(userInitialInput.text)
-                        userFormulaInput.deselect()
-                        userInitialInput.deselect()
-                        userFormulaInput.focus = false
-                        userInitialInput.focus = false
-                        root.forceActiveFocus()
+                        // Dismiss the soft keyboard so the fractal is visible
                         Qt.inputMethod.hide()
                     }
 
@@ -1235,7 +1213,7 @@ Item {
 
                         Item { width: 1; height: 8 }
 
-                        // Initial value input
+                        // Initial value input 
                         Text {
                             anchors.left: parent.left; anchors.leftMargin: 14
                             text: "INITIAL VALUE  z₀"
@@ -1848,8 +1826,6 @@ Item {
         Behavior on border.color { ColorAnimation { duration: 160 } }
     }
 
-    // Styled slider — based on Basic.Slider so the custom track & handle
-    // render on desktop too (native styles ignore these customisations).
     component StyledSlider: Basic.Slider {
         implicitWidth: 180
         implicitHeight: 28
