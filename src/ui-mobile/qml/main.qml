@@ -813,7 +813,7 @@ Item {
                                     anchors.right: parent.right
                                 }
                                 Text {
-                                    text: "v4.3.6"
+                                    text: bridge ? ("v" + bridge.version) : "v?"
                                     font.pixelSize: 15; font.bold: true; color: textPrimary
                                     anchors.right: parent.right
                                 }
@@ -1475,6 +1475,18 @@ Item {
                 onTapped: { formulasPopupVisible = false; currentTab = 2 }
             }
         }
+    }
+
+    // ─── COMMUNITY POPUPS ───
+
+    CommunityGallery {
+        id: communityGallery
+        parent: Overlay.overlay
+    }
+
+    ShareDialog {
+        id: shareDialog
+        parent: Overlay.overlay
     }
 
     // REUSABLE COMPONENTS

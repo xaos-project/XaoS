@@ -23,6 +23,7 @@ class MobileBridge : public QObject {
   Q_PROPERTY(int paletteAlgorithm READ paletteAlgorithm NOTIFY stateChanged)
   Q_PROPERTY(int paletteSeed READ paletteSeed NOTIFY stateChanged)
   Q_PROPERTY(int paletteShift READ paletteShift NOTIFY stateChanged)
+  Q_PROPERTY(QString version READ version CONSTANT)
   Q_PROPERTY(QString zoomLevel READ zoomLevel NOTIFY stateChanged)
   Q_PROPERTY(QString userFormulaText READ userFormulaText NOTIFY stateChanged)
   Q_PROPERTY(QString userInitialText READ userInitialText NOTIFY stateChanged)
@@ -42,6 +43,7 @@ public:
   int paletteAlgorithm() const;
   int paletteSeed() const;
   int paletteShift() const;
+  QString version() const;
   QString zoomLevel() const;
   QString userFormulaText() const;
   QString userInitialText() const;
