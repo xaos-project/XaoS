@@ -110,6 +110,7 @@ Item {
                 dragStartX = touchPoints[0].x
                 dragStartY = touchPoints[0].y
                 isDragging = false
+                if (bridge) bridge.updatePointerPosition(touchPoints[0].x, touchPoints[0].y)
             }
         }
 
@@ -121,6 +122,7 @@ Item {
             } else if (touchPoints.length === 1 && !isPinching) {
                 var dx = touchPoints[0].x - dragStartX
                 var dy = touchPoints[0].y - dragStartY
+                if (bridge) bridge.updatePointerPosition(touchPoints[0].x, touchPoints[0].y)
                 if (!isDragging && (Math.abs(dx) > 8 || Math.abs(dy) > 8))
                     isDragging = true
                 if (isDragging)

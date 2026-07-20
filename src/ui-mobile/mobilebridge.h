@@ -73,6 +73,7 @@ public slots:
   Q_INVOKABLE void stopZoom();
 
   /// Touch gesture translation
+  Q_INVOKABLE void updatePointerPosition(double x, double y);
   Q_INVOKABLE void gesturePinchStarted();
   Q_INVOKABLE void gesturePinch(double scale, double centerX, double centerY);
   Q_INVOKABLE void gesturePan(double dx, double dy, double centerX,
