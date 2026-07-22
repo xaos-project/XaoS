@@ -332,17 +332,16 @@ Item {
             color: bgDark
             border.color: borderBright; border.width: 1
 
-            // Palette preset data (algorithm, seed combos that produce good palettes)
             ListModel {
                 id: palettePresets
-                ListElement { palName: "Neon Deep";    alg: 1; seed: 12345; c0: "#0a0e1a"; c1: "#00d2ff"; c2: "#6c63ff"; c3: "#e94560" }
-                ListElement { palName: "Fire & Ice";   alg: 2; seed: 8421;  c0: "#0d0020"; c1: "#4400ff"; c2: "#ff6600"; c3: "#ffdd00" }
-                ListElement { palName: "Ocean Depth";  alg: 1; seed: 3500;  c0: "#000d1a"; c1: "#003366"; c2: "#006699"; c3: "#00ccff" }
-                ListElement { palName: "Sunset";       alg: 3; seed: 19000; c0: "#1a0000"; c1: "#660000"; c2: "#ff4400"; c3: "#ffaa00" }
-                ListElement { palName: "Aurora";       alg: 2; seed: 25000; c0: "#000a10"; c1: "#006644"; c2: "#00cc88"; c3: "#ffff66" }
-                ListElement { palName: "Ultra Violet"; alg: 3; seed: 7777;  c0: "#0a0010"; c1: "#330044"; c2: "#9900cc"; c3: "#ff66ff" }
-                ListElement { palName: "Monochrome";   alg: 1; seed: 42;    c0: "#000000"; c1: "#333333"; c2: "#888888"; c3: "#ffffff" }
-                ListElement { palName: "Toxic";        alg: 2; seed: 15000; c0: "#001a00"; c1: "#006600"; c2: "#33ff00"; c3: "#ccff00" }
+                ListElement { alg: 1; seed: 12345 }
+                ListElement { alg: 2; seed: 8421 }
+                ListElement { alg: 1; seed: 3500 }
+                ListElement { alg: 3; seed: 19000 }
+                ListElement { alg: 2; seed: 25000 }
+                ListElement { alg: 3; seed: 7777 }
+                ListElement { alg: 1; seed: 42 }
+                ListElement { alg: 2; seed: 15000 }
             }
 
             // Track which preset is selected (-1 = custom)
@@ -386,11 +385,11 @@ Item {
                             id: palGrid
                             Layout.fillWidth: true
                             Layout.leftMargin: 16; Layout.rightMargin: 16
-                            Layout.preferredHeight: Math.ceil(palettePresets.count / 2) * 106
+                            Layout.preferredHeight: Math.ceil(palettePresets.count / 2) * 74
                             clip: true
                             interactive: false
                             cellWidth: (width - 10) / 2
-                            cellHeight: 106
+                            cellHeight: 74
                             model: palettePresets
 
                             delegate: Item {
@@ -411,43 +410,21 @@ Item {
 
                                     // Colour swatch
                                     Rectangle {
-                                        anchors.top: parent.top
-                                        anchors.left: parent.left; anchors.right: parent.right
-                                        height: 64; radius: 13
+                                        anchors.fill: parent
+                                        radius: 13
                                         clip: true
                                         
                                         Row {
                                             anchors.fill: parent
                                             spacing: 0
                                             Repeater {
-                                                model: 32
+                                                model: bridge ? bridge.getPalettePreview(presetDelegate.presetAlg, presetDelegate.presetSeed, 0) : []
                                                 Rectangle {
-                                                    width: parent.width / 32
+                                                    width: parent.width / 100
                                                     height: parent.height
-                                                    color: root.generatePaletteColor(
-                                                        presetDelegate.presetAlg,
-                                                        presetDelegate.presetSeed,
-                                                        0,
-                                                        index, 32)
+                                                    color: modelData
                                                 }
                                             }
-                                        }
-                                    }
-
-                                    // Name strip
-                                    Rectangle {
-                                        anchors.bottom: parent.bottom
-                                        anchors.left: parent.left; anchors.right: parent.right
-                                        height: 32
-                                        color: bgCard
-
-                                        Text {
-                                            anchors.left: parent.left; anchors.leftMargin: 10
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            text: model.palName
-                                            font.pixelSize: 11; font.weight: Font.Medium
-                                            color: paletteScreen.selectedPreset === index ? accentCyan : textSecondary
-                                            Behavior on color { ColorAnimation { duration: 180 } }
                                         }
                                     }
 
@@ -459,8 +436,11 @@ Item {
                                             // the preset that was just applied — previously
                                             // they kept showing stale values once a slider
                                             // had been dragged at least once.
+                                            algInput.value = model.alg
                                             algSlider.value = model.alg
+                                            seedInput.value = model.seed
                                             seedSlider.value = model.seed
+                                            shiftInput.value = 0
                                             shiftSlider.value = 0
                                             if (bridge) bridge.setCustomPalette(model.alg, model.seed, 0)
                                         }
@@ -475,13 +455,13 @@ Item {
                         Connections {
                             target: bridge
                             function onStateChanged() {
-                                if (algSlider && seedSlider && shiftSlider) {
-                                    if (algSlider.value !== bridge.paletteAlgorithm)
-                                        algSlider.value = bridge.paletteAlgorithm;
-                                    if (seedSlider.value !== bridge.paletteSeed)
-                                        seedSlider.value = bridge.paletteSeed;
-                                    if (shiftSlider.value !== bridge.paletteShift)
-                                        shiftSlider.value = bridge.paletteShift;
+                                if (algInput && seedInput && shiftInput && algSlider && seedSlider && shiftSlider) {
+                                    if (algInput.value !== bridge.paletteAlgorithm) algInput.value = bridge.paletteAlgorithm;
+                                    if (algSlider.value !== bridge.paletteAlgorithm) algSlider.value = bridge.paletteAlgorithm;
+                                    if (seedInput.value !== bridge.paletteSeed) seedInput.value = bridge.paletteSeed;
+                                    if (seedSlider.value !== bridge.paletteSeed) seedSlider.value = bridge.paletteSeed;
+                                    if (shiftInput.value !== bridge.paletteShift) shiftInput.value = bridge.paletteShift;
+                                    if (shiftSlider.value !== bridge.paletteShift) shiftSlider.value = bridge.paletteShift;
                                 }
                             }
                         }
@@ -489,7 +469,7 @@ Item {
                         // CUSTOM PALETTE
                         SectionLabel { text: "CUSTOM PALETTE" }
 
-                        // Algorithm slider
+                        // Algorithm input
                         SettingsCard {
                             Layout.fillWidth: true
                             Layout.leftMargin: 16; Layout.rightMargin: 16
@@ -497,41 +477,42 @@ Item {
                             Column {
                                 width: parent.width
                                 spacing: 10
-
-                                Row {
+                                RowLayout {
                                     width: parent.width
                                     Text {
+                                        Layout.fillWidth: true
                                         text: "Algorithm"
                                         font.pixelSize: 13; font.weight: Font.Medium
                                         color: textPrimary
-                                        width: parent.width - algValText.implicitWidth
                                     }
-                                    Text {
-                                        id: algValText
-                                        text: algSlider.value.toFixed(0)
-                                        font.pixelSize: 12; font.bold: true
-                                        font.family: "monospace"
-                                        color: accentMagenta
+                                    Basic.SpinBox {
+                                        id: algInput
+                                        Layout.preferredWidth: 140
+                                        from: 1; to: 3; stepSize: 1
+                                        value: bridge ? bridge.paletteAlgorithm : 1
+                                        editable: true
+                                        onValueModified: {
+                                            algSlider.value = value
+                                            paletteScreen.selectedPreset = -1
+                                            if (bridge) bridge.setCustomPalette(value, seedInput.value, shiftInput.value)
+                                        }
                                     }
                                 }
-
                                 StyledSlider {
                                     id: algSlider
                                     width: parent.width
                                     from: 1; to: 3; stepSize: 1
                                     value: bridge ? bridge.paletteAlgorithm : 1
                                     onMoved: {
+                                        algInput.value = value
                                         paletteScreen.selectedPreset = -1
-                                        if (bridge) bridge.setCustomPalette(
-                                            Math.round(value),
-                                            Math.round(seedSlider.value),
-                                            Math.round(shiftSlider.value))
+                                        if (bridge) bridge.setCustomPalette(Math.round(value), seedInput.value, shiftInput.value)
                                     }
                                 }
                             }
                         }
 
-                        // Seed slider
+                        // Seed input
                         SettingsCard {
                             Layout.fillWidth: true
                             Layout.leftMargin: 16; Layout.rightMargin: 16
@@ -540,41 +521,42 @@ Item {
                             Column {
                                 width: parent.width
                                 spacing: 10
-
-                                Row {
+                                RowLayout {
                                     width: parent.width
                                     Text {
+                                        Layout.fillWidth: true
                                         text: "Seed"
                                         font.pixelSize: 13; font.weight: Font.Medium
                                         color: textPrimary
-                                        width: parent.width - seedValText.implicitWidth
                                     }
-                                    Text {
-                                        id: seedValText
-                                        text: seedSlider.value.toFixed(0)
-                                        font.pixelSize: 12; font.bold: true
-                                        font.family: "monospace"
-                                        color: accentMagenta
+                                    Basic.SpinBox {
+                                        id: seedInput
+                                        Layout.preferredWidth: 140
+                                        from: 0; to: 65535; stepSize: 1
+                                        value: bridge ? bridge.paletteSeed : 0
+                                        editable: true
+                                        onValueModified: {
+                                            seedSlider.value = value
+                                            paletteScreen.selectedPreset = -1
+                                            if (bridge) bridge.setCustomPalette(algInput.value, value, shiftInput.value)
+                                        }
                                     }
                                 }
-
                                 StyledSlider {
                                     id: seedSlider
                                     width: parent.width
                                     from: 0; to: 65535; stepSize: 1
                                     value: bridge ? bridge.paletteSeed : 0
                                     onMoved: {
+                                        seedInput.value = value
                                         paletteScreen.selectedPreset = -1
-                                        if (bridge) bridge.setCustomPalette(
-                                            Math.round(algSlider.value),
-                                            Math.round(value),
-                                            Math.round(shiftSlider.value))
+                                        if (bridge) bridge.setCustomPalette(algInput.value, Math.round(value), shiftInput.value)
                                     }
                                 }
                             }
                         }
 
-                        // Shift slider
+                        // Shift input
                         SettingsCard {
                             Layout.fillWidth: true
                             Layout.leftMargin: 16; Layout.rightMargin: 16
@@ -583,35 +565,36 @@ Item {
                             Column {
                                 width: parent.width
                                 spacing: 10
-
-                                Row {
+                                RowLayout {
                                     width: parent.width
                                     Text {
+                                        Layout.fillWidth: true
                                         text: "Shift"
                                         font.pixelSize: 13; font.weight: Font.Medium
                                         color: textPrimary
-                                        width: parent.width - shiftValText.implicitWidth
                                     }
-                                    Text {
-                                        id: shiftValText
-                                        text: shiftSlider.value.toFixed(0)
-                                        font.pixelSize: 12; font.bold: true
-                                        font.family: "monospace"
-                                        color: accentMagenta
+                                    Basic.SpinBox {
+                                        id: shiftInput
+                                        Layout.preferredWidth: 140
+                                        from: 0; to: 65534; stepSize: 1
+                                        value: bridge ? bridge.paletteShift : 0
+                                        editable: true
+                                        onValueModified: {
+                                            shiftSlider.value = value
+                                            paletteScreen.selectedPreset = -1
+                                            if (bridge) bridge.setCustomPalette(algInput.value, seedInput.value, value)
+                                        }
                                     }
                                 }
-
                                 StyledSlider {
                                     id: shiftSlider
                                     width: parent.width
-                                    from: 0; to: 255; stepSize: 1
+                                    from: 0; to: 65534; stepSize: 1
                                     value: bridge ? bridge.paletteShift : 0
                                     onMoved: {
+                                        shiftInput.value = value
                                         paletteScreen.selectedPreset = -1
-                                        if (bridge) bridge.setCustomPalette(
-                                            Math.round(algSlider.value),
-                                            Math.round(seedSlider.value),
-                                            Math.round(value))
+                                        if (bridge) bridge.setCustomPalette(algInput.value, seedInput.value, Math.round(value))
                                     }
                                 }
                             }
@@ -626,20 +609,15 @@ Item {
                             height: 48; radius: 13
                             clip: true
                             border.color: borderSubtle; border.width: 1
-
                             Row {
                                 anchors.fill: parent
                                 spacing: 0
                                 Repeater {
-                                    model: 32
+                                    model: bridge ? bridge.getPalettePreview(algInput.value, seedInput.value, shiftInput.value) : []
                                     Rectangle {
-                                        width: parent.width / 32
+                                        width: parent.width / 100
                                         height: parent.height
-                                        color: root.generatePaletteColor(
-                                            Math.round(algSlider.value),
-                                            Math.round(seedSlider.value),
-                                            Math.round(shiftSlider.value),
-                                            index, 32)
+                                        color: modelData
                                     }
                                 }
                             }
@@ -782,11 +760,14 @@ Item {
                         id: settingsCol
                         width: parent.width
                         spacing: 0
-                        Item { Layout.preferredHeight: 14 }                        
+
+                        // ── SYSTEM INFO (Non-editable headers) ──
+                        Item { Layout.preferredHeight: 14 }
+                        
                         RowLayout {
                             Layout.fillWidth: true
                             Layout.leftMargin: 20; Layout.rightMargin: 20
-                        
+                            
                             // Left: Current Fractal
                             Column {
                                 Layout.fillWidth: true
@@ -813,7 +794,7 @@ Item {
                                     anchors.right: parent.right
                                 }
                                 Text {
-                                    text: bridge ? ("v" + bridge.version) : "v?"
+                                    text: "v4.3.5"
                                     font.pixelSize: 15; font.bold: true; color: textPrimary
                                     anchors.right: parent.right
                                 }
@@ -1476,8 +1457,7 @@ Item {
             }
         }
     }
-
-
+    
     // REUSABLE COMPONENTS
 
     // Icon button (top bar)

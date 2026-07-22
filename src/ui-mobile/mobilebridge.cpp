@@ -12,6 +12,8 @@
 #include <QCoreApplication>
 #include <QImage>
 #include <QMouseEvent>
+#include <QColor>
+#include <QStringList>
 #include <QStandardPaths>
 #include <QWheelEvent>
 #include <cmath>
@@ -84,6 +86,26 @@ void MobileBridge::refreshState() {
   if (changed)
     emit stateChanged();
 }
+
+QStringList MobileBridge::getPalettePreview(int algorithm, int seed, int shift) {
+    QStringList result;
+    if (!m_uih || !m_uih->zengine || !m_uih->zengine->fractalc || !m_uih->zengine->fractalc->palette)
+        return result;
+    struct palette *gradientpal = clonepalette(m_uih->zengine->fractalc->palette);
+    if (!gradientpal) return result;
+    int colors[101][3];
+    int alg0 = qBound(0, algorithm - 1, PALGORITHMS - 1);
+    
+    getPaletteColor(gradientpal, seed, alg0, shift, colors);
+    
+    for (int i = 0; i < 100; i++) {
+        QColor color(colors[i][0], colors[i][1], colors[i][2]);
+        result << color.name();
+    }
+    destroypalette(gradientpal);
+    return result;
+}
+
 // ─────────────────────────────────────────────────────────────
 // Property getters
 // ─────────────────────────────────────────────────────────────

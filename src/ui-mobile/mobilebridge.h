@@ -61,6 +61,7 @@ public slots:
   Q_INVOKABLE void resetView();
   Q_INVOKABLE void randomizePalette();
   Q_INVOKABLE void setCustomPalette(int algorithm, int seed, int shift);
+  Q_INVOKABLE QStringList getPalettePreview(int algorithm, int seed, int shift);
   Q_INVOKABLE void loadRandomExample();
   Q_INVOKABLE void undo();
   Q_INVOKABLE void redo();
