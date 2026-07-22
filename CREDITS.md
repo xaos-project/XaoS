@@ -42,6 +42,7 @@
 - [Fabrice Premel](mailto:premelfa@etu.utc.fr): Periodicity checking
 - [prrt714](https://github.com/prrt714): New fractal type "clock"
 - [Jan Olderdissen](mailto:jan@olderdissen.com): Win32 port
+- [Avinash Sharma](mailto:avinash.sharma.works@gmail.com): Mobile interface
 - [Ilinca Sitaru](mailto:ilinca.sitaru@gmail.com): Romanian translation
 - Daniel Skarda: Fractal examples
 - Andrew Stone ([Stone Design](www.stone.com)): Videator Support, Cocoa improvements, performance mode, bug fixes
