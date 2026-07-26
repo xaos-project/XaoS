@@ -18,6 +18,7 @@ Source: "xaos-{#XaoS_VERSION}\*.*"; DestDir: "{app}"; Flags: ignoreversion recur
 
 [Icons]
 Name: "{group}\XaoS"; Filename: "{app}\XaoS.exe"; IconFilename: "{app}\xaos.ico"
+Name: "{group}\XaoSMobile"; Filename: "{app}\XaoSMobile.exe"; IconFilename: "{app}\xaos.ico"
 Name: "{group}\Uninstall XaoS"; Filename: "{uninstallexe}"; IconFilename: "{app}\xaos.ico"
 Name: "{autoprograms}\XaoS"; Filename: "{app}\XaoS.exe"; IconFilename: "{app}\xaos.ico"
 Name: "{autodesktop}\XaoS"; Filename: "{app}\XaoS.exe"; IconFilename: "{app}\xaos.ico"

@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y \
     perl python3 ninja-build libdbus-1-dev \
     wine
 RUN apt-get install -y xvfb
-RUN wget -q https://jrsoftware.org/download.php/is.exe -O inno.exe
+RUN wget -q https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/innosetup-6.7.3.exe -O inno.exe
 RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y wine32:i386
 RUN xvfb-run wine inno.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
 
@@ -77,7 +77,7 @@ RUN ../qt6/configure \
         -opensource -confirm-license \
         -shared \
         -nomake examples -nomake tests \
-        -skip qtactiveqt -skip qtshadertools -skip qtlanguageserver \
+        -skip qtactiveqt -skip qtlanguageserver \
         -skip qtquick3d -skip qtmultimedia -skip qtgraphs -skip qtquick3dphysics \
         -skip qtquickeffectmaker -skip qtspeech \
         -skip qtlottie -skip qtwebview -skip qtwebengine \
@@ -91,7 +91,7 @@ RUN ../qt6/configure \
         -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY \
         -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY \
         -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=ONLY
-RUN cmake --build . -j$(nproc) -t qtbase -t qttools -t qtsvg -t qtimageformats
+RUN cmake --build . -j$(nproc) -t qtbase -t qttools -t qtsvg -t qtimageformats -t qtdeclarative
 RUN cmake --install qtbase
 RUN cmake --install . --component tools
 RUN cmake --install . --component qml
@@ -147,7 +147,7 @@ RUN set | grep ^MSYS2_ | grep _VERSION= | while read SETTING; do \
 WORKDIR /build/XaoS
 COPY . .
 
-# 6. Build XaoS:
+# 6/1. Build XaoS:
 RUN mkdir build
 WORKDIR build
 RUN cmake .. -G Ninja \
@@ -157,6 +157,20 @@ RUN cmake .. -G Ninja \
         -DCMAKE_PREFIX_PATH="/build/qt6-mingw-build/qtbase/lib/cmake;/opt/mingw64;/opt/mingw64/lib/cmake;/opt/mingw64/lib" \
         -DCMAKE_POLICY_DEFAULT_CMP0144=NEW \
         -DCMAKE_EXE_LINKER_FLAGS="-L/opt/mingw64/lib"
+RUN ninja -j$(nproc)
+RUN ninja install || true
+
+# 6/2. Build XaoSMobile:
+RUN mkdir ../build2
+WORKDIR ../build2
+RUN cmake .. -G Ninja \
+        -DCMAKE_TOOLCHAIN_FILE=/build/toolchain-mingw64.cmake \
+        -DCMAKE_INSTALL_PREFIX=/opt/mingw64 \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_PREFIX_PATH="/build/qt6-mingw-build/qtbase/lib/cmake;/opt/mingw64;/opt/mingw64/lib/cmake;/opt/mingw64/lib" \
+        -DCMAKE_POLICY_DEFAULT_CMP0144=NEW \
+        -DCMAKE_EXE_LINKER_FLAGS="-L/opt/mingw64/lib" \
+        -DMOBILE_UI=ON
 RUN ninja -j$(nproc)
 RUN ninja install || true
 
@@ -192,8 +206,17 @@ RUN for i in $LINUX_MINGW64_DLLS; do \
         cp $DLL $DIST; \
         done
 # 7/3. Collect Qt DLLs (some of them take place in the build folder)...
-ARG LINUX_MINGW64_QT6_DLLS="Core DBus Gui Network PrintSupport \
-    Svg SvgWidgets Widgets"
+ARG LINUX_MINGW64_QT6_DLLS="Core DBus Gui \
+    LabsAnimation LabsFolderListModel LabsPlatform LabsQmlModels LabsSettings LabsSharedImage LabsSynchronizer LabsWavefrontMesh \
+    Network OpenGL PrintSupport \
+    Qml QmlCore QmlLocalStorage QmlMeta QmlModels QmlNetwork QmlWorkerScript QmlXmlListModel \
+    Quick QuickControls2 QuickControls2Basic QuickControls2BasicStyleImpl QuickControls2FluentWinUI3StyleImpl \
+    QuickControls2Fusion QuickControls2FusionStyleImpl QuickControls2Imagine QuickControls2ImagineStyleImpl \
+    QuickControls2Impl QuickControls2Material QuickControls2MaterialStyleImpl QuickControls2Universal \
+    QuickControls2UniversalStyleImpl QuickControls2WindowsStyleImpl QuickDialogs2 QuickDialogs2QuickImpl \
+    QuickEffects QuickLayouts QuickParticles QuickShapesDesignHelpers QuickShapes QuickTemplates2 \
+    QuickTest QuickVectorImage QuickVectorImageHelpers QuickWidgets \
+    Svg SvgWidgets Test Widgets"
 RUN for i in $LINUX_MINGW64_QT6_DLLS; do \
         DLL=`find /build/qt6-mingw-build -name Qt6$i.dll | head -1`; \
         echo $DLL; \
@@ -205,8 +228,10 @@ RUN cp /build/XaoS/src/ui/xaos.ico $DIST
 RUN for d in styles platforms imageformats; do \
         cp -a /build/qt6-mingw-build/qtbase/plugins/$d $DIST; \
     done
+RUN cp -a /build/qt6-mingw-build/qtbase/qml $DIST/
 # 7/6. Copy executable, catalogs, tutorial, CREDITS, README, NEWS, COPYING...
 RUN cp /build/XaoS/build/XaoS.exe $DIST
+RUN cp /build/XaoS/build2/XaoSMobile.exe $DIST
 RUN mkdir $DIST/catalogs $DIST/tutorial $DIST/examples
 RUN cp -a /build/XaoS/catalogs/*.cat $DIST/catalogs
 RUN cp -a /build/XaoS/tutorial/*.x?f $DIST/tutorial
