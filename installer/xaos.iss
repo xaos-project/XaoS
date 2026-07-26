@@ -1,4 +1,6 @@
+; If you change the version number here, change it also in Dockerfile.win:
 #define XaoS_VERSION "4.3.6"
+; This is automatically replaced by a script in Docker which reads version number from src/include/config.h.
 
 [Setup]
 AppName=XaoS
