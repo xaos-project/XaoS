@@ -83,6 +83,18 @@ void MobileBridge::refreshState() {
     changed = true;
   }
   
+  int newJulia = m_uih->juliamode;
+  if (newJulia != m_juliaMode) {
+    m_juliaMode = newJulia;
+    changed = true;
+  }
+
+  bool newMandel = fc->mandelbrot != 0;
+  if (newMandel != m_isMandelbrot) {
+    m_isMandelbrot = newMandel;
+    changed = true;
+  }
+
   if (changed)
     emit stateChanged();
 }
@@ -120,7 +132,8 @@ QString MobileBridge::version() const { return QStringLiteral(XaoS_VERSION); }
 
 QString MobileBridge::userFormulaText() const { return m_userFormula; }
 QString MobileBridge::userInitialText() const { return m_userInitial; }
-
+int MobileBridge::juliaMode() const { return m_juliaMode; }
+bool MobileBridge::isMandelbrot() const { return m_isMandelbrot; }
 QString MobileBridge::zoomLevel() const {
     double z = m_zoomMag;
     if (z < 1000.0)
@@ -193,6 +206,21 @@ void MobileBridge::toggleJulia() {
     else
         uih_enablejulia(m_uih);
 }
+
+void MobileBridge::toggleMandelbrot() {
+  if (!m_uih || !m_uih->fcontext)
+    return;
+  uih_saveundo(m_uih);
+  m_uih->fcontext->mandelbrot ^= 1;
+  if (m_uih->fcontext->mandelbrot == 0 && !m_uih->juliamode) {
+  } else {
+    uih_disablejulia(m_uih);
+  }
+  m_uih->fcontext->version++;
+  uih_newimage(m_uih);
+  uih_updatemenus(m_uih, "uimandelbrot");
+}
+
 void MobileBridge::resetView() {
     if (!m_uih)
         return;
@@ -326,7 +354,6 @@ void MobileBridge::loadFromXpf(const QString &xpfData) {
         return;
     uih_saveundo(m_uih);
     QByteArray utf8 = xpfData.toUtf8();
-    uih_loadstr(m_uih, utf8.constData());
     char *copy = strdup(utf8.constData());
     uih_loadstr(m_uih, copy);
 }
