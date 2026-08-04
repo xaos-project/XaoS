@@ -26,9 +26,9 @@ Item {
     readonly property real panelWidth: Math.min(width * 0.94, 400)
 
     // App state
-    property int  currentTab:           0      // 0=Explore 1=Palette 2=Settings
-    property bool juliaActive:          false
-    property bool formulasPopupVisible: false  // Formulas is now a popup/bottom-sheet over Explore
+    property int  currentTab:0      
+    property bool juliaActive:bridge ? bridge.juliaMode > 0 : false
+    property bool formulasPopupVisible: false
 
     //Palette preview helpers
     function hsvToColor(h, s, v) {
@@ -99,6 +99,7 @@ Item {
         property real  dragStartX:       0
         property real  dragStartY:       0
         property bool  isDragging:       false
+        property real  lastTapTime:      0   
 
         onPressed: function(touchPoints) {
             if (touchPoints.length === 2) {
@@ -138,8 +139,18 @@ Item {
                 isDragging = false
                 bridge.gesturePanFinished()
             } else {
-                bridge.startZoomIn()
-                zoomPulseTimer.restart()
+                var now = Date.now()
+                if (now - lastTapTime < 350) {
+                    // Double-tap detected
+                    lastTapTime = 0
+                    if (root.juliaActive && bridge) {
+                        bridge.toggleMandelbrot()
+                    }
+                } else {
+                    lastTapTime = now
+                    bridge.startZoomIn()
+                    zoomPulseTimer.restart()
+                }
             }
         }
 
@@ -311,7 +322,7 @@ Item {
                 StatusBadge {
                     visible: root.juliaActive
                     dotColor: accentMagenta
-                    labelText: "JULIA"
+                    labelText: root.juliaActive && bridge && !bridge.isMandelbrot ? "JULIA (FULL)" : "JULIA"
                     badgeColor: Qt.rgba(0.91, 0.27, 0.38, 0.10)
                     badgeBorder: Qt.rgba(0.91, 0.27, 0.38, 0.28)
                     pulseDot: false
@@ -332,6 +343,7 @@ Item {
             color: bgDark
             border.color: borderBright; border.width: 1
 
+            // Palette preset data (algorithm, seed combos that produce good palettes)
             ListModel {
                 id: palettePresets
                 ListElement { alg: 1; seed: 12345 }
@@ -1446,7 +1458,6 @@ Item {
                 active: root.juliaActive
                 onTapped: {
                     // Julia is a direct toggle, not a screen — tap again to turn it off
-                    root.juliaActive = !root.juliaActive
                     if (bridge) bridge.toggleJulia()
                 }
             }
@@ -1457,7 +1468,6 @@ Item {
             }
         }
     }
-    
     // REUSABLE COMPONENTS
 
     // Icon button (top bar)

@@ -27,6 +27,8 @@ class MobileBridge : public QObject {
   Q_PROPERTY(QString zoomLevel READ zoomLevel NOTIFY stateChanged)
   Q_PROPERTY(QString userFormulaText READ userFormulaText NOTIFY stateChanged)
   Q_PROPERTY(QString userInitialText READ userInitialText NOTIFY stateChanged)
+  Q_PROPERTY(int juliaMode READ juliaMode NOTIFY stateChanged)
+  Q_PROPERTY(bool isMandelbrot READ isMandelbrot NOTIFY stateChanged)
 public:
   explicit MobileBridge(MobileMainWindow *window, QObject *parent = nullptr);
 
@@ -47,6 +49,8 @@ public:
   QString zoomLevel() const;
   QString userFormulaText() const;
   QString userInitialText() const;
+  int juliaMode() const;
+  bool isMandelbrot() const;
 
 public slots:
   /// Execute a named XaoS command (e.g. "initstate", "autopilot")
@@ -58,6 +62,7 @@ public slots:
   Q_INVOKABLE void setIterations(int n);
   Q_INVOKABLE void toggleAutopilot();
   Q_INVOKABLE void toggleJulia();
+  Q_INVOKABLE void toggleMandelbrot();
   Q_INVOKABLE void resetView();
   Q_INVOKABLE void randomizePalette();
   Q_INVOKABLE void setCustomPalette(int algorithm, int seed, int shift);
@@ -106,6 +111,8 @@ private:
   double m_zoomMag = 1.0;
   QString m_userFormula;
   QString m_userInitial;
+  int m_juliaMode = 0;
+  bool m_isMandelbrot = true;
   
   double m_lastPinchScale = 1.0;
 };
