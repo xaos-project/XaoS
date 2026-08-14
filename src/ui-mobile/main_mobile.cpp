@@ -54,10 +54,11 @@ void ui_registermenus_i18n(void) {}
 
 extern void uih_registermenudialogs_i18n(void);
 extern void uih_registermenus_i18n(void);
-extern void uih_registermenus(void);
+#include <clocale>
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
+  setlocale(LC_NUMERIC, "C");
   app.setApplicationName("XaoS");
   app.setApplicationVersion(XaoS_VERSION);
   app.setOrganizationName("GNU");
