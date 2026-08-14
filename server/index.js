@@ -288,7 +288,7 @@ app.post("/api/fractals", upload.single("thumbnail"), (req, res) => {
     });
   } catch (err) {
     console.error("Upload error:", err);
-    res.status(500).json({ error: "Failed to save fractal" });
+    res.status(500).json({ error: "Failed to save fractal: " + err.message });
   }
 });
 

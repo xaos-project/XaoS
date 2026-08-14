@@ -233,23 +233,23 @@ void CommunityClient::onUploadFinished(QNetworkReply *reply) {
   reply->deleteLater();
   setLoading(false);
 
-  if (reply->error() != QNetworkReply::NoError) {
-    setError(QStringLiteral("Upload failed: ") + reply->errorString());
+  QByteArray data = reply->readAll();
+  QJsonDocument doc = QJsonDocument::fromJson(data);
+  if (doc.isObject() && doc.object().contains("error")) {
+    setError(doc.object()["error"].toString());
     return;
   }
 
-  QByteArray data = reply->readAll();
-  QJsonDocument doc = QJsonDocument::fromJson(data);
-  if (!doc.isObject()) {
-    setError("Invalid server response");
+  if (reply->error() != QNetworkReply::NoError) {
+    QString errStr = reply->errorString();
+    if (!m_serverUrl.isEmpty()) {
+      errStr.replace(m_serverUrl, "Server");
+    }
+    setError(QStringLiteral("Upload failed: ") + errStr);
     return;
   }
 
   QJsonObject obj = doc.object();
-  if (obj.contains("error")) {
-    setError(obj["error"].toString());
-    return;
-  }
 
   int id = obj["id"].toInt();
   emit uploadComplete(id);
