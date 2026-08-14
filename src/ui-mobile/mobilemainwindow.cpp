@@ -1,7 +1,7 @@
 #include "mobilemainwindow.h"
 #include "fractalwidget.h"
 #include "mobilebridge.h"
-// #include "communityclient.h"
+#include "communityclient.h"
 
 #include <QApplication>
 #include <QCoreApplication>
@@ -28,14 +28,12 @@
 #include "xmenu.h"
 #include "xthread.h"
 
-// Externs from ui.h / other translation units
 extern float pixelwidth, pixelheight;
 extern tl_group *syncgroup;
 extern struct image *create_image_qt(int width, int height,
                                      struct palette *palette, float pixelwidth,
                                      float pixelheight);
 
-// Static engine callbacks — these route to our MobileMainWindow instance
 static int ui_passfunc(struct uih_context *uih, int display, const char *text,
                        float percent) {
     if (uih->data) {
@@ -59,19 +57,14 @@ void ui_updatemenus(struct uih_context *uih, const char *name) {
     }
 }
 
-// ─────────────────────────────────────────────────────────────
-// Construction / destruction
-// ─────────────────────────────────────────────────────────────
 
 MobileMainWindow::MobileMainWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("XaoS");
     setMouseTracking(true);
 
-    // Create the fractal rendering widget as central widget
     m_widget = new FractalWidget();
     setCentralWidget(m_widget);
 
-    // Enter fullscreen for mobile
     showFullScreen();
 
     m_messageFont = QFont(QApplication::font().family(), 12);
@@ -93,9 +86,6 @@ MobileMainWindow::~MobileMainWindow() {
     }
 }
 
-// ─────────────────────────────────────────────────────────────
-// Image creation (same palette setup as desktop)
-// ─────────────────────────────────────────────────────────────
 
 struct image *MobileMainWindow::makeImage(int width, int height) {
     struct palette *palette;
@@ -120,12 +110,8 @@ struct image *MobileMainWindow::makeImage(int width, int height) {
     return image;
 }
 
-// ─────────────────────────────────────────────────────────────
-// Initialization
-// ─────────────────────────────────────────────────────────────
 
 void MobileMainWindow::init() {
-    // Compute pixel size from screen DPI
     QScreen *screen = windowHandle() ? windowHandle()->screen()
                                      : QGuiApplication::primaryScreen();
     if (screen) {
@@ -155,38 +141,31 @@ void MobileMainWindow::init() {
     m_uih->fcontext->version++;
     uih_newimage(m_uih);
 
-    // Create timers
     tl_update_time();
     m_mainTimer = tl_create_timer();
     m_loopTimer = tl_create_timer();
     tl_reset_timer(m_mainTimer);
     tl_reset_timer(m_loopTimer);
 
-    // Create the QML overlay for mobile touch controls
     createOverlay();
 }
 
-// ─────────────────────────────────────────────────────────────
-// QML overlay — transparent layer on top of FractalWidget
-// ─────────────────────────────────────────────────────────────
 
 void MobileMainWindow::createOverlay() {
     m_bridge = new MobileBridge(this, this);
     m_bridge->setUih(m_uih);
 
-    // m_community = new CommunityClient(this);
+    m_community = new CommunityClient(this);
 
     m_overlay = new QQuickWidget(this);
     m_overlay->setResizeMode(QQuickWidget::SizeRootObjectToView);
     m_overlay->setClearColor(Qt::transparent);
     m_overlay->setAttribute(Qt::WA_AlwaysStackOnTop);
     m_overlay->setAttribute(Qt::WA_TranslucentBackground);
-    // Let touch events through transparent areas to FractalWidget
     m_overlay->setAttribute(Qt::WA_TransparentForMouseEvents, false);
 
-    // Expose bridge and community client to QML
     m_overlay->rootContext()->setContextProperty("bridge", m_bridge);
-    // m_overlay->rootContext()->setContextProperty("community", m_community);
+    m_overlay->rootContext()->setContextProperty("community", m_community);
 
     m_overlay->setSource(QUrl("qrc:/qml/main.qml"));
 
@@ -199,13 +178,9 @@ void MobileMainWindow::createOverlay() {
     m_overlay->show();
     m_overlay->raise();
 
-    // Ensure overlay covers the full window
     m_overlay->setGeometry(0, 0, width(), height());
 }
 
-// ─────────────────────────────────────────────────────────────
-// Main event loop — matches the desktop eventLoop() pattern
-// ─────────────────────────────────────────────────────────────
 
 void MobileMainWindow::eventLoop() {
     QTimer eventTimer;
@@ -217,18 +192,15 @@ void MobileMainWindow::eventLoop() {
 
         int inmovement = 1;
 
-        // Refresh QML bridge state
         if (m_bridge)
             m_bridge->refreshState();
 
-        // Render frame if engine has new data
         if (m_uih->display) {
             uih_prepare_image(m_uih);
             uih_updatestatus(m_uih);
             m_widget->repaint();
         }
 
-        // Process engine timer group
         int time = tl_process_group(syncgroup, nullptr);
         if (time != -1) {
             if (!inmovement && !m_uih->inanimation) {
@@ -242,7 +214,6 @@ void MobileMainWindow::eventLoop() {
             inmovement = 1;
         }
 
-        // Frame rate limiting
         if (delaytime || maxframerate) {
             tl_update_time();
             time = tl_lookup_timer(m_loopTimer);
@@ -256,29 +227,22 @@ void MobileMainWindow::eventLoop() {
             }
         }
 
-        // Process pending menu commands
         processQueue();
 
-        // Process input events and feed to engine
         processEvents(!inmovement && !m_uih->inanimation);
         inmovement = 0;
 
-        // Handle deferred resize
         if (m_shouldResize) {
             resizeImage(m_widget->size().width(), m_widget->size().height());
             m_shouldResize = false;
         }
     });
 
-    // Zero-interval timer — fires as fast as Qt can process events
     eventTimer.start(0);
 
     QCoreApplication::exec();
 }
 
-// ─────────────────────────────────────────────────────────────
-// Event processing (input → engine)
-// ─────────────────────────────────────────────────────────────
 
 void MobileMainWindow::processEvents(bool wait) {
     QCoreApplication::processEvents(wait ? QEventLoop::WaitForMoreEvents
@@ -291,7 +255,6 @@ void MobileMainWindow::processEvents(bool wait) {
     tl_update_time();
     uih_update(m_uih, mousex, mousey, buttons);
 
-    // Speed control via main timer
     if (tl_lookup_timer(m_mainTimer) > FRAMETIME || buttons) {
         double mul1 = tl_lookup_timer(m_mainTimer) / FRAMETIME;
         double su = 1 + (SPEEDUP - 1) * mul1;
@@ -309,7 +272,7 @@ void MobileMainWindow::processQueue() {
     dialogparam *d;
     while ((item = menu_delqueue(&d)) != NULL) {
         if (item->type == MENU_SUBMENU)
-            continue; // No submenus on mobile
+            continue;
         if (m_uih->incalculation && !(item->flags & MENUFLAG_INCALC)) {
             menu_addqueue(item, d);
             if (item->flags & MENUFLAG_INTERRUPT)
@@ -326,24 +289,18 @@ void MobileMainWindow::processQueue() {
 int MobileMainWindow::mouseButtons() {
     int buttons = 0;
 
-    // Merge synthetic buttons from QML gestures
     buttons |= m_syntheticButtons;
 
-    // Handle mouse wheel
     if (m_mouseWheel > 0)
         buttons |= BUTTON1;
     if (m_mouseWheel < 0)
         buttons |= BUTTON3;
-    // Auto-clear wheel after ~50ms
     if (m_mouseWheel != 0 && m_wheelTimer.hasExpired(50))
         m_mouseWheel = 0;
 
     return buttons;
 }
 
-// ─────────────────────────────────────────────────────────────
-// Resize
-// ─────────────────────────────────────────────────────────────
 
 void MobileMainWindow::resizeImage(int width, int height) {
     if (!m_uih)
@@ -388,7 +345,6 @@ void MobileMainWindow::resizeImage(int width, int height) {
 void MobileMainWindow::resizeEvent(QResizeEvent *event) {
     QMainWindow::resizeEvent(event);
 
-    // Keep overlay covering the full window
     if (m_overlay)
         m_overlay->setGeometry(0, 0, width(), height());
 
@@ -402,9 +358,6 @@ void MobileMainWindow::wheelEvent(QWheelEvent *event) {
 
 void MobileMainWindow::closeEvent(QCloseEvent *) { ui_quit(0); }
 
-// ─────────────────────────────────────────────────────────────
-// Engine callbacks
-// ─────────────────────────────────────────────────────────────
 
 int MobileMainWindow::showProgress(int display, const char *text,
                                    float percent) {
@@ -425,5 +378,4 @@ void MobileMainWindow::pleaseWait() {
 }
 
 void MobileMainWindow::updateMenus(const char * /*name*/) {
-    // Mobile doesn't use the traditional menu system
 }

@@ -34,10 +34,8 @@ public:
 
   void setUih(struct uih_context *uih);
 
-  /// Called from the event loop to push state changes to QML.
   void refreshState();
 
-  // Property getters
   QString formulaName() const;
   int maxIterations() const;
   bool autopilotActive() const;
@@ -53,10 +51,8 @@ public:
   bool isMandelbrot() const;
 
 public slots:
-  /// Execute a named XaoS command (e.g. "initstate", "autopilot")
   Q_INVOKABLE void executeCommand(const QString &command);
 
-  /// Fractal control
   Q_INVOKABLE void setFormula(int index);
   Q_INVOKABLE QString getFormulaName(int index) const;
   Q_INVOKABLE void setIterations(int n);
@@ -71,16 +67,13 @@ public slots:
   Q_INVOKABLE void undo();
   Q_INVOKABLE void redo();
 
-    /// User formula (SFFE)
   Q_INVOKABLE void setUserFormula(const QString &expr);
   Q_INVOKABLE void setUserInitial(const QString &expr);
   
-  /// Zoom buttons — set synthetic mouse button state
   Q_INVOKABLE void startZoomIn();
   Q_INVOKABLE void startZoomOut();
   Q_INVOKABLE void stopZoom();
 
-  /// Touch gesture translation
   Q_INVOKABLE void updatePointerPosition(double x, double y);
   Q_INVOKABLE void gesturePinchStarted();
   Q_INVOKABLE void gesturePinch(double scale, double centerX, double centerY);
@@ -88,11 +81,10 @@ public slots:
                                double centerY);
   Q_INVOKABLE void gesturePanFinished();
 
-  /// Community sharing support
-  Q_INVOKABLE QString getCurrentXpf();             // serialize current position
-  Q_INVOKABLE void loadFromXpf(const QString &xpfData);  // load a position
-  Q_INVOKABLE bool saveThumbnail(const QString &path);    // save view as PNG
-  Q_INVOKABLE QString getTempPath(const QString &filename); // temp dir helper
+  Q_INVOKABLE QString getCurrentXpf();            
+  Q_INVOKABLE void loadFromXpf(const QString &xpfData); 
+  Q_INVOKABLE bool saveThumbnail(const QString &path);   
+  Q_INVOKABLE QString getTempPath(const QString &filename);
 
 signals:
   void stateChanged();
@@ -101,7 +93,6 @@ private:
   MobileMainWindow *m_window;
   struct uih_context *m_uih = nullptr;
 
-  // Cached values to avoid unnecessary signal emissions
   QString m_formulaName;
   int m_maxIter = 0;
   bool m_autopilot = false;
@@ -117,4 +108,4 @@ private:
   double m_lastPinchScale = 1.0;
 };
 
-#endif // MOBILEBRIDGE_H
+#endif
