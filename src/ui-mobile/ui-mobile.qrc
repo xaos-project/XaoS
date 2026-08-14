@@ -1,6 +1,13 @@
 <RCC>
     <qresource prefix="/">
         <file alias="qml/main.qml">qml/main.qml</file>
+        <file alias="qml/CommunityGallery.qml">qml/CommunityGallery.qml</file>
+        <file alias="qml/ShareDialog.qml">qml/ShareDialog.qml</file>
+        <file alias="qml/FractalDetail.qml">qml/FractalDetail.qml</file>
+        <file alias="qml/JoinGroup.qml">qml/JoinGroup.qml</file>
+        <file alias="qml/TeacherDashboard.qml">qml/TeacherDashboard.qml</file>
+        <file alias="qml/CreateRoom.qml">qml/CreateRoom.qml</file>
+        <file alias="qml/RoomMembersPopup.qml">qml/RoomMembersPopup.qml</file>
         <file>fonts/MaterialIcons-Regular.ttf</file>
     </qresource>
 </RCC>
