@@ -11,7 +11,6 @@
 
 #include "mobilemainwindow.h"
 
-// Engine headers
 #include "config.h"
 #include "filter.h"
 #include "fractal.h"
@@ -21,7 +20,6 @@
 #include "xmenu.h"
 #include "xthread.h"
 
-// Required global variables
 int printspeed = 0;
 int delaytime = 0;
 int maxframerate = 80;
@@ -35,7 +33,6 @@ extern int defthreads;
 xio_pathdata configfile;
 QStringList fnames = {};
 
-// Minimal stubs required by the engine
 int nparams = 0;
 void params_register(const struct params * /*par*/) {}
 
@@ -55,31 +52,29 @@ void uih_setlanguage(uih_context *, int) {}
 void ui_fractalinfo(struct uih_context *) {}
 void ui_registermenus_i18n(void) {}
 
+extern void uih_registermenudialogs_i18n(void);
+extern void uih_registermenus_i18n(void);
 extern void uih_registermenus(void);
 
 int main(int argc, char *argv[]) {
-  // QApplication — required for QWidget support
   QApplication app(argc, argv);
   app.setApplicationName("XaoS");
   app.setApplicationVersion(XaoS_VERSION);
   app.setOrganizationName("GNU");
 
-  // Multi-threading: auto-detect cores, cap at 4 for mobile
   int idealThreads = QThread::idealThreadCount();
   if (idealThreads <= 0)
     idealThreads = 1;
   defthreads = qMin(idealThreads, 4);
   xth_init(defthreads);
 
-  // Register engine menus
+  uih_registermenudialogs_i18n();
+  uih_registermenus_i18n();
   uih_registermenus();
 
-  // Create the mobile window and initialize
   MobileMainWindow window;
   window.init();
 
-  // Enter the event loop — this drives the fractal rendering
-  // at maximum frame rate using QTimer(0)
   window.eventLoop();
 
   return 0;

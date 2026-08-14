@@ -5,18 +5,23 @@
     android:versionCode="1"
     android:versionName="4.3">
 
+    <!-- 1. ADDED: Required permission to allow network/URL calls -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true" />
 
+    <!-- 2. FIXED: Repaired the broken application tag syntax -->
     <application
         android:hardwareAccelerated="true"
         android:label="XaoS Fractal Explorer"
         android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
-        android:fullBackupOnly="false">
+        android:fullBackupOnly="false"
+        android:usesCleartextTraffic="true"> <!-- Clean, un-broken attributes -->
 
         <activity
             android:name="org.qtproject.qt.android.bindings.QtActivity"

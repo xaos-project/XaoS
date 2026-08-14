@@ -1,0 +1,15 @@
+#ifndef SERVER_CONFIG_H
+#define SERVER_CONFIG_H
+
+// Copy this file to server_config.h and set your server URL.
+// server_config.h is .gitignored to keep your IP private.
+//
+// For local development (Android emulator):
+//   #define COMMUNITY_SERVER_URL "http://10.0.2.2:3000"
+//
+// For production (your cloud server):
+//   #define COMMUNITY_SERVER_URL "http://YOUR_SERVER_IP:3000"
+
+#define COMMUNITY_SERVER_URL "http://10.0.2.2:3000"
+
+#endif

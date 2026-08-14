@@ -128,9 +128,9 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 if(MOBILE_UI)
-   # Mobile UI: QWidget + QML overlay
-   find_package(QT NAMES Qt6 COMPONENTS Widgets Quick QuickControls2 QuickWidgets Qml REQUIRED)
-   find_package(Qt6 COMPONENTS Widgets Quick QuickControls2 QuickWidgets Qml REQUIRED)
+   # Mobile UI: QWidget + QML overlay + Network for community sharing
+   find_package(QT NAMES Qt6 COMPONENTS Widgets Quick QuickControls2 QuickWidgets Qml Network REQUIRED)
+   find_package(Qt6 COMPONENTS Widgets Quick QuickControls2 QuickWidgets Qml Network REQUIRED)
 else()
    # Desktop UI: Qt Widgets based
    find_package(QT NAMES Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
@@ -198,11 +198,11 @@ file(GLOB C_FILES src/sffe/*.c)
 
 if(MOBILE_UI)
    # Mobile UI: QWidget rendering + QML overlay for touch controls
-   # Explicitly list sources — exclude old fractalquickitem/enginebridge
    set(UI_FILES
        src/ui-mobile/main_mobile.cpp
        src/ui-mobile/mobilemainwindow.cpp
        src/ui-mobile/mobilebridge.cpp
+       src/ui-mobile/communityclient.cpp
        src/ui/fractalwidget.cpp
        src/ui/image_qt.cpp
    )
@@ -236,7 +236,7 @@ elseif(MOBILE_UI)
        src/ui-mobile/ui-mobile.qrc
        ${TRANSLATIONS_QRC}
     )
-    target_link_libraries(XaoSMobile PRIVATE Qt6::Widgets Qt6::Quick Qt6::QuickControls2 Qt6::QuickWidgets Qt6::Qml)
+    target_link_libraries(XaoSMobile PRIVATE Qt6::Widgets Qt6::Quick Qt6::QuickControls2 Qt6::QuickWidgets Qt6::Qml Qt6::Network)
     # Android-specific properties
     if(ANDROID)
         set_target_properties(XaoSMobile PROPERTIES
