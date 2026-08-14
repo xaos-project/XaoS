@@ -82,3 +82,18 @@ build_*.txt
 
 # Mac stuff
 .DS_Store
+
+# Community server runtime
+server/node_modules/
+server/*.db*
+server/database.sqlite
+server/uploads/
+server/test.js
+server_deploy.zip
+
+# Private server config (contains IP)
+src/ui-mobile/server_config.h
+
+# UI Test files
+src/ui-mobile/qml/test.qml
+src/ui-mobile/qml/test2.qml
