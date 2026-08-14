@@ -7,7 +7,6 @@ Item {
     id: root
     anchors.fill: parent
 
-    //Design tokens
     readonly property color bgDark:        "#0a0e1a"
     readonly property color bgCard:        "#111827"
     readonly property color bgSurface:     "#1a2035"
@@ -25,12 +24,10 @@ Item {
     readonly property bool isWide: width >= 700
     readonly property real panelWidth: Math.min(width * 0.94, 400)
 
-    // App state
     property int  currentTab:0      
     property bool juliaActive:bridge ? bridge.juliaMode > 0 : false
     property bool formulasPopupVisible: false
 
-    //Palette preview helpers
     function hsvToColor(h, s, v) {
         var i = Math.floor(h * 6)
         var f = h * 6 - i
@@ -51,7 +48,6 @@ Item {
 
     function generatePaletteColor(alg, seed, shift, index, count) {
         var t = count > 1 ? index / (count - 1) : 0
-        // Deterministic pseudo-random base hue derived from the seed
         var s = (Math.round(seed) * 9301 + 49297) % 233280
         var baseHue = s / 233280.0
 
@@ -77,7 +73,6 @@ Item {
 
 
 
-    // TOUCH GESTURE AREA
     MultiPointTouchArea {
         id: touchArea
         anchors.fill: parent
@@ -85,9 +80,6 @@ Item {
         mouseEnabled: true
         minimumTouchPoints: 1
         maximumTouchPoints: 2
-        // Stay interactive on the Palette tab too — the palette is now a
-        // panel, so the visible fractal area can still be panned / zoomed
-        // while colours update in real time.
         visible: currentTab === 0 || currentTab === 1
         touchPoints: [
             TouchPoint { id: tp1 },
@@ -141,7 +133,6 @@ Item {
             } else {
                 var now = Date.now()
                 if (now - lastTapTime < 350) {
-                    // Double-tap detected
                     lastTapTime = 0
                     if (root.juliaActive && bridge) {
                         bridge.toggleMandelbrot()
@@ -166,7 +157,6 @@ Item {
         onTriggered: bridge.stopZoom()
     }
 
-    // SCREEN STACK
     Item {
         id: screenStack
         anchors.top: parent.top
@@ -175,13 +165,11 @@ Item {
         anchors.bottom: bottomNav.top
         z: 5
 
-        //EXPLORE
         Item {
             id: exploreScreen
             anchors.fill: parent
             visible: currentTab === 0
 
-            // ── Top bar ──
             Item {
                 id: topBar
                 anchors.top: parent.top
@@ -190,7 +178,6 @@ Item {
                 height: 52
                 z: 20
 
-                // Subtle gradient fade so bar doesn't hard-clip the canvas
                 Rectangle {
                     anchors.fill: parent
                     gradient: Gradient {
@@ -199,7 +186,6 @@ Item {
                     }
                 }
 
-                // XAOS wordmark — centre
                 Text {
                     anchors.centerIn: parent
                     text: "XAOS"
@@ -209,18 +195,11 @@ Item {
                     color: textPrimary
                 }
 
-                // Community + Share buttons — right side of top bar
                 Row {
                     anchors.right: parent.right
                     anchors.rightMargin: 12
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 8
-
-                    IconButton {
-                        icon: "group"
-                        accent: accentPurple
-                        onClicked: communityGallery.open()
-                    }
 
                     IconButton {
                         icon: "share"
@@ -230,7 +209,6 @@ Item {
                 }
             }
 
-            //Stats overlay — bottom-right, three pills
             Column {
                 id: statsOverlay
                 anchors.bottom: parent.bottom
@@ -248,7 +226,6 @@ Item {
                 StatPill { label: "ZOOM"; value: bridge ? bridge.zoomLevel : "1.00×" }
             }
 
-            // Zoom controls — right side
             Column {
                 id: zoomControls
                 anchors.right: parent.right
@@ -257,7 +234,6 @@ Item {
                 spacing: 8
                 z: 15
 
-                // Autopilot toggle
                 ZoomFab {
                     icon: "play_circle"
                     holdable: false
@@ -265,7 +241,6 @@ Item {
                     onAction: { if (bridge) bridge.toggleAutopilot() }
                 }
 
-                // Thin separator between autopilot and zoom
                 Rectangle {
                     width: 28; height: 1
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -285,7 +260,6 @@ Item {
                     onRelease: bridge.stopZoom()
                 }
 
-                // Thin separator between zoom and reset
                 Rectangle {
                     width: 28; height: 1
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -299,7 +273,6 @@ Item {
                 }
             }
 
-            // Status badges — above bottom nav
             Row {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 8
@@ -308,7 +281,6 @@ Item {
                 spacing: 8
                 z: 15
 
-                // Autopilot badge
                 StatusBadge {
                     visible: bridge ? bridge.autopilotActive : false
                     dotColor: accentCyan
@@ -318,7 +290,6 @@ Item {
                     pulseDot: true
                 }
 
-                // Julia badge
                 StatusBadge {
                     visible: root.juliaActive
                     dotColor: accentMagenta
@@ -343,7 +314,6 @@ Item {
             color: bgDark
             border.color: borderBright; border.width: 1
 
-            // Palette preset data (algorithm, seed combos that produce good palettes)
             ListModel {
                 id: palettePresets
                 ListElement { alg: 1; seed: 12345 }
@@ -356,7 +326,6 @@ Item {
                 ListElement { alg: 2; seed: 15000 }
             }
 
-            // Track which preset is selected (-1 = custom)
             property int selectedPreset: -1
 
             ColumnLayout {
@@ -389,10 +358,8 @@ Item {
                         width: parent.width
                         spacing: 0
 
-                        // PRESET PALETTES
                         SectionLabel { text: "PRESETS" }
 
-                        // 2-column grid
                         GridView {
                             id: palGrid
                             Layout.fillWidth: true
@@ -420,7 +387,6 @@ Item {
                                     border.width: paletteScreen.selectedPreset === index ? 2 : 1
                                     clip: true
 
-                                    // Colour swatch
                                     Rectangle {
                                         anchors.fill: parent
                                         radius: 13
@@ -444,10 +410,6 @@ Item {
                                         anchors.fill: parent
                                         onClicked: {
                                             paletteScreen.selectedPreset = index
-                                            // Keep the Custom Palette sliders in sync with
-                                            // the preset that was just applied — previously
-                                            // they kept showing stale values once a slider
-                                            // had been dragged at least once.
                                             algInput.value = model.alg
                                             algSlider.value = model.alg
                                             seedInput.value = model.seed
@@ -463,7 +425,6 @@ Item {
                             }
                         }
 
-                        // Sync sliders when engine palette changes (e.g. Randomise)
                         Connections {
                             target: bridge
                             function onStateChanged() {
@@ -478,10 +439,8 @@ Item {
                             }
                         }
 
-                        // CUSTOM PALETTE
                         SectionLabel { text: "CUSTOM PALETTE" }
 
-                        // Algorithm input
                         SettingsCard {
                             Layout.fillWidth: true
                             Layout.leftMargin: 16; Layout.rightMargin: 16
@@ -524,7 +483,6 @@ Item {
                             }
                         }
 
-                        // Seed input
                         SettingsCard {
                             Layout.fillWidth: true
                             Layout.leftMargin: 16; Layout.rightMargin: 16
@@ -568,7 +526,6 @@ Item {
                             }
                         }
 
-                        // Shift input
                         SettingsCard {
                             Layout.fillWidth: true
                             Layout.leftMargin: 16; Layout.rightMargin: 16
@@ -614,7 +571,6 @@ Item {
 
                         Item { Layout.preferredHeight: 14 }
 
-                        // Live preview — reacts instantly to Algorithm / Seed / Shift
                         Rectangle {
                             Layout.fillWidth: true
                             Layout.leftMargin: 16; Layout.rightMargin: 16
@@ -647,7 +603,6 @@ Item {
 
                         Item { Layout.preferredHeight: 14 }
 
-                        // Randomise button
                         Rectangle {
                             Layout.fillWidth: true
                             Layout.leftMargin: 16; Layout.rightMargin: 16
@@ -691,7 +646,6 @@ Item {
             }
         }
 
-        //2: SETTINGS
         Rectangle {
             id: settingsScreen
             anchors.right: parent.right
@@ -706,12 +660,10 @@ Item {
                 anchors.fill: parent
                 spacing: 0
 
-                // Header with accent bar
                 Item {
                     Layout.fillWidth: true
                     Layout.preferredHeight: 52
 
-                    // Rainbow accent line at top
                     Rectangle {
                         anchors.top: parent.top
                         anchors.left: parent.left; anchors.right: parent.right
@@ -745,7 +697,6 @@ Item {
                         }
                     }
 
-                    // Bottom border
                     Rectangle {
                         anchors.bottom: parent.bottom
                         anchors.left: parent.left; anchors.right: parent.right
@@ -773,14 +724,12 @@ Item {
                         width: parent.width
                         spacing: 0
 
-                        // ── SYSTEM INFO (Non-editable headers) ──
                         Item { Layout.preferredHeight: 14 }
                         
                         RowLayout {
                             Layout.fillWidth: true
                             Layout.leftMargin: 20; Layout.rightMargin: 20
                             
-                            // Left: Current Fractal
                             Column {
                                 Layout.fillWidth: true
                                 spacing: 3
@@ -795,7 +744,6 @@ Item {
                                 }
                             }
                             
-                            // Right: About / Version
                             Column {
                                 Layout.alignment: Qt.AlignRight
                                 spacing: 3
@@ -822,10 +770,8 @@ Item {
                         }
                         Item { Layout.preferredHeight: 2 }
 
-                        // RENDERING
                         SectionLabel { text: "RENDERING & COMPUTE" }
 
-                        // Iteration depth
                         SettingsCard {
                             Layout.fillWidth: true
                             Layout.leftMargin: 16; Layout.rightMargin: 16
@@ -863,7 +809,6 @@ Item {
 
 
 
-                        //  NAVIGATION
                         SectionLabel { text: "NAVIGATION" }
 
                         SettingsCard {
@@ -906,9 +851,18 @@ Item {
                 }
             }
         }
+
+        Item {
+            id: communityScreen
+            anchors.fill: parent
+            visible: currentTab === 3
+
+            CommunityGallery {
+                id: communityGallery
+            }
+        }
     }
 
-    // FORMULAS POPUP
     Item {
         id: formulasPopup
         anchors.fill: parent
@@ -938,7 +892,6 @@ Item {
             }
         }
 
-        // Dimmed backdrop — tap to dismiss
         Rectangle {
             anchors.fill: parent
             color: Qt.rgba(0, 0, 0, 0.60)
@@ -997,7 +950,6 @@ Item {
                     }
                 }
 
-                // Screen header
                 ScreenHeader {
                     subtitle: "FORMULA LIBRARY"
                     title: "Choose a Fractal"
@@ -1009,7 +961,6 @@ Item {
                     showCount: true
                 }
 
-                // Search bar
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.leftMargin: 16; Layout.rightMargin: 16
@@ -1037,7 +988,6 @@ Item {
                         clip: true
                         onTextChanged: formulasPopup.updateFormulaFilter()
 
-                        // Qt6-compatible placeholder
                         Text {
                             anchors.fill: parent
                             anchors.leftMargin: 0
@@ -1050,13 +1000,11 @@ Item {
                     }
                 }
 
-                // User Formula Card 
                 Rectangle {
                     id: userFormulaCard
                     Layout.fillWidth: true
                     Layout.leftMargin: 16; Layout.rightMargin: 16
                     Layout.topMargin: 6
-                    // Collapse to just the header when closed
                     Layout.preferredHeight: userFormulaExpanded
                                             ? userFormulaCol.implicitHeight + 16
                                             : 40
@@ -1078,7 +1026,6 @@ Item {
                         bridge.setUserFormula(userFormulaInput.text)
                         if (userInitialInput.text.length > 0)
                             bridge.setUserInitial(userInitialInput.text)
-                        // Dismiss the soft keyboard so the fractal is visible
                         Qt.inputMethod.hide()
                     }
 
@@ -1089,7 +1036,6 @@ Item {
                         anchors.margins: 0
                         spacing: 0
 
-                        // Header row — always visible, acts as toggle
                         Rectangle {
                             width: parent.width; height: 40
                             color: "transparent"
@@ -1129,7 +1075,6 @@ Item {
                             }
                         }
 
-                        // ── Current formula display ──
                         Rectangle {
                             width: parent.width - 24; height: 32
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -1150,7 +1095,6 @@ Item {
 
                         Item { width: 1; height: 8 }
 
-                        // ── Formula input ──
                         Text {
                             anchors.left: parent.left; anchors.leftMargin: 14
                             text: "FORMULA  f(z, c, p, n)"
@@ -1180,7 +1124,6 @@ Item {
                                 Keys.onReturnPressed: userFormulaCard.applyUserFormula()
                                 Keys.onEnterPressed: userFormulaCard.applyUserFormula()
 
-                                // Pre-fill with current expression when popup opens
                                 Component.onCompleted: {
                                     text = bridge ? (bridge.userFormulaText || "") : ""
                                 }
@@ -1206,7 +1149,6 @@ Item {
 
                         Item { width: 1; height: 8 }
 
-                        // Initial value input 
                         Text {
                             anchors.left: parent.left; anchors.leftMargin: 14
                             text: "INITIAL VALUE  z₀"
@@ -1261,7 +1203,6 @@ Item {
 
                         Item { width: 1; height: 10 }
 
-                        // ── Apply button ──
                         Rectangle {
                             width: parent.width - 24; height: 38
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -1300,7 +1241,6 @@ Item {
                     }
                 }
 
-                // Formula list
                 ListView {
                     id: formulaList
                     Layout.fillWidth: true
@@ -1319,7 +1259,6 @@ Item {
                         }
                     }
 
-                    // Shown when no fractal name matches the search text
                     Text {
                         anchors.centerIn: parent
                         visible: formulaList.count === 0
@@ -1330,7 +1269,6 @@ Item {
 
                     delegate: Rectangle {
                         id: fItem
-                        // modelData is the real index into the bridge's formula list
                         property int realIndex: modelData
                         property bool isSelected: bridge ? (bridge.getFormulaName(realIndex) === bridge.formulaName) : false
                         width: formulaList.width
@@ -1347,7 +1285,6 @@ Item {
                                         : borderSubtle
                         border.width: 1
 
-                        // Index badge
                         Rectangle {
                             id: idxBadge
                             x: 12; anchors.verticalCenter: parent.verticalCenter
@@ -1362,7 +1299,6 @@ Item {
                             }
                         }
 
-                        // Formula name
                         Text {
                             anchors.left: idxBadge.right; anchors.leftMargin: 10
                             anchors.right: checkMark.left; anchors.rightMargin: 8
@@ -1373,7 +1309,6 @@ Item {
                             elide: Text.ElideRight
                         }
 
-                        // Check mark for active
                         Text {
                             id: checkMark
                             anchors.right: parent.right; anchors.rightMargin: 14
@@ -1390,7 +1325,6 @@ Item {
                             anchors.fill: parent
                             onClicked: {
                                 if (bridge) bridge.setFormula(fItem.realIndex)
-                                // Picking a fractal closes the popup automatically
                                 formulasPopupVisible = false
                             }
                         }
@@ -1405,7 +1339,6 @@ Item {
         }
     }
 
-    // BOTTOM NAVIGATION BAR  (shared across all screens)
     Rectangle {
         id: bottomNav
         anchors.bottom: parent.bottom
@@ -1416,7 +1349,6 @@ Item {
         color: Qt.rgba(0.04, 0.055, 0.1, 0.96)
         border.color: borderSubtle; border.width: 1
 
-        // Glowing top-edge line
         Rectangle {
             anchors.top: parent.top
             anchors.left: parent.left; anchors.right: parent.right
@@ -1443,7 +1375,6 @@ Item {
                 tabIndex: 1; icon: "functions"; label: "Formulas"
                 active: formulasPopupVisible
                 onTapped: {
-                    // Formulas is a popup over Explore, not its own screen
                     currentTab = 0
                     formulasPopupVisible = !formulasPopupVisible
                 }
@@ -1454,23 +1385,25 @@ Item {
                 onTapped: { formulasPopupVisible = false; currentTab = 1 }
             }
             NavTab {
-                tabIndex: 3; icon: "blur_on";   label: "Julia"
+                tabIndex: 3; icon: "group";   label: "Community"
+                active: currentTab === 3 && !formulasPopupVisible
+                onTapped: { formulasPopupVisible = false; currentTab = 3 }
+            }
+            NavTab {
+                tabIndex: 4; icon: "blur_on";   label: "Julia"
                 active: root.juliaActive
                 onTapped: {
-                    // Julia is a direct toggle, not a screen — tap again to turn it off
                     if (bridge) bridge.toggleJulia()
                 }
             }
             NavTab {
-                tabIndex: 4; icon: "tune";      label: "Settings"
+                tabIndex: 5; icon: "tune";      label: "Settings"
                 active: currentTab === 2 && !formulasPopupVisible
                 onTapped: { formulasPopupVisible = false; currentTab = 2 }
             }
         }
     }
-    // REUSABLE COMPONENTS
 
-    // Icon button (top bar)
     component IconButton: Rectangle {
         property string icon: ""
         property color  accent: accentCyan
@@ -1499,7 +1432,6 @@ Item {
         Behavior on border.color { ColorAnimation { duration: 130 } }
     }
 
-    // Stat pill (Explore overlay)
     component StatPill: Rectangle {
         property string label: ""
         property string value: "—"
@@ -1530,7 +1462,6 @@ Item {
         }
     }
 
-    // Zoom FAB
     component ZoomFab: Rectangle {
         property string icon: ""
         property bool   holdable: false
@@ -1558,9 +1489,6 @@ Item {
         MouseArea {
             id: zfArea
             anchors.fill: parent
-            // Holdable buttons (zoom +/-) fire on press and stop on release.
-            // Non-holdable buttons (Autopilot, Reset) must fire exactly once
-            // per tap — firing on both press AND click double-toggled them.
             onPressed: { if (parent.holdable) parent.action() }
             onReleased: { if (parent.holdable) parent.release() }
             onClicked: { if (!parent.holdable) parent.action() }
@@ -1570,7 +1498,6 @@ Item {
         Behavior on border.color { ColorAnimation { duration: 110 } }
     }
 
-    // Status badge (Autopilot / Julia)
     component StatusBadge: Rectangle {
         property color  dotColor:    accentCyan
         property string labelText:   ""
@@ -1612,7 +1539,6 @@ Item {
         }
     }
 
-    // Nav tab
     component NavTab: Item {
         property int    tabIndex: 0
         property string icon:     ""
@@ -1620,10 +1546,9 @@ Item {
         property bool   active:   false
         signal tapped()
 
-        width: root.width / 5
+        width: root.width / 6
         height: 60
 
-        // Active indicator bar at top
         Rectangle {
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
@@ -1661,7 +1586,6 @@ Item {
         }
     }
 
-    //  Screen header (Formulas / Palette / Julia)
     component ScreenHeader: Item {
         property string subtitle: ""
         property string title: ""
@@ -1671,7 +1595,6 @@ Item {
         Layout.fillWidth: true
         Layout.preferredHeight: showCount ? 88 : 68
 
-        // Accent bar at very top
         Rectangle {
             anchors.top: parent.top
             anchors.left: parent.left; anchors.right: parent.right
@@ -1717,7 +1640,6 @@ Item {
             }
         }
 
-        // Bottom divider
         Rectangle {
             anchors.bottom: parent.bottom
             anchors.left: parent.left; anchors.right: parent.right
@@ -1725,7 +1647,6 @@ Item {
         }
     }
 
-    //  Section label (inside Settings / Julia)
     component SectionLabel: Item {
         property string text: ""
         Layout.fillWidth: true
@@ -1749,7 +1670,6 @@ Item {
         }
     }
 
-    // Settings card wrapper
     component SettingsCard: Rectangle {
         Layout.preferredHeight: innerPad.childrenRect.height + 28
         radius: 13
@@ -1766,7 +1686,6 @@ Item {
         }
     }
 
-    // Icon badge
     component IconBadge: Rectangle {
         property string icon:        ""
         property color  iconColor:   accentCyan
@@ -1787,7 +1706,6 @@ Item {
         }
     }
 
-    // Styled toggle
     component StyledToggle: Rectangle {
         property bool checked: false
         signal toggled()
@@ -1849,7 +1767,6 @@ Item {
         }
     }
 
-    // Settings toggle row
     component SettingsToggleRow: Item {
         property string icon:          ""
         property string label:         ""
@@ -1864,7 +1781,6 @@ Item {
 
         height: 54
 
-        // Divider
         Rectangle {
             anchors.bottom: parent.bottom
             anchors.left: parent.left; anchors.right: parent.right
@@ -1901,7 +1817,6 @@ Item {
                 }
             }
 
-            // spacer — explicit width so it works inside Row (not RowLayout)
             Item { width: parent.width - 34 - 12 - (parent.width - 34 - 12 - 50 - 12) - 12 - 42 - 12; height: 1 }
 
             StyledToggle {
@@ -1912,7 +1827,6 @@ Item {
         }
     }
 
-    // Settings action row
     component SettingsActionRow: Item {
         property string icon:        ""
         property string label:       ""
@@ -1966,7 +1880,6 @@ Item {
                 }
             }
 
-            // explicit spacer inside Row
             Item {
                 width: parent.width - 34 - 12 - (parent.width - 34 - 12 - 22 - 24) - 12 - 22 - 12
                 height: 1
@@ -1988,7 +1901,6 @@ Item {
         }
     }
 
-    // History button (Undo / Redo)
     component HistoryBtn: Rectangle {
         property string icon:        ""
         property string label:       ""
@@ -2031,4 +1943,13 @@ Item {
         Behavior on color       { ColorAnimation { duration: 120 } }
         Behavior on border.color { ColorAnimation { duration: 120 } }
     }
+
+    ShareDialog {
+        id: shareDialog
+    }
+
+    FractalDetail {
+        id: fractalDetailPopup
+    }
+
 }
