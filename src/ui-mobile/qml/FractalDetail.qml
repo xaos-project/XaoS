@@ -1,27 +1,18 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import "."
 
 /*
  * FractalDetail — Detail view shown when tapping a gallery item.
  * Displays full thumbnail, metadata, and a "Download & Explore" button.
  */
-Popup {
+ThemedPopup {
     id: detailPopup
-    anchors.centerIn: parent
-    width: parent ? Math.min(parent.width * 0.9, 380) : 380
-    height: parent ? Math.min(parent.height * 0.8, 560) : 560
-    modal: true
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+
+    accent: Theme.accentMagenta
 
     property var fractalData: ({})
-
-    background: Rectangle {
-        color: "#1a1a2e"
-        radius: 16
-        border.color: "#0f3460"
-        border.width: 2
-    }
 
     Connections {
         target: community
@@ -35,167 +26,232 @@ Popup {
         }
     }
 
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: 16
-        spacing: 12
+    contentItem: ColumnLayout {
+        spacing: Theme.s3
 
         RowLayout {
             Layout.fillWidth: true
-            Item { Layout.fillWidth: true }
-            RoundButton {
-                text: "\u2715"
-                width: 36; height: 36
-                font.pixelSize: 18
-                background: Rectangle {
-                    color: parent.pressed ? "#333" : "transparent"
-                    radius: 18
+            spacing: Theme.s2
+
+            Column {
+                Layout.fillWidth: true
+                spacing: 2
+
+                Text {
+                    text: "FRACTAL"
+                    font.pixelSize: Theme.fontEyebrow
+                    font.bold: true
+                    font.letterSpacing: Theme.trackingWide
+                    color: Theme.textDim
                 }
-                contentItem: Text {
-                    text: parent.text; color: "#aaa"
-                    font: parent.font
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
+                Text {
+                    width: parent.width
+                    text: detailPopup.fractalData.title || "Untitled"
+                    font.pixelSize: Theme.fontXl
+                    font.bold: true
+                    color: Theme.textPrimary
+                    elide: Text.ElideRight
                 }
-                onClicked: detailPopup.close()
+                Text {
+                    text: "by " + (detailPopup.fractalData.author || "Anonymous")
+                    font.pixelSize: Theme.fontSm + 1
+                    color: Theme.textSecondary
+                }
+            }
+
+            Rectangle {
+                Layout.alignment: Qt.AlignTop
+                width: 34
+                height: 34
+                radius: Theme.radiusMd
+                color: closeArea.pressed ? Theme.alpha(Theme.textPrimary, 0.14)
+                                         : closeArea.containsMouse ? Theme.alpha(Theme.textPrimary, 0.08)
+                                                                   : "transparent"
+                border.color: closeArea.containsMouse ? Theme.borderBright : Theme.borderSubtle
+                border.width: 1
+
+                Behavior on color { ColorAnimation { duration: Theme.durFast } }
+
+                Text {
+                    anchors.centerIn: parent
+                    text: "close"
+                    font.family: Theme.iconFont
+                    font.pixelSize: Theme.fontXl
+                    color: Theme.textSecondary
+                }
+
+                MouseArea {
+                    id: closeArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: detailPopup.close()
+                }
             }
         }
 
         Rectangle {
             Layout.fillWidth: true
-            Layout.preferredHeight: width * 0.75
-            radius: 12
-            color: "#0f3460"
+            Layout.preferredHeight: width * 0.7
+            radius: Theme.radiusLg
+            color: Theme.bgSurface
+            border.color: Theme.borderSubtle
+            border.width: 1
             clip: true
 
             Image {
                 anchors.fill: parent
-                source: fractalData.thumbnailUrl || ""
+                anchors.margins: 1
+                source: detailPopup.fractalData.thumbnailUrl || ""
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true
+            }
 
-                Label {
-                    anchors.centerIn: parent
-                    visible: parent.status !== Image.Ready
+            Column {
+                anchors.centerIn: parent
+                spacing: Theme.s2
+                visible: !detailPopup.fractalData.thumbnailUrl
+
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "image_not_supported"
+                    font.family: Theme.iconFont
+                    font.pixelSize: 34
+                    color: Theme.textDim
+                }
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
                     text: "No preview"
-                    color: "#555"
-                    font.pixelSize: 14
+                    font.pixelSize: Theme.fontBody
+                    color: Theme.textDim
                 }
             }
         }
 
-        Label {
-            text: fractalData.title || "Untitled"
-            font.pixelSize: 22
-            font.bold: true
-            color: "#e94560"
-            wrapMode: Text.Wrap
+        // Metadata.
+        Rectangle {
             Layout.fillWidth: true
-            horizontalAlignment: Text.AlignHCenter
+            Layout.preferredHeight: metaGrid.implicitHeight + Theme.s4
+            radius: Theme.radiusMd
+            color: Theme.bgCard
+            border.color: Theme.borderSubtle
+            border.width: 1
+
+            GridLayout {
+                id: metaGrid
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin: Theme.s3
+                anchors.rightMargin: Theme.s3
+                columns: 2
+                columnSpacing: Theme.s4
+                rowSpacing: Theme.s1 + 2
+
+                Text {
+                    text: "Formula"
+                    color: Theme.textDim
+                    font.pixelSize: Theme.fontSm + 1
+                }
+                Text {
+                    Layout.fillWidth: true
+                    text: detailPopup.fractalData.formula || "—"
+                    color: Theme.textPrimary
+                    font.pixelSize: Theme.fontSm + 1
+                    font.weight: Font.Medium
+                    horizontalAlignment: Text.AlignRight
+                    elide: Text.ElideRight
+                }
+
+                Text {
+                    text: "Iterations"
+                    color: Theme.textDim
+                    font.pixelSize: Theme.fontSm + 1
+                }
+                Text {
+                    Layout.fillWidth: true
+                    text: detailPopup.fractalData.iterations
+                          ? detailPopup.fractalData.iterations.toString() : "—"
+                    color: Theme.textPrimary
+                    font.pixelSize: Theme.fontSm + 1
+                    font.family: "monospace"
+                    horizontalAlignment: Text.AlignRight
+                }
+
+                Text {
+                    text: "Zoom"
+                    color: Theme.textDim
+                    font.pixelSize: Theme.fontSm + 1
+                }
+                Text {
+                    Layout.fillWidth: true
+                    text: detailPopup.fractalData.zoomLevel || "—"
+                    color: Theme.textPrimary
+                    font.pixelSize: Theme.fontSm + 1
+                    font.family: "monospace"
+                    horizontalAlignment: Text.AlignRight
+                }
+
+                Text {
+                    text: "Downloads"
+                    color: Theme.textDim
+                    font.pixelSize: Theme.fontSm + 1
+                }
+                Text {
+                    Layout.fillWidth: true
+                    text: (detailPopup.fractalData.downloads || 0).toString()
+                    color: Theme.textPrimary
+                    font.pixelSize: Theme.fontSm + 1
+                    font.family: "monospace"
+                    horizontalAlignment: Text.AlignRight
+                }
+
+                Text {
+                    text: "Likes"
+                    color: Theme.textDim
+                    font.pixelSize: Theme.fontSm + 1
+                }
+                Text {
+                    Layout.fillWidth: true
+                    text: (detailPopup.fractalData.likes || 0).toString()
+                    color: Theme.accentMagenta
+                    font.pixelSize: Theme.fontSm + 1
+                    font.family: "monospace"
+                    font.bold: true
+                    horizontalAlignment: Text.AlignRight
+                }
+            }
         }
-
-        Label {
-            text: "by " + (fractalData.author || "Anonymous")
-            font.pixelSize: 14
-            color: "#aaa"
-            Layout.fillWidth: true
-            horizontalAlignment: Text.AlignHCenter
-        }
-
-        GridLayout {
-            Layout.fillWidth: true
-            columns: 2
-            columnSpacing: 16
-            rowSpacing: 6
-
-            Label { text: "Formula"; color: "#888"; font.pixelSize: 12 }
-            Label {
-                text: fractalData.formula || "—"
-                color: "#ddd"; font.pixelSize: 12
-                Layout.fillWidth: true
-                elide: Text.ElideRight
-            }
-
-            Label { text: "Iterations"; color: "#888"; font.pixelSize: 12 }
-            Label {
-                text: fractalData.iterations ? fractalData.iterations.toString() : "—"
-                color: "#ddd"; font.pixelSize: 12
-            }
-
-            Label { text: "Zoom"; color: "#888"; font.pixelSize: 12 }
-            Label {
-                text: fractalData.zoomLevel || "—"
-                color: "#ddd"; font.pixelSize: 12
-            }
-
-            Label { text: "Downloads"; color: "#888"; font.pixelSize: 12 }
-            Label {
-                text: (fractalData.downloads || 0).toString()
-                color: "#ddd"; font.pixelSize: 12
-            }
-
-            Label { text: "Likes"; color: "#888"; font.pixelSize: 12 }
-            Label {
-                text: (fractalData.likes || 0).toString()
-                color: "#ddd"; font.pixelSize: 12
-            }
-        }
-
-        Item { Layout.fillHeight: true }
 
         RowLayout {
             Layout.fillWidth: true
-            spacing: 12
+            Layout.topMargin: Theme.s1
+            spacing: Theme.s3
 
-            Button {
+            PrimaryButton {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 48
-                text: community && community.loading ? "Downloading..." : "Download & Explore"
+                iconGlyph: "download"
+                text: community && community.loading ? "Downloading…" : "Download & Explore"
                 enabled: !(community && community.loading)
 
                 onClicked: {
-                    if (community && fractalData.id) {
-                        community.downloadXpf(fractalData.id)
+                    if (community && detailPopup.fractalData.id) {
+                        community.downloadXpf(detailPopup.fractalData.id)
                     }
-                }
-
-                background: Rectangle {
-                    color: parent.enabled ?
-                           (parent.pressed ? "#c33050" : "#e94560") : "#555"
-                    radius: 12
-                }
-                contentItem: Text {
-                    text: parent.text
-                    color: "#fff"
-                    font.pixelSize: 16
-                    font.bold: true
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
                 }
             }
 
-            Button {
+            GhostButton {
                 Layout.preferredWidth: 64
-                Layout.preferredHeight: 48
-                text: "❤️"
+                iconGlyph: "favorite"
+                text: ""
+                accent: Theme.accentMagenta
                 enabled: !(community && community.loading)
                 onClicked: {
-                    if (community && fractalData.id) {
-                        community.likeFractal(fractalData.id)
-                        fractalData.likes = (fractalData.likes || 0) + 1
+                    if (community && detailPopup.fractalData.id) {
+                        community.likeFractal(detailPopup.fractalData.id)
+                        detailPopup.fractalData.likes = (detailPopup.fractalData.likes || 0) + 1
                     }
-                }
-                background: Rectangle {
-                    color: parent.pressed ? "#0f3460" : "#16213e"
-                    radius: 12
-                    border.color: "#e94560"
-                    border.width: 1
-                }
-                contentItem: Text {
-                    text: parent.text
-                    font.pixelSize: 20
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
                 }
             }
         }

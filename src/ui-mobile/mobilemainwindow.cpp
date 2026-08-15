@@ -65,7 +65,19 @@ MobileMainWindow::MobileMainWindow(QWidget *parent) : QMainWindow(parent) {
     m_widget = new FractalWidget();
     setCentralWidget(m_widget);
 
+#ifdef Q_OS_ANDROID
     showFullScreen();
+#else
+    if (QScreen *screen = QGuiApplication::primaryScreen()) {
+        const QRect avail = screen->availableGeometry();
+        resize(qMin(1280, int(avail.width() * 0.85)),
+               qMin(800, int(avail.height() * 0.85)));
+        move(avail.center() - rect().center());
+    } else {
+        resize(1280, 800);
+    }
+    show();
+#endif
 
     m_messageFont = QFont(QApplication::font().family(), 12);
 }

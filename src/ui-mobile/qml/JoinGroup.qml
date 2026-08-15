@@ -1,23 +1,15 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import "."
 
-Popup {
+/*
+ * JoinGroup — student-facing dialog for joining a room by invite code.
+ */
+ThemedPopup {
     id: joinGroupPopup
-    width: Math.min(600, parent.width * 0.9)
-    height: Math.min(400, parent.height * 0.8)
-    x: Math.round((parent.width - width) / 2)
-    y: Math.round((parent.height - height) / 2)
-    modal: true
-    focus: true
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
-    background: Rectangle {
-        color: "#1a1a2e"
-        radius: 16
-        border.color: "#0f3460"
-        border.width: 2
-    }
+    accent: Theme.accentMagenta
 
     Timer {
         id: errorClearTimer
@@ -37,93 +29,122 @@ Popup {
         }
     }
 
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: 24
-        spacing: 16
+    contentItem: ColumnLayout {
+        spacing: Theme.s4
 
-        Label {
-            text: "Join a Group"
-            color: "#fff"
-            font.pixelSize: 24
-            font.bold: true
-            Layout.alignment: Qt.AlignHCenter
+        Row {
+            Layout.fillWidth: true
+            spacing: Theme.s3
+
+            IconBadge {
+                anchors.verticalCenter: parent.verticalCenter
+                icon: "group_add"
+                size: 40
+                iconColor: Theme.accentMagenta
+                bgColor: Theme.alpha(Theme.accentMagenta, 0.10)
+                borderColor: Theme.alpha(Theme.accentMagenta, 0.20)
+            }
+
+            Column {
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 2
+
+                Text {
+                    text: "PRIVATE ROOM"
+                    font.pixelSize: Theme.fontEyebrow
+                    font.bold: true
+                    font.letterSpacing: Theme.trackingWide
+                    color: Theme.textDim
+                }
+                Text {
+                    text: "Join a Group"
+                    font.pixelSize: Theme.fontXl
+                    font.bold: true
+                    color: Theme.textPrimary
+                }
+            }
         }
 
-        TextField {
+        ThemedField {
             id: inviteCodeInput
-            placeholderText: "6-Character Invite Code"
             Layout.fillWidth: true
-            font.pixelSize: 18
-            color: "#000"
-            placeholderTextColor: "#666"
-            background: Rectangle {
-                color: "#fff"
-                radius: 8
-                border.color: "#ccc"
-                border.width: 1
-            }
+            label: "INVITE CODE"
+            placeholderText: "6 characters"
+            accent: Theme.accentMagenta
+            mono: true
+            uppercase: true
+            maximumLength: 6
+            inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase
         }
 
-        TextField {
+        ThemedField {
             id: displayNameInput
-            placeholderText: "Your Display Name (e.g. Alex)"
             Layout.fillWidth: true
-            font.pixelSize: 18
-            color: "#000"
-            placeholderTextColor: "#666"
-            background: Rectangle {
-                color: "#fff"
-                radius: 8
-                border.color: "#ccc"
-                border.width: 1
+            label: "YOUR DISPLAY NAME"
+            placeholderText: "e.g. Alex"
+            accent: Theme.accentMagenta
+        }
+
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: errorText.implicitHeight + Theme.s3
+            visible: community ? !!community.errorMessage : false
+            radius: Theme.radiusSm
+            color: Theme.alpha(Theme.danger, 0.10)
+            border.color: Theme.alpha(Theme.danger, 0.30)
+            border.width: 1
+
+            Row {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.s2
+                anchors.rightMargin: Theme.s2
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: Theme.s2
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "error_outline"
+                    font.family: Theme.iconFont
+                    font.pixelSize: Theme.fontLg
+                    color: Theme.danger
+                }
+                Text {
+                    id: errorText
+                    width: parent.width - Theme.fontLg - Theme.s2
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: community ? community.errorMessage : ""
+                    color: Theme.danger
+                    font.pixelSize: Theme.fontBody
+                    wrapMode: Text.Wrap
+                }
             }
         }
-
-        Label {
-            visible: community ? !!community.errorMessage : false
-            text: community ? community.errorMessage : ""
-            color: "#ff6b6b"
-            wrapMode: Text.Wrap
-            Layout.fillWidth: true
-        }
-
-        Item { Layout.fillHeight: true }
 
         RowLayout {
             Layout.fillWidth: true
-            spacing: 16
+            Layout.topMargin: Theme.s1
+            spacing: Theme.s3
 
-            Button {
-                text: "Cancel"
+            GhostButton {
                 Layout.fillWidth: true
+                text: "Cancel"
+                accent: Theme.textSecondary
                 onClicked: {
                     joinGroupPopup.close()
                 }
-                background: Rectangle { color: "#333"; radius: 8 }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    horizontalAlignment: Text.AlignHCenter
-                }
             }
 
-            Button {
-                text: "Join"
+            PrimaryButton {
                 Layout.fillWidth: true
+                text: "Join"
+                iconGlyph: "login"
+                accent: Theme.accentMagenta
                 enabled: inviteCodeInput.text.length > 0 && displayNameInput.text.length > 0 && (!community || !community.loading)
                 onClicked: {
                     if (community) {
                         community.joinGroup(inviteCodeInput.text, displayNameInput.text)
                     }
-                }
-                background: Rectangle {
-                    color: parent.enabled ? "#e94560" : "#555"
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    font.bold: true
-                    horizontalAlignment: Text.AlignHCenter
                 }
             }
         }

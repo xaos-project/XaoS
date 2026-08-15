@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Basic as Basic
 import QtQuick.Layouts
+import "."
 
 /*
  * CommunityHub — Full-screen overlay for the Community Feature.
@@ -16,9 +18,16 @@ Item {
     property var galleryItems: []
     property int currentTab: 0
 
+    readonly property bool isWide: width >= Theme.wideBreakpoint
+
+    // The body is a centred column; the header title aligns to its left edge.
+    readonly property real contentPad: isWide ? Theme.s6 : Theme.s4
+    readonly property real contentWidth:
+        Math.min(width - contentPad * 2, Theme.maxContentWidth)
+
     Rectangle {
         anchors.fill: parent
-        color: "#1a1a2e"
+        color: Theme.bgDark
     }
 
     onVisibleChanged: {
@@ -88,480 +97,516 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 16
-        spacing: 12
+        spacing: 0
 
-        RowLayout {
-            Layout.fillWidth: true
+        ScreenHeader {
+            subtitle: "COMMUNITY"
+            title: "XaoS Community"
+            countAccent: Theme.accentMagenta
+            wide: galleryPopup.isWide
+            contentInset: Math.max(galleryPopup.contentPad,
+                                   (galleryPopup.width - galleryPopup.contentWidth) / 2)
+            showCount: galleryPopup.galleryItems.length > 0
+            countText: galleryPopup.galleryItems.length +
+                       (galleryPopup.galleryItems.length === 1 ? " fractal" : " fractals")
 
-            Label {
-                text: "XaoS Community"
-                font.pixelSize: 22
-                font.bold: true
-                color: "#e94560"
-                Layout.fillWidth: true
-            }
-
-            Button {
-                text: "Logout"
+            GhostButton {
+                anchors.verticalCenter: parent.verticalCenter
                 visible: community ? community.isLoggedIn : false
+                compact: true
+                text: "Logout"
+                iconGlyph: "logout"
+                accent: Theme.textSecondary
                 onClicked: {
                     if (community) {
                         community.logout()
                     }
                 }
-                background: Rectangle {
-                    color: parent.pressed ? "#333" : "transparent"
-                    border.color: "#555"
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#aaa"
-                    font.pixelSize: 14; font.bold: true
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
-
-        }
-
-        RowLayout {
-            Layout.fillWidth: true
-            spacing: 8
-
-            Button {
-                text: "Public Community"
-                Layout.fillWidth: true
-                highlighted: currentTab === 0
-                onClicked: {
-                    currentTab = 0
-                    switchToPublic()
-                }
-                background: Rectangle {
-                    color: currentTab === 0 ? "#e94560" : (parent.pressed ? "#0f3460" : "#16213e")
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    font.pixelSize: 16; font.bold: currentTab === 0
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
-
-            Button {
-                text: "Private Rooms"
-                Layout.fillWidth: true
-                highlighted: currentTab === 1
-                onClicked: {
-                    currentTab = 1
-                    switchToPrivate()
-                }
-                background: Rectangle {
-                    color: currentTab === 1 ? "#e94560" : (parent.pressed ? "#0f3460" : "#16213e")
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    font.pixelSize: 16; font.bold: currentTab === 1
-                    horizontalAlignment: Text.AlignHCenter
-                }
             }
         }
 
-        
-        RowLayout {
-            Layout.fillWidth: true
-            spacing: 8
-            visible: currentTab === 0
-
-            Button {
-                text: "Recent"
-                Layout.fillWidth: true
-                highlighted: sortMode === "recent"
-                onClicked: {
-                    sortMode = "recent"
-                    currentPage = 1
-                    refresh()
-                }
-                background: Rectangle {
-                    color: sortMode === "recent" ? "#0f3460" : (parent.pressed ? "#333" : "#111")
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    font.pixelSize: 14; font.bold: sortMode === "recent"
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
-
-            Button {
-                text: "Popular"
-                Layout.fillWidth: true
-                highlighted: sortMode === "popular"
-                onClicked: {
-                    sortMode = "popular"
-                    currentPage = 1
-                    refresh()
-                }
-                background: Rectangle {
-                    color: sortMode === "popular" ? "#0f3460" : (parent.pressed ? "#333" : "#111")
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    font.pixelSize: 14; font.bold: sortMode === "popular"
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
-        }
-
-        ListView {
-            Layout.fillWidth: true
-            Layout.preferredHeight: 40
-            visible: currentTab === 1 && community && community.isLoggedIn
-            orientation: ListView.Horizontal
-            spacing: 8
-            clip: true
-            model: community ? community.userRooms : []
-
-            delegate: Button {
-                text: modelData.name
-                highlighted: community && community.currentGroupId === modelData.id
-                onClicked: {
-                    community.selectRoom(modelData.id, modelData.name)
-                    currentPage = 1
-                    refresh()
-                }
-                background: Rectangle {
-                    color: parent.highlighted ? "#0f3460" : (parent.pressed ? "#333" : "#111")
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    font.pixelSize: 14; font.bold: parent.highlighted
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
-
-            footer: Button {
-                text: community && community.currentUserRole === "teacher" ? "+ Create Room" : "+ Join Room"
-                onClicked: {
-                    if (community && community.currentUserRole === "teacher") {
-                        createRoomPopup.open()
-                    } else {
-                        joinGroupPopup.open()
-                    }
-                }
-                background: Rectangle {
-                    color: parent.pressed ? "#333" : "#111"
-                    radius: 8
-                    border.color: "#e94560"
-                    border.width: 1
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#e94560"
-                    font.pixelSize: 14; font.bold: true
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
-        }
-
-        
-        StackLayout {
+        // Wide windows would otherwise stretch the gallery edge to edge.
+        Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            currentIndex: (currentTab === 1 && community && !community.isLoggedIn) ? 1 : 0
 
-            Item {
-                ColumnLayout {
-                    anchors.fill: parent
-                    spacing: 8
+            ColumnLayout {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.topMargin: Theme.s3
+                width: galleryPopup.contentWidth
+                spacing: Theme.s3
 
-                    BusyIndicator {
-                        Layout.alignment: Qt.AlignHCenter
-                        running: community ? community.loading : false
-                        visible: running
-                    }
-
-                    Label {
-                        id: errorLabel
-                        visible: false
-                        color: "#ff6b6b"
-                        font.pixelSize: 13
-                        wrapMode: Text.Wrap
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignHCenter
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: { errorLabel.visible = false; refresh() }
-                        }
-                    }
-
-                    Label {
-                        visible: galleryItems.length === 0 && !(community && community.loading)
-                        text: currentTab === 0 ? "No public fractals shared yet.\nBe the first to share!" : "No fractals in this room yet."
-                        color: "#888"
-                        font.pixelSize: 16
-                        horizontalAlignment: Text.AlignHCenter
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignCenter
-                    }
-                    
-                    RowLayout {
-                        visible: currentTab === 1 && community && community.currentGroupId > 0
-                        Layout.fillWidth: true
-                        Layout.margins: 4
-                        
-                        Label {
-                            text: community ? "Room: " + community.currentGroupName : ""
-                            color: "#fff"
-                            font.pixelSize: 16
-                            font.bold: true
-                            Layout.fillWidth: true
-                        }
-                        Label {
-                            text: {
-                                if (!community || !community.userRooms) return "";
-                                for (var i = 0; i < community.userRooms.length; i++) {
-                                    if (community.userRooms[i].id === community.currentGroupId) {
-                                        return "Invite Code: " + community.userRooms[i].inviteCode;
-                                    }
-                                }
-                                return "";
-                            }
-                            color: "#e94560"
-                            font.pixelSize: 14
-                            font.bold: true
-                        }
-                    }
-
-                    GridView {
-                        id: gridView
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        clip: true
-                        cellWidth: (width - 8) / 2
-                        cellHeight: cellWidth + 48
-                        model: galleryItems
-
-                        delegate: Item {
-                            width: gridView.cellWidth
-                            height: gridView.cellHeight
-
-                            Rectangle {
-                                anchors.fill: parent
-                                anchors.margins: 4
-                                radius: 12
-                                color: "#16213e"
-                                border.color: delegateArea.pressed ? "#e94560" : "#0f3460"
-                                border.width: 1
-                                clip: true
-
-                                ColumnLayout {
-                                    anchors.fill: parent
-                                    spacing: 0
-
-                                    Image {
-                                        Layout.fillWidth: true
-                                        Layout.fillHeight: true
-                                        Layout.margins: 4
-                                        source: modelData.thumbnailUrl || ""
-                                        fillMode: Image.PreserveAspectCrop
-                                        asynchronous: true
-
-                                        Rectangle {
-                                            anchors.fill: parent
-                                            color: "#0f3460"
-                                            visible: parent.status !== Image.Ready
-                                            Label {
-                                                anchors.centerIn: parent
-                                                text: "\ue3b6"
-                                                font.family: materialFont.name
-                                                font.pixelSize: 32
-                                                color: "#444"
-                                            }
-                                        }
-                                    }
-
-                                    ColumnLayout {
-                                        Layout.fillWidth: true
-                                        Layout.margins: 8
-                                        Layout.topMargin: 4
-                                        spacing: 2
-
-                                        Label {
-                                            text: modelData.title || "Untitled"
-                                            color: "#fff"
-                                            font.pixelSize: 13
-                                            font.bold: true
-                                            elide: Text.ElideRight
-                                            Layout.fillWidth: true
-                                        }
-
-                                        RowLayout {
-                                            Layout.fillWidth: true
-                                            Label {
-                                                text: modelData.author || "Anonymous"
-                                                color: "#888"
-                                                font.pixelSize: 11
-                                                elide: Text.ElideRight
-                                                Layout.fillWidth: true
-                                            }
-                                            Label {
-                                                text: "❤️ " + (modelData.likes || 0)
-                                                color: "#e94560"
-                                                font.pixelSize: 11
-                                            }
-                                            Label {
-                                                text: "\u2B07 " + (modelData.downloads || 0)
-                                                color: "#666"
-                                                font.pixelSize: 11
-                                            }
-                                        }
-                                    }
-                                }
-
-                                MouseArea {
-                                    id: delegateArea
-                                    anchors.fill: parent
-                                    onClicked: {
-                                        detailPopup.fractalData = modelData
-                                        detailPopup.open()
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignHCenter
-                        spacing: 16
-                        visible: totalPages > 1
-
-                        Button {
-                            text: "\u25C0 Prev"
-                            enabled: currentPage > 1
-                            onClicked: { currentPage--; refresh() }
-                            background: Rectangle {
-                                color: parent.enabled ? (parent.pressed ? "#0f3460" : "#16213e") : "#111"
-                                radius: 8
-                            }
-                            contentItem: Text {
-                                text: parent.text
-                                color: parent.enabled ? "#fff" : "#555"
-                                font.pixelSize: 13
-                                horizontalAlignment: Text.AlignHCenter
-                            }
-                        }
-
-                        Label {
-                            text: currentPage + " / " + totalPages
-                            color: "#aaa"
-                            font.pixelSize: 14
-                        }
-
-                        Button {
-                            text: "Next \u25B6"
-                            enabled: currentPage < totalPages
-                            onClicked: { currentPage++; refresh() }
-                            background: Rectangle {
-                                color: parent.enabled ? (parent.pressed ? "#0f3460" : "#16213e") : "#111"
-                                radius: 8
-                            }
-                            contentItem: Text {
-                                text: parent.text
-                                color: parent.enabled ? "#fff" : "#555"
-                                font.pixelSize: 13
-                                horizontalAlignment: Text.AlignHCenter
-                            }
-                        }
-                    }
-                    RowLayout {
-                        Layout.alignment: Qt.AlignHCenter
-                        spacing: 16
-                        visible: currentTab === 1 && community && community.currentGroupId > 0
-
-                        Button {
-                            text: "View Members"
-                            onClicked: {
-                                if (community) {
-                                    community.fetchRoomMembers(community.currentGroupId)
-                                    roomMembersPopup.open()
-                                }
-                            }
-                            background: Rectangle { color: "transparent"; border.color: "#88aaff"; radius: 4 }
-                            contentItem: Text { text: parent.text; color: "#88aaff"; font.pixelSize: 12; horizontalAlignment: Text.AlignHCenter }
-                        }
-
-                        Button {
-                            text: "Leave Room"
-                            onClicked: {
-                                if (community) {
-                                    community.leaveRoom(community.currentGroupId)
-                                }
-                            }
-                            background: Rectangle { color: "transparent"; border.color: "#888"; radius: 4 }
-                            contentItem: Text { text: parent.text; color: "#888"; font.pixelSize: 12; horizontalAlignment: Text.AlignHCenter }
+                SegmentedControl {
+                    Layout.fillWidth: true
+                    Layout.maximumWidth: galleryPopup.isWide ? 420 : Number.POSITIVE_INFINITY
+                    Layout.alignment: Qt.AlignHCenter
+                    options: ["Public", "Private Rooms"]
+                    glyphs: ["public", "lock"]
+                    accent: Theme.accentMagenta
+                    currentIndex: galleryPopup.currentTab
+                    onActivated: function(index) {
+                        galleryPopup.currentTab = index
+                        if (index === 0) {
+                            switchToPublic()
+                        } else {
+                            switchToPrivate()
                         }
                     }
                 }
-            }
 
-            Item {
-                ColumnLayout {
-                    anchors.centerIn: parent
-                    spacing: 24
-                    width: Math.min(400, parent.width * 0.8)
-
-                    Label {
-                        text: "Join a Private Room"
-                        color: "#fff"
-                        font.pixelSize: 20
-                        font.bold: true
-                        Layout.alignment: Qt.AlignHCenter
+                SegmentedControl {
+                    Layout.fillWidth: true
+                    Layout.maximumWidth: galleryPopup.isWide ? 320 : Number.POSITIVE_INFINITY
+                    Layout.alignment: Qt.AlignHCenter
+                    visible: galleryPopup.currentTab === 0
+                    options: ["Recent", "Popular"]
+                    glyphs: ["schedule", "trending_up"]
+                    currentIndex: galleryPopup.sortMode === "recent" ? 0 : 1
+                    onActivated: function(index) {
+                        galleryPopup.sortMode = index === 0 ? "recent" : "popular"
+                        galleryPopup.currentPage = 1
+                        refresh()
                     }
+                }
 
-                    Label {
-                        text: "Enter a code provided by your teacher to access a private class space."
-                        color: "#aaa"
-                        font.pixelSize: 14
-                        wrapMode: Text.Wrap
-                        horizontalAlignment: Text.AlignHCenter
-                        Layout.fillWidth: true
-                    }
+                ListView {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 38
+                    visible: galleryPopup.currentTab === 1 && community && community.isLoggedIn
+                    orientation: ListView.Horizontal
+                    spacing: Theme.s2
+                    clip: true
+                    model: community ? community.userRooms : []
 
-                    Button {
-                        text: "Join a Room"
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 50
-                        onClicked: joinGroupPopup.open()
-                        background: Rectangle { color: "#e94560"; radius: 8 }
-                        contentItem: Text {
-                            text: parent.text; color: "#fff"
-                            font.pixelSize: 16; font.bold: true
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
+                    delegate: GhostButton {
+                        height: 38
+                        compact: true
+                        text: modelData.name
+                        iconGlyph: "meeting_room"
+                        accent: (community && community.currentGroupId === modelData.id)
+                                ? Theme.accentCyan : Theme.textSecondary
+                        onClicked: {
+                            community.selectRoom(modelData.id, modelData.name)
+                            galleryPopup.currentPage = 1
+                            refresh()
                         }
                     }
 
-                    Rectangle {
-                        Layout.fillWidth: true
-                        height: 1
-                        color: "#333"
-                        Layout.margins: 16
+                    footer: GhostButton {
+                        height: 38
+                        compact: true
+                        accent: Theme.accentMagenta
+                        iconGlyph: "add"
+                        text: community && community.currentUserRole === "teacher"
+                              ? "Create Room" : "Join Room"
+                        onClicked: {
+                            if (community && community.currentUserRole === "teacher") {
+                                createRoomPopup.open()
+                            } else {
+                                joinGroupPopup.open()
+                            }
+                        }
+                    }
+                }
+
+                // Error banner — tap to dismiss and retry.
+                Rectangle {
+                    id: errorLabel
+                    property alias text: errorText.text
+
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: errorText.implicitHeight + Theme.s4
+                    visible: false
+                    radius: Theme.radiusMd
+                    color: Theme.alpha(Theme.danger, 0.10)
+                    border.color: Theme.alpha(Theme.danger, 0.30)
+                    border.width: 1
+
+                    Row {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: Theme.s3
+                        anchors.rightMargin: Theme.s3
+                        anchors.verticalCenter: parent.verticalCenter
+                        spacing: Theme.s2
+
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "error_outline"
+                            font.family: Theme.iconFont
+                            font.pixelSize: Theme.fontXl
+                            color: Theme.danger
+                        }
+
+                        Text {
+                            id: errorText
+                            width: parent.width - Theme.fontXl - Theme.s2
+                            anchors.verticalCenter: parent.verticalCenter
+                            font.pixelSize: Theme.fontBody
+                            color: Theme.danger
+                            wrapMode: Text.Wrap
+                        }
                     }
 
-                    Button {
-                        text: "Log in as Teacher"
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 50
-                        onClicked: teacherLoginPopup.open()
-                        background: Rectangle { color: "#16213e"; border.color: "#0f3460"; radius: 8 }
-                        contentItem: Text {
-                            text: parent.text; color: "#88aaff"
-                            font.pixelSize: 16; font.bold: true
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: { errorLabel.visible = false; refresh() }
+                    }
+                }
+
+                StackLayout {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    currentIndex: (galleryPopup.currentTab === 1 && community && !community.isLoggedIn) ? 1 : 0
+
+                    Item {
+                        ColumnLayout {
+                            anchors.fill: parent
+                            spacing: Theme.s2
+
+                            BusyIndicator {
+                                Layout.alignment: Qt.AlignHCenter
+                                Layout.preferredHeight: 40
+                                running: community ? community.loading : false
+                                visible: running
+                            }
+
+                            // Room identity strip for the selected private room.
+                            Rectangle {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: 48
+                                visible: galleryPopup.currentTab === 1 && community && community.currentGroupId > 0
+                                radius: Theme.radiusMd
+                                color: Theme.bgCard
+                                border.color: Theme.borderSubtle
+                                border.width: 1
+
+                                RowLayout {
+                                    anchors.fill: parent
+                                    anchors.leftMargin: Theme.s3
+                                    anchors.rightMargin: Theme.s3
+                                    spacing: Theme.s3
+
+                                    IconBadge {
+                                        icon: "meeting_room"
+                                        size: 30
+                                        iconColor: Theme.accentMagenta
+                                        bgColor: Theme.alpha(Theme.accentMagenta, 0.10)
+                                        borderColor: Theme.alpha(Theme.accentMagenta, 0.20)
+                                    }
+
+                                    Column {
+                                        Layout.fillWidth: true
+                                        spacing: 2
+                                        Text {
+                                            text: "ROOM"
+                                            font.pixelSize: Theme.fontEyebrow
+                                            font.bold: true
+                                            font.letterSpacing: Theme.trackingTight
+                                            color: Theme.textDim
+                                        }
+                                        Text {
+                                            width: parent.width
+                                            text: community ? community.currentGroupName : ""
+                                            font.pixelSize: Theme.fontMd
+                                            font.weight: Font.DemiBold
+                                            color: Theme.textPrimary
+                                            elide: Text.ElideRight
+                                        }
+                                    }
+
+                                    Column {
+                                        spacing: 2
+                                        visible: inviteCodeText.text.length > 0
+                                        Text {
+                                            anchors.right: parent.right
+                                            text: "INVITE CODE"
+                                            font.pixelSize: Theme.fontEyebrow
+                                            font.bold: true
+                                            font.letterSpacing: Theme.trackingTight
+                                            color: Theme.textDim
+                                        }
+                                        Text {
+                                            id: inviteCodeText
+                                            anchors.right: parent.right
+                                            text: {
+                                                if (!community || !community.userRooms) return "";
+                                                for (var i = 0; i < community.userRooms.length; i++) {
+                                                    if (community.userRooms[i].id === community.currentGroupId) {
+                                                        return community.userRooms[i].inviteCode;
+                                                    }
+                                                }
+                                                return "";
+                                            }
+                                            font.pixelSize: Theme.fontMd
+                                            font.family: "monospace"
+                                            font.bold: true
+                                            font.letterSpacing: Theme.trackingTight
+                                            color: Theme.accentMagenta
+                                        }
+                                    }
+                                }
+                            }
+
+                            EmptyState {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                visible: galleryPopup.galleryItems.length === 0 && !(community && community.loading)
+                                accent: Theme.accentMagenta
+                                glyph: galleryPopup.currentTab === 0 ? "auto_awesome" : "folder_open"
+                                title: galleryPopup.currentTab === 0
+                                       ? "No public fractals yet"
+                                       : "Nothing shared in this room"
+                                subtitle: galleryPopup.currentTab === 0
+                                          ? "Be the first to share one — explore a fractal, then tap Share."
+                                          : "Fractals shared to this room will appear here."
+                            }
+
+                            GridView {
+                                id: gridView
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                visible: galleryPopup.galleryItems.length > 0
+                                clip: true
+
+                                // Columns follow the available width instead of
+                                // being pinned at two, which made desktop cards huge.
+                                readonly property int columns:
+                                    Math.max(2, Math.min(5, Math.floor(width / 260)))
+
+                                cellWidth: width / columns
+                                cellHeight: cellWidth * 0.78 + 60
+                                model: galleryPopup.galleryItems
+
+                                ScrollBar.vertical: Basic.ScrollBar {
+                                    policy: ScrollBar.AsNeeded
+                                    contentItem: Rectangle {
+                                        implicitWidth: 3
+                                        radius: 1.5
+                                        color: Theme.alpha(Theme.accentCyan, 0.25)
+                                    }
+                                }
+
+                                delegate: Item {
+                                    width: gridView.cellWidth
+                                    height: gridView.cellHeight
+
+                                    Rectangle {
+                                        anchors.fill: parent
+                                        anchors.margins: Theme.s1 + 1
+                                        radius: Theme.radiusLg
+                                        color: Theme.bgCard
+                                        border.color: delegateArea.pressed
+                                                      ? Theme.accentMagenta
+                                                      : delegateArea.containsMouse
+                                                        ? Theme.alpha(Theme.accentMagenta, 0.45)
+                                                        : Theme.borderSubtle
+                                        border.width: 1
+                                        clip: true
+
+                                        Behavior on border.color { ColorAnimation { duration: Theme.durFast } }
+
+                                        ColumnLayout {
+                                            anchors.fill: parent
+                                            anchors.margins: 1
+                                            spacing: 0
+
+                                            Rectangle {
+                                                Layout.fillWidth: true
+                                                Layout.fillHeight: true
+                                                color: Theme.bgSurface
+                                                clip: true
+
+                                                Image {
+                                                    anchors.fill: parent
+                                                    source: modelData.thumbnailUrl || ""
+                                                    fillMode: Image.PreserveAspectCrop
+                                                    asynchronous: true
+                                                    scale: delegateArea.containsMouse ? 1.04 : 1.0
+                                                    Behavior on scale {
+                                                        NumberAnimation { duration: Theme.durSlow; easing.type: Easing.OutCubic }
+                                                    }
+                                                }
+
+                                                Text {
+                                                    anchors.centerIn: parent
+                                                    visible: !modelData.thumbnailUrl
+                                                    text: "image"
+                                                    font.family: Theme.iconFont
+                                                    font.pixelSize: 32
+                                                    color: Theme.textDim
+                                                }
+                                            }
+
+                                            ColumnLayout {
+                                                Layout.fillWidth: true
+                                                Layout.margins: Theme.s2
+                                                spacing: Theme.s1
+
+                                                Text {
+                                                    Layout.fillWidth: true
+                                                    text: modelData.title || "Untitled"
+                                                    color: Theme.textPrimary
+                                                    font.pixelSize: Theme.fontBody
+                                                    font.weight: Font.DemiBold
+                                                    elide: Text.ElideRight
+                                                }
+
+                                                RowLayout {
+                                                    Layout.fillWidth: true
+                                                    spacing: Theme.s2
+
+                                                    Text {
+                                                        Layout.fillWidth: true
+                                                        text: modelData.author || "Anonymous"
+                                                        color: Theme.textSecondary
+                                                        font.pixelSize: Theme.fontSm
+                                                        elide: Text.ElideRight
+                                                    }
+
+                                                    StatChip {
+                                                        glyph: "favorite"
+                                                        value: (modelData.likes || 0).toString()
+                                                        accent: Theme.accentMagenta
+                                                    }
+
+                                                    StatChip {
+                                                        glyph: "download"
+                                                        value: (modelData.downloads || 0).toString()
+                                                        accent: Theme.textDim
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        MouseArea {
+                                            id: delegateArea
+                                            anchors.fill: parent
+                                            hoverEnabled: true
+                                            cursorShape: Qt.PointingHandCursor
+                                            onClicked: {
+                                                detailPopup.fractalData = modelData
+                                                detailPopup.open()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            RowLayout {
+                                Layout.fillWidth: true
+                                Layout.alignment: Qt.AlignHCenter
+                                Layout.bottomMargin: Theme.s2
+                                spacing: Theme.s3
+                                visible: galleryPopup.totalPages > 1
+
+                                Item { Layout.fillWidth: true }
+
+                                GhostButton {
+                                    compact: true
+                                    text: "Prev"
+                                    iconGlyph: "chevron_left"
+                                    enabled: galleryPopup.currentPage > 1
+                                    onClicked: { galleryPopup.currentPage--; refresh() }
+                                }
+
+                                Text {
+                                    text: galleryPopup.currentPage + " / " + galleryPopup.totalPages
+                                    font.pixelSize: Theme.fontBody
+                                    font.family: "monospace"
+                                    color: Theme.textSecondary
+                                }
+
+                                GhostButton {
+                                    compact: true
+                                    text: "Next"
+                                    iconGlyph: "chevron_right"
+                                    enabled: galleryPopup.currentPage < galleryPopup.totalPages
+                                    onClicked: { galleryPopup.currentPage++; refresh() }
+                                }
+
+                                Item { Layout.fillWidth: true }
+                            }
+
+                            RowLayout {
+                                Layout.alignment: Qt.AlignHCenter
+                                Layout.bottomMargin: Theme.s3
+                                spacing: Theme.s3
+                                visible: galleryPopup.currentTab === 1 && community && community.currentGroupId > 0
+
+                                GhostButton {
+                                    compact: true
+                                    text: "View Members"
+                                    iconGlyph: "group"
+                                    accent: Theme.accentPurple
+                                    onClicked: {
+                                        if (community) {
+                                            community.fetchRoomMembers(community.currentGroupId)
+                                            roomMembersPopup.open()
+                                        }
+                                    }
+                                }
+
+                                GhostButton {
+                                    compact: true
+                                    text: "Leave Room"
+                                    iconGlyph: "logout"
+                                    accent: Theme.textSecondary
+                                    onClicked: {
+                                        if (community) {
+                                            community.leaveRoom(community.currentGroupId)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Item {
+                        EmptyState {
+                            id: signedOutState
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.top: parent.top
+                            anchors.topMargin: Math.max(Theme.s6, parent.height * 0.15)
+                            width: Math.min(parent.width, 400)
+                            height: implicitHeight
+                            accent: Theme.accentMagenta
+                            glyph: "lock"
+                            title: "Join a Private Room"
+                            subtitle: "Enter a code provided by your teacher to access a private class space."
+                        }
+
+                        ColumnLayout {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.top: signedOutState.bottom
+                            anchors.topMargin: Theme.s6
+                            width: Math.min(parent.width * 0.86, 340)
+                            spacing: Theme.s4
+
+                            PrimaryButton {
+                                Layout.fillWidth: true
+                                text: "Join a Room"
+                                iconGlyph: "login"
+                                accent: Theme.accentMagenta
+                                onClicked: joinGroupPopup.open()
+                            }
+
+                            Rectangle {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: 1
+                                color: Theme.borderSubtle
+                            }
+
+                            GhostButton {
+                                Layout.fillWidth: true
+                                text: "Log in as Teacher"
+                                iconGlyph: "school"
+                                onClicked: teacherLoginPopup.open()
+                            }
                         }
                     }
                 }
@@ -595,10 +640,5 @@ Item {
         function onRoomMembersLoaded(members) {
             roomMembersPopup.membersModel = members
         }
-    }
-
-    FontLoader {
-        id: materialFont
-        source: "qrc:/fonts/MaterialIcons-Regular.ttf"
     }
 }

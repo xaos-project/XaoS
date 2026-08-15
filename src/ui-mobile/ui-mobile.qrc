@@ -1,6 +1,23 @@
 <RCC>
     <qresource prefix="/">
+        <file alias="qml/qmldir">qml/qmldir</file>
+        <file alias="qml/Theme.qml">qml/Theme.qml</file>
         <file alias="qml/main.qml">qml/main.qml</file>
+
+        <file alias="qml/ScreenHeader.qml">qml/ScreenHeader.qml</file>
+        <file alias="qml/SectionLabel.qml">qml/SectionLabel.qml</file>
+        <file alias="qml/IconBadge.qml">qml/IconBadge.qml</file>
+        <file alias="qml/SettingsCard.qml">qml/SettingsCard.qml</file>
+        <file alias="qml/StyledSlider.qml">qml/StyledSlider.qml</file>
+        <file alias="qml/ThemedSpinBox.qml">qml/ThemedSpinBox.qml</file>
+        <file alias="qml/ThemedPopup.qml">qml/ThemedPopup.qml</file>
+        <file alias="qml/ThemedField.qml">qml/ThemedField.qml</file>
+        <file alias="qml/PrimaryButton.qml">qml/PrimaryButton.qml</file>
+        <file alias="qml/GhostButton.qml">qml/GhostButton.qml</file>
+        <file alias="qml/SegmentedControl.qml">qml/SegmentedControl.qml</file>
+        <file alias="qml/EmptyState.qml">qml/EmptyState.qml</file>
+        <file alias="qml/StatChip.qml">qml/StatChip.qml</file>
+
         <file alias="qml/CommunityGallery.qml">qml/CommunityGallery.qml</file>
         <file alias="qml/ShareDialog.qml">qml/ShareDialog.qml</file>
         <file alias="qml/FractalDetail.qml">qml/FractalDetail.qml</file>
@@ -8,6 +25,8 @@
         <file alias="qml/TeacherDashboard.qml">qml/TeacherDashboard.qml</file>
         <file alias="qml/CreateRoom.qml">qml/CreateRoom.qml</file>
         <file alias="qml/RoomMembersPopup.qml">qml/RoomMembersPopup.qml</file>
+        <file alias="qml/StartScreen.qml">qml/StartScreen.qml</file>
+
         <file>fonts/MaterialIcons-Regular.ttf</file>
     </qresource>
 </RCC>
