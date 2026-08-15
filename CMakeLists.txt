@@ -97,6 +97,15 @@ project(XaoS)
 option(DEEPZOOM "Use 128-bit float for deep zoom" OFF)
 option(OPENGL "Use OpenGL" OFF)
 option(MOBILE_UI "Build with QML-based mobile UI instead of Qt Widgets" OFF)
+if(IOS)
+   set(MOBILE_UI ON CACHE BOOL
+       "Build with QML-based mobile UI instead of Qt Widgets" FORCE)
+endif()
+if(IOS AND CMAKE_OSX_SYSROOT MATCHES "iphonesimulator" AND NOT CMAKE_OSX_ARCHITECTURES)
+   set(CMAKE_OSX_ARCHITECTURES "x86_64")
+endif()
+set(XAOS_IOS_BUNDLE_ID "org.gnu.xaos" CACHE STRING "iOS bundle identifier")
+set(XAOS_IOS_DEVELOPMENT_TEAM "" CACHE STRING "Apple development team ID")
 
 if(DEEPZOOM)
    add_definitions(-DUSE_FLOAT128) # may be unsupported on Mac, unless gcc/g++ is used
@@ -169,9 +178,15 @@ if(MOBILE_UI)
 endif()
 
 # set the Application icon, the first line is the property added to Info.plist
-set(MACOSX_BUNDLE_ICON_FILE XaoS.icns)
-set(XaoS_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/ui/XaoS.icns)
-set_source_files_properties(${XaoS_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+# .icns is a macOS-only format: an iOS bundle is flat, so the file would land
+# next to the executable and never be used as an icon. Leave it out there.
+if(IOS)
+   set(XaoS_ICON "")
+else()
+   set(MACOSX_BUNDLE_ICON_FILE XaoS.icns)
+   set(XaoS_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/ui/XaoS.icns)
+   set_source_files_properties(${XaoS_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+endif()
 
 # Multilingual support: *.ts -> *.qm
 find_package(Qt6 REQUIRED COMPONENTS LinguistTools PATHS ${QT_HOST_PATH} NO_DEFAULT_PATH)
@@ -243,6 +258,32 @@ elseif(MOBILE_UI)
             QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/android"
         )
     endif()
+    # iOS-specific properties
+    if(IOS)
+        set_target_properties(XaoSMobile PROPERTIES
+            MACOSX_BUNDLE TRUE
+            MACOSX_BUNDLE_BUNDLE_NAME "XaoS"
+            MACOSX_BUNDLE_GUI_IDENTIFIER "${XAOS_IOS_BUNDLE_ID}"
+            XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "${XAOS_IOS_BUNDLE_ID}"
+            XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2"
+            XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "${XAOS_IOS_DEVELOPMENT_TEAM}"
+            "XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED[sdk=iphonesimulator*]" "NO"
+            "XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED[sdk=iphonesimulator*]" "NO"
+            "XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" ""
+        )
+        add_custom_command(TARGET XaoSMobile POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+                "${CMAKE_SOURCE_DIR}/catalogs"
+                "$<TARGET_BUNDLE_CONTENT_DIR:XaoSMobile>/catalogs"
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+                "${CMAKE_SOURCE_DIR}/tutorial"
+                "$<TARGET_BUNDLE_CONTENT_DIR:XaoSMobile>/tutorial"
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+                "${CMAKE_SOURCE_DIR}/examples"
+                "$<TARGET_BUNDLE_CONTENT_DIR:XaoSMobile>/examples"
+            COMMENT "Copying XaoS data files into the app bundle"
+        )
+    endif()
 else()
     add_executable(XaoS MACOSX_BUNDLE
        ${CXX_FILES}
@@ -281,6 +322,10 @@ if (EMSCRIPTEN)
         COMMAND "${CMAKE_SOURCE_DIR}/tools/postprocess-web" "${CMAKE_SOURCE_DIR}" "${CMAKE_BINARY_DIR}"
         COMMENT "Running postprocess-web..."
     )
+elseif(IOS)
+# Nothing to install on iOS: the app bundle is self-contained and is deployed
+# by Xcode, not by "make install". The data files are copied into the bundle
+# by the POST_BUILD step above.
 else()
 # install bundle
 if(MOBILE_UI)
@@ -296,5 +341,3 @@ install(DIRECTORY catalogs tutorial DESTINATION .)
 file(GLOB EXAMPLE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/examples/*/*.xpf)
 install(FILES ${EXAMPLE_FILES} DESTINATION examples)
 endif(EMSCRIPTEN)
-
-
