@@ -104,7 +104,7 @@ private:
   QString m_userInitial;
   int m_juliaMode = 0;
   bool m_isMandelbrot = true;
-  
+
   double m_lastPinchScale = 1.0;
 };
 

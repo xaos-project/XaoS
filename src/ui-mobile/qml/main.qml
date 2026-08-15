@@ -2,27 +2,32 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.Basic as Basic
 import QtQuick.Layouts
+import "."
 
 Item {
     id: root
     anchors.fill: parent
 
-    readonly property color bgDark:        "#0a0e1a"
-    readonly property color bgCard:        "#111827"
-    readonly property color bgSurface:     "#1a2035"
-    readonly property color accentCyan:    "#00d2ff"
-    readonly property color accentMagenta: "#e94560"
-    readonly property color accentPurple:  "#6c63ff"
-    readonly property color accentGreen:   "#00d282"
-    readonly property color accentAmber:   "#ffb432"
-    readonly property color textPrimary:   "#e8eaf0"
-    readonly property color textSecondary: "#8892a4"
-    readonly property color textDim:       "#4a5568"
-    readonly property color borderSubtle:  "#1e293b"
-    readonly property color borderBright:  "#2a3a50"
+    // Short local names for the Theme tokens, kept so the bindings throughout
+    // this file stay readable. Theme.qml is the single source of truth.
+    readonly property color bgDark:        Theme.bgDark
+    readonly property color bgCard:        Theme.bgCard
+    readonly property color bgSurface:     Theme.bgSurface
+    readonly property color accentCyan:    Theme.accentCyan
+    readonly property color accentMagenta: Theme.accentMagenta
+    readonly property color accentPurple:  Theme.accentPurple
+    readonly property color accentGreen:   Theme.accentGreen
+    readonly property color accentAmber:   Theme.accentAmber
+    readonly property color textPrimary:   Theme.textPrimary
+    readonly property color textSecondary: Theme.textSecondary
+    readonly property color textDim:       Theme.textDim
+    readonly property color borderSubtle:  Theme.borderSubtle
+    readonly property color borderBright:  Theme.borderBright
 
-    readonly property bool isWide: width >= 700
-    readonly property real panelWidth: Math.min(width * 0.94, 400)
+    readonly property bool isWide: width >= Theme.wideBreakpoint
+    readonly property real panelWidth: Math.min(width * 0.94, Theme.maxPanelWidth)
+    // Edge padding and chrome sizes step up once there is room for them.
+    readonly property int  edgeMargin: isWide ? Theme.s5 : Theme.s3
 
     property int  currentTab:0      
     property bool juliaActive:bridge ? bridge.juliaMode > 0 : false
@@ -69,8 +74,6 @@ Item {
         return hsvToColor(hue, Math.min(sat, 1), Math.min(Math.max(val, 0.35), 1))
     }
 
-    FontLoader { id: materialFont; source: "qrc:/fonts/MaterialIcons-Regular.ttf" }
-
 
 
     MultiPointTouchArea {
@@ -91,7 +94,7 @@ Item {
         property real  dragStartX:       0
         property real  dragStartY:       0
         property bool  isDragging:       false
-        property real  lastTapTime:      0   
+        property real  lastTapTime:      0
 
         onPressed: function(touchPoints) {
             if (touchPoints.length === 2) {
@@ -175,13 +178,13 @@ Item {
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.right: parent.right
-                height: 52
+                height: root.isWide ? 60 : 52
                 z: 20
 
                 Rectangle {
                     anchors.fill: parent
                     gradient: Gradient {
-                        GradientStop { position: 0.0; color: Qt.rgba(0.04, 0.055, 0.1, 0.88) }
+                        GradientStop { position: 0.0; color: Theme.alpha(Theme.bgDark, 0.88) }
                         GradientStop { position: 1.0; color: "transparent" }
                     }
                 }
@@ -189,7 +192,7 @@ Item {
                 Text {
                     anchors.centerIn: parent
                     text: "XAOS"
-                    font.pixelSize: 15
+                    font.pixelSize: root.isWide ? 17 : 15
                     font.bold: true
                     font.letterSpacing: 5
                     color: textPrimary
@@ -197,7 +200,7 @@ Item {
 
                 Row {
                     anchors.right: parent.right
-                    anchors.rightMargin: 12
+                    anchors.rightMargin: root.edgeMargin
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 8
 
@@ -213,14 +216,19 @@ Item {
                 id: statsOverlay
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
-                anchors.rightMargin: 12
+                anchors.rightMargin: root.edgeMargin
                 anchors.bottomMargin: 10
                 spacing: 4
                 z: 15
 
                 StatPill {
                     label: "FRAC"; value: bridge ? bridge.formulaName : "—"
-                    MouseArea { anchors.fill: parent; onClicked: formulasPopupVisible = true }
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: formulasPopupVisible = true
+                    }
                 }
                 StatPill { label: "ITER"; value: bridge ? bridge.maxIterations.toString() : "—" }
                 StatPill { label: "ZOOM"; value: bridge ? bridge.zoomLevel : "1.00×" }
@@ -230,8 +238,8 @@ Item {
                 id: zoomControls
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.rightMargin: 12
-                spacing: 8
+                anchors.rightMargin: root.edgeMargin
+                spacing: root.isWide ? 10 : 8
                 z: 15
 
                 ZoomFab {
@@ -277,7 +285,7 @@ Item {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 8
                 anchors.left: parent.left
-                anchors.leftMargin: 12
+                anchors.leftMargin: root.edgeMargin
                 spacing: 8
                 z: 15
 
@@ -285,8 +293,8 @@ Item {
                     visible: bridge ? bridge.autopilotActive : false
                     dotColor: accentCyan
                     labelText: "AUTOPILOT"
-                    badgeColor: Qt.rgba(0, 0.82, 1, 0.10)
-                    badgeBorder: Qt.rgba(0, 0.82, 1, 0.28)
+                    badgeColor: Theme.alpha(Theme.accentCyan, 0.10)
+                    badgeBorder: Theme.alpha(Theme.accentCyan, 0.28)
                     pulseDot: true
                 }
 
@@ -294,8 +302,8 @@ Item {
                     visible: root.juliaActive
                     dotColor: accentMagenta
                     labelText: root.juliaActive && bridge && !bridge.isMandelbrot ? "JULIA (FULL)" : "JULIA"
-                    badgeColor: Qt.rgba(0.91, 0.27, 0.38, 0.10)
-                    badgeBorder: Qt.rgba(0.91, 0.27, 0.38, 0.28)
+                    badgeColor: Theme.alpha(Theme.accentMagenta, 0.10)
+                    badgeBorder: Theme.alpha(Theme.accentMagenta, 0.28)
                     pulseDot: false
                 }
             }
@@ -313,6 +321,31 @@ Item {
             visible: currentTab === 1
             color: bgDark
             border.color: borderBright; border.width: 1
+            // On phones this is a bottom sheet, so only the top corners round.
+            // Per-corner radius needs Qt 6.7, which the Android build may not
+            // have, so square off the bottom with a masking rectangle instead.
+            radius: root.isWide ? 0 : Theme.radiusXl
+
+            Rectangle {
+                visible: !root.isWide
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                height: parent.radius
+                color: parent.color
+                border.color: parent.border.color
+                border.width: parent.border.width
+
+                // Hide the masking rectangle's own top edge.
+                Rectangle {
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.margins: 1
+                    height: 2
+                    color: paletteScreen.color
+                }
+            }
 
             ListModel {
                 id: palettePresets
@@ -332,10 +365,25 @@ Item {
                 anchors.fill: parent
                 spacing: 0
 
+                Item {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: root.isWide ? 0 : 16
+                    visible: !root.isWide
+
+                    Rectangle {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.top: parent.top
+                        anchors.topMargin: 6
+                        width: 36; height: 4; radius: 2
+                        color: borderBright
+                    }
+                }
+
                 ScreenHeader {
                     subtitle: "COLOR PALETTE"
                     title: "Palette"
                     showCount: false
+                    wide: root.isWide
                 }
 
                 Flickable {
@@ -349,7 +397,7 @@ Item {
                         policy: ScrollBar.AsNeeded
                         contentItem: Rectangle {
                             implicitWidth: 3; radius: 1.5
-                            color: Qt.rgba(0, 0.82, 1, 0.25)
+                            color: Theme.alpha(Theme.accentCyan, 0.25)
                         }
                     }
 
@@ -383,7 +431,10 @@ Item {
                                     anchors.margins: 5
                                     radius: 13
                                     border.color: paletteScreen.selectedPreset === index
-                                                  ? accentCyan : borderSubtle
+                                                  ? accentCyan
+                                                  : presetArea.containsMouse
+                                                    ? Theme.alpha(Theme.accentCyan, 0.45)
+                                                    : borderSubtle
                                     border.width: paletteScreen.selectedPreset === index ? 2 : 1
                                     clip: true
 
@@ -407,7 +458,10 @@ Item {
                                     }
 
                                     MouseArea {
+                                        id: presetArea
                                         anchors.fill: parent
+                                        hoverEnabled: true
+                                        cursorShape: Qt.PointingHandCursor
                                         onClicked: {
                                             paletteScreen.selectedPreset = index
                                             algInput.value = model.alg
@@ -456,7 +510,7 @@ Item {
                                         font.pixelSize: 13; font.weight: Font.Medium
                                         color: textPrimary
                                     }
-                                    Basic.SpinBox {
+                                    ThemedSpinBox {
                                         id: algInput
                                         Layout.preferredWidth: 140
                                         from: 1; to: 3; stepSize: 1
@@ -499,7 +553,7 @@ Item {
                                         font.pixelSize: 13; font.weight: Font.Medium
                                         color: textPrimary
                                     }
-                                    Basic.SpinBox {
+                                    ThemedSpinBox {
                                         id: seedInput
                                         Layout.preferredWidth: 140
                                         from: 0; to: 65535; stepSize: 1
@@ -542,7 +596,7 @@ Item {
                                         font.pixelSize: 13; font.weight: Font.Medium
                                         color: textPrimary
                                     }
-                                    Basic.SpinBox {
+                                    ThemedSpinBox {
                                         id: shiftInput
                                         Layout.preferredWidth: 140
                                         from: 0; to: 65534; stepSize: 1
@@ -608,8 +662,14 @@ Item {
                             Layout.leftMargin: 16; Layout.rightMargin: 16
                             Layout.bottomMargin: 12
                             height: 48; radius: 13
-                            color: Qt.rgba(0, 0.82, 1, 0.07)
-                            border.color: Qt.rgba(0, 0.82, 1, 0.22); border.width: 1
+                            color: randomArea.pressed ? Theme.alpha(Theme.accentCyan, 0.20)
+                                                      : randomArea.containsMouse
+                                                        ? Theme.alpha(Theme.accentCyan, 0.13)
+                                                        : Theme.alpha(Theme.accentCyan, 0.07)
+                            border.color: randomArea.containsMouse
+                                          ? Theme.alpha(Theme.accentCyan, 0.45)
+                                          : Theme.alpha(Theme.accentCyan, 0.22)
+                            border.width: 1
 
                             Row {
                                 anchors.centerIn: parent
@@ -617,7 +677,7 @@ Item {
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter
                                     text: "casino"
-                                    font.family: materialFont.name
+                                    font.family: Theme.iconFont
                                     font.pixelSize: 20
                                     color: accentCyan
                                 }
@@ -630,7 +690,10 @@ Item {
                             }
 
                             MouseArea {
+                                id: randomArea
                                 anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
                                 onClicked: {
                                     paletteScreen.selectedPreset = -1
                                     if (bridge) bridge.randomizePalette()
@@ -660,48 +723,11 @@ Item {
                 anchors.fill: parent
                 spacing: 0
 
-                Item {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 52
-
-                    Rectangle {
-                        anchors.top: parent.top
-                        anchors.left: parent.left; anchors.right: parent.right
-                        height: 2
-                        gradient: Gradient {
-                            orientation: Gradient.Horizontal
-                            GradientStop { position: 0.0; color: accentCyan }
-                            GradientStop { position: 0.5; color: accentPurple }
-                            GradientStop { position: 1.0; color: accentMagenta }
-                        }
-                    }
-
-                    Row {
-                        anchors.left: parent.left; anchors.leftMargin: 16
-                        anchors.bottom: parent.bottom; anchors.bottomMargin: 10
-                        spacing: 0
-
-                        Column {
-                            spacing: 2
-                            Text {
-                                text: "XAOS"
-                                font.pixelSize: 9; font.bold: true
-                                font.letterSpacing: 3
-                                color: accentCyan
-                            }
-                            Text {
-                                text: "Settings"
-                                font.pixelSize: 18; font.weight: Font.DemiBold
-                                color: textPrimary
-                            }
-                        }
-                    }
-
-                    Rectangle {
-                        anchors.bottom: parent.bottom
-                        anchors.left: parent.left; anchors.right: parent.right
-                        height: 1; color: borderSubtle
-                    }
+                ScreenHeader {
+                    subtitle: "PREFERENCES"
+                    title: "Settings"
+                    showCount: false
+                    wide: root.isWide
                 }
 
                 Flickable {
@@ -715,7 +741,7 @@ Item {
                         policy: ScrollBar.AsNeeded
                         contentItem: Rectangle {
                             implicitWidth: 3; radius: 1.5
-                            color: Qt.rgba(0, 0.82, 1, 0.25)
+                            color: Theme.alpha(Theme.accentCyan, 0.25)
                         }
                     }
 
@@ -824,8 +850,8 @@ Item {
                                     label: "Random Example"
                                     subtitle: "Load a preset location"
                                     iconColor: accentAmber
-                                    iconBg: Qt.rgba(1, 0.71, 0.2, 0.10)
-                                    iconBorder: Qt.rgba(1, 0.71, 0.2, 0.18)
+                                    iconBg: Theme.alpha(Theme.accentAmber, 0.10)
+                                    iconBorder: Theme.alpha(Theme.accentAmber, 0.18)
                                     showDivider: true
                                     onTapped: { if (bridge) bridge.loadRandomExample() }
                                 }
@@ -836,8 +862,8 @@ Item {
                                     label: "Reset View"
                                     subtitle: "Return to default position"
                                     iconColor: accentCyan
-                                    iconBg: Qt.rgba(0, 0.82, 1, 0.10)
-                                    iconBorder: Qt.rgba(0, 0.82, 1, 0.18)
+                                    iconBg: Theme.alpha(Theme.accentCyan, 0.10)
+                                    iconBorder: Theme.alpha(Theme.accentCyan, 0.18)
                                     showDivider: false
                                     onTapped: { if (bridge) bridge.resetView() }
                                 }
@@ -894,7 +920,7 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            color: Qt.rgba(0, 0, 0, 0.60)
+            color: Theme.scrim
 
             MouseArea {
                 anchors.fill: parent
@@ -973,7 +999,7 @@ Item {
                         anchors.left: parent.left; anchors.leftMargin: 12
                         anchors.verticalCenter: parent.verticalCenter
                         text: "search"
-                        font.family: materialFont.name
+                        font.family: Theme.iconFont
                         font.pixelSize: 20
                         color: textDim
                     }
@@ -1047,7 +1073,7 @@ Item {
 
                                 Text {
                                     text: "functions"
-                                    font.family: materialFont.name; font.pixelSize: 18
+                                    font.family: Theme.iconFont; font.pixelSize: 18
                                     color: accentCyan
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
@@ -1064,12 +1090,14 @@ Item {
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: userFormulaCard.userFormulaExpanded
                                       ? "expand_less" : "expand_more"
-                                font.family: materialFont.name; font.pixelSize: 20
+                                font.family: Theme.iconFont; font.pixelSize: 20
                                 color: textSecondary
                             }
 
                             MouseArea {
                                 anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
                                 onClicked: userFormulaCard.userFormulaExpanded =
                                            !userFormulaCard.userFormulaExpanded
                             }
@@ -1078,8 +1106,8 @@ Item {
                         Rectangle {
                             width: parent.width - 24; height: 32
                             anchors.horizontalCenter: parent.horizontalCenter
-                            radius: 8; color: Qt.rgba(0, 0.82, 1, 0.06)
-                            border.color: Qt.rgba(0, 0.82, 1, 0.15); border.width: 1
+                            radius: 8; color: Theme.alpha(Theme.accentCyan, 0.06)
+                            border.color: Theme.alpha(Theme.accentCyan, 0.15); border.width: 1
 
                             Text {
                                 anchors.centerIn: parent
@@ -1208,15 +1236,15 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                             radius: 10
                             color: applyArea.pressed
-                                   ? Qt.rgba(0, 0.82, 1, 0.25)
-                                   : Qt.rgba(0, 0.82, 1, 0.12)
+                                   ? Theme.alpha(Theme.accentCyan, 0.25)
+                                   : Theme.alpha(Theme.accentCyan, 0.12)
                             border.color: accentCyan; border.width: 1
 
                             Row {
                                 anchors.centerIn: parent; spacing: 6
                                 Text {
                                     text: "play_arrow"
-                                    font.family: materialFont.name; font.pixelSize: 18
+                                    font.family: Theme.iconFont; font.pixelSize: 18
                                     color: accentCyan
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
@@ -1231,6 +1259,8 @@ Item {
                             MouseArea {
                                 id: applyArea
                                 anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
                                 onClicked: userFormulaCard.applyUserFormula()
                             }
 
@@ -1255,7 +1285,7 @@ Item {
                         policy: ScrollBar.AsNeeded
                         contentItem: Rectangle {
                             implicitWidth: 3; radius: 1.5
-                            color: Qt.rgba(0, 0.82, 1, 0.25)
+                            color: Theme.alpha(Theme.accentCyan, 0.25)
                         }
                     }
 
@@ -1274,14 +1304,16 @@ Item {
                         width: formulaList.width
                         height: 52; radius: 11
                         color: fArea.pressed
-                               ? Qt.rgba(0, 0.82, 1, 0.10)
+                               ? Theme.alpha(Theme.accentCyan, 0.10)
                                : isSelected
-                                 ? Qt.rgba(0, 0.82, 1, 0.07)
-                                 : bgCard
+                                 ? Theme.alpha(Theme.accentCyan, 0.07)
+                                 : fArea.containsMouse
+                                   ? Theme.alpha(Theme.accentCyan, 0.04)
+                                   : bgCard
                         border.color: isSelected
-                                      ? Qt.rgba(0, 0.82, 1, 0.35)
-                                      : fArea.pressed
-                                        ? Qt.rgba(0, 0.82, 1, 0.2)
+                                      ? Theme.alpha(Theme.accentCyan, 0.35)
+                                      : (fArea.pressed || fArea.containsMouse)
+                                        ? Theme.alpha(Theme.accentCyan, 0.2)
                                         : borderSubtle
                         border.width: 1
 
@@ -1305,7 +1337,8 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             text: bridge ? bridge.getFormulaName(fItem.realIndex) : ""
                             font.pixelSize: 14; font.weight: Font.Medium
-                            color: fItem.isSelected ? textPrimary : "#ccd0d8"
+                            color: fItem.isSelected || fArea.containsMouse
+                                   ? textPrimary : Theme.alpha(Theme.textPrimary, 0.82)
                             elide: Text.ElideRight
                         }
 
@@ -1314,7 +1347,7 @@ Item {
                             anchors.right: parent.right; anchors.rightMargin: 14
                             anchors.verticalCenter: parent.verticalCenter
                             text: "check"
-                            font.family: materialFont.name
+                            font.family: Theme.iconFont
                             font.pixelSize: 20
                             color: accentCyan
                             visible: fItem.isSelected
@@ -1323,6 +1356,8 @@ Item {
                         MouseArea {
                             id: fArea
                             anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
                             onClicked: {
                                 if (bridge) bridge.setFormula(fItem.realIndex)
                                 formulasPopupVisible = false
@@ -1344,10 +1379,14 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: 60
+        height: root.isWide ? 64 : 60
         z: 30
-        color: Qt.rgba(0.04, 0.055, 0.1, 0.96)
+        color: Theme.alpha(Theme.bgDark, 0.96)
         border.color: borderSubtle; border.width: 1
+
+        // On a wide window the six tabs would each be hundreds of pixels
+        // across, so the row is capped and centred instead.
+        readonly property real tabRowWidth: Math.min(root.width, Theme.maxNavWidth)
 
         Rectangle {
             anchors.top: parent.top
@@ -1356,15 +1395,18 @@ Item {
             gradient: Gradient {
                 orientation: Gradient.Horizontal
                 GradientStop { position: 0.0; color: "transparent" }
-                GradientStop { position: 0.2; color: Qt.rgba(0, 0.82, 1, 0.30) }
-                GradientStop { position: 0.5; color: Qt.rgba(0, 0.82, 1, 0.55) }
-                GradientStop { position: 0.8; color: Qt.rgba(0, 0.82, 1, 0.30) }
+                GradientStop { position: 0.2; color: Theme.alpha(Theme.accentCyan, 0.30) }
+                GradientStop { position: 0.5; color: Theme.alpha(Theme.accentCyan, 0.55) }
+                GradientStop { position: 0.8; color: Theme.alpha(Theme.accentCyan, 0.30) }
                 GradientStop { position: 1.0; color: "transparent" }
             }
         }
 
         Row {
-            anchors.fill: parent
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            width: bottomNav.tabRowWidth
 
             NavTab {
                 tabIndex: 0; icon: "explore";  label: "Explore"
@@ -1409,22 +1451,30 @@ Item {
         property color  accent: accentCyan
         signal clicked()
 
-        width: 36; height: 36; radius: 11
-        color: ibArea.pressed ? Qt.rgba(accent.r, accent.g, accent.b, 0.15) : Qt.rgba(accent.r, accent.g, accent.b, 0.07)
-        border.color: ibArea.pressed ? Qt.rgba(accent.r, accent.g, accent.b, 0.40) : Qt.rgba(accent.r, accent.g, accent.b, 0.15)
+        width: root.isWide ? 40 : 36
+        height: root.isWide ? 40 : 36
+        radius: 11
+        color: ibArea.pressed ? Theme.alpha(accent, 0.15)
+                              : ibArea.containsMouse ? Theme.alpha(accent, 0.11)
+                                                     : Theme.alpha(accent, 0.07)
+        border.color: ibArea.pressed ? Theme.alpha(accent, 0.40)
+                                     : ibArea.containsMouse ? Theme.alpha(accent, 0.28)
+                                                            : Theme.alpha(accent, 0.15)
         border.width: 1
 
         Text {
             anchors.centerIn: parent
             text: parent.icon
-            font.family: materialFont.name
-            font.pixelSize: 22
+            font.family: Theme.iconFont
+            font.pixelSize: root.isWide ? 24 : 22
             color: parent.accent
         }
 
         MouseArea {
             id: ibArea
             anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
             onClicked: parent.clicked()
         }
 
@@ -1436,9 +1486,10 @@ Item {
         property string label: ""
         property string value: "—"
 
-        height: 24; radius: 8
+        height: root.isWide ? 27 : 24
+        radius: 8
         width: row.implicitWidth + 20
-        color: Qt.rgba(0.04, 0.055, 0.1, 0.72)
+        color: Theme.alpha(Theme.bgDark, 0.72)
         border.color: borderSubtle; border.width: 1
 
         Row {
@@ -1449,14 +1500,16 @@ Item {
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 text: parent.parent.label
-                font.pixelSize: 9; font.bold: true
+                font.pixelSize: root.isWide ? 10 : 9
+                font.bold: true
                 font.letterSpacing: 2
                 color: accentCyan
             }
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 text: parent.parent.value
-                font.pixelSize: 10; font.family: "monospace"
+                font.pixelSize: root.isWide ? 11 : 10
+                font.family: "monospace"
                 color: textPrimary
             }
         }
@@ -1469,26 +1522,34 @@ Item {
         signal action()
         signal release()
 
-        width: 40; height: 40; radius: 13
+        width: root.isWide ? 46 : 40
+        height: root.isWide ? 46 : 40
+        radius: 13
         color: zfArea.pressed
-               ? Qt.rgba(0, 0.82, 1, 0.13)
+               ? Theme.alpha(Theme.accentCyan, 0.13)
                : active
-                 ? Qt.rgba(0, 0.82, 1, 0.16)
-                 : Qt.rgba(0.04, 0.06, 0.1, 0.70)
-        border.color: (zfArea.pressed || active) ? accentCyan : borderBright
+                 ? Theme.alpha(Theme.accentCyan, 0.16)
+                 : zfArea.containsMouse
+                   ? Theme.alpha(Theme.accentCyan, 0.10)
+                   : Theme.alpha(Theme.bgDark, 0.70)
+        border.color: (zfArea.pressed || active) ? accentCyan
+                                                 : zfArea.containsMouse ? Theme.alpha(Theme.accentCyan, 0.45)
+                                                                        : borderBright
         border.width: 1
 
         Text {
             anchors.centerIn: parent
             text: parent.icon
-            font.family: materialFont.name
-            font.pixelSize: 24
+            font.family: Theme.iconFont
+            font.pixelSize: root.isWide ? 27 : 24
             color: (zfArea.pressed || parent.active) ? accentCyan : textPrimary
         }
 
         MouseArea {
             id: zfArea
             anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
             onPressed: { if (parent.holdable) parent.action() }
             onReleased: { if (parent.holdable) parent.release() }
             onClicked: { if (!parent.holdable) parent.action() }
@@ -1499,13 +1560,15 @@ Item {
     }
 
     component StatusBadge: Rectangle {
+        id: badge
         property color  dotColor:    accentCyan
         property string labelText:   ""
         property color  badgeColor:  "transparent"
         property color  badgeBorder: borderSubtle
         property bool   pulseDot:    false
 
-        height: 22; radius: 8
+        height: root.isWide ? 25 : 22
+        radius: 8
         width: badgeRow.implicitWidth + 18
         color: badgeColor
         border.color: badgeBorder; border.width: 1
@@ -1518,11 +1581,15 @@ Item {
             Rectangle {
                 id: dot
                 width: 6; height: 6; radius: 3
-                color: parent.parent.dotColor
+                color: badge.dotColor
                 anchors.verticalCenter: parent.verticalCenter
 
+                // Referenced through the component id: inside an Animation,
+                // `parent` is not the visual parent, so the old
+                // parent.parent.pulseDot binding was always undefined and the
+                // dot never pulsed.
                 SequentialAnimation on opacity {
-                    running: parent.parent.pulseDot
+                    running: badge.pulseDot
                     loops: Animation.Infinite
                     NumberAnimation { to: 0.3; duration: 700; easing.type: Easing.InOutSine }
                     NumberAnimation { to: 1.0; duration: 700; easing.type: Easing.InOutSine }
@@ -1531,10 +1598,11 @@ Item {
 
             Text {
                 anchors.verticalCenter: parent.verticalCenter
-                text: parent.parent.labelText
-                font.pixelSize: 9; font.bold: true
+                text: badge.labelText
+                font.pixelSize: root.isWide ? 10 : 9
+                font.bold: true
                 font.letterSpacing: 2
-                color: parent.parent.dotColor
+                color: badge.dotColor
             }
         }
     }
@@ -1546,8 +1614,18 @@ Item {
         property bool   active:   false
         signal tapped()
 
-        width: root.width / 6
-        height: 60
+        // Width comes from the capped nav row, not the whole window.
+        width: bottomNav.tabRowWidth / 6
+        height: bottomNav.height
+
+        Rectangle {
+            anchors.fill: parent
+            anchors.margins: 3
+            radius: Theme.radiusSm
+            color: navArea.containsMouse && !parent.active
+                   ? Theme.alpha(Theme.textPrimary, 0.05) : "transparent"
+            Behavior on color { ColorAnimation { duration: Theme.durFast } }
+        }
 
         Rectangle {
             anchors.top: parent.top
@@ -1564,145 +1642,31 @@ Item {
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: parent.parent.icon
-                font.family: materialFont.name
-                font.pixelSize: 23
-                color: parent.parent.active ? accentCyan : textSecondary
+                font.family: Theme.iconFont
+                font.pixelSize: root.isWide ? 25 : 23
+                color: parent.parent.active ? accentCyan
+                                            : navArea.containsMouse ? textPrimary : textSecondary
                 Behavior on color { ColorAnimation { duration: 180 } }
             }
 
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: parent.parent.label
-                font.pixelSize: 9; font.letterSpacing: 0.5
+                font.pixelSize: root.isWide ? 10 : 9
+                font.letterSpacing: 0.5
                 font.weight: Font.Medium
-                color: parent.parent.active ? accentCyan : textDim
+                color: parent.parent.active ? accentCyan
+                                            : navArea.containsMouse ? textSecondary : textDim
                 Behavior on color { ColorAnimation { duration: 180 } }
             }
         }
 
         MouseArea {
+            id: navArea
             anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
             onClicked: parent.tapped()
-        }
-    }
-
-    component ScreenHeader: Item {
-        property string subtitle: ""
-        property string title: ""
-        property string countText: ""
-        property bool   showCount: false
-
-        Layout.fillWidth: true
-        Layout.preferredHeight: showCount ? 88 : 68
-
-        Rectangle {
-            anchors.top: parent.top
-            anchors.left: parent.left; anchors.right: parent.right
-            height: 2
-            gradient: Gradient {
-                orientation: Gradient.Horizontal
-                GradientStop { position: 0.0; color: accentCyan }
-                GradientStop { position: 0.5; color: accentPurple }
-                GradientStop { position: 1.0; color: accentMagenta }
-            }
-        }
-
-        Column {
-            anchors.left: parent.left; anchors.leftMargin: 16
-            anchors.bottom: parent.bottom; anchors.bottomMargin: 10
-            spacing: 4
-
-            Text {
-                text: parent.parent.subtitle
-                font.pixelSize: 9; font.bold: true; font.letterSpacing: 3
-                color: textDim
-            }
-            Text {
-                text: parent.parent.title
-                font.pixelSize: 20; font.bold: true
-                color: textPrimary
-            }
-
-            Rectangle {
-                visible: parent.parent.showCount
-                height: 22; radius: 11
-                width: cntTxt.implicitWidth + 20
-                color: Qt.rgba(0, 0.82, 1, 0.08)
-                border.color: Qt.rgba(0, 0.82, 1, 0.15); border.width: 1
-
-                Text {
-                    id: cntTxt
-                    anchors.centerIn: parent
-                    text: parent.parent.parent.countText
-                    font.pixelSize: 10; font.weight: Font.Medium
-                    color: accentCyan
-                }
-            }
-        }
-
-        Rectangle {
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left; anchors.right: parent.right
-            height: 1; color: borderSubtle
-        }
-    }
-
-    component SectionLabel: Item {
-        property string text: ""
-        Layout.fillWidth: true
-        Layout.preferredHeight: 38
-        Layout.leftMargin: 16; Layout.rightMargin: 16
-        Layout.topMargin: 14
-
-        Text {
-            anchors.left: parent.left
-            anchors.bottom: parent.bottom; anchors.bottomMargin: 8
-            text: parent.text
-            font.pixelSize: 10; font.letterSpacing: 3
-            font.weight: Font.DemiBold
-            color: accentCyan
-        }
-
-        Rectangle {
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left; anchors.right: parent.right
-            height: 1; color: borderSubtle
-        }
-    }
-
-    component SettingsCard: Rectangle {
-        Layout.preferredHeight: innerPad.childrenRect.height + 28
-        radius: 13
-        color: bgCard
-        border.color: borderSubtle; border.width: 1
-
-        default property alias contents: innerPad.data
-
-        Item {
-            id: innerPad
-            x: 14; y: 14
-            width: parent.width - 28
-            height: childrenRect.height
-        }
-    }
-
-    component IconBadge: Rectangle {
-        property string icon:        ""
-        property color  iconColor:   accentCyan
-        property color  bgColor:     Qt.rgba(0, 0.82, 1, 0.08)
-        property color  borderColor: Qt.rgba(0, 0.82, 1, 0.18)
-        property int    size:        34
-
-        width: size; height: size; radius: size / 3
-        color: bgColor
-        border.color: borderColor; border.width: 1
-
-        Text {
-            anchors.centerIn: parent
-            text: parent.icon
-            font.family: materialFont.name
-            font.pixelSize: parent.size * 0.62
-            color: parent.iconColor
         }
     }
 
@@ -1712,7 +1676,7 @@ Item {
 
         width: 42; height: 24; radius: 12
         color: checked
-               ? Qt.rgba(0, 0.82, 1, 0.30)
+               ? Theme.alpha(Theme.accentCyan, 0.30)
                : Qt.rgba(1, 1, 1, 0.07)
         border.color: checked ? accentCyan : borderBright; border.width: 1
 
@@ -1735,46 +1699,14 @@ Item {
         Behavior on border.color { ColorAnimation { duration: 160 } }
     }
 
-    component StyledSlider: Basic.Slider {
-        implicitWidth: 180
-        implicitHeight: 28
-
-        background: Rectangle {
-            x: parent.leftPadding
-            y: parent.topPadding + parent.availableHeight / 2 - height / 2
-            width: parent.availableWidth; height: 3; radius: 1.5
-            color: Qt.rgba(1, 1, 1, 0.08)
-
-            Rectangle {
-                width: parent.parent.visualPosition * parent.width
-                height: parent.height; radius: 1.5
-                gradient: Gradient {
-                    orientation: Gradient.Horizontal
-                    GradientStop { position: 0.0; color: accentCyan }
-                    GradientStop { position: 1.0; color: accentPurple }
-                }
-            }
-        }
-
-        handle: Rectangle {
-            x: parent.leftPadding + parent.visualPosition * (parent.availableWidth - width)
-            y: parent.topPadding + parent.availableHeight / 2 - height / 2
-            width: 20; height: 20; radius: 10
-            color: parent.pressed ? accentCyan : "#ffffff"
-            border.color: accentCyan; border.width: 2
-
-            Behavior on color { ColorAnimation { duration: 100 } }
-        }
-    }
-
     component SettingsToggleRow: Item {
         property string icon:          ""
         property string label:         ""
         property string subtitle:      ""
         property bool   subtitleActive: false
         property color  iconColor:     accentCyan
-        property color  iconBg:        Qt.rgba(0, 0.82, 1, 0.10)
-        property color  iconBorder:    Qt.rgba(0, 0.82, 1, 0.18)
+        property color  iconBg:        Theme.alpha(Theme.accentCyan, 0.10)
+        property color  iconBorder:    Theme.alpha(Theme.accentCyan, 0.18)
         property bool   checked:       false
         property bool   showDivider:   true
         signal toggled()
@@ -1832,8 +1764,8 @@ Item {
         property string label:       ""
         property string subtitle:    ""
         property color  iconColor:   accentCyan
-        property color  iconBg:      Qt.rgba(0, 0.82, 1, 0.10)
-        property color  iconBorder:  Qt.rgba(0, 0.82, 1, 0.18)
+        property color  iconBg:      Theme.alpha(Theme.accentCyan, 0.10)
+        property color  iconBorder:  Theme.alpha(Theme.accentCyan, 0.18)
         property bool   showDivider: true
         signal tapped()
 
@@ -1841,7 +1773,9 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            color: arArea.pressed ? Qt.rgba(0, 0.82, 1, 0.05) : "transparent"
+            color: arArea.pressed ? Theme.alpha(Theme.accentCyan, 0.09)
+                                  : arArea.containsMouse ? Theme.alpha(Theme.accentCyan, 0.05)
+                                                         : "transparent"
             Behavior on color { ColorAnimation { duration: 100 } }
         }
 
@@ -1888,7 +1822,7 @@ Item {
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 text: "chevron_right"
-                font.family: materialFont.name
+                font.family: Theme.iconFont
                 font.pixelSize: 22
                 color: textDim
             }
@@ -1897,6 +1831,8 @@ Item {
         MouseArea {
             id: arArea
             anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
             onClicked: parent.tapped()
         }
     }
@@ -1905,13 +1841,13 @@ Item {
         property string icon:        ""
         property string label:       ""
         property color  iconColor:   accentCyan
-        property color  iconBg:      Qt.rgba(0, 0.82, 1, 0.10)
-        property color  iconBorder:  Qt.rgba(0, 0.82, 1, 0.18)
+        property color  iconBg:      Theme.alpha(Theme.accentCyan, 0.10)
+        property color  iconBorder:  Theme.alpha(Theme.accentCyan, 0.18)
         signal tapped()
 
         height: 56; radius: 13
-        color: hArea.pressed ? Qt.rgba(0, 0.82, 1, 0.06) : bgCard
-        border.color: hArea.pressed ? Qt.rgba(0, 0.82, 1, 0.25) : borderSubtle
+        color: hArea.pressed ? Theme.alpha(Theme.accentCyan, 0.06) : bgCard
+        border.color: hArea.pressed ? Theme.alpha(Theme.accentCyan, 0.25) : borderSubtle
         border.width: 1
 
         Column {

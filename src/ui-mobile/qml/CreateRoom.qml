@@ -1,29 +1,22 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import "."
 
-Popup {
+/*
+ * CreateRoom — teacher-facing dialog for creating a room, followed by a
+ * confirmation showing the generated invite code.
+ */
+ThemedPopup {
     id: createRoomPopup
-    width: Math.min(600, parent.width * 0.9)
-    height: Math.min(300, parent.height * 0.6)
-    x: Math.round((parent.width - width) / 2)
-    y: Math.round((parent.height - height) / 2)
-    modal: true
-    focus: true
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+
+    accent: Theme.accentMagenta
 
     property string createdInviteCode: ""
 
     onOpened: {
         roomNameInput.text = ""
         createdInviteCode = ""
-    }
-
-    background: Rectangle {
-        color: "#1a1a2e"
-        radius: 16
-        border.color: "#0f3460"
-        border.width: 2
     }
 
     Timer {
@@ -44,177 +37,194 @@ Popup {
         }
     }
 
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: 24
-        spacing: 16
+    contentItem: ColumnLayout {
+        spacing: Theme.s4
 
-        Label {
-            text: "Create a New Room"
-            color: "#fff"
-            font.pixelSize: 24
-            font.bold: true
-            Layout.alignment: Qt.AlignHCenter
-        }
-
-        TextField {
-            id: roomNameInput
-            placeholderText: "Room Name (e.g. Math Class 101)"
+        Row {
             Layout.fillWidth: true
-            font.pixelSize: 18
-            color: "#000"
-            placeholderTextColor: "#666"
-            background: Rectangle {
-                color: "#fff"
-                radius: 8
-                border.color: "#ccc"
-                border.width: 1
+            spacing: Theme.s3
+
+            IconBadge {
+                anchors.verticalCenter: parent.verticalCenter
+                icon: "add_business"
+                size: 40
+                iconColor: Theme.accentMagenta
+                bgColor: Theme.alpha(Theme.accentMagenta, 0.10)
+                borderColor: Theme.alpha(Theme.accentMagenta, 0.20)
+            }
+
+            Column {
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 2
+
+                Text {
+                    text: "CLASSROOM"
+                    font.pixelSize: Theme.fontEyebrow
+                    font.bold: true
+                    font.letterSpacing: Theme.trackingWide
+                    color: Theme.textDim
+                }
+                Text {
+                    text: "Create a New Room"
+                    font.pixelSize: Theme.fontXl
+                    font.bold: true
+                    color: Theme.textPrimary
+                }
             }
         }
 
-        Label {
-            visible: community ? !!community.errorMessage : false
-            text: community ? community.errorMessage : ""
-            color: "#ff6b6b"
-            wrapMode: Text.Wrap
+        ThemedField {
+            id: roomNameInput
             Layout.fillWidth: true
+            label: "ROOM NAME"
+            placeholderText: "e.g. Math Class 101"
+            accent: Theme.accentMagenta
         }
 
-        Item { Layout.fillHeight: true }
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: errorText.implicitHeight + Theme.s3
+            visible: community ? !!community.errorMessage : false
+            radius: Theme.radiusSm
+            color: Theme.alpha(Theme.danger, 0.10)
+            border.color: Theme.alpha(Theme.danger, 0.30)
+            border.width: 1
+
+            Row {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.s2
+                anchors.rightMargin: Theme.s2
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: Theme.s2
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "error_outline"
+                    font.family: Theme.iconFont
+                    font.pixelSize: Theme.fontLg
+                    color: Theme.danger
+                }
+                Text {
+                    id: errorText
+                    width: parent.width - Theme.fontLg - Theme.s2
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: community ? community.errorMessage : ""
+                    color: Theme.danger
+                    font.pixelSize: Theme.fontBody
+                    wrapMode: Text.Wrap
+                }
+            }
+        }
 
         RowLayout {
             Layout.fillWidth: true
-            spacing: 16
+            Layout.topMargin: Theme.s1
+            spacing: Theme.s3
 
-            Button {
-                text: "Cancel"
+            GhostButton {
                 Layout.fillWidth: true
+                text: "Cancel"
+                accent: Theme.textSecondary
                 onClicked: createRoomPopup.close()
-                background: Rectangle { color: "#333"; radius: 8 }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    horizontalAlignment: Text.AlignHCenter
-                }
             }
 
-            Button {
-                text: "Create"
+            PrimaryButton {
                 Layout.fillWidth: true
+                text: "Create"
+                iconGlyph: "add"
+                accent: Theme.accentMagenta
                 enabled: roomNameInput.text.length > 0 && (!community || !community.loading)
                 onClicked: {
                     if (community) {
                         community.createRoom(roomNameInput.text)
                     }
                 }
-                background: Rectangle {
-                    color: parent.enabled ? "#e94560" : "#555"
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    font.bold: true
-                    horizontalAlignment: Text.AlignHCenter
-                }
             }
         }
     }
 
-    Popup {
+    ThemedPopup {
         id: successDialog
-        x: Math.round((createRoomPopup.width - width) / 2)
-        y: Math.round((createRoomPopup.height - height) / 2)
-        width: Math.min(450, createRoomPopup.width * 0.95)
-        height: 280
-        modal: true
-        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-        
-        background: Rectangle {
-            color: "#1a1a2e"
-            radius: 16
-            border.color: "#e94560"
-            border.width: 2
-            
-            Rectangle {
-                anchors.fill: parent
-                anchors.margins: -1
-                color: "transparent"
-                border.color: "#e94560"
-                border.width: 4
-                opacity: 0.2
-                radius: 17
-            }
-        }
-        
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: 24
-            spacing: 12
-            
-            Label {
-                text: "🎉 Room Created!"
-                color: "#fff"
-                font.pixelSize: 22
-                font.bold: true
-                Layout.alignment: Qt.AlignHCenter
+        parent: createRoomPopup.parent
+        accent: Theme.accentGreen
+        maxWidth: 380
+
+        contentItem: ColumnLayout {
+            spacing: Theme.s4
+
+            Column {
+                Layout.fillWidth: true
+                spacing: Theme.s2
+
+                IconBadge {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    icon: "celebration"
+                    size: 48
+                    iconColor: Theme.accentGreen
+                    bgColor: Theme.alpha(Theme.accentGreen, 0.10)
+                    borderColor: Theme.alpha(Theme.accentGreen, 0.20)
+                }
+
+                Text {
+                    width: parent.width
+                    text: "Room Created"
+                    font.pixelSize: Theme.fontXl
+                    font.bold: true
+                    color: Theme.textPrimary
+                    horizontalAlignment: Text.AlignHCenter
+                }
             }
 
-            Item { Layout.fillHeight: true }
-            
             Rectangle {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 80
-                color: "#16213e"
-                radius: 12
-                border.color: "#0f3460"
+                Layout.preferredHeight: 92
+                radius: Theme.radiusLg
+                color: Theme.bgCard
+                border.color: Theme.alpha(Theme.accentMagenta, 0.30)
                 border.width: 1
-                
-                ColumnLayout {
+
+                Column {
                     anchors.centerIn: parent
-                    spacing: 4
-                    Label {
+                    spacing: Theme.s1
+
+                    Text {
+                        anchors.horizontalCenter: parent.horizontalCenter
                         text: "INVITE CODE"
-                        color: "#888"
-                        font.pixelSize: 12
+                        color: Theme.textDim
+                        font.pixelSize: Theme.fontEyebrow
                         font.bold: true
-                        font.letterSpacing: 2
-                        Layout.alignment: Qt.AlignHCenter
+                        font.letterSpacing: Theme.trackingWide
                     }
-                    Label {
+                    Text {
+                        anchors.horizontalCenter: parent.horizontalCenter
                         text: createRoomPopup.createdInviteCode
-                        color: "#e94560"
-                        font.pixelSize: 36
+                        color: Theme.accentMagenta
+                        font.pixelSize: 34
+                        font.family: "monospace"
                         font.bold: true
-                        font.letterSpacing: 4
-                        Layout.alignment: Qt.AlignHCenter
+                        font.letterSpacing: 6
                     }
                 }
             }
 
-            Label {
-                text: "Share this code with your students."
-                color: "#aaa"
-                font.pixelSize: 14
-                Layout.alignment: Qt.AlignHCenter
-                Layout.bottomMargin: 8
-            }
-            
-            Button {
-                text: "Got it"
+            Text {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 48
+                text: "Share this code with your students."
+                color: Theme.textSecondary
+                font.pixelSize: Theme.fontBody
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.Wrap
+            }
+
+            PrimaryButton {
+                Layout.fillWidth: true
+                text: "Got it"
+                iconGlyph: "check"
+                accent: Theme.accentGreen
                 onClicked: {
                     successDialog.close()
                     createRoomPopup.close()
-                }
-                background: Rectangle {
-                    color: parent.pressed ? "#111" : "#e94560"
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    font.pixelSize: 16; font.bold: true
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
                 }
             }
         }

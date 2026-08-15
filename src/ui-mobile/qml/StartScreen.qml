@@ -1,100 +1,84 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import "."
 
-Popup {
+/*
+ * StartScreen — welcome screen offering the three ways into the Community
+ * feature. Currently unreferenced; kept in the shared design language so it
+ * is ready if the entry flow is ever wired up.
+ */
+ThemedPopup {
     id: startScreen
-    width: Math.min(600, parent.width * 0.9)
-    height: Math.min(500, parent.height * 0.8)
-    x: Math.round((parent.width - width) / 2)
-    y: Math.round((parent.height - height) / 2)
-    modal: true
-    focus: true
+
+    maxWidth: 460
     closePolicy: Popup.NoAutoClose
 
-    background: Rectangle {
-        color: "#1a1a2e"
-        radius: 16
-        border.color: "#0f3460"
-        border.width: 2
-    }
+    contentItem: ColumnLayout {
+        spacing: Theme.s4
 
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: 24
-        spacing: 16
+        Column {
+            Layout.fillWidth: true
+            Layout.bottomMargin: Theme.s2
+            spacing: Theme.s2
 
-        Label {
-            text: "Welcome to XaoS Community"
-            color: "#fff"
-            font.pixelSize: 24
-            font.bold: true
-            Layout.alignment: Qt.AlignHCenter
+            IconBadge {
+                anchors.horizontalCenter: parent.horizontalCenter
+                icon: "groups"
+                size: 52
+                iconColor: Theme.accentCyan
+            }
+
+            Text {
+                width: parent.width
+                text: "XAOS"
+                font.pixelSize: Theme.fontEyebrow
+                font.bold: true
+                font.letterSpacing: 5
+                color: Theme.textDim
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Text {
+                width: parent.width
+                text: "Welcome to the Community"
+                font.pixelSize: Theme.fontDisplay
+                font.bold: true
+                color: Theme.textPrimary
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.Wrap
+            }
         }
 
-        Item { Layout.fillHeight: true }
-
-        Button {
-            text: "Browse Public Gallery"
+        PrimaryButton {
             Layout.fillWidth: true
-            Layout.preferredHeight: 60
+            text: "Browse Public Gallery"
+            iconGlyph: "public"
             onClicked: {
                 startScreen.close()
             }
-            background: Rectangle {
-                color: "#0f3460"
-                radius: 8
-            }
-            contentItem: Text {
-                text: parent.text; color: "#fff"
-                font.pixelSize: 18; font.bold: true
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
         }
 
-        Button {
-            text: "Join a Group (Students)"
+        PrimaryButton {
             Layout.fillWidth: true
-            Layout.preferredHeight: 60
+            text: "Join a Group (Students)"
+            iconGlyph: "group_add"
+            accent: Theme.accentMagenta
             onClicked: {
                 startScreen.close()
                 joinGroupPopup.open()
             }
-            background: Rectangle {
-                color: "#e94560"
-                radius: 8
-            }
-            contentItem: Text {
-                text: parent.text; color: "#fff"
-                font.pixelSize: 18; font.bold: true
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
         }
 
-        Button {
-            text: "Teacher Sign In"
+        GhostButton {
             Layout.fillWidth: true
-            Layout.preferredHeight: 60
+            text: "Teacher Sign In"
+            iconGlyph: "school"
+            accent: Theme.accentMagenta
             onClicked: {
                 startScreen.close()
                 teacherLoginPopup.open()
             }
-            background: Rectangle {
-                color: "#16213e"
-                radius: 8
-                border.color: "#e94560"
-                border.width: 2
-            }
-            contentItem: Text {
-                text: parent.text; color: "#e94560"
-                font.pixelSize: 18; font.bold: true
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
         }
-
-        Item { Layout.fillHeight: true }
     }
 }

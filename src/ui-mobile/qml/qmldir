@@ -1,0 +1,32 @@
+# Directory listing for qrc:/qml.
+#
+# IMPORTANT: once this file exists it becomes authoritative for this
+# directory's implicit import — components NOT listed here stop resolving by
+# filename. Every .qml component in this directory must have an entry below.
+
+singleton Theme 1.0 Theme.qml
+
+# Shared building blocks
+ScreenHeader 1.0 ScreenHeader.qml
+SectionLabel 1.0 SectionLabel.qml
+IconBadge 1.0 IconBadge.qml
+SettingsCard 1.0 SettingsCard.qml
+StyledSlider 1.0 StyledSlider.qml
+ThemedSpinBox 1.0 ThemedSpinBox.qml
+ThemedPopup 1.0 ThemedPopup.qml
+ThemedField 1.0 ThemedField.qml
+PrimaryButton 1.0 PrimaryButton.qml
+GhostButton 1.0 GhostButton.qml
+SegmentedControl 1.0 SegmentedControl.qml
+EmptyState 1.0 EmptyState.qml
+StatChip 1.0 StatChip.qml
+
+# Community screens
+CommunityGallery 1.0 CommunityGallery.qml
+ShareDialog 1.0 ShareDialog.qml
+FractalDetail 1.0 FractalDetail.qml
+JoinGroup 1.0 JoinGroup.qml
+TeacherDashboard 1.0 TeacherDashboard.qml
+CreateRoom 1.0 CreateRoom.qml
+RoomMembersPopup 1.0 RoomMembersPopup.qml
+StartScreen 1.0 StartScreen.qml

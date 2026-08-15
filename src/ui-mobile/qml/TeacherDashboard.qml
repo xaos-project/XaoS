@@ -1,15 +1,14 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import "."
 
-Popup {
+/*
+ * TeacherDashboard — teacher login / signup dialog.
+ */
+ThemedPopup {
     id: teacherLoginPopup
-    width: Math.min(600, parent.width * 0.9)
-    height: Math.min(500, parent.height * 0.9)
-    x: Math.round((parent.width - width) / 2)
-    y: Math.round((parent.height - height) / 2)
-    modal: true
-    focus: true
+
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
     property int currentTab: 0
@@ -35,13 +34,6 @@ Popup {
         }
     }
 
-    background: Rectangle {
-        color: "#1a1a2e"
-        radius: 16
-        border.color: "#0f3460"
-        border.width: 2
-    }
-
     onOpened: {
         emailInput.text = ""
         passwordInput.text = ""
@@ -51,160 +43,130 @@ Popup {
         }
     }
 
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: 24
-        spacing: 16
+    contentItem: ColumnLayout {
+        spacing: Theme.s4
 
-        RowLayout {
+        SegmentedControl {
             Layout.fillWidth: true
-            spacing: 0
+            options: ["Login", "Sign Up"]
+            glyphs: ["login", "person_add"]
+            currentIndex: teacherLoginPopup.currentTab
+            onActivated: function(index) { teacherLoginPopup.currentTab = index }
+        }
 
-            Button {
-                text: "Login"
-                Layout.fillWidth: true
-                highlighted: currentTab === 0
-                onClicked: currentTab = 0
-                background: Rectangle {
-                    color: currentTab === 0 ? "#e94560" : (parent.pressed ? "#333" : "#111")
-                    radius: 8
-                    Rectangle {
-                        width: parent.width; height: 8; anchors.bottom: parent.bottom; color: parent.color; visible: currentTab === 0
-                    }
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    font.pixelSize: 16; font.bold: currentTab === 0
-                    horizontalAlignment: Text.AlignHCenter
-                }
+        Column {
+            Layout.fillWidth: true
+            Layout.topMargin: Theme.s1
+            spacing: Theme.s1
+
+            Text {
+                text: "TEACHER ACCOUNT"
+                font.pixelSize: Theme.fontEyebrow
+                font.bold: true
+                font.letterSpacing: Theme.trackingWide
+                color: Theme.textDim
             }
-
-            Button {
-                text: "Sign Up"
-                Layout.fillWidth: true
-                highlighted: currentTab === 1
-                onClicked: currentTab = 1
-                background: Rectangle {
-                    color: currentTab === 1 ? "#e94560" : (parent.pressed ? "#333" : "#111")
-                    radius: 8
-                    Rectangle {
-                        width: parent.width; height: 8; anchors.bottom: parent.bottom; color: parent.color; visible: currentTab === 1
-                    }
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    font.pixelSize: 16; font.bold: currentTab === 1
-                    horizontalAlignment: Text.AlignHCenter
-                }
+            Text {
+                width: parent.width
+                text: teacherLoginPopup.currentTab === 0
+                      ? "Welcome Back, Teacher" : "Create a Teacher Account"
+                font.pixelSize: Theme.fontXl
+                font.bold: true
+                color: Theme.textPrimary
+                wrapMode: Text.Wrap
             }
         }
 
-        Label {
-            text: currentTab === 0 ? "Welcome Back, Teacher" : "Create a Teacher Account"
-            color: "#fff"
-            font.pixelSize: 20
-            font.bold: true
-            Layout.alignment: Qt.AlignHCenter
-            Layout.topMargin: 8
-        }
-
-        TextField {
+        ThemedField {
             id: emailInput
-            placeholderText: "Email Address"
             Layout.fillWidth: true
-            font.pixelSize: 18
-            color: "#000"
-            placeholderTextColor: "#666"
-            background: Rectangle {
-                color: "#fff"
-                radius: 8
-                border.color: "#ccc"
-                border.width: 1
-            }
+            label: "EMAIL ADDRESS"
+            placeholderText: "you@school.edu"
+            inputMethodHints: Qt.ImhEmailCharactersOnly | Qt.ImhNoAutoUppercase
         }
 
-        TextField {
+        ThemedField {
             id: displayNameInput
-            placeholderText: "Display Name (e.g. Mr. Smith)"
-            visible: currentTab === 1
             Layout.fillWidth: true
-            font.pixelSize: 18
-            color: "#000"
-            placeholderTextColor: "#666"
-            background: Rectangle {
-                color: "#fff"
-                radius: 8
-                border.color: "#ccc"
-                border.width: 1
-            }
+            visible: teacherLoginPopup.currentTab === 1
+            label: "DISPLAY NAME"
+            placeholderText: "e.g. Mr. Smith"
         }
 
-        TextField {
+        ThemedField {
             id: passwordInput
-            placeholderText: "Password"
-            echoMode: TextInput.Password
             Layout.fillWidth: true
-            font.pixelSize: 18
-            color: "#000"
-            placeholderTextColor: "#666"
-            background: Rectangle {
-                color: "#fff"
-                radius: 8
-                border.color: "#ccc"
-                border.width: 1
+            label: "PASSWORD"
+            placeholderText: "••••••••"
+            echoMode: TextInput.Password
+        }
+
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: errorText.implicitHeight + Theme.s3
+            visible: community ? !!community.errorMessage : false
+            radius: Theme.radiusSm
+            color: Theme.alpha(Theme.danger, 0.10)
+            border.color: Theme.alpha(Theme.danger, 0.30)
+            border.width: 1
+
+            Row {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.s2
+                anchors.rightMargin: Theme.s2
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: Theme.s2
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "error_outline"
+                    font.family: Theme.iconFont
+                    font.pixelSize: Theme.fontLg
+                    color: Theme.danger
+                }
+                Text {
+                    id: errorText
+                    width: parent.width - Theme.fontLg - Theme.s2
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: community ? community.errorMessage : ""
+                    color: Theme.danger
+                    font.pixelSize: Theme.fontBody
+                    wrapMode: Text.Wrap
+                }
             }
         }
-
-        Label {
-            visible: community ? !!community.errorMessage : false
-            text: community ? community.errorMessage : ""
-            color: "#ff6b6b"
-            wrapMode: Text.Wrap
-            Layout.fillWidth: true
-        }
-
-        Item { Layout.fillHeight: true }
 
         RowLayout {
             Layout.fillWidth: true
-            spacing: 16
+            Layout.topMargin: Theme.s1
+            spacing: Theme.s3
 
-            Button {
-                text: "Cancel"
+            GhostButton {
                 Layout.fillWidth: true
+                text: "Cancel"
+                accent: Theme.textSecondary
                 onClicked: teacherLoginPopup.close()
-                background: Rectangle { color: "#333"; radius: 8 }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    horizontalAlignment: Text.AlignHCenter
-                }
             }
 
-            Button {
-                text: currentTab === 0 ? "Login" : "Sign Up"
+            PrimaryButton {
                 Layout.fillWidth: true
+                text: teacherLoginPopup.currentTab === 0 ? "Login" : "Sign Up"
+                iconGlyph: teacherLoginPopup.currentTab === 0 ? "login" : "person_add"
                 enabled: {
                     if (community && community.loading) return false;
-                    if (currentTab === 0) return emailInput.text.length > 0 && passwordInput.text.length > 0;
+                    if (teacherLoginPopup.currentTab === 0)
+                        return emailInput.text.length > 0 && passwordInput.text.length > 0;
                     return emailInput.text.length > 0 && passwordInput.text.length > 0 && displayNameInput.text.length > 0;
                 }
                 onClicked: {
                     if (community) {
-                        if (currentTab === 0) {
+                        if (teacherLoginPopup.currentTab === 0) {
                             community.teacherLogin(emailInput.text, passwordInput.text)
                         } else {
                             community.teacherSignup(emailInput.text, passwordInput.text, displayNameInput.text)
                         }
                     }
-                }
-                background: Rectangle {
-                    color: parent.enabled ? "#e94560" : "#555"
-                    radius: 8
-                }
-                contentItem: Text {
-                    text: parent.text; color: "#fff"
-                    font.bold: true
-                    horizontalAlignment: Text.AlignHCenter
                 }
             }
         }
