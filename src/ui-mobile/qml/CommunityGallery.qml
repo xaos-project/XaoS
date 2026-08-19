@@ -112,6 +112,15 @@ Item {
 
             GhostButton {
                 anchors.verticalCenter: parent.verticalCenter
+                compact: true
+                text: "Server"
+                iconGlyph: "settings"
+                accent: Theme.textSecondary
+                onClicked: serverSettingsPopup.open()
+            }
+
+            GhostButton {
+                anchors.verticalCenter: parent.verticalCenter
                 visible: community ? community.isLoggedIn : false
                 compact: true
                 text: "Logout"
@@ -639,6 +648,155 @@ Item {
         target: community
         function onRoomMembersLoaded(members) {
             roomMembersPopup.membersModel = members
+        }
+    }
+
+    // ─── Server Settings Popup ───────────────────────────────────
+    ThemedPopup {
+        id: serverSettingsPopup
+        accent: Theme.accentCyan
+        maxWidth: 400
+
+        onOpened: {
+            // Parse current URL into IP and port fields
+            if (community) {
+                var url = community.serverUrl
+                // Strip protocol
+                var stripped = url.replace(/^https?:\/\//, "")
+                var parts = stripped.split(":")
+                serverIpField.text = parts[0] || ""
+                serverPortField.text = parts.length > 1 ? parts[1].replace(/\/.*/, "") : "3000"
+            }
+            settingsStatus.text = ""
+            settingsStatus.visible = false
+        }
+
+        contentItem: Column {
+            spacing: Theme.s4
+
+            Text {
+                text: "Server Settings"
+                font.pixelSize: Theme.fontXl
+                font.bold: true
+                color: Theme.textPrimary
+            }
+
+            Text {
+                width: parent.width
+                text: "Configure the community server address. Changes are saved and persist across app restarts."
+                font.pixelSize: Theme.fontBody
+                color: Theme.textSecondary
+                wrapMode: Text.Wrap
+            }
+
+            // Connection status indicator
+            Row {
+                spacing: Theme.s2
+                Rectangle {
+                    width: 10; height: 10; radius: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: (community && community.serverDiscovered) ? Theme.accentGreen : Theme.danger
+                }
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: (community && community.serverDiscovered) ? "Connected" : "Not connected"
+                    font.pixelSize: Theme.fontSm
+                    color: (community && community.serverDiscovered) ? Theme.accentGreen : Theme.danger
+                }
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: community ? "— " + community.serverUrl : ""
+                    font.pixelSize: Theme.fontSm
+                    color: Theme.textDim
+                    elide: Text.ElideRight
+                }
+            }
+
+            SectionLabel { text: "SERVER ADDRESS"; accent: Theme.accentCyan; width: parent.width }
+
+            ThemedField {
+                id: serverIpField
+                width: parent.width
+                label: "IP Address / Hostname"
+                placeholderText: "e.g. 192.168.1.100 or myserver.com"
+            }
+
+            ThemedField {
+                id: serverPortField
+                width: parent.width
+                label: "Port"
+                placeholderText: "3000"
+                inputMethodHints: Qt.ImhDigitsOnly
+            }
+
+            // Status message
+            Text {
+                id: settingsStatus
+                width: parent.width
+                visible: false
+                font.pixelSize: Theme.fontSm
+                wrapMode: Text.Wrap
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Row {
+                width: parent.width
+                spacing: Theme.s3
+
+                PrimaryButton {
+                    width: (parent.width - Theme.s3) / 2
+                    text: "Save"
+                    iconGlyph: "save"
+                    accent: Theme.accentCyan
+                    onClicked: {
+                        var ip = serverIpField.text.trim()
+                        var port = serverPortField.text.trim()
+                        if (ip.length === 0) {
+                            settingsStatus.text = "IP address cannot be empty"
+                            settingsStatus.color = Theme.danger
+                            settingsStatus.visible = true
+                            return
+                        }
+                        if (port.length === 0) port = "3000"
+                        var newUrl = "http://" + ip + ":" + port
+                        if (community) {
+                            community.serverUrl = newUrl
+                            settingsStatus.text = "Saved! Server set to " + newUrl
+                            settingsStatus.color = Theme.accentGreen
+                            settingsStatus.visible = true
+                            // Refresh gallery with new server
+                            galleryPopup.currentPage = 1
+                            galleryPopup.galleryItems = []
+                            refresh()
+                        }
+                    }
+                }
+
+                GhostButton {
+                    width: (parent.width - Theme.s3) / 2
+                    text: "Reset Default"
+                    iconGlyph: "restart_alt"
+                    accent: Theme.textSecondary
+                    onClicked: {
+                        if (community) {
+                            community.resetToDefaultUrl()
+                            // Update fields to show the new URL
+                            var url = community.serverUrl
+                            var stripped = url.replace(/^https?:\/\//, "")
+                            var parts = stripped.split(":")
+                            serverIpField.text = parts[0] || ""
+                            serverPortField.text = parts.length > 1 ? parts[1].replace(/\/.*/, "") : "3000"
+                            settingsStatus.text = "Reset to default: " + url
+                            settingsStatus.color = Theme.accentGreen
+                            settingsStatus.visible = true
+                            // Refresh gallery
+                            galleryPopup.currentPage = 1
+                            galleryPopup.galleryItems = []
+                            refresh()
+                        }
+                    }
+                }
+            }
         }
     }
 }
