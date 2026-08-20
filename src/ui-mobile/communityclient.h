@@ -32,6 +32,7 @@ class CommunityClient : public QObject {
   Q_PROPERTY(int currentGroupId READ currentGroupId NOTIFY authChanged)
   Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY authChanged)
   Q_PROPERTY(bool serverDiscovered READ isServerDiscovered NOTIFY serverDiscovered)
+  Q_PROPERTY(QString serverStatus READ serverStatus NOTIFY serverStatusChanged)
   Q_PROPERTY(QString currentDisplayName READ currentDisplayName NOTIFY authChanged)
   Q_PROPERTY(QVariantList userRooms READ userRooms NOTIFY userRoomsChanged)
 
@@ -48,6 +49,7 @@ public:
   int currentGroupId() const { return m_groupId; }
   QString currentGroupName() const { return m_groupName; }
   bool isServerDiscovered() const { return m_serverFound; }
+  QString serverStatus() const { return m_serverStatus; }
   QString currentDisplayName() const { return m_displayName; }
   QVariantList userRooms() const { return m_userRooms; }
 
@@ -86,6 +88,12 @@ public slots:
    */
   Q_INVOKABLE void downloadXpf(int fractalId);
 
+  /**
+   * Ask the configured server whether it is actually there, via /api/health.
+   * Updates serverStatus; safe to call at any time.
+   */
+  Q_INVOKABLE void probeServer();
+
 signals:
   void loadingChanged();
   void errorChanged();
@@ -93,6 +101,7 @@ signals:
   void authChanged();
   void loginSuccess();
   void serverDiscovered();
+  void serverStatusChanged();
   void userRoomsChanged();
   void roomCreated(int id, const QString &name, const QString &inviteCode);
   void roomMembersLoaded(QVariantList members);
@@ -120,11 +129,15 @@ private:
   void setLoading(bool loading);
   void setError(const QString &error);
   void startDiscovery();
+  void setServerStatus(const QString &status);
+  void noteReplyOutcome(QNetworkReply *reply);
 
   QNetworkAccessManager *m_nam;
   QUdpSocket *m_discoverySocket = nullptr;
   bool m_loading = false;
   bool m_serverFound = false;
+  QString m_serverStatus = QStringLiteral("unknown");
+  QNetworkReply *m_probeReply = nullptr;
   QString m_error;
   QString m_serverUrl;
 
