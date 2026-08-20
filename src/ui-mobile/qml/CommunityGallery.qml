@@ -669,6 +669,7 @@ Item {
             }
             settingsStatus.text = ""
             settingsStatus.visible = false
+            if (community) community.probeServer()
         }
 
         contentItem: Column {
@@ -689,19 +690,36 @@ Item {
                 wrapMode: Text.Wrap
             }
 
-            // Connection status indicator
             Row {
                 spacing: Theme.s2
+
+                readonly property string status:
+                    community ? community.serverStatus : "unknown"
+                readonly property color statusColor:
+                    status === "reachable"   ? Theme.accentGreen :
+                    status === "unreachable" ? Theme.danger :
+                                               Theme.accentAmber
+
                 Rectangle {
                     width: 10; height: 10; radius: 5
                     anchors.verticalCenter: parent.verticalCenter
-                    color: (community && community.serverDiscovered) ? Theme.accentGreen : Theme.danger
+                    color: parent.statusColor
+
+                    SequentialAnimation on opacity {
+                        running: parent.parent.status === "checking"
+                        loops: Animation.Infinite
+                        NumberAnimation { to: 0.3; duration: 500 }
+                        NumberAnimation { to: 1.0; duration: 500 }
+                    }
                 }
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
-                    text: (community && community.serverDiscovered) ? "Connected" : "Not connected"
+                    text: parent.status === "reachable"   ? "Connected"
+                        : parent.status === "unreachable" ? "Not reachable"
+                        : parent.status === "checking"    ? "Checking…"
+                                                          : "Not checked"
                     font.pixelSize: Theme.fontSm
-                    color: (community && community.serverDiscovered) ? Theme.accentGreen : Theme.danger
+                    color: parent.statusColor
                 }
                 Text {
                     anchors.verticalCenter: parent.verticalCenter

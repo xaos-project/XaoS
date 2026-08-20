@@ -38,6 +38,10 @@ CommunityClient::CommunityClient(QObject *parent)
       });
   }
   startDiscovery();
+
+  // Resolve the connection indicator against the real server once the event
+  // loop is running, so it never sits on a guess.
+  QTimer::singleShot(0, this, [this]() { probeServer(); });
 }
 
 
@@ -117,6 +121,53 @@ void CommunityClient::setServerUrl(const QString &url) {
     settings.setValue("serverUrl", url);
   }
   emit serverUrlChanged();
+  emit serverDiscovered();
+  setServerStatus(QStringLiteral("unknown"));
+  probeServer();
+}
+
+void CommunityClient::setServerStatus(const QString &status) {
+  if (m_serverStatus != status) {
+    m_serverStatus = status;
+    emit serverStatusChanged();
+  }
+}
+
+void CommunityClient::noteReplyOutcome(QNetworkReply *reply) {
+  if (!reply)
+    return;
+  const QNetworkReply::NetworkError err = reply->error();
+  const bool answered =
+      err == QNetworkReply::NoError ||
+      reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).isValid();
+  setServerStatus(answered ? QStringLiteral("reachable")
+                           : QStringLiteral("unreachable"));
+}
+
+void CommunityClient::probeServer() {
+  if (m_serverUrl.isEmpty()) {
+    setServerStatus(QStringLiteral("unreachable"));
+    return;
+  }
+
+  if (m_probeReply) {
+    m_probeReply->abort();
+    m_probeReply = nullptr;
+  }
+
+  setServerStatus(QStringLiteral("checking"));
+
+  QNetworkRequest request{QUrl(m_serverUrl + "/api/health")};
+  request.setTransferTimeout(4000);
+  QNetworkReply *reply = m_nam->get(request);
+  m_probeReply = reply;
+
+  connect(reply, &QNetworkReply::finished, this, [this, reply]() {
+    if (m_probeReply == reply)
+      m_probeReply = nullptr;
+    noteReplyOutcome(reply);
+    reply->deleteLater();
+  });
 }
 
 void CommunityClient::resetToDefaultUrl() {
@@ -254,6 +305,7 @@ void CommunityClient::upload(const QString &title, const QString &author,
 }
 
 void CommunityClient::onUploadFinished(QNetworkReply *reply) {
+  noteReplyOutcome(reply);
   reply->deleteLater();
   setLoading(false);
 
@@ -314,6 +366,7 @@ void CommunityClient::fetchGallery(int page, const QString &sort) {
 }
 
 void CommunityClient::onGalleryFinished(QNetworkReply *reply) {
+  noteReplyOutcome(reply);
   reply->deleteLater();
   setLoading(false);
 
@@ -385,6 +438,7 @@ void CommunityClient::downloadXpf(int fractalId) {
 }
 
 void CommunityClient::onXpfFinished(QNetworkReply *reply, int fractalId) {
+  noteReplyOutcome(reply);
   reply->deleteLater();
   setLoading(false);
 
@@ -564,6 +618,7 @@ void CommunityClient::likeFractal(int fractalId) {
 }
 
 void CommunityClient::onAuthFinished(QNetworkReply *reply) {
+  noteReplyOutcome(reply);
   reply->deleteLater();
   setLoading(false);
 
@@ -612,6 +667,7 @@ void CommunityClient::onAuthFinished(QNetworkReply *reply) {
 }
 
 void CommunityClient::onRoomsFinished(QNetworkReply *reply) {
+  noteReplyOutcome(reply);
   reply->deleteLater();
   if (reply->error() != QNetworkReply::NoError) return;
   
@@ -636,6 +692,7 @@ void CommunityClient::onRoomsFinished(QNetworkReply *reply) {
 }
 
 void CommunityClient::onRoomCreated(QNetworkReply *reply) {
+  noteReplyOutcome(reply);
   setLoading(false);
   reply->deleteLater();
 
@@ -664,6 +721,7 @@ void CommunityClient::onRoomCreated(QNetworkReply *reply) {
 }
 
 void CommunityClient::onRoomMembersFinished(QNetworkReply *reply) {
+  noteReplyOutcome(reply);
   reply->deleteLater();
   if (reply->error() != QNetworkReply::NoError) return;
   
@@ -687,6 +745,7 @@ void CommunityClient::onRoomMembersFinished(QNetworkReply *reply) {
 }
 
 void CommunityClient::onLeaveFinished(QNetworkReply *reply) {
+  noteReplyOutcome(reply);
   reply->deleteLater();
   if (reply->error() == QNetworkReply::NoError) {
     m_groupId = -1;
