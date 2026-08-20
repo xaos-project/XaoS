@@ -17,7 +17,8 @@
     <!-- 2. FIXED: Repaired the broken application tag syntax -->
     <application
         android:hardwareAccelerated="true"
-        android:label="XaoS Fractal Explorer"
+        android:label="XaoS"
+        android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:fullBackupOnly="false"

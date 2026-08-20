@@ -23,6 +23,14 @@ CommunityClient::CommunityClient(QObject *parent)
   m_sessionToken = settings.value("sessionToken").toString();
   m_userRole = settings.value("userRole").toString();
   m_displayName = settings.value("displayName").toString();
+
+  // Load saved server URL, or fall back to compile-time default
+  QString savedUrl = settings.value("serverUrl").toString();
+  if (!savedUrl.isEmpty()) {
+    m_serverUrl = savedUrl;
+    m_serverFound = true;
+  }
+
   if (!m_sessionToken.isEmpty()) {
       QTimer::singleShot(500, this, [this]() {
           emit authChanged();
@@ -47,12 +55,13 @@ void CommunityClient::startDiscovery() {
                << DISCOVERY_PORT << m_discoverySocket->errorString();
   }
 
+  // Only set fallback if no saved URL was loaded
   if (!m_serverFound) {
       m_serverUrl = QString(EMULATOR_FALLBACK_URL);
       m_serverFound = true;
       emit serverUrlChanged();
       emit serverDiscovered();
-      qDebug() << "CommunityClient: Initialized with emulator fallback at"
+      qDebug() << "CommunityClient: Initialized with fallback at"
                << m_serverUrl;
   }
 }
@@ -93,10 +102,25 @@ void CommunityClient::onDiscoveryDatagram() {
 
 
 void CommunityClient::setServerUrl(const QString &url) {
-  if (m_serverUrl != url) {
-    m_serverUrl = url;
-    emit serverUrlChanged();
+  // Abort any in-flight requests so stale replies don't interfere
+  m_nam->clearConnectionCache();
+
+  m_serverUrl = url;
+  m_serverFound = !url.isEmpty();
+  m_loading = false;
+  emit loadingChanged();
+
+  QSettings settings("XaoS", "CommunityClient");
+  if (url.isEmpty()) {
+    settings.remove("serverUrl");
+  } else {
+    settings.setValue("serverUrl", url);
   }
+  emit serverUrlChanged();
+}
+
+void CommunityClient::resetToDefaultUrl() {
+  setServerUrl(QString(EMULATOR_FALLBACK_URL));
 }
 
 void CommunityClient::setLoading(bool loading) {

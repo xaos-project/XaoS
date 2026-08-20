@@ -32,15 +32,14 @@ android {
      *******************************************************/
 
     namespace 'org.xaos.mobile'
-    compileSdkVersion androidCompileSdkVersion.toInteger()
-
+    compileSdkVersion 36
     buildToolsVersion androidBuildToolsVersion
 
     ndkVersion androidNdkVersion
 
     defaultConfig {
         minSdkVersion 24
-        targetSdkVersion androidCompileSdkVersion.toInteger()
+        targetSdkVersion 36
     }
 
     packaging {

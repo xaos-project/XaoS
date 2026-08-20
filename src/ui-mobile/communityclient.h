@@ -80,7 +80,7 @@ public slots:
   Q_INVOKABLE void leaveRoom(int roomId);
   Q_INVOKABLE void selectRoom(int roomId, const QString &roomName);
   Q_INVOKABLE void createRoom(const QString &roomName);
-
+  Q_INVOKABLE void resetToDefaultUrl();
   /**
    * Download the .xpf data for a specific fractal.
    */
