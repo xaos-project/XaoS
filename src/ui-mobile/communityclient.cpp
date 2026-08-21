@@ -31,6 +31,8 @@ CommunityClient::CommunityClient(QObject *parent)
     m_serverFound = true;
   }
 
+  loadLikedFractals();
+
   if (!m_sessionToken.isEmpty()) {
       QTimer::singleShot(500, this, [this]() {
           emit authChanged();
@@ -602,19 +604,73 @@ void CommunityClient::selectRoom(int roomId, const QString &roomName) {
   emit authChanged();
 }
 
+bool CommunityClient::hasLiked(int fractalId) const {
+  return m_likedFractals.contains(fractalId);
+}
+
+bool CommunityClient::likePending(int fractalId) const {
+  return m_likeInFlight.contains(fractalId);
+}
+
+void CommunityClient::loadLikedFractals() {
+  QSettings settings("XaoS", "CommunityClient");
+  const QStringList ids = settings.value("likedFractals").toStringList();
+  m_likedFractals.clear();
+  for (const QString &id : ids) {
+    bool ok = false;
+    const int value = id.toInt(&ok);
+    if (ok)
+      m_likedFractals.insert(value);
+  }
+}
+
+void CommunityClient::saveLikedFractals() {
+  QStringList ids;
+  ids.reserve(m_likedFractals.size());
+  for (int id : m_likedFractals)
+    ids << QString::number(id);
+  QSettings settings("XaoS", "CommunityClient");
+  settings.setValue("likedFractals", ids);
+}
+
 void CommunityClient::likeFractal(int fractalId) {
   if (m_serverUrl.isEmpty())
     return;
 
+  if (m_likedFractals.contains(fractalId) || m_likeInFlight.contains(fractalId))
+    return;
+
+  m_likeInFlight.insert(fractalId);
+  emit likedFractalsChanged();
+
   QUrl url(m_serverUrl +
            QStringLiteral("/api/fractals/%1/like").arg(fractalId));
   QNetworkRequest request(url);
+  request.setTransferTimeout(6000);
   if (!m_sessionToken.isEmpty()) {
     request.setRawHeader("Authorization",
                          ("Bearer " + m_sessionToken).toUtf8());
   }
+
   QNetworkReply *reply = m_nam->post(request, QByteArray());
-  connect(reply, &QNetworkReply::finished, reply, &QObject::deleteLater);
+
+  connect(reply, &QNetworkReply::finished, this, [this, reply, fractalId]() {
+    noteReplyOutcome(reply);
+    m_likeInFlight.remove(fractalId);
+
+    if (reply->error() == QNetworkReply::NoError) {
+      // Recorded only once the server has actually counted it.
+      m_likedFractals.insert(fractalId);
+      saveLikedFractals();
+      emit likeConfirmed(fractalId);
+    } else {
+      setError(QStringLiteral("Like failed: ") + reply->errorString());
+      emit likeFailed(fractalId);
+    }
+
+    emit likedFractalsChanged();
+    reply->deleteLater();
+  });
 }
 
 void CommunityClient::onAuthFinished(QNetworkReply *reply) {

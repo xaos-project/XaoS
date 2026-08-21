@@ -14,8 +14,49 @@ ThemedPopup {
 
     property var fractalData: ({})
 
+    property bool alreadyLiked: false
+    property bool likeSending: false
+    property int likeCount: 0
+    property bool showAlreadyLikedHint: false
+
+    Timer {
+        id: alreadyLikedHintTimer
+        interval: 2000
+        onTriggered: detailPopup.showAlreadyLikedHint = false
+    }
+
+    // Lets the gallery keep the card's count in step with the detail view.
+    signal likeApplied(int fractalId, int delta)
+
+    function refreshLiked() {
+        var id = (community && fractalData) ? fractalData.id : 0
+        alreadyLiked = id ? community.hasLiked(id) : false
+        likeSending = id ? community.likePending(id) : false
+        likeCount = (fractalData && fractalData.likes) ? fractalData.likes : 0
+    }
+
+    function applyLikeDelta(delta) {
+        var id = (fractalData && fractalData.id) ? fractalData.id : 0
+        if (!id)
+            return
+        likeCount = Math.max(0, likeCount + delta)
+        fractalData.likes = likeCount
+        likeApplied(id, delta)
+    }
+
+    onOpened: {
+        showAlreadyLikedHint = false
+        refreshLiked()
+    }
+    onFractalDataChanged: refreshLiked()
+
     Connections {
         target: community
+        function onLikedFractalsChanged() { detailPopup.refreshLiked() }
+        function onLikeFailed(fractalId) {
+            if (detailPopup.fractalData && detailPopup.fractalData.id === fractalId)
+                detailPopup.applyLikeDelta(-1)
+        }
         function onXpfDownloaded(fractalId, xpfData) {
             if (bridge) {
                 bridge.loadFromXpf(xpfData)
@@ -212,8 +253,9 @@ ThemedPopup {
                     font.pixelSize: Theme.fontSm + 1
                 }
                 Text {
+                    id: likesLabel
                     Layout.fillWidth: true
-                    text: (detailPopup.fractalData.likes || 0).toString()
+                    text: detailPopup.likeCount.toString()
                     color: Theme.accentMagenta
                     font.pixelSize: Theme.fontSm + 1
                     font.family: "monospace"
@@ -243,15 +285,29 @@ ThemedPopup {
 
             GhostButton {
                 Layout.preferredWidth: 64
-                iconGlyph: "favorite"
+                iconGlyph: detailPopup.alreadyLiked ? "favorite" : "favorite_border"
                 text: ""
                 accent: Theme.accentMagenta
                 enabled: !(community && community.loading)
+                opacity: detailPopup.likeSending ? 0.5
+                       : detailPopup.alreadyLiked ? 0.75 : 1.0
+
+                ToolTip.visible: detailPopup.showAlreadyLikedHint
+                ToolTip.text: "Already liked"
+
                 onClicked: {
-                    if (community && detailPopup.fractalData.id) {
-                        community.likeFractal(detailPopup.fractalData.id)
-                        detailPopup.fractalData.likes = (detailPopup.fractalData.likes || 0) + 1
+                    if (!community || !detailPopup.fractalData.id
+                            || detailPopup.likeSending)
+                        return
+
+                    if (detailPopup.alreadyLiked) {
+                        detailPopup.showAlreadyLikedHint = true
+                        alreadyLikedHintTimer.restart()
+                        return
                     }
+
+                    community.likeFractal(detailPopup.fractalData.id)
+                    detailPopup.applyLikeDelta(1)
                 }
             }
         }
