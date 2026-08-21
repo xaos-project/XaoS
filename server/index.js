@@ -303,6 +303,22 @@ app.post("/api/fractals/:id/like", (req, res) => {
 });
 
 /**
+ * DELETE /api/fractals/:id/like
+ *
+ * Take a like back. Clients cap themselves at one like per fractal and
+ * remember locally what they liked, so this only adjusts the running total.
+ */
+app.delete("/api/fractals/:id/like", (req, res) => {
+  const id = req.params.id;
+  try {
+    db.decrementLikes(id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to unlike fractal" });
+  }
+});
+
+/**
  * GET /api/fractals
  *
  * Browse the community gallery.

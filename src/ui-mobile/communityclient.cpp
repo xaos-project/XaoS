@@ -637,8 +637,10 @@ void CommunityClient::likeFractal(int fractalId) {
   if (m_serverUrl.isEmpty())
     return;
 
-  if (m_likedFractals.contains(fractalId) || m_likeInFlight.contains(fractalId))
+  if (m_likeInFlight.contains(fractalId))
     return;
+
+  const bool unliking = m_likedFractals.contains(fractalId);
 
   m_likeInFlight.insert(fractalId);
   emit likedFractalsChanged();
@@ -652,25 +654,41 @@ void CommunityClient::likeFractal(int fractalId) {
                          ("Bearer " + m_sessionToken).toUtf8());
   }
 
-  QNetworkReply *reply = m_nam->post(request, QByteArray());
+  QNetworkReply *reply = unliking ? m_nam->deleteResource(request)
+                                  : m_nam->post(request, QByteArray());
 
-  connect(reply, &QNetworkReply::finished, this, [this, reply, fractalId]() {
-    noteReplyOutcome(reply);
-    m_likeInFlight.remove(fractalId);
+  connect(reply, &QNetworkReply::finished, this,
+          [this, reply, fractalId, unliking]() {
+            noteReplyOutcome(reply);
+            m_likeInFlight.remove(fractalId);
 
-    if (reply->error() == QNetworkReply::NoError) {
-      // Recorded only once the server has actually counted it.
-      m_likedFractals.insert(fractalId);
-      saveLikedFractals();
-      emit likeConfirmed(fractalId);
-    } else {
-      setError(QStringLiteral("Like failed: ") + reply->errorString());
-      emit likeFailed(fractalId);
-    }
+            const int status =
+                reply->attribute(QNetworkRequest::HttpStatusCodeAttribute)
+                    .toInt();
 
-    emit likedFractalsChanged();
-    reply->deleteLater();
-  });
+            if (reply->error() == QNetworkReply::NoError) {
+              // Recorded only once the server has actually applied it.
+              if (unliking)
+                m_likedFractals.remove(fractalId);
+              else
+                m_likedFractals.insert(fractalId);
+              saveLikedFractals();
+              emit likeConfirmed(fractalId);
+            } else {
+              if (unliking && (status == 404 || status == 405)) {
+                setError(QStringLiteral(
+                    "This server does not support removing a like yet."));
+              } else {
+                setError((unliking ? QStringLiteral("Unlike failed: ")
+                                   : QStringLiteral("Like failed: ")) +
+                         reply->errorString());
+              }
+              emit likeFailed(fractalId);
+            }
+
+            emit likedFractalsChanged();
+            reply->deleteLater();
+          });
 }
 
 void CommunityClient::onAuthFinished(QNetworkReply *reply) {
