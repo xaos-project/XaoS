@@ -17,21 +17,14 @@ ThemedPopup {
     property bool alreadyLiked: false
     property bool likeSending: false
     property int likeCount: 0
-    property bool showAlreadyLikedHint: false
-
-    Timer {
-        id: alreadyLikedHintTimer
-        interval: 2000
-        onTriggered: detailPopup.showAlreadyLikedHint = false
-    }
-
-    // Lets the gallery keep the card's count in step with the detail view.
     signal likeApplied(int fractalId, int delta)
+    property int pendingDelta: 0
 
     function refreshLiked() {
         var id = (community && fractalData) ? fractalData.id : 0
-        alreadyLiked = id ? community.hasLiked(id) : false
         likeSending = id ? community.likePending(id) : false
+        if (!likeSending)
+            alreadyLiked = id ? community.hasLiked(id) : false
         likeCount = (fractalData && fractalData.likes) ? fractalData.likes : 0
     }
 
@@ -44,18 +37,24 @@ ThemedPopup {
         likeApplied(id, delta)
     }
 
-    onOpened: {
-        showAlreadyLikedHint = false
-        refreshLiked()
-    }
+    onOpened: refreshLiked()
     onFractalDataChanged: refreshLiked()
 
     Connections {
         target: community
         function onLikedFractalsChanged() { detailPopup.refreshLiked() }
-        function onLikeFailed(fractalId) {
+        function onLikeConfirmed(fractalId) {
             if (detailPopup.fractalData && detailPopup.fractalData.id === fractalId)
-                detailPopup.applyLikeDelta(-1)
+                detailPopup.pendingDelta = 0
+        }
+        function onLikeFailed(fractalId) {
+            // Reverse whichever way the toggle went.
+            if (detailPopup.fractalData && detailPopup.fractalData.id === fractalId
+                    && detailPopup.pendingDelta !== 0) {
+                detailPopup.applyLikeDelta(-detailPopup.pendingDelta)
+                detailPopup.alreadyLiked = detailPopup.pendingDelta < 0
+                detailPopup.pendingDelta = 0
+            }
         }
         function onXpfDownloaded(fractalId, xpfData) {
             if (bridge) {
@@ -289,25 +288,18 @@ ThemedPopup {
                 text: ""
                 accent: Theme.accentMagenta
                 enabled: !(community && community.loading)
-                opacity: detailPopup.likeSending ? 0.5
-                       : detailPopup.alreadyLiked ? 0.75 : 1.0
-
-                ToolTip.visible: detailPopup.showAlreadyLikedHint
-                ToolTip.text: "Already liked"
+                opacity: detailPopup.likeSending ? 0.5 : 1.0
 
                 onClicked: {
                     if (!community || !detailPopup.fractalData.id
                             || detailPopup.likeSending)
                         return
 
-                    if (detailPopup.alreadyLiked) {
-                        detailPopup.showAlreadyLikedHint = true
-                        alreadyLikedHintTimer.restart()
-                        return
-                    }
-
+                    var delta = detailPopup.alreadyLiked ? -1 : 1
+                    detailPopup.pendingDelta = delta
                     community.likeFractal(detailPopup.fractalData.id)
-                    detailPopup.applyLikeDelta(1)
+                    detailPopup.applyLikeDelta(delta)
+                    detailPopup.alreadyLiked = delta > 0
                 }
             }
         }

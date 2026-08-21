@@ -219,6 +219,10 @@ function incrementLikes(id) {
   db.prepare("UPDATE fractals SET likes = likes + 1 WHERE id = ?").run(id);
 }
 
+function decrementLikes(id) {
+  db.prepare("UPDATE fractals SET likes = MAX(likes - 1, 0) WHERE id = ?").run(id);
+}
+
 // ─── User Functions ──────────────────────────────────────────
 
 function createUser({ email, passwordHash, displayName, role }) {
@@ -303,6 +307,7 @@ module.exports = {
   getXpfData,
   incrementDownloads: (id) => db.prepare("UPDATE fractals SET downloads = downloads + 1 WHERE id = ?").run(id),
   incrementLikes,
+  decrementLikes,
   createUser,
   getUserByEmail,
   createGroup,
