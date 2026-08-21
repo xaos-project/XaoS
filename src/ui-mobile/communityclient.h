@@ -2,6 +2,7 @@
 #define COMMUNITYCLIENT_H
 
 #include <QObject>
+#include <QSet>
 #include <QString>
 #include <QVariantList>
 
@@ -77,6 +78,8 @@ public slots:
   Q_INVOKABLE void teacherSignup(const QString &email, const QString &password, const QString &displayName);
   Q_INVOKABLE void joinGroup(const QString &inviteCode, const QString &displayName);
   Q_INVOKABLE void likeFractal(int fractalId);
+  Q_INVOKABLE bool hasLiked(int fractalId) const;
+  Q_INVOKABLE bool likePending(int fractalId) const;
   Q_INVOKABLE void logout();
   Q_INVOKABLE void fetchUserRooms();
   Q_INVOKABLE void leaveRoom(int roomId);
@@ -102,6 +105,11 @@ signals:
   void loginSuccess();
   void serverDiscovered();
   void serverStatusChanged();
+  void likedFractalsChanged();
+  /** The server accepted the like; carries the fractal id. */
+  void likeConfirmed(int fractalId);
+  /** The like never reached the server, so any optimistic count must revert. */
+  void likeFailed(int fractalId);
   void userRoomsChanged();
   void roomCreated(int id, const QString &name, const QString &inviteCode);
   void roomMembersLoaded(QVariantList members);
@@ -130,6 +138,8 @@ private:
   void setError(const QString &error);
   void startDiscovery();
   void setServerStatus(const QString &status);
+  void loadLikedFractals();
+  void saveLikedFractals();
   void noteReplyOutcome(QNetworkReply *reply);
 
   QNetworkAccessManager *m_nam;
@@ -137,6 +147,8 @@ private:
   bool m_loading = false;
   bool m_serverFound = false;
   QString m_serverStatus = QStringLiteral("unknown");
+  QSet<int> m_likedFractals;
+  QSet<int> m_likeInFlight;
   QNetworkReply *m_probeReply = nullptr;
   QString m_error;
   QString m_serverUrl;

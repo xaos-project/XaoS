@@ -62,6 +62,20 @@ Item {
         }
     }
 
+    // Keep a card's like count in step with the detail popup. The grid binds to
+    // galleryItems, and mutating an element in place emits no change signal, so
+    // the list has to be reassigned as a fresh array to re-evaluate bindings.
+    function bumpCardLikes(fractalId, delta) {
+        var items = galleryPopup.galleryItems
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].id === fractalId) {
+                items[i].likes = Math.max(0, (items[i].likes || 0) + delta)
+                galleryPopup.galleryItems = items.slice()
+                return
+            }
+        }
+    }
+
     function refresh() {
         errorLabel.visible = false
         if (community) {
@@ -626,6 +640,9 @@ Item {
     FractalDetail {
         id: detailPopup
         parent: Overlay.overlay
+        onLikeApplied: function(fractalId, delta) {
+            galleryPopup.bumpCardLikes(fractalId, delta)
+        }
     }
     JoinGroup {
         id: joinGroupPopup
