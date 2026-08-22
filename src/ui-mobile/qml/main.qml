@@ -31,7 +31,6 @@ Item {
 
     property int  currentTab:0      
     property bool juliaActive:bridge ? bridge.juliaMode > 0 : false
-    property bool formulasPopupVisible: false
 
     function hsvToColor(h, s, v) {
         var i = Math.floor(h * 6)
@@ -227,7 +226,7 @@ Item {
                         anchors.fill: parent
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: formulasPopupVisible = true
+                        onClicked: currentTab = 4
                     }
                 }
                 StatPill { label: "ITER"; value: bridge ? bridge.maxIterations.toString() : "—" }
@@ -887,144 +886,192 @@ Item {
                 id: communityGallery
             }
         }
-    }
 
-    Item {
-        id: formulasPopup
-        anchors.fill: parent
-        z: 40
-        opacity: formulasPopupVisible ? 1 : 0
-        visible: opacity > 0
-        Behavior on opacity { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
-        property var filteredFormulaIndices: []
+        Item {
+            id: formulasPopup
+            anchors.fill: parent
+            visible: currentTab === 4
 
-        function updateFormulaFilter() {
-            var result = []
-            var query = formulaSearch.text.toLowerCase()
-            var count = bridge ? bridge.formulaCount : 0
-            for (var i = 0; i < count; i++) {
-                var name = bridge.getFormulaName(i)
-                if (query.length === 0 || name.toLowerCase().indexOf(query) !== -1) {
+            property var filteredFormulaIndices: []
+            property var groupedFormulas: []
+
+            readonly property real contentPad: root.isWide ? Theme.s6 : Theme.s4
+            readonly property real contentWidth:
+                Math.min(width - contentPad * 2, 900)
+
+            readonly property var familyRules: [
+                { re: /^Mandelbrot|Mandelbar|Lambda|Phoenix/i,
+                  family: "Mandelbrot", glyph: "blur_on" },
+                { re: /Barnsley/i, family: "Barnsley", glyph: "account_tree" },
+                { re: /^Newton/i,  family: "Newton",   glyph: "hub" },
+                { re: /^Magnet/i,  family: "Magnet",   glyph: "bolt" },
+                { re: /Sierpinski|Koch|Hornflake|Carpet|Octo|Circle|Clock|Triangle/i,
+                  family: "Geometric", glyph: "change_history" },
+                { re: /User/i, family: "Custom", glyph: "functions" }
+            ]
+
+            function familyFor(name) {
+                for (var r = 0; r < familyRules.length; r++) {
+                    if (familyRules[r].re.test(name))
+                        return familyRules[r]
+                }
+                return { family: "Other", glyph: "auto_awesome" }
+            }
+
+            function updateFormulaFilter() {
+                var result = []
+                var order = []
+                var buckets = ({})
+                var query = formulaSearch.text.toLowerCase()
+                var count = bridge ? bridge.formulaCount : 0
+
+                for (var i = 0; i < count; i++) {
+                    var name = bridge.getFormulaName(i)
+                    if (query.length > 0 && name.toLowerCase().indexOf(query) === -1)
+                        continue
                     result.push(i)
+
+                    var rule = familyFor(name)
+                    if (buckets[rule.family] === undefined) {
+                        buckets[rule.family] = { family: rule.family,
+                                                 glyph: rule.glyph,
+                                                 items: [] }
+                        order.push(rule.family)
+                    }
+                    buckets[rule.family].items.push(i)
+                }
+
+                // Empty families are simply absent, so filtering never leaves
+                // a stranded header behind.
+                var groups = []
+                for (var g = 0; g < order.length; g++)
+                    groups.push(buckets[order[g]])
+
+                filteredFormulaIndices = result
+                groupedFormulas = groups
+            }
+
+            onVisibleChanged: {
+                if (visible) {
+                    formulaSearch.text = ""
+                    updateFormulaFilter()
+                } else {
+                    releaseTextFocus()
                 }
             }
-            filteredFormulaIndices = result
-        }
 
-        onVisibleChanged: {
-            if (visible) {
-                formulaSearch.text = ""
-                updateFormulaFilter()
+            function releaseTextFocus() {
+                formulaSearch.focus = false
+                userFormulaInput.focus = false
+                userInitialInput.focus = false
+                root.forceActiveFocus()
+                Qt.inputMethod.commit()
+                Qt.inputMethod.hide()
             }
-        }
 
-        Rectangle {
-            anchors.fill: parent
-            color: Theme.scrim
-
-            MouseArea {
+            Rectangle {
                 anchors.fill: parent
-                onClicked: formulasPopupVisible = false
+                color: bgDark
             }
-        }
-
-        readonly property real kbOffset: {
-            if (!Qt.inputMethod.visible) return 0
-            var h = Qt.inputMethod.keyboardRectangle.height
-            if (h > root.height) h = h / Screen.devicePixelRatio
-            return Math.min(h, root.height * 0.55)
-        }
-
-        Rectangle {
-            id: formulasSheet
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: root.isWide ? undefined : parent.bottom
-            anchors.bottomMargin: root.isWide ? 0 : formulasPopup.kbOffset
-            anchors.verticalCenter: root.isWide ? parent.verticalCenter : undefined
-            width: root.isWide ? Math.min(parent.width * 0.86, 480) : parent.width
-            height: root.isWide ? Math.min(parent.height * 0.80, 600)
-                                : Math.min(Math.min(parent.height * 0.72, 540),
-                                           parent.height - formulasPopup.kbOffset - 8)
-
-            Behavior on anchors.bottomMargin {
-                NumberAnimation { duration: 160; easing.type: Easing.OutCubic }
-            }
-            radius: 20
-            color: bgDark
-            border.color: borderBright; border.width: 1
-
-            transform: Translate {
-                y: formulasPopupVisible ? 0 : 36
-                Behavior on y { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
-            }
-            MouseArea { anchors.fill: parent; onClicked: {} }
 
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 0
 
-                Item {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: root.isWide ? 10 : 20
-
-                    Rectangle {
-                        visible: !root.isWide
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.top: parent.top; anchors.topMargin: 8
-                        width: 36; height: 4; radius: 2
-                        color: borderBright
-                    }
-                }
-
                 ScreenHeader {
                     subtitle: "FORMULA LIBRARY"
                     title: "Choose a Fractal"
+                    wide: root.isWide
+                    contentInset: Math.max(formulasPopup.contentPad,
+                                           (formulasPopup.width - formulasPopup.contentWidth) / 2)
+                    showCount: true
                     countText: bridge
                                ? (formulaSearch.text.length > 0
                                   ? (formulasPopup.filteredFormulaIndices.length + " results")
                                   : (bridge.formulaCount + " fractals"))
                                : "—"
-                    showCount: true
                 }
 
-                Rectangle {
+                Item {
                     Layout.fillWidth: true
-                    Layout.leftMargin: 16; Layout.rightMargin: 16
-                    Layout.topMargin: 10; Layout.bottomMargin: 4
-                    height: 40; radius: 11
-                    color: bgCard
-                    border.color: borderBright; border.width: 1
+                    Layout.fillHeight: true
 
-                    Text {
-                        anchors.left: parent.left; anchors.leftMargin: 12
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: "search"
-                        font.family: Theme.iconFont
-                        font.pixelSize: 20
-                        color: textDim
-                    }
+                    ColumnLayout {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        width: formulasPopup.contentWidth
+                        spacing: 0
 
-                    TextInput {
-                        id: formulaSearch
-                        anchors.left: parent.left; anchors.leftMargin: 40
-                        anchors.right: parent.right; anchors.rightMargin: 12
-                        anchors.verticalCenter: parent.verticalCenter
-                        color: textPrimary
-                        font.pixelSize: 13
-                        clip: true
-                        onTextChanged: formulasPopup.updateFormulaFilter()
+                        Rectangle {
+                            Layout.fillWidth: true
+                            Layout.topMargin: Theme.s3
+                            Layout.bottomMargin: Theme.s1
+                            height: 42
+                            radius: Theme.radiusMd
+                            color: bgCard
+                            border.color: formulaSearch.activeFocus ? accentCyan : borderBright
+                            border.width: 1
+                            Behavior on border.color { ColorAnimation { duration: Theme.durFast } }
 
-                        Text {
-                            anchors.fill: parent
-                            anchors.leftMargin: 0
-                            verticalAlignment: Text.AlignVCenter
-                            text: "Search fractals…"
-                            font.pixelSize: 13
-                            color: textDim
-                            visible: formulaSearch.text.length === 0
+                            Text {
+                                anchors.left: parent.left; anchors.leftMargin: 12
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: "search"
+                                font.family: Theme.iconFont
+                                font.pixelSize: 20
+                                color: textDim
+                            }
+
+                            TextInput {
+                                id: formulaSearch
+                                anchors.left: parent.left; anchors.leftMargin: 40
+                                anchors.right: clearSearch.left; anchors.rightMargin: 6
+                                anchors.verticalCenter: parent.verticalCenter
+                                color: textPrimary
+                                font.pixelSize: 13
+                                clip: true
+                                onTextChanged: formulasPopup.updateFormulaFilter()
+
+                                Text {
+                                    anchors.fill: parent
+                                    verticalAlignment: Text.AlignVCenter
+                                    text: "Search fractals…"
+                                    font.pixelSize: 13
+                                    color: textDim
+                                    visible: formulaSearch.text.length === 0
+                                }
+                            }
+
+                            Rectangle {
+                                id: clearSearch
+                                anchors.right: parent.right; anchors.rightMargin: 8
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: 24; height: 24; radius: 12
+                                visible: formulaSearch.text.length > 0
+                                color: clearArea.containsMouse
+                                       ? Theme.alpha(Theme.textPrimary, 0.10) : "transparent"
+
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: "close"
+                                    font.family: Theme.iconFont
+                                    font.pixelSize: 16
+                                    color: textSecondary
+                                }
+
+                                MouseArea {
+                                    id: clearArea
+                                    anchors.fill: parent
+                                    hoverEnabled: true
+                                    cursorShape: Qt.PointingHandCursor
+                                    onClicked: {
+                                        formulaSearch.text = ""
+                                        formulaSearch.forceActiveFocus()
+                                    }
+                                }
+                            }
                         }
-                    }
-                }
 
                 Rectangle {
                     id: userFormulaCard
@@ -1052,7 +1099,7 @@ Item {
                         bridge.setUserFormula(userFormulaInput.text)
                         if (userInitialInput.text.length > 0)
                             bridge.setUserInitial(userInitialInput.text)
-                        Qt.inputMethod.hide()
+                        formulasPopup.releaseTextFocus()
                     }
 
                     Column {
@@ -1271,105 +1318,184 @@ Item {
                     }
                 }
 
-                ListView {
-                    id: formulaList
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.leftMargin: 16; Layout.rightMargin: 16
-                    Layout.topMargin: 4
-                    clip: true
-                    spacing: 5
-                    model: formulasPopup.filteredFormulaIndices
+                        ListView {
+                            id: formulaList
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.topMargin: Theme.s3
+                            Layout.bottomMargin: Theme.s2
+                            clip: true
+                            spacing: Theme.s4
+                            model: formulasPopup.groupedFormulas
 
-                    ScrollBar.vertical: Basic.ScrollBar {
-                        policy: ScrollBar.AsNeeded
-                        contentItem: Rectangle {
-                            implicitWidth: 3; radius: 1.5
-                            color: Theme.alpha(Theme.accentCyan, 0.25)
-                        }
-                    }
+                            ScrollBar.vertical: Basic.ScrollBar {
+                                policy: ScrollBar.AsNeeded
+                                contentItem: Rectangle {
+                                    implicitWidth: 3; radius: 1.5
+                                    color: Theme.alpha(Theme.accentCyan, 0.25)
+                                }
+                            }
 
-                    Text {
-                        anchors.centerIn: parent
-                        visible: formulaList.count === 0
-                        text: "No fractals match your search"
-                        font.pixelSize: 13
-                        color: textDim
-                    }
-
-                    delegate: Rectangle {
-                        id: fItem
-                        property int realIndex: modelData
-                        property bool isSelected: bridge ? (bridge.getFormulaName(realIndex) === bridge.formulaName) : false
-                        width: formulaList.width
-                        height: 52; radius: 11
-                        color: fArea.pressed
-                               ? Theme.alpha(Theme.accentCyan, 0.10)
-                               : isSelected
-                                 ? Theme.alpha(Theme.accentCyan, 0.07)
-                                 : fArea.containsMouse
-                                   ? Theme.alpha(Theme.accentCyan, 0.04)
-                                   : bgCard
-                        border.color: isSelected
-                                      ? Theme.alpha(Theme.accentCyan, 0.35)
-                                      : (fArea.pressed || fArea.containsMouse)
-                                        ? Theme.alpha(Theme.accentCyan, 0.2)
-                                        : borderSubtle
-                        border.width: 1
-
-                        Rectangle {
-                            id: idxBadge
-                            x: 12; anchors.verticalCenter: parent.verticalCenter
-                            width: 30; height: 30; radius: 9
-                            color: Qt.rgba(1, 1, 1, 0.04)
-                            Text {
+                            EmptyState {
                                 anchors.centerIn: parent
-                                text: (fItem.realIndex + 1).toString()
-                                font.pixelSize: 10; font.family: "monospace"
-                                font.weight: Font.Medium
-                                color: textDim
+                                width: Math.min(parent.width, 320)
+                                visible: formulaList.count === 0
+                                glyph: "search_off"
+                                title: "No fractals match"
+                                subtitle: "Try a shorter search, or clear it to see all " +
+                                          (bridge ? bridge.formulaCount : 0) + "."
+                            }
+
+                            delegate: Column {
+                                id: groupDelegate
+                                property var group: modelData
+                                width: formulaList.width
+                                spacing: Theme.s2
+
+                                Item {
+                                    width: parent.width
+                                    height: 24
+
+                                    Row {
+                                        anchors.left: parent.left
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        spacing: Theme.s2
+
+                                        Text {
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            text: groupDelegate.group.glyph
+                                            font.family: Theme.iconFont
+                                            font.pixelSize: 16
+                                            color: accentCyan
+                                        }
+                                        Text {
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            text: groupDelegate.group.family.toUpperCase()
+                                            font.pixelSize: Theme.fontXs
+                                            font.weight: Font.DemiBold
+                                            font.letterSpacing: Theme.trackingTight
+                                            color: accentCyan
+                                        }
+                                        Text {
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            text: groupDelegate.group.items.length
+                                            font.pixelSize: Theme.fontXs
+                                            color: textDim
+                                        }
+                                    }
+
+                                    Rectangle {
+                                        anchors.bottom: parent.bottom
+                                        anchors.left: parent.left; anchors.right: parent.right
+                                        height: 1
+                                        color: borderSubtle
+                                    }
+                                }
+
+                                Flow {
+                                    id: cellFlow
+                                    width: parent.width
+                                    spacing: Theme.s2
+                                    // Two columns once there is room for them.
+                                    readonly property real cellWidth:
+                                        root.isWide ? (width - spacing) / 2 : width
+
+                                    Repeater {
+                                        model: groupDelegate.group.items
+
+                                        delegate: Rectangle {
+                                            id: fItem
+                                            property int realIndex: modelData
+                                            property bool isSelected: bridge
+                                                ? (bridge.getFormulaName(realIndex) === bridge.formulaName)
+                                                : false
+
+                                            width: cellFlow.cellWidth
+                                            height: 52
+                                            radius: Theme.radiusMd
+                                            color: fArea.pressed
+                                                   ? Theme.alpha(Theme.accentCyan, 0.10)
+                                                   : isSelected
+                                                     ? Theme.alpha(Theme.accentCyan, 0.07)
+                                                     : fArea.containsMouse
+                                                       ? Theme.alpha(Theme.accentCyan, 0.04)
+                                                       : bgCard
+                                            border.color: isSelected
+                                                          ? Theme.alpha(Theme.accentCyan, 0.35)
+                                                          : (fArea.pressed || fArea.containsMouse)
+                                                            ? Theme.alpha(Theme.accentCyan, 0.2)
+                                                            : borderSubtle
+                                            border.width: 1
+                                            clip: true
+
+                                            Rectangle {
+                                                anchors.left: parent.left
+                                                anchors.top: parent.top
+                                                anchors.bottom: parent.bottom
+                                                width: 3
+                                                color: accentCyan
+                                                visible: fItem.isSelected
+                                            }
+
+                                            IconBadge {
+                                                id: fBadge
+                                                x: 12
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                size: 30
+                                                icon: groupDelegate.group.glyph
+                                                iconColor: fItem.isSelected ? accentCyan : textSecondary
+                                                bgColor: fItem.isSelected
+                                                         ? Theme.alpha(Theme.accentCyan, 0.10)
+                                                         : Theme.alpha(Theme.textPrimary, 0.04)
+                                                borderColor: fItem.isSelected
+                                                             ? Theme.alpha(Theme.accentCyan, 0.25)
+                                                             : "transparent"
+                                            }
+
+                                            Text {
+                                                anchors.left: fBadge.right; anchors.leftMargin: 10
+                                                anchors.right: fCheck.left; anchors.rightMargin: 6
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                text: bridge ? bridge.getFormulaName(fItem.realIndex) : ""
+                                                font.pixelSize: 14
+                                                font.weight: fItem.isSelected ? Font.DemiBold : Font.Medium
+                                                color: fItem.isSelected || fArea.containsMouse
+                                                       ? textPrimary
+                                                       : Theme.alpha(Theme.textPrimary, 0.82)
+                                                elide: Text.ElideRight
+                                            }
+
+                                            Text {
+                                                id: fCheck
+                                                anchors.right: parent.right; anchors.rightMargin: 12
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                text: "check"
+                                                font.family: Theme.iconFont
+                                                font.pixelSize: 20
+                                                color: accentCyan
+                                                visible: fItem.isSelected
+                                            }
+
+                                            MouseArea {
+                                                id: fArea
+                                                anchors.fill: parent
+                                                hoverEnabled: true
+                                                cursorShape: Qt.PointingHandCursor
+                                                onClicked: {
+                                                    if (bridge) bridge.setFormula(fItem.realIndex)
+                                                    currentTab = 0
+                                                }
+                                            }
+
+                                            Behavior on color        { ColorAnimation { duration: 100 } }
+                                            Behavior on border.color { ColorAnimation { duration: 100 } }
+                                        }
+                                    }
+                                }
                             }
                         }
-
-                        Text {
-                            anchors.left: idxBadge.right; anchors.leftMargin: 10
-                            anchors.right: checkMark.left; anchors.rightMargin: 8
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: bridge ? bridge.getFormulaName(fItem.realIndex) : ""
-                            font.pixelSize: 14; font.weight: Font.Medium
-                            color: fItem.isSelected || fArea.containsMouse
-                                   ? textPrimary : Theme.alpha(Theme.textPrimary, 0.82)
-                            elide: Text.ElideRight
-                        }
-
-                        Text {
-                            id: checkMark
-                            anchors.right: parent.right; anchors.rightMargin: 14
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: "check"
-                            font.family: Theme.iconFont
-                            font.pixelSize: 20
-                            color: accentCyan
-                            visible: fItem.isSelected
-                        }
-
-                        MouseArea {
-                            id: fArea
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                if (bridge) bridge.setFormula(fItem.realIndex)
-                                formulasPopupVisible = false
-                            }
-                        }
-
-                        Behavior on color       { ColorAnimation { duration: 100 } }
-                        Behavior on border.color { ColorAnimation { duration: 100 } }
                     }
                 }
-
-                Item { Layout.preferredHeight: 8 }
             }
         }
     }
@@ -1410,26 +1536,23 @@ Item {
 
             NavTab {
                 tabIndex: 0; icon: "explore";  label: "Explore"
-                active: currentTab === 0 && !formulasPopupVisible
-                onTapped: { formulasPopupVisible = false; currentTab = 0 }
+                active: currentTab === 0
+                onTapped: currentTab = 0
             }
             NavTab {
                 tabIndex: 1; icon: "functions"; label: "Formulas"
-                active: formulasPopupVisible
-                onTapped: {
-                    currentTab = 0
-                    formulasPopupVisible = !formulasPopupVisible
-                }
+                active: currentTab === 4
+                onTapped: currentTab = 4
             }
             NavTab {
                 tabIndex: 2; icon: "palette";   label: "Palette"
-                active: currentTab === 1 && !formulasPopupVisible
-                onTapped: { formulasPopupVisible = false; currentTab = 1 }
+                active: currentTab === 1
+                onTapped: currentTab = 1
             }
             NavTab {
                 tabIndex: 3; icon: "group";   label: "Community"
-                active: currentTab === 3 && !formulasPopupVisible
-                onTapped: { formulasPopupVisible = false; currentTab = 3 }
+                active: currentTab === 3
+                onTapped: currentTab = 3
             }
             NavTab {
                 tabIndex: 4; icon: "blur_on";   label: "Julia"
@@ -1440,8 +1563,8 @@ Item {
             }
             NavTab {
                 tabIndex: 5; icon: "tune";      label: "Settings"
-                active: currentTab === 2 && !formulasPopupVisible
-                onTapped: { formulasPopupVisible = false; currentTab = 2 }
+                active: currentTab === 2
+                onTapped: currentTab = 2
             }
         }
     }
