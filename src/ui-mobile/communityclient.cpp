@@ -29,6 +29,7 @@ CommunityClient::CommunityClient(QObject *parent)
   if (!savedUrl.isEmpty()) {
     m_serverUrl = savedUrl;
     m_serverFound = true;
+    m_userOverride = true; 
   }
 
   loadLikedFractals();
@@ -96,6 +97,11 @@ void CommunityClient::onDiscoveryDatagram() {
 
     QString url = QStringLiteral("http://%1:%2").arg(ip).arg(port);
 
+    if (m_userOverride) {
+      qDebug() << "CommunityClient: Ignoring beacon (user override active)";
+      continue;
+    }
+
     if (m_serverUrl != url || !m_serverFound) {
       m_serverUrl = url;
       m_serverFound = true;
@@ -113,6 +119,7 @@ void CommunityClient::setServerUrl(const QString &url) {
 
   m_serverUrl = url;
   m_serverFound = !url.isEmpty();
+  m_userOverride = !url.isEmpty();  
   m_loading = false;
   emit loadingChanged();
 
@@ -174,6 +181,7 @@ void CommunityClient::probeServer() {
 
 void CommunityClient::resetToDefaultUrl() {
   setServerUrl(QString(EMULATOR_FALLBACK_URL));
+  m_userOverride = false;
 }
 
 void CommunityClient::setLoading(bool loading) {
