@@ -25,8 +25,9 @@
 - [Zoltán Kovács](mailto:zoltan@geogebra.org): Internationalization, Hungarian translations, finalizing version 3.1, bug fixes, web design, WebAssembly version, current maintainer
 - [Zsigmond Kovács](mailto:kovzsi@gmail.com): Fractal examples
 - [Bjarnheiður Kristinsdóttir](mailto:bjarnhek@hi.is): Icelandic translation
+- [Prafulla Kumar](mailto:prafullakumar011@gmail.com): Hindi translation fixes
 - [J.B. Langston III](mailto:jb-langston@austin.rr.com): Native Mac OS X port (from version 3.2.2); web redesign; co-maintainer
-- Alexey Loginov: Russian translation
+- [Alexey Loginov](mailto:alexl@mageia.org): Russian translation
 - [Andreas Madritsch](mailto:amadritsch@datacomm.ch): New fractal types, bailout, many fixes
 - [Adam Majewski](mailto:adammaj1@o2.pl): Fractal examples
 - [Mateusz Malczak](mailto:xaos@malczak.info): User formula evaluation library
