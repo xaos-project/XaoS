@@ -19,11 +19,11 @@ OutputBaseFilename=xaos-setup
 Source: "xaos-{#XaoS_VERSION}\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 [Icons]
-Name: "{group}\XaoS"; Filename: "{app}\XaoS.exe"; IconFilename: "{app}\xaos.ico"
-Name: "{group}\XaoSMobile"; Filename: "{app}\XaoSMobile.exe"; IconFilename: "{app}\xaos.ico"
 Name: "{group}\Uninstall XaoS"; Filename: "{uninstallexe}"; IconFilename: "{app}\xaos.ico"
 Name: "{autoprograms}\XaoS"; Filename: "{app}\XaoS.exe"; IconFilename: "{app}\xaos.ico"
 Name: "{autodesktop}\XaoS"; Filename: "{app}\XaoS.exe"; IconFilename: "{app}\xaos.ico"
+Name: "{autoprograms}\XaoSMobile"; Filename: "{app}\XaoSMobile.exe"; IconFilename: "{app}\xaos.ico"
+Name: "{autodesktop}\XaoSMobile"; Filename: "{app}\XaoSMobile.exe"; IconFilename: "{app}\xaos.ico"
 
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
@@ -47,4 +47,5 @@ Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"
 ; Name: "vi"; MessagesFile: "compiler:Languages\Unofficial\Vietnamese.isl"
 
 [Run]
-Filename: {app}\XaoS.exe; Description: Start XaoS now; Flags: postinstall nowait skipifsilent
+Filename: {app}\XaoS.exe; Description: Start XaoS now; Flags: postinstall nowait skipifsilent unchecked
+Filename: {app}\XaoSMobile.exe; Description: Start mobile version of XaoS now; Flags: postinstall nowait skipifsilent
