@@ -252,6 +252,7 @@ elseif(MOBILE_UI)
        src/ui-mobile/ui-mobile.qrc
        ${TRANSLATIONS_QRC}
     )
+    set_target_properties(XaoSMobile PROPERTIES WIN32_EXECUTABLE TRUE MACOSX_BUNDLE TRUE) # disable console logging
     target_link_libraries(XaoSMobile PRIVATE Qt6::Widgets Qt6::Quick Qt6::QuickControls2 Qt6::QuickWidgets Qt6::Qml Qt6::Network)
     # Android-specific properties
     if(ANDROID)
