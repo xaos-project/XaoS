@@ -1,4 +1,5 @@
 # This cmake configuration file is based on the work by Werner Volken <werner.volken@vsw.ch>
+# To see some use cases, please have a look at the Dockerfiles.
 
 # To create a native build of XaoS on Linux:
 #
