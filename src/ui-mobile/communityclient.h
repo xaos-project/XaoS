@@ -146,6 +146,7 @@ private:
   QUdpSocket *m_discoverySocket = nullptr;
   bool m_loading = false;
   bool m_serverFound = false;
+  bool m_userOverride = false;
   QString m_serverStatus = QStringLiteral("unknown");
   QSet<int> m_likedFractals;
   QSet<int> m_likeInFlight;
